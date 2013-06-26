@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.help.contexts">
+      <contexts
+            file="contexts.xml">
+      </contexts>
+   </extension>
+   
+   <extension point="org.eclipse.e4.workbench.model"  id="modelContribution">
+      <fragment uri="e4model/fragment.e4xmi"></fragment>
+      <processor beforefragment="false" class="org.modelio.model.browser.context.ElementCreationDynamicMenuManager">
+         <element id="org.modelio.model.browser.menu.createelement"/>
+      </processor>
+      
+      <processor beforefragment="false" class="org.modelio.model.browser.context.ModuleCommandsForModelBrowser">
+         <element id="org.modelio.browser.part"/>
+      </processor>
+   </extension>
+   
+   	<extension point="org.eclipse.core.expressions.definitions">
+   		<definition id="model.browser.test.createstereotype.id">
+        	<test property="model.browser.test.createstereotype"/>
+		</definition>
+		<definition id="model.browser.test.editstereotype.id">
+        	<test property="model.browser.test.editstereotype"/>
+		</definition>
+	</extension>
+  
+	<extension point="org.eclipse.core.expressions.propertyTesters">
+		<propertyTester
+			class="org.modelio.model.browser.handlers.properties.CommandVisiblePropertyTester"
+			id="model.browser.propertyTester.updatevisible"
+			namespace="model.browser.test"
+			properties="createstereotype, editstereotype"
+			type="org.eclipse.jface.viewers.ISelection">
+		</propertyTester>
+	</extension>
+
+</plugin>

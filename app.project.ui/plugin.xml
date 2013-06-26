@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+
+  <extension point="org.eclipse.e4.workbench.model" id="modelContribution">
+      <fragment uri="e4model/projectui.e4xmi"></fragment> 
+        
+   </extension>
+    
+    
+     <extension point="org.modelio.app.preferences.preferencePages">
+      <page
+            id="org.modelio.app.project.ui.preferences"
+            name="%Project.preferences"
+            class="org.modelio.app.project.ui.prefs.ProjectPreferencesPage">
+      </page>
+   </extension>
+   
+   
+</plugin>

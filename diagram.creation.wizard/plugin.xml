@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension-point id="org.modelio.diagram.creation.wizard.contributor" name="DiagramCreationContributor" schema="schema/org.modelio.diagram.creation.wizard.contributor.exsd"/>
+
+	<extension point="org.eclipse.e4.workbench.model"  id="modelContribution">
+	      <fragment uri="e4model/diagram.creation.wizard.e4xmi"></fragment>
+	</extension>
+	
+	<extension point="org.modelio.diagram.creation.wizard.contributor">
+		<diagramcreation
+				categoryType = "%ContributorCategoryType.UML"
+				categoryLabel = "%ContributorCategoryLabel.UML"
+				categoryIcon = "./icons/umldiagram.png"
+				contributor="org.modelio.diagram.creation.wizard.contributor.ActivityDiagramCreationContributor">
+		</diagramcreation>
+	</extension>
+	
+	<extension point="org.modelio.diagram.creation.wizard.contributor">
+		<diagramcreation
+				categoryType = "%ContributorCategoryType.UML"
+				categoryLabel = "%ContributorCategoryLabel.UML"
+				categoryIcon = "./icons/umldiagram.png"
+				contributor="org.modelio.diagram.creation.wizard.contributor.BpmnProcessCollaborationDiagramCreationContributor">
+		</diagramcreation>
+	</extension>
+	
+	<extension point="org.modelio.diagram.creation.wizard.contributor">
+		<diagramcreation
+				categoryType = "%ContributorCategoryType.UML"
+				categoryLabel = "%ContributorCategoryLabel.UML"
+				categoryIcon = "./icons/umldiagram.png"
+				contributor="org.modelio.diagram.creation.wizard.contributor.BpmnSubProcessDiagramCreationContributor">
+		</diagramcreation>
+	</extension>
+	
+	<extension point="org.modelio.diagram.creation.wizard.contributor">
+		<diagramcreation
+				categoryType = "%ContributorCategoryType.UML"
+				categoryLabel = "%ContributorCategoryLabel.UML"
+				categoryIcon = "./icons/umldiagram.png"
+				contributor="org.modelio.diagram.creation.wizard.contributor.ClassDiagramCreationContributor">
+		</diagramcreation>
+	</extension>
+	
+	<extension point="org.modelio.diagram.creation.wizard.contributor">
+		<diagramcreation
+				categoryType = "%ContributorCategoryType.UML"
+				categoryLabel = "%ContributorCategoryLabel.UML"
+				categoryIcon = "./icons/umldiagram.png"
+				contributor="org.modelio.diagram.creation.wizard.contributor.CommunicationDiagramCreationContributor">
+		</diagramcreation>
+	</extension>
+	
+	<extension point="org.modelio.diagram.creation.wizard.contributor">
+		<diagramcreation
+				categoryType = "%ContributorCategoryType.UML"
+				categoryLabel = "%ContributorCategoryLabel.UML"
+				categoryIcon = "./icons/umldiagram.png"
+				contributor="org.modelio.diagram.creation.wizard.contributor.CompositeDiagramCreationContributor">
+		</diagramcreation>
+	</extension>
+	
+	<extension point="org.modelio.diagram.creation.wizard.contributor">
+		<diagramcreation
+				categoryType = "%ContributorCategoryType.UML"
+				categoryLabel = "%ContributorCategoryLabel.UML"
+				categoryIcon = "./icons/umldiagram.png"
+				contributor="org.modelio.diagram.creation.wizard.contributor.DeploymentDiagramCreationContributor">
+		</diagramcreation>
+	</extension>
+	
+	<extension point="org.modelio.diagram.creation.wizard.contributor">
+		<diagramcreation
+				categoryType = "%ContributorCategoryType.UML"
+				categoryLabel = "%ContributorCategoryLabel.UML"
+				categoryIcon = "./icons/umldiagram.png"
+				contributor="org.modelio.diagram.creation.wizard.contributor.ObjectDiagramCreationContributor">
+		</diagramcreation>
+	</extension>
+	
+	<extension point="org.modelio.diagram.creation.wizard.contributor">
+		<diagramcreation
+				categoryType = "%ContributorCategoryType.UML"
+				categoryLabel = "%ContributorCategoryLabel.UML"
+				categoryIcon = "./icons/umldiagram.png"
+				contributor="org.modelio.diagram.creation.wizard.contributor.SequenceDiagramCreationContributor">
+		</diagramcreation>
+	</extension>
+	
+	<extension point="org.modelio.diagram.creation.wizard.contributor">
+		<diagramcreation
+				categoryType = "%ContributorCategoryType.UML"
+				categoryLabel = "%ContributorCategoryLabel.UML"
+				categoryIcon = "./icons/umldiagram.png"
+				contributor="org.modelio.diagram.creation.wizard.contributor.StateDiagramCreationContributor">
+		</diagramcreation>
+	</extension>
+	
+	<extension point="org.modelio.diagram.creation.wizard.contributor">
+		<diagramcreation
+				categoryType = "%ContributorCategoryType.UML"
+				categoryLabel = "%ContributorCategoryLabel.UML"
+				categoryIcon = "./icons/umldiagram.png"
+				contributor="org.modelio.diagram.creation.wizard.contributor.UseCaseDiagramCreationContributor">
+		</diagramcreation>
+	</extension>
+
+</plugin>
