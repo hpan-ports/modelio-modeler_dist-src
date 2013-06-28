@@ -29,7 +29,7 @@
 		<repository>
 			<id>kepler</id>
 			<layout>p2</layout>
-			<url>http://download.eclipse.org/eclipse/updates/4.3milestones</url>
+			<url>http://download.eclipse.org/eclipse/updates/4.3</url>
 		</repository>
 		<repository>
 			<id>ktable</id>
