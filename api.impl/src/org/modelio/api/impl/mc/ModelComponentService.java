@@ -2,7 +2,6 @@ package org.modelio.api.impl.mc;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -17,6 +16,7 @@ import org.modelio.core.ui.progress.ModelioProgressAdapter;
 import org.modelio.gproject.descriptor.FragmentDescriptor;
 import org.modelio.gproject.descriptor.FragmentType;
 import org.modelio.gproject.fragment.IProjectFragment;
+import org.modelio.gproject.fragment.ramcfile.RamcFileFragment;
 import org.modelio.gproject.gproject.GProject;
 import org.modelio.gproject.ramc.core.archive.IModelComponentInfos;
 import org.modelio.gproject.ramc.core.archive.ModelComponentArchive;
@@ -31,7 +31,7 @@ public class ModelComponentService implements IModelComponentService {
     @objid ("9304d2eb-2768-4914-ba80-c4097a5835c3")
     @Override
     public void deployModelComponent(final File archive, final IProgressMonitor monitor) {
-        ModelComponentArchive modelComponentArchive = new ModelComponentArchive(archive.toPath());
+        ModelComponentArchive modelComponentArchive = new ModelComponentArchive(archive.toPath(), true);
         try {
             // First, remove existing ramcs with the same name 
             final IModelComponentInfos infos = modelComponentArchive.getInfos();
@@ -54,10 +54,8 @@ public class ModelComponentService implements IModelComponentService {
         IProjectFragment fragmentToRemove = null; 
         for (IProjectFragment fragment : openedProject.getFragments()) {
             if (fragment.getType() == FragmentType.RAMC) {
-                // Parse the fragment to get its version
-                ModelComponentArchive modelComponentArchive = new ModelComponentArchive(Paths.get(fragment.getUri()));
                 try {
-                    IModelComponentInfos infos = modelComponentArchive.getInfos();
+                    IModelComponentInfos infos = ((RamcFileFragment) fragment).getInformations();
                     if (name.equals(infos.getName())) {
                         fragmentToRemove = fragment;
                         break;
@@ -82,8 +80,7 @@ public class ModelComponentService implements IModelComponentService {
             if (fragment.getType() == FragmentType.RAMC) {
                 try {
                     // Parse the fragment to get its version
-                    ModelComponentArchive modelComponentArchive = new ModelComponentArchive(Paths.get(fragment.getUri()));
-                    mcList.add(buildDescriptor(modelComponentArchive.getInfos()));
+                    mcList.add(buildDescriptor(((RamcFileFragment) fragment).getInformations()));
                 } catch (IOException e) {
                     // Ignore broken ramcs...
                 }

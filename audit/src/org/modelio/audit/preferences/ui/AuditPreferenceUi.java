@@ -176,43 +176,44 @@ public class AuditPreferenceUi implements Listener {
             FileDialog dlg = new FileDialog(parentShell, SWT.OPEN);
             dlg.setFilterExtensions(new String[] { "*.xml" });
             dlg.setFilterNames(new String[] { Audit.I18N.getString("Preferences.Audit.Export.FileType") });
-            dlg.open();
-        
-            File file = new File(dlg.getFilterPath(), dlg.getFileName());
-        
-            // use a configurator for 'file' settings
-            AuditConfigurator configurator = new AuditConfigurator(file);
-            this.preferences = configurator.createPrefModel();
-            this.treeViewer.setInput(this.preferences);        
+            String result = dlg.open();
+            if (result != null) {     // Result is null when canceling
+                File file = new File(dlg.getFilterPath(), dlg.getFileName());
+                
+                // use a configurator for 'file' settings
+                AuditConfigurator configurator = new AuditConfigurator(file);
+                this.preferences = configurator.createPrefModel();
+                this.treeViewer.setInput(this.preferences);        
+            }
         } else if (event.widget.equals(this.exportToFile)) {
             // export current audit config to file
             Shell parentShell = Display.getDefault().getActiveShell();
             FileDialog dlg = new FileDialog(parentShell, SWT.SAVE);
             dlg.setFilterExtensions(new String[] { "*.xml" });
             dlg.setFilterNames(new String[] { Audit.I18N.getString("Preferences.Audit.Import.FileType") });
-            dlg.open();
-        
-            File file = new File(dlg.getFilterPath(), dlg.getFileName());
-        
-            if (file.getName().endsWith(".xml") == false) {
-                file = new File(file.getAbsolutePath() + ".xml");
+            String result = dlg.open();
+            if (result != null) {     // Result is null when canceling                
+                File file = new File(dlg.getFilterPath(), dlg.getFileName());
+                
+                if (file.getName().endsWith(".xml") == false) {
+                    file = new File(file.getAbsolutePath() + ".xml");
+                }
+                
+                // save current preferences before exporting
+                // use a configurator for current config file
+                AuditConfigurator configurator = new AuditConfigurator(this.auditService.getConfigurationPlan());
+                configurator.apply(this.preferences);
+                
+                // export
+                configurator.saveAs(file);
             }
-            System.out.println("File = " + file.toString());
-        
-            // save current preferences before exporting
-            // use a configurator for current config file
-            AuditConfigurator configurator = new AuditConfigurator(this.auditService.getConfigurationPlan());
-            configurator.apply(this.preferences);
-        
-            // export
-            configurator.saveAs(file);
         
         } else if (event.widget.equals(this.factory)) {
             // use a configurator for factory settings
             AuditConfigurator configurator = new AuditConfigurator(null);
             this.preferences = configurator.createPrefModel();
             this.treeViewer.setInput(this.preferences);         
-        }else if (event.widget.equals(this.save)) {       
+        } else if (event.widget.equals(this.save)) {       
             AuditConfigurator configurator = new AuditConfigurator(this.auditService.getConfigurationPlan());
             configurator.apply(this.preferences);
             

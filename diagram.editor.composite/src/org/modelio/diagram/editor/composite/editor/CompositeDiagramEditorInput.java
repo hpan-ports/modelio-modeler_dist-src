@@ -22,15 +22,12 @@
 package org.modelio.diagram.editor.composite.editor;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.eclipse.e4.ui.services.EContextService;
 import org.modelio.diagram.editor.DiagramEditorInput;
 import org.modelio.diagram.editor.object.elements.objectdiagram.GmObjectDiagram;
 import org.modelio.diagram.elements.common.abstractdiagram.GmAbstractDiagram;
 import org.modelio.diagram.elements.core.model.ModelManager;
-import org.modelio.gproject.model.IMModelServices;
 import org.modelio.metamodel.diagrams.AbstractDiagram;
 import org.modelio.metamodel.diagrams.StaticDiagram;
-import org.modelio.vcore.session.api.ICoreSession;
 import org.modelio.vcore.smkernel.mapi.MRef;
 
 /**
@@ -53,8 +50,8 @@ public class CompositeDiagramEditorInput extends DiagramEditorInput {
      * @param diagram the diagram to edit.
      */
     @objid ("85f098f8-c3fb-4ba8-9ad3-08cc7061255d")
-    public CompositeDiagramEditorInput(ICoreSession session, AbstractDiagram diagram, IMModelServices modelServices, EContextService contextService) {
-        super(session, diagram, modelServices, contextService);
+    public CompositeDiagramEditorInput(ModelManager manager, AbstractDiagram diagram) {
+        super( diagram, manager);
     }
 
 }

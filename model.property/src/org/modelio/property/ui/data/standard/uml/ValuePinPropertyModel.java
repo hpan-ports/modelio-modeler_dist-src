@@ -43,6 +43,7 @@ import org.modelio.metamodel.uml.statik.Parameter;
 import org.modelio.property.ui.data.standard.common.AbstractPropertyModel;
 import org.modelio.vcore.session.api.ICoreSession;
 import org.modelio.vcore.session.impl.CoreSession;
+import org.modelio.vcore.smkernel.mapi.MObject;
 
 /**
  * <i>ValuePin</i> data model.
@@ -64,7 +65,7 @@ public class ValuePinPropertyModel extends AbstractPropertyModel<ValuePin> {
      */
     @objid ("a88c37e8-c068-11e1-8c0a-002564c97630")
     private static final String[] PROPERTIES = new String[] { "ValuePin", "Name", "Type", "Value", "UpperBound",
-            "IsExpansion", "Matched", "IsControlType", "InState", "Represented" };
+        "IsExpansion", "Matched", "IsControlType", "InState", "Represented" };
 
     @objid ("fb4dc784-c5d4-11e1-8f21-002564c97630")
     private StringType labelStringType;
@@ -149,35 +150,35 @@ public class ValuePinPropertyModel extends AbstractPropertyModel<ValuePin> {
     @Override
     public IPropertyType getTypeAt(int row, int col) {
         switch (col) {
-            case 0: // col 0 is the property key type
+        case 0: // col 0 is the property key type
+            return this.labelStringType;
+        case 1: // col 1 is the property value type
+            switch (row) {
+            case 0: // Header
                 return this.labelStringType;
-            case 1: // col 1 is the property value type
-                switch (row) {
-                    case 0: // Header
-                        return this.labelStringType;
-                    case 1:
-                        return this.stringType;
-                    case 2:
-                        return this.generalClassType;
-                    case 3:
-                        return this.stringType;
-                    case 4:
-                        return this.cardinalityMaxType;
-                    case 5:
-                        return this.booleanType;
-                    case 6:
-                        return this.parameterType;
-                    case 7:
-                        return this.booleanType;
-                    case 8:
-                        return this.stateType;
-                    case 9:
-                        return this.representedType;
-                    default:
-                        return null;
-                }
+            case 1:
+                return this.stringType;
+            case 2:
+                return this.generalClassType;
+            case 3:
+                return this.stringType;
+            case 4:
+                return this.cardinalityMaxType;
+            case 5:
+                return this.booleanType;
+            case 6:
+                return this.parameterType;
+            case 7:
+                return this.booleanType;
+            case 8:
+                return this.stateType;
+            case 9:
+                return this.representedType;
             default:
                 return null;
+            }
+        default:
+            return null;
         }
     }
 
@@ -193,35 +194,35 @@ public class ValuePinPropertyModel extends AbstractPropertyModel<ValuePin> {
     @Override
     public Object getValueAt(int row, int col) {
         switch (col) {
-            case 0: // col 0 is the property key
-                return ValuePinPropertyModel.PROPERTIES[row];
-            case 1: // col 1 is the property value
-                switch (row) {
-                    case 0: // Header
-                        return "Value";
-                    case 1:
-                        return this.theEditedElement.getName();
-                    case 2:
-                        return this.theEditedElement.getType();
-                    case 3:
-                        return this.theEditedElement.getValue();
-                    case 4:
-                        return this.theEditedElement.getUpperBound();
-                    case 5:
-                        return this.theEditedElement.isIsExpansion() ? Boolean.TRUE : Boolean.FALSE;
-                    case 6:
-                        return this.theEditedElement.getMatched();
-                    case 7:
-                        return this.theEditedElement.isIsControlType() ? Boolean.TRUE : Boolean.FALSE;
-                    case 8:
-                        return this.theEditedElement.getInState();
-                    case 9:
-                        return getRepresented(this.theEditedElement);
-                    default:
-                        return null;
-                }
+        case 0: // col 0 is the property key
+            return ValuePinPropertyModel.PROPERTIES[row];
+        case 1: // col 1 is the property value
+            switch (row) {
+            case 0: // Header
+                return "Value";
+            case 1:
+                return this.theEditedElement.getName();
+            case 2:
+                return this.theEditedElement.getType();
+            case 3:
+                return this.theEditedElement.getValue();
+            case 4:
+                return this.theEditedElement.getUpperBound();
+            case 5:
+                return this.theEditedElement.isIsExpansion() ? Boolean.TRUE : Boolean.FALSE;
+            case 6:
+                return this.theEditedElement.getMatched();
+            case 7:
+                return this.theEditedElement.isIsControlType() ? Boolean.TRUE : Boolean.FALSE;
+            case 8:
+                return this.theEditedElement.getInState();
+            case 9:
+                return getRepresented(this.theEditedElement);
             default:
                 return null;
+            }
+        default:
+            return null;
         }
     }
 
@@ -237,44 +238,44 @@ public class ValuePinPropertyModel extends AbstractPropertyModel<ValuePin> {
     @Override
     public void setValueAt(int row, int col, Object value) {
         switch (col) {
-            case 0: // Keys cannot be modified
+        case 0: // Keys cannot be modified
+            return;
+        case 1: // col 1 is the property value
+            switch (row) {
+            case 0:
+                return; // Header cannot be modified
+            case 1:
+                this.theEditedElement.setName((String) value);
                 return;
-            case 1: // col 1 is the property value
-                switch (row) {
-                    case 0:
-                        return; // Header cannot be modified
-                    case 1:
-                        this.theEditedElement.setName((String) value);
-                        return;
-                    case 2:
-                        this.theEditedElement.setType((GeneralClass) value);
-                        return;
-                    case 3:
-                        this.theEditedElement.setValue((String) value);
-                        return;
-                    case 4:
-                        this.theEditedElement.setUpperBound((String) value);
-                        return;
-                    case 5:
-                        this.theEditedElement.setIsExpansion(((Boolean) value).booleanValue());
-                        return;
-                    case 6:
-                        this.theEditedElement.setMatched((Parameter) value);
-                        return;
-                    case 7:
-                        this.theEditedElement.setIsControlType(((Boolean) value).booleanValue());
-                        return;
-                    case 8:
-                        this.theEditedElement.setInState((State) value);
-                        return;
-                    case 9:
-                        setRepresented(this.theEditedElement, value);
-                        return;
-                    default:
-                        return;
-                }
+            case 2:
+                this.theEditedElement.setType((GeneralClass) value);
+                return;
+            case 3:
+                this.theEditedElement.setValue((String) value);
+                return;
+            case 4:
+                this.theEditedElement.setUpperBound((String) value);
+                return;
+            case 5:
+                this.theEditedElement.setIsExpansion(((Boolean) value).booleanValue());
+                return;
+            case 6:
+                this.theEditedElement.setMatched((Parameter) value);
+                return;
+            case 7:
+                this.theEditedElement.setIsControlType(((Boolean) value).booleanValue());
+                return;
+            case 8:
+                this.theEditedElement.setInState((State) value);
+                return;
+            case 9:
+                setRepresented(this.theEditedElement, value);
+                return;
             default:
                 return;
+            }
+        default:
+            return;
         }
     }
 
@@ -350,17 +351,28 @@ public class ValuePinPropertyModel extends AbstractPropertyModel<ValuePin> {
     @objid ("8fa566c9-c068-11e1-8c0a-002564c97630")
     public static class RepresentedType extends HybridType {
         @objid ("8fa566cb-c068-11e1-8c0a-002564c97630")
-        private Class<?>[] t = { Instance.class, Attribute.class, AssociationEnd.class, BehaviorParameter.class };
+        private List<Class<? extends MObject>> t;
 
         @objid ("8fa566d0-c068-11e1-8c0a-002564c97630")
         public RepresentedType(ICoreSession session) {
             super(session);
+            this.t = new ArrayList<>();
+            this.t.add(Instance.class);
+            this.t.add(Attribute.class);
+            this.t.add(BehaviorParameter.class);
+            this.t.add(AssociationEnd.class);
         }
 
         @objid ("8fa566d2-c068-11e1-8c0a-002564c97630")
         @Override
-        public Class<?>[] getTypes() {
+        public List<Class<? extends MObject>> getTypes() {
             return this.t;
+        }
+
+        @objid ("55308fb0-ff75-472b-bb03-74a3b0c907dc")
+        @Override
+        public boolean acceptStringValue() {
+            return false;
         }
 
     }

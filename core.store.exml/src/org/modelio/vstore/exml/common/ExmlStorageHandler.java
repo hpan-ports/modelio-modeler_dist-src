@@ -26,7 +26,6 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.modelio.vcore.model.DuplicateObjectException;
 import org.modelio.vcore.session.impl.storage.IModelLoader;
-import org.modelio.vcore.session.impl.storage.IModelLoadingSession;
 import org.modelio.vcore.smkernel.IRepositoryObject;
 import org.modelio.vcore.smkernel.SmObjectImpl;
 import org.modelio.vcore.smkernel.meta.SmAttribute;
@@ -245,9 +244,7 @@ public class ExmlStorageHandler implements IRepositoryObject {
             if (! this.base.isLoadEnabled())
                 return ;
             
-            try (IModelLoadingSession loadSession = this.base.beginSession()){
-                IModelLoader modelLoader = loadSession.getLoader();
-                
+            try (IModelLoader modelLoader = this.base.getModelLoaderProvider().beginLoadSession()) {
                 if (isPersistent(dep)) {
                     load ();
                     if (obj.equals(this.cmsNode) && !this.parentLoaded && isInverseCompositionDep(dep)) {
@@ -317,12 +314,9 @@ public class ExmlStorageHandler implements IRepositoryObject {
             if (! this.isLoaded) {
                 this.isLoaded = true;
                 boolean success = false;
-                try (IModelLoadingSession loadSession = this.base.beginSession()){
-                    IModelLoader modelLoader = loadSession.getLoader();
+                try (IModelLoader modelLoader = this.base.getModelLoaderProvider().beginLoadSession()) {
                     success = this.base.reloadCmsNode(this.cmsNode, modelLoader);
                 } catch (DuplicateObjectException e) {
-                    this.base.getErrorSupport().fireError(e);
-                } catch (IOException e) {
                     this.base.getErrorSupport().fireError(e);
                 } catch (RuntimeException e) {
                     this.base.getErrorSupport().fireError(e);

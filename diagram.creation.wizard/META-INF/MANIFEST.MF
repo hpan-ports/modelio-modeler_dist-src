@@ -26,7 +26,8 @@ Require-Bundle: org.eclipse.core.runtime,
  org.modelio.app.ui,
  org.eclipse.e4.ui.services,
  org.eclipse.e4.core.di.extensions,
- org.modelio.api
+ org.modelio.api,
+ org.eclipse.core.expressions
 Bundle-ClassPath: res/,
  .
 Import-Package: javax.annotation;version="1.1.0",

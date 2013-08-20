@@ -27,7 +27,7 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.Viewer;
 import org.modelio.script.macro.catalog.Catalog;
-import org.modelio.script.macro.catalog.ScriptMacro;
+import org.modelio.script.macro.catalog.Macro;
 
 @objid ("006965e0-c497-106a-bf4f-001ec947cd2a")
 class CatalogContentProvider implements ITreeContentProvider {
@@ -67,8 +67,8 @@ class CatalogContentProvider implements ITreeContentProvider {
         if (element instanceof Catalog) {
             return null;
         }
-        if (element instanceof ScriptMacro) {
-            return ((ScriptMacro) element).getCatalog();
+        if (element instanceof Macro) {
+            return ((Macro) element).getCatalog();
         } else {
             return null;
         }
@@ -80,7 +80,7 @@ class CatalogContentProvider implements ITreeContentProvider {
         if (element instanceof Catalog) {
             return !((Catalog) element).getMacros().isEmpty();
         }
-        if (element instanceof ScriptMacro) {
+        if (element instanceof Macro) {
             return false;
         } else {
             return false;

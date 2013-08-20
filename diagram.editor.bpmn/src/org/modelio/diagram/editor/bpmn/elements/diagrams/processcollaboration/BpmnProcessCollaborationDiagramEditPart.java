@@ -184,8 +184,6 @@ public class BpmnProcessCollaborationDiagramEditPart extends AbstractDiagramEdit
         // try to parse
         Pattern whR = Pattern.compile("(\\d+\\.?\\d*.*)(x|X)(\\d+\\.?\\d*.*)", Pattern.CASE_INSENSITIVE);
         
-        System.out.println(whR.toString());
-        
         Matcher whM = whR.matcher(s);
         
         if (whM.matches()) {

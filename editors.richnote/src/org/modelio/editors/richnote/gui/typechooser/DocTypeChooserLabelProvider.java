@@ -26,7 +26,7 @@ import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.swt.graphics.Image;
 import org.modelio.core.ui.images.MetamodelImageService;
 import org.modelio.core.ui.images.ModuleI18NService;
-import org.modelio.core.ui.plugin.CoreUi;
+import org.modelio.editors.richnote.plugin.EditorsRichNote;
 import org.modelio.metamodel.mda.ModuleComponent;
 import org.modelio.metamodel.uml.infrastructure.ExternDocumentType;
 import org.modelio.metamodel.uml.infrastructure.Stereotype;
@@ -133,7 +133,7 @@ class DocTypeChooserLabelProvider extends LabelProvider {
             parent = parent.getCompositionOwner();
         
         if (parent == null) {
-            CoreUi.LOG.warning(stereotype+" is directly or indirectly orphan.");
+            EditorsRichNote.LOG.warning(stereotype+" is directly or indirectly orphan.");
         }
         return (ModuleComponent) parent;
     }

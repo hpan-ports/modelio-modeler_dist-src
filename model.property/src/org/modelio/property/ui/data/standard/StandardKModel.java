@@ -120,8 +120,6 @@ public class StandardKModel extends KTableDefaultModel {
             editor = type.getEditor(this.pickingService);
         }
         
-        // System.out.println("doGetCellEditor [" + col + ", " + row + "] = " +
-        // editor);
         if (this.currentEditor != null) {
             if (this.currentEditor instanceof HybridCellEditor) {
                 final HybridCellEditor hybridCellEditor = (HybridCellEditor) this.currentEditor;
@@ -203,9 +201,6 @@ public class StandardKModel extends KTableDefaultModel {
     @objid ("8dd6c159-c068-11e1-8c0a-002564c97630")
     @Override
     public void doSetContentAt(int col, int row, Object value) {
-        // System.out.println("doSetContentAt [" + col + ", " + row + "] : " +
-        // value);
-        
         // Row 0 is not editable
         if (row == 0) {
             return;

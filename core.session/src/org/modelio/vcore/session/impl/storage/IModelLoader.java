@@ -41,7 +41,7 @@ import org.modelio.vcore.smkernel.meta.SmDependency;
  * Each repository has its own loader.
  */
 @objid ("006468c4-5447-1f29-adbc-001ec947cd2a")
-public interface IModelLoader {
+public interface IModelLoader extends AutoCloseable {
     /**
      * Create a model object that is being loaded.
      * @param classof The metaclass
@@ -139,5 +139,9 @@ public interface IModelLoader {
      */
     @objid ("1b63cdb7-1655-4c2d-890f-e122df8a3dff")
     void setPStatus(SmObjectImpl obj, long trueFlags, long falseFlags, long undefFlags);
+
+    @objid ("064307ee-d7c9-4808-8db9-fc5690a470e1")
+    @Override
+    void close();
 
 }

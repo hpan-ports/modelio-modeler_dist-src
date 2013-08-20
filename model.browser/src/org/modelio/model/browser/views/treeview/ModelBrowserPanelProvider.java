@@ -22,6 +22,7 @@
 package org.modelio.model.browser.views.treeview;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.jface.viewers.ColumnViewerEditor;
@@ -42,6 +43,7 @@ import org.modelio.api.ui.dnd.ModelElementTransfer;
 import org.modelio.core.ui.dnd.MObjectViewerDragProvider;
 import org.modelio.core.ui.dnd.MObjectViewerDropListener;
 import org.modelio.core.ui.images.ElementDecoratedStyledLabelProvider;
+import org.modelio.model.browser.views.BrowserView;
 import org.modelio.ui.panel.IPanelProvider;
 import org.modelio.vcore.session.api.ICoreSession;
 
@@ -178,13 +180,36 @@ public class ModelBrowserPanelProvider implements IPanelProvider {
 
     @objid ("1fc4998b-1de3-11e2-bcbe-002564c97630")
     private void initEditor() {
-        // Define cell modifier
-        this.nameModifier = new ElementNameModifier(this.modelingSession);
-        this.treeViewer.setCellModifier(this.nameModifier);
-        
         // Define cell editor
         TextCellEditor[] cellEditors = new TextCellEditor[1];
-        TextCellEditor editor = new TextCellEditor(this.treeViewer.getTree(), SWT.NONE);
+        TextCellEditor editor = new TextCellEditor(this.treeViewer.getTree(), SWT.NONE) {
+            private Collection<String> activeContexts;
+        
+            @Override
+            public void activate() {
+                // We must deactivate the active contexts during the edition, to avoid the editor's shortcuts to be triggered when entering an element's name... 
+                // Store those contexts for further reactivation
+                this.activeContexts = new ArrayList<>(BrowserView.contextService.getActiveContextIds());
+                for (String contextId : this.activeContexts) {
+                    BrowserView.contextService.deactivateContext(contextId);
+                }
+        
+                super.activate();
+            }
+        
+            @Override
+            public void deactivate() {
+                if (this.activeContexts != null) {
+                    // Restore previously deactivated contexts
+                    for (String contextId : this.activeContexts) {
+                        BrowserView.contextService.activateContext(contextId);
+                    }
+                    this.activeContexts = null;
+                }
+        
+                super.deactivate();
+            }
+        };
         
         editor.getControl().addKeyListener(new KeyListener() {
             @Override

@@ -31,8 +31,8 @@ import org.eclipse.swt.widgets.Display;
 import org.modelio.app.core.picking.IModelioPickingService;
 import org.modelio.core.ui.ktable.types.hybrid.HybridCellEditor;
 import org.modelio.core.ui.ktable.types.hybrid.HybridCellRenderer;
-import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.vcore.session.api.ICoreSession;
+import org.modelio.vcore.smkernel.mapi.MObject;
 
 @objid ("8df2388e-c068-11e1-8c0a-002564c97630")
 public class SingleElementType extends ElementType {
@@ -43,13 +43,13 @@ public class SingleElementType extends ElementType {
     private ICoreSession session;
 
     @objid ("8df23890-c068-11e1-8c0a-002564c97630")
-    public SingleElementType(boolean acceptNullValue, Class<? extends Element> allowedClass, ICoreSession session) {
+    public SingleElementType(boolean acceptNullValue, Class<? extends MObject> allowedClass, ICoreSession session) {
         super(acceptNullValue, allowedClass);
         this.session = session;
     }
 
     @objid ("8df2389b-c068-11e1-8c0a-002564c97630")
-    public SingleElementType(boolean acceptNullValue, List<Class<? extends Element>> allowedClasses) {
+    public SingleElementType(boolean acceptNullValue, List<Class<? extends MObject>> allowedClasses) {
         super(acceptNullValue, allowedClasses);
     }
 
@@ -86,10 +86,8 @@ public class SingleElementType extends ElementType {
     @Override
     public KTableCellEditor getEditor(IModelioPickingService pickingService) {
         // Hybrid editor
-        HybridCellEditor editor = new HybridCellEditor(acceptNullValue(), pickingService, this.session);
-        List<Class<? extends Element>> classes = getAllowedClasses();
-        Class<?>[] targetClasses = classes.toArray(new Class<?>[classes.size()]);
-        editor.setTargetClasses(targetClasses);
+        HybridCellEditor editor = new HybridCellEditor(acceptNullValue(), pickingService, this.session, false);
+        editor.setTargetClasses(getAllowedClasses());
         editor.setElementFilter(getElementFilter());
         return editor;
     }

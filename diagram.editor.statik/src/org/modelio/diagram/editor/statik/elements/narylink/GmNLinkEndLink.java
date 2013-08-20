@@ -23,11 +23,14 @@ package org.modelio.diagram.editor.statik.elements.narylink;
 
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
+import org.modelio.diagram.editor.statik.elements.instancelink.GmLinkRoleCardinalityLabel;
+import org.modelio.diagram.editor.statik.elements.instancelink.GmLinkRoleNameLabel;
 import org.modelio.diagram.elements.common.abstractdiagram.GmAbstractDiagram;
 import org.modelio.diagram.elements.core.link.ExtensionLocation;
 import org.modelio.diagram.elements.core.link.GmLink;
 import org.modelio.diagram.elements.core.link.extensions.GmFractionalConnectionLocator;
 import org.modelio.diagram.elements.core.model.IGmLinkable;
+import org.modelio.diagram.elements.core.node.GmNodeModel;
 import org.modelio.diagram.elements.umlcommon.informationflowgroup.GmInfoFlowsGroup;
 import org.modelio.diagram.elements.umlcommon.informationflowgroup.GmInformationFlowArrow;
 import org.modelio.diagram.persistence.IDiagramReader;
@@ -56,7 +59,7 @@ public class GmNLinkEndLink extends GmLink {
      * Current version of this Gm. Defaults to 0.
      */
     @objid ("35e5003a-55b7-11e2-877f-002564c97630")
-    private final int minorVersion = 0;
+    private final int minorVersion = 1;
 
     @objid ("35e5003d-55b7-11e2-877f-002564c97630")
     private static final int MAJOR_VERSION = 0;
@@ -160,7 +163,24 @@ public class GmNLinkEndLink extends GmLink {
     @objid ("35e686f2-55b7-11e2-877f-002564c97630")
     @Override
     protected void readLink(IDiagramReader in) {
-        this.role = (NaryLinkEnd) resolveRef(getRepresentedRef());
+        Object versionProperty = in.readProperty("GmNLinkEndLink." + MINOR_VERSION_PROPERTY);
+        int readVersion = versionProperty == null ? 0 : ((Integer) versionProperty).intValue();
+        switch (readVersion) {
+        case 0: {
+            read_0();
+            break;
+        }
+        case 1: {
+            read_1();
+            break;
+        }
+        default: {
+            assert (false) : "version number not covered!";
+            // reading as last handled version: 1
+            read_1();
+            break;
+        }
+        }
     }
 
     @objid ("35e686f8-55b7-11e2-877f-002564c97630")
@@ -201,6 +221,49 @@ public class GmNLinkEndLink extends GmLink {
     public boolean isToNavigable() {
         // Nary links are always navigable
         return true;
+    }
+
+    @objid ("00ba8920-44da-4f02-ae60-11e92c98f174")
+    protected void read_0() {
+        this.role = (NaryLinkEnd) resolveRef(getRepresentedRef());
+             
+        // Look for labels to migrate... there should be two
+        GmLinkRoleNameLabel oldRoleLabel = null;
+        GmLinkRoleCardinalityLabel oldCardinalityLabel = null;
+        for (GmNodeModel extension : this.getExtensions()) {
+            if (extension instanceof GmLinkRoleNameLabel) {
+                oldRoleLabel = (GmLinkRoleNameLabel) extension;
+            } else if (extension instanceof GmLinkRoleCardinalityLabel) {
+                oldCardinalityLabel = (GmLinkRoleCardinalityLabel) extension;
+            }
+        }
+        
+        if (oldRoleLabel != null) {
+            // Create a new label, with the appropriate Gm
+            final GmNaryLinkRoleNameLabel newRoleLabel = new GmNaryLinkRoleNameLabel(getDiagram(), this.role, oldRoleLabel.getRepresentedRef());
+            addExtension(ExtensionLocation.TargetNW, newRoleLabel);
+            newRoleLabel.setLayoutData(oldRoleLabel.getLayoutData());
+            
+            // Delete the old association label
+            removeExtension(oldRoleLabel);
+            oldRoleLabel.delete();
+        }
+        
+        if (oldCardinalityLabel != null) {
+            // Create a new label, with the appropriate Gm
+            final GmNaryLinkRoleCardinalityLabel newCardinalityLabel = new GmNaryLinkRoleCardinalityLabel(getDiagram(), this.role, oldCardinalityLabel.getRepresentedRef());
+            addExtension(ExtensionLocation.TargetSE, newCardinalityLabel);
+            newCardinalityLabel.setLayoutData(oldCardinalityLabel.getLayoutData());
+            
+            // Delete the old association label
+            removeExtension(oldCardinalityLabel);
+            oldCardinalityLabel.delete();
+        }
+    }
+
+    @objid ("d24d2a8b-08b9-4a61-af13-56c01dfdb717")
+    protected void read_1() {
+        this.role = (NaryLinkEnd) resolveRef(getRepresentedRef());
     }
 
 }

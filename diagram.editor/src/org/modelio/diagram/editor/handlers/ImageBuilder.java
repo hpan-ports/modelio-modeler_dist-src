@@ -35,49 +35,105 @@ import org.eclipse.gef.editparts.LayerManager;
 import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Display;
+import org.modelio.diagram.editor.plugin.DiagramEditor;
 import org.modelio.diagram.elements.common.abstractdiagram.AbstractDiagramFigure;
 
 /**
- * Builds an image from a gef diagram. The returned image must be disposed by the caller when no longer in use.
+ * Builds an image from a gef diagram. The returned image must be disposed by
+ * the caller when no longer in use.
  */
 @objid ("65b21824-33f7-11e2-95fe-001ec947c8cc")
 public class ImageBuilder {
     @objid ("65b21826-33f7-11e2-95fe-001ec947c8cc")
     private static final int MARGIN = 10;
 
-    /**
-     * Builds an image from a gef diagram. The returned image must be disposed by the caller when no longer in use.
-     * @param rootEditPart the root edit part of the diagram
-     * @param format the format to export to.
-     * @param margin the margin to surround the content of the diagram with.
-     * @return an image of the diagram.
-     */
-    @objid ("65b21828-33f7-11e2-95fe-001ec947c8cc")
-    public Image makeImage(RootEditPart rootEditPart, int format, final int margin) {
-        // Temporarily add the background layer to the "printable layers" set so that it is present in the saved image
+    @objid ("edef0d79-3a7f-4f2e-8694-572e6e14e3ff")
+    private static final int MAX = 8192;
+
+    @objid ("f4082e57-a12b-4409-a22a-462229d5ace0")
+    private final int maxWidth;
+
+    @objid ("c3c79d9f-3ab2-43fd-bc3e-477e0f7890dc")
+    private final int maxHeight;
+
+    @objid ("aec40530-c395-49f4-a742-10350ce976af")
+    private final int margin;
+
+    @objid ("1f5c39d7-c4b9-4dc8-af79-05e7525b13f4")
+    private double scale = 1.0;
+
+    @objid ("c2af8b06-cfc7-4d8a-b4a8-3583ccb8f5b4")
+    public ImageBuilder() {
+        this(MAX, MAX, MARGIN);
+    }
+
+    @objid ("9f6e1e8e-2d4a-4156-8727-7d08fed3ae67")
+    public ImageBuilder(int margin) {
+        this(MAX, MAX, margin);
+    }
+
+    @objid ("f00a3b84-d007-47e8-9c65-4d126d46ce41")
+    public ImageBuilder(int maxWidth, int maxHeight, int margin) {
+        this.maxWidth = maxWidth;
+        this.maxHeight = maxHeight;
+        this.margin = margin;
+    }
+
+    @objid ("d3118d79-4e32-4601-a1d4-7b54d98f1460")
+    public double getLastBuildScale() {
+        return scale;
+    }
+
+    @objid ("39cf4348-5bf2-4f54-83c7-379cb70d716d")
+    public Image makeImage(RootEditPart rootEditPart) {
+        // Temporarily add the background layer to the "printable layers" set so
+        // that it is present in the saved image
         final LayerManager lm = (LayerManager) rootEditPart;
         final IFigure backgroundLayer = lm.getLayer("BACKGROUND_LAYER");
         final Layer printableLayers = (Layer) lm.getLayer(LayerConstants.PRINTABLE_LAYERS);
         final ConnectionLayer connectionLayer = (ConnectionLayer) lm.getLayer(LayerConstants.CONNECTION_LAYER);
         printableLayers.add(backgroundLayer, 0);
         
-        // image size is the diagram contents size expanded for the margin
+        // Scaling
         final Rectangle contentsBounds = computeContentsBounds(printableLayers, connectionLayer);
-        final Image img = new Image(Display.getDefault(),
-                                    contentsBounds.width + 2 * margin,
-                                    contentsBounds.height + 2 * margin);
+        int width = contentsBounds.width + 2 * margin;
+        int height = contentsBounds.height + 2 * margin;
+        
+        double scaleX = (width > maxWidth) ? (double) width / (double) maxWidth : (double) 1.0;
+        double scaleY = (height > maxHeight) ? (double) height / (double) maxHeight : (double) 1.0;
+        this.scale = Math.min(scaleX, scaleY);
+        int effectiveWidth = (int) (width * scale);
+        int effectiveHeight = (int) (height * scale);
+        
+        if (scale < 1.0)
+            DiagramEditor.LOG.debug("makeImage: %dx%d ?> %dx%d =>using scale %f, %dx%d", width, height, maxWidth, maxHeight, scale,
+                    effectiveWidth, effectiveHeight);
+        
+        // Protection agains't image size being greater than 64Mb
+        long totalSize = effectiveWidth * effectiveHeight * 4;
+        long max = 64 * 1024 * 1024;
+        if (totalSize > max) {
+            DiagramEditor.LOG.warning("Make image, size %d x %d would exced max size !", effectiveWidth, effectiveHeight);
+            scale = Math.sqrt((double) max / (double) totalSize);
+            effectiveWidth = (int) (effectiveWidth * scale);
+            effectiveHeight = (int) (effectiveHeight * scale);
+            DiagramEditor.LOG.warning("Make image, image resized to %d x %d  ", effectiveWidth, effectiveHeight);
+        }
+        
+        final Image img = new Image(Display.getDefault(), effectiveWidth, effectiveHeight);
         final GC imageGC = new GC(img);
         
-        // prepare a translation of the drawing
-        // the role of the  translation is to: 
-        // - compensate for the margin 
+        // prepare a translation and a scaling of the drawing
+        // the role of the translation is to:
+        // - compensate for the margin
         // - deal with x and y of the contents bounds
+        // the role of the scaling is ... obvious
         final int deltaX = margin + (-contentsBounds.x);
         final int deltaY = margin + (-contentsBounds.y);
         
         final Graphics graphics = new SWTGraphics(imageGC);
+        graphics.scale(scale);
         graphics.translate(deltaX, deltaY);
-        
         graphics.setClip(contentsBounds);
         
         // draw
@@ -89,7 +145,8 @@ public class ImageBuilder {
         printableLayers.remove(backgroundLayer);
         final Layer scalableLayers = (Layer) lm.getLayer(LayerConstants.SCALABLE_LAYERS);
         scalableLayers.add(backgroundLayer, "BACKGROUND_LAYER", 0);
-        return img; // the caller is responsible for disposing the returned image
+        return img; // the caller is responsible for disposing the returned
+                    // image
     }
 
     /**
@@ -116,8 +173,9 @@ public class ImageBuilder {
     }
 
     /**
-     * Compute the minimum contents size of the diagram. This size is defined as the union of the smallest bounding
-     * rectangle that encloses both all the nodes and all the links
+     * Compute the minimum contents size of the diagram. This size is defined as
+     * the union of the smallest bounding rectangle that encloses both all the
+     * nodes and all the links
      * @param layer
      * @param connectionLayer @return
      */
@@ -137,8 +195,8 @@ public class ImageBuilder {
     }
 
     /**
-     * Computes the minimum bounds of a connection layer. The returned rectangle is the smallest rectangle enclosing all
-     * the links.
+     * Computes the minimum bounds of a connection layer. The returned rectangle
+     * is the smallest rectangle enclosing all the links.
      * @param figure
      * @return
      */
@@ -171,8 +229,10 @@ public class ImageBuilder {
     }
 
     /**
-     * Computes the minimum bounds of a diagram figure. The returned rectangle is the smallest rectangle enclosing all
-     * the diagram nodes (note: the computation does not take links into account which are laid in the Connection layer)
+     * Computes the minimum bounds of a diagram figure. The returned rectangle
+     * is the smallest rectangle enclosing all the diagram nodes (note: the
+     * computation does not take links into account which are laid in the
+     * Connection layer)
      * @param figure @return
      */
     @objid ("65b21844-33f7-11e2-95fe-001ec947c8cc")
@@ -201,62 +261,6 @@ public class ImageBuilder {
         
         }
         return new Rectangle(xMin, yMin, xMax - xMin, yMax - yMin);
-    }
-
-    /**
-     * Builds an image from a gef diagram. The returned image must be disposed by the caller when no longer in use.
-     * @param rootEditPart the root edit part of the diagram
-     * @param format the format to export to.
-     * @return an image of the diagram, with surrounding margins of 10.
-     */
-    @objid ("65b2184a-33f7-11e2-95fe-001ec947c8cc")
-    public Image makeImage(final RootEditPart rootEditPart, final int format) {
-        return makeImage(rootEditPart, format, MARGIN);
-    }
-
-    /**
-     * Builds an image from a gef viewer.
-     * @param rootEditPart
-     * @return an image of the diagram view, with surrounding margins of 10.
-     */
-    @objid ("65b21853-33f7-11e2-95fe-001ec947c8cc")
-    public Image makeViewerImage(final RootEditPart rootEditPart) {
-        // Temporarily add the background layer to the "printable layers" set so that it is present in the saved image
-           final LayerManager lm = (LayerManager) rootEditPart;
-           final IFigure backgroundLayer = lm.getLayer("BACKGROUND_LAYER");
-           final Layer printableLayers = (Layer) lm.getLayer(LayerConstants.PRINTABLE_LAYERS);
-           printableLayers.add(backgroundLayer, 0);
-           
-           // image size is the diagram contents size expanded for the margin
-           final IFigure rootFigure = ((LayerManager)rootEditPart).getLayer(LayerConstants.PRINTABLE_LAYERS);
-           final Rectangle rootFigureBounds = rootFigure.getBounds();
-           final Image img = new Image(Display.getDefault(),
-                                       rootFigureBounds.width + 2 * MARGIN,
-                                       rootFigureBounds.height + 2 * MARGIN);
-           final GC imageGC = new GC(img);
-           
-           // prepare a translation of the drawing
-           // the role of the  translation is to: 
-           // - compensate for the margin 
-           // - deal with x and y of the contents bounds
-           final int deltaX = MARGIN + (-rootFigureBounds.x);
-           final int deltaY = MARGIN + (-rootFigureBounds.y);
-           
-           final Graphics graphics = new SWTGraphics(imageGC);
-           graphics.translate(deltaX, deltaY);
-           
-           graphics.setClip(rootFigureBounds);
-           
-           // draw
-           printableLayers.paint(graphics);
-           graphics.dispose();
-           imageGC.dispose();
-           
-           // Restore the background layer placement
-           printableLayers.remove(backgroundLayer);
-           final Layer scalableLayers = (Layer) lm.getLayer(LayerConstants.SCALABLE_LAYERS);
-           scalableLayers.add(backgroundLayer, "BACKGROUND_LAYER", 0);
-        return img; // the caller is responsible for disposing the returned image
     }
 
 }

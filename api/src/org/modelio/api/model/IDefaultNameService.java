@@ -19,7 +19,6 @@
 package org.modelio.api.model;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.modelio.metamodel.diagrams.AbstractDiagram;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
 
 /**
@@ -45,14 +44,6 @@ import org.modelio.metamodel.uml.infrastructure.ModelElement;
 @objid ("89f96195-6c28-11e0-b589-002564c97630")
 public interface IDefaultNameService {
     /**
-     * Set a diagram default name. Diagram names are suffixed by a number with
-     * parenthesis.
-     * @param element a diagram
-     */
-    @objid ("a4306d40-0ecc-11e2-96c4-002564c97630")
-    void setDefaultName(AbstractDiagram element);
-
-    /**
      * Set an element default name. The name is composed of an invariant radical
      * (mostly based on the metaclass of the element) optionally followed by an
      * integer counter to distinguish from other elements of the same type in
@@ -63,24 +54,13 @@ public interface IDefaultNameService {
     void setDefaultName(ModelElement element);
 
     /**
-     * Set an element default name. The name is composed of an invariant radical
-     * (mostly based on the metaclass of the element) prefixed by the given
-     * prefix, and optionally followed by an integer counter to distinguish from
-     * other elements of the same type in the same container.
-     * @param element an element
-     * @param prefix a prefix to use before the radical
-     */
-    @objid ("a4309451-0ecc-11e2-96c4-002564c97630")
-    void setDefaultName(ModelElement element, String prefix);
-
-    /**
      * Set an element default name. The name is composed of the given baseName
      * as radical, optionally followed by an integer counter to distinguish from
      * other elements of the same type in the same container.
      * @param element an element
      * @param baseName the radical to use.
      */
-    @objid ("a4309455-0ecc-11e2-96c4-002564c97630")
-    void setDefaultNameUsingBaseName(ModelElement element, String baseName);
+    @objid ("a4309451-0ecc-11e2-96c4-002564c97630")
+    void setDefaultName(ModelElement element, String baseName);
 
 }

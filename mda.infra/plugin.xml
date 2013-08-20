@@ -10,7 +10,4 @@
             class="org.modelio.mda.infra.service.ModuleServiceInitializer">
       </processor>
    </extension>
-   
-   
-
 </plugin>

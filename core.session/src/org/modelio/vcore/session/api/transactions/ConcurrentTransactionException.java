@@ -49,11 +49,11 @@ public class ConcurrentTransactionException extends TransactionException {
     @objid ("f7725a07-d3fb-4182-bcc6-76414dacff15")
     private long waitedTime;
 
+    @objid ("525467b9-5c6d-4d31-9670-d5217d1aa4e8")
+    private TimeUnit waitedTimeUnit;
+
     @objid ("1248d31c-af3e-4b01-9552-156cd312284a")
     private transient ITransaction runningTransaction;
-
-    @objid ("71ffa285-5a08-4520-af60-ad62e6eb543b")
-    private TimeUnit waitedTimeUnit;
 
     @objid ("1cffc580-58b4-4641-abeb-6fe572aa67a9")
     private transient Thread concurrentThread;

@@ -34,6 +34,7 @@ import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.editpolicies.AbstractEditPolicy;
 import org.eclipse.gef.editpolicies.LayoutEditPolicy;
 import org.eclipse.gef.requests.CreateRequest;
+import org.modelio.app.core.activation.IActivationService;
 import org.modelio.diagram.elements.common.abstractdiagram.GmAbstractDiagram;
 import org.modelio.diagram.elements.common.linkednode.LinkedNodeEndReconnectEditPolicy;
 import org.modelio.diagram.elements.core.commands.DefaultCreateElementCommand;
@@ -147,9 +148,9 @@ public class DiagramHolderEditPart extends GmNodeEditPart {
         if (req.getType().equals(RequestConstants.REQ_OPEN)) {
             final GmDiagramHolder gm = (GmDiagramHolder) getModel();
             final ModelElement relatedDiagram = gm.getRelatedElement().getDependsOn();
-            // FIXME activate/open editor
-            // if (relatedDiagram != null)
-            // ActivationService.fireActivate(relatedDiagram);
+        
+            IActivationService service = gm.getDiagram().getModelManager().getActivationService();
+            service.activateMObject(relatedDiagram);
         }
         super.performRequest(req);
     }

@@ -229,8 +229,6 @@ import org.modelio.metamodel.uml.infrastructure.Dependency;
 import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.metamodel.uml.infrastructure.ExternDocument;
 import org.modelio.metamodel.uml.infrastructure.ExternDocumentType;
-import org.modelio.metamodel.uml.infrastructure.LocalNote;
-import org.modelio.metamodel.uml.infrastructure.LocalTaggedValue;
 import org.modelio.metamodel.uml.infrastructure.MetaclassReference;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
 import org.modelio.metamodel.uml.infrastructure.ModelTree;
@@ -318,12 +316,6 @@ public interface IModelVisitor extends MVisitor {
 
     @objid ("8f6a90d2-f167-4732-805e-abfffdf258b0")
     Object visitElement(Element obj);
-
-    @objid ("1f459e35-546e-4cf8-89dd-81825d1c5297")
-    Object visitLocalNote(LocalNote obj);
-
-    @objid ("6f4e79f2-9437-47d0-a701-83e75a63171a")
-    Object visitLocalTaggedValue(LocalTaggedValue obj);
 
     @objid ("037a9a7c-09dc-4116-ac1f-7495d3c0a98f")
     Object visitModelElement(ModelElement obj);

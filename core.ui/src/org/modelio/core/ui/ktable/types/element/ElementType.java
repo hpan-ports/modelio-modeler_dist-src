@@ -25,8 +25,8 @@ import java.util.ArrayList;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.core.ui.ktable.types.PropertyType;
-import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.vcore.session.api.model.IMObjectFilter;
+import org.modelio.vcore.smkernel.mapi.MObject;
 
 @objid ("8de910eb-c068-11e1-8c0a-002564c97630")
 abstract class ElementType extends PropertyType {
@@ -34,22 +34,22 @@ abstract class ElementType extends PropertyType {
     protected IMObjectFilter elementFilter = null;
 
     @objid ("8de910ed-c068-11e1-8c0a-002564c97630")
-    protected List<Class<? extends Element>> allowedClasses = null;
+    protected List<Class<? extends MObject>> allowedClasses = null;
 
     @objid ("8de910f2-c068-11e1-8c0a-002564c97630")
-    public ElementType(boolean acceptNullValue, Class<? extends Element> allowedClass) {
+    public ElementType(boolean acceptNullValue, Class<? extends MObject> allowedClass) {
         super(acceptNullValue);
         this.allowedClasses = new ArrayList<>();
         this.allowedClasses.add(allowedClass);
     }
 
     @objid ("8de910f8-c068-11e1-8c0a-002564c97630")
-    public List<Class<? extends Element>> getAllowedClasses() {
+    public List<Class<? extends MObject>> getAllowedClasses() {
         return this.allowedClasses;
     }
 
     @objid ("8de91100-c068-11e1-8c0a-002564c97630")
-    public ElementType(boolean acceptNullValue, List<Class<? extends Element>> allowedClasses) {
+    public ElementType(boolean acceptNullValue, List<Class<? extends MObject>> allowedClasses) {
         super(acceptNullValue);
         this.allowedClasses = allowedClasses;
     }

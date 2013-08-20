@@ -45,6 +45,7 @@ import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.di.annotations.Optional;
 import org.eclipse.e4.core.di.extensions.EventTopic;
 import org.eclipse.e4.core.services.events.IEventBroker;
+import org.eclipse.e4.core.services.statusreporter.StatusReporter;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.preference.IPersistentPreferenceStore;
 import org.eclipse.jface.preference.IPreferenceStore;
@@ -123,6 +124,41 @@ class ProjectService implements IProjectService, EventHandler {
         eventBroker.subscribe("BATCH", this);
     }
 
+    /**
+     * @Inheritdoc
+     */
+    @objid ("008063d0-acc2-103b-a520-001ec947cd2a")
+    @Override
+    public void changeWorkspace(Path workspacePath) {
+        if (this.project != null) {
+            throw new IllegalStateException("A project is already opened.");
+        }
+        
+        if (Files.exists(workspacePath) && Files.isDirectory(workspacePath)) {
+            this.workspace = workspacePath;
+            writePreferedWorkspace(workspacePath);
+            this.context.get(IModelioEventService.class).postAsyncEvent(this, ModelioEvent.WORKSPACE_SWITCH, workspacePath);
+        } else {
+            throw new IllegalArgumentException("Invalid workspace path: " + workspacePath);
+        }
+    }
+
+    @objid ("e92ae6b5-2c62-44c7-8665-3a6bd7f76ee9")
+    @Override
+    public void createProject(final IProjectCreator projectCreator, final IProjectCreationData data, IProgressMonitor monitor) throws IOException {
+        Objects.requireNonNull(projectCreator);
+        Objects.requireNonNull(data);
+        
+        // Get the module catalog used by the application.
+        final IModuleCatalog moduleCatalog = getModuleCatalog();
+        
+        IModelioProgress progress = monitor==null ? null : new ModelioProgressAdapter(monitor);
+        
+        projectCreator.createProject(data, moduleCatalog, progress);
+        
+        this.context.get(IModelioEventService.class).postAsyncEvent(this, ModelioEvent.WORKSPACE_CONTENTS, getWorkspace());
+    }
+
     @objid ("971ad6d9-026d-11e2-8189-001ec947ccaf")
     @Override
     public void openProject(ProjectDescriptor projectToOpen, IAuthData authData, IProgressMonitor monitor) throws GProjectAuthenticationException, IOException {
@@ -134,22 +170,15 @@ class ProjectService implements IProjectService, EventHandler {
             throw new IllegalArgumentException("Cannot open 'null' project.");
         }
         
-        final String taskName = "Opening '" + projectToOpen.getName() + "'...";
+        final String taskName = AppProjectCore.I18N.getMessage("ProjectService.open.task", projectToOpen.getName());
         final SubMonitor mon = SubMonitor.convert(monitor, taskName, 150);
         mon.subTask(taskName);
         
         // Get the module catalog used by the application.
         final IModuleCatalog moduleCatalog = getModuleCatalog();
         
-        // FIXME Authentication exception
-        // try {
-        
         this.project = GProjectFactory.openProject(projectToOpen, authData, moduleCatalog,
                 new ModelioProgressAdapter(mon.newChild(50)));
-        // } catch (GProjectAuthenticationError e) {
-        // mon.done();
-        // throw (e);
-        // }
         
         try (ProjectCloser closer = new ProjectCloser()) {
         
@@ -159,16 +188,6 @@ class ProjectService implements IProjectService, EventHandler {
             this.project.getMonitorSupport().addMonitor(new ProjectMonitor());
         
             // Project preferences
-            final Path projectPath = this.project.getProjectPath();
-            final Path settings = Paths.get(projectPath.toString(), ".settings");
-            // this.prefsStore = new PreferenceStore(settings.toString());
-            // try {
-            // if (Files.exists(settings) && Files.isRegularFile(settings)) {
-            // this.prefsStore.load();
-            // }
-            // } catch (final IOException e) {
-            // this.project.getMonitorSupport().fireMonitors(GProjectEvent.buildWarning(e));
-            // }
             this.prefsStore = new GProjectPreferenceStore(this.project);
         
             // Add the services that depends on project to the context
@@ -198,15 +217,29 @@ class ProjectService implements IProjectService, EventHandler {
         }
     }
 
+    @objid ("004dc0f6-8d1e-10b4-9941-001ec947cd2a")
+    @Override
+    public void openProject(String projectName, IAuthData authData, IProgressMonitor monitor) throws GProjectAuthenticationException {
+        final Path projectPath = getWorkspace().resolve(projectName);
+        final Path confFile = projectPath.resolve("project.conf");
+        
+        if (Files.isRegularFile(confFile)) {
+            try {
+                ProjectDescriptor pDesc = GProjectFactory.readProjectDirectory(projectPath);
+                openProject(pDesc, authData, monitor);
+            } catch (final IOException e) {
+                AppProjectCore.LOG.error(e);
+            }
+        }
+    }
+
     @objid ("00809bf2-acc2-103b-a520-001ec947cd2a")
     @Override
     public void closeProject(GProject projectToClose) throws IllegalStateException {
-        if (this.project == null) {
-            throw new IllegalStateException("No current project.");
-        }
+        checkProjectOpened();
         
         if (projectToClose == null || projectToClose != this.project) {
-            throw new IllegalArgumentException("Closing invalid project.");
+            throw new IllegalArgumentException("Closing invalid "+projectToClose+" project.");
         }
         
         this.context.get(IModelioEventService.class).postSyncEvent(this, ModelioEvent.PROJECT_CLOSING, projectToClose);
@@ -235,19 +268,23 @@ class ProjectService implements IProjectService, EventHandler {
 
     @objid ("0080b83a-acc2-103b-a520-001ec947cd2a")
     @Override
-    public void saveProject() throws IOException {
-        // TODO : pass a progress monitor as parameter
-        if (this.project == null) {
-            throw new IllegalStateException("No current project.");
-        }
+    public void saveProject(IProgressMonitor monitor) throws IOException {
+        checkProjectOpened();
         
         try {
+            final String taskName = AppProjectCore.I18N.getMessage("ProjectService.save.task", this.project.getName());
+            SubMonitor m = SubMonitor.convert(monitor, taskName,1000);
+            
+            this.context.set(IProgressMonitor.class, m.newChild(50));
             this.context.get(IModelioEventService.class).postSyncEvent(this, ModelioEvent.PROJECT_SAVING, this.project);
-            this.project.save(null /* TODO pass a progress monitor */);
+            this.context.remove(IProgressMonitor.class);
+            
+            this.project.save(new ModelioProgressAdapter(m.newChild(900)));
+            
             this.prefsStore.save();
+            
             this.context.get(IModelioEventService.class).postAsyncEvent(this, ModelioEvent.PROJECT_SAVED, this.project);
         } catch (final IOException e) {
-            AppProjectCore.LOG.error(e);
             throw e;
         }
     }
@@ -258,29 +295,22 @@ class ProjectService implements IProjectService, EventHandler {
         return "ProjectService";
     }
 
-    /**
-     * @Inheritdoc
-     */
-    @objid ("008063d0-acc2-103b-a520-001ec947cd2a")
-    @Override
-    public void changeWorkspace(Path workspacePath) {
-        if (this.project != null) {
-            throw new IllegalStateException("A project is already opened.");
-        }
-        
-        if (Files.exists(workspacePath) && Files.isDirectory(workspacePath)) {
-            this.workspace = workspacePath;
-            writePreferedWorkspace(workspacePath);
-            this.context.get(IModelioEventService.class).postAsyncEvent(this, ModelioEvent.WORKSPACE_SWITCH, workspacePath);
-        } else {
-            throw new IllegalArgumentException("Invalid workspace path: " + workspacePath);
-        }
-    }
-
     @objid ("0080cffa-acc2-103b-a520-001ec947cd2a")
     @Override
     public GProject getOpenedProject() {
         return this.project;
+    }
+
+    @objid ("14aa57e7-a7cb-4ee1-82ed-973bb22d6870")
+    @Override
+    public IPreferenceStore getProjectPreferences(String nodeId) {
+        return new GProjectPreferenceNode(this.prefsStore, nodeId);
+    }
+
+    @objid ("0053aa84-bb2f-103c-a520-001ec947cd2a")
+    @Override
+    public ICoreSession getSession() {
+        return (this.project != null) ? this.project.getSession() : null;
     }
 
     @objid ("0080f426-acc2-103b-a520-001ec947cd2a")
@@ -292,10 +322,12 @@ class ProjectService implements IProjectService, EventHandler {
         return this.workspace;
     }
 
-    @objid ("008118fc-acc2-103b-a520-001ec947cd2a")
+    @objid ("ca2f60e4-1f24-4956-965e-92f53059258c")
     @Override
-    public void refreshWorkspace() {
-        this.context.get(IModelioEventService.class).postAsyncEvent(this, ModelioEvent.WORKSPACE_CONTENTS, this.workspace);
+    public boolean isDirty() {
+        boolean isSessionDirty = this.session != null && this.session.isDirty();
+        boolean isPrefStoreDirty = this.prefsStore != null && this.prefsStore.needsSaving();
+        return isSessionDirty || isPrefStoreDirty;
     }
 
     @objid ("0089dd7a-8c65-103c-a520-001ec947cd2a")
@@ -311,13 +343,11 @@ class ProjectService implements IProjectService, EventHandler {
     @objid ("0089fb8e-8c65-103c-a520-001ec947cd2a")
     @Override
     public void exportProject(ProjectDescriptor projectToExport, Path archivePath, IModelioProgress monitor) {
-        // TODO this is a very basic implementation, add controls
-        
         final Zipper zipper = new Zipper(archivePath);
         try {
             // not export .runtime directory
             PathMatcher directoryMatcher = FileSystems.getDefault().getPathMatcher(
-                    ("glob:**" + projectToExport.getPath().resolve(".runtime")).replace("\\", "\\\\"));
+                    ("glob:**" + projectToExport.getPath().resolve(".runtime").resolve("modules")).replace("\\", "\\\\"));
             List<PathMatcher> skipDirectoryMatchers = new ArrayList<>();
             skipDirectoryMatchers.add(directoryMatcher);
             zipper.compress(projectToExport.getPath(), skipDirectoryMatchers, null, monitor, null);
@@ -331,7 +361,6 @@ class ProjectService implements IProjectService, EventHandler {
     @objid ("008a1ee8-8c65-103c-a520-001ec947cd2a")
     @Override
     public void importProject(Path archiveFile) {
-        // TODO this is a very basic implementation, add controls
         final Unzipper unzipper = new Unzipper();
         final IModelioProgress monitor = null;
         try {
@@ -357,6 +386,7 @@ class ProjectService implements IProjectService, EventHandler {
         if (progressService != null) {
             try {
                 final String title = AppProjectCore.I18N.getString("CreateProject.ProgressDialog.title");
+                
                 progressService.run(title, false, false, new IRunnableWithProgress() {
                     @Override
                     public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
@@ -367,7 +397,6 @@ class ProjectService implements IProjectService, EventHandler {
                         } catch (IOException e) {
                             AppProjectCore.LOG.error(e);
                         }
-        
                     }
         
                 });
@@ -389,17 +418,10 @@ class ProjectService implements IProjectService, EventHandler {
     @objid ("005385e0-bb2f-103c-a520-001ec947cd2a")
     @Override
     public void addFragment(GProject openedProject, FragmentDescriptor fragmentDescriptor, IProgressMonitor monitor) {
-        // TODO basic implementation
         final IProjectFragment newFragment = Fragments.getFactory(fragmentDescriptor).instantiate(fragmentDescriptor);
         openedProject.registerFragment(newFragment, new ModelioProgressAdapter(monitor));
         
         this.context.get(IModelioEventService.class).postAsyncEvent(this, ModelioEvent.FRAGMENT_ADDED, newFragment);
-    }
-
-    @objid ("0053aa84-bb2f-103c-a520-001ec947cd2a")
-    @Override
-    public ICoreSession getSession() {
-        return (this.project != null) ? this.project.getSession() : null;
     }
 
     @objid ("002e01f8-a4c3-1044-a30e-001ec947cd2a")
@@ -421,9 +443,40 @@ class ProjectService implements IProjectService, EventHandler {
         this.context.get(IModelioEventService.class).postAsyncEvent(this, ModelioEvent.FRAGMENT_REMOVED, fragmentToRemove);
     }
 
+    @objid ("008118fc-acc2-103b-a520-001ec947cd2a")
+    @Override
+    public void refreshWorkspace() {
+        this.context.get(IModelioEventService.class).postAsyncEvent(this, ModelioEvent.WORKSPACE_CONTENTS, this.workspace);
+    }
+
     @objid ("6bcf2ddb-37b3-11e2-82ed-001ec947ccaf")
     IEclipseContext getContext() {
         return this.context;
+    }
+
+    @objid ("004d1728-8d1e-10b4-9941-001ec947cd2a")
+    @Inject
+    @Optional
+    public void onBATCH(@EventTopic("BATCH") final CommandLineData data) {
+        final IEventBroker eventBroker = this.context.get(IEventBroker.class);
+        eventBroker.unsubscribe(this);
+        
+        AppProjectCore.LOG.info("Running batch: %s", data.toString());
+        if (!data.isEmpty()) {
+            Display.getCurrent().asyncExec(new BatchRunner(this, data));
+        }
+    }
+
+    @objid ("004d9dc4-8d1e-10b4-9941-001ec947cd2a")
+    @Override
+    public void handleEvent(Event event) {
+        switch (event.getTopic()) {
+        case "BATCH":
+            onBATCH((CommandLineData) event.getProperty("org.eclipse.e4.data"));
+            return;
+        default:
+            return;
+        }
     }
 
     /**
@@ -474,51 +527,11 @@ class ProjectService implements IProjectService, EventHandler {
         }
     }
 
-    @objid ("004d1728-8d1e-10b4-9941-001ec947cd2a")
-    @Inject
-    @Optional
-    public void onBATCH(@EventTopic("BATCH") final CommandLineData data) {
-        final IEventBroker eventBroker = this.context.get(IEventBroker.class);
-        eventBroker.unsubscribe(this);
-        
-        AppProjectCore.LOG.info("Running batch: %s", data.toString());
-        if (!data.isEmpty()) {
-            Display.getCurrent().asyncExec(new BatchRunner(this, data));
+    @objid ("9de1f14d-8669-48e5-b0c0-11c43702c837")
+    private void checkProjectOpened() throws IllegalStateException {
+        if (this.project == null) {
+            throw new IllegalStateException("No current project.");
         }
-    }
-
-    @objid ("004d9dc4-8d1e-10b4-9941-001ec947cd2a")
-    @Override
-    public void handleEvent(Event event) {
-        switch (event.getTopic()) {
-        case "BATCH":
-            onBATCH((CommandLineData) event.getProperty("org.eclipse.e4.data"));
-            return;
-        default:
-            return;
-        }
-    }
-
-    @objid ("004dc0f6-8d1e-10b4-9941-001ec947cd2a")
-    @Override
-    public void openProject(String projectName, IAuthData authData, IProgressMonitor monitor) throws GProjectAuthenticationException {
-        final Path projectPath = getWorkspace().resolve(projectName);
-        final Path confFile = projectPath.resolve("project.conf");
-        
-        if (Files.isRegularFile(confFile)) {
-            try {
-                ProjectDescriptor pDesc = GProjectFactory.readProjectDirectory(projectPath);
-                openProject(pDesc, authData, monitor);
-            } catch (final IOException e) {
-                AppProjectCore.LOG.error(e);
-            }
-        }
-    }
-
-    @objid ("14aa57e7-a7cb-4ee1-82ed-973bb22d6870")
-    @Override
-    public IPreferenceStore getProjectPreferences(String nodeId) {
-        return new GProjectPreferenceNode(this.prefsStore, nodeId);
     }
 
     /**
@@ -534,14 +547,6 @@ class ProjectService implements IProjectService, EventHandler {
         return this.context.get(IModuleCatalog.class);
     }
 
-    @objid ("ca2f60e4-1f24-4956-965e-92f53059258c")
-    @Override
-    public boolean isDirty() {
-        boolean isSessionDirty = this.session != null && this.session.isDirty();
-        boolean isPrefStoreDirty = this.prefsStore != null && this.prefsStore.needsSaving();
-        return isSessionDirty || isPrefStoreDirty;
-    }
-
     @objid ("cb61fb6e-713f-480a-8fe4-42c7e06a13ec")
     private void installProjectPreferences() {
         // Setup the model factory initializer
@@ -552,7 +557,7 @@ class ProjectService implements IProjectService, EventHandler {
         
         // Setup a listener for changes that will reconfigure the INITIALIZER
         // when project preferences change
-        prefsStore.addPropertyChangeListener(new IPropertyChangeListener() {
+        this.prefsStore.addPropertyChangeListener(new IPropertyChangeListener() {
             @Override
             public void propertyChange(PropertyChangeEvent event) {
                 String name = event.getProperty();
@@ -622,15 +627,15 @@ class ProjectService implements IProjectService, EventHandler {
         public void handleProjectEvent(GProjectEvent ev) {
             switch (ev.type) {
             case FRAGMENT_DOWN:
+                AppProjectCore.LOG.error(ev.fragment+" fragment falled DOWN: "+ev.message);
                 AppProjectCore.LOG.error(ev.throwable);
+                
                 getContext().get(IModelioEventService.class).postAsyncEvent(ProjectService.this, ModelioEvent.FRAGMENT_DOWN, ev);
+                reportAsStatus(ev);
+                
                 break;
             case WARNING:
-                // Fragment warnings are logged as errors because:
-                // 1) the default logging filter level is 'error'
-                // 2) object loading failures (causing shells objects) are
-                // fragment warnings
-                AppProjectCore.LOG.error(ev.throwable);
+                AppProjectCore.LOG.warning(ev.throwable);
                 break;
             default:
                 if (ev.message != null) {
@@ -641,6 +646,33 @@ class ProjectService implements IProjectService, EventHandler {
                 }
                 break;
             
+            }
+        }
+
+        @objid ("ff9cf99a-5c5e-47ba-8ea7-57daa521a97b")
+        String getMessage(GProjectEvent ev) {
+            if (ev.message != null && !ev.message.isEmpty())
+                return ev.message;
+            else if (ev.throwable == null)
+                return "<no message>";
+            else if (ev.throwable instanceof FileSystemException)
+                return FileUtils.getLocalizedMessage((FileSystemException) ev.throwable);
+            else 
+                return ev.throwable.getLocalizedMessage();
+        }
+
+        @objid ("357af83e-da98-41b2-8095-e74ddcdffa42")
+        private void reportAsStatus(final GProjectEvent ev) {
+            final StatusReporter statusReporter = getContext().get(StatusReporter.class);
+            
+            if (statusReporter != null) {
+                Display.getDefault().asyncExec(new Runnable() {
+            
+                    @Override
+                    public void run() {
+                        statusReporter.show(StatusReporter.WARNING, getMessage(ev), ev.throwable, ev);
+                    }
+                });
             }
         }
 

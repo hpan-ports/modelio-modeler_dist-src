@@ -41,9 +41,20 @@ public class ModelioEventService implements IModelioEventService {
     @objid ("0082871e-acc2-103b-a520-001ec947cd2a")
     @Override
     public void postAsyncEvent(final IModelioService emitter, final ModelioEvent topic, final Object data) {
+        postAsyncEvent(emitter, topic.topic(), data);
+    }
+
+    @objid ("0023cdbe-a9cf-106e-bbdd-001ec947cd2a")
+    @Override
+    public void postSyncEvent(final IModelioService emitter, final ModelioEvent topic, final Object data) {
+        postSyncEvent(emitter, topic.topic(), data);
+    }
+
+    @objid ("4d13dc78-6a73-4569-a173-4ac02e610e71")
+    public void postAsyncEvent(final IModelioService emitter, final String topic, final Object data) {
         IEventBroker eventBroker = this.context.get(IEventBroker.class);
         if (eventBroker != null) {
-            boolean sent = eventBroker.post(topic.topic(), data);
+            boolean sent = eventBroker.post(topic, data);
             if (AppCore.LOG.isDebugEnabled()) {
                 AppCore.LOG.debug("postAsyncEvent - emitter='%s' topic='%s' data='%s' sent='%s'", emitter.getName(), topic, data,
                         sent);
@@ -56,12 +67,11 @@ public class ModelioEventService implements IModelioEventService {
         }
     }
 
-    @objid ("0023cdbe-a9cf-106e-bbdd-001ec947cd2a")
-    @Override
-    public void postSyncEvent(final IModelioService emitter, final ModelioEvent topic, final Object data) {
+    @objid ("d4f8289c-2601-4526-8d4b-6a60bfb962c1")
+    public void postSyncEvent(final IModelioService emitter, final String topic, final Object data) {
         IEventBroker eventBroker = this.context.get(IEventBroker.class);
         if (eventBroker != null) {
-            boolean sent = eventBroker.send(topic.topic(), data);
+            boolean sent = eventBroker.send(topic, data);
             if (AppCore.LOG.isDebugEnabled()) {
                 AppCore.LOG.debug("postSyncEvent - emitter='%s' topic='%s' data='%s' sent='%s'", emitter.getName(), topic, data,
                         sent);

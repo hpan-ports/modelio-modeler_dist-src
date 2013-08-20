@@ -509,6 +509,12 @@ public class XmlDiagramReader implements IDiagramReader {
     public void readDiagram(String data, IPersistent root) throws PersistenceException {
         this.rootObject = root;
         
+        if (data.startsWith("<?xml")) {
+            // old uncompressed format
+        } else {
+            data = UUBase64Compressor.decompress(data);
+        }
+        
         try {
             // Create a DocumentBuilderFactory
             final DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();

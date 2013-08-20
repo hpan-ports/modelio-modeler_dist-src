@@ -50,6 +50,7 @@ class UrlUriConnection extends UriConnection {
         try {
             URL url = uri.toURL();
             this.c = url.openConnection();
+            
         } catch (MalformedURLException e) {
             throw new IllegalArgumentException(e);
         }

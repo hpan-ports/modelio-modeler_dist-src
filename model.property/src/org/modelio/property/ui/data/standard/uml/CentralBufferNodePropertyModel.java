@@ -21,6 +21,8 @@
 
 package org.modelio.property.ui.data.standard.uml;
 
+import java.util.ArrayList;
+import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.core.ui.ktable.types.IPropertyType;
 import org.modelio.core.ui.ktable.types.bool.BooleanType;
@@ -42,6 +44,7 @@ import org.modelio.property.ui.data.standard.common.AbstractPropertyModel;
 import org.modelio.vcore.session.api.ICoreSession;
 import org.modelio.vcore.session.api.model.IModel;
 import org.modelio.vcore.session.impl.CoreSession;
+import org.modelio.vcore.smkernel.mapi.MObject;
 
 /**
  * <i>CentralBufferNode</i> data model.
@@ -332,17 +335,28 @@ public class CentralBufferNodePropertyModel extends AbstractPropertyModel<Centra
     @objid ("8edd34e1-c068-11e1-8c0a-002564c97630")
     public static class RepresentedType extends HybridType {
         @objid ("8edd34e3-c068-11e1-8c0a-002564c97630")
-        private Class<?>[] t = { Instance.class, Attribute.class, AssociationEnd.class, BehaviorParameter.class };
+        private List<Class<? extends MObject>> t;
 
         @objid ("8edd34e8-c068-11e1-8c0a-002564c97630")
         public RepresentedType(ICoreSession session) {
             super(session);
+            this.t = new ArrayList<>();
+            this.t.add(Instance.class);
+            this.t.add(Attribute.class);
+            this.t.add(AssociationEnd.class);
+            this.t.add(BehaviorParameter.class);
         }
 
         @objid ("8edd34ea-c068-11e1-8c0a-002564c97630")
         @Override
-        public Class<?>[] getTypes() {
+        public List<Class<? extends MObject>> getTypes() {
             return this.t;
+        }
+
+        @objid ("a07e7a1e-d8c0-4383-963d-96c8c9531bfa")
+        @Override
+        public boolean acceptStringValue() {
+            return false;
         }
 
     }

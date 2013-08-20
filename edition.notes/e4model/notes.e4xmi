@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="ASCII"?>
-<fragment:ModelFragments xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:basic="http://www.eclipse.org/ui/2010/UIModel/application/ui/basic" xmlns:commands="http://www.eclipse.org/ui/2010/UIModel/application/commands" xmlns:fragment="http://www.eclipse.org/ui/2010/UIModel/fragment" xmlns:menu="http://www.eclipse.org/ui/2010/UIModel/application/ui/menu" xmi:id="_osPrELoPEeGR05fGaOD0Vw">
+<fragment:ModelFragments xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:advanced="http://www.eclipse.org/ui/2010/UIModel/application/ui/advanced" xmlns:basic="http://www.eclipse.org/ui/2010/UIModel/application/ui/basic" xmlns:commands="http://www.eclipse.org/ui/2010/UIModel/application/commands" xmlns:fragment="http://www.eclipse.org/ui/2010/UIModel/fragment" xmlns:menu="http://www.eclipse.org/ui/2010/UIModel/application/ui/menu" xmi:id="_osPrELoPEeGR05fGaOD0Vw">
   <imports xsi:type="commands:Command" xmi:id="_NXKUIFTtEeK4YallPPLLhg" elementId="org.eclipse.ui.edit.delete"/>
   <imports xsi:type="commands:Command" xmi:id="_4_zkAFTtEeK4YallPPLLhg" elementId="org.modelio.app.ui.command.copy"/>
   <imports xsi:type="commands:Command" xmi:id="_5i5qAFTtEeK4YallPPLLhg" elementId="org.modelio.app.ui.command.cut"/>
   <imports xsi:type="commands:Command" xmi:id="_5mVYgFTtEeK4YallPPLLhg" elementId="org.modelio.app.ui.command.paste"/>
   <imports xsi:type="menu:Menu" xmi:id="_LG0VMH9KEeK-XvSICEmsLA" elementId="org.modelio.app.ui.menu.views"/>
   <imports xsi:type="commands:Command" xmi:id="_SxKxwH9KEeK-XvSICEmsLA" elementId="org.modelio.app.ui.command.showview"/>
-  <fragments xsi:type="fragment:StringModelFragment" xmi:id="_EsN88LoQEeGR05fGaOD0Vw" featurename="children" parentElementId="org.modelio.app.bottom.parts">
+  <fragments xsi:type="fragment:StringModelFragment" xmi:id="_EsN88LoQEeGR05fGaOD0Vw" featurename="sharedElements" parentElementId="org.modelio.app.ui.trimmed">
     <elements xsi:type="basic:Part" xmi:id="_fn78gLoQEeGR05fGaOD0Vw" elementId="org.modelio.edition.notes.notesview" contributionURI="bundleclass://org.modelio.edition.notes/org.modelio.edition.notes.view.NotesView" label="%Notes.label" iconURI="platform:/plugin/org.modelio.edition.notes/icons/description_note.png" tooltip="%Notes.tooltip" bindingContexts="_nBUaoVTsEeK4YallPPLLhg" closeable="true">
       <handlers xmi:id="_VmFdYFTtEeK4YallPPLLhg" elementId="org.modelio.edition.notes.handler.remove" contributionURI="bundleclass://org.modelio.edition.notes/org.modelio.edition.notes.handlers.RemoveAnnotationHandler" command="_NXKUIFTtEeK4YallPPLLhg"/>
       <handlers xmi:id="_M4XyQJbLEeKDfYWV9SG7xw" elementId="org.modelio.edition.notes.handler.moveup" contributionURI="bundleclass://org.modelio.edition.notes/org.modelio.edition.notes.handlers.move.MoveAnnotationUpHandler" command="_6flUsJbYEeKDfYWV9SG7xw"/>
@@ -68,5 +68,8 @@
     <elements xsi:type="commands:Command" xmi:id="_kGk-IJhTEeK_o970R-hZWQ" elementId="org.modelio.edition.notes.command.addconstraint" commandName="%AddConstraint.name" description="%AddConstraint.description"/>
     <elements xsi:type="commands:Command" xmi:id="_VGMn0JhWEeK_o970R-hZWQ" elementId="org.modelio.edition.notes.command.addexterndocument" commandName="%AddExternDocument.name" description="%AddExternDocument.description"/>
     <elements xsi:type="commands:Command" xmi:id="_0j6L4JhWEeK_o970R-hZWQ" elementId="org.modelio.edition.notes.command.cleannote" commandName="%CleanNote.name" description="%CleanNote.description"/>
+  </fragments>
+  <fragments xsi:type="fragment:StringModelFragment" xmi:id="_Oa-2UN_OEeKdg8e0rQGLrw" featurename="children" parentElementId="org.modelio.app.bottom.parts">
+    <elements xsi:type="advanced:Placeholder" xmi:id="_Oa-2Ud_OEeKdg8e0rQGLrw" elementId="org.modelio.edition.notes.placeholder" ref="_fn78gLoQEeGR05fGaOD0Vw"/>
   </fragments>
 </fragment:ModelFragments>

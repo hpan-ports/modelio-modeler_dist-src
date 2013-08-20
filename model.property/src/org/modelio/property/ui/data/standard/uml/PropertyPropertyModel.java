@@ -29,7 +29,6 @@ import org.modelio.core.ui.ktable.types.text.StringType;
 import org.modelio.metamodel.uml.infrastructure.properties.PropertyDefinition;
 import org.modelio.metamodel.uml.infrastructure.properties.PropertyType;
 import org.modelio.property.ui.data.standard.common.AbstractPropertyModel;
-import org.modelio.vcore.session.api.model.IModel;
 import org.modelio.vcore.session.impl.CoreSession;
 
 /**

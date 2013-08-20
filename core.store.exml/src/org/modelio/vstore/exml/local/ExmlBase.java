@@ -72,31 +72,31 @@ public class ExmlBase extends AbstractExmlRepository {
 
     @objid ("a013bb70-1d0e-11e2-8eb9-001ec947ccaf")
     @Override
-    public synchronized boolean doReloadCmsNode(SmObjectImpl obj, IModelLoader modelLoader) throws IOException, DuplicateObjectException {
+    public synchronized boolean doReloadCmsNode(SmObjectImpl obj, IModelLoader modelLoader) throws DuplicateObjectException {
         final ObjId cmsNodeId = new ObjId(obj);
-        ExmlResource resource = this.getResProvider().getResource(cmsNodeId);
-        if (resource == null) {
-            // No EXML for this node, set the object as shell.
-            loadFailed(obj, modelLoader, null);
-            return false;
-        } else try(InputStream is= resource.read();
-                InputStream bufis = new BufferedInputStream(is)) {
-            if (is == null) {
-                // Exml not found, set the object as shell.
-                loadFailed(obj, modelLoader, new FileNotFoundException(resource.getPublicLocation()));
+        try {
+            ExmlResource resource = this.getResProvider().getResource(cmsNodeId);
+            if (resource == null) {
+                // No EXML for this node, set the object as shell.
+                loadFailed(obj, modelLoader, null);
                 return false;
-            } else {
-                InputSource isrc = new InputSource(bufis);
-                isrc.setPublicId(resource.getPublicLocation());
-                
-                try {
+            } else try(InputStream is= resource.read();
+                    InputStream bufis = new BufferedInputStream(is)) {
+                if (is == null) {
+                    // Exml not found, set the object as shell.
+                    loadFailed(obj, modelLoader, new FileNotFoundException(resource.getPublicLocation()));
+                    return false;
+                } else {
+                    InputSource isrc = new InputSource(bufis);
+                    isrc.setPublicId(resource.getPublicLocation());
+        
                     this.loader.load(isrc, modelLoader);
                     return true;
-                } catch (IOException e) {
-                    loadFailed(obj, modelLoader, e);
-                    return false;
                 }
             }
+        }  catch (IOException e) {
+            loadFailed(obj, modelLoader, e);
+            return false;
         }
     }
 

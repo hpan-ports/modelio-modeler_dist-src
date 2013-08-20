@@ -23,10 +23,8 @@ package org.modelio.xmi.util;
 
 import java.util.HashMap;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.modelio.metamodel.analyst.AnalystPropertyTable;
 import org.modelio.metamodel.analyst.Dictionary;
 import org.modelio.metamodel.analyst.Requirement;
-import org.modelio.metamodel.analyst.RequirementContainer;
 import org.modelio.metamodel.analyst.Term;
 import org.modelio.metamodel.diagrams.AbstractDiagram;
 import org.modelio.metamodel.mda.Project;
@@ -121,8 +119,6 @@ import org.modelio.metamodel.uml.infrastructure.Abstraction;
 import org.modelio.metamodel.uml.infrastructure.Constraint;
 import org.modelio.metamodel.uml.infrastructure.Dependency;
 import org.modelio.metamodel.uml.infrastructure.Element;
-import org.modelio.metamodel.uml.infrastructure.LocalNote;
-import org.modelio.metamodel.uml.infrastructure.LocalTaggedValue;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
 import org.modelio.metamodel.uml.infrastructure.ModelTree;
 import org.modelio.metamodel.uml.infrastructure.Note;
@@ -135,7 +131,6 @@ import org.modelio.metamodel.uml.infrastructure.TaggedValue;
 import org.modelio.metamodel.uml.infrastructure.Usage;
 import org.modelio.metamodel.uml.infrastructure.properties.EnumeratedPropertyType;
 import org.modelio.metamodel.uml.infrastructure.properties.PropertyEnumerationLitteral;
-import org.modelio.metamodel.uml.infrastructure.properties.PropertyTableDefinition;
 import org.modelio.metamodel.uml.infrastructure.properties.PropertyType;
 import org.modelio.metamodel.uml.statik.Artifact;
 import org.modelio.metamodel.uml.statik.Association;
@@ -1169,22 +1164,6 @@ public class CompositionOwnerVisitor {
                         
             if (theParent == null)
                 super.visitLinkEnd(child);
-            return null;
-        }
-
-        @objid ("08ae51d8-53f7-43d9-bf13-7c99571b04d0")
-        @Override
-        public Object visitLocalNote(LocalNote child) {
-            if (theParent == null)
-                super.visitLocalNote(child);
-            return null;
-        }
-
-        @objid ("93ccb6b2-c25f-40a8-9e5f-8dd396140362")
-        @Override
-        public Object visitLocalTaggedValue(LocalTaggedValue child) {
-            if (theParent == null)
-                super.visitLocalTaggedValue(child);
             return null;
         }
 

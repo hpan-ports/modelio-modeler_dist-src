@@ -25,15 +25,13 @@ import java.util.UUID;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.ui.model.application.ui.basic.MInputPart;
-import org.eclipse.e4.ui.services.EContextService;
-import org.modelio.app.project.core.services.IProjectService;
 import org.modelio.diagram.editor.DiagramEditorInput;
 import org.modelio.diagram.editor.DiagramEditorInputProvider.IDiagramEditorInputProvider;
+import org.modelio.diagram.elements.core.model.ModelManager;
 import org.modelio.gproject.model.IMModelServices;
 import org.modelio.metamodel.Metamodel;
 import org.modelio.metamodel.diagrams.AbstractDiagram;
 import org.modelio.metamodel.diagrams.ObjectDiagram;
-import org.modelio.vcore.session.api.ICoreSession;
 
 @objid ("a25fff12-5a62-11e2-9e33-00137282c51b")
 public class ObjectDiagramEditorInputProvider implements IDiagramEditorInputProvider {
@@ -45,13 +43,11 @@ public class ObjectDiagramEditorInputProvider implements IDiagramEditorInputProv
     @objid ("05df5d7e-5bed-11e2-9e33-00137282c51b")
     @Override
     public DiagramEditorInput compute(IEclipseContext context) {
-        ICoreSession coreSession = context.get(IProjectService.class).getSession();
         IMModelServices modelServices = context.get(IMModelServices.class);
-        EContextService contextService = context.get(EContextService.class);
         
         String diagramUID = context.get(MInputPart.class).getInputURI();
         AbstractDiagram diagram = (ObjectDiagram) modelServices.findById(Metamodel.getMClass(ObjectDiagram.class), UUID.fromString(diagramUID));
-        return diagram != null ? new ObjectDiagramEditorInput(coreSession, diagram, modelServices, contextService) : null;
+        return diagram != null ? new ObjectDiagramEditorInput(new ModelManager(context), diagram) : null;
     }
 
 }

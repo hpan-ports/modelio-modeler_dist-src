@@ -42,6 +42,8 @@ import org.modelio.vcore.smkernel.IMetaOf;
 import org.modelio.vcore.smkernel.IRepositoryObject;
 import org.modelio.vcore.smkernel.ISwap;
 import org.modelio.vcore.smkernel.SmObjectData;
+import org.modelio.vcore.utils.jdbm.LongSerializer;
+import org.modelio.vcore.utils.jdbm.UuidSerializer;
 
 /**
  * JDBM based implementation of Modelio swap.
@@ -64,7 +66,7 @@ public class JdbmSwap implements ISwap {
     private String swapPath;
 
     @objid ("dcb9c2a2-493b-11e2-91c9-001ec947ccaf")
-    private static final Serializer<CacheEntry> dataSerializer = new SmObjectDataSerializer();
+    private static final Serializer<CacheEntry> dataSerializer = new CacheEntrySerializer();
 
     @objid ("f5f214cc-84b5-11e1-b644-001ec947ccaf")
     private Index<IRepositoryObject> storeIndex = new Index<>();
@@ -72,19 +74,19 @@ public class JdbmSwap implements ISwap {
     @objid ("f5f214cf-84b5-11e1-b644-001ec947ccaf")
     private Index<IMetaOf> metaObjectIndex = new Index<>();
 
+    @objid ("09533858-2fee-486b-bee9-03b3fa1cd4a4")
+    private final CacheEntry saveEntry = new CacheEntry();
+
     @objid ("d8d9b396-8499-11e1-b644-001ec947ccaf")
     @Override
     public synchronized void swap(final SmObjectData data) {
         //        Log.trace("Swap "+data.getClassOf().getName()+ " "+data.getUuid());
-        
         try {
+            this.saveEntry.data = data;
+            this.saveEntry.metaId = this.metaObjectIndex.getId(data.getMetaOf());
+            this.saveEntry.storeHandleId = this.storeIndex.getId(data.getRepositoryObject());
         
-            CacheEntry entry = new CacheEntry();
-            entry.data = data;
-            entry.metaId = this.metaObjectIndex.getId(data.getMetaOf());
-            entry.storeHandleId = this.storeIndex.getId(data.getRepositoryObject());
-        
-            long recid = this.db.insert(entry, dataSerializer);
+            long recid = this.db.insert(this.saveEntry, dataSerializer);
             this.uidMap.put(data.getUuid(), Long.valueOf(recid));
         
             commitSometimes();
@@ -140,7 +142,7 @@ public class JdbmSwap implements ISwap {
             props.setProperty(RecordManagerOptions.CACHE_SIZE, "0");
             this.db = RecordManagerFactory.createRecordManager(this.swapPath+"/swap", props );
         
-            this.uidMap = this.db.hashMap("uid");
+            this.uidMap = this.db.hashMap("uid", UuidSerializer.instance, LongSerializer.instance);
         
         } catch (IOException e) {
             throw new IOError(e);

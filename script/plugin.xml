@@ -7,6 +7,11 @@
       <fragment
             uri="e4model/scriptui.e4xmi">
       </fragment>
+      <processor
+            beforefragment="false"
+            class="org.modelio.script.macro.MacroCatalogInitializer">
+      </processor>
    </extension>
+  
 
 </plugin>

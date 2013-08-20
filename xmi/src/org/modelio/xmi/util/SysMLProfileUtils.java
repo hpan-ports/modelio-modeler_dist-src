@@ -24,7 +24,6 @@ package org.modelio.xmi.util;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.uml2.uml.Property;
 import org.modelio.api.modelio.Modelio;
-import org.modelio.metamodel.analyst.Requirement;
 import org.modelio.metamodel.uml.infrastructure.Dependency;
 import org.modelio.metamodel.uml.infrastructure.Stereotype;
 import org.modelio.vcore.smkernel.mapi.MObject;
@@ -83,14 +82,12 @@ public class SysMLProfileUtils {
     @objid ("736e3a5f-4bd5-4e01-a5cd-7cadb9af53b0")
     private static void addRequirementStereotype(final org.eclipse.uml2.uml.Profile sysMLProfile) {
         org.eclipse.uml2.uml.Stereotype stereotype = sysMLProfile.createOwnedStereotype("Requirement", false); 
-        ProfileUtils.addReference(stereotype, "Class");
+        ProfileUtils.addReference(stereotype, "Class");        
         
-        
-        Stereotype obStereotype = Modelio.getInstance().getModelingSession().getMetamodelExtensions()
-                .getStereotype( "requirement",  SmClass.getClass(Requirement.class));
-        TotalExportMap.getInstance().put(obStereotype.getUuid().toString(), stereotype);
-        
-        
+        //        Stereotype obStereotype = Modelio.getInstance().getModelingSession().getMetamodelExtensions()
+        //                .getStereotype( "requirement",  SmClass.getClass(Requirement.class));
+        //        TotalExportMap.getInstance().put(obStereotype.getUuid().toString(), stereotype);
+            
         Property text = stereotype.createOwnedAttribute("Text", PrimitiveTypeMapper.getString());
         text.setLower(1);
         text.setUpper(1);

@@ -21,12 +21,14 @@
 
 package org.modelio.core.ui.textelement;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.jface.dialogs.PopupDialog;
 import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.jface.viewers.StyledString;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.browser.Browser;
@@ -39,6 +41,7 @@ import org.eclipse.swt.events.KeyListener;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.graphics.Color;
+import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.FillLayout;
@@ -49,19 +52,25 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.modelio.core.ui.images.BasicModelElementLabelProvider;
 import org.modelio.core.ui.plugin.CoreUi;
-import org.modelio.metamodel.uml.infrastructure.Element;
+import org.modelio.vcore.smkernel.mapi.MObject;
 
 /**
- * This class provides the popup of proposed results that appears when user uses the 'Ctrl+Space' completion shortcut and there are
- * several valid results.
+ * This class provides the popup of proposed results that appears when user uses
+ * the 'Ctrl+Space' completion shortcut and there are several valid results.
  */
 @objid ("02f69a83-ef5d-436a-a1f8-292f025deeba")
-class PopupChooser extends PopupDialog {
+public class PopupChooser extends PopupDialog {
     @objid ("9adf321f-3ecc-4edb-9f76-4a6969260dad")
     private static final int POPUP_MIN_HEIGHT = 200;
 
     @objid ("024101d5-8306-4314-8965-75595d786462")
     private static final int POPUP_MIN_WIDTH = 100;
+
+    /**
+     * InfoPopup delay in ms
+     */
+    @objid ("c1359f26-5142-44e1-9713-c5cb5e679897")
+    private static final int INFO_POPUP_DELAY = 1000;
 
     @objid ("140b2cd9-e4d6-420e-b510-2bb2f5b1976f")
     protected boolean loop;
@@ -70,22 +79,16 @@ class PopupChooser extends PopupDialog {
     protected boolean proposeNullValue = false;
 
     /**
-     * InfoPopup delay in ms
-     */
-    @objid ("c1359f26-5142-44e1-9713-c5cb5e679897")
-    private static final int INFO_POPUP_DELAY = 1000;
-
-    /**
      * True is there is a pending InfoPopup
      */
     @objid ("424a3e47-87d7-4291-83c8-5c95104ff9ce")
     private boolean infoPopupIsPending;
 
-    @objid ("9e6854ab-73d3-424b-9aed-3b015e1d7e6d")
-    protected List<Element> elements;
+    @objid ("b60a5e0b-4a68-447b-b341-8eba9d71ac2a")
+    protected List<? extends MObject> elements;
 
     @objid ("e2be50c2-667f-4ddd-9571-8b81f260b22d")
-    protected org.eclipse.swt.widgets.List list;
+    protected List<Object> list;
 
     @objid ("13b549ec-d6e1-4181-bf84-fb856fb3af85")
     protected Rectangle listRectangle;
@@ -94,26 +97,27 @@ class PopupChooser extends PopupDialog {
     protected Composite parent;
 
     @objid ("ab7ee49d-e6e2-4d2f-b802-bbbb6a6e6026")
-     Element selected;
+     MObject selected;
 
     @objid ("3e7809d8-bc20-408c-9878-58465efaaa46")
      TableViewer tableViewer;
 
 /*
-     * Auxialiary popup showing detailed information about the selected proposal..
+     * Auxialiary popup showing detailed information about the selected
+     * proposal..
      */
     @objid ("7ad9227d-057c-4cd0-b352-61be67e243da")
     private InfoPopup infoPopup;
 
     /**
      * Constructor initializing a ProposalPopup.
-     * @param acceptNullValue
-     * indicates whether or not the "null" value must be shown in the popup.
      * @param control the swt control displaying the popup.
      * @param elements the elements to display in the popup.
+     * @param proposeNullValue indicates whether or not the "null" value must be shown in the
+     * popup.
      */
     @objid ("535d4103-ad37-4e13-95c5-da5f85edcff9")
-    public PopupChooser(final Control control, final List<Element> elements, final boolean proposeNullValue) {
+    public PopupChooser(final Control control, final List<? extends MObject> elements, final boolean proposeNullValue) {
         super(control.getShell(), INFOPOPUPRESIZE_SHELLSTYLE,
                 /* take focus */true,
                 /* persist size */false,
@@ -155,35 +159,19 @@ class PopupChooser extends PopupDialog {
         final Display display = Display.getDefault();
         
         open();
-        this.setTitleText(CoreUi.I18N.getMessage("ResultsProposalPopup.choose", "" + this.elements.size())); //$NON-NLS-1$ //$NON-NLS-2$
+        setTitleText(CoreUi.I18N.getMessage("ResultsProposalPopup.choose", "" + this.elements.size())); //$NON-NLS-1$ //$NON-NLS-2$
         // getShell().pack();
         if (getShell().getSize().y < POPUP_MIN_HEIGHT) {
             getShell().setSize(getShell().getSize().x, POPUP_MIN_HEIGHT);
         }
         
-        // if (this.proposeNullValue) {
-        //                this.list.add(CoreUi.I18N.getMessage("ResultsProposalPopup.None")); //$NON-NLS-1$
-        // }
+        this.list = new ArrayList<>();
+        if (this.proposeNullValue) {
+            this.list.add(CoreUi.I18N.getMessage("ResultsProposalPopup.None")); //$NON-NLS-1$
+        }
         
-        // this.resultsPanel.showResults(this.elements);
-        // if (this.proposeNullValue) {
-        // this.elements.add(null);
-        // }
-        
-        this.tableViewer.setInput(this.elements);
-        
-        // for (final Element e : this.elements) {
-        // if (e instanceof ModelElement) {
-        // final ModelElement me = (ModelElement) e;
-        // String item = me.getName();
-        // final Element owner = (Element) me.getCompositionOwner();
-        // if (owner instanceof ModelElement) {
-        // item = item + "  (" + CoreUi.I18N.getMessage("ResultsProposalPopup.From") + " "
-        // + ((ModelElement) me.getCompositionOwner()).getName() + ")";
-        // }
-        // this.list.add(item);
-        // }
-        // }
+        this.list.addAll(this.elements);
+        this.tableViewer.setInput(this.list);
         
         // Validate on double click
         this.tableViewer.getTable().addSelectionListener(new SelectionListener() {
@@ -191,14 +179,19 @@ class PopupChooser extends PopupDialog {
             /**
              * This one is called whenever the selection changes.<br>
              * For our table: on SingleClick an don navigation (up/down arrow)<br>
-             * When the selection changes, the InfoPopup is displayed after a short delay.
+             * When the selection changes, the InfoPopup is displayed after a
+             * short delay.
              * 
              */
             @Override
             public void widgetSelected(SelectionEvent e) {
                 final IStructuredSelection selection = (IStructuredSelection) PopupChooser.this.tableViewer.getSelection();
-                PopupChooser.this.selected = (Element) selection.getFirstElement();
-                showInfoPopup();
+                if (selection.getFirstElement() instanceof MObject) {
+                    PopupChooser.this.selected = (MObject) selection.getFirstElement();
+                } else {
+                    PopupChooser.this.selected = null;
+                }
+                scheduleInfoPopup();
             }
         
             /**
@@ -207,7 +200,11 @@ class PopupChooser extends PopupDialog {
             @Override
             public void widgetDefaultSelected(SelectionEvent e) {
                 final IStructuredSelection selection = (IStructuredSelection) PopupChooser.this.tableViewer.getSelection();
-                PopupChooser.this.selected = (Element) selection.getFirstElement();
+                if (selection.getFirstElement() instanceof MObject) {
+                    PopupChooser.this.selected = (MObject) selection.getFirstElement();
+                } else {
+                    PopupChooser.this.selected = null;
+                }
                 PopupChooser.this.loop = false;
             }
         });
@@ -216,36 +213,22 @@ class PopupChooser extends PopupDialog {
         this.tableViewer.getTable().addKeyListener(new KeyListener() {
             @Override
             public void keyPressed(KeyEvent e) {
-                System.out.println("pressed " + e);
-                // if (e.character == SWT.CR) {
-                // final int selectedIndex = PopupChooser.this.list.getSelectionIndex();
-                //
-                // if (selectedIndex > -1) {
-                // if (PopupChooser.this.proposeNullValue) {
-                // if (selectedIndex == 0) {
-                // PopupChooser.this.selected = null;
-                // } else {
-                // PopupChooser.this.selected = PopupChooser.this.elements.get(selectedIndex - 1);
-                // }
-                // } else {
-                // PopupChooser.this.selected = PopupChooser.this.elements.get(selectedIndex);
-                // }
-                // PopupChooser.this.loop = false;
-                // }
-                // } else
                 if (e.character == SWT.ESC) {
                     PopupChooser.this.loop = false;
-                }
-                if (e.character == SWT.DEL) {
-                    if (PopupChooser.this.proposeNullValue) {
-                        PopupChooser.this.loop = false;
-                    }
                 }
             }
         
             @Override
             public void keyReleased(KeyEvent e) {
                 // Nothing to do
+            }
+        });
+        
+        // In case this dialog is disposed before exit of the local event loop
+        getShell().addDisposeListener(new DisposeListener() {
+            @Override
+            public void widgetDisposed(DisposeEvent e) {
+                PopupChooser.this.loop = false;
             }
         });
         
@@ -256,8 +239,9 @@ class PopupChooser extends PopupDialog {
                 if (!display.readAndDispatch()) {
                     display.sleep();
                 }
-            } catch (final Exception e) {
+            } catch (final RuntimeException e) {
                 CoreUi.LOG.error(e);
+                this.loop = false; // Emergency exit
             }
         }
         close();
@@ -270,18 +254,13 @@ class PopupChooser extends PopupDialog {
         this.getShell().setBounds(this.listRectangle);
     }
 
-    @objid ("fb4b85be-82c2-43c5-89a1-1a371f813b15")
-    @Override
-    protected void configureShell(final Shell shell) {
-        super.configureShell(shell);
-    }
-
     @objid ("894d4fb4-51e1-4718-b8fd-b2589f0e50fe")
     @Override
     protected Control createDialogArea(final Composite area) {
         final Composite composite = (Composite) super.createDialogArea(area);
         composite.setLayout(new FillLayout(SWT.VERTICAL));
-        // this.list = new org.eclipse.swt.widgets.List(composite, SWT.BORDER | SWT.SINGLE | SWT.V_SCROLL);
+        // this.list = new org.eclipse.swt.widgets.List(composite, SWT.BORDER |
+        // SWT.SINGLE | SWT.V_SCROLL);
         
         // this.resultsPanel = new ResultsPanel(composite, null);
         
@@ -292,7 +271,36 @@ class PopupChooser extends PopupDialog {
         this.tableViewer.setContentProvider(ArrayContentProvider.getInstance());
         
         // set the label provider
-        this.tableViewer.setLabelProvider(new BasicModelElementLabelProvider());
+        this.tableViewer.setLabelProvider(new BasicModelElementLabelProvider() {
+            @Override
+            public String getText(Object obj) {
+                if (obj instanceof MObject) {
+                    String s = super.getText(obj);
+                    MObject owner = ((MObject) obj).getCompositionOwner();
+                    if (owner != null)
+                        s = s + " " + CoreUi.I18N.getMessage("ResultsProposalPopup.From", owner.getName());
+                    return s;
+                } else if (obj instanceof String) {
+                    return (String) obj;
+                } else {
+                    return obj.toString();
+                }
+            }
+        
+            @Override
+            public Image getImage(Object obj) {
+                if (obj instanceof MObject)
+                    return super.getImage(obj);
+                return null;
+            }
+        
+            @Override
+            public StyledString getStyledText(Object obj) {
+                if (obj instanceof MObject)
+                    return super.getStyledText(obj);
+                return null;
+            }
+        });
         
         // load the data
         this.tableViewer.setInput(Collections.EMPTY_LIST);
@@ -319,68 +327,8 @@ class PopupChooser extends PopupDialog {
      * @param element @return
      */
     @objid ("e0d440de-72f1-4e47-a2dd-b1c855d4950d")
-    String getElementInfo(Element element) {
+    String getElementInfo(MObject element) {
         return ElementHtmlTooltip.getHtml(element);
-    }
-
-/*
-     * Show details about selectedElement after a short delay in an auxiliary InfoPopup.
-     */
-    @objid ("fea0beb7-d3e5-4b34-aeaa-25f2aa4f7137")
-    void showInfoPopup() {
-        // If there is already a currently pending InfoPopup,just return
-        if (this.infoPopupIsPending) {
-            return;
-        }
-        
-        if (PopupChooser.this.infoPopup != null) {
-            PopupChooser.this.infoPopup.setContents(getElementInfo(PopupChooser.this.selected));
-            return;
-        }
-        
-        // Create a thread that will first sleep for the specified delay
-        // before creating the popup. We do not use Jobs since this
-        // code must be able to run independently of the Eclipse
-        // runtime.
-        final Runnable runnable = new Runnable() {
-            @Override
-            public void run() {
-                PopupChooser.this.infoPopupIsPending = true;
-                try {
-                    Thread.sleep(INFO_POPUP_DELAY);
-                } catch (final InterruptedException e) {
-                }
-                if (!PopupChooser.this.isActive()) {
-                    return;
-                }
-                getShell().getDisplay().syncExec(new Runnable() {
-                    @Override
-                    public void run() {
-                        // If there is no info popup , create one
-                        if (PopupChooser.this.selected != null) {
-                            if (PopupChooser.this.infoPopup == null) {
-                                PopupChooser.this.infoPopup = new InfoPopup(getShell());
-                                PopupChooser.this.infoPopup.open();
-                                PopupChooser.this.infoPopup.getShell().addDisposeListener(new DisposeListener() {
-                                    @Override
-                                    public void widgetDisposed(DisposeEvent event) {
-                                        PopupChooser.this.infoPopup = null;
-                                    }
-                                });
-                            }
-                            // Set the info popup text
-                            PopupChooser.this.infoPopup.setContents(getElementInfo(PopupChooser.this.selected));
-                        } else if (PopupChooser.this.infoPopup != null) {
-                            // When there is no selection, close the info popup
-                            PopupChooser.this.infoPopup.close();
-                        }
-                        PopupChooser.this.infoPopupIsPending = false;
-                    }
-                });
-            }
-        };
-        final Thread t = new Thread(runnable);
-        t.start();
     }
 
     @objid ("b5443d7a-ca32-4438-a874-529b7ec751dd")
@@ -388,27 +336,87 @@ class PopupChooser extends PopupDialog {
         return (this.tableViewer != null && !this.tableViewer.getTable().isDisposed());
     }
 
-/*
-     * This class is the companion info popup that describes the current selection in the PopupChooser
+    /**
+     * Show details about selectedElement after a short delay in an auxiliary
+     * InfoPopup.
+     */
+    @objid ("fea0beb7-d3e5-4b34-aeaa-25f2aa4f7137")
+    void scheduleInfoPopup() {
+        // If there is already a currently pending InfoPopup,just return
+        if (this.infoPopupIsPending) {
+            return;
+        }
+        
+        if (PopupChooser.this.infoPopup != null) {
+            PopupChooser.this.infoPopup.setContents(getElementInfo(this.selected));
+            return;
+        }
+        
+        // Delays the creation of the info popup.
+        final Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                doShowInfoPopup();
+            }
+        };
+        
+        getShell().getDisplay().timerExec(INFO_POPUP_DELAY, runnable);
+        PopupChooser.this.infoPopupIsPending = true;
+    }
+
+    /**
+     * Show details about selectedElement immediately in an auxiliary
+     * InfoPopup.
+     */
+    @objid ("e949830c-bb38-4aa3-8225-55112457b998")
+    void doShowInfoPopup() {
+        if (!PopupChooser.this.isActive()) {
+            return;
+        }
+        // If there is no info popup , create one
+        if (this.selected != null) {
+            if (this.infoPopup == null) {
+                this.infoPopup = new InfoPopup(getShell());
+                this.infoPopup.open();
+                this.infoPopup.getShell().addDisposeListener(new DisposeListener() {
+                    @SuppressWarnings("synthetic-access")
+                    @Override
+                    public void widgetDisposed(DisposeEvent event) {
+                        PopupChooser.this.infoPopup = null;
+                    }
+                });
+            }
+            // Set the info popup text
+            PopupChooser.this.infoPopup.setContents(getElementInfo(PopupChooser.this.selected));
+        } else if (PopupChooser.this.infoPopup != null) {
+            // When there is no selection, close the info popup
+            PopupChooser.this.infoPopup.close();
+        }
+        PopupChooser.this.infoPopupIsPending = false;
+    }
+
+    /**
+     * This class is the companion info popup that describes the current
+     * selection in the PopupChooser
      */
     @objid ("2b029dce-b4fe-46af-b949-f51d35f14e01")
     private class InfoPopup extends PopupDialog {
         @objid ("6fdf4b3d-9127-48eb-ab4f-d74667779c49")
         private static final String EMPTY = "";
 
-/*
+        /**
          * The description text displayed in the popup.
          */
         @objid ("e05f7400-3311-4c6f-bd91-73548e40e4fd")
         private String contents = EMPTY;
 
-/*
+        /**
          * The text control that displays the description.
          */
         @objid ("4cf80d39-eb25-459a-b982-4320835df638")
         private Browser text;
 
-/*
+        /**
          * Construct an info-popup with the specified parent.
          */
         @objid ("1f06a357-9c2c-4f75-b61b-211cffcd7905")
@@ -419,8 +427,8 @@ class PopupChooser extends PopupDialog {
 
         @objid ("d8dc3933-d23c-4112-bc20-922dfefd5292")
         @Override
-        protected Control createDialogArea(Composite parent) {
-            this.text = new Browser(parent, SWT.NO_FOCUS);
+        protected Control createDialogArea(Composite parentComposite) {
+            this.text = new Browser(parentComposite, SWT.NO_FOCUS);
             
             this.text.setBackground(getBackground());
             
@@ -441,7 +449,7 @@ class PopupChooser extends PopupDialog {
             return this.text;
         }
 
-/*
+        /**
          * Position the info popup adjacent to the proposal popup
          */
         @objid ("09c56136-2edd-4d84-a0b7-141d10102cd8")
@@ -480,37 +488,28 @@ class PopupChooser extends PopupDialog {
             getShell().setBounds(proposedBounds);
         }
 
-/*
-         * (non-Javadoc)
-         * 
-         * @see org.eclipse.jface.dialogs.PopupDialog#getForeground()
-         */
         @objid ("cf265123-70ac-42fc-b25d-7ad805898c72")
         @Override
         protected Color getForeground() {
             return this.text.getDisplay().getSystemColor(SWT.COLOR_INFO_FOREGROUND);
         }
 
-/*
-         * (non-Javadoc)
-         * 
-         * @see org.eclipse.jface.dialogs.PopupDialog#getBackground()
-         */
         @objid ("aaeeae4c-6acf-4db5-a078-8d8dd192db1f")
         @Override
         protected Color getBackground() {
             return this.text.getDisplay().getSystemColor(SWT.COLOR_INFO_BACKGROUND);
         }
 
-/*
+        /**
          * Set the text contents of the popup.
          */
         @objid ("e66f23df-680f-4b45-abde-82b6b5d7024f")
         void setContents(String newContents) {
-            if (newContents == null) {
-                newContents = EMPTY;
-            }
-            this.contents = newContents;
+            if (newContents == null) 
+                this.contents = EMPTY;
+            else
+                this.contents = newContents;
+            
             if (this.text != null && !this.text.isDisposed()) {
                 this.text.setText(this.contents);
             }

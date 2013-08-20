@@ -28,6 +28,7 @@ import java.util.List;
 import java.util.Map.Entry;
 import java.util.Set;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
+import org.modelio.vcore.session.api.model.change.ChangeCause;
 import org.modelio.vcore.session.api.model.change.IElementDeletedEvent;
 import org.modelio.vcore.session.api.model.change.IElementMovedEvent;
 import org.modelio.vcore.session.api.model.change.IModelChangeEvent;
@@ -35,8 +36,8 @@ import org.modelio.vcore.smkernel.mapi.MObject;
 
 @objid ("00d00074-0000-085f-0000-000000000000")
 class ModelChangeEvent implements IModelChangeEvent {
-    @objid ("01f42120-0000-1a59-0000-000000000000")
-     boolean isCommit;
+    @objid ("c7a56091-7730-4098-9c32-60ebe23d34cb")
+     ChangeCause cause;
 
     @objid ("003cb1b2-ca41-1f3c-aafd-001ec947cd2a")
      HashSet<MObject> createdElements = new HashSet<>();
@@ -108,6 +109,12 @@ class ModelChangeEvent implements IModelChangeEvent {
         return this.createdElements.isEmpty() && 
                 this.deletedElements.isEmpty() &&
                 this.movedElements.isEmpty() ;
+    }
+
+    @objid ("fd08e6f2-d258-4e5a-b4f6-a068f92f49cd")
+    @Override
+    public ChangeCause getCause() {
+        return this.cause;
     }
 
     @objid ("001f2dcc-47fe-1f3d-aafd-001ec947cd2a")

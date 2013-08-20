@@ -186,7 +186,9 @@ public class GmRoleCardinalityLabel extends GmElementLabel {
     @objid ("3686beab-55b7-11e2-877f-002564c97630")
     private void read_0(IDiagramReader in) {
         super.read(in);
-        this.role = (AssociationEnd) resolveRef(this.getRepresentedRef());
+        final MObject resolveRef = resolveRef(this.getRepresentedRef());
+        if (resolveRef instanceof AssociationEnd)
+            this.role = (AssociationEnd) resolveRef;
     }
 
     @objid ("36884519-55b7-11e2-877f-002564c97630")

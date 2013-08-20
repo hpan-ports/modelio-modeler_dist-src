@@ -32,7 +32,7 @@ import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Display;
 import org.modelio.script.macro.catalog.Catalog;
-import org.modelio.script.macro.catalog.ScriptMacro;
+import org.modelio.script.macro.catalog.Macro;
 import org.modelio.script.plugin.Script;
 import org.osgi.framework.Bundle;
 
@@ -57,8 +57,8 @@ class CatalogLabelProvider extends LabelProvider {
             return null;
         } else if (element instanceof Catalog) {
             return this.images.get(CATALOGID);
-        } else if (element instanceof ScriptMacro) {
-            ScriptMacro s = (ScriptMacro) element;
+        } else if (element instanceof Macro) {
+            Macro s = (Macro) element;
             return getImageFromPath(s.getIconPath());
         } else {
             return null;
@@ -77,8 +77,8 @@ class CatalogLabelProvider extends LabelProvider {
             } else {
                 return cat.getName() + " " + Script.I18N.getString("CatalogDialog.CatalogReadOnly");
             }
-        } else if (element instanceof ScriptMacro) {
-            return ((ScriptMacro) element).getName();
+        } else if (element instanceof Macro) {
+            return ((Macro) element).getName();
         } else {
             return element.toString();
         }
@@ -87,7 +87,6 @@ class CatalogLabelProvider extends LabelProvider {
     @objid ("0069772e-c497-106a-bf4f-001ec947cd2a")
     CatalogLabelProvider() {
         this.images = new ImageRegistry(Display.getDefault());
-        
         final Bundle bundle = Platform.getBundle(org.modelio.script.plugin.Script.PLUGIN_ID);
         final URL catalogImageUrl = FileLocator.find(bundle, new org.eclipse.core.runtime.Path("icons/scriptcatalog.png"), null);
         this.images.put(CATALOGID, ImageDescriptor.createFromURL(catalogImageUrl));

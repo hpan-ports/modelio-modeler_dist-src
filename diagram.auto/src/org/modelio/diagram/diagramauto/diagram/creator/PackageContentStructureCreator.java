@@ -31,11 +31,8 @@ import org.modelio.api.diagram.IDiagramNode;
 import org.modelio.api.diagram.InvalidDestinationPointException;
 import org.modelio.api.diagram.InvalidPointsPathException;
 import org.modelio.api.diagram.InvalidSourcePointException;
-import org.modelio.app.project.core.services.IProjectService;
 import org.modelio.diagram.diagramauto.diagram.StyleConstants;
 import org.modelio.diagram.diagramauto.diagram.layout.DiagonalLayout;
-import org.modelio.diagram.editor.plugin.DiagramEditorsManager;
-import org.modelio.diagram.editor.plugin.IDiagramConfigurerRegistry;
 import org.modelio.gproject.model.IMModelServices;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
 import org.modelio.metamodel.uml.infrastructure.ModelTree;
@@ -53,8 +50,8 @@ public class PackageContentStructureCreator extends AbstractDiagramCreator {
     public List<IDiagramNode> _contentDgs;
 
     @objid ("f0acf05c-f837-4cca-b24f-2945ec08b40f")
-    public PackageContentStructureCreator(IProjectService projectService, IDiagramConfigurerRegistry configurerRegistry, DiagramEditorsManager editorManager, IMModelServices modelServices) {
-        super(projectService,configurerRegistry,editorManager,modelServices);
+    public PackageContentStructureCreator(IMModelServices modelServices) {
+        super(modelServices);
         
         this._contentDgs = new ArrayList<>();
     }

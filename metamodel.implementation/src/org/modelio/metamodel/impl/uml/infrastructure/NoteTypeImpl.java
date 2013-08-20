@@ -31,7 +31,6 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.emf.common.util.EList;
 import org.modelio.metamodel.data.uml.infrastructure.NoteTypeData;
 import org.modelio.metamodel.mda.ModuleComponent;
-import org.modelio.metamodel.uml.infrastructure.LocalNote;
 import org.modelio.metamodel.uml.infrastructure.MetaclassReference;
 import org.modelio.metamodel.uml.infrastructure.Note;
 import org.modelio.metamodel.uml.infrastructure.NoteType;
@@ -97,25 +96,6 @@ public class NoteTypeImpl extends ModelElementImpl implements NoteType {
         final List<T> results = new ArrayList<>();
         final MClass mClass = SmClass.getClass(filterClass);
         for (final Note element : getElement()) {
-          if (element.getMClass().hasBase(mClass)) {
-            results.add(filterClass.cast(element));
-          }
-        }
-        return Collections.unmodifiableList(results);
-    }
-
-    @objid ("251e4129-685c-4ec4-b991-2bf680778bd4")
-    @Override
-    public EList<LocalNote> getLocalElement() {
-        return new SmList<>(this, NoteTypeData.Metadata.LocalElementDep());
-    }
-
-    @objid ("01d4eb90-fa60-4126-b1e7-6083bc4f826d")
-    @Override
-    public <T extends LocalNote> List<T> getLocalElement(java.lang.Class<T> filterClass) {
-        final List<T> results = new ArrayList<>();
-        final MClass mClass = SmClass.getClass(filterClass);
-        for (final LocalNote element : getLocalElement()) {
           if (element.getMClass().hasBase(mClass)) {
             results.add(filterClass.cast(element));
           }

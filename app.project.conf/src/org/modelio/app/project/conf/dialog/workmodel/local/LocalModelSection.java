@@ -62,7 +62,8 @@ import org.modelio.gproject.fragment.IProjectFragment;
 /**
  * Manage the local model section.
  * <p>
- * Call {@link LocalModelSection#createControls(FormToolkit, Composite)} and {@link LocalModelSection#setInput(ProjectModel)} to use it.
+ * Call {@link LocalModelSection#createControls(FormToolkit, Composite)} and
+ * {@link LocalModelSection#setInput(ProjectModel)} to use it.
  * </p>
  */
 @objid ("7d61a03a-3adc-11e2-916e-002564c97630")
@@ -118,8 +119,9 @@ public class LocalModelSection {
 
     @objid ("7d61a049-3adc-11e2-916e-002564c97630")
     public Section createControls(final FormToolkit toolkit, final Composite parent) {
-        Section section = toolkit.createSection(parent, ExpandableComposite.TITLE_BAR | ExpandableComposite.TWISTIE | Section.DESCRIPTION);
-        section.setText(AppProjectConf.I18N.getString("LocalModelSection.SectionText"));  //$NON-NLS-1$
+        Section section = toolkit.createSection(parent, ExpandableComposite.TITLE_BAR | ExpandableComposite.TWISTIE
+                | Section.DESCRIPTION);
+        section.setText(AppProjectConf.I18N.getString("LocalModelSection.SectionText")); //$NON-NLS-1$
         section.setDescription(AppProjectConf.I18N.getString("LocalModelSection.SectionDescription")); //$NON-NLS-1$
         section.setExpanded(true);
         
@@ -263,15 +265,15 @@ public class LocalModelSection {
             
             final FragmentDescriptor fragmentDescriptor = dlg.getFragmentDescriptor();
             if (fragmentDescriptor != null) {
-                
+            
                 IRunnableWithProgress runnable = new IRunnableWithProgress() {
-                    
+            
                     @Override
                     public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
                         projectService.addFragment(getProjectAdapter().getOpenedProject(), fragmentDescriptor, monitor);
                     }
                 };
-                
+            
                 try {
                     new ProgressMonitorDialog(shell).run(true, false, runnable);
                     refresh();
@@ -281,7 +283,7 @@ public class LocalModelSection {
                 } catch (InterruptedException ex) {
                     // nothing
                 }
-                
+            
             }
         }
 
@@ -305,11 +307,16 @@ public class LocalModelSection {
                 return;
             }
             
-            IStructuredSelection selection = (IStructuredSelection) getViewer().getSelection();
-            for (Object obj : selection.toList()) {
-                projectService.removeFragment(getProjectAdapter().getOpenedProject(), (IProjectFragment) obj);
-            }
+            boolean confirm = MessageDialog.openQuestion(null, AppProjectConf.I18N.getString("LocalModelRemoval.Confirm.Title"),
+                    AppProjectConf.I18N.getString("LocalModelRemoval.Confirm.Message"));
             
+            if (confirm) {
+            
+                IStructuredSelection selection = (IStructuredSelection) getViewer().getSelection();
+                for (Object obj : selection.toList()) {
+                    projectService.removeFragment(getProjectAdapter().getOpenedProject(), (IProjectFragment) obj);
+                }
+            }
             refresh();
         }
 

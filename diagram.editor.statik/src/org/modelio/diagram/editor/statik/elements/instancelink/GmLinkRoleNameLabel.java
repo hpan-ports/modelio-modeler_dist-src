@@ -29,6 +29,7 @@ import org.modelio.diagram.persistence.IDiagramWriter;
 import org.modelio.diagram.styles.core.MetaKey;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
 import org.modelio.metamodel.uml.statik.LinkEnd;
+import org.modelio.vcore.smkernel.mapi.MObject;
 import org.modelio.vcore.smkernel.mapi.MRef;
 
 /**
@@ -122,7 +123,10 @@ public class GmLinkRoleNameLabel extends GmDefaultModelElementHeader {
     @objid ("35603fef-55b7-11e2-877f-002564c97630")
     private void read_0(IDiagramReader in) {
         super.read(in);
-        this.role = (LinkEnd) resolveRef(this.getRepresentedRef());
+        final MObject resolveRef = resolveRef(this.getRepresentedRef());
+        if (resolveRef instanceof LinkEnd) {
+            this.role = (LinkEnd) resolveRef;
+        }
     }
 
     @objid ("35603ff4-55b7-11e2-877f-002564c97630")

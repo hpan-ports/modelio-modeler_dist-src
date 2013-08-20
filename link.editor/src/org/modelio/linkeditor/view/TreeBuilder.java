@@ -173,7 +173,7 @@ class TreeBuilder {
                 // Apply filter
                 passedFilter = false;
                 for (Stereotype allowedStereotype : options.getDependencyFilter()) {
-                    if (dependency.isStereotyped(null, allowedStereotype.getName())) {
+                    if (dependency.isStereotyped(allowedStereotype.getModule().getName(), allowedStereotype.getName())) {
                         passedFilter = true;
                         break;
                     }
@@ -205,7 +205,7 @@ class TreeBuilder {
                 // Apply filter
                 passedFilter = false;
                 for (Stereotype allowedStereotype : options.getDependencyFilter()) {
-                    if (dependency.isStereotyped(null, allowedStereotype.getName())) {
+                    if (dependency.isStereotyped(allowedStereotype.getModule().getName(), allowedStereotype.getName())) {
                         passedFilter = true;
                         break;
                     }

@@ -46,7 +46,6 @@ import org.modelio.vcore.session.api.repository.IRepository;
 import org.modelio.vcore.session.api.repository.StorageErrorSupport;
 import org.modelio.vcore.session.impl.storage.IModelLoader;
 import org.modelio.vcore.session.impl.storage.IModelLoaderProvider;
-import org.modelio.vcore.session.impl.storage.IModelLoadingSession;
 import org.modelio.vcore.session.impl.storage.StorageException;
 import org.modelio.vcore.smkernel.IRepositoryObject;
 import org.modelio.vcore.smkernel.ISmObjectData;
@@ -135,8 +134,7 @@ public class SerializedRepository implements IRepository {
     public Collection<MObject> findByAtt(SmClass cls, String att, Object val) {
         Collection<MObject> results = new ArrayList<>();
         
-        try (final IModelLoadingSession loadSession = this.modelLoaderProvider.beginLoadSession()) {
-            IModelLoader loader = loadSession.getLoader();
+        try (final IModelLoader loader = this.modelLoaderProvider.beginLoadSession()) {
         
             // The search is first done for the metaclass itself
             findByAtt0(loader, cls, att, val, results);
@@ -154,8 +152,7 @@ public class SerializedRepository implements IRepository {
     public Collection<MObject> findByClass(SmClass cls) {
         Collection<MObject> results = new ArrayList<>();
         
-        try (final IModelLoadingSession loadSession = this.modelLoaderProvider.beginLoadSession()) {
-            IModelLoader loader = loadSession.getLoader();
+        try (final IModelLoader loader = this.modelLoaderProvider.beginLoadSession()) {
             findByClass(loader, cls, results);
         } catch (IOException e) {
             getErrorSupport().fireError(e);
@@ -171,8 +168,7 @@ public class SerializedRepository implements IRepository {
             return null;
         }
         
-        try (final IModelLoadingSession loadSession = this.modelLoaderProvider.beginLoadSession()) {
-            IModelLoader loader = loadSession.getLoader();
+        try (final IModelLoader loader = this.modelLoaderProvider.beginLoadSession()) {
             return getImpl(loader, cls, f);
         } catch (DuplicateObjectException e) {
             getErrorSupport().fireError(e);
@@ -238,8 +234,7 @@ public class SerializedRepository implements IRepository {
     public void loadDynamicDep(final SmObjectImpl obj, final SmDependency dep) {
         Set<SmObjectImpl> s = new HashSet<>();
         
-        try (final IModelLoadingSession loadSession = this.modelLoaderProvider.beginLoadSession()) {
-            IModelLoader loader = loadSession.getLoader();
+        try (final IModelLoader loader = this.modelLoaderProvider.beginLoadSession()) {
             findByClass(loader, dep.getType(), s);
         } catch (IOException e) {
             getErrorSupport().fireError(e);
@@ -258,7 +253,7 @@ public class SerializedRepository implements IRepository {
             return null;
         }
         
-        try (final IModelLoadingSession loadSession = this.modelLoaderProvider.beginLoadSession()) {
+        try (final IModelLoader loader = this.modelLoaderProvider.beginLoadSession()) {
             return load(f);
         } catch (IOException e) {
             getErrorSupport().fireError(e);
@@ -317,9 +312,7 @@ public class SerializedRepository implements IRepository {
             return;
         }
         
-        try (final IModelLoadingSession loadSession = this.modelLoaderProvider.beginLoadSession()) {
-            IModelLoader loader = loadSession.getLoader();
-        
+        try (final IModelLoader loader = this.modelLoaderProvider.beginLoadSession()) {
             getImpl(loader, obj.getClassOf(), f);
         }
     }

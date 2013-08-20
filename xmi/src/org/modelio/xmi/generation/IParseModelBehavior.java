@@ -22,7 +22,6 @@
 package org.modelio.xmi.generation;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.eclipse.uml2.uml.Property;
 import org.modelio.metamodel.analyst.AnalystPropertyTable;
 import org.modelio.metamodel.analyst.Dictionary;
 import org.modelio.metamodel.analyst.Requirement;
@@ -108,8 +107,6 @@ import org.modelio.metamodel.uml.informationFlow.InformationItem;
 import org.modelio.metamodel.uml.infrastructure.Abstraction;
 import org.modelio.metamodel.uml.infrastructure.Constraint;
 import org.modelio.metamodel.uml.infrastructure.Dependency;
-import org.modelio.metamodel.uml.infrastructure.LocalNote;
-import org.modelio.metamodel.uml.infrastructure.LocalTaggedValue;
 import org.modelio.metamodel.uml.infrastructure.Note;
 import org.modelio.metamodel.uml.infrastructure.NoteType;
 import org.modelio.metamodel.uml.infrastructure.Stereotype;
@@ -423,12 +420,6 @@ public interface IParseModelBehavior {
 
     @objid ("dccac338-c545-4c6f-8f2e-5bb0b8a42c53")
     void visitLinkEnd(LinkEnd param);
-
-    @objid ("32fa5516-e6b6-4816-a05b-0de65e0fc0fb")
-    void visitLocalNote(LocalNote param);
-
-    @objid ("8af2ff73-5796-41af-8f04-c4c09e692a07")
-    void visitLocalTaggedValue(LocalTaggedValue param);
 
     @objid ("5b7f285a-a4cf-4ad0-9916-3faa30e50041")
     void visitLoopNode(LoopNode param);

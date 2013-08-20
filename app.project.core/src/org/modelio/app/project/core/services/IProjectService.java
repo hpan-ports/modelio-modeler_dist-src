@@ -62,14 +62,16 @@ public interface IProjectService extends IModelioService {
     void changeWorkspace(final Path path) throws IllegalArgumentException, IllegalStateException;
 
     /**
-     * Opens a project in the application. On successful return the given project receives an active CoreSession instance.
-     * @param authData
-     * @throws GProjectAuthenticationError
+     * Opens a project in the application.
+     * <p>
+     * On successful return the given project receives an active CoreSession instance.
      * @param project The project to open. The project must not be already opened.
+     * @param authData project authentication data.
      * @param monitor a progress monitor.
      * @throws java.io.IOException If the project opening failed at the IO level.
      * @throws java.lang.IllegalArgumentException If <code>project</code> is null.
      * @throws java.lang.IllegalStateException If a project is currently opened.
+     * @throws org.modelio.gproject.gproject.GProjectAuthenticationException if the authentication fails
      */
     @objid ("0082f550-acc2-103b-a520-001ec947cd2a")
     void openProject(final ProjectDescriptor project, IAuthData authData, IProgressMonitor monitor) throws GProjectAuthenticationException, IllegalArgumentException, IOException, IllegalStateException;
@@ -87,10 +89,11 @@ public interface IProjectService extends IModelioService {
      * Saves the contents of the project currently opened in the application.
      * @throws IllegalStateException
      * If no project is currently opened.
+     * @param monitor a progress monitor. If <code>null</code>, no progress will be reported.
      * @throws java.io.IOException If the project saving failed at the IO level.
      */
     @objid ("00831bd4-acc2-103b-a520-001ec947cd2a")
-    void saveProject() throws IOException;
+    void saveProject(IProgressMonitor monitor) throws IOException;
 
     /**
      * Gets the currently opened project.
@@ -143,15 +146,15 @@ public interface IProjectService extends IModelioService {
     /**
      * Creates a new project in the current workspace. The nature and the properties of the project to create are passed in the
      * <code>dataModel</code> argument.
-     * @param dataModel the nature, characteristics and properties of the project to create.
      * @param delegateProjectCreator the delegated project creator, can be null. If null a standard default project creator will be used
+     * @param data the nature, characteristics and properties of the project to create.
      */
     @objid ("00886224-8c65-103c-a520-001ec947cd2a")
     void createProject(IProjectCreator delegateProjectCreator, IProjectCreationData data);
 
     /**
      * Adds a model fragment to the currently opened project.
-     * @param project
+     * @param project the project to modify
      * @param fragmentDescriptor the descriptor of the fragment to add.
      * @param monitor a progress monitor.
      */
@@ -165,22 +168,29 @@ public interface IProjectService extends IModelioService {
     ICoreSession getSession();
 
     /**
-     * Remove a model fragment from the currently opened project
-     * @param project
-     * @param fragmentDescriptor
+     * Remove a model fragment from the currently opened project.
+     * <p>
+     * All fragment datas will be deleted from disk.
+     * @param project the project to modify
+     * @param fragment the fragment to remove
      */
     @objid ("002f56d4-a4c3-1044-a30e-001ec947cd2a")
-    void removeFragment(GProject project, IProjectFragment fragmentDescriptor);
+    void removeFragment(GProject project, IProjectFragment fragment);
 
     /**
      * Opens the project name 'projectName' in the current workspace.
-     * @param projectName
-     * @param monitor
-     * @throws GProjectAuthenticationError
+     * @param projectName the project name.
+     * @param authData authentication data, may be <code>null</code> if not needed.
+     * @param monitor a progress monitor.
+     * @throws org.modelio.gproject.gproject.GProjectAuthenticationException in case of authentication failure
      */
     @objid ("004e41e8-8d1e-10b4-9941-001ec947cd2a")
     void openProject(String projectName, IAuthData authData, IProgressMonitor monitor) throws GProjectAuthenticationException;
 
+    /**
+     * @param nodeId a preference node identifier.
+     * @return the preference store for the node.
+     */
     @objid ("60dd0f06-fe9e-4698-9611-18477c247b19")
     IPreferenceStore getProjectPreferences(String nodeId);
 
@@ -190,5 +200,16 @@ public interface IProjectService extends IModelioService {
      */
     @objid ("38cdfb9d-8aaf-4b8a-b00c-55319d7ec41c")
     boolean isDirty();
+
+    /**
+     * Creates a new project in the current workspace. The nature and the properties of the project to create are passed in the
+     * <code>dataModel</code> argument.
+     * @param projectCreator the delegated project creator, can be null. If null a standard default project creator will be used
+     * @param data the nature, characteristics and properties of the project to create.
+     * @param monitor a progress monitor
+     * @throws java.io.IOException in case of failure
+     */
+    @objid ("8e2f8b3f-a57d-4898-b25d-1ad77925152d")
+    void createProject(IProjectCreator projectCreator, IProjectCreationData data, IProgressMonitor monitor) throws IOException;
 
 }

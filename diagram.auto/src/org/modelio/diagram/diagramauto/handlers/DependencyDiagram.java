@@ -33,8 +33,6 @@ import org.modelio.app.core.events.ModelioEvent;
 import org.modelio.app.project.core.services.IProjectService;
 import org.modelio.diagram.diagramauto.diagram.creator.ClassStructureCreator;
 import org.modelio.diagram.diagramauto.diagram.creator.DependencyCreator;
-import org.modelio.diagram.editor.plugin.DiagramEditorsManager;
-import org.modelio.diagram.editor.plugin.IDiagramConfigurerRegistry;
 import org.modelio.gproject.model.IMModelServices;
 import org.modelio.metamodel.diagrams.AbstractDiagram;
 import org.modelio.metamodel.uml.statik.NameSpace;
@@ -45,12 +43,12 @@ import org.modelio.vcore.smkernel.mapi.MObject;
 public class DependencyDiagram extends AbstractHandler {
     @objid ("e91aecf9-cb16-4ec7-a57b-373140f77a6b")
     @Execute
-    public void execute(@Named(IServiceConstants.ACTIVE_SELECTION) final Object selection, IProjectService projectService, IDiagramConfigurerRegistry configurerRegistry, DiagramEditorsManager editorManager, IMModelServices modelServices, IModelioEventService eventService) {
+    public void execute(@Named(IServiceConstants.ACTIVE_SELECTION) final Object selection, IProjectService projectService, IMModelServices modelServices, IModelioEventService eventService) {
         List<MObject> selectedElements = getSelection(selection);
         
         try (ITransaction transaction = projectService.getSession().getTransactionSupport().createTransaction("DependencyDiagram");) {
         
-            DependencyCreator dc = new DependencyCreator(projectService, configurerRegistry, editorManager, modelServices);
+            DependencyCreator dc = new DependencyCreator(modelServices);
             for (MObject selectedElement : selectedElements) {
                 if (selectedElement instanceof NameSpace) {
                     AbstractDiagram createDiagram = dc.createDiagram((NameSpace) selectedElement);
@@ -68,8 +66,8 @@ public class DependencyDiagram extends AbstractHandler {
 
     @objid ("de53339c-272f-4722-b84f-1beab40939af")
     @CanExecute
-    public boolean isEnabled(@Named(IServiceConstants.ACTIVE_SELECTION) final Object selection, IProjectService projectService, IDiagramConfigurerRegistry configurerRegistry, DiagramEditorsManager editorManager, IMModelServices modelServices) {
-        ClassStructureCreator pc = new ClassStructureCreator(projectService, configurerRegistry, editorManager, modelServices);
+    public boolean isEnabled(@Named(IServiceConstants.ACTIVE_SELECTION) final Object selection, IMModelServices modelServices) {
+        ClassStructureCreator pc = new ClassStructureCreator(modelServices);
         
         List<MObject> selectedElements = getSelection(selection);
         

@@ -28,6 +28,7 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.metamodel.uml.statik.NameSpace;
 import org.modelio.metamodel.uml.statik.NamespaceUse;
+import org.modelio.vaudit.plugin.Vaudit;
 import org.modelio.vcore.smkernel.mapi.MObject;
 
 @objid ("9f91583c-9917-4541-b8a8-5b44e3e4443e")
@@ -40,14 +41,21 @@ class NSUseUtils {
      */
     @objid ("cbba2287-997f-4ce7-bd4d-ae3050d95506")
     public static void dereferenceNSUsesCausedBy(Element cause) {
+        if (Vaudit.LOG.isDebugEnabled())
+            Vaudit.LOG.debug("\t\t\tdereference %s", cause.toString());
+        
         List<NamespaceUse> uses = cause.getCausing();
-        for (NamespaceUse ns : new ArrayList<>(uses)) {
-            if (ns.isValid()) {
-                ns.getCause().remove(cause);
-                if (ns.getCause().isEmpty()) {
-                    dereferenceNSUsesCausedBy(ns);
-                    // delete non referenced use
-                    ns.delete();
+        if (uses.size() > 0) {
+            for (NamespaceUse ns : new ArrayList<>(uses)) {
+                if (ns.isValid()) {
+                    ns.getCause().remove(cause);
+                    if (ns.getCause().isEmpty()) {
+                        dereferenceNSUsesCausedBy(ns);
+                        // delete non referenced use
+                        if (Vaudit.LOG.isDebugEnabled())
+                            Vaudit.LOG.debug("\t\t\tdeleting ns: %s", ns.toString());
+                        ns.delete();
+                    }
                 }
             }
         }
@@ -58,7 +66,8 @@ class NSUseUtils {
         if (element == null)
             return null;
         
-        if (element instanceof NameSpace) return (NameSpace)element;
+        if (element instanceof NameSpace)
+            return (NameSpace) element;
         
         MObject owner;
         for (owner = element.getCompositionOwner(); owner != null && !owner.equals(element) && owner.isValid()
@@ -66,7 +75,7 @@ class NSUseUtils {
             // empty
         }
         
-        if (owner==null || owner.equals(element) || !owner.isValid() || !(owner instanceof NameSpace))
+        if (owner == null || owner.equals(element) || !owner.isValid() || !(owner instanceof NameSpace))
             return null;
         else
             return (NameSpace) owner;
@@ -76,12 +85,15 @@ class NSUseUtils {
      * Compute the composition path to the 2 given namespace, starting to the
      * common composition owner.
      * <p>
-     * There may be no common composition root if the elements belong to different repositories/fragments.
-     * In this case the full composition tree is returned.
+     * There may be no common composition root if the elements belong to
+     * different repositories/fragments. In this case the full composition tree
+     * is returned.
      * @param firstElement a namespace
      * @param otherElement another namespace
-     * @param firstPath the composition path from the common root to the first namespace.
-     * @param otherPath the composition path from the common root to the second namespace.
+     * @param firstPath the composition path from the common root to the first
+     * namespace.
+     * @param otherPath the composition path from the common root to the second
+     * namespace.
      * @return the common composition root or <code>null</code>.
      */
     @objid ("a6ffffcd-15ec-49d0-85f8-50196dac8803")

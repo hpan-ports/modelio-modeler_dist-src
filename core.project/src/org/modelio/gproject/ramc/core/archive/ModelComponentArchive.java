@@ -26,11 +26,14 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.nio.file.FileSystem;
+import java.nio.file.FileSystemAlreadyExistsException;
 import java.nio.file.FileSystemException;
+import java.nio.file.FileSystemNotFoundException;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.ProviderNotFoundException;
 import java.nio.file.attribute.FileTime;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -48,7 +51,6 @@ import org.modelio.gproject.descriptor.FragmentType;
 import org.modelio.gproject.descriptor.GProperties;
 import org.modelio.gproject.plugin.CoreProject;
 import org.modelio.gproject.ramc.core.archive.IModelComponentInfos.ExportedFile;
-import org.modelio.gproject.ramc.core.archive.IModelComponentInfos.VersionedItem;
 import org.modelio.vbasic.files.FileUtils;
 import org.modelio.vbasic.files.Unzipper;
 import org.modelio.vbasic.progress.IModelioProgress;
@@ -82,12 +84,18 @@ public class ModelComponentArchive {
     private Path dir;
 
     /**
-     * Initialize the RAMC archive.
-     * @param archive the RAMC archive file path.
+     * Initialize the RAMC from a path that may represent a .ramc archive or an extracted
+     * RAMC directory.
+     * @param path a file system path
+     * @param isArchive <code>true</code> if the path is a .ramc file, <code>false</code> if the
+     * path is a directory.
      */
-    @objid ("dec0acdd-2dc1-4762-8ee7-0c6c697c002e")
-    public ModelComponentArchive(Path archive) {
-        this(archive, true);
+    @objid ("6ac583a6-47e2-4b4c-a723-1c5c871a22f7")
+    public ModelComponentArchive(Path path, boolean isArchive) {
+        if (isArchive)
+            this.archive = path;
+        else
+            this.dir = path;
     }
 
     /**
@@ -155,50 +163,6 @@ public class ModelComponentArchive {
     }
 
     /**
-     * Test method.
-     * @param args command line arguments.
-     */
-    @objid ("7e6b7f0f-2900-4cff-b111-fa746b937ee1")
-    public static void main(List<String> args) {
-        ModelComponentArchive mc = new ModelComponentArchive(
-                Paths.get("/home/phv/modelio/workspace/Project1/new_ramc_A_0.0.2.ramc"));
-        
-        try {
-            IModelComponentInfos infos = mc.getInfos();
-        
-            System.out.printf("Name: %s\n", infos.getName());
-            System.out.printf("Version: %s\n", infos.getVersion());
-            System.out.printf("Description: %s\n", infos.getDescription());
-        
-            System.out.printf("Contributors:\n");
-            for (VersionedItem m : infos.getContributingModules()) {
-                System.out.printf("  - %s %s\n", m.name, m.version);
-            }
-        
-            System.out.printf("Required Model Components:\n");
-            for (VersionedItem m : infos.getRequiredModelComponents()) {
-                System.out.printf("  - %s %s\n", m.name, m.version);
-            }
-        
-            System.out.printf("Exported files:\n");
-            for (ExportedFile f : infos.getExportedFiles()) {
-                System.out.printf("  - %s %s\n", f.path, f.date.toString());
-            }
-        
-            System.out.printf("Testing the deployment of the exported files\n");
-            Path tmp = Paths.get("/home/phv/test-deployment");
-            Files.createDirectories(tmp);
-            mc.installExportedFiles(tmp, null);
-        
-            System.out.printf("Testing the removal of the exported files\n");
-            mc.removeExportedFiles(tmp, null);
-        
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    /**
      * Get the RAMC informations from a file system mounted on the RAMC archive
      * @param fs a file system mounted on the RAMC archive.
      * @return the RAMc informations.
@@ -208,21 +172,6 @@ public class ModelComponentArchive {
     public static IModelComponentInfos getInfos(FileSystem fs) throws IOException {
         Path metaPath = fs.getPath(METADATAS_XML);
         return ManifestReader.readMetadataFile(metaPath);
-    }
-
-    /**
-     * Initialize the RAMC from a path that may represent a .ramc archive or an extracted
-     * RAMC directory.
-     * @param path a file system path
-     * @param isArchive <code>true</code> if the path is a .ramc file, <code>false</code> if the
-     * path is a directory.
-     */
-    @objid ("6ac583a6-47e2-4b4c-a723-1c5c871a22f7")
-    public ModelComponentArchive(Path path, boolean isArchive) {
-        if (isArchive)
-            this.archive = path;
-        else
-            this.dir = path;
     }
 
     /**
@@ -403,7 +352,20 @@ public class ModelComponentArchive {
 
         @objid ("7414e0e7-cc3e-11e1-87f1-001ec947ccaf")
         private static FileSystem createZipFileSystem(Path path) throws IOException {
-            return FileSystems.newFileSystem(path, ModelComponentArchive.class.getClassLoader());
+            try {
+                return FileSystems.newFileSystem(path, ModelComponentArchive.class.getClassLoader());
+            } catch (FileSystemNotFoundException |
+                    ProviderNotFoundException |
+                    FileSystemAlreadyExistsException e
+                    ) {
+                final FileSystemException e2 = new FileSystemException(path.toString(), null, e.getLocalizedMessage());
+                e2.initCause(e);
+                throw e2;
+            } catch (RuntimeException e) {
+                final FileSystemException e2 = new FileSystemException(path.toString(), null, e.getLocalizedMessage());
+                e2.initCause(e);
+                throw e2;
+            }
         }
 
         @objid ("7414e0f3-cc3e-11e1-87f1-001ec947ccaf")

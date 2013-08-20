@@ -106,9 +106,14 @@ public abstract class SmObjectImpl implements ISmMeta, ISmStorable, MObject, Ser
     @objid ("002a399c-702c-1f21-85a5-001ec947cd2a")
     @Override
     public boolean isShell() {
-        // Don't try to ask composition owner if SmStatus.SHELL bit is not defined,
-        // it would end with infinite recursion.
-        return getData().hasAnyStatus(IRStatus.SHELL) == StatusState.TRUE;
+        try {
+            // Don't try to ask composition owner if SmStatus.SHELL bit is not defined,
+            // it would end with infinite recursion.
+            return getData().hasAnyStatus(IRStatus.SHELL) == StatusState.TRUE;
+        } catch (DeadObjectException e) {
+            // Designate a dead object as "shell".
+            return true;
+        }
     }
 
     @objid ("00721adc-5e9d-1ffc-8433-001ec947cd2a")
@@ -125,15 +130,20 @@ public abstract class SmObjectImpl implements ISmMeta, ISmStorable, MObject, Ser
      */
     @objid ("00817e00-9fc0-1f4f-9c13-001ec947cd2a")
     @Override
-    public boolean isValid() {
+    public final boolean isValid() {
         final IKernelServiceProvider ksp = KernelRegistry.getService0(this.liveId);
         if (ksp == null) 
             return false;
         
-        ISmObjectData data = getData();
-        if (data == null) 
+        try {
+            ISmObjectData data = getData();
+            if (data == null) 
+                return false;
+            return data.hasAnyStatus(MASK_INVALID) != StatusState.TRUE;
+        } catch (DeadObjectException e) {
+            // A dead object is not valid
             return false;
-        return data.hasAnyStatus(MASK_INVALID) != StatusState.TRUE;
+        }
     }
 
     /**
@@ -142,13 +152,25 @@ public abstract class SmObjectImpl implements ISmMeta, ISmStorable, MObject, Ser
     @objid ("0083b6b6-9fc0-1f4f-9c13-001ec947cd2a")
     @Override
     public boolean isDeleted() {
-        // Optimization : avoided call to getSmStatusFlags()
-        return SmStatus.isAnySet(getData().getStatus(), IRStatus.MASK_DELETE) == StatusState.TRUE;
+        try {
+            // Optimization : avoided call to getSmStatusFlags()
+            return SmStatus.isAnySet(getData().getStatus(), IRStatus.MASK_DELETE) == StatusState.TRUE;
+        } catch (DeadObjectException e) {
+            // A dead object is deleted
+            return true;
+        }
     }
 
+    /**
+     * Check the object is not shell or dead
+     * @throws org.modelio.vcore.smkernel.ShellObjectException if the object is shell
+     * @throws org.modelio.vcore.smkernel.DeadObjectException if the object is dead
+     */
     @objid ("002a7c5e-702c-1f21-85a5-001ec947cd2a")
-    private void throwShellObject() throws ShellObjectException {
-        throw new ShellObjectException(this);
+    private void checkNotShell() throws ShellObjectException, DeadObjectException {
+        // getData() may throw DeadObjectException
+        if (getData().hasAnyStatus(IRStatus.SHELL) == StatusState.TRUE)
+            throw new ShellObjectException(this);
     }
 
     /**
@@ -294,9 +316,7 @@ public abstract class SmObjectImpl implements ISmMeta, ISmStorable, MObject, Ser
     @objid ("0081d4b8-9fc0-1f4f-9c13-001ec947cd2a")
     @Override
     public Object setDepVal(final SmDependency dep, final int index, final SmObjectImpl value) {
-        if (isShell()) {
-            throwShellObject();
-        }
+        checkNotShell();
         
         // dep.checkValueType(this, value);
         
@@ -440,9 +460,7 @@ public abstract class SmObjectImpl implements ISmMeta, ISmStorable, MObject, Ser
     @objid ("0081a1d2-9fc0-1f4f-9c13-001ec947cd2a")
     @Override
     public void setAttVal(final SmAttribute att, final Object value) {
-        if (isShell()) {
-            throwShellObject();
-        }
+        checkNotShell();
         
         att.assertValueType(this, value);
         
@@ -466,9 +484,10 @@ public abstract class SmObjectImpl implements ISmMeta, ISmStorable, MObject, Ser
     /**
      * Get the model object data.
      * @return the model object data.
+     * @throws org.modelio.vcore.smkernel.DeadObjectException if the object has definitively been unloaded.
      */
     @objid ("007f3f96-9fc0-1f4f-9c13-001ec947cd2a")
-    public final ISmObjectData getData() {
+    public final ISmObjectData getData() throws DeadObjectException {
         ISmObjectData data = null;
         
         if (this.dataRef != null) {
@@ -952,8 +971,12 @@ public abstract class SmObjectImpl implements ISmMeta, ISmStorable, MObject, Ser
         s.append("} ");
         s.append(getMClass().getName());
         
-        s.append(this.isShell()? " *Shell*" : "");
-        s.append(this.isDeleted()? " *Deleted*" : "");
+        if (this.dataRef==null || this.dataRef.get() == null) {
+            s.append(" *DEAD*");
+        } else {
+            if (isShell()) s.append(" *Shell*");
+            if (isDeleted()) s.append( " *Deleted*");
+        }
         return s.toString();
     }
 
@@ -967,8 +990,14 @@ public abstract class SmObjectImpl implements ISmMeta, ISmStorable, MObject, Ser
      */
     @objid ("9e51048c-6179-4134-b2d7-365a99e78ebb")
     public void setRStatus(long trueFlags, long falseFlags, long undefFlags) {
-        //TODO How to throw notifications with this?
-        getData().setRFlags(trueFlags, falseFlags, undefFlags);
+        ISmObjectData ldata = getData();
+        long oldStatus = ldata.getStatus();
+        
+        ldata.setRFlags(trueFlags, falseFlags, undefFlags);
+        
+        long newStatus= ldata.getStatus();
+        
+        ldata.getMetaOf().objStatusChanged(this, oldStatus, newStatus);
     }
 
     /**
@@ -983,6 +1012,12 @@ public abstract class SmObjectImpl implements ISmMeta, ISmStorable, MObject, Ser
     public long getSmStatusFlags() {
         getRepositoryObject().loadAtt(this, SmObjectData.Metadata.statusAtt());
         return getData().getStatus();
+    }
+
+    @objid ("24f92224-adb8-410e-83b6-812488f8cd14")
+    @Override
+    public int compareTo(MObject o) {
+        return getUuid().compareTo(o.getUuid());
     }
 
 }

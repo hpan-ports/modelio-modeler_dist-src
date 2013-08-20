@@ -22,15 +22,12 @@
 package org.modelio.diagram.editor.deployment.editor;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.eclipse.e4.ui.services.EContextService;
 import org.modelio.diagram.editor.DiagramEditorInput;
 import org.modelio.diagram.editor.deployment.elements.deploymentdiagram.GmDeploymentDiagram;
 import org.modelio.diagram.elements.common.abstractdiagram.GmAbstractDiagram;
 import org.modelio.diagram.elements.core.model.ModelManager;
-import org.modelio.gproject.model.IMModelServices;
 import org.modelio.metamodel.diagrams.AbstractDiagram;
 import org.modelio.metamodel.diagrams.StaticDiagram;
-import org.modelio.vcore.session.api.ICoreSession;
 import org.modelio.vcore.smkernel.mapi.MRef;
 
 /**
@@ -49,8 +46,8 @@ public class DeploymentDiagramEditorInput extends DiagramEditorInput {
      * @param diagram the diagram to edit.
      */
     @objid ("970faf62-55b6-11e2-877f-002564c97630")
-    public DeploymentDiagramEditorInput(ICoreSession session, AbstractDiagram diagram, IMModelServices modelServices, EContextService contextService) {
-        super(session, diagram, modelServices, contextService);
+    public DeploymentDiagramEditorInput(ModelManager modelManager, AbstractDiagram diagram) {
+        super(diagram, modelManager);
     }
 
     @objid ("970faf6b-55b6-11e2-877f-002564c97630")

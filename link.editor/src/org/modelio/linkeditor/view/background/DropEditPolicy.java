@@ -192,14 +192,10 @@ public class DropEditPolicy extends XYLayoutEditPolicy {
             // Take stereotype filter into account.
             if (options.isDependencyFiltered() && options.getDependencyFilter() != null) {
                 for (Stereotype stereo : options.getDependencyFilter()) {
-        
-                    if ((isFrom && MTools.getLinkTool().canLink(stereo.getMClass(), droppedElements[0].getMClass(), centerElement.getMClass(),
-                            null))
-                            || (!isFrom && MTools.getLinkTool().canLink(stereo.getMClass(), centerElement.getMClass(),
-                                    droppedElements[0].getMClass(), null))) {
+                    if ((isFrom && MTools.getLinkTool().canLink(stereo, Metamodel.getMClass(Dependency.class), droppedElements[0].getMClass(), centerElement.getMClass(), null))
+                            || (!isFrom && MTools.getLinkTool().canLink(stereo, Metamodel.getMClass(Dependency.class), centerElement.getMClass(), droppedElements[0].getMClass(), null))) {
                         types.add(stereo);
                     }
-        
                 }
             } else if ((isFrom && MTools.getLinkTool().canLink(Metamodel.getMClass(Dependency.class), droppedElements[0].getMClass(),
                     centerElement.getMClass(), null))
@@ -209,12 +205,8 @@ public class DropEditPolicy extends XYLayoutEditPolicy {
             }
         }
         if (options.isTraceShown()) {
-        
             try {
-        
-                Stereotype traceStereotype = DropEditPolicy.modelServices.getStereotype("ModelerModule", "trace",
-                        Metamodel.getMClass(Dependency.class));
-                types.add(traceStereotype);
+                types.add(DropEditPolicy.modelServices.getStereotype("ModelerModule", "trace", Metamodel.getMClass(Dependency.class)));
             } catch (ElementNotUniqueException e) {
                 LinkEditor.LOG.debug(e);
             }

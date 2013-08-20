@@ -22,16 +22,13 @@
 package org.modelio.diagram.editor.statik.editor;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.eclipse.e4.ui.services.EContextService;
 import org.modelio.diagram.editor.DiagramEditorInput;
 import org.modelio.diagram.editor.statik.elements.staticdiagram.GmStaticDiagram;
 import org.modelio.diagram.elements.common.abstractdiagram.GmAbstractDiagram;
 import org.modelio.diagram.elements.core.model.IGmLinkFactory;
 import org.modelio.diagram.elements.core.model.IGmNodeFactory;
 import org.modelio.diagram.elements.core.model.ModelManager;
-import org.modelio.gproject.model.IMModelServices;
 import org.modelio.metamodel.diagrams.AbstractDiagram;
-import org.modelio.vcore.session.api.ICoreSession;
 import org.modelio.vcore.smkernel.mapi.MRef;
 
 /**
@@ -66,8 +63,8 @@ public class StaticDiagramEditorInput extends DiagramEditorInput {
      * @param diagram the edited diagram.
      */
     @objid ("33d3857d-55b7-11e2-877f-002564c97630")
-    public StaticDiagramEditorInput(ICoreSession session, AbstractDiagram diagram, IMModelServices modelServices, EContextService contextService) {
-        super(session, diagram, modelServices, contextService);
+    public StaticDiagramEditorInput(ModelManager modelManager, AbstractDiagram diagram) {
+        super(diagram, modelManager);
     }
 
 }

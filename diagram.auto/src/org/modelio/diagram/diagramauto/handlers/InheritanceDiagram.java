@@ -33,8 +33,6 @@ import org.modelio.app.core.events.ModelioEvent;
 import org.modelio.app.project.core.services.IProjectService;
 import org.modelio.diagram.diagramauto.diagram.creator.ClassStructureCreator;
 import org.modelio.diagram.diagramauto.diagram.creator.InheritanceCreator;
-import org.modelio.diagram.editor.plugin.DiagramEditorsManager;
-import org.modelio.diagram.editor.plugin.IDiagramConfigurerRegistry;
 import org.modelio.gproject.model.IMModelServices;
 import org.modelio.metamodel.diagrams.AbstractDiagram;
 import org.modelio.metamodel.uml.statik.Classifier;
@@ -45,11 +43,11 @@ import org.modelio.vcore.smkernel.mapi.MObject;
 public class InheritanceDiagram extends AbstractHandler {
     @objid ("c09ca811-d8da-4220-9c81-3e7bccfdf23d")
     @Execute
-    public void execute(@Named(IServiceConstants.ACTIVE_SELECTION) final Object selection, IProjectService projectService, IDiagramConfigurerRegistry configurerRegistry, DiagramEditorsManager editorManager, IMModelServices modelServices, IModelioEventService eventService) {
+    public void execute(@Named(IServiceConstants.ACTIVE_SELECTION) final Object selection, IProjectService projectService, IMModelServices modelServices, IModelioEventService eventService) {
         List<MObject> selectedElements = getSelection(selection);
         
         try (ITransaction transaction = projectService.getSession().getTransactionSupport().createTransaction("InheritanceDiagram");) {
-            InheritanceCreator ic = new InheritanceCreator(projectService, configurerRegistry, editorManager, modelServices);
+            InheritanceCreator ic = new InheritanceCreator(modelServices);
             for (MObject selectedElement : selectedElements) {
                 if (selectedElement instanceof Classifier) {
                     AbstractDiagram createDiagram = ic.createDiagram((Classifier) selectedElement);
@@ -68,8 +66,8 @@ public class InheritanceDiagram extends AbstractHandler {
 
     @objid ("fa3371d1-06fe-4a2f-b9df-c4563c94f265")
     @CanExecute
-    public boolean isEnabled(@Named(IServiceConstants.ACTIVE_SELECTION) final Object selection, IProjectService projectService, IDiagramConfigurerRegistry configurerRegistry, DiagramEditorsManager editorManager, IMModelServices modelServices) {
-        ClassStructureCreator pc = new ClassStructureCreator(projectService, configurerRegistry, editorManager, modelServices);
+    public boolean isEnabled(@Named(IServiceConstants.ACTIVE_SELECTION) final Object selection, IMModelServices modelServices) {
+        ClassStructureCreator pc = new ClassStructureCreator(modelServices);
         
         List<MObject> selectedElements = getSelection(selection);
         for (MObject elt : selectedElements) {

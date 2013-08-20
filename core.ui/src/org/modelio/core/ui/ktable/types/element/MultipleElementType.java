@@ -32,6 +32,7 @@ import org.modelio.app.core.picking.IModelioPickingService;
 import org.modelio.core.ui.ktable.types.text.MultipleElementCellRenderer;
 import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.vcore.session.api.model.IModel;
+import org.modelio.vcore.smkernel.mapi.MObject;
 
 @objid ("8def2b84-c068-11e1-8c0a-002564c97630")
 public class MultipleElementType extends ElementType {
@@ -79,12 +80,12 @@ public class MultipleElementType extends ElementType {
     public KTableCellEditor getEditor(IModelioPickingService pickingService) {
         MultipleElementCellEditor multipleEditor = new MultipleElementCellEditor(this.session, pickingService);
         
-        List<Class<? extends Element>> classes = this.getAllowedClasses();
+        List<Class<? extends MObject>> classes = this.getAllowedClasses();
         
         if (classes.size() == 1) {
             Class<?> target = classes.get(0);
             if (Element.class.isAssignableFrom(target)) {
-                Class<? extends Element> targetClass = classes.get(0);
+                Class<? extends MObject> targetClass = classes.get(0);
                 multipleEditor.init(getEditedElement(), getFieldName(), targetClass, getElementFilter());
                 return multipleEditor;
             }

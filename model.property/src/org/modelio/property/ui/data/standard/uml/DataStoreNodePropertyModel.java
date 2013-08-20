@@ -21,6 +21,8 @@
 
 package org.modelio.property.ui.data.standard.uml;
 
+import java.util.ArrayList;
+import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.core.ui.ktable.types.IPropertyType;
 import org.modelio.core.ui.ktable.types.bool.BooleanType;
@@ -41,6 +43,7 @@ import org.modelio.metamodel.uml.statik.Instance;
 import org.modelio.property.ui.data.standard.common.AbstractPropertyModel;
 import org.modelio.vcore.session.api.ICoreSession;
 import org.modelio.vcore.session.impl.CoreSession;
+import org.modelio.vcore.smkernel.mapi.MObject;
 
 /**
  * <i>DataStoreNode</i> data model.
@@ -331,17 +334,28 @@ public class DataStoreNodePropertyModel extends AbstractPropertyModel<DataStoreN
     @objid ("8efd3fe5-c068-11e1-8c0a-002564c97630")
     public static class RepresentedType extends HybridType {
         @objid ("8efd3fe7-c068-11e1-8c0a-002564c97630")
-        private Class<?>[] t = { Instance.class, Attribute.class, AssociationEnd.class, BehaviorParameter.class };
+        private List<Class<? extends MObject>> t;
 
         @objid ("8efd3fec-c068-11e1-8c0a-002564c97630")
         public RepresentedType(ICoreSession session) {
             super(session);
+            this.t = new ArrayList<>();
+            this.t.add(Instance.class);
+            this.t.add(Attribute.class);
+            this.t.add(AssociationEnd.class);
+            this.t.add(BehaviorParameter.class);
         }
 
         @objid ("8efd3fee-c068-11e1-8c0a-002564c97630")
         @Override
-        public Class<?>[] getTypes() {
+        public List<Class<? extends MObject>> getTypes() {
             return this.t;
+        }
+
+        @objid ("44cca950-d380-4511-92d0-b3dad8ec41cf")
+        @Override
+        public boolean acceptStringValue() {
+            return false;
         }
 
     }

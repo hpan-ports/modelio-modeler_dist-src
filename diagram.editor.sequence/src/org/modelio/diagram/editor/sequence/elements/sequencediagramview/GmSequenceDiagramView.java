@@ -118,7 +118,7 @@ public class GmSequenceDiagramView extends GmAbstractDiagramView {
     @objid ("d98e63fa-55b6-11e2-877f-002564c97630")
     @Override
     protected GmAbstractDiagram loadViewedDiagram() {
-        SequenceDiagramEditorInput input = new SequenceDiagramEditorInput(getDiagram().getModelManager().getModelingSession(), getRepresentedElement(), getDiagram().getModelManager().getModelServices(), getDiagram().getModelManager().getContextService());
+        SequenceDiagramEditorInput input = new SequenceDiagramEditorInput(getDiagram().getModelManager(), getRepresentedElement());
         return input.getGmDiagram();
     }
 

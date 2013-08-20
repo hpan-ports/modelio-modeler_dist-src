@@ -118,7 +118,7 @@ public class GmActivityDiagramView extends GmAbstractDiagramView {
     @objid ("299fa20c-55b6-11e2-877f-002564c97630")
     @Override
     protected GmAbstractDiagram loadViewedDiagram() {
-        ActivityDiagramEditorInput input = new ActivityDiagramEditorInput(getDiagram().getModelManager().getModelingSession(), getRepresentedElement(), getDiagram().getModelManager().getModelServices(), getDiagram().getModelManager().getContextService());
+        ActivityDiagramEditorInput input = new ActivityDiagramEditorInput(getDiagram().getModelManager(), getRepresentedElement());
         return input.getGmDiagram();
     }
 

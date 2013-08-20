@@ -22,15 +22,12 @@
 package org.modelio.diagram.editor.state.editor;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.eclipse.e4.ui.services.EContextService;
 import org.modelio.diagram.editor.DiagramEditorInput;
 import org.modelio.diagram.editor.state.elements.statediagram.GmStateDiagram;
 import org.modelio.diagram.elements.common.abstractdiagram.GmAbstractDiagram;
 import org.modelio.diagram.elements.core.model.ModelManager;
-import org.modelio.gproject.model.IMModelServices;
 import org.modelio.metamodel.diagrams.AbstractDiagram;
 import org.modelio.metamodel.diagrams.StateMachineDiagram;
-import org.modelio.vcore.session.api.ICoreSession;
 import org.modelio.vcore.smkernel.mapi.MRef;
 
 /**
@@ -49,8 +46,8 @@ public class StateDiagramEditorInput extends DiagramEditorInput {
      * @param diagram the edited diagram
      */
     @objid ("f4ecebe6-55b6-11e2-877f-002564c97630")
-    public StateDiagramEditorInput(ICoreSession session, AbstractDiagram diagram, IMModelServices modelService, EContextService contextService) {
-        super(session, diagram, modelService, contextService);
+    public StateDiagramEditorInput(ModelManager modelManager, AbstractDiagram diagram) {
+        super(diagram, modelManager);
     }
 
 }

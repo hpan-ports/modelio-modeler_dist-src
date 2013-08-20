@@ -27,8 +27,6 @@ import org.eclipse.e4.core.di.annotations.CanExecute;
 import org.eclipse.e4.core.di.annotations.Execute;
 import org.eclipse.e4.ui.model.application.ui.basic.MPart;
 import org.eclipse.e4.ui.services.IServiceConstants;
-import org.eclipse.swt.widgets.Shell;
-import org.modelio.app.project.core.services.IProjectService;
 import org.modelio.script.engine.core.engine.IScriptRunner;
 import org.modelio.script.view.ScriptView;
 import org.modelio.script.view.ScriptViewSelectionGetter;
@@ -37,7 +35,7 @@ import org.modelio.script.view.ScriptViewSelectionGetter;
 public class EvalScriptHandler {
     @objid ("004ac720-6505-105c-84ef-001ec947cd2a")
     @Execute
-    public void execute(@Named(IServiceConstants.ACTIVE_SHELL) Shell shell, @Named(IServiceConstants.ACTIVE_PART) MPart part, IProjectService projectService) {
+    public void execute(@Named(IServiceConstants.ACTIVE_PART) MPart part) {
         final ScriptView scriptView = (ScriptView) part.getObject();
         
         Boolean debugMode = scriptView.getOptions().getDebugMode();
@@ -54,9 +52,7 @@ public class EvalScriptHandler {
 
     @objid ("004b03b6-6505-105c-84ef-001ec947cd2a")
     @CanExecute
-    public boolean canExecute(@Named(IServiceConstants.ACTIVE_PART) MPart part) {
-        // final ScriptView scriptView = (ScriptView) part.getObject();
-        // return scriptView != null && scriptView.getScriptRunner() != null;
+    public boolean canExecute() {
         return true;
     }
 

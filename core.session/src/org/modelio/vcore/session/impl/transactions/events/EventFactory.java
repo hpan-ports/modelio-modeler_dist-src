@@ -25,6 +25,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map.Entry;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
+import org.modelio.vcore.session.api.model.change.ChangeCause;
 import org.modelio.vcore.session.api.model.change.IModelChangeEvent;
 import org.modelio.vcore.session.api.model.change.IStatusChangeEvent;
 import org.modelio.vcore.session.impl.transactions.Transaction;
@@ -38,7 +39,7 @@ import org.modelio.vcore.smkernel.mapi.MObject;
  * <p>
  * Usage:<ul>
  * <li> Call one of the create static method such as {@link #createCommitEvent(Transaction)}.
- * <li> Only if you used {@link #createEvent()}, use {@link #process(IAction)} and {@link #postProcess()}.
+ * <li> Only if you used {@link #createEvent(ChangeCause)}, use {@link #process(IAction)} and {@link #postProcess()}.
  * <li> Use the {@link #getEvent()} and {@link #getStatusEvent()} to get the built events.
  * </ul>
  */
@@ -60,38 +61,10 @@ public class EventFactory {
      */
     @objid ("004e980a-ca22-1f3c-aafd-001ec947cd2a")
     public static EventFactory createCommitEvent(final Transaction tr) {
-        EventFactory f = new EventFactory();
-        
-        f.event.isCommit = true;
-        f.statusEvent.isCommit = true;
+        EventFactory f = new EventFactory(ChangeCause.TRANSACTION);
         
         // Create the visitor that will visit all the action hierarchy
         f.visitor = new ModelChangeActionVisitor(f.event, f.statusEvent);
-        
-        // Accept the visitor on the transaction to define the event structure
-        tr.accept(f.visitor);
-        
-        // Call the post process
-        f.postProcess();
-        return f;
-    }
-
-    /**
-     * Create a change event factory for an rollbacked transaction.
-     * @param tr the rollbacked transaction
-     * @return the change event factory.
-     */
-    @objid ("004ebd44-ca22-1f3c-aafd-001ec947cd2a")
-    public static EventFactory createRollbackEvent(final Transaction tr) {
-        // create a new event to be filled
-        EventFactory f = new EventFactory();
-        
-        
-        f.event.isCommit = false;
-        f.statusEvent.isCommit = false;
-        
-        // Create the visitor that will visit all the action hierarchy
-        f.visitor = new RollbackModelChangeActionVisitor(f.event, f.statusEvent);
         
         // Accept the visitor on the transaction to define the event structure
         tr.accept(f.visitor);
@@ -108,10 +81,7 @@ public class EventFactory {
      */
     @objid ("004edbf8-ca22-1f3c-aafd-001ec947cd2a")
     public static EventFactory createUndoEvent(final Transaction tr) {
-        EventFactory f = new EventFactory();
-        
-        f.event.isCommit = false;
-        f.statusEvent.isCommit = false;
+        EventFactory f = new EventFactory(ChangeCause.UNDO);
         
         // Create the visitor that will visit all the action hierarchy
         f.visitor = new UndoModelChangeActionVisitor(f.event, f.statusEvent);
@@ -132,10 +102,7 @@ public class EventFactory {
     @objid ("004efab6-ca22-1f3c-aafd-001ec947cd2a")
     public static EventFactory createRedoEvent(final Transaction tr) {
         // create a new event to be filled
-        EventFactory f = new EventFactory();
-        
-        f.event.isCommit = false;
-        f.statusEvent.isCommit = false;
+        EventFactory f = new EventFactory(ChangeCause.REDO);
         
         // Create the visitor that will visit all the action hierarchy
         f.visitor = new ModelChangeActionVisitor(f.event, f.statusEvent);
@@ -215,25 +182,28 @@ public class EventFactory {
      * Private constructor.
      */
     @objid ("7d70f14a-1c43-11e2-8eb9-001ec947ccaf")
-    private EventFactory() {
+    private EventFactory(ChangeCause cause) {
         // create a new event to be filled
         this.event = new ModelChangeEvent();
         this.statusEvent = new StatusChangeEvent();
+        this.event.cause = cause;
+        this.statusEvent.cause = cause;
     }
 
     /**
-     * Create an empty change events.
+     * Create an empty model change event.
      * <p>
      * Call {@link #process(IAction)} to fill the events and
      * {@link #postProcess()} when finished.
+     * @param cause The cause of the model change event. {@link ChangeCause#UNDO} is not allowed.
      * @return a ready factory.
      */
     @objid ("7d73539c-1c43-11e2-8eb9-001ec947ccaf")
-    public static EventFactory createEvent() {
+    public static EventFactory createEvent(ChangeCause cause) {
+        assert (cause != ChangeCause.UNDO) : cause;
+        
         // create a new event to be filled
-        EventFactory f = new EventFactory();
-        f.event.isCommit = false;
-        f.statusEvent.isCommit = false;
+        EventFactory f = new EventFactory(cause);
         
         // Create the visitor that will visit all the action hierarchy
         f.visitor = new ModelChangeActionVisitor(f.event, f.statusEvent);

@@ -29,10 +29,6 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.modelio.metamodel.mda.ModuleComponent;
-import org.modelio.metamodel.uml.infrastructure.LocalTaggedValue;
-import org.modelio.metamodel.uml.infrastructure.MetaclassReference;
-import org.modelio.metamodel.uml.infrastructure.Stereotype;
-import org.modelio.metamodel.uml.infrastructure.TaggedValue;
 
 @objid ("008f48d2-c4be-1fd8-97fe-001ec947cd2a")
 public interface TagType extends ModelElement {
@@ -74,12 +70,6 @@ public interface TagType extends ModelElement {
 
     @objid ("6ef139b9-1da5-4be6-aaf4-ac38907bbad8")
     <T extends TaggedValue> List<T> getTagOccurence(java.lang.Class<T> filterClass);
-
-    @objid ("79831b31-1d0f-4fb2-86e9-895de13d0e2d")
-    EList<LocalTaggedValue> getLocalTagOccurence();
-
-    @objid ("529d7dfe-bc91-4f3e-984e-bdea3a0266cf")
-    <T extends LocalTaggedValue> List<T> getLocalTagOccurence(java.lang.Class<T> filterClass);
 
     @objid ("d055b5ab-807a-4ea4-9484-6fb97f64aa38")
     Stereotype getOwnerStereotype();

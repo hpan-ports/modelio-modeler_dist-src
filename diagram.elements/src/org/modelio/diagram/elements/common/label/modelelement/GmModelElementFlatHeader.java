@@ -40,6 +40,7 @@ import org.modelio.diagram.styles.core.MetaKey;
 import org.modelio.diagram.styles.core.StyleKey;
 import org.modelio.metamodel.mda.ModuleComponent;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
+import org.modelio.metamodel.uml.infrastructure.Profile;
 import org.modelio.metamodel.uml.infrastructure.Stereotype;
 import org.modelio.metamodel.uml.infrastructure.TagParameter;
 import org.modelio.metamodel.uml.infrastructure.TagType;
@@ -142,10 +143,14 @@ public abstract class GmModelElementFlatHeader extends GmElementLabel {
             final List<Image> ret = new ArrayList<>(stereotypes.size());
         
             for (Stereotype s : stereotypes) {
-                ModuleComponent owner = s.getOwner().getOwnerModule();
-                final Image im = ModuleI18NService.getIcon(owner, s);
-                if (im != null)
-                    ret.add(im);
+                final Profile ownerProfile = s.getOwner();
+                if (ownerProfile != null) {
+                    ModuleComponent ownerModule = ownerProfile.getOwnerModule();
+                    final Image im = ModuleI18NService.getIcon(ownerModule, s);
+                    if (im != null) {
+                        ret.add(im);
+                    }
+                }
             }
         
             return ret;

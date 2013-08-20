@@ -139,7 +139,10 @@ public class CreateSiblingElementHandler {
                 if (element instanceof MObject) {
                     selectedElements.add((MObject) element);
                 } else if (element instanceof IAdaptable) {
-                    selectedElements.add((MObject) ((IAdaptable) element).getAdapter(MObject.class));
+                    final MObject adapter = (MObject) ((IAdaptable) element).getAdapter(MObject.class);
+                    if (adapter != null) {
+                        selectedElements.add(adapter);
+                    }
                 }
             }
         }

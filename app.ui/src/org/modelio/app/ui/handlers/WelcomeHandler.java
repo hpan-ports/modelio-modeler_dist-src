@@ -57,7 +57,7 @@ public class WelcomeHandler {
     @objid ("05d849bb-eec4-4cb2-8844-978d40668122")
     @CanExecute
     boolean canExecute(IModelioUiService pm) {
-        return pm.getWelcomeStack().isVisible() == false;
+        return true;
     }
 
 }

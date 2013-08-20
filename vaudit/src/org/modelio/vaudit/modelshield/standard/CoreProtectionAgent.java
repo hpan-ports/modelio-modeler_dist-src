@@ -50,8 +50,6 @@ import org.modelio.vaudit.modelshield.standard.checkers.E219Checker;
 import org.modelio.vaudit.modelshield.standard.checkers.E220Checker;
 import org.modelio.vaudit.modelshield.standard.checkers.E221Checker;
 import org.modelio.vaudit.modelshield.standard.checkers.E222Checker;
-import org.modelio.vaudit.modelshield.standard.checkers.E223Checker;
-import org.modelio.vaudit.modelshield.standard.checkers.E224Checker;
 import org.modelio.vaudit.modelshield.standard.checkers.E225Checker;
 import org.modelio.vaudit.modelshield.standard.checkers.E226Checker;
 import org.modelio.vaudit.modelshield.standard.checkers.E227Checker;
@@ -156,13 +154,6 @@ public class CoreProtectionAgent implements IProtectionAgent {
     @objid ("00095a60-09c6-1f4d-b2b8-001ec947cd2a")
     @Override
     public CheckStatus check(final Transaction theTransaction, final IErrorReport report) {
-        // TODO: what does this become ? Update the use graph
-        // NSUsesUpdater updater(session);
-        // updater.updateNSUseGraph(theTransaction);
-        
-        // long int repairTransaction =
-        // session->getTransactionManager().beginTransaction("model shield");
-        
         ShieldContext context = new ShieldContext(report);
         
         TransactionProcessor v = new TransactionProcessor(this.plan);
@@ -219,8 +210,6 @@ public class CoreProtectionAgent implements IProtectionAgent {
         new E220Checker().register(plan);
         new E221Checker().register(plan);
         new E222Checker().register(plan);
-        new E223Checker().register(plan);
-        new E224Checker().register(plan);
         new E225Checker().register(plan);
         new E226Checker().register(plan);
         new E227Checker().register(plan);

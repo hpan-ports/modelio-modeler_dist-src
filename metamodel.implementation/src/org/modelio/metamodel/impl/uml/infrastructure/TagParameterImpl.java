@@ -29,7 +29,6 @@ import java.util.Collections;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.emf.common.util.EList;
 import org.modelio.metamodel.data.uml.infrastructure.TagParameterData;
-import org.modelio.metamodel.uml.infrastructure.LocalTaggedValue;
 import org.modelio.metamodel.uml.infrastructure.TagParameter;
 import org.modelio.metamodel.uml.infrastructure.TaggedValue;
 import org.modelio.metamodel.visitors.IModelVisitor;
@@ -79,30 +78,6 @@ public class TagParameterImpl extends ElementImpl implements TagParameter {
         appendDepVal(TagParameterData.Metadata.QualifiedDep(), (SmObjectImpl)value);
     }
 
-    @objid ("7e824627-e180-4e67-80b7-699898e8ae7e")
-    @Override
-    public LocalTaggedValue getLocalAnnoted() {
-        return (LocalTaggedValue) getDepVal(TagParameterData.Metadata.LocalAnnotedDep());
-    }
-
-    @objid ("67541ae9-0769-40f9-9b12-ac7c3cb6c780")
-    @Override
-    public void setLocalAnnoted(LocalTaggedValue value) {
-        appendDepVal(TagParameterData.Metadata.LocalAnnotedDep(), (SmObjectImpl)value);
-    }
-
-    @objid ("177131a6-548b-4c6c-bc89-d279d857d612")
-    @Override
-    public LocalTaggedValue getLocalQualified() {
-        return (LocalTaggedValue) getDepVal(TagParameterData.Metadata.LocalQualifiedDep());
-    }
-
-    @objid ("e104df8d-7b77-4f77-af68-38b357e23df1")
-    @Override
-    public void setLocalQualified(LocalTaggedValue value) {
-        appendDepVal(TagParameterData.Metadata.LocalQualifiedDep(), (SmObjectImpl)value);
-    }
-
     @objid ("7733e985-ac91-4cea-b521-7fa6e91ac30c")
     @Override
     public SmObjectImpl getCompositionOwner() {
@@ -111,12 +86,6 @@ public class TagParameterImpl extends ElementImpl implements TagParameter {
         if (obj != null)
           return obj;
         obj = (SmObjectImpl)this.getDepVal(TagParameterData.Metadata.QualifiedDep());
-        if (obj != null)
-          return obj;
-        obj = (SmObjectImpl)this.getDepVal(TagParameterData.Metadata.LocalAnnotedDep());
-        if (obj != null)
-          return obj;
-        obj = (SmObjectImpl)this.getDepVal(TagParameterData.Metadata.LocalQualifiedDep());
         if (obj != null)
           return obj;
         return super.getCompositionOwner();
@@ -132,12 +101,6 @@ public class TagParameterImpl extends ElementImpl implements TagParameter {
         obj = (SmObjectImpl)this.getDepVal(TagParameterData.Metadata.QualifiedDep());
         if (obj != null)
           return new SmDepVal(TagParameterData.Metadata.QualifiedDep(), obj);
-        obj = (SmObjectImpl)this.getDepVal(TagParameterData.Metadata.LocalAnnotedDep());
-        if (obj != null)
-          return new SmDepVal(TagParameterData.Metadata.LocalAnnotedDep(), obj);
-        obj = (SmObjectImpl)this.getDepVal(TagParameterData.Metadata.LocalQualifiedDep());
-        if (obj != null)
-          return new SmDepVal(TagParameterData.Metadata.LocalQualifiedDep(), obj);
         return super.getCompositionRelation();
     }
 

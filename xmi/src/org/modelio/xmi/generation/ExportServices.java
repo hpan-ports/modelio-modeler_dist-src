@@ -23,7 +23,6 @@ package org.modelio.xmi.generation;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -80,7 +79,7 @@ import org.osgi.framework.Bundle;
 @objid ("49ec20f8-6d04-453a-850d-8e1c718de33b")
 public class ExportServices {
     @objid ("2e7f0915-aa80-4bfc-b6da-c60b9a0adbe1")
-    private static final String version = "2.2.1";
+    private static final String version = "3.0.0";
 
     @objid ("35ceb519-9815-4631-9c6a-fe252a68d26a")
     private final Shell _shell;
@@ -219,7 +218,7 @@ public class ExportServices {
             ecoreModel.setName(selectedPkg.getName());
             genProp.setEcoreModel(ecoreModel);
         
-            List<ModelTree> exportScopeElts = new ArrayList<ModelTree>();
+            List<ModelTree> exportScopeElts = new ArrayList<>();
         
             exportScopeElts.add(selectedPkg);
         
@@ -274,12 +273,13 @@ public class ExportServices {
         
                 if (error) {
                     Display.getDefault().asyncExec(new Runnable() {
+                        @Override
                         public void run() {
-                            MessageBox messageBox = new MessageBox(_shell, SWT.ICON_ERROR);
+                            MessageBox messageBox = new MessageBox(ExportServices.this._shell, SWT.ICON_ERROR);
                             messageBox.setMessage(Xmi.I18N.getString("info.export.result_failed.inSave"));
                             messageBox.setText(Xmi.I18N.getString("info.export.result_failed"));
                             messageBox.open();
-                            _shell.dispose();
+                            ExportServices.this._shell.dispose();
                         }
                     });
         
@@ -290,12 +290,13 @@ public class ExportServices {
         
             } else {
                 Display.getDefault().asyncExec(new Runnable() {
+                    @Override
                     public void run() {
-                        MessageBox messageBox = new MessageBox(_shell, SWT.ICON_ERROR);
+                        MessageBox messageBox = new MessageBox(ExportServices.this._shell, SWT.ICON_ERROR);
                         messageBox.setMessage(Xmi.I18N.getString("info.export.result_failed"));
                         messageBox.setText(Xmi.I18N.getString("info.export.result_failed.root_null"));
                         messageBox.open();
-                        _shell.dispose();
+                        ExportServices.this._shell.dispose();
                     }
                 });
         
@@ -414,7 +415,7 @@ public class ExportServices {
         ObjingEAnnotation.setExporterVersion(ecoreModel, version);     
         ObjingEAnnotation.setRoundTrip(ecoreModel, genProp.isRoundtripEnabled());
         
-        List<ModelTree> exportScopeElts = new ArrayList<ModelTree>();
+        List<ModelTree> exportScopeElts = new ArrayList<>();
         exportScopeElts.add(selectedPkg);
         genProp.setExportScopeElts(exportScopeElts);
         
@@ -539,7 +540,6 @@ public class ExportServices {
         try {
             resource.save(null);
         } catch (IOException e) {
-            e.printStackTrace(System.err);
             Xmi.LOG.error(Xmi.PLUGIN_ID, e);
             return true;
         }

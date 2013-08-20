@@ -21,7 +21,7 @@
 
 package org.modelio.core.ui.ktable.types.hybrid;
 
-import java.util.Arrays;
+import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import de.kupzog.ktable.KTable;
 import de.kupzog.ktable.KTableCellEditor;
@@ -31,9 +31,8 @@ import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Control;
 import org.modelio.app.core.picking.IModelioPickingService;
-import org.modelio.core.ui.plugin.CoreUi;
-import org.modelio.core.ui.textelement.ITextElementSelectionListener;
-import org.modelio.core.ui.textelement.TextElement;
+import org.modelio.core.ui.hybridtext.HybridTextElement;
+import org.modelio.core.ui.hybridtext.IHybridTextElementSelectionListener;
 import org.modelio.metamodel.Metamodel;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
 import org.modelio.vcore.session.api.ICoreSession;
@@ -53,9 +52,11 @@ public class HybridCellEditor extends KTableCellEditor {
     @objid ("8d62c9c6-c068-11e1-8c0a-002564c97630")
     protected boolean acceptNullValue = false;
 
+    @objid ("c3f0ed5c-1b48-497b-acd6-a60086d6b25a")
+    private boolean acceptStringType;
+
     @objid ("8d61435a-c068-11e1-8c0a-002564c97630")
-    @SuppressWarnings("rawtypes")
-    private Class[] targetClasses = null;
+    private List<Class<? extends MObject>> targetClasses = null;
 
     @objid ("8d62c9c5-c068-11e1-8c0a-002564c97630")
     private IMObjectFilter elementFilter = null;
@@ -80,7 +81,7 @@ public class HybridCellEditor extends KTableCellEditor {
     };
 
     @objid ("cfed78df-ca98-4cc9-abbf-e77a789db5fd")
-    private TextElement textElement;
+    private HybridTextElement textElement;
 
     /**
      * Creates an hybrid cell editor.
@@ -88,21 +89,13 @@ public class HybridCellEditor extends KTableCellEditor {
      * @param pickingService the modelio picking service.
      */
     @objid ("8d62c9cb-c068-11e1-8c0a-002564c97630")
-    public HybridCellEditor(boolean acceptNullValue, IModelioPickingService pickingService, ICoreSession session) {
+    public HybridCellEditor(boolean acceptNullValue, IModelioPickingService pickingService, ICoreSession session, boolean acceptStringType) {
         this.acceptNullValue = acceptNullValue;
         this.pickingService = pickingService;
         this.session = session;
+        this.acceptStringType = acceptStringType;
     }
 
-//    @objid ("8d62c9d2-c068-11e1-8c0a-002564c97630")
-//    @Override
-//    public void close(boolean save) {
-//        if (this.textElement != null) {
-//            this.textElement.activatePicking(null);
-//            this.textElement.activateCompletion(null);
-//        }
-//        super.close(true);
-//    }
     /**
      * Close forcibly the editor.
      */
@@ -163,47 +156,26 @@ public class HybridCellEditor extends KTableCellEditor {
      * @param targetClass the allowed metaclasses.
      */
     @objid ("8d62c9f0-c068-11e1-8c0a-002564c97630")
-    @SuppressWarnings({ "rawtypes" })
-    public void setTargetClasses(final Class[] targetClass) {
-        this.targetClasses = Arrays.copyOf(targetClass, targetClass.length);
+    public void setTargetClasses(final List<Class<? extends MObject>> targetClass) {
+        this.targetClasses = targetClass;
     }
 
     @objid ("8d62c9f7-c068-11e1-8c0a-002564c97630")
-    @SuppressWarnings("unchecked")
     @Override
     protected Control createControl() {
-        final StringBuffer helpTooltip = new StringBuffer();
-        if (this.targetClasses.length > 1) {
-            helpTooltip.append(CoreUi.I18N.getString("KTable.AcceptedTypes"));
-        } else if (this.targetClasses.length == 1) {
-            helpTooltip.append(CoreUi.I18N.getString("KTable.AcceptedType"));
-        }
-        helpTooltip.append("\n");
-        for (final Class<?> clazz : this.targetClasses) {
-            helpTooltip.append("    ");
-            if (clazz == String.class) {
-                helpTooltip.append(CoreUi.I18N.getString("KTable.AnyStringValue"));
-            } else {
-                helpTooltip.append(clazz.getSimpleName());
-            }
-            helpTooltip.append("\n");
-        }
-        helpTooltip.append("\n");
-        helpTooltip.append(CoreUi.I18N.getString("KTable.HybridCellEditorTootip"));
-        setToolTipText(helpTooltip.toString());
-        
-        this.textElement = new TextElement(this.m_Table, SWT.NONE);
+        this.textElement = new HybridTextElement(this.m_Table, SWT.NONE);
         this.textElement.setAcceptNullValue(this.acceptNullValue);
+        this.textElement.setAcceptStringValue(this.acceptStringType);
         for(Class<? extends MObject> c : this.targetClasses) {
             this.textElement.getAcceptedMetaclasses().add(Metamodel.getMClass(c));
         }
         this.textElement.setFilter(this.elementFilter);
         this.textElement.activatePicking(this.pickingService);
         this.textElement.activateCompletion(this.session);
-        this.textElement.addListener(new ITextElementSelectionListener() {
+        this.textElement.addListener(new IHybridTextElementSelectionListener() {
             
             @Override
-            public void selectedElementChanged(MObject oldElement, MObject newElement) {
+            public void selectedElementChanged(Object oldElement, Object newElement) {
                 validate(true);
             }
         });

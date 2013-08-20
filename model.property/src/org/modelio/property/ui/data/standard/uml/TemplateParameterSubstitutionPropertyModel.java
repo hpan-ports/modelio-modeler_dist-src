@@ -21,6 +21,8 @@
 
 package org.modelio.property.ui.data.standard.uml;
 
+import java.util.ArrayList;
+import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.core.ui.ktable.types.IPropertyType;
 import org.modelio.core.ui.ktable.types.hybrid.HybridType;
@@ -31,6 +33,7 @@ import org.modelio.metamodel.uml.statik.TemplateParameterSubstitution;
 import org.modelio.property.ui.data.standard.common.AbstractPropertyModel;
 import org.modelio.vcore.session.api.ICoreSession;
 import org.modelio.vcore.session.impl.CoreSession;
+import org.modelio.vcore.smkernel.mapi.MObject;
 
 /**
  * <i>TemplateParameterSubstitution</i> data model.
@@ -204,21 +207,23 @@ public class TemplateParameterSubstitutionPropertyModel extends AbstractProperty
     @objid ("8f94bd6a-c068-11e1-8c0a-002564c97630")
     public static class SubstitutionValue extends HybridType {
         @objid ("8f94bd6d-c068-11e1-8c0a-002564c97630")
-         final Class<?>[] stdTypes = { String.class, ModelElement.class };
+         final List<Class<? extends MObject>> stdTypes;
 
         @objid ("8f94bd73-c068-11e1-8c0a-002564c97630")
         public SubstitutionValue(ICoreSession session) {
             super(session);
+            this.stdTypes = new ArrayList<>();
+            this.stdTypes.add(ModelElement.class);
         }
 
         @objid ("8f94bd75-c068-11e1-8c0a-002564c97630")
         @Override
-        public Class<?>[] getTypes() {
+        public List<Class<? extends MObject>> getTypes() {
             return this.stdTypes;
         }
 
         @objid ("8f94bd81-c068-11e1-8c0a-002564c97630")
-        public Class<?>[] getTypes(TemplateParameterSubstitution el) {
+        public List<Class<? extends MObject>> getTypes(TemplateParameterSubstitution el) {
             TemplateParameter param = el.getFormalParameter();
             if (param == null)
                 return this.stdTypes;
@@ -226,7 +231,9 @@ public class TemplateParameterSubstitutionPropertyModel extends AbstractProperty
             ModelElement paramType = param.getType();
             if (paramType == null)
                 return this.stdTypes;
-            return new Class<?>[] { String.class, paramType.getClass() };
+            List<Class<? extends MObject>> ret = new ArrayList<>();
+            ret.add(paramType.getClass());
+            return ret;
         }
 
         @objid ("8f94bd8c-c068-11e1-8c0a-002564c97630")
@@ -252,9 +259,15 @@ public class TemplateParameterSubstitutionPropertyModel extends AbstractProperty
         }
 
         @objid ("8f971e8e-c068-11e1-8c0a-002564c97630")
-        public Class<?>[] getStdTypes() {
+        public List<Class<? extends MObject>> getStdTypes() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return this.stdTypes;
+        }
+
+        @objid ("b4842f3e-c24c-4851-b2d9-93fb135b4f95")
+        @Override
+        public boolean acceptStringValue() {
+            return true;
         }
 
     }

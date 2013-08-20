@@ -28,7 +28,6 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
-import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.progress.IProgressService;
 import org.modelio.app.project.core.services.IProjectService;
 import org.modelio.gproject.gproject.GProject;
@@ -56,7 +55,7 @@ public class SwtWizardImport extends SwtWizardWindow {
             extension = extension.substring(extension.lastIndexOf("."));
             if (extension.equals(".uml") || extension.equals(".xmi") || extension.equals(".xml")) {
                 //                initTransaction();
-                try(ITransaction t = GProject.getProject(selectedElt).getSession().getTransactionSupport().createTransaction("Import") ) {
+                try(ITransaction t = GProject.getProject(this.selectedElt).getSession().getTransactionSupport().createTransaction("Import") ) {
         
                     this.progressService.busyCursorWhile (new ImportThread(this.shell,
                             getTheProgressBar() ));
@@ -77,7 +76,6 @@ public class SwtWizardImport extends SwtWizardWindow {
                     this.shell.dispose();
                     
                 } catch (final Exception e) {
-                    e.printStackTrace(System.err);
                     this.error = true;
                     catchException(e, Xmi.I18N.getString("error.import.uncatchedException"));
                 } 
@@ -159,41 +157,9 @@ public class SwtWizardImport extends SwtWizardWindow {
         this.optionComposite = null;
     }
 
-//    @objid ("06a03f79-4583-11e0-b54c-00137279a832")
-//    private void initTransaction() {
-//        final ITransaction t = Xmi.getInstance().getModelingSession().getTransactionManager().createTransaction("Create-update objing model from XMI");
-//
-//        ReverseProperties.getInstance().setOpenedTransaction(t);
-//    }
-//    @objid ("06a03f7b-4583-11e0-b54c-00137279a832")
-//    private void commitTransaction() {
-//        ITransaction t = ReverseProperties.getInstance().getOpenedTransaction();
-//        ITransactionManager tm = Xmi.getInstance().getModelingSession().getTransactionManager();
-//
-//        if ((this.error) ){
-//            tm.rollback(t);
-//            t = null;
-//        }else{
-//
-//            if (ReverseProperties.getInstance().isRollback()){
-//                tm.rollback(t);
-//                t = null;
-//                ReverseProperties.getInstance().setRollback(false);
-//
-//            }else{
-//                try{
-//                    tm.commit(t);
-//                }catch(org.eclipse.uml2.uml.InvalidTransactionException e){
-//                    tm.rollback(t);
-//                    t = null;
-//                }
-//            }
-//        }
-//    }
     @objid ("6bb85ce3-50ed-4094-bb7f-f7801e8dd76b")
     private void catchException(final Exception e, final String title) {
         Xmi.LOG.error(Xmi.PLUGIN_ID, e);
-        e.printStackTrace(System.err);
         
         final String text = e.getStackTrace()[0].toString();
         final String msgTitle = title;

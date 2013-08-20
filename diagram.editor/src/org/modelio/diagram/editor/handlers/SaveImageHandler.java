@@ -72,7 +72,7 @@ public class SaveImageHandler {
     @objid ("65c78d59-33f7-11e2-95fe-001ec947c8cc")
     private void saveAsImage(RootEditPart rootEditPart, SaveInfo saveInfo) {
         ImageBuilder imageBuilder = new ImageBuilder();
-        Image img = imageBuilder.makeImage(rootEditPart, saveInfo.format);
+        Image img = imageBuilder.makeImage(rootEditPart);
         
         if (img != null) {
             ImageLoader imgLoader = new ImageLoader();

@@ -33,8 +33,10 @@ import org.modelio.diagram.editor.activity.elements.partitioncontainer.GmDiagram
 import org.modelio.diagram.editor.activity.elements.partitioncontainer.GmPartitionContainer;
 import org.modelio.diagram.elements.core.commands.ModelioCreationContext;
 import org.modelio.diagram.elements.core.model.GmModel;
+import org.modelio.diagram.elements.core.model.ModelManager;
 import org.modelio.diagram.elements.core.node.GmCompositeNode;
 import org.modelio.diagram.elements.core.node.GmNodeModel;
+import org.modelio.gproject.model.IElementNamer;
 import org.modelio.gproject.model.api.MTools;
 import org.modelio.metamodel.diagrams.ActivityDiagram;
 import org.modelio.metamodel.factory.IModelFactory;
@@ -112,7 +114,7 @@ public class CreatePartitionContainerCommand extends Command {
         if (partition != null) {
             executeUnmasking(parentElement, partition);
         } else {
-            executeActualCreation(parentElement);
+            executeActualCreation(parentElement, this.parentDiagram.getModelManager());
         }
     }
 
@@ -186,9 +188,10 @@ public class CreatePartitionContainerCommand extends Command {
 
     /**
      * @param parentElement
+     * @param modelManager
      */
     @objid ("2991e683-55b6-11e2-877f-002564c97630")
-    private void executeActualCreation(MObject parentElement) {
+    private void executeActualCreation(MObject parentElement, ModelManager modelManager) {
         // No existing partition:create 2...
         final IModelFactory modelFactory = this.parentDiagram.getModelManager().getModelFactory(parentElement);
         ActivityPartition partition1 = modelFactory.createActivityPartition();
@@ -221,6 +224,10 @@ public class CreatePartitionContainerCommand extends Command {
             ((ModelElement) partition1).getExtension().add(this.context.getStereotype());
             ((ModelElement) partition2).getExtension().add(this.context.getStereotype());
         }
+        
+        IElementNamer elementNamer = modelManager.getModelServices().getElementNamer();
+        partition1.setName(elementNamer.getUniqueName(partition1));
+        partition2.setName(elementNamer.getUniqueName(partition2));
         
         // Unmask the first partition
         GmPartitionContainer partitionContainer = (GmPartitionContainer) this.parentDiagram.unmask(this.parentDiagram,

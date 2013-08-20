@@ -88,8 +88,12 @@ class ModelLoader implements IModelLoader {
     @objid ("400a67a0-35b1-40f9-961d-20b1b7cc0920")
     private Collection<ISmObjectData> loadedData = new ArrayList<>();
 
+    @objid ("4a4b689e-8cbb-4b66-b372-68fff49a990e")
+    private final Collection<IModelLoader> pool;
+
     @objid ("00483fd2-4fda-1f32-b43f-001ec947cd2a")
-    public ModelLoader(ModelLoaderConfiguration loaderConfig) {
+    public ModelLoader(ModelLoaderConfiguration loaderConfig, Collection<IModelLoader> pool) {
+        this.pool = pool;
         this.kid = loaderConfig.getKid();
         this.rid = loaderConfig.getRid();
         this.session = loaderConfig.getSession();
@@ -102,31 +106,10 @@ class ModelLoader implements IModelLoader {
     }
 
     @objid ("f6c04912-3948-11e2-920a-001ec947ccaf")
-    public void close() {
-        if (!this.toInitialize.isEmpty()) {
-            // Initialize objects rights
-            for (SmObjectImpl obj : this.toInitialize) {
-                initStatus(obj);
+    public final void close() {
+        doClose();
         
-                // Set the meta object
-                obj.getData().setMetaOf(this.metaOf);
-            }
-            
-            // Put loaded data to cache
-            for (ISmObjectData  d: this.loadedData) {
-                this.cacheManager.putDataToCache(d);
-                d.setRFlags(IRStatus.LOADING, StatusState.FALSE);
-            }
-        
-            // Clear list
-            if (this.toInitialize.size() < 15) {
-                this.toInitialize.clear();
-                this.loadedData.clear();
-            } else {
-                this.toInitialize = new HashSet<>(10);
-                this.loadedData = new ArrayList<>(10);
-            }
-        }
+        this.pool.add(this);
     }
 
     @objid ("00488578-4fda-1f32-b43f-001ec947cd2a")
@@ -374,6 +357,34 @@ class ModelLoader implements IModelLoader {
         data.setRFlags(flags, newState);
         addLoadedData(data);
         addObjToInitialize(obj);
+    }
+
+    @objid ("ddde6f85-63af-497e-9ac6-9bf59a7ab025")
+    protected void doClose() {
+        if (!this.toInitialize.isEmpty()) {
+            // Initialize objects rights
+            for (SmObjectImpl obj : this.toInitialize) {
+                initStatus(obj);
+        
+                // Set the meta object
+                obj.getData().setMetaOf(this.metaOf);
+            }
+            
+            // Put loaded data to cache
+            for (ISmObjectData  d: this.loadedData) {
+                this.cacheManager.putDataToCache(d);
+                d.setRFlags(IRStatus.LOADING, StatusState.FALSE);
+            }
+        
+            // Clear list
+            if (this.toInitialize.size() < 15) {
+                this.toInitialize.clear();
+                this.loadedData.clear();
+            } else {
+                this.toInitialize = new HashSet<>(10);
+                this.loadedData = new ArrayList<>(10);
+            }
+        }
     }
 
 }

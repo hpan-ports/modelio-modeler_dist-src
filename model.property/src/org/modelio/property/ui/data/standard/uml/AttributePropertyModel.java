@@ -35,9 +35,7 @@ import org.modelio.metamodel.uml.statik.GeneralClass;
 import org.modelio.metamodel.uml.statik.KindOfAccess;
 import org.modelio.metamodel.uml.statik.VisibilityMode;
 import org.modelio.property.ui.data.standard.common.AbstractPropertyModel;
-import org.modelio.vcore.session.api.model.IMObjectFilter;
 import org.modelio.vcore.session.impl.CoreSession;
-import org.modelio.vcore.smkernel.mapi.MObject;
 
 /**
  * <i>Attribute</i> data model.
@@ -94,7 +92,6 @@ public class AttributePropertyModel extends AbstractPropertyModel<Attribute> {
         this.booleanType = new BooleanType();
         
         this.generalClassType = new SingleElementType(true, GeneralClass.class, CoreSession.getSession(this.theEditedElement));
-        this.generalClassType.setElementFilter(new GeneralClassTypeFilter());
         
         this.visibilityType = new EnumType(VisibilityMode.class);
         this.kindOfAccessType = new EnumType(KindOfAccess.class);
@@ -308,21 +305,6 @@ public class AttributePropertyModel extends AbstractPropertyModel<Attribute> {
     @Override
     public int getRowsNumber() {
         return AttributePropertyModel.PROPERTIES.length;
-    }
-
-    @objid ("8ed593b8-c068-11e1-8c0a-002564c97630")
-    protected static class GeneralClassTypeFilter implements IMObjectFilter {
-        @objid ("8ed593b9-c068-11e1-8c0a-002564c97630")
-        public GeneralClassTypeFilter() {
-        }
-
-        @objid ("8ed593bc-c068-11e1-8c0a-002564c97630")
-        @Override
-        public boolean accept(MObject element) {
-            GeneralClass type = (GeneralClass) element;
-            return type.isIsElementary();
-        }
-
     }
 
 }

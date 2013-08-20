@@ -70,6 +70,7 @@ import org.eclipse.gef.ui.actions.ActionBarContributor;
 import org.eclipse.gef.ui.actions.ActionRegistry;
 import org.eclipse.gef.ui.actions.UpdateAction;
 import org.eclipse.gef.ui.palette.FlyoutPaletteComposite;
+import org.eclipse.gef.ui.palette.PaletteViewer;
 import org.eclipse.gef.ui.palette.PaletteViewerProvider;
 import org.eclipse.gef.ui.parts.ContentOutlinePage;
 import org.eclipse.gef.ui.parts.ScrollingGraphicalViewer;
@@ -129,7 +130,7 @@ import org.osgi.framework.Bundle;
 public abstract class AbstractDiagramEditor implements IModelChangeListener, IEditPartAbstractFactory, IDiagramEditor, IStatusChangeListener, CommandStackListener {
     @objid ("65741afb-33f7-11e2-95fe-001ec947c8cc")
     private static final double[] zoomLevels = { 0.25, 0.50, 0.75, 1.0, 1.25, 1.5, 1.75, 2.0, 2.25, 2.5, 2.75, 3.0, 3.25, 3.5,
-            3.75, 4.0 };
+			3.75, 4.0 };
 
     @objid ("7a3b1c18-5e25-11e2-a8be-00137282c51b")
     private GraphicalViewer graphicalViewer;
@@ -204,7 +205,8 @@ public abstract class AbstractDiagramEditor implements IModelChangeListener, IEd
     protected Text text;
 
     /**
-     * Initialize all connection routers and add them to the given connection router registry.
+     * Initialize all connection routers and add them to the given connection
+     * router registry.
      * @param routersRegistry the connection router registry.
      */
     @objid ("65741aff-33f7-11e2-95fe-001ec947c8cc")
@@ -215,7 +217,8 @@ public abstract class AbstractDiagramEditor implements IModelChangeListener, IEd
     }
 
     /**
-     * Constructor. Registers the editor as {@link IModelChangeListener} and {@link IPickingProvider}.
+     * Constructor. Registers the editor as {@link IModelChangeListener} and
+     * {@link IPickingProvider}.
      */
     @objid ("65741b1f-33f7-11e2-95fe-001ec947c8cc")
     public AbstractDiagramEditor() {
@@ -225,7 +228,8 @@ public abstract class AbstractDiagramEditor implements IModelChangeListener, IEd
     }
 
     /**
-     * When the command stack changes, the actions interested in the command stack are updated.
+     * When the command stack changes, the actions interested in the command
+     * stack are updated.
      * @param event the change event
      */
     @objid ("65741b22-33f7-11e2-95fe-001ec947c8cc")
@@ -248,16 +252,18 @@ public abstract class AbstractDiagramEditor implements IModelChangeListener, IEd
                 this.activeContexts = new ArrayList<>();
             }
         
-          @Override
-          public void focusLost(FocusEvent e) {            
-              // We must deactivate the active contexts when losing focus, to avoid the editor's shortcuts to be triggered when editing elsewhere... 
+            @Override
+            public void focusLost(FocusEvent e) {
+                // We must deactivate the active contexts when losing focus, to
+                // avoid the editor's shortcuts to be triggered when editing
+                // elsewhere...
         
-              // Store those contexts for further reactivation
-              this.activeContexts = new ArrayList<>(AbstractDiagramEditor.this.contextService.getActiveContextIds());
-              for (String contextId : this.activeContexts) {
-                  AbstractDiagramEditor.this.contextService.deactivateContext(contextId);
-              }
-          }
+                // Store those contexts for further reactivation
+                this.activeContexts = new ArrayList<>(AbstractDiagramEditor.this.contextService.getActiveContextIds());
+                for (String contextId : this.activeContexts) {
+                    AbstractDiagramEditor.this.contextService.deactivateContext(contextId);
+                }
+            }
         });
         
         getGraphicalViewer().getControl().setBackground(ColorConstants.listBackground);
@@ -315,7 +321,8 @@ public abstract class AbstractDiagramEditor implements IModelChangeListener, IEd
     }
 
     /**
-     * Creates a PaletteViewerProvider that will be used to create palettes for the view and the flyout.
+     * Creates a PaletteViewerProvider that will be used to create palettes for
+     * the view and the flyout.
      * @return the palette provider
      */
     @objid ("65741b30-33f7-11e2-95fe-001ec947c8cc")
@@ -351,21 +358,25 @@ public abstract class AbstractDiagramEditor implements IModelChangeListener, IEd
     @PreDestroy
     public void dispose(DiagramEditorsManager manager) {
         // Unregister closed diagram from the diagram manager
-        manager.remove(getEditorInput().getDiagram());
+        final DiagramEditorInput editorInput = getEditorInput();
         
         // Unregister as model change listener
-        if (getModelingSession() != null && getModelingSession().getModelChangeSupport() != null) {            
+        if (getModelingSession() != null && getModelingSession().getModelChangeSupport() != null) {
             getModelingSession().getModelChangeSupport().removeStatusChangeListener(this);
             getModelingSession().getModelChangeSupport().removeModelChangeListener(this);
         }
         
         // Dispose the editor input
-        if (getEditorInput() != null) {
-            getEditorInput().dispose();
+        if (editorInput != null) {
+            manager.remove(editorInput.getDiagram());
+            editorInput.dispose();
         }
         
         // empty the palette
-        getEditDomain().getPaletteViewer().setContents(null);
+        final PaletteViewer paletteViewer = getEditDomain().getPaletteViewer();
+        if (paletteViewer != null) {
+            paletteViewer.setContents(null);
+        }
         
         this.paletteRoot = null;
         getCommandStack().removeCommandStackListener(this);
@@ -378,8 +389,9 @@ public abstract class AbstractDiagramEditor implements IModelChangeListener, IEd
     }
 
     /**
-     * Notifies the editor that the handle opened on it has been closed. Depending on its nature, the editor might decide to delete
-     * itself, release some resources, or ignore this event altogether.
+     * Notifies the editor that the handle opened on it has been closed.
+     * Depending on its nature, the editor might decide to delete itself,
+     * release some resources, or ignore this event altogether.
      */
     @objid ("65741b3b-33f7-11e2-95fe-001ec947c8cc")
     @Override
@@ -407,8 +419,9 @@ public abstract class AbstractDiagramEditor implements IModelChangeListener, IEd
      * Returns the adapter for the specified key.
      * 
      * <P>
-     * <EM>IMPORTANT</EM> certain requests, such as the property sheet, may be made before or after
-     * {@link #createPartControl(Composite)} is called. The order is unspecified by the Workbench.
+     * <EM>IMPORTANT</EM> certain requests, such as the property sheet, may be
+     * made before or after {@link #createPartControl(Composite)} is called. The
+     * order is unspecified by the Workbench.
      * @see org.eclipse.core.runtime.IAdaptable#getAdapter(java.lang.Class)
      */
     @objid ("65767d5d-33f7-11e2-95fe-001ec947c8cc")
@@ -500,10 +513,11 @@ public abstract class AbstractDiagramEditor implements IModelChangeListener, IEd
     }
 
     /**
-     * Returns the palette viewer provider that is used to create palettes for the view and the flyout. Creates one if it doesn't
-     * already exist.
+     * Returns the palette viewer provider that is used to create palettes for
+     * the view and the flyout. Creates one if it doesn't already exist.
      * @see #createPaletteViewerProvider()
-     * @return the PaletteViewerProvider that can be used to create PaletteViewers for this editor
+     * @return the PaletteViewerProvider that can be used to create
+     * PaletteViewers for this editor
      */
     @objid ("65767d8d-33f7-11e2-95fe-001ec947c8cc")
     protected final PaletteViewerProvider getPaletteViewerProvider() {
@@ -518,8 +532,10 @@ public abstract class AbstractDiagramEditor implements IModelChangeListener, IEd
     }
 
     /**
-     * Returns the list of {@link IAction IActions} dependant on property changes in the Editor. These actions should implement the
-     * {@link UpdateAction} interface so that they can be updated in response to property changes. An example is the "Save" action.
+     * Returns the list of {@link IAction IActions} dependant on property
+     * changes in the Editor. These actions should implement the
+     * {@link UpdateAction} interface so that they can be updated in response to
+     * property changes. An example is the "Save" action.
      * @return the list of property-dependant actions
      */
     @objid ("65767d96-33f7-11e2-95fe-001ec947c8cc")
@@ -534,14 +550,17 @@ public abstract class AbstractDiagramEditor implements IModelChangeListener, IEd
     @objid ("65767d9d-33f7-11e2-95fe-001ec947c8cc")
     @Override
     public RootEditPart getRootEditPart() {
-        // Automatically generated method. Please delete this comment before entering specific code.
+        // Automatically generated method. Please delete this comment before
+        // entering specific code.
         return this.rootEditPart;
     }
 
     /**
-     * Returns the list of <em>IDs</em> of Actions that are dependant on changes in the workbench's {@link ISelectionService}. The
-     * associated Actions can be found in the action registry. Such actions should implement the {@link UpdateAction} interface so
-     * that they can be updated in response to selection changes.
+     * Returns the list of <em>IDs</em> of Actions that are dependant on changes
+     * in the workbench's {@link ISelectionService}. The associated Actions can
+     * be found in the action registry. Such actions should implement the
+     * {@link UpdateAction} interface so that they can be updated in response to
+     * selection changes.
      * @see #updateActions(List)
      * @return the list of selection-dependant action IDs
      */
@@ -551,7 +570,8 @@ public abstract class AbstractDiagramEditor implements IModelChangeListener, IEd
     }
 
     /**
-     * Returns the selection synchronizer object. The synchronizer can be used to sync the selection of 2 or more EditPartViewers.
+     * Returns the selection synchronizer object. The synchronizer can be used
+     * to sync the selection of 2 or more EditPartViewers.
      * @return the synchronizer
      */
     @objid ("6578dfb1-33f7-11e2-95fe-001ec947c8cc")
@@ -562,9 +582,11 @@ public abstract class AbstractDiagramEditor implements IModelChangeListener, IEd
     }
 
     /**
-     * Returns the list of <em>IDs</em> of Actions that are dependant on the CommmandStack's state. The associated Actions can be
-     * found in the action registry. These actions should implement the {@link UpdateAction} interface so that they can be updated
-     * in response to command stack changes. An example is the "undo" action.
+     * Returns the list of <em>IDs</em> of Actions that are dependant on the
+     * CommmandStack's state. The associated Actions can be found in the action
+     * registry. These actions should implement the {@link UpdateAction}
+     * interface so that they can be updated in response to command stack
+     * changes. An example is the "undo" action.
      * @return the list of stack-dependant action IDs
      */
     @objid ("6578dfb6-33f7-11e2-95fe-001ec947c8cc")
@@ -573,9 +595,10 @@ public abstract class AbstractDiagramEditor implements IModelChangeListener, IEd
     }
 
     /**
-     * Hooks the GraphicalViewer to the rest of the Editor. By default, the viewer is added to the SelectionSynchronizer, which can
-     * be used to keep 2 or more EditPartViewers in sync. The viewer is also registered as the ISelectionProvider for the Editor's
-     * PartSite.
+     * Hooks the GraphicalViewer to the rest of the Editor. By default, the
+     * viewer is added to the SelectionSynchronizer, which can be used to keep 2
+     * or more EditPartViewers in sync. The viewer is also registered as the
+     * ISelectionProvider for the Editor's PartSite.
      */
     @objid ("6578dfbd-33f7-11e2-95fe-001ec947c8cc")
     protected void hookGraphicalViewer() {
@@ -590,8 +613,9 @@ public abstract class AbstractDiagramEditor implements IModelChangeListener, IEd
     }
 
     /**
-     * Sets the site and input for this editor then creates and initializes the actions. Subclasses may extend this method, but
-     * should always call <code>super.init(site, input)
+     * Sets the site and input for this editor then creates and initializes the
+     * actions. Subclasses may extend this method, but should always call
+     * <code>super.init(site, input)
      * </code>.
      */
     @objid ("6578dfc0-33f7-11e2-95fe-001ec947c8cc")
@@ -610,10 +634,12 @@ public abstract class AbstractDiagramEditor implements IModelChangeListener, IEd
     }
 
     /**
-     * Initializes the ActionRegistry. This registry may be used by {@link ActionBarContributor ActionBarContributors} and/or
+     * Initializes the ActionRegistry. This registry may be used by
+     * {@link ActionBarContributor ActionBarContributors} and/or
      * {@link ContextMenuProvider ContextMenuProviders}.
      * <P>
-     * This method may be called on Editor creation, or lazily the first time {@link #getActionRegistry()} is called.
+     * This method may be called on Editor creation, or lazily the first time
+     * {@link #getActionRegistry()} is called.
      */
     @objid ("6578dfc4-33f7-11e2-95fe-001ec947c8cc")
     protected void initializeActionRegistry() {
@@ -635,8 +661,10 @@ public abstract class AbstractDiagramEditor implements IModelChangeListener, IEd
         // Set the viewer content
         GmAbstractDiagram gmDiagram = getEditorInput().getGmDiagram();
         viewer.setContents(gmDiagram);
-        // Force a complete refresh now that edit parts are finally listening to events that might
-        // be sent by the model (e.g.: links that have changed source and/or target while diagram
+        // Force a complete refresh now that edit parts are finally listening to
+        // events that might
+        // be sent by the model (e.g.: links that have changed source and/or
+        // target while diagram
         // was closed).
         gmDiagram.refreshAllFromObModel();
     }
@@ -647,7 +675,8 @@ public abstract class AbstractDiagramEditor implements IModelChangeListener, IEd
     }
 
     /**
-     * Returns <code>false</code> by default. Subclasses must return <code>true</code> to allow {@link #doSaveAs()} to be called.
+     * Returns <code>false</code> by default. Subclasses must return
+     * <code>true</code> to allow {@link #doSaveAs()} to be called.
      * @see org.eclipse.ui.ISaveablePart#isSaveAsAllowed()
      */
     @objid ("6578dfcd-33f7-11e2-95fe-001ec947c8cc")
@@ -670,12 +699,13 @@ public abstract class AbstractDiagramEditor implements IModelChangeListener, IEd
         // Re enter the UI thread
         Display display = Display.getDefault();
         if (display != null) {
-            display.syncExec(new Runnable() {
+            display.asyncExec(new Runnable() {
                 @Override
                 public void run() {
                     final AbstractDiagram diagram = getEditorInput().getDiagram();
                     if (event.getDeleteEvents().size() != 0) {
-                        // Some elements were deleted: check for validity of the diagram.
+                        // Some elements were deleted: check for validity of the
+                        // diagram.
                         if (diagram != null && !diagram.isValid()) {
                             // The diagram in no longer valid, close the editor
                             // use the PartService to close this editor
@@ -683,7 +713,8 @@ public abstract class AbstractDiagramEditor implements IModelChangeListener, IEd
                             return;
                         }
                     }
-                    // At this point, we know that diagram is still valid, update the editor's title.
+                    // At this point, we know that diagram is still valid,
+                    // update the editor's title.
                     if (diagram != null) {
                         getPart().setLabel(diagram.getName());
                     }
@@ -717,13 +748,14 @@ public abstract class AbstractDiagramEditor implements IModelChangeListener, IEd
     @Inject
     @Optional
     public void onPickingStart(@EventTopic(ModelioEventTopics.PICKING_START) final IPickingSession session) {
-        // FIXME this should be an @UIEventTopic, but they are not triggered with eclipse 4.3 M5...
-           Display.getDefault().asyncExec(new Runnable() {
-               @Override
-               public void run() {
-                   getEditDomain().setActiveTool(new PickingSelectionTool(session));
-               }
-           });
+        // FIXME this should be an @UIEventTopic, but they are not triggered
+        // with eclipse 4.3 M5...
+        Display.getDefault().asyncExec(new Runnable() {
+            @Override
+            public void run() {
+                getEditDomain().setActiveTool(new PickingSelectionTool(session));
+            }
+        });
     }
 
     @objid ("76c9ecb8-dc7f-4493-8fe4-a68f66bc8c40")
@@ -731,9 +763,9 @@ public abstract class AbstractDiagramEditor implements IModelChangeListener, IEd
     @Optional
     @SuppressWarnings("unused")
     public void onPickingStop(@EventTopic(ModelioEventTopics.PICKING_STOP) final IPickingSession session) {
-        // FIXME this should be an @UIEventTopic, but they are not triggered with eclipse 4.3 M5...
+        // FIXME this should be an @UIEventTopic, but they are not triggered
+        // with eclipse 4.3 M5...
         Display.getDefault().asyncExec(new Runnable() {
-        
             @Override
             public void run() {
                 getEditDomain().setActiveTool(new PanSelectionTool());
@@ -764,7 +796,8 @@ public abstract class AbstractDiagramEditor implements IModelChangeListener, IEd
     public void setFocus() {
         getGraphicalViewer().getControl().setFocus();
         
-        // Initialize the module contextual menu creator with the part having the focus...
+        // Initialize the module contextual menu creator with the part having
+        // the focus...
         ModuleMenuCreator.setPart(this.part);
     }
 
@@ -803,20 +836,17 @@ public abstract class AbstractDiagramEditor implements IModelChangeListener, IEd
     @objid ("657b421d-33f7-11e2-95fe-001ec947c8cc")
     @Override
     public void statusChanged(IStatusChangeEvent event) {
-        // Re enter the UI thread
-        Display display = Display.getDefault();
-        if (display != null) {
-            display.syncExec(new Runnable() {
+        final AbstractDiagram diagram = getEditorInput().getDiagram();
+        // Some elements were deleted: check for validity of the diagram.
+        if (diagram != null && !diagram.isValid()) {
+            // The diagram in no longer valid, close the editor
+            // use the PartService to close this editor
+            // Re enter the UI thread
+            Display display = graphicalViewer.getControl().getDisplay();
+            display.asyncExec(new Runnable() {
                 @Override
                 public void run() {
-                    final AbstractDiagram diagram = getEditorInput().getDiagram();
-                    // Some elements were deleted: check for validity of the diagram.
-                    if (diagram != null && !diagram.isValid()) {
-                        // The diagram in no longer valid, close the editor
-                        // use the PartService to close this editor
-                        AbstractDiagramEditor.this.partService.hidePart(getPart(), true);
-                        return;
-                    }
+                    AbstractDiagramEditor.this.partService.hidePart(getPart(), true);
                 }
             });
         }
@@ -824,9 +854,11 @@ public abstract class AbstractDiagramEditor implements IModelChangeListener, IEd
     }
 
     /**
-     * A convenience method for updating a set of actions defined by the given List of action IDs. The actions are found by looking
-     * up the ID in the {@link #getActionRegistry() action registry}. If the corresponding action is an {@link UpdateAction}, it
-     * will have its <code>update()</code> method called.
+     * A convenience method for updating a set of actions defined by the given
+     * List of action IDs. The actions are found by looking up the ID in the
+     * {@link #getActionRegistry() action registry}. If the corresponding action
+     * is an {@link UpdateAction}, it will have its <code>update()</code> method
+     * called.
      * @param actionIds the list of IDs to update
      */
     @objid ("657b4221-33f7-11e2-95fe-001ec947c8cc")
@@ -908,17 +940,14 @@ public abstract class AbstractDiagramEditor implements IModelChangeListener, IEd
         }
 
         @objid ("6571b8a6-33f7-11e2-95fe-001ec947c8cc")
-        public void statusChanged() {
+        protected void statusChanged() {
             if (this.diagram != null && this.label != null) {
-                this.label.getDisplay().syncExec(new Runnable() {
+                final boolean isModifiable = IsModifiableIndicator.this.diagram.isModifiable();
+                
+                this.label.getDisplay().asyncExec(new Runnable() {
                     @Override
                     public void run() {
-                        boolean isModifiable = IsModifiableIndicator.this.diagram.isModifiable();
-                        if (isModifiable) {
-                            IsModifiableIndicator.this.label.setImage(modifiableImage);
-                        } else {
-                            IsModifiableIndicator.this.label.setImage(notModifiableImage);
-                        }
+                        IsModifiableIndicator.this.label.setImage(isModifiable ? modifiableImage : notModifiableImage);
                     }
                 });
             }
@@ -986,7 +1015,9 @@ public abstract class AbstractDiagramEditor implements IModelChangeListener, IEd
                         OutlinePage.this.thumbnail.deactivate();
                         OutlinePage.this.thumbnail = null;
                     }
-                    OutlinePage.this.dispose(); // dispose the outline page to avoid a graphical refresh problem
+                    OutlinePage.this.dispose(); // dispose the outline page to
+                                                // avoid a graphical refresh
+                                                // problem
                 }
             };
             AbstractDiagramEditor.this.getGraphicalViewer().getControl().addDisposeListener(this.disposeListener);

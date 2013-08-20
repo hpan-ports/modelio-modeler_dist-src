@@ -75,6 +75,9 @@ public class MicrosoftEditors implements BundleActivator {
         context = null;
     }
 
+    /**
+     * @return the bundle's execution context
+     */
     @objid ("2031a600-f463-4c28-a450-e0b182f10504")
     public static BundleContext getContext() {
         return context;

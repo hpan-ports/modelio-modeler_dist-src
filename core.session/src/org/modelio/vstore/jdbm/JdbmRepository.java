@@ -50,7 +50,6 @@ import org.modelio.vcore.session.api.repository.IRepository;
 import org.modelio.vcore.session.api.repository.StorageErrorSupport;
 import org.modelio.vcore.session.impl.storage.IModelLoader;
 import org.modelio.vcore.session.impl.storage.IModelLoaderProvider;
-import org.modelio.vcore.session.impl.storage.IModelLoadingSession;
 import org.modelio.vcore.session.plugin.VCoreSession;
 import org.modelio.vcore.smkernel.IRStatus;
 import org.modelio.vcore.smkernel.IRepositoryObject;
@@ -133,6 +132,9 @@ public class JdbmRepository implements IRepository {
     @objid ("2855a7dc-bf0d-400e-a6f3-2e1cbef58e1e")
     private ILoadHelper loadHelper;
 
+    @objid ("9bde9f15-59c2-4f08-a3d1-a3feab892ca7")
+    private Object dirtyLock;
+
     /**
      * Initialize the repository.
      * @param repositoryPath the repository directory.
@@ -142,25 +144,13 @@ public class JdbmRepository implements IRepository {
         this.emfRes = new JdbmEmfResource(this);
         this.errSupport = new StorageErrorSupport(this);
         this.repositoryPath = repositoryPath;
+        this.dirtyLock = new Object();
     }
 
     @objid ("c9f38d40-2a4b-4830-b089-763a6b1a3c05")
     @Override
     public void addObject(SmObjectImpl newObject) {
         this.handler.attach(newObject);
-    }
-
-    /**
-     * Create a loading session.
-     * <p>
-     * Should be called only when no loading session is already available.
-     * This session must be used in a <i>try-with-resource</i> statement in order to always
-     * be closed.
-     * @return a loading session.
-     */
-    @objid ("3cc094ba-7f59-437a-b073-d733a223d899")
-    public IModelLoadingSession beginSession() {
-        return this.modelLoaderProvider.beginLoadSession();
     }
 
     @objid ("912c712d-1e74-497e-ae0a-ed3c11f2c9ad")
@@ -185,9 +175,8 @@ public class JdbmRepository implements IRepository {
         assertOpen();
         
         Collection<MObject> results = new ArrayList<>();
-        try (IModelLoadingSession loadSession = beginSession()){
-            IModelLoader modelLoader = loadSession.getLoader();
-            loadAll(cls, modelLoader, true);
+        try (IModelLoader modelLoader = this.modelLoaderProvider.beginLoadSession()){
+            findAll(cls, modelLoader, true);
         } catch (DuplicateObjectException e) {
             getErrorSupport().fireError(e);
         } catch (IOError e) {
@@ -206,9 +195,8 @@ public class JdbmRepository implements IRepository {
         assertOpen();
         
         Collection<MObject> results = new ArrayList<>();
-        try (IModelLoadingSession loadSession = beginSession()){
-            IModelLoader modelLoader = loadSession.getLoader();
-            loadAll(cls, modelLoader, true);
+        try (IModelLoader modelLoader = this.modelLoaderProvider.beginLoadSession()){
+            findAll(cls, modelLoader, true);
             getLoadCache().findByClass(cls, results);
         } catch (DuplicateObjectException e) {
             getErrorSupport().fireError(e);
@@ -222,8 +210,7 @@ public class JdbmRepository implements IRepository {
         SmObjectImpl ret = getLoadedObject(cls, siteIdentifier);
         
         if (ret == null && isStored(siteIdentifier)) {
-            try (IModelLoadingSession loadSession = beginSession()) {
-                IModelLoader modelLoader = loadSession.getLoader();
+            try (IModelLoader modelLoader = this.modelLoaderProvider.beginLoadSession()) {
                 return createStubObject(cls, siteIdentifier, modelLoader);
         
             } catch (DuplicateObjectException e) {
@@ -245,9 +232,8 @@ public class JdbmRepository implements IRepository {
         Collection<SmObjectImpl> results = new ArrayList<>(1000);
         
         SmClass cls = SmClass.getClass(MObject.class);
-        try (IModelLoadingSession loadSession = beginSession()){
-            IModelLoader modelLoader = loadSession.getLoader();
-            loadAll(cls, modelLoader, true);
+        try (IModelLoader modelLoader = this.modelLoaderProvider.beginLoadSession()){
+            findAll(cls, modelLoader, true);
             getLoadCache().findByClass(cls, results);
         } catch (DuplicateObjectException e) {
             getLoadCache().findByClass(cls, results);
@@ -276,8 +262,12 @@ public class JdbmRepository implements IRepository {
 
     @objid ("4fd5a0ec-3a82-4973-915d-009cf991eb13")
     @Override
-    public synchronized boolean isDirty() {
+    public boolean isDirty() {
+        // avoid synchronization here : a wrong result is less important than a
+        // dead lock in the GUI thread.
+        //synchronized(this.dirtyLock) {
         return ! this.dirty.isEmpty();
+                //}
     }
 
     @objid ("2dee4288-dd83-4d61-99a3-8e5940ae0cd6")
@@ -295,25 +285,26 @@ public class JdbmRepository implements IRepository {
 
     @objid ("85165e38-e3ab-4c7e-8b2e-874ea364e3bf")
     @Override
-    public synchronized void loadDynamicDep(SmObjectImpl obj, SmDependency dep) {
+    public void loadDynamicDep(SmObjectImpl obj, SmDependency dep) {
         if (! isloadEnabled())
             return;
         
+        // If the object to load is in this repository an the dependency persistent,
+        // just load the object and return.
         IRepositoryObject objHandler = obj.getRepositoryObject();
         if (objHandler==this.handler && objHandler.isPersistent(dep)) {
             objHandler.loadDep(obj, dep);
             return;
         }
         
-        try (IModelLoadingSession sess = this.modelLoaderProvider.beginLoadSession()) {
-            IModelLoader modelLoader = sess.getLoader();
+        try (IModelLoader modelLoader = this.modelLoaderProvider.beginLoadSession()) { 
             for (MRef ref :this.index.getUserRefs(new MRef(obj))) {
-                SmObjectImpl object = (SmObjectImpl) getLoadCache().findByRef(ref);
-                if (object == null) 
-                    object = createStubObject(SmClass.getClass(ref.mc), ref.uuid, modelLoader);
+                SmObjectImpl user = (SmObjectImpl) getLoadCache().findByRef(ref);
+                if (user == null) 
+                    user = createStubObject(SmClass.getClass(ref.mc), ref.uuid, modelLoader);
         
-                if (! object.getRepositoryObject().isAttLoaded(obj, null))
-                    loadObj(object, modelLoader);
+                if (! user.getRepositoryObject().isAttLoaded(user, null))
+                    loadObj(user, modelLoader);
             }
         } catch (IOError e) {
             getErrorSupport().fireWarning(e);
@@ -349,8 +340,8 @@ public class JdbmRepository implements IRepository {
         
         Properties props = new Properties();
         props.setProperty(RecordManagerOptions.DISABLE_TRANSACTIONS, "false");
-        props.setProperty(RecordManagerOptions.CACHE_TYPE, "auto");
-        props.setProperty(RecordManagerOptions.CACHE_SIZE, "30000");
+        props.setProperty(RecordManagerOptions.CACHE_TYPE, "mru");
+        props.setProperty(RecordManagerOptions.CACHE_SIZE, "100");
         
         Files.createDirectories(this.repositoryPath.toPath());
         
@@ -359,7 +350,7 @@ public class JdbmRepository implements IRepository {
             this.db = RecordManagerFactory.createRecordManager(dbPath.getAbsolutePath(), props );
         
             handleFormatVersion();
-            
+        
             this.index = new JdbmIndex(this.db);
             this.loadHelper = new LoadHelper();
             this.serializer = new SmObjectDataSerializer(this.rid, this.loadHelper);
@@ -390,56 +381,63 @@ public class JdbmRepository implements IRepository {
 
     @objid ("26322a98-ecb6-4738-b1f7-dc6ba1f87729")
     @Override
-    public synchronized void save(IModelioProgress monitor) throws IOException {
+    public void save(IModelioProgress monitor) throws IOException {
         try {
             writeFormatVersion();
-            
-            int nbDirty = this.dirty.size();
-            SubProgress mon = SubProgress.convert(monitor, nbDirty+70);
-            int i = 0;
-            for (SmObjectImpl obj : this.dirty) {
-                MRef objRef = new MRef(obj);
-                if (obj.isDeleted() || obj.getRepositoryObject() != this.handler) {  
-                    this.index.removeObj(objRef);
-                    this.index.removeUses(objRef);
-                    this.dbContent.remove(obj.getUuid());
-                    this.loadCache.removeFromCache(obj);
-                } else {
-                    ByteArrayOutputStream os = new ByteArrayOutputStream(200);
+            ByteArrayOutputStream os = new ByteArrayOutputStream(200);
+            @SuppressWarnings("resource")
+            SerializerOutput dos = new SerializerOutput(os);
         
-                    try (SerializerOutput dos = new SerializerOutput(os)) {
+            synchronized (this.dirtyLock)
+            {
+                int nbDirty = this.dirty.size();
+                SubProgress mon = SubProgress.convert(monitor, nbDirty+70);
+                int i = 0;
+                for (SmObjectImpl obj : this.dirty) {
+                    MRef objRef = new MRef(obj);
+                    if (obj.isDeleted() || obj.getRepositoryObject() != this.handler) {  
+                        this.index.removeObj(objRef);
+                        this.index.removeUses(objRef);
+                        this.dbContent.remove(obj.getUuid());
+                        this.loadCache.removeFromCache(obj);
+                    } else {
+                        os.reset();
+                        dos.__resetWrittenCounter();
+        
                         this.serializer.serialize(dos, (SmObjectData) obj.getData());
+        
+                        byte[] old = this.dbContent.put(obj.getUuid(), os.toByteArray());
+        
+                        // Add to main index if needed
+                        if (old == null)
+                            this.index.addToMain(obj);
+                        else
+                            this.index.removeUses(objRef);
+        
+                        // Update cross reference indexes
+                        this.index.addToCrossRefs(obj);
                     }
         
-                    byte[] old = this.dbContent.put(obj.getUuid(), os.toByteArray());
-                    
-                    // Add to main index if needed
-                    if (old == null)
-                        this.index.addToMain(obj);
-                    else
-                        this.index.removeUses(objRef);
-        
-                    // Update cross reference indexes
-                    this.index.addToCrossRefs(obj);
+                    mon.worked(1);
+                    if (++i % 20 == 0)
+                        mon.subTask(VCoreSession.getMessage("JdbmRepository.save", getName(), i, nbDirty));
                 }
-                
-                mon.worked(1);
-                if (++i % 10 == 0)
-                    mon.subTask(VCoreSession.getMessage("JdbmRepository.save", getName(), i, nbDirty));
-            }
         
-            mon.subTask(VCoreSession.getMessage("JdbmRepository.save.commit", getName()));
-            this.db.clearCache();
-            mon.worked(30);
-            this.db.commit();
-            mon.worked(30);
-            
-            mon.subTask(VCoreSession.getMessage("JdbmRepository.save.done", getName()));
-            for (SmObjectImpl obj : this.dirty)
-                obj.setRStatus(IRStatus.REPO_LOADED, IRStatus.REPO_DIRTY, 0);
-            mon.worked(10);
+                mon.subTask(VCoreSession.getMessage("JdbmRepository.save.commit", getName()));
+                this.db.clearCache();
+                mon.worked(30);
+                this.db.commit();
+                mon.worked(30);
         
-            this.dirty = new HashSet<>();
+                mon.subTask(VCoreSession.getMessage("JdbmRepository.save.done", getName()));
+                for (SmObjectImpl obj : this.dirty)
+                    obj.setRStatus(IRStatus.REPO_LOADED, IRStatus.REPO_DIRTY, 0);
+        
+                mon.worked(10);
+                mon.subTask("");
+        
+                this.dirty = new HashSet<>();
+            } 
         } catch (IOError e) {
             getErrorSupport().fireWarning(e);
         } catch (InternalError e) {
@@ -462,18 +460,20 @@ public class JdbmRepository implements IRepository {
     }
 
     /**
-     * Load all the instances of the given metaclass with its sub classes if asked.
+     * Find all instances of the given metaclass with its sub classes if asked.
+     * <p>
+     * The model objects are not loaded, only stubs are instantiated.
      * @param cls a metamodel class
      * @param recursive <code>true</code> to load all sub classes too.
      * @throws org.modelio.vcore.model.DuplicateObjectException when adding to the cache an object with the same identifier as another one.
      */
     @objid ("5c036afc-79f4-485b-8238-a676f8c87d18")
-    private synchronized void loadAll(SmClass cls, IModelLoader modelLoader, final boolean recursive) throws DuplicateObjectException {
+    private void findAll(SmClass cls, IModelLoader modelLoader, final boolean recursive) throws DuplicateObjectException {
         // Load all sub meta-classes instances
         if (recursive) {
             for (SmClass c : cls.getAllSubClasses()) {
                 if (c.isCmsNode())
-                    loadAll(c, modelLoader, false);
+                    findAll(c, modelLoader, false);
             }
         }
         
@@ -489,21 +489,21 @@ public class JdbmRepository implements IRepository {
     }
 
     @objid ("88d00449-1b6f-4af0-a720-f3f21b4c0133")
-    private synchronized void loadObj(SmObjectImpl obj, IModelLoader loader) throws IOException, IOError, InternalError, DuplicateObjectException {
+    private void loadObj(SmObjectImpl obj, IModelLoader loader) throws IOException, IOError, InternalError, DuplicateObjectException {
         boolean ok = false;
         try {
             byte[] bdata = this.dbContent.get(obj.getUuid());
             if (bdata == null)
                 throw new IOException(obj.getUuid()+" "+obj.getClassOf().getName()+" not found.");
-            
+        
             ByteArrayInputStream bis = new ByteArrayInputStream(bdata);
             try (SerializerInput dis = new SerializerInput(bis);) {
                 this.serializer.deserialize(dis, obj, loader);
-            
+        
                 // set the object loaded, non shell, non dirty
                 loader.setRStatus(obj, IRStatus.REPO_LOADED, IRStatus.SHELL | IRStatus.REPO_DIRTY, 0);
             }
-            
+        
             ok = true;
         } finally {
             if (! ok) {
@@ -513,8 +513,10 @@ public class JdbmRepository implements IRepository {
     }
 
     @objid ("964b3c71-d082-4b68-9635-933175859963")
-    synchronized void addDirty(SmObjectImpl obj) {
-        this.dirty.add(obj);
+    void addDirty(SmObjectImpl obj) {
+        synchronized (this.dirtyLock) {
+            this.dirty.add(obj);
+        }
     }
 
     @objid ("a8430ea0-8fc5-4487-8ee8-517e5fea74c7")
@@ -568,13 +570,12 @@ public class JdbmRepository implements IRepository {
     }
 
     @objid ("e1ad96c6-90ad-47c2-b221-c535e5b6f57e")
-    synchronized void loadObj(SmObjectImpl obj) {
+    void loadObj(SmObjectImpl obj) {
         if (!isloadEnabled())
             return;
         
-        try (IModelLoadingSession sess = this.modelLoaderProvider.beginLoadSession()) {
-            IModelLoader loader = sess.getLoader();
-            loadObj(obj, loader);
+        try (IModelLoader modelLoader = this.modelLoaderProvider.beginLoadSession()) {
+            loadObj(obj, modelLoader);
         } catch (DuplicateObjectException e) {
             getErrorSupport().fireError(e);
         } catch (IOException e) {
@@ -601,10 +602,13 @@ public class JdbmRepository implements IRepository {
      * @param obj a model object to forget.
      */
     @objid ("c77433b1-c3c1-47b1-a861-ef8cdc86f0f8")
-    synchronized void unloadObject(SmObjectImpl obj) {
+    void unloadObject(SmObjectImpl obj) {
         obj.getData().setRFlags(IRStatus.MASK_REPO, StatusState.FALSE);
         getLoadCache().removeFromCache(obj);
-        this.dirty.remove(obj);
+        
+        synchronized (this.dirtyLock) {
+            this.dirty.remove(obj);
+        }
     }
 
     /**

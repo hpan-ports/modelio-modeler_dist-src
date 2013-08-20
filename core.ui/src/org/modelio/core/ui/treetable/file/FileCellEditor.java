@@ -22,25 +22,30 @@
 package org.modelio.core.ui.treetable.file;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.eclipse.jface.viewers.DialogCellEditor;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.FileDialog;
-import org.modelio.ui.UIImages;
+import org.modelio.core.ui.treetable.EditableDialogCellEditor;
 
 /**
  * CellEditor to choose a file
  */
 @objid ("d847800b-1718-4f41-b42e-807bea85eaf2")
-public class FileCellEditor extends DialogCellEditor {
+public class FileCellEditor extends EditableDialogCellEditor {
     @objid ("019dcfe1-94df-4419-947d-7e0d002fdbf9")
     private String[] filterNames;
 
     @objid ("e9259a7c-aea4-4480-af20-80f3c3291595")
     private String[] filterExtensions;
+
+    @objid ("e061b9b3-8dd1-42f2-bdf1-661b95299d7b")
+    public FileCellEditor(Composite parent, String[] filterNames, String[] filterExtensions) {
+        super(parent);
+        this.filterNames = filterNames;
+        this.filterExtensions = filterExtensions;
+    }
 
     @objid ("70d2adc3-04bb-43a6-ae38-1f25b42409aa")
     @Override
@@ -55,21 +60,6 @@ public class FileCellEditor extends DialogCellEditor {
             doSetValue(file);
         }   // if cancel (file is null), keep the last value
         return null;
-    }
-
-    @objid ("e061b9b3-8dd1-42f2-bdf1-661b95299d7b")
-    public FileCellEditor(Composite parent, String[] filterNames, String[] filterExtensions) {
-        super(parent);
-        this.filterNames = filterNames;
-        this.filterExtensions = filterExtensions;
-    }
-
-    @objid ("a3d8afff-4319-4882-ae78-df03c5f9bb79")
-    @Override
-    protected Button createButton(Composite parent) {
-        Button result = new Button(parent, SWT.DOWN);
-        result.setImage(UIImages.FILECHOOSE);
-        return result;
     }
 
 }

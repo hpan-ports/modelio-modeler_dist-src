@@ -24,6 +24,7 @@ package org.modelio.vaudit.nsuse;
 import java.util.ArrayDeque;
 import java.util.Deque;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
+import org.eclipse.emf.common.util.EList;
 import org.modelio.metamodel.uml.behavior.activityModel.AcceptCallEventAction;
 import org.modelio.metamodel.uml.behavior.activityModel.AcceptChangeEventAction;
 import org.modelio.metamodel.uml.behavior.activityModel.AcceptSignalAction;
@@ -139,16 +140,13 @@ import org.modelio.metamodel.uml.statik.ElementRealization;
 import org.modelio.metamodel.uml.statik.Generalization;
 import org.modelio.metamodel.uml.statik.Instance;
 import org.modelio.metamodel.uml.statik.InterfaceRealization;
-import org.modelio.metamodel.uml.statik.Link;
 import org.modelio.metamodel.uml.statik.LinkEnd;
 import org.modelio.metamodel.uml.statik.Manifestation;
 import org.modelio.metamodel.uml.statik.NameSpace;
 import org.modelio.metamodel.uml.statik.NamespaceUse;
 import org.modelio.metamodel.uml.statik.NaryAssociation;
 import org.modelio.metamodel.uml.statik.NaryAssociationEnd;
-import org.modelio.metamodel.uml.statik.NaryConnector;
 import org.modelio.metamodel.uml.statik.NaryConnectorEnd;
-import org.modelio.metamodel.uml.statik.NaryLink;
 import org.modelio.metamodel.uml.statik.NaryLinkEnd;
 import org.modelio.metamodel.uml.statik.Node;
 import org.modelio.metamodel.uml.statik.Operation;
@@ -164,30 +162,31 @@ import org.modelio.metamodel.uml.statik.TemplateBinding;
 import org.modelio.metamodel.uml.statik.TemplateParameter;
 import org.modelio.metamodel.uml.statik.TemplateParameterSubstitution;
 import org.modelio.metamodel.visitors.AbstractModelVisitor;
+import org.modelio.vaudit.plugin.Vaudit;
 import org.modelio.vcore.session.api.repository.IRepository;
 import org.modelio.vcore.session.impl.GenericFactory;
 
 @objid ("ceda606e-ea0c-4c63-b339-6ef9d56d5768")
 class NSUseBuilder extends AbstractModelVisitor {
-    @objid ("afa07368-6286-4df0-80f7-2c14925c93c4")
+    @objid ("690e1462-7f16-4903-9ada-ffb15db5438c")
     private IRepository repository;
 
-    @objid ("b90f9ce5-f829-44c3-a2e5-1c6823f47047")
+    @objid ("a1555efe-355c-4580-8f17-9ec5d125d695")
     private GenericFactory genericFactory;
 
-    @objid ("f8de0ea5-cab3-494d-8448-c161c458b242")
+    @objid ("3036dde4-dcee-4ec7-8ecf-f6c7c70644da")
     public NSUseBuilder(GenericFactory genericFactory, IRepository repository) {
         this.repository = repository;
         this.genericFactory = genericFactory;
     }
 
-    @objid ("102ef11f-0e79-48c3-9d4e-5c8c4a7a1b4b")
+    @objid ("f9c1fdbb-b9de-44c5-bd81-75fad4d4fff8")
     @Override
     public Object visitAbstraction(Abstraction obj) {
         return visitDependency(obj);
     }
 
-    @objid ("d21fe6ac-284a-4351-a65e-a241b96ec396")
+    @objid ("cf0ea951-e56c-4a40-87ad-4e66054c46eb")
     @Override
     public Object visitDependency(Dependency dep) {
         NSUseUtils.dereferenceNSUsesCausedBy(dep);
@@ -197,81 +196,89 @@ class NSUseBuilder extends AbstractModelVisitor {
         NameSpace src1;
         NameSpace dest1;
         src1 = NSUseUtils.getNameSpaceOwner(src0);
-        if (src1 != null) {
-            dest1 = NSUseUtils.getNameSpaceOwner(dest0);
-            if (dest1 != null)
-                addNSUses(src1, dest1, dep);
-        }
+        dest1 = NSUseUtils.getNameSpaceOwner(dest0);
+        addNSUses(src1, dest1, dep);
         return null;
     }
 
-    @objid ("7a735fe4-9bcd-4e6c-86b6-2b7741b52cd1")
+    @objid ("cd76b3cb-d77e-459c-a4e2-8acc81c1afd9")
     @Override
     public Object visitProfile(Profile obj) {
         NSUseUtils.dereferenceNSUsesCausedBy(obj);
         return null;
     }
 
-    @objid ("0b15d592-4d02-4850-b2db-b7d888f74110")
+    @objid ("26ef68ab-d9a9-475f-89b6-4530f56f123c")
     @Override
     public Object visitSubstitution(Substitution subst) {
         NSUseUtils.dereferenceNSUsesCausedBy(subst);
-        
         NameSpace src = subst.getSubstitutingClassifier();
         NameSpace dest = subst.getContract();
-        if (src != null && dest != null) {
-            addNSUses(src, dest, subst);
-        }
+        addNSUses(src, dest, subst);
         return null;
     }
 
-    @objid ("03c6d9e0-b6bc-40ec-becb-02d7c7296098")
+    @objid ("2c69aec4-b3d3-49e7-a472-9c690eb2e076")
     @Override
     public Object visitUsage(Usage obj) {
         return visitDependency(obj);
     }
 
-    @objid ("733d7e2c-30cd-46c9-9793-8aef58cc8e58")
+    @objid ("3a3f4932-42c4-460a-92c7-e8881d6aa5dc")
     @Override
     public Object visitMetaclassReference(MetaclassReference obj) {
         NSUseUtils.dereferenceNSUsesCausedBy(obj);
         return null;
     }
 
-    @objid ("a4dbd640-8827-4ac2-be96-62c384ee64b7")
+    @objid ("fe225648-ff0e-4c78-ad86-b2827fe36bba")
     @Override
     public Object visitExternDocument(ExternDocument obj) {
         NSUseUtils.dereferenceNSUsesCausedBy(obj);
         return null;
     }
 
-    @objid ("9e92715b-632c-484c-9d5d-f0699de1a0f1")
+    @objid ("cfa83795-c4d5-4d37-b204-563436b42736")
     @Override
     public Object visitExternDocumentType(ExternDocumentType obj) {
         NSUseUtils.dereferenceNSUsesCausedBy(obj);
         return null;
     }
 
-    @objid ("9815e6ba-faf0-41cf-abf9-402865a72a63")
+    @objid ("e514d4af-0c99-4006-bed2-12077205e616")
     @Override
     public Object visitArtifact(Artifact obj) {
         return visitClassifier(obj);
     }
 
-    @objid ("cb412cfd-7986-433b-b62d-a8016ab13421")
+    @objid ("5355b97e-949b-4f9b-9037-5c8e8ef0f574")
     @Override
     public Object visitAssociationEnd(AssociationEnd end) {
-        if (end.getAssociation() != null) {
-            visitAssociation(end.getAssociation());
+        NSUseUtils.dereferenceNSUsesCausedBy(end);
+        
+        // Generate NSU if:
+        // - non oriented association
+        // - or bidirectional association.
+        // In the other case generate only navigable roles
+        if (end.isNavigable()) {
+            NameSpace src = end.getOwner();
+            NameSpace dest = end.getTarget();
+            addNSUses(src, dest, end);
+        } else {
+            AssociationEnd opposite = end.getOpposite();
+            if ((opposite != null) && (!opposite.isNavigable())) {
+                NameSpace src = end.getOwner();
+                NameSpace dest = opposite.getOwner();
+                addNSUses(src, dest, end);
+            }
         }
         return null;
     }
 
-    @objid ("85e96f6a-eefb-46e0-bc18-89b0dd10e2f5")
+    @objid ("fd4b198b-cec9-49b5-88ee-5a920cf80460")
     @Override
     public Object visitAttribute(Attribute att) {
         NSUseUtils.dereferenceNSUsesCausedBy(att);
-        
         Classifier type = att.getType();
         Classifier src = att.getOwner();
         if (src == null) {
@@ -284,7 +291,7 @@ class NSUseBuilder extends AbstractModelVisitor {
         return null;
     }
 
-    @objid ("9dbf1b8a-0e5a-455f-9fc0-18cafc5affdc")
+    @objid ("1444ae45-2d63-4235-8ee1-987f53d5eaa6")
     @Override
     public Object visitBindableInstance(BindableInstance bi) {
         // Call inherited
@@ -298,7 +305,7 @@ class NSUseBuilder extends AbstractModelVisitor {
         return null;
     }
 
-    @objid ("32f9ad54-ddb9-4d92-a8f7-d1c7178f865d")
+    @objid ("b490600d-170e-4532-a136-d86c010bec66")
     @Override
     public Object visitBinding(Binding binding) {
         NSUseUtils.dereferenceNSUsesCausedBy(binding);
@@ -313,7 +320,7 @@ class NSUseBuilder extends AbstractModelVisitor {
         return null;
     }
 
-    @objid ("ac80ea7e-effc-4d20-8159-8720c7801efb")
+    @objid ("9ef87db6-7fb7-4edf-bdc1-5a3aa5ad4d97")
     @Override
     public Object visitClassAssociation(ClassAssociation theClassAssociation) {
         NSUseUtils.dereferenceNSUsesCausedBy(theClassAssociation);
@@ -322,7 +329,8 @@ class NSUseBuilder extends AbstractModelVisitor {
         Association assoc = theClassAssociation.getAssociationPart();
         if (assoc != null) {
             int nbNavigable = 0;
-            for (AssociationEnd role : assoc.getEnd()) {
+            EList<AssociationEnd> end = assoc.getEnd();
+            for (AssociationEnd role : end) {
                 if (role.isValid() && role.isNavigable())
                     nbNavigable++;
             }
@@ -332,7 +340,7 @@ class NSUseBuilder extends AbstractModelVisitor {
             // In the other case generate only navigable roles
             boolean generateAll = (nbNavigable == 0) || (nbNavigable == 2);
         
-            for (AssociationEnd role : assoc.getEnd()) {
+            for (AssociationEnd role : end) {
                 if (role.isValid() && (generateAll || role.isNavigable())) {
                     NameSpace src = role.getOwner();
                     addNSUses(src, dest, theClassAssociation);
@@ -352,7 +360,7 @@ class NSUseBuilder extends AbstractModelVisitor {
         return null;
     }
 
-    @objid ("933e2edc-4f7d-4b53-913b-54fe21e11711")
+    @objid ("c4c7b805-5487-4eec-8783-b917c490cedd")
     @Override
     public Object visitCollaborationUse(CollaborationUse theCollaborationUse) {
         NSUseUtils.dereferenceNSUsesCausedBy(theCollaborationUse);
@@ -376,13 +384,13 @@ class NSUseBuilder extends AbstractModelVisitor {
         return null;
     }
 
-    @objid ("43b0f671-376e-47e5-8b62-78fdefc75e1b")
+    @objid ("39f93876-696e-4191-960d-0a08a38c870d")
     @Override
     public Object visitComponent(Component obj) {
         return visitClass(obj);
     }
 
-    @objid ("48ac4cfe-b151-4531-9027-3422a2caca57")
+    @objid ("c1a6c09a-a64e-4c91-aa2a-c9217112dbfc")
     @Override
     public Object visitConnectorEnd(ConnectorEnd theConnectorEnd) {
         visitLinkEnd(theConnectorEnd);
@@ -396,7 +404,7 @@ class NSUseBuilder extends AbstractModelVisitor {
         return null;
     }
 
-    @objid ("75676f4f-e0c5-4306-a84f-8a7d425728b8")
+    @objid ("fd81d783-8c76-4a35-8060-a0c81cbebba3")
     @Override
     public Object visitElementImport(ElementImport theElementImport) {
         NSUseUtils.dereferenceNSUsesCausedBy(theElementImport);
@@ -414,13 +422,13 @@ class NSUseBuilder extends AbstractModelVisitor {
         return null;
     }
 
-    @objid ("93322007-32dc-4d77-bcce-bbb9160e9ea8")
+    @objid ("1d268400-a8b5-4b2a-a233-90a30d9d5df2")
     @Override
     public Object visitElementRealization(ElementRealization obj) {
         return visitDependency(obj);
     }
 
-    @objid ("07fd5b6b-0161-4cc6-bd25-363f1403bf27")
+    @objid ("2519aa87-9199-4137-a21c-3cc3a94d5637")
     @Override
     public Object visitGeneralization(Generalization theGeneralization) {
         NSUseUtils.dereferenceNSUsesCausedBy(theGeneralization);
@@ -428,7 +436,7 @@ class NSUseBuilder extends AbstractModelVisitor {
         return null;
     }
 
-    @objid ("7ef2544c-d5cb-4951-87da-d788428bf46a")
+    @objid ("9d7e39ea-5f42-4359-b1b8-af3097c3a241")
     @Override
     public Object visitInstance(Instance theInstance) {
         NSUseUtils.dereferenceNSUsesCausedBy(theInstance);
@@ -440,7 +448,7 @@ class NSUseBuilder extends AbstractModelVisitor {
         return null;
     }
 
-    @objid ("aa4b8bb1-a2af-4344-be5b-9e8b97e33994")
+    @objid ("b70e5f63-4899-41e6-befc-ae69e75634e6")
     @Override
     public Object visitInterfaceRealization(InterfaceRealization theInterfaceRealization) {
         NSUseUtils.dereferenceNSUsesCausedBy(theInterfaceRealization);
@@ -448,16 +456,31 @@ class NSUseBuilder extends AbstractModelVisitor {
         return null;
     }
 
-    @objid ("c51c6d01-4421-474b-bc03-b5336d0d0591")
+    @objid ("a7cc0d28-284c-4a07-bb33-8beff16f6ba5")
     @Override
     public Object visitLinkEnd(LinkEnd theLinkEnd) {
-        if (theLinkEnd.getLink() != null) {
-            return visitLink(theLinkEnd.getLink());
+        NSUseUtils.dereferenceNSUsesCausedBy(theLinkEnd);
+        
+        // Generate NSU if:
+        // - non oriented link
+        // - or bidirectional link.
+        // In the other case generate only navigable roles
+        if (theLinkEnd.isNavigable()) {
+            NameSpace src = NSUseUtils.getNameSpaceOwner(theLinkEnd.getOwner());
+            NameSpace dest = NSUseUtils.getNameSpaceOwner(theLinkEnd.getTarget());
+            addNSUses(src, dest, theLinkEnd);
+        } else {
+            LinkEnd opposite = theLinkEnd.getOpposite();
+            if (!opposite.isNavigable()) {
+                NameSpace src = NSUseUtils.getNameSpaceOwner(theLinkEnd.getOwner());
+                NameSpace dest = NSUseUtils.getNameSpaceOwner(opposite.getOwner());
+                addNSUses(src, dest, theLinkEnd);
+            }
         }
         return null;
     }
 
-    @objid ("b8db0398-fc27-4489-b1ae-56e4ffeb5655")
+    @objid ("c1dd9373-09bd-4606-9dff-530de258830c")
     @Override
     public Object visitManifestation(Manifestation theManifestation) {
         NSUseUtils.dereferenceNSUsesCausedBy(theManifestation);
@@ -471,7 +494,7 @@ class NSUseBuilder extends AbstractModelVisitor {
         return null;
     }
 
-    @objid ("a40f6a11-3cff-495b-a253-628d11ec7722")
+    @objid ("ba47257c-4d5a-4728-9940-7036a4baed33")
     @Override
     public Object visitNamespaceUse(NamespaceUse theNamespaceUse) {
         NSUseUtils.dereferenceNSUsesCausedBy(theNamespaceUse);
@@ -503,13 +526,13 @@ class NSUseBuilder extends AbstractModelVisitor {
         return null;
     }
 
-    @objid ("1e71eba6-f569-42dc-8414-2684aa292834")
+    @objid ("2168d587-bc9b-48f5-aa3d-0f23a44b36db")
     @Override
     public Object visitNode(Node obj) {
         return null; // no processing
     }
 
-    @objid ("299ce064-09b8-490f-b602-1a2093ef07e0")
+    @objid ("fc0729ab-261b-4994-bee8-7aeea427abe1")
     @Override
     public Object visitOperation(Operation theOperation) {
         NSUseUtils.dereferenceNSUsesCausedBy(theOperation);
@@ -524,13 +547,13 @@ class NSUseBuilder extends AbstractModelVisitor {
         return null;
     }
 
-    @objid ("412f5b60-a842-498a-8a66-ae850bf53889")
+    @objid ("5eb29546-39ea-4036-b665-a874dc905f7e")
     @Override
     public Object visitPackage(Package obj) {
         return null; // no processing
     }
 
-    @objid ("eb46157f-b218-4f24-b369-f722bad1fa09")
+    @objid ("6e7fdad2-628e-4b1d-8307-a48ca0d45dfb")
     @Override
     public Object visitPackageImport(PackageImport thePackageImport) {
         NSUseUtils.dereferenceNSUsesCausedBy(thePackageImport);
@@ -547,7 +570,7 @@ class NSUseBuilder extends AbstractModelVisitor {
         return null;
     }
 
-    @objid ("012824a9-f6c8-43a1-917e-00dba5056152")
+    @objid ("1862c56e-5c65-4093-a7a9-e5e07766a56f")
     @Override
     public Object visitPackageMerge(PackageMerge thePackageMerge) {
         NSUseUtils.dereferenceNSUsesCausedBy(thePackageMerge);
@@ -555,7 +578,7 @@ class NSUseBuilder extends AbstractModelVisitor {
         return null;
     }
 
-    @objid ("2651006e-a45d-4ad4-86f5-9dc723af439d")
+    @objid ("02d348d2-7f88-4ede-9d4c-d02819deb8a9")
     @Override
     public Object visitParameter(Parameter theParameter) {
         NSUseUtils.dereferenceNSUsesCausedBy(theParameter);
@@ -563,13 +586,13 @@ class NSUseBuilder extends AbstractModelVisitor {
         return null;
     }
 
-    @objid ("0345743e-ce5a-4c32-8a80-4a21171fe23d")
+    @objid ("da250c72-fa47-4a95-8d80-d8f57847db33")
     @Override
     public Object visitPort(Port obj) {
         return visitBindableInstance(obj);
     }
 
-    @objid ("f61d5181-0c52-4bc2-a5b1-c17c247ce3a2")
+    @objid ("ea7cd044-11e6-448f-932e-0e7d10ecbccc")
     @Override
     public Object visitProvidedInterface(ProvidedInterface theProvidedInterface) {
         NSUseUtils.dereferenceNSUsesCausedBy(theProvidedInterface);
@@ -581,7 +604,7 @@ class NSUseBuilder extends AbstractModelVisitor {
         return null;
     }
 
-    @objid ("d5fb175b-9085-4194-bea9-707bd856f8f9")
+    @objid ("301a5d8b-019a-4afa-b107-0ccb44bda8bf")
     @Override
     public Object visitRaisedException(RaisedException theRaisedException) {
         NSUseUtils.dereferenceNSUsesCausedBy(theRaisedException);
@@ -593,7 +616,7 @@ class NSUseBuilder extends AbstractModelVisitor {
         return null;
     }
 
-    @objid ("351280d0-0e7b-46cd-bebe-6e0ef48473d8")
+    @objid ("afc9fbec-d768-49ba-a822-1820e1ec55ce")
     @Override
     public Object visitRequiredInterface(RequiredInterface theRequiredInterface) {
         NSUseUtils.dereferenceNSUsesCausedBy(theRequiredInterface);
@@ -608,7 +631,7 @@ class NSUseBuilder extends AbstractModelVisitor {
         return null;
     }
 
-    @objid ("2bf2f32d-5f90-4037-aff4-436439980118")
+    @objid ("f3539dce-0b0b-4542-a023-f82296a3c135")
     @Override
     public Object visitTemplateBinding(TemplateBinding theTemplateBinding) {
         NSUseUtils.dereferenceNSUsesCausedBy(theTemplateBinding);
@@ -631,7 +654,7 @@ class NSUseBuilder extends AbstractModelVisitor {
         return null;
     }
 
-    @objid ("cbc189e1-b4a4-4a3d-83f3-8584d822dc66")
+    @objid ("87ca09c3-4196-4508-a894-a5cffef3f644")
     @Override
     public Object visitTemplateParameter(TemplateParameter theTemplateParameter) {
         NSUseUtils.dereferenceNSUsesCausedBy(theTemplateParameter);
@@ -653,7 +676,7 @@ class NSUseBuilder extends AbstractModelVisitor {
         return null;
     }
 
-    @objid ("359f0886-0137-4222-9fa4-83b14451ab74")
+    @objid ("4bec793c-c798-4f55-aa00-2f8acbfbdc2b")
     @Override
     public Object visitTemplateParameterSubstitution(TemplateParameterSubstitution theTemplateParameterSubstitution) {
         NSUseUtils.dereferenceNSUsesCausedBy(theTemplateParameterSubstitution);
@@ -663,454 +686,358 @@ class NSUseBuilder extends AbstractModelVisitor {
         return null;
     }
 
-    @objid ("0633e352-40f5-4703-9811-60478dc02067")
-    @Override
-    public Object visitNaryAssociation(NaryAssociation theNaryAssociation) {
-        NSUseUtils.dereferenceNSUsesCausedBy(theNaryAssociation);
-        
-        for (NaryAssociationEnd role : theNaryAssociation.getNaryEnd()) {
-            NSUseUtils.dereferenceNSUsesCausedBy(role);
-        }
-        
-        for (NaryAssociationEnd role : theNaryAssociation.getNaryEnd()) {
-            if (role.isValid()) {
-                NameSpace src = role.getOwner();
-        
-                for (NaryAssociationEnd otherRole : theNaryAssociation.getNaryEnd()) {
-                    if (otherRole.isValid() && otherRole != role) {
-                        NameSpace dest = otherRole.getOwner();
-                        addNSUses(src, dest, role);
-                    }
-                }
-            }
-        }
-        return null;
-    }
-
-    @objid ("ef968c7e-8a9b-46f1-8e73-d4512224cc56")
+    @objid ("98d081a5-4e14-46aa-b3bc-a156145cf34d")
     @Override
     public Object visitNaryAssociationEnd(NaryAssociationEnd end) {
-        if (end.getNaryAssociation() != null) {
-            visitNaryAssociation(end.getNaryAssociation());
-        }
-        return null;
-    }
-
-    @objid ("ffa77d29-969c-4f18-9c4d-21a0becf12c4")
-    @Override
-    public Object visitNaryLink(NaryLink theNaryLink) {
-        NSUseUtils.dereferenceNSUsesCausedBy(theNaryLink);
+        NSUseUtils.dereferenceNSUsesCausedBy(end);
         
-        for (NaryLinkEnd role : theNaryLink.getNaryLinkEnd()) {
-            NSUseUtils.dereferenceNSUsesCausedBy(role);
-        }
+        NameSpace src = end.getOwner();
         
-        for (NaryLinkEnd role : theNaryLink.getNaryLinkEnd()) {
-            if (role.isValid()) {
-                NameSpace src = NSUseUtils.getNameSpaceOwner(role);
-        
-                for (NaryLinkEnd otherRole : theNaryLink.getNaryLinkEnd()) {
-                    if (otherRole.isValid() && otherRole != role) {
-                        NameSpace dest = NSUseUtils.getNameSpaceOwner(otherRole);
-                        addNSUses(src, dest, role);
-                    }
-                }
+        for (NaryAssociationEnd otherRole : end.getNaryAssociation().getNaryEnd()) {
+            if (otherRole.isValid() && otherRole != end) {
+                NameSpace dest = otherRole.getOwner();
+                addNSUses(src, dest, end);
             }
         }
         return null;
     }
 
-    @objid ("1db9e638-5489-425f-ab78-407908c8bbf1")
-    @Override
-    public Object visitNaryConnector(NaryConnector theLink) {
-        return visitNaryLink(theLink);
-    }
-
-    @objid ("c3041099-3d76-438c-be58-e0eb2e68878f")
+    @objid ("48849328-1d61-4910-b1c1-800e226a769e")
     @Override
     public Object visitNaryConnectorEnd(NaryConnectorEnd theLinkEnd) {
         return visitNaryLinkEnd(theLinkEnd);
     }
 
-    @objid ("d7dbc9d6-afee-4014-b879-722332691173")
+    @objid ("270cc419-6056-4ab9-841c-69f1deee369e")
     @Override
     public Object visitNaryLinkEnd(NaryLinkEnd theLinkEnd) {
-        if (theLinkEnd.getNaryLink() != null) {
-            return visitNaryLink(theLinkEnd.getNaryLink());
-        }
-        return null;
-    }
-
-    @objid ("e9f14cec-04a6-4e88-a24c-fce4859b403d")
-    @Override
-    public Object visitAssociation(Association theAssociation) {
-        NSUseUtils.dereferenceNSUsesCausedBy(theAssociation);
+        NSUseUtils.dereferenceNSUsesCausedBy(theLinkEnd);
         
-        int nbNavigable = 0;
-        for (AssociationEnd role : theAssociation.getEnd()) {
-            NSUseUtils.dereferenceNSUsesCausedBy(role);
-            if (role.isValid() && role.isNavigable())
-                nbNavigable++;
-        }
+        NameSpace src = NSUseUtils.getNameSpaceOwner(theLinkEnd);
         
-        // Generate all roles if:
-        // - non oriented association
-        // - or bidirectional association.
-        // In the other case generate only navigable roles
-        boolean generateAll = (nbNavigable == 0) || (nbNavigable == 2);
-        
-        for (AssociationEnd role : theAssociation.getEnd()) {
-            if (role.isValid() && (generateAll || role.isNavigable())) {
-                NameSpace src = role.getOwner();
-                NameSpace dest = role.getOpposite().getOwner();
-                addNSUses(src, dest, role);
+        for (NaryLinkEnd otherRole : theLinkEnd.getNaryLink().getNaryLinkEnd()) {
+            if (otherRole.isValid() && otherRole != theLinkEnd) {
+                NameSpace dest = NSUseUtils.getNameSpaceOwner(otherRole);
+                addNSUses(src, dest, theLinkEnd);
             }
         }
         return null;
     }
 
-    @objid ("56d2f979-6d8a-4255-8ddb-243be77d4be4")
-    @Override
-    public Object visitLink(Link theLink) {
-        NSUseUtils.dereferenceNSUsesCausedBy(theLink);
-        
-        int nbNavigable = 0;
-        for (LinkEnd role : theLink.getLinkEnd()) {
-            NSUseUtils.dereferenceNSUsesCausedBy(role);
-            if (role.isValid() && role.isNavigable())
-                nbNavigable++;
-        }
-        
-        // Generate all roles if:
-        // - non oriented association
-        // - or bidirectional association.
-        // In the other case generate only navigable roles
-        boolean generateAll = (nbNavigable == 0) || (nbNavigable == 2);
-        
-        for (LinkEnd role : theLink.getLinkEnd()) {
-            if (role.isValid() && (generateAll || role.isNavigable())) {
-                NameSpace src = NSUseUtils.getNameSpaceOwner(role);
-                NameSpace dest = NSUseUtils.getNameSpaceOwner(role.getOpposite());
-                addNSUses(src, dest, role);
-            }
-        }
-        return null;
-    }
-
-    @objid ("6a505e12-c805-4546-b10f-325e579649e8")
+    @objid ("f80f6cfe-6429-449a-862a-baef6b4e6638")
     @Override
     public Object visitConnector(Connector theConnector) {
         return visitLink(theConnector);
     }
 
-    @objid ("6811693b-2e2f-4621-be42-d5e242ea7b2d")
+    @objid ("35c7fe3a-66cc-4258-ba59-4714ef8f4d91")
     @Override
     public Object visitAcceptCallEventAction(AcceptCallEventAction obj) {
         NSUseUtils.dereferenceNSUsesCausedBy(obj);
         return null;
     }
 
-    @objid ("9d901d73-58aa-4c5f-83ac-07ae56678fcf")
+    @objid ("e99410e2-f79b-462e-9d76-5080486e2570")
     @Override
     public Object visitAcceptChangeEventAction(AcceptChangeEventAction obj) {
         NSUseUtils.dereferenceNSUsesCausedBy(obj);
         return null;
     }
 
-    @objid ("650325f3-4a23-4572-bedf-6b9ec12b4a16")
+    @objid ("e47004cb-0933-4700-b523-3a7f8134605c")
     @Override
     public Object visitAcceptSignalAction(AcceptSignalAction obj) {
         NSUseUtils.dereferenceNSUsesCausedBy(obj);
         return null;
     }
 
-    @objid ("2d7e2f63-0ed3-4a8a-bd39-80e0d13a48ad")
+    @objid ("4de3dbfe-2165-4db4-bb80-69dc6709fdc7")
     @Override
     public Object visitAcceptTimeEventAction(AcceptTimeEventAction obj) {
         NSUseUtils.dereferenceNSUsesCausedBy(obj);
         return null;
     }
 
-    @objid ("0d1836c4-5623-4de9-9a33-4226c406cc99")
+    @objid ("721e89b5-50b6-46ad-9af2-d998a7334cee")
     @Override
     public Object visitActivity(Activity obj) {
         return visitBehavior(obj);
     }
 
-    @objid ("13f8b9a7-bbc6-475d-b15c-05937226d829")
+    @objid ("f9e2b6fb-0174-45f0-a752-c6149da9b941")
     @Override
     public Object visitActivityAction(ActivityAction obj) {
         NSUseUtils.dereferenceNSUsesCausedBy(obj);
         return null;
     }
 
-    @objid ("d6d056a2-99ed-4054-82b4-6f4713ef2617")
+    @objid ("29dbb537-360d-45a9-83b0-0eb4df812387")
     @Override
     public Object visitActivityEdge(ActivityEdge obj) {
         NSUseUtils.dereferenceNSUsesCausedBy(obj);
         return null;
     }
 
-    @objid ("18c50521-2ad1-41e1-b08c-2f75ec712332")
+    @objid ("1dab41b6-5ae0-4969-badd-533abbdc603b")
     @Override
     public Object visitActivityFinalNode(ActivityFinalNode obj) {
         NSUseUtils.dereferenceNSUsesCausedBy(obj);
         return null;
     }
 
-    @objid ("f3c6cc13-2bd9-4bc5-ab1c-5f80b82e2334")
+    @objid ("82ec1e17-aebf-4da7-825f-fb989dce57c4")
     @Override
     public Object visitActivityGroup(ActivityGroup obj) {
         NSUseUtils.dereferenceNSUsesCausedBy(obj);
         return null;
     }
 
-    @objid ("1b0f8ed5-174a-43ee-90c1-4d846019bafc")
+    @objid ("a11df0be-c9d2-4d6d-940a-c0acf3bf26e1")
     @Override
     public Object visitActivityNode(ActivityNode obj) {
         NSUseUtils.dereferenceNSUsesCausedBy(obj);
         return null;
     }
 
-    @objid ("fbfb6048-bf55-4832-8f68-1815448b4e40")
+    @objid ("67e843dc-302c-4b67-840c-89c23b9f6712")
     @Override
     public Object visitActivityParameterNode(ActivityParameterNode obj) {
         NSUseUtils.dereferenceNSUsesCausedBy(obj);
         return null;
     }
 
-    @objid ("b21ac101-0ccb-47ea-b3f2-26cd7df46caa")
+    @objid ("c58976e7-4bdc-4494-9f04-6cc613649f7f")
     @Override
     public Object visitActivityPartition(ActivityPartition obj) {
         NSUseUtils.dereferenceNSUsesCausedBy(obj);
         return null;
     }
 
-    @objid ("5177e381-c74e-4c92-8173-19cab7439a68")
+    @objid ("6ab75cdb-6afe-42cc-a902-dba8ab247ad2")
     @Override
     public Object visitCallAction(CallAction obj) {
         NSUseUtils.dereferenceNSUsesCausedBy(obj);
         return null;
     }
 
-    @objid ("b4c1def6-8bca-45c4-b5fc-593b3bb4cc33")
+    @objid ("b41052a5-54d4-4432-8f79-0979bb92e80d")
     @Override
     public Object visitCallBehaviorAction(CallBehaviorAction obj) {
         NSUseUtils.dereferenceNSUsesCausedBy(obj);
         return null;
     }
 
-    @objid ("fafe560f-d173-4c52-b943-034a06daf42b")
+    @objid ("5f6d0df5-a1cb-41ba-8aa3-3239d36d69e0")
     @Override
     public Object visitCallOperationAction(CallOperationAction obj) {
         NSUseUtils.dereferenceNSUsesCausedBy(obj);
         return null;
     }
 
-    @objid ("45498792-eb5d-44d6-9e8f-e75448eb89a8")
+    @objid ("5432fefc-ca2d-4083-880e-1cea93cb00b3")
     @Override
     public Object visitCentralBufferNode(CentralBufferNode obj) {
         NSUseUtils.dereferenceNSUsesCausedBy(obj);
         return null;
     }
 
-    @objid ("9fa0a29c-4314-4fb1-89f6-05b7129674b6")
+    @objid ("89c972e3-12a8-4bcb-93f4-00966a8bc6d3")
     @Override
     public Object visitClause(Clause obj) {
         NSUseUtils.dereferenceNSUsesCausedBy(obj);
         return null;
     }
 
-    @objid ("0e43844e-2a85-4016-ae88-511eb47a2812")
+    @objid ("f6e5d6a8-d553-4ddd-9edc-4196b51f6da4")
     @Override
     public Object visitConditionalNode(ConditionalNode obj) {
         NSUseUtils.dereferenceNSUsesCausedBy(obj);
         return null;
     }
 
-    @objid ("59102496-e531-44b5-9ba2-3270df50d154")
+    @objid ("51e6456d-0f9c-4ef9-b821-7a3b7e8ab3e0")
     @Override
     public Object visitControlFlow(ControlFlow obj) {
         NSUseUtils.dereferenceNSUsesCausedBy(obj);
         return null;
     }
 
-    @objid ("bfbb1874-cdc8-4d63-bfe1-fef62411e2b8")
+    @objid ("398e6184-268c-41f3-90cd-6a34b7b716ad")
     @Override
     public Object visitControlNode(ControlNode obj) {
         NSUseUtils.dereferenceNSUsesCausedBy(obj);
         return null;
     }
 
-    @objid ("4560291c-232e-49de-b808-cecc574dc281")
+    @objid ("ed3c2f98-4b7c-444f-b531-51d2bfa3fc64")
     @Override
     public Object visitDataStoreNode(DataStoreNode obj) {
         NSUseUtils.dereferenceNSUsesCausedBy(obj);
         return null;
     }
 
-    @objid ("239ca3b0-4d4a-407f-b10a-d38b89c2f1a9")
+    @objid ("8b13c365-dc7c-424f-aba4-43deaaf325d2")
     @Override
     public Object visitDecisionMergeNode(DecisionMergeNode obj) {
         NSUseUtils.dereferenceNSUsesCausedBy(obj);
         return null;
     }
 
-    @objid ("28cd9c15-a19b-4700-8df5-64085f6691b5")
+    @objid ("91687bfe-779a-49b0-8bd7-d9a17029401a")
     @Override
     public Object visitExceptionHandler(ExceptionHandler obj) {
         NSUseUtils.dereferenceNSUsesCausedBy(obj);
         return null;
     }
 
-    @objid ("60744284-f10e-40b1-8841-92ef82245dde")
+    @objid ("a9bccf67-b778-46f7-90f8-fb97b9188fc3")
     @Override
     public Object visitExpansionNode(ExpansionNode obj) {
         NSUseUtils.dereferenceNSUsesCausedBy(obj);
         return null;
     }
 
-    @objid ("586adeba-5296-4743-870c-d2bf892c34bc")
+    @objid ("410e9ce7-127f-4682-8392-b73ef11227c0")
     @Override
     public Object visitExpansionRegion(ExpansionRegion obj) {
         NSUseUtils.dereferenceNSUsesCausedBy(obj);
         return null;
     }
 
-    @objid ("473fb870-4555-4152-a20c-72a377ecc761")
+    @objid ("24dbfb31-cc61-4b89-b6f5-d6335a055861")
     @Override
     public Object visitFinalNode(FinalNode obj) {
         NSUseUtils.dereferenceNSUsesCausedBy(obj);
         return null;
     }
 
-    @objid ("0e6ac905-2640-428f-93d3-30c313d07f1b")
+    @objid ("f2c9e9c5-69ea-4e35-96bf-fac93315859e")
     @Override
     public Object visitFlowFinalNode(FlowFinalNode obj) {
         NSUseUtils.dereferenceNSUsesCausedBy(obj);
         return null;
     }
 
-    @objid ("b4c06f13-d201-4220-be74-c96eb3aac1c0")
+    @objid ("041a9a55-f38b-423f-97e3-ccf9a144ac7e")
     @Override
     public Object visitForkJoinNode(ForkJoinNode obj) {
         NSUseUtils.dereferenceNSUsesCausedBy(obj);
         return null;
     }
 
-    @objid ("e0713b7c-2f79-4662-b79c-7c5173f4f4e0")
+    @objid ("f8d6df9f-b48e-4830-9796-9a2855d79389")
     @Override
     public Object visitInitialNode(InitialNode obj) {
         NSUseUtils.dereferenceNSUsesCausedBy(obj);
         return null;
     }
 
-    @objid ("3d396a18-3a9f-4fa4-b74e-1c234b556e85")
+    @objid ("813fb722-2978-4e1b-bd49-8d0a9d7a20c3")
     @Override
     public Object visitInputPin(InputPin obj) {
         NSUseUtils.dereferenceNSUsesCausedBy(obj);
         return null;
     }
 
-    @objid ("d6036c09-bea8-4408-83ff-2c7c532f8ffa")
+    @objid ("4ae31b25-05d9-4f87-979b-ed4f3ab09562")
     @Override
     public Object visitInstanceNode(InstanceNode obj) {
         NSUseUtils.dereferenceNSUsesCausedBy(obj);
         return null;
     }
 
-    @objid ("b298317c-4b00-4579-81db-f0057ac5da2f")
+    @objid ("7c40bc8a-73a8-47f2-8e52-0201d69fba91")
     @Override
     public Object visitInterruptibleActivityRegion(InterruptibleActivityRegion obj) {
         NSUseUtils.dereferenceNSUsesCausedBy(obj);
         return null;
     }
 
-    @objid ("827decd8-c996-4573-83f6-739627718ed8")
+    @objid ("45e029ae-55ce-4e1f-9734-7703dc10348f")
     @Override
     public Object visitLoopNode(LoopNode obj) {
         NSUseUtils.dereferenceNSUsesCausedBy(obj);
         return null;
     }
 
-    @objid ("0422a272-5c4e-4aa9-8a11-e8a35cdbc006")
+    @objid ("74200ffe-8faa-408f-9f50-06a3d2c29cb7")
     @Override
     public Object visitMessageFlow(MessageFlow obj) {
         NSUseUtils.dereferenceNSUsesCausedBy(obj);
         return null;
     }
 
-    @objid ("9ee95897-1052-4a83-a5b0-431283a0c64b")
+    @objid ("74d9325e-ff8b-4a35-b9ee-39990ca6ea41")
     @Override
     public Object visitObjectFlow(ObjectFlow obj) {
         NSUseUtils.dereferenceNSUsesCausedBy(obj);
         return null;
     }
 
-    @objid ("936e37d8-0c43-4f8f-b187-0d2a746f533b")
+    @objid ("849f3553-7172-48cc-a598-d10e80fb25fe")
     @Override
     public Object visitObjectNode(ObjectNode obj) {
         NSUseUtils.dereferenceNSUsesCausedBy(obj);
         return null;
     }
 
-    @objid ("10ff46a7-57d2-4b56-840d-0776e988faa1")
+    @objid ("3cf29808-61c7-4b1e-83be-a268043eedc4")
     @Override
     public Object visitOpaqueAction(OpaqueAction obj) {
         NSUseUtils.dereferenceNSUsesCausedBy(obj);
         return null;
     }
 
-    @objid ("9acf0621-ee71-428a-ae9f-efa18b432d79")
+    @objid ("a51b5d50-6c87-4435-a82b-65b173770639")
     @Override
     public Object visitOutputPin(OutputPin obj) {
         NSUseUtils.dereferenceNSUsesCausedBy(obj);
         return null;
     }
 
-    @objid ("d2614b80-dca7-4347-b0f3-b48af172adc7")
+    @objid ("cc1a3e4f-e6d2-4ca6-b4ce-87910ff975b0")
     @Override
     public Object visitPin(Pin obj) {
         NSUseUtils.dereferenceNSUsesCausedBy(obj);
         return null;
     }
 
-    @objid ("4f3a253c-18af-4d0a-b1a9-8e2cc68704a6")
+    @objid ("ce05e38e-494e-438a-b806-f69bba9af45c")
     @Override
     public Object visitSendSignalAction(SendSignalAction obj) {
         NSUseUtils.dereferenceNSUsesCausedBy(obj);
         return null;
     }
 
-    @objid ("c7fb329b-79f1-4295-ae2d-9ca6d65cc1a3")
+    @objid ("a50221d2-8915-482f-9253-c5278b122068")
     @Override
     public Object visitStructuredActivityNode(StructuredActivityNode obj) {
         NSUseUtils.dereferenceNSUsesCausedBy(obj);
         return null;
     }
 
-    @objid ("4f8d60aa-784f-41b7-98dd-1b991d770731")
+    @objid ("9886fd43-0912-448b-854d-bd3f49baf964")
     @Override
     public Object visitValuePin(ValuePin obj) {
         NSUseUtils.dereferenceNSUsesCausedBy(obj);
         return null;
     }
 
-    @objid ("1d67e8f4-fa08-46a1-9c52-da538f74c8b8")
+    @objid ("59fbea77-14ba-4aba-8f6f-893877dacc95")
     @Override
     public Object visitBehaviorParameter(BehaviorParameter obj) {
         NSUseUtils.dereferenceNSUsesCausedBy(obj);
         return null;
     }
 
-    @objid ("c6d67c6b-08f2-4694-9857-d9209e5487ed")
+    @objid ("06271554-538d-43c5-b72a-bf1460b2ed33")
     @Override
     public Object visitOpaqueBehavior(OpaqueBehavior obj) {
         NSUseUtils.dereferenceNSUsesCausedBy(obj);
         return null;
     }
 
-    @objid ("1032db11-2db5-49f8-94ae-33b509309ab1")
+    @objid ("e0c26e56-48de-4129-add3-3342d890b580")
     @Override
     public Object visitSignal(Signal theSignal) {
         NSUseUtils.dereferenceNSUsesCausedBy(theSignal);
@@ -1131,7 +1058,7 @@ class NSUseBuilder extends AbstractModelVisitor {
         return null;
     }
 
-    @objid ("95de858d-4008-4f03-972f-91620f97f657")
+    @objid ("dbb22490-8fef-41d1-a69e-1fbe469ec48b")
     @Override
     public Object visitEvent(Event theEvent) {
         NSUseUtils.dereferenceNSUsesCausedBy(theEvent);
@@ -1163,77 +1090,77 @@ class NSUseBuilder extends AbstractModelVisitor {
         return null;
     }
 
-    @objid ("f9283df6-8384-4edc-83ea-a6b10789c315")
+    @objid ("0a10f312-84ee-4d2d-92e4-a1cae7ef9b85")
     @Override
     public Object visitCombinedFragment(CombinedFragment obj) {
         NSUseUtils.dereferenceNSUsesCausedBy(obj);
         return null;
     }
 
-    @objid ("363776b4-858b-4277-999a-e606c3a262fa")
+    @objid ("031c7c8d-e059-4434-a8bd-4893411b5f40")
     @Override
     public Object visitDurationConstraint(DurationConstraint obj) {
         NSUseUtils.dereferenceNSUsesCausedBy(obj);
         return null;
     }
 
-    @objid ("cbef6ddd-7e04-4ca6-b4f0-49cf8e3c26d4")
+    @objid ("e671f8b0-84cc-4ff7-bd77-f59000a981e7")
     @Override
     public Object visitExecutionOccurenceSpecification(ExecutionOccurenceSpecification obj) {
         NSUseUtils.dereferenceNSUsesCausedBy(obj);
         return null;
     }
 
-    @objid ("600a53c6-816d-4cee-822e-d56125ddeb67")
+    @objid ("52801a77-4a02-46bf-aa41-0079c9812bc2")
     @Override
     public Object visitExecutionSpecification(ExecutionSpecification obj) {
         NSUseUtils.dereferenceNSUsesCausedBy(obj);
         return null;
     }
 
-    @objid ("fff94130-0f09-4068-9744-c80c86c6fcc8")
+    @objid ("4ba90b20-45ba-4281-ac90-b8a017cbdcfa")
     @Override
     public Object visitGate(Gate obj) {
         NSUseUtils.dereferenceNSUsesCausedBy(obj);
         return null;
     }
 
-    @objid ("d2350f7e-8fb2-4b01-b06c-ee6b39512441")
+    @objid ("e997813e-6b39-408b-a526-495c2ebadc3f")
     @Override
     public Object visitGeneralOrdering(GeneralOrdering obj) {
         NSUseUtils.dereferenceNSUsesCausedBy(obj);
         return null;
     }
 
-    @objid ("397fb194-a710-47a4-83f0-f52c7897ff67")
+    @objid ("57bf317c-dd0d-48ef-a50b-cfe48f089069")
     @Override
     public Object visitInteractionFragment(InteractionFragment obj) {
         NSUseUtils.dereferenceNSUsesCausedBy(obj);
         return null;
     }
 
-    @objid ("25856f88-9827-446f-8967-af5913e11565")
+    @objid ("526b4470-0db2-4d8d-88ba-14c76339604c")
     @Override
     public Object visitInteractionOperand(InteractionOperand obj) {
         NSUseUtils.dereferenceNSUsesCausedBy(obj);
         return null;
     }
 
-    @objid ("851e086c-f4b3-46bf-a70f-82aa6ce2b13c")
+    @objid ("ae050362-8c27-41c0-b167-c2105940620c")
     @Override
     public Object visitInteractionUse(InteractionUse obj) {
         NSUseUtils.dereferenceNSUsesCausedBy(obj);
         return null;
     }
 
-    @objid ("2d28179f-d8e1-458d-bd06-66baab033b7c")
+    @objid ("26538f15-bf97-4702-851d-72491b04d7f4")
     @Override
     public Object visitLifeline(Lifeline obj) {
         NSUseUtils.dereferenceNSUsesCausedBy(obj);
         return null;
     }
 
-    @objid ("143e6488-2786-4d16-b7a3-a71fac1188e4")
+    @objid ("5df05332-b4b7-4eb2-b429-10f9cc379aaa")
     @Override
     public Object visitMessage(Message theMessage) {
         NSUseUtils.dereferenceNSUsesCausedBy(theMessage);
@@ -1248,132 +1175,132 @@ class NSUseBuilder extends AbstractModelVisitor {
         return null;
     }
 
-    @objid ("4542c6b0-9d7e-4d53-88ed-d2d315f03642")
+    @objid ("7521e831-b741-4146-8648-d1292738d2ac")
     @Override
     public Object visitMessageEnd(MessageEnd obj) {
         NSUseUtils.dereferenceNSUsesCausedBy(obj);
         return null;
     }
 
-    @objid ("26436b42-5150-48ce-b432-b2651fbbb445")
+    @objid ("5330b67a-e673-4525-a1bf-1895a4d872a7")
     @Override
     public Object visitOccurrenceSpecification(OccurrenceSpecification obj) {
         NSUseUtils.dereferenceNSUsesCausedBy(obj);
         return null;
     }
 
-    @objid ("1b662ef4-cd91-4aa5-91c6-889a2be997bc")
+    @objid ("21d1efb4-3052-4c20-9b20-21c9dfb862ed")
     @Override
     public Object visitPartDecomposition(PartDecomposition obj) {
         NSUseUtils.dereferenceNSUsesCausedBy(obj);
         return null;
     }
 
-    @objid ("9fba4057-8c57-489d-9b2b-67b2c1ae0e7a")
+    @objid ("ae7bb448-28df-46b2-b4f3-677c9427418e")
     @Override
     public Object visitStateInvariant(StateInvariant obj) {
         NSUseUtils.dereferenceNSUsesCausedBy(obj);
         return null;
     }
 
-    @objid ("d938d279-6c35-4170-b40f-0e1298b6d5cd")
+    @objid ("32cda63f-37c5-48cf-a022-96459849cbfa")
     @Override
     public Object visitTerminateSpecification(TerminateSpecification obj) {
         NSUseUtils.dereferenceNSUsesCausedBy(obj);
         return null;
     }
 
-    @objid ("90c37000-2864-4260-933b-d7d5e0bef086")
+    @objid ("548557e3-e9e6-433a-bb06-8a0509782603")
     @Override
     public Object visitAbstractPseudoState(AbstractPseudoState obj) {
         NSUseUtils.dereferenceNSUsesCausedBy(obj);
         return null;
     }
 
-    @objid ("12ee86da-2b2f-432a-9b60-af81dff93797")
+    @objid ("1ac0df78-941e-4bbb-b248-848df459633f")
     @Override
     public Object visitChoicePseudoState(ChoicePseudoState obj) {
         NSUseUtils.dereferenceNSUsesCausedBy(obj);
         return null;
     }
 
-    @objid ("5117c241-eb48-4a8a-9625-c0527fc67468")
+    @objid ("9c71360a-52b1-4821-b21d-1652676b32f7")
     @Override
     public Object visitConnectionPointReference(ConnectionPointReference obj) {
         NSUseUtils.dereferenceNSUsesCausedBy(obj);
         return null;
     }
 
-    @objid ("4f7a5d1f-95bd-4027-bcb7-47076d55026b")
+    @objid ("23cb2ab4-958a-42e9-821b-53c765e3fa4f")
     @Override
     public Object visitDeepHistoryPseudoState(DeepHistoryPseudoState obj) {
         NSUseUtils.dereferenceNSUsesCausedBy(obj);
         return null;
     }
 
-    @objid ("38ab1ecb-ef0e-4c9e-935a-dc8eea49eb6d")
+    @objid ("9620372d-9332-4c22-9707-2a82e07fed8a")
     @Override
     public Object visitEntryPointPseudoState(EntryPointPseudoState obj) {
         NSUseUtils.dereferenceNSUsesCausedBy(obj);
         return null;
     }
 
-    @objid ("5dad8089-f6b3-445c-89b5-adaa26dcc65d")
+    @objid ("498f937a-15e3-4e49-a7e9-2ed13901dfda")
     @Override
     public Object visitExitPointPseudoState(ExitPointPseudoState obj) {
         NSUseUtils.dereferenceNSUsesCausedBy(obj);
         return null;
     }
 
-    @objid ("54e83421-e5d3-4b9f-ad07-12f7aae0cf89")
+    @objid ("e33ce5b7-5ee2-4ea4-9a9e-10fb593bab74")
     @Override
     public Object visitForkPseudoState(ForkPseudoState obj) {
         NSUseUtils.dereferenceNSUsesCausedBy(obj);
         return null;
     }
 
-    @objid ("547f00b5-60e5-42e8-9a8d-c05678a6bceb")
+    @objid ("be142e73-7895-426f-a026-effc7bc52f10")
     @Override
     public Object visitInitialPseudoState(InitialPseudoState obj) {
         NSUseUtils.dereferenceNSUsesCausedBy(obj);
         return null;
     }
 
-    @objid ("5c0aa165-a093-45d8-8890-b6b7d6cc51ce")
+    @objid ("90eea3c9-e34c-442d-8578-1c939a934749")
     @Override
     public Object visitInternalTransition(InternalTransition obj) {
         return visitTransition(obj);
     }
 
-    @objid ("c1c20f8b-a0bc-4cf8-974d-bd27594686f5")
+    @objid ("c5f7cc5c-69b4-4ba5-bdf4-e91a5f711b89")
     @Override
     public Object visitJoinPseudoState(JoinPseudoState obj) {
         NSUseUtils.dereferenceNSUsesCausedBy(obj);
         return null;
     }
 
-    @objid ("8328271d-fb91-4083-a0e7-d482452402ae")
+    @objid ("0bab69a0-8ee0-4eb1-ac47-ecb4d163be31")
     @Override
     public Object visitJunctionPseudoState(JunctionPseudoState obj) {
         NSUseUtils.dereferenceNSUsesCausedBy(obj);
         return null;
     }
 
-    @objid ("88fc7209-69c3-4178-b36e-13f911b11c7e")
+    @objid ("323a511b-435d-4f2c-8421-47185b201129")
     @Override
     public Object visitShallowHistoryPseudoState(ShallowHistoryPseudoState obj) {
         NSUseUtils.dereferenceNSUsesCausedBy(obj);
         return null;
     }
 
-    @objid ("02ebffcb-2164-40bc-abdc-3d6eb4e5e7d1")
+    @objid ("26440808-e1cd-421d-bef8-a5fe7decc9ba")
     @Override
     public Object visitTerminatePseudoState(TerminatePseudoState obj) {
         NSUseUtils.dereferenceNSUsesCausedBy(obj);
         return null;
     }
 
-    @objid ("2e6d54d1-2da7-4816-82d5-b017d2d1e5ad")
+    @objid ("21f92485-c728-470b-83ca-364c3bd1eea8")
     @Override
     public Object visitTransition(Transition theTransition) {
         NSUseUtils.dereferenceNSUsesCausedBy(theTransition);
@@ -1389,27 +1316,27 @@ class NSUseBuilder extends AbstractModelVisitor {
         return null;
     }
 
-    @objid ("1f013b59-e417-4056-b8cc-2c024cde0167")
+    @objid ("d9922b1c-62f1-429f-9f22-f54066b244a1")
     @Override
     public Object visitFinalState(FinalState obj) {
         NSUseUtils.dereferenceNSUsesCausedBy(obj);
         return null;
     }
 
-    @objid ("5706b220-9c84-4214-ba4c-c1e00bb93d29")
+    @objid ("4c7032d7-a9ff-4746-97a5-2ab413095e13")
     @Override
     public Object visitRegion(Region obj) {
         NSUseUtils.dereferenceNSUsesCausedBy(obj);
         return null;
     }
 
-    @objid ("e25ab2de-3cd4-41dc-bcdc-1972a05408d6")
+    @objid ("60238d27-f48f-4409-8a81-7deed8713f95")
     @Override
     public Object visitActor(Actor obj) {
         return visitGeneralClass(obj);
     }
 
-    @objid ("4f6082c4-b0f2-4149-bdde-355a723fbeb4")
+    @objid ("44eb40fb-24f2-4768-bc24-1316ee9ecaf1")
     @Override
     public Object visitUseCaseDependency(UseCaseDependency theUseCaseDependency) {
         NSUseUtils.dereferenceNSUsesCausedBy(theUseCaseDependency);
@@ -1421,21 +1348,21 @@ class NSUseBuilder extends AbstractModelVisitor {
         return null;
     }
 
-    @objid ("0f0c5b6c-17ec-4adb-9380-453a4ad68173")
+    @objid ("c0f71bb7-9b8f-4084-912b-bc7432392c43")
     @Override
     public Object visitInformationFlow(InformationFlow obj) {
         NSUseUtils.dereferenceNSUsesCausedBy(obj);
         return null;
     }
 
-    @objid ("6468648a-2ba8-4e97-8b4e-f5af04fceed9")
+    @objid ("d64d892f-01eb-4753-bec7-5c8e14b453ff")
     @Override
     public Object visitInformationItem(InformationItem obj) {
         NSUseUtils.dereferenceNSUsesCausedBy(obj);
         return null;
     }
 
-    @objid ("80c7309b-6d90-4f07-b666-c84c53d53786")
+    @objid ("9fd3ba0a-a1ae-4148-be3b-e4231ac46e60")
     @Override
     public Object visitDataFlow(DataFlow theDataFlow) {
         NSUseUtils.dereferenceNSUsesCausedBy(theDataFlow);
@@ -1455,35 +1382,35 @@ class NSUseBuilder extends AbstractModelVisitor {
         return null;
     }
 
-    @objid ("822df26b-8cab-42c5-b7dd-a52a2cba26c5")
+    @objid ("8bbba3f4-4e55-4252-8b29-d86eff4ddcec")
     @Override
     public Object visitCommunicationInteraction(CommunicationInteraction obj) {
         NSUseUtils.dereferenceNSUsesCausedBy(obj);
         return null;
     }
 
-    @objid ("44f0da87-c470-407a-944e-453dc8b32dfe")
+    @objid ("58e78599-e21a-4b9c-a8fc-c8349eae2f9e")
     @Override
     public Object visitCommunicationNode(CommunicationNode obj) {
         NSUseUtils.dereferenceNSUsesCausedBy(obj);
         return null;
     }
 
-    @objid ("55a133dd-bc6f-470e-9cc2-d35b4c405c53")
+    @objid ("27f8419f-d17b-4e55-9876-74b16bf54d69")
     @Override
     public Object visitCommunicationMessage(CommunicationMessage obj) {
         NSUseUtils.dereferenceNSUsesCausedBy(obj);
         return null;
     }
 
-    @objid ("49217eba-246a-4245-9fe7-fc1f25870868")
+    @objid ("99d79056-9ac9-4226-9139-66bbfde71d59")
     @Override
     public Object visitCommunicationChannel(CommunicationChannel obj) {
         NSUseUtils.dereferenceNSUsesCausedBy(obj);
         return null;
     }
 
-    @objid ("0c971700-92cd-41f4-acf1-bee9f58d7e47")
+    @objid ("39a15ca0-dcf4-49f8-94d2-71aa75c459b0")
     private void addNSUses(NameSpace aSource, NameSpace aDest, Element aCause) {
         if (aSource != null && aDest != null && aCause != null) {
             NamespaceUse use = addNSUse(aSource, aDest, aCause);
@@ -1493,15 +1420,24 @@ class NSUseBuilder extends AbstractModelVisitor {
         }
     }
 
-    @objid ("1dc42072-96a8-432f-bc6e-fbeba60a4409")
+    /**
+     * Return null if an existing NSU has been used
+     * @param aSource
+     * @param aDest
+     * @param aCause @return
+     */
+    @objid ("996958d8-b316-40e8-bb1e-06f788e76256")
     private NamespaceUse addNSUse(NameSpace aSource, NameSpace aDest, Element aCause) {
+        if (Vaudit.LOG.isDebugEnabled())
+            Vaudit.LOG.debug("\t\taddNSUse %s\t%s\t cause=%s", aSource.getName(), aDest.getName(), aCause.toString());
+        
         NamespaceUse aUse = null;
         if (aSource != aDest) {
             for (NamespaceUse ns : aSource.getUsedNsu()) {
                 if (ns.isValid() && ns.getUsed() == aDest) {
                     ns.getCause().add(aCause);
                     aUse = ns;
-                    break;
+                    return null;
                 }
             }
         
@@ -1517,9 +1453,8 @@ class NSUseBuilder extends AbstractModelVisitor {
         return aUse;
     }
 
-    @objid ("98806d3a-a97d-4851-9aec-e0183943c262")
+    @objid ("5a1ea0c5-7772-4b3e-868b-3bfedc9e1c06")
     public void buildFor(Element e) {
-        //System.out.println("build NSU for " + e.getName());
         e.accept(this);
     }
 

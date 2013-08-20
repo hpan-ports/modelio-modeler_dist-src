@@ -56,22 +56,22 @@ import org.eclipse.swt.graphics.Point;
 @objid ("00875276-663d-105c-84ef-001ec947cd2a")
 class TextViewerDragDropManager {
     @objid ("00723724-572b-1064-a2b8-001ec947cd2a")
-    private Object fTextDragAndDropToken = null;
+    protected Object fTextDragAndDropToken = null;
 
     @objid ("007265f0-572b-1064-a2b8-001ec947cd2a")
-    private ScriptView viewPart;
+    protected ScriptView viewPart;
 
     @objid ("005ae1b4-f1bd-106a-bf4f-001ec947cd2a")
-    private final TextTransfer textTransfer = TextTransfer.getInstance();
+    protected final TextTransfer textTransfer = TextTransfer.getInstance();
 
     @objid ("005af1fe-f1bd-106a-bf4f-001ec947cd2a")
-    private final FileTransfer fileTransfer = FileTransfer.getInstance();
+    protected final FileTransfer fileTransfer = FileTransfer.getInstance();
 
     @objid ("005b0216-f1bd-106a-bf4f-001ec947cd2a")
-    private StyledText textWidget;
+    protected StyledText textWidget;
 
     @objid ("0060b5f8-0b95-109d-896e-001e4fea2d8b")
-    private TextViewer textViewer;
+    protected TextViewer textViewer;
 
     /**
      * Installs text drag and drop on the given TextViewer.
@@ -119,10 +119,10 @@ class TextViewerDragDropManager {
             public void dragSetData(DragSourceEvent event) {
                 event.data = this.fSelectedText;
                 TextViewerDragDropManager.this.fTextDragAndDropToken = this; // Can
-                                                                             // be
-                                                                             // any
-                                                                             // non-null
-                                                                             // object
+                // be
+                // any
+                // non-null
+                // object
             }
         
             @Override
@@ -248,9 +248,7 @@ class TextViewerDragDropManager {
              */
             private boolean isTextFile(String file) {
                 boolean isTextFile = false;
-                FileInputStream fileInputStream = null;
-                try {
-                    fileInputStream = new FileInputStream(file);
+                try (FileInputStream fileInputStream = new FileInputStream(file)) {
                     final byte[] bytes = new byte[512];
                     final int byteCount = fileInputStream.read(bytes);
                     fileInputStream.close();
@@ -266,14 +264,6 @@ class TextViewerDragDropManager {
                     isTextFile = (byteCount == -1 || zeroByteCount == 0);
                 } catch (IOException ex) {
                     // Not a text file
-                } finally {
-                    // Always close the file
-                    try {
-                        if (fileInputStream != null) {
-                            fileInputStream.close();
-                        }
-                    } catch (IOException e) {
-                    }
                 }
                 return isTextFile;
             }
@@ -307,10 +297,8 @@ class TextViewerDragDropManager {
             }
         
             private String readFileContents(String file) throws FileNotFoundException, IOException {
-                Reader reader = null;
-                try {
-                    reader = new FileReader(file);
-                    final Reader in = new BufferedReader(reader);
+                try (Reader reader = new FileReader(file);
+                        final Reader in = new BufferedReader(reader)) {
                     final StringBuffer buffer = new StringBuffer(512);
                     final char[] readBuffer = new char[512];
         
@@ -323,13 +311,6 @@ class TextViewerDragDropManager {
                     in.close();
         
                     return (buffer.toString());
-                } finally {
-                    try {
-                        if (reader != null) {
-                            reader.close();
-                        }
-                    } catch (IOException e) {
-                    }
                 }
             }
         

@@ -116,7 +116,7 @@ public class GmBpmnDiagramView extends GmAbstractDiagramView {
     @objid ("62070661-55b6-11e2-877f-002564c97630")
     @Override
     protected GmAbstractDiagram loadViewedDiagram() {
-        BpmnDiagramEditorInput input = new BpmnDiagramEditorInput(getDiagram().getModelManager().getModelingSession(), getRepresentedElement(), getDiagram().getModelManager().getModelServices(), getDiagram().getModelManager().getContextService());
+        BpmnDiagramEditorInput input = new BpmnDiagramEditorInput(getDiagram().getModelManager(), getRepresentedElement());
         return input.getGmDiagram();
     }
 

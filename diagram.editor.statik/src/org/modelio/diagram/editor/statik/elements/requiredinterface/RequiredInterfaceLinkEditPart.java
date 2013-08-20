@@ -44,6 +44,7 @@ import org.modelio.diagram.elements.core.commands.ModelioCreationContext;
 import org.modelio.diagram.elements.core.figures.GradientFigure;
 import org.modelio.diagram.elements.core.figures.LinkFigure;
 import org.modelio.diagram.elements.core.figures.RoundedLinkFigure;
+import org.modelio.diagram.elements.core.link.ModelioLinkCreationContext;
 import org.modelio.diagram.elements.core.model.GmModel;
 import org.modelio.diagram.elements.core.model.IGmModelRelated;
 import org.modelio.metamodel.Metamodel;
@@ -89,11 +90,19 @@ public class RequiredInterfaceLinkEditPart extends LinkToVoidEditPart {
     @Override
     public ConnectionAnchor getTargetConnectionAnchor(final Request request) {
         if (request instanceof CreateConnectionRequest) {
-        
-            ModelioCreationContext ctx = (ModelioCreationContext) ((CreateConnectionRequest) request).getNewObject();
-            if (ctx.getMetaclass().equals(Metamodel.getMClass(ProvidedInterface.class).getName())) {
-                final LinkFigure fig = (LinkFigure) getFigure();
-                return new LastConnectionPointAnchor(fig);
+            final Object newObject = ((CreateConnectionRequest) request).getNewObject();
+            if (newObject instanceof ModelioCreationContext) {
+                ModelioCreationContext ctx = (ModelioCreationContext) newObject;
+                if (ctx.getMetaclass().equals(Metamodel.getMClass(ProvidedInterface.class).getName())) {
+                    final LinkFigure fig = (LinkFigure) getFigure();
+                    return new LastConnectionPointAnchor(fig);
+                }
+            } else if (newObject instanceof ModelioLinkCreationContext) {
+                ModelioLinkCreationContext ctx = (ModelioLinkCreationContext) newObject;
+                if (ctx.getMetaclass().equals(Metamodel.getMClass(ProvidedInterface.class).getName())) {
+                    final LinkFigure fig = (LinkFigure) getFigure();
+                    return new LastConnectionPointAnchor(fig);
+                }
             }
         } else if (request instanceof ReconnectRequest) {
             Object model = ((ReconnectRequest) request).getConnectionEditPart().getModel();
@@ -129,7 +138,7 @@ public class RequiredInterfaceLinkEditPart extends LinkToVoidEditPart {
         @objid ("3680a403-55b7-11e2-877f-002564c97630")
         private double rotation;
 
-        @objid ("98e11ccd-e579-46ec-8ff2-b813753815a6")
+        @objid ("78d6caa1-a465-4f5a-b697-1970075bd86f")
         private Point location = new Point();
 
         @objid ("3680a405-55b7-11e2-877f-002564c97630")

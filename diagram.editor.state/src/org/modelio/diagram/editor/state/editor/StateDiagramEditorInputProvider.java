@@ -25,14 +25,12 @@ import java.util.UUID;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.ui.model.application.ui.basic.MInputPart;
-import org.eclipse.e4.ui.services.EContextService;
-import org.modelio.app.project.core.services.IProjectService;
 import org.modelio.diagram.editor.DiagramEditorInput;
 import org.modelio.diagram.editor.DiagramEditorInputProvider.IDiagramEditorInputProvider;
+import org.modelio.diagram.elements.core.model.ModelManager;
 import org.modelio.gproject.model.IMModelServices;
 import org.modelio.metamodel.Metamodel;
 import org.modelio.metamodel.diagrams.StateMachineDiagram;
-import org.modelio.vcore.session.api.ICoreSession;
 
 @objid ("d544ff51-694f-4fd2-9def-4fb0a9654fce")
 public class StateDiagramEditorInputProvider implements IDiagramEditorInputProvider {
@@ -44,13 +42,11 @@ public class StateDiagramEditorInputProvider implements IDiagramEditorInputProvi
     @objid ("57008509-898c-46d1-97ca-8dc21122c85e")
     @Override
     public DiagramEditorInput compute(IEclipseContext context) {
-        ICoreSession coreSession = context.get(IProjectService.class).getSession();
         IMModelServices modelServices = context.get(IMModelServices.class);
-        EContextService contextService = context.get(EContextService.class);
         
         String diagramUID = context.get(MInputPart.class).getInputURI();
         StateMachineDiagram diagram = (StateMachineDiagram) modelServices.findById(Metamodel.getMClass(StateMachineDiagram.class), UUID.fromString(diagramUID));
-        return diagram != null ? new StateDiagramEditorInput(coreSession, diagram, modelServices, contextService) : null;
+        return diagram != null ? new StateDiagramEditorInput(new ModelManager(context), diagram) : null;
     }
 
 }

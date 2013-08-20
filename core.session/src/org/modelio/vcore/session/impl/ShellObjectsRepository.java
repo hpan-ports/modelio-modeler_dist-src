@@ -23,7 +23,6 @@ package org.modelio.vcore.session.impl;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.vcore.session.impl.storage.IModelLoader;
-import org.modelio.vcore.session.impl.storage.IModelLoadingSession;
 import org.modelio.vcore.session.impl.storage.memory.MemoryRepository;
 import org.modelio.vcore.smkernel.IRStatus;
 import org.modelio.vcore.smkernel.ShellObjectException;
@@ -60,8 +59,7 @@ class ShellObjectsRepository extends MemoryRepository {
     @Override
     public void attach(SmObjectImpl obj) {
         super.attach(obj);
-        try (IModelLoadingSession s = getModelLoaderProvider().beginLoadSession()) {
-            final IModelLoader loader = s.getRefresher();
+        try (final IModelLoader loader = getModelLoaderProvider().beginRefreshSession()) {
             // Add shell flag
             loader.setRStatus(obj, IRStatus.SHELL, 0, 0);
         }
@@ -70,9 +68,8 @@ class ShellObjectsRepository extends MemoryRepository {
     @objid ("f5260e8b-08b1-11e2-b33c-001ec947ccaf")
     @Override
     public void detach(SmObjectImpl obj) {
-        try (IModelLoadingSession s = getModelLoaderProvider().beginLoadSession()) {
+        try (final IModelLoader loader = getModelLoaderProvider().beginRefreshSession()) {
             // Remove shell flag
-            final IModelLoader loader = s.getRefresher();
             loader.setRStatus(obj, 0,  IRStatus.SHELL, 0);
         }
         super.detach(obj);
@@ -82,8 +79,7 @@ class ShellObjectsRepository extends MemoryRepository {
     @Override
     public void addObject(SmObjectImpl obj) {
         super.addObject(obj);
-        try (IModelLoadingSession s = getModelLoaderProvider().beginLoadSession()) {
-            final IModelLoader loader = s.getRefresher();
+        try (final IModelLoader loader = getModelLoaderProvider().beginRefreshSession()) {
             // Add shell flag
             loader.setRStatus(obj, IRStatus.SHELL, 0, 0);
         }

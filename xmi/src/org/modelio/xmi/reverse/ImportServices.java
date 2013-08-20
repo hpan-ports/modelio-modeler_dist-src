@@ -26,7 +26,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.IPath;
@@ -47,10 +46,10 @@ import org.eclipse.uml2.uml.internal.impl.ProfileImpl;
 import org.eclipse.uml2.uml.internal.resource.UMLResourceFactoryImpl;
 import org.eclipse.uml2.uml.resource.UMLResource;
 import org.modelio.api.model.IModelingSession;
-import org.modelio.api.model.ITransaction;
 import org.modelio.api.modelio.Modelio;
 import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.metamodel.uml.statik.DataType;
+import org.modelio.vcore.smkernel.mapi.MObject;
 import org.modelio.xmi.gui.ProgressBarComposite;
 import org.modelio.xmi.plugin.Xmi;
 import org.modelio.xmi.util.EcoreModelNavigation;
@@ -324,7 +323,7 @@ public class ImportServices {
      * @return true if no error happen
      */
     @objid ("db6b95e9-771e-4565-ac3b-932cd280aa2f")
-    public boolean importEcoreProfile(Resource resource, Element root, ProgressBarComposite progressBar, Shell shell) {
+    public boolean importEcoreProfile(Resource resource, MObject root, ProgressBarComposite progressBar, Shell shell) {
         boolean error = false;
         
         this._shell = shell;

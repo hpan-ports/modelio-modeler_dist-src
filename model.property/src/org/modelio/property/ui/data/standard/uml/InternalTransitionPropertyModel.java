@@ -21,6 +21,8 @@
 
 package org.modelio.property.ui.data.standard.uml;
 
+import java.util.ArrayList;
+import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.core.ui.ktable.types.IPropertyType;
 import org.modelio.core.ui.ktable.types.enumeration.EnumType;
@@ -34,6 +36,7 @@ import org.modelio.metamodel.uml.statik.Operation;
 import org.modelio.property.ui.data.standard.common.AbstractPropertyModel;
 import org.modelio.vcore.session.api.ICoreSession;
 import org.modelio.vcore.session.impl.CoreSession;
+import org.modelio.vcore.smkernel.mapi.MObject;
 
 /**
  * <i>InternalTransition</i> data model.
@@ -259,16 +262,19 @@ public class InternalTransitionPropertyModel extends AbstractPropertyModel<Inter
     @objid ("8f35b522-c068-11e1-8c0a-002564c97630")
     protected static class TransitionEffectType extends HybridType {
         @objid ("8f35b525-c068-11e1-8c0a-002564c97630")
-        private Class<?>[] t = { String.class, Operation.class, Behavior.class };
+        private List<Class<? extends MObject>> t;
 
         @objid ("8f35b52a-c068-11e1-8c0a-002564c97630")
         public TransitionEffectType(ICoreSession session) {
             super(session);
+            this.t = new ArrayList<>();
+            this.t.add(Operation.class);
+            this.t.add(Behavior.class);
         }
 
         @objid ("8f35b52c-c068-11e1-8c0a-002564c97630")
         @Override
-        public Class<?>[] getTypes() {
+        public List<Class<? extends MObject>> getTypes() {
             return this.t;
         }
 
@@ -334,6 +340,12 @@ public class InternalTransitionPropertyModel extends AbstractPropertyModel<Inter
             }
         }
 
+        @objid ("94645b78-af92-4897-88dc-60297a248fb9")
+        @Override
+        public boolean acceptStringValue() {
+            return true;
+        }
+
     }
 
     /**
@@ -348,16 +360,18 @@ public class InternalTransitionPropertyModel extends AbstractPropertyModel<Inter
     @objid ("8f35b547-c068-11e1-8c0a-002564c97630")
     protected static class TransitionSentType extends HybridType {
         @objid ("8f35b54a-c068-11e1-8c0a-002564c97630")
-        private Class<?>[] t = { String.class, Signal.class };
+        private List<Class<? extends MObject>> t;
 
         @objid ("8f373ba7-c068-11e1-8c0a-002564c97630")
         public TransitionSentType(ICoreSession session) {
             super(session);
+            this.t = new ArrayList<>();
+            this.t.add(Signal.class);
         }
 
         @objid ("8f373ba9-c068-11e1-8c0a-002564c97630")
         @Override
-        public Class<?>[] getTypes() {
+        public List<Class<? extends MObject>> getTypes() {
             return this.t;
         }
 
@@ -408,6 +422,12 @@ public class InternalTransitionPropertyModel extends AbstractPropertyModel<Inter
                     throw new IllegalArgumentException("value must be a String or a Signal but not a "
                             + value.getClass().getCanonicalName());
             }
+        }
+
+        @objid ("431f93c4-f2b6-4103-bcd6-55bd6fdcf73a")
+        @Override
+        public boolean acceptStringValue() {
+            return true;
         }
 
     }

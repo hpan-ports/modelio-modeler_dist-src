@@ -28,7 +28,6 @@ import org.modelio.vcore.session.api.blob.IBlobSupport;
 import org.modelio.vcore.session.api.memory.IMemoryManager;
 import org.modelio.vcore.session.api.model.IModel;
 import org.modelio.vcore.session.api.model.change.IModelChangeSupport;
-import org.modelio.vcore.session.api.repository.IRepository;
 import org.modelio.vcore.session.api.repository.IRepositorySupport;
 import org.modelio.vcore.session.api.transactions.ITransactionSupport;
 
@@ -48,11 +47,29 @@ public interface ICoreSession {
     void close();
 
     /**
-     * Get access point to the transactions.
-     * @return an access point to the transactions.
+     * @return the blob support.
      */
-    @objid ("0038a856-575b-10c8-842f-001ec947cd2a")
-    ITransactionSupport getTransactionSupport();
+    @objid ("bfb1b45d-e482-4956-9daa-cebbcef2b472")
+    IBlobSupport getBlobSupport();
+
+    /**
+     * Get the memory manager.
+     * <p>
+     * The memory manager swaps model objects on the disk when memory is low.
+     * It supports listeners who are activated when it frees memory.
+     * <p>
+     * The memory manager is shared among all core sessions.
+     * @return the memory manager.
+     */
+    @objid ("a31e0ccd-0135-4f50-bd4f-6c4292cfb3ec")
+    IMemoryManager getMemoryManager();
+
+    /**
+     * Get an access to the model.
+     * @return the model.
+     */
+    @objid ("005f3cb4-5f00-10c8-842f-001ec947cd2a")
+    IModel getModel();
 
     /**
      * Get the model changes events listeners support.
@@ -72,31 +89,11 @@ public interface ICoreSession {
     IRepositorySupport getRepositorySupport();
 
     /**
-     * Get an access to the model.
-     * @return the model.
+     * Get access point to the transactions.
+     * @return an access point to the transactions.
      */
-    @objid ("005f3cb4-5f00-10c8-842f-001ec947cd2a")
-    IModel getModel();
-
-    /**
-     * Save the model.
-     * @param monitor a progress monitor. May be <code>null</code>.
-     * @throws java.io.IOException if a repository failed to save.
-     */
-    @objid ("005f50aa-5f00-10c8-842f-001ec947cd2a")
-    void save(IModelioProgress monitor) throws IOException;
-
-    /**
-     * Get the memory manager.
-     * <p>
-     * The memory manager swaps model objects on the disk when memory is low.
-     * It supports listeners who are activated when it frees memory.
-     * <p>
-     * The memory manager is shared among all core sessions.
-     * @return the memory manager.
-     */
-    @objid ("a31e0ccd-0135-4f50-bd4f-6c4292cfb3ec")
-    IMemoryManager getMemoryManager();
+    @objid ("0038a856-575b-10c8-842f-001ec947cd2a")
+    ITransactionSupport getTransactionSupport();
 
     /**
      * Tells whether the session needs to be saved.
@@ -106,20 +103,11 @@ public interface ICoreSession {
     boolean isDirty();
 
     /**
-     * The scratch repository is a memory repository created with the core session.
-     * <p>
-     * It may be freely used to create temporary objects.
-     * The scratch repository is not saved, objects contained will be lost after having
-     * closed the session.
-     * @return the scratch repository
+     * Save the model.
+     * @param monitor a progress monitor. May be <code>null</code>.
+     * @throws java.io.IOException if a repository failed to save.
      */
-    @objid ("a5d0a961-e795-4401-9bd7-50ed468e5d0b")
-    IRepository getScratchRepository();
-
-    /**
-     * @return the blob support.
-     */
-    @objid ("bfb1b45d-e482-4956-9daa-cebbcef2b472")
-    IBlobSupport getBlobSupport();
+    @objid ("005f50aa-5f00-10c8-842f-001ec947cd2a")
+    void save(IModelioProgress monitor) throws IOException;
 
 }

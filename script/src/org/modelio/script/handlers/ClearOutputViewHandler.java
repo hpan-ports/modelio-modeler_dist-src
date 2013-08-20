@@ -21,7 +21,6 @@
 
 package org.modelio.script.handlers;
 
-import java.util.concurrent.ExecutionException;
 import javax.inject.Named;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.e4.core.di.annotations.CanExecute;
@@ -37,7 +36,7 @@ import org.modelio.script.view.ScriptView;
 public class ClearOutputViewHandler {
     @objid ("0045c6bc-6505-105c-84ef-001ec947cd2a")
     @Execute
-    public void execute(@Named(IServiceConstants.ACTIVE_PART) MPart part) throws ExecutionException {
+    public void execute(@Named(IServiceConstants.ACTIVE_PART) MPart part) {
         ScriptView scriptView = (ScriptView) part.getObject();
         scriptView.clearOutputView();
     }

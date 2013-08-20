@@ -118,7 +118,7 @@ public class GmStateDiagramView extends GmAbstractDiagramView {
     @objid ("f5995884-55b6-11e2-877f-002564c97630")
     @Override
     protected GmAbstractDiagram loadViewedDiagram() {
-        StateDiagramEditorInput input = new StateDiagramEditorInput(getDiagram().getModelManager().getModelingSession(), getRepresentedElement(), getDiagram().getModelManager().getModelServices(), getDiagram().getModelManager().getContextService());
+        StateDiagramEditorInput input = new StateDiagramEditorInput(getDiagram().getModelManager(), getRepresentedElement());
         return input.getGmDiagram();
     }
 

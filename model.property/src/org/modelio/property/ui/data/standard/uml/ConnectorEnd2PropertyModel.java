@@ -21,16 +21,19 @@
 
 package org.modelio.property.ui.data.standard.uml;
 
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
+import org.modelio.core.ui.MetamodelLabels;
 import org.modelio.core.ui.ktable.types.IPropertyType;
 import org.modelio.core.ui.ktable.types.bool.BooleanType;
 import org.modelio.core.ui.ktable.types.element.SingleElementType;
+import org.modelio.core.ui.ktable.types.ghost.GhostType;
 import org.modelio.core.ui.ktable.types.list.EditableListType;
 import org.modelio.core.ui.ktable.types.text.StringType;
-import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
+import org.modelio.metamodel.uml.statik.Association;
 import org.modelio.metamodel.uml.statik.AssociationEnd;
 import org.modelio.metamodel.uml.statik.Attribute;
 import org.modelio.metamodel.uml.statik.ConnectorEnd;
@@ -41,6 +44,7 @@ import org.modelio.metamodel.uml.statik.NaryLink;
 import org.modelio.property.ui.data.standard.common.AbstractPropertyModel;
 import org.modelio.vcore.session.api.ICoreSession;
 import org.modelio.vcore.session.impl.CoreSession;
+import org.modelio.vcore.smkernel.mapi.MObject;
 
 /**
  * <i>ConnectorEnd</i> data model.
@@ -59,7 +63,7 @@ public class ConnectorEnd2PropertyModel extends AbstractPropertyModel<ConnectorE
      * </ul>
      */
     @objid ("a6c199a5-c068-11e1-8c0a-002564c97630")
-    private static final String[] PROPERTIES = new String[] { "ConnectorEnd", "LinkName", "Base", "ConnectorRepresentedFeature",
+    private static final String[] PROPERTIES = new String[] { "ConnectorEnd", "LinkName", "Base",
             "Linked", "Name", "ConnectorEndRepresentedFeature", "MultiplicityMin", "MultiplicityMax", "IsNavigable", "IsOrdered",
             "IsUnique" };
 
@@ -84,14 +88,14 @@ public class ConnectorEnd2PropertyModel extends AbstractPropertyModel<ConnectorE
     @objid ("8ef291a9-c068-11e1-8c0a-002564c97630")
     private SingleElementType assocType = null;
 
-    @objid ("8ef291aa-c068-11e1-8c0a-002564c97630")
-    private SingleElementType connectorRepresentedFeatureType = null;
-
     @objid ("8ef291ab-c068-11e1-8c0a-002564c97630")
     private SingleElementType connectorEndRepresentedFeatureType = null;
 
     @objid ("bb791120-19f2-11e2-ad19-002564c97630")
     private final BooleanType navigabilityType;
+
+    @objid ("1470a95f-3104-46e3-89cb-a24c5d4b9400")
+    private GhostType ghostType;
 
     @objid ("8ef291ac-c068-11e1-8c0a-002564c97630")
     @Override
@@ -108,7 +112,7 @@ public class ConnectorEnd2PropertyModel extends AbstractPropertyModel<ConnectorE
     @objid ("8ef291b6-c068-11e1-8c0a-002564c97630")
     @Override
     public Object getValueAt(int row, int col) {
-        if (row == 1 || row == 2 || row == 3) {
+        if (row == 1 || row == 2) {
             return getLinkPropertyValue(row, col);
         }
         
@@ -123,12 +127,7 @@ public class ConnectorEnd2PropertyModel extends AbstractPropertyModel<ConnectorE
             return PROPERTIES[row];
         
         case 1:
-            LinkEnd relatedEnd = getRelatedEnd(this.theEditedElement);
-            if (relatedEnd != null) {
-                return getPropertyValue(row, relatedEnd);
-            }
-            // else
-            return null;
+            return getPropertyValue(row, this.theEditedElement.getOpposite());
         
         case 2:
             return getPropertyValue(row, this.theEditedElement);
@@ -141,6 +140,11 @@ public class ConnectorEnd2PropertyModel extends AbstractPropertyModel<ConnectorE
     @objid ("8ef291bc-c068-11e1-8c0a-002564c97630")
     @Override
     public IPropertyType getTypeAt(int row, int col) {
+        // Non editable case
+        if ((col == 1 && row > 8 && !this.theEditedElement.getOpposite().isNavigable()) ||
+                (col == 2 && row > 8 && !this.theEditedElement.isNavigable())) {
+            return this.ghostType;
+        }
         switch (col) {
         
         case 0: // col 0 is the property name
@@ -150,39 +154,30 @@ public class ConnectorEnd2PropertyModel extends AbstractPropertyModel<ConnectorE
         case 2:
             switch (row) {
             case 0: // Title
-                return this.labelStringType;
-        
+                return this.labelStringType;       
             case 1:
                 // Link name
-                return this.stringType;
-        
+                return this.stringType;       
             case 2: // Link base Association
-                if (col == 1) {
+                if (col == 1) {                    
                     return this.assocType;
                 }
-                // else
-                return this.stringType;
-            case 3:
-                if (col == 1) {
-                    return this.connectorRepresentedFeatureType;
-                }
-                // else
-                return this.stringType;
-            case 4: // LinkEnd Type
+                return this.labelStringType;
+            case 3: // LinkEnd Type
                 return this.linkedType;
-            case 5: // LinkEnd Name
+            case 4: // LinkEnd Name
                 return this.stringType;
-            case 6:
+            case 5:
                 return this.connectorEndRepresentedFeatureType;
-            case 7:
+            case 6:
                 return this.cardinalityMinType;
-            case 8:
+            case 7:
                 return this.cardinalityMaxType;
-            case 9:
+            case 8:
                 return this.navigabilityType;
-            case 10:
+            case 9:
                 return this.booleanType;
-            case 11:
+            case 10:
                 return this.booleanType;
             default:
                 return null;
@@ -195,22 +190,17 @@ public class ConnectorEnd2PropertyModel extends AbstractPropertyModel<ConnectorE
     @objid ("8ef291c3-c068-11e1-8c0a-002564c97630")
     @Override
     public void setValueAt(int row, int col, Object value) {
-        switch (col) {
-        
-        case 0:
-            return;
-        
-        case 1:
-            LinkEnd relatedEnd = getRelatedEnd(this.theEditedElement);
-            if (relatedEnd != null) {
-                setPropertyValue(row, relatedEnd, value);
-            }
-            return;
-        case 2:
-            setPropertyValue(row, this.theEditedElement, value);
-            return;
-        default:
-            return;
+        switch (col) {       
+            case 0:
+                return;       
+            case 1:
+                setPropertyValue(row, this.theEditedElement.getOpposite(), value);
+                break;
+            case 2:
+                setPropertyValue(row, this.theEditedElement, value);
+                return;
+            default:
+                return;
         }
     }
 
@@ -220,18 +210,11 @@ public class ConnectorEnd2PropertyModel extends AbstractPropertyModel<ConnectorE
         if (col == 0) {
             // Labels are not editable
             return false;
-        } else if (row == 1 || row == 2 || row == 3) {
-            // Link lines: only the first cell is editable
-            return false;
         } else if (col == 1) {
-            LinkEnd relatedEnd = getRelatedEnd(this.theEditedElement);
-            if (!relatedEnd.isModifiable()) {
-                return false;
-            }
+            return this.theEditedElement.getOpposite().isModifiable();
         } else if (col == 2) {
-            if (!this.theEditedElement.isModifiable()) {
-                return false;
-            }
+            if (row == 1 || row == 2) return false;
+            return this.theEditedElement.isModifiable();
         }
         return true;
     }
@@ -247,18 +230,18 @@ public class ConnectorEnd2PropertyModel extends AbstractPropertyModel<ConnectorE
         this.labelStringType = new StringType(false);
         this.stringType = new StringType(true);
         this.booleanType = new BooleanType();
+        this.ghostType = new GhostType();
         
         ICoreSession session = CoreSession.getSession(this.theEditedElement);
-        this.assocType = new SingleElementType(true, NaryAssociation.class, session);
+        this.assocType = new SingleElementType(true, Association.class, session);
         this.linkedType = new SingleElementType(false, Instance.class, session);
         
-        List<java.lang.Class<? extends Element>> connectorRepresentedFeatureValues = new ArrayList<>();
+        List<java.lang.Class<? extends MObject>> connectorRepresentedFeatureValues = new ArrayList<>();
         connectorRepresentedFeatureValues.add(Attribute.class);
         connectorRepresentedFeatureValues.add(NaryAssociation.class);
         connectorRepresentedFeatureValues.add(NaryLink.class);
-        this.connectorRepresentedFeatureType = new SingleElementType(true, connectorRepresentedFeatureValues);
         
-        List<java.lang.Class<? extends Element>> connectorEndRepresentedFeatureValues = new ArrayList<>();
+        List<java.lang.Class<? extends MObject>> connectorEndRepresentedFeatureValues = new ArrayList<>();
         connectorEndRepresentedFeatureValues.add(Attribute.class);
         connectorEndRepresentedFeatureValues.add(AssociationEnd.class);
         connectorEndRepresentedFeatureValues.add(LinkEnd.class);
@@ -299,67 +282,47 @@ public class ConnectorEnd2PropertyModel extends AbstractPropertyModel<ConnectorE
 
     @objid ("8ef41837-c068-11e1-8c0a-002564c97630")
     private Object getPropertyValue(int row, LinkEnd aLinkEnd) {
-        LinkEnd relatedEnd = getRelatedEnd(aLinkEnd);
-        
+        // Default value for non editable cells
+        if (row > 8 && ! aLinkEnd.isNavigable()) {
+            return "N/A";
+        }
+            
         switch (row) {
         case 0: // Title
-            if (relatedEnd == null) {
-                return "";
+            Instance type = aLinkEnd.getTarget()!=null ? aLinkEnd.getTarget() : aLinkEnd.getOpposite().getSource();
+            if (type != null) {
+                if (aLinkEnd == this.theEditedElement) {
+                    return MessageFormat.format(MetamodelLabels.getString("Title.to"), type.getName());
+                } else {
+                    return MessageFormat.format(MetamodelLabels.getString("Title.from"), type.getName());
+                }
             }
-        
-            Instance type = relatedEnd.getTarget();
-        
-            if (type == null) {
-                return "";
-            }
-        
-            if (aLinkEnd == this.theEditedElement) {
-                return "To: " + type.getName();
-            }
-            // else
-            return "From: " + type.getName();
-        
+            return "";        
         case 1:
             // Link name
-            return "<no link>";
+            return aLinkEnd.getLink().getName();
         case 2:
             // Link base association
-            return null;
+            return aLinkEnd.getLink().getModel();
         case 3:
-            return null;
+            return aLinkEnd.getTarget();
         case 4:
-            if (relatedEnd != null) {
-                Instance relatedInstance = relatedEnd.getTarget();
-                return relatedInstance;
-            }
-            // else
-            return null;
-        case 5:
             return aLinkEnd.getName();
+        case 5:
+            return ((ConnectorEnd) aLinkEnd).getRepresentedFeature();
         case 6:
-            if (aLinkEnd instanceof ConnectorEnd) {
-                return ((ConnectorEnd) aLinkEnd).getRepresentedFeature();
-            }
-            // else
-            return null;
-        case 7:
             return aLinkEnd.getMultiplicityMin();
-        case 8:
+        case 7:
             return aLinkEnd.getMultiplicityMax();
-        case 9:
+        case 8:
             return aLinkEnd.isNavigable();
-        case 10:
+        case 9:
             return aLinkEnd.isIsOrdered() ? Boolean.TRUE : Boolean.FALSE;
-        case 11:
+        case 10:
             return aLinkEnd.isIsUnique() ? Boolean.TRUE : Boolean.FALSE;
         default:
             return null;
         }
-    }
-
-    @objid ("8ef4183e-c068-11e1-8c0a-002564c97630")
-    private LinkEnd getRelatedEnd(LinkEnd associationEnd) {
-        return associationEnd.getOpposite();
     }
 
     @objid ("8ef41847-c068-11e1-8c0a-002564c97630")
@@ -368,39 +331,33 @@ public class ConnectorEnd2PropertyModel extends AbstractPropertyModel<ConnectorE
         case 0:
             return;
         case 1:
-            break;
-        
+            linkEnd.getLink().setName(String.valueOf(value));
+            break;        
         case 2:
+            linkEnd.getLink().setModel((Association) value);
             break;
         case 3:
+            linkEnd.setTarget((Instance) value, true);
             break;
         case 4:
-            LinkEnd relatedEnd = getRelatedEnd(linkEnd);
-            if (relatedEnd != null) {
-                relatedEnd.setTarget((Instance) value, true);
-            }
-            break;
-        case 5:
             linkEnd.setName(String.valueOf(value));
             break;
-        case 6:
-            if (linkEnd instanceof ConnectorEnd) {
-                ((ConnectorEnd) linkEnd).setRepresentedFeature((ModelElement) value);
-            }
+        case 5:
+            ((ConnectorEnd) linkEnd).setRepresentedFeature((ModelElement) value);
             break;
-        case 7:
+        case 6:
             linkEnd.setMultiplicityMin(String.valueOf(value));
             break;
-        case 8:
+        case 7:
             linkEnd.setMultiplicityMax(String.valueOf(value));
             break;
-        case 9:
+        case 8:
             linkEnd.setNavigable((Boolean) value);
             break;
-        case 10:
+        case 9:
             linkEnd.setIsOrdered(((Boolean) value).booleanValue());
             break;
-        case 11:
+        case 10:
             linkEnd.setIsUnique(((Boolean) value).booleanValue());
             break;
         default:

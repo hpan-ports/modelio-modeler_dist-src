@@ -71,7 +71,7 @@ import org.modelio.vcore.smkernel.mapi.MObject;
 @objid ("d0188834-ab6f-4e4c-8b2e-c0757b7b6f82")
 public class ImportModelDialog extends ModelioDialog {
     @objid ("501228c7-22de-4333-a3ff-7b81ddbbd380")
-    private static final String HELP_TOPIC = "/com.modeliosoft.modelio.documentation.modeler/html/Modeler-_modeler_managing_projects_importing_elements.html";
+    private static final String HELP_TOPIC = "/org.modelio.documentation.modeler/html/Modeler-_modeler_managing_projects_importing_elements.html";
 
     @objid ("2d049afb-ddcb-41dd-972f-13668f10467c")
     protected ModelImportDataModel dataModel;

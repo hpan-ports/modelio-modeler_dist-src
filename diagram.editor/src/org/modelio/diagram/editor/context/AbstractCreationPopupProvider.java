@@ -41,10 +41,12 @@ import org.eclipse.e4.ui.model.application.commands.MCommand;
 import org.eclipse.e4.ui.model.application.commands.MCommandsFactory;
 import org.eclipse.e4.ui.model.application.commands.MParameter;
 import org.eclipse.e4.ui.model.application.ui.menu.MHandledMenuItem;
+import org.eclipse.e4.ui.model.application.ui.menu.MMenu;
 import org.eclipse.e4.ui.model.application.ui.menu.MMenuElement;
 import org.eclipse.e4.ui.model.application.ui.menu.MMenuFactory;
 import org.eclipse.e4.ui.services.IServiceConstants;
 import org.eclipse.jface.viewers.IStructuredSelection;
+import org.modelio.diagram.editor.plugin.DiagramEditor;
 import org.modelio.ui.i18n.BundledMessages;
 import org.modelio.vcore.smkernel.mapi.MClass;
 import org.modelio.vcore.smkernel.mapi.MObject;
@@ -60,7 +62,7 @@ import org.osgi.framework.Bundle;
 public abstract class AbstractCreationPopupProvider {
     @objid ("2a793aa6-0c31-4bfc-a5f3-b59dcb0b480f")
     @Inject
-    private MApplication application;
+    protected MApplication application;
 
     /**
      * A map containing all valid creation popup configurations according to the selected metaclass.
@@ -115,9 +117,28 @@ public abstract class AbstractCreationPopupProvider {
             loadPopupEntries();
         }
         
-        // Fill creation menu with selection-compatible commands
+        // Add the creation menu with selection-compatible commands
         List<CreationPopupEntryDescriptor> entries = getPopupEntries(getSelectedElement());
-        items.addAll(createMenuItems(entries));
+        if (entries.size() > 0) {
+            // create a new handled item
+            MMenu elementCreationMenu = MMenuFactory.INSTANCE.createMenu();
+            elementCreationMenu.setLabel(DiagramEditor.I18N.getString("CreateElementMenu.label"));
+            elementCreationMenu.setIconURI("platform:/plugin/org.modelio.diagram.editor/icons/uml.png");
+        
+            // make the menu visible
+            elementCreationMenu.setEnabled(true);
+            elementCreationMenu.setToBeRendered(true);
+            elementCreationMenu.setVisible(true);
+        
+            // bound the menu to the contributing plugin 
+            elementCreationMenu.setContributorURI(getContributorId(getBundle()));
+        
+            // add creation items
+            elementCreationMenu.getChildren().addAll(createMenuItems(entries));
+            
+            // bind the new menu to the popup 
+            items.add(elementCreationMenu);
+        }
     }
 
     @objid ("4d9645ee-6631-4a39-8107-33070308ce54")
@@ -131,7 +152,7 @@ public abstract class AbstractCreationPopupProvider {
      * @return the selected element.
      */
     @objid ("35396dea-7520-42f8-849d-d2f3aa58f2f5")
-    private MObject getSelectedElement() {
+    protected MObject getSelectedElement() {
         // Get the active selection from the application, to avoid context-related issues when opening the same diagram several times...
         IStructuredSelection selection = (IStructuredSelection) this.application.getContext().get(IServiceConstants.ACTIVE_SELECTION);
         if (selection.size() != 1) {

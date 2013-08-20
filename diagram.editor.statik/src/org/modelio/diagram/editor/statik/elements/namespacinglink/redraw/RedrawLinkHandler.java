@@ -21,65 +21,87 @@
 
 package org.modelio.diagram.editor.statik.elements.namespacinglink.redraw;
 
-import java.util.ArrayList;
-import java.util.List;
-import javax.inject.Inject;
+import javax.inject.Named;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.eclipse.core.commands.AbstractHandler;
-import org.eclipse.core.commands.ExecutionEvent;
-import org.eclipse.core.commands.ExecutionException;
+import org.eclipse.e4.core.di.annotations.CanExecute;
+import org.eclipse.e4.core.di.annotations.Execute;
+import org.eclipse.e4.ui.services.IServiceConstants;
 import org.eclipse.gef.EditDomain;
-import org.eclipse.gef.EditPart;
-import org.eclipse.jface.viewers.ISelection;
+import org.eclipse.gef.editparts.AbstractConnectionEditPart;
+import org.eclipse.gef.tools.AbstractConnectionCreationTool;
 import org.eclipse.jface.viewers.IStructuredSelection;
+import org.modelio.diagram.editor.handlers.redrawlink.RedrawConnectionTool;
 import org.modelio.diagram.editor.statik.elements.namespacinglink.CompositionLinkEditPart;
+import org.modelio.diagram.elements.core.link.GmLink;
+import org.modelio.diagram.elements.core.link.GmLinkEditPart;
+import org.modelio.diagram.styles.core.MetaKey;
+import org.modelio.diagram.styles.core.StyleKey;
+import org.modelio.metamodel.uml.statik.NamespaceUse;
+import org.modelio.metamodel.uml.statik.NaryAssociationEnd;
+import org.modelio.metamodel.uml.statik.NaryLinkEnd;
 
 /**
- * Handler for the "Redraw link" contextual command. Simply sets the current tool to a custom tool with a cutsom made
+ * Handler for the "Redraw link" contextual command. Simply sets the current tool to a custom tool with a custom made
  * creation factory.
  * 
  * @author fpoyer
  */
 @objid ("35bbcd70-55b7-11e2-877f-002564c97630")
-public class RedrawLinkHandler extends AbstractHandler {
-    @objid ("bc3b5c82-51ee-402a-b715-8690dd93ab18")
-    @Inject
-    protected ISelection selection;
-
+public class RedrawLinkHandler {
     @objid ("35bbcd72-55b7-11e2-877f-002564c97630")
-    @Override
-    public Object execute(final ExecutionEvent event) throws ExecutionException {
+    @Execute
+    public Object execute(@Named(IServiceConstants.ACTIVE_SELECTION) IStructuredSelection selection) {
         // First get the current selection
-        CompositionLinkEditPart primarySelection = null;
-        for (CompositionLinkEditPart editPart : getLinksToProcess()) {
-            if (editPart.getSelected() == EditPart.SELECTED_PRIMARY) {
-                primarySelection = editPart;
-                break;
-            }
-        }
+        AbstractConnectionEditPart selectedLink = getLinkToProcess(selection);
         
-        if (primarySelection != null) {
-            // Now instantiate the tool.
-            EditDomain editDomain = primarySelection.getViewer().getEditDomain();
-            RedrawConnectionTool redrawTool = new RedrawConnectionTool(primarySelection);
-            // Set the tool as the active one.
-            editDomain.setActiveTool(redrawTool);
+        // Now instantiate the tool.
+        EditDomain editDomain = selectedLink.getViewer().getEditDomain();
+        AbstractConnectionCreationTool redrawTool = null;
+        if (selectedLink instanceof GmLinkEditPart) {
+            redrawTool = new RedrawConnectionTool((GmLinkEditPart) selectedLink);
+        } else if (selectedLink instanceof CompositionLinkEditPart) {
+            redrawTool = new RedrawCompositionConnectionTool((CompositionLinkEditPart) selectedLink);
         }
+        // Set the tool as the active one.
+         if (redrawTool != null)    
+             editDomain.setActiveTool(redrawTool);
         return null;
     }
 
-    @objid ("35bbcd79-55b7-11e2-877f-002564c97630")
-    protected List<CompositionLinkEditPart> getLinksToProcess() {
-        final List<CompositionLinkEditPart> selectedLinks = new ArrayList<>();
-        if (this.selection instanceof IStructuredSelection) {
-            final List<?> selectedObjects = ((IStructuredSelection) this.selection).toList();
-            for (final Object selectedObject : selectedObjects) {
-                if (selectedObject instanceof CompositionLinkEditPart) {
-                    selectedLinks.add((CompositionLinkEditPart) selectedObject);
-                }
+    @objid ("205c5c75-a4a6-468d-9ea4-3ec659c7e77d")
+    @CanExecute
+    public boolean canExecute(@Named(IServiceConstants.ACTIVE_SELECTION) IStructuredSelection selection) {
+        final AbstractConnectionEditPart selectedLink = getLinkToProcess(selection);
+        // Has one link selected
+        if (selectedLink == null)
+            return false;
+        
+        // At least one link must support changing router
+        if (selectedLink instanceof GmLinkEditPart) {            
+            final GmLink link = (GmLink) selectedLink.getModel();
+            // Deactivate command on Naries...
+            if (link.getRelatedElement() instanceof NaryAssociationEnd || link.getRelatedElement() instanceof NaryLinkEnd || link.getRelatedElement() instanceof NamespaceUse) {
+                return false;
+            }
+            final StyleKey styleKey = link.getStyleKey(MetaKey.CONNECTIONROUTER);
+            if (styleKey != null)
+                return true;
+        } else if (selectedLink instanceof CompositionLinkEditPart) {
+            return true;
+        }
+        return false;
+    }
+
+    @objid ("0f37f134-366a-41e6-9d09-0fdc550c7017")
+    protected AbstractConnectionEditPart getLinkToProcess(IStructuredSelection selection) {
+        AbstractConnectionEditPart selectedLink = null;
+        if (selection != null && selection.size() == 1) {
+            final Object selectedObject = selection.getFirstElement();
+            if (selectedObject instanceof GmLinkEditPart || selectedObject instanceof CompositionLinkEditPart) {
+                selectedLink = (AbstractConnectionEditPart) selectedObject;
             }
         }
-        return selectedLinks;
+        return selectedLink;
     }
 
 }

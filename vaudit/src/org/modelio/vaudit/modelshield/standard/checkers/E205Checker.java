@@ -28,6 +28,7 @@ import org.modelio.metamodel.analyst.AnalystProject;
 import org.modelio.metamodel.mda.ModuleComponent;
 import org.modelio.metamodel.mda.Project;
 import org.modelio.metamodel.uml.infrastructure.Element;
+import org.modelio.metamodel.uml.infrastructure.properties.LocalPropertyTable;
 import org.modelio.metamodel.uml.statik.NamespaceUse;
 import org.modelio.vaudit.modelshield.IErrorReport;
 import org.modelio.vaudit.modelshield.internal.ModelError;
@@ -38,7 +39,7 @@ import org.modelio.vcore.smkernel.mapi.MObject;
 /**
  * E205:
  * <ul>
- * <li>desc = An element must belong to another element, with the exception of UML projects, NamespaceUse, AnalystProject and ModuleComponent.</li>
+ * <li>desc = An element must belong to another element, with the exception of UML projects, NamespaceUse, AnalystProject, ModuleComponent and LocalpropertyTable.</li>
  * <li>what = The ''{1}'' {0} is orphan: it has no container. (identifier: {3})</li>
  * </ul>
  * 
@@ -52,11 +53,12 @@ public class E205Checker implements IChecker {
     @objid ("008f31a8-e472-1f69-b3fb-001ec947cd2a")
     @Override
     public void check(final MObject object, final IErrorReport report) {
-        if (object.getCompositionOwner() == null) {
+        if (object.isValid() && object.getCompositionOwner() == null) {
             if (!(object instanceof Project) &&
                     !(object instanceof AnalystProject) && 
                     !(object instanceof NamespaceUse) && 
-                    !(object instanceof ModuleComponent)) {
+                    !(object instanceof ModuleComponent) && 
+                    !(object instanceof LocalPropertyTable)) {
                 report.addEntry(new ModelError(ERRORID, object, Collections.emptyList()));
             }
         }

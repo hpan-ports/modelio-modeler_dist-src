@@ -31,11 +31,8 @@ import org.modelio.api.diagram.IDiagramNode;
 import org.modelio.api.diagram.InvalidDestinationPointException;
 import org.modelio.api.diagram.InvalidPointsPathException;
 import org.modelio.api.diagram.InvalidSourcePointException;
-import org.modelio.app.project.core.services.IProjectService;
 import org.modelio.diagram.diagramauto.diagram.StyleConstants;
 import org.modelio.diagram.diagramauto.diagram.layout.FourGroupStructuralLayout;
-import org.modelio.diagram.editor.plugin.DiagramEditorsManager;
-import org.modelio.diagram.editor.plugin.IDiagramConfigurerRegistry;
 import org.modelio.gproject.model.IMModelServices;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
 import org.modelio.metamodel.uml.infrastructure.ModelTree;
@@ -55,8 +52,8 @@ public class DependencyCreator extends AbstractDiagramCreator {
     public List<IDiagramNode> _rightDgs;
 
     @objid ("b2f35d46-bdf0-4b35-af54-f7d51b948ff7")
-    public DependencyCreator(IProjectService projectService, IDiagramConfigurerRegistry configurerRegistry, DiagramEditorsManager editorManager, IMModelServices modelServices) {
-        super(projectService,configurerRegistry,editorManager,modelServices);
+    public DependencyCreator(IMModelServices modelServices) {
+        super(modelServices);
         
         this._leftDgs = new ArrayList<>();
         this._rightDgs = new ArrayList<>();

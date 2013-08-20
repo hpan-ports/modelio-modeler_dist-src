@@ -30,7 +30,6 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.uml2.uml.Model;
 import org.eclipse.uml2.uml.Stereotype;
 import org.modelio.api.modelio.Modelio;
-import org.modelio.metamodel.mda.ModuleComponent;
 import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
 import org.modelio.metamodel.uml.infrastructure.ModelTree;
@@ -325,17 +324,7 @@ public class GenerationProperties {
     public org.eclipse.uml2.uml.Profile getSysMLProfile() {
         if (this.sysMLProfile == null){
         
-            Profile obSysMLProfile = null;
-            for (MObject module : Modelio.getInstance().getModelingSession().getModel().getModelRoots()){
-                if ((module instanceof ModuleComponent) && (module.getName().equals("SysMLArchitect"))){
-                    for (Profile profile : ((ModuleComponent)module).getOwnedProfile()){
-                        if (SysMLProfileUtils.isSysML(profile)){
-                            obSysMLProfile = profile;
-                            break;
-                        }
-                    }
-                }
-            }
+            Profile obSysMLProfile =  Modelio.getInstance().getModelingSession().findElementById(Profile.class, "00bc42a4-0000-1968-0000-000000000000");
         
             if (obSysMLProfile != null){
                 this.sysMLProfile = (org.eclipse.uml2.uml.Profile) TotalExportMap.getInstance().get(obSysMLProfile.getUuid().toString());

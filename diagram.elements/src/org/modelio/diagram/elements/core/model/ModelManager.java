@@ -22,7 +22,10 @@
 package org.modelio.diagram.elements.core.model;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
+import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.ui.services.EContextService;
+import org.modelio.app.core.activation.IActivationService;
+import org.modelio.app.project.core.services.IProjectService;
 import org.modelio.diagram.elements.core.obfactory.IModelLinkFactory;
 import org.modelio.diagram.elements.core.obfactory.ModelLinkFactory;
 import org.modelio.gproject.model.IMModelServices;
@@ -41,16 +44,19 @@ import org.modelio.vcore.smkernel.mapi.MRef;
 @objid ("8084e16d-1dec-11e2-8cad-001ec947c8cc")
 public class ModelManager {
     @objid ("8084e16f-1dec-11e2-8cad-001ec947c8cc")
-    private ICoreSession session;
+    private final ICoreSession session;
 
     @objid ("8087436f-1dec-11e2-8cad-001ec947c8cc")
-    private IModelLinkFactory modelLinkFactory;
+    private final IModelLinkFactory modelLinkFactory;
 
     @objid ("80874370-1dec-11e2-8cad-001ec947c8cc")
-    private IMModelServices modelServices;
+    private final IMModelServices modelServices;
 
     @objid ("5dccea2d-ff30-4181-a9fe-4ccbfe5e7491")
-    private EContextService contextService;
+    private final EContextService contextService;
+
+    @objid ("79b94beb-a3cd-4099-bc70-2c3d9dd32ef9")
+    private final IActivationService activationService;
 
     /**
      * Create a model manager.
@@ -58,11 +64,13 @@ public class ModelManager {
      * @param modelServices the model services for the session.
      */
     @objid ("80874372-1dec-11e2-8cad-001ec947c8cc")
-    public ModelManager(ICoreSession session, IMModelServices modelServices, EContextService contextService) {
-        this.session = session;
-        this.modelServices = modelServices;
-        this.modelLinkFactory = new ModelLinkFactory(modelServices);
-        this.contextService = contextService;
+    public ModelManager(IEclipseContext context) {
+        this.session = context.get(IProjectService.class).getSession();
+        this.modelServices = context.get(IMModelServices.class);
+        this.contextService = context.get(EContextService.class);
+        this.activationService = context.get(IActivationService.class);
+        
+        this.modelLinkFactory = new ModelLinkFactory(this.modelServices);
     }
 
     /**
@@ -104,7 +112,7 @@ public class ModelManager {
      */
     @objid ("8087438a-1dec-11e2-8cad-001ec947c8cc")
     public IModelFactory getModelFactory(MObject referent) {
-        return this.modelServices.getModelFactory(referent);
+        return this.modelServices.getModelFactory();
     }
 
     /**
@@ -119,6 +127,11 @@ public class ModelManager {
     @objid ("7f2d7c50-bec3-4126-b425-e2cb58866454")
     public EContextService getContextService() {
         return this.contextService;
+    }
+
+    @objid ("227c2c9f-6f33-4516-bcc9-ab88159c61c1")
+    public IActivationService getActivationService() {
+        return this.activationService;
     }
 
 }

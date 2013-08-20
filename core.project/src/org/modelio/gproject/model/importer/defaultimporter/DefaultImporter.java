@@ -48,6 +48,11 @@ import org.modelio.vcore.session.impl.CoreSession;
 import org.modelio.vcore.smkernel.SmObjectImpl;
 import org.modelio.vcore.smkernel.meta.SmDependency;
 
+/**
+ * Service class used to import model from a ICoreSession to another one.
+ * <p>
+ * The identifiers are kept same.
+ */
 @objid ("006b567a-d3aa-108f-8d81-001ec947cd2a")
 public class DefaultImporter extends AbstractImporter {
     @mdl.prop
@@ -295,10 +300,14 @@ public class DefaultImporter extends AbstractImporter {
 
     @objid ("0087f532-e548-108f-8d81-001ec947cd2a")
     @Override
-    protected void fixElement(SmObjectImpl localObject, SmObjectImpl refObject) {
+    protected void fixElement(SmObjectImpl localObject, SmObjectImpl refObject, ICoreSession localSession, ICoreSession refSession) {
+        // Fix the Analyst model
         if (localObject != null && !localObject.isDeleted()) {
             this.analystFixer.fixModel(refObject, localObject);
         }
+        
+        // Copy related blobs
+        localSession.getBlobSupport().fireObjectCopied(refObject, localObject);
     }
 
     @objid ("0086434a-e548-108f-8d81-001ec947cd2a")
@@ -333,20 +342,7 @@ public class DefaultImporter extends AbstractImporter {
             boolean res = initializer.execute(orphan, smDependency);
             
             if (!res && !isRoot(orphan)) {
-                // FIXME error message
-                // GetAbsoluteSymbol sym;
-                // String msg;
-                // msg.pformat (RC2::getRC("import.properties").getString("CannotAddObject").c_str(),
-                // sym.get(refObject).c_str(),
-                // RC2::getRC("classof.properties").getString(refObject.ClassOf.Name).c_str(),
-                // sym.get(destination).c_str(),
-                // RC2::getRC("classof.properties").getString(destination.ClassOf.Name).c_str());
-                //
-                // OLog::error(msg);
-                System.err.println("CannotAddObject");
-            
                 return false;
-            
             }
             return true;
         }

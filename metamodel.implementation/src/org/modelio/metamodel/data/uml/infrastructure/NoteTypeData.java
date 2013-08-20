@@ -27,7 +27,6 @@ package org.modelio.metamodel.data.uml.infrastructure;
 import java.util.ArrayList;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.modelio.metamodel.data.uml.infrastructure.LocalNoteData;
 import org.modelio.metamodel.data.uml.infrastructure.MetaclassReferenceData;
 import org.modelio.metamodel.data.uml.infrastructure.NoteData;
 import org.modelio.metamodel.data.uml.infrastructure.StereotypeData;
@@ -48,21 +47,9 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("008c3692-c4be-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=NoteType.class, factory=NoteTypeData.Metadata.ObjectFactory.class)
 public class NoteTypeData extends ModelElementData {
-    @objid ("a26d592d-d684-4299-af12-b0d7eaf56b90")
-    @SmaMetaAttribute(metaName="IsHidden", type=Boolean.class, smAttributeClass=Metadata.IsHiddenSmAttribute.class)
-     Object mIsHidden = false;
-
-    @objid ("2b07c055-e4f2-4bb4-adc9-63764f0b006b")
-    @SmaMetaAttribute(metaName="LabelKey", type=String.class, smAttributeClass=Metadata.LabelKeySmAttribute.class)
-     Object mLabelKey = "";
-
     @objid ("992eadcd-7658-49a4-9048-ef54b07e7de2")
     @SmaMetaAssociation(metaName="Element", typeDataClass=NoteData.class, min=0, max=-1, smAssociationClass=Metadata.ElementSmDependency.class, performanceRisk = true)
      List<SmObjectImpl> mElement = null;
-
-    @objid ("83e2a290-b63d-4a7f-9de7-9e267aceb5d9")
-    @SmaMetaAssociation(metaName="LocalElement", typeDataClass=LocalNoteData.class, min=0, max=-1, smAssociationClass=Metadata.LocalElementSmDependency.class, performanceRisk = true)
-     List<SmObjectImpl> mLocalElement = null;
 
     @objid ("1b6b8b58-13d4-43fc-a854-63e8c2a259f7")
     @SmaMetaAssociation(metaName="OwnerStereotype", typeDataClass=StereotypeData.class, min=0, max=1, smAssociationClass=Metadata.OwnerStereotypeSmDependency.class)
@@ -72,6 +59,14 @@ public class NoteTypeData extends ModelElementData {
     @SmaMetaAssociation(metaName="OwnerReference", typeDataClass=MetaclassReferenceData.class, min=0, max=1, smAssociationClass=Metadata.OwnerReferenceSmDependency.class)
      SmObjectImpl mOwnerReference;
 
+    @objid ("e2a33e12-c46a-4f74-9690-3f2e9ceb2741")
+    @SmaMetaAttribute(metaName="IsHidden", type=Boolean.class, smAttributeClass=Metadata.IsHiddenSmAttribute.class)
+     Object mIsHidden = false;
+
+    @objid ("c409a55f-db0f-47f7-9972-0d50fbebb55d")
+    @SmaMetaAttribute(metaName="LabelKey", type=String.class, smAttributeClass=Metadata.LabelKeySmAttribute.class)
+     Object mLabelKey = "";
+
     @objid ("2ae4169a-8195-469b-85c9-6711f5bf93c7")
     public SmClass getClassOf() {
         return Metadata.classof();
@@ -79,25 +74,25 @@ public class NoteTypeData extends ModelElementData {
 
     @objid ("0038da56-c4c3-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("4b84eda4-ec4e-4c94-9693-7af713e31288")
+        @objid ("bc4b3689-2905-48c6-a258-7e1531d80f2c")
         private static SmClass smClass = null;
 
-        @objid ("c6cdfd74-880e-4156-9c6c-52c0862e2075")
+        @objid ("4d9ed528-d727-4efc-9307-b781239acd0a")
         private static SmAttribute IsHiddenAtt = null;
 
-        @objid ("987f251b-ec42-49bd-bd49-8806695d5136")
+        @objid ("698cc396-87db-4f89-8f88-f9c162ac2cc3")
         private static SmAttribute LabelKeyAtt = null;
 
-        @objid ("7db3a30f-6eed-4334-94a5-c201bbb635f1")
+        @objid ("3094b384-62a4-43d1-b6a8-d10146c804e6")
         private static SmDependency ElementDep = null;
 
-        @objid ("37f52148-6f7d-4b46-b634-264bf3cfe7fb")
+        @objid ("dc28ef85-2a96-47ea-8019-c6d400edc548")
         private static SmDependency LocalElementDep = null;
 
-        @objid ("6243d042-03d5-4a2f-95d9-22c10319b613")
+        @objid ("fd4ee0d7-8740-479b-ac41-74c220c12ca4")
         private static SmDependency OwnerStereotypeDep = null;
 
-        @objid ("f8b9400e-fcb7-4cc2-a889-9ffb87a10913")
+        @objid ("554a868f-c586-4bca-bf26-9dbda7eade05")
         private static SmDependency OwnerReferenceDep = null;
 
         @objid ("a4e4cc64-b1f4-46d0-98f0-ba9be1331dbe")
@@ -108,7 +103,7 @@ public class NoteTypeData extends ModelElementData {
         @objid ("5ce3d7b9-7079-463a-9529-0132038ae65a")
         public static SmAttribute IsHiddenAtt() {
             if (IsHiddenAtt == null) {
-            	IsHiddenAtt = classof().getAttributeDef("IsHidden");
+                IsHiddenAtt = classof().getAttributeDef("IsHidden");
             }
             return IsHiddenAtt;
         }
@@ -116,7 +111,7 @@ public class NoteTypeData extends ModelElementData {
         @objid ("09cc0b73-8c5b-4867-8482-70ea6d3a18f6")
         public static SmAttribute LabelKeyAtt() {
             if (LabelKeyAtt == null) {
-            	LabelKeyAtt = classof().getAttributeDef("LabelKey");
+                LabelKeyAtt = classof().getAttributeDef("LabelKey");
             }
             return LabelKeyAtt;
         }
@@ -124,7 +119,7 @@ public class NoteTypeData extends ModelElementData {
         @objid ("c86b3e39-af12-453f-bf6e-4d2412b17cef")
         public static SmDependency ElementDep() {
             if (ElementDep == null) {
-            	ElementDep = classof().getDependencyDef("Element");
+                ElementDep = classof().getDependencyDef("Element");
             }
             return ElementDep;
         }
@@ -132,7 +127,7 @@ public class NoteTypeData extends ModelElementData {
         @objid ("284c1b74-09a9-4c31-9ac8-aa09252c94a0")
         public static SmDependency LocalElementDep() {
             if (LocalElementDep == null) {
-            	LocalElementDep = classof().getDependencyDef("LocalElement");
+                LocalElementDep = classof().getDependencyDef("LocalElement");
             }
             return LocalElementDep;
         }
@@ -140,7 +135,7 @@ public class NoteTypeData extends ModelElementData {
         @objid ("859147f1-910f-4d42-8a62-87531c239748")
         public static SmDependency OwnerStereotypeDep() {
             if (OwnerStereotypeDep == null) {
-            	OwnerStereotypeDep = classof().getDependencyDef("OwnerStereotype");
+                OwnerStereotypeDep = classof().getDependencyDef("OwnerStereotype");
             }
             return OwnerStereotypeDep;
         }
@@ -148,7 +143,7 @@ public class NoteTypeData extends ModelElementData {
         @objid ("a23ea410-85e2-4b54-be75-208fc0424d46")
         public static SmDependency OwnerReferenceDep() {
             if (OwnerReferenceDep == null) {
-            	OwnerReferenceDep = classof().getDependencyDef("OwnerReference");
+                OwnerReferenceDep = classof().getDependencyDef("OwnerReference");
             }
             return OwnerReferenceDep;
         }
@@ -242,29 +237,6 @@ public class NoteTypeData extends ModelElementData {
             @Override
             public SmDependency getSymetric() {
                 return NoteData.Metadata.ModelDep();
-            }
-
-        }
-
-        @objid ("003aaa02-c4c3-1fd8-97fe-001ec947cd2a")
-        public static class LocalElementSmDependency extends SmMultipleDependency {
-            @objid ("ff709d93-82f1-4700-922f-cea7da2da7e0")
-            @Override
-            public List<SmObjectImpl> getValueList(ISmObjectData data) {
-                return (((NoteTypeData)data).mLocalElement != null)? ((NoteTypeData)data).mLocalElement:SmMultipleDependency.EMPTY;
-            }
-
-            @objid ("cdd3b218-d089-48f0-b055-197ca30b76c7")
-            @Override
-            protected List<SmObjectImpl> allocateValueList(ISmObjectData data, int initialCapacity) {
-                ((NoteTypeData) data).mLocalElement = new ArrayList<>(initialCapacity);
-                return ((NoteTypeData) data).mLocalElement;
-            }
-
-            @objid ("f6688828-75c8-4b02-b088-91dbf4bc90c6")
-            @Override
-            public SmDependency getSymetric() {
-                return LocalNoteData.Metadata.LocalModelDep();
             }
 
         }

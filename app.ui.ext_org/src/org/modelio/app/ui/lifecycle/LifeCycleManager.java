@@ -33,8 +33,9 @@ import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.services.events.IEventBroker;
+import org.eclipse.e4.core.services.statusreporter.StatusReporter;
 import org.eclipse.e4.ui.model.application.MApplication;
-import org.eclipse.e4.ui.model.application.ui.advanced.MPerspective;
+import org.eclipse.e4.ui.workbench.UIEvents;
 import org.eclipse.e4.ui.workbench.lifecycle.PostContextCreate;
 import org.eclipse.e4.ui.workbench.lifecycle.PreSave;
 import org.eclipse.e4.ui.workbench.lifecycle.ProcessAdditions;
@@ -61,7 +62,6 @@ import org.modelio.app.ui.ApplicationTitleUpdater;
 import org.modelio.app.ui.SwapLogMonitor;
 import org.modelio.app.ui.login.Splash;
 import org.modelio.app.ui.persp.IModelioUiService;
-import org.modelio.app.ui.persp.PerspectiveManager;
 import org.modelio.app.ui.plugin.AppUi;
 import org.modelio.app.ui.progress.ModelioProgressService;
 import org.modelio.app.ui.welcome.WelcomeView;
@@ -71,7 +71,10 @@ import org.modelio.log.writers.PluginLogger;
 import org.modelio.metamodel.Metamodel;
 import org.modelio.metamodel.data.MetamodelLoader;
 import org.modelio.ui.progress.IModelioProgressService;
+import org.modelio.vbasic.net.SslManager;
 import org.modelio.vcore.session.impl.cache.MemoryManager;
+import org.osgi.service.event.Event;
+import org.osgi.service.event.EventHandler;
 import org.osgi.service.log.LogService;
 import org.osgi.service.prefs.BackingStoreException;
 
@@ -105,7 +108,7 @@ public class LifeCycleManager {
         this.cmdLineData = new CommandLineData(args);
         
         // Depending on command line options, pop up a splash
-        if (!cmdLineData.isBatch()) {
+        if (!this.cmdLineData.isBatch()) {
             // No batch mode, show the splash
             this.splash = new Splash();
             this.splash.open();
@@ -113,7 +116,7 @@ public class LifeCycleManager {
         
         // -mdebug on command line forces log level to help development and
         // debugging
-        if (cmdLineData.isDebug())
+        if (this.cmdLineData.isDebug())
             PluginLogger.logLevel = LogService.LOG_DEBUG;
         
         // Set up the ModelioEnv instance, this also create the modelio runtime
@@ -124,6 +127,16 @@ public class LifeCycleManager {
         AppUi.LOG.info("Modelio runtime data path  : '%s'", modelioEnv.getRuntimeDataPath());
         AppUi.LOG.info("Modelio module catalog path: '%s'", modelioEnv.getModuleCatalogPath());
         AppUi.LOG.info("Modelio macro  catalog path: '%s'", modelioEnv.getMacroCatalogPath());
+        
+        // initialize SSL certificates manager
+        final Path serverCertsDb = modelioEnv.getRuntimeDataPath().resolve("servercerts.db");
+        try {
+            SslManager.getInstance().setTrustStoreFile(modelioEnv.getRuntimeDataPath().resolve("servercerts.db"));
+        } catch (IOException e1) {
+            AppUi.LOG.warning(e1);
+            String message = "Cannot read trusted server certificates from '"+serverCertsDb+"':\n"+e1.getLocalizedMessage();
+            context.get(StatusReporter.class).show(StatusReporter.ERROR, message, e1);
+        }
         
         // EXPERIMENTAL STUFF ABOUT UPDATE
         // Check for updates
@@ -147,16 +160,20 @@ public class LifeCycleManager {
         MetamodelLoader.Load();
         AppUi.LOG.info("Metamodel loaded, version  : '%s'", Metamodel.VERSION);
         
-        // Initialize catalog from mdastore if the local catalog directory does
-        // not contain any entry
+        // Initialize catalog from mdastore if the local catalog directory does not contain any entry
+        boolean emptyCatalog;
         try (DirectoryStream<Path> ds = Files.newDirectoryStream(modelioEnv.getModuleCatalogPath())) {
-            if (!ds.iterator().hasNext()) {
-                if (this.splash != null)
-                    this.splash.showMessage(AppUi.I18N.getString("Splash.modules"));
-                deliverMdaStoreModules(new FileModuleStore(modelioEnv.getModuleCatalogPath()));
-            }
+            emptyCatalog = !ds.iterator().hasNext();
         } catch (IOException e) {
             AppUi.LOG.warning(e);
+            emptyCatalog = false;
+        }
+        
+        if (emptyCatalog) {
+            if (this.splash != null) {
+                this.splash.showMessage(AppUi.I18N.getString("Splash.modules"));
+            }
+            deliverMdaStoreModules(new FileModuleStore(modelioEnv.getModuleCatalogPath()));
         }
         
         if (this.splash != null)
@@ -176,7 +193,7 @@ public class LifeCycleManager {
 
     @objid ("ab606429-1892-408d-9739-071039297c1c")
     @ProcessAdditions
-    public void processAdditions(final MApplication application) {
+    void onProcessAdditions(final MApplication application) {
         final IEclipseContext context = application.getContext();
         
         this.titleUpdater = ContextInjectionFactory.make(ApplicationTitleUpdater.class, context);
@@ -249,23 +266,31 @@ public class LifeCycleManager {
         
         // Batch mode
         // MANTAYORY: keep this code sequence the last one of the method
-        final IApplicationContext appContext = context.get(IApplicationContext.class);
-        final String args[] = (String[]) appContext.getArguments().get(IApplicationContext.APPLICATION_ARGS);
         final IEventBroker eventBroker = context.get(IEventBroker.class);
         if (eventBroker != null) {
-            eventBroker.post("BATCH", this.cmdLineData);
+            EventHandler eventHandler = new EventHandler() {
+                
+                @SuppressWarnings("synthetic-access")
+                @Override
+                public void handleEvent(Event arg0) {
+                    eventBroker.post("BATCH", LifeCycleManager.this.cmdLineData);
+                }
+            };
+            
+            eventBroker.subscribe(UIEvents.UILifeCycle.APP_STARTUP_COMPLETE, eventHandler);
         }
     }
 
     @objid ("68684452-09b9-43cc-8187-12587debedd4")
     @ProcessRemovals
-    public void processRemovals(final MApplication application) {
+    void onProcessRemovals() {
         // Called after @ProcessAdditions but for removals.
+        // final MApplication application
     }
 
     @objid ("4021a0d4-a0af-4d87-b82d-eac07a7f0ef6")
     @PreSave
-    public void presave() {
+    void onPreSave() {
         // Is called before the application model is saved. You can modify the
         // model before it is persisted.
     }

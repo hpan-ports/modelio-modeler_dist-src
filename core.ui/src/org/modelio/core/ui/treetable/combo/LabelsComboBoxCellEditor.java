@@ -30,8 +30,8 @@ import org.eclipse.swt.widgets.Composite;
 
 /**
  * Notes about design: <br/>
- * Unfortunately, the jface standard ComboBoxCellEditor is not designed for being subclassed. As we need to specialize several of
- * its features, we had to use a modified copy of the original ComboBoxCellEditor (ComboBoxCellEditor3)
+ * Unfortunately, the jface standard ComboBoxCellEditor is not designed for being subclassed.</br>
+ * As we need to specialize several of its features, we had to use a modified copy of the original ComboBoxCellEditor (ComboBoxCellEditor3)
  * 
  * @author pvlaemyn
  */
@@ -44,7 +44,6 @@ public class LabelsComboBoxCellEditor extends ComboBoxCellEditor2 {
     public LabelsComboBoxCellEditor(Composite parent, String[] labels, int style) {
         super(parent, labels, style);
         this.types = new ArrayList<>(Arrays.asList(labels));
-        this.types.add(0,"");
         ((CCombo) this.getControl()).setEditable(false);
         setActivationStyle(ComboBoxCellEditor2.DROP_DOWN_ON_MOUSE_ACTIVATION);
     }
@@ -62,7 +61,7 @@ public class LabelsComboBoxCellEditor extends ComboBoxCellEditor2 {
     @objid ("6b350132-1eba-11e2-9382-bc305ba4815c")
     @Override
     protected Object doGetValue() {
-        return this.types.get((Integer) super.doGetValue()+1);
+        return this.types.get((Integer) super.doGetValue());
     }
 
 }

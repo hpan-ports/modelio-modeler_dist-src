@@ -80,7 +80,6 @@ public class Loader {
         for (int i = 0; i < nNodes; i++) {
             final Node node = childNodes.item(i);
             if (node.getNodeName().equals("popup")) {
-                // System.out.println(node.getNodeName());
                 parsePopupNode(node);
             }
         }
@@ -105,10 +104,6 @@ public class Loader {
             }
         }
         
-        // final List<ItemModel> entriesList = new ArrayList<ItemModel>();
-        // this.itemsMetaclassMap.put(metaclassName + stereotypeName,
-        // entriesList);
-        
         // Explore items and menus
         final NodeList menuNodes = popupNode.getChildNodes();
         final int nNodes = menuNodes.getLength();
@@ -116,31 +111,14 @@ public class Loader {
             final Node node = menuNodes.item(i);
         
             if (node.getNodeName().equals("command")) {
-                // System.out.println(" " + node.getNodeName());
                 EntryDescriptor entryDescriptor = parseCommandNode(node);
                 entryDescriptor.sourceMetaclass = metaclassName;
                 entryDescriptor.sourceStereotype = stereotypeName;
         
                 ElementCreationDynamicMenuManager.register(entryDescriptor);
-        
+            } else if (node.getNodeName().equals("separator")) {
+                ElementCreationDynamicMenuManager.registerSeparator(metaclassName);
             }
-            // if (node.getNodeName().equals("item")) {
-            // // System.out.println(" " + node.getNodeName());
-            // final CommandModel commandModel = parseItemNode(node);
-            // if (commandModel != null) {
-            // entriesList.add(commandModel);
-            // }
-            // } else if (node.getNodeName().equals("menu")) {
-            // // System.out.println(" " + node.getNodeName());
-            // final MenuModel menuModel = parseMenuNode(node);
-            // if (menuModel != null) {
-            // entriesList.add(menuModel);
-            // }
-            // } else if (node.getNodeName().equals("separator")) {
-            // // System.out.println(" " + node.getNodeName());
-            // entriesList.add(parseSeparatorNode(node));
-            // }
-        
         }
     }
 

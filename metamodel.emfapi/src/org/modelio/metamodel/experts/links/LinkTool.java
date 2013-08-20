@@ -204,6 +204,17 @@ public class LinkTool implements ILinkTool {
         this.REGISTRY.unregisterExpert(ste);
     }
 
+    @objid ("889323b1-0bd4-43da-adec-249a2846de30")
+    @Override
+    public boolean canLink(Stereotype stereotypedLink, MClass link, MClass from, MClass to, MClass owner) {
+        for (ILinkExpert expert : this.REGISTRY.getExperts(stereotypedLink)) {
+            if (!expert.canLink(link, from, to, owner)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     /**
      * Registry to get the expert for a given:
      * <ul>
@@ -256,19 +267,32 @@ public class LinkTool implements ILinkTool {
         @objid ("0003a20a-de02-1097-bcec-001ec947cd2a")
         public List<ILinkExpert> getExperts(final MObject mObject) {
             List<ILinkExpert> results = new ArrayList<>();
-            MClass metaclass = mObject.getMClass();
             
-            // base expert
-            results.add(getExpert(metaclass));
+            if (mObject instanceof Stereotype) {
+                Stereotype ste = (Stereotype) mObject;
             
-            // stereotype expert
-            // TODO: view points might later filter this list
-            if (mObject instanceof ModelElement) {
-                final ModelElement modelElement = (ModelElement) mObject;
-                for (Stereotype ste : modelElement.getExtension()) {
-                    final ILinkExpert steExpert = this.getExpert(ste);
-                    if (steExpert != null) {
-                        results.add(steExpert);
+                // base expert
+                MClass metaclass = Metamodel.getMClass(ste.getBaseClassName());
+                results.add(getExpert(metaclass));
+            
+                final ILinkExpert steExpert = this.getExpert(ste);
+                if (steExpert != null) {
+                    results.add(steExpert);
+                }
+            } else {
+                // base expert
+                MClass metaclass = mObject.getMClass();
+                results.add(getExpert(metaclass));
+            
+                // stereotype expert
+                // TODO: view points might later filter this list
+                if (mObject instanceof ModelElement) {
+                    final ModelElement modelElement = (ModelElement) mObject;
+                    for (Stereotype ste : modelElement.getExtension()) {
+                        final ILinkExpert steExpert = this.getExpert(ste);
+                        if (steExpert != null) {
+                            results.add(steExpert);
+                        }
                     }
                 }
             }

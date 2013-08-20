@@ -352,7 +352,6 @@ public class LinkEndNPropertyModel extends AbstractPropertyModel<NaryLinkEnd> {
 
     @objid ("8f43ce9b-c068-11e1-8c0a-002564c97630")
     private void setPropertyValue(int row, NaryLinkEnd linkEnd, Object value) {
-        // System.out.println("set value at row "+row+" : "+ value.toString());
         switch (row) {
         case 0:
             return;

@@ -28,6 +28,7 @@ import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -68,7 +69,7 @@ public class Catalog {
     private final String name;
 
     @objid ("008f9404-b6e0-106a-bf4f-001ec947cd2a")
-    private final List<ScriptMacro> macros = new ArrayList<ScriptMacro>();
+    private final List<Macro> macros = new ArrayList<>();
 
     /**
      * The base location of all scripts. Must be a directory.
@@ -83,7 +84,6 @@ public class Catalog {
         this.path = aPath;
         
         CatalogReader reader = new CatalogReader();
-        
         try {
             reader.loadCatalog(aPath, this);
         } catch (IOException e) {
@@ -96,7 +96,31 @@ public class Catalog {
      * @param macro the macro to add.
      */
     @objid ("008f9850-b6e0-106a-bf4f-001ec947cd2a")
-    public void addMacro(ScriptMacro macro) {
+    public void addMacro(Macro macro) {
+        // Process pathes for icon and script
+        Path iconPath = macro.getIconPath();
+        
+        try {
+            if (iconPath == null || iconPath.startsWith(this.path)) {
+                // nothing to do
+            } else {
+                Path newIconPath = this.path.resolve(iconPath.getFileName());
+                Files.copy(iconPath, newIconPath, StandardCopyOption.REPLACE_EXISTING);
+                macro.setIconPath(newIconPath);
+            }
+        
+            Path scriptPath = macro.getScriptPath();
+            if (scriptPath.startsWith(this.path)) {
+                // nothing to do
+            } else {
+                Path newScriptPath = this.path.resolve(scriptPath.getFileName());
+                Files.copy(scriptPath, newScriptPath, StandardCopyOption.REPLACE_EXISTING);
+                macro.setScriptPath(newScriptPath);
+            }
+        } catch (IOException ioe) {
+            Script.LOG.warning(ioe);
+        }
+        
         this.macros.add(macro);
     }
 
@@ -105,7 +129,7 @@ public class Catalog {
      * @return the stored macros.
      */
     @objid ("008f9792-b6e0-106a-bf4f-001ec947cd2a")
-    public List<ScriptMacro> getMacros() {
+    public List<Macro> getMacros() {
         return Collections.unmodifiableList(this.macros);
     }
 
@@ -166,17 +190,12 @@ public class Catalog {
         }
     }
 
-    @objid ("0026032c-fb5e-106b-bf4f-001ec947cd2a")
-    private static Path getLocalMacroFile(Catalog catalog, ScriptMacro macro) {
-        return catalog.getPath().resolve(macro.getRelativePath().getFileName());
-    }
-
     /**
      * Remove the macro from the catalog.
      * @param macro a macro owned by the catalog.
      */
     @objid ("00269ada-fb5e-106b-bf4f-001ec947cd2a")
-    public void removeMacro(ScriptMacro macro) {
+    public void removeMacro(Macro macro) {
         this.macros.remove(macro);
     }
 
@@ -196,11 +215,11 @@ public class Catalog {
         }
 
         @objid ("0010df06-e6fb-106a-bf4f-001ec947cd2a")
-        public void loadCatalog(Path path, Catalog catalog) throws IOException {
+        public void loadCatalog(Path catalogPath, Catalog catalogToLoad) throws IOException {
             // catalog path and file
-            this.path = path;
+            this.path = catalogPath;
             this.catalogFile = new File(this.path.toFile(), ".catalog");
-            this.catalog = catalog;
+            this.catalog = catalogToLoad;
             
             if (!this.catalogFile.exists()) {
                 return;
@@ -235,26 +254,26 @@ public class Catalog {
         }
 
         @objid ("00110972-e6fb-106a-bf4f-001ec947cd2a")
-        private ScriptMacro readMacro(Catalog cat, Element domElement) {
-            ScriptMacro macro = new ScriptMacro(cat);
+        private Macro readMacro(Catalog cat, Element domElement) {
+            Macro macro = new Macro(cat);
             macro.setName(domElement.getAttribute("name"));
-            macro.setRelativePath(Paths.get(domElement.getAttribute("path")));
+            
+            macro.setScriptPath( this.path.resolve(Paths.get(domElement.getAttribute("path"))));
             
             macro.setShowInContextualMenu(Boolean.parseBoolean(domElement.getAttribute("show-menu")));
             macro.setShowInToolbar(Boolean.parseBoolean(domElement.getAttribute("show-toolbar")));
             
-            final String s = domElement.getAttribute("icon-path");
-            if (s == null || s.isEmpty()) {
-                macro.setIconRelativePath(null);
+            final String iconPath = domElement.getAttribute("icon-path");
+            if (iconPath == null || iconPath.isEmpty()) {
+                macro.setIconPath(null);
             } else {
-                macro.setIconRelativePath(Paths.get(s));
+                macro.setIconPath(this.path.resolve(Paths.get(iconPath)));
             }
             
             NodeList childs = domElement.getChildNodes();
             for (int i = 0, nb = childs.getLength(); i < nb; i++) {
                 Node node = childs.item(i);
                 if (node.getNodeName().equals("description")) {
-                    // System.out.println(" description='"+String.valueOf(node.getTextContent())+"'");
                     String content = node.getTextContent();
                     if (content != null) {
                         macro.setDescription(content);
@@ -285,28 +304,23 @@ public class Catalog {
         public void writeCatalog(Catalog aCatalog) throws XMLStreamException, IOException {
             this.catalog = aCatalog;
             
-            try {
-                Path catalogFile = this.catalog.getPath().resolve(".catalog");
+            Path catalogFile = this.catalog.getPath().resolve(".catalog");
             
-                if (!Files.exists(catalogFile.getParent())) {
-                    Files.createDirectories(catalogFile.getParent());
-                }
+            if (!Files.exists(catalogFile.getParent())) {
+                Files.createDirectories(catalogFile.getParent());
+            }
             
-                if (!Files.exists(catalogFile)) {
-                    Files.createFile(catalogFile);
-                }
+            if (!Files.exists(catalogFile)) {
+                Files.createFile(catalogFile);
+            }
             
-                try (OutputStream stream = new FileOutputStream(catalogFile.toFile())) {
-                    XMLOutputFactory of = XMLOutputFactory.newInstance();
-                    XMLStreamWriter writer = of.createXMLStreamWriter(stream);
-                    writer.writeStartDocument();
-                    writeCatalog(this.catalog, writer);
-                    writer.writeEndDocument();
-                    writer.close();
-                }
-            
-            } catch (IOException e) {
-                e.printStackTrace();
+            try (OutputStream stream = new FileOutputStream(catalogFile.toFile())) {
+                XMLOutputFactory of = XMLOutputFactory.newInstance();
+                XMLStreamWriter writer = of.createXMLStreamWriter(stream);
+                writer.writeStartDocument();
+                writeCatalog(this.catalog, writer);
+                writer.writeEndDocument();
+                writer.close();
             }
         }
 
@@ -315,24 +329,24 @@ public class Catalog {
             writer.writeStartElement("catalog");
             writer.writeCharacters("\n");
             
-            for (ScriptMacro s : c.getMacros()) {
+            for (Macro macro : c.getMacros()) {
                 writer.writeStartElement("script");
-                writer.writeAttribute("name", s.getName());
-                writer.writeAttribute("path", s.getRelativePath().toString());
-                writer.writeAttribute("icon-path", getIconRelativePath(s));
-                writer.writeAttribute("show-menu", String.valueOf(s.shownInContextualMenu()));
-                writer.writeAttribute("show-toolbar", String.valueOf(s.shownInToolbar()));
+                writer.writeAttribute("name", macro.getName());
+                writer.writeAttribute("path", this.catalog.getPath().relativize(macro.getScriptPath()).toString());
+                writer.writeAttribute("icon-path", getIconRelativePath(macro));
+                writer.writeAttribute("show-menu", String.valueOf(macro.shownInContextualMenu()));
+                writer.writeAttribute("show-toolbar", String.valueOf(macro.shownInToolbar()));
             
                 writer.writeCharacters("\n");
             
                 writer.writeStartElement("description");
-                if (s.getDescription() != null) {
-                    writer.writeCharacters(s.getDescription());
+                if (macro.getDescription() != null) {
+                    writer.writeCharacters(macro.getDescription());
                 }
                 writer.writeEndElement();
                 writer.writeCharacters("\n");
             
-                for (String metaclass : s.getMetaclasses()) {
+                for (String metaclass : macro.getMetaclasses()) {
                     writer.writeStartElement("metaclass");
                     writer.writeAttribute("name", metaclass);
                     writer.writeEndElement();
@@ -348,12 +362,12 @@ public class Catalog {
         }
 
         @objid ("0002e8b0-eae6-106a-bf4f-001ec947cd2a")
-        private String getIconRelativePath(ScriptMacro s) {
-            Path p = s.getIconRelativePath();
-            if (p == null) {
+        private String getIconRelativePath(Macro macro) {
+            Path iconPath = macro.getIconPath();
+            if (iconPath == null)
                 return "";
-            } else {
-                return p.toString();
+            else {
+                return this.catalog.getPath().relativize(iconPath).toString();
             }
         }
 

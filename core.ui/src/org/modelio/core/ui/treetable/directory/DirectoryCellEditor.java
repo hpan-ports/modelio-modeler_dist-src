@@ -22,20 +22,22 @@
 package org.modelio.core.ui.treetable.directory;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.eclipse.jface.viewers.DialogCellEditor;
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.DirectoryDialog;
 import org.eclipse.swt.widgets.Display;
-import org.modelio.ui.UIImages;
+import org.modelio.core.ui.treetable.EditableDialogCellEditor;
 
 /**
  * CellEditor to choose a directory.
  */
 @objid ("cd1551b4-db02-4d28-af82-8fecc86f1280")
-public class DirectoryCellEditor extends DialogCellEditor {
+public class DirectoryCellEditor extends EditableDialogCellEditor {
+    @objid ("0baaf198-4148-462b-b4a3-e4647b33368b")
+    public DirectoryCellEditor(Composite parent) {
+        super(parent);
+    }
+
     @objid ("bdaaeefb-0612-4cd1-b8bb-551ca31d1145")
     @Override
     protected Object openDialogBox(Control cellEditorWindow) {
@@ -45,19 +47,6 @@ public class DirectoryCellEditor extends DialogCellEditor {
             doSetValue(directory);
         }   // if cancel (directory is null), keep the last value
         return null;
-    }
-
-    @objid ("0baaf198-4148-462b-b4a3-e4647b33368b")
-    public DirectoryCellEditor(Composite parent) {
-        super(parent);
-    }
-
-    @objid ("8a4e253e-9f60-4583-a7d6-4f1492adc627")
-    @Override
-    protected Button createButton(Composite parent) {
-        Button result = new Button(parent, SWT.DOWN);
-        result.setImage(UIImages.FILECHOOSE);
-        return result;
     }
 
 }

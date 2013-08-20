@@ -25,15 +25,13 @@ import java.util.UUID;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.ui.model.application.ui.basic.MInputPart;
-import org.eclipse.e4.ui.services.EContextService;
-import org.modelio.app.project.core.services.IProjectService;
 import org.modelio.diagram.editor.DiagramEditorInput;
 import org.modelio.diagram.editor.DiagramEditorInputProvider.IDiagramEditorInputProvider;
+import org.modelio.diagram.elements.core.model.ModelManager;
 import org.modelio.gproject.model.IMModelServices;
 import org.modelio.metamodel.Metamodel;
 import org.modelio.metamodel.diagrams.AbstractDiagram;
 import org.modelio.metamodel.diagrams.DeploymentDiagram;
-import org.modelio.vcore.session.api.ICoreSession;
 
 @objid ("ea20fbce-5a6e-11e2-9e33-00137282c51b")
 public class DeploymentDiagramEditorInputProvider implements IDiagramEditorInputProvider {
@@ -45,13 +43,11 @@ public class DeploymentDiagramEditorInputProvider implements IDiagramEditorInput
     @objid ("436dd5d6-5beb-11e2-9e33-00137282c51b")
     @Override
     public DiagramEditorInput compute(IEclipseContext context) {
-        ICoreSession coreSession = context.get(IProjectService.class).getSession();
         IMModelServices modelServices = context.get(IMModelServices.class);
-        EContextService contextService = context.get(EContextService.class);
         
         String diagramUID = context.get(MInputPart.class).getInputURI();
         AbstractDiagram diagram = (DeploymentDiagram) modelServices.findById(Metamodel.getMClass(DeploymentDiagram.class), UUID.fromString(diagramUID));
-        return diagram != null ? new DeploymentDiagramEditorInput(coreSession, diagram, modelServices, contextService) : null;
+        return diagram != null ? new DeploymentDiagramEditorInput(new ModelManager(context), diagram) : null;
     }
 
 }

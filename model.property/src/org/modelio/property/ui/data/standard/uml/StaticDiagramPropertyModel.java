@@ -28,9 +28,9 @@ import org.modelio.core.ui.ktable.types.IPropertyType;
 import org.modelio.core.ui.ktable.types.element.SingleElementType;
 import org.modelio.core.ui.ktable.types.text.StringType;
 import org.modelio.metamodel.diagrams.StaticDiagram;
-import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
 import org.modelio.property.ui.data.standard.common.AbstractPropertyModel;
+import org.modelio.vcore.smkernel.mapi.MObject;
 
 /**
  * <i>StaticDiagram</i> data model.
@@ -66,7 +66,7 @@ public class StaticDiagramPropertyModel extends AbstractPropertyModel<StaticDiag
         
         this.stringType = new StringType(false);
         
-        List<java.lang.Class<? extends Element>> allowedMetaclasses = new ArrayList<>();
+        List<java.lang.Class<? extends MObject>> allowedMetaclasses = new ArrayList<>();
         allowedMetaclasses.add(ModelElement.class);
         
         this.contextType = new SingleElementType(true, allowedMetaclasses);

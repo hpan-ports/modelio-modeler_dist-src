@@ -65,39 +65,40 @@ public abstract class VersionedExmlBase extends AbstractExmlRepository {
 
     @objid ("979e7148-12de-11e2-816a-001ec947ccaf")
     @Override
-    public synchronized boolean doReloadCmsNode(SmObjectImpl obj, IModelLoader modelLoader) throws IOException, DuplicateObjectException {
+    public synchronized boolean doReloadCmsNode(SmObjectImpl obj, IModelLoader modelLoader) throws DuplicateObjectException {
         ObjId cmsNodeId = new ObjId(obj);
         IExmlResourceProvider resProvider = getResourceProvider();
-        ExmlResource resource = resProvider.getResource(cmsNodeId);
-        ExmlResource localRes = resProvider.getLocalResource(cmsNodeId);
-        try (InputStream is = resource.read();
-                InputStream lis = localRes.read();
-                InputStream bufis = new BufferedInputStream(is);
-                InputStream buflis = new BufferedInputStream(lis)) {
-            if (is == null) {
-                // Exml not found, set the object as shell.
-                loadFailed(obj, modelLoader, new FileNotFoundException(cmsNodeId+": "+resource.getPublicLocation()));
-                return false;
-            } else {
-                // setup XML input sources
-                InputSource src = new InputSource(bufis);
-                InputSource lsrc = null;
-                if (lis != null ) {
-                    lsrc = new InputSource(buflis);
-                    lsrc.setPublicId(localRes.getPublicLocation());
-                }
+        try {
+            ExmlResource resource = resProvider.getResource(cmsNodeId);
+            ExmlResource localRes = resProvider.getLocalResource(cmsNodeId);
+            try (InputStream is = resource.read();
+                    InputStream lis = localRes.read();
+                    InputStream bufis = new BufferedInputStream(is);
+                    InputStream buflis = new BufferedInputStream(lis)) {
+                if (is == null) {
+                    // Exml not found, set the object as shell.
+                    loadFailed(obj, modelLoader, new FileNotFoundException(cmsNodeId+": "+resource.getPublicLocation()));
+                    return false;
+                } else {
+                    // setup XML input sources
+                    InputSource src = new InputSource(bufis);
+                    InputSource lsrc = null;
+                    if (lis != null ) {
+                        lsrc = new InputSource(buflis);
+                        lsrc.setPublicId(localRes.getPublicLocation());
+                    }
         
-                src.setPublicId(resource.getPublicLocation());
-                
-                // Load XML files
-                try {
+                    src.setPublicId(resource.getPublicLocation());
+        
+                    // Load XML files
                     this.versionedLoader.load(src, lsrc, modelLoader);
                     return true;
-                } catch (IOException e) {
-                    loadFailed(obj, modelLoader, e);
-                    return false;
+        
                 }
             }
+        } catch (IOException e) {
+            loadFailed(obj, modelLoader, e);
+            return false;
         }
     }
 

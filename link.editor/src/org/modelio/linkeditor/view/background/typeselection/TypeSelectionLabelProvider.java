@@ -75,6 +75,8 @@ class TypeSelectionLabelProvider extends LabelProvider {
             return stereotypeLabel.toString();
         } else if (element instanceof Class && MObject.class.isAssignableFrom((Class<?>) element)) {
             return Metamodel.getMClass((Class<? extends MObject>) element).getName();
+        } else if (element instanceof ModuleComponent) {
+            return ModuleI18NService.getLabel((ModuleComponent) element);
         }
         return element.toString();
     }

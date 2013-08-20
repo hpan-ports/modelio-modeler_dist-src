@@ -32,6 +32,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.AccessDeniedException;
 import java.nio.file.FileSystemException;
 import java.nio.file.Files;
+import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 import java.util.Collection;
@@ -204,10 +205,10 @@ public class UriExmlResourceProvider implements IExmlResourceProvider {
 
     @objid ("7142952a-3664-47b1-b49a-44655806167a")
     @Override
-    public String getStamp() {
+    public String getStamp() throws IOException {
         try (InputStream is = UriConnections.openInputStream(this.stampUrl,this.auth)){
             return FileUtils.readWhole(is, "UTF-8");
-        } catch (IOException e) {
+        } catch (FileNotFoundException | NoSuchFileException e) {
             return "";
         }
     }
@@ -268,17 +269,19 @@ public class UriExmlResourceProvider implements IExmlResourceProvider {
     }
 
     @objid ("2fae883f-10f4-4baa-a1e9-4876bdf3bdc1")
-    private void checkLocalIndex() throws IndexOutdatedException {
+    private void checkLocalIndex() throws IOException, IndexOutdatedException {
         boolean islocalDir = Files.isDirectory(this.localIndexDir);
         if (! islocalDir)
             throw new IndexOutdatedException(this.getName()+" indexes not yet copied in '"+this.localIndexDir+"'.");
         
+        final String remoteStamp = getStamp();
+        
         try {
             String localStamp = readLocalStamp();
-            if (! localStamp.equals(getStamp()))
+            if (! localStamp.equals(remoteStamp))
                 throw new IndexOutdatedException(getName()+" local index stamp outdated:\n"+
                         " - local index stamp: "+localStamp+"\n"+
-                        " - remote repository stamp: "+getStamp());
+                        " - remote repository stamp: "+remoteStamp);
         } catch (java.nio.file.NoSuchFileException e) {
             throw new IndexOutdatedException("No '"+this.localIndexStampPath+"' stamp file yet.");
         } catch (IOException e) {

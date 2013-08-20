@@ -28,7 +28,6 @@ import org.modelio.core.ui.ktable.types.text.StringType;
 import org.modelio.metamodel.uml.statik.Interface;
 import org.modelio.metamodel.uml.statik.InterfaceRealization;
 import org.modelio.property.ui.data.standard.common.AbstractPropertyModel;
-import org.modelio.vcore.session.api.model.IModel;
 import org.modelio.vcore.session.impl.CoreSession;
 
 /**

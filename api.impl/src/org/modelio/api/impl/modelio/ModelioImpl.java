@@ -8,7 +8,6 @@ import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.di.annotations.Execute;
 import org.eclipse.e4.core.di.annotations.Optional;
 import org.eclipse.e4.core.di.extensions.EventTopic;
-import org.eclipse.e4.ui.services.EContextService;
 import org.eclipse.e4.ui.workbench.modeling.ESelectionService;
 import org.eclipse.swt.widgets.Display;
 import org.modelio.api.app.IModelioContext;
@@ -49,9 +48,6 @@ import org.modelio.app.core.events.ModelioEventTopics;
 import org.modelio.app.core.picking.IModelioPickingService;
 import org.modelio.app.core.picking.IPickingSession;
 import org.modelio.app.project.core.services.IProjectService;
-import org.modelio.diagram.editor.plugin.DiagramEditorsManager;
-import org.modelio.diagram.editor.plugin.IDiagramConfigurerRegistry;
-import org.modelio.diagram.editor.plugin.ToolRegistry;
 import org.modelio.gproject.gproject.GProject;
 import org.modelio.gproject.model.IMModelServices;
 import org.modelio.vaudit.modelshield.ModelShield;
@@ -67,6 +63,9 @@ public class ModelioImpl extends Modelio {
     @Inject
     private IEclipseContext eclipseContext;
 
+    @objid ("172cb89e-fd7f-4bc6-af5c-41ebd702fee5")
+    private boolean servicesInitialized;
+
     @objid ("366bf3b3-49ea-4a24-99ff-e571691f9e32")
     private IModelingSession modelingSession;
 
@@ -74,7 +73,7 @@ public class ModelioImpl extends Modelio {
     private GProject openedProject;
 
     @objid ("4a1cd047-af90-4d1c-8ea5-03f14998e88e")
-    private Map<Class<?>, Object> serviceMap;
+    private Map<Class<?>, Object> serviceMap = new HashMap<>();
 
     @objid ("3b9c361a-b9ee-49af-84f3-61729a901869")
     @Override
@@ -175,22 +174,26 @@ public class ModelioImpl extends Modelio {
     @objid ("a618e022-c10d-4055-9c88-895f8203c4c8")
     @Override
     public IExchangeService getExchangeService() {
-        return  getService(IExchangeService.class);
+        return getService(IExchangeService.class);
     }
 
     @objid ("f820a10f-612e-4dcf-b3ea-b601a6f8202c")
     @SuppressWarnings("unchecked")
     @Override
-    public <I> I getService(Class<I> serviceInterface) {
-        if(this.serviceMap == null){
-            this.serviceMap = initializeServices();   
+    public synchronized <I> I getService(Class<I> serviceInterface) {
+        if(!this.servicesInitialized ){
+            initializeServices();   
         }
         return (I) this.serviceMap.get(serviceInterface);
     }
 
+    /**
+     * Called by E4 injection to initialize the instance
+     * @param context the eclipse context.
+     */
     @objid ("42b90af5-1701-49d6-bb27-315df2f68a70")
     @Execute
-    public void initialize(IEclipseContext context) {
+    void initialize(IEclipseContext context) {
         this.eclipseContext = context;
               
         Modelio.instance = this;
@@ -203,24 +206,22 @@ public class ModelioImpl extends Modelio {
     @objid ("4ee6a698-080e-4674-804a-50a6dcb9af24")
     @Inject
     @Optional
-    public void onProjectClosed(@EventTopic(ModelioEventTopics.PROJECT_CLOSED) final GProject closedProject) {
-        this.serviceMap = null;
+    public synchronized void onProjectClosed(@EventTopic(ModelioEventTopics.PROJECT_CLOSED) final GProject closedProject) {
+        this.serviceMap = new HashMap<>();
+        this.servicesInitialized = false;
     }
 
     @objid ("64d34c74-89d2-4563-999e-2889f7f3e111")
     @Inject
     @Optional
-    public void onProjectOpening(@EventTopic(ModelioEventTopics.PROJECT_OPENING) final GProject openedProject) {
-        this.openedProject =  openedProject;
+    void onProjectOpening(@EventTopic(ModelioEventTopics.PROJECT_OPENING) final GProject newProject) {
+        this.openedProject =  newProject;
         this.modelingSession = null;
     }
 
     @objid ("28340bcd-9a5c-4d77-8876-d1e20b9c2734")
     @Override
-    public <I> void registerService(Class<I> serviceInterface, I service) {
-        if(this.serviceMap == null){
-            this.serviceMap = initializeServices(); 
-        }
+    public synchronized <I> void registerService(Class<I> serviceInterface, I service) {
         this.serviceMap.put(serviceInterface, service);
     }
 
@@ -264,14 +265,14 @@ public class ModelioImpl extends Modelio {
     }
 
     @objid ("43028687-2cd4-4142-9ce5-4d195a16c10a")
-    private Map<Class<?>, Object> initializeServices() {
-        Map<Class<?>, Object> services = new HashMap<>();
+    private void initializeServices() {
+        Map<Class<?>, Object> services = this.serviceMap;
         
         IAuditService auditService = new AuditService(this.eclipseContext.get(ModelShield.class),this.eclipseContext.get(org.modelio.audit.service.IAuditService.class));    
         services.put(IAuditService.class, auditService);
                
         
-        IDiagramService diagramService = new DiagramService(this.eclipseContext.get(ToolRegistry.class),this.eclipseContext.get(IDiagramConfigurerRegistry.class), this.eclipseContext.get(IProjectService.class), this.eclipseContext.get(DiagramEditorsManager.class), this.eclipseContext.get(IMModelServices.class), this.eclipseContext.get(EContextService.class));
+        IDiagramService diagramService = new DiagramService(this.eclipseContext);
         services.put(IDiagramService.class, diagramService);
           
         IEditionService editionService = new EditionService(this.eclipseContext.get(IModelioEventService.class));
@@ -305,7 +306,8 @@ public class ModelioImpl extends Modelio {
         final org.modelio.mda.infra.service.IModuleService coreService = this.eclipseContext.get(org.modelio.mda.infra.service.IModuleService.class);
         IModuleService moduleService = new ModuleService(coreService.getModuleRegistry());
         services.put(IModuleService.class, moduleService);
-        return services;
+        
+        this.servicesInitialized = true;
     }
 
 }

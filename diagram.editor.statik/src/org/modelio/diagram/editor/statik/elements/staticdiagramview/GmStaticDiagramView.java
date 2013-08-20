@@ -118,7 +118,7 @@ public class GmStaticDiagramView extends GmAbstractDiagramView {
     @objid ("36cffc84-55b7-11e2-877f-002564c97630")
     @Override
     protected GmAbstractDiagram loadViewedDiagram() {
-        StaticDiagramEditorInput input = new StaticDiagramEditorInput(getDiagram().getModelManager().getModelingSession(), getRepresentedElement(), getDiagram().getModelManager().getModelServices(), getDiagram().getModelManager().getContextService());
+        StaticDiagramEditorInput input = new StaticDiagramEditorInput(getDiagram().getModelManager(), getRepresentedElement());
         return input.getGmDiagram();
     }
 

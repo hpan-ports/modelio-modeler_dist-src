@@ -219,8 +219,6 @@ import org.modelio.metamodel.uml.infrastructure.Abstraction;
 import org.modelio.metamodel.uml.infrastructure.Constraint;
 import org.modelio.metamodel.uml.infrastructure.Dependency;
 import org.modelio.metamodel.uml.infrastructure.Element;
-import org.modelio.metamodel.uml.infrastructure.LocalNote;
-import org.modelio.metamodel.uml.infrastructure.LocalTaggedValue;
 import org.modelio.metamodel.uml.infrastructure.MetaclassReference;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
 import org.modelio.metamodel.uml.infrastructure.ModelTree;
@@ -2309,26 +2307,6 @@ public class LinkPositionSet {
         @Override
         public Object visitLinkEnd(final LinkEnd child) {
             super.visitLinkEnd(child);
-            return null;
-        }
-
-        /**
-         * Visits composition relations for "LocalNote" elements and its super classes.
-         */
-        @objid ("6632d74c-33f7-11e2-95fe-001ec947c8cc")
-        @Override
-        public Object visitLocalNote(final LocalNote child) {
-            super.visitLocalNote(child);
-            return null;
-        }
-
-        /**
-         * Visits composition relations for "LocalTaggedValue" elements and its super classes.
-         */
-        @objid ("66353978-33f7-11e2-95fe-001ec947c8cc")
-        @Override
-        public Object visitLocalTaggedValue(final LocalTaggedValue child) {
-            super.visitLocalTaggedValue(child);
             return null;
         }
 

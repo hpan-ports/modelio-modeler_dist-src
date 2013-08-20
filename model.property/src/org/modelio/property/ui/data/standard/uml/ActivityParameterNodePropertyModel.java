@@ -34,7 +34,6 @@ import org.modelio.metamodel.uml.behavior.activityModel.ObjectNode;
 import org.modelio.metamodel.uml.behavior.activityModel.ObjectNodeOrderingKind;
 import org.modelio.metamodel.uml.behavior.commonBehaviors.BehaviorParameter;
 import org.modelio.metamodel.uml.behavior.stateMachineModel.State;
-import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
 import org.modelio.metamodel.uml.statik.AssociationEnd;
 import org.modelio.metamodel.uml.statik.Attribute;
@@ -42,6 +41,7 @@ import org.modelio.metamodel.uml.statik.GeneralClass;
 import org.modelio.metamodel.uml.statik.Instance;
 import org.modelio.property.ui.data.standard.common.AbstractPropertyModel;
 import org.modelio.vcore.session.impl.CoreSession;
+import org.modelio.vcore.smkernel.mapi.MObject;
 
 /**
  * <i>ActivityParameterNode</i> data model.
@@ -97,7 +97,7 @@ public class ActivityParameterNodePropertyModel extends AbstractPropertyModel<Ac
         this.stateType = new SingleElementType(true, State.class, CoreSession.getSession(this.theEditedElement));
         this.orderingKindType = new EnumType(ObjectNodeOrderingKind.class);
                 
-        List<java.lang.Class<? extends Element>> allowedClasses = new ArrayList<>();
+        List<java.lang.Class<? extends MObject>> allowedClasses = new ArrayList<>();
         allowedClasses.add(Instance.class);
         allowedClasses.add(Attribute.class);
         allowedClasses.add(AssociationEnd.class);

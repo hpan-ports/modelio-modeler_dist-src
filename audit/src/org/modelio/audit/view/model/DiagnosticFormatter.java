@@ -28,6 +28,7 @@ import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.audit.engine.core.IAuditEntry;
+import org.modelio.audit.plugin.Audit;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
 
 @objid ("7c0dd904-e19c-482a-97e7-11de654901fc")
@@ -41,8 +42,7 @@ public class DiagnosticFormatter {
             String pattern = bundle.getString(entry.getRuleId() + ".message");
             return MessageFormat.format(pattern, makeInfos(entry.getLinkedObjects()));
         } catch (MissingResourceException e) {
-            //e.printStackTrace();
-            System.err.println("auditrules: no entry for rule " + entry.getRuleId() + ".message");
+            Audit.LOG.warning("auditrules: no entry for rule " + entry.getRuleId() + ".message");
             return "!" + entry.getRuleId() + ".message!";
         }
     }
@@ -52,8 +52,7 @@ public class DiagnosticFormatter {
         try {
             return bundle.getString(entry.getRuleId() + ".description");
         } catch (MissingResourceException e) {
-            //e.printStackTrace();
-            System.err.println("auditrules: no entry for rule " + entry.getRuleId() + ".description");
+            Audit.LOG.warning("auditrules: no entry for rule " + entry.getRuleId() + ".description");
             return "!" + entry.getRuleId() + ".description!";
         }
     }

@@ -21,6 +21,8 @@
 
 package org.modelio.property.ui.data.standard.uml;
 
+import java.util.ArrayList;
+import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.core.ui.ktable.types.IPropertyType;
 import org.modelio.core.ui.ktable.types.enumeration.EnumType;
@@ -34,6 +36,7 @@ import org.modelio.metamodel.uml.statik.Operation;
 import org.modelio.property.ui.data.standard.common.AbstractPropertyModel;
 import org.modelio.vcore.session.api.ICoreSession;
 import org.modelio.vcore.session.impl.CoreSession;
+import org.modelio.vcore.smkernel.mapi.MObject;
 
 /**
  * <i>Event</i> data model.
@@ -220,19 +223,19 @@ public class EventPropertyModel extends AbstractPropertyModel<Event> {
         }
 
         @objid ("8f111608-c068-11e1-8c0a-002564c97630")
-        public Class<?>[] getTypes(Element element) {
-            Class<?>[] types = new Class[1];
-                        
+        public List<Class<? extends MObject>> getTypes(Element element) {
+            List<Class<? extends MObject>> types = new ArrayList<>();
+            
             if (element instanceof Event) {
                 Event theEditedElement = (Event) element;
                 if (theEditedElement.getKind() == EventType.CALLEVENT) {
-                    types[0] = Operation.class;
+                    types.add(Operation.class);
                 } else if (theEditedElement.getKind() == EventType.CHANGEEVENT) {
-                    types[0] = String.class;
+                    //types[0] = String.class;
                 } else if (theEditedElement.getKind() == EventType.SIGNALEVENT) {
-                    types[0] = Signal.class;
+                    types.add(Signal.class);
                 } else if (theEditedElement.getKind() == EventType.TIMEEVENT) {
-                    types[0] = String.class;
+                    //types[0] = String.class;
                 }
             }
             return types;
@@ -274,7 +277,7 @@ public class EventPropertyModel extends AbstractPropertyModel<Event> {
             e.setCalled(null);
             e.setExpression("");
             e.setModel(null);
-                        
+            
             if (e.getKind() == EventType.CALLEVENT) {
                 e.setCalled((Operation) value);
             } else if (e.getKind() == EventType.CHANGEEVENT) {
@@ -305,8 +308,23 @@ public class EventPropertyModel extends AbstractPropertyModel<Event> {
 
         @objid ("fa5b2abf-c5d4-11e1-8f21-002564c97630")
         @Override
-        public Class<?>[] getTypes() {
+        public List<Class<? extends MObject>> getTypes() {
             return getTypes(staticEvent);
+        }
+
+        @objid ("abf62483-e487-476f-908e-fd91331e1910")
+        @Override
+        public boolean acceptStringValue() {
+            if (staticEvent.getKind() == EventType.CALLEVENT) {
+                return false;
+            } else if (staticEvent.getKind() == EventType.CHANGEEVENT) {
+                return true;
+            } else if (staticEvent.getKind() == EventType.SIGNALEVENT) {
+                return false;
+            } else if (staticEvent.getKind() == EventType.TIMEEVENT) {
+                return true;
+            }
+            return false;
         }
 
     }

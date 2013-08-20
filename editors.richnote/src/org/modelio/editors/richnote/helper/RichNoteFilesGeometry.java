@@ -123,7 +123,7 @@ public class RichNoteFilesGeometry {
      */
     @objid ("6aa98df4-b292-43c4-8d58-a00c2ee7217b")
     public Path getDefaultPath(final ExternDocument doc, String extension) {
-        return getRuntimePath().resolve(RICHNOTE_DIRNAME).resolve(doc.getUuid().toString()+ "." + extension);
+        return getEditedFilesdirectory().resolve(doc.getUuid().toString()+ "." + extension);
     }
 
     /**
@@ -150,6 +150,11 @@ public class RichNoteFilesGeometry {
     @objid ("6ca7b7a7-4d2f-4082-a310-cd59c3d8a69d")
     private Path getRuntimePath() {
         return this.project.getProjectRuntimePath();
+    }
+
+    @objid ("6b07fd7b-c36f-4dfd-b90a-bf46f462c68c")
+    public Path getEditedFilesdirectory() {
+        return getRuntimePath().resolve(RICHNOTE_DIRNAME);
     }
 
 }

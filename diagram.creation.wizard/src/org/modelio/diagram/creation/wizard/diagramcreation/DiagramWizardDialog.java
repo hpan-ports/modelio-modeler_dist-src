@@ -46,6 +46,7 @@ import org.modelio.diagram.creation.wizard.plugin.DiagramCreationWizard;
 import org.modelio.gproject.model.IMModelServices;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
 import org.modelio.ui.UIColor;
+import org.modelio.vcore.session.api.model.IMObjectFilter;
 import org.modelio.vcore.smkernel.mapi.MObject;
 
 @objid ("1f9f50ed-0a1e-458a-84a4-34fbd6da6f0c")
@@ -98,8 +99,23 @@ public class DiagramWizardDialog extends ModelioDialog implements Listener {
     @objid ("37a67537-6350-4421-b24b-67dd306783a8")
     private ContributorTreeContentProvider contentProvider;
 
+    @objid ("d45f3f63-0f45-4f8a-9c57-d9ba5d16a246")
+    private IMObjectFilter elementFilter;
+
     @objid ("bc8544a3-4aec-4f18-96f5-e057265297de")
     public void setShowInvalidDiagram(final Boolean value) {
+        // if the selectedContributor is invalid and change to not show invalid mode,
+        // clear the texts and messages
+        if (!value) {
+            IDiagramWizardContributor selectedContributor = this.dataModel.getSelectedContributor();
+            if (selectedContributor != null && !selectedContributor.accept(this.dataModel.getContext())) {
+                this.nameText.setText("");
+                setDefaultContributor(null);
+                updateDetailsText("");
+                setMessage("");
+            }
+            setDefaultContributor(null);
+        }
         this.dataModel.setShowInvalidDiagram(value);
     }
 
@@ -130,15 +146,6 @@ public class DiagramWizardDialog extends ModelioDialog implements Listener {
             setMessage(selectedContributor.getInformation());
             if (selectedContributor.accept(this.dataModel.getContext())) {
                 this.contextText.getTextControl().setForeground(UIColor.BLACK);
-            } else {
-                // if the selectedContributor is invalid and change to not show invalid mode,
-                // clear the texts and messages
-                if (!this.dataModel.isShowInvalidDiagram()) {
-                    this.nameText.setText("");
-                    setDefaultContributor(null);
-                    updateDetailsText("");
-                    setMessage("");
-                }               
             }
         }
     }
@@ -233,7 +240,7 @@ public class DiagramWizardDialog extends ModelioDialog implements Listener {
                 this.dataModel.setSelectedContributor(newContributor);
                 this.contextText.getAcceptedMetaclasses().addAll(newContributor.getAcceptedMetaclasses());
                 this.contextText.setAcceptNullValue(false);
-                this.contextText.setSelectedElement(context);
+                this.contextText.setValue(context);
                 this.dataModel.setContext((ModelElement) context);
                 DiagramCategory category = this.getContributorCategoryModel().getCategoryOfContributor(newContributor);
                 this.treeViewer.setExpandedElements(new Object[]{category});
@@ -251,7 +258,7 @@ public class DiagramWizardDialog extends ModelioDialog implements Listener {
         
             this.contextText.getAcceptedMetaclasses().addAll(contributor.getAcceptedMetaclasses());
             this.contextText.setAcceptNullValue(false);
-            this.contextText.setSelectedElement(context);
+            this.contextText.setValue(context);
             this.dataModel.setContext((ModelElement) context);
         }
     }
@@ -301,6 +308,16 @@ public class DiagramWizardDialog extends ModelioDialog implements Listener {
         this.pickingService = pickingService;
         
         this.contentProvider = new ContributorTreeContentProvider(this.dataModel.getContext(), this.dataModel.isShowInvalidDiagram());
+        this.elementFilter = new IMObjectFilter() {
+            
+            @Override
+            public boolean accept(MObject element) {
+                if (DiagramWizardDialog.this.dataModel.getSelectedContributor() != null) {                    
+                    return DiagramWizardDialog.this.dataModel.getSelectedContributor().accept(element);
+                }
+                return false;
+            }
+        };
     }
 
     @objid ("74a6a243-c2c7-40f6-891f-fe46490813e3")
@@ -324,7 +341,7 @@ public class DiagramWizardDialog extends ModelioDialog implements Listener {
         } else if (event.widget.equals(this.descriptionText)) {
             this.dataModel.setDescription(this.descriptionText.getText());
         } else if (event.widget.equals(this.hideInvalidCheckBox)) {
-            this.dataModel.setShowInvalidDiagram(!this.hideInvalidCheckBox.getSelection());
+            setShowInvalidDiagram(!this.hideInvalidCheckBox.getSelection());
             update();
         } else if (event.widget.equals(this.detailsText)) {
             try {
@@ -423,8 +440,10 @@ public class DiagramWizardDialog extends ModelioDialog implements Listener {
         this.contextText = new TextElement(g2, SWT.NONE);
         this.contextText.setAcceptNullValue(false);
         this.contextText.getTextControl().setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false));
-        this.contextText.activatePicking(this.pickingService); //active picking
-        this.contextText.activateCompletion(null);  //FIXME: this.projectService.getSession()
+        this.contextText.activatePicking(this.pickingService); 
+        this.contextText.activateCompletion(this.projectService.getSession());
+        this.contextText.setFilter(this.elementFilter);
+        this.contextText.activateDragAndDrop(this.projectService.getSession()); 
         
         Label descriptionLabel = new Label(g2, SWT.NONE);
         descriptionLabel.setText(DiagramCreationWizard.I18N.getString("Ui.DiagramCreationWizard.Description"));

@@ -22,7 +22,6 @@
 package org.modelio.diagram.editor;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.eclipse.e4.ui.services.EContextService;
 import org.modelio.diagram.editor.plugin.DiagramEditor;
 import org.modelio.diagram.elements.common.abstractdiagram.DiagramPersistence;
 import org.modelio.diagram.elements.common.abstractdiagram.GmAbstractDiagram;
@@ -32,9 +31,7 @@ import org.modelio.diagram.elements.core.model.ModelManager;
 import org.modelio.diagram.elements.gmfactory.GmLinkFactory;
 import org.modelio.diagram.elements.gmfactory.GmNodeFactory;
 import org.modelio.diagram.persistence.PersistenceException;
-import org.modelio.gproject.model.IMModelServices;
 import org.modelio.metamodel.diagrams.AbstractDiagram;
-import org.modelio.vcore.session.api.ICoreSession;
 
 /**
  * Diagram editor input.
@@ -56,17 +53,14 @@ public abstract class DiagramEditorInput {
      * @param modelServices
      * @param moduleService
      * @param session a modeling session.
+     * @param activationService the activation service, to open new editors.
      * @param diagram the diagram to edit.
      */
     @objid ("65931999-33f7-11e2-95fe-001ec947c8cc")
-    public DiagramEditorInput(ICoreSession session, AbstractDiagram diagram, IMModelServices modelServices, EContextService contextService) {
+    public DiagramEditorInput(AbstractDiagram diagram, ModelManager modelManager) {
         super();
         this.diagram = diagram;
         
-        // TODO : javadoc on IEditorInput tells that
-        // "The actual data model should probably not be held in the input."
-        
-        final ModelManager modelManager = new ModelManager(session, modelServices, contextService);
         this.model = createModel(modelManager, diagram);
         
         // Setup the node and link factories

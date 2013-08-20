@@ -27,9 +27,6 @@ import org.modelio.api.diagram.IDiagramGraphic;
 import org.modelio.api.diagram.IDiagramHandle;
 import org.modelio.api.diagram.IDiagramLink;
 import org.modelio.api.diagram.IDiagramNode;
-import org.modelio.app.project.core.services.IProjectService;
-import org.modelio.diagram.editor.plugin.DiagramEditorsManager;
-import org.modelio.diagram.editor.plugin.IDiagramConfigurerRegistry;
 import org.modelio.gproject.model.IMModelServices;
 import org.modelio.metamodel.uml.statik.AggregationKind;
 import org.modelio.metamodel.uml.statik.AssociationEnd;
@@ -42,8 +39,8 @@ import org.modelio.metamodel.uml.statik.NameSpace;
 @objid ("c1728ca4-73fd-43c7-8c22-ae85bb52c6bd")
 public class ClassArchitectureCreator extends ClassStructureCreator {
     @objid ("bca0d640-874f-4546-bf24-8122867469b3")
-    public ClassArchitectureCreator(IProjectService projectService, IDiagramConfigurerRegistry configurerRegistry, DiagramEditorsManager editorManager, IMModelServices modelServices) {
-        super(projectService, configurerRegistry, editorManager, modelServices);
+    public ClassArchitectureCreator(IMModelServices modelServices) {
+        super(modelServices);
     }
 
     @objid ("d165fa36-848c-4380-8975-33013fd0d7eb")

@@ -83,7 +83,10 @@ public class ModulePropertyView {
                 if (object instanceof MObject) {
                     selectedElements.add((MObject) object);
                 } else if (object instanceof IAdaptable) {
-                    selectedElements.add((MObject) ((IAdaptable) object).getAdapter(MObject.class));
+                    final MObject adapter = (MObject) ((IAdaptable) object).getAdapter(MObject.class);
+                    if (adapter != null) {
+                        selectedElements.add(adapter);
+                    }
                 } 
             }
             this.modulePanel.setInput(selectedElements);

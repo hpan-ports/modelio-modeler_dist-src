@@ -25,6 +25,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URI;
+import java.nio.file.FileSystemException;
 import java.nio.file.FileSystemNotFoundException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -59,8 +60,11 @@ import org.modelio.vbasic.progress.NullProgress;
 import org.modelio.vbasic.progress.SubProgress;
 import org.modelio.vcore.session.api.ICoreSession;
 import org.modelio.vcore.session.api.repository.IRepository;
+import org.modelio.vcore.session.api.repository.IRepositorySupport;
 import org.modelio.vcore.session.impl.CoreSession;
+import org.modelio.vcore.session.impl.permission.BasicAccessManager;
 import org.modelio.vcore.smkernel.mapi.MObject;
+import org.modelio.vstore.jdbm.JdbmRepository;
 
 /**
  * Represents a Modelio project.
@@ -638,7 +642,7 @@ public class GProject {
         if (this.session != null)
             throw new IllegalStateException("'" + this.name + "' project already open.");
         
-        SubProgress mon = SubProgress.convert(aProgress, 350);
+        SubProgress mon = SubProgress.convert(aProgress, 370);
         
         // Initialize the project content from the descriptor
         // Redefined in sub classes
@@ -648,6 +652,7 @@ public class GProject {
         boolean ok = false;
         try {
             this.session = new CoreSession();
+            mountDefaultRepositories(mon.newChild(20));
             mountModules(mon.newChild(200));
             mountFragments(mon.newChild(50));
             ok = true;
@@ -737,6 +742,38 @@ public class GProject {
                 getMonitorSupport().fireMonitors(GProjectEvent.buildWarning(new Exception(msg)));
             }
             m.worked(10);
+        }
+    }
+
+    /**
+     * Open the default repository.
+     * Create it if missing or not readable.
+     * @param monitor a progress monitor
+     * @throws java.nio.file.FileSystemException in case of fatal I/O failure.
+     * @throws java.io.IOException in case of fatal I/O failure.
+     */
+    @objid ("707deddd-440c-4a01-92d1-1fbeb87a7dd2")
+    private void mountDefaultRepositories(SubProgress monitor) throws IOException, FileSystemException {
+        Path nsUseRepoPath = this.getProjectDataPath().resolve(DATA_SUBDIR).resolve("localmodel");
+        JdbmRepository nsUseRepo = null;
+        
+        IRepositorySupport repositorySupport = this.session.getRepositorySupport();
+        try {
+            monitor.setWorkRemaining(15);
+            nsUseRepo = new JdbmRepository(nsUseRepoPath.toFile());
+            repositorySupport.connectRepository(nsUseRepo, IRepositorySupport.REPOSITORY_KEY_LOCAL, new BasicAccessManager(), monitor.newChild(10));
+        
+        } catch (final IOException e) {
+            // Report the problem
+            getMonitorSupport().fireMonitors(GProjectEvent.buildWarning(e));
+        
+            // Close and delete the repository
+            nsUseRepo.close();
+            FileUtils.delete(nsUseRepoPath);
+        
+            // Create a new one
+            nsUseRepo = new JdbmRepository(nsUseRepoPath.toFile());
+            repositorySupport.connectRepository(nsUseRepo, IRepositorySupport.REPOSITORY_KEY_LOCAL, new BasicAccessManager(), monitor.newChild(5));
         }
     }
 

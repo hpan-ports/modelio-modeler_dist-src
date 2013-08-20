@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="ASCII"?>
-<fragment:ModelFragments xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:basic="http://www.eclipse.org/ui/2010/UIModel/application/ui/basic" xmlns:commands="http://www.eclipse.org/ui/2010/UIModel/application/commands" xmlns:fragment="http://www.eclipse.org/ui/2010/UIModel/fragment" xmlns:menu="http://www.eclipse.org/ui/2010/UIModel/application/ui/menu" xmlns:ui="http://www.eclipse.org/ui/2010/UIModel/application/ui" xmi:id="_MzwjcI4sEeGhiYrv9jYZww">
+<fragment:ModelFragments xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:advanced="http://www.eclipse.org/ui/2010/UIModel/application/ui/advanced" xmlns:basic="http://www.eclipse.org/ui/2010/UIModel/application/ui/basic" xmlns:commands="http://www.eclipse.org/ui/2010/UIModel/application/commands" xmlns:fragment="http://www.eclipse.org/ui/2010/UIModel/fragment" xmlns:menu="http://www.eclipse.org/ui/2010/UIModel/application/ui/menu" xmlns:ui="http://www.eclipse.org/ui/2010/UIModel/application/ui" xmi:id="_MzwjcI4sEeGhiYrv9jYZww">
   <imports xsi:type="commands:Command" xmi:id="_oZ8GcH9JEeK-XvSICEmsLA" elementId="org.modelio.app.ui.command.showview"/>
   <imports xsi:type="menu:Menu" xmi:id="_q2qAgH9JEeK-XvSICEmsLA" elementId="org.modelio.app.ui.menu.views"/>
   <imports xsi:type="menu:Menu" xmi:id="_vuOSgNpFEeKBPfbWkDzT6w" elementId="model.browser.popupmenu.0"/>
-  <fragments xsi:type="fragment:StringModelFragment" xmi:id="_X9_i0KTLEeGHFJIFCvH__w" featurename="children" parentElementId="org.modelio.app.bottom.parts" positionInList="">
+  <fragments xsi:type="fragment:StringModelFragment" xmi:id="_X9_i0KTLEeGHFJIFCvH__w" featurename="sharedElements" parentElementId="org.modelio.app.ui.trimmed" positionInList="">
     <elements xsi:type="basic:Part" xmi:id="_rufhkAPxEeKxNazQ0qFNQg" elementId="org.modelio.script.part" contributionURI="bundleclass://org.modelio.script/org.modelio.script.view.ScriptView" label="%ScriptView.label" iconURI="platform:/plugin/org.modelio.script/icons/scriptview_16.png" tooltip="%ScriptView.tooltip" bindingContexts="_4BwSYD1qEeKyH7-fXFskzA" closeable="true">
       <toolbar xmi:id="_a5D6gAicEeKxNazQ0qFNQg" elementId="script.toolbar.0">
         <children xsi:type="menu:HandledToolItem" xmi:id="_pHkzEAyLEeKONtOyJXdjyQ" elementId="org.modelio.script.toolbar.item.opencatalog" iconURI="platform:/plugin/org.modelio.script/icons/scriptcatalog.png" tooltip="%OpenMacroCatalog.tooltip" command="_q44OEAyKEeKONtOyJXdjyQ">
@@ -22,16 +22,18 @@
   <fragments xsi:type="fragment:StringModelFragment" xmi:id="_B-2EEAyLEeKONtOyJXdjyQ" featurename="commands" parentElementId="org.modelio.app.application">
     <elements xsi:type="commands:Command" xmi:id="_q44OEAyKEeKONtOyJXdjyQ" elementId="org.modelio.script.command.opencatalog" commandName="%OpenMacroCatalog.label" description="%OpenMacroCatalog.description"/>
     <elements xsi:type="commands:Command" xmi:id="_ZMLP4D1rEeKyH7-fXFskzA" elementId="org.modelio.script.command.eval" commandName="%Eval.label" description="%Eval.description"/>
+    <elements xsi:type="commands:Command" xmi:id="_n78B4N16EeKc3c7jOQLKkA" elementId="org.modelio.script.command.runmacro" commandName="%RunMacro.label" description="%RunMacro.description">
+      <parameters xmi:id="_5cypgN16EeKc3c7jOQLKkA" elementId="org.modelio.script.command.runmacro.file" name="org.modelio.script.command.runmacro.file" optional="false"/>
+    </elements>
   </fragments>
   <fragments xsi:type="fragment:StringModelFragment" xmi:id="_FGRvEAyLEeKONtOyJXdjyQ" featurename="handlers" parentElementId="org.modelio.app.application">
     <elements xsi:type="commands:Handler" xmi:id="_veOokAyKEeKONtOyJXdjyQ" elementId="org.modelio.script.handler.opencatalog" contributionURI="bundleclass://org.modelio.script/org.modelio.script.macro.OpenCatalogHandler" command="_q44OEAyKEeKONtOyJXdjyQ"/>
     <elements xsi:type="commands:Handler" xmi:id="_BboWYD1sEeKyH7-fXFskzA" elementId="org.modelio.script.handler.eval" contributionURI="bundleclass://org.modelio.script/org.modelio.script.handlers.EvalScriptHandler" command="_ZMLP4D1rEeKyH7-fXFskzA"/>
+    <elements xsi:type="commands:Handler" xmi:id="_mhmK0N16EeKc3c7jOQLKkA" elementId="org.modelio.script.handler.runmacro" contributionURI="bundleclass://org.modelio.script/org.modelio.script.handlers.RunMacroHandler" command="_n78B4N16EeKc3c7jOQLKkA"/>
   </fragments>
   <fragments xsi:type="fragment:StringModelFragment" xmi:id="_8fGAYD1qEeKyH7-fXFskzA" featurename="bindingTables" parentElementId="org.modelio.app.application">
     <elements xsi:type="commands:BindingTable" xmi:id="_-v0s4D1qEeKyH7-fXFskzA" elementId="org.modelio.script.bindings.table" bindingContext="_4BwSYD1qEeKyH7-fXFskzA">
-      <bindings xmi:id="_3C3g4D1tEeKyH7-fXFskzA" keySequence="M1+enter" command="_ZMLP4D1rEeKyH7-fXFskzA">
-        <parameters xmi:id="_cFBIcD1vEeKyH7-fXFskzA" elementId="" name="org.modelio.script.command.eval.parameter.0" value="true"/>
-      </bindings>
+      <bindings xmi:id="_3C3g4D1tEeKyH7-fXFskzA" keySequence="M1+enter" command="_ZMLP4D1rEeKyH7-fXFskzA"/>
     </elements>
   </fragments>
   <fragments xsi:type="fragment:StringModelFragment" xmi:id="_0F3roD1qEeKyH7-fXFskzA" featurename="children" parentElementId="org.eclipse.ui.contexts.window">
@@ -46,6 +48,16 @@
     <elements xsi:type="menu:HandledMenuItem" xmi:id="_-Sd48cOlEeKg_6BTgiRzpQ" elementId="org.modelio.script.menu.item.opencatalog" label="%OpenMacroCatalog.label" iconURI="platform:/plugin/org.modelio.script/icons/scriptcatalog.png" tooltip="%OpenMacroCatalog.tooltip" command="_q44OEAyKEeKONtOyJXdjyQ"/>
   </fragments>
   <fragments xsi:type="fragment:StringModelFragment" xmi:id="_0gK-kNpFEeKBPfbWkDzT6w" featurename="children" parentElementId="model.browser.popupmenu.0" positionInList="after:model.browser.popupmenu.0.menuseparator.2">
-    <elements xsi:type="menu:HandledMenuItem" xmi:id="__SR2QNpFEeKBPfbWkDzT6w" elementId="org.modelio.script.item.modelboowser.opencatalog" label="%MacroMenu.label" iconURI="platform:/plugin/org.modelio.script/icons/scriptcatalog.png" tooltip="%MacroMenu.tooltip" command="_q44OEAyKEeKONtOyJXdjyQ"/>
+    <elements xsi:type="menu:Menu" xmi:id="_yCwagN1yEeKc3c7jOQLKkA" elementId="org.modelio.script.item.modelboowser.macros" label="%MacroMenu.label" iconURI="platform:/plugin/org.modelio.script/icons/scriptcatalog.png" tooltip="%MacroMenu.tooltip">
+      <children xsi:type="menu:DynamicMenuContribution" xmi:id="_4yBu4N1yEeKc3c7jOQLKkA" elementId="org.modelio.script.item.modelboowser.dynamic" contributionURI="bundleclass://org.modelio.script/org.modelio.script.popup.MacrosPopupProvider"/>
+      <children xsi:type="menu:MenuSeparator" xmi:id="_QMfhgN2wEeKYSOCeOIScJg" elementId="org.modelio.script.item.modelboowser.separator"/>
+      <children xsi:type="menu:HandledMenuItem" xmi:id="__SR2QNpFEeKBPfbWkDzT6w" elementId="org.modelio.script.item.modelboowser.opencatalog" label="%OpenMacroCatalogInModelBrowser.label" iconURI="platform:/plugin/org.modelio.script/icons/scriptcatalog.png" tooltip="%OpenMacroCatalogInModelBrowser.tooltip" command="_q44OEAyKEeKONtOyJXdjyQ"/>
+    </elements>
+  </fragments>
+  <fragments xsi:type="fragment:StringModelFragment" xmi:id="_PjYV4N1qEeKc3c7jOQLKkA" featurename="children" parentElementId="org.modelio.app.trimbar.main">
+    <elements xsi:type="menu:ToolControl" xmi:id="_PjYV4d1qEeKc3c7jOQLKkA" elementId="org.modelio.script.catalog.toolbar" contributionURI="bundleclass://org.modelio.script/org.modelio.script.toolbar.MacroToolbarProvider"/>
+  </fragments>
+  <fragments xsi:type="fragment:StringModelFragment" xmi:id="_-nIDYN_KEeKdg8e0rQGLrw" featurename="children" parentElementId="org.modelio.app.bottom.parts">
+    <elements xsi:type="advanced:Placeholder" xmi:id="_-nIDYd_KEeKdg8e0rQGLrw" elementId="org.modelio.script.placeholder" ref="_rufhkAPxEeKxNazQ0qFNQg"/>
   </fragments>
 </fragment:ModelFragments>

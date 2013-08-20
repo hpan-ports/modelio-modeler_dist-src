@@ -78,7 +78,7 @@ public class SharedModelingSession implements org.modelio.vcore.session.api.mode
         IModelFactory coreFactory = modelService.getModelFactory();
         
         // Create UmlModel delegation:
-        this.umlModel = new UMLModel(openedProject, coreFactory, this.session.getModel());
+        this.umlModel = new UMLModel(openedProject, modelService, this.session.getModel());
         
         this.metamodelExtensions = new MetamodelExtensions(modelService);
         

@@ -21,8 +21,8 @@
 
 package org.modelio.editors.richnote.microsoft.plugin;
 
-import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.swt.ole.win32.OLE;
 import org.modelio.editors.richnote.api.RichNoteFormat;
@@ -42,11 +42,14 @@ public class MicrosoftEditorProvider extends AbstractRichNoteEditorProvider {
 
     @objid ("69476c49-ec11-48a3-aa62-2f19a98d3e45")
     @Override
-    public void createEmptyFile(MObject target, RichNoteFormat format, IRichNoteFileRepository richRepository) throws IOException {
+    public final void createEmptyFile(MObject target, RichNoteFormat format, IRichNoteFileRepository richRepository) throws IOException {
         assert (isUsable()) : this;
         
-        File file = richRepository.getNewRichNotePath((ExternDocument) target, format).toFile();
-        MicrosoftEditor.createEmptyFile(file, format);
+        final ExternDocument richNote = (ExternDocument) target;
+        final Path notePath = richRepository.getNewRichNotePath(richNote, format);
+        
+        MicrosoftEditor.createEmptyFile(notePath.toFile(), format);
+        richRepository.saveRichNote(richNote, notePath);
     }
 
     @objid ("8ca256af-8d53-4674-a5c1-059f3538d229")

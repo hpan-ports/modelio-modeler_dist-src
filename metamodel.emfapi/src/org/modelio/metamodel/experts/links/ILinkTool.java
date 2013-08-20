@@ -115,4 +115,16 @@ public interface ILinkTool {
     @objid ("3efe47f1-0eab-4a56-b164-6b47af540e65")
     void unregisterExpert(final Stereotype ste);
 
+    /**
+     * Tells whether a stereotyped link can have the given source, destination and owner.
+     * @param stereotypedLink the stereotype put on the link to check.
+     * @param link the link to check.
+     * @param from The source of the link element.
+     * @param to The target of the link element.
+     * @param owner The optional owner of the link element. Used for link that have a specific owner.
+     * @return true if the link can be created, else false.
+     */
+    @objid ("56759d2c-be89-473c-bb03-25ed17d74899")
+    boolean canLink(Stereotype stereotypedLink, MClass link, MClass from, MClass to, MClass owner);
+
 }

@@ -50,7 +50,6 @@ import org.modelio.vcore.session.api.blob.IBlobInfo;
 import org.modelio.vcore.session.api.repository.StorageErrorSupport;
 import org.modelio.vcore.session.impl.storage.IModelLoader;
 import org.modelio.vcore.session.impl.storage.IModelLoaderProvider;
-import org.modelio.vcore.session.impl.storage.IModelLoadingSession;
 import org.modelio.vcore.session.impl.storage.StorageException;
 import org.modelio.vcore.session.impl.storage.nullz.NullRepository;
 import org.modelio.vcore.smkernel.IRStatus;
@@ -277,8 +276,7 @@ public abstract class AbstractExmlRepository implements IExmlBase {
         assertOpen();
         
         Collection<MObject> results = new ArrayList<>();
-        try (IModelLoadingSession loadSession = beginSession()){
-            IModelLoader modelLoader = loadSession.getLoader();
+        try (IModelLoader modelLoader = this.modelLoaderProvider.beginLoadSession()) {
             loadAll(cls, modelLoader, true);
         } catch (IOException e) {
             getErrorSupport().fireError(e);
@@ -296,8 +294,7 @@ public abstract class AbstractExmlRepository implements IExmlBase {
         assertOpen();
         
         Collection<MObject> results = new ArrayList<>();
-        try (IModelLoadingSession loadSession = beginSession()){
-            IModelLoader modelLoader = loadSession.getLoader();
+        try (IModelLoader modelLoader = this.modelLoaderProvider.beginLoadSession()) {
             loadAll(cls, modelLoader, true);
             getLoadCache().findByClass(cls, results);
         } catch (IOException e) {
@@ -313,8 +310,7 @@ public abstract class AbstractExmlRepository implements IExmlBase {
     @Override
     public SmObjectImpl findById(SmClass cls, final UUID siteIdentifier) {
         ObjId id  = new ObjId(cls, "", siteIdentifier);
-        try (IModelLoadingSession loadSession = beginSession()){
-            IModelLoader modelLoader = loadSession.getLoader();
+        try (IModelLoader modelLoader = this.modelLoaderProvider.beginLoadSession()) {
             return this.findByObjId(id, modelLoader );
         } catch (DuplicateObjectException e) {
             getErrorSupport().fireError(e);
@@ -485,8 +481,7 @@ public abstract class AbstractExmlRepository implements IExmlBase {
             }
         }
         
-        try (IModelLoadingSession loadSession = beginSession()){
-            IModelLoader modelLoader = loadSession.getLoader();
+        try (IModelLoader modelLoader = this.modelLoaderProvider.beginLoadSession()) {
             for (ObjId it : getUserNodeIndex().getForeignUsers(new ObjId(obj))) {
                 loadCmsNode(it, modelLoader);
             }
@@ -526,8 +521,7 @@ public abstract class AbstractExmlRepository implements IExmlBase {
         final ObjId objid = new ObjId(obj.getClassOf(), "", obj.getUuid());
         
         // Load the object
-        try (IModelLoadingSession loadSession = beginSession()) {
-            IModelLoader modelLoader = loadSession.getLoader();
+        try (IModelLoader modelLoader = this.modelLoaderProvider.beginLoadSession()) {
         
             // Need to load the element
             if (objid.classof.isCmsNode()) {
@@ -661,7 +655,8 @@ public abstract class AbstractExmlRepository implements IExmlBase {
     }
 
     @objid ("df2704f4-1c43-11e2-8eb9-001ec947ccaf")
-    protected final IModelLoaderProvider getModelLoaderProvider() {
+    @Override
+    public final IModelLoaderProvider getModelLoaderProvider() {
         return this.modelLoaderProvider;
     }
 
@@ -921,20 +916,6 @@ public abstract class AbstractExmlRepository implements IExmlBase {
     }
 
     /**
-     * Create a loading session.
-     * <p>
-     * Should be called only when no loading session is already available.
-     * This session must be used in a <i>try-with-resource</i> statement in order to always
-     * be closed.
-     * @return a loading session.
-     */
-    @objid ("739a924d-43a3-11e2-91c9-001ec947ccaf")
-    @Override
-    public IModelLoadingSession beginSession() {
-        return this.modelLoaderProvider.beginLoadSession();
-    }
-
-    /**
      * Create a not yet loaded object.
      * @param id the model object identifier
      * @param modelLoader the model loader
@@ -1075,7 +1056,7 @@ public abstract class AbstractExmlRepository implements IExmlBase {
 
     @objid ("074ab913-ee11-446f-a674-4c5e34d2b53a")
     @Override
-    public final boolean reloadCmsNode(SmObjectImpl obj, IModelLoader modelLoader) throws IOException, DuplicateObjectException {
+    public final boolean reloadCmsNode(SmObjectImpl obj, IModelLoader modelLoader) throws DuplicateObjectException {
         boolean ret = doReloadCmsNode(obj, modelLoader);
         
         ((ExmlStorageHandler) obj.getRepositoryObject()).setDirty(false);
@@ -1083,7 +1064,7 @@ public abstract class AbstractExmlRepository implements IExmlBase {
     }
 
     @objid ("ab2bff3e-06ff-44a6-8ddc-c398ccc51193")
-    protected abstract boolean doReloadCmsNode(SmObjectImpl obj, IModelLoader modelLoader) throws IOException, DuplicateObjectException;
+    protected abstract boolean doReloadCmsNode(SmObjectImpl obj, IModelLoader modelLoader) throws DuplicateObjectException;
 
     @objid ("3ddf055f-63db-4835-a111-630121be34f8")
     @Override

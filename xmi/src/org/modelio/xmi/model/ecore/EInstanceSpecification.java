@@ -21,14 +21,20 @@
 
 package org.modelio.xmi.model.ecore;
 
+import java.util.ArrayList;
+import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.uml2.uml.InstanceSpecification;
 import org.eclipse.uml2.uml.InstanceValue;
+import org.eclipse.uml2.uml.Slot;
 import org.modelio.api.modelio.Modelio;
 import org.modelio.metamodel.factory.ExtensionNotFoundException;
 import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.metamodel.uml.statik.EnumerationLiteral;
 import org.modelio.metamodel.uml.statik.Instance;
+import org.modelio.metamodel.uml.statik.Link;
+import org.modelio.metamodel.uml.statik.LinkEnd;
 import org.modelio.metamodel.uml.statik.NameSpace;
 import org.modelio.xmi.util.EcoreModelNavigation;
 import org.modelio.xmi.util.IModelerModuleStereotypes;
@@ -109,6 +115,8 @@ public class EInstanceSpecification extends ENamedElement implements IEElement {
         super.setProperties(objingElt);
         if (objingElt instanceof Instance){
             setInstanceProperties((Instance) objingElt);    
+        }else if(objingElt instanceof Link){
+            setOpposite();               
         }
     }
 
@@ -189,6 +197,24 @@ public class EInstanceSpecification extends ENamedElement implements IEElement {
         String min =  ObjingEAnnotation.getMultiMin(this.ecoreElement);
         if (min != null)
             objingElt.setMultiplicityMin(min);
+    }
+
+    @objid ("fb7b564d-2c15-4304-9dbc-55f0d34686b3")
+    private void setOpposite() {
+        List<Element> objEnds = new  ArrayList<Element>();
+        EList<Slot> slots = this.ecoreElement.getSlots();
+        ReverseProperties revProp = ReverseProperties.getInstance();
+        for (org.eclipse.uml2.uml.Slot slot: slots ){
+            objEnds.add((Element) revProp.getMappedElement(slot));          
+        }
+              
+              
+        if ((objEnds.size() == 2)
+                && (objEnds.get(0) instanceof LinkEnd) 
+                && (objEnds.get(1) instanceof LinkEnd) ){
+            ((LinkEnd)objEnds.get(0)).setOpposite((LinkEnd)objEnds.get(1));
+            ((LinkEnd)objEnds.get(1)).setOpposite((LinkEnd)objEnds.get(0));
+        }
     }
 
 }

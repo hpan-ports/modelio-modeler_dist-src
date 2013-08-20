@@ -17,6 +17,10 @@
       <processor beforefragment="false" class="org.modelio.model.browser.context.ModuleCommandsForModelBrowser">
          <element id="org.modelio.browser.part"/>
       </processor>
+            
+      <processor beforefragment="false" class="org.modelio.model.browser.context.RelatedDiagramsForModelBrowser">
+         <element id="org.modelio.browser.part"/>
+      </processor>
    </extension>
    
    	<extension point="org.eclipse.core.expressions.definitions">

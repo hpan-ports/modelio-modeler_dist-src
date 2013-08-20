@@ -33,7 +33,6 @@ import org.modelio.metamodel.uml.behavior.activityModel.ActivityEdge;
 import org.modelio.metamodel.uml.behavior.communicationModel.CommunicationMessage;
 import org.modelio.metamodel.uml.behavior.interactionModel.Message;
 import org.modelio.metamodel.uml.informationFlow.InformationFlow;
-import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
 import org.modelio.metamodel.uml.statik.Classifier;
 import org.modelio.metamodel.uml.statik.LinkEnd;
@@ -42,6 +41,7 @@ import org.modelio.property.ui.data.standard.common.AbstractPropertyModel;
 import org.modelio.vcore.session.api.ICoreSession;
 import org.modelio.vcore.session.api.model.IModel;
 import org.modelio.vcore.session.impl.CoreSession;
+import org.modelio.vcore.smkernel.mapi.MObject;
 
 /**
  * <i>InformationFlow</i> data model.
@@ -97,7 +97,7 @@ public class InformationFlowPropertyModel extends AbstractPropertyModel<Informat
         this.informationSourceType = new SingleElementType(false, ModelElement.class, session);
         this.ownerType = new SingleElementType(true, NameSpace.class, session);
         this.informationTargetType = new SingleElementType(false, ModelElement.class, session);
-        List<java.lang.Class<? extends Element>> realizingTypes = new ArrayList<>(); 
+        List<java.lang.Class<? extends MObject>> realizingTypes = new ArrayList<>(); 
         realizingTypes.add(LinkEnd.class);
         realizingTypes.add(ActivityEdge.class);
         realizingTypes.add(Message.class);

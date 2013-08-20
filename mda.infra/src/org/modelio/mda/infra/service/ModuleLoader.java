@@ -31,6 +31,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Enumeration;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -68,6 +69,11 @@ class ModuleLoader {
 
     @objid ("8a81c9ac-f34b-11e1-9458-001ec947c8cc")
     public IModule loadModule(GModule gModule, final IModuleHandle rtModuleHandle, List<IModule> loadedDependencies) throws ModuleException {
+        // No valid RT module means the module is broken
+        if (rtModuleHandle == null) {
+            return new BrokenModule(Modelio.getInstance().getModelingSession(), gModule.getName(), gModule.getVersion(), null, null);
+        }
+        
         // 1) Setup the module class loader:
         // - collect the module resources directory and add it in a list with all files in the 'classpath'
         // administrative infos
@@ -166,6 +172,9 @@ class ModuleLoader {
 
     @objid ("7f103033-0263-11e2-9fca-001ec947c8cc")
     static List<Path> getModuleJarPaths(final Path projectMdaRuntimePath, IModuleHandle rtModuleHandle) {
+        if (rtModuleHandle == null) {
+            return Collections.emptyList();
+        }
         Path moduleResourceBasePath = rtModuleHandle.getResourcePath();
         Path moduleRuntimeBasePath = projectMdaRuntimePath.resolve(rtModuleHandle.getName());
         

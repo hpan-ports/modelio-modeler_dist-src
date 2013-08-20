@@ -21,13 +21,13 @@
 
 package org.modelio.app.project.ui.closeproject;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Named;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.e4.core.di.annotations.CanExecute;
 import org.eclipse.e4.core.di.annotations.Execute;
+import org.eclipse.e4.core.services.statusreporter.StatusReporter;
 import org.eclipse.e4.ui.services.IServiceConstants;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.MessageDialog;
@@ -35,8 +35,10 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.swt.widgets.Shell;
 import org.modelio.app.project.core.services.IProjectService;
 import org.modelio.app.project.ui.plugin.AppProjectUi;
+import org.modelio.app.project.ui.saveproject.SaveProjectHandler;
 import org.modelio.gproject.descriptor.ProjectDescriptor;
 import org.modelio.gproject.gproject.GProject;
+import org.modelio.ui.progress.IModelioProgressService;
 
 /**
  * Handler for the "Close project" command. This handler simply closes the currently opened project in Modelio.
@@ -48,17 +50,17 @@ import org.modelio.gproject.gproject.GProject;
 public class CloseProjectHandler {
     @objid ("0044df2c-cc35-1ff2-a7f4-001ec947cd2a")
     @Execute
-    public void execute(final IProjectService projectService, @Named(IServiceConstants.ACTIVE_SHELL) final Shell shell) {
+    void execute(final IProjectService projectService, @Named(IServiceConstants.ACTIVE_SHELL) final Shell shell, IModelioProgressService progressService, StatusReporter statusReporter) {
         GProject openedProject = projectService.getOpenedProject();
         
-        if (mustClose(shell, projectService)) {
+        if (saveBeforeClose(shell, projectService, progressService, statusReporter)) {
             projectService.closeProject(openedProject);
         }
     }
 
     @objid ("0044dfc2-cc35-1ff2-a7f4-001ec947cd2a")
     @CanExecute
-    public boolean canExecute(final IProjectService projectService, @Named(IServiceConstants.ACTIVE_SELECTION) final IStructuredSelection selection) {
+    boolean canExecute(final IProjectService projectService, @Named(IServiceConstants.ACTIVE_SELECTION) final IStructuredSelection selection) {
         GProject openedProject = projectService.getOpenedProject();
         if (openedProject == null) {
             return false;
@@ -74,8 +76,22 @@ public class CloseProjectHandler {
         return false;
     }
 
+    /**
+     * Asks the user whether he wants to save the project if it is dirty.
+     * <p>
+     * If the project is not dirty, returns <code>true</code>.
+     * In the other case, if the user answers :<ul>
+     * <li> yes: the project is saved and returns <code>true</code> unless the save fails.
+     * <li> no : returns yes without saving the project
+     * <li> cancel : returns <code>false</code>.
+     * @param shell a parent SWT shell
+     * @param projectService the project service
+     * @param progressService the progress reporting service to report save
+     * @param statusReporter the service to report failure to the user
+     * @return <code>true</code> if the project can be closed, else <code>false</code>.
+     */
     @objid ("1d2ba015-a829-496f-b28e-6c4ad9b94568")
-    public static boolean mustClose(Shell shell, IProjectService projectService) {
+    public static boolean saveBeforeClose(Shell shell, IProjectService projectService, IModelioProgressService progressService, StatusReporter statusReporter) {
         GProject openedProject = projectService.getOpenedProject();
         if (openedProject != null) {
             AppProjectUi.LOG.info("Closing project '%s'", openedProject.getName());
@@ -97,11 +113,8 @@ public class CloseProjectHandler {
                 if (res == -1 || tab[res] == IDialogConstants.CANCEL_LABEL) {
                     return false;
                 } else if (tab[res] == IDialogConstants.YES_LABEL) {
-                    try {
-                        projectService.saveProject();
-                    } catch (IOException e) {
-                        AppProjectUi.LOG.error(e);
-                    }
+                    String title = AppProjectUi.I18N.getMessage("SaveBeforeCloseTitle");
+                    return SaveProjectHandler.saveProject(title, projectService, progressService, statusReporter);
                 }
             }
         }

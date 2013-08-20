@@ -24,9 +24,11 @@ package org.modelio.diagram.editor.statik.elements.instancelink;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.diagram.elements.common.abstractdiagram.GmAbstractDiagram;
+import org.modelio.diagram.elements.common.header.GmDefaultModelElementHeader;
 import org.modelio.diagram.elements.core.link.ExtensionLocation;
 import org.modelio.diagram.elements.core.link.GmLink;
 import org.modelio.diagram.elements.core.link.extensions.GmFractionalConnectionLocator;
+import org.modelio.diagram.elements.core.node.GmNodeModel;
 import org.modelio.diagram.elements.umlcommon.informationflowgroup.GmInfoFlowsGroup;
 import org.modelio.diagram.elements.umlcommon.informationflowgroup.GmInformationFlowArrow;
 import org.modelio.diagram.persistence.IDiagramReader;
@@ -43,23 +45,17 @@ import org.modelio.vcore.smkernel.mapi.MRef;
  */
 @objid ("35589ed3-55b7-11e2-877f-002564c97630")
 public class GmInstanceLink extends GmLink {
-    @objid ("35589ed7-55b7-11e2-877f-002564c97630")
-    private LinkEnd sourceRole;
-
     @objid ("35589edc-55b7-11e2-877f-002564c97630")
     private boolean fromNavigable;
 
     @objid ("355a2559-55b7-11e2-877f-002564c97630")
     private boolean toNavigable;
 
-    @objid ("355a255e-55b7-11e2-877f-002564c97630")
-    private LinkEnd oppositeRole;
-
     /**
      * Current version of this Gm.
      */
     @objid ("355a2561-55b7-11e2-877f-002564c97630")
-    private final int minorVersion = 0;
+    private final int minorVersion = 1;
 
     @objid ("355a2564-55b7-11e2-877f-002564c97630")
     private static final int MAJOR_VERSION = 0;
@@ -72,6 +68,12 @@ public class GmInstanceLink extends GmLink {
 
     @objid ("58a8564a-5bd5-11e2-9e33-00137282c51b")
     private static final InstanceLinkStructuredStyleKeys STRUCTURED_KEYS = new InstanceLinkStructuredStyleKeys();
+
+    @objid ("981ef922-7b10-4ccd-95b4-0a79cfec67f2")
+    private LinkEnd sourceRole;
+
+    @objid ("daac7fa5-83dc-444c-a92d-7e9bb17d970c")
+    private LinkEnd oppositeRole;
 
     /**
      * Constructor for deserialization.
@@ -195,8 +197,7 @@ public class GmInstanceLink extends GmLink {
     }
 
     @objid ("355bac11-55b7-11e2-877f-002564c97630")
-    @Override
-    protected void readLink(IDiagramReader in) {
+    protected void read_1(IDiagramReader in) {
         this.roleRef = (MRef) in.readProperty("representedRole");
         this.sourceRole = (LinkEnd) resolveRef(this.roleRef);
         
@@ -250,6 +251,53 @@ public class GmInstanceLink extends GmLink {
         } else {
             this.fromNavigable = false;
             this.toNavigable = false;
+        }
+    }
+
+    @objid ("d4f28602-c0d9-4cd1-9898-f16627290e01")
+    private void read_0(IDiagramReader in) {
+        read_1(in);
+        
+        // Look for an Association lable to migrate... there should be one
+        GmDefaultModelElementHeader oldLabel = null;
+        for (GmNodeModel extension : this.getExtensions()) {
+            if (extension.getRepresentedRef().mc.equals("ModelElement") && extension.getClass() == GmDefaultModelElementHeader.class) {
+                    oldLabel = (GmDefaultModelElementHeader) extension;
+            }
+        }
+        
+        if (oldLabel != null) {
+            // Create a new label, with the appropriate Gm
+            final GmLinkLabel newLabel = new GmLinkLabel(getDiagram(), getRepresentedRef());
+            addExtension(ExtensionLocation.MiddleSE, newLabel);
+            newLabel.setLayoutData(oldLabel.getLayoutData());
+            
+            // Delete the old association label
+            removeExtension(oldLabel);
+            oldLabel.delete();
+        }
+    }
+
+    @objid ("eee8ce21-1a32-451e-a590-2ded2bc75706")
+    @Override
+    protected void readLink(IDiagramReader in) {
+        Object versionProperty = in.readProperty("GmInstanceLink." + MINOR_VERSION_PROPERTY);
+        int readVersion = versionProperty == null ? 0 : ((Integer) versionProperty).intValue();
+        switch (readVersion) {
+        case 0: {
+            read_0(in);
+            break;
+        }
+        case 1: {
+            read_1(in);
+            break;
+        }
+        default: {
+            assert (false) : "version number not covered!";
+            // reading as last handled version: 1
+            read_1(in);
+            break;
+        }
         }
     }
 

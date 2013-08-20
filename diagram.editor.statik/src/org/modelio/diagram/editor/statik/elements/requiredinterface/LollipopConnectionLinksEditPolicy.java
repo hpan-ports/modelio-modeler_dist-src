@@ -33,8 +33,10 @@ import org.modelio.diagram.elements.core.node.GmNodeModel;
 import org.modelio.gproject.model.api.MTools;
 import org.modelio.metamodel.Metamodel;
 import org.modelio.metamodel.factory.IModelFactory;
-import org.modelio.metamodel.uml.statik.ConnectorEnd;
-import org.modelio.metamodel.uml.statik.LinkEnd;
+import org.modelio.metamodel.uml.statik.NaryConnector;
+import org.modelio.metamodel.uml.statik.NaryConnectorEnd;
+import org.modelio.metamodel.uml.statik.NaryLink;
+import org.modelio.metamodel.uml.statik.NaryLinkEnd;
 import org.modelio.metamodel.uml.statik.ProvidedInterface;
 import org.modelio.metamodel.uml.statik.RequiredInterface;
 import org.modelio.vcore.smkernel.mapi.MObject;
@@ -119,11 +121,10 @@ public class LollipopConnectionLinksEditPolicy extends LinkToVoidFinishCreationE
             
                     final IModelFactory factory = this.gmLink.getDiagram().getModelManager().getModelFactory(this.gmLink.getDiagram().getRelatedElement());
             
-                    final ConnectorEnd linkEnd = factory.createConnectorEnd();
+                    final NaryConnectorEnd linkEnd = factory.createNaryConnectorEnd();
                     linkEnd.setConsumer(requiredLink);
-                    // FIXME
-            //                    linkEnd.setLinked(requiredLink.getRequiring());
-            //                    linkEnd.setLinkNode((Connector) target);
+                    linkEnd.setSource(requiredLink.getRequiring());
+                    linkEnd.setNaryLink((NaryConnector) target);
                 }
             
             } else {
@@ -159,13 +160,13 @@ public class LollipopConnectionLinksEditPolicy extends LinkToVoidFinishCreationE
          * Tells whether the required interface is connected to the given lollipop Connector
          * @param link The required interface
          * @param target the lollipop, should be a Connector.
-         * @return
+         * @return <code>true</code> only if the required interface is connected to the lollipop Connector
          */
         @objid ("367d96cc-55b7-11e2-877f-002564c97630")
         private boolean isRequiredConnectedTo(final RequiredInterface link, final MObject target) {
-            for (LinkEnd l : link.getProvider()) {
+            for (NaryLinkEnd l : link.getNaryProvider()) {
                 
-                if (l.getOpposite().equals(target)) {
+                if (target.equals(l.getNaryLink())) {
                     return true;
                 }
             }
@@ -200,8 +201,8 @@ public class LollipopConnectionLinksEditPolicy extends LinkToVoidFinishCreationE
             if (!MTools.getAuthTool().canModify(requiredLink))
                 return false;
             
-            for (LinkEnd end : requiredLink.getProvider()) {
-                final LinkEnd l = end.getOpposite();
+            for (NaryLinkEnd end : requiredLink.getNaryProvider()) {
+                final NaryLink l = end.getNaryLink();
                 if (l != null && l.isValid() && !l.getStatus().isModifiable())
                     return false;
             }
@@ -236,24 +237,23 @@ public class LollipopConnectionLinksEditPolicy extends LinkToVoidFinishCreationE
 
         @objid ("367d96fc-55b7-11e2-877f-002564c97630")
         protected void updateModel() {
-            final ProvidedInterface requiredLink = (ProvidedInterface) this.gmLink.getRepresentedElement();
+            final ProvidedInterface providedLink = (ProvidedInterface) this.gmLink.getRepresentedElement();
             final MObject target = this.gmTarget.getRelatedElement();
             
             if (this.gmTarget instanceof GmLollipopConnection) {
-                if (!isProvidedConnectedTo(requiredLink, target)) {
-                    disconnect(requiredLink);
+                if (!isProvidedConnectedTo(providedLink, target)) {
+                    disconnect(providedLink);
             
                     final IModelFactory factory = this.gmLink.getDiagram().getModelManager().getModelFactory(this.gmLink.getDiagram().getRelatedElement());
             
-                    final ConnectorEnd linkEnd = factory.createConnectorEnd();
-                    linkEnd.setProvider(requiredLink);
-            //                    FIXME
-            //                    linkEnd.setLinked(requiredLink.getProviding());
-            //                    linkEnd.setLinkNode((Connector) target);
+                    final NaryConnectorEnd linkEnd = factory.createNaryConnectorEnd();
+                    linkEnd.setProvider(providedLink);
+                    linkEnd.setSource(providedLink.getProviding());
+                    linkEnd.setNaryLink((NaryConnector) target);
                 }
             
             } else {
-                disconnect(requiredLink);
+                disconnect(providedLink);
             }
         }
 
@@ -281,15 +281,15 @@ public class LollipopConnectionLinksEditPolicy extends LinkToVoidFinishCreationE
         }
 
         /**
-         * Tells whether the required interface is connected to the given lollipop Connector
+         * Tells whether the provided interface is connected to the given lollipop Connector
          * @param link The required interface
          * @param target the lollipop, should be a Connector.
-         * @return
+         * @return <code>true</code> only if the provided interface is connected to the lollipop Connector
          */
         @objid ("367f1d63-55b7-11e2-877f-002564c97630")
         private boolean isProvidedConnectedTo(final ProvidedInterface link, final MObject target) {
-            for (LinkEnd l : link.getConsumer()) {
-                if (l.getOpposite().equals(target)) {
+            for (NaryLinkEnd l : link.getNaryConsumer()) {
+                if (target.equals(l.getNaryLink())) {
                     return true;
                 }
             }
@@ -324,8 +324,8 @@ public class LollipopConnectionLinksEditPolicy extends LinkToVoidFinishCreationE
             if (!MTools.getAuthTool().canModify(providedLink))
                 return false;
             
-            for (LinkEnd end : providedLink.getConsumer()) {
-                final LinkEnd l = end.getOpposite();
+            for (NaryLinkEnd end : providedLink.getNaryConsumer()) {
+                final NaryLink l = end.getNaryLink();
                 if (l != null && l.isValid() && !l.getStatus().isModifiable())
                     return false;
             }

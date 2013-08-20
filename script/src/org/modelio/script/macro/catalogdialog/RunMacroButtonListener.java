@@ -28,7 +28,7 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
-import org.modelio.script.macro.catalog.ScriptMacro;
+import org.modelio.script.macro.catalog.Macro;
 import org.modelio.script.view.ScriptView;
 
 /**
@@ -60,10 +60,10 @@ class RunMacroButtonListener implements SelectionListener {
     public void widgetSelected(SelectionEvent e) {
         ISelection iSelection = this.treeviewer.getSelection();
         Object selection = ((IStructuredSelection) iSelection).getFirstElement();
-        if (selection instanceof ScriptMacro) {
-            ScriptMacro script = (ScriptMacro) selection;
+        if (selection instanceof Macro) {
+            Macro macro = (Macro) selection;
         
-            final Path path = script.getPath();
+            final Path path = macro.getScriptPath();
             // Get the script view console and bring it to front
             final ScriptView scriptView = ScriptView.getScriptView(true);
             if (scriptView != null) {

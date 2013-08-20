@@ -36,11 +36,14 @@ import org.modelio.vcore.smkernel.mapi.MClass;
 public class CreateStateMachineSubStateHandler extends CreateElementHandler {
     @objid ("4e57e2ad-ccde-11e1-97e5-001ec947c8cc")
     private Element getEffectiveOwner(Element owner) {
+        if (! (owner instanceof StateMachine)) {
+            return null;
+        }
         StateMachine stateMachine = (StateMachine) owner;
         Region topRegion = stateMachine.getTop();
         // If top region doesn't exist yet, create it.
         if (topRegion == null) {
-            topRegion = this.mmServices.getModelFactory(owner).createRegion();
+            topRegion = this.mmServices.getModelFactory().createRegion();
             stateMachine.setTop(topRegion);
         }
         return topRegion;

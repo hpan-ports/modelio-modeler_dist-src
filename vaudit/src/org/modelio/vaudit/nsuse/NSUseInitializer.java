@@ -24,8 +24,6 @@ package org.modelio.vaudit.nsuse;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.nio.file.FileSystemException;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.e4.core.services.statusreporter.StatusReporter;
@@ -33,13 +31,15 @@ import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.swt.widgets.Display;
 import org.modelio.core.ui.progress.ModelioProgressAdapter;
 import org.modelio.gproject.gproject.GProject;
+import org.modelio.metamodel.uml.statik.NamespaceUse;
 import org.modelio.ui.progress.IModelioProgressService;
 import org.modelio.vaudit.plugin.Vaudit;
 import org.modelio.vbasic.files.FileUtils;
 import org.modelio.vcore.session.api.ICoreSession;
+import org.modelio.vcore.session.api.repository.IRepository;
+import org.modelio.vcore.session.api.repository.IRepositorySupport;
 import org.modelio.vcore.session.api.transactions.ITransaction;
-import org.modelio.vcore.session.impl.permission.BasicAccessManager;
-import org.modelio.vstore.jdbm.JdbmRepository;
+import org.modelio.vcore.smkernel.meta.SmClass;
 
 /**
  * Initialize the namespace uses (blue links) on a project.
@@ -82,43 +82,12 @@ public class NSUseInitializer {
      */
     @objid ("9d40d136-f679-4ca7-934e-63ce18502d3b")
     public void init() {
-        Path nsUseRepoPath = this.openedProject.getProjectRuntimePath().resolve("nsuse");
-        JdbmRepository nsUseRepo = null;
-        boolean needRebuild = ! Files.isDirectory(nsUseRepoPath);
-        
-        try {
-            nsUseRepo = new JdbmRepository(nsUseRepoPath.toFile());
-            this.coreSession.getRepositorySupport().connectRepository(nsUseRepo, new BasicAccessManager(), null);
-            
-        } catch (final IOException e) {
-            Vaudit.LOG.warning(e);
-            
-            String msg = Vaudit.I18N.getMessage("ModelShield.NSUseRebuildNeeded",getMsg(e)); 
-            Vaudit.LOG.warning(msg);
-            showStatus( StatusReporter.INFO, msg, e);
-            
-            try {
-                nsUseRepo.close();
-                
-                FileUtils.delete(nsUseRepoPath);
-                nsUseRepo = new JdbmRepository(nsUseRepoPath.toFile());
-                this.coreSession.getRepositorySupport().connectRepository(nsUseRepo, new BasicAccessManager(), null);
-                
-                //need to recompute all "blue links"
-                needRebuild = true;
-                
-            } catch (final IOException e2) {
-                Vaudit.LOG.error("Unable to create a new namespace use database:");
-                Vaudit.LOG.error(e2);
-            
-                msg = Vaudit.I18N.getMessage("ModelShield.CannotCreateDatabase",getMsg(e) ,getMsg(e2)); 
-                showStatus( StatusReporter.ERROR, msg, e2);
-                
-                nsUseRepo = null;
-            }
-        }
+        IRepository nsUseRepo = this.coreSession.getRepositorySupport().getRepository(IRepositorySupport.REPOSITORY_KEY_LOCAL);
         
         if (nsUseRepo != null) {
+            //TODO : This may take too much time time, find another way 
+            boolean needRebuild = nsUseRepo.findByClass(SmClass.getClass(NamespaceUse.class)).isEmpty();
+            
             NSUseUpdater nsUseUpdater = new NSUseUpdater(this.coreSession, nsUseRepo);
             
             // Rebuild blue links if needed
@@ -130,18 +99,7 @@ public class NSUseInitializer {
             if (nsUseUpdater != null) {
                 // Register the namespace uses (blue links) builder
                 this.coreSession.getTransactionSupport().setClosureHandler(nsUseUpdater);
-            } else {
-                // or Delete the nsuse base and directory
-                nsUseRepo.close();
-                this.coreSession.getRepositorySupport().disconnectRepository(nsUseRepo);
-                try {
-                    FileUtils.delete(nsUseRepoPath);
-                } catch (IOException e) {
-                    Vaudit.LOG.error("Unable to delete namespace use database:"+getMsg(e));
-                    Vaudit.LOG.error(e);
-                }
-            
-            }
+            } 
         }
     }
 
@@ -175,6 +133,8 @@ public class NSUseInitializer {
         
                     nsUseUpdater.rebuildAll(new ModelioProgressAdapter(monitor));
                     t.commit();
+                } catch (IOException e) {
+                    throw new InvocationTargetException(e, getMsg(e));
                 } 
             }
         };

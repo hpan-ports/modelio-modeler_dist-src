@@ -97,6 +97,8 @@ import org.modelio.diagram.api.dg.bpmn.BpmnTransactionDG;
 import org.modelio.diagram.api.dg.bpmn.BpmnUserTaskDG;
 import org.modelio.diagram.api.dg.common.ConstraintDG;
 import org.modelio.diagram.api.dg.common.DependencyDG;
+import org.modelio.diagram.api.dg.common.DiagramHolderDG;
+import org.modelio.diagram.api.dg.common.LabelDG;
 import org.modelio.diagram.api.dg.common.NamespaceUseDG;
 import org.modelio.diagram.api.dg.common.NoteDG;
 import org.modelio.diagram.api.dg.common.PackageDG;
@@ -342,12 +344,14 @@ import org.modelio.diagram.editor.usecase.elements.system.GmSystem;
 import org.modelio.diagram.editor.usecase.elements.usecase.GmUseCase;
 import org.modelio.diagram.editor.usecase.elements.usecasedependency.GmUseCaseDependency;
 import org.modelio.diagram.editor.usecase.elements.usecasediagram.GmUseCaseDiagram;
+import org.modelio.diagram.elements.common.label.base.GmElementLabel;
 import org.modelio.diagram.elements.core.model.GmModel;
 import org.modelio.diagram.elements.core.model.IGmLink;
 import org.modelio.diagram.elements.core.model.IGmModelRelated;
 import org.modelio.diagram.elements.core.node.GmNodeModel;
 import org.modelio.diagram.elements.umlcommon.constraint.GmConstraintBody;
 import org.modelio.diagram.elements.umlcommon.dependency.GmDependency;
+import org.modelio.diagram.elements.umlcommon.diagramholder.GmDiagramHolder;
 import org.modelio.diagram.elements.umlcommon.namespaceuse.GmNamespaceUse;
 import org.modelio.diagram.elements.umlcommon.note.GmNote;
 
@@ -914,6 +918,18 @@ public class DGFactory {
         // GMNote
         if (gmNodeModel instanceof GmNote) {
             return new NoteDG(diagramHandle, gmNodeModel);
+        }
+        
+        // GmElementLabel
+        if (gmNodeModel instanceof GmElementLabel) {
+            if (gmNodeModel.getRepresentedElement() != null) {
+                return new LabelDG(diagramHandle, gmNodeModel);
+            }
+        }
+        
+        // GmDiagramHolder
+        if (gmNodeModel instanceof GmDiagramHolder) {
+            return new DiagramHolderDG(diagramHandle, gmNodeModel);
         }
         return null;
     }

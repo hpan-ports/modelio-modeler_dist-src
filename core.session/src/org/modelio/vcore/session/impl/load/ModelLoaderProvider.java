@@ -24,22 +24,26 @@ package org.modelio.vcore.session.impl.load;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
+import org.modelio.vcore.session.impl.storage.IModelLoader;
 import org.modelio.vcore.session.impl.storage.IModelLoaderProvider;
-import org.modelio.vcore.session.impl.storage.IModelLoadingSession;
+import org.modelio.vcore.session.impl.storage.IModelRefresher;
 
 /**
  * Implementation of {@link IModelLoaderProvider}.
  * <p>
- * Handles a concurrent pool of {@link ModelLoadingSession} and
+ * Handles a concurrent pool of {@link IModelLoader} and
  * provides the first free one in {@link #beginLoadSession()}.
  */
 @objid ("a55c7527-1a03-11e2-8eb9-001ec947ccaf")
 public class ModelLoaderProvider implements IModelLoaderProvider {
     @objid ("b42ab8d9-a2ba-4f87-bd56-95d820c702d6")
-    private Queue<ModelLoadingSession> sessionPool;
+    private Queue<IModelLoader> loaderPool;
 
     @objid ("ec10b3aa-88ee-47f4-a299-96858cfffa9e")
     private ModelLoaderConfiguration loaderConfig;
+
+    @objid ("34a3103c-6fc0-434e-b100-a7fed28526aa")
+    private Queue<IModelLoader> refreshPool;
 
     /**
      * Initialize the model loader provider.
@@ -47,7 +51,8 @@ public class ModelLoaderProvider implements IModelLoaderProvider {
      */
     @objid ("7dc20091-1c43-11e2-8eb9-001ec947ccaf")
     public ModelLoaderProvider(ModelLoaderConfiguration loaderConfig) {
-        this.sessionPool = new ConcurrentLinkedQueue<>();
+        this.loaderPool = new ConcurrentLinkedQueue<>();
+        this.refreshPool = new ConcurrentLinkedQueue<>();
         this.loaderConfig = loaderConfig;
     }
 
@@ -59,21 +64,22 @@ public class ModelLoaderProvider implements IModelLoaderProvider {
 
     @objid ("1fc5fb7a-3a2d-11e2-bf6c-001ec947ccaf")
     @Override
-    public IModelLoadingSession beginLoadSession() {
-        ModelLoadingSession ret = this.sessionPool.poll();
+    public IModelLoader beginLoadSession() {
+        IModelLoader ret = this.loaderPool.poll();
         if (ret == null) {
-            return new ModelLoadingSession(this.loaderConfig, this);
+            return new ModelLoader(this.loaderConfig, this.loaderPool);
         }
         return ret;
     }
 
-    /**
-     * Called by {@link ModelLoadingSession#close()}
-     * @param repositoryLoadingSession the closed loading session.
-     */
-    @objid ("4f2127a9-5c15-4b11-b686-b8c64f684a0c")
-    public void sessionClosed(ModelLoadingSession repositoryLoadingSession) {
-        this.sessionPool.add(repositoryLoadingSession);
+    @objid ("b02c4de4-aa36-4dc4-8fda-60fbc92acecb")
+    @Override
+    public IModelRefresher beginRefreshSession() {
+        IModelRefresher ret = (IModelRefresher) this.refreshPool.poll();
+        if (ret == null) {
+            return new ModelRefresher(this.loaderConfig, this.refreshPool);
+        }
+        return ret;
     }
 
 }

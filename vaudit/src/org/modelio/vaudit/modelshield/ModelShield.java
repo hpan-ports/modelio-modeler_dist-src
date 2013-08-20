@@ -158,14 +158,16 @@ public class ModelShield {
     }
 
     /**
-     * This method is called after a project opening.
-     * 
-     * Keep a reference to the modeling session.
+     * This method is called during a project opening.
+     * <ul>
+     * <li>Keep a reference to the modeling session.
+     * <li>Builds the namespace uses if missing
+     * </ul>
      */
     @objid ("82488fee-1dd5-11e2-82de-002564c97630")
     @Optional
     @Inject
-    void onProjectOpened(@EventTopic(ModelioEventTopics.PROJECT_OPENED) final GProject openedProject, @Optional
+    void onProjectOpening(@EventTopic(ModelioEventTopics.PROJECT_OPENING) final GProject openedProject, @Optional
 @Named(IServiceConstants.ACTIVE_SHELL) final Shell parentShell, StatusReporter statusReporter, IModelioProgressService progressService) {
         if (openedProject != null) {
             // Create the core agent

@@ -105,7 +105,7 @@ class ProjectPreferencesPage extends PreferencePage {
         
         // attribute default type
         this.attDefaultType = new ComboFieldEditor(ProjectPreferencesKeys.ATT_DEFAULT_TYPE_PREFKEY, INDENT
-                + AppProjectUi.I18N.getString(ProjectPreferencesKeys.ATT_DEFAULT_TYPE_PREFKEY + ".label"), predefinedTypesValues,
+                + AppProjectUi.I18N.getString(ProjectPreferencesKeys.ATT_DEFAULT_TYPE_PREFKEY + ".label"), this.predefinedTypesValues,
                 top);
         this.attDefaultType.setPage(this);
         this.attDefaultType.setPreferenceStore(getPreferenceStore());
@@ -115,7 +115,7 @@ class ProjectPreferencesPage extends PreferencePage {
         
         // attribute default visibility
         this.attdefaultVisibility = new ComboFieldEditor(ProjectPreferencesKeys.ATT_DEFAULT_VIS_PREFKEY, INDENT
-                + AppProjectUi.I18N.getString(ProjectPreferencesKeys.ATT_DEFAULT_VIS_PREFKEY + ".label"), visibilityValues, top);
+                + AppProjectUi.I18N.getString(ProjectPreferencesKeys.ATT_DEFAULT_VIS_PREFKEY + ".label"), this.visibilityValues, top);
         this.attdefaultVisibility.setPage(this);
         this.attdefaultVisibility.setPreferenceStore(getPreferenceStore());
         this.attdefaultVisibility.load();
@@ -133,7 +133,7 @@ class ProjectPreferencesPage extends PreferencePage {
         // parameter default type
         
         this.parameterDefaultType = new ComboFieldEditor(ProjectPreferencesKeys.PARAM_DEFAULT_TYPE_PREFKEY, INDENT
-                + AppProjectUi.I18N.getString(ProjectPreferencesKeys.PARAM_DEFAULT_TYPE_PREFKEY + ".label"), predefinedTypesValues,
+                + AppProjectUi.I18N.getString(ProjectPreferencesKeys.PARAM_DEFAULT_TYPE_PREFKEY + ".label"), this.predefinedTypesValues,
                 top);
         
         this.parameterDefaultType.setPage(this);
@@ -143,7 +143,7 @@ class ProjectPreferencesPage extends PreferencePage {
         // return parameter default type
         this.returnDefaultType = new ComboFieldEditor(ProjectPreferencesKeys.RETURN_DEFAULT_TYPE_PREFKEY, INDENT
                 + AppProjectUi.I18N.getString(ProjectPreferencesKeys.RETURN_DEFAULT_TYPE_PREFKEY + ".label"),
-                predefinedTypesValues, top);
+                this.predefinedTypesValues, top);
         
         this.returnDefaultType.setPage(this);
         this.returnDefaultType.setPreferenceStore(getPreferenceStore());
@@ -173,8 +173,8 @@ class ProjectPreferencesPage extends PreferencePage {
         this.predefinedTypesValues = new String[predefinedTypes.size()][2];
         int i = 0;
         for (DataType d : predefinedTypes) {
-            predefinedTypesValues[i][0] = d.getName();
-            predefinedTypesValues[i][1] = new MRef(d).toString();
+            this.predefinedTypesValues[i][0] = d.getName();
+            this.predefinedTypesValues[i][1] = new MRef(d).toString();
             i++;
         }
         
@@ -193,7 +193,7 @@ class ProjectPreferencesPage extends PreferencePage {
             return booleanDataType.getOwner().getOwnedElement(DataType.class);
         } else {
             AppProjectUi.LOG.warning("no predefined types found");
-            return new ArrayList<DataType>();
+            return new ArrayList<>();
         }
     }
 
@@ -213,10 +213,23 @@ class ProjectPreferencesPage extends PreferencePage {
     @Override
     public boolean performOk() {
         final boolean ret = super.performOk();
-        this.attDefaultType.store();
-        this.attdefaultVisibility.store();
-        this.parameterDefaultType.store();
-        this.returnDefaultType.store();
+        
+        // Protect against NPE, the fields might be null if the page wasn't shown
+        if (this.attDefaultType != null) {
+            this.attDefaultType.store();
+        }
+        
+        if (this.attdefaultVisibility != null) {
+            this.attdefaultVisibility.store();
+        }
+        
+        if (this.parameterDefaultType != null) {
+            this.parameterDefaultType.store();
+        }
+        
+        if (this.returnDefaultType != null) {
+            this.returnDefaultType.store();
+        }
         return ret;
     }
 

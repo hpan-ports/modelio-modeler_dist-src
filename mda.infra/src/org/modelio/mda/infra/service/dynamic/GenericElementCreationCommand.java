@@ -29,6 +29,7 @@ import org.modelio.api.model.IUmlModel;
 import org.modelio.api.modelio.Modelio;
 import org.modelio.api.module.IModule;
 import org.modelio.api.module.commands.DefaultModuleContextualCommand;
+import org.modelio.gproject.model.api.MTools;
 import org.modelio.metamodel.diagrams.AbstractDiagram;
 import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
@@ -60,8 +61,7 @@ class GenericElementCreationCommand extends DefaultModuleContextualCommand {
     @objid ("eb1d0f60-bd1f-479b-ad33-d44900eb029e")
     @Override
     public void actionPerformed(final List<MObject> selectedElements, final IModule mdac) {
-        try (ITransaction tr = Modelio.getInstance().getModelingSession()
-                .createTransaction("Create <<" + this.stereotype + ">> " + this.metaclass)) {
+        try (ITransaction tr = Modelio.getInstance().getModelingSession().createTransaction("Create <<" + this.stereotype + ">> " + this.metaclass)) {
         
             // Create new instance of the element
             IUmlModel modelFactory = Modelio.getInstance().getModelingSession().getModel();
@@ -74,32 +74,27 @@ class GenericElementCreationCommand extends DefaultModuleContextualCommand {
             } else {
                 // Get dependency by name.
                 MDependency dependency = parent.getMClass().getDependency(this.relation);
-                // Append new instance of said dependency
-                parent.mGet(dependency).add(newElement);
-                // FIXME implement fallback using default composition dependency
-                // String compositionDep = CompositionExpert.getDefaultCompositionDep(parent, newElement);
-                // if (compositionDep != null && !compositionDep.equals("")) {
-                // meta.appendToDependency(compositionDep, newElement);
-                // } else {
-                // modelFactory.deleteElement(newElement);
-                // return;
-                // }
-                //
+                if (dependency == null) {
+                    dependency = MTools.getMetaTool().getDefaultCompositionDep(parent, newElement);
+                }
+                if (dependency != null) {
+                    // Append new instance of said dependency
+                    parent.mGet(dependency).add(newElement);
         
-            }
+                    // Apply stereotype (if any).
+                    if (newElement instanceof ModelElement) {
+                        if (this.stereotype != null) {
+                            IMetamodelExtensions metamodelExtensions = Modelio.getInstance().getModelingSession().getMetamodelExtensions();
+                            ((ModelElement) newElement).getExtension().add(metamodelExtensions.getStereotype(this.stereotype, newElement.getMClass()));
+                        }
+                    }
         
-            // Apply stereotype (if any).
-            if (newElement instanceof ModelElement) {
-                if (this.stereotype != null) {
-                    // FIXME: add necessary code when interface IMetamodelExtensions is complete again.
-                    IMetamodelExtensions metamodelExtensions = Modelio.getInstance().getModelingSession()
-                            .getMetamodelExtensions();
-                    // ((ModelElement) newElement).addStereotype(metamodelExtensions.getStereotype(Element.class, this.stereotype));
+                    // Set name.
+                    newElement.setName(this.name);
+                } else {
+                    newElement.delete();
                 }
             }
-        
-            // Set name.
-            newElement.setName(this.name);
         
             tr.commit();
         }

@@ -44,6 +44,7 @@ import org.modelio.property.ui.data.standard.common.AbstractPropertyModel;
 import org.modelio.vcore.session.api.ICoreSession;
 import org.modelio.vcore.session.api.model.IModel;
 import org.modelio.vcore.session.impl.CoreSession;
+import org.modelio.vcore.smkernel.mapi.MObject;
 
 /**
  * <i>InputPin</i> data model.
@@ -351,17 +352,28 @@ public class InputPinPropertyModel extends AbstractPropertyModel<InputPin> {
     @objid ("8f2b06b2-c068-11e1-8c0a-002564c97630")
     public static class RepresentedType extends HybridType {
         @objid ("8f2b06b4-c068-11e1-8c0a-002564c97630")
-        private Class<?>[] t = { Instance.class, Attribute.class, AssociationEnd.class, BehaviorParameter.class };
+        private List<Class<? extends MObject>> t;
 
         @objid ("8f2b06b9-c068-11e1-8c0a-002564c97630")
         public RepresentedType(ICoreSession session) {
             super(session);
+            this.t = new ArrayList<>();
+            this.t.add(Instance.class);
+            this.t.add(Attribute.class);
+            this.t.add(AssociationEnd.class);
+            this.t.add(BehaviorParameter.class);
         }
 
         @objid ("8f2b06bb-c068-11e1-8c0a-002564c97630")
         @Override
-        public Class<?>[] getTypes() {
+        public List<Class<? extends MObject>> getTypes() {
             return this.t;
+        }
+
+        @objid ("d11d8e0d-9afa-46ed-aff1-ebacd2e15377")
+        @Override
+        public boolean acceptStringValue() {
+            return false;
         }
 
     }

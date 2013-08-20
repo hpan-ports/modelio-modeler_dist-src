@@ -31,14 +31,6 @@ import org.modelio.metamodel.data.bpmn.processCollaboration.BpmnLaneData;
 import org.modelio.metamodel.data.diagrams.AbstractDiagramData;
 import org.modelio.metamodel.data.uml.behavior.activityModel.ActivityPartitionData;
 import org.modelio.metamodel.data.uml.informationFlow.InformationFlowData;
-import org.modelio.metamodel.data.uml.infrastructure.ConstraintData;
-import org.modelio.metamodel.data.uml.infrastructure.DependencyData;
-import org.modelio.metamodel.data.uml.infrastructure.ExternDocumentData;
-import org.modelio.metamodel.data.uml.infrastructure.LocalNoteData;
-import org.modelio.metamodel.data.uml.infrastructure.LocalTaggedValueData;
-import org.modelio.metamodel.data.uml.infrastructure.NoteData;
-import org.modelio.metamodel.data.uml.infrastructure.StereotypeData;
-import org.modelio.metamodel.data.uml.infrastructure.TaggedValueData;
 import org.modelio.metamodel.data.uml.infrastructure.properties.LocalPropertyTableData;
 import org.modelio.metamodel.data.uml.infrastructure.properties.PropertyTableData;
 import org.modelio.metamodel.data.uml.statik.BindableInstanceData;
@@ -48,7 +40,6 @@ import org.modelio.metamodel.data.uml.statik.ManifestationData;
 import org.modelio.metamodel.data.uml.statik.NaryConnectorData;
 import org.modelio.metamodel.data.uml.statik.TemplateParameterData;
 import org.modelio.metamodel.data.uml.statik.TemplateParameterSubstitutionData;
-import org.modelio.metamodel.impl.uml.infrastructure.ModelElementImpl;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
 import org.modelio.vcore.smkernel.ISmObjectData;
 import org.modelio.vcore.smkernel.ISmObjectFactory;
@@ -65,10 +56,6 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("0088dbfa-c4be-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=ModelElement.class, factory=ModelElementData.Metadata.ObjectFactory.class)
 public abstract class ModelElementData extends ElementData {
-    @objid ("0b1f8e48-5328-46fb-92f3-de34c1363e92")
-    @SmaMetaAttribute(metaName="Name", type=String.class, smAttributeClass=Metadata.NameSmAttribute.class)
-     Object mName = "";
-
     @objid ("bcbde700-d4c3-432c-bb25-521a2102ccad")
     @SmaMetaAssociation(metaName="LocalProperties", typeDataClass=LocalPropertyTableData.class, min=0, max=1, smAssociationClass=Metadata.LocalPropertiesSmDependency.class, istodelete = true)
      SmObjectImpl mLocalProperties;
@@ -84,10 +71,6 @@ public abstract class ModelElementData extends ElementData {
     @objid ("69955d3b-70ff-4e2c-87a7-312b6c189741")
     @SmaMetaAssociation(metaName="Extension", typeDataClass=StereotypeData.class, min=0, max=-1, smAssociationClass=Metadata.ExtensionSmDependency.class, partof = true)
      List<SmObjectImpl> mExtension = null;
-
-    @objid ("4ee20947-c00f-488b-9858-3f0633050b44")
-    @SmaMetaAssociation(metaName="LocalTag", typeDataClass=LocalTaggedValueData.class, min=0, max=-1, smAssociationClass=Metadata.LocalTagSmDependency.class, component = true, istodelete = true)
-     List<SmObjectImpl> mLocalTag = null;
 
     @objid ("ba4cbfe9-fc02-4d23-94e5-454af2b420f7")
     @SmaMetaAssociation(metaName="DependsOnDependency", typeDataClass=DependencyData.class, min=0, max=-1, smAssociationClass=Metadata.DependsOnDependencySmDependency.class, component = true)
@@ -112,10 +95,6 @@ public abstract class ModelElementData extends ElementData {
     @objid ("79aae42d-dbbb-43dd-9ab9-3b58c21510fb")
     @SmaMetaAssociation(metaName="OwnerTemplateParameter", typeDataClass=TemplateParameterData.class, min=0, max=1, smAssociationClass=Metadata.OwnerTemplateParameterSmDependency.class)
      SmObjectImpl mOwnerTemplateParameter;
-
-    @objid ("dab18339-3568-44c2-848d-d38a2fa02818")
-    @SmaMetaAssociation(metaName="LocalDescriptor", typeDataClass=LocalNoteData.class, min=0, max=-1, smAssociationClass=Metadata.LocalDescriptorSmDependency.class, component = true, istodelete = true)
-     List<SmObjectImpl> mLocalDescriptor = null;
 
     @objid ("8342380d-e169-45d5-991d-3ce7c18c07c9")
     @SmaMetaAssociation(metaName="ImpactedDependency", typeDataClass=DependencyData.class, min=0, max=-1, smAssociationClass=Metadata.ImpactedDependencySmDependency.class, istodelete = true)
@@ -169,6 +148,10 @@ public abstract class ModelElementData extends ElementData {
     @SmaMetaAssociation(metaName="RepresentingConnector", typeDataClass=NaryConnectorData.class, min=0, max=-1, smAssociationClass=Metadata.RepresentingConnectorSmDependency.class)
      List<SmObjectImpl> mRepresentingConnector = null;
 
+    @objid ("b11a6e5a-61c0-4b2e-b19f-3af12a26fb7b")
+    @SmaMetaAttribute(metaName="Name", type=String.class, smAttributeClass=Metadata.NameSmAttribute.class)
+     Object mName = "";
+
     @objid ("8eb60d49-e70d-4bae-ae8e-7019742d289a")
     public SmClass getClassOf() {
         return Metadata.classof();
@@ -176,85 +159,85 @@ public abstract class ModelElementData extends ElementData {
 
     @objid ("0027fe8e-c4c4-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("a8f77e84-4080-404d-a843-a4c46f2593b6")
+        @objid ("99ebfdbf-3b75-43d7-92d7-f34cfb6f9161")
         private static SmClass smClass = null;
 
-        @objid ("42fd1175-c890-4a65-855c-1ae191fe1e57")
+        @objid ("19b4e549-75f3-40d7-a63c-a608f5bce1a2")
         private static SmAttribute NameAtt = null;
 
-        @objid ("7c5c9e21-646f-4dfd-bf17-3482353f4b27")
+        @objid ("42bd1fdb-eb45-47e8-b251-b79b82793cb2")
         private static SmDependency LocalPropertiesDep = null;
 
-        @objid ("e1deb471-d9de-4229-b098-ed91345c71f5")
+        @objid ("ccf3b213-3ff3-445e-ae03-2f7e96399520")
         private static SmDependency TemplateSubstitutionDep = null;
 
-        @objid ("5aae993e-62c2-4bec-bf0c-7895cbdb8303")
+        @objid ("e0f1c491-55a5-4dde-84fc-0eec802b145b")
         private static SmDependency BpmnLaneRefsDep = null;
 
-        @objid ("6f21fbc0-beae-44c2-8a1d-2bcdc273d723")
+        @objid ("5874f610-d0e2-426f-9dfb-dc587e735b84")
         private static SmDependency ExtensionDep = null;
 
-        @objid ("6e40a819-fa18-4c4d-8685-3399b0d240b1")
+        @objid ("3e47de68-46de-4a50-ba30-c0d978f75367")
         private static SmDependency LocalTagDep = null;
 
-        @objid ("f3088b7f-a1f8-47de-84f6-10a979e9a0ff")
+        @objid ("20272b8f-8240-4a87-9e15-7fac424241f6")
         private static SmDependency DependsOnDependencyDep = null;
 
-        @objid ("00b1a0fd-deb1-4b7c-91a3-9d637720a031")
+        @objid ("8f60b489-cf52-4d7a-9145-e9d387fdb6d3")
         private static SmDependency DefaultParameteringDep = null;
 
-        @objid ("aa93cb5c-c492-4111-9d38-b2deca2ea1c3")
+        @objid ("859d2859-1403-4f69-b7f3-093f4109dc80")
         private static SmDependency RepresentsDep = null;
 
-        @objid ("4e024924-a122-4db8-afa7-80759e8743dd")
+        @objid ("39506e57-9105-478a-906f-0600548a4a3f")
         private static SmDependency DocumentDep = null;
 
-        @objid ("4585d588-dc54-47a3-bbfc-0aec5276a661")
+        @objid ("4c9c4b99-27f5-4923-866d-d1f1e8ed5bbc")
         private static SmDependency TagDep = null;
 
-        @objid ("315c5ec8-d67a-4536-a09b-dfcd4b6ef012")
+        @objid ("f8e73dfc-63f1-4d39-9463-f8cccba30ee8")
         private static SmDependency OwnerTemplateParameterDep = null;
 
-        @objid ("64abbc11-1571-4e93-8950-f187caefe1e4")
+        @objid ("ac790b12-f172-41e9-9e76-36dd4ad69fa3")
         private static SmDependency LocalDescriptorDep = null;
 
-        @objid ("a9de97d4-229f-4b21-b9dc-dd757b123b63")
+        @objid ("a970b9ae-6b47-4149-9713-2ea23cfa200f")
         private static SmDependency ImpactedDependencyDep = null;
 
-        @objid ("4a99e06c-2efc-4b5b-8495-f7fb9d4d8567")
+        @objid ("61e7a7d6-e512-411e-88e6-5e8b3ea258f1")
         private static SmDependency RepresentingEndDep = null;
 
-        @objid ("7d2494f3-0ddb-4fd6-a9f1-12e0d124d422")
+        @objid ("1ccf19b7-dab8-407f-97dd-e15fad2b6461")
         private static SmDependency RepresentingPartitionDep = null;
 
-        @objid ("6373ba41-b0bf-4987-af56-a172ffbb26c3")
+        @objid ("2d1bad45-f1ae-46e6-97e9-f8b935823fc7")
         private static SmDependency ConstraintDefinitionDep = null;
 
-        @objid ("83397b69-dda0-4b04-a5c9-c76d63468a58")
+        @objid ("6a747a14-7419-4f4c-8aea-51060cd47e1e")
         private static SmDependency TypingParameterDep = null;
 
-        @objid ("3b7fefdd-1d65-4c3f-b55a-391cf050d71e")
+        @objid ("8d526061-03ed-463c-ad0f-17d76a8429e5")
         private static SmDependency ManifestingDep = null;
 
-        @objid ("068c30d9-d9fd-4e2c-aa22-7c6ebfee7bcf")
+        @objid ("e9c5dbf3-fa79-4f6b-b617-62577f68e7ad")
         private static SmDependency PropertiesDep = null;
 
-        @objid ("3510a2a1-f301-449d-b120-bbf70ebfe1f4")
+        @objid ("ad797ab0-9305-4d97-aafa-3b9d9d9234b9")
         private static SmDependency ProductDep = null;
 
-        @objid ("07e2bb7a-69a8-47fc-bc01-0a64b33701f6")
+        @objid ("775e11ae-451f-4ac3-91a4-ee4be266193f")
         private static SmDependency RepresentingInstanceDep = null;
 
-        @objid ("825cd092-238f-4cc8-89f8-6807cb2fdf09")
+        @objid ("ad9713c8-f121-4932-90f3-0e4039812ffd")
         private static SmDependency ReceivedInfoDep = null;
 
-        @objid ("21706729-1862-4bdd-896a-e3598ababcb6")
+        @objid ("45800953-f4fe-495e-a900-1e308ac4a167")
         private static SmDependency SentInfoDep = null;
 
-        @objid ("62fb7bcc-84a4-4f55-a5da-57d3330a378c")
+        @objid ("181d2d8f-7aee-4fad-aca5-307e2a5f1ff1")
         private static SmDependency DescriptorDep = null;
 
-        @objid ("3145cb81-0a3f-457b-9dce-acaacbac92a1")
+        @objid ("9f6e8948-916c-4739-816d-ab6c934c07b4")
         private static SmDependency RepresentingConnectorDep = null;
 
         @objid ("54d92972-ce45-4eaf-aace-286779774301")
@@ -265,7 +248,7 @@ public abstract class ModelElementData extends ElementData {
         @objid ("2c18145e-5697-4b4d-a0f1-9621394d2111")
         public static SmAttribute NameAtt() {
             if (NameAtt == null) {
-            	NameAtt = classof().getAttributeDef("Name");
+                NameAtt = classof().getAttributeDef("Name");
             }
             return NameAtt;
         }
@@ -273,7 +256,7 @@ public abstract class ModelElementData extends ElementData {
         @objid ("b7ac6d4f-8908-4b9d-a775-517b354ebebf")
         public static SmDependency LocalPropertiesDep() {
             if (LocalPropertiesDep == null) {
-            	LocalPropertiesDep = classof().getDependencyDef("LocalProperties");
+                LocalPropertiesDep = classof().getDependencyDef("LocalProperties");
             }
             return LocalPropertiesDep;
         }
@@ -281,7 +264,7 @@ public abstract class ModelElementData extends ElementData {
         @objid ("b6ddae82-81b4-491e-b646-5bef837966b9")
         public static SmDependency TemplateSubstitutionDep() {
             if (TemplateSubstitutionDep == null) {
-            	TemplateSubstitutionDep = classof().getDependencyDef("TemplateSubstitution");
+                TemplateSubstitutionDep = classof().getDependencyDef("TemplateSubstitution");
             }
             return TemplateSubstitutionDep;
         }
@@ -289,7 +272,7 @@ public abstract class ModelElementData extends ElementData {
         @objid ("95b94bb6-9815-4856-8d87-574cad0f2eb8")
         public static SmDependency BpmnLaneRefsDep() {
             if (BpmnLaneRefsDep == null) {
-            	BpmnLaneRefsDep = classof().getDependencyDef("BpmnLaneRefs");
+                BpmnLaneRefsDep = classof().getDependencyDef("BpmnLaneRefs");
             }
             return BpmnLaneRefsDep;
         }
@@ -297,7 +280,7 @@ public abstract class ModelElementData extends ElementData {
         @objid ("87a9e653-68a5-44f6-9819-3cb5b4f60602")
         public static SmDependency ExtensionDep() {
             if (ExtensionDep == null) {
-            	ExtensionDep = classof().getDependencyDef("Extension");
+                ExtensionDep = classof().getDependencyDef("Extension");
             }
             return ExtensionDep;
         }
@@ -305,7 +288,7 @@ public abstract class ModelElementData extends ElementData {
         @objid ("e574fa35-a466-4c15-bd8c-6fee98ba0b41")
         public static SmDependency LocalTagDep() {
             if (LocalTagDep == null) {
-            	LocalTagDep = classof().getDependencyDef("LocalTag");
+                LocalTagDep = classof().getDependencyDef("LocalTag");
             }
             return LocalTagDep;
         }
@@ -313,7 +296,7 @@ public abstract class ModelElementData extends ElementData {
         @objid ("a5326930-f5eb-411b-8c6b-dcff031cbea3")
         public static SmDependency DependsOnDependencyDep() {
             if (DependsOnDependencyDep == null) {
-            	DependsOnDependencyDep = classof().getDependencyDef("DependsOnDependency");
+                DependsOnDependencyDep = classof().getDependencyDef("DependsOnDependency");
             }
             return DependsOnDependencyDep;
         }
@@ -321,7 +304,7 @@ public abstract class ModelElementData extends ElementData {
         @objid ("1ca32e4e-492d-4a5f-912c-aec836c97f6b")
         public static SmDependency DefaultParameteringDep() {
             if (DefaultParameteringDep == null) {
-            	DefaultParameteringDep = classof().getDependencyDef("DefaultParametering");
+                DefaultParameteringDep = classof().getDependencyDef("DefaultParametering");
             }
             return DefaultParameteringDep;
         }
@@ -329,7 +312,7 @@ public abstract class ModelElementData extends ElementData {
         @objid ("9a80271d-d053-444b-bb80-20fa5119d183")
         public static SmDependency RepresentsDep() {
             if (RepresentsDep == null) {
-            	RepresentsDep = classof().getDependencyDef("Represents");
+                RepresentsDep = classof().getDependencyDef("Represents");
             }
             return RepresentsDep;
         }
@@ -337,7 +320,7 @@ public abstract class ModelElementData extends ElementData {
         @objid ("8c1b1869-7ba8-4562-a93b-38dcc5b7b263")
         public static SmDependency DocumentDep() {
             if (DocumentDep == null) {
-            	DocumentDep = classof().getDependencyDef("Document");
+                DocumentDep = classof().getDependencyDef("Document");
             }
             return DocumentDep;
         }
@@ -345,7 +328,7 @@ public abstract class ModelElementData extends ElementData {
         @objid ("064ebf85-fa77-467a-b0c5-d0894f7c5b98")
         public static SmDependency TagDep() {
             if (TagDep == null) {
-            	TagDep = classof().getDependencyDef("Tag");
+                TagDep = classof().getDependencyDef("Tag");
             }
             return TagDep;
         }
@@ -353,7 +336,7 @@ public abstract class ModelElementData extends ElementData {
         @objid ("d03f79ec-3555-4353-b508-b9d3844664ca")
         public static SmDependency OwnerTemplateParameterDep() {
             if (OwnerTemplateParameterDep == null) {
-            	OwnerTemplateParameterDep = classof().getDependencyDef("OwnerTemplateParameter");
+                OwnerTemplateParameterDep = classof().getDependencyDef("OwnerTemplateParameter");
             }
             return OwnerTemplateParameterDep;
         }
@@ -361,7 +344,7 @@ public abstract class ModelElementData extends ElementData {
         @objid ("d7e23179-1e93-445e-b8d3-6cabd40f1f10")
         public static SmDependency LocalDescriptorDep() {
             if (LocalDescriptorDep == null) {
-            	LocalDescriptorDep = classof().getDependencyDef("LocalDescriptor");
+                LocalDescriptorDep = classof().getDependencyDef("LocalDescriptor");
             }
             return LocalDescriptorDep;
         }
@@ -369,7 +352,7 @@ public abstract class ModelElementData extends ElementData {
         @objid ("1ed55ea3-9f8b-406e-a178-47bd04241312")
         public static SmDependency ImpactedDependencyDep() {
             if (ImpactedDependencyDep == null) {
-            	ImpactedDependencyDep = classof().getDependencyDef("ImpactedDependency");
+                ImpactedDependencyDep = classof().getDependencyDef("ImpactedDependency");
             }
             return ImpactedDependencyDep;
         }
@@ -377,7 +360,7 @@ public abstract class ModelElementData extends ElementData {
         @objid ("c3256d66-6607-4efb-ab76-7803977beafa")
         public static SmDependency RepresentingEndDep() {
             if (RepresentingEndDep == null) {
-            	RepresentingEndDep = classof().getDependencyDef("RepresentingEnd");
+                RepresentingEndDep = classof().getDependencyDef("RepresentingEnd");
             }
             return RepresentingEndDep;
         }
@@ -385,7 +368,7 @@ public abstract class ModelElementData extends ElementData {
         @objid ("63d4dc41-ba71-4242-b89a-9ece4a5c3757")
         public static SmDependency RepresentingPartitionDep() {
             if (RepresentingPartitionDep == null) {
-            	RepresentingPartitionDep = classof().getDependencyDef("RepresentingPartition");
+                RepresentingPartitionDep = classof().getDependencyDef("RepresentingPartition");
             }
             return RepresentingPartitionDep;
         }
@@ -393,7 +376,7 @@ public abstract class ModelElementData extends ElementData {
         @objid ("ab4805c4-053a-4a12-bef0-bbbabfba7bfc")
         public static SmDependency ConstraintDefinitionDep() {
             if (ConstraintDefinitionDep == null) {
-            	ConstraintDefinitionDep = classof().getDependencyDef("ConstraintDefinition");
+                ConstraintDefinitionDep = classof().getDependencyDef("ConstraintDefinition");
             }
             return ConstraintDefinitionDep;
         }
@@ -401,7 +384,7 @@ public abstract class ModelElementData extends ElementData {
         @objid ("68c50a84-5b9e-44b3-9608-a9a937976190")
         public static SmDependency TypingParameterDep() {
             if (TypingParameterDep == null) {
-            	TypingParameterDep = classof().getDependencyDef("TypingParameter");
+                TypingParameterDep = classof().getDependencyDef("TypingParameter");
             }
             return TypingParameterDep;
         }
@@ -409,7 +392,7 @@ public abstract class ModelElementData extends ElementData {
         @objid ("7871495c-4e01-4854-84b6-bd913d723507")
         public static SmDependency ManifestingDep() {
             if (ManifestingDep == null) {
-            	ManifestingDep = classof().getDependencyDef("Manifesting");
+                ManifestingDep = classof().getDependencyDef("Manifesting");
             }
             return ManifestingDep;
         }
@@ -417,7 +400,7 @@ public abstract class ModelElementData extends ElementData {
         @objid ("9b56a460-fc2d-4ad3-8b44-01751c394b6b")
         public static SmDependency PropertiesDep() {
             if (PropertiesDep == null) {
-            	PropertiesDep = classof().getDependencyDef("Properties");
+                PropertiesDep = classof().getDependencyDef("Properties");
             }
             return PropertiesDep;
         }
@@ -425,7 +408,7 @@ public abstract class ModelElementData extends ElementData {
         @objid ("8991b1a1-3aee-4536-9b9f-a51264dca31f")
         public static SmDependency ProductDep() {
             if (ProductDep == null) {
-            	ProductDep = classof().getDependencyDef("Product");
+                ProductDep = classof().getDependencyDef("Product");
             }
             return ProductDep;
         }
@@ -433,7 +416,7 @@ public abstract class ModelElementData extends ElementData {
         @objid ("c4f48f43-12d3-4102-887a-3b872b1b59ff")
         public static SmDependency RepresentingInstanceDep() {
             if (RepresentingInstanceDep == null) {
-            	RepresentingInstanceDep = classof().getDependencyDef("RepresentingInstance");
+                RepresentingInstanceDep = classof().getDependencyDef("RepresentingInstance");
             }
             return RepresentingInstanceDep;
         }
@@ -441,7 +424,7 @@ public abstract class ModelElementData extends ElementData {
         @objid ("a9b7ef33-ab92-4522-af3c-29baa4487da1")
         public static SmDependency ReceivedInfoDep() {
             if (ReceivedInfoDep == null) {
-            	ReceivedInfoDep = classof().getDependencyDef("ReceivedInfo");
+                ReceivedInfoDep = classof().getDependencyDef("ReceivedInfo");
             }
             return ReceivedInfoDep;
         }
@@ -449,7 +432,7 @@ public abstract class ModelElementData extends ElementData {
         @objid ("2eb1af18-b520-4861-98bd-4c6d6fb08bd1")
         public static SmDependency SentInfoDep() {
             if (SentInfoDep == null) {
-            	SentInfoDep = classof().getDependencyDef("SentInfo");
+                SentInfoDep = classof().getDependencyDef("SentInfo");
             }
             return SentInfoDep;
         }
@@ -457,7 +440,7 @@ public abstract class ModelElementData extends ElementData {
         @objid ("d62f708a-22e8-497f-8c58-89cab5772177")
         public static SmDependency DescriptorDep() {
             if (DescriptorDep == null) {
-            	DescriptorDep = classof().getDependencyDef("Descriptor");
+                DescriptorDep = classof().getDependencyDef("Descriptor");
             }
             return DescriptorDep;
         }
@@ -465,7 +448,7 @@ public abstract class ModelElementData extends ElementData {
         @objid ("33c76e71-96bc-47a4-a976-21af2770e9b9")
         public static SmDependency RepresentingConnectorDep() {
             if (RepresentingConnectorDep == null) {
-            	RepresentingConnectorDep = classof().getDependencyDef("RepresentingConnector");
+                RepresentingConnectorDep = classof().getDependencyDef("RepresentingConnector");
             }
             return RepresentingConnectorDep;
         }
@@ -771,52 +754,6 @@ public abstract class ModelElementData extends ElementData {
             @Override
             public SmDependency getSymetric() {
                 return AbstractDiagramData.Metadata.OriginDep();
-            }
-
-        }
-
-        @objid ("002b076e-c4c4-1fd8-97fe-001ec947cd2a")
-        public static class LocalDescriptorSmDependency extends SmMultipleDependency {
-            @objid ("c87436f2-8010-48a5-b46f-deb4e813b821")
-            @Override
-            public List<SmObjectImpl> getValueList(ISmObjectData data) {
-                return (((ModelElementData)data).mLocalDescriptor != null)? ((ModelElementData)data).mLocalDescriptor:SmMultipleDependency.EMPTY;
-            }
-
-            @objid ("d4348845-335a-454b-9994-0c987120e1d9")
-            @Override
-            protected List<SmObjectImpl> allocateValueList(ISmObjectData data, int initialCapacity) {
-                ((ModelElementData) data).mLocalDescriptor = new ArrayList<>(initialCapacity);
-                return ((ModelElementData) data).mLocalDescriptor;
-            }
-
-            @objid ("72a3c0a0-2c19-424a-a8ac-7d7d866d00ed")
-            @Override
-            public SmDependency getSymetric() {
-                return LocalNoteData.Metadata.LocalSubjectDep();
-            }
-
-        }
-
-        @objid ("002b6cea-c4c4-1fd8-97fe-001ec947cd2a")
-        public static class LocalTagSmDependency extends SmMultipleDependency {
-            @objid ("ae6e4efa-af2f-447b-9da9-316aca6f59a7")
-            @Override
-            public List<SmObjectImpl> getValueList(ISmObjectData data) {
-                return (((ModelElementData)data).mLocalTag != null)? ((ModelElementData)data).mLocalTag:SmMultipleDependency.EMPTY;
-            }
-
-            @objid ("a27cbeb3-3c1a-4ac2-9e41-9b65a733aeb4")
-            @Override
-            protected List<SmObjectImpl> allocateValueList(ISmObjectData data, int initialCapacity) {
-                ((ModelElementData) data).mLocalTag = new ArrayList<>(initialCapacity);
-                return ((ModelElementData) data).mLocalTag;
-            }
-
-            @objid ("870b14ef-cbb5-408e-b642-c5e8bc37faf5")
-            @Override
-            public SmDependency getSymetric() {
-                return LocalTaggedValueData.Metadata.LocalAnnotedDep();
             }
 
         }

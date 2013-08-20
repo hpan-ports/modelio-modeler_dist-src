@@ -54,12 +54,16 @@
 
    <extension id="id1" point="org.eclipse.e4.workbench.model">
       <fragment uri="e4model/element_commands.e4xmi">  </fragment>
+      <processor
+            beforefragment="true"
+            class="org.modelio.app.ui.plugin.AppUiInitializer">
+      </processor>
    </extension>
    
    
   <extension id="modelio"  point="org.eclipse.core.runtime.products">
-    <product application="org.eclipse.e4.ui.workbench.swt.E4Application" name="Modelio">
-       <property name="appName" value="Modelio">
+    <product application="org.eclipse.e4.ui.workbench.swt.E4Application" name="Modelio Phoenix">
+       <property name="appName" value="Modelio Phoenix">
        </property>
        <property name="lifeCycleURI"            value="bundleclass://org.modelio.app.ui/org.modelio.app.ui.lifecycle.LifeCycleManager"/>
        <property name="applicationXMI"          value="org.modelio.app.ui/e4model/modelio.e4xmi"/>

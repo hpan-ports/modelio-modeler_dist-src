@@ -24,6 +24,7 @@ package org.modelio.diagram.editor.handlers;
 import javax.inject.Named;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.e4.core.di.annotations.Execute;
+import org.modelio.app.core.activation.IActivationService;
 import org.modelio.metamodel.diagrams.AbstractDiagram;
 
 @objid ("65b21878-33f7-11e2-95fe-001ec947c8cc")
@@ -33,10 +34,10 @@ public class OpenRelatedDiagramHandler {
 
     @objid ("65b47a78-33f7-11e2-95fe-001ec947c8cc")
     @Execute
-    public Object execute(@Named("org.modelio.diagram.editor.command.parameter.related_diagram") AbstractDiagram o) {
+    public Object execute(@Named("org.modelio.diagram.editor.command.parameter.related_diagram") AbstractDiagram o, IActivationService activationService) {
         if (o != null) {
             this.related_diagram = o;
-            // FIXME O.getDefault().getActivationService().fireActivate(this.related_diagram);
+            activationService.activateMObject(this.related_diagram);
         }
         return null;
     }

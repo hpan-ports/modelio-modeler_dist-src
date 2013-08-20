@@ -21,6 +21,8 @@
 
 package org.modelio.property.ui.data.standard.uml.templateparameter;
 
+import java.util.ArrayList;
+import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.core.ui.ktable.types.IPropertyType;
 import org.modelio.core.ui.ktable.types.enumeration.EnumType;
@@ -31,6 +33,7 @@ import org.modelio.metamodel.uml.statik.TemplateParameter;
 import org.modelio.property.ui.data.standard.common.AbstractPropertyModel;
 import org.modelio.vcore.session.api.ICoreSession;
 import org.modelio.vcore.session.impl.CoreSession;
+import org.modelio.vcore.smkernel.mapi.MObject;
 
 /**
  * <i>TemplateParameter</i> data model for "type" template parameters.
@@ -232,17 +235,25 @@ class TypeTemplateParameterPropertyModel extends AbstractPropertyModel<TemplateP
     @objid ("8f925bf3-c068-11e1-8c0a-002564c97630")
     public static class DefaultType extends HybridType {
         @objid ("8f925bf5-c068-11e1-8c0a-002564c97630")
-        private Class<?>[] t = { ModelElement.class, String.class };
+        private List<Class<? extends MObject>> t;
 
         @objid ("8f925bfa-c068-11e1-8c0a-002564c97630")
         public DefaultType(ICoreSession session) {
             super(session);
+            this.t = new ArrayList<>();
+            this.t.add(ModelElement.class);
         }
 
         @objid ("8f925bfc-c068-11e1-8c0a-002564c97630")
         @Override
-        public Class<?>[] getTypes() {
+        public List<Class<? extends MObject>> getTypes() {
             return this.t;
+        }
+
+        @objid ("92aada9d-e659-4e3a-a00b-ebe61a6f1f56")
+        @Override
+        public boolean acceptStringValue() {
+            return true;
         }
 
     }

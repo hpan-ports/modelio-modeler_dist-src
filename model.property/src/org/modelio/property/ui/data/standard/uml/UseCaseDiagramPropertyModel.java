@@ -29,13 +29,13 @@ import org.modelio.core.ui.ktable.types.element.SingleElementType;
 import org.modelio.core.ui.ktable.types.text.StringType;
 import org.modelio.metamodel.diagrams.UseCaseDiagram;
 import org.modelio.metamodel.uml.behavior.usecaseModel.UseCase;
-import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
 import org.modelio.metamodel.uml.statik.Class;
 import org.modelio.metamodel.uml.statik.Component;
 import org.modelio.metamodel.uml.statik.Interface;
 import org.modelio.metamodel.uml.statik.Package;
 import org.modelio.property.ui.data.standard.common.AbstractPropertyModel;
+import org.modelio.vcore.smkernel.mapi.MObject;
 
 /**
  * <i>UseCaseDiagram</i> data model.
@@ -187,7 +187,7 @@ public class UseCaseDiagramPropertyModel extends AbstractPropertyModel<UseCaseDi
         
         this.stringType = new StringType(false);
         
-        List<java.lang.Class<? extends Element>> allowedMetaclasses = new ArrayList<>();
+        List<java.lang.Class<? extends MObject>> allowedMetaclasses = new ArrayList<>();
         allowedMetaclasses.add(Package.class);
         allowedMetaclasses.add(Class.class);
         allowedMetaclasses.add(Interface.class);

@@ -25,7 +25,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
 import org.modelio.vcore.session.api.model.IMObjectFilter;
 import org.modelio.vcore.session.api.model.IModel;
@@ -47,17 +46,17 @@ class Searcher {
     private IModel session = null;
 
     @objid ("aea195cd-c202-11e1-80f8-001ec947ccaf")
-    private Class<? extends Element> targetClass;
+    private Class<? extends MObject> targetClass;
 
     @objid ("8dc471e7-c068-11e1-8c0a-002564c97630")
     @SuppressWarnings("unchecked")
-    public Searcher(IModel session, Class<? extends Element> targetClass, IMObjectFilter elementFilter) {
+    public Searcher(IModel session, Class<? extends MObject> targetClass, IMObjectFilter elementFilter) {
         this.session = session;
         
         if (targetClass==null)
             throw new IllegalArgumentException("Target class cannot be NULL");
         else if (targetClass.isArray())
-            this.targetClass = (Class<? extends Element>) targetClass.getComponentType();
+            this.targetClass = (Class<? extends MObject>) targetClass.getComponentType();
         else
             this.targetClass = targetClass;
         
@@ -70,18 +69,18 @@ class Searcher {
     }
 
     @objid ("8dc471f5-c068-11e1-8c0a-002564c97630")
-    public List<Element> search() {
+    public List<MObject> search() {
         List<MObject> rawResults = new ArrayList<> (this.session.findByClass(SmClass.getClass(this.targetClass.getSimpleName()), IModel.NODELETED));
-        List<Element> filteredResults = new ArrayList<>();
+        List<MObject> filteredResults = new ArrayList<>();
         Pattern p = Pattern.compile(this.expression);
         
         for (MObject e : rawResults) {
             if (e instanceof ModelElement) {
                 ModelElement me = (ModelElement) e;
                 if (p.matcher(me.getName()).matches() && this.elementFilter == null) {
-                    filteredResults.add((ModelElement) e);
+                    filteredResults.add(e);
                 } else if (p.matcher(me.getName()).matches() && this.elementFilter.accept(e)) {
-                    filteredResults.add((ModelElement) e);
+                    filteredResults.add(e);
                 }
             }
         }

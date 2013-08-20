@@ -27,8 +27,6 @@ package org.modelio.metamodel.uml.infrastructure;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
-import org.modelio.metamodel.uml.infrastructure.LocalTaggedValue;
-import org.modelio.metamodel.uml.infrastructure.TaggedValue;
 
 @objid ("008e8d34-c4be-1fd8-97fe-001ec947cd2a")
 public interface TagParameter extends Element {
@@ -49,17 +47,5 @@ public interface TagParameter extends Element {
 
     @objid ("d2fbd611-3b51-45ae-a960-110c377aab50")
     void setQualified(TaggedValue value);
-
-    @objid ("41d67a4c-f561-41c4-bb67-62d8e035204f")
-    LocalTaggedValue getLocalAnnoted();
-
-    @objid ("c430b61d-388c-4f06-9bd8-9d85cb22d84e")
-    void setLocalAnnoted(LocalTaggedValue value);
-
-    @objid ("bbdb8d11-867c-40e4-b523-19be4b43feb8")
-    LocalTaggedValue getLocalQualified();
-
-    @objid ("a52ea758-7e1f-4cdc-89ba-3ebb6c4f5071")
-    void setLocalQualified(LocalTaggedValue value);
 
 }

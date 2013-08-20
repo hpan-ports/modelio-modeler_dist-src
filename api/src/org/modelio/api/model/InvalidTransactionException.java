@@ -28,6 +28,7 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
  * is thrown.
  */
 @objid ("00d00158-0001-6328-0000-000000000000")
+@Deprecated
 public class InvalidTransactionException extends RuntimeException {
     @objid ("00d00158-0001-632a-0000-000000000000")
     private static final long serialVersionUID = 1L;

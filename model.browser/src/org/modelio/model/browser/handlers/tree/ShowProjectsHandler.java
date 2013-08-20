@@ -22,6 +22,7 @@
 package org.modelio.model.browser.handlers.tree;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
+import org.eclipse.e4.core.di.annotations.CanExecute;
 import org.eclipse.e4.core.di.annotations.Execute;
 import org.eclipse.e4.ui.model.application.ui.basic.MPart;
 import org.eclipse.e4.ui.model.application.ui.menu.MDirectMenuItem;
@@ -44,6 +45,15 @@ public class ShowProjectsHandler {
                 }
             }
         }
+    }
+
+    @objid ("9c9dfcfa-8667-4e14-8333-de1d14265b1a")
+    @CanExecute
+    public final boolean canExecute(MPart part) {
+        if (!(part.getObject() instanceof BrowserView)) {
+            return false;
+        }
+        return ((BrowserView) part.getObject()).getRoots().isEmpty();
     }
 
 }

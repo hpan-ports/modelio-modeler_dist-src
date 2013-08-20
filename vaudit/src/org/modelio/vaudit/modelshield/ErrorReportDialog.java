@@ -76,9 +76,8 @@ public class ErrorReportDialog extends IconAndMessageDialog {
     @Override
     protected Control createDialogArea(Composite parent) {
         createMessageArea(parent);
-        getShell().setText(title);
+        getShell().setText(this.title);
         
-        System.err.println(parent.getLayout());
         Browser browser = new Browser(parent, SWT.BORDER);
         GridData gd = new GridData(SWT.FILL, SWT.FILL, true, true);
         gd.horizontalSpan = 2;
@@ -88,7 +87,7 @@ public class ErrorReportDialog extends IconAndMessageDialog {
         
         // Fill contents
         StringBuilder msg = new StringBuilder();
-        for (IModelError error : errorReport.getEntries()) {
+        for (IModelError error : this.errorReport.getEntries()) {
             msg.append("<head><style>");
             msg.append(getInlineCSS());
             msg.append("</style></head>");
@@ -108,13 +107,14 @@ public class ErrorReportDialog extends IconAndMessageDialog {
     }
 
     @objid ("0b91d751-f628-4ca6-8095-349d88f7270a")
+    @Override
     protected void createButtonsForButtonBar(Composite parent) {
         createButton(parent, IDialogConstants.OK_ID, Vaudit.I18N.getString("CoreAudit.report.close"), true);
     }
 
     @objid ("d7c923a9-8483-4ab3-ac18-744aabb33ec6")
     private String getInlineCSS() {
-        if (cssStyles == null) {
+        if (this.cssStyles == null) {
              // Get body font family/size
             Font font = Display.getDefault().getSystemFont();
             String fontFamily = font.getFontData()[0].getName();
@@ -123,210 +123,9 @@ public class ErrorReportDialog extends IconAndMessageDialog {
             this.cssStyles = this.cssStyles.replaceAll( "\\$font_family", fontFamily);
             this.cssStyles = this.cssStyles.replaceAll("\\$font_size", Integer.toString(fontSize)+"pt");
         }
-        return cssStyles;
+        return this.cssStyles;
     }
 
-// private Composite area = null;
-//
-// private Image selectImage;
-//
-// private Browser browser;
-// private ICoreSession modelingSession = null;
-// private IModelioNavigationService navigationService;
-// private URL ruleUrl;
-//
-// /**
-// * Add buttons to the buttons bar in the bottom of the dialog.
-// * <p>
-// * Here we just need to have a "close" button.
-// * @param parent the parent composite of the dialog.
-// */
-// @Override
-// public void addButtonsInButtonBar(Composite parent) {
-// createButton(parent, IDialogConstants.OK_ID,
-// Audit.I18N.getString("AuditEntryDialog.Close"), true);
-// }
-//
-// /**
-// * This is the main method that is called to construct the GUI content of
-// the box.
-// * @param parent the parent composite of the dialog.
-// */
-// @Override
-// public Control createContentArea(Composite parent) {
-// Bundle bundle = Platform.getBundle(Audit.PLUGIN_ID);
-// URL bitmapUrl = FileLocator.find(bundle, new Path("icons/select.png"),
-// null);
-// this.selectImage =
-// ImageDescriptor.createFromURL(bitmapUrl).createImage();
-// parent.addDisposeListener(new DisposeListener() {
-// @Override
-// public void widgetDisposed(DisposeEvent e)
-// {
-// AuditEntryDialog.this.selectImage.dispose();
-// }
-// });
-//
-// this.area = new Composite(parent, SWT.NONE);
-// this.area.setLayoutData(new GridData(GridData.FILL_BOTH));
-//
-// GridLayout layout = new GridLayout(1, false);
-// this.area.setLayout(layout);
-//
-// Group descriptionGroup = createEntryDescription(this.entry);
-// GridData layoutData = new GridData(SWT.FILL, SWT.FILL, true, false);
-// descriptionGroup.setLayoutData(layoutData);
-//
-// Group linkedElementsGroup = createLinkedElementsList();
-// layoutData = new GridData(SWT.FILL, SWT.FILL, true, false);
-// linkedElementsGroup.setLayoutData(layoutData);
-//
-// Group ruleDocumentationGroup =
-// createRuleDocumentation(this.entry.getRuleId());
-// layoutData = new GridData(SWT.FILL, SWT.FILL, true, true);
-// ruleDocumentationGroup.setLayoutData(layoutData);
-// return this.area;
-// }
-//
-// /**
-// * Init is called when the dialog box is opened.
-// */
-// @Override
-// public void init() {
-// setLogoImage(null);
-// // Put the messages in the banner area
-// getShell().setText(Audit.I18N.getString("AuditEntryDialog.DialogTitle"));
-// setTitle(Audit.I18N.getString("AuditEntryDialog.DialogTitle"));
-// //setMessage(Audit.I18N.getString("AuditEntryDialog.DialogMessage"));
-// this.getShell().setSize(600, 700);
-// this.getShell().setMinimumSize(600, 550);
-// }
-//
-// /**
-// * Create part of the dialog that display the tip message of the entry.
-// * <p>
-// * It is displayed in HTML format. The message given by the entry may
-// contains HTML tags. There is no need to
-// * provide HTML headers they are provided by the method.
-// */
-// private Group createRuleDocumentation(String ruleId) {
-// Group group = new Group(this.area, SWT.NONE);
-// group.setText(ruleId);
-// GridLayout gl = new GridLayout(1, false);
-// gl.verticalSpacing = 0;
-// group.setLayout(gl);
-//
-// this.browser = new Browser(group, SWT.BORDER);
-// GridData gd = new GridData(SWT.FILL, SWT.FILL, true, true);
-// this.browser.setLayoutData(gd);
-// this.browser.setMenu(new Menu(this.browser));
-// this.browser.setJavascriptEnabled(false);
-//
-// this.ruleUrl = Audit.I18N.getRuleDescription(ruleId);
-// this.browser.setUrl(this.ruleUrl.toString());
-// return group;
-// }
-//
-// /**
-// * Create part of the dialog that display the description of the rule that
-// caused the audit report.
-// * <p>
-// * The displayed information are
-// * <ul>
-// * <li>Id of the plan that contains the rule.</li>
-// * <li>Id of the rule.</li>
-// * <li>Element concerned by the rule.</li>
-// * <li>Description of the rule.</li>
-// * </ul>
-// */
-// private Group createEntryDescription(final IAuditEntry entryToDescribe) {
-// Group descriptionGroup = new Group(this.area, SWT.NONE);
-// descriptionGroup.setText(Audit.I18N.getString("AuditEntryDialog.DescriptionGroup.Label"));
-//
-// GridLayout layout = new GridLayout(2, false);
-// descriptionGroup.setLayout(layout);
-//
-// // Audit message
-// Label auditMessage = new Label(descriptionGroup, SWT.WRAP |
-// SWT.READ_ONLY);
-// String message = DiagnosticFormatter.getMessage(entryToDescribe);
-// auditMessage.setText(message);
-// auditMessage.setCapture(false);
-//
-// // Navigation button
-// Button navigationButton = new Button(descriptionGroup, SWT.NONE);
-// navigationButton.setImage(this.selectImage);
-//
-// navigationButton.setToolTipText(Audit.I18N.getString("AuditEntryDialog.ElementLabel.ClickToNavigate"));
-// navigationButton.addSelectionListener(new SelectionListener() {
-// @Override
-// public void widgetDefaultSelected(SelectionEvent e)
-// {
-// AuditEntryDialog.this.navigationService.fireNavigate(entryToDescribe.getElement());
-// }
-//
-// @Override
-// public void widgetSelected(SelectionEvent e)
-// {
-// AuditEntryDialog.this.navigationService.fireNavigate(entryToDescribe.getElement());
-// }
-// });
-// // set attachments
-// GridData layoutData = new GridData(SWT.FILL, SWT.FILL, true, true);
-// auditMessage.setLayoutData(layoutData);
-//
-// layoutData = new GridData(SWT.FILL, SWT.FILL, false, true);
-// navigationButton.setLayoutData(layoutData);
-// return descriptionGroup;
-// }
-//
-// /**
-// * Create the list that contains the elements linked to the audit report.
-// * <p>
-// * It contains the elements described in the reported error message.
-// */
-// private Group createLinkedElementsList() {
-// Group group = new Group(this.area, SWT.NONE);
-// group.setText(Audit.I18N.getString("AuditEntryDialog.LinkedElements.Label"));
-//
-// group.setLayout(new GridLayout(1, false));
-//
-// TableViewer linkedElementsList = new TableViewer(group, SWT.BORDER);
-// linkedElementsList.setContentProvider(new
-// LinkedElementContentProvider());
-// linkedElementsList.setLabelProvider(new
-// LinkedElementLabelProvider(this.modelingSession));
-// linkedElementsList.setInput(this.entry);
-// linkedElementsList.getControl().setToolTipText("Double-click an element to select it in the explorer");
-//
-// GridData gd_linkedElementsList = new GridData(SWT.FILL, SWT.FILL, true,
-// true);
-// linkedElementsList.getTable().setLayoutData(gd_linkedElementsList);
-// linkedElementsList.addSelectionChangedListener(new
-// ISelectionChangedListener() {
-//
-// @Override
-// public void selectionChanged(SelectionChangedEvent event)
-// {
-// ISelection selection = event.getSelection();
-// if (selection instanceof IStructuredSelection) {
-// IStructuredSelection structuredSelection = (IStructuredSelection)
-// selection;
-// if (structuredSelection.size() == 1) {
-// Object data = structuredSelection.getFirstElement();
-// if (data instanceof MObject) {
-// MObject element = (MObject) data;
-// AuditEntryDialog.this.navigationService.fireNavigate(element);
-// }
-// }
-// }
-//
-// }
-// });
-// return group;
-// }
-//
-// }
     /**
      * The main composite of the dialog box The modeling session.
      */
@@ -358,12 +157,6 @@ public class ErrorReportDialog extends IconAndMessageDialog {
             ArrayList<Object> infos = new ArrayList<>();
             infos.add(main);
             for (Object o : linkedObjects) {
-                // if (o instanceof Element){
-                // Element element = (Element) o;
-                // if(!element.isDeleted())
-                // infos.add(element.getName());
-                // }
-                // else
                 infos.add(o);
             }
             return infos.toArray();

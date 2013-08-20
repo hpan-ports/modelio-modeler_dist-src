@@ -50,10 +50,10 @@ public class CreateConnectedConnectionCommand extends Command {
     @objid ("6386ae90-5bd5-11e2-9e33-00137282c51b")
     private EditPart requiredInterfacePart;
 
-    @objid ("5e362267-aba2-4447-8d5b-cb1eb2764d43")
+    @objid ("0ee3af5f-e4e0-465c-a348-09947ff2ec3a")
     private Point location;
 
-    @objid ("318c9669-3666-48da-b947-24f23ae418eb")
+    @objid ("5a97b6de-4328-4da0-acf6-63534e6273f6")
     private CreateConnectionRequest request;
 
     /**

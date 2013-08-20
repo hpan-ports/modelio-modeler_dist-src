@@ -48,7 +48,6 @@ import org.modelio.app.core.picking.IModelioPickingService;
 import org.modelio.app.core.picking.IPickingClient;
 import org.modelio.app.core.picking.IPickingSession;
 import org.modelio.core.ui.plugin.CoreUi;
-import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
 import org.modelio.metamodel.uml.statik.Feature;
 import org.modelio.metamodel.uml.statik.VisibilityMode;
@@ -101,7 +100,7 @@ public class ModelElementListCellEditor extends KTableCellEditor implements IPic
 // TODO CHM drop listener
 // //private EditorDropListener dropListener;
     @objid ("8d645084-c068-11e1-8c0a-002564c97630")
-    private List<Class<? extends Element>> allowedClasses = null;
+    private List<Class<? extends MObject>> allowedClasses = null;
 
     @objid ("163df214-16da-11e2-aa0d-002564c97630")
     private IPickingSession pickingSession;
@@ -117,7 +116,7 @@ public class ModelElementListCellEditor extends KTableCellEditor implements IPic
      * @param pickingService the modelio picking service. Optional.
      */
     @objid ("8d64508a-c068-11e1-8c0a-002564c97630")
-    public ModelElementListCellEditor(List<Class<? extends Element>> allowedClasses, List<ModelElement> elements, boolean acceptNullValue, IModelioPickingService pickingService) {
+    public ModelElementListCellEditor(List<Class<? extends MObject>> allowedClasses, List<ModelElement> elements, boolean acceptNullValue, IModelioPickingService pickingService) {
         this.allowedClasses = allowedClasses;
         this.m_elements = new ArrayList<>();
         this.pickingService = pickingService;
@@ -381,7 +380,7 @@ public class ModelElementListCellEditor extends KTableCellEditor implements IPic
     }
 
 /*
-     * @Override public boolean acceptDroppedElements(Element[] target) { if (target.length != 1) { return false; } for (final
+     * @Override public boolean acceptDroppedElements(MObject[] target) { if (target.length != 1) { return false; } for (final
      * Class<?> c : this.allowedClasses) { if (c.isAssignableFrom(target[0].getClass())) { return true; } } return false; }
      */
     @objid ("163e4035-16da-11e2-aa0d-002564c97630")
@@ -414,7 +413,7 @@ public class ModelElementListCellEditor extends KTableCellEditor implements IPic
     }
 
 /*
-     * @Override public void setDroppedElements(Element[] target) { if (acceptElement (target[0])) { setContent (target[0]);
+     * @Override public void setDroppedElements(MObject[] target) { if (acceptElement (target[0])) { setContent (target[0]);
      * validate (true); } }
      */
     @objid ("163f51a4-16da-11e2-aa0d-002564c97630")

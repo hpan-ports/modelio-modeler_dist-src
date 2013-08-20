@@ -23,11 +23,14 @@ package org.modelio.diagram.editor.statik.elements.naryassoc;
 
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
+import org.modelio.diagram.editor.statik.elements.association.GmRoleNameLabel;
+import org.modelio.diagram.editor.statik.elements.rolecardinalitylabel.GmRoleCardinalityLabel;
 import org.modelio.diagram.elements.common.abstractdiagram.GmAbstractDiagram;
 import org.modelio.diagram.elements.core.link.ExtensionLocation;
 import org.modelio.diagram.elements.core.link.GmLink;
 import org.modelio.diagram.elements.core.link.extensions.GmFractionalConnectionLocator;
 import org.modelio.diagram.elements.core.model.IGmLinkable;
+import org.modelio.diagram.elements.core.node.GmNodeModel;
 import org.modelio.diagram.elements.umlcommon.informationflowgroup.GmInfoFlowsGroup;
 import org.modelio.diagram.elements.umlcommon.informationflowgroup.GmInformationFlowArrow;
 import org.modelio.diagram.persistence.IDiagramReader;
@@ -59,7 +62,7 @@ public class GmNAssocEndLink extends GmLink {
      * Current version of this Gm. Defaults to 0.
      */
     @objid ("35c0616d-55b7-11e2-877f-002564c97630")
-    private final int minorVersion = 0;
+    private final int minorVersion = 1;
 
     @objid ("35c06170-55b7-11e2-877f-002564c97630")
     private static final int MAJOR_VERSION = 0;
@@ -160,7 +163,24 @@ public class GmNAssocEndLink extends GmLink {
     @objid ("35c36e79-55b7-11e2-877f-002564c97630")
     @Override
     protected void readLink(IDiagramReader in) {
-        this.role = (NaryAssociationEnd) resolveRef(getRepresentedRef());
+        Object versionProperty = in.readProperty("GmAssociation." + MINOR_VERSION_PROPERTY);
+        int readVersion = versionProperty == null ? 0 : ((Integer) versionProperty).intValue();
+        switch (readVersion) {
+        case 0: {
+            read_0();
+            break;
+        }
+        case 1: {
+            read_1();
+            break;
+        }
+        default: {
+            assert (false) : "version number not covered!";
+            // reading as last handled version: 1
+            read_1();
+            break;
+        }
+        }
     }
 
     @objid ("35c36e7f-55b7-11e2-877f-002564c97630")
@@ -192,6 +212,49 @@ public class GmNAssocEndLink extends GmLink {
     @Override
     public int getMajorVersion() {
         return MAJOR_VERSION;
+    }
+
+    @objid ("494293bc-bdac-4a16-8b7e-7d2e872102d0")
+    protected void read_0() {
+        this.role = (NaryAssociationEnd) resolveRef(getRepresentedRef());
+             
+        // Look for labels to migrate... there should be two
+        GmRoleNameLabel oldRoleLabel = null;
+        GmRoleCardinalityLabel oldCardinalityLabel = null;
+        for (GmNodeModel extension : this.getExtensions()) {
+            if (extension instanceof GmRoleNameLabel) {
+                oldRoleLabel = (GmRoleNameLabel) extension;
+            } else if (extension instanceof GmRoleCardinalityLabel) {
+                oldCardinalityLabel = (GmRoleCardinalityLabel) extension;
+            }
+        }
+        
+        if (oldRoleLabel != null) {
+            // Create a new label, with the appropriate Gm
+            final GmNaryRoleNameLabel newRoleLabel = new GmNaryRoleNameLabel(getDiagram(), this.role, oldRoleLabel.getRepresentedRef());
+            addExtension(ExtensionLocation.TargetNW, newRoleLabel);
+            newRoleLabel.setLayoutData(oldRoleLabel.getLayoutData());
+            
+            // Delete the old association label
+            removeExtension(oldRoleLabel);
+            oldRoleLabel.delete();
+        }
+        
+        if (oldCardinalityLabel != null) {
+            // Create a new label, with the appropriate Gm
+            final GmNaryRoleCardinalityLabel newCardinalityLabel = new GmNaryRoleCardinalityLabel(getDiagram(), this.role, oldCardinalityLabel.getRepresentedRef());
+            addExtension(ExtensionLocation.TargetSE, newCardinalityLabel);
+            newCardinalityLabel.setLayoutData(oldCardinalityLabel.getLayoutData());
+            
+            // Delete the old association label
+            removeExtension(oldCardinalityLabel);
+            oldCardinalityLabel.delete();
+        }
+    }
+
+    @objid ("6fc79db6-0b5c-451f-92b0-8e8b63eed547")
+    protected void read_1() {
+        this.role = (NaryAssociationEnd) resolveRef(getRepresentedRef());
     }
 
 }

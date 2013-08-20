@@ -60,6 +60,7 @@ public class Xmi extends AbstractUIPlugin {
      * @see org.eclipse.ui.plugin.AbstractUIPlugin#start(org.osgi.framework.BundleContext)
      */
     @objid ("8d0df960-03bd-460f-8bd7-fc86b1059793")
+    @Override
     public void start(BundleContext bundleContext) throws Exception {
         context = bundleContext;
         ServiceReference<ExtendedLogService> ref = bundleContext.getServiceReference(ExtendedLogService.class);
@@ -73,8 +74,9 @@ public class Xmi extends AbstractUIPlugin {
      * @see org.eclipse.ui.plugin.AbstractUIPlugin#stop(org.osgi.framework.BundleContext)
      */
     @objid ("e5320a2c-24b4-4926-9e48-dc0208225efc")
-    public void stop(BundleContext context) throws Exception {
-        this.context = null;
+    @Override
+    public void stop(BundleContext bundleContext) throws Exception {
+        context = null;
     }
 
     /**

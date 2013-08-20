@@ -27,7 +27,6 @@ import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.e4.ui.model.application.ui.basic.MPart;
-import org.eclipse.e4.ui.services.EContextService;
 import org.eclipse.emf.common.command.CommandStack;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.GraphicalEditPart;
@@ -55,8 +54,6 @@ import org.modelio.diagram.editor.deployment.editor.DeploymentDiagramEditorInput
 import org.modelio.diagram.editor.handlers.ImageBuilder;
 import org.modelio.diagram.editor.object.editor.ObjectDiagramEditorInput;
 import org.modelio.diagram.editor.plugin.DiagramEditorsManager;
-import org.modelio.diagram.editor.plugin.IDiagramConfigurer;
-import org.modelio.diagram.editor.plugin.IDiagramConfigurerRegistry;
 import org.modelio.diagram.editor.sequence.editor.SequenceDiagramEditorInput;
 import org.modelio.diagram.editor.silent.SilentDiagramEditor;
 import org.modelio.diagram.editor.state.editor.StateDiagramEditorInput;
@@ -64,14 +61,13 @@ import org.modelio.diagram.editor.statik.editor.StaticDiagramEditorInput;
 import org.modelio.diagram.elements.common.abstractdiagram.DiagramPersistence;
 import org.modelio.diagram.elements.core.model.GmModel;
 import org.modelio.diagram.elements.core.model.IGmObject;
+import org.modelio.diagram.elements.core.model.ModelManager;
 import org.modelio.diagram.elements.core.node.GmNodeModel;
 import org.modelio.diagram.elements.core.requests.ModelElementDropRequest;
-import org.modelio.gproject.model.IMModelServices;
 import org.modelio.metamodel.diagrams.AbstractDiagram;
 import org.modelio.vcore.smkernel.mapi.MObject;
 import org.modelio.vcore.smkernel.mapi.MRef;
 
-//import com.modeliosoft.modelio.scope.diagram.editor.ScopeDiagramEditorInput;
 /**
  * A handle on the content of a Diagram, allowing interactions like navigating nodes and links, masking and unmasking elements,
  * saving the content of the diagram into a file, etc.
@@ -98,47 +94,43 @@ public class DiagramHandle implements IDiagramHandle {
     /**
      * Creates and returns a DiagramHandle for the given diagram. It is the caller's responsibility to call {@link #close()} on the
      * handle once it isn't needed anymore.
-     * @param abstractDiagram the diagram for which a handle is requested.
-     * @return a DiagramHandle for the given diagram.
      */
     @objid ("392e5957-d5dd-4caf-abf2-87a798299e50")
-    public static DiagramHandle create(AbstractDiagram abstractDiagram, IProjectService projectService, IDiagramConfigurerRegistry configurerRegistry, DiagramEditorsManager editorManager, IMModelServices modelServices, EContextService contextService) {
+    public static DiagramHandle create(ModelManager manager, AbstractDiagram abstractDiagram, IProjectService projectService, DiagramEditorsManager editorManager) {
         MPart editorPart = editorManager.get(abstractDiagram);
         
         if (editorPart != null) {
             return create((IDiagramEditor) editorPart.getObject());
         } else {
-            // FIXME what about the configurer?
-            IDiagramConfigurer configurer = configurerRegistry.getConfigurer(abstractDiagram.getMClass().getName());
-            DiagramEditorInput input = createEditorInput(abstractDiagram, projectService, modelServices, contextService);
+            DiagramEditorInput input = createEditorInput(manager, abstractDiagram);
             SilentDiagramEditor editor = new SilentDiagramEditor(input, projectService);
             return create(editor);
         }
     }
 
     @objid ("4c395f09-5c18-43d6-83f5-cbccb98c39f4")
-    private static DiagramEditorInput createEditorInput(AbstractDiagram abstractDiagram, IProjectService projectService, IMModelServices modelServices, EContextService contextService) {
+    private static DiagramEditorInput createEditorInput(ModelManager manager, AbstractDiagram abstractDiagram) {
         switch (abstractDiagram.getMClass().getName()) {
         case "ActivityDiagram":
-            return new ActivityDiagramEditorInput(projectService.getSession(), abstractDiagram, modelServices, contextService);
-               /* case "ScopeDiagram":
+            return new ActivityDiagramEditorInput(manager, abstractDiagram);
+            /*case "ScopeDiagram":
             return new ScopeDiagramEditorInput(projectService.getSession(), abstractDiagram, modelServices);*/
         case "BpmnCollaborationDiagram":
-            return new BpmnDiagramEditorInput(projectService.getSession(), abstractDiagram, modelServices, contextService);
+            return new BpmnDiagramEditorInput(manager, abstractDiagram);
         case "CommunicationDiagram":
-            return new CommunicationDiagramEditorInput(projectService.getSession(), abstractDiagram, modelServices, contextService);
+            return new CommunicationDiagramEditorInput(manager, abstractDiagram);
         case "DeploymentDiagram":
-            return new DeploymentDiagramEditorInput(projectService.getSession(), abstractDiagram, modelServices, contextService);
+            return new DeploymentDiagramEditorInput(manager, abstractDiagram);
         case "ObjectDiagram":
-            return new ObjectDiagramEditorInput(projectService.getSession(), abstractDiagram, modelServices, contextService);
+            return new ObjectDiagramEditorInput(manager, abstractDiagram);
         case "SequenceDiagram":
-            return new SequenceDiagramEditorInput(projectService.getSession(), abstractDiagram, modelServices, contextService);
+            return new SequenceDiagramEditorInput(manager, abstractDiagram);
         case "StateMachineDiagram":
-            return new StateDiagramEditorInput(projectService.getSession(), abstractDiagram, modelServices, contextService);
+            return new StateDiagramEditorInput(manager, abstractDiagram);
         case "StaticDiagram":
-            return new StaticDiagramEditorInput(projectService.getSession(), abstractDiagram, modelServices, contextService);
+            return new StaticDiagramEditorInput(manager, abstractDiagram);
         default :
-            return new StaticDiagramEditorInput(projectService.getSession(), abstractDiagram, modelServices, contextService);
+            return new StaticDiagramEditorInput(manager, abstractDiagram);
         }
     }
 
@@ -163,8 +155,6 @@ public class DiagramHandle implements IDiagramHandle {
 
     /**
      * Returns the edit part for the passed object.
-     * @param gmObject the object for which an EditPart is sought.
-     * @return the EditPart for the passed object if any, <code>null</code> otherwise.
      */
     @objid ("36a43f0b-0ba1-48cb-82ea-2f1ece213b92")
     public GraphicalEditPart getEditPart(IGmObject gmObject) {
@@ -237,14 +227,17 @@ public class DiagramHandle implements IDiagramHandle {
 
     @objid ("54450799-3ffe-4b7a-a299-8bc07dbea76e")
     private void saveAsImage(final RootEditPart rootEditPart, final String location, final int format, final int margin) {
-        ImageBuilder imageBuilder = new ImageBuilder();
-        Image img = imageBuilder.makeImage(rootEditPart, format, margin);
+        ImageBuilder imageBuilder = new ImageBuilder(margin);
+        Image img = imageBuilder.makeImage(rootEditPart);
         
         if (img != null) {
-            ImageLoader imgLoader = new ImageLoader();
-            imgLoader.data = new ImageData[] { img.getImageData() };
-            imgLoader.save(location, format);
-            img.dispose();
+            try {
+                ImageLoader imgLoader = new ImageLoader();
+                imgLoader.data = new ImageData[] { img.getImageData() };
+                imgLoader.save(location, format);
+            } finally {
+                img.dispose();
+            }
         }
     }
 
@@ -291,8 +284,6 @@ public class DiagramHandle implements IDiagramHandle {
     /**
      * Creates and returns a DiagramHandle for the given diagram editor. It is the caller's responsibility to call {@link #close()}
      * on the handle once it isn't needed anymore.
-     * @param editor the diagram editor for which a handle is requested.
-     * @return a DiagramHandle for the given diagram.
      */
     @objid ("b536f45b-38b6-423c-ba07-f253a2085b5b")
     public static DiagramHandle create(final IDiagramEditor editor) {

@@ -55,6 +55,7 @@ import org.modelio.gproject.model.IMModelServices;
 import org.modelio.metamodel.Metamodel;
 import org.modelio.metamodel.factory.ElementNotUniqueException;
 import org.modelio.metamodel.mda.ModuleComponent;
+import org.modelio.metamodel.uml.infrastructure.Profile;
 import org.modelio.metamodel.uml.infrastructure.Stereotype;
 import org.modelio.vcore.smkernel.mapi.MClass;
 
@@ -367,10 +368,13 @@ public class ToolRegistry {
     @objid ("667cc000-33f7-11e2-95fe-001ec947c8cc")
     private static ImageDescriptor getStandardIcon(MClass metaclass, Stereotype stereotype) {
         if (stereotype != null) {
-            ModuleComponent moduleComponent = stereotype.getOwner().getOwnerModule();
-            Image image = ModuleI18NService.getIcon(moduleComponent, stereotype);
-            if (image != null) {
-                return ImageDescriptor.createFromImage(image);
+            final Profile owner = stereotype.getOwner();
+            if (owner != null) {
+                ModuleComponent moduleComponent = owner.getOwnerModule();
+                Image image = ModuleI18NService.getIcon(moduleComponent, stereotype);
+                if (image != null) {
+                    return ImageDescriptor.createFromImage(image);
+                }
             }
         }
         final Image icon = MetamodelImageService.getIcon(metaclass);

@@ -26,9 +26,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.eclipse.core.commands.AbstractHandler;
-import org.eclipse.core.commands.ExecutionEvent;
-import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.GroupMarker;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IMenuListener;
@@ -60,8 +57,6 @@ import org.eclipse.jface.text.source.SourceViewerConfiguration;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.ST;
 import org.eclipse.swt.custom.StyledText;
-import org.eclipse.swt.custom.VerifyKeyListener;
-import org.eclipse.swt.events.VerifyEvent;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.FontData;
@@ -121,13 +116,13 @@ class InputView extends SourceViewer implements IInputView {
      * All registered actions
      */
     @objid ("00820a8c-663d-105c-84ef-001ec947cd2a")
-    private final Map<String , IAction> globalActions = new HashMap<String, IAction>();
+    private final Map<String , IAction> globalActions = new HashMap<>();
 
     /**
      * Actions whose state must be updated depending on the selection
      */
     @objid ("00825cbc-663d-105c-84ef-001ec947cd2a")
-    private final List<String> selectionDependentActions = new ArrayList<String>();
+    private final List<String> selectionDependentActions = new ArrayList<>();
 
     @objid ("0025a422-572b-1064-a2b8-001ec947cd2a")
     private final ScriptView viewPart;
@@ -163,9 +158,6 @@ class InputView extends SourceViewer implements IInputView {
         LineNumberRulerColumn column = new LineNumberRulerColumn();
         verticalRuler.addDecorator(0, column);
         
-        // Add contextual menu
-        initializeActions();
-        
         // Add StyledText key bindings
         getTextWidget().setKeyBinding(SWT.MOD1 | 'A', ST.SELECT_ALL);
         
@@ -174,61 +166,6 @@ class InputView extends SourceViewer implements IInputView {
         
         // Add drag and drop
         new TextViewerDragDropManager(viewPart, this);
-        
-        // Listener[] listeners = getTextWidget().getListeners(SWT.KeyUp);
-        // this.llup = new ArrayList<Listener>();
-        // for (Listener l : listeners) {
-        // this.llup.add(l);
-        // }
-        // for (Listener l : this.llup) {
-        // getTextWidget().removeListener(SWT.KeyUp, l);
-        // }
-        //
-        // listeners = getTextWidget().getListeners(SWT.KeyDown);
-        // ArrayList<Listener> lldown = new ArrayList<>();
-        // for (Listener l : listeners) {
-        // lldown.add(l);
-        // }
-        // for (Listener l : lldown) {
-        // getTextWidget().removeListener(SWT.KeyDown, l);
-        // }
-        //
-        // getTextWidget().addKeyListener(new KeyListener() {
-        //
-        // @Override
-        // public void keyReleased(KeyEvent e) {
-        // if (((e.stateMask & SWT.CTRL) != 0) && (e.keyCode == SWT.CR)) {
-        // ScriptView sview = InputView.this.viewPart;
-        //
-        // final String s = popInput(true);
-        // final IScriptRunner scriptRunner = sview.getScriptRunner();
-        //
-        // if (scriptRunner != null) {
-        // ScriptViewSelectionGetter selectionGetter = sview.getSelectionGetter();
-        // scriptRunner.runScript(s, selectionGetter.getSelection(), selectionGetter.getSelectedElements());
-        // }
-        // e.doit = false;
-        // }
-        // }
-        //
-        // @Override
-        // public void keyPressed(KeyEvent e) {
-        //
-        // // nothing to do
-        // }
-        // });
-        //
-        // // for (Listener l : llup) {
-        // // getTextWidget().addListener(SWT.KeyUp, l);
-        // // }
-        // // for (Listener l : lldown) {
-        // // getTextWidget().addListener(SWT.KeyDown, l);
-        // // }
-        //
-        // for (Listener listener : getTextWidget().getListeners(SWT.KeyUp)) {
-        // System.err.println("KeyUp listener = " + listener);
-        //
-        // }
     }
 
     @objid ("0082bcb6-663d-105c-84ef-001ec947cd2a")
@@ -332,104 +269,6 @@ class InputView extends SourceViewer implements IInputView {
         menu.add(new Separator(IActionConstants.GROUP_EXECUTE));
         // Some commands are added by plugin.xml here.
         // eg : Execute
-    }
-
-    /**
-     * Create all the {@link IAction IActions} used in the contextual menu and the key bindings.
-     */
-    @objid ("00835af4-663d-105c-84ef-001ec947cd2a")
-    private void initializeActions() {
-        // ISharedImages sharedImages =
-        // PlatformUI.getWorkbench().getSharedImages();
-        // // final IHandlerService service = (IHandlerService)
-        // // viewPart.getSite().getService(IHandlerService.class);
-        //
-        // TextViewerAction action = new TextViewerAction(this,
-        // ITextOperationTarget.UNDO);
-        //        action.setText(Messages.getString("Menus.Edit.Undo")); //$NON-NLS-1$
-        // action.setImageDescriptor(sharedImages.getImageDescriptor(ISharedImages.IMG_TOOL_UNDO));
-        // action.setDisabledImageDescriptor(sharedImages.getImageDescriptor(ISharedImages.IMG_TOOL_UNDO_DISABLED));
-        // action.setAccelerator(SWT.CTRL | 'Z');
-        // this.globalActions.put(ActionFactory.UNDO.getId(), action);
-        // // With this, Ctrl+Z work only just after context menu is displayed
-        // // service.activateHandler(UNDO_COMMAND_ID, new
-        // ActionHandler(action));
-        //
-        // action = new TextViewerAction(this, ITextOperationTarget.REDO);
-        //        action.setText(Messages.getString("Menus.Edit.Redo")); //$NON-NLS-1$
-        // action.setAccelerator(SWT.CTRL | 'Y');
-        // action.setImageDescriptor(sharedImages.getImageDescriptor(ISharedImages.IMG_TOOL_REDO));
-        // action.setDisabledImageDescriptor(sharedImages.getImageDescriptor(ISharedImages.IMG_TOOL_REDO_DISABLED));
-        // this.globalActions.put(ActionFactory.REDO.getId(), action);
-        // // service.activateHandler(REDO_COMMAND_ID, new
-        // ActionHandler(action));
-        //
-        // action = new TextViewerAction(this, ITextOperationTarget.CUT);
-        //        action.setText(Messages.getString("Menus.Edit.Cut")); //$NON-NLS-1$
-        // action.setImageDescriptor(sharedImages.getImageDescriptor(ISharedImages.IMG_TOOL_CUT));
-        // action.setDisabledImageDescriptor(sharedImages.getImageDescriptor(ISharedImages.IMG_TOOL_CUT_DISABLED));
-        // this.globalActions.put(ActionFactory.CUT.getId(), action);
-        //
-        // action = new TextViewerAction(this, ITextOperationTarget.COPY);
-        //        action.setText(Messages.getString("Menus.Edit.Copy")); //$NON-NLS-1$
-        // action.setImageDescriptor(sharedImages.getImageDescriptor(ISharedImages.IMG_TOOL_COPY));
-        // action.setDisabledImageDescriptor(sharedImages.getImageDescriptor(ISharedImages.IMG_TOOL_COPY_DISABLED));
-        // this.globalActions.put(ActionFactory.COPY.getId(), action);
-        //
-        // action = new TextViewerAction(this, ITextOperationTarget.PASTE);
-        //        action.setText(Messages.getString("Menus.Edit.Paste")); //$NON-NLS-1$
-        // action.setImageDescriptor(sharedImages.getImageDescriptor(ISharedImages.IMG_TOOL_PASTE));
-        // action.setDisabledImageDescriptor(sharedImages.getImageDescriptor(ISharedImages.IMG_TOOL_PASTE_DISABLED));
-        // this.globalActions.put(ActionFactory.PASTE.getId(), action);
-        //
-        // action = new TextViewerAction(this, ITextOperationTarget.SELECT_ALL);
-        //        action.setText(Messages.getString("Menus.Edit.SelectAll")); //$NON-NLS-1$
-        // this.globalActions.put(ActionFactory.SELECT_ALL.getId(), action);
-        // this.globalActions.put(SELECT_ALL_COMMAND_ID, action);
-        //
-        // // action= new TextViewerAction(this,
-        // // SourceViewer.CONTENTASSIST_PROPOSALS);
-        //        //action.setText(Messages.getString("Menus.Edit.content.assist")); //$NON-NLS-1$
-        //        //fGlobalActions.put("ContentAssistProposal", action); //$NON-NLS-1$
-        //
-        // action = new TextViewerAction(this, ITextOperationTarget.SHIFT_LEFT);
-        //        action.setText(Messages.getString("Menus.Edit.ShiftLeft")); //$NON-NLS-1$
-        // action.setAccelerator(SWT.MOD2 | SWT.TAB);
-        // this.globalActions.put(SHIFT_LEFT_COMMAND_ID, action);
-        //
-        // action = new TextViewerAction(this,
-        // ITextOperationTarget.SHIFT_RIGHT);
-        //        action.setText(Messages.getString("Menus.Edit.ShiftRight")); //$NON-NLS-1$
-        // action.setAccelerator(SWT.TAB);
-        // this.globalActions.put(SHIFT_RIGHT_COMMAND_ID, action);
-        //
-        // this.selectionDependentActions.add(ActionFactory.CUT.getId());
-        // this.selectionDependentActions.add(ActionFactory.COPY.getId());
-        // this.selectionDependentActions.add(ActionFactory.PASTE.getId());
-        // this.selectionDependentActions.add(SHIFT_LEFT_COMMAND_ID);
-        // this.selectionDependentActions.add(SHIFT_RIGHT_COMMAND_ID);
-        //
-        // // Register listeners that update action states
-        // addSelectionChangedListener(new ISelectionChangedListener() {
-        // @Override
-        // public void selectionChanged(SelectionChangedEvent event) {
-        // updateSelectionDependentActions();
-        // }
-        // });
-        //
-        // addTextListener(new ITextListener() {
-        // @Override
-        // public void textChanged(TextEvent event) {
-        // updateUndoAction();
-        // }
-        // });
-        //
-        // // Listen for <Ctrl>+<space> to call completion
-        // //
-        // // prependVerifyKeyListener(new LVerifyKeyListener());
-        // // getTextWidget().addVerifyKeyListener(new LVerifyKeyListener());
-        //
-        // initializeContextualMenu();
     }
 
     /**
@@ -547,7 +386,7 @@ class InputView extends SourceViewer implements IInputView {
      * Will configure someday syntax highlighting and auto completion.
      */
     @objid ("0084c36c-663d-105c-84ef-001ec947cd2a")
-    private static class InputViewSourceViewerConfiguration extends SourceViewerConfiguration {
+    protected static class InputViewSourceViewerConfiguration extends SourceViewerConfiguration {
         @objid ("0084e8ce-663d-105c-84ef-001ec947cd2a")
         @Override
         public IPresentationReconciler getPresentationReconciler(ISourceViewer sourceViewer) {
@@ -605,7 +444,7 @@ class InputView extends SourceViewer implements IInputView {
                 
                 setDefaultReturnToken(new Token(textAtt));
                 
-                List<IRule> rules = new ArrayList();
+                List<IRule> rules = new ArrayList<>();
                 
                 // Add rule for single line comments.
                 rules.add(new EndOfLineRule("#", comment));

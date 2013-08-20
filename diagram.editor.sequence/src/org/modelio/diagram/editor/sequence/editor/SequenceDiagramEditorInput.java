@@ -22,24 +22,21 @@
 package org.modelio.diagram.editor.sequence.editor;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.eclipse.e4.ui.services.EContextService;
 import org.modelio.diagram.editor.DiagramEditorInput;
 import org.modelio.diagram.editor.sequence.elements.sequencediagram.GmSequenceDiagram;
 import org.modelio.diagram.elements.common.abstractdiagram.GmAbstractDiagram;
 import org.modelio.diagram.elements.core.model.IGmLinkFactory;
 import org.modelio.diagram.elements.core.model.IGmNodeFactory;
 import org.modelio.diagram.elements.core.model.ModelManager;
-import org.modelio.gproject.model.IMModelServices;
 import org.modelio.metamodel.diagrams.AbstractDiagram;
 import org.modelio.metamodel.diagrams.SequenceDiagram;
-import org.modelio.vcore.session.api.ICoreSession;
 import org.modelio.vcore.smkernel.mapi.MRef;
 
 @objid ("d8bedef0-55b6-11e2-877f-002564c97630")
 public class SequenceDiagramEditorInput extends DiagramEditorInput {
     @objid ("d8bedef3-55b6-11e2-877f-002564c97630")
-    public SequenceDiagramEditorInput(ICoreSession session, AbstractDiagram diagram, IMModelServices modelServices, EContextService contextService) {
-        super(session, diagram, modelServices, contextService);
+    public SequenceDiagramEditorInput(ModelManager modelManager, AbstractDiagram diagram) {
+        super(diagram, modelManager);
     }
 
     @objid ("d8bedefb-55b6-11e2-877f-002564c97630")

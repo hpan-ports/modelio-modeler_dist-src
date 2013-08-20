@@ -330,7 +330,7 @@ public class MObjectViewerDropListener extends ViewerDropAdapter {
     private boolean moveElements(final List<MObject> elementsToMove, final MObject targetElement) {
         try {
             MTools.getModelTool().moveElements(elementsToMove, targetElement, null);
-            //FIXME Anomalie #131 problem of "Widget is disposed"
+            // Workaround - Anomalie #131 problem of "Widget is disposed"
             getViewer().setInput(getViewer().getInput());
             // Select the result
             getViewer().setSelection(new StructuredSelection(elementsToMove));

@@ -47,10 +47,10 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 @objid ("00696928-c497-106a-bf4f-001ec947cd2a")
 class MetaclassChooserDialog extends ModelioDialog {
     @objid ("006aa964-c497-106a-bf4f-001ec947cd2a")
-    private final List<String> leftValues = new ArrayList<String>();
+    private final List<String> leftValues = new ArrayList<>();
 
     @objid ("006aaa68-c497-106a-bf4f-001ec947cd2a")
-    private final List<String> rightValues = new ArrayList<String>();
+    private final List<String> rightValues = new ArrayList<>();
 
     @objid ("a3ad7f4f-882a-4fe0-aa40-2dfcb8257a4a")
     private static final String HELP_TOPIC = "/org.modelio.documentation.modeler/html/Modeler-_modeler_modelio_settings_macros_catalog.html";

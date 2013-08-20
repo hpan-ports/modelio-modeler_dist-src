@@ -58,16 +58,16 @@ public class AuditView {
     private static final String POPUPID = "org.modelio.audit.popup";
 
     @objid ("9c9f683b-eb60-46c2-8aa5-c111a3e715c0")
-    private AuditPanelProvider view;
+    protected AuditPanelProvider view;
 
     @objid ("dce1f96c-127f-4ff4-9073-99105de5b82f")
-    private GProject project;
+    protected GProject project;
 
     @objid ("251de8e3-ad5e-4b96-ad44-513ed0df31ef")
-    private IMModelServices modelService;
+    protected IMModelServices modelService;
 
     @objid ("0f912ed5-3c10-49b8-88dd-cc6c87b61c18")
-    private Composite parentComposite;
+    protected Composite parentComposite;
 
     /**
      * Called by the framework to create the view and initialize it.
@@ -121,8 +121,6 @@ public class AuditView {
                             MMenu moduleMenu = MMenuFactory.INSTANCE.createMenu();
                             popupMenu.getChildren().add(moduleMenu);
                         }
-                        // TODO Auto-generated method stub
-        
                     }
                 });
             }else{

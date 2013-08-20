@@ -32,6 +32,7 @@ import org.eclipse.e4.core.di.annotations.Execute;
 import org.eclipse.e4.ui.services.IServiceConstants;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.modelio.app.project.core.services.IProjectService;
+import org.modelio.gproject.model.api.MTools;
 import org.modelio.metamodel.analyst.PropertyContainer;
 import org.modelio.metamodel.mda.Project;
 import org.modelio.metamodel.uml.infrastructure.Element;
@@ -80,7 +81,9 @@ public class DeleteElementHandler {
             if (!element.getStatus().isModifiable()) {
                 return false;
             }
-            // TODO if (!AuthExpert.canRemoveFrom(element, owner))
+            if (!MTools.getAuthTool().canRemoveFrom(element, owner)) {
+                return false;
+            }
         }
         return true;
     }
@@ -105,7 +108,9 @@ public class DeleteElementHandler {
         
         try (ITransaction t = this.projectService.getSession().getTransactionSupport().createTransaction("delete element")) {
             for (Element element : selectedElements) {
-                element.delete();
+                if (element.isValid()) {
+                    element.delete();
+                }
             }
             t.commit();
         }
@@ -122,7 +127,10 @@ public class DeleteElementHandler {
                 if (element instanceof Element) {
                     selectedElements.add((Element) element);
                 } else if (element instanceof IAdaptable) {
-                    selectedElements.add((Element) ((IAdaptable) element).getAdapter(Element.class));
+                    final Element adapter = (Element) ((IAdaptable) element).getAdapter(Element.class);
+                    if (adapter != null) {
+                        selectedElements.add(adapter);
+                    }
                 }
             }
         }

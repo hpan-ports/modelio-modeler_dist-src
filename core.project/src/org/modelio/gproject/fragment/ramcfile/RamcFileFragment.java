@@ -42,6 +42,7 @@ import org.modelio.gproject.ramc.core.archive.ModelComponentArchive;
 import org.modelio.vbasic.files.Unzipper;
 import org.modelio.vbasic.net.UriPathAccess;
 import org.modelio.vbasic.progress.IModelioProgress;
+import org.modelio.vbasic.progress.SubProgress;
 import org.modelio.vcore.session.api.IAccessManager;
 import org.modelio.vcore.session.api.repository.IRepository;
 import org.modelio.vcore.session.impl.permission.BasicAccessManager;
@@ -100,7 +101,7 @@ public class RamcFileFragment extends AbstractFragment {
     @objid ("cc07bd6d-d668-4067-b513-b7afaac79182")
     public IModelComponentInfos getInformations() throws IOException {
         Path archivePath = extractRamcToLocal(null);
-        return new ModelComponentArchive(archivePath).getInfos();
+        return new ModelComponentArchive(archivePath, false).getInfos();
     }
 
     @objid ("7420cca7-cc3e-11e1-87f1-001ec947ccaf")
@@ -212,8 +213,9 @@ public class RamcFileFragment extends AbstractFragment {
             Files.createDirectories(getDataDirectory());
         
             try (UriPathAccess acc = new UriPathAccess(this.uri, getAuthData())) {
-                monitor.subTask(CoreProject.getMessage("RamcFileFragment.ExtractRamcFrom", getId(), this.uri));
-                new Unzipper().unzip(acc.getPath(), localRamcPath, monitor);
+                SubProgress mon = SubProgress.convert(monitor);
+                mon.subTask(CoreProject.getMessage("RamcFileFragment.ExtractRamcFrom", getId(), this.uri));
+                new Unzipper().unzip(acc.getPath(), localRamcPath, mon);
         
                 return localRamcPath;
             } catch (MalformedURLException e1) {

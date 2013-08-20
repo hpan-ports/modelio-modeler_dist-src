@@ -135,10 +135,6 @@
 			<parameter name="dependency" value="OwnedNode" />
 		</command>
 		<separator />
-		<command id="org.modelio.app.ui.command.create.diagram">
-			<parameter name="metaclass" value="ActivityDiagram" />
-			<parameter name="dependency" value="Product" />
-		</command>
 	</popup>
 	<!-- Popup for ActivityPartition -->
 	<popup metaclass="ActivityPartition">
@@ -327,14 +323,6 @@
 			<parameter name="dependency" value="TemplateInstanciation" />
 		</command>
 		<separator />
-		<command id="org.modelio.app.ui.command.create.diagram">
-			<parameter name="metaclass" value="DeploymentDiagram" />
-			<parameter name="dependency" value="Product" />
-		</command>
-		<command id="org.modelio.app.ui.command.create.diagram">
-			<parameter name="metaclass" value="ObjectDiagram" />
-			<parameter name="dependency" value="Product" />
-		</command>
 	</popup>
 	<!-- Popup for AssociationEnd -->
 	<popup metaclass="AssociationEnd">
@@ -358,10 +346,6 @@
 			<parameter name="dependency" value="Part" />
 		</command>
 		<separator />
-		<command id="org.modelio.app.ui.command.create.diagram">
-			<parameter name="metaclass" value="ObjectDiagram" />
-			<parameter name="dependency" value="Product" />
-		</command>
 	</popup>
 	<!-- Popup for CallBehaviorAction -->
 	<popup metaclass="CallBehaviorAction">
@@ -510,26 +494,6 @@
 			<parameter name="dependency" value="OwnedElement" />
 		</command>
 		<separator />
-		<command id="org.modelio.app.ui.command.create.diagram">
-			<parameter name="metaclass" value="ClassDiagram" />
-			<parameter name="dependency" value="Product" />
-		</command>
-		<command id="org.modelio.app.ui.command.create.diagram">
-			<parameter name="metaclass" value="CompositeStructureDiagram" />
-			<parameter name="dependency" value="Product" />
-		</command>
-		<command id="org.modelio.app.ui.command.create.diagram">
-			<parameter name="metaclass" value="DeploymentDiagram" />
-			<parameter name="dependency" value="Product" />
-		</command>
-		<command id="org.modelio.app.ui.command.create.diagram">
-			<parameter name="metaclass" value="ObjectDiagram" />
-			<parameter name="dependency" value="Product" />
-		</command>
-		<command id="org.modelio.app.ui.command.create.diagram">
-			<parameter name="metaclass" value="UseCaseDiagram" />
-			<parameter name="dependency" value="Product" />
-		</command>
 	</popup>
 	<!-- Popup for Clause -->
 	<popup metaclass="Clause">
@@ -675,15 +639,6 @@
 			<parameter name="metaclass" value="InformationItem" />
 			<parameter name="dependency" value="OwnedElement" />
 		</command>
-		<separator />
-		<command id="org.modelio.app.ui.command.create.diagram">
-			<parameter name="metaclass" value="CompositeStructureDiagram" />
-			<parameter name="dependency" value="Product" />
-		</command>
-		<command id="org.modelio.app.ui.command.create.diagram">
-			<parameter name="metaclass" value="ObjectDiagram" />
-			<parameter name="dependency" value="Product" />
-		</command>
 	</popup>
 	<!-- Popup for CollaborationUse -->
 	<popup metaclass="CollaborationUse">
@@ -697,11 +652,6 @@
 		<command id="org.modelio.app.ui.command.create.element">
 			<parameter name="metaclass" value="CommunicationNode" />
 			<parameter name="dependency" value="Owned" />
-		</command>
-		<separator />
-		<command id="org.modelio.app.ui.command.create.diagram">
-			<parameter name="metaclass" value="CommunicationDiagram" />
-			<parameter name="dependency" value="Product" />
 		</command>
 	</popup>
 	<!-- Popup for Component -->
@@ -823,19 +773,6 @@
 		<command id="org.modelio.app.ui.command.create.element">
 			<parameter name="metaclass" value="InformationItem" />
 			<parameter name="dependency" value="OwnedElement" />
-		</command>
-		<separator />
-		<command id="org.modelio.app.ui.command.create.diagram">
-			<parameter name="metaclass" value="ClassDiagram" />
-			<parameter name="dependency" value="Product" />
-		</command>
-		<command id="org.modelio.app.ui.command.create.diagram">
-			<parameter name="metaclass" value="DeploymentDiagram" />
-			<parameter name="dependency" value="Product" />
-		</command>
-		<command id="org.modelio.app.ui.command.create.diagram">
-			<parameter name="metaclass" value="UseCaseDiagram" />
-			<parameter name="dependency" value="Product" />
 		</command>
 	</popup>
 	<!-- Popup for ConditionalNode -->
@@ -1050,18 +987,6 @@
 			<parameter name="metaclass" value="Port" />
 			<parameter name="dependency" value="Part" />
 		</command>
-		<separator />
-		<command id="org.modelio.app.ui.command.create.diagram">
-			<parameter name="metaclass" value="ObjectDiagram" />
-			<parameter name="dependency" value="Product" />
-		</command>
-	</popup>
-	<!-- Popup for Interaction -->
-	<popup metaclass="Interaction">
-		<command id="org.modelio.app.ui.command.create.diagram">
-			<parameter name="metaclass" value="SequenceDiagram" />
-			<parameter name="dependency" value="Product" />
-		</command>
 	</popup>
 	<!-- Popup for Interface -->
 	<popup metaclass="Interface">
@@ -1144,15 +1069,6 @@
 		<command id="org.modelio.app.ui.command.create.element">
 			<parameter name="metaclass" value="InformationItem" />
 			<parameter name="dependency" value="OwnedElement" />
-		</command>
-		<separator />
-		<command id="org.modelio.app.ui.command.create.diagram">
-			<parameter name="metaclass" value="ClassDiagram" />
-			<parameter name="dependency" value="Product" />
-		</command>
-		<command id="org.modelio.app.ui.command.create.diagram">
-			<parameter name="metaclass" value="UseCaseDiagram" />
-			<parameter name="dependency" value="Product" />
 		</command>
 	</popup>
 	<!-- Popup for LoopNode -->
@@ -1333,19 +1249,6 @@
 			<parameter name="metaclass" value="InformationItem" />
 			<parameter name="dependency" value="OwnedElement" />
 		</command>
-		<separator />
-		<command id="org.modelio.app.ui.command.create.diagram">
-			<parameter name="metaclass" value="CompositeStructureDiagram" />
-			<parameter name="dependency" value="Product" />
-		</command>
-		<command id="org.modelio.app.ui.command.create.diagram">
-			<parameter name="metaclass" value="DeploymentDiagram" />
-			<parameter name="dependency" value="Product" />
-		</command>
-		<command id="org.modelio.app.ui.command.create.diagram">
-			<parameter name="metaclass" value="ObjectDiagram" />
-			<parameter name="dependency" value="Product" />
-		</command>
 	</popup>
 	<!-- Popup for OpaqueAction -->
 	<popup metaclass="OpaqueAction">
@@ -1497,23 +1400,6 @@
 		<command id="org.modelio.app.ui.command.create.element">
 			<parameter name="metaclass" value="InformationItem" />
 			<parameter name="dependency" value="OwnedElement" />
-		</command>
-		<separator />
-		<command id="org.modelio.app.ui.command.create.diagram">
-			<parameter name="metaclass" value="ClassDiagram" />
-			<parameter name="dependency" value="Product" />
-		</command>
-		<command id="org.modelio.app.ui.command.create.diagram">
-			<parameter name="metaclass" value="DeploymentDiagram" />
-			<parameter name="dependency" value="Product" />
-		</command>
-		<command id="org.modelio.app.ui.command.create.diagram">
-			<parameter name="metaclass" value="ObjectDiagram" />
-			<parameter name="dependency" value="Product" />
-		</command>
-		<command id="org.modelio.app.ui.command.create.diagram">
-			<parameter name="metaclass" value="UseCaseDiagram" />
-			<parameter name="dependency" value="Product" />
 		</command>
 	</popup>
 	<!-- Popup for Port -->
@@ -1722,11 +1608,6 @@
 			<parameter name="metaclass" value="Event" />
 			<parameter name="dependency" value="EComponent" />
 		</command>
-		<separator />
-		<command id="org.modelio.app.ui.command.create.diagram">
-			<parameter name="metaclass" value="StateMachineDiagram" />
-			<parameter name="dependency" value="Product" />
-		</command>
 	</popup>
 	<!-- Popup for StructuredActivityNode -->
 	<popup metaclass="StructuredActivityNode">
@@ -1900,11 +1781,6 @@
 			<parameter name="metaclass" value="TemplateBinding" />
 			<parameter name="dependency" value="TemplateInstanciation" />
 		</command>
-		<separator />
-		<command id="org.modelio.app.ui.command.create.diagram">
-			<parameter name="metaclass" value="UseCaseDiagram" />
-			<parameter name="dependency" value="Product" />
-		</command>
 	</popup>
 	<!-- Popup for BpmnBehavior -->
 	<popup metaclass="BpmnBehavior">
@@ -2067,11 +1943,6 @@
 		<command id="org.modelio.app.ui.command.create.element">
 			<parameter name="metaclass" value="BpmnResourceRole" />
 			<parameter name="dependency" value="Resource" />
-		</command>
-		<separator />
-		<command id="org.modelio.app.ui.command.create.diagram">
-			<parameter name="metaclass" value="BpmnProcessCollaborationDiagram" />
-			<parameter name="dependency" value="Product" />
 		</command>
 	</popup>
 	<!-- Popup for BpmnLane -->
@@ -2303,11 +2174,6 @@
 		<command id="org.modelio.app.ui.command.create.element">
 			<parameter name="metaclass" value="BpmnResourceRole" />
 			<parameter name="dependency" value="Resource" />
-		</command>
-		<separator />
-		<command id="org.modelio.app.ui.command.create.diagram">
-			<parameter name="metaclass" value="BpmnSubProcessDiagram" />
-			<parameter name="dependency" value="Product" />
 		</command>
 	</popup>
 	<!-- Popup for BpmnAdHocSubProcess -->

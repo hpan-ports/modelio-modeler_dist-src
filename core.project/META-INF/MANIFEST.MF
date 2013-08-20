@@ -35,4 +35,3 @@ Export-Package: org.modelio.gproject.descriptor,
 Bundle-ClassPath: res/,
  .
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
-Import-Package: org.eclipse.core.runtime

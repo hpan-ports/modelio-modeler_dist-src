@@ -36,6 +36,7 @@ import org.modelio.audit.engine.impl.IDiagnosticCollector;
 import org.modelio.audit.plugin.Audit;
 import org.modelio.audit.service.AuditSeverity;
 import org.modelio.metamodel.Metamodel;
+import org.modelio.metamodel.uml.behavior.stateMachineModel.KindOfStateMachine;
 import org.modelio.metamodel.uml.behavior.stateMachineModel.StateMachine;
 import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.metamodel.uml.statik.Interface;
@@ -129,10 +130,11 @@ public class R2640 extends AbstractRule {
         @objid ("a37af918-4b7d-48a9-ba0f-6ec6a984976c")
         @Override
         public IDiagnosticCollector doRun(IDiagnosticCollector diagnostic, MObject element) {
-            if (element instanceof StateMachine)
+            if (element instanceof StateMachine) {                
                 diagnostic.addEntry(checkR2640((StateMachine) element));
-            else
+            } else {
                 Audit.LOG.warning("R2640: unsupported element type '%s'", element.getMClass().getName());
+            }
             return diagnostic;
         }
 
@@ -142,7 +144,7 @@ public class R2640 extends AbstractRule {
             
             MObject owner = stateMachine.getCompositionOwner();
             
-            if (owner instanceof Interface) {
+            if (owner instanceof Interface && stateMachine.getKind() != KindOfStateMachine.PROTOCOL) {
                 auditEntry.setSeverity(this.rule.getSeverity());
                 List<Object> linkedObjects = new ArrayList<>();
                 linkedObjects.add(stateMachine);

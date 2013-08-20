@@ -261,8 +261,8 @@ public class DiagramViewEditPart extends GmNodeEditPart {
     public void performRequest(final Request req) {
         if (req.getType().equals(RequestConstants.REQ_OPEN)) {
             GmAbstractDiagramView gm = (GmAbstractDiagramView) getModel();
-            // FIXME: activate/open editor.
-            // ActivationService.fireActivate(gm.getRelatedElement());
+            // activate/open editor.
+            gm.getDiagram().getModelManager().getActivationService().activateMObject(gm.getRelatedElement());
         }
         super.performRequest(req);
     }
@@ -350,11 +350,11 @@ public class DiagramViewEditPart extends GmNodeEditPart {
      */
     @objid ("8145ffca-1dec-11e2-8cad-001ec947c8cc")
     private static class RootFig extends Figure {
-        @objid ("b7fdb6c4-d544-4577-ad08-ecd2c3f35c8f")
-        private UpdateManager manager = new DeferredUpdateManager();
-
         @objid ("f0df32ae-c2e5-42d6-9b23-d670cccccd9c")
         private IFigure thumbnail;
+
+        @objid ("f40c92c7-2e7f-4830-9039-3ae51ac65dac")
+        private UpdateManager manager = new DeferredUpdateManager();
 
         /**
          * Constructor

@@ -24,6 +24,7 @@ package org.modelio.vcore.session.impl;
 import java.util.UUID;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.vcore.session.impl.cache.MemoryManager;
+import org.modelio.vcore.smkernel.DeadObjectException;
 import org.modelio.vcore.smkernel.IKernelServiceProvider;
 import org.modelio.vcore.smkernel.ISmObjectData;
 import org.modelio.vcore.smkernel.ISmObjectDataCache;
@@ -102,7 +103,7 @@ final class KernelServiceProvider implements IKernelServiceProvider {
 
     @objid ("3ba767f5-4853-11e2-91c9-001ec947ccaf")
     @Override
-    public ISmObjectData loadData(SmObjectImpl oobj) {
+    public ISmObjectData loadData(SmObjectImpl oobj) throws DeadObjectException {
         final UUID uuid = oobj.getUuid();
         final ISmObjectData cachedData = getDataCache().getCachedData(uuid);
         
@@ -122,7 +123,7 @@ final class KernelServiceProvider implements IKernelServiceProvider {
         
         
         if (data == null) {
-            throw new Error(uuid + " " + oobj.getClass().getSimpleName() + " not found in the swap");
+            throw new DeadObjectException(oobj);
         }
         
         if (cachedData == null) {

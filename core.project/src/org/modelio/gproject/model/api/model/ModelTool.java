@@ -77,6 +77,7 @@ import org.modelio.metamodel.uml.statik.NamespaceUse;
 import org.modelio.metamodel.uml.statik.NaryAssociation;
 import org.modelio.metamodel.uml.statik.NaryAssociationEnd;
 import org.modelio.metamodel.uml.statik.NaryConnector;
+import org.modelio.metamodel.uml.statik.NaryConnectorEnd;
 import org.modelio.metamodel.uml.statik.NaryLink;
 import org.modelio.metamodel.uml.statik.NaryLinkEnd;
 import org.modelio.metamodel.uml.statik.Operation;
@@ -94,6 +95,9 @@ import org.modelio.vcore.smkernel.SmDepVal;
 import org.modelio.vcore.smkernel.SmObjectImpl;
 import org.modelio.vcore.smkernel.mapi.MObject;
 
+/**
+ * Implementation of {@link IModelTool}.
+ */
 @objid ("7e9c041b-1eb2-11e2-8009-002564c97630")
 public class ModelTool implements IModelTool {
     @objid ("7e9c041d-1eb2-11e2-8009-002564c97630")
@@ -1150,12 +1154,12 @@ public class ModelTool implements IModelTool {
                 setTarget(theProvidedInterface, null);
                 return null;
             }
-            if (this.newDest instanceof ConnectorEnd) {
-                setTarget(theProvidedInterface, (ConnectorEnd) this.newDest);
+            if (this.newDest instanceof NaryConnectorEnd) {
+                setTarget(theProvidedInterface, (NaryConnectorEnd) this.newDest);
                 return null;
             } else {
                 // Not supported
-                throw new IllegalArgumentException(this.newDest + " is not a supported target for " + theProvidedInterface);
+                throw new IllegalArgumentException(this.newDest + " is not a supported target for " + theProvidedInterface+". Use a NaryConnectorEnd.");
             }
         }
 
@@ -1173,12 +1177,12 @@ public class ModelTool implements IModelTool {
                 setTarget(theRequiredInterface, null);
                 return null;
             }
-            if (this.newDest instanceof ConnectorEnd) {
-                setTarget(theRequiredInterface, (ConnectorEnd) this.newDest);
+            if (this.newDest instanceof NaryConnectorEnd) {
+                setTarget(theRequiredInterface, (NaryConnectorEnd) this.newDest);
                 return null;
             } else {
                 // Not supported
-                throw new IllegalArgumentException(this.newDest + " is not a supported target for " + theRequiredInterface);
+                throw new IllegalArgumentException(this.newDest + " is not a supported target for " + theRequiredInterface+". Use a NaryConnectorEnd.");
             }
         }
 
@@ -1219,10 +1223,18 @@ public class ModelTool implements IModelTool {
                     end.delete();
                 }
             }
+            
+            for (NaryLinkEnd end : new ArrayList<>(el.getNaryProvider())) {
+                final NaryLink l = end.getNaryLink();
+                if (l != null && l.getNaryLinkEnd().size() <= 2)
+                    l.delete();
+                else
+                    end.delete();
+            }
         }
 
         @objid ("7eaf0ef8-1eb2-11e2-8009-002564c97630")
-        private void setTarget(final RequiredInterface el, final ConnectorEnd target) {
+        private void setTarget(final RequiredInterface el, final NaryConnectorEnd target) {
             if (el.getProvider().contains(target)) {
                 return;
             }
@@ -1230,7 +1242,7 @@ public class ModelTool implements IModelTool {
             removeTarget(el);
             
             if (target != null) {
-                el.getProvider().add(target);
+                el.getNaryProvider().add(target);
             }
         }
 
@@ -1244,18 +1256,26 @@ public class ModelTool implements IModelTool {
                     end.delete();
                 }
             }
+            
+            for (NaryLinkEnd end : new ArrayList<>(el.getNaryConsumer())) {
+                final NaryLink l = end.getNaryLink();
+                if (l != null && l.getNaryLinkEnd().size() <= 2)
+                    l.delete();
+                else
+                    end.delete();
+            }
         }
 
         @objid ("7eaf0f07-1eb2-11e2-8009-002564c97630")
-        private void setTarget(final ProvidedInterface el, final ConnectorEnd target) {
-            if (el.getConsumer().contains(target)) {
+        private void setTarget(final ProvidedInterface el, final NaryConnectorEnd target) {
+            if (el.getNaryConsumer().contains(target)) {
                 return;
             }
             
             removeTarget(el);
             
             if (target != null) {
-                el.getConsumer().add(target);
+                el.getNaryConsumer().add(target);
             }
         }
 

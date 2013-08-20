@@ -29,7 +29,11 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map.Entry;
+import java.util.Map;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.ThreadFactory;
@@ -51,6 +55,7 @@ import org.modelio.vcore.session.impl.cache.MemoryManager;
 import org.modelio.vcore.session.impl.jmx.CoreSessionMXBeanImpl;
 import org.modelio.vcore.session.impl.load.ModelLoaderConfiguration;
 import org.modelio.vcore.session.impl.load.ModelLoaderProvider;
+import org.modelio.vcore.session.impl.load.RefreshEventService;
 import org.modelio.vcore.session.impl.load.StorageHandle;
 import org.modelio.vcore.session.impl.permission.BasicAccessManager;
 import org.modelio.vcore.session.impl.permission.DefaultAccessHandle;
@@ -79,6 +84,12 @@ public class CoreSession implements ICoreSession, IRepositorySupport {
      */
     @objid ("3cc2caae-129e-45cb-ba2f-7d5f6d004247")
     private byte repoCounter = 0;
+
+    /**
+     * The shell repository identifier.
+     */
+    @objid ("54ba67df-cd4b-4212-b7dd-61c227734ac3")
+    private static final String REPOSITORY_KEY_SHELL = "repo.key.shell";
 
     @objid ("4bd517e8-1c7e-4980-ae35-2f92342cb90d")
      CacheManager cacheManager;
@@ -130,6 +141,12 @@ public class CoreSession implements ICoreSession, IRepositorySupport {
 
     @objid ("7713c146-c1e9-491a-b0b3-5eeb2f3a23c6")
     private BlobSupport blobSupport;
+
+    @objid ("2bacc88f-7a51-47c8-b1e9-4dabb2703b01")
+    private final Map<String, IRepository> repoRegistry = new HashMap<>();
+
+    @objid ("b472771c-1c43-4bbb-9921-31bfe1ac938d")
+    private RefreshEventService refreshEventService;
 
     /**
      * Get the core session owning the given model object.
@@ -189,6 +206,7 @@ public class CoreSession implements ICoreSession, IRepositorySupport {
         
         // Empty repository list
         this.repositories.clear();
+        this.repoRegistry.clear();
         
         // Dispose the JMX monitor bean
         if (this.jmxBean  != null) {
@@ -206,6 +224,14 @@ public class CoreSession implements ICoreSession, IRepositorySupport {
         this.stdMetaObject = null;
         this.storageHandle = null;
         this.transactionManager = null;
+        this.refreshEventService = null;
+    }
+
+    @objid ("006d6c80-6ebd-1f22-8c06-001ec947cd2a")
+    @Deprecated
+    @Override
+    public void connectRepository(IRepository aBase, IAccessManager accessManager, IModelioProgress monitor) throws IOException {
+        connectRepository(aBase, String.valueOf(this.repoCounter), accessManager, monitor);
     }
 
     /**
@@ -214,10 +240,13 @@ public class CoreSession implements ICoreSession, IRepositorySupport {
      * @param accessManager the access rights manager that will set access rights on loaded objects.
      * @throws java.io.IOException in case of failure.
      */
-    @objid ("006d6c80-6ebd-1f22-8c06-001ec947cd2a")
+    @objid ("014123b4-8952-49e1-8c40-01dd2ddb0cd0")
     @Override
-    public void connectRepository(IRepository aBase, final IAccessManager accessManager, IModelioProgress monitor) throws IOException {
+    public void connectRepository(IRepository aBase, String key, final IAccessManager accessManager, IModelioProgress monitor) throws IOException {
         assertOpen();
+        
+        if (key != null && this.repoRegistry.get(key) != null)
+            throw new IllegalArgumentException(this.repoRegistry.get(key)+ " already registered with '"+key+"' key");
         
         // Open the database
         byte rid = this.repoCounter++;
@@ -228,13 +257,14 @@ public class CoreSession implements ICoreSession, IRepositorySupport {
         
         if (!aBase.isOpen()) {
             IAccessManager repoManager = new CompositeAccessManager(accessManager);
-            ModelLoaderConfiguration config = new ModelLoaderConfiguration(this, kid, rid, this.shellRepository, this.cacheManager, repoManager);
+            ModelLoaderConfiguration config = new ModelLoaderConfiguration(this, kid, rid, this.shellRepository, this.cacheManager, repoManager, this.refreshEventService);
             ModelLoaderProvider modelLoaderProvider = new ModelLoaderProvider(config);
             
             aBase.open(modelLoaderProvider, monitor);
         }
         
         this.repositories.add(aBase);
+        this.repoRegistry.put(key, aBase);
         
         // Try to connect unresolved references
         if (this.shellRepository != null && aBase != this.shellRepository) {
@@ -270,6 +300,10 @@ public class CoreSession implements ICoreSession, IRepositorySupport {
         }
         
         this.repositories.remove(toRemove);
+        for (Iterator<Entry<String, IRepository>> it = this.repoRegistry.entrySet().iterator(); it.hasNext(); ) {
+            if (it.next().getValue() == toRemove)
+                it.remove();
+        }
     }
 
     /**
@@ -302,7 +336,7 @@ public class CoreSession implements ICoreSession, IRepositorySupport {
 
     @objid ("005f6b94-fd1a-1f27-a7da-001ec947cd2a")
     @Override
-    public List<IRepository> getRepositoriesView() {
+    public Collection<IRepository> getRepositoriesView() {
         return Collections.unmodifiableList(this.repositories);
     }
 
@@ -398,6 +432,12 @@ public class CoreSession implements ICoreSession, IRepositorySupport {
         return this.shellRepository;
     }
 
+    @objid ("89c6a49b-ba46-400d-9bc8-511c572bcb05")
+    @Override
+    public IRepository getRepository(String key) {
+        return this.repoRegistry.get(key);
+    }
+
     /**
      * Initialize the session.
      * @throws java.io.IOException if the swap failed to initialize.
@@ -445,6 +485,9 @@ public class CoreSession implements ICoreSession, IRepositorySupport {
         // Set the metaobject on the cache manager and the deleted metaobject
         this.deletedMetaObject.setMetaObject(this.stdMetaObject);
         
+        // Initialize the model refresh event service
+        this.refreshEventService = new RefreshEventService(this.modelChangeSupport, this.transactionManager, this.schedulerService);
+        
         // Initialize shell objects repository
         initBuiltinRepositories();
         
@@ -456,6 +499,7 @@ public class CoreSession implements ICoreSession, IRepositorySupport {
         
         // Setup a Generic factory
         this.model.setGenericFactory(new GenericFactory(this.ssFactory, getRepositorySupport()));
+        
         
         this.jmxBean.register();
     }
@@ -493,16 +537,16 @@ public class CoreSession implements ICoreSession, IRepositorySupport {
         this.shellRepository = new ShellObjectsRepository();
         
         BasicAccessManager accessManager = new BasicAccessManager();
-        connectRepository(this.shellRepository, accessManager, new NullProgress());
+        connectRepository(this.shellRepository, REPOSITORY_KEY_SHELL, accessManager, new NullProgress());
         
         this.scratchRepository = new MemoryRepository();
         accessManager = new BasicAccessManager();
-        connectRepository(this.scratchRepository, accessManager, new NullProgress());
+        connectRepository(this.scratchRepository, REPOSITORY_KEY_SCRATCH, accessManager, new NullProgress());
     }
 
     @objid ("695241b8-4b8b-11e2-91c9-001ec947ccaf")
     @Override
-    public List<IRepository> getRepositories() {
+    public Collection<IRepository> getRepositories() {
         return new ArrayList<>(this.repositories);
     }
 
@@ -586,20 +630,6 @@ public class CoreSession implements ICoreSession, IRepositorySupport {
     @objid ("a0231731-87fe-457b-a477-64d83b65bddc")
     public ScheduledExecutorService getSchedulerService() {
         return this.schedulerService;
-    }
-
-    /**
-     * The scratch repository is a memory repository created with the core session.
-     * <p>
-     * It may be freely used to create temporary objects.
-     * The scratch repository is not saved, objects contained will be lost after having
-     * closed the session.
-     * @return the scratch repository
-     */
-    @objid ("8cc9ea56-19ec-4e6b-9080-1f93fbe28360")
-    @Override
-    public IRepository getScratchRepository() {
-        return this.scratchRepository;
     }
 
     /**

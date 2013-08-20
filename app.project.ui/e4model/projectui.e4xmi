@@ -8,7 +8,6 @@
   <imports xsi:type="commands:Command" xmi:id="_Z8N8IMReEeGfTJvj0MrGIA" elementId="org.modelio.app.ui.command.importproject"/>
   <imports xsi:type="commands:Command" xmi:id="_AGVW8NJ6EeGg_6Go0hQ63g" elementId="org.modelio.app.ui.command.addfragment"/>
   <imports xsi:type="commands:Command" xmi:id="_BlZV8NJ6EeGg_6Go0hQ63g" elementId="org.modelio.app.ui.command.removefragment"/>
-  <imports xsi:type="commands:Command" xmi:id="_hs6AQCHfEeKaOM8ekCiUgA" elementId="org.modelio.app.ui.command.editfragment"/>
   <imports xsi:type="commands:Command" xmi:id="_JFwroDJXEeKZiaivSH_IWA" elementId="org.eclipse.ui.edit.undo"/>
   <imports xsi:type="commands:Command" xmi:id="_JcYb4DJXEeKZiaivSH_IWA" elementId="org.eclipse.ui.edit.redo"/>
   <imports xsi:type="commands:Command" xmi:id="_2BomEDfKEeKWLJlmAiIZXQ" elementId="org.modelio.app.ui.command.switchworkspace"/>
@@ -26,7 +25,6 @@
               <children xsi:type="menu:HandledMenuItem" xmi:id="_arY_AKvjEeGOV_jwQ26jeA" elementId="" label="%Open.label" iconURI="platform:/plugin/org.modelio.app.project.ui/icons/openproject.png" tooltip="%Open.tooltip" command="_D_9EILohEeGCerjZvtGzMQ"/>
               <children xsi:type="menu:HandledMenuItem" xmi:id="_ZvcdkMD_EeGcK7MTLIIKXg" elementId="" label="%Close.label" iconURI="platform:/plugin/org.modelio.app.project.ui/icons/closedproject.png" tooltip="%Close.tooltip" command="_opYfILohEeGCerjZvtGzMQ"/>
               <children xsi:type="menu:MenuSeparator" xmi:id="_SgQjAPEjEeG6IeKygK3mzA" elementId="app.project.ui.menuseparator.0"/>
-              <children xsi:type="menu:HandledMenuItem" xmi:id="_inqSAKvjEeGOV_jwQ26jeA" elementId="" visible="false" label="%Rename.label" iconURI="" tooltip="%Rename.tooltip"/>
               <children xsi:type="menu:HandledMenuItem" xmi:id="_aGneAKvjEeGOV_jwQ26jeA" elementId="" label="%Delete.label" iconURI="platform:/plugin/org.modelio.app.project.ui/icons/delete.png" tooltip="%Delete.tooltip" command="_m8DaoLohEeGCerjZvtGzMQ"/>
               <children xsi:type="menu:MenuSeparator" xmi:id="_UlNdUPEjEeG6IeKygK3mzA" elementId="app.project.ui.menuseparator.0"/>
               <children xsi:type="menu:HandledMenuItem" xmi:id="_DQM_sPErEeG6IeKygK3mzA" elementId="app.project.ui.handledmenuitem.0" label="%Export.label" iconURI="platform:/plugin/org.modelio.app.project.ui/icons/export_project.png" tooltip="%Export.tooltip" command="_7YWJ8MQ4EeGfTJvj0MrGIA"/>
@@ -53,7 +51,6 @@
     <elements xsi:type="commands:Handler" xmi:id="_Io0RsMUOEeGS9ZgZd3XbUg" contributionURI="bundleclass://org.modelio.app.project.ui/org.modelio.app.project.ui.deleteproject.DeleteProjectHandler" command="_m8DaoLohEeGCerjZvtGzMQ"/>
     <elements xsi:type="commands:Handler" xmi:id="_I8WRsMUOEeGS9ZgZd3XbUg" contributionURI="bundleclass://org.modelio.app.project.ui/org.modelio.app.project.ui.exportproject.ExportProjectHandler" command="_7YWJ8MQ4EeGfTJvj0MrGIA"/>
     <elements xsi:type="commands:Handler" xmi:id="_JQ3wMMUOEeGS9ZgZd3XbUg" contributionURI="bundleclass://org.modelio.app.project.ui/org.modelio.app.project.ui.importproject.ImportProjectHandler" command="_Z8N8IMReEeGfTJvj0MrGIA"/>
-    <elements xsi:type="commands:Handler" xmi:id="_tlHkYCHfEeKaOM8ekCiUgA" contributionURI="bundleclass://org.modelio.app.project.ui/org.modelio.app.project.ui.fragmentwizard.EditFragmentHandler" command="_hs6AQCHfEeKaOM8ekCiUgA"/>
     <elements xsi:type="commands:Handler" xmi:id="_4WJ6wDJWEeKZiaivSH_IWA" contributionURI="bundleclass://org.modelio.app.project.ui/org.modelio.app.project.ui.openproject.OpenProjectHandler" command="_D_9EILohEeGCerjZvtGzMQ"/>
     <elements xsi:type="commands:Handler" xmi:id="_MI9W4DJXEeKZiaivSH_IWA" contributionURI="bundleclass://org.modelio.app.project.ui/org.modelio.app.project.ui.undo.UndoHandler" command="_JFwroDJXEeKZiaivSH_IWA"/>
     <elements xsi:type="commands:Handler" xmi:id="_M0sbgDJXEeKZiaivSH_IWA" contributionURI="bundleclass://org.modelio.app.project.ui/org.modelio.app.project.ui.redo.RedoHandler" command="_JcYb4DJXEeKZiaivSH_IWA"/>

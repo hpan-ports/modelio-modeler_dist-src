@@ -24,6 +24,7 @@
 /*   SemGen version   : 2.0.06.9012       */
 package org.modelio.metamodel.impl.uml.infrastructure;
 
+import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -40,8 +41,6 @@ import org.modelio.metamodel.uml.informationFlow.InformationFlow;
 import org.modelio.metamodel.uml.infrastructure.Constraint;
 import org.modelio.metamodel.uml.infrastructure.Dependency;
 import org.modelio.metamodel.uml.infrastructure.ExternDocument;
-import org.modelio.metamodel.uml.infrastructure.LocalNote;
-import org.modelio.metamodel.uml.infrastructure.LocalTaggedValue;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
 import org.modelio.metamodel.uml.infrastructure.Note;
 import org.modelio.metamodel.uml.infrastructure.NoteType;
@@ -59,7 +58,6 @@ import org.modelio.metamodel.uml.statik.NaryConnector;
 import org.modelio.metamodel.uml.statik.TemplateParameter;
 import org.modelio.metamodel.uml.statik.TemplateParameterSubstitution;
 import org.modelio.metamodel.visitors.IModelVisitor;
-import org.modelio.vcore.smkernel.SmConstrainedList;
 import org.modelio.vcore.smkernel.SmDepVal;
 import org.modelio.vcore.smkernel.SmList;
 import org.modelio.vcore.smkernel.SmObjectImpl;
@@ -87,6 +85,23 @@ public abstract class ModelElementImpl extends ElementImpl implements ModelEleme
             }
         }
         return false;
+    }
+
+    @objid ("80f3dc16-cdd8-48b6-90e7-0a9e55768ac2")
+    @Override
+    public final void addStereotype(String moduleName, String stereotypeName) throws ExtensionNotFoundException {
+        IModelFactory factory = ModelFactory.getFactory(this);
+        
+        List<Stereotype> stereotypes = factory.findStereotype(moduleName, stereotypeName, getMClass());
+        if (stereotypes.size() == 0) {
+            throw new ExtensionNotFoundException("'" + stereotypeName + "' stereotype not found");
+        } else if (stereotypes.size() == 1) {
+            EList<Stereotype> existingStereotypes = getExtension();
+            if (!existingStereotypes.contains(stereotypes.get(0)))
+                existingStereotypes.add(stereotypes.get(0));
+        } else {
+            throw new InvalidParameterException("'" + stereotypeName + "' stereotype is not unique in module '" + moduleName + "'");
+        }
     }
 
     /**
@@ -394,6 +409,31 @@ public abstract class ModelElementImpl extends ElementImpl implements ModelEleme
         return false;
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @objid ("0ca61d4e-418c-443f-be4b-e7c66435aba9")
+    @Override
+    public final String getLocalProperty(String key) {
+        LocalPropertyTable table = getLocalProperties();
+        return (table != null) ? table.getProperty(key) : null;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @objid ("c1843b5a-2198-47a6-9bf5-79d3435cadc5")
+    @Override
+    public void setLocalProperty(String key, String value) {
+        LocalPropertyTable table = getLocalProperties();
+        if (table == null) {
+            IModelFactory factory = ModelFactory.getFactory(this);
+            table = factory.createLocalPropertyTable();
+            table.setLocalAnnoted(this);
+        }
+        table.setProperty(key, value);
+    }
+
     @objid ("0a6aa37d-115e-4930-9ec8-bc25a62b95e5")
     @Override
     public String getName() {
@@ -468,25 +508,6 @@ public abstract class ModelElementImpl extends ElementImpl implements ModelEleme
         final List<T> results = new ArrayList<>();
         final MClass mClass = SmClass.getClass(filterClass);
         for (final Stereotype element : getExtension()) {
-          if (element.getMClass().hasBase(mClass)) {
-            results.add(filterClass.cast(element));
-          }
-        }
-        return Collections.unmodifiableList(results);
-    }
-
-    @objid ("673de07a-5d30-4871-8991-4fbbc637c317")
-    @Override
-    public EList<LocalTaggedValue> getLocalTag() {
-        return new SmList<>(this, ModelElementData.Metadata.LocalTagDep());
-    }
-
-    @objid ("94724fb7-e8c9-4b38-a92b-061b5133e6c8")
-    @Override
-    public <T extends LocalTaggedValue> List<T> getLocalTag(java.lang.Class<T> filterClass) {
-        final List<T> results = new ArrayList<>();
-        final MClass mClass = SmClass.getClass(filterClass);
-        for (final LocalTaggedValue element : getLocalTag()) {
           if (element.getMClass().hasBase(mClass)) {
             results.add(filterClass.cast(element));
           }
@@ -599,25 +620,6 @@ public abstract class ModelElementImpl extends ElementImpl implements ModelEleme
     @Override
     public void setOwnerTemplateParameter(TemplateParameter value) {
         appendDepVal(ModelElementData.Metadata.OwnerTemplateParameterDep(), (SmObjectImpl)value);
-    }
-
-    @objid ("14124ee8-9346-4c2f-922e-435335192127")
-    @Override
-    public EList<LocalNote> getLocalDescriptor() {
-        return new SmList<>(this, ModelElementData.Metadata.LocalDescriptorDep());
-    }
-
-    @objid ("bdddb298-316e-42dc-add9-1cec7c8e99b6")
-    @Override
-    public <T extends LocalNote> List<T> getLocalDescriptor(java.lang.Class<T> filterClass) {
-        final List<T> results = new ArrayList<>();
-        final MClass mClass = SmClass.getClass(filterClass);
-        for (final LocalNote element : getLocalDescriptor()) {
-          if (element.getMClass().hasBase(mClass)) {
-            results.add(filterClass.cast(element));
-          }
-        }
-        return Collections.unmodifiableList(results);
     }
 
     @objid ("9c2b587d-bda8-4df6-b00c-496d89113ef4")

@@ -28,6 +28,7 @@ import java.util.Map;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
+import org.modelio.vcore.session.api.model.change.ChangeCause;
 import org.modelio.vcore.session.api.transactions.ITransactionSupport;
 import org.modelio.vcore.smkernel.SmObjectData;
 import org.modelio.vcore.smkernel.SmObjectImpl;
@@ -128,7 +129,7 @@ public class StatusChangeManager {
         }
         
         if (! changes.isEmpty()) {
-            EventFactory f = EventFactory.createEvent();
+            EventFactory f = EventFactory.createEvent(ChangeCause.STATUS);
         
             for (Entry<SmObjectImpl, Long> entry : changes.entrySet()) {
                 final SmObjectImpl obj = entry.getKey();

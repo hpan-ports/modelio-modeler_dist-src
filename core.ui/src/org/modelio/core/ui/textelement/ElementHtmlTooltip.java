@@ -25,14 +25,13 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.widgets.Display;
-import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
 import org.modelio.vcore.smkernel.mapi.MObject;
 
 @objid ("37efae21-81ac-4881-b112-24a8e8dfb216")
 class ElementHtmlTooltip {
     @objid ("edb419a5-7ec6-4df4-8849-2e5cd14e72ee")
-    public static String getHtml(Element element) {
+    public static String getHtml(MObject element) {
         // FIXME: propose better representation and contents for element info
         
         final Color background = Display.getCurrent().getSystemColor(SWT.COLOR_INFO_BACKGROUND);

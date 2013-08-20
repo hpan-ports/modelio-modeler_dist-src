@@ -102,7 +102,7 @@ public class PrintSetupDialog extends Dialog {
         super(Display.getCurrent().getActiveShell());
         this.rootEditPart = rootEditPart;
         ImageBuilder imageBuilder = new ImageBuilder();        
-        this.image = imageBuilder.makeViewerImage(rootEditPart);
+        this.image = imageBuilder.makeImage(rootEditPart);
     }
 
     @objid ("65bba18b-33f7-11e2-95fe-001ec947c8cc")

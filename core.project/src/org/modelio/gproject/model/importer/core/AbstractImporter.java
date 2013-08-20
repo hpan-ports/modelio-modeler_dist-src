@@ -34,11 +34,22 @@ import org.modelio.vcore.session.api.ICoreSession;
 import org.modelio.vcore.smkernel.SmObjectImpl;
 import org.modelio.vcore.smkernel.meta.SmDependency;
 
+/**
+ * Base class for model import or copy service classes.
+ */
 @objid ("008d8740-5246-1091-8d81-001ec947cd2a")
 public abstract class AbstractImporter {
     @objid ("008d8f6a-5246-1091-8d81-001ec947cd2a")
     protected Result result;
 
+    /**
+     * Run the copy/import operation
+     * @param localSession the destination session
+     * @param localRoot the destination root element
+     * @param refSession the source modeling session
+     * @param refRoots the elements to copy/import
+     * @return the result of the import operation
+     */
     @objid ("008d96f4-5246-1091-8d81-001ec947cd2a")
     public final IImportReport execute(final ICoreSession localSession, final SmObjectImpl localRoot, final ICoreSession refSession, List<SmObjectImpl> refRoots) {
         this.result = new Result();
@@ -56,7 +67,7 @@ public abstract class AbstractImporter {
         fixOrphanRoots(localSession, localRoot, refRoots);
         
         // STEP 5: Fix broken elements
-        fixElements();
+        fixElements(localSession, refSession);
         
         // STEP 6: Mark all remaining orphan elements as 'to delete'
         collectGarbage();
@@ -124,13 +135,13 @@ public abstract class AbstractImporter {
     protected abstract void fixOrphanRoots(Map<SmObjectImpl, SmDependency> orphans, ICoreSession localSession, SmObjectImpl localRoot);
 
     @objid ("008debcc-5246-1091-8d81-001ec947cd2a")
-    private void fixElements() {
+    private void fixElements(ICoreSession localSession, ICoreSession refSession) {
         for (Entry<SmObjectImpl, SmObjectImpl> entry : this.result.getCreations().entrySet()) {
             SmObjectImpl refObject = entry.getKey();
             SmObjectImpl localObject = entry.getValue();
         
             if (localObject != null && !localObject.isDeleted()) {
-                fixElement(localObject, refObject);
+                fixElement(localObject, refObject, localSession, refSession);
             }
         }
         
@@ -139,13 +150,13 @@ public abstract class AbstractImporter {
             SmObjectImpl localObject = entry.getValue();
         
             if (localObject != null && !localObject.isDeleted()) {
-                fixElement(localObject, refObject);
+                fixElement(localObject, refObject, localSession, refSession);
             }
         }
     }
 
     @objid ("008e4112-5246-1091-8d81-001ec947cd2a")
-    protected abstract void fixElement(SmObjectImpl localObject, final SmObjectImpl refObject);
+    protected abstract void fixElement(SmObjectImpl localObject, final SmObjectImpl refObject, ICoreSession localSession, ICoreSession refSession);
 
     @objid ("008789c6-e548-108f-8d81-001ec947cd2a")
     private final void collectGarbage() {

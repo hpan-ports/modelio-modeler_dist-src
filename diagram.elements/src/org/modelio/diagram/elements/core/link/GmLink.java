@@ -217,7 +217,9 @@ public abstract class GmLink extends GmModel implements IGmLink {
         
         extension.setParentLink(this);
         
-        firePropertyChange(PROPERTY_CHILDREN, null, getRelatedElement().getName());
+        if (getRelatedElement() != null) {
+            firePropertyChange(PROPERTY_CHILDREN, null, getRelatedElement().getName());
+        }
     }
 
     @objid ("80127052-1dec-11e2-8cad-001ec947c8cc")

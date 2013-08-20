@@ -32,6 +32,7 @@ import org.eclipse.e4.ui.model.application.ui.basic.MPart;
 import org.eclipse.e4.ui.model.application.ui.menu.MDirectMenuItem;
 import org.eclipse.e4.ui.model.application.ui.menu.MMenu;
 import org.eclipse.e4.ui.model.application.ui.menu.MMenuElement;
+import org.eclipse.e4.ui.services.EContextService;
 import org.eclipse.e4.ui.workbench.modeling.EModelService;
 import org.eclipse.e4.ui.workbench.modeling.ESelectionService;
 import org.eclipse.e4.ui.workbench.swt.modeling.EMenuService;
@@ -53,6 +54,7 @@ import org.modelio.app.core.picking.IPickingSession;
 import org.modelio.app.project.core.services.IProjectService;
 import org.modelio.gproject.fragment.IProjectFragment;
 import org.modelio.gproject.gproject.GProject;
+import org.modelio.gproject.model.api.MTools;
 import org.modelio.gproject.module.GModule;
 import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.model.browser.context.ElementCreationDynamicMenuManager;
@@ -74,15 +76,6 @@ public class BrowserView {
     @objid ("ec8bad11-3245-11e2-ad6b-002564c97630")
     public static final String POPUPID = "model.browser.popupmenu.0";
 
-    @objid ("000a3912-493b-105c-aa42-001ec947cd2a")
-    @Inject
-    public MPart myPart;
-
-    @objid ("f0f31289-ae17-4470-8220-a73e9c142821")
-    @Inject
-    @Optional
-    public ESelectionService selectionService;
-
     @objid ("837dd517-1d01-429a-9847-052278adca28")
     private static final String MENUITEM_SHOW_ANALYST = "org.modelio.model.browser.directmenuitem.analyst";
 
@@ -98,6 +91,18 @@ public class BrowserView {
     @objid ("196d00c4-cdcc-465d-b748-0e9f0578db49")
     private static final String VIEWMENU = "org.modelio.model.browser.viewmenu";
 
+    @objid ("000a3912-493b-105c-aa42-001ec947cd2a")
+    @Inject
+    public MPart myPart;
+
+    @objid ("f0f31289-ae17-4470-8220-a73e9c142821")
+    @Inject
+    @Optional
+    public ESelectionService selectionService;
+
+    @objid ("03dab967-b100-44ba-b2f0-a9ed19cf170b")
+     Composite parentComposite;
+
     @objid ("001318a2-7ab3-1006-9c1d-001ec947cd2a")
      ModelBrowserPanelProvider browserTreePanel;
 
@@ -109,9 +114,6 @@ public class BrowserView {
     @Optional
      IActivationService activationService;
 
-    @objid ("03dab967-b100-44ba-b2f0-a9ed19cf170b")
-     Composite parentComposite;
-
     @objid ("06e86809-ab94-4f19-b916-81b3105af41b")
     @Inject
     @Optional
@@ -119,6 +121,10 @@ public class BrowserView {
 
     @objid ("cbbb8469-3ab0-48ff-bcd6-8520c805e184")
     private BrowserConfigurator configurator;
+
+    @objid ("87d61f2c-6505-4b48-bbf0-d2b5710c8998")
+    @Inject
+    public static EContextService contextService;
 
     @objid ("00177910-dd16-1fab-b27f-001ec947cd2a")
     @PostConstruct
@@ -129,6 +135,124 @@ public class BrowserView {
         if (projectService != null) {
             onProjectOpened(projectService.getOpenedProject(), projectService, menuService);
         }
+    }
+
+    /**
+     * When double-clicking on a link, trigger a selection of it's target.
+     * @param editedElement the edited element.
+     */
+    @objid ("814fb0af-604c-4b07-8f99-aa795428e28b")
+    @Optional
+    @Inject
+    void onEditElement(@EventTopic(ModelioEventTopics.EDIT_ELEMENT) final MObject editedElement) {
+        // FIXME this should be an @UIEventTopic, but they are not triggered with eclipse 4.3 M5...
+        Display.getDefault().asyncExec(new Runnable() {
+        
+            @Override
+            public void run() {
+                if (MTools.getLinkTool().isLink(editedElement.getMClass())) {
+                    selectElement(MTools.getModelTool().getTarget(editedElement));
+                }
+            }
+        });
+    }
+
+    @objid ("2e5964c6-d7d2-11e1-a4a6-002564c97630")
+    @Inject
+    @Optional
+    @SuppressWarnings("unused")
+    void onFragmentEvents(@EventTopic(ModelioEventTopics.FRAGMENT_EVENTS) final IProjectFragment fragment) {
+        // FIXME this should be an @UIEventTopic, but they are not triggered with eclipse 4.3 M5...
+        Display.getDefault().asyncExec(new Runnable() {
+        
+            @Override
+            public void run() {
+                if (BrowserView.this.browserTreePanel != null && !BrowserView.this.browserTreePanel.getComposite().getTree().isDisposed()) {
+                    BrowserView.this.browserTreePanel.setInput(BrowserView.this.browserTreePanel.getInput());
+                }
+            }
+        });
+    }
+
+    @objid ("a2f0a44f-0405-11e2-8e1f-001ec947c8cc")
+    @Inject
+    @SuppressWarnings("unused")
+    @Optional
+    void onModuleEvents(@EventTopic(ModelioEventTopics.MODULE_EVENTS) final GModule module) {
+        // FIXME this should be an @UIEventTopic, but they are not triggered with eclipse 4.3 M5...
+        Display.getDefault().asyncExec(new Runnable() {
+        
+            @Override
+            public void run() {
+                if (BrowserView.this.browserTreePanel != null && !BrowserView.this.browserTreePanel.getComposite().getTree().isDisposed()) {
+                    BrowserView.this.browserTreePanel.setInput(BrowserView.this.browserTreePanel.getInput());
+                }
+            }
+        });
+    }
+
+    @objid ("b21075b6-404b-11e2-8458-002564c97630")
+    @Inject
+    @Optional
+    void onNavigateElement(@EventTopic(ModelioEventTopics.NAVIGATE_ELEMENT) final List<MObject> elements) {
+        // FIXME this should be an @UIEventTopic, but they are not triggered with eclipse 4.3 M5...
+        Display.getDefault().asyncExec(new Runnable() {
+        
+            @Override
+            public void run() {
+                BrowserView.this.browserTreePanel.getComposite().setSelection(new StructuredSelection(elements));
+            }
+        });
+    }
+
+    @objid ("b21075be-404b-11e2-8458-002564c97630")
+    @Inject
+    @Optional
+    void onNavigateElement(@EventTopic(ModelioEventTopics.NAVIGATE_ELEMENT) final MObject element) {
+        // FIXME this should be an @UIEventTopic, but they are not triggered with eclipse 4.3 M5...
+        Display.getDefault().asyncExec(new Runnable() {
+        
+            @Override
+            public void run() {
+                BrowserView.this.browserTreePanel.getComposite().setSelection(new StructuredSelection(element));
+            }
+        });
+    }
+
+    @objid ("7f0e6455-16a3-11e2-aa0d-002564c97630")
+    @Inject
+    @Optional
+    void onPickingStart(@EventTopic(ModelioEventTopics.PICKING_START) final IPickingSession session) {
+        // FIXME this should be an @UIEventTopic, but they are not triggered with eclipse 4.3 M5...
+        Display.getDefault().syncExec(new Runnable() {
+        
+            @Override
+            public void run() {
+                if (BrowserView.this.browserTreePanel != null) {
+                    BrowserView.this.pickingManager = new BrowserPickingManager(BrowserView.this.browserTreePanel, session);
+                    BrowserView.this.pickingManager.beginPicking();
+                }
+            }
+        });
+    }
+
+    @objid ("7f0e645b-16a3-11e2-aa0d-002564c97630")
+    @SuppressWarnings("unused")
+    @Inject
+    @Optional
+    void onPickingStop(@EventTopic(ModelioEventTopics.PICKING_STOP) final IPickingSession session) {
+        // FIXME this should be an @UIEventTopic, but they are not triggered with eclipse 4.3 M5...
+        Display.getDefault().syncExec(new Runnable() {
+        
+            @Override
+            public void run() {
+                if (BrowserView.this.pickingManager != null) {
+                    BrowserView.this.pickingManager.endPicking();
+                    BrowserView.this.pickingManager.dispose();
+                    BrowserView.this.pickingManager = null;
+                }
+            }
+        });
     }
 
     @objid ("004a9840-181d-1fd2-a931-001ec947cd2a")
@@ -234,104 +358,6 @@ public class BrowserView {
         });
     }
 
-    @objid ("a2f0a44f-0405-11e2-8e1f-001ec947c8cc")
-    @Inject
-    @SuppressWarnings("unused")
-    @Optional
-    void onModuleEvents(@EventTopic(ModelioEventTopics.MODULE_EVENTS) final GModule module) {
-        // FIXME this should be an @UIEventTopic, but they are not triggered with eclipse 4.3 M5...
-        Display.getDefault().asyncExec(new Runnable() {
-        
-            @Override
-            public void run() {
-                if (BrowserView.this.browserTreePanel != null && !BrowserView.this.browserTreePanel.getComposite().getTree().isDisposed()) {
-                    BrowserView.this.browserTreePanel.setInput(BrowserView.this.browserTreePanel.getInput());
-                }
-            }
-        });
-    }
-
-    @objid ("2e5964c6-d7d2-11e1-a4a6-002564c97630")
-    @Inject
-    @Optional
-    @SuppressWarnings("unused")
-    void onFragmentEvents(@EventTopic(ModelioEventTopics.FRAGMENT_EVENTS) final IProjectFragment fragment) {
-        // FIXME this should be an @UIEventTopic, but they are not triggered with eclipse 4.3 M5...
-        Display.getDefault().asyncExec(new Runnable() {
-        
-            @Override
-            public void run() {
-                if (BrowserView.this.browserTreePanel != null && !BrowserView.this.browserTreePanel.getComposite().getTree().isDisposed()) {
-                    BrowserView.this.browserTreePanel.setInput(BrowserView.this.browserTreePanel.getInput());
-                }
-            }
-        });
-    }
-
-    @objid ("b21075b6-404b-11e2-8458-002564c97630")
-    @Inject
-    @Optional
-    void onNavigateElement(@EventTopic(ModelioEventTopics.NAVIGATE_ELEMENT) final List<MObject> elements) {
-        // FIXME this should be an @UIEventTopic, but they are not triggered with eclipse 4.3 M5...
-        Display.getDefault().asyncExec(new Runnable() {
-        
-            @Override
-            public void run() {
-                BrowserView.this.browserTreePanel.getComposite().setSelection(new StructuredSelection(elements));
-            }
-        });
-    }
-
-    @objid ("b21075be-404b-11e2-8458-002564c97630")
-    @Inject
-    @Optional
-    void onNavigateElement(@EventTopic(ModelioEventTopics.NAVIGATE_ELEMENT) final MObject element) {
-        // FIXME this should be an @UIEventTopic, but they are not triggered with eclipse 4.3 M5...
-        Display.getDefault().asyncExec(new Runnable() {
-        
-            @Override
-            public void run() {
-                BrowserView.this.browserTreePanel.getComposite().setSelection(new StructuredSelection(element));
-            }
-        });
-    }
-
-    @objid ("7f0e6455-16a3-11e2-aa0d-002564c97630")
-    @Inject
-    @Optional
-    void onPickingStart(@EventTopic(ModelioEventTopics.PICKING_START) final IPickingSession session) {
-        // FIXME this should be an @UIEventTopic, but they are not triggered with eclipse 4.3 M5...
-        Display.getDefault().syncExec(new Runnable() {
-        
-            @Override
-            public void run() {
-                if (BrowserView.this.browserTreePanel != null) {
-                    BrowserView.this.pickingManager = new BrowserPickingManager(BrowserView.this.browserTreePanel, session);
-                    BrowserView.this.pickingManager.beginPicking();
-                }
-            }
-        });
-    }
-
-    @objid ("7f0e645b-16a3-11e2-aa0d-002564c97630")
-    @SuppressWarnings("unused")
-    @Inject
-    @Optional
-    void onPickingStop(@EventTopic(ModelioEventTopics.PICKING_STOP) final IPickingSession session) {
-        // FIXME this should be an @UIEventTopic, but they are not triggered with eclipse 4.3 M5...
-        Display.getDefault().syncExec(new Runnable() {
-        
-            @Override
-            public void run() {
-                if (BrowserView.this.pickingManager != null) {
-                    BrowserView.this.pickingManager.endPicking();
-                    BrowserView.this.pickingManager.dispose();
-                    BrowserView.this.pickingManager = null;
-                }
-            }
-        });
-    }
-
     /**
      * Selects and edits the given element in the tree if possible.
      * @param elementToEdit the element to select and edit.
@@ -365,17 +391,20 @@ public class BrowserView {
         });
     }
 
-    @objid ("15cf03a4-16da-11e2-aa0d-002564c97630")
-    @Focus
-    void setFocus() {
-        if (this.browserTreePanel != null) {
-            this.browserTreePanel.getComposite().getTree().setFocus();
-        }
-    }
-
     @objid ("35e43636-43a7-11e2-b513-002564c97630")
     public void collapseAll() {
         this.browserTreePanel.getComposite().collapseAll();
+    }
+
+    @objid ("f34dc898-88a8-4bc9-a3e8-c23e0bb783cd")
+    public boolean isShowAnalystModel() {
+        return this.browserTreePanel.isShowAnalystModel();
+    }
+
+    @objid ("406e594d-3f78-4614-b7ec-2f6513a3cfcb")
+    public void setShowAnalystModel(boolean showAnalystModel) {
+        this.browserTreePanel.setShowAnalystModel(showAnalystModel);
+        this.configurator.saveConfiguration(this.browserTreePanel);
     }
 
     @objid ("724330e9-4540-11e2-aeb7-002564c97630")
@@ -422,16 +451,6 @@ public class BrowserView {
     }
 
     /**
-     * Initialize the view content
-     * @param openedProject
-     */
-    @objid ("b803a8da-948c-4fc7-baa5-5acb6b0e2c02")
-    void initBrowserTreePanelForOpenedProject(final GProject openedProject) {
-        this.browserTreePanel.setInput(openedProject);
-        this.browserTreePanel.activateEdition(openedProject.getSession());
-    }
-
-    /**
      * Configure panel from project preferences
      * @param projectService
      */
@@ -443,6 +462,24 @@ public class BrowserView {
         }
         this.configurator.loadConfiguration(BrowserView.this.browserTreePanel);
         configureMenuItem();
+    }
+
+    @objid ("15cf03a4-16da-11e2-aa0d-002564c97630")
+    @Focus
+    void setFocus() {
+        if (this.browserTreePanel != null) {
+            this.browserTreePanel.getComposite().getTree().setFocus();
+        }
+    }
+
+    /**
+     * Initialize the view content
+     * @param openedProject
+     */
+    @objid ("b803a8da-948c-4fc7-baa5-5acb6b0e2c02")
+    void initBrowserTreePanelForOpenedProject(final GProject openedProject) {
+        this.browserTreePanel.setInput(openedProject);
+        this.browserTreePanel.activateEdition(openedProject.getSession());
     }
 
     /**
@@ -473,15 +510,9 @@ public class BrowserView {
         }
     }
 
-    @objid ("f34dc898-88a8-4bc9-a3e8-c23e0bb783cd")
-    public boolean isShowAnalystModel() {
-        return this.browserTreePanel.isShowAnalystModel();
-    }
-
-    @objid ("406e594d-3f78-4614-b7ec-2f6513a3cfcb")
-    public void setShowAnalystModel(boolean showAnalystModel) {
-        this.browserTreePanel.setShowAnalystModel (showAnalystModel);
-        this.configurator.saveConfiguration(this.browserTreePanel);
+    @objid ("6ee19fc9-6353-4500-b1d9-45be4afd8f96")
+    public List<Object> getRoots() {
+        return this.browserTreePanel.getLocalRoots();
     }
 
     @objid ("2efe5dfc-acc9-4d28-8b45-bece3ca07c53")
@@ -515,7 +546,7 @@ public class BrowserView {
 
         @objid ("61af700c-eb93-4d98-ac74-5978ea753f76")
         public void saveConfiguration(ModelBrowserPanelProvider browserTreePanel) {
-            this.prefs.setValue(SHOW_ANALYST_MODEL, browserTreePanel.isShowVisibility());
+            this.prefs.setValue(SHOW_ANALYST_MODEL, browserTreePanel.isShowAnalystModel());
             this.prefs.setValue(SHOW_FRAGMENTS, browserTreePanel.isShowProjects());
             this.prefs.setValue(SHOW_MDA_MODEL, browserTreePanel.isShowMdaModel());
             this.prefs.setValue(SHOW_VISIBILITY, browserTreePanel.isShowVisibility());

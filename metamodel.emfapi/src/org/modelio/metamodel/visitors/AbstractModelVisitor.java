@@ -229,8 +229,6 @@ import org.modelio.metamodel.uml.infrastructure.Dependency;
 import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.metamodel.uml.infrastructure.ExternDocument;
 import org.modelio.metamodel.uml.infrastructure.ExternDocumentType;
-import org.modelio.metamodel.uml.infrastructure.LocalNote;
-import org.modelio.metamodel.uml.infrastructure.LocalTaggedValue;
 import org.modelio.metamodel.uml.infrastructure.MetaclassReference;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
 import org.modelio.metamodel.uml.infrastructure.ModelTree;
@@ -327,18 +325,6 @@ public class AbstractModelVisitor implements IModelVisitor {
     @objid ("cf316fb0-0a28-4b7c-a149-8c3a30e6e1f3")
     @Override
     public Object visitElement(Element obj) {
-        	return null;
-    }
-
-    @objid ("6dee5d5a-9b60-4d59-b2e9-cd1e358ffea4")
-    @Override
-    public Object visitLocalNote(LocalNote obj) {
-        	return null;
-    }
-
-    @objid ("f16b4f7c-5b49-4753-8e1d-0c26e89b96df")
-    @Override
-    public Object visitLocalTaggedValue(LocalTaggedValue obj) {
         	return null;
     }
 

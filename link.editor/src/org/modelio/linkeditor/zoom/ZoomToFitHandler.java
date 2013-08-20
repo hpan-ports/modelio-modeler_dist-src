@@ -58,7 +58,7 @@ public class ZoomToFitHandler {
         
         LinkEditorView editor = (LinkEditorView) part.getObject();
         
-        ZoomManager zoomManager = (ZoomManager)editor.getAdapter(ZoomManager.class);
+        ZoomManager zoomManager = editor.getAdapter(ZoomManager.class);
         
         
         final int MARGIN = 30;

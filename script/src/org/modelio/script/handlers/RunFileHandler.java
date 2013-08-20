@@ -31,7 +31,6 @@ import org.eclipse.e4.ui.services.IServiceConstants;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Shell;
-import org.modelio.app.project.core.services.IProjectService;
 import org.modelio.script.engine.core.engine.IScriptRunner;
 import org.modelio.script.view.ScriptView;
 import org.modelio.script.view.ScriptViewSelectionGetter;
@@ -40,7 +39,7 @@ import org.modelio.script.view.ScriptViewSelectionGetter;
 public class RunFileHandler {
     @objid ("0046762a-6505-105c-84ef-001ec947cd2a")
     @Execute
-    public void execute(@Named(IServiceConstants.ACTIVE_SHELL) Shell shell, @Named(IServiceConstants.ACTIVE_PART) MPart part, IProjectService projectService) {
+    public void execute(@Named(IServiceConstants.ACTIVE_SHELL) Shell shell, @Named(IServiceConstants.ACTIVE_PART) MPart part) {
         ScriptView scriptView = (ScriptView) part.getObject();
         
         final IScriptRunner scriptRunner = scriptView.getScriptRunner();
@@ -48,8 +47,6 @@ public class RunFileHandler {
         final FileDialog dlg = new FileDialog(shell, SWT.OPEN);
         dlg.setFilterExtensions(new String[] { "*.py; *.jy" });
         dlg.setFilterNames(new String[] { "Python files" });
-        // dlg.setFilterPath(new File(O.getDefault().getWorkspacePath(),
-        // "macro").getPath());
         
         final String s = dlg.open();
         if (s != null) {

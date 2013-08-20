@@ -70,7 +70,6 @@ import org.modelio.core.ui.dialog.ModelioDialog;
 import org.modelio.core.ui.images.MetamodelImageService;
 import org.modelio.core.ui.plugin.CoreUi;
 import org.modelio.metamodel.uml.behavior.activityModel.ActivityEdge;
-import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
 import org.modelio.metamodel.uml.infrastructure.ModelTree;
 import org.modelio.metamodel.uml.statik.NameSpace;
@@ -90,13 +89,13 @@ import org.osgi.framework.Bundle;
 class EditionDialog extends ModelioDialog implements IPickingClient {
 // TODO CHM implements IEditorDropClient
     @objid ("8dbb4a29-c068-11e1-8c0a-002564c97630")
-    private List<Element> content;
+    private List<MObject> content;
 
     @objid ("a49236a1-c068-11e1-8c0a-002564c97630")
     private final String fieldName;
 
     @objid ("8dbcd0ba-c068-11e1-8c0a-002564c97630")
-    private final Element editedElement;
+    private final MObject editedElement;
 
     @objid ("8dbcd0bf-c068-11e1-8c0a-002564c97630")
     private boolean dialogActive = false;
@@ -117,7 +116,7 @@ class EditionDialog extends ModelioDialog implements IPickingClient {
     private TableViewer contentTree = null;
 
     @objid ("8dbcd0af-c068-11e1-8c0a-002564c97630")
-    private final Class<? extends Element> targetClass;
+    private final Class<? extends MObject> targetClass;
 
     @objid ("8dbcd0b3-c068-11e1-8c0a-002564c97630")
     private final IEditionValidator editionValidator;
@@ -140,7 +139,7 @@ class EditionDialog extends ModelioDialog implements IPickingClient {
     private IPickingSession pickingSession;
 
     @objid ("8dbcd0c0-c068-11e1-8c0a-002564c97630")
-    public EditionDialog(Shell parentShell, IModel session, IModelioPickingService pickingService, MultipleElementCellEditor editor, List<Element> initialContent, IEditionValidator editionValidator) {
+    public EditionDialog(Shell parentShell, IModel session, IModelioPickingService pickingService, MultipleElementCellEditor editor, List<MObject> initialContent, IEditionValidator editionValidator) {
         super(parentShell);
         this.editedElement = editor.getEditedElement();
         this.fieldName = editor.getFieldName();
@@ -264,7 +263,7 @@ class EditionDialog extends ModelioDialog implements IPickingClient {
             @Override
             public void doubleClick(DoubleClickEvent event) {
                 final IStructuredSelection selection = (IStructuredSelection) event.getSelection();
-                final Element element = (Element) selection.getFirstElement();
+                final MObject element = (MObject) selection.getFirstElement();
                 if (element != null && !EditionDialog.this.content.contains(element)) {
                     EditionDialog.this.content.add(element);
                     EditionDialog.this.contentTree.setInput(EditionDialog.this.content);
@@ -290,7 +289,7 @@ class EditionDialog extends ModelioDialog implements IPickingClient {
                 if ((e.stateMask & SWT.CTRL) != 0) {
                     final IStructuredSelection selection = (IStructuredSelection) EditionDialog.this.searchResultTree
                             .getSelection();
-                    final Element element = (Element) selection.getFirstElement();
+                    final MObject element = (MObject) selection.getFirstElement();
                     if (element != null) {
                         // TODO CHM fire model change
                         // ModelProperty.getInstance().getNavigateService().fireNavigate(element);
@@ -328,7 +327,7 @@ class EditionDialog extends ModelioDialog implements IPickingClient {
             @Override
             public void widgetSelected(SelectionEvent e) {
                 final IStructuredSelection selection = (IStructuredSelection) EditionDialog.this.searchResultTree.getSelection();
-                final Element element = (Element) selection.getFirstElement();
+                final MObject element = (MObject) selection.getFirstElement();
                 if (element != null && !EditionDialog.this.content.contains(element)) {
                     EditionDialog.this.content.add(element);
                     EditionDialog.this.contentTree.setInput(EditionDialog.this.content);
@@ -346,7 +345,7 @@ class EditionDialog extends ModelioDialog implements IPickingClient {
             @Override
             public void widgetSelected(SelectionEvent e) {
                 final IStructuredSelection selection = (IStructuredSelection) EditionDialog.this.contentTree.getSelection();
-                final Element element = (Element) selection.getFirstElement();
+                final MObject element = (MObject) selection.getFirstElement();
                 if (element != null) {
                     EditionDialog.this.content.remove(element);
                     EditionDialog.this.contentTree.setInput(EditionDialog.this.content);
@@ -401,7 +400,7 @@ class EditionDialog extends ModelioDialog implements IPickingClient {
             public void mouseUp(MouseEvent e) {
                 if ((e.stateMask & SWT.CTRL) != 0) {
                     final IStructuredSelection selection = (IStructuredSelection) EditionDialog.this.contentTree.getSelection();
-                    final Element element = (Element) selection.getFirstElement();
+                    final MObject element = (MObject) selection.getFirstElement();
                     if (element != null) {
                         // TODO CHM fire model change
                         // ModelProperty.getInstance().getNavigateService().fireNavigate(element);
@@ -416,7 +415,7 @@ class EditionDialog extends ModelioDialog implements IPickingClient {
             @Override
             public void doubleClick(DoubleClickEvent event) {
                 final IStructuredSelection selection = (IStructuredSelection) event.getSelection();
-                final Element element = (Element) selection.getFirstElement();
+                final MObject element = (MObject) selection.getFirstElement();
                 if (element != null) {
                     // ModelProperty.getInstance().getNavigateService().fireNavigate(element);
                     EditionDialog.this.content.remove(element);
@@ -521,7 +520,7 @@ class EditionDialog extends ModelioDialog implements IPickingClient {
     }
 
     @objid ("8dbe577e-c068-11e1-8c0a-002564c97630")
-    public void setContent(List<Element> newContent) {
+    public void setContent(List<MObject> newContent) {
         this.content = new ArrayList<>(newContent);
         this.contentTree.setInput(this.content);
     }
@@ -555,7 +554,7 @@ class EditionDialog extends ModelioDialog implements IPickingClient {
     }
 
 /*
-     * @Override public boolean acceptDroppedElements(Element[] target) { return target.length == 1 &&
+     * @Override public boolean acceptDroppedElements(MObject[] target) { return target.length == 1 &&
      * this.targetClass.isAssignableFrom(target[0].getClass()); }
      */
     @objid ("15fb1cb4-16da-11e2-aa0d-002564c97630")
@@ -580,7 +579,7 @@ class EditionDialog extends ModelioDialog implements IPickingClient {
     }
 
 /*
-     * @Override public void setDroppedElements(Element[] target) { if (target != null && target.length == 1 &&
+     * @Override public void setDroppedElements(MObject[] target) { if (target != null && target.length == 1 &&
      * !this.content.contains(target[0])) { this.content.add(target[0]); this.contentTree.refresh(); } }
      */
     @objid ("15fc0714-16da-11e2-aa0d-002564c97630")
@@ -588,7 +587,7 @@ class EditionDialog extends ModelioDialog implements IPickingClient {
     public boolean pick(MObject target) {
         if (hover(target)) {
             if (!this.content.contains(target)) {
-                this.content.add((Element) target);
+                this.content.add(target);
                 this.contentTree.setInput(this.content);
             }
         
@@ -632,7 +631,7 @@ class EditionDialog extends ModelioDialog implements IPickingClient {
         @objid ("8dbfde07-c068-11e1-8c0a-002564c97630")
         @Override
         public Image getImage(Object obj) {
-            final Element element = (Element) obj;
+            final MObject element = (MObject) obj;
             return MetamodelImageService.getIcon(element.getMClass());
         }
 
@@ -688,10 +687,10 @@ class EditionDialog extends ModelioDialog implements IPickingClient {
     @objid ("8dbfde29-c068-11e1-8c0a-002564c97630")
     class TreeContentProvider implements IStructuredContentProvider {
         @objid ("8dbfde2c-c068-11e1-8c0a-002564c97630")
-        private List<Element> results = null;
+        private List<MObject> results = null;
 
         @objid ("8dc16488-c068-11e1-8c0a-002564c97630")
-        public TreeContentProvider(List<Element> results) {
+        public TreeContentProvider(List<MObject> results) {
             this.results = results;
         }
 
@@ -708,7 +707,7 @@ class EditionDialog extends ModelioDialog implements IPickingClient {
         }
 
         @objid ("8dc1649a-c068-11e1-8c0a-002564c97630")
-        public List<Element> getResults() {
+        public List<MObject> getResults() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return this.results;
         }
@@ -717,7 +716,7 @@ class EditionDialog extends ModelioDialog implements IPickingClient {
         @Override
         @SuppressWarnings("unchecked")
         public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
-            this.results = (List<Element>) newInput;
+            this.results = (List<MObject>) newInput;
         }
 
     }

@@ -71,7 +71,10 @@ public class CheckElementRunner implements Runnable {
                 if (element instanceof MObject) {
                     this.selectedElements.add((MObject) element);
                 } else if (element instanceof IAdaptable) {
-                    this.selectedElements.add((MObject) ((IAdaptable) element).getAdapter(MObject.class));
+                    final MObject adapter = (MObject) ((IAdaptable) element).getAdapter(MObject.class);
+                    if (adapter != null) {
+                        this.selectedElements.add(adapter);
+                    }
                 }
             }
         }

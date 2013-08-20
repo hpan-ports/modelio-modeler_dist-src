@@ -15,6 +15,7 @@ import org.eclipse.e4.ui.model.application.ui.menu.MPopupMenu;
 import org.eclipse.e4.ui.model.application.ui.menu.MToolBar;
 import org.eclipse.e4.ui.model.application.ui.menu.MToolBarElement;
 import org.eclipse.e4.ui.model.application.ui.menu.impl.ItemImpl;
+import org.eclipse.e4.ui.services.EContextService;
 import org.eclipse.e4.ui.workbench.modeling.ESelectionService;
 import org.eclipse.e4.ui.workbench.swt.modeling.EMenuService;
 import org.eclipse.jface.viewers.DoubleClickEvent;
@@ -85,6 +86,10 @@ public class DiagramBrowserView {
     @Inject
     @Optional
     protected IActivationService activationService;
+
+    @objid ("331faaf6-b80f-48c9-b190-5efcd7500c19")
+    @Inject
+     static EContextService contextService;
 
     @objid ("000ccc86-0d4f-10c6-842f-001ec947cd2a")
     @PostConstruct
@@ -216,15 +221,6 @@ public class DiagramBrowserView {
     @Optional
     void onProjectClosed(@EventTopic(ModelioEventTopics.PROJECT_CLOSED) final GProject closedProject) {
         // @UIEventTopic doesn't seems to be working here...
-        // FIXME remove double-click listener , it fires a open diagram or validates a picking
-        // if (this.activateSender != null && !getCommonViewer().getTree().isDisposed()) {
-        // getCommonViewer().getTree().removeMouseListener(this.activateSender);
-        // this.activateSender = null;
-        // }
-        
-        // FIXME remove navigate listener
-        // INavigationService navigationService = O.getDefault().getNavigateService();
-        // navigationService.removeNavigationListener(this);
         
         // remove model change listener if session still alive
         if (closedProject != null && closedProject.isOpen()) {
@@ -365,7 +361,10 @@ public class DiagramBrowserView {
                     } else if (selectedObject instanceof DiagramRef) {
                         DiagramBrowserView.this.activationService.activateMObject(((DiagramRef) selectedObject).getReferencedDiagram());
                     } else if (selectedObject instanceof IAdaptable) {
-                        DiagramBrowserView.this.activationService.activateMObject((MObject) ((IAdaptable) selectedObject).getAdapter(MObject.class));
+                        final MObject adapter = (MObject) ((IAdaptable) selectedObject).getAdapter(MObject.class);
+                        if (adapter != null) {
+                            DiagramBrowserView.this.activationService.activateMObject(adapter);
+                        }
                     }
                 }
         

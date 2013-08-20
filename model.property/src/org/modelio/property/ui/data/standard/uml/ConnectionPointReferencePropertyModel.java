@@ -21,6 +21,8 @@
 
 package org.modelio.property.ui.data.standard.uml;
 
+import java.util.ArrayList;
+import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.core.ui.ktable.types.IPropertyType;
 import org.modelio.core.ui.ktable.types.hybrid.HybridType;
@@ -32,6 +34,7 @@ import org.modelio.metamodel.uml.infrastructure.ModelElement;
 import org.modelio.property.ui.data.standard.common.AbstractPropertyModel;
 import org.modelio.vcore.session.api.ICoreSession;
 import org.modelio.vcore.session.impl.CoreSession;
+import org.modelio.vcore.smkernel.mapi.MObject;
 
 /**
  * <i>ConnectionPointReference</i> data model.
@@ -227,17 +230,26 @@ public class ConnectionPointReferencePropertyModel extends AbstractPropertyModel
     @objid ("8ef10b1f-c068-11e1-8c0a-002564c97630")
     public static class EntryExitType extends HybridType {
         @objid ("8ef10b21-c068-11e1-8c0a-002564c97630")
-        private Class<?>[] t = { EntryPointPseudoState.class, ExitPointPseudoState.class };
+        private List<Class<? extends MObject>> t;
 
         @objid ("8ef10b26-c068-11e1-8c0a-002564c97630")
         public EntryExitType(ICoreSession session) {
             super(session);
+            this.t = new ArrayList<>();
+            this.t.add(EntryPointPseudoState.class);
+            this.t.add(ExitPointPseudoState.class);
         }
 
         @objid ("8ef10b28-c068-11e1-8c0a-002564c97630")
         @Override
-        public Class<?>[] getTypes() {
+        public List<Class<? extends MObject>> getTypes() {
             return this.t;
+        }
+
+        @objid ("c789bbc9-b5b8-4aba-a308-b170573fdeb1")
+        @Override
+        public boolean acceptStringValue() {
+            return false;
         }
 
     }

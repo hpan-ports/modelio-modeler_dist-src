@@ -327,6 +327,7 @@ public class GProjectPreferenceStore extends EventManager implements IPersistent
     @Override
     public void save() throws IOException {
         // not supported this.store.save();
+        this.dirty = false;
     }
 
     @objid ("e49b5f1a-73f4-436a-ab7a-007aa6b55f2b")

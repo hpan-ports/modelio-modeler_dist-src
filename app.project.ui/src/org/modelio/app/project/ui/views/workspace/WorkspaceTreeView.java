@@ -29,30 +29,39 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
+import javax.inject.Named;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.core.commands.ParameterizedCommand;
 import org.eclipse.e4.core.commands.ECommandService;
 import org.eclipse.e4.core.commands.EHandlerService;
 import org.eclipse.e4.core.di.annotations.Optional;
 import org.eclipse.e4.core.di.extensions.EventTopic;
+import org.eclipse.e4.core.services.statusreporter.StatusReporter;
 import org.eclipse.e4.ui.di.Focus;
 import org.eclipse.e4.ui.di.UIEventTopic;
+import org.eclipse.e4.ui.model.application.ui.basic.MWindow;
+import org.eclipse.e4.ui.services.IServiceConstants;
 import org.eclipse.e4.ui.workbench.modeling.ESelectionService;
+import org.eclipse.e4.ui.workbench.modeling.IWindowCloseHandler;
 import org.eclipse.e4.ui.workbench.swt.modeling.EMenuService;
 import org.eclipse.jface.viewers.DoubleClickEvent;
 import org.eclipse.jface.viewers.IDoubleClickListener;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
+import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Shell;
 import org.modelio.app.core.events.ModelioEventTopics;
 import org.modelio.app.project.core.services.IProjectService;
+import org.modelio.app.project.ui.closeproject.CloseProjectHandler;
 import org.modelio.app.project.ui.plugin.AppProjectUi;
 import org.modelio.gproject.descriptor.ProjectDescriptor;
 import org.modelio.gproject.gproject.GProject;
 import org.modelio.gproject.gproject.GProjectFactory;
+import org.modelio.ui.progress.IModelioProgressService;
 
 /**
  * Workspace tree viewer
@@ -159,7 +168,7 @@ public class WorkspaceTreeView {
         File file = path.toFile();
         if (file != null && file.exists() && file.isDirectory()) {
             this.cache.load(path);
-            
+        
             final ProjectCache aCache = this.cache;
             this.viewer.getTree().getDisplay().asyncExec(new Runnable() {
                 @Override
@@ -167,7 +176,7 @@ public class WorkspaceTreeView {
                     getViewer().setInput(aCache);
                 }
             });
-            
+        
         } else {
             AppProjectUi.LOG.error("Invalid workspace path: %s", path.toString());
         }
@@ -232,15 +241,26 @@ public class WorkspaceTreeView {
     @Optional
     void onWorkspaceContents(@EventTopic(ModelioEventTopics.WORKSPACE_CONTENTS) final Path wkspace) {
         AppProjectUi.LOG.debug("onWorkspaceContents() ", wkspace.toString());
-        refreshContents();
+        if (isValid())
+            refreshContents();
     }
 
     @objid ("003dc944-83c8-1fe1-bf4c-001ec947cd2a")
     @Inject
     @Optional
-    void onProjectOpened(@UIEventTopic(ModelioEventTopics.PROJECT_OPENED) final GProject project) {
+    void onProjectOpened(@UIEventTopic(ModelioEventTopics.PROJECT_OPENED) final GProject project, @Named(IServiceConstants.ACTIVE_SHELL) final Shell shell, MWindow window, final IModelioProgressService progressService, final StatusReporter statusReporter) {
         AppProjectUi.LOG.debug("onProjectOpened() %s", project.getName());
         refreshLabels();
+        
+        // FIXME Misplaced
+        IWindowCloseHandler handler = new IWindowCloseHandler() {
+            @Override
+            public boolean close(MWindow windoww) {
+                return CloseProjectHandler.saveBeforeClose(shell, projectService, progressService, statusReporter);
+            }
+        };
+        
+        window.getContext().set(IWindowCloseHandler.class, handler);
     }
 
     /**
@@ -254,7 +274,8 @@ public class WorkspaceTreeView {
         AppProjectUi.LOG.debug("onProjectClosed() %s", project);
         // fire a whole workspace contents refresh (reloading the cache) to
         // ensure that project descriptors are "re-read" from disc
-        refreshContents();
+        if (isValid())
+            refreshContents();
     }
 
     /**
@@ -265,8 +286,10 @@ public class WorkspaceTreeView {
     @Inject
     @Optional
     void onProjectSaved(@UIEventTopic(ModelioEventTopics.PROJECT_SAVED) final GProject project) {
-        refreshContents();
-        selectProject(project.getName());
+        if (isValid()) {
+            refreshContents();
+            selectProject(project.getName());
+        }
     }
 
     /**
@@ -286,6 +309,18 @@ public class WorkspaceTreeView {
         return WorkspaceTreeView.this.viewer;
     }
 
+    /**
+     * Tells whether the tree view is initialized and not disposed.
+     * @return <code>true</code> if the viewer is usable else <code>false</code>.
+     */
+    @objid ("a8d55f96-363b-4568-9f42-6848eb42fbc8")
+    boolean isValid() {
+        return this.viewer != null && this.viewer.getTree() != null && !this.viewer.getTree().isDisposed();
+    }
+
+    /**
+     * Cache of all project descriptors found in the workspace.
+     */
     @objid ("00397e3e-f974-1fc8-b42e-001ec947cd2a")
     static class ProjectCache {
         @objid ("00572dda-f974-1fc8-b42e-001ec947cd2a")
@@ -332,7 +367,7 @@ public class WorkspaceTreeView {
             if (Files.isDirectory(aWorkspacePath)) {
                 try (DirectoryStream<Path> dirList = Files.newDirectoryStream(aWorkspacePath);) {
                     for (Path entry : dirList) {
-                        if (isProjectSpace(entry)) {
+                        if (GProjectFactory.isProjectSpace(entry)) {
                             ProjectDescriptor projectDescriptor = GProjectFactory.readProjectDirectory(entry);
                             this.cachedProjects.add(projectDescriptor);
                         }
@@ -343,12 +378,6 @@ public class WorkspaceTreeView {
                     AppProjectUi.LOG.error(e);
                 }
             }
-        }
-
-        @objid ("001095fa-9366-1061-84ef-001ec947cd2a")
-        private boolean isProjectSpace(final Path directory) {
-            Path confFile = directory.resolve("project.conf");
-            return Files.isRegularFile(confFile);
         }
 
     }

@@ -27,7 +27,6 @@ package org.modelio.metamodel.data.uml.infrastructure;
 import java.util.ArrayList;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.modelio.metamodel.data.uml.infrastructure.LocalTaggedValueData;
 import org.modelio.metamodel.data.uml.infrastructure.MetaclassReferenceData;
 import org.modelio.metamodel.data.uml.infrastructure.StereotypeData;
 import org.modelio.metamodel.data.uml.infrastructure.TaggedValueData;
@@ -48,33 +47,9 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("008fbe34-c4be-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=TagType.class, factory=TagTypeData.Metadata.ObjectFactory.class)
 public class TagTypeData extends ModelElementData {
-    @objid ("0a7a962b-4073-48e5-98dd-128176207901")
-    @SmaMetaAttribute(metaName="ParamNumber", type=String.class, smAttributeClass=Metadata.ParamNumberSmAttribute.class)
-     Object mParamNumber = "1";
-
-    @objid ("50610930-7ccd-418f-8b44-a3ea1166113a")
-    @SmaMetaAttribute(metaName="IsQualified", type=Boolean.class, smAttributeClass=Metadata.IsQualifiedSmAttribute.class)
-     Object mIsQualified = false;
-
-    @objid ("4770c74e-27ef-4257-ae28-b8819be60588")
-    @SmaMetaAttribute(metaName="BelongToPrototype", type=Boolean.class, smAttributeClass=Metadata.BelongToPrototypeSmAttribute.class)
-     Object mBelongToPrototype = false;
-
-    @objid ("c23e57f3-9070-4e08-90d4-8bc80143e30c")
-    @SmaMetaAttribute(metaName="IsHidden", type=Boolean.class, smAttributeClass=Metadata.IsHiddenSmAttribute.class)
-     Object mIsHidden = false;
-
-    @objid ("75e857cf-a086-49f4-838e-1c95e2898af9")
-    @SmaMetaAttribute(metaName="LabelKey", type=String.class, smAttributeClass=Metadata.LabelKeySmAttribute.class)
-     Object mLabelKey = "";
-
     @objid ("078baa04-3ed9-42a9-bcc8-01e2c7357074")
     @SmaMetaAssociation(metaName="TagOccurence", typeDataClass=TaggedValueData.class, min=0, max=-1, smAssociationClass=Metadata.TagOccurenceSmDependency.class, istodelete = true, performanceRisk = true)
      List<SmObjectImpl> mTagOccurence = null;
-
-    @objid ("9e0a5fae-4bef-44df-9a65-42c9747eba8f")
-    @SmaMetaAssociation(metaName="LocalTagOccurence", typeDataClass=LocalTaggedValueData.class, min=0, max=-1, smAssociationClass=Metadata.LocalTagOccurenceSmDependency.class, istodelete = true, performanceRisk = true)
-     List<SmObjectImpl> mLocalTagOccurence = null;
 
     @objid ("57a42ca0-8843-45f4-bff0-1c1c6305ae9e")
     @SmaMetaAssociation(metaName="OwnerStereotype", typeDataClass=StereotypeData.class, min=0, max=1, smAssociationClass=Metadata.OwnerStereotypeSmDependency.class)
@@ -84,6 +59,26 @@ public class TagTypeData extends ModelElementData {
     @SmaMetaAssociation(metaName="OwnerReference", typeDataClass=MetaclassReferenceData.class, min=0, max=1, smAssociationClass=Metadata.OwnerReferenceSmDependency.class)
      SmObjectImpl mOwnerReference;
 
+    @objid ("7444b155-7e93-4e59-80ea-9123c3d708fc")
+    @SmaMetaAttribute(metaName="ParamNumber", type=String.class, smAttributeClass=Metadata.ParamNumberSmAttribute.class)
+     Object mParamNumber = "1";
+
+    @objid ("d341258e-ba83-4b25-9e24-e13aec91b1d3")
+    @SmaMetaAttribute(metaName="IsQualified", type=Boolean.class, smAttributeClass=Metadata.IsQualifiedSmAttribute.class)
+     Object mIsQualified = false;
+
+    @objid ("d7512c9d-e863-4b7f-a083-ad0118b540a2")
+    @SmaMetaAttribute(metaName="BelongToPrototype", type=Boolean.class, smAttributeClass=Metadata.BelongToPrototypeSmAttribute.class)
+     Object mBelongToPrototype = false;
+
+    @objid ("11f1f85a-986d-4791-8fba-68c09a928c1b")
+    @SmaMetaAttribute(metaName="IsHidden", type=Boolean.class, smAttributeClass=Metadata.IsHiddenSmAttribute.class)
+     Object mIsHidden = false;
+
+    @objid ("79184644-18c1-46b5-99da-04662673eb29")
+    @SmaMetaAttribute(metaName="LabelKey", type=String.class, smAttributeClass=Metadata.LabelKeySmAttribute.class)
+     Object mLabelKey = "";
+
     @objid ("522421df-0746-4d11-8788-947a44b06be3")
     public SmClass getClassOf() {
         return Metadata.classof();
@@ -91,34 +86,34 @@ public class TagTypeData extends ModelElementData {
 
     @objid ("009058a8-c4c5-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("4eaddfe2-acd0-4459-b4aa-bad650dec959")
+        @objid ("14ea5290-1574-44de-acff-75d77ed6fb7b")
         private static SmClass smClass = null;
 
-        @objid ("7e25c5f7-f037-4133-a6db-726c0377645b")
+        @objid ("a5b9c0cc-921e-4832-a4aa-8103f0012096")
         private static SmAttribute ParamNumberAtt = null;
 
-        @objid ("14efef80-ae4c-4545-8bd2-ce4cbd411cfb")
+        @objid ("23b187c8-1262-4718-adf1-ddf8382c7278")
         private static SmAttribute IsQualifiedAtt = null;
 
-        @objid ("3c5f0984-2b91-42bf-a9a3-2a68976fc2be")
+        @objid ("6d17c5e8-0932-4d6e-b65b-259c802a72e4")
         private static SmAttribute BelongToPrototypeAtt = null;
 
-        @objid ("d51b2e43-5416-41fa-aba7-2bf312d55320")
+        @objid ("baed60cb-f757-4e92-9bbc-f44f4121ffb6")
         private static SmAttribute IsHiddenAtt = null;
 
-        @objid ("15c250de-ddd9-4e2d-94c8-a8638b26ea2f")
+        @objid ("1c3c8cd1-8269-4d4b-b9b4-a71d40faa6af")
         private static SmAttribute LabelKeyAtt = null;
 
-        @objid ("c54ab688-daa3-4766-9472-5100b674e083")
+        @objid ("c8df1af5-b40b-485c-948d-3375698d78a1")
         private static SmDependency TagOccurenceDep = null;
 
-        @objid ("ede6b390-f00e-44c5-8eda-2218a5b8e318")
+        @objid ("e44b5667-1d66-4001-9e3b-563990ffa7c7")
         private static SmDependency LocalTagOccurenceDep = null;
 
-        @objid ("11161039-01f8-4fa9-af40-5f42aefc1d07")
+        @objid ("b116faad-975f-4ae7-9dda-9dd34f124265")
         private static SmDependency OwnerStereotypeDep = null;
 
-        @objid ("deb2ef1e-15d9-4626-924d-248adb2307eb")
+        @objid ("f0acd04d-67d5-4497-ab59-9194870427a7")
         private static SmDependency OwnerReferenceDep = null;
 
         @objid ("1369c75e-b197-418f-8eb2-4ac43d7d20c3")
@@ -129,7 +124,7 @@ public class TagTypeData extends ModelElementData {
         @objid ("13602334-62e9-4e97-8ed6-7601448cc603")
         public static SmAttribute ParamNumberAtt() {
             if (ParamNumberAtt == null) {
-            	ParamNumberAtt = classof().getAttributeDef("ParamNumber");
+                ParamNumberAtt = classof().getAttributeDef("ParamNumber");
             }
             return ParamNumberAtt;
         }
@@ -137,7 +132,7 @@ public class TagTypeData extends ModelElementData {
         @objid ("a9a33553-fe27-42b2-a571-37ecc702dc06")
         public static SmAttribute IsQualifiedAtt() {
             if (IsQualifiedAtt == null) {
-            	IsQualifiedAtt = classof().getAttributeDef("IsQualified");
+                IsQualifiedAtt = classof().getAttributeDef("IsQualified");
             }
             return IsQualifiedAtt;
         }
@@ -145,7 +140,7 @@ public class TagTypeData extends ModelElementData {
         @objid ("cbc3b042-ccf5-4fba-9bf9-858771e6b019")
         public static SmAttribute BelongToPrototypeAtt() {
             if (BelongToPrototypeAtt == null) {
-            	BelongToPrototypeAtt = classof().getAttributeDef("BelongToPrototype");
+                BelongToPrototypeAtt = classof().getAttributeDef("BelongToPrototype");
             }
             return BelongToPrototypeAtt;
         }
@@ -153,7 +148,7 @@ public class TagTypeData extends ModelElementData {
         @objid ("d6370395-8656-48a9-90cf-160f298e5bf1")
         public static SmAttribute IsHiddenAtt() {
             if (IsHiddenAtt == null) {
-            	IsHiddenAtt = classof().getAttributeDef("IsHidden");
+                IsHiddenAtt = classof().getAttributeDef("IsHidden");
             }
             return IsHiddenAtt;
         }
@@ -161,7 +156,7 @@ public class TagTypeData extends ModelElementData {
         @objid ("3dc95200-256a-4302-b042-2b5da68c2d09")
         public static SmAttribute LabelKeyAtt() {
             if (LabelKeyAtt == null) {
-            	LabelKeyAtt = classof().getAttributeDef("LabelKey");
+                LabelKeyAtt = classof().getAttributeDef("LabelKey");
             }
             return LabelKeyAtt;
         }
@@ -169,7 +164,7 @@ public class TagTypeData extends ModelElementData {
         @objid ("40a1b8f4-b34a-40bd-993e-c9c5e2c6ece6")
         public static SmDependency TagOccurenceDep() {
             if (TagOccurenceDep == null) {
-            	TagOccurenceDep = classof().getDependencyDef("TagOccurence");
+                TagOccurenceDep = classof().getDependencyDef("TagOccurence");
             }
             return TagOccurenceDep;
         }
@@ -177,7 +172,7 @@ public class TagTypeData extends ModelElementData {
         @objid ("a5ce3ca0-8cdb-4fea-9466-39f41004d1c2")
         public static SmDependency LocalTagOccurenceDep() {
             if (LocalTagOccurenceDep == null) {
-            	LocalTagOccurenceDep = classof().getDependencyDef("LocalTagOccurence");
+                LocalTagOccurenceDep = classof().getDependencyDef("LocalTagOccurence");
             }
             return LocalTagOccurenceDep;
         }
@@ -185,7 +180,7 @@ public class TagTypeData extends ModelElementData {
         @objid ("27713009-ff07-4ce4-890e-f8b0bc38326f")
         public static SmDependency OwnerStereotypeDep() {
             if (OwnerStereotypeDep == null) {
-            	OwnerStereotypeDep = classof().getDependencyDef("OwnerStereotype");
+                OwnerStereotypeDep = classof().getDependencyDef("OwnerStereotype");
             }
             return OwnerStereotypeDep;
         }
@@ -193,7 +188,7 @@ public class TagTypeData extends ModelElementData {
         @objid ("0a56f79d-5d7d-4d21-853d-93ddd1e7d874")
         public static SmDependency OwnerReferenceDep() {
             if (OwnerReferenceDep == null) {
-            	OwnerReferenceDep = classof().getDependencyDef("OwnerReference");
+                OwnerReferenceDep = classof().getDependencyDef("OwnerReference");
             }
             return OwnerReferenceDep;
         }
@@ -347,29 +342,6 @@ public class TagTypeData extends ModelElementData {
             @Override
             public SmDependency getSymetric() {
                 return TaggedValueData.Metadata.DefinitionDep();
-            }
-
-        }
-
-        @objid ("009348ce-c4c5-1fd8-97fe-001ec947cd2a")
-        public static class LocalTagOccurenceSmDependency extends SmMultipleDependency {
-            @objid ("268bd9d5-8fb6-4387-8f0c-e8b33ea09587")
-            @Override
-            public List<SmObjectImpl> getValueList(ISmObjectData data) {
-                return (((TagTypeData)data).mLocalTagOccurence != null)? ((TagTypeData)data).mLocalTagOccurence:SmMultipleDependency.EMPTY;
-            }
-
-            @objid ("fcbb858d-da9e-4dc9-ab41-314aa7ad23ea")
-            @Override
-            protected List<SmObjectImpl> allocateValueList(ISmObjectData data, int initialCapacity) {
-                ((TagTypeData) data).mLocalTagOccurence = new ArrayList<>(initialCapacity);
-                return ((TagTypeData) data).mLocalTagOccurence;
-            }
-
-            @objid ("869845ac-39a1-47da-8d80-d30eb905deaa")
-            @Override
-            public SmDependency getSymetric() {
-                return LocalTaggedValueData.Metadata.LocalDefinitionDep();
             }
 
         }

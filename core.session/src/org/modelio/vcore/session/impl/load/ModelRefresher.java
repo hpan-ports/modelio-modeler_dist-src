@@ -21,26 +21,17 @@
 
 package org.modelio.vcore.session.impl.load;
 
-import java.lang.Thread.UncaughtExceptionHandler;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
-import java.util.concurrent.LinkedBlockingQueue;
-import java.util.concurrent.ThreadFactory;
-import java.util.concurrent.ThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.modelio.vcore.Log;
 import org.modelio.vcore.model.DuplicateObjectException;
-import org.modelio.vcore.session.api.model.change.IModelChangeEvent;
-import org.modelio.vcore.session.api.model.change.IStatusChangeEvent;
+import org.modelio.vcore.session.impl.storage.IModelLoader;
 import org.modelio.vcore.session.impl.storage.IModelRefresher;
 import org.modelio.vcore.session.impl.storage.nullz.NullRepository;
-import org.modelio.vcore.session.impl.transactions.events.EventFactory;
-import org.modelio.vcore.session.impl.transactions.events.ModelChangeSupport;
 import org.modelio.vcore.session.impl.transactions.smAction.AppendDependencyAction;
 import org.modelio.vcore.session.impl.transactions.smAction.CreateElementAction;
 import org.modelio.vcore.session.impl.transactions.smAction.DeleteElementAction;
@@ -61,15 +52,6 @@ import org.modelio.vcore.smkernel.meta.SmDependency;
  */
 @objid ("1559e83f-19f3-11e2-8eb9-001ec947ccaf")
 class ModelRefresher extends ModelLoader implements IModelRefresher {
-    /**
-     * Service used to fire all model change events in a single parallel thread.
-     */
-    @objid ("450072b1-aa9d-40ec-80ed-2e2d918cb32d")
-    private static ThreadPoolExecutor firerService = initExecutorService();
-
-    @objid ("2c5e2bd4-7332-4705-b407-6ba7fd4956fd")
-    private EventFactory eventFactory;
-
     @objid ("2b43673a-bac9-459f-a578-456eb4060469")
     private SmObjectImpl lastStatusChange = null;
 
@@ -99,79 +81,28 @@ class ModelRefresher extends ModelLoader implements IModelRefresher {
     @objid ("e771f939-613d-4fd3-befe-820560b36f6b")
     private Collection<ISmObjectData> deletedData;
 
-    /**
-     * Used to initialize {@link #firerService}.
-     * @return the executor service.
-     */
-    @objid ("de626af0-e8c6-4468-8b33-2c8e11cb89f2")
-    private static ThreadPoolExecutor initExecutorService() {
-        /*
-         * Creates an Executor that uses a single worker thread operating
-         * off an unbounded queue, and uses the provided ThreadFactory to
-         * create a new thread when needed. 
-         * 
-         * Instantiates a thread factory that creates daemons threads with
-         * a custom name and an unhandled exception handler that logs errors.
-         */
-        ThreadFactory threadFactory = new ThreadFactory() {
-            @Override
-            public Thread newThread(Runnable r) {
-                Thread t = new Thread(r, "Fire model refreshed event");
-                t.setDaemon(true);
-                t.setUncaughtExceptionHandler(new UncaughtExceptionHandler() {
-                    
-                    @Override
-                    public void uncaughtException(Thread dead, Throwable e) {
-                        Log.error("ModelRefresher: '"+dead+"' thread died unexpectedly:");
-                        Log.error(e);
-                    }
-                });
-                return t;
-            }
-        };
-        
-        LinkedBlockingQueue<Runnable> workQueue = new LinkedBlockingQueue<>();
-        ThreadPoolExecutor svc = new ThreadPoolExecutor(1, 1,
-                0L, TimeUnit.MILLISECONDS,
-                workQueue,
-                threadFactory);
-        return svc;
-    }
+    @objid ("3a1b1bbf-8213-44da-b422-9b8c9f4f9112")
+    private RefreshEventService refreshEventService;
 
     @objid ("7d88c89e-1c43-11e2-8eb9-001ec947ccaf")
-    public ModelRefresher(ModelLoaderConfiguration loaderConfig) {
-        super(loaderConfig);
+    public ModelRefresher(ModelLoaderConfiguration loaderConfig, Collection<IModelLoader> pool) {
+        super(loaderConfig, pool);
+        this.refreshEventService = loaderConfig.getRefreshEventService();
         reset();
     }
 
     @objid ("7d8b2af7-1c43-11e2-8eb9-001ec947ccaf")
     @Override
-    public void close() {
-        super.close();
+    protected void doClose() {
+        super.doClose();
         
         // Delete orphan elements
         this.deleter.doDelete(getObjsToDelete());
         
-        // Guard against event queue overflow that fills memory
-        checkEventQueue();
+        // Triggers the refresh event service
+        this.refreshEventService.addEvent(this.recordedActions, this.deletedData);
         
-        // Process recorded events
-        for (IAction  a: this.recordedActions)
-            this.eventFactory.process(a);
-        
-        // Prepare the model change event
-        this.eventFactory.postProcess();
-        
-        // Fire the model change event in a parallel thread.
-        final ModelChangeSupport changeSupport = getSession().getModelChangeSupport();
-        final EventFactory leventFactory = this.eventFactory;
-        final Collection<ISmObjectData> ldeletedData = this.deletedData;
-        getSession().getSchedulerService().execute(new Runnable() {
-            @Override
-            public void run() {
-                getSession().getTransactionSupport().asyncExec(new ChangeEventFirer(changeSupport, leventFactory, ldeletedData));
-            }
-        });
+        // Reinitialize 
         reset();
     }
 
@@ -221,40 +152,12 @@ class ModelRefresher extends ModelLoader implements IModelRefresher {
      */
     @objid ("7d88c8a5-1c43-11e2-8eb9-001ec947ccaf")
     private void reset() {
-        this.eventFactory = EventFactory.createEvent();
         this.mayBeOrphan = new HashSet<>();
         this.recordedActions = new ArrayList<>();
         this.depRefresher = new DepRefresher( this.mayBeOrphan, this.recordedActions);
         this.deleter = new ModelRefreshDeleter(this);
         this.deletedObjs = new ArrayList<>();
         this.deletedData = new ArrayList<>();
-    }
-
-    /**
-     * Guard against event queue overflow that fills memory.
-     * <p>
-     * Waits one millisecond if the event queue contains more than 100 events.
-     * Throws an Error  if the event queue contains more than 200 events.
-     * @throws org.modelio.vcore.session.impl.load.ModelRefresher.EventQueueOverflowError if the event queue contains too much elements
-     */
-    @objid ("c50d83ae-78c6-4136-b3d6-d00b2816bed7")
-    private void checkEventQueue() throws EventQueueOverflowError {
-        int eventQueueSize = firerService.getQueue().size();
-        if (eventQueueSize > 100) {
-            String msg = "ModelRefresher: change event queue overflows with "+eventQueueSize+" change events.";
-            Log.warning(msg);
-            Log.warning("ModelRefresher: event queue state: "+firerService.toString()+" .");
-            if (eventQueueSize > 200)
-                throw new EventQueueOverflowError(msg);
-            
-            try {
-                Thread.sleep(1);
-            } catch (InterruptedException e) {
-                // ignore
-            }
-        
-            Log.warning("ModelRefresher: now "+firerService.getQueue().size()+" events in queue.");
-        }
     }
 
     @objid ("8fd36252-152e-4714-b0bf-0f1b36269037")
@@ -358,61 +261,6 @@ class ModelRefresher extends ModelLoader implements IModelRefresher {
                 this.orphanDetection.add(value);
             
             this.recordedActions.add(new EraseDependencyAction(obj, dep, value, 0));
-        }
-
-    }
-
-    /**
-     * Runnable class that fires model and status change events.
-     */
-    @objid ("a8d4d6a9-42ee-11e2-91c9-001ec947ccaf")
-    private static class ChangeEventFirer implements Runnable {
-        @objid ("a8d4d6ac-42ee-11e2-91c9-001ec947ccaf")
-        private final ModelChangeSupport changeSupport;
-
-        @objid ("a8d4d6ae-42ee-11e2-91c9-001ec947ccaf")
-        private final IModelChangeEvent modelEvent;
-
-        @objid ("a8d4d6b0-42ee-11e2-91c9-001ec947ccaf")
-        private final IStatusChangeEvent statusEvent;
-
-        /**
-         * Prevents model object datas from being GCed until model change events are fired.
-         */
-        @objid ("27257fa7-6838-453e-9485-74af24a3abb4")
-        private final Collection<ISmObjectData> deletedData;
-
-        @objid ("a8d4d6b2-42ee-11e2-91c9-001ec947ccaf")
-        public ChangeEventFirer(ModelChangeSupport changeSupport, EventFactory eventFactory, Collection<ISmObjectData> deletedData) {
-            this.changeSupport = changeSupport;
-            this.modelEvent = eventFactory.getEvent();
-            this.statusEvent = eventFactory.getStatusEvent();
-            this.deletedData = deletedData;
-        }
-
-        @objid ("a8d4d6b6-42ee-11e2-91c9-001ec947ccaf")
-        @Override
-        public void run() {
-            if (!this.modelEvent.isEmpty())
-                this.changeSupport.fireModelChangeListeners(this.modelEvent);
-            if (! this.statusEvent.isEmpty())
-                this.changeSupport.fireStatusChangeListeners(this.statusEvent);
-        }
-
-    }
-
-    /**
-     * Indicates that too much model change event are waiting for being fired.
-     * <p>
-     * This exception should never be encountered, and indicates there is a bug
-     * in {@link ModelRefresher}.
-     */
-    @objid ("79681cfd-abbd-4f3f-bc1e-0e361150bc8b")
-    @SuppressWarnings("serial")
-    public static class EventQueueOverflowError extends Error {
-        @objid ("cc842533-7da9-420f-ae5a-84bb58c345c7")
-        public EventQueueOverflowError(String string) {
-            super(string);
         }
 
     }

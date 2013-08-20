@@ -11,7 +11,8 @@ Export-Package: org.modelio.vcore,
  org.modelio.vcore.smkernel.meta,
  org.modelio.vcore.smkernel.meta.smannotations,
  org.modelio.vcore.swap,
- org.modelio.vcore.swap.jmx
+ org.modelio.vcore.swap.jmx,
+ org.modelio.vcore.utils.jdbm
 Require-Bundle: org.eclipse.emf.ecore;visibility:=reexport,
  org.modelio.core.utils,
  jdbm;visibility:=reexport

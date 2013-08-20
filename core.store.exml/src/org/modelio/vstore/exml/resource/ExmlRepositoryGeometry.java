@@ -127,8 +127,7 @@ public class ExmlRepositoryGeometry implements IExmlRepositoryGeometry {
     @objid ("c57b0408-6501-43d6-8c5a-3a023e1c8bae")
     @Override
     public String getBlobKey(File file) {
-        String fname = file.getName();
-        return BlobGeometry.decodeKey(fname.replace(EXT_BLOB, ""));
+        return BlobGeometry.getBlobKey(file);
     }
 
     @objid ("c6835d04-e3df-46db-ab6a-cfc4de3cb5ed")

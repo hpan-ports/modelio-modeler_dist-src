@@ -59,6 +59,10 @@ public class E246Checker implements IChecker {
         boolean currentNavigability = currentRole.isNavigable();
         
         AssociationEnd otherRole = currentRole.getOpposite();
+        if (otherRole == null) {
+            // Invalid model, another rule will be triggered...
+            return;
+        }
         boolean otherNavigability = otherRole.isNavigable();
         
         Classifier csource, cdest;

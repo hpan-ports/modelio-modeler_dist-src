@@ -25,11 +25,11 @@ import javax.inject.Named;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.e4.core.di.annotations.Execute;
 import org.eclipse.e4.ui.model.application.MApplication;
-import org.eclipse.e4.ui.model.application.ui.MUIElement;
 import org.eclipse.e4.ui.model.application.ui.basic.MPart;
-import org.eclipse.e4.ui.model.application.ui.basic.MPartStack;
 import org.eclipse.e4.ui.services.IServiceConstants;
 import org.eclipse.e4.ui.workbench.modeling.EModelService;
+import org.eclipse.e4.ui.workbench.modeling.EPartService.PartState;
+import org.eclipse.e4.ui.workbench.modeling.EPartService;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -41,26 +41,26 @@ import org.modelio.model.browser.views.BrowserView;
 @objid ("b073bbfb-4a9d-11e2-a4d3-002564c97630")
 public class OpenNewBrowserHandler {
     @objid ("b38c7812-4a9d-11e2-a4d3-002564c97630")
+    @SuppressWarnings("unchecked")
     @Execute
-    public void execute(MApplication application, EModelService modelService, @Named(IServiceConstants.ACTIVE_SELECTION) final IStructuredSelection selection) {
+    public void execute(MApplication application, EPartService partService, EModelService modelService, @Named(IServiceConstants.ACTIVE_SELECTION) final IStructuredSelection selection) {
         // Open with one selected element only
         if (selection.size() != 1) {
             return;
         }
-        
-        MUIElement part = modelService.find(BrowserView.ID, application);
+        MPart part = (MPart) modelService.find(BrowserView.ID, application);
         
         // Duplicate part
         MPart newPart = (MPart) EcoreUtil.copy((EObject) part);
+        
+        // Set the same parent as the old part
+        newPart.setParent(part.getCurSharedRef().getParent());
         
         // Set it visible
         newPart.setToBeRendered(true);
         
         // Add the new part on top of the stack
-        MPartStack parent = (MPartStack) (Object) part.getParent();
-        parent.getChildren().add(newPart);
-        parent.setSelectedElement(newPart);
-        
+        newPart = partService.showPart(newPart, PartState.ACTIVATE);
         
         // Switch the root element
         BrowserView browserView = (BrowserView) newPart.getObject();

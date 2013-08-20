@@ -144,23 +144,18 @@ public class LinkEnd2PropertyModel extends AbstractPropertyModel<LinkEnd> {
         if (row > 7 && ! aLinkEnd.isNavigable()) {
             return "N/A";
         }
-        LinkEnd relatedEnd = aLinkEnd.getOpposite();
         
         switch (row) {
         case 0: // Title
-            if (relatedEnd == null) 
-                return "";
-        
             Instance type = aLinkEnd.getTarget()!=null ? aLinkEnd.getTarget() : aLinkEnd.getOpposite().getSource();
-        
-            if (type == null) 
-                return "";
-        
-            if (aLinkEnd == this.theEditedElement) {
-                return MessageFormat.format(MetamodelLabels.getString("Title.to"), type.getName());
-            } 
-            // else
-            return MessageFormat.format(MetamodelLabels.getString("Title.from"), type.getName());
+            if (type != null) {
+                if (aLinkEnd == this.theEditedElement) {
+                    return MessageFormat.format(MetamodelLabels.getString("Title.to"), type.getName());
+                } else {
+                    return MessageFormat.format(MetamodelLabels.getString("Title.from"), type.getName());
+                }
+            }
+            return "";
         case 1:
             return aLinkEnd.getLink().getName();
         case 2:
@@ -170,8 +165,8 @@ public class LinkEnd2PropertyModel extends AbstractPropertyModel<LinkEnd> {
             }
             return "";
         case 3:
-            if (relatedEnd != null) {
-                Instance relatedInstance = relatedEnd.getTarget();
+            if (aLinkEnd != null) {
+                Instance relatedInstance = aLinkEnd.getTarget();
                 return relatedInstance;
             } 
             // else
@@ -287,18 +282,14 @@ public class LinkEnd2PropertyModel extends AbstractPropertyModel<LinkEnd> {
             return false;
         } else if (col == 1) {
             LinkEnd relatedEnd = this.theEditedElement.getOpposite();
-            if (!relatedEnd.isModifiable()) {
-                return false;
-            }
+            return relatedEnd.isModifiable();
         } else if (col == 2) {
             if (row == 1) {
                 return false;      // Link name is only editable in the second column
             }
-            if (!this.theEditedElement.isModifiable()) {
-                return false;
-            }
+            return this.theEditedElement.isModifiable();
         }
-        return true;
+        return false;
     }
 
     @objid ("8f416d46-c068-11e1-8c0a-002564c97630")
@@ -313,10 +304,7 @@ public class LinkEnd2PropertyModel extends AbstractPropertyModel<LinkEnd> {
             associationEnd.setModel((AssociationEnd) value);
             return;
         case 3:
-            LinkEnd relatedEnd = associationEnd.getOpposite();
-            if (relatedEnd != null) {
-                relatedEnd.setTarget((Instance) value, true);
-            }
+            associationEnd.setTarget((Instance) value, true);
             break;
         case 4:
             associationEnd.setName(String.valueOf(value));

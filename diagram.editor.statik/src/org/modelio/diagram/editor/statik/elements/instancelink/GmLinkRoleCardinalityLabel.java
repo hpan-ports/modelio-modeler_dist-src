@@ -29,6 +29,7 @@ import org.modelio.diagram.persistence.IDiagramReader;
 import org.modelio.diagram.persistence.IDiagramWriter;
 import org.modelio.diagram.styles.core.MetaKey;
 import org.modelio.metamodel.uml.statik.LinkEnd;
+import org.modelio.vcore.smkernel.mapi.MObject;
 import org.modelio.vcore.smkernel.mapi.MRef;
 
 /**
@@ -185,7 +186,10 @@ public class GmLinkRoleCardinalityLabel extends GmElementLabel {
     @objid ("355eb949-55b7-11e2-877f-002564c97630")
     private void read_0(IDiagramReader in) {
         super.read(in);
-        this.role = (LinkEnd) resolveRef(this.getRepresentedRef());
+        final MObject resolveRef = resolveRef(this.getRepresentedRef());
+        if (resolveRef instanceof LinkEnd) {
+            this.role = (LinkEnd) resolveRef;
+        }
     }
 
     @objid ("355eb94e-55b7-11e2-877f-002564c97630")

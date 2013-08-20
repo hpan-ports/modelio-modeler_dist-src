@@ -76,7 +76,7 @@ public class LinkEndData extends ModelElementData {
      SmObjectImpl mTarget;
 
     @objid ("9bb52fc2-a84a-4242-a247-71924f56177d")
-    @SmaMetaAssociation(metaName="OppositeOwner", typeDataClass=LinkEndData.class, min=1, max=1, smAssociationClass=Metadata.OppositeOwnerSmDependency.class, sharedComponent = true)
+    @SmaMetaAssociation(metaName="OppositeOwner", typeDataClass=LinkEndData.class, min=1, max=1, smAssociationClass=Metadata.OppositeOwnerSmDependency.class)
      SmObjectImpl mOppositeOwner;
 
     @objid ("153722d6-a607-4cca-a252-a91b39dbdcfb")
@@ -92,7 +92,7 @@ public class LinkEndData extends ModelElementData {
      SmObjectImpl mConsumer;
 
     @objid ("43ea7dc7-dd8a-48c6-abef-6696e7b67b6f")
-    @SmaMetaAssociation(metaName="Opposite", typeDataClass=LinkEndData.class, min=1, max=1, smAssociationClass=Metadata.OppositeSmDependency.class, partof = true)
+    @SmaMetaAssociation(metaName="Opposite", typeDataClass=LinkEndData.class, min=1, max=1, smAssociationClass=Metadata.OppositeSmDependency.class, sharedComponent = true)
      SmObjectImpl mOpposite;
 
     @objid ("c600aa12-999e-40f0-a074-2c5e10d03e8f")

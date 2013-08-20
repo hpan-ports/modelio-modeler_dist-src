@@ -232,8 +232,6 @@ public class RoundedSimpleEditPart extends GmNodeEditPart {
     @objid ("7f21a2d3-1dec-11e2-8cad-001ec947c8cc")
     @Override
     public void performRequest(Request req) {
-        System.out.println("Request " + req);
-        
         if (req.getType() == RequestConstants.REQ_DIRECT_EDIT) {
         
             final CellEditorLocator cellEditorLocator = new CellEditorLocator() {

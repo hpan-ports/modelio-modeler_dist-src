@@ -36,6 +36,15 @@ import org.modelio.vcore.smkernel.mapi.MObject;
 @objid ("f18539a7-a05a-4ba5-be4e-dee31bb40141")
 public interface IBlobSupport {
     /**
+     * Add a blob change listener.
+     * <p>
+     * Blob change listeners are triggered when {@link #fireBlobsChanged(IBlobChangeEvent)} is called.
+     * @param listener a blob change listener.
+     */
+    @objid ("bd38cadb-81c7-4b06-a161-38df0ee5430c")
+    void addBlobChangeListener(IBlobChangeListener listener);
+
+    /**
      * Add a Blob provider.
      * <p>
      * Blob providers are asked for blobs related to CMS nodes to make the same CMS operation
@@ -44,13 +53,6 @@ public interface IBlobSupport {
      */
     @objid ("8b45b40b-1dca-48af-bc39-21236a2dfe11")
     void addBlobProvider(IBlobProvider provider);
-
-    /**
-     * Remove a blob provider.
-     * @param provider a blob provider.
-     */
-    @objid ("df621722-4dee-43d9-9096-1ec11eac77cf")
-    void removeBlobProvider(IBlobProvider provider);
 
     /**
      * Get all blobs related to a given model object.
@@ -70,13 +72,19 @@ public interface IBlobSupport {
     void fireBlobsChanged(IBlobChangeEvent event);
 
     /**
-     * Add a blob change listener.
+     * Called when a model object has been copied or imported.
      * <p>
-     * Blob change listeners are triggered when {@link #fireBlobsChanged(IBlobChangeEvent)} is called.
-     * @param listener a blob change listener.
+     * Both objects may belong to the same project or to different ones.
+     * The model objects may have the same identifier in case of import or
+     * different identifiers in case of copy.
+     * <p>
+     * The implementation should decide what to do with the blobs it handles.
+     * An implementation usually duplicate the blobs of the original object.
+     * @param from the original model object
+     * @param to the model object copy.
      */
-    @objid ("bd38cadb-81c7-4b06-a161-38df0ee5430c")
-    void addBlobChangeListener(IBlobChangeListener listener);
+    @objid ("11abba18-401b-4051-ac73-abe1dc913636")
+    void fireObjectCopied(MObject from, MObject to);
 
     /**
      * Remove a blob change listener.
@@ -84,5 +92,12 @@ public interface IBlobSupport {
      */
     @objid ("423d200e-3480-462b-9ee5-777d8f089fb0")
     void removeBlobChangeListener(IBlobChangeListener listener);
+
+    /**
+     * Remove a blob provider.
+     * @param provider a blob provider.
+     */
+    @objid ("df621722-4dee-43d9-9096-1ec11eac77cf")
+    void removeBlobProvider(IBlobProvider provider);
 
 }

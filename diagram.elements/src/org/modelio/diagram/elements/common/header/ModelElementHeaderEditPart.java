@@ -71,7 +71,7 @@ public class ModelElementHeaderEditPart extends GmNodeEditPart {
     @Override
     public boolean isSelectable() {
         GmNodeModel model = (GmNodeModel) getModel();
-        return model.getParentLink() != null;
+        return model.getParentLink() != null && !getMainLabelFigure().getText().isEmpty();
     }
 
     @objid ("7e73970b-1dec-11e2-8cad-001ec947c8cc")

@@ -33,8 +33,6 @@ import org.modelio.app.core.events.ModelioEvent;
 import org.modelio.app.project.core.services.IProjectService;
 import org.modelio.diagram.diagramauto.diagram.creator.ClassStructureCreator;
 import org.modelio.diagram.diagramauto.diagram.creator.PackageContentStructureCreator;
-import org.modelio.diagram.editor.plugin.DiagramEditorsManager;
-import org.modelio.diagram.editor.plugin.IDiagramConfigurerRegistry;
 import org.modelio.gproject.model.IMModelServices;
 import org.modelio.metamodel.diagrams.AbstractDiagram;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
@@ -47,13 +45,12 @@ import org.modelio.vcore.smkernel.mapi.MObject;
 public class PackageStructureDiagram extends AbstractHandler {
     @objid ("19ae65a9-32dc-46c4-a885-d8bc52d11233")
     @Execute
-    public void execute(@Named(IServiceConstants.ACTIVE_SELECTION) final Object selection, IProjectService projectService, IDiagramConfigurerRegistry configurerRegistry, DiagramEditorsManager editorManager, IMModelServices modelServices, IModelioEventService eventService) {
+    public void execute(@Named(IServiceConstants.ACTIVE_SELECTION) final Object selection, IProjectService projectService, IMModelServices modelServices, IModelioEventService eventService) {
         List<MObject> selectedElements = getSelection(selection);
         
         try (ITransaction transaction = projectService.getSession().getTransactionSupport()
                 .createTransaction("PackageStructureDiagram");) {
-            PackageContentStructureCreator pcsc = new PackageContentStructureCreator(projectService, configurerRegistry,
-                    editorManager, modelServices);
+            PackageContentStructureCreator pcsc = new PackageContentStructureCreator(modelServices);
             for (MObject selectedElement : selectedElements) {
                 if (selectedElement instanceof Package) {
                     AbstractDiagram createDiagram = pcsc.createDiagram((ModelElement) selectedElement);
@@ -71,8 +68,8 @@ public class PackageStructureDiagram extends AbstractHandler {
 
     @objid ("6b3d0dab-404f-4bb6-890d-e4152caf5cc8")
     @CanExecute
-    public boolean isEnabled(@Named(IServiceConstants.ACTIVE_SELECTION) final Object selection, IProjectService projectService, IDiagramConfigurerRegistry configurerRegistry, DiagramEditorsManager editorManager, IMModelServices modelServices) {
-        ClassStructureCreator pc = new ClassStructureCreator(projectService, configurerRegistry, editorManager, modelServices);
+    public boolean isEnabled(@Named(IServiceConstants.ACTIVE_SELECTION) final Object selection, IMModelServices modelServices) {
+        ClassStructureCreator pc = new ClassStructureCreator(modelServices);
         
         List<MObject> selectedElements = getSelection(selection);
         for (MObject elt : selectedElements) {

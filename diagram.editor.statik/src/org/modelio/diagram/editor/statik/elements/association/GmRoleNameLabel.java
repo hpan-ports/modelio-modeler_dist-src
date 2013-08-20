@@ -28,6 +28,7 @@ import org.modelio.diagram.persistence.IDiagramReader;
 import org.modelio.diagram.persistence.IDiagramWriter;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
 import org.modelio.metamodel.uml.statik.AssociationEnd;
+import org.modelio.vcore.smkernel.mapi.MObject;
 import org.modelio.vcore.smkernel.mapi.MRef;
 
 /**
@@ -183,7 +184,9 @@ public class GmRoleNameLabel extends GmDefaultModelElementHeader {
     @objid ("33f209d9-55b7-11e2-877f-002564c97630")
     private void read_0(IDiagramReader in) {
         super.read(in);
-        this.role = (AssociationEnd) resolveRef(this.getRepresentedRef());
+        final MObject resolveRef = resolveRef(this.getRepresentedRef());
+        if (resolveRef instanceof AssociationEnd)
+            this.role = (AssociationEnd) resolveRef;
     }
 
     @objid ("33f209de-55b7-11e2-877f-002564c97630")

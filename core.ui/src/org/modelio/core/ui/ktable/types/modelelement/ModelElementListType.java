@@ -30,9 +30,9 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Display;
 import org.modelio.app.core.picking.IModelioPickingService;
 import org.modelio.core.ui.ktable.types.element.SingleElementType;
-import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
 import org.modelio.vcore.session.api.ICoreSession;
+import org.modelio.vcore.smkernel.mapi.MObject;
 
 @objid ("8deda4d3-c068-11e1-8c0a-002564c97630")
 public class ModelElementListType extends SingleElementType {
@@ -45,13 +45,13 @@ public class ModelElementListType extends SingleElementType {
     }
 
     @objid ("8def2b4a-c068-11e1-8c0a-002564c97630")
-    public ModelElementListType(boolean acceptNullValue, Class<? extends Element> allowedClass, List<ModelElement> elements, ICoreSession session) {
+    public ModelElementListType(boolean acceptNullValue, Class<? extends MObject> allowedClass, List<ModelElement> elements, ICoreSession session) {
         super(acceptNullValue, allowedClass, session);
         this.elements = elements;
     }
 
     @objid ("8def2b55-c068-11e1-8c0a-002564c97630")
-    public ModelElementListType(boolean acceptNullValue, List<Class<? extends Element>> allowedClasses, List<ModelElement> elements) {
+    public ModelElementListType(boolean acceptNullValue, List<Class<? extends MObject>> allowedClasses, List<ModelElement> elements) {
         super(acceptNullValue, allowedClasses);
         this.elements = elements;
     }

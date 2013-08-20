@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="ASCII"?>
-<fragment:ModelFragments xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:basic="http://www.eclipse.org/ui/2010/UIModel/application/descriptor/basic" xmlns:commands="http://www.eclipse.org/ui/2010/UIModel/application/commands" xmlns:fragment="http://www.eclipse.org/ui/2010/UIModel/fragment" xmlns:menu="http://www.eclipse.org/ui/2010/UIModel/application/ui/menu" xmi:id="_zb5TIDS6EeKL_YUGDpxo2Q">
+<fragment:ModelFragments xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:basic="http://www.eclipse.org/ui/2010/UIModel/application/descriptor/basic" xmlns:commands="http://www.eclipse.org/ui/2010/UIModel/application/commands" xmlns:fragment="http://www.eclipse.org/ui/2010/UIModel/fragment" xmlns:menu="http://www.eclipse.org/ui/2010/UIModel/application/ui/menu" xmlns:ui="http://www.eclipse.org/ui/2010/UIModel/application/ui" xmi:id="_zb5TIDS6EeKL_YUGDpxo2Q">
   <imports xsi:type="commands:Command" xmi:id="_dX-5gGF8EeKZr6syzOEatQ" elementId="org.modelio.diagram.editor.command.ZoomInCommand"/>
   <imports xsi:type="commands:Command" xmi:id="_N9JRQGF-EeKZr6syzOEatQ" elementId="org.modelio.diagram.editor.command.ZoomToDefaultCommand"/>
   <imports xsi:type="commands:Command" xmi:id="_WhqQAGF-EeKZr6syzOEatQ" elementId="org.modelio.diagram.editor.command.ZoomOutCommand"/>
@@ -40,10 +40,7 @@
       <handlers xmi:id="_NJGuYID9EeKKLZZAYaz6Sg" elementId="diagram.editor.deployment.handler.createelement" contributionURI="bundleclass://org.modelio.diagram.editor/org.modelio.diagram.editor.popup.handlers.CreateElementHandler" command="_LAT14ID9EeKKLZZAYaz6Sg"/>
       <handlers xmi:id="_1JJW8IV-EeK8HPFXYIuaeQ" elementId="diagram.editor.deployment.handler.delete" contributionURI="bundleclass://org.modelio.diagram.editor/org.modelio.diagram.editor.handlers.DeleteInModelHandler" command="_v1lyoIV-EeK8HPFXYIuaeQ"/>
       <menus xsi:type="menu:PopupMenu" xmi:id="_15--AIV-EeK8HPFXYIuaeQ" elementId="org.modelio.diagram.editor.deployment.menu.popupmenu" label="" tooltip="Test de popup menu pour deployment">
-        <children xsi:type="menu:Menu" xmi:id="_15--AYV-EeK8HPFXYIuaeQ" elementId="org.modelio.diagram.editor.deployment.menu.createelementOwner" label="%CreateElementMenu.label">
-          <children xsi:type="menu:DynamicMenuContribution" xmi:id="_15--AoV-EeK8HPFXYIuaeQ" elementId="org.modelio.diagram.editor.deployment.menu.createelement" contributionURI="bundleclass://org.modelio.diagram.editor.deployment/org.modelio.diagram.editor.deployment.editor.DeploymentCreationPopupProvider"/>
-          <children xsi:type="menu:DirectMenuItem" xmi:id="_15--A4V-EeK8HPFXYIuaeQ" elementId="diagram.editor.deployment.directmenuitem.0" label="Mask" contributionURI="bundleclass://org.modelio.diagram.editor/org.modelio.diagram.editor.handlers.MaskHandler"/>
-        </children>
+        <children xsi:type="menu:DynamicMenuContribution" xmi:id="_15--AoV-EeK8HPFXYIuaeQ" elementId="org.modelio.diagram.editor.deployment.menu.createelement" contributionURI="bundleclass://org.modelio.diagram.editor.deployment/org.modelio.diagram.editor.deployment.editor.DeploymentCreationPopupProvider"/>
         <children xsi:type="menu:HandledMenuItem" xmi:id="_15--BIV-EeK8HPFXYIuaeQ" elementId="org.modelio.diagram.editor.deployment.handledmenuitem.AddStereotype" label="%AddStereotype.label" iconURI="platform:/plugin/org.modelio.diagram.editor/icons/addstereotype.png" tooltip="%AddStereotype.tooltip" command="_y_wokIV-EeK8HPFXYIuaeQ"/>
         <children xsi:type="menu:HandledMenuItem" xmi:id="_AQWWUMR0EeK8YvcDBW3yZQ" elementId="org.modelio.diagram.editor.deployment.handledmenuitem.rename" label="%RenameElement.label" iconURI="platform:/plugin/org.modelio.diagram.editor/icons/rename.png" tooltip="%RenameElement.tooltip" command="_RZ5rgMRkEeKzIKCziwJO6Q"/>
         <children xsi:type="menu:HandledMenuItem" xmi:id="_15--BYV-EeK8HPFXYIuaeQ" elementId="org.modelio.diagram.editor.deployment.handledmenuitem.SelectInExplorer" label="%SelectInExplorer.label" iconURI="platform:/plugin/org.modelio.diagram.editor/icons/select.png" tooltip="%SelectInExplorer.tooltip" command="_vRgOIIV-EeK8HPFXYIuaeQ"/>
@@ -69,7 +66,9 @@
           <children xsi:type="menu:HandledMenuItem" xmi:id="_15--GIV-EeK8HPFXYIuaeQ" elementId="org.modelio.diagram.editor.deployment.handledmenuitem.UnmaskStructuringLinksAndNodes" label="%UnmaskStructuringLinksAndNodes.label" tooltip="%UnmaskStructuringLinksAndNodes.tooltip" command="_x9O0kIV-EeK8HPFXYIuaeQ"/>
           <children xsi:type="menu:HandledMenuItem" xmi:id="_15--GYV-EeK8HPFXYIuaeQ" elementId="org.modelio.diagram.editor.deployment.handledmenuitem.UnmaskStructuringLinks" label="%UnmaskStructuringLinks.label" tooltip="%UnmaskStructuringLinks.tooltip" command="_yXUvkIV-EeK8HPFXYIuaeQ"/>
         </children>
-        <children xsi:type="menu:HandledMenuItem" xmi:id="_15--GoV-EeK8HPFXYIuaeQ" elementId="org.modelio.diagram.editor.deployment.handledmenuitem.redrawlink" label="%RedrawLink.label" iconURI="platform:/plugin/org.modelio.diagram.editor/icons/redrawlink.png" tooltip="%RedrawLink.tooltip" command="_ysJwEIV-EeK8HPFXYIuaeQ"/>
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_15--GoV-EeK8HPFXYIuaeQ" elementId="org.modelio.diagram.editor.deployment.handledmenuitem.redrawlink" label="%RedrawLink.label" iconURI="platform:/plugin/org.modelio.diagram.editor/icons/redrawlink.png" tooltip="%RedrawLink.tooltip" command="_ysJwEIV-EeK8HPFXYIuaeQ">
+          <visibleWhen xsi:type="ui:CoreExpression" xmi:id="_QhankO0lEeKWx8-qQ2OLqA" coreExpressionId="org.modelio.diagram.editor.corexp.is-gmlink.id"/>
+        </children>
         <children xsi:type="menu:DynamicMenuContribution" xmi:id="_j1PggNdfEeK1QOP0kMMjeA" elementId="org.modelio.diagram.editor.deployment.menu.module" contributionURI="bundleclass://org.modelio.diagram.editor/org.modelio.diagram.editor.context.ModuleMenuCreator"/>
       </menus>
       <toolbar xmi:id="_PDisoGRzEeKpoNjm4nPb8Q" elementId="diagram.editor.deployment.toolbar.0">
@@ -110,6 +109,10 @@
       </bindings>
       <bindings xmi:id="_VippIIy3EeKbH-WHrunjdQ" elementId="" keySequence="M1+N M1+I" command="_LAT14ID9EeKKLZZAYaz6Sg">
         <parameters xmi:id="_OYf6IIy4EeKbH-WHrunjdQ" elementId="metaclass" name="metaclass" value="Interface"/>
+      </bindings>
+      <bindings xmi:id="_BUCUkOJHEeKWx8-qQ2OLqA" elementId="" keySequence="M1+N M1+N" command="_LAT14ID9EeKKLZZAYaz6Sg">
+        <parameters xmi:id="_J3ZcwOJHEeKWx8-qQ2OLqA" elementId="metaclass" name="metaclass" value="Note"/>
+        <parameters xmi:id="_CDWGEOJREeKWx8-qQ2OLqA" elementId="dependency" name="dependency" value="Descriptor"/>
       </bindings>
       <bindings xmi:id="_Vww9oIy3EeKbH-WHrunjdQ" elementId="" keySequence="M1+N M1+M2+N" command="_LAT14ID9EeKKLZZAYaz6Sg">
         <parameters xmi:id="_OpIXIIy4EeKbH-WHrunjdQ" elementId="metaclass" name="metaclass" value="Node"/>
@@ -156,6 +159,14 @@
       <bindings xmi:id="__y7X4Iy3EeKbH-WHrunjdQ" elementId="" keySequence="U" command="_XDgxMIyyEeKbH-WHrunjdQ">
         <parameters xmi:id="_RS51wIy4EeKbH-WHrunjdQ" elementId="toolId" name="toolId" value="CREATE_USE"/>
       </bindings>
+      <bindings xmi:id="_Q6_bUOJHEeKWx8-qQ2OLqA" elementId="" keySequence="M1+U M1+D" command="_wwpFoIV-EeK8HPFXYIuaeQ"/>
+      <bindings xmi:id="_RVPHUOJHEeKWx8-qQ2OLqA" elementId="" keySequence="M1+U M1+M2+D" command="_wdjxkIV-EeK8HPFXYIuaeQ"/>
+      <bindings xmi:id="_RxdwUOJHEeKWx8-qQ2OLqA" elementId="" keySequence="M1+U M1+G" command="_wMeooIV-EeK8HPFXYIuaeQ"/>
+      <bindings xmi:id="_SLGYUOJHEeKWx8-qQ2OLqA" elementId="" keySequence="M1+U M1+M2+G" command="_xjI5kIV-EeK8HPFXYIuaeQ"/>
+      <bindings xmi:id="_SlMTUOJHEeKWx8-qQ2OLqA" elementId="" keySequence="M1+U M1+L" command="_yXUvkIV-EeK8HPFXYIuaeQ"/>
+      <bindings xmi:id="_S9TRUOJHEeKWx8-qQ2OLqA" elementId="" keySequence="M1+U M1+M2+L" command="_x9O0kIV-EeK8HPFXYIuaeQ"/>
+      <bindings xmi:id="_TYSkMOJHEeKWx8-qQ2OLqA" elementId="" keySequence="M1+U M1+N" command="_xMBaEIV-EeK8HPFXYIuaeQ"/>
+      <bindings xmi:id="_6LVXEOJHEeKWx8-qQ2OLqA" elementId="" keySequence="/" command="_tOGN4GGNEeKZr6syzOEatQ"/>
     </elements>
   </fragments>
   <fragments xsi:type="fragment:StringModelFragment" xmi:id="_aNYsMIyyEeKbH-WHrunjdQ" featurename="children" parentElementId="org.eclipse.ui.contexts.window">

@@ -81,8 +81,17 @@ public abstract class AbstractCreateElementHandler {
             return false;
         }
         
-        // TODO find stereotype
+        // Find stereotype
         Stereotype stereotype = null;
+        if (stereotypeName!= null && !stereotypeName.isEmpty()) {            
+            try {
+                stereotype = this.mmServices.getStereotype("ModelerModule", stereotypeName, metaclass);
+            } catch (ElementNotUniqueException e) {
+                ModelBrowser.LOG.error("AbstractCreateElementHandler#execute : \nCreation failed: could not create an instance of " + metaclassName + " in dependency " + dependencyName + " under parent : \n" + selectedOwner);
+                // Stereotype missing... deactivate the command
+                return false;
+            }
+        }
         return doCanExecute(selectedOwner, metaclass, dependency, stereotype);
     }
 

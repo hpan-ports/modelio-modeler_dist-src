@@ -97,10 +97,12 @@ public class ModelioCreationContext implements CreationFactory {
         this.elementToUnmask = elementToUnmask;
         this.metaclass = elementToUnmask.getMClass().getName();
         MObject parent = elementToUnmask.getCompositionOwner();
-        for (MDependency dep : parent.getMClass().getDependencies(true)) {
-            if (parent.mGet(dep).contains(elementToUnmask)) {
-                this.dependency = dep.getName();
-                break;
+        if (parent != null) { // Roots do not have a parent...
+            for (MDependency dep : parent.getMClass().getDependencies(true)) {
+                if (parent.mGet(dep).contains(elementToUnmask)) {
+                    this.dependency = dep.getName();
+                    break;
+                }
             }
         }
         if (elementToUnmask instanceof ModelElement) {

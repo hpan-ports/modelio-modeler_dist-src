@@ -156,8 +156,7 @@ public class StatusBar implements IAuditMonitor {
      */
     @objid ("8c4a37ba-abe8-4a2f-ac2f-cdd90b385018")
     public void updateFromDiagnostic(final IAuditDiagnostic auditDiagnostic) {
-        final String msg = auditDiagnostic.getErrorCount() + " errors, " + +auditDiagnostic.getWarningCount() + " warnings, "
-                + +auditDiagnostic.getTipCount() + " tips";
+        final String msg = Audit.I18N.getMessage("Audit.Status.report", Integer.toString(auditDiagnostic.getErrorCount()), Integer.toString(auditDiagnostic.getWarningCount()), Integer.toString(auditDiagnostic.getTipCount()));
         
         this.auditSummaryLabel.setText(msg);
         
@@ -182,19 +181,19 @@ public class StatusBar implements IAuditMonitor {
         switch (status) {
         case IDLE:
             this.runnerStatusLabel.setImage(this.idleStatusIcon);
-            this.runnerStatusLabel.setToolTipText("Audit idle");
+            this.runnerStatusLabel.setToolTipText(Audit.I18N.getString("Audit.Status.idle"));
             break;
         case PROCESSING:
             this.runnerStatusLabel.setImage(this.processingStatusIcon);
-            this.runnerStatusLabel.setToolTipText("Audit in progress");
+            this.runnerStatusLabel.setToolTipText(Audit.I18N.getString("Audit.Status.processing"));
             break;
         case SUSPENDED:
             this.runnerStatusLabel.setImage(this.suspendedStatusIcon);
-            this.runnerStatusLabel.setToolTipText("Audit suspended");
+            this.runnerStatusLabel.setToolTipText(Audit.I18N.getString("Audit.Status.suspended"));
             break;
         case TERMINATED:
             this.runnerStatusLabel.setImage(null);
-            this.runnerStatusLabel.setToolTipText("Audit terminated");
+            this.runnerStatusLabel.setToolTipText(Audit.I18N.getString("Audit.Status.terminated"));
             break;
         }
     }

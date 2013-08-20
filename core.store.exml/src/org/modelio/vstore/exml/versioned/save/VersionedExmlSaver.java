@@ -142,7 +142,7 @@ public class VersionedExmlSaver implements ExmlTags {
         
         Object attVal = object.getAttVal(att);
         if (attVal == null) {
-            //TODO que faire ??
+            //TODO what to do ??
         } else {
             String stringVal = attVal.toString();
             if (att.getType() == String.class) {
@@ -167,18 +167,18 @@ public class VersionedExmlSaver implements ExmlTags {
 
     @objid ("3de29104-121a-11e2-816a-001ec947ccaf")
     private void dumpCOMPS(final SmObjectImpl object, final SmDependency dep, final List<SmObjectImpl> targets, Collection<SmObjectImpl> recursionContext) throws XMLStreamException {
-        this.out.writeStartElement(TAG_COMP);
-        this.out.writeAttribute(ATT_RELATION, dep.getName());
-        
+        boolean tagWritten = false;
         List<SmObjectImpl> localTargets = null;
         for (SmObjectImpl t : targets) {
             if (! ExmlUtils.sameRepository(object, t)) {
+                tagWritten = writeCompTag(tagWritten, dep );
                 dumpID(TAG_FOREIGNID, t);
             }else if (t.getClassOf().isCmsNode()) {
                 MStatus status = t.getStatus();
-                if (status.isCmsManaged() || status.isCmsToAdd())
+                if (status.isCmsManaged() || status.isCmsToAdd()) {
+                    tagWritten = writeCompTag(tagWritten, dep );
                     dumpID(TAG_COMPID, t);
-                else {
+                } else {
                     if (localTargets == null)
                         localTargets = new ArrayList<>(3);
                         localTargets.add(t);
@@ -188,17 +188,21 @@ public class VersionedExmlSaver implements ExmlTags {
                 reportRefToOrphan(object,dep, t);
             } else if (t.getRepositoryObject() != object.getRepositoryObject()) {
                 // Different handle ==> different file
-                dumpREFOBJ(t);
+                tagWritten = writeCompTag(tagWritten, dep );
+                dumpREFOBJ(object, dep, t);
             } else if (recursionContext.contains(t) ) {
                 // composed by value but already externalized, ref it
+                tagWritten = writeCompTag(tagWritten, dep );
                 dumpID(TAG_COMPID, t);
             } else {
                 // composed by value, recursive call
+                tagWritten = writeCompTag(tagWritten, dep );
                 _dumpOBJECT( t, recursionContext);
             }
         }
         
-        this.out.writeEndElement();
+        if (tagWritten)
+            this.out.writeEndElement();
         
         if (localTargets != null)
             this.localSaver.dumpCompId(object, dep, localTargets);
@@ -208,7 +212,7 @@ public class VersionedExmlSaver implements ExmlTags {
      * Write the object SmDependencies.
      * @param object the CMS node
      * @param recursionContext to avoid cycles.
-     * @throws javax.xml.stream.XMLStreamException in case of XML error
+     * @throws javax.xml.stream.XMLStreamException in case of XML writing error.
      */
     @objid ("3de29105-121a-11e2-816a-001ec947ccaf")
     private void dumpDEPENDENCIES(final SmObjectImpl object, Collection<SmObjectImpl> recursionContext) throws XMLStreamException {
@@ -235,7 +239,7 @@ public class VersionedExmlSaver implements ExmlTags {
     /**
      * Write the CMS node dependencies.
      * @param object the model object to write
-     * @throws javax.xml.stream.XMLStreamException in case of failure
+     * @throws javax.xml.stream.XMLStreamException in case of XML writing error.
      */
     @objid ("3de29106-121a-11e2-816a-001ec947ccaf")
     private void dumpDEPS(final SmObjectImpl object) throws XMLStreamException {
@@ -297,7 +301,7 @@ public class VersionedExmlSaver implements ExmlTags {
             } else if (t.getClassOf().isCmsNode()) {
                 dumpID(TAG_ID, t);
             } else {
-                dumpREFOBJ(t);
+                dumpREFOBJ(object, dep, t);
             }
         }
         this.out.writeEndElement();
@@ -310,17 +314,24 @@ public class VersionedExmlSaver implements ExmlTags {
     }
 
     @objid ("3de2910c-121a-11e2-816a-001ec947ccaf")
-    private void dumpREFOBJ(final SmObjectImpl object) throws XMLStreamException {
-        this.out.writeStartElement(TAG_REFOBJ);
-        dumpID(TAG_ID, object);
+    private void dumpREFOBJ(final SmObjectImpl from, final SmDependency dep, final SmObjectImpl object) throws XMLStreamException {
+        if (! (object.getRepositoryObject() instanceof ExmlStorageHandler)) {
+            // The model is broken
+            reportRefToOrphan(from, dep, object);
+            return;
+        }
         
         ExmlStorageHandler h = (ExmlStorageHandler) object.getRepositoryObject();
         MObject parent = h.getCmsNode();
-        if (parent != null) 
+        
+        if (parent == null) {
+            reportRefToOrphan(from, dep, object);
+        } else {
+            this.out.writeStartElement(TAG_REFOBJ);
+            dumpID(TAG_ID, object);
             dumpID(TAG_PID, parent);
-        else
-            throw new XMLStreamException(object+" is not in a CMS node.");
-        this.out.writeEndElement();
+            this.out.writeEndElement();
+        }
     }
 
     /**
@@ -348,6 +359,22 @@ public class VersionedExmlSaver implements ExmlTags {
         
         Throwable err = new IllegalArgumentException(msg);
         this.errSupport.fireWarning(err);
+    }
+
+    /**
+     * Write the COMP tag begin if not already done.
+     * @param written whether the tag has already been written.
+     * @param dep the dependency
+     * @return always <code>true</code>
+     * @throws javax.xml.stream.XMLStreamException in case of XML writing error.
+     */
+    @objid ("2f8c0032-a3c1-4d74-bab3-129bf4a54c62")
+    private boolean writeCompTag(final boolean written, final SmDependency dep) throws XMLStreamException {
+        if (! written) {
+            this.out.writeStartElement(TAG_COMP);
+            this.out.writeAttribute(ATT_RELATION, dep.getName());
+        }
+        return true;
     }
 
 }

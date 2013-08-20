@@ -22,15 +22,12 @@
 package org.modelio.diagram.editor.activity.editor;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.eclipse.e4.ui.services.EContextService;
 import org.modelio.diagram.editor.DiagramEditorInput;
 import org.modelio.diagram.editor.activity.elements.activitydiagram.GmActivityDiagram;
 import org.modelio.diagram.elements.common.abstractdiagram.GmAbstractDiagram;
 import org.modelio.diagram.elements.core.model.ModelManager;
-import org.modelio.gproject.model.IMModelServices;
 import org.modelio.metamodel.diagrams.AbstractDiagram;
 import org.modelio.metamodel.diagrams.ActivityDiagram;
-import org.modelio.vcore.session.api.ICoreSession;
 import org.modelio.vcore.smkernel.mapi.MRef;
 
 @objid ("296ece03-55b6-11e2-877f-002564c97630")
@@ -42,8 +39,8 @@ public class ActivityDiagramEditorInput extends DiagramEditorInput {
     }
 
     @objid ("296ece13-55b6-11e2-877f-002564c97630")
-    public ActivityDiagramEditorInput(ICoreSession session, AbstractDiagram diagram, IMModelServices modelService, EContextService contextService) {
-        super(session, diagram, modelService, contextService);
+    public ActivityDiagramEditorInput(ModelManager modelManager, AbstractDiagram diagram) {
+        super(diagram, modelManager);
     }
 
 }

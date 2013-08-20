@@ -22,7 +22,6 @@
 package org.modelio.diagram.editor.bpmn.editor;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.eclipse.e4.ui.services.EContextService;
 import org.modelio.diagram.editor.DiagramEditorInput;
 import org.modelio.diagram.editor.bpmn.elements.diagrams.processcollaboration.GmBpmnProcessCollaborationDiagram;
 import org.modelio.diagram.editor.bpmn.elements.diagrams.subprocess.GmBpmnSubProcessDiagram;
@@ -30,11 +29,9 @@ import org.modelio.diagram.elements.common.abstractdiagram.GmAbstractDiagram;
 import org.modelio.diagram.elements.core.model.IGmLinkFactory;
 import org.modelio.diagram.elements.core.model.IGmNodeFactory;
 import org.modelio.diagram.elements.core.model.ModelManager;
-import org.modelio.gproject.model.IMModelServices;
 import org.modelio.metamodel.bpmn.bpmnDiagrams.BpmnProcessCollaborationDiagram;
 import org.modelio.metamodel.bpmn.bpmnDiagrams.BpmnSubProcessDiagram;
 import org.modelio.metamodel.diagrams.AbstractDiagram;
-import org.modelio.vcore.session.api.ICoreSession;
 import org.modelio.vcore.smkernel.mapi.MRef;
 
 @objid ("6072aade-55b6-11e2-877f-002564c97630")
@@ -69,8 +66,8 @@ public class BpmnDiagramEditorInput extends DiagramEditorInput {
     }
 
     @objid ("60743171-55b6-11e2-877f-002564c97630")
-    public BpmnDiagramEditorInput(ICoreSession session, AbstractDiagram diagram, IMModelServices modelService, EContextService contextService) {
-        super(session, diagram, modelService, contextService);
+    public BpmnDiagramEditorInput(ModelManager modelManager, AbstractDiagram diagram) {
+        super(diagram, modelManager);
     }
 
 }

@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
+import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.ui.services.EContextService;
 import org.eclipse.gef.palette.PaletteRoot;
 import org.eclipse.gef.palette.ToolEntry;
@@ -35,6 +36,7 @@ import org.modelio.diagram.editor.plugin.IDiagramConfigurerRegistry;
 import org.modelio.diagram.editor.plugin.ToolRegistry;
 import org.modelio.diagram.elements.core.commands.ModelioCreationContext;
 import org.modelio.diagram.elements.core.link.ModelioLinkCreationContext;
+import org.modelio.diagram.elements.core.model.ModelManager;
 import org.modelio.diagram.styles.core.NamedStyle;
 import org.modelio.diagram.styles.plugin.DiagramStyles;
 import org.modelio.gproject.model.IMModelServices;
@@ -48,6 +50,9 @@ import org.modelio.vcore.smkernel.mapi.MClass;
  */
 @objid ("de5f4384-565e-400d-b403-134dd90a85b8")
 public class DiagramService implements IDiagramService {
+    @objid ("e2a53de0-1433-4790-aaba-0787258adbcb")
+    private EContextService contextService;
+
     @objid ("06ebb816-57d8-406e-b21a-2b9e10c038bc")
     private ToolRegistry toolService;
 
@@ -63,29 +68,32 @@ public class DiagramService implements IDiagramService {
     @objid ("1a76979e-eec0-43a8-ad95-a93f4e0ad5c6")
     private IMModelServices modelServices;
 
-    @objid ("9dbab4fb-2832-4082-b6fd-3701e034ed66")
-    private EContextService contextService;
+    @objid ("cdf51ce4-90d3-4dd4-8d2f-56c608180dcf")
+    private ModelManager manager;
 
     @objid ("9bfbae09-a357-4378-9d3b-344201600ee3")
-    public DiagramService(ToolRegistry toolService, IDiagramConfigurerRegistry configurerRegistry, IProjectService projectService, DiagramEditorsManager editorManager, IMModelServices modelServices, EContextService contextService) {
-        this.toolService = toolService;
-        this.configurerRegistry = configurerRegistry;
-        this.projectService = projectService;
-        this.editorManager = editorManager;
-        this.modelServices = modelServices;
-        this.contextService = contextService;
+    public DiagramService(IEclipseContext eclipseContext) {
+        this.toolService = eclipseContext.get(ToolRegistry.class); 
+        this.configurerRegistry = eclipseContext.get(IDiagramConfigurerRegistry.class);
+        this.projectService = eclipseContext.get(IProjectService.class);
+        this.editorManager = eclipseContext.get(DiagramEditorsManager.class);
+        this.modelServices = eclipseContext.get(IMModelServices.class);
+        this.contextService = eclipseContext.get(EContextService.class);
+        
+        
+        this.manager = new ModelManager(eclipseContext);
     }
 
     @objid ("dae02bd5-bd0f-4f94-a242-eadf7c91c9c3")
     @Override
     public IAutoDiagramFactory getAutoDiagramFactory() {
-        return new AutoDiagramFactory(this.projectService,this.configurerRegistry,this.editorManager,this.modelServices);
+        return new AutoDiagramFactory(this.modelServices);
     }
 
     @objid ("b07e3fe3-4d06-491d-82ae-fd3323b95708")
     @Override
     public IDiagramHandle getDiagramHandle(final AbstractDiagram diagram) {
-        return DiagramHandle.create(diagram,this.projectService,this.configurerRegistry,this.editorManager,this.modelServices, this.contextService);
+        return DiagramHandle.create(this.manager, diagram,this.projectService,this.editorManager);
     }
 
     @objid ("79f4c2e5-e6ab-486f-9932-cefb07847c57")

@@ -32,7 +32,7 @@ import org.modelio.diagram.elements.core.requests.ModelElementSmartDropRequest;
 
 @objid ("80c2de59-1dec-11e2-8cad-001ec947c8cc")
 public class DefaultSmartDropEditPolicy extends GraphicalEditPolicy {
-    @objid ("22c22881-028d-40fd-89df-9eb4d40d06c7")
+    @objid ("5699963e-dcab-43db-819e-865e14dbc28a")
     private RectangleFigure highlight;
 
     @objid ("80c2de5f-1dec-11e2-8cad-001ec947c8cc")
@@ -53,7 +53,6 @@ public class DefaultSmartDropEditPolicy extends GraphicalEditPolicy {
     @Override
     public Command getCommand(Request request) {
         if (request.getType().equals(ModelElementSmartDropRequest.TYPE)) {
-            System.out.println("DefaultSmartDropEditPolicy.getCommand()");
             return getSmartDropCommand((ModelElementSmartDropRequest) request);
         } else {
             return super.getCommand(request);
@@ -68,13 +67,7 @@ public class DefaultSmartDropEditPolicy extends GraphicalEditPolicy {
      */
     @objid ("80c5409e-1dec-11e2-8cad-001ec947c8cc")
     protected Command getSmartDropCommand(ModelElementSmartDropRequest request) {
-        //        System.out.println("ModelElementSmartDropEditPolicy: SMART DROP on " + this.getHost().getModel());
-        //        System.out.println(" smart-dropped elements:");
-        //        for (MObject toUnmask : request.getDroppedElements()) {
-        //            System.out.println("   - " + toUnmask.toString());
-        //        }
-        
-                // return un-executable command by default
+        // return un-executable command by default
         return null; // UnexecutableCommand.INSTANCE;
     }
 

@@ -29,10 +29,6 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.modelio.metamodel.mda.ModuleComponent;
-import org.modelio.metamodel.uml.infrastructure.LocalNote;
-import org.modelio.metamodel.uml.infrastructure.MetaclassReference;
-import org.modelio.metamodel.uml.infrastructure.Note;
-import org.modelio.metamodel.uml.infrastructure.Stereotype;
 
 @objid ("008bb80c-c4be-1fd8-97fe-001ec947cd2a")
 public interface NoteType extends ModelElement {
@@ -56,12 +52,6 @@ public interface NoteType extends ModelElement {
 
     @objid ("0a4b4175-2a1c-46c8-926c-dfd6920879e3")
     <T extends Note> List<T> getElement(java.lang.Class<T> filterClass);
-
-    @objid ("e0b8d13e-4849-4162-b5e5-e23f8a51faef")
-    EList<LocalNote> getLocalElement();
-
-    @objid ("c241f1ee-341a-42db-acb9-b790248f6a2e")
-    <T extends LocalNote> List<T> getLocalElement(java.lang.Class<T> filterClass);
 
     @objid ("9edb2320-d9e2-4331-89e0-e902d83c61bb")
     Stereotype getOwnerStereotype();

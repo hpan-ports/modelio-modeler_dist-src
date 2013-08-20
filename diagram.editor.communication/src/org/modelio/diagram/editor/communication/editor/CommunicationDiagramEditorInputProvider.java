@@ -25,14 +25,12 @@ import java.util.UUID;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.ui.model.application.ui.basic.MInputPart;
-import org.eclipse.e4.ui.services.EContextService;
-import org.modelio.app.project.core.services.IProjectService;
 import org.modelio.diagram.editor.DiagramEditorInput;
 import org.modelio.diagram.editor.DiagramEditorInputProvider.IDiagramEditorInputProvider;
+import org.modelio.diagram.elements.core.model.ModelManager;
 import org.modelio.gproject.model.IMModelServices;
 import org.modelio.metamodel.Metamodel;
 import org.modelio.metamodel.diagrams.CommunicationDiagram;
-import org.modelio.vcore.session.api.ICoreSession;
 
 @objid ("333d94ba-598e-11e2-ae45-002564c97630")
 public class CommunicationDiagramEditorInputProvider implements IDiagramEditorInputProvider {
@@ -44,13 +42,11 @@ public class CommunicationDiagramEditorInputProvider implements IDiagramEditorIn
     @objid ("057c292b-599a-11e2-ae45-002564c97630")
     @Override
     public DiagramEditorInput compute(IEclipseContext context) {
-        ICoreSession coreSession = context.get(IProjectService.class).getSession();
         IMModelServices modelServices = context.get(IMModelServices.class);
-        EContextService contextService = context.get(EContextService.class);
         
         String diagramUID = context.get(MInputPart.class).getInputURI();
         CommunicationDiagram diagram = (CommunicationDiagram) modelServices.findById(Metamodel.getMClass(CommunicationDiagram.class), UUID.fromString(diagramUID));
-        return diagram != null ? new CommunicationDiagramEditorInput(coreSession, diagram, modelServices, contextService) : null;
+        return diagram != null ? new CommunicationDiagramEditorInput(new ModelManager(context), diagram) : null;
     }
 
 }

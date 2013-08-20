@@ -30,7 +30,8 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.e4.ui.model.workbench,
  org.eclipse.emf.ecore,
  org.eclipse.core.expressions,
- org.modelio.module.browser.commands;bundle-version="1.0.0"
+ org.modelio.module.browser.commands;bundle-version="1.0.0",
+ org.eclipse.e4.core.contexts
 Bundle-ActivationPolicy: lazy
 Require-Capability: osgi.ee; filter="(&(osgi.ee=JavaSE)(version=1.7))
 Bundle-ClassPath: res/,

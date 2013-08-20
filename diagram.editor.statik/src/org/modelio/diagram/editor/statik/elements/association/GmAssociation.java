@@ -322,7 +322,7 @@ public class GmAssociation extends GmLink {
         // Look for an Association lable to migrate... there should be one
         GmDefaultFlatHeader oldLabel = null;
         for (GmNodeModel extension : this.getExtensions()) {
-            if (extension.getRepresentedRef().mc.equals("Association") && extension instanceof GmDefaultFlatHeader) {
+            if (extension.getRepresentedRef().mc.equals("ModelElement") && extension instanceof GmDefaultFlatHeader) {
                 oldLabel = (GmDefaultFlatHeader) extension;
                 break;
             }

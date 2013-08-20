@@ -80,7 +80,7 @@ public class RamcFileFragmentFactory implements IFragmentFactory {
      */
     @objid ("bb85971a-8870-419a-91b3-f719e579f00a")
     public static IProjectFragment instantiate(Path path) throws IOException {
-        ModelComponentArchive ar = new ModelComponentArchive(path);
+        ModelComponentArchive ar = new ModelComponentArchive(path, true);
         FragmentDescriptor fd = ar.getFragmentDescriptor();
         return new RamcFileFragment(fd.getId(), fd.getUri(), fd.getScope(), fd.getProperties(), null);
     }
@@ -108,7 +108,7 @@ public class RamcFileFragmentFactory implements IFragmentFactory {
     @objid ("5f964d2e-2d52-4f2b-8b08-5d2e842f67b5")
     private static FragmentDescriptor getFragmentDescriptor(URI uri, IAuthData authData) throws IOException {
         try (UriPathAccess access = new UriPathAccess(uri, authData)){
-            ModelComponentArchive ar = new ModelComponentArchive(access.getPath());
+            ModelComponentArchive ar = new ModelComponentArchive(access.getPath(), true);
             return ar.getFragmentDescriptor();
         }
     }

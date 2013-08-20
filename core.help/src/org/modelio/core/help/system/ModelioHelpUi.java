@@ -33,7 +33,6 @@ import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Control;
-import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Monitor;
 import org.eclipse.swt.widgets.Shell;
 import org.modelio.core.help.plugin.CoreHelp;
@@ -62,11 +61,11 @@ public class ModelioHelpUi {
         if (this.shell == null || this.browser.isDisposed()) {
             createGui();
         }
-        if (shell.getMinimized()) 
-            shell.setMinimized(false);
+        if (this.shell.getMinimized()) 
+            this.shell.setMinimized(false);
         
-        shell.forceActive();
-        return browser;
+        this.shell.forceActive();
+        return this.browser;
     }
 
     @objid ("93c20cf9-485d-45c1-b427-56c38e4c688c")
@@ -83,7 +82,7 @@ public class ModelioHelpUi {
         if (url != null)
             this.getBrowser().setUrl(url.toString());
         else 
-            System.err.println("help resource not found: " + "../index.jsp");
+            CoreHelp.LOG.debug("help resource not found: " + "../index.jsp");
     }
 
     /**
@@ -103,7 +102,7 @@ public class ModelioHelpUi {
         if (url != null)
             this.getBrowser().setUrl(url.toString());
         else 
-            System.err.println("help resource not found: " + href);
+            CoreHelp.LOG.debug("help resource not found: " + href);
     }
 
     /**
@@ -354,7 +353,7 @@ public class ModelioHelpUi {
         // //f1Dialog = new ContextHelpDialog(context, x, y);
         // //f1Dialog.open();
         //
-        // System.err.println("Missing ContextHelpDialog");
+        // CoreHelp.LOG.debug("Missing ContextHelpDialog");
         // }
         // }
     }
@@ -413,12 +412,12 @@ public class ModelioHelpUi {
     @objid ("42ca401c-8146-4475-a490-6047ff4daf9d")
     private void createGui() {
         this.shell = new Shell();
-        shell.setText(CoreHelp.I18N.getString("HelpWindow.title"));
-        shell.setLayout(new GridLayout());
+        this.shell.setText(CoreHelp.I18N.getString("HelpWindow.title"));
+        this.shell.setLayout(new GridLayout());
         
-        this.browser = new Browser(shell, SWT.BORDER);
+        this.browser = new Browser(this.shell, SWT.BORDER);
         this.browser.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
-        shell.addDisposeListener(new DisposeListener() {
+        this.shell.addDisposeListener(new DisposeListener() {
             
             @Override
             public void widgetDisposed(DisposeEvent e) {
@@ -429,16 +428,16 @@ public class ModelioHelpUi {
         });
         
         
-        shell.setSize(800, 600);
-        Monitor primary = shell.getDisplay().getPrimaryMonitor();
+        this.shell.setSize(800, 600);
+        Monitor primary = this.shell.getDisplay().getPrimaryMonitor();
         Rectangle bounds = primary.getBounds();
-        Rectangle rect = shell.getBounds();
+        Rectangle rect = this.shell.getBounds();
         
         int x = bounds.x + (bounds.width - rect.width) / 2;
         int y = bounds.y + (bounds.height - rect.height) / 2;
         
-        shell.setLocation(x, y);
-        shell.open();
+        this.shell.setLocation(x, y);
+        this.shell.open();
     }
 
 }

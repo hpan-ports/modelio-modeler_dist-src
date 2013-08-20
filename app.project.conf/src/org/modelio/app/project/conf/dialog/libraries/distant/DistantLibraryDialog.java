@@ -59,7 +59,6 @@ import org.modelio.gproject.descriptor.FragmentType;
 import org.modelio.gproject.descriptor.GAuthConf;
 import org.modelio.gproject.descriptor.GProperties;
 import org.modelio.gproject.fragment.IProjectFragment;
-import org.modelio.gproject.gproject.GProject;
 import org.modelio.ui.UIColor;
 import org.modelio.vbasic.files.FileUtils;
 import org.modelio.vbasic.net.UriConnection;
@@ -380,10 +379,10 @@ public final class DistantLibraryDialog extends ModelioDialog {
             
                     try (InputStream is = connection.getInputStream();) {
                         is.close();
+                        this.message.setText(AppProjectConf.I18N.getString("DistantLibraryDialog.CheckResult.validRepository"));
+                        available = true;
                     }
                 }
-                this.message.setText(AppProjectConf.I18N.getString("DistantLibraryDialog.CheckResult.validRepository"));
-                available = true;
             } catch (FileSystemException e) {
                 this.message.setText(FileUtils.getLocalizedMessage(e));
             } catch (FileNotFoundException e) {

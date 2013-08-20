@@ -29,6 +29,7 @@ import org.modelio.vcore.session.api.blob.IBlobChangeEvent;
 import org.modelio.vcore.session.api.blob.IBlobChangeListener;
 import org.modelio.vcore.session.api.blob.IBlobProvider;
 import org.modelio.vcore.session.api.blob.IBlobSupport;
+import org.modelio.vcore.session.api.repository.IRepository;
 import org.modelio.vcore.smkernel.mapi.MObject;
 
 /**
@@ -42,16 +43,16 @@ public class BlobSupport implements IBlobSupport {
     @objid ("de4c1af6-76f0-4727-8783-8aec4060a0bd")
     private Collection<IBlobChangeListener> listeners = new CopyOnWriteArrayList<>();
 
+    @objid ("5abd80e3-6813-4ca0-82cc-5f9c363dcb7d")
+    @Override
+    public void addBlobChangeListener(IBlobChangeListener listener) {
+        this.listeners.add(listener);
+    }
+
     @objid ("2c98b5c1-aead-49e6-afb5-62d82c7f1bbe")
     @Override
     public void addBlobProvider(IBlobProvider provider) {
         this.providers.add(provider);
-    }
-
-    @objid ("9a352046-845e-4163-8c55-5b514aa01f04")
-    @Override
-    public void removeBlobProvider(IBlobProvider provider) {
-        this.providers.remove(provider);
     }
 
     @objid ("81eda83d-c662-4622-b812-176da102d682")
@@ -73,16 +74,26 @@ public class BlobSupport implements IBlobSupport {
         }
     }
 
-    @objid ("5abd80e3-6813-4ca0-82cc-5f9c363dcb7d")
+    @objid ("91b7d44a-4c53-47c7-99a1-7683052f1354")
     @Override
-    public void addBlobChangeListener(IBlobChangeListener listener) {
-        this.listeners.add(listener);
+    public void fireObjectCopied(MObject from, MObject to) {
+        IRepository fromRepo = CoreSession.getSession(from).getRepository(from);
+        IRepository toRepo = CoreSession.getSession(to).getRepository(to);
+        for(IBlobProvider p : this.providers) {
+            p.objectCopied(from, fromRepo, to, toRepo);
+        }
     }
 
     @objid ("a448037d-3616-4193-a088-885a7b39fcef")
     @Override
     public void removeBlobChangeListener(IBlobChangeListener listener) {
         this.listeners.remove(listener);
+    }
+
+    @objid ("9a352046-845e-4163-8c55-5b514aa01f04")
+    @Override
+    public void removeBlobProvider(IBlobProvider provider) {
+        this.providers.remove(provider);
     }
 
 }

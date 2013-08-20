@@ -26,9 +26,7 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 /**
  * Service used get a model loader.
  * <p>
- * In order to get a model loader, the repository must first open
- * a loading session using the {@link #beginLoadSession()}.
- * The obtained session must be used in a <i>try-with-resource</i> statement in order to always
+ * The obtained loader must be used in a <i>try-with-resource</i> statement in order to always
  * be closed.
  * <p>
  * 2 model loader types are available: one standard model loader and
@@ -43,14 +41,25 @@ public interface IModelLoaderProvider {
     short getKid();
 
     /**
-     * Create a loading session.
+     * Begin a loading session.
      * <p>
-     * Should be called only when no loading session is already available.
-     * This session must be used in a <i>try-with-resource</i> statement in order to always
+     * Should be called only when no model loader is already available.
+     * This loader must be used in a <i>try-with-resource</i> statement in order to always
      * be closed.
-     * @return a loading session.
+     * @return a model loader.
      */
     @objid ("1fcf84c5-3a2d-11e2-bf6c-001ec947ccaf")
-    IModelLoadingSession beginLoadSession();
+    IModelLoader beginLoadSession();
+
+    /**
+     * Begin a model refresh.
+     * <p>
+     * Should be called only when no model refresher is already available.
+     * This refresher must be used in a <i>try-with-resource</i> statement in order to always
+     * be closed.
+     * @return a model refresher.
+     */
+    @objid ("e71a43e0-d267-4d5e-8fca-6ebe488c7118")
+    IModelRefresher beginRefreshSession();
 
 }

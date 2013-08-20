@@ -73,7 +73,10 @@ public class AddRichNoteHandler {
             if (first instanceof ModelElement) {
                 return (ModelElement) first;
             } else if (first instanceof IAdaptable) {
-                return (ModelElement) ((IAdaptable) first).getAdapter(ModelElement.class);
+                final ModelElement adapter = (ModelElement) ((IAdaptable) first).getAdapter(ModelElement.class);
+                if (adapter != null) {
+                    return adapter;
+                }
             }
         }
         return null;

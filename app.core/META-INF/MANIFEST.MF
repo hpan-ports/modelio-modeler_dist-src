@@ -20,12 +20,14 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.osgi.services,
  org.eclipse.e4.ui.di,
  org.eclipse.emf.ecore,
- org.eclipse.e4.ui.model.workbench
+ org.eclipse.e4.ui.model.workbench,
+ org.eclipse.emf.ecore.xmi
 Bundle-Vendor: modelio.org
 Bundle-ActivationPolicy: lazy
 Bundle-Localization: plugin
 Export-Package: org.modelio.app.core,
  org.modelio.app.core.activation,
+ org.modelio.app.core.e4model,
  org.modelio.app.core.events,
  org.modelio.app.core.inputpart,
  org.modelio.app.core.navigate,

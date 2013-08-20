@@ -319,7 +319,7 @@ public class ScriptView {
     @objid ("88d0858e-e4aa-4d65-b420-4b119a9c9e0a")
     private void configureOptions(IPreferenceStore projectPreferences) {
         // Link options with the current preference store.
-        options = new ScriptOptions(projectPreferences);
+        this.options = new ScriptOptions(projectPreferences);
     }
 
     @objid ("5ea6bce8-51b0-497a-bd60-814d81d77fa1")

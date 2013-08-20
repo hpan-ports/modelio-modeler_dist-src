@@ -125,8 +125,6 @@ import org.modelio.metamodel.uml.infrastructure.Abstraction;
 import org.modelio.metamodel.uml.infrastructure.Constraint;
 import org.modelio.metamodel.uml.infrastructure.Dependency;
 import org.modelio.metamodel.uml.infrastructure.Element;
-import org.modelio.metamodel.uml.infrastructure.LocalNote;
-import org.modelio.metamodel.uml.infrastructure.LocalTaggedValue;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
 import org.modelio.metamodel.uml.infrastructure.ModelTree;
 import org.modelio.metamodel.uml.infrastructure.Note;
@@ -1079,24 +1077,6 @@ public class OwnershipMetamodelVisitor extends DefaultModelVisitor {
         Link i = param.getLink(); 
         i.accept(this);
         return lObject;
-    }
-
-    @objid ("61650d69-9cec-4908-8962-1bbd4131b87d")
-    @Override
-    public Object visitLocalNote(final LocalNote param) {
-        // behavior.visitLocalNote (param);
-        // Object lObject = super.visitLocalNote(param);
-        // return lObject;
-        return null;
-    }
-
-    @objid ("c29c649f-9b64-459a-b053-5057933c8bb5")
-    @Override
-    public Object visitLocalTaggedValue(final LocalTaggedValue param) {
-        // behavior.visitLocalTaggedValue (param);
-        // Object lObject = super.visitLocalTaggedValue(param);
-        // return lObject;
-        return null;
     }
 
     @objid ("546e82fb-0742-47be-a80b-60a64d17cc94")

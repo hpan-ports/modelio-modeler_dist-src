@@ -29,7 +29,8 @@ Require-Bundle: org.modelio.ui,
  org.eclipse.e4.ui.model.workbench,
  org.modelio.app.ui,
  org.modelio.audit,
- org.eclipse.emf.common
+ org.eclipse.emf.common,
+ org.eclipse.e4.core.services
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-ActivationPolicy: lazy
 Bundle-ClassPath: res/,

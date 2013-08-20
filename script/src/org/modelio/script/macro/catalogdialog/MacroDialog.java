@@ -36,7 +36,6 @@ import org.eclipse.jface.layout.GridLayoutFactory;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.MouseListener;
-import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
@@ -47,8 +46,10 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Text;
 import org.modelio.core.ui.dialog.ModelioDialog;
+import org.modelio.core.ui.images.MetamodelImageService;
+import org.modelio.metamodel.Metamodel;
 import org.modelio.script.macro.catalog.Catalog;
-import org.modelio.script.macro.catalog.ScriptMacro;
+import org.modelio.script.macro.catalog.Macro;
 import org.modelio.script.plugin.Script;
 import org.modelio.ui.UIImages;
 import org.osgi.framework.Bundle;
@@ -74,7 +75,7 @@ public class MacroDialog extends ModelioDialog {
      org.eclipse.swt.widgets.Table metaclassList;
 
     @objid ("000369e8-2079-106b-bf4f-001ec947cd2a")
-    private ScriptMacro editedMacro = null;
+    private Macro editedMacro = null;
 
     @objid ("00037b86-2079-106b-bf4f-001ec947cd2a")
     private Text iconPathText;
@@ -91,9 +92,6 @@ public class MacroDialog extends ModelioDialog {
     @objid ("0003b7cc-2079-106b-bf4f-001ec947cd2a")
     private final Catalog catalog;
 
-    @objid ("dd36239e-5075-457d-9837-e07f8b00312b")
-    private Image iconPathImage;
-
     /**
      * Create a macro edition dialog for an existing macro
      * @param parentShell
@@ -101,7 +99,7 @@ public class MacroDialog extends ModelioDialog {
      * @param macroToEdit
      */
     @objid ("00697800-c497-106a-bf4f-001ec947cd2a")
-    public MacroDialog(Shell parentShell, ScriptMacro macroToEdit) {
+    public MacroDialog(Shell parentShell, Macro macroToEdit) {
         super(parentShell);
         this.editedMacro = macroToEdit;
         this.catalog = macroToEdit.getCatalog();
@@ -136,42 +134,8 @@ public class MacroDialog extends ModelioDialog {
     @objid ("0069a3ca-c497-106a-bf4f-001ec947cd2a")
     @Override
     public Control createContentArea(Composite parent) {
-        /*
-         * SashForm composite = new SashForm(parent, SWT.HORIZONTAL |
-         * SWT.NO_REDRAW_RESIZE);
-         * composite.setLayout(new FillLayout());
-         * composite.setFont(parent.getFont());
-         * composite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true,
-         * true));
-         */
-        
-        // Catalog group:
-        // -------------------------
-        
-        // Script group:
-        // -------------------------
-        /*
-         * Group scriptPanel = new Group(parent, SWT.NONE);
-         * scriptPanel.setText(Script.I18N.getString("MacroDialog.ScriptGroup")
-         * );
-         * scriptPanel.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true,
-         * true));
-         */
         Composite scriptPanel = new Composite(parent, SWT.NONE);
         scriptPanel.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
-        
-        // Catalog combo:
-        // final Label scriptCatLabel = new Label(scriptPanel, SWT.NONE);
-        // scriptCatLabel.setText(Script.I18N.getString("MacroDialog.catalog.label"));
-        
-        // this.catalogCombo = new Combo(scriptPanel, SWT.DROP_DOWN);
-        // for (Catalog c : this.catalogProvider.getCatalogs()) {
-        // if (c.isModifiable() || (this.editedMacro != null &&
-        // this.editedMacro.getCatalog() == c)) {
-        // this.catalogCombo.add(c.getName());
-        // this.catalogCombo.setData(c.getName(), c);
-        // }
-        // }
         
         // Name Text:
         final Label scriptNameLabel = new Label(scriptPanel, SWT.NONE);
@@ -197,10 +161,8 @@ public class MacroDialog extends ModelioDialog {
                         Script.I18N.getString("CatalogDialog.JyFilterNames") }, new String[] { "*.py", "*.jy" });
         this.scriptPathButton.setImage(UIImages.FILECHOOSE);
         scriptPathGroup.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false));
-        //GridLayoutFactory.fillDefaults().numColumns(2).generateLayout(scriptPathGroup);
         
         // Icon Path Text:
-        // -------------------------
         final Label iconPathLabel = new Label(scriptPanel, SWT.NONE);
         iconPathLabel.setText(Script.I18N.getString("MacroDialog.icon.label"));
         
@@ -215,22 +177,15 @@ public class MacroDialog extends ModelioDialog {
                 "", // default path
                 new String[] { Script.I18N.getString("MacroDialog.IconPathFilterNames") },
                 new String[] { Script.I18N.getString("MacroDialog.IconPathFilterExtensions") });
-        this.iconPathImage = new Image(null, getFilePathOf("icons/icon1616.png"));
-        this.iconPathButton.setImage(this.iconPathImage);
-        
-        //GridLayoutFactory.fillDefaults().numColumns(2).generateLayout(iconPathGroup);
+        this.iconPathButton.setImage(UIImages.FILECHOOSE);
         
         // Description Text:
-        // -------------------------
         final Label scriptDescLabel = new Label(scriptPanel, SWT.NONE);
         scriptDescLabel.setText(Script.I18N.getString("MacroDialog.description.label"));
-        // scriptDescLabel.setLayoutData(new GridData(SWT.FILL, SWT.TOP, true,
-        // false));
         
         this.scriptDescriptionText = new Text(scriptPanel, SWT.MULTI | SWT.WRAP | SWT.V_SCROLL | SWT.BORDER);
         
-        // Create "Applicable on" list
-        // -------------------------
+        // Create "Applicable on" list:
         final Label ApplicableOnLabel = new Label(scriptPanel, SWT.NONE);
         ApplicableOnLabel.setText(Script.I18N.getString("MacroDialog.applicable.label"));
         
@@ -240,8 +195,6 @@ public class MacroDialog extends ModelioDialog {
         this.metaclassList.setToolTipText(Script.I18N.getString("MacroDialog.applicable.tooltip"));
         
         // Path Text:
-        // -------------------------
-        
         this.showInMenuToggle = new Button(scriptPanel, SWT.CHECK);
         this.showInMenuToggle.setText(Script.I18N.getString("MacroDialog.inmenu.label"));
         
@@ -259,7 +212,7 @@ public class MacroDialog extends ModelioDialog {
      * @return the edited macro.
      */
     @objid ("006a05cc-c497-106a-bf4f-001ec947cd2a")
-    public ScriptMacro getMacro() {
+    public Macro getMacro() {
         return this.editedMacro;
     }
 
@@ -272,26 +225,18 @@ public class MacroDialog extends ModelioDialog {
         getShell().setMinimumSize(600, 400);
     }
 
-    @objid ("006a06f8-c497-106a-bf4f-001ec947cd2a")
-    @Override
-    protected void cancelPressed() {
-        super.cancelPressed();
-    }
-
     @objid ("006a07a2-c497-106a-bf4f-001ec947cd2a")
     @Override
     protected void okPressed() {
-        if (validateScriptPanel()) {
-            // we are creating a new macro
-            if (this.editedMacro == null) {
-                this.editedMacro = new ScriptMacro(this.catalog);
-                this.catalog.addMacro(this.editedMacro);
-            }
-            // read the field values into the edited macro
-            updateMacroFromFields();
-        
-            super.okPressed();
-        
+        if (validateScriptPanel()) {           
+            if (this.editedMacro == null) {     // Create a new macro
+                this.editedMacro = new Macro(this.catalog);
+                updateMacroFromFields();
+                this.catalog.addMacro(this.editedMacro);               
+            } else {    // Edit a macro
+                updateMacroFromFields();
+            }            
+            super.okPressed();        
         }
     }
 
@@ -303,7 +248,7 @@ public class MacroDialog extends ModelioDialog {
     void addMetaclass(String s) {
         TableItem i = new TableItem(this.metaclassList, 0);
         i.setText(s);
-        i.setImage(getMetaclassImage(s));
+        i.setImage(MetamodelImageService.getIcon(Metamodel.getMClass(s)));
     }
 
     /**
@@ -335,31 +280,13 @@ public class MacroDialog extends ModelioDialog {
         return ret;
     }
 
-    @objid ("0069a7a8-c497-106a-bf4f-001ec947cd2a")
-    private Image getMetaclassImage(String s) {
-        try {
-            // SmClass.
-            // Class<? extends IElement> metaclass =
-            // MetaModelExpert.getMetaclass(s);
-            // Image i = StandardImageService.getMetaclassImage(metaclass);
-            // if (i == null) {
-            // i = StandardImageService.getMetaclassImage(IClass.class);
-            // }
-            // return i;
-            return null;
-        } catch (IllegalArgumentException e) {
-            // e.printStackTrace();
-            return null;
-        }
-    }
-
     @objid ("006a0996-c497-106a-bf4f-001ec947cd2a")
-    private void updateFields(ScriptMacro script) {
+    private void updateFields(Macro script) {
         if (script != null) {
         
             this.scriptNameText.setText(script.getName());
             this.scriptDescriptionText.setText(script.getDescription());
-            final Path path = script.getPath();
+            final Path path = script.getScriptPath();
             if (path != null) {
                 this.scriptPathText.setText(path.toString());
             } else {
@@ -440,26 +367,19 @@ public class MacroDialog extends ModelioDialog {
         return true;
     }
 
+    /**
+     * Read the field values into the edited macro
+     */
     @objid ("000568c4-2079-106b-bf4f-001ec947cd2a")
     private void updateMacroFromFields() {
         // Save fields data
         this.editedMacro.setName(this.scriptNameText.getText());
-        this.editedMacro.setPath(Paths.get(this.scriptPathText.getText()));
+        this.editedMacro.setScriptPath(Paths.get(this.scriptPathText.getText()));
         this.editedMacro.setIconPath(this.iconPathText.getText().isEmpty() ? null : Paths.get(this.iconPathText.getText()));
         this.editedMacro.setDescription(this.scriptDescriptionText.getText().replace("\r\n", "\n"));
         this.editedMacro.setShowInContextualMenu(this.showInMenuToggle.getSelection());
         this.editedMacro.setShowInToolbar(this.showInToolbarToggle.getSelection());
         this.editedMacro.setMetaclasses(getApplicableMetaclasses());
-    }
-
-    @objid ("487d5021-06e0-4930-b4b8-b0ff082c1ed3")
-    @Override
-    public boolean close() {
-        if (this.iconPathImage != null && !this.iconPathImage.isDisposed()) {
-            this.iconPathImage.dispose();
-            this.iconPathImage = null;
-        }
-        return super.close();
     }
 
     @objid ("6a04233f-e2dd-4587-9070-fb1151cf4c45")

@@ -36,8 +36,10 @@ import org.modelio.diagram.persistence.IDiagramReader;
 import org.modelio.diagram.persistence.IDiagramWriter;
 import org.modelio.diagram.styles.core.MetaKey;
 import org.modelio.diagram.styles.core.StyleKey;
-import org.modelio.metamodel.uml.statik.ConnectorEnd;
-import org.modelio.metamodel.uml.statik.LinkEnd;
+import org.modelio.metamodel.uml.statik.NaryConnector;
+import org.modelio.metamodel.uml.statik.NaryConnectorEnd;
+import org.modelio.metamodel.uml.statik.NaryLink;
+import org.modelio.metamodel.uml.statik.NaryLinkEnd;
 import org.modelio.metamodel.uml.statik.ProvidedInterface;
 import org.modelio.vcore.smkernel.mapi.MObject;
 import org.modelio.vcore.smkernel.mapi.MRef;
@@ -104,7 +106,7 @@ public class GmProvidedInterfaceLink extends GmLink {
     @objid ("3655ea8d-55b7-11e2-877f-002564c97630")
     @Override
     public MObject getToElement() {
-        Collection<ConnectorEnd> connectors = getConnections();
+        Collection<NaryConnector> connectors = getConnections();
         if (connectors.isEmpty())
             return this.getDiagram().getRelatedElement();
         else
@@ -156,11 +158,11 @@ public class GmProvidedInterfaceLink extends GmLink {
      * @return all provided interface connections.
      */
     @objid ("3657711f-55b7-11e2-877f-002564c97630")
-    public Collection<ConnectorEnd> getConnections() {
-        final Collection<ConnectorEnd> ret = new ArrayList<>();
-        for (LinkEnd l : this.getRelatedElement().getConsumer(ConnectorEnd.class)) {
-            final LinkEnd linkNode = l.getOpposite();
-            ret.add((ConnectorEnd) linkNode);
+    public Collection<NaryConnector> getConnections() {
+        final Collection<NaryConnector> ret = new ArrayList<>();
+        for (NaryLinkEnd l : this.getRelatedElement().getNaryConsumer(NaryConnectorEnd.class)) {
+            final NaryLink linkNode = l.getNaryLink();
+            ret.add((NaryConnector) linkNode);
         }
         return ret;
     }

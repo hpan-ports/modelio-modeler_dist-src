@@ -23,12 +23,12 @@ package org.modelio.xmi.api;
 
 import java.io.File;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.modelio.metamodel.uml.infrastructure.Element;
+import org.modelio.vcore.smkernel.mapi.MObject;
 
 @objid ("0e446a2a-d92a-4891-b7e1-d481f731e0eb")
 public class ImportConfiguration {
     @objid ("9508c66e-b172-4fe4-adb9-a035429d75a6")
-    private Element owner;
+    private MObject owner;
 
     @objid ("d32147c6-283e-44e4-881a-081fa1083daa")
     private File xmiFile;
@@ -44,12 +44,12 @@ public class ImportConfiguration {
     }
 
     @objid ("39fd521b-127d-4759-9a24-9dc6141792b0")
-    public Element getOwner() {
+    public MObject getOwner() {
         return this.owner;
     }
 
     @objid ("0237f45c-f9e3-442b-aa28-e703bf73b4e2")
-    public void setOwner(final Element owner) {
+    public void setOwner(final MObject owner) {
         this.owner = owner;
     }
 

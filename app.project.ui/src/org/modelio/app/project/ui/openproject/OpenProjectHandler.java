@@ -25,30 +25,29 @@ import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
-import javax.inject.Inject;
 import javax.inject.Named;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.e4.core.di.annotations.CanExecute;
 import org.eclipse.e4.core.di.annotations.Execute;
 import org.eclipse.e4.core.di.annotations.Optional;
+import org.eclipse.e4.core.services.statusreporter.StatusReporter;
 import org.eclipse.e4.ui.model.application.ui.basic.MWindow;
 import org.eclipse.e4.ui.services.IServiceConstants;
-import org.eclipse.e4.ui.workbench.IWorkbench;
 import org.eclipse.e4.ui.workbench.modeling.IWindowCloseHandler;
 import org.eclipse.jface.dialogs.MessageDialog;
-import org.eclipse.jface.dialogs.ProgressMonitorDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.swt.widgets.Shell;
 import org.modelio.app.project.core.services.IProjectService;
 import org.modelio.app.project.ui.auth.AuthDataDialog;
+import org.modelio.app.project.ui.closeproject.CloseProjectHandler;
 import org.modelio.app.project.ui.plugin.AppProjectUi;
-import org.modelio.app.project.ui.quit.QuitHandler;
 import org.modelio.gproject.descriptor.FragmentDescriptor;
 import org.modelio.gproject.descriptor.ModuleDescriptor;
 import org.modelio.gproject.descriptor.ProjectDescriptor;
 import org.modelio.gproject.gproject.GProjectAuthenticationException;
+import org.modelio.ui.progress.IModelioProgressService;
 import org.modelio.vbasic.auth.IAuthData;
 import org.modelio.vbasic.auth.NoneAuthData;
 
@@ -59,7 +58,7 @@ import org.modelio.vbasic.auth.NoneAuthData;
 public class OpenProjectHandler {
     @objid ("00470482-cc35-1ff2-a7f4-001ec947cd2a")
     @Execute
-    public void execute(final IProjectService projectService, @Named(IServiceConstants.ACTIVE_SHELL) final Shell shell, @Named(IServiceConstants.ACTIVE_SELECTION) final IStructuredSelection selection, MWindow window, final IWorkbench workbench) {
+    void execute(final IProjectService projectService, @Named(IServiceConstants.ACTIVE_SHELL) final Shell shell, @Named(IServiceConstants.ACTIVE_SELECTION) final IStructuredSelection selection, final IModelioProgressService progressService) {
         final ProjectDescriptor projectToOpen = getSelectedElements(selection).get(0);
         if (projectToOpen == null) {
             return;
@@ -91,7 +90,7 @@ public class OpenProjectHandler {
             };
         
             try {
-                new ProgressMonitorDialog(shell).run(true, false, runnable);
+                progressService.run(true, false, runnable);
                 more = false;
             } catch (InvocationTargetException e) {
                 AppProjectUi.LOG.error(e);
@@ -110,22 +109,19 @@ public class OpenProjectHandler {
         }
         
         
-        IWindowCloseHandler handler = new IWindowCloseHandler() {
-            @Override
-            public boolean close(MWindow windoww) {
-                if(QuitHandler.mustClose(shell, projectService)){
-                   return true;
-                }
-                return false;
-            }
-        };
-        
-        window.getContext().set(IWindowCloseHandler.class, handler);
+        //        IWindowCloseHandler handler = new IWindowCloseHandler() {
+        //            @Override
+        //            public boolean close(MWindow windoww) {
+        //                return CloseProjectHandler.saveBeforeClose(shell, projectService, progressService, statusReporter);
+        //            }
+        //        };
+        //        
+        //        window.getContext().set(IWindowCloseHandler.class, handler);
     }
 
     @objid ("00470518-cc35-1ff2-a7f4-001ec947cd2a")
     @CanExecute
-    public boolean canExecute(final IProjectService projectService, @Optional
+    boolean canExecute(final IProjectService projectService, @Optional
 @Named(IServiceConstants.ACTIVE_SELECTION) final IStructuredSelection selection) {
         if (selection == null || projectService.getOpenedProject() != null) {
             return false;

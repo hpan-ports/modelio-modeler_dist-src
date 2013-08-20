@@ -39,6 +39,7 @@ import org.modelio.diagram.elements.core.commands.ModelioCreationContext;
 import org.modelio.diagram.elements.core.figures.EllipseFigure;
 import org.modelio.diagram.elements.core.figures.LinkFigure;
 import org.modelio.diagram.elements.core.link.GmLink;
+import org.modelio.diagram.elements.core.link.ModelioLinkCreationContext;
 import org.modelio.diagram.elements.core.model.GmModel;
 import org.modelio.diagram.elements.core.model.IGmModelRelated;
 import org.modelio.metamodel.Metamodel;
@@ -80,11 +81,19 @@ public class ProvidedInterfaceLinkEditPart extends LinkToVoidEditPart {
     @Override
     public ConnectionAnchor getTargetConnectionAnchor(final Request request) {
         if (request instanceof CreateConnectionRequest) {
-        
-            ModelioCreationContext ctx = (ModelioCreationContext) ((CreateConnectionRequest) request).getNewObject();
-            if (ctx.getMetaclass().equals(Metamodel.getMClass(RequiredInterface.class).getName())) {
-                final LinkFigure fig = (LinkFigure) getFigure();
-                return fig.getTargetAnchor();
+            final Object newObject = ((CreateConnectionRequest) request).getNewObject();
+            if (newObject instanceof ModelioCreationContext) {
+                ModelioCreationContext ctx = (ModelioCreationContext) newObject;
+                if (ctx.getMetaclass().equals(Metamodel.getMClass(RequiredInterface.class).getName())) {
+                    final LinkFigure fig = (LinkFigure) getFigure();
+                    return fig.getTargetAnchor();
+                }
+            } else if (newObject instanceof ModelioLinkCreationContext) {
+                ModelioLinkCreationContext ctx = (ModelioLinkCreationContext) newObject;
+                if (ctx.getMetaclass().equals(Metamodel.getMClass(RequiredInterface.class).getName())) {
+                    final LinkFigure fig = (LinkFigure) getFigure();
+                    return fig.getTargetAnchor();
+                }
             }
         } else if (request instanceof ReconnectRequest) {
             Object model = ((ReconnectRequest) request).getConnectionEditPart().getModel();

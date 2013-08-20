@@ -25,8 +25,6 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.metamodel.uml.behavior.activityModel.ActivityEdge;
 import org.modelio.metamodel.uml.infrastructure.Dependency;
 import org.modelio.metamodel.uml.infrastructure.Element;
-import org.modelio.metamodel.uml.infrastructure.LocalNote;
-import org.modelio.metamodel.uml.infrastructure.LocalTaggedValue;
 import org.modelio.metamodel.uml.infrastructure.MetaclassReference;
 import org.modelio.metamodel.uml.infrastructure.Note;
 import org.modelio.metamodel.uml.infrastructure.Stereotype;
@@ -139,26 +137,6 @@ public class BrokenElementTester {
         @Override
         public Object visitLinkEnd(LinkEnd theElement) {
             if (theElement.getOpposite() == null) {
-                return true;
-            } else {
-                return visitModelElement(theElement);
-            }
-        }
-
-        @objid ("2542c078-0d7a-11de-bb0e-001ec947ccaf")
-        @Override
-        public Object visitLocalNote(LocalNote theElement) {
-            if (theElement.getLocalModel() == null) {
-                return true;
-            } else {
-                return visitElement(theElement);
-            }
-        }
-
-        @objid ("2542c079-0d7a-11de-bb0e-001ec947ccaf")
-        @Override
-        public Object visitLocalTaggedValue(LocalTaggedValue theElement) {
-            if (theElement.getLocalDefinition() == null) {
                 return true;
             } else {
                 return visitModelElement(theElement);

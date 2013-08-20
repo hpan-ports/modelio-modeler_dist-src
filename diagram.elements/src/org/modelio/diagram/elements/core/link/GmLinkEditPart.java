@@ -671,7 +671,7 @@ public class GmLinkEditPart extends AbstractConnectionEditPart implements Proper
         if (routerStyleKey != null) {
             final ConnectionRouterId styleRouter = style.getProperty(routerStyleKey);
             final ConnectionRouterId oldRouter = gmLink.getPath().getRouterKind();
-            if (styleRouter != oldRouter && !getRoutingMode().rake) {
+            if (styleRouter != oldRouter) {
                 final GmPath newPath = new GmPath(gmLink.getPath());
                 newPath.setRouterKind(styleRouter);
         
@@ -685,6 +685,11 @@ public class GmLinkEditPart extends AbstractConnectionEditPart implements Proper
         
                 newPath.setPathData(GmPathDataExtractor.extractDataModel(newHelper));
         
+                if (newHelper.getRoutingMode() != ConnectionRouterId.ORTHOGONAL) {
+                    newPath.setSourceRake(null);
+                    newPath.setTargetRake(null);
+                }
+                
                 gmLink.setLayoutData(newPath);
             }
         }

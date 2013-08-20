@@ -43,6 +43,7 @@ import org.modelio.metamodel.uml.statik.Instance;
 import org.modelio.property.ui.data.standard.common.AbstractPropertyModel;
 import org.modelio.vcore.session.api.ICoreSession;
 import org.modelio.vcore.session.impl.CoreSession;
+import org.modelio.vcore.smkernel.mapi.MObject;
 
 /**
  * <i>ExpansionNode</i> data model.
@@ -342,18 +343,29 @@ public class ExpansionNodePropertyModel extends AbstractPropertyModel<ExpansionN
     @objid ("8f1730a9-c068-11e1-8c0a-002564c97630")
     public static class RepresentedType extends HybridType {
         @objid ("8f1730ab-c068-11e1-8c0a-002564c97630")
-        private Class<?>[] t = { Instance.class, Attribute.class, AssociationEnd.class, BehaviorParameter.class,
-				GeneralClass.class };
+        private List<Class<? extends MObject>> t;
 
         @objid ("8f1730b0-c068-11e1-8c0a-002564c97630")
         public RepresentedType(ICoreSession session) {
             super(session);
+            this.t = new ArrayList<>();
+            this.t.add(Instance.class);
+            this.t.add(Attribute.class);
+            this.t.add(AssociationEnd.class);
+            this.t.add(BehaviorParameter.class);
+            this.t.add(GeneralClass.class);
         }
 
         @objid ("8f1730b2-c068-11e1-8c0a-002564c97630")
         @Override
-        public Class<?>[] getTypes() {
+        public List<Class<? extends MObject>> getTypes() {
             return this.t;
+        }
+
+        @objid ("39f4676a-77d8-4d95-be4b-5d6b3c19b91d")
+        @Override
+        public boolean acceptStringValue() {
+            return false;
         }
 
     }

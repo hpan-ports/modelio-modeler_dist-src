@@ -48,7 +48,7 @@ public class ZoomOutHandler {
         
         LinkEditorView editor = (LinkEditorView) part.getObject();
         
-        ZoomManager zoomManager = (ZoomManager)editor.getAdapter(ZoomManager.class);
+        ZoomManager zoomManager = editor.getAdapter(ZoomManager.class);
         if (zoomManager != null && zoomManager.canZoomOut()) {
             zoomManager.zoomOut();
         }

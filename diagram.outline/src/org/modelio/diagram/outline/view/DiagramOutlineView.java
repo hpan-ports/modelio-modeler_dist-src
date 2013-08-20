@@ -87,6 +87,9 @@ public class DiagramOutlineView {
     @objid ("a961591e-2d66-4bd3-8b50-54877732c4dc")
     @Inject
     void activePartChanged(@Named(IServiceConstants.ACTIVE_PART) final MPart part) {
+        if (this.panel == null || this.parent == null) {
+            return;
+        }
         if (part == null || ! (part.getObject() instanceof IAdaptable)) {
             return;
         }

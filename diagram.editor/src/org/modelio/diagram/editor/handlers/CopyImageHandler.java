@@ -27,7 +27,6 @@ import org.eclipse.e4.core.di.annotations.CanExecute;
 import org.eclipse.e4.core.di.annotations.Execute;
 import org.eclipse.e4.ui.model.application.ui.basic.MPart;
 import org.eclipse.e4.ui.services.IServiceConstants;
-import org.eclipse.swt.SWT;
 import org.eclipse.swt.dnd.Clipboard;
 import org.eclipse.swt.dnd.ImageTransfer;
 import org.eclipse.swt.dnd.Transfer;
@@ -37,7 +36,7 @@ import org.modelio.diagram.editor.AbstractDiagramEditor;
 
 @objid ("65afb5e5-33f7-11e2-95fe-001ec947c8cc")
 public class CopyImageHandler {
-    @objid ("65afb5e6-33f7-11e2-95fe-001ec947c8cc")
+    @objid ("ba8aa06e-645a-48aa-be7b-80395fee921b")
     @Execute
     public Object execute(@Named(IServiceConstants.ACTIVE_PART) final MPart part) {
         if (! (part.getObject() instanceof AbstractDiagramEditor)) {
@@ -47,7 +46,7 @@ public class CopyImageHandler {
         AbstractDiagramEditor editor = (AbstractDiagramEditor) part.getObject();
         
         ImageBuilder imageBuilder = new ImageBuilder();
-        Image img = imageBuilder.makeImage(editor.getRootEditPart(), SWT.IMAGE_PNG);
+        Image img = imageBuilder.makeImage(editor.getRootEditPart()); 
         
         //
         Clipboard clipboard = new Clipboard(Display.getCurrent());
@@ -60,7 +59,7 @@ public class CopyImageHandler {
         return null;
     }
 
-    @objid ("7a7dddef-5e25-11e2-a8be-00137282c51b")
+    @objid ("510c0e01-a697-4a13-8507-f7dffef93e34")
     @CanExecute
     public boolean canExecute() {
         // Nothing to do

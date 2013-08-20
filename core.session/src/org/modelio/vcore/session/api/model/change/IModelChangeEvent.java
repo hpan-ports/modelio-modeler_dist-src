@@ -26,17 +26,51 @@ import java.util.Set;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.vcore.smkernel.mapi.MObject;
 
+/**
+ * Represents a model change event.
+ * <p>
+ * Model change events are triggered for the following situations:
+ * <ul>
+ * <li> A "session" transaction is committed.
+ * <li> A "session" transaction is undone
+ * <li> A "session" transaction is redone
+ * <li> The repository modifies the model
+ * </ul>
+ */
 @objid ("007fe630-bd79-1f3b-aafd-001ec947cd2a")
 public interface IModelChangeEvent {
+    /**
+     * Get a resume of model object creations.
+     * <p>
+     * When whole composition trees are created the list only contains the root and CMS node elements .
+     * @return the created elements.
+     */
     @objid ("002a1b1a-d402-1f3b-aafd-001ec947cd2a")
     Set<MObject> getCreationEvents();
 
+    /**
+     * Get all modified model objects.
+     * <p>
+     * This list does not contain the composition owner of created elements, unless other
+     * modification was made on the owner.
+     * @return all modified model objects.
+     */
     @objid ("002a31e0-d402-1f3b-aafd-001ec947cd2a")
     Set<MObject> getUpdateEvents();
 
+    /**
+     * Get all model moves.
+     * @return all model moves.
+     */
     @objid ("002a457c-d402-1f3b-aafd-001ec947cd2a")
     List<IElementMovedEvent> getMoveEvents();
 
+    /**
+     * Get a resume of model object deletions.
+     * <p>
+     * When whole composition trees are deleted the list only contains the root and CMS node elements .
+     * @return model objects deletions
+     */
     @objid ("002a590e-d402-1f3b-aafd-001ec947cd2a")
     List<IElementDeletedEvent> getDeleteEvents();
 
@@ -48,5 +82,12 @@ public interface IModelChangeEvent {
      */
     @objid ("f2ba2ad3-dfb5-4e07-a719-3c3f9c83c695")
     boolean isEmpty();
+
+    /**
+     * Get the origin of this model change event
+     * @return the model change event cause.
+     */
+    @objid ("c756ebb0-76b2-493b-8c4d-549e8f84887d")
+    ChangeCause getCause();
 
 }

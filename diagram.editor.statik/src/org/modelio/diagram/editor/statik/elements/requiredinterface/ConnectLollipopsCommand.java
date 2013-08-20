@@ -32,7 +32,8 @@ import org.modelio.diagram.editor.statik.elements.providedinterface.ProvidedInte
 import org.modelio.diagram.elements.common.abstractdiagram.GmAbstractDiagram;
 import org.modelio.gproject.model.api.MTools;
 import org.modelio.metamodel.factory.IModelFactory;
-import org.modelio.metamodel.uml.statik.ConnectorEnd;
+import org.modelio.metamodel.uml.statik.NaryConnector;
+import org.modelio.metamodel.uml.statik.NaryConnectorEnd;
 import org.modelio.metamodel.uml.statik.Port;
 import org.modelio.metamodel.uml.statik.ProvidedInterface;
 import org.modelio.metamodel.uml.statik.RequiredInterface;
@@ -45,14 +46,14 @@ import org.modelio.vcore.smkernel.mapi.MRef;
  */
 @objid ("366ccdda-55b7-11e2-877f-002564c97630")
 public class ConnectLollipopsCommand extends Command {
-    @objid ("a79c7e6e-9dbd-4292-85a2-51ea821a40d4")
-    private Point location;
-
     @objid ("63713969-5bd5-11e2-9e33-00137282c51b")
     private RequiredInterfaceLinkEditPart reqEditPart;
 
     @objid ("6371396a-5bd5-11e2-9e33-00137282c51b")
     private ProvidedInterfaceLinkEditPart provEditPart;
+
+    @objid ("8f488ead-ff63-43bd-92fa-0f7686fcca1a")
+    private Point location;
 
     /**
      * Initialize the command.
@@ -87,11 +88,12 @@ public class ConnectLollipopsCommand extends Command {
         final GmAbstractDiagram gmDiagram = gmReq.getDiagram();
         final IModelFactory factory = gmDiagram.getModelManager().getModelFactory(gmDiagram.getRelatedElement());
         
-        final ConnectorEnd reqConn = factory.createConnectorEnd();
-        final ConnectorEnd provConn = factory.createConnectorEnd();
+        final NaryConnectorEnd reqConn = factory.createNaryConnectorEnd();
+        final NaryConnectorEnd provConn = factory.createNaryConnectorEnd();
+        final NaryConnector conn = factory.createNaryConnector();
         
-        reqConn.setOpposite(provConn);
-        provConn.setOpposite(reqConn);
+        reqConn.setNaryLink(conn);
+        provConn.setNaryLink(conn);
         
         reqConn.setSource(reqPort);
         reqConn.setConsumer(req);
@@ -101,7 +103,7 @@ public class ConnectLollipopsCommand extends Command {
         
         // Unmask the connector
         GmLollipopConnection cnx;
-        cnx = new GmLollipopConnection(gmDiagram, reqConn, new MRef(reqConn));
+        cnx = new GmLollipopConnection(gmDiagram, conn);
         gmDiagram.addChild(cnx);
         
         Point pt = this.location.getCopy();

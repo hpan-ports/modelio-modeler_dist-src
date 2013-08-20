@@ -96,7 +96,7 @@ public class DynamicGuiCreationHelper {
                 if (tooltype != null)
                     commandInstance.setTooltip(tooltype);
                 if (command.getImage() != null && !command.getImage().equals("")) {
-                    String bitmap = module.getConfiguration().getProjectSpacePath() + "/mda/" + module.getName() + "/" + module.getLabel(command.getImage());
+                    String bitmap = module.getConfiguration().getModuleResourcesPath() + "/" + module.getLabel(command.getImage());
                     ImageDescriptor descriptor = ImageDescriptor.createFromImage(new Image(new Shell().getDisplay(),
                             bitmap));
                     commandInstance.setBitmap(descriptor);
@@ -172,10 +172,10 @@ public class DynamicGuiCreationHelper {
             if (label != null)
                 propertypage.setLabel(label);
             if (property.getImage() != null && !property.getImage().equals("")) {
-                // FIXME image
-                // String bitmap = module.getConfiguration().getProjectSpacePath() + "/mda/" +module.getName() + "/" +module.getLabel(property.getImage());
-                // ImageDescriptor descriptor = ImageDescriptor.createFromImage(new Image(new Shell().getDisplay(),bitmap));
-                // propertypage.setBitmap(descriptor);
+                // TODO image
+        //                 String bitmap = module.getConfiguration().getModuleResourcesPath() + "/" +module.getLabel(property.getImage());
+        //                 ImageDescriptor descriptor = ImageDescriptor.createFromImage(new Image(new Shell().getDisplay(),bitmap));
+        //                 propertypage.setBitmap(descriptor);
             }
             propertypage.setModule(module);
             module.getPropertyPages().add(propertypage);
@@ -286,7 +286,7 @@ public class DynamicGuiCreationHelper {
                 String tooltype = module.getLabel(command.getTooltip());
         
                 if (command.getImage() != null && !command.getImage().equals("")) {
-                    String bitmap = module.getConfiguration().getProjectSpacePath() + "/mda/" + module.getName() +"/" + module.getLabel(command.getImage());
+                    String bitmap = module.getConfiguration().getModuleResourcesPath() +"/" + module.getLabel(command.getImage());
                     descriptor = ImageDescriptor.createFromImage(new Image(new Shell().getDisplay(), bitmap));
         
                 }
@@ -347,7 +347,7 @@ public class DynamicGuiCreationHelper {
         
                 String tooltype = module.getLabel(command.getTooltip());
                 if (command.getImage() != null && !command.getImage().equals("")) {
-                    String bitmap = module.getConfiguration().getProjectSpacePath() +  "/mda/" + module.getName() + "/" + module.getLabel(command.getImage());
+                    String bitmap = module.getConfiguration().getModuleResourcesPath() + "/" + module.getLabel(command.getImage());
                     descriptor = ImageDescriptor.createFromImage(new Image(new Shell().getDisplay(), bitmap));
                 }
                 IAttachedBoxCommand commandInstance = new GenericAttachedBoxCommand(label, descriptor, tooltype, handler, scopes);
@@ -408,7 +408,7 @@ public class DynamicGuiCreationHelper {
         
                 String tooltype = module.getLabel(command.getTooltip());
                 if (command.getImage() != null && !command.getImage().equals("")) {
-                    String bitmap = module.getConfiguration().getProjectSpacePath() +"/mda/" + module.getName() +"/" + module.getLabel(command.getImage());
+                    String bitmap = module.getConfiguration().getModuleResourcesPath() +"/" + module.getLabel(command.getImage());
                     descriptor = ImageDescriptor.createFromImage(new Image(new Shell().getDisplay(), bitmap));
                 }
         

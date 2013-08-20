@@ -31,11 +31,8 @@ import org.modelio.api.diagram.IDiagramNode;
 import org.modelio.api.diagram.InvalidDestinationPointException;
 import org.modelio.api.diagram.InvalidPointsPathException;
 import org.modelio.api.diagram.InvalidSourcePointException;
-import org.modelio.app.project.core.services.IProjectService;
 import org.modelio.diagram.diagramauto.diagram.StyleConstants;
 import org.modelio.diagram.diagramauto.diagram.layout.FourGroupStructuralLayout;
-import org.modelio.diagram.editor.plugin.DiagramEditorsManager;
-import org.modelio.diagram.editor.plugin.IDiagramConfigurerRegistry;
 import org.modelio.gproject.model.IMModelServices;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
 import org.modelio.metamodel.uml.infrastructure.ModelTree;
@@ -58,8 +55,8 @@ public class InheritanceCreator extends AbstractDiagramCreator {
     public List<IDiagramNode> _bottomDgs;
 
     @objid ("a436b93d-adab-4107-9730-74415cfc432b")
-    public InheritanceCreator(IProjectService projectService, IDiagramConfigurerRegistry configurerRegistry, DiagramEditorsManager editorManager, IMModelServices modelServices) {
-        super(projectService,configurerRegistry,editorManager,modelServices);
+    public InheritanceCreator(IMModelServices modelServices) {
+        super(modelServices);
         
         this._topDgs = new ArrayList<>();
         this._bottomDgs = new ArrayList<>();

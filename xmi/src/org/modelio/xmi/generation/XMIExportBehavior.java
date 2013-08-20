@@ -108,8 +108,6 @@ import org.modelio.metamodel.uml.informationFlow.InformationItem;
 import org.modelio.metamodel.uml.infrastructure.Abstraction;
 import org.modelio.metamodel.uml.infrastructure.Constraint;
 import org.modelio.metamodel.uml.infrastructure.Dependency;
-import org.modelio.metamodel.uml.infrastructure.LocalNote;
-import org.modelio.metamodel.uml.infrastructure.LocalTaggedValue;
 import org.modelio.metamodel.uml.infrastructure.Note;
 import org.modelio.metamodel.uml.infrastructure.NoteType;
 import org.modelio.metamodel.uml.infrastructure.Stereotype;
@@ -724,18 +722,6 @@ public class XMIExportBehavior implements IParseModelBehavior {
     @objid ("3aa77ad9-4d49-409f-bfdd-838c87542ea4")
     public void visitLinkEnd(LinkEnd param) {
         OLinkEnd element = new OLinkEnd(param);
-        this.exportModel.export(element);
-    }
-
-    @objid ("bb9cfb17-3e7b-43d3-87f3-8a94fbf401d5")
-    public void visitLocalNote(LocalNote param) {
-        OLocalNote element = new OLocalNote(param);
-        this.exportModel.export(element);
-    }
-
-    @objid ("6fcb751e-dd3d-41c5-ba9c-01816ecdd592")
-    public void visitLocalTaggedValue(LocalTaggedValue param) {
-        OLocalTaggedValue element = new OLocalTaggedValue(param);
         this.exportModel.export(element);
     }
 

@@ -23,6 +23,7 @@ package org.modelio.vcore.session.api.blob;
 
 import java.util.Collection;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
+import org.modelio.vcore.session.api.repository.IRepository;
 import org.modelio.vcore.smkernel.mapi.MObject;
 
 /**
@@ -41,5 +42,22 @@ public interface IBlobProvider {
      */
     @objid ("46e9ce60-ae74-4ed2-9cac-32b0eae1ea86")
     Collection<String> getRelatedBlobs(MObject obj);
+
+    /**
+     * Called when a model object has been copied or imported.
+     * <p>
+     * Both objects may belong to the same project or to different ones.
+     * The model objects may have the same identifier in case of import or
+     * different identifiers in case of copy.
+     * <p>
+     * The implementation should decide what to do with the blobs it handles.
+     * An implementation usually duplicate the blobs of the original object.
+     * @param from the original model object
+     * @param fromRepo the original model object repository
+     * @param to the model object copy.
+     * @param toRepo the object copy repository
+     */
+    @objid ("c6402278-1060-487e-b503-8e62de46aaa5")
+    void objectCopied(MObject from, IRepository fromRepo, MObject to, IRepository toRepo);
 
 }

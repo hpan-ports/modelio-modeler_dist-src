@@ -56,39 +56,53 @@ public class DiagramCreationHandler {
      */
     @objid ("aa773628-c456-4c2f-8d24-2bd8e6fd0899")
     @Execute
-    public Object execute(@Named(IServiceConstants.ACTIVE_SELECTION) final Object selection) {
+    public Object execute(@Named(IServiceConstants.ACTIVE_SELECTION) final Object selection, @Optional
+@Named("contributor") final String contributorName) {
         ModelElement selectedElement = getSelectedElement(selection);
         
-        
-        if (this.dialog == null || this.dialog.getShell() == null) {            
-            DiagramWizardModel dataModel = new DiagramWizardModel();
-            dataModel.setContext(selectedElement);
-            dataModel.setShowInvalidDiagram(false);
+        if (this.dialog == null || this.dialog.getShell() == null) {
+            DiagramWizardModel resultModel = null;
+            IDiagramWizardContributor selectedContributor = null;
             DiagramContributorManager contributorManager = DiagramContributorManager.getInstance();
             for (IDiagramWizardContributor contributor : contributorManager.getAllContributorsList()) {
                 if (contributor instanceof AbstractDiagramCreationContributor) {                
                     ((AbstractDiagramCreationContributor)contributor).setProjectService(this.projectService);
                     ((AbstractDiagramCreationContributor)contributor).setModelService(this.mmServices);
                 }
+                if (contributor.getClass().getSimpleName().equals(contributorName)) {
+                    selectedContributor = contributor;
+                    break;
+                }
             }
-            
-            this.dialog = new DiagramWizardDialog(Display.getDefault().getActiveShell(),
-                    contributorManager,
-                    dataModel, this.projectService, this.mmServices, this.pickingService);
-            this.dialog.open();
-            DiagramWizardModel resultModel = this.dialog.getResultModel();
-            
-            if (resultModel != null) {
-                IDiagramWizardContributor selectedContributors = resultModel.getSelectedContributor();
-                if (selectedContributors != null) {
-                    ICoreSession session = this.projectService.getSession();
-                    
-                    try (ITransaction t = session.getTransactionSupport().createTransaction("Create diagram");) {
-                        AbstractDiagram diagram = selectedContributors.actionPerformed(resultModel.getContext(),
-                                resultModel.getName(),
-                                resultModel.getDescription());
-                        
-                        t.commit();
+        
+            if (selectedContributor == null) {
+                DiagramWizardModel dataModel = new DiagramWizardModel();
+                dataModel.setContext(selectedElement);
+                dataModel.setShowInvalidDiagram(false);
+        
+                this.dialog = new DiagramWizardDialog(Display.getDefault().getActiveShell(),
+                        contributorManager,
+                        dataModel, this.projectService, this.mmServices, this.pickingService);
+                this.dialog.open();
+                resultModel = this.dialog.getResultModel();
+                if (resultModel != null) {
+                    selectedContributor = resultModel.getSelectedContributor();
+                }
+            } else {
+                resultModel = new DiagramWizardModel();
+                resultModel.setContext(selectedElement);
+                resultModel.setName(selectedContributor.getLabel());
+                resultModel.setSelectedContributor(selectedContributor);
+            }
+        
+            if (resultModel != null && selectedContributor != null) {
+                ICoreSession session = this.projectService.getSession();
+        
+                try (ITransaction t = session.getTransactionSupport().createTransaction("Create diagram");) {
+                    AbstractDiagram diagram = selectedContributor.actionPerformed(resultModel.getContext(), resultModel.getName(), resultModel.getDescription());
+        
+                    t.commit();
+                    if (diagram != null) {
                         openDiagramEditor(diagram);
                     }
                 }
@@ -117,7 +131,8 @@ public class DiagramCreationHandler {
 
     @objid ("3a2dad2c-f22a-444d-84ae-5020b1749e4f")
     @CanExecute
-    public boolean canExecute(@Named(IServiceConstants.ACTIVE_SELECTION) final Object selection) {
+    public boolean canExecute(@Named(IServiceConstants.ACTIVE_SELECTION) final Object selection, @Optional
+@Named("contributor") final String contributorName) {
         // Sanity checks
         if (this.projectService.getSession() == null) {
             return false;
@@ -131,9 +146,17 @@ public class DiagramCreationHandler {
         }
         if (!selectedElement.getStatus().isRamc()) {
             DiagramContributorManager contributorManager = DiagramContributorManager.getInstance();
-            for (IDiagramWizardContributor contributor : contributorManager.getAllContributorsList()) {
-                if (contributor.accept(selectedElement)) {
-                    return true;
+            if (contributorName == null) {
+                for (IDiagramWizardContributor contributor : contributorManager.getAllContributorsList()) {
+                    if (contributor.accept(selectedElement)) {
+                        return true;
+                    }
+                }
+            } else {
+                for (IDiagramWizardContributor contributor : contributorManager.getAllContributorsList()) {
+                    if (contributor.getClass().getSimpleName().equals(contributorName)) {
+                        return contributor.accept(selectedElement);
+                    }
                 }
             }
         }

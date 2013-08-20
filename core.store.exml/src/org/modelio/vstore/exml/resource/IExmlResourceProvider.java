@@ -125,11 +125,12 @@ public interface IExmlResourceProvider {
      * To be used to ensure indexes and other local resources are synchronized
      * with the remote storage location.
      * <p>
-     * Returns empty string if there is no stamp or the stamp couldn't be retrieved.
+     * Returns empty string if there is no stamp.
      * @return the repository stamp or empty string.
+     * @throws java.io.IOException in case of I/O error preventing from reading the stamp
      */
     @objid ("b19917ea-0859-4803-ace8-b32cd49e97f3")
-    String getStamp();
+    String getStamp() throws IOException;
 
     /**
      * Get a short displayable name for this repository.

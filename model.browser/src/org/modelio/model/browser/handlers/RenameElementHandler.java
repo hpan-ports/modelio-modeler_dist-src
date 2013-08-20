@@ -118,7 +118,10 @@ public class RenameElementHandler {
                 if (element instanceof Element) {
                     selectedElements.add((Element) element);
                 } else if (element instanceof IAdaptable) {
-                    selectedElements.add((Element) ((IAdaptable) element).getAdapter(Element.class));
+                    final Element adapter = (Element) ((IAdaptable) element).getAdapter(Element.class);
+                    if (adapter != null) {
+                        selectedElements.add(adapter);
+                    }
                 }
             }
         }

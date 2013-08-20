@@ -1,5 +1,7 @@
 package org.modelio.diagram.browser.view;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.jface.util.LocalSelectionTransfer;
 import org.eclipse.jface.viewers.ColumnViewerEditor;
@@ -115,7 +117,34 @@ public class DiagramBrowserPanelProvider implements IPanelProvider {
     private void initEditor() {
         // // Define cell editor:
         final TextCellEditor[] cellEditors = new TextCellEditor[1];
-        final TextCellEditor editor = new TextCellEditor(this.treeViewer.getTree(), SWT.NONE);
+        final TextCellEditor editor = new TextCellEditor(this.treeViewer.getTree(), SWT.NONE) {
+            private Collection<String> activeContexts;
+        
+            @Override
+            public void activate() {
+                // We must deactivate the active contexts during the edition, to avoid the editor's shortcuts to be triggered when entering an element's name... 
+                // Store those contexts for further reactivation
+                this.activeContexts = new ArrayList<>(DiagramBrowserView.contextService.getActiveContextIds());
+                for (String contextId : this.activeContexts) {
+                    DiagramBrowserView.contextService.deactivateContext(contextId);
+                }
+        
+                super.activate();
+            }
+        
+            @Override
+            public void deactivate() {
+                if (this.activeContexts != null) {
+                    // Restore previously deactivated contexts
+                    for (String contextId : this.activeContexts) {
+                        DiagramBrowserView.contextService.activateContext(contextId);
+                    }
+                    this.activeContexts = null;
+                }
+        
+                super.deactivate();
+            }
+        };
         
         editor.getControl().addKeyListener(new KeyListener() {
             @Override

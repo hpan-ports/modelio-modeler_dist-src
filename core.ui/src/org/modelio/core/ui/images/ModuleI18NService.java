@@ -354,6 +354,36 @@ public class ModuleI18NService {
             return false;
         }
 
+        @objid ("ae734495-5117-42b0-aba5-e8c18c9fabe9")
+        @Override
+        public String getLabel(Stereotype stereotype) {
+            return stereotype.getName();
+        }
+
+        @objid ("55e5760a-03c1-4427-9ea4-ede5cdbe424a")
+        @Override
+        public String getLabel(TagType tagType) {
+            return tagType.getName();
+        }
+
+        @objid ("5d3b8a92-b9d6-4cff-bc89-2a9fc33f14e6")
+        @Override
+        public String getLabel(NoteType noteType) {
+            return noteType.getName();
+        }
+
+        @objid ("7cd3e78f-835f-428c-b9e3-6cf892cf4c1a")
+        @Override
+        public String getLabel(ExternDocumentType docType) {
+            return docType.getName();
+        }
+
+        @objid ("5939a62b-1dc6-4898-a347-5efd7570d983")
+        @Override
+        public String getLabel(String key) {
+            return key;
+        }
+
 // Every other method is Unsupported...
         @objid ("b17f2ce2-a64f-42ed-9590-6cd7f9059c06")
         @Override
@@ -508,36 +538,6 @@ public class ModuleI18NService {
         @objid ("4dc6efdb-2ae2-4371-97f2-3d4d7bf89e62")
         @Override
         public void registerDiagramCustomization(Stereotype stereotype, Class<? extends AbstractDiagram> baseDiagramClass, IDiagramCustomizer customizer) {
-            throw new UnsupportedOperationException();
-        }
-
-        @objid ("ae734495-5117-42b0-aba5-e8c18c9fabe9")
-        @Override
-        public String getLabel(Stereotype stereotype) {
-            throw new UnsupportedOperationException();
-        }
-
-        @objid ("55e5760a-03c1-4427-9ea4-ede5cdbe424a")
-        @Override
-        public String getLabel(TagType tagType) {
-            throw new UnsupportedOperationException();
-        }
-
-        @objid ("5d3b8a92-b9d6-4cff-bc89-2a9fc33f14e6")
-        @Override
-        public String getLabel(NoteType noteType) {
-            throw new UnsupportedOperationException();
-        }
-
-        @objid ("7cd3e78f-835f-428c-b9e3-6cf892cf4c1a")
-        @Override
-        public String getLabel(ExternDocumentType docType) {
-            throw new UnsupportedOperationException();
-        }
-
-        @objid ("5939a62b-1dc6-4898-a347-5efd7570d983")
-        @Override
-        public String getLabel(String key) {
             throw new UnsupportedOperationException();
         }
 

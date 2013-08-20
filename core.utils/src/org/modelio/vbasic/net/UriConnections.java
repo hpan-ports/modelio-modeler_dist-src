@@ -43,7 +43,7 @@ import org.modelio.vbasic.auth.IAuthData;
 @objid ("16aba2ab-05b1-4ec1-aac8-f86b8c64da12")
 public class UriConnections {
     @objid ("9d4d65aa-d553-4f68-8fcc-b7ae08adf1f7")
-    private static Collection<IUriStreamHandler> handlers = new ArrayList<>();
+    private static Collection<IUriConnectionFactory> handlers = new ArrayList<>();
 
     /**
      * Service class, no instance.
@@ -79,7 +79,7 @@ public class UriConnections {
         if (! uri.isAbsolute())
             throw new MalformedURLException("'"+uri+ "' is not absolute.");
         
-        for (IUriStreamHandler h : handlers) {
+        for (IUriConnectionFactory h : handlers) {
             if (h.supports(uri))
                 return h.createConnection(uri);
         }
@@ -92,7 +92,7 @@ public class UriConnections {
      * @param handler a new URI handler.
      */
     @objid ("73150088-8f5d-4529-82ef-13515c6c4802")
-    public static void addHandler(IUriStreamHandler handler) {
+    public static void addHandler(IUriConnectionFactory handler) {
         handlers.add(handler);
     }
 
@@ -113,6 +113,8 @@ public class UriConnections {
 
 
 static {
+        // Add handler for https URIs
+        handlers.add(new HttpsUriConnection.Factory());
         // Add the default URI handler that support already supported URL.
         handlers.add(new UrlUriHandler());
     }
@@ -120,7 +122,7 @@ static {
      * URI Handler for URIs that are supported as URL.
      */
     @objid ("187a3c30-b9bf-4e39-94ae-5f21cbee7d0f")
-    private static final class UrlUriHandler implements IUriStreamHandler {
+    private static final class UrlUriHandler implements IUriConnectionFactory {
         @objid ("292d7757-594b-4dfe-8a0e-94f3b674c419")
         UrlUriHandler() {
             // nothing
@@ -129,11 +131,17 @@ static {
         @objid ("a45ca759-614a-4346-b3d4-5a114e60bec5")
         @Override
         public boolean supports(URI uri) {
+            // https is handled by another handler
+            if ("https".equals(uri.getScheme()))
+                return false;
+            
             try {
+                // Test conversion to URL don't throw exception
                 @SuppressWarnings("unused")
                 URL url = uri.toURL();
                 return true;
             } catch (MalformedURLException e) {
+                // Not supported
                 return false;
             }
         }

@@ -29,7 +29,8 @@ import org.modelio.vcore.model.DuplicateObjectException;
 import org.modelio.vcore.model.MObjectCache;
 import org.modelio.vcore.session.api.repository.IRepository;
 import org.modelio.vcore.session.impl.storage.IModelLoader;
-import org.modelio.vcore.session.impl.storage.IModelLoadingSession;
+import org.modelio.vcore.session.impl.storage.IModelLoaderProvider;
+import org.modelio.vcore.session.impl.storage.IModelRefresher;
 import org.modelio.vcore.smkernel.SmObjectImpl;
 import org.modelio.vstore.exml.common.index.ICmsNodeIndex;
 import org.modelio.vstore.exml.common.model.ObjId;
@@ -90,11 +91,10 @@ public interface IExmlBase extends IRepository {
      * @param obj a CMS node model object.
      * @param modelLoader the model loader to use.
      * @return true if the node was successfully loaded, <code>false</code> in case of failure.
-     * @throws java.io.IOException in case of fatal I/O error.
      * @throws org.modelio.vcore.model.DuplicateObjectException if a duplicate object is detected in many repositories.
      */
     @objid ("fd21f4c8-5986-11e1-991a-001ec947ccaf")
-    boolean reloadCmsNode(final SmObjectImpl obj, IModelLoader modelLoader) throws IOException, DuplicateObjectException;
+    boolean reloadCmsNode(final SmObjectImpl obj, IModelLoader modelLoader) throws DuplicateObjectException;
 
     /**
      * Remove the model object from the repository.
@@ -148,15 +148,11 @@ public interface IExmlBase extends IRepository {
     boolean isStored(ObjId id);
 
     /**
-     * Create a loading session.
-     * <p>
-     * Should be called only when no loading session is already available.
-     * This session must be used in a <i>try-with-resource</i> statement in order to always
-     * be closed.
+     * Get the model loader provider.
      * @return a loading session.
      */
     @objid ("73a67de2-43a3-11e2-91c9-001ec947ccaf")
-    IModelLoadingSession beginSession();
+    IModelLoaderProvider getModelLoaderProvider();
 
     /**
      * Declare the indexes as damaged.

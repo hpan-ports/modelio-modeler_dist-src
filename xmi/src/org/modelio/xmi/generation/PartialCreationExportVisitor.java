@@ -123,8 +123,6 @@ import org.modelio.metamodel.uml.infrastructure.Abstraction;
 import org.modelio.metamodel.uml.infrastructure.Constraint;
 import org.modelio.metamodel.uml.infrastructure.Dependency;
 import org.modelio.metamodel.uml.infrastructure.Element;
-import org.modelio.metamodel.uml.infrastructure.LocalNote;
-import org.modelio.metamodel.uml.infrastructure.LocalTaggedValue;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
 import org.modelio.metamodel.uml.infrastructure.Note;
 import org.modelio.metamodel.uml.infrastructure.NoteType;
@@ -1196,18 +1194,6 @@ public class PartialCreationExportVisitor {
             
             GenerationProperties.getInstance().getReportModel().addWarning(message, objingElt);
             PartialCreationExportVisitor.this.ecoreElt = null;
-            return null;
-        }
-
-        @objid ("24063e73-df8b-4481-a1c5-fbab9d0409a7")
-        @Override
-        public Object visitLocalNote(LocalNote objingElt) {
-            return null;
-        }
-
-        @objid ("aaf97031-21b6-4126-b049-0584d1f8d8e8")
-        @Override
-        public Object visitLocalTaggedValue(LocalTaggedValue objingElt) {
             return null;
         }
 

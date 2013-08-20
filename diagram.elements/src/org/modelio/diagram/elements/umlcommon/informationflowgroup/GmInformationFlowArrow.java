@@ -92,10 +92,13 @@ public final class GmInformationFlowArrow extends GmNoStyleSimpleNode {
     @objid ("8169c2e2-1dec-11e2-8cad-001ec947c8cc")
     @Override
     public final boolean isVisible() {
-        if (getStyle().getProperty(getStyleKeyStrict(MetaKey.SHOWINFORMATIONFLOWS))) {
-            final MObject related = getRelatedElement();
-            if (related != null) {
-                return !getRealizedInformationFlows().isEmpty();
+        final StyleKey styleKey = getStyleKey(MetaKey.SHOWINFORMATIONFLOWS);
+        if (styleKey != null) {
+            if (getStyle().getProperty(styleKey)) {
+                final MObject related = getRelatedElement();
+                if (related != null && related.isValid()) {
+                    return !getRealizedInformationFlows().isEmpty();
+                }
             }
         }
         return false;

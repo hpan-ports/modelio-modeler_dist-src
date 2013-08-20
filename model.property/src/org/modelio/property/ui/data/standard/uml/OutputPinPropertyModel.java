@@ -43,6 +43,7 @@ import org.modelio.metamodel.uml.statik.Parameter;
 import org.modelio.property.ui.data.standard.common.AbstractPropertyModel;
 import org.modelio.vcore.session.api.ICoreSession;
 import org.modelio.vcore.session.impl.CoreSession;
+import org.modelio.vcore.smkernel.mapi.MObject;
 
 /**
  * <i>OutputPin</i> data model.
@@ -272,16 +273,21 @@ public class OutputPinPropertyModel extends AbstractPropertyModel<OutputPin> {
     @objid ("8f593af1-c068-11e1-8c0a-002564c97630")
     public static class RepresentedType extends HybridType {
         @objid ("8f593af3-c068-11e1-8c0a-002564c97630")
-        private Class<?>[] t = { Instance.class, Attribute.class, AssociationEnd.class, BehaviorParameter.class };
+        private List<Class<? extends MObject>> t;
 
         @objid ("8f593af8-c068-11e1-8c0a-002564c97630")
         public RepresentedType(ICoreSession session) {
             super(session);
+            this.t = new ArrayList<>();
+            this.t.add(Instance.class);
+            this.t.add(Attribute.class);
+            this.t.add(AssociationEnd.class);
+            this.t.add(BehaviorParameter.class);
         }
 
         @objid ("8f593afa-c068-11e1-8c0a-002564c97630")
         @Override
-        public Class<?>[] getTypes() {
+        public List<Class<? extends MObject>> getTypes() {
             return this.t;
         }
 
@@ -352,6 +358,12 @@ public class OutputPinPropertyModel extends AbstractPropertyModel<OutputPin> {
                 else if (BehaviorParameter.class.isAssignableFrom(value.getClass()))
                     theEditedElement.setRepresentedRealParameter((BehaviorParameter) value);
             }
+        }
+
+        @objid ("9d5a738f-b8f2-4673-b14f-e16d15404ebc")
+        @Override
+        public boolean acceptStringValue() {
+            return false;
         }
 
     }

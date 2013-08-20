@@ -48,7 +48,11 @@ import org.modelio.gproject.gproject.GProject;
 import org.modelio.gproject.model.IMModelServices;
 import org.modelio.metamodel.uml.infrastructure.Stereotype;
 import org.modelio.property.ui.ModelPropertyPanelProvider;
+import org.modelio.vcore.session.api.blob.BlobCopier;
+import org.modelio.vcore.session.api.blob.BlobInfo;
+import org.modelio.vcore.session.api.blob.IBlobInfo;
 import org.modelio.vcore.session.api.blob.IBlobProvider;
+import org.modelio.vcore.session.api.repository.IRepository;
 import org.modelio.vcore.smkernel.mapi.MObject;
 
 /**
@@ -176,11 +180,29 @@ public class PropertyView {
                 public Collection<String> getRelatedBlobs(MObject obj) {
                     List<String> blobKeys = new ArrayList<>();
                     if (obj instanceof Stereotype) {
-                        blobKeys.add(obj.getUuid() + ".icon");
-                        blobKeys.add(obj.getUuid() + ".image");
-        
+                        blobKeys.add(getIconKey(obj));
+                        blobKeys.add(getImageKey(obj));
                     }
                     return blobKeys;
+                }
+                
+                @Override
+                public void objectCopied(MObject from, IRepository fromRepo, MObject to, IRepository toRepo) {
+                    if (from instanceof Stereotype) {
+                        IBlobInfo toInfo = new BlobInfo(getIconKey(to), "icon for "+to.getName());
+                        BlobCopier.copy(getIconKey(from), fromRepo, toInfo, toRepo);
+        
+                        toInfo = new BlobInfo(getImageKey(to), "image for "+to.getName());
+                        BlobCopier.copy(getImageKey(from), fromRepo, toInfo, toRepo);
+                    }
+                }
+                
+                private String getIconKey(MObject obj) {
+                    return obj.getUuid() + ".icon";
+                }
+        
+                private String getImageKey(MObject obj) {
+                    return obj.getUuid() + ".image";
                 }
             };
             this.project.getSession().getBlobSupport().addBlobProvider(this.blobProvider);

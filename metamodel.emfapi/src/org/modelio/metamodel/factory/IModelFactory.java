@@ -199,8 +199,6 @@ import org.modelio.metamodel.uml.infrastructure.Dependency;
 import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.metamodel.uml.infrastructure.ExternDocument;
 import org.modelio.metamodel.uml.infrastructure.ExternDocumentType;
-import org.modelio.metamodel.uml.infrastructure.LocalNote;
-import org.modelio.metamodel.uml.infrastructure.LocalTaggedValue;
 import org.modelio.metamodel.uml.infrastructure.MetaclassReference;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
 import org.modelio.metamodel.uml.infrastructure.Note;
@@ -1218,12 +1216,6 @@ public interface IModelFactory {
 
     @objid ("c28d30d6-c4c9-4560-b387-48b06f86630b")
     Link createLink(Instance source, Instance destination, String destinationRoleName);
-
-    @objid ("d5b92abb-f827-4482-97e2-27ec6beeaa15")
-    LocalNote createLocalNote();
-
-    @objid ("3bf8c1e7-adfb-4837-ba84-43d449bb629c")
-    LocalTaggedValue createLocalTaggedValue();
 
     @objid ("ec68bbfb-ec5c-4468-8052-0f00a5b4c61e")
     LoopNode createLoopNode();

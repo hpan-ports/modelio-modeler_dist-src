@@ -48,7 +48,7 @@ public class ZoomToDefaultHandler {
         
         LinkEditorView editor = (LinkEditorView) part.getObject();
         
-        ZoomManager zoomManager = (ZoomManager)editor.getAdapter(ZoomManager.class);
+        ZoomManager zoomManager = editor.getAdapter(ZoomManager.class);
         
         if (zoomManager != null && zoomManager.getMinZoom() < 1.0 && 1.0 < zoomManager.getMaxZoom()) {
             zoomManager.setZoom(1.0);

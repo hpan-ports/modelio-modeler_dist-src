@@ -31,7 +31,6 @@ import org.eclipse.gef.EditPart;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.commands.CompoundCommand;
-import org.eclipse.ui.activities.IActivity;
 import org.modelio.diagram.elements.core.link.GmLink;
 import org.modelio.diagram.elements.core.model.GmModel;
 import org.modelio.diagram.elements.core.policies.DefaultElementDropEditPolicy;
@@ -40,6 +39,7 @@ import org.modelio.metamodel.analyst.AnalystElement;
 import org.modelio.metamodel.analyst.Term;
 import org.modelio.metamodel.bpmn.processCollaboration.BpmnProcess;
 import org.modelio.metamodel.bpmn.rootElements.BpmnBehavior;
+import org.modelio.metamodel.uml.behavior.activityModel.Activity;
 import org.modelio.metamodel.uml.behavior.communicationModel.CommunicationInteraction;
 import org.modelio.metamodel.uml.behavior.interactionModel.Interaction;
 import org.modelio.metamodel.uml.behavior.stateMachineModel.StateMachine;
@@ -54,6 +54,8 @@ import org.modelio.metamodel.uml.statik.Collaboration;
 import org.modelio.metamodel.uml.statik.CollaborationUse;
 import org.modelio.metamodel.uml.statik.Enumeration;
 import org.modelio.metamodel.uml.statik.Instance;
+import org.modelio.metamodel.uml.statik.NaryAssociation;
+import org.modelio.metamodel.uml.statik.NaryLink;
 import org.modelio.metamodel.uml.statik.ProvidedInterface;
 import org.modelio.metamodel.uml.statik.RequiredInterface;
 import org.modelio.metamodel.visitors.DefaultModelVisitor;
@@ -230,21 +232,22 @@ public class DiagramElementDropEditPolicy extends DefaultElementDropEditPolicy {
         boolean isBpmnBehavior = false;
         boolean isCommunicationInteraction = false;
         boolean isStateMachine = false;
+        boolean isNary = false;
         if (lastInHierarchy != null) {
             isCurrentCmsNode = lastInHierarchy.getMClass().isCmsNode();
-            isCurrentInstance = lastInHierarchy instanceof Instance &&
-                                !(lastInHierarchy instanceof BindableInstance);
+            isCurrentInstance = lastInHierarchy instanceof Instance && !(lastInHierarchy instanceof BindableInstance);
             isCurrentCollaboration = lastInHierarchy instanceof Collaboration;
             isCurrentEnumeration = lastInHierarchy instanceof Enumeration;
             isInformationItem = lastInHierarchy instanceof InformationItem;
             isRequirement = lastInHierarchy instanceof AnalystElement;
             isTerm = lastInHierarchy instanceof Term;
-            isActivity = lastInHierarchy instanceof IActivity;
+            isActivity = lastInHierarchy instanceof Activity;
             isInteraction = lastInHierarchy instanceof Interaction;
             isBpmnProcess = lastInHierarchy instanceof BpmnProcess;
             isBpmnBehavior = lastInHierarchy instanceof BpmnBehavior;
             isCommunicationInteraction = lastInHierarchy instanceof CommunicationInteraction;
             isStateMachine = lastInHierarchy instanceof StateMachine;
+            isNary = lastInHierarchy instanceof NaryAssociation || lastInHierarchy instanceof NaryLink;
         }
         return (!isStateMachine &&
                 !isCommunicationInteraction &&
@@ -257,7 +260,9 @@ public class DiagramElementDropEditPolicy extends DefaultElementDropEditPolicy {
                 !isCurrentCollaboration &&
                 !isCurrentEnumeration &&
                 !isInformationItem &&
-                !isRequirement && !isTerm);
+                !isRequirement &&
+                !isTerm &&
+                !isNary);
     }
 
     @objid ("7e11d6cf-1dec-11e2-8cad-001ec947c8cc")

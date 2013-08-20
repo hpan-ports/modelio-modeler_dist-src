@@ -22,8 +22,6 @@
 package org.modelio.gproject.fragment;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.nio.file.Path;
 import java.util.Collection;
 import java.util.Collections;
@@ -56,7 +54,7 @@ public abstract class AbstractFragment implements IProjectFragment {
     private DefinitionScope definitionScope;
 
     @objid ("a32081fc-abf1-11e1-8392-001ec947ccaf")
-    private String id;
+    private final String id;
 
     /**
      * Project data sub directory where fragment data are stored.
@@ -64,6 +62,9 @@ public abstract class AbstractFragment implements IProjectFragment {
      */
     @objid ("7c90d1fb-a9e7-4cd0-9056-9155358cf9d3")
     private static final String FRAGMENTS_SUBDIR = "fragments";
+
+    @objid ("4417921b-39f5-4b0a-9f7f-346475d15790")
+    private final String encodedDirName;
 
     @objid ("a303e5f8-abf1-11e1-8392-001ec947ccaf")
     private GProperties properties;
@@ -78,7 +79,7 @@ public abstract class AbstractFragment implements IProjectFragment {
     private GProject gproject;
 
     @objid ("682da9e4-b4df-4297-856f-5e80b9ad608b")
-    private GAuthConf authConf;
+    private final GAuthConf authConf;
 
     /**
      * Initialize the fragment
@@ -94,6 +95,7 @@ public abstract class AbstractFragment implements IProjectFragment {
         Objects.requireNonNull(properties, "properties is null");
         
         this.id = id;
+        this.encodedDirName = FileUtils.encodeFileName(getId(), new StringBuilder()).toString();
         this.properties = properties;
         this.definitionScope = definitionScope;
         this.errSupport = new RepositoryListener();
@@ -102,7 +104,7 @@ public abstract class AbstractFragment implements IProjectFragment {
 
     @objid ("c1778cd1-95da-11e1-ac83-001ec947ccaf")
     @Override
-    public String getId() {
+    public final String getId() {
         return this.id;
     }
 
@@ -202,12 +204,15 @@ public abstract class AbstractFragment implements IProjectFragment {
         try {
             SubProgress mon = SubProgress.convert(aMonitor, 100);
             IRepository repository = doMountInitRepository(mon);
+            
             mon.setWorkRemaining(100);
             repository.getErrorSupport().addErrorListener(getRepositoryErrorSupport());
             IAccessManager accessManager = doInitAccessManager();
-            aProject.getSession().getRepositorySupport().connectRepository(repository, accessManager, mon);
+            aProject.getSession().getRepositorySupport().connectRepository(repository, getId(), accessManager, mon);
+            
             mon.setWorkRemaining(100);
             doMountPostConnect(mon);
+            
             setState(FragmentState.UP_FULL);
         } catch (IOException e) {
             setDown(e);
@@ -304,7 +309,7 @@ public abstract class AbstractFragment implements IProjectFragment {
         return this.gproject.getProjectDataPath()
                 .resolve(GProject.DATA_SUBDIR)
                 .resolve(FRAGMENTS_SUBDIR)
-                .resolve(encodeString(getId()));
+                .resolve(this.encodedDirName);
     }
 
     /**
@@ -318,7 +323,7 @@ public abstract class AbstractFragment implements IProjectFragment {
     public final Path getRuntimeDirectory() {
         return this.gproject.getProjectRuntimePath()
                 .resolve(FRAGMENTS_SUBDIR)
-                .resolve(encodeString(getId()));
+                .resolve(this.encodedDirName);
     }
 
     /**
@@ -355,15 +360,6 @@ public abstract class AbstractFragment implements IProjectFragment {
      */
     @objid ("b427669a-0baa-11e2-bed6-001ec947ccaf")
     protected abstract Collection<MObject> doGetRoots() throws IOException;
-
-    @objid ("24ec89d9-08b2-11e2-b193-001ec947ccaf")
-    private static String encodeString(String name) {
-        try {
-            return URLEncoder.encode(name, "us-ascii");
-        } catch (UnsupportedEncodingException e) {
-            throw new Error(e);
-        }
-    }
 
     @objid ("6327ff06-3004-11e2-8f81-001ec947ccaf")
     @Override

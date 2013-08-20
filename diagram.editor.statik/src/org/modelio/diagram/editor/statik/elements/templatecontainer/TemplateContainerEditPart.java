@@ -50,13 +50,14 @@ public class TemplateContainerEditPart extends PortContainerEditPart {
         final GmTemplateContainer gmModel = (GmTemplateContainer) getModel();
         GmNodeModel mainNode = gmModel.getMainNode();
         if (mainNode != null) {
-            final RepresentationMode askedMode = mainNode.getRepresentationMode();
-            if (askedMode == RepresentationMode.SIMPLE) {
-                // We don't want the dashed line appearing when selecting one of the children in simple mode, we already have the composition link for that!
-                removeEditPolicy("satellite selection");
-            } else {
-                installEditPolicy("satellite selection", new SatelliteChildrenSelectionPolicy());
-            }
+            // FIXME filtering simple mode isn't enough, Interfaces for example are always in simple mode and need the link between the main node and the label...
+            // final RepresentationMode askedMode = mainNode.getRepresentationMode();
+            // if (askedMode == RepresentationMode.SIMPLE) {
+            //   // We don't want the dashed line appearing when selecting one of the children in simple mode, we already have the composition link for that!
+            //   removeEditPolicy("satellite selection");
+            // } else {
+            installEditPolicy("satellite selection", new SatelliteChildrenSelectionPolicy());
+            // }
         }
     }
 

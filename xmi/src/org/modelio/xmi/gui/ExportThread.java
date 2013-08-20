@@ -75,17 +75,14 @@ public class ExportThread extends XMIThread implements IRunnableWithProgress {
         } catch (AbortProcessException e) {
             cancelation();
         } catch (Exception e) {
-            e.printStackTrace(System.err
-                    );
             errorMessage = e.getMessage();
             if (errorMessage == null){
                 errorMessage = Xmi.I18N.getString("fileChooser.dialog.export.errorMessage");
             }
-            e.printStackTrace(System.err);
+            
             Xmi.LOG.error(Xmi.PLUGIN_ID, e);  
             this.progressBar.addFinalValue();
-                  
-        }finally {
+        } finally {
             if (resource != null)
                 resource.unload();
             TotalExportMap.getInstance().clear();

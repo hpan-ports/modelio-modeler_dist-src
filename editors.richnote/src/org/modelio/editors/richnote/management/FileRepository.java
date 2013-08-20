@@ -31,6 +31,7 @@ import java.util.Collection;
 import java.util.Collections;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.editors.richnote.api.RichNoteFormat;
+import org.modelio.editors.richnote.api.RichNoteFormatRegistry;
 import org.modelio.editors.richnote.editor.IRichNoteEditor;
 import org.modelio.editors.richnote.editor.IRichNoteFileRepository;
 import org.modelio.editors.richnote.helper.RichNoteFilesGeometry;
@@ -38,7 +39,9 @@ import org.modelio.gproject.gproject.GProject;
 import org.modelio.metamodel.uml.infrastructure.ExternDocument;
 import org.modelio.metamodel.uml.statik.Artifact;
 import org.modelio.vcore.session.api.ICoreSession;
+import org.modelio.vcore.session.api.blob.BlobCopier;
 import org.modelio.vcore.session.api.blob.BlobInfo;
+import org.modelio.vcore.session.api.blob.IBlobInfo;
 import org.modelio.vcore.session.api.repository.IRepository;
 import org.modelio.vcore.smkernel.mapi.MObject;
 
@@ -136,6 +139,22 @@ class FileRepository implements IRichNoteFileRepository {
     @Override
     public void removeEditor(IRichNoteEditor editor) {
         this.editorsRegistry.removeEditor(editor);
+    }
+
+    @objid ("05b48adc-7c2c-46ea-9477-eb4caefd754f")
+    void copyBlob(ExternDocument from, IRepository fromRepo, ExternDocument to, IRepository toRepo) {
+        String fromPath = from.getPath();
+        if (fromPath.isEmpty())
+            return;
+        
+        int ix = fromPath.lastIndexOf('.');
+        String ext = ix == -1 ? "" : fromPath.substring(ix+1);
+        
+        String label = this.geometry.getRelativePath(this.geometry.getDefaultPath(to, ext));
+        
+        IBlobInfo toInfo = new BlobInfo(getBlobId(to), label);
+        if (BlobCopier.copy(getBlobId(from), fromRepo, toInfo, toRepo))        
+            to.setPath(label);
     }
 
 }

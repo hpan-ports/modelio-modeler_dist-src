@@ -21,6 +21,8 @@
 
 package org.modelio.property.ui.data.standard.uml;
 
+import java.util.ArrayList;
+import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.core.ui.ktable.types.IPropertyType;
 import org.modelio.core.ui.ktable.types.hybrid.HybridType;
@@ -33,6 +35,7 @@ import org.modelio.metamodel.uml.statik.Operation;
 import org.modelio.property.ui.data.standard.common.AbstractPropertyModel;
 import org.modelio.vcore.session.api.ICoreSession;
 import org.modelio.vcore.session.impl.CoreSession;
+import org.modelio.vcore.smkernel.mapi.MObject;
 
 /**
  * <i>Transition</i> data model.
@@ -246,16 +249,19 @@ public class TransitionPropertyModel extends AbstractPropertyModel<Transition> {
     @objid ("8f9be155-c068-11e1-8c0a-002564c97630")
     protected static class TransitionEffectType extends HybridType {
         @objid ("8f9be158-c068-11e1-8c0a-002564c97630")
-        private Class<?>[] t = { String.class, Operation.class, Behavior.class };
+        private List<Class<? extends MObject>> t;
 
         @objid ("8f9be15d-c068-11e1-8c0a-002564c97630")
         public TransitionEffectType(ICoreSession session) {
             super(session);
+            this.t = new ArrayList<>();
+            this.t.add(Operation.class);
+            this.t.add(Behavior.class);
         }
 
         @objid ("8f9be15f-c068-11e1-8c0a-002564c97630")
         @Override
-        public Class<?>[] getTypes() {
+        public List<Class<? extends MObject>> getTypes() {
             return this.t;
         }
 
@@ -321,6 +327,12 @@ public class TransitionPropertyModel extends AbstractPropertyModel<Transition> {
             }
         }
 
+        @objid ("c353842d-755c-40bc-ac56-7d44ed7c03c9")
+        @Override
+        public boolean acceptStringValue() {
+            return true;
+        }
+
     }
 
     /**
@@ -333,16 +345,18 @@ public class TransitionPropertyModel extends AbstractPropertyModel<Transition> {
     @objid ("8f9be17a-c068-11e1-8c0a-002564c97630")
     protected static class TransitionReceivedType extends HybridType {
         @objid ("8f9be17d-c068-11e1-8c0a-002564c97630")
-        private Class<?>[] t = { String.class, Event.class };
+        private List<Class<? extends MObject>> t;
 
         @objid ("8f9be182-c068-11e1-8c0a-002564c97630")
         public TransitionReceivedType(ICoreSession session) {
             super(session);
+            this.t = new ArrayList<>();
+            this.t.add(Event.class);
         }
 
         @objid ("8f9be184-c068-11e1-8c0a-002564c97630")
         @Override
-        public Class<?>[] getTypes() {
+        public List<Class<? extends MObject>> getTypes() {
             return this.t;
         }
 
@@ -395,6 +409,12 @@ public class TransitionPropertyModel extends AbstractPropertyModel<Transition> {
             }
         }
 
+        @objid ("070d9442-c0da-4e08-963f-54dd09151e96")
+        @Override
+        public boolean acceptStringValue() {
+            return true;
+        }
+
     }
 
     /**
@@ -407,16 +427,18 @@ public class TransitionPropertyModel extends AbstractPropertyModel<Transition> {
     @objid ("8f9be19f-c068-11e1-8c0a-002564c97630")
     protected static class TransitionSentType extends HybridType {
         @objid ("8f9be1a2-c068-11e1-8c0a-002564c97630")
-        private Class<?>[] t = { String.class, Signal.class };
+        private List<Class<? extends MObject>> t;
 
         @objid ("8f9be1a7-c068-11e1-8c0a-002564c97630")
         public TransitionSentType(ICoreSession session) {
             super(session);
+            this.t = new ArrayList<>();
+            this.t.add(Signal.class);
         }
 
         @objid ("8f9be1a9-c068-11e1-8c0a-002564c97630")
         @Override
-        public Class<?>[] getTypes() {
+        public List<Class<? extends MObject>> getTypes() {
             return this.t;
         }
 
@@ -467,6 +489,12 @@ public class TransitionPropertyModel extends AbstractPropertyModel<Transition> {
                     throw new IllegalArgumentException("value must be a String or a Signal but not a " +
                             value.getClass().getCanonicalName());
             }
+        }
+
+        @objid ("61c4e081-d617-4f4e-b054-9cf99f77472e")
+        @Override
+        public boolean acceptStringValue() {
+            return true;
         }
 
     }

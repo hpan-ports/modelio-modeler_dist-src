@@ -28,7 +28,6 @@ import org.modelio.core.ui.ktable.types.IPropertyType;
 import org.modelio.core.ui.ktable.types.element.SingleElementType;
 import org.modelio.core.ui.ktable.types.text.StringType;
 import org.modelio.metamodel.diagrams.DeploymentDiagram;
-import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
 import org.modelio.metamodel.uml.statik.Artifact;
 import org.modelio.metamodel.uml.statik.Class;
@@ -36,6 +35,7 @@ import org.modelio.metamodel.uml.statik.Component;
 import org.modelio.metamodel.uml.statik.Node;
 import org.modelio.metamodel.uml.statik.Package;
 import org.modelio.property.ui.data.standard.common.AbstractPropertyModel;
+import org.modelio.vcore.smkernel.mapi.MObject;
 
 /**
  * <i>DeploymentDiagram</i> data model.
@@ -187,7 +187,7 @@ public class DeploymentDiagramPropertyModel extends AbstractPropertyModel<Deploy
         
         this.stringType = new StringType(false);
         
-        List<java.lang.Class<? extends Element>> allowedMetaclasses = new ArrayList<>();
+        List<java.lang.Class<? extends MObject>> allowedMetaclasses = new ArrayList<>();
         allowedMetaclasses.add(Artifact.class);
         allowedMetaclasses.add(Package.class);
         allowedMetaclasses.add(Class.class);

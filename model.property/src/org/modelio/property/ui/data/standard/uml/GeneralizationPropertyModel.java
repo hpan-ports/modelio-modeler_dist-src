@@ -28,13 +28,13 @@ import org.modelio.core.ui.ktable.types.IPropertyType;
 import org.modelio.core.ui.ktable.types.element.SingleElementType;
 import org.modelio.core.ui.ktable.types.text.StringType;
 import org.modelio.metamodel.uml.behavior.commonBehaviors.Signal;
-import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.metamodel.uml.statik.Class;
 import org.modelio.metamodel.uml.statik.Generalization;
 import org.modelio.metamodel.uml.statik.NameSpace;
 import org.modelio.property.ui.data.standard.common.AbstractPropertyModel;
 import org.modelio.vcore.session.api.model.IModel;
 import org.modelio.vcore.session.impl.CoreSession;
+import org.modelio.vcore.smkernel.mapi.MObject;
 
 /**
  * <i>Generalization</i> data model.
@@ -152,7 +152,7 @@ public class GeneralizationPropertyModel extends AbstractPropertyModel<Generaliz
                     if (subType == null) {
                         return null;
                     } else if (subType.getClass() == Signal.class) {
-                        List<java.lang.Class<? extends Element>> allowedClasses = new ArrayList<>();
+                        List<java.lang.Class<? extends MObject>> allowedClasses = new ArrayList<>();
                         allowedClasses.add(Signal.class);
                         allowedClasses.add(Class.class);
                         return new SingleElementType(false, allowedClasses);

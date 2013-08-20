@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="ASCII"?>
-<fragment:ModelFragments xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:basic="http://www.eclipse.org/ui/2010/UIModel/application/ui/basic" xmlns:commands="http://www.eclipse.org/ui/2010/UIModel/application/commands" xmlns:fragment="http://www.eclipse.org/ui/2010/UIModel/fragment" xmlns:menu="http://www.eclipse.org/ui/2010/UIModel/application/ui/menu" xmi:id="_YQKi0EN6EeK0D9nRHZj9jw">
+<fragment:ModelFragments xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:advanced="http://www.eclipse.org/ui/2010/UIModel/application/ui/advanced" xmlns:basic="http://www.eclipse.org/ui/2010/UIModel/application/ui/basic" xmlns:commands="http://www.eclipse.org/ui/2010/UIModel/application/commands" xmlns:fragment="http://www.eclipse.org/ui/2010/UIModel/fragment" xmlns:menu="http://www.eclipse.org/ui/2010/UIModel/application/ui/menu" xmi:id="_YQKi0EN6EeK0D9nRHZj9jw">
   <imports xsi:type="menu:Menu" xmi:id="_JcNC8H9JEeK-XvSICEmsLA" elementId="org.modelio.app.ui.menu.views"/>
   <imports xsi:type="commands:Command" xmi:id="_GRezYH9JEeK-XvSICEmsLA" elementId="org.modelio.app.ui.command.showview"/>
   <imports xsi:type="commands:Command" xmi:id="_zEBOANfyEeKjSfPDByQfxw" elementId="org.modelio.app.ui.command.ShowImpactCause"/>
-  <fragments xsi:type="fragment:StringModelFragment" xmi:id="_Ga7xMEN7EeK0D9nRHZj9jw" featurename="children" parentElementId="org.modelio.app.bottom.parts">
+  <fragments xsi:type="fragment:StringModelFragment" xmi:id="_Ga7xMEN7EeK0D9nRHZj9jw" featurename="sharedElements" parentElementId="org.modelio.app.ui.trimmed">
     <elements xsi:type="basic:Part" xmi:id="_tpwLIERtEeK0D9nRHZj9jw" elementId="org.modelio.linkeditor.view.LinkEditorViewID" contributionURI="bundleclass://org.modelio.link.editor/org.modelio.linkeditor.view.LinkEditorView" label="%LinkEditorView.Name" iconURI="platform:/plugin/org.modelio.link.editor/icons/linkeditor.png" closeable="true">
       <handlers xmi:id="_h8f0YF_5EeKxFZW_aaCuxw" elementId="org.modelio.linkeditor.handler.ZoomIn" contributionURI="bundleclass://org.modelio.link.editor/org.modelio.linkeditor.zoom.ZoomInHandler" command="_e0iUAF_wEeKxFZW_aaCuxw"/>
       <handlers xmi:id="_8yeV4GCJEeKxFZW_aaCuxw" elementId="org.modelio.linkeditor.handler.ZoomOut" contributionURI="bundleclass://org.modelio.link.editor/org.modelio.linkeditor.zoom.ZoomOutHandler" command="_qpg98F_wEeKxFZW_aaCuxw"/>
@@ -109,5 +109,8 @@
     <elements xsi:type="menu:HandledMenuItem" xmi:id="_PwzNgH9JEeK-XvSICEmsLA" elementId="org.modelio.linkeditor.menuitem.showview" label="%LinkEditorShowView.label" iconURI="platform:/plugin/org.modelio.link.editor/icons/linkeditor.png" tooltip="%LinkEditorShowView.tooltip" command="_GRezYH9JEeK-XvSICEmsLA">
       <parameters xmi:id="_W32vwH9JEeK-XvSICEmsLA" elementId="org.modelio.app.ui.command.showview.viewid" name="org.modelio.app.ui.command.showview.viewid" value="org.modelio.linkeditor.view.LinkEditorViewID"/>
     </elements>
+  </fragments>
+  <fragments xsi:type="fragment:StringModelFragment" xmi:id="_AjqhMN_OEeKdg8e0rQGLrw" featurename="children" parentElementId="org.modelio.app.bottom.parts">
+    <elements xsi:type="advanced:Placeholder" xmi:id="_AjqhMd_OEeKdg8e0rQGLrw" elementId="org.modelio.linkeditor.placeholder" ref="_tpwLIERtEeK0D9nRHZj9jw"/>
   </fragments>
 </fragment:ModelFragments>

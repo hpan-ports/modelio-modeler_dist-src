@@ -39,7 +39,10 @@ import org.modelio.diagram.styles.core.MetaKey;
 import org.modelio.diagram.styles.core.ProxyStyle;
 import org.modelio.diagram.styles.core.StyleKey.RepresentationMode;
 import org.modelio.diagram.styles.core.StyleKey;
+import org.modelio.metamodel.uml.statik.Connector;
 import org.modelio.metamodel.uml.statik.ConnectorEnd;
+import org.modelio.metamodel.uml.statik.NaryConnector;
+import org.modelio.metamodel.uml.statik.NaryConnectorEnd;
 import org.modelio.vcore.smkernel.mapi.MObject;
 import org.modelio.vcore.smkernel.mapi.MRef;
 
@@ -49,13 +52,15 @@ import org.modelio.vcore.smkernel.mapi.MRef;
 @objid ("367161d7-55b7-11e2-877f-002564c97630")
 public class GmLollipopConnection extends GmSimpleNode {
     @objid ("367161db-55b7-11e2-877f-002564c97630")
-    private ConnectorEnd element;
+    private NaryConnector element;
 
     /**
      * Current version of this Gm. Defaults to 0.
+     * <li> 0 : initial version : element was ConnectorEnd
+     * <li> 1 : element is NAryConnector (the link, not the end)
      */
     @objid ("367161de-55b7-11e2-877f-002564c97630")
-    private final int minorVersion = 0;
+    private static final int minorVersion = 1;
 
     @objid ("367161e1-55b7-11e2-877f-002564c97630")
     private static final int MAJOR_VERSION = 0;
@@ -78,11 +83,10 @@ public class GmLollipopConnection extends GmSimpleNode {
      * Initialize a lollipop connection.
      * @param diagram The diagram.
      * @param element The represented connector, may be null.
-     * @param representedRef The represented connector reference, must not be null.
      */
     @objid ("367161e9-55b7-11e2-877f-002564c97630")
-    public GmLollipopConnection(final GmAbstractDiagram diagram, final ConnectorEnd element, final MRef representedRef) {
-        super(diagram, representedRef);
+    public GmLollipopConnection(final GmAbstractDiagram diagram, final NaryConnector element) {
+        super(diagram, new MRef(element));
         this.element = element;
         
         addPropertyChangeListener(new LinkListener());
@@ -90,13 +94,13 @@ public class GmLollipopConnection extends GmSimpleNode {
 
     @objid ("3672e85d-55b7-11e2-877f-002564c97630")
     @Override
-    public ConnectorEnd getRepresentedElement() {
+    public NaryConnector getRepresentedElement() {
         return this.element;
     }
 
     @objid ("3672e864-55b7-11e2-877f-002564c97630")
     @Override
-    public MObject getRelatedElement() {
+    public NaryConnector getRelatedElement() {
         return this.element;
     }
 
@@ -131,16 +135,19 @@ public class GmLollipopConnection extends GmSimpleNode {
         Object versionProperty = in.readProperty("GmLollipopConnection." + MINOR_VERSION_PROPERTY);
         int readVersion = versionProperty == null ? 0 : ((Integer) versionProperty).intValue();
         switch (readVersion) {
-            case 0: {
-                read_0(in);
-                break;
-            }
-            default: {
-                assert (false) : "version number not covered!";
-                // reading as last handled version: 0
-                read_0(in);
-                break;
-            }
+        case 1:
+            read_1(in);
+            break;
+        case 0: 
+            read_0(in);
+            break;
+        
+        default: 
+            assert (false) : readVersion+ " version number not covered!";
+            // reading as last handled version: 0
+            read_0(in);
+            break;
+        
         }
     }
 
@@ -191,23 +198,39 @@ public class GmLollipopConnection extends GmSimpleNode {
     public void write(IDiagramWriter out) {
         super.write(out);
         
-        // Write version of this Gm if different of 0.
-        if (this.minorVersion != 0) {
-            out.writeProperty("GmLollipopConnection." + MINOR_VERSION_PROPERTY, Integer.valueOf(this.minorVersion));
-        }
+        // Write version of this Gm.
+        out.writeProperty("GmLollipopConnection." + MINOR_VERSION_PROPERTY, Integer.valueOf(minorVersion));
     }
 
     @objid ("36746f07-55b7-11e2-877f-002564c97630")
-    private void read_0(final IDiagramReader in) {
+    private void read_1(final IDiagramReader in) {
         super.read(in);
                 
-        this.element = (ConnectorEnd) resolveRef(getRepresentedRef());
+        MObject el = resolveRef(getRepresentedRef());
+        this.element = (NaryConnector) el;
     }
 
     @objid ("36746f0d-55b7-11e2-877f-002564c97630")
     @Override
     public int getMajorVersion() {
         return MAJOR_VERSION;
+    }
+
+    @objid ("ed916166-7159-4519-9465-466e3bb48c44")
+    private void read_0(final IDiagramReader in) {
+        super.read(in);
+                
+        MObject el = resolveRef(getRepresentedRef());
+        if (el instanceof NaryConnectorEnd)
+            this.element = (NaryConnector) ((NaryConnectorEnd) el).getNaryLink();
+        else  if (el instanceof NaryConnector)
+            this.element = (NaryConnector) el;
+        else  if (el instanceof ConnectorEnd)
+            this.element = null; //(Connector) ((ConnectorEnd) el).getLink();
+        else  if (el instanceof Connector)
+            this.element = null; //(Connector) el;
+        else 
+            throw new IllegalArgumentException(el.toString());
     }
 
     /**

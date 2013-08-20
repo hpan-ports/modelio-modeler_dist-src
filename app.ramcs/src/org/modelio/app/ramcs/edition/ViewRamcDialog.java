@@ -61,7 +61,7 @@ import org.modelio.vbasic.version.Version;
 @objid ("74916f47-4dbf-4126-9b01-87906a5e5452")
 public class ViewRamcDialog extends ModelioDialog {
     @objid ("2de30b8a-0fae-4efc-bc2c-fb78ee2ddda2")
-    private static final String HELP_TOPIC = "/com.modeliosoft.modelio.documentation.modeler/html/Model_components_development.html";
+    private static final String HELP_TOPIC = "/org.modelio.documentation.modeler/html/Model_components_development.html";
 
     @objid ("3193f51f-8ae5-4ca3-ae4c-65bc5de24676")
     protected RamcModel dataModel = null;

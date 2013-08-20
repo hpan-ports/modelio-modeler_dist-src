@@ -5,10 +5,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
+import org.modelio.api.model.IDefaultNameService;
 import org.modelio.api.model.IUMLTypes;
 import org.modelio.api.model.IUmlModel;
 import org.modelio.gproject.fragment.IProjectFragment;
 import org.modelio.gproject.gproject.GProject;
+import org.modelio.gproject.model.IMModelServices;
 import org.modelio.metamodel.bpmn.activities.BpmnActivity;
 import org.modelio.metamodel.bpmn.activities.BpmnAdHocSubProcess;
 import org.modelio.metamodel.bpmn.activities.BpmnBusinessRuleTask;
@@ -98,7 +100,6 @@ import org.modelio.metamodel.diagrams.StateMachineDiagram;
 import org.modelio.metamodel.diagrams.StaticDiagram;
 import org.modelio.metamodel.diagrams.UseCaseDiagram;
 import org.modelio.metamodel.factory.ExtensionNotFoundException;
-import org.modelio.metamodel.factory.IModelFactory;
 import org.modelio.metamodel.mda.Project;
 import org.modelio.metamodel.uml.behavior.activityModel.AcceptCallEventAction;
 import org.modelio.metamodel.uml.behavior.activityModel.AcceptChangeEventAction;
@@ -182,8 +183,6 @@ import org.modelio.metamodel.uml.infrastructure.Dependency;
 import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.metamodel.uml.infrastructure.ExternDocument;
 import org.modelio.metamodel.uml.infrastructure.ExternDocumentType;
-import org.modelio.metamodel.uml.infrastructure.LocalNote;
-import org.modelio.metamodel.uml.infrastructure.LocalTaggedValue;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
 import org.modelio.metamodel.uml.infrastructure.Note;
 import org.modelio.metamodel.uml.infrastructure.NoteType;
@@ -290,9 +289,6 @@ import org.modelio.vcore.smkernel.meta.SmClass;
  */
 @objid ("6caafdc5-72e0-41b5-9b35-86642b3f4eab")
 public class UMLModel implements IUmlModel {
-    @objid ("02e6c75a-a6db-42a0-918b-9d08d7298b78")
-    private IModelFactory coreFactory;
-
     @objid ("0ddc6593-7322-4631-91aa-24f2f509bd92")
     private IModel model;
 
@@ -302,16 +298,19 @@ public class UMLModel implements IUmlModel {
     @objid ("0ea1948c-0851-4396-bdf2-a3c88b0198f7")
     private GProject openedProject;
 
+    @objid ("62ddf749-4c47-47b8-b50f-3be9763e86af")
+    private IMModelServices modelService;
+
     /**
      * Create a new instance of UMLModel.
      * @param openedProject the opened project.
-     * @param coreFactory the model object factory.
+     * @param modelService the model object factory.
      * @param model the model access
      */
     @objid ("d4fb7a4d-87e9-4a59-8d69-ff16c3c345f1")
-    public UMLModel(GProject openedProject, IModelFactory coreFactory, IModel model) {
+    public UMLModel(GProject openedProject, IMModelServices modelService, IModel model) {
         this.model = model;
-        this.coreFactory = coreFactory;
+        this.modelService = modelService;
         this.openedProject = openedProject;
         this.umlTypes = new UMLTypes(this.model);
     }
@@ -327,7 +326,7 @@ public class UMLModel implements IUmlModel {
     @objid ("b809f030-eb03-48ba-9881-efccdcf1edb9")
     @Override
     public Abstraction createAbstraction() {
-        return this.coreFactory.createAbstraction();
+        return this.modelService.getModelFactory().createAbstraction();
     }
 
     /**
@@ -343,7 +342,7 @@ public class UMLModel implements IUmlModel {
     @objid ("3f02497b-5a82-4fdc-9e4e-630e442db6e9")
     @Override
     public AcceptCallEventAction createAcceptCallEventAction() {
-        return this.coreFactory.createAcceptCallEventAction();
+        return this.modelService.getModelFactory().createAcceptCallEventAction();
     }
 
     /**
@@ -359,7 +358,7 @@ public class UMLModel implements IUmlModel {
     @objid ("39c6a5c5-3550-4b28-af35-b37fb89d689c")
     @Override
     public AcceptChangeEventAction createAcceptChangeEventAction() {
-        return this.coreFactory.createAcceptChangeEventAction();
+        return this.modelService.getModelFactory().createAcceptChangeEventAction();
     }
 
     /**
@@ -375,7 +374,7 @@ public class UMLModel implements IUmlModel {
     @objid ("c376ab73-fda8-47f6-91a7-9e1957761c7f")
     @Override
     public AcceptSignalAction createAcceptSignalAction() {
-        return this.coreFactory.createAcceptSignalAction();
+        return this.modelService.getModelFactory().createAcceptSignalAction();
     }
 
     /**
@@ -391,7 +390,7 @@ public class UMLModel implements IUmlModel {
     @objid ("b3aa44c3-cc82-41c9-add7-14fb9f5cc041")
     @Override
     public AcceptTimeEventAction createAcceptTimeEventAction() {
-        return this.coreFactory.createAcceptTimeEventAction();
+        return this.modelService.getModelFactory().createAcceptTimeEventAction();
     }
 
     /**
@@ -405,7 +404,7 @@ public class UMLModel implements IUmlModel {
     @objid ("7a4d0b77-5f66-4b2b-a35a-9428708a37a1")
     @Override
     public Activity createActivity() {
-        return this.coreFactory.createActivity();
+        return this.modelService.getModelFactory().createActivity();
     }
 
     /**
@@ -420,7 +419,7 @@ public class UMLModel implements IUmlModel {
     @objid ("b2f26a10-e2c0-45f6-90cb-d6ab65cc04b9")
     @Override
     public ActivityDiagram createActivityDiagram(String name, ModelElement owner) {
-        return this.coreFactory.createActivityDiagram(name, owner);
+        return this.modelService.getModelFactory().createActivityDiagram(name, owner);
     }
 
     /**
@@ -435,7 +434,7 @@ public class UMLModel implements IUmlModel {
     @objid ("f85c11ce-59f3-4f2b-b064-bd6620dfdb14")
     @Override
     public ActivityFinalNode createActivityFinalNode() {
-        return this.coreFactory.createActivityFinalNode();
+        return this.modelService.getModelFactory().createActivityFinalNode();
     }
 
     /**
@@ -451,7 +450,7 @@ public class UMLModel implements IUmlModel {
     @objid ("3dbab2a0-f1c5-4f1f-b6dd-e0cd076f9065")
     @Override
     public ActivityParameterNode createActivityParameterNode() {
-        return this.coreFactory.createActivityParameterNode();
+        return this.modelService.getModelFactory().createActivityParameterNode();
     }
 
     /**
@@ -466,7 +465,7 @@ public class UMLModel implements IUmlModel {
     @objid ("bcf0bcab-7957-4a55-babe-eac4fa21bafa")
     @Override
     public ActivityPartition createActivityPartition() {
-        return this.coreFactory.createActivityPartition();
+        return this.modelService.getModelFactory().createActivityPartition();
     }
 
     /**
@@ -480,7 +479,7 @@ public class UMLModel implements IUmlModel {
     @objid ("d1025971-4ee4-468b-b3e4-d711b69f2329")
     @Override
     public Actor createActor() {
-        return this.coreFactory.createActor();
+        return this.modelService.getModelFactory().createActor();
     }
 
     /**
@@ -495,7 +494,7 @@ public class UMLModel implements IUmlModel {
     @objid ("ba7c8315-caf3-4d19-b39c-40a85855d4eb")
     @Override
     public Actor createActor(String name, NameSpace owner) {
-        return this.coreFactory.createActor(name, owner);
+        return this.modelService.getModelFactory().createActor(name, owner);
     }
 
     /**
@@ -519,7 +518,7 @@ public class UMLModel implements IUmlModel {
     @objid ("28c7948e-cad8-4ffb-84c1-a7f3084c9e6f")
     @Override
     public Actor createActor(String name, NameSpace owner, Stereotype stereotype) {
-        return this.coreFactory.createActor(name, owner, stereotype);
+        return this.modelService.getModelFactory().createActor(name, owner, stereotype);
     }
 
     /**
@@ -533,7 +532,7 @@ public class UMLModel implements IUmlModel {
     @objid ("d5b70a03-c289-4621-8c46-bf3eb8db76b5")
     @Override
     public Artifact createArtifact() {
-        return this.coreFactory.createArtifact();
+        return this.modelService.getModelFactory().createArtifact();
     }
 
     /**
@@ -548,7 +547,7 @@ public class UMLModel implements IUmlModel {
     @objid ("ee4db1ca-fbcc-494d-83ee-706d034ff52e")
     @Override
     public Artifact createArtifact(String name, NameSpace owner) {
-        return this.coreFactory.createArtifact(name, owner);
+        return this.modelService.getModelFactory().createArtifact(name, owner);
     }
 
     /**
@@ -571,7 +570,7 @@ public class UMLModel implements IUmlModel {
     @objid ("b771de11-70c2-4398-83bd-346832b22e7a")
     @Override
     public Artifact createArtifact(String name, NameSpace owner, Stereotype stereotype) {
-        return this.coreFactory.createArtifact(name, owner, stereotype);
+        return this.modelService.getModelFactory().createArtifact(name, owner, stereotype);
     }
 
     /**
@@ -588,7 +587,7 @@ public class UMLModel implements IUmlModel {
     @objid ("c89dea81-d537-4612-8b91-34ad8147828e")
     @Override
     public Association createAssociation(Classifier source, Classifier destination, String destinationRole) {
-        return this.coreFactory.createAssociation(source, destination, destinationRole);
+        return this.modelService.getModelFactory().createAssociation(source, destination, destinationRole);
     }
 
     /**
@@ -602,7 +601,7 @@ public class UMLModel implements IUmlModel {
     @objid ("b5f1e758-6dcc-4266-8a4c-c500036d5351")
     @Override
     public AssociationEnd createAssociationEnd() {
-        return this.coreFactory.createAssociationEnd();
+        return this.modelService.getModelFactory().createAssociationEnd();
     }
 
     /**
@@ -616,7 +615,7 @@ public class UMLModel implements IUmlModel {
     @objid ("bda33d76-3966-42ec-a53c-2606631941eb")
     @Override
     public Attribute createAttribute() {
-        return this.coreFactory.createAttribute();
+        return this.modelService.getModelFactory().createAttribute();
     }
 
     /**
@@ -631,7 +630,7 @@ public class UMLModel implements IUmlModel {
     @objid ("123e42c1-80b4-4e2e-b292-a48f8b0454d7")
     @Override
     public Attribute createAttribute(String name, GeneralClass type, Classifier owner) {
-        return this.coreFactory.createAttribute(name, type, owner);
+        return this.modelService.getModelFactory().createAttribute(name, type, owner);
     }
 
     /**
@@ -651,7 +650,7 @@ public class UMLModel implements IUmlModel {
     @objid ("615e2916-841c-48a2-95f4-096135ab40ad")
     @Override
     public Attribute createAttribute(String name, GeneralClass type, Classifier owner, Stereotype stereotype) {
-        return this.coreFactory.createAttribute(name, type, owner, stereotype);
+        return this.modelService.getModelFactory().createAttribute(name, type, owner, stereotype);
     }
 
     /**
@@ -665,7 +664,7 @@ public class UMLModel implements IUmlModel {
     @objid ("07e18f84-501f-4906-82a6-4de97fa022d1")
     @Override
     public AttributeLink createAttributeLink() {
-        return this.coreFactory.createAttributeLink();
+        return this.modelService.getModelFactory().createAttributeLink();
     }
 
     /**
@@ -680,7 +679,7 @@ public class UMLModel implements IUmlModel {
     @objid ("d7e2f272-7ac8-48c0-a42a-cd07a636688f")
     @Override
     public BehaviorParameter createBehaviorParameter() {
-        return this.coreFactory.createBehaviorParameter();
+        return this.modelService.getModelFactory().createBehaviorParameter();
     }
 
     /**
@@ -695,7 +694,7 @@ public class UMLModel implements IUmlModel {
     @objid ("b5952b1e-b187-4bd7-afb1-9042991b4535")
     @Override
     public BindableInstance createBindableInstance() {
-        return this.coreFactory.createBindableInstance();
+        return this.modelService.getModelFactory().createBindableInstance();
     }
 
     /**
@@ -709,469 +708,469 @@ public class UMLModel implements IUmlModel {
     @objid ("2194e569-3395-4f76-85f7-08738f939b02")
     @Override
     public Binding createBinding() {
-        return this.coreFactory.createBinding();
+        return this.modelService.getModelFactory().createBinding();
     }
 
     @objid ("940e7185-195e-4dba-ba26-acb50ccebf09")
     @Override
     public BpmnActivity createBpmnActivity() {
-        return (BpmnActivity) this.coreFactory.createElement("BpmnActivity");
+        return (BpmnActivity) this.modelService.getModelFactory().createElement("BpmnActivity");
     }
 
     @objid ("99392a8f-d87a-49c1-af2c-467b8a60cd72")
     @Override
     public BpmnAdHocSubProcess createBpmnAdHocSubProcess() {
-        return (BpmnAdHocSubProcess) this.coreFactory.createElement("BpmnAdHocSubProcess");
+        return (BpmnAdHocSubProcess) this.modelService.getModelFactory().createElement("BpmnAdHocSubProcess");
     }
 
     @objid ("4e3daa87-3fb7-4a59-aec7-7dc1b74485ed")
     @Override
     public BpmnArtifact createBpmnArtifact() {
-        return (BpmnArtifact) this.coreFactory.createElement("BpmnArtifact");
+        return (BpmnArtifact) this.modelService.getModelFactory().createElement("BpmnArtifact");
     }
 
     @objid ("abbf4b29-cc51-4567-9815-1282e4bf9c56")
     @Override
     public BpmnAssociation createBpmnAssociation() {
-        return (BpmnAssociation) this.coreFactory.createElement("BpmnAssociation");
+        return (BpmnAssociation) this.modelService.getModelFactory().createElement("BpmnAssociation");
     }
 
     @objid ("eb16a382-372f-4fe8-bbd1-9cd06c49a04f")
     @Override
     public BpmnBaseElement createBpmnBaseElement() {
-        return (BpmnBaseElement) this.coreFactory.createElement("BpmnBaseElement");
+        return (BpmnBaseElement) this.modelService.getModelFactory().createElement("BpmnBaseElement");
     }
 
     @objid ("fde6de47-ef86-4be0-a508-215ea2e3e80c")
     @Override
     public BpmnBehavior createBpmnBehavior() {
-        return (BpmnBehavior) this.coreFactory.createElement("BpmnBehavior");
+        return (BpmnBehavior) this.modelService.getModelFactory().createElement("BpmnBehavior");
     }
 
     @objid ("80c198f9-69c5-457d-95d8-c62221a74ae3")
     @Override
     public BpmnBoundaryEvent createBpmnBoundaryEvent() {
-        return (BpmnBoundaryEvent) this.coreFactory.createElement("BpmnBoundaryEvent");
+        return (BpmnBoundaryEvent) this.modelService.getModelFactory().createElement("BpmnBoundaryEvent");
     }
 
     @objid ("6f04cb16-44b7-45c6-ac44-6f6d8bde825b")
     @Override
     public BpmnBusinessRuleTask createBpmnBusinessRuleTask() {
-        return (BpmnBusinessRuleTask) this.coreFactory.createElement("BpmnBusinessRuleTask");
+        return (BpmnBusinessRuleTask) this.modelService.getModelFactory().createElement("BpmnBusinessRuleTask");
     }
 
     @objid ("a9dc16b9-17ad-4d04-bc11-072831282c7d")
     @Override
     public BpmnCallActivity createBpmnCallActivity() {
-        return (BpmnCallActivity) this.coreFactory.createElement("BpmnCallActivity");
+        return (BpmnCallActivity) this.modelService.getModelFactory().createElement("BpmnCallActivity");
     }
 
     @objid ("2e12726a-ff59-407f-93c4-ce15c10ff370")
     @Override
     public BpmnCancelEventDefinition createBpmnCancelEventDefinition() {
-        return (BpmnCancelEventDefinition) this.coreFactory.createElement("BpmnCancelEventDefinition");
+        return (BpmnCancelEventDefinition) this.modelService.getModelFactory().createElement("BpmnCancelEventDefinition");
     }
 
     @objid ("39e510ed-5f90-413a-b71a-365162cc7896")
     @Override
     public BpmnCatchEvent createBpmnCatchEvent() {
-        return (BpmnCatchEvent) this.coreFactory.createElement("BpmnCatchEvent");
+        return (BpmnCatchEvent) this.modelService.getModelFactory().createElement("BpmnCatchEvent");
     }
 
     @objid ("9ed37f33-1fa8-42f8-b41d-4fa77c62720c")
     @Override
     public BpmnCollaboration createBpmnCollaboration() {
-        return (BpmnCollaboration) this.coreFactory.createElement("BpmnCollaboration");
+        return (BpmnCollaboration) this.modelService.getModelFactory().createElement("BpmnCollaboration");
     }
 
     @objid ("b615280b-c8ee-4de8-980f-812b277aa7c5")
     @Override
     public BpmnCompensateEventDefinition createBpmnCompensateEventDefinition() {
-        return (BpmnCompensateEventDefinition) this.coreFactory.createElement("BpmnCompensateEventDefinition");
+        return (BpmnCompensateEventDefinition) this.modelService.getModelFactory().createElement("BpmnCompensateEventDefinition");
     }
 
     @objid ("af557d61-1740-4b9d-ad14-f4a49dae54f8")
     @Override
     public BpmnComplexBehaviorDefinition createBpmnComplexBehaviorDefinition() {
-        return (BpmnComplexBehaviorDefinition) this.coreFactory.createElement("BpmnComplexBehaviorDefinition");
+        return (BpmnComplexBehaviorDefinition) this.modelService.getModelFactory().createElement("BpmnComplexBehaviorDefinition");
     }
 
     @objid ("d078b831-5074-4518-8fba-be9e403a1006")
     @Override
     public BpmnComplexGateway createBpmnComplexGateway() {
-        return (BpmnComplexGateway) this.coreFactory.createElement("BpmnComplexGateway");
+        return (BpmnComplexGateway) this.modelService.getModelFactory().createElement("BpmnComplexGateway");
     }
 
     @objid ("ccca606e-4c60-4725-b266-85b2da21d97b")
     @Override
     public BpmnConditionalEventDefinition createBpmnConditionalEventDefinition() {
-        return (BpmnConditionalEventDefinition) this.coreFactory.createElement("BpmnConditionalEventDefinition");
+        return (BpmnConditionalEventDefinition) this.modelService.getModelFactory().createElement("BpmnConditionalEventDefinition");
     }
 
     @objid ("9f378ea5-d091-4f47-8aa4-e4882a0dfe56")
     @Override
     public BpmnDataAssociation createBpmnDataAssociation() {
-        return (BpmnDataAssociation) this.coreFactory.createElement("BpmnDataAssociation");
+        return (BpmnDataAssociation) this.modelService.getModelFactory().createElement("BpmnDataAssociation");
     }
 
     @objid ("ad7f056c-8b14-472c-b3c0-dfec6b9a286a")
     @Override
     public BpmnDataInput createBpmnDataInput() {
-        return (BpmnDataInput) this.coreFactory.createElement("BpmnDataInput");
+        return (BpmnDataInput) this.modelService.getModelFactory().createElement("BpmnDataInput");
     }
 
     @objid ("2e95676c-676e-4141-9872-7dd083248472")
     @Override
     public BpmnDataObject createBpmnDataObject() {
-        return (BpmnDataObject) this.coreFactory.createElement("BpmnDataObject");
+        return (BpmnDataObject) this.modelService.getModelFactory().createElement("BpmnDataObject");
     }
 
     @objid ("b596f13d-aecc-41c4-8050-39a0eb4757ce")
     @Override
     public BpmnDataOutput createBpmnDataOutput() {
-        return (BpmnDataOutput) this.coreFactory.createElement("BpmnDataOutput");
+        return (BpmnDataOutput) this.modelService.getModelFactory().createElement("BpmnDataOutput");
     }
 
     @objid ("101ea253-0bac-4bea-8c8e-6585d3f31c21")
     @Override
     public BpmnDataState createBpmnDataState() {
-        return (BpmnDataState) this.coreFactory.createElement("BpmnDataState");
+        return (BpmnDataState) this.modelService.getModelFactory().createElement("BpmnDataState");
     }
 
     @objid ("c1e49dbd-90ca-41d9-b222-f873543d37a5")
     @Override
     public BpmnDataStore createBpmnDataStore() {
-        return (BpmnDataStore) this.coreFactory.createElement("BpmnDataStore");
+        return (BpmnDataStore) this.modelService.getModelFactory().createElement("BpmnDataStore");
     }
 
     @objid ("0246504d-36fd-4356-820c-acbfcc40b8aa")
     @Override
     public BpmnEndEvent createBpmnEndEvent() {
-        return (BpmnEndEvent) this.coreFactory.createElement("BpmnEndEvent");
+        return (BpmnEndEvent) this.modelService.getModelFactory().createElement("BpmnEndEvent");
     }
 
     @objid ("de8d9746-cf08-48ab-9618-5e5e4360dafc")
     @Override
     public BpmnEndPoint createBpmnEndPoint() {
-        return (BpmnEndPoint) this.coreFactory.createElement("BpmnEndPoint");
+        return (BpmnEndPoint) this.modelService.getModelFactory().createElement("BpmnEndPoint");
     }
 
     @objid ("aa4468eb-dbfb-4487-af0c-be72bcfb947b")
     @Override
     public BpmnErrorEventDefinition createBpmnErrorEventDefinition() {
-        return (BpmnErrorEventDefinition) this.coreFactory.createElement("BpmnErrorEventDefinition");
+        return (BpmnErrorEventDefinition) this.modelService.getModelFactory().createElement("BpmnErrorEventDefinition");
     }
 
     @objid ("e275d9d6-68e6-437b-8659-ba8651ddc7f5")
     @Override
     public BpmnEscalationEventDefinition createBpmnEscalationEventDefinition() {
-        return (BpmnEscalationEventDefinition) this.coreFactory.createElement("BpmnEscalationEventDefinition");
+        return (BpmnEscalationEventDefinition) this.modelService.getModelFactory().createElement("BpmnEscalationEventDefinition");
     }
 
     @objid ("2b685852-2abd-44f6-833c-ebe4a41a299c")
     @Override
     public BpmnEvent createBpmnEvent() {
-        return (BpmnEvent) this.coreFactory.createElement("BpmnEvent");
+        return (BpmnEvent) this.modelService.getModelFactory().createElement("BpmnEvent");
     }
 
     @objid ("0b1210a1-68d4-4fe8-b016-d1a90bcbd8d7")
     @Override
     public BpmnEventBasedGateway createBpmnEventBasedGateway() {
-        return (BpmnEventBasedGateway) this.coreFactory.createElement("BpmnEventBasedGateway");
+        return (BpmnEventBasedGateway) this.modelService.getModelFactory().createElement("BpmnEventBasedGateway");
     }
 
     @objid ("6ddc8480-0343-4710-84c9-7a01a68eb657")
     @Override
     public BpmnEventDefinition createBpmnEventDefinition() {
-        return (BpmnEventDefinition) this.coreFactory.createElement("BpmnEventDefinition");
+        return (BpmnEventDefinition) this.modelService.getModelFactory().createElement("BpmnEventDefinition");
     }
 
     @objid ("1902445d-c836-41e1-8da4-173e61c32b2f")
     @Override
     public BpmnExclusiveGateway createBpmnExclusiveGateway() {
-        return (BpmnExclusiveGateway) this.coreFactory.createElement("BpmnExclusiveGateway");
+        return (BpmnExclusiveGateway) this.modelService.getModelFactory().createElement("BpmnExclusiveGateway");
     }
 
     @objid ("2326cf43-ca26-4db3-a3f6-26ab4e742e4b")
     @Override
     public BpmnFlowElement createBpmnFlowElement() {
-        return (BpmnFlowElement) this.coreFactory.createElement("BpmnFlowElement");
+        return (BpmnFlowElement) this.modelService.getModelFactory().createElement("BpmnFlowElement");
     }
 
     @objid ("c16a0725-b757-4f9a-bfd3-b9c0a648f740")
     @Override
     public BpmnFlowNode createBpmnFlowNode() {
-        return (BpmnFlowNode) this.coreFactory.createElement("BpmnFlowNode");
+        return (BpmnFlowNode) this.modelService.getModelFactory().createElement("BpmnFlowNode");
     }
 
     @objid ("1148f7de-f589-4d6f-9f1c-c6daece83278")
     @Override
     public BpmnGateway createBpmnGateway() {
-        return (BpmnGateway) this.coreFactory.createElement("BpmnGateway");
+        return (BpmnGateway) this.modelService.getModelFactory().createElement("BpmnGateway");
     }
 
     @objid ("2bb1d426-be5b-47bf-b9e9-5da3852c80c5")
     @Override
     public BpmnGroup createBpmnGroup() {
-        return (BpmnGroup) this.coreFactory.createElement("BpmnGroup");
+        return (BpmnGroup) this.modelService.getModelFactory().createElement("BpmnGroup");
     }
 
     @objid ("a5d1c3bb-6b6d-4f6b-b58e-41922c85faa4")
     @Override
     public BpmnImplicitThrowEvent createBpmnImplicitThrowEvent() {
-        return (BpmnImplicitThrowEvent) this.coreFactory.createElement("BpmnImplicitThrowEvent");
+        return (BpmnImplicitThrowEvent) this.modelService.getModelFactory().createElement("BpmnImplicitThrowEvent");
     }
 
     @objid ("fe2edb37-aa4b-4bcc-b871-321c449ebd0c")
     @Override
     public BpmnInclusiveGateway createBpmnInclusiveGateway() {
-        return (BpmnInclusiveGateway) this.coreFactory.createElement("BpmnInclusiveGateway");
+        return (BpmnInclusiveGateway) this.modelService.getModelFactory().createElement("BpmnInclusiveGateway");
     }
 
     @objid ("40eaae94-0b3c-48c4-84bf-708dcfc0ccf6")
     @Override
     public BpmnInterface createBpmnInterface() {
-        return (BpmnInterface) this.coreFactory.createElement("BpmnInterface");
+        return (BpmnInterface) this.modelService.getModelFactory().createElement("BpmnInterface");
     }
 
     @objid ("96777f85-b711-44d1-90d1-6f8553dd9fbf")
     @Override
     public BpmnIntermediateCatchEvent createBpmnIntermediateCatchEvent() {
-        return (BpmnIntermediateCatchEvent) this.coreFactory.createElement("BpmnIntermediateCatchEvent");
+        return (BpmnIntermediateCatchEvent) this.modelService.getModelFactory().createElement("BpmnIntermediateCatchEvent");
     }
 
     @objid ("e3e5a9e4-e9cb-4476-88bd-92b75a79629f")
     @Override
     public BpmnIntermediateThrowEvent createBpmnIntermediateThrowEvent() {
-        return (BpmnIntermediateThrowEvent) this.coreFactory.createElement("BpmnIntermediateThrowEvent");
+        return (BpmnIntermediateThrowEvent) this.modelService.getModelFactory().createElement("BpmnIntermediateThrowEvent");
     }
 
     @objid ("65eb2b11-f87e-40c8-b4a4-64e212b4c108")
     @Override
     public BpmnItemAwareElement createBpmnItemAwareElement() {
-        return (BpmnItemAwareElement) this.coreFactory.createElement("BpmnItemAwareElement");
+        return (BpmnItemAwareElement) this.modelService.getModelFactory().createElement("BpmnItemAwareElement");
     }
 
     @objid ("24cca37b-477f-45af-b847-7c8b234eca33")
     @Override
     public BpmnItemDefinition createBpmnItemDefinition() {
-        return (BpmnItemDefinition) this.coreFactory.createElement("BpmnItemDefinition");
+        return (BpmnItemDefinition) this.modelService.getModelFactory().createElement("BpmnItemDefinition");
     }
 
     @objid ("fd6db924-74d2-4195-9c64-500e4562ef04")
     @Override
     public BpmnLane createBpmnLane() {
-        return (BpmnLane) this.coreFactory.createElement("BpmnLane");
+        return (BpmnLane) this.modelService.getModelFactory().createElement("BpmnLane");
     }
 
     @objid ("66c07dd6-15c1-4520-93d0-23628de43bee")
     @Override
     public BpmnLaneSet createBpmnLaneSet() {
-        return (BpmnLaneSet) this.coreFactory.createElement("BpmnLaneSet");
+        return (BpmnLaneSet) this.modelService.getModelFactory().createElement("BpmnLaneSet");
     }
 
     @objid ("79f50287-6217-435a-822a-252d590f26a4")
     @Override
     public BpmnLinkEventDefinition createBpmnLinkEventDefinition() {
-        return (BpmnLinkEventDefinition) this.coreFactory.createElement("BpmnLinkEventDefinition");
+        return (BpmnLinkEventDefinition) this.modelService.getModelFactory().createElement("BpmnLinkEventDefinition");
     }
 
     @objid ("1d3aaac8-f829-4cf6-a1ab-054889ca3d3e")
     @Override
     public BpmnLoopCharacteristics createBpmnLoopCharacteristics() {
-        return (BpmnLoopCharacteristics) this.coreFactory.createElement("BpmnLoopCharacteristics");
+        return (BpmnLoopCharacteristics) this.modelService.getModelFactory().createElement("BpmnLoopCharacteristics");
     }
 
     @objid ("aa96ad71-eab1-4213-8a46-3e8c471fa350")
     @Override
     public BpmnManualTask createBpmnManualTask() {
-        return (BpmnManualTask) this.coreFactory.createElement("BpmnManualTask");
+        return (BpmnManualTask) this.modelService.getModelFactory().createElement("BpmnManualTask");
     }
 
     @objid ("292963a5-4bce-4da1-93bc-cd53bb92609e")
     @Override
     public BpmnMessage createBpmnMessage() {
-        return (BpmnMessage) this.coreFactory.createElement("BpmnMessage");
+        return (BpmnMessage) this.modelService.getModelFactory().createElement("BpmnMessage");
     }
 
     @objid ("9619fcb3-045e-40ef-8349-b9e7650c2f31")
     @Override
     public BpmnMessageEventDefinition createBpmnMessageEventDefinition() {
-        return (BpmnMessageEventDefinition) this.coreFactory.createElement("BpmnMessageEventDefinition");
+        return (BpmnMessageEventDefinition) this.modelService.getModelFactory().createElement("BpmnMessageEventDefinition");
     }
 
     @objid ("4b32acd8-b81e-496a-8e9c-ae0ded26f996")
     @Override
     public BpmnMessageFlow createBpmnMessageFlow() {
-        return (BpmnMessageFlow) this.coreFactory.createElement("BpmnMessageFlow");
+        return (BpmnMessageFlow) this.modelService.getModelFactory().createElement("BpmnMessageFlow");
     }
 
     @objid ("4ca59a48-78d5-412c-b82a-763fbec903d5")
     @Override
     public BpmnMultiInstanceLoopCharacteristics createBpmnMultiInstanceLoopCharacteristics() {
-        return (BpmnMultiInstanceLoopCharacteristics) this.coreFactory.createElement("BpmnMultiInstanceLoopCharacteristics");
+        return (BpmnMultiInstanceLoopCharacteristics) this.modelService.getModelFactory().createElement("BpmnMultiInstanceLoopCharacteristics");
     }
 
     @objid ("21a906d8-c1a5-4e77-8b62-156033a715ea")
     @Override
     public BpmnOperation createBpmnOperation() {
-        return (BpmnOperation) this.coreFactory.createElement("BpmnOperation");
+        return (BpmnOperation) this.modelService.getModelFactory().createElement("BpmnOperation");
     }
 
     @objid ("9c55de46-3c3a-43d4-9246-5329312bc915")
     @Override
     public BpmnParallelGateway createBpmnParallelGateway() {
-        return (BpmnParallelGateway) this.coreFactory.createElement("BpmnParallelGateway");
+        return (BpmnParallelGateway) this.modelService.getModelFactory().createElement("BpmnParallelGateway");
     }
 
     @objid ("c0460184-1d6b-405a-a414-3ea8e29e440b")
     @Override
     public BpmnParticipant createBpmnParticipant() {
-        return (BpmnParticipant) this.coreFactory.createElement("BpmnParticipant");
+        return (BpmnParticipant) this.modelService.getModelFactory().createElement("BpmnParticipant");
     }
 
     @objid ("ffff88f7-16e7-4343-b419-6e6702cae37c")
     @Override
     public BpmnProcess createBpmnProcess() {
-        return (BpmnProcess) this.coreFactory.createElement("BpmnProcess");
+        return (BpmnProcess) this.modelService.getModelFactory().createElement("BpmnProcess");
     }
 
     @objid ("9ddac939-5a1e-4cbe-9135-65f521b2d7db")
     @Override
     public BpmnProcessCollaborationDiagram createBpmnProcessCollaborationDiagram() {
-        return (BpmnProcessCollaborationDiagram) this.coreFactory.createElement("BpmnProcessCollaborationDiagram");
+        return (BpmnProcessCollaborationDiagram) this.modelService.getModelFactory().createElement("BpmnProcessCollaborationDiagram");
     }
 
     @objid ("e99e740c-4aa4-4f8a-8c78-ed89eee9037f")
     @Override
     public BpmnReceiveTask createBpmnReceiveTask() {
-        return (BpmnReceiveTask) this.coreFactory.createElement("BpmnReceiveTask");
+        return (BpmnReceiveTask) this.modelService.getModelFactory().createElement("BpmnReceiveTask");
     }
 
     @objid ("148270a2-ae30-497c-84c6-95219bf9af70")
     @Override
     public BpmnResource createBpmnResource() {
-        return (BpmnResource) this.coreFactory.createElement("BpmnResource");
+        return (BpmnResource) this.modelService.getModelFactory().createElement("BpmnResource");
     }
 
     @objid ("7cf1385f-e41c-4f92-8d50-5964853e61df")
     @Override
     public BpmnResourceParameter createBpmnResourceParameter() {
-        return (BpmnResourceParameter) this.coreFactory.createElement("BpmnResourceParameter");
+        return (BpmnResourceParameter) this.modelService.getModelFactory().createElement("BpmnResourceParameter");
     }
 
     @objid ("726f8e03-80df-4427-8e2e-783f523d14f1")
     @Override
     public BpmnResourceParameterBinding createBpmnResourceParameterBinding() {
-        return (BpmnResourceParameterBinding) this.coreFactory.createElement("BpmnResourceParameterBinding");
+        return (BpmnResourceParameterBinding) this.modelService.getModelFactory().createElement("BpmnResourceParameterBinding");
     }
 
     @objid ("9764ed36-adc8-448e-99f3-46c10d0d2c26")
     @Override
     public BpmnResourceRole createBpmnResourceRole() {
-        return (BpmnResourceRole) this.coreFactory.createElement("BpmnResourceRole");
+        return (BpmnResourceRole) this.modelService.getModelFactory().createElement("BpmnResourceRole");
     }
 
     @objid ("c947ec68-621b-43d8-99f3-3fb081531ad3")
     @Override
     public BpmnRootElement createBpmnRootElement() {
-        return (BpmnRootElement) this.coreFactory.createElement("BpmnRootElement");
+        return (BpmnRootElement) this.modelService.getModelFactory().createElement("BpmnRootElement");
     }
 
     @objid ("58e150a3-d1b4-4e93-8c21-5a6bed007c5b")
     @Override
     public BpmnScriptTask createBpmnScriptTask() {
-        return (BpmnScriptTask) this.coreFactory.createElement("BpmnScriptTask");
+        return (BpmnScriptTask) this.modelService.getModelFactory().createElement("BpmnScriptTask");
     }
 
     @objid ("9131b8aa-80f5-4f8f-999a-abd050a5069c")
     @Override
     public BpmnSendTask createBpmnSendTask() {
-        return (BpmnSendTask) this.coreFactory.createElement("BpmnSendTask");
+        return (BpmnSendTask) this.modelService.getModelFactory().createElement("BpmnSendTask");
     }
 
     @objid ("2b8f0931-8096-4fb1-b7b5-a767fa5306e6")
     @Override
     public BpmnSequenceFlow createBpmnSequenceFlow() {
-        return (BpmnSequenceFlow) this.coreFactory.createElement("BpmnSequenceFlow");
+        return (BpmnSequenceFlow) this.modelService.getModelFactory().createElement("BpmnSequenceFlow");
     }
 
     @objid ("65e4b4ac-ba57-4df5-ad73-b185c44ca380")
     @Override
     public BpmnSequenceFlowDataAssociation createBpmnSequenceFlowDataAssociation() {
-        return (BpmnSequenceFlowDataAssociation) this.coreFactory.createElement("BpmnSequenceFlowDataAssociation");
+        return (BpmnSequenceFlowDataAssociation) this.modelService.getModelFactory().createElement("BpmnSequenceFlowDataAssociation");
     }
 
     @objid ("e3f1710c-fde5-45b6-9045-b2b0dfa6757b")
     @Override
     public BpmnServiceTask createBpmnServiceTask() {
-        return (BpmnServiceTask) this.coreFactory.createElement("BpmnServiceTask");
+        return (BpmnServiceTask) this.modelService.getModelFactory().createElement("BpmnServiceTask");
     }
 
     @objid ("915931b0-c401-4eef-8d5c-7beb5672f490")
     @Override
     public BpmnSignalEventDefinition createBpmnSignalEventDefinition() {
-        return (BpmnSignalEventDefinition) this.coreFactory.createElement("BpmnSignalEventDefinition");
+        return (BpmnSignalEventDefinition) this.modelService.getModelFactory().createElement("BpmnSignalEventDefinition");
     }
 
     @objid ("6209d9fa-e278-4c39-84e6-f8db48788ca4")
     @Override
     public BpmnStandardLoopCharacteristics createBpmnStandardLoopCharacteristics() {
-        return (BpmnStandardLoopCharacteristics) this.coreFactory.createElement("BpmnStandardLoopCharacteristics");
+        return (BpmnStandardLoopCharacteristics) this.modelService.getModelFactory().createElement("BpmnStandardLoopCharacteristics");
     }
 
     @objid ("7ed4b744-1ffa-4701-b032-66ee5ddee0c1")
     @Override
     public BpmnStartEvent createBpmnStartEvent() {
-        return (BpmnStartEvent) this.coreFactory.createElement("BpmnStartEvent");
+        return (BpmnStartEvent) this.modelService.getModelFactory().createElement("BpmnStartEvent");
     }
 
     @objid ("33e1919e-956e-46b9-9495-b96e3fd44a2f")
     @Override
     public BpmnSubProcess createBpmnSubProcess() {
-        return (BpmnSubProcess) this.coreFactory.createElement("BpmnSubProcess");
+        return (BpmnSubProcess) this.modelService.getModelFactory().createElement("BpmnSubProcess");
     }
 
     @objid ("6e24cfcb-2a8b-4f9d-a330-3b12e2d475dd")
     @Override
     public BpmnSubProcessDiagram createBpmnSubProcessDiagram() {
-        return (BpmnSubProcessDiagram) this.coreFactory.createElement("BpmnSubProcessDiagram");
+        return (BpmnSubProcessDiagram) this.modelService.getModelFactory().createElement("BpmnSubProcessDiagram");
     }
 
     @objid ("e7a604d8-1013-4197-9560-2b4db5a52109")
     @Override
     public BpmnTask createBpmnTask() {
-        return (BpmnTask) this.coreFactory.createElement("BpmnTask");
+        return (BpmnTask) this.modelService.getModelFactory().createElement("BpmnTask");
     }
 
     @objid ("196854d8-50e5-4a9e-bfd7-c6ab450fde73")
     @Override
     public BpmnTerminateEventDefinition createBpmnTerminateEventDefinition() {
-        return (BpmnTerminateEventDefinition) this.coreFactory.createElement("BpmnTerminateEventDefinition");
+        return (BpmnTerminateEventDefinition) this.modelService.getModelFactory().createElement("BpmnTerminateEventDefinition");
     }
 
     @objid ("86184bb2-c7d2-4d50-a789-a6ced1c9ba66")
     @Override
     public BpmnThrowEvent createBpmnThrowEvent() {
-        return (BpmnThrowEvent) this.coreFactory.createElement("BpmnThrowEvent");
+        return (BpmnThrowEvent) this.modelService.getModelFactory().createElement("BpmnThrowEvent");
     }
 
     @objid ("e31c5338-92ab-418c-81f3-257778dea160")
     @Override
     public BpmnTimerEventDefinition createBpmnTimerEventDefinition() {
-        return (BpmnTimerEventDefinition) this.coreFactory.createElement("BpmnTimerEventDefinition");
+        return (BpmnTimerEventDefinition) this.modelService.getModelFactory().createElement("BpmnTimerEventDefinition");
     }
 
     @objid ("93ee2466-113f-4b5a-acb7-02c2b0b1cc8e")
     @Override
     public BpmnTransaction createBpmnTransaction() {
-        return (BpmnTransaction) this.coreFactory.createElement("BpmnTransaction");
+        return (BpmnTransaction) this.modelService.getModelFactory().createElement("BpmnTransaction");
     }
 
     @objid ("fbf0fe26-43ad-4cb7-aecb-2840b88ce427")
     @Override
     public BpmnUserTask createBpmnUserTask() {
-        return (BpmnUserTask) this.coreFactory.createElement("BpmnUserTask");
+        return (BpmnUserTask) this.modelService.getModelFactory().createElement("BpmnUserTask");
     }
 
     /**
@@ -1187,7 +1186,7 @@ public class UMLModel implements IUmlModel {
     @objid ("006a104d-4406-4f55-b5fc-b37d4816c4cd")
     @Override
     public CallBehaviorAction createCallBehaviorAction() {
-        return this.coreFactory.createCallBehaviorAction();
+        return this.modelService.getModelFactory().createCallBehaviorAction();
     }
 
     /**
@@ -1203,7 +1202,7 @@ public class UMLModel implements IUmlModel {
     @objid ("2f215751-3edf-43d4-94f3-7de5e9d2643c")
     @Override
     public CallOperationAction createCallOperationAction() {
-        return this.coreFactory.createCallOperationAction();
+        return this.modelService.getModelFactory().createCallOperationAction();
     }
 
     /**
@@ -1218,7 +1217,7 @@ public class UMLModel implements IUmlModel {
     @objid ("09e8652b-bcec-4e9a-a756-e97482c0f767")
     @Override
     public CentralBufferNode createCentralBufferNode() {
-        return this.coreFactory.createCentralBufferNode();
+        return this.modelService.getModelFactory().createCentralBufferNode();
     }
 
     /**
@@ -1233,7 +1232,7 @@ public class UMLModel implements IUmlModel {
     @objid ("3da62da4-7459-4917-a432-6f7a042ebe0b")
     @Override
     public ChoicePseudoState createChoicePseudoState() {
-        return this.coreFactory.createChoicePseudoState();
+        return this.modelService.getModelFactory().createChoicePseudoState();
     }
 
     /**
@@ -1247,7 +1246,7 @@ public class UMLModel implements IUmlModel {
     @objid ("baed3667-0f23-4c80-8137-c24f364ac626")
     @Override
     public Class createClass() {
-        return this.coreFactory.createClass();
+        return this.modelService.getModelFactory().createClass();
     }
 
     /**
@@ -1261,7 +1260,7 @@ public class UMLModel implements IUmlModel {
     @objid ("2c7da03c-cfa6-4b77-82bf-1d2ba5d71d0a")
     @Override
     public Class createClass(String name, NameSpace owner) {
-        return this.coreFactory.createClass(name, owner);
+        return this.modelService.getModelFactory().createClass(name, owner);
     }
 
     /**
@@ -1278,7 +1277,7 @@ public class UMLModel implements IUmlModel {
     @objid ("c5d76cbe-072e-4a2b-807d-fc084d41d307")
     @Override
     public Class createClass(String name, NameSpace owner, Stereotype stereotype) {
-        return this.coreFactory.createClass(name, owner, stereotype);
+        return this.modelService.getModelFactory().createClass(name, owner, stereotype);
     }
 
     /**
@@ -1293,7 +1292,7 @@ public class UMLModel implements IUmlModel {
     @objid ("54b1d74d-8d1f-4480-8f1d-1e67532d4da9")
     @Override
     public ClassAssociation createClassAssociation() {
-        return this.coreFactory.createClassAssociation();
+        return this.modelService.getModelFactory().createClassAssociation();
     }
 
     /**
@@ -1312,7 +1311,7 @@ public class UMLModel implements IUmlModel {
     @objid ("9567272f-0a68-45b6-9f5c-8e25d8e10697")
     @Override
     public ClassDiagram createClassDiagram(final String name, final ModelElement owner, final Stereotype stereotype) {
-        return this.coreFactory.createClassDiagram(name, owner, stereotype);
+        return this.modelService.getModelFactory().createClassDiagram(name, owner, stereotype);
     }
 
     /**
@@ -1326,7 +1325,7 @@ public class UMLModel implements IUmlModel {
     @objid ("ee09e334-d7eb-480f-822b-bd737088d48c")
     @Override
     public Clause createClause() {
-        return this.coreFactory.createClause();
+        return this.modelService.getModelFactory().createClause();
     }
 
     /**
@@ -1340,7 +1339,7 @@ public class UMLModel implements IUmlModel {
     @objid ("2857f47c-d697-43f1-bda7-98ccf01fa41d")
     @Override
     public Collaboration createCollaboration() {
-        return this.coreFactory.createCollaboration();
+        return this.modelService.getModelFactory().createCollaboration();
     }
 
     /**
@@ -1355,7 +1354,7 @@ public class UMLModel implements IUmlModel {
     @objid ("afc723b5-37ac-4870-84ac-92f81a8b3549")
     @Override
     public CollaborationUse createCollaborationUse() {
-        return this.coreFactory.createCollaborationUse();
+        return this.modelService.getModelFactory().createCollaborationUse();
     }
 
     /**
@@ -1370,7 +1369,7 @@ public class UMLModel implements IUmlModel {
     @objid ("ea9e790b-e84e-4575-87d9-89649b7c3811")
     @Override
     public CombinedFragment createCombinedFragment() {
-        return this.coreFactory.createCombinedFragment();
+        return this.modelService.getModelFactory().createCombinedFragment();
     }
 
     /**
@@ -1385,7 +1384,7 @@ public class UMLModel implements IUmlModel {
     @objid ("1164e437-8e43-4029-a026-7ba11740c656")
     @Override
     public CombinedFragment createCombinedFragment(InteractionOperator operator) {
-        return this.coreFactory.createCombinedFragment(operator);
+        return this.modelService.getModelFactory().createCombinedFragment(operator);
     }
 
     /**
@@ -1407,7 +1406,7 @@ public class UMLModel implements IUmlModel {
     @objid ("0dc99445-19d0-4f2d-9313-0e5f38e3c90d")
     @Override
     public CommunicationDiagram createCommunicationDiagram(final String name, final ModelElement owner, final Stereotype stereotype) {
-        return this.coreFactory.createCommunicationDiagram(name, owner, stereotype);
+        return this.modelService.getModelFactory().createCommunicationDiagram(name, owner, stereotype);
     }
 
     /**
@@ -1421,7 +1420,7 @@ public class UMLModel implements IUmlModel {
     @objid ("66b7b66b-1b43-4726-8bca-ce84bdaf0bed")
     @Override
     public Component createComponent() {
-        return this.coreFactory.createComponent();
+        return this.modelService.getModelFactory().createComponent();
     }
 
     /**
@@ -1435,7 +1434,7 @@ public class UMLModel implements IUmlModel {
     @objid ("0df9f1b0-6539-48a3-b8de-a391fa286fa5")
     @Override
     public Component createComponent(String name, NameSpace owner) {
-        return this.coreFactory.createComponent(name, owner);
+        return this.modelService.getModelFactory().createComponent(name, owner);
     }
 
     /**
@@ -1452,7 +1451,7 @@ public class UMLModel implements IUmlModel {
     @objid ("4effce2d-b2f4-4ac8-a340-bbcece749a08")
     @Override
     public Component createComponent(String name, NameSpace owner, Stereotype stereotype) {
-        return this.coreFactory.createComponent(name, owner, stereotype);
+        return this.modelService.getModelFactory().createComponent(name, owner, stereotype);
     }
 
     /**
@@ -1467,7 +1466,7 @@ public class UMLModel implements IUmlModel {
     @objid ("14c8b3a2-dae4-4e5e-ac28-4c2a444f0f7c")
     @Override
     public ConditionalNode createConditionalNode() {
-        return this.coreFactory.createConditionalNode();
+        return this.modelService.getModelFactory().createConditionalNode();
     }
 
     /**
@@ -1483,7 +1482,7 @@ public class UMLModel implements IUmlModel {
     @objid ("a6caa19c-b653-4732-8c4f-72bbf82f90e5")
     @Override
     public ConnectionPointReference createConnectionPointReference() {
-        return this.coreFactory.createConnectionPointReference();
+        return this.modelService.getModelFactory().createConnectionPointReference();
     }
 
     /**
@@ -1497,7 +1496,7 @@ public class UMLModel implements IUmlModel {
     @objid ("0a7a2cf0-c456-466b-b17b-0020fdfd81ab")
     @Override
     public ConnectorEnd createConnectorEnd() {
-        return this.coreFactory.createConnectorEnd();
+        return this.modelService.getModelFactory().createConnectorEnd();
     }
 
     /**
@@ -1511,7 +1510,7 @@ public class UMLModel implements IUmlModel {
     @objid ("3481eeb4-beba-4a33-a134-c9c5f0e6e50a")
     @Override
     public Constraint createConstraint() {
-        return this.coreFactory.createConstraint();
+        return this.modelService.getModelFactory().createConstraint();
     }
 
     /**
@@ -1525,7 +1524,7 @@ public class UMLModel implements IUmlModel {
     @objid ("75c5c894-7e02-4f2f-b87c-f6f78050946b")
     @Override
     public ControlFlow createControlFlow() {
-        return this.coreFactory.createControlFlow();
+        return this.modelService.getModelFactory().createControlFlow();
     }
 
     /**
@@ -1539,7 +1538,7 @@ public class UMLModel implements IUmlModel {
     @objid ("e2a8df71-453d-418a-8885-082884bd02d7")
     @Override
     public DataFlow createDataFlow() {
-        return this.coreFactory.createDataFlow();
+        return this.modelService.getModelFactory().createDataFlow();
     }
 
     /**
@@ -1553,7 +1552,7 @@ public class UMLModel implements IUmlModel {
     @objid ("060fc6a2-6558-4f9d-9785-95c4adb91944")
     @Override
     public DataStoreNode createDataStoreNode() {
-        return this.coreFactory.createDataStoreNode();
+        return this.modelService.getModelFactory().createDataStoreNode();
     }
 
     /**
@@ -1567,7 +1566,7 @@ public class UMLModel implements IUmlModel {
     @objid ("8b089d1b-33b8-401c-8770-cc104c6b5ccf")
     @Override
     public DataType createDataType() {
-        return this.coreFactory.createDataType();
+        return this.modelService.getModelFactory().createDataType();
     }
 
     /**
@@ -1581,7 +1580,7 @@ public class UMLModel implements IUmlModel {
     @objid ("484b1652-902f-4954-8b2d-c422d7c294e7")
     @Override
     public DataType createDataType(String name, NameSpace owner) {
-        return this.coreFactory.createDataType(name, owner);
+        return this.modelService.getModelFactory().createDataType(name, owner);
     }
 
     /**
@@ -1599,7 +1598,7 @@ public class UMLModel implements IUmlModel {
     @objid ("11c195df-d9f2-4c08-bd03-408f7f1b18a5")
     @Override
     public DataType createDataType(String name, NameSpace owner, Stereotype stereotype) {
-        return this.coreFactory.createDataType(name, owner, stereotype);
+        return this.modelService.getModelFactory().createDataType(name, owner, stereotype);
     }
 
     /**
@@ -1614,7 +1613,7 @@ public class UMLModel implements IUmlModel {
     @objid ("3c9283e0-093b-4c5d-8899-50db9e47c37e")
     @Override
     public DecisionMergeNode createDecisionMergeNode() {
-        return this.coreFactory.createDecisionMergeNode();
+        return this.modelService.getModelFactory().createDecisionMergeNode();
     }
 
     /**
@@ -1630,7 +1629,7 @@ public class UMLModel implements IUmlModel {
     @objid ("adaf07f8-d591-43d3-8b4e-29fc0cf3a465")
     @Override
     public DeepHistoryPseudoState createDeepHistoryPseudoState() {
-        return this.coreFactory.createDeepHistoryPseudoState();
+        return this.modelService.getModelFactory().createDeepHistoryPseudoState();
     }
 
     /**
@@ -1644,7 +1643,7 @@ public class UMLModel implements IUmlModel {
     @objid ("ebe05e96-7732-4371-ae95-f0558bd01d81")
     @Override
     public Dependency createDependency() {
-        return this.coreFactory.createDependency();
+        return this.modelService.getModelFactory().createDependency();
     }
 
     /**
@@ -1659,7 +1658,7 @@ public class UMLModel implements IUmlModel {
     @objid ("aa469865-c7ab-47ef-89d3-fe3609a740b1")
     @Override
     public Dependency createDependency(ModelElement source, ModelElement destination, Stereotype stereotype) {
-        return this.coreFactory.createDependency(source, destination, stereotype);
+        return this.modelService.getModelFactory().createDependency(source, destination, stereotype);
     }
 
     /**
@@ -1679,7 +1678,7 @@ public class UMLModel implements IUmlModel {
     @objid ("42f38ed3-0089-443b-a94e-a1cdba3e35ff")
     @Override
     public DeploymentDiagram createDeploymentDiagram(final String name, final ModelElement owner, final Stereotype stereotype) {
-        return this.coreFactory.createDeploymentDiagram(name, owner, stereotype);
+        return this.modelService.getModelFactory().createDeploymentDiagram(name, owner, stereotype);
     }
 
     /**
@@ -1688,7 +1687,7 @@ public class UMLModel implements IUmlModel {
     @objid ("7edb28d6-6682-4316-8640-ed7b201d19cd")
     @Override
     public DiagramSet createDiagramSet() {
-        return this.coreFactory.createDiagramSet();
+        return this.modelService.getModelFactory().createDiagramSet();
     }
 
     /**
@@ -1704,19 +1703,19 @@ public class UMLModel implements IUmlModel {
     @objid ("ba18826c-b1b7-4771-b12d-682b9ac5a801")
     @Override
     public DurationConstraint createDurationConstraint() {
-        return this.coreFactory.createDurationConstraint();
+        return this.modelService.getModelFactory().createDurationConstraint();
     }
 
     @objid ("e0d377d0-957d-47bc-bc7d-19a972e53506")
     @Override
     public Element createElement(final String targetClass, final Element parentElement, final String dependency) {
-        return this.coreFactory.createElement(targetClass, parentElement, dependency);
+        return this.modelService.getModelFactory().createElement(targetClass, parentElement, dependency);
     }
 
     @objid ("5336cd29-47a4-4a3b-8bcc-998aabdef6c3")
     @Override
     public Element createElement(final String metaclassName) {
-        return this.coreFactory.createElement(metaclassName);
+        return this.modelService.getModelFactory().createElement(metaclassName);
     }
 
     @objid ("a6f15b63-b111-4f50-a027-91bc3fd36023")
@@ -1736,7 +1735,7 @@ public class UMLModel implements IUmlModel {
     @objid ("74f28a44-7dae-4d0e-9e0c-a382206a11ba")
     @Override
     public ElementImport createElementImport() {
-        return this.coreFactory.createElementImport();
+        return this.modelService.getModelFactory().createElementImport();
     }
 
     /**
@@ -1748,7 +1747,7 @@ public class UMLModel implements IUmlModel {
     @objid ("c28af4b8-3882-46a9-b2cf-b6a52d79751e")
     @Override
     public ElementImport createElementImport(NameSpace source, NameSpace destination) {
-        return this.coreFactory.createElementImport(source, destination);
+        return this.modelService.getModelFactory().createElementImport(source, destination);
     }
 
     /**
@@ -1760,7 +1759,7 @@ public class UMLModel implements IUmlModel {
     @objid ("e3571b45-acee-4e47-8315-4d55d0a363d3")
     @Override
     public ElementImport createElementImport(Operation source, NameSpace destination) {
-        return this.coreFactory.createElementImport(source, destination);
+        return this.modelService.getModelFactory().createElementImport(source, destination);
     }
 
     /**
@@ -1776,7 +1775,7 @@ public class UMLModel implements IUmlModel {
     @objid ("de0ea9ff-6c85-4628-bc84-bfca7ef9d5e1")
     @Override
     public ElementRealization createElementRealization() {
-        return this.coreFactory.createElementRealization();
+        return this.modelService.getModelFactory().createElementRealization();
     }
 
     /**
@@ -1792,7 +1791,7 @@ public class UMLModel implements IUmlModel {
     @objid ("815e27c8-c6a2-408c-9b3e-b01bd62f218c")
     @Override
     public EntryPointPseudoState createEntryPointPseudoState() {
-        return this.coreFactory.createEntryPointPseudoState();
+        return this.modelService.getModelFactory().createEntryPointPseudoState();
     }
 
     /**
@@ -1806,7 +1805,7 @@ public class UMLModel implements IUmlModel {
     @objid ("b4af8391-96f6-442d-8863-9db07eff20bd")
     @Override
     public Enumeration createEnumeration() {
-        return this.coreFactory.createEnumeration();
+        return this.modelService.getModelFactory().createEnumeration();
     }
 
     /**
@@ -1818,7 +1817,7 @@ public class UMLModel implements IUmlModel {
     @objid ("eada05c2-57af-4f11-b619-70babf907528")
     @Override
     public Enumeration createEnumeration(String name, NameSpace owner) {
-        return this.coreFactory.createEnumeration(name, owner);
+        return this.modelService.getModelFactory().createEnumeration(name, owner);
     }
 
     /**
@@ -1833,7 +1832,7 @@ public class UMLModel implements IUmlModel {
     @objid ("dcbe15b6-0c65-46f0-895e-6ddf44012b2b")
     @Override
     public Enumeration createEnumeration(String name, NameSpace owner, Stereotype stereotype) {
-        return this.coreFactory.createEnumeration(name, owner, stereotype);
+        return this.modelService.getModelFactory().createEnumeration(name, owner, stereotype);
     }
 
     /**
@@ -1849,7 +1848,7 @@ public class UMLModel implements IUmlModel {
     @objid ("47c8e071-04c0-4427-957a-73f21eaf0e4a")
     @Override
     public EnumerationLiteral createEnumerationLiteral() {
-        return this.coreFactory.createEnumerationLiteral();
+        return this.modelService.getModelFactory().createEnumerationLiteral();
     }
 
     /**
@@ -1861,7 +1860,7 @@ public class UMLModel implements IUmlModel {
     @objid ("1b9bf981-0ade-4b50-b3bc-45ddf50cdea5")
     @Override
     public EnumerationLiteral createEnumerationLiteral(String name, Enumeration owner) {
-        return this.coreFactory.createEnumerationLiteral(name, owner);
+        return this.modelService.getModelFactory().createEnumerationLiteral(name, owner);
     }
 
     /**
@@ -1876,7 +1875,7 @@ public class UMLModel implements IUmlModel {
     @objid ("ff00a657-b430-4e5e-a674-4b885ce04118")
     @Override
     public EnumerationLiteral createEnumerationLiteral(String name, Enumeration owner, Stereotype stereotype) {
-        return this.coreFactory.createEnumerationLiteral(name, owner, stereotype);
+        return this.modelService.getModelFactory().createEnumerationLiteral(name, owner, stereotype);
     }
 
     /**
@@ -1890,13 +1889,13 @@ public class UMLModel implements IUmlModel {
     @objid ("177c2201-ad72-4de3-8a2e-7d506341d9b9")
     @Override
     public Event createEvent() {
-        return this.coreFactory.createEvent();
+        return this.modelService.getModelFactory().createEvent();
     }
 
     @objid ("0fea5d06-760d-4249-96de-3f4e4ba713a0")
     @Override
     public ExceptionHandler createExceptionHandler() {
-        return (ExceptionHandler) this.coreFactory.createElement("ExceptionHandler");
+        return (ExceptionHandler) this.modelService.getModelFactory().createElement("ExceptionHandler");
     }
 
     /**
@@ -1912,7 +1911,7 @@ public class UMLModel implements IUmlModel {
     @objid ("bebc8fbe-a443-4f9c-b363-eb79ee06cf21")
     @Override
     public ExecutionOccurenceSpecification createExecutionOccurenceSpecification() {
-        return this.coreFactory.createExecutionOccurenceSpecification();
+        return this.modelService.getModelFactory().createExecutionOccurenceSpecification();
     }
 
     /**
@@ -1928,7 +1927,7 @@ public class UMLModel implements IUmlModel {
     @objid ("cdb362d3-2288-42d6-9212-b2ca014572b8")
     @Override
     public ExecutionSpecification createExecutionSpecification() {
-        return this.coreFactory.createExecutionSpecification();
+        return this.modelService.getModelFactory().createExecutionSpecification();
     }
 
     /**
@@ -1944,19 +1943,19 @@ public class UMLModel implements IUmlModel {
     @objid ("67ccd03c-9993-44e4-9549-8fd98c6b9763")
     @Override
     public ExitPointPseudoState createExitPointPseudoState() {
-        return this.coreFactory.createExitPointPseudoState();
+        return this.modelService.getModelFactory().createExitPointPseudoState();
     }
 
     @objid ("d825e70d-4ba6-4857-894b-9aecc3894629")
     @Override
     public ExpansionNode createExpansionNode() {
-        return (ExpansionNode) this.coreFactory.createElement("ExpansionNode");
+        return (ExpansionNode) this.modelService.getModelFactory().createElement("ExpansionNode");
     }
 
     @objid ("6c31b7ca-e85f-4fa4-8302-ba6ec7761dd2")
     @Override
     public ExpansionRegion createExpansionRegion() {
-        return (ExpansionRegion) this.coreFactory.createElement("ExpansionRegion");
+        return (ExpansionRegion) this.modelService.getModelFactory().createElement("ExpansionRegion");
     }
 
     /**
@@ -1972,7 +1971,7 @@ public class UMLModel implements IUmlModel {
     @Override
     public UseCaseDependency createExtendUseCaseDependency(UseCase source, UseCase destination) throws ExtensionNotFoundException {
         try {
-            return this.coreFactory.createExtendUseCaseDependency(source, destination);
+            return this.modelService.getModelFactory().createExtendUseCaseDependency(source, destination);
         } catch (ExtensionNotFoundException e) {
             throw new ExtensionNotFoundException(e);
         }
@@ -1989,20 +1988,20 @@ public class UMLModel implements IUmlModel {
     @objid ("1877f964-f0c1-42ea-b6bd-6ed96258c099")
     @Override
     public ExtensionPoint createExtensionPoint() {
-        return this.coreFactory.createExtensionPoint();
+        return this.modelService.getModelFactory().createExtensionPoint();
     }
 
     @objid ("b2566358-67bf-484a-b6ba-823ebd6d0d0c")
     @Override
     public ExternDocument createExternDocument() {
-        return this.coreFactory.createExternDocument();
+        return this.modelService.getModelFactory().createExternDocument();
     }
 
     @objid ("04162f69-8ca8-4dd6-b3d1-457eaec97f62")
     @Override
     public ExternDocument createExternDocument(String moduleName, final String documentRole, final ModelElement owner, final String mimeType) throws IOException, ExtensionNotFoundException {
         try {
-            return this.coreFactory.createExternDocument(moduleName, documentRole, owner, mimeType);
+            return this.modelService.getModelFactory().createExternDocument(moduleName, documentRole, owner, mimeType);
         } catch (ExtensionNotFoundException e) {
             throw new ExtensionNotFoundException(e);
         }
@@ -2019,7 +2018,7 @@ public class UMLModel implements IUmlModel {
     @objid ("b05cdb3e-63e7-4a87-a803-5aac6b45dc8e")
     @Override
     public FinalState createFinalState() {
-        return this.coreFactory.createFinalState();
+        return this.modelService.getModelFactory().createFinalState();
     }
 
     /**
@@ -2033,7 +2032,7 @@ public class UMLModel implements IUmlModel {
     @objid ("555814bf-40ea-43e1-bd93-0465fa072765")
     @Override
     public FlowFinalNode createFlowFinalNode() {
-        return this.coreFactory.createFlowFinalNode();
+        return this.modelService.getModelFactory().createFlowFinalNode();
     }
 
     /**
@@ -2047,7 +2046,7 @@ public class UMLModel implements IUmlModel {
     @objid ("fd1aedfc-2473-4855-b7ae-8976adb69b14")
     @Override
     public ForkJoinNode createForkJoinNode() {
-        return this.coreFactory.createForkJoinNode();
+        return this.modelService.getModelFactory().createForkJoinNode();
     }
 
     /**
@@ -2062,7 +2061,7 @@ public class UMLModel implements IUmlModel {
     @objid ("dbdf1b61-c3ff-4ddb-bc5e-138270a2e1e9")
     @Override
     public ForkPseudoState createForkPseudoState() {
-        return this.coreFactory.createForkPseudoState();
+        return this.modelService.getModelFactory().createForkPseudoState();
     }
 
     /**
@@ -2076,7 +2075,7 @@ public class UMLModel implements IUmlModel {
     @objid ("7b0db3c5-9671-40a2-b1c7-3894da84db23")
     @Override
     public Gate createGate() {
-        return this.coreFactory.createGate();
+        return this.modelService.getModelFactory().createGate();
     }
 
     /**
@@ -2090,7 +2089,7 @@ public class UMLModel implements IUmlModel {
     @objid ("9ece5b8e-5e4a-4d94-a0c4-db28a47d45a8")
     @Override
     public Gate createGate(String name) {
-        return this.coreFactory.createGate(name);
+        return this.modelService.getModelFactory().createGate(name);
     }
 
     /**
@@ -2105,7 +2104,7 @@ public class UMLModel implements IUmlModel {
     @objid ("e9a42f75-902d-4163-bd91-0e9a9528f2f6")
     @Override
     public GeneralOrdering createGeneralOrdering() {
-        return this.coreFactory.createGeneralOrdering();
+        return this.modelService.getModelFactory().createGeneralOrdering();
     }
 
     /**
@@ -2119,7 +2118,7 @@ public class UMLModel implements IUmlModel {
     @objid ("6360743e-f41c-4322-84c6-a906a544a234")
     @Override
     public Generalization createGeneralization() {
-        return this.coreFactory.createGeneralization();
+        return this.modelService.getModelFactory().createGeneralization();
     }
 
     /**
@@ -2131,7 +2130,7 @@ public class UMLModel implements IUmlModel {
     @objid ("a6642690-3f33-4d2a-8e8a-85259dfbb7ee")
     @Override
     public Generalization createGeneralization(NameSpace source, NameSpace destination) {
-        return this.coreFactory.createGeneralization(source, destination);
+        return this.modelService.getModelFactory().createGeneralization(source, destination);
     }
 
     /**
@@ -2144,7 +2143,7 @@ public class UMLModel implements IUmlModel {
     @objid ("73ba28fb-be97-4609-ad9a-d2e3a897ee45")
     @Override
     public Parameter createIOParameter(String name, GeneralClass type, Operation owner) {
-        return this.coreFactory.createIOParameter(name, type, owner);
+        return this.modelService.getModelFactory().createIOParameter(name, type, owner);
     }
 
     /**
@@ -2160,7 +2159,7 @@ public class UMLModel implements IUmlModel {
     @objid ("8062ea3d-1a7b-4e78-973a-34d05edd5315")
     @Override
     public Parameter createIOParameter(String name, GeneralClass type, Operation owner, Stereotype stereotype) {
-        return this.coreFactory.createIOParameter(name, type, owner, stereotype);
+        return this.modelService.getModelFactory().createIOParameter(name, type, owner, stereotype);
     }
 
     /**
@@ -2177,7 +2176,7 @@ public class UMLModel implements IUmlModel {
     @Override
     public UseCaseDependency createIncludeUseCaseDependency(UseCase source, UseCase destination) throws ExtensionNotFoundException {
         try {
-            return this.coreFactory.createIncludeUseCaseDependency(source, destination);
+            return this.modelService.getModelFactory().createIncludeUseCaseDependency(source, destination);
         } catch (ExtensionNotFoundException e) {
             throw new ExtensionNotFoundException(e);
         }
@@ -2195,7 +2194,7 @@ public class UMLModel implements IUmlModel {
     @objid ("bf466df3-d6e2-4805-ad43-409fbc50a140")
     @Override
     public InformationFlow createInformationFlow() {
-        return this.coreFactory.createInformationFlow();
+        return this.modelService.getModelFactory().createInformationFlow();
     }
 
     /**
@@ -2210,7 +2209,7 @@ public class UMLModel implements IUmlModel {
     @objid ("b6d6e69a-3f52-4321-bf46-a53058a1fa5c")
     @Override
     public InformationItem createInformationItem() {
-        return this.coreFactory.createInformationItem();
+        return this.modelService.getModelFactory().createInformationItem();
     }
 
     /**
@@ -2224,7 +2223,7 @@ public class UMLModel implements IUmlModel {
     @objid ("04145221-6862-4d0f-bcce-f5f300891199")
     @Override
     public InitialNode createInitialNode() {
-        return this.coreFactory.createInitialNode();
+        return this.modelService.getModelFactory().createInitialNode();
     }
 
     /**
@@ -2240,7 +2239,7 @@ public class UMLModel implements IUmlModel {
     @objid ("98c7a2f3-fcb4-4734-bdff-8b242f0a1117")
     @Override
     public InitialPseudoState createInitialPseudoState() {
-        return this.coreFactory.createInitialPseudoState();
+        return this.modelService.getModelFactory().createInitialPseudoState();
     }
 
     /**
@@ -2254,7 +2253,7 @@ public class UMLModel implements IUmlModel {
     @objid ("bfe94eb0-f475-4cb6-950e-6c88922388d2")
     @Override
     public InputPin createInputPin() {
-        return this.coreFactory.createInputPin();
+        return this.modelService.getModelFactory().createInputPin();
     }
 
     /**
@@ -2268,7 +2267,7 @@ public class UMLModel implements IUmlModel {
     @objid ("43fdf71a-9e07-4fd6-ae9f-2263c4dbcfc1")
     @Override
     public Instance createInstance() {
-        return this.coreFactory.createInstance();
+        return this.modelService.getModelFactory().createInstance();
     }
 
     /**
@@ -2282,7 +2281,7 @@ public class UMLModel implements IUmlModel {
     @objid ("d11a545f-3ada-44b2-a4bd-48bdacc3e9a7")
     @Override
     public Instance createInstance(String name, Package owner) {
-        return this.coreFactory.createInstance(name, owner);
+        return this.modelService.getModelFactory().createInstance(name, owner);
     }
 
     /**
@@ -2296,7 +2295,7 @@ public class UMLModel implements IUmlModel {
     @objid ("9bbea1a1-d266-4ea2-95aa-3548189698f3")
     @Override
     public InstanceNode createInstanceNode() {
-        return this.coreFactory.createInstanceNode();
+        return this.modelService.getModelFactory().createInstanceNode();
     }
 
     /**
@@ -2310,7 +2309,7 @@ public class UMLModel implements IUmlModel {
     @objid ("f60aa706-2ca2-4341-b9f3-dc2087db8fc5")
     @Override
     public Interaction createInteraction() {
-        return this.coreFactory.createInteraction();
+        return this.modelService.getModelFactory().createInteraction();
     }
 
     /**
@@ -2326,7 +2325,7 @@ public class UMLModel implements IUmlModel {
     @objid ("2453f314-1da3-403e-b260-063507145af0")
     @Override
     public InteractionOperand createInteractionOperand() {
-        return this.coreFactory.createInteractionOperand();
+        return this.modelService.getModelFactory().createInteractionOperand();
     }
 
     /**
@@ -2341,7 +2340,7 @@ public class UMLModel implements IUmlModel {
     @objid ("78f63855-aa56-40e1-956f-e8a9bc8482de")
     @Override
     public InteractionOperand createInteractionOperand(String guard) {
-        return this.coreFactory.createInteractionOperand(guard);
+        return this.modelService.getModelFactory().createInteractionOperand(guard);
     }
 
     /**
@@ -2355,7 +2354,7 @@ public class UMLModel implements IUmlModel {
     @objid ("2affcbf0-82f2-4a39-93e2-52eea9fca02d")
     @Override
     public InteractionUse createInteractionUse() {
-        return this.coreFactory.createInteractionUse();
+        return this.modelService.getModelFactory().createInteractionUse();
     }
 
     /**
@@ -2369,7 +2368,7 @@ public class UMLModel implements IUmlModel {
     @objid ("c4f54fde-ea11-43aa-a431-5205f0cb07a3")
     @Override
     public InteractionUse createInteractionUse(Interaction refered) {
-        return this.coreFactory.createInteractionUse(refered);
+        return this.modelService.getModelFactory().createInteractionUse(refered);
     }
 
     /**
@@ -2383,7 +2382,7 @@ public class UMLModel implements IUmlModel {
     @objid ("950b1e85-b47e-4076-8c7e-075abe389f4f")
     @Override
     public Interface createInterface() {
-        return this.coreFactory.createInterface();
+        return this.modelService.getModelFactory().createInterface();
     }
 
     /**
@@ -2395,7 +2394,7 @@ public class UMLModel implements IUmlModel {
     @objid ("78cf1b74-0d22-46b9-9cda-a7d304216b47")
     @Override
     public Interface createInterface(String name, NameSpace owner) {
-        return this.coreFactory.createInterface(name, owner);
+        return this.modelService.getModelFactory().createInterface(name, owner);
     }
 
     /**
@@ -2410,7 +2409,7 @@ public class UMLModel implements IUmlModel {
     @objid ("69778a58-64da-475c-bda2-f26fea3804cb")
     @Override
     public Interface createInterface(String name, NameSpace owner, Stereotype stereotype) {
-        return this.coreFactory.createInterface(name, owner, stereotype);
+        return this.modelService.getModelFactory().createInterface(name, owner, stereotype);
     }
 
     /**
@@ -2426,7 +2425,7 @@ public class UMLModel implements IUmlModel {
     @objid ("dc30464c-51cb-4306-b71f-740a92e93a7b")
     @Override
     public InterfaceRealization createInterfaceRealization() {
-        return this.coreFactory.createInterfaceRealization();
+        return this.modelService.getModelFactory().createInterfaceRealization();
     }
 
     /**
@@ -2439,7 +2438,7 @@ public class UMLModel implements IUmlModel {
     @objid ("6a077a94-f888-4046-b401-afbd291722d1")
     @Override
     public InterfaceRealization createInterfaceRealization(NameSpace source, Interface destination) {
-        return this.coreFactory.createInterfaceRealization(source, destination);
+        return this.modelService.getModelFactory().createInterfaceRealization(source, destination);
     }
 
     /**
@@ -2455,7 +2454,7 @@ public class UMLModel implements IUmlModel {
     @objid ("9cd9b2ad-fc7b-475d-8837-88c000fd315e")
     @Override
     public InternalTransition createInternalTransition() {
-        return this.coreFactory.createInternalTransition();
+        return this.modelService.getModelFactory().createInternalTransition();
     }
 
     /**
@@ -2471,7 +2470,7 @@ public class UMLModel implements IUmlModel {
     @objid ("26c811cf-3813-4f66-84e3-f74ab051ca1c")
     @Override
     public InterruptibleActivityRegion createInterruptibleActivityRegion() {
-        return this.coreFactory.createInterruptibleActivityRegion();
+        return this.modelService.getModelFactory().createInterruptibleActivityRegion();
     }
 
     /**
@@ -2486,7 +2485,7 @@ public class UMLModel implements IUmlModel {
     @objid ("7841f99a-d38f-44a8-be9e-43998c3fc834")
     @Override
     public JoinPseudoState createJoinPseudoState() {
-        return this.coreFactory.createJoinPseudoState();
+        return this.modelService.getModelFactory().createJoinPseudoState();
     }
 
     /**
@@ -2502,7 +2501,7 @@ public class UMLModel implements IUmlModel {
     @objid ("0f8ee2bd-f340-499e-a5e3-aa7514c057a0")
     @Override
     public JunctionPseudoState createJunctionPseudoState() {
-        return this.coreFactory.createJunctionPseudoState();
+        return this.modelService.getModelFactory().createJunctionPseudoState();
     }
 
     /**
@@ -2516,7 +2515,7 @@ public class UMLModel implements IUmlModel {
     @objid ("9013ed66-6868-4d9b-8401-924cfebfedec")
     @Override
     public Lifeline createLifeline() {
-        return this.coreFactory.createLifeline();
+        return this.modelService.getModelFactory().createLifeline();
     }
 
     /**
@@ -2531,7 +2530,7 @@ public class UMLModel implements IUmlModel {
     @objid ("ffc00342-3388-40d2-8d44-efc4d6b6f921")
     @Override
     public Lifeline createLifeline(String name, Interaction owner) {
-        return this.coreFactory.createLifeline(name, owner);
+        return this.modelService.getModelFactory().createLifeline(name, owner);
     }
 
     /**
@@ -2548,7 +2547,7 @@ public class UMLModel implements IUmlModel {
     @objid ("aac6e431-0c95-4c34-b2a9-6f6a26684202")
     @Override
     public Lifeline createLifeline(String name, Interaction owner, Instance represented) {
-        return this.coreFactory.createLifeline(name, owner, represented);
+        return this.modelService.getModelFactory().createLifeline(name, owner, represented);
     }
 
     /**
@@ -2562,39 +2561,19 @@ public class UMLModel implements IUmlModel {
     @objid ("c1c866c1-ea73-463a-86d6-f9b39f70eafa")
     @Override
     public LinkEnd createLinkEnd() {
-        return this.coreFactory.createLinkEnd();
+        return this.modelService.getModelFactory().createLinkEnd();
     }
 
     @objid ("1b629775-3890-4a15-8f81-27c6a2e1e6e4")
     @Override
     public Link createLink() {
-        return this.coreFactory.createLink();
+        return this.modelService.getModelFactory().createLink();
     }
 
     @objid ("b765cb84-9e1f-4e23-b431-44c0499a76d6")
     @Override
     public Connector createConnector() {
-        return this.coreFactory.createConnector();
-    }
-
-    /**
-     * Create LocalNote
-     * @return The created LocalNote.
-     */
-    @objid ("9b214e77-8efe-4da0-b738-4e1829c23d75")
-    @Override
-    public LocalNote createLocalNote() {
-        return this.coreFactory.createLocalNote();
-    }
-
-    /**
-     * Create LocalTaggedValue
-     * @return The created LocalTaggedValue.
-     */
-    @objid ("e2442d8d-095e-46b3-979c-a682cf5d0a03")
-    @Override
-    public LocalTaggedValue createLocalTaggedValue() {
-        return this.coreFactory.createLocalTaggedValue();
+        return this.modelService.getModelFactory().createConnector();
     }
 
     /**
@@ -2608,7 +2587,7 @@ public class UMLModel implements IUmlModel {
     @objid ("3e761365-697a-4317-83e0-840b7ee452f8")
     @Override
     public LoopNode createLoopNode() {
-        return this.coreFactory.createLoopNode();
+        return this.modelService.getModelFactory().createLoopNode();
     }
 
     /**
@@ -2622,7 +2601,7 @@ public class UMLModel implements IUmlModel {
     @objid ("1e67fcf4-78e0-424c-b3b3-b57aa9c17850")
     @Override
     public Manifestation createManifestation() {
-        return this.coreFactory.createManifestation();
+        return this.modelService.getModelFactory().createManifestation();
     }
 
     /**
@@ -2636,7 +2615,7 @@ public class UMLModel implements IUmlModel {
     @objid ("7dbd3591-10f9-4ac4-8b38-a03d9c876697")
     @Override
     public Message createMessage() {
-        return this.coreFactory.createMessage();
+        return this.modelService.getModelFactory().createMessage();
     }
 
     /**
@@ -2650,7 +2629,7 @@ public class UMLModel implements IUmlModel {
     @objid ("a2279023-3b89-4a81-9a2d-8299955aeefe")
     @Override
     public Message createMessage(MessageSort sort) {
-        return this.coreFactory.createMessage(sort);
+        return this.modelService.getModelFactory().createMessage(sort);
     }
 
     /**
@@ -2665,7 +2644,7 @@ public class UMLModel implements IUmlModel {
     @objid ("288e8e58-4a06-4bfd-b131-a4c45a3a8434")
     @Override
     public Message createMessage(MessageSort sort, Operation invoked) {
-        return this.coreFactory.createMessage(sort, invoked);
+        return this.modelService.getModelFactory().createMessage(sort, invoked);
     }
 
     /**
@@ -2680,7 +2659,7 @@ public class UMLModel implements IUmlModel {
     @objid ("caa14a4a-9376-4584-a64f-a40b51f0afd4")
     @Override
     public Message createMessage(String name, MessageSort sort) {
-        return this.coreFactory.createMessage(name, sort);
+        return this.modelService.getModelFactory().createMessage(name, sort);
     }
 
     /**
@@ -2694,7 +2673,7 @@ public class UMLModel implements IUmlModel {
     @objid ("19dcfa23-176d-45e8-8c8f-932cf6874a9c")
     @Override
     public MessageFlow createMessageFlow() {
-        return this.coreFactory.createMessageFlow();
+        return this.modelService.getModelFactory().createMessageFlow();
     }
 
     /**
@@ -2704,7 +2683,7 @@ public class UMLModel implements IUmlModel {
     @objid ("d0476e05-a583-4df6-8d58-0b921b6309f2")
     @Override
     public NamespaceUse createNamespaceUse() {
-        return this.coreFactory.createNamespaceUse();
+        return this.modelService.getModelFactory().createNamespaceUse();
     }
 
     /**
@@ -2718,7 +2697,7 @@ public class UMLModel implements IUmlModel {
     @objid ("54232fee-c447-413c-985a-1889413bdb39")
     @Override
     public Node createNode() {
-        return this.coreFactory.createNode();
+        return this.modelService.getModelFactory().createNode();
     }
 
     /**
@@ -2732,7 +2711,7 @@ public class UMLModel implements IUmlModel {
     @objid ("645ba0f8-1b4d-4410-a3ca-cd9721a81a07")
     @Override
     public Note createNote() {
-        return this.coreFactory.createNote();
+        return this.modelService.getModelFactory().createNote();
     }
 
     /**
@@ -2749,7 +2728,7 @@ public class UMLModel implements IUmlModel {
     @Override
     public Note createNote(String moduleName, String noteType, ModelElement owner, String content) throws ExtensionNotFoundException {
         try {
-            return this.coreFactory.createNote(moduleName, noteType, owner, content);
+            return this.modelService.getModelFactory().createNote(moduleName, noteType, owner, content);
         } catch (ExtensionNotFoundException e) {
             throw new ExtensionNotFoundException(e);
         }
@@ -2772,7 +2751,7 @@ public class UMLModel implements IUmlModel {
     @objid ("12ae7cb9-9983-4623-ad60-aae0d72a6b26")
     @Override
     public ObjectDiagram createObjectDiagram(final String name, final ModelElement owner, final Stereotype stereotype) {
-        return this.coreFactory.createObjectDiagram(name, owner, stereotype);
+        return this.modelService.getModelFactory().createObjectDiagram(name, owner, stereotype);
     }
 
     /**
@@ -2786,7 +2765,7 @@ public class UMLModel implements IUmlModel {
     @objid ("61f69a24-a09e-4e91-a39d-b2697e5c4a4a")
     @Override
     public ObjectFlow createObjectFlow() {
-        return this.coreFactory.createObjectFlow();
+        return this.modelService.getModelFactory().createObjectFlow();
     }
 
     /**
@@ -2800,7 +2779,7 @@ public class UMLModel implements IUmlModel {
     @objid ("765801c8-2bd6-4437-b181-1c5d57e3cba9")
     @Override
     public OpaqueAction createOpaqueAction() {
-        return this.coreFactory.createOpaqueAction();
+        return this.modelService.getModelFactory().createOpaqueAction();
     }
 
     /**
@@ -2814,7 +2793,7 @@ public class UMLModel implements IUmlModel {
     @objid ("fb44a558-46b1-49a9-bdef-702d8b31facb")
     @Override
     public OpaqueBehavior createOpaqueBehavior() {
-        return this.coreFactory.createOpaqueBehavior();
+        return this.modelService.getModelFactory().createOpaqueBehavior();
     }
 
     /**
@@ -2828,7 +2807,7 @@ public class UMLModel implements IUmlModel {
     @objid ("1f955855-48a5-4241-85f8-7a51c61d70d7")
     @Override
     public Operation createOperation() {
-        return this.coreFactory.createOperation();
+        return this.modelService.getModelFactory().createOperation();
     }
 
     /**
@@ -2840,7 +2819,7 @@ public class UMLModel implements IUmlModel {
     @objid ("af70d0ac-c696-4ba5-b720-c5177bdd7164")
     @Override
     public Operation createOperation(String name, Classifier owner) {
-        return this.coreFactory.createOperation(name, owner);
+        return this.modelService.getModelFactory().createOperation(name, owner);
     }
 
     /**
@@ -2855,7 +2834,7 @@ public class UMLModel implements IUmlModel {
     @objid ("5083f70f-a877-432e-b35d-6660312541ba")
     @Override
     public Operation createOperation(String name, Classifier owner, Stereotype stereotype) {
-        return this.coreFactory.createOperation(name, owner, stereotype);
+        return this.modelService.getModelFactory().createOperation(name, owner, stereotype);
     }
 
     /**
@@ -2869,7 +2848,7 @@ public class UMLModel implements IUmlModel {
     @objid ("d9920f99-74c5-48f7-a320-a81a2e5fb850")
     @Override
     public OutputPin createOutputPin() {
-        return this.coreFactory.createOutputPin();
+        return this.modelService.getModelFactory().createOutputPin();
     }
 
     /**
@@ -2883,7 +2862,7 @@ public class UMLModel implements IUmlModel {
     @objid ("ac540fc4-f1d0-4f00-b6a5-3395b015cc1a")
     @Override
     public Package createPackage() {
-        return this.coreFactory.createPackage();
+        return this.modelService.getModelFactory().createPackage();
     }
 
     /**
@@ -2895,7 +2874,7 @@ public class UMLModel implements IUmlModel {
     @objid ("bee25450-3526-4666-9197-a116cb38efd8")
     @Override
     public Package createPackage(String name, NameSpace owner) {
-        return this.coreFactory.createPackage(name, owner);
+        return this.modelService.getModelFactory().createPackage(name, owner);
     }
 
     /**
@@ -2910,7 +2889,7 @@ public class UMLModel implements IUmlModel {
     @objid ("3f7dd924-319a-436c-8a41-f78fdd162c3c")
     @Override
     public Package createPackage(String name, NameSpace owner, Stereotype stereotype) {
-        return this.coreFactory.createPackage(name, owner, stereotype);
+        return this.modelService.getModelFactory().createPackage(name, owner, stereotype);
     }
 
     /**
@@ -2924,7 +2903,7 @@ public class UMLModel implements IUmlModel {
     @objid ("b81ed849-1db5-4303-a779-f92822d6d073")
     @Override
     public PackageImport createPackageImport() {
-        return this.coreFactory.createPackageImport();
+        return this.modelService.getModelFactory().createPackageImport();
     }
 
     /**
@@ -2936,7 +2915,7 @@ public class UMLModel implements IUmlModel {
     @objid ("90dbf98a-96a8-4d0b-8832-3dff4c71407f")
     @Override
     public PackageImport createPackageImport(NameSpace source, Package destination) {
-        return this.coreFactory.createPackageImport(source, destination);
+        return this.modelService.getModelFactory().createPackageImport(source, destination);
     }
 
     /**
@@ -2948,7 +2927,7 @@ public class UMLModel implements IUmlModel {
     @objid ("e1edddb5-b1ce-4960-85e7-f7183850ed14")
     @Override
     public PackageImport createPackageImport(Operation source, Package destination) {
-        return this.coreFactory.createPackageImport(source, destination);
+        return this.modelService.getModelFactory().createPackageImport(source, destination);
     }
 
     /**
@@ -2962,7 +2941,7 @@ public class UMLModel implements IUmlModel {
     @objid ("80179be7-f1c8-4955-ad64-611b43b6191d")
     @Override
     public PackageMerge createPackageMerge() {
-        return this.coreFactory.createPackageMerge();
+        return this.modelService.getModelFactory().createPackageMerge();
     }
 
     /**
@@ -2976,7 +2955,7 @@ public class UMLModel implements IUmlModel {
     @objid ("c4e4c998-e49b-476a-acb4-80f32bc0b9b0")
     @Override
     public Parameter createParameter() {
-        return this.coreFactory.createParameter();
+        return this.modelService.getModelFactory().createParameter();
     }
 
     /**
@@ -2991,7 +2970,7 @@ public class UMLModel implements IUmlModel {
     @objid ("52d072b8-0d41-4647-8b0b-18120a0e8943")
     @Override
     public PartDecomposition createPartDecomposition() {
-        return this.coreFactory.createPartDecomposition();
+        return this.modelService.getModelFactory().createPartDecomposition();
     }
 
     /**
@@ -3006,7 +2985,7 @@ public class UMLModel implements IUmlModel {
     @objid ("3bea65df-da61-4d8c-b3a5-7bb371036f7e")
     @Override
     public PartDecomposition createPartDecomposition(Interaction refered) {
-        return this.coreFactory.createPartDecomposition(refered);
+        return this.modelService.getModelFactory().createPartDecomposition(refered);
     }
 
     /**
@@ -3020,7 +2999,7 @@ public class UMLModel implements IUmlModel {
     @objid ("dae2500c-1ff9-464a-89bc-f7ed271fc36a")
     @Override
     public Port createPort() {
-        return this.coreFactory.createPort();
+        return this.modelService.getModelFactory().createPort();
     }
 
     /**
@@ -3034,7 +3013,7 @@ public class UMLModel implements IUmlModel {
     @objid ("6978a4be-a023-4593-a78c-45135608d90b")
     @Override
     public Port createPort(String name, Instance owner) {
-        return this.coreFactory.createPort(name, owner);
+        return this.modelService.getModelFactory().createPort(name, owner);
     }
 
     /**
@@ -3048,7 +3027,7 @@ public class UMLModel implements IUmlModel {
     @objid ("f0617404-80fe-40c8-8248-8e8085d02cb5")
     @Override
     public Port createPort(String name, Classifier owner) {
-        return this.coreFactory.createPort(name, owner);
+        return this.modelService.getModelFactory().createPort(name, owner);
     }
 
     /**
@@ -3063,7 +3042,7 @@ public class UMLModel implements IUmlModel {
     @objid ("5f2e34e7-e6bd-419e-aa77-7802e89cbe30")
     @Override
     public ProvidedInterface createProvidedInterface() {
-        return this.coreFactory.createProvidedInterface();
+        return this.modelService.getModelFactory().createProvidedInterface();
     }
 
     /**
@@ -3076,7 +3055,7 @@ public class UMLModel implements IUmlModel {
     @objid ("14fe60b5-9a15-4606-8315-22652ef455aa")
     @Override
     public ProvidedInterface createProvidedInterface(Port owner, List<Interface> interfaces) {
-        return this.coreFactory.createProvidedInterface(owner, interfaces);
+        return this.modelService.getModelFactory().createProvidedInterface(owner, interfaces);
     }
 
     /**
@@ -3091,7 +3070,7 @@ public class UMLModel implements IUmlModel {
     @objid ("dc67187c-c219-407e-8eac-c7e51cd45f4d")
     @Override
     public RaisedException createRaisedException() {
-        return this.coreFactory.createRaisedException();
+        return this.modelService.getModelFactory().createRaisedException();
     }
 
     /**
@@ -3106,7 +3085,7 @@ public class UMLModel implements IUmlModel {
     @objid ("d3f09d72-2dfa-4eaf-9b43-a7f04cf9561a")
     @Override
     public Region createRegion() {
-        return this.coreFactory.createRegion();
+        return this.modelService.getModelFactory().createRegion();
     }
 
     /**
@@ -3121,7 +3100,7 @@ public class UMLModel implements IUmlModel {
     @objid ("2cbd7ba6-0a75-4bbe-9fb6-af7a55bff30a")
     @Override
     public RequiredInterface createRequiredInterface() {
-        return this.coreFactory.createRequiredInterface();
+        return this.modelService.getModelFactory().createRequiredInterface();
     }
 
     /**
@@ -3134,7 +3113,7 @@ public class UMLModel implements IUmlModel {
     @objid ("ecf076d4-fa06-497b-b351-71d52070fd8f")
     @Override
     public RequiredInterface createRequiredInterface(Port owner, List<Interface> interfaces) {
-        return this.coreFactory.createRequiredInterface(owner, interfaces);
+        return this.modelService.getModelFactory().createRequiredInterface(owner, interfaces);
     }
 
     /**
@@ -3147,7 +3126,7 @@ public class UMLModel implements IUmlModel {
     @objid ("861a5238-f660-4f2b-bad9-d94309774fcd")
     @Override
     public Parameter createReturnParameter(String name, GeneralClass type, Operation owner) {
-        return this.coreFactory.createReturnParameter(name, type, owner);
+        return this.modelService.getModelFactory().createReturnParameter(name, type, owner);
     }
 
     /**
@@ -3163,7 +3142,7 @@ public class UMLModel implements IUmlModel {
     @objid ("85561e7d-15fc-4648-a563-22759d1c74e2")
     @Override
     public Parameter createReturnParameter(String name, GeneralClass type, Operation owner, Stereotype stereotype) {
-        return this.coreFactory.createReturnParameter(name, type, owner, stereotype);
+        return this.modelService.getModelFactory().createReturnParameter(name, type, owner, stereotype);
     }
 
     /**
@@ -3178,7 +3157,7 @@ public class UMLModel implements IUmlModel {
     @objid ("84dd4915-8d20-45d6-a05c-0c9dc7cee008")
     @Override
     public SendSignalAction createSendSignalAction() {
-        return this.coreFactory.createSendSignalAction();
+        return this.modelService.getModelFactory().createSendSignalAction();
     }
 
     /**
@@ -3193,7 +3172,7 @@ public class UMLModel implements IUmlModel {
     @objid ("bfcc9a46-64d3-4dfb-ac9f-e0b6bc2e0984")
     @Override
     public SequenceDiagram createSequenceDiagram() {
-        return this.coreFactory.createSequenceDiagram();
+        return this.modelService.getModelFactory().createSequenceDiagram();
     }
 
     /**
@@ -3209,7 +3188,7 @@ public class UMLModel implements IUmlModel {
     @objid ("d0e2d73e-1ade-4b13-a428-17323adb93e1")
     @Override
     public ShallowHistoryPseudoState createShallowHistoryPseudoState() {
-        return this.coreFactory.createShallowHistoryPseudoState();
+        return this.modelService.getModelFactory().createShallowHistoryPseudoState();
     }
 
     /**
@@ -3223,7 +3202,7 @@ public class UMLModel implements IUmlModel {
     @objid ("6042d49a-4a28-4e4f-94d2-898111589c4e")
     @Override
     public Signal createSignal() {
-        return this.coreFactory.createSignal();
+        return this.modelService.getModelFactory().createSignal();
     }
 
     /**
@@ -3237,7 +3216,7 @@ public class UMLModel implements IUmlModel {
     @objid ("1a8cd5b2-98f9-49de-b53e-3771c6ea0661")
     @Override
     public State createState() {
-        return this.coreFactory.createState();
+        return this.modelService.getModelFactory().createState();
     }
 
     /**
@@ -3251,7 +3230,7 @@ public class UMLModel implements IUmlModel {
     @objid ("96dd168f-d338-4eab-96b9-188a32bbcd6b")
     @Override
     public StateInvariant createStateInvariant() {
-        return this.coreFactory.createStateInvariant();
+        return this.modelService.getModelFactory().createStateInvariant();
     }
 
     /**
@@ -3265,7 +3244,7 @@ public class UMLModel implements IUmlModel {
     @objid ("d37e1e28-6745-45aa-80d2-1edcabedac0e")
     @Override
     public StateInvariant createStateInvariant(String body) {
-        return this.coreFactory.createStateInvariant(body);
+        return this.modelService.getModelFactory().createStateInvariant(body);
     }
 
     /**
@@ -3279,7 +3258,7 @@ public class UMLModel implements IUmlModel {
     @objid ("4fc78b10-425d-4e38-baba-5c325873a412")
     @Override
     public StateMachine createStateMachine() {
-        return this.coreFactory.createStateMachine();
+        return this.modelService.getModelFactory().createStateMachine();
     }
 
     /**
@@ -3300,7 +3279,7 @@ public class UMLModel implements IUmlModel {
     @objid ("d2c7ed8f-5403-4061-9140-b8ea1acaf371")
     @Override
     public StateMachineDiagram createStateMachineDiagram(final String name, final ModelElement owner, final Stereotype stereotype) {
-        return this.coreFactory.createStateMachineDiagram(name, owner, stereotype);
+        return this.modelService.getModelFactory().createStateMachineDiagram(name, owner, stereotype);
     }
 
     /**
@@ -3319,7 +3298,7 @@ public class UMLModel implements IUmlModel {
     @objid ("f116cde3-4e97-4d83-93d2-78853727eeed")
     @Override
     public StaticDiagram createStaticDiagram(String name, ModelElement owner, Stereotype stereotype) {
-        return this.coreFactory.createStaticDiagram(name, owner, stereotype);
+        return this.modelService.getModelFactory().createStaticDiagram(name, owner, stereotype);
     }
 
     /**
@@ -3335,7 +3314,7 @@ public class UMLModel implements IUmlModel {
     @objid ("e3e40be7-5c99-4b7d-bdfb-745f2dfa9d67")
     @Override
     public StructuredActivityNode createStructuredActivityNode() {
-        return this.coreFactory.createStructuredActivityNode();
+        return this.modelService.getModelFactory().createStructuredActivityNode();
     }
 
     /**
@@ -3349,7 +3328,7 @@ public class UMLModel implements IUmlModel {
     @objid ("de134fc3-37af-4933-a665-3516b7d1bd88")
     @Override
     public Substitution createSubstitution() {
-        return this.coreFactory.createSubstitution();
+        return this.modelService.getModelFactory().createSubstitution();
     }
 
     /**
@@ -3363,7 +3342,7 @@ public class UMLModel implements IUmlModel {
     @objid ("7d47e6bd-5be8-40a5-88c7-3f095a55240c")
     @Override
     public TagParameter createTagParameter() {
-        return this.coreFactory.createTagParameter();
+        return this.modelService.getModelFactory().createTagParameter();
     }
 
     /**
@@ -3375,7 +3354,7 @@ public class UMLModel implements IUmlModel {
     @objid ("cca10d4f-9707-4f3d-a5c4-66587e4d1415")
     @Override
     public TagParameter createTagParameter(String value, TaggedValue owner) {
-        return this.coreFactory.createTagParameter(value, owner);
+        return this.modelService.getModelFactory().createTagParameter(value, owner);
     }
 
     /**
@@ -3389,13 +3368,13 @@ public class UMLModel implements IUmlModel {
     @objid ("f0b810fb-3997-40f7-924f-8c397fe5b26a")
     @Override
     public TaggedValue createTaggedValue() {
-        return this.coreFactory.createTaggedValue();
+        return this.modelService.getModelFactory().createTaggedValue();
     }
 
     @objid ("7ea862b2-4156-4e10-9882-339d3f78bb10")
     @Override
     public TaggedValue createTaggedValue(TagType tagType, ModelElement owner) {
-        return this.coreFactory.createTaggedValue(tagType, owner);
+        return this.modelService.getModelFactory().createTaggedValue(tagType, owner);
     }
 
     /**
@@ -3410,7 +3389,7 @@ public class UMLModel implements IUmlModel {
     @objid ("ff7fddc8-e92f-4b28-ba02-4d9d4e62875d")
     @Override
     public TemplateBinding createTemplateBinding() {
-        return this.coreFactory.createTemplateBinding();
+        return this.modelService.getModelFactory().createTemplateBinding();
     }
 
     /**
@@ -3425,7 +3404,7 @@ public class UMLModel implements IUmlModel {
     @objid ("76e07202-3310-431a-a684-f28af7793106")
     @Override
     public TemplateParameter createTemplateParameter() {
-        return this.coreFactory.createTemplateParameter();
+        return this.modelService.getModelFactory().createTemplateParameter();
     }
 
     /**
@@ -3441,7 +3420,7 @@ public class UMLModel implements IUmlModel {
     @objid ("9fea54cb-70ea-4fd5-99bf-6d7b79131860")
     @Override
     public TemplateParameterSubstitution createTemplateParameterSubstitution() {
-        return this.coreFactory.createTemplateParameterSubstitution();
+        return this.modelService.getModelFactory().createTemplateParameterSubstitution();
     }
 
     /**
@@ -3457,7 +3436,7 @@ public class UMLModel implements IUmlModel {
     @objid ("11f059ff-de55-4aa1-9b1b-c3769d590916")
     @Override
     public TerminatePseudoState createTerminatePseudoState() {
-        return this.coreFactory.createTerminatePseudoState();
+        return this.modelService.getModelFactory().createTerminatePseudoState();
     }
 
     /**
@@ -3471,7 +3450,7 @@ public class UMLModel implements IUmlModel {
     @objid ("8a6bff65-6cbd-4ff5-9427-9bb578111df0")
     @Override
     public Transition createTransition() {
-        return this.coreFactory.createTransition();
+        return this.modelService.getModelFactory().createTransition();
     }
 
     /**
@@ -3485,7 +3464,7 @@ public class UMLModel implements IUmlModel {
     @objid ("8b227e3d-736b-414f-8326-f5463afd46e5")
     @Override
     public Usage createUsage() {
-        return this.coreFactory.createUsage();
+        return this.modelService.getModelFactory().createUsage();
     }
 
     /**
@@ -3497,7 +3476,7 @@ public class UMLModel implements IUmlModel {
     @objid ("2ba70128-ca57-42b0-a51d-8488a6511df9")
     @Override
     public Usage createUsage(ModelElement source, ModelElement destination) {
-        return this.coreFactory.createUsage(source, destination);
+        return this.modelService.getModelFactory().createUsage(source, destination);
     }
 
     /**
@@ -3511,7 +3490,7 @@ public class UMLModel implements IUmlModel {
     @objid ("c2405f87-b982-4a4a-8e7f-4fc710cde6ae")
     @Override
     public UseCase createUseCase() {
-        return this.coreFactory.createUseCase();
+        return this.modelService.getModelFactory().createUseCase();
     }
 
     /**
@@ -3523,7 +3502,7 @@ public class UMLModel implements IUmlModel {
     @objid ("13ee1f2b-6a23-41b8-bfa1-4a824912cc73")
     @Override
     public UseCase createUseCase(String name, NameSpace owner) {
-        return this.coreFactory.createUseCase(name, owner);
+        return this.modelService.getModelFactory().createUseCase(name, owner);
     }
 
     /**
@@ -3538,7 +3517,7 @@ public class UMLModel implements IUmlModel {
     @objid ("802c45d3-0bda-4bd6-b38c-000723ca3621")
     @Override
     public UseCase createUseCase(String name, NameSpace owner, Stereotype stereotype) {
-        return this.coreFactory.createUseCase(name, owner, stereotype);
+        return this.modelService.getModelFactory().createUseCase(name, owner, stereotype);
     }
 
     /**
@@ -3553,7 +3532,7 @@ public class UMLModel implements IUmlModel {
     @objid ("d4747b19-4159-4fae-aa73-9f8dd2c1dac3")
     @Override
     public UseCaseDependency createUseCaseDependency() {
-        return this.coreFactory.createUseCaseDependency();
+        return this.modelService.getModelFactory().createUseCaseDependency();
     }
 
     /**
@@ -3573,7 +3552,7 @@ public class UMLModel implements IUmlModel {
     @objid ("46591730-66ea-4d03-a448-9baa22b15ae7")
     @Override
     public UseCaseDiagram createUseCaseDiagram(final String name, final ModelElement owner, final Stereotype stereotype) {
-        return this.coreFactory.createUseCaseDiagram(name, owner, stereotype);
+        return this.modelService.getModelFactory().createUseCaseDiagram(name, owner, stereotype);
     }
 
     /**
@@ -3630,73 +3609,73 @@ public class UMLModel implements IUmlModel {
     @objid ("fe6e27e8-4859-426d-9c7a-9eec2b17fc07")
     @Override
     public CompositeStructureDiagram createCompositeStructureDiagram(final String name, final ModelElement owner, final Stereotype stereotype) {
-        return this.coreFactory.createCompositeStructureDiagram(name, owner, stereotype);
+        return this.modelService.getModelFactory().createCompositeStructureDiagram(name, owner, stereotype);
     }
 
     @objid ("d3eb46f0-2e06-48c6-b336-7ccaf31d8dc3")
     @Override
     public ValuePin createValuePin() {
-        return this.coreFactory.createValuePin();
+        return this.modelService.getModelFactory().createValuePin();
     }
 
     @objid ("78aa7dbe-b5e6-49db-adaa-adc4029b2ec2")
     @Override
     public Link createLink(Instance source, Instance destination, String destinationRole) {
-        return this.coreFactory.createLink(source, destination, destinationRole);
+        return this.modelService.getModelFactory().createLink(source, destination, destinationRole);
     }
 
     @objid ("fa938034-b722-408e-a74f-8b4692037ccd")
     @Override
     public Connector createConnector(BindableInstance source, BindableInstance destination, String destinationRole) {
-        return this.coreFactory.createConnector(source, destination, destinationRole);
+        return this.modelService.getModelFactory().createConnector(source, destination, destinationRole);
     }
 
     @objid ("dcc3ffbb-d454-414c-bffc-49c6f97b6e64")
     @Override
     public EnumeratedPropertyType createEnumeratedPropertyType() {
-        return this.coreFactory.createEnumeratedPropertyType();
+        return this.modelService.getModelFactory().createEnumeratedPropertyType();
     }
 
     @objid ("dea9760f-80ea-4cba-8b74-cfb76cab6025")
     @Override
     public LocalPropertyTable createLocalPropertyTable() {
-        return this.coreFactory.createLocalPropertyTable();
+        return this.modelService.getModelFactory().createLocalPropertyTable();
     }
 
     @objid ("a6c9b1cb-54c6-4beb-a788-c36251643da4")
     @Override
     public PropertyDefinition createPropertyDefinition() {
-        return this.coreFactory.createPropertyDefinition();
+        return this.modelService.getModelFactory().createPropertyDefinition();
     }
 
     @objid ("9c006404-0a49-4da9-8938-b7205a1a5b8e")
     @Override
     public PropertyEnumerationLitteral createPropertyEnumerationLitteral() {
-        return this.coreFactory.createPropertyEnumerationLitteral();
+        return this.modelService.getModelFactory().createPropertyEnumerationLitteral();
     }
 
     @objid ("530a05a2-2edd-4054-bd91-e3fddcabc25b")
     @Override
     public PropertyTable createPropertyTable() {
-        return this.coreFactory.createPropertyTable();
+        return this.modelService.getModelFactory().createPropertyTable();
     }
 
     @objid ("9c354772-7c0a-47f3-84be-2f51a689c920")
     @Override
     public PropertyTableDefinition createPropertyTableDefinition() {
-        return this.coreFactory.createPropertyTableDefinition();
+        return this.modelService.getModelFactory().createPropertyTableDefinition();
     }
 
     @objid ("a99e71ac-3b2f-4649-9792-d557a283aa4c")
     @Override
     public PropertyType createPropertyType() {
-        return this.coreFactory.createPropertyType();
+        return this.modelService.getModelFactory().createPropertyType();
     }
 
     @objid ("2be09f54-420b-43f5-b9a3-f6ced449b801")
     @Override
     public TypedPropertyTable createTypedPropertyTable() {
-        return this.coreFactory.createTypedPropertyTable();
+        return this.modelService.getModelFactory().createTypedPropertyTable();
     }
 
     /**
@@ -3733,19 +3712,19 @@ public class UMLModel implements IUmlModel {
     @objid ("94e16813-a429-46b9-bf91-1dab5b3c3c75")
     @Override
     public Association createAssociation() {
-        return this.coreFactory.createAssociation();
+        return this.modelService.getModelFactory().createAssociation();
     }
 
     @objid ("09bfb35c-26db-49b0-8c1a-56aa20cad8b1")
     @Override
     public ExternDocument createExternDocument(ExternDocumentType type, final ModelElement owner, final String mimeType) throws IOException {
-        return this.coreFactory.createExternDocument(type, owner, mimeType);
+        return this.modelService.getModelFactory().createExternDocument(type, owner, mimeType);
     }
 
     @objid ("24214696-421f-4613-ae3b-7c12aafc9995")
     @Override
     public Note createNote(NoteType noteType, ModelElement owner, String content) {
-        return this.coreFactory.createNote(noteType, owner, content);
+        return this.modelService.getModelFactory().createNote(noteType, owner, content);
     }
 
     /**
@@ -3761,7 +3740,7 @@ public class UMLModel implements IUmlModel {
     @Override
     public TaggedValue createTaggedValue(String moduleName, String tagType, ModelElement owner) throws ExtensionNotFoundException {
         try {
-            return this.coreFactory.createTaggedValue(moduleName, tagType, owner);
+            return this.modelService.getModelFactory().createTaggedValue(moduleName, tagType, owner);
         } catch (ExtensionNotFoundException e) {
             throw new ExtensionNotFoundException(e);
         }
@@ -3771,7 +3750,7 @@ public class UMLModel implements IUmlModel {
     @Override
     public Actor createActor(String name, NameSpace owner, String moduleName, String stereotypeName) throws ExtensionNotFoundException {
         try {
-            return this.coreFactory.createActor(name, owner, moduleName, stereotypeName);
+            return this.modelService.getModelFactory().createActor(name, owner, moduleName, stereotypeName);
         } catch (ExtensionNotFoundException e) {
             throw new ExtensionNotFoundException(e);
         }
@@ -3781,7 +3760,7 @@ public class UMLModel implements IUmlModel {
     @Override
     public Artifact createArtifact(String name, NameSpace owner, String moduleName, String stereotypeName) throws ExtensionNotFoundException {
         try {
-            return this.coreFactory.createArtifact(name, owner, moduleName, stereotypeName);
+            return this.modelService.getModelFactory().createArtifact(name, owner, moduleName, stereotypeName);
         } catch (ExtensionNotFoundException e) {
             throw new ExtensionNotFoundException(e);
         }
@@ -3791,7 +3770,7 @@ public class UMLModel implements IUmlModel {
     @Override
     public Attribute createAttribute(String name, GeneralClass type, Classifier owner, String moduleName, String stereotypeName) throws ExtensionNotFoundException {
         try {
-            return this.coreFactory.createAttribute(name, type, owner, moduleName, stereotypeName);
+            return this.modelService.getModelFactory().createAttribute(name, type, owner, moduleName, stereotypeName);
         } catch (ExtensionNotFoundException e) {
             throw new ExtensionNotFoundException(e);
         }
@@ -3801,7 +3780,7 @@ public class UMLModel implements IUmlModel {
     @Override
     public Class createClass(String name, NameSpace owner, String moduleName, String stereotypeName) throws ExtensionNotFoundException {
         try {
-            return this.coreFactory.createClass(name, owner, moduleName, stereotypeName);
+            return this.modelService.getModelFactory().createClass(name, owner, moduleName, stereotypeName);
         } catch (ExtensionNotFoundException e) {
             throw new ExtensionNotFoundException(e);
         }
@@ -3811,7 +3790,7 @@ public class UMLModel implements IUmlModel {
     @Override
     public Component createComponent(String name, NameSpace owner, String moduleName, String stereotypeName) throws ExtensionNotFoundException {
         try {
-            return this.coreFactory.createComponent(name, owner, moduleName, stereotypeName);
+            return this.modelService.getModelFactory().createComponent(name, owner, moduleName, stereotypeName);
         } catch (ExtensionNotFoundException e) {
             throw new ExtensionNotFoundException(e);
         }
@@ -3821,7 +3800,7 @@ public class UMLModel implements IUmlModel {
     @Override
     public DataType createDataType(String name, NameSpace owner, String moduleName, String stereotypeName) throws ExtensionNotFoundException {
         try {
-            return this.coreFactory.createDataType(name, owner, moduleName, stereotypeName);
+            return this.modelService.getModelFactory().createDataType(name, owner, moduleName, stereotypeName);
         } catch (ExtensionNotFoundException e) {
             throw new ExtensionNotFoundException(e);
         }
@@ -3831,7 +3810,7 @@ public class UMLModel implements IUmlModel {
     @Override
     public Dependency createDependency(ModelElement source, ModelElement destination, String moduleName, String stereotypeName) throws ExtensionNotFoundException {
         try {
-            return this.coreFactory.createDependency(source, destination, moduleName, stereotypeName);
+            return this.modelService.getModelFactory().createDependency(source, destination, moduleName, stereotypeName);
         } catch (ExtensionNotFoundException e) {
             throw new ExtensionNotFoundException(e);
         }
@@ -3841,7 +3820,7 @@ public class UMLModel implements IUmlModel {
     @Override
     public Enumeration createEnumeration(String name, NameSpace owner, String moduleName, String stereotypeName) throws ExtensionNotFoundException {
         try {
-            return this.coreFactory.createEnumeration(name, owner, moduleName, stereotypeName);
+            return this.modelService.getModelFactory().createEnumeration(name, owner, moduleName, stereotypeName);
         } catch (ExtensionNotFoundException e) {
             throw new ExtensionNotFoundException(e);
         }
@@ -3851,7 +3830,7 @@ public class UMLModel implements IUmlModel {
     @Override
     public EnumerationLiteral createEnumerationLiteral(String name, Enumeration owner, String moduleName, String stereotypeName) throws ExtensionNotFoundException {
         try {
-            return this.coreFactory.createEnumerationLiteral(name, owner, moduleName, stereotypeName);
+            return this.modelService.getModelFactory().createEnumerationLiteral(name, owner, moduleName, stereotypeName);
         } catch (ExtensionNotFoundException e) {
             throw new ExtensionNotFoundException(e);
         }
@@ -3861,7 +3840,7 @@ public class UMLModel implements IUmlModel {
     @Override
     public Parameter createIOParameter(String name, GeneralClass type, Operation owner, String moduleName, String stereotypeName) throws ExtensionNotFoundException {
         try {
-            return this.coreFactory.createIOParameter(name, type, owner, moduleName, stereotypeName);
+            return this.modelService.getModelFactory().createIOParameter(name, type, owner, moduleName, stereotypeName);
         } catch (ExtensionNotFoundException e) {
             throw new ExtensionNotFoundException(e);
         }
@@ -3871,7 +3850,7 @@ public class UMLModel implements IUmlModel {
     @Override
     public Interface createInterface(String name, NameSpace owner, String moduleName, String stereotypeName) throws ExtensionNotFoundException {
         try {
-            return this.coreFactory.createInterface(name, owner, moduleName, stereotypeName);
+            return this.modelService.getModelFactory().createInterface(name, owner, moduleName, stereotypeName);
         } catch (ExtensionNotFoundException e) {
             throw new ExtensionNotFoundException(e);
         }
@@ -3881,7 +3860,7 @@ public class UMLModel implements IUmlModel {
     @Override
     public Operation createOperation(String name, Classifier owner, String moduleName, String stereotypeName) throws ExtensionNotFoundException {
         try {
-            return this.coreFactory.createOperation(name, owner, moduleName, stereotypeName);
+            return this.modelService.getModelFactory().createOperation(name, owner, moduleName, stereotypeName);
         } catch (ExtensionNotFoundException e) {
             throw new ExtensionNotFoundException(e);
         }
@@ -3891,7 +3870,7 @@ public class UMLModel implements IUmlModel {
     @Override
     public Package createPackage(String name, NameSpace owner, String moduleName, String stereotypeName) throws ExtensionNotFoundException {
         try {
-            return this.coreFactory.createPackage(name, owner, moduleName, stereotypeName);
+            return this.modelService.getModelFactory().createPackage(name, owner, moduleName, stereotypeName);
         } catch (ExtensionNotFoundException e) {
             throw new ExtensionNotFoundException(e);
         }
@@ -3901,7 +3880,7 @@ public class UMLModel implements IUmlModel {
     @Override
     public Parameter createReturnParameter(String name, GeneralClass type, Operation owner, String moduleName, String stereotypeName) throws ExtensionNotFoundException {
         try {
-            return this.coreFactory.createReturnParameter(name, type, owner, moduleName, stereotypeName);
+            return this.modelService.getModelFactory().createReturnParameter(name, type, owner, moduleName, stereotypeName);
         } catch (ExtensionNotFoundException e) {
             throw new ExtensionNotFoundException(e);
         }
@@ -3911,7 +3890,7 @@ public class UMLModel implements IUmlModel {
     @Override
     public StaticDiagram createStaticDiagram(String name, ModelElement owner, String moduleName, String stereotypeName) throws ExtensionNotFoundException {
         try {
-            return this.coreFactory.createStaticDiagram(name, owner, moduleName, stereotypeName);
+            return this.modelService.getModelFactory().createStaticDiagram(name, owner, moduleName, stereotypeName);
         } catch (ExtensionNotFoundException e) {
             throw new ExtensionNotFoundException(e);
         }
@@ -3921,7 +3900,7 @@ public class UMLModel implements IUmlModel {
     @Override
     public UseCase createUseCase(String name, NameSpace owner, String moduleName, String stereotypeName) throws ExtensionNotFoundException {
         try {
-            return this.coreFactory.createUseCase(name, owner, moduleName, stereotypeName);
+            return this.modelService.getModelFactory().createUseCase(name, owner, moduleName, stereotypeName);
         } catch (ExtensionNotFoundException e) {
             throw new ExtensionNotFoundException(e);
         }
@@ -3947,6 +3926,12 @@ public class UMLModel implements IUmlModel {
             }
         }
         return null;
+    }
+
+    @objid ("b4ec2134-7e27-488e-9db6-6e399ac56d8c")
+    @Override
+    public IDefaultNameService getDefaultNameService() {
+        return new DefaultNameService(this.modelService.getElementNamer());
     }
 
 }

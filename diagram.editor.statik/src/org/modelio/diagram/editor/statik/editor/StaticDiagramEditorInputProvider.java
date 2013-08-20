@@ -25,16 +25,14 @@ import java.util.UUID;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.ui.model.application.ui.basic.MInputPart;
-import org.eclipse.e4.ui.services.EContextService;
-import org.modelio.app.project.core.services.IProjectService;
 import org.modelio.diagram.editor.DiagramEditorInput;
 import org.modelio.diagram.editor.DiagramEditorInputProvider.IDiagramEditorInputProvider;
+import org.modelio.diagram.elements.core.model.ModelManager;
 import org.modelio.gproject.model.IMModelServices;
 import org.modelio.metamodel.Metamodel;
 import org.modelio.metamodel.diagrams.AbstractDiagram;
 import org.modelio.metamodel.diagrams.ClassDiagram;
 import org.modelio.metamodel.diagrams.StaticDiagram;
-import org.modelio.vcore.session.api.ICoreSession;
 import org.modelio.vcore.smkernel.mapi.MClass;
 
 /**
@@ -43,10 +41,10 @@ import org.modelio.vcore.smkernel.mapi.MClass;
 @objid ("cb21235a-5a75-11e2-9e33-00137282c51b")
 public class StaticDiagramEditorInputProvider implements IDiagramEditorInputProvider {
     @objid ("376867fb-cc8b-4676-8f24-8c1ab2b56cf8")
-    private MClass staticDiagramClass;
+    private final MClass staticDiagramClass;
 
     @objid ("fc4e9292-d65b-47a4-ae5b-00fdab067c2d")
-    private MClass classDiagramClass;
+    private final MClass classDiagramClass;
 
     /**
      * Initialize the provider.
@@ -61,18 +59,23 @@ public class StaticDiagramEditorInputProvider implements IDiagramEditorInputProv
     @objid ("6557991e-5bd5-11e2-9e33-00137282c51b")
     @Override
     public DiagramEditorInput compute(IEclipseContext context) {
-        ICoreSession coreSession = context.get(IProjectService.class).getSession();
         IMModelServices modelServices = context.get(IMModelServices.class);
-        EContextService contextService = context.get(EContextService.class);
-        String diagramUID = context.get(MInputPart.class).getInputURI();
         
+        String diagramUID = context.get(MInputPart.class).getInputURI();
         AbstractDiagram diagram = (StaticDiagram) modelServices.findById(this.staticDiagramClass, UUID.fromString(diagramUID));
         if (diagram == null)
             return null;
         
         MClass mClass = diagram.getMClass();
-        if (mClass==this.classDiagramClass || mClass==this.staticDiagramClass) {
-            return new StaticDiagramEditorInput(coreSession, diagram, modelServices, contextService);
+        if (mClass==this.classDiagramClass) {
+            return new StaticDiagramEditorInput(new ModelManager(context), diagram);
+        } else if (mClass==this.staticDiagramClass) {
+            // FIXME this shouldn't be here...
+            if (diagram.isStereotyped("ModelerModule", "business_rule_diagram") || diagram.isStereotyped("ModelerModule", "goal_diagram") || diagram.isStereotyped("ModelerModule", "impact") || diagram.isStereotyped("ModelerModule", "dictionary_diagram") || diagram.isStereotyped("ModelerModule", "requirement_diagram")) {
+                return null;
+            } else {
+                return new StaticDiagramEditorInput(new ModelManager(context), diagram);
+            }
         }
         return null;
     }

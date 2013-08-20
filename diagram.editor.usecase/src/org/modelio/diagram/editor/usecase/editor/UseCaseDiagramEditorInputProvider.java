@@ -25,14 +25,12 @@ import java.util.UUID;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.ui.model.application.ui.basic.MInputPart;
-import org.eclipse.e4.ui.services.EContextService;
-import org.modelio.app.project.core.services.IProjectService;
 import org.modelio.diagram.editor.DiagramEditorInput;
 import org.modelio.diagram.editor.DiagramEditorInputProvider.IDiagramEditorInputProvider;
+import org.modelio.diagram.elements.core.model.ModelManager;
 import org.modelio.gproject.model.IMModelServices;
 import org.modelio.metamodel.Metamodel;
 import org.modelio.metamodel.diagrams.UseCaseDiagram;
-import org.modelio.vcore.session.api.ICoreSession;
 
 @objid ("7b9bb527-5eff-11e2-b9cc-001ec947c8cc")
 public class UseCaseDiagramEditorInputProvider implements IDiagramEditorInputProvider {
@@ -44,13 +42,11 @@ public class UseCaseDiagramEditorInputProvider implements IDiagramEditorInputPro
     @objid ("7bea42ea-5eff-11e2-b9cc-001ec947c8cc")
     @Override
     public DiagramEditorInput compute(IEclipseContext context) {
-        ICoreSession coreSession = context.get(IProjectService.class).getSession();
         IMModelServices modelServices = context.get(IMModelServices.class);
-        EContextService contextService = context.get(EContextService.class);
         
         String diagramUID = context.get(MInputPart.class).getInputURI();
         UseCaseDiagram diagram = (UseCaseDiagram) modelServices.findById(Metamodel.getMClass(UseCaseDiagram.class), UUID.fromString(diagramUID));
-        return diagram != null ? new UseCaseDiagramEditorInput(coreSession, diagram, modelServices, contextService) : null;
+        return diagram != null ? new UseCaseDiagramEditorInput(new ModelManager(context), diagram) : null;
     }
 
 }

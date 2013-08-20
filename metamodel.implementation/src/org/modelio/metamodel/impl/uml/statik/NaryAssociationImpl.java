@@ -49,16 +49,24 @@ public class NaryAssociationImpl extends ModelElementImpl implements NaryAssocia
     @objid ("28d8131c-4eda-4e63-8e86-f2ed6bb86858")
     @Override
     public SmObjectImpl getCompositionOwner() {
-        for (SmObjectImpl obj : this.getDepValList(NaryAssociationData.Metadata.NaryEndDep())) 
-          return obj;
+        for (SmObjectImpl obj : this.getDepValList(NaryAssociationData.Metadata.NaryEndDep())) {
+            // Avoid infinite composition loops
+            SmObjectImpl objOwner = obj.getCompositionOwner();
+            if (objOwner != this && objOwner != null)
+                return obj;
+        }
         return super.getCompositionOwner();
     }
 
     @objid ("82e19039-824a-4fb9-95f0-47b803583c97")
     @Override
     public SmDepVal getCompositionRelation() {
-        for (SmObjectImpl obj : this.getDepValList(NaryAssociationData.Metadata.NaryEndDep())) 
-          return new SmDepVal(NaryAssociationData.Metadata.NaryEndDep(), obj);
+        for (SmObjectImpl obj : this.getDepValList(NaryAssociationData.Metadata.NaryEndDep())) {
+            // Avoid infinite composition loops
+            SmObjectImpl objOwner = obj.getCompositionOwner();
+            if (objOwner != this && objOwner != null)
+                return new SmDepVal(NaryAssociationData.Metadata.NaryEndDep(), obj);
+        }
         return super.getCompositionRelation();
     }
 

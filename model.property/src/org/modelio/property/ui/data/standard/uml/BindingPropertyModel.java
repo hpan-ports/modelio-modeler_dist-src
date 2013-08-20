@@ -27,7 +27,6 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.core.ui.ktable.types.IPropertyType;
 import org.modelio.core.ui.ktable.types.element.SingleElementType;
 import org.modelio.core.ui.ktable.types.text.StringType;
-import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
 import org.modelio.metamodel.uml.statik.AssociationEnd;
 import org.modelio.metamodel.uml.statik.Attribute;
@@ -39,6 +38,7 @@ import org.modelio.metamodel.uml.statik.NaryAssociation;
 import org.modelio.metamodel.uml.statik.NaryConnector;
 import org.modelio.metamodel.uml.statik.Parameter;
 import org.modelio.property.ui.data.standard.common.AbstractPropertyModel;
+import org.modelio.vcore.smkernel.mapi.MObject;
 
 /**
  * <i>Binding</i> data model.
@@ -77,12 +77,12 @@ public class BindingPropertyModel extends AbstractPropertyModel<Binding> {
                     
         this.labelStringType = new StringType(false);
         
-        List<java.lang.Class<? extends Element>> roleTypes = new ArrayList<>();
+        List<java.lang.Class<? extends MObject>> roleTypes = new ArrayList<>();
         roleTypes.add(BindableInstance.class);
         roleTypes.add(ConnectorEnd.class);
         this.roleType = new SingleElementType(true, roleTypes);
         
-        List<java.lang.Class<? extends Element>> representingTypes = new ArrayList<>();
+        List<java.lang.Class<? extends MObject>> representingTypes = new ArrayList<>();
         representingTypes.add(BindableInstance.class);
         representingTypes.add(Attribute.class);
         representingTypes.add(Parameter.class);

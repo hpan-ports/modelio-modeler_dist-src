@@ -24,11 +24,13 @@ package org.modelio.diagram.editor;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.commands.CommandStack;
+import org.modelio.diagram.editor.plugin.DiagramEditor;
 import org.modelio.diagram.elements.common.abstractdiagram.DiagramPersistence;
 import org.modelio.diagram.elements.common.abstractdiagram.GmAbstractDiagram;
 import org.modelio.vcore.session.api.ICoreSession;
 import org.modelio.vcore.session.api.transactions.ITransaction;
 import org.modelio.vcore.session.api.transactions.ITransactionSupport;
+import org.modelio.vcore.smkernel.IllegalModelManipulationException;
 
 /**
  * Redefine Eclipse command stack to use our transaction instead of Eclipse one;
@@ -135,6 +137,8 @@ public class DiagramCommandStack extends CommandStack {
                 }
                 t.commit();
                 notifyListeners();
+        } catch (IllegalModelManipulationException e) {
+            DiagramEditor.LOG.error(e);
         } finally {
             notifyListeners(command, POST_EXECUTE);
         }

@@ -74,4 +74,11 @@ public interface IStatusChangeEvent {
     @objid ("dec1336f-da18-41dc-a2d3-5b538d676e98")
     Map<SmObjectImpl, Long> getStatusChanged();
 
+    /**
+     * Get the origin of this status change event
+     * @return the status change event cause.
+     */
+    @objid ("15129f5d-ba62-4b0c-85c6-e3f046b9a9df")
+    ChangeCause getCause();
+
 }

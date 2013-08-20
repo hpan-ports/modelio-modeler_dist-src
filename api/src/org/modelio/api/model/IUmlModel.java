@@ -193,8 +193,6 @@ import org.modelio.metamodel.uml.infrastructure.Dependency;
 import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.metamodel.uml.infrastructure.ExternDocument;
 import org.modelio.metamodel.uml.infrastructure.ExternDocumentType;
-import org.modelio.metamodel.uml.infrastructure.LocalNote;
-import org.modelio.metamodel.uml.infrastructure.LocalTaggedValue;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
 import org.modelio.metamodel.uml.infrastructure.Note;
 import org.modelio.metamodel.uml.infrastructure.NoteType;
@@ -2156,20 +2154,6 @@ public interface IUmlModel {
     LinkEnd createLinkEnd();
 
     /**
-     * Create LocalNote
-     * @return The created LocalNote.
-     */
-    @objid ("f7f2aef5-644e-11e0-b650-001ec947cd2a")
-    LocalNote createLocalNote();
-
-    /**
-     * Create LocalTaggedValue
-     * @return The created LocalTaggedValue.
-     */
-    @objid ("f7f2aef4-644e-11e0-b650-001ec947cd2a")
-    LocalTaggedValue createLocalTaggedValue();
-
-    /**
      * Create a LoopNode.
      * 
      * The created LoopNode has no composition owner. In order to build a valid model, a composition owner must be
@@ -3042,5 +3026,8 @@ public interface IUmlModel {
      */
     @objid ("3421a7c5-0483-4b33-8dd3-0adcd39b9543")
     MObject getRoot(MObject context);
+
+    @objid ("4b3fbc4f-4bd7-479b-b75b-0dbcbc4d3580")
+    IDefaultNameService getDefaultNameService();
 
 }

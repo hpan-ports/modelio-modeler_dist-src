@@ -24,6 +24,7 @@ package org.modelio.app.project.core.services;
 import java.io.File;
 import java.io.IOException;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
+import org.modelio.api.modelio.Modelio;
 import org.modelio.app.project.core.plugin.AppProjectCore;
 import org.modelio.gproject.gproject.GProject;
 import org.modelio.gproject.gproject.GProjectAuthenticationException;
@@ -137,7 +138,9 @@ public class BatchRunner implements Runnable {
             AppProjectCore.LOG.info("Running script: %s", scriptFile);
             if (scriptFile.getName().endsWith(".py")) {
                 final IScriptRunner scriptRunner = ScriptRunnerFactory.getInstance().getScriptRunner("jython");
+                scriptRunner.addClassLoader(scriptRunner.getEngine().getClass().getClassLoader());
                 scriptRunner.bind("coreSession", openedProject.getSession());
+                scriptRunner.bind("modelingSession", Modelio.getInstance().getModelingSession());
                 scriptRunner.runFile(scriptFile.toPath(), null, null);
         
             } else {

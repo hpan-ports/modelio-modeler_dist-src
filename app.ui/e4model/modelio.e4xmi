@@ -2,11 +2,6 @@
 <application:Application xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:advanced="http://www.eclipse.org/ui/2010/UIModel/application/ui/advanced" xmlns:application="http://www.eclipse.org/ui/2010/UIModel/application" xmlns:basic="http://www.eclipse.org/ui/2010/UIModel/application/ui/basic" xmlns:menu="http://www.eclipse.org/ui/2010/UIModel/application/ui/menu" xmi:id="_AWbLYJnlEeGY6K1_JhyUmg" elementId="org.modelio.app.application" bindingContexts="_AWbLYZnlEeGY6K1_JhyUmg">
   <children xsi:type="basic:TrimmedWindow" xmi:id="_AWbLd5nlEeGY6K1_JhyUmg" elementId="org.modelio.app.ui.trimmed" label="%Modelio.window.label" iconURI="platform:/plugin/org.modelio.app.ui/icons/modelio.png" tooltip="%Modelio.window.tooltip" x="150" y="110" width="1024" height="768">
     <children xsi:type="advanced:PerspectiveStack" xmi:id="_AWbLf5nlEeGY6K1_JhyUmg" elementId="org.modelio.app.ui.stack.perspectives" selectedElement="_AWbLgJnlEeGY6K1_JhyUmg">
-      <children xsi:type="advanced:Perspective" xmi:id="_VL54IMbCEeK8yIoiqNn7ow" elementId="org.modelio.app.ui.welcome.perspective" label="Welcome">
-        <tags>welcome</tags>
-        <tags>default</tags>
-        <variables>XXX</variables>
-      </children>
       <children xsi:type="advanced:Perspective" xmi:id="_AWbLgJnlEeGY6K1_JhyUmg" elementId="org.modelio.app.ui.model.perspective" selectedElement="_AWbLgZnlEeGY6K1_JhyUmg" label="%Model.perspective.label" iconURI="platform:/plugin/org.modelio.app.ui/icons/modelpersp.png" tooltip="%Model.perspective.tooltip">
         <tags>project</tags>
         <tags>default</tags>
@@ -16,6 +11,36 @@
           <children xsi:type="basic:PartSashContainer" xmi:id="_kaYO0Jq2EeGkc791dEOVVA" containerData="75">
             <children xsi:type="advanced:Placeholder" xmi:id="_McuAIDL2EeKL_YUGDpxo2Q" elementId="org.eclipse.ui.editorss" containerData="72" ref="_hYHjYDLzEeKL_YUGDpxo2Q" closeable="true"/>
             <children xsi:type="basic:PartStack" xmi:id="_lWQoQJq2EeGkc791dEOVVA" elementId="org.modelio.app.bottom.parts" containerData="28"/>
+          </children>
+        </children>
+      </children>
+      <children xsi:type="advanced:Perspective" xmi:id="_ruDhoO7eEeKKibitEer1Lw" elementId="org.modelio.diagram.perspective" selectedElement="_ruDhoe7eEeKKibitEer1Lw" label="%Diagram.perspective.label" iconURI="platform:/plugin/org.modelio.app.ui/icons/diagramspersp.png" tooltip="%Diagram.perspective.tooltip">
+        <tags>project</tags>
+        <tags>default</tags>
+        <tags>user</tags>
+        <children xsi:type="basic:PartSashContainer" xmi:id="_ruDhoe7eEeKKibitEer1Lw" elementId="">
+          <children xsi:type="advanced:Placeholder" xmi:id="_ruDhou7eEeKKibitEer1Lw" elementId="org.eclipse.ui.editorss" closeable="true">
+            <ref xsi:type="advanced:Area" href="../../app.ui.ext_org/e4model/app.ui.ext_org.e4xmi#_v67RsN_rEeKYSOCeOIScJg"/>
+          </children>
+          <children xsi:type="basic:PartSashContainer" xmi:id="_ruDho-7eEeKKibitEer1Lw" elementId="app.ui.ext_com.partsashcontainer.0" horizontal="true">
+            <children xsi:type="basic:PartStack" xmi:id="_ruDhpO7eEeKKibitEer1Lw" elementId="app.ui.ext_com.partstack.left" containerData="">
+              <children xsi:type="advanced:Placeholder" xmi:id="_ruDhpe7eEeKKibitEer1Lw" elementId="diagram.browser.placeholder">
+                <ref xsi:type="basic:Part" href="../../app.ui.ext_org/e4model/app.ui.ext_org.e4xmi#_AXT5sN_uEeKYSOCeOIScJg"/>
+              </children>
+              <children xsi:type="advanced:Placeholder" xmi:id="_ruDhpu7eEeKKibitEer1Lw" elementId="diagram.outline.placeholder">
+                <ref xsi:type="basic:Part" href="../../app.ui.ext_org/e4model/app.ui.ext_org.e4xmi#_7bd8sN_rEeKYSOCeOIScJg"/>
+              </children>
+            </children>
+            <children xsi:type="basic:PartStack" xmi:id="_ruDhp-7eEeKKibitEer1Lw" elementId="app.ui.ext_com.partstack.middle" containerData="">
+              <children xsi:type="advanced:Placeholder" xmi:id="_ruDhqO7eEeKKibitEer1Lw" elementId="properties.placeholder">
+                <ref xsi:type="basic:Part" href="../../app.ui.ext_org/e4model/app.ui.ext_org.e4xmi#_894xsN_rEeKYSOCeOIScJg"/>
+              </children>
+            </children>
+            <children xsi:type="basic:PartStack" xmi:id="_ruDhqe7eEeKKibitEer1Lw" elementId="app.ui.ext_com.partstack.right">
+              <children xsi:type="advanced:Placeholder" xmi:id="_ruDhqu7eEeKKibitEer1Lw" elementId="symbol.placeholder" closeable="true">
+                <ref xsi:type="basic:Part" href="../../app.ui.ext_org/e4model/app.ui.ext_org.e4xmi#_5T5MMN_rEeKYSOCeOIScJg"/>
+              </children>
+            </children>
           </children>
         </children>
       </children>
@@ -86,6 +111,7 @@
         <children xsi:type="menu:HandledToolItem" xmi:id="_izz0EECCEeKYDuxvZV8bnA" elementId="app.ui.handledtoolitem.0" iconURI="platform:/plugin/org.modelio.app.ui/icons/config.png" tooltip="%Config.tooltip" command="_pqL2AECCEeKYDuxvZV8bnA"/>
         <children xsi:type="menu:ToolBarSeparator" xmi:id="_vNSnIEVBEeK9Ba-3H8ddQw" elementId="app.ui.toolbarseparator.0"/>
       </children>
+      <children xsi:type="menu:ToolControl" xmi:id="_jHisgN_wEeKYSOCeOIScJg" elementId="org.eclipse.e4.ui.PerspectiveSwitcher" contributionURI="bundleclass://org.modelio.app.ui/org.modelio.app.ui.persp.PerspectiveSwitcher"/>
     </trimBars>
   </children>
   <handlers xmi:id="_AWbLdZnlEeGY6K1_JhyUmg" contributionURI="bundleclass://org.modelio.app.ui/org.modelio.app.ui.about.AboutHandler" command="_AWbLdJnlEeGY6K1_JhyUmg"/>

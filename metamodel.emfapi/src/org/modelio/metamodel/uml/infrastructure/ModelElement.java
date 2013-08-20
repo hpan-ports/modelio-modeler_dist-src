@@ -33,14 +33,6 @@ import org.modelio.metamodel.diagrams.AbstractDiagram;
 import org.modelio.metamodel.factory.ExtensionNotFoundException;
 import org.modelio.metamodel.uml.behavior.activityModel.ActivityPartition;
 import org.modelio.metamodel.uml.informationFlow.InformationFlow;
-import org.modelio.metamodel.uml.infrastructure.Constraint;
-import org.modelio.metamodel.uml.infrastructure.Dependency;
-import org.modelio.metamodel.uml.infrastructure.ExternDocument;
-import org.modelio.metamodel.uml.infrastructure.LocalNote;
-import org.modelio.metamodel.uml.infrastructure.LocalTaggedValue;
-import org.modelio.metamodel.uml.infrastructure.Note;
-import org.modelio.metamodel.uml.infrastructure.Stereotype;
-import org.modelio.metamodel.uml.infrastructure.TaggedValue;
 import org.modelio.metamodel.uml.infrastructure.properties.LocalPropertyTable;
 import org.modelio.metamodel.uml.infrastructure.properties.PropertyTable;
 import org.modelio.metamodel.uml.statik.BindableInstance;
@@ -64,6 +56,9 @@ public interface ModelElement extends Element {
      */
     @objid ("dcfe9255-d804-11e1-b25c-001ec947ccaf")
     boolean isStereotyped(String modulePattern, String stereotypeName);
+
+    @objid ("4601cf60-e004-4047-a69c-5b34dad34860")
+    void addStereotype(String moduleName, String stereotypeName) throws ExtensionNotFoundException;
 
     /**
      * This method removes the stereotype the stereotype specified by the
@@ -223,6 +218,12 @@ public interface ModelElement extends Element {
     @objid ("45c55b2e-2831-11e2-bf07-001ec947ccaf")
     PropertyTable getProperties(String name);
 
+    @objid ("762030c9-3782-4956-bb25-f0dc4d749404")
+    String getLocalProperty(String key);
+
+    @objid ("2aaaa3c2-dc0c-495d-8060-07b6eb14dc6b")
+    void setLocalProperty(String key, String value);
+
     @objid ("b8420d79-1070-4b84-893a-2ce777c1a4f6")
     String getName();
 
@@ -252,12 +253,6 @@ public interface ModelElement extends Element {
 
     @objid ("eba4ea66-9174-4c23-918e-3f10815d8ab8")
     <T extends Stereotype> List<T> getExtension(java.lang.Class<T> filterClass);
-
-    @objid ("9d20a16d-9bd5-4486-884b-92d5a17a33ca")
-    EList<LocalTaggedValue> getLocalTag();
-
-    @objid ("0b07b8b6-ba0b-4bad-9cd7-90f431b3d990")
-    <T extends LocalTaggedValue> List<T> getLocalTag(java.lang.Class<T> filterClass);
 
     @objid ("0955d77a-b48f-435d-80fc-0db31f931e94")
     EList<Dependency> getDependsOnDependency();
@@ -294,12 +289,6 @@ public interface ModelElement extends Element {
 
     @objid ("312c7542-ba2e-4e2a-926d-d0e556b947cf")
     void setOwnerTemplateParameter(TemplateParameter value);
-
-    @objid ("731d7165-d0a7-42ab-b3dd-d15174c7d8f6")
-    EList<LocalNote> getLocalDescriptor();
-
-    @objid ("2554422b-0b83-4012-ab9c-9438cf131f90")
-    <T extends LocalNote> List<T> getLocalDescriptor(java.lang.Class<T> filterClass);
 
     @objid ("9c215f77-194a-4fca-a604-ffd8256ef23e")
     EList<Dependency> getImpactedDependency();

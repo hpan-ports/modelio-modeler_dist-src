@@ -35,10 +35,10 @@ import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Text;
 import org.modelio.app.core.picking.IModelioPickingService;
-import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
 import org.modelio.vcore.session.api.model.IMObjectFilter;
 import org.modelio.vcore.session.api.model.IModel;
+import org.modelio.vcore.smkernel.mapi.MObject;
 
 /**
  * This Editor is used to edit a ModelElement multiple dependency field in a dialog box.
@@ -51,13 +51,13 @@ public class MultipleElementCellEditor extends KTableCellEditor {
     private String fieldName;
 
     @objid ("8dc164c0-c068-11e1-8c0a-002564c97630")
-    private Element editedElement;
+    private MObject editedElement;
 
     @objid ("8dc164c3-c068-11e1-8c0a-002564c97630")
     private boolean active = false;
 
     @objid ("8dc164bc-c068-11e1-8c0a-002564c97630")
-    private Class<? extends Element> targetClass;
+    private Class<? extends MObject> targetClass;
 
     @objid ("8dc164c4-c068-11e1-8c0a-002564c97630")
     private IMObjectFilter elementFilter = null;
@@ -120,7 +120,7 @@ public class MultipleElementCellEditor extends KTableCellEditor {
      * @return the edited element.
      */
     @objid ("8dc2eb2f-c068-11e1-8c0a-002564c97630")
-    public Element getEditedElement() {
+    public MObject getEditedElement() {
         return this.editedElement;
     }
 
@@ -144,7 +144,7 @@ public class MultipleElementCellEditor extends KTableCellEditor {
      * @return the allowed metaclasses.
      */
     @objid ("8dc2eb40-c068-11e1-8c0a-002564c97630")
-    public Class<? extends Element> getTargetClass() {
+    public Class<? extends MObject> getTargetClass() {
         return this.targetClass;
     }
 
@@ -156,7 +156,7 @@ public class MultipleElementCellEditor extends KTableCellEditor {
      * @param filter An element filter.
      */
     @objid ("8dc2eb47-c068-11e1-8c0a-002564c97630")
-    public void init(Element element, String name, Class<? extends Element> target, IMObjectFilter filter) {
+    public void init(MObject element, String name, Class<? extends MObject> target, IMObjectFilter filter) {
         this.targetClass = target;
         this.fieldName = name;
         this.editedElement = element;
@@ -171,7 +171,7 @@ public class MultipleElementCellEditor extends KTableCellEditor {
         if (!this.active) {
             this.active = true;
         
-            final List<Element> initialContent = (List<Element>) this.m_Model.getContentAt(this.m_Col, this.m_Row);
+            final List<MObject> initialContent = (List<MObject>) this.m_Model.getContentAt(this.m_Col, this.m_Row);
         
             this.dialog = new EditionDialog(table.getShell(), this.session, this.pickingService, this, initialContent, new EditionValidator(this.m_Model, this.m_Col, this.m_Row));
         
@@ -184,7 +184,7 @@ public class MultipleElementCellEditor extends KTableCellEditor {
     @objid ("8dc2eb59-c068-11e1-8c0a-002564c97630")
     @Override
     public void setContent(Object content) {
-        List<Element> me = (List<Element>) content;
+        List<MObject> me = (List<MObject>) content;
         this.dialog.setContent(me);
     }
 
@@ -264,7 +264,7 @@ public class MultipleElementCellEditor extends KTableCellEditor {
 
         @objid ("8dc471d0-c068-11e1-8c0a-002564c97630")
         @Override
-        public void validate(List<Element> newContent) {
+        public void validate(List<MObject> newContent) {
             if (newContent != null) {
                 this.model.setContentAt(this.col, this.row, newContent);
             }

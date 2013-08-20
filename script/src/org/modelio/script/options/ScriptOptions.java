@@ -21,15 +21,8 @@
 
 package org.modelio.script.options;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.StringTokenizer;
-import java.util.UUID;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.jface.preference.IPreferenceStore;
-import org.modelio.gproject.model.IMModelServices;
-import org.modelio.metamodel.Metamodel;
-import org.modelio.metamodel.uml.infrastructure.Stereotype;
 
 /**
  * Simple class used to store the current state of the LinkEditor options.

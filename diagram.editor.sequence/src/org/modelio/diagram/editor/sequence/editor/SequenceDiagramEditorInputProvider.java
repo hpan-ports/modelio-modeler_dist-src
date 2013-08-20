@@ -25,14 +25,12 @@ import java.util.UUID;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.ui.model.application.ui.basic.MInputPart;
-import org.eclipse.e4.ui.services.EContextService;
-import org.modelio.app.project.core.services.IProjectService;
 import org.modelio.diagram.editor.DiagramEditorInput;
 import org.modelio.diagram.editor.DiagramEditorInputProvider.IDiagramEditorInputProvider;
+import org.modelio.diagram.elements.core.model.ModelManager;
 import org.modelio.gproject.model.IMModelServices;
 import org.modelio.metamodel.Metamodel;
 import org.modelio.metamodel.diagrams.SequenceDiagram;
-import org.modelio.vcore.session.api.ICoreSession;
 
 @objid ("ca208a23-456f-4f52-9961-77613258a92b")
 public class SequenceDiagramEditorInputProvider implements IDiagramEditorInputProvider {
@@ -44,13 +42,11 @@ public class SequenceDiagramEditorInputProvider implements IDiagramEditorInputPr
     @objid ("cee89d60-79d0-4612-9037-b3c9c7775d08")
     @Override
     public DiagramEditorInput compute(IEclipseContext context) {
-        ICoreSession coreSession = context.get(IProjectService.class).getSession();
         IMModelServices modelServices = context.get(IMModelServices.class);
-        EContextService contextService = context.get(EContextService.class);
         
         String diagramUID = context.get(MInputPart.class).getInputURI();
         SequenceDiagram diagram = (SequenceDiagram) modelServices.findById(Metamodel.getMClass(SequenceDiagram.class), UUID.fromString(diagramUID));
-        return diagram != null ? new SequenceDiagramEditorInput(coreSession, diagram, modelServices, contextService) : null;
+        return diagram != null ? new SequenceDiagramEditorInput(new ModelManager(context), diagram) : null;
     }
 
 }

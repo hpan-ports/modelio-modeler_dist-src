@@ -30,7 +30,6 @@ import org.modelio.core.ui.ktable.types.bool.BooleanType;
 import org.modelio.core.ui.ktable.types.element.SingleElementType;
 import org.modelio.core.ui.ktable.types.list.EditableListType;
 import org.modelio.core.ui.ktable.types.text.StringType;
-import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
 import org.modelio.metamodel.uml.statik.AssociationEnd;
 import org.modelio.metamodel.uml.statik.Attribute;
@@ -43,6 +42,7 @@ import org.modelio.metamodel.uml.statik.NaryLinkEnd;
 import org.modelio.property.ui.data.standard.common.AbstractPropertyModel;
 import org.modelio.vcore.session.api.ICoreSession;
 import org.modelio.vcore.session.impl.CoreSession;
+import org.modelio.vcore.smkernel.mapi.MObject;
 
 /**
  * <i>ConnectorEnd</i> data model.
@@ -288,13 +288,13 @@ public class ConnectorEndNPropertyModel extends AbstractPropertyModel<NaryConnec
         this.assocType = new SingleElementType(true, NaryAssociation.class, session);
         this.linkedType = new SingleElementType(false, Instance.class, session);
         
-        List<java.lang.Class<? extends Element>> connectorRepresentedFeatureValues = new ArrayList<>();
+        List<java.lang.Class<? extends MObject>> connectorRepresentedFeatureValues = new ArrayList<>();
         connectorRepresentedFeatureValues.add(Attribute.class);
         connectorRepresentedFeatureValues.add(NaryAssociation.class);
         connectorRepresentedFeatureValues.add(NaryLink.class);
         this.connectorRepresentedFeatureType = new SingleElementType(true, connectorRepresentedFeatureValues);
         
-        List<java.lang.Class<? extends Element>> connectorEndRepresentedFeatureValues = new ArrayList<>();
+        List<java.lang.Class<? extends MObject>> connectorEndRepresentedFeatureValues = new ArrayList<>();
         connectorEndRepresentedFeatureValues.add(Attribute.class);
         connectorEndRepresentedFeatureValues.add(AssociationEnd.class);
         connectorEndRepresentedFeatureValues.add(NaryLinkEnd.class);

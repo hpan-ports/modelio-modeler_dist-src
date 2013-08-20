@@ -39,6 +39,7 @@ import org.eclipse.e4.ui.model.application.ui.menu.MHandledMenuItem;
 import org.eclipse.e4.ui.model.application.ui.menu.MMenu;
 import org.eclipse.e4.ui.model.application.ui.menu.MMenuElement;
 import org.eclipse.e4.ui.model.application.ui.menu.MMenuFactory;
+import org.eclipse.e4.ui.model.application.ui.menu.MMenuSeparator;
 import org.modelio.model.browser.plugin.ModelBrowser;
 import org.modelio.vcore.smkernel.mapi.MObject;
 import org.osgi.framework.Bundle;
@@ -170,6 +171,24 @@ public class ElementCreationDynamicMenuManager {
         }
         
         validCases.get(sourceMetaclass).add(contributionId);
+    }
+
+    @objid ("987e9920-f1e4-4675-a169-28e7f6e038ae")
+    public static void registerSeparator(String sourceMetaclass) {
+        // create a new item
+        MMenuSeparator item = MMenuFactory.INSTANCE.createMenuSeparator();
+        
+        // Build a unique ID for the separator...
+        item.setElementId(sourceMetaclass + ".separator." + menu.getChildren().size());
+        
+        item.setToBeRendered(true);
+        item.setVisible(true);
+        
+        item.setContributorURI(CONTRIBUTOR_ID);
+        
+        menu.getChildren().add(item);
+        
+        registerValidCase(sourceMetaclass, item.getElementId());
     }
 
 }

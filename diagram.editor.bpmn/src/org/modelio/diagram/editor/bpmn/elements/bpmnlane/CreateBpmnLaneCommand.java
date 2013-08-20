@@ -111,7 +111,7 @@ public class CreateBpmnLaneCommand extends Command {
             laneset.setParentLane(target);
             gmlaneset = (GmBpmnLaneSetContainer) diagram.unmask(this.parentNode, laneset, -1);
             
-            // Set default name
+            // Set default name of laneset
             laneset.setName(modelManager.getModelServices().getElementNamer().getUniqueName(laneset));
         } else {
         
@@ -133,8 +133,8 @@ public class CreateBpmnLaneCommand extends Command {
         final IElementConfigurator elementConfigurer = modelManager.getModelServices().getElementConfigurer();
         elementConfigurer.configure(modelManager.getModelFactory(newElement), newElement, this.context.getProperties());
         
-        // Set default name
-        laneset.setName(modelManager.getModelServices().getElementNamer().getUniqueName(laneset));
+        // Set default name of lane
+        newElement.setName(modelManager.getModelServices().getElementNamer().getUniqueName(newElement));
         
         // Show the new elements in the diagram (ie create their Gm )
         diagram.unmask(gmlaneset, newElement, -1);

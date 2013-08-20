@@ -158,6 +158,7 @@ import org.modelio.metamodel.uml.behavior.commonBehaviors.BehaviorParameter;
 import org.modelio.metamodel.uml.behavior.commonBehaviors.Event;
 import org.modelio.metamodel.uml.behavior.commonBehaviors.OpaqueBehavior;
 import org.modelio.metamodel.uml.behavior.commonBehaviors.Signal;
+import org.modelio.metamodel.uml.behavior.communicationModel.CommunicationChannel;
 import org.modelio.metamodel.uml.behavior.communicationModel.CommunicationInteraction;
 import org.modelio.metamodel.uml.behavior.communicationModel.CommunicationMessage;
 import org.modelio.metamodel.uml.behavior.communicationModel.CommunicationNode;
@@ -1011,6 +1012,12 @@ class DataModelFactory extends DefaultModelVisitor {
     @Override
     public Object visitCombinedFragment(CombinedFragment theCombinedFragment) {
         return new CombinedFragmentPropertyModel(theCombinedFragment);
+    }
+
+    @objid ("79b9260e-0699-403c-84bc-8cf7d2522de6")
+    @Override
+    public Object visitCommunicationChannel(CommunicationChannel theCommunicationChannel) {
+        return new CommunicationChannelPropertyModel(theCommunicationChannel);
     }
 
     @objid ("8e8020b1-c068-11e1-8c0a-002564c97630")

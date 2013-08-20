@@ -30,11 +30,8 @@ import org.modelio.api.diagram.IDiagramNode;
 import org.modelio.api.diagram.InvalidDestinationPointException;
 import org.modelio.api.diagram.InvalidPointsPathException;
 import org.modelio.api.diagram.InvalidSourcePointException;
-import org.modelio.app.project.core.services.IProjectService;
 import org.modelio.diagram.diagramauto.diagram.StyleConstants;
 import org.modelio.diagram.diagramauto.diagram.layout.DiagonalLayout;
-import org.modelio.diagram.editor.plugin.DiagramEditorsManager;
-import org.modelio.diagram.editor.plugin.IDiagramConfigurerRegistry;
 import org.modelio.gproject.model.IMModelServices;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
 import org.modelio.metamodel.uml.infrastructure.ModelTree;
@@ -48,8 +45,8 @@ public class SubPackageStructureCreator extends AbstractDiagramCreator {
     public List<IDiagramNode> _contentDgs;
 
     @objid ("77d98f85-f2ae-4863-9c99-ff93bc09fdd7")
-    public SubPackageStructureCreator(IProjectService projectService, IDiagramConfigurerRegistry configurerRegistry, DiagramEditorsManager editorManager, IMModelServices modelServices) {
-        super(projectService,configurerRegistry,editorManager,modelServices);
+    public SubPackageStructureCreator(IMModelServices modelServices) {
+        super(modelServices);
         
         this._contentDgs = new ArrayList<>();
     }
@@ -121,7 +118,8 @@ public class SubPackageStructureCreator extends AbstractDiagramCreator {
         
         for (int k = 0; k < namespaceElt.getUsedNsu().size(); ++k) {
             NamespaceUse blueLink = namespaceElt.getUsedNsu().get(k);
-            if ((blueLink.getUser() instanceof Package) && isInSamePackage(namespaceElt, blueLink.getUser())) {
+            final NameSpace used = blueLink.getUsed();
+            if ((used instanceof Package) && isInSamePackage(namespaceElt, used)) {
                 nsus.add(blueLink);
             }
         }

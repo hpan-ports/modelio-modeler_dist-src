@@ -50,14 +50,20 @@ public class ModelLoaderConfiguration {
     @objid ("9441ac81-2644-4642-9fb5-28dabc8a2686")
     private IAccessManager accessManager;
 
+    @objid ("6bc6ac18-5bdc-4a0e-9ef6-61b116066765")
+    private RefreshEventService refreshEventService;
+
     @objid ("1c44100c-b515-42ac-aa4a-bb6f2728a65b")
-    public ModelLoaderConfiguration(CoreSession session, short kid, byte rid, IRepository shellRepository, CacheManager cacheManager, IAccessManager accessManager) {
+    public ModelLoaderConfiguration(CoreSession session, short kid, byte rid, IRepository shellRepository, CacheManager cacheManager, IAccessManager accessManager, RefreshEventService refreshEventService) {
         this.session = session;
         this.accessManager = accessManager;
         this.cacheManager = cacheManager;
         this.kid =  kid;
         this.rid = rid;
         this.shellRepository = shellRepository;
+        this.refreshEventService = refreshEventService;
+        
+        assert (this.refreshEventService != null);
     }
 
     @objid ("700f8e7c-706d-42e2-851a-46da1e29236d")
@@ -88,6 +94,11 @@ public class ModelLoaderConfiguration {
     @objid ("8bc57b52-4ac9-49e4-93f7-9e3ef3667f07")
     public IAccessManager getAccessManager() {
         return this.accessManager;
+    }
+
+    @objid ("790cd109-0f8a-40ce-bc7b-50362e05edeb")
+    public RefreshEventService getRefreshEventService() {
+        return this.refreshEventService;
     }
 
 }

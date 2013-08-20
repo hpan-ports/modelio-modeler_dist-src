@@ -51,7 +51,10 @@ public class NaryLinkImpl extends ModelElementImpl implements NaryLink {
     @Override
     public SmObjectImpl getCompositionOwner() {
         for (SmObjectImpl obj : this.getDepValList(NaryLinkData.Metadata.NaryLinkEndDep())) {
-            return obj;
+            // Avoid infinite composition loops
+            SmObjectImpl objOwner = obj.getCompositionOwner();
+            if (objOwner != this && objOwner != null)
+                return obj;
             
         }
         return super.getCompositionOwner();
@@ -60,8 +63,12 @@ public class NaryLinkImpl extends ModelElementImpl implements NaryLink {
     @objid ("154596a6-bea0-4b8c-b421-c4f78eeb540c")
     @Override
     public SmDepVal getCompositionRelation() {
-        for (SmObjectImpl obj : this.getDepValList(NaryLinkData.Metadata.NaryLinkEndDep())) 
-          return new SmDepVal(NaryLinkData.Metadata.NaryLinkEndDep(), obj);
+        for (SmObjectImpl obj : this.getDepValList(NaryLinkData.Metadata.NaryLinkEndDep()))  {
+            // Avoid infinite composition loops
+            SmObjectImpl objOwner = obj.getCompositionOwner();
+            if (objOwner != this && objOwner != null)
+                return new SmDepVal(NaryLinkData.Metadata.NaryLinkEndDep(), obj);
+        }
         return super.getCompositionRelation();
     }
 

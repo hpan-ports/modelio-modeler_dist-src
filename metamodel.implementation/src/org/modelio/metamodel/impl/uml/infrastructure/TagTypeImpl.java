@@ -31,7 +31,6 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.emf.common.util.EList;
 import org.modelio.metamodel.data.uml.infrastructure.TagTypeData;
 import org.modelio.metamodel.mda.ModuleComponent;
-import org.modelio.metamodel.uml.infrastructure.LocalTaggedValue;
 import org.modelio.metamodel.uml.infrastructure.MetaclassReference;
 import org.modelio.metamodel.uml.infrastructure.Stereotype;
 import org.modelio.metamodel.uml.infrastructure.TagType;
@@ -133,25 +132,6 @@ public class TagTypeImpl extends ModelElementImpl implements TagType {
         final List<T> results = new ArrayList<>();
         final MClass mClass = SmClass.getClass(filterClass);
         for (final TaggedValue element : getTagOccurence()) {
-          if (element.getMClass().hasBase(mClass)) {
-            results.add(filterClass.cast(element));
-          }
-        }
-        return Collections.unmodifiableList(results);
-    }
-
-    @objid ("c3129915-4597-410a-819b-cdd07910adb7")
-    @Override
-    public EList<LocalTaggedValue> getLocalTagOccurence() {
-        return new SmList<>(this, TagTypeData.Metadata.LocalTagOccurenceDep());
-    }
-
-    @objid ("b96321f9-43a3-4d04-8831-2d37b932d6c1")
-    @Override
-    public <T extends LocalTaggedValue> List<T> getLocalTagOccurence(java.lang.Class<T> filterClass) {
-        final List<T> results = new ArrayList<>();
-        final MClass mClass = SmClass.getClass(filterClass);
-        for (final LocalTaggedValue element : getLocalTagOccurence()) {
           if (element.getMClass().hasBase(mClass)) {
             results.add(filterClass.cast(element));
           }

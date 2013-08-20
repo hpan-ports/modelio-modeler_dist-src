@@ -101,11 +101,13 @@ public class ModuleMenuCreator {
     public void aboutToHide(List<MMenuElement> items) {
         if (INSTANCE.part != null) {
             // Cleanup menu items
-            for (MMenuElement item : items) {
-                item.getParent().getChildren().remove(item);
+            if (items != null) {                
+                for (MMenuElement item : items) {
+                    item.getParent().getChildren().remove(item);
+                }
             }
         
-            // Cleanip commands & handlers
+            // Cleanup commands & handlers
             for (IModule module : INSTANCE.startedModules) {
                 ModulePopupManager.removeMenu(module, INSTANCE.part);
             }

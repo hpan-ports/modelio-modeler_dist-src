@@ -111,13 +111,7 @@ public class CreateLinkCommand extends Command {
                             this.to.getMClass(), null);
                 }
             } else if (newLinkType instanceof Stereotype) {
-                // ICreationExpert creationExpert =
-                // CreationExpertRegistry.getExpert((Stereotype) newLinkType);
-                // if (creationExpert == null) {
-                // creationExpert =
-                // CreationExpertRegistry.getExpert(Dependency.class);
-                // }
-                canLink = MTools.getLinkTool().canLink(((Stereotype) newLinkType).getMClass(), this.from.getMClass(), this.to.getMClass(), null);
+                canLink = MTools.getLinkTool().canLink(((Stereotype) newLinkType), Metamodel.getMClass(Dependency.class), this.from.getMClass(), this.to.getMClass(), null);
             }
         }
         // else {

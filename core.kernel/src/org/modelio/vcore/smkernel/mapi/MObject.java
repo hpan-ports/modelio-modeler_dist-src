@@ -33,7 +33,7 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
  * @author phv
  */
 @objid ("001dc7ac-a714-1f4f-9c13-001ec947cd2a")
-public interface MObject {
+public interface MObject extends Comparable<MObject> {
     /**
      * Accept a visitor.
      * <p>

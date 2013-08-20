@@ -24,10 +24,7 @@ package org.modelio.diagram.diagramauto.diagram.creator;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.api.diagram.IDiagramHandle;
 import org.modelio.api.diagram.autodiagram.IDiagramCreator;
-import org.modelio.app.project.core.services.IProjectService;
-import org.modelio.diagram.api.services.DiagramHandle;
-import org.modelio.diagram.editor.plugin.DiagramEditorsManager;
-import org.modelio.diagram.editor.plugin.IDiagramConfigurerRegistry;
+import org.modelio.api.modelio.Modelio;
 import org.modelio.gproject.gproject.GProject;
 import org.modelio.gproject.model.IMModelServices;
 import org.modelio.metamodel.Metamodel;
@@ -44,21 +41,9 @@ public abstract class AbstractDiagramCreator implements IDiagramCreator {
     @objid ("82e36ced-0fe5-4c0e-ba2e-cc78480e886a")
     protected IMModelServices modelServices;
 
-    @objid ("5130beb0-a1ff-464e-9eac-5de94e223066")
-    protected IProjectService projectService;
-
-    @objid ("066368a5-220b-4fee-8f5e-dec7fcc34694")
-    protected IDiagramConfigurerRegistry configurerRegistry;
-
-    @objid ("75e37650-d02f-49d8-bea1-d7f3b4177d51")
-    protected DiagramEditorsManager editorManager;
-
     @objid ("a068b3d7-d0c3-4804-ad04-d37951c95983")
-    public AbstractDiagramCreator(IProjectService projectService, IDiagramConfigurerRegistry configurerRegistry, DiagramEditorsManager editorManager, IMModelServices modelServices) {
+    public AbstractDiagramCreator(IMModelServices modelServices) {
         this.modelServices = modelServices;
-        this.projectService = projectService;
-        this.configurerRegistry = configurerRegistry;
-        this.editorManager = editorManager;
     }
 
     @objid ("d2278822-5961-4832-b4ba-3b7572246fb8")
@@ -76,7 +61,7 @@ public abstract class AbstractDiagramCreator implements IDiagramCreator {
             }
         
             // get the diagram handle to work with
-            try (IDiagramHandle dh = DiagramHandle.create(diagram, this.projectService, this.configurerRegistry, this.editorManager, this.modelServices, null)) {
+            try (IDiagramHandle dh = Modelio.getInstance().getDiagramService().getDiagramHandle(diagram)) {
                 dh.setBatchMode(true);
         
                 // perform the inital unmasking (mainly nodes)

@@ -35,7 +35,8 @@ Require-Bundle: org.modelio.diagram.editor,
  org.modelio.api,
  org.modelio.metamodel.implementation,
  org.eclipse.emf.common,
- org.eclipse.e4.ui.model.workbench
+ org.eclipse.e4.ui.model.workbench,
+ org.eclipse.core.expressions
 Bundle-ClassPath: res/,
  .
 Export-Package: org.modelio.diagram.editor.statik.editor,

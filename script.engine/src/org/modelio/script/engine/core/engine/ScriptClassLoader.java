@@ -144,9 +144,9 @@ public class ScriptClassLoader extends URLClassLoader {
             }
             return super.findClass(name);
         } catch (Error e) {
-            System.err.println(e.getClass().getSimpleName() + " while looking for a class. classpath=");
+            ScriptEnginePlugin.LOG.debug(e.getClass().getSimpleName() + " while looking for a class. classpath=");
             for (URL url : getURLs()) {
-                System.err.println(" - " + url.toString());
+                ScriptEnginePlugin.LOG.debug(" - " + url.toString());
             }
             throw e;
         }
@@ -164,11 +164,11 @@ public class ScriptClassLoader extends URLClassLoader {
      */
     @objid ("007320a8-c5d9-1069-96f6-001ec947cd2a")
     private void addContributingPluginClassLoaders() {
-        Display.getDefault().asyncExec(new Runnable() {
+        // This must be synchronous for the batch mode...
+        Display.getDefault().syncExec(new Runnable() {
             @Override
             public void run() {
-                IConfigurationElement[] config = Platform.getExtensionRegistry().getConfigurationElementsFor(
-                        CLASSLOADERS_EXTENSION_ID);
+                IConfigurationElement[] config = Platform.getExtensionRegistry().getConfigurationElementsFor(CLASSLOADERS_EXTENSION_ID);
                 for (IConfigurationElement elt : config) {
                     if (elt.getName().equals(JYTHONAPIPROVIDER)) { 
                         try {

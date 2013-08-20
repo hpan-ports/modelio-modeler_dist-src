@@ -50,7 +50,8 @@ Require-Bundle: org.modelio.metamodel.emfapi,
  org.modelio.script.engine,
  org.eclipse.e4.ui.services,
  org.modelio.audit,
- org.modelio.editors.richnote
+ org.modelio.editors.richnote,
+ org.modelio.xmi;bundle-version="1.0.0"
 Bundle-Activator: org.modelio.api.impl.plugin.ApiImpl
 Bundle-ActivationPolicy: lazy
 Bundle-ClassPath: res/,

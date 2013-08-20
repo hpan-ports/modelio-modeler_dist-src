@@ -21,7 +21,6 @@
 
 package org.modelio.script.macro.catalogdialog;
 
-import java.nio.file.Path;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.jface.dialogs.IDialogConstants;
@@ -40,13 +39,14 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
-import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Shell;
 import org.modelio.core.ui.dialog.ModelioDialog;
 import org.modelio.metamodel.Metamodel;
+import org.modelio.script.macro.IMacroService.Scope;
+import org.modelio.script.macro.IMacroService;
 import org.modelio.script.macro.catalog.Catalog;
-import org.modelio.script.macro.catalog.ScriptMacro;
+import org.modelio.script.macro.catalog.Macro;
 import org.modelio.script.plugin.Script;
 import org.modelio.vcore.smkernel.mapi.MClass;
 import org.modelio.vcore.smkernel.mapi.MObject;
@@ -60,7 +60,7 @@ public class CatalogDialog extends ModelioDialog {
     private CatalogContentProvider provider;
 
     @objid ("006972c4-c497-106a-bf4f-001ec947cd2a")
-    protected ScriptMacro selectedScript = null;
+    protected Macro selectedScript = null;
 
     @objid ("003fd1da-f1bd-106a-bf4f-001ec947cd2a")
     protected Button addMacroFromFileButton;
@@ -80,55 +80,50 @@ public class CatalogDialog extends ModelioDialog {
     @objid ("b136a183-e03d-4163-9848-1363213b667b")
     protected List<MObject> selectedElements;
 
+    @objid ("32d38702-f198-4a05-80e2-e34721761c13")
+    private IMacroService macroService;
+
     @objid ("00697af8-c497-106a-bf4f-001ec947cd2a")
-    public CatalogDialog(Shell parentShell, List<MObject> selectedElements) {
+    public CatalogDialog(Shell parentShell, IMacroService macroService, List<MObject> selectedElements) {
         super(parentShell);
         this.selectedElements = selectedElements;
+        this.macroService = macroService;
         this.provider = new CatalogContentProvider();
+        
+        this.provider.addCatalog((macroService.getCatalog(IMacroService.Scope.MODELIO)));
+        this.provider.addCatalog((macroService.getCatalog(Scope.WORSPACE)));
+        Catalog projectCatalog = macroService.getCatalog(Scope.PROJECT);
+        if (projectCatalog != null)
+            this.provider.addCatalog((projectCatalog));
     }
 
     @objid ("006a9da2-c497-106a-bf4f-001ec947cd2a")
     @Override
     public void addButtonsInButtonBar(Composite parent) {
-        createButton(parent, IDialogConstants.OK_ID, IDialogConstants.OK_LABEL, true);
-        createButton(parent, IDialogConstants.CANCEL_ID, IDialogConstants.CANCEL_LABEL, true);
+        createButton(parent, IDialogConstants.OK_ID, IDialogConstants.CLOSE_LABEL, true);
     }
 
     @objid ("006a9e38-c497-106a-bf4f-001ec947cd2a")
     @Override
     public Control createContentArea(Composite parent) {
-        /*
-         * SashForm composite = new SashForm(parent, SWT.HORIZONTAL |
-         * SWT.NO_REDRAW_RESIZE);
-         * composite.setLayout(new FillLayout());
-         * composite.setFont(parent.getFont());
-         * composite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true,
-         * true));
-         */
-        
         // Catalog group:
         final Group catalogPanel = new Group(parent, SWT.SHADOW_ETCHED_IN);
         catalogPanel.setText(Script.I18N.getString("CatalogDialog.CatalogGroup"));
         catalogPanel.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
         
-        // final Composite catalogPanel = new Composite(parent, SWT.NONE);
-        // catalogPanel.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true,
-        // true));
         
         this.treeviewer = new TreeViewer(catalogPanel, SWT.NONE);
-        
         this.treeviewer.setContentProvider(this.provider);
-        
         this.treeviewer.setLabelProvider(new CatalogLabelProvider());
-        
         this.treeviewer.addSelectionChangedListener(new TreeSelectionChangedListener());
+        
         
         // Catalog buttons
         Composite catalogToolbar = new Composite(catalogPanel, SWT.NONE);
         GridDataFactory.defaultsFor(catalogToolbar).align(SWT.END, SWT.BEGINNING) // align
-                                                                                  // on
-                                                                                  // the
-                                                                                  // right
+                                                                                    // on
+                                                                                    // the
+                                                                                    // right
                 .grab(false, false).applyTo(catalogToolbar);
         
         // Add macro from file button
@@ -160,6 +155,7 @@ public class CatalogDialog extends ModelioDialog {
         GridLayoutFactory.swtDefaults().generateLayout(catalogPanel);
         
         this.treeviewer.setInput(1);
+        this.treeviewer.setExpandedElements(this.provider.getCatalogs().toArray());
         this.treeviewer.refresh();
         return catalogPanel;
     }
@@ -194,23 +190,15 @@ public class CatalogDialog extends ModelioDialog {
         for (Catalog catalog : this.provider.getCatalogs()) {
             catalog.save();
         }
+        
         this.provider.dispose();
         this.provider = null;
         super.okPressed();
     }
 
     /**
-     * @param catalog
-     */
-    @objid ("003b7f40-eada-106a-bf4f-001ec947cd2a")
-    public void addCatalog(Catalog catalog) {
-        this.provider.addCatalog(catalog);
-    }
-
-    /**
      * Update the buttons and their enabled/disabled status when the tree
-     * selection
-     * changes
+     * selection changes
      */
     @objid ("006966ee-c497-106a-bf4f-001ec947cd2a")
     private class TreeSelectionChangedListener implements ISelectionChangedListener {
@@ -230,15 +218,16 @@ public class CatalogDialog extends ModelioDialog {
                 // return;
                 // }
             
-                if (selectionElement instanceof ScriptMacro) {
-                    CatalogDialog.this.runMacroButton.setEnabled(isMacroRunnable((ScriptMacro) selectionElement));
-                    CatalogDialog.this.editMacroButton.setEnabled(true);
-                    CatalogDialog.this.removeMacroButton.setEnabled(true);
+                if (selectionElement instanceof Macro) {
+                    Macro selectedMacro = (Macro) selectionElement;
+                    CatalogDialog.this.runMacroButton.setEnabled(isMacroRunnable((Macro) selectionElement));
+                    CatalogDialog.this.editMacroButton.setEnabled(selectedMacro.getCatalog().isModifiable());
+                    CatalogDialog.this.removeMacroButton.setEnabled(selectedMacro.getCatalog().isModifiable());
                     CatalogDialog.this.addMacroFromFileButton.setEnabled(false);
                     return;
                 }
             
-                if (selectionElement instanceof Catalog) {
+                if (selectionElement instanceof Catalog && ((Catalog) selectionElement).isModifiable()) {
                     CatalogDialog.this.addMacroFromFileButton.setEnabled(true);
                     CatalogDialog.this.removeMacroButton.setEnabled(false);
                     CatalogDialog.this.editMacroButton.setEnabled(false);
@@ -259,10 +248,10 @@ public class CatalogDialog extends ModelioDialog {
         }
 
         @objid ("4691c492-534b-4a67-bb54-5f104620adc3")
-        private boolean isMacroRunnable(ScriptMacro macro) {
+        private boolean isMacroRunnable(Macro macro) {
             boolean runnable = true;
-            if (!(macro.getMetaclasses().isEmpty())) {                
-                if (!CatalogDialog.this.selectedElements.isEmpty()) {                
+            if (!(macro.getMetaclasses().isEmpty())) {
+                if (!CatalogDialog.this.selectedElements.isEmpty()) {
                     runnable = (macro.getMetaclasses().size() > 0);
                     for (String acceptMClassName : macro.getMetaclasses()) {
                         MClass mClass = Metamodel.getMClass(acceptMClassName);
@@ -273,7 +262,8 @@ public class CatalogDialog extends ModelioDialog {
                                 break;
                             }
                         }
-                        if (!runnable) break;
+                        if (!runnable)
+                            break;
                     }
                 }
             }
@@ -300,48 +290,13 @@ public class CatalogDialog extends ModelioDialog {
             Object selection = ((IStructuredSelection) iSelection).getFirstElement();
             if (selection instanceof Catalog) {
                 Catalog catalog = (Catalog) selection;
-            
-                // Open the file dialog
-                // final String filePath = openFileDialog(catalog.getPath());
-                // if (filePath == null || filePath.isEmpty()) {
-                // return;
-                // }
-            
-                // Guess macro name from script file name
-                // String macroName = new File(filePath).getName();
-                // int lastDot = macroName.lastIndexOf('.');
-                // if (lastDot != -1) {
-                // macroName = macroName.substring(0, lastDot);
-                // }
-            
-                // ScriptMacro newMacro = new ScriptMacro(catalog);
-                // newMacro.setName(macroName);
-                // newMacro.setPath(Paths.get(filePath));
-                // catalog.addMacro(newMacro);
-            
-                // CatalogDialog.this.treeviewer.refresh(false);
-                // CatalogDialog.this.treeviewer.setSelection(new
-                // StructuredSelection(newMacro));
-            
                 MacroDialog dlg = new MacroDialog(getShell(), catalog);
                 dlg.open();
                 CatalogDialog.this.treeviewer.refresh(true);
-            
             }
         }
 
-        @objid ("0069b978-c497-106a-bf4f-001ec947cd2a")
-        private String openFileDialog(Path path) {
-            FileDialog dlg = new FileDialog(getShell(), SWT.OPEN);
-            dlg.setFilterPath(path.getParent().toString());
-            // dlg.setFilterExtensions(new String[] { "*.py", "*.jy" });
-            // dlg.setFilterNames(new String[] {
-            // Script.I18N.getString("CatalogDialog.PyFilterNames"),
-            // Script.I18N.getString("CatalogDialog.JyFilterNames") });
-            return dlg.open();
-        }
-
-        @objid ("044ffd4f-db96-48a7-8ab9-969e7b68c9a9")
+        @objid ("cd90c4cc-46fd-4ebc-b422-c073af8bf373")
         public NewMacroFromFileButtonListener() {
             //
         }
@@ -364,9 +319,9 @@ public class CatalogDialog extends ModelioDialog {
         public void widgetSelected(SelectionEvent e) {
             ISelection iSelection = CatalogDialog.this.treeviewer.getSelection();
             Object selection = ((IStructuredSelection) iSelection).getFirstElement();
-            if (selection instanceof ScriptMacro) {
+            if (selection instanceof Macro) {
             
-                ScriptMacro script = (ScriptMacro) selection;
+                Macro script = (Macro) selection;
                 Catalog cat = script.getCatalog();
                 cat.removeMacro(script);
             
@@ -399,10 +354,10 @@ public class CatalogDialog extends ModelioDialog {
         public void widgetSelected(SelectionEvent e) {
             ISelection iSelection = CatalogDialog.this.treeviewer.getSelection();
             Object selection = ((IStructuredSelection) iSelection).getFirstElement();
-            if (selection instanceof ScriptMacro) {
-                ScriptMacro cat = (ScriptMacro) selection;
+            if (selection instanceof Macro) {
+                Macro macroToEdit = (Macro) selection;
             
-                MacroDialog dlg = new MacroDialog(getShell(), cat);
+                MacroDialog dlg = new MacroDialog(getShell(), macroToEdit);
                 if (dlg.open() == 0) {
                     // Refresh view
                     CatalogDialog.this.treeviewer.refresh(true);

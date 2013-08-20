@@ -23,11 +23,11 @@ package org.modelio.core.ui.ktable.types.element;
 
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.modelio.metamodel.uml.infrastructure.Element;
+import org.modelio.vcore.smkernel.mapi.MObject;
 
 @objid ("8dc164b1-c068-11e1-8c0a-002564c97630")
 interface IEditionValidator {
     @objid ("8dc164b2-c068-11e1-8c0a-002564c97630")
-    void validate(List<Element> newContent);
+    void validate(List<MObject> newContent);
 
 }

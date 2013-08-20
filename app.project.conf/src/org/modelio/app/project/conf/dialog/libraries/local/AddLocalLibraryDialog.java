@@ -152,8 +152,11 @@ public final class AddLocalLibraryDialog extends ModelioDialog {
     @objid ("7d535807-3adc-11e2-916e-002564c97630")
     @Override
     protected void okPressed() {
+        // FIXME Replace with the following code to allow HTTP ramc fragments 
+        //        try(UriPathAccess acc = new UriPathAccess(URI, IAuthData)) {
+        //            Path p = acc.getPath();
         Path archivePath = Paths.get(this.panel.text.getText());
-        this.modelComponentArchive = new ModelComponentArchive(archivePath);
+        this.modelComponentArchive = new ModelComponentArchive(archivePath, true);
         try {
             this.fragmentDescriptor = this.modelComponentArchive.getFragmentDescriptor();
         } catch (Exception e) {
@@ -190,7 +193,7 @@ public final class AddLocalLibraryDialog extends ModelioDialog {
     IModelComponentInfos getFragmentInfos() {
         IModelComponentInfos infos = null;
         Path archivePath = Paths.get(this.panel.text.getText());
-        ModelComponentArchive archive = new ModelComponentArchive(archivePath);
+        ModelComponentArchive archive = new ModelComponentArchive(archivePath, true);
         try {
             infos = archive.getInfos();
         } catch (IOException error) {

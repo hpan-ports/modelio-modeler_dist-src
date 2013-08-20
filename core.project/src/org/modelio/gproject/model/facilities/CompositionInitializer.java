@@ -24,8 +24,9 @@ package org.modelio.gproject.model.facilities;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.gproject.model.api.MTools;
 import org.modelio.metamodel.analyst.AnalystContainer;
-import org.modelio.metamodel.analyst.AnalystElement;
+import org.modelio.metamodel.analyst.AnalystItem;
 import org.modelio.metamodel.analyst.AnalystProject;
+import org.modelio.metamodel.analyst.AnalystPropertyTable;
 import org.modelio.metamodel.analyst.BusinessRule;
 import org.modelio.metamodel.analyst.BusinessRuleContainer;
 import org.modelio.metamodel.analyst.Dictionary;
@@ -34,7 +35,6 @@ import org.modelio.metamodel.analyst.GoalContainer;
 import org.modelio.metamodel.analyst.PropertyContainer;
 import org.modelio.metamodel.analyst.Requirement;
 import org.modelio.metamodel.analyst.RequirementContainer;
-import org.modelio.metamodel.analyst.Term;
 import org.modelio.metamodel.bpmn.activities.BpmnActivity;
 import org.modelio.metamodel.bpmn.activities.BpmnComplexBehaviorDefinition;
 import org.modelio.metamodel.bpmn.activities.BpmnLoopCharacteristics;
@@ -129,8 +129,6 @@ import org.modelio.metamodel.uml.infrastructure.Dependency;
 import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.metamodel.uml.infrastructure.ExternDocument;
 import org.modelio.metamodel.uml.infrastructure.ExternDocumentType;
-import org.modelio.metamodel.uml.infrastructure.LocalNote;
-import org.modelio.metamodel.uml.infrastructure.LocalTaggedValue;
 import org.modelio.metamodel.uml.infrastructure.MetaclassReference;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
 import org.modelio.metamodel.uml.infrastructure.ModelTree;
@@ -704,18 +702,6 @@ public class CompositionInitializer extends DefaultModelVisitor {
         return false;
     }
 
-    @objid ("01f40498-0000-6ea2-0000-000000000000")
-    @Override
-    public Object visitLocalNote(LocalNote theLocalNote) {
-        return visitElement(theLocalNote);
-    }
-
-    @objid ("01f40498-0000-6eaa-0000-000000000000")
-    @Override
-    public Object visitLocalTaggedValue(LocalTaggedValue theLocalTaggedValue) {
-        return visitModelElement(theLocalTaggedValue);
-    }
-
     @objid ("01f40498-0000-6ff2-0000-000000000000")
     @Override
     public Object visitManifestation(Manifestation theManifestation) {
@@ -955,19 +941,8 @@ public class CompositionInitializer extends DefaultModelVisitor {
     @objid ("01f40498-0000-70b2-0000-000000000000")
     @Override
     public Object visitTypedPropertyTable(TypedPropertyTable theTypedPropertyTable) {
-        if (this.parent instanceof AnalystContainer) {
-            // FIXME
-            // theTypedPropertyTable.setDefaultValued((RequirementContainer) this.parent);
-            return true;
-        } else if (this.parent instanceof Dictionary) {
-            // FIXME
-            // theTypedPropertyTable.setDefaultValuedDictionary((Dictionary) this.parent);
-            return true;
-        } else if (this.parent instanceof AnalystElement) {
-            theTypedPropertyTable.setOwner((AnalystElement) this.parent);
-            return true;
-        } else if (this.parent instanceof Term) {
-            theTypedPropertyTable.setOwner((Term) this.parent);
+        if (this.parent instanceof ModelElement) {
+            theTypedPropertyTable.setOwner((AnalystContainer) this.parent);
             return true;
         }
         return false;
@@ -1103,9 +1078,6 @@ public class CompositionInitializer extends DefaultModelVisitor {
     public Object visitTagParameter(TagParameter theTagParameter) {
         if (this.parent instanceof TaggedValue) {
             theTagParameter.setAnnoted((TaggedValue) this.parent);
-            return true;
-        } else if (this.parent instanceof LocalTaggedValue) {
-            theTagParameter.setLocalAnnoted((LocalTaggedValue) this.parent);
             return true;
         }
         return false;
@@ -1725,6 +1697,16 @@ public class CompositionInitializer extends DefaultModelVisitor {
         }
         if (this.parent instanceof Goal) {
             theGoalElement.setParentGoal((Goal) this.parent);
+            return true;
+        }
+        return false;
+    }
+
+    @objid ("54a12604-d3bd-4db1-99c5-98e709f7dc97")
+    @Override
+    public Object visitAnalystPropertyTable(AnalystPropertyTable theTable) {
+        if (this.parent instanceof AnalystItem) {
+            theTable.setAnalystOwner((AnalystItem) this.parent);
             return true;
         }
         return false;

@@ -40,7 +40,7 @@ import org.modelio.vcore.smkernel.meta.SmDependency;
  * This loader allows modifying only the status.
  */
 @objid ("33968f70-42cf-11e2-91c9-001ec947ccaf")
-public class AccessManagerModelLoader implements IModelLoader {
+class AccessManagerModelLoader implements IModelLoader {
     @objid ("40f9e33e-7fe5-49bf-a573-2f08bf83a5b5")
     private IModelLoader origin;
 

@@ -21,29 +21,34 @@
 
 package org.modelio.app.project.ui.quit;
 
-import java.io.IOException;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.e4.core.di.annotations.Execute;
+import org.eclipse.e4.core.services.statusreporter.StatusReporter;
 import org.eclipse.e4.ui.workbench.IWorkbench;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.widgets.Shell;
 import org.modelio.app.project.core.services.IProjectService;
 import org.modelio.app.project.ui.plugin.AppProjectUi;
+import org.modelio.app.project.ui.saveproject.SaveProjectHandler;
 import org.modelio.gproject.gproject.GProject;
+import org.modelio.ui.progress.IModelioProgressService;
 
+/**
+ * Handler that quits Modelio.
+ */
 @objid ("a8baea1d-485b-11e2-ae30-002564c97630")
 public class QuitHandler {
     @objid ("abd856bd-485b-11e2-ae30-002564c97630")
     @Execute
-    public static void execute(final IWorkbench workbench, Shell shell, IProjectService projectService) {
-        if(QuitHandler.mustClose(shell, projectService)){
+    static void execute(final IWorkbench workbench, Shell shell, IProjectService projectService, IModelioProgressService progressSvc, StatusReporter statusReporter) {
+        if(QuitHandler.canClose(shell, projectService, progressSvc, statusReporter)){
             workbench.close();
         }
     }
 
     @objid ("22452f5c-486b-11e2-820c-002564c97630")
-    public static boolean mustClose(Shell shell, IProjectService projectService) {
+    private static boolean canClose(Shell shell, IProjectService projectService, IModelioProgressService progressSvc, StatusReporter statusReporter) {
         GProject openedProject = projectService.getOpenedProject();
         if (openedProject != null) {
             AppProjectUi.LOG.info("Quit project '%s'", openedProject.getName());
@@ -65,11 +70,8 @@ public class QuitHandler {
                 if (res == -1 || tab[res] == IDialogConstants.CANCEL_LABEL) {
                     return false;
                 } else if (tab[res] == IDialogConstants.YES_LABEL) {
-                    try {
-                        projectService.saveProject();
-                    } catch (IOException e) {
-                        AppProjectUi.LOG.error(e);
-                    }
+                    String title = AppProjectUi.I18N.getMessage("SaveBeforeQuitTitle");
+                    return SaveProjectHandler.saveProject(title, projectService, progressSvc, statusReporter);
                 }
             }
             

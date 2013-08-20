@@ -48,7 +48,6 @@ import org.modelio.app.core.activation.IActivationService;
 import org.modelio.app.core.events.ModelioEventTopics;
 import org.modelio.app.project.core.services.IProjectService;
 import org.modelio.gproject.gproject.GProject;
-import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
 import org.modelio.vcore.smkernel.mapi.MObject;
 
@@ -178,21 +177,15 @@ public class NotesView {
                     NotesView.this.treeSelectionListener = new SelectionChangedListener(NotesView.this.notesPanel);
                     NotesView.this.notesPanel.getTreeViewer().addSelectionChangedListener(NotesView.this.treeSelectionListener);
         
-                    // TODO Activate the context for NoteView :
-                    //        IContextService contextService = (IContextService) getViewSite().getService(IContextService.class);
-                    //        contextService.activateContext("com.modeliosoft.modelio.bindings.context.NotesViewID");
-        
-                    // TODO setTitleToolTip(EditionNotes.I18N.getString("NotesTabTooltip"));
-                    
                     MPopupMenu popupMenu = NotesView.this.menuService.registerContextMenu(NotesView.this.getNotesPanel().getTreeViewer().getTree(), POPUPID);
                     MMenu menu = MMenuFactory.INSTANCE.createMenu();
                     popupMenu.getChildren().add(menu);
                 }
                 NotesView.this.notesPanel.activateEdition(NotesView.this.project.getSession());
-                
+        
                 if (selection != null) 
                     update(selection);
-                
+        
                 NotesView.this.notesPanel.parentComposite.layout(true,true);
             }
         });
@@ -215,9 +208,6 @@ public class NotesView {
                 if (NotesView.this.notesPanel != null) {
                     NotesView.this.notesPanel.activateEdition(null);
                 }
-        
-                // TODO navigation listener
-                // O.getDefault().getNavigateService().removeNavigationListener(this.navigationListener);
             }
         });
     }
@@ -246,11 +236,14 @@ public class NotesView {
                 if (object instanceof MObject) {
                     selectedElements.add((MObject) object);
                 } else if (object instanceof IAdaptable) {
-                    selectedElements.add((MObject) ((IAdaptable) object).getAdapter(MObject.class));
+                    final MObject adapter = (MObject) ((IAdaptable) object).getAdapter(MObject.class);
+                    if (adapter != null) {
+                        selectedElements.add(adapter);
+                    }
                 } 
             }
-            
-            if (selectedElements.size() > 0 && selectedElements.get(0) instanceof MObject) {
+        
+            if (selectedElements.size() > 0) {
                 this.notesPanel.setInput(selectedElements.get(0));
             }
         }

@@ -109,7 +109,10 @@ public class MoveElementUpHandler {
                 if (element instanceof SmObjectImpl) {
                     selectedElements.add((SmObjectImpl) element);
                 } else if (element instanceof IAdaptable) {
-                    selectedElements.add((SmObjectImpl) ((IAdaptable) element).getAdapter(SmObjectImpl.class));
+                    final SmObjectImpl adapter = (SmObjectImpl) ((IAdaptable) element).getAdapter(SmObjectImpl.class);
+                    if (adapter != null) {
+                        selectedElements.add(adapter);
+                    }
                 }
             }
         }

@@ -79,13 +79,14 @@ public class XmlDiagramWriter implements IDiagramWriter {
     @objid ("cb7c35bb-186f-11e2-92d2-001ec947c8cc")
     @Override
     public String getOutput() {
-        return this.result.toString();
+        return UUBase64Compressor.compress(this.result.toString());
     }
 
     /**
      * Get the root element of this writer.
      * <p>
-     * The root element is the element that was passed to {@link #save(IPersistent)}.
+     * The root element is the element that was passed to
+     * {@link #save(IPersistent)}.
      * @return the root element.
      */
     @objid ("cb7e97c1-186f-11e2-92d2-001ec947c8cc")
@@ -170,10 +171,12 @@ public class XmlDiagramWriter implements IDiagramWriter {
     /**
      * Write an external reference to a persistent element.
      * <p>
-     * An external element is an element that is not stored in this stream but in another one. The provided ids must help the
-     * diagram reader to retrieve the data where is stored the external element.
+     * An external element is an element that is not stored in this stream but
+     * in another one. The provided ids must help the diagram reader to retrieve
+     * the data where is stored the external element.
      * @param extObj The external element to reference.
-     * @param dbId A "database" id that can be used to retrieve the location where the element is stored
+     * @param dbId A "database" id that can be used to retrieve the location
+     * where the element is stored
      * @param refId An identifier for the external element
      * @throws org.modelio.diagram.persistence.PersistenceException in case of unexpected error.
      */
@@ -275,9 +278,11 @@ public class XmlDiagramWriter implements IDiagramWriter {
     /**
      * Write an external reference to the given persistent element.
      * <p>
-     * Calls {@link IPersistent#write(IDiagramWriter)} that must call {@link #writeExtRef(IPersistent, String, String)}.
+     * Calls {@link IPersistent#write(IDiagramWriter)} that must call
+     * {@link #writeExtRef(IPersistent, String, String)}.
      * <p>
-     * This (bad) design (work in progress) is made to minimize the methods to add to IPersistent.
+     * This (bad) design (work in progress) is made to minimize the methods to
+     * add to IPersistent.
      * @param c the external element.
      */
     @objid ("cb80fa1f-186f-11e2-92d2-001ec947c8cc")

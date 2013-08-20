@@ -27,6 +27,7 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.gproject.descriptor.FragmentDescriptor;
 import org.modelio.gproject.fragment.exml.ExmlFragmentFactory;
 import org.modelio.gproject.fragment.ramcfile.RamcFileFragmentFactory;
+import org.modelio.gproject.fragment.unsupported.UnsupportedFragmentFactory;
 import org.modelio.gproject.fragment.url.UrlFragmentFactory;
 
 /**
@@ -63,7 +64,7 @@ public class Fragments {
                     return f;
             }
             
-            throw new IllegalArgumentException(fDesc + " fragment not supported.");
+            return UnsupportedFragmentFactory.getInstance();
         }
     }
 

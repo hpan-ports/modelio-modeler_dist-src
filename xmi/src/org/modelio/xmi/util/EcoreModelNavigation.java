@@ -44,21 +44,13 @@ import org.eclipse.uml2.uml.Parameter;
 import org.eclipse.uml2.uml.PartDecomposition;
 import org.eclipse.uml2.uml.Property;
 import org.eclipse.uml2.uml.Slot;
-import org.modelio.metamodel.uml.behavior.commonBehaviors.Signal;
-import org.modelio.metamodel.uml.behavior.usecaseModel.Actor;
-import org.modelio.metamodel.uml.behavior.usecaseModel.UseCase;
 import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
 import org.modelio.metamodel.uml.infrastructure.ModelTree;
 import org.modelio.metamodel.uml.statik.BindableInstance;
-import org.modelio.metamodel.uml.statik.Component;
-import org.modelio.metamodel.uml.statik.DataType;
 import org.modelio.metamodel.uml.statik.Instance;
-import org.modelio.metamodel.uml.statik.Interface;
 import org.modelio.metamodel.uml.statik.NameSpace;
-import org.modelio.metamodel.uml.statik.Node;
 import org.modelio.metamodel.uml.statik.Operation;
-import org.modelio.metamodel.uml.statik.TemplateParameter;
 import org.modelio.xmi.plugin.Xmi;
 
 @objid ("0b9802e6-55ba-4291-acd6-618a3eda5bf3")
@@ -892,22 +884,22 @@ public class EcoreModelNavigation {
         ReverseProperties revProp = ReverseProperties.getInstance();
         org.eclipse.uml2.uml.Element ecoreParent = ecoreElt;
         Element objParent = (Element) revProp.getMappedElement(ecoreParent);
-        while (!((objParent instanceof Package) 
-                ||(objParent instanceof Component)
-                ||(objParent instanceof Class)
-                ||(objParent instanceof Interface)
-                ||(objParent instanceof Signal)
-                ||(objParent instanceof TemplateParameter)) 
+        while (!((objParent instanceof org.modelio.metamodel.uml.statik.Package) 
+                ||(objParent instanceof org.modelio.metamodel.uml.statik.Component)
+                ||(objParent instanceof org.modelio.metamodel.uml.statik.Class)
+                ||(objParent instanceof org.modelio.metamodel.uml.statik.Interface)
+                ||(objParent instanceof org.modelio.metamodel.uml.behavior.commonBehaviors.Signal)
+                ||(objParent instanceof org.modelio.metamodel.uml.statik.TemplateParameter)) 
                 && (ecoreParent.getOwner() != null)){
             ecoreParent = ecoreParent.getOwner();
             objParent = (Element) revProp.getMappedElement(ecoreParent);
         }
-        if ((objParent instanceof Package) 
-                ||(objParent instanceof Component)
-                ||(objParent instanceof Class)
-                ||(objParent instanceof Interface)
-                ||(objParent instanceof Signal)
-                ||(objParent instanceof TemplateParameter))
+        if ((objParent instanceof org.modelio.metamodel.uml.statik.Package) 
+                ||(objParent instanceof org.modelio.metamodel.uml.statik.Component)
+                ||(objParent instanceof org.modelio.metamodel.uml.statik.Class)
+                ||(objParent instanceof org.modelio.metamodel.uml.statik.Interface)
+                ||(objParent instanceof org.modelio.metamodel.uml.behavior.commonBehaviors.Signal)
+                ||(objParent instanceof org.modelio.metamodel.uml.statik.TemplateParameter))
             return (ModelTree) objParent;
         else 
             return null;

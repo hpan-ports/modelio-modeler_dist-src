@@ -41,7 +41,6 @@ class DiagramEditSelectionPolicy extends ResizableEditPolicy {
         
         for (Object o : selectionHandles) {
             if (o instanceof MoveHandle) {
-                System.out.println(o);
                 mh = (MoveHandle) o;
                 mh.setForegroundColor(ColorConstants.blue);
                 break;

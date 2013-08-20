@@ -33,6 +33,9 @@ import org.modelio.vcore.session.api.ICoreSession;
 import org.modelio.vcore.smkernel.SmObjectImpl;
 import org.modelio.vcore.smkernel.meta.SmDependency;
 
+/**
+ * Service class used to copy a model object composition tree.
+ */
 @objid ("01f419b4-0000-291f-0000-000000000000")
 public class CopyMachine extends DefaultImporter {
     @objid ("000c3348-5247-1091-8d81-001ec947cd2a")
@@ -118,7 +121,11 @@ public class CopyMachine extends DefaultImporter {
 
     @objid ("3cdea8f4-78b9-47a8-a2b6-4cfdd88910b4")
     @Override
-    protected void fixElement(SmObjectImpl localObject, SmObjectImpl refObject) {
+    protected void fixElement(SmObjectImpl localObject, SmObjectImpl refObject, ICoreSession localSession, ICoreSession refSession) {
+        // Call inherited behavior
+        super.fixElement(localObject, refObject, localSession, refSession);
+        
+        // Fix the diagrams
         DiagramsCopier diagramCopier = new DiagramsCopier();
         
         if (localObject instanceof AbstractDiagram) {

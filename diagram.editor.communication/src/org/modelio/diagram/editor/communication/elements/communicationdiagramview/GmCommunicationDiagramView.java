@@ -118,7 +118,7 @@ public class GmCommunicationDiagramView extends GmAbstractDiagramView {
     @objid ("7a38df90-55b6-11e2-877f-002564c97630")
     @Override
     protected GmAbstractDiagram loadViewedDiagram() {
-        CommunicationDiagramEditorInput input = new CommunicationDiagramEditorInput(getDiagram().getModelManager().getModelingSession(), getRepresentedElement(),getDiagram().getModelManager().getModelServices(), getDiagram().getModelManager().getContextService());
+        CommunicationDiagramEditorInput input = new CommunicationDiagramEditorInput(getDiagram().getModelManager(), getRepresentedElement());
         return input.getGmDiagram();
     }
 

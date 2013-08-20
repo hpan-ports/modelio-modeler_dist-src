@@ -50,12 +50,7 @@ public abstract class AbstractPropertyModel<T extends Element> implements IPrope
         if (col == 0) {
             return false;
         }
-        // else 
-        
-        if (!this.theEditedElement.isModifiable()) {
-            return false;
-        }
-        return true;
+        return this.theEditedElement.isModifiable();
     }
 
     @objid ("0a5a4033-cb5b-11e1-9165-002564c97630")

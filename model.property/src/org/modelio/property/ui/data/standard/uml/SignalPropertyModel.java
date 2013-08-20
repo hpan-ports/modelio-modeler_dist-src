@@ -21,6 +21,8 @@
 
 package org.modelio.property.ui.data.standard.uml;
 
+import java.util.ArrayList;
+import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.core.ui.ktable.types.IPropertyType;
 import org.modelio.core.ui.ktable.types.bool.BooleanType;
@@ -34,6 +36,7 @@ import org.modelio.metamodel.uml.statik.Parameter;
 import org.modelio.property.ui.data.standard.common.AbstractPropertyModel;
 import org.modelio.vcore.session.api.ICoreSession;
 import org.modelio.vcore.session.impl.CoreSession;
+import org.modelio.vcore.smkernel.mapi.MObject;
 
 /**
  * <i>Signal</i> data model.
@@ -212,16 +215,20 @@ public class SignalPropertyModel extends AbstractPropertyModel<Signal> {
     @objid ("8f7cefba-c068-11e1-8c0a-002564c97630")
     public static class SignalBaseType extends HybridType {
         @objid ("8f7cefbc-c068-11e1-8c0a-002564c97630")
-        private Class<?>[] t = { Parameter.class, Operation.class, GeneralClass.class };
+        private List<Class<? extends MObject>> t;
 
         @objid ("8f7cefc1-c068-11e1-8c0a-002564c97630")
         public SignalBaseType(ICoreSession session) {
             super(session);
+            this.t = new ArrayList<>();
+            this.t.add(Parameter.class);
+            this.t.add(GeneralClass.class);
+            this.t.add(Operation.class);
         }
 
         @objid ("8f7cefc3-c068-11e1-8c0a-002564c97630")
         @Override
-        public Class<?>[] getTypes() {
+        public List<Class<? extends MObject>> getTypes() {
             return this.t;
         }
 
@@ -282,6 +289,12 @@ public class SignalPropertyModel extends AbstractPropertyModel<Signal> {
                 else if (GeneralClass.class.isAssignableFrom(value.getClass()))
                     theEditedElement.setBase((GeneralClass) value);
             }
+        }
+
+        @objid ("b1b06f1c-153b-4e98-9d82-99824721b167")
+        @Override
+        public boolean acceptStringValue() {
+            return false;
         }
 
     }

@@ -69,7 +69,10 @@ public class MObjectViewerDragProvider implements DragSourceListener {
                 List<Object> selectedObjects = ((IStructuredSelection) selection).toList();
                 for (Object obj : selectedObjects) {
                     if (obj instanceof IAdaptable) {
-                        selectedElements.add((MObject) ((IAdaptable) obj).getAdapter(MObject.class));                        
+                        final MObject adapter = (MObject) ((IAdaptable) obj).getAdapter(MObject.class);
+                        if (adapter != null) {
+                            selectedElements.add(adapter);
+                        }
                     } else if (obj instanceof MObject) {
                         selectedElements.add((MObject) obj);
                     } else {

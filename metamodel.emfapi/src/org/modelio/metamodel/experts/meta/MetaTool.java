@@ -26,6 +26,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
+import org.modelio.metamodel.Metamodel;
 import org.modelio.metamodel.analyst.AnalystProject;
 import org.modelio.metamodel.experts.meta.impl.DefaultMetaExpert;
 import org.modelio.metamodel.mda.Project;
@@ -224,19 +225,32 @@ public class MetaTool implements IMetaTool {
         @objid ("00976a12-de01-1097-bcec-001ec947cd2a")
         public List<IMetaExpert> getExperts(final MObject mObject) {
             List<IMetaExpert> results = new ArrayList<>();
-            MClass metaclass = mObject.getMClass();
             
-            // base expert
-            results.add(getExpert(metaclass));
+            if (mObject instanceof Stereotype) {
+                Stereotype ste = (Stereotype) mObject;
             
-            // stereotype expert
-            // TODO: view points might later filter this list
-            if (mObject instanceof ModelElement) {
-                final ModelElement modelElement = (ModelElement) mObject;
-                for (Stereotype ste : modelElement.getExtension()) {
-                    final IMetaExpert steExpert = this.getExpert(ste);
-                    if (steExpert != null) {
-                        results.add(steExpert);
+                // base expert
+                MClass metaclass = Metamodel.getMClass(ste.getBaseClassName());
+                results.add(getExpert(metaclass));
+            
+                final IMetaExpert steExpert = this.getExpert(ste);
+                if (steExpert != null) {
+                    results.add(steExpert);
+                }
+            } else {
+                // base expert
+                MClass metaclass = mObject.getMClass();
+                results.add(getExpert(metaclass));
+            
+                // stereotype expert
+                // TODO: view points might later filter this list
+                if (mObject instanceof ModelElement) {
+                    final ModelElement modelElement = (ModelElement) mObject;
+                    for (Stereotype ste : modelElement.getExtension()) {
+                        final IMetaExpert steExpert = this.getExpert(ste);
+                        if (steExpert != null) {
+                            results.add(steExpert);
+                        }
                     }
                 }
             }
@@ -405,7 +419,7 @@ public class MetaTool implements IMetaTool {
         @Override
         public Object visitElement(Element theElement) {
             // The visitor did not find, try a more generic approach
-                      //SmClass classDest = ((SmObjectImpl) this.objDest).getClassOf();
+            //SmClass classDest = ((SmObjectImpl) this.objDest).getClassOf();
             
             // Get all the 'component' dependencies supported by the metaclass of the 'from' object
             List<SmDependency> allCompoDeps = ((SmObjectImpl) theElement).getClassOf().getAllComponentDepDef();

@@ -31,13 +31,13 @@ import java.nio.file.FileAlreadyExistsException;
 import java.nio.file.FileSystemException;
 import java.nio.file.FileVisitResult;
 import java.nio.file.Files;
+import java.nio.file.InvalidPathException;
 import java.nio.file.LinkOption;
 import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
-import java.nio.file.attribute.FileAttribute;
 import java.text.MessageFormat;
 import java.util.Scanner;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
@@ -56,6 +56,15 @@ import org.modelio.vbasic.plugin.CoreUtils;
  */
 @objid ("e9ac6715-8541-11e1-afeb-001ec947ccaf")
 public final class FileUtils {
+    /**
+     * Compute the size of all files stored in a directory tree.
+     * @param path a directory path.
+     * @return the size of the directory.
+     * @throws java.io.IOException if an I/O error occurs. call {@linkplain IOException#getMessage()} to get the error cause.
+     * @throws java.nio.file.FileSystemException if a file system exception occurs. <b>Note:</b> {@linkplain FileSystemException#getMessage() getMessage()}
+     * usually does not return a user friendly message. Call
+     * {@linkplain FileUtils#getLocalizedMessage(FileSystemException)} to get a user friendly error message.
+     */
     @objid ("0028e5a6-b977-1ffa-8e11-001ec947cd2a")
     public static long computeSize(Path path) throws IOException, FileSystemException {
         DirectorySizeVisitor dsv = new DirectorySizeVisitor();
@@ -91,82 +100,52 @@ public final class FileUtils {
     }
 
     /**
-     * Creates a directory by creating all nonexistent parent directories first.
-     * Unlike the {@link #createDirectory createDirectory} method, an exception
-     * is not thrown if the directory could not be created because it already
-     * exists.
+     * Creates a directory by creating all nonexistent parent directories first. Unlike the {@link Files#createDirectory
+     * createDirectory} method, an exception is not thrown if the directory could not be created because it already exists.
      * 
      * <p>
-     * The {@code attrs} parameter is optional {@link FileAttribute
-     * file-attributes} to set atomically when creating the nonexistent
-     * directories. Each file attribute is identified by its
-     * {@link FileAttribute#name name}. If more than one attribute of the same
-     * name is included in the array then all but the last occurrence is
-     * ignored.
-     * 
-     * <p>
-     * If this method fails, then it may do so after creating some, but not all,
-     * of the parent directories.
-     * @param dir
-     * the directory to create
-     * @param attrs
-     * an optional list of file attributes to set atomically when
-     * creating the directory
-     * @return the directory
-     * @throws UnsupportedOperationException
-     * if the array contains an attribute that cannot be set
-     * atomically when creating the directory
-     * @throws FileAlreadyExistsException
-     * if {@code dir} exists but is not a directory <i>(optional
-     * specific exception)</i>
-     * @throws SecurityException
-     * in the case of the default provider, and a security manager
-     * is installed, the {@link SecurityManager#checkWrite(String)
-     * checkWrite} method is invoked prior to attempting to create a
-     * directory and its {@link SecurityManager#checkRead(String)
-     * checkRead} is invoked for each parent directory that is
-     * checked. If {@code dir} is not an absolute path then its
-     * {@link Path#toAbsolutePath toAbsolutePath} may need to be
-     * invoked to get its absolute path. This may invoke the
-     * security manager's
-     * {@link SecurityManager#checkPropertyAccess(String)
-     * checkPropertyAccess} method to check access to the system
+     * If this method fails, then it may do so after creating some, but not all, of the parent directories.
+     * @param dir the directory to create
+     * @throws java.io.IOException if an I/O error occurs. call {@linkplain IOException#getMessage()} to get the error cause.
+     * @throws java.nio.file.FileSystemException if a file system exception occurs. <b>Note:</b> {@linkplain FileSystemException#getMessage()} usually does not
+     * return a user friendly message. Call {@linkplain #getLocalizedMessage(FileSystemException)} to get a user
+     * friendly error message.
+     * @throws java.lang.SecurityException in the case of the default provider, and a security manager is installed, the
+     * {@link SecurityManager#checkWrite(String) checkWrite} method is invoked prior to attempting to create a directory
+     * and its {@link SecurityManager#checkRead(String) checkRead} is invoked for each parent directory that is checked.
+     * If {@code dir} is not an absolute path then its {@link Path#toAbsolutePath toAbsolutePath} may need to be invoked
+     * to get its absolute path. This may invoke the security manager's
+     * {@link SecurityManager#checkPropertyAccess(String) checkPropertyAccess} method to check access to the system
      * property {@code user.dir}
-     * @throws java.io.IOException if an I/O error occurs. call {@linkplain IOException#getMessage()} to
-     * get the error cause.
-     * @throws java.nio.file.FileSystemException if a file system exception occurs.
-     * <b>Note:</b> {@linkplain FileSystemException#getMessage()} usually does not return a user friendly message.
-     * Call {@linkplain #getLocalizedMessage(FileSystemException)} to get a user friendly error message.
+     * @throws java.nio.file.FileAlreadyExistsException if {@code dir} exists but is not a directory <i>(optional specific exception)</i>
+     * @throws java.nio.file.InvalidPathException - if a Path object cannot be constructed from the abstract path (see FileSystem.getPath)
      */
     @objid ("e9ac671b-8541-11e1-afeb-001ec947ccaf")
-    public static void createDir(final File f) throws IOException, FileSystemException {
-        Files.createDirectories(Paths.get(f.getPath()));
+    public static void createDir(final File dir) throws InvalidPathException, SecurityException, IOException, FileSystemException, FileAlreadyExistsException {
+        Files.createDirectories(dir.toPath());
     }
 
     /**
      * Deletes the given file or directory recursively.
      * <p>
      * If the path denotes a directory, tries to delete it with all its content.
-     * @throws NoSuchFileException
-     * if the file does not exist <i>(optional specific
-     * exception)</i>
-     * @throws DirectoryNotEmptyException
-     * if the file is a directory and could not otherwise be deleted
-     * because the directory is not empty <i>(optional specific
-     * exception)</i>
-     * @throws SecurityException
-     * In the case of the default provider, and a security manager
-     * is installed, the {@link SecurityManager#checkDelete(String)}
-     * method is invoked to check delete access to the file
      * @param path the path to the file or directory to delete
      * @throws java.io.IOException if an I/O error occurs. call {@linkplain IOException#getMessage()} to
      * get the error cause.
      * @throws java.nio.file.FileSystemException if a file system exception occurs.
      * <b>Note:</b> {@linkplain FileSystemException#getMessage()} usually does not return a user friendly message.
      * Call {@linkplain #getLocalizedMessage(FileSystemException)} to get a user friendly error message.
+     * @throws java.lang.SecurityException In the case of the default provider, and a security manager
+     * is installed, the {@link SecurityManager#checkDelete(String)}
+     * method is invoked to check delete access to the file
+     * @throws java.nio.file.DirectoryNotEmptyException if the file is a directory and could not otherwise be deleted
+     * because the directory is not empty <i>(optional specific
+     * exception)</i>
+     * @throws java.nio.file.NoSuchFileException if the file does not exist <i>(optional specific
+     * exception)</i>
      */
     @objid ("00974b68-bdb5-1ffa-8e11-001ec947cd2a")
-    public static void delete(final Path path) throws IOException, FileSystemException {
+    public static void delete(final Path path) throws NoSuchFileException, DirectoryNotEmptyException, SecurityException, IOException, FileSystemException {
         if (Files.isDirectory(path)) {
             Files.walkFileTree(path, new SimpleFileVisitor<Path>() {
                 @Override
@@ -196,26 +175,19 @@ public final class FileUtils {
      * Deletes the given file or directory recursively.
      * <p>
      * If the path denotes a directory, tries to delete it with all its content.
-     * @throws NoSuchFileException
-     * if the file does not exist <i>(optional specific
-     * exception)</i>
-     * @throws DirectoryNotEmptyException
-     * if the file is a directory and could not otherwise be deleted
-     * because the directory is not empty <i>(optional specific
-     * exception)</i>
-     * @throws SecurityException
-     * In the case of the default provider, and a security manager
-     * is installed, the {@link SecurityManager#checkDelete(String)}
-     * method is invoked to check delete access to the file
      * @param path the path to the file or directory to delete
-     * @throws java.io.IOException if an I/O error occurs. call {@linkplain IOException#getMessage()} to
-     * get the error cause.
-     * @throws java.nio.file.FileSystemException if a file system exception occurs.
-     * <b>Note:</b> {@linkplain FileSystemException#getMessage()} usually does not return a user friendly message.
-     * Call {@linkplain #getLocalizedMessage(FileSystemException)} to get a user friendly error message.
+     * @throws java.io.IOException if an I/O error occurs. call {@linkplain IOException#getMessage()} to get the error cause.
+     * @throws java.nio.file.FileSystemException if a file system exception occurs. <b>Note:</b> {@linkplain FileSystemException#getMessage()} usually does not
+     * return a user friendly message. Call {@linkplain #getLocalizedMessage(FileSystemException)} to get a user
+     * friendly error message.
+     * @throws java.lang.SecurityException In the case of the default provider, and a security manager is installed, the
+     * {@link SecurityManager#checkDelete(String)} method is invoked to check delete access to the file
+     * @throws java.nio.file.DirectoryNotEmptyException if the file is a directory and could not otherwise be deleted because the directory is not empty <i>(optional
+     * specific exception)</i>
+     * @throws java.nio.file.NoSuchFileException if the file does not exist <i>(optional specific exception)</i>
      */
     @objid ("e9ac6713-8541-11e1-afeb-001ec947ccaf")
-    public static void delete(final String path) throws IOException, FileSystemException {
+    public static void delete(final String path) throws NoSuchFileException, DirectoryNotEmptyException, SecurityException, IOException, FileSystemException {
         delete(Paths.get(path));
     }
 
@@ -223,7 +195,7 @@ public final class FileUtils {
      * Deletes the given file or directory recursively.
      * <p>
      * If the path denotes a directory, tries to delete it with all its content.
-     * @param path
+     * @param file the file or directory to delete.
      * @throws java.io.IOException if an I/O error occurs. call {@linkplain IOException#getMessage()} to
      * get the error cause.
      * @throws java.nio.file.FileSystemException if a file system exception occurs.
@@ -233,6 +205,65 @@ public final class FileUtils {
     @objid ("e9ac671a-8541-11e1-afeb-001ec947ccaf")
     public static void delete(final File file) throws IOException, FileSystemException {
         delete(file.toPath());
+    }
+
+    /**
+     * Encode any string to a legal file name.
+     * <p>
+     * Illegal characters are encoded by '%' followed by the hex value of the character.
+     * @param s a string to encode
+     * @param sb the string builder to use to build the encoded string. The encoded file name will be appended to the buffer.
+     * @return the string builder for convenience.
+     * @author http://stackoverflow.com/questions/1184176/how-can-i-safely-encode-a-string-in-java-to-use-as-a-filename
+     */
+    @objid ("f97fca82-9762-4d2c-a75c-f2bbd52b6764")
+    public static StringBuilder encodeFileName(String s, StringBuilder sb) {
+        final char escape = '%';
+        
+        int len = s.length();
+        for (int i = 0; i < len; i++) {
+            char ch = s.charAt(i);
+            if (ch < ' ' || ch >= 0x7F 
+                || ch == '/' || ch=='\\' // add other illegal chars
+                || (ch == '.' && i == 0) // we don't want to collide with "." or ".."!
+                || ch == escape) {
+                sb.append(escape);
+                if (ch < 0x10) {
+                    sb.append('0');
+                }
+                sb.append(Integer.toHexString(ch));
+            } else {
+                sb.append(ch);
+            }
+        }
+        return sb;
+    }
+
+    /**
+     * Decode a string from a file name encoded with {@link #encodeFileName(String, StringBuilder)}.
+     * @param fileName a file name with/without extension
+     * @param sb the string builder to use to build the decoded string. The decoded file name will be appended to the buffer.
+     * @return the string builder for convenience.
+     */
+    @objid ("36066993-f543-4873-9a07-9c8c382ed607")
+    public static StringBuilder decodeFileName(String fileName, StringBuilder sb) {
+        final char escape = '%';
+        
+        int len  = fileName.length();
+        sb.ensureCapacity(len);
+        
+        char[] hex = new char[2];
+        
+        for (int i=0; i<len; ++i) {
+            char ch = fileName.charAt(i);
+            if ( ch == escape) {
+                hex[1] = fileName.charAt(++i);
+                hex[2] = fileName.charAt(++i);
+                ch = (char) Integer.parseInt(new String(hex), 16);
+            } 
+            sb.append(ch);
+        }
+        return sb;
     }
 
     /**
@@ -275,7 +306,7 @@ public final class FileUtils {
      * Read the whole content of a file and returns it as a string.
      * <p>
      * To be used for small files.
-     * @param is a file path.
+     * @param file a file path.
      * @param charset The encoding type used to convert bytes from the stream into characters.
      * @return the read string
      * @throws java.io.IOException if an I/O error occurs. call {@linkplain IOException#getMessage()} to
@@ -361,8 +392,7 @@ public final class FileUtils {
 
         /**
          * Initialize the visitor.
-         * @param from the directory to copy
-         * @param to the directory copy path
+         * @param to the destination directory path.
          */
         @objid ("fac006fc-d023-11e1-bf59-001ec947ccaf")
         public CopyVisitor(Path to) {

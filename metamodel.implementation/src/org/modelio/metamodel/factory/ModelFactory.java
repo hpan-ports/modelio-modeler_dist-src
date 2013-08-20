@@ -24,11 +24,18 @@ package org.modelio.metamodel.factory;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.metamodel.factory.IModelFactory;
 import org.modelio.vcore.session.api.ICoreSession;
+import org.modelio.vcore.session.api.repository.IRepositorySupport;
 import org.modelio.vcore.session.impl.CoreSession;
 import org.modelio.vcore.smkernel.mapi.MObject;
 
+/**
+ * {@link IModelFactory} factory.
+ */
 @objid ("6d72d916-5c99-400e-bafa-be356b2eb5ab")
 public class ModelFactory {
+    /**
+     * The model element initializer used by all factories.
+     */
     @objid ("991492c3-c87e-4c0e-b252-f1a7dbaa7c34")
     public static final ElementInitializer INITIALIZER = new ElementInitializer();
 
@@ -49,8 +56,10 @@ public class ModelFactory {
      */
     @objid ("78b3e181-8be6-4414-987b-6793b53cafa0")
     public static IModelFactory getFactory(ICoreSession session) {
+        IRepositorySupport repoSupport = session.getRepositorySupport();
         return new ModelFactoryImpl(session.getModel().getGenericFactory(), 
-                session.getScratchRepository(),
+                repoSupport.getRepository(IRepositorySupport.REPOSITORY_KEY_SCRATCH),
+                repoSupport.getRepository(IRepositorySupport.REPOSITORY_KEY_LOCAL),
                 session.getModel(),
                 INITIALIZER);
     }

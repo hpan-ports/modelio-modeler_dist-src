@@ -63,7 +63,9 @@ public abstract class AbstractAlignHandler {
         filterSelection(primarySelection, otherSelections);
         
         // Align the elements
-        align(primarySelection, otherSelections);
+        if (primarySelection != null && otherSelections.size() > 0) {            
+            align(primarySelection, otherSelections);
+        }
         return null;
     }
 

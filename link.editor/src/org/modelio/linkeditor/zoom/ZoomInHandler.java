@@ -48,7 +48,7 @@ public class ZoomInHandler {
         
         LinkEditorView editor = (LinkEditorView) part.getObject();
         
-        ZoomManager zoomManager = (ZoomManager)editor.getAdapter(ZoomManager.class);
+        ZoomManager zoomManager = editor.getAdapter(ZoomManager.class);
         
         if (zoomManager != null && zoomManager.canZoomIn()) {
             zoomManager.zoomIn();
@@ -56,10 +56,4 @@ public class ZoomInHandler {
         return null;
     }
 
-
-/* @CanExecute
-    public boolean canExecute() {
-        // Nothing to do
-        return true;
-    }*/
 }

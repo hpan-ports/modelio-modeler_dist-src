@@ -33,8 +33,6 @@ import org.modelio.app.core.events.ModelioEvent;
 import org.modelio.app.project.core.services.IProjectService;
 import org.modelio.diagram.diagramauto.diagram.creator.ClassArchitectureCreator;
 import org.modelio.diagram.diagramauto.diagram.creator.ClassStructureCreator;
-import org.modelio.diagram.editor.plugin.DiagramEditorsManager;
-import org.modelio.diagram.editor.plugin.IDiagramConfigurerRegistry;
 import org.modelio.gproject.model.IMModelServices;
 import org.modelio.metamodel.diagrams.AbstractDiagram;
 import org.modelio.metamodel.uml.statik.Classifier;
@@ -45,12 +43,12 @@ import org.modelio.vcore.smkernel.mapi.MObject;
 public class ClassArchitectureDiagram extends AbstractHandler {
     @objid ("94e40a11-5cf8-435d-8ba3-d7747e4c2147")
     @Execute
-    public void execute(@Named(IServiceConstants.ACTIVE_SELECTION) final Object selection, IProjectService projectService, IDiagramConfigurerRegistry configurerRegistry, DiagramEditorsManager editorManager, IMModelServices modelServices, IModelioEventService eventService) {
+    public void execute(@Named(IServiceConstants.ACTIVE_SELECTION) final Object selection, IProjectService projectService, IMModelServices modelServices, IModelioEventService eventService) {
         List<MObject> selectedElements = getSelection(selection);
         try (ITransaction transaction = projectService.getSession().getTransactionSupport()
                 .createTransaction("ClassStructureDiagram");) {
         
-            ClassArchitectureCreator csc = new ClassArchitectureCreator(projectService, configurerRegistry, editorManager, modelServices);
+            ClassArchitectureCreator csc = new ClassArchitectureCreator(modelServices);
             for (MObject selectedElement : selectedElements) {
                 if (selectedElement instanceof Classifier) {
                     AbstractDiagram createDiagram = csc.createDiagram((Classifier) selectedElement);
@@ -69,31 +67,31 @@ public class ClassArchitectureDiagram extends AbstractHandler {
 
     @objid ("9b15f578-5307-417c-864e-9d98574cd0ae")
     @CanExecute
-    public boolean isEnabled(@Named(IServiceConstants.ACTIVE_SELECTION) final Object selection, IProjectService projectService, IDiagramConfigurerRegistry configurerRegistry, DiagramEditorsManager editorManager, IMModelServices modelServices) {
-        ClassStructureCreator pc = new ClassStructureCreator(projectService,configurerRegistry,editorManager,modelServices);
-            
+    public boolean isEnabled(@Named(IServiceConstants.ACTIVE_SELECTION) final Object selection, IMModelServices modelServices) {
+        ClassStructureCreator pc = new ClassStructureCreator(modelServices);
+        
         List<MObject> selectedElements = getSelection(selection);
         for (MObject elt : selectedElements) {
-        if ((elt instanceof Classifier)) {
-        // Deactivate for RAMC elements
-        if (elt.getStatus().isRamc()) {
-        return false;
-        }
-            
-        // Deactivate if no context is found
-        if (pc.getAutoDiagramContext((Classifier) elt) == null) {
-        return false;
-        }
-            
-        AbstractDiagram existingdiagramauto = pc.getExistingAutoDiagram((Classifier) elt);
-            
-        // Unmodifiable diagram means the command is disabled
-        if (existingdiagramauto != null && !existingdiagramauto.getStatus().isModifiable()) {
-        return false;
-        }
-        } else {
-        return false;
-        }
+            if ((elt instanceof Classifier)) {
+                // Deactivate for RAMC elements
+                if (elt.getStatus().isRamc()) {
+                    return false;
+                }
+        
+                // Deactivate if no context is found
+                if (pc.getAutoDiagramContext((Classifier) elt) == null) {
+                    return false;
+                }
+        
+                AbstractDiagram existingdiagramauto = pc.getExistingAutoDiagram((Classifier) elt);
+        
+                // Unmodifiable diagram means the command is disabled
+                if (existingdiagramauto != null && !existingdiagramauto.getStatus().isModifiable()) {
+                    return false;
+                }
+            } else {
+                return false;
+            }
         }
         return !selectedElements.isEmpty();
     }

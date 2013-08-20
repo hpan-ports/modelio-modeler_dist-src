@@ -21,6 +21,7 @@
 
 package org.modelio.core.ui.ktable.types.hybrid;
 
+import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import de.kupzog.ktable.KTableCellEditor;
 import de.kupzog.ktable.SWTX;
@@ -30,6 +31,7 @@ import org.eclipse.swt.widgets.Display;
 import org.modelio.app.core.picking.IModelioPickingService;
 import org.modelio.core.ui.ktable.types.PropertyType;
 import org.modelio.vcore.session.api.ICoreSession;
+import org.modelio.vcore.smkernel.mapi.MObject;
 
 @objid ("f8849728-c5d4-11e1-8f21-002564c97630")
 public abstract class HybridType extends PropertyType {
@@ -44,7 +46,7 @@ public abstract class HybridType extends PropertyType {
     }
 
     @objid ("397bfca7-c5d8-11e1-8f21-002564c97630")
-    public abstract Class<?>[] getTypes();
+    public abstract List<Class<? extends MObject>> getTypes();
 
     @objid ("397bfcad-c5d8-11e1-8f21-002564c97630")
     @Override
@@ -68,9 +70,12 @@ public abstract class HybridType extends PropertyType {
     @Override
     public KTableCellEditor getEditor(IModelioPickingService pickingService) {
         // Hybrid editor
-        HybridCellEditor hybridElementEditor = new HybridCellEditor(false, pickingService, this.session);
+        HybridCellEditor hybridElementEditor = new HybridCellEditor(acceptNullValue(), pickingService, this.session, acceptStringValue());
         hybridElementEditor.setTargetClasses(getTypes());
         return hybridElementEditor;
     }
+
+    @objid ("71a35452-a58e-4ac3-8fc2-4ddf2ae5531b")
+    public abstract boolean acceptStringValue();
 
 }

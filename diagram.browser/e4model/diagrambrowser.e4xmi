@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="ASCII"?>
-<fragment:ModelFragments xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:basic="http://www.eclipse.org/ui/2010/UIModel/application/ui/basic" xmlns:commands="http://www.eclipse.org/ui/2010/UIModel/application/commands" xmlns:fragment="http://www.eclipse.org/ui/2010/UIModel/fragment" xmlns:menu="http://www.eclipse.org/ui/2010/UIModel/application/ui/menu" xmlns:ui="http://www.eclipse.org/ui/2010/UIModel/application/ui" xmi:id="_MzwjcI4sEeGhiYrv9jYZww">
+<fragment:ModelFragments xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:advanced="http://www.eclipse.org/ui/2010/UIModel/application/ui/advanced" xmlns:basic="http://www.eclipse.org/ui/2010/UIModel/application/ui/basic" xmlns:commands="http://www.eclipse.org/ui/2010/UIModel/application/commands" xmlns:fragment="http://www.eclipse.org/ui/2010/UIModel/fragment" xmlns:menu="http://www.eclipse.org/ui/2010/UIModel/application/ui/menu" xmlns:ui="http://www.eclipse.org/ui/2010/UIModel/application/ui" xmi:id="_MzwjcI4sEeGhiYrv9jYZww">
   <imports xsi:type="commands:Command" xmi:id="_AVh68EtXEeKLy7OoR19zGw" elementId="org.eclipse.ui.edit.delete"/>
   <imports xsi:type="commands:Command" xmi:id="_ALIYgFS9EeK4YallPPLLhg" elementId="org.modelio.app.ui.command.copy"/>
   <imports xsi:type="commands:Command" xmi:id="_BuEK4FS9EeK4YallPPLLhg" elementId="org.modelio.app.ui.command.cut"/>
   <imports xsi:type="commands:Command" xmi:id="_Bzak8FS9EeK4YallPPLLhg" elementId="org.modelio.app.ui.command.paste"/>
   <imports xsi:type="commands:Command" xmi:id="_LzSnYH9PEeK-XvSICEmsLA" elementId="org.modelio.app.ui.command.showview"/>
   <imports xsi:type="menu:Menu" xmi:id="_OHYJ4H9PEeK-XvSICEmsLA" elementId="org.modelio.app.ui.menu.views"/>
-  <fragments xsi:type="fragment:StringModelFragment" xmi:id="_X9_i0KTLEeGHFJIFCvH__w" featurename="children" parentElementId="org.modelio.app.bottom.parts" positionInList="">
+  <fragments xsi:type="fragment:StringModelFragment" xmi:id="_X9_i0KTLEeGHFJIFCvH__w" featurename="sharedElements" parentElementId="org.modelio.app.ui.trimmed" positionInList="">
     <elements xsi:type="basic:Part" xmi:id="_rufhkAPxEeKxNazQ0qFNQg" elementId="org.modelio.diagram.browser.part" contributionURI="bundleclass://org.modelio.diagram.browser/org.modelio.diagram.browser.view.DiagramBrowserView" label="%DiagramBrowser.label" iconURI="platform:/plugin/org.modelio.diagram.browser/icons/diagrambrowser.png" tooltip="%DiagramBrowser.tooltip" bindingContexts="_mV8jMVS8EeK4YallPPLLhg" closeable="true">
       <handlers xmi:id="_aOAUHkrDEeKLy7OoR19zGw" elementId="org.modelio.diagram.browser.handler.switchbrowsertype" contributionURI="bundleclass://org.modelio.diagram.browser/org.modelio.diagram.browser.handlers.SwitchBrowserType" command="_mIDEMErDEeKLy7OoR19zGw"/>
       <handlers xmi:id="_abf-QEtXEeKLy7OoR19zGw" elementId="org.modelio.diagram.browser.handler.delete" contributionURI="bundleclass://org.modelio.diagram.browser/org.modelio.diagram.browser.handlers.DeleteHandler" command="_AVh68EtXEeKLy7OoR19zGw"/>
@@ -79,5 +79,8 @@
     <elements xsi:type="menu:HandledMenuItem" xmi:id="_S6jlAH9PEeK-XvSICEmsLA" elementId="org.modelio.diagram.browser.menuitem.showview" label="%DiagramBrowserShowView.label" iconURI="platform:/plugin/org.modelio.diagram.browser/icons/diagrambrowser.png" tooltip="%DiagramBrowserShowView.tooltip" command="_LzSnYH9PEeK-XvSICEmsLA">
       <parameters xmi:id="_btLRMH9PEeK-XvSICEmsLA" elementId="org.modelio.app.ui.command.showview.viewid" name="org.modelio.app.ui.command.showview.viewid" value="org.modelio.diagram.browser.part"/>
     </elements>
+  </fragments>
+  <fragments xsi:type="fragment:StringModelFragment" xmi:id="_20pBsN_OEeKdg8e0rQGLrw" featurename="children" parentElementId="org.modelio.app.bottom.parts">
+    <elements xsi:type="advanced:Placeholder" xmi:id="_20pBsd_OEeKdg8e0rQGLrw" elementId="org.modelio.diagram.browser.placeholder" ref="_rufhkAPxEeKxNazQ0qFNQg"/>
   </fragments>
 </fragment:ModelFragments>

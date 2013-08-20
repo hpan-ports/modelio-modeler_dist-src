@@ -11,6 +11,32 @@
     <extension point="org.modelio.diagram.editor.inputprovider">
       <inputprovider class="org.modelio.diagram.editor.statik.editor.StaticDiagramEditorInputProvider"/>
    </extension>
+        
+    <extension point="org.eclipse.core.expressions.definitions">
+		<definition id="diagram.editor.statik.test.redrawlink.id">
+			<test property="diagram.editor.statik.test.redrawlink"/>
+		</definition>
+		<definition id="diagram.editor.statik.test.iscompositionlink.id">
+			<test property="diagram.editor.statik.test.iscompositionlink"/>
+		</definition>
+	</extension>
+  
+	<extension point="org.eclipse.core.expressions.propertyTesters">
+		<propertyTester
+			class="org.modelio.diagram.editor.statik.elements.namespacinglink.redraw.RedrawLinkCommandPropertyTester"
+			id="diagram.editor.statik.redrawlink.propertyTester.updatevisible"
+			namespace="diagram.editor.statik.test"
+			properties="redrawlink"
+			type="org.eclipse.jface.viewers.ISelection">
+		</propertyTester>
+		<propertyTester
+			class="org.modelio.diagram.editor.statik.corexp.CompositionLinkTester"
+			id="diagram.editor.statik.iscompositionlink.propertyTester.updatevisible"
+			namespace="diagram.editor.statik.test"
+			properties="iscompositionlink"
+			type="org.eclipse.jface.viewers.ISelection">
+		</propertyTester>
+	</extension> 
    
     <extension point="org.modelio.diagram.editor.toolregistry"> 
 		<creationtool id="CREATE_ATTRIBUTE" label="%Attribute.label" tooltip="%Attribute.tooltip" interactor="point">

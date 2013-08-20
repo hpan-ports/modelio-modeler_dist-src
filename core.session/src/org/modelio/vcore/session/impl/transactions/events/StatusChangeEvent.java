@@ -27,6 +27,7 @@ import java.util.HashSet;
 import java.util.Map.Entry;
 import java.util.Map;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
+import org.modelio.vcore.session.api.model.change.ChangeCause;
 import org.modelio.vcore.session.api.model.change.IStatusChangeEvent;
 import org.modelio.vcore.smkernel.IPStatus;
 import org.modelio.vcore.smkernel.IRStatus;
@@ -41,6 +42,9 @@ class StatusChangeEvent implements IStatusChangeEvent {
 
     @objid ("e61581bf-0137-4012-9226-18b8c67ea961")
     private Map<SmObjectImpl, Long> statusChanged = new HashMap<>();
+
+    @objid ("ec691138-26f9-48db-a7e5-a0c5a22097f6")
+     ChangeCause cause;
 
     @objid ("00037bae-f120-1f3c-aafd-001ec947cd2a")
     private Collection<SmObjectImpl> accessChanged = null;
@@ -155,6 +159,12 @@ class StatusChangeEvent implements IStatusChangeEvent {
     public void add(SmObjectImpl refered, long oldStatus, long newStatus) {
         if (! this.statusChanged.containsKey(refered))
             this.statusChanged.put(refered, oldStatus);
+    }
+
+    @objid ("742afebb-edba-4a0f-95fe-2d247a5424cf")
+    @Override
+    public ChangeCause getCause() {
+        return this.cause;
     }
 
 }

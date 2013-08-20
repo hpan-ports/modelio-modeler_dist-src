@@ -39,6 +39,7 @@ import org.modelio.metamodel.uml.statik.TemplateParameterSubstitution;
 import org.modelio.property.ui.data.standard.common.AbstractPropertyModel;
 import org.modelio.vcore.session.api.ICoreSession;
 import org.modelio.vcore.session.impl.CoreSession;
+import org.modelio.vcore.smkernel.mapi.MObject;
 
 /**
  * <i>TemplateBinding</i> data model.
@@ -79,8 +80,8 @@ public class TemplateBindingPropertyModel extends AbstractPropertyModel<Template
 
     /**
      * Create a new <i>TemplateBinding</i> data model from an <i>TemplateBinding</i>.
-     * @param model
      * @param theEditedElement the edited element.
+     * @param modelService the model services
      */
     @objid ("8f8b37b1-c068-11e1-8c0a-002564c97630")
     public TemplateBindingPropertyModel(TemplateBinding theEditedElement, IMModelServices modelService) {
@@ -263,7 +264,7 @@ public class TemplateBindingPropertyModel extends AbstractPropertyModel<Template
         }
                 
         // Clear all obsolete TemplateParameterSubstitution
-        for (TemplateParameterSubstitution sub : aTemplateBinding.getParameterSubstitution()) {
+        for (TemplateParameterSubstitution sub : new ArrayList<>(aTemplateBinding.getParameterSubstitution())) {
             if (!parameters.contains(sub.getFormalParameter())) {
                 sub.delete();
             }
@@ -297,24 +298,27 @@ public class TemplateBindingPropertyModel extends AbstractPropertyModel<Template
     @objid ("8f8b37e3-c068-11e1-8c0a-002564c97630")
     public static class SubstitutionValue extends HybridType {
         @objid ("8f8b37e6-c068-11e1-8c0a-002564c97630")
-         final Class<?>[] stdTypes = { String.class, ModelElement.class };
+         final List<Class<? extends MObject>> stdTypes;
 
         /**
          * Default constructor.
+         * @param session the core modeling session
          */
         @objid ("8f8b37ec-c068-11e1-8c0a-002564c97630")
         public SubstitutionValue(ICoreSession session) {
             super(session);
+            this.stdTypes = new ArrayList<>();
+            this.stdTypes.add(ModelElement.class);
         }
 
         @objid ("8f8b37ef-c068-11e1-8c0a-002564c97630")
         @Override
-        public Class<?>[] getTypes() {
+        public List<Class<? extends MObject>> getTypes() {
             return this.stdTypes;
         }
 
         @objid ("8f8b37fb-c068-11e1-8c0a-002564c97630")
-        private Class<?>[] getTypes(TemplateParameterSubstitution el) {
+        private List<Class<? extends MObject>> getTypes(TemplateParameterSubstitution el) {
             TemplateParameter param = el.getFormalParameter();
             if (param == null)
                 return this.stdTypes;
@@ -322,7 +326,9 @@ public class TemplateBindingPropertyModel extends AbstractPropertyModel<Template
             ModelElement paramType = param.getType();
             if (paramType == null)
                 return this.stdTypes;
-            return new Class<?>[] { String.class, paramType.getClass() };
+            List<Class<? extends MObject>> ret = new ArrayList<>();
+            ret.add(paramType.getClass());
+            return ret;
         }
 
         @objid ("8f8d9905-c068-11e1-8c0a-002564c97630")
@@ -375,6 +381,7 @@ public class TemplateBindingPropertyModel extends AbstractPropertyModel<Template
          * @param theEditedElement the template biding to change
          * @param param the template parameter that must be instantiated
          * @param value the instantiated value. May be a String or an ObModelelement
+         * @param mmService the model service
          */
         @objid ("8f8d991d-c068-11e1-8c0a-002564c97630")
         public static void setValue(TemplateBinding theEditedElement, TemplateParameter param, Object value, IMModelServices mmService) {
@@ -382,13 +389,18 @@ public class TemplateBindingPropertyModel extends AbstractPropertyModel<Template
             updateTemplateBinding(theEditedElement, mmService);
                         
             // Find the right substitution and update it
-            // System.out.println("trace: '"+theEditedElement.getName()+"' has "+theEditedElement.getParameterSubstitution().size()+" parameter substitutions.");
             for (TemplateParameterSubstitution sub : theEditedElement.getParameterSubstitution()) {
                 if (param.equals(sub.getFormalParameter())) {
                     setValue(sub, value);
                     return;
                 }
             }
+        }
+
+        @objid ("9aa89c03-2412-410d-93b2-051a0f98ad55")
+        @Override
+        public boolean acceptStringValue() {
+            return true;
         }
 
     }

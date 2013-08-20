@@ -25,7 +25,6 @@ import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.net.URI;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -67,6 +66,7 @@ import org.modelio.gproject.fragment.IProjectFragment;
 import org.modelio.gproject.fragment.ramcfile.RamcFileFragment;
 import org.modelio.gproject.ramc.core.archive.IModelComponentInfos;
 import org.modelio.gproject.ramc.core.archive.ModelComponentArchive;
+import org.modelio.vbasic.net.UriPathAccess;
 
 /**
  * Manage the local libraries section.
@@ -322,10 +322,13 @@ public class LocalLibrariesSection {
 
     @objid ("6072cf04-eb91-4635-8b00-3580e9cd9edd")
     void removeExportedFilesOfFragment(IProjectFragment fragment) throws IOException {
-        Path archivePath = Paths.get(fragment.getUri());
-        ModelComponentArchive modelComponentArchive = new ModelComponentArchive(archivePath);
-        Path deploymentPath = LocalLibrariesSection.this.projectAdapter.getPath();
-        modelComponentArchive.removeExportedFiles(deploymentPath, null);
+        try(UriPathAccess acc = new UriPathAccess(fragment.getUri(), fragment.getAuthConfiguration().getAuthData())) {
+            Path archivePath = acc.getPath();
+        
+            ModelComponentArchive modelComponentArchive = new ModelComponentArchive(archivePath, true);
+            Path deploymentPath = LocalLibrariesSection.this.projectAdapter.getPath();
+            modelComponentArchive.removeExportedFiles(deploymentPath, null);
+        }
     }
 
     @objid ("7d53582f-3adc-11e2-916e-002564c97630")

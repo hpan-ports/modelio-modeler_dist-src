@@ -234,10 +234,10 @@ public class UrlExmlResourceProvider implements IExmlResourceProvider {
 
     @objid ("55ec3008-195d-47e5-9e86-071952f1e2ff")
     @Override
-    public String getStamp() {
+    public String getStamp() throws IOException {
         try (InputStream is = this.stampUrl.openStream()){
             return FileUtils.readWhole(is, "UTF-8");
-        } catch (IOException e) {
+        } catch (FileNotFoundException | NoSuchFileException e) {
             return "";
         }
     }
