@@ -574,9 +574,15 @@ public abstract class SmObjectImpl implements ISmMeta, ISmStorable, MObject, Ser
     @objid ("0080bc04-9fc0-1f4f-9c13-001ec947cd2a")
     @Override
     public int hashCode() {
+        // Use the class id, the session id and the UUID to compute hash.
+        // Avoid using the repository ID because it may change during the lifetime of the object.
+        final short clsid = SmLiveId.getClassId(this.liveId);
+        final short kid = SmLiveId.getKid(this.liveId);
+        
         final int prime = 31;
         int result = 1;
-        result = prime * result + (int) (this.liveId ^ (this.liveId >>> 32));
+        result = prime * result + clsid;
+        result = prime * result + kid;
         result = prime * result + ((this.uuid == null) ? 0 : this.uuid.hashCode());
         return result;
     }

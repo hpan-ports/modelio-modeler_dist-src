@@ -24,6 +24,7 @@ package org.modelio.app.project.ui.redo;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.e4.core.di.annotations.CanExecute;
 import org.eclipse.e4.core.di.annotations.Execute;
+import org.eclipse.e4.core.services.statusreporter.StatusReporter;
 import org.modelio.app.project.core.services.IProjectService;
 import org.modelio.app.project.ui.plugin.AppProjectUi;
 import org.modelio.vcore.session.api.ICoreSession;
@@ -35,10 +36,15 @@ import org.modelio.vcore.session.api.ICoreSession;
 public class RedoHandler {
     @objid ("d40927a6-3259-11e2-ad6b-002564c97630")
     @Execute
-    public void execute(final IProjectService projectService) {
-        AppProjectUi.LOG.info("Redo transaction");
-        ICoreSession session = projectService.getSession();
-        session.getTransactionSupport().redo();
+    public void execute(final IProjectService projectService, StatusReporter statusReporter) {
+        try {
+            AppProjectUi.LOG.info("Redo transaction");
+            ICoreSession session = projectService.getSession();
+            session.getTransactionSupport().redo();
+        } catch (RuntimeException e) {
+            AppProjectUi.LOG.error(e);
+            statusReporter.show(StatusReporter.ERROR, AppProjectUi.I18N.getMessage("RedoHandler.Failed"), e);
+        }
     }
 
     @objid ("d40927ab-3259-11e2-ad6b-002564c97630")

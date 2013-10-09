@@ -29,6 +29,7 @@ import org.modelio.core.ui.images.ModuleI18NService;
 import org.modelio.metamodel.mda.ModuleComponent;
 import org.modelio.metamodel.uml.infrastructure.Stereotype;
 import org.modelio.property.plugin.ModelProperty;
+import org.modelio.ui.UIImages;
 import org.modelio.vcore.smkernel.mapi.MClass;
 
 /**
@@ -38,9 +39,6 @@ import org.modelio.vcore.smkernel.mapi.MClass;
 public class TreeLabelProvider extends LabelProvider {
     @objid ("8faeec7c-c068-11e1-8c0a-002564c97630")
     private Image moduleDefaultIcon;
-
-    @objid ("8faeec7d-c068-11e1-8c0a-002564c97630")
-    private Image stereotypeDefaultIcon;
 
     @objid ("8faeec7e-c068-11e1-8c0a-002564c97630")
     @Override
@@ -98,7 +96,7 @@ public class TreeLabelProvider extends LabelProvider {
         
         // If null, use the default stereotype icon
         if (icon == null) {
-            icon = this.stereotypeDefaultIcon;
+            icon = UIImages.DOT;
         }
         return icon;
     }
@@ -109,7 +107,6 @@ public class TreeLabelProvider extends LabelProvider {
     @objid ("8faeec90-c068-11e1-8c0a-002564c97630")
     public TreeLabelProvider() {
         this.moduleDefaultIcon = ModelProperty.getImageDescriptor("icons/moduleproptable_16.png") .createImage();
-        this.stereotypeDefaultIcon = ModelProperty.getImageDescriptor("icons/dot_16.png").createImage();
     }
 
     @objid ("8faeec92-c068-11e1-8c0a-002564c97630")
@@ -118,11 +115,6 @@ public class TreeLabelProvider extends LabelProvider {
         if (this.moduleDefaultIcon != null) {
             this.moduleDefaultIcon.dispose();
             this.moduleDefaultIcon = null;
-        }
-        
-        if (this.stereotypeDefaultIcon != null) {
-            this.stereotypeDefaultIcon.dispose();
-            this.stereotypeDefaultIcon = null;
         }
         
         super.dispose();

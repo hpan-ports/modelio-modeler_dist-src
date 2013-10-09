@@ -63,4 +63,13 @@ public class CreateBpmnFlowElement extends CreateElementHandler {
         }
     }
 
+    @objid ("c0b2c7eb-7f6f-4770-ad77-666dbfbc917c")
+    @Override
+    protected MDependency getDependency(final String dependencyName, Element selectedOwner) {
+        Element owner = getEffectiveOwner(selectedOwner);
+        MDependency dependency = owner.getMClass().getDependency(dependencyName);
+        assert (dependency != null) : "Unknown dependency " + dependencyName + " on " + owner.getClass().getName();
+        return dependency;
+    }
+
 }

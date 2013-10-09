@@ -70,7 +70,7 @@ import org.modelio.vcore.Log;
 @objid ("2c95c248-f37d-11e1-a3c7-002564c97630")
 public class FileModuleStore implements IModuleCatalog {
     @objid ("43401e6b-f9b3-4f86-82ad-6cbd93bcc0b7")
-    private static final int VERSION = 2;
+    private static final int VERSION = 3;
 
     /**
      * This value is the max search depth (starting to cachePath) to search for the module .jmdac files in the store.

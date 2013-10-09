@@ -43,12 +43,16 @@ import org.eclipse.e4.ui.model.application.commands.MCommand;
 import org.eclipse.e4.ui.model.application.commands.MCommandsFactory;
 import org.eclipse.e4.ui.model.application.commands.MHandler;
 import org.eclipse.e4.ui.model.application.ui.MCoreExpression;
+import org.eclipse.e4.ui.model.application.ui.MUIElement;
 import org.eclipse.e4.ui.model.application.ui.MUiFactory;
+import org.eclipse.e4.ui.model.application.ui.advanced.MAdvancedFactory;
 import org.eclipse.e4.ui.model.application.ui.advanced.MPerspective;
 import org.eclipse.e4.ui.model.application.ui.advanced.MPerspectiveStack;
+import org.eclipse.e4.ui.model.application.ui.advanced.MPlaceholder;
 import org.eclipse.e4.ui.model.application.ui.basic.MBasicFactory;
 import org.eclipse.e4.ui.model.application.ui.basic.MPart;
 import org.eclipse.e4.ui.model.application.ui.basic.MPartStack;
+import org.eclipse.e4.ui.model.application.ui.basic.MTrimmedWindow;
 import org.eclipse.e4.ui.model.application.ui.menu.MHandledToolItem;
 import org.eclipse.e4.ui.model.application.ui.menu.MMenuFactory;
 import org.eclipse.e4.ui.model.application.ui.menu.MToolBar;
@@ -83,6 +87,9 @@ public class ModulePropertyViewHandler {
     @objid ("044fa553-1ebb-11e2-9382-bc305ba4815c")
     private static final String MODULE_TOOLBAR_CONTRIBUTION = "module property page toolbar contribution";
 
+    @objid ("f3c84d5c-b2f3-4250-b083-825756b94633")
+    private static final String MODULE_STACK_TAG = "MODULE_STACK";
+
     @objid ("c8862a33-1eba-11e2-9382-bc305ba4815c")
     @Execute
     static void execute(IEclipseContext context) {
@@ -95,91 +102,108 @@ public class ModulePropertyViewHandler {
     @Optional
     void onModuleStarted(@EventTopic(ModelioEventTopics.MODULE_STARTED) final IModule module, final MApplication application, final EModelService modelService) {
         // FIXME this should be an @UIEventTopic, but they are not triggered with eclipse 4.3 M5...
-           Display.getDefault().asyncExec(new Runnable() {
-               
-               @Override
-               public void run() {
-           for (IModulePropertyPage propertyPage : module.getPropertyPages()) {
-               MPart part = MBasicFactory.INSTANCE.createPart();
-               part.setElementId(module + "_" + propertyPage.getName());
-               part.setContributorURI(PLATFORM_PREFIX + FrameworkUtil.getBundle(ModulePropertyViewHandler.class).getSymbolicName());
-               part.setContributionURI(BUNDLE_PREFIX + FrameworkUtil.getBundle(ModulePropertyView.class).getSymbolicName()
-                       + URI_SEPARATOR + ModulePropertyView.class.getName());
-           
-               part.getTags().add(DYNAMIC_MODULE_VIEW_TAG);
-               part.getTags().add(module.getName());
-               part.getTags().add(propertyPage.getName());
-           
-               part.setLabel(propertyPage.getLabel());
-               part.setIconURI(getModuleImagePath(module));
-                  
-           
-               // Insert the module actions with ActionLocation.propertypage
-               List<IModuleAction> actions = module.getActions(ActionLocation.property);
-               if (actions != null && !actions.isEmpty()) {
-                   MToolBar toolbar = MMenuFactory.INSTANCE.createRenderedToolBar();
-                   toolbar.setVisible(true);
-                   toolbar.setToBeRendered(true);
-                   for (IModuleAction action : actions) {
-                       // MCommand
-                       MCommand command = ModuleCommandsRegistry.getCommand(module, action);
-                       // MHandler
-                       final MHandler handler = createAndActivateHandler(part, command, module, action);
-           
-                       // MHandledItem
-                       MHandledToolItem item = createAndInsertItem(toolbar, action);
-                       // Bind to command
-                       item.setCommand(command);
-           
-                       Expression visWhen = new IsVisibleExpression(handler.getObject(), item);
-                       MCoreExpression isVisibleWhenExpression = MUiFactory.INSTANCE.createCoreExpression();
-                       isVisibleWhenExpression.setCoreExpressionId("programmatic.value");
-                       isVisibleWhenExpression.setCoreExpression(visWhen);
-           
-                       item.setVisibleWhen(isVisibleWhenExpression);
-                   }
-                   part.setToolbar(toolbar);
-               }
-           
-               // Add the view where it needs to be in the different perspectives
-               List<MPerspectiveStack> perspectiveStacks = modelService.findElements(application,
-                       "org.modelio.app.ui.stack.perspectives", MPerspectiveStack.class, null);
-               MPerspectiveStack perspectiveStack = perspectiveStacks.get(0);
-           
-               // "Model" perspective
-               List<MPerspective> perspectives = modelService.findElements(perspectiveStack, "org.modelio.app.ui.model.perspective",
-                       MPerspective.class, null);
-               MPerspective perspective = perspectives.get(0);
-               List<MPartStack> stacks = modelService
-                       .findElements(perspective, "org.modelio.app.bottom.parts", MPartStack.class, null);
-               stacks.get(0).getChildren().add(part);    
-               stacks.get(0).setSelectedElement(part);
-           }
-               }
-           });
+        Display.getDefault().asyncExec(new Runnable() {
+        
+            @Override
+            public void run() {
+                for (IModulePropertyPage propertyPage : module.getPropertyPages()) {
+                    MPart part = MBasicFactory.INSTANCE.createPart();
+                    part.setElementId(module + "_" + propertyPage.getName());
+                    part.setContributorURI(PLATFORM_PREFIX + FrameworkUtil.getBundle(ModulePropertyViewHandler.class).getSymbolicName());
+                    part.setContributionURI(BUNDLE_PREFIX + FrameworkUtil.getBundle(ModulePropertyView.class).getSymbolicName() + URI_SEPARATOR + ModulePropertyView.class.getName());
+        
+                    part.getTags().add(DYNAMIC_MODULE_VIEW_TAG);
+                    part.getTags().add(module.getName());
+                    part.getTags().add(propertyPage.getName());
+        
+                    part.setLabel(propertyPage.getLabel());
+                    part.setIconURI(getModuleImagePath(module));
+        
+                    // Insert the module actions with ActionLocation.propertypage
+                    List<IModuleAction> actions = module.getActions(ActionLocation.property);
+                    if (actions != null && !actions.isEmpty()) {
+                        MToolBar toolbar = MMenuFactory.INSTANCE.createRenderedToolBar();
+                        toolbar.setVisible(true);
+                        toolbar.setToBeRendered(true);
+                        for (IModuleAction action : actions) {
+                            // MCommand
+                            MCommand command = ModuleCommandsRegistry.getCommand(module, action);
+                            // MHandler
+                            final MHandler handler = createAndActivateHandler(part, command, module, action);
+        
+                            // MHandledItem
+                            MHandledToolItem item = createAndInsertItem(toolbar, action);
+                            // Bind to command
+                            item.setCommand(command);
+        
+                            Expression visWhen = new IsVisibleExpression(handler.getObject(), item);
+                            MCoreExpression isVisibleWhenExpression = MUiFactory.INSTANCE.createCoreExpression();
+                            isVisibleWhenExpression.setCoreExpressionId("programmatic.value");
+                            isVisibleWhenExpression.setCoreExpression(visWhen);
+        
+                            item.setVisibleWhen(isVisibleWhenExpression);
+                        }
+                        part.setToolbar(toolbar);
+                    }
+        
+                    // Add the shared part to the window
+                    List<MTrimmedWindow> trimmedWindow = modelService.findElements(application, "org.modelio.app.ui.trimmed", MTrimmedWindow.class, null);
+                    trimmedWindow.get(0).getSharedElements().add(part);
+                    
+                    // Add a placeholder where the view needs to be added in the different perspectives
+                    List<MPerspectiveStack> perspectiveStacks = modelService.findElements(application, "org.modelio.app.ui.stack.perspectives", MPerspectiveStack.class, null);
+                    List<MPerspective> perspectives = modelService.findElements(perspectiveStacks.get(0), null, MPerspective.class, null);
+                    for (MPerspective perspective : perspectives) {
+                        List<String> tagsToMatch = new ArrayList<>();
+                        tagsToMatch.add(MODULE_STACK_TAG);
+                        List<MPartStack> partStack = modelService.findElements(perspective, null, MPartStack.class, tagsToMatch);
+                        if (partStack.size() > 0) {
+                            final MPartStack mPartStack = partStack.get(0);
+                            
+                            final MPlaceholder placeholder = MAdvancedFactory.INSTANCE.createPlaceholder();
+                            placeholder.setRef(part);
+                            
+                            mPartStack.getChildren().add(placeholder);
+                            mPartStack.setSelectedElement(placeholder);
+                        }
+                    }
+                }
+            }
+        });
     }
 
     @objid ("c8867855-1eba-11e2-9382-bc305ba4815c")
-    @SuppressWarnings("static-method")
     @Inject
     @Optional
     void onModuleStopped(@EventTopic(ModelioEventTopics.MODULE_STOPPED) final IModule module, final MApplication application, final EModelService modelService) {
         // FIXME this should be an @UIEventTopic, but they are not triggered with eclipse 4.3 M5...
-           Display.getDefault().asyncExec(new Runnable() {
-               
-               @Override
-               public void run() {
-           List<String> tagsToMatch = new ArrayList<>();
-           tagsToMatch.add(DYNAMIC_MODULE_VIEW_TAG);
-           tagsToMatch.add(module.getName());
-           List<MPart> parts = modelService.findElements(application, null, MPart.class, tagsToMatch);
-           for (MPart part : parts) {
-               part.setToBeRendered(false);
-               part.getParent().getChildren().remove(part);
-               part.setObject(null);
-           }
-               }
-           });
+        Display.getDefault().asyncExec(new Runnable() {
+            @Override
+            public void run() {
+                // Add the shared part to the window
+                List<MTrimmedWindow> trimmedWindow = modelService.findElements(application, "org.modelio.app.ui.trimmed", MTrimmedWindow.class, null);
+                
+                final List<MUIElement> sharedElements = trimmedWindow.get(0).getSharedElements();
+                for (MUIElement element : new ArrayList<>(sharedElements)) {
+                    List<String> tags = element.getTags();
+                    if (tags.contains(DYNAMIC_MODULE_VIEW_TAG) && tags.contains(module.getName())) {
+                        final MPart mPart = (MPart)element;
+                        element.setToBeRendered(false);
+                        sharedElements.remove(mPart);
+                        mPart.setObject(null);
+                        
+                        for (MPlaceholder placeholder : modelService.findElements(application, null, MPlaceholder.class, null)) {
+                            if (mPart.equals(placeholder.getRef())) {
+                                placeholder.setParent(null);
+                                placeholder.setRenderer(false);
+                            }
+                        }
+                    }
+                }
+                
+                
+            }
+        });
     }
 
     @objid ("c886c673-1eba-11e2-9382-bc305ba4815c")
@@ -245,23 +269,25 @@ public class ModulePropertyViewHandler {
         tagsToMatch.add(MODULE_TOOLBAR_CONTRIBUTION);
         
         for (MPart mPart : mParts) {
-            List<MHandledToolItem> toolItems = modelService.findElements(mPart.getToolbar(), null, MHandledToolItem.class,
-                    tagsToMatch);
+            final MToolBar toolbar = mPart.getToolbar();
+            if (toolbar != null) {
+                List<MHandledToolItem> toolItems = modelService.findElements(toolbar, null, MHandledToolItem.class, tagsToMatch);
         
-            final ExpressionContext expressionContext = new ExpressionContext(context);
+                final ExpressionContext expressionContext = new ExpressionContext(context);
         
-            for (MHandledToolItem toolItem : toolItems) {
-                IsVisibleExpression expression = (IsVisibleExpression) (((MCoreExpression) toolItem.getVisibleWhen())
-                        .getCoreExpression());
-                // Creates dependency on a predefined value that can be "poked" by the evaluation service
-                ExpressionInfo info = expression.computeExpressionInfo();
-                String[] names = info.getAccessedPropertyNames();
-                for (String name : names) {
-                    expressionContext.getVariable(name + ".evaluationServiceLink"); //$NON-NLS-1$
-                }
-                boolean visible = (expression.evaluate(expressionContext) != EvaluationResult.FALSE);
-                if (visible != toolItem.isVisible()) {
-                    toolItem.setVisible(visible);
+                for (MHandledToolItem toolItem : toolItems) {
+                    IsVisibleExpression expression = (IsVisibleExpression) (((MCoreExpression) toolItem.getVisibleWhen())
+                            .getCoreExpression());
+                    // Creates dependency on a predefined value that can be "poked" by the evaluation service
+                    ExpressionInfo info = expression.computeExpressionInfo();
+                    String[] names = info.getAccessedPropertyNames();
+                    for (String name : names) {
+                        expressionContext.getVariable(name + ".evaluationServiceLink"); //$NON-NLS-1$
+                    }
+                    boolean visible = (expression.evaluate(expressionContext) != EvaluationResult.FALSE);
+                    if (visible != toolItem.isVisible()) {
+                        toolItem.setVisible(visible);
+                    }
                 }
             }
         }

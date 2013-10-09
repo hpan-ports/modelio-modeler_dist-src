@@ -30,7 +30,6 @@ import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.preference.ComboFieldEditor;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.preference.PreferencePage;
-import org.eclipse.jface.preference.RadioGroupFieldEditor;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
@@ -57,8 +56,8 @@ class ProjectPreferencesPage extends PreferencePage {
     @objid ("c3bbf9f1-9d56-472a-9acd-a089e2e47ec5")
     private static final String INDENT = "    ";
 
-    @objid ("0e3256bc-29c1-4903-86c2-824301fc8e6f")
-    private RadioGroupFieldEditor logLevelFields;
+    @objid ("a18e6adf-c5a4-4f61-9e97-6adf50ad92da")
+    private String[][] richNoteTypeValues;
 
     @objid ("d7078fa9-5e4b-4016-bc25-4e6782790f20")
     private ComboFieldEditor attDefaultType;
@@ -71,6 +70,9 @@ class ProjectPreferencesPage extends PreferencePage {
 
     @objid ("ee5de90d-e10e-4779-8f0d-3b2cd7c6dcd2")
     private ComboFieldEditor returnDefaultType;
+
+    @objid ("80d5a5f8-3216-4b8a-affb-033c2d5a9178")
+    private ComboFieldEditor richNoteDefaultType;
 
     @objid ("4732c860-11df-4aff-812b-e8574636748c")
     @Inject
@@ -88,66 +90,20 @@ class ProjectPreferencesPage extends PreferencePage {
         layout.numColumns = 1;
         top.setLayout(layout);
         
-        Label spacer = new Label(top, SWT.NONE);
-        GridDataFactory.defaultsFor(spacer).span(2, 1).applyTo(spacer);
+        createSpacer(top);
         
-        Label title = new Label(top, SWT.NONE);
-        title.setText(AppProjectUi.I18N.getString("ProjectPrefs.Attributes"));
-        GridDataFactory.defaultsFor(title).span(2, 1).applyTo(title);
+        createTitleZone(top, AppProjectUi.I18N.getString("ProjectPrefs.Attributes"));
+        createAttributeZone(top);
         
-        Label sep = new Label(top, SWT.SEPARATOR | SWT.HORIZONTAL);
-        GridDataFactory.defaultsFor(sep).span(2, 1).applyTo(sep);
+        createSpacer(top);
         
-        // Note: The INDENT prefix is a trick to indent the field editor because
-        // FieldEditors do not allow fine tuning of their grid data :(
-        // Should better get rid of them and either implement a plain layout of
-        // standard SWT control or use a table
+        createTitleZone(top, AppProjectUi.I18N.getString("ProjectPrefs.Operations"));
+        createOperationZone(top);
         
-        // attribute default type
-        this.attDefaultType = new ComboFieldEditor(ProjectPreferencesKeys.ATT_DEFAULT_TYPE_PREFKEY, INDENT
-                + AppProjectUi.I18N.getString(ProjectPreferencesKeys.ATT_DEFAULT_TYPE_PREFKEY + ".label"), this.predefinedTypesValues,
-                top);
-        this.attDefaultType.setPage(this);
-        this.attDefaultType.setPreferenceStore(getPreferenceStore());
-        this.attDefaultType.load();
+        createSpacer(top);
         
-        // this.attDefaultType.getLabelControl(getFieldEditorParent()).setToolTipText(AppProjectUi.I18N.getString(ProjectPreferencesKeys.ATT_DEFAULT_TYPE_PREFKEY+".tooltip"));
-        
-        // attribute default visibility
-        this.attdefaultVisibility = new ComboFieldEditor(ProjectPreferencesKeys.ATT_DEFAULT_VIS_PREFKEY, INDENT
-                + AppProjectUi.I18N.getString(ProjectPreferencesKeys.ATT_DEFAULT_VIS_PREFKEY + ".label"), this.visibilityValues, top);
-        this.attdefaultVisibility.setPage(this);
-        this.attdefaultVisibility.setPreferenceStore(getPreferenceStore());
-        this.attdefaultVisibility.load();
-        
-        spacer = new Label(top, SWT.NONE);
-        GridDataFactory.defaultsFor(spacer).span(2, 1).applyTo(spacer);
-        
-        title = new Label(top, SWT.NONE);
-        title.setText(AppProjectUi.I18N.getString("ProjectPrefs.Operations"));
-        GridDataFactory.defaultsFor(title).span(2, 1).applyTo(title);
-        
-        sep = new Label(top, SWT.SEPARATOR | SWT.HORIZONTAL);
-        GridDataFactory.defaultsFor(sep).span(2, 1).applyTo(sep);
-        
-        // parameter default type
-        
-        this.parameterDefaultType = new ComboFieldEditor(ProjectPreferencesKeys.PARAM_DEFAULT_TYPE_PREFKEY, INDENT
-                + AppProjectUi.I18N.getString(ProjectPreferencesKeys.PARAM_DEFAULT_TYPE_PREFKEY + ".label"), this.predefinedTypesValues,
-                top);
-        
-        this.parameterDefaultType.setPage(this);
-        this.parameterDefaultType.setPreferenceStore(getPreferenceStore());
-        this.parameterDefaultType.load();
-        
-        // return parameter default type
-        this.returnDefaultType = new ComboFieldEditor(ProjectPreferencesKeys.RETURN_DEFAULT_TYPE_PREFKEY, INDENT
-                + AppProjectUi.I18N.getString(ProjectPreferencesKeys.RETURN_DEFAULT_TYPE_PREFKEY + ".label"),
-                this.predefinedTypesValues, top);
-        
-        this.returnDefaultType.setPage(this);
-        this.returnDefaultType.setPreferenceStore(getPreferenceStore());
-        this.returnDefaultType.load();
+        createTitleZone(top, AppProjectUi.I18N.getString("ProjectPrefs.RichNotes"));
+        createRichNoteZone(top);
         return top;
     }
 
@@ -177,6 +133,12 @@ class ProjectPreferencesPage extends PreferencePage {
             this.predefinedTypesValues[i][1] = new MRef(d).toString();
             i++;
         }
+        
+        this.richNoteTypeValues = new String[][] { 
+                { AppProjectUi.I18N.getString("RichNote.Type.HTML"), "text/html" },
+                { AppProjectUi.I18N.getString("RichNote.Type.OoHTML"), "text/html/ooo" },
+                { AppProjectUi.I18N.getString("RichNote.Type.OoWriter"), "application/vnd.oasis.opendocument.text" },
+                { AppProjectUi.I18N.getString("RichNote.Type.MsWord"), "application/vnd.openxmlformats-officedocument.wordprocessingml.document" }};
         
         this.visibilityValues = new String[][] { 
                 { AppProjectUi.I18N.getString(VisibilityMode.PUBLIC.getName()), VisibilityMode.PUBLIC.getName() },
@@ -230,7 +192,79 @@ class ProjectPreferencesPage extends PreferencePage {
         if (this.returnDefaultType != null) {
             this.returnDefaultType.store();
         }
+        
+        if (this.richNoteDefaultType != null) {
+            this.richNoteDefaultType.store();
+        }
         return ret;
+    }
+
+    @objid ("93d67092-2de9-417e-9336-b30062165ded")
+    public void createSpacer(Composite parent) {
+        Label spacer = new Label(parent, SWT.NONE);
+        GridDataFactory.defaultsFor(spacer).span(2, 1).applyTo(spacer);
+    }
+
+    @objid ("b534facc-1df3-48ed-a946-049d733b4ca2")
+    public void createOperationZone(Composite parent) {
+        // parameter default type
+        
+        this.parameterDefaultType = new ComboFieldEditor(ProjectPreferencesKeys.PARAM_DEFAULT_TYPE_PREFKEY, INDENT + AppProjectUi.I18N.getString(ProjectPreferencesKeys.PARAM_DEFAULT_TYPE_PREFKEY + ".label"), this.predefinedTypesValues, parent);
+        
+        this.parameterDefaultType.setPage(this);
+        this.parameterDefaultType.setPreferenceStore(getPreferenceStore());
+        this.parameterDefaultType.load();
+        
+        // return parameter default type
+        this.returnDefaultType = new ComboFieldEditor(ProjectPreferencesKeys.RETURN_DEFAULT_TYPE_PREFKEY, INDENT + AppProjectUi.I18N.getString(ProjectPreferencesKeys.RETURN_DEFAULT_TYPE_PREFKEY + ".label"), this.predefinedTypesValues, parent);
+        
+        this.returnDefaultType.setPage(this);
+        this.returnDefaultType.setPreferenceStore(getPreferenceStore());
+        this.returnDefaultType.load();
+    }
+
+    @objid ("9681f02d-e716-4e99-9b89-4acbf4197d7c")
+    public void createAttributeZone(Composite parent) {
+        // Note: The INDENT prefix is a trick to indent the field editor because
+        // FieldEditors do not allow fine tuning of their grid data :(
+        // Should better get rid of them and either implement a plain layout of
+        // standard SWT control or use a table
+        
+        // attribute default type
+        this.attDefaultType = new ComboFieldEditor(ProjectPreferencesKeys.ATT_DEFAULT_TYPE_PREFKEY, INDENT + AppProjectUi.I18N.getString(ProjectPreferencesKeys.ATT_DEFAULT_TYPE_PREFKEY + ".label"), this.predefinedTypesValues, parent);
+        this.attDefaultType.setPage(this);
+        this.attDefaultType.setPreferenceStore(getPreferenceStore());
+        this.attDefaultType.load();
+        
+        // attribute default visibility
+        this.attdefaultVisibility = new ComboFieldEditor(ProjectPreferencesKeys.ATT_DEFAULT_VIS_PREFKEY, INDENT + AppProjectUi.I18N.getString(ProjectPreferencesKeys.ATT_DEFAULT_VIS_PREFKEY + ".label"), this.visibilityValues, parent);
+        this.attdefaultVisibility.setPage(this);
+        this.attdefaultVisibility.setPreferenceStore(getPreferenceStore());
+        this.attdefaultVisibility.load();
+    }
+
+    @objid ("09ec982c-cd65-4855-9d6a-79a60be79484")
+    public void createRichNoteZone(Composite parent) {
+        // Note: The INDENT prefix is a trick to indent the field editor because
+        // FieldEditors do not allow fine tuning of their grid data :(
+        // Should better get rid of them and either implement a plain layout of
+        // standard SWT control or use a table
+        
+        // attribute default type
+        this.richNoteDefaultType = new ComboFieldEditor(ProjectPreferencesKeys.RICHNOTE_DEFAULT_TYPE_PREFKEY, INDENT + AppProjectUi.I18N.getString(ProjectPreferencesKeys.RICHNOTE_DEFAULT_TYPE_PREFKEY + ".label"), this.richNoteTypeValues, parent);
+        this.richNoteDefaultType.setPage(this);
+        this.richNoteDefaultType.setPreferenceStore(getPreferenceStore());
+        this.richNoteDefaultType.load();
+    }
+
+    @objid ("398fed0c-8b5d-4429-a222-7da0bf4591a6")
+    public void createTitleZone(Composite parent, String title) {
+        Label titleLabel = new Label(parent, SWT.NONE);
+        titleLabel.setText(title);
+        GridDataFactory.defaultsFor(titleLabel).span(2, 1).applyTo(titleLabel);
+        
+        Label sep = new Label(parent, SWT.SEPARATOR | SWT.HORIZONTAL);
+        GridDataFactory.defaultsFor(sep).span(2, 1).applyTo(sep);
     }
 
 }

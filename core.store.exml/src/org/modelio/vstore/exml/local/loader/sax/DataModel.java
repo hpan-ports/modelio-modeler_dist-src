@@ -42,6 +42,7 @@ import org.modelio.vstore.exml.common.model.IllegalReferenceException;
 import org.modelio.vstore.exml.common.model.ObjId;
 import org.modelio.vstore.exml.common.model.ObjRef;
 import org.modelio.vstore.exml.common.utils.ExmlUtils;
+import org.modelio.vstore.exml.local.loader.sax.IDependencyContentHook.Content;
 import org.xml.sax.Locator;
 import org.xml.sax.SAXParseException;
 
@@ -259,6 +260,8 @@ class DataModel implements ExmlTags {
                 } catch (DuplicateObjectException e) {
                     throw new SAXParseException(e.getLocalizedMessage(), getLocator(), e);
                 }
+            } else  {
+                isNew = ! ((ExmlStorageHandler)obj.getRepositoryObject()).isLoaded();
             }
         
             this.currentModel = new ObjectDataModel(obj, isNew);
@@ -337,6 +340,9 @@ class DataModel implements ExmlTags {
         this.depContentHook = depContentHook;
     }
 
+    /**
+     * Data model for a read model object.
+     */
     @objid ("2af7927c-3faf-11e2-87cb-001ec947ccaf")
     final class ObjectDataModel {
         /**
@@ -366,13 +372,43 @@ class DataModel implements ExmlTags {
         @objid ("2af79286-3faf-11e2-87cb-001ec947ccaf")
         private AbstractState currentstate;
 
+        /**
+         * Finishes the dependencies loading.
+         * <p>
+         * Ensure dependencies for which no content was read are empty or have
+         * the hooked content.
+         */
         @objid ("2af79287-3faf-11e2-87cb-001ec947ccaf")
-        public void clearDependencies() {
-            if (!this.isNew && getVersion() >= 3) {
+        public void finishDependenciesLoading() {
+            if ( getVersion() >= 3) {
                 final IModelLoader theModelLoader = DataModel.this.modelLoader;
-                for (SmDependency dep: ExmlUtils.getExternalisableDeps(this.current)) {
-                    if (! this.readDeps.contains(dep)) {
-                        theModelLoader.loadDependency(this.current, dep, Collections.<SmObjectImpl>emptyList());
+                final IDependencyContentHook depHook = DataModel.this.depContentHook;
+                if (this.isNew) {
+                    if (depHook != null) {
+                        // The object is now in memory so all dependencies were empty on start.
+                        // Add the non hooked local content
+                        for (Content dep : depHook.getContent(this.current)) {
+                            if (! this.readDeps.contains(dep.getDep())) {
+                                theModelLoader.loadDependency(this.current, dep.getDep(), dep.getContent());
+                            }
+                        }
+                    }
+                } else {
+                    // Object was already in memory:
+                    // Look for non loaded dependencies and replace their content by the hooked content
+                    // or empty them.
+                    for (SmDependency dep: ExmlUtils.getExternalisableDeps(this.current)) {
+                        if (! this.readDeps.contains(dep)) {
+                            if (depHook == null) {
+                                theModelLoader.loadDependency(this.current, dep,  EMPTY_DEP);
+                            } else {
+                                List<SmObjectImpl> moreContent = depHook.getContent(this.current, dep) ;
+                                if (moreContent == null)
+                                    moreContent = EMPTY_DEP;
+            
+                                theModelLoader.loadDependency(this.current, dep,  moreContent);
+                            }
+                        }
                     }
                 }
             }
@@ -462,6 +498,11 @@ class DataModel implements ExmlTags {
             return this.current + ", dep="+ this.currentDep + " , size=" + this.currentDepContent.size()+ ", state=" +this.currentstate;
         }
 
+        /**
+         * Initialize the object data model
+         * @param obj the loaded object
+         * @param isNew <code>true</code> if the object didn't exist in memory.
+         */
         @objid ("0e2ec301-3fc4-11e2-87cb-001ec947ccaf")
         public ObjectDataModel(SmObjectImpl obj, boolean isNew) {
             this.current = obj;

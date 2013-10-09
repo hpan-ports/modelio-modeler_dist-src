@@ -41,13 +41,13 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
+import org.eclipse.uml2.common.util.UML2Util;
 import org.eclipse.uml2.uml.Model;
 import org.eclipse.uml2.uml.PackageableElement;
 import org.eclipse.uml2.uml.UMLFactory;
 import org.eclipse.uml2.uml.UMLPackage;
 import org.eclipse.uml2.uml.internal.resource.UMLResourceFactoryImpl;
 import org.eclipse.uml2.uml.resource.UMLResource;
-import org.eclipse.uml2.uml.util.UMLUtil;
 import org.modelio.metamodel.analyst.Requirement;
 import org.modelio.metamodel.uml.infrastructure.Dependency;
 import org.modelio.metamodel.uml.infrastructure.MetaclassReference;
@@ -334,7 +334,7 @@ public class ExportServices {
         
                 resourceProfile.getContents().add(profile);
         
-                for (Iterator<?> allContents = UMLUtil.getAllContents(profile, true, false); allContents.hasNext();) {
+                for (Iterator<?> allContents = UML2Util.getAllContents(profile, true, false); allContents.hasNext();) {
                     EObject eObject = (EObject) allContents.next();
                     if (eObject instanceof org.eclipse.uml2.uml.Element) {
                         resourceProfile.getContents().addAll(((org.eclipse.uml2.uml.Element) eObject).getStereotypeApplications());
@@ -377,7 +377,7 @@ public class ExportServices {
         
             resourceProfile.getContents().add(profile);
         
-            for (Iterator<?> allContents = UMLUtil.getAllContents(profile, true, false); allContents.hasNext();) {
+            for (Iterator<?> allContents = UML2Util.getAllContents(profile, true, false); allContents.hasNext();) {
                 EObject eObject = (EObject) allContents.next();
                 if (eObject instanceof org.eclipse.uml2.uml.Element) {
                     resourceProfile.getContents().addAll(((org.eclipse.uml2.uml.Element) eObject).getStereotypeApplications());

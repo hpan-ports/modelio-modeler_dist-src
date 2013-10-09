@@ -27,10 +27,12 @@ import org.modelio.core.ui.images.ElementImageService;
 import org.modelio.diagram.editor.activity.plugin.DiagramEditorActivity;
 import org.modelio.diagram.elements.common.abstractdiagram.GmAbstractDiagram;
 import org.modelio.diagram.elements.common.header.GmDefaultModelElementHeader;
+import org.modelio.diagram.elements.core.model.IEditableText;
 import org.modelio.diagram.persistence.IDiagramReader;
 import org.modelio.diagram.persistence.IDiagramWriter;
 import org.modelio.metamodel.uml.behavior.activityModel.ObjectNode;
 import org.modelio.metamodel.uml.behavior.commonBehaviors.BehaviorParameter;
+import org.modelio.metamodel.uml.behavior.interactionModel.Lifeline;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
 import org.modelio.metamodel.uml.statik.AssociationEnd;
 import org.modelio.metamodel.uml.statik.Attribute;
@@ -85,7 +87,8 @@ public class GmObjectNodeHeader extends GmDefaultModelElementHeader {
         Instance instance = theInstanceNode.getRepresented();
         Attribute attribute = theInstanceNode.getRepresentedAttribute();
         AssociationEnd assocEnd = theInstanceNode.getRepresentedRole();
-        BehaviorParameter behaviorParameter = theInstanceNode.getRepresentedRealParameter();
+        BehaviorParameter behaviorParameter = theInstanceNode
+                .getRepresentedRealParameter();
         
         if (instance != null) {
             symbol.append(instance.getName());
@@ -95,7 +98,7 @@ public class GmObjectNodeHeader extends GmDefaultModelElementHeader {
             if (base != null) {
                 symbol.append(base.getName());
             } else {
-                symbol.append(/*Messages.getString(*/"NoBase"/*)*/);
+                symbol.append(/* Messages.getString( */"NoBase"/* ) */);
             }
         } else if (attribute != null) {
             VisibilityMode visibility = attribute.getVisibility();
@@ -112,7 +115,7 @@ public class GmObjectNodeHeader extends GmDefaultModelElementHeader {
             if (attributeType != null) {
                 symbol.append(attributeType.getName());
             } else {
-                symbol.append(/*Messages.getString(*/"NoType"/*)*/);
+                symbol.append(/* Messages.getString( */"NoType"/* ) */);
             }
         
             symbol.append(getAttributeMultiplicity(attribute));
@@ -131,7 +134,7 @@ public class GmObjectNodeHeader extends GmDefaultModelElementHeader {
         
             final String associationEndName = assocEnd.getName();
             if (associationEndName.isEmpty()) {
-                symbol.append(/*Messages.getString(*/"NoName"/*)*/);
+                symbol.append(/* Messages.getString( */"NoName"/* ) */);
             } else {
                 symbol.append(assocEnd.getName());
             }
@@ -168,7 +171,8 @@ public class GmObjectNodeHeader extends GmDefaultModelElementHeader {
                 if (passingMode == PassingMode.INOUT) {
                     symbol.append("Inout");
                 }
-            } else if (theParameter != null && theParameter.getReturned() != null) {
+            } else if (theParameter != null
+                    && theParameter.getReturned() != null) {
                 symbol.append("Out");
             } else {
                 symbol.append(behaviorParameter.getName());
@@ -178,7 +182,7 @@ public class GmObjectNodeHeader extends GmDefaultModelElementHeader {
             if (parameterType != null) {
                 symbol.append(parameterType.getName());
             } else {
-                symbol.append(/*Messages.getString(*/"NoType"/*)*/);
+                symbol.append(/* Messages.getString( */"NoType"/* ) */);
             }
         } else {
             symbol.append(computeObjectNodeLabel(theInstanceNode));
@@ -186,30 +190,32 @@ public class GmObjectNodeHeader extends GmDefaultModelElementHeader {
         
         symbol.append(computeOrderingSignature(theInstanceNode));
         return symbol.toString();
-        //        String mainLabel = "";
-        //        IObjectNode theObjectNode = (IObjectNode) getRelatedElement();
-        //        IBehaviorParameter theBehaviorParameter = theObjectNode.getRepresentedRealParameter();
-        //        IInstance theInstance = theObjectNode.getRepresented();
-        //        IAttribute theAttribute = theObjectNode.getRepresentedAttribute();
-        //        IAssociationEnd theAssociationEnd = theObjectNode.getRepresentedRole();
-        //        
-        //        if (theBehaviorParameter != null) {
-        //            if (theBehaviorParameter.getMapped() != null) {
-        //                mainLabel += computeParameterLabel(theBehaviorParameter.getMapped());
-        //            } else {
-        //                mainLabel += computeBehaviorParameterLabel(theBehaviorParameter);
-        //            }
-        //        } else if (theInstance != null) {
-        //            mainLabel += computeInstanceLabel(theInstance);
-        //        } else if (theAttribute != null) {
-        //            mainLabel += computeAttributeLabel(theAttribute);
-        //        } else if (theAssociationEnd != null) {
-        //            mainLabel += computeAssociationEndLabel(theAssociationEnd);
-        //        } else {
-        //            mainLabel += computeObjectNodeLabel(theObjectNode);
-        //        }
-        //        mainLabel += computeOrderingSignature(theObjectNode);
-        //        return mainLabel;
+        // String mainLabel = "";
+        // IObjectNode theObjectNode = (IObjectNode) getRelatedElement();
+        // IBehaviorParameter theBehaviorParameter =
+        // theObjectNode.getRepresentedRealParameter();
+        // IInstance theInstance = theObjectNode.getRepresented();
+        // IAttribute theAttribute = theObjectNode.getRepresentedAttribute();
+        // IAssociationEnd theAssociationEnd =
+        // theObjectNode.getRepresentedRole();
+        //
+        // if (theBehaviorParameter != null) {
+        // if (theBehaviorParameter.getMapped() != null) {
+        // mainLabel += computeParameterLabel(theBehaviorParameter.getMapped());
+        // } else {
+        // mainLabel += computeBehaviorParameterLabel(theBehaviorParameter);
+        // }
+        // } else if (theInstance != null) {
+        // mainLabel += computeInstanceLabel(theInstance);
+        // } else if (theAttribute != null) {
+        // mainLabel += computeAttributeLabel(theAttribute);
+        // } else if (theAssociationEnd != null) {
+        // mainLabel += computeAssociationEndLabel(theAssociationEnd);
+        // } else {
+        // mainLabel += computeObjectNodeLabel(theObjectNode);
+        // }
+        // mainLabel += computeOrderingSignature(theObjectNode);
+        // return mainLabel;
     }
 
     @objid ("2ad3dc52-55b6-11e2-877f-002564c97630")
@@ -217,20 +223,21 @@ public class GmObjectNodeHeader extends GmDefaultModelElementHeader {
         String mainLabel = "";
         String orderType;
         switch (theObjectNode.getOrdering()) {
-            case UNORDERED:
-                orderType = "{unordered}";
-                break;
-            case ORDERED:
-                orderType = "{ordered}";
-                break;
-            case LIFO:
-                orderType = "{LIFO}";
-                break;
-            case FIFO:
-                orderType = "";
-                break;
-            default:
-                orderType = "{!unknown order: " + theObjectNode.getOrdering() + "!}";
+        case UNORDERED:
+            orderType = "{unordered}";
+            break;
+        case ORDERED:
+            orderType = "{ordered}";
+            break;
+        case LIFO:
+            orderType = "{LIFO}";
+            break;
+        case FIFO:
+            orderType = "";
+            break;
+        default:
+            orderType = "{!unknown order: " + theObjectNode.getOrdering()
+                    + "!}";
         }
         
         mainLabel += " " + orderType;
@@ -241,13 +248,14 @@ public class GmObjectNodeHeader extends GmDefaultModelElementHeader {
     private String computeObjectNodeLabel(final ObjectNode theObjectNode) {
         String mainLabel = "";
         // TODO: add style key for namespacing.
-        //            if (namespacing)
-        //            {
-        //            mainLabel += getNamespacing(theObjectNode);
-        //            }
+        // if (namespacing)
+        // {
+        // mainLabel += getNamespacing(theObjectNode);
+        // }
         mainLabel += theObjectNode.getName();
         
-        if (!theObjectNode.getUpperBound().isEmpty() && !"1".equals(theObjectNode.getUpperBound())) {
+        if (!theObjectNode.getUpperBound().isEmpty()
+                && !"1".equals(theObjectNode.getUpperBound())) {
             mainLabel += " [" + theObjectNode.getUpperBound() + "]";
         }
         
@@ -269,8 +277,9 @@ public class GmObjectNodeHeader extends GmDefaultModelElementHeader {
         ModelElement elementToShow = instanceNode;
         // Now look for a bound element.
         if (instanceNode != null) {
-           GeneralClass type = instanceNode.getType();
-            BehaviorParameter representedRealParameter = instanceNode.getRepresentedRealParameter();
+            GeneralClass type = instanceNode.getType();
+            BehaviorParameter representedRealParameter = instanceNode
+                    .getRepresentedRealParameter();
             Instance instance = instanceNode.getRepresented();
             Attribute attribute = instanceNode.getRepresentedAttribute();
             AssociationEnd associationEnd = instanceNode.getRepresentedRole();
@@ -278,14 +287,16 @@ public class GmObjectNodeHeader extends GmDefaultModelElementHeader {
                 elementToShow = type;
             } else if (representedRealParameter != null) {
         
-                Parameter mappedParameter = representedRealParameter.getMapped();
-                elementToShow = (mappedParameter != null ? mappedParameter : representedRealParameter);
+                Parameter mappedParameter = representedRealParameter
+                        .getMapped();
+                elementToShow = (mappedParameter != null ? mappedParameter
+                        : representedRealParameter);
             } else if (instance != null) {
                 elementToShow = instance;
             } else if (attribute != null) {
                 elementToShow = attribute;
             } else if (associationEnd != null) {
-                
+        
                 elementToShow = associationEnd.getTarget();
             }
         
@@ -310,10 +321,12 @@ public class GmObjectNodeHeader extends GmDefaultModelElementHeader {
         
             if (multiplicityMinStr.equals(multiplicityMaxStr)) {
                 multiplicity.append(multiplicityMinStr);
-            } else if (multiplicityMinStr.equals("0") && multiplicityMaxStr.equals("*")) {
+            } else if (multiplicityMinStr.equals("0")
+                    && multiplicityMaxStr.equals("*")) {
                 multiplicity.append("*");
             } else {
-                if (!multiplicityMinStr.equals("") && !multiplicityMaxStr.equals("")) {
+                if (!multiplicityMinStr.equals("")
+                        && !multiplicityMaxStr.equals("")) {
                     separator = "..";
                 }
         
@@ -329,21 +342,21 @@ public class GmObjectNodeHeader extends GmDefaultModelElementHeader {
     @objid ("2ad3dc6f-55b6-11e2-877f-002564c97630")
     private String getVisibilitySymbol(final VisibilityMode v) {
         switch (v) {
-            case PUBLIC:
-                return "+";
-            case PROTECTED:
-                return "#";
-            case PRIVATE:
-                return "-";
-            case PACKAGEVISIBILITY:
-                return "\u2248"; // nearly equal
-                //return ("\u221e"); // infinite
-                //return ("~");
-                //return ("\u00a7"); // paragraph
-            case VISIBILITYUNDEFINED:
-                return "";
-            default:
-                return "";
+        case PUBLIC:
+            return "+";
+        case PROTECTED:
+            return "#";
+        case PRIVATE:
+            return "-";
+        case PACKAGEVISIBILITY:
+            return "\u2248"; // nearly equal
+            // return ("\u221e"); // infinite
+            // return ("~");
+            // return ("\u00a7"); // paragraph
+        case VISIBILITYUNDEFINED:
+            return "";
+        default:
+            return "";
         }
     }
 
@@ -360,10 +373,12 @@ public class GmObjectNodeHeader extends GmDefaultModelElementHeader {
         
             if (multiplicityMinStr.equals(multiplicityMaxStr)) {
                 multiplicity.append(multiplicityMinStr);
-            } else if (multiplicityMinStr.equals("0") && multiplicityMaxStr.equals("*")) {
+            } else if (multiplicityMinStr.equals("0")
+                    && multiplicityMaxStr.equals("*")) {
                 multiplicity.append("*");
             } else {
-                if (!multiplicityMinStr.equals("") && !multiplicityMaxStr.equals("")) {
+                if (!multiplicityMinStr.equals("")
+                        && !multiplicityMaxStr.equals("")) {
                     separator = "..";
                 }
         
@@ -380,19 +395,21 @@ public class GmObjectNodeHeader extends GmDefaultModelElementHeader {
     @Override
     public void read(IDiagramReader in) {
         // Read version, defaults to 0 if not found
-        Object versionProperty = in.readProperty("GmObjectNodeHeader." + MINOR_VERSION_PROPERTY);
-        int readVersion = versionProperty == null ? 0 : ((Integer) versionProperty).intValue();
+        Object versionProperty = in.readProperty("GmObjectNodeHeader."
+                + MINOR_VERSION_PROPERTY);
+        int readVersion = versionProperty == null ? 0
+                : ((Integer) versionProperty).intValue();
         switch (readVersion) {
-            case 0: {
-                read_0(in);
-                break;
-            }
-            default: {
-                assert (false) : "version number not covered!";
-                // reading as last handled version: 0
-                read_0(in);
-                break;
-            }
+        case 0: {
+            read_0(in);
+            break;
+        }
+        default: {
+            assert (false) : "version number not covered!";
+            // reading as last handled version: 0
+            read_0(in);
+            break;
+        }
         }
     }
 
@@ -403,7 +420,8 @@ public class GmObjectNodeHeader extends GmDefaultModelElementHeader {
         
         // Write version of this Gm if different of 0.
         if (this.minorVersion != 0) {
-            out.writeProperty("GmObjectNodeHeader." + MINOR_VERSION_PROPERTY, Integer.valueOf(this.minorVersion));
+            out.writeProperty("GmObjectNodeHeader." + MINOR_VERSION_PROPERTY,
+                    Integer.valueOf(this.minorVersion));
         }
     }
 
@@ -416,6 +434,62 @@ public class GmObjectNodeHeader extends GmDefaultModelElementHeader {
     @Override
     public int getMajorVersion() {
         return MAJOR_VERSION;
+    }
+
+    @objid ("e75fd6b8-ec0c-496e-91d0-05f33e6f4019")
+    @Override
+    public IEditableText getEditableText() {
+        return new IEditableText() {
+            @Override
+            public String getText() {
+                final ObjectNode theInstanceNode = (ObjectNode) getRelatedElement();
+        
+                Instance instance = theInstanceNode.getRepresented();
+                Attribute attribute = theInstanceNode.getRepresentedAttribute();
+                AssociationEnd assocEnd = theInstanceNode.getRepresentedRole();
+                BehaviorParameter behaviorParameter = theInstanceNode.getRepresentedRealParameter();
+                
+                if (instance != null) {
+                    return instance.getName();
+                }if (attribute != null) {
+                    return attribute.getName();
+                } if (assocEnd != null) {
+                    return assocEnd.getName();
+                } if (behaviorParameter != null) {
+                    return behaviorParameter.getName();
+                }  else {
+        return theInstanceNode.getName();
+                        }
+                    }
+        
+                    @Override
+                    public void setText(String text) {
+                        
+                        final ObjectNode theInstanceNode = (ObjectNode) getRelatedElement();
+        
+                        Instance instance = theInstanceNode.getRepresented();
+                        Attribute attribute = theInstanceNode.getRepresentedAttribute();
+                        AssociationEnd assocEnd = theInstanceNode.getRepresentedRole();
+                        BehaviorParameter behaviorParameter = theInstanceNode.getRepresentedRealParameter();
+                        
+                        if (instance != null) {
+         theInstanceNode.setName(text);
+         instance.setName(text);
+                        }if (attribute != null) {
+         theInstanceNode.setName(text);
+         attribute.setName(text);
+                        } if (assocEnd != null) {
+         theInstanceNode.setName(text);
+         assocEnd.setName(text);
+                        } if (behaviorParameter != null) {
+         theInstanceNode.setName(text);
+         behaviorParameter.setName(text);
+                        }  else {
+         theInstanceNode.setName(text);
+                        }
+                
+                    }
+                };
     }
 
 }

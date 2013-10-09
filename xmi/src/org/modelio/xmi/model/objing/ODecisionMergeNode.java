@@ -33,14 +33,13 @@ import org.modelio.metamodel.uml.behavior.activityModel.ConditionalNode;
 import org.modelio.metamodel.uml.behavior.activityModel.ControlFlow;
 import org.modelio.metamodel.uml.behavior.activityModel.DecisionMergeNode;
 import org.modelio.metamodel.uml.behavior.activityModel.StructuredActivityNode;
-import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.metamodel.uml.statik.Package;
 import org.modelio.vcore.smkernel.mapi.MObject;
 import org.modelio.vcore.smkernel.meta.SmClass;
+import org.modelio.xmi.util.AbstractObjingModelNavigation;
 import org.modelio.xmi.util.GenerationProperties;
 import org.modelio.xmi.util.NotFoundException;
 import org.modelio.xmi.util.ObjingEAnnotation;
-import org.modelio.xmi.util.ObjingModelNavigation;
 
 @objid ("acaf94e3-ee33-4df8-b690-b7e2cd9afdf4")
 public class ODecisionMergeNode extends OModelElement implements IOElement {
@@ -78,9 +77,9 @@ public class ODecisionMergeNode extends OModelElement implements IOElement {
     public ODecisionMergeNode(DecisionMergeNode element) {
         super(element);
         this.objingElement = element;
-        if (ObjingModelNavigation.isMergeNode(element))
+        if (AbstractObjingModelNavigation.isMergeNode(element))
             this.isMergeNode = true;
-        else if (ObjingModelNavigation.isDecisionNode(element))
+        else if (AbstractObjingModelNavigation.isDecisionNode(element))
             this.isDecisionNode = true;
     }
 
@@ -155,7 +154,7 @@ public class ODecisionMergeNode extends OModelElement implements IOElement {
         else
             ecoreFlow = UMLFactory.eINSTANCE.createObjectFlow();
         
-        Activity enclosingActivity = (Activity) ObjingModelNavigation
+        Activity enclosingActivity = (Activity) AbstractObjingModelNavigation
                 .getEnclosingElement(this.objingElement, SmClass.getClass(Activity.class));
         
         if (enclosingActivity != null) {
@@ -202,7 +201,7 @@ public class ODecisionMergeNode extends OModelElement implements IOElement {
             owner.getNodes().add((org.eclipse.uml2.uml.ActivityNode)ecoreElt);
         
             // Setting composition relation
-            Activity enclosingActivity = (Activity) ObjingModelNavigation
+            Activity enclosingActivity = (Activity) AbstractObjingModelNavigation
                     .getEnclosingElement(this.objingElement, SmClass.getClass(Activity.class));
             if (enclosingActivity != null) {
                 org.eclipse.uml2.uml.Element ecoreActivity = GenerationProperties.getInstance()
@@ -259,7 +258,7 @@ public class ODecisionMergeNode extends OModelElement implements IOElement {
         
         if (!isAttached) {
             // Setting composition relation (in  org.eclipse.uml2.uml.Activity):
-            Activity enclosingActivity = (Activity) ObjingModelNavigation
+            Activity enclosingActivity = (Activity) AbstractObjingModelNavigation
                     .getEnclosingElement(this.objingElement, SmClass.getClass(Activity.class));
             if (enclosingActivity != null) {
                 org.eclipse.uml2.uml.Element ecoreActivity = GenerationProperties.getInstance()
@@ -283,10 +282,10 @@ public class ODecisionMergeNode extends OModelElement implements IOElement {
             behavior.getBodies().add(decisionInput);
         
             // Setting composition relation
-            Activity enclosingActivity = (Activity) ObjingModelNavigation
+            Activity enclosingActivity = (Activity) AbstractObjingModelNavigation
                     .getEnclosingElement(this.objingElement, SmClass.getClass(Activity.class));
         
-            Package objingPkg = ObjingModelNavigation
+            Package objingPkg = AbstractObjingModelNavigation
                     .getNearestPackage(enclosingActivity);
         
             if (objingPkg != null) {

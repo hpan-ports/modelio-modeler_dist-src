@@ -26,6 +26,7 @@ import java.nio.file.Path;
 import java.util.regex.Pattern;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.jface.dialogs.IInputValidator;
+import org.modelio.app.project.core.plugin.AppProjectCore;
 
 /**
  * Implementation of {@link IInputValidator} to check the Modelio Projec's name.
@@ -43,20 +44,17 @@ public class ProjectNameValidator implements IInputValidator {
     @objid ("004637e6-cc35-1ff2-a7f4-001ec947cd2a")
     @Override
     public String isValid(final String newText) {
-        // Check project name syntax must match "[a-zA-Z0-9 ]+"
+        // Check project name syntax must match "[a-zA-Z0-9 _]+"
         if (!PROJECT_NAME_PATTERN.matcher(newText).matches()) {
-            // return Messages.getString("RenameProject.InvalidCharacters");
-            return "ProjectName.InvalidCharacters";
+            return AppProjectCore.I18N.getMessage("ProjectName.InvalidCharacters");
         }
         // Check that the project name does not match an already existing
-        // project
-        // we also have to look for a directory of the same name even if it is
+        // project we also have to look for a directory of the same name even if it is
         // not a real ProjectSpace
         File dir = new File(this.workspace.toFile(), newText);
         
         if (dir.exists()) {
-            // return Messages.getString("RenameProject.NameAlreadyUsed");
-            return "ProjectName.NameAlreadyUsed";
+            return AppProjectCore.I18N.getMessage("ProjectName.NameAlreadyUsed");
         
         }
         return null;

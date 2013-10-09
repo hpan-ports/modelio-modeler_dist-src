@@ -24,6 +24,8 @@ package org.modelio.model.browser.views.treeview;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.jface.viewers.ICellModifier;
 import org.eclipse.swt.widgets.TreeItem;
+import org.modelio.metamodel.uml.behavior.activityModel.ObjectNode;
+import org.modelio.metamodel.uml.behavior.communicationModel.CommunicationNode;
 import org.modelio.metamodel.uml.behavior.usecaseModel.UseCaseDependency;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
 import org.modelio.metamodel.uml.infrastructure.Usage;
@@ -71,8 +73,23 @@ class ElementNameModifier implements ICellModifier {
     @objid ("1fbfd6cc-1de3-11e2-bcbe-002564c97630")
     @Override
     public Object getValue(Object object, String property) {
-        if (object instanceof ModelElement) {
-            final ModelElement modelElement = (ModelElement) object;
+        if (object instanceof ModelElement) {    
+            ModelElement modelElement = (ModelElement) object;
+            
+            //Special case for ObjectNode 
+            if(object instanceof ObjectNode){
+                final ObjectNode theInstanceNode = (ObjectNode) object;
+                if(theInstanceNode.getRepresented() != null){
+                    return theInstanceNode.getRepresented().getName();
+                }else if(theInstanceNode.getRepresentedAttribute() != null){
+                    return  theInstanceNode.getRepresentedAttribute().getName();
+                }else if(theInstanceNode.getRepresentedRole() != null){
+                    return theInstanceNode.getRepresentedRole().getName();
+                }else if(theInstanceNode.getRepresentedRealParameter() != null){
+                    return  theInstanceNode.getRepresentedRealParameter().getName();
+                }
+            }
+            
             return modelElement.getName();
         }
         return "";
@@ -84,10 +101,61 @@ class ElementNameModifier implements ICellModifier {
         if (object instanceof TreeItem) {
             final TreeItem item = (TreeItem) object;
             final Object data = item.getData();
-        
+            
+            
             if (data instanceof ModelElement) {
-                final ModelElement modelElement = (ModelElement) data;
-        
+                 ModelElement modelElement = (ModelElement) data;
+                 // Ignore edition if the element becomes invalid during edition
+                 if (!modelElement.isValid()) {
+                     return;
+                 }
+                
+                //Special case for ObjectNode 
+                if(modelElement instanceof ObjectNode){
+                    final ObjectNode theInstanceNode = (ObjectNode) modelElement;
+                    ModelElement auxiliary = null;
+                    if( theInstanceNode.getRepresented() != null){
+                        auxiliary = theInstanceNode.getRepresented();        
+                    }else if( theInstanceNode.getRepresentedAttribute() != null){
+                        auxiliary = theInstanceNode.getRepresentedAttribute();
+                    }else if( theInstanceNode.getRepresentedRole() != null){
+                        auxiliary = theInstanceNode.getRepresentedRole();
+                    }else if( theInstanceNode.getRepresentedRealParameter() != null){
+                        auxiliary = theInstanceNode.getRepresentedRealParameter();
+                    }
+                    
+                    if(auxiliary != null){  
+                        if (!auxiliary.getName().equals(value)) {
+                            if (this.modelingSession != null) {
+                                try (ITransaction transaction = this.modelingSession.getTransactionSupport().createTransaction("Rename a " + modelElement.getMClass().getName())) {
+                                    auxiliary.setName((String) value);
+                                    transaction.commit();
+                                }
+                            }
+                        }
+                    }
+                }
+                
+                //Special case for CommunicationNode
+                if(modelElement instanceof CommunicationNode){
+                    final CommunicationNode theInstanceNode = (CommunicationNode) modelElement;
+                    ModelElement auxiliary = null;
+                    if( theInstanceNode.getRepresented() != null){
+                        auxiliary = theInstanceNode.getRepresented();        
+                    }
+                    
+                    if(auxiliary != null){  
+                        if (!auxiliary.getName().equals(value)) {
+                            if (this.modelingSession != null) {
+                                try (ITransaction transaction = this.modelingSession.getTransactionSupport().createTransaction("Rename a " + modelElement.getMClass().getName())) {
+                                    auxiliary.setName((String) value);
+                                    transaction.commit();
+                                }
+                            }
+                        }
+                    }
+                }
+                
                 if (!modelElement.getName().equals(value)) {
                     if (this.modelingSession != null) {
                         try (ITransaction transaction = this.modelingSession.getTransactionSupport().createTransaction("Rename a " + modelElement.getMClass().getName())) {

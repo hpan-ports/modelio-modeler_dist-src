@@ -39,10 +39,13 @@ import org.eclipse.swt.widgets.Link;
 import org.modelio.api.ui.dnd.ModelElementTransfer;
 import org.modelio.core.ui.plugin.CoreUi;
 import org.modelio.gproject.model.api.MTools;
+import org.modelio.metamodel.analyst.AnalystProject;
 import org.modelio.metamodel.mda.ModuleComponent;
+import org.modelio.metamodel.mda.Project;
 import org.modelio.metamodel.uml.statik.Association;
 import org.modelio.metamodel.uml.statik.ClassAssociation;
 import org.modelio.metamodel.uml.statik.Operation;
+import org.modelio.metamodel.uml.statik.Package;
 import org.modelio.metamodel.uml.statik.Parameter;
 import org.modelio.vcore.session.api.ICoreSession;
 import org.modelio.vcore.session.api.model.IModel;
@@ -66,8 +69,9 @@ public class MObjectViewerDropListener extends ViewerDropAdapter {
     protected ICoreSession coreSession;
 
     /**
-     * Constructor initializing an instance of EditorDropListener.
-     * @param client the drop client.
+     * Constructor initializing an instance of MObjectViewerDropListener.
+     * @param viewer the viewer were elements are dropped
+     * @param coreSession the modeling session
      */
     @objid ("ab7e828e-d064-4c09-9f90-a02b6f52cf18")
     public MObjectViewerDropListener(Viewer viewer, ICoreSession coreSession) {
@@ -140,14 +144,22 @@ public class MObjectViewerDropListener extends ViewerDropAdapter {
             return false;
         }
         
-        // Cannot cut/paste an element onto itself or a child
         if (isMove) {
             for (MObject element : elementsToDrop) {
                 if (element.equals(targetElement) || isParentOf(element, targetElement)) {
+                    // Cannot cut/paste an element onto itself or a child
                     return false;
+                } else if (element instanceof Package) {
+                    // Root packages cannot be moved
+                    if (((Package)element).getRepresented() != null)
+                        return false;
                 }
             }
         }
+        
+        // Cannot drag & drop into the project
+        if (targetElement instanceof Project)
+            return false;
         
         // Check status and metaclasses
         boolean selectionAreFreeCmsNode = true;
@@ -178,6 +190,9 @@ public class MObjectViewerDropListener extends ViewerDropAdapter {
                         return false;
                     }
                 }
+            } else if (element instanceof AnalystProject) {
+                // cannot D&D analyst project
+                return false;
             } else if (element instanceof ModuleComponent) {
                 // cannot D&D modules
                 return false;
@@ -196,14 +211,15 @@ public class MObjectViewerDropListener extends ViewerDropAdapter {
             // If the current DND detail is a "move", make sure that the dragged elements are all modifiable and that
             // their respective parent are also modifiable.
             if (isMove) {
-                if (!status.isModifiable()) {
+                if (!status.isModifiable()) 
                     return false;
-                }
         
                 final MObject parentElement = element.getCompositionOwner();
-                if (!parentElement.getStatus().isModifiable() && !isFreeCmsNode) {
+                if (parentElement == null)
                     return false;
-                }
+                
+                if (!parentElement.getStatus().isModifiable() && !isFreeCmsNode) 
+                    return false;
             }
         }
         
@@ -343,6 +359,10 @@ public class MObjectViewerDropListener extends ViewerDropAdapter {
         }
     }
 
+    /**
+     * Sets the modeling session.
+     * @param newModelingSession the new modeling session
+     */
     @objid ("a1f3bbd9-17bc-4900-b958-04cd4f3f02d0")
     public void setCoreSession(ICoreSession newModelingSession) {
         this.coreSession = newModelingSession;

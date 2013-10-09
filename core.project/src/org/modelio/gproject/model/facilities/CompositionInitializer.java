@@ -21,9 +21,11 @@
 
 package org.modelio.gproject.model.facilities;
 
+import java.util.Collections;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.gproject.model.api.MTools;
 import org.modelio.metamodel.analyst.AnalystContainer;
+import org.modelio.metamodel.analyst.AnalystElement;
 import org.modelio.metamodel.analyst.AnalystItem;
 import org.modelio.metamodel.analyst.AnalystProject;
 import org.modelio.metamodel.analyst.AnalystPropertyTable;
@@ -35,6 +37,7 @@ import org.modelio.metamodel.analyst.GoalContainer;
 import org.modelio.metamodel.analyst.PropertyContainer;
 import org.modelio.metamodel.analyst.Requirement;
 import org.modelio.metamodel.analyst.RequirementContainer;
+import org.modelio.metamodel.analyst.Term;
 import org.modelio.metamodel.bpmn.activities.BpmnActivity;
 import org.modelio.metamodel.bpmn.activities.BpmnComplexBehaviorDefinition;
 import org.modelio.metamodel.bpmn.activities.BpmnLoopCharacteristics;
@@ -1001,10 +1004,12 @@ public class CompositionInitializer extends DefaultModelVisitor {
     public Object visitRequirement(Requirement theRequirementElement) {
         if (this.parent instanceof RequirementContainer) {
             theRequirementElement.setOwnerContainer((RequirementContainer) this.parent);
+            AnalystPropertiesHelper.synchronizeAnalystProperties((RequirementContainer) this.parent, Collections.singletonList((AnalystElement)theRequirementElement));
             return true;
         }
         if (this.parent instanceof Requirement) {
             theRequirementElement.setParentRequirement((Requirement) this.parent);
+            AnalystPropertiesHelper.synchronizeAnalystProperties((Requirement) this.parent, Collections.singletonList((AnalystElement)theRequirementElement));
             return true;
         }
         return false;
@@ -1028,10 +1033,12 @@ public class CompositionInitializer extends DefaultModelVisitor {
     public Object visitBusinessRule(BusinessRule theBusinessRuleElement) {
         if (this.parent instanceof BusinessRuleContainer) {
             theBusinessRuleElement.setOwnerContainer((BusinessRuleContainer) this.parent);
+            AnalystPropertiesHelper.synchronizeAnalystProperties((BusinessRuleContainer) this.parent, Collections.singletonList((AnalystElement)theBusinessRuleElement));
             return true;
         }
         if (this.parent instanceof BusinessRule) {
             theBusinessRuleElement.setParentRule((BusinessRule) this.parent);
+            AnalystPropertiesHelper.synchronizeAnalystProperties((BusinessRule) this.parent, Collections.singletonList((AnalystElement)theBusinessRuleElement));
             return true;
         }
         return false;
@@ -1693,10 +1700,12 @@ public class CompositionInitializer extends DefaultModelVisitor {
     public Object visitGoal(Goal theGoalElement) {
         if (this.parent instanceof GoalContainer) {
             theGoalElement.setOwnerContainer((GoalContainer) this.parent);
+            AnalystPropertiesHelper.synchronizeAnalystProperties((GoalContainer) this.parent, Collections.singletonList((AnalystElement)theGoalElement));
             return true;
         }
         if (this.parent instanceof Goal) {
             theGoalElement.setParentGoal((Goal) this.parent);
+            AnalystPropertiesHelper.synchronizeAnalystProperties((Goal) this.parent, Collections.singletonList((AnalystElement)theGoalElement));
             return true;
         }
         return false;
@@ -1707,6 +1716,17 @@ public class CompositionInitializer extends DefaultModelVisitor {
     public Object visitAnalystPropertyTable(AnalystPropertyTable theTable) {
         if (this.parent instanceof AnalystItem) {
             theTable.setAnalystOwner((AnalystItem) this.parent);
+            return true;
+        }
+        return false;
+    }
+
+    @objid ("fddc53a8-e5dd-4fda-b2f5-bcf1c37fa305")
+    @Override
+    public Object visitTerm(Term theTerm) {
+        if (this.parent instanceof Dictionary) {
+            theTerm.setOwnerDictionary((Dictionary) this.parent);
+            AnalystPropertiesHelper.synchronizeAnalystProperties((Dictionary) this.parent, Collections.singletonList((AnalystElement)theTerm));
             return true;
         }
         return false;

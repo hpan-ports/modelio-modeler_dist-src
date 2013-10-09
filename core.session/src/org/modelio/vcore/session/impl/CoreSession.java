@@ -34,6 +34,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map.Entry;
 import java.util.Map;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.ThreadFactory;
@@ -47,6 +48,8 @@ import org.modelio.vcore.session.api.ICoreSession;
 import org.modelio.vcore.session.api.memory.IMemoryManager;
 import org.modelio.vcore.session.api.model.IModel;
 import org.modelio.vcore.session.api.repository.IRepository;
+import org.modelio.vcore.session.api.repository.IRepositoryChangeEvent;
+import org.modelio.vcore.session.api.repository.IRepositoryChangeListener;
 import org.modelio.vcore.session.api.repository.IRepositorySupport;
 import org.modelio.vcore.session.api.transactions.ITransactionSupport;
 import org.modelio.vcore.session.impl.cache.CacheHandle;
@@ -148,6 +151,9 @@ public class CoreSession implements ICoreSession, IRepositorySupport {
     @objid ("b472771c-1c43-4bbb-9921-31bfe1ac938d")
     private RefreshEventService refreshEventService;
 
+    @objid ("1df81043-14f1-44b5-a9b8-a0bfdf719ec2")
+    private Collection<IRepositoryChangeListener> repositoryChangeListeners;
+
     /**
      * Get the core session owning the given model object.
      * @param obj a model object.
@@ -225,10 +231,10 @@ public class CoreSession implements ICoreSession, IRepositorySupport {
         this.storageHandle = null;
         this.transactionManager = null;
         this.refreshEventService = null;
+        this.repositoryChangeListeners = null;
     }
 
     @objid ("006d6c80-6ebd-1f22-8c06-001ec947cd2a")
-    @Deprecated
     @Override
     public void connectRepository(IRepository aBase, IAccessManager accessManager, IModelioProgress monitor) throws IOException {
         connectRepository(aBase, String.valueOf(this.repoCounter), accessManager, monitor);
@@ -460,6 +466,8 @@ public class CoreSession implements ICoreSession, IRepositorySupport {
         
         this.modelChangeSupport = new ModelChangeSupport();
         
+        this.repositoryChangeListeners = new CopyOnWriteArrayList<>();
+        
         // Set up a TransactionManager
         this.transactionManager = new TransactionManager(this.modelChangeSupport);
         
@@ -470,7 +478,7 @@ public class CoreSession implements ICoreSession, IRepositorySupport {
         CacheHandle cacheHandle = new CacheHandle(this.cacheManager);
         
         // Set up a storage handle
-        this.storageHandle = new StorageHandle(this.repositories);
+        this.storageHandle = new StorageHandle(this, this.blobSupport);
         
         // Setup scheduler service
         this.schedulerService = initSchedulerService();
@@ -495,7 +503,7 @@ public class CoreSession implements ICoreSession, IRepositorySupport {
         this.model = new Model(this.cacheManager, getRepositorySupport());
         
         // Setup a SsFactory
-        this.ssFactory = new SmFactory(this.ksp.getId(), this.stdMetaObject, this.model);
+        this.ssFactory = new SmFactory(this.ksp.getId(), this.stdMetaObject, this.model, this.cacheManager);
         
         // Setup a Generic factory
         this.model.setGenericFactory(new GenericFactory(this.ssFactory, getRepositorySupport()));
@@ -662,6 +670,26 @@ public class CoreSession implements ICoreSession, IRepositorySupport {
     @Override
     public BlobSupport getBlobSupport() {
         return this.blobSupport;
+    }
+
+    @objid ("c1dbd416-b1d1-4128-9cbd-7bc4abd2080c")
+    @Override
+    public void addRepositoryChangeListener(IRepositoryChangeListener listener) {
+        this.repositoryChangeListeners.add(listener);
+    }
+
+    @objid ("2cbdf4b2-e385-47ea-83c6-865452fa2d41")
+    @Override
+    public void removeRepositoryChangeListener(IRepositoryChangeListener listener) {
+        this.repositoryChangeListeners.remove(listener);
+    }
+
+    @objid ("9a5a7e82-d7d2-42fc-a2dd-df7b8e5729b0")
+    @Override
+    public void fireRepositoryChange(IRepositoryChangeEvent event) {
+        for(IRepositoryChangeListener listener : this.repositoryChangeListeners) {
+            listener.repositoryChanged(event);
+        }
     }
 
     /**

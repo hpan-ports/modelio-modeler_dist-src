@@ -21,18 +21,23 @@
 
 package org.modelio.vaudit.modelshield.standard.checkers;
 
+import java.util.ArrayList;
+import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.metamodel.Metamodel;
 import org.modelio.metamodel.uml.statik.Generalization;
+import org.modelio.vaudit.modelshield.internal.ModelError;
 import org.modelio.vaudit.modelshield.standard.TriggerType;
 import org.modelio.vaudit.modelshield.standard.checkers.generic.DepCardinalityChecker;
 import org.modelio.vaudit.modelshield.standard.plan.Plan;
+import org.modelio.vcore.smkernel.mapi.MDependency;
+import org.modelio.vcore.smkernel.mapi.MObject;
 
 /**
  * E214:
  * <ul>
  * <li>desc = A Generalization must be linked to a NameSpace.</li>
- * <li>what = A generalization belonging to ''{2}'' is not linked to a name space.</li>
+ * <li>what = A generalization belonging to ''{1}'' is not linked to a name space.</li>
  * </ul>
  */
 @objid ("00873b7e-e20d-1f69-b3fb-001ec947cd2a")
@@ -56,6 +61,14 @@ public class E214Checker extends DepCardinalityChecker {
     @objid ("0051cf02-8f92-1f6c-bf9a-001ec947cd2a")
     public E214Checker() {
         super(ERRORID, DEPNAME);
+    }
+
+    @objid ("7d766ae7-914e-4f3c-9ea2-808c8689072e")
+    @Override
+    protected ModelError createError(final MObject object, MDependency dep, int currentCard) {
+        List<Object> objects = new ArrayList<>();
+        objects.add(object.getCompositionOwner());
+        return new ModelError(ERRORID, object, objects);
     }
 
 }

@@ -46,12 +46,14 @@ import org.modelio.api.diagram.tools.ILinkCommand;
 import org.modelio.api.diagram.tools.IMultiLinkCommand;
 import org.modelio.api.model.IModelingSession;
 import org.modelio.api.module.DefaultModuleSession;
+import org.modelio.api.module.ILicenseInfos.Status;
 import org.modelio.api.module.IModule;
 import org.modelio.api.module.IModuleAPIConfiguration;
 import org.modelio.api.module.IModuleSession;
 import org.modelio.api.module.IModuleUserConfiguration;
 import org.modelio.api.module.IParameterEditionModel;
 import org.modelio.api.module.IPeerModule;
+import org.modelio.api.module.LicenseInfos;
 import org.modelio.api.module.commands.ActionLocation;
 import org.modelio.api.module.commands.IModuleAction;
 import org.modelio.api.module.diagrams.DiagramCustomizationDescriptor;
@@ -616,6 +618,12 @@ public class IncompatibleModule implements IModule {
     @Override
     public String getLabel(String key) {
         return key;
+    }
+
+    @objid ("a16af633-2c8e-4203-a4fc-51e1a0c2b882")
+    @Override
+    public LicenseInfos getLicenseInfos() {
+        return new LicenseInfos(Status.UNDEFINED, null, "");
     }
 
 }

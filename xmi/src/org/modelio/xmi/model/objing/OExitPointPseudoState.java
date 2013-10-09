@@ -22,12 +22,17 @@
 package org.modelio.xmi.model.objing;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
+import org.eclipse.uml2.uml.Pseudostate;
 import org.eclipse.uml2.uml.UMLFactory;
 import org.modelio.metamodel.uml.behavior.stateMachineModel.ExitPointPseudoState;
+import org.modelio.vcore.smkernel.mapi.MObject;
+import org.modelio.xmi.util.GenerationProperties;
+import org.modelio.xmi.util.NotFoundException;
 
 @objid ("72c66371-aa77-4a4b-8062-5445faa4d4f8")
-public class OExitPointPseudoState extends OAbstractPseudoState implements IOElement {
+public class OExitPointPseudoState extends OAbstractPseudoState {
     @objid ("1d9ab8dc-71c2-4e32-9a82-a0d288ebde75")
+    @Override
     public org.eclipse.uml2.uml.Element createEcoreElt() {
         return UMLFactory.eINSTANCE.createPseudostate();
     }
@@ -38,18 +43,44 @@ public class OExitPointPseudoState extends OAbstractPseudoState implements IOEle
     }
 
     @objid ("01d54c01-b988-4f2f-8243-ca1a00a45c04")
+    @Override
     public void attach(org.eclipse.uml2.uml.Element ecoreElt) {
-        super.attach(ecoreElt);
+        MObject objingOwner = this.getObjingElement().getCompositionOwner();
+        
+        if (objingOwner != null) {
+            org.eclipse.uml2.uml.Element ecoreOwner = GenerationProperties.getInstance().getMappedElement(objingOwner);
+                
+            if (ecoreOwner != null) {
+                if (ecoreOwner instanceof  org.eclipse.uml2.uml.State) {
+                    ( (org.eclipse.uml2.uml.State) ecoreOwner).getConnectionPoints().add((Pseudostate)ecoreElt);
+                }else   if (ecoreOwner instanceof  org.eclipse.uml2.uml.StateMachine) {
+                        ( (org.eclipse.uml2.uml.StateMachine) ecoreOwner).getConnectionPoints().add((Pseudostate)ecoreElt);
+                } else {
+                    ecoreElt.destroy();
+                    throw new NotFoundException("Owner Class ("
+                            + ecoreOwner.getClass().getSimpleName()
+                            + ") Not Found");
+                }
+            } else {
+                ecoreElt.destroy();
+                throw new NotFoundException(
+                        "Owner Class of "+ this.getObjingElement().getClass().getSimpleName() + " Not Found");
+            }
+        } else {
+            ecoreElt.destroy();
+            throw new NotFoundException("Owner Class of "+ this.getObjingElement().getClass().getSimpleName() + " Not Found");
+        }
     }
 
     @objid ("da8e8e27-fab9-4b2b-8ef9-16e452eb4425")
+    @Override
     public void setProperties(org.eclipse.uml2.uml.Element ecoreElt) {
         super.setProperties(ecoreElt);
-        setKind( (org.eclipse.uml2.uml.Pseudostate)ecoreElt);
+        setKind( (Pseudostate)ecoreElt);
     }
 
     @objid ("ae9d7c49-ecdc-4fb2-9d89-913715a7e4c6")
-    private void setKind(org.eclipse.uml2.uml.Pseudostate pseudostate) {
+    private void setKind(Pseudostate pseudostate) {
         pseudostate.setKind (org.eclipse.uml2.uml.PseudostateKind.EXIT_POINT_LITERAL);
     }
 

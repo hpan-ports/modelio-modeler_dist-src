@@ -34,6 +34,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.graphics.Rectangle;
+import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.FormAttachment;
 import org.eclipse.swt.layout.FormData;
 import org.eclipse.swt.layout.FormLayout;
@@ -48,6 +49,7 @@ import org.modelio.app.core.ModelioEnv;
 import org.modelio.core.ui.dialog.ModelioDialog;
 import org.modelio.gproject.module.IModuleHandle;
 import org.modelio.gproject.module.catalog.FileModuleStore;
+import org.modelio.mda.infra.catalog.update.ModuleUpdateChecker;
 import org.modelio.mda.infra.plugin.MdaInfra;
 
 @objid ("9749de58-5677-4846-9609-115da4110982")
@@ -66,6 +68,9 @@ public class ModuleCatalogDialog extends ModelioDialog {
 
     @objid ("a6e50e09-f595-43d6-8d3a-dc34defb66a4")
     private Button addButton;
+
+    @objid ("1f54c94d-39f4-4a00-b1e8-d4ce6a93cf0a")
+    private Button updateButton;
 
     @objid ("6cfffb59-1769-4820-8416-4db028b5bdd1")
     public ModuleCatalogDialog(Shell parentShell, ModelioEnv env) {
@@ -127,16 +132,22 @@ public class ModuleCatalogDialog extends ModelioDialog {
             }
         });
         
-        // Install mdac file button
-        this.addButton = new Button(top, SWT.PUSH);
-        this.addButton.setText(MdaInfra.I18N.getString("ModuleCatalogDialog.Add"));
-        this.addButton.setImage(MdaInfra.getImageDescriptor("icons/addtocatalog.png").createImage());
+        
+        Composite buttonLine = new Composite(top, SWT.NONE);
         fd = new FormData();
         fd.top = new FormAttachment(panelComposite, 10, SWT.BOTTOM);
-        fd.left = new FormAttachment(0, 50);
-        // fd.bottom = new FormAttachment(100, 0);
-        fd.right = new FormAttachment(50, -30);
-        this.addButton.setLayoutData(fd);
+        fd.left = new FormAttachment(0, 0);
+        fd.right = new FormAttachment(100, 0);
+        final FillLayout layout = new FillLayout();
+        layout.spacing = 5;
+        layout.marginWidth = 5;
+        buttonLine.setLayout(layout);
+        buttonLine.setLayoutData(fd);
+        
+        // Install mdac file button
+        this.addButton = new Button(buttonLine, SWT.PUSH);
+        this.addButton.setText(MdaInfra.I18N.getString("ModuleCatalogDialog.Add"));
+        this.addButton.setImage(MdaInfra.getImageDescriptor("icons/addtocatalog.png").createImage());
         
         this.addButton.addSelectionListener(new SelectionListener() {
             @Override
@@ -152,15 +163,9 @@ public class ModuleCatalogDialog extends ModelioDialog {
         });
         
         // Delete mdac file button
-        this.deleteButton = new Button(top, SWT.PUSH);
+        this.deleteButton = new Button(buttonLine, SWT.PUSH);
         this.deleteButton.setText(MdaInfra.I18N.getString("ModuleCatalogDialog.Delete"));
         this.deleteButton.setImage(MdaInfra.getImageDescriptor("icons/removefromcatalog.png").createImage());
-        fd = new FormData();
-        fd.top = new FormAttachment(panelComposite, 10);
-        fd.left = new FormAttachment(50, 30);
-        // fd.bottom = new FormAttachment(tree, 0, SWT.BOTTOM);
-        fd.right = new FormAttachment(100, -50);
-        this.deleteButton.setLayoutData(fd);
         
         this.deleteButton.addSelectionListener(new SelectionListener() {
             @Override
@@ -171,10 +176,36 @@ public class ModuleCatalogDialog extends ModelioDialog {
         
             @Override
             public void widgetDefaultSelected(SelectionEvent e) {
-                //
+                // Nothing to do
             }
         });
         
+        this.updateButton = new Button(buttonLine, SWT.PUSH);
+        this.updateButton.setText(MdaInfra.I18N.getString("ModuleCatalogDialog.CheckUpdate"));
+        
+        this.updateButton.setImage(MdaInfra.getImageDescriptor("icons/updatecatalog.png").createImage());
+        this.updateButton.addSelectionListener(new SelectionListener() {
+            
+            @Override
+            public void widgetSelected(SelectionEvent evt) {
+                List<IModuleHandle> modules;
+                try {
+                    FileModuleStore catalog = (FileModuleStore) ModuleCatalogDialog.this.panel.getInput();
+                    modules = ((FileModuleStore) ModuleCatalogDialog.this.panel.getInput()).findAllModules(null);
+                    ModuleUpdateChecker checker = new ModuleUpdateChecker(modules, catalog);
+                    checker.run();
+                    ModuleCatalogDialog.this.panel.setInput(catalog);
+                } catch (IOException e) {
+                    MdaInfra.LOG.error(e);
+                }
+            }
+            
+            @Override
+            public void widgetDefaultSelected(SelectionEvent e) {
+                // Nothing to do
+                
+            }
+        });
         this.controller.init();
         return top;
     }

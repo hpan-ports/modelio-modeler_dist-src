@@ -41,20 +41,20 @@ import org.modelio.metamodel.uml.statik.NaryConnector;
 import org.modelio.metamodel.uml.statik.Port;
 import org.modelio.metamodel.uml.statik.ProvidedInterface;
 import org.modelio.metamodel.uml.statik.RequiredInterface;
-import org.modelio.xmi.plugin.Xmi;
 import org.modelio.xmi.util.EcoreModelNavigation;
 import org.modelio.xmi.util.IModelerModuleStereotypes;
 import org.modelio.xmi.util.ObjingEAnnotation;
 import org.modelio.xmi.util.ReverseProperties;
 
 @objid ("b49fce4d-2101-4013-8b3e-e6dcfb12bb10")
-public class EDependency extends ENamedElement implements IEElement {
+public class EDependency extends ENamedElement {
     @objid ("545a4730-c126-4154-944e-3f54c608c81d")
     private org.eclipse.uml2.uml.Dependency ecoreElement = null;
 
     @objid ("fac4958e-916c-434e-904e-8e0a027b2c54")
+    @Override
     public List<ModelElement> createObjingElt() {
-        return new ArrayList<ModelElement>();
+        return new ArrayList<>();
     }
 
     @objid ("3733e05b-5b41-4ebd-8d38-193ab250cdff")
@@ -63,11 +63,8 @@ public class EDependency extends ENamedElement implements IEElement {
         this.ecoreElement = element;
     }
 
-    @objid ("d5c1ce32-d24b-4d8c-a749-b02e0c3352b2")
-    public void attach(Element objingElt) {
-    }
-
     @objid ("c1cf2f1a-0d0e-4baa-a5fb-83b022565c80")
+    @Override
     public void setProperties(Element objingElt) {
         super.setProperties(objingElt);
         if (ObjingEAnnotation.isDestroy(this.ecoreElement) 
@@ -79,6 +76,7 @@ public class EDependency extends ENamedElement implements IEElement {
     }
 
     @objid ("794e01cb-6a2c-42c5-93c0-dd54613499ab")
+    @Override
     public void attach(List<Object> objingElts) {
         if (ReverseProperties.getInstance().isRoundtripEnabled() && ObjingEAnnotation.isProvidedInterface(this.ecoreElement)){ 
             attachProvidedInterface(objingElts);
@@ -138,7 +136,7 @@ public class EDependency extends ENamedElement implements IEElement {
         
                 if (objingClient != null) {
         
-                    List<ModelElement> objingSuppliers = new ArrayList<ModelElement>();
+                    List<ModelElement> objingSuppliers = new ArrayList<>();
                     for (Object eSupplier : supplierList) {
         
                         if (eSupplier instanceof org.eclipse.uml2.uml.NamedElement) {
@@ -173,7 +171,7 @@ public class EDependency extends ENamedElement implements IEElement {
         
                 if (objingSupplier != null) {
         
-                    List<ModelElement> objingClients = new ArrayList<ModelElement>();
+                    List<ModelElement> objingClients = new ArrayList<>();
                     for (Object eClient : clientList) {
         
                         if (eClient instanceof org.eclipse.uml2.uml.NamedElement) {
@@ -205,8 +203,7 @@ public class EDependency extends ENamedElement implements IEElement {
         }else if ((this.ecoreElement.getOwner() instanceof  org.eclipse.uml2.uml.CollaborationUse) 
                 && (( (org.eclipse.uml2.uml.CollaborationUse)this.ecoreElement.getOwner()).getRoleBindings().contains(this.ecoreElement) )){
         
-            objingTypeOfDependency = createBinding(objingClient,
-                    objingSupplier,  (org.eclipse.uml2.uml.CollaborationUse) this.ecoreElement.getOwner());
+            objingTypeOfDependency = createBinding(objingSupplier,  (org.eclipse.uml2.uml.CollaborationUse) this.ecoreElement.getOwner());
         }else{
         
             objingTypeOfDependency = createDependency(objingClient,
@@ -216,7 +213,7 @@ public class EDependency extends ENamedElement implements IEElement {
     }
 
     @objid ("bb64fd8a-0608-48b2-90b8-8944e681c880")
-    private Binding createBinding(ModelElement objingClient, ModelElement objingSupplier, org.eclipse.uml2.uml.CollaborationUse ecoreOwner) {
+    private Binding createBinding(ModelElement objingSupplier, org.eclipse.uml2.uml.CollaborationUse ecoreOwner) {
         Binding objElement = Modelio.getInstance().getModelingSession().getModel().createBinding();
         
         CollaborationUse objOwner = (CollaborationUse) ReverseProperties.getInstance().getMappedElement(ecoreOwner);
@@ -247,7 +244,7 @@ public class EDependency extends ENamedElement implements IEElement {
             }
         
             if (objSupplier instanceof ModelElement)
-                objElement.setRepresentedFeature((ModelElement) objingSupplier);
+                objElement.setRepresentedFeature(objingSupplier);
         }
         return objElement;
     }
@@ -305,7 +302,7 @@ public class EDependency extends ENamedElement implements IEElement {
         } else if (this.ecoreElement instanceof org.eclipse.uml2.uml.Usage) {
             objingDependency = Modelio.getInstance().getModelingSession()
                     .getModel().createUsage();
-        } else if (this.ecoreElement instanceof org.eclipse.uml2.uml.Dependency) {
+        } else {
             objingDependency = Modelio.getInstance().getModelingSession()
                     .getModel().createDependency();
         }

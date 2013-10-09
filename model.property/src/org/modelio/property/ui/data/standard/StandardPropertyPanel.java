@@ -29,13 +29,18 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
+import org.modelio.app.core.activation.IActivationService;
 import org.modelio.app.core.picking.IModelioPickingService;
+import org.modelio.app.project.core.services.IProjectService;
 import org.modelio.core.ui.ktable.IPropertyModel;
 import org.modelio.gproject.model.IMModelServices;
 import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.property.ui.data.IPropertyPanel;
 import org.modelio.vcore.session.api.ICoreSession;
 
+/**
+ * Standard UML properties panel.
+ */
 @objid ("8fa5670f-c068-11e1-8c0a-002564c97630")
 public class StandardPropertyPanel implements IPropertyPanel {
     @objid ("8fa56710-c068-11e1-8c0a-002564c97630")
@@ -59,9 +64,10 @@ public class StandardPropertyPanel implements IPropertyPanel {
 
     @objid ("8fa7c82b-c068-11e1-8c0a-002564c97630")
     @Override
-    public void setInput(ICoreSession session, IMModelServices modelService, IModelioPickingService pickingService, Element element) {
+    public void setInput(IProjectService projectService, IMModelServices modelService, IModelioPickingService pickingService, IActivationService activationService, Element element) {
         this.typedElement = element;
-        final DataModelFactory f = new DataModelFactory(modelService, session != null ? session.getModel() : null);
+        ICoreSession session = projectService != null ? projectService.getSession() : null;
+        final DataModelFactory f = new DataModelFactory(modelService, projectService, activationService, session != null ? session.getModel() : null);
         final IPropertyModel data = f.getPropertyModel(this.typedElement);
         final KTableModel model = this.propertyModelFactory.getIPropertyModel(session, pickingService, this.table, data);
         this.table.setModel(model);
@@ -70,7 +76,7 @@ public class StandardPropertyPanel implements IPropertyPanel {
     @objid ("8fa7c830-c068-11e1-8c0a-002564c97630")
     @Override
     public void stop() {
-        setInput(null, null, null, null);
+        setInput(null, null, null,null, null);
         disableGUI();
     }
 

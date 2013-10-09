@@ -22,7 +22,6 @@
 package org.modelio.xmi.model.objing;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.eclipse.emf.common.util.EList;
 import org.eclipse.uml2.uml.Vertex;
 import org.modelio.metamodel.uml.behavior.stateMachineModel.AbstractPseudoState;
 import org.modelio.vcore.smkernel.mapi.MObject;
@@ -30,18 +29,14 @@ import org.modelio.xmi.util.GenerationProperties;
 import org.modelio.xmi.util.NotFoundException;
 
 @objid ("627cf5ca-7898-45ae-91ed-72f5bbd3eb18")
-public class OAbstractPseudoState extends OModelElement implements IOElement {
-    @objid ("f48b19c4-c243-48db-b6e4-61d0c4985038")
-    public org.eclipse.uml2.uml.Element createEcoreElt() {
-        return null;
-    }
-
+public class OAbstractPseudoState extends OModelElement {
     @objid ("40993cb5-08f5-4f9c-b7d0-db030ee5f323")
     public OAbstractPseudoState(AbstractPseudoState param) {
         super(param);
     }
 
     @objid ("808dac62-06be-4376-89ec-e0e9b94496a2")
+    @Override
     public void attach(org.eclipse.uml2.uml.Element ecoreElt) {
         MObject objingOwner = this.getObjingElement().getCompositionOwner();
                 
@@ -49,12 +44,7 @@ public class OAbstractPseudoState extends OModelElement implements IOElement {
             org.eclipse.uml2.uml.Element ecoreOwner = GenerationProperties.getInstance().getMappedElement(objingOwner);
                 
             if (ecoreOwner != null) {
-                if (ecoreOwner instanceof org.eclipse.uml2.uml.State) {
-                    EList<?> regions = ((org.eclipse.uml2.uml.State) ecoreOwner).getRegions();
-                    if (regions.size() > 0) {
-                        ( (org.eclipse.uml2.uml.Region) regions.get(0)).getSubvertices().add((Vertex)ecoreElt);
-                    }
-                } else if (ecoreOwner instanceof  org.eclipse.uml2.uml.Region) {
+                if (ecoreOwner instanceof  org.eclipse.uml2.uml.Region) {
                     ( (org.eclipse.uml2.uml.Region) ecoreOwner).getSubvertices().add((Vertex)ecoreElt);
                 } else {
                     ecoreElt.destroy();
@@ -74,6 +64,7 @@ public class OAbstractPseudoState extends OModelElement implements IOElement {
     }
 
     @objid ("11f500d4-97b0-4edb-a2a0-b1e8abe9b069")
+    @Override
     public void setProperties(org.eclipse.uml2.uml.Element ecoreElt) {
         super.setProperties(ecoreElt);
     }

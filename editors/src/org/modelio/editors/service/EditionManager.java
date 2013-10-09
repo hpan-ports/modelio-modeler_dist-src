@@ -119,7 +119,10 @@ public class EditionManager {
         }
         
         MPart shownPart = this.inputservice.showInputPart(partid, file.getAbsolutePath(), PartState.ACTIVATE);
-        shownPart.setLabel(modelElement.getName());
+        
+        if (modelElement != null) {            
+            shownPart.setLabel(modelElement.getName());
+        }
         shownPart.setTooltip(file.getName());
         
         if (shownPart instanceof MInputPart) {

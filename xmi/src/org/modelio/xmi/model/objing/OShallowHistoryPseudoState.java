@@ -26,8 +26,9 @@ import org.eclipse.uml2.uml.UMLFactory;
 import org.modelio.metamodel.uml.behavior.stateMachineModel.ShallowHistoryPseudoState;
 
 @objid ("ca39db1b-d5bd-45c7-bc37-a75f7c1681e2")
-public class OShallowHistoryPseudoState extends OAbstractPseudoState implements IOElement {
+public class OShallowHistoryPseudoState extends OAbstractPseudoState {
     @objid ("3f14ab77-0433-47b6-bc7d-f90f41673075")
+    @Override
     public org.eclipse.uml2.uml.Element createEcoreElt() {
         return UMLFactory.eINSTANCE.createPseudostate();
     }
@@ -38,11 +39,13 @@ public class OShallowHistoryPseudoState extends OAbstractPseudoState implements 
     }
 
     @objid ("302bda80-0608-4a9f-ad6b-5295c56d680c")
+    @Override
     public void attach(org.eclipse.uml2.uml.Element ecoreElt) {
         super.attach(ecoreElt);
     }
 
     @objid ("4462e387-9e9f-4286-ad48-65c2e6974297")
+    @Override
     public void setProperties(org.eclipse.uml2.uml.Element ecoreElt) {
         super.setProperties(ecoreElt);
                 setKind( (org.eclipse.uml2.uml.Pseudostate)ecoreElt);

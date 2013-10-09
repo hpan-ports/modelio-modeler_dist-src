@@ -26,11 +26,11 @@ import org.eclipse.uml2.uml.UMLFactory;
 import org.modelio.metamodel.uml.statik.Association;
 import org.modelio.metamodel.uml.statik.AssociationEnd;
 import org.modelio.xmi.plugin.Xmi;
+import org.modelio.xmi.util.AbstractObjingModelNavigation;
 import org.modelio.xmi.util.EcoreModelNavigation;
 import org.modelio.xmi.util.GenerationProperties;
 import org.modelio.xmi.util.IModelerModuleStereotypes;
 import org.modelio.xmi.util.NotFoundException;
-import org.modelio.xmi.util.ObjingModelNavigation;
 import org.modelio.xmi.util.XMILogs;
 
 /**
@@ -85,13 +85,13 @@ public class OAssociation extends OModelElement {
     public OAssociation(final Association element) {
         super(element);
         this.objingElement = element;
-        this.isIsClassAssociation = ObjingModelNavigation.isIsClassAssociation(this.objingElement);
+        this.isIsClassAssociation = AbstractObjingModelNavigation.isIsClassAssociation(this.objingElement);
     }
 
     @objid ("771b65ef-0beb-4f57-b5d0-f0354cc5d68a")
     @Override
     public void attach(org.eclipse.uml2.uml.Element ecoreElt) {
-        if (!ObjingModelNavigation.isOwnedByActor(this.objingElement)) {
+        if (!AbstractObjingModelNavigation.isOwnedByActor(this.objingElement)) {
         
             if (!this.isIsClassAssociation)
                 linkEcoreAssociation((org.eclipse.uml2.uml.Association) ecoreElt);

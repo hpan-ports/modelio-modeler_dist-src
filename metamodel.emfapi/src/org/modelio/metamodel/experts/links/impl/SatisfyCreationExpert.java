@@ -40,8 +40,8 @@ public class SatisfyCreationExpert extends DefaultLinkExpert {
     @objid ("4c50ecd5-a3b7-403b-8275-a616cb2e130f")
     @Override
     public boolean canLink(MClass link, final MClass fromMetaclass, final MClass toMetaclass, final MClass owner) {
-        return fromMetaclass == Metamodel.getMClass(ModelElement.class) &&
-               toMetaclass == Metamodel.getMClass(Requirement.class);
+        return fromMetaclass.hasBase(Metamodel.getMClass(ModelElement.class)) &&
+               toMetaclass.hasBase(Metamodel.getMClass(Requirement.class));
     }
 
     @objid ("f5389ff7-d39b-4687-93b9-3f370b043583")
@@ -53,7 +53,7 @@ public class SatisfyCreationExpert extends DefaultLinkExpert {
     @objid ("c8d8807b-1773-4ee1-b0ed-20f50eadabc7")
     @Override
     public boolean canSource(MClass link, final MClass fromMetaclass) {
-        return fromMetaclass == Metamodel.getMClass(ModelElement.class);
+        return fromMetaclass.hasBase(Metamodel.getMClass(ModelElement.class));
     }
 
 }

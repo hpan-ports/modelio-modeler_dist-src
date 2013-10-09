@@ -44,7 +44,7 @@ import org.modelio.xmi.util.ResourceLoader;
  * @author ebrosse
  */
 @objid ("1079ecdd-1724-4390-a1f5-e30f8f939df9")
-public class SwtWizardExportProfile extends SwtWizardWindow {
+public class SwtWizardExportProfile extends AbstractSwtWizardWindow {
     /**
      * @param parent : shell parent
      * @param style : SWT style

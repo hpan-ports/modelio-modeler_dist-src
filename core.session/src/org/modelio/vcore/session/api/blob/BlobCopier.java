@@ -58,16 +58,72 @@ public class BlobCopier {
             return true;
         } catch (IOException e) {
             // Report failure to the destination storage error support
-            String err;
-            if (e instanceof FileSystemException)
-                err = FileUtils.getLocalizedMessage((FileSystemException)e);
-            else
-                err = e.getLocalizedMessage();
+            String err = getErrorString(e);
             String msg = "Cannot copy '"+blobKey+"' from "+from+" to "+to+" in "+toRepo+": "+err;
             
             toRepo.getErrorSupport().fireWarning(new IOException(msg, e));
             return false;
         }
+    }
+
+    /**
+     * Move a blob from a repository to another.
+     * <p>
+     * The destination repository must be different from the source one.
+     * Reports failures to the involved storage error support.
+     * @param blobKey the source blob key.
+     * @param from the source repository
+     * @param to the destination repository
+     * @return <code>true</code> if the blob could at least be copied to the destination repository even if it
+     * couldn't be deleted from the source repository.
+     * <code>false</code> if copying the blob failed.
+     */
+    @objid ("e91e5865-d372-4601-aa1e-21f835b573f7")
+    public static boolean move(String blobKey, IRepository from, IRepository to) {
+        // 1) Get blob info
+        IBlobInfo info;
+        try {
+            info = from.readBlobInfo(blobKey);
+        } catch (IOException e) {
+            // Report failure to the source storage error support
+            String err = getErrorString(e);
+            String msg = "Cannot read '"+blobKey+"' blob to move from "+from+" to "+to+": "+err;
+            
+            from.getErrorSupport().fireWarning(new IOException(msg, e));
+            return false;
+        }
+        
+        // 2) copy blob to destination
+        if (! copy(blobKey,from, info, to)) 
+            return false;
+        
+        // 3) delete blob from source
+        // From this point consider the operation as success even if deletion fails.
+        try {
+            from.removeBlob(blobKey);
+        } catch (IOException e) {
+            // Report failure to the target storage error support
+            String err = getErrorString(e);
+            String msg = "Cannot delete '"+info+"' blob copied from "+from+" to "+to+": "+err;
+        
+            to.getErrorSupport().fireWarning(new IOException(msg, e));
+        }
+        return true;
+    }
+
+    /**
+     * Get a user friendly error message from the given exception.
+     * @param e an exception
+     * @return the error message
+     */
+    @objid ("f66b7f0e-0d44-4c79-8b72-ea7152d77ef3")
+    private static String getErrorString(IOException e) {
+        String err;
+        if (e instanceof FileSystemException)
+            err = FileUtils.getLocalizedMessage((FileSystemException)e);
+        else
+            err = e.getLocalizedMessage();
+        return err;
     }
 
 }

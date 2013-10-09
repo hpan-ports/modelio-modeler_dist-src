@@ -99,6 +99,7 @@ public class ProjectWriter {
         ModuleDescriptor d = new ModuleDescriptor();
         d.setName( m.getName());
         d.setScope(m.getScope()); 
+        d.setActivated(m.isActivated());
         
         d.setVersion( m.getVersion());
         if (m.getOriginalArchiveUri() != null) {

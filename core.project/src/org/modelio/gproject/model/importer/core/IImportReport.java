@@ -36,4 +36,10 @@ public interface IImportReport {
     @objid ("008d2584-5246-1091-8d81-001ec947cd2a")
     List<SmObjectImpl> getDeletedObjects();
 
+    @objid ("ebc90e98-b078-423c-988b-c44900906f49")
+    SmObjectImpl getCreatedObject(final SmObjectImpl refObject);
+
+    @objid ("a462f5be-50bb-4ef0-847b-af1cbc9f00eb")
+    SmObjectImpl getUpdatedObject(final SmObjectImpl refObject);
+
 }

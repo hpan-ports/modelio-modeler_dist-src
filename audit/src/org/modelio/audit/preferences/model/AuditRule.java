@@ -43,8 +43,8 @@ public class AuditRule {
     @objid ("1b5363f2-08d0-4ec5-98a6-d000deb54310")
     public AuditSeverity severity;
 
-    @objid ("b2406960-22f0-4001-aabf-19cd4fdb86ba")
-    private static final ResourceBundle BUNDLE = ResourceBundle.getBundle("auditrules");
+    @objid ("77442999-e799-4b21-b03e-f92f79bdac51")
+    public String driverClass;
 
     @objid ("09bf2625-960a-456e-8575-5f12917db9e9")
     public AuditRule(String ruleId, String category, AuditSeverity severity, boolean enabled) {
@@ -52,16 +52,16 @@ public class AuditRule {
         this.category = category;
         this.severity = severity;
         this.enabled = enabled;
-        this.description = getDescription(ruleId);
     }
 
-    @objid ("95da2af7-8986-4b3c-a923-d41f23e74399")
-    public static String getDescription(String ruleId) {
-        try {
-            return BUNDLE.getString(ruleId + ".description");
-        } catch (MissingResourceException e) {
-            return "!" + ruleId + ".description!";
-        }
+    @objid ("4e4f3c9c-db66-4bdd-bded-b27534bddab9")
+    public AuditRule(AuditRule anotherRule) {
+        this.ruleId = anotherRule.ruleId;
+        this.category = anotherRule.category;
+        this.severity = anotherRule.severity;
+        this.enabled = anotherRule.enabled;
+        this.description = anotherRule.description;
+        this.driverClass = anotherRule.driverClass;
     }
 
 }

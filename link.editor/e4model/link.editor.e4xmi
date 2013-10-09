@@ -4,7 +4,7 @@
   <imports xsi:type="commands:Command" xmi:id="_GRezYH9JEeK-XvSICEmsLA" elementId="org.modelio.app.ui.command.showview"/>
   <imports xsi:type="commands:Command" xmi:id="_zEBOANfyEeKjSfPDByQfxw" elementId="org.modelio.app.ui.command.ShowImpactCause"/>
   <fragments xsi:type="fragment:StringModelFragment" xmi:id="_Ga7xMEN7EeK0D9nRHZj9jw" featurename="sharedElements" parentElementId="org.modelio.app.ui.trimmed">
-    <elements xsi:type="basic:Part" xmi:id="_tpwLIERtEeK0D9nRHZj9jw" elementId="org.modelio.linkeditor.view.LinkEditorViewID" contributionURI="bundleclass://org.modelio.link.editor/org.modelio.linkeditor.view.LinkEditorView" label="%LinkEditorView.Name" iconURI="platform:/plugin/org.modelio.link.editor/icons/linkeditor.png" closeable="true">
+    <elements xsi:type="basic:Part" xmi:id="_tpwLIERtEeK0D9nRHZj9jw" elementId="org.modelio.linkeditor.view.LinkEditorViewID" contributionURI="bundleclass://org.modelio.link.editor/org.modelio.linkeditor.view.LinkEditorView" label="%LinkEditorView.Name" iconURI="platform:/plugin/org.modelio.link.editor/icons/linkeditor.png" bindingContexts="_jvZPERFmEeOVyLqlIspOaA" closeable="true">
       <handlers xmi:id="_h8f0YF_5EeKxFZW_aaCuxw" elementId="org.modelio.linkeditor.handler.ZoomIn" contributionURI="bundleclass://org.modelio.link.editor/org.modelio.linkeditor.zoom.ZoomInHandler" command="_e0iUAF_wEeKxFZW_aaCuxw"/>
       <handlers xmi:id="_8yeV4GCJEeKxFZW_aaCuxw" elementId="org.modelio.linkeditor.handler.ZoomOut" contributionURI="bundleclass://org.modelio.link.editor/org.modelio.linkeditor.zoom.ZoomOutHandler" command="_qpg98F_wEeKxFZW_aaCuxw"/>
       <handlers xmi:id="_KtjwsGCKEeKxFZW_aaCuxw" elementId="org.modelio.linkeditor.handler.ZoomToFit" contributionURI="bundleclass://org.modelio.link.editor/org.modelio.linkeditor.zoom.ZoomToDefaultHandler" command="_lsax0F_wEeKxFZW_aaCuxw"/>
@@ -112,5 +112,13 @@
   </fragments>
   <fragments xsi:type="fragment:StringModelFragment" xmi:id="_AjqhMN_OEeKdg8e0rQGLrw" featurename="children" parentElementId="org.modelio.app.bottom.parts">
     <elements xsi:type="advanced:Placeholder" xmi:id="_AjqhMd_OEeKdg8e0rQGLrw" elementId="org.modelio.linkeditor.placeholder" ref="_tpwLIERtEeK0D9nRHZj9jw"/>
+  </fragments>
+  <fragments xsi:type="fragment:StringModelFragment" xmi:id="_jUPkIBFmEeOVyLqlIspOaA" featurename="bindingTables" parentElementId="org.modelio.app.application">
+    <elements xsi:type="commands:BindingTable" xmi:id="_jUPkIRFmEeOVyLqlIspOaA" elementId="org.modelio.linkeditor.bindings.table" bindingContext="_jvZPERFmEeOVyLqlIspOaA">
+      <bindings xmi:id="_jUPkIhFmEeOVyLqlIspOaA" elementId="" keySequence="DEL" command="_br0PkF_wEeKxFZW_aaCuxw"/>
+    </elements>
+  </fragments>
+  <fragments xsi:type="fragment:StringModelFragment" xmi:id="_jvZPEBFmEeOVyLqlIspOaA" featurename="children" parentElementId="org.eclipse.ui.contexts.window">
+    <elements xsi:type="commands:BindingContext" xmi:id="_jvZPERFmEeOVyLqlIspOaA" elementId="org.modelio.linkeditor.bindings.context" name="%LinkEditor.context.name" description="%LinkEditor.description"/>
   </fragments>
 </fragment:ModelFragments>

@@ -28,6 +28,7 @@ import org.modelio.vcore.session.api.repository.IRepository;
 import org.modelio.vcore.smkernel.IMetaOf;
 import org.modelio.vcore.smkernel.IRStatus;
 import org.modelio.vcore.smkernel.ISmObjectData;
+import org.modelio.vcore.smkernel.ISmObjectDataCache;
 import org.modelio.vcore.smkernel.SmLiveId;
 import org.modelio.vcore.smkernel.SmObjectImpl;
 import org.modelio.vcore.smkernel.SmStatusFactory;
@@ -47,17 +48,21 @@ public class SmFactory {
     @objid ("726bb90c-a419-11e1-aa98-001ec947ccaf")
     private final IModel modelFinder;
 
+    @objid ("7b38cf31-b0f1-4b1a-99ec-b87d1019fee8")
+    private final ISmObjectDataCache dataCache;
+
     /**
      * Constructor
-     * @param kid the kernele id
+     * @param kid the kernel id
      * @param metaObject the default meta object for new model objects.
      * @param modelFinder a model object finder.
      */
     @objid ("0054e2dc-6f75-1f22-8c06-001ec947cd2a")
-    public SmFactory(final short kid, final IMetaOf metaObject, final IModel modelFinder) {
+    public SmFactory(final short kid, final IMetaOf metaObject, final IModel modelFinder, ISmObjectDataCache dataCache) {
         this.kid = kid;
         this.metaObject = metaObject;
         this.modelFinder = modelFinder;
+        this.dataCache = dataCache;
     }
 
     /**
@@ -131,6 +136,9 @@ public class SmFactory {
         
             // Set a meta object (SeHandle for transaction management)
             newObject.setMetaOf(this.metaObject);
+            
+            // Add to data cache before 'data' is out of scope
+            this.dataCache.putDataToCache(data);
         
             // Add to the repository
             repository.addObject(newObject);
@@ -163,20 +171,23 @@ public class SmFactory {
         // Set a meta object (SeHandle for transaction management)
         newObject.setMetaOf(this.metaObject);
         
+        // Add to data cache before 'data' is out of scope
+        this.dataCache.putDataToCache(data);
+            
         // Add the object to the repository
         repository.addObject(newObject);
         
         // Triggers the meta object
         this.metaObject.createObject(newObject);
         
-             // Set the object name if given (before marking it shell)
+        // Set the object name if given (before marking it shell)
         if (name != null) {
-            newObject.getClassOf().getAttributeDef("Name").setValue(newObject.getData(), name);
+            newObject.getClassOf().getAttributeDef("Name").setValue(data, name);
             //newObject.setName(name);
         }
         
         // Mark it shell
-        newObject.getData().setRFlags(IRStatus.SHELL, 0, 0);
+        data.setRFlags(IRStatus.SHELL, 0, 0);
         return newObject;
     }
 

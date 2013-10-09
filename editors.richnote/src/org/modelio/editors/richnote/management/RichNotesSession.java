@@ -22,6 +22,7 @@
 package org.modelio.editors.richnote.management;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
@@ -29,6 +30,7 @@ import org.modelio.editors.richnote.editor.IRichNoteFileRepository;
 import org.modelio.editors.richnote.management.EditorsRegistry.RichNoteToken;
 import org.modelio.gproject.gproject.GProject;
 import org.modelio.metamodel.uml.infrastructure.ExternDocument;
+import org.modelio.vcore.session.api.blob.BlobCopier;
 import org.modelio.vcore.session.api.blob.IBlobChangeEvent;
 import org.modelio.vcore.session.api.blob.IBlobChangeListener;
 import org.modelio.vcore.session.api.blob.IBlobInfo;
@@ -106,7 +108,11 @@ public class RichNotesSession implements IBlobProvider, IBlobChangeListener {
     @objid ("25f147c5-ec9c-42ef-92f2-5d1935ef395f")
     @Override
     public Collection<String> getRelatedBlobs(MObject obj) {
-        return this.fileManager.getRelatedBlobs(obj);
+        String blobKey = this.fileManager.getRelatedBlob(obj);
+        if (blobKey != null)
+            return Collections.singletonList(blobKey);
+        else
+            return Collections.emptyList();
     }
 
     /**
@@ -161,6 +167,17 @@ public class RichNotesSession implements IBlobProvider, IBlobChangeListener {
         if (from instanceof ExternDocument) {
             //RichNoteFormat format = RichNoteFormatRegistry.getInstance().getFormat((ExternDocument) from);
             this.fileManager.copyBlob((ExternDocument)from, fromRepo, (ExternDocument)to, toRepo);
+        }
+    }
+
+    @objid ("4908809f-62d0-4aa7-a313-b353921cda8e")
+    @Override
+    public void objectsMoved(Collection<? extends MObject> objs, IRepository fromRepo, IRepository destRepo) {
+        for (MObject obj : objs) {
+            String blobKey = this.fileManager.getRelatedBlob(obj);
+            if (blobKey != null) {
+                BlobCopier.move(blobKey, fromRepo, destRepo);
+            }
         }
     }
 

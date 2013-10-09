@@ -78,6 +78,7 @@ import org.modelio.metamodel.uml.statik.Link;
 import org.modelio.metamodel.uml.statik.LinkEnd;
 import org.modelio.metamodel.uml.statik.Manifestation;
 import org.modelio.metamodel.uml.statik.NameSpace;
+import org.modelio.metamodel.uml.statik.NaryAssociation;
 import org.modelio.metamodel.uml.statik.Operation;
 import org.modelio.metamodel.uml.statik.Package;
 import org.modelio.metamodel.uml.statik.PackageImport;
@@ -291,10 +292,18 @@ public class ModelLinkFactory implements IModelLinkFactory {
         @Override
         public Object visitClassAssociation(final ClassAssociation theAssoc) {
             if (this.source instanceof Class) {
-                theAssoc.setAssociationPart(((AssociationEnd) this.target).getAssociation());
+                if (this.target instanceof AssociationEnd) {
+                    theAssoc.setAssociationPart(((AssociationEnd) this.target).getAssociation());
+                } else if (this.target instanceof NaryAssociation) {
+                    theAssoc.setNaryAssociationPart((NaryAssociation) this.target);    
+                }
                 theAssoc.setClassPart((Class) this.source);
             } else {
-                theAssoc.setAssociationPart(((AssociationEnd) this.source).getAssociation());
+                if (this.source instanceof AssociationEnd) {
+                    theAssoc.setAssociationPart(((AssociationEnd) this.source).getAssociation());
+                } else if (this.source instanceof NaryAssociation) {
+                    theAssoc.setNaryAssociationPart((NaryAssociation) this.source);    
+                }
                 theAssoc.setClassPart((Class) this.target);
             }
             return theAssoc;

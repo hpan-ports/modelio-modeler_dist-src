@@ -230,6 +230,12 @@ import org.modelio.metamodel.uml.statik.LinkEnd;
 import org.modelio.metamodel.uml.statik.Manifestation;
 import org.modelio.metamodel.uml.statik.NameSpace;
 import org.modelio.metamodel.uml.statik.NamespaceUse;
+import org.modelio.metamodel.uml.statik.NaryAssociation;
+import org.modelio.metamodel.uml.statik.NaryAssociationEnd;
+import org.modelio.metamodel.uml.statik.NaryConnector;
+import org.modelio.metamodel.uml.statik.NaryConnectorEnd;
+import org.modelio.metamodel.uml.statik.NaryLink;
+import org.modelio.metamodel.uml.statik.NaryLinkEnd;
 import org.modelio.metamodel.uml.statik.Node;
 import org.modelio.metamodel.uml.statik.Operation;
 import org.modelio.metamodel.uml.statik.Package;
@@ -3932,6 +3938,60 @@ public class UMLModel implements IUmlModel {
     @Override
     public IDefaultNameService getDefaultNameService() {
         return new DefaultNameService(this.modelService.getElementNamer());
+    }
+
+    @objid ("f30ad3f7-804f-40b4-8540-3a92da701ecc")
+    @Override
+    public NaryAssociation createNaryAssociation() {
+        return this.modelService.getModelFactory().createNaryAssociation();
+    }
+
+    @objid ("8aae4856-f13c-4759-be6b-1807c1d87cb4")
+    @Override
+    public NaryAssociation createNaryAssociation(List<Classifier> ends) {
+        return this.modelService.getModelFactory().createNaryAssociation(ends);
+    }
+
+    @objid ("6bc72345-cc2f-410e-84c4-b2c45a81d283")
+    @Override
+    public NaryAssociationEnd createNaryAssociationEnd() {
+        return this.modelService.getModelFactory().createNaryAssociationEnd();
+    }
+
+    @objid ("5ccba362-f27d-487b-917b-9f9c9833b74d")
+    @Override
+    public NaryConnector createNaryConnector() {
+        return this.modelService.getModelFactory().createNaryConnector();
+    }
+
+    @objid ("1a5cd66a-62bf-4e72-ba8b-ca86b5ba840f")
+    @Override
+    public NaryConnector createNaryConnector(List<BindableInstance> ends) {
+        return this.modelService.getModelFactory().createNaryConnector(ends);
+    }
+
+    @objid ("3ffa1c73-b239-4840-b1ec-89e80de26110")
+    @Override
+    public NaryConnectorEnd createNaryConnectorEnd() {
+        return this.modelService.getModelFactory().createNaryConnectorEnd();
+    }
+
+    @objid ("ffd6e526-ba50-44bb-9e97-f9e5414a1ef0")
+    @Override
+    public NaryLink createNaryLink() {
+        return this.modelService.getModelFactory().createNaryLink();
+    }
+
+    @objid ("bf41ac12-0509-46f9-bc11-966333353352")
+    @Override
+    public NaryLink createNaryLink(List<Instance> source) {
+        return this.modelService.getModelFactory().createNaryLink(source);
+    }
+
+    @objid ("ace6b28d-aabd-4f3e-a4d6-7e8875f1e140")
+    @Override
+    public NaryLinkEnd createNaryLinkEnd() {
+        return this.modelService.getModelFactory().createNaryLinkEnd();
     }
 
 }

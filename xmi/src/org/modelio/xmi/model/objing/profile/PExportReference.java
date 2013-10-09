@@ -32,8 +32,8 @@ import org.modelio.metamodel.uml.infrastructure.NoteType;
 import org.modelio.metamodel.uml.infrastructure.TagType;
 import org.modelio.xmi.generation.ProfileExportVisitorImpl;
 import org.modelio.xmi.generation.TotalExportMap;
+import org.modelio.xmi.util.AbstractObjingModelNavigation;
 import org.modelio.xmi.util.ObjingEAnnotation;
-import org.modelio.xmi.util.ObjingModelNavigation;
 import org.modelio.xmi.util.ProfileUtils;
 import org.modelio.xmi.util.UMLMetamodel;
 
@@ -47,19 +47,20 @@ public class PExportReference implements IExportProfileElement {
 
     @objid ("80dbd421-31cc-45d5-ad65-3d74eec45ce7")
     public PExportReference(MetaclassReference reference) {
-        objingElt = reference;
+        this.objingElt = reference;
     }
 
     @objid ("4084d237-9196-4973-89fc-ae79c5b64305")
+    @Override
     public void accept(ProfileExportVisitorImpl visitor) {
         visitor.visit(this);
     }
 
     @objid ("d4bdfd74-1da5-4a0d-830a-aa7356e94dea")
     private org.eclipse.uml2.uml.Stereotype createEcoreStereotype() {
-        org.eclipse.uml2.uml.Profile profile = (org.eclipse.uml2.uml.Profile) totalMap.get(objingElt.getOwnerProfile().getUuid().toString());
+        org.eclipse.uml2.uml.Profile profile = (org.eclipse.uml2.uml.Profile) this.totalMap.get(this.objingElt.getOwnerProfile().getUuid().toString());
         
-        org.eclipse.uml2.uml.Stereotype stereotype = ProfileUtils.createStereotype(objingElt, profile);
+        org.eclipse.uml2.uml.Stereotype stereotype = ProfileUtils.createStereotype(this.objingElt, profile);
         
         ObjingEAnnotation.setReference(stereotype, true);
         return stereotype;
@@ -67,17 +68,17 @@ public class PExportReference implements IExportProfileElement {
 
     @objid ("ad4ae63b-42cb-4f82-bb4a-1e12c3f1e35c")
     private void setProperties(org.eclipse.uml2.uml.Stereotype stereotype) {
-        setInheritance(stereotype);
-        ObjingEAnnotation.addObjingID(stereotype, objingElt.getUuid().toString());
+        setInheritance();
+        ObjingEAnnotation.addObjingID(stereotype, this.objingElt.getUuid().toString());
     }
 
     @objid ("6833e3bc-e88b-4dd3-9e4c-4400193f6cb8")
-    private void setInheritance(org.eclipse.uml2.uml.Stereotype stereotype) {
-        org.eclipse.uml2.uml.Profile profile = (org.eclipse.uml2.uml.Profile) totalMap.get(objingElt.getOwnerProfile().getUuid().toString());
+    private void setInheritance() {
+        org.eclipse.uml2.uml.Profile profile = (org.eclipse.uml2.uml.Profile) this.totalMap.get(this.objingElt.getOwnerProfile().getUuid().toString());
         
-        org.eclipse.uml2.uml.Stereotype stereotypeEcore = (org.eclipse.uml2.uml.Stereotype) totalMap.get(objingElt.getUuid().toString());
+        org.eclipse.uml2.uml.Stereotype stereotypeEcore = (org.eclipse.uml2.uml.Stereotype) this.totalMap.get(this.objingElt.getUuid().toString());
         
-        for (String newMetaclassName : ProfileUtils.getEcoreNameClass(objingElt.getReferencedClassName())){
+        for (String newMetaclassName : ProfileUtils.getEcoreNameClass(this.objingElt.getReferencedClassName())){
         
             Class metaclassClass =  (org.eclipse.uml2.uml.Class) UMLMetamodel.getInstance().getUMLMetamodel().getOwnedType(newMetaclassName);
         
@@ -110,11 +111,11 @@ public class PExportReference implements IExportProfileElement {
 
     @objid ("192f0d0f-1092-4417-a22e-39633f21a95f")
     public List<PExportAttribut> getAttribute() {
-        List<PExportAttribut> result = new ArrayList<PExportAttribut>();
+        List<PExportAttribut> result = new ArrayList<>();
         
-        for (TagType part : objingElt.getDefinedTagType()){
+        for (TagType part : this.objingElt.getDefinedTagType()){
         
-            PExportAttribut attribut = new PExportAttribut((TagType) part);
+            PExportAttribut attribut = new PExportAttribut(part);
             result.add(attribut);
         
         }
@@ -123,10 +124,10 @@ public class PExportReference implements IExportProfileElement {
 
     @objid ("ab296ee3-31da-45e7-9a38-81c4e2d80772")
     public List<PExportNoteType> getNoteTypes() {
-        List<PExportNoteType> result = new ArrayList<PExportNoteType>();
-        for (NoteType part : objingElt.getDefinedNoteType()){
+        List<PExportNoteType> result = new ArrayList<>();
+        for (NoteType part : this.objingElt.getDefinedNoteType()){
         
-            PExportNoteType attribut = new PExportNoteType((NoteType) part);
+            PExportNoteType attribut = new PExportNoteType(part);
             result.add(attribut);
         
         }
@@ -135,16 +136,16 @@ public class PExportReference implements IExportProfileElement {
 
     @objid ("b474ff00-1b21-4a65-a6a2-49527f8f16f0")
     public Element getElt() {
-        return objingElt;
+        return this.objingElt;
     }
 
     @objid ("21f3f4f9-9447-4ec2-9444-d1eb8ab9337a")
     public void visit() {
-        org.eclipse.uml2.uml.Stereotype ecoreElt = (org.eclipse.uml2.uml.Stereotype) totalMap.get(objingElt.getUuid().toString());
+        org.eclipse.uml2.uml.Stereotype ecoreElt = (org.eclipse.uml2.uml.Stereotype) this.totalMap.get(this.objingElt.getUuid().toString());
         
-        if ((ecoreElt == null) && ObjingModelNavigation.mustBeExported(objingElt)){
+        if ((ecoreElt == null) && AbstractObjingModelNavigation.mustBeExported(this.objingElt)){
             ecoreElt = createEcoreStereotype();
-            totalMap.put(objingElt.getUuid().toString(), ecoreElt);
+            this.totalMap.put(this.objingElt.getUuid().toString(), ecoreElt);
             setProperties(ecoreElt);
         }
     }

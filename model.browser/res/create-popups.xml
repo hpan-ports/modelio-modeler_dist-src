@@ -1413,14 +1413,7 @@
 			<parameter name="dependency" value="Required" />
 		</command>
 	</popup>
-	<!-- Popup for PropertySet -->
-	<popup metaclass="PropertySet">
-		<command id="org.modelio.app.ui.command.create.element">
-			<parameter name="metaclass" value="Property" />
-			<parameter name="dependency" value="Owned" />
-		</command>
-	</popup>
-	<!-- Popup for Region -->
+  <!-- Popup for Region -->
 	<popup metaclass="Region">
 		<command id="org.modelio.app.ui.command.create.element">
 			<parameter name="metaclass" value="State" />

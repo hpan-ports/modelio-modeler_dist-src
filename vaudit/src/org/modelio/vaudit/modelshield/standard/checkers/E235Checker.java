@@ -21,18 +21,23 @@
 
 package org.modelio.vaudit.modelshield.standard.checkers;
 
+import java.util.ArrayList;
+import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.metamodel.Metamodel;
 import org.modelio.metamodel.uml.behavior.usecaseModel.UseCaseDependency;
+import org.modelio.vaudit.modelshield.internal.ModelError;
 import org.modelio.vaudit.modelshield.standard.TriggerType;
 import org.modelio.vaudit.modelshield.standard.checkers.generic.DepCardinalityChecker;
 import org.modelio.vaudit.modelshield.standard.plan.Plan;
+import org.modelio.vcore.smkernel.mapi.MDependency;
+import org.modelio.vcore.smkernel.mapi.MObject;
 
 /**
  * E235:
  * <ul>
  * <li>desc = A UseCaseDependency must be directed towards a UseCase.</li>
- * <li>what = A use case dependency belonging to the ''{2}'' element is not directed towards a use case.</li>
+ * <li>what = A use case dependency belonging to the ''{1}'' element is not directed towards a use case.</li>
  * </ul>
  */
 @objid ("000a0dde-e20e-1f69-b3fb-001ec947cd2a")
@@ -56,6 +61,14 @@ public class E235Checker extends DepCardinalityChecker {
     @objid ("007368c4-9731-1f6c-bf9a-001ec947cd2a")
     public E235Checker() {
         super(ERRORID, DEPNAME);
+    }
+
+    @objid ("3499f2e7-0a64-4aa2-b96c-f27005a484cd")
+    @Override
+    protected ModelError createError(MObject object, MDependency dep, int currentCard) {
+        List<Object> objects = new ArrayList<>();
+        objects.add(object.getCompositionOwner());
+        return new ModelError(ERRORID, object, objects);
     }
 
 }

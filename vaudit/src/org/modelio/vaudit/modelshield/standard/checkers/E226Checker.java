@@ -21,18 +21,23 @@
 
 package org.modelio.vaudit.modelshield.standard.checkers;
 
+import java.util.ArrayList;
+import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.metamodel.Metamodel;
 import org.modelio.metamodel.uml.statik.PackageImport;
+import org.modelio.vaudit.modelshield.internal.ModelError;
 import org.modelio.vaudit.modelshield.standard.TriggerType;
 import org.modelio.vaudit.modelshield.standard.checkers.generic.DepCardinalityChecker;
 import org.modelio.vaudit.modelshield.standard.plan.Plan;
+import org.modelio.vcore.smkernel.mapi.MDependency;
+import org.modelio.vcore.smkernel.mapi.MObject;
 
 /**
  * E226:
  * <ul>
  * <li>desc = A PackageImport must be directed towards a Package.</li>
- * <li>what = A package import belonging to ''{2}'' is not directed towards a package.</li>
+ * <li>what = A package import belonging to ''{1}'' is not directed towards a package.</li>
  * </ul>
  */
 @objid ("0091dfa2-e20d-1f69-b3fb-001ec947cd2a")
@@ -56,6 +61,14 @@ public class E226Checker extends DepCardinalityChecker {
     @objid ("005c9b94-9e33-1f6c-bf9a-001ec947cd2a")
     public E226Checker() {
         super(ERRORID, DEPNAME);
+    }
+
+    @objid ("7eaedc22-65e8-47ca-a78e-901526468712")
+    @Override
+    protected ModelError createError(MObject object, MDependency dep, int currentCard) {
+        List<Object> objects = new ArrayList<>();
+        objects.add(object.getCompositionOwner());
+        return new ModelError(ERRORID, object, objects);
     }
 
 }

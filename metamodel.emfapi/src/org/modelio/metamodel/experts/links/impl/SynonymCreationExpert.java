@@ -38,7 +38,7 @@ public class SynonymCreationExpert extends DefaultLinkExpert {
     @objid ("a76328a7-02a8-476f-a0dc-e38f23ae4504")
     @Override
     public boolean canLink(MClass link, final MClass fromMetaclass, final MClass toMetaclass, final MClass owner) {
-        return fromMetaclass == Metamodel.getMClass(Term.class) && toMetaclass == Metamodel.getMClass(Term.class);
+        return fromMetaclass.hasBase(Metamodel.getMClass(Term.class)) && toMetaclass.hasBase(Metamodel.getMClass(Term.class));
     }
 
     @objid ("b7d2bdbd-656a-47d1-a6a6-e53cfce9d6e0")
@@ -50,7 +50,7 @@ public class SynonymCreationExpert extends DefaultLinkExpert {
     @objid ("e03fd1ae-e517-493c-9632-ce82a3577ee7")
     @Override
     public boolean canSource(MClass link, final MClass fromMetaclass) {
-        return fromMetaclass == Metamodel.getMClass(Term.class);
+        return fromMetaclass.hasBase(Metamodel.getMClass(Term.class));
     }
 
 }

@@ -36,7 +36,9 @@ import org.eclipse.swt.events.ControlListener;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
+import org.modelio.app.core.activation.IActivationService;
 import org.modelio.app.core.picking.IModelioPickingService;
+import org.modelio.app.project.core.services.IProjectService;
 import org.modelio.gproject.model.IMModelServices;
 import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
@@ -46,6 +48,7 @@ import org.modelio.ui.panel.IPanelProvider;
 import org.modelio.vcore.session.api.ICoreSession;
 import org.modelio.vcore.session.api.model.change.IModelChangeEvent;
 import org.modelio.vcore.session.api.model.change.IModelChangeListener;
+import org.modelio.vcore.session.api.model.change.IModelChangeSupport;
 import org.modelio.vcore.session.api.model.change.IStatusChangeEvent;
 import org.modelio.vcore.session.api.model.change.IStatusChangeListener;
 import org.modelio.vcore.smkernel.SmObjectImpl;
@@ -108,12 +111,19 @@ public class ModelPropertyPanelProvider implements IPanelProvider {
     @objid ("c0268e42-e2bc-49b0-b8b0-2182e7c53316")
     private ModelChangeListener modelChangeListener;
 
+    @objid ("ca00fb95-e089-48ad-bb59-107eb316d59b")
+    private IActivationService activationService;
+
+    @objid ("8c65dd74-940f-4834-83bc-f7973d4d5d5e")
+    private IProjectService projectService;
+
     /**
      * Instantiate a new Model Property panel. The property view is read only.
      * @See activateEdition
      */
     @objid ("869933f7-cf24-11e1-80a9-002564c97630")
     public ModelPropertyPanelProvider() {
+        // Empty
     }
 
     /**
@@ -244,7 +254,7 @@ public class ModelPropertyPanelProvider implements IPanelProvider {
      */
     @objid ("8faa29b0-c068-11e1-8c0a-002564c97630")
     protected void setCurrentTypeItem(final Object typeItem) {
-        this.contentPanel.setInput(this.modelingSession, this.modelService, this.pickingService, this.currentElement, typeItem);
+        this.contentPanel.setInput(this.projectService, this.modelService, this.pickingService, this.activationService, this.currentElement, typeItem);
         if (typeItem != null) {
             this.treePanel.setLastType(typeItem);
         }
@@ -309,23 +319,39 @@ public class ModelPropertyPanelProvider implements IPanelProvider {
      * be supported. <code>pickingService</code> is optional.
      * 
      * To deactivate edition, call <code>activateEdition(null, null, null)</code>
+     * @param newProjectService
      * @param newModelingSession the current edited modeling session.
      * @param newModelService the model service.
      * @param newPickingService the picking service.
+     * @param newActivationService the activation service, to open rich notes and diagram editors.
      */
     @objid ("008fed1e-1e1f-107d-a016-001ec947cd2a")
-    public void activateEdition(ICoreSession newModelingSession, IMModelServices newModelService, IModelioPickingService newPickingService) {
+    public void activateEdition(IProjectService newProjectService, ICoreSession newModelingSession, IMModelServices newModelService, IModelioPickingService newPickingService, IActivationService newActivationService) {
+        assert newActivationService != null;
+        assert newModelService != null;
+        
+        this.projectService = newProjectService;
         this.modelService = newModelService;
         this.pickingService = newPickingService;
+        this.activationService = newActivationService;
+        
         if (newModelingSession != null) {            
+            if (this.modelingSession != null && this.modelChangeListener != null) {
+                final IModelChangeSupport modelChangeSupport = this.modelingSession.getModelChangeSupport();
+                if (modelChangeSupport != null) {
+                    modelChangeSupport.removeModelChangeListener(this.modelChangeListener);
+                }
+            }
+        
             this.modelingSession = newModelingSession;
             this.modelChangeListener = new ModelChangeListener(this);
             this.modelingSession.getModelChangeSupport().addModelChangeListener(this.modelChangeListener);
         } else {
             if (this.modelingSession != null) {
-                 this.modelingSession.getModelChangeSupport().removeModelChangeListener(this.modelChangeListener);
-                        this.modelChangeListener = null;
-                        this.modelingSession = null;
+                if (this.modelChangeListener != null)
+                    this.modelingSession.getModelChangeSupport().removeModelChangeListener(this.modelChangeListener);
+                this.modelChangeListener = null;
+                this.modelingSession = null;
             }
         }
     }

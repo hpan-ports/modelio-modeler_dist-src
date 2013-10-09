@@ -103,6 +103,7 @@ import org.modelio.linkeditor.plugin.LinkEditor;
 import org.modelio.linkeditor.rightdepth.RightDepthSpinner;
 import org.modelio.linkeditor.view.background.BackgroundEditPart;
 import org.modelio.linkeditor.view.background.BackgroundModel;
+import org.modelio.linkeditor.view.background.LinkEditorDropTargetListener;
 import org.modelio.linkeditor.view.node.GraphNode;
 import org.modelio.linkeditor.view.node.NodeEditPart;
 import org.modelio.linkeditor.view.tools.PanSelectionTool;
@@ -747,6 +748,8 @@ public class LinkEditorView implements CommandStackListener {
                 && (this.currentSelection == null || this.currentSelection.isValid())) {
             this.setInput(this.currentSelection);
         }
+        
+        configureToolbar();
     }
 
     @objid ("1ba90f79-5e33-11e2-b81d-002564c97630")
@@ -913,7 +916,7 @@ public class LinkEditorView implements CommandStackListener {
         LinkEditorView.options = new LinkEditorOptions(projectPreferences, LinkEditorView.modelServices);
         
         // Configure toolbar from the options
-        configureToolbar(LinkEditorView.modelServices, LinkEditorView.options);
+        configureToolbar();
         
         // Configure view menu from the options
         configureViewMenu(LinkEditorView.options);
@@ -925,7 +928,14 @@ public class LinkEditorView implements CommandStackListener {
      * @param theOptions the editor options
      */
     @objid ("c7203f3d-9ad0-4b2f-8b3f-0833ee992d7f")
-    private void configureToolbar(IMModelServices theModelServices, LinkEditorOptions theOptions) {
+    public void configureToolbar() {
+        // The view might not be opened yet
+        if (this.toolbar == null) {
+            return;
+        }
+        
+        final LinkEditorOptions theOptions = LinkEditorView.options;
+        
         Map<String, MToolBarElement> toolbarElements = buildToolbarElementsMap();  
         
         //Association

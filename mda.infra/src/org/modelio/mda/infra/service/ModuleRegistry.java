@@ -67,7 +67,10 @@ public class ModuleRegistry implements IModuleRegistry {
     @objid ("1e683aa5-edc3-11e1-88ee-001ec947c8cc")
     @Override
     public void addStartedModule(IModule module) {
-        this.startedModules.put(module.getModel(), module);
+        final ModuleComponent model = module.getModel();
+        if (model != null) {
+            this.startedModules.put(model, module);
+        }
     }
 
     /**
@@ -87,7 +90,10 @@ public class ModuleRegistry implements IModuleRegistry {
     @objid ("1e6a9cf0-edc3-11e1-88ee-001ec947c8cc")
     @Override
     public void addLoadedModule(IModule module) {
-        this.loadedModules.put(module.getModel(), module);
+        final ModuleComponent model = module.getModel();
+        if (model != null) {
+            this.loadedModules.put(model, module);
+        }
     }
 
     /**

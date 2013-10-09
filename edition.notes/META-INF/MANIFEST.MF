@@ -26,7 +26,9 @@ Require-Bundle: org.eclipse.jface,
  org.modelio.app.ui,
  org.eclipse.emf.common,
  org.eclipse.e4.ui.model.workbench,
- org.eclipse.e4.ui.workbench.swt
+ org.eclipse.e4.ui.workbench.swt,
+ org.modelio.api,
+ org.modelio.editors.richnote
 Bundle-ClassPath: res/,
  .
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7

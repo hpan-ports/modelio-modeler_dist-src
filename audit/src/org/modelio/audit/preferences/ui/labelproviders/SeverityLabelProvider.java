@@ -28,6 +28,7 @@ import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Display;
 import org.modelio.audit.preferences.model.AuditRule;
+import org.modelio.audit.service.AuditSeverity;
 import org.modelio.ui.UIColor;
 
 /**
@@ -43,7 +44,9 @@ public class SeverityLabelProvider extends ColumnLabelProvider {
     @Override
     public Image getImage(Object element) {
         if (element instanceof AuditRule) {
-            return ((AuditRule) element).severity.getImage();
+            final AuditSeverity severity = ((AuditRule) element).severity;
+            if (severity != null)
+                return severity.getImage();
         }
         return null;
     }

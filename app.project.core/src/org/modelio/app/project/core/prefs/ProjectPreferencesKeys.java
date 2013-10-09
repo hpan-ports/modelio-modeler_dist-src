@@ -41,4 +41,7 @@ public interface ProjectPreferencesKeys {
     @objid ("68d9e2db-073b-4cab-a9b2-8b1a71d72b54")
     public static final String NODE_ID = AppProjectCore.PLUGIN_ID;
 
+    @objid ("57bbe87a-387f-41e6-a6f1-b2b429a48812")
+    public static final String RICHNOTE_DEFAULT_TYPE_PREFKEY = "ProjectPrefs.RichNoteDefType";
+
 }

@@ -39,7 +39,6 @@ import org.eclipse.gef.palette.ToolEntry;
 import org.eclipse.gef.tools.AbstractTool;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.graphics.Image;
-import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.modelio.core.ui.images.MetamodelImageService;
 import org.modelio.core.ui.images.ModuleI18NService;
@@ -139,20 +138,14 @@ public class ToolRegistry {
     private void initRegistery() {
         this.toolRegistry = new HashMap<>();
         
-        Display.getDefault().asyncExec(new Runnable() {
-            @Override
-            public void run() {
-        
-                IConfigurationElement[] config = Platform.getExtensionRegistry().getConfigurationElementsFor(FACTORYEXTENSION_ID);
-                for (IConfigurationElement e : config) {
-                    if (e.getName().equals("creationtool")) {
-                        parseCreationTool(e);
-                    }
-        
-                }
-                dump(Platform.getLogFileLocation());
+        IConfigurationElement[] config = Platform.getExtensionRegistry().getConfigurationElementsFor(FACTORYEXTENSION_ID);
+        for (IConfigurationElement e : config) {
+            if (e.getName().equals("creationtool")) {
+                parseCreationTool(e);
             }
-        });
+        
+        }
+        dump(Platform.getLogFileLocation());
     }
 
     @objid ("6677fb64-33f7-11e2-95fe-001ec947c8cc")
@@ -494,9 +487,6 @@ public class ToolRegistry {
     @Optional
     void onProjectOpen(IMModelServices modelServices) {
         this.mModelServices = modelServices;
-        if (modelServices != null) {
-            initRegistery();
-        }
     }
 
     @objid ("b2ac7d74-58ab-11e2-9574-002564c97630")

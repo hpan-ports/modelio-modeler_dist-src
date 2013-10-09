@@ -2,6 +2,7 @@
 <fragment:ModelFragments xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:commands="http://www.eclipse.org/ui/2010/UIModel/application/commands" xmlns:fragment="http://www.eclipse.org/ui/2010/UIModel/fragment" xmi:id="_YQKi0EN6EeK0D9nRHZj9jw">
   <imports xsi:type="commands:Command" xmi:id="_7pjPgMRhEeKzIKCziwJO6Q" elementId="org.modelio.app.ui.command.rename"/>
   <imports xsi:type="commands:Command" xmi:id="_dSLyANf1EeKjSfPDByQfxw" elementId="org.modelio.app.ui.command.ShowImpactCause"/>
+  <imports xsi:type="commands:Command" xmi:id="_zxkecBx4EeOKmunD3rzg2A" elementId="org.modelio.app.ui.command.openrelateddiagram"/>
   <fragments xsi:type="fragment:StringModelFragment" xmi:id="_EOSVgF_tEeKxFZW_aaCuxw" featurename="commands" parentElementId="org.modelio.app.application" positionInList="">
     <elements xsi:type="commands:Command" xmi:id="_d0xgAGF4EeKZr6syzOEatQ" elementId="org.modelio.diagram.editor.command.ZoomInCommand" commandName="%ZoomIn" description="%ZoomIn"/>
     <elements xsi:type="commands:Command" xmi:id="_qbX0IGF4EeKZr6syzOEatQ" elementId="org.modelio.diagram.editor.command.ZoomToDefaultCommand" commandName="%ZoomToDefault" description="%ZoomToDefault"/>
@@ -69,5 +70,6 @@
     <elements xsi:type="commands:Handler" xmi:id="_Xf7TYIvhEeKYnJDNd7Af2A" elementId="org.modelio.diagram.editor.handler.SwitchTool" contributionURI="bundleclass://org.modelio.diagram.editor/org.modelio.diagram.editor.handlers.SwitchToolHandler" command="_xlpwMG7DEeKLUq6_N4YLgg"/>
     <elements xsi:type="commands:Handler" xmi:id="_61sZYMRQEeKCjMeZ4YvH5A" elementId="org.modelio.model.browser.handler.rename" contributionURI="bundleclass://org.modelio.diagram.editor/org.modelio.diagram.editor.handlers.RenameElementHandler" command="_7pjPgMRhEeKzIKCziwJO6Q"/>
     <elements xsi:type="commands:Handler" xmi:id="_P7AVgNf1EeKjSfPDByQfxw" elementId="org.modelio.diagram.editor.handler.shownsucauses" contributionURI="bundleclass://org.modelio.diagram.editor/org.modelio.diagram.editor.handlers.ShowNsuCausesHandler" command="_dSLyANf1EeKjSfPDByQfxw"/>
+    <elements xsi:type="commands:Handler" xmi:id="_4CPTUByBEeOKmunD3rzg2A" elementId="org.modelio.diagram.editor.handler.openrelateddiagram" contributionURI="bundleclass://org.modelio.diagram.editor/org.modelio.diagram.editor.handlers.OpenRelatedDiagramHandler" command="_zxkecBx4EeOKmunD3rzg2A"/>
   </fragments>
 </fragment:ModelFragments>

@@ -212,4 +212,14 @@ public interface IProjectService extends IModelioService {
     @objid ("8e2f8b3f-a57d-4898-b25d-1ad77925152d")
     void createProject(IProjectCreator projectCreator, IProjectCreationData data, IProgressMonitor monitor) throws IOException;
 
+    /**
+     * Rename a project and adapt its directory to match the new name.
+     * @param projectDescriptor the project to edit.
+     * @param name the new name.
+     * @throws java.io.IOException in case of I/O failure.
+     * @throws java.nio.file.FileSystemException in case of file system error.
+     */
+    @objid ("0c049288-0008-4133-a8ae-527b5c3a01de")
+    void renameProject(ProjectDescriptor projectDescriptor, String name) throws IOException, FileSystemException;
+
 }

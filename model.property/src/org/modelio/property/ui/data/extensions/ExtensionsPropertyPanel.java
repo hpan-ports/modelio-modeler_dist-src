@@ -28,7 +28,9 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
+import org.modelio.app.core.activation.IActivationService;
 import org.modelio.app.core.picking.IModelioPickingService;
+import org.modelio.app.project.core.services.IProjectService;
 import org.modelio.gproject.model.IMModelServices;
 import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
@@ -60,15 +62,15 @@ public class ExtensionsPropertyPanel implements IPropertyPanel {
 
     @objid ("8e060eb4-c068-11e1-8c0a-002564c97630")
     @Override
-    public void setInput(ICoreSession modelingSession, IMModelServices modelService, IModelioPickingService pickingService, final Element typingElement) {
-        ExtensionsKModel model = new ExtensionsKModel(modelingSession, modelService, pickingService, this.table, this.typedElement, (ModelElement) typingElement);
+    public void setInput(IProjectService projectService, IMModelServices modelService, IModelioPickingService pickingService, IActivationService activationService, Element element) {
+        ExtensionsKModel model = new ExtensionsKModel(projectService, modelService, pickingService, this.table, this.typedElement, (ModelElement) element);
         this.table.setModel(model);
     }
 
     @objid ("8e060ebb-c068-11e1-8c0a-002564c97630")
     @Override
     public void stop() {
-        setInput(null, null, null, null);
+        setInput(null, null, null, null, null);
         disableGUI();
     }
 

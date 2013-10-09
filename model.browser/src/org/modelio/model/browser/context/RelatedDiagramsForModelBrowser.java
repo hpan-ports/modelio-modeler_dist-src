@@ -160,12 +160,12 @@ class RelatedDiagramsForModelBrowser {
         relatedDiagramItem.setContributorURI(contributorId);
         
         // set the command
-        MCommand command = getCommand("org.modelio.model.browser.command.openrelated_diagram");
+        MCommand command = getCommand("org.modelio.app.ui.command.openrelateddiagram");
         relatedDiagramItem.setCommand(command);
         
         // add the opened diagram as parameter
         MParameter p = MCommandsFactory.INSTANCE.createParameter();
-        p.setName("org.modelio.model.browser.command.parameter.related_diagram");
+        p.setName("org.modelio.app.ui.command.parameter.related_diagram");
         p.setValue(diagram.getUuid().toString());
         relatedDiagramItem.getParameters().add(p);
         return relatedDiagramItem;

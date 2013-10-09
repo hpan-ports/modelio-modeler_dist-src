@@ -23,18 +23,35 @@ package org.modelio.gproject.model;
 
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
+import org.modelio.metamodel.analyst.AnalystContainer;
+import org.modelio.metamodel.analyst.AnalystElement;
+import org.modelio.metamodel.analyst.AnalystPropertyTable;
+import org.modelio.metamodel.analyst.BusinessRule;
+import org.modelio.metamodel.analyst.BusinessRuleContainer;
+import org.modelio.metamodel.analyst.Dictionary;
+import org.modelio.metamodel.analyst.Goal;
+import org.modelio.metamodel.analyst.GoalContainer;
+import org.modelio.metamodel.analyst.Requirement;
+import org.modelio.metamodel.analyst.RequirementContainer;
+import org.modelio.metamodel.analyst.Term;
 import org.modelio.metamodel.factory.IModelFactory;
 import org.modelio.metamodel.uml.behavior.activityModel.Activity;
 import org.modelio.metamodel.uml.behavior.activityModel.ActivityNode;
 import org.modelio.metamodel.uml.behavior.activityModel.ActivityParameterNode;
 import org.modelio.metamodel.uml.behavior.activityModel.ObjectNode;
 import org.modelio.metamodel.uml.behavior.commonBehaviors.BehaviorParameter;
+import org.modelio.metamodel.uml.infrastructure.properties.PropertyDefinition;
+import org.modelio.metamodel.uml.infrastructure.properties.PropertyTableDefinition;
 import org.modelio.metamodel.uml.statik.AggregationKind;
 import org.modelio.metamodel.uml.statik.AssociationEnd;
 import org.modelio.metamodel.uml.statik.BindableInstance;
 import org.modelio.metamodel.uml.statik.Collaboration;
 import org.modelio.metamodel.visitors.DefaultModelVisitor;
+import org.modelio.vcore.session.api.ICoreSession;
+import org.modelio.vcore.session.api.model.IModel;
+import org.modelio.vcore.session.impl.CoreSession;
 import org.modelio.vcore.smkernel.mapi.MObject;
 
 @objid ("dc130502-e9e1-41d8-9e62-ee45aae6a134")
@@ -51,7 +68,7 @@ public class ElementConfigurator implements IElementConfigurator {
     @objid ("4cb27afe-9379-478d-88e7-23e973100aab")
     @Override
     public void configure(IModelFactory modelFactory, MObject element, Map<String, Object> properties) {
-        this.visitor = new ElementConfiguratorVisitor(modelFactory, properties);
+        this.visitor = new ElementConfiguratorVisitor(modelFactory, CoreSession.getSession(element).getModel(), properties);
         element.accept(this.visitor);
     }
 
@@ -62,6 +79,18 @@ public class ElementConfigurator implements IElementConfigurator {
 
         @objid ("78e24877-afec-4a4f-9c1f-1699eb0e8fa4")
         private IModelFactory modelFactory;
+
+        @objid ("35bd156b-1285-4550-bc7e-8b57ab1a4c8a")
+        private final PropertyTableDefinition DEFAULT_BUSINESSRULE_TABLE;
+
+        @objid ("373eeffb-cc05-4911-80b9-9baf2d3e53cc")
+        private final PropertyTableDefinition DEFAULT_DICTIONARY_TABLE;
+
+        @objid ("dcea93c1-e1a0-4a28-ac6b-6752c0f0215f")
+        private final PropertyTableDefinition DEFAULT_GOAL_TABLE;
+
+        @objid ("a73901af-cfe0-44f3-8e54-de97e59a916c")
+        private final PropertyTableDefinition DEFAULT_REQUIREMENT_TABLE;
 
         @objid ("63ae6187-35f0-4867-a7a2-71b87a0ccc14")
         @Override
@@ -162,9 +191,184 @@ public class ElementConfigurator implements IElementConfigurator {
         }
 
         @objid ("51cb5419-3b26-4681-9691-e615a05bb706")
-        public ElementConfiguratorVisitor(IModelFactory modelFactory, Map<String, Object> properties) {
+        public ElementConfiguratorVisitor(IModelFactory modelFactory, IModel iModel, Map<String, Object> properties) {
             this.modelFactory = modelFactory;
             this.properties = properties;
+            
+            // Load default property tables for analyst elements
+            this.DEFAULT_REQUIREMENT_TABLE = iModel.findById(PropertyTableDefinition.class,
+                    UUID.fromString("00080cf0-0000-001a-0000-000000000000"));
+            this.DEFAULT_DICTIONARY_TABLE = iModel.findById(PropertyTableDefinition.class,
+                    UUID.fromString("01ec152c-0000-144f-0000-000000000000"));
+            this.DEFAULT_GOAL_TABLE = iModel.findById(PropertyTableDefinition.class,
+                    UUID.fromString("00bc470c-0000-0018-0000-000000000000"));
+            this.DEFAULT_BUSINESSRULE_TABLE = iModel.findById(PropertyTableDefinition.class,
+                    UUID.fromString("00bc470c-0000-0019-0000-000000000000"));
+        }
+
+        /**
+         * Initialize the {@link AnalystPropertyTable} for a new
+         * {@link AnalystContainer}.
+         * <p>
+         * The initialization algorithm has 3 cases:
+         * <ul>
+         * <li>If the owner container has a table definition and no values,
+         * reference the table definition and take all default values from the
+         * property definitions.</li>
+         * <li>If the owner container has a table definition and defines
+         * specific values, copy those values.</li>
+         * <li>If the owner container is missing or without table definition,
+         * find the default table definition all take default values from it.</li>
+         * </ul>
+         * </p>
+         * @param defaultTypeId
+         * the default property table definition.
+         * @param newElement the element to initialize.
+         * @param owner the owner to take default properties from.
+         */
+        @objid ("6e0f7d32-c68c-45ed-9774-a87dc0b49452")
+        private void initializeAnalystProperties(AnalystContainer newElement, AnalystContainer owner, PropertyTableDefinition defaultType) {
+            AnalystPropertyTable newPropertyTable = newElement.getAnalystProperties();
+            if (newPropertyTable == null) {
+                // Create the new property table
+                newPropertyTable = this.modelFactory.createAnalystPropertyTable();
+                newElement.setAnalystProperties(newPropertyTable);
+            }
+            
+            // Use same property table as parent
+            PropertyTableDefinition ownerTableDef = owner != null ? owner.getAnalystProperties().getType() : null;
+            if (ownerTableDef == null) {
+                // Parent provides neither default property value set nor
+                // property set: look for default table definition
+                ICoreSession session = CoreSession.getSession(newElement);
+            
+                PropertyTableDefinition defaultTableDef = defaultType;
+            
+                // When predefined types are missing, take the first table...
+                if (defaultTableDef == null) {
+                    for (PropertyTableDefinition table : session.getModel().findByClass(PropertyTableDefinition.class)) {
+                        defaultTableDef = table;
+                        break;
+                    }
+                }
+            
+                if (defaultTableDef != null && !defaultTableDef.equals(newPropertyTable.getType())) {
+                    // Add references to the property table
+                    newPropertyTable.setType(defaultTableDef);
+            
+                    // Take default values from the property table
+                    for (PropertyDefinition propertyDef : defaultTableDef.getOwned()) {
+                        newPropertyTable.setProperty(propertyDef, propertyDef.getDefaultValue());
+                    }
+                } else {
+                    // No default table found, the core audit will be
+                    // triggered...
+                }
+            } else if (!ownerTableDef.equals(newPropertyTable.getType())) {
+                // Add references to the property table
+                newPropertyTable.setType(ownerTableDef);
+            
+                // Take values from the parent
+                AnalystPropertyTable ownerValues = owner != null ? owner.getAnalystProperties() : null;
+                if (ownerValues != null) {
+                    newPropertyTable.setContent(ownerValues.toProperties());
+                } else {
+                    // No values on parent, take default values from the
+                    // property table
+                    for (PropertyDefinition propertyDef : ownerTableDef.getOwned()) {
+                        newPropertyTable.setProperty(propertyDef, propertyDef.getDefaultValue());
+                    }
+                }
+            }
+        }
+
+        /**
+         * Initialize the {@link AnalystPropertyTable} for a new
+         * {@link AnalystElement}. Gets the default properties and copy all its
+         * values.
+         * @param newElement the element to initialize.
+         */
+        @objid ("2e6f2a2c-b61a-487e-8644-49fd20f17375")
+        private void initializeAnalystProperties(AnalystElement newElement) {
+            AnalystPropertyTable defaultValues = newElement.getDefaultProperties();
+            if (defaultValues != null) {
+                // Create the new property table
+                AnalystPropertyTable newPropertyTable = this.modelFactory.createAnalystPropertyTable();
+                newElement.setAnalystProperties(newPropertyTable);
+            
+                // Add references to the property table
+                newPropertyTable.setType(defaultValues.getType());
+            
+                // Take values from the default
+                newPropertyTable.setContent(defaultValues.toProperties());
+            }
+            
+            // If no parent table is found, no AnalystPropertyTable is
+            // created...
+        }
+
+        @objid ("46709b93-3959-4c85-aed4-af81cb684604")
+        @Override
+        public Object visitBusinessRule(BusinessRule theBusinessRule) {
+            initializeAnalystProperties(theBusinessRule);
+            return super.visitBusinessRule(theBusinessRule);
+        }
+
+        @objid ("86eb4ec9-d1ac-4f23-919d-a5963b5d7893")
+        @Override
+        public Object visitBusinessRuleContainer(BusinessRuleContainer theBusinessRuleContainer) {
+            BusinessRuleContainer ownerBusinessRuleContainer = theBusinessRuleContainer.getOwnerContainer();
+            
+            initializeAnalystProperties(theBusinessRuleContainer, ownerBusinessRuleContainer, this.DEFAULT_BUSINESSRULE_TABLE);
+            return super.visitBusinessRuleContainer(theBusinessRuleContainer);
+        }
+
+        @objid ("5ff6a43d-b8e7-4726-8cdf-f05fd97cce1f")
+        @Override
+        public Object visitDictionary(Dictionary theDictionary) {
+            Dictionary ownerDictionary = theDictionary.getOwnerDictionary();
+            
+            initializeAnalystProperties(theDictionary, ownerDictionary, this.DEFAULT_DICTIONARY_TABLE);
+            return super.visitDictionary(theDictionary);
+        }
+
+        @objid ("7d977db9-fea8-4c83-b126-a5c78b17b609")
+        @Override
+        public Object visitGoal(Goal theGoal) {
+            initializeAnalystProperties(theGoal);
+            return super.visitGoal(theGoal);
+        }
+
+        @objid ("d7fe6ba0-e0ca-4bf6-acb3-5eddbee3a6dd")
+        @Override
+        public Object visitGoalContainer(GoalContainer theGoalContainer) {
+            GoalContainer ownerGoalContainer = theGoalContainer.getOwnerContainer();
+            
+            initializeAnalystProperties(theGoalContainer, ownerGoalContainer, this.DEFAULT_GOAL_TABLE);
+            return super.visitGoalContainer(theGoalContainer);
+        }
+
+        @objid ("a70521ac-f4cf-4ee0-8cd5-e56d8b8fea65")
+        @Override
+        public Object visitRequirement(Requirement theRequirement) {
+            initializeAnalystProperties(theRequirement);
+            return super.visitRequirement(theRequirement);
+        }
+
+        @objid ("9dab826d-47af-4db1-b226-20a1050ec190")
+        @Override
+        public Object visitRequirementContainer(RequirementContainer theRequirementContainer) {
+            RequirementContainer ownerRequirementContainer = theRequirementContainer.getOwnerContainer();
+            
+            initializeAnalystProperties(theRequirementContainer, ownerRequirementContainer, this.DEFAULT_REQUIREMENT_TABLE);
+            return super.visitRequirementContainer(theRequirementContainer);
+        }
+
+        @objid ("2e69dc2b-9a5b-440e-8860-5f319c87014a")
+        @Override
+        public Object visitTerm(Term theTerm) {
+            initializeAnalystProperties(theTerm);
+            return super.visitTerm(theTerm);
         }
 
     }

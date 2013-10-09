@@ -38,8 +38,8 @@ import org.modelio.metamodel.uml.statik.PortOrientation;
 import org.modelio.metamodel.uml.statik.ProvidedInterface;
 import org.modelio.metamodel.uml.statik.RequiredInterface;
 import org.modelio.xmi.reverse.TotalImportMap;
+import org.modelio.xmi.util.AbstractObjingModelNavigation;
 import org.modelio.xmi.util.ObjingEAnnotation;
-import org.modelio.xmi.util.ObjingModelNavigation;
 import org.modelio.xmi.util.ReverseProperties;
 
 @objid ("59b5c0fc-40c2-429c-911e-b256042122e0")
@@ -60,7 +60,7 @@ public class EPort extends EFeature implements IEElement {
 
     @objid ("7b04dc9d-5e18-462e-9801-9fc079157078")
     public void attach(Element objingElt) {
-        ObjingModelNavigation.attachPort(objingElt, ecoreElement);
+        AbstractObjingModelNavigation.attachPort(objingElt, ecoreElement);
     }
 
     @objid ("40002d83-3d63-489c-9020-59d8e07650f3")

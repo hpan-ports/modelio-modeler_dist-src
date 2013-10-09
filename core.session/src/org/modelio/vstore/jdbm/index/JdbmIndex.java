@@ -34,7 +34,6 @@ import java.util.UUID;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import jdbm.PrimaryHashMap;
 import jdbm.RecordManager;
-import jdbm.helper.StoreReference;
 import org.modelio.vcore.smkernel.SmObjectImpl;
 import org.modelio.vcore.smkernel.mapi.MRef;
 import org.modelio.vcore.smkernel.meta.SmClass;
@@ -52,16 +51,13 @@ public class JdbmIndex {
      * Inverse of {@link #users}
      */
     @objid ("70452ef7-032b-4c28-927e-d5f0f2c7ef29")
-    private PrimaryHashMap<MRef,StoreReference<Collection<MRef>>> users;
-
-    @objid ("8c1bec3a-aac2-42b8-b005-7b81ae7ecfe5")
-    private RecordManager db;
+    private PrimaryHashMap<MRef,Collection<MRef>> users;
 
     /**
      * Foreign objects used by an object
      */
     @objid ("0dd54394-3dd5-416c-a0cc-833b03df6fd2")
-    private Map<MRef, StoreReference<Collection<MRef>>> uses;
+    private Map<MRef , Collection<MRef>> uses;
 
     /**
      * global object index.
@@ -78,7 +74,6 @@ public class JdbmIndex {
      */
     @objid ("96390c9e-2b45-4baf-9495-3bd0c689ece1")
     public JdbmIndex(final RecordManager db) throws IOException {
-        this.db = db;
         try {        
             this.objectsIndex = new HashMap<>(SmClass.getRegisteredClasses().size());
             for (SmClass cls : SmClass.getRegisteredClasses()) {
@@ -87,8 +82,8 @@ public class JdbmIndex {
                 this.objectsIndex.put(cls.getName(), idx);
             }
         
-            this.users = db.hashMap("idx.users", MRefSerializer.instance, null);
-            this.uses = db.hashMap("idx.uses", MRefSerializer.instance, null);
+            this.users = db.hashMap("idx.users", MRefSerializer.instance, MRefCollectionSerializer.instance);
+            this.uses = db.hashMap("idx.uses", MRefSerializer.instance, MRefCollectionSerializer.instance);
         
             
             //dumpIndex(db);
@@ -119,33 +114,22 @@ public class JdbmIndex {
     }
 
     @objid ("ab154943-ed63-493c-b128-1a27e253eee5")
-    private void addTo(Map<MRef, StoreReference<Collection<MRef>>> map, MRef k, Collection<MRef> newUsers) throws IOException, IOError {
-        Collection<MRef> l = null;
-        StoreReference<Collection<MRef>> ref = map.get(k);
+    private void addTo(Map<MRef, Collection<MRef>> map, MRef k, Collection<MRef> newUsers) throws IOError {
+        Collection<MRef> ref = map.get(k);
         if (ref == null) {
-            ref = new StoreReference<>(this.db, newUsers, MRefCollectionSerializer.instance);
-            map.put(k, ref);
+            map.put(k, newUsers);
         } else {
-            l = load(ref);
-            l.addAll(newUsers);
-            this.db.update(ref.getRecId(), l, MRefCollectionSerializer.instance);
+            ref.addAll(newUsers);
+            map.put(k, ref);
         }
-    }
-
-    @objid ("fdc12c39-0c94-463a-8ea1-51543ba84b28")
-    private Collection<MRef> load(final StoreReference<Collection<MRef>> storeReference) throws IOError {
-        if (storeReference==null)
-            return null;
-        else
-            return storeReference.get(this.db, MRefCollectionSerializer.instance);
     }
 
     @objid ("3353e8c1-cbaa-4e55-8763-f5af93342205")
     private void dumpForeignUsers(final PrintStream out) {
         out.println("Foreign user object index dump:");
-        for (Entry<MRef, StoreReference<Collection<MRef>>>  en: this.users.entrySet()) {
+        for (Entry<MRef, Collection<MRef>>  en: this.users.entrySet()) {
             out.println(" - "+en.getKey()+" used by:");
-            for (MRef  user: en.getValue().get(this.db, MRefCollectionSerializer.instance)) {
+            for (MRef  user: en.getValue()) {
                 out.println("   - "+user);
             }
         }
@@ -160,11 +144,11 @@ public class JdbmIndex {
     @objid ("1b5085e1-54da-4dd0-8360-7c565fe53be1")
     public Collection<MRef> getUserRefs(final MRef objRef) throws IOError {
         try {
-            StoreReference<Collection<MRef>> objForeign = this.users.get(objRef);
+            Collection<MRef> objForeign = this.users.get(objRef);
             if (objForeign == null)
                 return Collections.emptyList();
             else
-                return objForeign.get(this.db, MRefCollectionSerializer.instance);
+                return objForeign;
         } catch (NullPointerException e) {
             dumpForeignUsers(System.err);
             throw e;
@@ -173,20 +157,27 @@ public class JdbmIndex {
 
     /**
      * Remove the given object from cross reference indexes.
-     * @param id the reference to remove
+     * @param toRemove the reference to remove
      * @throws java.io.IOError in case of I/O failure
      */
     @objid ("c322d839-3a93-423e-8146-0b5118ff9ce9")
-    public void removeUses(final MRef id) throws IOError {
-        Collection<MRef> objUses = load(this.uses.get(id));
+    public void removeCrossRefs(final MRef toRemove) throws IOError {
+        Collection<MRef> objUses = this.uses.get(toRemove);
         if (objUses != null) { 
-            for (MRef iv : objUses)
-                this.users.remove(iv);
-        
-            this.uses.remove(id);
+            for (MRef usedObj : objUses) {
+                Collection<MRef> usedUsers = this.users.get(usedObj);
+                if (usedUsers != null) {
+                    usedUsers.remove(toRemove);
+                    if (usedUsers.isEmpty())
+                        this.users.remove(usedObj);
+                    else
+                        this.users.put(usedObj, usedUsers);
+                }
+            }
+            this.uses.remove(toRemove);
         }
         
-        this.users.remove(id);
+        this.users.remove(toRemove);
     }
 
     /**
@@ -201,24 +192,28 @@ public class JdbmIndex {
     }
 
     /**
-     * Index the given model object to cross references indexes.
+     * Add the given model object to cross references indexes.
+     * <p>
+     * Call {@link #removeCrossRefs(MRef)} first if the object was already in the index.
      * @param obj a model object to index
      * @throws java.io.IOException in case of I/O failure
      */
     @objid ("fbebd766-7189-4ddc-bfa5-d13c8f2e847b")
-    public void addToCrossRefs(SmObjectImpl obj) throws IOException {
+    public void addCrossRefs(SmObjectImpl obj) throws IOException {
         try {
+            MRef objRef = new MRef(obj);
+        
             Collection<MRef> newUsers = new ArrayList<>();
             Collection<MRef> newUses = new ArrayList<>();
-        
+            
             //Foreign references
-            MRef objRef = new MRef(obj);
             for (SmDependency dep : obj.getClassOf().getAllDepDef()) {
                 if (Helper.isPersistent(dep)) {
                     if (!Helper.isPersistent(dep.getSymetric())) {
                         // one way navigable
                         for (SmObjectImpl val : obj.getDepValList(dep)) {
                             MRef valRef = new MRef(val);
+                            
                             addTo(this.users, valRef, objRef);
                             newUses.add(valRef);
                         }
@@ -242,18 +237,15 @@ public class JdbmIndex {
     }
 
     @objid ("ebe7c88b-b02c-41b8-9dbe-f6df11c9454f")
-    private void addTo(final Map<MRef, StoreReference<Collection<MRef>>> map, final MRef k, final MRef v) throws IOException, IOError {
-        Collection<MRef> l = null;
-        StoreReference<Collection<MRef>> ref = map.get(k);
-        if (ref == null) {
+    private void addTo(final Map<MRef, Collection<MRef>> map, final MRef k, final MRef v) throws IOError {
+        Collection<MRef> l = map.get(k);
+        if (l == null) {
             l = new ArrayList<>(1);
             l.add(v);
-            ref = new StoreReference<>(this.db, l, MRefCollectionSerializer.instance);
-            map.put(k, ref);
+            map.put(k, l);
         } else {
-            l = load(ref);
             l.add(v);
-            this.db.update(ref.getRecId(), l, MRefCollectionSerializer.instance);
+            map.put(k, l);
         }
     }
 

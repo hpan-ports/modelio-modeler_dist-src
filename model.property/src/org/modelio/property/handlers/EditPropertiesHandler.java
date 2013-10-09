@@ -27,6 +27,7 @@ import org.eclipse.e4.core.di.annotations.Execute;
 import org.eclipse.e4.ui.services.IServiceConstants;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.swt.widgets.Shell;
+import org.modelio.app.core.activation.IActivationService;
 import org.modelio.app.core.picking.IModelioPickingService;
 import org.modelio.app.project.core.services.IProjectService;
 import org.modelio.gproject.model.IMModelServices;
@@ -42,7 +43,7 @@ import org.modelio.property.ui.EditPropertiesDialog;
 public class EditPropertiesHandler {
     @objid ("8df6cc9f-c068-11e1-8c0a-002564c97630")
     @Execute
-    public void execute(IProjectService projectService, IMModelServices modelService, IModelioPickingService pickingService, @Named(IServiceConstants.ACTIVE_SHELL) final Shell shell, @Named(IServiceConstants.ACTIVE_SELECTION) final IStructuredSelection selection) {
+    public void execute(IProjectService projectService, IMModelServices modelService, IModelioPickingService pickingService, @Named(IServiceConstants.ACTIVE_SHELL) final Shell shell, @Named(IServiceConstants.ACTIVE_SELECTION) final IStructuredSelection selection, IActivationService activationService) {
         // Edit in single element only
         if (selection.size() != 1 || !(selection.getFirstElement() instanceof Element)) {
             return;
@@ -58,7 +59,7 @@ public class EditPropertiesHandler {
             return;
         }
         
-        EditPropertiesDialog dlg = new EditPropertiesDialog(projectService.getOpenedProject(), modelService, pickingService, shell);
+        EditPropertiesDialog dlg = new EditPropertiesDialog(projectService, modelService, pickingService, activationService, shell);
         dlg.setEditedElement((Element) selection.getFirstElement());
         dlg.open();
     }

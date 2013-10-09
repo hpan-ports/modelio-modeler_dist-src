@@ -26,16 +26,15 @@ import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.emf.common.util.EList;
 import org.modelio.metamodel.uml.infrastructure.Abstraction;
-import org.modelio.metamodel.uml.infrastructure.Dependency;
 import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
 
 @objid ("ae9e83c2-86e5-46ea-81c7-cdfbc62759c9")
-public class EAbstraction extends EDependency implements IEElement {
+public class EAbstraction extends EDependency {
     @objid ("008860eb-4962-491c-9a57-9d89acaf91c8")
     @Override
     public List<ModelElement> createObjingElt() {
-        return new ArrayList<ModelElement>();
+        return new ArrayList<>();
     }
 
     @objid ("7b1d772c-f2ac-4739-afe4-c91c20fabc39")
@@ -43,16 +42,14 @@ public class EAbstraction extends EDependency implements IEElement {
         super(element);
     }
 
-    @objid ("a84060fd-dd9c-4957-a916-dd3b07e99589")
-    public void attach(Element objingElt) {
-    }
-
     @objid ("57b145a1-b625-4aa2-b8d9-c3cb9e72106b")
+    @Override
     public void attach(List<Object> objingElts) {
         super.attach(objingElts);
     }
 
     @objid ("22274d67-89dd-4449-b327-0b05970ec8be")
+    @Override
     public void setProperties(Element objingElt) {
         super.setProperties(objingElt);
          

@@ -40,8 +40,8 @@ public class RefersCreationExpert extends DefaultLinkExpert {
     @objid ("2c5a8a45-67d6-4faf-a861-a4e0d485cc11")
     @Override
     public boolean canLink(MClass link, final MClass fromMetaclass, final MClass toMetaclass, final MClass owner) {
-        return fromMetaclass == Metamodel.getMClass(BusinessRule.class) &&
-               toMetaclass == Metamodel.getMClass(Term.class);
+        return fromMetaclass.hasBase(Metamodel.getMClass(BusinessRule.class)) &&
+               toMetaclass.hasBase(Metamodel.getMClass(Term.class));
     }
 
     @objid ("a6bf4f8d-8d5a-407b-a09a-dacb17d72a9e")
@@ -53,7 +53,7 @@ public class RefersCreationExpert extends DefaultLinkExpert {
     @objid ("eeb55baf-b85d-4c22-b92b-dcf2c774b737")
     @Override
     public boolean canSource(MClass link, final MClass fromMetaclass) {
-        return fromMetaclass == Metamodel.getMClass(BusinessRule.class);
+        return fromMetaclass.hasBase(Metamodel.getMClass(BusinessRule.class));
     }
 
 }

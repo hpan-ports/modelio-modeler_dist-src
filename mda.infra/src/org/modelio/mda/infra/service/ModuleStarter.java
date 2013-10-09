@@ -69,11 +69,13 @@ class ModuleStarter {
         }
         
         // Start the module itself
-        doStartModule(iModuleToStart, moduleService);
+        if (doStartModule(iModuleToStart, moduleService)) {
         
-        // Register the module to allow stereotype image loading
-        ModuleI18NService.registerModule(iModuleToStart.getModel(), iModuleToStart);
-        return true;
+            // Register the module to allow stereotype image loading
+            ModuleI18NService.registerModule(iModuleToStart.getModel(), iModuleToStart);
+            return true;
+        }
+        return false;
     }
 
     @objid ("5a85c189-023e-11e2-9fca-001ec947c8cc")

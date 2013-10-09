@@ -28,6 +28,8 @@ import org.eclipse.core.runtime.Platform;
 import org.eclipse.e4.ui.model.application.MApplication;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridData;
@@ -92,7 +94,7 @@ public class ProjectConfigurationDialog extends ModelioDialog {
     private static final String HELP_TOPIC = "/org.modelio.documentation.modeler/html/Modeler-_modeler_managing_projects_configuring_project_informations.html";
 
     @objid ("a7410967-33f6-11e2-a514-002564c97630")
-    private ProjectModel model;
+    protected ProjectModel model;
 
     @objid ("a46659b7-3f86-4c7a-be34-ca59aa7ec36b")
     private IAuditService auditService;
@@ -104,7 +106,7 @@ public class ProjectConfigurationDialog extends ModelioDialog {
     private FormToolkit toolkit;
 
     @objid ("5ddb8fdf-c047-4e47-8ba6-c897e561addd")
-    private TabFolder tabFolder;
+    protected TabFolder tabFolder;
 
     @objid ("8ab5cdbd-b041-4c4b-82d9-47512dd66be4")
     private ModelioEnv env;
@@ -214,14 +216,28 @@ public class ProjectConfigurationDialog extends ModelioDialog {
 
     @objid ("a161bb64-3d2f-11e2-97a2-002564c97630")
     protected final void addProjectInfoPage() {
-        ProjectInfosPage infosPage = new ProjectInfosPage();
+        final ProjectInfosPage infosPage = new ProjectInfosPage();
         Control infosControl = infosPage.createControls(this.toolkit, this.application, this.tabFolder);
         infosPage.setInput(this.model);
         
-        TabItem infoTab = new TabItem(this.tabFolder, SWT.NONE);
+        final TabItem infoTab = new TabItem(this.tabFolder, SWT.NONE);
         infoTab.setText(AppProjectConf.I18N.getString("ProjectConfiguration.InfosPage")); //$NON-NLS-1$
         infoTab.setControl(infosControl);
         
+        this.tabFolder.addSelectionListener(new SelectionListener() {
+            
+            @Override
+            public void widgetSelected(SelectionEvent e) {
+                if (ProjectConfigurationDialog.this.tabFolder.getSelection()[0]==infoTab) {
+                    infosPage.setInput(ProjectConfigurationDialog.this.model);  // refresh info page when selecting info tab
+                }
+            }
+            
+            @Override
+            public void widgetDefaultSelected(SelectionEvent e) {
+                //               
+            }
+        });
         if (PROJECT_INFOS.equals(this.pageToSelect)) {
             this.tabFolder.setSelection(infoTab);
         }

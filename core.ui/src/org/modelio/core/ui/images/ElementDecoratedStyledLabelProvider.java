@@ -40,6 +40,10 @@ import org.modelio.vcore.smkernel.SmObjectImpl;
 import org.modelio.vcore.smkernel.StatusState;
 import org.modelio.vcore.smkernel.mapi.MStatus;
 
+/**
+ * {@link StyledCellLabelProvider Styled label provider} to use to draw {@link SmObjectImpl} icons
+ * with their CMS and audit status.
+ */
 @objid ("00872c2e-b6e9-100f-85b1-001ec947cd2a")
 public final class ElementDecoratedStyledLabelProvider extends StyledCellLabelProvider {
     @objid ("0086f33a-b6e9-100f-85b1-001ec947cd2a")
@@ -103,11 +107,21 @@ public final class ElementDecoratedStyledLabelProvider extends StyledCellLabelPr
     private static final Image cmsModifiedNoLock = loadImage("CMS_MODIFIED.nolock.png");
 
 // ------------------------------------------------------------------------------------
+    /**
+     * Initialize a new styled label provider.
+     * @param baseProvider the provider used to compute the label.
+     */
     @objid ("0086f894-b6e9-100f-85b1-001ec947cd2a")
     public ElementDecoratedStyledLabelProvider(IModelioElementLabelProvider baseProvider) {
         this(baseProvider, true, true);
     }
 
+    /**
+     * Initialize a new styled label provider.
+     * @param baseProvider the provider used to compute the label.
+     * @param showCms display the CMS state
+     * @param showAudit display the audit state
+     */
     @objid ("0086f948-b6e9-100f-85b1-001ec947cd2a")
     public ElementDecoratedStyledLabelProvider(IModelioElementLabelProvider baseProvider, boolean showCms, boolean showAudit) {
         this.baseProvider = baseProvider;
@@ -121,6 +135,11 @@ public final class ElementDecoratedStyledLabelProvider extends StyledCellLabelPr
         this.referenceWidth = ElementDecoratedStyledLabelProvider.reference.getImageData().width;
     }
 
+    /**
+     * Reconfigure this styled provider.
+     * @param newShowCms <code>true</code> to display the CMS state.
+     * @param newShowAudit <code>true</code> to display the audit state.
+     */
     @objid ("0086f9e8-b6e9-100f-85b1-001ec947cd2a")
     public void configure(boolean newShowCms, boolean newShowAudit) {
         this.showCms = newShowCms;
@@ -252,7 +271,8 @@ public final class ElementDecoratedStyledLabelProvider extends StyledCellLabelPr
                 return cmsConflict;
             }
         
-            if (status.isCmsModified()) {
+            if (status.isCmsModified() || status.isDirty()) {
+                // Display the object as CMS modified if either modified in memory or on disk working copy.
                 if (status.isLockingNeeded()) {
                     return cmsModified;
                 } else {

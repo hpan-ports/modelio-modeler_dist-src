@@ -29,7 +29,8 @@ Require-Bundle: org.eclipse.jface,
  org.eclipse.emf.ecore,
  org.eclipse.e4.ui.workbench.swt,
  org.eclipse.core.expressions,
- org.modelio.api
+ org.modelio.api,
+ org.modelio.editors.richnote
 Bundle-ClassPath: res/,
  .
 Bundle-ActivationPolicy: lazy

@@ -27,12 +27,13 @@ Require-Bundle: org.eclipse.core.runtime,
  org.modelio.mda.infra,
  org.modelio.metamodel.emfapi,
  org.modelio.ui,
- org.modelio.edition.notes;bundle-version="1.0.0",
- org.eclipse.e4.ui.di
+ org.eclipse.e4.ui.di,
+ de.kupzog.ktable
 Import-Package: javax.annotation;version="1.1.0",
  javax.inject;version="1.0.0"
 Export-Package: org.modelio.editors.richnote.api,
  org.modelio.editors.richnote.editor,
+ org.modelio.editors.richnote.gui.ktable,
  org.modelio.editors.richnote.gui.typechooser,
  org.modelio.editors.richnote.handlers,
  org.modelio.editors.richnote.helper

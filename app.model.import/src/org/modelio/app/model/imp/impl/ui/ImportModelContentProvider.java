@@ -33,14 +33,18 @@ import org.modelio.metamodel.analyst.AnalystProject;
 import org.modelio.metamodel.analyst.BusinessRuleContainer;
 import org.modelio.metamodel.analyst.Dictionary;
 import org.modelio.metamodel.analyst.GoalContainer;
+import org.modelio.metamodel.analyst.PropertyContainer;
 import org.modelio.metamodel.analyst.RequirementContainer;
 import org.modelio.metamodel.diagrams.DiagramSet;
+import org.modelio.metamodel.mda.ModuleComponent;
 import org.modelio.metamodel.mda.Project;
 import org.modelio.metamodel.uml.behavior.commonBehaviors.Signal;
 import org.modelio.metamodel.uml.behavior.usecaseModel.Actor;
 import org.modelio.metamodel.uml.behavior.usecaseModel.UseCase;
 import org.modelio.metamodel.uml.informationFlow.InformationItem;
+import org.modelio.metamodel.uml.infrastructure.ModelElement;
 import org.modelio.metamodel.uml.infrastructure.ModelTree;
+import org.modelio.metamodel.uml.infrastructure.properties.PropertyTableDefinition;
 import org.modelio.metamodel.uml.statik.Artifact;
 import org.modelio.metamodel.uml.statik.Class;
 import org.modelio.metamodel.uml.statik.Collaboration;
@@ -181,6 +185,7 @@ class ImportModelContentProvider implements ITreeContentProvider {
             this.result.addAll(analystProject.getGoalRoot());
             this.result.addAll(analystProject.getBusinessRuleRoot());
             this.result.addAll(analystProject.getDictionaryRoot());
+            this.result.add(analystProject.getPropertyRoot());
             return super.visitAnalystProject(analystProject);
         }
 
@@ -195,7 +200,7 @@ class ImportModelContentProvider implements ITreeContentProvider {
         @Override
         public Object visitDictionary(Dictionary theDictionary) {
             this.result.addAll(theDictionary.getOwnedDictionary());
-            this.result.addAll(theDictionary.getOwnedTerm());
+            //            this.result.addAll(theDictionary.getOwnedTerm());
             return super.visitDictionary(theDictionary);
         }
 
@@ -255,7 +260,7 @@ class ImportModelContentProvider implements ITreeContentProvider {
         @Override
         public Object visitRequirementContainer(RequirementContainer theRequirementContainer) {
             this.result.addAll(theRequirementContainer.getOwnedContainer());
-            this.result.addAll(theRequirementContainer.getOwnedRequirement());
+            //            this.result.addAll(theRequirementContainer.getOwnedRequirement());
             return super.visitRequirementContainer(theRequirementContainer);
         }
 
@@ -263,7 +268,7 @@ class ImportModelContentProvider implements ITreeContentProvider {
         @Override
         public Object visitGoalContainer(GoalContainer theGoalContainer) {
             this.result.addAll(theGoalContainer.getOwnedContainer());
-            this.result.addAll(theGoalContainer.getOwnedGoal());
+            //            this.result.addAll(theGoalContainer.getOwnedGoal());
             return super.visitGoalContainer(theGoalContainer);
         }
 
@@ -271,8 +276,27 @@ class ImportModelContentProvider implements ITreeContentProvider {
         @Override
         public Object visitBusinessRuleContainer(BusinessRuleContainer theBusinessRuleContainer) {
             this.result.addAll(theBusinessRuleContainer.getOwnedContainer());
-            this.result.addAll(theBusinessRuleContainer.getOwnedRule());
+            //            this.result.addAll(theBusinessRuleContainer.getOwnedRule());
             return super.visitBusinessRuleContainer(theBusinessRuleContainer);
+        }
+
+        @objid ("79009501-11c9-4835-9837-0431973a9d72")
+        @Override
+        public Object visitModuleComponent(ModuleComponent theModuleComponent) {
+            // Profile
+            this.result.addAll(theModuleComponent.getOwnedProfile());
+            return super.visitModuleComponent(theModuleComponent);
+        }
+
+        @objid ("fdb39878-752f-45ae-b6f9-1626d99e6344")
+        @Override
+        public Object visitPropertyContainer(PropertyContainer thePropertyContainer) {
+            // PropertyTableDefinition
+            this.result.addAll(thePropertyContainer.getDefinedTable());
+            
+            // PropertyType
+            this.result.addAll(thePropertyContainer.getDefinedType());
+            return super.visitPropertyContainer(thePropertyContainer);
         }
 
     }

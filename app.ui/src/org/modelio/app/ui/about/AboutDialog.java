@@ -22,10 +22,12 @@
 package org.modelio.app.ui.about;
 
 import java.net.URL;
+import java.util.ResourceBundle;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
+import org.eclipse.equinox.log.ExtendedLogService;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.TrayDialog;
 import org.eclipse.jface.resource.ImageDescriptor;
@@ -43,7 +45,10 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.modelio.app.core.ModelioEnv;
 import org.modelio.app.ui.plugin.AppUi;
+import org.modelio.log.writers.PluginLogger;
+import org.modelio.ui.i18n.BundledMessages;
 import org.modelio.vbasic.version.Version;
+import org.osgi.framework.ServiceReference;
 
 @objid ("00449c9c-cc35-1ff2-a7f4-001ec947cd2a")
 public class AboutDialog extends TrayDialog {
@@ -52,6 +57,9 @@ public class AboutDialog extends TrayDialog {
 
     @objid ("0066a5a8-d87d-1040-a120-001ec947cd2a")
     private final ModelioEnv modelioEnv;
+
+    @objid ("18ffe803-6087-4633-8eda-b6d4fa64f431")
+    private static BundledMessages aboutI18N;
 
     /**
      * Creates the dialog.
@@ -62,13 +70,14 @@ public class AboutDialog extends TrayDialog {
     public AboutDialog(final Shell parentShell, ModelioEnv modelioEnv) {
         super(parentShell);
         this.modelioEnv = modelioEnv;
+        aboutI18N = new BundledMessages (AppUi.LOG, ResourceBundle.getBundle("appui-about"));
     }
 
     @objid ("0047082e-cc35-1ff2-a7f4-001ec947cd2a")
     @Override
     protected void configureShell(final Shell newShell) {
         super.configureShell(newShell);
-        newShell.setText(AppUi.I18N.getString("About.Title"));
+        newShell.setText(this.aboutI18N.getString("About.Title"));
     }
 
     @objid ("00498e78-cc35-1ff2-a7f4-001ec947cd2a")
@@ -93,7 +102,7 @@ public class AboutDialog extends TrayDialog {
         workArea.setLayoutData(new GridData(GridData.FILL_BOTH));
         workArea.setBackground(Display.getDefault().getSystemColor(SWT.COLOR_WHITE));
         
-        final URL url = FileLocator.find(Platform.getBundle(AppUi.PLUGIN_ID), new Path("About.jpg"), null);
+        final URL url = FileLocator.find(Platform.getBundle(AppUi.PLUGIN_ID), new Path("about.png"), null);
         final ImageDescriptor imageDescriptor = ImageDescriptor.createFromURL(url);
         this.aboutImage = imageDescriptor.createImage();
         
@@ -122,10 +131,10 @@ public class AboutDialog extends TrayDialog {
         
         aboutText.setLayoutData(textData);
         
-        final String welcome = AppUi.I18N.getString("About.Welcome");
-        final String copyright = AppUi.I18N.getString("About.Copyright");
-        final String appName = AppUi.I18N.getString("About.Application");
-        final String tagline = AppUi.I18N.getString("About.TagLine");
+        final String welcome = this.aboutI18N.getString("About.Welcome");
+        final String copyright = this.aboutI18N.getString("About.Copyright");
+        final String appName = this.aboutI18N.getString("About.Application");
+        final String tagline = this.aboutI18N.getString("About.TagLine");
         
         // TODO: Version was a modelio class ...
         // TODO AppInfos ?
@@ -134,7 +143,7 @@ public class AboutDialog extends TrayDialog {
         final StringBuffer text = new StringBuffer(appName + "\n");
         text.append(tagline);
         text.append("\n\n");
-        text.append(AppUi.I18N.getString("About.Version"));
+        text.append(this.aboutI18N.getString("About.Version"));
         text.append(" ");
         text.append(version.getMajorVersion());
         text.append(".");
@@ -144,14 +153,27 @@ public class AboutDialog extends TrayDialog {
         text.append("\n");
         
         org.osgi.framework.Version productBuildId = Platform.getProduct().getDefiningBundle().getVersion();
-        text.append(AppUi.I18N.getString("About.ProductBuildId"));
+        text.append(this.aboutI18N.getString("About.ProductBuildId"));
         text.append(" ");
-        text.append(productBuildId.toString());
+        text.append(productBuildId.getQualifier());
         text.append("\n");
         
-        text.append(AppUi.I18N.getString("About.MetamodelVersion"));
+        text.append(this.aboutI18N.getString("About.MetamodelVersion"));
         text.append(" ");
         text.append(version.getMetamodelVersion());
+        text.append("\n");
+               
+        text.append(this.aboutI18N.getString("About.System"));
+        text.append(" ");
+        text.append(Platform.getOS());
+        text.append(" (");
+        text.append(System.getProperty("os.version"));
+        text.append(") ");
+        text.append("\n");
+        
+        text.append(this.aboutI18N.getString("About.Arch"));
+        text.append(" ");
+        text.append(Platform.getOSArch());
         text.append("\n");
         text.append("\n");
         

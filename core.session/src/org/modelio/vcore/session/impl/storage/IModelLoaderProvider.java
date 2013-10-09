@@ -22,6 +22,7 @@
 package org.modelio.vcore.session.impl.storage;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
+import org.modelio.vcore.session.api.repository.IRepositoryChangeEvent;
 
 /**
  * Service used get a model loader.
@@ -61,5 +62,12 @@ public interface IModelLoaderProvider {
      */
     @objid ("e71a43e0-d267-4d5e-8fca-6ebe488c7118")
     IModelRefresher beginRefreshSession();
+
+    /**
+     * Notifies the registered repository change listeners of a repository change.
+     * @param event the repository change event.
+     */
+    @objid ("66924011-c7c6-49c0-bffe-7b6ca182ce91")
+    void fireRepositoryChange(IRepositoryChangeEvent event);
 
 }

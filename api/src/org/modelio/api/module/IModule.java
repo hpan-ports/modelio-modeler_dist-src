@@ -387,6 +387,9 @@ public interface IModule {
     @objid ("8aa419b1-2030-4444-9e9b-423219fec74a")
     void registerDiagramCustomization(Stereotype stereotype, Class<? extends AbstractDiagram> baseDiagramClass, IDiagramCustomizer customizer);
 
+    @objid ("d0f20abf-b0ac-404e-ae01-2c75875c3643")
+    ILicenseInfos getLicenseInfos();
+
     @objid ("8e52ef63-72a1-11dd-a1d1-001ec947cd2a")
     public enum ImageType {
         ICON,

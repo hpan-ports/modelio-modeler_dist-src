@@ -127,6 +127,7 @@ public class HybridCellEditor extends KTableCellEditor {
         }
         
         this.textElement.setValue(me);
+        this.textElement.getTextControl().selectAll();
         this.textElement.setAcceptNullValue(this.acceptNullValue);
     }
 

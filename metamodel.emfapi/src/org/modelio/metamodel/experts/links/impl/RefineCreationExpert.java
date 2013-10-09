@@ -53,8 +53,8 @@ public class RefineCreationExpert extends DefaultLinkExpert {
     @objid ("dd718042-7db2-4d06-858d-c2d4b0d91d79")
     @Override
     public boolean canLink(MClass link, final MClass fromMetaclass, final MClass toMetaclass, final MClass owner) {
-        if (fromMetaclass == Metamodel.getMClass(ModelElement.class))
-            return toMetaclass == Metamodel.getMClass(Requirement.class) || toMetaclass == Metamodel.getMClass(BusinessRule.class);
+        if (fromMetaclass.hasBase(Metamodel.getMClass(ModelElement.class)))
+            return toMetaclass.hasBase(Metamodel.getMClass(Requirement.class)) || toMetaclass.hasBase(Metamodel.getMClass(BusinessRule.class));
         return false;
     }
 
@@ -67,7 +67,7 @@ public class RefineCreationExpert extends DefaultLinkExpert {
     @objid ("4baeb6cd-e9f5-43dd-9a61-fc539560d46f")
     @Override
     public boolean canSource(MClass link, final MClass fromMetaclass) {
-        return fromMetaclass == Metamodel.getMClass(ModelElement.class);
+        return fromMetaclass.hasBase(Metamodel.getMClass(ModelElement.class));
     }
 
 }

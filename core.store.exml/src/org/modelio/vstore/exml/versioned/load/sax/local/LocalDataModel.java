@@ -37,6 +37,8 @@ import org.modelio.vstore.exml.common.ILoadHelper;
 import org.modelio.vstore.exml.common.model.ExmlTags;
 import org.modelio.vstore.exml.common.model.IllegalReferenceException;
 import org.modelio.vstore.exml.common.model.ObjId;
+import org.modelio.vstore.exml.local.loader.sax.IDependencyContentHook.Content;
+import org.modelio.vstore.exml.local.loader.sax.IDependencyContentHook;
 import org.xml.sax.Locator;
 import org.xml.sax.SAXParseException;
 
@@ -204,6 +206,21 @@ final class LocalDataModel implements ExmlTags {
         return null;
     }
 
+    /**
+     * Get the dependencies for which there is a local content.
+     * @param obj a model object
+     * @return all dependencies with a local content.
+     */
+    @objid ("5be9b0f2-10c7-4ad1-b80b-8449d436f12d")
+    public Collection<? extends Content> getDependencyContent(SmObjectImpl obj) {
+        for (ObjectNode  objNode: this.nodes) {
+            if (objNode.is(obj.getUuid())) {
+                return objNode.getDeps();
+            }
+        }
+        return Collections.emptyList();
+    }
+
     @objid ("b5c32c12-3fbb-11e2-87cb-001ec947ccaf")
     static final class ObjectNode {
         @objid ("ddd9930d-407a-11e2-87cb-001ec947ccaf")
@@ -254,7 +271,7 @@ final class LocalDataModel implements ExmlTags {
     }
 
     @objid ("ddd992fa-407a-11e2-87cb-001ec947ccaf")
-    static final class DepNode {
+    static final class DepNode implements Content {
         @objid ("ddd992fc-407a-11e2-87cb-001ec947ccaf")
          List<SmObjectImpl> content;
 
@@ -273,8 +290,15 @@ final class LocalDataModel implements ExmlTags {
         }
 
         @objid ("ddd99306-407a-11e2-87cb-001ec947ccaf")
+        @Override
         public List<SmObjectImpl> getContent() {
             return this.content;
+        }
+
+        @objid ("6113049f-281f-40cf-8058-ef62b46cd5bf")
+        @Override
+        public SmDependency getDep() {
+            return this.dep;
         }
 
     }

@@ -25,9 +25,9 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.uml2.uml.UMLFactory;
 import org.modelio.metamodel.uml.infrastructure.ModelTree;
 import org.modelio.metamodel.uml.statik.Enumeration;
+import org.modelio.xmi.util.AbstractObjingModelNavigation;
 import org.modelio.xmi.util.GenerationProperties;
 import org.modelio.xmi.util.NotFoundException;
-import org.modelio.xmi.util.ObjingModelNavigation;
 
 @objid ("bfa780aa-9d83-4aca-8349-d58615c6bb5f")
 public class OEnumeration extends ONameSpace implements IOElement {
@@ -55,7 +55,7 @@ public class OEnumeration extends ONameSpace implements IOElement {
         // In UML2,  org.eclipse.uml2.uml.Signals can't own org.eclipse.uml2.uml.Enumerations.
         if ((ecoreOwner != null) && (ecoreOwner instanceof  org.eclipse.uml2.uml.Signal)){
             
-            ObjingModelNavigation.infoOfUnsupportedOwnedWithEMF(
+            AbstractObjingModelNavigation.infoOfUnsupportedOwnedWithEMF(
                     objingOwner,  this.objingElement,ecoreElt);
            
             ecoreOwner = (org.eclipse.uml2.uml.Element) genProp.getMappedElement(objingOwner.getOwner());

@@ -43,7 +43,10 @@
         <children xsi:type="menu:DynamicMenuContribution" xmi:id="_8pF4soD8EeKKLZZAYaz6Sg" elementId="org.modelio.diagram.editor.communication.menu.createelement" contributionURI="bundleclass://org.modelio.diagram.editor.communication/org.modelio.diagram.editor.communication.editor.CommunicationCreationPopupProvider"/>
         <children xsi:type="menu:HandledMenuItem" xmi:id="_juRlRIWvEeKYkaRTRtSF_A" elementId="org.modelio.diagram.editor.communication.handledmenuitem.AddStereotype" label="%AddStereotype.label" iconURI="platform:/plugin/org.modelio.diagram.editor/icons/addstereotype.png" tooltip="%AddStereotype.tooltip" command="_hbfDQIWvEeKYkaRTRtSF_A"/>
         <children xsi:type="menu:HandledMenuItem" xmi:id="_YVRdAMR2EeK8YvcDBW3yZQ" elementId="org.modelio.diagram.editor.communication.handledmenuitem.rename" label="%RenameElement.label" iconURI="platform:/plugin/org.modelio.diagram.editor/icons/rename.png" tooltip="%RenameElement.tooltip" command="_9R-wcMRiEeKzIKCziwJO6Q"/>
+        <children xsi:type="menu:MenuSeparator" xmi:id="_14798B7FEeO9r6b_vtRk6A" elementId="diagram.editor.communication.menuseparator.0"/>
         <children xsi:type="menu:HandledMenuItem" xmi:id="_juRlRYWvEeKYkaRTRtSF_A" elementId="org.modelio.diagram.editor.communication.handledmenuitem.SelectInExplorer" label="%SelectInExplorer.label" iconURI="platform:/plugin/org.modelio.diagram.editor/icons/select.png" tooltip="%SelectInExplorer.tooltip" command="_eMVmsIWvEeKYkaRTRtSF_A"/>
+        <children xsi:type="menu:DynamicMenuContribution" xmi:id="_m4CnEB7EEeO9r6b_vtRk6A" elementId="org.modelio.diagram.editor.communication.dynamicmenucontribution.relateddiagrams" label="RelatedDiagrams" contributionURI="bundleclass://org.modelio.diagram.editor/org.modelio.diagram.editor.context.RelatedDiagramsMenuCreator"/>
+        <children xsi:type="menu:MenuSeparator" xmi:id="_2A8qcB7FEeO9r6b_vtRk6A" elementId="diagram.editor.communication.menuseparator.1"/>
         <children xsi:type="menu:HandledMenuItem" xmi:id="_juRlRoWvEeKYkaRTRtSF_A" elementId="org.modelio.diagram.editor.communication.handledmenuitem.Mask" label="%Mask.label" iconURI="platform:/plugin/org.modelio.diagram.editor/icons/mask.png" tooltip="%Mask.tooltip" command="_3XHBsGOwEeKZr6syzOEatQ"/>
         <children xsi:type="menu:HandledMenuItem" xmi:id="_juRlR4WvEeKYkaRTRtSF_A" elementId="org.modelio.diagram.editor.communication.handledmenuitem.delete" label="%Delete.label" iconURI="platform:/plugin/org.modelio.diagram.editor/icons/delete.png" tooltip="%Delete.tooltip" command="_elXKsIWvEeKYkaRTRtSF_A"/>
         <children xsi:type="menu:Menu" xmi:id="_juRlSIWvEeKYkaRTRtSF_A" elementId="org.modelio.diagram.editor.communication.menu.align" label="%Align.label">
@@ -66,9 +69,11 @@
           <children xsi:type="menu:HandledMenuItem" xmi:id="_juRlWIWvEeKYkaRTRtSF_A" elementId="org.modelio.diagram.editor.communication.handledmenuitem.UnmaskStructuringLinksAndNodes" label="%UnmaskStructuringLinksAndNodes.label" tooltip="%UnmaskStructuringLinksAndNodes.tooltip" command="_gitoMIWvEeKYkaRTRtSF_A"/>
           <children xsi:type="menu:HandledMenuItem" xmi:id="_juRlWYWvEeKYkaRTRtSF_A" elementId="org.modelio.diagram.editor.communication.handledmenuitem.UnmaskStructuringLinks" label="%UnmaskStructuringLinks.label" tooltip="%UnmaskStructuringLinks.tooltip" command="_g2oCsIWvEeKYkaRTRtSF_A"/>
         </children>
+        <children xsi:type="menu:MenuSeparator" xmi:id="_2E1r8B7FEeO9r6b_vtRk6A" elementId="diagram.editor.communication.menuseparator.2"/>
         <children xsi:type="menu:HandledMenuItem" xmi:id="_juRlWoWvEeKYkaRTRtSF_A" elementId="org.modelio.diagram.editor.communication.handledmenuitem.redrawlink" label="%RedrawLink.label" iconURI="platform:/plugin/org.modelio.diagram.editor/icons/redrawlink.png" tooltip="%RedrawLink.tooltip" command="_hJjlwIWvEeKYkaRTRtSF_A">
           <visibleWhen xsi:type="ui:CoreExpression" xmi:id="_KEu4AO0lEeKWx8-qQ2OLqA" coreExpressionId="org.modelio.diagram.editor.corexp.is-gmlink.id"/>
         </children>
+        <children xsi:type="menu:MenuSeparator" xmi:id="_4ZE_cB7FEeO9r6b_vtRk6A" elementId="diagram.editor.communication.menuseparator.3"/>
         <children xsi:type="menu:DynamicMenuContribution" xmi:id="_eEiGINdfEeK1QOP0kMMjeA" elementId="org.modelio.diagram.editor.communication.menu.module" contributionURI="bundleclass://org.modelio.diagram.editor/org.modelio.diagram.editor.context.ModuleMenuCreator"/>
       </menus>
       <toolbar xmi:id="_EOlN8GOyEeKZr6syzOEatQ" elementId="diagram.editor.communication.toolbar.0">

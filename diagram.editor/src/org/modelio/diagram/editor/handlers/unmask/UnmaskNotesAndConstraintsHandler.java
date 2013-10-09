@@ -41,7 +41,7 @@ public class UnmaskNotesAndConstraintsHandler extends AbstractUnmaskHandler {
             unmaskManager.unmaskConstraints(primarySelection.getViewer(), primaryGm);
         
             for (GraphicalEditPart secondaryEditPart : secondarySelection) {
-                GmModel secondaryGm = (GmModel) primarySelection.getModel();
+                GmModel secondaryGm = (GmModel) secondaryEditPart.getModel();
                 unmaskManager.unmaskNotes(secondaryEditPart.getViewer(), secondaryGm);
                 unmaskManager.unmaskConstraints(secondaryEditPart.getViewer(), secondaryGm);
             }

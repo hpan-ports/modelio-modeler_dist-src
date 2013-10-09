@@ -21,8 +21,11 @@
 
 package org.modelio.app.project.conf.dialog.modules.list;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -52,6 +55,7 @@ import org.eclipse.ui.forms.widgets.ExpandableComposite;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.Section;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
+import org.modelio.api.module.ILicenseInfos;
 import org.modelio.api.module.IModule.ModuleRuntimeState;
 import org.modelio.api.module.IModule;
 import org.modelio.api.module.ModuleException;
@@ -65,6 +69,7 @@ import org.modelio.app.project.core.services.IProjectService;
 import org.modelio.gproject.gproject.GProject;
 import org.modelio.gproject.module.GModule;
 import org.modelio.gproject.module.IModuleHandle;
+import org.modelio.gproject.module.ModuleHandleComparator;
 import org.modelio.mda.infra.catalog.ModuleCatalogPanel;
 import org.modelio.mda.infra.service.IModuleService;
 import org.modelio.metamodel.mda.ModuleComponent;
@@ -168,7 +173,7 @@ public class ModulesSection {
         
         GridData gd = new GridData(SWT.FILL, SWT.FILL, true, true);
         gd.heightHint = 180;
-        gd.minimumWidth = 350;
+        gd.minimumWidth = 300;
         table.setLayoutData(gd);
         
         this.modulesTable.setContentProvider(new ArrayContentProvider());
@@ -266,6 +271,37 @@ public class ModulesSection {
             }
         });
         
+        TableViewerColumn licenseColumn = new TableViewerColumn(this.modulesTable, SWT.LEFT);
+        licenseColumn.getColumn().setText(AppProjectConf.I18N.getString("ModulesSection.LicenseColumn")); //$NON-NLS-1$
+        licenseColumn.getColumn().setWidth(200);
+        licenseColumn.setLabelProvider(new ColumnLabelProvider() {
+            @Override
+            public String getText(Object element) {
+                if (element instanceof GModule) {
+                    ModuleComponent moduleElement = ((GModule) element).getModuleElement();
+                    if (moduleElement != null) {
+                        IModule iModule = ModulesSection.this.moduleService.getIModule(moduleElement);
+                        if (iModule != null) {
+                            final ILicenseInfos licenseInfos = iModule.getLicenseInfos();
+                            Date date = licenseInfos.getDate();
+                            if (date != null) {
+                                SimpleDateFormat sdf = new SimpleDateFormat(AppProjectConf.I18N.getString("ModulesSection.License.DateFormat"));
+                                return AppProjectConf.I18N.getMessage("ModulesSection.License." + licenseInfos.getStatus().name() + ".limited", sdf.format(date));
+                            } else {
+                                return AppProjectConf.I18N.getMessage("ModulesSection.License." + licenseInfos.getStatus().name() + ".unlimited"); 
+                            }
+                        }
+                    }
+                }
+                return AppProjectConf.I18N.getString("ModulesSection.License.UNDEFINED.unlimited"); //$NON-NLS-1$
+            }
+        
+            @Override
+            public Image getImage(Object element) {
+                return null;
+            }
+        });
+        
         this.modulesTable.setInput(null);
         
         this.modulesTable.addSelectionChangedListener(new ISelectionChangedListener() {
@@ -286,6 +322,7 @@ public class ModulesSection {
         catalogComposite.setLayout(new GridLayout());
         GridData gd3 = new GridData(SWT.FILL, SWT.FILL, true, true);
         gd3.heightHint = 180;
+        gd3.minimumWidth = 430;
         gd3.exclude = true;
         catalogComposite.setLayoutData(gd3);
         this.moduleCatalogPanel = createModuleCatalogPanel(catalogComposite);
@@ -328,7 +365,7 @@ public class ModulesSection {
                         try {
                             ModulesSection.this.moduleService.removeModule(module);
                         } catch (ModuleException e) {
-                            MessageDialog.openError(null, AppProjectConf.I18N.getMessage("ModulesSection.UnableToRemoveModule", module.getName()), e.getLocalizedMessage() + "\n" + e.getCause().getLocalizedMessage());
+                            MessageDialog.openError(null, AppProjectConf.I18N.getMessage("ModulesSection.UnableToRemoveModule", module.getName()), e.getLocalizedMessage() + "\n" + (e.getCause() != null ? e.getCause().getLocalizedMessage() : ""));
                             AppProjectConf.LOG.debug(e);
                         } catch (AccessDeniedException e) {
                             MessageDialog.openError(null, AppProjectConf.I18N.getMessage("ModulesSection.UnableToRemoveModule", module.getName()), e.getLocalizedMessage());
@@ -450,8 +487,13 @@ public class ModulesSection {
     @objid ("234a564c-79b4-4bfa-a39c-3b0664ac44b3")
     private static class AddModuleHelper {
         @objid ("cdbd5b64-6a82-42f2-8adb-f5bc22324328")
-        public static void run(GProject project, IModuleService moduleService, Collection<IModuleHandle> collection) {
-            for (IModuleHandle module : collection) {
+        public static void run(GProject project, IModuleService moduleService, Collection<IModuleHandle> modules) {
+            // Sort the module according to their dependencies
+            List<IModuleHandle> sortedModules = new ArrayList<>();
+            sortedModules.addAll(modules);
+            Collections.sort(sortedModules, new ModuleHandleComparator());
+            
+            for (IModuleHandle module : sortedModules) {
                 try (ITransaction t = project.getSession().getTransactionSupport().createTransaction("install a module")) { //$NON-NLS-1$
                     moduleService.installModule(project, module.getArchive());
                     t.commit();

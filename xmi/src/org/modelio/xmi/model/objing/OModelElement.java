@@ -28,10 +28,10 @@ import org.modelio.metamodel.uml.infrastructure.TaggedValue;
 import org.modelio.metamodel.uml.statik.Feature;
 import org.modelio.metamodel.uml.statik.NameSpace;
 import org.modelio.metamodel.uml.statik.VisibilityMode;
+import org.modelio.xmi.util.AbstractObjingModelNavigation;
 import org.modelio.xmi.util.GenerationProperties;
 import org.modelio.xmi.util.IModelerModuleTagTypes;
 import org.modelio.xmi.util.ObjingEAnnotation;
-import org.modelio.xmi.util.ObjingModelNavigation;
 
 /**
  * This class manages the export of Modelio ModelElement
@@ -78,7 +78,7 @@ public class OModelElement extends OElement implements IOElement {
     @objid ("49fd183c-d1cb-49fd-9911-60eaad388e6d")
     private void setName(final org.eclipse.uml2.uml.NamedElement ecoreElt) {
         String name = ((ModelElement)getObjingElement()).getName();
-        if (ObjingModelNavigation.isNotNullOrEmpty(name))
+        if (AbstractObjingModelNavigation.isNotNullOrEmpty(name))
             ecoreElt.setName(name);
     }
 
@@ -129,14 +129,13 @@ public class OModelElement extends OElement implements IOElement {
             case PROTECTED:
                 ecoreElt.setVisibility(org.eclipse.uml2.uml.VisibilityKind.PROTECTED_LITERAL);
                 break;
-            case PUBLIC:
-                // It is the Default Value
-                //          ecoreElt.setVisibility(org.eclipse.uml2.uml.VisibilityKind.PUBLIC_LITERAL);
-                break;
             case VISIBILITYUNDEFINED:
                 ObjingEAnnotation.setUndefined(ecoreElt, true);
                 // No undefined field exist in UML2-Ecore for visibility:
                 // a visibility not setted corresponds to a PUBLIC visibility.
+                break;
+            default:
+                ecoreElt.setVisibility(org.eclipse.uml2.uml.VisibilityKind.PUBLIC_LITERAL);
                 break;
             }
         }

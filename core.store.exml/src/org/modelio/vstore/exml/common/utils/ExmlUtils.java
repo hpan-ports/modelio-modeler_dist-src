@@ -23,16 +23,17 @@ package org.modelio.vstore.exml.common.utils;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.vcore.model.CompositionGetter.IStopFilter;
-import org.modelio.vcore.model.CompositionGetter;
+import org.modelio.vcore.smkernel.IRepositoryObject;
 import org.modelio.vcore.smkernel.SmLiveId;
 import org.modelio.vcore.smkernel.SmObjectImpl;
 import org.modelio.vcore.smkernel.mapi.MObject;
 import org.modelio.vcore.smkernel.meta.SmClass;
 import org.modelio.vcore.smkernel.meta.SmDependency;
+import org.modelio.vcore.smkernel.meta.SmMultipleDependency;
+import org.modelio.vcore.smkernel.meta.SmSingleDependency;
 
 /**
  * EXML utilities.
@@ -40,15 +41,18 @@ import org.modelio.vcore.smkernel.meta.SmDependency;
 @objid ("fd26ba12-5986-11e1-991a-001ec947ccaf")
 public final class ExmlUtils {
     /**
-     * Get all objects contained in the given CMS node.
+     * Get all objects contained in the given CMS node using generic navigation.
      * <p>
      * Child CMS nodes are excluded.
      * @param cmsNode a CMS node object
      * @return all contained objects.
      */
     @objid ("df1fddf5-1c43-11e2-8eb9-001ec947ccaf")
-    public static Collection<SmObjectImpl> getCmsNodeContent(SmObjectImpl cmsNode) {
-        return CompositionGetter.getAllChildren(Collections.singletonList(cmsNode), IsCmsNodeContentFilter.instance);
+    public static Collection<SmObjectImpl> getLoadedCmsNodeContent(SmObjectImpl cmsNode) {
+        final ArrayList<SmObjectImpl> results = new ArrayList<>();
+        
+        getLoadedCmsNodeContent(cmsNode, results);
+        return results;
     }
 
     /**
@@ -158,6 +162,72 @@ public final class ExmlUtils {
         if (!dep.isSharedComposition())
             return false;
         return src.equals(dest.getCompositionOwner());
+    }
+
+    /**
+     * Get composition children already in memory using generic way.
+     * @param obj a model object
+     * @return its loaded composition children
+     */
+    @objid ("c78ed825-57d9-462d-ab55-79c1027ba73d")
+    private static Collection<SmObjectImpl> getLoadedCompoChildren(SmObjectImpl obj) {
+        ArrayList<SmObjectImpl> results = new ArrayList<>();
+        
+        for (SmDependency dep : obj.getClassOf().getAllComponentAndSharedDepDef()) {
+            if (dep.isMultiple()) {
+                List<SmObjectImpl> depVal = ((SmMultipleDependency)dep).getValueList(obj.getData());
+                results.addAll(depVal);
+            } else {
+                SmObjectImpl depVal = ((SmSingleDependency)dep).getValue(obj.getData());
+                if (depVal != null) {
+                    results.add(depVal);
+                }
+            }
+        }
+        return results;
+    }
+
+    /**
+     * Get all objects contained in the given CMS node using generic navigation.
+     * @param root the model object to iterate.
+     * @param children a set where all composition children will be added.
+     */
+    @objid ("7c074589-3259-4c27-84a0-33ea32b235fe")
+    private static void getLoadedCmsNodeContent(final SmObjectImpl root, final Collection<SmObjectImpl> children) {
+        // initialize a current roots list from the passed root elements
+        Collection<SmObjectImpl> directChildren = new ArrayList<>();
+        Collection<SmObjectImpl> currentRoots = new ArrayList<>();
+        
+        IRepositoryObject nodeRepoHandle = root.getRepositoryObject();
+        currentRoots.add(root);
+        
+        // Loop until there is no root nodes
+        while (!currentRoots.isEmpty()) {
+            // Get direct childs of current roots into 'impl.list'
+            for (SmObjectImpl o : currentRoots) {
+                // This add childs to 'impl.list'
+                directChildren.addAll(getLoadedCompoChildren(o));
+            }
+        
+            // Clear the current roots list
+            // in order to rebuild it for next iteration
+            currentRoots.clear();
+        
+            // Add each new child to the result set and to the next roots list
+            for (SmObjectImpl child : directChildren) {
+                if (!children.contains(child) && !child.getMClass().isCmsNode()) {
+                    // Add the child to the set
+                    children.add(child);
+        
+                    // Add the child to the next roots list
+                    currentRoots.add(child);
+                }
+            }
+        
+            // Drop direct children list and create new one
+            directChildren = new ArrayList<>();
+        
+        }
     }
 
     /**

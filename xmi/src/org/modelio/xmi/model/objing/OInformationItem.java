@@ -27,9 +27,9 @@ import org.modelio.metamodel.uml.informationFlow.InformationItem;
 import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.metamodel.uml.statik.Classifier;
 import org.modelio.xmi.plugin.Xmi;
+import org.modelio.xmi.util.AbstractObjingModelNavigation;
 import org.modelio.xmi.util.GenerationProperties;
 import org.modelio.xmi.util.ObjingEAnnotation;
-import org.modelio.xmi.util.ObjingModelNavigation;
 import org.modelio.xmi.util.XMILogs;
 
 /**
@@ -75,7 +75,7 @@ public class OInformationItem extends ONameSpace {
         }else if (ecoreOwner instanceof org.eclipse.uml2.uml.Class){
             ( (org.eclipse.uml2.uml.Class) ecoreOwner).getNestedClassifiers().add((org.eclipse.uml2.uml.InformationItem)ecoreElt);
         }else{
-            ObjingModelNavigation.infoOfUnsupportedOwnedWithEMF(objOwner, this.objElement, ecoreElt);
+            AbstractObjingModelNavigation.infoOfUnsupportedOwnedWithEMF(objOwner, this.objElement, ecoreElt);
         }
     }
 

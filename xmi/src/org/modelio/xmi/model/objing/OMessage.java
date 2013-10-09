@@ -31,12 +31,13 @@ import org.modelio.metamodel.uml.statik.Instance;
 import org.modelio.metamodel.uml.statik.Link;
 import org.modelio.metamodel.uml.statik.LinkEnd;
 import org.modelio.vcore.smkernel.meta.SmClass;
+import org.modelio.xmi.util.AbstractObjingModelNavigation;
 import org.modelio.xmi.util.GenerationProperties;
-import org.modelio.xmi.util.ObjingModelNavigation;
 
 @objid ("ab225be5-a4cd-494b-be75-789b588b3018")
-public class OMessage extends OModelElement implements IOElement {
+public class OMessage extends OModelElement {
     @objid ("f8a25c72-5584-4031-9002-620c0e07f307")
+    @Override
     public org.eclipse.uml2.uml.Element createEcoreElt() {
         return UMLFactory.eINSTANCE.createMessage();
     }
@@ -47,9 +48,10 @@ public class OMessage extends OModelElement implements IOElement {
     }
 
     @objid ("f86fc3c1-bf12-4561-a279-7cbcb0cbea51")
+    @Override
     public void attach(org.eclipse.uml2.uml.Element ecoreElt) {
         // we need to take the interaction on the send event
-        Interaction interaction = (Interaction) ObjingModelNavigation.getEnclosingElement(getObjingElement(), 
+        Interaction interaction = (Interaction) AbstractObjingModelNavigation.getEnclosingElement(getObjingElement(), 
                 SmClass.getClass(Interaction.class));
         
         Object ecoreInteraction =  GenerationProperties.getInstance().getMappedElement(interaction);
@@ -59,6 +61,7 @@ public class OMessage extends OModelElement implements IOElement {
     }
 
     @objid ("f4b27e6d-f577-4d41-8652-fa0b0dc38f13")
+    @Override
     public void setProperties(org.eclipse.uml2.uml.Element ecoreElt) {
         super.setProperties(ecoreElt);
         setMessageSort((org.eclipse.uml2.uml.Message) ecoreElt);
@@ -86,6 +89,8 @@ public class OMessage extends OModelElement implements IOElement {
             break;
         case RETURNMESSAGE:
             ecoreElt.setMessageSort(org.eclipse.uml2.uml.MessageSort.REPLY_LITERAL);
+            break;
+        default:
             break;
         }
     }

@@ -19,17 +19,20 @@
 	</properties>
 
 	<repositories>
-
 		<repository>
 			<id>modelio-repository-maven</id>
 			<layout>default</layout>
 			<url>http://repository.modelio.org/</url>
 		</repository>
-
 		<repository>
 			<id>kepler</id>
 			<layout>p2</layout>
 			<url>http://download.eclipse.org/eclipse/updates/4.3</url>
+		</repository>
+		<repository>
+			<id>astyle</id>
+			<layout>p2</layout>
+			<url>http://repository.modelio.org/p2/astyle/</url>
 		</repository>
 		<repository>
 			<id>ktable</id>
@@ -81,7 +84,6 @@
 			<layout>p2</layout>
 			<url>http://repository.modelio.org/p2/documentation-en/</url>
 		</repository>
-	
 	</repositories>
 
 	<build>

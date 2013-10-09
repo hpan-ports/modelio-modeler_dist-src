@@ -56,7 +56,7 @@ public class SearchDialog extends ModelioDialog {
     private final IModelioNavigationService navigationService;
 
     @objid ("3c199f4b-d600-4332-a4ec-d2b41637c2cd")
-    private final ICoreSession session;
+    private ICoreSession session;
 
     @objid ("299ef093-8da5-41a1-9c22-156dc9f382f8")
     private ProgressBar progressBar;
@@ -76,14 +76,17 @@ public class SearchDialog extends ModelioDialog {
     @objid ("f406bacf-19af-4f8f-a74d-685fe15da136")
     private final SearchModelChangeListener listener;
 
+    @objid ("6e548310-eb9c-484d-b4f1-973a4276111c")
+    private static SearchDialog instance = null;
+
     @objid ("000ac24c-c59e-10ab-8258-001ec947cd2a")
-    public SearchDialog(Shell parentShell, ICoreSession session, List<Element> results, IModelioNavigationService navigationService) {
+    private SearchDialog(Shell parentShell, ICoreSession session, List<Element> results, IModelioNavigationService navigationService) {
         super(parentShell);
         // this.searchEngine = SearchEngine;
         // this.searchCriteria = searchCriteria;
         this.session = session;
         this.results = null; // FIXME (results != null) ? results :
-                                // SearchEngine.search(session, searchCriteria);
+                             // SearchEngine.search(session, searchCriteria);
         this.navigationService = navigationService;
         
         this.listener = new SearchModelChangeListener(this);
@@ -146,16 +149,18 @@ public class SearchDialog extends ModelioDialog {
         this.getShell().getDisplay().asyncExec(new Runnable() {
             @Override
             public void run() {
-                ISearchPanel panel = null;
-                for (final TabItem tabItem : SearchDialog.this.tabFolder.getItems()) {
-                    if (tabItem.getData(PANEL_DATAKEY).getClass() == panelClass) {
-                        panel = ((ISearchPanel) tabItem.getData(PANEL_DATAKEY));
-                        break;
+                if (!SearchDialog.this.tabFolder.isDisposed()) {
+                    ISearchPanel panel = null;
+                    for (final TabItem tabItem : SearchDialog.this.tabFolder.getItems()) {
+                        if (tabItem.getData(PANEL_DATAKEY).getClass() == panelClass) {
+                            panel = ((ISearchPanel) tabItem.getData(PANEL_DATAKEY));
+                            break;
+                        }
                     }
-                }
-                if (panel != null) {
-                    panel.setCriteria(searchCriteria);
-                    SearchDialog.this.showResults(panel, found);
+                    if (panel != null) {
+                        panel.setCriteria(searchCriteria);
+                        SearchDialog.this.showResults(panel, found);
+                    }
                 }
             }
         
@@ -171,9 +176,14 @@ public class SearchDialog extends ModelioDialog {
     @objid ("d124b33a-1766-4bec-ae94-29f779d42eea")
     @Override
     public boolean close() {
-        if (this.listener != null && this.session != null) {
+        if (this.equals(instance))       // should always be the case, could be an assert!
+                instance = null;
+        
+        if (this.listener != null && this.session != null && this.session.getModelChangeSupport()!=null) {
             this.session.getModelChangeSupport().removeModelChangeListener(this.listener);
         }
+        this.session = null;
+        this.results = null;
         return super.close();
     }
 
@@ -249,6 +259,28 @@ public class SearchDialog extends ModelioDialog {
     @Override
     protected String getHelpId() {
         return HELP_TOPIC;
+    }
+
+    @objid ("22bb9fa1-b482-4481-84ff-3d83c28b1b51")
+    public static SearchDialog getInstance(final Shell parentShell, final ICoreSession session, final List<Element> results, final IModelioNavigationService navigationService) {
+        if (parentShell == null)
+            return null;
+        
+        if (instance != null) {
+            assert (instance.session.equals(session));
+            return instance;
+        }
+        
+        instance = new SearchDialog(parentShell, session, results, navigationService);
+        return instance;
+    }
+
+    @objid ("fad163e4-b15a-4b1f-91b5-1ea0ef128b95")
+    public static void closeInstance() {
+        if (instance != null) {
+            instance.close();
+            instance = null;
+        }
     }
 
     @objid ("691d4e0b-13ab-4b31-90c3-b32868c9a5eb")

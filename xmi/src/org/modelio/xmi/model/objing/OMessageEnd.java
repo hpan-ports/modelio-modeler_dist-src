@@ -22,22 +22,25 @@
 package org.modelio.xmi.model.objing;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
+import org.eclipse.uml2.uml.MessageSort;
+import org.eclipse.uml2.uml.SendOperationEvent;
+import org.eclipse.uml2.uml.SendSignalEvent;
 import org.eclipse.uml2.uml.UMLFactory;
 import org.modelio.metamodel.uml.behavior.commonBehaviors.Signal;
 import org.modelio.metamodel.uml.behavior.interactionModel.Interaction;
 import org.modelio.metamodel.uml.behavior.interactionModel.Message;
 import org.modelio.metamodel.uml.behavior.interactionModel.MessageEnd;
-import org.modelio.metamodel.uml.behavior.interactionModel.MessageSort;
 import org.modelio.metamodel.uml.infrastructure.Dependency;
 import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.metamodel.uml.statik.Operation;
 import org.modelio.vcore.smkernel.meta.SmClass;
+import org.modelio.xmi.util.AbstractObjingModelNavigation;
 import org.modelio.xmi.util.GenerationProperties;
-import org.modelio.xmi.util.ObjingModelNavigation;
 
 @objid ("b4674bf7-91ae-46fa-a732-cf33045ec2f0")
-public class OMessageEnd extends OOccurrenceSpecification implements IOElement {
+public class OMessageEnd extends OOccurrenceSpecification {
     @objid ("a0f5e5d6-49de-4bf6-bd88-4e400967c04e")
+    @Override
     public org.eclipse.uml2.uml.Element createEcoreElt() {
         return null;
     }
@@ -48,11 +51,13 @@ public class OMessageEnd extends OOccurrenceSpecification implements IOElement {
     }
 
     @objid ("9f074bd4-71e0-4ff0-b9dc-08c3bc8de654")
+    @Override
     public void attach(org.eclipse.uml2.uml.Element ecoreElt) {
         super.attach(ecoreElt);
     }
 
     @objid ("58e8f1a8-ffa1-422d-b3e2-4db35d76015b")
+    @Override
     public void setProperties(org.eclipse.uml2.uml.Element ecoreElt) {
         super.setProperties(ecoreElt);
         
@@ -77,9 +82,10 @@ public class OMessageEnd extends OOccurrenceSpecification implements IOElement {
             org.eclipse.uml2.uml.Message ecoreMessage = (org.eclipse.uml2.uml.Message) GenerationProperties.getInstance().getMappedElement(message);
             Element objingElement= getObjingElement();
         
-             org.eclipse.uml2.uml.Event event = null;
+            org.eclipse.uml2.uml.Event event = null;
         
             if (ecoreMessage != null) {
+        
                 if (objingElement.equals(message.getSendEvent())) {
         
                     ecoreMessage.setSendEvent(ecoreMessOccSpec);
@@ -91,27 +97,32 @@ public class OMessageEnd extends OOccurrenceSpecification implements IOElement {
                     ecoreMessOccSpec.setMessage(ecoreMessage);              
                 }
         
-        //                if (message.getSortOfMessage().equals(MessageSort.CREATEMESSAGE)
-        //                        && objinOperation != null
-        //                        && ecoreMessOccSpec instanceof org.eclipse.uml2.uml.MessageOccurrenceSpecification){
-        //                    
-        //                    event = UMLFactory.eINSTANCE.createCreationEvent();
-        //                }
-        //        
-        //                // We set a SentEvent  org.eclipse.uml2.uml.Operation
-        //                if (objinOperation != null
-        //                && ecoreMessOccSpec instanceof org.eclipse.uml2.uml.MessageOccurrenceSpecification) {
-        //                    event = UMLFactory.eINSTANCE.createSendOperationEvent();
-        //                }
-        //        
-        //                if (objingSignal != null
-        //                        && ecoreMessOccSpec instanceof org.eclipse.uml2.uml.MessageOccurrenceSpecification) {
-        //                    event = UMLFactory.eINSTANCE.createSendSignalEvent();
-        //                }
-        //        
-        //                if (event != null) {
-        //                    attachEvent(event, ecoreMessOccSpec);
-        //                }
+                if (message.getSortOfMessage().equals(MessageSort.CREATE_MESSAGE_LITERAL)
+                        && objinOperation != null
+                        && ecoreMessOccSpec instanceof org.eclipse.uml2.uml.MessageOccurrenceSpecification){
+        
+                    event = UMLFactory.eINSTANCE.createCreationEvent();
+                   
+                }
+        
+                // We set a SentEvent  org.eclipse.uml2.uml.Operation
+                if (objinOperation != null
+                        && ecoreMessOccSpec instanceof org.eclipse.uml2.uml.MessageOccurrenceSpecification) {
+                    event = UMLFactory.eINSTANCE.createSendOperationEvent();
+                    ((SendOperationEvent) event).setOperation((org.eclipse.uml2.uml.Operation) GenerationProperties.getInstance().getMappedElement(objinOperation)); 
+                }
+        
+                if ((objingSignal != null)
+                        && (ecoreMessOccSpec instanceof org.eclipse.uml2.uml.MessageOccurrenceSpecification)) {
+                    event = UMLFactory.eINSTANCE.createSendSignalEvent();
+                    ((SendSignalEvent) event).setSignal((org.eclipse.uml2.uml.Signal) GenerationProperties.getInstance().getMappedElement(objingSignal)); 
+                    
+                }
+        
+                if (event != null) {
+                    attachEvent(event, ecoreMessOccSpec);
+                    setEvent(event,ecoreMessOccSpec);
+                }
             }
         }
     }
@@ -122,7 +133,7 @@ public class OMessageEnd extends OOccurrenceSpecification implements IOElement {
         
         if (thePackage == null) {
         
-            Interaction objingInteraction = (Interaction) ObjingModelNavigation.getEnclosingElement(getObjingElement(), SmClass.getClass(Interaction.class));
+            Interaction objingInteraction = (Interaction) AbstractObjingModelNavigation.getEnclosingElement(getObjingElement(), SmClass.getClass(Interaction.class));
         
             if (objingInteraction != null) {
         
@@ -136,17 +147,10 @@ public class OMessageEnd extends OOccurrenceSpecification implements IOElement {
         }
         
         if (thePackage != null){
-            thePackage.getPackagedElements().add((org.eclipse.uml2.uml.PackageableElement) event);
+            thePackage.getPackagedElements().add(event);
         }
     }
 
-//    @objid ("8d4caf42-97ab-11e2-99ee-0027103f347c")
-//    private void setEvent(org.eclipse.uml2.uml.Event event, org.eclipse.uml2.uml.MessageEnd ecoreMessOccSpec) {
-//        if (ecoreMessOccSpec instanceof org.eclipse.uml2.uml.OccurrenceSpecification) {
-//            ((org.eclipse.uml2.uml.OccurrenceSpecification) ecoreMessOccSpec)
-//            .setEvent(event);
-//        }
-//    }
     @objid ("1b4554b1-e982-497b-8510-a1dabcc45e8d")
     private boolean haveUML2Event(Message objingMessage) {
         MessageEnd end = objingMessage.getSendEvent();
@@ -162,6 +166,14 @@ public class OMessageEnd extends OOccurrenceSpecification implements IOElement {
                 return true;
         }
         return false;
+    }
+
+    @objid ("a88968ff-14dd-4041-bfab-c5caed12783a")
+    private void setEvent(org.eclipse.uml2.uml.Event event, org.eclipse.uml2.uml.MessageEnd ecoreMessOccSpec) {
+        if (ecoreMessOccSpec instanceof org.eclipse.uml2.uml.OccurrenceSpecification) {
+            ((org.eclipse.uml2.uml.OccurrenceSpecification) ecoreMessOccSpec)
+            .setEvent(event);
+        }
     }
 
 }

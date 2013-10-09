@@ -29,7 +29,6 @@ import org.eclipse.e4.core.di.annotations.Optional;
 import org.eclipse.e4.ui.model.application.MApplication;
 import org.eclipse.e4.ui.workbench.modeling.EModelService;
 import org.modelio.audit.engine.core.IAuditEntry;
-import org.modelio.audit.preferences.AuditConfigurator;
 import org.modelio.audit.preferences.model.AuditConfigurationModel;
 import org.modelio.audit.preferences.model.AuditRule;
 import org.modelio.audit.service.IAuditService;
@@ -39,7 +38,7 @@ import org.modelio.audit.view.model.AuditRuleModel;
 public class AuditSeverity extends AbstractAuditEntryHandler {
     @objid ("6ba91151-b8e5-4e00-91c0-3b3e10b0bc9a")
     @Execute
-    public void execute(EModelService modelService, MApplication application, @Optional
+    void execute(EModelService modelService, MApplication application, @Optional
 @Named("mode") final String mode, IAuditService auditService) {
         Object obj = getSelectedAuditEntry(modelService, application);
         String ruleId = null;
@@ -50,8 +49,7 @@ public class AuditSeverity extends AbstractAuditEntryHandler {
         }
         
         if (ruleId != null && mode != null) {
-            AuditConfigurator configurator = new AuditConfigurator(auditService.getConfigurationPlan());
-            AuditConfigurationModel prefModel = configurator.createPrefModel();
+            AuditConfigurationModel prefModel = auditService.getConfigurationModel();
             AuditRule rulePref = prefModel.get(ruleId);
             if (rulePref != null) {
                 if ("AuditAdvice".equals(mode)) {
@@ -61,15 +59,14 @@ public class AuditSeverity extends AbstractAuditEntryHandler {
                 } else if ("AuditError".equals(mode)) {
                     rulePref.severity = org.modelio.audit.service.AuditSeverity.AuditError;
                 }
-                configurator.apply(prefModel);
-                auditService.restart();
+                auditService.apply(prefModel);
             }
         }
     }
 
     @objid ("3fe4d19e-0cff-4e68-b207-161f88af8c93")
     @CanExecute
-    public boolean isEnabled(EModelService modelService, MApplication application, @Optional
+    boolean isEnabled(EModelService modelService, MApplication application, @Optional
 @Named("mode") final String mode) {
         Object obj = getSelectedAuditEntry(modelService, application);
         org.modelio.audit.service.AuditSeverity severity = null;

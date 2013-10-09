@@ -45,7 +45,7 @@
     <elements xsi:type="menu:ToolBarSeparator" xmi:id="_AcUu4N8lEeK30OdmOG-hcQ" elementId="diagram.creation.wizard.toolbarseparator.1"/>
   </fragments>
   <fragments xsi:type="fragment:StringModelFragment" xmi:id="_9NYWoN50EeKc3c7jOQLKkA" featurename="children" parentElementId="model.browser.popupmenu.0" positionInList="before:org.modelio.model.browser.menu.createelement">
-    <elements xsi:type="menu:Menu" xmi:id="_kbgEQN8rEeK30OdmOG-hcQ" elementId="org.modelio.diagram.popup.creatediagram" label="%CreateDiagramMenu.label" iconURI="platform:/plugin/org.modelio.diagram.creation.wizard/icons/diagramwizard.png" tooltip="%CreateDiagram.tooltip">
+    <elements xsi:type="menu:Menu" xmi:id="_kbgEQN8rEeK30OdmOG-hcQ" elementId="org.modelio.diagram.popup.creatediagram" label="%CreateDiagramMenu.label" iconURI="platform:/plugin/org.modelio.diagram.creation.wizard/icons/creatediagram.png" tooltip="%CreateDiagram.tooltip">
       <children xsi:type="menu:HandledMenuItem" xmi:id="_dBfIwN82EeK30OdmOG-hcQ" elementId="org.modelio.diagram.popup.creatediagram.class" label="%CreateClassDiagram.label" iconURI="platform:/plugin/org.modelio.diagram.creation.wizard/icons/classdiagram.png" tooltip="%CreateClassDiagram.tooltip" command="_cIdiYKj5EeKKC9R6FKgnOw">
         <visibleWhen xsi:type="ui:CoreExpression" xmi:id="_f-sEAN_WEeKSHs7mw61SPw" coreExpressionId="diagram.creation.wizard.test.classdiagram.id"/>
         <parameters xmi:id="_dBfIwd82EeK30OdmOG-hcQ" elementId="contributor" name="contributor" value="ClassDiagramCreationContributor"/>

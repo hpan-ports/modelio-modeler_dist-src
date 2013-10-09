@@ -31,10 +31,14 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.e4.ui.workbench.swt,
  org.eclipse.e4.core.di.extensions;bundle-version="0.11.100",
  org.modelio.core.help,
- org.eclipse.help.base
+ org.eclipse.help.base,
+ org.eclipse.e4.core.services,
+ org.modelio.core.utils
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Export-Package: org.modelio.audit.plugin,
+ org.modelio.audit.preferences,
+ org.modelio.audit.preferences.model,
  org.modelio.audit.preferences.ui,
  org.modelio.audit.service
 Bundle-Vendor: Modeliosoft

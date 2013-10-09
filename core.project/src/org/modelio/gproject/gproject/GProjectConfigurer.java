@@ -308,10 +308,7 @@ public class GProjectConfigurer {
         Failure failure = new Failure(moduleDescriptor, module, cause);
         this.failures.add(failure);
         
-        GProjectEvent ev = new GProjectEvent();
-        ev.message = failure.toString();
-        ev.throwable = cause;
-        ev.type = GProjectEventType.WARNING;
+        GProjectEvent ev = new GProjectEvent(GProjectEventType.WARNING,failure.toString(),null,cause);
         this.project.getMonitorSupport().fireMonitors(ev);
     }
 

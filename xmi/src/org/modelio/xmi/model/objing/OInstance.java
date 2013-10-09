@@ -39,9 +39,9 @@ import org.modelio.metamodel.uml.statik.Package;
 import org.modelio.metamodel.uml.statik.Port;
 import org.modelio.vcore.smkernel.mapi.MObject;
 import org.modelio.xmi.plugin.Xmi;
+import org.modelio.xmi.util.AbstractObjingModelNavigation;
 import org.modelio.xmi.util.GenerationProperties;
 import org.modelio.xmi.util.ObjingEAnnotation;
-import org.modelio.xmi.util.ObjingModelNavigation;
 import org.modelio.xmi.util.PrimitiveTypeMapper;
 import org.modelio.xmi.util.StringConverter;
 import org.modelio.xmi.util.XMILogs;
@@ -82,7 +82,7 @@ public class OInstance extends OModelElement implements IOElement {
     public OInstance(final Instance element) {
         super(element);
         this.objingElement = element;
-        this.root = ObjingModelNavigation.getBindableInstanceOwner(this.objingElement);
+        this.root = AbstractObjingModelNavigation.getBindableInstanceOwner(this.objingElement);
     }
 
     @objid ("c0f8acdb-1551-4aea-a6b4-b1a613685d4d")
@@ -123,7 +123,7 @@ public class OInstance extends OModelElement implements IOElement {
     @objid ("e965c29c-daaa-438d-a63d-9b7b80453500")
     private void setName(InstanceSpecification specification) {
         String eltName = this.objingElement.getName();
-        if (ObjingModelNavigation.isNotNullOrEmpty(eltName))
+        if (AbstractObjingModelNavigation.isNotNullOrEmpty(eltName))
             specification.setName(eltName);
     }
 
@@ -184,10 +184,10 @@ public class OInstance extends OModelElement implements IOElement {
 
     @objid ("0c0580b2-a91c-4ee7-bfcf-82e257cd1405")
     private void addValueSpecification(final NameSpace objType, Object value, final InstanceSpecification spec) {
-        if (ObjingModelNavigation.haveInstanceValue(this.objingElement)){
+        if (AbstractObjingModelNavigation.haveInstanceValue(this.objingElement)){
             InstanceValue instValue = UMLFactory.eINSTANCE.createInstanceValue();
             InstanceSpecification inst = (InstanceSpecification) GenerationProperties.getInstance().getMappedElement(
-                    ObjingModelNavigation.getInstanceValue(this.objingElement));
+                    AbstractObjingModelNavigation.getInstanceValue(this.objingElement));
             instValue.setInstance(inst);
             spec.setSpecification(instValue);
         }else {
@@ -363,7 +363,7 @@ public class OInstance extends OModelElement implements IOElement {
                 ownerIsCmpnt.getPackagedElements().add((org.eclipse.uml2.uml.PackageableElement)ecoreElt);
             } else if (objingOwner instanceof ModelTree) {
                 org.eclipse.uml2.uml.Package ownerIsPkg = (org.eclipse.uml2.uml.Package) genProp.getMappedElement(
-                        ObjingModelNavigation.getNearestPackage((ModelTree) objingOwner));
+                        AbstractObjingModelNavigation.getNearestPackage((ModelTree) objingOwner));
                 ownerIsPkg.getPackagedElements().add((org.eclipse.uml2.uml.PackageableElement)ecoreElt);
         
                 if (!(objingOwner.equals(ownerIsPkg))){
@@ -407,7 +407,7 @@ public class OInstance extends OModelElement implements IOElement {
 
     @objid ("46f5f19d-aed5-446a-8a90-2825d83a70d0")
     protected void setName(org.eclipse.uml2.uml.NamedElement ecoreElt) {
-        if (ObjingModelNavigation.isNotNullOrEmpty(this.objingElement.getName()))
+        if (AbstractObjingModelNavigation.isNotNullOrEmpty(this.objingElement.getName()))
             ecoreElt.setName(this.objingElement.getName());
     }
 
@@ -437,7 +437,7 @@ public class OInstance extends OModelElement implements IOElement {
         // If objingMultMin is "" then we don't set a lower multiplicity for the
         // UML2 element.
         if (!"".equals(objingMultMin)) {
-            if (ObjingModelNavigation.OBJING_UNLIMITED_VALUE
+            if (AbstractObjingModelNavigation.OBJING_UNLIMITED_VALUE
                     .equals(objingMultMin))
                 ecoreProp.setLower(org.eclipse.uml2.uml.LiteralUnlimitedNatural.UNLIMITED);
             else {
@@ -472,7 +472,7 @@ public class OInstance extends OModelElement implements IOElement {
         // If objingMultMax is "" then we don't set an upper multiplicity for
         // the UML2 element.
         if (!"".equals(objingMultMax)) {
-            if (ObjingModelNavigation.OBJING_UNLIMITED_VALUE
+            if (AbstractObjingModelNavigation.OBJING_UNLIMITED_VALUE
                     .equals(objingMultMax))
                 ecoreProp.setUpper(org.eclipse.uml2.uml.LiteralUnlimitedNatural.UNLIMITED);
             else {
@@ -504,10 +504,10 @@ public class OInstance extends OModelElement implements IOElement {
 
     @objid ("0df5bc73-6086-4e2f-821c-c4e1796f2225")
     protected void setExpressionOfValue(final Property ecoreProp) {
-        if (ObjingModelNavigation.haveInstanceValue(this.objingElement)){
+        if (AbstractObjingModelNavigation.haveInstanceValue(this.objingElement)){
             InstanceValue value = UMLFactory.eINSTANCE.createInstanceValue();
             InstanceSpecification inst = (InstanceSpecification) GenerationProperties.getInstance().getMappedElement(
-                    ObjingModelNavigation.getInstanceValue(this.objingElement));
+                    AbstractObjingModelNavigation.getInstanceValue(this.objingElement));
             value.setInstance(inst);
             ecoreProp.setDefaultValue(value);
         
@@ -516,10 +516,10 @@ public class OInstance extends OModelElement implements IOElement {
             NameSpace objingType = this.objingElement.getBase();
         
             // If objingValue is "" then we don't set a default value for the UML2
-            if (ObjingModelNavigation.haveInstanceValue(this.objingElement)){
+            if (AbstractObjingModelNavigation.haveInstanceValue(this.objingElement)){
                 InstanceValue instValue = UMLFactory.eINSTANCE.createInstanceValue();
                 InstanceSpecification inst = (InstanceSpecification) GenerationProperties.getInstance().getMappedElement(
-                        ObjingModelNavigation.getInstanceValue(this.objingElement));
+                        AbstractObjingModelNavigation.getInstanceValue(this.objingElement));
                 instValue.setInstance(inst);
                 ecoreProp.setDefaultValue(instValue);
             }else {
@@ -531,8 +531,8 @@ public class OInstance extends OModelElement implements IOElement {
                         IUMLTypes umlTypes = Modelio.getInstance()
                                 .getModelingSession().getModel().getUmlTypes();
         
-                        if ((ObjingModelNavigation.OBJING_NULL_VALUE != null) 
-                                && (ObjingModelNavigation.OBJING_NULL_VALUE.equals(objingDefaultValue.toLowerCase())))
+                        if ((AbstractObjingModelNavigation.OBJING_NULL_VALUE != null) 
+                                && (AbstractObjingModelNavigation.OBJING_NULL_VALUE.equals(objingDefaultValue.toLowerCase())))
         
                             ecoreProp.setNullDefaultValue();
         
@@ -598,7 +598,7 @@ public class OInstance extends OModelElement implements IOElement {
         
                         } else if (objingType instanceof Enumeration){ //Enumeration case
         
-                            if  (ObjingModelNavigation.isEnumerationliteral((Enumeration) objingType, objingDefaultValue)){
+                            if  (AbstractObjingModelNavigation.isEnumerationliteral((Enumeration) objingType, objingDefaultValue)){
         
                                 InstanceValue value = UMLFactory.eINSTANCE.createInstanceValue();
         
@@ -607,7 +607,7 @@ public class OInstance extends OModelElement implements IOElement {
                                     value.setType( (org.eclipse.uml2.uml.Type) ecoreType);
                                 }
         
-                                Object ecoreInstance = GenerationProperties.getInstance().getMappedElement(ObjingModelNavigation.getEnumerationliteral((Enumeration)objingType, objingDefaultValue));
+                                Object ecoreInstance = GenerationProperties.getInstance().getMappedElement(AbstractObjingModelNavigation.getEnumerationliteral((Enumeration)objingType, objingDefaultValue));
                                 if (ecoreInstance instanceof InstanceSpecification){
                                     value.setInstance((InstanceSpecification) ecoreInstance);
                                 }
@@ -646,10 +646,10 @@ public class OInstance extends OModelElement implements IOElement {
 
     @objid ("7949fbae-7031-4173-b13a-fa0017f614fc")
     protected void setValue(final org.eclipse.uml2.uml.Slot ecoreElt) {
-        if (ObjingModelNavigation.haveInstanceValue(this.objingElement)){
+        if (AbstractObjingModelNavigation.haveInstanceValue(this.objingElement)){
             InstanceValue value = UMLFactory.eINSTANCE.createInstanceValue();
             InstanceSpecification inst = (InstanceSpecification) GenerationProperties.getInstance().getMappedElement(
-                    ObjingModelNavigation.getInstanceValue(this.objingElement));
+                    AbstractObjingModelNavigation.getInstanceValue(this.objingElement));
             value.setInstance(inst);
             ecoreElt.getValues().add(value);
         

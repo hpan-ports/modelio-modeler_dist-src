@@ -40,6 +40,9 @@ import org.modelio.model.browser.views.BrowserView;
  */
 @objid ("b073bbfb-4a9d-11e2-a4d3-002564c97630")
 public class OpenNewBrowserHandler {
+    @objid ("4b22b0e5-e5a5-4b04-9060-a3293f496c99")
+    private static int cpt = 1;
+
     @objid ("b38c7812-4a9d-11e2-a4d3-002564c97630")
     @SuppressWarnings("unchecked")
     @Execute
@@ -52,6 +55,10 @@ public class OpenNewBrowserHandler {
         
         // Duplicate part
         MPart newPart = (MPart) EcoreUtil.copy((EObject) part);
+        
+        // Add a number to the clone's id, to differentiate it from the initial part
+        newPart.setElementId(part.getElementId() + "." + cpt);
+        cpt++;
         
         // Set the same parent as the old part
         newPart.setParent(part.getCurSharedRef().getParent());

@@ -59,7 +59,7 @@ public class EcoreModelNavigation {
     public static void attachAssocToNearestPkg(ModelTree currentElt, Association ecoreAssoc) {
         GenerationProperties genProp = GenerationProperties.getInstance();
         
-        org.modelio.metamodel.uml.statik.Package nearestIjingPkg = ObjingModelNavigation.getNearestPackage(currentElt);
+        org.modelio.metamodel.uml.statik.Package nearestIjingPkg = AbstractObjingModelNavigation.getNearestPackage(currentElt);
         org.eclipse.uml2.uml.Namespace nearestEcorePkg = (org.eclipse.uml2.uml.Namespace) genProp.getMappedElement(nearestIjingPkg);
         
         if (nearestEcorePkg instanceof Package) {
@@ -1010,10 +1010,12 @@ public class EcoreModelNavigation {
     @objid ("62240a76-23ef-46f0-aab1-8a33fa2f4f98")
     public static boolean hasTwoValidEnds(final org.eclipse.uml2.uml.Association ecoreElement) {
         int endNumber = 0;
-        for (Object memberEnd : ecoreElement.getMemberEnds()) {
-            if ((memberEnd instanceof Property) && (isValid((Property) memberEnd)))
-                endNumber++;
         
+        for (Object memberEnd : ecoreElement.getMemberEnds()) {
+            if ((memberEnd instanceof Property) 
+                    && (isValid((Property) memberEnd))){
+                endNumber++;
+            }     
         }
         return endNumber > 1;
     }
@@ -1021,6 +1023,7 @@ public class EcoreModelNavigation {
     @objid ("2d5e5cbd-2919-45e7-a767-19513f9a0eef")
     public static boolean isMetaclass(final Class ecoreClass) {
         boolean isMetaclass = false;
+        
         for (org.eclipse.uml2.uml.Stereotype ster : ecoreClass.getAppliedStereotypes()){
             if (ster.getName().equals("Metaclass")){
                 isMetaclass = true;

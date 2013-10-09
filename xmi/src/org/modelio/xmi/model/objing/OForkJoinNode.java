@@ -33,13 +33,12 @@ import org.modelio.metamodel.uml.behavior.activityModel.ConditionalNode;
 import org.modelio.metamodel.uml.behavior.activityModel.ControlFlow;
 import org.modelio.metamodel.uml.behavior.activityModel.ForkJoinNode;
 import org.modelio.metamodel.uml.behavior.activityModel.StructuredActivityNode;
-import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.vcore.smkernel.mapi.MObject;
 import org.modelio.vcore.smkernel.meta.SmClass;
+import org.modelio.xmi.util.AbstractObjingModelNavigation;
 import org.modelio.xmi.util.GenerationProperties;
 import org.modelio.xmi.util.NotFoundException;
 import org.modelio.xmi.util.ObjingEAnnotation;
-import org.modelio.xmi.util.ObjingModelNavigation;
 
 @objid ("c180f781-5794-4ff7-80fa-cf294c9d0b53")
 public class OForkJoinNode extends OActivityNode implements IOElement {
@@ -77,8 +76,8 @@ public class OForkJoinNode extends OActivityNode implements IOElement {
     public OForkJoinNode(ForkJoinNode element) {
         super(element);
         this.objingElement = element;
-        this.isJoinNode = (ObjingModelNavigation.isJoinNode(element));         
-        this.isForkNode = (ObjingModelNavigation.isForkNode(element));
+        this.isJoinNode = (AbstractObjingModelNavigation.isJoinNode(element));         
+        this.isForkNode = (AbstractObjingModelNavigation.isForkNode(element));
     }
 
     @objid ("61ccf939-9d03-4dc9-84a5-ab9d5d90976d")
@@ -156,7 +155,7 @@ public class OForkJoinNode extends OActivityNode implements IOElement {
         else
             ecoreFlow = UMLFactory.eINSTANCE.createObjectFlow();
         
-        Activity enclosingActivity = (Activity) ObjingModelNavigation
+        Activity enclosingActivity = (Activity) AbstractObjingModelNavigation
                 .getEnclosingElement(this.objingElement, SmClass.getClass(Activity.class));
         
         if (enclosingActivity != null) {
@@ -203,7 +202,7 @@ public class OForkJoinNode extends OActivityNode implements IOElement {
             owner.getNodes().add((org.eclipse.uml2.uml.ActivityNode)ecoreElt);
         
             // Setting composition relation
-            Activity enclosingActivity = (Activity) ObjingModelNavigation
+            Activity enclosingActivity = (Activity) AbstractObjingModelNavigation
                     .getEnclosingElement(this.objingElement, SmClass.getClass(Activity.class));
             if (enclosingActivity != null) {
                 org.eclipse.uml2.uml.Element ecoreActivity = GenerationProperties.getInstance()
@@ -261,7 +260,7 @@ public class OForkJoinNode extends OActivityNode implements IOElement {
         
         if (!isAttached) {
             // Setting composition relation (in  org.eclipse.uml2.uml.Activity):
-            Activity enclosingActivity = (Activity) ObjingModelNavigation
+            Activity enclosingActivity = (Activity) AbstractObjingModelNavigation
                     .getEnclosingElement(this.objingElement, SmClass.getClass(Activity.class));
             if (enclosingActivity != null) {
                 org.eclipse.uml2.uml.Element ecoreActivity = GenerationProperties.getInstance()
@@ -278,7 +277,7 @@ public class OForkJoinNode extends OActivityNode implements IOElement {
 
     @objid ("c9538739-e0d4-4949-9173-56983457980a")
     private void setName(org.eclipse.uml2.uml.ControlNode node) {
-        if (ObjingModelNavigation.isNotNullOrEmpty(this.objingElement.getName()))
+        if (AbstractObjingModelNavigation.isNotNullOrEmpty(this.objingElement.getName()))
             node.setName(this.objingElement.getName());
     }
 

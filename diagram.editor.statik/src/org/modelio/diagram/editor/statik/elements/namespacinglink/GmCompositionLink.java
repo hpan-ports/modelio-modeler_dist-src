@@ -34,7 +34,7 @@ import org.modelio.diagram.styles.core.IStyleProvider;
 import org.modelio.diagram.styles.core.MetaKey;
 import org.modelio.diagram.styles.core.ProxyStyle;
 import org.modelio.diagram.styles.core.StyleKey;
-import org.modelio.metamodel.uml.infrastructure.ModelTree;
+import org.modelio.metamodel.uml.infrastructure.ModelElement;
 import org.modelio.vcore.smkernel.mapi.MObject;
 import org.modelio.vcore.smkernel.mapi.MRef;
 
@@ -86,18 +86,18 @@ public class GmCompositionLink extends GmLink {
 
     @objid ("35ae11e1-55b7-11e2-877f-002564c97630")
     @Override
-    public ModelTree getFromElement() {
+    public ModelElement getFromElement() {
         if (getFrom() != null) {
-            return (ModelTree) getFrom().getRelatedElement();
+            return (ModelElement) getFrom().getRelatedElement();
         }
         return null;
     }
 
     @objid ("35ae11e8-55b7-11e2-877f-002564c97630")
     @Override
-    public ModelTree getRelatedElement() {
+    public ModelElement getRelatedElement() {
         if (getFrom() != null) {
-            return (ModelTree) getFrom().getRelatedElement();
+            return (ModelElement) getFrom().getRelatedElement();
         }
         return null;
     }

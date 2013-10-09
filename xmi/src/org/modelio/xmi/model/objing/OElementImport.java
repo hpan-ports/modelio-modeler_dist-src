@@ -26,9 +26,9 @@ import org.eclipse.uml2.uml.UMLFactory;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
 import org.modelio.metamodel.uml.statik.ElementImport;
 import org.modelio.metamodel.uml.statik.NameSpace;
+import org.modelio.xmi.util.AbstractObjingModelNavigation;
 import org.modelio.xmi.util.GenerationProperties;
 import org.modelio.xmi.util.ObjingEAnnotation;
-import org.modelio.xmi.util.ObjingModelNavigation;
 
 @objid ("41f10e59-7437-40f9-9d86-4728b40c14fd")
 public class OElementImport extends OElement implements IOElement {
@@ -51,7 +51,7 @@ public class OElementImport extends OElement implements IOElement {
         GenerationProperties genProp = GenerationProperties.getInstance();
         org.eclipse.uml2.uml.ElementImport ecoreEltImport = (org.eclipse.uml2.uml.ElementImport) ecoreElt;
                 
-        ModelElement objingImportingElt = ObjingModelNavigation
+        ModelElement objingImportingElt = AbstractObjingModelNavigation
                 .getImportingElement(this.objingElement);
         NameSpace objingImportedElt = this.objingElement.getImportedElement();
                 

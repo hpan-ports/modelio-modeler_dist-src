@@ -170,6 +170,14 @@ public interface MStatus {
 
     /**
      * When a CMS is used (or a similar tool), tells whether the related object
+     * is planned for removing from the CMS repository (most often at next commit).
+     * @return<code>true</code> if the object is planned for removing, else <code>false</code>.
+     */
+    @objid ("462ad777-e2ab-4742-abd1-ee44973ed770")
+    boolean isCmsToDelete();
+
+    /**
+     * When a CMS is used (or a similar tool), tells whether the related object
      * is read only at the CMS level.
      * @return<code>true</code> if the object is read only at the CMS level, else <code>false</code>.
      */
@@ -237,5 +245,14 @@ public interface MStatus {
      */
     @objid ("7d33f1f6-0265-43e8-b697-eb4930b115f3")
     boolean isLockingNeeded();
+
+    /**
+     * Tells whether has been modified since last model save.
+     * <p>
+     * May answer true for a whole set of object (eg: a CMS node) if only one of them is modified.
+     * @return <code>true</code> if the object needs to be saved.
+     */
+    @objid ("f34b675a-5bb7-4804-a63e-868a027dd998")
+    boolean isDirty();
 
 }

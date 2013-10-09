@@ -72,10 +72,9 @@ public class MObjectCache {
     public void addToCache(SmObjectImpl obj) throws DuplicateObjectException {
         UUID oid = obj.getUuid();
         // Put element to cache and check for duplicate identifiers
-        SmObjectImpl oldObj = getMClassCache(obj.getClassOf(), true).put(oid, obj);
+        SmObjectImpl oldObj = getMClassCache(obj.getClassOf(), true).putIfAbsent(oid, obj);
         if (oldObj != null && oldObj != obj) {
-            // Duplicate found: restore the old one and throw exception.
-            getMClassCache(obj.getClassOf(), true).put(oid, oldObj);
+            // Duplicate found: throw exception.
             throw new DuplicateObjectException(oid, oldObj, obj);
         }
     }
@@ -372,7 +371,7 @@ public class MObjectCache {
      * Typedef to Map<UUID,SmObjectImpl> .
      */
     @objid ("eeabc200-5921-48a9-9945-775681defcde")
-    private interface IMClassCache extends Map<UUID,SmObjectImpl> {
+    private interface IMClassCache extends ConcurrentMap<UUID,SmObjectImpl> {
 
 // nothing more
     }
@@ -450,6 +449,30 @@ public class MObjectCache {
         @Override
         public int hashCode() {
             return 0;
+        }
+
+        @objid ("03116ab9-1df3-46d2-9f63-3f0a39edfb2b")
+        @Override
+        public SmObjectImpl putIfAbsent(UUID key, SmObjectImpl value) {
+            throw new UnsupportedOperationException();
+        }
+
+        @objid ("578a997e-d849-4b1f-b481-80d9074d8604")
+        @Override
+        public boolean remove(Object key, Object value) {
+            throw new UnsupportedOperationException();
+        }
+
+        @objid ("1a3641d6-b2d5-46b4-b84b-2706d267dd0f")
+        @Override
+        public boolean replace(UUID key, SmObjectImpl oldValue, SmObjectImpl newValue) {
+            throw new UnsupportedOperationException();
+        }
+
+        @objid ("c7676202-8770-4db2-bf34-8516deaed152")
+        @Override
+        public SmObjectImpl replace(UUID key, SmObjectImpl value) {
+            throw new UnsupportedOperationException();
         }
 
     }

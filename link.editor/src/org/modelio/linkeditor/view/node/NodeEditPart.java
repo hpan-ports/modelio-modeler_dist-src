@@ -44,6 +44,7 @@ import org.eclipse.swt.widgets.Display;
 import org.modelio.core.ui.images.ElementImageService;
 import org.modelio.linkeditor.plugin.LinkEditor;
 import org.modelio.metamodel.uml.statik.NamespaceUse;
+import org.modelio.ui.UIColor;
 
 /**
  * Edit part for the GraphNode model.
@@ -119,8 +120,11 @@ public class NodeEditPart extends AbstractGraphicalEditPart implements org.eclip
             tooltip.setText(model.getData().getName());
         }
         
-        label.setForegroundColor(Display.getDefault().getSystemColor(model.isCentral() ? (hasFocus
-                ? SWT.COLOR_LIST_SELECTION_TEXT : SWT.COLOR_LIST_FOREGROUND) : SWT.COLOR_LIST_FOREGROUND));
+        if (model.getData().isShell()) {
+            label.setForegroundColor(UIColor.SHELL_ELEMENT);
+        } else {
+            label.setForegroundColor(Display.getDefault().getSystemColor(model.isCentral() ? (hasFocus ? SWT.COLOR_LIST_SELECTION_TEXT : SWT.COLOR_LIST_FOREGROUND) : SWT.COLOR_LIST_FOREGROUND));
+        }
     }
 
     @objid ("1bb294b8-5e33-11e2-b81d-002564c97630")

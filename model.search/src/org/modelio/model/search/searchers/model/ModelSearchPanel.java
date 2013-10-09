@@ -118,7 +118,7 @@ public class ModelSearchPanel implements ISearchPanel {
         this.textfield.addKeyListener(new KeyListener() {
             @Override
             public void keyReleased(KeyEvent e) {
-                if (e.keyCode == SWT.CR) {
+                if (e.keyCode == SWT.CR || e.keyCode == SWT.KEYPAD_CR ) {
                     ModelSearchPanel.this.searchController.runSearch();
                 }
             }

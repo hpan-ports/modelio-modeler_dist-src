@@ -191,7 +191,6 @@ public abstract class AbstractImporter {
     @objid ("008e3334-5246-1091-8d81-001ec947cd2a")
     private void deleteGarbage() {
         for (SmObjectImpl localObjectToDelete : this.result.getDeletions()) {
-            // FIXME was: localObjectToDelete.Remove();
             localObjectToDelete.delete();
         }
     }
@@ -227,6 +226,18 @@ public abstract class AbstractImporter {
         @Override
         public List<SmObjectImpl> getDeletedObjects() {
             return this.result.getDeletions();
+        }
+
+        @objid ("6a5ecc48-6bd9-40e2-bcb7-1924d706643b")
+        @Override
+        public SmObjectImpl getCreatedObject(SmObjectImpl refObject) {
+            return this.result.getObjectCreatedFrom(refObject);
+        }
+
+        @objid ("de9e5eb4-0835-4838-8cd4-51dffb879bc0")
+        @Override
+        public SmObjectImpl getUpdatedObject(SmObjectImpl refObject) {
+            return this.result.getObjectUpdatedFrom(refObject);
         }
 
     }

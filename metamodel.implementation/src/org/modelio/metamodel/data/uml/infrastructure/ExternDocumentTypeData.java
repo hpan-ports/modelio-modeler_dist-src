@@ -68,7 +68,7 @@ public class ExternDocumentTypeData extends ModelElementData {
      SmObjectImpl mOwnerStereotype;
 
     @objid ("7ae3fd69-def0-4486-9458-7ad3250acf6c")
-    @SmaMetaAssociation(metaName="TypedDoc", typeDataClass=ExternDocumentData.class, min=0, max=-1, smAssociationClass=Metadata.TypedDocSmDependency.class, performanceRisk = true)
+    @SmaMetaAssociation(metaName="TypedDoc", typeDataClass=ExternDocumentData.class, min=0, max=-1, smAssociationClass=Metadata.TypedDocSmDependency.class, istodelete = true, performanceRisk = true)
      List<SmObjectImpl> mTypedDoc = null;
 
     @objid ("5a366de8-eb14-4b06-857e-18866e336385")

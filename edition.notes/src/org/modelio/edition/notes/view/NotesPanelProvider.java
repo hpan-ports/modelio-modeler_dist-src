@@ -39,14 +39,19 @@ import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.SashForm;
+import org.eclipse.swt.dnd.DND;
+import org.eclipse.swt.dnd.DragSourceListener;
+import org.eclipse.swt.dnd.Transfer;
 import org.eclipse.swt.events.ControlEvent;
 import org.eclipse.swt.events.ControlListener;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
+import org.modelio.api.ui.dnd.ModelElementTransfer;
 import org.modelio.app.core.activation.IActivationService;
 import org.modelio.app.core.events.ModelioEventTopics;
+import org.modelio.core.ui.dnd.MObjectViewerDragProvider;
 import org.modelio.edition.notes.view.data.NoteViewContentPanel;
 import org.modelio.edition.notes.view.tree.NoteViewTreePanel;
 import org.modelio.metamodel.uml.infrastructure.Constraint;
@@ -122,6 +127,9 @@ public class NotesPanelProvider implements IPanelProvider {
 
     @objid ("74b1af15-7c9a-4662-a17b-6dd9c7ca4a58")
     private IActivationService activationService;
+
+    @objid ("0bb58649-7d38-4e6d-93e7-450e68c08440")
+    private DragSourceListener dragListener;
 
     /**
      * Constructor.
@@ -202,23 +210,16 @@ public class NotesPanelProvider implements IPanelProvider {
         
         layoutView(this.parentComposite, this);
         
-        // TODO Activate the context for NoteView :
-        // IContextService contextService = (IContextService) getViewSite().getService(IContextService.class);
-        // contextService.activateContext("com.modeliosoft.modelio.bindings.context.NotesViewID");
-        
-        // TODO setTitleToolTip(EditionNotes.I18N.getString("NotesTabTooltip"));
-        
         this.treeSelectionListener = new SelectionChangedListener(this);
         getTreeViewer().addSelectionChangedListener(this.treeSelectionListener);
         
         getTreeViewer().addDoubleClickListener(new DoubleClickListener());
         
-        // Add a selection provider, to avoid errors when getting the application selection from the note view.
         
-        // branch listeners
-        // TODO navigation listener
-        // this.navigationListener = new NavigationListener(this);
-        // O.getDefault().getNavigateService().addNavigationListener(this.navigationListener);
+        if (this.dragListener == null) {
+            this.dragListener = new MObjectViewerDragProvider(getTreeViewer());
+            getTreeViewer().addDragSupport(DND.DROP_MOVE | DND.DROP_COPY, new Transfer[] { ModelElementTransfer.getInstance() }, this.dragListener);
+        }
         return this.shform;
     }
 
@@ -236,7 +237,7 @@ public class NotesPanelProvider implements IPanelProvider {
         
             this.modelChangeListener = new ModelChangeListener(this);
             this.session.getModelChangeSupport().addModelChangeListener(this.modelChangeListener);
-            // TODO session.addStatusListener(this.modelChangeListener);
+            this.session.getModelChangeSupport().addStatusChangeListener(this.modelChangeListener);
         
             this.contentPanel.start(this.session);
         } else {
@@ -244,8 +245,8 @@ public class NotesPanelProvider implements IPanelProvider {
                 // remove listeners
                 if (this.session.getModelChangeSupport() != null) {                    
                     this.session.getModelChangeSupport().removeModelChangeListener(this.modelChangeListener);
+                    this.session.getModelChangeSupport().removeStatusChangeListener(this.modelChangeListener);
                 }
-                // TODO session.removeStatusListener(this.modelChangeListener);
                 this.modelChangeListener = null;
         
                 this.session = null;
@@ -256,9 +257,6 @@ public class NotesPanelProvider implements IPanelProvider {
         
                 this.contentPanel.stop();
             }
-        
-            // TODO navigation listener
-            // O.getDefault().getNavigateService().removeNavigationListener(this.navigationListener);
         }
     }
 
@@ -575,7 +573,7 @@ public class NotesPanelProvider implements IPanelProvider {
             IStructuredSelection sel = (IStructuredSelection) event.getSelection();
             Element el = (Element) sel.getFirstElement();
             // fire activation
-            activationService.activateMObject(el);
+            NotesPanelProvider.this.activationService.activateMObject(el);
         }
 
     }

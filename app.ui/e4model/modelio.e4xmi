@@ -10,36 +10,8 @@
           <children xsi:type="basic:PartStack" xmi:id="_AWbycJnlEeGY6K1_JhyUmg" elementId="org.modelio.app.left.parts" containerData="25"/>
           <children xsi:type="basic:PartSashContainer" xmi:id="_kaYO0Jq2EeGkc791dEOVVA" containerData="75">
             <children xsi:type="advanced:Placeholder" xmi:id="_McuAIDL2EeKL_YUGDpxo2Q" elementId="org.eclipse.ui.editorss" containerData="72" ref="_hYHjYDLzEeKL_YUGDpxo2Q" closeable="true"/>
-            <children xsi:type="basic:PartStack" xmi:id="_lWQoQJq2EeGkc791dEOVVA" elementId="org.modelio.app.bottom.parts" containerData="28"/>
-          </children>
-        </children>
-      </children>
-      <children xsi:type="advanced:Perspective" xmi:id="_ruDhoO7eEeKKibitEer1Lw" elementId="org.modelio.diagram.perspective" selectedElement="_ruDhoe7eEeKKibitEer1Lw" label="%Diagram.perspective.label" iconURI="platform:/plugin/org.modelio.app.ui/icons/diagramspersp.png" tooltip="%Diagram.perspective.tooltip">
-        <tags>project</tags>
-        <tags>default</tags>
-        <tags>user</tags>
-        <children xsi:type="basic:PartSashContainer" xmi:id="_ruDhoe7eEeKKibitEer1Lw" elementId="">
-          <children xsi:type="advanced:Placeholder" xmi:id="_ruDhou7eEeKKibitEer1Lw" elementId="org.eclipse.ui.editorss" closeable="true">
-            <ref xsi:type="advanced:Area" href="../../app.ui.ext_org/e4model/app.ui.ext_org.e4xmi#_v67RsN_rEeKYSOCeOIScJg"/>
-          </children>
-          <children xsi:type="basic:PartSashContainer" xmi:id="_ruDho-7eEeKKibitEer1Lw" elementId="app.ui.ext_com.partsashcontainer.0" horizontal="true">
-            <children xsi:type="basic:PartStack" xmi:id="_ruDhpO7eEeKKibitEer1Lw" elementId="app.ui.ext_com.partstack.left" containerData="">
-              <children xsi:type="advanced:Placeholder" xmi:id="_ruDhpe7eEeKKibitEer1Lw" elementId="diagram.browser.placeholder">
-                <ref xsi:type="basic:Part" href="../../app.ui.ext_org/e4model/app.ui.ext_org.e4xmi#_AXT5sN_uEeKYSOCeOIScJg"/>
-              </children>
-              <children xsi:type="advanced:Placeholder" xmi:id="_ruDhpu7eEeKKibitEer1Lw" elementId="diagram.outline.placeholder">
-                <ref xsi:type="basic:Part" href="../../app.ui.ext_org/e4model/app.ui.ext_org.e4xmi#_7bd8sN_rEeKYSOCeOIScJg"/>
-              </children>
-            </children>
-            <children xsi:type="basic:PartStack" xmi:id="_ruDhp-7eEeKKibitEer1Lw" elementId="app.ui.ext_com.partstack.middle" containerData="">
-              <children xsi:type="advanced:Placeholder" xmi:id="_ruDhqO7eEeKKibitEer1Lw" elementId="properties.placeholder">
-                <ref xsi:type="basic:Part" href="../../app.ui.ext_org/e4model/app.ui.ext_org.e4xmi#_894xsN_rEeKYSOCeOIScJg"/>
-              </children>
-            </children>
-            <children xsi:type="basic:PartStack" xmi:id="_ruDhqe7eEeKKibitEer1Lw" elementId="app.ui.ext_com.partstack.right">
-              <children xsi:type="advanced:Placeholder" xmi:id="_ruDhqu7eEeKKibitEer1Lw" elementId="symbol.placeholder" closeable="true">
-                <ref xsi:type="basic:Part" href="../../app.ui.ext_org/e4model/app.ui.ext_org.e4xmi#_5T5MMN_rEeKYSOCeOIScJg"/>
-              </children>
+            <children xsi:type="basic:PartStack" xmi:id="_lWQoQJq2EeGkc791dEOVVA" elementId="org.modelio.app.bottom.parts" containerData="28">
+              <tags>MODULE_STACK</tags>
             </children>
           </children>
         </children>
@@ -159,6 +131,8 @@
     <parameters xmi:id="_UuZD0KdUEeK8tp9C4lOIPQ" elementId="org.modelio.app.ui.command.help.topicid" name="topic"/>
   </commands>
   <commands xmi:id="_csM90MbjEeK8yIoiqNn7ow" elementId="org.modelio.app.ui.command.showwelcome" commandName="%Welcome.name" description="%Welcome.description"/>
+  <commands xmi:id="_zpmiIBnvEeOGGr1SecQnQA" elementId="org.modelio.app.ui.command.renameproject" commandName="%RenameProject.name" description="%RenameProject.description" category="_Ob9P0MUgEeGS9ZgZd3XbUg"/>
+  <commands xmi:id="_wTLloBn_EeOGGr1SecQnQA" elementId="org.modelio.app.ui.command.refreshworkspace" commandName="%RefreshWorkspace.name" description="%RefreshWorkspace.description" category="_Ob9P0MUgEeGS9ZgZd3XbUg"/>
   <addons xmi:id="_AWbLZJnlEeGY6K1_JhyUmg" elementId="org.eclipse.e4.core.commands.service" contributionURI="bundleclass://org.eclipse.e4.core.commands/org.eclipse.e4.core.commands.CommandServiceAddon"/>
   <addons xmi:id="_AWbLZZnlEeGY6K1_JhyUmg" elementId="org.eclipse.e4.ui.contexts.service" contributionURI="bundleclass://org.eclipse.e4.ui.services/org.eclipse.e4.ui.services.ContextServiceAddon"/>
   <addons xmi:id="_AWbLZpnlEeGY6K1_JhyUmg" elementId="org.eclipse.e4.ui.bindings.service" contributionURI="bundleclass://org.eclipse.e4.ui.bindings/org.eclipse.e4.ui.bindings.BindingServiceAddon"/>

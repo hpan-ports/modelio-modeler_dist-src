@@ -44,6 +44,7 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.TableColumn;
@@ -64,7 +65,7 @@ import org.osgi.framework.Bundle;
  * found.
  */
 @objid ("8dcd99b0-c068-11e1-8c0a-002564c97630")
-class StringListEditionDialog extends ModelioDialog {
+public class StringListEditionDialog extends ModelioDialog {
     @objid ("a5152245-c068-11e1-8c0a-002564c97630")
     private String title = "";
 
@@ -134,8 +135,11 @@ class StringListEditionDialog extends ModelioDialog {
     @objid ("8dcf2031-c068-11e1-8c0a-002564c97630")
     private RemoveButtonListener removeButtonListener = null;
 
+    @objid ("23381fa8-6b4d-438c-a2ef-d5c9c6b16389")
+    protected static StringListEditionDialog instance;
+
     @objid ("8dcf2032-c068-11e1-8c0a-002564c97630")
-    public StringListEditionDialog(Shell parentShell, String title, String message, int size, String detailedMessage, StringListCellEditor editor, List<String> initialContent, IStringListValidator editionValidator) {
+    private StringListEditionDialog(Shell parentShell, String title, String message, int size, String detailedMessage, StringListCellEditor editor, List<String> initialContent, IStringListValidator editionValidator) {
         super(parentShell);
         this.title = title;
         this.message = message;
@@ -551,6 +555,31 @@ class StringListEditionDialog extends ModelioDialog {
     @Override
     protected String getHelpId() {
         return HELP_TOPIC;
+    }
+
+    @objid ("ddd79991-ab0b-4f31-aaac-72d7c832f3b4")
+    public static StringListEditionDialog getInstance(Shell parentShell, String title, String message, int size, String detailedMessage, StringListCellEditor editor, List<String> initialContent, IStringListValidator editionValidator) {
+        if (parentShell == null)
+            return null;
+        
+        if (instance != null) {
+            return instance;
+        }
+        
+        instance = new StringListEditionDialog(parentShell, title, message, size, detailedMessage, editor, initialContent, editionValidator);
+        return instance;
+    }
+
+    @objid ("8c16dbfe-3584-4a1f-88d1-8369e5be5e18")
+    public static void closeInstance() {
+        if (instance != null) {
+            Display.getDefault().asyncExec(new Runnable() {        
+                @Override
+                public void run() {
+                    instance.close();
+                }
+            });
+        }
     }
 
 }

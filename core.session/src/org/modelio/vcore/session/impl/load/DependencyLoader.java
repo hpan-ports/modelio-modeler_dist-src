@@ -57,7 +57,9 @@ class DependencyLoader {
     @objid ("fd24579a-5986-11e1-991a-001ec947ccaf")
     public void execute(SmObjectImpl anObj, SmDependency aDep, List<SmObjectImpl> newValues) {
         assert (aDep != null);
-        checkRecursion();
+        
+        if (this.dep != null) 
+            throwRecursion(anObj, aDep);
         
         try {
             this.obj = anObj;
@@ -166,9 +168,34 @@ class DependencyLoader {
     @objid ("fd24578f-5986-11e1-991a-001ec947ccaf")
     private void propagateAppendToSymetric(final SmObjectImpl anObj, final SmDependency aDep, final SmObjectImpl value) {
         SmDependency symetricDep = aDep.getSymetric();
-        if (value != null && symetricDep != null) {
+        /*if (value != null && symetricDep != null) {
             // ensure the value won't be twice in the list
             symetricDep.remove(value, anObj);
+        
+            // Propagate to symetricDep the append
+            symetricDep.add(value, anObj);
+        
+            // Notify change
+            depValAdded(value, symetricDep, anObj);
+        }*/
+        
+        if (value != null && symetricDep != null) {
+            if (symetricDep.isMultiple()) {
+                // ensure the value won't be twice in the list
+                symetricDep.remove(value, anObj);
+            } else {
+                // Remove from the symetricDep its old value with propagation.
+                SmObjectImpl oldValue = ((SmSingleDependency)symetricDep).getValue(value.getData());
+                if (oldValue == null) {
+                    // just continue
+                } else if (oldValue.equals(anObj)) {
+                    // nothing more to do, exit now.
+                    return;
+                } else {
+                    // Remove the old value with propagation.
+                    eraseDepVal(value, symetricDep, oldValue);
+                }
+            }
         
             // Propagate to symetricDep the append
             symetricDep.add(value, anObj);
@@ -293,12 +320,12 @@ class DependencyLoader {
     }
 
     @objid ("009732ae-20a4-10be-92d7-001ec947cd2a")
-    private void checkRecursion() {
-        if (this.dep != null) {
-            throw new IllegalStateException("Reentrant call of Dependencyloader: already loading "
-                    + this.obj.getUuid() + " " + this.obj.getClassOf().getName()
-                    + " " + this.dep);
-        }
+    private void throwRecursion(SmObjectImpl anObj, SmDependency aDep) throws IllegalStateException {
+        throw new IllegalStateException("Reentrant call of Dependencyloader.execute({"
+                + anObj.getUuid() + "} " + anObj.getClassOf().getName() + ", " + aDep
+                + "): already loading {"
+                + this.obj.getUuid() + "} " + this.obj.getClassOf().getName()
+                + "." + this.dep);
     }
 
 }

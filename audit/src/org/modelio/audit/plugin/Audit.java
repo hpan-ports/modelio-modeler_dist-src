@@ -21,8 +21,16 @@
 
 package org.modelio.audit.plugin;
 
+import java.io.File;
+import java.io.IOError;
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.ResourceBundle;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
+import org.eclipse.core.runtime.FileLocator;
+import org.eclipse.core.runtime.Path;
+import org.eclipse.core.runtime.URIUtil;
 import org.eclipse.equinox.log.ExtendedLogService;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
@@ -77,6 +85,39 @@ public class Audit implements BundleActivator {
     @objid ("57bc3481-a239-4751-b2fe-44599c57d191")
     public static ImageDescriptor getImageDescriptor(final String path) {
         return AbstractUIPlugin.imageDescriptorFromPlugin(PLUGIN_ID, path);
+    }
+
+    /**
+     * Get the path of a file bundled with the plugin.
+     * @param relPath the path relative to the plugin.
+     * @return the found file
+     * @throws org.modelio.audit.plugin.Audit.ResourceNotFoundError if the file is not found or cannot be copied on the file system, should never occur.
+     */
+    @objid ("d1a8268b-dff5-4398-936a-ef1cb1e69102")
+    public static File getBundleFile(final String relPath) throws ResourceNotFoundError {
+        try {
+            URL url = FileLocator.find(context.getBundle(), new Path(relPath), null);
+            URL fileUrl = FileLocator.toFileURL(url);
+            return new File(URIUtil.toURI(fileUrl));
+        } catch (IOException | URISyntaxException | RuntimeException e  ) {
+            // should never occur
+            final ResourceNotFoundError e1 = new ResourceNotFoundError("'"+relPath+"' not found in plugin.", e);
+            LOG.error(e1);
+            throw e1;
+        }
+    }
+
+    /**
+     * Thrown when a bundle file is not found.
+     */
+    @objid ("6428ae3b-9cf4-4d2e-8291-bdd2bcaad750")
+    public static class ResourceNotFoundError extends Error {
+        @objid ("5841686e-ca6c-4b9e-a693-253ee5f33011")
+        public ResourceNotFoundError(String message, Throwable cause) {
+            super(message, cause);
+            // TODO Auto-generated constructor stub
+        }
+
     }
 
 }

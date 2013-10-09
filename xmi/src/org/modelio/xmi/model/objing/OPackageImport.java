@@ -26,9 +26,9 @@ import org.eclipse.uml2.uml.Package;
 import org.eclipse.uml2.uml.UMLFactory;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
 import org.modelio.metamodel.uml.statik.PackageImport;
+import org.modelio.xmi.util.AbstractObjingModelNavigation;
 import org.modelio.xmi.util.GenerationProperties;
 import org.modelio.xmi.util.ObjingEAnnotation;
-import org.modelio.xmi.util.ObjingModelNavigation;
 
 @objid ("ecb68916-5730-4d6a-9688-81d8b5952fa2")
 public class OPackageImport extends OElement implements IOElement {
@@ -52,7 +52,7 @@ public class OPackageImport extends OElement implements IOElement {
         GenerationProperties genProp = GenerationProperties.getInstance();
         org.eclipse.uml2.uml.PackageImport ecorePkgImport = (org.eclipse.uml2.uml.PackageImport) ecoreElt;
                 
-        ModelElement objingImportingElt = ObjingModelNavigation
+        ModelElement objingImportingElt = AbstractObjingModelNavigation
                 .getImportingElement(objingElement);
         org.modelio.metamodel.uml.statik.Package objingImportedPkg = objingElement.getImportedPackage();
                 

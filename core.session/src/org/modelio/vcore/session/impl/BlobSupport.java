@@ -96,4 +96,12 @@ public class BlobSupport implements IBlobSupport {
         this.providers.remove(provider);
     }
 
+    @objid ("b6d7a867-e980-471c-86e2-40af09620b63")
+    @Override
+    public void fireObjectsMoved(Collection<? extends MObject> objs, IRepository fromRepo, IRepository toRepo) {
+        for(IBlobProvider p : this.providers) {
+            p.objectsMoved(objs, fromRepo, toRepo);
+        }
+    }
+
 }

@@ -63,7 +63,7 @@ public class MultipleElementCellEditor extends KTableCellEditor {
     private IMObjectFilter elementFilter = null;
 
     @objid ("8dc164c5-c068-11e1-8c0a-002564c97630")
-     EditionDialog dialog = null;
+     ElementEditionDialog dialog = null;
 
     @objid ("8dc164c6-c068-11e1-8c0a-002564c97630")
     protected KeyAdapter keyListener = new KeyAdapter() {
@@ -173,7 +173,7 @@ public class MultipleElementCellEditor extends KTableCellEditor {
         
             final List<MObject> initialContent = (List<MObject>) this.m_Model.getContentAt(this.m_Col, this.m_Row);
         
-            this.dialog = new EditionDialog(table.getShell(), this.session, this.pickingService, this, initialContent, new EditionValidator(this.m_Model, this.m_Col, this.m_Row));
+            this.dialog = ElementEditionDialog.getInstance(table.getShell(), this.session, this.pickingService, this, initialContent, new EditionValidator(this.m_Model, this.m_Col, this.m_Row));
         
             // Open dialog in modal mode
             this.dialog.setBlockOnOpen(false);

@@ -30,10 +30,9 @@ import org.modelio.metamodel.uml.behavior.activityModel.ActivityNode;
 import org.modelio.metamodel.uml.behavior.activityModel.DecisionMergeNode;
 import org.modelio.metamodel.uml.behavior.activityModel.ForkJoinNode;
 import org.modelio.metamodel.uml.behavior.activityModel.InterruptibleActivityRegion;
-import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.vcore.smkernel.mapi.MObject;
+import org.modelio.xmi.util.AbstractObjingModelNavigation;
 import org.modelio.xmi.util.GenerationProperties;
-import org.modelio.xmi.util.ObjingModelNavigation;
 
 @objid ("b0e9e7eb-6719-4187-8206-69317f63105d")
 public class OActivityEdge extends OModelElement implements IOElement {
@@ -66,9 +65,9 @@ public class OActivityEdge extends OModelElement implements IOElement {
             // a flow, its source can't be theMergeNode, it must be the
             // org.eclipse.uml2.uml.DecisionNode.
             if (ecoreSource instanceof org.eclipse.uml2.uml.MergeNode
-                    && !ObjingModelNavigation
+                    && !AbstractObjingModelNavigation
                     .isMergeNode((DecisionMergeNode) objingSource)
-                    && !ObjingModelNavigation
+                    && !AbstractObjingModelNavigation
                     .isDecisionNode((DecisionMergeNode) objingSource)) {
                 EList<?> activityEdgeList = ((org.eclipse.uml2.uml.MergeNode) ecoreSource)
                 .getOutgoings();
@@ -79,9 +78,9 @@ public class OActivityEdge extends OModelElement implements IOElement {
                     flow.setSource(source);
                 }
             } else if (ecoreSource instanceof org.eclipse.uml2.uml.JoinNode
-                    && !ObjingModelNavigation
+                    && !AbstractObjingModelNavigation
                     .isJoinNode((ForkJoinNode) objingSource)
-                    && !ObjingModelNavigation
+                    && !AbstractObjingModelNavigation
                     .isForkNode((ForkJoinNode) objingSource)) {
                 // Same principle for ForkJoinNode elements:
                     EList<?> activityEdgeList = ((org.eclipse.uml2.uml.JoinNode) ecoreSource)

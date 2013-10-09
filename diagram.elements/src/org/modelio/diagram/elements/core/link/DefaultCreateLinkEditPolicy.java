@@ -308,7 +308,7 @@ public class DefaultCreateLinkEditPolicy extends GraphicalNodeEditPolicy {
             final MObject sourceElement = ((GmModel) getHost().getModel()).getRelatedElement();
             // If creation expert does not allow and yet we ended here, this means this policy is opaque, so return non executable
             // command.
-            if (!MTools.getLinkTool().canSource(Metamodel.getMClass(context.getMetaclass()), sourceElement.getMClass()))
+            if (!MTools.getLinkTool().canSource(context.getStereotype(), Metamodel.getMClass(context.getMetaclass()), sourceElement.getMClass()))
                 return null;
         }
         final DefaultCreateLinkCommand command = new DefaultCreateLinkCommand(context);
@@ -607,7 +607,7 @@ public class DefaultCreateLinkEditPolicy extends GraphicalNodeEditPolicy {
             if (this.isOpaque)
                 return getHost();
         
-            if (!MTools.getLinkTool().canSource(Metamodel.getMClass(context.getMetaclass()), sourceElement.getMClass()))
+            if (!MTools.getLinkTool().canSource(context.getStereotype(), Metamodel.getMClass(context.getMetaclass()), sourceElement.getMClass()))
                 return null;
         }
         

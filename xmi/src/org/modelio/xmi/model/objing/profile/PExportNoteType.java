@@ -37,10 +37,11 @@ public class PExportNoteType implements IExportProfileElement {
 
     @objid ("f887459d-6ff8-45c9-ba01-1ab89c276b0a")
     public PExportNoteType(NoteType attribut) {
-        objingElt = attribut;
+        this.objingElt = attribut;
     }
 
     @objid ("759a0f66-9542-4dff-843f-dc31ee4fc062")
+    @Override
     public void accept(ProfileExportVisitorImpl visitor) {
         visitor.visit(this);
     }
@@ -49,13 +50,13 @@ public class PExportNoteType implements IExportProfileElement {
     public void visit() {
         org.eclipse.uml2.uml.Stereotype stereotype = null;
         
-        if (objingElt.getOwnerStereotype() != null){
-            stereotype = (org.eclipse.uml2.uml.Stereotype)TotalExportMap.getInstance().get(objingElt.getOwnerStereotype().getUuid().toString());
+        if (this.objingElt.getOwnerStereotype() != null){
+            stereotype = (org.eclipse.uml2.uml.Stereotype)TotalExportMap.getInstance().get(this.objingElt.getOwnerStereotype().getUuid().toString());
         }else{
-            stereotype = (org.eclipse.uml2.uml.Stereotype)TotalExportMap.getInstance().get(objingElt.getOwnerReference().getUuid().toString());
+            stereotype = (org.eclipse.uml2.uml.Stereotype)TotalExportMap.getInstance().get(this.objingElt.getOwnerReference().getUuid().toString());
         }
         
-        String name = objingElt.getName();
+        String name = this.objingElt.getName();
         
         Property attr  = stereotype.getOwnedAttribute(name,  PrimitiveTypeMapper.getString());
         if (attr == null)
@@ -71,17 +72,17 @@ public class PExportNoteType implements IExportProfileElement {
             setLabel(attr);
         
         }
-        ObjingEAnnotation.addObjingID(attr, objingElt.getUuid().toString());
+        ObjingEAnnotation.addObjingID(attr, this.objingElt.getUuid().toString());
     }
 
     @objid ("df5f957c-8570-4a3f-9b37-be31af8f6466")
     private void setLabel(Property attr) {
-        ObjingEAnnotation.setLabel(attr, objingElt.getLabelKey());
+        ObjingEAnnotation.setLabel(attr, this.objingElt.getLabelKey());
     }
 
     @objid ("5007b5f1-996c-4639-8566-01f368706de2")
     private void setHidden(Property attr) {
-        ObjingEAnnotation.setHidden(attr, objingElt.isIsHidden());
+        ObjingEAnnotation.setHidden(attr, this.objingElt.isIsHidden());
     }
 
 }

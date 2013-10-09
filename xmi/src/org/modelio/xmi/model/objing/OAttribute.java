@@ -36,10 +36,10 @@ import org.modelio.metamodel.uml.statik.Enumeration;
 import org.modelio.metamodel.uml.statik.Feature;
 import org.modelio.metamodel.uml.statik.GeneralClass;
 import org.modelio.xmi.plugin.Xmi;
+import org.modelio.xmi.util.AbstractObjingModelNavigation;
 import org.modelio.xmi.util.GenerationProperties;
 import org.modelio.xmi.util.NotFoundException;
 import org.modelio.xmi.util.ObjingEAnnotation;
-import org.modelio.xmi.util.ObjingModelNavigation;
 import org.modelio.xmi.util.PrimitiveTypeMapper;
 import org.modelio.xmi.util.StringConverter;
 import org.modelio.xmi.util.XMILogs;
@@ -120,7 +120,7 @@ public class OAttribute extends OFeature implements IOElement {
                     // added into an EAnnotation:
                     if (ecoreOwner instanceof org.eclipse.uml2.uml.Actor || ecoreOwner instanceof org.eclipse.uml2.uml.UseCase) {
             
-                        ObjingModelNavigation.infoOfUnsupportedOwnedWithEMF(
+                        AbstractObjingModelNavigation.infoOfUnsupportedOwnedWithEMF(
                                 this.objingElement.getOwner(), this.objingElement, ecoreElt);
                     } else {
                         ecoreElt.destroy();
@@ -178,10 +178,10 @@ public class OAttribute extends OFeature implements IOElement {
         
         // If objingValue is "" then we don't set a default value for the UML2
         
-        if (ObjingModelNavigation.haveInstanceValue(this.objingElement)){
+        if (AbstractObjingModelNavigation.haveInstanceValue(this.objingElement)){
              InstanceValue value = UMLFactory.eINSTANCE.createInstanceValue();
              InstanceSpecification inst = (InstanceSpecification) GenerationProperties.getInstance().getMappedElement(
-                     ObjingModelNavigation.getInstanceValue(this.objingElement));
+                     AbstractObjingModelNavigation.getInstanceValue(this.objingElement));
              value.setInstance(inst);
              ecoreProp.setDefaultValue(value);
         }else if (!"".equals(objingDefaultValue) ) {
@@ -193,8 +193,8 @@ public class OAttribute extends OFeature implements IOElement {
                 IUMLTypes umlTypes = Modelio.getInstance()
                         .getModelingSession().getModel().getUmlTypes();
         
-                if ((ObjingModelNavigation.OBJING_NULL_VALUE != null) 
-                        && (ObjingModelNavigation.OBJING_NULL_VALUE.equals(objingDefaultValue.toLowerCase())))
+                if ((AbstractObjingModelNavigation.OBJING_NULL_VALUE != null) 
+                        && (AbstractObjingModelNavigation.OBJING_NULL_VALUE.equals(objingDefaultValue.toLowerCase())))
         
                     ecoreProp.setNullDefaultValue();
         
@@ -260,7 +260,7 @@ public class OAttribute extends OFeature implements IOElement {
         
                 } else if (objingType instanceof Enumeration){ //Enumeration case
                     
-                    if  (ObjingModelNavigation.isEnumerationliteral((Enumeration) objingType, objingDefaultValue)){
+                    if  (AbstractObjingModelNavigation.isEnumerationliteral((Enumeration) objingType, objingDefaultValue)){
         
                         InstanceValue value = UMLFactory.eINSTANCE.createInstanceValue();
         
@@ -269,7 +269,7 @@ public class OAttribute extends OFeature implements IOElement {
                             value.setType( (org.eclipse.uml2.uml.Type) ecoreType);
                         }
         
-                        Object ecoreInstance = GenerationProperties.getInstance().getMappedElement(ObjingModelNavigation.getEnumerationliteral((Enumeration)objingType, objingDefaultValue));
+                        Object ecoreInstance = GenerationProperties.getInstance().getMappedElement(AbstractObjingModelNavigation.getEnumerationliteral((Enumeration)objingType, objingDefaultValue));
                         if (ecoreInstance instanceof InstanceSpecification){
                             value.setInstance((InstanceSpecification) ecoreInstance);
                         }
@@ -311,7 +311,7 @@ public class OAttribute extends OFeature implements IOElement {
         // If objingMultMin is "" then we don't set a lower multiplicity for the
         // UML2 element.
         if (!"".equals(objingMultMin)) {
-            if (ObjingModelNavigation.OBJING_UNLIMITED_VALUE
+            if (AbstractObjingModelNavigation.OBJING_UNLIMITED_VALUE
                     .equals(objingMultMin))
                 ecoreProp.setLower(org.eclipse.uml2.uml.LiteralUnlimitedNatural.UNLIMITED);
             else {
@@ -416,7 +416,7 @@ public class OAttribute extends OFeature implements IOElement {
         // If objingMultMax is "" then we don't set an upper multiplicity for
         // the UML2 element.
         if (!"".equals(objingMultMax)) {
-            if (ObjingModelNavigation.OBJING_UNLIMITED_VALUE
+            if (AbstractObjingModelNavigation.OBJING_UNLIMITED_VALUE
                     .equals(objingMultMax))
                 ecoreProp.setUpper(org.eclipse.uml2.uml.LiteralUnlimitedNatural.UNLIMITED);
             else {

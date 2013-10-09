@@ -50,7 +50,7 @@ public abstract class AnalystItemData extends ModelElementData {
      Object mDefinition = "";
 
     @objid ("67ae93be-3bab-4b28-b45e-d2f6c099fe4d")
-    @SmaMetaAssociation(metaName="AnalystProperties", typeDataClass=AnalystPropertyTableData.class, min=0, max=1, smAssociationClass=Metadata.AnalystPropertiesSmDependency.class, component = true)
+    @SmaMetaAssociation(metaName="AnalystProperties", typeDataClass=AnalystPropertyTableData.class, min=1, max=1, smAssociationClass=Metadata.AnalystPropertiesSmDependency.class, component = true)
      SmObjectImpl mAnalystProperties;
 
     @objid ("9531b6f4-502d-4564-921e-9819ac62177b")

@@ -22,7 +22,6 @@
 package org.modelio.app.preferences;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.eclipse.jface.preference.IPersistentPreferenceStore;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.util.IPropertyChangeListener;
 
@@ -38,14 +37,14 @@ public class GProjectPreferenceNode implements IPreferenceStore {
     private String prefix;
 
     @objid ("d2e27f6b-60e9-40d8-8847-fe824613de2d")
-    private IPersistentPreferenceStore store;
+    private GProjectPreferenceStore store;
 
     /**
      * @param prefsStore - the underlying concrete preference store
      * @param nodeId - the prefix to prepend to keys before calling the concrete store
      */
     @objid ("0bf3fd04-1c41-4a37-93ff-64f61bbb7d35")
-    public GProjectPreferenceNode(IPersistentPreferenceStore prefsStore, String nodeId) {
+    public GProjectPreferenceNode(GProjectPreferenceStore prefsStore, String nodeId) {
         this.store = prefsStore;
         this.prefix = nodeId + "/";
     }
@@ -240,6 +239,11 @@ public class GProjectPreferenceNode implements IPreferenceStore {
     @Override
     public void setValue(String name, boolean value) {
         this.store.setValue(this.prefix + name, value);
+    }
+
+    @objid ("281fe696-ef2c-459f-a9c0-bdc60105281b")
+    public GProjectPreferenceStore getStore() {
+        return this.store;
     }
 
 }

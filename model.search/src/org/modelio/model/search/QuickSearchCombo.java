@@ -40,9 +40,6 @@ public class QuickSearchCombo {
     @objid ("000fdd22-c59e-10ab-8258-001ec947cd2a")
     protected Combo searchCombo;
 
-    @objid ("000fef42-c59e-10ab-8258-001ec947cd2a")
-    protected Label label;
-
     @objid ("00393dfc-a34e-10ac-8258-001ec947cd2a")
     protected GProject project;
 
@@ -60,14 +57,6 @@ public class QuickSearchCombo {
         gridLayout.marginWidth = 0;
         gridLayout.horizontalSpacing = 0;
         comp.setLayout(gridLayout);
-        
-        // Create the button
-        this.label = new Label(comp, SWT.FLAT);
-        this.label.setText(ModelSearch.I18N.getString("QuickSearch.label"));
-        this.label.setForeground(UIColor.EDITOR_ROTEXT_FG);
-        final GridData gd_label = new GridData(SWT.LEFT, SWT.CENTER, false, false);
-        this.label.setLayoutData(gd_label);
-        this.label.setEnabled(false);
         
         // Create a Combo for the search.
         this.searchCombo = new Combo(comp, SWT.DROP_DOWN | SWT.SINGLE | SWT.V_SCROLL | SWT.H_SCROLL);
@@ -130,7 +119,7 @@ public class QuickSearchCombo {
             break;
         default:
             // Several matching elements => propose for choice.
-            final SearchDialog dlg = new SearchDialog(null, session, found, this.navigationService);
+            final SearchDialog dlg = SearchDialog.getInstance(this.searchCombo.getShell(), session, found, this.navigationService);
             dlg.setBlockOnOpen(false);
             dlg.open();
             dlg.initCriteria(ModelSearchPanel.class, searchCriteria, found);
@@ -159,7 +148,7 @@ public class QuickSearchCombo {
         case 0:
         default:
             // No Element found or several matching elements => propose for choice.
-            final SearchDialog dlg = new SearchDialog(null, session, found, this.navigationService);
+            final SearchDialog dlg = SearchDialog.getInstance(this.searchCombo.getShell(), session, found, this.navigationService);
             dlg.setBlockOnOpen(false);
             dlg.open();
             dlg.initCriteria(ModelSearchPanel.class, searchCriteria, found);
@@ -179,7 +168,6 @@ public class QuickSearchCombo {
             public void run() {
                 QuickSearchCombo.this.searchCombo.setEnabled(true);
                 QuickSearchCombo.this.searchCombo.removeAll();
-                QuickSearchCombo.this.label.setEnabled(true);
                 QuickSearchCombo.this.project = openedProject;
             }
         });
@@ -198,7 +186,7 @@ public class QuickSearchCombo {
                 if (! QuickSearchCombo.this.searchCombo.isDisposed()) {
                     QuickSearchCombo.this.searchCombo.setEnabled(false);
                     QuickSearchCombo.this.searchCombo.removeAll();
-                    QuickSearchCombo.this.label.setEnabled(false);
+                    SearchDialog.closeInstance();
                 }
                 QuickSearchCombo.this.project = null;
             }

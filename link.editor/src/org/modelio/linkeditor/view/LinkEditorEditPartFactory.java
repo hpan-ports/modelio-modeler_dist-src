@@ -40,7 +40,7 @@ import org.modelio.linkeditor.view.node.NodeEditPart;
  * @author fpoyer
  */
 @objid ("1ba1eb56-5e33-11e2-b81d-002564c97630")
-public class LinkEditorEditPartFactory implements EditPartFactory {
+class LinkEditorEditPartFactory implements EditPartFactory {
     @objid ("d4995d77-5efd-11e2-a8be-00137282c51b")
     private final IMModelServices modelServices;
 

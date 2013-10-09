@@ -77,7 +77,7 @@ public class UnmaskParentLinksHandler extends AbstractUnmaskHandler {
             unmaskManager.unmaskParentLink(primarySelection.getViewer(), primaryGm);
         
             for (GraphicalEditPart secondaryEditPart : secondarySelection) {
-                GmModel secondaryGm = (GmModel) primarySelection.getModel();
+                GmModel secondaryGm = (GmModel) secondaryEditPart.getModel();
                 unmaskManager.unmaskParentLink(secondaryEditPart.getViewer(), secondaryGm);
             }
         

@@ -39,9 +39,6 @@ import org.modelio.vcore.smkernel.mapi.MObject;
  */
 @objid ("1b960462-5e33-11e2-b81d-002564c97630")
 class TypeSelectionLabelProvider extends LabelProvider {
-    @objid ("1b960464-5e33-11e2-b81d-002564c97630")
-    private static final String DOT_IMAGE = "dot.blue";
-
     @objid ("1b98658f-5e33-11e2-b81d-002564c97630")
     @Override
     public Image getImage(final Object element) {

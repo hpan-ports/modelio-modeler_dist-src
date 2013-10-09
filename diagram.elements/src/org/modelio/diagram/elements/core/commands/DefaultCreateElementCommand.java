@@ -27,6 +27,7 @@ import org.modelio.diagram.elements.common.abstractdiagram.GmAbstractDiagram;
 import org.modelio.diagram.elements.core.model.ModelManager;
 import org.modelio.diagram.elements.core.node.GmCompositeNode;
 import org.modelio.diagram.elements.core.node.GmNodeModel;
+import org.modelio.gproject.model.IMModelServices;
 import org.modelio.gproject.model.api.MTools;
 import org.modelio.metamodel.Metamodel;
 import org.modelio.metamodel.factory.IModelFactory;
@@ -134,6 +135,10 @@ public class DefaultCreateElementCommand extends Command {
         
             // Set default name
             newElement.setName(modelManager.getModelServices().getElementNamer().getUniqueName(newElement));
+        
+            // Configure element
+            IMModelServices modelServices = modelManager.getModelServices();
+            modelServices.getElementConfigurer().configure(modelFactory, newElement, this.context.getProperties());
         }
         
         // Show the new element in the diagram (ie create its Gm )

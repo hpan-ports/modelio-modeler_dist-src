@@ -32,9 +32,9 @@ import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.vcore.smkernel.mapi.MObject;
 import org.modelio.vcore.smkernel.meta.SmClass;
 import org.modelio.xmi.plugin.Xmi;
+import org.modelio.xmi.util.AbstractObjingModelNavigation;
 import org.modelio.xmi.util.GenerationProperties;
 import org.modelio.xmi.util.NotFoundException;
-import org.modelio.xmi.util.ObjingModelNavigation;
 import org.modelio.xmi.util.XMILogs;
 
 @objid ("df789de6-d0ae-4695-b413-5d4a37f0fde9")
@@ -81,7 +81,7 @@ public class OActivityNode extends OModelElement implements IOElement {
             owner.getNodes().add((org.eclipse.uml2.uml.ActivityNode)ecoreElt);
         
             // Setting composition relation
-            Activity enclosingActivity = (Activity) ObjingModelNavigation
+            Activity enclosingActivity = (Activity) AbstractObjingModelNavigation
                     .getEnclosingElement(getObjingElement(), SmClass.getClass(Activity.class));
             if (enclosingActivity != null) {
                 org.eclipse.uml2.uml.Element ecoreActivity =  GenerationProperties.getInstance()
@@ -151,7 +151,7 @@ public class OActivityNode extends OModelElement implements IOElement {
         }
         
         // Setting composition relation (in  org.eclipse.uml2.uml.Activity):
-        Activity enclosingActivity = (Activity) ObjingModelNavigation
+        Activity enclosingActivity = (Activity) AbstractObjingModelNavigation
                 .getEnclosingElement(getObjingElement(), SmClass.getClass(Activity.class));
         if (enclosingActivity != null) {
             org.eclipse.uml2.uml.Element ecoreActivity =  GenerationProperties.getInstance()

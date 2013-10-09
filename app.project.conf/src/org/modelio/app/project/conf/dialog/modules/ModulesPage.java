@@ -203,15 +203,6 @@ public class ModulesPage {
         });
     }
 
-    /**
-     * Add catalog section updater
-     * When selection change in the section, the description label text will be updated
-     */
-    @objid ("254ec617-1f18-4b24-bb53-dcaff3b1de31")
-    private void addCatalogSectionDescriptionUpdater() {
-        // TODO Auto-generated method stub
-    }
-
     @objid ("367fb76d-b012-470c-9734-982b47947a4e")
     ProjectModel getProjectAdapter() {
         return this.projectAdapter;

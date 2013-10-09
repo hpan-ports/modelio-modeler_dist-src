@@ -21,18 +21,23 @@
 
 package org.modelio.vaudit.modelshield.standard.checkers;
 
+import java.util.ArrayList;
+import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.metamodel.Metamodel;
 import org.modelio.metamodel.uml.infrastructure.properties.TypedPropertyTable;
+import org.modelio.vaudit.modelshield.internal.ModelError;
 import org.modelio.vaudit.modelshield.standard.TriggerType;
 import org.modelio.vaudit.modelshield.standard.checkers.generic.DepCardinalityChecker;
 import org.modelio.vaudit.modelshield.standard.plan.Plan;
+import org.modelio.vcore.smkernel.mapi.MDependency;
+import org.modelio.vcore.smkernel.mapi.MObject;
 
 /**
  * E230:
  * <ul>
  * <li>desc = A PropertyValueSet must have a PropertySet.</li>
- * <li>what = A property value set belonging to the ''{2}'' element has no property set.</li>
+ * <li>what = A property value set belonging to the ''{1}'' element has no property set.</li>
  * </ul>
  */
 @objid ("0000d58e-e20e-1f69-b3fb-001ec947cd2a")
@@ -56,6 +61,14 @@ public class E230Checker extends DepCardinalityChecker {
     @objid ("005fe394-9e33-1f6c-bf9a-001ec947cd2a")
     public E230Checker() {
         super(ERRORID, DEPNAME);
+    }
+
+    @objid ("ceb3f8b8-9bc2-4ac0-82d7-018bd81bd02a")
+    @Override
+    protected ModelError createError(MObject object, MDependency dep, int currentCard) {
+        List<Object> objects = new ArrayList<>();
+        objects.add(object.getCompositionOwner());
+        return new ModelError(ERRORID, object, objects);
     }
 
 }

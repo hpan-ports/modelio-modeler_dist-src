@@ -24,6 +24,7 @@ package org.modelio.vbasic.net;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URL;
 import javax.net.ssl.HttpsURLConnection;
@@ -53,10 +54,8 @@ class HttpsUriConnection extends UriConnection {
      */
     @objid ("a6bd91ec-b360-4308-aac7-1b07f6157923")
     public HttpsUriConnection(URI uri) throws IOException {
-        URL url = uri.toURL();
         this.uri = uri;
-        this.conn = (HttpsURLConnection) url.openConnection();
-        this.conn.setSSLSocketFactory(SslManager.getInstance().getSslContext().getSocketFactory());
+        initConnection();
     }
 
     @objid ("880bdc5b-f0cb-45c2-975b-669682bcbbc7")
@@ -65,9 +64,10 @@ class HttpsUriConnection extends UriConnection {
         try {
             return this.conn.getInputStream();
         } catch(SSLHandshakeException e){
-            if (SslManager.getInstance().fixUntrustedServer(e, this.uri ))
+            if (SslManager.getInstance().fixUntrustedServer(e, this.uri )) {
+                initConnection();
                 return this.conn.getInputStream();
-            else
+            } else
                 throw e;
         }
     }
@@ -165,6 +165,13 @@ class HttpsUriConnection extends UriConnection {
             return "Basic " + javax.xml.bind.DatatypeConverter.printBase64Binary(url.getUserInfo().getBytes());
         } else
             return null;
+    }
+
+    @objid ("1a8124d8-79e8-4ecc-994b-5b8463575489")
+    private void initConnection() throws MalformedURLException, IOException {
+        URL url = this.uri.toURL();
+        this.conn = (HttpsURLConnection) url.openConnection();
+        this.conn.setSSLSocketFactory(SslManager.getInstance().getSslContext().getSocketFactory());
     }
 
     /**

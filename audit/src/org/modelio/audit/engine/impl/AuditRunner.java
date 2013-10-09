@@ -27,11 +27,12 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.audit.engine.core.AuditRunnerStatus;
 import org.modelio.audit.engine.core.IAuditMonitor;
 import org.modelio.audit.engine.core.IControl;
+import org.modelio.audit.plugin.Audit;
 import org.modelio.vcore.session.api.ICoreSession;
 
 /**
  * Audit check runner engine. Its main role consists in fetching some controls to carry out from the CheckProgram, running theses
- * controls and publishing the results in teh AuditDiagnostic.
+ * controls and publishing the results in the AuditDiagnostic.
  */
 @objid ("12d79e3c-cdd0-4d7d-9ab1-0d606a3b22b5")
 public class AuditRunner implements Runnable {
@@ -78,7 +79,7 @@ public class AuditRunner implements Runnable {
                         processBatch(batch);
                         fireStatus(); // force a fire status to update the
                         // controls counter
-                        Thread.yield();
+                        //Thread.yield();
         
                     } else {
                         // Before going IDLE, post an empty diagnostic to force
@@ -100,8 +101,10 @@ public class AuditRunner implements Runnable {
                     // controls counter
                     Thread.sleep(1000);
                     break;
-                }
         
+                default:
+                    break;
+                }
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -120,10 +123,13 @@ public class AuditRunner implements Runnable {
         IDiagnosticCollector diagnostic = new DiagnosticCollector(batch.getJobId());
         for (IControl check : batch.getControls()) {
             try {
+                //long tstart = System.currentTimeMillis();
                 check.run(diagnostic, batch.getElement());
+                //long tend = System.currentTimeMillis();
+                //if ((tend-tstart)>30)
+                //    System.out.println(check.getRuleId() + " " + (tend-tstart) + " ms");
             } catch (Exception e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
+                Audit.LOG.debug(e);
             }
         }
         postDiagnostic(diagnostic);
@@ -131,7 +137,7 @@ public class AuditRunner implements Runnable {
 
     @objid ("04ae3093-b587-4307-927f-6f732ac47e6d")
     private void postDiagnostic(IDiagnosticCollector diagnostic) {
-        this.auditDiagnostic.postDiagnostic(diagnostic.getEntries(),this.session);
+        this.auditDiagnostic.postDiagnostic(diagnostic.getEntries(), this.session);
     }
 
     @objid ("ff90750b-68f7-4aa1-9fad-afb79315a932")
@@ -172,21 +178,21 @@ public class AuditRunner implements Runnable {
     protected void fireStatus() {
         int nbRules = this.checkProgram.size();
         boolean notify = false;
-        if(nbRules == 0){
+        if (nbRules == 0) {
             notify = true;
-        }else if(nbRules > 100000){
-            if(nbRules % 100 == 0){
+        } else if (nbRules > 100000) {
+            if (nbRules % 100 == 0) {
                 notify = true;
             }
-        }else if(nbRules > 10000){
-            if(nbRules % 10 == 0){
+        } else if (nbRules > 10000) {
+            if (nbRules % 10 == 0) {
                 notify = true;
             }
-        }else{
+        } else {
             notify = true;
         }
         
-        if(notify){
+        if (notify) {
             for (IAuditMonitor monitor : this.auditMonitors) {
                 monitor.status(this.status, this.checkProgram.size());
             }

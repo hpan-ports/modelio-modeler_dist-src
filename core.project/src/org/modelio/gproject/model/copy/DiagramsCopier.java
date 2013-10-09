@@ -43,6 +43,11 @@ class DiagramsCopier {
     @objid ("ebe253bd-c5ea-42f5-a514-7c8fb223bc3f")
     public void fixDiagram(AbstractDiagram localDiagram, Map<SmObjectImpl, SmObjectImpl> pairs) {
         String content = localDiagram.getUiData();
+        if (content.startsWith("<?xml")) {
+            // old uncompressed format
+        } else {
+            content = org.modelio.vcore.utils.UUBase64Compressor.decompress(content);
+        }
         
         for (Entry<SmObjectImpl, SmObjectImpl> pair : pairs.entrySet()) {
             SmObjectImpl refElt = pair.getKey();
@@ -50,7 +55,7 @@ class DiagramsCopier {
             content = content.replace(refElt.getUuid().toString(), localElt.getUuid().toString());
         }
         
-        localDiagram.setUiData(content);
+        localDiagram.setUiData(org.modelio.vcore.utils.UUBase64Compressor.compress(content));
     }
 
 }

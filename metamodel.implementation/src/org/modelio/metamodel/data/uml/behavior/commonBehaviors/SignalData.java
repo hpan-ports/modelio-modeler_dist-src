@@ -79,10 +79,6 @@ public class SignalData extends GeneralClassData {
     @SmaMetaAssociation(metaName="PBase", typeDataClass=ParameterData.class, min=0, max=1, smAssociationClass=Metadata.PBaseSmDependency.class, partof = true)
      SmObjectImpl mPBase;
 
-    @objid ("b4a4ba33-c562-4b0c-b78c-4cb87d7409bb")
-    @SmaMetaAssociation(metaName="BrowseBase", typeDataClass=ModelElementData.class, min=0, max=1, smAssociationClass=Metadata.BrowseBaseSmDependency.class, partof = true)
-     SmObjectImpl mBrowseBase;
-
     @objid ("9797057a-eb0a-4fc5-ad44-faf0e2d146e3")
     @SmaMetaAssociation(metaName="OBase", typeDataClass=OperationData.class, min=0, max=1, smAssociationClass=Metadata.OBaseSmDependency.class, partof = true)
      SmObjectImpl mOBase;
@@ -134,9 +130,6 @@ public class SignalData extends GeneralClassData {
 
         @objid ("273d7846-aba1-4c2e-b199-21a83cbc69ad")
         private static SmDependency PBaseDep = null;
-
-        @objid ("d183c6cc-28a4-4005-9ffe-64c0919d7cff")
-        private static SmDependency BrowseBaseDep = null;
 
         @objid ("ecabbc2b-6d6e-4db5-bee5-ee0da3e3e2c6")
         private static SmDependency OBaseDep = null;
@@ -209,14 +202,6 @@ public class SignalData extends GeneralClassData {
             return PBaseDep;
         }
 
-        @objid ("a006e8dc-717b-4d34-b8d2-b178f88c4510")
-        public static SmDependency BrowseBaseDep() {
-            if (BrowseBaseDep == null) {
-            	BrowseBaseDep = classof().getDependencyDef("BrowseBase");
-            }
-            return BrowseBaseDep;
-        }
-
         @objid ("d0fb436e-9b8a-451f-87f9-59b7095ec67b")
         public static SmDependency OBaseDep() {
             if (OBaseDep == null) {
@@ -275,12 +260,6 @@ public class SignalData extends GeneralClassData {
         public static SmDependency getReceiverDep() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return ReceiverDep;
-        }
-
-        @objid ("cb33ef04-ca9c-4a92-b7c3-932de92f5180")
-        public static SmDependency getBrowseBaseDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return BrowseBaseDep;
         }
 
         @objid ("fc83ef26-75f2-4c94-8229-84bf30740c9b")
@@ -519,27 +498,6 @@ public class SignalData extends GeneralClassData {
             @Override
             public SmDependency getSymetric() {
                 return DataFlowData.Metadata.SModelDep();
-            }
-
-        }
-
-        @objid ("0071bdd0-c4c2-1fd8-97fe-001ec947cd2a")
-        public static class BrowseBaseSmDependency extends SmSingleDependency {
-            @objid ("67fef286-22b4-477d-ad06-76774bc1b705")
-            @Override
-            public SmObjectImpl getValue(ISmObjectData data) {
-                return ((SignalData) data).mBrowseBase;
-            }
-
-            @objid ("4ebc8603-f53a-4e18-a073-134736da8e7c")
-            public void setValue(ISmObjectData data, SmObjectImpl value) {
-                ((SignalData) data).mBrowseBase = value;
-            }
-
-            @objid ("1033ffcf-7e39-4987-8a0d-df03823c71a4")
-            @Override
-            public SmDependency getSymetric() {
-                return null;
             }
 
         }

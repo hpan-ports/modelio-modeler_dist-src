@@ -70,23 +70,23 @@ public class WksLabelProvider extends StyledCellLabelProvider {
     public WksLabelProvider(IProjectService projectService, final Font font) {
         FontData[] selectedFontData = getModifiedFontData(font.getFontData(), SWT.BOLD);
         this.selectedFont = new Font(Display.getCurrent(), selectedFontData);
-        this.normalFont = font;        
+        this.normalFont = font;
         
         if (defaultOpenLocalProjectIcon == null) {
-            defaultOpenLocalProjectIcon = AbstractUIPlugin.imageDescriptorFromPlugin(AppProjectUi.PLUGIN_ID, "icons/openedproject.png")
-                    .createImage();
+            defaultOpenLocalProjectIcon = AbstractUIPlugin.imageDescriptorFromPlugin(AppProjectUi.PLUGIN_ID,
+                    "icons/openedproject.png").createImage();
         }
         if (defaultClosedLocalProjectIcon == null) {
-            defaultClosedLocalProjectIcon = AbstractUIPlugin.imageDescriptorFromPlugin(AppProjectUi.PLUGIN_ID, "icons/closedproject.png")
-                    .createImage();
+            defaultClosedLocalProjectIcon = AbstractUIPlugin.imageDescriptorFromPlugin(AppProjectUi.PLUGIN_ID,
+                    "icons/closedproject.png").createImage();
         }
         if (defaultOpenServerProjectIcon == null) {
-            defaultOpenServerProjectIcon = AbstractUIPlugin.imageDescriptorFromPlugin(AppProjectUi.PLUGIN_ID, "icons/openserverproject.png")
-                    .createImage();
+            defaultOpenServerProjectIcon = AbstractUIPlugin.imageDescriptorFromPlugin(AppProjectUi.PLUGIN_ID,
+                    "icons/openserverproject.png").createImage();
         }
         if (defaultClosedServerProjectIcon == null) {
-            defaultClosedServerProjectIcon = AbstractUIPlugin.imageDescriptorFromPlugin(AppProjectUi.PLUGIN_ID, "icons/closedserverproject.png")
-                    .createImage();
+            defaultClosedServerProjectIcon = AbstractUIPlugin.imageDescriptorFromPlugin(AppProjectUi.PLUGIN_ID,
+                    "icons/closedserverproject.png").createImage();
         }
         
         this.projectService = projectService;
@@ -124,7 +124,7 @@ public class WksLabelProvider extends StyledCellLabelProvider {
     @objid ("009219e0-8aeb-1fe1-bf4c-001ec947cd2a")
     private void updateOpenedProject(final ViewerCell cell, final ProjectDescriptor project) {
         cell.setFont(this.selectedFont);
-        cell.setText(project.getName());
+        cell.setText(getProjectLabel(project));
         Image icon = getProjectIcon(project);
         if (icon == null) {
             icon = (project.getType().equals(PROJECT_TYPE_LOCAL)) ? defaultOpenLocalProjectIcon : defaultOpenServerProjectIcon;
@@ -135,7 +135,7 @@ public class WksLabelProvider extends StyledCellLabelProvider {
     @objid ("00925446-8aeb-1fe1-bf4c-001ec947cd2a")
     private void updateClosedProject(final ViewerCell cell, final ProjectDescriptor project) {
         cell.setFont(this.normalFont);
-        cell.setText(project.getName());
+        cell.setText(getProjectLabel(project));
         Image icon = getProjectIcon(project);
         if (icon == null) {
             icon = (project.getType().equals(PROJECT_TYPE_LOCAL)) ? defaultClosedLocalProjectIcon : defaultClosedServerProjectIcon;
@@ -154,14 +154,15 @@ public class WksLabelProvider extends StyledCellLabelProvider {
     @objid ("0010e852-93fc-1061-84ef-001ec947cd2a")
     private boolean isCurrentlyOpenedProject(ProjectDescriptor projectDescriptor) {
         final GProject currentlyOpenedProject = this.projectService.getOpenedProject();
-        return (currentlyOpenedProject != null && (currentlyOpenedProject.getName().equals(projectDescriptor.getName())));
+        return (currentlyOpenedProject != null && (currentlyOpenedProject.getProjectPath().equals(projectDescriptor.getPath())));
     }
 
     @objid ("00ffab51-13c6-4ded-9ddb-4ae07eb82acf")
     private Image getProjectIcon(final ProjectDescriptor project) {
         Image projectIcon = null;
         String iconName = project.getProperties().getValue(INFO_PROJECT_ICON_NAME);
-        if (iconName == null) return null;
+        if (iconName == null)
+            return null;
         Path iconPath = project.getPath().resolve("data").resolve(iconName);
         projectIcon = createUserProjectIcon(iconPath);
         return projectIcon;
@@ -172,10 +173,22 @@ public class WksLabelProvider extends StyledCellLabelProvider {
         Image projectIcon = null;
         if (Files.exists(path)) {
             Image originalImage = new Image(null, path.toString());
-            projectIcon = new Image(null, originalImage.getImageData().scaledTo(16,16));
+            projectIcon = new Image(null, originalImage.getImageData().scaledTo(16, 16));
             originalImage.dispose();
         }
         return projectIcon;
+    }
+
+    @objid ("93f3a922-7574-48a0-9fc8-9ca652a42fc5")
+    private String getProjectLabel(ProjectDescriptor project) {
+        String text;
+        Path p = project.getPath();
+        if (p.getNameCount() > 0) {
+            text = p.getName(p.getNameCount() - 1).toString();
+        } else {
+            text =  project.getName();
+        }
+        return text;
     }
 
 }

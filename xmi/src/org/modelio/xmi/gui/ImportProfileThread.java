@@ -46,7 +46,7 @@ import org.modelio.xmi.util.XMILogs;
  * @author ebrosse
  */
 @objid ("0cfa068d-d9f8-4ce9-9839-e549860fca07")
-public class ImportProfileThread extends XMIThread implements IRunnableWithProgress {
+public class ImportProfileThread extends AbstractXMIThread implements IRunnableWithProgress {
     @objid ("4a5e057e-d48f-408a-8293-a1232d113452")
     private ImportServices service = null;
 

@@ -25,10 +25,10 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.uml2.uml.UMLFactory;
 import org.modelio.metamodel.uml.infrastructure.ModelTree;
 import org.modelio.metamodel.uml.statik.Component;
+import org.modelio.xmi.util.AbstractObjingModelNavigation;
 import org.modelio.xmi.util.GenerationProperties;
 import org.modelio.xmi.util.NotFoundException;
 import org.modelio.xmi.util.ObjingEAnnotation;
-import org.modelio.xmi.util.ObjingModelNavigation;
 
 @objid ("6ddc18a4-ec8b-4d31-b713-c62b11757021")
 public class OComponent extends ONameSpace implements IOElement {
@@ -66,7 +66,7 @@ public class OComponent extends ONameSpace implements IOElement {
     public OComponent(Component element) {
         super(element);
         this.objingElement = element;
-        if (ObjingModelNavigation.isIsClassAssociation(this.objingElement))
+        if (AbstractObjingModelNavigation.isIsClassAssociation(this.objingElement))
             this.isIsClassAssociation = true;
         else
             this.isIsClassAssociation = false;

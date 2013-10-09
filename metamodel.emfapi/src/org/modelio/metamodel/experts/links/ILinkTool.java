@@ -67,12 +67,13 @@ public interface ILinkTool {
 
     /**
      * Tells whether a link can have the given source.
+     * @param stereotype The stereotype of the link.
      * @param link The link to test.
      * @param from The source of the link element.
      * @return true if the source is accepted, else false.
      */
     @objid ("00054a1a-de02-1097-bcec-001ec947cd2a")
-    boolean canSource(MObject link, MObject from);
+    boolean canSource(Stereotype stereotype, MClass link, MClass from);
 
     /**
      * Tells whether a link can have the given target.
@@ -126,5 +127,25 @@ public interface ILinkTool {
      */
     @objid ("56759d2c-be89-473c-bb03-25ed17d74899")
     boolean canLink(Stereotype stereotypedLink, MClass link, MClass from, MClass to, MClass owner);
+
+    /**
+     * /**
+     * Tells whether a link can have the given target.
+     * @param stereotype The stereotype of the link.
+     * @param link The link to test.
+     * @param from The target of the link element.
+     * @return true if the target is accepted, else false.
+     */
+    @objid ("9f3ab8e9-a9cb-4766-9849-b6226827ff55")
+    boolean canTarget(Stereotype stereotype, MClass link, MClass from);
+
+    /**
+     * Tells whether a link can have the given source.
+     * @param link The link to test.
+     * @param from The source of the link element.
+     * @return true if the source is accepted, else false.
+     */
+    @objid ("4f8b4d1b-e08d-4f0f-8223-7d8404814381")
+    boolean canSource(MObject link, MObject from);
 
 }

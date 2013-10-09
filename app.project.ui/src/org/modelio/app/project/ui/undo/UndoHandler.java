@@ -22,20 +22,32 @@
 package org.modelio.app.project.ui.undo;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
+import org.eclipse.core.runtime.MultiStatus;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.e4.core.di.annotations.CanExecute;
 import org.eclipse.e4.core.di.annotations.Execute;
+import org.eclipse.e4.core.services.statusreporter.StatusReporter;
 import org.modelio.app.project.core.services.IProjectService;
 import org.modelio.app.project.ui.plugin.AppProjectUi;
 import org.modelio.vcore.session.api.ICoreSession;
 
+/**
+ * Undo last transaction handler.
+ */
 @objid ("d26fbb25-3259-11e2-ad6b-002564c97630")
 public class UndoHandler {
     @objid ("d3ffa225-3259-11e2-ad6b-002564c97630")
     @Execute
-    public void execute(final IProjectService projectService) {
+    public void execute(final IProjectService projectService, StatusReporter statusReporter) {
         AppProjectUi.LOG.info("Undo transaction");
-        ICoreSession session = projectService.getSession();
-        session.getTransactionSupport().undo();
+        try {
+            ICoreSession session = projectService.getSession();
+            session.getTransactionSupport().undo();
+        } catch (RuntimeException e) {
+            AppProjectUi.LOG.error(e);
+            
+            statusReporter.show(StatusReporter.ERROR, AppProjectUi.I18N.getMessage("UndoHandler.Failed"), e);
+        }
     }
 
     @objid ("d40464e8-3259-11e2-ad6b-002564c97630")

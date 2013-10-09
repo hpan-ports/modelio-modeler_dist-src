@@ -28,6 +28,7 @@ import org.eclipse.swt.graphics.Image;
 import org.modelio.core.ui.images.ElementImageService;
 import org.modelio.core.ui.images.ModuleI18NService;
 import org.modelio.edition.notes.plugin.EditionNotes;
+import org.modelio.editors.richnote.helper.RichNoteLabelProvider;
 import org.modelio.metamodel.mda.ModuleComponent;
 import org.modelio.metamodel.uml.infrastructure.Constraint;
 import org.modelio.metamodel.uml.infrastructure.Element;
@@ -45,7 +46,9 @@ public class NoteViewTreeLabelProvider extends LabelProvider {
     @objid ("26fb5304-186f-11e2-bc4e-002564c97630")
     @Override
     public Image getImage(Object element) {
-        if (element instanceof Element) {
+        if (element instanceof ExternDocument) {
+            return RichNoteLabelProvider.getIcon((ExternDocument) element);
+        } else if (element instanceof Element) {
             return ElementImageService.getIcon((Element) element);
         }
         return null;

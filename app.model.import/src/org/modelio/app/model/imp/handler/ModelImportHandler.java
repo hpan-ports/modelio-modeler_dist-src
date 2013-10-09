@@ -36,7 +36,10 @@ import org.modelio.app.model.imp.impl.ui.ImportModelDialog;
 import org.modelio.app.model.imp.plugin.AppModelImport;
 import org.modelio.app.project.core.services.IProjectService;
 import org.modelio.gproject.fragment.IProjectFragment;
+import org.modelio.gproject.gproject.GProject;
 import org.modelio.gproject.module.IModuleCatalog;
+import org.modelio.metamodel.analyst.AnalystProject;
+import org.modelio.metamodel.mda.ModuleComponent;
 import org.modelio.metamodel.mda.Project;
 import org.modelio.vcore.session.api.ICoreSession;
 import org.modelio.vcore.session.api.transactions.ITransaction;
@@ -51,14 +54,27 @@ public class ModelImportHandler {
     @objid ("8269f820-4e0c-4406-9a27-dd7757ce9197")
     @Execute
     public void execute(IProjectService projectService, IModuleCatalog moduleCatalog, @Named(IServiceConstants.ACTIVE_SELECTION) final IStructuredSelection selection, @Named(IServiceConstants.ACTIVE_SHELL) Shell activeShell, IProgressService progressService) {
-        Project project = getSelectedProject(selection);
+        IProjectFragment fragment = getSelectedFragment(selection, projectService.getOpenedProject());
+        
+        Project project = null;
+        AnalystProject analystProject = null;
+        ModuleComponent localModule = null;
+        for (MObject root : fragment.getRoots()) {
+            if (root instanceof Project) {
+                project = (Project) root;
+            } else if (root instanceof AnalystProject) {
+                analystProject = (AnalystProject) root;
+            } else if (root instanceof ModuleComponent) {
+                localModule = (ModuleComponent) root;
+            }
+        }
         
         ICoreSession session = projectService.getSession();
         try (ITransaction transaction = session.getTransactionSupport().createTransaction("Import Model");
                 ModelImportDataModel dataModel = new ModelImportDataModel()) {
             if (promptUser(activeShell, moduleCatalog, dataModel) && dataModel.getElementsToImport().size() > 0) {
                 // Import the model...
-                progressService.run(true, false, new ModelImporter(session, project, dataModel));
+                progressService.run(true, false, new ModelImporter(session, project, analystProject, localModule, dataModel));
         
                 transaction.commit();
             } else {
@@ -75,26 +91,24 @@ public class ModelImportHandler {
     @objid ("1fc787a6-0741-4477-ba75-b336379b5e8a")
     @CanExecute
     public boolean isEnabled(IProjectService projectService, @Named(IServiceConstants.ACTIVE_SELECTION) final IStructuredSelection selection) {
-        if (projectService.getOpenedProject() == null) {
+        final GProject openedProject = projectService.getOpenedProject();
+        if (openedProject == null) {
             return false;
         }
-        
-        Project project = getSelectedProject(selection);
-        return project != null && (project.getStatus().isModifiable() || project.getStatus().isCmsManaged());
+        return getSelectedFragment(selection, openedProject) != null;
     }
 
     @objid ("025d93f7-99d1-48a9-95d9-5e72ada76c3d")
-    private Project getSelectedProject(IStructuredSelection selection) {
+    private IProjectFragment getSelectedFragment(IStructuredSelection selection, GProject project) {
         if (selection.size() == 1) {
             Object first = selection.getFirstElement();
             if (first instanceof IProjectFragment) {
-                for (MObject root : ((IProjectFragment) first).getRoots()) {
-                    if (root instanceof Project) {
-                        return (Project) root;
-                    }
+                return ((IProjectFragment) first);
+            } else if (first instanceof Project || first instanceof AnalystProject || first instanceof ModuleComponent) {
+                final MObject elt = (MObject) first;
+                if ((elt.getStatus().isModifiable() || elt.getStatus().isCmsManaged())) {
+                    return project.getFragment(elt);
                 }
-            } else if (first instanceof Project) {
-                return (Project) first;
             }
         }
         return null;

@@ -31,9 +31,9 @@ import org.modelio.metamodel.uml.statik.DataType;
 import org.modelio.metamodel.uml.statik.GeneralClass;
 import org.modelio.metamodel.uml.statik.Package;
 import org.modelio.vcore.smkernel.meta.SmClass;
+import org.modelio.xmi.util.AbstractObjingModelNavigation;
 import org.modelio.xmi.util.GenerationProperties;
 import org.modelio.xmi.util.NotFoundException;
-import org.modelio.xmi.util.ObjingModelNavigation;
 import org.modelio.xmi.util.PrimitiveTypeMapper;
 
 @objid ("87ba85d7-ef0e-48f9-afa1-ea5183737d13")
@@ -109,10 +109,10 @@ public class OObjectNode extends OActivityNode implements IOElement {
             node.setSelection(behavior);
                 
             // Setting composition relation
-            Activity enclosingActivity = (Activity) ObjingModelNavigation
+            Activity enclosingActivity = (Activity) AbstractObjingModelNavigation
                     .getEnclosingElement(this.getObjingElement(), SmClass.getClass(Activity.class));
                 
-            Package objingPkg = ObjingModelNavigation
+            Package objingPkg = AbstractObjingModelNavigation
                     .getNearestPackage(enclosingActivity);
                 
             if (objingPkg != null) {

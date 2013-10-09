@@ -34,9 +34,6 @@ import org.modelio.vcore.smkernel.mapi.MClass;
  */
 @objid ("1b5ce363-5e33-11e2-b81d-002564c97630")
 public class CommonLabelProvider extends LabelProvider {
-    @objid ("1b5ce365-5e33-11e2-b81d-002564c97630")
-    private static final String DOT_IMAGE = "dot.blue";
-
     @objid ("1b5f44a7-5e33-11e2-b81d-002564c97630")
     @Override
     public Image getImage(Object element) {

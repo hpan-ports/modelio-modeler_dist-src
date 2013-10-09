@@ -24,6 +24,7 @@ package org.modelio.vcore.session.api.repository;
 import java.util.ArrayList;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
+import org.modelio.vcore.Log;
 
 /**
  * Helper used to handle storage error reporting.
@@ -74,8 +75,13 @@ public class StorageErrorSupport {
      */
     @objid ("0d297b1f-d66d-11e1-adbb-001ec947ccaf")
     public <T extends Throwable> T fireWarning(T e) {
-        for (IRepositoryErrorListener l : this.errorListeners)
-            l.onWarning(this.repository, e);
+        if (this.errorListeners.isEmpty()) {
+            Log.warning(this.repository.toString()+" repository warning: ");
+            Log.warning(e);
+        } else {
+            for (IRepositoryErrorListener l : this.errorListeners)
+                l.onWarning(this.repository, e);
+        }
         return e;
     }
 
@@ -87,8 +93,13 @@ public class StorageErrorSupport {
      */
     @objid ("0d297b25-d66d-11e1-adbb-001ec947ccaf")
     public <T extends Throwable> T fireError(T e) {
-        for (IRepositoryErrorListener l : this.errorListeners)
-            l.onError(this.repository, e);
+        if (this.errorListeners.isEmpty()) {
+            Log.error(this.repository.toString()+" repository ERROR: ");
+            Log.error(e);
+        } else {
+            for (IRepositoryErrorListener l : this.errorListeners)
+                l.onError(this.repository, e);
+        }
         return e;
     }
 

@@ -23,7 +23,6 @@ package org.modelio.xmi.util;
 
 import java.util.HashMap;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.modelio.api.modelio.Modelio;
 import org.modelio.metamodel.analyst.AnalystProject;
 import org.modelio.metamodel.analyst.Requirement;
 import org.modelio.metamodel.analyst.RequirementContainer;
@@ -89,6 +88,8 @@ import org.modelio.metamodel.uml.statik.InterfaceRealization;
 import org.modelio.metamodel.uml.statik.Link;
 import org.modelio.metamodel.uml.statik.LinkEnd;
 import org.modelio.metamodel.uml.statik.Manifestation;
+import org.modelio.metamodel.uml.statik.NaryAssociation;
+import org.modelio.metamodel.uml.statik.NaryAssociationEnd;
 import org.modelio.metamodel.uml.statik.Operation;
 import org.modelio.metamodel.uml.statik.Package;
 import org.modelio.metamodel.uml.statik.PackageImport;
@@ -125,7 +126,7 @@ public class ScopeChecker {
     @objid ("6298ca39-0c93-4608-80fb-aaf2f6d1057c")
     public ScopeChecker(Element localRoot) {
         this.localRoot = localRoot;
-        this.scopeMap = new HashMap<MObject, Boolean>();
+        this.scopeMap = new HashMap<>();
         this.selector = new ScopeSelector();
     }
 
@@ -168,10 +169,6 @@ public class ScopeChecker {
         @Override
         public Object visitAssociationEnd(AssociationEnd eltToTest) {
             contains(eltToTest.getCompositionOwner());
-            
-            //            if (theResult) {        
-            //                contains(eltToTest.getOpposite().getCompositionOwner());
-            //            }
             return null;
         }
 
@@ -190,6 +187,7 @@ public class ScopeChecker {
         }
 
         @objid ("f92c8c65-53ed-4622-9abe-e22b90d02f35")
+        @Override
         public Object visitBindableInstance(BindableInstance eltToTest) {
             contains(eltToTest.getCompositionOwner());
             return null;
@@ -732,6 +730,23 @@ public class ScopeChecker {
         @Override
         public Object visitExpansionRegion(ExpansionRegion eltToTest) {
             contains(eltToTest.getCompositionOwner());
+            return null;
+        }
+
+        @objid ("0a5c1c21-f445-4748-ac7b-d7b52237a570")
+        @Override
+        public Object visitNaryAssociationEnd(NaryAssociationEnd eltToTest) {
+            contains(eltToTest.getCompositionOwner());
+            return null;
+        }
+
+        @objid ("ffbbc3db-b8a2-4963-af71-cfb08083821e")
+        @Override
+        public Object visitNaryAssociation(NaryAssociation eltToTest) {
+            for (NaryAssociationEnd assocEnd : eltToTest.getNaryEnd()) {
+                if (!contains(assocEnd.getOwner()))
+                    break;
+            }
             return null;
         }
 

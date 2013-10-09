@@ -54,7 +54,7 @@ public class RichNoteLabelProvider {
     @objid ("e5c8589a-eec4-4be3-8624-5a61c781331d")
     public static Image getIcon(final ExternDocument doc) {
         RichNoteFormat format = RichNoteFormatRegistry.getInstance().getDocumentFormatForMime(doc.getMimeType());
-        return format.getIcon();
+        return format != null ? format.getIcon() : null;
     }
 
     /**

@@ -43,9 +43,11 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.modelio.app.core.navigate.IModelioNavigationService;
 import org.modelio.audit.engine.AuditEngine;
+import org.modelio.audit.engine.core.AuditRunnerStatus;
 import org.modelio.audit.engine.core.IAuditDiagnostic;
 import org.modelio.audit.engine.core.IAuditEntry;
 import org.modelio.audit.engine.core.IAuditListener;
+import org.modelio.audit.engine.core.IAuditMonitor;
 import org.modelio.audit.engine.impl.AuditEntry;
 import org.modelio.audit.view.dialog.auditEntry.AuditEntryDialog;
 import org.modelio.audit.view.model.AuditElementModel;
@@ -57,21 +59,12 @@ import org.modelio.ui.panel.IPanelProvider;
 import org.modelio.vcore.session.api.ICoreSession;
 
 @objid ("62d0667f-0a56-4df6-91b0-3bfb5195a2f8")
-public class AuditPanelProvider implements IPanelProvider, IAuditListener {
+public class AuditPanelProvider implements IPanelProvider, IAuditListener, IAuditMonitor {
     @objid ("ce77b1a5-a0e2-432d-9a2c-01b10536e591")
     public boolean autoSelectInExplorer;
 
     @objid ("7fb2c34e-5b76-46ab-916e-27f53c94a904")
-    private boolean isRedrow = true;
-
-    @objid ("d6e00fac-489d-4b43-8ab6-1a1b4d735293")
-    private Composite area;
-
-    @objid ("c3e9e194-4b73-466d-b314-fe70c7b859c2")
-    private TreeViewer auditTable = null;
-
-    @objid ("88386acf-7a43-49f3-809f-f6ad62a619da")
-    private List<TreeViewerColumn> columns;
+     volatile boolean redrawScheduled = false;
 
     @objid ("2d0198fb-6e14-4171-9f6b-ab2fcdfe711f")
     private MApplication application;
@@ -80,7 +73,7 @@ public class AuditPanelProvider implements IPanelProvider, IAuditListener {
     private EModelService emService;
 
     @objid ("fa78603f-c9fc-4e62-918b-b9493b9b4440")
-    private ICoreSession modelingSession;
+     ICoreSession modelingSession;
 
     @objid ("cf28f2f1-cf87-4845-82ce-d9e22434eb59")
     private IMModelServices modelService;
@@ -89,13 +82,22 @@ public class AuditPanelProvider implements IPanelProvider, IAuditListener {
     private AuditEngine auditEngine;
 
     @objid ("458d715e-45aa-4969-899a-c2eb271ff9af")
-    private StatusBar auditStatus;
+     StatusBar auditStatus;
 
     @objid ("9411252a-40e4-4cc5-bf5a-9caecdc79a7a")
     public IModelioNavigationService navigationService;
 
     @objid ("42607bd7-1f45-42da-89e6-4ab8a2b7ccfa")
     private AuditProviderFactory providerFactory;
+
+    @objid ("358e1d5f-797f-49e1-a23f-a9c2e1e0b341")
+    private Composite area;
+
+    @objid ("c65101b7-55ec-4be1-b727-b3c428c49c2f")
+     TreeViewer auditTable = null;
+
+    @objid ("8c80e442-92c0-4ab2-9408-7fa0c15c9d9f")
+    private List<TreeViewerColumn> columns;
 
     @objid ("89485182-43f9-4265-9401-27972fff1177")
     public AuditPanelProvider(ICoreSession newModelingSession, IMModelServices newModelService, IModelioNavigationService newNavigationService, MApplication application, EModelService emService, String jobId) {
@@ -148,9 +150,139 @@ public class AuditPanelProvider implements IPanelProvider, IAuditListener {
     @objid ("91dc8ffb-d3b0-4a62-9fa0-cfc5d8b76997")
     public void dispose() {
         this.auditEngine.removeAuditListener(this);
-               this.auditEngine.removeAuditMonitor(this.auditStatus);
-        //        this.auditEngine.removeAuditMonitor(this.auditStatus);
         this.modelingSession = null;
+    }
+
+    /**
+     * This method is called when the diagnostic changes
+     */
+    @objid ("eba36d32-192b-466f-9c74-1eb4ef6b2f95")
+    @Override
+    public void auditModelChanged(final IAuditDiagnostic auditDiagnostic) {
+        refresh(auditDiagnostic);
+    }
+
+    @objid ("fbf3de03-4c34-40aa-8306-1ad67b3c4420")
+    public void setTitleImage(String path) {
+        List<MPart> parts = this.emService.findElements(this.application, AuditView.VIEW_ID, MPart.class, new ArrayList<String>());
+        for (MPart part : parts) {
+            if (part.getObject() instanceof AuditView) {
+                part.setIconURI("platform:/plugin/org.modelio.audit/" + path);
+            }
+        }
+    }
+
+    @objid ("5a8f4d61-4e70-4eb9-9980-deabba7f244c")
+    public Object getSelectedDiagnosticEntry() {
+        TreeSelection selection = (TreeSelection) this.auditTable.getSelection();
+        return selection.getFirstElement();
+    }
+
+    @objid ("413d25a2-249a-4c1d-ae11-886e01461a35")
+    public boolean isAutoSelectInExplorer() {
+        // Automatically generated method. Please delete this comment before entering specific code.
+        return this.autoSelectInExplorer;
+    }
+
+    @objid ("5703c551-425e-4241-8da9-066cfa817cfa")
+    public void setAutoSelectInExplorer(boolean value) {
+        // Automatically generated method. Please delete this comment before entering specific code.
+        this.autoSelectInExplorer = value;
+    }
+
+    @objid ("9111731f-af16-448e-971c-0e3c867670be")
+    @Override
+    public void setInput(Object input) {
+        if (this.auditEngine != null) {
+            this.auditEngine.removeAuditListener(this);
+            this.auditEngine.removeAuditMonitor(this);
+        }
+        
+        this.auditEngine = (AuditEngine) input;
+        this.auditEngine.addAuditListener(this);
+        this.auditEngine.addAuditMonitor(this);
+        this.auditTable.setInput(this.auditEngine.getAuditDiagnostic());
+    }
+
+    @objid ("042aadf4-92de-4340-90cd-0f75b70ffe94")
+    @Override
+    public Object getInput() {
+        return this.auditEngine;
+    }
+
+    @objid ("67495b1f-5530-412b-a0fe-db389fc78ebb")
+    public void setAuditViewMode(AuditViewMode mode) {
+        this.providerFactory.setViewMode(mode);
+        this.auditTable.setContentProvider(this.providerFactory.getContentProvider());
+        
+        while (this.auditTable.getTree().getColumnCount() > 0) {
+            this.auditTable.getTree().getColumn(0).dispose();
+        }
+        
+        for (int i = 0; i < this.providerFactory.getColumns(); i++) {
+            TreeViewerColumn column = this.createTreeViewerColumn(this.auditTable, this.providerFactory.getColumnName(i),
+                    this.providerFactory.getDefaultColumnSize(i));
+            column.setLabelProvider(this.providerFactory.getLabelProvider(i));
+        }
+        
+        this.auditTable.refresh(true);
+    }
+
+    @objid ("6656bb87-ca37-4f2c-a4a9-b6f8525d9536")
+    public TreeViewer getTreeViewer() {
+        return this.auditTable;
+    }
+
+    /**
+     * This method is called when the audit runner status changes
+     */
+    @objid ("259e0471-abcb-4500-9f73-04c2feb8a2f8")
+    @Override
+    public void status(final AuditRunnerStatus status, final int queueSize) {
+        refresh(status, queueSize);
+    }
+
+    @objid ("37131d50-a26d-4a7b-a4ba-0b03011181b2")
+    public void refresh(final AuditRunnerStatus status, final int queueSize) {
+        final TreeViewer lAuditTable = this.auditTable;
+        
+        if (!lAuditTable.getTree().isDisposed()) {
+            lAuditTable.getTree().getDisplay().asyncExec(new Runnable() {
+                @Override
+                public void run() {
+                    if (!lAuditTable.getTree().isDisposed()) {
+                        AuditPanelProvider.this.auditStatus.doRefreshStatus(status, queueSize);
+                    }
+                }
+            });
+        }
+    }
+
+    @objid ("64014652-828c-4b75-b1c4-abf04a87ec97")
+    public void refresh(final IAuditDiagnostic auditDiagnostic) {
+        if (!this.redrawScheduled) {
+            final TreeViewer lAuditTable = this.auditTable;
+            if (!lAuditTable.getTree().isDisposed()) {
+                this.redrawScheduled = true;
+                lAuditTable.getTree().getDisplay().asyncExec(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (!lAuditTable.getTree().isDisposed()) {
+                            lAuditTable.refresh();
+                            AuditPanelProvider.this.auditStatus.doRefreshDiagnostic(auditDiagnostic);
+        
+                            /*
+                             * if (AuditPanelProvider.this.auditTable != null &&
+                             * !AuditPanelProvider.this.auditTable.getTree().isDisposed()) { if (auditDiagnostic.getErrorCount() >
+                             * 0) { setTitleImage("icons/error_flag.png"); } else if (auditDiagnostic.getWarningCount() > 0) {
+                             * setTitleImage("icons/warning_flag.png"); } else { setTitleImage("base.png"); } }
+                             */
+                        }
+                        AuditPanelProvider.this.redrawScheduled = false;
+                    }
+                });
+            }
+        }
     }
 
     @objid ("c6420205-1e5b-433f-acba-5b5e488dafd3")
@@ -210,7 +342,8 @@ public class AuditPanelProvider implements IPanelProvider, IAuditListener {
                 TreeSelection selection = (TreeSelection) AuditPanelProvider.this.auditTable.getSelection();
                 if (selection.getFirstElement() instanceof AuditEntry) {
                     final AuditEntryDialog dialog = new AuditEntryDialog(Display.getCurrent().getActiveShell(),
-                            (AuditEntry) selection.getFirstElement(), AuditPanelProvider.this.modelingSession, AuditPanelProvider.this.navigationService);
+                            (AuditEntry) selection.getFirstElement(), AuditPanelProvider.this.modelingSession,
+                            AuditPanelProvider.this.navigationService);
                     dialog.open();
                 }
             }
@@ -218,98 +351,10 @@ public class AuditPanelProvider implements IPanelProvider, IAuditListener {
         return newTree;
     }
 
-    @objid ("eba36d32-192b-466f-9c74-1eb4ef6b2f95")
-    @Override
-    public void auditModelChanged(final IAuditDiagnostic auditDiagnostic) {
-        //  refresh(auditDiagnostic);
-          auditDisplay();
-    }
-
-    @objid ("4bcb38f0-c80d-43f2-9a74-e0fad46c4907")
-    public void refresh(final IAuditDiagnostic auditDiagnostic) {
-        Display.getDefault().asyncExec(new Runnable() {
-        
-            @Override
-            public void run() {
-                if (AuditPanelProvider.this.auditTable != null && !AuditPanelProvider.this.auditTable.getTree().isDisposed()) {
-                    if (auditDiagnostic.getErrorCount() > 0) {
-                        setTitleImage("icons/error_flag.png");
-                    } else if (auditDiagnostic.getWarningCount() > 0) {
-                        setTitleImage("icons/warning_flag.png");
-                    } else {
-                        setTitleImage("base.png");
-                    }
-                }
-                if(!auditTable.getTree().isDisposed())
-                    auditTable.refresh();       
-            }        
-        });
-    }
-
-    @objid ("fbf3de03-4c34-40aa-8306-1ad67b3c4420")
-    public void setTitleImage(String path) {
-        List<MPart> parts = this.emService.findElements(this.application, AuditView.VIEW_ID, MPart.class, new ArrayList<String>());
-        for (MPart part : parts) {
-            if (part.getObject() instanceof AuditView) {
-                part.setIconURI("platform:/plugin/org.modelio.audit/" + path);
-            }
-        }
-    }
-
     @objid ("ce2da079-ce32-40ce-93ec-45ed4a4b6d12")
     private StatusBar createAuditStatus(Composite parent) {
         final StatusBar statusBar = new StatusBar(parent, 0);
         return statusBar;
-    }
-
-    @objid ("5a8f4d61-4e70-4eb9-9980-deabba7f244c")
-    public Object getSelectedDiagnosticEntry() {
-        TreeSelection selection = (TreeSelection) this.auditTable.getSelection();
-        return selection.getFirstElement();
-    }
-
-    @objid ("413d25a2-249a-4c1d-ae11-886e01461a35")
-    public boolean isAutoSelectInExplorer() {
-        // Automatically generated method. Please delete this comment before entering specific code.
-        return this.autoSelectInExplorer;
-    }
-
-    @objid ("5703c551-425e-4241-8da9-066cfa817cfa")
-    public void setAutoSelectInExplorer(boolean value) {
-        // Automatically generated method. Please delete this comment before entering specific code.
-        this.autoSelectInExplorer = value;
-    }
-
-    @objid ("9111731f-af16-448e-971c-0e3c867670be")
-    @Override
-    public void setInput(Object input) {
-        this.auditEngine = (AuditEngine) input;
-        this.auditEngine.addAuditListener(this);
-        this.auditEngine.addAuditMonitor(this.auditStatus);
-        this.auditTable.setInput(this.auditEngine.getAuditDiagnostic());
-    }
-
-    @objid ("042aadf4-92de-4340-90cd-0f75b70ffe94")
-    @Override
-    public Object getInput() {
-        return this.auditEngine;
-    }
-
-    @objid ("67495b1f-5530-412b-a0fe-db389fc78ebb")
-    public void setAuditViewMode(AuditViewMode mode) {
-        this.providerFactory.setViewMode(mode);
-        this.auditTable.setContentProvider(this.providerFactory.getContentProvider());
-        
-        while (this.auditTable.getTree().getColumnCount() > 0) {
-            this.auditTable.getTree().getColumn(0).dispose();
-        }
-        
-        for (int i = 0; i < this.providerFactory.getColumns(); i++) {
-            TreeViewerColumn column = this.createTreeViewerColumn(this.auditTable, this.providerFactory.getColumnName(i), this.providerFactory.getDefaultColumnSize(i));
-            column.setLabelProvider(this.providerFactory.getLabelProvider(i));
-        }
-        
-        this.auditTable.refresh(true);
     }
 
     @objid ("0f3aef86-074c-4648-875f-8e86a3e643c8")
@@ -322,28 +367,6 @@ public class AuditPanelProvider implements IPanelProvider, IAuditListener {
         column.getColumn().setResizable(true);
         column.getColumn().setMoveable(true);
         return column;
-    }
-
-    @objid ("6c0349d8-0d16-4c3a-8303-1336447efb48")
-    private void auditDisplay() {
-        if(this.isRedrow){
-            if(!this.auditTable.getTree().isDisposed()){
-              //  isRedrow = false;
-                this.auditTable.getTree().getDisplay().asyncExec(new Runnable() {
-                    @Override
-                    public void run() {
-                        refresh(AuditPanelProvider.this.auditEngine.getAuditDiagnostic());
-                        AuditPanelProvider.this.auditStatus.auditModelChanged(AuditPanelProvider.this.auditEngine.getAuditDiagnostic());
-                        AuditPanelProvider.this.isRedrow = true;
-                    }
-                });
-            }
-        }
-    }
-
-    @objid ("6656bb87-ca37-4f2c-a4a9-b6f8525d9536")
-    public TreeViewer getTreeViewer() {
-        return this.auditTable;
     }
 
 }

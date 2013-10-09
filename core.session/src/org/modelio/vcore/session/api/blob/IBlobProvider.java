@@ -60,4 +60,18 @@ public interface IBlobProvider {
     @objid ("c6402278-1060-487e-b503-8e62de46aaa5")
     void objectCopied(MObject from, IRepository fromRepo, MObject to, IRepository toRepo);
 
+    /**
+     * Called when model objects have been moved to another repository.
+     * <p>
+     * The model objects are already in the new repository.
+     * <p>
+     * The implementation should decide what to do with the blobs it handles.
+     * An implementation usually moves the blobs of the moved object to the destination repository.
+     * @param objs the moved model objects. the model object is already in the new repository.
+     * @param fromRepo its previous repository
+     * @param destRepo its new repository.
+     */
+    @objid ("d00a97c8-6f5e-4199-bb62-10d828b6dce7")
+    void objectsMoved(Collection<? extends MObject> objs, IRepository fromRepo, IRepository destRepo);
+
 }

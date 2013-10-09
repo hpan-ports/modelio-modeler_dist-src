@@ -141,6 +141,7 @@ public class ModelElementListCellEditor extends KTableCellEditor implements IPic
                 this.m_items[i + 1] = elementName;
             }
         } else {
+            this.m_items = new String[this.m_elements.size()];
             String elementName = null;
             ElementLabel elementLabel = null;
             for (int i = 0; i < this.m_elements.size(); i++) {
@@ -148,7 +149,6 @@ public class ModelElementListCellEditor extends KTableCellEditor implements IPic
                 elementName = elementLabel.getLabel();
                 this.m_items[i] = elementName;
             }
-            this.m_items = new String[this.m_elements.size()];
         }
     }
 

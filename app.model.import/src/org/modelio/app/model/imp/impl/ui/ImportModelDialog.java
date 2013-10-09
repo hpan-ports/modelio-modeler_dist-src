@@ -58,6 +58,7 @@ import org.modelio.gproject.descriptor.ProjectDescriptor;
 import org.modelio.gproject.gproject.GProjectFactory;
 import org.modelio.gproject.module.IModuleCatalog;
 import org.modelio.metamodel.analyst.AnalystPropertyTable;
+import org.modelio.metamodel.analyst.PropertyContainer;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
 import org.modelio.metamodel.uml.infrastructure.TaggedValue;
 import org.modelio.model.browser.views.treeview.BrowserLabelProvider;
@@ -210,14 +211,13 @@ public class ImportModelDialog extends ModelioDialog {
     @objid ("8718f20a-c50d-4c8c-89b2-84af0fd8a85c")
     private void collectElementsToImport(List<SmObjectImpl> result, Widget widget) {
         for (TreeItem treeItem : getChildren(widget)) {
-        
             if (treeItem.getChecked()) {
                 // If checked the element must be imported no need to search for
                 // children they will be imported as well
                 Object data = treeItem.getData();
                 if (data instanceof ModelElement) {
                     final ModelElement elt = (ModelElement) data;
-                    if (elt.getCompositionOwner() == null) {
+                    if (elt.getCompositionOwner() == null || elt instanceof PropertyContainer) {
                         collectHiddenChildren(result, elt);
                     } else {
                         result.add((SmObjectImpl) elt);
@@ -238,7 +238,11 @@ public class ImportModelDialog extends ModelioDialog {
     private void collectHiddenChildren(List<SmObjectImpl> result, MObject element) {
         for (MObject c : element.getCompositionChildren()) {
             if (!(c instanceof TaggedValue) && !(c instanceof AnalystPropertyTable) && !c.getStatus().isRamc()) {
-                result.add((SmObjectImpl) c);
+                if (c instanceof PropertyContainer) {
+                    collectHiddenChildren(result, c);
+                } else {
+                    result.add((SmObjectImpl) c);
+                }
             }
         }
     }

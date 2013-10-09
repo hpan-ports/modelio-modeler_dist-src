@@ -29,6 +29,7 @@ import org.modelio.diagram.persistence.IDiagramReader;
 import org.modelio.diagram.persistence.IDiagramWriter;
 import org.modelio.diagram.styles.core.MetaKey;
 import org.modelio.diagram.styles.core.StyleKey;
+import org.modelio.metamodel.uml.statik.Association;
 import org.modelio.metamodel.uml.statik.ClassAssociation;
 import org.modelio.vcore.smkernel.mapi.MObject;
 import org.modelio.vcore.smkernel.mapi.MRef;
@@ -80,7 +81,11 @@ public class GmClassAssociationLink extends GmLink {
     @objid ("33f51745-55b7-11e2-877f-002564c97630")
     @Override
     public MObject getFromElement() {
-        return this.element.getAssociationPart();
+        final Association assoc = this.element.getAssociationPart();
+        if (assoc != null) {
+            return assoc;
+        }
+        return this.element.getNaryAssociationPart();
     }
 
     @objid ("33f5174c-55b7-11e2-877f-002564c97630")

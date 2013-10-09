@@ -23,7 +23,6 @@ package org.modelio.metamodel.experts.links.impl;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.metamodel.Metamodel;
-import org.modelio.metamodel.analyst.Dictionary;
 import org.modelio.metamodel.analyst.Term;
 import org.modelio.vcore.smkernel.mapi.MClass;
 import org.modelio.vcore.smkernel.mapi.MObject;
@@ -33,28 +32,25 @@ public class KindOfCreationExpert extends DefaultLinkExpert {
     @objid ("db43ff20-3b4c-493d-86a2-2e45f48e9b40")
     @Override
     public boolean canLink(MObject link, final MObject fromElement, final MObject toElement, final MObject linkOwner) {
-        return ((fromElement instanceof Term) && (toElement instanceof Term)) ||
-               ((fromElement instanceof Dictionary) && (toElement instanceof Dictionary));
+        return ((fromElement instanceof Term) && (toElement instanceof Term));
     }
 
     @objid ("f7135599-8434-45fd-8c0d-e87e66e6b709")
     @Override
     public boolean canLink(MClass link, final MClass fromMetaclass, final MClass toMetaclass, final MClass owner) {
-        return (fromMetaclass == Metamodel.getMClass(Term.class) && toMetaclass == Metamodel.getMClass(Term.class)) ||
-               (fromMetaclass == Metamodel.getMClass(Dictionary.class) && toMetaclass == Metamodel.getMClass(Dictionary.class));
+        return (fromMetaclass.hasBase(Metamodel.getMClass(Term.class)) && toMetaclass.hasBase(Metamodel.getMClass(Term.class)));
     }
 
     @objid ("9a6c7eef-e446-4efc-a09e-e345243f92b2")
     @Override
     public boolean canSource(MObject link, final MObject fromElement) {
-        return (fromElement instanceof Term) || (fromElement instanceof Dictionary);
+        return (fromElement instanceof Term);
     }
 
     @objid ("3e8454ee-6685-44c8-9156-2c2984a6ecbe")
     @Override
     public boolean canSource(MClass link, final MClass fromMetaclass) {
-        return fromMetaclass == Metamodel.getMClass(Term.class) ||
-               fromMetaclass == Metamodel.getMClass(Dictionary.class);
+        return fromMetaclass.hasBase(Metamodel.getMClass(Term.class));
     }
 
 }

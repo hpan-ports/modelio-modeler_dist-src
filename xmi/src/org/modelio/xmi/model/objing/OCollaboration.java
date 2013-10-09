@@ -24,16 +24,15 @@ package org.modelio.xmi.model.objing;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.uml2.uml.UMLFactory;
 import org.modelio.metamodel.uml.behavior.commonBehaviors.Behavior;
-import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.metamodel.uml.infrastructure.ModelTree;
 import org.modelio.metamodel.uml.statik.Classifier;
 import org.modelio.metamodel.uml.statik.Collaboration;
 import org.modelio.metamodel.uml.statik.Operation;
 import org.modelio.vcore.smkernel.mapi.MObject;
+import org.modelio.xmi.util.AbstractObjingModelNavigation;
 import org.modelio.xmi.util.GenerationProperties;
 import org.modelio.xmi.util.NotFoundException;
 import org.modelio.xmi.util.ObjingEAnnotation;
-import org.modelio.xmi.util.ObjingModelNavigation;
 
 @objid ("4e6d9e6f-ea63-4453-8e07-11c5ab3fd962")
 public class OCollaboration extends ONameSpace implements IOElement {
@@ -70,7 +69,7 @@ public class OCollaboration extends ONameSpace implements IOElement {
                 setOwnerModelTree( (org.eclipse.uml2.uml.Collaboration) ecoreElt,
                         (ModelTree) objingOwner, ecoreOwner);
             } else {        
-                ObjingModelNavigation.infoOfUnsupportedOwnedWithEMF(
+                AbstractObjingModelNavigation.infoOfUnsupportedOwnedWithEMF(
                         objingOwner, objingElement,ecoreElt);
                 String errorMsg = "Owner Class ("
                             + ecoreOwner.getClass().getSimpleName()
@@ -80,7 +79,7 @@ public class OCollaboration extends ONameSpace implements IOElement {
             }
         } else{
             
-            ObjingModelNavigation.infoOfUnsupportedOwnedWithEMF(
+            AbstractObjingModelNavigation.infoOfUnsupportedOwnedWithEMF(
                     objingOwner, objingElement,ecoreElt);
             String errorMsg = "Owner Class Not Found";
             throw new NotFoundException(errorMsg);
@@ -155,7 +154,7 @@ public class OCollaboration extends ONameSpace implements IOElement {
             org.eclipse.uml2.uml.Interface ownerIsItf = (org.eclipse.uml2.uml.Interface) ecoreOwner;
             ownerIsItf.getNestedClassifiers().add(ecoreCollab);
         } else {
-            ObjingModelNavigation.infoOfUnsupportedOwnedWithEMF(objingMdlTree,
+            AbstractObjingModelNavigation.infoOfUnsupportedOwnedWithEMF(objingMdlTree,
                     objingElement,ecoreCollab);
         }
     }

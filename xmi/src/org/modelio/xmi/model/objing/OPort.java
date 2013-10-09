@@ -34,10 +34,10 @@ import org.modelio.metamodel.uml.statik.Instance;
 import org.modelio.metamodel.uml.statik.NameSpace;
 import org.modelio.metamodel.uml.statik.Port;
 import org.modelio.vcore.smkernel.mapi.MObject;
+import org.modelio.xmi.util.AbstractObjingModelNavigation;
 import org.modelio.xmi.util.GenerationProperties;
 import org.modelio.xmi.util.NotFoundException;
 import org.modelio.xmi.util.ObjingEAnnotation;
-import org.modelio.xmi.util.ObjingModelNavigation;
 
 @objid ("0134d964-11a6-486d-aadb-c1cb066669df")
 public class OPort extends OElement implements IOElement {
@@ -156,7 +156,7 @@ public class OPort extends OElement implements IOElement {
         if ((base != null) && (ecoreElt instanceof org.eclipse.uml2.uml.Port)){
             attachPortToClassifier(base, (org.eclipse.uml2.uml.Port)ecoreElt);
         }else{
-            MObject objOwner = ObjingModelNavigation.getBindableInstanceOwner(this.objingElement);
+            MObject objOwner = AbstractObjingModelNavigation.getBindableInstanceOwner(this.objingElement);
             if ( objOwner instanceof Instance)
                 attachPortToInstance((Instance) objOwner, (org.eclipse.uml2.uml.Slot) ecoreElt);
             else{

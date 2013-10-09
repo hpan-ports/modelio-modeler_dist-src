@@ -58,6 +58,7 @@ import org.modelio.vbasic.net.UriConnections;
 import org.modelio.vbasic.progress.IModelioProgress;
 import org.modelio.vbasic.progress.NullProgress;
 import org.modelio.vbasic.progress.SubProgress;
+import org.modelio.vcore.Log;
 import org.modelio.vcore.session.api.ICoreSession;
 import org.modelio.vcore.session.api.repository.IRepository;
 import org.modelio.vcore.session.api.repository.IRepositorySupport;
@@ -399,6 +400,7 @@ public class GProject {
         this.allFragments.add(fragment);
         if (isOpen()) {
             fragment.mount(this, aMonitor);
+            this.monitorSupport.fireMonitors(GProjectEvent.fragmentAdded(fragment));
         }
     }
 
@@ -415,7 +417,14 @@ public class GProject {
             IProjectFragment modelFragment = module.getModelFragment();
             if (modelFragment != null) {
                 modelFragment.unmount();
+                try {
+                    // Delete the fragment itself
+                    modelFragment.delete();
+                } catch (IOException e) {
+                    Log.trace("Unable to delete fragemnt " + modelFragment.getId());
+                }
                 this.allFragments.remove(modelFragment);
+                this.monitorSupport.fireMonitors(GProjectEvent.fragmentRemoved(modelFragment));
             }
         } else {
             // Remove the module only
@@ -461,9 +470,9 @@ public class GProject {
     }
 
     /**
-     * Unregister a fragment in the project.
+     * Unregisters a fragment in the project.
      * <p>
-     * The method unmount the fragment but it does not 'delete' the fragment physical data.
+     * The method unmount the fragment but it does not <i>'delete'</i> the fragment physical data.
      * @param fragment the project fragment to register.
      */
     @objid ("00544b74-a58b-1044-a30e-001ec947cd2a")
@@ -473,6 +482,8 @@ public class GProject {
         }
         this.ownFragments.remove(fragment);
         this.allFragments.remove(fragment);
+        
+        this.monitorSupport.fireMonitors(GProjectEvent.fragmentRemoved(fragment));
     }
 
     /**
@@ -614,10 +625,10 @@ public class GProject {
                 
                 if (Files.exists(archive) && !Files.isDirectory(archive)) {
                     IModuleHandle moduleHandle = this.moduleCatalog.getModuleHandle(archive, mon);
-                    module = new GModule(this, md.getArchiveLocation(),  moduleHandle, md.getScope(), md.getParameters());
+                    module = new GModule(this, md.getArchiveLocation(),  moduleHandle, md.getScope(), md.getParameters(), md.isActivated());
                 } else {
                     IModuleHandle moduleHandle = new EmptyModuleHandle(md.getName(), md.getVersion());
-                    module = new GModule(this, md.getArchiveLocation(), moduleHandle, md.getScope(), md.getParameters());
+                    module = new GModule(this, md.getArchiveLocation(), moduleHandle, md.getScope(), md.getParameters(), md.isActivated());
                 }
                 
                 module.setAuthData(GAuthConf.from(md.getAuthDescriptor()));
@@ -687,7 +698,7 @@ public class GProject {
      */
     @objid ("323feeaf-c976-49f0-9b7d-03f4e9aee4c8")
     private GModule doInstallModule(IModuleHandle moduleHandle, URI moduleArchiveUri) {
-        GModule module = new GModule(this, moduleArchiveUri, moduleHandle, DefinitionScope.LOCAL, new GProperties());
+        GModule module = new GModule(this, moduleArchiveUri, moduleHandle, DefinitionScope.LOCAL, new GProperties(), true);
         
         if (isOpen()) {
             // Add the module only once it is successfully mount.
@@ -695,7 +706,9 @@ public class GProject {
             IProjectFragment modelFragment = module.getModelFragment();
             if (modelFragment != null) {
                 this.allFragments.add(modelFragment);
-                module.getModelFragment().mount(this, new NullProgress());
+                modelFragment.mount(this, new NullProgress());
+                
+                getMonitorSupport().fireMonitors(GProjectEvent.fragmentAdded(modelFragment));
             } else {
                 String msg = module.getName()+" "+module.getVersion()+" has no model fragment.";
                 getMonitorSupport().fireMonitors(GProjectEvent.buildWarning(new Exception(msg)));

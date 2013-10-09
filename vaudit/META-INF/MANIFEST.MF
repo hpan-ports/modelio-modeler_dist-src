@@ -20,7 +20,8 @@ Require-Bundle: org.modelio.core.kernel,
  org.eclipse.equinox.common,
  org.modelio.core.ui,
  org.eclipse.e4.core.services,
- org.eclipse.ui.workbench
+ org.eclipse.ui.workbench,
+ org.eclipse.core.jobs
 Export-Package: org.modelio.vaudit.modelshield,
  org.modelio.vaudit.modelshield.standard
 Import-Package: javax.annotation;version="1.1.0",

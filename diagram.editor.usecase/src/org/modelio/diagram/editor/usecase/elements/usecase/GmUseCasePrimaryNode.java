@@ -46,6 +46,7 @@ import org.modelio.diagram.styles.core.MetaKey;
 import org.modelio.diagram.styles.core.StyleKey.RepresentationMode;
 import org.modelio.metamodel.uml.behavior.usecaseModel.ExtensionPoint;
 import org.modelio.metamodel.uml.statik.Attribute;
+import org.modelio.metamodel.uml.statik.Collaboration;
 import org.modelio.metamodel.uml.statik.CollaborationUse;
 import org.modelio.metamodel.uml.statik.Instance;
 import org.modelio.metamodel.uml.statik.NameSpace;
@@ -214,7 +215,7 @@ public class GmUseCasePrimaryNode extends GmNoStyleCompositeNode implements IIma
         } else if (CollaborationUse.class.isAssignableFrom(metaclass)) {
             // Collaboration uses are unmasked in the internal structure zone or group
             ret = this.internalStructure.getCompositeFor(metaclass);
-        } else if (NameSpace.class.isAssignableFrom(metaclass)) {
+        } else if (Collaboration.class.isAssignableFrom(metaclass)) {
             // Namespaces are unmasked in the inner classes gm
             ret = getInnerElements().getCompositeFor(metaclass);
         }

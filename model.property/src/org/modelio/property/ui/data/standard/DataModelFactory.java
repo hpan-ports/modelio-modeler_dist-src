@@ -22,6 +22,8 @@
 package org.modelio.property.ui.data.standard;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
+import org.modelio.app.core.activation.IActivationService;
+import org.modelio.app.project.core.services.IProjectService;
 import org.modelio.core.ui.ktable.IPropertyModel;
 import org.modelio.gproject.model.IMModelServices;
 import org.modelio.metamodel.analyst.AnalystProject;
@@ -358,10 +360,18 @@ class DataModelFactory extends DefaultModelVisitor {
     @objid ("aa96e6b5-d004-11e1-9020-002564c97630")
     private IMModelServices modelService;
 
+    @objid ("c2f9e4d4-7127-4121-a1fa-b1557754c54d")
+    private IActivationService activationService;
+
+    @objid ("5fe9b3de-6a50-4410-a9bc-f7028e4eee97")
+    private IProjectService projectService;
+
     @objid ("aa96e6b6-d004-11e1-9020-002564c97630")
-    public DataModelFactory(IMModelServices modelService, IModel model) {
+    public DataModelFactory(IMModelServices modelService, IProjectService projectService, IActivationService activationService, IModel model) {
+        this.activationService = activationService;
         this.model = model;
         this.modelService = modelService;
+        this.projectService = projectService;
     }
 
     /**
@@ -939,13 +949,13 @@ class DataModelFactory extends DefaultModelVisitor {
     @objid ("95b01793-fa5b-4bbc-82c1-45cac693ecea")
     @Override
     public Object visitBusinessRule(BusinessRule theRequirement) {
-        return new BusinessRulePropertyModel(theRequirement, this.modelService);
+        return new BusinessRulePropertyModel(theRequirement, this.modelService, this.projectService, this.activationService);
     }
 
     @objid ("ca84f488-1de3-42d4-9d26-6d00925f40dc")
     @Override
     public Object visitBusinessRuleContainer(BusinessRuleContainer theRequirementContainer) {
-        return new BusinessRuleContainerPropertyModel(theRequirementContainer, this.modelService, this.model);
+        return new BusinessRuleContainerPropertyModel(theRequirementContainer, this.modelService, this.model, this.projectService, this.activationService);
     }
 
     @objid ("8e7d1375-c068-11e1-8c0a-002564c97630")
@@ -1137,7 +1147,7 @@ class DataModelFactory extends DefaultModelVisitor {
     @objid ("8e84b4a6-c068-11e1-8c0a-002564c97630")
     @Override
     public Object visitDictionary(Dictionary theDictionary) {
-        return new DictionaryPropertyModel(theDictionary, this.modelService, this.model);
+        return new DictionaryPropertyModel(theDictionary, this.modelService, this.model, this.projectService, this.activationService);
     }
 
     @objid ("8e863b25-c068-11e1-8c0a-002564c97630")
@@ -1287,13 +1297,13 @@ class DataModelFactory extends DefaultModelVisitor {
     @objid ("87693c23-a446-4b51-a111-c94731b8903e")
     @Override
     public Object visitGoal(Goal theRequirement) {
-        return new GoalPropertyModel(theRequirement, this.modelService);
+        return new GoalPropertyModel(theRequirement, this.modelService, this.projectService, this.activationService);
     }
 
     @objid ("67b4452e-249f-4a8c-aa39-35b6815cdb8e")
     @Override
     public Object visitGoalContainer(GoalContainer theRequirementContainer) {
-        return new GoalContainerPropertyModel(theRequirementContainer, this.modelService, this.model);
+        return new GoalContainerPropertyModel(theRequirementContainer, this.modelService, this.model, this.projectService, this.activationService);
     }
 
     @objid ("8e8c55bb-c068-11e1-8c0a-002564c97630")
@@ -1560,20 +1570,12 @@ class DataModelFactory extends DefaultModelVisitor {
         return new PortPropertyModel(thePort);
     }
 
-    /**
-     * (non-Javadoc)
-     * @see AbstractMetamodelvisitor#visitProfile(Profile)
-     */
     @objid ("8e9a114d-c068-11e1-8c0a-002564c97630")
     @Override
     public Object visitProfile(Profile theProfile) {
         return new ProfilePropertyModel(theProfile);
     }
 
-    /**
-     * (non-Javadoc)
-     * @see AbstractMetamodelvisitor#visitProject(Project)
-     */
     @objid ("8e9a1156-c068-11e1-8c0a-002564c97630")
     @Override
     public Object visitProject(Project theProject) {
@@ -1625,13 +1627,13 @@ class DataModelFactory extends DefaultModelVisitor {
     @objid ("8e9d1ea1-c068-11e1-8c0a-002564c97630")
     @Override
     public Object visitRequirement(Requirement theRequirement) {
-        return new RequirementPropertyModel(theRequirement, this.modelService);
+        return new RequirementPropertyModel(theRequirement, this.modelService, this.projectService, this.activationService);
     }
 
     @objid ("8e9ea525-c068-11e1-8c0a-002564c97630")
     @Override
     public Object visitRequirementContainer(RequirementContainer theRequirementContainer) {
-        return new RequirementContainerPropertyModel(theRequirementContainer, this.modelService, this.model);
+        return new RequirementContainerPropertyModel(theRequirementContainer, this.modelService, this.model, this.projectService, this.activationService);
     }
 
     @objid ("8e9ea52d-c068-11e1-8c0a-002564c97630")
@@ -1688,10 +1690,6 @@ class DataModelFactory extends DefaultModelVisitor {
         return new StaticDiagramPropertyModel(theStaticDiagram);
     }
 
-    /**
-     * (non-Javadoc)
-     * @see AbstractMetamodelVisitor#visitStereotype(Stereotype)
-     */
     @objid ("8ea1b276-c068-11e1-8c0a-002564c97630")
     @Override
     public Object visitStereotype(Stereotype theStereotype) {
@@ -1737,7 +1735,7 @@ class DataModelFactory extends DefaultModelVisitor {
     @objid ("8ea4bfad-c068-11e1-8c0a-002564c97630")
     @Override
     public Object visitTerm(Term theTerm) {
-        return new TermPropertyModel(theTerm, this.modelService);
+        return new TermPropertyModel(theTerm, this.modelService, this.projectService, this.activationService);
     }
 
     @objid ("8ea4bfb5-c068-11e1-8c0a-002564c97630")

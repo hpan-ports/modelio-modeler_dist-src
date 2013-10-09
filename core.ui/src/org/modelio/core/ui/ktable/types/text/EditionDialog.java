@@ -31,6 +31,7 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 import org.modelio.core.ui.dialog.ModelioDialog;
@@ -38,7 +39,7 @@ import org.modelio.core.ui.plugin.CoreUi;
 import org.modelio.metamodel.uml.infrastructure.Element;
 
 @objid ("8db83cc6-c068-11e1-8c0a-002564c97630")
-class EditionDialog extends ModelioDialog {
+public class EditionDialog extends ModelioDialog {
     @objid ("a48d73c8-c068-11e1-8c0a-002564c97630")
     private String content;
 
@@ -60,8 +61,11 @@ class EditionDialog extends ModelioDialog {
     @objid ("8db83cce-c068-11e1-8c0a-002564c97630")
     private Text textfield = null;
 
+    @objid ("ed203f4c-08e4-42bf-a0d1-c059edee0cb4")
+    protected static EditionDialog instance = null;
+
     @objid ("8db83ccf-c068-11e1-8c0a-002564c97630")
-    public EditionDialog(final Shell parentShell, final MultilineTextCellEditor editor, final String initialContent) {
+    private EditionDialog(final Shell parentShell, final MultilineTextCellEditor editor, final String initialContent) {
         super(parentShell);
         this.content = initialContent;
         this.editor = editor;
@@ -93,6 +97,7 @@ class EditionDialog extends ModelioDialog {
         // Text field right to the Name: label
         this.textfield = new Text(composite, SWT.MULTI | SWT.BORDER | SWT.WRAP);
         this.textfield.setText(this.content);
+        this.textfield.selectAll();
         this.textfield.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
         // Prevent CR from going to the default button
         this.textfield.addTraverseListener(new TraverseListener() {
@@ -125,7 +130,7 @@ class EditionDialog extends ModelioDialog {
         setLogoImage(null);
         
         // TODO CHM metaclass name
-        final String title = this.editedElement.getClass().getSimpleName() + " - " + this.fieldName;
+        final String title = this.editedElement.getMClass().getName() + " - " + this.fieldName;
         
         getShell().setText(title);
         setTitle(title);
@@ -171,6 +176,40 @@ class EditionDialog extends ModelioDialog {
     @Override
     protected String getHelpId() {
         return HELP_TOPIC;
+    }
+
+    @objid ("b34e06db-2c20-4dda-82ff-2f032e134251")
+    @Override
+    public boolean close() {
+        if (this.equals(instance)) { // should always be the case, could be an assert!
+            instance = null;
+        }
+        return super.close();
+    }
+
+    @objid ("0d195bc6-46b8-4f6d-9cdb-236e048e88fb")
+    public static EditionDialog getInstance(final Shell parentShell, final MultilineTextCellEditor editor, final String initialContent) {
+        if (parentShell == null)
+            return null;
+        
+        if (instance != null) {
+            return instance;
+        }
+        
+        instance = new EditionDialog(parentShell, editor, initialContent);
+        return instance;
+    }
+
+    @objid ("347520b4-8d01-44cd-85d6-f85295ad805c")
+    public static void closeInstance() {
+        if (instance != null) {
+            Display.getDefault().asyncExec(new Runnable() {        
+                @Override
+                public void run() {
+                    instance.close();
+                }
+            });
+        }
     }
 
 }

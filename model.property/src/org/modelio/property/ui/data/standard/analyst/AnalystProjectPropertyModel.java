@@ -54,6 +54,7 @@ public class AnalystProjectPropertyModel extends AbstractPropertyModel<AnalystPr
 
     /**
      * Create a new <i>AnalystProject</i> data model from an <i>AnalystProject</i>.
+     * @param theEditedElement the edited analyst project
      */
     @objid ("8f736a48-c068-11e1-8c0a-002564c97630")
     public AnalystProjectPropertyModel(AnalystProject theEditedElement) {

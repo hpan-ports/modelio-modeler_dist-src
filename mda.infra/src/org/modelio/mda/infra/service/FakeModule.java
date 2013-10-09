@@ -46,12 +46,14 @@ import org.modelio.api.diagram.tools.ILinkCommand;
 import org.modelio.api.diagram.tools.IMultiLinkCommand;
 import org.modelio.api.model.IModelingSession;
 import org.modelio.api.module.DefaultModuleSession;
+import org.modelio.api.module.ILicenseInfos.Status;
 import org.modelio.api.module.IModule;
 import org.modelio.api.module.IModuleAPIConfiguration;
 import org.modelio.api.module.IModuleSession;
 import org.modelio.api.module.IModuleUserConfiguration;
 import org.modelio.api.module.IParameterEditionModel;
 import org.modelio.api.module.IPeerModule;
+import org.modelio.api.module.LicenseInfos;
 import org.modelio.api.module.commands.ActionLocation;
 import org.modelio.api.module.commands.IModuleAction;
 import org.modelio.api.module.diagrams.DiagramCustomizationDescriptor;
@@ -634,6 +636,12 @@ public class FakeModule implements IModule {
     @Override
     public String getLabel(String key) {
         return key;
+    }
+
+    @objid ("4e7caa03-87cc-47b7-bb2e-0bd4564efc72")
+    @Override
+    public LicenseInfos getLicenseInfos() {
+        return new LicenseInfos(Status.UNDEFINED, null, "");
     }
 
 }

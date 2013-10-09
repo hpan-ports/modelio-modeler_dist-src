@@ -35,10 +35,10 @@ import org.modelio.metamodel.uml.infrastructure.ModelElement;
 import org.modelio.metamodel.uml.infrastructure.ModelTree;
 import org.modelio.metamodel.uml.statik.Operation;
 import org.modelio.vcore.smkernel.mapi.MObject;
+import org.modelio.xmi.util.AbstractObjingModelNavigation;
 import org.modelio.xmi.util.GenerationProperties;
 import org.modelio.xmi.util.IModelerModuleStereotypes;
 import org.modelio.xmi.util.NotFoundException;
-import org.modelio.xmi.util.ObjingModelNavigation;
 
 @objid ("f4b8a21b-124a-4f0d-aaa9-c96fa4d384c5")
 public class OOperation extends OFeature implements IOElement {
@@ -54,7 +54,7 @@ public class OOperation extends OFeature implements IOElement {
                     || objingOwner instanceof UseCase
                     || objingOwner instanceof Signal) {
         
-                ObjingModelNavigation.infoOfUnsupportedOwnedWithEMF(
+                AbstractObjingModelNavigation.infoOfUnsupportedOwnedWithEMF(
                         objingOwner, objingElement);
                 return null;
         
@@ -70,7 +70,7 @@ public class OOperation extends OFeature implements IOElement {
                     || objingOwner instanceof UseCase
                     || objingOwner instanceof Signal) {
         
-                ObjingModelNavigation.infoOfUnsupportedOwnedWithEMF(
+                AbstractObjingModelNavigation.infoOfUnsupportedOwnedWithEMF(
                         objingOwner, objingElement);
                 return null;
         
@@ -188,7 +188,7 @@ public class OOperation extends OFeature implements IOElement {
             if (objingOwner instanceof Actor
                     || objingOwner instanceof UseCase
                     || objingOwner instanceof Signal) {
-                ObjingModelNavigation.infoOfUnsupportedOwnedWithEMF(
+                AbstractObjingModelNavigation.infoOfUnsupportedOwnedWithEMF(
                         objingOwner, objingElement, ecoreElt);
             } else if (ecoreOwner != null) {
                 if (ecoreOwner instanceof Component) {
@@ -240,7 +240,7 @@ public class OOperation extends OFeature implements IOElement {
                  * ObjingEAnnotation.getOrCreateObjingEAnnotation(ecoreOwner);
                  * if (objingEA != null) objingEA.getContents().add(ecoreElt); }
                  */
-                ObjingModelNavigation.infoOfUnsupportedOwnedWithEMF(
+                AbstractObjingModelNavigation.infoOfUnsupportedOwnedWithEMF(
                         objingOwner, objingElement, ecoreElt);
         
             } else if (ecoreOwner != null) {

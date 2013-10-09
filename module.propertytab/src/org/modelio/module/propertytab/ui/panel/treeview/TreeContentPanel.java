@@ -104,7 +104,7 @@ public class TreeContentPanel implements IModulePropertyPanel {
 
     @objid ("c89b11c4-1eba-11e2-9382-bc305ba4815c")
     private TreeViewerColumn createTreeViewerColumn(String title, int bound) {
-        final TreeViewerColumn column = new TreeViewerColumn(this.treeViewer, SWT.CENTER);
+        final TreeViewerColumn column = new TreeViewerColumn(this.treeViewer, SWT.LEFT);
         column.getColumn().setText(title);
         column.getColumn().setWidth(bound);
         column.getColumn().setResizable(true);

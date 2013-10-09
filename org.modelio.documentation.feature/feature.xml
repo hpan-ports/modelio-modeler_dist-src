@@ -53,49 +53,7 @@ along with Modelio.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
          unpack="false"/>
 
    <plugin
-         id="org.modelio.documentation.hibernate"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.modelio.documentation.javadesigner"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
          id="org.modelio.documentation.modelioapi"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.modelio.documentation.sysml"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.modelio.documentation.xsddesigner"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.modelio.documentation.vaudit"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.modelio.documentation.wsdldesigner"
          download-size="0"
          install-size="0"
          version="0.0.0"
@@ -110,6 +68,20 @@ along with Modelio.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
 
    <plugin
          id="org.modelio.documentation.welcome"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.modelio.documentation.metamodel"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.modelio.documentation.vaudit"
          download-size="0"
          install-size="0"
          version="0.0.0"

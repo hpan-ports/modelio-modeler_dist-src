@@ -38,6 +38,9 @@ class MStatusImpl implements MStatus {
     @objid ("0e9894c5-d4cd-11e1-b069-001ec947ccaf")
     private static final long WRITE_MASK = IRStatus.DOMAINWRITE | IPStatus.OBJECTWRITE | IPStatus.OBJECTWRITE;
 
+    @objid ("15f08282-7f2f-475b-b69c-bf005c627623")
+    private final boolean dirty;
+
     @objid ("aaf50c0a-d287-11e1-b069-001ec947ccaf")
     MStatusImpl(SmObjectImpl obj) {
         long lstatus = obj.getSmStatusFlags();
@@ -54,6 +57,7 @@ class MStatusImpl implements MStatus {
         }
         
         this.status = lstatus;
+        this.dirty = obj.getRepositoryObject().isDirty(obj);
     }
 
     @objid ("aaf50c0d-d287-11e1-b069-001ec947ccaf")
@@ -146,6 +150,12 @@ class MStatusImpl implements MStatus {
         return SmStatus.areAllSet(this.status, IRStatus.CMSTOADD) == StatusState.TRUE;
     }
 
+    @objid ("b865e7e9-08ce-4f60-aa63-289de4d7a4b1")
+    @Override
+    public boolean isCmsToDelete() {
+        return SmStatus.areAllSet(this.status, IRStatus.CMSTODELETE) == StatusState.TRUE;
+    }
+
     @objid ("aaf76e5e-d287-11e1-b069-001ec947ccaf")
     @Override
     public boolean isCmsReadOnly() {
@@ -200,6 +210,12 @@ class MStatusImpl implements MStatus {
     @Override
     public boolean isLockingNeeded() {
         return SmStatus.areAllSet(this.status, IRStatus.CMSNEEDSLOCK) == StatusState.TRUE;
+    }
+
+    @objid ("ae05f11d-b748-4e3a-9ab2-3ed8ce7cedc0")
+    @Override
+    public boolean isDirty() {
+        return this.dirty;
     }
 
 }

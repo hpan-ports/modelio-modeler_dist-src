@@ -22,6 +22,7 @@
 package org.modelio.metamodel.experts.links.impl;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
+import org.modelio.metamodel.Metamodel;
 import org.modelio.metamodel.bpmn.activities.BpmnActivity;
 import org.modelio.metamodel.bpmn.events.BpmnCatchEvent;
 import org.modelio.metamodel.bpmn.events.BpmnEvent;
@@ -35,6 +36,7 @@ import org.modelio.metamodel.bpmn.processCollaboration.BpmnLane;
 import org.modelio.metamodel.bpmn.processCollaboration.BpmnLaneSet;
 import org.modelio.metamodel.bpmn.processCollaboration.BpmnProcess;
 import org.modelio.metamodel.bpmn.rootElements.BpmnFlowElement;
+import org.modelio.vcore.smkernel.mapi.MClass;
 import org.modelio.vcore.smkernel.mapi.MObject;
 
 /**
@@ -44,16 +46,16 @@ import org.modelio.vcore.smkernel.mapi.MObject;
 public class BpmnDataAssociationCreationExpert extends DefaultLinkExpert {
     @objid ("7e97415d-1eb2-11e2-8009-002564c97630")
     @Override
-    public boolean canSource(final MObject from, final MObject owner) {
-        if (from instanceof BpmnThrowEvent) {
+    public boolean canSource(MClass link, MClass from) {
+        if (from.hasBase(Metamodel.getMClass(BpmnThrowEvent.class))) {
             return false;
-        } else if (from instanceof BpmnDataOutput) {
+        } else if (from.hasBase(Metamodel.getMClass(BpmnDataOutput.class))) {
             return false;
-        } else if (from instanceof BpmnActivity) {
+        } else if (from.hasBase(Metamodel.getMClass(BpmnActivity.class))) {
             return true;
-        } else if (from instanceof BpmnItemAwareElement) {
+        } else if (from.hasBase(Metamodel.getMClass(BpmnItemAwareElement.class))) {
             return true;
-        } else if (from instanceof BpmnEvent) {
+        } else if (from.hasBase(Metamodel.getMClass(BpmnEvent.class))) {
             return true;
         } else if (from instanceof BpmnSequenceFlow) {
             return true;
@@ -63,7 +65,7 @@ public class BpmnDataAssociationCreationExpert extends DefaultLinkExpert {
 
     @objid ("7e974166-1eb2-11e2-8009-002564c97630")
     @Override
-    public boolean canLink(final MObject link, final MObject from, final MObject to, final MObject owner) {
+    public boolean canLink(final MClass link, final MClass from, final MClass to, final MClass owner) {
         if (!canSource(link, from)) {
             return false;
         }
@@ -73,25 +75,21 @@ public class BpmnDataAssociationCreationExpert extends DefaultLinkExpert {
         if (to instanceof BpmnDataInput) {
             validMetaclass = false;
         } else {
-            if (from instanceof BpmnActivity && to instanceof BpmnItemAwareElement) {
+            if (from.hasBase(Metamodel.getMClass(BpmnActivity.class)) && to.hasBase(Metamodel.getMClass(BpmnItemAwareElement.class))) {
                 validMetaclass = true;
-            } else if (from instanceof BpmnItemAwareElement && to instanceof BpmnActivity) {
+            } else if (from.hasBase(Metamodel.getMClass(BpmnItemAwareElement.class)) && (to.hasBase(Metamodel.getMClass(BpmnActivity.class)))) {
                 validMetaclass = true;
-            } else if (from instanceof BpmnCatchEvent && to instanceof BpmnItemAwareElement) {
+            } else if (from.hasBase(Metamodel.getMClass(BpmnCatchEvent.class)) && to.hasBase(Metamodel.getMClass(BpmnItemAwareElement.class))) {
                 validMetaclass = true;
-            } else if (from instanceof BpmnItemAwareElement && to instanceof BpmnThrowEvent) {
+            } else if (from.hasBase(Metamodel.getMClass(BpmnItemAwareElement.class)) && to.hasBase(Metamodel.getMClass(BpmnThrowEvent.class))) {
                 validMetaclass = true;
-            } else if (from instanceof BpmnItemAwareElement && to instanceof BpmnSequenceFlow) {
+            } else if (from.hasBase(Metamodel.getMClass(BpmnItemAwareElement.class)) && to.hasBase(Metamodel.getMClass(BpmnSequenceFlow.class))) {
                 return true;
-            } else if (from instanceof BpmnSequenceFlow && to instanceof BpmnItemAwareElement) {
+            } else if (from.hasBase(Metamodel.getMClass(BpmnSequenceFlow.class)) && to.hasBase(Metamodel.getMClass(BpmnItemAwareElement.class))) {
                 return true;
             }
         }
-        
-        if (validMetaclass) {
-            return isSameContext(from, to);
-        }
-        return false;
+        return validMetaclass;
     }
 
     @objid ("7e974171-1eb2-11e2-8009-002564c97630")
@@ -123,6 +121,58 @@ public class BpmnDataAssociationCreationExpert extends DefaultLinkExpert {
             return getFirstLane(owner.getParentLane());
         }
         return lane;
+    }
+
+    @objid ("0656ed26-75fb-4c47-968d-b10534f1f3a9")
+    @Override
+    public boolean canSource(final MObject link, final MObject from) {
+        if (from instanceof BpmnThrowEvent) {
+            return false;
+        } else if (from instanceof BpmnDataOutput) {
+            return false;
+        } else if (from instanceof BpmnActivity) {
+            return true;
+        } else if (from instanceof BpmnItemAwareElement) {
+            return true;
+        } else if (from instanceof BpmnEvent) {
+            return true;
+        } else if (from instanceof BpmnSequenceFlow) {
+            return true;
+        }
+        return false;
+    }
+
+    @objid ("97d3a7a1-0bb7-4312-98c3-2c6c2a11133c")
+    @Override
+    public boolean canLink(final MObject link, final MObject from, final MObject to, final MObject owner) {
+        if (!canSource(link, from)) {
+            return false;
+        }
+        
+        boolean validMetaclass = false;
+        
+        if (to instanceof BpmnDataInput) {
+            validMetaclass = false;
+        } else {
+            if (from instanceof BpmnActivity && to instanceof BpmnItemAwareElement) {
+                validMetaclass = true;
+            } else if (from instanceof BpmnItemAwareElement && to instanceof BpmnActivity) {
+                validMetaclass = true;
+            } else if (from instanceof BpmnCatchEvent && to instanceof BpmnItemAwareElement) {
+                validMetaclass = true;
+            } else if (from instanceof BpmnItemAwareElement && to instanceof BpmnThrowEvent) {
+                validMetaclass = true;
+            } else if (from instanceof BpmnItemAwareElement && to instanceof BpmnSequenceFlow) {
+                return true;
+            } else if (from instanceof BpmnSequenceFlow && to instanceof BpmnItemAwareElement) {
+                return true;
+            }
+        }
+        
+        if (validMetaclass) {
+            return isSameContext(from, to);
+        }
+        return false;
     }
 
 }

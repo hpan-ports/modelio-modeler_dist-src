@@ -512,7 +512,7 @@ public class XmlDiagramReader implements IDiagramReader {
         if (data.startsWith("<?xml")) {
             // old uncompressed format
         } else {
-            data = UUBase64Compressor.decompress(data);
+            data = org.modelio.vcore.utils.UUBase64Compressor.decompress(data);
         }
         
         try {

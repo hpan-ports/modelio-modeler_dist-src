@@ -133,8 +133,10 @@ import org.modelio.metamodel.uml.infrastructure.properties.PropertyDefinition;
 import org.modelio.metamodel.uml.infrastructure.properties.PropertyEnumerationLitteral;
 import org.modelio.metamodel.uml.infrastructure.properties.PropertyTableDefinition;
 import org.modelio.metamodel.uml.statik.Artifact;
+import org.modelio.metamodel.uml.statik.Association;
 import org.modelio.metamodel.uml.statik.AssociationEnd;
 import org.modelio.metamodel.uml.statik.BindableInstance;
+import org.modelio.metamodel.uml.statik.ClassAssociation;
 import org.modelio.metamodel.uml.statik.Classifier;
 import org.modelio.metamodel.uml.statik.Collaboration;
 import org.modelio.metamodel.uml.statik.CollaborationUse;
@@ -146,6 +148,8 @@ import org.modelio.metamodel.uml.statik.Instance;
 import org.modelio.metamodel.uml.statik.Interface;
 import org.modelio.metamodel.uml.statik.LinkEnd;
 import org.modelio.metamodel.uml.statik.NameSpace;
+import org.modelio.metamodel.uml.statik.NaryAssociation;
+import org.modelio.metamodel.uml.statik.NaryAssociationEnd;
 import org.modelio.metamodel.uml.statik.Node;
 import org.modelio.metamodel.uml.statik.Operation;
 import org.modelio.metamodel.uml.statik.Parameter;
@@ -182,6 +186,9 @@ class BrowserContentProvider implements IModelChangeListener, IStatusChangeListe
 
     @objid ("ed6adba5-bd14-49eb-9a03-214653ee8b34")
     private boolean showAnalystModel = true;
+
+    @objid ("eece2eec-d3d3-4fdd-a843-b854fe957d88")
+     volatile boolean isEditorActive = false;
 
     @objid ("4c01ca83-d9b3-4add-a1f1-cc43ac424d68")
     private static ModelBrowserVisitor visitor = new ModelBrowserVisitor();
@@ -329,7 +336,7 @@ class BrowserContentProvider implements IModelChangeListener, IStatusChangeListe
 
     @objid ("dc85e8c3-5bcb-4c60-bcfa-73f06a077f3e")
     public synchronized void doRefreshViewer() {
-        if (this.viewer != null && !this.viewer.getControl().isDisposed()) {
+        if (this.viewer != null && !this.viewer.getControl().isDisposed() && !this.isEditorActive) {
             this.viewer.refresh();
         }
         this.viewRefresher = null;
@@ -828,6 +835,14 @@ class BrowserContentProvider implements IModelChangeListener, IStatusChangeListe
         public Object visitAssociationEnd(AssociationEnd theAssociationEnd) {
             if (this.findUmlChildren) {
                 addResults(theAssociationEnd.getQualifier());
+            
+                final Association association = theAssociationEnd.getAssociation();
+                if (association != null) {
+                    final ClassAssociation linkToClass = association.getLinkToClass();
+                    if (linkToClass != null) {
+                        addResult(linkToClass);
+                    }
+                }
             }
             return super.visitAssociationEnd(theAssociationEnd);
         }
@@ -861,10 +876,10 @@ class BrowserContentProvider implements IModelChangeListener, IStatusChangeListe
                         addResult(end);
                     }
                 }
-                
+            
                 // NaryAssociationEnd
                 addResults(theClassifier.getOwnedNaryEnd());
-                
+            
                 // Operation
                 addResults(theClassifier.getOwnedOperation());
             
@@ -1998,6 +2013,21 @@ class BrowserContentProvider implements IModelChangeListener, IStatusChangeListe
             for (MObject elt : elts) {
                 addResult(elt);
             }
+        }
+
+        @objid ("176836c0-a540-474d-85af-33e0bb82a33f")
+        @Override
+        public Object visitNaryAssociationEnd(NaryAssociationEnd theNaryAssociationEnd) {
+            if (this.findUmlChildren) {
+                final NaryAssociation association = theNaryAssociationEnd.getNaryAssociation();
+                if (association != null) {
+                    final ClassAssociation linkToClass = association.getLinkToClass();
+                    if (linkToClass != null) {
+                        addResult(linkToClass);
+                    }
+                }
+            }
+            return super.visitNaryAssociationEnd(theNaryAssociationEnd);
         }
 
     }

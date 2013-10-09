@@ -28,13 +28,12 @@ import org.modelio.metamodel.uml.behavior.stateMachineModel.ConnectionPointRefer
 import org.modelio.metamodel.uml.behavior.stateMachineModel.EntryPointPseudoState;
 import org.modelio.metamodel.uml.behavior.stateMachineModel.ExitPointPseudoState;
 import org.modelio.metamodel.uml.behavior.stateMachineModel.State;
-import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.vcore.smkernel.mapi.MObject;
 import org.modelio.xmi.util.GenerationProperties;
 import org.modelio.xmi.util.NotFoundException;
 
 @objid ("ccbf7129-c052-4005-96b4-9e3f6b7eb0c5")
-public class OConnectionPointReference extends ONameSpace implements IOElement {
+public class OConnectionPointReference extends OModelElement {
     @objid ("b20835db-d99f-4e05-816d-6cbe04dafeda")
      ConnectionPointReference objingElement = null;
 
@@ -42,6 +41,7 @@ public class OConnectionPointReference extends ONameSpace implements IOElement {
     private GenerationProperties genProp = GenerationProperties.getInstance();
 
     @objid ("a60023e9-1611-49f6-ad7a-f9ba95b4da5a")
+    @Override
     public org.eclipse.uml2.uml.Element createEcoreElt() {
         State objOwner = this.objingElement.getOwnerState();
         org.eclipse.uml2.uml.Element ecoreOwner = GenerationProperties.getInstance().getMappedElement(objOwner);
@@ -58,6 +58,7 @@ public class OConnectionPointReference extends ONameSpace implements IOElement {
     }
 
     @objid ("043e9e97-6124-4735-8a02-14ddb9c4af49")
+    @Override
     public void attach(org.eclipse.uml2.uml.Element ecoreElt) {
         MObject objingOwner = this.objingElement.getCompositionOwner();
         
@@ -94,6 +95,7 @@ public class OConnectionPointReference extends ONameSpace implements IOElement {
     }
 
     @objid ("cf7cd0f2-3128-497a-9355-58a73470f5fa")
+    @Override
     public void setProperties(org.eclipse.uml2.uml.Element ecoreElt) {
         super.setProperties(ecoreElt);
         setExit((org.eclipse.uml2.uml.ConnectionPointReference) ecoreElt);
@@ -107,7 +109,7 @@ public class OConnectionPointReference extends ONameSpace implements IOElement {
             org.eclipse.uml2.uml.Element ecoreEntry = GenerationProperties.getInstance().getMappedElement(objEntry);
             if (ecoreEntry != null){
                 if ((ecoreEntry instanceof org.eclipse.uml2.uml.Pseudostate) && ( (org.eclipse.uml2.uml.Pseudostate) ecoreEntry).getKind().equals (org.eclipse.uml2.uml.PseudostateKind.ENTRY_POINT_LITERAL)){
-                    ((org.eclipse.uml2.uml.ConnectionPointReference) ecoreElt).getEntries().add( (org.eclipse.uml2.uml.Pseudostate) ecoreEntry);                
+                    (ecoreElt).getEntries().add( (org.eclipse.uml2.uml.Pseudostate) ecoreEntry);                
                 
                 }
             }else{
@@ -125,7 +127,7 @@ public class OConnectionPointReference extends ONameSpace implements IOElement {
             org.eclipse.uml2.uml.Element ecoreExit = GenerationProperties.getInstance().getMappedElement(objExit);
             if (ecoreExit != null){
                 if ((ecoreExit instanceof org.eclipse.uml2.uml.Pseudostate) && ( (org.eclipse.uml2.uml.Pseudostate) ecoreExit).getKind().equals (org.eclipse.uml2.uml.PseudostateKind.EXIT_POINT_LITERAL)){
-                    ((org.eclipse.uml2.uml.ConnectionPointReference) ecoreElt).getExits().add( (org.eclipse.uml2.uml.Pseudostate) ecoreExit);                
+                    (ecoreElt).getExits().add( (org.eclipse.uml2.uml.Pseudostate) ecoreExit);                
                 
                 }
             }else{

@@ -83,7 +83,10 @@ public class ModuleService implements IModuleService {
     public void activateModule(GModule gModule) throws ModuleException {
         gModule.setActivated(true);
         
-        startModule(getIModule(gModule.getModuleElement()), gModule.getProject());
+        final ModuleComponent moduleElement = gModule.getModuleElement();
+        if (moduleElement != null) {
+            startModule(getIModule(moduleElement), gModule.getProject());
+        }
     }
 
     @objid ("c85c0675-03ec-11e2-8e1f-001ec947c8cc")
@@ -97,7 +100,10 @@ public class ModuleService implements IModuleService {
     public void deactivateModule(GModule gModule) throws ModuleException {
         gModule.setActivated(false);
         
-        stopModule(getIModule(gModule.getModuleElement()), gModule.getProject());
+        final ModuleComponent moduleElement = gModule.getModuleElement();
+        if (moduleElement != null) {
+            stopModule(getIModule(moduleElement), gModule.getProject());
+        }
     }
 
     @objid ("c85c0678-03ec-11e2-8e1f-001ec947c8cc")
@@ -186,18 +192,18 @@ public class ModuleService implements IModuleService {
             if (previouslyInstalledGModule == null) {
                 // actually install the module in the gproject
                 GModule gModule = gProject.installModule(rtModuleHandle, moduleFilePath);
-                
+        
                 newModule = installer.moduleFirstInstall(gModule, rtModuleHandle);
             } else {
                 // Update model
                 IModule startedOldModule = this.getModuleRegistry().getStartedModule(previouslyInstalledGModule.getModuleElement());
                 this.stopModule(startedOldModule, gProject);
-                 
+        
                 this.unloadModule(startedOldModule, gProject);
-                
-                
+        
+        
                 gProject.removeModule(previouslyInstalledGModule);
-                
+        
                 GModule updatedGModule = gProject.installModule(rtModuleHandle, moduleFilePath);
                 newModule = installer.moduleUpdateInstall(updatedGModule, rtModuleHandle, previouslyInstalledGModule);
             }
@@ -221,7 +227,7 @@ public class ModuleService implements IModuleService {
             ModuleComponent comp = iModule.getModel();
         
             // If there remains some strong deps, cannot remove the module
-            List<IModule> deps = ModuleResolutionHelper.getIModuleDependsOnIModules(iModule, this);
+            Collection<IModule> deps = ModuleResolutionHelper.getIModuleDependentIModules(iModule, gProject, this);
             if (!deps.isEmpty()) {
                 StringBuilder sb = new StringBuilder();
                 sb.append(MdaInfra.I18N.getString("ModuleRemove.error.dependencies"));
@@ -404,7 +410,7 @@ public class ModuleService implements IModuleService {
         }
         
         // Get all required modules
-        List<IModule> dependsOnIModules = ModuleResolutionHelper.getIModuleDependsOnIModules(iModule, this);
+        List<IModule> dependsOnIModules = ModuleResolutionHelper.getIModuleDependsOnIModules(iModule, gProject, this);
         
         // Get all activated weak dependencies
         GModule gModule = ModuleResolutionHelper.getGModuleByName(gProject, iModule.getName());

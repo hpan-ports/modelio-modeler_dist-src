@@ -185,8 +185,8 @@ public class GmBpmnLaneSetContainer extends GmNoStyleCompositeNode {
         
                     // OB Side
                     BpmnFlowElement flowElement = (BpmnFlowElement) ownedNode.getRelatedElement();
-                    //TODO replace following block with : flowElement.getLane().clear(); ???
-                    for (BpmnLane elane : flowElement.getLane()) {
+                    
+                    for (BpmnLane elane : new ArrayList<>(flowElement.getLane())) {
                         flowElement.getLane().remove(elane);
                     }
                     

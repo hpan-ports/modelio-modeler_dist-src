@@ -21,6 +21,7 @@
 
 package org.modelio.app.core.inputpart;
 
+import java.util.Collection;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.e4.ui.model.application.ui.advanced.MPlaceholder;
 import org.eclipse.e4.ui.model.application.ui.basic.MInputPart;
@@ -40,5 +41,11 @@ public interface IInputPartService {
 
     @objid ("59810458-c0d1-41f0-b514-a45cb0f5ecd3")
     void hideInputPart(MPart part);
+
+    @objid ("39be28da-71d2-4290-b5cd-a3dc66f23992")
+    Collection<? extends MPart> getInputParts(String id);
+
+    @objid ("48c66047-8fcb-4cb8-83e0-dcc098b79ee2")
+    MPart getInputPart(String id, String inputURI);
 
 }

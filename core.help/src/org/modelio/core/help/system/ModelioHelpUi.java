@@ -33,6 +33,7 @@ import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Monitor;
 import org.eclipse.swt.widgets.Shell;
 import org.modelio.core.help.plugin.CoreHelp;
@@ -46,7 +47,7 @@ public class ModelioHelpUi {
     private Browser browser;
 
     @objid ("da85e7dd-6d43-4a06-9849-1d4983270756")
-    private Shell shell;
+    private Shell shellWindow;
 
     /**
      * Constructor.
@@ -58,13 +59,22 @@ public class ModelioHelpUi {
 
     @objid ("cb356d41-1a89-4952-8c75-cc70d8f0f311")
     private Browser getBrowser() {
-        if (this.shell == null || this.browser.isDisposed()) {
-            createGui();
-        }
-        if (this.shell.getMinimized()) 
-            this.shell.setMinimized(false);
+        Shell parent = Display.getCurrent().getActiveShell();
         
-        this.shell.forceActive();
+        if (this.shellWindow == null || this.browser.isDisposed()) {
+            createGui(Display.getCurrent().getActiveShell());
+        } else {
+            if (this.shellWindow.getParent() != parent) {
+                this.shellWindow.close();
+                this.shellWindow = null;
+                createGui(parent);
+            }
+        }
+        
+        if (this.shellWindow.getMinimized())
+            this.shellWindow.setMinimized(false);
+        
+        this.shellWindow.forceActive();
         return this.browser;
     }
 
@@ -81,19 +91,16 @@ public class ModelioHelpUi {
         URL url = BaseHelpSystem.resolve("../index.jsp", false);
         if (url != null)
             this.getBrowser().setUrl(url.toString());
-        else 
+        else
             CoreHelp.LOG.debug("help resource not found: " + "../index.jsp");
     }
 
     /**
      * Displays a help resource specified as a url.
      * <ul>
-     * <li>a URL in a format that can be returned by
-     * {@link org.eclipse.help.IHelpResource#getHref() IHelpResource.getHref()}
-     * <li>a URL query in the format format <em>key=value&amp;key=value ...</em>
-     * The valid keys are: "tab", "toc", "topic", "contextId". For example,
-     * <em>toc="/myplugin/mytoc.xml"&amp;topic="/myplugin/references/myclass.html"</em>
-     * is valid.
+     * <li>a URL in a format that can be returned by {@link org.eclipse.help.IHelpResource#getHref() IHelpResource.getHref()}
+     * <li>a URL query in the format format <em>key=value&amp;key=value ...</em> The valid keys are: "tab", "toc", "topic",
+     * "contextId". For example, <em>toc="/myplugin/mytoc.xml"&amp;topic="/myplugin/references/myclass.html"</em> is valid.
      * </ul>
      */
     @objid ("99148ccc-ddee-458d-9dcb-f0796ac15217")
@@ -101,7 +108,7 @@ public class ModelioHelpUi {
         URL url = BaseHelpSystem.resolve(href, false);
         if (url != null)
             this.getBrowser().setUrl(url.toString());
-        else 
+        else
             CoreHelp.LOG.debug("help resource not found: " + href);
     }
 
@@ -317,8 +324,7 @@ public class ModelioHelpUi {
 /*
      * (non-Javadoc)
      * 
-     * @see org.eclipse.ui.help.AbstractHelpUI#resolve(java.lang.String,
-     * boolean)
+     * @see org.eclipse.ui.help.AbstractHelpUI#resolve(java.lang.String, boolean)
      */
     @objid ("4946cad6-70a3-4919-b07b-e72a037dc768")
     public URL resolve(String href, boolean documentOnly) {
@@ -389,8 +395,7 @@ public class ModelioHelpUi {
     }
 
     /**
-     * Returns <code>true</code> if the context-sensitive help window is
-     * currently being displayed, <code>false</code> if not.
+     * Returns <code>true</code> if the context-sensitive help window is currently being displayed, <code>false</code> if not.
      */
     @objid ("692a146f-03f4-4beb-a555-e77f83eff5b3")
     public boolean isContextHelpDisplayed() {
@@ -410,34 +415,33 @@ public class ModelioHelpUi {
     }
 
     @objid ("42ca401c-8146-4475-a490-6047ff4daf9d")
-    private void createGui() {
-        this.shell = new Shell();
-        this.shell.setText(CoreHelp.I18N.getString("HelpWindow.title"));
-        this.shell.setLayout(new GridLayout());
+    private void createGui(Shell parent) {
+        this.shellWindow = new Shell(parent, SWT.SHELL_TRIM);
+        this.shellWindow.setText(CoreHelp.I18N.getString("HelpWindow.title"));
+        this.shellWindow.setLayout(new GridLayout());
         
-        this.browser = new Browser(this.shell, SWT.BORDER);
+        this.browser = new Browser(this.shellWindow, SWT.BORDER);
         this.browser.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
-        this.shell.addDisposeListener(new DisposeListener() {
-            
+        this.shellWindow.addDisposeListener(new DisposeListener() {
+        
             @Override
             public void widgetDisposed(DisposeEvent e) {
                 ModelioHelpUi.this.browser = null;
-                ModelioHelpUi.this.shell = null;
-                
+                ModelioHelpUi.this.shellWindow = null;
+        
             }
         });
         
-        
-        this.shell.setSize(800, 600);
-        Monitor primary = this.shell.getDisplay().getPrimaryMonitor();
+        this.shellWindow.setSize(800, 600);
+        Monitor primary = this.shellWindow.getDisplay().getPrimaryMonitor();
         Rectangle bounds = primary.getBounds();
-        Rectangle rect = this.shell.getBounds();
+        Rectangle rect = this.shellWindow.getBounds();
         
         int x = bounds.x + (bounds.width - rect.width) / 2;
         int y = bounds.y + (bounds.height - rect.height) / 2;
         
-        this.shell.setLocation(x, y);
-        this.shell.open();
+        this.shellWindow.setLocation(x, y);
+        this.shellWindow.open();
     }
 
 }

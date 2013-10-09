@@ -27,6 +27,7 @@ import java.util.regex.MatchResult;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
+import org.modelio.vcore.smkernel.DeadObjectException;
 
 /**
  * Model object reference.
@@ -68,7 +69,11 @@ public class MRef implements Serializable {
     public MRef(MObject element) {
         this.mc = element.getMClass().getName();
         this.uuid = element.getUuid();
-        this.name = element.getName();
+        try {
+            this.name = element.getName();
+        } catch (DeadObjectException e) {
+            this.name = e.toString();
+        }
     }
 
     /**

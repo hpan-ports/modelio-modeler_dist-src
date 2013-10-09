@@ -32,7 +32,6 @@ import org.modelio.gproject.gproject.GProject;
 import org.modelio.gproject.module.GModule;
 import org.modelio.gproject.module.IModuleHandle;
 import org.modelio.gproject.module.ModuleId;
-import org.modelio.metamodel.mda.ModuleComponent;
 import org.modelio.vbasic.version.Version;
 
 /**
@@ -99,8 +98,10 @@ class ModuleResolutionHelper {
      * @return the list of mandatory IModule required by the passed module.
      */
     @objid ("a3030846-6bdf-4892-ad0f-d7f71370d2b6")
-    static List<IModule> getIModuleDependsOnIModules(IModule iModule, ModuleService moduleService) {
-        return getModuleComponentDependsOnIModules(iModule.getModel(), moduleService);
+    static List<IModule> getIModuleDependsOnIModules(IModule iModule, GProject gProject, ModuleService moduleService) {
+        final GModule gModule = getGModuleByName(gProject, iModule.getName());
+        final IModuleHandle moduleHandle = gModule != null ? gModule.getModuleHandle() : null;
+        return getModuleComponentDependsOnIModules(moduleHandle, gProject, moduleService);
     }
 
     /**
@@ -110,8 +111,8 @@ class ModuleResolutionHelper {
      * @return the list of mandatory IModule required by the passed module.
      */
     @objid ("1584670b-1b9a-474c-bdb0-eddd9676123b")
-    static List<IModule> getGModuleDependsOnIModules(GModule gModule, ModuleService moduleService) {
-        return getModuleComponentDependsOnIModules(gModule.getModuleElement(), moduleService);
+    static List<IModule> getGModuleDependsOnIModules(GModule gModule, GProject gProject, ModuleService moduleService) {
+        return getModuleComponentDependsOnIModules(gModule.getModuleHandle(), gProject, moduleService);
     }
 
     /**
@@ -121,12 +122,20 @@ class ModuleResolutionHelper {
      * @return the list of mandatory IModule required by the passed module.
      */
     @objid ("d9197889-0783-4321-bd54-444b76893e42")
-    static List<IModule> getModuleComponentDependsOnIModules(ModuleComponent moduleComponent, ModuleService moduleService) {
+    static List<IModule> getModuleComponentDependsOnIModules(IModuleHandle moduleHandle, GProject gProject, ModuleService moduleService) {
         List<IModule> dependsOn = new ArrayList<>();
         // Read the list directly from the ModelComponent.
-        if (moduleComponent != null) {
-            for (ModuleComponent requiredModuleModel : moduleComponent.getDependsOn()) {
-                dependsOn.add(moduleService.getModuleRegistry().getLoadedModule(requiredModuleModel));
+        if (moduleHandle != null) {
+         // Read the list from administrative informations
+            for (ModuleId moduleId : moduleHandle.getDependencies()) {
+                // Search the corresponding GModule
+                GModule module = getGModuleByName(gProject, moduleId.getName());
+                if (module != null) {
+                    // If Version compatible and activated, add it to the list.
+                    if (isVersionCompatible(module.getVersion(), moduleId.getVersion())) {
+                        dependsOn.add(moduleService.getIModule(module.getModuleElement()));
+                    }
+                }
             }
         }
         return dependsOn;
@@ -177,7 +186,7 @@ class ModuleResolutionHelper {
             GModule module = getGModuleByName(gProject, moduleId.getName());
             if (module != null) {
                 // If Version compatible and activated, add it to the list.
-                if (isVersionCompatible(module.getVersion(), moduleId.getVersion()) && module.isActivated()) {
+                if (isVersionCompatible(module.getVersion(), moduleId.getVersion())) {
                     dependsOn.add(module);
                 }
             }

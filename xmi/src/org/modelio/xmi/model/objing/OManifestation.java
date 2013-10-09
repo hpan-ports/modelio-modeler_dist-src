@@ -27,8 +27,8 @@ import org.eclipse.uml2.uml.UMLFactory;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
 import org.modelio.metamodel.uml.statik.Artifact;
 import org.modelio.metamodel.uml.statik.Manifestation;
+import org.modelio.xmi.util.AbstractObjingModelNavigation;
 import org.modelio.xmi.util.GenerationProperties;
-import org.modelio.xmi.util.ObjingModelNavigation;
 
 @objid ("395262d0-29b1-482f-b6fa-8a14736b8c01")
 public class OManifestation extends OElement implements IOElement {
@@ -40,7 +40,7 @@ public class OManifestation extends OElement implements IOElement {
 
     @objid ("2fd8b226-497c-4495-b694-8aad8358ed39")
     public org.eclipse.uml2.uml.Element createEcoreElt() {
-        if (ObjingModelNavigation.isManifestationMappable(objingElement)) {
+        if (AbstractObjingModelNavigation.isManifestationMappable(objingElement)) {
             return UMLFactory.eINSTANCE.createManifestation();
         } else {
         //            XMILogs.getInstance().writelnInLog(org.eclipse.uml2.uml.Messages.getString("logFile.warning.export.noumlmanifestation", objingElement.getName()));
@@ -80,7 +80,7 @@ public class OManifestation extends OElement implements IOElement {
 
     @objid ("948e7065-8318-4973-93c6-73ab608e2d28")
     private void setName(org.eclipse.uml2.uml.Manifestation manifestation) {
-        if (ObjingModelNavigation.isNotNullOrEmpty(objingElement.getName()))
+        if (AbstractObjingModelNavigation.isNotNullOrEmpty(objingElement.getName()))
             manifestation.setName(objingElement.getName());
     }
 

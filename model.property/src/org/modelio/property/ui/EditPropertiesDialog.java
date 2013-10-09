@@ -35,9 +35,10 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Shell;
+import org.modelio.app.core.activation.IActivationService;
 import org.modelio.app.core.picking.IModelioPickingService;
+import org.modelio.app.project.core.services.IProjectService;
 import org.modelio.core.ui.dialog.ModelioDialog;
-import org.modelio.gproject.gproject.GProject;
 import org.modelio.gproject.model.IMModelServices;
 import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.model.browser.views.treeview.ModelBrowserPanelProvider;
@@ -59,7 +60,7 @@ public class EditPropertiesDialog extends ModelioDialog {
     public ModelPropertyPanelProvider propertyPanel;
 
     @objid ("86a51aca-cf24-11e1-80a9-002564c97630")
-    private final GProject openedProject;
+    private final IProjectService projectService;
 
     @objid ("aa1e5a19-d004-11e1-9020-002564c97630")
     private final IMModelServices modelService;
@@ -73,12 +74,16 @@ public class EditPropertiesDialog extends ModelioDialog {
     @objid ("06df0e5b-16d1-11e2-aa0d-002564c97630")
     private final IModelioPickingService pickingService;
 
+    @objid ("4429894a-4ba2-47e5-8459-9fcbaeae8225")
+    private final IActivationService activationService;
+
     @objid ("8fa7c856-c068-11e1-8c0a-002564c97630")
-    public EditPropertiesDialog(GProject openedProject, IMModelServices modelService, IModelioPickingService pickingService, Shell parentShell) {
+    public EditPropertiesDialog(IProjectService projectService, IMModelServices modelService, IModelioPickingService pickingService, IActivationService activationService, Shell parentShell) {
         super(parentShell);
-        this.openedProject = openedProject;
+        this.projectService = projectService;
         this.modelService = modelService;
         this.pickingService = pickingService;
+        this.activationService = activationService;
     }
 
     @objid ("8fa7c85a-c068-11e1-8c0a-002564c97630")
@@ -109,14 +114,14 @@ public class EditPropertiesDialog extends ModelioDialog {
         
         // Create the property panel
         this.propertyPanel = new ModelPropertyPanelProvider();
-        this.propertyPanel.activateEdition(this.openedProject.getSession(), this.modelService, this.pickingService);
+        this.propertyPanel.activateEdition(this.projectService, this.projectService.getSession(), this.modelService, this.pickingService, this.activationService);
         this.propertyPanel.create(shform);
         this.propertyPanel.disableAutoLayout();
         this.propertyPanel.setHorizontalLayout();
         
         // Init the view
         shform.setWeights(new int[] { 40, 60 });
-        this.browserPanel.setInput(this.openedProject);
+        this.browserPanel.setInput(this.projectService.getOpenedProject());
         
         List<Object> roots = new ArrayList<>();
         roots.add(this.editedElement);

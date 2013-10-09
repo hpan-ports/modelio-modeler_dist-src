@@ -21,15 +21,20 @@
 
 package org.modelio.audit.handlers;
 
+import java.util.ArrayList;
+import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
+import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.e4.ui.model.application.MApplication;
 import org.eclipse.e4.ui.workbench.modeling.EModelService;
 import org.eclipse.jface.dialogs.IDialogConstants;
+import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.MouseListener;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.layout.RowLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
@@ -43,6 +48,7 @@ import org.modelio.audit.service.IAuditService;
 import org.modelio.audit.view.AuditPanelProvider;
 import org.modelio.audit.view.providers.AuditProviderFactory.AuditViewMode;
 import org.modelio.core.ui.dialog.ModelioDialog;
+import org.modelio.core.ui.images.MetamodelImageService;
 import org.modelio.gproject.model.IMModelServices;
 import org.modelio.ui.UIColor;
 import org.modelio.vcore.session.api.ICoreSession;
@@ -52,6 +58,9 @@ import org.modelio.vcore.smkernel.mapi.MObject;
 public class CheckerView extends ModelioDialog {
     @objid ("b2078137-7704-40d3-8131-9c7236958f1a")
     private static final String HELP_TOPIC = "/org.modelio.documentation.modeler/html/Modeler-_modeler_interface_audit_view.html";
+
+    @objid ("41fda318-77e3-4cbb-8aec-2682b8e60b6c")
+     volatile boolean refreshPending = false;
 
     @objid ("ee65f8c0-a167-4569-928b-c5bf50fa2db5")
     private AuditPanelProvider auditPanel;
@@ -63,7 +72,7 @@ public class CheckerView extends ModelioDialog {
     private Thread checkerThread;
 
     @objid ("ecfc4f7c-2160-42b1-aacd-56383c21253c")
-    private Text statusText;
+     Label statusLabel;
 
     @objid ("839786b9-2478-4c1b-b014-047b42a0b0d0")
     private Button byTypeButton;
@@ -80,9 +89,14 @@ public class CheckerView extends ModelioDialog {
     @objid ("bba42d4a-5086-4baf-9209-4f16f25560c8")
     private IAuditService auditService;
 
+    @objid ("04a2cb18-1b8f-4991-9f66-3f6a735b148b")
+    private List<MObject> checkedElements;
+
     @objid ("02060f87-ee74-494d-8c22-b6a55f4f1f30")
     protected CheckerView(Shell parentShell, ICoreSession session, Object selection, IMModelServices modelService, IModelioNavigationService navigationService, MApplication application, EModelService emService, IAuditService auditService, String jodId) {
         super(parentShell);
+        
+        this.checkedElements = getSelectedElements(selection);
         
         this.checker = new CheckElementRunner(auditService, selection, jodId);
         this.auditPanel = new AuditPanelProvider(session, modelService, navigationService, application, emService, jodId);
@@ -96,27 +110,96 @@ public class CheckerView extends ModelioDialog {
         parent.setLayout(new GridLayout(1, false));
         
         Composite root = new Composite(parent, SWT.NONE);
-        GridData gridData = new GridData();
-        gridData.horizontalAlignment = SWT.FILL;
-        gridData.verticalAlignment = SWT.FILL;
-        gridData.grabExcessHorizontalSpace = true;
-        gridData.grabExcessVerticalSpace = true;
-        root.setLayoutData(gridData);
+        GridData gd = new GridData();
+        gd.horizontalAlignment = SWT.FILL;
+        gd.verticalAlignment = SWT.FILL;
+        gd.grabExcessHorizontalSpace = true;
+        gd.grabExcessVerticalSpace = true;
+        root.setLayoutData(gd);
         root.setLayout(new GridLayout(6, false));
         
-        Label processLabel = new Label(root, SWT.NONE);
-        gridData = new GridData();
-        gridData.verticalAlignment = SWT.CENTER;
-        processLabel.setLayoutData(gridData);
-        processLabel.setText(Audit.I18N.getString("Audit.CheckerView.ProcessLabel.Name"));
+        // --------------------------------
+        Composite comp = new Composite(root, SWT.BORDER);
+        comp.setLayout(new RowLayout());
         
-        this.statusText = new Text(root, SWT.NONE);
-        this.statusText.setForeground(UIColor.TEXT_READONLY_BG);
-        this.statusText.setEnabled(false);
-        gridData = new GridData();
-        gridData.horizontalAlignment = SWT.FILL;
-        gridData.grabExcessHorizontalSpace = true;
-        this.statusText.setLayoutData(gridData);
+        Label elementLabel = new Label(comp, SWT.NONE);
+        elementLabel.setText("Checked element(s): ");
+        // gd = new GridData();
+        // elementLabel.setLayoutData(gd);
+        
+        int card = this.checkedElements.size();
+        Label elementIcon;
+        Label elementText;
+        switch (card) {
+        
+        case 0:
+            break;
+        case 1:
+            elementIcon = new Label(comp, SWT.NONE);
+            elementIcon.setImage(MetamodelImageService.getIcon(this.checkedElements.get(0).getMClass()));
+            elementText = new Label(comp, SWT.NONE);
+            elementText.setText(this.checkedElements.get(0).getName());
+            break;
+        case 2:
+            elementIcon = new Label(comp, SWT.NONE);
+            elementIcon.setImage(MetamodelImageService.getIcon(this.checkedElements.get(0).getMClass()));
+            elementText = new Label(comp, SWT.NONE);
+            elementText.setText(this.checkedElements.get(0).getName() + ", ");
+        
+            elementIcon = new Label(comp, SWT.NONE);
+            elementIcon.setImage(MetamodelImageService.getIcon(this.checkedElements.get(1).getMClass()));
+            elementText = new Label(comp, SWT.NONE);
+            elementText.setText(this.checkedElements.get(1).getName());
+            break;
+        case 3:
+            elementIcon = new Label(comp, SWT.NONE);
+            elementIcon.setImage(MetamodelImageService.getIcon(this.checkedElements.get(0).getMClass()));
+            elementText = new Label(comp, SWT.NONE);
+            elementText.setText(this.checkedElements.get(0).getName() + ", ");
+        
+            elementIcon = new Label(comp, SWT.NONE);
+            elementIcon.setImage(MetamodelImageService.getIcon(this.checkedElements.get(1).getMClass()));
+            elementText = new Label(comp, SWT.NONE);
+            elementText.setText(this.checkedElements.get(1).getName() + ", ");
+        
+            elementIcon = new Label(comp, SWT.NONE);
+            elementIcon.setImage(MetamodelImageService.getIcon(this.checkedElements.get(2).getMClass()));
+            elementText = new Label(comp, SWT.NONE);
+            elementText.setText(this.checkedElements.get(2).getName());
+            break;
+        default:
+            elementIcon = new Label(comp, SWT.NONE);
+            elementIcon.setImage(MetamodelImageService.getIcon(this.checkedElements.get(0).getMClass()));
+            elementText = new Label(comp, SWT.NONE);
+            elementText.setText(this.checkedElements.get(0).getName() + ", ");
+        
+            elementIcon = new Label(comp, SWT.NONE);
+            elementIcon.setImage(MetamodelImageService.getIcon(this.checkedElements.get(1).getMClass()));
+            elementText = new Label(comp, SWT.NONE);
+            elementText.setText(this.checkedElements.get(1).getName() + ", ");
+        
+            elementIcon = new Label(comp, SWT.NONE);
+            elementIcon.setImage(MetamodelImageService.getIcon(this.checkedElements.get(2).getMClass()));
+            elementText = new Label(comp, SWT.NONE);
+            elementText.setText(this.checkedElements.get(2).getName());
+        
+            elementText = new Label(comp, SWT.NONE);
+            elementText.setText(", ... (" + (this.checkedElements.size()) + " elements)");
+            break;
+        }
+        
+        gd = new GridData();
+        gd.horizontalSpan = 6;
+        gd.horizontalAlignment = SWT.FILL;
+        comp.setLayoutData(gd);
+        
+        // --------------------------------
+        this.statusLabel = new Label(root, SWT.CENTER);
+        gd = new GridData();
+        gd.horizontalAlignment = SWT.FILL;
+        gd.grabExcessHorizontalSpace = true;
+        gd.horizontalSpan = 2;
+        this.statusLabel.setLayoutData(gd);
         
         this.byTypeButton = new Button(root, SWT.TOGGLE);
         this.byTypeButton.setImage(Audit.getImageDescriptor("icons/LayoutByType.png").createImage());
@@ -202,13 +285,13 @@ public class CheckerView extends ModelioDialog {
             }
         });
         this.auditPanel.create(root);
-        gridData = new GridData();
-        gridData.horizontalSpan = 6;
-        gridData.horizontalAlignment = SWT.FILL;
-        gridData.grabExcessHorizontalSpace = true;
-        gridData.verticalAlignment = SWT.FILL;
-        gridData.grabExcessVerticalSpace = true;
-        this.auditPanel.getComposite().setLayoutData(gridData);
+        gd = new GridData();
+        gd.horizontalSpan = 6;
+        gd.horizontalAlignment = SWT.FILL;
+        gd.grabExcessHorizontalSpace = true;
+        gd.verticalAlignment = SWT.FILL;
+        gd.grabExcessVerticalSpace = true;
+        this.auditPanel.getComposite().setLayoutData(gd);
         
         this.auditPanel.setInput(this.auditService.getAuditEngine());
         
@@ -229,8 +312,8 @@ public class CheckerView extends ModelioDialog {
     @objid ("511c844f-45a0-4750-9d9b-63ec8abed84f")
     @Override
     public void init() {
-        getShell().setText(Audit.I18N.getString("Audit.CheckerView.DialogTitlee"));
-        setTitle(Audit.I18N.getString("Audit.CheckerView.DialogTitlee"));
+        getShell().setText(Audit.I18N.getString("Audit.CheckerView.DialogTitle"));
+        setTitle(Audit.I18N.getString("Audit.CheckerView.DialogTitle"));
         setMessage(Audit.I18N.getString("Audit.CheckerView.DialogMessage"));
         this.getShell().setSize(800, 400);
         this.getShell().setMinimumSize(300, 300);
@@ -246,27 +329,46 @@ public class CheckerView extends ModelioDialog {
 
     @objid ("9f139001-78db-4aef-967b-23998fd56d4c")
     public void refresh() {
-        Display.getDefault().asyncExec(new Runnable() {
-            @Override
-            public void run() {
-                if (!CheckerView.this.statusText.isDisposed()) {
-                    String status = CheckerView.this.checker.getStatus();
-        
-                    MObject checkedElement = CheckerView.this.checker.getCheckedElement();
-                    if (checkedElement != null) {
-                        status += checkedElement.getName();
+        if (!this.refreshPending && !CheckerView.this.statusLabel.isDisposed()) {
+            this.refreshPending = true;
+            Display.getDefault().asyncExec(new Runnable() {
+                @Override
+                public void run() {
+                    if (!CheckerView.this.statusLabel.isDisposed()) {
+                        CheckerView.this.statusLabel.setText(CheckerView.this.checker.getStatus());
                     }
-        
-                    CheckerView.this.statusText.setText(status);
+                    CheckerView.this.refreshPending = false;
                 }
-            }
-        });
+            });
+        }
     }
 
     @objid ("9d183d37-76f3-4dbe-b645-2291bb194daf")
     @Override
     protected String getHelpId() {
         return HELP_TOPIC;
+    }
+
+    @objid ("08af30b1-eb5c-48d3-8951-1b073f8ae369")
+    private List<MObject> getSelectedElements(Object selection) {
+        ArrayList<MObject> selectedElements = new ArrayList<>();
+        
+        if (selection instanceof MObject) {
+            selectedElements.add((MObject) selection);
+        } else if (selection instanceof IStructuredSelection && ((IStructuredSelection) selection).size() >= 1) {
+            Object[] elements = ((IStructuredSelection) selection).toArray();
+            for (Object element : elements) {
+                if (element instanceof MObject) {
+                    selectedElements.add((MObject) element);
+                } else if (element instanceof IAdaptable) {
+                    final MObject adapter = (MObject) ((IAdaptable) element).getAdapter(MObject.class);
+                    if (adapter != null) {
+                        selectedElements.add(adapter);
+                    }
+                }
+            }
+        }
+        return selectedElements;
     }
 
 }

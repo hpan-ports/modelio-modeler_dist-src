@@ -422,6 +422,9 @@ public class OwnedCompositionUml2Visitor extends UMLSwitch<Object> {
                         .getSimpleName()))) {
             visitorMap.put(inputAssociationClass, inputAssociationClass);
             behavior.visitAssociationClass(inputAssociationClass);
+            for (Object ownedEnd : inputAssociationClass.getMemberEnds()) {
+                this.doSwitch((EObject) ownedEnd);
+            }
         }
         return null;
     }

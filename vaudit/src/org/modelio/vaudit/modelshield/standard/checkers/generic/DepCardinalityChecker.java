@@ -48,23 +48,18 @@ public abstract class DepCardinalityChecker implements IChecker {
         if (object == null)
             return;
         
-        if (this.dep==null)
+        if (this.dep == null)
             this.dep = object.getMClass().getDependency(this.depName);
         
-        if (this.dep == null || ((SmDependency)this.dep).isDynamic())
+        if (this.dep == null || ((SmDependency) this.dep).isDynamic())
             return;
         
         int currentCard = object.mGet(this.dep).size();
         
-        if (currentCard < this.dep.getMinCardinality() 
+        if (currentCard < this.dep.getMinCardinality()
                 || ((this.dep.getMaxCardinality() > 0) && (currentCard > this.dep.getMaxCardinality()))) {
-            List<Object> objects = new ArrayList<>();
-            objects.add(this.dep.getName());
-            objects.add(this.dep.getMinCardinality());
-            objects.add(this.dep.getMaxCardinality());
-            objects.add(currentCard);
         
-            report.addEntry(new ModelError(this.errorId, object, objects));
+            report.addEntry(createError(object, dep, currentCard));
         }
     }
 
@@ -72,6 +67,29 @@ public abstract class DepCardinalityChecker implements IChecker {
     public DepCardinalityChecker(final String errorId, final String depName) {
         this.errorId = errorId;
         this.depName = depName;
+    }
+
+/*
+     * Derived classes should redefine this method where needed so that a clear report can be provided to the end user.
+     * 
+     * This 'default' implementation produces a rather technical report about SmDep cardinalities which is most often poorly
+     * understandable by end users
+     */
+    @objid ("d889a123-a103-4ce6-b326-f12443a93c01")
+    protected abstract ModelError createError(final MObject object, MDependency dep, int currentCard);
+
+/*
+     * Creates a 'default' Model error
+     * 
+     */
+    @objid ("c9c424e2-0798-4dba-8a54-bdd303ed54bf")
+    protected final ModelError createDefaultError(final MObject object, MDependency dep, int currentCard) {
+        List<Object> objects = new ArrayList<>();
+        objects.add(this.dep.getName());
+        objects.add(this.dep.getMinCardinality());
+        objects.add(this.dep.getMaxCardinality());
+        objects.add(currentCard);
+        return new ModelError(this.errorId, object, objects);
     }
 
 }

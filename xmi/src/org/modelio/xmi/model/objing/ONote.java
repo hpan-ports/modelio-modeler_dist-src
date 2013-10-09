@@ -28,9 +28,9 @@ import org.modelio.metamodel.uml.infrastructure.Note;
 import org.modelio.metamodel.uml.infrastructure.NoteType;
 import org.modelio.metamodel.uml.statik.Association;
 import org.modelio.metamodel.uml.statik.ClassAssociation;
+import org.modelio.xmi.util.AbstractObjingModelNavigation;
 import org.modelio.xmi.util.GenerationProperties;
 import org.modelio.xmi.util.ObjingEAnnotation;
-import org.modelio.xmi.util.ObjingModelNavigation;
 import org.modelio.xmi.util.SysMLProfileUtils;
 
 /**
@@ -87,7 +87,7 @@ public class ONote extends OElement implements IOElement {
                 if (ecoreElt instanceof  org.eclipse.uml2.uml.Comment){
                     annotatedElement.getOwnedComments().add( (org.eclipse.uml2.uml.Comment)ecoreElt);
                 }else{
-                    org.eclipse.uml2.uml.Element ecoreOwner = genProp.getMappedElement(ObjingModelNavigation.getNearestPackage(subjectModelElement));
+                    org.eclipse.uml2.uml.Element ecoreOwner = genProp.getMappedElement(AbstractObjingModelNavigation.getNearestPackage(subjectModelElement));
                     if (ecoreOwner instanceof Package){
                         org.eclipse.uml2.uml.TimeObservation timeObs = (org.eclipse.uml2.uml.TimeObservation) ecoreElt;
                         ((org.eclipse.uml2.uml.Package) ecoreOwner).getPackagedElements().add(timeObs);

@@ -22,7 +22,11 @@
 package org.modelio.audit.preferences.ui;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.FileSystemException;
+import java.nio.file.Files;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.EditingSupport;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.viewers.TreeViewerColumn;
@@ -40,15 +44,25 @@ import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 import org.modelio.audit.plugin.Audit;
-import org.modelio.audit.preferences.AuditConfigurator;
+import org.modelio.audit.preferences.AuditModelController;
 import org.modelio.audit.preferences.model.AuditConfigurationModel;
 import org.modelio.audit.preferences.ui.editingsupports.AuditActivationEditingSupport;
 import org.modelio.audit.preferences.ui.editingsupports.AuditSeverityEditingSupport;
 import org.modelio.audit.service.IAuditService;
 import org.modelio.ui.UIColor;
+import org.modelio.vbasic.files.FileUtils;
 
+/**
+ * Audit preferences editor GUI.
+ */
 @objid ("2b7f61d2-a060-423f-9acf-5acf8d8b4dc9")
 public class AuditPreferenceUi implements Listener {
+    @objid ("bb68e997-f5a1-4881-b860-ee989c743c90")
+    private static final String AUDIT_CONF_FILTER = "*.xml";
+
+    @objid ("b4f2427c-a1ef-4a7f-ac1a-f5ebb76b07d8")
+    private static final String AUDIT_CONF_EXT = ".xml";
+
     @objid ("5b697db6-2d8e-452c-bd31-448d4a5940e3")
     private Button exportToFile;
 
@@ -70,11 +84,20 @@ public class AuditPreferenceUi implements Listener {
     @objid ("d5633ba9-d650-478c-94e8-f508c1c352e4")
     private IAuditService auditService;
 
+    /**
+     * Initialize the preference editor.
+     * @param auditService the audit service
+     */
     @objid ("b20b8808-ba8a-46d9-8367-6fe4544fd982")
     public AuditPreferenceUi(IAuditService auditService) {
         this.auditService = auditService;
     }
 
+    /**
+     * Create the GUI
+     * @param parent the parent composite where the content must be created.
+     * @return the created root composite
+     */
     @objid ("0dd74ccb-3555-44b4-8b96-9f0c4b493eb5")
     public Control createContents(Composite parent) {
         Composite root = new Composite(parent, SWT.NONE);
@@ -109,8 +132,7 @@ public class AuditPreferenceUi implements Listener {
         AuditPropertyContentProvider content = new AuditPropertyContentProvider();
         this.treeViewer.setContentProvider(content);
         
-        AuditConfigurator configurator = new AuditConfigurator(this.auditService.getConfigurationPlan());
-        this.preferences = configurator.createPrefModel();
+        this.preferences = this.auditService.getConfigurationModel();
         this.treeViewer.setInput(this.preferences);
         
         // The save/restore/factory settings button bar
@@ -174,52 +196,78 @@ public class AuditPreferenceUi implements Listener {
             // import audit configuration from file
             Shell parentShell = Display.getDefault().getActiveShell();
             FileDialog dlg = new FileDialog(parentShell, SWT.OPEN);
-            dlg.setFilterExtensions(new String[] { "*.xml" });
+            dlg.setFilterExtensions(new String[] { AUDIT_CONF_FILTER });
             dlg.setFilterNames(new String[] { Audit.I18N.getString("Preferences.Audit.Export.FileType") });
             String result = dlg.open();
             if (result != null) {     // Result is null when canceling
                 File file = new File(dlg.getFilterPath(), dlg.getFileName());
-                
+        
                 // use a configurator for 'file' settings
-                AuditConfigurator configurator = new AuditConfigurator(file);
-                this.preferences = configurator.createPrefModel();
-                this.treeViewer.setInput(this.preferences);        
+                AuditModelController configurator = new AuditModelController(this.auditService.getConfigurationModel());
+                try {
+                    configurator.applyAuditConfiguration(file);
+        
+                    this.preferences = configurator.getModel();
+                    this.treeViewer.setInput(this.preferences);        
+                } catch (IOException e) {
+                    reportError( Audit.I18N.getString("Preferences.Audit.Import.Error"), e);
+                }
             }
         } else if (event.widget.equals(this.exportToFile)) {
             // export current audit config to file
-            Shell parentShell = Display.getDefault().getActiveShell();
+            
+            Shell parentShell = this.save.getShell();
             FileDialog dlg = new FileDialog(parentShell, SWT.SAVE);
-            dlg.setFilterExtensions(new String[] { "*.xml" });
+            dlg.setFilterExtensions(new String[] { AUDIT_CONF_FILTER });
             dlg.setFilterNames(new String[] { Audit.I18N.getString("Preferences.Audit.Import.FileType") });
             String result = dlg.open();
             if (result != null) {     // Result is null when canceling                
                 File file = new File(dlg.getFilterPath(), dlg.getFileName());
                 
-                if (file.getName().endsWith(".xml") == false) {
-                    file = new File(file.getAbsolutePath() + ".xml");
+                if (file.getName().endsWith(AUDIT_CONF_EXT) == false) {
+                    file = new File(file.getAbsolutePath() + AUDIT_CONF_EXT);
                 }
                 
-                // save current preferences before exporting
-                // use a configurator for current config file
-                AuditConfigurator configurator = new AuditConfigurator(this.auditService.getConfigurationPlan());
-                configurator.apply(this.preferences);
+                try {
+                    // copy original settings
+                    Files.copy(this.auditService.getConfigurationFile().toPath(), file.toPath());
+                    
+                    // use a configurator 
+                    AuditModelController configurator = new AuditModelController(this.preferences);
+        
+                    // TODO: Exclude factory settings ?
+                    //configurator.setDefaultConf(this.auditService.getFactorySettingsFile());
+                    
+                    // save to the new file
+                    configurator.writeConfiguration(file);
+                } catch (IOException e) {
+                    reportError( Audit.I18N.getString("Preferences.Audit.Export.Error"), e);
+                }
                 
-                // export
-                configurator.saveAs(file);
             }
         
         } else if (event.widget.equals(this.factory)) {
             // use a configurator for factory settings
-            AuditConfigurator configurator = new AuditConfigurator(null);
-            this.preferences = configurator.createPrefModel();
+            this.preferences = this.auditService.getFactorySettings();
             this.treeViewer.setInput(this.preferences);         
         } else if (event.widget.equals(this.save)) {       
-            AuditConfigurator configurator = new AuditConfigurator(this.auditService.getConfigurationPlan());
-            configurator.apply(this.preferences);
-            
             // replace the current by the updated plan
-            this.auditService.restart();      
+            this.auditService.apply(this.preferences);      
         }
+    }
+
+    @objid ("31e99d6a-2708-4a2a-9dd8-823ac0f8e17e")
+    private void reportError(String title, IOException e) {
+        // TODO Auto-generated method stub
+        Shell parentShell = this.save.getShell();
+        String message;
+        if (e instanceof FileSystemException)
+            message = FileUtils.getLocalizedMessage((FileSystemException) e);
+        else
+            message = e.getLocalizedMessage();
+            
+        
+        MessageDialog.openError(parentShell, title, message);
     }
 
 }

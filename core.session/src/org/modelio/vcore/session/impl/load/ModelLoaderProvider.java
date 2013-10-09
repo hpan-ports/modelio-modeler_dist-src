@@ -24,6 +24,7 @@ package org.modelio.vcore.session.impl.load;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
+import org.modelio.vcore.session.api.repository.IRepositoryChangeEvent;
 import org.modelio.vcore.session.impl.storage.IModelLoader;
 import org.modelio.vcore.session.impl.storage.IModelLoaderProvider;
 import org.modelio.vcore.session.impl.storage.IModelRefresher;
@@ -80,6 +81,12 @@ public class ModelLoaderProvider implements IModelLoaderProvider {
             return new ModelRefresher(this.loaderConfig, this.refreshPool);
         }
         return ret;
+    }
+
+    @objid ("591da55f-6323-4bd6-ad16-d447a8ee0ed1")
+    @Override
+    public void fireRepositoryChange(IRepositoryChangeEvent event) {
+        this.loaderConfig.getSession().fireRepositoryChange(event);
     }
 
 }

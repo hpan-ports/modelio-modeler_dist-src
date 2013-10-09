@@ -45,11 +45,13 @@ import org.modelio.api.diagram.tools.IBoxCommand;
 import org.modelio.api.diagram.tools.ILinkCommand;
 import org.modelio.api.diagram.tools.IMultiLinkCommand;
 import org.modelio.api.model.IModelingSession;
+import org.modelio.api.module.ILicenseInfos.Status;
 import org.modelio.api.module.IModule;
 import org.modelio.api.module.IModuleSession;
 import org.modelio.api.module.IModuleUserConfiguration;
 import org.modelio.api.module.IParameterEditionModel;
 import org.modelio.api.module.IPeerModule;
+import org.modelio.api.module.LicenseInfos;
 import org.modelio.api.module.commands.ActionLocation;
 import org.modelio.api.module.commands.IModuleAction;
 import org.modelio.api.module.diagrams.DiagramCustomizationDescriptor;
@@ -539,6 +541,12 @@ public class ModuleI18NService {
         @Override
         public void registerDiagramCustomization(Stereotype stereotype, Class<? extends AbstractDiagram> baseDiagramClass, IDiagramCustomizer customizer) {
             throw new UnsupportedOperationException();
+        }
+
+        @objid ("63cfca37-7535-411c-ab9d-3e1a06d2bab9")
+        @Override
+        public LicenseInfos getLicenseInfos() {
+            return new LicenseInfos(Status.UNDEFINED, null, "");
         }
 
     }

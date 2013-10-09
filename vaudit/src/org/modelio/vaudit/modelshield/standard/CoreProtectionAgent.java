@@ -109,6 +109,7 @@ import org.modelio.vaudit.modelshield.standard.checkers.E280Checker;
 import org.modelio.vaudit.modelshield.standard.checkers.E282Checker;
 import org.modelio.vaudit.modelshield.standard.checkers.E283Checker;
 import org.modelio.vaudit.modelshield.standard.checkers.E291Checker;
+import org.modelio.vaudit.modelshield.standard.checkers.E292Checker;
 import org.modelio.vaudit.modelshield.standard.checkers.tofix.E284Checker;
 import org.modelio.vaudit.modelshield.standard.checkers.tofix.E285Checker;
 import org.modelio.vaudit.modelshield.standard.checkers.tofix.E286Checker;
@@ -276,6 +277,7 @@ public class CoreProtectionAgent implements IProtectionAgent {
         new E289Checker().register(plan);
         new E290Checker().register(plan);
         new E291Checker().register(plan);
+        new E292Checker().register(plan);
     }
 
 }

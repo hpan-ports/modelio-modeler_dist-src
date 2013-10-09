@@ -24,6 +24,7 @@ package org.modelio.xmi.model.ecore;
 import java.util.ArrayList;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
+import org.eclipse.uml2.uml.AssociationClass;
 import org.eclipse.uml2.uml.InstanceSpecification;
 import org.eclipse.uml2.uml.InstanceValue;
 import org.eclipse.uml2.uml.Property;
@@ -45,12 +46,15 @@ import org.modelio.metamodel.uml.statik.Feature;
 import org.modelio.metamodel.uml.statik.GeneralClass;
 import org.modelio.metamodel.uml.statik.Instance;
 import org.modelio.metamodel.uml.statik.KindOfAccess;
+import org.modelio.metamodel.uml.statik.NaryAssociation;
+import org.modelio.metamodel.uml.statik.NaryAssociationEnd;
 import org.modelio.metamodel.uml.statik.Port;
+import org.modelio.metamodel.uml.statik.StructuralFeature;
+import org.modelio.xmi.util.AbstractObjingModelNavigation;
 import org.modelio.xmi.util.EcoreModelNavigation;
 import org.modelio.xmi.util.IModelerModuleStereotypes;
 import org.modelio.xmi.util.NotFoundException;
 import org.modelio.xmi.util.ObjingEAnnotation;
-import org.modelio.xmi.util.ObjingModelNavigation;
 import org.modelio.xmi.util.ProfileUtils;
 import org.modelio.xmi.util.ReverseProperties;
 
@@ -59,8 +63,9 @@ import org.modelio.xmi.util.ReverseProperties;
  * @author ebrosse
  */
 @objid ("5c942ba9-9bc1-45fb-b626-1f61d56f9432")
-public class EProperty extends EFeature implements IEElement {
+public class EProperty extends EFeature {
     @objid ("02e84f41-51c9-4d37-ad0f-6c23ab6de794")
+    @Override
     public List<ModelElement> createObjingElt() {
         Property ecoreElement = (Property) getEcoreElement();
         if (!(ecoreElement.getType() instanceof org.eclipse.uml2.uml.Stereotype)){    
@@ -68,14 +73,18 @@ public class EProperty extends EFeature implements IEElement {
                 ProfileUtils.visitProperty(ecoreElement);      
             }else{
         
-                List<ModelElement> result = new ArrayList<ModelElement>();
+                List<ModelElement> result = new ArrayList<>();
         
                 IUmlModel objingModel = Modelio.getInstance().getModelingSession().getModel();
                 // association
                 if (EcoreModelNavigation.isAssocEnd(ecoreElement)) {
                     if (EcoreModelNavigation.hasTwoValidEnds(ecoreElement.getAssociation())
                             && (EcoreModelNavigation.isValid(ecoreElement))){
-                        result.add(objingModel.createAssociationEnd());
+                        if (ecoreElement.getAssociation().getMemberEnds().size() == 2 ){
+                            result.add(objingModel.createAssociationEnd());
+                        }else{
+                            result.add(objingModel.createNaryAssociationEnd()); 
+                        }
                     }       
                 } 
         
@@ -119,6 +128,7 @@ public class EProperty extends EFeature implements IEElement {
     }
 
     @objid ("5679ed55-c778-4f48-ba49-b91d81999fc3")
+    @Override
     public void attach(Element objingElt) {
         Property ecoreElement = ((Property) getEcoreElement());
         if (!(ecoreElement.getOwner() instanceof org.eclipse.uml2.uml.Stereotype)){
@@ -128,23 +138,23 @@ public class EProperty extends EFeature implements IEElement {
                     && !(objingElt instanceof Attribute)) {
         
                 if (EcoreModelNavigation.isPart(ecoreElement)){
+        
                     if (objingElt instanceof BindableInstance){
                         attachBindableInstance(objingElt);
-                        Element represented = ((BindableInstance)objingElt).getRepresentedFeature();
-                        if (represented instanceof AssociationEnd)
-                            ObjingModelNavigation.attachAssociationEnd(
-                                    (AssociationEnd)((BindableInstance)objingElt).getRepresentedFeature(), (Property) getEcoreElement());
-        
-                    }else{
-                        ObjingModelNavigation.attachAssociationEnd((AssociationEnd)objingElt, (Property) getEcoreElement());
+                        //                        Element represented = ((BindableInstance)objingElt).getRepresentedFeature();
+                        //                        if (represented instanceof AssociationEnd)
+                        //                            attachAssociationEnd(
+                        //                                    (AssociationEnd)((BindableInstance)objingElt).getRepresentedFeature(), (Property) getEcoreElement());   
+                        //                    }else{
+                        //                        attachAssociationEnd((AssociationEnd)objingElt, (Property) getEcoreElement());
                     }
         
                 }else{
-                    if (objingElt instanceof BindableInstance){
         
+                    if (objingElt instanceof BindableInstance){  
                         attachBindableInstance(objingElt);
-                    }else{
-                        ObjingModelNavigation.attachAssociationEnd((AssociationEnd)objingElt, (Property) getEcoreElement());
+                        //                    }else{
+                        //                        attachAssociationEnd((AssociationEnd)objingElt, (Property) getEcoreElement());
                     }
         
                 }
@@ -157,6 +167,7 @@ public class EProperty extends EFeature implements IEElement {
     }
 
     @objid ("d57e9364-a17a-478a-89a1-d59a58e83521")
+    @Override
     public void attach(List<Object> objingElts) {
         for (Object objingElt : objingElts){
             if (objingElt instanceof Element)
@@ -165,6 +176,7 @@ public class EProperty extends EFeature implements IEElement {
     }
 
     @objid ("7c9ae24e-cadd-4129-b7aa-5ba8452ff4e2")
+    @Override
     public void setProperties(Element objingElt) {
         if (!(((Property) getEcoreElement()).getOwner() instanceof org.eclipse.uml2.uml.Stereotype)){
         
@@ -172,7 +184,7 @@ public class EProperty extends EFeature implements IEElement {
             if (objingElt instanceof Feature)
                 setFeature( (Feature) objingElt);
             else if (objingElt instanceof Instance){
-                ObjingModelNavigation.setInstance((Instance)objingElt, (Property) getEcoreElement() );
+                AbstractObjingModelNavigation.setInstance((Instance)objingElt, (Property) getEcoreElement() );
                 if (objingElt instanceof BindableInstance){
                     ModelElement represented = ((BindableInstance)objingElt).getRepresentedFeature();
                     if ((represented != null) && (represented instanceof AssociationEnd)){
@@ -186,49 +198,103 @@ public class EProperty extends EFeature implements IEElement {
     @objid ("6e4bfc73-fe60-42d4-8032-c16a8fa790a1")
     private void setFeature(Feature objingElt) {
         boolean roundTripEnable = ReverseProperties.getInstance().isRoundtripEnabled();
-        if (objingElt instanceof AssociationEnd) {
-            setAssociation((AssociationEnd) objingElt);
-            setNavigation((AssociationEnd) objingElt);
-            setChangeable((AssociationEnd) objingElt);
-            setAssociationKind((AssociationEnd) objingElt);
-            setOrdered((AssociationEnd) objingElt);
-            setUnique((AssociationEnd) objingElt);
-            setAccessMode((AssociationEnd) objingElt);
-            if (roundTripEnable) {
-                setAccessModeEAnnotation((AssociationEnd) objingElt);
-            }
-        } else if (objingElt instanceof Attribute) {
-            setType((Attribute) objingElt);
-            setOrdered((Attribute) objingElt);
-            setUnique((Attribute) objingElt);
-            setValue((Attribute) objingElt);
-            setAccessMode((Attribute) objingElt);
+        if (objingElt instanceof StructuralFeature) {
+        
+            setOrdered((StructuralFeature) objingElt);
+            setUnique((StructuralFeature) objingElt);
+            setAccessMode((StructuralFeature) objingElt);
         
             if (roundTripEnable) {
-                setChangeableEAnnotation((Attribute) objingElt);
-                setDerivedEAnnotation((Attribute) objingElt);
-                setTargetIsClassEAnnotation((Attribute) objingElt);
-                setTypeConstraint((Attribute) objingElt);
-                setValueEAnnotation((Attribute) objingElt);
+                setChangeableEAnnotation((StructuralFeature) objingElt);
+                setDerivedEAnnotation((StructuralFeature) objingElt);
+            }
+        
+        
+            if  (objingElt instanceof AssociationEnd) {
+                setAssociationKind((AssociationEnd) objingElt);
+                setNavigation((AssociationEnd) objingElt);
+                setChangeable((AssociationEnd) objingElt);
+                if (roundTripEnable) {
+                    setAccessModeEAnnotation((AssociationEnd) objingElt);
+                }
+        
+            } else if (objingElt instanceof Attribute) {
+                setType((Attribute) objingElt);
+                setOrdered((Attribute) objingElt);
+                setValue((Attribute) objingElt);
+        
+                if (roundTripEnable) {
+                    setTargetIsClassEAnnotation((Attribute) objingElt);
+                    setTypeConstraint((Attribute) objingElt);
+                    setValueEAnnotation((Attribute) objingElt);
+                }
+            } else   if  (objingElt instanceof NaryAssociationEnd) {
+                setNaryAssociationKind((NaryAssociationEnd) objingElt);
+                setOwner((NaryAssociationEnd) objingElt);  
             }
         }
         
+        setMultiplicity(objingElt);
         
-        setMultiplicity((Feature) objingElt);
-        setClass((Feature) objingElt);
         if (roundTripEnable) {
-            setAbstractEAnnotation((Feature) objingElt);
+            setAbstractEAnnotation(objingElt);
         }
     }
 
     @objid ("10535903-9334-4b5b-9307-8a1bbe521731")
-    private void setNavigation(AssociationEnd objingElt) {
-        org.eclipse.uml2.uml.Element ecoreOwner = getEcoreElement().getOwner();
-        if (ecoreOwner instanceof org.eclipse.uml2.uml.Association){
-            if (((org.eclipse.uml2.uml.Association)ecoreOwner).getNavigableOwnedEnds().contains(getEcoreElement()))
-                setNavigable(objingElt);
-        }else if (ecoreOwner instanceof org.eclipse.uml2.uml.Classifier)
-            setNavigable(objingElt);
+    private void setNavigation(AssociationEnd objEnd) {
+        AssociationEnd objOppositeEnd = null;
+        Property currentEnd = ((Property) getEcoreElement());
+        Property oppositeEnd = currentEnd.getOtherEnd();
+        
+        List<Element> objEnds = (List<Element>) ReverseProperties.getInstance().getMappedElement(oppositeEnd);
+        for (Element temp : objEnds){
+            if (temp instanceof AssociationEnd){
+                objOppositeEnd = (AssociationEnd) temp;
+                break;
+            }
+        }
+        
+        
+        if(objOppositeEnd != null){
+        
+            if(currentEnd.isNavigable()){ 
+        
+                if (oppositeEnd.isNavigable()){
+        
+                    objEnd.setTarget((Classifier)  ReverseProperties.getInstance().getMappedElement(currentEnd.getType())) ;
+                    objEnd.setSource((Classifier)  ReverseProperties.getInstance().getMappedElement(oppositeEnd.getType()));
+                    objEnd.setOpposite(objOppositeEnd);
+        
+        
+                }else {
+                    objEnd.setTarget((Classifier)  ReverseProperties.getInstance().getMappedElement(currentEnd.getType())) ;
+                    objEnd.setSource((Classifier)  ReverseProperties.getInstance().getMappedElement(oppositeEnd.getType()));
+                    objEnd.setOpposite(objOppositeEnd);
+                }
+        
+            }else{
+                if (oppositeEnd.isNavigable()){
+                    objEnd.setOpposite(objOppositeEnd);
+        
+        
+                } else{
+                    objEnd.setSource((Classifier)  ReverseProperties.getInstance().getMappedElement(oppositeEnd.getType()));
+                    objEnd.setOpposite(objOppositeEnd);
+                }
+            }
+        }
+        
+        Association objAssoc = null;
+        org.eclipse.uml2.uml.Association assoc = currentEnd.getAssociation();
+        
+        if (assoc instanceof AssociationClass){
+            objAssoc = ((org.modelio.metamodel.uml.statik.Class) ReverseProperties.getInstance().getMappedElement(currentEnd.getAssociation())).getLinkToAssociation().getAssociationPart();
+        }else{
+            objAssoc = (Association)  ReverseProperties.getInstance().getMappedElement(assoc);
+        }
+        
+        objEnd.setAssociation(objAssoc);
     }
 
     @objid ("23bd6341-e7ed-4e88-9cf1-d82e92c1f149")
@@ -258,6 +324,8 @@ public class EProperty extends EFeature implements IEElement {
                 break;
             case org.eclipse.uml2.uml.AggregationKind.COMPOSITE:
                 end.setAggregation(AggregationKind.KINDISCOMPOSITION);
+                break;
+            default:
                 break;
             }
         }
@@ -304,7 +372,7 @@ public class EProperty extends EFeature implements IEElement {
     }
 
     @objid ("0e5b2ca9-6a98-4cce-912c-7633352b594a")
-    private void setChangeableEAnnotation(Attribute attribute) {
+    private void setChangeableEAnnotation(StructuralFeature attribute) {
         String accessMode = ObjingEAnnotation.getAccessMode(getEcoreElement());
         
         if (ObjingEAnnotation.READ_VALUE.equals(accessMode)) {
@@ -319,7 +387,7 @@ public class EProperty extends EFeature implements IEElement {
     }
 
     @objid ("2d6fa9bb-82d6-4182-95a1-a893763b9f96")
-    private void setDerivedEAnnotation(Attribute attribute) {
+    private void setDerivedEAnnotation(StructuralFeature attribute) {
         attribute.setIsDerived(ObjingEAnnotation
                 .isDynamicDependency(getEcoreElement()));
     }
@@ -331,13 +399,8 @@ public class EProperty extends EFeature implements IEElement {
             attribute.setValue(value);
     }
 
-    @objid ("657445b3-4d7f-49b2-90cb-125811e3eb32")
-    private void setOrdered(Attribute attribute) {
-        attribute.setIsOrdered(((Property) getEcoreElement()).isOrdered());
-    }
-
     @objid ("8fe9d3b2-7153-4538-bbce-9d5c564e9b8b")
-    private void setOrdered(AssociationEnd attribute) {
+    private void setOrdered(StructuralFeature attribute) {
         attribute.setIsOrdered(((Property) getEcoreElement()).isOrdered());
     }
 
@@ -364,12 +427,7 @@ public class EProperty extends EFeature implements IEElement {
     }
 
     @objid ("9e9d3a8f-aa60-4406-b0b3-5a52aeb0e296")
-    private void setUnique(Attribute attribute) {
-        attribute.setIsUnique(((Property) getEcoreElement()).isUnique());
-    }
-
-    @objid ("0c2ceba6-a835-4b03-841f-f6e5883ae3d5")
-    private void setUnique(AssociationEnd attribute) {
+    private void setUnique(StructuralFeature attribute) {
         attribute.setIsUnique(((Property) getEcoreElement()).isUnique());
     }
 
@@ -398,8 +456,9 @@ public class EProperty extends EFeature implements IEElement {
             if (value instanceof InstanceValue){
                 InstanceSpecification spec = ((InstanceValue) value).getInstance();
                 if (spec != null){
-                    Object instance  = ReverseProperties.getInstance().getMappedElement(spec);
-                    if ((instance instanceof Instance) && (instance != null))
+                    Object instance = ReverseProperties.getInstance().getMappedElement(spec);
+                    if ((instance instanceof Instance) 
+                            && (instance != null))
                         try {
                             Modelio.getInstance().getModelingSession().getModel().createDependency(
                                     attribute, (Instance) instance, "ModelerModule", IModelerModuleStereotypes.UML2INSTANCEVALUE);
@@ -414,19 +473,15 @@ public class EProperty extends EFeature implements IEElement {
         }
     }
 
-    @objid ("dcec4dcd-3390-4800-8fd1-c25e1f1a1952")
-    private void setClass(Feature feature) {
-        feature.setIsClass(((Property) getEcoreElement()).isStatic());
-    }
-
     @objid ("d608a602-2862-46c0-9e2e-0af5579c55e0")
-    private void attachAttribute(final Attribute objingAttribute) {
+    private void attachAttribute(Attribute objingAttribute) {
         org.eclipse.uml2.uml.Element ecoreOwner = getEcoreElement().getOwner();
         Object objingOwner = ReverseProperties.getInstance().getMappedElement(ecoreOwner);
         
         if (objingOwner instanceof Classifier)
             objingAttribute.setOwner((Classifier) objingOwner);
-        else if ((ecoreOwner instanceof Property) && (EcoreModelNavigation.isAssocEnd((Property) ecoreOwner))) {
+        else if ((ecoreOwner instanceof Property) 
+                && (EcoreModelNavigation.isAssocEnd((Property) ecoreOwner))) {
             for (Element objElt : (ArrayList<? extends Element>) objingOwner){
                 if (objElt instanceof AssociationEnd)
                     objingAttribute.setQualified((AssociationEnd) objElt);
@@ -485,10 +540,10 @@ public class EProperty extends EFeature implements IEElement {
                     if (objingAttribute.getCluster() == null)
                         objingAttribute.setInternalOwner((Classifier) objingOwner);
         
-                    ModelElement represented = objingAttribute.getRepresentedFeature();
-                    if ((represented != null) && (represented instanceof AssociationEnd)){
-                        ObjingModelNavigation.attachAssociationEnd((AssociationEnd)represented, (Property) getEcoreElement());
-                    }
+                    //                    ModelElement represented = objingAttribute.getRepresentedFeature();
+                    //                    if ((represented != null) && (represented instanceof AssociationEnd)){
+                    //                        attachAssociationEnd((AssociationEnd)represented, (Property) getEcoreElement());
+                    //                    }
                 }else if ((objingOwner instanceof Collaboration))
                     objingAttribute.setOwner((Collaboration) objingOwner);
                 else if ((objingOwner instanceof Interaction)){
@@ -512,28 +567,40 @@ public class EProperty extends EFeature implements IEElement {
         }
     }
 
-    @objid ("08661b76-613c-4419-9b59-aafcb45d351c")
-    private void setAssociation(AssociationEnd end) {
-        // Links to the org.eclipse.uml2.uml.Association:
-        org.eclipse.uml2.uml.Association ecoreAssoc =  ((Property) getEcoreElement()).getAssociation();
-        
-        Object objingAssoc = ReverseProperties.getInstance().getMappedElement(ecoreAssoc);
-        
-        if (objingAssoc instanceof Association) {
-          
-            end.setAssociation((Association) objingAssoc);
-           for (Property otherEnd : ecoreAssoc.getMemberEnds()){
-               List<Element> objEnds = (List<Element>) ReverseProperties.getInstance().getMappedElement(otherEnd);
-               for(Element objEnd : objEnds){
-                   if ((objEnd instanceof AssociationEnd) && !(objEnd.equals(end))){
-                       end.setOpposite((AssociationEnd) objEnd);
-                   }
-               }
-               
-           }
-        }
-    }
-
+//    @objid ("08661b76-613c-4419-9b59-aafcb45d351c")
+//    private void setAssociation(AssociationEnd end) {
+//        // Links to the org.eclipse.uml2.uml.Association:
+//        org.eclipse.uml2.uml.Association ecoreAssoc =  ((Property) getEcoreElement()).getAssociation();
+//
+//        Object objingAssoc = ReverseProperties.getInstance().getMappedElement(ecoreAssoc);
+//
+//        if (objingAssoc instanceof Association) {
+//
+//            end.setAssociation((Association) objingAssoc);
+//            for (Property otherEnd : ecoreAssoc.getMemberEnds()){
+//                List<Element> objEnds = (List<Element>) ReverseProperties.getInstance().getMappedElement(otherEnd);
+//                for(Element objEnd : objEnds){
+//                    if ((objEnd instanceof AssociationEnd) && !(objEnd.equals(end))){
+//                        end.setOpposite((AssociationEnd) objEnd);
+//                    }
+//                }
+//
+//            }
+//        }else if ((objingAssoc instanceof org.modelio.metamodel.uml.statik.Class)
+//                && (ecoreAssoc instanceof AssociationClass)) {
+//
+//            end.setAssociation(((org.modelio.metamodel.uml.statik.Class) objingAssoc).getLinkToAssociation().getAssociationPart());
+//            for (Property otherEnd : ecoreAssoc.getMemberEnds()){
+//                List<Element> objEnds = (List<Element>) ReverseProperties.getInstance().getMappedElement(otherEnd);
+//                for(Element objEnd : objEnds){
+//                    if ((objEnd instanceof AssociationEnd) && !(objEnd.equals(end))){
+//                        end.setOpposite((AssociationEnd) objEnd);
+//                    }
+//                }
+//
+//            }
+//        }
+//    }
     @objid ("c1c2b6cd-35e5-4a67-a968-647bd29bd230")
     private void testMutiplicity(Attribute attribute) {
         String multMin = attribute.getMultiplicityMin();
@@ -565,33 +632,76 @@ public class EProperty extends EFeature implements IEElement {
     }
 
     @objid ("575cea15-2fe9-4a1b-ae3f-33967c10cfaf")
-    private void setAccessMode(Attribute objingElt) {
+    private void setAccessMode(StructuralFeature objingElt) {
         if (((Property) getEcoreElement()).isReadOnly()){
             objingElt.setChangeable(KindOfAccess.READ);
         }
     }
 
-    @objid ("8eed7716-a2c5-4039-8612-267afd6f31cc")
-    private void setAccessMode(AssociationEnd objingElt) {
-        if (((Property) getEcoreElement()).isReadOnly()){
-            objingElt.setChangeable(KindOfAccess.READ);
+    @objid ("b016659d-952e-46d1-858c-407bac359307")
+    private void setOwner(NaryAssociationEnd objingElt) {
+        Object classifier = ReverseProperties.getInstance().getMappedElement(((Property) getEcoreElement()).getType());
+        if (classifier instanceof Classifier){
+            objingElt.setOwner((Classifier) classifier);
         }
     }
 
-    @objid ("ca1dd872-5387-42d2-ac11-1634db9cb906")
-    private void setNavigable(AssociationEnd objingElt) {
-        Property currentEnd = ((Property) getEcoreElement());
-        org.eclipse.uml2.uml.Association assoc = currentEnd.getAssociation();
-        for (Property end : assoc.getMemberEnds()){
-            if (! end.equals(currentEnd)){
-                List<Element> objEnds = (List<Element>) ReverseProperties.getInstance().getMappedElement(end);
-                for (Element objEnd : objEnds){
-                    if (objEnd instanceof AssociationEnd){
-                        objingElt.setTarget((Classifier)  ReverseProperties.getInstance().getMappedElement(currentEnd.getType())) ;
-                    }
-                }
-            }
+    @objid ("09f2cb4e-44ed-453a-a64b-7dbd35313ed3")
+    private void setNaryAssociationKind(NaryAssociationEnd objingElt) {
+        Object naryassociation = ReverseProperties.getInstance().getMappedElement(((Property) getEcoreElement()).getAssociation());
+        if (naryassociation instanceof NaryAssociation){
+            objingElt.setNaryAssociation((NaryAssociation) naryassociation);
         }
     }
 
+
+//    private void attachAssociationEnd(AssociationEnd objingEnd, Property ecoreElement) {
+//        try {
+//            List<Property> ownedEnds = ecoreElement.getAssociation().getOwnedEnds();
+//            List<Property> oppositeEnds = EcoreModelNavigation.getOppositeAssociationEnds(ecoreElement);
+//
+//            int nbEnds = ownedEnds.size();
+//
+//            if (!((nbEnds == 1 ) &&  (ecoreElement.getOwner() instanceof org.eclipse.uml2.uml.Association))){
+//                // Case of a binary Association
+//                attachToAssoc(objingEnd, oppositeEnds.get(0).getType());
+//            } else if (nbEnds > 1) {// (in Ecore, an association may have only
+//                // one member end (which does
+//                // not have any sense ...)
+//                // Case of a N ary association
+//                attachToAssoc(objingEnd, ecoreElement.getType());
+//            }
+//        } catch (AssociationNotFoundException e) {
+//            String msg = "The Property \"" + ecoreElement.getName()
+//                    + "\" is not connected to an Association.";
+//            Xmi.LOG.error(Xmi.PLUGIN_ID, msg);
+//            XMILogs.getInstance().writelnInLog(msg);
+//        }
+//    }
+//    private void attachToAssoc(AssociationEnd objingEnd, Type ecoreType) {
+//        if (ecoreType != null) {
+//            Object objingOwner = ReverseProperties.getInstance().getMappedElement(ecoreType);
+//            if (objingOwner != null){
+//                //Rule Core R22
+//                if ((objingOwner instanceof Class) || (objingOwner instanceof Interface) || (objingOwner instanceof Component)
+//                        || (objingOwner instanceof Actor) || (objingOwner instanceof DataType) || (objingOwner instanceof Node)
+//                        || (objingOwner instanceof Signal)|| (objingOwner instanceof UseCase)){
+//                    Property ecoreElt = (Property) getEcoreElement();
+//                            if (ecoreElt.isNavigable() && (!ecoreElt.getOtherEnd().isNavigable())){
+//                                objingEnd.setSource((Classifier) objingOwner);
+//                            }
+//
+//
+//                }else{
+//
+//
+//                    XMILogs xmilogs = XMILogs.getInstance();
+//                    xmilogs.writelnInLog(Xmi.I18N.getMessage(
+//                            "logFile.warning.unsupportedOwnerImport", objingEnd.getName(),
+//                            objingEnd.getClass().getName(), objingOwner.getClass().getName()));
+//
+//                }
+//            }
+//        }
+//    }
 }

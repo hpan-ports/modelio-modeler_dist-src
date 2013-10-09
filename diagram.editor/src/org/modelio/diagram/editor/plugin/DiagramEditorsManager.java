@@ -66,7 +66,7 @@ public class DiagramEditorsManager {
         // FIXME this should be an @UIEventTopic, but they are not triggered with eclipse 4.3 M5...
         
         // Only handle activation requests for diagrams.
-        if (!(mObject instanceof AbstractDiagram)) {
+        if (!(mObject instanceof AbstractDiagram) || !mObject.isValid()) {
             return;
         }
         final AbstractDiagram diagram = (AbstractDiagram) mObject;

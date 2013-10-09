@@ -115,190 +115,31 @@ public abstract class AbstractFragment implements IProjectFragment {
     }
 
     /**
-     * Get the error handler that should be attached as listener to the repository when mount.
-     * @return the error handler
+     * Changes the fragment state and fires a project change event.
+     * @param newState the new fragment state.
      */
-    @objid ("6a70dfdd-d66d-11e1-9f03-001ec947ccaf")
-    protected final RepositoryListener getRepositoryErrorSupport() {
-        return this.errSupport;
-    }
-
     @objid ("6a73421e-d66d-11e1-9f03-001ec947ccaf")
-    private final void setState(FragmentState state) {
-        this.state = state;
-        if (state != FragmentState.DOWN)
+    private final void setState(FragmentState newState) {
+        if (newState != FragmentState.DOWN)
             this.downError = null;
+        
+        if (newState != this.state) {
+            this.state = newState;
+            if (getProject() != null)
+                getProject().getMonitorSupport().fireMonitors(GProjectEvent.fragmentStateChanged(this));
+        }
     }
 
-    /**
-     * Set the fragment in "down" state, with the cause.
-     * <p>
-     * Fires a GProjectEvent.
-     * @param error the cause of down state
-     */
-    @objid ("6a734221-d66d-11e1-9f03-001ec947ccaf")
-    protected final void setDown(Throwable error) {
-        if (this.downError != null) {
-            // Concatenate errors
-            this.downError.addSuppressed(error);
-        } else {
-            this.downError = error;
-            
-            // Disconnect the repository
-            // and set all loaded objects as shell.
-            IRepository repository = getRepository(); 
-            try {
-                if (repository != null && repository.isOpen()) {
-                    this.gproject.getSession().getRepositorySupport().disconnectRepository(repository);
-                }
-            
-                doUnmountPostProcess();
-            } catch (IOException | RuntimeException e) {
-                this.downError.addSuppressed(e);
-            } 
-            
-            setState(FragmentState.DOWN);
-            
-        }
-        
-        // Fire a GProjectEvent
-        this.gproject.getMonitorSupport().fireMonitors(GProjectEvent.FragmentDownEvent(this));
+    @objid ("9df6c318-ceb8-4cc7-9b93-886f0de15a85")
+    @Override
+    public GAuthConf getAuthConfiguration() {
+        return this.authConf;
     }
 
     @objid ("6a734225-d66d-11e1-9f03-001ec947ccaf")
     @Override
     public final Throwable getDownError() {
         return this.downError;
-    }
-
-    @objid ("6a73422a-d66d-11e1-9f03-001ec947ccaf")
-    @Override
-    public final FragmentState getState() {
-        return this.state;
-    }
-
-    /**
-     * Mount a fragment.
-     * <p>
-     * The process is:<ul>
-     * <li> set the state as MOUNTING
-     * <li> set the current project
-     * <li> call {@link #doMountInitRepository(IModelioProgress)}
-     * <li> connect the repository to the session
-     * <li> call {@link #doMountPostConnect(IModelioProgress)}
-     * <li> set the state as UP
-     * </ul>
-     * Subclasses must implement {@link #doMountInitRepository(IModelioProgress)} and may implement
-     * {@link #doMountPostConnect(IModelioProgress)}.
-     */
-    @objid ("8ed62b2b-07f4-11e2-b193-001ec947ccaf")
-    @Override
-    public final void mount(GProject aProject, IModelioProgress aMonitor) {
-        if (this.state != FragmentState.INITIAL && this.state != FragmentState.DOWN) {
-            throw new IllegalStateException("The '" + getId() + "' module is already mount: "+this.state);
-        }
-        
-        setState(FragmentState.MOUNTING);
-        this.gproject = aProject;
-        
-        try {
-            SubProgress mon = SubProgress.convert(aMonitor, 100);
-            IRepository repository = doMountInitRepository(mon);
-            
-            mon.setWorkRemaining(100);
-            repository.getErrorSupport().addErrorListener(getRepositoryErrorSupport());
-            IAccessManager accessManager = doInitAccessManager();
-            aProject.getSession().getRepositorySupport().connectRepository(repository, getId(), accessManager, mon);
-            
-            mon.setWorkRemaining(100);
-            doMountPostConnect(mon);
-            
-            setState(FragmentState.UP_FULL);
-        } catch (IOException e) {
-            setDown(e);
-        } finally {
-            if (this.state == FragmentState.MOUNTING)
-                setState(FragmentState.INITIAL);
-        }
-    }
-
-    @objid ("8ed62b30-07f4-11e2-b193-001ec947ccaf")
-    @Override
-    public final void unmount() {
-        IRepository repository = getRepository(); 
-        if (repository != null && repository.isOpen()) {
-            this.gproject.getSession().getRepositorySupport().disconnectRepository(repository);
-        }
-        
-        try {
-            doUnmountPostProcess();
-        } catch (IOException e) {
-            this.gproject.getMonitorSupport().fireMonitors(GProjectEvent.buildWarning(this, e));
-        }
-        
-        setState(FragmentState.INITIAL);
-    }
-
-    /**
-     * Get the project to which the fragment is attached
-     * @return the project.
-     */
-    @objid ("8ed62b33-07f4-11e2-b193-001ec947ccaf")
-    public final GProject getProject() {
-        return this.gproject;
-    }
-
-    /**
-     * Hook called by {@link #unmount()} after having disconnected the repository
-     * from the modeling session.
-     * <p>
-     * May be redefined by subclasses to clean resources.
-     * @throws java.io.IOException if some errors should be reported. The unmount will not be cancelled.
-     */
-    @objid ("8ed62b38-07f4-11e2-b193-001ec947ccaf")
-    protected void doUnmountPostProcess() throws IOException {
-        // Does nothing by default
-    }
-
-    /**
-     * Hook called by {@link #mount(GProject, IModelioProgress)} after having connected
-     * the repository to the session.
-     * <p>
-     * Does nothing by default. Subclasses may redefine it to
-     * populate the repository.
-     * @param mon the progress monitor to use for reporting progress to the user. It is the caller's responsibility to call
-     * <code>done()</code> on the given monitor. Accepts <code>null</code>, indicating that no progress should be
-     * reported and that the operation cannot be cancelled.
-     * @throws java.io.IOException in case of failure.
-     */
-    @objid ("8ed62b3b-07f4-11e2-b193-001ec947ccaf")
-    protected void doMountPostConnect(IModelioProgress mon) throws IOException {
-        // Nothing by default
-    }
-
-    /**
-     * Instantiate the {@link #getRepository() repository}.
-     * <p>
-     * This hook called by {@link #mount(GProject, IModelioProgress)}.
-     * The implementation must just instantiate it without mounting it.
-     * @param aMonitor the progress monitor to use for reporting progress to the user. It is the caller's responsibility to call
-     * <code>done()</code> on the given monitor. Accepts <code>null</code>, indicating that no progress should be
-     * reported and that the operation cannot be cancelled.
-     * @return the instantiated repository.
-     * @throws java.io.IOException in case of failure.
-     */
-    @objid ("8ed62b3e-07f4-11e2-b193-001ec947ccaf")
-    protected abstract IRepository doMountInitRepository(IModelioProgress aMonitor) throws IOException;
-
-    /**
-     * Check the fragment is mount and throws an exception if not.
-     * @throws java.lang.IllegalStateException if the fragment is not mount.
-     */
-    @objid ("242ea4bc-d0da-11e1-b069-001ec947ccaf")
-    protected final void assertMount() throws IllegalStateException {
-        if (this.state == FragmentState.INITIAL || this.state == FragmentState.MOUNTING) {
-            throw new IllegalStateException("The '" + getId() + "' fragment is not mount.");
-        }
     }
 
     /**
@@ -350,29 +191,26 @@ public abstract class AbstractFragment implements IProjectFragment {
         }
     }
 
-    /**
-     * Get the root elements of the fragment.
-     * <p>
-     * This method is called by {@link AbstractFragment#getRoots()} that ensures
-     * there is an open repository.
-     * @return the root elements of the fragment.
-     * @throws java.io.IOException in case of failure.
-     */
-    @objid ("b427669a-0baa-11e2-bed6-001ec947ccaf")
-    protected abstract Collection<MObject> doGetRoots() throws IOException;
-
     @objid ("6327ff06-3004-11e2-8f81-001ec947ccaf")
     @Override
     public DefinitionScope getScope() {
         return this.definitionScope;
     }
 
+    @objid ("6a73422a-d66d-11e1-9f03-001ec947ccaf")
+    @Override
+    public final FragmentState getState() {
+        return this.state;
+    }
+
     /**
-     * Initialize the access manager.
-     * @return the access manager.
+     * Get the project to which the fragment is attached
+     * @return the project.
      */
-    @objid ("a15a3399-38aa-11e2-a6db-001ec947ccaf")
-    protected abstract IAccessManager doInitAccessManager();
+    @objid ("8ed62b33-07f4-11e2-b193-001ec947ccaf")
+    public final GProject getProject() {
+        return this.gproject;
+    }
 
     @objid ("dd899fe8-54f3-11e2-b5ff-001ec947ccaf")
     @Override
@@ -385,6 +223,68 @@ public abstract class AbstractFragment implements IProjectFragment {
         unmount();
         FileUtils.delete(getRuntimeDirectory());
         FileUtils.delete(getDataDirectory());
+    }
+
+    /**
+     * Mount a fragment.
+     * <p>
+     * The process is:<ul>
+     * <li> set the state as MOUNTING
+     * <li> set the current project
+     * <li> call {@link #doMountInitRepository(IModelioProgress)}
+     * <li> connect the repository to the session
+     * <li> call {@link #doMountPostConnect(IModelioProgress)}
+     * <li> set the state as UP
+     * </ul>
+     * Subclasses must implement {@link #doMountInitRepository(IModelioProgress)} and may implement
+     * {@link #doMountPostConnect(IModelioProgress)}.
+     */
+    @objid ("8ed62b2b-07f4-11e2-b193-001ec947ccaf")
+    @Override
+    public final void mount(GProject aProject, IModelioProgress aMonitor) {
+        if (this.state != FragmentState.INITIAL && this.state != FragmentState.DOWN) {
+            throw new IllegalStateException("The '" + getId() + "' fragment is already mount: "+this.state);
+        }
+        
+        this.gproject = aProject;
+        setState(FragmentState.MOUNTING);
+        
+        try {
+            SubProgress mon = SubProgress.convert(aMonitor, 100);
+            IRepository repository = doMountInitRepository(mon);
+            
+            mon.setWorkRemaining(100);
+            repository.getErrorSupport().addErrorListener(getRepositoryErrorSupport());
+            IAccessManager accessManager = doInitAccessManager();
+            aProject.getSession().getRepositorySupport().connectRepository(repository, getId(), accessManager, mon);
+            
+            mon.setWorkRemaining(100);
+            doMountPostConnect(mon);
+            
+            setState(FragmentState.UP_FULL);
+        } catch (IOException e) {
+            setDown(e);
+        } finally {
+            if (this.state == FragmentState.MOUNTING)
+                setState(FragmentState.INITIAL);
+        }
+    }
+
+    @objid ("8ed62b30-07f4-11e2-b193-001ec947ccaf")
+    @Override
+    public final void unmount() {
+        IRepository repository = getRepository(); 
+        if (repository != null && repository.isOpen()) {
+            this.gproject.getSession().getRepositorySupport().disconnectRepository(repository);
+        }
+        
+        try {
+            doUnmountPostProcess();
+        } catch (IOException e) {
+            this.gproject.getMonitorSupport().fireMonitors(GProjectEvent.buildWarning(this, e));
+        }
+        
+        setState(FragmentState.INITIAL);
     }
 
     /**
@@ -416,6 +316,17 @@ public abstract class AbstractFragment implements IProjectFragment {
     }
 
     /**
+     * Check the fragment is mount and throws an exception if not.
+     * @throws java.lang.IllegalStateException if the fragment is not mount.
+     */
+    @objid ("242ea4bc-d0da-11e1-b069-001ec947ccaf")
+    protected final void assertMount() throws IllegalStateException {
+        if (this.state == FragmentState.INITIAL || this.state == FragmentState.MOUNTING) {
+            throw new IllegalStateException("The '" + getId() + "' fragment is not mount.");
+        }
+    }
+
+    /**
      * Hook for sub classes called by {@link #delete()} in first place.
      * <p>
      * Does nothing by default.
@@ -431,11 +342,65 @@ public abstract class AbstractFragment implements IProjectFragment {
         // nothing by default
     }
 
-    @objid ("9df6c318-ceb8-4cc7-9b93-886f0de15a85")
-    @Override
-    public GAuthConf getAuthConfiguration() {
-        return this.authConf;
+    /**
+     * Hook called by {@link #unmount()} after having disconnected the repository
+     * from the modeling session.
+     * <p>
+     * May be redefined by subclasses to clean resources.
+     * @throws java.io.IOException if some errors should be reported. The unmount will not be cancelled.
+     */
+    @objid ("8ed62b38-07f4-11e2-b193-001ec947ccaf")
+    protected void doUnmountPostProcess() throws IOException {
+        // Does nothing by default
     }
+
+    /**
+     * Hook called by {@link #mount(GProject, IModelioProgress)} after having connected
+     * the repository to the session.
+     * <p>
+     * Does nothing by default. Subclasses may redefine it to
+     * populate the repository.
+     * @param mon the progress monitor to use for reporting progress to the user. It is the caller's responsibility to call
+     * <code>done()</code> on the given monitor. Accepts <code>null</code>, indicating that no progress should be
+     * reported and that the operation cannot be cancelled.
+     * @throws java.io.IOException in case of failure.
+     */
+    @objid ("8ed62b3b-07f4-11e2-b193-001ec947ccaf")
+    protected void doMountPostConnect(IModelioProgress mon) throws IOException {
+        // Nothing by default
+    }
+
+    /**
+     * Get the root elements of the fragment.
+     * <p>
+     * This method is called by {@link AbstractFragment#getRoots()} that ensures
+     * there is an open repository.
+     * @return the root elements of the fragment.
+     * @throws java.io.IOException in case of failure.
+     */
+    @objid ("b427669a-0baa-11e2-bed6-001ec947ccaf")
+    protected abstract Collection<MObject> doGetRoots() throws IOException;
+
+    /**
+     * Initialize the access manager.
+     * @return the access manager.
+     */
+    @objid ("a15a3399-38aa-11e2-a6db-001ec947ccaf")
+    protected abstract IAccessManager doInitAccessManager();
+
+    /**
+     * Instantiate the {@link #getRepository() repository}.
+     * <p>
+     * This hook called by {@link #mount(GProject, IModelioProgress)}.
+     * The implementation must just instantiate it without mounting it.
+     * @param aMonitor the progress monitor to use for reporting progress to the user. It is the caller's responsibility to call
+     * <code>done()</code> on the given monitor. Accepts <code>null</code>, indicating that no progress should be
+     * reported and that the operation cannot be cancelled.
+     * @return the instantiated repository.
+     * @throws java.io.IOException in case of failure.
+     */
+    @objid ("8ed62b3e-07f4-11e2-b193-001ec947ccaf")
+    protected abstract IRepository doMountInitRepository(IModelioProgress aMonitor) throws IOException;
 
     /**
      * @return the fragment authentication data.
@@ -445,6 +410,48 @@ public abstract class AbstractFragment implements IProjectFragment {
         if (this.authConf == null)
             return null;
         return this.authConf.getAuthData();
+    }
+
+    /**
+     * Get the error handler that should be attached as listener to the repository when mount.
+     * @return the error handler
+     */
+    @objid ("6a70dfdd-d66d-11e1-9f03-001ec947ccaf")
+    protected final RepositoryListener getRepositoryErrorSupport() {
+        return this.errSupport;
+    }
+
+    /**
+     * Set the fragment in "down" state, with the cause.
+     * <p>
+     * Fires a GProjectEvent.
+     * @param error the cause of down state
+     */
+    @objid ("6a734221-d66d-11e1-9f03-001ec947ccaf")
+    protected final void setDown(Throwable error) {
+        if (this.downError != null) {
+            // Concatenate errors
+            this.downError.addSuppressed(error);
+        } else {
+            this.downError = error;
+            
+            // Disconnect the repository
+            // and set all loaded objects as shell.
+            IRepository repository = getRepository(); 
+            try {
+                if (repository != null && repository.isOpen()) {
+                    this.gproject.getSession().getRepositorySupport().disconnectRepository(repository);
+                }
+            
+                doUnmountPostProcess();
+            } catch (IOException | RuntimeException e) {
+                this.downError.addSuppressed(e);
+            } 
+            
+        }
+        
+        // Change the states and fires a GProjectEvent
+        setState(FragmentState.DOWN);
     }
 
     /**

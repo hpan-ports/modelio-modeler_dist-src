@@ -37,10 +37,10 @@ import org.modelio.metamodel.uml.behavior.stateMachineModel.StateMachine;
 import org.modelio.metamodel.uml.behavior.stateMachineModel.StateVertex;
 import org.modelio.metamodel.uml.behavior.stateMachineModel.Transition;
 import org.modelio.metamodel.uml.statik.Operation;
+import org.modelio.xmi.util.AbstractObjingModelNavigation;
 import org.modelio.xmi.util.EcoreModelNavigation;
 import org.modelio.xmi.util.GenerationProperties;
 import org.modelio.xmi.util.ObjingEAnnotation;
-import org.modelio.xmi.util.ObjingModelNavigation;
 
 /**
  * This class handles the export of Transition.
@@ -79,7 +79,7 @@ public class OTransition extends OModelElement {
     public OTransition(Transition param) {
         super(param);
         this.objingElement = param;
-        this.isProtocolTransition = ObjingModelNavigation
+        this.isProtocolTransition = AbstractObjingModelNavigation
                 .isProtocolTransition(param);
     }
 
@@ -256,11 +256,11 @@ public class OTransition extends OModelElement {
             if (ecoreSignal != null) {
                 Region ownerRegion = this.objingElement.getTarget().getParent();
         
-                StateMachine objingSM =  ObjingModelNavigation
+                StateMachine objingSM =  AbstractObjingModelNavigation
                         .getOwnerStateMachine(ownerRegion);
         
                 if (objingSM != null) {
-                   org.modelio.metamodel.uml.statik.Package smOwner = ObjingModelNavigation
+                   org.modelio.metamodel.uml.statik.Package smOwner = AbstractObjingModelNavigation
                             .getNearestPackage(objingSM);
         
                     if (smOwner != null) {

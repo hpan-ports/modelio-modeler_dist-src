@@ -25,10 +25,10 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.uml2.uml.UMLFactory;
 import org.modelio.metamodel.uml.infrastructure.ModelTree;
 import org.modelio.metamodel.uml.statik.Class;
+import org.modelio.xmi.util.AbstractObjingModelNavigation;
 import org.modelio.xmi.util.GenerationProperties;
 import org.modelio.xmi.util.NotFoundException;
 import org.modelio.xmi.util.ObjingEAnnotation;
-import org.modelio.xmi.util.ObjingModelNavigation;
 
 @objid ("95d9960c-8cf7-4440-b0bc-c5ce81f4ef9c")
 public class OClass extends ONameSpace implements IOElement {
@@ -57,14 +57,14 @@ public class OClass extends ONameSpace implements IOElement {
     @objid ("1157bb84-fe52-46b4-a871-77dace7d1d03")
     public OClass(Class element) {
         super(element);
-        this.isIsClassAssociation = (ObjingModelNavigation.isIsClassAssociation(element));
+        this.isIsClassAssociation = (AbstractObjingModelNavigation.isIsClassAssociation(element));
     }
 
     @objid ("72ca974f-3f59-43d9-9f1f-2a68d94d9883")
     public void attach(org.eclipse.uml2.uml.Element ecoreElt) {
         // The "isIsClassAssociation" test may be done on sub-classes, like
         // "Component" that inherits from "Class".
-        this.isIsClassAssociation = (ObjingModelNavigation.isIsClassAssociation((Class) getObjingElement()));
+        this.isIsClassAssociation = (AbstractObjingModelNavigation.isIsClassAssociation((Class) getObjingElement()));
             
         if (!this.isIsClassAssociation)
             linkEcoreClass( (org.eclipse.uml2.uml.Class) ecoreElt);

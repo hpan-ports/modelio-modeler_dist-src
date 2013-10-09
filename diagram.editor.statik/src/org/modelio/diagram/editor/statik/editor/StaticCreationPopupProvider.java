@@ -23,9 +23,13 @@ package org.modelio.diagram.editor.statik.editor;
 
 import java.util.ResourceBundle;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
+import org.eclipse.e4.ui.services.IServiceConstants;
+import org.eclipse.jface.viewers.IStructuredSelection;
 import org.modelio.diagram.editor.context.AbstractCreationPopupProvider;
+import org.modelio.diagram.editor.statik.elements.namespacinglink.CompositionLinkEditPart;
 import org.modelio.diagram.editor.statik.plugin.DiagramEditorStatik;
 import org.modelio.ui.i18n.BundledMessages;
+import org.modelio.vcore.smkernel.mapi.MObject;
 import org.osgi.framework.Bundle;
 
 /**
@@ -46,6 +50,22 @@ public class StaticCreationPopupProvider extends AbstractCreationPopupProvider {
     @Override
     protected BundledMessages getI18nBundle() {
         return this.I18N;
+    }
+
+    @objid ("4ff24341-2616-4ca1-8cb6-f8c93637b94d")
+    @Override
+    protected MObject getSelectedElement() {
+        // Get the active selection from the application, to avoid context-related issues when opening the same diagram several times...
+        IStructuredSelection selection = (IStructuredSelection) this.application.getContext().get(IServiceConstants.ACTIVE_SELECTION);
+        if (selection.size() != 1) {
+            return null;
+        }
+        
+        final Object obj = selection.getFirstElement();
+        if (obj instanceof CompositionLinkEditPart) {
+            return null;
+        }
+        return super.getSelectedElement();
     }
 
 }

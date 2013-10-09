@@ -36,10 +36,10 @@ import org.modelio.metamodel.uml.statik.Instance;
 import org.modelio.metamodel.uml.statik.Link;
 import org.modelio.metamodel.uml.statik.LinkEnd;
 import org.modelio.metamodel.uml.statik.NameSpace;
+import org.modelio.xmi.util.AbstractObjingModelNavigation;
 import org.modelio.xmi.util.EcoreModelNavigation;
 import org.modelio.xmi.util.IModelerModuleStereotypes;
 import org.modelio.xmi.util.ObjingEAnnotation;
-import org.modelio.xmi.util.ObjingModelNavigation;
 import org.modelio.xmi.util.ReverseProperties;
 
 @objid ("37e2e483-b0a7-43d3-84a4-87854e6e8afd")
@@ -124,7 +124,7 @@ public class EInstanceSpecification extends ENamedElement implements IEElement {
     private void setType(Instance objingElt) {
         String typeName = ObjingEAnnotation.getType(this.ecoreElement);
         if ((typeName != null) && ( !typeName.equals(""))){
-            NameSpace objType = ObjingModelNavigation.getPrimitiveType(typeName);
+            NameSpace objType = AbstractObjingModelNavigation.getPrimitiveType(typeName);
             objingElt.setBase(objType);
         }
     }

@@ -28,15 +28,19 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
 /**
  * virtual concatenation of many collections.
+ * @param <E> The type of elements.
  */
 @objid ("fe60694c-c1ef-11e1-92d5-001ec947ccaf")
 public class CompoundCollection<E> implements Collection<E> {
     @objid ("ff28ae2d-c1ef-11e1-92d5-001ec947ccaf")
-     Collection<Collection<? extends E>> content;
+    private final Collection<Collection<? extends E>> content;
 
+    /**
+     * Initialize a new compound collection.
+     */
     @objid ("ff2b1088-c1ef-11e1-92d5-001ec947ccaf")
-    CompoundCollection() {
-        content = new ArrayList<>(2);
+    public CompoundCollection() {
+        this.content = new ArrayList<>(2);
     }
 
     @objid ("ff2b108a-c1ef-11e1-92d5-001ec947ccaf")
@@ -72,7 +76,7 @@ public class CompoundCollection<E> implements Collection<E> {
     @objid ("ff2b109a-c1ef-11e1-92d5-001ec947ccaf")
     @Override
     public Iterator<E> iterator() {
-        return new CompoundIterator<E>(this.content);
+        return new CompoundIterator<>(this.content);
     }
 
     @objid ("ff2b10a1-c1ef-11e1-92d5-001ec947ccaf")

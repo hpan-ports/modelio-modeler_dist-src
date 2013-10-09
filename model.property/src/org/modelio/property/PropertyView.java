@@ -40,10 +40,14 @@ import org.eclipse.e4.ui.workbench.swt.modeling.EMenuService;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
+import org.modelio.app.core.activation.IActivationService;
 import org.modelio.app.core.events.ModelioEventTopics;
 import org.modelio.app.core.picking.IModelioPickingService;
 import org.modelio.app.core.picking.IPickingSession;
 import org.modelio.app.project.core.services.IProjectService;
+import org.modelio.core.ui.ktable.types.element.ElementEditionDialog;
+import org.modelio.core.ui.ktable.types.text.EditionDialog;
+import org.modelio.core.ui.ktable.types.textlist.StringListEditionDialog;
 import org.modelio.gproject.gproject.GProject;
 import org.modelio.gproject.model.IMModelServices;
 import org.modelio.metamodel.uml.infrastructure.Stereotype;
@@ -69,7 +73,8 @@ public class PropertyView {
      ModelPropertyPanelProvider view;
 
     @objid ("86a2b971-cf24-11e1-80a9-002564c97630")
-     GProject project;
+    @Inject
+    private IProjectService projectService;
 
     @objid ("ab38a695-d004-11e1-9020-002564c97630")
     private IMModelServices modelService;
@@ -86,29 +91,41 @@ public class PropertyView {
     @objid ("250993c0-d688-4063-bac7-ee55d9cf381f")
     private IBlobProvider blobProvider;
 
+    @objid ("0d21bd7b-54d4-4b91-b0ee-4a8104faed9d")
+    private IActivationService activationService;
+
+    @objid ("a733b15f-f85c-4411-884f-7a8004ef17a2")
+     GProject project;
+
     /**
      * Called by the framework to create the view and initialize it.
      * @param projectService the project service.
      * @param modelServices the model service.
+     * @param modelioActivationService the activation service
      * @param modelioPickingService the picking service.
      * @param parent the composite the view must add its content into.
      * @param selection the application selection.
+     * @param theMenuService the E4 menu service
      */
     @objid ("8fb871cf-c068-11e1-8c0a-002564c97630")
     @PostConstruct
-    public void createControls(IProjectService projectService, @Optional IMModelServices modelServices, IModelioPickingService modelioPickingService, Composite parent, @Optional
+    public void createControls(IProjectService projectService, @Optional IMModelServices modelServices, @Optional IActivationService modelioActivationService, IModelioPickingService modelioPickingService, Composite parent, @Optional
 @Named(IServiceConstants.ACTIVE_SELECTION) final IStructuredSelection selection, @Optional EMenuService theMenuService) {
         this.parentComposite = parent;
         
         // Sometimes, the view is instantiated only after the project is opened
         if (projectService != null && projectService.getOpenedProject() != null) {
-            onProjectOpened(projectService.getOpenedProject(), modelServices, modelioPickingService, theMenuService);
+            onProjectOpened(projectService.getOpenedProject(), modelServices, modelioPickingService, modelioActivationService, theMenuService);
             if (selection != null) {
                 update(selection);
             }
         }
     }
 
+    /**
+     * Updates the view for the given selection.
+     * @param selection an Eclipse selection
+     */
     @objid ("8fb871d4-c068-11e1-8c0a-002564c97630")
     @Optional
     @Inject
@@ -117,7 +134,7 @@ public class PropertyView {
             if (this.project != null) {
                 // Create the view content
                 this.view = new ModelPropertyPanelProvider();
-                this.view.activateEdition(this.project.getSession(), this.modelService, this.pickingService);
+                this.view.activateEdition(this.projectService, this.project.getSession(), this.modelService, this.pickingService, this.activationService);
                 this.view.create(this.parentComposite);
                 this.parentComposite.layout();
                 Display.getDefault().asyncExec(new Runnable() {
@@ -161,50 +178,21 @@ public class PropertyView {
     @objid ("8fb871da-c068-11e1-8c0a-002564c97630")
     @Optional
     @Inject
-    void onProjectOpened(@EventTopic(ModelioEventTopics.PROJECT_OPENED) final GProject openedProject, @Optional IMModelServices mmService, @Optional IModelioPickingService modelioPickingService, @Optional EMenuService theMenuService) {
+    void onProjectOpened(@EventTopic(ModelioEventTopics.PROJECT_OPENED) final GProject openedProject, @Optional IMModelServices mmService, @Optional IModelioPickingService modelioPickingService, @Optional IActivationService modelioActivationService, @Optional EMenuService theMenuService) {
         this.project = openedProject;
         this.modelService = mmService;
         this.pickingService = modelioPickingService;
+        this.activationService = modelioActivationService;
         this.menuService = theMenuService;
         
         // Activate edition on the view
         if (this.view != null) {
-            this.view.activateEdition(this.project != null ? this.project.getSession() : null, this.modelService, this.pickingService);
+            this.view.activateEdition(this.projectService, this.project != null ? this.project.getSession() : null, this.modelService, this.pickingService, this.activationService);
         }
         
         // Register the blob provider, for local stereotype images.
         if (this.project != null) {
-            this.blobProvider = new IBlobProvider() {
-        
-                @Override
-                public Collection<String> getRelatedBlobs(MObject obj) {
-                    List<String> blobKeys = new ArrayList<>();
-                    if (obj instanceof Stereotype) {
-                        blobKeys.add(getIconKey(obj));
-                        blobKeys.add(getImageKey(obj));
-                    }
-                    return blobKeys;
-                }
-                
-                @Override
-                public void objectCopied(MObject from, IRepository fromRepo, MObject to, IRepository toRepo) {
-                    if (from instanceof Stereotype) {
-                        IBlobInfo toInfo = new BlobInfo(getIconKey(to), "icon for "+to.getName());
-                        BlobCopier.copy(getIconKey(from), fromRepo, toInfo, toRepo);
-        
-                        toInfo = new BlobInfo(getImageKey(to), "image for "+to.getName());
-                        BlobCopier.copy(getImageKey(from), fromRepo, toInfo, toRepo);
-                    }
-                }
-                
-                private String getIconKey(MObject obj) {
-                    return obj.getUuid() + ".icon";
-                }
-        
-                private String getImageKey(MObject obj) {
-                    return obj.getUuid() + ".image";
-                }
-            };
+            this.blobProvider = new StereotypeIconsBlobProvider();
             this.project.getSession().getBlobSupport().addBlobProvider(this.blobProvider);
         }
     }
@@ -223,6 +211,11 @@ public class PropertyView {
             this.project.getSession().getBlobSupport().removeBlobProvider(this.blobProvider);
             this.blobProvider = null;
         }
+        
+        // close static editors
+        EditionDialog.closeInstance();
+        ElementEditionDialog.closeInstance();
+        StringListEditionDialog.closeInstance();
         
         this.project = null;
         this.modelService = null;
@@ -254,9 +247,66 @@ public class PropertyView {
         this.view.setPinned(false);
     }
 
+    /**
+     * @return the property panel.
+     */
     @objid ("650c6290-def7-47cf-85e5-e4eb3466e275")
     public ModelPropertyPanelProvider getPanel() {
         return this.view;
+    }
+
+    /**
+     * Blob provider for Stereotype icon and image.
+     */
+    @objid ("08a2878f-b2b0-4e49-a688-b9ca91483ad4")
+    private static final class StereotypeIconsBlobProvider implements IBlobProvider {
+        @objid ("5fdcab68-6b97-4552-a4b5-eb48ddaafda9")
+        @Override
+        public Collection<String> getRelatedBlobs(MObject obj) {
+            List<String> blobKeys = new ArrayList<>();
+            if (obj instanceof Stereotype) {
+                blobKeys.add(getIconKey(obj));
+                blobKeys.add(getImageKey(obj));
+            }
+            return blobKeys;
+        }
+
+        @objid ("3d4cad60-9d95-4e59-9e5b-10afc367a8b5")
+        @Override
+        public void objectCopied(MObject from, IRepository fromRepo, MObject to, IRepository toRepo) {
+            if (from instanceof Stereotype) {
+                IBlobInfo toInfo = new BlobInfo(getIconKey(to), "icon for "+to.getName());
+                BlobCopier.copy(getIconKey(from), fromRepo, toInfo, toRepo);
+                  
+                toInfo = new BlobInfo(getImageKey(to), "image for "+to.getName());
+                BlobCopier.copy(getImageKey(from), fromRepo, toInfo, toRepo);
+            }
+        }
+
+        @objid ("9fc1c6a1-37b6-43db-a7bb-81f759dd2259")
+        @Override
+        public void objectsMoved(Collection<? extends MObject> objs, IRepository fromRepo, IRepository destRepo) {
+            for (MObject obj : objs) {
+                if (obj instanceof Stereotype) {
+                    String blobKey = getIconKey(obj);
+                    BlobCopier.move(blobKey, fromRepo, destRepo);
+                    
+                    blobKey = getImageKey(obj);
+                    BlobCopier.move(blobKey, fromRepo, destRepo);
+                }
+            }
+        }
+
+        @objid ("26b6850f-251f-489e-8731-1166d4556d21")
+        private String getIconKey(MObject obj) {
+            return obj.getUuid() + ".icon";
+        }
+
+        @objid ("1ede781f-bdd7-4dbc-ac8d-e6baef0510f4")
+        private String getImageKey(MObject obj) {
+            return obj.getUuid() + ".image";
+        }
+
     }
 
 }

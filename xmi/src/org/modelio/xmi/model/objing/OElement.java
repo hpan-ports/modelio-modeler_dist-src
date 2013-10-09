@@ -32,8 +32,8 @@ import org.modelio.metamodel.uml.infrastructure.Stereotype;
 import org.modelio.metamodel.uml.infrastructure.TaggedValue;
 import org.modelio.xmi.generation.ProfileExportVisitorImpl;
 import org.modelio.xmi.model.objing.profile.PExportProfile;
+import org.modelio.xmi.util.AbstractObjingModelNavigation;
 import org.modelio.xmi.util.GenerationProperties;
-import org.modelio.xmi.util.ObjingModelNavigation;
 import org.modelio.xmi.util.ProfileUtils;
 
 /**
@@ -76,7 +76,7 @@ public class OElement {
             ModelElement modelElement = (ModelElement) element;
                     
             for( Stereotype obStereotype : modelElement.getExtension()){
-                if (ObjingModelNavigation.mustBeExported(obStereotype)) {
+                if (AbstractObjingModelNavigation.mustBeExported(obStereotype)) {
                     exportStereotypeProfile(obStereotype);
                     GenerationProperties.getInstance().addStereotypeExported(modelElement);
                 }
@@ -84,7 +84,7 @@ public class OElement {
                 
             for( TaggedValue obTaggedValue : modelElement.getTag()){
                 MetaclassReference reference = obTaggedValue.getDefinition().getOwnerReference();
-                if ((reference != null) && (ObjingModelNavigation.mustBeExported(reference)) ){
+                if ((reference != null) && (AbstractObjingModelNavigation.mustBeExported(reference)) ){
                     exportReferenceProfile(reference);
                     GenerationProperties.getInstance().addStereotypeExported(modelElement);
                 }

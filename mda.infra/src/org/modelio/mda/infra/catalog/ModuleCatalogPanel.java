@@ -28,6 +28,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.TreeMap;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
+import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.jface.viewers.ColumnLabelProvider;
 import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.TreeViewer;
@@ -45,17 +46,17 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeColumn;
 import org.modelio.app.core.ModelioEnv;
-import org.modelio.core.ui.images.MetamodelImageService;
+import org.modelio.app.preferences.ScopedPreferenceStore;
 import org.modelio.gproject.module.IModuleCatalog;
 import org.modelio.gproject.module.IModuleHandle;
 import org.modelio.gproject.module.catalog.FileModuleStore;
 import org.modelio.mda.infra.catalog.CompatibilityHelper.CompatibilityLevel;
+import org.modelio.mda.infra.catalog.update.CatalogUpdatePreferencesPage;
 import org.modelio.mda.infra.plugin.MdaInfra;
-import org.modelio.metamodel.Metamodel;
-import org.modelio.metamodel.mda.ModuleComponent;
 import org.modelio.ui.panel.IPanelProvider;
 import org.modelio.vbasic.version.Version;
 
@@ -68,10 +69,13 @@ public class ModuleCatalogPanel implements IPanelProvider {
      ModuleCatalogPanelController controller;
 
     @objid ("5eaa56a1-68f8-45c7-b099-f396707933d0")
-    private Composite top;
+     Composite top;
 
     @objid ("2516ebc7-7c79-4b3d-8f81-2707722db7b0")
      TreeViewer treeViewer;
+
+    @objid ("6f2bb4ee-bb87-43ab-aa10-a53da5638b22")
+     Label loading;
 
     @objid ("e44ca7fd-7522-4921-86b4-bc5b1c9e8c0e")
     public ModuleCatalogPanel(ModelioEnv env) {
@@ -86,11 +90,14 @@ public class ModuleCatalogPanel implements IPanelProvider {
         this.top.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
         this.top.setLayout(new FormLayout());
         
+        this.loading = new Label(this.top,SWT.CENTER);
+        this.loading.setImage(MdaInfra.getImageDescriptor("icons/hourglass.png").createImage());
+        
         // List of modules from catalog
-        this.treeViewer = new TreeViewer(this.top, SWT.BORDER | SWT.H_SCROLL | SWT.V_SCROLL | SWT.MULTI | SWT.FULL_SELECTION);
+        this.treeViewer = new TreeViewer(this.top, SWT.BORDER | SWT.H_SCROLL| SWT.V_SCROLL | SWT.MULTI | SWT.FULL_SELECTION);
         Tree tree = this.treeViewer.getTree();
         tree.setHeaderVisible(true);
-        treeViewer.getTree().setLinesVisible(true);
+        this.treeViewer.getTree().setLinesVisible(true);
         
         // The first column displays the module name and version (or the
         // category)
@@ -119,7 +126,7 @@ public class ModuleCatalogPanel implements IPanelProvider {
             public Image getImage(Object element) {
                 if (element instanceof IModuleHandle) {
                     return MdaInfra.getImageDescriptor("icons/module.png").createImage();
-                }else{
+                } else {
                     return MdaInfra.getImageDescriptor("icons/modulelist.png").createImage();
                 }
             }
@@ -244,15 +251,17 @@ public class ModuleCatalogPanel implements IPanelProvider {
         fd.bottom = new FormAttachment(latestOnly, -4);
         fd.right = new FormAttachment(100, 0);
         tree.setLayoutData(fd);
+        this.loading.setLayoutData(fd); // FIXME
         
         // GUI is available, init the contents
         this.controller = new ModuleCatalogPanelController(this, this.modelioEnv);
         this.controller.init();
         
-        latestOnly.setSelection(true);
-        this.controller.onShowLatestOnly(true);
-        compatibleOnly.setSelection(true);
-        this.controller.onShowCompatibleOnly(true);
+        // Init checkbox states
+        latestOnly.setSelection(this.controller.isShowLatestOnly());
+        compatibleOnly.setSelection(this.controller.isShowCompatibleOnly());
+        
+        this.treeViewer.getTree().setVisible(false);
         return this;
     }
 
@@ -283,12 +292,12 @@ public class ModuleCatalogPanel implements IPanelProvider {
     }
 
     @objid ("10969d18-58ee-4cae-9a42-c2b2b3895607")
-    private void refresh(boolean updateLabels, boolean packColumns) {
+    void refresh(boolean updateLabels, boolean packColumns) {
         this.treeViewer.refresh(updateLabels);
-        treeViewer.expandToLevel(3);
+        this.treeViewer.expandToLevel(3);
         
         if (packColumns) {
-            for (TreeColumn tc : treeViewer.getTree().getColumns()) {
+            for (TreeColumn tc : this.treeViewer.getTree().getColumns()) {
                 tc.pack();
             }
         }
@@ -299,16 +308,21 @@ public class ModuleCatalogPanel implements IPanelProvider {
         return this.controller.isShowLatestOnly();
     }
 
+    @objid ("9da7101b-a0ce-4bca-94d6-60250b15b8fe")
+    public List<IModuleHandle> allModules() {
+        return this.controller.allModules();
+    }
+
     @objid ("231b1002-7740-4497-a09c-0241aa9d061e")
     private static class ModuleCatalogPanelController {
         @objid ("c4a4466f-f357-4694-893b-365bbe5413ed")
-        private boolean compatibleOnly;
+         boolean compatibleOnly;
 
         @objid ("9177f67b-b387-458a-bbec-5110fc2c4617")
-        private boolean lastestOnly;
+         boolean lastestOnly;
 
         @objid ("56905826-bb0d-4247-9f2d-bd3f4ecf3510")
-        private ModuleCatalogPanel dialog;
+         ModuleCatalogPanel dialog;
 
         @objid ("6a6bb302-af11-4d63-88c7-93c26dc3c32f")
         private ModelioEnv modelioEnv;
@@ -318,6 +332,9 @@ public class ModuleCatalogPanel implements IPanelProvider {
 
         @objid ("fa2e94df-f646-4048-8865-d1e0d6f12b18")
         private CatalogModulesProvider contentProvider;
+
+        @objid ("c0c4da98-c93a-4436-a938-6ab6b7cdceea")
+        private ScopedPreferenceStore prefs;
 
         @objid ("2a400064-6431-4df7-bbe3-83b42bc05628")
         public ModuleCatalogPanelController(ModuleCatalogPanel dialog, ModelioEnv modelioEnv) {
@@ -340,14 +357,24 @@ public class ModuleCatalogPanel implements IPanelProvider {
 
         @objid ("b127bf2b-afed-4911-a4f4-67592d1a2bf4")
         public void init() {
+            this.prefs = new ScopedPreferenceStore(InstanceScope.INSTANCE, MdaInfra.PLUGIN_ID);
+            
+            this.prefs.setDefault(CatalogUpdatePreferencesPage.CATALOG_SHOW_COMPATIBLE, true);
+            this.prefs.setDefault(CatalogUpdatePreferencesPage.CATALOG_SHOW_LATEST, true);
+            
+            this.compatibleOnly = this.prefs.getBoolean(CatalogUpdatePreferencesPage.CATALOG_SHOW_COMPATIBLE);
+            this.lastestOnly = this.prefs.getBoolean(CatalogUpdatePreferencesPage.CATALOG_SHOW_LATEST);
+            
             this.contentProvider = new CatalogModulesProvider(this.dialog, this.modelioEnv.getVersion());
             this.dialog.treeViewer.setContentProvider(this.contentProvider);
             this.dialog.treeViewer.setInput(this.catalog);
+            
             this.dialog.refresh(true, true);
         }
 
         @objid ("398a0633-5204-448d-906e-21b5ec0987f2")
         public void onShowCompatibleOnly(boolean onOff) {
+            this.prefs.setValue(CatalogUpdatePreferencesPage.CATALOG_SHOW_COMPATIBLE, onOff);
             this.compatibleOnly = onOff;
             this.contentProvider.setCompatibleOnly(onOff);
             this.dialog.refresh(true, true);
@@ -355,6 +382,7 @@ public class ModuleCatalogPanel implements IPanelProvider {
 
         @objid ("f9d43c33-aa63-498b-9a01-b73308a4322c")
         public void onShowLatestOnly(boolean onOff) {
+            this.prefs.setValue(CatalogUpdatePreferencesPage.CATALOG_SHOW_LATEST, onOff);
             this.lastestOnly = onOff;
             this.dialog.refresh(true, true);
         }
@@ -362,6 +390,16 @@ public class ModuleCatalogPanel implements IPanelProvider {
         @objid ("92fd0ab2-5ed2-40a3-a347-9485099f40db")
         public boolean isShowLatestOnly() {
             return this.lastestOnly;
+        }
+
+        @objid ("7d89c530-dde9-495b-8d12-c016ec69bedc")
+        public boolean isShowCompatibleOnly() {
+            return this.compatibleOnly;
+        }
+
+        @objid ("727aeebb-bdde-4686-9c61-2b0458dd91a1")
+        public List<IModuleHandle> allModules() {
+            return this.contentProvider.allModules;
         }
 
     }
@@ -388,7 +426,7 @@ public class ModuleCatalogPanel implements IPanelProvider {
         private Version modelioVersion;
 
         @objid ("2cfab431-8ea4-46b0-a974-0913b57ff2c1")
-        private ModuleCatalogPanel panel;
+         ModuleCatalogPanel panel;
 
         @objid ("101e6f84-3307-46b9-bac2-0cc64bb3f500")
          TreeMap<String, List<IModuleHandle>> modules = new TreeMap<>();
@@ -411,24 +449,22 @@ public class ModuleCatalogPanel implements IPanelProvider {
         @objid ("0472384f-6821-419e-8b28-9e1954cfc6cd")
         @Override
         public void dispose() {
-            // TODO Auto-generated method stub
+            // Nothing to dispose
         }
 
         @objid ("ec24d068-99c8-4629-9603-42e8ed23f5a6")
         @Override
-        public void inputChanged(final Viewer viewer, Object oldInput, Object newInput) {
+        public void inputChanged(final Viewer viewer, final Object oldInput, final Object newInput) {
             if (newInput == null) {
                 this.allModules = new ArrayList<>();
                 this.modules = computeModules();
-                panel.refresh(true, true);
+                this.panel.refresh(true, true);
                 return;
             }
             
             if (newInput instanceof IModuleCatalog) {
                 final IModuleCatalog catalog = (IModuleCatalog) newInput;
-            
-                Runnable loader = new Runnable() {
-            
+                Thread loadingThread = new Thread(new Runnable() {
                     @Override
                     public void run() {
                         try {
@@ -438,23 +474,33 @@ public class ModuleCatalogPanel implements IPanelProvider {
                             CatalogModulesProvider.this.allModules = new ArrayList<>();
                         }
                         CatalogModulesProvider.this.modules = computeModules();
-                        panel.refresh(true, true);
-                    }
-                };
             
-                Display.getCurrent().asyncExec(new Thread(loader));
+                        Display.getDefault().asyncExec(new Runnable() {
+                            @Override
+                            public void run() {
+                                if(!CatalogModulesProvider.this.panel.top.isDisposed()){
+                                    CatalogModulesProvider.this.panel.treeViewer.getTree().setVisible(true);
+                                    CatalogModulesProvider.this.panel.loading.setVisible(false);
+                                    CatalogModulesProvider.this.panel.refresh(true, true);
+                                }
+                            }
+                        });    
+                    }
+                });
+                loadingThread.setPriority(Thread.MAX_PRIORITY);
+                loadingThread.start();
             }
         }
 
         @objid ("413a2bd2-83c3-44e8-93e9-b86cc031cc2e")
-        private TreeMap<String, List<IModuleHandle>> computeModules() {
+        TreeMap<String, List<IModuleHandle>> computeModules() {
             TreeMap<String, List<IModuleHandle>> results = new TreeMap<>();
             
             for (IModuleHandle mh : this.allModules) {
                 if (mh == null)
                     continue;
-                CompatibilityLevel level = CompatibilityHelper.getCompatibilityLevel(this.modelioVersion, mh.getBinaryVersion());
-                if (panel.controller.compatibleOnly && !CompatibilityHelper.isCompatible(level)) {
+                CompatibilityLevel level = CompatibilityHelper.getCompatibilityLevel(this.modelioVersion,mh.getBinaryVersion());
+                if (this.panel.controller.compatibleOnly && !CompatibilityHelper.isCompatible(level)) {
                     // Skip it
                     continue;
                 }
@@ -477,7 +523,7 @@ public class ModuleCatalogPanel implements IPanelProvider {
         @objid ("bdf2c8eb-5232-4d8b-8a3f-62c673ef2f43")
         @Override
         public Object[] getElements(Object inputElement) {
-            if (panel.controller.lastestOnly) {
+            if (this.panel.controller.lastestOnly) {
                 // return the latest versions of the modules
                 ArrayList<IModuleHandle> latestVersions = new ArrayList<>();
                 for (String key : this.modules.keySet()) {
@@ -494,7 +540,7 @@ public class ModuleCatalogPanel implements IPanelProvider {
         @Override
         public Object[] getChildren(Object parentElement) {
             List<IModuleHandle> versions = this.modules.get(parentElement);
-            if (!panel.controller.lastestOnly) {    
+            if (!this.panel.controller.lastestOnly && versions != null) {
                 return versions.toArray();
             }
             return null;
@@ -509,10 +555,13 @@ public class ModuleCatalogPanel implements IPanelProvider {
         @objid ("30d6a036-57a7-4e4a-a281-86018bb0fb36")
         @Override
         public boolean hasChildren(Object element) {
-            if (element instanceof String) {
-                return getChildren(element).length > 0;
-            } else
-                return false;
+            if (element instanceof String && getChildren(element) != null) {
+                Object[] childrens = getChildren(element);
+                if (childrens != null) {
+                    return childrens.length > 0;
+                }
+            }
+            return false;
         }
 
         @objid ("9e0d2eb6-a620-4002-b94d-1ec5fff986f7")
@@ -533,6 +582,11 @@ public class ModuleCatalogPanel implements IPanelProvider {
                 return 1;
             } else
                 return 0;
+        }
+
+        @objid ("854c7c0e-45d3-4f2b-b468-7cb9a2c78aac")
+        public ModuleComparator() {
+            // Empty constructor
         }
 
     }

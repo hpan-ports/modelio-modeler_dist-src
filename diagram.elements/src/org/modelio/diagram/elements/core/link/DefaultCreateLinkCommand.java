@@ -32,6 +32,7 @@ import org.modelio.gproject.model.IMModelServices;
 import org.modelio.gproject.model.api.MTools;
 import org.modelio.metamodel.Metamodel;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
+import org.modelio.metamodel.uml.infrastructure.Stereotype;
 import org.modelio.vcore.smkernel.mapi.MClass;
 import org.modelio.vcore.smkernel.mapi.MObject;
 
@@ -73,11 +74,12 @@ public class DefaultCreateLinkCommand extends Command {
         if (this.context.getElementToUnmask() == null) {
             final MObject srcElement = this.sourceNode.getRelatedElement();
             MClass toCreateMetaclass = Metamodel.getMClass(this.context.getMetaclass());
+            Stereotype toCreateStereotype = this.context.getStereotype();
             Class<? extends MObject> toCreateInterface = Metamodel.getJavaInterface(toCreateMetaclass);
             
             if (this.targetNode == null) {
                 // The creation experts must allow starting the link
-                if (!MTools.getLinkTool().canSource(toCreateMetaclass, srcElement.getMClass()))
+                if (!MTools.getLinkTool().canSource(toCreateStereotype, toCreateMetaclass, srcElement.getMClass()))
                     return false;
         
                 // The access right expert must allow the command
@@ -89,7 +91,7 @@ public class DefaultCreateLinkCommand extends Command {
                 final MObject targetEl = this.targetNode.getRelatedElement();
                 if (targetEl == null || targetEl.isShell() || targetEl.isDeleted())
                     return false;
-                if (!MTools.getLinkTool().canLink(toCreateMetaclass, srcElement.getMClass(), targetEl.getMClass(), null))
+                if (!MTools.getLinkTool().canLink(toCreateStereotype, toCreateMetaclass, srcElement.getMClass(), targetEl.getMClass(), null))
                     return false;
                 
                 // The access right expert must allow the command

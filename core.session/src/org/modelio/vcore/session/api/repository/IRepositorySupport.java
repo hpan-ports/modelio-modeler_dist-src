@@ -54,7 +54,11 @@ public interface IRepositorySupport {
     public static final String REPOSITORY_KEY_LOCAL = "repo.key.local";
 
     /**
-     * Connect a repository to this modeling session.
+     * Connect a repository to this modeling session and associate it with a repository key.
+     * <p>
+     * The repository key can then be used to find the repository with {@link #getRepository(String)}.
+     * @see #REPOSITORY_KEY_LOCAL
+     * @see #REPOSITORY_KEY_SCRATCH
      * @param aBase the repository to add.
      * @param key a key used to retrieve the repository.
      * @param accessManager an access manager.
@@ -70,11 +74,8 @@ public interface IRepositorySupport {
      * @param accessManager an access manager.
      * @param monitor a progress monitor
      * @throws java.io.IOException in case of failure.
-     * @deprecated use {@link #connectRepository(IRepository, String, IAccessManager, IModelioProgress)}
-     * with a repository key.
      */
     @objid ("08e18da1-1771-11e2-ac36-001ec947ccaf")
-    @Deprecated
     void connectRepository(IRepository aBase, final IAccessManager accessManager, IModelioProgress monitor) throws IOException;
 
     /**
@@ -122,5 +123,26 @@ public interface IRepositorySupport {
      */
     @objid ("0940e0de-b09c-4bb9-a190-1ecfc2c1ae6d")
     IRepository getRepository(String key);
+
+    /**
+     * Registers a repository change listener.
+     * @param listener a repository change listener.
+     */
+    @objid ("59707384-d0fe-4e21-b2f1-89ec83df3847")
+    void addRepositoryChangeListener(IRepositoryChangeListener listener);
+
+    /**
+     * Unregisters a repository change listener.
+     * @param listener a repository change listener.
+     */
+    @objid ("06a53b06-cc63-4961-8d2c-b192fb46977b")
+    void removeRepositoryChangeListener(IRepositoryChangeListener listener);
+
+    /**
+     * Notifies the registered repository change listeners of a repository change.
+     * @param event the repository change event.
+     */
+    @objid ("a8ea70bc-d4a2-40ec-a887-b633e43d5e2d")
+    void fireRepositoryChange(IRepositoryChangeEvent event);
 
 }

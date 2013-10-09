@@ -85,7 +85,7 @@ public class BpmnActivityData extends BpmnFlowNodeData {
      SmObjectImpl mLoopCharacteristics;
 
     @objid ("ad710923-87fe-44bc-9468-408dfbe1798c")
-    @SmaMetaAssociation(metaName="BoundaryEventRef", typeDataClass=BpmnBoundaryEventData.class, min=0, max=-1, smAssociationClass=Metadata.BoundaryEventRefSmDependency.class, partof = true)
+    @SmaMetaAssociation(metaName="BoundaryEventRef", typeDataClass=BpmnBoundaryEventData.class, min=0, max=-1, smAssociationClass=Metadata.BoundaryEventRefSmDependency.class, partof = true, istodelete = true)
      List<SmObjectImpl> mBoundaryEventRef = null;
 
     @objid ("b12ffc41-9675-4c61-85bc-782d17d0e028")

@@ -38,7 +38,7 @@ public class ContextCreationExpert extends DefaultLinkExpert {
     @objid ("0014d58d-c6ce-4317-ae52-a4b8feb21137")
     @Override
     public boolean canLink(MClass link, final MClass fromMetaclass, final MClass toMetaclass, final MClass owner) {
-        return fromMetaclass == Metamodel.getMClass(Term.class) && toMetaclass == Metamodel.getMClass(Term.class);
+        return fromMetaclass.hasBase(Metamodel.getMClass(Term.class)) && toMetaclass.hasBase(Metamodel.getMClass(Term.class));
     }
 
     @objid ("d6d7bedb-ea44-46f5-9969-24701f07f422")
@@ -50,7 +50,7 @@ public class ContextCreationExpert extends DefaultLinkExpert {
     @objid ("ea7ea494-c53f-4430-9494-e00b99d3aaaa")
     @Override
     public boolean canSource(MClass link, final MClass fromMetaclass) {
-        return fromMetaclass == Metamodel.getMClass(Term.class);
+        return fromMetaclass.hasBase(Metamodel.getMClass(Term.class));
     }
 
 }

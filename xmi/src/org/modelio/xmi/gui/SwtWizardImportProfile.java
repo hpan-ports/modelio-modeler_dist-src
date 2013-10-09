@@ -45,7 +45,7 @@ import org.modelio.xmi.util.ReverseProperties;
  * @author ebrosse
  */
 @objid ("30022f89-f8c6-4cf6-828b-bc9524177272")
-public class SwtWizardImportProfile extends SwtWizardWindow {
+public class SwtWizardImportProfile extends AbstractSwtWizardWindow {
     /**
      * @param parent : the parent shell
      * @param style : the SWT style

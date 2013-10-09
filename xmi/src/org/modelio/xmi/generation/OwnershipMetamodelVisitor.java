@@ -169,6 +169,8 @@ import org.modelio.metamodel.uml.statik.LinkEnd;
 import org.modelio.metamodel.uml.statik.Manifestation;
 import org.modelio.metamodel.uml.statik.NameSpace;
 import org.modelio.metamodel.uml.statik.NamespaceUse;
+import org.modelio.metamodel.uml.statik.NaryAssociation;
+import org.modelio.metamodel.uml.statik.NaryAssociationEnd;
 import org.modelio.metamodel.uml.statik.Node;
 import org.modelio.metamodel.uml.statik.Operation;
 import org.modelio.metamodel.uml.statik.Package;
@@ -183,7 +185,7 @@ import org.modelio.metamodel.uml.statik.TemplateBinding;
 import org.modelio.metamodel.uml.statik.TemplateParameter;
 import org.modelio.metamodel.uml.statik.TemplateParameterSubstitution;
 import org.modelio.metamodel.visitors.DefaultModelVisitor;
-import org.modelio.xmi.util.ObjingModelNavigation;
+import org.modelio.xmi.util.AbstractObjingModelNavigation;
 import org.modelio.xmi.util.ProfileUtils;
 
 @objid ("e28712e4-f756-46ad-b854-1024ca4de784")
@@ -512,6 +514,10 @@ public class OwnershipMetamodelVisitor extends DefaultModelVisitor {
     public Object visitClassifier(final Classifier param) {
         Object lObject = super.visitClassifier(param);
         for (AssociationEnd i : param.getOwnedEnd()) {
+            i.accept(this);
+        }
+        
+        for (NaryAssociationEnd i : param.getOwnedNaryEnd()) {
             i.accept(this);
         }
         
@@ -967,7 +973,7 @@ public class OwnershipMetamodelVisitor extends DefaultModelVisitor {
         this.behavior.visitInteraction(param);
         Object lObject = super.visitInteraction(param);
         
-        List<InteractionFragment> fragments = ObjingModelNavigation.getOrderedFragments(param);
+        List<InteractionFragment> fragments = AbstractObjingModelNavigation.getOrderedFragments(param);
         
         for (InteractionFragment i : fragments) {
             i.accept(this);
@@ -1131,7 +1137,7 @@ public class OwnershipMetamodelVisitor extends DefaultModelVisitor {
             i.accept(this);
         }
         for (TaggedValue i : param.getTag()) {
-            if (!(ObjingModelNavigation.mustBeExported(i)))
+            if (!(AbstractObjingModelNavigation.mustBeExported(i)))
                 i.accept(this);
         }
         return lObject;
@@ -1704,6 +1710,20 @@ public class OwnershipMetamodelVisitor extends DefaultModelVisitor {
     public Object visitValuePin(final ValuePin param) {
         this.behavior.visitValuePin(param);
         return super.visitValuePin(param);
+    }
+
+    @objid ("ee327bca-4ebe-4d1a-988b-c834361332b2")
+    @Override
+    public Object visitNaryAssociationEnd(NaryAssociationEnd param) {
+        this.behavior.visitNaryAssociationEnd(param);
+        return super.visitNaryAssociationEnd(param);
+    }
+
+    @objid ("187c89cd-00f4-493e-808f-a92be14e8fe1")
+    @Override
+    public Object visitNaryAssociation(NaryAssociation param) {
+        this.behavior.visitNaryAssociation(param);
+        return super.visitNaryAssociation(param);
     }
 
 }

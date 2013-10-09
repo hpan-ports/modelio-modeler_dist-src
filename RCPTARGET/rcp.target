@@ -13,5 +13,6 @@
 <location path="${project_loc}/commons-lang" type="Directory"/>
 <location path="${project_loc}/emf" type="Directory"/>
 <location path="${project_loc}/uml2_3.2" type="Directory"/>
+<location path="${project_loc}/astyle" type="Directory"/>
 </locations>
 </target>

@@ -26,21 +26,18 @@ import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.swt.graphics.Image;
 import org.modelio.core.ui.images.MetamodelImageService;
 import org.modelio.core.ui.images.ModuleI18NService;
-import org.modelio.edition.notes.plugin.EditionNotes;
 import org.modelio.metamodel.Metamodel;
 import org.modelio.metamodel.mda.ModuleComponent;
 import org.modelio.metamodel.uml.infrastructure.Note;
 import org.modelio.metamodel.uml.infrastructure.NoteType;
 import org.modelio.metamodel.uml.infrastructure.Stereotype;
+import org.modelio.ui.UIImages;
 
 /**
  * Default label provider for the note chooser dialog.
  */
 @objid ("26e38593-186f-11e2-bc4e-002564c97630")
 public class NoteChooserLabelProvider extends LabelProvider {
-    @objid ("868e5ff4-1924-11e2-bc4e-002564c97630")
-    private static Image DEFAULT_IMAGE = EditionNotes.getImageDescriptor("icons/dot_16.png").createImage();
-
     @objid ("26e38594-186f-11e2-bc4e-002564c97630")
     @Override
     public Image getImage(Object element) {
@@ -55,7 +52,7 @@ public class NoteChooserLabelProvider extends LabelProvider {
             if (image != null) {
                 return image;
             }
-            return DEFAULT_IMAGE;
+            return UIImages.DOT;
         }
         return null;
     }
@@ -65,7 +62,12 @@ public class NoteChooserLabelProvider extends LabelProvider {
     public String getText(Object element) {
         if (element instanceof ModuleComponent) {
             ModuleComponent moduleComponent = (ModuleComponent) element;
-            return moduleComponent.getName(); // TODO get label
+            String label = ModuleI18NService.getLabel(moduleComponent);
+            if (!"".equals(label)) {
+                return label;
+            } else {
+                return moduleComponent.getName();
+            }
         } else if (element instanceof NoteType) {
             StringBuffer noteTypeLabel = new StringBuffer();
             NoteType noteType = (NoteType) element;

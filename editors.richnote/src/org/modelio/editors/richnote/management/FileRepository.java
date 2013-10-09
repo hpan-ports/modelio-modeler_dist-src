@@ -123,16 +123,23 @@ class FileRepository implements IRichNoteFileRepository {
         }
     }
 
+    /**
+     * Get the rich note blob for the given model object.
+     * <p>
+     * Returns <i>null</i> if there is no rich note blob for this object.
+     * @param obj a model object
+     * @return the rich note blob or <i>null</i>.
+     */
     @objid ("2e72bae3-5a11-41d5-910d-be9027a3faa1")
-    Collection<String> getRelatedBlobs(MObject obj) {
+    String getRelatedBlob(MObject obj) {
         if (obj instanceof ExternDocument) {
             ExternDocument doc = (ExternDocument) obj;
             if (doc.getPath().isEmpty())
-                return Collections.emptyList();
+                return null;
             else
-                return Collections.singletonList(getBlobId(obj));
+                return getBlobId(obj);
         }
-        return Collections.emptyList();
+        return null;
     }
 
     @objid ("75e7a7c9-a8dd-4cd1-89cf-54a392892f43")

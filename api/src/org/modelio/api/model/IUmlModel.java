@@ -240,6 +240,12 @@ import org.modelio.metamodel.uml.statik.LinkEnd;
 import org.modelio.metamodel.uml.statik.Manifestation;
 import org.modelio.metamodel.uml.statik.NameSpace;
 import org.modelio.metamodel.uml.statik.NamespaceUse;
+import org.modelio.metamodel.uml.statik.NaryAssociation;
+import org.modelio.metamodel.uml.statik.NaryAssociationEnd;
+import org.modelio.metamodel.uml.statik.NaryConnector;
+import org.modelio.metamodel.uml.statik.NaryConnectorEnd;
+import org.modelio.metamodel.uml.statik.NaryLink;
+import org.modelio.metamodel.uml.statik.NaryLinkEnd;
 import org.modelio.metamodel.uml.statik.Node;
 import org.modelio.metamodel.uml.statik.Operation;
 import org.modelio.metamodel.uml.statik.Package;
@@ -3029,5 +3035,32 @@ public interface IUmlModel {
 
     @objid ("4b3fbc4f-4bd7-479b-b75b-0dbcbc4d3580")
     IDefaultNameService getDefaultNameService();
+
+    @objid ("e957a868-f99e-4d53-92a9-561156fe8f15")
+    NaryAssociation createNaryAssociation();
+
+    @objid ("1061ed44-e894-4af1-ac7f-ac8aa6b47653")
+    NaryAssociation createNaryAssociation(List<Classifier> ends);
+
+    @objid ("c5ef9df6-9dd0-4c3e-b07a-b5f4e1bf037c")
+    NaryAssociationEnd createNaryAssociationEnd();
+
+    @objid ("4099071e-6b7a-43db-ab0a-788c1ba622da")
+    NaryConnector createNaryConnector();
+
+    @objid ("6871393c-16ac-42af-9c2e-6b233cf101ab")
+    NaryConnector createNaryConnector(List<BindableInstance> ends);
+
+    @objid ("4192f61a-9875-4da0-8e40-da06c15b293c")
+    NaryConnectorEnd createNaryConnectorEnd();
+
+    @objid ("67fb9a8a-527b-44e5-8ff6-0615aba429aa")
+    NaryLink createNaryLink();
+
+    @objid ("32605af5-f874-48fc-9577-901bfe343cea")
+    NaryLink createNaryLink(List<Instance> source);
+
+    @objid ("41106a00-7db7-4767-9405-77ed66209d85")
+    NaryLinkEnd createNaryLinkEnd();
 
 }

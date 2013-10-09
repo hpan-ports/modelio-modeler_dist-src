@@ -28,6 +28,7 @@ import java.util.UUID;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.gproject.fragment.IProjectFragment;
 import org.modelio.gproject.gproject.GProject;
+import org.modelio.gproject.model.namer.StandardNamer;
 import org.modelio.metamodel.Metamodel;
 import org.modelio.metamodel.factory.ElementNotUniqueException;
 import org.modelio.metamodel.factory.IModelFactory;
@@ -54,7 +55,7 @@ import org.modelio.vcore.smkernel.mapi.MRef;
 @objid ("0078f866-030f-1035-9f91-001ec947cd2a")
 public class MModelServices implements IMModelServices {
     @objid ("00790234-030f-1035-9f91-001ec947cd2a")
-    private final IElementNamer elementNamer = new ElementNamer();
+    private final IElementNamer elementNamer = new StandardNamer();
 
     @objid ("007915b2-030f-1035-9f91-001ec947cd2a")
     private GProject project;

@@ -152,13 +152,21 @@ public class SharedModelingSession implements org.modelio.vcore.session.api.mode
     @objid ("70da10f2-a234-4e8d-83b7-b6d78bb1a012")
     @Override
     public <T extends MObject> T findElementById(Class<T> metaclass, String id) {
-        return this.session.getModel().findById(metaclass, UUID.fromString(id), IModel.ISVALID);
+        try {
+            return this.session.getModel().findById(metaclass, UUID.fromString(id), IModel.ISVALID);
+        } catch (IllegalArgumentException e){
+            return null;
+        }
     }
 
     @objid ("8f56cd02-569d-4b0c-89f6-1606ce62c63d")
     @Override
     public MObject findElementById(MClass metaclass, String id) {
-        return this.session.getModel().findById(metaclass, UUID.fromString(id), IModel.ISVALID);
+        try {
+            return this.session.getModel().findById(metaclass, UUID.fromString(id), IModel.ISVALID);
+        } catch (IllegalArgumentException e){
+            return null;
+        }
     }
 
     /**

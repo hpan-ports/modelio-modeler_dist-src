@@ -22,6 +22,7 @@
 package org.modelio.vstore.exml.versioned.load.sax.local;
 
 import java.io.IOException;
+import java.util.Collection;
 import java.util.List;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
@@ -149,6 +150,11 @@ public class SaxLocalExmlLoader implements IDependencyContentHook {
             return this.dataModel.getDependencyContent(obj, dep);
         }
         return null;
+    }
+
+    @objid ("6e1c2ccc-b9ea-42a3-b6a1-871d97f6a20b")
+    public Collection<? extends Content> getContent(SmObjectImpl obj) {
+        return this.dataModel.getDependencyContent(obj);
     }
 
 }

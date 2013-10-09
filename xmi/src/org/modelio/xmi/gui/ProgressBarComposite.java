@@ -94,7 +94,7 @@ public class ProgressBarComposite extends Composite {
      */
     @objid ("e832e35e-d93c-4de4-bcb0-b8892325b12d")
     public void addValue() {
-        if (SwtWizardWindow.isCancelation()) {
+        if (AbstractSwtWizardWindow.isCancelation()) {
             abortProcess();
         }
         
@@ -159,7 +159,7 @@ public class ProgressBarComposite extends Composite {
      */
     @objid ("9c18a66e-db1b-42fb-a52c-12a41d50c18c")
     public void addElement() {
-        if (SwtWizardWindow.isCancelation()) {
+        if (AbstractSwtWizardWindow.isCancelation()) {
             abortProcess();
         }
         this.totalElement++;
@@ -199,7 +199,7 @@ public class ProgressBarComposite extends Composite {
 
     @objid ("e6f03ef8-195c-479f-8b08-b28ab17ac70d")
     private void abortProcess() throws AbortProcessException {
-        SwtWizardWindow.setCancellation(true);
+        AbstractSwtWizardWindow.setCancellation(true);
         throw new AbortProcessException();
     }
 

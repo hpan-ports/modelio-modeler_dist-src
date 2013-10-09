@@ -21,18 +21,23 @@
 
 package org.modelio.vaudit.modelshield.standard.checkers;
 
+import java.util.ArrayList;
+import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.metamodel.Metamodel;
 import org.modelio.metamodel.uml.infrastructure.ExternDocument;
+import org.modelio.vaudit.modelshield.internal.ModelError;
 import org.modelio.vaudit.modelshield.standard.TriggerType;
 import org.modelio.vaudit.modelshield.standard.checkers.generic.DepCardinalityChecker;
 import org.modelio.vaudit.modelshield.standard.plan.Plan;
+import org.modelio.vcore.smkernel.mapi.MDependency;
+import org.modelio.vcore.smkernel.mapi.MObject;
 
 /**
  * E237;
  * <ul>
  * <li>desc = An ExternDocument must have an ExternDocumentType.</li>
- * <li>what = An ExternDocument belonging to the ''{2}'' element does not have an ExternDocumentType.</li>
+ * <li>what = An ExternDocument belonging to the ''{1}'' element does not have an ExternDocumentType.</li>
  * </ul>
  * </p>
  */
@@ -57,6 +62,14 @@ public class E237Checker extends DepCardinalityChecker {
     @objid ("09375493-edff-11e1-9e29-002564c97630")
     public E237Checker() {
         super(ERRORID, DEPNAME);
+    }
+
+    @objid ("87c7077f-e835-472e-8541-75c72074f19e")
+    @Override
+    protected ModelError createError(MObject object, MDependency dep, int currentCard) {
+        List<Object> objects = new ArrayList<>();
+        objects.add(object.getCompositionOwner());
+        return new ModelError(ERRORID, object, objects);
     }
 
 }

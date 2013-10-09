@@ -31,8 +31,10 @@ import java.util.Set;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.uml2.uml.Profile;
 import org.modelio.api.modelio.Modelio;
+import org.modelio.metamodel.mda.ModuleComponent;
 import org.modelio.metamodel.uml.infrastructure.ModelTree;
 import org.modelio.metamodel.uml.statik.Package;
+import org.modelio.vcore.smkernel.mapi.MObject;
 import org.modelio.xmi.gui.report.ReportModel;
 import org.modelio.xmi.plugin.Xmi;
 import org.modelio.xmi.reverse.OwnedCompositionUml2Visitor;
@@ -293,10 +295,11 @@ public class ReverseProperties {
         if (this.profileRoot != null)
             return this.profileRoot;
         
-        //        for (IModule module : Modelio.getInstance().getModelingSession().getModel().getProject().getInstalled()){
-        //            if (module.getName().equals("LocalModule"))
-        //                return module;
-        //        }
+        for (MObject module : Modelio.getInstance().getModelingSession().getModel().getModelRoots()){
+            if ((module instanceof ModuleComponent) && (module.getName().equals("LocalModule"))){
+                return (ModuleComponent) module;
+            }
+        }
         return null;
     }
 
@@ -342,9 +345,9 @@ public class ReverseProperties {
     @objid ("739d8c2f-eaea-43fb-b4f0-14dfd8dc02e5")
     public void clean() {
         //        this.interactionIndexes.clear();
-                this.ecoreModel.clear();
-                this.externalPackage = null;
-                this.appliedProfiles = null;
+        this.ecoreModel.clear();
+        this.externalPackage = null;
+        this.appliedProfiles = null;
         //        this.interactionIndexes = null;
         //        this.interactions = null;
     }
@@ -394,7 +397,7 @@ public class ReverseProperties {
         if (this.externalPackage == null){
             this.externalPackage = Modelio.getInstance().getModelingSession().getModel().createPackage();
             this.externalPackage.setName( Xmi.I18N.getString("Ui.ExternalPackage.Name"));
-        //            this.externalPackage.setOwner( Modelio.getInstance().getModelingSession().getModel().getRoot());
+            //            this.externalPackage.setOwner( Modelio.getInstance().getModelingSession().getModel().getRoot());
         }
         return this.externalPackage;
     }

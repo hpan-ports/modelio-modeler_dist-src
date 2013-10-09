@@ -31,7 +31,11 @@ public class ModelioContext implements IModelioContext {
     @objid ("8b3ba8b8-4d09-4d8e-9064-983191cc6b26")
     @Override
     public String getLanguage() {
-        return Platform.getNL().substring(0,Platform.getNL().lastIndexOf("_"));
+        String language = Platform.getNL();
+        if(language.contains("_")){
+            Platform.getNL().substring(0,language.lastIndexOf("_"));
+        }
+        return Platform.getNL();
     }
 
     /**

@@ -219,6 +219,7 @@ public class DefaultLinkExpert implements ILinkExpert {
             addRule("Binding", "Parameter", "BindableInstance");
             addRule("Binding", "Parameter", "ConnectorEnd");
             addRule("ClassAssociation", "AssociationEnd", "Class");
+            addRule("ClassAssociation", "NaryAssociation", "Class");
             addRule("ClassAssociation", "Note", "Any");
             addRule("ClassAssociation", "ExternDocument", "Any");
             

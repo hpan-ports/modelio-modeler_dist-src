@@ -30,7 +30,9 @@ import org.eclipse.e4.core.di.annotations.CanExecute;
 import org.eclipse.e4.core.di.annotations.Execute;
 import org.eclipse.e4.core.di.annotations.Optional;
 import org.eclipse.e4.ui.services.IServiceConstants;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.swt.widgets.Shell;
 import org.modelio.app.project.core.services.IProjectService;
 import org.modelio.app.project.ui.plugin.AppProjectUi;
 import org.modelio.gproject.descriptor.ProjectDescriptor;
@@ -40,16 +42,25 @@ import org.modelio.gproject.gproject.GProject;
 public class DeleteProjectHandler {
     @objid ("0046fe60-cc35-1ff2-a7f4-001ec947cd2a")
     @Execute
-    public void execute(final IProjectService projectService, @Named(IServiceConstants.ACTIVE_SELECTION) final IStructuredSelection selection) {
+    public void execute(final IProjectService projectService, @Named(IServiceConstants.ACTIVE_SHELL) final Shell shell, @Named(IServiceConstants.ACTIVE_SELECTION) final IStructuredSelection selection) {
         List<ProjectDescriptor> projectDescriptors = getSelectedElements(selection);
+        StringBuilder nameList = new StringBuilder();
         for (ProjectDescriptor projectDescriptor : projectDescriptors) {
-            AppProjectUi.LOG.info("Deleting project '%s' ", projectDescriptor.getName());
-        
-            try {
-                projectService.deleteProject(projectDescriptor);
-            } catch (IOException e) {
-                AppProjectUi.LOG.equals(e);
-            }     
+            nameList.append(" - ");
+            nameList.append(projectDescriptor.getName());
+            nameList.append("\n");
+        }
+        if (MessageDialog.openConfirm(shell, AppProjectUi.I18N.getString("ConfirmProjectDeletion"),
+                                        AppProjectUi.I18N.getMessage("ConfirmProjectDeletionMessage", nameList.toString()))) {
+            for (ProjectDescriptor projectDescriptor : projectDescriptors) {
+                AppProjectUi.LOG.info("Deleting project '%s' ", projectDescriptor.getName());
+                
+                try {
+                    projectService.deleteProject(projectDescriptor);
+                } catch (IOException e) {
+                    AppProjectUi.LOG.equals(e);
+                }     
+            }
         }
     }
 

@@ -27,7 +27,9 @@ import java.util.HashSet;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.vcore.model.CompositionGetter;
+import org.modelio.vcore.session.api.blob.IBlobSupport;
 import org.modelio.vcore.session.api.repository.IRepository;
+import org.modelio.vcore.session.api.repository.IRepositorySupport;
 import org.modelio.vcore.session.impl.handles.IStorageHandle;
 import org.modelio.vcore.smkernel.IRepositoryObject;
 import org.modelio.vcore.smkernel.ISmObjectData;
@@ -50,15 +52,19 @@ import org.modelio.vcore.smkernel.meta.SmSingleDependency;
 @objid ("99e0d633-3a25-11e2-bf6c-001ec947ccaf")
 public class StorageHandle implements IStorageHandle {
     @objid ("645fb5db-2b13-43f2-be7f-6c76846384ae")
-    private final Collection<IRepository> repositories;
+    private final IRepositorySupport repoSupport;
+
+    @objid ("cf9ebf4c-2bf4-42ed-bdcb-c611df1d2bb8")
+    private final IBlobSupport blobSupport;
 
     /**
      * initialize the storage helper.
-     * @param repositories a view of all connected repositories.
+     * @param repoSupport a view of all connected repositories.
      */
     @objid ("1fe03503-3a2d-11e2-bf6c-001ec947ccaf")
-    public StorageHandle(Collection<IRepository> repositories) {
-        this.repositories = repositories;
+    public StorageHandle(IRepositorySupport repoSupport, IBlobSupport blobSupport) {
+        this.repoSupport = repoSupport;
+        this.blobSupport = blobSupport;
     }
 
     /**
@@ -91,7 +97,8 @@ public class StorageHandle implements IStorageHandle {
     private void loadNonStoredDep(final SmObjectImpl obj, final SmDependency dep) {
         obj.getRepositoryObject().loadDep(obj, dep);
         
-        for (IRepository r : this.repositories) {
+        // Threading note: we assume here that no repository will be added/removed during iteration
+        for (IRepository r : this.repoSupport.getRepositoriesView()) {
             if (!r.isStored(obj)) {
                 r.loadDynamicDep(obj, dep);
             }
@@ -176,12 +183,18 @@ public class StorageHandle implements IStorageHandle {
      * @param destRepoHandle the destination repository object.
      */
     @objid ("1fe29770-3a2d-11e2-bf6c-001ec947ccaf")
-    private static void moveToRepository(SmObjectImpl toMove, IRepositoryObject destRepoHandle) {
+    private void moveToRepository(SmObjectImpl toMove, IRepositoryObject destRepoHandle) {
         // First ensure all composition graph is loaded
         CompositionGetter.getAllChildren(Collections.singleton(toMove));
         
         // Process
-        doMoveToRepository(toMove, destRepoHandle, new HashSet<SmObjectImpl>());
+        final HashSet<SmObjectImpl> moved = new HashSet<>();
+        IRepository fromRepo = this.repoSupport.getRepository(toMove);
+        doMoveToRepository(toMove, destRepoHandle, moved);
+        
+        // Move related blobs
+        IRepository destRepo = this.repoSupport.getRepository(toMove);
+        doMoveBlobs(moved, fromRepo, destRepo);
     }
 
     /**
@@ -290,6 +303,11 @@ public class StorageHandle implements IStorageHandle {
         for (SmObjectImpl child : children) {
             doMoveToRepository(child, newRepoHandle, moved);
         }
+    }
+
+    @objid ("11757475-befa-4133-828b-91cb7838201f")
+    private void doMoveBlobs(Collection<SmObjectImpl> toMove, IRepository fromRepo, IRepository destRepo) {
+        this.blobSupport.fireObjectsMoved(toMove, fromRepo, destRepo);
     }
 
 }

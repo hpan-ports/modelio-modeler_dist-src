@@ -66,14 +66,6 @@ public interface IExmlBase extends IRepository {
     MObjectCache getLoadCache();
 
     /**
-     * If <code>false</code>, calling load() on the base or a storage handler
-     * will have no effect.
-     * @return true if object loading is enabled.
-     */
-    @objid ("fd1f92cd-5986-11e1-991a-001ec947ccaf")
-    boolean isLoadEnabled();
-
-    /**
      * Load the given CMS node if not already loaded.
      * @param obj a CMS node ID .
      * @param modelLoader the model loader to use.
@@ -103,17 +95,6 @@ public interface IExmlBase extends IRepository {
      */
     @objid ("fd21f527-5986-11e1-991a-001ec947ccaf")
     void removeObject(final SmObjectImpl object) throws IOException;
-
-    /**
-     * Enable or disable object loading.
-     * <p>
-     * If <code>false</code>, calling load() on the base or a storage handler
-     * will have no effect.
-     * @param value <code>true</code> to enable loading, <code>false</code> to disable it.
-     * @return the old load state
-     */
-    @objid ("fd21f52d-5986-11e1-991a-001ec947ccaf")
-    boolean setLoadEnabled(final boolean value);
 
     /**
      * Get the already loaded object.

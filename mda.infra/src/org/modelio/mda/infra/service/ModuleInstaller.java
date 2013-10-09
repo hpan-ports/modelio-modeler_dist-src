@@ -95,11 +95,11 @@ class ModuleInstaller {
         // We need to "preload" the module so that we can actually access its
         // main class to call the static method on.
         // Resolve all loaded dependencies
-        List<IModule> loadedDependencies = ModuleResolutionHelper.getGModuleDependsOnIModules(gModule, this.moduleService);
+        List<IModule> loadedDependencies = ModuleResolutionHelper.getGModuleDependsOnIModules(gModule, this.gProject, this.moduleService);
         loadedDependencies.addAll(ModuleResolutionHelper.getGModuleActivatedWeakDependenciesIModules(gModule, this.gProject, this.moduleService));
         // Resolve and update it classpath
-        Path projectMdaRuntimePath = this.gProject.getProjectRuntimePath().resolve("modules");
-        List<Path> runtimeJarPaths = ModuleLoader.getModuleJarPaths(projectMdaRuntimePath, rtModuleHandle);
+        
+        List<Path> runtimeJarPaths = ModuleLoader.getModuleJarPaths(rtModuleHandle);
         // Construct a class loader on these informations.
         // NOTE: the call to #install may actually bring in something that will
         // complete the class loader created in

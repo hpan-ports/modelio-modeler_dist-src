@@ -132,7 +132,7 @@ public class StringListCellEditor extends KTableCellEditor {
             this.active = true;
             List<String> initialContent = (ArrayList<String>) this.m_Model.getContentAt(this.m_Col, this.m_Row);
         
-            StringListEditionDialog dialog = new StringListEditionDialog(
+            StringListEditionDialog dialog = StringListEditionDialog.getInstance(
                     table.getShell(), 
                     this.title, 
                     this.message, 

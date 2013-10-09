@@ -39,8 +39,8 @@ public class NegativeInfluenceCreationExpert extends DefaultLinkExpert {
     @objid ("b28521f3-ffe2-4e58-b860-e0164bda8451")
     @Override
     public boolean canLink(MClass link, final MClass fromMetaclass, final MClass toMetaclass, final MClass owner) {
-        return fromMetaclass == Metamodel.getMClass(Goal.class) &&
-               toMetaclass == Metamodel.getMClass(Goal.class);
+        return fromMetaclass.hasBase(Metamodel.getMClass(Goal.class)) &&
+               toMetaclass.hasBase(Metamodel.getMClass(Goal.class));
     }
 
     @objid ("9072ae34-6a6f-4d18-bb74-d958c80f9844")
@@ -52,7 +52,7 @@ public class NegativeInfluenceCreationExpert extends DefaultLinkExpert {
     @objid ("831aa715-8d9f-4732-9ebd-5189f75d9663")
     @Override
     public boolean canSource(MClass link, final MClass fromMetaclass) {
-        return fromMetaclass == Metamodel.getMClass(Goal.class);
+        return fromMetaclass.hasBase(Metamodel.getMClass(Goal.class));
     }
 
 }

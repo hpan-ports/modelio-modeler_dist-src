@@ -25,15 +25,14 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.uml2.uml.ParameterEffectKind;
 import org.eclipse.uml2.uml.UMLFactory;
 import org.modelio.metamodel.uml.behavior.commonBehaviors.BehaviorParameter;
-import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.metamodel.uml.statik.DataType;
 import org.modelio.metamodel.uml.statik.GeneralClass;
 import org.modelio.metamodel.uml.statik.TemplateParameter;
 import org.modelio.vcore.smkernel.mapi.MObject;
 import org.modelio.xmi.plugin.Xmi;
+import org.modelio.xmi.util.AbstractObjingModelNavigation;
 import org.modelio.xmi.util.GenerationProperties;
 import org.modelio.xmi.util.ObjingEAnnotation;
-import org.modelio.xmi.util.ObjingModelNavigation;
 import org.modelio.xmi.util.PrimitiveTypeMapper;
 import org.modelio.xmi.util.StringConverter;
 import org.modelio.xmi.util.XMILogs;
@@ -121,7 +120,7 @@ public class OBehaviorParameter extends OElement implements IOElement {
         // If objingMultMin is "" then we don't set a lower multiplicity for the
         // UML2 element.
         if (!"".equals(objingMultMin)) {
-            if (ObjingModelNavigation.OBJING_UNLIMITED_VALUE
+            if (AbstractObjingModelNavigation.OBJING_UNLIMITED_VALUE
                     .equals(objingMultMin))
                 ecoreElt.setLower(org.eclipse.uml2.uml.LiteralUnlimitedNatural.UNLIMITED);
             else {
@@ -152,7 +151,7 @@ public class OBehaviorParameter extends OElement implements IOElement {
         // If objingMultMax is "" then we don't set an upper multiplicity for
         // the UML2 element.
         if (!"".equals(objingMultMax)) {
-            if (ObjingModelNavigation.OBJING_UNLIMITED_VALUE
+            if (AbstractObjingModelNavigation.OBJING_UNLIMITED_VALUE
                     .equals(objingMultMax))
                 ecoreElt.setUpper(org.eclipse.uml2.uml.LiteralUnlimitedNatural.UNLIMITED);
             else {

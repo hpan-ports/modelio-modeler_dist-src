@@ -26,8 +26,9 @@ import org.eclipse.uml2.uml.UMLFactory;
 import org.modelio.metamodel.uml.behavior.stateMachineModel.InitialPseudoState;
 
 @objid ("458d7e4a-c144-4cdf-b5f0-83a34a3df67e")
-public class OInitialPseudoState extends OAbstractPseudoState implements IOElement {
+public class OInitialPseudoState extends OAbstractPseudoState {
     @objid ("f1373e0e-0b06-4377-965e-d0821cfa3a88")
+    @Override
     public org.eclipse.uml2.uml.Element createEcoreElt() {
         return UMLFactory.eINSTANCE.createPseudostate();
     }
@@ -38,6 +39,7 @@ public class OInitialPseudoState extends OAbstractPseudoState implements IOEleme
     }
 
     @objid ("98c641fa-de38-43ad-a95c-9b88bbc7fa45")
+    @Override
     public void attach(org.eclipse.uml2.uml.Element ecoreElt) {
         super.attach(ecoreElt);
     }
@@ -48,6 +50,7 @@ public class OInitialPseudoState extends OAbstractPseudoState implements IOEleme
     }
 
     @objid ("6ea35c4b-2dd2-4a84-8952-36b793afe00c")
+    @Override
     public void setProperties(org.eclipse.uml2.uml.Element ecoreElt) {
         super.setProperties(ecoreElt);
         setKind( (org.eclipse.uml2.uml.Pseudostate)ecoreElt);

@@ -52,7 +52,7 @@ public class UnmaskChildLinksHandler extends AbstractUnmaskHandler {
             unmaskManager.unmaskChildLink(primarySelection.getViewer(), primaryGm);
         
             for (GraphicalEditPart secondaryEditPart : secondarySelection) {
-                GmModel secondaryGm = (GmModel) primarySelection.getModel();
+                GmModel secondaryGm = (GmModel) secondaryEditPart.getModel();
                 unmaskManager.unmaskChildLink(secondaryEditPart.getViewer(), secondaryGm);
             }
         

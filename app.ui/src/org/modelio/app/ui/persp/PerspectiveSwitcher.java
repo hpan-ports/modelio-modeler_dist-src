@@ -307,7 +307,14 @@ public class PerspectiveSwitcher {
         layout.marginBottom = 4;
         layout.marginTop = 4;
         this.comp.setLayout(layout);
+        
+        ToolBar firstTB = new ToolBar(this.comp, SWT.FLAT | SWT.WRAP | SWT.RIGHT);
+        final ToolItem firstSeparator = new ToolItem(firstTB, SWT.SEPARATOR);
+        
         this.psTB = new ToolBar(this.comp, SWT.FLAT | SWT.WRAP | SWT.RIGHT);
+        
+        ToolBar lastTB = new ToolBar(this.comp, SWT.FLAT | SWT.WRAP | SWT.RIGHT);
+        final ToolItem lastSeparator = new ToolItem(lastTB, SWT.SEPARATOR);
         
         // this.comp.addPaintListener(new PaintListener() {
         // @Override

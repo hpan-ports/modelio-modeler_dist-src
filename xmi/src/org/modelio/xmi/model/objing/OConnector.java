@@ -24,17 +24,16 @@ package org.modelio.xmi.model.objing;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.uml2.uml.InstanceSpecification;
 import org.eclipse.uml2.uml.UMLFactory;
-import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.metamodel.uml.statik.BindableInstance;
 import org.modelio.metamodel.uml.statik.Connector;
 import org.modelio.metamodel.uml.statik.Link;
 import org.modelio.metamodel.uml.statik.LinkEnd;
 import org.modelio.vcore.smkernel.mapi.MObject;
 import org.modelio.xmi.plugin.Xmi;
+import org.modelio.xmi.util.AbstractObjingModelNavigation;
 import org.modelio.xmi.util.GenerationProperties;
 import org.modelio.xmi.util.NotFoundException;
 import org.modelio.xmi.util.ObjingEAnnotation;
-import org.modelio.xmi.util.ObjingModelNavigation;
 import org.modelio.xmi.util.XMILogs;
 
 /**
@@ -49,7 +48,7 @@ public class OConnector extends OLink implements IOElement {
     @objid ("a8066816-7309-4938-9589-c5593415ceb7")
     @Override
     public org.eclipse.uml2.uml.Element createEcoreElt() {
-        MObject root = ObjingModelNavigation.getConnectorOwner(this.objElt);
+        MObject root = AbstractObjingModelNavigation.getConnectorOwner(this.objElt);
         if (root != null){           
             return UMLFactory.eINSTANCE.createConnector();           
         }
@@ -100,7 +99,7 @@ public class OConnector extends OLink implements IOElement {
                         ownerIsClass.getOwnedConnectors().add((org.eclipse.uml2.uml.Connector)ecoreElt);
                     } else if (objOwner instanceof BindableInstance) {
         
-                        org.eclipse.uml2.uml.StructuredClassifier ownerIsClass = (org.eclipse.uml2.uml.StructuredClassifier)  GenerationProperties.getInstance().getMappedElement(ObjingModelNavigation
+                        org.eclipse.uml2.uml.StructuredClassifier ownerIsClass = (org.eclipse.uml2.uml.StructuredClassifier)  GenerationProperties.getInstance().getMappedElement(AbstractObjingModelNavigation
                                 .getBindableInstanceOwner((BindableInstance)objOwner));
                         ownerIsClass.getOwnedConnectors().add((org.eclipse.uml2.uml.Connector)ecoreElt);
                     } else {

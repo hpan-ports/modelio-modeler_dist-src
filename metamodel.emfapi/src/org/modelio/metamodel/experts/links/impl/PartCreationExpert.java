@@ -42,8 +42,8 @@ public class PartCreationExpert extends DefaultLinkExpert {
     @objid ("afc1df3a-16f5-4418-819d-e4537542ddea")
     @Override
     public boolean canLink(MClass link, final MClass fromMetaclass, final MClass toMetaclass, final MClass owner) {
-        return (fromMetaclass == Metamodel.getMClass(Requirement.class) && toMetaclass == Metamodel.getMClass(Requirement.class)) ||
-               (fromMetaclass == Metamodel.getMClass(Goal.class) && toMetaclass == Metamodel.getMClass(Goal.class));
+        return (fromMetaclass.hasBase(Metamodel.getMClass(Requirement.class)) && toMetaclass.hasBase(Metamodel.getMClass(Requirement.class))) ||
+               (fromMetaclass.hasBase(Metamodel.getMClass(Goal.class)) && toMetaclass.hasBase(Metamodel.getMClass(Goal.class)));
     }
 
     @objid ("e6f5f70b-ecac-46f9-963d-469a0dd8c97b")
@@ -56,8 +56,8 @@ public class PartCreationExpert extends DefaultLinkExpert {
     @objid ("546d0d4f-b10b-4069-830b-ac4a325056b6")
     @Override
     public boolean canSource(MClass link, final MClass fromMetaclass) {
-        return fromMetaclass == Metamodel.getMClass(Requirement.class) ||
-               fromMetaclass == Metamodel.getMClass(Goal.class);
+        return fromMetaclass.hasBase(Metamodel.getMClass(Requirement.class)) ||
+               fromMetaclass.hasBase(Metamodel.getMClass(Goal.class));
     }
 
 }

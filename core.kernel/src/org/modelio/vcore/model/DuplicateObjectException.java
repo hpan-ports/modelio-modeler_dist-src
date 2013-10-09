@@ -25,6 +25,7 @@ import java.util.Map.Entry;
 import java.util.Map;
 import java.util.UUID;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
+import org.modelio.vcore.smkernel.IRepositoryObject;
 import org.modelio.vcore.smkernel.SmObjectImpl;
 import org.modelio.vcore.smkernel.mapi.MObject;
 
@@ -67,16 +68,19 @@ public class DuplicateObjectException extends Exception {
     public String getMessage() {
         if (this.origObj == this.dupObj)
             return this.origObj+" registered 2 times with different data.\n\n"+getThreadDump();
-        else
+        else {
+            final IRepositoryObject origRepo = this.origObj != null ? this.origObj.getRepositoryObject() : null;
+            final IRepositoryObject dupRepo = this.dupObj != null ? this.dupObj.getRepositoryObject() : null;
             return ("Duplicate '" + this.oid 
                     + "' objects detected:\n - original:  " 
                     + this.origObj 
-                    + " in "+ this.origObj.getRepositoryObject()
+                    + " in "+ origRepo
                     + "\n - new: " 
                     + this.dupObj
-                    + " in "+ this.dupObj.getRepositoryObject()
+                    + " in "+ dupRepo
                     + ".\n\n"
                     /*+ getThreadDump()*/);
+        }
     }
 
     /**

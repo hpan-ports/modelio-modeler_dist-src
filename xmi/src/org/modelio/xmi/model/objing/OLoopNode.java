@@ -27,9 +27,9 @@ import org.modelio.metamodel.uml.behavior.activityModel.Activity;
 import org.modelio.metamodel.uml.behavior.activityModel.ActivityNode;
 import org.modelio.metamodel.uml.behavior.activityModel.LoopNode;
 import org.modelio.vcore.smkernel.meta.SmClass;
+import org.modelio.xmi.util.AbstractObjingModelNavigation;
 import org.modelio.xmi.util.GenerationProperties;
 import org.modelio.xmi.util.ObjingEAnnotation;
-import org.modelio.xmi.util.ObjingModelNavigation;
 
 @objid ("7bf5ab1e-9918-4613-8f66-81f0ba6cefa7")
 public class OLoopNode extends OStructuredActivityNode implements IOElement {
@@ -119,7 +119,7 @@ public class OLoopNode extends OStructuredActivityNode implements IOElement {
     @objid ("195ac640-8d5b-42eb-ba53-35857c7f47fb")
     private void attachActionToActivity(org.eclipse.uml2.uml.ValueSpecificationAction action) {
         // Setting composition relation (attach to  org.eclipse.uml2.uml.Activity)
-        Activity enclosingActivity = (Activity) ObjingModelNavigation
+        Activity enclosingActivity = (Activity) AbstractObjingModelNavigation
                 .getEnclosingElement(objingElement, SmClass.getClass(Activity.class));
         
         if (enclosingActivity != null) {

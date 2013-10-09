@@ -28,7 +28,6 @@ import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.core.commands.common.EventManager;
 import org.eclipse.jface.preference.IPersistentPreferenceStore;
-import org.eclipse.jface.resource.JFaceResources;
 import org.eclipse.jface.util.IPropertyChangeListener;
 import org.eclipse.jface.util.PropertyChangeEvent;
 import org.eclipse.jface.util.SafeRunnable;
@@ -49,6 +48,9 @@ public class GProjectPreferenceStore extends EventManager implements IPersistent
     @objid ("c5bddbf3-d29d-47df-a8f0-c55b625d075e")
     private boolean dirty;
 
+    @objid ("d1a5f8cf-f9a2-42cb-9af4-cfc3791c0eba")
+    private String subSet;
+
     @objid ("4b068e30-1dd4-48e4-b91c-079919c2bb4a")
     private GProject project;
 
@@ -59,27 +61,29 @@ public class GProjectPreferenceStore extends EventManager implements IPersistent
     public GProjectPreferenceStore(GProject gProject) {
         assert (gProject != null);
         
-        project = gProject;
+        this.project = gProject;
+        this.subSet = "";
     }
 
     @objid ("cac3ea84-fe37-45a0-9b64-5c05e02fe9eb")
     @Override
     public void addPropertyChangeListener(IPropertyChangeListener listener) {
-        listeners.add(listener);
+        this.listeners.add(listener);
     }
 
     @objid ("8fafa29b-3b9c-4ec8-bfa7-0af59296330c")
     @Override
-    public boolean contains(String name) {
+    public boolean contains(String baseName) {
+        String name = this.subSet.isEmpty() ? baseName : getPrefixedName(baseName);
         return this.project.getProperties().getProperty(name) != null;
     }
 
     @objid ("71669798-a1d0-4c47-b432-ae6ad15eeaaa")
     @Override
     public void firePropertyChangeEvent(String name, Object oldValue, Object newValue) {
-        if (!listeners.isEmpty() && (oldValue == null || !oldValue.equals(newValue))) {
+        if (!this.listeners.isEmpty() && (oldValue == null || !oldValue.equals(newValue))) {
             final PropertyChangeEvent pe = new PropertyChangeEvent(this, name, oldValue, newValue);
-            for (IPropertyChangeListener l : listeners) {
+            for (IPropertyChangeListener l : this.listeners) {
                 final IPropertyChangeListener final_l = l;
                 SafeRunnable.run(new SafeRunnable() {
                     @Override
@@ -94,11 +98,21 @@ public class GProjectPreferenceStore extends EventManager implements IPersistent
     @objid ("702af4bf-36f8-41d3-9942-84676595a0eb")
     @Override
     public boolean getBoolean(String name) {
+        // First, try to get the property 'subset#name'
+        if (!this.subSet.isEmpty()) {
+            String v = this.project.getProperties().getValue(getPrefixedName(name));
+            if (v != null) {
+                return Boolean.parseBoolean(v);
+            }
+        }
+        
+        // No subset property defined, get the property 'name'
         String v = this.project.getProperties().getValue(name);
-        if (v == null)
+        if (v == null) {
             return BOOLEAN_DEFAULT_DEFAULT;
-        else
+        } else {
             return Boolean.parseBoolean(v);
+        }
     }
 
     @objid ("e3f65795-9c79-4bae-9c75-8a93476b6611")
@@ -140,6 +154,19 @@ public class GProjectPreferenceStore extends EventManager implements IPersistent
     @objid ("5595bc06-1ece-4eb5-a156-18e4df8f8dd4")
     @Override
     public double getDouble(String name) {
+        // First, try to get the property 'subset#name'
+        if (!this.subSet.isEmpty()) {
+            String v = this.project.getProperties().getValue(getPrefixedName(name));
+            if (v != null) {
+                try {
+                    return Double.parseDouble(v);
+                } catch (NumberFormatException e) {
+                    return DOUBLE_DEFAULT_DEFAULT;
+                }
+            }
+        }
+        
+        // No subset property defined, get the property 'name'
         String v = this.project.getProperties().getValue(name);
         if (v == null) {
             return DOUBLE_DEFAULT_DEFAULT;
@@ -155,6 +182,19 @@ public class GProjectPreferenceStore extends EventManager implements IPersistent
     @objid ("c41545cb-b5f2-476f-9a55-c321c930b4e3")
     @Override
     public float getFloat(String name) {
+        // First, try to get the property 'subset#name'
+        if (!this.subSet.isEmpty()) {
+            String v = this.project.getProperties().getValue(getPrefixedName(name));
+            if (v != null) {
+                try {
+                    return Float.parseFloat(v);
+                } catch (NumberFormatException e) {
+                    return FLOAT_DEFAULT_DEFAULT;
+                }
+            }
+        }
+        
+        // No subset property defined, get the property 'name'
         String v = this.project.getProperties().getValue(name);
         if (v == null) {
             return FLOAT_DEFAULT_DEFAULT;
@@ -170,6 +210,19 @@ public class GProjectPreferenceStore extends EventManager implements IPersistent
     @objid ("1e6b4ddb-c747-4429-8de7-3b0ca3fad8c1")
     @Override
     public int getInt(String name) {
+        // First, try to get the property 'subset#name'
+        if (!this.subSet.isEmpty()) {
+            String v = this.project.getProperties().getValue(getPrefixedName(name));
+            if (v != null) {
+                try {
+                    return Integer.parseInt(v);
+                } catch (NumberFormatException e) {
+                    return INT_DEFAULT_DEFAULT;
+                }
+            }
+        }
+        
+        // No subset property defined, get the property 'name'
         String v = this.project.getProperties().getValue(name);
         if (v == null) {
             return INT_DEFAULT_DEFAULT;
@@ -185,22 +238,44 @@ public class GProjectPreferenceStore extends EventManager implements IPersistent
     @objid ("17d974d2-c9f3-41d8-82b9-c17ada711e98")
     @Override
     public long getLong(String name) {
-        String v = this.project.getProperties().getValue(name);
-        if (v == null) {
-            return LONG_DEFAULT_DEFAULT;
-        } else {
-            try {
-                return Long.parseLong(v);
-            } catch (NumberFormatException e) {
-                return LONG_DEFAULT_DEFAULT;
-            }
-        }
+        // First, try to get the property 'subset#name'
+           if (!this.subSet.isEmpty()) {
+               String v = this.project.getProperties().getValue(getPrefixedName(name));
+               if (v != null) {
+                   try {
+                       return Long.parseLong(v);
+                   } catch (NumberFormatException e) {
+                       return LONG_DEFAULT_DEFAULT;
+                   }
+               }
+           }
+           
+           // No subset property defined, get the property 'name'
+           String v = this.project.getProperties().getValue(name);
+           if (v == null) {
+               return LONG_DEFAULT_DEFAULT;
+           } else {
+               try {
+                   return Long.parseLong(v);
+               } catch (NumberFormatException e) {
+                   return LONG_DEFAULT_DEFAULT;
+               }
+           }
     }
 
     @objid ("52cc6607-544b-4a89-8629-4652e93078d6")
     @Override
     public String getString(String name) {
-        String v = this.project.getProperties().getValue(name);
+        // First, try to get the property 'subset#name'
+           if (!this.subSet.isEmpty()) {
+               String v = this.project.getProperties().getValue(getPrefixedName(name));
+               if (v != null) {
+                   return v;
+               }
+           }
+           
+           // No subset property defined, get the property 'name'
+           String v = this.project.getProperties().getValue(name);
         return (v == null) ? STRING_DEFAULT_DEFAULT : v;
     }
 
@@ -219,7 +294,9 @@ public class GProjectPreferenceStore extends EventManager implements IPersistent
 
     @objid ("d6d67319-6e7f-4600-a22d-0a81e1043d64")
     @Override
-    public void putValue(String name, String value) {
+    public void putValue(String baseName, String value) {
+        String name = this.subSet.isEmpty() ? baseName : getPrefixedName(baseName);
+        
         Entry old = this.project.getProperties().getProperty(name);
         DefinitionScope scope = (old != null) ? old.getScope() : DefinitionScope.LOCAL;
         
@@ -229,7 +306,7 @@ public class GProjectPreferenceStore extends EventManager implements IPersistent
         String oldValue = (old != null) ? old.getValue() : null;
         if (oldValue == null || !oldValue.equals(value)) {
             this.project.getProperties().setProperty(name, value, scope);
-            dirty = true;
+            this.dirty = true;
             firePropertyChangeEvent(name, oldValue, value);
         }
     }
@@ -237,7 +314,7 @@ public class GProjectPreferenceStore extends EventManager implements IPersistent
     @objid ("18427025-4060-4815-a3fe-2971511e6a99")
     @Override
     public void removePropertyChangeListener(IPropertyChangeListener listener) {
-        listeners.remove(listener);
+        this.listeners.remove(listener);
     }
 
     @objid ("e71a94f6-7159-4eb3-88d1-6fb04a36c5f8")
@@ -331,13 +408,28 @@ public class GProjectPreferenceStore extends EventManager implements IPersistent
     }
 
     @objid ("e49b5f1a-73f4-436a-ab7a-007aa6b55f2b")
-    public void load() throws IOException {
+    public void load() {
         // not supported this.store.load();
     }
 
     @objid ("69866f3a-e970-4add-adf0-aedb4058c427")
-    public void load(InputStream in) throws IOException {
+    public void load(InputStream in) {
         // not supported this.store.load(in);
+    }
+
+    @objid ("4e4bb5ab-f974-41ca-b833-836e88367ef7")
+    public String getSubSet() {
+        return this.subSet;
+    }
+
+    @objid ("c67adda3-8e42-481a-8f9f-da75bc9d4ccb")
+    public void setSubSet(String subSet) {
+        this.subSet = subSet;
+    }
+
+    @objid ("6d54b51b-264e-4bb6-8a9a-d080f8b99f92")
+    public String getPrefixedName(String name) {
+        return this.subSet + "#" + name;
     }
 
 }

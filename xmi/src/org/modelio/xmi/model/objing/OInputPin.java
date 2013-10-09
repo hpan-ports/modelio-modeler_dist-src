@@ -28,14 +28,13 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.uml2.uml.UMLFactory;
 import org.modelio.metamodel.uml.behavior.activityModel.ActivityAction;
 import org.modelio.metamodel.uml.behavior.activityModel.InputPin;
-import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.metamodel.uml.statik.Parameter;
 import org.modelio.vcore.smkernel.mapi.MObject;
 import org.modelio.xmi.plugin.Xmi;
+import org.modelio.xmi.util.AbstractObjingModelNavigation;
 import org.modelio.xmi.util.AttachInputPinToOwnerVisitor;
 import org.modelio.xmi.util.GenerationProperties;
 import org.modelio.xmi.util.IModelerModuleStereotypes;
-import org.modelio.xmi.util.ObjingModelNavigation;
 
 @objid ("7c4d5f92-4131-483d-8df6-7855ff25d3e3")
 public class OInputPin extends OPin implements IOElement {
@@ -71,7 +70,7 @@ public class OInputPin extends OPin implements IOElement {
     private List<InputPin> getSortedInputPinList() {
         ActivityAction objingOwner = ((InputPin)getObjingElement()).getInputing();
         
-        List<Parameter> objingParamList = ObjingModelNavigation
+        List<Parameter> objingParamList = AbstractObjingModelNavigation
                 .getRelatedParameters(objingOwner);
         
         List<InputPin> objingInputPinList = new ArrayList<InputPin>(

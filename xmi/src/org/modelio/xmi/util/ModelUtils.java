@@ -31,6 +31,7 @@ import org.modelio.metamodel.uml.infrastructure.ModelElement;
 import org.modelio.metamodel.uml.infrastructure.TagParameter;
 import org.modelio.metamodel.uml.infrastructure.TaggedValue;
 import org.modelio.metamodel.uml.statik.AssociationEnd;
+import org.modelio.metamodel.uml.statik.NaryAssociationEnd;
 import org.modelio.metamodel.uml.statik.Operation;
 import org.modelio.vcore.smkernel.mapi.MObject;
 
@@ -45,8 +46,7 @@ public class ModelUtils {
         for (TaggedValue taggedValue : assocEnd.getTag()){
             if (taggedValue.getDefinition().getName().equals(IModelerModuleTagTypes.ASSOCIATIONEND_XMIISOWNEDBYCLASSIFIER)){
                 for (TagParameter actual : taggedValue.getActual()){
-                    if (actual.getValue().equals("true"))
-                        return true;
+                   return (actual.getValue().equals("true"));
                 }
             }
         }
@@ -145,6 +145,18 @@ public class ModelUtils {
             }
         }
         return intTrans;
+    }
+
+    @objid ("8a377514-93e5-48c2-8634-e73c514278e9")
+    public static boolean isOwnedByClassifier(final NaryAssociationEnd assocEnd) {
+        for (TaggedValue taggedValue : assocEnd.getTag()){
+            if (taggedValue.getDefinition().getName().equals(IModelerModuleTagTypes.ASSOCIATIONEND_XMIISOWNEDBYCLASSIFIER)){
+                for (TagParameter actual : taggedValue.getActual()){
+                   return (actual.getValue().equals("true"));
+                }
+            }
+        }
+        return false;
     }
 
 }

@@ -53,6 +53,7 @@ import org.modelio.vcore.session.impl.storage.IModelLoaderProvider;
 import org.modelio.vcore.session.impl.storage.StorageException;
 import org.modelio.vcore.session.impl.storage.nullz.NullRepository;
 import org.modelio.vcore.smkernel.IRStatus;
+import org.modelio.vcore.smkernel.IRepositoryObject;
 import org.modelio.vcore.smkernel.ISmObjectData;
 import org.modelio.vcore.smkernel.SmLiveId;
 import org.modelio.vcore.smkernel.SmObjectImpl;
@@ -80,12 +81,6 @@ import org.modelio.vstore.exml.resource.LocalExmlResourceProvider;
 public abstract class AbstractExmlRepository implements IExmlBase {
     @objid ("fd21f5d1-5986-11e1-991a-001ec947ccaf")
     private boolean baseOpen;
-
-    /**
-     * If false, the storage handlers omit to load objects.
-     */
-    @objid ("fd21f5ed-5986-11e1-991a-001ec947ccaf")
-    private boolean loadEnabled = true;
 
     /**
      * Repository ID.
@@ -230,10 +225,8 @@ public abstract class AbstractExmlRepository implements IExmlBase {
         if (!this.baseOpen)
             return;
         
-        setLoadEnabled(false);
-        
-        this.loadCache = null;
         this.baseOpen = false;
+        this.loadCache = null;
         
         if (this.indexes != null) try {
             this.indexes.close();
@@ -272,7 +265,7 @@ public abstract class AbstractExmlRepository implements IExmlBase {
 
     @objid ("fd21f566-5986-11e1-991a-001ec947ccaf")
     @Override
-    public synchronized Collection<MObject> findByAtt(SmClass cls, String att, Object val) {
+    public Collection<MObject> findByAtt(SmClass cls, String att, Object val) {
         assertOpen();
         
         Collection<MObject> results = new ArrayList<>();
@@ -311,7 +304,7 @@ public abstract class AbstractExmlRepository implements IExmlBase {
     public SmObjectImpl findById(SmClass cls, final UUID siteIdentifier) {
         ObjId id  = new ObjId(cls, "", siteIdentifier);
         try (IModelLoader modelLoader = this.modelLoaderProvider.beginLoadSession()) {
-            return this.findByObjId(id, modelLoader );
+            return findByObjId(id, modelLoader );
         } catch (DuplicateObjectException e) {
             getErrorSupport().fireError(e);
         } catch (IOException e) {
@@ -337,8 +330,19 @@ public abstract class AbstractExmlRepository implements IExmlBase {
         SmObjectImpl object = getLoadedObject(id);
         if (object != null)
             return object;
-        else
-            return createStubObject(id, modelLoader);
+        else {
+            try {
+                return createStubObject(id, modelLoader);
+            } catch (DuplicateObjectException e) {
+                // The object may have been loaded by a concurrent thread.
+                // in this case return the concurrently loaded object.
+                object = getLoadedObject(id);
+                if (object != null)
+                    return object;
+                else
+                    throw e;
+            }
+        }
     }
 
     @objid ("f4d29ce8-08b1-11e2-b33c-001ec947ccaf")
@@ -428,12 +432,6 @@ public abstract class AbstractExmlRepository implements IExmlBase {
         return ! getDirtyHandlers().isEmpty();
     }
 
-    @objid ("fd26b9d6-5986-11e1-991a-001ec947ccaf")
-    @Override
-    public final boolean isLoadEnabled() {
-        return this.loadEnabled;
-    }
-
     @objid ("fd26b9b5-5986-11e1-991a-001ec947ccaf")
     @Override
     public final synchronized boolean isOpen() {
@@ -462,7 +460,10 @@ public abstract class AbstractExmlRepository implements IExmlBase {
     public SmObjectImpl loadCmsNode(ObjId it, IModelLoader modelLoader) throws IOException, DuplicateObjectException {
         SmObjectImpl obj = findByObjId(it, modelLoader);
         if (obj != null) {
-            if (! ((ExmlStorageHandler) obj.getRepositoryObject()).isLoaded())
+            // Load the node if not moved to another repository and not already loaded.
+            final IRepositoryObject repoHandle = obj.getRepositoryObject();
+            
+            if (repoHandle.getRepositoryId() == getRepositoryId() && ! ((ExmlStorageHandler) repoHandle).isLoaded())
                 reloadCmsNode(obj, modelLoader);
         }
         return obj;
@@ -578,14 +579,13 @@ public abstract class AbstractExmlRepository implements IExmlBase {
         
         openIndexes(monitor);
         
-        setLoadEnabled(true);
         this.baseOpen = true;
     }
 
     @objid ("fd26b979-5986-11e1-991a-001ec947ccaf")
     @Override
     public final synchronized void removeObject(SmObjectImpl object) {
-        this.loadCache.removeFromCache(object);
+        //this.loadCache.removeFromCache(object); // remove it only on save
         
         if (object.getClassOf().isCmsNode()) {
             // Record deletion and remove the storage handler
@@ -644,14 +644,6 @@ public abstract class AbstractExmlRepository implements IExmlBase {
         // Now update the indexes
         mon.setWorkRemaining(100);
         updateIndexes(dirty, mon);
-    }
-
-    @objid ("fd245952-5986-11e1-991a-001ec947ccaf")
-    @Override
-    public final boolean setLoadEnabled(final boolean value) {
-        boolean old = this.loadEnabled;
-        this.loadEnabled =  value;
-        return old;
     }
 
     @objid ("df2704f4-1c43-11e2-8eb9-001ec947ccaf")
@@ -1056,7 +1048,7 @@ public abstract class AbstractExmlRepository implements IExmlBase {
 
     @objid ("074ab913-ee11-446f-a674-4c5e34d2b53a")
     @Override
-    public final boolean reloadCmsNode(SmObjectImpl obj, IModelLoader modelLoader) throws DuplicateObjectException {
+    public final synchronized boolean reloadCmsNode(SmObjectImpl obj, IModelLoader modelLoader) throws DuplicateObjectException {
         boolean ret = doReloadCmsNode(obj, modelLoader);
         
         ((ExmlStorageHandler) obj.getRepositoryObject()).setDirty(false);
@@ -1095,11 +1087,8 @@ public abstract class AbstractExmlRepository implements IExmlBase {
     public synchronized void unloadCmsNode(ExmlStorageHandler handler) {
         SmObjectImpl cmsNode = handler.getCmsNode();
         
-        // Disable loading
-        boolean oldLoad = this.setLoadEnabled (false);
-        
         // Forget the whole EXML node content
-        Collection<SmObjectImpl> content = ExmlUtils.getCmsNodeContent(cmsNode);
+        Collection<SmObjectImpl> content = ExmlUtils.getLoadedCmsNodeContent(cmsNode);
         for (SmObjectImpl child : content) {
             this.loadCache.removeFromCache(child);
         }
@@ -1109,9 +1098,6 @@ public abstract class AbstractExmlRepository implements IExmlBase {
         synchronized(this.storageHandlers) {
             this.storageHandlers.remove(handler);
         }
-        
-        // Enable loading again
-        this.setLoadEnabled (oldLoad);
     }
 
 }

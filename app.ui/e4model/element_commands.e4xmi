@@ -179,5 +179,8 @@
       <parameters xmi:id="_2fijo9moEeKBPfbWkDzT6w" elementId="stereotype" name="stereotype"/>
       <parameters xmi:id="_2fijpNmoEeKBPfbWkDzT6w" elementId="i18nKey" name="i18nKey"/>
     </elements>
+    <elements xsi:type="commands:Command" xmi:id="_hXAAkBx4EeOKmunD3rzg2A" elementId="org.modelio.app.ui.command.openrelateddiagram" commandName="%OpenRelatedDiagram.name" description="%OpenRelatedDiagram.description">
+      <parameters xmi:id="_bv28cBx5EeOKmunD3rzg2A" elementId="org.modelio.app.ui.command.parameter.related_diagram" name="org.modelio.app.ui.command.parameter.related_diagram"/>
+    </elements>
   </fragments>
 </fragment:ModelFragments>

@@ -32,7 +32,7 @@ import org.modelio.vcore.session.api.transactions.ITransaction;
  * Redefine GEF command stack to use our transaction.
  */
 @objid ("1b9f89e0-5e33-11e2-b81d-002564c97630")
-public class LinkEditorCommandStack extends CommandStack {
+class LinkEditorCommandStack extends CommandStack {
     @objid ("1b9f89e4-5e33-11e2-b81d-002564c97630")
     private ICoreSession session;
 

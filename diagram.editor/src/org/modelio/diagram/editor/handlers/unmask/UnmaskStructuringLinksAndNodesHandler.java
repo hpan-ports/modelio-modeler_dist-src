@@ -40,7 +40,7 @@ public class UnmaskStructuringLinksAndNodesHandler extends AbstractUnmaskHandler
             unmaskManager.unmaskStructuringLinks(primarySelection.getViewer(), primaryGm, true);
         
             for (GraphicalEditPart secondaryEditPart : secondarySelection) {
-                GmModel secondaryGm = (GmModel) primarySelection.getModel();
+                GmModel secondaryGm = (GmModel) secondaryEditPart.getModel();
                 unmaskManager.unmaskStructuringLinks(secondaryEditPart.getViewer(), secondaryGm, true);
             }
         

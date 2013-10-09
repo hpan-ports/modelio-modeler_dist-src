@@ -24,30 +24,35 @@ public class CommandVisiblePropertyTester extends PropertyTester {
     @objid ("0780cb72-6ba6-4a2a-8188-2cfe5fc86e88")
     @Override
     public boolean test(Object receiver, String property, Object[] args, Object expectedValue) {
-        if (!(receiver instanceof IStructuredSelection)) {
-            return false;
-        }
-        final IStructuredSelection selection = (IStructuredSelection) receiver;        
-        DiagramContributorManager contributorManager = DiagramContributorManager.getInstance();
-        ModelElement selectedElement = getSelectedElement(selection);
-        if (selectedElement == null) return false;
-        if (property.equals("opendiagramwizard")) {
-            for (IDiagramWizardContributor contributor : contributorManager.getAllContributorsList()) {
-                if (contributor.accept(selectedElement)) {
-                    return true;
-                }
+        try{    
+            if (!(receiver instanceof IStructuredSelection)) {
+                return false;
             }
-        } else {
-            if (args != null && args.length > 0) {
-                String configurerName = args[0].toString();
-                if (configurerName != null) {
-                    for (IDiagramWizardContributor contributor : contributorManager.getAllContributorsList()) {
-                        if (contributor.getClass().getSimpleName().equals(configurerName)) {
-                            return contributor.accept(selectedElement);
+            
+            final IStructuredSelection selection = (IStructuredSelection) receiver;        
+            DiagramContributorManager contributorManager = DiagramContributorManager.getInstance();
+            ModelElement selectedElement = getSelectedElement(selection);
+            if (selectedElement == null) return false;
+            if (property.equals("opendiagramwizard")) {
+                for (IDiagramWizardContributor contributor : contributorManager.getAllContributorsList()) {
+                    if (contributor.accept(selectedElement)) {
+                        return true;
+                    }
+                }
+            } else {
+                if (args != null && args.length > 0) {
+                    String configurerName = args[0].toString();
+                    if (configurerName != null) {
+                        for (IDiagramWizardContributor contributor : contributorManager.getAllContributorsList()) {
+                            if (contributor.getClass().getSimpleName().equals(configurerName)) {
+                                return contributor.accept(selectedElement);
+                            }
                         }
                     }
                 }
             }
+        }catch(Exception e){
+            e.printStackTrace();
         }
         return false;
     }

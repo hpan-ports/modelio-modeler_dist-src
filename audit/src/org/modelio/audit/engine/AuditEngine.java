@@ -46,19 +46,19 @@ public class AuditEngine {
     private AuditRunningMode runningMode = AuditRunningMode.AUTO;
 
     @objid ("e5c0de12-4253-44b6-955b-343d93f02a53")
-    private AuditRunner auditRunner = null;
+    private final AuditRunner auditRunner;
 
     @objid ("cf077656-ac94-4365-9dbc-4b2ac6f42d3f")
-    private AuditPlan activePlan = null;
+    private AuditPlan activePlan;
 
     @objid ("6252676e-c894-4698-9877-69b8445cb700")
-    public AuditDiagnostic auditDiagnostic = null;
+    private final AuditDiagnostic auditDiagnostic;
 
     @objid ("2b32aa9d-f583-43c5-8c2c-4304c52d15df")
-    private AuditDispatcher auditDispatcher = null;
+    private final AuditDispatcher auditDispatcher;
 
     @objid ("a4afbd11-3e66-4216-87e4-0c661d701793")
-    private CheckProgram controlProgram = null;
+    private final CheckProgram controlProgram;
 
     @objid ("993c1091-1a4e-4685-ace9-5c35ad83b62a")
     private Thread auditThread;
@@ -74,7 +74,6 @@ public class AuditEngine {
         this.auditDiagnostic = new AuditDiagnostic();
         this.auditRunner     = new AuditRunner(this.controlProgram, this.auditDiagnostic);
         this.auditDispatcher = new AuditDispatcher(this.controlProgram);
-        this.activePlan      = null;
     }
 
     @objid ("eeed88c7-125d-4d01-abc5-f81f96f5983d")

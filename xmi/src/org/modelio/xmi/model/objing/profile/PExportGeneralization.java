@@ -42,6 +42,7 @@ public class PExportGeneralization implements IExportProfileElement {
     }
 
     @objid ("2b8e0769-8cd5-441c-9c1c-27913b2d54bc")
+    @Override
     public void accept(ProfileExportVisitorImpl visitor) {
         visitor.visit(this);
     }

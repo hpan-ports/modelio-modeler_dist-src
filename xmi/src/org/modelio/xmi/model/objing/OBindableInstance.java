@@ -33,9 +33,9 @@ import org.modelio.metamodel.uml.statik.Instance;
 import org.modelio.metamodel.uml.statik.Port;
 import org.modelio.vcore.smkernel.mapi.MObject;
 import org.modelio.xmi.plugin.Xmi;
+import org.modelio.xmi.util.AbstractObjingModelNavigation;
 import org.modelio.xmi.util.GenerationProperties;
 import org.modelio.xmi.util.ObjingEAnnotation;
-import org.modelio.xmi.util.ObjingModelNavigation;
 import org.modelio.xmi.util.XMILogs;
 
 /**
@@ -80,7 +80,7 @@ public class OBindableInstance extends OInstance implements IOElement {
     public OBindableInstance(final BindableInstance param) {
         super(param);
         this.objingElement = param;
-        this.root = ObjingModelNavigation.getBindableInstanceOwner(this.objingElement);
+        this.root = AbstractObjingModelNavigation.getBindableInstanceOwner(this.objingElement);
     }
 
     @objid ("7faa03bf-9afb-4909-810d-82a449203d8c")
@@ -153,7 +153,7 @@ public class OBindableInstance extends OInstance implements IOElement {
     @Override
     public void setProperties(org.eclipse.uml2.uml.Element ecoreElt) {
         if (ecoreElt instanceof Property){
-            ObjingModelNavigation.setRepresentedFeature(this.objingElement, (Property)ecoreElt);
+            AbstractObjingModelNavigation.setRepresentedFeature(this.objingElement, (Property)ecoreElt);
             setName((org.eclipse.uml2.uml.NamedElement) ecoreElt);
             setBase((Property) ecoreElt);
             setMin((Property) ecoreElt);

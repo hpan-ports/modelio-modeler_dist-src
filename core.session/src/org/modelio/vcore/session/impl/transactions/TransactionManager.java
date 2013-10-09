@@ -22,9 +22,9 @@
 package org.modelio.vcore.session.impl.transactions;
 
 import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Deque;
+import java.util.Queue;
+import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
@@ -59,7 +59,7 @@ public class TransactionManager implements IActionManager, ITransactionSupport {
     private boolean actionsRecorded = true;
 
     @objid ("006ee100-0d1e-1f20-85a5-001ec947cd2a")
-    private boolean transactionsForbidden = false;
+    private volatile boolean transactionsForbidden = false;
 
     /**
      * Stack implementation based on deque<br>
@@ -89,7 +89,7 @@ public class TransactionManager implements IActionManager, ITransactionSupport {
     private ReentrantLock transactionOwnerLock = new ReentrantLock();
 
     /**
-     * Synchronization support for the transaction manager.
+     * Synchronization support for the transaction manager transactions stacks.
      * <p>
      * Use this class instead using 'synchronized' on TransactionManager methods.
      */
@@ -296,7 +296,7 @@ public class TransactionManager implements IActionManager, ITransactionSupport {
         try {
             return hasCurrentTransactionNoSync();
         } finally {
-            this.sync.unlock();
+            this.sync.fastUnlock();
         }
     }
 
@@ -503,12 +503,12 @@ public class TransactionManager implements IActionManager, ITransactionSupport {
      */
     @objid ("00938c12-702b-1f21-85a5-001ec947cd2a")
     private void fireChangeListeners(final EventFactory evFact) {
-        this.transactionsForbidden = true;
+        setTransactionsForbidden(true);
         try {
             this.changeSupport.fireModelChangeListeners(evFact.getEvent());
             this.changeSupport.fireStatusChangeListeners(evFact.getStatusEvent());
         } finally {
-            this.transactionsForbidden = false;
+            setTransactionsForbidden(false);
         }
     }
 
@@ -595,6 +595,7 @@ public class TransactionManager implements IActionManager, ITransactionSupport {
     }
 
     @objid ("976fd806-aef4-427c-8603-fa1cfd0ba507")
+    @Override
     public void setClosureHandler(ITransactionClosureHandler transactionClosureHandler) {
         this.transactionClosureHandler = transactionClosureHandler;
     }
@@ -622,7 +623,7 @@ public class TransactionManager implements IActionManager, ITransactionSupport {
         private static final long serialVersionUID = 1L;
 
         @objid ("9f9d172f-8c1b-45b8-8f5e-a3b81bcc8a24")
-        private volatile Collection<Runnable> deffered = new ArrayList<>();
+        private final Queue<Runnable> deffered = new ConcurrentLinkedQueue<>();
 
         @objid ("b693f00b-414e-4405-bea6-09e7d7f1c062")
         public SyncSupport() {
@@ -645,20 +646,19 @@ public class TransactionManager implements IActionManager, ITransactionSupport {
 
         @objid ("40d409a4-753f-46c4-b797-f849c84bfe3d")
         private void runDefferedActions() {
-            synchronized(this.deffered) {
-                setTransactionsForbidden(true);
-                
-                for (Runnable r : this.deffered) {
-                    try {
-                        r.run();
-                    } catch (RuntimeException e) {
-                        Log.warning(e);
-                    }
+            setTransactionsForbidden(true);
+            
+            Runnable r = this.deffered.poll();
+            while (r != null) {
+                try {
+                    r.run();
+                } catch (RuntimeException e) {
+                    Log.warning(e);
                 }
-                this.deffered = new ArrayList<>();
-                
-                setTransactionsForbidden(false);
+                r = this.deffered.poll();
             }
+            
+            setTransactionsForbidden(false);
         }
 
         /**
@@ -673,6 +673,7 @@ public class TransactionManager implements IActionManager, ITransactionSupport {
             if (super.tryLock()) {
                 try {
                     if (! hasCurrentTransactionNoSync()) {
+                        // Run the action now and return
                         runnable.run();
                         return;
                     }
@@ -681,7 +682,19 @@ public class TransactionManager implements IActionManager, ITransactionSupport {
                 }
             }
             
+            // If we reach this statement, add the action to the deferred ones
             this.deffered.add(runnable);
+        }
+
+        /**
+         * Same as {@link #unlock()} but does not run deferred actions.
+         * <p>
+         * Directly calls super {@link ReentrantLock#unlock()}.
+         */
+        @objid ("2818d732-69a0-4839-a7df-4771eaaf2191")
+        public void fastUnlock() {
+            assert isHeldByCurrentThread() : this;
+            super.unlock();
         }
 
     }

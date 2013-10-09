@@ -27,16 +27,13 @@ import org.eclipse.swt.graphics.Image;
 import org.modelio.core.ui.images.ModuleI18NService;
 import org.modelio.metamodel.mda.ModuleComponent;
 import org.modelio.metamodel.uml.infrastructure.Stereotype;
-import org.modelio.property.plugin.ModelProperty;
+import org.modelio.ui.UIImages;
 
 /**
  * Default label provider for the note chooser dialog.
  */
 @objid ("a4375516-7c8e-42ce-b70f-198f1ddfddab")
 public class StereotypeChooserLabelProvider extends LabelProvider {
-    @objid ("700d7321-5bd3-4425-b892-68b7f8a203ed")
-    private static Image DEFAULT_IMAGE = ModelProperty.getImageDescriptor("icons/dot_16.png").createImage();
-
     @objid ("ca5efc3a-fad2-4e37-9d7c-6c04a195bcd8")
     @Override
     public Image getImage(Object element) {
@@ -49,7 +46,7 @@ public class StereotypeChooserLabelProvider extends LabelProvider {
             if (image != null) {
                 return image;
             }
-            return DEFAULT_IMAGE;
+            return UIImages.DOT;
         }
         return null;
     }

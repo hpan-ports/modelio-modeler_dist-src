@@ -35,6 +35,8 @@ import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 import javax.script.ScriptEngine;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
+import org.eclipse.core.internal.runtime.InternalPlatform;
+import org.eclipse.help.internal.HelpPlugin;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.resource.ImageRegistry;
 import org.eclipse.swt.graphics.Image;
@@ -46,6 +48,7 @@ import org.modelio.api.diagram.tools.ILinkCommand;
 import org.modelio.api.diagram.tools.IMultiLinkCommand;
 import org.modelio.api.model.IModelingSession;
 import org.modelio.api.modelio.Modelio;
+import org.modelio.api.module.ILicenseInfos.Status;
 import org.modelio.api.module.commands.ActionLocation;
 import org.modelio.api.module.commands.IModuleAction;
 import org.modelio.api.module.diagrams.DiagramCustomizationDescriptor;
@@ -66,6 +69,8 @@ import org.modelio.metamodel.uml.infrastructure.TagType;
 import org.modelio.vbasic.version.Version;
 import org.modelio.vcore.smkernel.mapi.MObject;
 import org.osgi.framework.Bundle;
+import org.osgi.framework.BundleContext;
+import org.osgi.framework.BundleException;
 
 /**
  * Default implementation of the {@link IModule} interface.
@@ -142,11 +147,16 @@ public abstract class AbstractJavaModule implements IModule {
         
         // Initialize the moduleActions collections.
         this.actionsRegistry = new HashMap<>();
-        this.actionsRegistry.put(ActionLocation.menu, new ArrayList<IModuleAction>());
-        this.actionsRegistry.put(ActionLocation.toolbar, new ArrayList<IModuleAction>());
-        this.actionsRegistry.put(ActionLocation.property, new ArrayList<IModuleAction>());
-        this.actionsRegistry.put(ActionLocation.contextualpopup, new ArrayList<IModuleAction>());
-        this.actionsRegistry.put(ActionLocation.diagramtoolbar, new ArrayList<IModuleAction>());
+        this.actionsRegistry.put(ActionLocation.menu,
+                new ArrayList<IModuleAction>());
+        this.actionsRegistry.put(ActionLocation.toolbar,
+                new ArrayList<IModuleAction>());
+        this.actionsRegistry.put(ActionLocation.property,
+                new ArrayList<IModuleAction>());
+        this.actionsRegistry.put(ActionLocation.contextualpopup,
+                new ArrayList<IModuleAction>());
+        this.actionsRegistry.put(ActionLocation.diagramtoolbar,
+                new ArrayList<IModuleAction>());
         
         // this.actionsRegistry.put(ActionLocation.elementcreationpopup, new
         // ArrayList<IModuleAction>());
@@ -285,7 +295,8 @@ public abstract class AbstractJavaModule implements IModule {
         
         try {
             Path imageFile = moduleDirectory.resolve(relativePath);
-            if (!Files.isRegularFile(imageFile) && relativePath.startsWith(getName())) {
+            if (!Files.isRegularFile(imageFile)
+                    && relativePath.startsWith(getName())) {
                 // Compatibility mode with modelio 1.2, remove the module's name
                 relativePath = relativePath.substring(getName().length() + 1);
                 imageFile = moduleDirectory.resolve(relativePath);
@@ -322,8 +333,10 @@ public abstract class AbstractJavaModule implements IModule {
     @Override
     public ScriptEngine getJythonEngine() {
         if (this.jythonEngine == null) {
-            IScriptService scriptService = Modelio.getInstance().getScriptService();
-            this.jythonEngine = scriptService.getScriptEngine(getClass().getClassLoader());
+            IScriptService scriptService = Modelio.getInstance()
+                    .getScriptService();
+            this.jythonEngine = scriptService.getScriptEngine(getClass()
+                    .getClassLoader());
         
             // preset a few variables
             this.jythonEngine.put("SESSION", getModelingSession());
@@ -381,17 +394,21 @@ public abstract class AbstractJavaModule implements IModule {
             if (desc == null) {
                 try {
                     // look in the module resources directory
-                    final Path moduleDirectory = getConfiguration().getModuleResourcesPath();
-                    Path imageFile = moduleDirectory.resolve(relativePath.substring(1));
+                    final Path moduleDirectory = getConfiguration()
+                            .getModuleResourcesPath();
+                    Path imageFile = moduleDirectory.resolve(relativePath
+                            .substring(1));
         
                     if (Files.isRegularFile(imageFile)) {
                         final URL imageUrl = imageFile.toUri().toURL();
-                        final ImageDescriptor imageDescriptor = ImageDescriptor.createFromURL(imageUrl);
+                        final ImageDescriptor imageDescriptor = ImageDescriptor
+                                .createFromURL(imageUrl);
                         this.imageRegistry.put(moduleKey, imageDescriptor);
                         desc = this.imageRegistry.getDescriptor(moduleKey);
                     }
                 } catch (MalformedURLException e) {
-                    Modelio.getInstance().getLogService().error(this, e.getMessage());
+                    Modelio.getInstance().getLogService()
+                            .error(this, e.getMessage());
                 }
             }
         
@@ -486,7 +503,8 @@ public abstract class AbstractJavaModule implements IModule {
     @objid ("a0457068-479d-11df-a533-001ec947ccaf")
     @Override
     public Version getVersion() {
-        return new Version(this.moduleComponent.getMajVersion() + "." + this.moduleComponent.getMinVersion() + "."
+        return new Version(this.moduleComponent.getMajVersion() + "."
+                + this.moduleComponent.getMinVersion() + "."
                 + this.moduleComponent.getMinMinVersion());
     }
 
@@ -513,24 +531,31 @@ public abstract class AbstractJavaModule implements IModule {
     @objid ("a047d2c4-479d-11df-a533-001ec947ccaf")
     @Override
     public void init() {
-        // TODO Install documentation plugins
-        /*
-         * for (File docFile : this.configuration.getDocpath()) { try {
-         * BundleContext bundleContext =
-         * InternalPlatform.getDefault().getBundleContext();
-         * 
-         * Bundle bundleDoc = bundleContext.installBundle("reference:file:/" +
-         * docFile); bundleDoc.start(Bundle.START_TRANSIENT);
-         * 
-         * this.docBundles .add(bundleDoc); } catch (Exception e) { // Ignore
-         * Doc DuplicateBundleException: doc already installed if
-         * (!e.getClass().getSimpleName().equals("DuplicateBundleException")) {
-         * Modelio.getInstance().getLogService().warning(this, e.getMessage());
-         * } } }
-         * 
-         * // Force the help to reload if (!this.docBundles.isEmpty()) {
-         * HelpPlugin.getTocManager().clearCache(); }
-         */
+        for (Path docFile : this.configuration.getDocpath()) {
+            try {
+                BundleContext bundleContext = InternalPlatform.getDefault()
+                        .getBundleContext();
+        
+                Bundle bundleDoc = bundleContext
+                        .installBundle("reference:file:/" + docFile);
+                bundleDoc.start(Bundle.START_TRANSIENT);
+        
+                this.docBundles.add(bundleDoc);
+        
+            } catch (Exception e) { // Ignore
+                // Doc DuplicateBundleException: doc already installed
+                if (!e.getClass().getSimpleName()
+                        .equals("DuplicateBundleException")) {
+                    Modelio.getInstance().getLogService()
+                            .warning(this, e.getMessage());
+                }
+            }
+        }
+        
+        // Force the help to reload
+        if (!this.docBundles.isEmpty()) {
+            HelpPlugin.getTocManager().clearCache();
+        }
     }
 
     /**
@@ -563,8 +588,9 @@ public abstract class AbstractJavaModule implements IModule {
 
     @objid ("a045700f-479d-11df-a533-001ec947ccaf")
     private static String getImageKey(Stereotype stereotype, ImageType imageType) {
-        return "module." + stereotype.getCompositionOwner().getName() + "." + stereotype.getBaseClassName() + "."
-                + stereotype.getName() + "." + imageType.name();
+        return "module." + stereotype.getCompositionOwner().getName() + "."
+                + stereotype.getBaseClassName() + "." + stereotype.getName()
+                + "." + imageType.name();
     }
 
     /**
@@ -576,17 +602,22 @@ public abstract class AbstractJavaModule implements IModule {
     @objid ("a0457010-479d-11df-a533-001ec947ccaf")
     private ResourceBundle getManifestBundle() throws MissingResourceException {
         Path moduleResourcesPath = getConfiguration().getModuleResourcesPath();
-        try (final URLClassLoader cl = new URLClassLoader(new URL[] { moduleResourcesPath.toUri().toURL() })) {
+        try (final URLClassLoader cl = new URLClassLoader(
+                new URL[] { moduleResourcesPath.toUri().toURL() })) {
             // Create a class loader initialized with the 'manifest' directory
             // in module resource, then give it to ResourceBundle.getBundle(...)
             return ResourceBundle.getBundle("module", Locale.getDefault(), cl);
         } catch (MalformedURLException e) {
-            throw new MissingResourceException(e.getLocalizedMessage(), "module", "");
+            throw new MissingResourceException(e.getLocalizedMessage(),
+                    "module", "");
         } catch (MissingResourceException e) {
-            MissingResourceException e2 = new MissingResourceException(e.getLocalizedMessage() + " in '"
-                    + moduleResourcesPath.toUri().toString() + "'", e.getClassName(), e.getKey());
+            MissingResourceException e2 = new MissingResourceException(
+                    e.getLocalizedMessage() + " in '"
+                            + moduleResourcesPath.toUri().toString() + "'",
+                    e.getClassName(), e.getKey());
             e2.initCause(e);
-            Modelio.getInstance().getLogService().error(this, e.getLocalizedMessage());
+            Modelio.getInstance().getLogService()
+                    .error(this, e.getLocalizedMessage());
             throw e2;
         } catch (IOException e) {
             Modelio.getInstance().getLogService().error(this, e);
@@ -618,7 +649,10 @@ public abstract class AbstractJavaModule implements IModule {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((this.moduleComponent == null) ? 0 : this.moduleComponent.hashCode());
+        result = prime
+                * result
+                + ((this.moduleComponent == null) ? 0 : this.moduleComponent
+                        .hashCode());
         return result;
     }
 
@@ -663,19 +697,22 @@ public abstract class AbstractJavaModule implements IModule {
     @objid ("08fa08b1-a354-11e1-abf7-001ec947c8cc")
     @Override
     public void uninit() {
-        // TODO Uninstall documentation
-        /*
-         * if (!this.docBundles.isEmpty()) { for (Bundle bundleDoc :
-         * this.docBundles) { try { bundleDoc.stop(); bundleDoc.uninstall(); }
-         * catch (BundleException e) {
-         * Modelio.getInstance().getLogService().warning(this, e.getMessage());
-         * } }
-         * 
-         * // Empty the local bundle cache this.docBundles.clear();
-         * 
-         * // Force the help to reload HelpPlugin.getTocManager().clearCache();
-         * }
-         */
+        if (!this.docBundles.isEmpty()) {
+            for (Bundle bundleDoc : this.docBundles) {
+                try {
+                    bundleDoc.stop();
+                    bundleDoc.uninstall();
+                } catch (BundleException e) {
+                    Modelio.getInstance().getLogService()
+                            .warning(this, e.getMessage());
+                }
+            }
+        
+            // Empty the local bundle cache this.docBundles.clear();
+        
+            // Force the help to reload
+            HelpPlugin.getTocManager().clearCache();
+        }
     }
 
     @objid ("9994c01e-178f-11e2-aa0d-002564c97630")
@@ -714,31 +751,36 @@ public abstract class AbstractJavaModule implements IModule {
     @objid ("aa1fa07b-3f01-49f9-9138-33d937183699")
     @Override
     public final void registerCustomizedTool(String id, Class<? extends MObject> metaclass, Stereotype stereotype, String dep, IBoxCommand handler) {
-        this.diagramTools.add(new DiagramToolDescriptor(id, metaclass, stereotype, dep, handler));
+        this.diagramTools.add(new DiagramToolDescriptor(id, metaclass,
+                stereotype, dep, handler));
     }
 
     @objid ("bfc51349-8379-4fbd-b481-ca62f145289a")
     @Override
     public final void registerCustomizedTool(String id, Class<? extends MObject> metaclass, Stereotype stereotype, String dep, IAttachedBoxCommand handler) {
-        this.diagramTools.add(new DiagramToolDescriptor(id, metaclass, stereotype, dep, handler));
+        this.diagramTools.add(new DiagramToolDescriptor(id, metaclass,
+                stereotype, dep, handler));
     }
 
     @objid ("69006df2-18dd-449e-b47f-39b64cf61cd8")
     @Override
     public final void registerCustomizedTool(String id, Class<? extends MObject> metaclass, Stereotype stereotype, String dep, ILinkCommand handler) {
-        this.diagramTools.add(new DiagramToolDescriptor(id, metaclass, stereotype, dep, handler));
+        this.diagramTools.add(new DiagramToolDescriptor(id, metaclass,
+                stereotype, dep, handler));
     }
 
     @objid ("c699576c-97f1-42d5-8612-879739654d2f")
     @Override
     public final void registerCustomizedTool(String id, Class<? extends MObject> metaclass, Stereotype stereotype, String dep, IMultiLinkCommand handler) {
-        this.diagramTools.add(new DiagramToolDescriptor(id, metaclass, stereotype, dep, handler));
+        this.diagramTools.add(new DiagramToolDescriptor(id, metaclass,
+                stereotype, dep, handler));
     }
 
     @objid ("f3dfe929-371b-4cce-bcd1-9d42ae8d4b4a")
     @Override
     public final void registerDiagramCustomization(Stereotype stereotype, Class<? extends AbstractDiagram> baseDiagramClass, IDiagramCustomizer customizer) {
-        this.diagramCustomizations.add(new DiagramCustomizationDescriptor(stereotype, baseDiagramClass, customizer));
+        this.diagramCustomizations.add(new DiagramCustomizationDescriptor(
+                stereotype, baseDiagramClass, customizer));
     }
 
     @objid ("4ebad2e9-f676-49ec-b469-d1a1bff5a3f8")
@@ -792,6 +834,12 @@ public abstract class AbstractJavaModule implements IModule {
             Modelio.getInstance().getLogService().error(this, e.getMessage());
         }
         return getName();
+    }
+
+    @objid ("ce0cb21c-74f2-42ff-b7ca-21e0c8db96c8")
+    @Override
+    public ILicenseInfos getLicenseInfos() {
+        return new LicenseInfos(Status.FREE, null, "");
     }
 
 }

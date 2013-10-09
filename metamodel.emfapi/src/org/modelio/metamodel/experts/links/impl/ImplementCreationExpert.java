@@ -42,9 +42,9 @@ public class ImplementCreationExpert extends DefaultLinkExpert {
     @objid ("0b53e617-5dd0-459b-bea4-a80a8473355b")
     @Override
     public boolean canLink(MClass link, final MClass fromMetaclass, final MClass toMetaclass, final MClass owner) {
-        if ((fromMetaclass == Metamodel.getMClass(Class.class)) ||
-            (fromMetaclass == Metamodel.getMClass(BpmnProcess.class)))
-            return toMetaclass == Metamodel.getMClass(BusinessRule.class);
+        if ((fromMetaclass.hasBase(Metamodel.getMClass(Class.class))) ||
+            (fromMetaclass.hasBase(Metamodel.getMClass(BpmnProcess.class))))
+            return toMetaclass.hasBase(Metamodel.getMClass(BusinessRule.class));
         return false;
     }
 
@@ -57,7 +57,7 @@ public class ImplementCreationExpert extends DefaultLinkExpert {
     @objid ("c4a46d46-4d0f-4ff2-a9c5-67381d126d54")
     @Override
     public boolean canSource(MClass link, final MClass fromMetaclass) {
-        return ((fromMetaclass == Metamodel.getMClass(Class.class)) || (fromMetaclass == Metamodel.getMClass(BpmnProcess.class)));
+        return ((fromMetaclass.hasBase(Metamodel.getMClass(Class.class))) || (fromMetaclass.hasBase(Metamodel.getMClass(BpmnProcess.class))));
     }
 
 }

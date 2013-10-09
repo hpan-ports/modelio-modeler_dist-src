@@ -288,7 +288,7 @@ public class ProjectCreationDialog extends ModelioDialog {
             this.javaCheckBox.setText(AppProjectUiExt.I18N.getString("JavaProjectCheckbox.label"));
             final GridData gd = new GridData(SWT.FILL, SWT.CENTER, true, false);
             this.javaCheckBox.setLayoutData(gd);
-            this.javaCheckBox.setSelection(true);
+            this.javaCheckBox.setSelection(false);
         }
 
         @objid ("0092cbb0-c2c2-10b4-9941-001ec947cd2a")

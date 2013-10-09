@@ -39,7 +39,7 @@ public class OpenSearchDialogHandler {
         
         final List<Element> results = new ArrayList<>();
         
-        final SearchDialog searchDialog = new SearchDialog(shell, session, results, navigationService);
+        final SearchDialog searchDialog = SearchDialog.getInstance(shell, session, results, navigationService);
         searchDialog.setBlockOnOpen(false);
         searchDialog.open();
         

@@ -24,14 +24,13 @@ package org.modelio.xmi.model.objing;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.uml2.uml.UMLFactory;
 import org.modelio.metamodel.uml.behavior.commonBehaviors.Signal;
-import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.metamodel.uml.infrastructure.ModelTree;
 import org.modelio.metamodel.uml.statik.DataType;
 import org.modelio.vcore.smkernel.mapi.MObject;
+import org.modelio.xmi.util.AbstractObjingModelNavigation;
 import org.modelio.xmi.util.GenerationProperties;
 import org.modelio.xmi.util.NotFoundException;
 import org.modelio.xmi.util.ObjingEAnnotation;
-import org.modelio.xmi.util.ObjingModelNavigation;
 import org.modelio.xmi.util.PrimitiveTypeMapper;
 
 /**
@@ -102,7 +101,7 @@ public class ODataType extends ONameSpace {
                  * ObjingEAnnotation.getOrCreateObjingEAnnotation(ownerIsSignal);
                  * if (objingEA != null) objingEA.getContents().add(ecoreElt);
                  */
-                ObjingModelNavigation.infoOfUnsupportedOwnedWithEMF(
+                AbstractObjingModelNavigation.infoOfUnsupportedOwnedWithEMF(
                         objingOwner, this.objingElement, ecoreElt);
             } else {
                 ecoreElt.destroy();

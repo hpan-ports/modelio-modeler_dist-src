@@ -21,18 +21,25 @@
 
 package org.modelio.vaudit.modelshield.standard.checkers;
 
+import java.util.ArrayList;
+import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.metamodel.Metamodel;
+import org.modelio.metamodel.uml.statik.Association;
 import org.modelio.metamodel.uml.statik.ClassAssociation;
+import org.modelio.metamodel.uml.statik.NaryAssociation;
+import org.modelio.vaudit.modelshield.internal.ModelError;
 import org.modelio.vaudit.modelshield.standard.TriggerType;
 import org.modelio.vaudit.modelshield.standard.checkers.generic.DepCardinalityChecker;
 import org.modelio.vaudit.modelshield.standard.plan.Plan;
+import org.modelio.vcore.smkernel.mapi.MDependency;
+import org.modelio.vcore.smkernel.mapi.MObject;
 
 /**
  * E212:
  * <ul>
  * <li>desc = A ClassAssociation must be linked to a Class.</li>
- * <li>what = An association class located on the ''{2}'' association is not linked to a class.</li>
+ * <li>what = An association class located on the ''{1}'' association is not linked to a class.</li>
  * </ul>
  */
 @objid ("008410fc-e20d-1f69-b3fb-001ec947cd2a")
@@ -56,6 +63,23 @@ public class E212Checker extends DepCardinalityChecker {
     @objid ("005636dc-9e33-1f6c-bf9a-001ec947cd2a")
     public E212Checker() {
         super(ERRORID, DEPNAME);
+    }
+
+    @objid ("07bdb8de-bdc4-45e6-a4de-8c790cee513e")
+    @Override
+    protected ModelError createError(MObject object, MDependency dep, int currentCard) {
+        List<Object> objects = new ArrayList<>();
+        
+        ClassAssociation classAssoc = (ClassAssociation) object;
+        
+        Association assoc = classAssoc.getAssociationPart();
+        NaryAssociation naryAssoc = classAssoc.getNaryAssociationPart();
+        
+        if (assoc != null)
+            objects.add(assoc);
+        else
+            objects.add(naryAssoc);
+        return new ModelError(ERRORID, object, objects);
     }
 
 }

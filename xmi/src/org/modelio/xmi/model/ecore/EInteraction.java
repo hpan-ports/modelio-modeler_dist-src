@@ -27,14 +27,12 @@ import org.modelio.api.modelio.Modelio;
 import org.modelio.metamodel.diagrams.SequenceDiagram;
 import org.modelio.metamodel.uml.behavior.interactionModel.Gate;
 import org.modelio.metamodel.uml.behavior.interactionModel.Interaction;
-import org.modelio.metamodel.uml.behavior.interactionModel.RelativeTime;
 import org.modelio.metamodel.uml.behavior.stateMachineModel.Transition;
 import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.metamodel.uml.statik.NameSpace;
-import org.modelio.xmi.reverse.TotalImportMap;
+import org.modelio.xmi.util.AbstractObjingModelNavigation;
 import org.modelio.xmi.util.EcoreModelNavigation;
 import org.modelio.xmi.util.ObjingEAnnotation;
-import org.modelio.xmi.util.ObjingModelNavigation;
 import org.modelio.xmi.util.ReverseProperties;
 
 /**
@@ -70,7 +68,7 @@ public class EInteraction extends ENamedElement implements IEElement {
         
             NameSpace finalOwner = null;
             if (objingOwner instanceof Transition){
-                finalOwner = ObjingModelNavigation.getNearestPackage((Transition)objingOwner);
+                finalOwner = AbstractObjingModelNavigation.getNearestPackage((Transition)objingOwner);
             }else if (objingOwner instanceof NameSpace){
                 finalOwner = (NameSpace) objingOwner;
             }

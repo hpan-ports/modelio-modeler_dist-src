@@ -57,7 +57,9 @@ public class PropertyTableImpl extends ElementImpl implements PropertyTable {
     @objid ("71fabe37-282d-11e2-bf07-001ec947ccaf")
     @Override
     public final Properties toProperties() throws IllegalStateException {
-        return new Properties(getSyncProperties());
+        Properties props = new Properties();
+        props.putAll(getSyncProperties());
+        return props;
     }
 
     @objid ("71fabe3c-282d-11e2-bf07-001ec947ccaf")
@@ -68,7 +70,7 @@ public class PropertyTableImpl extends ElementImpl implements PropertyTable {
             newContent.store(sw, null);
             final String s = sw.toString();
             setContent(s);
-            
+        
             // Update the cache
             this.table = new SoftReference<>(newContent);
             this.tableHash = s.hashCode();
@@ -120,16 +122,16 @@ public class PropertyTableImpl extends ElementImpl implements PropertyTable {
     @objid ("c0ac281b-9f67-4b06-a6dc-13d3f4d324b9")
     @Override
     public void setOwner(ModelElement value) {
-        appendDepVal(PropertyTableData.Metadata.OwnerDep(), (SmObjectImpl)value);
+        appendDepVal(PropertyTableData.Metadata.OwnerDep(), (SmObjectImpl) value);
     }
 
     @objid ("afd1bdc5-1730-44cc-bb4d-1c97f84b3c3c")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
-        obj = (SmObjectImpl)this.getDepVal(PropertyTableData.Metadata.OwnerDep());
+        obj = (SmObjectImpl) this.getDepVal(PropertyTableData.Metadata.OwnerDep());
         if (obj != null)
-          return obj;
+            return obj;
         return super.getCompositionOwner();
     }
 
@@ -137,9 +139,9 @@ public class PropertyTableImpl extends ElementImpl implements PropertyTable {
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
-        obj = (SmObjectImpl)this.getDepVal(PropertyTableData.Metadata.OwnerDep());
+        obj = (SmObjectImpl) this.getDepVal(PropertyTableData.Metadata.OwnerDep());
         if (obj != null)
-          return new SmDepVal(PropertyTableData.Metadata.OwnerDep(), obj);
+            return new SmDepVal(PropertyTableData.Metadata.OwnerDep(), obj);
         return super.getCompositionRelation();
     }
 
@@ -147,9 +149,9 @@ public class PropertyTableImpl extends ElementImpl implements PropertyTable {
     @Override
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
-          return ((IModelVisitor)v).visitPropertyTable(this);
+            return ((IModelVisitor) v).visitPropertyTable(this);
         else
-          return null;
+            return null;
     }
 
     /**
@@ -165,7 +167,8 @@ public class PropertyTableImpl extends ElementImpl implements PropertyTable {
             this.table = new SoftReference<>(props);
             this.tableHash = strContent.hashCode();
         } catch (IOException e) {
-            throw new IllegalStateException("The 'Content' attribute has not the java.util.Properties format:"+e.getLocalizedMessage(),e); 
+            throw new IllegalStateException("The 'Content' attribute has not the java.util.Properties format:"
+                    + e.getLocalizedMessage(), e);
         }
         return props;
     }
@@ -187,8 +190,7 @@ public class PropertyTableImpl extends ElementImpl implements PropertyTable {
     }
 
     /**
-     * Return the cached properties if the Properties is up to date
-     * with the string content.
+     * Return the cached properties if the Properties is up to date with the string content.
      * @return the cached property table or <code>null</code>.
      */
     @objid ("07ffcaec-5a48-4ecb-ba9d-767191ca6ac7")

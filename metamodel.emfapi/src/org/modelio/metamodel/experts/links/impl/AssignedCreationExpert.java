@@ -52,12 +52,12 @@ public class AssignedCreationExpert extends DefaultLinkExpert {
     @objid ("45e5e0d8-9882-435b-a553-51e1ee471bf2")
     @Override
     public boolean canLink(MClass link, final MClass fromMetaclass, final MClass toMetaclass, final MClass owner) {
-        if ((fromMetaclass == Metamodel.getMClass(Interface.class)) ||
-            (fromMetaclass == Metamodel.getMClass(Actor.class)) ||
-            (fromMetaclass == Metamodel.getMClass(Package.class)) ||
-            (fromMetaclass == Metamodel.getMClass(BpmnProcess.class) ||
-            (fromMetaclass == Metamodel.getMClass(BpmnBehavior.class))))
-            return toMetaclass == Metamodel.getMClass(Goal.class);
+        if ((fromMetaclass.hasBase(Metamodel.getMClass(Interface.class))) ||
+            (fromMetaclass.hasBase(Metamodel.getMClass(Actor.class))) ||
+            (fromMetaclass.hasBase(Metamodel.getMClass(Package.class))) ||
+            (fromMetaclass.hasBase(Metamodel.getMClass(BpmnProcess.class)) ||
+            (fromMetaclass.hasBase(Metamodel.getMClass(BpmnBehavior.class)))))
+            return toMetaclass.hasBase(Metamodel.getMClass(Goal.class));
         return false;
     }
 
@@ -74,11 +74,11 @@ public class AssignedCreationExpert extends DefaultLinkExpert {
     @objid ("1e7d36e1-3db3-4b2e-a1cf-ec6e40655db5")
     @Override
     public boolean canSource(MClass link, final MClass fromMetaclass) {
-        return ((fromMetaclass == Metamodel.getMClass(Interface.class)) ||
-                (fromMetaclass == Metamodel.getMClass(Actor.class)) ||
-                (fromMetaclass == Metamodel.getMClass(Package.class)) ||
-                (fromMetaclass == Metamodel.getMClass(BpmnProcess.class)) ||
-                (fromMetaclass == Metamodel.getMClass(BpmnBehavior.class)));
+        return ((fromMetaclass.hasBase(Metamodel.getMClass(Interface.class))) ||
+                (fromMetaclass.hasBase(Metamodel.getMClass(Actor.class))) ||
+                (fromMetaclass.hasBase(Metamodel.getMClass(Package.class))) ||
+                (fromMetaclass.hasBase(Metamodel.getMClass(BpmnProcess.class))) ||
+                (fromMetaclass.hasBase(Metamodel.getMClass(BpmnBehavior.class))));
     }
 
 }

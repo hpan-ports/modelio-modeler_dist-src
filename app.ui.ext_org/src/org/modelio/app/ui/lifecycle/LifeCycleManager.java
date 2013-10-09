@@ -153,7 +153,7 @@ public class LifeCycleManager {
         
         // END EXPERIMENTAL STUFF
         
-        // Loading metamodel
+         // Loading metamodel
         AppUi.LOG.info("Loading metamodel...");
         if (this.splash != null)
             this.splash.showMessage(AppUi.I18N.getString("Splash.metamodel"));
@@ -161,8 +161,14 @@ public class LifeCycleManager {
         AppUi.LOG.info("Metamodel loaded, version  : '%s'", Metamodel.VERSION);
         
         // Initialize catalog from mdastore if the local catalog directory does not contain any entry
+        final FileModuleStore catalog = new FileModuleStore(modelioEnv.getModuleCatalogPath());
         boolean emptyCatalog;
-        try (DirectoryStream<Path> ds = Files.newDirectoryStream(modelioEnv.getModuleCatalogPath())) {
+        try (DirectoryStream<Path> ds = Files.newDirectoryStream(modelioEnv.getModuleCatalogPath(), new DirectoryStream.Filter<Path>() {
+            @Override
+            public boolean accept(Path entry) throws IOException {
+                return !entry.endsWith("version.dat");
+            }
+        })) {
             emptyCatalog = !ds.iterator().hasNext();
         } catch (IOException e) {
             AppUi.LOG.warning(e);
@@ -173,7 +179,7 @@ public class LifeCycleManager {
             if (this.splash != null) {
                 this.splash.showMessage(AppUi.I18N.getString("Splash.modules"));
             }
-            deliverMdaStoreModules(new FileModuleStore(modelioEnv.getModuleCatalogPath()));
+            deliverMdaStoreModules(catalog);
         }
         
         if (this.splash != null)

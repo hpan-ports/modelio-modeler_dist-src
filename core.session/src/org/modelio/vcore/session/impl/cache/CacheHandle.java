@@ -51,7 +51,6 @@ public class CacheHandle implements ICacheHandle {
     public void createObject(SmObjectImpl obj) {
         try {
             this.cacheManager.addToCache (obj);
-            this.cacheManager.putDataToCache(obj.getData());
         } catch (DuplicateObjectException e) {
             throw new IllegalArgumentException(e);
         }

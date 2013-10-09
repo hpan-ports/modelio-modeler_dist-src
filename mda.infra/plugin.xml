@@ -10,4 +10,11 @@
             class="org.modelio.mda.infra.service.ModuleServiceInitializer">
       </processor>
    </extension>
+   <extension point="org.modelio.app.preferences.preferencePages">
+     <page class="org.modelio.mda.infra.catalog.update.CatalogUpdatePreferencesPage" 
+         id="org.modelio.mda.infra.catalog.update.catalogupdate" 
+         category="com.modeliosoft.modelio.app.preferences.modelio"
+         name="%ModuleCatalog.name">
+     </page>
+   </extension>
 </plugin>

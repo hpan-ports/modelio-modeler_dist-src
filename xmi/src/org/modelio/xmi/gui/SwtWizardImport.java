@@ -43,7 +43,7 @@ import org.modelio.xmi.util.ReverseProperties;
  * @author ebrosse
  */
 @objid ("ea710891-a275-4523-a1f2-402acf87333c")
-public class SwtWizardImport extends SwtWizardWindow {
+public class SwtWizardImport extends AbstractSwtWizardWindow {
     @objid ("54e9a756-61db-4392-8c51-ae214789dce8")
     @Override
     public void validationAction() {
@@ -125,8 +125,7 @@ public class SwtWizardImport extends SwtWizardWindow {
     @Override
     public void setDefaultDialog() {
         this.fileChooserComposite.getDialog().setFilterNames(new String[] {"All Files (*.xmi; *.uml; *.xml)", "XMI Files (*.xmi)", "UML Files (*.uml)", "XML Files (*.xml)" });
-        this.fileChooserComposite.getDialog().setFilterExtensions(new String[] { "*.xmi; *.uml; *.xml", "*.xmi", "*.uml", "*.xml" }); 
-        
+        this.fileChooserComposite.getDialog().setFilterExtensions(new String[] { "*.xmi; *.uml; *.xml", "*.xmi", "*.uml", "*.xml" });         
         setPath();
     }
 
@@ -160,17 +159,24 @@ public class SwtWizardImport extends SwtWizardWindow {
     @objid ("6bb85ce3-50ed-4094-bb7f-f7801e8dd76b")
     private void catchException(final Exception e, final String title) {
         Xmi.LOG.error(Xmi.PLUGIN_ID, e);
+               
+        String text = e.getMessage();
         
-        final String text = e.getStackTrace()[0].toString();
+        for (StackTraceElement elt : e.getStackTrace()){
+            text.concat(elt.toString());
+        }
+        
         final String msgTitle = title;
+        final String msg = text;
+        
         Display.getDefault().asyncExec(new Runnable() {
             @Override
             public void run() {
                 if (!SwtWizardImport.this.shell.isDisposed()){
                     final MessageBox messageBox = new MessageBox(SwtWizardImport.this.shell, SWT.ICON_ERROR);
         
-                    if (text != null)
-                        messageBox.setMessage(text);
+                    if (msg != null)
+                        messageBox.setMessage(msg);
         
                     messageBox.setText(msgTitle);
                     messageBox.open();        

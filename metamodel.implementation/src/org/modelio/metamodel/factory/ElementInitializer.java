@@ -48,6 +48,8 @@ import org.modelio.metamodel.uml.behavior.usecaseModel.UseCase;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
 import org.modelio.metamodel.uml.infrastructure.Note;
 import org.modelio.metamodel.uml.infrastructure.NoteType;
+import org.modelio.metamodel.uml.infrastructure.properties.EnumeratedPropertyType;
+import org.modelio.metamodel.uml.infrastructure.properties.PropertyBaseType;
 import org.modelio.metamodel.uml.infrastructure.properties.PropertyDefinition;
 import org.modelio.metamodel.uml.infrastructure.properties.PropertyTableDefinition;
 import org.modelio.metamodel.uml.infrastructure.properties.PropertyType;
@@ -531,6 +533,13 @@ public class ElementInitializer implements IElementInitializer {
             
             // If no parent table is found, no AnalystPropertyTable is
             // created...
+        }
+
+        @objid ("a3d44185-71aa-4d43-81ee-8562520b8daa")
+        @Override
+        public Object visitEnumeratedPropertyType(EnumeratedPropertyType obj) {
+            obj.setBaseType(PropertyBaseType.ENUMERATE);
+            return super.visitEnumeratedPropertyType(obj);
         }
 
     }

@@ -71,13 +71,13 @@ public class AuditView {
 
     /**
      * Called by the framework to create the view and initialize it.
-     * @param modelioPickingService
-     * the picking service.
-     * @param selection
-     * the application selection.
-     * @param modelServices
-     * the model service.
      * @param projectService the project service.
+     * @param mmService the model service.
+     * @param auditService the audit service
+     * @param navigationService the navigation service
+     * @param application the E4 application model
+     * @param emService the E4 model service
+     * @param menuService the E4 menu service
      * @param parent the composite the view must add its content into.
      */
     @objid ("efb0aecd-1227-401c-9ee4-802f7ecf6188")

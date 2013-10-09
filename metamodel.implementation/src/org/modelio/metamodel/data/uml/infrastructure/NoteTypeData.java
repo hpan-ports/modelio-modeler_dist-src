@@ -48,7 +48,7 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @SmaMetaClass(mmClass=NoteType.class, factory=NoteTypeData.Metadata.ObjectFactory.class)
 public class NoteTypeData extends ModelElementData {
     @objid ("992eadcd-7658-49a4-9048-ef54b07e7de2")
-    @SmaMetaAssociation(metaName="Element", typeDataClass=NoteData.class, min=0, max=-1, smAssociationClass=Metadata.ElementSmDependency.class, performanceRisk = true)
+    @SmaMetaAssociation(metaName="Element", typeDataClass=NoteData.class, min=0, max=-1, smAssociationClass=Metadata.ElementSmDependency.class, istodelete = true, performanceRisk = true)
      List<SmObjectImpl> mElement = null;
 
     @objid ("1b6b8b58-13d4-43fc-a854-63e8c2a259f7")

@@ -21,18 +21,23 @@
 
 package org.modelio.vaudit.modelshield.standard.checkers;
 
+import java.util.ArrayList;
+import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.metamodel.Metamodel;
 import org.modelio.metamodel.uml.behavior.interactionModel.Message;
+import org.modelio.vaudit.modelshield.internal.ModelError;
 import org.modelio.vaudit.modelshield.standard.TriggerType;
 import org.modelio.vaudit.modelshield.standard.checkers.generic.DepCardinalityChecker;
 import org.modelio.vaudit.modelshield.standard.plan.Plan;
+import org.modelio.vcore.smkernel.mapi.MDependency;
+import org.modelio.vcore.smkernel.mapi.MObject;
 
 /**
  * E232:
  * <ul>
  * <li>desc = A Message must be directed towards a MessageEnd.</li>
- * <li>what = A message belonging to the ''{2}'' element is not directed towards an message end.</li>
+ * <li>what = A message belonging to the ''{1}'' element is not directed towards an message end.</li>
  * </ul>
  */
 @objid ("0003e5f8-e20e-1f69-b3fb-001ec947cd2a")
@@ -56,6 +61,14 @@ public class E232Checker extends DepCardinalityChecker {
     @objid ("006117a0-9e33-1f6c-bf9a-001ec947cd2a")
     public E232Checker() {
         super(ERRORID, DEPNAME);
+    }
+
+    @objid ("d707b4f5-ef75-437e-b215-5014f2629c9a")
+    @Override
+    protected ModelError createError(MObject object, MDependency dep, int currentCard) {
+        List<Object> objects = new ArrayList<>();
+        objects.add(object.getCompositionOwner());
+        return new ModelError(ERRORID, object, objects);
     }
 
 }

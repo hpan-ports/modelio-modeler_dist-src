@@ -33,6 +33,7 @@ import de.kupzog.ktable.renderers.DefaultCellRenderer;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.graphics.Color;
 import org.modelio.app.core.picking.IModelioPickingService;
+import org.modelio.app.project.core.services.IProjectService;
 import org.modelio.core.ui.images.ModuleI18NService;
 import org.modelio.core.ui.ktable.types.IPropertyType;
 import org.modelio.core.ui.ktable.types.bool.BooleanType;
@@ -51,7 +52,6 @@ import org.modelio.metamodel.uml.infrastructure.TagType;
 import org.modelio.metamodel.uml.infrastructure.TaggedValue;
 import org.modelio.property.plugin.ModelProperty;
 import org.modelio.ui.UIColor;
-import org.modelio.vcore.session.api.ICoreSession;
 import org.modelio.vcore.session.api.transactions.ITransaction;
 import org.modelio.vcore.smkernel.mapi.MClass;
 
@@ -70,7 +70,7 @@ public class ExtensionsKModel extends KTableDefaultModel {
     private TagDataHelper data = null;
 
     @objid ("868d4d27-cf24-11e1-80a9-002564c97630")
-    protected ICoreSession modelingSession;
+    protected IProjectService projectService;
 
     @objid ("aa4172d5-d004-11e1-9020-002564c97630")
     protected IMModelServices modelService;
@@ -91,8 +91,8 @@ public class ExtensionsKModel extends KTableDefaultModel {
     protected ModelElement typedElement;
 
     @objid ("8dfff434-c068-11e1-8c0a-002564c97630")
-    public ExtensionsKModel(ICoreSession modelingSession, IMModelServices modelService, IModelioPickingService pickingService, final KTable table, final ModelElement typedElement, final ModelElement typingElement) {
-        this.modelingSession = modelingSession;
+    public ExtensionsKModel(IProjectService projectService, IMModelServices modelService, IModelioPickingService pickingService, final KTable table, final ModelElement typedElement, final ModelElement typingElement) {
+        this.projectService = projectService;
         this.modelService = modelService;
         this.table = table;
         this.typingElement = typingElement;
@@ -239,13 +239,15 @@ public class ExtensionsKModel extends KTableDefaultModel {
         }
         
         // Col 1 editor depends on data type
-        try (ITransaction t = this.modelingSession.getTransactionSupport().createTransaction("doSetContentAt")) {
-            this.data.setPropertyValue(row - 1, value);
-            t.commit();
-        } catch (Exception e) {
-            MessageDialog.openError(this.table.getShell(), ModelProperty.I18N.getString("KeyValueModel.InvalidModelManipulationException.Title"), e.getMessage());
+        if (this.projectService != null) {
+            try (ITransaction t = this.projectService.getSession().getTransactionSupport().createTransaction("doSetContentAt")) {
+                this.data.setPropertyValue(row - 1, value);
+                t.commit();
+            } catch (Exception e) {
+                MessageDialog.openError(this.table.getShell(), ModelProperty.I18N.getString("KeyValueModel.InvalidModelManipulationException.Title"), e.getMessage());
+            }
+            this.table.redraw();
         }
-        this.table.redraw();
     }
 
     @objid ("8e03016a-c068-11e1-8c0a-002564c97630")

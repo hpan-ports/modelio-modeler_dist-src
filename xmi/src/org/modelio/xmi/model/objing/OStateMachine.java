@@ -31,10 +31,10 @@ import org.modelio.metamodel.uml.behavior.stateMachineModel.StateMachine;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
 import org.modelio.metamodel.uml.statik.Operation;
 import org.modelio.xmi.plugin.Xmi;
+import org.modelio.xmi.util.AbstractObjingModelNavigation;
 import org.modelio.xmi.util.GenerationProperties;
 import org.modelio.xmi.util.NotFoundException;
 import org.modelio.xmi.util.ObjingEAnnotation;
-import org.modelio.xmi.util.ObjingModelNavigation;
 import org.modelio.xmi.util.XMILogs;
 
 /**
@@ -68,7 +68,7 @@ public class OStateMachine extends OModelElement {
     public OStateMachine(final StateMachine element) {
         super(element);
         this.objingElement = element;
-        if (ObjingModelNavigation.isProtocolStateMachine(element))
+        if (AbstractObjingModelNavigation.isProtocolStateMachine(element))
             this.isProtocol = true;
         else
             this.isProtocol = false;

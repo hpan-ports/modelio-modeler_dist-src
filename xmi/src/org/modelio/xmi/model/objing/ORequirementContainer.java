@@ -27,12 +27,11 @@ import org.eclipse.uml2.uml.Package;
 import org.eclipse.uml2.uml.PackageableElement;
 import org.eclipse.uml2.uml.UMLFactory;
 import org.modelio.metamodel.analyst.RequirementContainer;
-import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.vcore.smkernel.mapi.MObject;
+import org.modelio.xmi.util.AbstractObjingModelNavigation;
 import org.modelio.xmi.util.GenerationProperties;
 import org.modelio.xmi.util.NotFoundException;
 import org.modelio.xmi.util.ObjingEAnnotation;
-import org.modelio.xmi.util.ObjingModelNavigation;
 
 @objid ("671ff6e3-3200-467a-bc73-371931b0c143")
 public class ORequirementContainer extends OElement implements IOElement {
@@ -81,7 +80,7 @@ public class ORequirementContainer extends OElement implements IOElement {
     @objid ("644523e0-1da7-4a66-8906-c5c90c90bd4f")
     private void setName(final Package ecoreElt) {
         String name = ((RequirementContainer)getObjingElement()).getName();
-        if (ObjingModelNavigation.isNotNullOrEmpty(name))
+        if (AbstractObjingModelNavigation.isNotNullOrEmpty(name))
             ecoreElt.setName(name);
     }
 

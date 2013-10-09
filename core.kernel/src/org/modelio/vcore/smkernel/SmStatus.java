@@ -34,7 +34,7 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 @objid ("00567e08-2c99-1f20-85a5-001ec947cd2a")
 public final class SmStatus implements IRStatus, IPStatus {
     @objid ("004918ee-fd1a-1f27-a7da-001ec947cd2a")
-    private static final long serialVersionUID = 2436486008927826621L;
+    private static final long serialVersionUID = 2436486008927826622L;
 
     /**
      * Flags that must never be undefined in order for Modelio to work.
@@ -221,9 +221,10 @@ public final class SmStatus implements IRStatus, IPStatus {
         dump(status, CMSSYNC, "CMSSYNC, ", s);
         dump(status, CMSMODIFIED, "CMSMODIFIED, ", s);
         dump(status, CMSMANAGED, "CMSMANAGED, ", s);
-        dump(status, CMSTOADD, "CMSTOADD, ", s);
         dump(status, CMSREADONLY, "CMSREADONLY, ", s);
-        dump(status, CMSCONFLICT, "CMSCONFLICT, ", s);
+        dumpIfSet(status, CMSTOADD, "CMSTOADD, ", s);
+        dumpIfSet(status, CMSTODELETE, "CMSTODELETE, ", s);
+        dumpIfSet(status, CMSCONFLICT, "CMSCONFLICT, ", s);
         
         // Memory management
         dumpIfSet(status, SHELL, "SHELL, ", s);

@@ -38,7 +38,7 @@ public class HomonymCreationExpert extends DefaultLinkExpert {
     @objid ("26aecd4b-ab5d-456b-982d-86c420df87d0")
     @Override
     public boolean canLink(MClass link, final MClass fromMetaclass, final MClass toMetaclass, final MClass owner) {
-        return fromMetaclass == Metamodel.getMClass(Term.class) && toMetaclass == Metamodel.getMClass(Term.class);
+        return fromMetaclass.hasBase(Metamodel.getMClass(Term.class)) && toMetaclass.hasBase(Metamodel.getMClass(Term.class));
     }
 
     @objid ("f632b06b-2467-407e-8b7c-034c7f3665a3")
@@ -50,7 +50,7 @@ public class HomonymCreationExpert extends DefaultLinkExpert {
     @objid ("6be6a91d-9c5d-464a-9e47-167acb300cc8")
     @Override
     public boolean canSource(MClass link, final MClass fromMetaclass) {
-        return fromMetaclass == Metamodel.getMClass(Term.class);
+        return fromMetaclass.hasBase(Metamodel.getMClass(Term.class));
     }
 
 }

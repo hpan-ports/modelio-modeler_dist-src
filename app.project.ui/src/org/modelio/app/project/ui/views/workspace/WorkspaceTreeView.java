@@ -47,7 +47,6 @@ import org.eclipse.e4.ui.workbench.swt.modeling.EMenuService;
 import org.eclipse.jface.viewers.DoubleClickEvent;
 import org.eclipse.jface.viewers.IDoubleClickListener;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
-import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.TreeViewer;
@@ -204,7 +203,8 @@ public class WorkspaceTreeView {
         this.viewer.getTree().getDisplay().asyncExec(new Runnable() {
             @Override
             public void run() {
-                getViewer().refresh(true);
+                if (!getViewer().getTree().isDisposed())
+                    getViewer().refresh(true);
             }
         });
     }
@@ -256,7 +256,7 @@ public class WorkspaceTreeView {
         IWindowCloseHandler handler = new IWindowCloseHandler() {
             @Override
             public boolean close(MWindow windoww) {
-                return CloseProjectHandler.saveBeforeClose(shell, projectService, progressService, statusReporter);
+                return CloseProjectHandler.saveBeforeClose(shell, WorkspaceTreeView.this.projectService, progressService, statusReporter);
             }
         };
         

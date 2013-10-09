@@ -105,7 +105,7 @@ public class MultilineTextCellEditor extends KTableCellEditor {
         
             final String initialContent = (String) this.m_Model.getContentAt(this.m_Col, this.m_Row);
         
-            this.dialog = new EditionDialog(table.getShell(),  this, initialContent);
+            this.dialog = EditionDialog.getInstance(table.getShell(),  this, initialContent);
         
             // Open dialog in modal mode
             this.dialog.setBlockOnOpen(false);
@@ -159,6 +159,13 @@ public class MultilineTextCellEditor extends KTableCellEditor {
     @objid ("8dbb4a1f-c068-11e1-8c0a-002564c97630")
     public String getFieldName() {
         return this.fieldName;
+    }
+
+    @objid ("c133313e-639b-4800-a7bb-42728df075fc")
+    @Override
+    public void dispose() {
+        this.dialog.close();
+        super.dispose();
     }
 
 }

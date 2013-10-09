@@ -26,6 +26,7 @@ import java.io.BufferedOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.Socket;
 import java.net.URI;
 import java.nio.file.FileSystemException;
 import java.nio.file.Files;
@@ -42,9 +43,11 @@ import java.util.HashSet;
 import java.util.List;
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLEngine;
 import javax.net.ssl.SSLHandshakeException;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.TrustManagerFactory;
+import javax.net.ssl.X509ExtendedTrustManager;
 import javax.net.ssl.X509TrustManager;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.vbasic.files.FileUtils;
@@ -196,22 +199,34 @@ public class SslManager {
         return this.trustManager;
     }
 
+    /**
+     * X509 trust manager that delegates to default trust managers but
+     * allows temporary or permanently trusted certificates.
+     * 
+     * @see X509TrustManager
+     */
     @objid ("14e51ce2-0c70-472f-bebe-fc1c63dfb3ee")
-    private static final class X509TrustManagerImplementation implements X509TrustManager {
+    private static final class X509TrustManagerImplementation extends X509ExtendedTrustManager {
+        /**
+         * Default X509TrustManager implementations to delegate to.
+         */
         @objid ("30836fc6-4243-4ebc-8ee0-d0088c044f34")
         private final List<X509TrustManager> defTrustManagers;
 
+        /**
+         * concatenation of all default accepted issuers.
+         */
         @objid ("f48c4930-202f-4d2f-a699-b9f2f368ddcf")
-        private final X509Certificate[] acceptedArray;
+        private final X509Certificate[] acceptedIssuers;
 
         /**
-         * Persistent Trust store
+         * Persistent Trust store containing permanently accepted certificates.
          */
         @objid ("99d42bc8-0848-4a32-b5b9-4e5594547327")
         private KeyStore persistentTrustStore;
 
         /**
-         * Temporarily accepted certs.
+         * Temporarily accepted certificates.
          */
         @objid ("12629063-8625-4718-8066-4ee06a0f6005")
         private Collection<X509Certificate> tempTrustStore;
@@ -221,12 +236,15 @@ public class SslManager {
 
         @objid ("ef0ea38c-b4c6-48ec-82c9-1cd782cec12d")
         X509TrustManagerImplementation() throws NoSuchAlgorithmException, KeyStoreException {
+            // Get a TrustManagerFactory
             TrustManagerFactory trustManagerFactory = TrustManagerFactory.getInstance(TrustManagerFactory.getDefaultAlgorithm());
             this.defTrustManagers  = new ArrayList<>();
             final ArrayList<X509Certificate> accepted = new ArrayList<>();
             
             trustManagerFactory.init((KeyStore)null);
             
+            // Get all registered trust managers and add them to our delegate list
+            // Also compute all accepted issuers
             for (TrustManager tm : trustManagerFactory.getTrustManagers()) {
                 if (tm instanceof X509TrustManager) {
                     X509TrustManager xtm = (X509TrustManager) tm;
@@ -236,12 +254,17 @@ public class SslManager {
                         accepted.add(iss);
                 }
             }
-            this.acceptedArray = accepted.toArray(new X509Certificate[accepted.size()]);
+            this.acceptedIssuers = accepted.toArray(new X509Certificate[accepted.size()]);
             
-            
+            // Initialize the temporary accepted certificates.
             this.tempTrustStore= new HashSet<>();
         }
 
+        /**
+         * Initialize and load the permanently accepted certificates store.
+         * @param aStoreFile the certificate store file path.
+         * @throws java.io.IOException in case of failure
+         */
         @objid ("56424e26-3f62-47b6-8a17-b38ab47d5829")
         void init(Path aStoreFile) throws IOException {
             try {
@@ -250,7 +273,7 @@ public class SslManager {
             
                 if (Files.isRegularFile(aStoreFile)) {
                     try (InputStream is = new BufferedInputStream(Files.newInputStream(aStoreFile));) {
-                        
+            
                         this.persistentTrustStore.load(is, password);
                     }
                 } else {
@@ -272,7 +295,7 @@ public class SslManager {
             if (permanent) {
                 if (this.persistentTrustStore == null)
                     throw new IllegalStateException("Trusted certificate store not loaded.");
-                
+            
                 String alias = hashName(cert);
                 this.persistentTrustStore.setCertificateEntry(alias, cert);
             
@@ -282,6 +305,16 @@ public class SslManager {
             }
         }
 
+        @objid ("4cd289de-6cd4-4848-a123-2e70d732053e")
+        @Override
+        public X509Certificate[] getAcceptedIssuers() {
+            return this.acceptedIssuers;
+        }
+
+        /**
+         * Save the permanently accepted certificate store.
+         * @throws java.security.KeyStoreException in case of failure.
+         */
         @objid ("1ad7a2f9-d72f-4a3f-a7d0-b7e5edbd1bac")
         public void save() throws KeyStoreException {
             if (this.trustStoreFile!= null) {
@@ -295,17 +328,6 @@ public class SslManager {
             }
         }
 
-        @objid ("7f2063c7-7993-4531-b587-ac012dee552d")
-        private static String hashName(X509Certificate cert) {
-            return cert.getIssuerX500Principal().getName()+cert.getSerialNumber().toString(36);
-        }
-
-        @objid ("4cd289de-6cd4-4848-a123-2e70d732053e")
-        @Override
-        public X509Certificate[] getAcceptedIssuers() {
-            return this.acceptedArray;
-        }
-
         @objid ("c7a9e6a0-971d-40f1-99f3-cae6a72a5c6f")
         @Override
         public void checkClientTrusted(X509Certificate[] chain, String authType) throws CertificateException {
@@ -313,32 +335,92 @@ public class SslManager {
                 i.checkClientTrusted(chain, authType);
         }
 
+        @objid ("46884ec8-ae76-4e5e-9ced-5d672428aeb1")
+        @Override
+        public void checkClientTrusted(X509Certificate[] chain, String authType, Socket socket) throws CertificateException {
+            // Call default behavior
+            for (X509TrustManager i : this.defTrustManagers ) 
+                if (i instanceof X509ExtendedTrustManager)
+                    ((X509ExtendedTrustManager)i).checkClientTrusted(chain, authType, socket);
+        }
+
+        @objid ("65a30a5d-26b8-44fe-99f5-0cf8eaa655fa")
+        @Override
+        public void checkClientTrusted(X509Certificate[] chain, String authType, SSLEngine engine) throws CertificateException {
+            // Call default behavior
+            for (X509TrustManager i : this.defTrustManagers ) 
+                if (i instanceof X509ExtendedTrustManager)
+                    ((X509ExtendedTrustManager)i).checkClientTrusted(chain, authType, engine);
+        }
+
         @objid ("ac10c317-ce0f-4ef0-a2b1-8fbfd6b6d4e8")
         @Override
         public void checkServerTrusted(X509Certificate[] chain, String authType) throws CertificateException {
+            if (isTrustedByUser(chain))
+                return;
+            
+            // Call default behavior
+            try {
+                for (X509TrustManager i : this.defTrustManagers ) 
+                    i.checkServerTrusted(chain, authType);
+            } catch (CertificateException e) {
+                throw new InvalidCertificateException(chain, e);
+            }
+        }
+
+        @objid ("0b6f1dee-5271-43fa-9433-f6827b09c75b")
+        @Override
+        public void checkServerTrusted(X509Certificate[] chain, String authType, Socket socket) throws CertificateException {
+            if (isTrustedByUser(chain))
+                return;
+            
+            // Call default behavior
+            try {
+                for (X509TrustManager i : this.defTrustManagers ) 
+                    if (i instanceof X509ExtendedTrustManager)
+                        ((X509ExtendedTrustManager)i).checkServerTrusted(chain, authType, socket);
+            } catch (CertificateException e) {
+                throw new InvalidCertificateException(chain, e);
+            }
+        }
+
+        @objid ("38386588-a29a-49a2-a98c-ed2c9796b991")
+        @Override
+        public void checkServerTrusted(X509Certificate[] chain, String authType, SSLEngine engine) throws CertificateException {
+            if (isTrustedByUser(chain))
+                return;
+            
+            // Call default behavior
+            try {
+                for (X509TrustManager i : this.defTrustManagers ) 
+                    if (i instanceof X509ExtendedTrustManager)
+                        ((X509ExtendedTrustManager)i).checkServerTrusted(chain, authType, engine);
+            } catch (CertificateException e) {
+                throw new InvalidCertificateException(chain, e);
+            }
+        }
+
+        @objid ("611829a0-7f64-43c7-94d3-13dcb5c2fc6c")
+        private boolean isTrustedByUser(X509Certificate[] chain) throws InvalidCertificateException {
             X509Certificate targetCert = chain[0];
             
             // Look in persistent store
             if (this.persistentTrustStore != null) {
                 try {
                     if (this.persistentTrustStore.getCertificateAlias(targetCert) != null)
-                        return ;
+                        return true;
                 } catch (KeyStoreException e) {
                     throw new InvalidCertificateException(chain, e);
                 }
             }
             
             // Look in transient store
-            if (this.tempTrustStore.contains(targetCert))
-                return ;
-            
-            // Call default behavior
-            try {
-            for (X509TrustManager i : this.defTrustManagers ) 
-                i.checkServerTrusted(chain, authType);
-            } catch (CertificateException e) {
-                throw new InvalidCertificateException(chain, e);
-            }
+            return (this.tempTrustStore.contains(targetCert));
+        }
+
+        @objid ("7f2063c7-7993-4531-b587-ac012dee552d")
+        private static String hashName(X509Certificate cert) {
+            return cert.getIssuerX500Principal().getName()+cert.getSerialNumber().toString(36);
         }
 
     }

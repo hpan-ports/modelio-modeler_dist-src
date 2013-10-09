@@ -21,18 +21,23 @@
 
 package org.modelio.vaudit.modelshield.standard.checkers;
 
+import java.util.ArrayList;
+import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.metamodel.Metamodel;
 import org.modelio.metamodel.uml.statik.RaisedException;
+import org.modelio.vaudit.modelshield.internal.ModelError;
 import org.modelio.vaudit.modelshield.standard.TriggerType;
 import org.modelio.vaudit.modelshield.standard.checkers.generic.DepCardinalityChecker;
 import org.modelio.vaudit.modelshield.standard.plan.Plan;
+import org.modelio.vcore.smkernel.mapi.MDependency;
+import org.modelio.vcore.smkernel.mapi.MObject;
 
 /**
  * E231:
  * <ul>
  * <li>desc = A RaisedException must have a Classifier as its destination.</li>
- * <li>what = A raised exception belonging to the ''{2}'' element has no destination.</li>
+ * <li>what = A raised exception belonging to the ''{1}'' element has no destination.</li>
  * </ul>
  */
 @objid ("00027e70-e20e-1f69-b3fb-001ec947cd2a")
@@ -56,6 +61,14 @@ public class E231Checker extends DepCardinalityChecker {
     @objid ("00608024-9e33-1f6c-bf9a-001ec947cd2a")
     public E231Checker() {
         super(ERRORID, DEPNAME);
+    }
+
+    @objid ("09e7ebfc-087d-4088-9c04-20ea9c4994d1")
+    @Override
+    protected ModelError createError(MObject object, MDependency dep, int currentCard) {
+        List<Object> objects = new ArrayList<>();
+        objects.add(object.getCompositionOwner());
+        return new ModelError(ERRORID, object, objects);
     }
 
 }

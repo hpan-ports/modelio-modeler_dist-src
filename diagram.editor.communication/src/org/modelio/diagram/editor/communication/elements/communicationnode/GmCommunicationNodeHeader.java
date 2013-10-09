@@ -26,9 +26,15 @@ import org.eclipse.swt.graphics.Image;
 import org.modelio.core.ui.images.ElementImageService;
 import org.modelio.diagram.elements.common.abstractdiagram.GmAbstractDiagram;
 import org.modelio.diagram.elements.common.header.GmDefaultModelElementHeader;
+import org.modelio.diagram.elements.core.model.IEditableText;
 import org.modelio.diagram.persistence.IDiagramReader;
 import org.modelio.diagram.persistence.IDiagramWriter;
+import org.modelio.metamodel.uml.behavior.activityModel.ObjectNode;
+import org.modelio.metamodel.uml.behavior.commonBehaviors.BehaviorParameter;
 import org.modelio.metamodel.uml.behavior.communicationModel.CommunicationNode;
+import org.modelio.metamodel.uml.statik.AssociationEnd;
+import org.modelio.metamodel.uml.statik.Attribute;
+import org.modelio.metamodel.uml.statik.Instance;
 import org.modelio.metamodel.uml.statik.NameSpace;
 import org.modelio.vcore.smkernel.mapi.MRef;
 
@@ -139,6 +145,38 @@ public class GmCommunicationNodeHeader extends GmDefaultModelElementHeader {
     @Override
     public int getMajorVersion() {
         return MAJOR_VERSION;
+    }
+
+    @objid ("f8f38a0c-3ffd-49a3-a493-dda53fac1c13")
+    @Override
+    public IEditableText getEditableText() {
+        return new IEditableText() {
+            @Override
+            public String getText() {
+                final CommunicationNode theInstanceNode = (CommunicationNode) getRelatedElement();
+        
+                Instance instance = theInstanceNode.getRepresented();
+                    
+                if (instance != null) {
+                    return instance.getName();
+                }else{
+        return theInstanceNode.getName();
+                        }
+                    }
+        
+                    @Override
+                    public void setText(String text) {
+                        final CommunicationNode theInstanceNode = (CommunicationNode) getRelatedElement();
+                        Instance instance = theInstanceNode.getRepresented();
+                        
+                        if (instance != null) {
+         instance.setName(text);
+         theInstanceNode.setName(text);
+                        }else{
+         theInstanceNode.setName(text);
+                        }    
+                    }
+                };
     }
 
 }

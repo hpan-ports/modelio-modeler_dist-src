@@ -215,6 +215,9 @@ class SmObjectDataSerializer {
         
         SmClass cls = SmClass.getClass(clsid);
         
+        if (cls == null)
+            return null;
+        
         SmObjectImpl ret = decodeRef(loader, isLocal, uuid, cls);
         return ret;
     }
@@ -227,8 +230,6 @@ class SmObjectDataSerializer {
         } else {
             ret = loader.loadForeignObject(cls, uuid, "");
         }
-        
-        assert (ret != null);
         return ret;
     }
 

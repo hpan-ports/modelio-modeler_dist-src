@@ -42,9 +42,9 @@ public class DeriveCreationExpert extends DefaultLinkExpert {
     @objid ("94bcbbe3-bba4-439f-93f1-00f32aac1d2e")
     @Override
     public boolean canLink(MClass link, final MClass fromMetaclass, final MClass toMetaclass, final MClass owner) {
-        if ((fromMetaclass == Metamodel.getMClass(UseCase.class)) ||
-            (fromMetaclass == Metamodel.getMClass(Requirement.class)))
-            return toMetaclass == Metamodel.getMClass(Requirement.class);
+        if ((fromMetaclass.hasBase(Metamodel.getMClass(UseCase.class))) ||
+            (fromMetaclass.hasBase(Metamodel.getMClass(Requirement.class))))
+            return toMetaclass.hasBase(Metamodel.getMClass(Requirement.class));
         return false;
     }
 
@@ -58,7 +58,7 @@ public class DeriveCreationExpert extends DefaultLinkExpert {
     @objid ("1aa08770-62d3-4017-bb89-f025779cb044")
     @Override
     public boolean canSource(MClass link, final MClass fromMetaclass) {
-        return ((fromMetaclass == Metamodel.getMClass(UseCase.class)) || (fromMetaclass == Metamodel.getMClass(Requirement.class)));
+        return ((fromMetaclass.hasBase(Metamodel.getMClass(UseCase.class))) || (fromMetaclass.hasBase(Metamodel.getMClass(Requirement.class))));
     }
 
 }

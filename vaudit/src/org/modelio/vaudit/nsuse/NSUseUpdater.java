@@ -24,12 +24,16 @@ package org.modelio.vaudit.nsuse;
 import java.io.IOException;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Deque;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
+import org.modelio.gproject.fragment.IProjectFragment;
+import org.modelio.gproject.gproject.GProject;
 import org.modelio.metamodel.Metamodel;
 import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.metamodel.uml.statik.NameSpace;
@@ -37,7 +41,6 @@ import org.modelio.metamodel.uml.statik.NamespaceUse;
 import org.modelio.vaudit.plugin.Vaudit;
 import org.modelio.vbasic.progress.IModelioProgress;
 import org.modelio.vbasic.progress.SubProgress;
-import org.modelio.vcore.model.CompositionGetter;
 import org.modelio.vcore.session.api.ICoreSession;
 import org.modelio.vcore.session.api.repository.IRepository;
 import org.modelio.vcore.session.api.transactions.ITransaction;
@@ -71,7 +74,7 @@ public class NSUseUpdater implements ITransactionClosureHandler {
     private long transactionId;
 
     @objid ("a2f8a93b-66c4-4802-ae7d-be5dd21c1069")
-    private NSUseBuilder useBuilder;
+    private NSUseAnalyser useBuilder;
 
     @objid ("f7786243-8b2b-4609-8ed3-2347cb25dfce")
     private Set<NamespaceUse> usesToRebuild;
@@ -82,6 +85,12 @@ public class NSUseUpdater implements ITransactionClosureHandler {
     @objid ("2b6d7c99-19fd-438c-a495-d11098237772")
     private ActionVisitor actionVisitor;
 
+    @objid ("c18364ee-9c95-4aae-8530-3c8ab5fd90e3")
+    private IRepository nsUseRepo;
+
+    @objid ("d3d5801f-80bd-45d9-9727-e153091c6aa7")
+    private GProject gproject;
+
     /**
      * Update the NS Use model (aka blue links) based on the passed transaction
      * contents
@@ -90,32 +99,32 @@ public class NSUseUpdater implements ITransactionClosureHandler {
     @Override
     public void commit(ITransaction transaction) {
         // Analyse the transaction to get the list of object to process
-        if (Vaudit.LOG.isDebugEnabled()) {
-            Vaudit.LOG.debug("--- NSUseUpdater BEGIN ----------------------------------------------------");
-            Vaudit.LOG.debug("1 - analysing transaction");
-        }
+        //if (Vaudit.LOG.isDebugEnabled()) {
+        //    Vaudit.LOG.debug("--- NSUseUpdater BEGIN ----------------------------------------------------");
+        //    Vaudit.LOG.debug("1 - analysing transaction");
+        //}
         
         this.actionVisitor.reset();
         ((Transaction) transaction).accept(this.actionVisitor);
         List<MObject> objsToRebuild = new ArrayList<>(this.actionVisitor.getResults());
         
-        Vaudit.LOG.debug("\tthere are %d objects to process.", objsToRebuild.size());
+        //Vaudit.LOG.debug("\tthere are %d objects to process.", objsToRebuild.size());
         
         // Build the NSuse
-        if (Vaudit.LOG.isDebugEnabled())
-            Vaudit.LOG.debug("2 - building NamespaceUses");
-        int i = 1;
+        //if (Vaudit.LOG.isDebugEnabled())
+        //    Vaudit.LOG.debug("2 - building NamespaceUses");
+        //int i = 1;
         for (MObject o : objsToRebuild) {
-            if (Vaudit.LOG.isDebugEnabled())
-                Vaudit.LOG.debug("\t- processing object %d/%d -> '%s' %s ", i, objsToRebuild.size(), o.getName(), o.getMClass()
-                        .getName());
+            //if (Vaudit.LOG.isDebugEnabled())
+            //    Vaudit.LOG.debug("\t- processing object %d/%d -> '%s' %s ", i, objsToRebuild.size(), o.getName(), o.getMClass().getName());
             if (o.isValid() && o instanceof Element) {
+                NSUseUtils.dereferenceNSUsesCausedBy((Element) o);
                 this.useBuilder.buildFor((Element) o);
             }
-            i++;
+            //i++;
         }
-        if (Vaudit.LOG.isDebugEnabled())
-            Vaudit.LOG.debug("--- NSUseUpdater END ----\n");
+        //if (Vaudit.LOG.isDebugEnabled())
+        //    Vaudit.LOG.debug("--- NSUseUpdater END ----\n");
         
         // Reset visitors (facilitate garbage)
         this.actionVisitor.reset();
@@ -123,41 +132,31 @@ public class NSUseUpdater implements ITransactionClosureHandler {
 
     /**
      * Initialize the blue links updater.
-     * @param session the modeling session
+     * @param gproject the project
      * @param nsUseRepo the repository where blue links are stored.
      */
     @objid ("b7491a5f-a84c-4e34-a04f-5f3b69a6bb33")
-    public NSUseUpdater(ICoreSession session, IRepository nsUseRepo) {
-        this.session = session;
+    public NSUseUpdater(GProject gproject, IRepository nsUseRepo) {
+        this.gproject = gproject;
+        this.session = gproject.getSession();
         this.actionVisitor = new ActionVisitor(this);
-        this.useBuilder = new NSUseBuilder(session.getModel().getGenericFactory(), nsUseRepo);
+        this.nsUseRepo = nsUseRepo;
+        NsUseCreateHandler handler = new NsUseCreateHandler(this.session.getModel().getGenericFactory(), nsUseRepo);
+        this.useBuilder = new NSUseAnalyser(handler);
     }
 
     /**
-     * Delete and Rebuild all "blue links" under the given NameSpace.
-     * @param root The root of the tree to rebuild.
+     * Rebuild namespace use links caused by the given model objects.
+     * @param toRebuild the given model objects whose namespace uses must be rebuilt.
+     * @param amonitor a progress monitor
      */
     @objid ("957943cd-259e-40f0-8acb-86883f7e9d93")
-    public void rebuild(NameSpace root) {
-        Set<SmObjectImpl> allObjs = CompositionGetter.getAllChildren(Collections.singleton((SmObjectImpl) root));
-        allObjs.add((SmObjectImpl) root);
-        
-        for (SmObjectImpl obj : allObjs) {
-            if (obj instanceof NameSpace) {
-                NameSpace n = (NameSpace) obj;
-                for (NamespaceUse u : n.getUsedNsu())
-                    u.delete();
-                for (NamespaceUse u : n.getUserNsu())
-                    u.delete();
-        
-            }
-        }
-        
-        // run visitor on root object
-        root.accept(this.useBuilder);
-        
-        for (SmObjectImpl obj : allObjs) {
-            obj.accept(this.useBuilder);
+    public void rebuild(Collection<Element> toRebuild, IModelioProgress amonitor) {
+        SubProgress m = SubProgress.convert(amonitor, toRebuild.size());
+        for (Element el : toRebuild) {
+            NSUseUtils.dereferenceNSUsesCausedBy(el);
+            this.useBuilder.buildFor(el);
+            m.worked(1);
         }
     }
 
@@ -282,14 +281,6 @@ public class NSUseUpdater implements ITransactionClosureHandler {
         this.useBuilder.visitNamespaceUse(use);
     }
 
-    @objid ("c94f67a2-135e-4619-8bac-d8793cc55305")
-    void createNSUseGraphImpl(MObject obj) {
-        obj.accept(this.useBuilder);
-        for (MObject o : obj.getCompositionChildren()) {
-            createNSUseGraphImpl(o);
-        }
-    }
-
     /**
      * Delete and Rebuild all "blue links"
      * @param aMonitor the progress monitor to use for reporting progress to the
@@ -324,7 +315,7 @@ public class NSUseUpdater implements ITransactionClosureHandler {
         
         // Get all objects
         mainMon.subTask(Vaudit.I18N.getMessage("NSUseUpdater.RebuildAll.GettingAllObjects"));
-        List<MObject> allObjs = new ArrayList<>(this.session.getModel().findByClass(MObject.class, null));
+        List<MObject> allObjs = new ArrayList<>(findAllEditableObjects());
         assert (dump(allObjs));
         mainMon.worked(1);
         
@@ -333,7 +324,7 @@ public class NSUseUpdater implements ITransactionClosureHandler {
         int i = 0;
         String allObjscount = String.valueOf(allObjs.size());
         for (MObject obj : allObjs) {
-            if (obj.isValid() && !obj.isShell())
+            if (obj.isValid() && !obj.isShell() && !obj.getStatus().isRamc())
                 obj.accept(this.useBuilder);
         
             mon.worked(1);
@@ -371,9 +362,86 @@ public class NSUseUpdater implements ITransactionClosureHandler {
                 s.append("\n");
             }
         }
-        if (Vaudit.LOG.isDebugEnabled())
-            Vaudit.LOG.debug(s.toString());
+        //if (Vaudit.LOG.isDebugEnabled())
+        //    Vaudit.LOG.debug(s.toString());
         return true;
+    }
+
+    /**
+     * Check all namespace use links and deletes all that have no valid source, destination or cause.
+     * <p>
+     * A model transaction must be open.
+     * @param amonitor a progress monitor
+     */
+    @objid ("e2ddf265-99ae-4ec0-aac5-4763334e0b23")
+    public void cleanNamespaceUses(IModelioProgress amonitor) {
+        final Collection<MObject> nsuses = this.nsUseRepo.findByClass(SmClass.getClass(NamespaceUse.class));
+        final int nbuses = nsuses.size();
+        final SubProgress m = SubProgress.convert(amonitor, nbuses);
+        int i=0;
+        
+        for (MObject obj : nsuses) {
+            NamespaceUse u = (NamespaceUse)obj;
+            if (u.isDeleted()) {
+                // ignore
+            } else if (isToDelete(u)) {
+                NSUseUtils.dereferenceNSUsesCausedBy(u);
+                u.delete();
+            } else for (Iterator<Element> it= u.getCause().iterator(); it.hasNext();) {
+                Element c = it.next();
+                if (!c.isValid())
+                    it.remove();
+            }
+            
+            if (++i % 11 == 1) {
+                m.worked(11);
+                m.subTask(Vaudit.I18N.getMessage("NsUseRepositoryChangeListener.CleaningN", String.valueOf(i), String.valueOf(nbuses)));
+            }
+        }
+    }
+
+    @objid ("bdf4fad6-5544-482d-a5b6-cf66af9bf56b")
+    private static boolean isToDelete(NamespaceUse u) {
+        // Test the source and destination are valid
+        final NameSpace user = u.getUser();
+        final NameSpace used = u.getUsed();
+        if (user == null || !user.isValid() )
+            return true;
+        
+        if (used == null || !used.isValid())
+            return true;
+        
+        // The use is valid if any cause is valid
+        for (Element c : u.getCause())
+            if (c.isValid())
+                return false;
+        
+        // No valid cause found
+        return true;
+    }
+
+    /**
+     * Get all model objects in the project excepted RAMC elements.
+     * @return all non RAMC objects.
+     */
+    @objid ("19ab1276-0b88-4cb8-89ab-1db7dc96af52")
+    private Collection<MObject> findAllEditableObjects() {
+        final SmClass MOBJECT_CLASS = SmClass.getClass(MObject.class);
+        Collection<MObject> ret = new ArrayList<>();
+        
+        for (IProjectFragment f : this.gproject.getFragments()) {
+            boolean isRamc = true;
+            for (MObject obj : f.getRoots()) {
+                isRamc = obj.getStatus().isRamc();
+                if (! isRamc) 
+                    break;
+            }
+            
+            if (! isRamc) 
+                ret.addAll(f.getRepository().findByClass(MOBJECT_CLASS));
+            
+        }
+        return ret;
     }
 
     @objid ("e986ecdc-174d-467b-919e-700848409f13")
@@ -463,46 +531,46 @@ public class NSUseUpdater implements ITransactionClosureHandler {
             MObject obj = theEraseDependencyAction.getRefered();
             SmDependency dep = theEraseDependencyAction.getDep();
             
-            if (Vaudit.LOG.isDebugEnabled())
-                Vaudit.LOG.debug("\t\tvisited action: erase '%s' (%s) from dep '%s' of '%s' (%s)",
-                        (value != null) ? value.getName() : "null", (value != null) ? value.getMClass().getName() : null,
-                        dep.getName(), obj.getName(), obj.getMClass().getName());
+            //if (Vaudit.LOG.isDebugEnabled())
+            //    Vaudit.LOG.debug("\t\tvisited action: erase '%s' (%s) from dep '%s' of '%s' (%s)",
+            //            (value != null) ? value.getName() : "null", (value != null) ? value.getMClass().getName() : null,
+            //            dep.getName(), obj.getName(), obj.getMClass().getName());
             
             // Abort cases: do nothing
             if (dep == this.NameSpace_user_NamespaceUse || dep == this.NameSpace_used_NamespaceUse
                     || dep == this.Element_causing_NamespaceUse) {
-                if (Vaudit.LOG.isDebugEnabled())
-                    Vaudit.LOG.debug("\t\t\t=>ignore, dep is user/use/cause");
+                //if (Vaudit.LOG.isDebugEnabled())
+                //    Vaudit.LOG.debug("\t\t\t=>ignore, dep is user/use/cause");
                 return;
             }
             
             if (value == null || !value.isValid()) {
-                if (Vaudit.LOG.isDebugEnabled())
-                    Vaudit.LOG.debug("\t\t\t=>ignore, value is null or deleted");
+                //if (Vaudit.LOG.isDebugEnabled())
+                //    Vaudit.LOG.debug("\t\t\t=>ignore, value is null or deleted");
                 return;
             }
             
             if (obj == null || !obj.isValid()) {
-                if (Vaudit.LOG.isDebugEnabled())
-                    Vaudit.LOG.debug("\t\t\t=>ignore, obj is not valid");
+                //if (Vaudit.LOG.isDebugEnabled())
+                //    Vaudit.LOG.debug("\t\t\t=>ignore, obj is not valid");
                 return;
             }
             
             // Valid cases
             if (dep.isComponent()) {
                 // The erased dependency is a composition
-                if (Vaudit.LOG.isDebugEnabled())
-                    Vaudit.LOG.debug("\t\t\t=>add object '%s' (%s)", obj.getName(), obj.getMClass().getName());
+                //if (Vaudit.LOG.isDebugEnabled())
+                //    Vaudit.LOG.debug("\t\t\t=>add object '%s' (%s)", obj.getName(), obj.getMClass().getName());
                 this.objsToRebuild.add(obj);
                 for (MObject o : this.updater.onObjectMovedFrom(value, obj)) {
-                    if (Vaudit.LOG.isDebugEnabled())
-                        Vaudit.LOG.debug("\t\t\t\t=>add object '%s' (%s)", o.getName(), o.getMClass().getName());
+                    //if (Vaudit.LOG.isDebugEnabled())
+                    //    Vaudit.LOG.debug("\t\t\t\t=>add object '%s' (%s)", o.getName(), o.getMClass().getName());
                     this.objsToRebuild.add(o);
                 }
             
             } else if (obj.getMClass() == this.NamespaceUse_MClass) {
-                if (Vaudit.LOG.isDebugEnabled())
-                    Vaudit.LOG.debug("\t\t\t=>ignore, the modified object is a nsu");
+                //if (Vaudit.LOG.isDebugEnabled())
+                //    Vaudit.LOG.debug("\t\t\t=>ignore, the modified object is a nsu");
                 NamespaceUse nsu = (NamespaceUse) obj;
                 if (dep == this.NamespaceUse_cause_Element) {
                     if (nsu.getCause().isEmpty()) {
@@ -520,9 +588,9 @@ public class NSUseUpdater implements ITransactionClosureHandler {
                         nsu.delete();
                     }
                 }
-            } else {
-                if (Vaudit.LOG.isDebugEnabled())
-                    Vaudit.LOG.debug("\t\t\t=>add object '%s' (%s)", obj.getName(), obj.getMClass().getName());
+            } else if (dep.isPartOf() || dep.isSharedComposition()) {
+                //if (Vaudit.LOG.isDebugEnabled())
+                //    Vaudit.LOG.debug("\t\t\t=>add object '%s' (%s)", obj.getName(), obj.getMClass().getName());
                 this.objsToRebuild.add(obj);
             }
         }
@@ -534,19 +602,19 @@ public class NSUseUpdater implements ITransactionClosureHandler {
             SmDependency dep = theAppendDependencyAction.getDep();
             MObject value = theAppendDependencyAction.getRef();
             
-            if (Vaudit.LOG.isDebugEnabled())
-                Vaudit.LOG.debug("\t\tvisited action: append '%s' (%s) to dep '%s' of '%s' (%s)", (value != null) ? value.getName()
-                        : "null", (value != null) ? value.getMClass().getName() : null, dep.getName(), obj.getName(), obj
-                        .getMClass().getName());
+            //if (Vaudit.LOG.isDebugEnabled())
+            //    Vaudit.LOG.debug("\t\tvisited action: append '%s' (%s) to dep '%s' of '%s' (%s)", (value != null) ? value.getName()
+            //            : "null", (value != null) ? value.getMClass().getName() : null, dep.getName(), obj.getName(), obj
+            //            .getMClass().getName());
             
             if ((obj.isDeleted())
                     || (value != null && value.getMClass() == this.NamespaceUse_MClass || (obj.getMClass() == this.NamespaceUse_MClass))) {
                 // do nothing
-                if (Vaudit.LOG.isDebugEnabled())
-                    Vaudit.LOG.debug("\t\t\t=>ignore");
-            } else {
-                if (Vaudit.LOG.isDebugEnabled())
-                    Vaudit.LOG.debug("\t\t\t=>add object '%s' (%s)", obj.getName(), obj.getMClass().getName());
+                //if (Vaudit.LOG.isDebugEnabled())
+                //    Vaudit.LOG.debug("\t\t\t=>ignore");
+            } else if (dep.isPartOf() || dep.isSharedComposition()) {
+                //if (Vaudit.LOG.isDebugEnabled())
+                //    Vaudit.LOG.debug("\t\t\t=>add object '%s' (%s)", obj.getName(), obj.getMClass().getName());
                 this.objsToRebuild.add(obj);
             }
         }

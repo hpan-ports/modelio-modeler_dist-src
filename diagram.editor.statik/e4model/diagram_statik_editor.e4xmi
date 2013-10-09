@@ -48,9 +48,12 @@
         <children xsi:type="menu:HandledMenuItem" xmi:id="_xTyTkMR3EeK8YvcDBW3yZQ" elementId="org.modelio.diagram.editor.statik.handledmenuitem.rename" label="%RenameElement.label" iconURI="platform:/plugin/org.modelio.diagram.editor/icons/rename.png" tooltip="%RenameElement.tooltip" command="_bAOL4MRsEeKzIKCziwJO6Q">
           <visibleWhen xsi:type="ui:CoreExpression" xmi:id="_G7DhQPN7EeKUS4Va9pp0vw" coreExpressionId="diagram.editor.statik.test.iscompositionlink.id"/>
         </children>
+        <children xsi:type="menu:MenuSeparator" xmi:id="_VAmasBxvEeOKmunD3rzg2A" elementId="diagram.editor.statik.menuseparator.1"/>
         <children xsi:type="menu:HandledMenuItem" xmi:id="_XJOKFYV_EeK8HPFXYIuaeQ" elementId="org.modelio.diagram.editor.statik.handledmenuitem.SelectInExplorer" label="%SelectInExplorer.label" iconURI="platform:/plugin/org.modelio.diagram.editor/icons/select.png" tooltip="%SelectInExplorer.tooltip" command="_hGE0wIV_EeK8HPFXYIuaeQ">
           <visibleWhen xsi:type="ui:CoreExpression" xmi:id="_IeseQPN7EeKUS4Va9pp0vw" coreExpressionId="diagram.editor.statik.test.iscompositionlink.id"/>
         </children>
+        <children xsi:type="menu:DynamicMenuContribution" xmi:id="_vx89UBxvEeOKmunD3rzg2A" elementId="org.modelio.diagram.editor.statik.dynamicmenucontribution.relateddiagrams" label="RelatedDiagrams" contributionURI="bundleclass://org.modelio.diagram.editor/org.modelio.diagram.editor.context.RelatedDiagramsMenuCreator"/>
+        <children xsi:type="menu:MenuSeparator" xmi:id="_W-cAYBxvEeOKmunD3rzg2A" elementId="diagram.editor.statik.menuseparator.2"/>
         <children xsi:type="menu:HandledMenuItem" xmi:id="_XJOKFoV_EeK8HPFXYIuaeQ" elementId="org.modelio.diagram.editor.statik.handledmenuitem.Mask" label="%Mask.label" iconURI="platform:/plugin/org.modelio.diagram.editor/icons/mask.png" tooltip="%Mask.tooltip" command="_3XHBsGOwEeKZr6syzOEatQ">
           <visibleWhen xsi:type="ui:CoreExpression" xmi:id="_K45P0PN7EeKUS4Va9pp0vw" coreExpressionId="diagram.editor.statik.test.iscompositionlink.id"/>
         </children>
@@ -79,13 +82,14 @@
           <children xsi:type="menu:HandledMenuItem" xmi:id="_XJOxL4V_EeK8HPFXYIuaeQ" elementId="org.modelio.diagram.editor.statik.handledmenuitem.UnmaskStructuringLinksAndNodes" label="%UnmaskStructuringLinksAndNodes.label" tooltip="%UnmaskStructuringLinksAndNodes.tooltip" command="_jM4wQIV_EeK8HPFXYIuaeQ"/>
           <children xsi:type="menu:HandledMenuItem" xmi:id="_XJOxMIV_EeK8HPFXYIuaeQ" elementId="org.modelio.diagram.editor.statik.handledmenuitem.UnmaskStructuringLinks" label="%UnmaskStructuringLinks.label" tooltip="%UnmaskStructuringLinks.tooltip" command="_jhB0QIV_EeK8HPFXYIuaeQ"/>
         </children>
+        <children xsi:type="menu:MenuSeparator" xmi:id="_rjTyoBxvEeOKmunD3rzg2A" elementId="diagram.editor.statik.menuseparator.3"/>
         <children xsi:type="menu:HandledMenuItem" xmi:id="_XJOxMYV_EeK8HPFXYIuaeQ" elementId="org.modelio.diagram.editor.statik.handledmenuitem.redrawlink" label="%RedrawLink.label" iconURI="platform:/plugin/org.modelio.diagram.editor/icons/redrawlink.png" tooltip="%RedrawLink.tooltip" command="_RoMTQPLUEeKGQ56uAvBl1g">
           <visibleWhen xsi:type="ui:CoreExpression" xmi:id="_JaiZ8OsAEeKWx8-qQ2OLqA" coreExpressionId="diagram.editor.statik.test.redrawlink.id"/>
         </children>
         <children xsi:type="menu:HandledMenuItem" xmi:id="_4XGmUNf0EeKjSfPDByQfxw" elementId="diagram.editor.statik.handledmenuitem.1" label="%ShowImpactCause.label" iconURI="platform:/plugin/org.modelio.diagram.editor.statik/icons/shownsucauses.png" tooltip="%ShowImpactCause.tooltip" command="_25-hANf0EeKjSfPDByQfxw">
           <visibleWhen xsi:type="ui:CoreExpression" xmi:id="_IiWnwNgHEeKyxbNt7FpO0w" coreExpressionId="org.modelio.diagram.editor.corexp.is-gmnsu.id"/>
         </children>
-        <children xsi:type="menu:MenuSeparator" xmi:id="_Dk9YENi0EeK1QOP0kMMjeA" elementId="org.modelio.diagram.editor.statik.menu.popupmenu.separator"/>
+        <children xsi:type="menu:MenuSeparator" xmi:id="_DUZGMB61EeO9r6b_vtRk6A" elementId="diagram.editor.statik.menuseparator.0"/>
         <children xsi:type="menu:DynamicMenuContribution" xmi:id="_zwCUodcwEeK1QOP0kMMjeA" elementId="org.modelio.diagram.editor.statik.menu.module" contributionURI="bundleclass://org.modelio.diagram.editor.statik/org.modelio.diagram.editor.statik.editor.StaticDiagramModuleMenuCreator"/>
       </menus>
       <toolbar xmi:id="_juJkYGR8EeKpoNjm4nPb8Q" elementId="diagram.editor.statik.toolbar.0">

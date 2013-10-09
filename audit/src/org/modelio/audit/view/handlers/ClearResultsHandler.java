@@ -32,7 +32,7 @@ public class ClearResultsHandler {
     @Execute
     public void execute(IAuditService auditService, IProjectService projectService) {
         auditService.getAuditEngine().pause();
-        auditService.getAuditEngine().auditDiagnostic.clear(projectService.getSession());
+        auditService.getAuditEngine().getAuditDiagnostic().clear(projectService.getSession());
         auditService.getAuditEngine().clearCheck();
         auditService.getAuditEngine().resume();
     }

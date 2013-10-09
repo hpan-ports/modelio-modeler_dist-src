@@ -147,18 +147,6 @@ public class SignalImpl extends GeneralClassImpl implements Signal {
         appendDepVal(SignalData.Metadata.PBaseDep(), (SmObjectImpl)value);
     }
 
-    @objid ("2cfe8fa3-bbad-464f-a8ea-10e7a2c276a4")
-    @Override
-    public ModelElement getBrowseBase() {
-        return (ModelElement) getDepVal(SignalData.Metadata.BrowseBaseDep());
-    }
-
-    @objid ("88b6c55b-cc02-44ac-a348-7dbb841826c1")
-    @Override
-    public void setBrowseBase(ModelElement value) {
-        appendDepVal(SignalData.Metadata.BrowseBaseDep(), (SmObjectImpl)value);
-    }
-
     @objid ("46f78d25-5d15-4a58-95b5-d882e98a0e84")
     @Override
     public Operation getOBase() {

@@ -43,30 +43,32 @@ public class CompoundIterator<E> implements Iterator<E> {
 
     @objid ("ff2d731a-c1ef-11e1-92d5-001ec947ccaf")
     public CompoundIterator(Collection<Collection<? extends E>> collections) {
-        contentIt = collections.iterator();
+        this.contentIt = collections.iterator();
         walk();
     }
 
     @objid ("ff2d7321-c1ef-11e1-92d5-001ec947ccaf")
     private void walk() {
-        while (subIt == null || !subIt.hasNext()) {
-            if (!contentIt.hasNext())
+        while (this.subIt == null || !this.subIt.hasNext()) {
+            if (!this.contentIt.hasNext()) {
+                this.next = null;
                 return;
-            subIt = contentIt.next().iterator();
+            }
+            this.subIt = this.contentIt.next().iterator();
         } 
-        next = subIt.next();
+        this.next = this.subIt.next();
     }
 
     @objid ("ff2d7323-c1ef-11e1-92d5-001ec947ccaf")
     @Override
     public boolean hasNext() {
-        return next != null;
+        return this.next != null;
     }
 
     @objid ("ff2d7328-c1ef-11e1-92d5-001ec947ccaf")
     @Override
     public E next() {
-        E ret = next;
+        E ret = this.next;
         walk();
         return ret;
     }
@@ -74,7 +76,7 @@ public class CompoundIterator<E> implements Iterator<E> {
     @objid ("ff2d732d-c1ef-11e1-92d5-001ec947ccaf")
     @Override
     public void remove() {
-        subIt.remove();
+        this.subIt.remove();
     }
 
 }

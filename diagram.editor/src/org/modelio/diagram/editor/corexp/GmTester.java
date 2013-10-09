@@ -24,6 +24,7 @@ package org.modelio.diagram.editor.corexp;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.core.expressions.PropertyTester;
 import org.eclipse.jface.viewers.IStructuredSelection;
+import org.modelio.diagram.elements.common.abstractdiagram.AbstractDiagramEditPart;
 import org.modelio.diagram.elements.core.link.GmLinkEditPart;
 import org.modelio.diagram.elements.core.node.GmNodeEditPart;
 import org.modelio.diagram.elements.umlcommon.namespaceuse.GmNamespaceUse;
@@ -76,7 +77,7 @@ public class GmTester extends PropertyTester {
         case IS_GMNODE:
             // true is all selected element are GmNodes
             for (Object element : elements) {
-                if (!(element instanceof GmNodeEditPart)) {
+                if (!(element instanceof GmNodeEditPart) || (element instanceof AbstractDiagramEditPart)) {
                     return false;
                 }
             }

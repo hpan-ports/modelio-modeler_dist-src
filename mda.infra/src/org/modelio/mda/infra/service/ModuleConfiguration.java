@@ -22,6 +22,7 @@
 package org.modelio.mda.infra.service;
 
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -164,7 +165,12 @@ public final class ModuleConfiguration implements IModuleUserConfiguration {
     @objid ("9709e773-f374-11e1-9458-001ec947c8cc")
     @Override
     public List<Path> getDocpath() {
-        return this.docpath;
+        List<Path> realpath = new ArrayList<>();
+        
+        for(Path path : this.docpath){
+            realpath.add( getModuleResourcesPath().resolve(path));
+        }
+        return realpath;
     }
 
     @objid ("9709e772-f374-11e1-9458-001ec947c8cc")

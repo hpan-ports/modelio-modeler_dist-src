@@ -27,7 +27,6 @@ import org.eclipse.uml2.uml.InstanceValue;
 import org.eclipse.uml2.uml.UMLFactory;
 import org.modelio.api.model.IUMLTypes;
 import org.modelio.api.modelio.Modelio;
-import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.metamodel.uml.statik.DataType;
 import org.modelio.metamodel.uml.statik.Enumeration;
 import org.modelio.metamodel.uml.statik.GeneralClass;
@@ -36,10 +35,10 @@ import org.modelio.metamodel.uml.statik.Parameter;
 import org.modelio.metamodel.uml.statik.TemplateParameter;
 import org.modelio.vcore.smkernel.mapi.MObject;
 import org.modelio.xmi.plugin.Xmi;
+import org.modelio.xmi.util.AbstractObjingModelNavigation;
 import org.modelio.xmi.util.GenerationProperties;
 import org.modelio.xmi.util.IModelerModuleStereotypes;
 import org.modelio.xmi.util.ObjingEAnnotation;
-import org.modelio.xmi.util.ObjingModelNavigation;
 import org.modelio.xmi.util.PrimitiveTypeMapper;
 import org.modelio.xmi.util.StringConverter;
 import org.modelio.xmi.util.XMILogs;
@@ -97,7 +96,7 @@ public class OParameter extends OModelElement {
     @objid ("aa5d8023-6502-4298-8b04-dc4c45971d5e")
     @Override
     public void setProperties(org.eclipse.uml2.uml.Element ecoreElt) {
-        if (!ObjingModelNavigation
+        if (!AbstractObjingModelNavigation
                 .isReturnParameter(this.objingElement))
              super.setProperties(ecoreElt);
         
@@ -124,7 +123,7 @@ public class OParameter extends OModelElement {
             ecoreElt.setDirection(org.eclipse.uml2.uml.ParameterDirectionKind.INOUT_LITERAL);
             break;
         }
-        if (ObjingModelNavigation.isReturnParameter(this.objingElement))
+        if (AbstractObjingModelNavigation.isReturnParameter(this.objingElement))
             ecoreElt.setDirection(org.eclipse.uml2.uml.ParameterDirectionKind.RETURN_LITERAL);
     }
 
@@ -135,7 +134,7 @@ public class OParameter extends OModelElement {
         // If objingMultMin is "" then we don't set a lower multiplicity for the
         // UML2 element.
         if (!"".equals(objingMultMin)) {
-            if (ObjingModelNavigation.OBJING_UNLIMITED_VALUE
+            if (AbstractObjingModelNavigation.OBJING_UNLIMITED_VALUE
                     .equals(objingMultMin))
                 ecoreElt.setLower(org.eclipse.uml2.uml.LiteralUnlimitedNatural.UNLIMITED);
             else {
@@ -166,7 +165,7 @@ public class OParameter extends OModelElement {
         // If objingMultMax is "" then we don't set an upper multiplicity for
         // the UML2 element.
         if (!"".equals(objingMultMax)) {
-            if (ObjingModelNavigation.OBJING_UNLIMITED_VALUE
+            if (AbstractObjingModelNavigation.OBJING_UNLIMITED_VALUE
                     .equals(objingMultMax))
                 ecoreElt.setUpper(org.eclipse.uml2.uml.LiteralUnlimitedNatural.UNLIMITED);
             else {
@@ -198,10 +197,10 @@ public class OParameter extends OModelElement {
 
     @objid ("4ae2e684-e61f-4539-971e-d59201a8e99d")
     private void setDefaultValue(org.eclipse.uml2.uml.Parameter ecoreParam) {
-        if (ObjingModelNavigation.haveInstanceValue(this.objingElement)){
+        if (AbstractObjingModelNavigation.haveInstanceValue(this.objingElement)){
             InstanceValue value = UMLFactory.eINSTANCE.createInstanceValue();
             InstanceSpecification inst = (InstanceSpecification) GenerationProperties.getInstance().getMappedElement(
-                    ObjingModelNavigation.getInstanceValue(this.objingElement));
+                    AbstractObjingModelNavigation.getInstanceValue(this.objingElement));
             value.setInstance(inst);
             ecoreParam.setDefaultValue(value);
             
@@ -218,8 +217,8 @@ public class OParameter extends OModelElement {
         
                     DataType objingPredefinedType = (DataType) objingType;
         
-                    if (( ObjingModelNavigation.OBJING_NULL_VALUE != null) 
-                            && ( ObjingModelNavigation.OBJING_NULL_VALUE.equals(objingDefaultValue.toLowerCase()))){
+                    if (( AbstractObjingModelNavigation.OBJING_NULL_VALUE != null) 
+                            && ( AbstractObjingModelNavigation.OBJING_NULL_VALUE.equals(objingDefaultValue.toLowerCase()))){
                         ecoreParam.setNullDefaultValue();
                     }else if ((umlTypes.getBOOLEAN() != null) && (umlTypes.getBOOLEAN().equals(objingPredefinedType))) {
                         // If the attribute is a Dynamic org.eclipse.uml2.uml.Dependency, we don't enable
@@ -278,7 +277,7 @@ public class OParameter extends OModelElement {
                     } else 
                         ecoreParam.setStringDefaultValue(objingDefaultValue);
                 } else if ((objingType instanceof Enumeration) 
-                        && (ObjingModelNavigation.isEnumerationliteral((Enumeration)objingType, objingDefaultValue))){
+                        && (AbstractObjingModelNavigation.isEnumerationliteral((Enumeration)objingType, objingDefaultValue))){
         
                     InstanceValue value = UMLFactory.eINSTANCE.createInstanceValue();
         
@@ -287,7 +286,7 @@ public class OParameter extends OModelElement {
                         value.setType( (org.eclipse.uml2.uml.Type) ecoreType);
                     }
         
-                    Object ecoreInstance = GenerationProperties.getInstance().getMappedElement(ObjingModelNavigation.getEnumerationliteral((Enumeration)objingType, objingDefaultValue));
+                    Object ecoreInstance = GenerationProperties.getInstance().getMappedElement(AbstractObjingModelNavigation.getEnumerationliteral((Enumeration)objingType, objingDefaultValue));
                     if (ecoreInstance instanceof InstanceSpecification){
                         value.setInstance((InstanceSpecification) ecoreInstance);
                     }

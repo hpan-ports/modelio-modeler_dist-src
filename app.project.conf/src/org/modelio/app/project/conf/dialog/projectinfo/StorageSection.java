@@ -47,16 +47,16 @@ class StorageSection {
      * The project that is currently being displayed by the section.
      */
     @objid ("a746126e-33f6-11e2-a514-002564c97630")
-    private ProjectModel displayedProject;
+    protected ProjectModel displayedProject;
 
     @objid ("a746397d-33f6-11e2-a514-002564c97630")
-    private Text storagePath;
+    protected Text storagePath;
 
     @objid ("a746397e-33f6-11e2-a514-002564c97630")
-    private Text storageSize;
+    protected Text storageSize;
 
     @objid ("a7459d5a-33f6-11e2-a514-002564c97630")
-    private Text projectDate;
+    protected Text projectDate;
 
     @objid ("a746397f-33f6-11e2-a514-002564c97630")
     public StorageSection() {
@@ -77,12 +77,25 @@ class StorageSection {
     private void fillFields() {
         if (this.displayedProject.getPath() != null) {
             this.storagePath.setText(this.displayedProject.getPath().toString());
-            try {
-                Long projectSize = FileUtils.computeSize(this.displayedProject.getPath()) / 1024 / 1024;    //Unit: Megabyte
-                this.storageSize.setText(Long.toString(projectSize)+ " "+AppProjectConf.I18N.getString("StorageSection.SizeUnit"));
-            } catch (IOException e) {
-                AppProjectConf.LOG.error(e);
-            }
+            this.storageSize.setText(AppProjectConf.I18N.getString("StorageSection.ComputingSize"));
+            new Thread() {
+                @Override
+                public void run() {
+                    try {
+                        final Long projectSize = FileUtils.computeSize(StorageSection.this.displayedProject.getPath()) / 1024 / 1024;    //Unit: Megabyte
+                        
+                        StorageSection.this.storageSize.getDisplay().asyncExec(new Runnable() {
+                            
+                            @Override
+                            public void run() {
+                                StorageSection.this.storageSize.setText(Long.toString(projectSize)+ " "+ AppProjectConf.I18N.getString("StorageSection.SizeUnit"));
+                            }
+                        });
+                    } catch (IOException e) {
+                        AppProjectConf.LOG.error(e);
+                    }
+                }
+            }.start();
         } else {
             this.storagePath.setText(""); //$NON-NLS-1$
             this.storageSize.setText(""); //$NON-NLS-1$

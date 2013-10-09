@@ -29,6 +29,7 @@ import org.modelio.metamodel.uml.infrastructure.Element;
 @objid ("cd33ec80-9db4-447d-9a03-38f1a80bde7a")
 public class EAcceptCallAction extends EAcceptEventAction implements IEElement {
     @objid ("97b771db-32a0-455f-8e26-4150ba9c5f54")
+    @Override
     public Element createObjingElt() {
         return Modelio.getInstance().getModelingSession().getModel()
                 .createAcceptCallEventAction();
@@ -40,15 +41,18 @@ public class EAcceptCallAction extends EAcceptEventAction implements IEElement {
     }
 
     @objid ("ee380969-188c-438c-b86f-0c8a77ca67d8")
+    @Override
     public void attach(Element objingElt) {
         super.attach(objingElt);
     }
 
     @objid ("37174a86-b2d2-4741-b2e6-85ac09b6864f")
+    @Override
     public void attach(List<Object> objingElts) {
     }
 
     @objid ("a2c43990-a457-482b-84eb-2839b1c121be")
+    @Override
     public void setProperties(Element objingElt) {
         super.setProperties(objingElt);
     }

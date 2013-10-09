@@ -147,6 +147,8 @@ import org.modelio.metamodel.uml.statik.Link;
 import org.modelio.metamodel.uml.statik.LinkEnd;
 import org.modelio.metamodel.uml.statik.Manifestation;
 import org.modelio.metamodel.uml.statik.NamespaceUse;
+import org.modelio.metamodel.uml.statik.NaryAssociation;
+import org.modelio.metamodel.uml.statik.NaryAssociationEnd;
 import org.modelio.metamodel.uml.statik.Node;
 import org.modelio.metamodel.uml.statik.Operation;
 import org.modelio.metamodel.uml.statik.Package;
@@ -932,36 +934,42 @@ public class XMIExportBehavior implements IParseModelBehavior {
     }
 
     @objid ("09f516d1-7d90-48b1-a890-311e120c4de4")
+    @Override
     public void visitSignal(Signal param) {
         OSignal element = new OSignal(param);
         this.exportModel.export(element);
     }
 
     @objid ("017e2eee-23f9-4985-a366-69819a695493")
+    @Override
     public void visitState(State param) {
         OState element = new OState(param);
         this.exportModel.export(element);
     }
 
     @objid ("58b1c2bd-b3e6-4b85-85e4-7f01988c2cb8")
+    @Override
     public void visitStateInvariant(StateInvariant param) {
         OStateInvariant element = new OStateInvariant(param);
         this.exportModel.export(element);
     }
 
     @objid ("c570cbd3-b6e0-4cb5-8cf7-c4e8ef16266a")
+    @Override
     public void visitStateMachine(StateMachine param) {
         OStateMachine element = new OStateMachine(param);
         this.exportModel.export(element);
     }
 
     @objid ("e22dc9b0-2a10-44f9-affb-035057dab2bd")
+    @Override
     public void visitStereotype(Stereotype param) {
         OStereotype element = new OStereotype(param);
         this.exportModel.export(element);
     }
 
     @objid ("8209bb92-0f6c-48f9-af84-0284688bcb5b")
+    @Override
     public void visitStructuredActivityNode(StructuredActivityNode param) {
         OStructuredActivityNode element = new OStructuredActivityNode(param);
         this.exportModel.export(element);
@@ -1051,6 +1059,20 @@ public class XMIExportBehavior implements IParseModelBehavior {
     @Override
     public void visitValuePin(final ValuePin param) {
         OValuePin element = new OValuePin(param);
+        this.exportModel.export(element);
+    }
+
+    @objid ("68d78f3d-9964-430d-99a8-aea9988de3b8")
+    @Override
+    public void visitNaryAssociationEnd(NaryAssociationEnd param) {
+        ONaryAssociationEnd element = new ONaryAssociationEnd(param);
+        this.exportModel.export(element);
+    }
+
+    @objid ("d0324e32-49ed-4661-a65d-4a0a555668eb")
+    @Override
+    public void visitNaryAssociation(NaryAssociation param) {
+        ONaryAssociation element = new ONaryAssociation(param);
         this.exportModel.export(element);
     }
 

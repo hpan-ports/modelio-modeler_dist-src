@@ -23,6 +23,7 @@ package org.modelio.vcore.session.api.blob;
 
 import java.util.Collection;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
+import org.modelio.vcore.session.api.repository.IRepository;
 import org.modelio.vcore.smkernel.mapi.MObject;
 
 /**
@@ -99,5 +100,17 @@ public interface IBlobSupport {
      */
     @objid ("df621722-4dee-43d9-9096-1ec11eac77cf")
     void removeBlobProvider(IBlobProvider provider);
+
+    /**
+     * Called when model objects have been moved to another repository.
+     * <p>
+     * The implementation should decide what to do with the blobs it handles.
+     * An implementation usually moves the blobs of the moved object to the destination repository.
+     * @param objs the moved model objects. the model object is already in the new repository.
+     * @param fromRepo its previous repository
+     * @param destRepo its new repository.
+     */
+    @objid ("ef800a0f-f06d-4117-8e82-9fdca2daab7e")
+    void fireObjectsMoved(Collection<? extends MObject> objs, IRepository fromRepo, IRepository destRepo);
 
 }

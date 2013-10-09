@@ -21,18 +21,23 @@
 
 package org.modelio.vaudit.modelshield.standard.checkers;
 
+import java.util.ArrayList;
+import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.metamodel.Metamodel;
 import org.modelio.metamodel.uml.statik.Manifestation;
+import org.modelio.vaudit.modelshield.internal.ModelError;
 import org.modelio.vaudit.modelshield.standard.TriggerType;
 import org.modelio.vaudit.modelshield.standard.checkers.generic.DepCardinalityChecker;
 import org.modelio.vaudit.modelshield.standard.plan.Plan;
+import org.modelio.vcore.smkernel.mapi.MDependency;
+import org.modelio.vcore.smkernel.mapi.MObject;
 
 /**
  * E236:
  * <ul>
  * <li>desc = A Manifestation must be directed towards a ModelElement.</li>
- * <li>what = A manifestation of the ''{2}'' element is not directed towards a model element.</li>
+ * <li>what = A manifestation of the ''{1}'' element is not directed towards a model element.</li>
  * </ul>
  */
 @objid ("000ba4c8-e20e-1f69-b3fb-001ec947cd2a")
@@ -56,6 +61,14 @@ public class E236Checker extends DepCardinalityChecker {
     @objid ("005a9678-912e-1f6c-bf9a-001ec947cd2a")
     public E236Checker() {
         super(ERRORID, DEPNAME);
+    }
+
+    @objid ("d021eb93-376e-4f34-a52f-e80af1bf93fe")
+    @Override
+    protected ModelError createError(MObject object, MDependency dep, int currentCard) {
+        List<Object> objects = new ArrayList<>();
+        objects.add(object.getCompositionOwner());
+        return new ModelError(ERRORID, object, objects);
     }
 
 }

@@ -27,9 +27,9 @@ import org.modelio.metamodel.uml.behavior.usecaseModel.ExtensionPoint;
 import org.modelio.metamodel.uml.behavior.usecaseModel.UseCase;
 import org.modelio.metamodel.uml.behavior.usecaseModel.UseCaseDependency;
 import org.modelio.xmi.plugin.Xmi;
+import org.modelio.xmi.util.AbstractObjingModelNavigation;
 import org.modelio.xmi.util.GenerationProperties;
 import org.modelio.xmi.util.NotFoundException;
-import org.modelio.xmi.util.ObjingModelNavigation;
 
 /**
  * This class manages the export of Modelio UseCaseDependency
@@ -66,10 +66,10 @@ public class OUseCaseDependency extends OModelElement {
     public OUseCaseDependency(final UseCaseDependency param) {
         super(param);
         this.objingElement = param;
-        if (ObjingModelNavigation.isStereotyped(this.objingElement, Xmi.I18N
+        if (AbstractObjingModelNavigation.isStereotyped(this.objingElement, Xmi.I18N
                 .getString("objing.java.stereotype.extend")))
             this.isExtend = true;
-        else if (ObjingModelNavigation.isStereotyped(this.objingElement, Xmi.I18N
+        else if (AbstractObjingModelNavigation.isStereotyped(this.objingElement, Xmi.I18N
                 .getString("objing.java.stereotype.include")))
             this.isInclude = true;
         else{

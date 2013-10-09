@@ -84,7 +84,6 @@ public class GProjectMonitorSupport {
                 Log.warning(ev.throwable);
                 break;
             default:
-                Log.warning(ev.toString());
                 break;
             }
         }

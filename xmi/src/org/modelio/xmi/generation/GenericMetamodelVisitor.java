@@ -27,6 +27,7 @@ import org.modelio.metamodel.uml.behavior.usecaseModel.UseCaseDependency;
 import org.modelio.metamodel.uml.infrastructure.Constraint;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
 import org.modelio.metamodel.uml.statik.AssociationEnd;
+import org.modelio.metamodel.uml.statik.NaryAssociationEnd;
 
 @objid ("a8c2821f-d60f-45a4-a9d3-430c89b43668")
 public class GenericMetamodelVisitor extends OwnershipMetamodelVisitor {
@@ -65,6 +66,14 @@ public class GenericMetamodelVisitor extends OwnershipMetamodelVisitor {
         for (UseCaseDependency dep : param.getUsed()) {
             dep.accept(this);
         }
+        return lObject;
+    }
+
+    @objid ("4c73ff64-8190-4db8-9aed-ff441c14dd35")
+    @Override
+    public Object visitNaryAssociationEnd(final NaryAssociationEnd param) {
+        Object lObject = super.visitNaryAssociationEnd(param);
+        param.getNaryAssociation().accept(this);
         return lObject;
     }
 

@@ -78,12 +78,6 @@ public interface Signal extends GeneralClass {
     @objid ("c338e046-5b7a-4bed-88ac-23d0d6a434a3")
     void setPBase(Parameter value);
 
-    @objid ("866ef384-2d2b-41ef-8933-821f88603569")
-    ModelElement getBrowseBase();
-
-    @objid ("7fb6589c-9b6a-4316-8cbf-ddb7cf8b7672")
-    void setBrowseBase(ModelElement value);
-
     @objid ("2b4dd073-6a34-4047-b423-8e2b9d91c140")
     Operation getOBase();
 

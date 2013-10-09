@@ -52,7 +52,4 @@ public interface ImagesKeys {
     @objid ("350eff7d-186f-11e2-bc4e-002564c97630")
     public static final String ADD_CONSTRAINT = "edition.addconstraint";
 
-    @objid ("350eff82-186f-11e2-bc4e-002564c97630")
-    public static final String DOT = "edition.dot";
-
 }

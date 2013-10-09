@@ -38,7 +38,7 @@ public class AntonymCreationExpert extends DefaultLinkExpert {
     @objid ("dda17e89-e1aa-46d1-81d9-19010bf3a195")
     @Override
     public boolean canLink(MClass link, final MClass fromMetaclass, final MClass toMetaclass, final MClass owner) {
-        return fromMetaclass == Metamodel.getMClass(Term.class) && toMetaclass == Metamodel.getMClass(Term.class);
+        return fromMetaclass.hasBase(Metamodel.getMClass(Term.class)) && toMetaclass.hasBase(Metamodel.getMClass(Term.class));
     }
 
     @objid ("875363ec-701d-4976-a13a-40057b9bb500")
@@ -50,7 +50,7 @@ public class AntonymCreationExpert extends DefaultLinkExpert {
     @objid ("acc06291-f153-48f3-a72b-3d8d6c49f3cd")
     @Override
     public boolean canSource(MClass link, final MClass fromMetaclass) {
-        return fromMetaclass == Metamodel.getMClass(Term.class);
+        return fromMetaclass.hasBase(Metamodel.getMClass(Term.class));
     }
 
 }

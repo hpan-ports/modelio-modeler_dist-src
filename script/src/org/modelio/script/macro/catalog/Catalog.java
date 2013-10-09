@@ -68,6 +68,9 @@ public class Catalog {
     @objid ("0035502a-ead5-106a-bf4f-001ec947cd2a")
     private final String name;
 
+    @objid ("5ceeb325-c3f0-4028-af7f-92382596af8d")
+    private Boolean isReadOnly = false;
+
     @objid ("008f9404-b6e0-106a-bf4f-001ec947cd2a")
     private final List<Macro> macros = new ArrayList<>();
 
@@ -79,9 +82,10 @@ public class Catalog {
     private Path path = null;
 
     @objid ("008f9b3e-b6e0-106a-bf4f-001ec947cd2a")
-    public Catalog(String name, Path aPath) {
+    public Catalog(String name, Path aPath, Boolean readOnly) {
         this.name = name;
         this.path = aPath;
+        this.isReadOnly = readOnly;
         
         CatalogReader reader = new CatalogReader();
         try {
@@ -157,6 +161,9 @@ public class Catalog {
      */
     @objid ("008f9aa8-b6e0-106a-bf4f-001ec947cd2a")
     public boolean isModifiable() {
+        if (this.isReadOnly) {
+            return false;
+        }
         if (this.path == null) {
             return true;
         }
@@ -168,7 +175,7 @@ public class Catalog {
             } else {
                 File dir = null;
                 for (dir = aPath.getParentFile(); dir != null && !dir.isDirectory(); dir = dir.getParentFile()) {
-                    ;
+                    //;
                 }
                 return dir == null || dir.canWrite();
         

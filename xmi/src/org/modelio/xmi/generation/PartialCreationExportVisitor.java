@@ -164,6 +164,8 @@ import org.modelio.metamodel.uml.statik.Link;
 import org.modelio.metamodel.uml.statik.LinkEnd;
 import org.modelio.metamodel.uml.statik.Manifestation;
 import org.modelio.metamodel.uml.statik.NamespaceUse;
+import org.modelio.metamodel.uml.statik.NaryAssociation;
+import org.modelio.metamodel.uml.statik.NaryAssociationEnd;
 import org.modelio.metamodel.uml.statik.Node;
 import org.modelio.metamodel.uml.statik.Operation;
 import org.modelio.metamodel.uml.statik.Package;
@@ -181,10 +183,10 @@ import org.modelio.metamodel.visitors.DefaultModelVisitor;
 import org.modelio.vcore.smkernel.mapi.MObject;
 import org.modelio.vcore.smkernel.meta.SmClass;
 import org.modelio.xmi.plugin.Xmi;
+import org.modelio.xmi.util.AbstractObjingModelNavigation;
 import org.modelio.xmi.util.GenerationProperties;
 import org.modelio.xmi.util.IModelerModuleStereotypes;
 import org.modelio.xmi.util.ObjingEAnnotation;
-import org.modelio.xmi.util.ObjingModelNavigation;
 import org.modelio.xmi.util.PrimitiveTypeMapper;
 import org.modelio.xmi.util.XMILogs;
 
@@ -350,7 +352,7 @@ public class PartialCreationExportVisitor {
         @objid ("6e71c0ad-69f1-45aa-81d6-5d91bafee91b")
         @Override
         public Object visitAssociation(Association objingElt) {
-            if (ObjingModelNavigation.isIsClassAssociation(objingElt)) {
+            if (AbstractObjingModelNavigation.isIsClassAssociation(objingElt)) {
                 PartialCreationExportVisitor.this.ecoreElt = UMLFactory.eINSTANCE.createAssociationClass();
                 // Case of an AssociationClass - the keys for an ecore
                 // AssociationClass are:
@@ -378,7 +380,7 @@ public class PartialCreationExportVisitor {
         public Object visitAssociationEnd(AssociationEnd objingElt) {
             Association assoc = objingElt.getAssociation();
             
-            if (! ObjingModelNavigation.isOwnedByActor(assoc)) {
+            if (! AbstractObjingModelNavigation.isOwnedByActor(assoc)) {
                 if (objingElt.isStereotyped("ModelerModule", IModelerModuleStereotypes.UML2EXTENSIONEND)){
                     PartialCreationExportVisitor.this.ecoreElt = UMLFactory.eINSTANCE.createExtensionEnd();
                 }
@@ -419,7 +421,7 @@ public class PartialCreationExportVisitor {
         @objid ("21cd415c-7e76-4f8b-a491-a28acfff7fa7")
         @Override
         public Object visitBindableInstance(BindableInstance objingElt) {
-            MObject root = ObjingModelNavigation.getBindableInstanceOwner(objingElt);
+            MObject root = AbstractObjingModelNavigation.getBindableInstanceOwner(objingElt);
             
             if (root instanceof Instance){
                 PartialCreationExportVisitor.this.ecoreElt =  UMLFactory.eINSTANCE.createSlot();
@@ -478,7 +480,7 @@ public class PartialCreationExportVisitor {
         @objid ("8654e0fc-39da-4cfd-8456-a73604955d80")
         @Override
         public Object visitClass(Class objingElt) {
-            if (ObjingModelNavigation.isIsClassAssociation(objingElt)) {
+            if (AbstractObjingModelNavigation.isIsClassAssociation(objingElt)) {
                 PartialCreationExportVisitor.this.ecoreElt = UMLFactory.eINSTANCE.createAssociationClass();
                 // Case of an AssociationClass - the keys for an ecore
                 // AssociationClass are:
@@ -571,7 +573,7 @@ public class PartialCreationExportVisitor {
         @objid ("faf5e3bd-0613-403e-ae7d-4663bd5bbeda")
         @Override
         public Object visitComponent(Component objingElt) {
-            if (ObjingModelNavigation.isIsClassAssociation(objingElt))
+            if (AbstractObjingModelNavigation.isIsClassAssociation(objingElt))
                 PartialCreationExportVisitor.this.ecoreElt = UMLFactory.eINSTANCE.createAssociationClass();
             else
                 PartialCreationExportVisitor.this.ecoreElt = UMLFactory.eINSTANCE.createComponent();
@@ -595,7 +597,7 @@ public class PartialCreationExportVisitor {
         @objid ("d38927fa-0f4e-4f37-bae9-98a6a366e329")
         @Override
         public Object visitConnector(Connector objingElt) {
-            MObject root = ObjingModelNavigation.getConnectorOwner(objingElt);
+            MObject root = AbstractObjingModelNavigation.getConnectorOwner(objingElt);
             
             if (root != null){
                 PartialCreationExportVisitor.this.ecoreElt = UMLFactory.eINSTANCE.createConnector();
@@ -690,9 +692,9 @@ public class PartialCreationExportVisitor {
         public Object visitDecisionMergeNode(DecisionMergeNode objingElt) {
             boolean isMergeNode = false;
             boolean isDecisionNode = false;
-            if (ObjingModelNavigation.isMergeNode(objingElt))
+            if (AbstractObjingModelNavigation.isMergeNode(objingElt))
                 isMergeNode = true;
-            else if (ObjingModelNavigation.isDecisionNode(objingElt))
+            else if (AbstractObjingModelNavigation.isDecisionNode(objingElt))
                 isDecisionNode = true;
             
             org.eclipse.uml2.uml.ControlNode ecoreNode = null;
@@ -724,7 +726,7 @@ public class PartialCreationExportVisitor {
                 else
                     ecoreFlow = UMLFactory.eINSTANCE.createObjectFlow();
             
-                Activity enclosingActivity = (Activity) ObjingModelNavigation
+                Activity enclosingActivity = (Activity) AbstractObjingModelNavigation
                         .getEnclosingElement(objingElt, SmClass.getClass(Activity.class));
             
                 if (enclosingActivity != null) {
@@ -860,10 +862,11 @@ public class PartialCreationExportVisitor {
                 case CHANGEEVENT :
                     PartialCreationExportVisitor.this.ecoreElt =  UMLFactory.eINSTANCE.createChangeEvent(); 
                     break;
+                default :
+                    PartialCreationExportVisitor.this.ecoreElt = UMLFactory.eINSTANCE.createCallEvent();
+                    break;
                 }
-            }
-            
-            else if (objingElt.isStereotyped("ModelerModule", IModelerModuleStereotypes.UML2CREATIONEVENT)){
+            }else if (objingElt.isStereotyped("ModelerModule", IModelerModuleStereotypes.UML2CREATIONEVENT)){
                 PartialCreationExportVisitor.this.ecoreElt = UMLFactory.eINSTANCE.createCreationEvent();
             }else if (objingElt.isStereotyped("ModelerModule", IModelerModuleStereotypes.UML2DESTRUCTIONEVENT)){
                 PartialCreationExportVisitor.this.ecoreElt = UMLFactory.eINSTANCE.createDestructionEvent();
@@ -926,9 +929,9 @@ public class PartialCreationExportVisitor {
         public Object visitForkJoinNode(ForkJoinNode objingElt) {
             boolean isJoinNode = false;
             boolean isForkNode = false;
-            if (ObjingModelNavigation.isJoinNode(objingElt))
+            if (AbstractObjingModelNavigation.isJoinNode(objingElt))
                 isJoinNode = true;
-            else if (ObjingModelNavigation.isForkNode(objingElt))
+            else if (AbstractObjingModelNavigation.isForkNode(objingElt))
                 isForkNode = true;
             
                       org.eclipse.uml2.uml.ControlNode ecoreNode = null;
@@ -959,7 +962,7 @@ public class PartialCreationExportVisitor {
                 else
                     ecoreFlow = UMLFactory.eINSTANCE.createObjectFlow();
             
-                Activity enclosingActivity = (Activity) ObjingModelNavigation
+                Activity enclosingActivity = (Activity) AbstractObjingModelNavigation
                         .getEnclosingElement(objingElt, SmClass.getClass(Activity.class));
             
                 if (enclosingActivity != null) {
@@ -1142,15 +1145,15 @@ public class PartialCreationExportVisitor {
         @objid ("cc56e89c-fd76-457e-a2c5-bb6ff8966124")
         @Override
         public Object visitLifeline(Lifeline objingElt) {
-            PartialCreationExportVisitor.this.ecoreElt = ecoreElt = UMLFactory.eINSTANCE.createLifeline();
+            PartialCreationExportVisitor.this.ecoreElt = UMLFactory.eINSTANCE.createLifeline();
             return null;
         }
 
         @objid ("e93ba410-5e9a-40f4-bbc6-5f38440b883e")
         @Override
         public Object visitLink(Link objingElt) {
-            Element linkOwner = ObjingModelNavigation.getLinkOwner(objingElt);
-            MObject connectorOwner = ObjingModelNavigation.getConnectorOwner(objingElt);
+            Element linkOwner = AbstractObjingModelNavigation.getLinkOwner(objingElt);
+            MObject connectorOwner = AbstractObjingModelNavigation.getConnectorOwner(objingElt);
             
             if (linkOwner != null){ 
                 PartialCreationExportVisitor.this.ecoreElt = UMLFactory.eINSTANCE.createInstanceSpecification();
@@ -1207,7 +1210,7 @@ public class PartialCreationExportVisitor {
         @objid ("f163fbd0-a5d0-4795-970f-38739fb91662")
         @Override
         public Object visitManifestation(Manifestation objingElt) {
-            if (ObjingModelNavigation.isManifestationMappable(objingElt))
+            if (AbstractObjingModelNavigation.isManifestationMappable(objingElt))
                 PartialCreationExportVisitor.this.ecoreElt = UMLFactory.eINSTANCE.createManifestation();
             else{
                 String message = Xmi.I18N.getMessage("logFile.warning.export.noumlmanifestation", objingElt.getName());
@@ -1416,7 +1419,7 @@ public class PartialCreationExportVisitor {
         @objid ("f7ba9a65-89b9-444f-bf98-49a08ad0dbc4")
         @Override
         public Object visitPort(Port objingElt) {
-            MObject objOwner = ObjingModelNavigation.getBindableInstanceOwner(objingElt);
+            MObject objOwner = AbstractObjingModelNavigation.getBindableInstanceOwner(objingElt);
             if ( objOwner instanceof BindableInstance){
                 ModelElement representedFeature = objingElt.getRepresentedFeature();
                 if ((representedFeature != null) && (representedFeature instanceof Port) && !(representedFeature.getCompositionOwner() instanceof Instance)){
@@ -1632,7 +1635,7 @@ public class PartialCreationExportVisitor {
         @Override
         public Object visitTransition(Transition objingElt) {
             if (!( objingElt instanceof InternalTransition)){
-                if (ObjingModelNavigation.isProtocolTransition(objingElt))
+                if (AbstractObjingModelNavigation.isProtocolTransition(objingElt))
                     PartialCreationExportVisitor.this.ecoreElt = UMLFactory.eINSTANCE.createProtocolTransition();
                 PartialCreationExportVisitor.this.ecoreElt = UMLFactory.eINSTANCE.createTransition();
             }
@@ -1657,10 +1660,10 @@ public class PartialCreationExportVisitor {
         @objid ("4816c727-cc0a-485d-aabd-7c0bc6c93e01")
         @Override
         public Object visitUseCaseDependency(UseCaseDependency objingElt) {
-            if (ObjingModelNavigation.isStereotyped(objingElt, Xmi.I18N
+            if (AbstractObjingModelNavigation.isStereotyped(objingElt, Xmi.I18N
                     .getString("objing.java.stereotype.extend")))
                 PartialCreationExportVisitor.this.ecoreElt = UMLFactory.eINSTANCE.createExtend();
-            else if (ObjingModelNavigation.isStereotyped(objingElt, Xmi.I18N
+            else if (AbstractObjingModelNavigation.isStereotyped(objingElt, Xmi.I18N
                     .getString("objing.java.stereotype.include")))
                 PartialCreationExportVisitor.this.ecoreElt = UMLFactory.eINSTANCE.createInclude();
             else
@@ -1715,8 +1718,49 @@ public class PartialCreationExportVisitor {
         }
 
         @objid ("d9fa6d5d-3a84-4550-b32f-0bba721c3651")
+        @Override
         public Object visitMessageEnd(MessageEnd objingElt) {
             PartialCreationExportVisitor.this.ecoreElt = UMLFactory.eINSTANCE.createMessageOccurrenceSpecification();
+            return null;
+        }
+
+        @objid ("22bba9c9-c05f-4834-b98a-23d9e99350eb")
+        @Override
+        public Object visitNaryAssociation(NaryAssociation objingElt) {
+            if (AbstractObjingModelNavigation.isIsClassAssociation(objingElt)) {
+                PartialCreationExportVisitor.this.ecoreElt = UMLFactory.eINSTANCE.createAssociationClass();
+                // Case of an AssociationClass - the keys for an ecore
+                // AssociationClass are:
+                // - the ID of the objing Association
+                // - the ID of the objing ClassAssociation
+                // - the ID of the objing Class representing the
+                // ClassAssociation
+                ClassAssociation classAssoc = objingElt.getLinkToClass();
+                PartialCreationExportVisitor.this.partialMap.put(classAssoc.getUuid().toString(), PartialCreationExportVisitor.this.ecoreElt);
+                PartialCreationExportVisitor.this.partialMap.put(classAssoc.getClassPart().getUuid().toString(), PartialCreationExportVisitor.this.ecoreElt);
+            } else{
+                if (objingElt.isStereotyped("ModelerModule", IModelerModuleStereotypes.UML2COMMUNICATIONPATH)){
+                    PartialCreationExportVisitor.this.ecoreElt = UMLFactory.eINSTANCE.createCommunicationPath();
+                }else if (objingElt.isStereotyped("ModelerModule", IModelerModuleStereotypes.UML2EXTENSION)){
+                    PartialCreationExportVisitor.this.ecoreElt = UMLFactory.eINSTANCE.createExtension();
+                }else{
+                    PartialCreationExportVisitor.this.ecoreElt = UMLFactory.eINSTANCE.createAssociation();
+                }
+            }
+            return null;
+        }
+
+        @objid ("14572ee2-ef17-4d3d-b268-30faeb23e8d1")
+        @Override
+        public Object visitNaryAssociationEnd(NaryAssociationEnd objingElt) {
+            NaryAssociation assoc = objingElt.getNaryAssociation();
+            
+            if (! AbstractObjingModelNavigation.isOwnedByActor(assoc)) {
+                if (objingElt.isStereotyped("ModelerModule", IModelerModuleStereotypes.UML2EXTENSIONEND)){
+                    PartialCreationExportVisitor.this.ecoreElt = UMLFactory.eINSTANCE.createExtensionEnd();
+                }
+                PartialCreationExportVisitor.this.ecoreElt = UMLFactory.eINSTANCE.createProperty();
+            }
             return null;
         }
 

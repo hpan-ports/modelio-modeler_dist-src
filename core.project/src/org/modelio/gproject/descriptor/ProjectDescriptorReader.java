@@ -206,6 +206,8 @@ public class ProjectDescriptorReader {
         
         md.setName(domEl.getAttribute("name"));
         md.setVersion(readVersion(domEl.getAttribute("version")));
+        final String activated = domEl.getAttribute("activated");
+        md.setActivated(activated.isEmpty() ? true : Boolean.parseBoolean(activated));
         String archiveLoc = domEl.getAttribute("archive");
         try {
             if (archiveLoc != null)

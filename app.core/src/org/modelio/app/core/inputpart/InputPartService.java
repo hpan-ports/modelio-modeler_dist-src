@@ -21,6 +21,7 @@
 
 package org.modelio.app.core.inputpart;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import javax.inject.Inject;
@@ -157,14 +158,7 @@ public class InputPartService implements IInputPartService {
         Assert.isNotNull(id);
         Assert.isNotNull(partState);
         
-        MPart part = null;
-        Collection<MInputPart> inputParts = this.partService.getInputParts(inputURI);
-        for (MInputPart inputPart : inputParts) {
-            if (id.equals(inputPart.getElementId())) {
-                part = inputPart;
-                break;
-            }
-        }
+        MPart part = getInputPart(id, inputURI);
         if (part == null) {
             MPartDescriptor descriptor = findDescriptor(id);
             part = createInputPart(descriptor);
@@ -180,6 +174,29 @@ public class InputPartService implements IInputPartService {
     @Override
     public void hideInputPart(MPart part) {
         this.partService.hidePart(part, true);
+    }
+
+    @objid ("659a254f-d1f7-4e51-a121-a46fcbd1a50b")
+    @Override
+    public Collection<? extends MPart> getInputParts(String id) {
+        List<MPart> mParts = new ArrayList<>();
+        for (MPart part : this.partService.getParts()) {
+        if (part.getElementId().equals(id)) {
+            mParts.add(part);
+        }
+        }
+        return mParts;
+    }
+
+    @objid ("f27c9c88-d9e4-4d06-8b63-3a7ac4c45507")
+    @Override
+    public MPart getInputPart(String id, String inputURI) {
+        for (MPart inputPart : this.partService.getInputParts(inputURI)) {
+            if (id.equals(inputPart.getElementId())) {
+                return inputPart;
+            }
+        }
+        return null;
     }
 
 }

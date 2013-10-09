@@ -24,9 +24,12 @@ package org.modelio.vaudit.modelshield.standard.checkers;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.metamodel.Metamodel;
 import org.modelio.metamodel.analyst.AnalystProject;
+import org.modelio.vaudit.modelshield.internal.ModelError;
 import org.modelio.vaudit.modelshield.standard.TriggerType;
 import org.modelio.vaudit.modelshield.standard.checkers.generic.DepCardinalityChecker;
 import org.modelio.vaudit.modelshield.standard.plan.Plan;
+import org.modelio.vcore.smkernel.mapi.MDependency;
+import org.modelio.vcore.smkernel.mapi.MObject;
 
 /**
  * E222:
@@ -56,6 +59,12 @@ public class E222Checker extends DepCardinalityChecker {
     @objid ("0059d2ec-9e33-1f6c-bf9a-001ec947cd2a")
     public E222Checker() {
         super(ERRORID, DEPNAME);
+    }
+
+    @objid ("7446080b-e333-48d5-9fcd-572e7619cf17")
+    @Override
+    protected ModelError createError(MObject object, MDependency dep, int currentCard) {
+        return createDefaultError(object, dep, currentCard);
     }
 
 }

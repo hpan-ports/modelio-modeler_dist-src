@@ -28,10 +28,10 @@ import org.modelio.metamodel.uml.behavior.activityModel.ActivityNode;
 import org.modelio.metamodel.uml.behavior.activityModel.Clause;
 import org.modelio.metamodel.uml.behavior.activityModel.ConditionalNode;
 import org.modelio.vcore.smkernel.meta.SmClass;
+import org.modelio.xmi.util.AbstractObjingModelNavigation;
 import org.modelio.xmi.util.GenerationProperties;
 import org.modelio.xmi.util.NotFoundException;
 import org.modelio.xmi.util.ObjingEAnnotation;
-import org.modelio.xmi.util.ObjingModelNavigation;
 
 @objid ("f8954db0-3d41-46cd-92e7-7ca045b5c9ba")
 public class OClause extends OElement implements IOElement {
@@ -108,7 +108,7 @@ public class OClause extends OElement implements IOElement {
     @objid ("8f818bd9-e1b3-49ec-8d0c-0bf17e4554ff")
     private void attachActionToActivity(org.eclipse.uml2.uml.ValueSpecificationAction action) {
         // Setting composition relation (attach to  org.eclipse.uml2.uml.Activity)
-        Activity enclosingActivity = (Activity) ObjingModelNavigation
+        Activity enclosingActivity = (Activity) AbstractObjingModelNavigation
                 .getEnclosingElement(((Clause) getObjingElement()), SmClass.getClass(Activity.class));
         if (enclosingActivity != null) {
             org.eclipse.uml2.uml.Element ecoreActivity = genProp.getMappedElement(enclosingActivity);

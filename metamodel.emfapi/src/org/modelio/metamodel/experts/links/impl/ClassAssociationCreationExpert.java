@@ -26,6 +26,7 @@ import org.modelio.metamodel.Metamodel;
 import org.modelio.metamodel.uml.statik.AssociationEnd;
 import org.modelio.metamodel.uml.statik.Class;
 import org.modelio.metamodel.uml.statik.ClassAssociation;
+import org.modelio.metamodel.uml.statik.NaryAssociation;
 import org.modelio.vcore.smkernel.mapi.MClass;
 import org.modelio.vcore.smkernel.mapi.MObject;
 
@@ -39,20 +40,20 @@ public class ClassAssociationCreationExpert extends DefaultLinkExpert {
     @objid ("7e99a2ed-1eb2-11e2-8009-002564c97630")
     @Override
     public boolean canSource(final MClass link, final MClass fromMetaclass) {
-        return AssociationEnd.class.isAssignableFrom(Metamodel.getJavaInterface(fromMetaclass));
+        return AssociationEnd.class.isAssignableFrom(Metamodel.getJavaInterface(fromMetaclass)) ||  NaryAssociation.class.isAssignableFrom(Metamodel.getJavaInterface(fromMetaclass));
     }
 
     @objid ("7e9c03f8-1eb2-11e2-8009-002564c97630")
     @Override
     public boolean canSource(final MObject from, final MObject owner) {
-        return from instanceof AssociationEnd;
+        return (from instanceof AssociationEnd) || (from instanceof NaryAssociation);
     }
 
     @objid ("7e9c0401-1eb2-11e2-8009-002564c97630")
     @Override
     public boolean canLink(final MObject link, final MObject from, final MObject to, final MObject owner) {
         // ClassAssociation must go from an Association to a Classifier.
-        if (!(from instanceof AssociationEnd)) {
+        if (!(from instanceof AssociationEnd) && !(from instanceof NaryAssociation)) {
             return false;
         }
         if (!(to instanceof Class)) {

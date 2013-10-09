@@ -21,18 +21,23 @@
 
 package org.modelio.vaudit.modelshield.standard.checkers;
 
+import java.util.ArrayList;
+import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.metamodel.Metamodel;
 import org.modelio.metamodel.uml.infrastructure.Note;
+import org.modelio.vaudit.modelshield.internal.ModelError;
 import org.modelio.vaudit.modelshield.standard.TriggerType;
 import org.modelio.vaudit.modelshield.standard.checkers.generic.DepCardinalityChecker;
 import org.modelio.vaudit.modelshield.standard.plan.Plan;
+import org.modelio.vcore.smkernel.mapi.MDependency;
+import org.modelio.vcore.smkernel.mapi.MObject;
 
 /**
  * E225:
  * <ul>
  * <li>desc = A Note must have a NoteType.</li>
- * <li>what = A note belonging to the ''{2}'' element does not have a note type.</li>
+ * <li>what = A note belonging to the ''{1}'' element does not have a note type.</li>
  * </ul>
  */
 @objid ("0090621c-e20d-1f69-b3fb-001ec947cd2a")
@@ -56,6 +61,17 @@ public class E225Checker extends DepCardinalityChecker {
     @objid ("005c059e-9e33-1f6c-bf9a-001ec947cd2a")
     public E225Checker() {
         super(ERRORID, DEPNAME);
+    }
+
+    /**
+     * Message: E225.what = A note belonging to the ''{1}'' element does not have a note type.
+     */
+    @objid ("4cbd7209-a22a-459c-a9cb-f2a64cb95725")
+    @Override
+    protected ModelError createError(final MObject object, MDependency dep, int currentCard) {
+        List<Object> objects = new ArrayList<>();
+        objects.add(object.getCompositionOwner());
+        return new ModelError(ERRORID, object, objects);
     }
 
 }

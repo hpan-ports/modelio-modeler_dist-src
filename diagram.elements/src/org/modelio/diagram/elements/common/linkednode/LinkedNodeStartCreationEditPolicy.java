@@ -37,6 +37,7 @@ import org.modelio.diagram.elements.umlcommon.externdocument.CreateExternDocumen
 import org.modelio.gproject.model.api.MTools;
 import org.modelio.metamodel.Metamodel;
 import org.modelio.metamodel.uml.infrastructure.ExternDocument;
+import org.modelio.metamodel.uml.infrastructure.Stereotype;
 import org.modelio.vcore.smkernel.mapi.MClass;
 import org.modelio.vcore.smkernel.mapi.MObject;
 
@@ -59,6 +60,7 @@ public class LinkedNodeStartCreationEditPolicy extends AbstractLinkedNodeCreatio
     public EditPart getTargetEditPart(Request request) {
         if (REQ_LINKEDNODE_START.equals(request.getType())) {
             ModelioCreationContext context = (ModelioCreationContext) ((CreateConnectionRequest) request).getNewObject();
+            Stereotype linkStereotype = context.getStereotype();
             MClass linkMetaclass = Metamodel.getMClass(context.getMetaclass());
             MObject sourceElement = ((GmModel) getHost().getModel()).getRelatedElement();
             // If source element cannot be found, or if creation expert doesn't allow AND this instance is not "opaque" (see javadoc
@@ -69,7 +71,7 @@ public class LinkedNodeStartCreationEditPolicy extends AbstractLinkedNodeCreatio
             if (MTools.getMetaTool().canCompose(sourceElement, linkMetaclass, null))
                 return getHost();
         
-            if (MTools.getLinkTool().canSource(linkMetaclass, sourceElement.getMClass()))
+            if (MTools.getLinkTool().canSource(linkStereotype, linkMetaclass, sourceElement.getMClass()))
                 return getHost();
         
             return null;

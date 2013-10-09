@@ -52,8 +52,8 @@ import org.eclipse.uml2.uml.Property;
 import org.eclipse.uml2.uml.UMLFactory;
 import org.eclipse.uml2.uml.internal.impl.PrimitiveTypeImpl;
 import org.modelio.api.modelio.Modelio;
-import org.modelio.api.module.IModule;
-import org.modelio.metamodel.mda.Project;
+import org.modelio.metamodel.factory.ExtensionNotFoundException;
+import org.modelio.metamodel.mda.ModuleComponent;
 import org.modelio.metamodel.uml.infrastructure.MetaclassReference;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
 import org.modelio.metamodel.uml.infrastructure.NoteType;
@@ -65,6 +65,7 @@ import org.modelio.metamodel.uml.infrastructure.TaggedValue;
 import org.modelio.metamodel.uml.statik.Component;
 import org.modelio.metamodel.uml.statik.NameSpace;
 import org.modelio.metamodel.uml.statik.Package;
+import org.modelio.vcore.smkernel.mapi.MObject;
 import org.modelio.vcore.smkernel.mapi.MStatus;
 import org.modelio.vcore.smkernel.meta.SmClass;
 import org.modelio.xmi.generation.TotalExportMap;
@@ -99,12 +100,10 @@ public class ProfileUtils {
     @objid ("cc16a180-26d3-42a1-8d7e-4b4919737f66")
     public static org.eclipse.swt.graphics.Image getContent(final Image image) {
         if (image == null) {
-            // null parameter
             return null;
         }
         
         if (image.getContent() == null) {
-            // null image
             return null;
         }
         
@@ -148,7 +147,7 @@ public class ProfileUtils {
 
     @objid ("5105fd82-12b1-426b-8dbf-155e382668da")
     private static List<String> getObjNameClass(final java.lang.Class<?> classe, final Method methodCreateElt) {
-        List<String> result = new ArrayList<String>();
+        List<String> result = new ArrayList<>();
         
         try{
         
@@ -267,25 +266,24 @@ public class ProfileUtils {
     private static void setContent(final Image image, final File imageFile) {
         try{
             String rawImageData = "";
+        
             if (imageFile != null) {
                 byte[] byteFlow = getBytesFromFile(imageFile);
         
-                rawImageData = "";
-        
                 // file reading
-                for (int i=0; i<byteFlow.length; i++ ) {
-        
+                for (int i=0; i < byteFlow.length; i++ ) {     
                     rawImageData = rawImageData + Integer.toString(byteFlow[i],0x10) + " ";
-        
-        
                 }
+        
             } else {
                 rawImageData = null;
             }
         
             image.setContent(rawImageData);
         
-        } catch (Exception ex) {}
+        }catch (Exception e) {
+            XMILogs.getInstance().writelnInLog(e.getMessage());
+        }
     }
 
     /**
@@ -334,14 +332,14 @@ public class ProfileUtils {
 
     @objid ("9033a2d5-211a-43e3-aadc-e231056d5662")
     public static List<String> getMetaclassHeritage(final NameSpace metaclass) {
-        List<String> result = new  ArrayList<String>();
+        List<String> result = new  ArrayList<>();
         
-        List<org.modelio.metamodel.uml.statik.Class> parentList = new  ArrayList<org.modelio.metamodel.uml.statik.Class>();
+        List<org.modelio.metamodel.uml.statik.Class> parentList = new  ArrayList<>();
         parentList.add((org.modelio.metamodel.uml.statik.Class) metaclass);
         result.add( metaclass.getName());
         
         while (parentList.size() != 0){
-            List<org.modelio.metamodel.uml.statik.Class> temp = new  ArrayList<org.modelio.metamodel.uml.statik.Class>();
+            List<org.modelio.metamodel.uml.statik.Class> temp = new  ArrayList<>();
             for(org.modelio.metamodel.uml.statik.Class parent : parentList){
                 for(org.modelio.metamodel.uml.statik.Generalization generalization : parent.getParent()){
                     temp.add((org.modelio.metamodel.uml.statik.Class) generalization.getSuperType());
@@ -484,7 +482,7 @@ public class ProfileUtils {
             Object imported = visitStereotype(stereotype);
         
         
-            List<Stereotype> importedStereotypes = new ArrayList<Stereotype>();
+            List<Stereotype> importedStereotypes = new ArrayList<>();
         
             if (imported instanceof Stereotype){
                 importedStereotypes.add((Stereotype)imported);
@@ -527,17 +525,16 @@ public class ProfileUtils {
 
     @objid ("4d59d022-0695-44dc-9df7-7a07ef5ee453")
     private static void createUnderReference(final MetaclassReference reference, final Property ecoreElement) {
-        if ((reference != null) ){            
-            if (!reference.getStatus().isRamc()){
-                if (!exist(reference, ecoreElement)){
-                    if (ObjingEAnnotation.isNoteType(ecoreElement)){
-                        createNoteType(reference, ecoreElement);
-                    }else{
-                        createTagType(reference, ecoreElement);
-                    }
+        if ((reference != null)  
+                && (!reference.getStatus().isRamc())
+                && (!exist(reference, ecoreElement))){
         
-                }
+            if (ObjingEAnnotation.isNoteType(ecoreElement)){
+                createNoteType(reference, ecoreElement);
+            }else{
+                createTagType(reference, ecoreElement);
             }
+        
         }
     }
 
@@ -546,47 +543,51 @@ public class ProfileUtils {
         Profile objProfile = (Profile) TotalImportMap.getInstance().get(ecoreElement);
         
         if (objProfile == null){
-            //            if ( (ecoreElement.getName() != null) && (ecoreElement.getName().equals("LocalProfile"))){
-            //                for (IModule module : Modelio.getInstance().getModelingSession().getModel().getLibraryRoots().getProject().getInstalled()){
-            //                    if (module.getName().equals("LocalModule")){
-            //                        for(Profile profile : module.getModel().getOwnedProfile()){
-            //                            if (profile.getName().equals("LocalProfile")){
-            //                                objProfile =  profile;
-            //                                break;
-            //                            }
-            //                        }
-            //                    }
-            //                }
-            //
-            //            }else{
         
-            String moduleId = ObjingEAnnotation.getModule(ecoreElement);
+            if ( (ecoreElement.getName() != null) && (ecoreElement.getName().equals("LocalProfile"))){
         
-            List<String> ids = ObjingEAnnotation.getObjingIDs(ecoreElement);
-            if  (ids.size() > 0){
+                for (MObject modelRoot : Modelio.getInstance().getModelingSession().getModel().getModelRoots()){
+                    if ((modelRoot instanceof ModuleComponent) && (modelRoot.getName().equals("LocalModule"))){
+                        for(Profile profile : ((ModuleComponent) modelRoot).getOwnedProfile()){
+                            if (profile.getName().equals("LocalProfile")){
+                                objProfile =  profile;
+                                break;
+                            }
+                        }
+                    }
+                }
         
-                objProfile = (Profile) Modelio.getInstance().getModelingSession().findElementById(SmClass.getClass(Profile.class), ids.get(0));
-                //                    if (objProfile == null){
-                //                        for (IModule module : Modelio.getInstance().getModelingSession().getModel().getProject().getInstalled()){
-                //                            if (module.getUuid().toString().equals(moduleId)){
-                //                                for (Profile ownedProfile : module.getOwnedProfile()){
-                //                                    if (ownedProfile.getUuid().toString().equals(ids.get(0))){
-                //                                        objProfile =  ownedProfile;
-                //                                    }
-                //                                }
-                //                            }
-                //                        }
-                //                    }
+            }else{
+        
+                String moduleId = ObjingEAnnotation.getModule(ecoreElement);
+        
+                List<String> ids = ObjingEAnnotation.getObjingIDs(ecoreElement);
+        
+                if  (ids.size() > 0){
+        
+                    objProfile = (Profile) Modelio.getInstance().getModelingSession().findElementById(SmClass.getClass(Profile.class), ids.get(0));
+                    if (objProfile == null){
+                        for (MObject module : Modelio.getInstance().getModelingSession().getModel().getLibraryRoots()){
+                            if (module.getUuid().toString().equals(moduleId)){
+                                for (Profile ownedProfile : ((ModuleComponent) module).getOwnedProfile()){
+                                    if (ownedProfile.getUuid().toString().equals(ids.get(0))){
+                                        objProfile =  ownedProfile;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+        
+        
+                if (objProfile == null){
+                    objProfile = (Profile) Modelio.getInstance().getModelingSession().getModel().createElement("Profile");
+                    attach(objProfile, ecoreElement);
+                    setProperties(objProfile, ecoreElement);
+                }
+        
             }
         
-        
-            if (objProfile == null){
-                objProfile = (Profile) Modelio.getInstance().getModelingSession().getModel().createElement("Profile");
-                attach(objProfile, ecoreElement);
-                setProperties(objProfile, ecoreElement);
-            }
-        
-            //            }
             PartialImportMap.getInstance().remove(ecoreElement);
             TotalImportMap.getInstance().put(ecoreElement, objProfile);      
         }
@@ -610,9 +611,9 @@ public class ProfileUtils {
 
     @objid ("a620562a-806d-4dbc-a116-79b55b6753af")
     private static Object createObjStereotype(final org.eclipse.uml2.uml.Stereotype ecoreElement) {
-        List<String> baseClasses = new ArrayList<String>();
-        List<Stereotype> results = new ArrayList<Stereotype>();
-        List<Stereotype> parents = new ArrayList<Stereotype>();
+        List<String> baseClasses = new ArrayList<>();
+        List<Stereotype> results = new ArrayList<>();
+        List<Stereotype> parents = new ArrayList<>();
         
         List<String> ids = ObjingEAnnotation.getObjingIDs(ecoreElement);
         for (String id : ids){
@@ -680,51 +681,57 @@ public class ProfileUtils {
         
         if ((owner != null) && (owner instanceof Profile)){
             ((Profile)owner).getDefinedStereotype().add(objingSterotype);
-            //        }else{
-            //            for (IModule module : Modelio.getInstance().getModelingSession().getModel().getProject().getInstalled()){
-            //                if (module.getName().equals("LocalModule")){
-            //                    for(org.eclipse.uml2.uml.Profile profile : module.getOwnedProfile()){
-            //                        if (profile.getName().equals("LocalProfile")){
-            //                            profile.addDefinedStereotype(objingSterotype);
-            //                        }
-            //                    }
-            //                }
-            //            }
+        
+        }else{
+            for (MObject module : Modelio.getInstance().getModelingSession().getModel().getModelRoots()){
+                if ((module instanceof ModuleComponent) && (module.getName().equals("LocalModule"))){
+                    for(Profile profile : ((ModuleComponent) module).getOwnedProfile()){
+                        if (profile.getName().equals("LocalProfile")){
+                            try {
+                                profile.addStereotype("LocalModule", objingSterotype.getName());
+                            } catch (ExtensionNotFoundException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 
     @objid ("4d0a71b1-3c6a-4266-b1e2-df1546eb9cd8")
     private static void attach(final Profile objProfile, final org.eclipse.uml2.uml.Profile ecoreElement) {
         boolean attach = false;
-        //        Project projet = Modelio.getInstance().getModelingSession().getModel().getProject();
-        //        String moduleId = ObjingEAnnotation.getModule(ecoreElement);
-        //
-        //        if (moduleId != null){
-        //
-        //            for (IModule module : projet.getInstalled()){
-        //
-        //                if (module.getUuid().toString().equals(moduleId)){
-        //                    List<String> ids =  ObjingEAnnotation.getObjingIDs(ecoreElement);
-        //
-        //                    if (ids.size()>0) {
-        //                        String profileId = ids.get(0);
-        //
-        //                        if (profileId != null){
-        //
-        //                            for (Profile  profile : module.getOwnedProfile()){
-        //
-        //                                if (profile.getUuid().toString().equals(profileId)){
-        //                                    attach = true;
-        //                                }
-        //                            }
-        //                        }
-        //                    }
-        //                }
-        //            }
-        //        }
-        //
-        //        if (!attach)
-        //            ReverseProperties.getInstance().getProfileRoot().addOwnedProfile(objProfile);
+        String moduleId = ObjingEAnnotation.getModule(ecoreElement);
+        
+        if (!(moduleId.equals(""))){
+        
+            for (MObject module : Modelio.getInstance().getModelingSession().getModel().getLibraryRoots()){
+        
+                if ((module instanceof ModuleComponent)
+                        && (module.getUuid().toString().equals(moduleId))){
+                    
+                    List<String> ids =  ObjingEAnnotation.getObjingIDs(ecoreElement);
+        
+                    if (ids.size()>0) {
+                        String profileId = ids.get(0);
+        
+                        if (profileId != null){
+        
+                            for (Profile profile : ((ModuleComponent) module).getOwnedProfile()){       
+                                if (profile.getUuid().toString().equals(profileId)){
+                                    attach = true;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
+        if (!attach){
+            objProfile.setOwnerModule(((ModuleComponent) ReverseProperties.getInstance().getProfileRoot() ));
+        }
     }
 
     @objid ("c9fdf191-fd9c-41e4-a302-cd544ec15901")
@@ -778,7 +785,7 @@ public class ProfileUtils {
         EList<Image> icons = ecoreElement.getIcons(); 
         if (icons.size() > 0 ){
             if (ReverseProperties.getInstance().isRoundtripEnabled()){
-                for(Object temp :icons){
+                for(Object temp : icons){
                     org.eclipse.uml2.uml.Image icon = (org.eclipse.uml2.uml.Image) temp;
                     String iconType = ObjingEAnnotation.getIconType(icon);
                     if (iconType != null){
@@ -931,20 +938,17 @@ public class ProfileUtils {
 
     @objid ("feeb196e-9357-42c6-96a8-75026869957a")
     private static void setIconsProperties(final org.eclipse.uml2.uml.Stereotype stereotype, final Stereotype obStereotype) {
-        ResourceLoader.getInstance();
-        
-        String iconPath = obStereotype.getIcon();
+        String iconPath = obStereotype.getImage();
         
         if ((iconPath != null) && (!iconPath.equals("") )){
-            Image icon = setStereotypeImage( iconPath, stereotype);
-            ObjingEAnnotation.setIconType(icon, "icon");
+            Image icon = setStereotypeImage(iconPath, stereotype);
+            ObjingEAnnotation.setIconType(icon, "image");
         }
         
         iconPath = obStereotype.getIcon();
         
         if ((iconPath != null) && (!iconPath.equals("") ))  {
-            Image icon = setStereotypeImage( iconPath, stereotype);
-        
+            Image icon = setStereotypeImage( iconPath, stereotype);    
             ObjingEAnnotation.setIconType(icon, "explorerIcon");
         }
     }
@@ -1014,7 +1018,7 @@ public class ProfileUtils {
         
         if (ids.size()>0) {
             String id = ids.get(0);
-            noteType = (NoteType) Modelio.getInstance().getModelingSession().findElementById(NoteType.class, id);
+            noteType = Modelio.getInstance().getModelingSession().findElementById(NoteType.class, id);
         }
         
         if (noteType == null){
@@ -1035,7 +1039,7 @@ public class ProfileUtils {
         TagType tagType = null;
         
         if (ids.size() > 0){
-            tagType = (TagType) Modelio.getInstance().getModelingSession().findElementById(TagType.class, ObjingEAnnotation.getObjingIDs(ecoreElement).get(0));
+            tagType = Modelio.getInstance().getModelingSession().findElementById(TagType.class, ObjingEAnnotation.getObjingIDs(ecoreElement).get(0));
         
             org.eclipse.uml2.uml.Type type = ecoreElement.getType();
             String name = ecoreElement.getName();
@@ -1058,7 +1062,7 @@ public class ProfileUtils {
         
                 String max = String.valueOf(ecoreElement.getUpper());
                 if (max != null){
-                    if (ObjingModelNavigation.OBJING_UNLIMITED_VALUE.equals(max) || (max.equals("-1")))
+                    if (AbstractObjingModelNavigation.OBJING_UNLIMITED_VALUE.equals(max) || (max.equals("-1")))
                         tagType.setParamNumber("*");
                     else{
                         String min = String.valueOf(ecoreElement.getLower());
@@ -1165,7 +1169,7 @@ public class ProfileUtils {
     private static void createUnderStereotypes(final List<Stereotype> stereotypes, final Property ecoreElement) {
         if ((stereotypes != null) ){     
         
-            List<ModelElement> results = new ArrayList<ModelElement>();
+            List<ModelElement> results = new ArrayList<>();
         
             for (Stereotype stereotype : stereotypes){
                 if ((!stereotype.getStatus().isRamc()) 
@@ -1367,7 +1371,7 @@ public class ProfileUtils {
 
     @objid ("9106d6d5-bbf2-4e7b-b8a5-a30f2d2437ee")
     public static List<PExportProfile> getSubProfiles(final PExportProfile profile) {
-        List<PExportProfile> result = new ArrayList<PExportProfile>();
+        List<PExportProfile> result = new ArrayList<>();
         Profile objProfil = profile.getObjElt();
         for (Profile subprofile : objProfil.getOwnerModule().getOwnedProfile() ){
             String profileName = objProfil.getName();

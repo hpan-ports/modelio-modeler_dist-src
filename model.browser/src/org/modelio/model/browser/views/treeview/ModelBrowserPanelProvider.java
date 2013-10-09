@@ -193,6 +193,7 @@ public class ModelBrowserPanelProvider implements IPanelProvider {
                 for (String contextId : this.activeContexts) {
                     BrowserView.contextService.deactivateContext(contextId);
                 }
+                contentProvider.isEditorActive = true;
         
                 super.activate();
             }
@@ -204,6 +205,9 @@ public class ModelBrowserPanelProvider implements IPanelProvider {
                     for (String contextId : this.activeContexts) {
                         BrowserView.contextService.activateContext(contextId);
                     }
+                    contentProvider.isEditorActive = false;
+                    treeViewer.refresh(true);
+                    
                     this.activeContexts = null;
                 }
         

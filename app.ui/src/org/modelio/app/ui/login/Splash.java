@@ -52,7 +52,7 @@ public class Splash {
     @objid ("2fec1ef4-28e3-4554-b5e3-ee823eb1ed33")
     public Splash() {
         this.shell = new Shell(SWT.INHERIT_NONE | SWT.NO_TRIM | SWT.ON_TOP);
-        final URL url = FileLocator.find(Platform.getBundle("org.modelio.app.ui"), new Path("splash.bmp"), null);
+        final URL url = FileLocator.find(Platform.getBundle("org.modelio.app.ui"), new Path("splash.png"), null);
         final ImageDescriptor imageDescriptor = ImageDescriptor.createFromURL(url);
         final Image img = imageDescriptor.createImage();
         this.shell.setBackgroundImage(img);
@@ -82,19 +82,21 @@ public class Splash {
         // Display Modelio version
         final Label versionLabel = new Label(shell, SWT.NONE);
         versionLabel.setAlignment(SWT.RIGHT);
+        versionLabel.setForeground(shell.getDisplay().getSystemColor(SWT.COLOR_GRAY));
         FormData formData = new FormData();
-        formData.top = new FormAttachment(30, 0);
-        formData.left = new FormAttachment(50, 20);
+        formData.top = new FormAttachment(35, 0);
+        formData.left = new FormAttachment(50, 10);
         // formData.right = new FormAttachment(100, -10);
         versionLabel.setLayoutData(formData);
         versionLabel.setText("Version: " + ModelioEnv.MODELIO_VERSION);
         
         message = new Label(shell, SWT.NONE);
+        message.setForeground(shell.getDisplay().getSystemColor(SWT.COLOR_GRAY));
         // message.setAlignment(SWT.RIGHT);
         
         formData = new FormData();
-        formData.top = new FormAttachment(50, 0);
-        formData.left = new FormAttachment(50, 20);
+        formData.top = new FormAttachment(55, 0);
+        formData.left = new FormAttachment(50, 10);
         formData.right = new FormAttachment(100, -4);
         message.setLayoutData(formData);
         message.setText("Initializing...");

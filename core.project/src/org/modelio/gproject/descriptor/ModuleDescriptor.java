@@ -43,6 +43,9 @@ public final class ModuleDescriptor implements Serializable {
     @objid ("84d1657d-f34b-11e1-9173-001ec947ccaf")
     public static final long serialVersionUID = 1L;
 
+    @objid ("cbb1cede-6ed8-4337-afa6-012d20dc8f61")
+    private boolean activated;
+
     @objid ("84d16577-f34b-11e1-9173-001ec947ccaf")
     private GProperties parameters = new GProperties();
 
@@ -136,6 +139,7 @@ public final class ModuleDescriptor implements Serializable {
         this.archiveLocation = md.archiveLocation;
         this.parameters = new GProperties(md.getParameters());
         this.scope = md.scope;
+        this.activated = md.activated;
     }
 
     /**
@@ -249,6 +253,16 @@ public final class ModuleDescriptor implements Serializable {
     @objid ("c48a676c-e88f-4de6-bf15-a365fdd4d4e1")
     public void setAuthDescriptor(AuthDescriptor auth) {
         this.auth = auth;
+    }
+
+    @objid ("0cdac1ad-f4bf-426f-9bbf-7c35459c78dd")
+    public boolean isActivated() {
+        return this.activated;
+    }
+
+    @objid ("e67e65e5-c4f4-4237-b973-670b49e9a33f")
+    public void setActivated(boolean activated) {
+        this.activated = activated;
     }
 
 }

@@ -79,7 +79,7 @@ public class XmlDiagramWriter implements IDiagramWriter {
     @objid ("cb7c35bb-186f-11e2-92d2-001ec947c8cc")
     @Override
     public String getOutput() {
-        return UUBase64Compressor.compress(this.result.toString());
+        return org.modelio.vcore.utils.UUBase64Compressor.compress(this.result.toString());
     }
 
     /**

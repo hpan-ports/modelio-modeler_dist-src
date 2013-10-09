@@ -40,8 +40,8 @@ public class GuaranteeCreationExpert extends DefaultLinkExpert {
     @objid ("b6028a5d-4ac0-4779-aac3-e9bd1efbfb7c")
     @Override
     public boolean canLink(MClass link, final MClass fromMetaclass, final MClass toMetaclass, final MClass owner) {
-        return fromMetaclass == Metamodel.getMClass(Requirement.class) &&
-               toMetaclass == Metamodel.getMClass(Goal.class);
+        return fromMetaclass.hasBase(Metamodel.getMClass(Requirement.class)) &&
+               toMetaclass.hasBase(Metamodel.getMClass(Goal.class));
     }
 
     @objid ("72d79e18-ebf4-41ed-9500-a30c41547382")
@@ -53,7 +53,7 @@ public class GuaranteeCreationExpert extends DefaultLinkExpert {
     @objid ("b8fddf77-5dcc-4fe7-ae3c-02b3ad8afc18")
     @Override
     public boolean canSource(MClass link, final MClass fromMetaclass) {
-        return fromMetaclass == Metamodel.getMClass(Requirement.class);
+        return fromMetaclass.hasBase(Metamodel.getMClass(Requirement.class));
     }
 
 }

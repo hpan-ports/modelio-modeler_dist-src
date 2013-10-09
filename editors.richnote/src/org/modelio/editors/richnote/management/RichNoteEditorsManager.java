@@ -32,7 +32,6 @@ import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.di.annotations.Execute;
 import org.eclipse.e4.core.di.annotations.Optional;
 import org.eclipse.e4.core.di.extensions.EventTopic;
-import org.eclipse.e4.ui.di.UIEventTopic;
 import org.eclipse.e4.ui.model.application.ui.basic.MPart;
 import org.eclipse.e4.ui.workbench.modeling.EPartService.PartState;
 import org.eclipse.e4.ui.workbench.modeling.EPartService;
@@ -72,6 +71,10 @@ public class RichNoteEditorsManager {
     boolean onElementEdition(@EventTopic(ModelioEventTopics.EDIT_ELEMENT) final MObject target, final IInputPartService inputPartService, final EPartService partService) {
         // FIXME this should be an @UIEventTopic, but they are not triggered with eclipse 4.3 M5...
         RichNoteFormat format = null;
+        
+        if (target == null) {
+            return false;
+        }
         
         // If there is already an opened editor for the container, bring it to top
         final GProject project = GProject.getProject(target);

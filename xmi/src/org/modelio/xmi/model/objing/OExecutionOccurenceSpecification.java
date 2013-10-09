@@ -28,8 +28,9 @@ import org.modelio.metamodel.uml.behavior.interactionModel.ExecutionSpecificatio
 import org.modelio.xmi.util.GenerationProperties;
 
 @objid ("bae7993d-a34a-469e-9797-32de9af1abb6")
-public class OExecutionOccurenceSpecification extends OMessageEnd implements IOElement {
+public class OExecutionOccurenceSpecification extends OMessageEnd {
     @objid ("ce072347-7457-40ab-8b73-ff14b9705074")
+    @Override
     public org.eclipse.uml2.uml.Element createEcoreElt() {
         ExecutionOccurenceSpecification exeOcc = (ExecutionOccurenceSpecification) getObjingElement();
         
@@ -45,6 +46,7 @@ public class OExecutionOccurenceSpecification extends OMessageEnd implements IOE
     }
 
     @objid ("85f2c41a-a827-4ff8-a3df-4ee438ad53b7")
+    @Override
     public void attach(org.eclipse.uml2.uml.Element ecoreElt) {
         super.attach(ecoreElt);
     }

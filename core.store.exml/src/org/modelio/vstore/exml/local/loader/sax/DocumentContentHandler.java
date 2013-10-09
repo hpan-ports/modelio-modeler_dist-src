@@ -191,7 +191,7 @@ class DocumentContentHandler extends DefaultHandler {
         final ObjectDataModel oldModel = this.dataModel.pop();
         final ObjectDataModel currentModel = this.dataModel.getCurrent();
         
-        oldModel.clearDependencies();
+        oldModel.finishDependenciesLoading();
         
         if (currentModel == null)
             enterDocumentState();

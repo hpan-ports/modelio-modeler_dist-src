@@ -137,37 +137,75 @@ public interface IRStatus {
     public static final long CMSTOADD = 1L << 36;
 
     /**
+     * The object must be locked before being modified.
+     */
+    @objid ("03392d89-7506-4c2b-8291-04196052a1cb")
+    public static final long CMSTODELETE = 1L << 37;
+
+    /**
      * The CMS forbids modifying the object.
      * <p>
      * Many version managers forbid writing an object until the user has acquired a lock.
      */
     @objid ("b7997a01-5322-46f4-80b0-929a3c323827")
-    public static final long CMSREADONLY = 1L << 37;
+    public static final long CMSREADONLY = 1L << 38;
 
     /**
      * The object is under CMS management.
      */
     @objid ("e2fabeff-81f2-4f84-bb7b-eb73439a2f9a")
-    public static final long CMSMANAGED = 1L << 38;
+    public static final long CMSMANAGED = 1L << 39;
 
     /**
      * The object is in conflict with the CMS repository:
      * it has been modified both locally and remotely.
      */
     @objid ("02c0d16f-bdbf-4fd6-bbf8-83e21a31df2e")
-    public static final long CMSCONFLICT = 1L << 39;
+    public static final long CMSCONFLICT = 1L << 40;
 
     /**
      * The object must be locked before being modified.
      */
     @objid ("29146a85-d0a7-48db-8b59-8dd359e12aea")
-    public static final long CMSNEEDSLOCK = 1L << 40;
+    public static final long CMSNEEDSLOCK = 1L << 41;
+
+//
+// Repository flags.
+//
+// These flags may be used or not by the repository implementation.
+//
+    /**
+     * The object has been loaded.
+     * This flag may be used or not by the repository implementation.
+     */
+    @objid ("ff394cd1-0e02-4f01-93ff-a899de3dd90e")
+    public static final long REPO_LOADED = 1L << 42;
+
+    /**
+     * All references to the object have been loaded.
+     * This flag may be used or not by the repository implementation.
+     */
+    @objid ("99ad7b94-b671-4a44-b19f-586ae20d8cfc")
+    public static final long REPO_USERS_LOADED = 1L << 43;
+
+    /**
+     * The reference from the composition owner has been loaded.
+     * This flag may be used or not by the repository implementation.
+     */
+    @objid ("b3f0e8bf-6cfb-4ee3-9684-2e7bc7a52829")
+    public static final long REPO_OWNER_LOADED = 1L << 44;
+
+    /**
+     * This flag may be used or not by the repository implementation.
+     */
+    @objid ("5c03d0ce-6ddc-4a5f-9fd9-a557bd3ff834")
+    public static final long REPO_DIRTY = 1L << 45;
 
     /**
      * Flags that represent the CMS status
      */
     @objid ("4ab0c5da-3739-46ad-a8cb-9c16b2789728")
-    public static final long MASK_CMS = CMSMODIFIED | CMSTOADD| CMSREADONLY| CMSMANAGED| CMSSYNC| CMSCONFLICT| CMSNEEDSLOCK;
+    public static final long MASK_CMS = CMSMODIFIED | CMSTOADD| CMSTODELETE | CMSREADONLY| CMSMANAGED| CMSSYNC| CMSCONFLICT| CMSNEEDSLOCK;
 
     /**
      * Flags for user access
@@ -201,7 +239,7 @@ public interface IRStatus {
      * @see #RMASK_MODIFIABLE_FORBIDDEN
      */
     @objid ("caeef124-d58f-11e1-b069-001ec947ccaf")
-    public static final long RMASK_MODIFIABLE_REQUIRED = IRStatus.USERWRITE | IRStatus.DOMAINWRITE | IPStatus.OBJECTWRITE;
+    public static final long RMASK_MODIFIABLE_REQUIRED = IRStatus.USERWRITE | IRStatus.DOMAINWRITE;
 
     /**
      * Forbidden runtime flags for an object to be modifiable.
@@ -216,38 +254,6 @@ public interface IRStatus {
      */
     @objid ("0eb2ce7b-d4cd-11e1-b069-001ec947ccaf")
     public static final long MASK_DELETE = DELETED | BEINGDELETED;
-
-//
-// Repository flags.
-//
-// These flags may be used or not by the repository implementation.
-//
-    /**
-     * The object has been loaded.
-     * This flag may be used or not by the repository implementation.
-     */
-    @objid ("ff394cd1-0e02-4f01-93ff-a899de3dd90e")
-    public static final long REPO_LOADED = 1L << 41;
-
-    /**
-     * All references to the object have been loaded.
-     * This flag may be used or not by the repository implementation.
-     */
-    @objid ("99ad7b94-b671-4a44-b19f-586ae20d8cfc")
-    public static final long REPO_USERS_LOADED = 1L << 42;
-
-    /**
-     * The reference from the composition owner has been loaded.
-     * This flag may be used or not by the repository implementation.
-     */
-    @objid ("b3f0e8bf-6cfb-4ee3-9684-2e7bc7a52829")
-    public static final long REPO_OWNER_LOADED = 1L << 43;
-
-    /**
-     * This flag may be used or not by the repository implementation.
-     */
-    @objid ("5c03d0ce-6ddc-4a5f-9fd9-a557bd3ff834")
-    public static final long REPO_DIRTY = 1L << 44;
 
     /**
      * Flags usable by the repository implementation

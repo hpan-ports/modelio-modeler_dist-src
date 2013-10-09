@@ -34,9 +34,9 @@ import org.modelio.metamodel.uml.statik.Enumeration;
 import org.modelio.metamodel.uml.statik.GeneralClass;
 import org.modelio.metamodel.uml.statik.Instance;
 import org.modelio.xmi.plugin.Xmi;
+import org.modelio.xmi.util.AbstractObjingModelNavigation;
 import org.modelio.xmi.util.GenerationProperties;
 import org.modelio.xmi.util.ObjingEAnnotation;
-import org.modelio.xmi.util.ObjingModelNavigation;
 import org.modelio.xmi.util.StringConverter;
 import org.modelio.xmi.util.XMILogs;
 
@@ -116,10 +116,10 @@ public class OAttributeLink extends OElement implements IOElement {
 
     @objid ("99cf5c4d-2030-44aa-88ba-7c68de1191de")
     private void setExpressionOfValue(final org.eclipse.uml2.uml.Slot slot) {
-        if (ObjingModelNavigation.haveInstanceValue(this.objingElement)){
+        if (AbstractObjingModelNavigation.haveInstanceValue(this.objingElement)){
             InstanceValue value = UMLFactory.eINSTANCE.createInstanceValue();
             InstanceSpecification inst = (InstanceSpecification) GenerationProperties.getInstance().getMappedElement(
-                    ObjingModelNavigation.getInstanceValue(this.objingElement));
+                    AbstractObjingModelNavigation.getInstanceValue(this.objingElement));
             value.setInstance(inst);
             slot.getValues().add(value);
         }else{
@@ -138,8 +138,8 @@ public class OAttributeLink extends OElement implements IOElement {
                         IUMLTypes umlTypes = Modelio.getInstance()
                                 .getModelingSession().getModel().getUmlTypes();
         
-                        if ((ObjingModelNavigation.OBJING_NULL_VALUE != null) 
-                                && (ObjingModelNavigation.OBJING_NULL_VALUE.equals(value.toLowerCase())
+                        if ((AbstractObjingModelNavigation.OBJING_NULL_VALUE != null) 
+                                && (AbstractObjingModelNavigation.OBJING_NULL_VALUE.equals(value.toLowerCase())
                                         && (type instanceof DataType))){
         
                             org.eclipse.uml2.uml.LiteralNull literalNull = UMLFactory.eINSTANCE.createLiteralNull();
@@ -220,7 +220,7 @@ public class OAttributeLink extends OElement implements IOElement {
         
                         } else if (objingType instanceof Enumeration){ //Enumeration case
         
-                            if  (ObjingModelNavigation.isEnumerationliteral((Enumeration) objingType, value)){
+                            if  (AbstractObjingModelNavigation.isEnumerationliteral((Enumeration) objingType, value)){
         
                                 InstanceValue instValue = UMLFactory.eINSTANCE.createInstanceValue();
         
@@ -231,7 +231,7 @@ public class OAttributeLink extends OElement implements IOElement {
                                     result.setType( (org.eclipse.uml2.uml.Type) ecoreType);
                                 }
         
-                                Object ecoreInstance = GenerationProperties.getInstance().getMappedElement(ObjingModelNavigation.getEnumerationliteral((Enumeration)objingType, value));
+                                Object ecoreInstance = GenerationProperties.getInstance().getMappedElement(AbstractObjingModelNavigation.getEnumerationliteral((Enumeration)objingType, value));
                                 if (ecoreInstance instanceof InstanceSpecification){
                                     result.setInstance((InstanceSpecification) ecoreInstance);
                                 }

@@ -35,6 +35,10 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.swt.widgets.Display;
 import org.modelio.app.project.core.services.IProjectService;
 import org.modelio.gproject.model.api.MTools;
+import org.modelio.metamodel.bpmn.activities.BpmnActivity;
+import org.modelio.metamodel.bpmn.events.BpmnBoundaryEvent;
+import org.modelio.metamodel.bpmn.processCollaboration.BpmnLane;
+import org.modelio.metamodel.bpmn.rootElements.BpmnFlowElement;
 import org.modelio.metamodel.mda.Project;
 import org.modelio.model.browser.plugin.ModelBrowser;
 import org.modelio.vcore.session.api.ICoreSession;
@@ -72,9 +76,17 @@ public class MoveElementUpHandler {
             return false;
         }
         
+        List<? extends MObject> listToReorder = getListToMove(toClone.get(0),dest);
+        
         // Check the elements to clone can be added to dest
-        for (SmObjectImpl pasted : toClone) {
-            if (!MTools.getAuthTool().canAdd(dest, pasted.getMClass().getName())) {
+        for (SmObjectImpl moved : toClone) {
+                
+            if (getIndexUp(moved,listToReorder) == -1) {
+                return false;
+            }
+        
+            if (!MTools.getAuthTool().canAdd(moved.getCompositionOwner(),
+                    moved.getMClass().getName())) {
                 return false;
             }
         }
@@ -82,14 +94,30 @@ public class MoveElementUpHandler {
     }
 
     @objid ("2548185d-43a4-11e2-b513-002564c97630")
-    private static SmObjectImpl getPasteTarget(List<SmObjectImpl> toClone) {
+    private static SmObjectImpl getPasteTarget(List<SmObjectImpl> toMove) {
         SmObjectImpl ret = null;
-        for (SmObjectImpl obj : toClone) {
-            // All elements to clone must have the same parent
-            SmObjectImpl compositionOwner = obj.getCompositionOwner();
+        for (SmObjectImpl obj : toMove) {
+            SmObjectImpl compositionOwner = null;
+            // Specific Treatment for BPMN Objects in Lanes
+            if (obj instanceof BpmnBoundaryEvent) {
+                BpmnBoundaryEvent boundary = (BpmnBoundaryEvent) obj;
+                compositionOwner = (SmObjectImpl) boundary.getAttachedToRef();
+            } else if (obj instanceof BpmnFlowElement) {
+                BpmnFlowElement flowElement = (BpmnFlowElement) obj;
+                if (flowElement.getLane().size() > 0) {
+                    compositionOwner = (SmObjectImpl) flowElement.getLane()
+                            .get(0);
+                } else {
+                    compositionOwner = obj.getCompositionOwner();
+                }
+            } else {
+                // All elements to clone must have the same parent
+                compositionOwner = obj.getCompositionOwner();
+            }
+        
             if (ret != null && ret != compositionOwner) {
                 return null;
-            } else if (compositionOwner instanceof Project){
+            } else if (compositionOwner instanceof Project) {
                 return null;
             } else {
                 ret = compositionOwner;
@@ -103,13 +131,15 @@ public class MoveElementUpHandler {
         List<SmObjectImpl> selectedElements = new ArrayList<>();
         if (selection instanceof SmObjectImpl) {
             selectedElements.add((SmObjectImpl) selection);
-        } else if (selection instanceof IStructuredSelection && ((IStructuredSelection) selection).size() >= 1) {
+        } else if (selection instanceof IStructuredSelection
+                && ((IStructuredSelection) selection).size() >= 1) {
             Object[] elements = ((IStructuredSelection) selection).toArray();
             for (Object element : elements) {
                 if (element instanceof SmObjectImpl) {
                     selectedElements.add((SmObjectImpl) element);
                 } else if (element instanceof IAdaptable) {
-                    final SmObjectImpl adapter = (SmObjectImpl) ((IAdaptable) element).getAdapter(SmObjectImpl.class);
+                    final SmObjectImpl adapter = (SmObjectImpl) ((IAdaptable) element)
+                            .getAdapter(SmObjectImpl.class);
                     if (adapter != null) {
                         selectedElements.add(adapter);
                     }
@@ -145,11 +175,12 @@ public class MoveElementUpHandler {
             return;
         }
         
-        try (ITransaction transaction = session.getTransactionSupport().createTransaction("Move element up")) {
+        try (ITransaction transaction = session.getTransactionSupport()
+                .createTransaction("Move element up")) {
             int nbToMove = 0;
         
             for (SmObjectImpl element : selectedElements) {
-                List<MObject> listToReorder = targetElement.mGet(element.getCompositionRelation().dep.getSymetric());
+                List listToReorder = getListToMove(element, targetElement);
         
                 int index = getIndexUp(element, listToReorder);
         
@@ -165,17 +196,18 @@ public class MoveElementUpHandler {
             if (nbToMove > 0) {
                 transaction.commit();
             } else {
-                transaction.rollback();        
+                transaction.rollback();
             }
         } catch (Exception e) {
-            // Should catch InvalidModelManipulationException to display a popup box, but it
+            // Should catch InvalidModelManipulationException to display a popup
+            // box, but it
             // is not a RuntimeException.
             reportException(e);
         }
     }
 
     @objid ("25481874-43a4-11e2-b513-002564c97630")
-    private static int getIndexUp(SmObjectImpl element, List<MObject> listToReorder) {
+    private static int getIndexUp(SmObjectImpl element, List<? extends MObject> listToReorder) {
         int index = listToReorder.indexOf(element);
         
         if (index < 1) {
@@ -184,9 +216,20 @@ public class MoveElementUpHandler {
         
         index--;
         
-        // Iterate until we find an element of the same metaclass or until we find the begining of the list.
-        while (index != -1 && listToReorder.get(index).getClass() != element.getClass()) {
-            index--;
+        // Specific Treatment for BPMN Objects
+        if (element instanceof BpmnFlowElement) {
+            while (index != -1 && !(listToReorder.get(index) instanceof BpmnFlowElement)) {
+                index--;
+            }
+        }else{
+            
+            // Iterate until we find an element of the same metaclass or until we
+            // find the begining of the list.
+            while (index != -1
+                    && listToReorder.get(index).getClass() != element.getClass()) {
+                index--;
+            }
+            
         }
         return index;
     }
@@ -199,6 +242,17 @@ public class MoveElementUpHandler {
         MessageDialog.openError(null, title, e.getLocalizedMessage());
         
         ModelBrowser.LOG.error(e);
+    }
+
+    @objid ("4cefcc9b-4b5d-4d1d-9fa2-f3a990306ab9")
+    private List<? extends MObject> getListToMove(SmObjectImpl toMove, SmObjectImpl dest) {
+        // Specific Treatment for BPMN Objects in Lanes
+        if (toMove instanceof BpmnFlowElement && dest instanceof BpmnLane) {
+            return ((BpmnLane) dest).getFlowElementRef();
+        } else if (toMove instanceof BpmnBoundaryEvent) {
+            return ((BpmnActivity) dest).getBoundaryEventRef();
+        }
+        return dest.mGet(toMove.getCompositionRelation().dep.getSymetric());
     }
 
 }

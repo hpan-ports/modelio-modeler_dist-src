@@ -169,39 +169,37 @@ public class ExmlStorageHandler implements IRepositoryObject {
     @objid ("fd245753-5986-11e1-991a-001ec947ccaf")
     @Override
     public final boolean isDepLoaded(SmObjectImpl obj, SmDependency dep) {
-        synchronized (this.base) {
-            if (! this.base.isLoadEnabled())
-                return true;
-        
-            if (isPersistent(dep)) {
-                if (obj.equals(this.cmsNode) && !this.parentLoaded && isInverseCompositionDep(dep)) {
-                    return this.parentLoaded;
-                } else {
-                    return this.isLoaded;
-                }
-            } else if (this.usersLoaded) {
-                return true;
-            } else if (isInverseDepStored(dep)) {
-                try {
-                    for (ObjId id : this.base.getCmsNodeUsers(this.cmsNode)) {
-                        SmObjectImpl ref = this.base.getLoadedObject(id);
-                        if (ref == null)
-                            return false;
-        
-                        ExmlStorageHandler refHandle = (ExmlStorageHandler) ref.getRepositoryObject();
-                        if(refHandle == null || ! refHandle.isLoaded())
-                            return false;
-                    }
-                } catch (IOException | RuntimeException e) {
-                    this.base.getErrorSupport().fireError(e);
-                    return false;
-                }
-        
-                return true;
+        if (isPersistent(dep)) {
+            if (obj.equals(this.cmsNode) && isInverseCompositionDep(dep)) {
+                return this.parentLoaded;
             } else {
-                // Dependency stored nowhere !?
-                return true;
+                return this.isLoaded;
             }
+        } else if (this.usersLoaded) {
+            return true;
+        } else if (isInverseDepStored(dep)) {
+            try {
+                for (ObjId id : this.base.getCmsNodeUsers(this.cmsNode)) {
+                    SmObjectImpl ref = this.base.getLoadedObject(id);
+                    if (ref == null)
+                        return false;
+        
+                    final IRepositoryObject userRepoHandle = ref.getRepositoryObject();
+                    if (userRepoHandle.getRepositoryId() != getRepositoryId())
+                        return true; // The object has moved to another repository
+                    
+                    if(! ((ExmlStorageHandler) userRepoHandle).isLoaded())
+                        return false;
+                }
+            } catch (IOException | RuntimeException e) {
+                this.base.getErrorSupport().fireError(e);
+                return false;
+            }
+        
+            return true;
+        } else {
+            // Dependency not stored, this case shouldn't occur
+            return true;
         }
     }
 
@@ -219,8 +217,6 @@ public class ExmlStorageHandler implements IRepositoryObject {
      */
     @objid ("3c9891b4-2f3f-11e2-8359-001ec947ccaf")
     public final boolean isLoaded() {
-        if (! this.base.isLoadEnabled())
-            return true;
         return this.isLoaded;
     }
 
@@ -240,32 +236,30 @@ public class ExmlStorageHandler implements IRepositoryObject {
     @objid ("fd24581f-5986-11e1-991a-001ec947ccaf")
     @Override
     public final void loadDep(SmObjectImpl obj, SmDependency dep) {
-        synchronized (this.base) {
-            if (! this.base.isLoadEnabled())
-                return ;
-            
-            try (IModelLoader modelLoader = this.base.getModelLoaderProvider().beginLoadSession()) {
-                if (isPersistent(dep)) {
-                    load ();
-                    if (obj.equals(this.cmsNode) && !this.parentLoaded && isInverseCompositionDep(dep)) {
-                        this.parentLoaded = true;
+        try (IModelLoader modelLoader = this.base.getModelLoaderProvider().beginLoadSession()) {
+            if (isPersistent(dep)) {
+                if (obj.equals(this.cmsNode) && isInverseCompositionDep(dep)) {
+                    // It is the dependency from the CMS node to the parent CMS node
+                    if (!this.parentLoaded ) {
                         final ObjId  parentId = getParentCmsNode(obj);
                         if (parentId != null)
                             this.base.loadCmsNode(parentId, modelLoader);
-                        
+        
+                        this.parentLoaded = true;
                     }
-                } else if (!this.usersLoaded && isInverseDepStored(dep)) {
-                    this.usersLoaded = true;
-                    for (ObjId it : this.base.getCmsNodeUsers(this.cmsNode))
-                    {
-                        this.base.loadCmsNode(it, modelLoader);
-                    }
+                } else {
+                    load ();
                 }
-            } catch (DuplicateObjectException e) {
-                this.base.getErrorSupport().fireError(e);
-            } catch (IOException e) {
-                this.base.getErrorSupport().fireError(e);
+            } else if (!this.usersLoaded && isInverseDepStored(dep)) {
+                for (ObjId it : this.base.getCmsNodeUsers(this.cmsNode)) {
+                    this.base.loadCmsNode(it, modelLoader);
+                }
+                this.usersLoaded = true;
             }
+        } catch (DuplicateObjectException e) {
+            this.base.getErrorSupport().fireError(e);
+        } catch (IOException e) {
+            this.base.getErrorSupport().fireError(e);
         }
     }
 
@@ -307,39 +301,18 @@ public class ExmlStorageHandler implements IRepositoryObject {
 
     @objid ("fd245816-5986-11e1-991a-001ec947ccaf")
     private void load() {
-        synchronized (this.base) {
-            if (! this.base.isLoadEnabled())
-                return;
-        
-            if (! this.isLoaded) {
-                this.isLoaded = true;
-                boolean success = false;
-                try (IModelLoader modelLoader = this.base.getModelLoaderProvider().beginLoadSession()) {
-                    success = this.base.reloadCmsNode(this.cmsNode, modelLoader);
-                } catch (DuplicateObjectException e) {
-                    this.base.getErrorSupport().fireError(e);
-                } catch (RuntimeException e) {
-                    this.base.getErrorSupport().fireError(e);
-                } finally {
-                    this.isLoaded = success;
-                }
+        if (! this.isLoaded) {
+            this.isLoaded = true;
+            boolean success = false;
+            try (IModelLoader modelLoader = this.base.getModelLoaderProvider().beginLoadSession()) {
+                success = this.base.reloadCmsNode(this.cmsNode, modelLoader);
+            } catch (DuplicateObjectException e) {
+                this.base.getErrorSupport().fireError(e);
+            } catch (RuntimeException e) {
+                this.base.getErrorSupport().fireError(e);
+            } finally {
+                this.isLoaded = success;
             }
-        }
-    }
-
-    /**
-     * To be called only by {@link #propagateHandler(SmObjectImpl)} and itself recursively.
-     * @param obj a non CMS node model object
-     */
-    @objid ("92c22282-2cd2-11e2-81f1-001ec947ccaf")
-    private void propagateHandlerInternal(SmObjectImpl obj) {
-        assert (! obj.getClassOf().isCmsNode());
-        obj.setRepositoryObject(this);
-        
-        for (SmObjectImpl child : obj.getCompositionChildren())
-        {
-            if (! child.getClassOf().isCmsNode() && child.getRepositoryObject() != this)
-                propagateHandlerInternal(child);
         }
     }
 
@@ -350,12 +323,12 @@ public class ExmlStorageHandler implements IRepositoryObject {
      */
     @objid ("fd245805-5986-11e1-991a-001ec947ccaf")
     private void propagateHandler(SmObjectImpl obj) {
-        synchronized (this.base) {
-            boolean oldLoad = this.base.setLoadEnabled(false);
-            
-            propagateHandlerInternal(obj);
+        assert (! obj.getClassOf().isCmsNode());
+        obj.setRepositoryObject(this);
         
-            this.base.setLoadEnabled(oldLoad);
+        for (SmObjectImpl child : ExmlUtils.getLoadedCmsNodeContent(obj))
+        {
+            child.setRepositoryObject(this);
         }
     }
 
@@ -391,10 +364,10 @@ public class ExmlStorageHandler implements IRepositoryObject {
         } catch (IOException e) {
             // Set indexes as damaged
             this.base.setIndexesDamaged(e);
-            
+        
             // This will rebuild the indexes
             cmsNodeIndex = this.base.getCmsNodeIndex();
-            
+        
             // Try again
             ObjId parent = cmsNodeIndex.getParentNodeOf(objId);
             return parent;

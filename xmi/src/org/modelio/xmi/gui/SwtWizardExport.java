@@ -44,7 +44,7 @@ import org.modelio.xmi.util.ResourceLoader;
  * @author ebrosse
  */
 @objid ("f91e2337-fef4-4e6e-b382-cb9fb518f9b2")
-public class SwtWizardExport extends SwtWizardWindow {
+public class SwtWizardExport extends AbstractSwtWizardWindow {
     @objid ("4e2d6edc-3ccc-4cba-ad1f-15d93e376374")
     @Override
     public void setLabels() {

@@ -30,7 +30,7 @@ import org.modelio.xmi.util.EcoreModelNavigation;
 import org.modelio.xmi.util.ObjingEAnnotation;
 
 @objid ("e53c1c8e-1d0a-472e-aa0c-f3ca1ffc6ed8")
-public class ENamedElement extends EElement implements IEElement {
+public class ENamedElement extends EElement {
     @objid ("7372b2aa-5506-4be0-821f-e6c23b2b9fda")
     public ENamedElement(org.eclipse.uml2.uml.NamedElement element) {
         super(element);
@@ -70,6 +70,7 @@ public class ENamedElement extends EElement implements IEElement {
     }
 
     @objid ("58ed30e2-e564-4b73-8822-a82c01fc6d1d")
+    @Override
     public void setProperties(final Element objingElement) {
         super.setProperties(objingElement);
         

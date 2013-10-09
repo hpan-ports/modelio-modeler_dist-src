@@ -89,7 +89,7 @@ public class GModule {
      * @param gProperties the module parameter values.
      */
     @objid ("f87f0295-f369-11e1-9173-001ec947ccaf")
-    public GModule(GProject project, URI originalArchiveUri, IModuleHandle moduleHandle, DefinitionScope defScope, GProperties gProperties) {
+    public GModule(GProject project, URI originalArchiveUri, IModuleHandle moduleHandle, DefinitionScope defScope, GProperties gProperties, boolean activated) {
         assert (project!=null);
         
         this.moduleHandle = moduleHandle;
@@ -97,6 +97,7 @@ public class GModule {
         this.scope = defScope;
         this.project = project;
         this.originalArchiveUri = originalArchiveUri;
+        this.activated = activated;
     }
 
     @objid ("b37f4121-f27f-11e1-8543-001ec947ccaf")

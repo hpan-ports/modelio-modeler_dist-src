@@ -38,5 +38,21 @@ public enum GProjectEventType {
      * The event message and/or exception will be filled.
      * The fragment may be filled.
      */
-    WARNING;
+    WARNING,
+    /**
+     * A new fragment was added.
+     * <p>
+     * The fragment may be mounted or not (mount may fail).
+     */
+    FRAGMENT_ADDED,
+    /**
+     * A fragment was removed from the project.
+     */
+    FRAGMENT_REMOVED,
+    /**
+     * A fragment state has changed.
+     * <p>
+     * Ifthe fragment went DOWN, a FRAGMENT_DOWN event is fired instead.
+     */
+    FRAGMENT_STATE_CHANGED;
 }

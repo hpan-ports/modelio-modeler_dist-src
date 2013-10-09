@@ -28,8 +28,8 @@ import org.modelio.metamodel.uml.statik.AssociationEnd;
 import org.modelio.metamodel.uml.statik.ClassAssociation;
 import org.modelio.metamodel.uml.statik.Classifier;
 import org.modelio.metamodel.uml.statik.Package;
+import org.modelio.xmi.util.AbstractObjingModelNavigation;
 import org.modelio.xmi.util.GenerationProperties;
-import org.modelio.xmi.util.ObjingModelNavigation;
 
 @objid ("38a87f21-3b82-4ed2-b04c-e5162b48ebfc")
 public class OClassAssociation extends OModelElement implements IOElement {
@@ -60,7 +60,7 @@ public class OClassAssociation extends OModelElement implements IOElement {
 
     @objid ("eb0656f9-c321-42db-b541-c0d0cbf44e8f")
     public void attach(org.eclipse.uml2.uml.Element ecoreElt) {
-        if (ObjingModelNavigation.isRepresentedByAUniqueClass(this.objingElement)) {
+        if (AbstractObjingModelNavigation.isRepresentedByAUniqueClass(this.objingElement)) {
             GenerationProperties genProp = GenerationProperties.getInstance();
                 
             Association objingAssoc = this.objingElement.getAssociationPart();
@@ -88,7 +88,7 @@ public class OClassAssociation extends OModelElement implements IOElement {
                     ownerClassifier = ownerNavigableClassifier;
                 
                 if (ownerClassifier != null) {
-                    Package objingPkg = ObjingModelNavigation
+                    Package objingPkg = AbstractObjingModelNavigation
                             .getNearestPackage(ownerClassifier);
                 
                     org.eclipse.uml2.uml.Package ecorePkg = (org.eclipse.uml2.uml.Package) genProp

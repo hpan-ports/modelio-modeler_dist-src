@@ -146,6 +146,8 @@ import org.modelio.metamodel.uml.statik.Link;
 import org.modelio.metamodel.uml.statik.LinkEnd;
 import org.modelio.metamodel.uml.statik.Manifestation;
 import org.modelio.metamodel.uml.statik.NamespaceUse;
+import org.modelio.metamodel.uml.statik.NaryAssociation;
+import org.modelio.metamodel.uml.statik.NaryAssociationEnd;
 import org.modelio.metamodel.uml.statik.Node;
 import org.modelio.metamodel.uml.statik.Operation;
 import org.modelio.metamodel.uml.statik.Package;
@@ -579,5 +581,11 @@ public interface IParseModelBehavior {
 
     @objid ("8d97e7de-964b-4fac-b436-eabf43bb6348")
     void visitValuePin(final ValuePin param);
+
+    @objid ("8825f9cc-24d3-4862-baba-cbac8f5975b0")
+    void visitNaryAssociationEnd(NaryAssociationEnd param);
+
+    @objid ("a0566d5c-b5e6-4a52-8bcb-cf7e9d13108e")
+    void visitNaryAssociation(NaryAssociation param);
 
 }

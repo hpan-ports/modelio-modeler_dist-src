@@ -29,7 +29,7 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 @objid ("0076c802-8ce5-103f-94f0-001ec947cd2a")
 public class Metamodel {
     @objid ("3416d25e-7077-4592-b310-eff6f21b0ba6")
-    public static String VERSION = "9015";
+    public static String VERSION = "9017";
 
     @objid ("0007d294-8657-1075-a24c-001ec947cd2a")
     public static MClass getMClass(String name) {

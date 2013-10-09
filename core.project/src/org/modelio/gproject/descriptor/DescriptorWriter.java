@@ -171,6 +171,7 @@ public class DescriptorWriter {
         if (m.getScope() != null) {
             this.out.writeAttribute("version", m.getVersion().toString());
             this.out.writeAttribute("archive", m.getArchiveLocation().toString());
+            this.out.writeAttribute("activated", Boolean.toString(m.isActivated()));
             writeScope(m.getScope());
         }
         

@@ -26,9 +26,9 @@ import org.eclipse.uml2.uml.Property;
 import org.modelio.metamodel.uml.infrastructure.TagType;
 import org.modelio.xmi.generation.ProfileExportVisitorImpl;
 import org.modelio.xmi.generation.TotalExportMap;
+import org.modelio.xmi.util.AbstractObjingModelNavigation;
 import org.modelio.xmi.util.GenerationProperties;
 import org.modelio.xmi.util.ObjingEAnnotation;
-import org.modelio.xmi.util.ObjingModelNavigation;
 import org.modelio.xmi.util.PrimitiveTypeMapper;
 import org.modelio.xmi.util.ProfileUtils;
 import org.modelio.xmi.util.StringConverter;
@@ -40,10 +40,11 @@ public class PExportAttribut implements IExportProfileElement {
 
     @objid ("781fa152-4f0b-40c3-82b4-0dfc5f90a5c6")
     public PExportAttribut(TagType attribut) {
-        objingElt = attribut;
+        this.objingElt = attribut;
     }
 
     @objid ("3bc4c9d3-d42e-40c6-867c-2d35b36112c9")
+    @Override
     public void accept(ProfileExportVisitorImpl visitor) {
         visitor.visit(this);
     }
@@ -52,18 +53,18 @@ public class PExportAttribut implements IExportProfileElement {
     public void visit() {
         org.eclipse.uml2.uml.Stereotype stereotype = null;
         
-        if (objingElt.getOwnerStereotype() != null){
-            stereotype = (org.eclipse.uml2.uml.Stereotype) TotalExportMap.getInstance().get(objingElt.getOwnerStereotype().getUuid().toString());
+        if (this.objingElt.getOwnerStereotype() != null){
+            stereotype = (org.eclipse.uml2.uml.Stereotype) TotalExportMap.getInstance().get(this.objingElt.getOwnerStereotype().getUuid().toString());
         }else{
-            stereotype = (org.eclipse.uml2.uml.Stereotype) TotalExportMap.getInstance().get(objingElt.getOwnerReference().getUuid().toString());
+            stereotype = (org.eclipse.uml2.uml.Stereotype) TotalExportMap.getInstance().get(this.objingElt.getOwnerReference().getUuid().toString());
         }
         
         
         Property attr = null;
-        String name = ProfileUtils.getTagTypeName(objingElt);
+        String name = ProfileUtils.getTagTypeName(this.objingElt);
         
         
-        if (objingElt.getParamNumber().equals("0")){
+        if (this.objingElt.getParamNumber().equals("0")){
             attr = stereotype.getOwnedAttribute(name,  PrimitiveTypeMapper.getBoolean());
             if (attr == null)
                 attr = stereotype.createOwnedAttribute(name,  PrimitiveTypeMapper.getBoolean());
@@ -77,9 +78,9 @@ public class PExportAttribut implements IExportProfileElement {
         
             attr.setLower(0);
         
-            String max = objingElt.getParamNumber();
+            String max = this.objingElt.getParamNumber();
         
-            if (ObjingModelNavigation.OBJING_UNLIMITED_VALUE.equals(max))
+            if (AbstractObjingModelNavigation.OBJING_UNLIMITED_VALUE.equals(max))
                 attr.setUpper(org.eclipse.uml2.uml.LiteralUnlimitedNatural.UNLIMITED);
             else {
                 Integer intMax = StringConverter.getInteger(max);
@@ -95,22 +96,22 @@ public class PExportAttribut implements IExportProfileElement {
             setPartSignature(attr);
         }
         
-        ObjingEAnnotation.addObjingID(attr, objingElt.getUuid().toString());
+        ObjingEAnnotation.addObjingID(attr, this.objingElt.getUuid().toString());
     }
 
     @objid ("ae65ef18-8569-4647-808d-03b304384f87")
     private void setLabel(Property attr) {
-        ObjingEAnnotation.setLabel(attr, objingElt.getLabelKey());
+        ObjingEAnnotation.setLabel(attr, this.objingElt.getLabelKey());
     }
 
     @objid ("568ee1d2-d755-4f2e-aeef-e96f6e3040a0")
     private void setHidden(Property attr) {
-        ObjingEAnnotation.setHidden(attr, objingElt.isIsHidden());
+        ObjingEAnnotation.setHidden(attr, this.objingElt.isIsHidden());
     }
 
     @objid ("5247818d-db77-4eb9-9fe9-d62edc4eb2df")
     private void setPartSignature(Property attr) {
-        ObjingEAnnotation.setPartSignature(attr, objingElt.isBelongToPrototype());
+        ObjingEAnnotation.setPartSignature(attr, this.objingElt.isBelongToPrototype());
     }
 
 }

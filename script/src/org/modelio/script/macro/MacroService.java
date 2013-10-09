@@ -21,6 +21,15 @@
 
 package org.modelio.script.macro;
 
+import java.io.File;
+import java.io.IOException;
+import java.net.URL;
+import java.nio.file.FileVisitResult;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.SimpleFileVisitor;
+import java.nio.file.StandardCopyOption;
+import java.nio.file.attribute.BasicFileAttributes;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -28,6 +37,8 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
+import org.eclipse.core.runtime.FileLocator;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.e4.core.di.annotations.Creatable;
 import org.eclipse.e4.core.di.annotations.Optional;
 import org.eclipse.e4.core.di.extensions.EventTopic;
@@ -37,7 +48,10 @@ import org.modelio.app.project.core.services.IProjectService;
 import org.modelio.gproject.gproject.GProject;
 import org.modelio.script.macro.catalog.Catalog;
 import org.modelio.script.macro.catalog.Macro;
+import org.modelio.script.plugin.Script;
+import org.modelio.vbasic.files.FileUtils;
 import org.modelio.vcore.smkernel.mapi.MObject;
+import org.osgi.framework.Bundle;
 
 @objid ("5c36035b-5a91-4d8a-8bf6-f08dd97ed7ae")
 @Creatable
@@ -54,8 +68,17 @@ public class MacroService implements IMacroService {
     @objid ("b5b3d299-7dee-4322-a992-365e704f9e9a")
     @PostConstruct
     void initialize(ModelioEnv env, IProjectService projectService) {
-        this.modelioCatalog = new Catalog("Modelio", env.getMacroCatalogPath());
-        this.workspaceCatalog = new Catalog("Workspace", projectService.getWorkspace().resolve("macros"));
+        Path modelioMacroCatalogPath = env.getMacroCatalogPath();
+        File modelioMacroCatalog = modelioMacroCatalogPath.toFile();
+        if (!modelioMacroCatalog.exists()) {
+            createModelioMacroCatalogFile(modelioMacroCatalogPath);
+        } else {          
+            if (modelioMacroCatalog.isDirectory() && modelioMacroCatalog.list().length==0) {            
+                createModelioMacroCatalogFile(modelioMacroCatalogPath);
+            }
+        }
+        this.modelioCatalog = new Catalog("Modelio", env.getMacroCatalogPath(), true);  // The modelio catalog is readonly
+        this.workspaceCatalog = new Catalog("Workspace", projectService.getWorkspace().resolve("macros"), false);
     }
 
     @objid ("33adeb7e-96fa-46dd-ab8d-2e4fb15ca60b")
@@ -63,7 +86,7 @@ public class MacroService implements IMacroService {
     @Optional
     void onProjectOpened(@EventTopic(ModelioEventTopics.PROJECT_OPENED) final GProject project) {
         if (project != null) {
-            this.projectCatalog = new Catalog(project.getName(), project.getProjectDataPath().resolve("macros"));
+            this.projectCatalog = new Catalog(project.getName(), project.getProjectDataPath().resolve("macros"), false);
         }
     }
 
@@ -101,14 +124,14 @@ public class MacroService implements IMacroService {
     @Override
     public List<Macro> getMacros(Scope scope) {
         switch (scope) {
-        case MODELIO:
-            return this.modelioCatalog.getMacros();
-        case WORSPACE:
-            return this.workspaceCatalog.getMacros();
-        case PROJECT:
-            return (this.projectCatalog != null) ? this.projectCatalog.getMacros() : new ArrayList<Macro>();
-        default:
-            return Collections.emptyList();
+            case MODELIO:
+                return this.modelioCatalog.getMacros();
+            case WORSPACE:
+                return this.workspaceCatalog.getMacros();
+            case PROJECT:
+                return (this.projectCatalog != null) ? this.projectCatalog.getMacros() : new ArrayList<Macro>();
+            default:
+                return Collections.emptyList();
         }
     }
 
@@ -116,15 +139,18 @@ public class MacroService implements IMacroService {
     @Override
     public void addMacro(Macro macro, Scope scope) {
         switch (scope) {
-        case MODELIO:
-            this.modelioCatalog.addMacro(macro);
-            break;
-        case WORSPACE:
-            this.workspaceCatalog.addMacro(macro);
-            break;
-        case PROJECT:
-            if (this.projectCatalog != null)
-                this.projectCatalog.addMacro(macro);
+            case MODELIO:
+                this.modelioCatalog.addMacro(macro);
+                break;
+            case WORSPACE:
+                this.workspaceCatalog.addMacro(macro);
+                break;
+            case PROJECT:
+                if (this.projectCatalog != null)
+                    this.projectCatalog.addMacro(macro);
+                break;
+            default:
+                break;
         }
     }
 
@@ -132,15 +158,18 @@ public class MacroService implements IMacroService {
     @Override
     public void removeMacro(Macro macro, Scope scope) {
         switch (scope) {
-        case MODELIO:
-            this.modelioCatalog.removeMacro(macro);
-            break;
-        case WORSPACE:
-            this.workspaceCatalog.removeMacro(macro);
-            break;
-        case PROJECT:
-            if (this.projectCatalog != null)
-                this.projectCatalog.removeMacro(macro);
+            case MODELIO:
+                this.modelioCatalog.removeMacro(macro);
+                break;
+            case WORSPACE:
+                this.workspaceCatalog.removeMacro(macro);
+                break;
+            case PROJECT:
+                if (this.projectCatalog != null)
+                    this.projectCatalog.removeMacro(macro);
+                break;
+            default:
+                break;
         }
     }
 
@@ -157,6 +186,80 @@ public class MacroService implements IMacroService {
         default:
             return null;
         }
+    }
+
+    /**
+     * Create medelio macro catalog file
+     * @param macrosPath
+     */
+    @objid ("461e569c-ff21-41af-b990-4dc0e7827a73")
+    private void createModelioMacroCatalogFile(Path macrosPath) {
+        String sourceMacrosFileString = getFilePathOf("/res/macros");
+        File scriptCatalogFile = new File(sourceMacrosFileString);
+        
+        try {
+            FileUtils.copyDirectoryTo(scriptCatalogFile.toPath(), macrosPath);
+        } catch (IOException e) {
+            Script.LOG.error(e);
+        }
+        File catalogFile = new File(macrosPath.resolve("scripts.catalog").toString());
+        catalogFile.renameTo(new File(macrosPath.resolve(".catalog").toString()));
+    }
+
+    @objid ("b1ee3aed-56a0-4a1b-9ac6-322ddcf66b17")
+    private String getFilePathOf(String fileName) {
+        String path="";
+        Bundle bundle = Platform.getBundle(Script.PLUGIN_ID);
+        String s = "platform:/plugin/"+bundle.getSymbolicName()+"/"+fileName;   // To avoid the space in the bundle path
+        URL url = null;
+        try {
+            url = new URL(s);
+            path = FileLocator.toFileURL(url).getPath();
+        } catch (Exception e) {
+            Script.LOG.debug("File path %s is not found!", s);
+            Script.LOG.error(e);
+        }
+        return path;
+    }
+
+    @objid ("3b6c7920-099e-470d-a192-12360000104b")
+    public class CopyDirVisitor extends SimpleFileVisitor<Path> {
+        @objid ("77a9350a-9728-4e64-994b-df86694bcd20")
+        private StandardCopyOption copyOption = StandardCopyOption.REPLACE_EXISTING;
+
+        @objid ("a9849ca2-70d2-4cd7-999f-a51f63e9fd33")
+        private Path fromPath;
+
+        @objid ("53177484-9240-4c2b-8cd5-b5d61e318f1a")
+        private Path toPath;
+
+        @objid ("bf510b21-041e-4763-9de5-5cc547ea28fa")
+        public CopyDirVisitor(Path fromPath, Path toPath, StandardCopyOption copyOption) {
+            this.fromPath = fromPath;
+            this.toPath = toPath;
+            this.copyOption = copyOption;
+        }
+
+        @objid ("3ef30baa-8e7d-4996-a415-79b0798ac56f")
+        @Override
+        public FileVisitResult preVisitDirectory(Path dir, BasicFileAttributes attrs) throws IOException {
+            Path targetPath = this.toPath.resolve(this.fromPath.relativize(dir));
+            
+            if(!Files.exists(targetPath)){
+            
+                Files.createDirectory(targetPath);
+            
+            }
+            return FileVisitResult.CONTINUE;
+        }
+
+        @objid ("1ef39107-ca01-4b6f-b747-4cbd666c45f3")
+        @Override
+        public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
+            Files.copy(file, this.toPath.resolve(this.fromPath.relativize(file)), this.copyOption);
+            return FileVisitResult.CONTINUE;
+        }
+
     }
 
 }

@@ -26,6 +26,7 @@ import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.gproject.model.copy.CopyMachine;
 import org.modelio.gproject.model.facilities.CompositionInitializer;
+import org.modelio.gproject.model.importer.core.IImportReport;
 import org.modelio.metamodel.bpmn.activities.BpmnActivity;
 import org.modelio.metamodel.bpmn.activities.BpmnTask;
 import org.modelio.metamodel.bpmn.events.BpmnCatchEvent;
@@ -188,8 +189,16 @@ public class ModelTool implements IModelTool {
             }
         }
         
+        List<MObject> ret = new ArrayList<>();
+        
         CopyMachine machine = new CopyMachine();
-        return new ArrayList<MObject>(machine.execute(localSession, (SmObjectImpl) target, refSession, smObjectsToCopy).getCreatedObjects());
+        final IImportReport report = machine.execute(localSession, (SmObjectImpl) target, refSession, smObjectsToCopy);
+        
+        // Fill the returned list in the appropriate order
+        for (MObject ref : toCopy) {
+            ret.add(report.getCreatedObject((SmObjectImpl) ref));
+        }
+        return ret;
     }
 
     @objid ("01f41c74-0000-00ef-0000-000000000000")

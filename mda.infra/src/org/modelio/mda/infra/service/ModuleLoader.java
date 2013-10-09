@@ -71,35 +71,49 @@ class ModuleLoader {
     public IModule loadModule(GModule gModule, final IModuleHandle rtModuleHandle, List<IModule> loadedDependencies) throws ModuleException {
         // No valid RT module means the module is broken
         if (rtModuleHandle == null) {
-            return new BrokenModule(Modelio.getInstance().getModelingSession(), gModule.getName(), gModule.getVersion(), null, null);
+            return new BrokenModule(Modelio.getInstance().getModelingSession(),
+                    gModule.getName(), gModule.getVersion(), null, null);
         }
         
         // 1) Setup the module class loader:
-        // - collect the module resources directory and add it in a list with all files in the 'classpath'
+        // - collect the module resources directory and add it in a list with
+        // all files in the 'classpath'
         // administrative infos
-        // - collect all required and available weak dependency modules class loaders
+        // - collect all required and available weak dependency modules class
+        // loaders
         // - collect all required plugins class loaders
-        // - build a class loader from both the list of path and the list of class loaders.
-        List<Path> runtimeJarPaths = getModuleJarPaths(projectMdaRuntimePath, rtModuleHandle);
-        URLClassLoader classLoader = setupClassLoader(rtModuleHandle, loadedDependencies, runtimeJarPaths);
+        // - build a class loader from both the list of path and the list of
+        // class loaders.
+        List<Path> runtimeJarPaths = rtModuleHandle.getJarPaths();
+        URLClassLoader classLoader = setupClassLoader(rtModuleHandle,
+                loadedDependencies, runtimeJarPaths);
         
         // 2) Get and load the module main class
         String mainClassName = rtModuleHandle.getMainClassName();
         if (mainClassName.equals(FAKE_MODULE_CLASS_NAME)) {
-            // Fake module is added to the registry to get access to stereotype icons
+            // Fake module is added to the registry to get access to stereotype
+            // icons
             mainClassName = FakeModule.class.getName();
         }
-        IModule loadedIModule = instantiateModuleMainClass(gModule, rtModuleHandle, classLoader, mainClassName, gProject.getProjectPath());
+        IModule loadedIModule = instantiateModuleMainClass(gModule,
+                rtModuleHandle, classLoader, mainClassName,
+                this.gProject.getProjectPath());
         
-        // 3) Load the dynamic part of the module (contextual menu contributions, diagram tools, etc)
-        if (!loadedIModule.getName().equals("LocalModule") && loadedIModule.getState() != ModuleRuntimeState.Incompatible) {
+        // 3) Load the dynamic part of the module (contextual menu
+        // contributions, diagram tools, etc)
+        if (!loadedIModule.getName().equals("LocalModule")
+                && loadedIModule.getState() != ModuleRuntimeState.Incompatible) {
             try {
                 Path dynamicModelPath = rtModuleHandle.getDynamicModelPath();
-                if (Files.exists(dynamicModelPath) && Files.isRegularFile(dynamicModelPath)) {
-                    ModuleImporter.loadDynamicModel(dynamicModelPath, loadedIModule, mModelServices);
+                if (Files.exists(dynamicModelPath)
+                        && Files.isRegularFile(dynamicModelPath)) {
+                    ModuleImporter.loadDynamicModel(dynamicModelPath,
+                            loadedIModule, this.mModelServices);
                 }
             } catch (IOException e) {
-                ModuleException e2 = new ModuleException(MdaInfra.I18N.getMessage("L1", loadedIModule.getName(), e.getMessage()));
+                ModuleException e2 = new ModuleException(
+                        MdaInfra.I18N.getMessage("L1", loadedIModule.getName(),
+                                e.getMessage()));
                 e2.initCause(e);
                 throw e2;
             }
@@ -110,7 +124,8 @@ class ModuleLoader {
     /**
      * Creates a ClassLoader for the given module and local class path.
      * @param rtModuleHandle The module
-     * @param loadedDependencies the list of all loaded IModules the current module depends on (either strongly or weakly)
+     * @param loadedDependencies the list of all loaded IModules the current module depends on
+     * (either strongly or weakly)
      * @param declaredClasspath The local class path for the module
      * @return a class loader
      * @throws org.modelio.api.module.ModuleException in case of error
@@ -122,25 +137,34 @@ class ModuleLoader {
         
         Path fClassPath = rtModuleHandle.getResourcePath();
         if (fClassPath == null) {
-            return new ModuleClassLoader(rtModuleHandle.getName(), completeClassPath.toArray(new URL[completeClassPath.size()]), parentLoaders);
+            return new ModuleClassLoader(
+                    rtModuleHandle.getName(),
+                    completeClassPath.toArray(new URL[completeClassPath.size()]),
+                    parentLoaders);
         }
         
         try {
-            // Add the module path to the loader classpath (for resources loading)
+            // Add the module path to the loader classpath (for resources
+            // loading)
             completeClassPath.add(fClassPath.toUri().toURL());
         
             // Add the module declared libraries to the classpath
             if (declaredClasspath == null || declaredClasspath.isEmpty()) {
-                String msg = String.format("The '%1$s' module classpath is empty!", rtModuleHandle.getName());
+                String msg = String.format(
+                        "The '%1$s' module classpath is empty!",
+                        rtModuleHandle.getName());
                 ModuleException e2 = new ModuleException(msg);
                 throw e2;
             } else {
                 for (Path path : declaredClasspath) {
                     try {
-                        completeClassPath.add(path.toUri().toURL());
+                        completeClassPath.add(fClassPath.resolve(path).toUri().toURL());
                     } catch (MalformedURLException e) {
-                        String msg = String.format("The '%1$s' module '%2$s' classpath entry is invalid:\n %3$s",
-                                rtModuleHandle.getName(), path.toString(), e.getLocalizedMessage());
+                        String msg = String
+                                .format("The '%1$s' module '%2$s' classpath entry is invalid:\n %3$s",
+                                        rtModuleHandle.getName(),
+                                        path.toString(),
+                                        e.getLocalizedMessage());
                         ModuleException e2 = new ModuleException(msg);
                         e2.initCause(e);
                         throw e2;
@@ -158,12 +182,16 @@ class ModuleLoader {
         
             }
         
-            return new ModuleClassLoader(rtModuleHandle.getName(),
-                    completeClassPath.toArray(new URL[completeClassPath.size()]), parentLoaders);
+            return new ModuleClassLoader(
+                    rtModuleHandle.getName(),
+                    completeClassPath.toArray(new URL[completeClassPath.size()]),
+                    parentLoaders);
         
         } catch (MalformedURLException e) {
-            String msg = String.format("The '%1$s' module '%2$s' classpath is invalid:\n %3$s", rtModuleHandle.getName(),
-                    fClassPath.toString(), e.getLocalizedMessage());
+            String msg = String.format(
+                    "The '%1$s' module '%2$s' classpath is invalid:\n %3$s",
+                    rtModuleHandle.getName(), fClassPath.toString(),
+                    e.getLocalizedMessage());
             ModuleException e2 = new ModuleException(msg);
             e2.initCause(e);
             throw e2;
@@ -171,31 +199,23 @@ class ModuleLoader {
     }
 
     @objid ("7f103033-0263-11e2-9fca-001ec947c8cc")
-    static List<Path> getModuleJarPaths(final Path projectMdaRuntimePath, IModuleHandle rtModuleHandle) {
+    static List<Path> getModuleJarPaths(IModuleHandle rtModuleHandle) {
         if (rtModuleHandle == null) {
             return Collections.emptyList();
         }
-        Path moduleResourceBasePath = rtModuleHandle.getResourcePath();
-        Path moduleRuntimeBasePath = projectMdaRuntimePath.resolve(rtModuleHandle.getName());
         
-        List<Path> relativeJarPaths = rtModuleHandle.getJarPaths();
-        List<Path> runtimeJarPaths = null;
-        if (relativeJarPaths != null) {
-            runtimeJarPaths = new ArrayList<>();
-            for (Path relativeJarPath : relativeJarPaths) {
-                Path actualJarPath = copyToRuntimePath(relativeJarPath, moduleResourceBasePath, moduleRuntimeBasePath);
-                if (actualJarPath != null && Files.isRegularFile(actualJarPath)) {
-                    runtimeJarPaths.add(actualJarPath);
-                }
-            }
+        List<Path> absolutJarPaths = new ArrayList<>();
+        for (Path relativeJarPath :  rtModuleHandle.getJarPaths()) {
+            absolutJarPaths.add(rtModuleHandle.getResourcePath().resolve(relativeJarPath));
         }
-        return runtimeJarPaths;
+        return absolutJarPaths;
     }
 
     @objid ("8a81c9a7-f34b-11e1-9458-001ec947c8cc")
     private static void addPluginClassLoader(List<ClassLoader> parentLoaders, String pluginId, String className) {
         Bundle bundle = Platform.getBundle(pluginId);
-        // Depending on Modelio edition/packaging, all bundles might not be present.
+        // Depending on Modelio edition/packaging, all bundles might not be
+        // present.
         if (bundle != null) {
             try {
                 Class<?> clazz = bundle.loadClass(className);
@@ -217,8 +237,10 @@ class ModuleLoader {
         // // Add the ClassLoader of hades.script if available (== only in the
         // // enterprise versions)
         // // so that the RamComponent module can launch contextual commands.
-        addPluginClassLoader(parentLoaders, "org.modelio.api", "org.modelio.api.module.IModule");
-        addPluginClassLoader(parentLoaders, "org.modelio.core.utils", "org.modelio.vbasic.version.Version");
+        addPluginClassLoader(parentLoaders, "org.modelio.api",
+                "org.modelio.api.module.IModule");
+        addPluginClassLoader(parentLoaders, "org.modelio.core.utils",
+                "org.modelio.vbasic.version.Version");
         //
         // // Add the ClassLoader of hades.svn if available (== only in the
         // // enterprise versions)
@@ -232,10 +254,12 @@ class ModuleLoader {
     @objid ("7f10303c-0263-11e2-9fca-001ec947c8cc")
     private static Path copyToRuntimePath(Path relativeFilePath, Path moduleResourceBasePath, Path moduleRuntimeBasePath) {
         Path sourcePath = moduleResourceBasePath.resolve(relativeFilePath);
-        Path destinationPath = getRuntimeJarFile(moduleRuntimeBasePath, relativeFilePath);
+        Path destinationPath = getRuntimeJarFile(moduleRuntimeBasePath,
+                relativeFilePath);
         try {
             Files.createDirectories(destinationPath.getParent());
-            Files.copy(sourcePath, destinationPath, StandardCopyOption.COPY_ATTRIBUTES);
+            Files.copy(sourcePath, destinationPath,
+                    StandardCopyOption.COPY_ATTRIBUTES);
             return destinationPath;
         } catch (IOException e) {
             MdaInfra.LOG.error(e);
@@ -244,19 +268,21 @@ class ModuleLoader {
     }
 
     /**
-     * Returns the first "available" path (i.e. there is not an aleady existing file with this path) in
-     * moduleRuntimeBasePath.
+     * Returns the first "available" path (i.e. there is not an aleady existing
+     * file with this path) in moduleRuntimeBasePath.
      * @param moduleRuntimeBasePath
      * @param relativFilePath @return
      */
     @objid ("7f103043-0263-11e2-9fca-001ec947c8cc")
     private static Path getRuntimeJarFile(Path moduleRuntimeBasePath, Path relativFilePath) {
         Path runTimeJarFile = moduleRuntimeBasePath.resolve(relativFilePath);
-        String jarName = relativFilePath.toString().substring(0, relativFilePath.toString().lastIndexOf(".jar"));
+        String jarName = relativFilePath.toString().substring(0,
+                relativFilePath.toString().lastIndexOf(".jar"));
         
         int cpt = 0;
         while (Files.exists(runTimeJarFile)) {
-            runTimeJarFile = moduleRuntimeBasePath.resolve(jarName + "_" + cpt + ".jar");
+            runTimeJarFile = moduleRuntimeBasePath.resolve(jarName + "_" + cpt
+                    + ".jar");
             ++cpt;
         }
         return runTimeJarFile;
@@ -272,17 +298,24 @@ class ModuleLoader {
      */
     @objid ("7f175707-0263-11e2-9fca-001ec947c8cc")
     private static IModule instantiateModuleMainClass(final GModule gModule, final IModuleHandle rtModuleHandle, URLClassLoader classLoader, String mainClassName, Path projectspacePath) throws ModuleException {
-        // Clear the ResourceBundles cache for the module class loader, otherwise the module resources bundle are not
-        // found when upgrading a module and non understandable MissingResourceException are thrown.
+        // Clear the ResourceBundles cache for the module class loader,
+        // otherwise the module resources bundle are not
+        // found when upgrading a module and non understandable
+        // MissingResourceException are thrown.
         ResourceBundle.clearCache(classLoader);
         
         // Get the shared modeling session for the module
-        IModelingSession apiSession = Modelio.getInstance().getModelingSession();
-            
+        IModelingSession apiSession = Modelio.getInstance()
+                .getModelingSession();
+        
         // Prepare the ModuleConfiguration objects for the module.
-        ModuleConfiguration moduleUserConfiguration = new ModuleConfiguration(gModule, projectspacePath, rtModuleHandle.getResourcePath(), rtModuleHandle.getDocPaths());
-            
-        PeerModuleConfiguration moduleApiConfiguration = new PeerModuleConfiguration(gModule, projectspacePath, rtModuleHandle.getResourcePath(), rtModuleHandle.getDocPaths());
+        ModuleConfiguration moduleUserConfiguration = new ModuleConfiguration(
+                gModule, projectspacePath, rtModuleHandle.getResourcePath(),
+                rtModuleHandle.getDocPaths());
+        
+        PeerModuleConfiguration moduleApiConfiguration = new PeerModuleConfiguration(
+                gModule, projectspacePath, rtModuleHandle.getResourcePath(),
+                rtModuleHandle.getDocPaths());
         
         Class<?> mainClass = null;
         if (isIncompatible(rtModuleHandle)) {
@@ -290,24 +323,30 @@ class ModuleLoader {
         } else {
             try {
                 mainClass = classLoader.loadClass(mainClassName);
-            } catch (ClassNotFoundException|NoClassDefFoundError e) {
+            } catch (ClassNotFoundException | NoClassDefFoundError e) {
                 MdaInfra.LOG.warning(e);
-                // Could not find main class in class loader, load a placeholder instead
-                return new BrokenModule(apiSession, rtModuleHandle.getName(), rtModuleHandle.getVersion(), moduleUserConfiguration, moduleApiConfiguration);
+                // Could not find main class in class loader, load a placeholder
+                // instead
+                return new BrokenModule(apiSession, rtModuleHandle.getName(),
+                        rtModuleHandle.getVersion(), moduleUserConfiguration,
+                        moduleApiConfiguration);
             }
         }
         
         try {
             // Instantiate the module:
             // Constructor parameters types
-            Class<?>[] classParamArray = { IModelingSession.class, ModuleComponent.class,
-                    IModuleUserConfiguration.class, IModuleAPIConfiguration.class };
+            Class<?>[] classParamArray = { IModelingSession.class,
+                    ModuleComponent.class, IModuleUserConfiguration.class,
+                    IModuleAPIConfiguration.class };
         
             // Get the constructor
-            Constructor<?> constructor = mainClass.getConstructor(classParamArray);
+            Constructor<?> constructor = mainClass
+                    .getConstructor(classParamArray);
         
             // Create the new instance by calling the constructor.
-            Object[] initParamArray = { apiSession, gModule.getModuleElement(), moduleUserConfiguration, moduleApiConfiguration };
+            Object[] initParamArray = { apiSession, gModule.getModuleElement(),
+                    moduleUserConfiguration, moduleApiConfiguration };
             IModule module = (IModule) constructor.newInstance(initParamArray);
         
             // Call the init() method
@@ -316,39 +355,47 @@ class ModuleLoader {
             return module;
         
         } catch (SecurityException e) {
-            final ModuleException e2 = new ModuleException(String.format(
-                    "Security violation while loading the '%1$s' module: %2$s ", rtModuleHandle.getName(), e.getMessage()));
+            final ModuleException e2 = new ModuleException(
+                    String.format(
+                            "Security violation while loading the '%1$s' module: %2$s ",
+                            rtModuleHandle.getName(), e.getMessage()));
             e2.initCause(e);
             throw e2;
         } catch (NoSuchMethodException e) {
-            final ModuleException e2 = new ModuleException(String.format(
-                    "The '%1$s' module class constructor has not been found: %2$s", rtModuleHandle.getName(), e.getMessage()));
+            final ModuleException e2 = new ModuleException(
+                    String.format(
+                            "The '%1$s' module class constructor has not been found: %2$s",
+                            rtModuleHandle.getName(), e.getMessage()));
             e2.initCause(e);
             throw e2;
         } catch (IllegalArgumentException e) {
-            final ModuleException e2 = new ModuleException(String.format(
-                    "Illegal argument error while initalizing the '%1$s' module: %2$s ", rtModuleHandle.getName(),
-                    e.getMessage()));
+            final ModuleException e2 = new ModuleException(
+                    String.format(
+                            "Illegal argument error while initalizing the '%1$s' module: %2$s ",
+                            rtModuleHandle.getName(), e.getMessage()));
             e2.initCause(e);
             throw e2;
         } catch (InstantiationException e) {
             final ModuleException e2 = new ModuleException(String.format(
-                    "Cannot instantiate the '%1$s' module class: %2$s ", rtModuleHandle.getName(), e.getMessage()));
+                    "Cannot instantiate the '%1$s' module class: %2$s ",
+                    rtModuleHandle.getName(), e.getMessage()));
             e2.initCause(e);
             throw e2;
         } catch (IllegalAccessException e) {
-            final ModuleException e2 = new ModuleException(String.format(
-                    "Illegal access error occured while initalizing the '%1$s' module: %2$s ", rtModuleHandle.getName(),
-                    e.getMessage()));
+            final ModuleException e2 = new ModuleException(
+                    String.format(
+                            "Illegal access error occured while initalizing the '%1$s' module: %2$s ",
+                            rtModuleHandle.getName(), e.getMessage()));
             e2.initCause(e);
             throw e2;
         } catch (InvocationTargetException e) {
             Throwable cause = e;
             while (cause.getCause() != null)
                 cause = cause.getCause();
-            final ModuleException e2 = new ModuleException(String.format(
-                    "Exception thrown while initalizing the '%1$s' module: %2$s\n", rtModuleHandle.getName(),
-                    cause.getMessage()));
+            final ModuleException e2 = new ModuleException(
+                    String.format(
+                            "Exception thrown while initalizing the '%1$s' module: %2$s\n",
+                            rtModuleHandle.getName(), cause.getMessage()));
             e2.initCause(e);
             throw e2;
         } catch (java.lang.ExceptionInInitializerError e) {
@@ -356,16 +403,18 @@ class ModuleLoader {
             if (cause == null)
                 cause = e;
             final ModuleException e2 = new ModuleException(String.format(
-                    "Error thrown while initalizing the '%1$s' module: %2$s ", rtModuleHandle.getName(), cause.getMessage()));
+                    "Error thrown while initalizing the '%1$s' module: %2$s ",
+                    rtModuleHandle.getName(), cause.getMessage()));
             e2.initCause(e);
             throw e2;
         } catch (LinkageError e) {
             Throwable cause = e.getCause();
             if (cause == null)
                 cause = e;
-            final ModuleException e2 = new ModuleException(String.format(
-                    "Linkage error thrown while initalizing the '%1$s' module: %2$s ", rtModuleHandle.getName(),
-                    cause.getMessage()));
+            final ModuleException e2 = new ModuleException(
+                    String.format(
+                            "Linkage error thrown while initalizing the '%1$s' module: %2$s ",
+                            rtModuleHandle.getName(), cause.getMessage()));
             e2.initCause(cause);
             throw e2;
         }
@@ -373,8 +422,10 @@ class ModuleLoader {
 
     /**
      * Check the module version is compatible with the current Modelio
-     * @param gModule the module to check.
-     * @return <code>true</code> if this module is not compatible with the current Modelio.
+     * @param gModule
+     * the module to check.
+     * @return <code>true</code> if this module is not compatible with the
+     * current Modelio.
      */
     @objid ("6fd59629-2f29-11e2-9ab7-002564c97630")
     private static boolean isIncompatible(IModuleHandle rtModuleHandle) {
@@ -386,14 +437,16 @@ class ModuleLoader {
         this.gProject = gProject;
         this.mModelServices = mModelServices;
         
-        this.projectMdaRuntimePath = gProject.getProjectRuntimePath().resolve("modules");
+        this.projectMdaRuntimePath = gProject.getProjectRuntimePath().resolve(
+                "modules");
     }
 
     /**
      * This is the ClassLoader specially designed for modules.
      * <p>
-     * Classes are looked up in the required module class loaders, before the module own class path. That's why this
-     * class loader may have many parent class loaders.
+     * Classes are looked up in the required module class loaders, before the
+     * module own class path. That's why this class loader may have many parent
+     * class loaders.
      */
     @objid ("8a81c9bd-f34b-11e1-9458-001ec947c8cc")
     private static class ModuleClassLoader extends URLClassLoader {
@@ -441,9 +494,10 @@ class ModuleLoader {
         }
 
         /**
-         * Returns the search path of URLs for loading classes and resources. This includes: - the parent classloaders
-         * URLs - the original list of URLs specified to the constructor, - along with any URLs subsequently appended by
-         * the addURL() method.
+         * Returns the search path of URLs for loading classes and resources.
+         * This includes: - the parent classloaders URLs - the original list of
+         * URLs specified to the constructor, - along with any URLs subsequently
+         * appended by the addURL() method.
          * @return the search path of URLs for loading classes and resources.
          */
         @objid ("8a842c6e-f34b-11e1-9458-001ec947c8cc")
@@ -478,17 +532,20 @@ class ModuleLoader {
                 }
                 return super.findClass(name);
             } catch (Error e) {
-                MdaInfra.LOG.error(MdaInfra.PLUGIN_ID, e.getClass().getSimpleName()
+                MdaInfra.LOG.error(MdaInfra.PLUGIN_ID, e.getClass()
+                        .getSimpleName()
                         + " while looking for a class. classpath=");
                 for (URL url : this.getURLs()) {
-                    MdaInfra.LOG.error(MdaInfra.PLUGIN_ID, " - " + url.toString());
+                    MdaInfra.LOG.error(MdaInfra.PLUGIN_ID,
+                            " - " + url.toString());
                 }
                 throw e;
             }
         }
 
         /**
-         * A useful utility class that will enumerate over an array of enumerations.
+         * A useful utility class that will enumerate over an array of
+         * enumerations.
          * 
          * @param <E>
          * The type of enumerated elements
@@ -524,7 +581,8 @@ class ModuleLoader {
             @objid ("8a842c52-f34b-11e1-9458-001ec947c8cc")
             private boolean next() {
                 while (this.index < this.enums.length) {
-                    if (this.enums[this.index] != null && this.enums[this.index].hasMoreElements()) {
+                    if (this.enums[this.index] != null
+                            && this.enums[this.index].hasMoreElements()) {
                         return true;
                     }
                     this.index++;

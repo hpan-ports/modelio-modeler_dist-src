@@ -30,10 +30,10 @@ import org.modelio.metamodel.uml.statik.Link;
 import org.modelio.metamodel.uml.statik.LinkEnd;
 import org.modelio.vcore.smkernel.mapi.MObject;
 import org.modelio.xmi.plugin.Xmi;
+import org.modelio.xmi.util.AbstractObjingModelNavigation;
 import org.modelio.xmi.util.GenerationProperties;
 import org.modelio.xmi.util.NotFoundException;
 import org.modelio.xmi.util.ObjingEAnnotation;
-import org.modelio.xmi.util.ObjingModelNavigation;
 import org.modelio.xmi.util.XMILogs;
 
 @objid ("fbb72fc7-d37d-41cd-b234-c67dadb617b8")
@@ -67,8 +67,8 @@ public class OLink extends OModelElement implements IOElement {
     public OLink(Link element) {
         super(element);
         this.objingElement = element;
-        this.linkOwner = ObjingModelNavigation.getLinkOwner(element);
-        this.connectorOwner = ObjingModelNavigation.getConnectorOwner(element);
+        this.linkOwner = AbstractObjingModelNavigation.getLinkOwner(element);
+        this.connectorOwner = AbstractObjingModelNavigation.getConnectorOwner(element);
     }
 
     @objid ("90e3aeec-c2d1-44fa-8a41-25583b2d5bb6")
@@ -98,7 +98,7 @@ public class OLink extends OModelElement implements IOElement {
     @objid ("08c3c5a7-37c0-4d26-b939-ce16df0a330d")
     private void setName(InstanceSpecification connector) {
         String eltName = this.objingElement.getName();
-        if (ObjingModelNavigation.isNotNullOrEmpty(eltName))
+        if (AbstractObjingModelNavigation.isNotNullOrEmpty(eltName))
             connector.setName(eltName);
     }
 

@@ -72,6 +72,29 @@ public class GProjectFactory {
     }
 
     /**
+     * Get the remote project descriptor for a project descriptor.
+     * @param projectDescriptor a project descriptor.
+     * @param authData authentication data.
+     * @param monitor the progress monitor to use for reporting progress to the user. It is the caller's responsibility to call
+     * <code>done()</code> on the given monitor. Accepts <code>null</code>, indicating that no progress should be
+     * reported and that the operation cannot be cancelled.
+     * @return the remote project descriptor.
+     * @throws java.io.IOException in case of failure
+     * @throws org.modelio.gproject.gproject.GProjectAuthenticationException in case of authentication failure.
+     */
+    @objid ("96d74dc5-cf49-4d1a-8670-fdb5001db4ab")
+    public static ProjectDescriptor getRemoteDescriptor(ProjectDescriptor projectDescriptor, IAuthData authData, IModelioProgress monitor) throws GProjectAuthenticationException, IOException {
+        IProjectFactory f = getProjectFactory(projectDescriptor);
+        if (f != null) {
+            return f.getRemoteDescriptor(projectDescriptor, authData, monitor);
+        
+        } else {
+            // No remote descriptor for local projects
+            return null;
+        }
+    }
+
+    /**
      * Tells whether the given path is a project space path.
      * @param projectPath a directory path
      * @return <code>true</code> if it is a project space path, else
@@ -81,11 +104,6 @@ public class GProjectFactory {
     public static boolean isProjectSpace(final Path projectPath) {
         Path confFile = getConfigFile(projectPath);
         return (Files.isRegularFile(confFile));
-    }
-
-    @objid ("0021e1c0-34d4-1fc7-b42e-001ec947cd2a")
-    private static Path getConfigFile(final Path projectPath) {
-        return projectPath.resolve("project.conf");
     }
 
     /**
@@ -116,6 +134,26 @@ public class GProjectFactory {
     }
 
     /**
+     * Create a ProjectDescriptor from a project directory.
+     * @param projectDir the project directory.
+     * @return the read project descriptor.
+     * @throws java.io.IOException in case of error reading the configuration file.
+     */
+    @objid ("ea6edf6a-d50f-4f48-a07c-7bf27a487875")
+    public static ProjectDescriptor readProjectDirectory(final Path projectDir) throws IOException {
+        Path confFile = getConfigFile(projectDir);
+        ProjectDescriptor desc = new ProjectDescriptorReader()
+        .setDefaultScope(DefinitionScope.LOCAL)
+        .read(confFile, null);
+        return desc;
+    }
+
+    @objid ("0021e1c0-34d4-1fc7-b42e-001ec947cd2a")
+    private static Path getConfigFile(final Path projectPath) {
+        return projectPath.resolve("project.conf");
+    }
+
+    /**
      * Get the custom factory supporting the given descriptor.
      * <p>
      * Returns <code>null</code> if no such factory is found.
@@ -138,44 +176,6 @@ public class GProjectFactory {
             }
         }
         return null;
-    }
-
-    /**
-     * Create a ProjectDescriptor from a project directory.
-     * @param projectDir the project directory.
-     * @return the read project descriptor.
-     * @throws java.io.IOException in case of error reading the configuration file.
-     */
-    @objid ("ea6edf6a-d50f-4f48-a07c-7bf27a487875")
-    public static ProjectDescriptor readProjectDirectory(final Path projectDir) throws IOException {
-        Path confFile = getConfigFile(projectDir);
-        ProjectDescriptor desc = new ProjectDescriptorReader()
-        .setDefaultScope(DefinitionScope.LOCAL)
-        .read(confFile, null);
-        return desc;
-    }
-
-    /**
-     * Get the remote project descriptor for a project descriptor.
-     * @param projectDescriptor a project descriptor.
-     * @param authData authentication data.
-     * @param monitor the progress monitor to use for reporting progress to the user. It is the caller's responsibility to call
-     * <code>done()</code> on the given monitor. Accepts <code>null</code>, indicating that no progress should be
-     * reported and that the operation cannot be cancelled.
-     * @return the remote project descriptor.
-     * @throws java.io.IOException in case of failure
-     * @throws org.modelio.gproject.gproject.GProjectAuthenticationException in case of authentication failure.
-     */
-    @objid ("96d74dc5-cf49-4d1a-8670-fdb5001db4ab")
-    public static ProjectDescriptor getRemoteDescriptor(ProjectDescriptor projectDescriptor, IAuthData authData, IModelioProgress monitor) throws GProjectAuthenticationException, IOException {
-        IProjectFactory f = getProjectFactory(projectDescriptor);
-        if (f != null) {
-            return f.getRemoteDescriptor(projectDescriptor, authData, monitor);
-        
-        } else {
-            // No remote descriptor for local projects
-            return null;
-        }
     }
 
 }

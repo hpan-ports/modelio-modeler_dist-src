@@ -26,7 +26,6 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.DirectoryNotEmptyException;
-import java.nio.file.DirectoryStream;
 import java.nio.file.FileAlreadyExistsException;
 import java.nio.file.FileSystemException;
 import java.nio.file.FileVisitResult;
@@ -37,6 +36,7 @@ import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.SimpleFileVisitor;
+import java.nio.file.StandardCopyOption;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.text.MessageFormat;
 import java.util.Scanner;
@@ -85,18 +85,8 @@ public final class FileUtils {
      */
     @objid ("fabda4a4-d023-11e1-bf59-001ec947ccaf")
     public static void copyDirectoryTo(Path from, Path toDir) throws IOException, FileSystemException {
-        try (DirectoryStream<Path> stream = Files.newDirectoryStream(from)) {
-            for (Path  p: stream){
-                Files.copy(p, toDir.resolve(p.getFileName().toString()), LinkOption.NOFOLLOW_LINKS);
-                
-                if (Files.isDirectory(p,LinkOption.NOFOLLOW_LINKS)) {
-                    copyDirectoryTo(p, toDir.resolve(p.getFileName().toString()));
-                }
-                
-            }
-        }
-        
-        //Files.walkFileTree(from, new CopyVisitor(toDir));
+        CopyDirVisitor copyVisitor = new CopyDirVisitor(from, toDir, StandardCopyOption.REPLACE_EXISTING);
+        Files.walkFileTree(from, copyVisitor);
     }
 
     /**
@@ -385,46 +375,39 @@ public final class FileUtils {
     /**
      * Visitor that copies a directory to another path.
      */
-    @objid ("fabda4a9-d023-11e1-bf59-001ec947ccaf")
-    private static class CopyVisitor extends SimpleFileVisitor<Path> {
-        @objid ("fac006fb-d023-11e1-bf59-001ec947ccaf")
-        private Path curDest;
+    @objid ("581a2c43-d059-491b-9c34-1237b7066616")
+    public static class CopyDirVisitor extends SimpleFileVisitor<Path> {
+        @objid ("e99aa572-4449-4fb5-b2b9-045676bd5e69")
+        private StandardCopyOption copyOption = StandardCopyOption.REPLACE_EXISTING;
 
-        /**
-         * Initialize the visitor.
-         * @param to the destination directory path.
-         */
-        @objid ("fac006fc-d023-11e1-bf59-001ec947ccaf")
-        public CopyVisitor(Path to) {
-            this.curDest = to;
+        @objid ("c9f35057-ef4e-4dfb-b894-cdcca248d390")
+        private Path fromPath;
+
+        @objid ("acc38e39-15e7-4e4d-b535-31c078282f7e")
+        private Path toPath;
+
+        @objid ("aba7abf6-8815-47a5-8da9-f2d8540e5c64")
+        public CopyDirVisitor(Path fromPath, Path toPath, StandardCopyOption copyOption) {
+            this.fromPath = fromPath;
+            this.toPath = toPath;
+            this.copyOption = copyOption;
         }
 
-        @objid ("fac00700-d023-11e1-bf59-001ec947ccaf")
+        @objid ("b71dd485-fb86-40ae-bf42-d9af6b659f82")
         @Override
         public FileVisitResult preVisitDirectory(Path dir, BasicFileAttributes attrs) throws IOException {
-            Files.copy(dir, getDest(dir), LinkOption.NOFOLLOW_LINKS);
-            
-            this.curDest = this.curDest.resolve(dir.getFileName().toString());
-            return super.preVisitDirectory(dir, attrs);
-        }
-
-        @objid ("fac00707-d023-11e1-bf59-001ec947ccaf")
-        @Override
-        public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
-            Files.copy(file, getDest(file), LinkOption.NOFOLLOW_LINKS);
+            Path targetPath = this.toPath.resolve(this.fromPath.relativize(dir));
+            if(!Files.exists(targetPath)){
+                Files.createDirectory(targetPath);
+            }
             return FileVisitResult.CONTINUE;
         }
 
-        @objid ("fac0070e-d023-11e1-bf59-001ec947ccaf")
+        @objid ("10cbaed4-bc0f-46b3-a7fa-6c8d766db269")
         @Override
-        public FileVisitResult postVisitDirectory(Path dir, IOException exc) throws IOException {
-            this.curDest = this.curDest.getParent();
-            return super.postVisitDirectory(dir, exc);
-        }
-
-        @objid ("fac00715-d023-11e1-bf59-001ec947ccaf")
-        private Path getDest(Path srcPath) {
-            return this.curDest.resolve(srcPath.getFileName().toString());
+        public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
+            Files.copy(file, this.toPath.resolve(this.fromPath.relativize(file)), this.copyOption);
+            return FileVisitResult.CONTINUE;
         }
 
     }

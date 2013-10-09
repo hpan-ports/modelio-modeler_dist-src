@@ -28,9 +28,9 @@ import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.uml2.uml.UMLFactory;
 import org.modelio.metamodel.uml.infrastructure.Constraint;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
+import org.modelio.xmi.util.AbstractObjingModelNavigation;
 import org.modelio.xmi.util.GenerationProperties;
 import org.modelio.xmi.util.ObjingEAnnotation;
-import org.modelio.xmi.util.ObjingModelNavigation;
 
 /**
  * Export Constraint
@@ -116,7 +116,7 @@ public class OConstraint extends OModelElement implements IOElement {
                 //Duration Observation
                 ModelElement constrainedElt = this.objingElement.getConstrainedElement().get(0);
                 org.eclipse.uml2.uml.Element ecoreOwner = (org.eclipse.uml2.uml.Element) genProp
-                        .getMappedElement(ObjingModelNavigation.getNearestPackage(constrainedElt));
+                        .getMappedElement(AbstractObjingModelNavigation.getNearestPackage(constrainedElt));
                 if (ecoreOwner instanceof Package){
                     org.eclipse.uml2.uml.DurationObservation durObs = (org.eclipse.uml2.uml.DurationObservation) ecoreElt;
                     ((org.eclipse.uml2.uml.Package) ecoreOwner).getPackagedElements().add(durObs);

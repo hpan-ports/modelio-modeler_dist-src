@@ -33,7 +33,7 @@ import org.modelio.metamodel.diagrams.AbstractDiagram;
 public class OpenRelatedDiagramHandler {
     @objid ("f07f3f65-5c0c-4a2e-8cdf-1d4a3f775789")
     @Execute
-    public void execute(@Named("org.modelio.model.browser.command.parameter.related_diagram") String related_diagram_id, IProjectService projectService, IActivationService activationService) {
+    public void execute(@Named("org.modelio.app.ui.command.parameter.related_diagram") String related_diagram_id, IProjectService projectService, IActivationService activationService) {
         final AbstractDiagram related_diagram = projectService.getSession().getModel().findById(AbstractDiagram.class, UUID.fromString(related_diagram_id));
         if (related_diagram != null) {
             activationService.activateMObject(related_diagram);

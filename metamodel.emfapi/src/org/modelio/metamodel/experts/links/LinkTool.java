@@ -22,6 +22,7 @@
 package org.modelio.metamodel.experts.links;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -94,30 +95,24 @@ public class LinkTool implements ILinkTool {
 
     @objid ("000227ae-de02-1097-bcec-001ec947cd2a")
     @Override
-    public boolean canSource(MObject link, MObject from) {
-        for (ILinkExpert expert : this.REGISTRY.getExperts(link)) {
-            if (expert.canSource(link, from) == false) {
-                return false;
-            }
-        }
-        return true;
+    public boolean canSource(Stereotype stereotype, MClass link, MClass from) {
+        ILinkExpert stereotypeExpert = this.REGISTRY.getExpert(stereotype);
+        ILinkExpert linkExpert = this.REGISTRY.getExpert(link);
+        return (stereotypeExpert == null || stereotypeExpert.canSource(link, from)) && linkExpert.canSource(link, from);
     }
 
     @objid ("00025698-de02-1097-bcec-001ec947cd2a")
     @Override
-    public boolean canTarget(MClass link, MClass to) {
-        return this.REGISTRY.getExpert(link).canTarget(link, to);
+    public boolean canTarget(Stereotype stereotype, MClass link, MClass from) {
+        ILinkExpert stereotypeExpert = this.REGISTRY.getExpert(stereotype);
+        ILinkExpert linkExpert = this.REGISTRY.getExpert(link);
+        return (stereotypeExpert == null || stereotypeExpert.canTarget(link, from)) && linkExpert.canTarget(link, from);
     }
 
     @objid ("000287bc-de02-1097-bcec-001ec947cd2a")
     @Override
-    public boolean canTarget(MObject link, MObject to) {
-        for (ILinkExpert expert : this.REGISTRY.getExperts(link)) {
-            if (expert.canTarget(link, to) == false) {
-                return false;
-            }
-        }
-        return true;
+    public boolean canTarget(MClass link, MClass to) {
+        return this.REGISTRY.getExpert(link).canTarget(link, to);
     }
 
     @objid ("0002b732-de02-1097-bcec-001ec947cd2a")
@@ -207,8 +202,31 @@ public class LinkTool implements ILinkTool {
     @objid ("889323b1-0bd4-43da-adec-249a2846de30")
     @Override
     public boolean canLink(Stereotype stereotypedLink, MClass link, MClass from, MClass to, MClass owner) {
-        for (ILinkExpert expert : this.REGISTRY.getExperts(stereotypedLink)) {
+        final List<ILinkExpert> experts = stereotypedLink != null ? this.REGISTRY.getExperts(stereotypedLink) : Arrays.asList(this.REGISTRY.getExpert(link));
+        for (ILinkExpert expert : experts) {
             if (!expert.canLink(link, from, to, owner)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    @objid ("fc3c8cde-ad5c-4f5e-98ad-83240629655c")
+    @Override
+    public boolean canSource(MObject link, MObject from) {
+        for (ILinkExpert expert : this.REGISTRY.getExperts(link)) {
+            if (expert.canSource(link, from) == false) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    @objid ("be7fadb4-281c-4720-a752-3f0421411165")
+    @Override
+    public boolean canTarget(MObject link, MObject to) {
+        for (ILinkExpert expert : this.REGISTRY.getExperts(link)) {
+            if (expert.canTarget(link, to) == false) {
                 return false;
             }
         }
@@ -261,7 +279,12 @@ public class LinkTool implements ILinkTool {
          */
         @objid ("00036ea2-de02-1097-bcec-001ec947cd2a")
         public ILinkExpert getExpert(final Stereotype el) {
-            return this.STEREOTYPE_EXPERTS.get(el);
+            if (el != null) {
+                String key = el.getBaseClassName() + "." + el.getName();
+                return this.STEREOTYPE_EXPERTS.get(key);
+            } else {
+                return null;
+            }
         }
 
         @objid ("0003a20a-de02-1097-bcec-001ec947cd2a")

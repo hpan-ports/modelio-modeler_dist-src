@@ -26,7 +26,6 @@ import org.eclipse.uml2.uml.InstanceSpecification;
 import org.eclipse.uml2.uml.InstanceValue;
 import org.eclipse.uml2.uml.Property;
 import org.eclipse.uml2.uml.UMLFactory;
-import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.metamodel.uml.statik.Association;
 import org.modelio.metamodel.uml.statik.AssociationEnd;
 import org.modelio.metamodel.uml.statik.ConnectorEnd;
@@ -36,9 +35,9 @@ import org.modelio.metamodel.uml.statik.NameSpace;
 import org.modelio.metamodel.uml.statik.Port;
 import org.modelio.vcore.smkernel.mapi.MObject;
 import org.modelio.xmi.plugin.Xmi;
+import org.modelio.xmi.util.AbstractObjingModelNavigation;
 import org.modelio.xmi.util.GenerationProperties;
 import org.modelio.xmi.util.ObjingEAnnotation;
-import org.modelio.xmi.util.ObjingModelNavigation;
 import org.modelio.xmi.util.StringConverter;
 import org.modelio.xmi.util.XMILogs;
 
@@ -141,7 +140,7 @@ public class OConnectorEnd extends OLinkEnd implements IOElement {
             ((InstanceValue)result).setInstance((InstanceSpecification) slot.getOwningInstance());
             slot.getValues().add(result);
         
-            if (ObjingModelNavigation.isNotNullOrEmpty(this.objElt.getName()))
+            if (AbstractObjingModelNavigation.isNotNullOrEmpty(this.objElt.getName()))
                 ((InstanceValue)result).setName(this.objElt.getName());
         
         }
@@ -183,7 +182,7 @@ public class OConnectorEnd extends OLinkEnd implements IOElement {
 
     @objid ("125c610d-0ede-45b0-b978-98ae89ea723a")
     private void setName(org.eclipse.uml2.uml.ConnectorEnd ecoreElt) {
-        if (ObjingModelNavigation.isNotNullOrEmpty(this.objElt.getName()))
+        if (AbstractObjingModelNavigation.isNotNullOrEmpty(this.objElt.getName()))
             ObjingEAnnotation.setName(ecoreElt, this.objElt.getName());
     }
 
@@ -209,7 +208,7 @@ public class OConnectorEnd extends OLinkEnd implements IOElement {
         // If objingMultMin is "" then we don't set a lower multiplicity for the
         // UML2 element.
         if (!"".equals(objingMultMin)) {
-            if (ObjingModelNavigation.OBJING_UNLIMITED_VALUE
+            if (AbstractObjingModelNavigation.OBJING_UNLIMITED_VALUE
                     .equals(objingMultMin))
                 ecoreElt.setLower(org.eclipse.uml2.uml.LiteralUnlimitedNatural.UNLIMITED);
             else {
@@ -241,7 +240,7 @@ public class OConnectorEnd extends OLinkEnd implements IOElement {
         // If objingMultMax is "" then we don't set an upper multiplicity for
         // the UML2 element.
         if (!"".equals(objingMultMax)) {
-            if (ObjingModelNavigation.OBJING_UNLIMITED_VALUE
+            if (AbstractObjingModelNavigation.OBJING_UNLIMITED_VALUE
                     .equals(objingMultMax))
                 ecoreElt.setUpper(org.eclipse.uml2.uml.LiteralUnlimitedNatural.UNLIMITED);
             else {

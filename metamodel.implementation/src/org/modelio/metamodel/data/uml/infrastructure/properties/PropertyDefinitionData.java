@@ -48,7 +48,7 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 public class PropertyDefinitionData extends ModelElementData {
     @objid ("40c8e833-403d-44d2-a868-206b80798b0b")
     @SmaMetaAttribute(metaName="IsEditable", type=Boolean.class, smAttributeClass=Metadata.IsEditableSmAttribute.class)
-     Object mIsEditable = false;
+     Object mIsEditable = true;
 
     @objid ("fc3d999f-9094-4bc6-880f-02f5ad6983a7")
     @SmaMetaAttribute(metaName="DefaultValue", type=String.class, smAttributeClass=Metadata.DefaultValueSmAttribute.class)

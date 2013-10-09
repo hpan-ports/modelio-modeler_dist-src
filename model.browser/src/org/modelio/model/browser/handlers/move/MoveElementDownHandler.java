@@ -35,6 +35,10 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.swt.widgets.Display;
 import org.modelio.app.project.core.services.IProjectService;
 import org.modelio.gproject.model.api.MTools;
+import org.modelio.metamodel.bpmn.activities.BpmnActivity;
+import org.modelio.metamodel.bpmn.events.BpmnBoundaryEvent;
+import org.modelio.metamodel.bpmn.processCollaboration.BpmnLane;
+import org.modelio.metamodel.bpmn.rootElements.BpmnFlowElement;
 import org.modelio.metamodel.mda.Project;
 import org.modelio.model.browser.plugin.ModelBrowser;
 import org.modelio.vcore.session.api.ICoreSession;
@@ -72,9 +76,21 @@ public class MoveElementDownHandler {
             return false;
         }
         
+        List<? extends MObject> listToReorder = getListToMove(toClone.get(0), dest);
+          
         // Check the elements to clone can be added to dest
-        for (SmObjectImpl pasted : toClone) {
-            if (!MTools.getAuthTool().canAdd(dest, pasted.getMClass().getName())) {
+        for (SmObjectImpl moved : toClone) {
+            
+            
+            if (computeNewIndex(moved,listToReorder) == -1) {
+                return false;
+            }
+            
+            if(moved.equals(listToReorder.get(listToReorder.size()-1))){
+                return false;
+            }
+            
+            if (!MTools.getAuthTool().canAdd(dest, moved.getMClass().getName())) {
                 return false;
             }
         }
@@ -85,11 +101,27 @@ public class MoveElementDownHandler {
     private static SmObjectImpl getPasteTarget(List<SmObjectImpl> toClone) {
         SmObjectImpl ret = null;
         for (SmObjectImpl obj : toClone) {
-            // All elements to clone must have the same parent
-            SmObjectImpl compositionOwner = obj.getCompositionOwner();
+        
+            SmObjectImpl compositionOwner = null;
+            // Specific Treatment for BPMN Objects in Lanes
+            if (obj instanceof BpmnBoundaryEvent) {
+                BpmnBoundaryEvent boundary = (BpmnBoundaryEvent) obj;
+                compositionOwner = (SmObjectImpl) boundary.getAttachedToRef();
+            } else if (obj instanceof BpmnFlowElement) {
+                BpmnFlowElement flowElement = (BpmnFlowElement) obj;
+                if (flowElement.getLane().size() > 0) {
+                    compositionOwner = (SmObjectImpl) flowElement.getLane().get(0);
+                }else{
+                    compositionOwner = obj.getCompositionOwner();
+                }
+            } else {
+                // All elements to clone must have the same parent
+                compositionOwner = obj.getCompositionOwner();
+            }
+        
             if (ret != null && ret != compositionOwner) {
                 return null;
-            } else if (compositionOwner instanceof Project){
+            } else if (compositionOwner instanceof Project) {
                 return null;
             } else {
                 ret = compositionOwner;
@@ -103,13 +135,15 @@ public class MoveElementDownHandler {
         List<SmObjectImpl> selectedElements = new ArrayList<>();
         if (selection instanceof SmObjectImpl) {
             selectedElements.add((SmObjectImpl) selection);
-        } else if (selection instanceof IStructuredSelection && ((IStructuredSelection) selection).size() >= 1) {
+        } else if (selection instanceof IStructuredSelection
+                && ((IStructuredSelection) selection).size() >= 1) {
             Object[] elements = ((IStructuredSelection) selection).toArray();
             for (Object element : elements) {
                 if (element instanceof SmObjectImpl) {
                     selectedElements.add((SmObjectImpl) element);
                 } else if (element instanceof IAdaptable) {
-                    final SmObjectImpl adapter = (SmObjectImpl) ((IAdaptable) element).getAdapter(SmObjectImpl.class);
+                    final SmObjectImpl adapter = (SmObjectImpl) ((IAdaptable) element)
+                            .getAdapter(SmObjectImpl.class);
                     if (adapter != null) {
                         selectedElements.add(adapter);
                     }
@@ -145,15 +179,18 @@ public class MoveElementDownHandler {
             return;
         }
         
-        try (ITransaction transaction = session.getTransactionSupport().createTransaction("Move element down")) {
+        try (ITransaction transaction = session.getTransactionSupport()
+                .createTransaction("Move element down")) {
             int nbToMove = 0;
         
-            // We first move down the Last selected element of the list; This way the positions of other
-            // selected elements are not affected by the move of the current element.
+            // We first move down the Last selected element of the list; This
+            // way the positions of other
+            // selected elements are not affected by the move of the current
+            // element.
             for (int i = selectedElements.size() - 1; i >= 0; --i) {
                 SmObjectImpl element = selectedElements.get(i);
         
-                List<MObject> listToReorder = targetElement.mGet(element.getCompositionRelation().dep.getSymetric());
+                List listToReorder = getListToMove(element,targetElement);
         
                 // Retrieve the new index of the element
                 int index = computeNewIndex(element, listToReorder);
@@ -164,7 +201,7 @@ public class MoveElementDownHandler {
                     return;
                 }
         
-                // Move the element in the list 
+                // Move the element in the list
                 nbToMove++;
                 listToReorder.remove(element);
                 listToReorder.add(index, element);
@@ -177,22 +214,36 @@ public class MoveElementDownHandler {
                 transaction.rollback();
             }
         } catch (Exception e) {
-            // Should catch InvalidModelManipulationException to display a popup box, but it
+            // Should catch InvalidModelManipulationException to display a popup
+            // box, but it
             // is not a RuntimeException.
             reportException(e);
         }
     }
 
     @objid ("25481845-43a4-11e2-b513-002564c97630")
-    private static int computeNewIndex(SmObjectImpl element, List<MObject> listToReorder) {
+    private static int computeNewIndex(SmObjectImpl element, List<? extends MObject> listToReorder) {
         int index = listToReorder.indexOf(element) + 1;
         
-        // Iterate until we find an element of the same metaclass or until we find the end of the list.
-        while (index < listToReorder.size() && listToReorder.get(index).getClass() != element.getClass()) {
-            index++;
-        }
         
-        // If that would move outside of the list, that means element is already the last one.
+        // Specific Treatment for BPMN Objects
+        if (element instanceof BpmnFlowElement) {        
+            while (index < listToReorder.size() && !(listToReorder.get(index) instanceof BpmnFlowElement)) {
+                index++;
+            }
+            
+        }else{
+            // Iterate until we find an element of the same metaclass or until we
+            // find the end of the list.
+            while (index < listToReorder.size()
+                    && listToReorder.get(index).getClass() != element.getClass()) {
+                index++;
+            }
+        }
+            
+        
+        // If that would move outside of the list, that means element is already
+        // the last one.
         if (index >= listToReorder.size()) {
             return -1;
         }
@@ -207,6 +258,17 @@ public class MoveElementDownHandler {
         MessageDialog.openError(null, title, e.getLocalizedMessage());
         
         ModelBrowser.LOG.error(e);
+    }
+
+    @objid ("c5c9f34f-9753-4816-8905-d9a1c93b0b3b")
+    private List<? extends MObject> getListToMove(SmObjectImpl toMove, SmObjectImpl dest) {
+        // Specific Treatment for BPMN Objects in Lanes
+        if (toMove instanceof BpmnFlowElement && dest instanceof BpmnLane) {
+            return ((BpmnLane) dest).getFlowElementRef();
+        } else if (toMove instanceof BpmnBoundaryEvent) {
+            return ((BpmnActivity) dest).getBoundaryEventRef();
+        }
+        return dest.mGet(toMove.getCompositionRelation().dep.getSymetric());
     }
 
 }

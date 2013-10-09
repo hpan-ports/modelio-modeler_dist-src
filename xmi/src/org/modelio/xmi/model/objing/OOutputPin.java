@@ -28,12 +28,11 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.uml2.uml.OutputPin;
 import org.eclipse.uml2.uml.UMLFactory;
 import org.modelio.metamodel.uml.behavior.activityModel.ActivityAction;
-import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.metamodel.uml.statik.Parameter;
 import org.modelio.vcore.smkernel.mapi.MObject;
+import org.modelio.xmi.util.AbstractObjingModelNavigation;
 import org.modelio.xmi.util.AttachOutputPinToOwnerVisitor;
 import org.modelio.xmi.util.GenerationProperties;
-import org.modelio.xmi.util.ObjingModelNavigation;
 
 @objid ("da4a48c7-e260-42d7-927a-28f672fbb87f")
 public class OOutputPin extends OPin implements IOElement {
@@ -65,7 +64,7 @@ public class OOutputPin extends OPin implements IOElement {
     private List<org.modelio.metamodel.uml.behavior.activityModel.OutputPin> getSortedOutputPinList() {
         ActivityAction objingOwner = ((org.modelio.metamodel.uml.behavior.activityModel.OutputPin)getObjingElement()).getOutputing();
         
-        List<Parameter> objingParamList = ObjingModelNavigation
+        List<Parameter> objingParamList = AbstractObjingModelNavigation
                 .getRelatedParameters(objingOwner);
         
         List<org.modelio.metamodel.uml.behavior.activityModel.OutputPin> objingOutputPinList = new ArrayList<org.modelio.metamodel.uml.behavior.activityModel.OutputPin>(

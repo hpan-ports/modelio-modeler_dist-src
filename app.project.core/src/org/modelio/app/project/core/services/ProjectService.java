@@ -31,6 +31,7 @@ import java.nio.file.LinkOption;
 import java.nio.file.Path;
 import java.nio.file.PathMatcher;
 import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -47,7 +48,6 @@ import org.eclipse.e4.core.di.extensions.EventTopic;
 import org.eclipse.e4.core.services.events.IEventBroker;
 import org.eclipse.e4.core.services.statusreporter.StatusReporter;
 import org.eclipse.jface.operation.IRunnableWithProgress;
-import org.eclipse.jface.preference.IPersistentPreferenceStore;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.util.IPropertyChangeListener;
 import org.eclipse.jface.util.PropertyChangeEvent;
@@ -62,6 +62,7 @@ import org.modelio.app.project.core.plugin.AppProjectCore;
 import org.modelio.app.project.core.prefs.ProjectPreferencesHelper;
 import org.modelio.app.project.core.prefs.ProjectPreferencesKeys;
 import org.modelio.core.ui.progress.ModelioProgressAdapter;
+import org.modelio.gproject.descriptor.DescriptorWriter;
 import org.modelio.gproject.descriptor.FragmentDescriptor;
 import org.modelio.gproject.descriptor.ProjectDescriptor;
 import org.modelio.gproject.fragment.Fragments;
@@ -111,7 +112,7 @@ class ProjectService implements IProjectService, EventHandler {
     private ICoreSession session;
 
     @objid ("f354133c-7447-4867-895c-f63bf790b2f0")
-    private IPersistentPreferenceStore prefsStore;
+    private GProjectPreferenceStore prefsStore;
 
     /**
      * C'tor
@@ -607,7 +608,31 @@ class ProjectService implements IProjectService, EventHandler {
                 store.setDefault(ProjectPreferencesKeys.RETURN_DEFAULT_TYPE_PREFKEY, new MRef(integerDataType).toString());
                 store.setToDefault(ProjectPreferencesKeys.RETURN_DEFAULT_TYPE_PREFKEY);
             }
+            if (store.getDefaultString(ProjectPreferencesKeys.RICHNOTE_DEFAULT_TYPE_PREFKEY).isEmpty()) {
+                store.setDefault(ProjectPreferencesKeys.RICHNOTE_DEFAULT_TYPE_PREFKEY, "text/html");
+                store.setToDefault(ProjectPreferencesKeys.RICHNOTE_DEFAULT_TYPE_PREFKEY);
+            }
         }
+    }
+
+    @objid ("ddfed9a9-bcb8-4683-9326-13ed63566396")
+    @Override
+    public void renameProject(ProjectDescriptor projectDescriptor, String name) throws IOException {
+        final Path oldPath = projectDescriptor.getPath();
+        
+        // Set the project name
+        projectDescriptor.setName(name);
+        
+        // Save the new project conf
+        Path confFilePath = oldPath.resolve("project.conf");
+        new DescriptorWriter().write(projectDescriptor, confFilePath);
+        
+        // Move the project directory itself
+        final Path targetPath = oldPath.resolveSibling(name);
+        
+        Files.move(oldPath, targetPath, StandardCopyOption.ATOMIC_MOVE);
+        
+        refreshWorkspace();
     }
 
     /**

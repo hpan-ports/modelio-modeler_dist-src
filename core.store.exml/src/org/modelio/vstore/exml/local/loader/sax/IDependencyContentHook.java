@@ -21,6 +21,7 @@
 
 package org.modelio.vstore.exml.local.loader.sax;
 
+import java.util.Collection;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.vcore.smkernel.SmObjectImpl;
@@ -37,9 +38,36 @@ public interface IDependencyContentHook {
      * Can modify the content of the dependency.
      * @param obj the loading model object
      * @param dep the dependency being loaded.
-     * @return the read dependency content.
+     * @return the read dependency content or <code>null</code> if nothing.
      */
     @objid ("ddfaf33d-407a-11e2-87cb-001ec947ccaf")
     List<SmObjectImpl> getContent(SmObjectImpl obj, SmDependency dep);
+
+    /**
+     * Get the dependencies for which content has to be added.
+     * @param obj a model object
+     * @return dependencies for which content has to be added. Returns an empty list if nothing to return.
+     */
+    @objid ("fdbb3a3f-4f18-4a69-a614-94f838b5caaf")
+    Collection<? extends Content> getContent(SmObjectImpl obj);
+
+    /**
+     * Content for a dependency on a model object
+     */
+    @objid ("e62bc1c1-d6d6-4994-88b2-898ef9ae0ed1")
+    public interface Content {
+        /**
+         * @return the refered dependency
+         */
+        @objid ("ebeea589-7578-4cc8-b30d-96d309391edb")
+        SmDependency getDep();
+
+        /**
+         * @return the dependency content
+         */
+        @objid ("11d91fe5-4bb8-4cc6-a6dd-fef6ee08116e")
+        List<SmObjectImpl> getContent();
+
+    }
 
 }

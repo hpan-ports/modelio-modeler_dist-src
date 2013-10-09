@@ -21,18 +21,23 @@
 
 package org.modelio.vaudit.modelshield.standard.checkers;
 
+import java.util.ArrayList;
+import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.metamodel.Metamodel;
 import org.modelio.metamodel.uml.infrastructure.TaggedValue;
+import org.modelio.vaudit.modelshield.internal.ModelError;
 import org.modelio.vaudit.modelshield.standard.TriggerType;
 import org.modelio.vaudit.modelshield.standard.checkers.generic.DepCardinalityChecker;
 import org.modelio.vaudit.modelshield.standard.plan.Plan;
+import org.modelio.vcore.smkernel.mapi.MDependency;
+import org.modelio.vcore.smkernel.mapi.MObject;
 
 /**
  * E234:
  * <ul>
  * <li>desc = A TaggedValue must have a TagType.</li>
- * <li>what = A tagged value belonging to the ''{2}'' element has no tagged value type.</li>
+ * <li>what = A tagged value belonging to the ''{1}'' element has no tagged value type.</li>
  * </ul>
  */
 @objid ("00070850-e20e-1f69-b3fb-001ec947cd2a")
@@ -56,6 +61,14 @@ public class E234Checker extends DepCardinalityChecker {
     @objid ("0062442c-9e33-1f6c-bf9a-001ec947cd2a")
     public E234Checker() {
         super(ERRORID, DEPNAME);
+    }
+
+    @objid ("036aab88-5665-419b-9d75-8518199be3e3")
+    @Override
+    protected ModelError createError(MObject object, MDependency dep, int currentCard) {
+        List<Object> objects = new ArrayList<>();
+        objects.add(object.getCompositionOwner());
+        return new ModelError(ERRORID, object, objects);
     }
 
 }

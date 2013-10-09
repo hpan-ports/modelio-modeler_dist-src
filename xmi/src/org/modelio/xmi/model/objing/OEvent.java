@@ -29,9 +29,9 @@ import org.modelio.metamodel.uml.behavior.commonBehaviors.EventType;
 import org.modelio.metamodel.uml.behavior.commonBehaviors.Signal;
 import org.modelio.metamodel.uml.statik.Operation;
 import org.modelio.metamodel.uml.statik.Package;
+import org.modelio.xmi.util.AbstractObjingModelNavigation;
 import org.modelio.xmi.util.GenerationProperties;
 import org.modelio.xmi.util.IModelerModuleStereotypes;
-import org.modelio.xmi.util.ObjingModelNavigation;
 import org.modelio.xmi.util.PrimitiveTypeMapper;
 
 @objid ("81806c76-d9a2-4ce0-85de-683203b9b685")
@@ -76,7 +76,7 @@ public class OEvent extends OModelElement implements IOElement {
     public void attach(org.eclipse.uml2.uml.Element ecoreElt) {
         Behavior oldOwner = this.objingElement.getComposed();
         
-        Package newOwner = ObjingModelNavigation.getNearestPackage(oldOwner);
+        Package newOwner = AbstractObjingModelNavigation.getNearestPackage(oldOwner);
         
         org.eclipse.uml2.uml.Element ecoreOwner = GenerationProperties.getInstance().getMappedElement(oldOwner);
         

@@ -37,6 +37,8 @@ import org.eclipse.e4.ui.workbench.modeling.EModelService;
 import org.eclipse.e4.ui.workbench.modeling.ESelectionService;
 import org.eclipse.e4.ui.workbench.swt.modeling.EMenuService;
 import org.eclipse.jface.preference.IPreferenceStore;
+import org.eclipse.jface.util.IPropertyChangeListener;
+import org.eclipse.jface.util.PropertyChangeEvent;
 import org.eclipse.jface.viewers.DoubleClickEvent;
 import org.eclipse.jface.viewers.IDoubleClickListener;
 import org.eclipse.jface.viewers.ISelection;
@@ -58,7 +60,6 @@ import org.modelio.gproject.model.api.MTools;
 import org.modelio.gproject.module.GModule;
 import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.model.browser.context.ElementCreationDynamicMenuManager;
-import org.modelio.model.browser.plugin.ModelBrowser;
 import org.modelio.model.browser.views.treeview.ModelBrowserPanelProvider;
 import org.modelio.vcore.smkernel.mapi.MObject;
 
@@ -120,7 +121,7 @@ public class BrowserView {
     public EModelService modelService;
 
     @objid ("cbbb8469-3ab0-48ff-bcd6-8520c805e184")
-    private BrowserConfigurator configurator;
+     BrowserConfigurator configurator;
 
     @objid ("87d61f2c-6505-4b48-bbf0-d2b5710c8998")
     @Inject
@@ -150,7 +151,7 @@ public class BrowserView {
         
             @Override
             public void run() {
-                if (MTools.getLinkTool().isLink(editedElement.getMClass())) {
+                if (editedElement != null && MTools.getLinkTool().isLink(editedElement.getMClass())) {
                     selectElement(MTools.getModelTool().getTarget(editedElement));
                 }
             }
@@ -327,6 +328,7 @@ public class BrowserView {
                     } // else openedProject != null
                 }// this.browserTreePanel == null
                 if (openedProject != null) {
+                    // Manually update the preferences...
                     configurePanelByPreferences(projectService);
                     initBrowserTreePanelForOpenedProject(openedProject);
                 }
@@ -353,6 +355,9 @@ public class BrowserView {
                     BrowserView.this.browserTreePanel.getComposite().setSelection(null);
                     BrowserView.this.browserTreePanel.activateEdition(null);
                     BrowserView.this.browserTreePanel.setInput(null);
+        
+                    // Reset configuration
+                    BrowserView.this.configurator = null;
                 }
             }
         });
@@ -403,8 +408,9 @@ public class BrowserView {
 
     @objid ("406e594d-3f78-4614-b7ec-2f6513a3cfcb")
     public void setShowAnalystModel(boolean showAnalystModel) {
-        this.browserTreePanel.setShowAnalystModel(showAnalystModel);
-        this.configurator.saveConfiguration(this.browserTreePanel);
+        if (this.configurator != null) {
+            this.configurator.setShowAnalystModel(showAnalystModel);
+        }
     }
 
     @objid ("724330e9-4540-11e2-aeb7-002564c97630")
@@ -414,8 +420,9 @@ public class BrowserView {
 
     @objid ("724330ed-4540-11e2-aeb7-002564c97630")
     public void setShowVisibility(boolean showVisibility) {
-        this.browserTreePanel.setShowVisibility(showVisibility);
-        this.configurator.saveConfiguration(this.browserTreePanel);
+        if (this.configurator != null) {
+            this.configurator.setShowVisibility(showVisibility);
+        }
     }
 
     @objid ("72459249-4540-11e2-aeb7-002564c97630")
@@ -425,8 +432,9 @@ public class BrowserView {
 
     @objid ("7245924d-4540-11e2-aeb7-002564c97630")
     public void setShowMdaModel(boolean showMdaModel) {
-        this.browserTreePanel.setShowMdaModel(showMdaModel);
-        this.configurator.saveConfiguration(this.browserTreePanel);
+        if (this.configurator != null) {
+            this.configurator.setShowMdaModel(showMdaModel);
+        }
     }
 
     @objid ("72459250-4540-11e2-aeb7-002564c97630")
@@ -436,8 +444,9 @@ public class BrowserView {
 
     @objid ("72459254-4540-11e2-aeb7-002564c97630")
     public void setShowProjects(boolean showProjects) {
-        this.browserTreePanel.setShowProjects(showProjects);
-        this.configurator.saveConfiguration(this.browserTreePanel);
+        if (this.configurator != null) {
+            this.configurator.setShowProjects(showProjects);
+        }
     }
 
     @objid ("031063bd-4607-11e2-960d-002564c97630")
@@ -455,13 +464,29 @@ public class BrowserView {
      * @param projectService
      */
     @objid ("2c273c76-b3a3-4492-b0cf-fbaf7a1a0562")
-    protected void configurePanelByPreferences(final IProjectService projectService) {
+    public void configurePanelByPreferences(final IProjectService projectService) {
         if (this.configurator == null) {
-            final IPreferenceStore prefs = projectService.getProjectPreferences(ModelBrowser.PLUGIN_ID);
-            this.configurator = new BrowserConfigurator(prefs);
+            this.configurator = new BrowserConfigurator(projectService, this.myPart);
+        
+            // Add a property change listener for future updates
+            projectService.getProjectPreferences(this.myPart.getElementId()).addPropertyChangeListener(new IPropertyChangeListener() {
+        
+                @Override
+                public void propertyChange(PropertyChangeEvent event) {
+                    Display.getDefault().asyncExec(new Runnable() {
+                        
+                        @Override
+                        public void run() {
+                            configurePanelByPreferences(projectService);
+                        }
+                    });
+                }
+            });
         }
-        this.configurator.loadConfiguration(BrowserView.this.browserTreePanel);
-        configureMenuItem();
+        if (BrowserView.this.browserTreePanel != null) {
+            this.configurator.loadConfiguration(BrowserView.this.browserTreePanel);
+            configureMenuItem();
+        }
     }
 
     @objid ("15cf03a4-16da-11e2-aa0d-002564c97630")
@@ -541,33 +566,66 @@ public class BrowserView {
         @objid ("a46962e7-2f4a-48e9-aade-7cc5d3e750e0")
         private static final boolean SHOW_VISIBILITY_DEFAULT = true;
 
-        @objid ("98c9a00e-09cc-4c86-9dc6-31aafbcfd3d9")
-        private IPreferenceStore prefs;
+        @objid ("59b32b4d-7586-4f2e-8d00-16261cc4f597")
+        private IProjectService projectService;
+
+        @objid ("b1d28743-c80c-45eb-9bf8-f2151e6e4ce5")
+        private MPart part;
 
         @objid ("61af700c-eb93-4d98-ac74-5978ea753f76")
-        public void saveConfiguration(ModelBrowserPanelProvider browserTreePanel) {
-            this.prefs.setValue(SHOW_ANALYST_MODEL, browserTreePanel.isShowAnalystModel());
-            this.prefs.setValue(SHOW_FRAGMENTS, browserTreePanel.isShowProjects());
-            this.prefs.setValue(SHOW_MDA_MODEL, browserTreePanel.isShowMdaModel());
-            this.prefs.setValue(SHOW_VISIBILITY, browserTreePanel.isShowVisibility());
+        public void setShowAnalystModel(boolean isShowAnalystModel) {
+            final IPreferenceStore prefs = this.projectService.getProjectPreferences(this.part.getElementId());
+            if (prefs != null) {
+                prefs.setValue(SHOW_ANALYST_MODEL, isShowAnalystModel);
+            }
         }
 
         @objid ("4a0d1950-03a2-4328-abbe-2bcdbe3a8c50")
         public void loadConfiguration(ModelBrowserPanelProvider browserTreePanel) {
-            browserTreePanel.setShowAnalystModel(this.prefs.getBoolean(SHOW_ANALYST_MODEL));
-            browserTreePanel.setShowProjects(this.prefs.getBoolean(SHOW_FRAGMENTS));
-            browserTreePanel.setShowMdaModel(this.prefs.getBoolean(SHOW_MDA_MODEL));
-            browserTreePanel.setShowVisibility(this.prefs.getBoolean(SHOW_VISIBILITY));
+            final IPreferenceStore prefs = this.projectService.getProjectPreferences(this.part.getElementId());
+            if (prefs != null) {
+                browserTreePanel.setShowAnalystModel(prefs.getBoolean(SHOW_ANALYST_MODEL));
+                browserTreePanel.setShowProjects(prefs.getBoolean(SHOW_FRAGMENTS));
+                browserTreePanel.setShowMdaModel(prefs.getBoolean(SHOW_MDA_MODEL));
+                browserTreePanel.setShowVisibility(prefs.getBoolean(SHOW_VISIBILITY));
+            }
         }
 
         @objid ("27bbbeb8-af96-4787-888e-b39b9551907f")
-        public BrowserConfigurator(IPreferenceStore prefs) {
-            this.prefs = prefs;
+        public BrowserConfigurator(IProjectService projectService, MPart part) {
+            this.projectService = projectService;
+            this.part = part;
+            
+            final IPreferenceStore prefs = projectService.getProjectPreferences(part.getElementId());
             if (prefs != null) {
                 prefs.setDefault(SHOW_ANALYST_MODEL, SHOW_ANALYST_MODEL_DEFAULT);
                 prefs.setDefault(SHOW_FRAGMENTS, SHOW_FRAGMENTS_DEFAULT);
                 prefs.setDefault(SHOW_MDA_MODEL, SHOW_MDA_MODEL_DEFAULT);
                 prefs.setDefault(SHOW_VISIBILITY, SHOW_VISIBILITY_DEFAULT);
+            }
+        }
+
+        @objid ("4aca6d31-b75c-4661-b5f2-dab2c7540ce9")
+        public void setShowProjects(boolean isShowProjects) {
+            final IPreferenceStore prefs = this.projectService.getProjectPreferences(this.part.getElementId());
+            if (prefs != null) {
+                prefs.setValue(SHOW_FRAGMENTS, isShowProjects);
+            }
+        }
+
+        @objid ("454683c6-a027-473f-8b6b-1521733067b3")
+        public void setShowMdaModel(boolean isShowMdaModel) {
+            final IPreferenceStore prefs = this.projectService.getProjectPreferences(this.part.getElementId());
+            if (prefs != null) {
+                prefs.setValue(SHOW_MDA_MODEL, isShowMdaModel);
+            }
+        }
+
+        @objid ("596e31d0-8e60-4be2-9a5c-65bcd25cb6c4")
+        public void setShowVisibility(boolean isShowVisibility) {
+            final IPreferenceStore prefs = this.projectService.getProjectPreferences(this.part.getElementId());
+            if (prefs != null) {
+                prefs.setValue(SHOW_VISIBILITY, isShowVisibility);
             }
         }
 

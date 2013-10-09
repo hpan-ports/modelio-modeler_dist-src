@@ -28,11 +28,12 @@ import org.modelio.metamodel.uml.behavior.stateMachineModel.StateMachine;
 import org.modelio.xmi.util.GenerationProperties;
 
 @objid ("09f9d64a-e0ff-4b65-8370-a202156552a3")
-public class OState extends OModelElement implements IOElement {
+public class OState extends OModelElement {
     @objid ("07cff283-1dbe-49ec-9ec0-8691708a76b7")
     private State objingElement = null;
 
     @objid ("5d7af560-35fe-44cd-b59a-e04f23d4c5e7")
+    @Override
     public org.eclipse.uml2.uml.Element createEcoreElt() {
         return UMLFactory.eINSTANCE.createState();
     }
@@ -40,10 +41,11 @@ public class OState extends OModelElement implements IOElement {
     @objid ("87c125a0-97fb-4b9b-983a-c4835a778beb")
     public OState(State param) {
         super(param);
-        objingElement = param;
+        this.objingElement = param;
     }
 
     @objid ("c77ad0ae-6719-4247-90bd-cb82b702beb3")
+    @Override
     public void attach(org.eclipse.uml2.uml.Element ecoreElt) {
         org.eclipse.uml2.uml.Element ecoreOwner = GenerationProperties.getInstance().getMappedElement(this.objingElement.getParent());                   
         if (ecoreOwner instanceof  org.eclipse.uml2.uml.Region){
@@ -52,9 +54,10 @@ public class OState extends OModelElement implements IOElement {
     }
 
     @objid ("26b33a2f-091e-46b6-bd2c-c9d604b50d0c")
+    @Override
     public void setProperties(org.eclipse.uml2.uml.Element ecoreElt) {
         super.setProperties(ecoreElt);
-                setSubMachine((org.eclipse.uml2.uml.State) ecoreElt);
+        setSubMachine((org.eclipse.uml2.uml.State) ecoreElt);
     }
 
     @objid ("ea24f106-55a1-4f68-a67b-6d5f65d53535")

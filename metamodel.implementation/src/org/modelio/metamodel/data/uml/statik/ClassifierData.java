@@ -95,7 +95,7 @@ public abstract class ClassifierData extends NameSpaceData {
      List<SmObjectImpl> mBpmnRepresents = null;
 
     @objid ("6e8cd2b3-2d4a-4e96-b698-7c19d639e4b3")
-    @SmaMetaAssociation(metaName="Throwing", typeDataClass=RaisedExceptionData.class, min=0, max=-1, smAssociationClass=Metadata.ThrowingSmDependency.class)
+    @SmaMetaAssociation(metaName="Throwing", typeDataClass=RaisedExceptionData.class, min=0, max=-1, smAssociationClass=Metadata.ThrowingSmDependency.class, istodelete = true)
      List<SmObjectImpl> mThrowing = null;
 
     @objid ("6bc7efe3-e52d-4fd6-b037-ef0b0b63a6cd")
