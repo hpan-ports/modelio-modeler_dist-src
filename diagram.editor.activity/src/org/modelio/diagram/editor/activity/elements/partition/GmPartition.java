@@ -22,6 +22,7 @@
 package org.modelio.diagram.editor.activity.elements.partition;
 
 import java.util.List;
+import java.util.Objects;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.diagram.editor.activity.elements.partition.bodyhybridcontainer.GmBodyHybridContainer;
 import org.modelio.diagram.editor.activity.elements.partition.header.GmPartitionHeader;
@@ -107,7 +108,7 @@ public class GmPartition extends GmCompositeNode {
     @Override
     public boolean canUnmask(MObject el) {
         Class<? extends MObject> type = el.getClass();
-        return el.getCompositionOwner().equals(this.element) && acceptMetaclass(type);
+        return Objects.equals(el.getCompositionOwner(), this.element) && acceptMetaclass(type);
     }
 
     @objid ("2afe95bd-55b6-11e2-877f-002564c97630")

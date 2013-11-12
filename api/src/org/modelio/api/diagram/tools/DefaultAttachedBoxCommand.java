@@ -69,7 +69,7 @@ public abstract class DefaultAttachedBoxCommand implements IAttachedBoxCommand {
     @objid ("01ec00d8-0000-5abf-0000-000000000000")
     private String tooltip;
 
-    @objid ("28f6d037-d02a-4b92-80cd-38095883782a")
+    @objid ("d09323c1-5aea-4f56-919b-af246fbb8b9b")
     private ImageDescriptor bitmap;
 
     /**

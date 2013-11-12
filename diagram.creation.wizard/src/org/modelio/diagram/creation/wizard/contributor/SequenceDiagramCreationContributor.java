@@ -33,7 +33,7 @@ public class SequenceDiagramCreationContributor extends AbstractDiagramCreationC
     @objid ("12f39b07-a757-4ee0-9bae-73262df4b563")
     @Override
     public AbstractDiagram actionPerformed(final ModelElement diagramContext, final String diagramName, final String diagramDescription) {
-        IModelFactory modelFactory = this.mmServices.getModelFactory(diagramContext);
+        IModelFactory modelFactory = this.mmServices.getModelFactory();
         SequenceDiagram diagram = null;
         
         // Unless the parent element is already an Interaction, create the Interaction:
@@ -42,22 +42,24 @@ public class SequenceDiagramCreationContributor extends AbstractDiagramCreationC
             interaction = (Interaction) diagramContext;
         else {
             interaction = modelFactory.createInteraction();
-            interaction.setOwner((NameSpace) diagramContext);
             setElementDefaultName(interaction);
         }
         
         // Create the diagram, depending on parentElement, carry out the "smart" creation job
         if ((diagramContext instanceof Classifier) && !(diagramContext instanceof UseCase)) {
+            interaction.setOwner((Classifier) diagramContext);
             diagram = smartCreateForClassifier(modelFactory,
                     interaction,
                     (Classifier) diagramContext,
                     diagramName);
         } else if (diagramContext instanceof Operation) {
+            interaction.setOwnerOperation((Operation) diagramContext);
             diagram = smartCreateForOperation(modelFactory,
                     interaction,
                     (Operation) diagramContext,
                     diagramName);
         } else {
+            interaction.setOwner((NameSpace) diagramContext);
             diagram = smartCreateForNameSpace(modelFactory, interaction, diagramName);
         }
         if (diagram != null) {

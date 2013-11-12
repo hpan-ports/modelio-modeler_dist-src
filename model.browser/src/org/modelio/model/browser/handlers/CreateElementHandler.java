@@ -38,9 +38,9 @@ public class CreateElementHandler extends AbstractCreateElementHandler {
         IModelFactory mmFactory = this.mmServices.getModelFactory();
         IElementNamer mmNamer = this.mmServices.getElementNamer();
         
-        ModelElement newElement = (ModelElement) mmFactory.createElement(metaclass, owner, dependency);
-        if (stereotype != null) {
-            newElement.getExtension().add(stereotype);
+        Element newElement = mmFactory.createElement(metaclass, owner, dependency);
+        if (stereotype != null && newElement instanceof ModelElement) {
+            ((ModelElement)newElement).getExtension().add(stereotype);
         }
         newElement.setName(mmNamer.getUniqueName(newElement));
         return newElement;

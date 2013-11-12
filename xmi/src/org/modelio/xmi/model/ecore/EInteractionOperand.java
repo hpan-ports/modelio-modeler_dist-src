@@ -21,15 +21,15 @@
 
 package org.modelio.xmi.model.ecore;
 
-import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.api.modelio.Modelio;
 import org.modelio.metamodel.uml.behavior.interactionModel.InteractionOperand;
 import org.modelio.metamodel.uml.infrastructure.Element;
 
 @objid ("3cf6b1df-8a80-4578-aa64-181554e6b87c")
-public class EInteractionOperand extends EInteractionFragment implements IEElement {
+public class EInteractionOperand extends EInteractionFragment {
     @objid ("0ca345ea-7f0f-4c09-88d1-47fae531fe03")
+    @Override
     public Element createObjingElt() {
         return Modelio.getInstance().getModelingSession().getModel()
                 .createInteractionOperand();
@@ -41,15 +41,13 @@ public class EInteractionOperand extends EInteractionFragment implements IEEleme
     }
 
     @objid ("86f18634-a435-448e-90f3-ba4c39b57dea")
+    @Override
     public void attach(Element objingElt) {
         super.attach(objingElt);
     }
 
-    @objid ("12fa95e7-98f1-4616-b7fb-0608e2912ea7")
-    public void attach(List<Object> objingElts) {
-    }
-
     @objid ("2bef3490-7c60-40a7-9519-4b3723a211c1")
+    @Override
     public void setProperties(Element objingElt) {
         super.setProperties(objingElt);
         setGuard((InteractionOperand) objingElt);

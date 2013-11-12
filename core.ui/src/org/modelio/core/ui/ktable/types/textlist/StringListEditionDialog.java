@@ -111,12 +111,6 @@ public class StringListEditionDialog extends ModelioDialog {
     @objid ("8dcf2029-c068-11e1-8c0a-002564c97630")
     private ContentTableListener contentTableListener = null;
 
-    @objid ("8dcf202a-c068-11e1-8c0a-002564c97630")
-    private Image moveUpImage = null;
-
-    @objid ("8dcf202b-c068-11e1-8c0a-002564c97630")
-    private Image moveDownImage = null;
-
     @objid ("8dcf202c-c068-11e1-8c0a-002564c97630")
     private Button moveUpParameterButton = null;
 
@@ -148,9 +142,6 @@ public class StringListEditionDialog extends ModelioDialog {
         this.content = initContent(initialContent);
         this.editor = editor;
         this.editionValidator = editionValidator;
-        
-        this.moveUpImage = getBundleImage("icons/up_16.png");
-        this.moveDownImage = getBundleImage("icons/down_16.png");
     }
 
     @objid ("8dcf203e-c068-11e1-8c0a-002564c97630")
@@ -202,13 +193,8 @@ public class StringListEditionDialog extends ModelioDialog {
             this.contentTableListener = null;
         }
         
-        if (this.moveUpImage != null) {
-            this.moveUpImage.dispose();
-            this.moveUpImage = null;
-        }
-        if (this.moveDownImage != null) {
-            this.moveDownImage.dispose();
-            this.moveDownImage = null;
+        if (this.equals(instance)) { // should always be the case, could be an assert!
+            instance = null;
         }
         return super.close();
     }
@@ -278,7 +264,7 @@ public class StringListEditionDialog extends ModelioDialog {
         setTitle(this.title);
         setMessage(this.message);
         
-        Point minSize = new Point(440,270);
+        Point minSize = new Point(440,300);
         getShell().setMinimumSize(minSize);
     }
 
@@ -374,16 +360,14 @@ public class StringListEditionDialog extends ModelioDialog {
         if (this.size != -1) {
             this.addStringText.setEnabled(this.content.size() < this.size);
         }
-        GridData gd_addStringText = new GridData(SWT.FILL, SWT.TOP, true, false);
+        GridData gd_addStringText = new GridData(SWT.FILL, SWT.FILL, true, false);
         this.addStringText.setLayoutData(gd_addStringText);
         this.addStringText.forceFocus();
         
-        this.addParameterButton = new Button(area, SWT.NONE);
+        this.addParameterButton = new Button(area, SWT.PUSH);
         this.addParameterButton.setImage(UIImages.ADD);
         this.addParameterButton.setEnabled(false);
         GridData gd_addParameterButton = new GridData(SWT.LEFT, SWT.TOP, false, false);
-        gd_addParameterButton.heightHint = 21;
-        gd_addParameterButton.widthHint = 21;
         this.addParameterButton.setLayoutData(gd_addParameterButton);
     }
 
@@ -408,28 +392,22 @@ public class StringListEditionDialog extends ModelioDialog {
         GridData gd_buttonsComposite = new GridData(SWT.LEFT, SWT.TOP, false, false);
         buttonsComposite.setLayoutData(gd_buttonsComposite);
         
-        this.moveUpParameterButton = new Button(buttonsComposite, SWT.NONE);
-        this.moveUpParameterButton.setImage(this.moveUpImage);
+        this.moveUpParameterButton = new Button(buttonsComposite, SWT.PUSH);
+        this.moveUpParameterButton.setImage(UIImages.UPARROW);
         this.moveUpParameterButton.setEnabled(false);
         GridData gd_moveUpParameterButton = new GridData(SWT.LEFT, SWT.TOP, false, false);
-        gd_moveUpParameterButton.heightHint = 21;
-        gd_moveUpParameterButton.widthHint = 21;
         this.moveUpParameterButton.setLayoutData(gd_moveUpParameterButton);
         
-        this.moveDownParameterButton = new Button(buttonsComposite, SWT.NONE);
-        this.moveDownParameterButton.setImage(this.moveDownImage);
+        this.moveDownParameterButton = new Button(buttonsComposite, SWT.PUSH);
+        this.moveDownParameterButton.setImage(UIImages.DOWNARROW);
         this.moveDownParameterButton.setEnabled(false);
         GridData gd_moveDownParameterButton = new GridData(SWT.LEFT, SWT.TOP, false, false);
-        gd_moveDownParameterButton.heightHint = 21;
-        gd_moveDownParameterButton.widthHint = 21;
         this.moveDownParameterButton.setLayoutData(gd_moveDownParameterButton);
         
-        this.removeParameterButton = new Button(buttonsComposite, SWT.NONE);
+        this.removeParameterButton = new Button(buttonsComposite, SWT.PUSH);
         this.removeParameterButton.setImage(UIImages.DELETE);
         this.removeParameterButton.setEnabled(false);
         GridData gd_removeParameterButton = new GridData(SWT.LEFT, SWT.TOP, false, false);
-        gd_removeParameterButton.heightHint = 21;
-        gd_removeParameterButton.widthHint = 21;
         this.removeParameterButton.setLayoutData(gd_removeParameterButton);
     }
 

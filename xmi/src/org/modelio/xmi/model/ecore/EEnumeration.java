@@ -21,7 +21,6 @@
 
 package org.modelio.xmi.model.ecore;
 
-import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.api.modelio.Modelio;
 import org.modelio.metamodel.uml.infrastructure.Element;
@@ -32,8 +31,9 @@ import org.modelio.xmi.util.EcoreModelNavigation;
 import org.modelio.xmi.util.ReverseProperties;
 
 @objid ("a79812f7-1e25-48c1-ba75-45e070efe052")
-public class EEnumeration extends EDataType implements IEElement {
+public class EEnumeration extends EDataType {
     @objid ("94ef5f45-4554-4ac7-bce7-9c2cbe31315b")
+    @Override
     public Element createObjingElt() {
         return Modelio.getInstance()
                 .getModelingSession().getModel().createEnumeration();
@@ -45,8 +45,9 @@ public class EEnumeration extends EDataType implements IEElement {
     }
 
     @objid ("4c0a178e-0491-41e4-a33e-ac05eedf5fa6")
+    @Override
     public void attach(Element objingElt) {
-        ModelTree objingOwner = EcoreModelNavigation.getNearestEnumerationOwner((org.eclipse.uml2.uml.Enumeration) getEcoreElement());
+        ModelTree objingOwner = EcoreModelNavigation.getNearestEnumerationOwner(getEcoreElement());
         
         if (objingOwner != null){
             ModelTree objingDTImport = (ModelTree) objingElt;
@@ -58,11 +59,8 @@ public class EEnumeration extends EDataType implements IEElement {
         }
     }
 
-    @objid ("eba200e8-8fa6-41c2-b51c-09626248697f")
-    public void attach(List<Object> objingElts) {
-    }
-
     @objid ("d6dd0ada-8714-4ea9-8634-973c90259dd3")
+    @Override
     public void setProperties(Element objingElt) {
         super.setProperties(objingElt);
         setElementary((Enumeration) objingElt);

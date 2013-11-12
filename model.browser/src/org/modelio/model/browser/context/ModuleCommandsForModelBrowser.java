@@ -31,6 +31,8 @@ import org.eclipse.e4.core.di.annotations.Optional;
 import org.eclipse.e4.core.di.extensions.EventTopic;
 import org.eclipse.e4.ui.di.AboutToHide;
 import org.eclipse.e4.ui.di.AboutToShow;
+import org.eclipse.e4.ui.model.application.ui.MElementContainer;
+import org.eclipse.e4.ui.model.application.ui.MUIElement;
 import org.eclipse.e4.ui.model.application.ui.basic.MPart;
 import org.eclipse.e4.ui.model.application.ui.menu.MMenuElement;
 import org.modelio.api.module.IModule;
@@ -104,7 +106,9 @@ class ModuleCommandsForModelBrowser {
         if (browserView != null && items != null) {
             // Cleanup menu items
             for (MMenuElement item : items) {
-                item.getParent().getChildren().remove(item);
+                final MElementContainer<MUIElement> parentItem = item.getParent();
+                if (parentItem != null) // parentItem may be null
+                    parentItem.getChildren().remove(item);
             }
         
             // Cleanip commands & handlers

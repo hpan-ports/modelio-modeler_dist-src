@@ -21,6 +21,7 @@
 
 package org.modelio.app.project.conf.dialog.modules.list;
 
+import java.lang.reflect.InvocationTargetException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -30,10 +31,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
+import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.ColumnLabelProvider;
+import org.eclipse.jface.viewers.DoubleClickEvent;
+import org.eclipse.jface.viewers.IDoubleClickListener;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -66,6 +71,8 @@ import org.modelio.app.project.conf.dialog.common.ScopeHelper;
 import org.modelio.app.project.conf.dialog.modules.ModuleRemovalConfirmationDialog;
 import org.modelio.app.project.conf.plugin.AppProjectConf;
 import org.modelio.app.project.core.services.IProjectService;
+import org.modelio.gproject.descriptor.FragmentType;
+import org.modelio.gproject.fragment.IProjectFragment;
 import org.modelio.gproject.gproject.GProject;
 import org.modelio.gproject.module.GModule;
 import org.modelio.gproject.module.IModuleHandle;
@@ -74,6 +81,7 @@ import org.modelio.mda.infra.catalog.ModuleCatalogPanel;
 import org.modelio.mda.infra.service.IModuleService;
 import org.modelio.metamodel.mda.ModuleComponent;
 import org.modelio.ui.UIImages;
+import org.modelio.ui.progress.IModelioProgressService;
 import org.modelio.vcore.session.api.transactions.ITransaction;
 import org.modelio.vcore.smkernel.AccessDeniedException;
 
@@ -82,40 +90,40 @@ import org.modelio.vcore.smkernel.AccessDeniedException;
  */
 @objid ("a73f82a6-33f6-11e2-a514-002564c97630")
 public class ModulesSection {
+    @objid ("ae549ed1-f8f4-45d9-a773-9b6eafe71439")
+    protected IEclipseContext applicationContext;
+
+    @objid ("38317f1f-9285-4fac-aee6-1bc197e6d4d8")
+    private TableViewer modulesTable;
+
+    @objid ("7a604ce6-4912-45f3-8a84-d219aced684d")
+    protected Button removeButton;
+
+    @objid ("ccfb5aba-9df7-4882-a69f-14a1d941093d")
+    protected static final Image CHECKED = AbstractUIPlugin
+    .imageDescriptorFromPlugin(AppProjectConf.PLUGIN_ID, "icons/checked.gif").createImage();
+
+    @objid ("24b4b14a-c5da-4fc4-a46c-33d847f5ab91")
+    protected static final Image UNCHECKED = AbstractUIPlugin.imageDescriptorFromPlugin(AppProjectConf.PLUGIN_ID,
+            "icons/unchecked.gif").createImage();
+
+    @objid ("b804796d-a4d6-4a71-9405-eb343fcd9d2c")
+    private Button addButton;
+
+    @objid ("ef6f48c6-3f04-412f-9a30-f740d2c09f4f")
+    private IStructuredSelection moduleSelectionsInCatalog;
+
+    @objid ("c8b19faf-29e1-45ea-a854-cf78bb67ad12")
+    private Button catalogButton;
+
     /**
      * The project that is currently being displayed by the section.
      */
     @objid ("a73f82a8-33f6-11e2-a514-002564c97630")
     private ProjectModel projectAdapter;
 
-    @objid ("a73f82aa-33f6-11e2-a514-002564c97630")
-    protected IEclipseContext applicationContext;
-
-    @objid ("a73f82ab-33f6-11e2-a514-002564c97630")
-    private TableViewer modulesTable;
-
-    @objid ("a73f82ad-33f6-11e2-a514-002564c97630")
-    protected Button removeButton;
-
-    @objid ("af20f1c8-3ed8-11e2-8121-002564c97630")
-    protected static final Image CHECKED = AbstractUIPlugin
-    .imageDescriptorFromPlugin(AppProjectConf.PLUGIN_ID, "icons/checked.gif").createImage();
-
-    @objid ("af20f1ca-3ed8-11e2-8121-002564c97630")
-    protected static final Image UNCHECKED = AbstractUIPlugin.imageDescriptorFromPlugin(AppProjectConf.PLUGIN_ID,
-            "icons/unchecked.gif").createImage();
-
-    @objid ("496695f8-4e09-4d0c-823f-13523624edbf")
-    private Button addButton;
-
-    @objid ("5724b605-254e-481b-be67-aa6f34f29710")
-    private IStructuredSelection moduleSelectionsInCatalog;
-
     @objid ("e310a2d1-2b07-40d4-a1a1-15b35793dc6b")
     private ModelioEnv env;
-
-    @objid ("e3603a3d-944f-4c70-9e0a-e809159a92ca")
-    private Button catalogButton;
 
     @objid ("7938901f-13fa-451f-9543-7699a5a0991c")
     protected CatalogController catalogController;
@@ -126,12 +134,16 @@ public class ModulesSection {
     @objid ("45bd66ad-956a-46e3-9bf8-0be27611f68b")
     protected IModuleService moduleService;
 
+    @objid ("a6974b15-9862-43bb-b768-597de867d2b9")
+    protected IModelioProgressService progressService;
+
     @objid ("a73f82ae-33f6-11e2-a514-002564c97630")
     public ModulesSection(IEclipseContext application, ModelioEnv env) {
         this.applicationContext = application;
         this.env = env;
         this.catalogController = new CatalogController();
         this.moduleService = this.applicationContext.get(IModuleService.class);
+        this.progressService = this.applicationContext.get(IModelioProgressService.class);
     }
 
     @objid ("a73f82b1-33f6-11e2-a514-002564c97630")
@@ -337,12 +349,7 @@ public class ModulesSection {
         this.addButton.addSelectionListener(new SelectionAdapter() {
             @Override
             public void widgetSelected(SelectionEvent evt) {
-                AppProjectConf.LOG.debug("Add module(s)"); //$NON-NLS-1$
-                IProjectService projectService = ModulesSection.this.applicationContext.get(IProjectService.class);
-                GProject openedProject = projectService.getOpenedProject();
-        
-                AddModuleHelper.run(openedProject, ModulesSection.this.moduleService, getModulesToAdd());
-                setInput(getProjectAdapter());
+                addSelectedModules();
             }
         });
         
@@ -475,6 +482,14 @@ public class ModulesSection {
                 }
             }
         });
+        
+        panel.addDoubleClickListener(new IDoubleClickListener() {
+            
+            @Override
+            public void doubleClick(DoubleClickEvent event) {
+                addSelectedModules();
+            }
+        });
         this.catalogController.init();
         return panel;
     }
@@ -484,25 +499,68 @@ public class ModulesSection {
         return (Composite) ModulesSection.this.moduleCatalogPanel.getComposite();
     }
 
+    @objid ("661b3595-61d5-4bfe-9891-015ecb7cc019")
+    protected void addSelectedModules() {
+        IRunnableWithProgress runnable = new IRunnableWithProgress() {
+            
+            @Override
+            public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
+                AppProjectConf.LOG.debug("Add module(s)"); //$NON-NLS-1$
+                IProjectService projectService = ModulesSection.this.applicationContext.get(IProjectService.class);
+                GProject openedProject = projectService.getOpenedProject();
+                AddModuleHelper.run(openedProject, ModulesSection.this.moduleService, getModulesToAdd(), monitor, getProjectAdapter());
+            }
+        };
+        try {
+            this.progressService.run(false, false, runnable);
+            setInput(getProjectAdapter());
+        } catch (InvocationTargetException | InterruptedException e) {
+            AppProjectConf.LOG.error(e);
+        }
+    }
+
     @objid ("234a564c-79b4-4bfa-a39c-3b0664ac44b3")
     private static class AddModuleHelper {
         @objid ("cdbd5b64-6a82-42f2-8adb-f5bc22324328")
-        public static void run(GProject project, IModuleService moduleService, Collection<IModuleHandle> modules) {
+        public static void run(final GProject project, final IModuleService moduleService, Collection<IModuleHandle> modules, IProgressMonitor monitor, ProjectModel projectAdapter) {
             // Sort the module according to their dependencies
             List<IModuleHandle> sortedModules = new ArrayList<>();
             sortedModules.addAll(modules);
             Collections.sort(sortedModules, new ModuleHandleComparator());
-            
-            for (IModuleHandle module : sortedModules) {
+            int sum = sortedModules.size();
+            monitor.beginTask(AppProjectConf.I18N.getString("ModulesSection.AddModulesProgressTitle"), sum);
+            List<String> invalidIds = getExistFragmentIdList(projectAdapter);
+            for (int i = 0; i < sum; i++) {
+                final IModuleHandle module = sortedModules.get(i);
+                if (invalidIds.contains(module.getName())) {
+                    MessageDialog.openError(null, AppProjectConf.I18N.getString("ModulesSection.ModuleInstallationErrorTitle"), 
+                            AppProjectConf.I18N.getMessage("ModulesSection.ModuleInstallationErrorMessage.NameExistAlready", module.getName()));
+                    return;
+                }
+                monitor.subTask(AppProjectConf.I18N.getMessage("ModulesSection.AddModulesProgressSubTask", String.valueOf(i+1), String.valueOf(sum), module.getName()));
+                monitor.worked(1);
                 try (ITransaction t = project.getSession().getTransactionSupport().createTransaction("install a module")) { //$NON-NLS-1$
                     moduleService.installModule(project, module.getArchive());
                     t.commit();
-                } catch (ModuleException e) {
+                } catch (ModuleException | IllegalArgumentException e) {
                     // Error dialog
                     MessageDialog.openError(null, AppProjectConf.I18N.getString("ModulesSection.ModuleInstallationErrorTitle"), e.getMessage());
                     AppProjectConf.LOG.debug(e);
+                }   
+            }
+            monitor.done();
+        }
+
+        @objid ("9253ef20-a992-4750-95f0-1de8842aa140")
+        private static List<String> getExistFragmentIdList(ProjectModel projectAdapter) {
+            List<String> fragmentIds = new ArrayList<>();
+            List<IProjectFragment> fragments = projectAdapter.getAllFragments();
+            for (IProjectFragment fragment : fragments) {
+                if (fragment.getType() != FragmentType.MDA) {                    
+                    fragmentIds.add(fragment.getId());
                 }
             }
+            return fragmentIds;
         }
 
     }

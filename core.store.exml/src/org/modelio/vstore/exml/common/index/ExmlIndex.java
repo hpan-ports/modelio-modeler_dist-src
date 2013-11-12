@@ -387,4 +387,16 @@ public class ExmlIndex {
             this.db.setNamedObject(VERSION_OBJ_NAME, this.db.insert(INDEX_FORMAT_VERSION));
     }
 
+    /**
+     * Defragments the index, so it consumes less space. This commits any uncommitted data.
+     * @throws IOException
+     * @param monitor the progress monitor to use for reporting progress to the user. It is the caller's responsibility to call done()
+     * on the given monitor. Accepts null, indicating that no progress should be reported and that the operation cannot
+     * be cancelled.
+     */
+    @objid ("3fa2dfbe-6770-41c1-be4c-6955841eefb9")
+    public void compress(IModelioProgress monitor) throws IOException {
+        this.db.defrag();
+    }
+
 }

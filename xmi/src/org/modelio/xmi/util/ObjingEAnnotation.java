@@ -303,20 +303,23 @@ public class ObjingEAnnotation extends XMIEAnnotation {
 
     @objid ("4783ba52-4bd6-4e00-a2b3-1844b701c65d")
     public static void setMain(org.eclipse.uml2.uml.Element ecoreElt, boolean isMain) {
-        if (genProp.isRoundtripEnabled() && (isMain)) 
+        if (genProp.isRoundtripEnabled() && (isMain)) {
             createEAnnotation(ecoreElt, OBJING_NAME,IS_MAIN);
+        }
     }
 
     @objid ("3a649923-227e-4ae4-9198-90d8c8a84c05")
     public static void setTagParameter(org.eclipse.uml2.uml.Element ecoreElt, boolean isTagParameter) {
-        if (genProp.isRoundtripEnabled() && (isTagParameter)) 
+        if (genProp.isRoundtripEnabled() && (isTagParameter)) {
             createEAnnotation(ecoreElt, OBJING_NAME,IS_TAGPARAMETER);
+        }
     }
 
     @objid ("f3af20a2-91b2-46b5-afe9-74b9134c1b6c")
     public static void setPrimitive(org.eclipse.uml2.uml.Element ecoreElt, boolean isPrimitive) {
-        if (genProp.isRoundtripEnabled() && (isPrimitive)) 
+        if (genProp.isRoundtripEnabled() && (isPrimitive)) {
             createEAnnotation(ecoreElt, OBJING_NAME,IS_ELEMENTARY);
+        }
     }
 
     @objid ("04c2a551-4ec4-458d-92c5-58ea29e598db")
@@ -336,8 +339,9 @@ public class ObjingEAnnotation extends XMIEAnnotation {
 
     @objid ("8ae0573b-916b-4826-aeb2-94781e0e2834")
     public static void setNavigable(org.eclipse.uml2.uml.Element ecoreElt, boolean isNavigable) {
-        if (genProp.isRoundtripEnabled() && (isNavigable)) 
+        if (genProp.isRoundtripEnabled() && (isNavigable)) {
             createEAnnotation(ecoreElt, OBJING_NAME,IS_NAVIGABLE);
+        }
     }
 
     @objid ("4057e3f3-1fd3-4550-8448-4bd23f76b362")
@@ -347,8 +351,9 @@ public class ObjingEAnnotation extends XMIEAnnotation {
 
     @objid ("cc00c5b7-21b7-454a-9a9e-66ee253c421f")
     public static void setUndefined(org.eclipse.uml2.uml.Element ecoreElt, boolean isUndefined) {
-        if (genProp.isRoundtripEnabled() && (isUndefined)) 
+        if (genProp.isRoundtripEnabled() && (isUndefined)) {
             createEAnnotation(ecoreElt, OBJING_NAME,IS_UNDEFINED);
+        }
     }
 
     @objid ("deeb0984-3d12-4b6c-9c1c-a5250aac8ae2")
@@ -358,8 +363,9 @@ public class ObjingEAnnotation extends XMIEAnnotation {
 
     @objid ("9154a462-703c-4fb8-85e5-c877c28516db")
     public static void setConstant(org.eclipse.uml2.uml.Element ecoreElt, boolean isConstant) {
-        if (genProp.isRoundtripEnabled() && (isConstant)) 
+        if (genProp.isRoundtripEnabled() && (isConstant)) {
             createEAnnotation(ecoreElt, OBJING_NAME,IS_CONSTANT);
+        }
     }
 
     @objid ("ed3310f5-70d5-447d-a897-f210ecb53d44")
@@ -369,8 +375,9 @@ public class ObjingEAnnotation extends XMIEAnnotation {
 
     @objid ("05882ddf-820f-41bf-a239-a7e80baf2e64")
     public static void setEvent(org.eclipse.uml2.uml.Element ecoreElt, boolean isEvent) {
-        if (genProp.isRoundtripEnabled() && (isEvent)) 
+        if (genProp.isRoundtripEnabled() && (isEvent)) {
             createEAnnotation(ecoreElt, OBJING_NAME,IS_EVENT);
+        }
     }
 
     @objid ("41787eeb-a4ce-4805-a037-834cbd9eae3c")
@@ -380,8 +387,9 @@ public class ObjingEAnnotation extends XMIEAnnotation {
 
     @objid ("8e97a7e7-96d6-4be3-8e59-1b6f8de1eccb")
     public static void setReentrant(org.eclipse.uml2.uml.Element ecoreElt, boolean isReentrant) {
-        if (genProp.isRoundtripEnabled() && (isReentrant)) 
+        if (genProp.isRoundtripEnabled() && (isReentrant)) {
             createEAnnotation(ecoreElt, OBJING_NAME,IS_REENTRANT);
+        }
     }
 
     @objid ("9f66a26e-670b-41e8-944a-bcaa794067ec")
@@ -391,8 +399,9 @@ public class ObjingEAnnotation extends XMIEAnnotation {
 
     @objid ("7b536e11-43fe-436d-8131-62db3279304b")
     public static void setException(org.eclipse.uml2.uml.Element ecoreElt, boolean isException) {
-        if (genProp.isRoundtripEnabled() && (isException)) 
+        if (genProp.isRoundtripEnabled() && (isException)) {
             createEAnnotation(ecoreElt, OBJING_NAME,IS_EXCEPTION);
+        }
     }
 
     @objid ("3abe8667-545a-4c8c-a283-2ca01d0ceca7")
@@ -402,8 +411,9 @@ public class ObjingEAnnotation extends XMIEAnnotation {
 
     @objid ("c3268a39-807b-4b6c-99cc-3ec1d41ca34d")
     public static void setOrdered(org.eclipse.uml2.uml.Element ecoreElt, boolean isIsOrdered) {
-        if (genProp.isRoundtripEnabled() && (isIsOrdered)) 
+        if (genProp.isRoundtripEnabled() && (isIsOrdered)) {
             createEAnnotation(ecoreElt, OBJING_NAME,IS_ORDERED);
+        }
     }
 
     @objid ("2093d8b8-90bc-48e2-97ff-0f5775702988")
@@ -413,8 +423,9 @@ public class ObjingEAnnotation extends XMIEAnnotation {
 
     @objid ("661da255-6f6c-4367-9d46-50ab51c7433e")
     public static void setUnique(org.eclipse.uml2.uml.Element ecoreElt, boolean isIsUnique) {
-        if (genProp.isRoundtripEnabled() && (isIsUnique)) 
+        if (genProp.isRoundtripEnabled() && (isIsUnique)) {
             createEAnnotation(ecoreElt, OBJING_NAME,IS_UNIQUE);
+        }
     }
 
     @objid ("425f1b90-f89b-4640-8f96-f76a3105aa58")
@@ -424,8 +435,9 @@ public class ObjingEAnnotation extends XMIEAnnotation {
 
     @objid ("26033cf7-25c4-4d48-ae0f-5cfc2500dd43")
     public static void setDefaultStereotype(org.eclipse.uml2.uml.Stereotype ecoreElt, boolean isUndefined) {
-        if (genProp.isRoundtripEnabled() && (isUndefined)) 
+        if (genProp.isRoundtripEnabled() && (isUndefined)) {
             createEAnnotation(ecoreElt, OBJING_NAME,IS_DEFAULT_STEREOTYPE);
+        }
     }
 
     @objid ("ee9dd568-ffcb-4514-b6fc-5d1dc7519ec8")
@@ -435,8 +447,9 @@ public class ObjingEAnnotation extends XMIEAnnotation {
 
     @objid ("9ddc1750-495c-48fb-84ea-e6af25dfdea9")
     public static void setInstantiable(org.eclipse.uml2.uml.Element ecoreElt, boolean isInstantiable) {
-        if (genProp.isRoundtripEnabled() && (isInstantiable)) 
+        if (genProp.isRoundtripEnabled() && (isInstantiable)) {
             createEAnnotation(ecoreElt, OBJING_NAME,IS_INSTANTIABLE);
+        }
     }
 
     @objid ("868226b2-72cb-4bde-bc2b-0c7f4c12a430")
@@ -446,8 +459,9 @@ public class ObjingEAnnotation extends XMIEAnnotation {
 
     @objid ("edbfa336-c9d5-42c1-91f0-912c6ba37ff3")
     public static void setLeaf(org.eclipse.uml2.uml.Element ecoreElt, boolean isLeaf) {
-        if (genProp.isRoundtripEnabled() && (isLeaf)) 
+        if (genProp.isRoundtripEnabled() && (isLeaf)) {
             createEAnnotation(ecoreElt, OBJING_NAME,IS_LEAF);
+        }
     }
 
     @objid ("be8d72f6-f38b-41b3-be41-3d3141e70ee7")
@@ -457,8 +471,9 @@ public class ObjingEAnnotation extends XMIEAnnotation {
 
     @objid ("b434f238-c3d7-4a5d-a8be-bb3128bf4193")
     public static void setLink(org.eclipse.uml2.uml.Element ecoreElt, boolean isLink) {
-        if (genProp.isRoundtripEnabled() && (isLink)) 
+        if (genProp.isRoundtripEnabled() && (isLink)) {
             createEAnnotation(ecoreElt, OBJING_NAME,IS_LINK);
+        }
     }
 
     @objid ("94ccb371-1ab6-43d6-8894-89a9098cad62")
@@ -468,20 +483,23 @@ public class ObjingEAnnotation extends XMIEAnnotation {
 
     @objid ("0d3db433-9850-4d45-84af-844547b11174")
     public static void setProvidedInterface(org.eclipse.uml2.uml.Element ecoreElt, boolean isProvidedInterface) {
-        if (genProp.isRoundtripEnabled() && (isProvidedInterface)) 
+        if (genProp.isRoundtripEnabled() && (isProvidedInterface)) {
             createEAnnotation(ecoreElt, OBJING_NAME,IS_PROVIDED_INTERFACE);
+        }
     }
 
     @objid ("88723b2b-c9c4-4ad4-bbc0-610763c9e7f4")
     public static void setRequiredInterface(org.eclipse.uml2.uml.Element ecoreElt, boolean isRequiredInterface) {
-        if (genProp.isRoundtripEnabled() && (isRequiredInterface)) 
+        if (genProp.isRoundtripEnabled() && (isRequiredInterface)) {
             createEAnnotation(ecoreElt, OBJING_NAME,IS_REQUIRED_INTERFACE);
+        }
     }
 
     @objid ("3f0543ca-5370-4586-8e33-d75fdc828462")
     public static void setRoot(org.eclipse.uml2.uml.Element ecoreElt, boolean isRoot) {
-        if (genProp.isRoundtripEnabled() && (isRoot)) 
+        if (genProp.isRoundtripEnabled() && (isRoot)) {
             createEAnnotation(ecoreElt, OBJING_NAME,IS_ROOT);
+        }
     }
 
     @objid ("c20677b9-7b25-4e87-a982-e48ab6735a2e")
@@ -491,8 +509,9 @@ public class ObjingEAnnotation extends XMIEAnnotation {
 
     @objid ("ba6c78c2-d7e6-491d-9862-c88babbb96f9")
     public static void setConnector(org.eclipse.uml2.uml.Element ecoreElt, boolean isConnector) {
-        if (genProp.isRoundtripEnabled() && (isConnector)) 
+        if (genProp.isRoundtripEnabled() && (isConnector)) {
             createEAnnotation(ecoreElt, OBJING_NAME,IS_CONNECTOR);
+        }
     }
 
     @objid ("e5170ca2-2084-4629-8dc6-2d10e15f9817")
@@ -502,8 +521,9 @@ public class ObjingEAnnotation extends XMIEAnnotation {
 
     @objid ("b2bcb1f1-3e06-4891-b551-76a95c83923e")
     public static void setBindableInstance(org.eclipse.uml2.uml.Element ecoreElt, boolean isBindableInstance) {
-        if (genProp.isRoundtripEnabled() && (isBindableInstance)) 
+        if (genProp.isRoundtripEnabled() && (isBindableInstance)) {
             createEAnnotation(ecoreElt, OBJING_NAME,IS_BINDABLEINSTANCE);
+        }
     }
 
     @objid ("6d199c4f-cbab-432b-9da7-279c3cb3c668")
@@ -513,20 +533,23 @@ public class ObjingEAnnotation extends XMIEAnnotation {
 
     @objid ("be52d405-597d-4215-8284-5a47ebc05523")
     public static void setBase(org.eclipse.uml2.uml.Element ecoreElt, boolean isBase) {
-        if (genProp.isRoundtripEnabled() && (isBase)) 
+        if (genProp.isRoundtripEnabled() && (isBase)) {
             createEAnnotation(ecoreElt, OBJING_NAME,IS_BASE);
+        }
     }
 
     @objid ("9467b3d7-856a-4cda-bffa-eaf70df93b14")
     public static void setBehavior(org.eclipse.uml2.uml.Element ecoreElt, boolean isBehavior) {
-        if (genProp.isRoundtripEnabled() && (isBehavior)) 
+        if (genProp.isRoundtripEnabled() && (isBehavior)) {
             createEAnnotation(ecoreElt, OBJING_NAME,IS_BEHAVIOR);
+        }
     }
 
     @objid ("f5ef2682-060b-4ed4-9a87-b378476c449e")
     public static void setService(org.eclipse.uml2.uml.Element ecoreElt, boolean isService) {
-        if (genProp.isRoundtripEnabled() && (isService)) 
+        if (genProp.isRoundtripEnabled() && (isService)) {
             createEAnnotation(ecoreElt, OBJING_NAME,IS_SERVICE);
+        }
     }
 
     @objid ("31880b03-bd35-4b62-911f-fa84a2da9f54")
@@ -546,8 +569,9 @@ public class ObjingEAnnotation extends XMIEAnnotation {
 
     @objid ("f2b70def-784b-455f-800a-d5faa22b6259")
     public static void setPBase(org.eclipse.uml2.uml.Element ecoreElt, boolean isPBase) {
-        if (genProp.isRoundtripEnabled() && (isPBase)) 
+        if (genProp.isRoundtripEnabled() && (isPBase)) {
             createEAnnotation(ecoreElt, OBJING_NAME,IS_PBASE);
+        }
     }
 
     @objid ("e2520090-ff85-445d-a4ad-b75fe302f474")
@@ -557,8 +581,9 @@ public class ObjingEAnnotation extends XMIEAnnotation {
 
     @objid ("cbd30e77-94c4-4288-9881-c33ec827f1f2")
     public static void setDeleted(org.eclipse.uml2.uml.Element ecoreElt, boolean isDeleted) {
-        if (genProp.isRoundtripEnabled() && (isDeleted)) 
+        if (genProp.isRoundtripEnabled() && (isDeleted)) {
             createEAnnotation(ecoreElt, OBJING_NAME,IS_DELETED);
+        }
     }
 
     @objid ("53275420-afa3-4af0-853a-80bfe0848ae1")
@@ -568,8 +593,9 @@ public class ObjingEAnnotation extends XMIEAnnotation {
 
     @objid ("aa7f300b-2f87-4d27-bd68-5b830d85273b")
     public static void setReprensentation(org.eclipse.uml2.uml.Element ecoreElt, boolean isRepresentation) {
-        if (genProp.isRoundtripEnabled() && (isRepresentation)) 
+        if (genProp.isRoundtripEnabled() && (isRepresentation)) {
             createEAnnotation(ecoreElt, OBJING_NAME,IS_REPRESENTED);
+        }
     }
 
     @objid ("74f8bf3a-e7d9-44b8-a77b-8781f05b3284")
@@ -579,8 +605,9 @@ public class ObjingEAnnotation extends XMIEAnnotation {
 
     @objid ("50e8e8ab-c4ba-4cf2-9aea-5f6b104c467d")
     public static void setOBase(org.eclipse.uml2.uml.Element ecoreElt, boolean isOBase) {
-        if (genProp.isRoundtripEnabled() && (isOBase)) 
+        if (genProp.isRoundtripEnabled() && (isOBase)) {
             createEAnnotation(ecoreElt, OBJING_NAME,IS_OBASE);
+        }
     }
 
     @objid ("a32b2963-69c4-46db-afe6-92ad239f82ea")
@@ -590,8 +617,9 @@ public class ObjingEAnnotation extends XMIEAnnotation {
 
     @objid ("0e33881d-2712-4d94-a3f8-68db40be79a7")
     public static void setPort(org.eclipse.uml2.uml.Element ecoreElt, boolean isPort) {
-        if (genProp.isRoundtripEnabled() && (isPort)) 
+        if (genProp.isRoundtripEnabled() && (isPort)) {
             createEAnnotation(ecoreElt, OBJING_NAME,IS_PORT);
+        }
     }
 
     @objid ("d0b9394a-261c-4916-a321-c1e522929e60")
@@ -601,8 +629,9 @@ public class ObjingEAnnotation extends XMIEAnnotation {
 
     @objid ("7eb28878-5d29-47de-8b45-d43d2a64da31")
     public static void setNoType(org.eclipse.uml2.uml.Element ecoreElt, boolean isNoType) {
-        if (genProp.isRoundtripEnabled() && (isNoType)) 
+        if (genProp.isRoundtripEnabled() && (isNoType)) {
             createEAnnotation(ecoreElt, OBJING_NAME,IS_NOTYPE);
+        }
     }
 
     @objid ("50fc4579-65ab-4878-b9a1-c14521be0117")
@@ -612,9 +641,10 @@ public class ObjingEAnnotation extends XMIEAnnotation {
 
     @objid ("f510e369-ffe0-4ee5-b67e-013d88ef3d30")
     public static void setTypeConstraint(org.eclipse.uml2.uml.Element ecoreElt, String typeConstraint) {
-        if (genProp.isRoundtripEnabled())
+        if (genProp.isRoundtripEnabled()){
             setOrCreateEAnnotationContent(ecoreElt, OBJING_NAME,
                     TYPE_CONSTRAINT, typeConstraint);
+        }
     }
 
     @objid ("114de1cc-de6d-44e9-9c4a-89a8816acf3a")
@@ -634,23 +664,26 @@ public class ObjingEAnnotation extends XMIEAnnotation {
 
     @objid ("40c41f3d-8034-4c44-a47a-ac2c9bc43865")
     public static void setTaggedValue(org.eclipse.uml2.uml.Element ecoreElt, String taggedValue) {
-        if (genProp.isRoundtripEnabled())
+        if (genProp.isRoundtripEnabled()){
             setOrCreateEAnnotationContent(ecoreElt, OBJING_NAME,
                     TAGGEDVALUE, taggedValue);
+        }
     }
 
     @objid ("0b257e1d-df97-4084-b61b-366f22645f98")
     public static void setOwner(org.eclipse.uml2.uml.Element ecoreElt, String ownerId) {
-        if (genProp.isRoundtripEnabled())
+        if (genProp.isRoundtripEnabled()){
             setOrCreateEAnnotationContent(ecoreElt, OBJING_NAME,
                     OWNER, ownerId);
+        }
     }
 
     @objid ("f8d3e9a0-d807-47e9-8ea0-22ea0cfb1b2a")
     public static void setMultiMin(org.eclipse.uml2.uml.Element ecoreElt, String multiMin) {
-        if (genProp.isRoundtripEnabled())
+        if (genProp.isRoundtripEnabled()){
             setOrCreateEAnnotationContent(ecoreElt, OBJING_NAME,
                     MULTI_MIN, multiMin);
+        }
     }
 
     @objid ("34d4c91c-7ef7-4793-bb7a-0fdb14eb46bc")
@@ -660,9 +693,10 @@ public class ObjingEAnnotation extends XMIEAnnotation {
 
     @objid ("f32ed5fb-9a7b-4efe-a121-e17347e87e9e")
     public static void setType(org.eclipse.uml2.uml.Element ecoreElt, String type) {
-        if (genProp.isRoundtripEnabled())
+        if (genProp.isRoundtripEnabled()){
             setOrCreateEAnnotationContent(ecoreElt, OBJING_NAME,
                     TYPE, type);
+        }
     }
 
     @objid ("bd2bf756-f4e3-40ea-a27d-c3f5c28b308c")
@@ -672,9 +706,10 @@ public class ObjingEAnnotation extends XMIEAnnotation {
 
     @objid ("d3994cc9-8a45-4ad8-b435-0937ae536ed8")
     public static void setMultiMax(org.eclipse.uml2.uml.Element ecoreElt, String multiMax) {
-        if (genProp.isRoundtripEnabled())
+        if (genProp.isRoundtripEnabled()){
             setOrCreateEAnnotationContent(ecoreElt, OBJING_NAME,
                     MULTI_MAX, multiMax);
+        }
     }
 
     @objid ("b96091e5-54fe-429e-8067-c2d2664f1b1a")
@@ -684,8 +719,9 @@ public class ObjingEAnnotation extends XMIEAnnotation {
 
     @objid ("cc5ad1b6-617b-4325-a573-a9e8c6d1391d")
     public static void setDynamicDependency(org.eclipse.uml2.uml.Element ecoreElt, boolean isIsDerived) {
-        if (genProp.isRoundtripEnabled() && (isIsDerived)) 
+        if (genProp.isRoundtripEnabled() && (isIsDerived)) {
             createEAnnotation(ecoreElt, OBJING_NAME,IS_DERIVED);
+        }
     }
 
     @objid ("45c6f369-2396-4356-85a8-358cd4fd0a02")
@@ -705,8 +741,9 @@ public class ObjingEAnnotation extends XMIEAnnotation {
 
     @objid ("7ad33964-4126-440f-b3be-a6ecc4e90f6a")
     public static void setAbstract(org.eclipse.uml2.uml.Element ecoreElt, boolean isIsAbstract) {
-        if (genProp.isRoundtripEnabled() && (isIsAbstract)) 
+        if (genProp.isRoundtripEnabled() && (isIsAbstract)) {
             createEAnnotation(ecoreElt, OBJING_NAME,IS_ABSTRACT);
+        }
     }
 
     @objid ("ec75499a-5382-49a6-958c-7c2031a62c0f")
@@ -716,9 +753,10 @@ public class ObjingEAnnotation extends XMIEAnnotation {
 
     @objid ("e6d60027-8ffb-4b03-b79a-a12d6f66b84c")
     public static void setAccessMode(org.eclipse.uml2.uml.Element ecoreElt, String accessMode) {
-        if (genProp.isRoundtripEnabled())
+        if (genProp.isRoundtripEnabled()){
             setOrCreateEAnnotationContent(ecoreElt, OBJING_NAME, ACCESS_MODE,
                     accessMode);
+        }
     }
 
     @objid ("9a96c0f4-e673-4dd7-86ba-768cedaf016f")
@@ -731,29 +769,33 @@ public class ObjingEAnnotation extends XMIEAnnotation {
         EAnnotation ea = null;
         if (genProp.isRoundtripEnabled()) {
             ea = getEAnnotation(ecoreElt, OBJING_NAME);
-            if (ea == null)
+            if (ea == null){
                 ea = createEAnnotation(ecoreElt, OBJING_NAME);
+            }
         }
         return ea;
     }
 
     @objid ("ebc5b435-b3eb-4024-b8c8-d133bb77f5cc")
     public static void setCreate(org.eclipse.uml2.uml.Element ecoreElt, boolean isCreate) {
-        if (genProp.isRoundtripEnabled() && (isCreate)) 
+        if (genProp.isRoundtripEnabled() && (isCreate)) {
             createEAnnotation(ecoreElt, OBJING_NAME,IS_CREATE);
+        }
     }
 
     @objid ("09c0ff43-7ad8-490b-9c5f-d8467a0508e3")
     public static void setDestroy(org.eclipse.uml2.uml.Element ecoreElt, boolean isDestroy) {
-        if (genProp.isRoundtripEnabled() && (isDestroy)) 
+        if (genProp.isRoundtripEnabled() && (isDestroy)) {
             createEAnnotation(ecoreElt, OBJING_NAME,IS_DESTROY);
+        }
     }
 
     @objid ("9ddf5900-a581-44ae-a57b-07ebb81443fc")
     public static void setDiscriminator(org.eclipse.uml2.uml.Element ecoreElt, String discriminator) {
-        if (genProp.isRoundtripEnabled())
+        if (genProp.isRoundtripEnabled()){
             setOrCreateEAnnotationContent(ecoreElt, OBJING_NAME, DISCRIMINATOR,
                     discriminator);
+        }
     }
 
     @objid ("8a31e8a4-39ab-4753-ad40-6ded7332f4bf")
@@ -763,9 +805,10 @@ public class ObjingEAnnotation extends XMIEAnnotation {
 
     @objid ("68f76e52-c03c-40c1-b18a-f88e9b0c91cd")
     public static void setImportedElement(org.eclipse.uml2.uml.Element ecoreElt, String eltPath) {
-        if (genProp.isRoundtripEnabled())
+        if (genProp.isRoundtripEnabled()){
             setOrCreateEAnnotationContent(ecoreElt, OBJING_NAME,
                     ELT_IMPORT_PATH, eltPath);
+        }
     }
 
     @objid ("53578894-6c65-42ad-ab7b-a502d1334811")
@@ -775,9 +818,10 @@ public class ObjingEAnnotation extends XMIEAnnotation {
 
     @objid ("b5de5362-4aae-4ed3-a37f-c6b20894edbf")
     public static void setJoinSpec(org.eclipse.uml2.uml.Element ecoreElt, String value) {
-        if (genProp.isRoundtripEnabled())
+        if (genProp.isRoundtripEnabled()){
             setOrCreateEAnnotationContent(ecoreElt, OBJING_NAME, JOINSPEC,
                     value);
+        }
     }
 
     @objid ("fd58fe7c-d202-4a8e-b473-2a12ca4f6076")
@@ -787,8 +831,9 @@ public class ObjingEAnnotation extends XMIEAnnotation {
 
     @objid ("842ac85c-949a-4a7a-86c5-e6188bd9f195")
     public static void setCombineDuplicate(org.eclipse.uml2.uml.Element ecoreElt, boolean isCombineDuplicate) {
-        if (genProp.isRoundtripEnabled() && (isCombineDuplicate)) 
+        if (genProp.isRoundtripEnabled() && (isCombineDuplicate)) {
             createEAnnotation(ecoreElt, OBJING_NAME,IS_COMBINEDUPLICATE);
+        }
     }
 
     @objid ("8b9829a2-95e1-4df9-a76d-4b90cc8e2e5e")
@@ -828,71 +873,80 @@ public class ObjingEAnnotation extends XMIEAnnotation {
 
     @objid ("96c69007-690a-4624-b266-f98f6c0d7151")
     public static void setNumberRequiredInterface(org.eclipse.uml2.uml.Element ecoreElt, Integer value) {
-        if (genProp.isRoundtripEnabled())
+        if (genProp.isRoundtripEnabled()){
             setOrCreateEAnnotationContent(ecoreElt, OBJING_NAME,
                     NUMBER_REQUIRED_INTERFACE, String.valueOf(value));
+        }
     }
 
     @objid ("3179fb03-8d97-4574-a659-1056f3d2e92f")
     public static Integer getNumberRequiredInterface(org.eclipse.uml2.uml.Element ecoreElt) {
         String temp = getEAnnotationContent(ecoreElt, OBJING_NAME,
                 NUMBER_REQUIRED_INTERFACE);
-        if ((temp != null) && (!temp.equals("")))
+        if ((temp != null) && (!temp.equals(""))){
             return Integer.valueOf(temp);
-        else 
+        }else {
             return 0;
+        }
     }
 
     @objid ("a8dd3025-63fb-47b8-a461-ae04a019ca8e")
     public static void setNumberProvidedInterface(org.eclipse.uml2.uml.Element ecoreElt, Integer value) {
-        if (genProp.isRoundtripEnabled())
+        if (genProp.isRoundtripEnabled()){
             setOrCreateEAnnotationContent(ecoreElt, OBJING_NAME,
                     NUMBER_PROVIDED_INTERFACE,  String.valueOf(value));
+        }
     }
 
     @objid ("293266c0-cc36-4b92-a9d4-85218c0e69c5")
     public static Integer getNumberProvidedInterface(org.eclipse.uml2.uml.Element ecoreElt) {
         String temp = getEAnnotationContent(ecoreElt, OBJING_NAME,
                 NUMBER_PROVIDED_INTERFACE);
-        if ((temp != null) && (!temp.equals("")))
+        if ((temp != null) && (!temp.equals(""))){
             return Integer.valueOf(temp);
-        else 
+        } else {
             return 0;
+        }
     }
 
     @objid ("0fa5bbb6-ef25-4bc0-9877-36acb1729230")
     public static void setTagType(org.eclipse.uml2.uml.Element ecoreElt, String value) {
-        if (genProp.isRoundtripEnabled())
+        if (genProp.isRoundtripEnabled()){
             setOrCreateEAnnotationContent(ecoreElt, OBJING_NAME,
                     TAGTYPE, value);
+        }
     }
 
     @objid ("0f3d4034-2c78-4b59-87a5-8a68bbfe1c7d")
     public static void setNoteTypeName(org.eclipse.uml2.uml.Element ecoreElt, String value) {
-        if (genProp.isRoundtripEnabled())
+        if (genProp.isRoundtripEnabled()){
             setOrCreateEAnnotationContent(ecoreElt, OBJING_NAME,
                     NOTE_TYPE_NAME, value);
+        }
     }
 
     @objid ("8709ab72-0481-4e48-bece-b57652000e10")
     public static void setName(org.eclipse.uml2.uml.Element ecoreElt, String name) {
-        if (genProp.isRoundtripEnabled())
+        if (genProp.isRoundtripEnabled()){
             setOrCreateEAnnotationContent(ecoreElt, OBJING_NAME, ELT_NAME, name);
+        }
     }
 
     @objid ("dd7d54e1-f841-4689-aacf-892fe3d19e47")
     public static void setSupplier(org.eclipse.uml2.uml.Element ecoreElt, String supplierName) {
-        if (genProp.isRoundtripEnabled())
+        if (genProp.isRoundtripEnabled()){
             setOrCreateEAnnotationContent(ecoreElt, OBJING_NAME,
                     SUPPLIER_QUALIFIED_NAME, supplierName);
+        }
     }
 
     @objid ("8d8d96be-3386-4adb-815f-e584ada4cbc5")
     public static boolean hasObjingEAnnotations(org.eclipse.uml2.uml.Package model) {
-        if (getEAnnotation(model, OBJING_NAME) == null)
+        if (getEAnnotation(model, OBJING_NAME) == null){
             return false;
-        else
+        }else{
             return true;
+        }
     }
 
     @objid ("78696e65-e00c-48a5-a553-65c9dd1a623a")
@@ -912,8 +966,9 @@ public class ObjingEAnnotation extends XMIEAnnotation {
 
     @objid ("d0302e02-7b09-4300-b9f1-63c3f041a797")
     public static void setConcurrent(org.eclipse.uml2.uml.Element ecoreElt, boolean isConcurrent) {
-        if (genProp.isRoundtripEnabled() && (isConcurrent)) 
+        if (genProp.isRoundtripEnabled() && (isConcurrent)) {
             createEAnnotation(ecoreElt, OBJING_NAME,IS_CONCURRENT);
+        }
     }
 
     @objid ("6b364cb5-1c51-4e2c-9cf1-6256fb148979")
@@ -938,8 +993,9 @@ public class ObjingEAnnotation extends XMIEAnnotation {
 
     @objid ("5717770f-4d72-4ecf-8696-2a76427879b8")
     public static void setTargetIsClass(Property property, boolean targetIsClass) {
-        if (genProp.isRoundtripEnabled() && (targetIsClass)) 
+        if (genProp.isRoundtripEnabled() && (targetIsClass)) {
             createEAnnotation(property, OBJING_NAME,IS_TARGET_IS_CLASS);
+        }
     }
 
     @objid ("9bffa424-85ec-4497-9294-f4b29b0454b7")
@@ -949,8 +1005,9 @@ public class ObjingEAnnotation extends XMIEAnnotation {
 
     @objid ("93bb459c-3055-4193-b26d-2b73101e4499")
     public static void setEffect(org.eclipse.uml2.uml.Element flow, String effect) {
-        if (genProp.isRoundtripEnabled())
+        if (genProp.isRoundtripEnabled()){
             setOrCreateEAnnotationContent(flow, OBJING_NAME, EFFECT, effect);
+        }
     }
 
     @objid ("b1dd613e-622c-4784-a43a-62a270a124a2")
@@ -960,8 +1017,9 @@ public class ObjingEAnnotation extends XMIEAnnotation {
 
     @objid ("f4ac5edf-70a5-4412-a354-2b2850837c32")
     public static void setValue(org.eclipse.uml2.uml.Element ecoreElt, String effect) {
-        if (genProp.isRoundtripEnabled())
+        if (genProp.isRoundtripEnabled()){
             setOrCreateEAnnotationContent(ecoreElt, OBJING_NAME, VALUE, effect);
+        }
     }
 
     @objid ("d48be1dd-fe03-488c-ba9f-a619c497798d")
@@ -971,8 +1029,9 @@ public class ObjingEAnnotation extends XMIEAnnotation {
 
     @objid ("ae9d424b-2880-4337-9528-4dd67e2b03fd")
     public static void setVisibility(org.eclipse.uml2.uml.Element ecoreElt, int enume) {
-        if (genProp.isRoundtripEnabled())
+        if (genProp.isRoundtripEnabled()){
             setOrCreateEAnnotationContent(ecoreElt, OBJING_NAME, VISIBILITY, String.valueOf(enume));
+        }
     }
 
     @objid ("1651fd03-ceb4-47c9-ba23-1fc949f91b9e")
@@ -982,8 +1041,9 @@ public class ObjingEAnnotation extends XMIEAnnotation {
 
     @objid ("2cbc3984-bd4e-4e9f-8745-ad34fdb3ce26")
     public static void setExpansion(org.eclipse.uml2.uml.Pin pin, boolean isExpansion) {
-        if (genProp.isRoundtripEnabled() && (isExpansion)) 
+        if (genProp.isRoundtripEnabled() && (isExpansion)) {
             createEAnnotation(pin, OBJING_NAME,IS_EXPANSION);
+        }
     }
 
     @objid ("98a11441-ec2f-493d-9f0f-11d5bf89aabb")
@@ -993,8 +1053,9 @@ public class ObjingEAnnotation extends XMIEAnnotation {
 
     @objid ("418a2eeb-0616-49f4-a37a-85c6a80e69b2")
     public static void setFlow(org.eclipse.uml2.uml.Element ecoreElt, boolean isFlow) {
-        if (genProp.isRoundtripEnabled() && (isFlow)) 
+        if (genProp.isRoundtripEnabled() && (isFlow)) {
             createEAnnotation(ecoreElt, OBJING_NAME,IS_FLOW);
+        }
     }
 
     @objid ("c1856f4a-7624-450a-b77b-58c2b7f68358")
@@ -1004,9 +1065,10 @@ public class ObjingEAnnotation extends XMIEAnnotation {
 
     @objid ("0df51b18-a92e-4c79-b6b5-2869c6668293")
     public static void setPostCondition(org.eclipse.uml2.uml.Element ecoreElt, String value) {
-        if (genProp.isRoundtripEnabled())
+        if (genProp.isRoundtripEnabled()){
             setOrCreateEAnnotationContent(ecoreElt, OBJING_NAME, POSTCONDITION,
                     value);
+        }
     }
 
     @objid ("12517e85-ccd0-4399-bb59-ba6e3bc1cab1")
@@ -1016,9 +1078,10 @@ public class ObjingEAnnotation extends XMIEAnnotation {
 
     @objid ("3e0dd494-bcd7-48eb-b1c2-ad82f65dafc9")
     public static void setSignal(org.eclipse.uml2.uml.Element ecoreElt, String value) {
-        if (genProp.isRoundtripEnabled())
+        if (genProp.isRoundtripEnabled()){
             setOrCreateEAnnotationContent(ecoreElt, OBJING_NAME, SIGNAL,
                     value);
+        }
     }
 
     @objid ("37c37e92-f731-446e-becf-7b45325cf0d6")
@@ -1028,9 +1091,10 @@ public class ObjingEAnnotation extends XMIEAnnotation {
 
     @objid ("a2f4803e-308d-4e44-96c6-457115aa58c8")
     public static void setReceivedEvent(org.eclipse.uml2.uml.Element ecoreElt, String value) {
-        if (genProp.isRoundtripEnabled())
+        if (genProp.isRoundtripEnabled()){
             setOrCreateEAnnotationContent(ecoreElt, OBJING_NAME, RECEIVED_EVENT,
                     value);
+        }
     }
 
     @objid ("1a6b984a-5530-4187-a539-25a4d3e97c46")
@@ -1040,8 +1104,9 @@ public class ObjingEAnnotation extends XMIEAnnotation {
 
     @objid ("f2b82625-a9e4-4400-b679-0f785e8933d9")
     public static void setAttributeLink(org.eclipse.uml2.uml.Element ecoreElt, boolean isAttributeLink) {
-        if (genProp.isRoundtripEnabled() && (isAttributeLink)) 
+        if (genProp.isRoundtripEnabled() && (isAttributeLink)) {
             createEAnnotation(ecoreElt, OBJING_NAME,IS_ATTRIBUTELINK);
+        }
     }
 
     @objid ("62597523-0927-4c6e-9dfe-270f24432f3e")
@@ -1051,8 +1116,9 @@ public class ObjingEAnnotation extends XMIEAnnotation {
 
     @objid ("5445313b-3312-4070-8803-2527929617b1")
     public static void setIconType(org.eclipse.uml2.uml.Element ecoreElt, String effect) {
-        if (genProp.isRoundtripEnabled())
+        if (genProp.isRoundtripEnabled()){
             setOrCreateEAnnotationContent(ecoreElt, OBJING_NAME, ICONTYPE, effect);
+        }
     }
 
     @objid ("3be98934-a07f-45cf-9989-1b622531d0f7")
@@ -1062,8 +1128,9 @@ public class ObjingEAnnotation extends XMIEAnnotation {
 
     @objid ("20bfd333-1d2e-45eb-a753-ef2878be17f1")
     public static void setLabel(org.eclipse.uml2.uml.Element ecoreElt, String label) {
-        if (genProp.isRoundtripEnabled())
+        if (genProp.isRoundtripEnabled()){
             setOrCreateEAnnotationContent(ecoreElt, OBJING_NAME, LABEL, label);
+        }
     }
 
     @objid ("d8e43579-acb8-4de0-be36-c95505c21dd6")
@@ -1073,8 +1140,9 @@ public class ObjingEAnnotation extends XMIEAnnotation {
 
     @objid ("52666e1c-2b0c-4dad-87a6-4fe5db5d9762")
     public static void setHidden(org.eclipse.uml2.uml.Element ecoreElt, boolean isHidden) {
-        if (genProp.isRoundtripEnabled() && (isHidden)) 
+        if (genProp.isRoundtripEnabled() && (isHidden)) {
             createEAnnotation(ecoreElt, OBJING_NAME,IS_HIDDEN);
+        }
     }
 
     @objid ("2f719ee8-2773-4438-bb5c-fbf8184c2e33")
@@ -1084,8 +1152,9 @@ public class ObjingEAnnotation extends XMIEAnnotation {
 
     @objid ("b0c77430-5477-43cf-8f65-1ae1e2b7a001")
     public static void setPartSignature(org.eclipse.uml2.uml.Element ecoreElt, boolean isPartSignature) {
-        if (genProp.isRoundtripEnabled() && (isPartSignature)) 
+        if (genProp.isRoundtripEnabled() && (isPartSignature)) {
             createEAnnotation(ecoreElt, OBJING_NAME,IS_SIGNATUREPART);
+        }
     }
 
     @objid ("9cce251a-0277-4e7d-ac6e-8603caf2e018")
@@ -1095,8 +1164,9 @@ public class ObjingEAnnotation extends XMIEAnnotation {
 
     @objid ("9c25467b-624a-4697-80fa-1796ed9e808c")
     public static void setReference(org.eclipse.uml2.uml.Element ecoreElt, boolean isReference) {
-        if (isReference) 
+        if (isReference) {
             createEAnnotation(ecoreElt, OBJING_NAME,IS_REFERENCE);
+        }
     }
 
     @objid ("26418f72-113d-4b90-a632-16acfbdfd664")
@@ -1132,8 +1202,9 @@ public class ObjingEAnnotation extends XMIEAnnotation {
 
     @objid ("74ffaed2-49e8-4441-b011-d26b7e81eef1")
     public static void setValueParameter(org.eclipse.uml2.uml.Element ecoreElt, boolean isIsUnique) {
-        if (genProp.isRoundtripEnabled() && (isIsUnique)) 
+        if (genProp.isRoundtripEnabled() && (isIsUnique)) {
             createEAnnotation(ecoreElt, OBJING_NAME,IS_VALUEPARAMETER);
+        }
     }
 
     @objid ("a8e857ec-5ee1-497a-ae01-12404b657732")
@@ -1143,8 +1214,9 @@ public class ObjingEAnnotation extends XMIEAnnotation {
 
     @objid ("03f9153b-994f-484c-83ed-c0f4e5c9166d")
     public static void setNoteType(org.eclipse.uml2.uml.Element ecoreElt, boolean isNoteType) {
-        if (isNoteType) 
+        if (isNoteType) {
             createEAnnotation(ecoreElt, OBJING_NAME,IS_NOTETYPE);
+        }
     }
 
     @objid ("64c2cac8-2d61-46ac-8293-72add0eaa247")
@@ -1190,8 +1262,9 @@ public class ObjingEAnnotation extends XMIEAnnotation {
 
     @objid ("1bc133a8-da5b-4c59-b8c1-63b05bbd794c")
     public static void addBaseClass(final org.eclipse.uml2.uml.Stereotype ecoreElt, final String baseClass) {
-        if (genProp.isRoundtripEnabled())
+        if (genProp.isRoundtripEnabled()){
             addEAnnotationContent(ecoreElt, OBJING_NAME, BASECLASS, baseClass);
+        }
     }
 
     @objid ("7a1f91cc-7071-46c4-8bca-4416c31d1005")
@@ -1201,8 +1274,9 @@ public class ObjingEAnnotation extends XMIEAnnotation {
 
     @objid ("7f6170ac-cd08-4310-ab69-87518d765a74")
     public static void setRequirementContainer(final org.eclipse.uml2.uml.Element ecoreElt, final boolean isRequirementContainer) {
-        if (isRequirementContainer)
+        if (isRequirementContainer){
             createEAnnotation(ecoreElt, OBJING_NAME,IS_REQUIREMENT_CONTAINER);
+        }
     }
 
     @objid ("d0aeae22-06c6-45b0-85b0-cd03647fe8bd")
@@ -1217,20 +1291,23 @@ public class ObjingEAnnotation extends XMIEAnnotation {
 
     @objid ("11aedf5e-89a6-42a3-9142-cc67a707bab9")
     public static void setOwnedByAssociationClass(final org.eclipse.uml2.uml.Element ecoreElt, final boolean bool) {
-        if (genProp.isRoundtripEnabled() && (bool)) 
+        if (genProp.isRoundtripEnabled() && (bool)) {
             createEAnnotation(ecoreElt, OBJING_NAME,IS_OWNED_BY_ASSOCIATION_CLASS);
+        }
     }
 
     @objid ("52fd5fcc-10ff-4621-a0c3-9664577025ed")
     public static void setOwnedByAssociation(final org.eclipse.uml2.uml.Element ecoreElt, final boolean bool) {
-        if (genProp.isRoundtripEnabled() && (bool)) 
+        if (genProp.isRoundtripEnabled() && (bool)) {
             createEAnnotation(ecoreElt, OBJING_NAME,IS_OWNED_BY_ASSOCIATION);
+        }
     }
 
     @objid ("598a2f19-d5d5-4e97-a554-f38242716200")
     public static void setRoundTrip(final org.eclipse.uml2.uml.Element ecoreElt, final boolean isRoundTrip) {
-        if (genProp.isRoundtripEnabled() && (isRoundTrip)) 
+        if (genProp.isRoundtripEnabled() && (isRoundTrip)) {
             createEAnnotation(ecoreElt, OBJING_NAME,IS_ROUNDTRIP);
+        }
     }
 
     @objid ("cd0ae837-bd60-4e3f-be10-4b2816830631")
@@ -1250,9 +1327,10 @@ public class ObjingEAnnotation extends XMIEAnnotation {
 
     @objid ("881abab8-60b5-4824-a19b-b0507bbc9b8d")
     public static void setPortDirection(final org.eclipse.uml2.uml.Element ecoreElt, final String portDirection) {
-        if (genProp.isRoundtripEnabled())
+        if (genProp.isRoundtripEnabled()){
             setOrCreateEAnnotationContent(ecoreElt, OBJING_NAME,
                     PORT_DIRECTION, portDirection);
+        }
     }
 
     @objid ("d1595b94-f433-48c9-a9cf-fcfdc37b9c30")
@@ -1268,8 +1346,9 @@ public class ObjingEAnnotation extends XMIEAnnotation {
 
     @objid ("745809b5-aab7-4bb5-b10f-d5a3fc50bf83")
     public static void setDiagramName(org.eclipse.uml2.uml.Element ecoreElt, String name) {
-        if (genProp.isRoundtripEnabled())
+        if (genProp.isRoundtripEnabled()){
             setOrCreateEAnnotationContent(ecoreElt, OBJING_NAME, DIAGRAMNAME, name);
+        }
     }
 
     @objid ("51b0875e-af99-4f40-970f-3864c015eaed")
@@ -1281,16 +1360,18 @@ public class ObjingEAnnotation extends XMIEAnnotation {
     public static int getLineNumber(org.eclipse.uml2.uml.Element ecoreElt) {
         String value = getEAnnotationContent(ecoreElt, OBJING_NAME, LINENUMBER);
         
-        if (value.equals(""))
+        if (value.equals("")){
             return 0;
-        else
+        }else{
             return Integer.valueOf(value);
+        }
     }
 
     @objid ("789b945d-7fec-47d9-81f7-743bb88f7766")
     public static void setLineNumber(org.eclipse.uml2.uml.Element ecoreElt, int lineNumber) {
-        if (genProp.isRoundtripEnabled())
+        if (genProp.isRoundtripEnabled()){
             setOrCreateEAnnotationContent(ecoreElt, OBJING_NAME, LINENUMBER, Integer.toString(lineNumber));
+        }
     }
 
     @objid ("db3c7fae-774f-4469-b0ea-de52d2d4db78")
@@ -1300,8 +1381,9 @@ public class ObjingEAnnotation extends XMIEAnnotation {
 
     @objid ("f47b53d1-9d7d-4992-8c48-f31b383cb3fd")
     public static void setEndLineNumber(org.eclipse.uml2.uml.Element ecoreElt, int endLineNumber) {
-        if (genProp.isRoundtripEnabled())
+        if (genProp.isRoundtripEnabled()){
             setOrCreateEAnnotationContent(ecoreElt, OBJING_NAME, ENDLINENUMBER, Integer.toString(endLineNumber));
+        }
     }
 
     @objid ("7f948841-914b-40ef-a997-c6e057cf2a09")

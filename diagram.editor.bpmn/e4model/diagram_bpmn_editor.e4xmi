@@ -47,6 +47,7 @@
       <handlers xmi:id="_65bQkMRVEeKCjMeZ4YvH5A" elementId="diagram.editor.bpmn.handler.rename" contributionURI="bundleclass://org.modelio.diagram.editor/org.modelio.diagram.editor.handlers.RenameElementHandler" command="_iNRKwMRTEeKCjMeZ4YvH5A"/>
       <handlers xmi:id="_UZtnIOJWEeKWx8-qQ2OLqA" elementId="diagram.editor.bpmn.handler.createelement" contributionURI="bundleclass://org.modelio.diagram.editor/org.modelio.diagram.editor.popup.handlers.CreateElementHandler" command="_c0mzYID8EeKKLZZAYaz6Sg"/>
       <menus xsi:type="menu:PopupMenu" xmi:id="_ioYI0ID8EeKKLZZAYaz6Sg" elementId="org.modelio.diagram.editor.bpmn.menu.popupmenu" label="" tooltip="Test de popup menu pour bpmn">
+        <tags>popup:org.modelio.popupmenu.cms</tags>
         <children xsi:type="menu:DynamicMenuContribution" xmi:id="_ioYI0oD8EeKKLZZAYaz6Sg" elementId="org.modelio.diagram.editor.bpmn.menu.createelement" contributionURI="bundleclass://org.modelio.diagram.editor.bpmn/org.modelio.diagram.editor.bpmn.editor.BpmnCreationPopupProvider"/>
         <children xsi:type="menu:Menu" xmi:id="_4wosQIGzEeKtkfwbSBQBAQ" elementId="org.modelio.diagram.editor.bpmn.menu.transmute" label="%TransmuteElementMenu.label">
           <children xsi:type="menu:DynamicMenuContribution" xmi:id="_4wosQoGzEeKtkfwbSBQBAQ" elementId="org.modelio.diagram.editor.bpmn.menu.transmute" contributionURI="bundleclass://org.modelio.diagram.editor.bpmn/org.modelio.diagram.editor.bpmn.editor.BpmnTransmutationPopupProvider"/>
@@ -81,6 +82,7 @@
           <children xsi:type="menu:HandledMenuItem" xmi:id="_IG7MpoJrEeKtkfwbSBQBAQ" elementId="org.modelio.diagram.editor.bpmn.handledmenuitem.UnmaskStructuringLinksAndNodes" label="%UnmaskStructuringLinksAndNodes.label" tooltip="%UnmaskStructuringLinksAndNodes.tooltip" command="_m4YHoIJrEeKtkfwbSBQBAQ"/>
           <children xsi:type="menu:HandledMenuItem" xmi:id="_IG7Mp4JrEeKtkfwbSBQBAQ" elementId="org.modelio.diagram.editor.bpmn.handledmenuitem.UnmaskStructuringLinks" label="%UnmaskStructuringLinks.label" tooltip="%UnmaskStructuringLinks.tooltip" command="_qDZ5MIJrEeKtkfwbSBQBAQ"/>
         </children>
+        <children xsi:type="menu:MenuSeparator" xmi:id="_ay5EoEFqEeODJ4EDWZysYw" elementId="org.modelio.popupmenu.cms"/>
         <children xsi:type="menu:MenuSeparator" xmi:id="_-G54MB61EeO9r6b_vtRk6A" elementId="diagram.editor.bpmn.menuseparator.2"/>
         <children xsi:type="menu:HandledMenuItem" xmi:id="_y6RzQIJrEeKtkfwbSBQBAQ" elementId="org.modelio.diagram.editor.bpmn.handledmenuitem.redrawlink" label="%RedrawLink.label" iconURI="platform:/plugin/org.modelio.diagram.editor/icons/redrawlink.png" tooltip="%RedrawLink.tooltip" command="_2Vt_YIJrEeKtkfwbSBQBAQ">
           <visibleWhen xsi:type="ui:CoreExpression" xmi:id="_FvO3YO0lEeKWx8-qQ2OLqA" coreExpressionId="org.modelio.diagram.editor.corexp.is-gmlink.id"/>

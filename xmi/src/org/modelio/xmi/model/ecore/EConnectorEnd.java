@@ -45,7 +45,7 @@ import org.modelio.xmi.util.ObjingEAnnotation;
 import org.modelio.xmi.util.ReverseProperties;
 
 @objid ("b73dd019-6344-4cf1-b0c5-e51b9e565ba9")
-public class EConnectorEnd extends EElement implements IEElement {
+public class EConnectorEnd extends EElement {
     @objid ("66b30de0-edbc-4a7c-98fb-e283c9bc6d28")
     private org.eclipse.uml2.uml.ConnectorEnd ecoreElement = null;
 
@@ -56,6 +56,7 @@ public class EConnectorEnd extends EElement implements IEElement {
     private Property part = null;
 
     @objid ("ae7db406-c1d2-46ad-8e99-b8f944f0918d")
+    @Override
     public Element createObjingElt() {
         return Modelio.getInstance().getModelingSession().getModel().createConnectorEnd();
     }
@@ -67,6 +68,7 @@ public class EConnectorEnd extends EElement implements IEElement {
     }
 
     @objid ("460c419c-998a-43e6-8c86-6d38da7365a5")
+    @Override
     public void attach(Element objingElt) {
         org.eclipse.uml2.uml.Element owner = this.ecoreElement.getOwner(); 
         
@@ -126,24 +128,19 @@ public class EConnectorEnd extends EElement implements IEElement {
         }
     }
 
-    @objid ("72d20918-1012-462a-9668-35318e88825d")
-    public void attach(List<Object> objingElts) {
-    }
-
     @objid ("09092020-adc1-496f-a848-6e4faf2ff9fb")
+    @Override
     public void setProperties(Element objingElt) {
+        super.setProperties(objingElt);
+        setOpposite((LinkEnd) objingElt);
         setIsOrdered((LinkEnd)objingElt);
         setIsUnique((LinkEnd)objingElt);
         setMax((LinkEnd)objingElt);
         setMin((LinkEnd)objingElt);
-        //        setPartWithPort((LinkEnd)objingElt);
         if ( ReverseProperties.getInstance().isRoundtripEnabled()){
             setName((LinkEnd) objingElt); 
             setIsNavigable((LinkEnd)objingElt);
         }
-        
-        
-        super.setProperties(objingElt);
     }
 
     @objid ("1f69600f-ff02-4342-8eb0-c2484a2bb8fe")
@@ -182,10 +179,10 @@ public class EConnectorEnd extends EElement implements IEElement {
         setBase(objingElt);
         
         if ( ReverseProperties.getInstance().isRoundtripEnabled()){
-            setIsConstant((Instance) objingElt);
-            setValue((Instance) objingElt);
-            setMultiMax((Instance) objingElt);
-            setMultiMin((Instance) objingElt);
+            setIsConstant(objingElt);
+            setValue(objingElt);
+            setMultiMax(objingElt);
+            setMultiMin(objingElt);
         }
     }
 
@@ -293,6 +290,15 @@ public class EConnectorEnd extends EElement implements IEElement {
                 else
                     collab.getRepresentingInstance().add(objingElt);
             }
+        }
+    }
+
+    @objid ("887d493b-a081-4cfe-a478-133a2446d014")
+    private void setOpposite(LinkEnd objingElt) {
+        Link link = objingElt.getLink();
+        if (link.getLinkEnd().size() == 2){
+            link.getLinkEnd().get(0).setOpposite(link.getLinkEnd().get(1));
+            link.getLinkEnd().get(1).setOpposite(link.getLinkEnd().get(0));
         }
     }
 

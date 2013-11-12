@@ -30,6 +30,8 @@ import org.modelio.gproject.descriptor.FragmentType;
 import org.modelio.gproject.descriptor.GAuthConf;
 import org.modelio.gproject.descriptor.GProperties;
 import org.modelio.gproject.fragment.AbstractFragment;
+import org.modelio.metamodel.analyst.AnalystProject;
+import org.modelio.metamodel.mda.ModuleComponent;
 import org.modelio.metamodel.mda.Project;
 import org.modelio.vbasic.progress.IModelioProgress;
 import org.modelio.vcore.session.api.IAccessManager;
@@ -53,7 +55,7 @@ public class UrlFragment extends AbstractFragment {
     @objid ("e77decdf-03f8-11e2-9ef9-001ec947ccaf")
     public static final FragmentType TYPE = FragmentType.EXML_URL;
 
-    @objid ("e77deceb-03f8-11e2-9ef9-001ec947ccaf")
+    @objid ("94b2e388-9aad-4b86-ae68-3923db1f5dea")
     private URI repoUrl;
 
     @objid ("e77ded08-03f8-11e2-9ef9-001ec947ccaf")
@@ -121,7 +123,10 @@ public class UrlFragment extends AbstractFragment {
     @objid ("e77ded00-03f8-11e2-9ef9-001ec947ccaf")
     @Override
     public Collection<MObject> doGetRoots() {
-        return this.repository.findByClass(SmClass.getClass(Project.class));
+        Collection<MObject> roots = this.repository.findByClass(SmClass.getClass(Project.class));
+        roots.addAll(this.repository.findByClass(SmClass.getClass(AnalystProject.class)));
+        roots.addAll(this.repository.findByClass(SmClass.getClass(ModuleComponent.class)));
+        return roots;
     }
 
     @objid ("e77decf4-03f8-11e2-9ef9-001ec947ccaf")

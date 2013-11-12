@@ -48,7 +48,7 @@ public class BlobCopier {
     public static boolean copy(String blobKey, IRepository from, IBlobInfo to, IRepository toRepo) {
         try (InputStream in = from.readBlob(blobKey);
                 OutputStream out = toRepo.writeBlob(to)) {
-            
+            if (in != null) {
             byte[] buffer = new byte[1024 * 4];
             int len = in.read(buffer);
             while (len != -1) {
@@ -56,6 +56,9 @@ public class BlobCopier {
                 len = in.read(buffer);
             }
             return true;
+            } else {
+                return false;
+            }
         } catch (IOException e) {
             // Report failure to the destination storage error support
             String err = getErrorString(e);
@@ -90,6 +93,10 @@ public class BlobCopier {
             String msg = "Cannot read '"+blobKey+"' blob to move from "+from+" to "+to+": "+err;
             
             from.getErrorSupport().fireWarning(new IOException(msg, e));
+            return false;
+        }
+        
+        if (info == null) {
             return false;
         }
         

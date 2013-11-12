@@ -21,10 +21,8 @@
 
 package org.modelio.linkeditor.view;
 
-import java.util.ArrayList;
 import java.util.EventObject;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -50,17 +48,15 @@ import org.eclipse.e4.ui.model.application.ui.menu.MMenu;
 import org.eclipse.e4.ui.model.application.ui.menu.MMenuElement;
 import org.eclipse.e4.ui.model.application.ui.menu.MToolBar;
 import org.eclipse.e4.ui.model.application.ui.menu.MToolBarElement;
-import org.eclipse.e4.ui.model.application.ui.menu.impl.ToolControlImpl;
+import org.eclipse.e4.ui.model.application.ui.menu.MToolControl;
 import org.eclipse.e4.ui.services.IServiceConstants;
 import org.eclipse.e4.ui.workbench.modeling.EModelService;
 import org.eclipse.e4.ui.workbench.modeling.ESelectionService;
 import org.eclipse.e4.ui.workbench.swt.modeling.EMenuService;
-import org.eclipse.gef.ContextMenuProvider;
 import org.eclipse.gef.EditDomain;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.GraphicalViewer;
-import org.eclipse.gef.KeyStroke;
 import org.eclipse.gef.MouseWheelHandler;
 import org.eclipse.gef.MouseWheelZoomHandler;
 import org.eclipse.gef.RootEditPart;
@@ -69,14 +65,8 @@ import org.eclipse.gef.commands.CommandStackListener;
 import org.eclipse.gef.editparts.ScalableFreeformRootEditPart;
 import org.eclipse.gef.editparts.ZoomManager;
 import org.eclipse.gef.tools.SelectionTool;
-import org.eclipse.gef.ui.actions.ActionBarContributor;
-import org.eclipse.gef.ui.actions.ActionRegistry;
-import org.eclipse.gef.ui.actions.GEFActionConstants;
-import org.eclipse.gef.ui.actions.UpdateAction;
-import org.eclipse.gef.ui.parts.GraphicalViewerKeyHandler;
 import org.eclipse.gef.ui.parts.ScrollingGraphicalViewer;
 import org.eclipse.gef.ui.parts.SelectionSynchronizer;
-import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -91,8 +81,8 @@ import org.eclipse.swt.widgets.Canvas;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
-import org.eclipse.ui.ISelectionService;
 import org.modelio.app.core.events.ModelioEventTopics;
+import org.modelio.app.core.navigate.IModelioNavigationService;
 import org.modelio.app.core.picking.IPickingSession;
 import org.modelio.app.project.core.services.IProjectService;
 import org.modelio.gproject.gproject.GProject;
@@ -130,15 +120,6 @@ public class LinkEditorView implements CommandStackListener {
     @objid ("1ba44c81-5e33-11e2-b81d-002564c97630")
     private final RootEditPart rootEditPart = new ScalableFreeformRootEditPart();
 
-    @objid ("1ba6adcb-5e33-11e2-b81d-002564c97630")
-    private final List<String> selectionActions = new ArrayList<>();
-
-    @objid ("1ba6adce-5e33-11e2-b81d-002564c97630")
-    private final List<String> stackActions = new ArrayList<>();
-
-    @objid ("1ba6add1-5e33-11e2-b81d-002564c97630")
-    private final List<String> propertyActions = new ArrayList<>();
-
     @objid ("d4aed2a5-5efd-11e2-a8be-00137282c51b")
     @Inject
     private IProjectService projectService;
@@ -153,6 +134,25 @@ public class LinkEditorView implements CommandStackListener {
 
     @objid ("8574796d-78f7-4205-91a3-c08d0602bd89")
     private static final String POPUPID = "org.modelio.linkeditor.popupmenu";
+
+    @objid ("bcea56d2-0071-458f-af27-8b65ed082d29")
+    @Inject
+    private EMenuService menuService;
+
+    @objid ("740ab584-877a-4fe3-b63c-38ab8117fd9f")
+    @Inject
+    private EModelService eModelService;
+
+    @objid ("f7c0f1f0-200d-47f3-bc6f-89cb9a654313")
+    @Inject
+    @Optional
+    private MApplication application;
+
+    @objid ("7302c09c-1592-45be-a3ea-afd328ec09cc")
+    private MToolBar toolbar;
+
+    @objid ("77cba6eb-bd18-4376-9a80-596bb1ac20fb")
+    private MMenu menu;
 
     @objid ("1ba44c85-5e33-11e2-b81d-002564c97630")
     private MObject currentSelection;
@@ -169,41 +169,23 @@ public class LinkEditorView implements CommandStackListener {
     @Optional
     public static IMModelServices modelServices;
 
-    @objid ("81054bf8-e7db-4ad5-b9f8-49cbe55d38d4")
-    private EditDomain editDomain;
-
-    @objid ("5e43aa76-d4a6-4490-a970-05101848c332")
-    private ActionRegistry actionRegistry;
-
-    @objid ("e3571523-4096-4585-9997-d2b08d571337")
-    private SelectionSynchronizer synchronizer;
-
 // FIXME CHM this shouldn't be static...
     @objid ("8fe48f6f-e2f9-45a2-a58f-354a734b3d12")
     private static LinkEditorOptions options = new LinkEditorOptions(null,null);
 
-    @objid ("43f311f1-376c-4f92-b7d4-6b1f98ced3a9")
+    @objid ("586f90a3-b396-45be-a012-14c38739eb30")
     @Inject
-    private EMenuService menuService;
+     IModelioNavigationService navigationService;
 
-    @objid ("9b195c92-ac77-40b0-8fcb-3bd008c58df3")
+    @objid ("c874260f-bdc9-4546-a4b9-795c7dbf5556")
+    private EditDomain editDomain;
+
+    @objid ("8a710645-e026-45e1-b4cb-74d939870800")
+    private SelectionSynchronizer synchronizer;
+
+    @objid ("7d691d84-7083-4ba5-8860-d0b191b49b7c")
     @Inject
     private Shell activeShell;
-
-    @objid ("1eada249-9f7a-45db-b3f4-d7b716f25be1")
-    @Inject
-    private EModelService eModelService;
-
-    @objid ("2ef4ad13-1583-46df-bec9-5a4246524b75")
-    @Inject
-    @Optional
-    private MApplication application;
-
-    @objid ("12712677-9bf0-4b6a-ba0d-807546c4668e")
-    private MToolBar toolbar;
-
-    @objid ("a8992ae6-4faf-415f-9f4c-6915389d9ae8")
-    private MMenu menu;
 
     /**
      * This method changes the contents of the view. It is usually called when the selected element changes in the application.
@@ -292,14 +274,10 @@ public class LinkEditorView implements CommandStackListener {
         }
     }
 
-    /**
-     * When the command stack changes, the actions interested in the command stack are updated.
-     * @param event the change event
-     */
     @objid ("1ba6ade2-5e33-11e2-b81d-002564c97630")
     @Override
-    public void commandStackChanged(final EventObject event) {
-        this.updateActions(this.stackActions);
+    public void commandStackChanged(EventObject event) {
+        // Nothing to do
     }
 
     /**
@@ -317,7 +295,7 @@ public class LinkEditorView implements CommandStackListener {
         
         // Configure the edit domain
         // Set the active and default tool
-        final SelectionTool selectionTool = new PanSelectionTool();
+        final SelectionTool selectionTool = new PanSelectionTool(this.navigationService);
         this.getEditDomain().setActiveTool(selectionTool);
         this.getEditDomain().setDefaultTool(selectionTool);
         
@@ -346,47 +324,9 @@ public class LinkEditorView implements CommandStackListener {
         // Scroll-wheel Zoom
         viewer.setProperty(MouseWheelHandler.KeyGenerator.getKey(SWT.MOD1), MouseWheelZoomHandler.SINGLETON);
         
-        GraphicalViewerKeyHandler kh = new GraphicalViewerKeyHandler(viewer);
-        // Bind F2 key to direct edit
-        kh.put(KeyStroke.getPressed(SWT.F2, 0), this.getActionRegistry().getAction(GEFActionConstants.DIRECT_EDIT));
-        kh.setParent(viewer.getKeyHandler());
-        viewer.setKeyHandler(kh);
-        
         // Add the contextual menu
         this.menuService.registerContextMenu(viewer.getControl(), POPUPID);
         buildMenuElementsMap();
-    }
-
-    /**
-     * Creates actions for this editor. Subclasses should override this method to create and register actions with the
-     * {@link ActionRegistry}.
-     */
-    @objid ("1ba6adeb-5e33-11e2-b81d-002564c97630")
-    protected void createActions() {
-        // FIXME
-        // ActionRegistry registry = getActionRegistry();
-        // IAction action;
-        // action = new UndoAction(this);
-        // registry.registerAction(action);
-        // getStackActions().add(action.getId());
-        //
-        // action = new RedoAction(this);
-        // registry.registerAction(action);
-        // getStackActions().add(action.getId());
-        //
-        // action = new SelectAllAction(this);
-        // registry.registerAction(action);
-        //
-        // action = new DeleteAction(this);
-        // registry.registerAction(action);
-        // getSelectionActions().add(action.getId());
-        //
-        // registry.registerAction(new PrintAction(this));
-        //
-        // // Add the direct edit action.
-        // action = new DirectEditAction(this);
-        // this.getActionRegistry().registerAction(action);
-        // this.getSelectionActions().add(action.getId());
     }
 
     /**
@@ -395,7 +335,7 @@ public class LinkEditorView implements CommandStackListener {
      */
     @objid ("1ba6adee-5e33-11e2-b81d-002564c97630")
     protected void createGraphicalViewer(final Composite parent) {
-        // XXX Hack: we need to specialise the GraphicsSource to avoid calling
+        // XXX Hack: we need to specialize the GraphicsSource to avoid calling
         // the
         // Canvas#update() method in the GraphicsSource#getGraphics(Rectangle)
         // method.
@@ -410,9 +350,9 @@ public class LinkEditorView implements CommandStackListener {
         // other, causing flickering and more importantly ugly graphical
         // artifacts.
         //
-        // In order to be able to specialise the GraphicsSource, we need to
-        // specialise
-        // the LightWeightSystem, and to do that we need in turn to specialise
+        // In order to be able to specialize the GraphicsSource, we need to
+        // specialize
+        // the LightWeightSystem, and to do that we need in turn to specialize
         // the GraphicalViewer.
         
         final GraphicalViewer viewer = new ScrollingGraphicalViewer() {
@@ -498,7 +438,6 @@ public class LinkEditorView implements CommandStackListener {
         this.getCommandStack().removeCommandStackListener(this);
         
         this.getEditDomain().setActiveTool(null);
-        this.getActionRegistry().dispose();
         
         // Free resources
         this.toolbar = null;
@@ -506,23 +445,6 @@ public class LinkEditorView implements CommandStackListener {
         this.projectService = null;
         LinkEditorView.modelServices = null;
         this.eModelService = null;
-    }
-
-    @objid ("1ba6adf6-5e33-11e2-b81d-002564c97630")
-    protected void firePropertyChange() {
-        // super.firePropertyChange(property);
-        this.updateActions(this.propertyActions);
-    }
-
-    /**
-     * Lazily creates and returns the action registry.
-     * @return the action registry
-     */
-    @objid ("1ba6adfb-5e33-11e2-b81d-002564c97630")
-    protected ActionRegistry getActionRegistry() {
-        if (this.actionRegistry == null)
-            this.actionRegistry = new ActionRegistry();
-        return this.actionRegistry;
     }
 
     /**
@@ -543,9 +465,6 @@ public class LinkEditorView implements CommandStackListener {
         }
         if (type == CommandStack.class) {
             return (T) this.getCommandStack();
-        }
-        if (type == ActionRegistry.class) {
-            return (T) this.getActionRegistry();
         }
         if (type == EditPart.class && this.getGraphicalViewer() != null) {
             return (T) this.getGraphicalViewer().getRootEditPart();
@@ -584,28 +503,6 @@ public class LinkEditorView implements CommandStackListener {
     }
 
     /**
-     * Returns the list of {@link IAction IActions} dependant on property changes in the Editor. These actions should implement the
-     * {@link UpdateAction} interface so that they can be updated in response to property changes. An example is the "Save" action.
-     * @return the list of property-dependant actions
-     */
-    @objid ("1ba6ae1e-5e33-11e2-b81d-002564c97630")
-    protected List<String> getPropertyActions() {
-        return this.propertyActions;
-    }
-
-    /**
-     * Returns the list of <em>IDs</em> of Actions that are dependent on changes in the workbench's {@link ISelectionService}. The
-     * associated Actions can be found in the action registry. Such actions should implement the {@link UpdateAction} interface so
-     * that they can be updated in response to selection changes.
-     * @see #updateActions(List)
-     * @return the list of selection-dependent action IDs
-     */
-    @objid ("1ba6ae25-5e33-11e2-b81d-002564c97630")
-    protected List<String> getSelectionActions() {
-        return this.selectionActions;
-    }
-
-    /**
      * Returns the selection synchronizer object. The synchronizer can be used to sync the selection of 2 or more EditPartViewers.
      * @return the synchronizer
      */
@@ -614,17 +511,6 @@ public class LinkEditorView implements CommandStackListener {
         if (this.synchronizer == null)
             this.synchronizer = new SelectionSynchronizer();
         return this.synchronizer;
-    }
-
-    /**
-     * Returns the list of <em>IDs</em> of Actions that are dependent on the CommmandStack's state. The associated Actions can be
-     * found in the action registry. These actions should implement the {@link UpdateAction} interface so that they can be updated
-     * in response to command stack changes. An example is the "undo" action.
-     * @return the list of stack-dependent action IDs
-     */
-    @objid ("1ba90f34-5e33-11e2-b81d-002564c97630")
-    protected List<String> getStackActions() {
-        return this.stackActions;
     }
 
     /**
@@ -664,21 +550,6 @@ public class LinkEditorView implements CommandStackListener {
         }
         this.setEditDomain(new EditDomain());
         this.getCommandStack().addCommandStackListener(this);
-        
-        this.initializeActionRegistry();
-    }
-
-    /**
-     * Initialises the ActionRegistry. This registry may be used by {@link ActionBarContributor ActionBarContributors} and/or
-     * {@link ContextMenuProvider ContextMenuProviders}.
-     * <P>
-     * This method may be called on Editor creation, or lazily the first time {@link #getActionRegistry()} is called.
-     */
-    @objid ("1ba90f44-5e33-11e2-b81d-002564c97630")
-    protected void initializeActionRegistry() {
-        this.createActions();
-        this.updateActions(this.propertyActions);
-        this.updateActions(this.stackActions);
     }
 
     /**
@@ -690,15 +561,6 @@ public class LinkEditorView implements CommandStackListener {
         // Set the viewer content
         BackgroundModel backgroundModel = new BackgroundModel();
         this.getGraphicalViewer().setContents(backgroundModel);
-    }
-
-    /**
-     * Sets the ActionRegistry for this EditorPart.
-     * @param registry the registry
-     */
-    @objid ("1ba90f4a-5e33-11e2-b81d-002564c97630")
-    protected void setActionRegistry(final ActionRegistry registry) {
-        this.actionRegistry = registry;
     }
 
     /**
@@ -718,22 +580,6 @@ public class LinkEditorView implements CommandStackListener {
     protected void setGraphicalViewer(final GraphicalViewer viewer) {
         this.getEditDomain().addViewer(viewer);
         this.graphicalViewer = viewer;
-    }
-
-    /**
-     * A convenience method for updating a set of actions defined by the given List of action IDs. The actions are found by looking
-     * up the ID in the {@link #getActionRegistry() action registry}. If the corresponding action is an {@link UpdateAction}, it
-     * will have its <code>update()</code> method called.
-     * @param actionIds the list of IDs to update
-     */
-    @objid ("1ba90f5f-5e33-11e2-b81d-002564c97630")
-    private void updateActions(final List<String> actionIds) {
-        ActionRegistry registry = this.getActionRegistry();
-        for (String actionId : actionIds) {
-            IAction action = registry.getAction(actionId);
-            if (action instanceof UpdateAction)
-                ((UpdateAction) action).update();
-        }
     }
 
     /**
@@ -850,7 +696,7 @@ public class LinkEditorView implements CommandStackListener {
         
             @Override
             public void run() {
-                LinkEditorView.this.getEditDomain().setActiveTool(new PanSelectionTool());
+                LinkEditorView.this.getEditDomain().setActiveTool(new PanSelectionTool(LinkEditorView.this.navigationService));
             }
         });
     }
@@ -859,9 +705,6 @@ public class LinkEditorView implements CommandStackListener {
     @Inject
     @Optional
     void onSelectionChange(@Named(IServiceConstants.ACTIVE_SELECTION) IStructuredSelection selection) {
-        // Refresh action.
-        updateActions(getSelectionActions());
-        
         // Force a refresh of the content if not pinned.
         if (!getOptions().isPinned()) {
             if (selection != null && selection.size() == 1) {
@@ -962,10 +805,10 @@ public class LinkEditorView implements CommandStackListener {
         //Trace
         ((MHandledToolItem)toolbarElements.get("org.modelio.linkeditor.handledtoolitem.ShowTrace")).setSelected(theOptions.isTraceShown());
         
-        LeftDepthSpinner leftSpinner = ((LeftDepthSpinner)((ToolControlImpl)toolbarElements.get("org.modelio.linkeditor.toolcontrol.LeftDepthSpinner")).getObject());
+        LeftDepthSpinner leftSpinner = ((LeftDepthSpinner)((MToolControl)toolbarElements.get("org.modelio.linkeditor.toolcontrol.LeftDepthSpinner")).getObject());
         if (leftSpinner != null) leftSpinner.setSpinnerValue(theOptions.getLeftDepth());
         
-        RightDepthSpinner rightSpinner = ((RightDepthSpinner)((ToolControlImpl)toolbarElements.get("org.modelio.linkeditor.toolcontrol.RightDepthSpinner")).getObject());
+        RightDepthSpinner rightSpinner = ((RightDepthSpinner)((MToolControl)toolbarElements.get("org.modelio.linkeditor.toolcontrol.RightDepthSpinner")).getObject());
         if (rightSpinner != null) rightSpinner.setSpinnerValue(theOptions.getRightDepth());
     }
 

@@ -118,11 +118,14 @@ public class GmRoleNameLabel extends GmDefaultModelElementHeader {
 
     @objid ("33f08360-55b7-11e2-877f-002564c97630")
     private String computeSignature(final AssociationEnd att) {
+        if (att == null)
+            return "";
+        
         final String name = att.getName();
         if (name.isEmpty())
             return "";
         
-        StringBuffer ret = new StringBuffer();
+        StringBuilder ret = new StringBuilder();
         if (isRoleVisible()) {
             ret.append(name);
         }

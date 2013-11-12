@@ -24,6 +24,7 @@ package org.modelio.diagram.elements.core.policies;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.commands.Command;
+import org.eclipse.jface.viewers.StructuredSelection;
 
 /**
  * Simple command that makes an {@link EditPart}'s figure visible in the viewer.
@@ -48,6 +49,7 @@ public class RevealEditPartCommand extends Command {
     @Override
     public void execute() {
         this.editPartToSelect.getViewer().reveal(this.editPartToSelect);
+        this.editPartToSelect.getViewer().setSelection(new StructuredSelection(this.editPartToSelect));
     }
 
 }

@@ -301,6 +301,9 @@ public class ModelFactoryImpl implements IModelFactory {
     @objid ("5e16f535-e682-48f6-8083-91a2c91964f7")
     private final IRepository localRepository;
 
+    @objid ("17ec358d-8ddc-4c8b-bd92-cf347020fa0c")
+    private ExtensionCache extensionCache = new ExtensionCache();
+
     @objid ("344046c3-c674-4643-944c-e8feced3d7e8")
     ModelFactoryImpl(GenericFactory genericFactory, IRepository scratchRepo, IRepository localRepo, IModel iModel, IElementInitializer elementInitializer) {
         this.genericFactory = genericFactory;
@@ -2431,9 +2434,9 @@ public class ModelFactoryImpl implements IModelFactory {
     public Note createNote(NoteType noteType, ModelElement owner, String content) {
         Note newElement = this.genericFactory.create(Note.class, owner);
         newElement.setSubject(owner);
-        this.elementInitializer.initialize(this, newElement);
-        newElement.setModel(noteType);
         newElement.setContent(content);
+        newElement.setModel(noteType);
+        this.elementInitializer.initialize(this, newElement);
         return newElement;
     }
 
@@ -2997,14 +3000,20 @@ public class ModelFactoryImpl implements IModelFactory {
     @objid ("7e1dea3e-87eb-435d-826d-3d2fa6fbe05a")
     @Override
     public TaggedValue createTaggedValue(String moduleName, String tagTypeName, ModelElement owner) throws ExtensionNotFoundException {
-        List<TagType> tagTypes = findTagType(moduleName, tagTypeName, owner.getMClass());
-        if (tagTypes.size() == 0) {
-            throw new ExtensionNotFoundException("'" + tagTypeName + "' tag type not found");
-        } else if (tagTypes.size() == 1) {
-            return createTaggedValue(tagTypes.get(0), owner);
-        } else {
-            throw new InvalidParameterException("'" + tagTypeName + "' tag type is not unique in module '" + moduleName + "'");
+        TagType type = this.extensionCache.getTagType(moduleName, tagTypeName, owner.getMClass());
+        
+        if (type == null) {
+            List<TagType> tagTypes = findTagType(moduleName, tagTypeName, owner.getMClass());
+            if (tagTypes.size() == 0) {
+                throw new ExtensionNotFoundException("'" + tagTypeName + "' tag type not found");
+            } else if (tagTypes.size() == 1) {
+                type = tagTypes.get(0);
+                this.extensionCache.add(moduleName, owner.getMClass(), type);
+            } else {
+                throw new InvalidParameterException("'" + tagTypeName + "' tag type is not unique in module '" + moduleName + "'");
+            }
         }
+        return createTaggedValue(type, owner);
     }
 
     @objid ("ccd4e66d-8302-4ebe-899f-bff83d9695d6")
@@ -3253,6 +3262,9 @@ public class ModelFactoryImpl implements IModelFactory {
     @Override
     public List<Stereotype> findStereotype(String moduleName, String stereotypeName, MClass metaclass) {
         Pattern p = Pattern.compile((moduleName == null || moduleName.isEmpty()) ? ".*" : moduleName);
+        
+        this.extensionCache.getStereotype(moduleName, stereotypeName, metaclass);
+        
         List<Stereotype> ret = new ArrayList<>();
         for (Stereotype type : this.iModel.findByAtt(Stereotype.class, "Name", stereotypeName)) {
             ModuleComponent module = type.getModule();
@@ -3552,14 +3564,20 @@ public class ModelFactoryImpl implements IModelFactory {
     @objid ("70704dab-b85d-46b0-a22c-72e5e90e215f")
     @Override
     public Note createNote(String moduleName, String noteTypeName, ModelElement owner, String content) throws ExtensionNotFoundException {
-        List<NoteType> noteTypes = findNoteType(moduleName, noteTypeName, owner.getMClass());
-        if (noteTypes.size() == 0) {
-            throw new ExtensionNotFoundException("'" + noteTypeName + "' note type not found");
-        } else if (noteTypes.size() == 1) {
-            return createNote(noteTypes.get(0), owner, content);
-        } else {
-            throw new InvalidParameterException("'" + noteTypeName + "' note type is not unique in module '" + moduleName + "'");
+        NoteType type = this.extensionCache.getNoteType(moduleName, noteTypeName, owner.getMClass());
+        
+        if (type == null) {
+            List<NoteType> noteTypes = findNoteType(moduleName, noteTypeName, owner.getMClass());
+            if (noteTypes.size() == 0) {
+                throw new ExtensionNotFoundException("'" + noteTypeName + "' note type not found");
+            } else if (noteTypes.size() == 1) {
+                type = noteTypes.get(0);
+                this.extensionCache.add(moduleName, owner.getMClass(), type);
+            } else {
+                throw new InvalidParameterException("'" + noteTypeName + "' note type is not unique in module '" + moduleName + "'");
+            }
         }
+        return createNote(type, owner, content);
     }
 
     @objid ("4e9af36e-cdb2-4700-8d49-b1d6a29c76f9")

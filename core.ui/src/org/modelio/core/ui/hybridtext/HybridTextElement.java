@@ -38,6 +38,8 @@ import org.eclipse.swt.dnd.DropTarget;
 import org.eclipse.swt.dnd.DropTargetAdapter;
 import org.eclipse.swt.dnd.DropTargetEvent;
 import org.eclipse.swt.dnd.Transfer;
+import org.eclipse.swt.events.DisposeEvent;
+import org.eclipse.swt.events.DisposeListener;
 import org.eclipse.swt.events.FocusEvent;
 import org.eclipse.swt.events.FocusListener;
 import org.eclipse.swt.events.KeyAdapter;
@@ -646,6 +648,9 @@ public class HybridTextElement {
         @objid ("a76a6c1b-eedb-42f8-8a7e-b96418547703")
         private IPickingSession pickingSession;
 
+        @objid ("9e71f42d-ad7e-43fb-80f6-fba154417f64")
+        private DisposeListener disposeListener;
+
         @objid ("63e871c1-570d-4928-b7b0-4b3358318111")
         public HybridPickingDriver(HybridTextElement textElement, IModelioPickingService pickingService) {
             this.textElement = textElement;
@@ -682,14 +687,26 @@ public class HybridTextElement {
                 }
             };
             this.textElement.getTextControl().addFocusListener(this.focusListener);
+            
+            this.disposeListener = new DisposeListener() {
+                
+                @Override
+                public void widgetDisposed(DisposeEvent e) {
+                    HybridPickingDriver.this.stopPicking();
+                    
+                }
+            };
+            this.textElement.getTextControl().addDisposeListener(this.disposeListener);
         }
 
         @objid ("2a880c4e-1f58-4d05-a05e-29c71c65733f")
         private void disconnect() {
             if (!this.textElement.getTextControl().isDisposed()) {
                 this.textElement.getTextControl().removeFocusListener(this.focusListener);
+                this.textElement.getTextControl().removeDisposeListener(this.disposeListener);
             }
             this.focusListener = null;
+            this.disposeListener = null;
             if (this.pickingSession != null) {
                 this.pickingSession.abort();
             }

@@ -24,7 +24,6 @@ package org.modelio.xmi.reverse;
 import java.util.ArrayList;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.eclipse.uml2.uml.Event;
 import org.eclipse.uml2.uml.ExceptionHandler;
 import org.eclipse.uml2.uml.FinalState;
 import org.eclipse.uml2.uml.InstanceSpecification;

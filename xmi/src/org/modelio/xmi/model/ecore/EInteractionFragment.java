@@ -21,7 +21,6 @@
 
 package org.modelio.xmi.model.ecore;
 
-import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.metamodel.uml.behavior.interactionModel.CombinedFragment;
 import org.modelio.metamodel.uml.behavior.interactionModel.Interaction;
@@ -39,7 +38,7 @@ import org.modelio.xmi.util.ReverseProperties;
  * @author ebrosse
  */
 @objid ("9423034a-3b98-4b20-b9cf-a62e2a6b5ed8")
-public class EInteractionFragment extends ENamedElement implements IEElement {
+public class EInteractionFragment extends ENamedElement {
     @objid ("78cb388f-3074-439a-81e0-9bb3a8f9f97f")
     private org.eclipse.uml2.uml.InteractionFragment ecoreElement = null;
 
@@ -76,11 +75,6 @@ public class EInteractionFragment extends ENamedElement implements IEElement {
         }
     }
 
-    @objid ("0d7da9e6-eaa1-4e60-8049-1011e428e1ce")
-    @Override
-    public void attach(List<Object> objingElts) {
-    }
-
     @objid ("541b5212-a3e3-4607-8814-5f78091daafa")
     @Override
     public void setProperties(Element objingElt) {
@@ -111,15 +105,13 @@ public class EInteractionFragment extends ENamedElement implements IEElement {
         //InteractionUse Case
         if (objingElt instanceof InteractionUse){
             ((InteractionUse) objingElt).setEndLineNumber(ObjingEAnnotation.getEndLineNumber(getEcoreElement()) );            
-        }
-        
+        }        
         
         //InteractionOperand Case
         if  (objingElt instanceof InteractionOperand){
             ((InteractionUse) objingElt).setEndLineNumber(ObjingEAnnotation.getEndLineNumber(getEcoreElement()) );
         }
-        
-        
+                
         //StateInvariant Case
         if  (objingElt instanceof StateInvariant){
             ((StateInvariant) objingElt).setEndLineNumber(ObjingEAnnotation.getEndLineNumber(getEcoreElement()) );

@@ -50,7 +50,7 @@ public class ESmPackage extends EPackageImpl {
     @objid ("f15b9862-bea9-11e1-b576-001ec947ccaf")
     private static final String eNS_URI = "http://www.modelio.org/emf/metamodel";
 
-    @objid ("e1d44c5b-b46c-4f8f-b2a1-4b23d09f8736")
+    @objid ("ad31044f-6a3f-47da-8fa0-c434b44d2bf4")
     private EDataType uuidType = null;
 
     /**

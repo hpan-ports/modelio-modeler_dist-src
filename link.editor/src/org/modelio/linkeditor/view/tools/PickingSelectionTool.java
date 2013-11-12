@@ -79,6 +79,7 @@ public class PickingSelectionTool extends PanSelectionTool {
 
     @objid ("d48b0f5d-5efd-11e2-a8be-00137282c51b")
     public PickingSelectionTool(IPickingSession session) {
+        super(null);
         this.session = session;
     }
 

@@ -180,8 +180,7 @@ public class OPort extends OElement implements IOElement {
         if (this.genProp.isRoundtripEnabled()){
             ObjingEAnnotation.setPort(ecoreElt, true);
             setOwnerEAnnotation(ecoreElt,this.objingElement.getCompositionOwner());
-            ObjingEAnnotation.setPortDirection(ecoreElt, this.objingElement.getDirection().toString());
-        }
+            ObjingEAnnotation.setPortDirection(ecoreElt, this.objingElement.getDirection().getLiteral());      }
     }
 
     @objid ("d42e4b1d-66d8-4182-9035-3988627a22a0")

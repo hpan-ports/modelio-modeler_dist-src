@@ -31,7 +31,6 @@ import org.eclipse.uml2.uml.Property;
 import org.modelio.api.model.IUmlModel;
 import org.modelio.api.modelio.Modelio;
 import org.modelio.metamodel.factory.ExtensionNotFoundException;
-import org.modelio.metamodel.uml.behavior.commonBehaviors.Behavior;
 import org.modelio.metamodel.uml.behavior.interactionModel.Interaction;
 import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
@@ -68,7 +67,7 @@ public class EProperty extends EFeature {
     @Override
     public List<ModelElement> createObjingElt() {
         Property ecoreElement = (Property) getEcoreElement();
-        if (!(ecoreElement.getType() instanceof org.eclipse.uml2.uml.Stereotype)){    
+        //        if (!(ecoreElement.getType() instanceof org.eclipse.uml2.uml.Stereotype)){    
             if (ecoreElement.getOwner() instanceof org.eclipse.uml2.uml.Stereotype){       
                 ProfileUtils.visitProperty(ecoreElement);      
             }else{
@@ -110,14 +109,15 @@ public class EProperty extends EFeature {
                         // case qualifier
                         if ((objingOwner instanceof Classifier) ||  
                                 ((ecoreOwner instanceof Property) 
-                                        && (EcoreModelNavigation.isAssocEnd((Property)ecoreOwner))))
+                                        && (EcoreModelNavigation.isAssocEnd((Property)ecoreOwner)))){
                             result.add(objingModel.createAttribute());
-                        else 
+                        }else{ 
                             result.add(objingModel.createBindableInstance());
+                        }
                     }
                 }
                 return result;
-            }
+        //            }
         }
         return null;
     }
@@ -141,20 +141,12 @@ public class EProperty extends EFeature {
         
                     if (objingElt instanceof BindableInstance){
                         attachBindableInstance(objingElt);
-                        //                        Element represented = ((BindableInstance)objingElt).getRepresentedFeature();
-                        //                        if (represented instanceof AssociationEnd)
-                        //                            attachAssociationEnd(
-                        //                                    (AssociationEnd)((BindableInstance)objingElt).getRepresentedFeature(), (Property) getEcoreElement());   
-                        //                    }else{
-                        //                        attachAssociationEnd((AssociationEnd)objingElt, (Property) getEcoreElement());
                     }
         
                 }else{
         
                     if (objingElt instanceof BindableInstance){  
                         attachBindableInstance(objingElt);
-                        //                    }else{
-                        //                        attachAssociationEnd((AssociationEnd)objingElt, (Property) getEcoreElement());
                     }
         
                 }
@@ -162,7 +154,11 @@ public class EProperty extends EFeature {
             } else if ((objingElt instanceof BindableInstance) 
                     && !(objingElt instanceof Port)){
                 attachBindableInstance(objingElt);
+            }else{
+                objingElt.delete();
             }
+        }else{
+            objingElt.delete();
         }
     }
 
@@ -500,6 +496,12 @@ public class EProperty extends EFeature {
         
             org.eclipse.uml2.uml.Element ecoreOwner = ecoreElement.getOwner();
         
+            if (ecoreOwner instanceof Property){
+                while (ecoreOwner instanceof Property){
+                    ecoreOwner = ecoreOwner.getOwner();
+                }
+            }
+        
             Element objingOwner = (Element) ReverseProperties.getInstance().getMappedElement(ecoreOwner);
         
             Boolean attached = false ;
@@ -540,13 +542,9 @@ public class EProperty extends EFeature {
                     if (objingAttribute.getCluster() == null)
                         objingAttribute.setInternalOwner((Classifier) objingOwner);
         
-                    //                    ModelElement represented = objingAttribute.getRepresentedFeature();
-                    //                    if ((represented != null) && (represented instanceof AssociationEnd)){
-                    //                        attachAssociationEnd((AssociationEnd)represented, (Property) getEcoreElement());
-                    //                    }
-                }else if ((objingOwner instanceof Collaboration))
+                }else if ((objingOwner instanceof Collaboration)){
                     objingAttribute.setOwner((Collaboration) objingOwner);
-                else if ((objingOwner instanceof Interaction)){
+                }else if ((objingOwner instanceof Interaction)){
                     List<?> collabList =  ((Interaction) objingOwner).getOwnedCollaboration();
                     Collaboration collab = null;
                     if (!collabList.isEmpty()){
@@ -557,11 +555,7 @@ public class EProperty extends EFeature {
                         ((Interaction) objingOwner).getOwnedCollaboration().add(collab);
                     }
         
-                    if (collab.getCompositionOwner() instanceof Behavior)
-                        collab.getDeclared().add(objingAttribute);
-                    else
-                        collab.getRepresentingInstance().add(objingAttribute);
-        
+                    objingAttribute.setOwner(collab);
                 }
             }
         }

@@ -40,7 +40,7 @@ import org.modelio.xmi.util.SysMLProfileUtils;
 @objid ("095ecaf0-91db-40f8-9f35-5174e7a62172")
 public class ONote extends OElement implements IOElement {
     @objid ("bfaffe25-8d3a-4b42-941c-7462491932fa")
-    private Note objingElement;
+    private Note objingElement = null;
 
     @objid ("f09b84c7-a880-476a-b417-93a2e84a1d06")
     @Override
@@ -54,7 +54,9 @@ public class ONote extends OElement implements IOElement {
         
         }else{
              org.eclipse.uml2.uml.Comment ecoreComment = UMLFactory.eINSTANCE.createComment();
-            if (SysMLProfileUtils.isSysML(this.objingElement.getModel().getCompositionOwner().getCompositionOwner()))
+            if ((this.objingElement.getModel() != null ) 
+                    && (((this.objingElement.getModel().getOwnerStereotype() != null ) && (SysMLProfileUtils.isSysML(this.objingElement.getModel().getOwnerStereotype().getOwner()))
+                            || ((this.objingElement.getModel().getOwnerReference() != null ) && (SysMLProfileUtils.isSysML(this.objingElement.getModel().getOwnerReference().getOwnerProfile()))))))
                 GenerationProperties.getInstance().addSysMLExported(this.objingElement);
         
             return ecoreComment;

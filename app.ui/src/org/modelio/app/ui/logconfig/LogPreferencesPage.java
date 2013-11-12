@@ -23,6 +23,7 @@ package org.modelio.app.ui.logconfig;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.core.runtime.preferences.InstanceScope;
+import org.eclipse.jface.preference.BooleanFieldEditor;
 import org.eclipse.jface.preference.FieldEditorPreferencePage;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.preference.RadioGroupFieldEditor;
@@ -33,9 +34,6 @@ import org.osgi.service.log.LogService;
 
 @objid ("f335cc77-eb91-4f14-b4bd-98aece15c8c3")
 public class LogPreferencesPage extends FieldEditorPreferencePage {
-    @objid ("9b94ddbf-a503-40ce-8952-4eaa37edb699")
-    private RadioGroupFieldEditor logLevelFields;
-
     @objid ("23b480f8-981e-4cb1-98a2-b12e344fec78")
     public LogPreferencesPage() {
         super(GRID);
@@ -52,10 +50,13 @@ public class LogPreferencesPage extends FieldEditorPreferencePage {
                 { AppUi.I18N.getString("LogLevel.INFO"), Integer.toString(LogService.LOG_INFO) },
                 { AppUi.I18N.getString("LogLevel.DEBUG"), Integer.toString(LogService.LOG_DEBUG) }, };
         
-        this.logLevelFields = new RadioGroupFieldEditor(LogPreferencesKeys.LOGLEVEL_PREFKEY,
+        RadioGroupFieldEditor logLevelFields = new RadioGroupFieldEditor(LogPreferencesKeys.LOGLEVEL_PREFKEY,
                 AppUi.I18N.getString("LogLevel.label"), 1, // nb columns
                 logLevels, getFieldEditorParent(), true);
-        addField(this.logLevelFields);
+        addField(logLevelFields);
+        
+        BooleanFieldEditor showAdmTools = new BooleanFieldEditor(LogPreferencesKeys.SHOWADMTOOLS_PREFKEY, AppUi.I18N.getString("AdmTools.Show"), getFieldEditorParent());
+        addField(showAdmTools);
     }
 
     @objid ("1ad16d2e-36d6-498d-bb67-e28e7d36fdbd")
@@ -75,6 +76,7 @@ public class LogPreferencesPage extends FieldEditorPreferencePage {
     protected void performDefaults() {
         super.performDefaults();
         getPreferenceStore().setValue(LogPreferencesKeys.LOGLEVEL_PREFKEY, LogService.LOG_ERROR);
+        getPreferenceStore().setValue(LogPreferencesKeys.SHOWADMTOOLS_PREFKEY, false);
         changeLogLevel(LogService.LOG_ERROR);
     }
 

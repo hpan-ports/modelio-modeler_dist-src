@@ -23,7 +23,6 @@ package org.modelio.vstore.exml.local.loader.sax;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.vcore.Log;
-import org.modelio.vstore.exml.local.loader.sax.DataModel.ObjectDataModel;
 import org.xml.sax.Locator;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
@@ -188,8 +187,8 @@ class DocumentContentHandler extends DefaultHandler {
 
     @objid ("2afc5741-3faf-11e2-87cb-001ec947ccaf")
     void popOBJECTState() {
-        final ObjectDataModel oldModel = this.dataModel.pop();
-        final ObjectDataModel currentModel = this.dataModel.getCurrent();
+        final IObjectDataModel oldModel = this.dataModel.pop();
+        final IObjectDataModel currentModel = this.dataModel.getCurrent();
         
         oldModel.finishDependenciesLoading();
         

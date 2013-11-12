@@ -81,7 +81,7 @@ public abstract class AbstractSwtWizardWindow extends Dialog {
     protected boolean error = false;
 
     @objid ("e0ec614a-0d71-430c-aae6-7ce7191b437d")
-    protected static String path = "";
+    protected String path = "";
 
     @objid ("3363c045-5d78-478e-a31c-c392ada52368")
     protected FileChooserComposite fileChooserComposite = null;
@@ -303,8 +303,9 @@ public abstract class AbstractSwtWizardWindow extends Dialog {
         }
         
         
-        if ((this.shell != null) && (!this.shell.isDisposed()))
+        if ((this.shell != null) && (!this.shell.isDisposed())){
             this.shell.dispose();
+        }
     }
 
     @objid ("0a204520-e1a0-489b-8574-1ed74ef83707")
@@ -323,14 +324,17 @@ public abstract class AbstractSwtWizardWindow extends Dialog {
     @objid ("6c05d386-7533-4dee-a389-333dbaf4441a")
     private void enableOrDisableCompistes(boolean isEnable) {
         if (!this.shell.isDisposed()) {
-            if (this.fileChooserComposite != null)
+            
+            if (this.fileChooserComposite != null){
                 this.fileChooserComposite.setEnabled(isEnable);
+            }
+            
             if (this.optionComposite != null) {
                 this.optionComposite.setEnabled(isEnable);
             }
+            
             this.validateComposite.getValidationButton().setEnabled(isEnable);
         
-            //                        this.validateComposite.getCancelButton().setEnabled(isEnable);
         }
     }
 
@@ -614,7 +618,7 @@ public abstract class AbstractSwtWizardWindow extends Dialog {
 
     @objid ("8c469992-8416-428d-849f-0ea9d7787942")
     void customMessageBox(int icon) {
-        MessageBox messageBox = new MessageBox(Display.getCurrent().getActiveShell(), icon);
+        MessageBox messageBox = new MessageBox(Display.getDefault().getActiveShell(), icon);
         messageBox.setMessage(this.description);
         messageBox.setText(this.title);
         if (messageBox.open() == SWT.OK) {            

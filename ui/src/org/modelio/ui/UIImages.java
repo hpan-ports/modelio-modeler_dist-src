@@ -120,6 +120,12 @@ public class UIImages {
     @objid ("2cc2790d-b3f7-4870-9e95-1ef7d692ac43")
     public static final Image DOT = getImage("icons/dot.png");
 
+    /**
+     * Generic 16x16 icon used to indicate a "down" move or slide operation
+     */
+    @objid ("43f3258a-0c8d-4935-996c-d4c79a952a52")
+    public static final Image DOWNARROW = getImage("icons/downarrow.png");
+
     @objid ("165b4af5-07f9-4a23-93e2-c53c9917a9ee")
     private static Image getImage(String relativePath) {
         Bundle bundle = Platform.getBundle("org.modelio.ui");

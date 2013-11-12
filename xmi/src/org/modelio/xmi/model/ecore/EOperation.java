@@ -21,12 +21,10 @@
 
 package org.modelio.xmi.model.ecore;
 
-import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.api.modelio.Modelio;
 import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.metamodel.uml.statik.Classifier;
-import org.modelio.metamodel.uml.statik.Enumeration;
 import org.modelio.metamodel.uml.statik.MethodPassingMode;
 import org.modelio.metamodel.uml.statik.Operation;
 import org.modelio.xmi.reverse.PartialImportMap;
@@ -34,8 +32,9 @@ import org.modelio.xmi.reverse.TotalImportMap;
 import org.modelio.xmi.util.ReverseProperties;
 
 @objid ("fef74c9e-d707-41ad-a875-96d1584e305f")
-public class EOperation extends EBehavioralFeature implements IEElement {
+public class EOperation extends EBehavioralFeature {
     @objid ("f777b276-021a-4c9e-bd9c-7f6abbb6cff4")
+    @Override
     public Element createObjingElt() {
         return Modelio.getInstance().getModelingSession().getModel().createOperation();
     }
@@ -46,28 +45,26 @@ public class EOperation extends EBehavioralFeature implements IEElement {
     }
 
     @objid ("cc634c68-1589-479e-a401-dde85298ec3c")
+    @Override
     public void attach(Element objingElt) {
         ReverseProperties revProp = ReverseProperties.getInstance();
-         org.eclipse.uml2.uml.Operation ecoreElement =  (org.eclipse.uml2.uml.Operation) getEcoreElement();
+        org.eclipse.uml2.uml.Operation ecoreElement =  (org.eclipse.uml2.uml.Operation) getEcoreElement();
         org.eclipse.uml2.uml.Element ecoreOwner = ecoreElement.getOwner();
         Element objingOwner = (Element) revProp
                 .getMappedElement(ecoreOwner);
-                
-        if ((objingOwner instanceof Classifier)  && !(objingOwner instanceof Enumeration))
+        
+        if (objingOwner instanceof Classifier){
             ((Operation) objingElt).setOwner((Classifier) objingOwner);
-                
-        else {
+        
+        }else {
             PartialImportMap.getInstance().remove(ecoreElement);
             TotalImportMap.getInstance().remove(ecoreElement);
             objingElt.delete();
         }
     }
 
-    @objid ("919edc56-8663-4149-a227-d0628e729501")
-    public void attach(List<Object> objingElts) {
-    }
-
     @objid ("4cf462dc-71c7-4903-bff5-f5ea644df464")
+    @Override
     public void setProperties(Element objingElt) {
         super.setProperties(objingElt);        
         setRedefines((Operation) objingElt);

@@ -130,7 +130,7 @@ public class ModelComponentArchive {
      */
     @objid ("0c209457-80d5-4514-8f81-d0758e15372c")
     public FragmentDescriptor getFragmentDescriptor() throws IOException {
-        getInfos();
+        IModelComponentInfos infos = getInfos();
         
         FragmentDescriptor fragmentDescriptor = new FragmentDescriptor();
         
@@ -142,7 +142,10 @@ public class ModelComponentArchive {
         URI uri = file.toURI();
         
         fragmentDescriptor.setUri(uri);
-        fragmentDescriptor.setProperties(new GProperties());
+        final GProperties properties = new GProperties();
+        properties.setProperty("FragmentVersion", infos.getVersion().toString("V.R.C"), DefinitionScope.LOCAL);
+        properties.setProperty("FragmentDescription", infos.getDescription(), DefinitionScope.LOCAL);
+        fragmentDescriptor.setProperties(properties);
         return fragmentDescriptor;
     }
 

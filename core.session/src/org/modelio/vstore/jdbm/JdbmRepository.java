@@ -771,6 +771,15 @@ public class JdbmRepository implements IRepository {
     }
 
     /**
+     * Get access to the maintenance operations.
+     * @return the maintenance operations.
+     */
+    @objid ("95931d5f-7e09-49b2-8508-ecd0a7f9ec74")
+    public IJdbmRepositoryMaintenance getMaintenance() {
+        return new JdbmMaintenanceOperations(this.db);
+    }
+
+    /**
      * Allows to load lazily the instances of a metaclass.
      * <p>
      * Note: {@link #size()} iterates the whole collection content, avoid calling it.
@@ -819,7 +828,7 @@ public class JdbmRepository implements IRepository {
         public boolean isEmpty() {
             // JDBM implementation of isEmpty() calls size() that iterates the whole index.
             // This is a faster implementation.
-            return this.coll.iterator().hasNext();
+            return !this.coll.iterator().hasNext();
         }
 
         @objid ("0c659256-f9c1-4c45-b9d1-9ec1c82633f0")

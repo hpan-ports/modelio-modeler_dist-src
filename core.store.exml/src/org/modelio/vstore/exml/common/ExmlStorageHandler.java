@@ -89,13 +89,11 @@ public class ExmlStorageHandler implements IRepositoryObject {
     @Override
     public void attach(final SmObjectImpl obj) {
         if ( this != obj.getRepositoryObject()) { 
-            if (obj.getClassOf().isCmsNode()) {
-                this.base.addObject(obj);
-            } else {
+            this.base.addObject(obj);
+            
+            if (!obj.getClassOf().isCmsNode()) {
                 this.dirty = true;
-                this.base.getLoadCache().putToCache(obj);
                 obj.setRepositoryObject(this);
-                //propagateHandler(obj);
             }
         }
     }
@@ -181,13 +179,12 @@ public class ExmlStorageHandler implements IRepositoryObject {
             try {
                 for (ObjId id : this.base.getCmsNodeUsers(this.cmsNode)) {
                     SmObjectImpl ref = this.base.getLoadedObject(id);
-                    if (ref == null)
-                        return false;
+                    if (ref == null) {
+                        // The object may have moved to another repository
+                        return this.base.getDetachedObject(id) != null;
+                    }
         
                     final IRepositoryObject userRepoHandle = ref.getRepositoryObject();
-                    if (userRepoHandle.getRepositoryId() != getRepositoryId())
-                        return true; // The object has moved to another repository
-                    
                     if(! ((ExmlStorageHandler) userRepoHandle).isLoaded())
                         return false;
                 }
@@ -287,8 +284,9 @@ public class ExmlStorageHandler implements IRepositoryObject {
         // Unload the whole CMS node
         if (obj.equals(this.cmsNode)) {
             this.base.unloadCmsNode(this);
-        } else 
+        } else {
             this.base.getLoadCache().removeFromCache(obj);
+        }
     }
 
     @objid ("fd245806-5986-11e1-991a-001ec947ccaf")

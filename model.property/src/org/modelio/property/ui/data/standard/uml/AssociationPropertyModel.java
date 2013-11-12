@@ -24,7 +24,7 @@ package org.modelio.property.ui.data.standard.uml;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.core.ui.ktable.types.IPropertyType;
 import org.modelio.core.ui.ktable.types.text.StringType;
-import org.modelio.metamodel.uml.statik.NaryAssociation;
+import org.modelio.metamodel.uml.statik.Association;
 import org.modelio.property.ui.data.standard.common.AbstractPropertyModel;
 
 /**
@@ -33,7 +33,7 @@ import org.modelio.property.ui.data.standard.common.AbstractPropertyModel;
  * This class provides the list of properties for the <i>Association</i> metaclass.
  */
 @objid ("8ed10005-c068-11e1-8c0a-002564c97630")
-public class AssociationPropertyModel extends AbstractPropertyModel<NaryAssociation> {
+public class AssociationPropertyModel extends AbstractPropertyModel<Association> {
     /**
      * Properties to display for <i>Association</i>.
      * <p>
@@ -56,7 +56,7 @@ public class AssociationPropertyModel extends AbstractPropertyModel<NaryAssociat
      * Create a new <i>Association</i> data model from an <i>Association</i>.
      */
     @objid ("8ed10010-c068-11e1-8c0a-002564c97630")
-    public AssociationPropertyModel(NaryAssociation theAssociation) {
+    public AssociationPropertyModel(Association theAssociation) {
         super(theAssociation);
         
         this.labelStringType = new StringType(false);
@@ -87,13 +87,13 @@ public class AssociationPropertyModel extends AbstractPropertyModel<NaryAssociat
      * Return the value that will be displayed at the specified row and column.
      * <p>
      * The first column contains the properties names.
-     * @param col the column number
      * @param row the row number
+     * @param col the column number
      * @return the value corresponding to the row and column
      */
     @objid ("8ed28673-c068-11e1-8c0a-002564c97630")
     @Override
-    public Object getValueAt(int col, int row) {
+    public Object getValueAt(int row, int col) {
         switch (col) {
         case 0: // col 0 is the property key
             return AssociationPropertyModel.PROPERTIES[row];
@@ -118,13 +118,13 @@ public class AssociationPropertyModel extends AbstractPropertyModel<NaryAssociat
      * of the properties table.
      * <p>
      * The first column contains the properties names.
-     * @param col the column number
      * @param row the row number
+     * @param col the column number
      * @return the type of the element corresponding to the row and column
      */
     @objid ("8ed28679-c068-11e1-8c0a-002564c97630")
     @Override
-    public IPropertyType getTypeAt(int col, int row) {
+    public IPropertyType getTypeAt(int row, int col) {
         switch (col) {
         case 0: // col 0 is the property key type
             return this.labelStringType;

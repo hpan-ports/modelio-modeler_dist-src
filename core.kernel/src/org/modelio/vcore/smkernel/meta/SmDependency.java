@@ -119,7 +119,7 @@ public abstract class SmDependency extends SmFeature implements MDependency {
     /**
      * The EMF adapter dependency.
      */
-    @objid ("7cfcb361-01a0-4298-8ea6-615434d28201")
+    @objid ("d7fec45f-ef06-4c2a-a9b6-4f735cc72367")
     private EReference emfAdapter;
 
     @objid ("008426b4-ed97-1f1f-85a5-001ec947cd2a")

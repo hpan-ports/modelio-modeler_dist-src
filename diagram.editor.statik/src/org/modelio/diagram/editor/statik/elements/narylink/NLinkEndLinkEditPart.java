@@ -175,9 +175,10 @@ public class NLinkEndLinkEditPart extends GmLinkEditPart {
     @objid ("35ee2813-55b7-11e2-877f-002564c97630")
     @Override
     protected void createEditPolicies() {
-        installEditPolicy("CreateInfoFlow", new DefaultCreateInfoFlowOnLinkEditPolicy());
-        
         super.createEditPolicies();
+        
+        installEditPolicy("CreateInfoFlow", new DefaultCreateInfoFlowOnLinkEditPolicy());
+        removeEditPolicy("rake");
     }
 
 }

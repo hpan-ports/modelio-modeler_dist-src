@@ -6,22 +6,21 @@ Bundle-Version: 1.0.0.qualifier
 Require-Bundle: org.modelio.core.kernel,
  org.modelio.core.session,
  org.modelio.metamodel.emfapi,
- org.eclipse.e4.core.di,
- org.eclipse.e4.core.di.extensions,
- org.eclipse.jface,
  org.modelio.core.project,
  org.modelio.app.core,
- org.eclipse.osgi,
  org.modelio.log,
  org.modelio.ui,
- org.eclipse.e4.core.contexts,
+ org.modelio.core.ui,
  org.modelio.core.utils,
  org.eclipse.e4.ui.services,
- org.eclipse.equinox.common,
- org.modelio.core.ui,
  org.eclipse.e4.core.services,
- org.eclipse.ui.workbench,
- org.eclipse.core.jobs
+ org.eclipse.e4.core.contexts,
+ org.eclipse.e4.core.di,
+ org.eclipse.e4.core.di.extensions,
+ org.eclipse.equinox.common,
+ org.eclipse.jface,
+ org.eclipse.osgi,
+ org.eclipse.ui;bundle-version="3.105.0"
 Export-Package: org.modelio.vaudit.modelshield,
  org.modelio.vaudit.modelshield.standard
 Import-Package: javax.annotation;version="1.1.0",
@@ -31,3 +30,5 @@ Bundle-ClassPath: res/,
 Bundle-ActivationPolicy: lazy
 Bundle-Activator: org.modelio.vaudit.plugin.Vaudit
 Bundle-Vendor: Modelio
+Bundle-Localization: plugin
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7

@@ -54,16 +54,18 @@ public interface ILoadHelper {
     boolean isStored(ObjId id);
 
     /**
-     * Creates a stub object that will be loaded later.
+     * Get a reference to an object that may be loaded later.
+     * <p>
+     * The returned object may come from another repository.
      * @param modelLoader the model loading API to use.
      * @param id the object ID
      * @param pid the owner CMS node ID
-     * @return the created object
+     * @return the found or created object
      * @throws org.modelio.vcore.model.DuplicateObjectException if another object with the same identifier already exists in another repository
      * @throws org.modelio.vstore.exml.common.model.IllegalReferenceException if 'id' or 'pid' is not a legal reference
      */
     @objid ("679e4b68-2e7b-11e2-8aaa-001ec947ccaf")
-    SmObjectImpl createRefObject(IModelLoader modelLoader, ObjId id, ObjId pid) throws IllegalReferenceException, DuplicateObjectException;
+    SmObjectImpl getRefObject(IModelLoader modelLoader, ObjId id, ObjId pid) throws IllegalReferenceException, DuplicateObjectException;
 
     /**
      * Creates a stub CMS node object that will be loaded later.
@@ -111,5 +113,19 @@ public interface ILoadHelper {
      */
     @objid ("e9685a58-3974-11e2-920a-001ec947ccaf")
     void initObjectFlags(IModelLoader modelLoader, SmObjectImpl obj);
+
+    /**
+     * Creates a stub object that will be loaded later.
+     * <p>
+     * No other object with the given identifier must exist in memory.
+     * @param modelLoader the model loading API to use.
+     * @param id the object ID
+     * @param pid the owner CMS node ID
+     * @return the created object
+     * @throws org.modelio.vcore.model.DuplicateObjectException if another object with the same identifier already exists in another repository
+     * @throws org.modelio.vstore.exml.common.model.IllegalReferenceException if 'id' or 'pid' is not a legal reference
+     */
+    @objid ("689117f9-ff79-42c7-9654-36fc82b02f4b")
+    SmObjectImpl createStubObject(IModelLoader modelLoader, ObjId id, ObjId pid) throws IllegalReferenceException, DuplicateObjectException;
 
 }

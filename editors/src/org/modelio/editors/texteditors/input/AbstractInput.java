@@ -23,7 +23,6 @@ package org.modelio.editors.texteditors.input;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.core.runtime.ListenerList;
-import org.modelio.editors.texteditors.input.IInput.Listener;
 
 @objid ("7b51ad32-2a77-11e2-9fb9-bc305ba4815c")
 public abstract class AbstractInput implements IInput {

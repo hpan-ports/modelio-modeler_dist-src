@@ -164,8 +164,8 @@ public interface IDiagramNode extends IDiagramGraphic {
      * and <code><it>height</it></code> is an integer representing the
      * font height. Example: <code>Times New Roman-bold-36</code>.
      * </p>
-     * @throws org.eclipse.jface.resource.DataFormatException if the given value does not represent font data
      * @param value The new font.
+     * @throws org.eclipse.jface.resource.DataFormatException if the given value does not represent font data
      */
     @objid ("bfdb9dbd-77e1-11e0-bfdb-002564c97630")
     void setFont(final String value) throws DataFormatException;

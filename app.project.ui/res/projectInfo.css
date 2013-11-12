@@ -55,11 +55,11 @@ h1 {border-bottom: 1px solid #000; margin-bottom: 10px}
 #AccordionContainerStorage {float: right; width: 49%; min-width: 400px}
 
  
-.emailInput[readonly]{background-color:#F0F0F0 !important;color: #0000FF !important; border: none; width:150px;}
+.emailInput[readonly]{background-color:#F0F0F0 !important;color: #0000FF !important; border: none; width:100%;}
+#mailcontainer {position: relative; padding-right: 22px}
 span.sendMail {background: url(./img/mail.png) 0 0 no-repeat; width: 16px; height: 16px; display: block; cursor: pointer;position: absolute; right: 0; top: 0}
-#mailcontainer {position: relative}
 
-.readonlyInput[readonly]{background-color:#F0F0F0 !important; color:#303030 !important; border: 1px solid #ccc}
+.readonlyInput[readonly]{background-color:#F0F0F0 !important; color:#303030 !important; border: 1px solid #ccc;width:100%;}
  
 .box-infos {background: #f0f0f0; border: 1px solid #ccc;padding: 5px 10px; min-width: 300px}
 .box-infos table {table-layout: fixed; border-collapse: collapse; width: 100%; min-width: 300px}
@@ -83,6 +83,13 @@ span.sendMail {background: url(./img/mail.png) 0 0 no-repeat; width: 16px; heigh
 .AccordionContent table tr td:first-child { width: 250px; }
 .AccordionContent table#workModelsTbl tr td:first-child + td,.AccordionContent table#librariesTbl tr td:first-child + td
  {width: 100px; text-align: center}
+.librarieDescriptorTextarea{width:100%; height:100%;
+	font-family: inherit;
+   	font-size: inherit;
+ 	border-style: none; 
+    border-color: Transparent; 
+    overflow: auto; 
+    resize: none;}
 
 .AccordionContent table {border: 1px solid #ccc;}
 .AccordionContent td {background: #fff;}

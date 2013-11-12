@@ -32,6 +32,7 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.uml2.uml.Profile;
 import org.modelio.api.modelio.Modelio;
 import org.modelio.metamodel.mda.ModuleComponent;
+import org.modelio.metamodel.mda.Project;
 import org.modelio.metamodel.uml.infrastructure.ModelTree;
 import org.modelio.metamodel.uml.statik.Package;
 import org.modelio.vcore.smkernel.mapi.MObject;
@@ -61,7 +62,7 @@ public class ReverseProperties {
     private String filePath = "";
 
     @objid ("2ee99225-d343-43d3-984a-cfa0a2b3cdcc")
-    private List<String> appliedProfiles = new ArrayList<String>();
+    private List<String> appliedProfiles = new ArrayList<>();
 
     @objid ("2ccade60-64a2-47ba-aaaa-a644c04c8188")
     private static ReverseProperties INSTANCE = null;
@@ -181,28 +182,12 @@ public class ReverseProperties {
         PartialImportMap.getInstance().clear();    
         
         this.partialCreationImportVisitor = new PartialCreationImportVisitor();
-        //        this.interactionIndexes = new HashMap<Interaction, Integer>();
-        //        this.interactions = new ArrayList<Interaction>();
-        this.appliedProfiles = new ArrayList<String>();
-        //        Project project = Modelio.getInstance().getModelingSession().getModel().getUmlProject();
-        //        
-        //        boolean found = false; 
-        //        for (IModule module : project.getInstalled()){
-        //            if (module.getName().equals("LocalModule")){
-        //                found = true;
-        //                setProfileRoot(module);
-        //            }
-        //        }
-        //        
-        //        if (!found){
-        //            IModule localModule = Modelio.getInstance().getModelingSession().getModelFactory().createModule();
-        //            localModule.setName("LocalModule");
-        //            project.addInstalled(localModule);
-        //            setProfileRoot(localModule);                   
-        //        }
+        this.appliedProfiles = new ArrayList<>();
+        this.externalPackage = null;
         
-        if (this.ecoreModel != null)
+        if (this.ecoreModel != null){
             this.ecoreModel.clear();
+        }
         
         this.rollback = false;
     }
@@ -213,8 +198,10 @@ public class ReverseProperties {
      */
     @objid ("19993fa6-7067-4dfd-90b0-ead5645437ca")
     public void addEcoreModel(org.eclipse.uml2.uml.Package model) {
-        if (this.ecoreModel == null)
-            this.ecoreModel = new HashSet<org.eclipse.uml2.uml.Package>();
+        if (this.ecoreModel == null){
+            this.ecoreModel = new HashSet<>();
+        }
+        
         this.ecoreModel.add(model);
     }
 
@@ -396,8 +383,13 @@ public class ReverseProperties {
     public Package getExternalPackage() {
         if (this.externalPackage == null){
             this.externalPackage = Modelio.getInstance().getModelingSession().getModel().createPackage();
-            this.externalPackage.setName( Xmi.I18N.getString("Ui.ExternalPackage.Name"));
-            //            this.externalPackage.setOwner( Modelio.getInstance().getModelingSession().getModel().getRoot());
+            this.externalPackage.setName(Xmi.I18N.getString("Ui.ExternalPackage.Name"));
+            for (MObject modelRoot : Modelio.getInstance().getModelingSession().getModel().getModelRoots()){
+                if (modelRoot instanceof Project) {
+                    this.externalPackage.setOwner(((Project) modelRoot).getModel());
+                }
+            }
+          
         }
         return this.externalPackage;
     }
@@ -452,7 +444,7 @@ public class ReverseProperties {
     @objid ("ba8a091f-4e25-4d1f-8a84-8174dfdcc282")
     @SuppressWarnings("serial")
     private void initClassTabConvertion() {
-        this.classTabConvertion = new HashMap<String, ArrayList<String>>();
+        this.classTabConvertion = new HashMap<>();
         this.classTabConvertion.put("Abstraction",  new ArrayList<String>(){{add("Dependency");}});
         this.classTabConvertion.put("AcceptCallEventAction",  new ArrayList<String>(){{add("AcceptCallEventAction");}});
         this.classTabConvertion.put("AcceptEventAction",  new ArrayList<String>(){{add("AcceptCallEventAction"); 
@@ -631,15 +623,17 @@ public class ReverseProperties {
      */
     @objid ("24a028c3-f703-4953-9813-a135c97e9f40")
     public List<String> getObjClassNames(final String ecoreClassName) {
-        if (this.classTabConvertion == null)
+        if (this.classTabConvertion == null){
             initClassTabConvertion();
+        }
         
         List<String> result = this.classTabConvertion.get(ecoreClassName);
         
-        if (result == null)
-            return new ArrayList<String>();
-        else
+        if (result == null){
+            return new ArrayList<>();
+        }else{
             return result;
+        }
     }
 
     @objid ("b60dd6f4-f206-49bd-a8eb-a2240a723287")
@@ -652,20 +646,4 @@ public class ReverseProperties {
         this.report = newReport;
     }
 
-
-//    /**
-//     * This method returns the list of imported org.eclipse.uml2.uml.Interaction
-//     * @return imported org.eclipse.uml2.uml.Interaction
-//     */
-//    @objid ("18de11c2-97ac-11e2-99ee-0027103f347c")
-//    public int getInteractionIndex(org.eclipse.uml2.uml.Interaction interaction, int marging) {
-//        int result = this.interactionIndexes.get(interaction);
-//        this.interactionIndexes.put(interaction, result + marging);
-//        return result;
-//    }
-//
-//    @objid ("fb178983-c474-11e2-ae29-0027103f347c")
-//    public List<Interaction> getInteractions() {
-//        return this.interactions;
-//    }
 }

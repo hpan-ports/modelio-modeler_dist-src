@@ -51,7 +51,8 @@ public class ReportManager {
         } else {
             
             // Get the current display
-            Display display = Display.getDefault();
+            Display display = Display.getCurrent();
+               
             if (display == null) {
                 display = Display.getDefault();
             }  

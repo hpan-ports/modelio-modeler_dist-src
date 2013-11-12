@@ -29,7 +29,6 @@ import org.modelio.xmi.gui.ProgressBarComposite;
 import org.modelio.xmi.model.ecore.IEElement;
 import org.modelio.xmi.plugin.Xmi;
 import org.modelio.xmi.util.ReverseProperties;
-import org.modelio.xmi.util.XMILogs;
 
 @objid ("84a8a797-3c11-4e05-b8c1-66fe64583225")
 public class ImportModel {
@@ -95,7 +94,6 @@ public class ImportModel {
 
     @objid ("1b89b0f9-ed18-4fe5-870a-f67296819766")
     private void setMapping(Object objingElt, IEElement ieelem) {
-        XMILogs log = XMILogs.getInstance();
         try {
             if ((objingElt != null) &&
                     (objingElt instanceof Element) &&

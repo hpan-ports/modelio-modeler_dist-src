@@ -30,7 +30,6 @@ import org.modelio.vcore.model.MObjectCache;
 import org.modelio.vcore.session.api.repository.IRepository;
 import org.modelio.vcore.session.impl.storage.IModelLoader;
 import org.modelio.vcore.session.impl.storage.IModelLoaderProvider;
-import org.modelio.vcore.session.impl.storage.IModelRefresher;
 import org.modelio.vcore.smkernel.SmObjectImpl;
 import org.modelio.vstore.exml.common.index.ICmsNodeIndex;
 import org.modelio.vstore.exml.common.model.ObjId;
@@ -148,5 +147,13 @@ public interface IExmlBase extends IRepository {
      */
     @objid ("f2e63b29-7849-4a22-9b5f-f7dfa9fe3999")
     void unloadCmsNode(ExmlStorageHandler handler);
+
+    /**
+     * Tells whether the object has been detached from this repository since last save.
+     * @param id the object identifier
+     * @return the object if it has been detached from this repository .
+     */
+    @objid ("be62e324-e7c9-427e-878a-60a327ad90b8")
+    SmObjectImpl getDetachedObject(ObjId id);
 
 }

@@ -84,10 +84,6 @@ public class SysMLProfileUtils {
         org.eclipse.uml2.uml.Stereotype stereotype = sysMLProfile.createOwnedStereotype("Requirement", false); 
         ProfileUtils.addReference(stereotype, "Class");        
         
-        //        Stereotype obStereotype = Modelio.getInstance().getModelingSession().getMetamodelExtensions()
-        //                .getStereotype( "requirement",  SmClass.getClass(Requirement.class));
-        //        TotalExportMap.getInstance().put(obStereotype.getUuid().toString(), stereotype);
-            
         Property text = stereotype.createOwnedAttribute("Text", PrimitiveTypeMapper.getString());
         text.setLower(1);
         text.setUpper(1);

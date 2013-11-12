@@ -57,13 +57,12 @@ class RelationState extends AbstractState {
             ObjId objid;
             SmObjectImpl obj;
             switch (localName) {
-            case TAG_ID:
             case TAG_COMPID:
                 objid = readID(atts);
                 if (objid != null) {
                     obj = getDataModel().loadHelper.getObject(objid);
                     if (obj == null)
-                        obj = getDataModel().loadHelper.createRefObject(getDataModel().modelLoader, objid, objid);
+                        obj = getDataModel().loadHelper.getRefObject(getDataModel().modelLoader, objid, objid);
         
                     if (obj != null)
                         getDataModel().getCurrent().addToDep(obj);
@@ -74,6 +73,7 @@ class RelationState extends AbstractState {
             case TAG_REFOBJ:
                 this.stateHandler.enterREFOBJState();
                 break;
+            case TAG_ID:
             case TAG_FOREIGNID:
                 objid = readID(atts);
                 if (objid != null)

@@ -21,7 +21,6 @@
 
 package org.modelio.xmi.model.ecore;
 
-import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.uml2.uml.InstanceSpecification;
 import org.eclipse.uml2.uml.InstanceValue;
@@ -51,17 +50,18 @@ import org.modelio.xmi.util.XMILogs;
  * @author ebrosse
  */
 @objid ("7b318699-6419-4992-adf0-4688a549b63f")
-public class EParameter extends ENamedElement implements IEElement {
+public class EParameter extends ENamedElement {
     @objid ("cf7d02a0-d4d0-4a39-864e-c6e90133bc8e")
     private boolean isBehavior = false;
 
     @objid ("4b7ee972-478b-4413-9a15-7182f128938a")
     @Override
     public Element createObjingElt() {
-        if (this.isBehavior)
+        if (this.isBehavior){
             return Modelio.getInstance().getModelingSession().getModel().createBehaviorParameter();
-        else 
+        }else{ 
             return Modelio.getInstance().getModelingSession().getModel().createParameter();
+        }
     }
 
     /**
@@ -110,36 +110,41 @@ public class EParameter extends ENamedElement implements IEElement {
         
                     // The same processing is applied for In, Out and InOut
                     // parameters. Only the return
-                            // value is a specific case:
-                                switch (direction.getValue()) {
-                                case org.eclipse.uml2.uml.ParameterDirectionKind.IN:
-                                    ((Operation) objingOperation)
-                                    .getIO().add((Parameter) objingElt);
-                                    ((Parameter) objingElt).setParameterPassing(PassingMode.IN);
-                                    break;
-                                case org.eclipse.uml2.uml.ParameterDirectionKind.OUT:
-                                    ((Operation) objingOperation)
-                                    .getIO().add((Parameter) objingElt);
-                                    ((Parameter) objingElt).setParameterPassing(PassingMode.OUT);
-                                    break;
-                                case org.eclipse.uml2.uml.ParameterDirectionKind.INOUT:
-                                    ((Operation) objingOperation)
-                                    .getIO().add((Parameter) objingElt);
-                                    ((Parameter) objingElt).setParameterPassing(PassingMode.INOUT);
-                                    break;
-                                case org.eclipse.uml2.uml.ParameterDirectionKind.RETURN:
-                                    Parameter temp = ((Operation) objingOperation).getReturn();
-                                    if (temp != null){
-                                        temp.delete();
-                                        XMILogs xmilogs = XMILogs.getInstance();
-                                        xmilogs.writelnInLog(Xmi.I18N
-                                                .getMessage("logFile.warning.multipleReturnParameter", ((org.eclipse.uml2.uml.BehavioralFeature) ecoreOwner).getName()));
-                                    }
+                    // value is a specific case:
+                    switch (direction.getValue()) {
+                    case org.eclipse.uml2.uml.ParameterDirectionKind.IN:
+                        ((Operation) objingOperation)
+                        .getIO().add((Parameter) objingElt);
+                        ((Parameter) objingElt).setParameterPassing(PassingMode.IN);
+                        break;
+                    case org.eclipse.uml2.uml.ParameterDirectionKind.OUT:
+                        ((Operation) objingOperation)
+                        .getIO().add((Parameter) objingElt);
+                        ((Parameter) objingElt).setParameterPassing(PassingMode.OUT);
+                        break;
+                    case org.eclipse.uml2.uml.ParameterDirectionKind.INOUT:
+                        ((Operation) objingOperation)
+                        .getIO().add((Parameter) objingElt);
+                        ((Parameter) objingElt).setParameterPassing(PassingMode.INOUT);
+                        break;
+                    case org.eclipse.uml2.uml.ParameterDirectionKind.RETURN:
+                        Parameter temp = ((Operation) objingOperation).getReturn();
+                        if (temp != null){
+                            temp.delete();
+                            XMILogs xmilogs = XMILogs.getInstance();
+                            xmilogs.writelnInLog(Xmi.I18N
+                                    .getMessage("logFile.warning.multipleReturnParameter", ((org.eclipse.uml2.uml.BehavioralFeature) ecoreOwner).getName()));
+                        }
         
-                                    ((Operation) objingOperation)
-                                    .setReturn((Parameter) objingElt);
-                                    break;
-                                }
+                        ((Operation) objingOperation)
+                        .setReturn((Parameter) objingElt);
+                        break;
+                    default:
+                        ((Operation) objingOperation)
+                        .getIO().add((Parameter) objingElt);
+                        ((Parameter) objingElt).setParameterPassing(PassingMode.INOUT);
+                        break;
+                    }
                 } else {
                     PartialImportMap.getInstance().remove(ecoreElement);
                     TotalImportMap.getInstance().remove(ecoreElement);
@@ -147,11 +152,6 @@ public class EParameter extends ENamedElement implements IEElement {
                 }
             }
         }
-    }
-
-    @objid ("094599c0-120b-4dd9-9875-b2aaa2d0687f")
-    @Override
-    public void attach(List<Object> objingElts) {
     }
 
     @objid ("7187731d-1eb7-4d67-87e5-9abb5d357094")
@@ -183,7 +183,7 @@ public class EParameter extends ENamedElement implements IEElement {
     @objid ("d2fe5d26-f243-4086-812c-cd865a0d60f1")
     private void setDefaultValue(Parameter objingElt) {
         org.eclipse.uml2.uml.Parameter ecoreElement = ((org.eclipse.uml2.uml.Parameter)getEcoreElement());
-         org.eclipse.uml2.uml.ValueSpecification defaultValue = ecoreElement.getDefaultValue();
+        org.eclipse.uml2.uml.ValueSpecification defaultValue = ecoreElement.getDefaultValue();
         if (defaultValue != null) {
             if (defaultValue instanceof InstanceValue){
                 InstanceSpecification spec = ((InstanceValue) defaultValue).getInstance();
@@ -227,6 +227,9 @@ public class EParameter extends ENamedElement implements IEElement {
             objingElt.setParameterPassing(PassingMode.INOUT);
             break;
         case org.eclipse.uml2.uml.ParameterDirectionKind.RETURN:
+            break;
+        default:
+            objingElt.setParameterPassing(PassingMode.INOUT);
             break;
         }
     }
@@ -304,6 +307,8 @@ public class EParameter extends ENamedElement implements IEElement {
             break;
         case UPDATE_LITERAL : 
             objingElt.setEffect(ParameterEffectKind.UPDATEEFFECT);
+            break;
+        default:
             break;
         
         }

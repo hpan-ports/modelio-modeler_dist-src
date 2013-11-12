@@ -14,7 +14,7 @@
 	<packaging>pom</packaging>
 
 	<properties>
-		<tycho-version>0.18.0</tycho-version>
+		<tycho-version>0.18.1</tycho-version>
 		<tycho-groupid>org.eclipse.tycho</tycho-groupid>
 	</properties>
 
@@ -84,6 +84,7 @@
 			<layout>p2</layout>
 			<url>http://repository.modelio.org/p2/documentation-en/</url>
 		</repository>
+
 	</repositories>
 
 	<build>
@@ -146,11 +147,6 @@
 							<os>win32</os>
 							<ws>win32</ws>
 							<arch>x86_64</arch>
-						</environment>
-						<environment>
-							<os>macosx</os>
-							<ws>cocoa</ws>
-							<arch>x86</arch>
 						</environment>
 						<environment>
 							<os>macosx</os>

@@ -46,6 +46,8 @@ import org.modelio.metamodel.uml.behavior.activityModel.ActivityNode;
 import org.modelio.metamodel.uml.behavior.activityModel.ControlFlow;
 import org.modelio.metamodel.uml.behavior.activityModel.ExceptionHandler;
 import org.modelio.metamodel.uml.behavior.activityModel.InputPin;
+import org.modelio.metamodel.uml.behavior.communicationModel.CommunicationChannel;
+import org.modelio.metamodel.uml.behavior.communicationModel.CommunicationNode;
 import org.modelio.metamodel.uml.behavior.interactionModel.Message;
 import org.modelio.metamodel.uml.behavior.interactionModel.MessageEnd;
 import org.modelio.metamodel.uml.behavior.stateMachineModel.StateVertex;
@@ -251,6 +253,55 @@ public class ModelTool implements IModelTool {
     public void moveElement(MObject toMove, MObject newParent, MObject oldParentHint) {
         CompositionInitializer parentInitiliazer = new CompositionInitializer((SmObjectImpl) newParent);
         moveTo((SmObjectImpl) toMove, parentInitiliazer, (SmObjectImpl) oldParentHint);
+    }
+
+    @objid ("b4edac1c-b2cd-46a5-89fd-cbf973890857")
+    @Override
+    public List<List<? extends MObject>> copyElements(List<List<? extends MObject>> toCopy, List<MObject> target) {
+        CoreSession localSession = null;
+        CoreSession refSession = null;
+        
+        for (MObject mObject : target) {
+            localSession = CoreSession.getSession(mObject);
+            break;
+        }
+        
+        List<List<SmObjectImpl>> listsToCopy = new ArrayList<>();
+        for (List<? extends MObject> list : toCopy) {
+            List<SmObjectImpl> smObjectsToCopy = new ArrayList<>();
+            
+            for (MObject mObject : list) {
+                smObjectsToCopy.add((SmObjectImpl) mObject);
+        
+                if (refSession == null) {
+                    refSession = CoreSession.getSession(mObject);
+                }
+            }
+            
+            listsToCopy.add(smObjectsToCopy);
+        }
+        
+        List<SmObjectImpl> targetList = new ArrayList<>();
+        for (MObject mObject : target) {
+            targetList.add((SmObjectImpl) mObject);
+        }
+        
+        List<List<? extends MObject>> ret = new ArrayList<>();
+        
+        CopyMachine machine = new CopyMachine();
+        final IImportReport report = machine.execute(localSession, targetList, refSession, listsToCopy);
+        
+        // Fill the returned list in the appropriate order
+        for (List<? extends MObject> list : toCopy) {
+            List<MObject> copies = new ArrayList<>();
+            
+            for (MObject ref : list) {
+                copies.add(report.getCreatedObject((SmObjectImpl) ref));
+            }
+            
+            ret.add(copies);
+        }
+        return ret;
     }
 
     @objid ("7e9c042d-1eb2-11e2-8009-002564c97630")
@@ -476,6 +527,12 @@ public class ModelTool implements IModelTool {
             return theNaryLinkEnd.getNaryLink();
         }
 
+        @objid ("35709b91-db7e-4490-8e64-417a7ba2417f")
+        @Override
+        public Object visitCommunicationChannel(CommunicationChannel theChannel) {
+            return theChannel.getStart();
+        }
+
     }
 
     @objid ("7ea0c6d8-1eb2-11e2-8009-002564c97630")
@@ -680,6 +737,12 @@ public class ModelTool implements IModelTool {
             return theNaryLinkEnd.getSource();
         }
 
+        @objid ("249ff988-f66a-4f12-8478-2098d3be46d2")
+        @Override
+        public Object visitCommunicationChannel(CommunicationChannel theChannel) {
+            return theChannel.getEnd();
+        }
+
     }
 
     @objid ("7ea5898f-1eb2-11e2-8009-002564c97630")
@@ -700,7 +763,11 @@ public class ModelTool implements IModelTool {
         @objid ("7ea5899a-1eb2-11e2-8009-002564c97630")
         @Override
         public Object visitAssociationEnd(AssociationEnd theAssociationEnd) {
-            theAssociationEnd.setSource((Classifier) this.newSource);
+            if (theAssociationEnd.getOpposite().isNavigable()) {
+                theAssociationEnd.getOpposite().setTarget((Classifier) this.newSource, true);
+            } else {
+                theAssociationEnd.setSource((Classifier) this.newSource, true);
+            }
             return null;
         }
 
@@ -853,7 +920,11 @@ public class ModelTool implements IModelTool {
         @objid ("7ea7eaef-1eb2-11e2-8009-002564c97630")
         @Override
         public Object visitLinkEnd(LinkEnd theLinkEnd) {
-            theLinkEnd.setSource((Instance) this.newSource);
+            if (theLinkEnd.getOpposite().isNavigable()) {
+                theLinkEnd.getOpposite().setTarget((Instance) this.newSource, true);
+            } else {
+                theLinkEnd.setSource((Instance) this.newSource, true);
+            }
             return null;
         }
 
@@ -966,6 +1037,13 @@ public class ModelTool implements IModelTool {
             return null;
         }
 
+        @objid ("002061dd-9792-49d7-adc8-68686d2ae8d6")
+        @Override
+        public Object visitCommunicationChannel(CommunicationChannel theChannel) {
+            theChannel.setStart((CommunicationNode) this.newSource);
+            return null;
+        }
+
     }
 
     @objid ("7eaa4c42-1eb2-11e2-8009-002564c97630")
@@ -986,7 +1064,11 @@ public class ModelTool implements IModelTool {
         @objid ("7eaa4c4d-1eb2-11e2-8009-002564c97630")
         @Override
         public Object visitAssociationEnd(AssociationEnd theAssociationEnd) {
-            theAssociationEnd.setTarget((Classifier) this.newDest);
+            if (theAssociationEnd.isNavigable()) {
+                theAssociationEnd.setTarget((Classifier) this.newDest, true);
+            } else {
+                theAssociationEnd.getOpposite().setSource((Classifier) this.newDest, true);
+            }
             return null;
         }
 
@@ -1111,7 +1193,11 @@ public class ModelTool implements IModelTool {
         @objid ("7eacada0-1eb2-11e2-8009-002564c97630")
         @Override
         public Object visitLinkEnd(LinkEnd theLinkEnd) {
-            theLinkEnd.setTarget((Instance) this.newDest);
+            if (theLinkEnd.isNavigable()) {
+                theLinkEnd.setTarget((Instance) this.newDest, true);
+            } else {
+                theLinkEnd.getOpposite().setSource((Instance) this.newDest, true);
+            }
             return null;
         }
 
@@ -1299,6 +1385,13 @@ public class ModelTool implements IModelTool {
         @Override
         public Object visitNaryLinkEnd(NaryLinkEnd theNaryLinkEnd) {
             theNaryLinkEnd.setNaryLink((NaryLink) this.newDest);
+            return null;
+        }
+
+        @objid ("c1b71160-6f9a-439f-9bb5-fd6c87d954ee")
+        @Override
+        public Object visitCommunicationChannel(CommunicationChannel theChannel) {
+            theChannel.setEnd((CommunicationNode) this.newDest);
             return null;
         }
 

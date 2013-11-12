@@ -86,7 +86,7 @@ public abstract class AbstractImporter {
     protected abstract void importElements(final ICoreSession localSession, final SmObjectImpl localRoot, final ICoreSession refSession, List<SmObjectImpl> refRoots);
 
     @objid ("008f857c-5246-1091-8d81-001ec947cd2a")
-    private void importDependencies() {
+    protected final void importDependencies() {
         // Import dependencies for the created objects
         for (Entry<SmObjectImpl, SmObjectImpl> entry : this.result.getCreations().entrySet()) {
             SmObjectImpl refObject = entry.getKey();
@@ -113,7 +113,7 @@ public abstract class AbstractImporter {
     protected abstract void importReferenceDependencies(final SmObjectImpl refObject, SmObjectImpl localObject);
 
     @objid ("008df932-5246-1091-8d81-001ec947cd2a")
-    private void fixOrphanRoots(final ICoreSession localSession, final SmObjectImpl localRoot, List<SmObjectImpl> refRoots) {
+    protected final void fixOrphanRoots(final ICoreSession localSession, final SmObjectImpl localRoot, List<SmObjectImpl> refRoots) {
         // Gather all root orphans
         Map<SmObjectImpl, SmDependency> rootOrphans = new HashMap<>();
         for (SmObjectImpl refRoot : refRoots) {
@@ -135,7 +135,7 @@ public abstract class AbstractImporter {
     protected abstract void fixOrphanRoots(Map<SmObjectImpl, SmDependency> orphans, ICoreSession localSession, SmObjectImpl localRoot);
 
     @objid ("008debcc-5246-1091-8d81-001ec947cd2a")
-    private void fixElements(ICoreSession localSession, ICoreSession refSession) {
+    protected final void fixElements(ICoreSession localSession, ICoreSession refSession) {
         for (Entry<SmObjectImpl, SmObjectImpl> entry : this.result.getCreations().entrySet()) {
             SmObjectImpl refObject = entry.getKey();
             SmObjectImpl localObject = entry.getValue();
@@ -159,7 +159,7 @@ public abstract class AbstractImporter {
     protected abstract void fixElement(SmObjectImpl localObject, final SmObjectImpl refObject, ICoreSession localSession, ICoreSession refSession);
 
     @objid ("008789c6-e548-108f-8d81-001ec947cd2a")
-    private final void collectGarbage() {
+    protected final void collectGarbage() {
         // Iterates ~garbaged~ elements,
         // Finds the orphan elements that are not root elements,
         // then delete them.
@@ -189,7 +189,7 @@ public abstract class AbstractImporter {
     }
 
     @objid ("008e3334-5246-1091-8d81-001ec947cd2a")
-    private void deleteGarbage() {
+    protected void deleteGarbage() {
         for (SmObjectImpl localObjectToDelete : this.result.getDeletions()) {
             localObjectToDelete.delete();
         }
@@ -201,7 +201,7 @@ public abstract class AbstractImporter {
     }
 
     @objid ("00924ae6-5246-1091-8d81-001ec947cd2a")
-    private static class ImportReport implements IImportReport {
+    protected static final class ImportReport implements IImportReport {
         @objid ("00925b9e-5246-1091-8d81-001ec947cd2a")
         private final Result result;
 

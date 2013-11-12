@@ -21,18 +21,13 @@
 
 package org.modelio.app.project.ui.newproject;
 
-import java.io.File;
-import java.io.FileFilter;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.app.project.core.creation.IProjectCreationData;
-import org.modelio.app.project.core.creation.ModuleAdapter;
-import org.modelio.app.project.ui.newproject.SpareCode;
+import org.modelio.app.project.ui.newproject.gui.ProjectCreationDialog;
 import org.modelio.gproject.module.IModuleHandle;
 
 /**
@@ -164,69 +159,6 @@ public class ProjectCreationDataModel implements IProjectCreationData {
     @objid ("00740cf2-7310-10b7-9941-001ec947cd2a")
     public Path getTemplate() {
         return this.template;
-    }
-
-}
-
-@objid ("0025d780-b9fc-10b4-9941-001ec947cd2a")
-class SpareCode {
-    @objid ("0026ce2e-b9fc-10b4-9941-001ec947cd2a")
-    private static List<ModuleAdapter> filterMostRecentVersions(final List<ModuleAdapter> adapters) {
-        final List<ModuleAdapter> filteredList = new ArrayList<>();
-        
-        final Map<String, ModuleAdapter> sortedAdapters = new HashMap<>();
-        ModuleAdapter currentModuleAdapter = null;
-        
-        for (ModuleAdapter adapter : adapters) {
-            currentModuleAdapter = sortedAdapters.get(adapter.getName());
-        
-            if (currentModuleAdapter == null) {
-                sortedAdapters.put(adapter.getName(), adapter);
-            } else if (currentModuleAdapter.getVersion().compareTo(adapter.getVersion()) < 0) {
-                sortedAdapters.put(adapter.getName(), adapter);
-            }
-        }
-        
-        filteredList.addAll(sortedAdapters.values());
-        return filteredList;
-    }
-
-    @objid ("002721d0-b9fc-10b4-9941-001ec947cd2a")
-    private List<File> listTemplateFiles(final File templatesDir) {
-        File[] files = templatesDir.listFiles(new TemplateFilter());
-        List<File> fileList = new ArrayList<>();
-        
-        for (File file : files) {
-            if (file.isFile()) {
-                fileList.add(file);
-            } else if (file.isDirectory()) {
-                fileList.addAll(listTemplateFiles(file));
-            }
-        }
-        return fileList;
-    }
-
-    /**
-     * Filter that finds project template files and directories.
-     */
-    @objid ("00277374-b9fc-10b4-9941-001ec947cd2a")
-    private static class TemplateFilter implements FileFilter {
-        @objid ("0027a1c8-b9fc-10b4-9941-001ec947cd2a")
-        @Override
-        public boolean accept(final File pathname) {
-            String lang = ""; // TODO was O.getDefault().getLang();
-            if (pathname.isDirectory() && pathname.getAbsolutePath().endsWith(lang)) {
-                return true;
-            } else if (pathname.isFile() && pathname.getAbsolutePath().endsWith(".zip")) {
-                return true;
-            }
-            return false;
-        }
-
-        @objid ("0027e3d6-b9fc-10b4-9941-001ec947cd2a")
-        public TemplateFilter() {
-        }
-
     }
 
 }

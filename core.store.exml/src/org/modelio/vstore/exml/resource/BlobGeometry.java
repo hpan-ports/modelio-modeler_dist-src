@@ -42,7 +42,7 @@ public class BlobGeometry {
         StringBuilder sb = new StringBuilder(200);
         sb.append(IExmlRepositoryGeometry.BLOBS_DIRNAME);
         sb.append('/');
-        sb.append(String.format("%02x", blobKey.hashCode() % 255));
+        sb.append(String.format("%02x", Math.abs(blobKey.hashCode() % 255))); 
         sb.append('/');
         FileUtils.encodeFileName(blobKey, sb);
         sb.append(IExmlRepositoryGeometry.EXT_BLOB);

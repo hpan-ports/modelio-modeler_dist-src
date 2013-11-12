@@ -27,10 +27,7 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
-import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.progress.IProgressService;
-import org.modelio.api.model.IModelingSession;
-import org.modelio.api.model.InvalidTransactionException;
 import org.modelio.app.project.core.services.IProjectService;
 import org.modelio.gproject.gproject.GProject;
 import org.modelio.vcore.session.api.transactions.ITransaction;
@@ -72,16 +69,15 @@ public class SwtWizardImportProfile extends AbstractSwtWizardWindow {
     public void validationAction() {
         final File theFile = getFileChooserComposite().getCurrentFile();
         ReverseProperties.getInstance().setFilePath(theFile);
-        path = theFile.getParent();
-             
-           
+        this.path = theFile.getParent();
+        
         if (theFile.exists() && theFile.isFile()) {
-           
-             try(ITransaction t = GProject.getProject(this.selectedElt).getSession().getTransactionSupport().createTransaction("Import Profile") ) {
-                 
+        
+            try(ITransaction t = GProject.getProject(this.selectedElt).getSession().getTransactionSupport().createTransaction("Import Profile") ) {
+        
                 this.progressService.busyCursorWhile (new ImportProfileThread(this.shell,
-                                                                 getTheProgressBar(), getSelectedPkg()));
-                
+                        getTheProgressBar(), getSelectedPkg()));
+        
                 if (!ReverseProperties.getInstance().getReportModel().isEmpty()){
                     Display.getDefault().asyncExec(new Runnable() {
                         @Override
@@ -89,24 +85,20 @@ public class SwtWizardImportProfile extends AbstractSwtWizardWindow {
                             ReportManager.showGenerationReport(GenerationProperties.getInstance().getReportModel());
                         }
                     });
-                   
+        
                 }else{
                     completeBox();
                 }        
-                
+        
                 this.shell.dispose();
-                
+        
                 t.commit();
-            } catch (final InvalidTransactionException e) {
-                this.error = true;
-                Xmi.LOG.error(Xmi.PLUGIN_ID, "InvalidTransactionException : ");
-                Xmi.LOG.error(Xmi.PLUGIN_ID, e);
         
             } catch (final Exception e) {
                 this.error = true;
                 Xmi.LOG.error(Xmi.PLUGIN_ID, "Exception : ");
                 Xmi.LOG.error(Xmi.PLUGIN_ID, e);
-           
+        
             }
         
         } else {
@@ -143,15 +135,12 @@ public class SwtWizardImportProfile extends AbstractSwtWizardWindow {
     @objid ("bf943d1a-4da7-4e00-985c-5abbcebceda4")
     @Override
     public void setPath() {
-        //        String importPath = Xmi.getInstance().getModelingSession().getProjectPropertiesService().readProperty("Modelio", "Ui.Parameter.ImportPath");
-                String importPath = "";
-                
-                if ((importPath == null) || (importPath.equals("")))
-                    importPath = ResourceLoader.getInstance().getProjectRoot() + java.io.File.separator + "XMI";
-                
-                this.fileChooserComposite.getDialog().setFilterPath(importPath);
-                this.fileChooserComposite.getDialog().setFileName("");
-                this.fileChooserComposite.setText(importPath);
+        if (this.path.equals(""))
+            this.path = ResourceLoader.getInstance().getProjectRoot() + java.io.File.separator + "XMI";
+        
+        this.fileChooserComposite.getDialog().setFilterPath(this.path);
+        this.fileChooserComposite.getDialog().setFileName("");
+        this.fileChooserComposite.setText(this.path);
     }
 
 }

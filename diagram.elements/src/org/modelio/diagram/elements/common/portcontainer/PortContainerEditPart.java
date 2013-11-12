@@ -409,11 +409,13 @@ public class PortContainerEditPart extends GmNodeEditPart {
         public void postLayout(final IFigure container) {
             // Avoid setting a constraint when the figure isn't attached to 'container'
             if (this.childFigure.getParent() == container) {
-                final Border portConstraint = (Border) this.childModel.getLayoutData();
-                final PortConstraint newConstraint = computeRectangleFromBorder(portConstraint);
-            
-                this.childModel.setLayoutData(newConstraint);
-                container.setConstraint(this.childFigure, newConstraint);
+                if (this.childModel.getLayoutData() instanceof Border) {
+                    final Border portConstraint = (Border) this.childModel.getLayoutData();
+                    final PortConstraint newConstraint = computeRectangleFromBorder(portConstraint);
+                    
+                    this.childModel.setLayoutData(newConstraint);
+                    container.setConstraint(this.childFigure, newConstraint);
+                }
             }
         }
 

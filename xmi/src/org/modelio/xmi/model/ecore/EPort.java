@@ -37,10 +37,12 @@ import org.modelio.metamodel.uml.statik.Port;
 import org.modelio.metamodel.uml.statik.PortOrientation;
 import org.modelio.metamodel.uml.statik.ProvidedInterface;
 import org.modelio.metamodel.uml.statik.RequiredInterface;
+import org.modelio.xmi.plugin.Xmi;
 import org.modelio.xmi.reverse.TotalImportMap;
 import org.modelio.xmi.util.AbstractObjingModelNavigation;
 import org.modelio.xmi.util.ObjingEAnnotation;
 import org.modelio.xmi.util.ReverseProperties;
+import org.modelio.xmi.util.XMILogs;
 
 @objid ("59b5c0fc-40c2-429c-911e-b256042122e0")
 public class EPort extends EFeature implements IEElement {
@@ -275,8 +277,11 @@ public class EPort extends EFeature implements IEElement {
 
     @objid ("f2287c79-3d39-4763-8735-efcb9088e769")
     private void setPortDirection(final Port objingElt) {
-        String direction = ObjingEAnnotation.getPortDirection(this.ecoreElement);
-        objingElt.setDirection(PortOrientation.valueOf(direction));
+        try{
+            objingElt.setDirection(PortOrientation.get(ObjingEAnnotation.getPortDirection(this.ecoreElement)));
+        }catch(IllegalArgumentException e){
+            Xmi.LOG.warning(Xmi.PLUGIN_ID, e);
+        }
     }
 
     @objid ("84b38f51-e6d8-416d-a0d8-49b67cff782a")

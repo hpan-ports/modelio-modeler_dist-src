@@ -123,7 +123,7 @@ public class EditionManager {
         if (modelElement != null) {            
             shownPart.setLabel(modelElement.getName());
         }
-        shownPart.setTooltip(file.getName());
+        shownPart.setTooltip(file.getAbsolutePath());
         
         if (shownPart instanceof MInputPart) {
             inputPart = (MInputPart)shownPart;

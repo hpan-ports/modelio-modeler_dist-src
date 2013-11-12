@@ -220,6 +220,7 @@ import org.modelio.metamodel.uml.infrastructure.properties.PropertyTableDefiniti
 import org.modelio.metamodel.uml.infrastructure.properties.PropertyType;
 import org.modelio.metamodel.uml.infrastructure.properties.TypedPropertyTable;
 import org.modelio.metamodel.uml.statik.Artifact;
+import org.modelio.metamodel.uml.statik.Association;
 import org.modelio.metamodel.uml.statik.AssociationEnd;
 import org.modelio.metamodel.uml.statik.Attribute;
 import org.modelio.metamodel.uml.statik.AttributeLink;
@@ -230,6 +231,7 @@ import org.modelio.metamodel.uml.statik.ClassAssociation;
 import org.modelio.metamodel.uml.statik.Collaboration;
 import org.modelio.metamodel.uml.statik.CollaborationUse;
 import org.modelio.metamodel.uml.statik.Component;
+import org.modelio.metamodel.uml.statik.Connector;
 import org.modelio.metamodel.uml.statik.ConnectorEnd;
 import org.modelio.metamodel.uml.statik.DataType;
 import org.modelio.metamodel.uml.statik.ElementImport;
@@ -240,6 +242,7 @@ import org.modelio.metamodel.uml.statik.Generalization;
 import org.modelio.metamodel.uml.statik.Instance;
 import org.modelio.metamodel.uml.statik.Interface;
 import org.modelio.metamodel.uml.statik.InterfaceRealization;
+import org.modelio.metamodel.uml.statik.Link;
 import org.modelio.metamodel.uml.statik.LinkEnd;
 import org.modelio.metamodel.uml.statik.Manifestation;
 import org.modelio.metamodel.uml.statik.NamespaceUse;
@@ -1784,6 +1787,24 @@ class DataModelFactory extends DefaultModelVisitor {
     @Override
     public Object visitValuePin(ValuePin theValuePin) {
         return new ValuePinPropertyModel(theValuePin);
+    }
+
+    @objid ("3414772f-b048-48c0-92bc-27741b826a87")
+    @Override
+    public Object visitLink(Link theLink) {
+        return new LinkPropertyModel(theLink);
+    }
+
+    @objid ("00d066e7-9876-4117-b309-0f77261023cc")
+    @Override
+    public Object visitConnector(Connector theConnector) {
+        return new ConnectorPropertyModel(theConnector);
+    }
+
+    @objid ("d26726c1-6ec3-43d3-9f99-255c815fb277")
+    @Override
+    public Object visitAssociation(Association obj) {
+        return new AssociationPropertyModel(obj);
     }
 
 }

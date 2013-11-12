@@ -60,7 +60,7 @@ public class SwtWizardExport extends AbstractSwtWizardWindow {
     public void validationAction() {
         File theFile = getFileChooserComposite().getCurrentFile();
         GenerationProperties.getInstance().setFilePath(theFile);
-        path = theFile.getParent();
+        this.path = theFile.getParent();
         if (testExportFilePath(theFile)) {
         
             GenerationProperties.getInstance().setFileExtension((this.getOptionComposite()).getExtension());
@@ -71,8 +71,8 @@ public class SwtWizardExport extends AbstractSwtWizardWindow {
             try {
         
                 this.progressService.busyCursorWhile(new ExportThread(this.shell,
-                      getTheProgressBar()));
-               
+                        getTheProgressBar()));
+        
                 if (!GenerationProperties.getInstance().getReportModel().isEmpty()){
                     Display.getDefault().asyncExec(new Runnable() {
                         @Override
@@ -80,11 +80,11 @@ public class SwtWizardExport extends AbstractSwtWizardWindow {
                             ReportManager.showGenerationReport(GenerationProperties.getInstance().getReportModel());
                         }
                     });
-                   
+        
                 }else{
                     completeBox();
                 }        
-                
+        
                 this.shell.dispose();
         
             } catch (InterruptedException e) {
@@ -98,21 +98,22 @@ public class SwtWizardExport extends AbstractSwtWizardWindow {
     @objid ("fdbbd9fa-c792-4c27-b1e3-f95ee6a8cd9c")
     @Override
     public void setPath() {
-        if (path.equals(""))
-            path = ResourceLoader.getInstance().getProjectRoot() + java.io.File.separator + "XMI";
+        if (this.path.equals(""))
+            this.path = ResourceLoader.getInstance().getProjectRoot() + java.io.File.separator + "XMI";
         
         IPreferenceStore prefs = this.projectService.getProjectPreferences(Xmi.PLUGIN_ID);
         String extension = prefs.getString(XmiPreferencesKeys.XMIEXTENSION_PREFKEY);
         
-        if (extension.equals(XMIExtension.UML.toString()))
+        if (extension.equals(XMIExtension.UML.toString())){
             extension = ".uml";
-        else
+        }else{
             extension = ".xmi";
+        }
         
-        this.fileChooserComposite.getDialog().setFilterPath(path);
+        this.fileChooserComposite.getDialog().setFilterPath(this.path);
         this.fileChooserComposite.getDialog().setFileName(((Package) this.selectedElt).getName() + extension);
-        path = checkAndReplaceEndPath(path);
-        this.fileChooserComposite.setText(path + java.io.File.separator + ((Package) this.selectedElt).getName() + extension);
+        this.path = checkAndReplaceEndPath(this.path);
+        this.fileChooserComposite.setText(this.path + java.io.File.separator + ((Package) this.selectedElt).getName() + extension);
     }
 
     /**
@@ -137,11 +138,10 @@ public class SwtWizardExport extends AbstractSwtWizardWindow {
         
         IPreferenceStore prefs = this.projectService.getProjectPreferences(Xmi.PLUGIN_ID);
         String extension = prefs.getString(XmiPreferencesKeys.XMIEXTENSION_PREFKEY);
-        //        String extension = XMIExtension.UML.toString();
         if (extension.equals(XMIExtension.UML.toString()))
             this.fileChooserComposite.getDialog().setFilterIndex(1);
         
-        // cards
+              
         setPath();
     }
 

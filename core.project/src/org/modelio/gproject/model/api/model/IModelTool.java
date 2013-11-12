@@ -23,7 +23,6 @@ package org.modelio.gproject.model.api.model;
 
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.modelio.metamodel.uml.infrastructure.Constraint;
 import org.modelio.vcore.smkernel.mapi.MObject;
 
 // isShell = false isRamc = false
@@ -58,5 +57,8 @@ public interface IModelTool {
 
     @objid ("e9b46bb1-ea5c-44d3-9f55-5b6694642c0d")
     void moveElements(List<? extends MObject> toMove, MObject newParent, MObject oldParentHint);
+
+    @objid ("c2d148e3-4aab-4e7a-ab35-8c6bbd31b3c5")
+    List<List<? extends MObject>> copyElements(List<List<? extends MObject>> toCopy, List<MObject> target);
 
 }

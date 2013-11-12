@@ -113,20 +113,32 @@ public class ModelImporter implements IRunnableWithProgress {
         if (this.importedModel.isReidentify()) {
             // Import by copy
             try {
+                List<List<? extends MObject>> toCopy = new ArrayList<>();
+                List<MObject> target = new ArrayList<>();
+                
+                if (this.localModule != null && !importedMdaElement.isEmpty()) {
+                    toCopy.add(importedMdaElement);
+                    target.add(this.localModule);
+                }
                 if (localUmlRoot != null && !importedUmlElements.isEmpty()) {
-                    MTools.getModelTool().copyElements(importedUmlElements, localUmlRoot);
+                    toCopy.add(importedUmlElements);
+                    target.add(localUmlRoot);
                 }
                 if (!importedAnalystElements.isEmpty()) {
-                    MTools.getModelTool().copyElements(importedAnalystElements, this.localAnalystProject);
+                    toCopy.add(importedAnalystElements);
+                    target.add(this.localAnalystProject);
                 }
                 if (!importedAnalystProperties.isEmpty()) {
-                    MTools.getModelTool().copyElements(importedAnalystProperties, propertyRoot);
+                    toCopy.add(importedAnalystProperties);
+                    target.add(propertyRoot);
                 }
                 if (localDiagramRoot != null && !importedDiagrams.isEmpty()) {
-                    MTools.getModelTool().copyElements(importedDiagrams, localDiagramRoot);
+                    toCopy.add(importedDiagrams);
+                    target.add(localDiagramRoot);
                 }
-                if (this.localModule != null && !importedMdaElement.isEmpty()) {
-                    MTools.getModelTool().copyElements(importedMdaElement, this.localModule);
+                
+                if (toCopy.size() > 0) {
+                    MTools.getModelTool().copyElements(toCopy, target);
                 }
             } catch (RuntimeException e) {
                 displayError(e);

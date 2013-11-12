@@ -82,8 +82,7 @@ public class GmExecutionOccurenceSpecification extends GmSimpleNode {
                         break;
                     }
                 }
-                if (!found &&
-                    !getDiagram().getAllGMRepresenting(new MRef(sentMessage.getReceiveEvent())).isEmpty()) {
+                if (!found && getDiagram().getAllGMRepresenting(new MRef(sentMessage)).isEmpty()) {
                     GmLink link = getDiagram().unmaskLink(sentMessage);
                     this.addStartingLink(link);
                     link.obElementsUpdated();

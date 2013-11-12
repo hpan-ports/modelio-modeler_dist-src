@@ -30,15 +30,19 @@ public class StateDiagramCreationContributor extends AbstractDiagramCreationCont
     @objid ("d1ff3ed3-cfa1-4ae6-ba4b-084942419f44")
     @Override
     public AbstractDiagram actionPerformed(final ModelElement diagramContext, final String diagramName, final String diagramDescription) {
-        IModelFactory modelFactory = this.mmServices.getModelFactory(diagramContext);
+        IModelFactory modelFactory = this.mmServices.getModelFactory();
         StateMachineDiagram stateDiagram = null;
         
         // Create the StateMachine:
         final StateMachine stateMachine;
         
-        if (diagramContext instanceof StateMachine)
+        if (diagramContext instanceof StateMachine) {
             stateMachine = (StateMachine) diagramContext;
-        else {
+        } else if (diagramContext instanceof Operation) {
+            stateMachine = modelFactory.createStateMachine();
+            stateMachine.setOwnerOperation((Operation) diagramContext);
+            setElementDefaultName(stateMachine);
+        } else {
             stateMachine = modelFactory.createStateMachine();
             stateMachine.setOwner((NameSpace) diagramContext);
             setElementDefaultName(stateMachine);

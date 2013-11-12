@@ -27,7 +27,6 @@ import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.vcore.model.DuplicateObjectException;
-import org.modelio.vcore.model.MObjectCache;
 import org.modelio.vcore.session.impl.storage.IModelLoader;
 import org.modelio.vcore.smkernel.SmObjectImpl;
 import org.modelio.vstore.exml.common.ILoadHelper;
@@ -59,11 +58,10 @@ public class SaxExmlLoader implements IExmlLoader {
     /**
      * Initialize the SAX loader.
      * @param loadHelper a load helper
-     * @param loadCache the cache of this repository already loaded objects
      */
     @objid ("2b011b9f-3faf-11e2-87cb-001ec947ccaf")
-    public SaxExmlLoader(ILoadHelper loadHelper, MObjectCache loadCache) {
-        this.dataModel = new DataModel(loadHelper, loadCache);
+    public SaxExmlLoader(ILoadHelper loadHelper) {
+        this.dataModel = new DataModel(loadHelper);
         this.defaultHandler = new DocumentContentHandler(this.dataModel);
         
         try {

@@ -189,6 +189,9 @@ public class ElementEditionDialog extends ModelioDialog implements IPickingClien
             this.downImage.dispose();
             this.downImage = null;
         }
+        if (this.equals(instance)) { // should always be the case, could be an assert!
+            instance = null;
+        }
         return super.close();
     }
 

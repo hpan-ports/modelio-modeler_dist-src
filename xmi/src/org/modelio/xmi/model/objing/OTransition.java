@@ -38,7 +38,6 @@ import org.modelio.metamodel.uml.behavior.stateMachineModel.StateVertex;
 import org.modelio.metamodel.uml.behavior.stateMachineModel.Transition;
 import org.modelio.metamodel.uml.statik.Operation;
 import org.modelio.xmi.util.AbstractObjingModelNavigation;
-import org.modelio.xmi.util.EcoreModelNavigation;
 import org.modelio.xmi.util.GenerationProperties;
 import org.modelio.xmi.util.ObjingEAnnotation;
 
@@ -87,7 +86,7 @@ public class OTransition extends OModelElement {
     @Override
     public void attach(org.eclipse.uml2.uml.Element ecoreElt) {
         StateVertex objingOwner = this.objingElement.getSource();
-         org.eclipse.uml2.uml.Region ownerRegion = null;
+        org.eclipse.uml2.uml.Region ownerRegion = null;
         
         if (objingOwner != null) {
         
@@ -119,9 +118,9 @@ public class OTransition extends OModelElement {
                     }
         
                 }
-                
+        
             }
-            
+        
             if (objOwnerRegion != null)
                 ownerRegion=  (org.eclipse.uml2.uml.Region) this.genProp.getMappedElement(objOwnerRegion);
         
@@ -252,7 +251,7 @@ public class OTransition extends OModelElement {
                 transition.setEffect(behavior);
             }
         
-             org.eclipse.uml2.uml.Signal ecoreSignal =  (org.eclipse.uml2.uml.Signal) this.genProp.getMappedElement(signal);
+            org.eclipse.uml2.uml.Signal ecoreSignal =  (org.eclipse.uml2.uml.Signal) this.genProp.getMappedElement(signal);
             if (ecoreSignal != null) {
                 Region ownerRegion = this.objingElement.getTarget().getParent();
         
@@ -260,7 +259,7 @@ public class OTransition extends OModelElement {
                         .getOwnerStateMachine(ownerRegion);
         
                 if (objingSM != null) {
-                   org.modelio.metamodel.uml.statik.Package smOwner = AbstractObjingModelNavigation
+                    org.modelio.metamodel.uml.statik.Package smOwner = AbstractObjingModelNavigation
                             .getNearestPackage(objingSM);
         
                     if (smOwner != null) {
@@ -293,7 +292,7 @@ public class OTransition extends OModelElement {
             if (event != null){
                 Object temp = this.genProp.getMappedElement(event);
                 if (temp instanceof  org.eclipse.uml2.uml.Event){
-                     org.eclipse.uml2.uml.Trigger trigger = UMLFactory.eINSTANCE.createTrigger();
+                    org.eclipse.uml2.uml.Trigger trigger = UMLFactory.eINSTANCE.createTrigger();
                     trigger.setEvent((org.eclipse.uml2.uml.Event)temp);
                     transition.getTriggers().add(trigger);
                 }
@@ -329,11 +328,11 @@ public class OTransition extends OModelElement {
 
     @objid ("8fc1bd32-9dc9-4e95-980f-9794400e2b5b")
     private void setEventTrigger(final org.eclipse.uml2.uml.Transition transition, final Event objingEvent) {
-        org.eclipse.uml2.uml.StateMachine sm = EcoreModelNavigation.getMostEnclosingStateMachine(transition);
+        //        org.eclipse.uml2.uml.StateMachine sm = EcoreModelNavigation.getMostEnclosingStateMachine(transition);
         
-         org.eclipse.uml2.uml.Event ecorEvent =  (org.eclipse.uml2.uml.Event) this.genProp.getMappedElement(objingEvent);
-         org.eclipse.uml2.uml.Trigger trigger = null;
-        boolean existTrigger = false; 
+        org.eclipse.uml2.uml.Event ecorEvent =  (org.eclipse.uml2.uml.Event) this.genProp.getMappedElement(objingEvent);
+        //        org.eclipse.uml2.uml.Trigger trigger = null;
+        //        boolean existTrigger = false; 
         //        for  (org.eclipse.uml2.uml.Trigger ownedTrigger : sm.getOwnedTriggers()){
         //            if (ownedTrigger.getEvent().equals(ecorEvent)){
         //                trigger = ownedTrigger;
@@ -341,17 +340,17 @@ public class OTransition extends OModelElement {
         //            }
         //        }
         
-        if (existTrigger){
-            transition.getTriggers().add(trigger);
-        }else{
+        //        if (existTrigger){
+        //            transition.getTriggers().add(trigger);
+        //        }else{
         
-            trigger = UMLFactory.eINSTANCE.createTrigger();
-            trigger.setName(objingEvent.getName());
-            transition.getTriggers().add(trigger);
+        org.eclipse.uml2.uml.Trigger trigger = UMLFactory.eINSTANCE.createTrigger();
+        trigger.setName(objingEvent.getName());
+        transition.getTriggers().add(trigger);
         
-            trigger.setEvent(ecorEvent);
+        trigger.setEvent(ecorEvent);
         
-        }
+        //        }
     }
 
     @objid ("09fc5c0a-4e57-47a2-8b0e-37070a89a34a")

@@ -80,6 +80,10 @@ public class NewProjectHandler {
             if (dataModel != null) {
                 // Open the new project
                 final ProjectCreator projectCreator = createOpenProject(projectService, dataModel, progressSvc);
+                if (projectService.getOpenedProject() == null) {
+                    // If project creation failed, do not try to open
+                    return;
+                }
         
                 final ICoreSession session = projectService.getOpenedProject().getSession();
                 // The project creator should have created an initial model in

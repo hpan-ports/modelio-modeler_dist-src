@@ -129,9 +129,7 @@ public class R1280 extends AbstractRule {
             AuditEntry auditEntry = new AuditEntry(this.rule.getRuleId(),
                     AuditSeverity.AuditSuccess, objectFlow, null);
             
-            if (objectFlow.getSource() instanceof ActivityAction
-                    || objectFlow.getTarget() instanceof ActivityAction) {
-            
+            if ((objectFlow.getSource() instanceof ActivityAction) && (objectFlow.getTarget() instanceof ActivityAction)) {
                 // Rule failed
             
                 auditEntry.setSeverity(this.rule.getSeverity());

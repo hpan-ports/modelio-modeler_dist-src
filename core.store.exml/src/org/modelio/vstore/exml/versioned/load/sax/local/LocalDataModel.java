@@ -28,7 +28,6 @@ import java.util.List;
 import java.util.UUID;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.vcore.model.DuplicateObjectException;
-import org.modelio.vcore.model.MObjectCache;
 import org.modelio.vcore.session.impl.storage.IModelLoader;
 import org.modelio.vcore.smkernel.SmObjectImpl;
 import org.modelio.vcore.smkernel.meta.SmClass;
@@ -38,7 +37,6 @@ import org.modelio.vstore.exml.common.model.ExmlTags;
 import org.modelio.vstore.exml.common.model.IllegalReferenceException;
 import org.modelio.vstore.exml.common.model.ObjId;
 import org.modelio.vstore.exml.local.loader.sax.IDependencyContentHook.Content;
-import org.modelio.vstore.exml.local.loader.sax.IDependencyContentHook;
 import org.xml.sax.Locator;
 import org.xml.sax.SAXParseException;
 
@@ -79,11 +77,11 @@ final class LocalDataModel implements ExmlTags {
 
     /**
      * initialize the loader
-     * @param loadHelper a load helper
      * @param loadCache the cache of this repository already loaded objects
+     * @param loadHelper a load helper
      */
     @objid ("b5c32c01-3fbb-11e2-87cb-001ec947ccaf")
-    public LocalDataModel(ILoadHelper loadHelper, MObjectCache loadCache) {
+    public LocalDataModel(ILoadHelper loadHelper) {
         this.loadHelper = loadHelper;
         this.modelLoader = null;
         this.nodes = EMPTY_NODES;
@@ -105,7 +103,7 @@ final class LocalDataModel implements ExmlTags {
         if (refid != null) {
             SmObjectImpl obj = this.loadHelper.getObject(refid);
             if (obj == null)
-                obj = this.loadHelper.createRefObject(this.modelLoader,refid, refid);
+                obj = this.loadHelper.getRefObject(this.modelLoader,refid, refid);
         
             this.currentDepNode.add (obj);
         }

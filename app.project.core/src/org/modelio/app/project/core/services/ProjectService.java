@@ -609,7 +609,15 @@ class ProjectService implements IProjectService, EventHandler {
                 store.setToDefault(ProjectPreferencesKeys.RETURN_DEFAULT_TYPE_PREFKEY);
             }
             if (store.getDefaultString(ProjectPreferencesKeys.RICHNOTE_DEFAULT_TYPE_PREFKEY).isEmpty()) {
-                store.setDefault(ProjectPreferencesKeys.RICHNOTE_DEFAULT_TYPE_PREFKEY, "text/html");
+                // Use a default value
+                String defaultValue;
+                if (System.getProperty("os.name").equals("Linux")) {
+                    defaultValue = "application/vnd.oasis.opendocument.text";
+                } else {
+                    defaultValue ="application/vnd.openxmlformats-officedocument.wordprocessingml.document";
+                }
+                
+                store.setDefault(ProjectPreferencesKeys.RICHNOTE_DEFAULT_TYPE_PREFKEY, defaultValue);
                 store.setToDefault(ProjectPreferencesKeys.RICHNOTE_DEFAULT_TYPE_PREFKEY);
             }
         }

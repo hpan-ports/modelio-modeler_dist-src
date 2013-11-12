@@ -21,12 +21,13 @@
 
 package org.modelio.xmi.model.ecore;
 
-import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.api.modelio.Modelio;
 import org.modelio.metamodel.diagrams.SequenceDiagram;
 import org.modelio.metamodel.uml.behavior.interactionModel.Gate;
 import org.modelio.metamodel.uml.behavior.interactionModel.Interaction;
+import org.modelio.metamodel.uml.behavior.stateMachineModel.InternalTransition;
+import org.modelio.metamodel.uml.behavior.stateMachineModel.State;
 import org.modelio.metamodel.uml.behavior.stateMachineModel.Transition;
 import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.metamodel.uml.statik.NameSpace;
@@ -40,7 +41,7 @@ import org.modelio.xmi.util.ReverseProperties;
  * @author ebrosse
  */
 @objid ("09047ee2-2819-42bd-bece-2a621a2b7eca")
-public class EInteraction extends ENamedElement implements IEElement {
+public class EInteraction extends ENamedElement {
     @objid ("63283415-51f6-4d99-94df-6bbcfe0d1d3a")
     private org.eclipse.uml2.uml.Interaction ecoreElement = null;
 
@@ -63,28 +64,48 @@ public class EInteraction extends ENamedElement implements IEElement {
         
         ReverseProperties revProp = ReverseProperties.getInstance();
         Object objingOwner =  revProp.getMappedElement(ecoreOwner);
+        Interaction objingIImport = (Interaction) objingElt;
         
         if (objingOwner != null) {
         
             NameSpace finalOwner = null;
             if (objingOwner instanceof Transition){
                 finalOwner = AbstractObjingModelNavigation.getNearestPackage((Transition)objingOwner);
+            }else if (objingOwner instanceof State){
+        
+                finalOwner = EcoreModelNavigation.getNearestNameSpace(ecoreOwner);
+        
+                org.eclipse.uml2.uml. Behavior ent = ((org.eclipse.uml2.uml.State)ecoreOwner).getEntry();
+                org.eclipse.uml2.uml. Behavior exit = ((org.eclipse.uml2.uml.State)ecoreOwner).getExit();
+                org.eclipse.uml2.uml. Behavior doActivity = ((org.eclipse.uml2.uml.State)ecoreOwner).getDoActivity();
+        
+                if ((ent != null) && (ent.equals(this.ecoreElement))){
+                    InternalTransition transition = Modelio.getInstance().getModelingSession().getModel().createInternalTransition();
+                    transition.setSComposed((State)objingOwner);
+                    transition.setBehaviorEffect(objingIImport);
+                    transition.setReceivedEvents("Entry");
+                }else if ((exit != null) && (exit.equals(this.ecoreElement))){    
+                    InternalTransition transition = Modelio.getInstance().getModelingSession().getModel().createInternalTransition();
+                    transition.setSComposed((State)objingOwner);
+                    transition.setBehaviorEffect(objingIImport);
+                    transition.setReceivedEvents("Exit");
+                }else if ((doActivity != null) && (doActivity.equals(this.ecoreElement))){
+                    InternalTransition transition = Modelio.getInstance().getModelingSession().getModel().createInternalTransition();
+                    transition.setSComposed((State) objingIImport);
+                    transition.setBehaviorEffect(objingIImport);
+                    transition.setReceivedEvents("Do");
+                }
+        
             }else if (objingOwner instanceof NameSpace){
                 finalOwner = (NameSpace) objingOwner;
             }
         
-            if (finalOwner != null){
-                Interaction objingIImport = (Interaction) objingElt;
+            if (finalOwner != null){             
                 objingIImport.setOwner(finalOwner);
             }else{
                 objingElt.delete();
             }
         }
-    }
-
-    @objid ("e86d02d3-f25c-487a-9bb7-4a57ca19b7d4")
-    @Override
-    public void attach(List<Object> objingElts) {
     }
 
     @objid ("c2b58f6c-d27f-415f-96ea-1d98038e0764")
@@ -124,12 +145,14 @@ public class EInteraction extends ENamedElement implements IEElement {
         
         String name = "";
         
-        if (ReverseProperties.getInstance().isRoundtripEnabled())
+        if (ReverseProperties.getInstance().isRoundtripEnabled()){
             name = ObjingEAnnotation.getDiagramName(this.ecoreElement);
+        }
         
         
-        if (name.equals(""))
-            name = this.ecoreElement.getName();
+        if (name.equals("")){
+            name = this.ecoreElement.getName();}
+        
         
         diagram.setName(name);
     }

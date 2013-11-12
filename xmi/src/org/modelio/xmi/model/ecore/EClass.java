@@ -21,7 +21,6 @@
 
 package org.modelio.xmi.model.ecore;
 
-import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.api.modelio.Modelio;
 import org.modelio.metamodel.uml.infrastructure.Element;
@@ -30,17 +29,19 @@ import org.modelio.metamodel.uml.infrastructure.Profile;
 import org.modelio.metamodel.uml.statik.Class;
 import org.modelio.metamodel.uml.statik.Classifier;
 import org.modelio.metamodel.uml.statik.Node;
+import org.modelio.metamodel.uml.statik.TemplateParameter;
 import org.modelio.xmi.reverse.PartialImportMap;
 import org.modelio.xmi.reverse.TotalImportMap;
 import org.modelio.xmi.util.ObjingEAnnotation;
 import org.modelio.xmi.util.ReverseProperties;
 
 @objid ("308f5273-ede3-4257-bb0f-8aa076213166")
-public class EClass extends ENamedElement implements IEElement {
+public class EClass extends ENamedElement {
     @objid ("0acc42e4-a80e-45f5-9a21-71d178d5a8f7")
     private boolean isDeleted = false;
 
     @objid ("fc7824d6-a268-4460-b67b-ca7fbd855ccb")
+    @Override
     public Element createObjingElt() {
         return Modelio.getInstance().getModelingSession()
         .getModel().createClass();
@@ -52,8 +53,9 @@ public class EClass extends ENamedElement implements IEElement {
     }
 
     @objid ("e140f99c-9ae0-4c8d-b8eb-15c54540f55c")
+    @Override
     public void attach(Element objingElt) {
-        if (!isDeleted) {
+        if (!this.isDeleted) {
             ReverseProperties revProp = ReverseProperties.getInstance();
         
             org.eclipse.uml2.uml.Element ecoreOwner = getEcoreElement().getOwner();
@@ -68,8 +70,10 @@ public class EClass extends ENamedElement implements IEElement {
                 } else if (objingOwner instanceof Node) {
                     //rule R44
                     objingClass.setOwner(ReverseProperties.getInstance().getExternalPackage()); 
+                } else if (objingOwner instanceof TemplateParameter) {
+                    objingClass.setOwnerTemplateParameter((TemplateParameter) objingOwner);  
                 } else if (objingOwner instanceof ModelTree) {
-                    objingClass.setOwner((ModelTree) objingOwner);                
+                    objingClass.setOwner((ModelTree) objingOwner);              
                 } else {
                     objingClass.setOwner(ReverseProperties.getInstance().getExternalPackage());   
                 }
@@ -79,19 +83,16 @@ public class EClass extends ENamedElement implements IEElement {
         }
     }
 
-    @objid ("32432b18-fd2c-4c51-9919-d1957dfc5d1f")
-    public void attach(List<Object> objingElts) {
-    }
-
     @objid ("276d7093-e4b5-44f6-ace1-f057dd1aaf28")
+    @Override
     public void setProperties(Element objingElt) {
         super.setProperties(objingElt);
-        if (ReverseProperties.getInstance().isRoundtripEnabled() && ObjingEAnnotation.isDestroy(( (org.eclipse.uml2.uml.Class)getEcoreElement()))){
+        if (ReverseProperties.getInstance().isRoundtripEnabled() && ObjingEAnnotation.isDestroy(getEcoreElement())){
             deleteElement(objingElt);
         }else{
         
         
-            if (!isDeleted && objingElt instanceof Classifier) {
+            if (!this.isDeleted && objingElt instanceof Classifier) {
                 ReverseProperties revProp = ReverseProperties.getInstance();
                 Classifier objingClass = (Classifier) objingElt;
         
@@ -127,25 +128,25 @@ public class EClass extends ENamedElement implements IEElement {
 
     @objid ("3e4201b6-efec-4388-858b-2e039a0bcc00")
     private void setMainEAnnotation(Class objingElt) {
-        objingElt.setIsMain(ObjingEAnnotation.isMain( (org.eclipse.uml2.uml.Class)getEcoreElement()));
+        objingElt.setIsMain(ObjingEAnnotation.isMain(getEcoreElement()));
     }
 
     @objid ("341ba5b0-379b-45aa-9f48-94406343ae58")
     private void setPrimitiveEAnnotation(Class objingElt) {
-        objingElt.setIsElementary(ObjingEAnnotation.isPrimitive( (org.eclipse.uml2.uml.Class)getEcoreElement()));
+        objingElt.setIsElementary(ObjingEAnnotation.isPrimitive( getEcoreElement()));
     }
 
     @objid ("a765f018-c3cf-4190-b238-4021241ecf58")
     private void deleteElement(Element objingElt) {
-        PartialImportMap.getInstance().remove( (org.eclipse.uml2.uml.Class)getEcoreElement());
-        TotalImportMap.getInstance().remove( (org.eclipse.uml2.uml.Class)getEcoreElement());
+        PartialImportMap.getInstance().remove(getEcoreElement());
+        TotalImportMap.getInstance().remove(getEcoreElement());
         objingElt.delete();
-        isDeleted = true;
+        this.isDeleted = true;
     }
 
     @objid ("0c11f958-e3d6-4c87-a405-90e7be412cd3")
     private void setRootEAnnotation(Class objingElt) {
-        objingElt.setIsRoot(ObjingEAnnotation.isRoot(( (org.eclipse.uml2.uml.Class)getEcoreElement())));
+        objingElt.setIsRoot(ObjingEAnnotation.isRoot(getEcoreElement()));
     }
 
 }

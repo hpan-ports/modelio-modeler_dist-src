@@ -130,9 +130,9 @@ public class ElementImageService {
         @Override
         public Object visitParameter(Parameter theParameter) {
             if (theParameter.getReturned() != null) {
-                return "Return";
+                return "return";
             } else if (theParameter.getComposed() != null) {
-                return "IO";
+                return "io";
             } else {
                 return null;
             }
@@ -153,7 +153,7 @@ public class ElementImageService {
         @Override
         public Object visitStateMachine(StateMachine theStateMachine) {
             if (theStateMachine.getKind() == KindOfStateMachine.PROTOCOL) {
-                return "Protocol";
+                return "protocol";
             } else {
                 return this.visitBehavior(theStateMachine);
             }
@@ -179,10 +179,10 @@ public class ElementImageService {
         public Object visitExpansionNode(ExpansionNode theExpansionNode) {
             if (theExpansionNode.getRegionAsOutput() == null) {
                 // Input expansion node
-                return "InputElement";
+                return "inputelement";
             } else {
                 // Output expansion node
-                return "OutputElement";
+                return "outputelement";
             }
         }
 
@@ -195,7 +195,7 @@ public class ElementImageService {
                 theInformationFlow.getRealizingLink().size() == 1 ||
                 theInformationFlow.getRealizingMessage().size() == 1) {
                 // Input expansion node
-                return "RealizedInformationFlow";
+                return "realizedinformationflow";
             } else {
                 // Output expansion node
                 return null;
@@ -206,9 +206,9 @@ public class ElementImageService {
         @Override
         public Object visitConnectionPointReference(final ConnectionPointReference theConnectionPointReference) {
             if (theConnectionPointReference.getEntry() != null) {
-                return "Entry";
+                return "entry";
             } else if (theConnectionPointReference.getExit() != null) {
-                return "Exit";
+                return "exit";
             }
             return super.visitConnectionPointReference(theConnectionPointReference);
         }

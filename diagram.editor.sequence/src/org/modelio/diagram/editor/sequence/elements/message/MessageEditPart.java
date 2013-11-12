@@ -484,11 +484,14 @@ public class MessageEditPart extends AbstractConnectionEditPart implements Prope
                                                                   .getBounds()
                                                                   .getLocation()
                                                                   .getTranslated(20, 20);
-            } else {
+            } else if (this.getTarget() != null) {
                 dropPoint = ((GraphicalEditPart) this.getTarget()).getFigure()
                                                                   .getBounds()
                                                                   .getLocation()
                                                                   .getTranslated(20, 20);
+            } else {
+                // Fallback, should not happen...
+                dropPoint = new Point(0, 0);
             }
             dropRequest.setLocation(dropPoint);
             GmCompositeNode gmCompositeForUnmasking = this.getLinkModel()

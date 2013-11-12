@@ -88,9 +88,9 @@ public class DiagramBrowserDropListener extends ViewerDropAdapter {
     @objid ("1e0e48c4-2b22-4090-a82d-3bbdb5dc3e21")
     private boolean isInSameComposition(DiagramSet sourceSet, DiagramSet targetSet) {
         MObject var = targetSet;
-        while (!(var.getCompositionOwner() instanceof Project)) {
+        while (var != null) {
             var = var.getCompositionOwner();
-            if (var.equals(sourceSet))
+            if (sourceSet.equals(var))
                 return true;
         }
         return false;

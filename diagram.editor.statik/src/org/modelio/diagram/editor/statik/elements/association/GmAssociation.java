@@ -40,6 +40,7 @@ import org.modelio.diagram.styles.core.StyleKey;
 import org.modelio.metamodel.uml.statik.AggregationKind;
 import org.modelio.metamodel.uml.statik.Association;
 import org.modelio.metamodel.uml.statik.AssociationEnd;
+import org.modelio.metamodel.uml.statik.Classifier;
 import org.modelio.vcore.smkernel.mapi.MObject;
 import org.modelio.vcore.smkernel.mapi.MRef;
 
@@ -113,7 +114,7 @@ public class GmAssociation extends GmLink {
             // initialize fields
             updateNavigability();
         
-            this.toAggregation = this.oppositeRole.getAggregation();
+            this.toAggregation = this.oppositeRole!=null ? this.oppositeRole.getAggregation() : AggregationKind.KINDISASSOCIATION;
             this.fromAggregation = sourceRole.getAggregation();
         
             // Create extensions
@@ -158,7 +159,13 @@ public class GmAssociation extends GmLink {
     @objid ("33ea68d8-55b7-11e2-877f-002564c97630")
     @Override
     public MObject getFromElement() {
-        return this.sourceRole.getSource() != null ? this.sourceRole.getSource() : this.oppositeRole.getTarget();
+        final Classifier sourceClass = this.sourceRole!=null ? this.sourceRole.getSource() : null;
+        if (sourceClass != null)
+            return sourceClass;
+        
+        if (this.oppositeRole == null)
+            return null;
+        return this.oppositeRole.getTarget();
     }
 
     @objid ("33ea68df-55b7-11e2-877f-002564c97630")
@@ -207,7 +214,10 @@ public class GmAssociation extends GmLink {
     @objid ("33ebef69-55b7-11e2-877f-002564c97630")
     @Override
     public MObject getToElement() {
-        return this.oppositeRole.getSource() != null ? this.oppositeRole.getSource() : this.sourceRole.getTarget();
+        final Classifier oppSource = this.oppositeRole!=null ? this.oppositeRole.getSource() : null;
+        if (oppSource != null )
+            return oppSource;
+        return this.sourceRole!=null ? this.sourceRole.getTarget() : null;
     }
 
     /**
@@ -257,6 +267,9 @@ public class GmAssociation extends GmLink {
         }
     }
 
+    /**
+     * @return the opposite association role.
+     */
     @objid ("33ebef83-55b7-11e2-877f-002564c97630")
     public AssociationEnd getOppositeRole() {
         return this.oppositeRole;

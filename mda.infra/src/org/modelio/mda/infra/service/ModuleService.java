@@ -43,6 +43,7 @@ import org.modelio.app.core.IModelioEventService;
 import org.modelio.app.core.ModelioEnv;
 import org.modelio.app.core.events.ModelioEvent;
 import org.modelio.app.core.events.ModelioEventTopics;
+import org.modelio.gproject.descriptor.GProperties.Entry;
 import org.modelio.gproject.gproject.GProject;
 import org.modelio.gproject.model.IMModelServices;
 import org.modelio.gproject.module.GModule;
@@ -262,16 +263,27 @@ public class ModuleService implements IModuleService {
         List<GModule> gModules = gProject.getModules();
         progress.setWorkRemaining(gModules.size());
         
+        ModuleInstaller installer = new ModuleInstaller(gProject, this);
+        
         for (GModule gModule : gModules) {
             // All modules are loaded, but only activated modules are started.
             try {
-                // Load the module
-                IModule iModule = loadModule(gProject, gModule);
-                if (gModule.isActivated()) {
-                    // Start the module
-                    progress.subTask(MdaInfra.I18N.getMessage("ModuleStartProgress.Starting", iModule.getLabel(),
-                            iModule.getVersion().toString()));
-                    startModule(iModule, gProject);
+                // If the module has the property "SELECT_ON_OPEN", consider it's a first install
+                final Entry toSelect = gModule.getParameters().getProperty(GModule.SELECT_ON_OPEN);
+                if (toSelect != null && toSelect.getValue().equals("true")) {
+                    installer.moduleFirstInstall(gModule, gModule.getModuleHandle());
+        
+                    // Remove the property, next time it will be a simple start
+                    gModule.getParameters().remove(GModule.SELECT_ON_OPEN);
+                } else {
+                    // Load the module
+                    IModule iModule = loadModule(gProject, gModule);
+                    if (gModule.isActivated()) {
+                        // Start the module
+                        progress.subTask(MdaInfra.I18N.getMessage("ModuleStartProgress.Starting", iModule.getLabel(),
+                                iModule.getVersion().toString()));
+                        startModule(iModule, gProject);
+                    }
                 }
             } catch (ModuleException | RuntimeException | LinkageError e) {
                 MdaInfra.LOG.error(e);

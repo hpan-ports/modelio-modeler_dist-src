@@ -119,8 +119,7 @@ public abstract class VersionedExmlBase extends AbstractExmlRepository {
     @Override
     protected final void initializeLoader() {
         this.loadHelper = new VersionedLoadHelper(this, getStatusInitializer(), isWriteable());
-        //this.versionedLoader = new VersionedExmlLoader(this.loadHelper , getLoadCache()); // DOM loader
-        this.versionedLoader = new SaxVersionedExmlLoader(this.loadHelper , getLoadCache());
+        this.versionedLoader = new SaxVersionedExmlLoader(this.loadHelper);
     }
 
     /**

@@ -43,7 +43,7 @@ import org.modelio.xmi.util.ObjingEAnnotation;
 import org.modelio.xmi.util.ReverseProperties;
 
 @objid ("37e2e483-b0a7-43d3-84a4-87854e6e8afd")
-public class EInstanceSpecification extends ENamedElement implements IEElement {
+public class EInstanceSpecification extends ENamedElement {
     @objid ("bbed962e-7c53-4c41-8438-1b76cbe59bf2")
     private Boolean isConnector = false;
 

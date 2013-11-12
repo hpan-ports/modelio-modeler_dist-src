@@ -167,7 +167,7 @@ public final class SmClass extends SmElement implements MClass {
     /**
      * The matching EMF class.
      */
-    @objid ("ee3191aa-a3f9-4625-ae17-a075e044546b")
+    @objid ("c7147cf5-389a-4fc2-9c78-495cc088b1db")
     private EClass emfAdapter;
 
     /**

@@ -61,18 +61,20 @@ public class CreateTemplateParameterEditPolicy extends AbstractEditPolicy {
 
     @objid ("36df3ec2-55b7-11e2-877f-002564c97630")
     private boolean canHandle(final CreateRequest request) {
-        final ModelioCreationContext ctx = (ModelioCreationContext) request.getNewObject();
-        final MObject elementToUnmask = ctx.getElementToUnmask();
+        if (request.getNewObjectType() instanceof String) {
+            final ModelioCreationContext ctx = (ModelioCreationContext) request.getNewObject();
+            final MObject elementToUnmask = ctx.getElementToUnmask();
         
-        if (elementToUnmask instanceof TemplateParameter) {
-            return true;
-        } else if (elementToUnmask == null) {
-            MClass metaclassToCreate = Metamodel.getMClass(ctx.getMetaclass());
-            Class<? extends MObject> interfaceToCreate = Metamodel.getJavaInterface(metaclassToCreate);
-            if (TemplateParameter.class.isAssignableFrom(interfaceToCreate)) {
-                final MObject hostElement = getHostElement();
-                final MClass hostMetaclass = hostElement.getMClass();
-                return MTools.getMetaTool().canCompose(hostMetaclass,metaclassToCreate,null);
+            if (elementToUnmask instanceof TemplateParameter) {
+                return true;
+            } else if (elementToUnmask == null) {
+                MClass metaclassToCreate = Metamodel.getMClass(ctx.getMetaclass());
+                Class<? extends MObject> interfaceToCreate = Metamodel.getJavaInterface(metaclassToCreate);
+                if (TemplateParameter.class.isAssignableFrom(interfaceToCreate)) {
+                    final MObject hostElement = getHostElement();
+                    final MClass hostMetaclass = hostElement.getMClass();
+                    return MTools.getMetaTool().canCompose(hostMetaclass,metaclassToCreate,null);
+                }
             }
         }
         return false;

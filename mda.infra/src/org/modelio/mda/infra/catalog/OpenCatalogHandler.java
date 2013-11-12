@@ -28,13 +28,14 @@ import org.eclipse.e4.core.di.annotations.Execute;
 import org.eclipse.e4.ui.services.IServiceConstants;
 import org.eclipse.swt.widgets.Shell;
 import org.modelio.app.core.ModelioEnv;
+import org.modelio.ui.progress.IModelioProgressService;
 
 @objid ("ffa63e83-a8c7-41d1-84e3-3feb029bfd80")
 public class OpenCatalogHandler {
     @objid ("37e43d6f-19db-4c68-9d65-89ce0be1bb60")
     @Execute
-    public void execute(@Named(IServiceConstants.ACTIVE_SHELL) Shell shell, ModelioEnv env) {
-        ModuleCatalogDialog dlg = new ModuleCatalogDialog(shell, env);
+    public void execute(@Named(IServiceConstants.ACTIVE_SHELL) Shell shell, ModelioEnv env, IModelioProgressService progressService) {
+        ModuleCatalogDialog dlg = new ModuleCatalogDialog(shell, env, progressService);
         dlg.open();
     }
 

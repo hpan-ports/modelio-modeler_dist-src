@@ -35,7 +35,7 @@ import org.modelio.vcore.smkernel.mapi.MClass;
 public class ActivityDiagramCreationContributor extends AbstractDiagramCreationContributor {
     @objid ("0e69cc19-074b-48f1-802a-365268cbc72d")
     private ActivityDiagram smartCreateForNameSpace(final Activity activity, final String diagramName) {
-        IModelFactory modelFactory = this.mmServices.getModelFactory(activity);
+        IModelFactory modelFactory = this.mmServices.getModelFactory();
         ActivityDiagram diagram = createActivityDiagram(modelFactory, diagramName, activity);
         if (diagram != null) {
             checkLocalCollaboration(modelFactory, activity);
@@ -45,7 +45,7 @@ public class ActivityDiagramCreationContributor extends AbstractDiagramCreationC
 
     @objid ("f9a2c429-1bda-4044-b16b-3bf062ff2db5")
     private ActivityDiagram smartCreateForOperation(final Activity activity, final Operation parentOperation, final String diagramName) {
-        IModelFactory modelFactory = this.mmServices.getModelFactory(activity);
+        IModelFactory modelFactory = this.mmServices.getModelFactory();
         ActivityDiagram diagram = createActivityDiagram(modelFactory, diagramName, activity);
         if (diagram != null) {
             // Create the locals Collaboration
@@ -53,15 +53,16 @@ public class ActivityDiagramCreationContributor extends AbstractDiagramCreationC
             if (locals != null) {
                 // Create the instance
                 BindableInstance instance = modelFactory.createBindableInstance();
-                if (instance != null) {
-                    instance.setName("this");
-                    instance.setBase(parentOperation.getOwner());
-                    // Create the corresponding InstanceNode:
-                    InstanceNode instanceNode = modelFactory.createInstanceNode();
-                    if (instanceNode != null) {
-                        instanceNode.setName("this");
-                        instanceNode.setRepresented(instance);
-                    }
+                locals.getDeclared().add(instance);
+                instance.setName("this");
+                instance.setBase(parentOperation.getOwner());
+        
+                // Create the corresponding InstanceNode:
+                InstanceNode instanceNode = modelFactory.createInstanceNode();
+                if (instanceNode != null) {
+                    activity.getOwnedNode().add(instanceNode);
+                    instanceNode.setName("this");
+                    instanceNode.setRepresented(instance);
                 }
             }
         
@@ -133,7 +134,7 @@ public class ActivityDiagramCreationContributor extends AbstractDiagramCreationC
 
     @objid ("37b01bcc-3fc6-422a-9cda-6bf969cb0f82")
     private ActivityDiagram smartCreateForClassifier(final Activity activity, final NameSpace parentClassifier, final String diagramName) {
-        IModelFactory modelFactory = this.mmServices.getModelFactory(activity);
+        IModelFactory modelFactory = this.mmServices.getModelFactory();
         ActivityDiagram diagram = createActivityDiagram(modelFactory, diagramName, activity);
         if (diagram != null) {
             // Create the locals Collaboration
@@ -142,17 +143,15 @@ public class ActivityDiagramCreationContributor extends AbstractDiagramCreationC
                 // Create the instance:
                 BindableInstance instance = modelFactory.createBindableInstance();
                 locals.getDeclared().add(instance);
-                if (instance != null) {
-                    instance.setName("this");
-                    instance.setBase(parentClassifier);
+                instance.setName("this");
+                instance.setBase(parentClassifier);
         
-                    // Create the corresponding InstanceNode:
-                    InstanceNode instanceNode = modelFactory.createInstanceNode();
-                    if (instanceNode != null) {
-                        activity.getOwnedNode().add(instanceNode);
-                        instanceNode.setName("this");
-                        instanceNode.setRepresented(instance);
-                    }
+                // Create the corresponding InstanceNode:
+                InstanceNode instanceNode = modelFactory.createInstanceNode();
+                if (instanceNode != null) {
+                    activity.getOwnedNode().add(instanceNode);
+                    instanceNode.setName("this");
+                    instanceNode.setRepresented(instance);
                 }
             }
         }
@@ -165,7 +164,7 @@ public class ActivityDiagramCreationContributor extends AbstractDiagramCreationC
         if (diagramContext == null && this.projectService == null || this.projectService.getSession() == null) {
             return null;
         }
-        IModelFactory modelFactory = this.mmServices.getModelFactory(diagramContext);
+        IModelFactory modelFactory = this.mmServices.getModelFactory();
         ActivityDiagram diagram = null;
         
         // Unless the parent element is already an Activity, create the Activity:
@@ -174,16 +173,18 @@ public class ActivityDiagramCreationContributor extends AbstractDiagramCreationC
             activity = (Activity) diagramContext;
         else {
             activity = modelFactory.createActivity();
-            activity.setOwner((NameSpace) diagramContext);
             setElementDefaultName(activity);
         }
         
         // Create the diagram, depending on parentElement, carry out the "smart" creation job
         if ((diagramContext instanceof Classifier) && !(diagramContext instanceof UseCase)) {
+            activity.setOwner((Classifier) diagramContext);
             diagram = smartCreateForClassifier(activity, (Classifier) diagramContext, diagramName);
         } else if (diagramContext instanceof Operation) {
+            activity.setOwnerOperation((Operation) diagramContext);
             diagram = smartCreateForOperation(activity, (Operation) diagramContext, diagramName);
         } else {
+            activity.setOwner((NameSpace) diagramContext);
             diagram = smartCreateForNameSpace(activity, diagramName);
         }
         

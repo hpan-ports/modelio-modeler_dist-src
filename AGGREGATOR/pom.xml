@@ -37,6 +37,7 @@
 
 		<module>../core.project</module>
 
+		<module>../admtool</module>
 		<module>../api</module>
 		<module>../app.core</module>
 		<module>../app.ui</module>
@@ -57,6 +58,7 @@
 		<module>../editors</module>
 		<module>../log</module>
 		<module>../mda.infra</module>
+		<module>../mda.infra.ext_org</module>
 		<module>../model.browser</module>
 		<module>../model.property</module>
 		<module>../model.search</module>
@@ -67,13 +69,13 @@
 		<module>../ui</module>
 		<module>../script</module>
 		<module>../script.engine</module>
-		<module>../vaudit</module>
 		<module>../diagram.creation.wizard</module>
 		<module>../editors.richnote</module>
 		<module>../editors.richnote.libreoffice</module>
 		<module>../editors.richnote.libreoffice/runtime</module>
 		<module>../editors.richnote.microsoft</module>
 		<module>../xmi</module>
+		<module>../vaudit</module>
 
 		<module>../diagram.editor</module>
 		<module>../diagram.editor.activity</module>

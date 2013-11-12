@@ -139,6 +139,7 @@ public class DiagramCommandStack extends CommandStack {
                 notifyListeners();
         } catch (IllegalModelManipulationException e) {
             DiagramEditor.LOG.error(e);
+            this.diagram.refreshAllFromObModel();
         } finally {
             notifyListeners(command, POST_EXECUTE);
         }

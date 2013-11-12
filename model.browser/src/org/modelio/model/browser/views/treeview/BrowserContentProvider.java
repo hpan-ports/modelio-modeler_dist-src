@@ -109,6 +109,7 @@ import org.modelio.metamodel.uml.behavior.activityModel.StructuredActivityNode;
 import org.modelio.metamodel.uml.behavior.commonBehaviors.Behavior;
 import org.modelio.metamodel.uml.behavior.commonBehaviors.OpaqueBehavior;
 import org.modelio.metamodel.uml.behavior.commonBehaviors.Signal;
+import org.modelio.metamodel.uml.behavior.communicationModel.CommunicationChannel;
 import org.modelio.metamodel.uml.behavior.communicationModel.CommunicationInteraction;
 import org.modelio.metamodel.uml.behavior.communicationModel.CommunicationNode;
 import org.modelio.metamodel.uml.behavior.interactionModel.Interaction;
@@ -815,7 +816,10 @@ class BrowserContentProvider implements IModelChangeListener, IStatusChangeListe
                 addResults(theAnalystProject.getDictionaryRoot());
             
                 // PropertySet
-                addResult(theAnalystProject.getPropertyRoot());
+                final PropertyContainer propertyRoot = theAnalystProject.getPropertyRoot();
+                if (propertyRoot != null) {
+                    addResult(propertyRoot);
+                }
             }
             return super.visitAnalystProject(theAnalystProject);
         }
@@ -836,13 +840,7 @@ class BrowserContentProvider implements IModelChangeListener, IStatusChangeListe
             if (this.findUmlChildren) {
                 addResults(theAssociationEnd.getQualifier());
             
-                final Association association = theAssociationEnd.getAssociation();
-                if (association != null) {
-                    final ClassAssociation linkToClass = association.getLinkToClass();
-                    if (linkToClass != null) {
-                        addResult(linkToClass);
-                    }
-                }
+                addResult(theAssociationEnd.getAssociation());
             }
             return super.visitAssociationEnd(theAssociationEnd);
         }
@@ -872,7 +870,7 @@ class BrowserContentProvider implements IModelChangeListener, IStatusChangeListe
             
                 // AssociationEnd
                 for (final AssociationEnd end : theClassifier.getOwnedEnd()) {
-                    if (end.isNavigable() || !end.getOpposite().isNavigable()) {
+                    if (end.isNavigable() || (end.getOpposite() != null && !end.getOpposite().isNavigable())) {
                         addResult(end);
                     }
                 }
@@ -1059,6 +1057,7 @@ class BrowserContentProvider implements IModelChangeListener, IStatusChangeListe
             
                 // Dependency
                 addResults(theModelElement.getDependsOnDependency(Dependency.class));
+                
             }
             if (this.findUmlChildren) {
                 addResults(theModelElement.getProduct());
@@ -1999,7 +1998,7 @@ class BrowserContentProvider implements IModelChangeListener, IStatusChangeListe
          */
         @objid ("a3e8807f-29fa-485f-9a75-9a4d8d845c97")
         private void addResult(MObject elt) {
-            if (!this.result.contains(elt)) {
+            if (elt != null && !this.result.contains(elt)) {
                 this.result.add(elt);
             }
         }
@@ -2028,6 +2027,35 @@ class BrowserContentProvider implements IModelChangeListener, IStatusChangeListe
                 }
             }
             return super.visitNaryAssociationEnd(theNaryAssociationEnd);
+        }
+
+        @objid ("ce3db682-f514-4e2b-aeab-5143c87a72a5")
+        @Override
+        public Object visitCommunicationChannel(CommunicationChannel theCommunicationChannel) {
+            if (this.findUmlChildren) {
+                // CommunicationMessages
+                addResults(theCommunicationChannel.getStartToEndMessage());
+                addResults(theCommunicationChannel.getEndToStartMessage());
+            }
+            return super.visitCommunicationChannel(theCommunicationChannel);
+        }
+
+        @objid ("4497148e-58d2-408b-9486-61548cfa6636")
+        @Override
+        public Object visitAssociation(Association theAssociation) {
+            if (this.findUmlChildren) {
+                addResult(theAssociation.getLinkToClass());
+            }
+            return super.visitAssociation(theAssociation);
+        }
+
+        @objid ("5b691e51-df3e-4528-9147-8e2498cb7db9")
+        @Override
+        public Object visitLinkEnd(LinkEnd theLinkEnd) {
+            if (this.findUmlChildren) {
+                addResult(theLinkEnd.getLink());
+            }
+            return super.visitLinkEnd(theLinkEnd);
         }
 
     }

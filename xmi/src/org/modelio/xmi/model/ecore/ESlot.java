@@ -21,14 +21,12 @@
 
 package org.modelio.xmi.model.ecore;
 
-import java.util.ArrayList;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.uml2.uml.InstanceSpecification;
 import org.eclipse.uml2.uml.InstanceValue;
 import org.eclipse.uml2.uml.Property;
-import org.eclipse.uml2.uml.StructuralFeature;
 import org.modelio.api.modelio.Modelio;
 import org.modelio.metamodel.factory.ExtensionNotFoundException;
 import org.modelio.metamodel.uml.infrastructure.Element;
@@ -47,7 +45,7 @@ import org.modelio.xmi.util.PrimitiveTypeMapper;
 import org.modelio.xmi.util.ReverseProperties;
 
 @objid ("b679cdef-61f9-4b20-89be-45cac9ee4046")
-public class ESlot extends EElement implements IEElement {
+public class ESlot extends EElement {
     @objid ("70513ec0-9479-4dd6-8bd7-d5ec504d42d3")
     private org.eclipse.uml2.uml.Slot ecoreElement;
 
@@ -56,16 +54,17 @@ public class ESlot extends EElement implements IEElement {
     public Element createObjingElt() {
         InstanceSpecification ecoreOwner = this.ecoreElement.getOwningInstance();
         if (ReverseProperties.getInstance().isRoundtripEnabled()){
-            if (ObjingEAnnotation.isPort(this.ecoreElement))
+            if (ObjingEAnnotation.isPort(this.ecoreElement)){
                 return Modelio.getInstance().getModelingSession().getModel().createPort();
-            else if (ObjingEAnnotation.isBindableInstance(this.ecoreElement))
+            }else if (ObjingEAnnotation.isBindableInstance(this.ecoreElement)){
                 return Modelio.getInstance().getModelingSession().getModel().createBindableInstance();
-            else if (ObjingEAnnotation.isConnector(ecoreOwner))
+            }else if (ObjingEAnnotation.isConnector(ecoreOwner)){
                 return Modelio.getInstance().getModelingSession().getModel().createConnectorEnd();
-            else if (ObjingEAnnotation.isLink(ecoreOwner))
+            }else if (ObjingEAnnotation.isLink(ecoreOwner)){
                 return Modelio.getInstance().getModelingSession().getModel().createLinkEnd();
-            else if (ObjingEAnnotation.isAttributeLink(this.ecoreElement))
+            }else if (ObjingEAnnotation.isAttributeLink(this.ecoreElement)){
                 return Modelio.getInstance().getModelingSession().getModel().createAttributeLink();
+            }
         }
         
         org.eclipse.uml2.uml.Element feature = this.ecoreElement.getDefiningFeature();
@@ -133,12 +132,8 @@ public class ESlot extends EElement implements IEElement {
         this.ecoreElement = element;
     }
 
-    @objid ("5af69084-d979-49c8-a80a-0caa32f29275")
-    public List<String> getObjingClassName() {
-        return new ArrayList<String>();
-    }
-
     @objid ("41c56516-2408-4845-bfe6-f98bb8656138")
+    @Override
     public void attach(Element objingElt) {
         if (objingElt instanceof ConnectorEnd){
             attachConnectorEnd((ConnectorEnd)objingElt);
@@ -241,13 +236,8 @@ public class ESlot extends EElement implements IEElement {
                         Element objOwner = (Element) ReverseProperties.getInstance().getMappedElement(instSpe);
                         if (objOwner instanceof Instance){
                             Instance objInstance = (Instance) objOwner;
-        //                            StructuralFeature structFeat = this.ecoreElement.getDefiningFeature();
-        //                            if ((structFeat != null) && (structFeat instanceof Property)){
-        //                                Property strucProp = (Property) structFeat;
-        //                                strucProp.isNavigable()
-                           
                             objingElt.setSource(objInstance);
-                            
+        
                         }
                     }
                 }
@@ -255,10 +245,6 @@ public class ESlot extends EElement implements IEElement {
         }else{
             objingElt.delete();
         }
-    }
-
-    @objid ("6c0861af-c1d8-4f71-a963-b1a990b13f51")
-    public void attach(List<Object> objingElts) {
     }
 
     @objid ("1f0f4ffc-6033-4fe4-af1c-429ac59c0b92")
@@ -307,8 +293,9 @@ public class ESlot extends EElement implements IEElement {
     @objid ("7c456bfa-b149-4863-b182-87d46e987b78")
     private void setMultiMin(LinkEnd objingElt) {
         String temp = ObjingEAnnotation.getMultiMin(this.ecoreElement);
-        if (temp != null)
+        if (temp != null){
             objingElt.setMultiplicityMin(temp);
+        }
     }
 
     @objid ("87fa151d-f62a-44dd-8b37-8626df7892db")
@@ -320,17 +307,18 @@ public class ESlot extends EElement implements IEElement {
 
     @objid ("c1acae4b-9ff4-4e70-8d49-c4ca71380299")
     private void setAttributeProperties(AttributeLink objingElt) {
-        setAttributed((AttributeLink)objingElt);
+        setAttributed(objingElt);
         
-        ((AttributeLink)objingElt).setName("AttributeLink");
+        objingElt.setName("AttributeLink");
         
         String value = getValueSpecification();
-        if (value != null)
+        if (value != null){
             objingElt.setValue(value);
+        }
         
         if (ReverseProperties.getInstance().isRoundtripEnabled()){
-            setEAnnotationValue((AttributeLink)objingElt);
-            setEAnnotationName((AttributeLink)objingElt);
+            setEAnnotationValue(objingElt);
+            setEAnnotationName(objingElt);
         }
     }
 
@@ -346,7 +334,7 @@ public class ESlot extends EElement implements IEElement {
 
     @objid ("247e85e3-61ce-48e8-95e5-b0339b4d45b5")
     private void setName(BindableInstance objingElt) {
-        String temp = ObjingEAnnotation.getName(ecoreElement);
+        String temp = ObjingEAnnotation.getName(this.ecoreElement);
         if (temp != null)
             objingElt.setName(temp);
     }
@@ -360,36 +348,40 @@ public class ESlot extends EElement implements IEElement {
                     InstanceSpecification spec = ((InstanceValue) defaultValue).getInstance();
                     if (spec != null){
                         Object instance  = ReverseProperties.getInstance().getMappedElement(spec);
-                        if ((instance instanceof Instance) && (instance != null))
+                        if ((instance instanceof Instance) && (instance != null)){
                             try {
                                 Modelio.getInstance().getModelingSession().getModel().createDependency(
                                         objingElt, (Instance) instance, "ModelerModule", IModelerModuleStereotypes.UML2INSTANCEVALUE);
                             } catch (ExtensionNotFoundException e) {
                                 e.printStackTrace();
                             }
+                        }
         
                     }
                 }
             }
         }else{
             String temp = getValueSpecification();
-            if (temp != null)
+            if (temp != null){
                 objingElt.setValue(temp);
+            }
         }
     }
 
     @objid ("d0e974bc-45a4-4f54-a208-bcd6fd17c0b6")
     private void setMultiplicityMax(BindableInstance objingElt) {
         String temp = ObjingEAnnotation.getMultiMax(this.ecoreElement);
-        if (temp != null)
+        if (temp != null){
             objingElt.setMultiplicityMax(temp);
+        }
     }
 
     @objid ("ef918005-da53-4233-bf2c-073d11f0591e")
     private void setMultiplicityMin(BindableInstance objingElt) {
         String temp = ObjingEAnnotation.getMultiMin(this.ecoreElement);
-        if (temp != null)
+        if (temp != null){
             objingElt.setMultiplicityMin(temp);
+        }
     }
 
     @objid ("ff1f360d-1e8f-4ab0-bf47-b8ef1175a352")
@@ -423,16 +415,18 @@ public class ESlot extends EElement implements IEElement {
     private void setEAnnotationValue(AttributeLink objingElt) {
         String value = ObjingEAnnotation.getValue(this.ecoreElement);
         
-        if (value != null)
+        if (value != null){
             objingElt.setValue(value);
+        }
     }
 
     @objid ("a8f9b9b5-5df2-4193-8f05-2ddea4223630")
     private void setEAnnotationName(AttributeLink objingElt) {
         String value = ObjingEAnnotation.getName(this.ecoreElement);
         
-        if (value != null)
+        if (value != null){
             objingElt.setName(value);
+        }
     }
 
     @objid ("154ba420-9fd5-4e3b-961e-ac69839185aa")
@@ -459,6 +453,7 @@ public class ESlot extends EElement implements IEElement {
                     }
                 }
             }
+            
             List<String> ids = ObjingEAnnotation.getObjingIDs(ecoreOwner);
             if (ids.size() >0){
                 String id =  ids.get(0);
@@ -481,8 +476,8 @@ public class ESlot extends EElement implements IEElement {
     private void setOppositeEnd(LinkEnd objingElt) {
         Link link = objingElt.getLink();
         if (link.getLinkEnd().size() == 2){
-          link.getLinkEnd().get(0).setOpposite(link.getLinkEnd().get(1));
-          link.getLinkEnd().get(1).setOpposite(link.getLinkEnd().get(0));
+            link.getLinkEnd().get(0).setOpposite(link.getLinkEnd().get(1));
+            link.getLinkEnd().get(1).setOpposite(link.getLinkEnd().get(0));
         }
     }
 

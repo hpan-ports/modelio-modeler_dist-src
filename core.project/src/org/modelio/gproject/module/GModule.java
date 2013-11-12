@@ -59,6 +59,9 @@ public class GModule {
     @objid ("068515a8-3019-11e2-8f81-001ec947ccaf")
     private DefinitionScope scope;
 
+    @objid ("d960d4a9-8c35-4d01-88c8-1a36af0fe371")
+    public static final String SELECT_ON_OPEN = "select-on-open";
+
     @objid ("a44af7c4-ecf9-11e1-912e-001ec947ccaf")
     private IProjectFragment modelFragment;
 
@@ -68,9 +71,6 @@ public class GModule {
     @objid ("4e3a7c5b-f2bb-11e1-90ff-002564c97630")
     private IModuleHandle moduleHandle;
 
-    @objid ("f87f0294-f369-11e1-9173-001ec947ccaf")
-    private final URI originalArchiveUri;
-
     /**
      * Only used to call getSession().beginLoadingSession()
      */
@@ -79,6 +79,9 @@ public class GModule {
 
     @objid ("9b095136-1979-42f0-bd0b-a424ba20f29f")
     private GAuthConf auth;
+
+    @objid ("bf165e86-430e-42b7-84fb-7f09f7a74514")
+    private final URI originalArchiveUri;
 
     /**
      * Initialize the GModule.

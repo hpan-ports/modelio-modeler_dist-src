@@ -83,7 +83,7 @@ public class SwtWizardExportProfile extends AbstractSwtWizardWindow {
     public void validationAction() {
         final File theFile = getFileChooserComposite().getCurrentFile();
         GenerationProperties.getInstance().setFilePath(theFile);
-        path = theFile.getParent();
+        this.path = theFile.getParent();
         if (testExportFilePath(theFile)) {
         
             GenerationProperties.getInstance().setFileExtension((this.getOptionComposite()).getExtension());
@@ -92,10 +92,10 @@ public class SwtWizardExportProfile extends AbstractSwtWizardWindow {
         
             GenerationProperties.getInstance().setRoundtripEnabled(this.getOptionComposite().getCompatibilityButton().getSelection());
             try {  
-              
+        
                 this.progressService.busyCursorWhile (new ExportProfileThread(this.shell,
-                                                                 getTheProgressBar()));
-                
+                        getTheProgressBar()));
+        
                 if (!GenerationProperties.getInstance().getReportModel().isEmpty()){
                     Display.getDefault().asyncExec(new Runnable() {
                         @Override
@@ -103,21 +103,21 @@ public class SwtWizardExportProfile extends AbstractSwtWizardWindow {
                             ReportManager.showGenerationReport(GenerationProperties.getInstance().getReportModel());
                         }
                     });
-                   
+        
                 }else{
                     completeBox();
                 }        
-                
+        
                 this.shell.dispose();
-                
+        
             } catch (final InterruptedException e) {
                 Xmi.LOG.error(Xmi.PLUGIN_ID, e);
             } catch (final InvocationTargetException e) {
                 Xmi.LOG.error(Xmi.PLUGIN_ID, e);
             }
         
-            
-            
+        
+        
         }
     }
 
@@ -131,21 +131,22 @@ public class SwtWizardExportProfile extends AbstractSwtWizardWindow {
     @objid ("89d0a786-374d-480f-8dc9-34b3eeed1dc5")
     @Override
     public void setPath() {
-        if (path.equals(""))
-            path = ResourceLoader.getInstance().getProjectRoot() + java.io.File.separator + "XMI";
+        if (this.path.equals(""))
+            this.path = ResourceLoader.getInstance().getProjectRoot() + java.io.File.separator + "XMI";
         
         IPreferenceStore prefs = this.projectService.getProjectPreferences(Xmi.PLUGIN_ID);
         String extension = prefs.getString(XmiPreferencesKeys.XMIEXTENSION_PREFKEY);
         
-        if (extension.equals(XMIExtension.UML.toString()))
+        if (extension.equals(XMIExtension.UML.toString())){
             extension = ".uml";
-        else
+        }else{
             extension = ".xmi";
+        }
         
-        this.fileChooserComposite.getDialog().setFilterPath(path);
+        this.fileChooserComposite.getDialog().setFilterPath(this.path);
         this.fileChooserComposite.getDialog().setFileName(((Profile) this.selectedElt).getName() + extension);
-        path = checkAndReplaceEndPath(path);
-        this.fileChooserComposite.setText(path + java.io.File.separator + ((Profile) this.selectedElt).getName() + extension);
+        this.path = checkAndReplaceEndPath(this.path);
+        this.fileChooserComposite.setText(this.path + java.io.File.separator + ((Profile) this.selectedElt).getName() + extension);
     }
 
     @objid ("437c6b41-3323-492e-801e-d3d2780ee907")

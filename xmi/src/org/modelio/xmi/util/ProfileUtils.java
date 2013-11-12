@@ -31,8 +31,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
@@ -52,7 +50,6 @@ import org.eclipse.uml2.uml.Property;
 import org.eclipse.uml2.uml.UMLFactory;
 import org.eclipse.uml2.uml.internal.impl.PrimitiveTypeImpl;
 import org.modelio.api.modelio.Modelio;
-import org.modelio.metamodel.factory.ExtensionNotFoundException;
 import org.modelio.metamodel.mda.ModuleComponent;
 import org.modelio.metamodel.uml.infrastructure.MetaclassReference;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
@@ -106,8 +103,7 @@ public class ProfileUtils {
         if (image.getContent() == null) {
             return null;
         }
-        
-        
+             
         String rawData = image.getContent();
         StringTokenizer strToken = new StringTokenizer(rawData, " ");
         byte[]target=new byte[strToken.countTokens()];
@@ -145,38 +141,6 @@ public class ProfileUtils {
         return result;
     }
 
-    @objid ("5105fd82-12b1-426b-8dbf-155e382668da")
-    private static List<String> getObjNameClass(final java.lang.Class<?> classe, final Method methodCreateElt) {
-        List<String> result = new ArrayList<>();
-        
-        try{
-        
-            Constructor<?> createClasse = null;
-        
-            for (Constructor<?> current : classe.getDeclaredConstructors()){
-                if (current.getParameterTypes().length == 0)
-                    createClasse= current;
-            }
-        
-            methodCreateElt.invoke(org.eclipse.uml2.uml.UMLFactory.eINSTANCE, (Object[])null);
-        
-            Method methodIjingClass = classe.getMethod("getIjingClassName");
-        
-            if (createClasse != null) {
-                Object classeInstance = createClasse.newInstance();
-                result = (List<String>) methodIjingClass.invoke(classeInstance);
-            }
-        
-        }catch (Exception e){
-            String errorMsg = e.getMessage();
-            Xmi.LOG.warning(Xmi.PLUGIN_ID, errorMsg);  
-        }
-        
-        if (result.size() == 0)
-            result.add("ModelElement");
-        return result;
-    }
-
     @objid ("4278ef88-cfd5-4892-9604-9d96003c54f6")
     public static List<String> getEcoreNameClass(final String objClassName) {
         List<String> result = GenerationProperties.getInstance().getEcoreClassNames(objClassName);
@@ -184,25 +148,6 @@ public class ProfileUtils {
         if (result.size() == 0)
             result.add("Element");
         return result;
-    }
-
-    @objid ("a3c3b449-22c7-4032-85d8-d6eec5c497fd")
-    public static org.eclipse.uml2.uml.Stereotype createStereotype(final Stereotype obStereotype) {
-        org.eclipse.uml2.uml.Profile profile = (org.eclipse.uml2.uml.Profile) GenerationProperties.getInstance().getMappedElement(obStereotype.getOwner());
-        
-        String name = ProfileUtils.getStereotypeName(obStereotype);
-        org.eclipse.uml2.uml.Stereotype stereotype  = profile.getOwnedStereotype(name);
-        
-        if (stereotype == null){
-            stereotype = profile.createOwnedStereotype(name, false);
-            setIconsProperties(stereotype, obStereotype);
-            TotalExportMap.getInstance().put(obStereotype.getUuid().toString(), stereotype);
-        
-        }
-        
-        ObjingEAnnotation.setNamedWithConvention(stereotype, ProfileUtils.isNamedWithConvention(obStereotype));
-        ObjingEAnnotation.addObjingID(stereotype, obStereotype.getUuid().toString());
-        return stereotype;
     }
 
     @objid ("b46fe5d0-a787-42b1-9dd6-9152c2a537d1")
@@ -358,19 +303,6 @@ public class ProfileUtils {
         return nameSpacingSeparator;
     }
 
-    @objid ("560551e9-f432-4b2a-ab81-88454bdba5b9")
-    private static MetaclassReference createReference(final org.eclipse.uml2.uml.Stereotype ecoreElt) {
-        MetaclassReference objReference  = (MetaclassReference) Modelio.getInstance().getModelingSession().getModel().createElement("MetaclassReference");
-        objReference.setReferencedClassName(ecoreElt.getName());
-        Object owner =  TotalImportMap.getInstance().get(ecoreElt.getOwner()); 
-        if ((owner != null) && (owner instanceof Profile)){
-            ((Profile) owner).getOwnedReference().add(objReference);
-            objReference.setOwnerProfile(((Profile) owner));
-        }
-        TotalImportMap.getInstance().put(ecoreElt, objReference);
-        return objReference;
-    }
-
     @objid ("53ed07f0-595b-4b28-bc4e-9de0427c3e26")
     public static Object visitStereotype(final org.eclipse.uml2.uml.Stereotype ecoreElement) {
         Object temp =  TotalImportMap.getInstance().get(ecoreElement);
@@ -397,10 +329,11 @@ public class ProfileUtils {
             }
         
             if (owner != null){
-                if (owner instanceof ArrayList)
+                if (owner instanceof ArrayList){
                     visitStereotype((ArrayList<Stereotype>) owner, ecoreElement);
-                else
+                }else{
                     visitReference((MetaclassReference)owner, ecoreElement);
+                }
             }
         }
     }
@@ -480,7 +413,6 @@ public class ProfileUtils {
         if (!ObjingEAnnotation.isReference(stereotype)){
         
             Object imported = visitStereotype(stereotype);
-        
         
             List<Stereotype> importedStereotypes = new ArrayList<>();
         
@@ -661,9 +593,9 @@ public class ProfileUtils {
                     result.setParent(parents.get(0));
                 }
         
-                if (result.getStatus().isModifiable()){
-                    attach(result, ecoreElement);
-                    setProperties(result, ecoreElement);
+                if (result.getStatus().isModifiable()){   
+                    setProperties(result, ecoreElement);   
+                    attach(result, ecoreElement);                             
                 }
                 results.add(result);
             }
@@ -679,19 +611,20 @@ public class ProfileUtils {
     private static void attach(final Stereotype objingSterotype, final org.eclipse.uml2.uml.Stereotype ecoreSterotype) {
         Object owner =  TotalImportMap.getInstance().get(ecoreSterotype.getOwner()); 
         
-        if ((owner != null) && (owner instanceof Profile)){
-            ((Profile)owner).getDefinedStereotype().add(objingSterotype);
-        
+        if ((owner != null) 
+                && (owner instanceof Profile)){
+            Profile ownerProfile = (Profile) owner;
+            if (!(ownerProfile.getStatus().isUserWrite())){
+                objingSterotype.delete();
+            }else{
+                ((Profile)owner).getDefinedStereotype().add(objingSterotype);       
+            }
         }else{
             for (MObject module : Modelio.getInstance().getModelingSession().getModel().getModelRoots()){
                 if ((module instanceof ModuleComponent) && (module.getName().equals("LocalModule"))){
                     for(Profile profile : ((ModuleComponent) module).getOwnedProfile()){
-                        if (profile.getName().equals("LocalProfile")){
-                            try {
-                                profile.addStereotype("LocalModule", objingSterotype.getName());
-                            } catch (ExtensionNotFoundException e) {
-                                e.printStackTrace();
-                            }
+                        if (profile.getName().equals("LocalProfile")){                        
+                            profile.getDefinedStereotype().add(objingSterotype);                          
                         }
                     }
                 }
@@ -703,14 +636,14 @@ public class ProfileUtils {
     private static void attach(final Profile objProfile, final org.eclipse.uml2.uml.Profile ecoreElement) {
         boolean attach = false;
         String moduleId = ObjingEAnnotation.getModule(ecoreElement);
-        
+               
         if (!(moduleId.equals(""))){
         
             for (MObject module : Modelio.getInstance().getModelingSession().getModel().getLibraryRoots()){
         
                 if ((module instanceof ModuleComponent)
                         && (module.getUuid().toString().equals(moduleId))){
-                    
+        
                     List<String> ids =  ObjingEAnnotation.getObjingIDs(ecoreElement);
         
                     if (ids.size()>0) {
@@ -793,16 +726,16 @@ public class ProfileUtils {
                     }    
                 }
             }else{
-                setIcon(objElt, (org.eclipse.uml2.uml.Image) icons.get(0), "icon");
-                setIcon(objElt, (org.eclipse.uml2.uml.Image) icons.get(0), "explorerIcon");
-                setIcon(objElt, (org.eclipse.uml2.uml.Image) icons.get(0), "smallIcon");
+                setIcon(objElt, icons.get(0), "icon");
+                setIcon(objElt, icons.get(0), "explorerIcon");
+                setIcon(objElt, icons.get(0), "smallIcon");
             }
         
         }
     }
 
     @objid ("27b0d119-a3d2-4daa-b3d1-f02959770f4e")
-    public static void write(final org.eclipse.swt.graphics.Image img, final String fileName, final String format) throws IOException {
+    public static void write(final org.eclipse.swt.graphics.Image img, final String fileName, final String format) {
         BufferedImage buffi = convertToAWT(img.getImageData());
         File outputFile = new File(fileName);
         try{
@@ -1224,9 +1157,6 @@ public class ProfileUtils {
                         Xmi.LOG.warning(Xmi.PLUGIN_ID, errorMsg);  
                     }
         
-                }catch(IOException e){
-                    String errorMsg = e.getMessage();
-                    Xmi.LOG.warning(Xmi.PLUGIN_ID, errorMsg);     
                 }
             }
         
@@ -1561,7 +1491,7 @@ public class ProfileUtils {
     @objid ("6f95fe74-555a-453d-8c9d-6f49ad037c43")
     private static List<TaggedValue> sortByType(ModelElement element) {
         List<TaggedValue> listTag = element.getTag();
-        List<TaggedValue> listTagSorted = new ArrayList<TaggedValue>();
+        List<TaggedValue> listTagSorted = new ArrayList<>();
         
         for (TaggedValue current : listTag){
             if (!(listTagSorted.contains(current))){
@@ -1575,6 +1505,38 @@ public class ProfileUtils {
             }
         }
         return listTagSorted;
+    }
+
+    @objid ("a4b6a3f8-0c00-4ec7-b808-39cf2ee4e5ee")
+    private static MetaclassReference createReference(final org.eclipse.uml2.uml.Stereotype ecoreElt) {
+        MetaclassReference objReference  = (MetaclassReference) Modelio.getInstance().getModelingSession().getModel().createElement("MetaclassReference");
+        objReference.setReferencedClassName(ecoreElt.getName());
+        Object owner =  TotalImportMap.getInstance().get(ecoreElt.getOwner()); 
+        if ((owner != null) && (owner instanceof Profile)){
+            ((Profile) owner).getOwnedReference().add(objReference);
+            objReference.setOwnerProfile(((Profile) owner));
+        }
+        TotalImportMap.getInstance().put(ecoreElt, objReference);
+        return objReference;
+    }
+
+    @objid ("f9006a73-3dfb-404d-a768-cd97c1a46301")
+    public static org.eclipse.uml2.uml.Stereotype createStereotype(final Stereotype obStereotype) {
+        org.eclipse.uml2.uml.Profile profile = (org.eclipse.uml2.uml.Profile) GenerationProperties.getInstance().getMappedElement(obStereotype.getOwner());
+        
+        String name = ProfileUtils.getStereotypeName(obStereotype);
+        org.eclipse.uml2.uml.Stereotype stereotype  = profile.getOwnedStereotype(name);
+        
+        if (stereotype == null){
+            stereotype = profile.createOwnedStereotype(name, false);
+            setIconsProperties(stereotype, obStereotype);
+            TotalExportMap.getInstance().put(obStereotype.getUuid().toString(), stereotype);
+        
+        }
+        
+        ObjingEAnnotation.setNamedWithConvention(stereotype, ProfileUtils.isNamedWithConvention(obStereotype));
+        ObjingEAnnotation.addObjingID(stereotype, obStereotype.getUuid().toString());
+        return stereotype;
     }
 
 }

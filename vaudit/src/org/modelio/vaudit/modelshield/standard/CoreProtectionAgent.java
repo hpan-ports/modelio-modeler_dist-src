@@ -110,6 +110,7 @@ import org.modelio.vaudit.modelshield.standard.checkers.E282Checker;
 import org.modelio.vaudit.modelshield.standard.checkers.E283Checker;
 import org.modelio.vaudit.modelshield.standard.checkers.E291Checker;
 import org.modelio.vaudit.modelshield.standard.checkers.E292Checker;
+import org.modelio.vaudit.modelshield.standard.checkers.E293Checker;
 import org.modelio.vaudit.modelshield.standard.checkers.tofix.E284Checker;
 import org.modelio.vaudit.modelshield.standard.checkers.tofix.E285Checker;
 import org.modelio.vaudit.modelshield.standard.checkers.tofix.E286Checker;
@@ -159,8 +160,6 @@ public class CoreProtectionAgent implements IProtectionAgent {
         
         TransactionProcessor v = new TransactionProcessor(this.plan);
         v.check(theTransaction, context);
-        
-        // session->getTransactionManager().commit(repairTransaction);
         return report.getEntries().isEmpty() ? CheckStatus.Success : CheckStatus.Fail;
     }
 
@@ -278,6 +277,7 @@ public class CoreProtectionAgent implements IProtectionAgent {
         new E290Checker().register(plan);
         new E291Checker().register(plan);
         new E292Checker().register(plan);
+        new E293Checker().register(plan);
     }
 
 }

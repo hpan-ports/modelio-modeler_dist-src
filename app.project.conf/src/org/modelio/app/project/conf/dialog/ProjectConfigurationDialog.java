@@ -31,7 +31,6 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.graphics.Point;
-import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
@@ -126,7 +125,7 @@ public class ProjectConfigurationDialog extends ModelioDialog {
     public final Control createContentArea(final Composite parent) {
         this.tabFolder = new TabFolder(parent, SWT.NONE);
         this.tabFolder.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
-        this.tabFolder.setLayout(new FillLayout());
+        // no layout to add on the tab folder.
         
         addPages();
         return null;

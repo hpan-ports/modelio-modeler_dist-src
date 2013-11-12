@@ -28,4 +28,7 @@ public interface LogPreferencesKeys {
     @objid ("36e87876-783c-4121-9767-f2dcf842e957")
     public static final String LOGLEVEL_PREFKEY = "Log.LogLevel";
 
+    @objid ("8b0f883f-6284-4edc-999c-dd2a1affa916")
+    public static final String SHOWADMTOOLS_PREFKEY = "AdmTools.Show";
+
 }

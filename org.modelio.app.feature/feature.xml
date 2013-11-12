@@ -266,4 +266,18 @@ along with Modelio.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
          version="1.0.0.201302061436"
          unpack="false"/>
 
+   <plugin
+         id="org.modelio.mda.infra.ext"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         fragment="true"/>
+
+   <plugin
+         id="org.modelio.admtool"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
 </feature>

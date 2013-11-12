@@ -21,7 +21,6 @@
 
 package org.modelio.xmi.model.ecore;
 
-import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.api.modelio.Modelio;
 import org.modelio.metamodel.uml.behavior.interactionModel.ExecutionOccurenceSpecification;
@@ -30,7 +29,7 @@ import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.xmi.util.ReverseProperties;
 
 @objid ("3805ded7-4e3f-402e-addd-a749719130f1")
-public class EExecutionSpecification extends EInteractionFragment implements IEElement {
+public class EExecutionSpecification extends EInteractionFragment {
     @objid ("2ea7f94c-e04f-444a-b01c-f4d5047e1f12")
     @Override
     public Element createObjingElt() {
@@ -44,20 +43,19 @@ public class EExecutionSpecification extends EInteractionFragment implements IEE
     }
 
     @objid ("67fdd86a-8a4d-4d01-8f83-efcb3325ca79")
+    @Override
     public void attach(Element objingElt) {
         super.attach(objingElt);
     }
 
-    @objid ("0ae4299c-5b93-4010-88d9-9fa8b7f031cc")
-    public void attach(List<Object> objingElts) {
-    }
-
     @objid ("f137c719-30bb-4581-aaae-d732a2f443c1")
+    @Override
     public void setProperties(Element objingElt) {
         super.setProperties(objingElt);
         if (objingElt instanceof ExecutionSpecification){
             setStart((ExecutionSpecification) objingElt);
             setFinish((ExecutionSpecification) objingElt);
+            check((ExecutionSpecification) objingElt);
         }
     }
 
@@ -86,6 +84,13 @@ public class EExecutionSpecification extends EInteractionFragment implements IEE
         
             if (objFinish instanceof ExecutionOccurenceSpecification)
                 objingElt.setFinish((ExecutionOccurenceSpecification) objFinish);
+        }
+    }
+
+    @objid ("c6124497-a112-4935-89ab-fbf75780ded4")
+    private void check(ExecutionSpecification objingElt) {
+        if (objingElt.getStart().getLineNumber() > objingElt.getFinish().getLineNumber()){
+            objingElt.delete();
         }
     }
 

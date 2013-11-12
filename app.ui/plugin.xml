@@ -46,7 +46,7 @@
    <extension point="org.modelio.app.preferences.preferencePages">
       <page
             id="org.modelio.app.ui.logpreferences"
-            name="%Log"
+            name="%Administration"
             class="org.modelio.app.ui.logconfig.LogPreferencesPage">
       </page>
    </extension>
@@ -62,8 +62,8 @@
    
    
   <extension id="modelio"  point="org.eclipse.core.runtime.products">
-    <product application="org.eclipse.e4.ui.workbench.swt.E4Application" name="Modelio Phoenix">
-       <property name="appName" value="Modelio Phoenix">
+    <product application="org.eclipse.e4.ui.workbench.swt.E4Application" name="Modelio 3">
+       <property name="appName" value="Modelio 3">
        </property>
        <property name="lifeCycleURI"            value="bundleclass://org.modelio.app.ui/org.modelio.app.ui.lifecycle.LifeCycleManager"/>
        <property name="applicationXMI"          value="org.modelio.app.ui/e4model/modelio.e4xmi"/>

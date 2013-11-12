@@ -21,6 +21,7 @@
 
 package org.modelio.mda.infra.catalog.update;
 
+import java.util.ResourceBundle;
 import javax.inject.Inject;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.core.runtime.preferences.InstanceScope;
@@ -29,7 +30,9 @@ import org.eclipse.jface.preference.FieldEditorPreferencePage;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.preference.StringFieldEditor;
 import org.modelio.app.preferences.ScopedPreferenceStore;
+import org.modelio.log.writers.PluginLogger;
 import org.modelio.mda.infra.plugin.MdaInfra;
+import org.modelio.ui.i18n.BundledMessages;
 
 @objid ("e46387a6-a669-48b9-8131-ca484a12b266")
 public class CatalogUpdatePreferencesPage extends FieldEditorPreferencePage {
@@ -62,7 +65,8 @@ public class CatalogUpdatePreferencesPage extends FieldEditorPreferencePage {
         IPreferenceStore preferenceStore = new ScopedPreferenceStore(InstanceScope.INSTANCE, MdaInfra.PLUGIN_ID);
         setPreferenceStore(preferenceStore);
         
-        preferenceStore.setDefault(CatalogUpdatePreferencesPage.CATALOG_UPDATE_SITE, MdaInfra.I18N.getString("ModuleCatalog.Preference.DefaultUpdateSite"));
+        BundledMessages i18n = new BundledMessages(MdaInfra.LOG, ResourceBundle.getBundle("catalogupdate"));
+        preferenceStore.setDefault(CatalogUpdatePreferencesPage.CATALOG_UPDATE_SITE, i18n.getString("ModuleCatalog.Preference.DefaultUpdateSite"));
         preferenceStore.setDefault(CatalogUpdatePreferencesPage.CATALOG_SHOW_COMPATIBLE, true);
         preferenceStore.setDefault(CatalogUpdatePreferencesPage.CATALOG_SHOW_LATEST, true);
     }

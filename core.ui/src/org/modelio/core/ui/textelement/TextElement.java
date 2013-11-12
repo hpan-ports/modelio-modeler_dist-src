@@ -38,6 +38,8 @@ import org.eclipse.swt.dnd.DropTarget;
 import org.eclipse.swt.dnd.DropTargetAdapter;
 import org.eclipse.swt.dnd.DropTargetEvent;
 import org.eclipse.swt.dnd.Transfer;
+import org.eclipse.swt.events.DisposeEvent;
+import org.eclipse.swt.events.DisposeListener;
 import org.eclipse.swt.events.FocusEvent;
 import org.eclipse.swt.events.FocusListener;
 import org.eclipse.swt.events.KeyAdapter;
@@ -73,28 +75,24 @@ import org.modelio.vcore.smkernel.mapi.MObject;
 import org.modelio.vcore.smkernel.mapi.MRef;
 
 /**
- * TextElement is a reusable component wrapping an SWT Text widget that can be
- * used to edit/select a single model element.<br/>
+ * TextElement is a reusable component wrapping an SWT Text widget that can be used to edit/select a single model element.<br/>
  * The following features are provided:
  * <ul>
- * <li>auto-completion by name with selection in a popup list when several
- * elements are matching</li>
+ * <li>auto-completion by name with selection in a popup list when several elements are matching</li>
  * <li>picking of an element in the model</li>
  * <li>dropping of an element from the model</li>
  * </ul>
  * Each of these supported features has to be activated explicitly.
  * 
- * The TextElement can be configured to accept (and propose) only certain
- * elements on the following criteria:
+ * The TextElement can be configured to accept (and propose) only certain elements on the following criteria:
  * <ul>
  * <li>accept null values</li>
  * <li>accept only certain metaclasses</i>
  * <li>accept only elements matching a given filter</li>
  * </ul>
  * 
- * Note: TextElement wraps a SWT Text because inheriting from Text is not
- * possible. Therefore the getTextControl() method is available to reach the
- * inner Text field, typically for layout purposes.
+ * Note: TextElement wraps a SWT Text because inheriting from Text is not possible. Therefore the getTextControl() method is
+ * available to reach the inner Text field, typically for layout purposes.
  */
 @objid ("e70f8eef-9420-4153-b86e-1743b583273c")
 public class TextElement {
@@ -136,16 +134,14 @@ public class TextElement {
     private final Text text;
 
     /**
-     * Current value of the editor, ie either the initial value or the lastly
-     * validated one
+     * Current value of the editor, ie either the initial value or the lastly validated one
      */
     @objid ("cf814748-e3f0-4cce-8735-8454f317661e")
     private MObject value;
 
     /**
      * Chosen value for the editor.<br/>
-     * This element was chosen by the end-user and will become the editor value
-     * on validate(true)
+     * This element was chosen by the end-user and will become the editor value on validate(true)
      */
     @objid ("924299b0-22a4-4292-a6e5-b35dc5407d2a")
     private MObject selected;
@@ -172,8 +168,7 @@ public class TextElement {
     protected DefaultToolTip tooltip;
 
     /**
-     * Create a TextElement. The internal Text control is created with 'parent'
-     * and 'style'. The created TextElement:
+     * Create a TextElement. The internal Text control is created with 'parent' and 'style'. The created TextElement:
      * <ul>
      * <li>accepts null values by default.</li>
      * <li>accepts no metaclass</li>
@@ -210,8 +205,7 @@ public class TextElement {
     }
 
 /*
-     * Get the list of the accepted metaclasses for the elements. Add
-     * metaclasses to this list to complete it.
+     * Get the list of the accepted metaclasses for the elements. Add metaclasses to this list to complete it.
      */
     @objid ("40e35022-8e04-4e24-8070-55645c40638b")
     public List<MClass> getAcceptedMetaclasses() {
@@ -281,8 +275,7 @@ public class TextElement {
     }
 
     /**
-     * Returns the internal text control. Should be used only for setting layout
-     * data.
+     * Returns the internal text control. Should be used only for setting layout data.
      * @return
      */
     @objid ("0066a4b1-e368-4ae0-80b4-ea7b53b2ec64")
@@ -383,8 +376,7 @@ public class TextElement {
     }
 
     /**
-     * Wrapped text decorator. Paints a blue border around the text along with
-     * an 'field assist' icon.
+     * Wrapped text decorator. Paints a blue border around the text along with an 'field assist' icon.
      * 
      * @author phv
      */
@@ -410,9 +402,8 @@ public class TextElement {
                 gc.setClipping(oldClip);
             }
             
-            
-                final Rectangle imageRect = UIImages.ASSIST.getBounds();
-                gc.drawImage(UIImages.ASSIST, textBounds.x + textBounds.width - imageRect.width, textBounds.y);
+            final Rectangle imageRect = UIImages.ASSIST.getBounds();
+            gc.drawImage(UIImages.ASSIST, textBounds.x + textBounds.width - imageRect.width, textBounds.y);
         }
 
         @objid ("cb8668ea-e904-44d4-919c-175e313a18d3")
@@ -423,8 +414,8 @@ public class TextElement {
     }
 
     /**
-     * Completion driver. Search model elements matching the current text and
-     * the configured completion criteria and propose them to user's choice.
+     * Completion driver. Search model elements matching the current text and the configured completion criteria and propose them to
+     * user's choice.
      * 
      * @author phv
      */
@@ -477,9 +468,8 @@ public class TextElement {
             final List<Element> elements = this.searcher.search(this.session, this.searchCriteria);
             
             if (elements.isEmpty()) {
-                MessageDialog.openInformation(this.text.getShell(),
-                 CoreUi.I18N.getString("TextElement.NotFoundTitle"),
-                 CoreUi.I18N.getString("TextElement.NotFoundMessage"));
+                MessageDialog.openInformation(this.text.getShell(), CoreUi.I18N.getString("TextElement.NotFoundTitle"),
+                        CoreUi.I18N.getString("TextElement.NotFoundMessage"));
                 this.textElement.validate(false);
             } else if (elements.size() == 1 && !this.textElement.isAcceptNullValue()) {
                 this.textElement.setSelectedElement(elements.get(0));
@@ -488,7 +478,7 @@ public class TextElement {
                 if (this.tooltip != null) {
                     this.tooltip.hide();
                 }
-                
+            
                 // We have several found elements
                 final PopupChooser rp = new PopupChooser(this.textElement.getTextControl(), elements,
                         this.textElement.isAcceptNullValue());
@@ -526,7 +516,7 @@ public class TextElement {
                     if (this.tooltip != null) {
                         this.tooltip.hide();
                     }
-                    
+            
                     // We have several found elements
                     final PopupChooser rp = new PopupChooser(this.text, elements, this.textElement.isAcceptNullValue());
                     final ModelElement selected = (ModelElement) rp.getChoice();
@@ -539,7 +529,7 @@ public class TextElement {
                 if (this.tooltip != null) {
                     this.tooltip.hide();
                 }
-                
+            
                 // We have several found elements
                 final PopupChooser rp = new PopupChooser(this.text, elements, this.textElement.isAcceptNullValue());
                 final ModelElement selected = (ModelElement) rp.getChoice();
@@ -554,10 +544,8 @@ public class TextElement {
          * Search for an element which name is the currently entered text value
          * <ul>
          * <li>if a unique element is found, validate the entry with it</li>
-         * <li>if several elements are found, open the popup chooser initialized
-         * by the search results</li>
-         * <li>if no element is found, open the popup initialized by a regexp
-         * (current text + .*) and start the search immediately</li>
+         * <li>if several elements are found, open the popup chooser initialized by the search results</li>
+         * <li>if no element is found, open the popup initialized by a regexp (current text + .*) and start the search immediately</li>
          * <li>validate the entry when the chooser popup returns</li>
          * </ul>
          * @param e
@@ -627,6 +615,9 @@ public class TextElement {
         @objid ("cc247753-f1b1-4cc4-ad6a-49f7ff75ab39")
         private IPickingSession pickingSession;
 
+        @objid ("0cd911bb-0e95-42b5-bb40-e39aaf5a898f")
+        private DisposeListener disposeListener;
+
         @objid ("91485e7d-16ee-4ddf-8def-591e3d49afda")
         public PickingDriver(TextElement textElement, IModelioPickingService pickingService) {
             this.textElement = textElement;
@@ -663,22 +654,33 @@ public class TextElement {
                 }
             };
             this.textElement.getTextControl().addFocusListener(this.focusListener);
+            
+            this.disposeListener = new DisposeListener() {
+            
+                @Override
+                public void widgetDisposed(DisposeEvent e) {
+                    PickingDriver.this.stopPicking();
+            
+                }
+            };
+            this.textElement.getTextControl().addDisposeListener(this.disposeListener);
         }
 
         @objid ("4976289f-e257-482e-9df2-1e98abe0b7a6")
         private void disconnect() {
             if (!this.textElement.getTextControl().isDisposed()) {
                 this.textElement.getTextControl().removeFocusListener(this.focusListener);
+                this.textElement.getTextControl().removeDisposeListener(this.disposeListener);
             }
             this.focusListener = null;
+            this.disposeListener = null;
             if (this.pickingSession != null) {
                 this.pickingSession.abort();
             }
         }
 
         /**
-         * Get rid of this picking driver: disconnect it from the text field and
-         * clean up references to help garbaging.
+         * Get rid of this picking driver: disconnect it from the text field and clean up references to help garbaging.
          */
         @objid ("63c74bf7-7712-4168-a699-0e2f29a38d67")
         void terminate() {
@@ -798,8 +800,7 @@ public class TextElement {
         }
 
         /**
-         * Extract the list of MObject being dropped, excluding 'deleted'
-         * objects.
+         * Extract the list of MObject being dropped, excluding 'deleted' objects.
          * @param event @return
          */
         @objid ("73b024de-35de-47b2-9d2c-a62a32f7ff21")
@@ -823,8 +824,7 @@ public class TextElement {
         }
 
         /**
-         * Alternative method used on Linux to extract the list of MObject being
-         * dropped
+         * Alternative method used on Linux to extract the list of MObject being dropped
          * @return
          */
         @objid ("7f01ebe3-765b-4c83-b065-70db88276923")

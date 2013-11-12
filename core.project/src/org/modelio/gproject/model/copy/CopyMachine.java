@@ -21,12 +21,14 @@
 
 package org.modelio.gproject.model.copy;
 
+import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map.Entry;
 import java.util.Map;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.gproject.model.facilities.CompositionInitializer;
+import org.modelio.gproject.model.importer.core.IImportReport;
 import org.modelio.gproject.model.importer.defaultimporter.DefaultImporter;
 import org.modelio.metamodel.diagrams.AbstractDiagram;
 import org.modelio.vcore.session.api.ICoreSession;
@@ -103,7 +105,7 @@ public class CopyMachine extends DefaultImporter {
         if (localRoot == null && isMonoSession()) {
             for (Entry<SmObjectImpl, SmDependency> orphanEntry : orphans.entrySet()) {
                 SmObjectImpl orphan = orphanEntry.getKey();
-                
+        
                 for (Entry<SmObjectImpl, SmObjectImpl> entry : this.result.getCreations().entrySet()) {
                     SmObjectImpl localObject = entry.getValue();
                     if (orphan.equals(localObject)) {
@@ -131,6 +133,57 @@ public class CopyMachine extends DefaultImporter {
         if (localObject instanceof AbstractDiagram) {
             diagramCopier.fixDiagram((AbstractDiagram) localObject, this.result.getCreations());
         }
+    }
+
+    /**
+     * Run a copy operation on multiple roots at the same time.
+     * <p/>
+     * @param localSession the destination session
+     * @param localRootList the destination root elements
+     * @param refSession the source modeling session
+     * @param refRootsList the elements to copy/import
+     * @return the result of the import operation
+     */
+    @objid ("d57397e2-ea50-4192-9efd-0fecd3388e33")
+    public IImportReport execute(final ICoreSession localSession, final List<SmObjectImpl> localRootList, final ICoreSession refSession, List<List<SmObjectImpl>> refRootsList) {
+        if (localRootList.size() != refRootsList.size()) {
+            throw new InvalidParameterException();
+        }
+        
+        this.result = new Result();
+        
+        for (int i = 0; i < localRootList.size(); i++) {
+            SmObjectImpl localRoot = localRootList.get(i);
+            List<SmObjectImpl> refRoots = refRootsList.get(i);
+        
+            // STEP 1:
+            prepare(localSession, localRoot, refSession, refRoots);
+        
+            // STEP 2: Create or find all 'nodes' and update meta-attributes
+            importElements(localSession, localRoot, refSession, refRoots);
+        }
+        
+        // STEP 3: fill links between nodes
+        importDependencies();
+        
+        // STEP 4: Process orphan roots
+        for (int i = 0; i < localRootList.size(); i++) {
+            SmObjectImpl localRoot = localRootList.get(i);
+            List<SmObjectImpl> refRoots = refRootsList.get(i);
+            fixOrphanRoots(localSession, localRoot, refRoots);
+        }
+        
+        // STEP 5: Fix broken elements
+        fixElements(localSession, refSession);
+        
+        // STEP 6: Mark all remaining orphan elements as 'to delete'
+        collectGarbage();
+        
+        // STEP 7: Definitively delete unwanted elements
+        deleteGarbage();
+        
+        // STEP 8: Build the import report
+        return new ImportReport(this.result);
     }
 
 }

@@ -24,7 +24,6 @@ package org.modelio.vstore.exml.versioned.load.sax;
 import java.io.IOException;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.vcore.model.DuplicateObjectException;
-import org.modelio.vcore.model.MObjectCache;
 import org.modelio.vcore.session.impl.storage.IModelLoader;
 import org.modelio.vcore.smkernel.SmObjectImpl;
 import org.modelio.vstore.exml.common.ILoadHelper;
@@ -45,14 +44,14 @@ public class SaxVersionedExmlLoader extends SaxExmlLoader implements IVersionedE
 
     /**
      * Initialize the SAX loader.
-     * @param loadHelper a load helper
      * @param loadCache the cache of this repository already loaded objects
+     * @param loadHelper a load helper
      */
     @objid ("c7fa47e0-3fbb-11e2-87cb-001ec947ccaf")
-    public SaxVersionedExmlLoader(ILoadHelper loadHelper, MObjectCache loadCache) {
-        super(loadHelper, loadCache);
+    public SaxVersionedExmlLoader(ILoadHelper loadHelper) {
+        super(loadHelper);
         
-        this.localFileLoader = new SaxLocalExmlLoader(loadHelper, loadCache);
+        this.localFileLoader = new SaxLocalExmlLoader(loadHelper);
         setDependencyContentHook(this.localFileLoader);
     }
 

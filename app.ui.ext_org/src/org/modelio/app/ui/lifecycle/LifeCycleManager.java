@@ -253,7 +253,7 @@ public class LifeCycleManager {
         }
         
         // Configuring HELP
-        if (AppUi.LOG.isDebugEnabled()) {
+        /*if (AppUi.LOG.isDebugEnabled()) {
             IToc[] tocs = org.eclipse.help.HelpSystem.getTocs();
             for (IToc toc : tocs) {
                 AppUi.LOG.debug("TOC %s", toc.getLabel());
@@ -261,7 +261,7 @@ public class LifeCycleManager {
                     AppUi.LOG.debug("  - %s (href=%s)", topic.getLabel(), topic.getHref());
                 }
             }
-        }
+        }*/
         context.set(IWorkbenchHelpSystem.class, ModelioHelpSystem.getInstance());
         
         // Switch off the splash screen if needed.

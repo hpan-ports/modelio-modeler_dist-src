@@ -34,7 +34,7 @@ public class CommunicationDiagramCreationContributor extends AbstractDiagramCrea
     @Override
     public AbstractDiagram actionPerformed(final ModelElement diagramContext, final String diagramName, final String diagramDescription) {
         CommunicationDiagram diagram = null;
-        IModelFactory modelFactory = this.mmServices.getModelFactory(diagramContext);
+        IModelFactory modelFactory = this.mmServices.getModelFactory();
         // Unless the parent element is already a CommunicationInteraction, create the CommunicationInteraction:
         CommunicationInteraction interaction = null;
         Collaboration locals = null;
@@ -45,11 +45,17 @@ public class CommunicationDiagramCreationContributor extends AbstractDiagramCrea
             } else {
                 this.checkLocalCollaboration(modelFactory, interaction);
             }
+        } else if (diagramContext instanceof Operation) {
+            // create a CommunicationInteraction and its 'locals' collaboration
+            interaction = modelFactory.createCommunicationInteraction();
+            locals = this.checkLocalCollaboration(modelFactory, interaction);
+            interaction.setOwnerOperation((Operation) diagramContext);
+            setElementDefaultName(interaction);
         } else {
             // create a CommunicationInteraction and its 'locals' collaboration
             interaction = modelFactory.createCommunicationInteraction();
             locals = this.checkLocalCollaboration(modelFactory, interaction);
-            interaction.setOwner((NameSpace) diagramContext);            
+            interaction.setOwner((NameSpace) diagramContext);
             setElementDefaultName(interaction);
         }
         

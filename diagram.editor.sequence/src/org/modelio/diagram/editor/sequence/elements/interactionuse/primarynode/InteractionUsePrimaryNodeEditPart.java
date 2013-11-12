@@ -37,7 +37,6 @@ import org.modelio.diagram.editor.sequence.elements.combinedfragment.primarynode
 import org.modelio.diagram.elements.common.linkednode.LinkedNodeRequestConstants;
 import org.modelio.diagram.elements.common.linkednode.LinkedNodeStartCreationEditPolicy;
 import org.modelio.diagram.elements.core.figures.RectangularFigure;
-import org.modelio.diagram.elements.core.link.DefaultCreateLinkEditPolicy;
 import org.modelio.diagram.elements.core.model.GmAbstractObject;
 import org.modelio.diagram.elements.core.model.IGmObject;
 import org.modelio.diagram.elements.core.node.GmNodeEditPart;
@@ -141,7 +140,7 @@ public class InteractionUsePrimaryNodeEditPart extends GmNodeEditPart {
     @Override
     protected void createEditPolicies() {
         super.createEditPolicies();
-        installEditPolicy(EditPolicy.NODE_ROLE, new DefaultCreateLinkEditPolicy(false));
+        installEditPolicy(EditPolicy.NODE_ROLE, new CreateLinkEditPolicy());
         installEditPolicy(LinkedNodeRequestConstants.REQ_LINKEDNODE_START,
                           new LinkedNodeStartCreationEditPolicy());
         installEditPolicy(CreateMultiPointRequest.REQ_MULTIPOINT_FIRST, new ConstraintLinkEditPolicy(false));

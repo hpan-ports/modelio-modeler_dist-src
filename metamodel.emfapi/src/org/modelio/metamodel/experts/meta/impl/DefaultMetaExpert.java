@@ -378,6 +378,7 @@ public class DefaultMetaExpert implements IMetaExpert {
             addRule("Class", "UseCase");
             addRule("Class", "BpmnBehavior");
             addRule("Class", "ClassDiagram");
+            addRule("Class", "StaticDiagram");
             addRule("Class", "CompositeStructureDiagram");
             addRule("Class", "DeploymentDiagram");
             addRule("Class", "ObjectDiagram");
@@ -503,6 +504,7 @@ public class DefaultMetaExpert implements IMetaExpert {
             addRule("Component", "UseCase");
             addRule("Component", "BpmnBehavior");
             addRule("Component", "ClassDiagram");
+            addRule("Component", "StaticDiagram");
             addRule("Component", "DeploymentDiagram");
             addRule("Component", "ObjectDiagram");
             addRule("Component", "UseCaseDiagram");
@@ -839,6 +841,7 @@ public class DefaultMetaExpert implements IMetaExpert {
             addRule("Interface", "UseCase");
             addRule("Interface", "BpmnBehavior");
             addRule("Interface", "ClassDiagram");
+            addRule("Interface", "StaticDiagram");
             addRule("Interface", "UseCaseDiagram");
             
             // InterfaceRealization
@@ -1077,6 +1080,7 @@ public class DefaultMetaExpert implements IMetaExpert {
             addRule("Package", "UseCase");
             addRule("Package", "BpmnBehavior");
             addRule("Package", "ClassDiagram");
+            addRule("Package", "StaticDiagram");
             addRule("Package", "DeploymentDiagram");
             addRule("Package", "ObjectDiagram");
             addRule("Package", "UseCaseDiagram");

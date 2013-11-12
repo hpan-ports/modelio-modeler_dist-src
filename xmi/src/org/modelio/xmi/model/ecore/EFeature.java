@@ -22,7 +22,6 @@
 package org.modelio.xmi.model.ecore;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.eclipse.uml2.uml.Property;
 import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.metamodel.uml.statik.Feature;
 import org.modelio.metamodel.uml.statik.VisibilityMode;
@@ -77,7 +76,7 @@ public class EFeature extends ENamedElement {
 
     @objid ("dcec4dcd-3390-4800-8fd1-c25e1f1a1952")
     private void setClass(Feature feature) {
-        feature.setIsClass(((Property) getEcoreElement()).isStatic());
+        feature.setIsClass(((org.eclipse.uml2.uml.Feature) getEcoreElement()).isStatic());
     }
 
 }

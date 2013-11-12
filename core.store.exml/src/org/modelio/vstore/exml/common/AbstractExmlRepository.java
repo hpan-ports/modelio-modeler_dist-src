@@ -80,7 +80,7 @@ import org.modelio.vstore.exml.resource.LocalExmlResourceProvider;
 @objid ("2df07649-1e87-11e2-90db-001ec947ccaf")
 public abstract class AbstractExmlRepository implements IExmlBase {
     @objid ("fd21f5d1-5986-11e1-991a-001ec947ccaf")
-    private boolean baseOpen;
+    private volatile boolean baseOpen;
 
     /**
      * Repository ID.
@@ -100,14 +100,11 @@ public abstract class AbstractExmlRepository implements IExmlBase {
     @objid ("3e072e6e-1ea1-11e2-90db-001ec947ccaf")
     private Boolean writeable = null;
 
-    @objid ("1f322ba2-3a2d-11e2-bf6c-001ec947ccaf")
-    private boolean wholeRepositoryLoaded = false;
-
     /**
      * All in memory CMS nodes storage handlers.
      */
     @objid ("5b37fa8e-9df8-418f-8836-e474731d220f")
-    private Collection<ExmlStorageHandler> storageHandlers = new ArrayList<>();
+    private final Collection<ExmlStorageHandler> storageHandlers = new ArrayList<>();
 
     /**
      * Caches all loaded model objects.
@@ -125,7 +122,7 @@ public abstract class AbstractExmlRepository implements IExmlBase {
      * EMF adapter.
      */
     @objid ("9e88c0c7-dc71-4ec6-9fd4-46c116dd971e")
-    private EmfResource emfResource;
+    private final EmfResource emfResource;
 
     /**
      * Indexes.
@@ -137,13 +134,13 @@ public abstract class AbstractExmlRepository implements IExmlBase {
      * Support for reporting to GUI.
      */
     @objid ("7eb9a6ee-362d-4d71-b47e-6b7690139fff")
-    private StorageErrorSupport errorSupport = new StorageErrorSupport(this);
+    private final StorageErrorSupport errorSupport = new StorageErrorSupport(this);
 
     /**
      * EXML resource provider
      */
     @objid ("57ec3f46-98af-4a97-b74b-0cf870fdb837")
-    private IExmlResourceProvider resProvider;
+    private final IExmlResourceProvider resProvider;
 
     @objid ("a6f3d45c-1402-4b04-a1b6-3ff87b4d0d68")
     private IModelLoaderProvider modelLoaderProvider;
@@ -153,8 +150,15 @@ public abstract class AbstractExmlRepository implements IExmlBase {
      * before removal.
      */
     @objid ("b5b8d35c-7df4-4793-961f-7226b0f0ddb1")
-    private Map<SmObjectImpl, ExmlStorageHandler> deletedNodes = new HashMap<> ();
+    private final Map<SmObjectImpl, ExmlStorageHandler> deletedNodes = new HashMap<> ();
 
+    /**
+     * Remembers loaded objects detached from the repository between 2 saves.
+     */
+    @objid ("24943bc8-3a52-4cf1-a3d4-c4357e084521")
+    private final Map<UUID, SmObjectImpl> detachedObjects = new HashMap<> ();
+
+//private ReadWri
     /**
      * initialize the EXML repository.
      * <p>
@@ -216,7 +220,10 @@ public abstract class AbstractExmlRepository implements IExmlBase {
         }
         
         // Add the object to our load cache
-        getLoadCache().putToCache(newObject);
+        synchronized(this.detachedObjects) {
+            getLoadCache().putToCache(newObject);
+            this.detachedObjects.remove(newObject.getUuid());
+        }
     }
 
     @objid ("fd1f92bb-5986-11e1-991a-001ec947ccaf")
@@ -328,20 +335,24 @@ public abstract class AbstractExmlRepository implements IExmlBase {
         
         // Return the element if already loaded
         SmObjectImpl object = getLoadedObject(id);
-        if (object != null)
+        if (object != null) 
             return object;
-        else {
-            try {
-                return createStubObject(id, modelLoader);
-            } catch (DuplicateObjectException e) {
-                // The object may have been loaded by a concurrent thread.
-                // in this case return the concurrently loaded object.
-                object = getLoadedObject(id);
-                if (object != null)
-                    return object;
-                else
-                    throw e;
-            }
+        
+        // If the object is not stored here, returns null.
+        if (! isStored(id))
+            return null;
+        
+        // Creates a stub object
+        try {
+            return createStubObject(id, modelLoader);
+        } catch (DuplicateObjectException e) {
+            // The object may have been loaded by a concurrent thread.
+            // in this case return the concurrently loaded object.
+            object = getLoadedObject(id);
+            if (object != null)
+                return object;
+            else
+                throw e;
         }
     }
 
@@ -434,7 +445,7 @@ public abstract class AbstractExmlRepository implements IExmlBase {
 
     @objid ("fd26b9b5-5986-11e1-991a-001ec947ccaf")
     @Override
-    public final synchronized boolean isOpen() {
+    public final boolean isOpen() {
         return this.baseOpen;
     }
 
@@ -448,7 +459,7 @@ public abstract class AbstractExmlRepository implements IExmlBase {
     @Override
     public boolean isStored(ObjId id) {
         try {
-            return getCmsNodeIndex().isStored(id);
+            return getDetachedObject(id)==null && getCmsNodeIndex().isStored(id);
         } catch (IOException e) {
             getErrorSupport().fireError(e);
             return false;
@@ -585,7 +596,10 @@ public abstract class AbstractExmlRepository implements IExmlBase {
     @objid ("fd26b979-5986-11e1-991a-001ec947ccaf")
     @Override
     public final synchronized void removeObject(SmObjectImpl object) {
-        //this.loadCache.removeFromCache(object); // remove it only on save
+        synchronized(this.detachedObjects) {
+            this.loadCache.removeFromCache(object); 
+            this.detachedObjects.put(object.getUuid(), object);
+        }
         
         if (object.getClassOf().isCmsNode()) {
             // Record deletion and remove the storage handler
@@ -629,10 +643,12 @@ public abstract class AbstractExmlRepository implements IExmlBase {
                 handler.setDirty(false);
             }
             
-            this.deletedNodes.clear();
-            
             // Commit resources, will also write a stamp
             this.resProvider.commit();
+            synchronized (this.detachedObjects) {
+                this.deletedNodes.clear();
+                this.detachedObjects.clear();
+            }
             
         } catch (IOException e) {
             getErrorSupport().fireError(e);
@@ -781,9 +797,6 @@ public abstract class AbstractExmlRepository implements IExmlBase {
      */
     @objid ("fd245907-5986-11e1-991a-001ec947ccaf")
     private void loadAll(SmClass cls, IModelLoader modelLoader, final boolean recursive) throws IOException, DuplicateObjectException {
-        if (this.wholeRepositoryLoaded)
-            return;
-        
         // Load all sub meta-classes instances
         if (recursive) {
             for (SmClass c : cls.getAllSubClasses()) {
@@ -797,11 +810,16 @@ public abstract class AbstractExmlRepository implements IExmlBase {
 
     /**
      * Open the indexes and rebuild them if necessary.
-     * @param aMonitor a progress monitor.
+     * @param aMonitor the progress monitor to use for reporting progress to the user. It is the caller's responsibility to call done()
+     * on the given monitor. Accepts null, indicating that no progress should be reported and that the operation cannot
+     * be cancelled.
+     * @return <code>true</code> if the indexes were rebuilt, <code>false</code> if they were
+     * up to date or rebuild failed.
      * @throws java.io.IOException if unable to open and unable to recreate indexes.
      */
     @objid ("fd2458ee-5986-11e1-991a-001ec947ccaf")
-    private void openIndexes(IModelioProgress aMonitor) throws IOException {
+    private boolean openIndexes(IModelioProgress aMonitor) throws IOException {
+        boolean indexesRebuilt = false;
         this.indexes = new ExmlIndex(this.resProvider, getErrorSupport());
         
         try {
@@ -833,11 +851,13 @@ public abstract class AbstractExmlRepository implements IExmlBase {
                 
                 shield.success();
                 this.needRebuildIndexes = false;
+                indexesRebuilt = true;
             } catch (IOException e1) {
                 String msg = "Error rebuilding indexes :\n"+e1.getLocalizedMessage();
                 throw new IOException(msg, e1);
             } 
         }
+        return indexesRebuilt;
     }
 
     @objid ("82cf69c5-5ca7-11e1-863f-001ec947ccaf")
@@ -909,6 +929,8 @@ public abstract class AbstractExmlRepository implements IExmlBase {
 
     /**
      * Create a not yet loaded object.
+     * <p>
+     * Throws {@link IOException} if the object does not exist in this repository.
      * @param id the model object identifier
      * @param modelLoader the model loader
      * @return the loaded model object.
@@ -917,37 +939,29 @@ public abstract class AbstractExmlRepository implements IExmlBase {
      */
     @objid ("7858e712-485e-11e2-91c9-001ec947ccaf")
     private SmObjectImpl createStubObject(final ObjId id, IModelLoader modelLoader) throws IOException, DuplicateObjectException {
-        // Need to load the element
-        if (id.classof.isCmsNode()) {
-            // The element is a CMS node.
-            // Return a not yet loaded ref if stored in base, else return null
-            if (getCmsNodeIndex().isStored(id)) {
-                try {
-                    return getloadHelper().createRefObject(modelLoader, id, id);
-                } catch (IllegalReferenceException e) {
-                    // May not occur
-                    throw new AssertionError(e);
-                }
+        try {
+            // Need to load the element
+            if (id.classof.isCmsNode()) {
+                // The element is a CMS node.
+                // Return a not yet loaded ref.
+                return getloadHelper().createStubObject(modelLoader, id, id);
             } else {
-                return null;
-            }
-        } else {
-            // The element is not a CMS node.
-            // Get the CMS node containing the element
-            final ObjId parentId = getCmsNodeIndex().getCmsNodeOf(id);
+                // The element is not a CMS node.
+                // Get the CMS node containing the element
+                final ObjId parentId = getCmsNodeIndex().getCmsNodeOf(id);
         
-            // If no parent, the element does not exist in the repository
-            if (parentId == null)
-                return null;
+                // If no parent, the element does not exist in the repository
+                if (parentId == null) {
+                    throw new IllegalReferenceException(parentId+" parent of "+id+" not in repository");
+                }
         
-            try {
-                return getloadHelper().createRefObject(modelLoader, id, parentId);
-            } catch (IllegalReferenceException e) {
-                // The index is dead
-                IOException e2 = new IOException(e);
-                setIndexesDamaged(e2);
-                throw e2;
+                return getloadHelper().createStubObject(modelLoader, id, parentId);
             }
+        } catch (IllegalReferenceException e) {
+            // The index is probably dead
+            IOException e2 = new IOException(e.getLocalizedMessage(), e);
+            setIndexesDamaged(e2);
+            throw e2;
         }
     }
 
@@ -1091,13 +1105,32 @@ public abstract class AbstractExmlRepository implements IExmlBase {
         Collection<SmObjectImpl> content = ExmlUtils.getLoadedCmsNodeContent(cmsNode);
         for (SmObjectImpl child : content) {
             this.loadCache.removeFromCache(child);
+            this.detachedObjects.remove(child.getUuid());
         }
         this.loadCache.removeFromCache(cmsNode);
+        this.detachedObjects.remove(cmsNode.getUuid());
         
         // Forget the handler too
         synchronized(this.storageHandlers) {
             this.storageHandlers.remove(handler);
         }
+    }
+
+    @objid ("86f5fcde-17d7-4c6c-ad2a-bda2e27b6572")
+    @Override
+    public SmObjectImpl getDetachedObject(ObjId id) {
+        synchronized(this.detachedObjects) {
+            return this.detachedObjects.get(id.id);
+        }
+    }
+
+    /**
+     * Gives access to available maintenance operations on an EXML repository.
+     * @return the maintenance operations.
+     */
+    @objid ("d79ead26-1aa7-453d-ab62-b8462e95022c")
+    public IMaintenanceOperations getMaintenance() {
+        return new MaintenanceOperations(this);
     }
 
 }

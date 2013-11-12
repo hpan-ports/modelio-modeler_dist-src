@@ -84,7 +84,7 @@ public class OperationPropertyModel extends AbstractPropertyModel<Operation> {
         this.booleanType = new BooleanType();
         this.visibilityEnumType = new EnumType(VisibilityMode.class);
         this.methodPassingModeType = new EnumType(MethodPassingMode.class);
-        this.operationType = new SingleElementType(false, Operation.class, CoreSession.getSession(this.theEditedElement));
+        this.operationType = new SingleElementType(true, Operation.class, CoreSession.getSession(this.theEditedElement));
     }
 
     /**

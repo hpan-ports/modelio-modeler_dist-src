@@ -21,6 +21,10 @@
 
 package org.modelio.metamodel.factory;
 
+import java.lang.ref.SoftReference;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.WeakHashMap;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.metamodel.factory.IModelFactory;
 import org.modelio.vcore.session.api.ICoreSession;
@@ -39,6 +43,9 @@ public class ModelFactory {
     @objid ("991492c3-c87e-4c0e-b252-f1a7dbaa7c34")
     public static final ElementInitializer INITIALIZER = new ElementInitializer();
 
+    @objid ("73446711-8c57-4567-bfdc-7591b0402190")
+    private static final Map<ICoreSession, SoftReference<IModelFactory>> factories = new WeakHashMap<>();
+
     /**
      * Create a model factory for a modeling session.
      * @param referent a referent object used to get the modeling session.
@@ -56,12 +63,19 @@ public class ModelFactory {
      */
     @objid ("78b3e181-8be6-4414-987b-6793b53cafa0")
     public static IModelFactory getFactory(ICoreSession session) {
+        SoftReference<IModelFactory> ref = factories.get(session);
+        if (ref != null && ref.get() != null)
+            return ref.get();
+        
         IRepositorySupport repoSupport = session.getRepositorySupport();
-        return new ModelFactoryImpl(session.getModel().getGenericFactory(), 
+        ModelFactoryImpl ret = new ModelFactoryImpl(session.getModel().getGenericFactory(), 
                 repoSupport.getRepository(IRepositorySupport.REPOSITORY_KEY_SCRATCH),
                 repoSupport.getRepository(IRepositorySupport.REPOSITORY_KEY_LOCAL),
                 session.getModel(),
                 INITIALIZER);
+        
+        factories.put(session, new SoftReference<IModelFactory>(ret));
+        return ret;
     }
 
 }

@@ -54,17 +54,17 @@ public class CreateNConnectorCommand extends Command {
     @objid ("611acb2f-5bd5-11e2-9e33-00137282c51b")
     private EditPart editPart;
 
-    /**
-     * Initial layout constraint
-     */
-    @objid ("7ac6f792-1f0b-4bd0-8df0-e8a610e9cefa")
-    private Rectangle layoutConstraint;
-
     @objid ("a58ab14b-55c2-11e2-9337-002564c97630")
     private ModelioLinkCreationContext context;
 
     @objid ("a58ab14f-55c2-11e2-9337-002564c97630")
     private GmCompositeNode parentNode;
+
+    /**
+     * Initial layout constraint
+     */
+    @objid ("70f9b96d-dfd4-4daa-b7cb-61903b9c8f08")
+    private Rectangle layoutConstraint;
 
     /**
      * Creates a n-ary association creation command.
@@ -89,6 +89,11 @@ public class CreateNConnectorCommand extends Command {
         // the diagram must be modifiable 
         if (!MTools.getAuthTool().canModify(this.parentNode.getDiagram().getRelatedElement()))
             return false;
+        
+        // Must have at least 3 ends
+        if (this.sourceModels.size() < 3) {
+            return false;
+        }
         
         // All sourceNodes must be modifiable.
         for (IGmLinkable sourceModel : this.sourceModels) {

@@ -16,6 +16,7 @@
       <handlers xmi:id="_gl03UFS_EeK4YallPPLLhg" elementId="org.modelio.diagram.browser.handler.paste" contributionURI="bundleclass://org.modelio.diagram.browser/org.modelio.diagram.browser.handlers.copy.PasteElementHandler" command="_Bzak8FS9EeK4YallPPLLhg"/>
       <handlers xmi:id="_h6_WoFTDEeK4YallPPLLhg" elementId="org.modelio.diagram.browser.handler.collapse" contributionURI="bundleclass://org.modelio.diagram.browser/org.modelio.diagram.browser.handlers.CollapseAllHandler" command="_3WItwFS8EeK4YallPPLLhg"/>
       <menus xsi:type="menu:PopupMenu" xmi:id="_3dd1cEtTEeKLy7OoR19zGw" elementId="org.modelio.diagram.browser.popupmenu">
+        <tags>popup:org.modelio.popupmenu.cms</tags>
         <children xsi:type="menu:DirectMenuItem" xmi:id="_6UKVwEtTEeKLy7OoR19zGw" elementId="org.modelio.diagram.browser.popupmenu.creatediagramset" label="%CreateDiagramSet.label" iconURI="platform:/plugin/org.modelio.diagram.browser/icons/closed_set_16.png" tooltip="%CreateDiagramSet.tooltip" contributionURI="bundleclass://org.modelio.diagram.browser/org.modelio.diagram.browser.handlers.CreateDiagramSetHandler">
           <visibleWhen xsi:type="ui:CoreExpression" xmi:id="_bCMu8L1zEeKa_Z5OvMh8Mw" coreExpressionId="diagram.browser.test.createfolder.id"/>
         </children>
@@ -38,6 +39,7 @@
         <children xsi:type="menu:HandledMenuItem" xmi:id="_nxfpQFS-EeK4YallPPLLhg" elementId="org.modelio.diagram.browser.popupmenu.paste" label="%PasteElement.label" iconURI="platform:/plugin/org.modelio.diagram.browser/icons/paste.png" tooltip="%PasteElement.tooltip" command="_Bzak8FS9EeK4YallPPLLhg">
           <visibleWhen xsi:type="ui:CoreExpression" xmi:id="_cqp6gL1zEeKa_Z5OvMh8Mw" coreExpressionId="diagram.browser.test.paste.id"/>
         </children>
+        <children xsi:type="menu:MenuSeparator" xmi:id="_fGut0EFpEeODJ4EDWZysYw" elementId="org.modelio.popupmenu.cms"/>
       </menus>
       <toolbar xmi:id="_a5D6gAicEeKxNazQ0qFNQg" elementId="org.modelio.diagram.browser.toolbar">
         <children xsi:type="menu:HandledToolItem" xmi:id="_NO3fIFS-EeK4YallPPLLhg" elementId="org.modelio.diagram.browser.toolbar.tool.collapse" iconURI="platform:/plugin/org.modelio.diagram.browser/icons/collapseall.png" tooltip="%CollapseAll.tooltip" command="_3WItwFS8EeK4YallPPLLhg"/>

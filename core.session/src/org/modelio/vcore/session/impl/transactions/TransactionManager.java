@@ -62,6 +62,12 @@ public class TransactionManager implements IActionManager, ITransactionSupport {
     private volatile boolean transactionsForbidden = false;
 
     /**
+     * Keeps in a thread safe way without using locks whether {@link #activeTransactions} contains elements.
+     */
+    @objid ("c9d7a43f-d84f-4b1c-988a-e54b92923a53")
+    private volatile boolean hasOpenTransaction;
+
+    /**
      * Stack implementation based on deque<br>
      */
     @objid ("006ec5ee-0d1e-1f20-85a5-001ec947cd2a")
@@ -238,6 +244,7 @@ public class TransactionManager implements IActionManager, ITransactionSupport {
         
             this.transactionOwnerLock.unlock();
         } finally {
+            updateHasCurrentTransaction();
             this.sync.unlock();
         }
     }
@@ -274,7 +281,7 @@ public class TransactionManager implements IActionManager, ITransactionSupport {
      */
     @objid ("006ed4f8-0d1e-1f20-85a5-001ec947cd2a")
     public String getUndoTransactionName() {
-        if (hasCurrentTransactionNoSync()) {
+        if (hasCurrentTransaction()) {
             Transaction currentTransaction = this.activeTransactions.peek();
             if (currentTransaction.isLastActionATransaction()) {
                 return currentTransaction.getLastTransactionName();
@@ -292,12 +299,7 @@ public class TransactionManager implements IActionManager, ITransactionSupport {
     @objid ("006ed5a2-0d1e-1f20-85a5-001ec947cd2a")
     @Override
     public boolean hasCurrentTransaction() {
-        this.sync.lock();
-        try {
-            return hasCurrentTransactionNoSync();
-        } finally {
-            this.sync.fastUnlock();
-        }
+        return this.hasOpenTransaction;
     }
 
     /**
@@ -385,6 +387,7 @@ public class TransactionManager implements IActionManager, ITransactionSupport {
             }
             this.undoneTransactions.clear();
             this.doneTransactions.clear();
+            updateHasCurrentTransaction();
         } finally {
             this.sync.unlock();
         }
@@ -432,6 +435,7 @@ public class TransactionManager implements IActionManager, ITransactionSupport {
         
             this.transactionOwnerLock.unlock();
         } finally {
+            updateHasCurrentTransaction();
             this.sync.unlock();
         }
     }
@@ -519,8 +523,6 @@ public class TransactionManager implements IActionManager, ITransactionSupport {
     @objid ("009408cc-841a-1033-9188-001ec947cd2a")
     @Override
     public void setTransactionValidator(final ITransactionValidator value) {
-        // Automatically generated method. Please delete this comment before
-        // entering specific code.
         this.sync.lock();
         try {
             this.transactionValidator = value;
@@ -532,7 +534,13 @@ public class TransactionManager implements IActionManager, ITransactionSupport {
     @objid ("458edfa6-5353-4a23-97ce-fb91e36b827e")
     @Override
     public ITransaction createTransaction(final String trName, long timeout, TimeUnit unit) throws TransactionForbiddenException, ConcurrentTransactionException {
-        this.sync.lock();
+        try {
+        if (!this.sync.tryLock(timeout, unit)) 
+            throwConcurrentTransactionException(trName, timeout, unit);
+        } catch (InterruptedException e) {
+            throw new TransactionForbiddenException(e.toString());
+        }
+        
         try {
             Transaction newTransaction = null;
         
@@ -546,11 +554,7 @@ public class TransactionManager implements IActionManager, ITransactionSupport {
                 try {
                     // Check the transaction is created in the same thread as the parent one
                     if (!this.transactionOwnerLock.tryLock(timeout, unit)) {
-                        Transaction lastTransaction = this.activeTransactions.peek();
-                        if (lastTransaction != null)
-                            throw new ConcurrentTransactionException(trName, lastTransaction, lastTransaction.getCreatorThread(), lastTransaction.getCreationTrace(), timeout, unit);
-                        else
-                            throw new Error(this.transactionOwnerLock+" transaction lock still hold but transaction stack is empty.");
+                        throwConcurrentTransactionException(trName, timeout, unit);
                     }
                 } catch (InterruptedException e) {
                     throw new TransactionForbiddenException(e.toString());
@@ -570,17 +574,20 @@ public class TransactionManager implements IActionManager, ITransactionSupport {
             }
             return newTransaction;
         } finally {
+            updateHasCurrentTransaction();
             this.sync.unlock();
         }
     }
 
     /**
-     * Same as {@link #hasCurrentTransaction()} without thread safety.
-     * @return <code>true</code> if a transaction is open else <code>false</code>.
+     * Compute the return value of {@link #hasCurrentTransaction()}.
+     * <p>
+     * Must be called each time {@link #activeTransactions} is modified.
+     * Call to this method and {@link #activeTransactions} modification have to be atomic together.
      */
     @objid ("f763f310-fd97-4c28-9c97-5c966084c96b")
-    boolean hasCurrentTransactionNoSync() {
-        return (!this.activeTransactions.isEmpty());
+    private void updateHasCurrentTransaction() {
+        this.hasOpenTransaction = !this.activeTransactions.isEmpty();
     }
 
     @objid ("910ca9fd-137d-4748-8a2b-f057fa668828")
@@ -598,6 +605,15 @@ public class TransactionManager implements IActionManager, ITransactionSupport {
     @Override
     public void setClosureHandler(ITransactionClosureHandler transactionClosureHandler) {
         this.transactionClosureHandler = transactionClosureHandler;
+    }
+
+    @objid ("025aea44-30d3-43a5-8973-589096570776")
+    private void throwConcurrentTransactionException(final String trName, long timeout, TimeUnit unit) throws IllegalStateException, ConcurrentTransactionException {
+        Transaction lastTransaction = this.activeTransactions.peek();
+        if (lastTransaction != null)
+            throw new ConcurrentTransactionException(trName, lastTransaction, lastTransaction.getCreatorThread(), lastTransaction.getCreationTrace(), timeout, unit);
+        else
+            throw new IllegalStateException(this.transactionOwnerLock+" transaction lock still hold but transaction stack is empty.");
     }
 
     /**
@@ -638,7 +654,7 @@ public class TransactionManager implements IActionManager, ITransactionSupport {
         public void unlock() {
             assert isHeldByCurrentThread() : this;
             
-            if (!hasCurrentTransactionNoSync())
+            if (!hasCurrentTransaction())
                 runDefferedActions();
             
             super.unlock();
@@ -672,7 +688,7 @@ public class TransactionManager implements IActionManager, ITransactionSupport {
         public void asyncExec(Runnable runnable) {
             if (super.tryLock()) {
                 try {
-                    if (! hasCurrentTransactionNoSync()) {
+                    if (! hasCurrentTransaction()) {
                         // Run the action now and return
                         runnable.run();
                         return;

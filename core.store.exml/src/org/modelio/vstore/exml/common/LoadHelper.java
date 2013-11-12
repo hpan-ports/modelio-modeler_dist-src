@@ -29,7 +29,6 @@ import org.modelio.vcore.model.DuplicateObjectException;
 import org.modelio.vcore.model.GetAbsoluteSymbol;
 import org.modelio.vcore.model.MObjectCache;
 import org.modelio.vcore.session.impl.storage.IModelLoader;
-import org.modelio.vcore.smkernel.IPStatus;
 import org.modelio.vcore.smkernel.IRStatus;
 import org.modelio.vcore.smkernel.SmObjectImpl;
 import org.modelio.vcore.smkernel.meta.SmAttribute;
@@ -107,36 +106,10 @@ public class LoadHelper implements ILoadHelper {
 
     @objid ("6784129c-2e7b-11e2-8aaa-001ec947ccaf")
     @Override
-    public final SmObjectImpl createRefObject(IModelLoader modelLoader, final ObjId id, final ObjId pid) throws IllegalReferenceException, DuplicateObjectException {
-        SmObjectImpl newObject = modelLoader.createLoadedObject(id.classof, id.id);
-        
-        // Set the name now
-        setObjectName(modelLoader, newObject, id);
-        
-        if (id.equals(pid)) {
-            // reference to A CMS node.
-            // Assert the object is a CMS node.
-            if (! newObject.getClassOf().isCmsNode())
-                throw new IllegalReferenceException("referenced "+newObject+ " is not a CMS node.");
-        
-            newObject.setRepositoryObject(createStorageHandler(newObject, false));
-        } else {
-            // Get the storage handler from the parent CMS node
-            SmObjectImpl parentNode = getObject(pid);
-            if (parentNode == null) {
-                // Create ref to the parent CMS node
-                parentNode = createRefObject(modelLoader, pid, pid);
-            }
-        
-            newObject.setRepositoryObject( parentNode.getRepositoryObject());
-        }
-        
-        // Set read only if needed
-        //initObjectFlags(modelLoader, newObject);
-        
-        // Add new object to the loaded objects cache
-        this.loadCache.putToCache(newObject);
-        return newObject;
+    public final SmObjectImpl getRefObject(IModelLoader modelLoader, final ObjId id, final ObjId pid) throws IllegalReferenceException, DuplicateObjectException {
+        if (!this.exmlBase.isStored(id))
+            return getForeignObject(modelLoader, id);
+        return createStubObject(modelLoader, id, pid);
     }
 
     @objid ("678412b7-2e7b-11e2-8aaa-001ec947ccaf")
@@ -236,6 +209,39 @@ public class LoadHelper implements ILoadHelper {
     public void initObjectFlags(IModelLoader modelLoader, SmObjectImpl obj) {
         if (!this.loadReadWrite)
             modelLoader.setRStatus(obj, 0, IRStatus.USERWRITE, 0);
+    }
+
+    @objid ("e809ae47-041e-4f20-a858-35f519f89e41")
+    public SmObjectImpl createStubObject(IModelLoader modelLoader, final ObjId id, final ObjId pid) throws IllegalReferenceException, DuplicateObjectException {
+        SmObjectImpl newObject = modelLoader.createLoadedObject(id.classof, id.id);
+        
+        // Set the name now
+        setObjectName(modelLoader, newObject, id);
+        
+        if (id.equals(pid)) {
+            // reference to A CMS node.
+            // Assert the object is a CMS node.
+            if (! newObject.getClassOf().isCmsNode())
+                throw new IllegalReferenceException("referenced "+newObject+ " is not a CMS node.");
+        
+            newObject.setRepositoryObject(createStorageHandler(newObject, false));
+        } else {
+            // Get the storage handler from the parent CMS node
+            SmObjectImpl parentNode = getObject(pid);
+            if (parentNode == null) {
+                // Create ref to the parent CMS node
+                parentNode = getRefObject(modelLoader, pid, pid);
+            }
+        
+            newObject.setRepositoryObject( parentNode.getRepositoryObject());
+        }
+        
+        // Set read only if needed
+        //initObjectFlags(modelLoader, newObject);
+        
+        // Add new object to the loaded objects cache
+        this.loadCache.putToCache(newObject);
+        return newObject;
     }
 
 }

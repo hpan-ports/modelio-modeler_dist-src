@@ -67,7 +67,7 @@ public abstract class SmAttribute extends SmFeature implements MAttribute {
     /**
      * The EMF attribute.
      */
-    @objid ("fd589025-aa05-44e5-bb57-2ca0977a6cb1")
+    @objid ("704d8856-3e62-4179-8ee1-9e1afefd59d2")
     private EAttribute emfAdapter;
 
     @objid ("00841a34-ed97-1f1f-85a5-001ec947cd2a")

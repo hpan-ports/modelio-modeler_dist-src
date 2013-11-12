@@ -133,6 +133,15 @@ public class TreeContentPanel implements IModulePropertyPanel {
     @objid ("c89b86f3-1eba-11e2-9382-bc305ba4815c")
     @Override
     public void setInput(IModelioPickingService pickingService, ModulePropertyModel moduleProperty) {
+        if (System.getProperty("os.name").startsWith("Mac")) {
+            // On Mac OS, we have to 
+            Composite parent = this.treeViewer.getTree().getParent();
+            this.treeViewer.getTree().dispose();
+        
+            createGUI(parent);
+            parent.layout();
+        }
+        
         if (moduleProperty == null) {
             this.treeViewer.setInput(null);
         } else {         

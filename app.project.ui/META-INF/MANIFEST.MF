@@ -38,7 +38,9 @@ Require-Bundle: org.modelio.core.project,
  org.modelio.core.kernel,
  org.eclipse.e4.core.di.extensions,
  org.eclipse.e4.core.services,
- org.eclipse.e4.ui.model.workbench
+ org.eclipse.e4.ui.model.workbench,
+ org.modelio.core.store.exml,
+ org.eclipse.core.expressions
 Bundle-ClassPath: res/,
  .
 Export-Package: org.modelio.app.project.ui.auth,

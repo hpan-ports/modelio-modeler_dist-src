@@ -191,7 +191,8 @@ public final class ElementDecoratedStyledLabelProvider extends StyledCellLabelPr
         if (icon != null) {
             iconHeight = icon.getImageData().height;
             iconWidth = icon.getImageData().height;
-            event.gc.drawImage(icon, curX, curY + ((event.height - iconHeight) - 2));
+            int i = (event.height - iconHeight) - 2;
+            event.gc.drawImage(icon, curX, curY + (i >= 0 ? i : 0));
             curX += iconWidth;
         }
         

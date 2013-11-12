@@ -72,10 +72,11 @@ public class EcoreModelNavigation {
         org.eclipse.uml2.uml.Association assoc = p1.getAssociation();
         
         if (assoc != null) {
-            List<Property> oppositeEnds = new ArrayList<Property>();
+            List<Property> oppositeEnds = new ArrayList<>();
             for (Object ecoreEnd : assoc.getMemberEnds()) {
-                if (!ecoreEnd.equals(p1))
+                if (!ecoreEnd.equals(p1)){
                     oppositeEnds.add((Property) ecoreEnd);
+                }
             }
             return oppositeEnds;
         } else {
@@ -96,8 +97,9 @@ public class EcoreModelNavigation {
     @objid ("bb270031-fc68-4345-8705-3cb5042b3757")
     public static org.eclipse.uml2.uml.InteractionFragment getEnclosing(org.eclipse.uml2.uml.InteractionFragment sequenceElt) {
         org.eclipse.uml2.uml.InteractionFragment enclosing = sequenceElt.getEnclosingInteraction();
-        if (enclosing == null)
+        if (enclosing == null){
             enclosing = sequenceElt.getEnclosingOperand();
+        }
         return enclosing;
     }
 
@@ -106,14 +108,16 @@ public class EcoreModelNavigation {
         org.eclipse.uml2.uml.InteractionFragment enclosing = null;
         org.eclipse.uml2.uml.MessageEnd event = null;
         event = message.getSendEvent();
-        if (!(event instanceof org.eclipse.uml2.uml.MessageOccurrenceSpecification))
+        if (!(event instanceof org.eclipse.uml2.uml.MessageOccurrenceSpecification)){
             event = message.getReceiveEvent();
+        }
         
         if (event instanceof org.eclipse.uml2.uml.MessageOccurrenceSpecification) {
             org.eclipse.uml2.uml.MessageOccurrenceSpecification end = (org.eclipse.uml2.uml.MessageOccurrenceSpecification) event;
             enclosing = end.getEnclosingInteraction();
-            if (enclosing == null)
+            if (enclosing == null){
                 enclosing = end.getEnclosingOperand();
+            }
         }
         return enclosing;
     }
@@ -126,8 +130,9 @@ public class EcoreModelNavigation {
             EList<?> ecoreOpList = ecoreCF.getOperands();
             if (ecoreOpList != null && ecoreOpList.size() > 0) {
                 int index = ecoreOpList.indexOf(ecoreElement);
-                if (index > 0)
+                if (index > 0){
                     return (org.eclipse.uml2.uml.InteractionOperand) ecoreOpList.get(index - 1);
+                }
             }
         }
         return null;
@@ -143,10 +148,11 @@ public class EcoreModelNavigation {
                 if (index > 0) {
                     org.eclipse.uml2.uml.InteractionFragment previous = (org.eclipse.uml2.uml.InteractionFragment) fragments
                             .get(index - 1);
-                    if (previous instanceof org.eclipse.uml2.uml.ExecutionSpecification)
+                    if (previous instanceof org.eclipse.uml2.uml.ExecutionSpecification){
                         return getPreviousFragmentInInteraction(previous);
-                    else if (previous instanceof PartDecomposition)
+                    }else if (previous instanceof PartDecomposition){
                         return getPreviousFragmentInInteraction(previous);
+                    }
                     return previous;
                 }
             }
@@ -159,11 +165,13 @@ public class EcoreModelNavigation {
         org.eclipse.uml2.uml.MessageOccurrenceSpecification end = null;
         org.eclipse.uml2.uml.MessageEnd msgEnd = null;
         msgEnd = ecoreElement.getSendEvent();
-        if (!(msgEnd instanceof org.eclipse.uml2.uml.MessageOccurrenceSpecification))
+        if (!(msgEnd instanceof org.eclipse.uml2.uml.MessageOccurrenceSpecification)){
             msgEnd = ecoreElement.getReceiveEvent();
+        }
         
-        if (msgEnd instanceof org.eclipse.uml2.uml.MessageOccurrenceSpecification)
+        if (msgEnd instanceof org.eclipse.uml2.uml.MessageOccurrenceSpecification){
             end = (org.eclipse.uml2.uml.MessageOccurrenceSpecification) msgEnd;
+        }
         
         if (end != null){
             org.eclipse.uml2.uml.Interaction interaction = end.getEnclosingInteraction();
@@ -174,10 +182,11 @@ public class EcoreModelNavigation {
                     if (index > 0) {
                         org.eclipse.uml2.uml.InteractionFragment previous = (org.eclipse.uml2.uml.InteractionFragment) fragments
                                 .get(index - 1);
-                        if (previous instanceof org.eclipse.uml2.uml.ExecutionSpecification)
+                        if (previous instanceof org.eclipse.uml2.uml.ExecutionSpecification){
                             previous = getPreviousFragmentInInteraction(previous);
-                        else if (previous instanceof PartDecomposition)
+                        }else if (previous instanceof PartDecomposition){
                             previous = getPreviousFragmentInInteraction(previous);
+                        }
                         return previous;
                     }
                 }
@@ -196,10 +205,11 @@ public class EcoreModelNavigation {
                 if (index < (fragments.size() -1)) {
                     org.eclipse.uml2.uml.InteractionFragment previous = (org.eclipse.uml2.uml.InteractionFragment) fragments
                             .get(index + 1);
-                    if (previous instanceof org.eclipse.uml2.uml.ExecutionSpecification)
+                    if (previous instanceof org.eclipse.uml2.uml.ExecutionSpecification){
                         previous = getPreviousFragmentInInteraction(previous);
-                    else if (previous instanceof PartDecomposition)
+                    } else if (previous instanceof PartDecomposition){
                         previous = getPreviousFragmentInInteraction(previous);
+                    }
                     return previous;
                 }
             }
@@ -212,11 +222,13 @@ public class EcoreModelNavigation {
         org.eclipse.uml2.uml.MessageOccurrenceSpecification end = null;
         org.eclipse.uml2.uml.MessageEnd msgEnd = null;
         msgEnd = ecoreElement.getSendEvent();
-        if (!(msgEnd instanceof org.eclipse.uml2.uml.MessageOccurrenceSpecification))
+        if (!(msgEnd instanceof org.eclipse.uml2.uml.MessageOccurrenceSpecification)){
             msgEnd = ecoreElement.getReceiveEvent();
+        }
         
-        if (msgEnd instanceof org.eclipse.uml2.uml.MessageOccurrenceSpecification)
+        if (msgEnd instanceof org.eclipse.uml2.uml.MessageOccurrenceSpecification){
             end = (org.eclipse.uml2.uml.MessageOccurrenceSpecification) msgEnd;
+        }
         
         if (end != null){
             org.eclipse.uml2.uml.Interaction interaction = end.getEnclosingInteraction();
@@ -227,10 +239,11 @@ public class EcoreModelNavigation {
                     if (index < (fragments.size() -1)) {
                         org.eclipse.uml2.uml.InteractionFragment previous = (org.eclipse.uml2.uml.InteractionFragment) fragments
                                 .get(index + 1);
-                        if (previous instanceof org.eclipse.uml2.uml.ExecutionSpecification)
+                        if (previous instanceof org.eclipse.uml2.uml.ExecutionSpecification){
                             previous = getPreviousFragmentInInteraction(previous);
-                        else if (previous instanceof PartDecomposition)
+                        }else if (previous instanceof PartDecomposition){
                             previous = getPreviousFragmentInInteraction(previous);
+                        }
                         return previous;
                     }
                 }
@@ -249,10 +262,11 @@ public class EcoreModelNavigation {
                 if (index > 0) {
                     org.eclipse.uml2.uml.InteractionFragment previous = (org.eclipse.uml2.uml.InteractionFragment) fragments
                             .get(index - 1);
-                    if (previous instanceof org.eclipse.uml2.uml.ExecutionSpecification)
+                    if (previous instanceof org.eclipse.uml2.uml.ExecutionSpecification){
                         return getPreviousFragmentInInteraction(previous);
-                    else if (previous instanceof PartDecomposition)
+                    }else if (previous instanceof PartDecomposition){
                         return  getPreviousFragmentInInteraction(previous);
+                    }
         
                 }else{
         
@@ -279,11 +293,13 @@ public class EcoreModelNavigation {
         org.eclipse.uml2.uml.MessageOccurrenceSpecification end = null;
         org.eclipse.uml2.uml.MessageEnd msgEnd = null;
         msgEnd = ecoreElement.getSendEvent();
-        if (!(msgEnd instanceof org.eclipse.uml2.uml.MessageOccurrenceSpecification))
+        if (!(msgEnd instanceof org.eclipse.uml2.uml.MessageOccurrenceSpecification)){
             msgEnd = ecoreElement.getReceiveEvent();
+        }
         
-        if (msgEnd instanceof org.eclipse.uml2.uml.MessageOccurrenceSpecification)
+        if (msgEnd instanceof org.eclipse.uml2.uml.MessageOccurrenceSpecification){
             end = (org.eclipse.uml2.uml.MessageOccurrenceSpecification) msgEnd;
+        }
         
         if (end != null){
             org.eclipse.uml2.uml.InteractionOperand operand = end.getEnclosingOperand();
@@ -294,10 +310,11 @@ public class EcoreModelNavigation {
                     if (index > 0) {
                         org.eclipse.uml2.uml.InteractionFragment previous = (org.eclipse.uml2.uml.InteractionFragment) fragments
                                 .get(index - 1);
-                        if (previous instanceof org.eclipse.uml2.uml.ExecutionSpecification)
+                        if (previous instanceof org.eclipse.uml2.uml.ExecutionSpecification){
                             previous = getPreviousFragmentInInteraction(previous);
-                        else if (previous instanceof PartDecomposition)
+                        }else if (previous instanceof PartDecomposition){
                             previous = getPreviousFragmentInInteraction(previous);
+                        }
                         return previous;
                     }
                 }
@@ -316,10 +333,11 @@ public class EcoreModelNavigation {
                 if (index < (fragments.size() -1)) {
                     org.eclipse.uml2.uml.InteractionFragment previous = (org.eclipse.uml2.uml.InteractionFragment) fragments
                             .get(index - 1);
-                    if (previous instanceof org.eclipse.uml2.uml.ExecutionSpecification)
+                    if (previous instanceof org.eclipse.uml2.uml.ExecutionSpecification){
                         previous = getPreviousFragmentInInteraction(previous);
-                    else if (previous instanceof PartDecomposition)
+                    }else if (previous instanceof PartDecomposition){
                         previous = getPreviousFragmentInInteraction(previous);
+                    }
                     return previous;
                 }
             }
@@ -332,11 +350,13 @@ public class EcoreModelNavigation {
         org.eclipse.uml2.uml.MessageOccurrenceSpecification end = null;
         org.eclipse.uml2.uml.MessageEnd msgEnd = null;
         msgEnd = ecoreElement.getSendEvent();
-        if (!(msgEnd instanceof org.eclipse.uml2.uml.MessageOccurrenceSpecification))
+        if (!(msgEnd instanceof org.eclipse.uml2.uml.MessageOccurrenceSpecification)){
             msgEnd = ecoreElement.getReceiveEvent();
+        }
         
-        if (msgEnd instanceof org.eclipse.uml2.uml.MessageOccurrenceSpecification)
+        if (msgEnd instanceof org.eclipse.uml2.uml.MessageOccurrenceSpecification){
             end = (org.eclipse.uml2.uml.MessageOccurrenceSpecification) msgEnd;
+        }
         
         if (end != null){
             org.eclipse.uml2.uml.InteractionOperand operand = end.getEnclosingOperand();
@@ -347,10 +367,11 @@ public class EcoreModelNavigation {
                     if (index < (fragments.size() -1)) {
                         org.eclipse.uml2.uml.InteractionFragment previous = (org.eclipse.uml2.uml.InteractionFragment) fragments
                                 .get(index - 1);
-                        if (previous instanceof org.eclipse.uml2.uml.ExecutionSpecification)
+                        if (previous instanceof org.eclipse.uml2.uml.ExecutionSpecification){
                             previous = getPreviousFragmentInInteraction(previous);
-                        else if (previous instanceof PartDecomposition)
+                        }else if (previous instanceof PartDecomposition){
                             previous = getPreviousFragmentInInteraction(previous);
+                        }
                         return previous;
                     }
                 }
@@ -381,8 +402,9 @@ public class EcoreModelNavigation {
     public static org.eclipse.uml2.uml.Message getReplyMessage(org.eclipse.uml2.uml.Message message) {
         boolean isSynchronous = false;
         org.eclipse.uml2.uml.MessageSort msgSort = message.getMessageSort();
-        if (msgSort.getValue() == org.eclipse.uml2.uml.MessageSort.SYNCH_CALL)
+        if (msgSort.getValue() == org.eclipse.uml2.uml.MessageSort.SYNCH_CALL){
             isSynchronous = true;
+        }
         
         if (isSynchronous) {
             org.eclipse.uml2.uml.MessageEnd receiveEnd = message.getReceiveEvent();
@@ -390,10 +412,11 @@ public class EcoreModelNavigation {
         
                 org.eclipse.uml2.uml.Lifeline coveredLL = null;
         
-                if (receiveEnd instanceof org.eclipse.uml2.uml.MessageOccurrenceSpecification)
-                    coveredLL =(org.eclipse.uml2.uml.Lifeline) ((org.eclipse.uml2.uml.MessageOccurrenceSpecification)receiveEnd).getCovereds().get(0);
-                else if (receiveEnd instanceof Gate)
-                    coveredLL =(org.eclipse.uml2.uml.Lifeline) ((org.eclipse.uml2.uml.InteractionUse)((org.eclipse.uml2.uml.Gate)receiveEnd).getOwner()).getCovereds().get(0);
+                if (receiveEnd instanceof org.eclipse.uml2.uml.MessageOccurrenceSpecification){
+                    coveredLL = ((org.eclipse.uml2.uml.MessageOccurrenceSpecification)receiveEnd).getCovereds().get(0);
+                } else if (receiveEnd instanceof Gate){
+                    coveredLL = ((org.eclipse.uml2.uml.InteractionUse)((org.eclipse.uml2.uml.Gate)receiveEnd).getOwner()).getCovereds().get(0);
+                }
         
                 if (coveredLL != null){
                     EList<?> coveringFragments = coveredLL.getCoveredBys();
@@ -429,34 +452,30 @@ public class EcoreModelNavigation {
 
     @objid ("c8ccbe4e-1060-429e-ada1-e20fb8101742")
     public static boolean isLostMessage(org.eclipse.uml2.uml.Message message) {
-        boolean isLost = false;
         org.eclipse.uml2.uml.MessageEnd receiveEnd = message.getReceiveEvent();
         
-        if (receiveEnd == null)
-            isLost = true;
-        else if (receiveEnd instanceof org.eclipse.uml2.uml.MessageOccurrenceSpecification) {
+        if (receiveEnd == null){
+            return true;
+        }else if (receiveEnd instanceof org.eclipse.uml2.uml.MessageOccurrenceSpecification) {
             org.eclipse.uml2.uml.MessageOccurrenceSpecification end = (org.eclipse.uml2.uml.MessageOccurrenceSpecification) receiveEnd;
             EList<?> covereds = end.getCovereds();
-            if (covereds == null || covereds.size() == 0)
-                isLost = true;
+            return (covereds == null || covereds.size() == 0);
         }
-        return isLost;
+        return false;
     }
 
     @objid ("f1bd371e-03d2-4f90-a838-7e290c5d2b4c")
     public static boolean isFoundMessage(org.eclipse.uml2.uml.Message message) {
-        boolean isFound = false;
         org.eclipse.uml2.uml.MessageEnd sendEnd = message.getSendEvent();
         
-        if (sendEnd == null)
-            isFound = true;
-        else if (sendEnd instanceof org.eclipse.uml2.uml.MessageOccurrenceSpecification) {
+        if (sendEnd == null){
+            return true;
+        }else if (sendEnd instanceof org.eclipse.uml2.uml.MessageOccurrenceSpecification) {
             org.eclipse.uml2.uml.MessageOccurrenceSpecification end = (org.eclipse.uml2.uml.MessageOccurrenceSpecification) sendEnd;
             EList<?> covereds = end.getCovereds();
-            if (covereds == null || covereds.size() == 0)
-                isFound = true;
+            return (covereds == null || covereds.size() == 0);
         }
-        return isFound;
+        return false;
     }
 
     @objid ("34be3ddb-ab46-430f-91e4-93b3a09336e9")
@@ -475,13 +494,10 @@ public class EcoreModelNavigation {
         
         if (!isFormalGate(ecoreGate)) {
             org.eclipse.uml2.uml.Element owner = ecoreGate.getOwner();
-            if (owner instanceof org.eclipse.uml2.uml.InteractionUse)
+            if (owner instanceof org.eclipse.uml2.uml.InteractionUse){
                 referedGate = getFormalGate(ecoreGate);
+            }
         }
-        // else: case of a formal Gate. As we can't get the org.eclipse.uml2.uml.Interactions that
-        // refer
-        // to another org.eclipse.uml2.uml.Interaction, it is not possible to get the related actual
-        // Gates (Ecore limitation due to unidirectional meta-relations).
         return referedGate;
     }
 
@@ -496,8 +512,9 @@ public class EcoreModelNavigation {
             for (Object fragment : fragmentsList){
                 if (fragment instanceof org.eclipse.uml2.uml. BehaviorExecutionSpecification){
                     org.eclipse.uml2.uml. BehaviorExecutionSpecification behaviorExecutionSpecification = (org.eclipse.uml2.uml.BehaviorExecutionSpecification) fragment;
-                    if (behaviorExecutionSpecification.getFinish().equals(executionSpecification))
+                    if (behaviorExecutionSpecification.getFinish().equals(executionSpecification)){
                         return behaviorExecutionSpecification;
+                    }
                 }
             }
         
@@ -510,8 +527,7 @@ public class EcoreModelNavigation {
         org.eclipse.uml2.uml.Interaction enclosing = getMostEnclosingInteraction(ecoreGate);
         
         for (Object formal : enclosing.getFormalGates()) {
-            if (formal.equals(ecoreGate))
-                return true;
+            return (formal.equals(ecoreGate));
         }
         return false;
     }
@@ -524,13 +540,15 @@ public class EcoreModelNavigation {
             for (Object clause : ((org.eclipse.uml2.uml.ConditionalNode) structuredNode)
                     .getClauses()) {
                 for (Object innerNode : ( (org.eclipse.uml2.uml.Clause) clause).getTests()) {
-                    if (innerNode.equals(node))
+                    if (innerNode.equals(node)){
                         return true;
+                    }
                 }
         
                 for (Object innerNode : ( (org.eclipse.uml2.uml.Clause) clause).getBodies()) {
-                    if (innerNode.equals(node))
+                    if (innerNode.equals(node)){
                         return true;
+                    }
                 }
             }
         }
@@ -545,13 +563,15 @@ public class EcoreModelNavigation {
             for (Object clause : ((org.eclipse.uml2.uml.ConditionalNode) structuredNode)
                     .getClauses()) {
                 for (Object innerNode : ( (org.eclipse.uml2.uml.Clause) clause).getTests()) {
-                    if (innerNode.equals(node))
+                    if (innerNode.equals(node)){
                         return  (org.eclipse.uml2.uml.Clause) clause;
+                    }
                 }
         
                 for (Object innerNode : ( (org.eclipse.uml2.uml.Clause) clause).getBodies()) {
-                    if (innerNode.equals(node))
+                    if (innerNode.equals(node)){
                         return  (org.eclipse.uml2.uml.Clause) clause;
+                    }
                 }
             }
         }
@@ -561,15 +581,12 @@ public class EcoreModelNavigation {
     @objid ("7e81d63d-98cb-48f4-8738-4861ef2d93c9")
     public static boolean isInPartition(org.eclipse.uml2.uml.ActivityNode node) {
         EList<?> partitionList = node.getInPartitions();
-        if (partitionList != null && partitionList.size() > 0)
-            return true;
-        else
-            return false;
+        return (partitionList != null && partitionList.size() > 0);
     }
 
     @objid ("0584a6db-0d1f-46a5-a6de-6e3567c85584")
     public static List<ActivityPartition> getOwnerPartitions(org.eclipse.uml2.uml.ActivityNode node) {
-        List<ActivityPartition> partitionList = new ArrayList<ActivityPartition>();
+        List<ActivityPartition> partitionList = new ArrayList<>();
         for (Object partition : node.getInPartitions()) {
             partitionList.add((org.eclipse.uml2.uml.ActivityPartition) partition);
         }
@@ -580,8 +597,9 @@ public class EcoreModelNavigation {
     public static org.eclipse.uml2.uml.ActivityPartition getLeafPartition(List<ActivityPartition> ecorePartitions) {
         for (org.eclipse.uml2.uml.ActivityPartition currentPartition : ecorePartitions) {
             EList<?> subPartitions = currentPartition.getSubpartitions();
-            if (subPartitions == null || subPartitions.size() == 0)
+            if ((subPartitions == null) || (subPartitions.size() == 0)){
                 return currentPartition;
+            }
         }
         return null;
     }
@@ -589,10 +607,7 @@ public class EcoreModelNavigation {
     @objid ("4947fbcd-057b-441d-b187-e508e5c5f3b8")
     public static boolean isInStructuredActivityNode(org.eclipse.uml2.uml.ActivityNode node) {
         org.eclipse.uml2.uml.StructuredActivityNode structuredNode = node.getInStructuredNode();
-        if (structuredNode != null)
-            return true;
-        else
-            return false;
+        return (structuredNode != null);
     }
 
     @objid ("0c9cce47-682b-413a-a8c2-4616855a1d6b")
@@ -603,10 +618,7 @@ public class EcoreModelNavigation {
     @objid ("de1f4e6c-6958-470a-a1a1-f4bf03077caa")
     public static boolean isInActivity(org.eclipse.uml2.uml.ActivityNode node) {
         org.eclipse.uml2.uml.Activity activity = node.getActivity();
-                if (activity != null)
-           return true;
-                else
-           return false;
+        return (activity != null);
     }
 
     @objid ("98e32dea-7b14-4eb5-9a97-bc821e1d854a")
@@ -622,9 +634,10 @@ public class EcoreModelNavigation {
     @objid ("0b0a1a2f-0054-44c0-ae94-bc50e87fbd42")
     public static boolean hasReceiveOperationEvent(org.eclipse.uml2.uml.AcceptEventAction action) {
         for (Object trigger : action.getTriggers()) {
-             org.eclipse.uml2.uml.Event event = ( (org.eclipse.uml2.uml.Trigger) trigger).getEvent();
-            if (event instanceof  org.eclipse.uml2.uml.ReceiveOperationEvent)
+            org.eclipse.uml2.uml.Event event = ( (org.eclipse.uml2.uml.Trigger) trigger).getEvent();
+            if (event instanceof  org.eclipse.uml2.uml.ReceiveOperationEvent){
                 return true;
+            }
         }
         return false;
     }
@@ -632,9 +645,10 @@ public class EcoreModelNavigation {
     @objid ("d90cf40a-4b08-40e3-a73c-1cff905f6288")
     public static boolean hasSignalEvent(org.eclipse.uml2.uml.AcceptEventAction action) {
         for (Object trigger : action.getTriggers()) {
-             org.eclipse.uml2.uml.Event event = ( (org.eclipse.uml2.uml.Trigger) trigger).getEvent();
-            if (event instanceof  org.eclipse.uml2.uml.SignalEvent)
+            org.eclipse.uml2.uml.Event event = ( (org.eclipse.uml2.uml.Trigger) trigger).getEvent();
+            if (event instanceof  org.eclipse.uml2.uml.SignalEvent){
                 return true;
+            }
         }
         return false;
     }
@@ -642,9 +656,10 @@ public class EcoreModelNavigation {
     @objid ("8049a940-c812-4b09-a35e-bca49b2aa8cc")
     public static boolean hasChangeEvent(org.eclipse.uml2.uml.AcceptEventAction action) {
         for (Object trigger : action.getTriggers()) {
-             org.eclipse.uml2.uml.Event event = ( (org.eclipse.uml2.uml.Trigger) trigger).getEvent();
-            if (event instanceof  org.eclipse.uml2.uml.ChangeEvent)
+            org.eclipse.uml2.uml.Event event = ( (org.eclipse.uml2.uml.Trigger) trigger).getEvent();
+            if (event instanceof  org.eclipse.uml2.uml.ChangeEvent){
                 return true;
+            }
         }
         return false;
     }
@@ -652,9 +667,10 @@ public class EcoreModelNavigation {
     @objid ("489fefe5-778c-4f33-9d3d-8f5a6e13a2d5")
     public static boolean hasTimeEvent(org.eclipse.uml2.uml.AcceptEventAction action) {
         for (Object trigger : action.getTriggers()) {
-             org.eclipse.uml2.uml.Event event = ( (org.eclipse.uml2.uml.Trigger) trigger).getEvent();
-            if (event instanceof  org.eclipse.uml2.uml.TimeEvent)
+            org.eclipse.uml2.uml.Event event = ( (org.eclipse.uml2.uml.Trigger) trigger).getEvent();
+            if (event instanceof  org.eclipse.uml2.uml.TimeEvent){
                 return true;
+            }
         }
         return false;
     }
@@ -662,16 +678,17 @@ public class EcoreModelNavigation {
     @objid ("1c41c9f1-871b-4598-a90f-95bd1d995669")
     private static List<Parameter> getMatchedParameters(org.eclipse.uml2.uml.InputPin pin) {
         CallAction pinOwner = (CallAction) pin.getOwner();
-        List<Parameter> paramList = new ArrayList<Parameter>();
+        List<Parameter> paramList = new ArrayList<>();
         
         if (pinOwner instanceof  org.eclipse.uml2.uml.CallOperationAction) {
-             org.eclipse.uml2.uml.Operation operation = ( (org.eclipse.uml2.uml.CallOperationAction) pinOwner)
+            org.eclipse.uml2.uml.Operation operation = ( (org.eclipse.uml2.uml.CallOperationAction) pinOwner)
                     .getOperation();
             if (operation != null) {
                 for (org.eclipse.uml2.uml.Parameter param : operation.getOwnedParameters()) {
                     if (param.getDirection().equals(org.eclipse.uml2.uml.ParameterDirectionKind.IN_LITERAL) 
-                            || param.getDirection().equals(org.eclipse.uml2.uml.ParameterDirectionKind.INOUT_LITERAL) )
+                            || param.getDirection().equals(org.eclipse.uml2.uml.ParameterDirectionKind.INOUT_LITERAL) ){
                         paramList.add( param);
+                    }
                 }
             }
         } else if (pinOwner instanceof  org.eclipse.uml2.uml.CallBehaviorAction) {
@@ -679,8 +696,9 @@ public class EcoreModelNavigation {
             if (behavior != null) {
                 for (org.eclipse.uml2.uml.Parameter param : behavior.getOwnedParameters()) {
                     if (param.getDirection().equals(org.eclipse.uml2.uml.ParameterDirectionKind.IN_LITERAL) 
-                            || param.getDirection().equals(org.eclipse.uml2.uml.ParameterDirectionKind.INOUT_LITERAL) )
+                            || param.getDirection().equals(org.eclipse.uml2.uml.ParameterDirectionKind.INOUT_LITERAL) ){
                         paramList.add( param);
+                    }
                 }
             }
         }
@@ -696,7 +714,7 @@ public class EcoreModelNavigation {
                         || trans.getPostCondition().equals(constraint)
                         || trans.getPreCondition().equals(constraint));
             }else  if (constrainedElt instanceof org.eclipse.uml2.uml.ProtocolTransition) {
-                 org.eclipse.uml2.uml.Transition trans =  (org.eclipse.uml2.uml.Transition) constrainedElt;
+                org.eclipse.uml2.uml.Transition trans =  (org.eclipse.uml2.uml.Transition) constrainedElt;
                 return trans.getGuard().equals(constraint);
             }
         
@@ -707,39 +725,44 @@ public class EcoreModelNavigation {
     @objid ("2a08cece-e674-4499-b56b-f4c0e903bf6b")
     public static org.eclipse.uml2.uml.Region getMostEnclosingRegion(org.eclipse.uml2.uml.Vertex vertex) {
         org.eclipse.uml2.uml.Region region = vertex.getContainer();
-                if (region != null) {
-           org.eclipse.uml2.uml.StateMachine ownerSM = region.getStateMachine();
-           if (ownerSM != null)
-               return region;
-                
-           org.eclipse.uml2.uml.State ownerState = region.getState();
-           if (ownerState != null)
-               return getMostEnclosingRegion(ownerState);
-                }
+        if (region != null) {
+            org.eclipse.uml2.uml.StateMachine ownerSM = region.getStateMachine();
+            if (ownerSM != null){
+                return region;
+            }
+        
+            org.eclipse.uml2.uml.State ownerState = region.getState();
+            if (ownerState != null){
+                return getMostEnclosingRegion(ownerState);
+            }
+        }
         return null;
     }
 
     @objid ("7ac0f0be-6479-4d41-aebb-2f49e57b45eb")
     public static org.eclipse.uml2.uml.StateMachine getMostEnclosingStateMachine(org.eclipse.uml2.uml.Vertex vertex) {
         org.eclipse.uml2.uml.Region region = getMostEnclosingRegion(vertex);
-                if (region != null)
-           return region.getStateMachine();
+        if (region != null){
+            return region.getStateMachine();
+        }
         return null;
     }
 
     @objid ("3ba1f660-ca32-4725-990b-13e360fca4ad")
     public static org.eclipse.uml2.uml.StateMachine getMostEnclosingStateMachine(org.eclipse.uml2.uml.Transition transition) {
         org.eclipse.uml2.uml.Region region = transition.getContainer();
-                
-                if (region != null) {
-           org.eclipse.uml2.uml.StateMachine ownerSM = region.getStateMachine();
-           if (ownerSM != null)
-               return ownerSM;
-                
-           org.eclipse.uml2.uml.State ownerState = region.getState();
-           if (ownerState != null)
-               return getMostEnclosingStateMachine(ownerState);
-                }
+        
+        if (region != null) {
+            org.eclipse.uml2.uml.StateMachine ownerSM = region.getStateMachine();
+            if (ownerSM != null){
+                return ownerSM;
+            }
+        
+            org.eclipse.uml2.uml.State ownerState = region.getState();
+            if (ownerState != null){
+                return getMostEnclosingStateMachine(ownerState);
+            }
+        }
         return null;
     }
 
@@ -747,17 +770,13 @@ public class EcoreModelNavigation {
     public static boolean isChildOfRootRegion(org.eclipse.uml2.uml.Vertex state) {
         org.eclipse.uml2.uml.Region rootRegion = getMostEnclosingRegion(state);
         org.eclipse.uml2.uml.Region container = state.getContainer();
-                if (container != null && container.equals(rootRegion))
-           return true;
-        return false;
+        return ((container != null) && (container.equals(rootRegion)));
     }
 
     @objid ("e100a04b-1e46-4fb6-8b35-5e2cccf8c30b")
     public static boolean hasUniqueRootRegion(org.eclipse.uml2.uml.StateMachine stateMachine) {
         EList<?> rootRegionList = stateMachine.getRegions();
-        if (rootRegionList.size() == 1)
-            return true;
-        return false;
+        return (rootRegionList.size() == 1);
     }
 
     @objid ("732634f2-a0f7-4f68-96f8-2e075478f312")
@@ -765,15 +784,9 @@ public class EcoreModelNavigation {
         return (behavior.getOwner() instanceof  org.eclipse.uml2.uml.Transition);
     }
 
-//    @objid ("1a9a538e-4583-11e0-b54c-00137279a832")
-//    public static boolean isTriggerEvent(org.eclipse.uml2.uml.ExecutionEvent event) {
-//        return (event.getOwner() instanceof  org.eclipse.uml2.uml.Trigger);
-//    }
     @objid ("34040ebe-107f-4018-a579-840dd8681c8d")
     public static boolean isInternalTransition(org.eclipse.uml2.uml.Transition transition) {
-        if  (org.eclipse.uml2.uml.TransitionKind.INTERNAL_LITERAL.equals(transition.getKind()))
-            return true;
-        return false;
+        return (org.eclipse.uml2.uml.TransitionKind.INTERNAL_LITERAL.equals(transition.getKind()));
     }
 
     @objid ("3f481720-8394-4cc4-b1b9-05901d2a5f4b")
@@ -781,8 +794,9 @@ public class EcoreModelNavigation {
         for (Object clientDependency : behavior.getClientDependencies()) {
             for (Object ecoreSupplier : ((org.eclipse.uml2.uml.Dependency) clientDependency)
                     .getSuppliers()) {
-                if (ecoreSupplier instanceof  org.eclipse.uml2.uml.Signal)
+                if (ecoreSupplier instanceof  org.eclipse.uml2.uml.Signal){
                     return true;
+                }
             }
         }
         return false;
@@ -790,7 +804,7 @@ public class EcoreModelNavigation {
 
     @objid ("ce8493b2-fe4f-47af-a50c-81c5aa4775ae")
     public static boolean isModelChild(org.eclipse.uml2.uml.Element element) {
-        List <org.eclipse.uml2.uml.Element> listRoot = new ArrayList <org.eclipse.uml2.uml.Element>();
+        List <org.eclipse.uml2.uml.Element> listRoot = new ArrayList <>();
         Set<org.eclipse.uml2.uml.Package> roots = ReverseProperties.getInstance().getEcoreModel();
         listRoot.addAll(roots);
         for(org.eclipse.uml2.uml.Package root : roots){
@@ -802,27 +816,32 @@ public class EcoreModelNavigation {
         List<Package> listPackages = topOwners(element);
         
         for (Object pack : listRoot){
-            if (listPackages.contains(pack))
+            if (listPackages.contains(pack)){
                 return true;
+            }
         }
         return false;
     }
 
     @objid ("db4fa252-10ac-48e5-9427-53ad2584c0ce")
-    public static List<Package> topOwners(org.eclipse.uml2.uml.Element element) {
-        List<Package> listPackages = new ArrayList<Package>();
+    public static List<Package> topOwners(final org.eclipse.uml2.uml.Element element) {
+        List<Package> listPackages = new ArrayList<>();
         
-        if (element instanceof Package)
+        if (element instanceof Package){
             listPackages.add((Package) element);
+        }
         
-        org.eclipse.uml2.uml.Element owner = element.getOwner();
+        org.eclipse.uml2.uml.Element temp = element;
+        org.eclipse.uml2.uml.Element owner = temp.getOwner();
+        
         while (owner != null) {
         
-            if (owner instanceof Package)
+            if (owner instanceof Package){
                 listPackages.add((Package) owner);
+            }
         
-            element = owner;
-            owner = element.getOwner();        
+            temp = owner;
+            owner = temp.getOwner();        
         }
         return listPackages;
     }
@@ -833,10 +852,12 @@ public class EcoreModelNavigation {
         while (!(root instanceof Model) && (root.getOwner() != null)){
             root = root.getOwner();
         }
-        if (root instanceof Package)
+        
+        if (root instanceof Package){
             return (Package) root;
-        else 
+        }else {
             return ecorePackage;
+        }
     }
 
     @objid ("3b970927-6b5e-4853-b452-1201691f5135")
@@ -853,14 +874,15 @@ public class EcoreModelNavigation {
             ecoreParent = ecoreParent.getOwner();
             objParent = (Element) revProp.getMappedElement(ecoreParent);
         }
+        
         if ((objParent instanceof org.modelio.metamodel.uml.statik.Package) 
                 ||(objParent instanceof org.modelio.metamodel.uml.statik.Component)
                 ||(objParent instanceof org.modelio.metamodel.uml.statik.Class)
                 ||(objParent instanceof org.modelio.metamodel.uml.statik.Interface)
-                ||(objParent instanceof org.modelio.metamodel.uml.behavior.commonBehaviors.Signal))
+                ||(objParent instanceof org.modelio.metamodel.uml.behavior.commonBehaviors.Signal)){
             return (ModelTree) objParent;
-        else 
-            return null;
+        }
+        return null;
     }
 
     @objid ("b9ebe8ad-eb15-4ea2-9008-9198d74c66fc")
@@ -873,10 +895,11 @@ public class EcoreModelNavigation {
             ecoreParent = ecoreParent.getOwner();
             objParent = (Element) revProp.getMappedElement(ecoreParent);
         }
-        if (objParent instanceof NameSpace) 
+        
+        if (objParent instanceof NameSpace) {
             return (NameSpace) objParent;
-        else 
-            return null;
+        }
+        return null;
     }
 
     @objid ("ef4655f1-52b7-4792-9c8f-8c8c68524229")
@@ -884,6 +907,7 @@ public class EcoreModelNavigation {
         ReverseProperties revProp = ReverseProperties.getInstance();
         org.eclipse.uml2.uml.Element ecoreParent = ecoreElt;
         Element objParent = (Element) revProp.getMappedElement(ecoreParent);
+        
         while (!((objParent instanceof org.modelio.metamodel.uml.statik.Package) 
                 ||(objParent instanceof org.modelio.metamodel.uml.statik.Component)
                 ||(objParent instanceof org.modelio.metamodel.uml.statik.Class)
@@ -894,15 +918,16 @@ public class EcoreModelNavigation {
             ecoreParent = ecoreParent.getOwner();
             objParent = (Element) revProp.getMappedElement(ecoreParent);
         }
+        
         if ((objParent instanceof org.modelio.metamodel.uml.statik.Package) 
                 ||(objParent instanceof org.modelio.metamodel.uml.statik.Component)
                 ||(objParent instanceof org.modelio.metamodel.uml.statik.Class)
                 ||(objParent instanceof org.modelio.metamodel.uml.statik.Interface)
                 ||(objParent instanceof org.modelio.metamodel.uml.behavior.commonBehaviors.Signal)
-                ||(objParent instanceof org.modelio.metamodel.uml.statik.TemplateParameter))
+                ||(objParent instanceof org.modelio.metamodel.uml.statik.TemplateParameter)){
             return (ModelTree) objParent;
-        else 
-            return null;
+            }
+        return null;
     }
 
     @objid ("26a5246d-a95f-48c1-a70c-503a5bc9e3b9")
@@ -916,11 +941,12 @@ public class EcoreModelNavigation {
             ecoreParent = ecoreParent.getOwner();
             objParent = (Element) revProp.getMappedElement(ecoreParent);
         }
+        
         if ((objParent instanceof NameSpace) 
-                ||(objParent instanceof Operation))
+                ||(objParent instanceof Operation)){
             return (ModelTree) objParent;
-        else 
-            return null;
+        }
+        return null;
     }
 
     @objid ("28ccabe6-03bf-4439-acb2-77a0551917b7")
@@ -928,20 +954,23 @@ public class EcoreModelNavigation {
         ReverseProperties revProp = ReverseProperties.getInstance();
         org.eclipse.uml2.uml.Element ecoreParent = ecoreElt;
         Element objParent = (Element) revProp.getMappedElement(ecoreParent);
+        
         while (!(objParent instanceof NameSpace ) 
                 && (ecoreParent.getOwner() != null)){
             ecoreParent = ecoreParent.getOwner();
             objParent = (Element) revProp.getMappedElement(ecoreParent);
         }
-        if (objParent instanceof NameSpace) 
+        
+        if (objParent instanceof NameSpace) {
             return (NameSpace) objParent;
-        else 
-            return null;
+        }
+        return null;
     }
 
     @objid ("8d974ab3-6a3c-4cb5-aa97-aa791f0432c4")
     public static boolean isAssocEnd(final Property ecoreElement) {
-        if (!(ecoreElement.getOwner() instanceof org.eclipse.uml2.uml.Stereotype)){
+        if (!((ecoreElement.getOwner() instanceof org.eclipse.uml2.uml.Stereotype)
+                ||(ecoreElement.getType() instanceof org.eclipse.uml2.uml.Stereotype))){
             return (ecoreElement.getAssociation() != null);
         }
         return false;
@@ -972,13 +1001,11 @@ public class EcoreModelNavigation {
     private static boolean isValidPropertyOwner(final org.eclipse.uml2.uml.Type ecoreType) {
         if (ecoreType != null) {
             Object objingOwner = ReverseProperties.getInstance().getMappedElement(ecoreType);
-            if ((objingOwner != null) 
+            return ((objingOwner != null) 
                     && ((objingOwner instanceof org.modelio.metamodel.uml.statik.Classifier) && 
                             ((objingOwner instanceof org.modelio.metamodel.uml.statik.Class) || (objingOwner instanceof org.modelio.metamodel.uml.statik.Interface) || (objingOwner instanceof org.modelio.metamodel.uml.statik.Component)
                                     || (objingOwner instanceof org.modelio.metamodel.uml.behavior.usecaseModel.Actor) || (objingOwner instanceof org.modelio.metamodel.uml.statik.DataType) || (objingOwner instanceof org.modelio.metamodel.uml.statik.Node) 
-                                    || (objingOwner instanceof org.modelio.metamodel.uml.behavior.commonBehaviors.Signal)|| (objingOwner instanceof org.modelio.metamodel.uml.behavior.usecaseModel.UseCase)))){
-                return true;
-            }
+                                    || (objingOwner instanceof org.modelio.metamodel.uml.behavior.commonBehaviors.Signal)|| (objingOwner instanceof org.modelio.metamodel.uml.behavior.usecaseModel.UseCase))));
         }
         return false;
     }
@@ -1063,13 +1090,16 @@ public class EcoreModelNavigation {
         
         if (ecoreConstrainedElts.size() > 0) {
             for (Object elt : ecoreConstrainedElts) {
-                if ( (elt instanceof org.eclipse.uml2.uml.Element) && (elt != null)){
+                if ( elt instanceof org.eclipse.uml2.uml.Element){
                     org.eclipse.uml2.uml.Element ecoreConstrainedElt = (org.eclipse.uml2.uml.Element) elt;
                     Object object =  ReverseProperties.getInstance().getMappedElement(ecoreConstrainedElt);
         
-                    if ((object instanceof ModelElement) || (ecoreConstrainedElt instanceof org.eclipse.uml2.uml.Abstraction)
-                            || (ecoreConstrainedElt instanceof  org.eclipse.uml2.uml.Comment) || (ecoreConstrainedElt instanceof org.eclipse.uml2.uml.Usage))
+                    if ((object instanceof ModelElement) 
+                            || (ecoreConstrainedElt instanceof org.eclipse.uml2.uml.Abstraction)
+                            || (ecoreConstrainedElt instanceof  org.eclipse.uml2.uml.Comment) 
+                            || (ecoreConstrainedElt instanceof org.eclipse.uml2.uml.Usage)){
                         return  true;
+                }
         
         
                 }
@@ -1085,7 +1115,7 @@ public class EcoreModelNavigation {
 
     @objid ("3a761685-9343-4481-ac78-8b1517056517")
     private static List<Element> getSlots(final InstanceSpecification ecoreLink) {
-        List<Element> result = new  ArrayList<Element>();
+        List<Element> result = new  ArrayList<>();
         EList<Slot> slots = ecoreLink.getSlots();
         ReverseProperties revProp = ReverseProperties.getInstance();
         for (org.eclipse.uml2.uml.Slot slot: slots ){
@@ -1136,8 +1166,9 @@ public class EcoreModelNavigation {
         ReverseProperties revProp = ReverseProperties.getInstance();
         
         for  (org.eclipse.uml2.uml.Classifier currentType : types){
-            if (!(revProp.getMappedElement(currentType) instanceof org.modelio.metamodel.uml.statik.Association))
+            if (!(revProp.getMappedElement(currentType) instanceof org.modelio.metamodel.uml.statik.Association)){
                 return false;
+            }
         }
         return true;
     }
@@ -1145,26 +1176,31 @@ public class EcoreModelNavigation {
     @objid ("892c789a-60ff-4625-9606-458c8b9e9bcc")
     public static String getMultiplicityMax(final MultiplicityElement ecoreElt) {
         org.eclipse.uml2.uml.ValueSpecification upperValue = ecoreElt.getUpperValue();
-                if (upperValue != null) {
-           String multMax = upperValue.stringValue();
-           if (multMax != null)
-               return multMax;
-           else
-               return "0";
-                }else
-           return "1";
+        if (upperValue != null) {
+            String multMax = upperValue.stringValue();
+            if (multMax != null){
+                return multMax;
+            }else{
+                return "0";
+            }
+        }else{
+            return "1";
+        }
     }
 
     @objid ("b1999565-dbdc-47d4-a52f-e2aaad5f3954")
     public static String getMultiplicityMin(final MultiplicityElement ecoreElt) {
         org.eclipse.uml2.uml.ValueSpecification lowerValue = ecoreElt.getLowerValue();
-                if (lowerValue != null) {
-           String multMin = lowerValue.stringValue();
-           if (multMin != null)
-               return multMin;
-           else return "0";
-                }else 
-           return "1";
+        if (lowerValue != null) {
+            String multMin = lowerValue.stringValue();
+            if (multMin != null){
+                return multMin;
+            }else{ 
+                return "0";
+            }
+        }else {
+            return "1";
+        }
     }
 
     @objid ("5d7bf35d-bbf4-4bff-92d3-0e5f2036a89d")
@@ -1172,9 +1208,9 @@ public class EcoreModelNavigation {
         int result = 0;
         CallAction pinOwner = (CallAction) pin.getOwner();
         for (org.eclipse.uml2.uml.Element ownedElt : pinOwner.getOwnedElements()){
-            if (ownedElt.equals(pin))
+            if (ownedElt.equals(pin)){
                 return result;
-            else if (ownedElt instanceof org.eclipse.uml2.uml.Pin){
+            }else if (ownedElt instanceof org.eclipse.uml2.uml.Pin){
                 result++;
             }
         }
@@ -1186,9 +1222,9 @@ public class EcoreModelNavigation {
         int result = 0;
         org.eclipse.uml2.uml.Element paramOwner =  parameter.getOwner();
         for (org.eclipse.uml2.uml.Element ownedElt : paramOwner.getOwnedElements()){
-            if (ownedElt.equals(parameter))
+            if (ownedElt.equals(parameter)){
                 return result;
-            else if (ownedElt instanceof org.eclipse.uml2.uml.Parameter){
+            }else if (ownedElt instanceof org.eclipse.uml2.uml.Parameter){
                 result++;
             }
         }
@@ -1198,23 +1234,25 @@ public class EcoreModelNavigation {
     @objid ("52d2f815-336a-49f3-88d3-2aafe3b71d1f")
     private static List<Parameter> getMatchedParameters(final org.eclipse.uml2.uml.OutputPin pin) {
         CallAction pinOwner = (CallAction) pin.getOwner();
-        List<Parameter> paramList = new ArrayList<Parameter>();
+        List<Parameter> paramList = new ArrayList<>();
         
         if (pinOwner instanceof  org.eclipse.uml2.uml.CallOperationAction) {
-             org.eclipse.uml2.uml.Operation operation = ( (org.eclipse.uml2.uml.CallOperationAction) pinOwner)
+            org.eclipse.uml2.uml.Operation operation = ( (org.eclipse.uml2.uml.CallOperationAction) pinOwner)
                     .getOperation();
             if (operation != null) {
                 for (org.eclipse.uml2.uml.Parameter param : operation.getOwnedParameters()) {
-                    if (!(param.getDirection().equals(org.eclipse.uml2.uml.ParameterDirectionKind.IN_LITERAL)))
+                    if (!(param.getDirection().equals(org.eclipse.uml2.uml.ParameterDirectionKind.IN_LITERAL))){
                         paramList.add(param);
+                    }
                 }
             }
         } else if (pinOwner instanceof  org.eclipse.uml2.uml.CallBehaviorAction) {
             org.eclipse.uml2.uml. Behavior behavior = ( (org.eclipse.uml2.uml.CallBehaviorAction) pinOwner).getBehavior();
             if (behavior != null) {
                 for (org.eclipse.uml2.uml.Parameter param : behavior.getOwnedParameters()) {
-                    if (!(param.getDirection().equals(org.eclipse.uml2.uml.ParameterDirectionKind.IN_LITERAL)))
+                    if (!(param.getDirection().equals(org.eclipse.uml2.uml.ParameterDirectionKind.IN_LITERAL))){
                         paramList.add( param);
+                    }
                 }
             }
         }
@@ -1237,8 +1275,9 @@ public class EcoreModelNavigation {
             for (org.eclipse.uml2.uml.Connector connector : ((org.eclipse.uml2.uml.StructuredClassifier) owner).getOwnedConnectors()){
                 for (org.eclipse.uml2.uml.ConnectorEnd end : connector.getEnds()){
                     if ((end.getPartWithPort() != null ) 
-                            && (end.getPartWithPort().equals(ecoreElement)))
+                            && (end.getPartWithPort().equals(ecoreElement))){
                         return true;
+                    }
                 }
             }
         }
@@ -1263,10 +1302,11 @@ public class EcoreModelNavigation {
             result = ( (org.eclipse.uml2.uml.LiteralSpecification) valueSpec).stringValue();
         }
         
-        if (result != null)
+        if (result != null){
             return result;
-        else 
+        }else {
             return "";
+        }
     }
 
 }

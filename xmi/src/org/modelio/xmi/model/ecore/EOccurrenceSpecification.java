@@ -21,14 +21,14 @@
 
 package org.modelio.xmi.model.ecore;
 
-import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.api.modelio.Modelio;
 import org.modelio.metamodel.uml.infrastructure.Element;
 
 @objid ("e20240a2-6268-49f3-8825-e0df39791ae2")
-public class EOccurrenceSpecification extends EInteractionFragment implements IEElement {
+public class EOccurrenceSpecification extends EInteractionFragment {
     @objid ("ac19aec5-29b1-42a1-b0de-1464c94e0f18")
+    @Override
     public Element createObjingElt() {
         return Modelio.getInstance().getModelingSession().getModel()
                 .createExecutionOccurenceSpecification();
@@ -40,15 +40,13 @@ public class EOccurrenceSpecification extends EInteractionFragment implements IE
     }
 
     @objid ("ed74cfab-76d0-424e-ba06-feaf8f8b4304")
+    @Override
     public void attach(Element objingElt) {
         super.attach(objingElt);
     }
 
-    @objid ("70e7c857-27d6-4d6d-b150-f468979aff99")
-    public void attach(List<Object> objingElts) {
-    }
-
     @objid ("1a8b7b10-5a93-4380-afa8-22881bbefbe8")
+    @Override
     public void setProperties(Element objingElt) {
         super.setProperties(objingElt);
     }

@@ -32,6 +32,7 @@ import org.eclipse.gef.requests.SelectionRequest;
 import org.eclipse.gef.tools.AbstractTool;
 import org.eclipse.gef.tools.SelectionTool;
 import org.eclipse.swt.graphics.Cursor;
+import org.modelio.app.core.navigate.IModelioNavigationService;
 import org.modelio.ui.gef.SharedCursors2;
 import org.modelio.vcore.smkernel.mapi.MObject;
 
@@ -70,7 +71,10 @@ public class PanSelectionTool extends SelectionTool {
     @objid ("1bb75774-5e33-11e2-b81d-002564c97630")
     protected static final int WORKAREA_RESIZE_INCREMENT = 40;
 
-    @objid ("a980f84d-66f3-4e88-a7ed-eca6c7c85bbb")
+    @objid ("e96e6ec9-a6b2-4b3d-8202-2fc5f9669a8e")
+    private IModelioNavigationService navigationService;
+
+    @objid ("d8b3cfc7-a84b-4296-b4e4-a862256b938f")
     private Point viewLocation;
 
     /**
@@ -140,8 +144,9 @@ public class PanSelectionTool extends SelectionTool {
             if (editpart != null) {
                 MObject element = (MObject) editpart.getAdapter(MObject.class);
                 if (element != null) {
-                    // FIXME
-                    // O.getDefault().getNavigateService().fireNavigate(element);
+                    if (this.navigationService != null) {
+                        this.navigationService.fireNavigate(element);
+                    }
                     return true;
                 }
             }
@@ -213,6 +218,11 @@ public class PanSelectionTool extends SelectionTool {
             return true;
         }
         return super.handleFocusLost();
+    }
+
+    @objid ("f4be44dc-add1-4299-a8df-00bdefba9fe6")
+    public PanSelectionTool(IModelioNavigationService navigationService) {
+        this.navigationService = navigationService;
     }
 
 }

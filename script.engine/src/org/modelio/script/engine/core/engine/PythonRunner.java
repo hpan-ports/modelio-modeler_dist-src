@@ -25,18 +25,22 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.URL;
 import java.nio.file.Path;
 import java.util.Collection;
 import javax.script.ScriptContext;
 import javax.script.ScriptEngine;
 import javax.script.ScriptException;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
+import org.eclipse.core.runtime.FileLocator;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.jface.viewers.ISelection;
 import org.modelio.api.model.IModelingSession;
 import org.modelio.api.model.ITransaction;
 import org.modelio.api.modelio.Modelio;
 import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.script.engine.plugin.ScriptEnginePlugin;
+import org.osgi.framework.Bundle;
 
 @objid ("008ed532-8bd5-1065-a2b8-001ec947cd2a")
 public class PythonRunner implements IScriptRunner {
@@ -51,7 +55,11 @@ public class PythonRunner implements IScriptRunner {
     @objid ("004696d2-fb86-10ee-9fe5-001ec947cd2a")
     private final String JYTHON_INIT = "import sys\n" + "sys.setClassLoader (CLASSLOADER)\n"
             + "if  sys.path.count('__pyclasspath__/Lib') == 0:\n" 
-    		+ "\tsys.path.append('__pyclasspath__/Lib')\n";
+    		+ "\tsys.path.append('__pyclasspath__/Lib')\n"
+            + "from encodings import iso8859_1\n";
+
+    @objid ("cde9eda6-7e4c-4aed-b0d4-ee6f4eaece17")
+    private static final String INITSCRIPT = "res/initengine.py";
 
     @objid ("00760a48-cbcd-1065-a2b8-001ec947cd2a")
     private final javax.script.ScriptEngine engine;
@@ -78,11 +86,13 @@ public class PythonRunner implements IScriptRunner {
         
         this.engine.put("CLASSLOADER", this.classLoader);
         
-        try {
+        final String initScript = getInitScript(); 
+        try (FileReader r = new FileReader(initScript)){
             this.engine.eval(this.JYTHON_INIT);
-        } catch (ScriptException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            this.engine.eval(r);
+        } catch (ScriptException|IOException e) {
+            ScriptEnginePlugin.LOG.debug("Initialization of the script engine failed");
+            ScriptEnginePlugin.LOG.error(e);
         }
     }
 
@@ -251,8 +261,8 @@ public class PythonRunner implements IScriptRunner {
         try {
             this.engine.eval(init);
         } catch (ScriptException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            ScriptEnginePlugin.LOG.debug("Initialization of the script engine failed");
+            ScriptEnginePlugin.LOG.error(e);
         }
     }
 
@@ -268,11 +278,27 @@ public class PythonRunner implements IScriptRunner {
             try {
                 this.engine.eval(init);
             } catch (ScriptException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
+                ScriptEnginePlugin.LOG.debug("Initialization of the script engine failed");
+                ScriptEnginePlugin.LOG.error(e);
             }
         }
         this.classLoader.add(base);
+    }
+
+    @objid ("04d7cc1d-3a8a-41eb-80fb-9c48d99f9741")
+    private String getInitScript() {
+        String path="";
+        Bundle bundle = Platform.getBundle(ScriptEnginePlugin.PLUGIN_ID);
+        String s = "platform:/plugin/"+bundle.getSymbolicName()+"/" + INITSCRIPT;
+        URL url = null;
+        try {
+            url = new URL(s);
+            path = FileLocator.toFileURL(url).getPath();
+        } catch (Exception e) {
+            ScriptEnginePlugin.LOG.debug("File path %s is not found!", s);
+            ScriptEnginePlugin.LOG.error(e);
+        }
+        return path;
     }
 
 }

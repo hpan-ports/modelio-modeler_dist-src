@@ -37,7 +37,6 @@ import org.modelio.xmi.reverse.ImportServices;
 import org.modelio.xmi.reverse.PartialImportMap;
 import org.modelio.xmi.reverse.TotalImportMap;
 import org.modelio.xmi.util.AbortProcessException;
-import org.modelio.xmi.util.GenerationProperties;
 import org.modelio.xmi.util.ReverseProperties;
 import org.modelio.xmi.util.XMILogs;
 

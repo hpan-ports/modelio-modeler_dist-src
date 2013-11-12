@@ -21,7 +21,6 @@
 
 package org.modelio.xmi.model.ecore;
 
-import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.api.modelio.Modelio;
 import org.modelio.metamodel.uml.behavior.activityModel.Activity;
@@ -34,11 +33,12 @@ import org.modelio.xmi.util.EcoreModelNavigation;
 import org.modelio.xmi.util.ReverseProperties;
 
 @objid ("62d4e77a-9768-44c5-a5e1-eca104234a4a")
-public class EActivity extends ENamedElement implements IEElement {
+public class EActivity extends ENamedElement {
     @objid ("201b88d4-3186-41dc-9c68-5336d3709e7d")
+    @Override
     public Element createObjingElt() {
         return Modelio.getInstance().getModelingSession().getModel()
-        .createActivity();
+                .createActivity();
     }
 
     @objid ("c7d725e7-6d2d-4ac8-ae6d-44f1b1a145b5")
@@ -47,9 +47,10 @@ public class EActivity extends ENamedElement implements IEElement {
     }
 
     @objid ("7e57e89b-7bde-4483-a346-ee3babd15acc")
+    @Override
     public void attach(Element objingElt) {
         ReverseProperties revProp = ReverseProperties.getInstance();
-         org.eclipse.uml2.uml.Activity ecoreElement = (org.eclipse.uml2.uml.Activity) getEcoreElement();
+        org.eclipse.uml2.uml.Activity ecoreElement = (org.eclipse.uml2.uml.Activity) getEcoreElement();
         org.eclipse.uml2.uml.Element ecoreOwner = getEcoreElement().getOwner();
         Activity objingAct = (Activity) objingElt;
         NameSpace objingOwner = null; 
@@ -63,7 +64,7 @@ public class EActivity extends ENamedElement implements IEElement {
                 }else if (tempOwner instanceof State){
         
                     objingOwner = EcoreModelNavigation.getNearestNameSpace(ecoreOwner);
-                    
+        
                     org.eclipse.uml2.uml. Behavior ent = ((org.eclipse.uml2.uml.State)ecoreOwner).getEntry();
                     org.eclipse.uml2.uml. Behavior exit = ((org.eclipse.uml2.uml.State)ecoreOwner).getExit();
                     org.eclipse.uml2.uml. Behavior doActivity = ((org.eclipse.uml2.uml.State)ecoreOwner).getDoActivity();
@@ -84,26 +85,24 @@ public class EActivity extends ENamedElement implements IEElement {
                         transition.setBehaviorEffect(objingAct);
                         transition.setReceivedEvents("Do");
                     }
+                    
                 }else if (tempOwner instanceof Transition){
+                    ((Transition)tempOwner).setBehaviorEffect(objingAct);
                     objingOwner = EcoreModelNavigation.getNearestNameSpace(ecoreOwner);
-                        
-                    ((Transition)objingOwner).setBehaviorEffect(objingAct);
                 }
             }
-            
+        
         }
         
-        if (objingOwner != null)
+        if (objingOwner != null){
             objingAct.setOwner(objingOwner);
-        else 
+        }else {
             objingAct.setOwner(ReverseProperties.getInstance().getExternalPackage());
-    }
-
-    @objid ("d9337721-a86e-4c1d-baea-ca496fc62d8e")
-    public void attach(List<Object> objingElts) {
+        }
     }
 
     @objid ("442a4fde-9f46-44d5-95a8-3285c0cfc33c")
+    @Override
     public void setProperties(Element objingElt) {
         super.setProperties(objingElt);
         setReadOnly((Activity) objingElt);

@@ -90,6 +90,11 @@ public class CreateNAssocCommand extends Command {
         if (!MTools.getAuthTool().canModify(this.parentNode.getDiagram().getRelatedElement()))
             return false;
         
+        // Must have at least 3 ends
+        if (this.sourceModels.size() < 3) {
+            return false;
+        }
+        
         // All sourceNodes must be modifiable.
         for (IGmLinkable sourceModel : this.sourceModels) {
             if (!MTools.getAuthTool().canModify(sourceModel.getRelatedElement())) {

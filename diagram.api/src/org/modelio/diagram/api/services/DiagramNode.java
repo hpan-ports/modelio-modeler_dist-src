@@ -157,6 +157,9 @@ public abstract class DiagramNode extends DiagramGraphic implements IDiagramNode
     @Override
     public Rectangle getBounds() {
         final GraphicalEditPart p = this.diagramHandle.getEditPart(this.gmNode);
+        if (p == null) {
+            return null;
+        }
         if (p.getFigure() instanceof HandleBounds) {
             return ((HandleBounds) p.getFigure()).getHandleBounds().getCopy();
         } else {
@@ -205,20 +208,8 @@ public abstract class DiagramNode extends DiagramGraphic implements IDiagramNode
             return;
         }
         
-        final Rectangle currentBounds = getBounds();
-        final GraphicalEditPart p = this.diagramHandle.getEditPart(this.gmNode);
-        
-        final ChangeBoundsRequest req = new ChangeBoundsRequest();
-        req.setType(RequestConstants.REQ_RESIZE);
-        req.setEditParts(p);
-        req.setMoveDelta(newBounds.getLocation().getTranslated(currentBounds.getLocation().getNegated()));
-        req.setSizeDelta(new Dimension(newBounds.width - currentBounds.width, newBounds.height -
-                                                                              currentBounds.height));
-        final Command com = p.getCommand(req);
-        if (com != null && com.canExecute()) {
-            p.getViewer().getEditDomain().getCommandStack().execute(com);
-            p.getFigure().getUpdateManager().performValidation();
-        }
+        setLocation(newBounds.x, newBounds.y);
+        setSize(newBounds.width, newBounds.height);
     }
 
     @objid ("a3d4abae-52f1-4175-9a98-e0ebd2956e93")
@@ -252,8 +243,11 @@ public abstract class DiagramNode extends DiagramGraphic implements IDiagramNode
     @objid ("38ff3d0d-9625-40f4-a66b-bfadc3c6102b")
     @Override
     public boolean setLocation(int x, int y) {
-        final Rectangle currentBounds = getBounds();
         final GraphicalEditPart p = this.diagramHandle.getEditPart(this.gmNode);
+        if (p == null) {
+            return false;
+        }
+        final Rectangle currentBounds = getBounds();
         
         // Adapt the given coordinates if necessary
         final Point newLocation = new Point(x, y);
@@ -285,8 +279,11 @@ public abstract class DiagramNode extends DiagramGraphic implements IDiagramNode
     @objid ("fdfc37ad-6d5b-49c2-b142-13e231c00b2a")
     @Override
     public boolean setSize(int width, int height) {
-        final Rectangle currentBounds = getBounds();
         final GraphicalEditPart p = this.diagramHandle.getEditPart(this.gmNode);
+        if (p == null) {
+            return false;
+        }
+        final Rectangle currentBounds = getBounds();
         
         final ChangeBoundsRequest req = new ChangeBoundsRequest();
         req.setType(RequestConstants.REQ_RESIZE);

@@ -8,6 +8,9 @@
             beforefragment="false"
             class="org.modelio.vaudit.plugin.VauditInitializer">
       </processor>
+      <fragment
+            uri="e4model/vaudit_maintenance.e4xmi">
+      </fragment>
    </extension>
 
 </plugin>

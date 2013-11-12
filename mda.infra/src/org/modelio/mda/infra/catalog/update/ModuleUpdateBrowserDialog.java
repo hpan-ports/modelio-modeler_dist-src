@@ -22,11 +22,15 @@
 package org.modelio.mda.infra.catalog.update;
 
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.net.URISyntaxException;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
+import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.URIUtil;
+import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.jface.viewers.CheckboxCellEditor;
@@ -56,6 +60,7 @@ import org.eclipse.swt.widgets.TableColumn;
 import org.modelio.core.ui.dialog.ModelioDialog;
 import org.modelio.gproject.module.catalog.FileModuleStore;
 import org.modelio.mda.infra.plugin.MdaInfra;
+import org.modelio.ui.progress.IModelioProgressService;
 import org.modelio.vbasic.net.UriPathAccess;
 
 @objid ("3a97523c-6868-498c-baa8-a65e45c982ab")
@@ -78,11 +83,15 @@ public class ModuleUpdateBrowserDialog extends ModelioDialog {
     @objid ("a4de78ab-9651-4da9-8930-2ad755775562")
     protected Button updateButton;
 
+    @objid ("b7babbe2-b896-420e-81d5-0216bb583c66")
+    protected IModelioProgressService progressService;
+
     @objid ("cc78bdff-9021-4b14-aa0a-f2826efbd913")
-    public ModuleUpdateBrowserDialog(Shell parentShell, List<ModuleUpdateDescriptor> modulesToUpdate, FileModuleStore catalog) {
+    public ModuleUpdateBrowserDialog(Shell parentShell, List<ModuleUpdateDescriptor> modulesToUpdate, FileModuleStore catalog, IModelioProgressService progressService) {
         super(parentShell);
         this.modulesToUpdate = modulesToUpdate;
         this.catalog = catalog;
+        this.progressService = progressService;
     }
 
     @objid ("67e6c5f5-995f-4cb8-9b21-0337980af059")
@@ -94,8 +103,12 @@ public class ModuleUpdateBrowserDialog extends ModelioDialog {
         compo.setLayoutData(layoutData);
         compo.setLayout(new GridLayout(2, false));
         
+        Composite leftComposite = new Composite(compo, SWT.NONE);
+        leftComposite.setLayout(new GridLayout(1, false));
+        leftComposite.setLayoutData(new GridData(SWT.BEGINNING, SWT.FILL, false, true));
+        
         // Define the TableViewer
-        final TableViewer moduleTableViewer = new TableViewer(compo, SWT.BORDER | SWT.SINGLE | SWT.FULL_SELECTION);
+        final TableViewer moduleTableViewer = new TableViewer(leftComposite, SWT.BORDER | SWT.SINGLE | SWT.FULL_SELECTION);
         final Table moduleTable = moduleTableViewer.getTable();
         moduleTable.setHeaderVisible(true);
         moduleTable.setLayoutData(new GridData(SWT.BEGINNING, SWT.FILL, false, true));
@@ -137,6 +150,50 @@ public class ModuleUpdateBrowserDialog extends ModelioDialog {
             }
         });
         
+        Composite buttonComposite = new Composite(leftComposite, SWT.NONE);
+        buttonComposite.setLayoutData(new GridData(SWT.END, SWT.END, false, false));
+        buttonComposite.setLayout(new GridLayout(2, false));
+        
+        // Select all button
+        Button selectAllButton = new Button(buttonComposite, SWT.PUSH);
+        selectAllButton.setText(MdaInfra.I18N.getString("ModuleUpdateBrowserDialog.SelectAll"));
+        selectAllButton.addSelectionListener(new SelectionListener() {
+            
+            @Override
+            public void widgetSelected(SelectionEvent e) {
+                for (ModuleUpdateDescriptor moduleDescriptor : ModuleUpdateBrowserDialog.this.modulesToUpdate) {
+                    moduleDescriptor.setToUpdate(true);
+                }
+                moduleTableViewer.setInput(ModuleUpdateBrowserDialog.this.modulesToUpdate);
+            }
+            
+            @Override
+            public void widgetDefaultSelected(SelectionEvent e) {
+                //
+            }
+        });
+        selectAllButton.setLayoutData(new GridData());
+        
+        // Unselect all button
+        Button unselectAllButton = new Button(buttonComposite, SWT.PUSH);
+        unselectAllButton.setText(MdaInfra.I18N.getString("ModuleUpdateBrowserDialog.UnselectAll"));
+        unselectAllButton.addSelectionListener(new SelectionListener() {
+            
+            @Override
+            public void widgetSelected(SelectionEvent e) {
+                for (ModuleUpdateDescriptor moduleDescriptor : ModuleUpdateBrowserDialog.this.modulesToUpdate) {
+                    moduleDescriptor.setToUpdate(false);
+                }
+                moduleTableViewer.setInput(ModuleUpdateBrowserDialog.this.modulesToUpdate);
+            }
+            
+            @Override
+            public void widgetDefaultSelected(SelectionEvent e) {
+                //
+            }
+        });
+        unselectAllButton.setLayoutData(new GridData());
+        
         this.browser = new Browser(compo, SWT.NONE);
         this.browser.setText("");
         
@@ -156,21 +213,48 @@ public class ModuleUpdateBrowserDialog extends ModelioDialog {
             
             @Override
             public void widgetSelected(SelectionEvent evt) {
-                for (ModuleUpdateDescriptor desc : ModuleUpdateBrowserDialog.this.modulesToUpdate) {
-                    if (desc.isToUpdate()) {                        
-                        try (UriPathAccess pathAccess = new UriPathAccess(URIUtil.fromString(desc.getDownloadLink()), null)) {
-                            final Path path = pathAccess.getPath();
-                            
-                            // install in catalog
-                            ModuleUpdateBrowserDialog.this.catalog.getModuleHandle(path, null);
+                IRunnableWithProgress runnable = new IRunnableWithProgress() {
         
-                            pathAccess.close();
-                        } catch (IOException | URISyntaxException e) {
-                            MdaInfra.LOG.error("Unable to install module " + desc.getDownloadLink());
-                            MdaInfra.LOG.debug(e);
+                    @Override
+                    public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
+                        List<ModuleUpdateDescriptor> selectedModules = new ArrayList<>();
+                        for (ModuleUpdateDescriptor descriptor : ModuleUpdateBrowserDialog.this.modulesToUpdate) {
+                            if (descriptor.isToUpdate()) {
+                                selectedModules.add(descriptor);
+                            }
                         }
-                    }
-                }
+                        int modulesToUpdateSum = selectedModules.size();
+                        monitor.beginTask(MdaInfra.I18N.getString("ModuleUpdateBrowserDialog.UpdateProgressTitle"), modulesToUpdateSum*5);
+                        for (int i=0; i<modulesToUpdateSum; i++) {
+                            if (monitor.isCanceled()) {
+                                break;  // if monitor is canceled
+                            }
+                            ModuleUpdateDescriptor desc = selectedModules.get(i);
+                            //Keys {0}:counter {1}:sum of modules {2}:module file name
+                            monitor.subTask(MdaInfra.I18N.getMessage("ModuleUpdateBrowserDialog.UpdateModulesProgressSubTask", String.valueOf(i+1), String.valueOf(modulesToUpdateSum), desc.getName()));                            
+                            monitor.worked(1);
+        
+                            try (UriPathAccess pathAccess = new UriPathAccess(URIUtil.fromString(desc.getDownloadLink()), null)) {
+                                final Path path = pathAccess.getPath();
+                                monitor.worked(2);
+                                // install in catalog
+                                ModuleUpdateBrowserDialog.this.catalog.getModuleHandle(path, null);
+                                monitor.worked(1);
+                                pathAccess.close();
+                            } catch (IOException | URISyntaxException e) {
+                                MdaInfra.LOG.error("Unable to install module " + desc.getDownloadLink());
+                                MdaInfra.LOG.debug(e);
+                            }
+                            monitor.worked(1);
+                        }
+                        monitor.done();
+                    }                    
+                };
+                try {
+                    ModuleUpdateBrowserDialog.this.progressService.run(true, true, runnable);
+                } catch (InvocationTargetException | InterruptedException e) {
+                    MdaInfra.LOG.debug(e);
+                }          
             }
             
             @Override

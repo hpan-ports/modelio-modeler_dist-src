@@ -26,6 +26,8 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
+import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.swt.widgets.Display;
 import org.modelio.app.project.core.creation.IProjectCreationData;
 import org.modelio.app.project.core.creation.IProjectCreator;
 import org.modelio.app.project.ui.plugin.AppProjectUiExt;
@@ -81,10 +83,9 @@ public class ProjectCreator implements IProjectCreator {
      */
     @objid ("007534b0-7310-10b7-9941-001ec947cd2a")
     @Override
-    public void createProject(IProjectCreationData creationData, IModuleCatalog moduleCatalog, IModelioProgress monitor) {
+    public void createProject(IProjectCreationData creationData, IModuleCatalog moduleCatalog, IModelioProgress monitor) throws IOException {
         ProjectCreationDataModel data = (ProjectCreationDataModel) creationData;
         
-        try {
             String name = data.getProjectName();
             Path projectPath = data.workspace.resolve(name);
         
@@ -95,8 +96,15 @@ public class ProjectCreator implements IProjectCreator {
                                                                                      * version
                                                                                      */null, null);
             if (modelerModule == null) {
-                // FIXME: indicate the problem !!!
-                return;
+                Display.getDefault().asyncExec(new Runnable() {
+                    
+                    @Override
+                    public void run() {
+                        MessageDialog.openError(Display.getDefault().getActiveShell(), AppProjectUiExt.I18N.getString("NewProjectFailed.Title"), AppProjectUiExt.I18N.getString("NewProjectFailed.Message"));
+            }
+                });
+                AppProjectUiExt.LOG.error("Unable to create project, Modeler Module is missing");
+                throw new IOException();
             }
         
             // Create an empty GProject, open it
@@ -132,9 +140,6 @@ public class ProjectCreator implements IProjectCreator {
         
             project.save(new NullProgress());
             project.close();
-        } catch (IOException e) {
-            AppProjectUiExt.LOG.error(e);
-        }
     }
 
     @objid ("cde8bf09-9636-49a5-8113-d98f394c07c4")

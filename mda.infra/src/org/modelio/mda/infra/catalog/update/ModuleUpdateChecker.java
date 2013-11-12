@@ -32,6 +32,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import java.util.ResourceBundle;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.core.runtime.URIUtil;
 import org.eclipse.core.runtime.preferences.InstanceScope;
@@ -42,7 +43,9 @@ import org.modelio.app.preferences.ScopedPreferenceStore;
 import org.modelio.gproject.module.IModuleHandle;
 import org.modelio.gproject.module.catalog.FileModuleStore;
 import org.modelio.mda.infra.plugin.MdaInfra;
+import org.modelio.ui.i18n.BundledMessages;
 import org.modelio.vbasic.net.UriPathAccess;
+import org.modelio.vbasic.version.Version;
 
 /**
  * This thread checks an update file for the current version of Modelio.
@@ -52,11 +55,17 @@ import org.modelio.vbasic.net.UriPathAccess;
  */
 @objid ("3e15f42c-baa4-4599-8eee-470437f7b482")
 public class ModuleUpdateChecker extends Thread {
+    @objid ("4ba8dc19-69bd-4292-b008-beef0ad0f0fe")
+    private boolean validUpdateSite = true;
+
     @objid ("fec8f3ad-9d46-4349-9012-5188bbe8dc28")
     protected FileModuleStore catalog;
 
     @objid ("f1221919-1bab-4eb7-966b-d41debf7ca52")
     private Collection<IModuleHandle> catalogModules = new ArrayList<>();
+
+    @objid ("f5e756ae-765d-4efd-9be2-9c5381b07939")
+    private List<ModuleUpdateDescriptor> modulesToUpdate;
 
     /**
      * Default constructor, initializing a bunch of modules to check updates for.
@@ -81,13 +90,14 @@ public class ModuleUpdateChecker extends Thread {
      */
     @objid ("7b4c728f-7e69-43f6-bcc5-a886f2125564")
     private void checkUpdate() {
+        //this.monitor.beginTask("update", IProgressMonitor.UNKNOWN);
         Properties updateProperties = initUpdateProperties();
         // No property file means no update available
         if (updateProperties == null) {
             return;
         }
         
-        final List<ModuleUpdateDescriptor> modulesToUpdate = new ArrayList<>();
+        this.modulesToUpdate = new ArrayList<>();
         
         // Get already installed modules
         Map<String, IModuleHandle> latestInstalledModules = new HashMap<>();
@@ -118,33 +128,27 @@ public class ModuleUpdateChecker extends Thread {
                     final IModuleHandle latestInstalledModule = latestInstalledModules.get(name);
                     if (latestInstalledModule != null) {
                         currentVersion = latestInstalledModule.getVersion().toString();
-                    }
-        
-                    if (!currentVersion.equals(nextVersion)) {
-                        modulesToUpdate.add(new ModuleUpdateDescriptor(label, currentVersion, nextVersion, url, downloadLink));
+                        if (latestInstalledModule.getVersion().isOlderThan(new Version(nextVersion))) {
+                            this.modulesToUpdate.add(new ModuleUpdateDescriptor(label, currentVersion, nextVersion, url, downloadLink));
+                        }
+                    } else {
+                        this.modulesToUpdate.add(new ModuleUpdateDescriptor(label, currentVersion, nextVersion, url, downloadLink));
                     }
                 }
             }
         } while (keyPrefix != null);
-        
-        // New modules found: open the update dialog
-        if (modulesToUpdate.size() > 0) {
-            ModuleUpdateBrowserDialog dialog = new ModuleUpdateBrowserDialog(Display.getDefault().getActiveShell(), modulesToUpdate, ModuleUpdateChecker.this.catalog);
-            dialog.open();
-        } else {
-            MessageDialog.openInformation (Display.getDefault().getActiveShell(), MdaInfra.I18N.getString("ModuleUpdateBrowserDialog.Title"), MdaInfra.I18N.getString("ModuleUpdateBrowserDialog.NoUpdate"));
-        }
     }
 
     @objid ("c4de2b63-cadc-4450-af4c-3673fa369971")
     private Properties initUpdateProperties() {
+        BundledMessages i18n = new BundledMessages(MdaInfra.LOG, ResourceBundle.getBundle("catalogupdate"));
         IPreferenceStore prefs = new ScopedPreferenceStore(InstanceScope.INSTANCE, MdaInfra.PLUGIN_ID);
-        prefs.setDefault(CatalogUpdatePreferencesPage.CATALOG_UPDATE_SITE, MdaInfra.I18N.getString("ModuleCatalog.Preference.DefaultUpdateSite"));
+        prefs.setDefault(CatalogUpdatePreferencesPage.CATALOG_UPDATE_SITE, i18n.getString("ModuleCatalog.Preference.DefaultUpdateSite"));
         
         // Read properties file.
         Properties updateProperties = new Properties();
         
-        String serverUpdateSite = prefs.getString(CatalogUpdatePreferencesPage.CATALOG_UPDATE_SITE);
+        final String serverUpdateSite = prefs.getString(CatalogUpdatePreferencesPage.CATALOG_UPDATE_SITE);
         try (UriPathAccess pathAccess = new UriPathAccess(URIUtil.fromString(serverUpdateSite), null)) {
             final Path path = pathAccess.getPath();
             try (BufferedReader in = new BufferedReader(new FileReader(path.toFile()))) {
@@ -152,11 +156,28 @@ public class ModuleUpdateChecker extends Thread {
                 in.close();
             }
         } catch (IOException| URISyntaxException e) {
-            MessageDialog.openInformation(Display.getDefault().getActiveShell(), MdaInfra.I18N.getString("ModuleUpdateCheckerError.Title"), MdaInfra.I18N.getMessage("ModuleUpdateCheckerError.Message", serverUpdateSite));
+            this.validUpdateSite = false;
+            Display.getDefault().asyncExec(new Runnable() {
+                
+                @Override
+                public void run() {                    
+                    MessageDialog.openInformation(Display.getDefault().getActiveShell(), MdaInfra.I18N.getString("ModuleUpdateCheckerError.Title"), MdaInfra.I18N.getMessage("ModuleUpdateCheckerError.Message", serverUpdateSite));
+                }
+            });
             MdaInfra.LOG.error(e.getMessage());
             return null;
         }
         return updateProperties;
+    }
+
+    @objid ("de70d9a8-b86d-4db2-875e-87ca2fd19300")
+    public List<ModuleUpdateDescriptor> getModulesToUpdate() {
+        return this.modulesToUpdate;
+    }
+
+    @objid ("b4d2e5fa-06b5-4c59-a2c4-4e3b54a83b35")
+    public boolean isValidUpdateSite() {
+        return this.validUpdateSite;
     }
 
 }

@@ -126,7 +126,7 @@ public class ExmlBase extends AbstractExmlRepository {
     protected void initializeLoader() {
         this.loadHelper = new LoadHelper(this, isWriteable());
         //this.loader = new ExmlLoader(this.loadHelper, this.getLoadCache());
-        this.loader = new SaxExmlLoader(this.loadHelper, getLoadCache());
+        this.loader = new SaxExmlLoader(this.loadHelper);
     }
 
     @objid ("679e4b84-2e7b-11e2-8aaa-001ec947ccaf")

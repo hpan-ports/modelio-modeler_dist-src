@@ -4,11 +4,11 @@ import java.util.HashMap;
 import java.util.Map;
 import javax.inject.Inject;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
+import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.di.annotations.Execute;
 import org.eclipse.e4.core.di.annotations.Optional;
 import org.eclipse.e4.core.di.extensions.EventTopic;
-import org.eclipse.e4.ui.workbench.modeling.ESelectionService;
 import org.eclipse.swt.widgets.Display;
 import org.modelio.api.app.IModelioContext;
 import org.modelio.api.app.navigation.INavigationService;
@@ -290,7 +290,7 @@ public class ModelioImpl extends Modelio {
         IModelManipulationService modelManipulationService = new ModelManipulationService();
         services.put(IModelManipulationService.class, modelManipulationService);
               
-        INavigationService navigationService = new NavigationService(this.eclipseContext.get(ESelectionService.class));
+        INavigationService navigationService = ContextInjectionFactory.make(NavigationService.class, this.eclipseContext);
         services.put(INavigationService.class, navigationService);
               
         IPickingService pickingService = new PickingService(this.eclipseContext.get(IModelioPickingService.class));

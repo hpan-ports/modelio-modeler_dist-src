@@ -22,27 +22,20 @@
 package org.modelio.vstore.exml.local.loader.sax;
 
 import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Deque;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.vcore.model.DuplicateObjectException;
-import org.modelio.vcore.model.MObjectCache;
 import org.modelio.vcore.session.impl.storage.IModelLoader;
 import org.modelio.vcore.smkernel.SmObjectImpl;
 import org.modelio.vcore.smkernel.meta.SmClass;
-import org.modelio.vcore.smkernel.meta.SmDependency;
 import org.modelio.vstore.exml.common.ExmlStorageHandler;
 import org.modelio.vstore.exml.common.ILoadHelper;
-import org.modelio.vstore.exml.common.model.DependencyNotFoundException;
 import org.modelio.vstore.exml.common.model.ExmlTags;
 import org.modelio.vstore.exml.common.model.IllegalReferenceException;
 import org.modelio.vstore.exml.common.model.ObjId;
 import org.modelio.vstore.exml.common.model.ObjRef;
-import org.modelio.vstore.exml.common.utils.ExmlUtils;
-import org.modelio.vstore.exml.local.loader.sax.IDependencyContentHook.Content;
 import org.xml.sax.Locator;
 import org.xml.sax.SAXParseException;
 
@@ -64,17 +57,14 @@ class DataModel implements ExmlTags {
     @objid ("2af7925f-3faf-11e2-87cb-001ec947ccaf")
      ILoadHelper loadHelper;
 
-    @objid ("2af79260-3faf-11e2-87cb-001ec947ccaf")
-     MObjectCache loadCache;
-
     @objid ("2af79261-3faf-11e2-87cb-001ec947ccaf")
      IModelLoader modelLoader;
 
     @objid ("2af79264-3faf-11e2-87cb-001ec947ccaf")
-    private ObjectDataModel currentModel;
+    private IObjectDataModel currentModel;
 
     @objid ("2af79265-3faf-11e2-87cb-001ec947ccaf")
-    private Deque<ObjectDataModel> objStack;
+    private Deque<IObjectDataModel> objStack;
 
     @objid ("2af79268-3faf-11e2-87cb-001ec947ccaf")
     private Locator locator;
@@ -90,14 +80,13 @@ class DataModel implements ExmlTags {
 
     /**
      * initialize the loader
-     * @param loadHelper a load helper
      * @param loadCache the cache of this repository already loaded objects
+     * @param loadHelper a load helper
      */
     @objid ("2af7926a-3faf-11e2-87cb-001ec947ccaf")
-    public DataModel(ILoadHelper loadHelper, MObjectCache loadCache) {
+    public DataModel(ILoadHelper loadHelper) {
         this.nodeStorageHandler = null;
         this.loadHelper = loadHelper;
-        this.loadCache = loadCache;
         this.modelLoader = null;
         this.objStack = new ArrayDeque<>(30);
         this.depContentHook = null;
@@ -107,7 +96,7 @@ class DataModel implements ExmlTags {
      * @return the current data model.
      */
     @objid ("2af7926f-3faf-11e2-87cb-001ec947ccaf")
-    public ObjectDataModel getCurrent() {
+    public IObjectDataModel getCurrent() {
         return this.currentModel;
     }
 
@@ -155,7 +144,7 @@ class DataModel implements ExmlTags {
         if (refid != null) {
             SmObjectImpl obj = this.loadHelper.getObject(refid);
             if (obj == null)
-                obj = this.loadHelper.createRefObject(this.modelLoader,refid, refid);
+                obj = this.loadHelper.getRefObject(this.modelLoader,refid, refid);
         
             getCurrent().addToDep (obj);
         }
@@ -169,7 +158,7 @@ class DataModel implements ExmlTags {
             obj = this.loadHelper.getForeignObject(this.modelLoader, ref.id);
         
         if (obj == null)
-            obj = this.loadHelper.createRefObject(this.modelLoader,ref.id, ref.pid);
+            obj = this.loadHelper.getRefObject(this.modelLoader,ref.id, ref.pid);
         
         this.currentModel.addToDep (obj);
     }
@@ -183,7 +172,7 @@ class DataModel implements ExmlTags {
                 ref = this.loadHelper.getForeignObject(this.modelLoader, refid);
         
             if (ref == null)
-                ref = this.loadHelper.createRefObject(this.modelLoader, refid, refid);
+                ref = this.loadHelper.getRefObject(this.modelLoader, refid, refid);
         
             getCurrent().addToDep (ref);
         }
@@ -232,15 +221,9 @@ class DataModel implements ExmlTags {
      * @return the removed object model.
      */
     @objid ("2af9f4c6-3faf-11e2-87cb-001ec947ccaf")
-    ObjectDataModel pop() {
-        //TODO trace
-        //System.out.println(" pop from "+this.currentModel);
-        
-        ObjectDataModel previous = this.objStack.pop();
+    IObjectDataModel pop() {
+        IObjectDataModel previous = this.objStack.pop();
         this.currentModel = this.objStack.peek();
-        
-        //TODO trace
-        //System.out.println("   current data="+this.currentModel);
         return previous;
     }
 
@@ -252,19 +235,30 @@ class DataModel implements ExmlTags {
             boolean isNew = false;
             SmObjectImpl obj = this.loadHelper.getObject(objid);
         
-            if (obj == null) {
+            if (obj != null) {
+                // Already loaded from this repository
+                isNew = ! ((ExmlStorageHandler)obj.getRepositoryObject()).isLoaded();
+                this.currentModel = new ObjectDataModel(this, obj, isNew);
+            } else if (this.loadHelper.isStored(objid)) {
+                // Not loaded but present in repository
                 try {
                     obj = this.loadHelper.createObject(this.modelLoader, objid);
                     obj.setRepositoryObject(this.nodeStorageHandler);
                     isNew = true;
+                    this.currentModel = new ObjectDataModel(this, obj, isNew);
                 } catch (DuplicateObjectException e) {
                     throw new SAXParseException(e.getLocalizedMessage(), getLocator(), e);
+                    //this.currentModel = new DummyObjectDataModel(obj);
                 }
-            } else  {
-                isNew = ! ((ExmlStorageHandler)obj.getRepositoryObject()).isLoaded();
+            } else {
+                // Comes from another repository.
+                // This can happen only for object that are saved in more than 1 EXML file
+                // (Association, Link, Constraint)
+                // It should never happen for other objects.
+                obj = this.loadHelper.getForeignObject(this.modelLoader, objid);
+                this.currentModel = new DummyObjectDataModel(obj);
             }
         
-            this.currentModel = new ObjectDataModel(obj, isNew);
             this.objStack.push(this.currentModel);
         
             return obj;
@@ -298,7 +292,7 @@ class DataModel implements ExmlTags {
             isNew = true;
         }
         
-        this.currentModel = new ObjectDataModel(obj, isNew);
+        this.currentModel = new ObjectDataModel(this, obj, isNew);
         this.objStack.push(this.currentModel);
         this.rootObject = obj;
         return obj;
@@ -338,177 +332,6 @@ class DataModel implements ExmlTags {
     @objid ("ddf3cc54-407a-11e2-87cb-001ec947ccaf")
     public void setDependencyContentHook(IDependencyContentHook depContentHook) {
         this.depContentHook = depContentHook;
-    }
-
-    /**
-     * Data model for a read model object.
-     */
-    @objid ("2af7927c-3faf-11e2-87cb-001ec947ccaf")
-    final class ObjectDataModel {
-        /**
-         * Tells whether it is a new loaded object or it
-         * already existed in memory.
-         */
-        @objid ("67e4dcb0-2a7f-4cc6-b908-b492bd9b8b12")
-        private boolean isNew;
-
-        /**
-         * Already read dependencies while loading a model object.
-         * <p>
-         * Other dependencies will be reset.
-         */
-        @objid ("2af7927d-3faf-11e2-87cb-001ec947ccaf")
-        private Collection<SmDependency> readDeps = new ArrayList<>();
-
-        @objid ("2af79281-3faf-11e2-87cb-001ec947ccaf")
-        private SmObjectImpl current;
-
-        @objid ("2af79282-3faf-11e2-87cb-001ec947ccaf")
-        private SmDependency currentDep;
-
-        @objid ("2af79283-3faf-11e2-87cb-001ec947ccaf")
-        private List<SmObjectImpl> currentDepContent = EMPTY_DEP;
-
-        @objid ("2af79286-3faf-11e2-87cb-001ec947ccaf")
-        private AbstractState currentstate;
-
-        /**
-         * Finishes the dependencies loading.
-         * <p>
-         * Ensure dependencies for which no content was read are empty or have
-         * the hooked content.
-         */
-        @objid ("2af79287-3faf-11e2-87cb-001ec947ccaf")
-        public void finishDependenciesLoading() {
-            if ( getVersion() >= 3) {
-                final IModelLoader theModelLoader = DataModel.this.modelLoader;
-                final IDependencyContentHook depHook = DataModel.this.depContentHook;
-                if (this.isNew) {
-                    if (depHook != null) {
-                        // The object is now in memory so all dependencies were empty on start.
-                        // Add the non hooked local content
-                        for (Content dep : depHook.getContent(this.current)) {
-                            if (! this.readDeps.contains(dep.getDep())) {
-                                theModelLoader.loadDependency(this.current, dep.getDep(), dep.getContent());
-                            }
-                        }
-                    }
-                } else {
-                    // Object was already in memory:
-                    // Look for non loaded dependencies and replace their content by the hooked content
-                    // or empty them.
-                    for (SmDependency dep: ExmlUtils.getExternalisableDeps(this.current)) {
-                        if (! this.readDeps.contains(dep)) {
-                            if (depHook == null) {
-                                theModelLoader.loadDependency(this.current, dep,  EMPTY_DEP);
-                            } else {
-                                List<SmObjectImpl> moreContent = depHook.getContent(this.current, dep) ;
-                                if (moreContent == null)
-                                    moreContent = EMPTY_DEP;
-            
-                                theModelLoader.loadDependency(this.current, dep,  moreContent);
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-        @objid ("2af79289-3faf-11e2-87cb-001ec947ccaf")
-        void setCurrentState(AbstractState currentstate) {
-            this.currentstate = currentstate;
-        }
-
-        @objid ("2af7928c-3faf-11e2-87cb-001ec947ccaf")
-        public AbstractState getCurrentState() {
-            return this.currentstate;
-        }
-
-        @objid ("2af79290-3faf-11e2-87cb-001ec947ccaf")
-        public void updateCurrentDependency() {
-            if (this.currentDep != null) {
-                if (DataModel.this.depContentHook!=null) {
-                    List<SmObjectImpl> moreContent = DataModel.this.depContentHook.getContent(this.current, 
-                            this.currentDep);
-            
-                    if (moreContent != null) {
-                        if (this.currentDepContent == EMPTY_DEP)
-                            this.currentDepContent = moreContent;
-                        else
-                            this.currentDepContent.addAll(moreContent);
-                    }
-                }
-            
-                DataModel.this.modelLoader.loadDependency(this.current, 
-                        this.currentDep, 
-                        this.currentDepContent);
-                this.readDeps.add(this.currentDep);
-            }
-            
-            this.currentDepContent = EMPTY_DEP;
-            this.currentDep = null;
-        }
-
-        @objid ("2af79292-3faf-11e2-87cb-001ec947ccaf")
-        public void beginDependency(String depName) throws DependencyNotFoundException {
-            this.currentDep = findDependencyDef(this.current, depName);
-            
-            if (this.currentDep == null)
-                throw new DependencyNotFoundException("'"+depName + "' dependency not found for "+this.current);
-        }
-
-        @objid ("2af79295-3faf-11e2-87cb-001ec947ccaf")
-        public void addToDep(SmObjectImpl obj) {
-            assert (obj != null);
-            
-            if (this.currentDepContent == EMPTY_DEP)
-                this.currentDepContent = new ArrayList<>(3);
-            
-            this.currentDepContent.add(obj);
-        }
-
-        /**
-         * Find the SmDependency from its name.
-         * <p>
-         * Modelio 2 compatibility : convert to camel case if not found
-         * @param object an object
-         * @param relation the relation name
-         * @return the found dependency or <code>null</code>.
-         */
-        @objid ("2af79298-3faf-11e2-87cb-001ec947ccaf")
-        private SmDependency findDependencyDef(SmObjectImpl object, final String relation) {
-            SmDependency smdep = object.getClassOf().getDependencyDef(relation);
-            
-            if (smdep == null ){
-                // Modelio compatibility : convert to camel case
-                String rel2 = relation.substring(0, 1).toLowerCase()+relation.substring(1);
-                smdep = object.getClassOf().getDependencyDef(rel2);
-            }
-            return smdep;
-        }
-
-        @objid ("2af792a0-3faf-11e2-87cb-001ec947ccaf")
-        public SmObjectImpl getObject() {
-            return this.current;
-        }
-
-        @objid ("2af792a4-3faf-11e2-87cb-001ec947ccaf")
-        @Override
-        public String toString() {
-            return this.current + ", dep="+ this.currentDep + " , size=" + this.currentDepContent.size()+ ", state=" +this.currentstate;
-        }
-
-        /**
-         * Initialize the object data model
-         * @param obj the loaded object
-         * @param isNew <code>true</code> if the object didn't exist in memory.
-         */
-        @objid ("0e2ec301-3fc4-11e2-87cb-001ec947ccaf")
-        public ObjectDataModel(SmObjectImpl obj, boolean isNew) {
-            this.current = obj;
-            this.isNew = isNew;
-        }
-
     }
 
 }

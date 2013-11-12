@@ -49,18 +49,17 @@ public class SwtWizardImport extends AbstractSwtWizardWindow {
     public void validationAction() {
         final File theFile = getFileChooserComposite().getCurrentFile();
         ReverseProperties.getInstance().setFilePath(theFile);
-        path = theFile.getParent();
+        this.path = theFile.getParent();
         if (theFile.exists() && theFile.isFile()) {
             String extension = theFile.getName();
             extension = extension.substring(extension.lastIndexOf("."));
             if (extension.equals(".uml") || extension.equals(".xmi") || extension.equals(".xml")) {
-                //                initTransaction();
                 try(ITransaction t = GProject.getProject(this.selectedElt).getSession().getTransactionSupport().createTransaction("Import") ) {
         
                     this.progressService.busyCursorWhile (new ImportThread(this.shell,
                             getTheProgressBar() ));
                     t.commit();
-                    
+        
                     if (!ReverseProperties.getInstance().getReportModel().isEmpty()){
                         Display.getDefault().asyncExec(new Runnable() {
                             @Override
@@ -68,13 +67,13 @@ public class SwtWizardImport extends AbstractSwtWizardWindow {
                                 ReportManager.showGenerationReport(GenerationProperties.getInstance().getReportModel());
                             }
                         });
-                       
+        
                     }else{
                         completeBox();
                     }        
-                    
+        
                     this.shell.dispose();
-                    
+        
                 } catch (final Exception e) {
                     this.error = true;
                     catchException(e, Xmi.I18N.getString("error.import.uncatchedException"));
@@ -110,12 +109,12 @@ public class SwtWizardImport extends AbstractSwtWizardWindow {
     @Override
     public void setPath() {
         try {         
-            if (path.equals(""))
-                path = ResourceLoader.getInstance().getProjectRoot() + java.io.File.separator + "XMI";
+            if (this.path.equals(""))
+                this.path = ResourceLoader.getInstance().getProjectRoot() + java.io.File.separator + "XMI";
         
-            this.fileChooserComposite.getDialog().setFilterPath(path);       
+            this.fileChooserComposite.getDialog().setFilterPath(this.path);       
             this.fileChooserComposite.getDialog().setFileName("");      
-            this.fileChooserComposite.setText(path);
+            this.fileChooserComposite.setText(this.path);
         } catch (final NoClassDefFoundError e) {       
             this.fileChooserComposite.setText("");
         }
@@ -125,7 +124,7 @@ public class SwtWizardImport extends AbstractSwtWizardWindow {
     @Override
     public void setDefaultDialog() {
         this.fileChooserComposite.getDialog().setFilterNames(new String[] {"All Files (*.xmi; *.uml; *.xml)", "XMI Files (*.xmi)", "UML Files (*.uml)", "XML Files (*.xml)" });
-        this.fileChooserComposite.getDialog().setFilterExtensions(new String[] { "*.xmi; *.uml; *.xml", "*.xmi", "*.uml", "*.xml" });         
+        this.fileChooserComposite.getDialog().setFilterExtensions(new String[] { "*.xmi" + File.pathSeparator +  "*.uml" + File.pathSeparator + "*.xml", "*.xmi", "*.uml", "*.xml" });         
         setPath();
     }
 
@@ -159,15 +158,9 @@ public class SwtWizardImport extends AbstractSwtWizardWindow {
     @objid ("6bb85ce3-50ed-4094-bb7f-f7801e8dd76b")
     private void catchException(final Exception e, final String title) {
         Xmi.LOG.error(Xmi.PLUGIN_ID, e);
-               
-        String text = e.getMessage();
-        
-        for (StackTraceElement elt : e.getStackTrace()){
-            text.concat(elt.toString());
-        }
         
         final String msgTitle = title;
-        final String msg = text;
+        final String msg = e.getClass().getCanonicalName();
         
         Display.getDefault().asyncExec(new Runnable() {
             @Override

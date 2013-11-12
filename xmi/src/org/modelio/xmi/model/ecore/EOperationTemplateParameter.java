@@ -21,21 +21,25 @@
 
 package org.modelio.xmi.model.ecore;
 
-import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.api.modelio.Modelio;
 import org.modelio.metamodel.uml.infrastructure.Element;
+import org.modelio.metamodel.uml.statik.Operation;
 import org.modelio.metamodel.uml.statik.Parameter;
+import org.modelio.metamodel.uml.statik.PassingMode;
+import org.modelio.xmi.plugin.Xmi;
 import org.modelio.xmi.util.IModelerModuleStereotypes;
+import org.modelio.xmi.util.ReverseProperties;
 
 @objid ("b4d93993-9137-414a-acd4-1138fb83a0a0")
-public class EOperationTemplateParameter extends EElement implements IEElement {
+public class EOperationTemplateParameter extends EElement {
     @objid ("c1051335-bb37-4b8f-ae86-31fbab26ede2")
+    @Override
     public Element createObjingElt() {
         Parameter result = Modelio.getInstance().getModelingSession().getModel().createParameter();
         
-            result.getExtension().add(Modelio.getInstance().getModelingSession().getMetamodelExtensions().getStereotype(
-                   IModelerModuleStereotypes.UML2OPERATIONTEMPLATEPARAMETER, result.getMClass()));
+        result.getExtension().add(Modelio.getInstance().getModelingSession().getMetamodelExtensions().getStereotype(
+                IModelerModuleStereotypes.UML2OPERATIONTEMPLATEPARAMETER, result.getMClass()));
         return result;
     }
 
@@ -45,14 +49,30 @@ public class EOperationTemplateParameter extends EElement implements IEElement {
     }
 
     @objid ("c57001e7-335d-4ff2-8870-ec691a4692fa")
+    @Override
     public void attach(Element objingElt) {
-    }
-
-    @objid ("90aa305e-1068-499f-9519-a07fb671022b")
-    public void attach(List<Object> objingElts) {
+        org.eclipse.uml2.uml.Element ecoreOwner = getEcoreElement().getOwner();
+        Element objingOperation = null;
+        try{
+            objingOperation = (Element) ReverseProperties.getInstance()
+                    .getMappedElement(ecoreOwner);
+        }catch (RuntimeException e){
+            Xmi.LOG.error(Xmi.PLUGIN_ID, e);
+        }
+        
+        if (objingOperation instanceof Operation) {
+        
+            ((Operation) objingOperation)
+            .getIO().add((Parameter) objingElt);
+            ((Parameter) objingElt).setParameterPassing(PassingMode.INOUT);
+        
+        }else{
+            objingElt.delete();
+        }
     }
 
     @objid ("4f538376-6ff5-4967-9f49-e50a1085f08b")
+    @Override
     public void setProperties(Element objingElt) {
         super.setProperties(objingElt);
     }

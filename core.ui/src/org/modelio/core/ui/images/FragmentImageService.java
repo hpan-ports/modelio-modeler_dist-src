@@ -33,6 +33,7 @@ import org.eclipse.jface.viewers.DecorationOverlayIcon;
 import org.eclipse.jface.viewers.IDecoration;
 import org.eclipse.swt.graphics.Image;
 import org.modelio.core.ui.plugin.CoreUi;
+import org.modelio.gproject.descriptor.FragmentDescriptor;
 import org.modelio.gproject.descriptor.FragmentType;
 import org.modelio.gproject.fragment.FragmentState;
 import org.modelio.gproject.fragment.IProjectFragment;
@@ -129,6 +130,21 @@ public class FragmentImageService {
                 return FRAG_STATE_UP_LIGHT;
             default:
                 return null;
+        }
+    }
+
+    @objid ("ad06fb79-b76f-410d-9d2a-07f88b769e08")
+    public static Image getImage(FragmentDescriptor fragment) {
+        // null object special case
+        if (fragment == null) {
+            return null;
+        } else {
+            Image image = upImages.get(fragment.getType());
+            if (image == null) {
+                CoreUi.LOG.warning("No image found for fragment type: " + fragment.getType());
+                image = UNDEFINED_FRAGMENT_DOWN_IMAGE;
+            }
+            return image;
         }
     }
 

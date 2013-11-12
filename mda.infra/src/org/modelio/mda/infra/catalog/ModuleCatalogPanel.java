@@ -30,6 +30,7 @@ import java.util.TreeMap;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.jface.viewers.ColumnLabelProvider;
+import org.eclipse.jface.viewers.IDoubleClickListener;
 import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.viewers.TreeViewerColumn;
@@ -311,6 +312,11 @@ public class ModuleCatalogPanel implements IPanelProvider {
     @objid ("9da7101b-a0ce-4bca-94d6-60250b15b8fe")
     public List<IModuleHandle> allModules() {
         return this.controller.allModules();
+    }
+
+    @objid ("e7267829-0dab-405e-8c7c-9df89e929ef9")
+    public void addDoubleClickListener(IDoubleClickListener listener) {
+        this.treeViewer.addDoubleClickListener(listener);
     }
 
     @objid ("231b1002-7740-4497-a09c-0241aa9d061e")

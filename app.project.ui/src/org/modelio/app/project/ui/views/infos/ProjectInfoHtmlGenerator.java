@@ -191,14 +191,14 @@ public class ProjectInfoHtmlGenerator {
         // WorkModels Fragments section
         List<FragmentDescriptor> workModelsFragments = this.projectAdapter.getWorkModelsFragments();
         if (workModelsFragments.size()>0) {            
-            replaceAll(source, "$tbl_workModels_content", createFragmentsTableContent(workModelsFragments));
+            replaceAll(source, "$tbl_workModels_content", createWorkModelsTableContent(workModelsFragments));
         } else {    // Hide container if no WorkModels
             hideContainer(source, "AccordionContainerWorkModels");
         }
         // Libraries Fragments section
         List<FragmentDescriptor> librariesFragments = this.projectAdapter.getLibrariesFragments();
         if (librariesFragments.size()>0) {            
-            replaceAll(source, "$tbl_libraries_content", createFragmentsTableContent(librariesFragments));
+            replaceAll(source, "$tbl_libraries_content", createLibrariesTableContent(librariesFragments));
         } else {    // Hide container if no Libraries
             hideContainer(source, "AccordionContainerLibraries");
         }
@@ -274,12 +274,12 @@ public class ProjectInfoHtmlGenerator {
     }
 
     /**
-     * Create Fragments table content
+     * Create Libraries Fragments table content
      * Columns: Name, Version, Description
      * @param fragments @return
      */
     @objid ("c86615b6-3c1e-4a46-a380-a959070bdf76")
-    private String createFragmentsTableContent(List<FragmentDescriptor> fragments) {
+    private String createLibrariesTableContent(List<FragmentDescriptor> fragments) {
         String content = "";
         for(FragmentDescriptor fragment : fragments) {                              
             content += "<tr>";
@@ -287,11 +287,11 @@ public class ProjectInfoHtmlGenerator {
             String addIconString = "<img src=\"" + getFilePathOf(fIconPath) + "\"> ";
             String fVersion = fragment.getProperties().getValue("FragmentVersion");
             String fDescription = fragment.getProperties().getValue("FragmentDescription");
-            content += "<td>" + addIconString + fragment.getId() + "</td>";
-            content += "<td>" + (fVersion==null?"":fVersion) + "</td>";
-            content += "<td>" + (fDescription==null?"":fDescription) + "</td>";
-            content += "</tr>";           
         
+            content += "<td>"+ addIconString + fragment.getId() + "</td>";
+            content += "<td>" + (fVersion==null?"":fVersion) + "</td>";
+            content += "<td><textarea class='librarieDescriptorTextarea' rows='3' readonly>" + (fDescription==null?"":fDescription) + "</textarea></td>";
+            content += "</tr>";           
         }
         return content;
     }
@@ -356,6 +356,29 @@ public class ProjectInfoHtmlGenerator {
         default:
             return "";
         }
+    }
+
+    /**
+     * Create Work Models Fragments table content
+     * Columns: Name, Type, Uri
+     * @param fragments @return
+     */
+    @objid ("92e163e0-1261-4c31-89f7-c50fe7336aef")
+    private String createWorkModelsTableContent(List<FragmentDescriptor> fragments) {
+        String content = "";
+        for(FragmentDescriptor fragment : fragments) {                              
+            content += "<tr>";
+            String fIconPath = getFragmentIconPath(fragment.getType());
+            String addIconString = "<img src=\"" + getFilePathOf(fIconPath) + "\"> ";
+            boolean isDistance = fragment.getType().equals(FragmentType.EXML_SVN);
+            String fType = isDistance ? AppProjectUi.I18N.getString("ProjectInfoHtmlGenerator.workmodeltype.distant"):AppProjectUi.I18N.getString("ProjectInfoHtmlGenerator.workmodeltype.local");
+            String fUriString = isDistance ? fragment.getUri().toString().replaceAll("%20", " ") : "";
+            content += "<td>" + addIconString + fragment.getId() + "</td>";
+            content += "<td>" + fType + "</td>";
+            content += "<td>" + fUriString + "</td>";
+            content += "</tr>"; 
+        }
+        return content;
     }
 
 }

@@ -87,15 +87,20 @@ public class CreateNLinkCommand extends Command {
     @Override
     public boolean canExecute() {
         // the diagram must be modifiable 
-           if (!MTools.getAuthTool().canModify(this.parentNode.getDiagram().getRelatedElement()))
-               return false;
+        if (!MTools.getAuthTool().canModify(this.parentNode.getDiagram().getRelatedElement()))
+            return false;
         
-           // All sourceNodes must be modifiable.
-           for (IGmLinkable sourceModel : this.sourceModels) {
-               if (!MTools.getAuthTool().canModify(sourceModel.getRelatedElement())) {
-                   return false;
-               }
-           }
+        // Must have at least 3 ends
+        if (this.sourceModels.size() < 3) {
+            return false;
+        }
+        
+        // All sourceNodes must be modifiable.
+        for (IGmLinkable sourceModel : this.sourceModels) {
+            if (!MTools.getAuthTool().canModify(sourceModel.getRelatedElement())) {
+                return false;
+            }
+        }
         return true;
     }
 
@@ -121,7 +126,7 @@ public class CreateNLinkCommand extends Command {
                 role.setSource(el);
                 role.setNaryLink(newAssoc);
                 createdAssocs.add(role);
-                
+        
                 configurer.configure(modelFactory, role, this.context.getProperties());
             }
         
