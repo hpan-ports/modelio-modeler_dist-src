@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.uml.behavior.activityModel;
 
 import java.util.ArrayList;
@@ -41,45 +41,45 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("0033e794-c4bf-1fd8-97fe-001ec947cd2a")
 public class ForkJoinNodeImpl extends ControlNodeImpl implements ForkJoinNode {
-    @objid ("83867a66-0d88-4cc5-8197-ffced8a8febc")
+    @objid ("3c1ffca4-f183-4b57-ac1e-0a863df64b32")
     @Override
     public boolean isIsCombineDuplicate() {
         return (Boolean) getAttVal(ForkJoinNodeData.Metadata.IsCombineDuplicateAtt());
     }
 
-    @objid ("4473ab55-f3e0-4dd6-8f93-ae691751a797")
+    @objid ("461cf912-7e36-4316-9d7f-f4f2bf7fbb8e")
     @Override
     public void setIsCombineDuplicate(boolean value) {
         setAttVal(ForkJoinNodeData.Metadata.IsCombineDuplicateAtt(), value);
     }
 
-    @objid ("3b4ce674-9283-42eb-994c-ce93caacb897")
+    @objid ("16f3da7c-3779-4d2e-9aab-010c1d517323")
     @Override
     public String getJoinSpec() {
         return (String) getAttVal(ForkJoinNodeData.Metadata.JoinSpecAtt());
     }
 
-    @objid ("880dd587-40d9-44f8-bb13-836e1ae7b8de")
+    @objid ("a508fdcd-d3b7-4c03-8fba-c0c7b5f66d23")
     @Override
     public void setJoinSpec(String value) {
         setAttVal(ForkJoinNodeData.Metadata.JoinSpecAtt(), value);
     }
 
-    @objid ("00595c59-d55d-4be9-b85b-57f57b8bf85b")
+    @objid ("86dddd63-52f1-455a-8200-e9856381e132")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("2dda2d8c-a245-44b9-acab-b6086bd43b51")
+    @objid ("8c3ce4ec-804e-4694-8be2-30ab39ccb3d7")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("f20bc4e7-8ff6-4750-a725-6671dc7e46fb")
+    @objid ("7daba37c-a914-4a6e-a2fd-1f8ff386ab90")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitForkJoinNode(this);

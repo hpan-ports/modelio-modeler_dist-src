@@ -106,21 +106,24 @@ public class NodeEditPart extends AbstractGraphicalEditPart implements org.eclip
         Label label = (Label) fig.getChildren().get(0);
         Label tooltip = (Label) label.getToolTip();
         
-        label.setIcon(ElementImageService.getIcon(model.getData()));
         if (model.getData() instanceof NamespaceUse) {
             NamespaceUse use = (NamespaceUse) model.getData();
+            String userName = use.getUser() != null ? use.getUser().getName() : "";
+            String usedName = use.getUsed() != null ? use.getUsed().getName() : "";
             label.setText(LinkEditor.I18N.getMessage("Gui.Content.NameSpaceUse.label",
-                                                     use.getUser().getName(),
-                                                     use.getUsed().getName()));
+                                                     userName,
+                                                     usedName));
             tooltip.setText(LinkEditor.I18N.getMessage("Gui.Content.NameSpaceUse.tooltip",
-                                                       use.getUser().getName(),
-                                                       use.getUsed().getName()));
-        } else {
+                                                       userName,
+                                                       usedName));
+            label.setIcon(ElementImageService.getIcon(model.getData()));
+        } else if (model.getData() != null) {
             label.setText(model.getData().getName());
+            label.setIcon(ElementImageService.getIcon(model.getData()));
             tooltip.setText(model.getData().getName());
         }
         
-        if (model.getData().isShell()) {
+        if (model.getData() == null || model.getData().isShell()) {
             label.setForegroundColor(UIColor.SHELL_ELEMENT);
         } else {
             label.setForegroundColor(Display.getDefault().getSystemColor(model.isCentral() ? (hasFocus ? SWT.COLOR_LIST_SELECTION_TEXT : SWT.COLOR_LIST_FOREGROUND) : SWT.COLOR_LIST_FOREGROUND));

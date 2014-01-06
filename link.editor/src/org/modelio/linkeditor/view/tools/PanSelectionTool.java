@@ -71,11 +71,11 @@ public class PanSelectionTool extends SelectionTool {
     @objid ("1bb75774-5e33-11e2-b81d-002564c97630")
     protected static final int WORKAREA_RESIZE_INCREMENT = 40;
 
-    @objid ("e96e6ec9-a6b2-4b3d-8202-2fc5f9669a8e")
-    private IModelioNavigationService navigationService;
-
-    @objid ("d8b3cfc7-a84b-4296-b4e4-a862256b938f")
+    @objid ("a980f84d-66f3-4e88-a7ed-eca6c7c85bbb")
     private Point viewLocation;
+
+    @objid ("c726ed4e-d28a-409b-a0d3-1366fd4de15a")
+    private IModelioNavigationService navigationService;
 
     /**
      * @see org.eclipse.gef.tools.AbstractTool#getDebugName()
@@ -220,7 +220,7 @@ public class PanSelectionTool extends SelectionTool {
         return super.handleFocusLost();
     }
 
-    @objid ("f4be44dc-add1-4299-a8df-00bdefba9fe6")
+    @objid ("cfd08ae1-1be6-4bdd-b882-5ca78c02a142")
     public PanSelectionTool(IModelioNavigationService navigationService) {
         this.navigationService = navigationService;
     }

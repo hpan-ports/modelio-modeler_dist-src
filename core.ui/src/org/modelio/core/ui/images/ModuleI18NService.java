@@ -549,6 +549,12 @@ public class ModuleI18NService {
             return new LicenseInfos(Status.UNDEFINED, null, "");
         }
 
+        @objid ("247c6cbb-4590-46d9-af79-ac1841fb293c")
+        @Override
+        public <I> I instanciateExternProcessor(String className, Class<I> clazz, Object... initargs) {
+            return null;
+        }
+
     }
 
 }

@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.bpmn.rootElements;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
@@ -33,22 +33,22 @@ import org.modelio.metamodel.bpmn.processCollaboration.BpmnProcess;
 
 @objid ("00787d78-c4bf-1fd8-97fe-001ec947cd2a")
 public interface BpmnArtifact extends BpmnBaseElement {
-    @objid ("f0d719a9-3c66-42fd-9bf4-9d4c08064525")
+    @objid ("dc432c0c-a268-4bbb-8461-e339d581b219")
     BpmnSubProcess getSubProcess();
 
-    @objid ("a4305e48-9a4f-46ef-abb9-8427a356e861")
+    @objid ("52d904e7-a553-4146-b2f3-fae8f1681781")
     void setSubProcess(BpmnSubProcess value);
 
-    @objid ("a3a81499-0e43-46d3-aff0-bbabed24d1b6")
+    @objid ("bc96f9db-9ba6-4eff-ae81-20d162511fbe")
     BpmnCollaboration getCollaboration();
 
-    @objid ("909ba307-7e46-4ebc-8f5a-ee28d55f100f")
+    @objid ("325b8151-8680-4457-8683-389ad07bad01")
     void setCollaboration(BpmnCollaboration value);
 
-    @objid ("204fe2e6-0114-4608-926c-a625a135b16d")
+    @objid ("59fd49df-d655-4ac5-a6fe-41cafec596bd")
     BpmnProcess getProcess();
 
-    @objid ("cf9afdfd-5046-4970-9b98-2fb23d1a08e9")
+    @objid ("8199e43f-5a95-4379-b484-00b60862c859")
     void setProcess(BpmnProcess value);
 
 }

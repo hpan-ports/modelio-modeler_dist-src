@@ -46,14 +46,14 @@ public class EllipseFigure extends ShapedFigure {
     @objid ("8130347d-1e83-11e2-8cad-001ec947c8cc")
     private String label = null;
 
-    @objid ("b233a626-dbdc-4ff7-901f-82e5093450b2")
-    private Font textFont = null;
-
-    @objid ("e27114fe-fe32-485a-82d6-ffccb351b989")
-    private Dimension textSize = null;
-
     @objid ("7f77778f-1dec-11e2-8cad-001ec947c8cc")
     private ShapedBorder shapedBorder;
+
+    @objid ("a3cbe549-34d1-4bc5-ad7a-8fa3e52677c0")
+    private Font textFont = null;
+
+    @objid ("c639136c-36fa-4f68-861e-fb7594816904")
+    private Dimension textSize = null;
 
     /**
      * Initialize the figure.
@@ -144,7 +144,7 @@ public class EllipseFigure extends ShapedFigure {
             if (this.textSize == null)
                 computeFont(getClientArea());
         
-            Dimension delta = getBounds().getSize().getDifference(this.textSize).scale(0.5);
+            Dimension delta = getBounds().getSize().getShrinked(this.textSize).scale(0.5);
             Point textLocation = getBounds().getLocation().translate(delta);
         
             graphics.setFont(this.textFont);

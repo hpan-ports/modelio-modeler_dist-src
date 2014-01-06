@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.uml.infrastructure;
 
 import java.util.List;
@@ -34,28 +34,28 @@ import org.modelio.metamodel.uml.infrastructure.TagType;
 
 @objid ("0090006a-c4be-1fd8-97fe-001ec947cd2a")
 public interface TaggedValue extends ModelElement {
-    @objid ("f73cd93e-cb24-4434-9b28-e747ead498eb")
+    @objid ("63899e5c-8fa2-45de-a3d2-6ebfee779f37")
     ModelElement getAnnoted();
 
-    @objid ("661918e0-1ae2-42ec-8d28-86f1ebc9687f")
+    @objid ("3f9fb736-241b-43a9-ba6d-ab92ce7c02bb")
     void setAnnoted(ModelElement value);
 
-    @objid ("c339f328-017b-4ed6-80c1-ff2fd0071e6f")
+    @objid ("1657f2d0-0de4-49aa-93f5-dd5743876333")
     EList<TagParameter> getActual();
 
-    @objid ("632bae14-fd71-407d-8072-bf685b025585")
+    @objid ("4dccc81e-c16e-4911-bc89-8263ca14fc68")
     <T extends TagParameter> List<T> getActual(java.lang.Class<T> filterClass);
 
-    @objid ("2156a976-1f85-4362-9470-c004989a9a28")
+    @objid ("ec369ba8-bf2f-43ec-8f39-32cb8a6442b3")
     TagParameter getQualifier();
 
-    @objid ("fbae435d-0a2d-40c6-b0a6-8e92ba32999c")
+    @objid ("89b42395-2edd-4d22-ac6e-eb5f7485f326")
     void setQualifier(TagParameter value);
 
-    @objid ("6ee3096f-70d1-47fc-9ea1-76e2b6ba644a")
+    @objid ("21c5c5f7-dc3f-4ab6-a3f6-9815f66bc51f")
     TagType getDefinition();
 
-    @objid ("06803779-5494-4eb6-bbf9-1367d3a0fba2")
+    @objid ("7bb211aa-f088-4f96-ba66-78e534065afd")
     void setDefinition(TagType value);
 
 }

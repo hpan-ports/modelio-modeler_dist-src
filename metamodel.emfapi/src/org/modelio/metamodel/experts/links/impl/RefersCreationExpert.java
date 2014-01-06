@@ -32,14 +32,14 @@ import org.modelio.vcore.smkernel.mapi.MObject;
 public class RefersCreationExpert extends DefaultLinkExpert {
     @objid ("334d2f8c-30bf-41b1-9ffa-243f3881c4c4")
     @Override
-    public boolean canLink(MObject link, final MObject fromElement, final MObject toElement, final MObject linkOwner) {
+    public boolean canLink(MClass link, final MObject fromElement, final MObject toElement) {
         return (fromElement instanceof BusinessRule) &&
                (toElement instanceof Term);
     }
 
     @objid ("2c5a8a45-67d6-4faf-a861-a4e0d485cc11")
     @Override
-    public boolean canLink(MClass link, final MClass fromMetaclass, final MClass toMetaclass, final MClass owner) {
+    public boolean canLink(MClass link, final MClass fromMetaclass, final MClass toMetaclass) {
         return fromMetaclass.hasBase(Metamodel.getMClass(BusinessRule.class)) &&
                toMetaclass.hasBase(Metamodel.getMClass(Term.class));
     }

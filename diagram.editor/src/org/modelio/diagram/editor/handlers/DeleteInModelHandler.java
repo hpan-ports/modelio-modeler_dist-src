@@ -35,16 +35,21 @@ import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.RequestConstants;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.commands.CompoundCommand;
+import org.eclipse.gef.commands.UnexecutableCommand;
 import org.eclipse.gef.requests.GroupRequest;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.modelio.diagram.elements.common.abstractdiagram.AbstractDiagramEditPart;
 import org.modelio.diagram.elements.core.commands.DeleteInModelCommand;
 import org.modelio.diagram.elements.core.model.GmModel;
+import org.modelio.diagram.elements.drawings.core.IGmDrawing;
 import org.modelio.vcore.smkernel.mapi.MObject;
 
 /**
  * Handler for the delete model element command.
+ * <p>
+ * Deletes the model element represented by the selected diagram elements.
+ * Masks graphic elements that does not represent a model element.
  * 
  * @author cmarin
  */
@@ -52,26 +57,46 @@ import org.modelio.vcore.smkernel.mapi.MObject;
 public class DeleteInModelHandler {
     @objid ("65afb5f8-33f7-11e2-95fe-001ec947c8cc")
     @Execute
-    public Object execute(@Named(IServiceConstants.ACTIVE_SELECTION) ISelection selection) {
+    public void execute(@Named(IServiceConstants.ACTIVE_SELECTION) ISelection selection) {
+        List<GraphicalEditPart> selected = getSelectedEditParts(selection);
+        
+        if (selected.isEmpty())
+            return;
+        
+        Command compound = buildCommand(selected);
+        
+        // Execute the delete and mask commands
+        if (compound.canExecute()) {
+            EditDomain editDomain = selected.get(0).getViewer().getEditDomain();
+            editDomain.getCommandStack().execute(compound);
+        }
+    }
+
+    @objid ("7a33f504-5e25-11e2-a8be-00137282c51b")
+    @CanExecute
+    public boolean canExecute(@Named(IServiceConstants.ACTIVE_SELECTION) ISelection selection) {
+        List<GraphicalEditPart> selected = getSelectedEditParts(selection);
+        
+        final Command buildCommand = buildCommand(selected);
+        return !selected.isEmpty() && buildCommand.canExecute();
+    }
+
+    @objid ("4042b31f-5c31-4215-ab55-b47fb5ed9c2a")
+    private List<GraphicalEditPart> getSelectedEditParts(ISelection selection) {
         List<GraphicalEditPart> selected = new ArrayList<>();
         
         if (selection instanceof IStructuredSelection) {
             for (Object selectedObject : ((IStructuredSelection) selection).toList()) {
-                if (selectedObject instanceof GraphicalEditPart) {
+                if (selectedObject instanceof GraphicalEditPart && ! (selectedObject instanceof AbstractDiagramEditPart)) {
                     selected.add((GraphicalEditPart) selectedObject);
                 }
             }
         }
-        
-        deleteRepresentedElements(selected);
-        return null;
+        return selected;
     }
 
-    @objid ("65afb608-33f7-11e2-95fe-001ec947c8cc")
-    void deleteRepresentedElements(List<GraphicalEditPart> selected) {
-        if (selected.isEmpty())
-            return;
-        
+    @objid ("efc3ca81-adf5-4130-a7b6-80f811f2a8e3")
+    private Command buildCommand(List<GraphicalEditPart> selected) {
         CompoundCommand compound = new CompoundCommand("Delete");
         
         // Get the model elements to delete or to mask
@@ -81,6 +106,9 @@ public class DeleteInModelHandler {
             final Object model = editPart.getModel();
             if (model instanceof GmModel) {
                 final GmModel gmModel = (GmModel) model;
+                if (! gmModel.getDiagram().isEditable())
+                    return UnexecutableCommand.INSTANCE;
+                
                 final MObject el = gmModel.getRelatedElement();
                 if (el == null) {
                     // This is probably a ghost, we need to mask it
@@ -89,6 +117,8 @@ public class DeleteInModelHandler {
                 if (el != null && !toDelete.contains(el)) {
                     toDelete.add(el);
                 }
+            } else if (model instanceof IGmDrawing) {
+                toMask.add(editPart);
             }
         }
         
@@ -118,26 +148,7 @@ public class DeleteInModelHandler {
                 }
             }
         }
-        
-        // Execute the delete and mask commands
-        if (compound.canExecute()) {
-            EditDomain editDomain = selected.get(0).getViewer().getEditDomain();
-            editDomain.getCommandStack().execute(compound);
-        }
-    }
-
-    @objid ("7a33f504-5e25-11e2-a8be-00137282c51b")
-    @CanExecute
-    public boolean canExecute(@Named(IServiceConstants.ACTIVE_SELECTION) ISelection selection) {
-        List<GraphicalEditPart> selected = new ArrayList<>();
-        if (selection instanceof IStructuredSelection) {
-            for (Object selectedObject : ((IStructuredSelection) selection).toList()) {
-                if (selectedObject instanceof GraphicalEditPart && !(selectedObject instanceof AbstractDiagramEditPart)) {
-                    selected.add((GraphicalEditPart) selectedObject);
-                }
-            }
-        }
-        return !selected.isEmpty();
+        return compound.unwrap();
     }
 
 }

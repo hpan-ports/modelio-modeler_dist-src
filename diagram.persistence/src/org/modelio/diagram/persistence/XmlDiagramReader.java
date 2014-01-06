@@ -472,7 +472,7 @@ public class XmlDiagramReader implements IDiagramReader {
         } else if (type.equals("AbsoluteBendpoint")) {
             return XmlDiagramReader.convertToAbsoluteBendpoint(val);
         } else if (type.equals("String")) {
-            return val;
+            return val + getTextNodes(el);
         } else if (type.equals("Integer")) {
             return Integer.valueOf(val);
         } else if (type.equals("Color")) {
@@ -567,6 +567,20 @@ public class XmlDiagramReader implements IDiagramReader {
             return ret;
         else
             return Collections.emptyList();
+    }
+
+    @objid ("83462b50-099f-43ca-b903-0cb155e015d9")
+    private String getTextNodes(Element el) {
+        NodeList childrenNodes = el.getChildNodes();
+        StringBuilder s = new StringBuilder();
+        
+        for (int i = 0; i < childrenNodes.getLength(); i++) {
+            Node n = childrenNodes.item(i);
+            if (n.getNodeType() == Node.TEXT_NODE || n.getNodeType() == Node.CDATA_SECTION_NODE) {
+                s.append(n.getNodeValue());
+            }
+        }
+        return s.toString();
     }
 
     /**

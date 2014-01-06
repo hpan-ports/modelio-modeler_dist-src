@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.uml.behavior.interactionModel;
 
 import java.util.List;
@@ -36,34 +36,34 @@ import org.modelio.metamodel.uml.statik.Instance;
 
 @objid ("0048b5b6-c4bf-1fd8-97fe-001ec947cd2a")
 public interface Lifeline extends ModelElement {
-    @objid ("f41dcc40-fc7e-4b45-a6ee-9dafd2df56e5")
+    @objid ("62d895af-bbf2-47d2-a348-704b59e142dd")
     String getSelector();
 
-    @objid ("f0321c04-704e-4709-b71b-189e7382ec9e")
+    @objid ("d0cdb3ef-edbb-49d7-9b3c-ac0620659fb3")
     void setSelector(String value);
 
-    @objid ("14299b56-3301-4653-b722-495c1956b6ac")
+    @objid ("c3754865-68c1-4d44-a083-6e510f109147")
     EList<InteractionFragment> getCoveredBy();
 
-    @objid ("a9f1c8d3-70d3-49bb-86d4-7239820a8ad7")
+    @objid ("a1d4f2c8-2492-48f2-abf3-28cd72d59041")
     <T extends InteractionFragment> List<T> getCoveredBy(java.lang.Class<T> filterClass);
 
-    @objid ("f7989a64-393d-4fb0-94a4-b4dfc353917a")
+    @objid ("6c664742-c0b2-413e-8f87-8fd9c45ad0b9")
     PartDecomposition getDecomposedAs();
 
-    @objid ("0f214c5e-c842-47fa-ad04-122d25b37471")
+    @objid ("60d0c7a1-4873-4bcb-945d-ae8d0a264f34")
     void setDecomposedAs(PartDecomposition value);
 
-    @objid ("6e8fd9ed-b541-4787-9c3f-0a86dbce3028")
+    @objid ("989b6a55-0f0a-426a-a774-87bf55654516")
     Interaction getOwner();
 
-    @objid ("3d6cfb89-df2f-4d65-a726-2bedefb9e87c")
+    @objid ("d5a779f4-500f-4437-93de-1e301c2e1637")
     void setOwner(Interaction value);
 
-    @objid ("5659aeba-7d25-49d7-926b-0153b373bce7")
+    @objid ("e0af9383-56e8-43dd-a61e-b8636146017d")
     Instance getRepresented();
 
-    @objid ("06082c38-d45f-4a82-aeba-1feabd4b43a4")
+    @objid ("e34c53c2-00fa-403a-85c7-1f8b5940d2f3")
     void setRepresented(Instance value);
 
 }

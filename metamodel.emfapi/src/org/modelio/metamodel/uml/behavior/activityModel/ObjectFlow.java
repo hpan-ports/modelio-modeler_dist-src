@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.uml.behavior.activityModel;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
@@ -31,34 +31,34 @@ import org.modelio.metamodel.uml.behavior.activityModel.ObjectFlowEffectKind;
 
 @objid ("00388c90-c4bf-1fd8-97fe-001ec947cd2a")
 public interface ObjectFlow extends ActivityEdge {
-    @objid ("86c2109a-3b5e-4b0f-a385-bb8cdf40d651")
+    @objid ("60b48bb2-dff2-4ef6-a8f8-34c9f96ae344")
     String getTransformationBehavior();
 
-    @objid ("79b0509a-4e69-4cf6-a7a5-4e5a997535df")
+    @objid ("5b761fe9-8e99-460f-abc7-5e93baa7572f")
     void setTransformationBehavior(String value);
 
-    @objid ("ce308d31-28cf-442c-af8e-930fbdc071a6")
+    @objid ("ca0bfe5d-8097-4e18-a66f-ff9918586016")
     String getSelectionBehavior();
 
-    @objid ("b065e0b4-1eb5-47a7-875b-029f38ea0ad2")
+    @objid ("0c85e672-94a1-4117-896e-f61f284a886a")
     void setSelectionBehavior(String value);
 
-    @objid ("dc8e7536-5427-4751-a26c-32f6bd58d93e")
+    @objid ("cf54cbd3-cd65-4c48-851d-3597e96b1458")
     boolean isIsMultiCast();
 
-    @objid ("c3ea829f-d2a1-49fa-b6b2-6a1d004d00a0")
+    @objid ("b8648cb5-b36a-4a6b-9628-5405283dba70")
     void setIsMultiCast(boolean value);
 
-    @objid ("b660e81b-b06a-4fd9-8e26-c4dbc46464b2")
+    @objid ("beb9583f-7b61-4244-a407-5d9b5b50b8de")
     boolean isIsMultiReceive();
 
-    @objid ("fecc1e21-2ff5-4307-a6d2-6b255b20a5e7")
+    @objid ("8caffe89-4002-4e7b-b78d-1a8514981a24")
     void setIsMultiReceive(boolean value);
 
-    @objid ("4ea82880-ae28-4f09-86da-980ca37917db")
+    @objid ("4978c557-2752-413f-8ddb-13a46081bf6f")
     ObjectFlowEffectKind getEffect();
 
-    @objid ("1e148ee2-3e91-4c84-a826-ecf9f637604d")
+    @objid ("0778f060-b472-4dbf-80d7-6845fcb432b7")
     void setEffect(ObjectFlowEffectKind value);
 
 }

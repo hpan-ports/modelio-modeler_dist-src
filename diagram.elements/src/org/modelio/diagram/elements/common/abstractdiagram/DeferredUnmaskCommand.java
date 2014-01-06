@@ -43,9 +43,6 @@ import org.modelio.vcore.smkernel.mapi.MRef;
  */
 @objid ("7e0d121b-1dec-11e2-8cad-001ec947c8cc")
 public class DeferredUnmaskCommand extends Command {
-    @objid ("e75b8842-38e6-4401-aa7c-d5d9b0453222")
-    private final Point dropLocation;
-
     @objid ("7e0d121f-1dec-11e2-8cad-001ec947c8cc")
     private final MObject parent;
 
@@ -54,6 +51,9 @@ public class DeferredUnmaskCommand extends Command {
 
     @objid ("7e0d1223-1dec-11e2-8cad-001ec947c8cc")
     private final AbstractDiagramEditPart diagramEditPart;
+
+    @objid ("39bed0bb-7429-4ca8-8207-d9cbcb6fa839")
+    private final Point dropLocation;
 
     /**
      * C'tor.

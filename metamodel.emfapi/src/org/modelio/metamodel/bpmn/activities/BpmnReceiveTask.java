@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.bpmn.activities;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
@@ -33,34 +33,34 @@ import org.modelio.metamodel.uml.statik.Operation;
 
 @objid ("008180d0-c4bf-1fd8-97fe-001ec947cd2a")
 public interface BpmnReceiveTask extends BpmnTask {
-    @objid ("8d77fd65-0bf9-4c3b-96ca-e01c62fb717e")
+    @objid ("3f59aee1-d922-49a1-b536-ff10e0cef9c0")
     String getImplementation();
 
-    @objid ("478d719f-b3ea-4cb9-902f-e595a151bcb7")
+    @objid ("9bbc8163-f82b-4be0-852a-3b9b957f5a84")
     void setImplementation(String value);
 
-    @objid ("20e6518a-f3a3-486f-a403-28eca8a72317")
+    @objid ("a064c7a6-e7af-4ff1-8624-21968aaace21")
     boolean isInstanciate();
 
-    @objid ("30c55bcd-ee2f-42fd-8a8f-d5ad7cb7fa66")
+    @objid ("cb9ad704-1481-4b18-bd9b-f3534d02f6d5")
     void setInstanciate(boolean value);
 
-    @objid ("e42492ac-7acf-4191-a22f-51a9f35c9f35")
+    @objid ("713afd65-e1a3-45e6-aefb-5a0e29431fdc")
     BpmnMessage getMessageRef();
 
-    @objid ("6dd9db94-ee60-4533-955e-264409238841")
+    @objid ("c80800c5-0eaf-467c-8805-228fb8716476")
     void setMessageRef(BpmnMessage value);
 
-    @objid ("f5beeee0-014e-4f45-a38c-d5b4eddc1605")
+    @objid ("d8325595-cc66-425c-8d45-4c0d6a5c5056")
     BpmnOperation getOperationRef();
 
-    @objid ("f245b8d4-b569-4c67-aaeb-80ff101730a4")
+    @objid ("906f18ee-b5a2-4370-8bea-e569f0989529")
     void setOperationRef(BpmnOperation value);
 
-    @objid ("e07a8a3c-4bc2-47cb-a402-d36847c74af5")
+    @objid ("00aa4f27-cd21-41fd-892d-69a980d9b1c2")
     Operation getCalledOperation();
 
-    @objid ("7247c3af-d157-4ebc-aedb-f3789be29ded")
+    @objid ("00bc742e-959e-466b-a32e-eaeaa2434565")
     void setCalledOperation(Operation value);
 
 }

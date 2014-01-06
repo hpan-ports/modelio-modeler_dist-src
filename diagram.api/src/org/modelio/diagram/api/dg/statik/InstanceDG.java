@@ -59,13 +59,13 @@ public class InstanceDG extends PortContainerDG {
         // AttributeLink
         GmCompositeNode attributeLinkZone = mainNode.getCompositeFor(AttributeLink.class);
         if (attributeLinkZone != null) {
-            nodes.addAll(DGFactory.getInstance().getDiagramNodes(this.diagramHandle, attributeLinkZone.getChildren()));
+            nodes.addAll(DGFactory.getInstance().getDiagramNodes(this.diagramHandle, attributeLinkZone.getVisibleChildren()));
         }
         
         // BindableInstance
         GmCompositeNode bindableInstanceZone = mainNode.getCompositeFor(BindableInstance.class);
         if (bindableInstanceZone != null) {
-            nodes.addAll(DGFactory.getInstance().getDiagramNodes(this.diagramHandle, bindableInstanceZone.getChildren()));
+            nodes.addAll(DGFactory.getInstance().getDiagramNodes(this.diagramHandle, bindableInstanceZone.getVisibleChildren()));
         }
         return nodes;
     }

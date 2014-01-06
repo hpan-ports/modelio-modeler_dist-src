@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.data.uml.statik;
 
 import java.util.ArrayList;
@@ -48,78 +48,78 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("00768072-17e8-10a1-88a0-001ec947cd2a")
 @SmaMetaClass(mmClass=NaryLinkEnd.class, factory=NaryLinkEndData.Metadata.ObjectFactory.class)
 public class NaryLinkEndData extends ModelElementData {
-    @objid ("041825b0-60e3-4dec-973b-7cbcda178077")
+    @objid ("cce4fe84-e459-4e1a-9793-f599a5e2dfbb")
     @SmaMetaAttribute(metaName="IsOrdered", type=Boolean.class, smAttributeClass=Metadata.IsOrderedSmAttribute.class)
      Object mIsOrdered = false;
 
-    @objid ("891e4b6f-1049-41e2-b3ae-30ee0b7a9767")
+    @objid ("bfbf75cb-5dd1-4bae-aa05-481f96c31085")
     @SmaMetaAttribute(metaName="IsUnique", type=Boolean.class, smAttributeClass=Metadata.IsUniqueSmAttribute.class)
      Object mIsUnique = false;
 
-    @objid ("86a52cdf-1c35-491e-bf8d-86fb28a27623")
+    @objid ("4265f496-4d0f-4201-9179-bd8054ae30e2")
     @SmaMetaAttribute(metaName="MultiplicityMax", type=String.class, smAttributeClass=Metadata.MultiplicityMaxSmAttribute.class)
      Object mMultiplicityMax = "1";
 
-    @objid ("cae84cbb-ad1f-4d2d-baf8-b86954268644")
+    @objid ("4f89fe70-81a8-48ed-8d36-c88774243316")
     @SmaMetaAttribute(metaName="MultiplicityMin", type=String.class, smAttributeClass=Metadata.MultiplicityMinSmAttribute.class)
      Object mMultiplicityMin = "0";
 
-    @objid ("65048148-6fcc-4988-9ae8-92af6fd7c7ce")
+    @objid ("d091e582-fa67-45a8-90ee-b05ed8a71f91")
     @SmaMetaAssociation(metaName="Source", typeDataClass=InstanceData.class, min=1, max=1, smAssociationClass=Metadata.SourceSmDependency.class)
      SmObjectImpl mSource;
 
-    @objid ("386a2ecb-6441-424a-9523-f3cd77bb7147")
+    @objid ("1ec771c8-d12f-4bb6-96ab-f17594763ba5")
     @SmaMetaAssociation(metaName="NaryLink", typeDataClass=NaryLinkData.class, min=0, max=1, smAssociationClass=Metadata.NaryLinkSmDependency.class, sharedComponent = true)
      SmObjectImpl mNaryLink;
 
-    @objid ("92dab7dc-8e8d-4781-877f-fa673ccebcdf")
+    @objid ("2f4677f3-3cb0-4519-8476-6f79cb712f31")
     @SmaMetaAssociation(metaName="Consumer", typeDataClass=RequiredInterfaceData.class, min=0, max=1, smAssociationClass=Metadata.ConsumerSmDependency.class, partof = true)
      SmObjectImpl mConsumer;
 
-    @objid ("6bcbcd5e-173d-49d7-971d-f1b6c44683be")
+    @objid ("236e0f27-8650-4ff8-8719-033c91f7ac92")
     @SmaMetaAssociation(metaName="Provider", typeDataClass=ProvidedInterfaceData.class, min=0, max=1, smAssociationClass=Metadata.ProviderSmDependency.class, partof = true)
      SmObjectImpl mProvider;
 
-    @objid ("922b3d83-f425-4d6a-8946-1710270c2bbd")
+    @objid ("c4e8ea18-8db9-4958-aa80-7ad13ea7ed30")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("00278b02-17f2-10a1-88a0-001ec947cd2a")
     public static class Metadata {
-        @objid ("e564bdbb-8de6-4f1f-b9bb-580f063f87e7")
+        @objid ("aedb4480-1f5f-404f-917a-da4c8b21bfd9")
         private static SmClass smClass = null;
 
-        @objid ("481b693d-2894-41b4-a02c-1185d4f6a569")
+        @objid ("5839d7ff-d6f5-467d-85ee-2037c788856c")
         private static SmAttribute IsOrderedAtt = null;
 
-        @objid ("cca38ef5-abb9-4b7e-989d-4c7af0f775de")
+        @objid ("44cf5dea-b421-4350-870b-f03fd4c05038")
         private static SmAttribute IsUniqueAtt = null;
 
-        @objid ("4a4a6d82-5956-488e-ba46-9cc57e6fd8bd")
+        @objid ("71432fd3-9ab2-4f88-bc0f-2c85b4b56fe8")
         private static SmAttribute MultiplicityMaxAtt = null;
 
-        @objid ("ad0011a9-e527-4387-8ba2-91b8e6bdbba3")
+        @objid ("4f2f5df2-f309-4926-a516-562ca4557fe6")
         private static SmAttribute MultiplicityMinAtt = null;
 
-        @objid ("5fd29e7d-383b-424b-b686-2497345a5dd1")
+        @objid ("f41f9b88-0a90-4d1a-a0c3-096075837435")
         private static SmDependency SourceDep = null;
 
-        @objid ("9f00ccbb-6e35-4219-be45-e8d13060263a")
+        @objid ("ce418234-e6e7-4d04-8a06-ed43e352e94f")
         private static SmDependency NaryLinkDep = null;
 
-        @objid ("0fb96b93-628d-41b4-b827-0380bf56b76a")
+        @objid ("54623587-b1e7-416b-962e-bc8ecee7a684")
         private static SmDependency ConsumerDep = null;
 
-        @objid ("c9b7cc4a-204f-4444-84a5-ed7aadce0d74")
+        @objid ("f69a3374-ad10-455b-931c-f021e3be148d")
         private static SmDependency ProviderDep = null;
 
-        @objid ("151bcf3c-0ca2-4bee-866f-30b887e25005")
+        @objid ("67cd1ea7-73f4-47e7-bcbf-a785c40c37ac")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(NaryLinkEndData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("d9f25232-d84a-4ddf-9435-2e3570681b8c")
+        @objid ("74b814a7-d04b-4ad9-b10f-c4fe4e4f1adc")
         public static SmAttribute IsOrderedAtt() {
             if (IsOrderedAtt == null) {
             	IsOrderedAtt = classof().getAttributeDef("IsOrdered");
@@ -127,7 +127,7 @@ public class NaryLinkEndData extends ModelElementData {
             return IsOrderedAtt;
         }
 
-        @objid ("87516784-bddb-45e2-9272-19476eb43c82")
+        @objid ("74b9cd07-d5e9-4e51-9e88-fad2ce70be15")
         public static SmAttribute IsUniqueAtt() {
             if (IsUniqueAtt == null) {
             	IsUniqueAtt = classof().getAttributeDef("IsUnique");
@@ -135,7 +135,7 @@ public class NaryLinkEndData extends ModelElementData {
             return IsUniqueAtt;
         }
 
-        @objid ("2b431727-55dd-4ba7-9871-bd022e05d0fd")
+        @objid ("f3e03463-0187-4df9-a94b-cb8ee944e12c")
         public static SmAttribute MultiplicityMaxAtt() {
             if (MultiplicityMaxAtt == null) {
             	MultiplicityMaxAtt = classof().getAttributeDef("MultiplicityMax");
@@ -143,7 +143,7 @@ public class NaryLinkEndData extends ModelElementData {
             return MultiplicityMaxAtt;
         }
 
-        @objid ("dbf43b5f-fb84-4eae-bf4a-64d59aa97bdb")
+        @objid ("9c649090-4983-4a2a-8b7f-3323e89ebc03")
         public static SmAttribute MultiplicityMinAtt() {
             if (MultiplicityMinAtt == null) {
             	MultiplicityMinAtt = classof().getAttributeDef("MultiplicityMin");
@@ -151,7 +151,7 @@ public class NaryLinkEndData extends ModelElementData {
             return MultiplicityMinAtt;
         }
 
-        @objid ("e93a04cb-2b02-4632-9a3c-29e2986058fd")
+        @objid ("f0a7940d-612b-49fa-b73b-2db3e93493ca")
         public static SmDependency SourceDep() {
             if (SourceDep == null) {
             	SourceDep = classof().getDependencyDef("Source");
@@ -159,7 +159,7 @@ public class NaryLinkEndData extends ModelElementData {
             return SourceDep;
         }
 
-        @objid ("dfad036d-e2a9-4e56-bb93-c16c36f96af7")
+        @objid ("1cdb49ef-1d62-43c2-b8a0-ca35321507f1")
         public static SmDependency NaryLinkDep() {
             if (NaryLinkDep == null) {
             	NaryLinkDep = classof().getDependencyDef("NaryLink");
@@ -167,7 +167,7 @@ public class NaryLinkEndData extends ModelElementData {
             return NaryLinkDep;
         }
 
-        @objid ("76c98a6d-476f-4c53-ad75-f4b0b4b3dc1a")
+        @objid ("d54b583f-7ec6-4eb2-9907-63e61945f776")
         public static SmDependency ConsumerDep() {
             if (ConsumerDep == null) {
             	ConsumerDep = classof().getDependencyDef("Consumer");
@@ -175,7 +175,7 @@ public class NaryLinkEndData extends ModelElementData {
             return ConsumerDep;
         }
 
-        @objid ("db9854be-d5b4-4afb-880d-611331f583a6")
+        @objid ("21e3e225-6ca0-4016-abea-662637c9b039")
         public static SmDependency ProviderDep() {
             if (ProviderDep == null) {
             	ProviderDep = classof().getDependencyDef("Provider");
@@ -183,68 +183,68 @@ public class NaryLinkEndData extends ModelElementData {
             return ProviderDep;
         }
 
-        @objid ("2011e1ef-a12e-4d7d-9644-ff2611e7d2be")
-        public static SmDependency getProviderDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return ProviderDep;
-        }
-
-        @objid ("5a0b97a2-5ec9-419a-b3f0-d0c49f95250e")
-        public static SmClass getSmClass() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return smClass;
-        }
-
-        @objid ("45cecbc8-21fc-40ac-bf5a-4fe36915ff53")
-        public static SmDependency getNaryLinkDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return NaryLinkDep;
-        }
-
-        @objid ("beca0000-41d6-40f1-8c7a-63a3a344c98d")
-        public static SmAttribute getMultiplicityMinAtt() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return MultiplicityMinAtt;
-        }
-
-        @objid ("a1b25f91-cf39-455e-aab1-361aedfe8789")
-        public static SmAttribute getIsUniqueAtt() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return IsUniqueAtt;
-        }
-
-        @objid ("3a3a253f-f771-4143-ab6d-97dcfaf2b5c1")
-        public static SmAttribute getMultiplicityMaxAtt() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return MultiplicityMaxAtt;
-        }
-
-        @objid ("35ba5327-89a3-46b9-a625-c08ed8c56472")
-        public static SmDependency getSourceDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return SourceDep;
-        }
-
-        @objid ("36de9a27-4f25-47ed-9d9b-452a4c1d1ba3")
+        @objid ("6ec6a726-a22f-403a-8493-d0f664543ab9")
         public static SmDependency getConsumerDep() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return ConsumerDep;
         }
 
-        @objid ("4a4a4529-63ed-43a5-900c-87569bdf74b3")
+        @objid ("5cb89fa6-f822-4887-8175-980959707283")
+        public static SmDependency getNaryLinkDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return NaryLinkDep;
+        }
+
+        @objid ("7d5847bb-3e16-43a1-8770-35935d46f923")
+        public static SmAttribute getIsUniqueAtt() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return IsUniqueAtt;
+        }
+
+        @objid ("06121875-57d2-4e0a-941e-34efb5646e5a")
+        public static SmDependency getSourceDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return SourceDep;
+        }
+
+        @objid ("712136a9-6fbd-4bd3-93cb-4af50130d6c3")
+        public static SmAttribute getMultiplicityMinAtt() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return MultiplicityMinAtt;
+        }
+
+        @objid ("bb8c48ad-3cf5-4a5b-98ab-77a5b84a4e28")
+        public static SmClass getSmClass() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return smClass;
+        }
+
+        @objid ("cdf47458-09e0-41c9-9358-8d1f7dd7cdd0")
+        public static SmAttribute getMultiplicityMaxAtt() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return MultiplicityMaxAtt;
+        }
+
+        @objid ("18260be0-6da2-4e1a-871b-8fab376be2af")
         public static SmAttribute getIsOrderedAtt() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return IsOrderedAtt;
         }
 
+        @objid ("696f1602-4dc3-400a-91a5-65ada48e8f33")
+        public static SmDependency getProviderDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return ProviderDep;
+        }
+
         @objid ("0027db5c-17f2-10a1-88a0-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("d30521e4-69e9-4a34-8c0f-48c0305db03a")
+            @objid ("07c979ee-3179-40e9-b57d-fb44235797a8")
             public ISmObjectData createData() {
                 return new NaryLinkEndData();
             }
 
-            @objid ("a64f9fd3-6542-479e-8946-2acab332ec55")
+            @objid ("7a504772-238e-4c81-8051-33e3a52e20da")
             public SmObjectImpl createImpl() {
                 return new NaryLinkEndImpl();
             }
@@ -253,12 +253,12 @@ public class NaryLinkEndData extends ModelElementData {
 
         @objid ("00286748-17f2-10a1-88a0-001ec947cd2a")
         public static class IsOrderedSmAttribute extends SmAttribute {
-            @objid ("c6a358bc-1b5f-4166-b2b5-c53a07ce44bb")
+            @objid ("3dd2efc0-d49d-401f-9e19-a8120655e5fa")
             public Object getValue(ISmObjectData data) {
                 return ((NaryLinkEndData) data).mIsOrdered;
             }
 
-            @objid ("ce1df966-c2de-42c4-99ed-d49c33254653")
+            @objid ("9b1aadca-cc38-436b-8830-e4dfc44a994f")
             public void setValue(ISmObjectData data, Object value) {
                 ((NaryLinkEndData) data).mIsOrdered = value;
             }
@@ -267,12 +267,12 @@ public class NaryLinkEndData extends ModelElementData {
 
         @objid ("0028f0aa-17f2-10a1-88a0-001ec947cd2a")
         public static class IsUniqueSmAttribute extends SmAttribute {
-            @objid ("fb092be1-1084-444c-b9f5-58efe5c4231f")
+            @objid ("37bb7146-0c15-4584-a0f0-8f4e347d1212")
             public Object getValue(ISmObjectData data) {
                 return ((NaryLinkEndData) data).mIsUnique;
             }
 
-            @objid ("73e769eb-1344-48bc-85dd-1fdc2abf16c3")
+            @objid ("004fd19d-68d9-49c6-be96-70efcb8936f8")
             public void setValue(ISmObjectData data, Object value) {
                 ((NaryLinkEndData) data).mIsUnique = value;
             }
@@ -281,12 +281,12 @@ public class NaryLinkEndData extends ModelElementData {
 
         @objid ("00297ad4-17f2-10a1-88a0-001ec947cd2a")
         public static class MultiplicityMaxSmAttribute extends SmAttribute {
-            @objid ("e0c53c40-a815-40e3-bc05-31d724b24187")
+            @objid ("a2f9bbf8-a070-4818-b928-80e8da52a5de")
             public Object getValue(ISmObjectData data) {
                 return ((NaryLinkEndData) data).mMultiplicityMax;
             }
 
-            @objid ("7b6b8857-86f4-4392-b419-d22914bce65c")
+            @objid ("87327c47-09fe-45a5-8818-ddf5e0f8179d")
             public void setValue(ISmObjectData data, Object value) {
                 ((NaryLinkEndData) data).mMultiplicityMax = value;
             }
@@ -295,12 +295,12 @@ public class NaryLinkEndData extends ModelElementData {
 
         @objid ("002a0530-17f2-10a1-88a0-001ec947cd2a")
         public static class MultiplicityMinSmAttribute extends SmAttribute {
-            @objid ("6cd57a38-45d6-41fe-91c8-8e7f324694f5")
+            @objid ("d7c1f6b2-cd41-41cd-96e1-44fb0738fe3b")
             public Object getValue(ISmObjectData data) {
                 return ((NaryLinkEndData) data).mMultiplicityMin;
             }
 
-            @objid ("72b17cb7-ea68-4971-894e-743540ed3c20")
+            @objid ("495335cd-ead9-498a-a91f-0c4917b5a555")
             public void setValue(ISmObjectData data, Object value) {
                 ((NaryLinkEndData) data).mMultiplicityMin = value;
             }
@@ -309,18 +309,18 @@ public class NaryLinkEndData extends ModelElementData {
 
         @objid ("002a9194-17f2-10a1-88a0-001ec947cd2a")
         public static class SourceSmDependency extends SmSingleDependency {
-            @objid ("409b1bac-00bb-466c-b25a-f10f866a53b9")
+            @objid ("896df477-7d02-463e-8652-0e2b7418fe08")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((NaryLinkEndData) data).mSource;
             }
 
-            @objid ("43119905-046a-43f7-acc5-1cba6fdc45fe")
+            @objid ("f9baaa2a-a3b6-4b9c-806d-8f603556ac80")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((NaryLinkEndData) data).mSource = value;
             }
 
-            @objid ("39492c33-33a9-4b53-9af1-cdb0e1fad1f5")
+            @objid ("32373c3d-5ec1-4f9f-822b-3bd0204c1c11")
             @Override
             public SmDependency getSymetric() {
                 return InstanceData.Metadata.OwnedNaryEndDep();
@@ -330,18 +330,18 @@ public class NaryLinkEndData extends ModelElementData {
 
         @objid ("002b4bca-17f2-10a1-88a0-001ec947cd2a")
         public static class NaryLinkSmDependency extends SmSingleDependency {
-            @objid ("c6d1f26d-66f4-4b82-871c-de275cf481e7")
+            @objid ("a0eaf959-5b61-4806-958a-9426d530b8d6")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((NaryLinkEndData) data).mNaryLink;
             }
 
-            @objid ("97063bc5-8ee4-44d6-9a35-d6450a6c2a9c")
+            @objid ("2fd9696e-f00f-4cb1-8b0a-8562a9797097")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((NaryLinkEndData) data).mNaryLink = value;
             }
 
-            @objid ("04c70782-78a6-469a-b074-fc440a2189bb")
+            @objid ("cba22461-ec68-4e8a-ae42-b674607092c6")
             @Override
             public SmDependency getSymetric() {
                 return NaryLinkData.Metadata.NaryLinkEndDep();
@@ -351,18 +351,18 @@ public class NaryLinkEndData extends ModelElementData {
 
         @objid ("ba7d51f6-e3d1-46bc-8d3a-43bdb5894c2e")
         public static class ConsumerSmDependency extends SmSingleDependency {
-            @objid ("aa081022-890f-4c22-a1c7-bc82ea7f9bf4")
+            @objid ("c3a9e82f-7a06-444b-b4de-e907d809cfbb")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((NaryLinkEndData) data).mConsumer;
             }
 
-            @objid ("0ff64d35-bf13-4b72-aa37-a4a22cdd42ae")
+            @objid ("808838ab-220d-4219-859e-597cb6acc449")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((NaryLinkEndData) data).mConsumer = value;
             }
 
-            @objid ("9ff48480-3992-4f62-a465-a2f58fc0344a")
+            @objid ("6b71d215-8388-4626-a1f0-a85cef3d1567")
             @Override
             public SmDependency getSymetric() {
                 return RequiredInterfaceData.Metadata.NaryProviderDep();
@@ -372,18 +372,18 @@ public class NaryLinkEndData extends ModelElementData {
 
         @objid ("99c20131-c983-4eb7-8924-7e50c52eaee3")
         public static class ProviderSmDependency extends SmSingleDependency {
-            @objid ("dba4fb24-06ee-4e2d-a576-0b9bd7f12ec5")
+            @objid ("6442d18b-5b1b-4ffe-961e-ff9254b4174e")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((NaryLinkEndData) data).mProvider;
             }
 
-            @objid ("edc9e41f-8b49-4869-8d4a-e425e726105e")
+            @objid ("2fa06930-c208-4376-ba69-db6bd94aabd4")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((NaryLinkEndData) data).mProvider = value;
             }
 
-            @objid ("304f697f-e1f0-43d9-a8cd-00b6f3cc84d2")
+            @objid ("38080017-5f4d-445e-aa9d-00fadf340ddd")
             @Override
             public SmDependency getSymetric() {
                 return ProvidedInterfaceData.Metadata.NaryConsumerDep();

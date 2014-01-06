@@ -27,7 +27,7 @@ import org.modelio.gproject.module.IModuleHandle;
 import org.modelio.vbasic.version.Version;
 
 @objid ("2deedf3d-1f3a-45ef-84f1-438c035ff6f3")
-class CompatibilityHelper {
+public class CompatibilityHelper {
     @objid ("c8581fd0-7510-44b9-b35b-c6364ff382eb")
     public static boolean isCompatible(CompatibilityLevel level) {
         return (level != CompatibilityLevel.MODELIO_TOO_OLD && level != CompatibilityLevel.MODULE_TOO_OLD);
@@ -100,7 +100,7 @@ class CompatibilityHelper {
     }
 
     @objid ("40e4baa5-cacd-4261-a95f-2dfa972b7499")
-    enum CompatibilityLevel {
+    public enum CompatibilityLevel {
         FULLYCOMPATIBLE,
         COMPATIBLE,
         MODELIO_TOO_OLD,

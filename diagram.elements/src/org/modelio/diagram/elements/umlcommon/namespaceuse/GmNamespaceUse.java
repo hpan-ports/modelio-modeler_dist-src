@@ -30,6 +30,7 @@ import org.modelio.diagram.persistence.IDiagramReader;
 import org.modelio.diagram.persistence.IDiagramWriter;
 import org.modelio.diagram.styles.core.MetaKey;
 import org.modelio.diagram.styles.core.StyleKey;
+import org.modelio.metamodel.uml.statik.NameSpace;
 import org.modelio.metamodel.uml.statik.NamespaceUse;
 import org.modelio.vcore.smkernel.mapi.MObject;
 import org.modelio.vcore.smkernel.mapi.MRef;
@@ -92,6 +93,22 @@ public class GmNamespaceUse extends GmLink {
     protected void readLink(IDiagramReader in) {
         super.readLink(in);
         this.nsu = (NamespaceUse) resolveRef(this.getRepresentedRef());
+        if (this.nsu == null) {
+            // NSU may have been re-identified, try finding a new one with the same source and target
+            if (this.from != null && this.to != null) {
+                MObject fromElt = this.from.getRelatedElement();
+                MObject toElt = this.to.getRelatedElement();
+                
+                if (fromElt != null) {
+                    for (NamespaceUse link : ((NameSpace)fromElt).getUsedNsu()) {
+                        if (link.getUsed() == toElt) {
+                            this.nsu = link;
+                            break;
+                        }
+                    }
+                }
+            }
+        }
     }
 
     @objid ("817a7371-1dec-11e2-8cad-001ec947c8cc")

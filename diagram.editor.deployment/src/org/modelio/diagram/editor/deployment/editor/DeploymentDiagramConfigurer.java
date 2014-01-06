@@ -30,6 +30,7 @@ import org.eclipse.gef.palette.SelectionToolEntry;
 import org.eclipse.gef.tools.AbstractTool;
 import org.modelio.diagram.editor.AbstractDiagramEditor;
 import org.modelio.diagram.editor.deployment.plugin.DiagramEditorDeployment;
+import org.modelio.diagram.editor.plugin.AbstractDiagramConfigurer;
 import org.modelio.diagram.editor.plugin.IDiagramConfigurer;
 import org.modelio.diagram.editor.plugin.ToolRegistry;
 import org.modelio.diagram.editor.tools.PanSelectionTool;
@@ -38,7 +39,7 @@ import org.modelio.diagram.editor.tools.PanSelectionTool;
  * Configures the deployment diagram palette.
  */
 @objid ("970ca21a-55b6-11e2-877f-002564c97630")
-public class DeploymentDiagramConfigurer implements IDiagramConfigurer {
+public class DeploymentDiagramConfigurer extends AbstractDiagramConfigurer {
     @objid ("970ca22d-55b6-11e2-877f-002564c97630")
     @Override
     public String getContributionURI() {
@@ -66,6 +67,7 @@ public class DeploymentDiagramConfigurer implements IDiagramConfigurer {
         paletteRoot.add(createLinkGroup(toolRegistry));
         paletteRoot.add(createInformationFlowGroup(toolRegistry));
         paletteRoot.add(createCommonGroup(toolRegistry));
+        paletteRoot.add(createDrawGroup(toolRegistry));
         return paletteRoot;
     }
 

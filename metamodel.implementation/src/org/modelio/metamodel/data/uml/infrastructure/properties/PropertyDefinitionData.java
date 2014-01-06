@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.data.uml.infrastructure.properties;
 
 import java.util.ArrayList;
@@ -46,50 +46,50 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("00653092-ec87-1098-b22e-001ec947cd2a")
 @SmaMetaClass(mmClass=PropertyDefinition.class, factory=PropertyDefinitionData.Metadata.ObjectFactory.class)
 public class PropertyDefinitionData extends ModelElementData {
-    @objid ("40c8e833-403d-44d2-a868-206b80798b0b")
+    @objid ("c41a56ff-7890-4bd5-b081-4fdf82131fcc")
     @SmaMetaAttribute(metaName="IsEditable", type=Boolean.class, smAttributeClass=Metadata.IsEditableSmAttribute.class)
      Object mIsEditable = true;
 
-    @objid ("fc3d999f-9094-4bc6-880f-02f5ad6983a7")
+    @objid ("a0541fe1-0b9a-4419-b3f7-f8d78526e2e7")
     @SmaMetaAttribute(metaName="DefaultValue", type=String.class, smAttributeClass=Metadata.DefaultValueSmAttribute.class)
      Object mDefaultValue = "";
 
-    @objid ("06993a34-184d-45fd-a59c-2a2d9c8a3a11")
+    @objid ("6636779f-bb84-4153-bd1c-acf4c5c8c925")
     @SmaMetaAssociation(metaName="Type", typeDataClass=PropertyTypeData.class, min=1, max=1, smAssociationClass=Metadata.TypeSmDependency.class, partof = true)
      SmObjectImpl mType;
 
-    @objid ("c766621d-1ced-4a35-ac7e-f233e8d0bd71")
+    @objid ("97aea75b-20c0-4840-887d-534cd59780d8")
     @SmaMetaAssociation(metaName="Owner", typeDataClass=PropertyTableDefinitionData.class, min=1, max=1, smAssociationClass=Metadata.OwnerSmDependency.class)
      SmObjectImpl mOwner;
 
-    @objid ("81716353-deed-432c-bcbe-8ca5fa2369ff")
+    @objid ("3005611e-0f2f-48ee-b2a9-2cc8101d2fb5")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("002cbc58-ec98-1098-b22e-001ec947cd2a")
     public static class Metadata {
-        @objid ("34872d20-d1c3-4647-aa04-1354acbea2f2")
+        @objid ("8d40e4f9-e801-4682-90c6-49e92f544705")
         private static SmClass smClass = null;
 
-        @objid ("8b036e86-22ce-4e1e-8eae-9172faacfe00")
+        @objid ("386c8c96-da3b-4648-b7eb-28cdac7d3037")
         private static SmAttribute IsEditableAtt = null;
 
-        @objid ("80ee9e67-3b89-4c52-a233-17bff2c3815f")
+        @objid ("dfe481a9-6224-435f-9b62-a23a2e783ac3")
         private static SmAttribute DefaultValueAtt = null;
 
-        @objid ("6acd7bfd-a747-4a41-a134-158b38ef4fb4")
+        @objid ("f2c46fe7-2762-418f-b22d-36fc247dabd4")
         private static SmDependency TypeDep = null;
 
-        @objid ("d99ca598-c622-4854-8ee4-b98a07104690")
+        @objid ("dc628689-9076-47be-894d-54ca32b6162f")
         private static SmDependency OwnerDep = null;
 
-        @objid ("eb3f65b9-597d-46cb-9f17-60e0c048df06")
+        @objid ("d0dcf31e-6d8b-4b69-a7d6-4083d4a32fcb")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(PropertyDefinitionData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("044bd526-1daf-48a7-959e-aa623d24e1ad")
+        @objid ("e793ba46-2c9d-431c-bb9e-d87131fe8e2c")
         public static SmAttribute IsEditableAtt() {
             if (IsEditableAtt == null) {
             	IsEditableAtt = classof().getAttributeDef("IsEditable");
@@ -97,7 +97,7 @@ public class PropertyDefinitionData extends ModelElementData {
             return IsEditableAtt;
         }
 
-        @objid ("f171e5d8-2757-4e64-9c87-02c82fad3638")
+        @objid ("8e127fa3-8fa6-4ab5-9c72-5a9d0c14eaa6")
         public static SmAttribute DefaultValueAtt() {
             if (DefaultValueAtt == null) {
             	DefaultValueAtt = classof().getAttributeDef("DefaultValue");
@@ -105,7 +105,7 @@ public class PropertyDefinitionData extends ModelElementData {
             return DefaultValueAtt;
         }
 
-        @objid ("0d421bc5-0a48-49e4-a1d2-bdc1c5f85223")
+        @objid ("cb65ec52-a341-4eb8-bcbb-af3a8d6a50c9")
         public static SmDependency TypeDep() {
             if (TypeDep == null) {
             	TypeDep = classof().getDependencyDef("Type");
@@ -113,7 +113,7 @@ public class PropertyDefinitionData extends ModelElementData {
             return TypeDep;
         }
 
-        @objid ("49bb6a8c-d180-4a3d-8f36-0ab6df666f31")
+        @objid ("7c9d192b-7c61-40ff-bd3b-efb48606fd43")
         public static SmDependency OwnerDep() {
             if (OwnerDep == null) {
             	OwnerDep = classof().getDependencyDef("Owner");
@@ -121,44 +121,44 @@ public class PropertyDefinitionData extends ModelElementData {
             return OwnerDep;
         }
 
-        @objid ("ac40a6dd-14b5-4713-8904-fc495cc51b75")
+        @objid ("9c1f07ec-dfc0-476e-8075-7c933371d815")
         public static SmAttribute getIsEditableAtt() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return IsEditableAtt;
         }
 
-        @objid ("77a7360b-6256-4b45-8dac-54ee6c993db3")
-        public static SmDependency getTypeDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return TypeDep;
-        }
-
-        @objid ("6464565a-1e93-4666-b662-eb30236e75c1")
-        public static SmDependency getOwnerDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return OwnerDep;
-        }
-
-        @objid ("c7387955-e10e-4d19-a5e2-88bfc9e0ddc2")
-        public static SmAttribute getDefaultValueAtt() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return DefaultValueAtt;
-        }
-
-        @objid ("8eaed8ec-c867-4ef0-9a3d-7f3f1025bd84")
+        @objid ("bcb023dc-eeff-42bb-b953-bcb25b9c6cd7")
         public static SmClass getSmClass() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return smClass;
         }
 
+        @objid ("a6cb54e4-9ff0-4822-9945-ed4c830031ec")
+        public static SmDependency getTypeDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return TypeDep;
+        }
+
+        @objid ("a844aa9e-0aca-4d37-9cd4-4b76c358143e")
+        public static SmAttribute getDefaultValueAtt() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return DefaultValueAtt;
+        }
+
+        @objid ("0f572dfe-581b-4e6b-92c4-de816b5578ff")
+        public static SmDependency getOwnerDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return OwnerDep;
+        }
+
         @objid ("002d1cde-ec98-1098-b22e-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("ee22ecf7-ce6e-4a6b-bbf6-da7deb3217e9")
+            @objid ("46bf0a3c-1f42-429e-b893-a7f3bfdc378a")
             public ISmObjectData createData() {
                 return new PropertyDefinitionData();
             }
 
-            @objid ("6215b00c-5180-4f95-9e57-56a9520a49d3")
+            @objid ("f792c173-b357-4973-a2a3-65863be1d74c")
             public SmObjectImpl createImpl() {
                 return new PropertyDefinitionImpl();
             }
@@ -167,12 +167,12 @@ public class PropertyDefinitionData extends ModelElementData {
 
         @objid ("002dfb54-ec98-1098-b22e-001ec947cd2a")
         public static class IsEditableSmAttribute extends SmAttribute {
-            @objid ("5ea303e4-a306-4244-aa0f-36cd0e1d8966")
+            @objid ("a65c84f4-18e7-4c82-9e7c-7cfd5cf45179")
             public Object getValue(ISmObjectData data) {
                 return ((PropertyDefinitionData) data).mIsEditable;
             }
 
-            @objid ("8a71e462-952a-4c08-8ca5-d448d5f006d2")
+            @objid ("96f0b34c-763a-4a4d-a027-e49a6748adce")
             public void setValue(ISmObjectData data, Object value) {
                 ((PropertyDefinitionData) data).mIsEditable = value;
             }
@@ -181,12 +181,12 @@ public class PropertyDefinitionData extends ModelElementData {
 
         @objid ("002f3528-ec98-1098-b22e-001ec947cd2a")
         public static class DefaultValueSmAttribute extends SmAttribute {
-            @objid ("e947bd6e-8d89-4c2c-bf49-fc9bbc8182a4")
+            @objid ("be105f0d-256e-42e1-b9a3-5a7243cf0014")
             public Object getValue(ISmObjectData data) {
                 return ((PropertyDefinitionData) data).mDefaultValue;
             }
 
-            @objid ("d293fc25-85f0-44f3-ad79-a8b6bff9b759")
+            @objid ("4e56026c-76cc-4286-8ccc-de441c64e2fe")
             public void setValue(ISmObjectData data, Object value) {
                 ((PropertyDefinitionData) data).mDefaultValue = value;
             }
@@ -195,18 +195,18 @@ public class PropertyDefinitionData extends ModelElementData {
 
         @objid ("0030124a-ec98-1098-b22e-001ec947cd2a")
         public static class OwnerSmDependency extends SmSingleDependency {
-            @objid ("c1a799fd-327d-4c7b-8dd1-359e01b3bcd2")
+            @objid ("8cae0178-f4bc-4b39-ad57-333c56df6633")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((PropertyDefinitionData) data).mOwner;
             }
 
-            @objid ("d9ff0464-52ce-4db3-a6da-e7c2fa1076f9")
+            @objid ("3a9fb755-5a63-4554-86b7-ecf3ef105c39")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((PropertyDefinitionData) data).mOwner = value;
             }
 
-            @objid ("1170fe6f-c441-4ce6-92a9-7eab6a9b070f")
+            @objid ("0b0a4563-e6ec-46d2-a64f-302ac0c871a7")
             @Override
             public SmDependency getSymetric() {
                 return PropertyTableDefinitionData.Metadata.OwnedDep();
@@ -216,18 +216,18 @@ public class PropertyDefinitionData extends ModelElementData {
 
         @objid ("00310a92-ec98-1098-b22e-001ec947cd2a")
         public static class TypeSmDependency extends SmSingleDependency {
-            @objid ("de3b8f20-959e-4018-8814-a1cad6f86582")
+            @objid ("5459afdc-4fe4-4549-a355-36e349e9f92e")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((PropertyDefinitionData) data).mType;
             }
 
-            @objid ("4b9b8ab4-0408-4bdd-87e0-f67902d59502")
+            @objid ("658d955d-7316-43ae-983b-83a712afbfaa")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((PropertyDefinitionData) data).mType = value;
             }
 
-            @objid ("df009cdc-261d-4f2c-8734-ac97c2bc33c2")
+            @objid ("86c5957c-7f75-4ce8-94ac-657f0fa6a872")
             @Override
             public SmDependency getSymetric() {
                 return PropertyTypeData.Metadata.TypedDep();

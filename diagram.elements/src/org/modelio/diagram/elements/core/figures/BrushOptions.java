@@ -37,6 +37,14 @@ public class BrushOptions {
     public boolean useGradient;
 
     /**
+     * Transparency level.
+     * <p>
+     * 0 = transparent, 255 = opaque.
+     */
+    @objid ("782cb1af-9974-40a9-b8a8-12bf84440323")
+    public int alpha = 255;
+
+    /**
      * Fill color
      */
     @objid ("7f692944-1dec-11e2-8cad-001ec947c8cc")

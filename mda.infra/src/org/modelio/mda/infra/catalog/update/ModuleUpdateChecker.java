@@ -55,16 +55,16 @@ import org.modelio.vbasic.version.Version;
  */
 @objid ("3e15f42c-baa4-4599-8eee-470437f7b482")
 public class ModuleUpdateChecker extends Thread {
-    @objid ("4ba8dc19-69bd-4292-b008-beef0ad0f0fe")
+    @objid ("eb14e81e-ca89-4478-a98c-e45b552ff7f5")
     private boolean validUpdateSite = true;
 
-    @objid ("fec8f3ad-9d46-4349-9012-5188bbe8dc28")
+    @objid ("027b5499-6cca-4c20-8566-3bcbe052edd7")
     protected FileModuleStore catalog;
 
-    @objid ("f1221919-1bab-4eb7-966b-d41debf7ca52")
+    @objid ("3c60c64e-cf8e-488b-a386-5eb3421f605f")
     private Collection<IModuleHandle> catalogModules = new ArrayList<>();
 
-    @objid ("f5e756ae-765d-4efd-9be2-9c5381b07939")
+    @objid ("0bf54274-3b69-4668-8b54-be0a20c94724")
     private List<ModuleUpdateDescriptor> modulesToUpdate;
 
     /**
@@ -170,12 +170,12 @@ public class ModuleUpdateChecker extends Thread {
         return updateProperties;
     }
 
-    @objid ("de70d9a8-b86d-4db2-875e-87ca2fd19300")
+    @objid ("9529c49f-ec1e-4cc7-b890-dde760007e4e")
     public List<ModuleUpdateDescriptor> getModulesToUpdate() {
         return this.modulesToUpdate;
     }
 
-    @objid ("b4d2e5fa-06b5-4c59-a2c4-4e3b54a83b35")
+    @objid ("f1a9c230-d048-41b5-ba47-8dec5c5b00df")
     public boolean isValidUpdateSite() {
         return this.validUpdateSite;
     }

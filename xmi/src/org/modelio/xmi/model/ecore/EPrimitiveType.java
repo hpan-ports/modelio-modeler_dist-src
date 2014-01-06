@@ -21,7 +21,6 @@
 
 package org.modelio.xmi.model.ecore;
 
-import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.api.modelio.Modelio;
 import org.modelio.metamodel.uml.infrastructure.Element;
@@ -35,13 +34,14 @@ import org.modelio.xmi.util.PrimitiveTypeMapper;
 import org.modelio.xmi.util.ReverseProperties;
 
 @objid ("6d173106-3cea-4371-8c5c-ea9d451a8193")
-public class EPrimitiveType extends ENamedElement implements IEElement {
+public class EPrimitiveType extends ENamedElement {
     @objid ("ea3f2f96-cad2-45f2-9c7a-685db851423d")
     private org.eclipse.uml2.uml.PrimitiveType ecoreElement;
 
     @objid ("c99212e7-ec16-4070-93de-dd74ab4625c0")
+    @Override
     public Element createObjingElt() {
-        if (!(PrimitiveTypeMapper.isPredefinedType(ecoreElement))) {
+        if (!(PrimitiveTypeMapper.isPredefinedType(this.ecoreElement))) {
             return Modelio.getInstance().getModelingSession().getModel().createDataType();
         }
         return null;
@@ -50,16 +50,17 @@ public class EPrimitiveType extends ENamedElement implements IEElement {
     @objid ("c0fae08b-dcd5-4656-bfea-2f9903c1190e")
     public EPrimitiveType(org.eclipse.uml2.uml.PrimitiveType element) {
         super(element);
-        ecoreElement = element;
+        this.ecoreElement = element;
     }
 
     @objid ("afa84d8e-4259-45d2-8f56-659653530dff")
+    @Override
     public void attach(Element objingElt) {
-        if (!PrimitiveTypeMapper.isPredefinedType(ecoreElement)){
+        if (!PrimitiveTypeMapper.isPredefinedType(this.ecoreElement)){
             ReverseProperties revProp = ReverseProperties.getInstance();
         
             // we get the owner
-            org.eclipse.uml2.uml.Element ecoreOwner = ecoreElement.getOwner();
+            org.eclipse.uml2.uml.Element ecoreOwner = this.ecoreElement.getOwner();
         
             Object objingOwner =  revProp.getMappedElement(ecoreOwner);
         
@@ -73,14 +74,11 @@ public class EPrimitiveType extends ENamedElement implements IEElement {
         }
     }
 
-    @objid ("190d728f-5f21-4a52-9d61-691f5a531384")
-    public void attach(List<Object> objingElts) {
-    }
-
     @objid ("c1dbea71-c4f0-4407-ba1e-5016f0dd1f85")
+    @Override
     public void setProperties(Element objingElt) {
         super.setProperties(objingElt);
-        if (!PrimitiveTypeMapper.isPredefinedType(ecoreElement)){
+        if (!PrimitiveTypeMapper.isPredefinedType(this.ecoreElement)){
             if (objingElt instanceof GeneralClass){
                 setVisibility((GeneralClass)objingElt);
             }
@@ -100,27 +98,27 @@ public class EPrimitiveType extends ENamedElement implements IEElement {
 
     @objid ("23a7ef13-5c2b-4bff-9298-1a57ee0a8a69")
     private void setAbstract(DataType objingElt) {
-        objingElt.setIsAbstract(ecoreElement.isAbstract());
+        objingElt.setIsAbstract(this.ecoreElement.isAbstract());
     }
 
     @objid ("435fd694-9f35-4258-93e5-88bf96a395be")
     private void setLeaf(DataType objingElt) {
-        objingElt.setIsLeaf(ecoreElement.isLeaf());
+        objingElt.setIsLeaf(this.ecoreElement.isLeaf());
     }
 
     @objid ("d36a155b-2581-4fef-9d0d-cdbb21e03ba2")
     private void setPrimitiveEAnnotation(DataType objingElt) {
-        objingElt.setIsElementary(ObjingEAnnotation.isPrimitive(ecoreElement));
+        objingElt.setIsElementary(ObjingEAnnotation.isPrimitive(this.ecoreElement));
     }
 
     @objid ("4357309f-bd6a-4d07-ac11-160fd4ac960b")
     private void setRootEAnnotation(DataType objingElt) {
-        objingElt.setIsRoot(ObjingEAnnotation.isRoot(ecoreElement));
+        objingElt.setIsRoot(ObjingEAnnotation.isRoot(this.ecoreElement));
     }
 
     @objid ("fe0ab26f-5c98-4f45-82e1-e71081157f5e")
     public void setVisibility(GeneralClass objingElt) {
-        switch (ecoreElement.getVisibility().getValue()) {
+        switch (this.ecoreElement.getVisibility().getValue()) {
         case org.eclipse.uml2.uml.VisibilityKind.PUBLIC:
             objingElt.setVisibility(VisibilityMode.PUBLIC);
             break;
@@ -137,7 +135,7 @@ public class EPrimitiveType extends ENamedElement implements IEElement {
             objingElt.setVisibility(VisibilityMode.PUBLIC);
         }
         
-        if (ObjingEAnnotation.isUndefined(ecoreElement))
+        if (ObjingEAnnotation.isUndefined(this.ecoreElement))
             objingElt
             .setVisibility(VisibilityMode.VISIBILITYUNDEFINED);
     }

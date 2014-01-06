@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.uml.statik;
 
 import java.util.ArrayList;
@@ -52,133 +52,133 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("00180e5c-c4bf-1fd8-97fe-001ec947cd2a")
 public class ParameterImpl extends ModelElementImpl implements Parameter {
-    @objid ("200da25d-a58a-4d62-9f59-99edfb4c3ef6")
+    @objid ("5cbe17c5-8d0a-4866-8576-29dd358de764")
     @Override
     public PassingMode getParameterPassing() {
         return (PassingMode) getAttVal(ParameterData.Metadata.ParameterPassingAtt());
     }
 
-    @objid ("62e484ec-6de1-473e-b14a-4a9a219f1f5f")
+    @objid ("9735f70c-7492-40ea-833b-f49d60300da0")
     @Override
     public void setParameterPassing(PassingMode value) {
         setAttVal(ParameterData.Metadata.ParameterPassingAtt(), value);
     }
 
-    @objid ("6df7c04e-5a30-4cae-964b-577a087796cf")
+    @objid ("65f05ad8-e7fb-4cbc-9523-12fa023a1d34")
     @Override
     public String getMultiplicityMin() {
         return (String) getAttVal(ParameterData.Metadata.MultiplicityMinAtt());
     }
 
-    @objid ("7bade2db-51b3-46ca-948c-5be66f63cc8f")
+    @objid ("0a13ba53-85d4-4c3e-bc1b-3ce7b3239d9c")
     @Override
     public void setMultiplicityMin(String value) {
         setAttVal(ParameterData.Metadata.MultiplicityMinAtt(), value);
     }
 
-    @objid ("2cd6f85b-3630-4aaa-b53e-8321cf1d2701")
+    @objid ("d3fd8095-3013-452b-916a-a5c5d02ade3f")
     @Override
     public String getMultiplicityMax() {
         return (String) getAttVal(ParameterData.Metadata.MultiplicityMaxAtt());
     }
 
-    @objid ("bc0d7675-dd03-4bea-9186-a117e96eac65")
+    @objid ("88adb11a-b308-460b-9add-ffdde55f22b0")
     @Override
     public void setMultiplicityMax(String value) {
         setAttVal(ParameterData.Metadata.MultiplicityMaxAtt(), value);
     }
 
-    @objid ("b89f52e3-b7bb-4e0f-983c-5b7742f83ab9")
+    @objid ("04795218-3373-448b-a652-c9133eb66ebc")
     @Override
     public String getTypeConstraint() {
         return (String) getAttVal(ParameterData.Metadata.TypeConstraintAtt());
     }
 
-    @objid ("654ac2f1-d552-4937-9d9f-939f36710e14")
+    @objid ("3436e148-1687-4430-905d-f75526499eae")
     @Override
     public void setTypeConstraint(String value) {
         setAttVal(ParameterData.Metadata.TypeConstraintAtt(), value);
     }
 
-    @objid ("8f158486-a758-414d-9238-c0ba084b9b20")
+    @objid ("243d6a11-7fb4-4751-880c-f7d28d09f347")
     @Override
     public String getDefaultValue() {
         return (String) getAttVal(ParameterData.Metadata.DefaultValueAtt());
     }
 
-    @objid ("6af0fb82-f5bb-457e-8408-e4a87d5a09a5")
+    @objid ("db751eac-7e3b-4ee0-8da7-afe1666fcc1b")
     @Override
     public void setDefaultValue(String value) {
         setAttVal(ParameterData.Metadata.DefaultValueAtt(), value);
     }
 
-    @objid ("42c95327-c412-4328-9187-486618d2e1ab")
+    @objid ("b52a011a-c55d-49ce-9c96-619e3ad62892")
     @Override
     public boolean isIsOrdered() {
         return (Boolean) getAttVal(ParameterData.Metadata.IsOrderedAtt());
     }
 
-    @objid ("0fac4904-fb4e-49a3-a899-4f6e9d7d255e")
+    @objid ("a0700f01-48b3-482e-8e60-51d94f9526d3")
     @Override
     public void setIsOrdered(boolean value) {
         setAttVal(ParameterData.Metadata.IsOrderedAtt(), value);
     }
 
-    @objid ("143b363f-1063-4cd5-ad94-5ed3ed166524")
+    @objid ("5f746c8f-1876-4a49-bd31-101cdc56d2fa")
     @Override
     public boolean isIsUnique() {
         return (Boolean) getAttVal(ParameterData.Metadata.IsUniqueAtt());
     }
 
-    @objid ("0db3561c-f38e-4e64-9d3c-8321d947cb75")
+    @objid ("bbc1bb50-20e4-4762-83b5-5be3c4ccf2de")
     @Override
     public void setIsUnique(boolean value) {
         setAttVal(ParameterData.Metadata.IsUniqueAtt(), value);
     }
 
-    @objid ("a034f9a7-1c32-4534-90b3-024534f8d94c")
+    @objid ("a022224e-86c2-46a7-a949-9087b6a20362")
     @Override
     public boolean isIsException() {
         return (Boolean) getAttVal(ParameterData.Metadata.IsExceptionAtt());
     }
 
-    @objid ("004cfea9-6392-438b-8a6c-9b07399d9dc2")
+    @objid ("b9d15be1-4228-492e-bae2-727c42127937")
     @Override
     public void setIsException(boolean value) {
         setAttVal(ParameterData.Metadata.IsExceptionAtt(), value);
     }
 
-    @objid ("3b8290e7-2081-4dc7-860c-9044ae8d8df4")
+    @objid ("da3805d7-0140-483c-aebe-55711b033f07")
     @Override
     public boolean isIsStream() {
         return (Boolean) getAttVal(ParameterData.Metadata.IsStreamAtt());
     }
 
-    @objid ("f4d5dd96-5cc4-4e3b-9c7f-2c87553f3619")
+    @objid ("7d150d3e-b163-4dff-bd6e-3f933076c099")
     @Override
     public void setIsStream(boolean value) {
         setAttVal(ParameterData.Metadata.IsStreamAtt(), value);
     }
 
-    @objid ("56de6331-07ee-4ba2-b1c8-8939f7710fe7")
+    @objid ("dc6b858f-c5eb-4d7f-bcd5-6632f8b18a9c")
     @Override
     public ParameterEffectKind getEffect() {
         return (ParameterEffectKind) getAttVal(ParameterData.Metadata.EffectAtt());
     }
 
-    @objid ("82fd074f-b93d-47a9-af05-c069273c1349")
+    @objid ("a8ac07f1-9539-4b70-85d3-53a051f3bd8b")
     @Override
     public void setEffect(ParameterEffectKind value) {
         setAttVal(ParameterData.Metadata.EffectAtt(), value);
     }
 
-    @objid ("addefa5e-e98f-4250-9db6-cf3b02b09524")
+    @objid ("9d1d51a0-c68d-46e6-b7b0-39b9d801e492")
     @Override
     public EList<BpmnDataInput> getBpmnRepresentingDataInput() {
         return new SmList<>(this, ParameterData.Metadata.BpmnRepresentingDataInputDep());
     }
 
-    @objid ("5b470203-5a32-4cba-bbec-b0fb3b5d11b9")
+    @objid ("dd70d011-8ead-4d5e-8de3-efedf6b6cdca")
     @Override
     public <T extends BpmnDataInput> List<T> getBpmnRepresentingDataInput(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -191,37 +191,37 @@ public class ParameterImpl extends ModelElementImpl implements Parameter {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("0f53430a-cf0d-410c-8787-c0ef28df77eb")
+    @objid ("1bed3900-a865-4b12-82f1-ad2721b306d0")
     @Override
     public GeneralClass getType() {
         return (GeneralClass) getDepVal(ParameterData.Metadata.TypeDep());
     }
 
-    @objid ("5b57198a-9cec-4914-bd81-30f9cb870406")
+    @objid ("c0fe6dc8-c2c1-4ca0-a2f2-34c6d07382c3")
     @Override
     public void setType(GeneralClass value) {
         appendDepVal(ParameterData.Metadata.TypeDep(), (SmObjectImpl)value);
     }
 
-    @objid ("8f1ea0ae-e276-4921-89c6-6ca094656b56")
+    @objid ("37df4606-b186-4656-a5c2-83aedd64ce48")
     @Override
     public Operation getComposed() {
         return (Operation) getDepVal(ParameterData.Metadata.ComposedDep());
     }
 
-    @objid ("1b0751b3-1c87-4618-9e64-0dd79a5a151d")
+    @objid ("ac6b1e80-2ba7-47f8-a9a7-378e846e0bc1")
     @Override
     public void setComposed(Operation value) {
         appendDepVal(ParameterData.Metadata.ComposedDep(), (SmObjectImpl)value);
     }
 
-    @objid ("ef9e1268-4aaf-4619-bb62-a5c906848749")
+    @objid ("19bff7b2-ccaf-4d41-a1ac-97a829bea718")
     @Override
     public EList<Pin> getMatching() {
         return new SmList<>(this, ParameterData.Metadata.MatchingDep());
     }
 
-    @objid ("698f905c-8f6e-48e4-8965-a10742a7d68a")
+    @objid ("77e13fbe-23c6-4273-b067-47dfb3e1d43f")
     @Override
     public <T extends Pin> List<T> getMatching(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -234,13 +234,13 @@ public class ParameterImpl extends ModelElementImpl implements Parameter {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("ad4e623d-d16c-4e74-98c3-2a251b6a53b5")
+    @objid ("cea1f3c9-7e0c-4702-a57b-13d54c1b4403")
     @Override
     public EList<BpmnDataOutput> getBpmnRepresentingDataOutput() {
         return new SmList<>(this, ParameterData.Metadata.BpmnRepresentingDataOutputDep());
     }
 
-    @objid ("a3aefa9e-506f-4ae8-bc52-1a671c88cdb4")
+    @objid ("6b2b71df-3199-4285-8c6e-70aaa5b143a5")
     @Override
     public <T extends BpmnDataOutput> List<T> getBpmnRepresentingDataOutput(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -253,13 +253,13 @@ public class ParameterImpl extends ModelElementImpl implements Parameter {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("64e95ff9-ef8b-4724-a89b-87a142582827")
+    @objid ("c181ab6a-a9a8-424a-adae-35dc9cd3a7b5")
     @Override
     public EList<Signal> getSRepresentation() {
         return new SmList<>(this, ParameterData.Metadata.SRepresentationDep());
     }
 
-    @objid ("f602f309-52ee-4a1d-ad5b-2f3ffa173cc5")
+    @objid ("08ded0d6-92bc-4edc-aa94-cdd82f24dfe6")
     @Override
     public <T extends Signal> List<T> getSRepresentation(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -272,25 +272,25 @@ public class ParameterImpl extends ModelElementImpl implements Parameter {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("d6478f79-66b9-4d36-b1b3-2d9df927faff")
+    @objid ("bf7bea4e-8a75-487b-8a17-45e6472d83d3")
     @Override
     public Operation getReturned() {
         return (Operation) getDepVal(ParameterData.Metadata.ReturnedDep());
     }
 
-    @objid ("51f6a0b4-d3fe-499d-95bf-feb119ff1fd6")
+    @objid ("1c6dda45-35a0-4d03-9765-646782c9e231")
     @Override
     public void setReturned(Operation value) {
         appendDepVal(ParameterData.Metadata.ReturnedDep(), (SmObjectImpl)value);
     }
 
-    @objid ("99b42875-58be-4d55-9eaa-6e1ee19d95cf")
+    @objid ("180b4706-8bc0-4ecd-b9d3-6752260e2a3a")
     @Override
     public EList<BehaviorParameter> getBehaviorParam() {
         return new SmList<>(this, ParameterData.Metadata.BehaviorParamDep());
     }
 
-    @objid ("c923322f-f58d-4c00-9d39-724b6e554afc")
+    @objid ("369d4fd1-ba76-4145-80b7-3fb7bd723606")
     @Override
     public <T extends BehaviorParameter> List<T> getBehaviorParam(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -303,7 +303,7 @@ public class ParameterImpl extends ModelElementImpl implements Parameter {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("59667131-060c-4e52-a1d8-04f0a42cfa8d")
+    @objid ("2b12ecf9-e99f-42e3-9220-0ece3eb93ce9")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
@@ -316,7 +316,7 @@ public class ParameterImpl extends ModelElementImpl implements Parameter {
         return super.getCompositionOwner();
     }
 
-    @objid ("31e0ee12-303b-458f-bae6-87b3486ca7e6")
+    @objid ("17273b5f-bd41-44c6-ba9a-2af782c65134")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
@@ -329,7 +329,7 @@ public class ParameterImpl extends ModelElementImpl implements Parameter {
         return super.getCompositionRelation();
     }
 
-    @objid ("c7a6d3c0-deed-4a66-8be4-a26232e41182")
+    @objid ("7e6d868a-283b-404b-8021-83f2bfd6ba3c")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitParameter(this);

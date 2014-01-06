@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.uml.behavior.activityModel;
 
 import java.util.ArrayList;
@@ -43,25 +43,25 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("003e347e-c4bf-1fd8-97fe-001ec947cd2a")
 public class StructuredActivityNodeImpl extends ActivityActionImpl implements StructuredActivityNode {
-    @objid ("2b62d4fb-757a-4c3f-b607-13d7dc0fcfe7")
+    @objid ("566f593f-2cb1-4128-8c37-bd9962e3d7c6")
     @Override
     public boolean isMustIsolate() {
         return (Boolean) getAttVal(StructuredActivityNodeData.Metadata.MustIsolateAtt());
     }
 
-    @objid ("186b6acd-d296-4a29-8e96-e254a97aa6c5")
+    @objid ("1e357ccb-9119-4e04-803b-d7660e78d016")
     @Override
     public void setMustIsolate(boolean value) {
         setAttVal(StructuredActivityNodeData.Metadata.MustIsolateAtt(), value);
     }
 
-    @objid ("9886ec28-d7b3-4952-88da-a41798e5cc08")
+    @objid ("966eaa76-e6e8-467b-8a5b-39076824c119")
     @Override
     public EList<ActivityNode> getBody() {
         return new SmList<>(this, StructuredActivityNodeData.Metadata.BodyDep());
     }
 
-    @objid ("ac111ccf-d944-4d5b-ad2f-c608b6755ec9")
+    @objid ("199af32e-90b0-41b8-8b33-4ab8a4167362")
     @Override
     public <T extends ActivityNode> List<T> getBody(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -74,21 +74,21 @@ public class StructuredActivityNodeImpl extends ActivityActionImpl implements St
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("7528d8ec-27ad-4fd6-a4e3-18420afd54de")
+    @objid ("2ae1e7f5-d275-406d-8219-6c6e07eaed0d")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("9fc66f92-558e-4434-82de-2fafc1c81041")
+    @objid ("4b481d0c-86f7-4b68-a495-4ec1200fbc2d")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("9888f518-16b6-4f00-833e-5ef81c167dd9")
+    @objid ("9d968564-610d-4456-a1ee-5cdc10081a4e")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitStructuredActivityNode(this);

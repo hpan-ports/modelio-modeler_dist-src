@@ -30,15 +30,17 @@ import org.eclipse.e4.core.di.annotations.CanExecute;
 import org.eclipse.e4.core.di.annotations.Execute;
 import org.eclipse.e4.ui.services.IServiceConstants;
 import org.eclipse.swt.widgets.Shell;
+import org.modelio.app.core.picking.IModelioPickingService;
 import org.modelio.app.project.core.services.IProjectService;
 import org.modelio.diagram.styles.manager.StyleEditorDialog;
 
 @objid ("85ba0bb4-1926-11e2-92d2-001ec947c8cc")
 public class DiagramStyleEditionHandler {
     @objid ("85ba0bb5-1926-11e2-92d2-001ec947c8cc")
+    @SuppressWarnings("javadoc")
     @Execute
-    public static void execute(@Named(IServiceConstants.ACTIVE_SHELL) Shell activeShell) {
-        StyleEditorDialog dlg = new StyleEditorDialog(activeShell);
+    public static void execute(@Named(IServiceConstants.ACTIVE_SHELL) Shell activeShell, IModelioPickingService pickingService) {
+        StyleEditorDialog dlg = new StyleEditorDialog(activeShell, pickingService);
         dlg.open();
     }
 

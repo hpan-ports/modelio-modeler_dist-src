@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.uml.behavior.stateMachineModel;
 
 import java.util.ArrayList;
@@ -45,13 +45,13 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("0054c0ea-c4bf-1fd8-97fe-001ec947cd2a")
 public abstract class StateVertexImpl extends ModelElementImpl implements StateVertex {
-    @objid ("6d53dac9-c610-4b5e-a2a7-39fd8eb9c944")
+    @objid ("e91cf104-8f34-43c2-8421-b9318d9d8213")
     @Override
     public EList<Transition> getOutGoing() {
         return new SmList<>(this, StateVertexData.Metadata.OutGoingDep());
     }
 
-    @objid ("06f12ae1-93b5-4d69-b83b-494dbfb2b310")
+    @objid ("f95ff1f8-b3fe-48c6-8655-2184530c1965")
     @Override
     public <T extends Transition> List<T> getOutGoing(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -64,13 +64,13 @@ public abstract class StateVertexImpl extends ModelElementImpl implements StateV
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("cdf34c72-c10d-4483-8eea-6236e478c97c")
+    @objid ("650ff57b-ec4f-4d50-a4c9-f623b82f1442")
     @Override
     public EList<Transition> getIncoming() {
         return new SmList<>(this, StateVertexData.Metadata.IncomingDep());
     }
 
-    @objid ("1f85ebbb-d45e-42d5-afe3-4ea2a995e65f")
+    @objid ("e9bc5915-f2c0-42a8-91b4-d0dc8568cf69")
     @Override
     public <T extends Transition> List<T> getIncoming(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -83,19 +83,19 @@ public abstract class StateVertexImpl extends ModelElementImpl implements StateV
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("b1445183-5b2a-40d7-9c2a-27af612adb23")
+    @objid ("51cb7e95-ddf9-45a7-9c00-f0f3128c41a1")
     @Override
     public Region getParent() {
         return (Region) getDepVal(StateVertexData.Metadata.ParentDep());
     }
 
-    @objid ("12734704-fb5f-41f6-ae21-404a3481789d")
+    @objid ("62c7abc1-e203-4225-8639-fb7eeb3f3109")
     @Override
     public void setParent(Region value) {
         appendDepVal(StateVertexData.Metadata.ParentDep(), (SmObjectImpl)value);
     }
 
-    @objid ("0231905d-8474-4e98-a723-11d315d248f0")
+    @objid ("f1069bde-2686-4843-8ba4-f979f0c5a4fc")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
@@ -105,7 +105,7 @@ public abstract class StateVertexImpl extends ModelElementImpl implements StateV
         return super.getCompositionOwner();
     }
 
-    @objid ("e2a0738c-b923-4576-ab79-a868e471f486")
+    @objid ("eb1f6a3d-340b-45dd-8600-dfcf842fe945")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
@@ -115,7 +115,7 @@ public abstract class StateVertexImpl extends ModelElementImpl implements StateV
         return super.getCompositionRelation();
     }
 
-    @objid ("df978c07-3336-49ca-9e53-192a5d3ee6b6")
+    @objid ("41fb20b3-60b3-4efc-8ccb-f2644a9d156c")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitStateVertex(this);

@@ -22,7 +22,9 @@
 package org.modelio.vaudit.modelshield.standard.checkers;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.metamodel.Metamodel;
 import org.modelio.metamodel.uml.statik.AssociationEnd;
@@ -38,6 +40,13 @@ import org.modelio.vcore.smkernel.mapi.MObject;
  * <ul>
  * <li>desc = An AssociationEnd must be linked to an Association.</li>
  * <li>what = The ''{0}'' role is not linked to an association.</li>
+ * </ul>
+ * <ul>
+ * <li>For navigable roles: only current source and target must be filled.
+ * <li>For opposite roles: only opposite source and target must be filled.
+ * <li>For associations navigable from both sides: current source must be equals to opposite target as well as current target and
+ * opposite source.
+ * <li>For non navigable associations: both sources must be filled, but no target
  * </ul>
  */
 @objid ("0082b040-e20d-1f69-b3fb-001ec947cd2a")
@@ -92,25 +101,59 @@ public class E211Checker implements IChecker {
         
             if (currentNavigability && !oppositeNavigability) { // THISSIDE
                 // only current source and target must be filled
+                check (report, currentSource != null, "E211.THISSIDE.SOURCE", currentRole);
+                check (report, currentTarget != null, "E211.THISSIDE.TARGET", currentRole);
+                check (report, oppositeSource == null, "E211.THISSIDE.OPPSOURCE", currentRole, oppositeRole, oppositeSource);
+                check (report, oppositeTarget == null, "E211.THISSIDE.OPPTARGET", currentRole, oppositeRole, oppositeTarget);
+                
                 ok = currentSource != null && currentTarget != null && oppositeSource == null && oppositeTarget == null;
             } else if (!currentNavigability && oppositeNavigability) { //OTHERSIDE:
                 // only opposite source and target must be filled
                 ok = currentSource == null && currentTarget == null && oppositeSource != null && oppositeTarget != null;
+                
+                check (report, currentSource == null, "E211.OTHERSIDE.SOURCE", currentRole, currentSource);
+                check (report, currentTarget == null, "E211.OTHERSIDE.TARGET", currentRole, currentTarget);
+                check (report, oppositeSource != null, "E211.OTHERSIDE.OPPSOURCE", currentRole, oppositeRole);
+                check (report, oppositeTarget != null, "E211.OTHERSIDE.OPPTARGET", currentRole, oppositeRole);
             } else if (currentNavigability && oppositeNavigability) { // BOTHSIDES:
                 // current source must be equals to opposite target as well as current target and opposite source
                 ok = currentSource != null && currentTarget != null && currentSource.equals(oppositeTarget) && currentTarget.equals(oppositeSource);
+        
+                check (report, currentSource != null, "E211.BOTHSIDES.SOURCE", currentRole);
+                check (report, currentTarget != null, "E211.BOTHSIDES.TARGET", currentRole);
+        
+                //Source of {0} role is not same as {1} target.\n - {0} source : {2}\n - {1} target : {3}
+                check (report, Objects.equals(currentSource, oppositeTarget), "E211.BOTHSIDES.SOURCE_EQ_OPPTARGET", currentRole, oppositeRole, currentSource, oppositeTarget);
+                check (report, Objects.equals(currentTarget, oppositeSource), "E211.BOTHSIDES.TARGET_EQ_OPPSOURCE", currentRole, oppositeRole, currentTarget, oppositeSource);
             } else if (!currentNavigability && !oppositeNavigability) { 
                 // both sources must be filled, but no target
                 ok = currentSource != null && currentTarget == null && oppositeSource != null && oppositeTarget == null;
+        
+                check (report, currentSource != null, "E211.NONESIDE.SOURCE", currentRole);
+                check (report, currentTarget == null, "E211.NONESIDE.TARGET", currentRole, currentTarget);
+                check (report, oppositeSource != null, "E211.NONESIDE.OPPSOURCE", currentRole);
+                check (report, oppositeTarget == null, "E211.NONESIDE.OPPTARGET", currentRole, oppositeTarget);
             }
         }
         
         if (!ok) {
             List<Object> objects = new ArrayList<>();
-            objects.add(currentRole);
-            objects.add(oppositeRole);
+            objects.add(currentRole.toString());
+            objects.add(String.valueOf(oppositeRole));
             report.addEntry(new ModelError(ERRORID, object, objects));
         }
+    }
+
+    @objid ("eaaf9450-dfaf-497e-873f-6153f0644724")
+    private void check(final IErrorReport report, boolean expr, String errorid, MObject object, Object... linked) {
+        List<Object> l = new ArrayList<>();
+        // Transform to string now because objects may loose name when rollbacking transaction
+        l.add(object.toString());
+        for (Object o : linked)
+            l.add(String.valueOf(o));
+        
+        if (! expr)
+            report.addEntry(new ModelError(errorid, object, l));
     }
 
 }

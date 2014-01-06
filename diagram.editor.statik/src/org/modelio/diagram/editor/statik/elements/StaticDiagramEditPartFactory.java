@@ -80,7 +80,9 @@ import org.modelio.diagram.editor.statik.elements.elementimport.GmElementImport;
 import org.modelio.diagram.editor.statik.elements.elementimport.GmElementImportHeader;
 import org.modelio.diagram.editor.statik.elements.enumeration.GmEnum;
 import org.modelio.diagram.editor.statik.elements.enumeration.GmEnumPrimaryNode;
+import org.modelio.diagram.editor.statik.elements.enumliteral.EnumLitteralGroupEditPart;
 import org.modelio.diagram.editor.statik.elements.enumliteral.GmEnumLitteral;
+import org.modelio.diagram.editor.statik.elements.enumliteral.GmEnumLitteralGroup;
 import org.modelio.diagram.editor.statik.elements.generalization.GeneralizationEditPart;
 import org.modelio.diagram.editor.statik.elements.generalization.GmGeneralization;
 import org.modelio.diagram.editor.statik.elements.imagenamespacelabel.GmImageNameSpaceLabel;
@@ -761,6 +763,12 @@ public class StaticDiagramEditPartFactory implements EditPartFactory {
             
             if (model.getClass() == GmEnumLitteral.class) {
                 editPart = new GroupItemEditPart();
+                editPart.setModel(model);
+                return editPart;
+            }
+            
+            if (model.getClass() == GmEnumLitteralGroup.class) {
+                editPart = new EnumLitteralGroupEditPart();
                 editPart.setModel(model);
                 return editPart;
             }

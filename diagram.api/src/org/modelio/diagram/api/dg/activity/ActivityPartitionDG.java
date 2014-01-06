@@ -58,7 +58,7 @@ public class ActivityPartitionDG extends DiagramNode {
         // Inner nodes
         GmCompositeNode contentsArea = ((GmPartition) this.gmNode).getContentsArea();
         if (contentsArea != null) {
-            return DGFactory.getInstance().getDiagramNodes(this.diagramHandle, contentsArea.getChildren());
+            return DGFactory.getInstance().getDiagramNodes(this.diagramHandle, contentsArea.getVisibleChildren());
         } else {
             return Collections.emptyList();
         }

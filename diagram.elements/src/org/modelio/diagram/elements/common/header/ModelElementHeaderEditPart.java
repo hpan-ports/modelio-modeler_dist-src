@@ -45,6 +45,7 @@ import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Text;
 import org.modelio.diagram.elements.common.edition.DirectEditManager2;
 import org.modelio.diagram.elements.core.model.GmModel;
+import org.modelio.diagram.elements.core.model.IEditableText;
 import org.modelio.diagram.elements.core.model.IGmObject;
 import org.modelio.diagram.elements.core.node.GmNodeEditPart;
 import org.modelio.diagram.elements.core.node.GmNodeModel;
@@ -104,31 +105,29 @@ public class ModelElementHeaderEditPart extends GmNodeEditPart {
         
             };
         
-            DirectEditManager2 manager = new DirectEditManager2(this, TextCellEditor.class, cellEditorLocator) {
+            final IEditableText editableText = ((GmModel) getModel()).getEditableText();
+            if (editableText != null) {
+                DirectEditManager2 manager = new DirectEditManager2(this, TextCellEditor.class, cellEditorLocator) {
         
-                @Override
-                protected void initCellEditor() {
+                    @Override
+                    protected void initCellEditor() {
         
-                    final TextCellEditor textEdit = (TextCellEditor) this.getCellEditor();
-                    textEdit.setStyle(SWT.CENTER);
-                    textEdit.setValue(((GmModel) getModel()).getEditableText().getText());
+                        final TextCellEditor textEdit = (TextCellEditor) this.getCellEditor();
+                        textEdit.setStyle(SWT.CENTER);
+                        textEdit.setValue(editableText.getText());
         
-                    final Text textControl = (Text) textEdit.getControl();
-                    textControl.selectAll();
-                    textControl.setBackground(ColorConstants.white);
-                    textControl.setForeground(ColorConstants.blue);
+                        final Text textControl = (Text) textEdit.getControl();
+                        textControl.selectAll();
+                        textControl.setBackground(ColorConstants.white);
+                        textControl.setForeground(ColorConstants.blue);
         
-        //                    IContextService contextService = (IContextService) PlatformUI.getWorkbench().getService(IContextService.class);
-        //                    contextService.activateContext(IContextService.CONTEXT_ID_DIALOG);
+                        super.initCellEditor();
+                    }
         
-                    super.initCellEditor();
-                }
+                };
         
-            };
-        
-            manager.show();
-            // System.out.println("DIRECT Edit request");
-        
+                manager.show();
+            }
         } else {
             super.performRequest(req);
         }
@@ -174,7 +173,7 @@ public class ModelElementHeaderEditPart extends GmNodeEditPart {
      * @return the main label figure.
      */
     @objid ("7e739715-1dec-11e2-8cad-001ec947c8cc")
-    TextFlow getMainLabelFigure() {
+    public TextFlow getMainLabelFigure() {
         return ((WrappedHeaderFigure) this.getFigure()).getMainLabelFigure();
     }
 
@@ -203,13 +202,14 @@ public class ModelElementHeaderEditPart extends GmNodeEditPart {
         refreshTaggedValues(headerFigure);
         
         // Stereotypes
-        refreshStereotypes(headerFigure);
+        ShowStereotypeMode mode = getStereotypeMode(gm);
+        refreshStereotypes(headerFigure, mode);
         
         // Keyword
-        refreshMetaclassKeyword(headerFigure, gm);
+        refreshMetaclassKeyword(headerFigure, gm, mode);
         
         // Metaclass icon
-        refreshMetaclassIcon(headerFigure, gm);
+        refreshMetaclassIcon(headerFigure, gm, mode);
         
         // Set style dependent properties
         refreshFromStyle(headerFigure, getModelStyle());
@@ -223,24 +223,21 @@ public class ModelElementHeaderEditPart extends GmNodeEditPart {
         super.refreshFromStyle(aFigure, style);
         
         // We have to deal with stereotype mode and show/hide for name, stereotypes and tags
+        ShowStereotypeMode mode = getStereotypeMode((GmModelElementHeader) getModel());
         final WrappedHeaderFigure headerFigure = (WrappedHeaderFigure) aFigure;
-        refreshLabel(headerFigure);
-        refreshStereotypes(headerFigure);
+        refreshLabel(headerFigure);     
+        refreshStereotypes(headerFigure, mode);
         refreshTaggedValues(headerFigure);
     }
 
     /**
      * To be called when the stereotype mode changes or when the applied stereotypes change.
+     * @param mode
      * @param aFigure The figure to update.
      */
     @objid ("7e73972e-1dec-11e2-8cad-001ec947c8cc")
-    protected final void refreshStereotypes(final WrappedHeaderFigure aFigure) {
+    protected final void refreshStereotypes(final WrappedHeaderFigure aFigure, ShowStereotypeMode mode) {
         GmModelElementHeader gm = (GmModelElementHeader) getModel();
-        
-        ShowStereotypeMode mode = gm.getStyle().getProperty(gm.getStyleKey(MetaKey.SHOWSTEREOTYPES));
-        if (mode == null) {
-            mode = ShowStereotypeMode.NONE;
-        }
         
         switch (mode) {
         case ICON:
@@ -255,6 +252,7 @@ public class ModelElementHeaderEditPart extends GmNodeEditPart {
             aFigure.setRightIcons(gm.getStereotypeIcons());
             aFigure.setTopLabels(gm.getStereotypeLabels());
             break;
+        default:
         case NONE:
             aFigure.setRightIcons(emptyImageList);
             aFigure.setTopLabels(emptyLabelList);
@@ -268,6 +266,8 @@ public class ModelElementHeaderEditPart extends GmNodeEditPart {
         final WrappedHeaderFigure aFigure = (WrappedHeaderFigure) getFigure();
         final GmModelElementHeader gm = (GmModelElementHeader) getModel();
         
+        ShowStereotypeMode mode = getStereotypeMode(gm);
+        
         // Layout data
         final Object layoutData = gm.getLayoutData();
         if (layoutData != null)
@@ -280,13 +280,13 @@ public class ModelElementHeaderEditPart extends GmNodeEditPart {
         refreshTaggedValues(aFigure);
         
         // Stereotypes
-        refreshStereotypes(aFigure);
+        refreshStereotypes(aFigure, mode);
         
         // Metaclass Keyword
-        refreshMetaclassKeyword(aFigure, gm);
+        refreshMetaclassKeyword(aFigure, gm, mode);
         
         // Metaclass Icon
-        refreshMetaclassIcon(aFigure, gm);
+        refreshMetaclassIcon(aFigure, gm, mode);
     }
 
     @objid ("7e739736-1dec-11e2-8cad-001ec947c8cc")
@@ -302,18 +302,19 @@ public class ModelElementHeaderEditPart extends GmNodeEditPart {
     }
 
     @objid ("7e739739-1dec-11e2-8cad-001ec947c8cc")
-    protected void refreshMetaclassIcon(final WrappedHeaderFigure headerFigure, final GmModelElementHeader gm) {
+    protected void refreshMetaclassIcon(final WrappedHeaderFigure headerFigure, final GmModelElementHeader gm, ShowStereotypeMode mode) {
         ArrayList<Image> icons = new ArrayList<>();
-        if (gm.isShowMetaclassIcon()) {
+        
+        if (gm.isShowMetaclassIcon() && mode != ShowStereotypeMode.NONE && mode != ShowStereotypeMode.TEXT) {
             icons.add(gm.getMetaclassIcon());
         }
         headerFigure.setLeftIcons(icons);
     }
 
     @objid ("7e73973f-1dec-11e2-8cad-001ec947c8cc")
-    protected void refreshMetaclassKeyword(final WrappedHeaderFigure headerFigure, final GmModelElementHeader gm) {
-        if (gm.isShowMetaclassKeyword()) {
-            headerFigure.setKeywordLabel("<<" + gm.getRelatedElement().getMClass().getName() + ">>");
+    protected void refreshMetaclassKeyword(final WrappedHeaderFigure headerFigure, final GmModelElementHeader gm, ShowStereotypeMode mode) {
+        if (gm.isShowMetaclassKeyword() && mode != ShowStereotypeMode.NONE && mode != ShowStereotypeMode.ICON ) {
+            headerFigure.setKeywordLabel("<<" + gm.getMetaclassKeyword() + ">>");
         } else {
             headerFigure.setKeywordLabel(null);
         }
@@ -333,6 +334,15 @@ public class ModelElementHeaderEditPart extends GmNodeEditPart {
         } else {
             aFigure.setBottomLabels(emptyLabelList);
         }
+    }
+
+    @objid ("1bf5dbbb-b4f6-4d72-b42a-6577b6c7cba7")
+    private ShowStereotypeMode getStereotypeMode(final GmModelElementHeader gm) {
+        ShowStereotypeMode mode = gm.getStyle().getProperty(gm.getStyleKey(MetaKey.SHOWSTEREOTYPES));
+        if (mode == null) {
+            mode = ShowStereotypeMode.NONE;
+        }
+        return mode;
     }
 
 }

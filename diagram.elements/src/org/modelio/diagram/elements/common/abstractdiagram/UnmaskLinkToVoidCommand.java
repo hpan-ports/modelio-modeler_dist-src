@@ -43,9 +43,6 @@ import org.modelio.vcore.smkernel.mapi.MRef;
  */
 @objid ("7e274bfb-1dec-11e2-8cad-001ec947c8cc")
 public class UnmaskLinkToVoidCommand extends Command {
-    @objid ("09ccbe73-2a46-4ff7-bc18-4e9ff04b3f27")
-    private Point dropLocation;
-
     @objid ("7e274c02-1dec-11e2-8cad-001ec947c8cc")
     private AbstractDiagramEditPart host;
 
@@ -57,6 +54,9 @@ public class UnmaskLinkToVoidCommand extends Command {
 
     @objid ("7e274c05-1dec-11e2-8cad-001ec947c8cc")
     private MObject toElement;
+
+    @objid ("25b5fa40-1efc-439a-a992-285cd944cbd9")
+    private Point dropLocation;
 
     /**
      * C'tor.

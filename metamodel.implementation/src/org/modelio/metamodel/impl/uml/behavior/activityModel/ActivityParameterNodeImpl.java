@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.uml.behavior.activityModel;
 
 import java.util.ArrayList;
@@ -41,21 +41,21 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("0029668e-c4bf-1fd8-97fe-001ec947cd2a")
 public class ActivityParameterNodeImpl extends ObjectNodeImpl implements ActivityParameterNode {
-    @objid ("4c895eef-7b11-4313-879b-0d06b666ab41")
+    @objid ("0901d5ef-a657-47ce-b2ae-13dea93ed6fb")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("0474f49e-b418-4062-bcee-861450e92f0a")
+    @objid ("950a0a5a-8da4-41b4-bb59-950c7cbcd489")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("dbe26bf2-f5a4-497e-8ad8-ed51404896ed")
+    @objid ("e2d13d4c-2a64-477d-aaaf-7ffbfc835720")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitActivityParameterNode(this);

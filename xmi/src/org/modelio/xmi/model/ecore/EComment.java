@@ -31,18 +31,18 @@ import org.modelio.metamodel.uml.infrastructure.ModelElement;
 import org.modelio.metamodel.uml.infrastructure.Note;
 import org.modelio.metamodel.uml.infrastructure.NoteType;
 import org.modelio.metamodel.uml.statik.Class;
-import org.modelio.vcore.smkernel.mapi.MClass;
 import org.modelio.xmi.util.ObjingEAnnotation;
 import org.modelio.xmi.util.ReverseProperties;
 
 @objid ("2c12769b-4ec8-446b-b19b-03672ef9aafe")
-public class EComment extends EElement implements IEElement {
+public class EComment extends EElement {
     @objid ("b41467a5-743c-45b5-8909-d4ac3d31830e")
     private org.eclipse.uml2.uml.Comment ecoreElement = null;
 
     @objid ("28210844-514d-4119-a67e-f12e969ac539")
+    @Override
     public ArrayList<Note> createObjingElt() {
-        return new ArrayList<Note>();
+        return new ArrayList<>();
     }
 
     @objid ("d1632c07-be4d-4d08-bb18-bec150822ccb")
@@ -61,20 +61,16 @@ public class EComment extends EElement implements IEElement {
         this.ecoreElement = element;
     }
 
-    @objid ("b986954b-b6a3-4ce5-8671-2509e8d0ae77")
-    public void attach(Element objingElt) {
-    }
-
     @objid ("7fbf2ca9-cd75-43c8-b5ba-2d4bf0ccb103")
+    @Override
     public void attach(List<Object> objingElts) {
         ReverseProperties revProp = ReverseProperties.getInstance();
         
         List <org.eclipse.uml2.uml.Element> annotatedElementList = this.ecoreElement.getAnnotatedElements();
         if (annotatedElementList == null || annotatedElementList.size() == 0) {
-            annotatedElementList = new ArrayList <org.eclipse.uml2.uml.Element>();
+            annotatedElementList = new ArrayList<>();
             annotatedElementList.add(this.ecoreElement.getOwner());
         }
-        
         
         for (Object annotatedElement : annotatedElementList) {
             org.eclipse.uml2.uml.Element ecoreAnnotatedElt = (org.eclipse.uml2.uml.Element) annotatedElement;
@@ -83,27 +79,19 @@ public class EComment extends EElement implements IEElement {
             if ((objingAnnotatedElt != null) && (objingAnnotatedElt instanceof Element)) {
                 if (ecoreAnnotatedElt instanceof org.eclipse.uml2.uml.AssociationClass){
                     if (ObjingEAnnotation.isOwnedByAssociation(this.ecoreElement)){
-                        createNote(((Class) objingAnnotatedElt).getLinkToAssociation().getAssociationPart(), objingElts,
-                                ecoreAnnotatedElt, revProp);
+                        createNote(((Class) objingAnnotatedElt).getLinkToAssociation().getAssociationPart(), objingElts);
                     }else if (ObjingEAnnotation.isOwnedByAssociationClass(this.ecoreElement)){
-                        createNote(((Class) objingAnnotatedElt).getLinkToAssociation(), objingElts,
-                                ecoreAnnotatedElt, revProp);
+                        createNote(((Class) objingAnnotatedElt).getLinkToAssociation(), objingElts);
                     }else{
-                        createNote((Element) objingAnnotatedElt, objingElts,
-                                ecoreAnnotatedElt, revProp);
+                        createNote((Element) objingAnnotatedElt, objingElts);
                     }
                 }else{
-        
-                    createNote((Element) objingAnnotatedElt, objingElts,
-                            ecoreAnnotatedElt, revProp);
+                    createNote((Element) objingAnnotatedElt, objingElts);
                 }
             } else if (objingAnnotatedElt instanceof ArrayList) {
-                Iterator<Object> it = ((ArrayList<Object>) objingAnnotatedElt).iterator();
-                while (it.hasNext()) {
-                    Element objingAnnotatedElt2 = (Element) it.next();
-                    if ((objingAnnotatedElt2 != null) && (objingAnnotatedElt2 instanceof Element)) {
-                        createNote(objingAnnotatedElt2, objingElts,
-                                ecoreAnnotatedElt, revProp);
+                for (Object objingAnnotatedElt2 : (ArrayList<Object>) objingAnnotatedElt){
+                    if (objingAnnotatedElt2 instanceof Element){
+                        createNote((Element) objingAnnotatedElt2, objingElts);
                     }
                 }
             }
@@ -111,6 +99,7 @@ public class EComment extends EElement implements IEElement {
     }
 
     @objid ("3916ec60-6288-497d-a890-23390b7ed96e")
+    @Override
     public void setProperties(Element objingElt) {
         if (objingElt != null) {
             setBody((Note) objingElt);
@@ -125,8 +114,8 @@ public class EComment extends EElement implements IEElement {
     }
 
     @objid ("ad241920-7c0e-4196-b7e1-ca476b99b15c")
-    public void createNote(Element objingAnnotatedElt, List<Object> objingElt, org.eclipse.uml2.uml.Element ecoreAnnotatedElt, ReverseProperties revProp) {
-        if (objingAnnotatedElt != null && objingAnnotatedElt instanceof ModelElement) {
+    public void createNote(Element objingAnnotatedElt, List<Object> objingElt) {
+        if ((objingAnnotatedElt != null) && (objingAnnotatedElt instanceof ModelElement)) {
             Note objingNote = createNote();
             objingNote.setSubject((ModelElement) objingAnnotatedElt);
             ((ModelElement) objingAnnotatedElt).getDescriptor().add(objingNote);
@@ -149,7 +138,7 @@ public class EComment extends EElement implements IEElement {
         if (noteTypeName != null)
             objingNoteType = Modelio.getInstance().getModelingSession().getMetamodelExtensions().getNoteType(
                     objingElt.getModel().getOwnerStereotype(), noteTypeName);
-            
+        
         
         if (objingNoteType != null) {
             objingElt.setModel(objingNoteType);

@@ -32,7 +32,7 @@ import org.modelio.property.ui.data.standard.common.AbstractPropertyModel;
  * <p>
  * This class provides the list of properties for the <i>Connector</i> metaclass.
  */
-@objid ("c56f860c-2af3-4d8a-8786-3a572d399212")
+@objid ("31656e6b-f825-456d-93b2-bfa38cc2d2a5")
 public class ConnectorPropertyModel extends AbstractPropertyModel<Connector> {
     /**
      * Properties to display for <i>Connector</i>.
@@ -43,19 +43,19 @@ public class ConnectorPropertyModel extends AbstractPropertyModel<Connector> {
      * <li> for other rows the values usually match the meta-attributes and roles names of the metaclass
      * </ul>
      */
-    @objid ("1edcbf45-917c-453b-b6f3-f0cdb7b6dab0")
+    @objid ("1b3c9275-52b7-4035-a6de-bf5eba003de9")
     private static final String[] PROPERTIES = new String[] {"Connector", "Name"};
 
-    @objid ("e773e39c-a853-4669-8d5d-98dfcee62097")
+    @objid ("373d1770-d069-42bd-bda2-1c4eed42f494")
     private StringType labelStringType;
 
-    @objid ("0f4c1135-03f0-4f3b-9f27-c19c313aef3f")
+    @objid ("9b80cdeb-95b3-454a-bfe3-88908993d001")
     private StringType stringType;
 
     /**
      * Create a new <i>Connector</i> data model from an <i>Connector</i>.
      */
-    @objid ("bfda87b5-4b64-4d07-bf62-fc5d2cc7bf7d")
+    @objid ("f80f1a44-2e90-4f05-8e1b-c6e0f4a8bf9f")
     public ConnectorPropertyModel(Connector theConnector) {
         super(theConnector);
         
@@ -67,7 +67,7 @@ public class ConnectorPropertyModel extends AbstractPropertyModel<Connector> {
      * The number of columns that the properties table must display.
      * @return the number of columns
      */
-    @objid ("98455b90-48b4-485d-a7b9-d9656341686c")
+    @objid ("169e4f03-8dc2-474c-a977-efb813434e21")
     @Override
     public int getColumnNumber() {
         return 2;
@@ -77,7 +77,7 @@ public class ConnectorPropertyModel extends AbstractPropertyModel<Connector> {
      * The number of rows that the properties table must display.
      * @return the number of rows
      */
-    @objid ("37d5e78f-4e87-4bef-8cc9-9b5b02856da5")
+    @objid ("84c01853-ad81-49c2-8d39-26e9cb72c7ee")
     @Override
     public int getRowsNumber() {
         return ConnectorPropertyModel.PROPERTIES.length;
@@ -91,7 +91,7 @@ public class ConnectorPropertyModel extends AbstractPropertyModel<Connector> {
      * @param col the column number
      * @return the value corresponding to the row and column
      */
-    @objid ("71e4e71e-f33d-43c1-9200-57f088daac9f")
+    @objid ("e0b1615d-779c-437b-8172-390d932d41cc")
     @Override
     public Object getValueAt(int row, int col) {
         switch (col) {
@@ -122,7 +122,7 @@ public class ConnectorPropertyModel extends AbstractPropertyModel<Connector> {
      * @param col the column number
      * @return the type of the element corresponding to the row and column
      */
-    @objid ("666994da-05c9-445b-8353-b593f69b6016")
+    @objid ("497a0e98-7141-4b33-b001-7d1e0727117f")
     @Override
     public IPropertyType getTypeAt(int row, int col) {
         switch (col) {
@@ -150,7 +150,7 @@ public class ConnectorPropertyModel extends AbstractPropertyModel<Connector> {
      * @param col the column number.
      * @param value the value specified by the user.
      */
-    @objid ("34826a75-d053-468a-9897-bb2cf771cc5c")
+    @objid ("1ef2df74-8b9d-4c8b-8fda-73b1fdfe0ee7")
     @Override
     public void setValueAt(int row, int col, Object value) {
         switch (col) {

@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.uml.statik;
 
 import java.util.ArrayList;
@@ -43,31 +43,31 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("0020dab4-c4bf-1fd8-97fe-001ec947cd2a")
 public class NaryAssociationEndImpl extends StructuralFeatureImpl implements NaryAssociationEnd {
-    @objid ("74a9fadf-c2cd-4fb3-b375-ef63f26ac719")
+    @objid ("933383c4-f16d-46c3-ab86-ce16c4fda96b")
     @Override
     public NaryAssociation getNaryAssociation() {
         return (NaryAssociation) getDepVal(NaryAssociationEndData.Metadata.NaryAssociationDep());
     }
 
-    @objid ("9238c56d-37d8-4287-9c80-c23b5c645405")
+    @objid ("c84c4570-f439-4c0b-968b-38fff8b2a88b")
     @Override
     public void setNaryAssociation(NaryAssociation value) {
         appendDepVal(NaryAssociationEndData.Metadata.NaryAssociationDep(), (SmObjectImpl)value);
     }
 
-    @objid ("3c09ab7b-3616-4309-8330-10bb7b63a0bb")
+    @objid ("72da22c1-75ab-4505-8d46-723c08fc58d2")
     @Override
     public Classifier getOwner() {
         return (Classifier) getDepVal(NaryAssociationEndData.Metadata.OwnerDep());
     }
 
-    @objid ("7dc8f847-8205-4ead-84e9-20c334e2663e")
+    @objid ("5e1e90b8-a38c-4146-a841-fb30e0a385c3")
     @Override
     public void setOwner(Classifier value) {
         appendDepVal(NaryAssociationEndData.Metadata.OwnerDep(), (SmObjectImpl)value);
     }
 
-    @objid ("bed36f24-3158-4c3e-8dad-60fe53db1c9d")
+    @objid ("ff69a295-c2cd-41b2-b253-7a9af8e30c7a")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
@@ -80,7 +80,7 @@ public class NaryAssociationEndImpl extends StructuralFeatureImpl implements Nar
         return super.getCompositionOwner();
     }
 
-    @objid ("fa28655f-f100-405b-af46-8c05876fa904")
+    @objid ("97774dc3-30c5-4979-bf4e-e7f23851799b")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
@@ -93,7 +93,7 @@ public class NaryAssociationEndImpl extends StructuralFeatureImpl implements Nar
         return super.getCompositionRelation();
     }
 
-    @objid ("731d0b75-7c16-4c85-8f4d-ca9d62f6589a")
+    @objid ("ceeeb646-7615-4bbc-ad86-938d2c93cd8a")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitNaryAssociationEnd(this);

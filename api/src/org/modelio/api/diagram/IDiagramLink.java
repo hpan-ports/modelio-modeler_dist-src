@@ -91,6 +91,10 @@ public interface IDiagramLink extends IDiagramGraphic {
 
     /**
      * Return the path of the current link.
+     * <p>
+     * The returned path is a snapshot of the current path and may freely be modified.
+     * <p>
+     * To apply changes, call {@link #setPath(ILinkPath)} with the modified path as parameter.
      * @return The LinkPath that represent the path of the current link.
      */
     @objid ("6d0ca911-69b5-11e0-adf3-002564c97630")
@@ -199,9 +203,10 @@ public interface IDiagramLink extends IDiagramGraphic {
 
     /**
      * Route the path of a link.
-     * 
-     * This method computes a path so that the link goes through the whole list of points. I the router referenced by
-     * the current Link is an orthogonal router the path will have orthogonal angles. I the router referenced by the
+     * <p>
+     * This method computes a path so that the link goes through the whole list of points.
+     * If the router referenced by the current Link is an orthogonal router the path will have orthogonal angles.
+     * If the router referenced by the
      * current Link is a direct router this method is equivalent to the setPath method.
      * @param points A collection of points that must be on the link path.
      */

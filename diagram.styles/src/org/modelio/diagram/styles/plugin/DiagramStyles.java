@@ -59,6 +59,15 @@ public class DiagramStyles implements BundleActivator {
     @objid ("9a6f0aa4-4dc4-43f3-9fdc-3705c7d69238")
     public static final String USECASE_STYLE_NAME = "usecase";
 
+    @objid ("e4546265-f81d-4d33-91bf-071f52ac7029")
+    public static final String MAIN_STYLE_NAME = "main";
+
+    @objid ("7da1e9fb-1560-40dd-b46b-c05c36ac68cd")
+    public static final String EXTERN_STYLE_NAME = "extern";
+
+    @objid ("880a0009-d362-4a4c-b49c-8ce555781eb1")
+    public static final String INTERN_STYLE_NAME = "intern";
+
     @objid ("a67cb94d-18fe-11e2-92d2-001ec947c8cc")
     public static BundledMessages I18N = null;
 

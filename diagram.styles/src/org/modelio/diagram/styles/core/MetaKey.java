@@ -36,6 +36,7 @@ import org.modelio.diagram.styles.core.StyleKey.ShowNameMode;
 import org.modelio.diagram.styles.core.StyleKey.ShowStereotypeMode;
 import org.modelio.diagram.styles.core.StyleKey.UmaskByVisibilityStragegy;
 import org.modelio.diagram.styles.plugin.DiagramStyles;
+import org.modelio.vcore.smkernel.mapi.MRef;
 
 /**
  * Meta key used to represent the same property on different metaclasses.
@@ -211,6 +212,22 @@ public class MetaKey {
     public static final MetaKey AUTOSHOWPORTS = new MetaKey("AUTOSHOWPORTS", Boolean.class);
 
     /**
+     * Opacity level.
+     * <p>
+     * Values may range from 0 to 255. A value of 0 is completely transparent.
+     * 
+     * @see org.eclipse.draw2d.Graphics#setAlpha(int)
+     */
+    @objid ("52dd2f54-4d93-45a8-8217-5187fb53bef4")
+    public static final MetaKey FILLALPHA = new MetaKey("FILLALPHA", Integer.class);
+
+    /**
+     * Hyper link to a model element for drawings. {@link MRef} type.
+     */
+    @objid ("27077e12-7946-4df7-83e4-b61d177512e0")
+    public static final MetaKey HYPERREFLINK = new MetaKey("HYPERREFLINK", MRef.class);
+
+    /**
      * Meta key type.
      */
     @objid ("855d100b-1926-11e2-92d2-001ec947c8cc")
@@ -335,6 +352,9 @@ public class MetaKey {
         @objid ("8561d4bd-1926-11e2-92d2-001ec947c8cc")
         public static final MetaKey ATTSHOWGROUP = new MetaKey("ATTSHOWGROUP", Boolean.class);
 
+        /**
+         * Show attributes visibility
+         */
         @objid ("85643708-1926-11e2-92d2-001ec947c8cc")
         public static final MetaKey ATTSHOWVISIBILITY = new MetaKey("ATTSHOWVISIBILITY", Boolean.class);
 
@@ -395,6 +415,9 @@ public class MetaKey {
         @objid ("8564371e-1926-11e2-92d2-001ec947c8cc")
         public static final MetaKey OPSHOWSIGNATURE = new MetaKey("OPSHOWSIGNATURE", Boolean.class);
 
+        /**
+         * Display the operation visibility (public/private/...)
+         */
         @objid ("85643721-1926-11e2-92d2-001ec947c8cc")
         public static final MetaKey OPSHOWVISIBILITY = new MetaKey("OPSHOWVISIBILITY", Boolean.class);
 

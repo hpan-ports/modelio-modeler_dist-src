@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.uml.statik;
 
 import java.util.ArrayList;
@@ -43,19 +43,19 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("000a7e90-c4bf-1fd8-97fe-001ec947cd2a")
 public class EnumerationLiteralImpl extends ModelElementImpl implements EnumerationLiteral {
-    @objid ("bd78da8d-b089-4b2b-afca-4a000c01823c")
+    @objid ("88e9f48b-ece6-4ade-b7fa-87a50de3089d")
     @Override
     public Enumeration getValuated() {
         return (Enumeration) getDepVal(EnumerationLiteralData.Metadata.ValuatedDep());
     }
 
-    @objid ("5829cca9-bf1f-40cd-b1ca-ffa7f8e35edf")
+    @objid ("5ffada22-4a65-455a-9020-6134000139c2")
     @Override
     public void setValuated(Enumeration value) {
         appendDepVal(EnumerationLiteralData.Metadata.ValuatedDep(), (SmObjectImpl)value);
     }
 
-    @objid ("cacba262-3e89-45b7-a831-76f33c93c904")
+    @objid ("7f030cb1-b5c9-4336-829e-da3c03d1a962")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
@@ -65,7 +65,7 @@ public class EnumerationLiteralImpl extends ModelElementImpl implements Enumerat
         return super.getCompositionOwner();
     }
 
-    @objid ("0f88d795-e845-4452-9bbb-385ec1f7d5ed")
+    @objid ("70e4e49c-cc42-4379-87c3-759ed806cb6f")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
@@ -75,7 +75,7 @@ public class EnumerationLiteralImpl extends ModelElementImpl implements Enumerat
         return super.getCompositionRelation();
     }
 
-    @objid ("ae6adedb-866e-44ee-acf3-5543745c0829")
+    @objid ("4ffc1840-ffb8-412a-be20-4a8401a9ca81")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitEnumerationLiteral(this);

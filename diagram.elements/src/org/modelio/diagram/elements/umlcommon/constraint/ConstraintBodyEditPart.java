@@ -81,11 +81,27 @@ public class ConstraintBodyEditPart extends GmNodeEditPart {
         startCommand.setSource(sourceModel);
         request.setStartCommand(startCommand);
         
-        // Search all gm representing the new target
-        List<GmModel> constrainedElementModels = sourceModel.getDiagram()
-                                                            .getAllGMRelatedTo(new MRef(constrainedElement));
-        // This boolean will be used to note that the searched End was found
-        // unmasked at least once.
+        // Search on the edit part composition
+        List<GmModel> constrainedElementModels = sourceModel.getDiagram().getAllGMRelatedTo(new MRef(constrainedElement));
+        for (GmModel constrainedElementModel : constrainedElementModels) {
+            // For each gm, search the corresponding edit part
+            EditPart editPart = (EditPart) this.getViewer()
+                                               .getEditPartRegistry()
+                                               .get(constrainedElementModel);
+            if (editPart != null) {
+                editPart = editPart.getParent();
+                // See if this edit part accepts the reconnection request
+                EditPart targetEditPart = editPart.getTargetEditPart(request);
+                if (targetEditPart != null) {
+                    // found a valid target: add the link to it!
+                    IGmLinkable targetModel = (IGmLinkable) targetEditPart.getModel();
+                    targetModel.addEndingLink(link);
+                    return;
+                }
+            }
+        }
+        
+        // No target found, look for parent edit parts...
         for (GmModel constrainedElementModel : constrainedElementModels) {
             // For each gm, search the corresponding edit part
             EditPart editPart = (EditPart) this.getViewer()
@@ -98,11 +114,10 @@ public class ConstraintBodyEditPart extends GmNodeEditPart {
                     // found a valid target: add the link to it!
                     IGmLinkable targetModel = (IGmLinkable) targetEditPart.getModel();
                     targetModel.addEndingLink(link);
-                    break;
+                    return;
                 }
             }
         }
-        //link.setLayoutData(null);
     }
 
     @objid ("81165093-1dec-11e2-8cad-001ec947c8cc")

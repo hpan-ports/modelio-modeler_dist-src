@@ -32,6 +32,7 @@ import org.eclipse.draw2d.FigureCanvas;
 import org.eclipse.draw2d.Layer;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.e4.core.di.annotations.Execute;
 import org.eclipse.e4.ui.model.application.ui.basic.MPart;
 import org.eclipse.e4.ui.services.IServiceConstants;
 import org.eclipse.gef.LayerConstants;
@@ -57,6 +58,7 @@ public class ZoomFitHandler {
     }
 
     @objid ("66628628-33f7-11e2-95fe-001ec947c8cc")
+    @Execute
     public Object execute(@Named(IServiceConstants.ACTIVE_PART) final MPart part) {
         if (! (part.getObject() instanceof AbstractDiagramEditor)) {
             return null;

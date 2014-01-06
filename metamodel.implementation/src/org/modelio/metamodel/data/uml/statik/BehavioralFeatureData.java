@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.data.uml.statik;
 
 import java.util.ArrayList;
@@ -43,22 +43,22 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("00205526-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=BehavioralFeature.class, factory=BehavioralFeatureData.Metadata.ObjectFactory.class)
 public class BehavioralFeatureData extends FeatureData {
-    @objid ("6c6ed682-aeac-4872-925d-bf3ec84c7f07")
+    @objid ("f4b30226-79eb-4d4f-a949-6077b79e54ba")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("00578b86-c4c5-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("078d5b1d-f056-4058-bbf2-23b40844394d")
+        @objid ("f4bfb54c-576d-47a1-955b-de9ff7ffbeab")
         private static SmClass smClass = null;
 
-        @objid ("5efebcfe-3bf5-4844-b5b7-3707d4e6bc62")
+        @objid ("41346bf5-d3fa-4c2d-99e9-004dbc878329")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(BehavioralFeatureData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("0a481ddd-b05e-4c9a-ad6f-451d6d9947bf")
+        @objid ("3ba44945-febc-43a3-b770-1592d2ef1747")
         public static SmClass getSmClass() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return smClass;
@@ -66,12 +66,12 @@ public class BehavioralFeatureData extends FeatureData {
 
         @objid ("005895ee-c4c5-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("5cc2f806-cd10-426b-827e-a6c3eaac2c37")
+            @objid ("13b79b7f-9948-42df-96ab-cf87fe7c3cb3")
             public ISmObjectData createData() {
                 return new BehavioralFeatureData();
             }
 
-            @objid ("88e09951-1496-4b99-ad83-18714c1d9db3")
+            @objid ("763b37c6-37d9-4539-8fd5-b4996f482538")
             public SmObjectImpl createImpl() {
                 return new BehavioralFeatureImpl();
             }

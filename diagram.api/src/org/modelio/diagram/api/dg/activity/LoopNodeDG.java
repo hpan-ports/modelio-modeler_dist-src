@@ -49,7 +49,7 @@ public class LoopNodeDG extends PortContainerDG {
     protected List<IDiagramNode> getPrimaryChildrenNodes() {
         // Inner nodes
         GmLoopNodePrimaryNode mainNode = (GmLoopNodePrimaryNode) getPrimaryNode();
-        return DGFactory.getInstance().getDiagramNodes(this.diagramHandle, mainNode.getInnerZone().getChildren());
+        return DGFactory.getInstance().getDiagramNodes(this.diagramHandle, mainNode.getInnerZone().getVisibleChildren());
     }
 
 }

@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.data.uml.behavior.activityModel;
 
 import java.util.ArrayList;
@@ -44,29 +44,29 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("003b23ec-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=OutputPin.class, factory=OutputPinData.Metadata.ObjectFactory.class)
 public class OutputPinData extends PinData {
-    @objid ("8148f99e-351f-4548-9783-45b0c0b130ed")
+    @objid ("2a431b5c-c36a-4c5d-9198-3b7ac12c2b08")
     @SmaMetaAssociation(metaName="Outputing", typeDataClass=ActivityActionData.class, min=0, max=1, smAssociationClass=Metadata.OutputingSmDependency.class)
      SmObjectImpl mOutputing;
 
-    @objid ("dac222e7-d295-4538-b437-e5212aabe80c")
+    @objid ("cd02729d-a2f4-4050-9bbb-3db03c355c6d")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("0050c058-c4c3-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("ee08b419-ddea-483a-b460-902385a42cce")
+        @objid ("04f4a627-09f9-43cf-9c62-30d7a5df384a")
         private static SmClass smClass = null;
 
-        @objid ("35884a79-8751-464a-b4d2-bd8f90439e1a")
+        @objid ("45b7d847-6728-406a-8427-aa7525a3e5e3")
         private static SmDependency OutputingDep = null;
 
-        @objid ("753f3c28-93b6-4203-bb44-37af7c3c5508")
+        @objid ("156fb60f-bc07-45ad-b23d-af6aae358c72")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(OutputPinData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("a1b8a733-ae7a-49eb-80e6-0a43a74de3d0")
+        @objid ("6b110cf9-f500-4f16-accc-1db67ad3e762")
         public static SmDependency OutputingDep() {
             if (OutputingDep == null) {
             	OutputingDep = classof().getDependencyDef("Outputing");
@@ -74,13 +74,13 @@ public class OutputPinData extends PinData {
             return OutputingDep;
         }
 
-        @objid ("b3e09787-0a93-4e24-a26a-aed7d4a5e189")
+        @objid ("304646b0-2b78-4d5a-89a3-537f492fa213")
         public static SmDependency getOutputingDep() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return OutputingDep;
         }
 
-        @objid ("825253ef-33f6-41df-ba4d-395e146615c3")
+        @objid ("dde16525-097d-4ce5-bba1-2b682164329d")
         public static SmClass getSmClass() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return smClass;
@@ -88,12 +88,12 @@ public class OutputPinData extends PinData {
 
         @objid ("00510252-c4c3-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("cb45fd2f-2bc6-4a2c-808f-748f3d448cc8")
+            @objid ("b2861afd-a36a-4899-945a-d6595afa1d9c")
             public ISmObjectData createData() {
                 return new OutputPinData();
             }
 
-            @objid ("446588e6-46c4-4533-994b-b81b225709b0")
+            @objid ("83bb305e-6dca-413d-b702-0725eb4271da")
             public SmObjectImpl createImpl() {
                 return new OutputPinImpl();
             }
@@ -102,18 +102,18 @@ public class OutputPinData extends PinData {
 
         @objid ("00516562-c4c3-1fd8-97fe-001ec947cd2a")
         public static class OutputingSmDependency extends SmSingleDependency {
-            @objid ("d27566a2-28bb-44a0-aa9e-2fd558656070")
+            @objid ("999d3d7e-ebcb-480c-9cb2-e0b71778bb6b")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((OutputPinData) data).mOutputing;
             }
 
-            @objid ("948f61c6-fc5b-487c-b081-47b3d076ac8d")
+            @objid ("a315965d-c484-4d54-9707-6b55da14f5bf")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((OutputPinData) data).mOutputing = value;
             }
 
-            @objid ("926486b4-45a2-4622-ac37-9d57aef59a20")
+            @objid ("4301dad2-4385-4a99-9996-cab62c5e4e59")
             @Override
             public SmDependency getSymetric() {
                 return ActivityActionData.Metadata.OutputDep();

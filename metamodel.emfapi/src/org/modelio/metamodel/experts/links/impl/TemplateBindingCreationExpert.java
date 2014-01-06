@@ -25,6 +25,7 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.metamodel.uml.statik.NameSpace;
 import org.modelio.metamodel.uml.statik.Operation;
 import org.modelio.metamodel.uml.statik.TemplateBinding;
+import org.modelio.vcore.smkernel.mapi.MClass;
 import org.modelio.vcore.smkernel.mapi.MObject;
 
 /**
@@ -40,8 +41,8 @@ import org.modelio.vcore.smkernel.mapi.MObject;
 public class TemplateBindingCreationExpert extends DefaultLinkExpert {
     @objid ("7e9c0411-1eb2-11e2-8009-002564c97630")
     @Override
-    public boolean canLink(MObject link, final MObject from, final MObject to, final MObject owner) {
-        if (!canSource(link, from)) {
+    public boolean canLink(MClass link, final MObject from, final MObject to) {
+        if (!canSource(link, from.getMClass())) {
             // Bad from
             return false;
         } else if (from == null || to == null || from.equals(to)) {

@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.data.bpmn.objects;
 
 import java.util.ArrayList;
@@ -46,36 +46,36 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("0008b3d0-c4c0-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=BpmnDataState.class, factory=BpmnDataStateData.Metadata.ObjectFactory.class)
 public class BpmnDataStateData extends BpmnBaseElementData {
-    @objid ("1a9b446a-dfef-4033-90c9-e099334a183c")
+    @objid ("64e8853c-eb58-46db-8548-85d92122d93a")
     @SmaMetaAssociation(metaName="Item", typeDataClass=BpmnItemAwareElementData.class, min=1, max=1, smAssociationClass=Metadata.ItemSmDependency.class)
      SmObjectImpl mItem;
 
-    @objid ("c62521dc-e854-433b-aaa3-f157d48eee17")
+    @objid ("28c4299a-3c05-45d0-b9ce-61889774f404")
     @SmaMetaAssociation(metaName="UmlState", typeDataClass=StateData.class, min=0, max=1, smAssociationClass=Metadata.UmlStateSmDependency.class, partof = true)
      SmObjectImpl mUmlState;
 
-    @objid ("dbe1835c-fbcc-4c30-ba0c-787c0ce62f48")
+    @objid ("0d4caa83-d6f3-4fcb-89a9-79db419152ec")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("000a4880-c4c3-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("db9ef31c-38be-4404-a2fc-b1f8d8afcc01")
+        @objid ("84686a45-fe9c-490e-951c-390d0c019b84")
         private static SmClass smClass = null;
 
-        @objid ("1a9aea9d-e0b2-4e36-b3a3-66f0e75c1152")
+        @objid ("a94c15f9-87f3-4093-ac7a-29522697f5c9")
         private static SmDependency ItemDep = null;
 
-        @objid ("64320284-951a-40fc-b0f7-72d9cd84ef0b")
+        @objid ("ceaecd78-8b90-42e5-9a63-fd850d645365")
         private static SmDependency UmlStateDep = null;
 
-        @objid ("aeb1d4ee-97af-48a3-a454-62ade7d8ddd5")
+        @objid ("a5248d30-0634-4f80-be94-dfab2fb0402b")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(BpmnDataStateData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("78222195-12da-42ee-9a91-479df3cde047")
+        @objid ("a56e24c9-219b-4dcb-a06d-4272ff787294")
         public static SmDependency ItemDep() {
             if (ItemDep == null) {
             	ItemDep = classof().getDependencyDef("Item");
@@ -83,7 +83,7 @@ public class BpmnDataStateData extends BpmnBaseElementData {
             return ItemDep;
         }
 
-        @objid ("11d746e4-ee3b-45b8-8a15-daa40fc77c88")
+        @objid ("ca69c10f-fa2a-4e97-a722-50d53dfa2637")
         public static SmDependency UmlStateDep() {
             if (UmlStateDep == null) {
             	UmlStateDep = classof().getDependencyDef("UmlState");
@@ -91,32 +91,32 @@ public class BpmnDataStateData extends BpmnBaseElementData {
             return UmlStateDep;
         }
 
-        @objid ("4d4a8c78-c9c1-4ac4-9fa8-99bd74b4d84d")
+        @objid ("d5e32b25-5285-4037-8c8b-01fd156b614f")
         public static SmDependency getUmlStateDep() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return UmlStateDep;
         }
 
-        @objid ("0a4dc916-fb34-42a2-8212-77b6d6726e58")
-        public static SmDependency getItemDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return ItemDep;
-        }
-
-        @objid ("f7be9a07-df31-4ad6-a4fd-2de519ebd5dc")
+        @objid ("15fbabe1-aa94-4b15-8be5-3a9f52ea554b")
         public static SmClass getSmClass() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return smClass;
         }
 
+        @objid ("6a4c19e3-68f4-43d3-bd00-81dd957c9798")
+        public static SmDependency getItemDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return ItemDep;
+        }
+
         @objid ("000a898a-c4c3-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("32d6e7f6-b33b-4215-9421-f71af8fd0ee5")
+            @objid ("4fcc7bed-98c6-46ac-8588-416a3d68ff80")
             public ISmObjectData createData() {
                 return new BpmnDataStateData();
             }
 
-            @objid ("c34103bc-997e-4837-9730-e6bd1d2c819c")
+            @objid ("74d55855-bd92-40bb-a8a0-2616f873ab0b")
             public SmObjectImpl createImpl() {
                 return new BpmnDataStateImpl();
             }
@@ -125,18 +125,18 @@ public class BpmnDataStateData extends BpmnBaseElementData {
 
         @objid ("000aebb4-c4c3-1fd8-97fe-001ec947cd2a")
         public static class UmlStateSmDependency extends SmSingleDependency {
-            @objid ("a6d5da9b-975d-4533-a0f5-06d319b15ddf")
+            @objid ("a683acba-bc45-4a57-b3aa-8a3e403fb618")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((BpmnDataStateData) data).mUmlState;
             }
 
-            @objid ("393ad082-11c8-47ba-859f-ccdf8063b0e3")
+            @objid ("56714054-5753-428b-951e-38528f9fc7a2")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((BpmnDataStateData) data).mUmlState = value;
             }
 
-            @objid ("c9d878e1-0e1a-4cbc-bfd5-71e3f2d95b82")
+            @objid ("defd7db3-c140-4ace-88d9-63640976e7cb")
             @Override
             public SmDependency getSymetric() {
                 return StateData.Metadata.BpmnDataStateRefsDep();
@@ -146,18 +146,18 @@ public class BpmnDataStateData extends BpmnBaseElementData {
 
         @objid ("000b60b2-c4c3-1fd8-97fe-001ec947cd2a")
         public static class ItemSmDependency extends SmSingleDependency {
-            @objid ("cfcbbcb6-43f9-4890-9c25-f28f41f69e47")
+            @objid ("f34d7608-92ca-4863-b65c-0b735f504db4")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((BpmnDataStateData) data).mItem;
             }
 
-            @objid ("374ecbf2-7356-49dd-9d71-dec7475b6ed9")
+            @objid ("d14e6049-fd9c-4ff9-b134-a1846eabd877")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((BpmnDataStateData) data).mItem = value;
             }
 
-            @objid ("419c288c-b279-442d-b065-f71ba10e47a5")
+            @objid ("a0a115de-7ba5-4a0a-8254-637ec1421148")
             @Override
             public SmDependency getSymetric() {
                 return BpmnItemAwareElementData.Metadata.DataStateDep();

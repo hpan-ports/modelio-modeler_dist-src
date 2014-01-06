@@ -24,17 +24,18 @@ package org.modelio.diagram.elements.common.header;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.draw2d.BorderLayout;
+import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.Figure;
-import org.eclipse.draw2d.GridData;
-import org.eclipse.draw2d.GridLayout;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.ImageFigure;
 import org.eclipse.draw2d.Label;
+import org.eclipse.draw2d.LineBorder;
 import org.eclipse.draw2d.MarginBorder;
 import org.eclipse.draw2d.OrderedLayout;
 import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.ToolbarLayout;
 import org.eclipse.draw2d.geometry.Dimension;
+import org.eclipse.draw2d.geometry.Insets;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
@@ -60,138 +61,70 @@ import org.modelio.diagram.elements.core.figures.LabelFigure;
  */
 @objid ("7e6a0dcf-1dec-11e2-8cad-001ec947c8cc")
 public class HeaderFigure extends GradientFigure {
-    @objid ("f0097d69-5e1c-45ef-9d0a-ba6224397102")
+    @objid ("7e6c700b-1dec-11e2-8cad-001ec947c8cc")
+    protected LabelFigure mainArea;
+
+    @objid ("c81efcb1-a847-4580-934f-4e6b59fc83e4")
+    protected Figure mIconsArea;
+
+    @objid ("28518536-b51e-4f6a-9954-fee910f30a27")
+    protected Figure sIconsArea;
+
+    @objid ("449a8291-6903-45ad-87bd-7ba635f573f2")
+    protected Figure keywordsArea;
+
+    @objid ("b59b014a-270f-4b1d-ace1-0f183a6d941d")
     protected Font stereotypeFont = null;
 
-    @objid ("5fe488d7-67cd-4289-a772-bd87446d8e7b")
+    @objid ("f8949f1c-c79d-45f4-a076-aaecb0569cbc")
     protected Font tagFont = null;
 
-    @objid ("57ad8815-889b-44fe-83c9-71b46831b0b7")
-    protected Figure iconsArea;
-
-    @objid ("1a4116b1-4b29-4e7e-bb64-4ec0e958e315")
-    protected Figure leftIconsContainer;
-
-    @objid ("72e52d58-87ab-4834-93d2-c7b270460a76")
-    protected Figure rightIconsContainer;
-
-    @objid ("1ddbc80a-143d-469f-8046-b3c2644026e8")
+    @objid ("56664683-7d27-4b6b-ab0b-f3a23e40d7bd")
     protected Label keywordLabel;
 
-    @objid ("67956766-52ac-4fbb-a15c-70a7653029e1")
-    protected Figure topLabelsArea;
+    @objid ("3e229773-f600-4b9e-b475-f50782f1e2d6")
+    protected Figure tagsArea;
 
-    @objid ("3842928f-fb97-4e0f-b5dd-11f05f5b358e")
-    protected Figure bottomLabelsArea;
-
-    @objid ("a0f53ea2-2a68-4ee2-9cef-52e51a8e56a0")
-    protected Figure contentsArea;
-
-    @objid ("0937b530-5c95-4f57-90b0-c75437427968")
-    protected Figure table;
-
-    @objid ("7e6c700b-1dec-11e2-8cad-001ec947c8cc")
-    protected LabelFigure mainLabel;
+    @objid ("a3519b0b-1aa1-45ca-ba9e-c18f6c3de26d")
+    protected Figure keywordLabels;
 
     /**
      * Constructor.
      */
     @objid ("7e6c7017-1dec-11e2-8cad-001ec947c8cc")
     public HeaderFigure() {
-        // The header figure is a border layouted container.
-        // There are two children: 
-        //   - the icons area layouted as TOP 
-        //   - the contents area layouted as CENTER
+        // The header figure is a 'BorderLayout' container.
+        // Children layout:
+        // - TOP   : keywordsArea - FlowPage (keyword and stereotypes labels)
+        // - RIGHT : sIconsArea   - Figure with tool bar layout (stereotypes icons)
+        // - BOTTOM: tagsArea   - FlowPage ( tagged values)
+        // - LEFT  : mIconsArea   - Figure with tool bar layout (metaclass icon)
+        // - CENTER: mainArea (main label)
         // Children are transparent without borders
-        this.setLayoutManager(new BorderLayout());
+        // this.setLayoutManager(new BorderLayout());
+        Figure container = this;
+        container.setLayoutManager(new BorderLayout());
+        // TRACE: container.setBorder(new LineBorder(ColorConstants.red, 2));
         
-        // TRACE: this.setBorder(new LineBorder(ColorConstants.orange, 1));
+        // -- LEFT Area --
+        this.mIconsArea = createMIconsArea();
+        container.add(this.mIconsArea, BorderLayout.LEFT);
         
-        // TOP figure : the icon area
-        // The icon area is a border layouted container
-        this.iconsArea = new Figure();
-        this.iconsArea.setLayoutManager(new BorderLayout());
-        // TRACE: iconsArea.setBorder(new LineBorder(ColorConstants.green, 1));
-        this.add(this.iconsArea, BorderLayout.TOP);
+        // -- RIGHT Area --
+        this.sIconsArea = createSIconsAreaFigures();
+        container.add(this.sIconsArea, BorderLayout.RIGHT);
         
-        // left icons container
-        // an horizontal toolbar layouted container, left aligned
-        this.leftIconsContainer = new Figure();
-        ToolbarLayout leftIconAreaLayout = new ToolbarLayout(true);
-        leftIconAreaLayout.setMinorAlignment(OrderedLayout.ALIGN_BOTTOMRIGHT);
-        leftIconAreaLayout.setSpacing(1);
-        this.leftIconsContainer.setLayoutManager(leftIconAreaLayout);
-        // TRACE: leftIconsContainer.setBorder(new LineBorder(1));
-        this.leftIconsContainer.setOpaque(false);
-        this.iconsArea.add(this.leftIconsContainer, BorderLayout.LEFT);
+        // -- TOP Area --
+        this.keywordsArea = createKeywordsArea();
+        container.add(this.keywordsArea, BorderLayout.TOP);
         
-        // right icons container
-        // an horizontal toolbar layouted container, right aligned
-        this.rightIconsContainer = new Figure();
-        ToolbarLayout righIconAreaLayout = new ToolbarRLayout(true);
-        righIconAreaLayout.setMinorAlignment(OrderedLayout.ALIGN_BOTTOMRIGHT);
-        righIconAreaLayout.setSpacing(1);
-        this.rightIconsContainer.setLayoutManager(righIconAreaLayout);
-        // TRACE: rightIconsContainer.setBorder(new LineBorder(1));
-        this.rightIconsContainer.setOpaque(false);
-        this.iconsArea.add(this.rightIconsContainer, BorderLayout.RIGHT);
+        // -- CENTER Area --
+        this.mainArea = createMainArea();
+        container.add(this.mainArea, BorderLayout.CENTER);
         
-        // CENTER figure : the contents area
-        // The contents area is a grid layouted figure holding a centered cell child
-        this.contentsArea = new Figure();
-        //TRACE: contentsArea.setBorder(new LineBorder(ColorConstants.blue, 1));
-        GridLayout gl = new GridLayoutFixed(1, true);
-        gl.marginHeight = 0;
-        gl.marginWidth = 0;
-        gl.verticalSpacing = 0;
-        this.contentsArea.setLayoutManager(gl);
-        this.add(this.contentsArea, BorderLayout.CENTER);
-        
-        this.table = new Figure();
-        //TRACE table.setBorder(new LineBorder(ColorConstants.orange, 1));
-        ToolbarLayout tbLayout = new ToolbarLayout(false);
-        tbLayout.setStretchMinorAxis(true);
-        tbLayout.setMinorAlignment(OrderedLayout.ALIGN_CENTER);
-        this.table.setLayoutManager(tbLayout);
-        GridData gd = new GridData(SWT.FILL, SWT.CENTER, true, true);
-        this.contentsArea.add(this.table, gd);
-        
-        // first row : Keyword label
-        this.keywordLabel = new Label("");
-        this.keywordLabel.setLabelAlignment(PositionConstants.CENTER);
-        this.keywordLabel.setOpaque(false);
-        //TRACE: this.keywordLabel.setBorder(new LineBorder(ColorConstants.blue, 1));
-        
-        this.table.add(this.keywordLabel, gd);
-        
-        // second row: top labels
-        this.topLabelsArea = new Figure();
-        ToolbarLayout topAreaLayout = new ToolbarLayout(false);
-        topAreaLayout.setSpacing(0);
-        topAreaLayout.setMinorAlignment(OrderedLayout.ALIGN_CENTER);
-        topAreaLayout.setStretchMinorAxis(true);
-        this.topLabelsArea.setLayoutManager(topAreaLayout);
-        this.topLabelsArea.setOpaque(false);
-        //TRACE: this.topLabelsArea.setBorder(new LineBorder(ColorConstants.green, 1));
-        this.table.add(this.topLabelsArea);
-        
-        // Fourth child: the main label area
-        this.mainLabel = new LabelFigure();
-        this.mainLabel.setLabelAlignment(PositionConstants.CENTER);
-        this.mainLabel.setBorder(new MarginBorder(2, 0, 4, 0));
-        //TRACE: this.mainLabel.setBorder(new LineBorder(ColorConstants.blue, 1));
-        this.table.add(this.mainLabel);
-        
-        // Fifth child: bottom labels
-        this.bottomLabelsArea = new Figure();
-        ToolbarLayout bottomAreaLayout = new ToolbarLayout(false);
-        bottomAreaLayout.setSpacing(0);
-        bottomAreaLayout.setMinorAlignment(OrderedLayout.ALIGN_CENTER);
-        bottomAreaLayout.setStretchMinorAxis(true);
-        this.bottomLabelsArea.setLayoutManager(bottomAreaLayout);
-        this.bottomLabelsArea.setOpaque(false);
-        //TRACE: this.bottomLabelsArea.setBorder(new LineBorder(ColorConstants.blue, 1));
-        this.table.add(this.bottomLabelsArea);
+        // -- BOTTOM area --
+        this.tagsArea = createTagsArea();
+        container.add(this.tagsArea, BorderLayout.BOTTOM);
     }
 
     /**
@@ -201,11 +134,11 @@ public class HeaderFigure extends GradientFigure {
     @objid ("7e6c701a-1dec-11e2-8cad-001ec947c8cc")
     public void setLeftIcons(List<Image> icons) {
         // remove existing labels
-        this.leftIconsContainer.removeAll();
+        this.mIconsArea.removeAll();
         // add new image figures
         for (Image img : icons) {
             ImageFigure imgFigure = new ImageFigure(img);
-            this.leftIconsContainer.add(imgFigure);
+            this.mIconsArea.add(imgFigure);
         }
     }
 
@@ -216,11 +149,12 @@ public class HeaderFigure extends GradientFigure {
     @objid ("7e6c7020-1dec-11e2-8cad-001ec947c8cc")
     public void setRightIcons(List<Image> icons) {
         // remove existing labels
-        this.rightIconsContainer.removeAll();
+        this.sIconsArea.removeAll();
         // add new image figures
         for (Image img : icons) {
             ImageFigure imgFigure = new ImageFigure(img);
-            this.rightIconsContainer.add(imgFigure);
+            this.sIconsArea.add(imgFigure);
+            
         }
     }
 
@@ -232,7 +166,7 @@ public class HeaderFigure extends GradientFigure {
     public void setKeywordLabel(String text) {
         if (text == null) {
             if (this.keywordLabel != null) {
-                this.table.remove(this.keywordLabel);
+                this.keywordsArea.remove(this.keywordLabel);
                 this.keywordLabel = null;
             }
         } else {
@@ -243,8 +177,8 @@ public class HeaderFigure extends GradientFigure {
                 this.keywordLabel.setLabelAlignment(PositionConstants.CENTER);
                 this.keywordLabel.setOpaque(false);
                 this.keywordLabel.setFont(this.stereotypeFont);
-                //TRACE: this.keywordLabel.setBorder(new LineBorder(ColorConstants.blue, 1));
-                this.table.add(this.keywordLabel, 1);
+                // TRACE: this.keywordLabel.setBorder(new LineBorder(ColorConstants.blue, 1));
+                this.keywordsArea.add(this.keywordLabel, 1);
             }
         
         }
@@ -252,19 +186,19 @@ public class HeaderFigure extends GradientFigure {
 
     /**
      * Set the labels displayed on top of the main label.
-     * @param topLabels the top labels.
+     * @param keywordLabels the top labels.
      */
     @objid ("7e6c702a-1dec-11e2-8cad-001ec947c8cc")
-    public void setTopLabels(List<String> topLabels) {
+    public void setTopLabels(List<String> keywordLabels) {
         // remove existing labels
-        this.topLabelsArea.removeAll();
+        this.keywordLabels.removeAll();
         
         // add new label figures
-        for (String s : topLabels) {
+        for (String s : keywordLabels) {
             Label labelFigure = new Label(s);
-            //TRACE: labelFigure.setBorder(new LineBorder(1));
+            // TRACE: labelFigure.setBorder(new LineBorder(1));
             labelFigure.setTextAlignment(PositionConstants.CENTER);
-            this.topLabelsArea.add(labelFigure);
+            this.keywordLabels.add(labelFigure);
         }
     }
 
@@ -274,7 +208,7 @@ public class HeaderFigure extends GradientFigure {
      */
     @objid ("7e6c7030-1dec-11e2-8cad-001ec947c8cc")
     public void setMainLabel(String s) {
-        this.mainLabel.setText(s);
+        this.mainArea.setText(s);
     }
 
     /**
@@ -284,13 +218,13 @@ public class HeaderFigure extends GradientFigure {
     @objid ("7e6c7034-1dec-11e2-8cad-001ec947c8cc")
     public void setBottomLabels(List<String> bottomLabels) {
         // remove existing labels
-        this.bottomLabelsArea.removeAll();
+        this.tagsArea.removeAll();
         
         // add new label figures
         for (String s : bottomLabels) {
             Label labelFigure = new Label(s);
             labelFigure.setTextAlignment(PositionConstants.CENTER);
-            this.bottomLabelsArea.add(labelFigure);
+            this.tagsArea.add(labelFigure);
         }
     }
 
@@ -300,29 +234,29 @@ public class HeaderFigure extends GradientFigure {
      */
     @objid ("7e6c703a-1dec-11e2-8cad-001ec947c8cc")
     Label getMainLabelFigure() {
-        return this.mainLabel;
+        return this.mainArea;
     }
 
     @objid ("7e6c7041-1dec-11e2-8cad-001ec947c8cc")
     @Override
     public Color getTextColor() {
-        return this.mainLabel.getForegroundColor();
+        return this.mainArea.getForegroundColor();
     }
 
     @objid ("7e6c7046-1dec-11e2-8cad-001ec947c8cc")
     @Override
     public Font getTextFont() {
-        return this.mainLabel.getFont();
+        return this.mainArea.getFont();
     }
 
     @objid ("7e6c704b-1dec-11e2-8cad-001ec947c8cc")
     @Override
     public void setTextColor(Color textColor) {
-        this.topLabelsArea.setForegroundColor(textColor);
+        this.keywordLabels.setForegroundColor(textColor);
         if (this.keywordLabel != null)
             this.keywordLabel.setForegroundColor(textColor);
-        this.mainLabel.setForegroundColor(textColor);
-        this.bottomLabelsArea.setForegroundColor(textColor);
+        this.mainArea.setForegroundColor(textColor);
+        this.tagsArea.setForegroundColor(textColor);
     }
 
     @objid ("7e6c704f-1dec-11e2-8cad-001ec947c8cc")
@@ -330,16 +264,16 @@ public class HeaderFigure extends GradientFigure {
     public void setTextFont(Font textFont) {
         updateDerivedFonts(textFont);
         
-        this.topLabelsArea.setFont(this.stereotypeFont);
+        this.keywordLabels.setFont(this.stereotypeFont);
         if (this.keywordLabel != null)
             this.keywordLabel.setFont(this.stereotypeFont);
-        this.mainLabel.setFont(textFont);
-        this.bottomLabelsArea.setFont(this.tagFont);
+        this.mainArea.setFont(textFont);
+        this.tagsArea.setFont(this.tagFont);
     }
 
     @objid ("7e6ed255-1dec-11e2-8cad-001ec947c8cc")
     private void updateDerivedFonts(Font baseFont) {
-        if (this.mainLabel.getFont() == baseFont && this.tagFont != null && this.stereotypeFont != null)
+        if (this.mainArea.getFont() == baseFont && this.tagFont != null && this.stereotypeFont != null)
             return;
         
         FontData[] fontData = baseFont.getFontData();
@@ -377,32 +311,32 @@ public class HeaderFigure extends GradientFigure {
     @objid ("7e6ed26a-1dec-11e2-8cad-001ec947c8cc")
     private int deriveFontHeight(int height) {
         switch (height) {
-            case 8:
-                return 7;
+        case 8:
+            return 7;
         
-            case 9:
-                return 7;
+        case 9:
+            return 7;
         
-            case 10:
-                return 8;
+        case 10:
+            return 8;
         
-            case 11:
-                return 8;
+        case 11:
+            return 8;
         
-            case 12:
-                return 9;
+        case 12:
+            return 9;
         
-            case 13:
-                return 10;
+        case 13:
+            return 10;
         
-            case 14:
-                return 10;
+        case 14:
+            return 10;
         
-            default:
-                if (height < 8)
-                    return height;
-                //else
-                return height * 10 / 14;
+        default:
+            if (height < 8)
+                return height;
+            // else
+            return height * 10 / 14;
         }
     }
 
@@ -419,7 +353,7 @@ public class HeaderFigure extends GradientFigure {
      */
     @objid ("7e6ed277-1dec-11e2-8cad-001ec947c8cc")
     public void setUnderline(final boolean underline) {
-        this.mainLabel.setUnderline(underline);
+        this.mainArea.setUnderline(underline);
     }
 
     /**
@@ -428,15 +362,101 @@ public class HeaderFigure extends GradientFigure {
      */
     @objid ("7e6ed27c-1dec-11e2-8cad-001ec947c8cc")
     public void setStrikeThrough(final boolean strikeThrough) {
-        this.mainLabel.setStrikeThrough(strikeThrough);
+        this.mainArea.setStrikeThrough(strikeThrough);
+    }
+
+/*
+     * A Figure holding texts
+     */
+    @objid ("40480b74-bb5e-4b4a-85c1-6040305eefc3")
+    protected Figure createTagsArea() {
+        Figure bottomLabels = new Figure();
+        ToolbarLayout bottomAreaLayout = new ToolbarLayout(false);
+        bottomAreaLayout.setSpacing(0);
+        bottomAreaLayout.setMinorAlignment(OrderedLayout.ALIGN_CENTER);
+        bottomAreaLayout.setStretchMinorAxis(true);
+        bottomLabels.setLayoutManager(bottomAreaLayout);
+        bottomLabels.setOpaque(false);
+        // TRACE: this.bottomLabelsArea.setBorder(new LineBorder(ColorConstants.blue, 1));
+        return bottomLabels;
+    }
+
+/*
+     * A Figure holding two texts: keyword and stereotypes
+     */
+    @objid ("78b50383-ec87-493b-8212-fdee1d177725")
+    protected Figure createKeywordsArea() {
+        Figure top = new Figure();
+        ToolbarLayout tbLayout = new ToolbarLayout(false);
+        tbLayout.setStretchMinorAxis(true);
+        tbLayout.setMinorAlignment(OrderedLayout.ALIGN_CENTER);
+        top.setLayoutManager(tbLayout);
+        
+        // first row : Keyword label
+        this.keywordLabel = new Label("");
+        top.add(this.keywordLabel);
+        
+        // second row: top labels
+        this.keywordLabels = new Figure();
+        ToolbarLayout topAreaLayout = new ToolbarLayout(false);
+        topAreaLayout.setSpacing(0);
+        topAreaLayout.setMinorAlignment(OrderedLayout.ALIGN_CENTER);
+        topAreaLayout.setStretchMinorAxis(true);
+        this.keywordLabels.setLayoutManager(topAreaLayout);
+        this.keywordLabels.setOpaque(false);
+        top.add(this.keywordLabels);
+        return top;
+    }
+
+/*
+     * A LabelFigure to hold the main label
+     */
+    @objid ("524fb36a-0a3e-4101-ad3c-cf2f193bc478")
+    protected LabelFigure createMainArea() {
+        LabelFigure label = new LabelFigure();
+        label.setLabelAlignment(PositionConstants.CENTER);
+        label.setBorder(new MarginBorder(2, 0, 3, 0));
+        return label;
+    }
+
+/*
+     * An horizontal tool bar layouted container, center aligned
+     */
+    @objid ("4441e618-c03d-4590-af59-e671c81852f2")
+    protected Figure createMIconsArea() {
+        Figure leftFigure = new Figure();
+        ToolbarLayout tbLayout = new ToolbarLayout(true);
+        tbLayout.setMinorAlignment(OrderedLayout.ALIGN_CENTER);
+        tbLayout.setSpacing(1);
+        leftFigure.setLayoutManager(tbLayout);
+        leftFigure.setOpaque(false);
+        leftFigure.setBorder(new MarginBorder(new Insets(0, 1, 0, 1)));
+        // TRACE:  leftFigure.setBorder(new LineBorder(1));
+        return leftFigure;
+    }
+
+/*
+     * An horizontal tool bar layouted container, center aligned
+     */
+    @objid ("a2c9b9f0-e078-46c4-8904-0d80357d3a2d")
+    protected Figure createSIconsAreaFigures() {
+        Figure rightFigure = new Figure();
+        ToolbarLayout tbLayout = new ToolbarRLayout();
+        tbLayout.setMinorAlignment(OrderedLayout.ALIGN_CENTER);
+        tbLayout.setSpacing(1);
+        rightFigure.setLayoutManager(tbLayout);
+        rightFigure.setOpaque(false);
+        rightFigure.setBorder(new MarginBorder(new Insets(0, 1, 0, 1)));
+        // TRACE: rightIconsContainer.setBorder(new LineBorder(1));
+        return rightFigure;
     }
 
     /**
-     * This class implements a right-aligned ToolBarLayout, ie children are stacked on the right side of the toolbar.
-     * NOTE: A ToolbarRLayout is always horizontal.
+     * This class implements a right-aligned ToolBarLayout, ie children are stacked on the right side of the toolbar. NOTE: A
+     * ToolbarRLayout is always horizontal.
      */
     @objid ("7e6ed281-1dec-11e2-8cad-001ec947c8cc")
-    static class ToolbarRLayout extends ToolbarLayout {
+    public static class ToolbarRLayout extends ToolbarLayout {
         @objid ("7e6ed286-1dec-11e2-8cad-001ec947c8cc")
         public ToolbarRLayout(boolean isHorizontal) {
             super(isHorizontal);

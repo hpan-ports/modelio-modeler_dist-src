@@ -27,7 +27,7 @@ import org.modelio.diagram.styles.core.MetaKey;
 import org.modelio.diagram.styles.core.StyleKey;
 
 /**
- * GmClass style keys for the standard structured mode.
+ * GmInformationFlowLink style keys for the standard structured mode.
  * 
  * @author cmarin
  */
@@ -89,6 +89,12 @@ public class InformationFlowLinkStyleKeys extends StaticAbstractStyleKeyProvider
      */
     @objid ("a677824d-55c2-11e2-9337-002564c97630")
      static final StyleKey SHOWTAGS = createStyleKey("INFOFLOWLINK_SHOWTAGS", MetaKey.SHOWTAGS);
+
+    @objid ("b4924614-0367-4b62-a464-01c49d7a1cba")
+     static final StyleKey SHOWLABEL = createStyleKey("INFOFLOWLINK_SHOWLABEL", MetaKey.SHOWLABEL);
+
+    @objid ("19a39804-7179-4103-b8e1-398c8b8eedb5")
+     static final StyleKey SHOWFLOWARROW = createStyleKey("INFOFLOWLINK_SHOWFLOWARROW", Boolean.class);
 
     /**
      * Line pattern

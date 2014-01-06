@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.data.uml.behavior.interactionModel;
 
 import java.util.ArrayList;
@@ -45,36 +45,36 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("0046463c-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=GeneralOrdering.class, factory=GeneralOrderingData.Metadata.ObjectFactory.class)
 public class GeneralOrderingData extends ElementData {
-    @objid ("314071df-6771-4630-bb97-8ae418d77b6a")
+    @objid ("f901217d-84fa-43c3-8956-a13d303be9d6")
     @SmaMetaAssociation(metaName="Before", typeDataClass=OccurrenceSpecificationData.class, min=1, max=1, smAssociationClass=Metadata.BeforeSmDependency.class)
      SmObjectImpl mBefore;
 
-    @objid ("15923f3d-efd4-4c88-8a5c-fef3922acf7d")
+    @objid ("aa9c71f5-79e8-4798-8a27-a9faf1907b93")
     @SmaMetaAssociation(metaName="After", typeDataClass=OccurrenceSpecificationData.class, min=1, max=1, smAssociationClass=Metadata.AfterSmDependency.class, partof = true)
      SmObjectImpl mAfter;
 
-    @objid ("9d3fdc99-0df7-4312-9880-cb4cf0b1a7e7")
+    @objid ("81f555d3-b6e8-4406-8371-7aee514961c4")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("0015b59e-c4c4-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("417c1e59-6cbf-4bab-9357-4dad4aace363")
+        @objid ("39f3cd9c-0387-46ea-80ff-c69eb8dcf747")
         private static SmClass smClass = null;
 
-        @objid ("458d9752-4e14-4693-8b17-faa510230588")
+        @objid ("e83c443a-f770-415a-b612-f9dccfe58b29")
         private static SmDependency BeforeDep = null;
 
-        @objid ("3fe19258-68e2-4893-a677-fb33954050ef")
+        @objid ("fd75f8f0-79a8-403d-93f4-6d2cbd96ca78")
         private static SmDependency AfterDep = null;
 
-        @objid ("0922ee96-3747-47b9-b13d-fdbfc314caee")
+        @objid ("01851119-74c9-47f2-b4b6-fa7b0825f522")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(GeneralOrderingData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("1cef6f09-1696-40cf-99e6-487bdb09da35")
+        @objid ("182bc111-ca62-41d0-9ee8-814532cb5001")
         public static SmDependency BeforeDep() {
             if (BeforeDep == null) {
             	BeforeDep = classof().getDependencyDef("Before");
@@ -82,7 +82,7 @@ public class GeneralOrderingData extends ElementData {
             return BeforeDep;
         }
 
-        @objid ("0158b4b1-d8c2-4577-837e-403657091284")
+        @objid ("dae7543b-91a7-4275-9dcb-c9a692686d7c")
         public static SmDependency AfterDep() {
             if (AfterDep == null) {
             	AfterDep = classof().getDependencyDef("After");
@@ -90,32 +90,32 @@ public class GeneralOrderingData extends ElementData {
             return AfterDep;
         }
 
-        @objid ("bd556f81-6796-4fe7-b89f-915a86cafa00")
-        public static SmClass getSmClass() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return smClass;
-        }
-
-        @objid ("b0945c14-04be-4592-85f8-68d379c5c6c3")
-        public static SmDependency getAfterDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return AfterDep;
-        }
-
-        @objid ("299732d8-569d-4a79-9987-1cd0c5926c87")
+        @objid ("ff2cfc40-a0da-4fb3-a728-7b750a546203")
         public static SmDependency getBeforeDep() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return BeforeDep;
         }
 
+        @objid ("9234040d-e04e-4c7f-b879-b3904123207a")
+        public static SmDependency getAfterDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return AfterDep;
+        }
+
+        @objid ("48f72e5b-b28c-44dd-97fa-1effd7905577")
+        public static SmClass getSmClass() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return smClass;
+        }
+
         @objid ("0015f6d0-c4c4-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("5a0a0dc0-83b2-4f4d-819d-f2c323aeff40")
+            @objid ("1c9bb413-4a6f-444f-a79d-b4239a62b09d")
             public ISmObjectData createData() {
                 return new GeneralOrderingData();
             }
 
-            @objid ("2c971a8f-e670-44e7-8af0-c327c697029f")
+            @objid ("8a04b3c8-842c-438a-a24e-6c2e0553e56a")
             public SmObjectImpl createImpl() {
                 return new GeneralOrderingImpl();
             }
@@ -124,18 +124,18 @@ public class GeneralOrderingData extends ElementData {
 
         @objid ("00165bca-c4c4-1fd8-97fe-001ec947cd2a")
         public static class AfterSmDependency extends SmSingleDependency {
-            @objid ("a6dfec92-17a5-497b-969e-a7483a13564f")
+            @objid ("4d71c2c8-0261-486b-a488-128ac0a6ef95")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((GeneralOrderingData) data).mAfter;
             }
 
-            @objid ("abb548a5-2c77-4a58-ae55-75421d62cd97")
+            @objid ("ced0b14b-5baf-444a-b055-dfa293752a3b")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((GeneralOrderingData) data).mAfter = value;
             }
 
-            @objid ("4455068f-5692-4624-960e-42ce8e36ff94")
+            @objid ("64d62413-72a2-4421-aa66-a03faa9c3c9a")
             @Override
             public SmDependency getSymetric() {
                 return OccurrenceSpecificationData.Metadata.ToBeforeDep();
@@ -145,18 +145,18 @@ public class GeneralOrderingData extends ElementData {
 
         @objid ("0016d078-c4c4-1fd8-97fe-001ec947cd2a")
         public static class BeforeSmDependency extends SmSingleDependency {
-            @objid ("bf00e7ac-4741-4b53-a328-b9c687ccc6c5")
+            @objid ("b021bafb-ec9b-412c-9a2d-a38bc6f3b7f5")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((GeneralOrderingData) data).mBefore;
             }
 
-            @objid ("e8f718cb-4b67-4540-98b4-e375603988cc")
+            @objid ("e168c90f-ca95-439a-88e8-10cc0723e44a")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((GeneralOrderingData) data).mBefore = value;
             }
 
-            @objid ("1faec55a-0d91-4282-ad65-d77f6de976dd")
+            @objid ("79e9bfcd-f9f3-4f8d-b933-e3b6e2e614e6")
             @Override
             public SmDependency getSymetric() {
                 return OccurrenceSpecificationData.Metadata.ToAfterDep();

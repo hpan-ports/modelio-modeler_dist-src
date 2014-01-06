@@ -19,6 +19,7 @@
 package org.modelio.api.diagram;
 
 import java.util.Collection;
+import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.draw2d.geometry.Point;
 
@@ -29,13 +30,19 @@ import org.eclipse.draw2d.geometry.Point;
 public interface ILinkPath {
     /**
      * Get all bend points of the connection.
+     * <p>
+     * The returned list is a copy and can be freely be modified.<br>
+     * To apply changes to the returned list, call {@link #setPoints(Collection)} with the returned
+     * list as parameter.
      * @return the bend points in coordinates relative to the diagram...
      */
     @objid ("6d18692e-69b5-11e0-adf3-002564c97630")
-    Collection<Point> getPoints();
+    List<Point> getPoints();
 
     /**
-     * Removes the point at the specified position in this point list. Shifts any subsequent elements to the left (subtracts one from their indices).
+     * Removes the point at the specified position in this point list.
+     * <p>
+     * Shifts any subsequent elements to the left (subtracts one from their indices).
      * @param index the index of the element to be removed.
      */
     @objid ("6d18de62-69b5-11e0-adf3-002564c97630")
@@ -49,11 +56,21 @@ public interface ILinkPath {
     void setPoints(final Collection<Point> points);
 
     /**
-     * Change the coordinates of a specific bend points of the connection.
+     * Change the coordinates of a specific bend point of the connection.
      * @param index the index of the point to move in the point list.
      * @param point the new coordinates for this point.
      */
     @objid ("a3de5386-0ecc-11e2-96c4-002564c97630")
     void movePoint(final int index, final Point point);
+
+    /**
+     * Change the coordinates of a specific bend point of the connection.
+     * @param index the index of the point to move in the point list.
+     * @param x the new x coordinate
+     * @param y the new y coordinate
+     * @since 3.1
+     */
+    @objid ("eacc0650-411e-4c5e-9346-a921c1139005")
+    void movePoint(final int index, int x, int y);
 
 }

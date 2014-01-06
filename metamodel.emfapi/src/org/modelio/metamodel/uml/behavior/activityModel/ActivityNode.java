@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.uml.behavior.activityModel;
 
 import java.util.List;
@@ -37,40 +37,40 @@ import org.modelio.metamodel.uml.infrastructure.ModelElement;
 
 @objid ("0028adde-c4bf-1fd8-97fe-001ec947cd2a")
 public interface ActivityNode extends ModelElement {
-    @objid ("3baa0a23-8034-44d0-a8f5-144cfc0256f8")
+    @objid ("2f6704be-4451-44af-95b9-603c8550df63")
     Activity getOwner();
 
-    @objid ("f84675a7-a45a-4ef0-81d7-bc03220c6491")
+    @objid ("5738f18c-8089-4060-8e2c-6397aaae7a0e")
     void setOwner(Activity value);
 
-    @objid ("6de1dd3f-eb1e-4f3b-9590-100f36f6cecd")
+    @objid ("de7910c4-df47-437c-9132-29dcc9b480b9")
     ActivityPartition getOwnerPartition();
 
-    @objid ("6dd5cf43-cd99-4d08-8ebf-eed78301184c")
+    @objid ("984f2448-34f9-463d-ae26-01b89f92eaf0")
     void setOwnerPartition(ActivityPartition value);
 
-    @objid ("b7680d20-0460-4434-8852-1a852af4250c")
+    @objid ("82e891f1-530e-4ea0-a3a6-02fd792490c3")
     EList<ActivityEdge> getIncoming();
 
-    @objid ("acd9efaa-9521-4e37-b839-79bf79f66e8e")
+    @objid ("dcd7ce46-4250-4e48-9021-697d5f8c3920")
     <T extends ActivityEdge> List<T> getIncoming(java.lang.Class<T> filterClass);
 
-    @objid ("03870bbd-6749-4a2b-b72a-f62662aa750b")
+    @objid ("75f4a202-e5c3-4a59-97f7-be2352327b29")
     Clause getOwnerClause();
 
-    @objid ("7eb94d3e-b7b7-4982-8b66-838c74a25ed3")
+    @objid ("be4a3834-0716-41a0-971b-b624d8b5abe4")
     void setOwnerClause(Clause value);
 
-    @objid ("3e89a4a9-32fe-469b-88a9-77788900f982")
+    @objid ("d07a37a5-7805-4cfc-b559-e36bb28b9590")
     StructuredActivityNode getOwnerNode();
 
-    @objid ("f147d6d5-6a0c-4cc7-acff-aca33cec3f0e")
+    @objid ("2317d490-1cc6-41fe-aec6-9828e1f7f332")
     void setOwnerNode(StructuredActivityNode value);
 
-    @objid ("604a965f-8779-4b5e-b88f-7cecf97f0f48")
+    @objid ("197de66f-1df0-48c4-beaf-77d7a34bff15")
     EList<ActivityEdge> getOutgoing();
 
-    @objid ("483aec2d-76d2-4697-9823-cb8499441ae5")
+    @objid ("fe4a2cf7-2e00-4631-b3ff-a7c18be0c32e")
     <T extends ActivityEdge> List<T> getOutgoing(java.lang.Class<T> filterClass);
 
 }

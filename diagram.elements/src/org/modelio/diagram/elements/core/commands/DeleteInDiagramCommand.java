@@ -23,7 +23,7 @@ package org.modelio.diagram.elements.core.commands;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.gef.commands.Command;
-import org.modelio.diagram.elements.core.model.GmModel;
+import org.modelio.diagram.elements.core.model.IGmObject;
 import org.modelio.vcore.smkernel.mapi.MObject;
 
 /**
@@ -37,7 +37,7 @@ public class DeleteInDiagramCommand extends Command {
      * Diagram element to delete;
      */
     @objid ("7f3e3f1a-1dec-11e2-8cad-001ec947c8cc")
-    private GmModel toDelete;
+    private IGmObject toDelete;
 
     @objid ("7f3e3f1c-1dec-11e2-8cad-001ec947c8cc")
     @Override
@@ -51,7 +51,7 @@ public class DeleteInDiagramCommand extends Command {
      * @param el the graphic element to delete.
      */
     @objid ("7f3e3f1f-1dec-11e2-8cad-001ec947c8cc")
-    public void setNodetoDelete(GmModel el) {
+    public void setNodetoDelete(IGmObject el) {
         this.toDelete = el;
     }
 

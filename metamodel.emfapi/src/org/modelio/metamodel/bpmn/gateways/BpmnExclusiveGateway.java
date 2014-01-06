@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.bpmn.gateways;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
@@ -31,10 +31,10 @@ import org.modelio.metamodel.bpmn.flows.BpmnSequenceFlow;
 
 @objid ("000002bc-c4c0-1fd8-97fe-001ec947cd2a")
 public interface BpmnExclusiveGateway extends BpmnGateway {
-    @objid ("77031f63-9dcf-4cd1-9b80-5d3ffcb00f88")
+    @objid ("20daeab9-d0c8-47d8-a59a-2a80c9653992")
     BpmnSequenceFlow getDefaultFlow();
 
-    @objid ("a86ec92d-1eba-4559-b177-0cf9fcdc6430")
+    @objid ("30142fde-dd20-4031-88a5-8e2c931d1d33")
     void setDefaultFlow(BpmnSequenceFlow value);
 
 }

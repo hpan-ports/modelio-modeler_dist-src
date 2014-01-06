@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.uml.behavior.communicationModel;
 
 import java.util.List;
@@ -35,34 +35,34 @@ import org.modelio.metamodel.uml.statik.Instance;
 
 @objid ("005a9290-c4bf-1fd8-97fe-001ec947cd2a")
 public interface CommunicationNode extends ModelElement {
-    @objid ("9433710b-3ac9-49fb-a953-924194c81d3f")
+    @objid ("f37f3614-0184-464b-b432-00baa80ec719")
     String getSelector();
 
-    @objid ("4d06fb14-d6a4-49bb-a4d0-425f282f67dc")
+    @objid ("a930c01b-5c46-48d6-9034-a84822c1c826")
     void setSelector(String value);
 
-    @objid ("ad38bb43-129e-4112-acbe-b7d09ca5cd3d")
+    @objid ("a7af78c7-f5c5-4b53-86a7-2572cb47cfa5")
     CommunicationInteraction getOwner();
 
-    @objid ("a915c0b8-4ea7-4d97-859a-37e36bf0202c")
+    @objid ("895fcdd9-c1d5-4cc4-b288-1075793c82ee")
     void setOwner(CommunicationInteraction value);
 
-    @objid ("9b992783-b7fe-4c69-9367-3ba1a6269ba5")
+    @objid ("2b0d482d-01b4-4009-a991-6f5c1a043508")
     Instance getRepresented();
 
-    @objid ("33d92330-52a2-45c7-b607-83058c509276")
+    @objid ("ca2d30b2-683e-4c6b-bf3f-26f4c9934e4b")
     void setRepresented(Instance value);
 
-    @objid ("db4395a7-61e6-4690-b045-60780ecffd06")
+    @objid ("7f7d87f4-9693-4191-bbbb-adf2e293d4c8")
     EList<CommunicationChannel> getStarted();
 
-    @objid ("da005a2b-a0ad-44bd-b47d-69408ed9a2e5")
+    @objid ("b2df198d-3f33-489e-bdd9-b3d28d7acabb")
     <T extends CommunicationChannel> List<T> getStarted(java.lang.Class<T> filterClass);
 
-    @objid ("549fc003-30b7-4c07-82a4-77d02e955ef8")
+    @objid ("dc029fd8-d2d3-4273-b2b8-31660044f066")
     EList<CommunicationChannel> getEnded();
 
-    @objid ("55d12f0e-5316-4f14-b45f-74e098a451fc")
+    @objid ("88c39ab7-571c-4cd0-95fe-2615cf95df27")
     <T extends CommunicationChannel> List<T> getEnded(java.lang.Class<T> filterClass);
 
 }

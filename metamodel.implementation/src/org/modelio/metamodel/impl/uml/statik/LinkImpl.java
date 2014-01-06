@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.uml.statik;
 
 import java.util.ArrayList;
@@ -63,25 +63,25 @@ public class LinkImpl extends ModelElementImpl implements Link {
         return super.getCompositionRelation();
     }
 
-    @objid ("b0dceaaf-091a-4860-b678-b0d607dc310e")
+    @objid ("ce3cec8e-dd17-4c5c-8b78-4193deac1460")
     @Override
     public Association getModel() {
         return (Association) getDepVal(LinkData.Metadata.ModelDep());
     }
 
-    @objid ("cd13681b-d3d5-4425-b033-fba30c798154")
+    @objid ("3f72c943-a7f6-4e0e-b860-f1872f94de2b")
     @Override
     public void setModel(Association value) {
         appendDepVal(LinkData.Metadata.ModelDep(), (SmObjectImpl)value);
     }
 
-    @objid ("a0bca92d-3c1b-4b67-a4ae-06fe90b9b9e8")
+    @objid ("c3640b1e-d12b-47b8-9ba9-65e8488b6658")
     @Override
     public EList<LinkEnd> getLinkEnd() {
         return new SmList<>(this, LinkData.Metadata.LinkEndDep());
     }
 
-    @objid ("dccc9fe0-cfee-4c8d-9364-8dcc5043db70")
+    @objid ("d98fe0ad-4311-4491-8470-9e8f2e741ac1")
     @Override
     public <T extends LinkEnd> List<T> getLinkEnd(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -94,19 +94,19 @@ public class LinkImpl extends ModelElementImpl implements Link {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("8cde2b56-594b-4599-9806-7753a05578c8")
+    @objid ("4776ad25-cb11-4b25-abf1-515605f1e63c")
     @Override
     public CommunicationChannel getSent() {
         return (CommunicationChannel) getDepVal(LinkData.Metadata.SentDep());
     }
 
-    @objid ("b5cbba47-1627-4886-b3d0-03c03cd4444b")
+    @objid ("9fee5732-8438-4900-9de5-6ce07180863a")
     @Override
     public void setSent(CommunicationChannel value) {
         appendDepVal(LinkData.Metadata.SentDep(), (SmObjectImpl)value);
     }
 
-    @objid ("1c488473-6209-47b0-b7cb-61e3a7c389eb")
+    @objid ("544b4724-8664-4965-aaf0-f82a69e468a7")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitLink(this);

@@ -20,7 +20,8 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.e4.ui.di,
  org.modelio.app.core,
  org.eclipse.e4.ui.services,
- org.eclipse.e4.core.di.extensions;bundle-version="0.11.100"
+ org.eclipse.e4.core.di.extensions;bundle-version="0.11.100",
+ org.modelio.core.session
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-ClassPath: res/,
  .

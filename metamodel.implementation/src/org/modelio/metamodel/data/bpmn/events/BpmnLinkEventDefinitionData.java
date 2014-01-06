@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.data.bpmn.events;
 
 import java.util.ArrayList;
@@ -44,36 +44,36 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("009084b8-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=BpmnLinkEventDefinition.class, factory=BpmnLinkEventDefinitionData.Metadata.ObjectFactory.class)
 public class BpmnLinkEventDefinitionData extends BpmnEventDefinitionData {
-    @objid ("e3088669-cc4b-4470-a424-0c2d8fe9d9c3")
+    @objid ("73d65aed-02b7-4daf-b02e-59425344a35c")
     @SmaMetaAssociation(metaName="Source", typeDataClass=BpmnLinkEventDefinitionData.class, min=1, max=-1, smAssociationClass=Metadata.SourceSmDependency.class)
      List<SmObjectImpl> mSource = null;
 
-    @objid ("0b8118ac-1480-4f75-896d-ad39d0ef2170")
+    @objid ("0d17e051-e149-498d-8d94-be7e9478dd00")
     @SmaMetaAssociation(metaName="Target", typeDataClass=BpmnLinkEventDefinitionData.class, min=1, max=1, smAssociationClass=Metadata.TargetSmDependency.class, partof = true)
      SmObjectImpl mTarget;
 
-    @objid ("02977fbd-30ec-4c6f-ab39-b56a003cdcd1")
+    @objid ("c27feb85-840f-419a-9987-a3e8312868d8")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("00790e28-c4c3-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("9f29e8f8-0ca4-4a73-96d4-29040019499c")
+        @objid ("38e2999b-54cf-4c5e-9e19-b5aab81391c6")
         private static SmClass smClass = null;
 
-        @objid ("7fdd367b-4b38-420a-8920-fee5dd603e4e")
+        @objid ("1d4fbe83-ebab-4da5-951d-292aac333a92")
         private static SmDependency SourceDep = null;
 
-        @objid ("5f288c3f-c2a1-4f85-b023-e24b2240d2dc")
+        @objid ("ca7e1be6-272e-4d15-9926-923fb0dfbff4")
         private static SmDependency TargetDep = null;
 
-        @objid ("7aa79d57-f167-4881-8cc7-09d297bbb4d5")
+        @objid ("28f8b6e6-2ce7-4fdc-a8af-02aa7de98311")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(BpmnLinkEventDefinitionData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("b57b2c6c-e475-4e29-900d-112612eacba9")
+        @objid ("557ab0d4-a9f2-4028-bfd3-51f9478b8e27")
         public static SmDependency SourceDep() {
             if (SourceDep == null) {
             	SourceDep = classof().getDependencyDef("Source");
@@ -81,7 +81,7 @@ public class BpmnLinkEventDefinitionData extends BpmnEventDefinitionData {
             return SourceDep;
         }
 
-        @objid ("bbea9a2b-066e-4f53-8bea-04cb90cbf218")
+        @objid ("fe241739-4032-4aef-8a4b-5be97a966fbb")
         public static SmDependency TargetDep() {
             if (TargetDep == null) {
             	TargetDep = classof().getDependencyDef("Target");
@@ -89,32 +89,32 @@ public class BpmnLinkEventDefinitionData extends BpmnEventDefinitionData {
             return TargetDep;
         }
 
-        @objid ("7c3adb53-f5ee-4eae-8fcf-9fe209853783")
-        public static SmDependency getSourceDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return SourceDep;
-        }
-
-        @objid ("55dc1445-207a-4166-b842-3e4fb594318b")
-        public static SmDependency getTargetDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return TargetDep;
-        }
-
-        @objid ("a489231c-52a3-4f4c-b953-cf931ddd3b68")
+        @objid ("6b78f604-46a1-40ef-bf66-e96b18a19b51")
         public static SmClass getSmClass() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return smClass;
         }
 
+        @objid ("eed247d0-db68-4d09-8796-b84ec708c3a1")
+        public static SmDependency getTargetDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return TargetDep;
+        }
+
+        @objid ("b3bdad67-43b7-4c3b-b9fd-2e43dd5eae48")
+        public static SmDependency getSourceDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return SourceDep;
+        }
+
         @objid ("00794fc8-c4c3-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("e4bb75bf-810d-4f81-abdc-6185709edf77")
+            @objid ("10bd6877-c4a2-442c-a573-5746522606bb")
             public ISmObjectData createData() {
                 return new BpmnLinkEventDefinitionData();
             }
 
-            @objid ("b7deaf92-2718-4bd0-9b95-158e0d00aa92")
+            @objid ("569fa34f-a8af-4cbd-a83a-5c45ee18df1b")
             public SmObjectImpl createImpl() {
                 return new BpmnLinkEventDefinitionImpl();
             }
@@ -123,18 +123,18 @@ public class BpmnLinkEventDefinitionData extends BpmnEventDefinitionData {
 
         @objid ("0079b292-c4c3-1fd8-97fe-001ec947cd2a")
         public static class TargetSmDependency extends SmSingleDependency {
-            @objid ("5fb3a932-1c31-40aa-85dc-b7f757234ccb")
+            @objid ("8e7777d6-ce42-44bf-a16b-59febbd2eb14")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((BpmnLinkEventDefinitionData) data).mTarget;
             }
 
-            @objid ("15379069-e084-4119-8b1f-d0ffa8333235")
+            @objid ("f954b7c7-3d24-4940-9ef6-4ca083995739")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((BpmnLinkEventDefinitionData) data).mTarget = value;
             }
 
-            @objid ("1cadc564-d156-43fd-b9fa-0e02778e24f6")
+            @objid ("92830bc0-e2d0-444c-97c3-ea72cf0355f5")
             @Override
             public SmDependency getSymetric() {
                 return BpmnLinkEventDefinitionData.Metadata.SourceDep();
@@ -144,20 +144,20 @@ public class BpmnLinkEventDefinitionData extends BpmnEventDefinitionData {
 
         @objid ("007a2966-c4c3-1fd8-97fe-001ec947cd2a")
         public static class SourceSmDependency extends SmMultipleDependency {
-            @objid ("f33d55d0-d818-415a-ae90-f11e45a3e184")
+            @objid ("5405448f-4598-45c7-ac81-7ad27d8a2de4")
             @Override
             public List<SmObjectImpl> getValueList(ISmObjectData data) {
                 return (((BpmnLinkEventDefinitionData)data).mSource != null)? ((BpmnLinkEventDefinitionData)data).mSource:SmMultipleDependency.EMPTY;
             }
 
-            @objid ("7e9470cd-a386-4ebb-8c49-405c571c9f12")
+            @objid ("a29c6c94-0382-4fe0-bb14-aaba723717f1")
             @Override
             protected List<SmObjectImpl> allocateValueList(ISmObjectData data, int initialCapacity) {
                 ((BpmnLinkEventDefinitionData) data).mSource = new ArrayList<>(initialCapacity);
                 return ((BpmnLinkEventDefinitionData) data).mSource;
             }
 
-            @objid ("03eb7956-f46f-427f-a86b-8efb69f54485")
+            @objid ("9902148b-bfd9-4a69-ba92-39233110d5c0")
             @Override
             public SmDependency getSymetric() {
                 return BpmnLinkEventDefinitionData.Metadata.TargetDep();

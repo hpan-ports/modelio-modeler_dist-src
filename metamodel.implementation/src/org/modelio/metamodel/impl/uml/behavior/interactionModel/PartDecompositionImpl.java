@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.uml.behavior.interactionModel;
 
 import java.util.ArrayList;
@@ -42,19 +42,19 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("004b1612-c4bf-1fd8-97fe-001ec947cd2a")
 public class PartDecompositionImpl extends InteractionUseImpl implements PartDecomposition {
-    @objid ("f52e14e4-e39c-4e96-8e11-31c865f3b6fb")
+    @objid ("c775d7e6-bd3b-4144-8509-a49d3c93c4fb")
     @Override
     public Lifeline getDecomposed() {
         return (Lifeline) getDepVal(PartDecompositionData.Metadata.DecomposedDep());
     }
 
-    @objid ("7f7ebb5b-c455-4463-a1d0-d52c8a003c87")
+    @objid ("84007813-1e7f-4200-a5af-b82ef9010284")
     @Override
     public void setDecomposed(Lifeline value) {
         appendDepVal(PartDecompositionData.Metadata.DecomposedDep(), (SmObjectImpl)value);
     }
 
-    @objid ("a2bfff18-bf2b-4b7b-8fa4-de488d68cd63")
+    @objid ("d60615a7-56be-4cff-a9f1-433e67717f2c")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
@@ -64,7 +64,7 @@ public class PartDecompositionImpl extends InteractionUseImpl implements PartDec
         return super.getCompositionOwner();
     }
 
-    @objid ("745d9fb1-c7a8-4886-ad8b-70e6e6e86b93")
+    @objid ("69407454-a384-41a6-ab3b-8a45725f1ccc")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
@@ -74,7 +74,7 @@ public class PartDecompositionImpl extends InteractionUseImpl implements PartDec
         return super.getCompositionRelation();
     }
 
-    @objid ("12860deb-626c-4003-9f1d-6e19a3d3346e")
+    @objid ("e6ade664-0204-4cfb-9c59-1a18b32ebb60")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitPartDecomposition(this);

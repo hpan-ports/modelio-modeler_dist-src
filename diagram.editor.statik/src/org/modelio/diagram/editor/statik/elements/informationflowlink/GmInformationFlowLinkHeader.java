@@ -60,6 +60,8 @@ public class GmInformationFlowLinkHeader extends GmDefaultModelElementHeader {
     @objid ("35063931-55b7-11e2-877f-002564c97630")
     public GmInformationFlowLinkHeader(GmAbstractDiagram diagram, MRef relatedRef) {
         super(diagram, relatedRef);
+        this.setShowMetaclassIcon(false);
+        this.setShowMetaclassKeyword(true);
     }
 
     /**
@@ -87,7 +89,7 @@ public class GmInformationFlowLinkHeader extends GmDefaultModelElementHeader {
     @objid ("3507bfb0-55b7-11e2-877f-002564c97630")
     @Override
     public IEditableText getEditableText() {
-        return null;
+        return super.getEditableText();
     }
 
     @objid ("3507bfb8-55b7-11e2-877f-002564c97630")
@@ -112,12 +114,12 @@ public class GmInformationFlowLinkHeader extends GmDefaultModelElementHeader {
     }
 
     /**
-     * The label is "&lt;&lt;flow>>".
+     * The label is "flow" instead of "InformationFlow".
      */
     @objid ("3507bfd1-55b7-11e2-877f-002564c97630")
     @Override
-    protected String computeMainLabel() {
-        return "<<flow>>";
+    protected String getMetaclassKeyword() {
+        return "flow";
     }
 
     @objid ("3507bfd7-55b7-11e2-877f-002564c97630")

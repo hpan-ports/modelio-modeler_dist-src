@@ -33,7 +33,7 @@ import org.modelio.vcore.smkernel.mapi.MObject;
 public class ImplementCreationExpert extends DefaultLinkExpert {
     @objid ("ec9c7396-3601-48fc-ac42-a86f09918871")
     @Override
-    public boolean canLink(MObject link, final MObject fromElement, final MObject toElement, final MObject linkOwner) {
+    public boolean canLink(MClass link, final MObject fromElement, final MObject toElement) {
         if ((fromElement instanceof Class) || (fromElement instanceof BpmnProcess))
             return (toElement instanceof BusinessRule);
         return false;
@@ -41,7 +41,7 @@ public class ImplementCreationExpert extends DefaultLinkExpert {
 
     @objid ("0b53e617-5dd0-459b-bea4-a80a8473355b")
     @Override
-    public boolean canLink(MClass link, final MClass fromMetaclass, final MClass toMetaclass, final MClass owner) {
+    public boolean canLink(MClass link, final MClass fromMetaclass, final MClass toMetaclass) {
         if ((fromMetaclass.hasBase(Metamodel.getMClass(Class.class))) ||
             (fromMetaclass.hasBase(Metamodel.getMClass(BpmnProcess.class))))
             return toMetaclass.hasBase(Metamodel.getMClass(BusinessRule.class));

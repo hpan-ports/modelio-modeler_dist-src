@@ -22,215 +22,31 @@
 package org.modelio.diagram.api.services;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.eclipse.draw2d.Connection;
-import org.eclipse.draw2d.ConnectionAnchor;
-import org.eclipse.draw2d.geometry.Point;
-import org.eclipse.gef.ConnectionEditPart;
-import org.eclipse.gef.EditPart;
-import org.eclipse.gef.GraphicalEditPart;
-import org.eclipse.gef.Request;
-import org.eclipse.gef.RequestConstants;
-import org.eclipse.gef.commands.Command;
-import org.eclipse.gef.requests.GroupRequest;
-import org.eclipse.gef.requests.ReconnectRequest;
 import org.eclipse.swt.graphics.Color;
-import org.eclipse.swt.graphics.Font;
 import org.modelio.api.diagram.IDiagramGraphic;
 import org.modelio.api.diagram.IDiagramLink;
-import org.modelio.api.diagram.ILinkPath;
-import org.modelio.api.diagram.InvalidDestinationPointException;
-import org.modelio.api.diagram.InvalidPointsPathException;
-import org.modelio.api.diagram.InvalidSourcePointException;
-import org.modelio.api.diagram.style.IStyleHandle;
+import org.modelio.api.diagram.dg.IDiagramElementsLayer;
+import org.modelio.api.diagram.dg.IDiagramLayer;
 import org.modelio.diagram.api.dg.DGFactory;
-import org.modelio.diagram.api.dg.LinkPath;
-import org.modelio.diagram.api.style.StyleHandle;
 import org.modelio.diagram.elements.common.portcontainer.GmPortContainer;
-import org.modelio.diagram.elements.core.link.GmPath;
-import org.modelio.diagram.elements.core.link.IAnchorModelProvider;
-import org.modelio.diagram.elements.core.link.path.ConnectionHelperFactory;
-import org.modelio.diagram.elements.core.link.path.GmPathDataExtractor;
-import org.modelio.diagram.elements.core.link.path.IConnectionHelper;
-import org.modelio.diagram.elements.core.link.path.RawPathData;
 import org.modelio.diagram.elements.core.model.IGmLink;
 import org.modelio.diagram.elements.core.model.IGmLinkable;
+import org.modelio.diagram.elements.core.model.IGmObject;
+import org.modelio.diagram.elements.core.model.IGmPath;
 import org.modelio.diagram.elements.core.node.GmNodeModel;
 import org.modelio.diagram.styles.core.MetaKey;
-import org.modelio.diagram.styles.core.NamedStyle;
-import org.modelio.diagram.styles.core.StyleKey.ConnectionRouterId;
-import org.modelio.diagram.styles.core.StyleKey.LinePattern;
 import org.modelio.diagram.styles.core.StyleKey;
-import org.modelio.diagram.styles.plugin.DiagramStyles;
 import org.modelio.vcore.smkernel.mapi.MObject;
 
 /**
  * This class represents a DiagramGraphic of the 'link' kind.
  */
 @objid ("df567469-24b7-4970-aff4-e17a2d721dc8")
-public abstract class DiagramLink extends DiagramGraphic implements IDiagramLink {
+public abstract class DiagramLink extends DiagramAbstractLink {
     @objid ("b2af7b8d-b460-428e-afba-351dc7e0adc3")
     private final IGmLink gmLink;
-
-    /**
-     * Return the path of the current link.
-     * @return The LinkPath that represent the path of the current link.
-     */
-    @objid ("9785775e-bbb9-49dd-aed7-10f79dc31b43")
-    @Override
-    public ILinkPath getPath() {
-        final LinkPath linkPath = new LinkPath();
-        final List<Point> points = new ArrayList<>();
-        
-        final ConnectionEditPart editPart = getConnectionEditPart();
-        final Connection cnx = (Connection) editPart.getFigure();
-        
-        final ConnectionAnchor sourceAnchor = cnx.getSourceAnchor();
-        
-        final ConnectionAnchor targetAnchor = cnx.getTargetAnchor();
-        
-        final Object pathData = this.gmLink.getPath().getPathData();
-        final IConnectionHelper helper = ConnectionHelperFactory.createFromSerializedData(this.gmLink.getPath()
-                                                                                          .getRouterKind(),
-                                                                                          pathData,
-                                                                                          cnx);
-        points.addAll(helper.getBendPoints());
-        
-        // Source point
-        if (points.isEmpty()) {
-            Point.SINGLETON.setLocation(sourceAnchor.getLocation(targetAnchor.getReferencePoint()));
-        } else {
-            Point.SINGLETON.setLocation(points.get(0));
-            cnx.translateToAbsolute(Point.SINGLETON);
-            Point.SINGLETON.setLocation(sourceAnchor.getLocation(Point.SINGLETON));
-        }
-        cnx.translateToRelative(Point.SINGLETON);
-        points.add(0, Point.SINGLETON.getCopy());
-        
-        // Target point
-        Point.SINGLETON.setLocation(points.get(points.size() - 1));
-        cnx.translateToAbsolute(Point.SINGLETON);
-        Point.SINGLETON.setLocation(targetAnchor.getLocation(Point.SINGLETON));
-        cnx.translateToRelative(Point.SINGLETON);
-        points.add(Point.SINGLETON.getCopy());
-        
-        linkPath.setPoints(points);
-        return linkPath;
-    }
-
-    /**
-     * Route the path of a link.
-     * 
-     * This method computes a path so that the link goes through the whole list of points.  the router referenced by
-     * the current Link is an orthogonal router the path will have orthogonal angles.  the router referenced by the
-     * current Link is a direct router this method is equivalent to the setPath method.
-     * @param points A collection of points that must be on the link path.
-     */
-    @objid ("9cacef99-8b4e-413e-8a65-fe4f1187e4f1")
-    @Override
-    public void setPath(Collection<Point> points) {
-        final LinkPath path = new LinkPath();
-        path.setPoints(points);
-        try {
-            setPath(path);
-        } catch (final InvalidPointsPathException e) {
-            throw new IllegalArgumentException(e.getLocalizedMessage(), e);
-        } catch (final InvalidSourcePointException e) {
-            throw new IllegalArgumentException(e.getLocalizedMessage(), e);
-        } catch (final InvalidDestinationPointException e) {
-            throw new IllegalArgumentException(e.getLocalizedMessage(), e);
-        }
-    }
-
-    /**
-     * Set the path of a link.
-     * 
-     * This method tries to set the current link path.
-     * @throws org.modelio.api.diagram.InvalidSourcePointException If the source point is invalid.
-     * @throws org.modelio.api.diagram.InvalidPointsPathException If the given path is invalid with the router type associated with the current link.
-     * @throws org.modelio.api.diagram.InvalidDestinationPointException If the destination point is invalid.
-     */
-    @objid ("6864eae1-fc4b-47fc-8bae-8160626147f1")
-    @Override
-    public void setPath(ILinkPath linkPath) throws InvalidSourcePointException, InvalidPointsPathException, InvalidDestinationPointException {
-        final List<Point> points = new ArrayList<>(linkPath.getPoints());
-        if (points.size() < 2) {
-            throw new InvalidPointsPathException("You must have at least a source and a destination point");
-        }
-        
-        final ConnectionEditPart editPart = getConnectionEditPart();
-        final Connection cnx = (Connection) editPart.getFigure();
-        
-        final RawPathData rawPath = new RawPathData();
-        rawPath.setRoutingMode(this.gmLink.getPath().getRouterKind());
-        
-        // Remove the first point and move the source anchor
-        setSourceLocation(points.get(0));
-        rawPath.setSrcPoint(points.get(0));
-        points.remove(0);
-        
-        // Remove the last point and move the target anchor
-        setTargetLocation(points.get(points.size() - 1));
-        rawPath.setLastPoint(points.get(points.size() - 1));
-        points.remove(points.size() - 1);
-        
-        for (Point relativePoint : points) {
-            Point.SINGLETON.setLocation(relativePoint);
-            cnx.translateToAbsolute(Point.SINGLETON);
-            rawPath.getPath().add(Point.SINGLETON.getCopy());
-        }
-        //rawPath.getPath().addAll(points);
-        
-        final IConnectionHelper helper = ConnectionHelperFactory.createFromRawData(rawPath, cnx);
-        
-        // Change the path
-        final GmPath newPath = new GmPath(this.gmLink.getPath());
-        if (editPart.getSource() instanceof IAnchorModelProvider) {
-            newPath.setSourceAnchor(((IAnchorModelProvider) editPart.getSource()).createAnchorModel(cnx.getSourceAnchor()));
-        }
-        if (editPart.getTarget() instanceof IAnchorModelProvider) {
-            newPath.setTargetAnchor(((IAnchorModelProvider) editPart.getTarget()).createAnchorModel(cnx.getTargetAnchor()));
-        }
-        newPath.setPathData(GmPathDataExtractor.extractDataModel(helper));
-        
-        this.gmLink.setLayoutData(newPath);
-        
-        editPart.getFigure().getUpdateManager().performValidation();
-    }
-
-    /**
-     * Modify the router referenced by the link.
-     */
-    @objid ("be79948f-7717-430f-b0ce-849cd441a43c")
-    @Override
-    public void setRouterKind(LinkRouterKind routerKind) {
-        ConnectionRouterId routerId;
-        
-        // Convert LinkRouterKind to ConnectionRouterId
-        switch (routerKind) {
-            case BENDPOINT:
-                routerId = ConnectionRouterId.BENDPOINT;
-                break;
-            case DIRECT:
-                routerId = ConnectionRouterId.DIRECT;
-                break;
-            case ORTHOGONAL:
-                routerId = ConnectionRouterId.ORTHOGONAL;
-                break;
-        
-            default:
-                routerId = ConnectionRouterId.DIRECT;
-        }
-        
-        // Set the router property
-        final StyleKey styleKey = this.gmLink.getStyleKey(MetaKey.CONNECTIONROUTER);
-        if (styleKey != null) {
-        
-            this.gmLink.getStyle().setProperty(styleKey, routerId);
-        }
-    }
 
     /**
      * Creates a diagram link.
@@ -285,31 +101,6 @@ public abstract class DiagramLink extends DiagramGraphic implements IDiagramLink
         return this.gmLink.getRelatedElement();
     }
 
-    @objid ("3fc6650f-0ffa-47d9-86ce-f4abf7baf23a")
-    @Override
-    public void mask() {
-        final ConnectionEditPart editPart = getConnectionEditPart();
-        
-        final GroupRequest deleteReq = new GroupRequest(RequestConstants.REQ_DELETE);
-        deleteReq.setEditParts(editPart);
-        
-        execRequest(editPart, deleteReq);
-    }
-
-    @objid ("3f0122b1-fdd7-4dbc-8026-34fb6a5be824")
-    @Override
-    public boolean isPrimarySelected() {
-        final GraphicalEditPart editPart = this.diagramHandle.getEditPart(this.gmLink);
-        return (editPart.getSelected() == EditPart.SELECTED_PRIMARY);
-    }
-
-    @objid ("6d5bb49d-69d0-4634-a500-96747a7b2d04")
-    @Override
-    public boolean isSelected() {
-        final GraphicalEditPart editPart = this.diagramHandle.getEditPart(this.gmLink);
-        return (editPart.getSelected() != EditPart.SELECTED_NONE);
-    }
-
     @objid ("7c9dfb37-51fc-4319-b1c4-ea66d27fe531")
     @Override
     public int hashCode() {
@@ -342,133 +133,6 @@ public abstract class DiagramLink extends DiagramGraphic implements IDiagramLink
         return true;
     }
 
-    @objid ("a50fcfcc-ab4b-44df-9ce9-9e3fdb37940c")
-    private void setTargetLocation(final Point targetPoint) {
-        final ConnectionEditPart connEditPart = getConnectionEditPart();
-        
-        final Point absTargetPoint = targetPoint.getCopy();
-        connEditPart.getFigure().translateToAbsolute(absTargetPoint);
-        
-        final ReconnectRequest req = new ReconnectRequest(RequestConstants.REQ_RECONNECT_TARGET);
-        req.setConnectionEditPart(connEditPart);
-        req.setTargetEditPart(connEditPart.getTarget());
-        req.setLocation(absTargetPoint);
-        
-        execRequest(connEditPart.getTarget(), req);
-    }
-
-    @objid ("ed0c4873-cfce-4568-92bb-65637a6da1f5")
-    private void setSourceLocation(final Point sourcePoint) {
-        final ConnectionEditPart connEditPart = getConnectionEditPart();
-        
-        final Point absTargetPoint = sourcePoint.getCopy();
-        connEditPart.getFigure().translateToAbsolute(absTargetPoint);
-        
-        final ReconnectRequest req = new ReconnectRequest(RequestConstants.REQ_RECONNECT_SOURCE);
-        req.setConnectionEditPart(connEditPart);
-        req.setTargetEditPart(connEditPart.getSource());
-        req.setLocation(absTargetPoint);
-        
-        execRequest(connEditPart.getSource(), req);
-    }
-
-    /**
-     * Get router referenced by the link.
-     */
-    @objid ("bc17b00f-bc1c-407a-a538-e4b8bfd7446d")
-    @Override
-    public LinkRouterKind getRouterKind() {
-        switch (this.gmLink.getPath().getRouterKind()) {
-            case BENDPOINT:
-                return LinkRouterKind.BENDPOINT;
-            case DIRECT:
-                return LinkRouterKind.DIRECT;
-        
-            case ORTHOGONAL:
-                return LinkRouterKind.ORTHOGONAL;
-            default:
-                return LinkRouterKind.DIRECT;
-        }
-    }
-
-    @objid ("358e4e23-8b6e-425c-aefd-71b4bd39e3c7")
-    @Override
-    public String getProperty(final String property) {
-        final StyleKey key = resolveStyleKey(property);
-        
-        if (key != null) {
-            return StyleKeyTypeConverter.convertToString(key, this.gmLink.getStyle().getProperty(key));
-        }
-        return null;
-    }
-
-    @objid ("ada7fed3-3220-4eb3-9c4d-db007d105c46")
-    @Override
-    public String getFont() {
-        final StyleKey styleKey = this.gmLink.getStyleKey(MetaKey.FONT);
-        if (styleKey == null) {
-            return null;
-        }
-        final Font currentFont = this.gmLink.getStyle().getProperty(styleKey);
-        return StyleKeyTypeConverter.convertToString(styleKey, currentFont);
-    }
-
-    @objid ("d37eb513-7ce9-4b44-85bb-a4ce8d0820ed")
-    @Override
-    public String getLineColor() {
-        final StyleKey styleKey = this.gmLink.getStyleKey(MetaKey.LINECOLOR);
-        if (styleKey == null) {
-            return null;
-        }
-        final Color color = this.gmLink.getStyle().getProperty(styleKey);
-        return StyleKeyTypeConverter.convertToString(styleKey, color);
-    }
-
-    @objid ("30086d89-c02c-4267-bc8c-27121b4ec843")
-    @Override
-    public int getLinePattern() {
-        final StyleKey styleKey = this.gmLink.getStyleKey(MetaKey.LINEPATTERN);
-        if (styleKey == null) {
-            return 0;
-        }
-        final LinePattern pattern = this.gmLink.getStyle().getProperty(styleKey);
-        
-        switch (pattern) {
-            case LINE_SOLID:
-                return 0;
-            case LINE_DASH:
-                return 1;
-            case LINE_DOT:
-                return 2;
-            case LINE_DASHDOT:
-                return 3;
-            case LINE_DASHDOTDOT:
-                return 4;
-            default:
-                return 0;
-        }
-    }
-
-    @objid ("1dffc789-3a78-4e85-bc39-81128772a736")
-    @Override
-    public int getLineRadius() {
-        final StyleKey styleKey = this.gmLink.getStyleKey(MetaKey.LINERADIUS);
-        if (styleKey == null) {
-            return 0;
-        }
-        return this.gmLink.getStyle().getProperty(styleKey);
-    }
-
-    @objid ("85b208a7-4bb3-47de-86d0-b629fc273ecb")
-    @Override
-    public int getLineWidth() {
-        final StyleKey styleKey = this.gmLink.getStyleKey(MetaKey.LINEWIDTH);
-        if (styleKey == null) {
-            return 0;
-        }
-        return this.gmLink.getStyle().getProperty(styleKey);
-    }
-
     @objid ("66cdb72f-c571-4387-8acb-71148e219cdf")
     @Override
     public String getTextColor() {
@@ -480,26 +144,6 @@ public abstract class DiagramLink extends DiagramGraphic implements IDiagramLink
         return StyleKeyTypeConverter.convertToString(styleKey, color);
     }
 
-    @objid ("fda1ef33-030e-4f7b-94fb-72dc3c946361")
-    @Override
-    public boolean isDrawLineBridges() {
-        final StyleKey styleKey = this.gmLink.getStyleKey(MetaKey.DRAWLINEBRIDGES);
-        if (styleKey == null) {
-            return true;
-        }
-        return this.gmLink.getStyle().getProperty(styleKey);
-    }
-
-    @objid ("e3b8a34f-e511-4fd4-bdb1-26b06fcf8ea2")
-    @Override
-    public void setDrawLineBridges(final boolean value) {
-        final StyleKey styleKey = this.gmLink.getStyleKey(MetaKey.DRAWLINEBRIDGES);
-        if (styleKey == null) {
-            return;
-        }
-        this.gmLink.getStyle().setProperty(styleKey, value);
-    }
-
     @objid ("b6130dbd-4813-4fb8-89a0-18a23339caaa")
     @Override
     public void setFont(final String value) {
@@ -509,137 +153,6 @@ public abstract class DiagramLink extends DiagramGraphic implements IDiagramLink
         }
         this.gmLink.getStyle()
         .setProperty(styleKey, StyleKeyTypeConverter.convertFromString(styleKey, value));
-    }
-
-    @objid ("52aa9d77-1738-4681-b628-92ed91b77813")
-    @Override
-    public void setLineColor(final String value) {
-        final StyleKey styleKey = this.gmLink.getStyleKey(MetaKey.LINECOLOR);
-        if (styleKey == null) {
-            return;
-        }
-        
-        this.gmLink.getStyle()
-        .setProperty(styleKey, StyleKeyTypeConverter.convertFromString(styleKey, value));
-    }
-
-    @objid ("fedbd916-359d-4e19-b9fc-6b7c451253d7")
-    @Override
-    public void setLinePattern(final int value) {
-        final StyleKey styleKey = this.gmLink.getStyleKey(MetaKey.LINEPATTERN);
-        if (styleKey == null) {
-            return;
-        }
-        LinePattern pattern;
-        
-        switch (value) {
-            case 0:
-                pattern = LinePattern.LINE_SOLID;
-                break;
-            case 1:
-                pattern = LinePattern.LINE_DASH;
-                break;
-            case 2:
-                pattern = LinePattern.LINE_DOT;
-                break;
-            case 3:
-                pattern = LinePattern.LINE_DASHDOT;
-                break;
-            case 4:
-                pattern = LinePattern.LINE_DASHDOTDOT;
-                break;
-            default:
-                pattern = LinePattern.LINE_SOLID;
-        }
-        
-        this.gmLink.getStyle().setProperty(styleKey, pattern);
-    }
-
-    @objid ("4b64bea3-2ea4-4396-9354-d96b494edee6")
-    @Override
-    public void setLineRadius(final int value) {
-        final StyleKey styleKey = this.gmLink.getStyleKey(MetaKey.LINERADIUS);
-        if (styleKey == null) {
-            return;
-        }
-        
-        this.gmLink.getStyle().setProperty(styleKey, value);
-    }
-
-    @objid ("5ed399c4-73c7-4211-9161-ff5e3e45088e")
-    @Override
-    public void setLineWidth(final int value) {
-        final StyleKey styleKey = this.gmLink.getStyleKey(MetaKey.LINEWIDTH);
-        if (styleKey == null) {
-            return;
-        }
-        
-        this.gmLink.getStyle().setProperty(styleKey, value);
-    }
-
-    @objid ("225a47e3-e1b6-4939-bc7f-572e0cee9afe")
-    @Override
-    public void setTextColor(final String value) {
-        final StyleKey styleKey = this.gmLink.getStyleKey(MetaKey.TEXTCOLOR);
-        if (styleKey == null) {
-            return;
-        }
-        
-        this.gmLink.getStyle()
-        .setProperty(styleKey, StyleKeyTypeConverter.convertFromString(styleKey, value));
-    }
-
-    @objid ("2131c537-778a-4c77-850e-ad8f3dad95e5")
-    @Override
-    public IStyleHandle getStyle() {
-        final NamedStyle style = ((NamedStyle) this.gmLink.getStyle().getCascadedStyle());
-        final StyleHandle newStyle = new StyleHandle(style);
-        return newStyle;
-    }
-
-    @objid ("46da77bd-11f2-4a95-ab1d-559a3273f2c8")
-    @Override
-    public void setStyle(final IStyleHandle style) {
-        final NamedStyle namedStyle = DiagramStyles.getStyleManager().getStyle(style.getName());
-        this.gmLink.getStyle().setCascadedStyle(namedStyle);
-    }
-
-    @objid ("af18ab5d-0eec-4813-aa02-cba60b2ee925")
-    @Override
-    public List<String> getLocalPropertyNames() {
-        final List<String> ret = new ArrayList<>();
-        for (final StyleKey key : this.gmLink.getStyle().getLocalKeys()) {
-            ret.add(key.getId());
-        }
-        return ret;
-    }
-
-    /**
-     * Get a StyleKey from its name, or its MetaKey name.
-     */
-    @objid ("fdd59fd6-788f-4f04-8848-cc2225554fea")
-    private StyleKey resolveStyleKey(final String name) {
-        // Look for a property using this StyleKey
-        StyleKey foundKey = StyleKey.getInstance(name);
-        if (foundKey == null) {
-            // No StyleKey found, look for a MetaKey and then a StyleKey
-            final MetaKey meta = MetaKey.getInstance(name);
-            if (meta != null) {
-                foundKey = this.gmLink.getStyleKey(meta);
-            }
-        }
-        return foundKey;
-    }
-
-    @objid ("cc5ea5c4-2327-4d9c-9df2-641efbc9832a")
-    @Override
-    public void setProperty(final String property, final String stringValue) {
-        final StyleKey key = resolveStyleKey(property);
-        
-        if (key != null) {
-            this.gmLink.getStyle()
-            .setProperty(key, StyleKeyTypeConverter.convertFromString(key, stringValue));
-        }
     }
 
     /**
@@ -677,32 +190,6 @@ public abstract class DiagramLink extends DiagramGraphic implements IDiagramLink
     }
 
     /**
-     * Get the edited connection edit part.
-     * @return the edit connection edit part.
-     */
-    @objid ("4025290c-7417-4a7b-8304-92796fae8a6d")
-    private ConnectionEditPart getConnectionEditPart() {
-        return (ConnectionEditPart) this.diagramHandle.getEditPart(this.gmLink);
-    }
-
-    /**
-     * Get and execute if possible the command produced by the given request on the given edit part.
-     * @param cmd
-     * a request to execute.
-     * @param editPart an edit part.
-     */
-    @objid ("32adb6a3-12e0-46cd-b040-6d8f51417ed0")
-    private void execRequest(final EditPart editPart, final Request req) {
-        final Command cmd = editPart.getCommand(req);
-        if (cmd != null && cmd.canExecute()) {
-            editPart.getViewer().getEditDomain().getCommandStack().execute(cmd);
-            if (editPart instanceof GraphicalEditPart) {
-                ((GraphicalEditPart)editPart).getFigure().getUpdateManager().performValidation();
-            }
-        }
-    }
-
-    /**
      * Return the name of this link.
      * @return the link name
      */
@@ -713,16 +200,41 @@ public abstract class DiagramLink extends DiagramGraphic implements IDiagramLink
                 : this.gmLink.getGhostLabel();
     }
 
-    @objid ("d3daa1d0-6001-494b-9051-fda81cd11daa")
+    @objid ("82e6fac1-0d2b-42f7-b495-054138cd4529")
     @Override
-    public void resetLocalProperties() {
-        this.gmLink.getStyle().reset();
+    public MObject getHyperLink() {
+        return null;
     }
 
-    @objid ("d5629b96-824f-4f90-a13b-eb185b12fa3d")
+    @objid ("d87d76cc-63e8-4120-a91b-07590511da12")
     @Override
-    public void normalizeLocalProperties() {
-        this.gmLink.getStyle().normalize();
+    public void setHyperLink(MObject obj) {
+        // ignore
+    }
+
+    @objid ("c93a808f-b02f-4d6c-8ffd-2615a82e8e63")
+    @Override
+    public IGmObject getModel() {
+        return this.gmLink;
+    }
+
+    @objid ("b1bc484a-cb35-4dbd-9918-c28696bb0432")
+    @Override
+    protected IGmPath getModelPath() {
+        return this.gmLink.getPath();
+    }
+
+    @objid ("499edf69-7165-4a61-9c84-e87dd161fd33")
+    @Override
+    public IDiagramLayer getLayer() {
+        // All element links currently belong to the main layer
+        return this.diagramHandle.getDiagramNode().getElementsLayer(IDiagramElementsLayer.MAIN);
+    }
+
+    @objid ("58ced370-52b2-40a0-b785-07e3e574756d")
+    @Override
+    public void moveToLayer(IDiagramLayer newLayer) throws IllegalArgumentException {
+        throw new UnsupportedOperationException("Model element links belong to the elements layer.");
     }
 
 }

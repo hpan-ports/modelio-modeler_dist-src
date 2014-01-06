@@ -38,32 +38,39 @@ public class SequenceDiagramCreationContributor extends AbstractDiagramCreationC
         
         // Unless the parent element is already an Interaction, create the Interaction:
         Interaction interaction = null;
-        if (diagramContext instanceof Interaction)
+        if (diagramContext instanceof Interaction) {            
             interaction = (Interaction) diagramContext;
-        else {
-            interaction = modelFactory.createInteraction();
-            setElementDefaultName(interaction);
+            diagram = smartCreateForNameSpace(modelFactory, interaction, diagramName);
+        } else {
+            interaction = modelFactory.createInteraction();            
+            // Create the diagram, depending on parentElement, carry out the "smart" creation job
+            if ((diagramContext instanceof Classifier) && !(diagramContext instanceof UseCase)) {
+                interaction.setOwner((Classifier) diagramContext);
+                setElementDefaultName(interaction);
+                diagram = smartCreateForClassifier(modelFactory,
+                        interaction,
+                        (Classifier) diagramContext,
+                        diagramName);
+            } else if (diagramContext instanceof Operation) {
+                interaction.setOwnerOperation((Operation) diagramContext);
+                setElementDefaultName(interaction);
+                diagram = smartCreateForOperation(modelFactory,
+                        interaction,
+                        (Operation) diagramContext,
+                        diagramName);
+            } else {
+                interaction.setOwner((NameSpace) diagramContext);
+                setElementDefaultName(interaction);
+                diagram = smartCreateForNameSpace(modelFactory, interaction, diagramName);
+            }
         }
         
-        // Create the diagram, depending on parentElement, carry out the "smart" creation job
-        if ((diagramContext instanceof Classifier) && !(diagramContext instanceof UseCase)) {
-            interaction.setOwner((Classifier) diagramContext);
-            diagram = smartCreateForClassifier(modelFactory,
-                    interaction,
-                    (Classifier) diagramContext,
-                    diagramName);
-        } else if (diagramContext instanceof Operation) {
-            interaction.setOwnerOperation((Operation) diagramContext);
-            diagram = smartCreateForOperation(modelFactory,
-                    interaction,
-                    (Operation) diagramContext,
-                    diagramName);
-        } else {
-            interaction.setOwner((NameSpace) diagramContext);
-            diagram = smartCreateForNameSpace(modelFactory, interaction, diagramName);
-        }
         if (diagram != null) {
-            setElementDefaultName(diagram);
+            if (diagramName.equals(this.getLabel())) {                
+                setElementDefaultName(diagram);
+            } else {
+                diagram.setName(diagramName);
+            }
             putNoteContent(diagram, "description", diagramDescription);
         }
         return diagram;

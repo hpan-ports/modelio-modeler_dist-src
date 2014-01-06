@@ -159,32 +159,32 @@ public class DropEditPolicy extends XYLayoutEditPolicy {
         if (options.isAssociationShown()) {
         
             if ((isFrom && MTools.getLinkTool().canLink(Metamodel.getMClass(AssociationEnd.class), droppedElements[0].getMClass(),
-                    centerElement.getMClass(), null))
+                    centerElement.getMClass()))
                     || (!isFrom && MTools.getLinkTool().canLink(Metamodel.getMClass(AssociationEnd.class), centerElement.getMClass(),
-                            droppedElements[0].getMClass(), null))) {
+                            droppedElements[0].getMClass()))) {
                 types.add(AssociationEnd.class);
             }
         }
         if (options.isImportShown()) {
             if ((isFrom && MTools.getLinkTool().canLink(Metamodel.getMClass(ElementImport.class), droppedElements[0].getMClass(),
-                    centerElement.getMClass(), null))
+                    centerElement.getMClass()))
                     || (!isFrom && MTools.getLinkTool().canLink(Metamodel.getMClass(ElementImport.class), centerElement.getMClass(),
-                            droppedElements[0].getMClass(), null))) {
+                            droppedElements[0].getMClass()))) {
                 types.add(ElementImport.class);
             }
         }
         if (options.isInheritanceShown()) {
             if ((isFrom && MTools.getLinkTool().canLink(Metamodel.getMClass(Generalization.class), droppedElements[0].getMClass(),
-                    centerElement.getMClass(), null))
+                    centerElement.getMClass()))
                     || (!isFrom && MTools.getLinkTool().canLink(Metamodel.getMClass(Generalization.class), centerElement.getMClass(),
-                            droppedElements[0].getMClass(), null))) {
+                            droppedElements[0].getMClass()))) {
         
                 types.add(Generalization.class);
             }
             if ((isFrom && MTools.getLinkTool().canLink(Metamodel.getMClass(InterfaceRealization.class), droppedElements[0].getMClass(),
-                    centerElement.getMClass(), null))
+                    centerElement.getMClass()))
                     || (!isFrom && MTools.getLinkTool().canLink(Metamodel.getMClass(InterfaceRealization.class), centerElement.getMClass(),
-                            droppedElements[0].getMClass(), null))) {
+                            droppedElements[0].getMClass()))) {
                 types.add(InterfaceRealization.class);
             }
         }
@@ -192,15 +192,15 @@ public class DropEditPolicy extends XYLayoutEditPolicy {
             // Take stereotype filter into account.
             if (options.isDependencyFiltered() && options.getDependencyFilter() != null) {
                 for (Stereotype stereo : options.getDependencyFilter()) {
-                    if ((isFrom && MTools.getLinkTool().canLink(stereo, Metamodel.getMClass(Dependency.class), droppedElements[0].getMClass(), centerElement.getMClass(), null))
-                            || (!isFrom && MTools.getLinkTool().canLink(stereo, Metamodel.getMClass(Dependency.class), centerElement.getMClass(), droppedElements[0].getMClass(), null))) {
+                    if ((isFrom && MTools.getLinkTool().canLink(stereo, Metamodel.getMClass(Dependency.class), droppedElements[0], centerElement))
+                            || (!isFrom && MTools.getLinkTool().canLink(stereo, Metamodel.getMClass(Dependency.class), centerElement, droppedElements[0]))) {
                         types.add(stereo);
                     }
                 }
             } else if ((isFrom && MTools.getLinkTool().canLink(Metamodel.getMClass(Dependency.class), droppedElements[0].getMClass(),
-                    centerElement.getMClass(), null))
+                    centerElement.getMClass()))
                     || (!isFrom && MTools.getLinkTool().canLink(Metamodel.getMClass(Dependency.class), centerElement.getMClass(),
-                            droppedElements[0].getMClass(), null))) {
+                            droppedElements[0].getMClass()))) {
                 types.add(Dependency.class);
             }
         }

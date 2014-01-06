@@ -36,7 +36,6 @@ import org.eclipse.e4.ui.workbench.modeling.EPartService;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.SashForm;
-import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.TextStyle;
 import org.eclipse.swt.layout.FillLayout;
@@ -53,6 +52,7 @@ import org.modelio.script.engine.core.engine.IScriptRunner;
 import org.modelio.script.engine.core.engine.ScriptRunnerFactory;
 import org.modelio.script.options.ScriptOptions;
 import org.modelio.script.plugin.Script;
+import org.modelio.ui.UIColor;
 
 /**
  * Script view.
@@ -122,7 +122,7 @@ public class ScriptView {
         this.outputView = new OutputView(this.shform, SWT.H_SCROLL | SWT.V_SCROLL | SWT.FULL_SELECTION | SWT.BORDER);
         this.outputView.setLayout(new FillLayout());
         this.outputView.setFont(this.font);
-        this.outputView.setBackground(new Color(parent.getDisplay(), 255, 255, 230));
+        this.outputView.setBackground(UIColor.POST_IT_BG);
         
         // Runnable that will bring the script view on top when an error
         // message is sent to the output.
@@ -171,9 +171,8 @@ public class ScriptView {
         // opened
         // In such situation we cannot rely on Modelio events for setting up the
         // jython runner variables
-        IProjectService projectService = application.getContext().get(IProjectService.class);
-        if (projectService != null && projectService.getOpenedProject() != null) {
-            bindJythonRunner(projectService.getOpenedProject());
+        if (this.projectService != null && this.projectService.getOpenedProject() != null) {
+            bindJythonRunner(this.projectService.getOpenedProject());
         }
         
         // Initialize Options

@@ -52,8 +52,8 @@ import org.modelio.vcore.smkernel.mapi.MObject;
 public class BindingCreationExpert extends DefaultLinkExpert {
     @objid ("7e94dfe0-1eb2-11e2-8009-002564c97630")
     @Override
-    public boolean canLink(MObject link, final MObject from, final MObject to, final MObject owner) {
-        if (!canSource(link, from)) {
+    public boolean canLink(MClass link, final MObject from, final MObject to) {
+        if (!canSource(link, from.getMClass())) {
             return false;
         }
         
@@ -62,9 +62,6 @@ public class BindingCreationExpert extends DefaultLinkExpert {
             // The collaboration use and the represented feature must be owned by:
             // - the same classifier.
             // - the same collaboration
-            if (owner != null && !owner.equals(from)) {
-                return false;
-            }
         
             final MObject fromOwner = getClassifierOwner(from);
             final MObject toOwner = getClassifierOwner(to);
@@ -82,15 +79,9 @@ public class BindingCreationExpert extends DefaultLinkExpert {
             // Binding from a represented feature to a collaboration role.
             // - the source must be a "feature" owned by the collaboration use owner
             // - the target must be owned by the used Collaboration
-            final CollaborationUse collabUse;
-            if (owner == null) {
-                collabUse = findCollabUse(from, to);
-                if (collabUse == null) {
-                    return false;
-                }
-            } else if (owner instanceof CollaborationUse) {
-                collabUse = (CollaborationUse) owner;
-            } else {
+        
+            final CollaborationUse collabUse = findCollabUse(from, to);
+            if (collabUse == null) {
                 return false;
             }
         
@@ -130,8 +121,8 @@ public class BindingCreationExpert extends DefaultLinkExpert {
     public boolean canSource(final MObject from, final MObject owner) {
         if (from instanceof CollaborationUse) {
             return (owner == null || owner.equals(from));
-        } else if (from instanceof Attribute || from instanceof AssociationEnd
-                || from instanceof BindableInstance || from instanceof ConnectorEnd) {
+        } else if (from instanceof Attribute || from instanceof AssociationEnd || from instanceof BindableInstance
+                || from instanceof ConnectorEnd) {
             // Test the binding start from a feature owned by a classifier that has a collaboration use
             // If owner is specified, it must be a collaboration use and the link start classifier must own it.
             final Classifier fromOwner = (Classifier) getClassifierOwner(from);

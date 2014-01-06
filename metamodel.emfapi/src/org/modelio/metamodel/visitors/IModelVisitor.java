@@ -30,6 +30,8 @@ import org.modelio.metamodel.analyst.AnalystPropertyTable;
 import org.modelio.metamodel.analyst.BusinessRule;
 import org.modelio.metamodel.analyst.BusinessRuleContainer;
 import org.modelio.metamodel.analyst.Dictionary;
+import org.modelio.metamodel.analyst.GenericAnalystContainer;
+import org.modelio.metamodel.analyst.GenericAnalystElement;
 import org.modelio.metamodel.analyst.Goal;
 import org.modelio.metamodel.analyst.GoalContainer;
 import org.modelio.metamodel.analyst.PropertyContainer;
@@ -229,6 +231,7 @@ import org.modelio.metamodel.uml.infrastructure.Dependency;
 import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.metamodel.uml.infrastructure.ExternDocument;
 import org.modelio.metamodel.uml.infrastructure.ExternDocumentType;
+import org.modelio.metamodel.uml.infrastructure.ExternProcessor;
 import org.modelio.metamodel.uml.infrastructure.MetaclassReference;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
 import org.modelio.metamodel.uml.infrastructure.ModelTree;
@@ -241,6 +244,9 @@ import org.modelio.metamodel.uml.infrastructure.TagParameter;
 import org.modelio.metamodel.uml.infrastructure.TagType;
 import org.modelio.metamodel.uml.infrastructure.TaggedValue;
 import org.modelio.metamodel.uml.infrastructure.Usage;
+import org.modelio.metamodel.uml.infrastructure.matrix.MatrixDefinition;
+import org.modelio.metamodel.uml.infrastructure.matrix.MatrixValueDefinition;
+import org.modelio.metamodel.uml.infrastructure.matrix.QueryDefinition;
 import org.modelio.metamodel.uml.infrastructure.properties.EnumeratedPropertyType;
 import org.modelio.metamodel.uml.infrastructure.properties.LocalPropertyTable;
 import org.modelio.metamodel.uml.infrastructure.properties.PropertyDefinition;
@@ -305,841 +311,859 @@ import org.modelio.vcore.smkernel.mapi.MVisitor;
 
 @objid ("000a4862-4f2c-1032-829a-001ec947cd2a")
 public interface IModelVisitor extends MVisitor {
-    @objid ("ef0fe29a-d078-4706-b306-c3f0d5adb740")
+    @objid ("ede9a6ce-3d3a-4394-910f-186ec68c509e")
     Object visitAbstraction(Abstraction obj);
 
-    @objid ("f2e75c6d-377e-431b-bbe8-64d9a8714655")
+    @objid ("d628fae7-700a-4944-b221-681e412997f8")
     Object visitConstraint(Constraint obj);
 
-    @objid ("6f423278-864f-4c37-a21d-de5ea1c327ef")
+    @objid ("124acf99-3ceb-40cb-b71c-2613daffb5ef")
     Object visitDependency(Dependency obj);
 
-    @objid ("8f6a90d2-f167-4732-805e-abfffdf258b0")
+    @objid ("5b871610-5851-4c85-a1c6-69a5cc46d103")
     Object visitElement(Element obj);
 
-    @objid ("037a9a7c-09dc-4116-ac1f-7495d3c0a98f")
+    @objid ("2c12046d-89fb-4fab-9ee2-96f3d8ba5771")
     Object visitModelElement(ModelElement obj);
 
-    @objid ("168fb6f8-aae4-441e-86f0-5fa6c0bc77c8")
+    @objid ("fad533ab-5579-400d-90a8-faa47a09f853")
     Object visitModelTree(ModelTree obj);
 
-    @objid ("2d38b1e1-7e4b-4609-909f-1352b90a261d")
+    @objid ("2821e0b2-7c2c-4d9e-8bb1-6e2cab3d780a")
     Object visitNote(Note obj);
 
-    @objid ("36084a96-d1ce-4d1c-855a-9ddb7dd84790")
+    @objid ("076c68be-4576-4954-949e-c015cfa5b111")
     Object visitNoteType(NoteType obj);
 
-    @objid ("fd82ac2c-6129-42c8-b15f-f49386335eba")
+    @objid ("63b2c97e-c6d1-4e74-a2a9-73bcf445b64f")
     Object visitProfile(Profile obj);
 
-    @objid ("202672f1-fb2e-4126-8b7b-15c5df030b05")
+    @objid ("8209a4ee-fcdc-4ddf-b90d-0570ea88b991")
     Object visitStereotype(Stereotype obj);
 
-    @objid ("21375f20-9e6d-4a58-be81-e3b891dfd166")
+    @objid ("c8cf6fbf-dc21-40df-8b94-8f8fada3cd7d")
     Object visitSubstitution(Substitution obj);
 
-    @objid ("cf4cd4db-48d5-41ba-b45f-7d2f7d094664")
+    @objid ("295e5803-dbe1-4373-afb3-55569e615a3b")
     Object visitTagParameter(TagParameter obj);
 
-    @objid ("32036ba3-c4ec-42b8-a714-3dfd9336ef31")
+    @objid ("d459dd8b-e9b7-44f3-8d57-5afd20107369")
     Object visitTagType(TagType obj);
 
-    @objid ("4c1fd07b-dc64-47e0-83f7-6436b94a3b55")
+    @objid ("67714474-64d6-49c3-a6ef-53b9b5eeba6d")
     Object visitTaggedValue(TaggedValue obj);
 
-    @objid ("ff7260e6-b87d-4cc1-a815-ff201b88a023")
+    @objid ("315f3e52-0c60-4d42-b647-24ee01dee7ea")
     Object visitUsage(Usage obj);
 
-    @objid ("3e446c19-bf3a-4ca7-b9bf-7a5aebe44e61")
+    @objid ("9f7cbeb2-332b-4b30-b984-f2aa3643dbf3")
     Object visitMetaclassReference(MetaclassReference obj);
 
-    @objid ("f0dc14a6-e286-4592-9918-b88f54ad93f4")
+    @objid ("416c8086-dda8-4941-9679-f620414b93e4")
     Object visitExternDocument(ExternDocument obj);
 
-    @objid ("635d1a9e-dd67-46fd-8c7e-cfb2d51b19cd")
+    @objid ("0543b554-d227-4170-adfc-577fadd9a7d0")
     Object visitExternDocumentType(ExternDocumentType obj);
 
-    @objid ("b7e18695-3a3e-4c0e-aa48-6e5d7ecc388d")
+    @objid ("ea895b58-7890-4e30-9423-c42f7129b163")
     Object visitEnumeratedPropertyType(EnumeratedPropertyType obj);
 
-    @objid ("8ca8c0a5-6866-40a3-9a9e-ddb24e60e527")
+    @objid ("e552a043-1f83-4ad3-8523-1372ba236299")
     Object visitLocalPropertyTable(LocalPropertyTable obj);
 
-    @objid ("dbd8033f-4a7e-4183-9fd7-f344de3de8ec")
+    @objid ("a6decb38-6382-4223-b5b0-e2699545a53e")
     Object visitPropertyDefinition(PropertyDefinition obj);
 
-    @objid ("fe63065e-4476-41ae-9c99-d1d8c1cb0ced")
+    @objid ("82aa082e-8e24-44fd-a24b-62434a73f879")
     Object visitPropertyEnumerationLitteral(PropertyEnumerationLitteral obj);
 
-    @objid ("57f22f63-6128-4b05-8b9a-bb5af385646c")
+    @objid ("2e131288-37f6-48a1-8f54-88003705927a")
     Object visitPropertyTable(PropertyTable obj);
 
-    @objid ("e779bc3d-b06c-46b8-8265-20327ad4278a")
+    @objid ("b50802c0-380f-4914-b93c-14beb2afcdf9")
     Object visitPropertyTableDefinition(PropertyTableDefinition obj);
 
-    @objid ("f46f167e-1de7-4892-be1a-343209b245a0")
+    @objid ("874a8d67-cbb0-48b2-851b-3b8fc3e8e630")
     Object visitPropertyType(PropertyType obj);
 
-    @objid ("faeedbe4-85d2-4450-b1c0-5fba4e74e1d0")
+    @objid ("9dc0f6e7-d549-425b-b2c9-fe543f4541f1")
     Object visitTypedPropertyTable(TypedPropertyTable obj);
 
-    @objid ("24c89c67-ad6a-40ea-ab6c-d228f230b3ed")
+    @objid ("11c7038b-e785-4d01-ae45-73649719443a")
+    Object visitMatrixDefinition(MatrixDefinition obj);
+
+    @objid ("426941d9-2d71-43e6-b967-3d81475ac675")
+    Object visitQueryDefinition(QueryDefinition obj);
+
+    @objid ("90578fce-37f0-457c-a957-4607a59769c7")
+    Object visitMatrixValueDefinition(MatrixValueDefinition obj);
+
+    @objid ("5e55ed85-06ba-48d0-a154-6ba7955adc79")
+    Object visitExternProcessor(ExternProcessor obj);
+
+    @objid ("c6751ce8-cd80-4dba-a43e-98da680fb88d")
     Object visitArtifact(Artifact obj);
 
-    @objid ("8cd7895c-7f59-4804-b230-ec5624b03100")
+    @objid ("5aa317a9-b0f3-45eb-9ce0-4433c6217b7e")
     Object visitAssociationEnd(AssociationEnd obj);
 
-    @objid ("a48eb62d-f1e6-4d3c-8aeb-0aef64f0d322")
+    @objid ("dfe66623-d63e-4ce8-b7f8-0c8bac8eb11c")
     Object visitAttribute(Attribute obj);
 
-    @objid ("c41d4d28-64d0-42c8-8b0d-d3d848699360")
+    @objid ("61e71229-045d-48e5-97cd-c7afa99badff")
     Object visitAttributeLink(AttributeLink obj);
 
-    @objid ("a92a46f0-f51f-4352-adaf-d1437137c0be")
+    @objid ("c7370f00-950d-4d31-9cbd-b473b489f64d")
     Object visitBindableInstance(BindableInstance obj);
 
-    @objid ("ca1ea5e2-ee37-49c4-9dd3-5298b9eb32ff")
+    @objid ("42536785-7f57-482a-a34a-8157a358fa94")
     Object visitBinding(Binding obj);
 
-    @objid ("4212f3d6-8268-49dd-b68c-57186eedf901")
+    @objid ("dbc53d9d-df1a-496d-853a-b8374892f94b")
     Object visitClass(Class obj);
 
-    @objid ("97a311a6-fe98-4716-9a38-7e4c581bc904")
+    @objid ("a682ec2c-5528-4c66-a40b-ddc0aaa0b160")
     Object visitClassAssociation(ClassAssociation obj);
 
-    @objid ("d78a8ffb-7f92-4173-a3a6-dece8e666347")
+    @objid ("ac0c4800-e4ea-4022-83e6-cf19cfae087e")
     Object visitClassifier(Classifier obj);
 
-    @objid ("76489a2a-845b-44b1-b1b1-a3ff08dc490d")
+    @objid ("a80b78de-8dc4-4ac3-9492-2e1e6d104bc2")
     Object visitCollaboration(Collaboration obj);
 
-    @objid ("f9735bb1-38f6-4cad-bbaa-feea0507af81")
+    @objid ("1a3f35d9-ff07-4653-839e-0f96b5064279")
     Object visitCollaborationUse(CollaborationUse obj);
 
-    @objid ("5a7bd891-0a80-4ec2-b0da-1c695ad17252")
+    @objid ("cfe99fc4-b359-44ab-bae9-31da7f50a975")
     Object visitComponent(Component obj);
 
-    @objid ("ce329389-a8ff-4b48-a0ad-7bc6bf7e8ccb")
+    @objid ("3a6a52e9-8f6e-4a16-a41b-bde60de0c7ec")
     Object visitNaryConnector(NaryConnector obj);
 
-    @objid ("450c2f83-e4b7-4779-9372-1a0f6cce564e")
+    @objid ("7662a761-74fd-4c51-8e9d-a3f74aad7c5d")
     Object visitConnectorEnd(ConnectorEnd obj);
 
-    @objid ("76adde09-4394-4b08-8ef8-7b3c63efced0")
+    @objid ("b0b5ec76-2d2b-4731-8b46-35dbf863209d")
     Object visitDataType(DataType obj);
 
-    @objid ("b59976e1-9a1a-4226-a1f8-018aa187c8e7")
+    @objid ("60c10335-eb88-4b45-8552-24374d06ee94")
     Object visitElementImport(ElementImport obj);
 
-    @objid ("bbf694c7-dd84-44ef-a92e-8fac0492be2f")
+    @objid ("c88ba2ed-b74a-4bda-8f96-44e1fbca45d4")
     Object visitElementRealization(ElementRealization obj);
 
-    @objid ("4d06a0d8-cacf-42e1-83a0-189cf6815153")
+    @objid ("3ba933e6-b386-496c-9e4d-7ddbd5f4db59")
     Object visitEnumeration(Enumeration obj);
 
-    @objid ("12c66f08-166a-4876-934a-c255a95b0170")
+    @objid ("31391ed1-e319-43fe-b1fc-a185b38c6575")
     Object visitEnumerationLiteral(EnumerationLiteral obj);
 
-    @objid ("30e3bc0f-c3f1-4be9-8342-7124906c0a4e")
+    @objid ("05b3e194-8674-4f23-b270-734d91a7946f")
     Object visitFeature(Feature obj);
 
-    @objid ("4559d886-639d-4bc7-b317-8cd2d1f35800")
+    @objid ("83acff73-713a-4c5d-abd8-dab87bf356f9")
     Object visitGeneralClass(GeneralClass obj);
 
-    @objid ("27b5422e-8527-450a-8ad2-e745dc8f880f")
+    @objid ("4d554565-9ef2-4308-873f-94bd620d811b")
     Object visitGeneralization(Generalization obj);
 
-    @objid ("530a221f-d864-41b4-b368-8851bb8c3257")
+    @objid ("a00f6062-1eb9-4d49-8539-cd6184f53c29")
     Object visitInstance(Instance obj);
 
-    @objid ("cf8d1612-2306-44f5-b961-1dac21f95642")
+    @objid ("93e8958c-ae68-4ed0-825d-4362a35c29cc")
     Object visitInterface(Interface obj);
 
-    @objid ("0735a9fa-79bb-428b-ab16-26778ac1054e")
+    @objid ("a4431e24-e41e-4ac1-9ae5-4edf8f4fa8a3")
     Object visitInterfaceRealization(InterfaceRealization obj);
 
-    @objid ("d9598cf7-9575-43d6-8908-f310a69856fa")
+    @objid ("e53990ce-72ff-429d-8226-df930a48dc4d")
     Object visitLinkEnd(LinkEnd obj);
 
-    @objid ("8e3957ba-4337-4fbd-a21c-7343129d3d21")
+    @objid ("fc7e0534-3ef6-476e-8fd3-19d04111e64a")
     Object visitManifestation(Manifestation obj);
 
-    @objid ("75ceae2a-badc-4553-a920-69e40f78ac1f")
+    @objid ("2e8765cf-c5f5-4bb7-9bb6-1f1bdb3ed615")
     Object visitNameSpace(NameSpace obj);
 
-    @objid ("80ecd967-d0cc-48cf-9e4e-0245e2508eb8")
+    @objid ("46b7da42-4060-442e-97e8-bae549d8e5f9")
     Object visitNamespaceUse(NamespaceUse obj);
 
-    @objid ("dbad8a8b-28bf-4459-9238-c25f6fed1592")
+    @objid ("e7f3ff5b-135c-4272-a254-0ec2189a0743")
     Object visitNode(Node obj);
 
-    @objid ("764238ab-9fd0-438e-a623-f7f743e1c8a2")
+    @objid ("c7dcd0ef-43fa-4f8a-804f-838a899c64fe")
     Object visitOperation(Operation obj);
 
-    @objid ("b652f987-77d7-4b6b-b504-67663dab1b18")
+    @objid ("d1692313-550a-4b38-8ec9-f04fe2a3a9d9")
     Object visitPackage(Package obj);
 
-    @objid ("e661916c-3e78-49df-869e-fb8399309743")
+    @objid ("bac8bd58-3819-4c79-9213-d98fac4cd675")
     Object visitPackageImport(PackageImport obj);
 
-    @objid ("bde2b03c-4c4c-4303-9c29-99cbebfa44e8")
+    @objid ("facae6ac-3e68-4652-983b-3f15e1e8bf28")
     Object visitPackageMerge(PackageMerge obj);
 
-    @objid ("1095f705-7f5b-44fe-b67e-0f620e8fc87b")
+    @objid ("27afe449-2115-4432-806a-6ae94f7627e9")
     Object visitParameter(Parameter obj);
 
-    @objid ("70c01629-1f26-46ba-b7e8-6e8bc317cfdc")
+    @objid ("cea5ed66-c690-4069-bfd5-379b3393ebb2")
     Object visitPort(Port obj);
 
-    @objid ("0fe7ddbe-5e3d-4d32-975c-15f544ae8f45")
+    @objid ("30f2cc5b-15b6-4f5f-a890-fb01032a0a2d")
     Object visitProvidedInterface(ProvidedInterface obj);
 
-    @objid ("17cb73f0-bb55-48db-bdc6-01d0759f16d2")
+    @objid ("7bbe3e39-d31a-4cca-912d-46782e9753ca")
     Object visitRaisedException(RaisedException obj);
 
-    @objid ("3ef2c7c5-ed2c-45aa-b8d2-775cf97b4ce5")
+    @objid ("944c21fa-9cbb-45dc-952b-a4290b76da83")
     Object visitRequiredInterface(RequiredInterface obj);
 
-    @objid ("d0d9bba8-b323-4b6a-973b-46dff1e04ead")
+    @objid ("7b048792-b1f5-4cd2-9666-8524e7afb2d6")
     Object visitTemplateBinding(TemplateBinding obj);
 
-    @objid ("6e692816-317f-451c-bacb-c754fc229559")
+    @objid ("094caa2b-54aa-41c6-835c-fa9d6b950c94")
     Object visitTemplateParameter(TemplateParameter obj);
 
-    @objid ("be52d8c4-e6b5-46fe-a28e-7123467e6cf5")
+    @objid ("db3b93df-b3db-4ddc-9a48-77b4e8bf8b07")
     Object visitTemplateParameterSubstitution(TemplateParameterSubstitution obj);
 
-    @objid ("c4d8b243-9868-422e-b6cf-40dfee91ca39")
+    @objid ("0e439c3f-1242-4b00-a007-a040660c171a")
     Object visitStructuralFeature(StructuralFeature obj);
 
-    @objid ("55230ada-87fe-4c44-82e5-8c8eb478e0d3")
+    @objid ("4d5d9282-d5ce-443e-a816-1045fcf82d59")
     Object visitBehavioralFeature(BehavioralFeature obj);
 
-    @objid ("1079a0e8-94d5-4fd8-ad8e-a171ed61d265")
+    @objid ("9e3aad3a-ffef-4953-ad31-1d07e3445859")
     Object visitNaryAssociationEnd(NaryAssociationEnd obj);
 
-    @objid ("ed24f43f-53ae-4acc-88a4-ed22d7cf6ec4")
+    @objid ("49db9ad8-6094-440f-8921-4952469d9704")
     Object visitNaryAssociation(NaryAssociation obj);
 
-    @objid ("1ccafb49-1af3-4e19-b281-d6785f8dcf8e")
+    @objid ("d0e4443b-5817-47aa-9f0d-f4dd9209d97e")
     Object visitNaryLink(NaryLink obj);
 
-    @objid ("03035856-c257-40c6-aab4-ca9fd2de0f21")
+    @objid ("17f65d92-a8c7-41ef-b53e-37d3eaa28601")
     Object visitNaryLinkEnd(NaryLinkEnd obj);
 
-    @objid ("f1ab0f81-b360-4dec-bfdc-30125a8b8b55")
+    @objid ("6c48f6d7-ab4a-46de-be0f-62c45dd1b21c")
     Object visitNaryConnectorEnd(NaryConnectorEnd obj);
 
-    @objid ("7ee45d09-5f10-476f-973d-8c4f33e0bf35")
+    @objid ("d725c0a4-1869-4894-84e1-38cce63c7685")
     Object visitAssociation(Association obj);
 
-    @objid ("47431c83-1ddf-462a-a4fd-4d3fa0d692a4")
+    @objid ("df4c4c84-e40a-4146-9816-5c8da0defeef")
     Object visitLink(Link obj);
 
-    @objid ("8a02296b-17a2-4b2d-bc58-f894176cd473")
+    @objid ("29515f0a-aad2-4fdf-9d8d-d7ae0925610a")
     Object visitConnector(Connector obj);
 
-    @objid ("6de44146-8117-45a6-bb29-23062f5cebd9")
+    @objid ("243bfc88-2ff5-4378-aefc-56b9ddb302ab")
     Object visitAcceptCallEventAction(AcceptCallEventAction obj);
 
-    @objid ("52900428-d82f-4033-ad1d-b71e6a190b72")
+    @objid ("75091f01-a6f5-4652-ae85-afe38d3777df")
     Object visitAcceptChangeEventAction(AcceptChangeEventAction obj);
 
-    @objid ("d109b5a8-5471-4db9-b666-7defa3a0513d")
+    @objid ("59e24865-b2e0-4efa-a6e7-1cc084394f58")
     Object visitAcceptSignalAction(AcceptSignalAction obj);
 
-    @objid ("3ca8ffc6-df90-4c4a-a75b-7d901a768340")
+    @objid ("db623e2f-27eb-480b-8ba1-3ff52c995ab8")
     Object visitAcceptTimeEventAction(AcceptTimeEventAction obj);
 
-    @objid ("ec5525f4-e750-4d8d-8c50-902bc3dba47e")
+    @objid ("a39c8f55-cc96-4c51-a37b-d074a36c2df0")
     Object visitActivity(Activity obj);
 
-    @objid ("4fc1fc5e-c64b-4c40-8ef0-41fbf0ba31fe")
+    @objid ("07249108-8125-4384-bc7b-583601d48a72")
     Object visitActivityAction(ActivityAction obj);
 
-    @objid ("47140398-c536-44a1-8253-1a5839b3065f")
+    @objid ("804a1d3d-98fc-4334-8848-f0ad913dca18")
     Object visitActivityEdge(ActivityEdge obj);
 
-    @objid ("ce43f5c2-abf8-4534-9681-43c0daa9f1d2")
+    @objid ("338f7a6d-8626-4067-9791-254e4f3e882f")
     Object visitActivityFinalNode(ActivityFinalNode obj);
 
-    @objid ("f7df9c48-bb8c-47a2-ab7e-d24c5ce93670")
+    @objid ("9f443e9d-3db6-4d5a-8112-dfc6e1ac12d7")
     Object visitActivityGroup(ActivityGroup obj);
 
-    @objid ("5180e02d-7586-42d7-b354-025a5d18420d")
+    @objid ("3811ce52-81ae-4d19-86b8-cc129cfc181d")
     Object visitActivityNode(ActivityNode obj);
 
-    @objid ("e5757701-7b5b-46ef-a3aa-db6afc462440")
+    @objid ("47b1e309-3d43-42e5-9bb8-6c1335874e38")
     Object visitActivityParameterNode(ActivityParameterNode obj);
 
-    @objid ("bec200bb-6773-479a-8edf-b435cec11916")
+    @objid ("aa1a7417-8692-4bdb-8ed6-508fb08740cd")
     Object visitActivityPartition(ActivityPartition obj);
 
-    @objid ("6101a4e7-e60d-4426-bf2a-f5f3bcc6a956")
+    @objid ("5e3f3201-69e0-4cc7-abc7-d7faffbe65a8")
     Object visitCallAction(CallAction obj);
 
-    @objid ("5683d996-65e6-4f8d-ae4f-37bdfabfe317")
+    @objid ("7062a9a8-da5d-457f-8a8a-a2a07d643f5b")
     Object visitCallBehaviorAction(CallBehaviorAction obj);
 
-    @objid ("67ebeae5-b80a-4a1f-8490-dd490b6d0eee")
+    @objid ("517e4216-132b-46fd-84ea-bcb00645a0cc")
     Object visitCallOperationAction(CallOperationAction obj);
 
-    @objid ("62b7a234-02d0-4be3-937c-cda5bc07c655")
+    @objid ("ff8a05b4-1a25-4d1a-a701-9710baaa611b")
     Object visitCentralBufferNode(CentralBufferNode obj);
 
-    @objid ("fb5f874e-2df1-4cd6-a242-e99fe086eab2")
+    @objid ("11a6384e-85f9-4be6-8dd7-6aec56e9ae2d")
     Object visitClause(Clause obj);
 
-    @objid ("76dbdf50-ad4e-4c93-bd9f-7ee1bf4c5fc0")
+    @objid ("d4f44be9-94ef-48eb-ba46-fbfd9df68611")
     Object visitConditionalNode(ConditionalNode obj);
 
-    @objid ("93d32293-da0e-42cc-820c-9567b5c3a39f")
+    @objid ("557cb8c0-b545-4729-9200-c7251638a78d")
     Object visitControlFlow(ControlFlow obj);
 
-    @objid ("5d92a016-89d7-4a0b-9f3b-3aa45e993410")
+    @objid ("52012ba5-f8a2-415b-8784-faf08cdd1821")
     Object visitControlNode(ControlNode obj);
 
-    @objid ("c560b309-0f34-4b7d-a106-28c3cc2ac2af")
+    @objid ("4cc3ba72-a382-4fda-9243-7f7a644395fd")
     Object visitDataStoreNode(DataStoreNode obj);
 
-    @objid ("d647c9c6-4adc-4eb9-963b-7824d9361c4e")
+    @objid ("56fdd454-8805-4910-acec-3f2865ccdcc3")
     Object visitDecisionMergeNode(DecisionMergeNode obj);
 
-    @objid ("17a9b954-98bd-45b1-afaa-c453f1a2f705")
+    @objid ("0a53baeb-c6f5-484c-ac29-6c06f6e22f8d")
     Object visitExceptionHandler(ExceptionHandler obj);
 
-    @objid ("461e73ee-b18a-49cf-859b-856e058a4de1")
+    @objid ("b3f34a84-81fa-4ed1-beda-658525c57e77")
     Object visitExpansionNode(ExpansionNode obj);
 
-    @objid ("7b8bf1fb-c834-4e6b-8617-02b79501d9ae")
+    @objid ("3fe462a4-2a6a-4508-9b95-d326af57c551")
     Object visitExpansionRegion(ExpansionRegion obj);
 
-    @objid ("1623060c-3586-44d9-afed-2943a4bca4e9")
+    @objid ("2c507b35-f00d-488e-bf40-b34e87886038")
     Object visitFinalNode(FinalNode obj);
 
-    @objid ("d9cf73c7-c8e4-488f-8efb-11a2f2217929")
+    @objid ("8762d1cf-1b57-45fb-a8a2-05830daf4630")
     Object visitFlowFinalNode(FlowFinalNode obj);
 
-    @objid ("2eb1ef37-6e7e-426f-a133-8e4dc1ab7eeb")
+    @objid ("57d7c314-113e-4558-86f5-666deca492b2")
     Object visitForkJoinNode(ForkJoinNode obj);
 
-    @objid ("4d9fbe1d-1fd8-462c-98c5-001329f73815")
+    @objid ("5dcfe504-90a7-4821-9e4d-a7c3f10152ff")
     Object visitInitialNode(InitialNode obj);
 
-    @objid ("572394d7-8a53-40a7-8e23-b19933bd0ab4")
+    @objid ("76e1d01c-b0d5-48c1-a92b-24c52c95aca7")
     Object visitInputPin(InputPin obj);
 
-    @objid ("f6a69bc4-c06c-41a1-906f-40a7911c34ad")
+    @objid ("1f1e73b0-eff9-46d0-8517-11ca54ad6976")
     Object visitInstanceNode(InstanceNode obj);
 
-    @objid ("24b6318e-3cf2-4d41-813a-845571dbd0de")
+    @objid ("ba3508d1-ea18-48ce-817d-42a5cedf954b")
     Object visitInterruptibleActivityRegion(InterruptibleActivityRegion obj);
 
-    @objid ("f79c92e7-22a9-45ab-950e-443f310d3d3d")
+    @objid ("d4d3edad-434f-4767-9d02-b131a6e0dfe9")
     Object visitLoopNode(LoopNode obj);
 
-    @objid ("f715cc47-ccdd-46e1-807a-87f7ed638eef")
+    @objid ("18187a8f-538a-47d1-9043-49a51c10ef53")
     Object visitMessageFlow(MessageFlow obj);
 
-    @objid ("94176f03-9126-43e5-a4b5-be5b6595b242")
+    @objid ("99738a50-fd5d-45db-9677-62b47abc4eb9")
     Object visitObjectFlow(ObjectFlow obj);
 
-    @objid ("ceba3740-1594-43c0-9265-d11951caaee4")
+    @objid ("4ce976d6-14c5-43b5-94d2-0b0565713497")
     Object visitObjectNode(ObjectNode obj);
 
-    @objid ("4f3b18ca-cf31-4539-8b9d-71ab8513c287")
+    @objid ("6055f02f-5874-47b2-9a2e-4b9cdac4ee7c")
     Object visitOpaqueAction(OpaqueAction obj);
 
-    @objid ("bc57226d-409e-49ee-919a-0f3d284c28a0")
+    @objid ("21baf70c-8760-4fee-ade7-dc1309f8e777")
     Object visitOutputPin(OutputPin obj);
 
-    @objid ("0ac7f475-2a14-4ef0-91fa-eda2404889fa")
+    @objid ("0ab62a24-0c6a-40ee-9d1e-abe2f9f66852")
     Object visitPin(Pin obj);
 
-    @objid ("3c740b56-9603-45f4-9665-3daa0abc7f4d")
+    @objid ("2b7c9b9c-1647-4573-b1b7-ee635c9422ce")
     Object visitSendSignalAction(SendSignalAction obj);
 
-    @objid ("5822215a-94ea-4a0a-8f8a-b6eedabd32ca")
+    @objid ("ae1a3733-f547-4377-a272-b4e115a59e29")
     Object visitStructuredActivityNode(StructuredActivityNode obj);
 
-    @objid ("2dd07ab0-870e-4377-89b6-66e724f9ec9f")
+    @objid ("ed329675-3f97-4d44-acc8-1a30677ad559")
     Object visitValuePin(ValuePin obj);
 
-    @objid ("8be4c037-a655-46be-a6d1-6a0a4eb59219")
+    @objid ("afb8becc-ad36-43e5-bbe2-cf00a7450ec3")
     Object visitBehavior(Behavior obj);
 
-    @objid ("65eacab8-ff1f-4119-8779-5cc9ea901707")
+    @objid ("6f05345f-0081-44c4-8bda-a094ca5f0879")
     Object visitBehaviorParameter(BehaviorParameter obj);
 
-    @objid ("43f558a2-5ad4-48f5-87a3-beb99d044d21")
+    @objid ("d159cadb-404f-48cb-98df-158a437494c0")
     Object visitOpaqueBehavior(OpaqueBehavior obj);
 
-    @objid ("d72d4e38-a168-4163-8ac4-f37422407186")
+    @objid ("f7e60677-ad7c-4e97-8124-a2b871ad8ef0")
     Object visitSignal(Signal obj);
 
-    @objid ("4b92d336-67be-432d-aba5-3f5c32c31410")
+    @objid ("05163be6-252a-415e-8f50-caa0f6d9e47e")
     Object visitEvent(Event obj);
 
-    @objid ("efbdc0c4-c635-48a8-965d-b7c8552e864e")
+    @objid ("88215f35-7bd3-41b7-b2e7-2ff745264d3e")
     Object visitCombinedFragment(CombinedFragment obj);
 
-    @objid ("a1406bdc-efb6-4326-b9d6-72561e6b5f72")
+    @objid ("0efd9f10-d78e-4f1c-b83f-a38377f2326d")
     Object visitDurationConstraint(DurationConstraint obj);
 
-    @objid ("7f7d6d3d-2a02-41ff-b3b8-d3d45f1b6ee7")
+    @objid ("5fb30626-4250-405b-a6ac-8de71a1ccb79")
     Object visitExecutionOccurenceSpecification(ExecutionOccurenceSpecification obj);
 
-    @objid ("ca19d5bb-83cd-49fb-96da-cbab3b63eefe")
+    @objid ("867944d9-62fe-4fe1-a3e4-ec9d7fdd94f7")
     Object visitExecutionSpecification(ExecutionSpecification obj);
 
-    @objid ("cedd840c-9f8b-4150-8ad2-b66ec4f3633f")
+    @objid ("8336e540-7bd4-48ab-9d4c-9e9eef0b81be")
     Object visitGate(Gate obj);
 
-    @objid ("3d708361-bb78-4404-b0f8-52b045e949c1")
+    @objid ("4bef88d6-d83a-4125-bfd1-f946ee8a82fb")
     Object visitGeneralOrdering(GeneralOrdering obj);
 
-    @objid ("8b14662e-7dd1-43f2-96dd-f99ffaaa8e92")
+    @objid ("e9d45378-d6a5-4707-b526-aecb3d3c68ab")
     Object visitInteraction(Interaction obj);
 
-    @objid ("7ad0f3d6-36c8-4d49-9949-7bbb87dbde13")
+    @objid ("fab40157-1d8e-45ad-a98a-e9db2759c230")
     Object visitInteractionFragment(InteractionFragment obj);
 
-    @objid ("0f5f3ca6-3e3a-4899-8c61-97d5afcdb333")
+    @objid ("2ffabd25-2a81-48d7-9b76-9cabea0c3146")
     Object visitInteractionOperand(InteractionOperand obj);
 
-    @objid ("f26f9139-ce54-4c19-9c5c-c0d3e25767b1")
+    @objid ("e522763b-0470-4b0c-a68f-988b8680fd67")
     Object visitInteractionUse(InteractionUse obj);
 
-    @objid ("97d251cc-4228-4415-858b-a55ef4cec90a")
+    @objid ("a5e4e197-d90c-496d-973a-c1b251277bfe")
     Object visitLifeline(Lifeline obj);
 
-    @objid ("b01a77fb-4a48-4b9f-901f-f1c8dd7aa5c2")
+    @objid ("984adf2a-66c4-4f4d-9566-51f778dc991e")
     Object visitMessage(Message obj);
 
-    @objid ("8d82c4c3-a3d8-478c-b35d-bb9961472cac")
+    @objid ("7db14a7f-f24a-4cec-88d0-bb0d32e8794b")
     Object visitMessageEnd(MessageEnd obj);
 
-    @objid ("384febdf-f016-4e1c-a247-bc68adff8f1f")
+    @objid ("5e683458-5746-4c13-9e31-a918b8713746")
     Object visitOccurrenceSpecification(OccurrenceSpecification obj);
 
-    @objid ("96b1423b-75c7-4db7-a288-86c58e7075b9")
+    @objid ("18498b61-22aa-4b7d-8a3e-4a3dec13984c")
     Object visitPartDecomposition(PartDecomposition obj);
 
-    @objid ("951c088a-20b1-413f-be28-cf4ee338ec52")
+    @objid ("22aef81c-1429-4125-b694-2d94356f9245")
     Object visitStateInvariant(StateInvariant obj);
 
-    @objid ("fb6e5852-eb32-48f2-8b19-21eaf59c205f")
+    @objid ("afa8e6d9-6757-4173-8be9-ca21ee73973c")
     Object visitTerminateSpecification(TerminateSpecification obj);
 
-    @objid ("1a9496dd-fb4a-4760-b181-2d84983b2bb2")
+    @objid ("726798fc-44b0-4b26-b2a9-3a9b5fb96da9")
     Object visitAbstractPseudoState(AbstractPseudoState obj);
 
-    @objid ("ce7af0cc-76a6-4959-9a10-768503fadb8d")
+    @objid ("8666b024-2260-4f30-9280-e5078bd8c568")
     Object visitChoicePseudoState(ChoicePseudoState obj);
 
-    @objid ("5e44d76c-d651-4136-861b-b7e9f0810a03")
+    @objid ("fe5b52d7-724e-4e08-886d-f31c513bae24")
     Object visitConnectionPointReference(ConnectionPointReference obj);
 
-    @objid ("32ba7816-4083-4c1a-be44-df25331eac16")
+    @objid ("da302099-f713-4810-9ca9-1a8dc7b8866c")
     Object visitDeepHistoryPseudoState(DeepHistoryPseudoState obj);
 
-    @objid ("e5cd9ad8-5687-4d1c-88fc-637487b5e683")
+    @objid ("60faa809-ee34-4c0b-9282-6d79f496d252")
     Object visitEntryPointPseudoState(EntryPointPseudoState obj);
 
-    @objid ("5a6b17f2-0cea-41b8-91e7-eb7ccc277948")
+    @objid ("fe083b75-c653-4ec8-aa64-c35a69bb7e5a")
     Object visitExitPointPseudoState(ExitPointPseudoState obj);
 
-    @objid ("41dffde0-3b33-4d9e-a98e-9a8a920ed0e3")
+    @objid ("5234f021-61db-4fb5-8ecf-30e353420e14")
     Object visitForkPseudoState(ForkPseudoState obj);
 
-    @objid ("2d843212-9d41-4cb0-9d27-337efa68ec28")
+    @objid ("a36ce64e-e97a-4305-a1ca-eba8130bbe37")
     Object visitInitialPseudoState(InitialPseudoState obj);
 
-    @objid ("d971452c-d3d8-493d-b505-7da90cfd5f84")
+    @objid ("bd8d278c-1a49-4e74-8665-1b83ba4f538f")
     Object visitInternalTransition(InternalTransition obj);
 
-    @objid ("c1981553-c993-4052-a76f-814087a3dd44")
+    @objid ("591e8693-63e5-4e84-a2a5-5587e4914002")
     Object visitJoinPseudoState(JoinPseudoState obj);
 
-    @objid ("7436b817-dbe0-4aed-9c41-d58f0a6897c4")
+    @objid ("46058836-99e0-4e94-bba3-352b7a992c00")
     Object visitJunctionPseudoState(JunctionPseudoState obj);
 
-    @objid ("18655357-5883-4764-b239-71725439609c")
+    @objid ("ec20fdde-52da-4dc8-95e0-5a919c677654")
     Object visitShallowHistoryPseudoState(ShallowHistoryPseudoState obj);
 
-    @objid ("b93c789f-5d0d-4c8d-ab9d-a77e26b18c54")
+    @objid ("a147f930-94bd-45fb-bc12-f512e963e4d1")
     Object visitState(State obj);
 
-    @objid ("66b094ed-0f45-4268-9686-1ba86df29cc6")
+    @objid ("353b3ba1-3508-40fd-b77a-3b5c688bfb0d")
     Object visitStateMachine(StateMachine obj);
 
-    @objid ("83461b62-2473-4f92-b25a-62752665f817")
+    @objid ("e4e3d650-0b98-4935-8b33-0ac1f206f52a")
     Object visitStateVertex(StateVertex obj);
 
-    @objid ("78ef0f04-a78e-4072-9bf4-c1442eb86f95")
+    @objid ("c8747892-d489-4c9c-be62-8ec48fe1b994")
     Object visitTerminatePseudoState(TerminatePseudoState obj);
 
-    @objid ("15614a0d-5603-456e-8a15-bdeef1fc2a8f")
+    @objid ("580dc5c0-dae8-4f12-aed1-f35568dd1c28")
     Object visitTransition(Transition obj);
 
-    @objid ("6fb19dfa-a755-4251-8a7c-6fed261c15dd")
+    @objid ("2c636074-1db5-41fd-9704-7d0d1c30ad57")
     Object visitFinalState(FinalState obj);
 
-    @objid ("874c4867-b961-486a-a82c-0f8ae8a832a5")
+    @objid ("a8a19cbf-37a8-4cc2-9edc-811283a35cfa")
     Object visitRegion(Region obj);
 
-    @objid ("e463cb0c-1e25-4cb5-ac35-c8c9a82746a8")
+    @objid ("a5f0f3e0-2e7c-4a4b-b835-d48d76d1fba1")
     Object visitActor(Actor obj);
 
-    @objid ("4814c4a7-a243-427a-875a-cc1bbae81cbd")
+    @objid ("d63007d4-b6ea-4c7a-89e4-02ddf29a53f6")
     Object visitUseCase(UseCase obj);
 
-    @objid ("1e191600-7922-4d3d-bf46-94f88f59e7a9")
+    @objid ("8717116d-14a6-49be-ac62-f47450ced7d6")
     Object visitUseCaseDependency(UseCaseDependency obj);
 
-    @objid ("c180edf2-afa2-4a68-b493-154b5680b876")
+    @objid ("8e1c64d4-5341-4c22-8be5-bb27fe22ba4d")
     Object visitExtensionPoint(ExtensionPoint obj);
 
-    @objid ("36732002-77fc-4723-91e4-752904d1a12e")
+    @objid ("ba6accd1-6e9e-4458-ab37-f8f61cdb774f")
     Object visitAnalystItem(AnalystItem obj);
 
-    @objid ("9de12b45-744e-46d0-9830-0abe8663ee69")
+    @objid ("423dfd4e-8e10-44e0-961e-54d9eb1de0f2")
     Object visitAnalystElement(AnalystElement obj);
 
-    @objid ("d319b69f-dfd9-48ec-b8ab-16e2d819e131")
+    @objid ("547a4858-98d2-4ee2-b40d-bf9f21a648d6")
     Object visitAnalystContainer(AnalystContainer obj);
 
-    @objid ("7af80d32-026c-4268-93fa-bbaa9b66b018")
+    @objid ("baa5f059-2c38-4d50-b4ea-e282ca8cf089")
     Object visitAnalystProject(AnalystProject obj);
 
-    @objid ("b5b41c91-801b-4e07-8831-188c8f22b6ac")
+    @objid ("15464b4b-f86d-4146-bf04-df8f609d834a")
     Object visitAnalystPropertyTable(AnalystPropertyTable obj);
 
-    @objid ("52af748f-de4c-49ed-bda7-667d014bfc4d")
+    @objid ("78161ae2-f34f-4faf-94a2-140f3929b960")
     Object visitBusinessRule(BusinessRule obj);
 
-    @objid ("c0df0299-d464-49e7-99ea-0698cede4d44")
+    @objid ("bc0ecc37-397b-437c-bb1e-fa4f8cad9d8d")
     Object visitBusinessRuleContainer(BusinessRuleContainer obj);
 
-    @objid ("433da648-2a68-46e6-ae07-302cf2bc2dce")
+    @objid ("b9fa2b80-97cb-4c50-9821-343ff5ab713c")
     Object visitDictionary(Dictionary obj);
 
-    @objid ("2f7f072b-bce9-458b-9f54-378f76af50f6")
+    @objid ("d5313ffe-4d9d-4ab2-9d78-f3e5b803657e")
     Object visitGoal(Goal obj);
 
-    @objid ("d74d84b2-cc57-49c0-913f-9471e97f6c09")
+    @objid ("7f5927e6-642a-4530-aa1f-45b56e902c23")
     Object visitGoalContainer(GoalContainer obj);
 
-    @objid ("1e33308a-0f74-421d-995f-6e74b7e70a24")
+    @objid ("0099f813-120a-41ad-bb8e-be4722d9574c")
     Object visitPropertyContainer(PropertyContainer obj);
 
-    @objid ("686dce0e-da21-4155-8763-6d03a4dd3627")
+    @objid ("8878d229-4538-426a-8a61-69027d107c70")
     Object visitRequirement(Requirement obj);
 
-    @objid ("bc8dc33b-9847-45f1-ad5b-608402f0e2c4")
+    @objid ("2e48781d-1032-4483-a31f-031be967dc71")
     Object visitRequirementContainer(RequirementContainer obj);
 
-    @objid ("3719694a-71fd-461e-8d30-474f81f5e539")
+    @objid ("4a03d2a6-411e-428c-9094-1ad55bfc1517")
     Object visitTerm(Term obj);
 
-    @objid ("4aafc9f2-2276-41fa-ae25-180e5ab3e756")
+    @objid ("575cc2d6-39f9-4299-b525-4310b09eaee6")
+    Object visitGenericAnalystContainer(GenericAnalystContainer obj);
+
+    @objid ("f797a58a-cb29-4830-8bdb-69fc607aae77")
+    Object visitGenericAnalystElement(GenericAnalystElement obj);
+
+    @objid ("52f518bf-4d28-4571-b582-b929a11d809c")
     Object visitInformationFlow(InformationFlow obj);
 
-    @objid ("0de8926b-6025-444b-ac88-c2a841a20be5")
+    @objid ("85e22a59-e99a-41a0-821a-5578b5215561")
     Object visitInformationItem(InformationItem obj);
 
-    @objid ("1d53c86f-db86-4826-ab0a-bf2dd1fa41b0")
+    @objid ("cb2dab5d-02df-41aa-b6e5-bc20ddfe35a7")
     Object visitDataFlow(DataFlow obj);
 
-    @objid ("29068c73-49fb-412c-925f-d7b4f59c6786")
+    @objid ("123b4586-22b0-4222-8566-a59304af130b")
     Object visitCommunicationInteraction(CommunicationInteraction obj);
 
-    @objid ("0f6708cc-be82-4317-bf42-b347be08360e")
+    @objid ("2a714b6d-bb03-4e3c-9c1d-34535ea9a78d")
     Object visitCommunicationNode(CommunicationNode obj);
 
-    @objid ("63d874bd-4874-41ef-8c75-7a621fc21fe4")
+    @objid ("a12ebed9-22f8-45f1-bc95-70884b66a0b6")
     Object visitCommunicationMessage(CommunicationMessage obj);
 
-    @objid ("bf61c1bc-4e60-4cde-95b7-09a86f436ccc")
+    @objid ("a14f1486-701b-44ac-aa99-a22dbe0067e3")
     Object visitCommunicationChannel(CommunicationChannel obj);
 
-    @objid ("be05a2ac-cdb0-4a93-94d4-59b958e45ab1")
+    @objid ("45febd30-4db7-4d2b-820c-3e6e86691460")
     Object visitBpmnCollaboration(BpmnCollaboration obj);
 
-    @objid ("3d50aa40-f3ce-46b6-b1cf-374f9106be0b")
+    @objid ("4b9f580d-d241-40bb-aca8-e616d7449fa1")
     Object visitBpmnLane(BpmnLane obj);
 
-    @objid ("0c8ee6de-0e39-4463-a580-7c91cb296157")
+    @objid ("68c2d8fc-9d2e-4bfb-95be-2abe6757399b")
     Object visitBpmnLaneSet(BpmnLaneSet obj);
 
-    @objid ("071ad17c-615f-490d-b042-f77f5b434fb6")
+    @objid ("63e9233f-45b0-4d3e-858f-ac036c03e23a")
     Object visitBpmnParticipant(BpmnParticipant obj);
 
-    @objid ("5e237c71-8cae-4fe1-ac20-d0bd71996239")
+    @objid ("883b0050-d2d7-4d99-a949-c0677dcfeb9b")
     Object visitBpmnProcess(BpmnProcess obj);
 
-    @objid ("cab2130c-3e45-4bac-8acc-1115c756c44c")
+    @objid ("9df3b12e-3d1b-4ceb-8b56-7eb9963f4972")
     Object visitBpmnAssociation(BpmnAssociation obj);
 
-    @objid ("8eb26dae-ad46-4860-8945-8a47b16a228f")
+    @objid ("a7aad94b-1f96-4f51-8406-09b9382a8a68")
     Object visitBpmnBaseElement(BpmnBaseElement obj);
 
-    @objid ("39f4f537-be48-46ce-b0cd-35b71ee71497")
+    @objid ("3593dc1e-a791-43f1-9890-91ba0bb9ac98")
     Object visitBpmnArtifact(BpmnArtifact obj);
 
-    @objid ("5087d362-c9df-4ea7-9659-14193f98dd02")
+    @objid ("6b852d01-d25a-4358-a066-20ef8c08bba9")
     Object visitBpmnFlowElement(BpmnFlowElement obj);
 
-    @objid ("0d6e2973-f36f-4ee4-be79-286877eba8ff")
+    @objid ("506312cf-27bc-4f80-957b-09b0935157e9")
     Object visitBpmnFlowNode(BpmnFlowNode obj);
 
-    @objid ("c6146e42-1309-44cb-8467-ad25a9404660")
+    @objid ("dcf6d6cf-4850-422d-bb80-f216a0ba1d24")
     Object visitBpmnGroup(BpmnGroup obj);
 
-    @objid ("9587ef25-5cf2-456c-a3ca-809c85ed43f9")
+    @objid ("0d29d704-a4c5-4b74-8c44-205e13333b50")
     Object visitBpmnRootElement(BpmnRootElement obj);
 
-    @objid ("fa19df9b-aab0-4a70-a19d-2e4b8ec968b9")
+    @objid ("12bec8e2-1df9-4ffa-b290-0d461a246803")
     Object visitBpmnBehavior(BpmnBehavior obj);
 
-    @objid ("5b6591e6-1f2e-4582-830a-859a63fd21c7")
+    @objid ("8b77dab0-0073-4041-bea4-0bf1672f999e")
     Object visitBpmnMessage(BpmnMessage obj);
 
-    @objid ("b4986147-6f58-4e44-96c1-19fc62d58a2f")
+    @objid ("86bd5ffa-8bbc-4ba4-9da4-fee5224c35ef")
     Object visitBpmnMessageFlow(BpmnMessageFlow obj);
 
-    @objid ("24f37ee4-504c-4e93-ba85-64f55efbae00")
+    @objid ("e5a754f0-3df2-41e5-aa60-d5f40be3c85c")
     Object visitBpmnSequenceFlow(BpmnSequenceFlow obj);
 
-    @objid ("66b83020-ba38-4738-a0f7-3553a82f98f1")
+    @objid ("720acf9d-7fe6-4b4d-89d4-cbe5dbe73105")
     Object visitBpmnActivity(BpmnActivity obj);
 
-    @objid ("e38f3070-5b2d-4c3b-b3e6-99dbd196ac95")
+    @objid ("95562230-4a87-4446-8651-d53fa25f3ddb")
     Object visitBpmnAdHocSubProcess(BpmnAdHocSubProcess obj);
 
-    @objid ("6fdf7c56-5b61-47b8-b8a5-96eae3663857")
+    @objid ("a32c4081-6ea3-406f-a5c6-16ca9a3d8fd7")
     Object visitBpmnBusinessRuleTask(BpmnBusinessRuleTask obj);
 
-    @objid ("ea4aec44-11a5-4695-819b-ff9719f2eb64")
+    @objid ("0983d1cd-c7b8-436b-9ffc-eaffcf23f67c")
     Object visitBpmnCallActivity(BpmnCallActivity obj);
 
-    @objid ("3fe6033f-9ce3-4ec2-880c-8b19fed07289")
+    @objid ("fa4b0790-75a3-49ac-89af-0fcf4b8c5382")
     Object visitBpmnComplexBehaviorDefinition(BpmnComplexBehaviorDefinition obj);
 
-    @objid ("51a65936-1259-4af2-b09d-416d0ef6b236")
+    @objid ("8aa4279d-6eeb-4288-b681-54e52c002060")
     Object visitBpmnLoopCharacteristics(BpmnLoopCharacteristics obj);
 
-    @objid ("2b2d78fc-d809-4b5c-8078-b028f3d0121f")
+    @objid ("70e35115-d149-499e-8a0d-93de885bbb55")
     Object visitBpmnManualTask(BpmnManualTask obj);
 
-    @objid ("803264af-d404-4862-a7b2-3ee8a88ce866")
+    @objid ("4c6bb4d7-1229-4032-9a93-dd47e6526335")
     Object visitBpmnMultiInstanceLoopCharacteristics(BpmnMultiInstanceLoopCharacteristics obj);
 
-    @objid ("59db3594-baf1-49cc-b89e-361c2464118e")
+    @objid ("df9a3cca-28f2-4460-9627-5d3a1a373fd7")
     Object visitBpmnReceiveTask(BpmnReceiveTask obj);
 
-    @objid ("c851a3fa-2893-4f4c-93ea-9d0c74cfcbc7")
+    @objid ("fbf9a831-8176-4aa8-a6a1-c716dbab7aae")
     Object visitBpmnScriptTask(BpmnScriptTask obj);
 
-    @objid ("bc21a35c-52bf-42da-866c-13caf4bfa3cf")
+    @objid ("ea0c83d7-87f5-453e-a858-ef87310f2fd2")
     Object visitBpmnSendTask(BpmnSendTask obj);
 
-    @objid ("fd7a7f2f-4c51-43bb-b710-85f3e548d435")
+    @objid ("396d3cc3-1396-452c-be91-83f50544cb75")
     Object visitBpmnServiceTask(BpmnServiceTask obj);
 
-    @objid ("26a42118-c89c-4c81-bd6f-25593555f8b6")
+    @objid ("ff7430ca-87e4-4dcc-a0a1-f7e38924fa35")
     Object visitBpmnStandardLoopCharacteristics(BpmnStandardLoopCharacteristics obj);
 
-    @objid ("5d841743-9be6-4c2b-addf-bb056b1ce93a")
+    @objid ("3576c6b7-e7df-4b3b-b730-75f3d1be4f32")
     Object visitBpmnSubProcess(BpmnSubProcess obj);
 
-    @objid ("a78d595f-4b39-4153-a50a-5483da96b229")
+    @objid ("8990cc9d-91fe-4503-ae87-5e8bdc7b8f8a")
     Object visitBpmnTask(BpmnTask obj);
 
-    @objid ("1a96d1a2-f8ed-42f0-bc6e-b485a48bc047")
+    @objid ("727b7f72-102a-481f-9ad7-f217eae7be76")
     Object visitBpmnTransaction(BpmnTransaction obj);
 
-    @objid ("a64062ce-c90f-402e-9340-5eab294988fc")
+    @objid ("25869571-f7e8-4b85-9d59-72800b07265f")
     Object visitBpmnUserTask(BpmnUserTask obj);
 
-    @objid ("4cbd8b4b-cb6b-4ceb-91ca-e10d01ceac65")
+    @objid ("f2abc8e8-0a53-4b80-8070-67ee7e21b8f6")
     Object visitBpmnBoundaryEvent(BpmnBoundaryEvent obj);
 
-    @objid ("dce489ce-e608-490e-810a-4327a65fa130")
+    @objid ("49572b69-2233-4e61-9cdd-0ac9e3857d5e")
     Object visitBpmnCancelEventDefinition(BpmnCancelEventDefinition obj);
 
-    @objid ("21fd2e02-f39c-41f3-a3f3-574ead3484df")
+    @objid ("17820d9e-ec83-47d5-a6b0-ba1f82874e6c")
     Object visitBpmnCatchEvent(BpmnCatchEvent obj);
 
-    @objid ("039049b2-788e-4566-bc3c-738bcdc75f8d")
+    @objid ("f535e4b3-df7c-479c-a6d4-a21f39645844")
     Object visitBpmnCompensateEventDefinition(BpmnCompensateEventDefinition obj);
 
-    @objid ("be560ea7-4c91-4ad5-9369-a3e65ebeef80")
+    @objid ("ae543cb9-c2c9-41de-b23c-2b55dde9421c")
     Object visitBpmnConditionalEventDefinition(BpmnConditionalEventDefinition obj);
 
-    @objid ("baa0a07d-a4cf-4254-878a-61cad767976a")
+    @objid ("20338d61-78eb-4fce-8db2-342ae77c392e")
     Object visitBpmnEndEvent(BpmnEndEvent obj);
 
-    @objid ("6c3b3396-4d7b-4e28-a81d-cce3a91abddc")
+    @objid ("74395215-2ef5-4fdf-b7c0-ed18c1cdcfdc")
     Object visitBpmnErrorEventDefinition(BpmnErrorEventDefinition obj);
 
-    @objid ("fa4efaf0-de5e-40fd-b0ca-e6840cfe30a1")
+    @objid ("0a6f5c5b-57f9-4373-8ce8-e25d0de200cc")
     Object visitBpmnEscalationEventDefinition(BpmnEscalationEventDefinition obj);
 
-    @objid ("ac52beac-43c7-436f-b9a4-ae133a40a7ae")
+    @objid ("c91c6a95-0902-4b79-8838-a802359a57a3")
     Object visitBpmnEvent(BpmnEvent obj);
 
-    @objid ("ceb2eb98-a22e-4dca-9fd4-d342d5d81745")
+    @objid ("49c8c45b-f80d-4028-bf64-311a682a1a95")
     Object visitBpmnEventDefinition(BpmnEventDefinition obj);
 
-    @objid ("f5cd3309-32b4-4287-a111-97871a2a8b9f")
+    @objid ("3214d74f-cdd1-4ac3-ba59-119b1ff6b45e")
     Object visitBpmnImplicitThrowEvent(BpmnImplicitThrowEvent obj);
 
-    @objid ("5810ff3c-996f-422e-b037-c227fa23640d")
+    @objid ("691f2c63-cc35-435e-a820-db527f2592af")
     Object visitBpmnIntermediateCatchEvent(BpmnIntermediateCatchEvent obj);
 
-    @objid ("9af2c49d-62ab-4bc9-b691-e62449d76334")
+    @objid ("bbe19e98-b873-4bdf-b183-d4759fbf7978")
     Object visitBpmnIntermediateThrowEvent(BpmnIntermediateThrowEvent obj);
 
-    @objid ("1ad54508-df68-45b4-8218-bc166ee3f3b7")
+    @objid ("b3c8088b-0d7b-49d7-aa4c-942c39aa3886")
     Object visitBpmnLinkEventDefinition(BpmnLinkEventDefinition obj);
 
-    @objid ("7a03769f-b6e8-4768-ad7c-f9121e73085b")
+    @objid ("04139e8d-881e-477e-9c99-02646ba81066")
     Object visitBpmnMessageEventDefinition(BpmnMessageEventDefinition obj);
 
-    @objid ("490e86bc-e98a-499c-8047-1a3e1ed52ca0")
+    @objid ("f5da1b45-9291-4b2a-af38-67617048a9a5")
     Object visitBpmnSignalEventDefinition(BpmnSignalEventDefinition obj);
 
-    @objid ("81dc72e3-3458-49fd-9915-8919d78f6613")
+    @objid ("66d4ecc0-3eaf-49bf-925b-ed8bb9e2ce55")
     Object visitBpmnStartEvent(BpmnStartEvent obj);
 
-    @objid ("b430ff5c-9269-4ee1-8ef0-895d44868d4a")
+    @objid ("5d0bf586-6eb0-4da1-b0ac-086a84b5bac7")
     Object visitBpmnTerminateEventDefinition(BpmnTerminateEventDefinition obj);
 
-    @objid ("6e2c1828-dbc9-43cf-9b39-87952517aeed")
+    @objid ("82910af7-e34c-43be-ad71-b68e3e2a9792")
     Object visitBpmnThrowEvent(BpmnThrowEvent obj);
 
-    @objid ("83b3c77a-ab2a-423a-a4c1-a332e197cdce")
+    @objid ("bef01a09-b353-47c1-9f88-ab08e2e15bec")
     Object visitBpmnTimerEventDefinition(BpmnTimerEventDefinition obj);
 
-    @objid ("7197f119-f5ef-4154-8dbf-c2a130643e0b")
+    @objid ("960a6134-d40f-4b8f-b20b-11c805a36ff8")
     Object visitBpmnComplexGateway(BpmnComplexGateway obj);
 
-    @objid ("d48e2c2e-d2a1-4388-ba6e-e84da0ea39bb")
+    @objid ("2fb48e48-d1fd-488d-9e1c-83131ce3af0f")
     Object visitBpmnEventBasedGateway(BpmnEventBasedGateway obj);
 
-    @objid ("024cda8c-9a1d-48c8-b635-9f299ee9e93c")
+    @objid ("e1a02499-4680-426d-8781-1ef4b49a9687")
     Object visitBpmnExclusiveGateway(BpmnExclusiveGateway obj);
 
-    @objid ("3e08ebb2-46df-453d-8fa2-020e83988bb8")
+    @objid ("64116fb1-b75a-4f39-85ee-d7220807d6f1")
     Object visitBpmnGateway(BpmnGateway obj);
 
-    @objid ("d8846d06-a9e9-4757-a7ca-491ddd4b865f")
+    @objid ("3a288dc6-431b-4cb5-b8e6-7e11008374f1")
     Object visitBpmnInclusiveGateway(BpmnInclusiveGateway obj);
 
-    @objid ("54d7b6ac-871e-4682-a955-4a818cea2bbf")
+    @objid ("7e470041-c6dc-4eca-ae3d-6e9d7dd17926")
     Object visitBpmnParallelGateway(BpmnParallelGateway obj);
 
-    @objid ("531d07c4-09fd-44e4-92db-3565034a4414")
+    @objid ("07a3666c-33c9-436c-b566-33fc018a6edc")
     Object visitBpmnDataObject(BpmnDataObject obj);
 
-    @objid ("c7263da3-64be-43d4-92ec-8007444a5120")
+    @objid ("3e45046d-2094-40a7-b7c8-5a3a5fad2907")
     Object visitBpmnDataStore(BpmnDataStore obj);
 
-    @objid ("dfd5aaaf-8503-404f-a3e1-5f79798f8d29")
+    @objid ("d4f05421-5a99-4994-91e0-3be438c19510")
     Object visitBpmnDataAssociation(BpmnDataAssociation obj);
 
-    @objid ("2380d38a-b026-417a-aa44-b2a7a936898b")
+    @objid ("523c70a8-5ea9-4bd2-8de6-9f19090031d6")
     Object visitBpmnSequenceFlowDataAssociation(BpmnSequenceFlowDataAssociation obj);
 
-    @objid ("722fa5a8-ea8d-443c-9876-8bc25e08b257")
+    @objid ("05d25dbd-6cd2-44a4-b84e-11b5d90673a5")
     Object visitBpmnDataOutput(BpmnDataOutput obj);
 
-    @objid ("3447d442-6517-4808-a9be-ea72ff8a9c7c")
+    @objid ("0b3f733c-dadd-45f4-a802-a011d9a8b754")
     Object visitBpmnDataInput(BpmnDataInput obj);
 
-    @objid ("5f701683-7f9f-4194-bcd7-67965c59fa23")
+    @objid ("6aa7ff96-0fc5-4fa7-a92f-cba58f1af746")
     Object visitBpmnItemAwareElement(BpmnItemAwareElement obj);
 
-    @objid ("f79f2560-03a5-4d76-b163-e3f7b39fab1a")
+    @objid ("a2f36994-2889-42d4-9c7a-a576313c7301")
     Object visitBpmnItemDefinition(BpmnItemDefinition obj);
 
-    @objid ("b3373a09-71e4-41d8-8418-df065391dacd")
+    @objid ("a7e07366-25a6-4768-8d41-ffc9f1f1056c")
     Object visitBpmnDataState(BpmnDataState obj);
 
-    @objid ("b2b7f378-0ec9-4136-bece-bfed3e676421")
+    @objid ("e90c68a3-d657-497a-9df1-90ac11781048")
     Object visitBpmnResource(BpmnResource obj);
 
-    @objid ("ddd38a02-e511-4463-a069-f33ba64a2535")
+    @objid ("8c5c90f4-23da-45fc-bb18-2528292f1d15")
     Object visitBpmnResourceParameter(BpmnResourceParameter obj);
 
-    @objid ("1d2e0aa3-d9a1-409b-8114-0d82380bb1b7")
+    @objid ("dabadcc9-1d1e-4328-a872-0bb6ab3dc491")
     Object visitBpmnResourceRole(BpmnResourceRole obj);
 
-    @objid ("e5fd5cb1-124a-46ad-af44-697c2238bd84")
+    @objid ("5baeb06b-212f-43ba-bf36-d939d6473570")
     Object visitBpmnResourceParameterBinding(BpmnResourceParameterBinding obj);
 
-    @objid ("5e7ac77e-09a3-4451-ac9a-ff67f1849bce")
+    @objid ("f8515447-2319-44e6-939d-1c9da5026365")
     Object visitBpmnOperation(BpmnOperation obj);
 
-    @objid ("1ce0cbad-c4d8-4b06-b4f1-a3a7db3284ef")
+    @objid ("896ecced-ad59-4944-a269-523ff4229da7")
     Object visitBpmnInterface(BpmnInterface obj);
 
-    @objid ("b8772167-b5a3-40dc-a940-9ca9b7805b06")
+    @objid ("a9cbd126-fb2b-441e-8b2a-622922e67031")
     Object visitBpmnEndPoint(BpmnEndPoint obj);
 
-    @objid ("bee8beb0-ed5a-4f7b-9831-827aaec30654")
+    @objid ("2dd8dc67-9aa3-4316-a4b5-45420aaf284d")
     Object visitAbstractDiagram(AbstractDiagram obj);
 
-    @objid ("92918a80-30ef-4880-a5ee-8b48cee723cb")
+    @objid ("73a29d80-7dbb-442f-9464-411dfc6df58c")
     Object visitActivityDiagram(ActivityDiagram obj);
 
-    @objid ("0f08eded-a40d-4b3f-aad1-374ddb9bc238")
+    @objid ("0dbf08e4-3fac-48e4-93fc-d0211c6eabb2")
     Object visitBehaviorDiagram(BehaviorDiagram obj);
 
-    @objid ("4910ae9d-2eac-4f19-8c02-25dd4d024017")
+    @objid ("0dfa6ad3-9e01-433d-ab41-c22e035ce5dd")
     Object visitClassDiagram(ClassDiagram obj);
 
-    @objid ("1d4642ae-97c1-4e97-b392-4034fbd94d3a")
+    @objid ("5c61d1d0-ea58-4465-84c1-cf7d0be6640e")
     Object visitCommunicationDiagram(CommunicationDiagram obj);
 
-    @objid ("6847ea21-3aa8-48a9-b309-3c5fac555b58")
+    @objid ("dd83dbc2-b5c4-4789-b398-b1a234ef96de")
     Object visitDeploymentDiagram(DeploymentDiagram obj);
 
-    @objid ("8aafe3ea-4d83-4ee9-97ba-5d3ef6de2f87")
+    @objid ("f435ec6d-92c3-4ee5-a590-f5ca5135826e")
     Object visitDiagramSet(DiagramSet obj);
 
-    @objid ("3543c3e6-8f89-4270-b9c9-e4ed9016d323")
+    @objid ("03e44465-87e3-497a-8a34-0f15f858fba2")
     Object visitSequenceDiagram(SequenceDiagram obj);
 
-    @objid ("8926c93b-a209-47f9-bc44-92c06d5fecbd")
+    @objid ("757f1117-2603-4729-b745-9ebe750b34b5")
     Object visitStateMachineDiagram(StateMachineDiagram obj);
 
-    @objid ("f8608f3d-60e9-425e-8b4b-40a541bf1e2e")
+    @objid ("7733e52b-8acd-4b72-a85e-e80a0852a061")
     Object visitStaticDiagram(StaticDiagram obj);
 
-    @objid ("c1bc5154-ab3a-499a-84ee-213e14b1a30a")
+    @objid ("601b719d-da93-4996-acd8-5fd95af98259")
     Object visitUseCaseDiagram(UseCaseDiagram obj);
 
-    @objid ("e265253c-552c-42d0-9773-c25b52c510e2")
+    @objid ("520b0ad1-f101-4c07-a87e-bc688b09542a")
     Object visitObjectDiagram(ObjectDiagram obj);
 
-    @objid ("9882a3f7-4c0a-4889-b2d7-b59870b35b8e")
+    @objid ("cc0e7804-5b2c-4b5c-9641-b7cdcb7f1b0d")
     Object visitCompositeStructureDiagram(CompositeStructureDiagram obj);
 
-    @objid ("3476f05d-09fd-48e4-a334-a48803ced70e")
+    @objid ("efc6e0d9-d6fa-4ed5-ace2-4d66711c48fd")
     Object visitBpmnProcessCollaborationDiagram(BpmnProcessCollaborationDiagram obj);
 
-    @objid ("0f0f8ea7-510a-4706-9713-057fcb8c9ca7")
+    @objid ("809a1b9a-ed9a-47c3-bb73-0a56d99412ae")
     Object visitBpmnSubProcessDiagram(BpmnSubProcessDiagram obj);
 
-    @objid ("4a18e096-f719-4bf0-9539-e21520e65ad4")
+    @objid ("120d2c58-2b59-4a99-aae9-d3b43dae8759")
     Object visitModuleParameter(ModuleParameter obj);
 
-    @objid ("7712932a-5945-46b6-9fff-2c1afd95c98d")
+    @objid ("3322bf4a-d6bb-46dc-b8d5-7fd0e741ca3f")
     Object visitModuleComponent(ModuleComponent obj);
 
-    @objid ("2e1da980-fb23-468a-ac1d-6f3c2370d0a0")
+    @objid ("9b4ccec0-f753-44f5-ad12-f4d536aadcec")
     Object visitProject(Project obj);
 
 }

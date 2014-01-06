@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.bpmn.resources;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
@@ -33,22 +33,22 @@ import org.modelio.metamodel.bpmn.rootElements.BpmnBaseElement;
 
 @objid ("000b28b8-c4c0-1fd8-97fe-001ec947cd2a")
 public interface BpmnResourceParameterBinding extends BpmnBaseElement {
-    @objid ("39f26441-f961-4722-8f56-d3f4c1e7806d")
+    @objid ("47aba2f3-5a07-4672-b977-184793ac4224")
     String getExpression();
 
-    @objid ("28b7a395-ec6d-4a18-b355-2eab8c53f770")
+    @objid ("a11a415e-39f2-4db5-b687-615e9692464c")
     void setExpression(String value);
 
-    @objid ("4240ab83-20c0-4235-8863-30f6605bcd6e")
+    @objid ("35e0f241-3e42-412e-9771-b81d801d2fbb")
     BpmnResourceRole getResourceRole();
 
-    @objid ("0b8b4de3-04d8-4e58-9f0c-8a003b4d9a21")
+    @objid ("4b5c81e8-47d9-4837-a62b-e12b0ef2d121")
     void setResourceRole(BpmnResourceRole value);
 
-    @objid ("1a36424f-4aef-42b9-81f3-cc8b50c22bb0")
+    @objid ("bf0b85c6-cf7c-4899-a8b9-149594372dd5")
     BpmnResourceParameter getParameterRef();
 
-    @objid ("4c2c1296-fc8e-42eb-8d54-f25e1f4ed2a2")
+    @objid ("494b3858-0fcc-41c9-81f1-9860a9988193")
     void setParameterRef(BpmnResourceParameter value);
 
 }

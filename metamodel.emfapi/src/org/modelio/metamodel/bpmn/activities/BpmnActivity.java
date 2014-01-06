@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.bpmn.activities;
 
 import java.util.List;
@@ -39,70 +39,70 @@ import org.modelio.metamodel.bpmn.rootElements.BpmnFlowNode;
 
 @objid ("007d712a-c4bf-1fd8-97fe-001ec947cd2a")
 public interface BpmnActivity extends BpmnFlowNode {
-    @objid ("a33a4acd-0173-41f4-af15-e1dd865c513b")
+    @objid ("794c7b7c-8db1-4c1e-ad4a-d3d5748c270c")
     boolean isIsForCompensation();
 
-    @objid ("00ad97aa-ecef-4cf2-bb86-6d60aace546a")
+    @objid ("8448aa97-4e25-40de-9ff7-eade51c9403c")
     void setIsForCompensation(boolean value);
 
-    @objid ("e61506e3-d743-4c73-bf95-ea492ffb118a")
+    @objid ("acf0da6d-ba74-482b-b167-1e60bd6d62df")
     int getStartQuantity();
 
-    @objid ("5bf2cc9b-42cd-42d0-8b8f-7adb363d1b08")
+    @objid ("f9d17fbb-c200-4d31-9689-58b59bbb4423")
     void setStartQuantity(int value);
 
-    @objid ("41263b40-05b8-4444-8299-da41e854da5e")
+    @objid ("951ab38d-2fe5-4e88-932e-ffba3b104ec0")
     int getCompletionQuantity();
 
-    @objid ("2fda220d-0708-4589-b448-5374c0ddec72")
+    @objid ("c225d8aa-e60e-4e37-9541-8284c45875b6")
     void setCompletionQuantity(int value);
 
-    @objid ("227a5865-4951-4b9f-aed3-4bed3c12c495")
+    @objid ("31bd1caf-5a99-40fa-a508-6382496e8ee0")
     EList<BpmnCompensateEventDefinition> getCompensateEventDefinitions();
 
-    @objid ("8b56459b-e334-4648-bbe9-9341082b8c5c")
+    @objid ("2d49f26d-7d0c-4d11-a223-49083ba1f720")
     <T extends BpmnCompensateEventDefinition> List<T> getCompensateEventDefinitions(java.lang.Class<T> filterClass);
 
-    @objid ("6346f0ac-0a5e-4296-a40e-0811bf34308a")
+    @objid ("766e990d-6158-49d7-b348-7d9a51915856")
     EList<BpmnDataInput> getInputSpecification();
 
-    @objid ("da20c29b-ab2e-4e12-877d-b1cf360de75d")
+    @objid ("838d0165-9575-4061-969d-7dd75ef24084")
     <T extends BpmnDataInput> List<T> getInputSpecification(java.lang.Class<T> filterClass);
 
-    @objid ("f40a5fa6-1f54-49b8-ab73-dcb7174ccf12")
+    @objid ("a90a44d4-3db0-4028-b94b-894d8bf632c1")
     EList<BpmnDataAssociation> getDataInputAssociation();
 
-    @objid ("f60df120-ba70-4b90-b8cb-c6106b7bbba9")
+    @objid ("9296d519-ef4e-4837-a056-fdc067910a2d")
     <T extends BpmnDataAssociation> List<T> getDataInputAssociation(java.lang.Class<T> filterClass);
 
-    @objid ("185d18c9-5301-4dae-b828-bae83b433832")
+    @objid ("44aebb09-2544-4466-9c90-338ebea178e0")
     EList<BpmnDataOutput> getOutputSpecification();
 
-    @objid ("c45ce335-cfc2-45dd-bf7a-5ac9331ccfc9")
+    @objid ("68244410-5422-456a-b8d0-fb5ba3dc8cf7")
     <T extends BpmnDataOutput> List<T> getOutputSpecification(java.lang.Class<T> filterClass);
 
-    @objid ("ac14a48e-ae73-4a66-986e-610421936cc6")
+    @objid ("52cb8635-075c-4326-9daf-84cc1f59655a")
     BpmnLoopCharacteristics getLoopCharacteristics();
 
-    @objid ("361cefbc-9c6e-4ff0-b4ec-8a0073ee4cb7")
+    @objid ("b14eb060-1151-4e4e-bbe9-a70bda126d75")
     void setLoopCharacteristics(BpmnLoopCharacteristics value);
 
-    @objid ("7376df92-ffec-46fc-a165-6b2c89753954")
+    @objid ("b0db4853-9e32-4517-a375-851050b50ecf")
     EList<BpmnBoundaryEvent> getBoundaryEventRef();
 
-    @objid ("8b66f700-3f7c-4c1e-a2db-afea0926b6be")
+    @objid ("284d3e38-77d7-4ef3-a283-db1cdc975df1")
     <T extends BpmnBoundaryEvent> List<T> getBoundaryEventRef(java.lang.Class<T> filterClass);
 
-    @objid ("74fcab5d-b807-479d-93de-899567eca6f1")
+    @objid ("00ada9f5-281a-4754-968a-bc75a4a97621")
     EList<BpmnDataAssociation> getDataOutputAssociation();
 
-    @objid ("8a150018-9cf7-446c-9a75-c9b8f1a803f1")
+    @objid ("be2a9688-8def-4f82-ad04-68c18d131254")
     <T extends BpmnDataAssociation> List<T> getDataOutputAssociation(java.lang.Class<T> filterClass);
 
-    @objid ("b1fd89b4-4659-4b21-b521-90d12dc94e7d")
+    @objid ("8dc5505b-8f48-4641-8692-a77667d21f12")
     BpmnSequenceFlow getDefaultFlow();
 
-    @objid ("b4042ba0-62a7-4d50-b00f-30227033eaf9")
+    @objid ("29e99ce8-9500-4d39-9650-f01ccaf511fc")
     void setDefaultFlow(BpmnSequenceFlow value);
 
 }

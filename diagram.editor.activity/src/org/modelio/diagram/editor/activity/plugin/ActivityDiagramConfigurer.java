@@ -31,7 +31,7 @@ import org.eclipse.gef.palette.SelectionToolEntry;
 import org.eclipse.gef.tools.AbstractTool;
 import org.modelio.diagram.editor.AbstractDiagramEditor;
 import org.modelio.diagram.editor.activity.editor.ActivityDiagramEditor;
-import org.modelio.diagram.editor.plugin.IDiagramConfigurer;
+import org.modelio.diagram.editor.plugin.AbstractDiagramConfigurer;
 import org.modelio.diagram.editor.plugin.ToolRegistry;
 import org.modelio.diagram.editor.tools.PanSelectionTool;
 
@@ -39,7 +39,7 @@ import org.modelio.diagram.editor.tools.PanSelectionTool;
  * Activity diagram palette configurer.
  */
 @objid ("2b72db5a-55b6-11e2-877f-002564c97630")
-public class ActivityDiagramConfigurer implements IDiagramConfigurer {
+public class ActivityDiagramConfigurer extends AbstractDiagramConfigurer {
     @objid ("2b72db6d-55b6-11e2-877f-002564c97630")
     @Override
     public String getContributionURI() {
@@ -71,6 +71,7 @@ public class ActivityDiagramConfigurer implements IDiagramConfigurer {
         paletteRoot.add(this.createPartitionGroup(toolRegistry));
         paletteRoot.add(this.createInformationFlowGroup(toolRegistry));
         paletteRoot.add(this.createCommonGroup(toolRegistry));
+        paletteRoot.add(createDrawGroup(toolRegistry));
         return paletteRoot;
     }
 
@@ -91,8 +92,6 @@ public class ActivityDiagramConfigurer implements IDiagramConfigurer {
 
     /**
      * Creates the note and constraint and dependency group.
-     * @param imageService
-     * service used to get metaclasses bitmaps.
      * @return The created group.
      */
     @objid ("2b72db87-55b6-11e2-877f-002564c97630")

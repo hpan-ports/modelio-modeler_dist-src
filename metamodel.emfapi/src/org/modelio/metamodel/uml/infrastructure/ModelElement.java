@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.uml.infrastructure;
 
 import java.util.List;
@@ -33,6 +33,13 @@ import org.modelio.metamodel.diagrams.AbstractDiagram;
 import org.modelio.metamodel.factory.ExtensionNotFoundException;
 import org.modelio.metamodel.uml.behavior.activityModel.ActivityPartition;
 import org.modelio.metamodel.uml.informationFlow.InformationFlow;
+import org.modelio.metamodel.uml.infrastructure.Constraint;
+import org.modelio.metamodel.uml.infrastructure.Dependency;
+import org.modelio.metamodel.uml.infrastructure.ExternDocument;
+import org.modelio.metamodel.uml.infrastructure.Note;
+import org.modelio.metamodel.uml.infrastructure.Stereotype;
+import org.modelio.metamodel.uml.infrastructure.TaggedValue;
+import org.modelio.metamodel.uml.infrastructure.matrix.MatrixDefinition;
 import org.modelio.metamodel.uml.infrastructure.properties.LocalPropertyTable;
 import org.modelio.metamodel.uml.infrastructure.properties.PropertyTable;
 import org.modelio.metamodel.uml.statik.BindableInstance;
@@ -224,148 +231,154 @@ public interface ModelElement extends Element {
     @objid ("2aaaa3c2-dc0c-495d-8060-07b6eb14dc6b")
     void setLocalProperty(String key, String value);
 
-    @objid ("b8420d79-1070-4b84-893a-2ce777c1a4f6")
+    @objid ("36518511-4eb5-491c-b773-9e19ce7221e4")
     String getName();
 
-    @objid ("c6d617a4-2613-4b33-bd88-b94734c771bc")
+    @objid ("8a45dc3c-23c6-45e7-9d82-94d6458dd6ab")
     void setName(String value);
 
-    @objid ("0b7b8cf8-9f2a-4cfe-818d-5263485bc8a5")
+    @objid ("58e89ff7-6d30-4ebe-b359-5d8212ab4df8")
     LocalPropertyTable getLocalProperties();
 
-    @objid ("3a69b507-b475-477b-a050-b5b743d654ff")
+    @objid ("bb4707d7-0b8c-4a6e-b094-91f6125cd38b")
     void setLocalProperties(LocalPropertyTable value);
 
-    @objid ("513df3e5-b119-4755-89d9-ed5258b42405")
+    @objid ("a7654a66-d013-4059-b742-a7df9a17f63b")
     EList<TemplateParameterSubstitution> getTemplateSubstitution();
 
-    @objid ("7eb34d88-5782-405f-903f-103e688405e8")
+    @objid ("0c03562d-917c-48e1-90f7-4feef1c0f65a")
     <T extends TemplateParameterSubstitution> List<T> getTemplateSubstitution(java.lang.Class<T> filterClass);
 
-    @objid ("e6581100-143d-4306-8186-251440c96da6")
+    @objid ("161a367b-9a20-4707-9190-eaa5eb7575e2")
     EList<BpmnLane> getBpmnLaneRefs();
 
-    @objid ("10dc5c35-bc89-40df-b72a-afab78d07c24")
+    @objid ("082ab184-a676-4a88-8ab0-35c393c4bdd5")
     <T extends BpmnLane> List<T> getBpmnLaneRefs(java.lang.Class<T> filterClass);
 
-    @objid ("1944f2b6-a6e9-4519-9da8-b5500f6aae7a")
+    @objid ("c5d9a311-e032-4648-8dd1-ea3b5f2cc319")
     EList<Stereotype> getExtension();
 
-    @objid ("eba4ea66-9174-4c23-918e-3f10815d8ab8")
+    @objid ("184f3e65-8e6c-46c7-909c-5d9bd0b74de5")
     <T extends Stereotype> List<T> getExtension(java.lang.Class<T> filterClass);
 
-    @objid ("0955d77a-b48f-435d-80fc-0db31f931e94")
+    @objid ("f701bbb3-fe1a-434f-8c50-63ee610b1f45")
     EList<Dependency> getDependsOnDependency();
 
-    @objid ("59e0583a-bc3d-4099-a007-0eda8e237d9b")
+    @objid ("50be17a9-dc14-4048-ae9c-f1800abb6f5c")
     <T extends Dependency> List<T> getDependsOnDependency(java.lang.Class<T> filterClass);
 
-    @objid ("61324693-16e8-4237-b313-bc80f3be309f")
+    @objid ("6d8a2925-aabd-402b-9b43-9bc496923112")
     EList<TemplateParameter> getDefaultParametering();
 
-    @objid ("868b4dfb-e9c1-4728-810b-c4bc3397a6eb")
+    @objid ("e844ad5f-6c7b-474c-861f-bdd26340c3b7")
     <T extends TemplateParameter> List<T> getDefaultParametering(java.lang.Class<T> filterClass);
 
-    @objid ("028dcf43-0fbf-43bd-b45d-8f8e177ec4ee")
+    @objid ("188f5fea-cf5b-4b48-b94a-f6426505d6ae")
     EList<Binding> getRepresents();
 
-    @objid ("c8be6fe6-dc68-47a4-b72f-4ee1679ad18c")
+    @objid ("3de82204-63ab-48e0-ba80-4bc52395c5b1")
     <T extends Binding> List<T> getRepresents(java.lang.Class<T> filterClass);
 
-    @objid ("a651e036-11da-4390-b4f4-837977322415")
+    @objid ("57d4f54f-c8fe-4be7-ab8d-54f69cd71881")
     EList<ExternDocument> getDocument();
 
-    @objid ("e4b4bc84-5dbf-4dbe-840f-31a3428265c5")
+    @objid ("e0c94f1b-8d4c-4a1f-a4ef-4a45bb91a2d1")
     <T extends ExternDocument> List<T> getDocument(java.lang.Class<T> filterClass);
 
-    @objid ("57e3a403-841e-4338-9345-18d8dbbcdd8f")
+    @objid ("45f014cf-7773-489a-946c-bde9f1fe9f1b")
     EList<TaggedValue> getTag();
 
-    @objid ("2b3d9cdc-934f-4014-a9d5-be3b0e8ccbac")
+    @objid ("7cc6f660-1b98-4d0d-b83a-8040b0e6e25b")
     <T extends TaggedValue> List<T> getTag(java.lang.Class<T> filterClass);
 
-    @objid ("48f32717-6c4c-4b4c-ada3-176da4dd3d5f")
+    @objid ("d253320c-8c66-4b43-a1af-25a63aded899")
     TemplateParameter getOwnerTemplateParameter();
 
-    @objid ("312c7542-ba2e-4e2a-926d-d0e556b947cf")
+    @objid ("8cb86fb4-edb5-4537-b397-053ba9eef3a4")
     void setOwnerTemplateParameter(TemplateParameter value);
 
-    @objid ("9c215f77-194a-4fca-a604-ffd8256ef23e")
+    @objid ("584ce582-e57e-4a55-9da1-c9dc95472530")
     EList<Dependency> getImpactedDependency();
 
-    @objid ("aa7188b5-10ad-431d-8f5e-035129b401a3")
+    @objid ("6b12f9e1-0b1f-4627-a839-8c54bd426d5c")
     <T extends Dependency> List<T> getImpactedDependency(java.lang.Class<T> filterClass);
 
-    @objid ("92b72aa6-958a-44e5-8501-4673c5c84270")
+    @objid ("721a0739-bc25-45f3-958b-487dc323d3be")
     EList<ConnectorEnd> getRepresentingEnd();
 
-    @objid ("937fc410-493c-4dc5-97f2-feb25d110b53")
+    @objid ("90720088-a8ff-478a-9d8a-e9317116489c")
     <T extends ConnectorEnd> List<T> getRepresentingEnd(java.lang.Class<T> filterClass);
 
-    @objid ("dc665f5d-c45c-412c-bf6d-77330fb2e232")
+    @objid ("bf382e9b-2acd-477f-a5cd-aa0fe75a9652")
     EList<ActivityPartition> getRepresentingPartition();
 
-    @objid ("77289cf0-5c38-49c0-a561-5f080c8eba19")
+    @objid ("41c98cda-3622-4a63-a342-c5d233b87760")
     <T extends ActivityPartition> List<T> getRepresentingPartition(java.lang.Class<T> filterClass);
 
-    @objid ("5c40df21-ec83-41a4-af13-386c835b75d0")
+    @objid ("a6134091-c172-4a7d-8385-5852711dce0e")
     EList<Constraint> getConstraintDefinition();
 
-    @objid ("cd67bb9f-6a94-41ed-92ce-b20eae97e459")
+    @objid ("f7d3ac0f-5626-4e58-b3bc-a04e2320f957")
     <T extends Constraint> List<T> getConstraintDefinition(java.lang.Class<T> filterClass);
 
-    @objid ("50928cc7-60f2-4695-9eac-504f6dcc3e31")
+    @objid ("2731f25f-a6c5-41b0-9a9e-26e719a51270")
     EList<TemplateParameter> getTypingParameter();
 
-    @objid ("6e1fece0-ff5d-462d-9cee-bfd5fa7265d9")
+    @objid ("e7d69468-5671-4a60-994c-4d7e0e89d605")
     <T extends TemplateParameter> List<T> getTypingParameter(java.lang.Class<T> filterClass);
 
-    @objid ("5719087f-01fe-4688-96b6-4ab2becf3c5c")
+    @objid ("6e7bb384-f418-4425-a279-9c05c64f8ccf")
     EList<Manifestation> getManifesting();
 
-    @objid ("8ae9c135-a385-4fcc-b89f-23b3ca3c5f8f")
+    @objid ("3fe8271c-a0d9-4728-b088-e1dcb6fa4f75")
     <T extends Manifestation> List<T> getManifesting(java.lang.Class<T> filterClass);
 
-    @objid ("c66113ed-202d-4472-ad01-988c82a5bc96")
+    @objid ("70db5256-0fc8-45a7-8984-76bad9dd50c4")
     EList<PropertyTable> getProperties();
 
-    @objid ("beb586b4-2032-450f-8806-67f959414ef0")
+    @objid ("364027d4-b1dd-4bc1-9de0-099720666366")
     <T extends PropertyTable> List<T> getProperties(java.lang.Class<T> filterClass);
 
-    @objid ("86d42857-dcc4-4408-9221-6b1cc437eb07")
+    @objid ("4daaaab0-99a5-45d4-b0c1-67d37dab6bc6")
     EList<AbstractDiagram> getProduct();
 
-    @objid ("7864cc7b-a781-4dbb-8845-e633862a5b1f")
+    @objid ("5e2287f6-1c2d-4b80-9785-cf824f17321c")
     <T extends AbstractDiagram> List<T> getProduct(java.lang.Class<T> filterClass);
 
-    @objid ("6805768e-d07d-4da2-a983-bf87ccb340d1")
+    @objid ("9afe243e-d03b-4b57-917a-72a05d6e51d6")
     EList<BindableInstance> getRepresentingInstance();
 
-    @objid ("9ca4cb12-7936-4d9d-b875-8e4a63c791dd")
+    @objid ("8d15d435-fcf4-4df9-a029-665c0402915d")
     <T extends BindableInstance> List<T> getRepresentingInstance(java.lang.Class<T> filterClass);
 
-    @objid ("56cc7af7-1a05-4032-8159-b88e79d6d5fc")
+    @objid ("38b9a5b0-9256-4bb9-bd96-e0d74d37fcf7")
     EList<InformationFlow> getReceivedInfo();
 
-    @objid ("8e927d6c-a437-4c5f-9145-d51032911c10")
+    @objid ("74d5ce6c-42ab-4078-9894-a1c6e6c3b169")
     <T extends InformationFlow> List<T> getReceivedInfo(java.lang.Class<T> filterClass);
 
-    @objid ("6da49810-611d-401f-9f00-66e8562266ad")
+    @objid ("a7c780a1-92ac-4ff7-9ea3-b638533147b0")
     EList<InformationFlow> getSentInfo();
 
-    @objid ("1d140a5a-30b3-4725-b5d7-4d8dfa732eb6")
+    @objid ("c1b6365b-969f-4ff4-8b55-a49e52aa0aec")
     <T extends InformationFlow> List<T> getSentInfo(java.lang.Class<T> filterClass);
 
-    @objid ("e38fca81-e6be-4707-ace6-fa0b8e16dded")
+    @objid ("afd8d2a8-c9c3-4a31-8246-c513aa4f53d3")
     EList<Note> getDescriptor();
 
-    @objid ("da8771ba-7095-4207-a237-a7799df29b8f")
+    @objid ("e1bf5042-5f1e-4db0-bf60-be620f9098e3")
     <T extends Note> List<T> getDescriptor(java.lang.Class<T> filterClass);
 
-    @objid ("86f733b1-4de7-4128-8f4a-9387ba66c3ca")
+    @objid ("75952977-35ee-4f64-bf28-1525c032fc80")
     EList<NaryConnector> getRepresentingConnector();
 
-    @objid ("1c23de7f-df14-4082-89ea-f4ecd38299f9")
+    @objid ("9392ea52-d619-4bc9-bc79-caa29b93fffc")
     <T extends NaryConnector> List<T> getRepresentingConnector(java.lang.Class<T> filterClass);
+
+    @objid ("031edfe7-a02c-4051-94d0-9c8da3c61a19")
+    EList<MatrixDefinition> getMatrix();
+
+    @objid ("4b6af99a-384a-4288-b9b0-6d995fa39111")
+    <T extends MatrixDefinition> List<T> getMatrix(java.lang.Class<T> filterClass);
 
 }

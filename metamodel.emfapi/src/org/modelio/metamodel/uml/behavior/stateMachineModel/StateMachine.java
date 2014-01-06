@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.uml.behavior.stateMachineModel;
 
 import java.util.List;
@@ -37,34 +37,34 @@ import org.modelio.metamodel.uml.behavior.stateMachineModel.State;
 
 @objid ("005404fc-c4bf-1fd8-97fe-001ec947cd2a")
 public interface StateMachine extends Behavior {
-    @objid ("99c26699-e369-41eb-8141-80aff58c8dff")
+    @objid ("9db9a735-a528-4e0e-ba6d-9067bcf8fe7c")
     KindOfStateMachine getKind();
 
-    @objid ("0512d2dc-4d37-4fb9-9031-efbc3ec793cf")
+    @objid ("3f74cfa8-0928-4a45-9a53-7561b5fc37ab")
     void setKind(KindOfStateMachine value);
 
-    @objid ("072c011e-3cd0-41e5-ad68-c8951c44fe45")
+    @objid ("59820a82-5d31-41d7-a13d-70acee8a1ea2")
     Region getTop();
 
-    @objid ("ad73ed33-fd65-4fd6-8cb1-8ed8df94a499")
+    @objid ("1ffd2e1d-89b5-41b9-b84c-7ede6dc3f7dc")
     void setTop(Region value);
 
-    @objid ("8f0bc768-24e4-482a-9344-3d456127e773")
+    @objid ("f9cf8bdf-1e8d-4c00-b29c-be8876581d71")
     EList<State> getSubmachineState();
 
-    @objid ("9fba7a8b-329d-4c6c-8314-9c02b2429aea")
+    @objid ("cec710b8-e34f-4721-aa8b-2c0f0e9e3b0a")
     <T extends State> List<T> getSubmachineState(java.lang.Class<T> filterClass);
 
-    @objid ("2c1e23d9-824e-4637-b206-1915cdb0604a")
+    @objid ("70355193-faf5-4033-87cb-186c33ec9e5f")
     EList<EntryPointPseudoState> getEntryPoint();
 
-    @objid ("4af6f6ef-6ef4-421e-bcc3-dca5381f1fa3")
+    @objid ("e9032dbc-92d8-46e6-8eca-ad46e9d15b07")
     <T extends EntryPointPseudoState> List<T> getEntryPoint(java.lang.Class<T> filterClass);
 
-    @objid ("055e4e3e-412c-4bdc-a52a-e5039b7ccd89")
+    @objid ("4599f2a4-09fa-44d9-b4c7-eacd29dae3c5")
     EList<ExitPointPseudoState> getExitPoint();
 
-    @objid ("b7b8ec4b-4980-483e-9a64-d3ff0433fa53")
+    @objid ("16b2e5b5-dfd6-41eb-91bc-92c6b8e711e2")
     <T extends ExitPointPseudoState> List<T> getExitPoint(java.lang.Class<T> filterClass);
 
 }

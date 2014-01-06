@@ -1214,9 +1214,10 @@ public class PartialCreationImportVisitor {
                 }
             }
             
-            if (! root) {
+            if (!root) {
                 PartialCreationImportVisitor.this.objingElt = this.objingModelFactory.createPackage();
-                ((Package)PartialCreationImportVisitor.this.objingElt).setName(ecoreElt.getName());
+                ((org.modelio.metamodel.uml.statik.Package)PartialCreationImportVisitor.this.objingElt).setName(ecoreElt.getName());
+                ((org.modelio.metamodel.uml.statik.Package)PartialCreationImportVisitor.this.objingElt).setOwner(ReverseProperties.getInstance().getExternalPackage());
             }
             return PartialCreationImportVisitor.this.defaut;
         }
@@ -1411,7 +1412,7 @@ public class PartialCreationImportVisitor {
         @Override
         public Object casePrimitiveType(org.eclipse.uml2.uml.PrimitiveType ecoreElt) {
             if (PrimitiveTypeMapper.isPredefinedType(ecoreElt))
-                PartialCreationImportVisitor.this.objingElt =   PrimitiveTypeMapper.getPredefinedType(ecoreElt);
+                PartialCreationImportVisitor.this.objingElt = PrimitiveTypeMapper.getPredefinedType(ecoreElt);
             else 
                 PartialCreationImportVisitor.this.objingElt = this.objingModelFactory.createDataType();
             return PartialCreationImportVisitor.this.defaut;
@@ -1441,7 +1442,7 @@ public class PartialCreationImportVisitor {
                 PartialCreationImportVisitor.this.objingElt = null;
             
             }else{
-                List<ModelElement> result = new ArrayList<ModelElement>();
+                List<ModelElement> result = new ArrayList<>();
             
                 if (EcoreModelNavigation.isAssocEnd(ecoreElt)) {           
                     if (EcoreModelNavigation.hasTwoValidEnds(ecoreElt.getAssociation()) 
@@ -1552,6 +1553,9 @@ public class PartialCreationImportVisitor {
             case org.eclipse.uml2.uml.PseudostateKind.TERMINATE:
                 PartialCreationImportVisitor.this.objingElt = this.objingModelFactory.createTerminatePseudoState();
             
+                break;
+            default:
+                PartialCreationImportVisitor.this.objingElt = this.objingModelFactory.createInitialPseudoState();
                 break;
             }
             return PartialCreationImportVisitor.this.defaut;
@@ -2012,7 +2016,7 @@ public class PartialCreationImportVisitor {
         @objid ("0d93e8f8-5c6f-4bef-a135-5c851502b80f")
         @Override
         public Object caseUsage(org.eclipse.uml2.uml.Usage ecoreElt) {
-            PartialCreationImportVisitor.this.objingElt =  new ArrayList<ModelElement>();;
+            PartialCreationImportVisitor.this.objingElt =  new ArrayList<ModelElement>();
             return PartialCreationImportVisitor.this.defaut;
         }
 

@@ -11,10 +11,10 @@
   <fragments xsi:type="fragment:StringModelFragment" xmi:id="_Bt2DEEF7EeODJ4EDWZysYw" featurename="menuContributions" parentElementId="org.modelio.app.application">
     <elements xsi:type="menu:MenuContribution" xmi:id="_FPvcgEF7EeODJ4EDWZysYw" elementId="app.project.ui.menucontribution.0" parentId="org.modelio.admtool.menu">
       <children xsi:type="menu:HandledMenuItem" xmi:id="_KnaEwEF7EeODJ4EDWZysYw" elementId="app.project.ui.handledmenuitem.exml.rebuildindexes" label="%RebuildIndexes.label" tooltip="%RebuildIndexes.tooltip" command="_sSxdAD_XEeODJ4EDWZysYw">
-        <visibleWhen xsi:type="ui:CoreExpression" xmi:id="_qoBLcEGEEeODJ4EDWZysYw" coreExpressionId="app.project.ui.expression.isExmlFragment"/>
+        <visibleWhen xsi:type="ui:CoreExpression" xmi:id="_qoBLcEGEEeODJ4EDWZysYw" coreExpressionId="app.project.ui.expression.showExmlAdmin"/>
       </children>
       <children xsi:type="menu:HandledMenuItem" xmi:id="_LCHDwEF7EeODJ4EDWZysYw" elementId="app.project.ui.handledmenuitem.exml.compressindexes" label="%DefragIndexes.label" tooltip="%DefragIndexes.tooltip" command="_wcz0gD_XEeODJ4EDWZysYw">
-        <visibleWhen xsi:type="ui:CoreExpression" xmi:id="_LCHDwUF7EeODJ4EDWZysYw" coreExpressionId="app.project.ui.expression.isExmlFragment"/>
+        <visibleWhen xsi:type="ui:CoreExpression" xmi:id="_LCHDwUF7EeODJ4EDWZysYw" coreExpressionId="app.project.ui.expression.showExmlAdmin"/>
       </children>
     </elements>
   </fragments>

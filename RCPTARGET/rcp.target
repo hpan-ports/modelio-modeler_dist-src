@@ -12,7 +12,6 @@
 <location path="${project_loc}/nebula-incubator" type="Directory"/>
 <location path="${project_loc}/commons-lang" type="Directory"/>
 <location path="${project_loc}/emf" type="Directory"/>
-<location path="${project_loc}/emf-source" type="Directory"/>
 <location path="${project_loc}/uml2_3.2" type="Directory"/>
 <location path="${project_loc}/astyle" type="Directory"/>
 </locations>

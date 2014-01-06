@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.bpmn.objects;
 
 import java.util.ArrayList;
@@ -41,21 +41,21 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("00037546-c4c0-1fd8-97fe-001ec947cd2a")
 public class BpmnDataObjectImpl extends BpmnItemAwareElementImpl implements BpmnDataObject {
-    @objid ("e11faffe-a03e-42ed-a6f0-d82f644a473e")
+    @objid ("9482f107-cc7a-4922-9405-aa8b4e02624a")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("51a33189-e2d6-43ff-8421-07336946a531")
+    @objid ("7de14518-12dc-4170-900f-18ca2ceaa1cc")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("234f031f-4c2a-4017-a42d-3302e6f9793c")
+    @objid ("091a0a52-73cc-44ae-a8f2-c545244c6354")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitBpmnDataObject(this);

@@ -25,8 +25,8 @@ import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.draw2d.Bendpoint;
 import org.eclipse.gef.commands.Command;
-import org.modelio.diagram.elements.core.link.GmLink;
 import org.modelio.diagram.elements.core.link.GmPath;
+import org.modelio.diagram.elements.core.model.IGmLinkObject;
 import org.modelio.diagram.elements.core.model.IGmPath;
 import org.modelio.gproject.model.api.MTools;
 
@@ -41,18 +41,18 @@ public class DefaultDeleteBendPointCommand extends Command {
     private final int index;
 
     @objid ("7f371808-1dec-11e2-8cad-001ec947c8cc")
-    private final GmLink gmLink;
+    private final IGmLinkObject gmLink;
 
     /**
      * Constructor.
-     * @param gmLink The link to edit
+     * @param iGmLinkObject The link to edit
      * @param index the index of the point to remove.
      */
     @objid ("7f37180a-1dec-11e2-8cad-001ec947c8cc")
-    public DefaultDeleteBendPointCommand(GmLink gmLink, int index) {
+    public DefaultDeleteBendPointCommand(IGmLinkObject iGmLinkObject, int index) {
         this.index = index;
         
-        this.gmLink = gmLink;
+        this.gmLink = iGmLinkObject;
     }
 
     @objid ("7f397a38-1dec-11e2-8cad-001ec947c8cc")
@@ -60,7 +60,7 @@ public class DefaultDeleteBendPointCommand extends Command {
     @Override
     public void execute() {
         // we need a new list in all cases otherwise no property change is detected...
-        IGmPath path = new GmPath((IGmPath) this.gmLink.getLayoutData());
+        IGmPath path = new GmPath(this.gmLink.getPath());
         
         List<Bendpoint> bendpoints = (List<Bendpoint>) path.getPathData();
         bendpoints.remove(this.index);

@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.bpmn.events;
 
 import java.util.List;
@@ -33,22 +33,22 @@ import org.modelio.metamodel.bpmn.objects.BpmnDataOutput;
 
 @objid ("00889ec4-c4bf-1fd8-97fe-001ec947cd2a")
 public interface BpmnCatchEvent extends BpmnEvent {
-    @objid ("502e9f74-0dee-4b8f-8679-c756fd866c8b")
+    @objid ("77a680e8-3949-4e06-9c70-3e633f9a9221")
     boolean isParallelMultiple();
 
-    @objid ("4e6ab18d-6464-4b11-9143-3d2ae2cde1dc")
+    @objid ("8fe9ca47-b4aa-4a38-b961-f17f43ced304")
     void setParallelMultiple(boolean value);
 
-    @objid ("8095a911-d845-42c1-808e-a91239c1cbbe")
+    @objid ("b3f2f606-2113-41cd-9d69-91605eed3b97")
     EList<BpmnDataAssociation> getDataOutputAssociation();
 
-    @objid ("e3093bbb-5738-4d2c-912a-b84c69a956a3")
+    @objid ("5104d380-11b1-4071-ac12-1f4cbab4e714")
     <T extends BpmnDataAssociation> List<T> getDataOutputAssociation(java.lang.Class<T> filterClass);
 
-    @objid ("4f01f37f-1707-4aa8-89cf-681defee6f86")
+    @objid ("060b8e67-de95-4fae-869a-c4ed5a52edb1")
     BpmnDataOutput getDataOutput();
 
-    @objid ("af8f28b0-d4c9-4092-8087-5316a8f35aed")
+    @objid ("96464f72-52ac-436d-9cd1-b084eb8ab138")
     void setDataOutput(BpmnDataOutput value);
 
 }

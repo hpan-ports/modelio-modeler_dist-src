@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.bpmn.events;
 
 import java.util.ArrayList;
@@ -43,45 +43,45 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("009101a4-c4bf-1fd8-97fe-001ec947cd2a")
 public class BpmnMessageEventDefinitionImpl extends BpmnEventDefinitionImpl implements BpmnMessageEventDefinition {
-    @objid ("645ac745-e987-4d24-96e6-ab1e9e564e5b")
+    @objid ("b028c317-8727-404d-9046-243e5f3f20d2")
     @Override
     public BpmnMessage getMessageRef() {
         return (BpmnMessage) getDepVal(BpmnMessageEventDefinitionData.Metadata.MessageRefDep());
     }
 
-    @objid ("7a7c5790-16d4-4f1b-a213-4d1ce03eeb8e")
+    @objid ("e4612a08-1b24-4960-ae2b-649e51ac2577")
     @Override
     public void setMessageRef(BpmnMessage value) {
         appendDepVal(BpmnMessageEventDefinitionData.Metadata.MessageRefDep(), (SmObjectImpl)value);
     }
 
-    @objid ("414c15da-5e2c-44bd-a785-93663ad8ed69")
+    @objid ("13507752-22a0-424d-ab57-dd8b71b2d95c")
     @Override
     public BpmnOperation getOperationRef() {
         return (BpmnOperation) getDepVal(BpmnMessageEventDefinitionData.Metadata.OperationRefDep());
     }
 
-    @objid ("21f5dac4-2c8c-4fc2-8534-e38cdced61e1")
+    @objid ("5bbcdda6-cdf8-45e7-8079-f659b838e0f5")
     @Override
     public void setOperationRef(BpmnOperation value) {
         appendDepVal(BpmnMessageEventDefinitionData.Metadata.OperationRefDep(), (SmObjectImpl)value);
     }
 
-    @objid ("6da454c5-03c4-4cca-b96f-68d8828d8878")
+    @objid ("ade70069-d33c-4218-b66a-0c9bb8fb3a5d")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("936265c5-72c0-4ab5-a4c6-bbb388276b66")
+    @objid ("fcc59206-5009-466a-851b-6b797a4ecfcc")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("18428d86-1fc1-4d1d-bec1-ec9ae3c19804")
+    @objid ("30a66782-127b-4295-b571-b55605927766")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitBpmnMessageEventDefinition(this);

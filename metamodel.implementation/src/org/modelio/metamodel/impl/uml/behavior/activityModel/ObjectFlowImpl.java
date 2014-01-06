@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.uml.behavior.activityModel;
 
 import java.util.ArrayList;
@@ -42,81 +42,81 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("0038c502-c4bf-1fd8-97fe-001ec947cd2a")
 public class ObjectFlowImpl extends ActivityEdgeImpl implements ObjectFlow {
-    @objid ("f953b488-e3cf-44a1-b09a-69b82d90b358")
+    @objid ("0b174fbe-96e2-4b83-8feb-179a390480b5")
     @Override
     public String getTransformationBehavior() {
         return (String) getAttVal(ObjectFlowData.Metadata.TransformationBehaviorAtt());
     }
 
-    @objid ("f507283e-890d-488b-9a8a-c6ad939e705c")
+    @objid ("7dac274f-d347-4270-b812-2b9ea5dea8f9")
     @Override
     public void setTransformationBehavior(String value) {
         setAttVal(ObjectFlowData.Metadata.TransformationBehaviorAtt(), value);
     }
 
-    @objid ("f5eddcd8-072d-472b-9846-c05a21606617")
+    @objid ("58495745-b593-4834-8ef1-5beb9406fa9e")
     @Override
     public String getSelectionBehavior() {
         return (String) getAttVal(ObjectFlowData.Metadata.SelectionBehaviorAtt());
     }
 
-    @objid ("37ae1205-ddb1-4bf7-a273-20171dfc2d12")
+    @objid ("f5597fee-f9e5-4e45-915f-8b862e836690")
     @Override
     public void setSelectionBehavior(String value) {
         setAttVal(ObjectFlowData.Metadata.SelectionBehaviorAtt(), value);
     }
 
-    @objid ("33fc4e18-6374-45a3-b556-07f6e89c5b6b")
+    @objid ("1899d6b2-c5c9-4df4-bafd-c1ab9fbe0ddc")
     @Override
     public boolean isIsMultiCast() {
         return (Boolean) getAttVal(ObjectFlowData.Metadata.IsMultiCastAtt());
     }
 
-    @objid ("47e4a843-7781-49de-bef0-0e802d0ff440")
+    @objid ("ee60dfe7-c830-46aa-8716-28da9489249d")
     @Override
     public void setIsMultiCast(boolean value) {
         setAttVal(ObjectFlowData.Metadata.IsMultiCastAtt(), value);
     }
 
-    @objid ("bc6d0b58-ca35-458f-a249-818d0cd61811")
+    @objid ("830e4236-f99b-4cb1-b02f-6b1fae098a0e")
     @Override
     public boolean isIsMultiReceive() {
         return (Boolean) getAttVal(ObjectFlowData.Metadata.IsMultiReceiveAtt());
     }
 
-    @objid ("1b262fd1-6115-40c2-bc25-b03aed856f0b")
+    @objid ("01b7067d-9161-47a0-933e-a08119ec1f7a")
     @Override
     public void setIsMultiReceive(boolean value) {
         setAttVal(ObjectFlowData.Metadata.IsMultiReceiveAtt(), value);
     }
 
-    @objid ("6b2e3811-6bde-4573-adc5-9e2ef8c99ade")
+    @objid ("742dd8bc-2819-4c17-849d-07db90b86f1b")
     @Override
     public ObjectFlowEffectKind getEffect() {
         return (ObjectFlowEffectKind) getAttVal(ObjectFlowData.Metadata.EffectAtt());
     }
 
-    @objid ("24f05363-ce47-4850-9cf2-ddc54a0d1103")
+    @objid ("5e8954df-9e5d-4f1f-b357-42d5fdc530aa")
     @Override
     public void setEffect(ObjectFlowEffectKind value) {
         setAttVal(ObjectFlowData.Metadata.EffectAtt(), value);
     }
 
-    @objid ("1df924e8-28db-4bbf-bf76-0302227848ae")
+    @objid ("eeb3fd15-d442-4ce6-a53e-316f0c926b95")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("2e843eb5-cf5e-45b8-b47e-650b631733b6")
+    @objid ("5cbeaf37-a579-490a-b18f-47aaad081b45")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("905170d5-cd19-4ee1-98cc-e2bf4d7f47b3")
+    @objid ("20b00b3a-aac3-482c-b5b4-8c11052ddcf3")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitObjectFlow(this);

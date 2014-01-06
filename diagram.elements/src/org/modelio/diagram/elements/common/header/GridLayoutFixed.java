@@ -32,7 +32,7 @@ import org.eclipse.draw2d.geometry.Dimension;
  */
 @objid ("7e6a0dbe-1dec-11e2-8cad-001ec947c8cc")
 public class GridLayoutFixed extends GridLayout {
-    @objid ("edb5ab10-fdc7-49ae-8e01-183a2b47ba35")
+    @objid ("8c0b56b6-3c4a-45c2-8231-dd88a62f4ebb")
     private Dimension cachedPreferredHint = new Dimension(-1, -1);
 
     /**

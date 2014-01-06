@@ -55,7 +55,7 @@ public class UrlFragment extends AbstractFragment {
     @objid ("e77decdf-03f8-11e2-9ef9-001ec947ccaf")
     public static final FragmentType TYPE = FragmentType.EXML_URL;
 
-    @objid ("94b2e388-9aad-4b86-ae68-3923db1f5dea")
+    @objid ("e77deceb-03f8-11e2-9ef9-001ec947ccaf")
     private URI repoUrl;
 
     @objid ("e77ded08-03f8-11e2-9ef9-001ec947ccaf")

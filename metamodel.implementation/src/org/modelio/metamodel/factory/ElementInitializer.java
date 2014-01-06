@@ -33,6 +33,8 @@ import org.modelio.metamodel.analyst.AnalystPropertyTable;
 import org.modelio.metamodel.analyst.BusinessRule;
 import org.modelio.metamodel.analyst.BusinessRuleContainer;
 import org.modelio.metamodel.analyst.Dictionary;
+import org.modelio.metamodel.analyst.GenericAnalystContainer;
+import org.modelio.metamodel.analyst.GenericAnalystElement;
 import org.modelio.metamodel.analyst.Goal;
 import org.modelio.metamodel.analyst.GoalContainer;
 import org.modelio.metamodel.analyst.Requirement;
@@ -48,9 +50,12 @@ import org.modelio.metamodel.uml.behavior.usecaseModel.UseCase;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
 import org.modelio.metamodel.uml.infrastructure.Note;
 import org.modelio.metamodel.uml.infrastructure.NoteType;
+import org.modelio.metamodel.uml.infrastructure.matrix.MatrixValueDefinition;
+import org.modelio.metamodel.uml.infrastructure.matrix.QueryDefinition;
 import org.modelio.metamodel.uml.infrastructure.properties.EnumeratedPropertyType;
 import org.modelio.metamodel.uml.infrastructure.properties.PropertyBaseType;
 import org.modelio.metamodel.uml.infrastructure.properties.PropertyDefinition;
+import org.modelio.metamodel.uml.infrastructure.properties.PropertyTable;
 import org.modelio.metamodel.uml.infrastructure.properties.PropertyTableDefinition;
 import org.modelio.metamodel.uml.infrastructure.properties.PropertyType;
 import org.modelio.metamodel.uml.statik.AssociationEnd;
@@ -123,7 +128,7 @@ public class ElementInitializer implements IElementInitializer {
         this.defaultReturnType = value;
     }
 
-    @objid ("a0c4bda7-972d-489e-9c70-de21d939b2f3")
+    @objid ("91f49635-0a29-48a4-a0a9-eeb7c0afbcc1")
     private Geometry geometry;
 
     @objid ("7561bc40-1ca4-49a0-bad9-9210a4cea736")
@@ -139,11 +144,13 @@ public class ElementInitializer implements IElementInitializer {
     }
 
     @objid ("59e9e4d9-cc4f-4007-abf2-da46b28cc8a0")
+    @SuppressWarnings("synthetic-access")
     private class ElementInitializerVisitor extends DefaultModelVisitor {
         @objid ("3e38257c-b736-4c18-9bfe-dbcf73f95b3e")
         private IModelFactory modelFactory;
 
-        @objid ("ed9ff434-deca-4cb2-99cd-4fbf9240c793")
+        @objid ("40ffee8b-5ec4-41b7-8f9a-3b277754e4c2")
+        @SuppressWarnings("hiding")
         private Geometry geometry;
 
         @objid ("a340fee5-19dd-430c-9594-1a7a183e06ea")
@@ -255,7 +262,7 @@ public class ElementInitializer implements IElementInitializer {
         @Override
         public Object visitNote(Note theNote) {
             if (theNote.getModel() == null) {
-                
+            
                 theNote.setModel(this.geometry.getDescriptionNoteType());
             }
             return super.visitNote(theNote);
@@ -376,9 +383,9 @@ public class ElementInitializer implements IElementInitializer {
         @Override
         public Object visitUseCase(final UseCase theUseCase) {
             String content = "..."; // FIXME was :
-                                    // CoreProject.I18N.getString("CreateUseCaseAction.None");
+            // CoreProject.I18N.getString("CreateUseCaseAction.None");
             String[] noteTypes = { "description", "constraint", "non-functional constraint", "exception", "precondition",
-                    "postcondition" };
+            "postcondition" };
             for (String noteType : noteTypes) {
                 try {
                     if (theUseCase.getNote("ModelerModule", noteType) == null) {
@@ -528,6 +535,42 @@ public class ElementInitializer implements IElementInitializer {
             return super.visitEnumeratedPropertyType(obj);
         }
 
+        @objid ("ffa22527-2f55-4dd0-bb91-917a54c9cbae")
+        @Override
+        public Object visitQueryDefinition(QueryDefinition theQueryDefinition) {
+            if (theQueryDefinition.getParameters() == null) {
+                final PropertyTable parameters = this.modelFactory.createPropertyTable();
+                theQueryDefinition.setParameters(parameters);
+            }
+            return super.visitQueryDefinition(theQueryDefinition);
+        }
+
+        @objid ("48594e1b-44f4-4dd7-a01c-e6d8470182d3")
+        @Override
+        public Object visitMatrixValueDefinition(MatrixValueDefinition theMatrixValueDefinition) {
+            if (theMatrixValueDefinition.getParameters() == null) {
+                final PropertyTable parameters = this.modelFactory.createPropertyTable();
+                theMatrixValueDefinition.setParameters(parameters);
+            }
+            return super.visitMatrixValueDefinition(theMatrixValueDefinition);
+        }
+
+        @objid ("29475959-b656-4227-9038-8b15edaf6007")
+        @Override
+        public Object visitGenericAnalystContainer(GenericAnalystContainer obj) {
+            GenericAnalystContainer ownerContainer = obj.getOwnerContainer();
+            
+            initializeAnalystProperties(obj, ownerContainer, this.geometry.getDEFAULT_GENERIC_TABLE());
+            return super.visitGenericAnalystContainer(obj);
+        }
+
+        @objid ("9f3d236c-7833-42fc-a4ee-c16479166b39")
+        @Override
+        public Object visitGenericAnalystElement(GenericAnalystElement obj) {
+            initializeAnalystProperties(obj);
+            return super.visitGenericAnalystElement(obj);
+        }
+
     }
 
     /**
@@ -535,7 +578,7 @@ public class ElementInitializer implements IElementInitializer {
      * <p>
      * All elements may not be available at the instantiation time.
      */
-    @objid ("52f53c18-035a-4072-a358-0921e945e7e6")
+    @objid ("2f6980b7-0b44-4272-96d9-2e22d5045fda")
     private static class Geometry {
         @objid ("2560d39e-18f5-4f92-812b-73d56b12a3e9")
         private PropertyTableDefinition DEFAULT_REQUIREMENT_TABLE;
@@ -549,63 +592,66 @@ public class ElementInitializer implements IElementInitializer {
         @objid ("b92da39a-bea3-41f4-8280-07d4b5361b75")
         private PropertyTableDefinition DEFAULT_BUSINESSRULE_TABLE;
 
-        @objid ("6c152e54-0509-4901-8934-0b97def3582e")
+        @objid ("ec4d1d3f-cd3d-46d3-b4ad-fb2f81ade47a")
         private final IModelFactory modelFactory;
 
-        @objid ("393e2cad-5620-4cc8-8aed-9efebd43a013")
+        @objid ("2bf20c26-ac2c-42f9-920f-ac78e7ebb698")
         private final IModel iModel;
 
-        @objid ("3f7ff85d-efd7-4caa-8329-442bde6f1b3c")
+        @objid ("d6b5596a-ebf8-4c69-9d08-f9ae395e5dab")
         private NoteType descriptionNoteType;
 
-        @objid ("f5f09056-0b43-4ce3-b367-c8bec132d6f6")
+        @objid ("ee90f00f-cb36-4415-93d5-35251e016e0b")
+        private PropertyTableDefinition DEFAULT_GENERIC_TABLE;
+
+        @objid ("f0e5a23e-573e-448d-88cd-55814eeb2040")
         public Geometry(final IModelFactory modelFactory, IModel iModel) {
             this.modelFactory = modelFactory;
             this.iModel = iModel;
             reset();
         }
 
-        @objid ("01161c22-2fb0-436b-93e2-7dc523a4e6f7")
+        @objid ("6daf9357-cb15-4544-b1a8-291f00f78c0d")
         public boolean matches(IModelFactory amodelFactory, IModel aiModel) {
             return this.iModel==aiModel && this.modelFactory==amodelFactory;
         }
 
-        @objid ("e56e9fcb-2764-4195-a4a8-8c98f2f7318b")
+        @objid ("3543db57-734a-4171-84b3-48055e653ee1")
         public PropertyTableDefinition getDEFAULT_BUSINESSRULE_TABLE() {
             if (this.DEFAULT_BUSINESSRULE_TABLE == null || ! this.DEFAULT_BUSINESSRULE_TABLE.isValid())
                 reset();
             return this.DEFAULT_BUSINESSRULE_TABLE;
         }
 
-        @objid ("9c7ecdc9-383a-416a-8049-2e3ce723de29")
+        @objid ("5b61cc91-9ba1-4095-a2e6-ae7e750fbd88")
         public PropertyTableDefinition getDEFAULT_DICTIONARY_TABLE() {
             if (this.DEFAULT_DICTIONARY_TABLE == null || ! this.DEFAULT_DICTIONARY_TABLE.isValid())
                 reset();
             return this.DEFAULT_DICTIONARY_TABLE;
         }
 
-        @objid ("04d38938-5a89-40cd-a1ef-86daabab288f")
+        @objid ("901fc90c-a7eb-4d05-9b36-a0688b8b2105")
         public PropertyTableDefinition getDEFAULT_GOAL_TABLE() {
             if (this.DEFAULT_GOAL_TABLE == null || ! this.DEFAULT_GOAL_TABLE.isValid())
                 reset();
             return this.DEFAULT_GOAL_TABLE;
         }
 
-        @objid ("7efeb815-e28f-4be1-8434-0a0dea789fe4")
+        @objid ("f62724f5-a59d-4ef1-b682-b34a49f41a6b")
         public PropertyTableDefinition getDEFAULT_REQUIREMENT_TABLE() {
             if (this.DEFAULT_REQUIREMENT_TABLE == null || ! this.DEFAULT_REQUIREMENT_TABLE.isValid())
                 reset();
             return this.DEFAULT_REQUIREMENT_TABLE;
         }
 
-        @objid ("251c69ef-e8e6-46da-b671-472dffd6625b")
+        @objid ("af966fe5-7ff6-426c-bc6a-8fceb292bac2")
         public NoteType getDescriptionNoteType() {
             if (this.descriptionNoteType == null || ! this.descriptionNoteType.isValid())
                 reset();
             return this.descriptionNoteType;
         }
 
-        @objid ("0fc32ccb-452f-4e8c-96c2-895efe2a2437")
+        @objid ("fd77458c-e06b-4f9a-b8d5-b15af05d6f8e")
         private void reset() {
             // Load default property tables for analyst elements
             this.DEFAULT_REQUIREMENT_TABLE = this.iModel.findById(PropertyTableDefinition.class,
@@ -617,12 +663,22 @@ public class ElementInitializer implements IElementInitializer {
             this.DEFAULT_BUSINESSRULE_TABLE = this.iModel.findById(PropertyTableDefinition.class,
                     UUID.fromString("00bc470c-0000-0019-0000-000000000000"));
             
+            // Use the same default table as requirements
+            this.DEFAULT_GENERIC_TABLE = this.DEFAULT_REQUIREMENT_TABLE;
+            
             List<NoteType> noteTypes = this.modelFactory.findNoteType("ModelerModule", "description",
                     Metamodel.getMClass(ModelElement.class));
             
             if (noteTypes.size() > 0) {
                 this.descriptionNoteType = noteTypes.get(0);
             }
+        }
+
+        @objid ("c7089bfc-aca9-4f4d-b4d6-94b9078d1a65")
+        public PropertyTableDefinition getDEFAULT_GENERIC_TABLE() {
+            if (this.DEFAULT_GENERIC_TABLE == null || ! this.DEFAULT_GENERIC_TABLE.isValid())
+                reset();
+            return this.DEFAULT_GENERIC_TABLE;
         }
 
     }

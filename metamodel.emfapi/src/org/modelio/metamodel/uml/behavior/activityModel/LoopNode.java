@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.uml.behavior.activityModel;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
@@ -30,22 +30,22 @@ import org.eclipse.emf.ecore.EObject;
 
 @objid ("00372b20-c4bf-1fd8-97fe-001ec947cd2a")
 public interface LoopNode extends StructuredActivityNode {
-    @objid ("b7396285-e278-45d2-86a5-bcedad449142")
+    @objid ("6b2fdab3-4770-4872-9c46-dde74fd5d414")
     boolean isIsTestedFirst();
 
-    @objid ("fac36ebb-c3d3-4eb7-82d7-1f4499aa3067")
+    @objid ("88611947-e6bb-4978-8e9d-c1d1321e9c12")
     void setIsTestedFirst(boolean value);
 
-    @objid ("01d02b37-fdfe-4e4f-a064-b8edfb8be248")
+    @objid ("75867f78-e685-4f4a-b0a2-2b3f93de71b1")
     String getSetup();
 
-    @objid ("332047a8-c25b-4745-8810-91d3887ee300")
+    @objid ("7daa8b9d-952b-469f-8ab6-f56d586e5515")
     void setSetup(String value);
 
-    @objid ("f17a94a6-83da-4c14-b03d-daff73f448a6")
+    @objid ("05d90f07-5239-4246-88a0-e22fcaeb7127")
     String getTest();
 
-    @objid ("3fe2c746-2633-4e68-b144-a0cf775612f7")
+    @objid ("5452d282-5f2c-4b7c-ab7a-a6ca8e28d8e7")
     void setTest(String value);
 
 }

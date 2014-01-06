@@ -32,6 +32,7 @@ import org.modelio.metamodel.bpmn.processCollaboration.BpmnLane;
 import org.modelio.metamodel.bpmn.processCollaboration.BpmnLaneSet;
 import org.modelio.metamodel.bpmn.processCollaboration.BpmnProcess;
 import org.modelio.metamodel.bpmn.rootElements.BpmnFlowElement;
+import org.modelio.vcore.smkernel.mapi.MClass;
 import org.modelio.vcore.smkernel.mapi.MObject;
 
 /**
@@ -41,8 +42,8 @@ import org.modelio.vcore.smkernel.mapi.MObject;
 public class BpmnSequenceFlowCreationExpert extends DefaultLinkExpert {
     @objid ("7e99a2be-1eb2-11e2-8009-002564c97630")
     @Override
-    public boolean canLink(final MObject link, final MObject from, final MObject to, final MObject owner) {
-        if (!canSource(link, from)) {
+    public boolean canLink(final MClass link, final MObject from, final MObject to) {
+        if (!canSource(link, from.getMClass())) {
             return false;
         }
         

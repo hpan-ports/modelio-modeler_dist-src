@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.bpmn.events;
 
 import java.util.List;
@@ -33,16 +33,16 @@ import org.modelio.metamodel.bpmn.objects.BpmnDataInput;
 
 @objid ("00956d84-c4bf-1fd8-97fe-001ec947cd2a")
 public interface BpmnThrowEvent extends BpmnEvent {
-    @objid ("e6398ee1-2867-4b2f-9ad2-06dfc9d3d409")
+    @objid ("d9c83eb8-8aff-4ba7-acec-440680374581")
     EList<BpmnDataAssociation> getDataInputAssociation();
 
-    @objid ("205ef1c1-a83b-4900-941a-1489de706ccd")
+    @objid ("2c96a896-6f9b-4c79-8184-60f0ea51a4ff")
     <T extends BpmnDataAssociation> List<T> getDataInputAssociation(java.lang.Class<T> filterClass);
 
-    @objid ("50944f48-2dec-454b-9430-dd1604ced96b")
+    @objid ("386bab10-d9c6-4566-81d2-7a4952055475")
     BpmnDataInput getDataInput();
 
-    @objid ("15241db1-a51c-4032-9d81-da0a4936b531")
+    @objid ("ee165018-04b0-490f-bebd-5dfea1616920")
     void setDataInput(BpmnDataInput value);
 
 }

@@ -49,7 +49,7 @@ public class StructuredActivityNodeDG extends PortContainerDG {
     protected List<IDiagramNode> getPrimaryChildrenNodes() {
         // Inner nodes
         GmStructuredActivityPrimaryNode mainNode = (GmStructuredActivityPrimaryNode) getPrimaryNode();
-        return DGFactory.getInstance().getDiagramNodes(this.diagramHandle, mainNode.getInnerZone().getChildren());
+        return DGFactory.getInstance().getDiagramNodes(this.diagramHandle, mainNode.getInnerZone().getVisibleChildren());
     }
 
 }

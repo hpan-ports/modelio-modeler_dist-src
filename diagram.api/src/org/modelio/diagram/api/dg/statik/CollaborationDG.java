@@ -58,13 +58,13 @@ public class CollaborationDG extends PortContainerDG {
         // InformationItem
         GmCompositeNode infoItemZone = mainNode.getCompositeFor(InformationItem.class);
         if (infoItemZone != null) {
-            nodes.addAll(DGFactory.getInstance().getDiagramNodes(this.diagramHandle, infoItemZone.getChildren()));
+            nodes.addAll(DGFactory.getInstance().getDiagramNodes(this.diagramHandle, infoItemZone.getVisibleChildren()));
         }
         
         // Instances
         GmCompositeNode instanceZone = mainNode.getCompositeFor(Instance.class);
         if (instanceZone != null) {
-            nodes.addAll(DGFactory.getInstance().getDiagramNodes(this.diagramHandle, instanceZone.getChildren()));
+            nodes.addAll(DGFactory.getInstance().getDiagramNodes(this.diagramHandle, instanceZone.getVisibleChildren()));
         }
         return nodes;
     }

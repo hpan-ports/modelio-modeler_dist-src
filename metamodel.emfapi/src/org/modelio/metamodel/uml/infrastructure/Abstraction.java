@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.uml.infrastructure;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
@@ -30,10 +30,10 @@ import org.eclipse.emf.ecore.EObject;
 
 @objid ("00849680-c4be-1fd8-97fe-001ec947cd2a")
 public interface Abstraction extends Dependency {
-    @objid ("426433e7-83d8-4c89-82b1-d3a914ec25d0")
+    @objid ("a10efce8-b38e-4db3-961c-7819352c9344")
     String getMapping();
 
-    @objid ("e9f79c29-69da-467d-a6a5-2c574513117c")
+    @objid ("efe1517a-42d0-4a36-9275-6db13a84a1f1")
     void setMapping(String value);
 
 }

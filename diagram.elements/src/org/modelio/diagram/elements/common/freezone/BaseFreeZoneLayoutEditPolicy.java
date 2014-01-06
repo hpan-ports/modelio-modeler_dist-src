@@ -49,6 +49,7 @@ import org.modelio.diagram.elements.core.node.GmCompositeNode;
 import org.modelio.diagram.elements.core.node.GmNodeEditPart;
 import org.modelio.diagram.elements.core.node.GmNodeModel;
 import org.modelio.diagram.elements.core.policies.DefaultNodeResizableEditPolicy;
+import org.modelio.diagram.elements.drawings.core.GmDrawing;
 import org.modelio.gproject.model.api.MTools;
 import org.modelio.metamodel.Metamodel;
 import org.modelio.metamodel.experts.meta.IMetaTool;
@@ -145,14 +146,17 @@ public class BaseFreeZoneLayoutEditPolicy extends XYLayoutEditPolicy {
             return false;
         }
         return MTools.getMetaTool().canCompose(hostElement.getMClass(), Metamodel.getMClass(metaclass), null)
-                && ((GmCompositeNode) getHost().getModel()).canCreate(metaclass);
+                && getHostCompositeNode().canCreate(metaclass);
     }
 
     @objid ("7e3337ae-1dec-11e2-8cad-001ec947c8cc")
     @Deprecated
     @Override
     protected Command createAddCommand(EditPart child, Object constraint) {
-        return new DefaultReparentElementCommand(getHostElement(), getHostCompositeNode(), (GmNodeModel) child.getModel(), constraint);
+        if (child.getModel() instanceof GmNodeModel)
+            return new DefaultReparentElementCommand(getHostElement(), getHostCompositeNode(), (GmNodeModel) child.getModel(), constraint);
+        else
+            return null;
     }
 
     @objid ("7e3337b9-1dec-11e2-8cad-001ec947c8cc")
@@ -160,7 +164,7 @@ public class BaseFreeZoneLayoutEditPolicy extends XYLayoutEditPolicy {
     @Override
     protected Command createChangeConstraintCommand(EditPart child, Object constraint) {
         // if child is a 'node' it usually can be resized and/or moved
-        if (child instanceof GmNodeEditPart) {
+        if (child instanceof GmNodeEditPart || child.getModel() instanceof GmDrawing) {
             final NodeChangeLayoutCommand command = new NodeChangeLayoutCommand();
             command.setModel(child.getModel());
             command.setConstraint(constraint);
@@ -213,24 +217,27 @@ public class BaseFreeZoneLayoutEditPolicy extends XYLayoutEditPolicy {
     @Override
     protected Command getCreateCommand(CreateRequest request) {
         final MObject hostElement = getHostElement();
-        final ModelioCreationContext ctx = (ModelioCreationContext) request.getNewObject();
+        final Object newObject = request.getNewObject();
+        if (newObject instanceof ModelioCreationContext) {
+            final ModelioCreationContext ctx = (ModelioCreationContext) newObject;
         
-        final MObject elementToUnmask = ctx.getElementToUnmask();
-        final GmCompositeNode gmParentNode = getHostCompositeNode();
-        if (elementToUnmask != null) {
-            if (gmParentNode.canUnmask(elementToUnmask)) {
-                final Object requestConstraint = getConstraintFor(request);
-                return new DefaultCreateElementCommand(hostElement, gmParentNode, ctx, requestConstraint);
-            } else {
-                return null;
-            }
-        } else if (hostElement != null) {
-            MClass metaclassToCreate = Metamodel.getMClass(ctx.getMetaclass());
-        
-            if (gmParentNode.canCreate(Metamodel.getJavaInterface(metaclassToCreate))) {
-                if (MTools.getMetaTool().canCompose(hostElement.getMClass(), metaclassToCreate, null)) {
+            final MObject elementToUnmask = ctx.getElementToUnmask();
+            final GmCompositeNode gmParentNode = getHostCompositeNode();
+            if (elementToUnmask != null) {
+                if (gmParentNode.canUnmask(elementToUnmask)) {
                     final Object requestConstraint = getConstraintFor(request);
                     return new DefaultCreateElementCommand(hostElement, gmParentNode, ctx, requestConstraint);
+                } else {
+                    return null;
+                }
+            } else if (hostElement != null) {
+                MClass metaclassToCreate = Metamodel.getMClass(ctx.getMetaclass());
+        
+                if (gmParentNode.canCreate(Metamodel.getJavaInterface(metaclassToCreate))) {
+                    if (MTools.getMetaTool().canCompose(hostElement.getMClass(), metaclassToCreate, null)) {
+                        final Object requestConstraint = getConstraintFor(request);
+                        return new DefaultCreateElementCommand(hostElement, gmParentNode, ctx, requestConstraint);
+                    }
                 }
             }
         }
@@ -272,8 +279,9 @@ public class BaseFreeZoneLayoutEditPolicy extends XYLayoutEditPolicy {
      */
     @objid ("7e359a01-1dec-11e2-8cad-001ec947c8cc")
     private EditPart getTargetEditPart(CreateRequest createRequest) {
-        if (createRequest.getNewObject() instanceof ModelioCreationContext) {
-            final ModelioCreationContext ctx = (ModelioCreationContext) createRequest.getNewObject();
+        final Object newObject = createRequest.getNewObject();
+        if (newObject instanceof ModelioCreationContext) {
+            final ModelioCreationContext ctx = (ModelioCreationContext) newObject;
         
             if (ctx.getElementToUnmask() != null) {
                 if (getHostCompositeNode().canUnmask(ctx.getElementToUnmask())) {

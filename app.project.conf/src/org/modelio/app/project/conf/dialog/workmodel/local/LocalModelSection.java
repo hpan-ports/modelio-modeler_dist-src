@@ -22,7 +22,6 @@
 package org.modelio.app.project.conf.dialog.workmodel.local;
 
 import java.lang.reflect.InvocationTargetException;
-import java.net.URI;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.e4.core.contexts.IEclipseContext;
@@ -173,7 +172,7 @@ public class LocalModelSection {
             }
         });
         
-        TableViewerColumn uriColumn = new TableViewerColumn(this.viewer, SWT.NONE);
+        /*TableViewerColumn uriColumn = new TableViewerColumn(this.viewer, SWT.NONE);
         uriColumn.getColumn().setWidth(300);
         uriColumn.getColumn().setResizable(true);
         uriColumn.setLabelProvider(new ColumnLabelProvider() {
@@ -190,7 +189,7 @@ public class LocalModelSection {
             public Image getImage(Object element) {
                 return null;
             }
-        });
+        });*/
         
         this.viewer.setInput(null);
         

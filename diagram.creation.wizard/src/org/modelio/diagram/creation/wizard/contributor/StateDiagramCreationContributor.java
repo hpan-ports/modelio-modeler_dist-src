@@ -52,7 +52,11 @@ public class StateDiagramCreationContributor extends AbstractDiagramCreationCont
         stateDiagram = createStateDiagram(modelFactory, diagramName, stateMachine);
         
         if (stateDiagram != null) {
-            setElementDefaultName(stateDiagram);
+            if (diagramName.equals(this.getLabel())) {                
+                setElementDefaultName(stateDiagram);
+            } else {
+                stateDiagram.setName(diagramName);
+            }
             putNoteContent(stateDiagram, "description", diagramDescription);
         }
         return stateDiagram;

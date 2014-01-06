@@ -61,4 +61,16 @@ public class BpmnTransmutationPopupProvider extends AbstractCreationPopupProvide
         return url;
     }
 
+    @objid ("6715f0ce-b289-4d7b-a4f6-7e7e9f05e5fc")
+    @Override
+    protected String getMenuIconPath() {
+        return null;
+    }
+
+    @objid ("c0079ff8-9493-4142-95a4-f50158b6caf8")
+    @Override
+    protected String getMenuLabel() {
+        return DiagramEditorBpmn.I18N.getString("TransmuteElementMenu.label");
+    }
+
 }

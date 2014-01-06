@@ -22,6 +22,7 @@
 package org.modelio.diagram.editor.statik.elements.instanceinternalstructure;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
+import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPolicy;
 import org.modelio.diagram.elements.common.group.GmGroupEditPart;
 
@@ -38,6 +39,25 @@ public class InstanceInternalStructureGroupEditPart extends GmGroupEditPart {
         super.createEditPolicies();
         
         installEditPolicy(EditPolicy.LAYOUT_ROLE, new InstanceGroupLayoutEditPolicy());
+    }
+
+    @objid ("cecbe79e-f0b1-4137-b97e-6d7a813f43a6")
+    @Override
+    public boolean isSelectable() {
+        // Already selected, return true
+        if (getViewer().getSelectedEditParts().contains(this)) {
+            return true;
+        }
+        
+        // Allow selection only if the composition parent was already selected
+        EditPart parent = getParent();
+        while (parent != null) {
+            if (parent.isSelectable()) {
+                return (parent.getSelected() != EditPart.SELECTED_NONE);
+            }
+            parent = parent.getParent();
+        }
+        return false;
     }
 
 }

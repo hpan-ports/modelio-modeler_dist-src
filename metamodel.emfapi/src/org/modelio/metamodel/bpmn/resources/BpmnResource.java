@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.bpmn.resources;
 
 import java.util.List;
@@ -34,16 +34,16 @@ import org.modelio.metamodel.bpmn.rootElements.BpmnRootElement;
 
 @objid ("00093d64-c4c0-1fd8-97fe-001ec947cd2a")
 public interface BpmnResource extends BpmnRootElement {
-    @objid ("a51cf1c7-d47b-4009-ad08-0741e819d4c2")
+    @objid ("5920bd5b-3752-4e0f-9da1-e33acca7b9dd")
     EList<BpmnResourceRole> getResourceroleRefs();
 
-    @objid ("fe579ae1-8bdb-4726-8ba3-94ad3ba042a7")
+    @objid ("07f0266b-86ea-4ee3-940e-967ae5b556a9")
     <T extends BpmnResourceRole> List<T> getResourceroleRefs(java.lang.Class<T> filterClass);
 
-    @objid ("e08c4252-faff-4956-99c8-a77ae9bffd2d")
+    @objid ("5f7c69c8-c0f4-497e-91e6-b480b17ce5bf")
     EList<BpmnResourceParameter> getParameter();
 
-    @objid ("a39d79da-d9a7-4314-9cb9-1e23e7a7c5a9")
+    @objid ("7407452f-e6b0-48b2-b637-9e419997489a")
     <T extends BpmnResourceParameter> List<T> getParameter(java.lang.Class<T> filterClass);
 
 }

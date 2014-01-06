@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.uml.infrastructure.properties;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
@@ -47,10 +47,10 @@ public interface TypedPropertyTable extends PropertyTable {
     @objid ("054ae88c-2834-11e2-bf07-001ec947ccaf")
     void setProperty(PropertyDefinition prop, String value);
 
-    @objid ("938db918-3505-422e-b389-9d67ec8fcb19")
+    @objid ("8a2f179c-5110-416a-af10-da18970b5e9b")
     PropertyTableDefinition getType();
 
-    @objid ("67005ea5-21ae-477b-bf15-a70d9ddc9ce1")
+    @objid ("a75f64e0-ef54-4695-bbd6-5ff7615ea664")
     void setType(PropertyTableDefinition value);
 
 }

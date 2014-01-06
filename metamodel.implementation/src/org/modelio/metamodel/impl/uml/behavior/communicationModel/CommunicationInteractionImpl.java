@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.uml.behavior.communicationModel;
 
 import java.util.ArrayList;
@@ -44,13 +44,13 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("005a3822-c4bf-1fd8-97fe-001ec947cd2a")
 public class CommunicationInteractionImpl extends BehaviorImpl implements CommunicationInteraction {
-    @objid ("f5b7e67e-ca24-4af6-bbfc-b3f1bf09745b")
+    @objid ("cd0d72a2-6710-4721-8782-92aac47dfd96")
     @Override
     public EList<CommunicationNode> getOwned() {
         return new SmList<>(this, CommunicationInteractionData.Metadata.OwnedDep());
     }
 
-    @objid ("3bf3e8fd-cd28-4382-907f-370f05707687")
+    @objid ("babf5549-7887-4139-b812-a8d4d44ee5f9")
     @Override
     public <T extends CommunicationNode> List<T> getOwned(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -63,21 +63,21 @@ public class CommunicationInteractionImpl extends BehaviorImpl implements Commun
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("527ef346-d2af-492a-b1b1-e12269651859")
+    @objid ("2539b2bf-6bd5-4fe7-943d-f2c29bbefc4a")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("9a570155-9826-4a29-8fe2-e44ad24f4bb3")
+    @objid ("bb39616a-8c43-4a35-b727-661686481c88")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("fcf8d55b-4cae-4a57-9340-5aee161e7047")
+    @objid ("199a7153-b66a-4767-9a7e-c3ed0927574c")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitCommunicationInteraction(this);

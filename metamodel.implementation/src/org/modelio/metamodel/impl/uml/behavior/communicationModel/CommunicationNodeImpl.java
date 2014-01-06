@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.uml.behavior.communicationModel;
 
 import java.util.ArrayList;
@@ -46,49 +46,49 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("005ab766-c4bf-1fd8-97fe-001ec947cd2a")
 public class CommunicationNodeImpl extends ModelElementImpl implements CommunicationNode {
-    @objid ("df11f431-cdca-4b5a-bd95-40efc9687d0b")
+    @objid ("c0e18d6a-b811-4456-9599-0b898b438ac4")
     @Override
     public String getSelector() {
         return (String) getAttVal(CommunicationNodeData.Metadata.SelectorAtt());
     }
 
-    @objid ("e5a76bdf-9b92-4076-b8cc-d57ece44c4a2")
+    @objid ("24c6ff06-f41f-475f-a8c6-e33e1d463b64")
     @Override
     public void setSelector(String value) {
         setAttVal(CommunicationNodeData.Metadata.SelectorAtt(), value);
     }
 
-    @objid ("bb40c839-ea03-4939-9dcf-f2edb4544afb")
+    @objid ("1b0a32f3-845f-44ec-8900-5a5db9cb2ca4")
     @Override
     public CommunicationInteraction getOwner() {
         return (CommunicationInteraction) getDepVal(CommunicationNodeData.Metadata.OwnerDep());
     }
 
-    @objid ("143d0dd0-2545-4352-a555-a385e1dee328")
+    @objid ("6cd9434e-66f9-4f36-8f9a-484e29e5328f")
     @Override
     public void setOwner(CommunicationInteraction value) {
         appendDepVal(CommunicationNodeData.Metadata.OwnerDep(), (SmObjectImpl)value);
     }
 
-    @objid ("036ca9b1-6f5e-4b51-b1d5-d1c4dbcef0a5")
+    @objid ("73d206ed-02df-4ea0-8f3e-d28e195e7529")
     @Override
     public Instance getRepresented() {
         return (Instance) getDepVal(CommunicationNodeData.Metadata.RepresentedDep());
     }
 
-    @objid ("279973f7-cd37-40c2-b0d9-88588ca02dfa")
+    @objid ("4db737cc-9849-4901-9231-62f91e7f1616")
     @Override
     public void setRepresented(Instance value) {
         appendDepVal(CommunicationNodeData.Metadata.RepresentedDep(), (SmObjectImpl)value);
     }
 
-    @objid ("b7292f8d-6465-404f-bcc4-01cebebdfd1c")
+    @objid ("a6fc1424-fe1e-4511-b2fd-cf0732f5d237")
     @Override
     public EList<CommunicationChannel> getStarted() {
         return new SmList<>(this, CommunicationNodeData.Metadata.StartedDep());
     }
 
-    @objid ("66b344a7-4810-40c0-936d-a9fcf9b1257e")
+    @objid ("91ed147d-a99e-4f88-8d2f-a88c8e5f98a3")
     @Override
     public <T extends CommunicationChannel> List<T> getStarted(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -101,13 +101,13 @@ public class CommunicationNodeImpl extends ModelElementImpl implements Communica
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("ba3f3404-acd8-43bd-847a-5baa5b205216")
+    @objid ("fc56269a-7d37-485c-9ae5-8c6603d1751d")
     @Override
     public EList<CommunicationChannel> getEnded() {
         return new SmList<>(this, CommunicationNodeData.Metadata.EndedDep());
     }
 
-    @objid ("6c06466f-39cd-43db-abda-97b79d236a8d")
+    @objid ("2ae165b5-1793-4b59-9b7b-4e9aacce5ca2")
     @Override
     public <T extends CommunicationChannel> List<T> getEnded(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -120,7 +120,7 @@ public class CommunicationNodeImpl extends ModelElementImpl implements Communica
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("db159ed1-862c-48c8-b4c4-a99204298151")
+    @objid ("e867dd6e-9b3b-4cf0-9a0b-51a3fc25c365")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
@@ -130,7 +130,7 @@ public class CommunicationNodeImpl extends ModelElementImpl implements Communica
         return super.getCompositionOwner();
     }
 
-    @objid ("d36bb9b1-a554-40a4-9bc5-32912fd43704")
+    @objid ("73a6cd9e-f872-4aeb-8c81-6ef3949fb3c9")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
@@ -140,7 +140,7 @@ public class CommunicationNodeImpl extends ModelElementImpl implements Communica
         return super.getCompositionRelation();
     }
 
-    @objid ("461d5aaf-9afb-408c-83e1-1a221a9188b0")
+    @objid ("b847dac7-5870-4ad7-b30b-9f220967bad0")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitCommunicationNode(this);

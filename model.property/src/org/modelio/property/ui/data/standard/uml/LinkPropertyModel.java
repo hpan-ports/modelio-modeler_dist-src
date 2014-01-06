@@ -32,7 +32,7 @@ import org.modelio.property.ui.data.standard.common.AbstractPropertyModel;
  * <p>
  * This class provides the list of properties for the <i>Link</i> metaclass.
  */
-@objid ("58695f41-dc99-4174-ad62-28ca35d93641")
+@objid ("94459cd1-fa0a-4a70-96e6-7b805c0357ef")
 public class LinkPropertyModel extends AbstractPropertyModel<Link> {
     /**
      * Properties to display for <i>Link</i>.
@@ -43,19 +43,19 @@ public class LinkPropertyModel extends AbstractPropertyModel<Link> {
      * <li> for other rows the values usually match the meta-attributes and roles names of the metaclass
      * </ul>
      */
-    @objid ("7b38e00e-46d5-4116-aef6-3174ef4ad764")
+    @objid ("4bcc75ca-e0f8-406a-a753-8ed356bc47fe")
     private static final String[] PROPERTIES = new String[] {"Link", "Name"};
 
-    @objid ("4b260c73-ae70-4370-8a18-52efbb1cb5ab")
+    @objid ("3310d552-d2a2-4cc7-b5bd-380c4081d34b")
     private StringType labelStringType;
 
-    @objid ("779ee1b6-ca9f-480a-a24a-4e541bf8898e")
+    @objid ("7b82e59f-df55-4950-b755-3963145af7c0")
     private StringType stringType;
 
     /**
      * Create a new <i>Link</i> data model from an <i>Link</i>.
      */
-    @objid ("ccd6daf8-b258-4745-8bcc-f4bfdc9f58c2")
+    @objid ("a653fca4-ba23-49e7-9fd6-787dfaf71eeb")
     public LinkPropertyModel(Link theLink) {
         super(theLink);
         
@@ -67,7 +67,7 @@ public class LinkPropertyModel extends AbstractPropertyModel<Link> {
      * The number of columns that the properties table must display.
      * @return the number of columns
      */
-    @objid ("ba5ea08a-befa-4bf5-8355-23ae9c8aa4f8")
+    @objid ("00e810cd-52b2-4cff-bda8-469956cb71e7")
     @Override
     public int getColumnNumber() {
         return 2;
@@ -77,7 +77,7 @@ public class LinkPropertyModel extends AbstractPropertyModel<Link> {
      * The number of rows that the properties table must display.
      * @return the number of rows
      */
-    @objid ("9f91e6c6-2bef-4128-991d-94db6fc94544")
+    @objid ("de92a139-8840-4590-935b-26f1c778e8da")
     @Override
     public int getRowsNumber() {
         return LinkPropertyModel.PROPERTIES.length;
@@ -91,7 +91,7 @@ public class LinkPropertyModel extends AbstractPropertyModel<Link> {
      * @param col the column number
      * @return the value corresponding to the row and column
      */
-    @objid ("1c663857-7eb9-444a-8373-9ca4c190867b")
+    @objid ("572c60f0-7ce7-4f8c-b233-bb52b5fdd578")
     @Override
     public Object getValueAt(int row, int col) {
         switch (col) {
@@ -122,7 +122,7 @@ public class LinkPropertyModel extends AbstractPropertyModel<Link> {
      * @param col the column number
      * @return the type of the element corresponding to the row and column
      */
-    @objid ("041ec433-6236-419f-96c9-81ad295ea199")
+    @objid ("c42e01b2-d1b2-462e-a0e6-df313d49ebdd")
     @Override
     public IPropertyType getTypeAt(int row, int col) {
         switch (col) {
@@ -150,7 +150,7 @@ public class LinkPropertyModel extends AbstractPropertyModel<Link> {
      * @param col the column number.
      * @param value the value specified by the user.
      */
-    @objid ("90e5035c-e8e1-49fe-bd2b-790806f14a00")
+    @objid ("6c3ed496-48f3-4884-a63d-c15e1d689a7e")
     @Override
     public void setValueAt(int row, int col, Object value) {
         switch (col) {

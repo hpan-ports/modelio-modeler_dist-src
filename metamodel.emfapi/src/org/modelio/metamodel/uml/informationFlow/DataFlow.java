@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.uml.informationFlow;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
@@ -33,28 +33,28 @@ import org.modelio.metamodel.uml.statik.NameSpace;
 
 @objid ("00645dc0-c4bf-1fd8-97fe-001ec947cd2a")
 public interface DataFlow extends ModelElement {
-    @objid ("6d2c1758-af31-40c3-8177-57b42d7477e6")
+    @objid ("dee1f83f-1edf-4390-b5cc-5d2142c2d529")
     NameSpace getDestination();
 
-    @objid ("871a670b-35a8-4482-95b4-efcf2618b879")
+    @objid ("a22447f2-79be-4e9a-b3e6-4d5fabf4bcfd")
     void setDestination(NameSpace value);
 
-    @objid ("827016eb-9f6a-4db8-a0bb-2a89d5ebdab7")
+    @objid ("ca2b8e21-81ec-45d2-a697-02c3d943c8ca")
     NameSpace getOrigin();
 
-    @objid ("8a6fe40e-f059-4810-a0fc-c3a040c39545")
+    @objid ("c35e9753-8987-418e-b86b-65f1a5c4bf8f")
     void setOrigin(NameSpace value);
 
-    @objid ("286b0bf0-796a-4adb-9329-52d3fe838832")
+    @objid ("691bdaf8-dbda-4f77-a88d-1b9624efe36a")
     NameSpace getOwner();
 
-    @objid ("e2c70dfe-10be-47f4-938c-1a723e01e500")
+    @objid ("6bb1fd66-76e1-4ce9-9f3f-81a9ee5e38bd")
     void setOwner(NameSpace value);
 
-    @objid ("ed888703-8bba-4c6c-a1f7-d60f10e516b5")
+    @objid ("a5e71a89-c022-47fa-932a-e749c5954ad5")
     Signal getSModel();
 
-    @objid ("c6d55dda-db4b-44cc-9c15-dd6365cfb1b5")
+    @objid ("1a22f057-6953-4d7e-8a48-7b0021592ac2")
     void setSModel(Signal value);
 
 }

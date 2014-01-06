@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.uml.behavior.interactionModel;
 
 import java.util.ArrayList;
@@ -42,45 +42,45 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("0043f6ca-c4bf-1fd8-97fe-001ec947cd2a")
 public class DurationConstraintImpl extends ConstraintImpl implements DurationConstraint {
-    @objid ("289d8bc0-5676-4be6-8a4c-3079f1b5aeab")
+    @objid ("a286261d-9319-424e-a2fe-3bac25476ed1")
     @Override
     public String getDurationMin() {
         return (String) getAttVal(DurationConstraintData.Metadata.DurationMinAtt());
     }
 
-    @objid ("40b0356a-cf31-4b5c-ba43-69031c5ab439")
+    @objid ("e9f7f217-79a6-4659-a5c0-ad9c45513ac4")
     @Override
     public void setDurationMin(String value) {
         setAttVal(DurationConstraintData.Metadata.DurationMinAtt(), value);
     }
 
-    @objid ("d33fa760-19dc-4ba2-870a-64ab3cdd5258")
+    @objid ("542eaaf4-c8c5-473e-87c3-2771e42315ce")
     @Override
     public String getDurationMax() {
         return (String) getAttVal(DurationConstraintData.Metadata.DurationMaxAtt());
     }
 
-    @objid ("2c9896c3-85c4-418f-8a5e-d4c53dfdecdd")
+    @objid ("46d8f9c7-d6f1-416b-9a7d-a1d52d8adc02")
     @Override
     public void setDurationMax(String value) {
         setAttVal(DurationConstraintData.Metadata.DurationMaxAtt(), value);
     }
 
-    @objid ("590472e1-dc1a-4a76-83cd-9f6f777e32f2")
+    @objid ("bb52d25d-c858-4090-a967-08979a45a119")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("36d2f85b-b5b3-486e-b5b1-711e6c2434b5")
+    @objid ("d2bc9f47-445a-40d9-9b07-38dc3673e72d")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("bf0a7d02-1d2d-437c-a178-9712a0a341b3")
+    @objid ("5c57d615-4741-4912-bb50-2ce9e8c0e536")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitDurationConstraint(this);

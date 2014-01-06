@@ -30,7 +30,6 @@ import org.modelio.diagram.persistence.IDiagramWriter;
 import org.modelio.diagram.styles.core.IStyle;
 import org.modelio.diagram.styles.core.Style;
 import org.modelio.diagram.styles.core.StyleKey.RepresentationMode;
-import org.modelio.diagram.styles.manager.StyleManager;
 import org.modelio.diagram.styles.plugin.DiagramStyles;
 import org.modelio.vcore.smkernel.mapi.MObject;
 import org.modelio.vcore.smkernel.mapi.MRef;
@@ -56,12 +55,6 @@ public abstract class GmModel extends GmAbstractObject implements IObModelChange
 
     @objid ("91f88201-1e83-11e2-8cad-001ec947c8cc")
     private String lastKnownLabel;
-
-    /**
-     * Name of the ramc elements style in the {@link StyleManager}.
-     */
-    @objid ("91fd46b2-1e83-11e2-8cad-001ec947c8cc")
-    private static final String RAMC_STYLE = "ramc";
 
     @objid ("807b57da-1dec-11e2-8cad-001ec947c8cc")
     private MRef relatedRef;
@@ -345,7 +338,7 @@ public abstract class GmModel extends GmAbstractObject implements IObModelChange
         IStyle baseStyle;
         if (el != null && el.getStatus().isRamc()) {
             // If represented element is ramc, use the ramc named style.
-            baseStyle = DiagramStyles.getStyleManager().getStyle(RAMC_STYLE);
+            baseStyle = DiagramStyles.getStyleManager().getStyle(DiagramStyles.RAMC_STYLE_NAME);
             if (baseStyle == null) {
                 // Fail safe: if the "ramc" style couldn't be found, use the diagram style.
                 baseStyle = aDiagram.getStyle();
@@ -381,7 +374,7 @@ public abstract class GmModel extends GmAbstractObject implements IObModelChange
      * <p>
      * Must be called before usage by and only by:
      * <ul>
-     * <li>The {@link #GmModel(GmAbstractDiagram)} constructor (but NOT by the parameter less constructor).
+     * <li>The {@link #GmModel(GmAbstractDiagram, MRef)} constructor (but NOT by the parameter less constructor).
      * <li>and the {@link #read(IDiagramReader)} method
      * </ul>
      * </p>

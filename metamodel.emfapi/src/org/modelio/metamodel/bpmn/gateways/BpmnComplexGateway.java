@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.bpmn.gateways;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
@@ -31,16 +31,16 @@ import org.modelio.metamodel.bpmn.flows.BpmnSequenceFlow;
 
 @objid ("00973ae2-c4bf-1fd8-97fe-001ec947cd2a")
 public interface BpmnComplexGateway extends BpmnGateway {
-    @objid ("04971c10-3e1a-4e28-8996-7368e7ff0d97")
+    @objid ("7f8669b7-8048-46be-8a28-c771956e5304")
     String getActivationExpression();
 
-    @objid ("f54cdf13-7d72-4e61-862a-a81311dd14fe")
+    @objid ("b123792a-5677-4e5f-a235-f89ae6e971e2")
     void setActivationExpression(String value);
 
-    @objid ("624ea40b-9ed0-4fbf-b1f5-c3105962ae2d")
+    @objid ("90a896c0-5e84-4a67-b9d3-33d783919bcf")
     BpmnSequenceFlow getDefaultFlow();
 
-    @objid ("9c95a688-4d8a-4434-bda4-f57cf0a6c159")
+    @objid ("3ec8b4b2-d049-4a06-bf25-a97b9a7a0f50")
     void setDefaultFlow(BpmnSequenceFlow value);
 
 }

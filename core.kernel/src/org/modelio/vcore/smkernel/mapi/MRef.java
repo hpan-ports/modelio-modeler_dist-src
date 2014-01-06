@@ -117,6 +117,9 @@ public class MRef implements Serializable {
     @objid ("dcadb021-13af-11e2-8f8e-001ec947ccaf")
     @Override
     public boolean equals(Object obj) {
+        if (obj == null)
+            return false;
+        
         if (obj.getClass() != getClass()) {
             return false;
         }
@@ -182,7 +185,7 @@ public class MRef implements Serializable {
 
     /**
      * Test main method
-     * @param argvs
+     * @param argvs unused
      */
     @objid ("da2385d8-c837-4d49-8ca4-b1f489c67a88")
     public static void main(String[] argvs) {

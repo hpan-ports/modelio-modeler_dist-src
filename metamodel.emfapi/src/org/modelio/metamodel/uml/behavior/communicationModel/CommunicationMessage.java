@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.uml.behavior.communicationModel;
 
 import java.util.List;
@@ -37,52 +37,52 @@ import org.modelio.metamodel.uml.statik.Operation;
 
 @objid ("005b08f6-c4bf-1fd8-97fe-001ec947cd2a")
 public interface CommunicationMessage extends ModelElement {
-    @objid ("04f8baa8-fb32-43b6-8f73-e9b20b22f610")
+    @objid ("b91f2e8b-fc2c-4080-98de-9449db0901c3")
     String getArgument();
 
-    @objid ("8fca4ae4-9209-4c33-9420-535404f5ddc9")
+    @objid ("1497596c-8a15-487e-8a67-283dca7cd827")
     void setArgument(String value);
 
-    @objid ("7ccaec6c-0ec4-470d-bd29-272ab81dde39")
+    @objid ("580168f2-02c5-4ce8-b13f-0af4d90a0dd5")
     String getSequence();
 
-    @objid ("3f1df48b-ea10-4065-b03c-4d8e825ecac6")
+    @objid ("949251c1-ba95-4a57-9fbd-12cfbf56429a")
     void setSequence(String value);
 
-    @objid ("138899cd-d0a8-44a8-a9dd-2bd043a2e8da")
+    @objid ("91764407-a8e6-4b61-a9bb-fb97911fee80")
     MessageSort getSortOfMessage();
 
-    @objid ("891045e0-eb79-4e53-9b1e-8b7847251736")
+    @objid ("f34511ad-e006-40a0-a880-f8c057d43e0c")
     void setSortOfMessage(MessageSort value);
 
-    @objid ("11bc16d5-8306-409f-aced-1ef474d3500e")
+    @objid ("5b01ee30-d0f1-4277-bf6b-2fd2e0a923f1")
     EList<InformationFlow> getRealizedInformationFlow();
 
-    @objid ("cd3fcc44-b23d-4905-857e-3d1093002541")
+    @objid ("b3528ba8-75b7-44af-a752-72480f389c89")
     <T extends InformationFlow> List<T> getRealizedInformationFlow(java.lang.Class<T> filterClass);
 
-    @objid ("71572fed-b005-404e-bd2f-dd539b218fea")
+    @objid ("5389863a-828f-43ed-8575-39e9e8fc7bb1")
     CommunicationChannel getChannel();
 
-    @objid ("31ed436a-92a3-4442-90c8-08b95b7cd85c")
+    @objid ("233b01b6-99cd-47ab-82c4-b0462ba36299")
     void setChannel(CommunicationChannel value);
 
-    @objid ("b217c719-836c-469b-9e06-556ba2749618")
+    @objid ("2c783b70-65b8-4666-b45c-24166a5e1b31")
     CommunicationChannel getInvertedChannel();
 
-    @objid ("e4bc501a-dc93-4f10-abf0-40646b98260a")
+    @objid ("7bfc8646-e721-4c1d-8feb-229b115f579b")
     void setInvertedChannel(CommunicationChannel value);
 
-    @objid ("35b2c489-f88f-4587-87f5-1966edd15645")
+    @objid ("4bb7a290-a51b-4248-b30a-fdcb6768e8d3")
     Operation getInvoked();
 
-    @objid ("ed0c8b4f-8199-41cf-bd75-0bf1cc7f345f")
+    @objid ("8cb4b42a-080b-409c-8698-6c9ee88adaeb")
     void setInvoked(Operation value);
 
-    @objid ("345182df-c91a-4e90-b0cd-6e3fd986c489")
+    @objid ("43115541-1b00-4ef3-9737-19cb1e13972a")
     Signal getSignalSignature();
 
-    @objid ("8fd0d600-1911-4ec1-9c7b-8f7b1c139649")
+    @objid ("bf69b563-2cd4-4c14-9ea9-e4c2e6a05446")
     void setSignalSignature(Signal value);
 
 }

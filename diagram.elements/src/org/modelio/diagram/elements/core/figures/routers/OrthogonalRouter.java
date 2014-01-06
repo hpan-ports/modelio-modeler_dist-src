@@ -112,7 +112,7 @@ public class OrthogonalRouter extends BendpointConnectionRouter {
 
     /**
      * convenience method to get the constraint as a list of bend points.
-     * @param conn
+     * @param conn a connection figure
      * @return The list of bend points.
      */
     @objid ("7fb5748e-1dec-11e2-8cad-001ec947c8cc")
@@ -143,7 +143,7 @@ public class OrthogonalRouter extends BendpointConnectionRouter {
     }
 
     /**
-     * @param bendpoints
+     * @param bendpoints bend points list to clean
      */
     @objid ("7fb574a4-1dec-11e2-8cad-001ec947c8cc")
     private void cleanup(final List<Bendpoint> bendpoints) {

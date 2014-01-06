@@ -46,9 +46,6 @@ import org.modelio.vcore.smkernel.mapi.MRef;
  */
 @objid ("7e2024dc-1dec-11e2-8cad-001ec947c8cc")
 public class UnmaskExternDocumentCommand extends Command {
-    @objid ("c4ba8dbb-716e-4ca5-9e03-dbe629a63c14")
-    private final Point dropLocation;
-
     @objid ("7e2024e0-1dec-11e2-8cad-001ec947c8cc")
     private final ExternDocument theExternDocument;
 
@@ -60,6 +57,9 @@ public class UnmaskExternDocumentCommand extends Command {
 
     @objid ("7e2024e6-1dec-11e2-8cad-001ec947c8cc")
     private final AbstractDiagramEditPart host;
+
+    @objid ("a7de948f-bff2-4f9e-a3cd-1d4d7f269d08")
+    private final Point dropLocation;
 
     /**
      * C'tor.

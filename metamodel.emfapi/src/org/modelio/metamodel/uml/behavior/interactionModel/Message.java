@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.uml.behavior.interactionModel;
 
 import java.util.List;
@@ -38,52 +38,52 @@ import org.modelio.metamodel.uml.statik.Operation;
 
 @objid ("00493ff4-c4bf-1fd8-97fe-001ec947cd2a")
 public interface Message extends ModelElement {
-    @objid ("08a6b557-62f0-4d0a-97cc-33d998c6570e")
+    @objid ("761798b9-d7f6-4596-89c2-bb0c67e8d76d")
     String getArgument();
 
-    @objid ("2094ce76-d65d-4793-aafb-de69572551ec")
+    @objid ("52e573e0-0829-4c4f-b6da-adc36eae5941")
     void setArgument(String value);
 
-    @objid ("da639035-6775-4048-9da2-baecdf28d212")
+    @objid ("db52540e-4131-4e4b-9300-7b9c3fff2b66")
     MessageKind getKindOfMessage();
 
-    @objid ("ef2ac758-e81a-4cee-a98c-eede80579c88")
+    @objid ("b3ad5712-daf2-45a3-9706-0416191c0ba8")
     void setKindOfMessage(MessageKind value);
 
-    @objid ("dc4abf5b-5476-411d-b77f-72f510cf1a59")
+    @objid ("7dfcf13a-f13e-418a-9a34-0a772d698e00")
     MessageSort getSortOfMessage();
 
-    @objid ("7051860b-8c9b-47e3-a6a3-c638e095598d")
+    @objid ("87bd5bd5-36c0-458b-96c1-ceb5d1024dd1")
     void setSortOfMessage(MessageSort value);
 
-    @objid ("b63e4bc7-a095-4c05-b587-3155bc671a7e")
+    @objid ("9b7161b8-913a-4382-a217-f7657ebc2c5e")
     Signal getSignalSignature();
 
-    @objid ("9cba191f-0461-4fff-8036-807af65c7d02")
+    @objid ("3907c990-4758-41b7-8f17-597b2fc7d969")
     void setSignalSignature(Signal value);
 
-    @objid ("73bf0058-5227-48ce-b586-0039d9cefeb3")
+    @objid ("1201f869-c364-40ea-9f36-2be37bf11563")
     MessageEnd getReceiveEvent();
 
-    @objid ("084d37ae-9d25-47ff-9c0b-bfd6c0bdb975")
+    @objid ("8d29692f-eabd-41a7-8153-f9f74553a23a")
     void setReceiveEvent(MessageEnd value);
 
-    @objid ("bbfc0dd7-9a9a-44ac-8b1e-e225fb907093")
+    @objid ("0fb8579b-19d4-43b0-bded-9825007507a9")
     MessageEnd getSendEvent();
 
-    @objid ("6c34d074-860b-453b-8383-a374c7d55cd2")
+    @objid ("e54617e3-3864-4bef-a086-341ac0f485b0")
     void setSendEvent(MessageEnd value);
 
-    @objid ("ad491d9e-da93-4157-9266-b81cd4f3abe4")
+    @objid ("9682f5c0-2594-4b23-92dd-63876f9df879")
     Operation getInvoked();
 
-    @objid ("1a13faeb-bab3-4005-a1ec-dad4255d54ad")
+    @objid ("2e843d99-e21c-4788-8de7-cdd13e04e6ef")
     void setInvoked(Operation value);
 
-    @objid ("5988d505-8991-43ab-9d09-059853925ff7")
+    @objid ("9b047b4e-8885-414d-976a-183441151722")
     EList<InformationFlow> getRealizedInformationFlow();
 
-    @objid ("c502794c-aa76-485a-a3c0-041b812effad")
+    @objid ("9757ec6b-8911-4a6e-9c2a-bf6ca1d31f5a")
     <T extends InformationFlow> List<T> getRealizedInformationFlow(java.lang.Class<T> filterClass);
 
 }

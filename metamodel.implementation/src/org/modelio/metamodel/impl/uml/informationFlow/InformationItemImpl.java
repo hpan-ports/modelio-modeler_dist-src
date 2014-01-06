@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.uml.informationFlow;
 
 import java.util.ArrayList;
@@ -44,13 +44,13 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("00640c76-c4bf-1fd8-97fe-001ec947cd2a")
 public class InformationItemImpl extends ClassifierImpl implements InformationItem {
-    @objid ("af757a6e-62c2-4ae6-b59b-62bd3d0b63fe")
+    @objid ("95bfcd4c-2d16-4f3a-9591-8861c60d413d")
     @Override
     public EList<Classifier> getRepresented() {
         return new SmList<>(this, InformationItemData.Metadata.RepresentedDep());
     }
 
-    @objid ("3d00b81b-6905-484a-8288-7cf1aecd0cfd")
+    @objid ("bf150b88-76f6-4280-8f1a-c81483da0e20")
     @Override
     public <T extends Classifier> List<T> getRepresented(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -63,21 +63,21 @@ public class InformationItemImpl extends ClassifierImpl implements InformationIt
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("4ce9aa80-98bb-43f7-a839-5666a663f96c")
+    @objid ("cd73a88c-8b66-4501-b417-584c8c8a8c84")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("15bd8491-4859-4ec4-920e-c91d823f3672")
+    @objid ("e8f32844-960e-4b3a-be05-08a21ff91bab")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("1ab2e1cc-312e-44f2-8ea7-e0254aa22c13")
+    @objid ("7ec241df-c562-4b9d-a846-a6d2f2db88dc")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitInformationItem(this);

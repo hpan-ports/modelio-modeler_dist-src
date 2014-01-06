@@ -807,6 +807,7 @@ public class EcoreModelNavigation {
         List <org.eclipse.uml2.uml.Element> listRoot = new ArrayList <>();
         Set<org.eclipse.uml2.uml.Package> roots = ReverseProperties.getInstance().getEcoreModel();
         listRoot.addAll(roots);
+        
         for(org.eclipse.uml2.uml.Package root : roots){
             for (Object packageImport : root.getPackageImports()){
                 listRoot.add(((org.eclipse.uml2.uml.PackageImport) packageImport).getImportedPackage());

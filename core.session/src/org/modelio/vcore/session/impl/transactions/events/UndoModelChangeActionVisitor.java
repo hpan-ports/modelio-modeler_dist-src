@@ -67,17 +67,6 @@ class UndoModelChangeActionVisitor implements IActionVisitor {
         // therefore let's call the refered object 'deleted'
         SmObjectImpl deleted = action.getRefered();
         
-        // Only Element are managed
-        // if ( !dynamic_cast<Element*>(refered) )
-        // return;
-        
-        // if ( dynamic_cast<Project*>(refered) )
-        // return;
-        
-        // NamespaceUse are not managed
-        // if ( dynamic_cast<NamespaceUse*>(refered) )
-        // return;
-        
         // Get the old parent that can be found in the erase list
         MObject oldParent = this.event.erasedElements.get(deleted);
         if (oldParent != null) {
@@ -104,17 +93,6 @@ class UndoModelChangeActionVisitor implements IActionVisitor {
         // therefore let's call the refered object 'created'
         SmObjectImpl created = action.getRefered();
         
-        // Only Element are managed
-        // if ( !dynamic_cast<Element*>(refered) )
-        // return;
-        
-        // if ( dynamic_cast<Project*>(refered) )
-        // return;
-        
-        // NamespaceUse are not managed
-        // if ( dynamic_cast<NamespaceUse*>(refered) )
-        // return;
-        
         // A created element cannot have already been created, thereby
         // permitting the new object
         // to be stored without test
@@ -129,17 +107,6 @@ class UndoModelChangeActionVisitor implements IActionVisitor {
         // Forget created then deleted elements
         if (refered.isDeleted())
             return;
-        
-        // Only Element are managed
-        // if ( !dynamic_cast<Element*> (refered) )
-        // return;
-        
-        // if ( dynamic_cast<Project*> (refered) )
-        // return;
-        
-        // NamespaceUse are not managed
-        // if ( dynamic_cast<NamespaceUse*> (refered) )
-        // return;
         
         // If the element is already in the list of created elements, it has not
         // to be added
@@ -182,21 +149,6 @@ class UndoModelChangeActionVisitor implements IActionVisitor {
             if (this.event.createdElements.contains(refered))
                 return;
         
-            // Only Element are managed
-            // if ( !dynamic_cast<Element*>(theEraseDependencyAction.Ref) ||
-            // !dynamic_cast<Element*>(theEraseDependencyAction.Refered) )
-            // return;
-        
-            // NamespaceUse are not managed
-            // if ( dynamic_cast<NamespaceUse*>(theEraseDependencyAction.Ref) ||
-            // dynamic_cast<NamespaceUse*>(theEraseDependencyAction.Refered) )
-            // return;
-        
-            // Project are not managed
-            // if ( dynamic_cast<Project*>(theEraseDependencyAction.Ref) ||
-            // dynamic_cast<Project*>(theEraseDependencyAction.Refered) )
-            // return;
-        
             if (this.event.updatedElements.contains(refered) == false) {
                 this.event.updatedElements.add(refered);
             }
@@ -206,35 +158,20 @@ class UndoModelChangeActionVisitor implements IActionVisitor {
     @objid ("01f42120-0000-0181-0000-000000000000")
     @Override
     public void visitAppendDependencyAction(final AppendDependencyAction theAppendDependencyAction) {
-        SmObjectImpl ref = theAppendDependencyAction.getRef();
-        SmObjectImpl refered = theAppendDependencyAction.getRefered();
+        SmObjectImpl target = theAppendDependencyAction.getRef();
+        SmObjectImpl src = theAppendDependencyAction.getRefered();
         SmDependency dep = theAppendDependencyAction.getDep();
         
-        if (ref == null || refered == null)
+        if (target == null || src == null)
             return;
         
         // Only composition dependencies are managed
         if (isComponentDependency(dep)) {
         
-            // Only Element are managed
-            // if ( !dynamic_cast<Element*>(ref) ||
-            // !dynamic_cast<Element*>(refered) )
-            // return;
-        
-            // NamespaceUse are not managed
-            // if ( dynamic_cast<NamespaceUse*>(ref) ||
-            // dynamic_cast<NamespaceUse*>(refered) )
-            // return;
-        
-            // Project are not managed
-            // if ( dynamic_cast<Project*>(ref) ||
-            // dynamic_cast<Project*>(refered) )
-            // return;
-        
             // If the element is in the created element list, that means it has
             // not to be declared as moved
             // because it is already declared as created.
-            if (this.event.createdElements.contains(ref))
+            if (this.event.createdElements.contains(target))
                 return;
         
             // If the element already is in the erase relation, that means the
@@ -244,44 +181,31 @@ class UndoModelChangeActionVisitor implements IActionVisitor {
             // the main point is the old parent of the moved element that
             // exactly corresponds to the
             // first erase dependency
-            if (this.event.erasedElements.containsKey(ref))
+            if (this.event.erasedElements.containsKey(target))
                 return;
         
             // If the element has been removed then readded to the same owner,
             // it is a false move.
-            if (ref.isValid() && ref.getCompositionOwner() == refered)
+            if (target.isValid() && target.getCompositionOwner() == src)
                 return;
         
-            {
+            if ( target.isDeleted()) {
+                this.event.deletedElements.put(target, src);
+            } else {
                 // If the relation did not exist, it has to be created : the key
                 // corresponds to the
                 // child element (that has been moved) and the value corresponds
                 // to the old/current owner
                 // of this element
-                this.event.erasedElements.put(ref, refered);
+                this.event.erasedElements.put(target, src);
         
                 // It can be a move, so the movedElements list is filled with
                 // the old owner.
-                this.event.movedElements.put(ref, refered);
+                this.event.movedElements.put(target, src);
             }
         } else if (dep.isPartOf()) {
-            // Only Element are managed
-            // if ( !dynamic_cast<Element*>(ref) ||
-            // !dynamic_cast<Element*>(refered) )
-            // return;
-        
-            // NamespaceUse are not managed
-            // if ( dynamic_cast<NamespaceUse*>(ref) ||
-            // dynamic_cast<NamespaceUse*>(refered) )
-            // return;
-        
-            // Project are not managed
-            // if ( dynamic_cast<Project*>(ref) ||
-            // dynamic_cast<Project*>(refered) )
-            // return;
-        
-            if (this.event.updatedElements.contains(refered) == false) {
-                this.event.updatedElements.add(refered);
+            if (this.event.updatedElements.contains(src) == false) {
+                this.event.updatedElements.add(src);
             }
         }
     }
@@ -294,17 +218,6 @@ class UndoModelChangeActionVisitor implements IActionVisitor {
         // Forget operations on deleted elements
         if (refered.isDeleted())
             return;
-        
-        // Only Element are managed
-        // if ( !dynamic_cast<Element*>(refered) )
-        // return;
-        
-        // if ( dynamic_cast<Project*>(refered) )
-        // return;
-        
-        // NamespaceUse are not managed
-        // if ( dynamic_cast<NamespaceUse*>(refered) )
-        // return;
         
         // If the element is already in the list of created elements, it has not
         // to be added

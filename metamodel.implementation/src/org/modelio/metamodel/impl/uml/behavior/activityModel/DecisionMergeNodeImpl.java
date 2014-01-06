@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.uml.behavior.activityModel;
 
 import java.util.ArrayList;
@@ -42,45 +42,45 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("002ff30a-c4bf-1fd8-97fe-001ec947cd2a")
 public class DecisionMergeNodeImpl extends ControlNodeImpl implements DecisionMergeNode {
-    @objid ("dd48a850-1c20-4439-9b2c-d62041a8c710")
+    @objid ("8c53c9c1-4128-4496-916c-0f6f8d991e09")
     @Override
     public DecisionNodeKind getDecisionKind() {
         return (DecisionNodeKind) getAttVal(DecisionMergeNodeData.Metadata.DecisionKindAtt());
     }
 
-    @objid ("0f930bbe-7f80-4df8-9340-dfe9aa4e011a")
+    @objid ("efccbfa6-d78c-4aa2-9d1f-c847692c8102")
     @Override
     public void setDecisionKind(DecisionNodeKind value) {
         setAttVal(DecisionMergeNodeData.Metadata.DecisionKindAtt(), value);
     }
 
-    @objid ("4178144c-ec9f-4f88-91c8-2db9942c742f")
+    @objid ("7dfc095c-45e9-4948-9be4-22ebe0f0b482")
     @Override
     public String getDecisionInputBehavior() {
         return (String) getAttVal(DecisionMergeNodeData.Metadata.DecisionInputBehaviorAtt());
     }
 
-    @objid ("358064d2-51b2-4685-bec4-0cfc55a95953")
+    @objid ("169b953b-0fe4-4cc6-81eb-8146fd10b66c")
     @Override
     public void setDecisionInputBehavior(String value) {
         setAttVal(DecisionMergeNodeData.Metadata.DecisionInputBehaviorAtt(), value);
     }
 
-    @objid ("1be308cd-bfc3-4146-ae52-6b745ee1026e")
+    @objid ("93596a4a-31bd-4451-84ca-d102b1a16ce8")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("75e05d1d-a88d-4abe-b506-b735ea8e3640")
+    @objid ("3e38466e-22aa-4943-abf4-b013cc293c04")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("f1771a13-e7a8-4acd-b405-b2c1ebb7ed3f")
+    @objid ("56d8aeaf-8914-4006-9c98-76e742c3e0fd")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitDecisionMergeNode(this);

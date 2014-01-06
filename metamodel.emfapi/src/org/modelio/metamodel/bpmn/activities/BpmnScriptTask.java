@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.bpmn.activities;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
@@ -30,16 +30,16 @@ import org.eclipse.emf.ecore.EObject;
 
 @objid ("0082028a-c4bf-1fd8-97fe-001ec947cd2a")
 public interface BpmnScriptTask extends BpmnTask {
-    @objid ("19b6a358-0fae-4921-9791-46bee15d4db0")
+    @objid ("604c0d77-0d1a-4934-8ccf-0a73f4cc148b")
     String getScriptLanguage();
 
-    @objid ("98c8a88d-4778-418d-bf04-3a10e76f7c55")
+    @objid ("e1e00d51-2d9b-4256-813b-7f8fdbc1e23b")
     void setScriptLanguage(String value);
 
-    @objid ("3994d582-966a-43cd-b80e-3d0c699c4066")
+    @objid ("63785147-5352-4ad3-a100-cea1cc825fcc")
     String getScript();
 
-    @objid ("27fa26e4-53fc-4cd0-8a78-8632d741c064")
+    @objid ("a939d236-7b3f-44d1-9bb9-4d94a2389015")
     void setScript(String value);
 
 }

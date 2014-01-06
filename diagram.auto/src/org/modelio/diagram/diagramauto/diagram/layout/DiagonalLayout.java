@@ -89,7 +89,7 @@ public class DiagonalLayout {
             
             int toLinks = content.getToLinks().size();
             int fromLinks = content.getFromLinks().size();
-            Rectangle r = content.getBounds();
+            Rectangle r = content.getOverallBounds();
             content.setSize(Math.max(r.width, (toLinks>0?(toLinks-1):toLinks) * ANCHORSPACING), Math.max(r.height, (fromLinks>0?(fromLinks-1):fromLinks) * ANCHORSPACING));
         }
         
@@ -111,7 +111,7 @@ public class DiagonalLayout {
         // move links on content nodes
         for (IDiagramNode source : contentDgs) {
             //System.out.println("source=" + source);
-            Rectangle sourceR = source.getBounds();
+            Rectangle sourceR = source.getOverallBounds();
             int sourceN = source.getFromLinks().size();
             int sourceH = sourceR.height;
             int sourceYoffset = (sourceH - ((sourceN-1) * ANCHORSPACING))/2;
@@ -120,7 +120,7 @@ public class DiagonalLayout {
             for (IDiagramLink link : source.getFromLinks()) {
                 IDiagramNode target = (IDiagramNode)link.getTo();
                 //System.out.println("target=" + target);
-                Rectangle targetR = target.getBounds();
+                Rectangle targetR = target.getOverallBounds();
                 int targetN = target.getToLinks().size();
                 int targetW = targetR.width;
                 int targetXoffset = (targetW - ((targetN-1) * ANCHORSPACING))/2 + (target.getToLinks().indexOf(link) * ANCHORSPACING);
@@ -160,7 +160,7 @@ public class DiagonalLayout {
         for (IDiagramNode node : dgs) {
             node.fitToContent();
         
-            Rectangle r = node.getBounds();
+            Rectangle r = node.getOverallBounds();
             width  = width + r.height + HSPACING;
             height = height + r.height + VSPACING;
         }
@@ -181,8 +181,8 @@ public class DiagonalLayout {
         int y = y0;
         for (IDiagramNode node : dgs) {
             node.setLocation(x, y);
-            int w = node.getBounds().width;
-            int h = node.getBounds().height;
+            int w = node.getOverallBounds().width;
+            int h = node.getOverallBounds().height;
             
             x = x + w + HSPACING;
             y = y + h + VSPACING;

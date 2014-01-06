@@ -50,11 +50,20 @@ public class ColorizableImageFigure extends Figure {
     @objid ("efb2eb53-8bad-4e99-a635-eeb12a01258e")
     private Color color;
 
+    /**
+     * Creates an image colored in black.
+     * @param image the image
+     */
     @objid ("7f6b8bc7-1dec-11e2-8cad-001ec947c8cc")
     public ColorizableImageFigure(Image image) {
         this(image, Display.getCurrent().getSystemColor(SWT.COLOR_BLACK));
     }
 
+    /**
+     * Constructor.
+     * @param image the image
+     * @param color the color to apply
+     */
     @objid ("7f6b8bca-1dec-11e2-8cad-001ec947c8cc")
     public ColorizableImageFigure(Image image, Color color) {
         assert (image != null);
@@ -82,14 +91,14 @@ public class ColorizableImageFigure extends Figure {
     }
 
     @objid ("7f6b8bd7-1dec-11e2-8cad-001ec947c8cc")
-    private Image colorize(Image original, int pixelColor) {
+    private Image colorize(Image original, int apixelColor) {
         if (System.getProperty("os.name").equals("Linux")) {
             // dumpImage("original image", original);
             ImageData data = original.getImageData();
             ImageData imageData = new ImageData(data.width, data.height, data.depth, data.palette);
             for (int y = 0; y < imageData.height; y++) {
                 for (int x = 0; x < imageData.width; x++) {
-                    imageData.setPixel(x, y, pixelColor);
+                    imageData.setPixel(x, y, apixelColor);
                     imageData.setAlpha(x, y, data.getAlpha(x, y));
                 }
             }
@@ -107,31 +116,9 @@ public class ColorizableImageFigure extends Figure {
         }
     }
 
-// static public void dumpImage(String title, Image img) {
-// System.out.println(title);
-//
-// ImageData data = img.getImageData();
-// System.out.printf(" h=%d, w=%d, d=%d bits per pixel\n", data.height,
-// data.width, data.depth);
-//
-// System.out.printf(" alpha: %d\n", data.alpha);
-// System.out.printf(" bytesPerLine: %d\n", data.bytesPerLine);
-// System.out.printf(" delayTime: %d\n", data.delayTime);
-//
-// System.out.printf(" maskPad: %d\n", data.maskPad);
-// System.out.printf(" scanLinePad: %d\n", data.scanlinePad);
-// System.out.printf(" transparentPixel: %d\n", data.transparentPixel);
-// System.out.printf(" type: %d\n", data.type);
-// System.out.printf(" data: %s %d bytes\n", data.data, (data.data != null)
-// ? data.data.length : -1);
-// System.out.printf(" alphaData: %s %d bytes\n", data.alphaData,
-// (data.alphaData != null) ? data.alphaData.length : -1);
-// System.out.printf(" maskData: %s %d bytes \n", data.maskData,
-// (data.maskData != null) ? data.maskData.length : -1);
-// System.out.printf(" palette: %s\n", data.palette);
-//
-// System.out.println();
-// }
+    /**
+     * @return the color applied on the image.
+     */
     @objid ("7f6b8bdb-1dec-11e2-8cad-001ec947c8cc")
     public Color getColor() {
         // Automatically generated method. Please delete this comment before
@@ -139,12 +126,42 @@ public class ColorizableImageFigure extends Figure {
         return this.color;
     }
 
+    /**
+     * @param color the color to appply.
+     */
     @objid ("7f6b8bdf-1dec-11e2-8cad-001ec947c8cc")
     public void setColor(final Color color) {
         this.color = color;
         this.pixelColor = (color.getRed() << 16) + (color.getGreen() << 8) + color.getBlue();
         //        System.out.println("color = " + color);
         //        System.out.printf("pixelcolor = %x \n", pixelColor);
+    }
+
+    @objid ("d4eee5b8-51f3-400e-93d5-03194782aff5")
+    private static void dumpImage(String title, Image img) {
+        System.out.println(title);
+        
+        ImageData data = img.getImageData();
+        System.out.printf(" h=%d, w=%d, d=%d bits per pixel\n", data.height,
+                data.width, data.depth);
+        
+        System.out.printf(" alpha: %d\n", data.alpha);
+        System.out.printf(" bytesPerLine: %d\n", data.bytesPerLine);
+        System.out.printf(" delayTime: %d\n", data.delayTime);
+        
+        System.out.printf(" maskPad: %d\n", data.maskPad);
+        System.out.printf(" scanLinePad: %d\n", data.scanlinePad);
+        System.out.printf(" transparentPixel: %d\n", data.transparentPixel);
+        System.out.printf(" type: %d\n", data.type);
+        System.out.printf(" data: %s %d bytes\n", data.data, (data.data != null)
+                ? data.data.length : -1);
+        System.out.printf(" alphaData: %s %d bytes\n", data.alphaData,
+                (data.alphaData != null) ? data.alphaData.length : -1);
+        System.out.printf(" maskData: %s %d bytes \n", data.maskData,
+                (data.maskData != null) ? data.maskData.length : -1);
+        System.out.printf(" palette: %s\n", data.palette);
+        
+        System.out.println();
     }
 
 }

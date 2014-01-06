@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.uml.statik;
 
 import java.util.ArrayList;
@@ -47,13 +47,13 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("0019d6a6-c4bf-1fd8-97fe-001ec947cd2a")
 public class ProvidedInterfaceImpl extends ModelElementImpl implements ProvidedInterface {
-    @objid ("c2ef0015-5384-4bab-8159-b38588e8a8ee")
+    @objid ("c0daeda1-10e2-472a-b6b4-78a76f1536f0")
     @Override
     public EList<Interface> getProvidedElement() {
         return new SmList<>(this, ProvidedInterfaceData.Metadata.ProvidedElementDep());
     }
 
-    @objid ("6b831198-e018-4e48-bcda-3babbc09b479")
+    @objid ("7495e3bd-d712-4d14-a44b-4ab025274de0")
     @Override
     public <T extends Interface> List<T> getProvidedElement(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -66,25 +66,25 @@ public class ProvidedInterfaceImpl extends ModelElementImpl implements ProvidedI
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("9fcb6caa-37ff-4a10-89c4-11c23353b3df")
+    @objid ("7713afe6-d3b7-46d1-bb74-823b0db3a5a0")
     @Override
     public Port getProviding() {
         return (Port) getDepVal(ProvidedInterfaceData.Metadata.ProvidingDep());
     }
 
-    @objid ("a17529c6-2f00-4450-a583-8943d5df6668")
+    @objid ("0cf05409-1ac0-422f-bc75-b1b5184cdea5")
     @Override
     public void setProviding(Port value) {
         appendDepVal(ProvidedInterfaceData.Metadata.ProvidingDep(), (SmObjectImpl)value);
     }
 
-    @objid ("41a15cc4-1c0d-4856-ae6b-48ce79645b10")
+    @objid ("058b6a60-9b21-4b86-bc76-a2b453469d69")
     @Override
     public EList<LinkEnd> getConsumer() {
         return new SmList<>(this, ProvidedInterfaceData.Metadata.ConsumerDep());
     }
 
-    @objid ("8eb2f354-4295-441a-a244-9fcb04f8c7bf")
+    @objid ("af5656c7-d786-4255-bf01-c1323a71d61c")
     @Override
     public <T extends LinkEnd> List<T> getConsumer(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -97,13 +97,13 @@ public class ProvidedInterfaceImpl extends ModelElementImpl implements ProvidedI
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("e68ebf65-c6cc-4ed6-a527-de477f717f18")
+    @objid ("0f863390-4464-42b7-9d7f-67640bc7513f")
     @Override
     public EList<NaryLinkEnd> getNaryConsumer() {
         return new SmList<>(this, ProvidedInterfaceData.Metadata.NaryConsumerDep());
     }
 
-    @objid ("34d38964-afed-43ef-9a48-46dc04ffb3e0")
+    @objid ("da44e6af-ec14-4cd2-b874-387bfe6b79db")
     @Override
     public <T extends NaryLinkEnd> List<T> getNaryConsumer(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -116,7 +116,7 @@ public class ProvidedInterfaceImpl extends ModelElementImpl implements ProvidedI
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("55197264-6353-487b-91d7-7a2c31c33030")
+    @objid ("f363aeff-994f-43a6-9de0-bfa5040f1e76")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
@@ -126,7 +126,7 @@ public class ProvidedInterfaceImpl extends ModelElementImpl implements ProvidedI
         return super.getCompositionOwner();
     }
 
-    @objid ("3032f6d6-34de-4104-9a13-c5bdc25a87f0")
+    @objid ("36610f21-f5f9-46b5-b44b-161cf15874a9")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
@@ -136,7 +136,7 @@ public class ProvidedInterfaceImpl extends ModelElementImpl implements ProvidedI
         return super.getCompositionRelation();
     }
 
-    @objid ("b630cd2a-12f7-4d99-bd42-bf0f40809146")
+    @objid ("d7e7a227-d2c8-46a8-b605-88c4fa089b14")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitProvidedInterface(this);

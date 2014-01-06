@@ -30,6 +30,7 @@ import java.util.Collection;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.vbasic.progress.IModelioProgress;
 import org.modelio.vcore.session.api.blob.IBlobInfo;
+import org.modelio.vstore.exml.common.RepositoryVersions;
 import org.modelio.vstore.exml.common.model.ObjId;
 
 /**
@@ -70,6 +71,14 @@ public interface IExmlResourceProvider {
     void createRepository() throws IOException;
 
     /**
+     * Delete a blob
+     * @param blob a blob identifier
+     * @throws java.io.IOException in case of failure
+     */
+    @objid ("19e4043a-65a4-49aa-9f69-00cf1b8b2ca2")
+    void deleteBlob(String blob) throws IOException;
+
+    /**
      * Get all the repository content.
      * @param aMonitor a progress monitor.
      * @return all CMS nodes.
@@ -77,6 +86,13 @@ public interface IExmlResourceProvider {
      */
     @objid ("cf2f176f-03e4-11e2-b5bf-001ec947ccaf")
     Collection<ExmlResource> getAllResources(IModelioProgress aMonitor) throws IOException;
+
+    /**
+     * Get the path where the EXML indexes will be accessible after having called {@link #buildIndexes(IModelioProgress)}.
+     * @return the EXML indexes path.
+     */
+    @objid ("e710f189-e8e0-489c-9b6b-cdd574ae1a08")
+    File getIndexAccessPath();
 
     /**
      * Get access to the non CMS managed content for a CMS node.
@@ -89,6 +105,24 @@ public interface IExmlResourceProvider {
     ExmlResource getLocalResource(ObjId cmsNodeId);
 
     /**
+     * Get a short displayable name for this repository.
+     * <p>
+     * This name should be short enough to be displayed and should
+     * reflect the repository content, for example the root element name.
+     * An implementation may compute this name or be initialized with it.
+     * @return the repository name.
+     */
+    @objid ("a23e9ba0-1c4a-4354-abdf-b75630a8b4c2")
+    String getName();
+
+    /**
+     * Get the resource where a {@link RepositoryVersions} can be read/written.
+     * @return the repository format versions resource.
+     */
+    @objid ("e8992ad0-fcab-4e29-8e5a-5a60c06df29f")
+    ExmlResource getRepositoryVersionResource();
+
+    /**
      * Get access to the EXML content for a CMS node.
      * @param id the reference of a CMS node.
      * @return the content
@@ -96,6 +130,19 @@ public interface IExmlResourceProvider {
      */
     @objid ("cf2f1760-03e4-11e2-b5bf-001ec947ccaf")
     ExmlResource getResource(ObjId id) throws IOException;
+
+    /**
+     * Get a stamp that is updated on each {@link #commit()}.
+     * <p>
+     * To be used to ensure indexes and other local resources are synchronized
+     * with the remote storage location.
+     * <p>
+     * Returns empty string if there is no stamp.
+     * @return the repository stamp or empty string.
+     * @throws java.io.IOException in case of I/O error preventing from reading the stamp
+     */
+    @objid ("b19917ea-0859-4803-ace8-b32cd49e97f3")
+    String getStamp() throws IOException;
 
     /**
      * Get the repository location as an URI
@@ -113,57 +160,6 @@ public interface IExmlResourceProvider {
     boolean isWriteable();
 
     /**
-     * Get the path where the EXML indexes will be accessible after having called {@link #buildIndexes(IModelioProgress)}.
-     * @return the EXML indexes path.
-     */
-    @objid ("e710f189-e8e0-489c-9b6b-cdd574ae1a08")
-    File getIndexAccessPath();
-
-    /**
-     * Get a stamp that is updated on each {@link #commit()}.
-     * <p>
-     * To be used to ensure indexes and other local resources are synchronized
-     * with the remote storage location.
-     * <p>
-     * Returns empty string if there is no stamp.
-     * @return the repository stamp or empty string.
-     * @throws java.io.IOException in case of I/O error preventing from reading the stamp
-     */
-    @objid ("b19917ea-0859-4803-ace8-b32cd49e97f3")
-    String getStamp() throws IOException;
-
-    /**
-     * Get a short displayable name for this repository.
-     * <p>
-     * This name should be short enough to be displayed and should
-     * reflect the repository content, for example the root element name.
-     * An implementation may compute this name or be initialized with it.
-     * @return the repository name.
-     */
-    @objid ("a23e9ba0-1c4a-4354-abdf-b75630a8b4c2")
-    String getName();
-
-    /**
-     * Recompute the stamp.
-     * <p>
-     * Should be called by {@link #commit()}.
-     * May be called by external code that directly modifies the repository files
-     * such as version managers.
-     * @throws java.io.IOException in case of failure.
-     */
-    @objid ("79a4c697-eff7-401b-8e26-74d2a0dbccef")
-    void writeStamp() throws IOException;
-
-    /**
-     * Write to a blob.
-     * @param info the blob info
-     * @return a stream to write the blob content to.
-     * @throws java.io.IOException in case of copy failure.
-     */
-    @objid ("c77d483e-f2bd-4c2c-91e2-25ec9b385b8f")
-    OutputStream writeBlob(IBlobInfo info) throws IOException;
-
-    /**
      * Read the content of a blob.
      * <p>
      * Returns <code>null</code> if there is no blob with such key.
@@ -175,14 +171,6 @@ public interface IExmlResourceProvider {
     InputStream readBlob(String key) throws IOException;
 
     /**
-     * Delete a blob
-     * @param blob a blob identifier
-     * @throws java.io.IOException in case of failure
-     */
-    @objid ("19e4043a-65a4-49aa-9f69-00cf1b8b2ca2")
-    void deleteBlob(String blob) throws IOException;
-
-    /**
      * Read the informations of a blob.
      * <p>
      * Returns <code>null</code> if there is no blob with such key.
@@ -192,6 +180,26 @@ public interface IExmlResourceProvider {
      */
     @objid ("8aa80024-ca4d-43f8-87ec-e8e16e9e518a")
     IBlobInfo readBlobInfo(String key) throws IOException;
+
+    /**
+     * Write to a blob.
+     * @param info the blob info
+     * @return a stream to write the blob content to.
+     * @throws java.io.IOException in case of copy failure.
+     */
+    @objid ("c77d483e-f2bd-4c2c-91e2-25ec9b385b8f")
+    OutputStream writeBlob(IBlobInfo info) throws IOException;
+
+    /**
+     * Recompute the stamp.
+     * <p>
+     * Should be called by {@link #commit()}.
+     * May be called by external code that directly modifies the repository files
+     * such as version managers.
+     * @throws java.io.IOException in case of failure.
+     */
+    @objid ("79a4c697-eff7-401b-8e26-74d2a0dbccef")
+    void writeStamp() throws IOException;
 
     /**
      * Represents an EXML node resource.

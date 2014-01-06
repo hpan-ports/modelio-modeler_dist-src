@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.bpmn.events;
 
 import java.util.ArrayList;
@@ -41,21 +41,21 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("0091bd74-c4bf-1fd8-97fe-001ec947cd2a")
 public class BpmnSignalEventDefinitionImpl extends BpmnEventDefinitionImpl implements BpmnSignalEventDefinition {
-    @objid ("9a1c95c4-8391-40ff-9cf2-fa0d2c5550f8")
+    @objid ("b2d42b57-b818-43ce-88b5-720dec71e381")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("24e99553-53f4-449f-abe1-65923a10455f")
+    @objid ("28100581-2384-4ec5-963c-bf5f7c359bd2")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("5e55d596-5a3b-4975-8211-8ae6cc32af91")
+    @objid ("2afd3cfb-24da-475b-9912-294557fa61df")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitBpmnSignalEventDefinition(this);

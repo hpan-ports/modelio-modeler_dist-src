@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.uml.behavior.activityModel;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
@@ -31,10 +31,10 @@ import org.modelio.metamodel.uml.statik.Operation;
 
 @objid ("002b8324-c4bf-1fd8-97fe-001ec947cd2a")
 public interface CallOperationAction extends CallAction {
-    @objid ("85242bda-924c-4e23-8a2c-a6601dcaf7b0")
+    @objid ("a296dee5-7237-4fab-a52a-0d4142833f40")
     Operation getCalled();
 
-    @objid ("f237f071-058c-48ca-a2d4-3ddb585e98e9")
+    @objid ("f93a14e6-01e8-44a8-85d6-4dda4641eb42")
     void setCalled(Operation value);
 
 }

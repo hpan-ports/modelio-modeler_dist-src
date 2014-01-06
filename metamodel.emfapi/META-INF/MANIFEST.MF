@@ -33,6 +33,7 @@ Export-Package: org.modelio.metamodel,
  org.modelio.metamodel.uml.behavior.usecaseModel,
  org.modelio.metamodel.uml.informationFlow,
  org.modelio.metamodel.uml.infrastructure,
+ org.modelio.metamodel.uml.infrastructure.matrix,
  org.modelio.metamodel.uml.infrastructure.properties,
  org.modelio.metamodel.uml.statik,
  org.modelio.metamodel.visitors

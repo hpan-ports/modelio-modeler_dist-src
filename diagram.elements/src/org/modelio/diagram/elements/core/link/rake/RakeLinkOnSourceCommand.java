@@ -44,9 +44,6 @@ import org.modelio.vcore.smkernel.mapi.MObject;
  */
 @objid ("806844f6-1dec-11e2-8cad-001ec947c8cc")
 public class RakeLinkOnSourceCommand extends Command {
-    @objid ("0ec01239-5362-433c-ac9a-cd8dd65a21ec")
-    private final Point rakeLocation;
-
     @objid ("806844fa-1dec-11e2-8cad-001ec947c8cc")
     private final GmLink toConnect;
 
@@ -55,6 +52,9 @@ public class RakeLinkOnSourceCommand extends Command {
 
     @objid ("80684502-1dec-11e2-8cad-001ec947c8cc")
     private Object gmSourceAnchor;
+
+    @objid ("d7c87fdc-e66e-49da-9e65-ad75d843b17e")
+    private final Point rakeLocation;
 
     /**
      * Initializes the command.

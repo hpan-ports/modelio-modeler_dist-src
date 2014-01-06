@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.data.uml.statik;
 
 import java.util.ArrayList;
@@ -58,183 +58,183 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("0011d8de-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=NameSpace.class, factory=NameSpaceData.Metadata.ObjectFactory.class)
 public abstract class NameSpaceData extends ModelTreeData {
-    @objid ("bcc9038b-66c0-4a67-bf3f-8e3122ed0cc1")
+    @objid ("f869d404-fb93-44f6-bbef-9f9b18e0244a")
     @SmaMetaAttribute(metaName="IsAbstract", type=Boolean.class, smAttributeClass=Metadata.IsAbstractSmAttribute.class)
      Object mIsAbstract = false;
 
-    @objid ("4673156a-6b79-453a-84f2-d8a4ec97ec43")
+    @objid ("89178e22-7bb3-492e-8ce0-6a28c69e81a2")
     @SmaMetaAttribute(metaName="IsLeaf", type=Boolean.class, smAttributeClass=Metadata.IsLeafSmAttribute.class)
      Object mIsLeaf = false;
 
-    @objid ("0e85a6c4-eb52-441f-82ce-1b0eea442b86")
+    @objid ("2c4719b9-dd83-4867-abe3-76bcb8935c77")
     @SmaMetaAttribute(metaName="IsRoot", type=Boolean.class, smAttributeClass=Metadata.IsRootSmAttribute.class)
      Object mIsRoot = false;
 
-    @objid ("20394aca-9292-495b-9c9e-f1dba8a0a1b8")
+    @objid ("38d3d070-151e-43f6-9eaa-f1ae4aabc01c")
     @SmaMetaAttribute(metaName="Visibility", type=VisibilityMode.class, smAttributeClass=Metadata.VisibilitySmAttribute.class)
      Object mVisibility = VisibilityMode.PUBLIC;
 
-    @objid ("1ce75d73-9fb6-491b-bd7b-58e5fa3e1ff2")
+    @objid ("50dfd65e-653b-4f09-96c4-3d785eff34ae")
     @SmaMetaAssociation(metaName="Parent", typeDataClass=GeneralizationData.class, min=0, max=-1, smAssociationClass=Metadata.ParentSmDependency.class, component = true)
      List<SmObjectImpl> mParent = null;
 
-    @objid ("4ee07ba4-52b3-448c-b5d3-e87e0f875c3b")
+    @objid ("46b7d782-c79d-448c-bde8-f867691826aa")
     @SmaMetaAssociation(metaName="TemplateInstanciation", typeDataClass=TemplateBindingData.class, min=0, max=-1, smAssociationClass=Metadata.TemplateInstanciationSmDependency.class, component = true)
      List<SmObjectImpl> mTemplateInstanciation = null;
 
-    @objid ("972bd433-e4a4-40c8-8983-055d354ec5f6")
+    @objid ("526d1f3a-e7da-49cf-92ca-cab4b7400253")
     @SmaMetaAssociation(metaName="Representing", typeDataClass=InstanceData.class, min=0, max=-1, smAssociationClass=Metadata.RepresentingSmDependency.class, performanceRisk = true)
      List<SmObjectImpl> mRepresenting = null;
 
-    @objid ("2cf8ebb4-2ec9-4ff4-91e7-948a50a0678b")
+    @objid ("0dca18fa-ce0a-40f5-8e40-874113e69aae")
     @SmaMetaAssociation(metaName="OwnedBehavior", typeDataClass=BehaviorData.class, min=0, max=-1, smAssociationClass=Metadata.OwnedBehaviorSmDependency.class, component = true)
      List<SmObjectImpl> mOwnedBehavior = null;
 
-    @objid ("08178c94-8e68-493d-99c5-033477da502f")
+    @objid ("639f3c5c-d48e-4378-a398-e0629112b298")
     @SmaMetaAssociation(metaName="Received", typeDataClass=DataFlowData.class, min=0, max=-1, smAssociationClass=Metadata.ReceivedSmDependency.class, performanceRisk = true)
      List<SmObjectImpl> mReceived = null;
 
-    @objid ("5f830719-1feb-4323-8ad5-66726004e4f9")
+    @objid ("5ad64456-1f40-4079-b3ed-12b0b768ed4b")
     @SmaMetaAssociation(metaName="UsedNsu", typeDataClass=NamespaceUseData.class, min=0, max=-1, smAssociationClass=Metadata.UsedNsuSmDependency.class)
      List<SmObjectImpl> mUsedNsu = null;
 
-    @objid ("704b0dd3-4db7-4471-a315-c6c6a767d24f")
+    @objid ("32178331-f278-4bbc-8333-7372a4992780")
     @SmaMetaAssociation(metaName="OwnedInformationFlow", typeDataClass=InformationFlowData.class, min=0, max=-1, smAssociationClass=Metadata.OwnedInformationFlowSmDependency.class, component = true)
      List<SmObjectImpl> mOwnedInformationFlow = null;
 
-    @objid ("5e32ce1b-a61f-45b5-8f5b-859e05fe32bf")
+    @objid ("d85c0c99-395b-4086-bfe6-97549cf27397")
     @SmaMetaAssociation(metaName="Importing", typeDataClass=ElementImportData.class, min=0, max=-1, smAssociationClass=Metadata.ImportingSmDependency.class, istodelete = true)
      List<SmObjectImpl> mImporting = null;
 
-    @objid ("8363feee-904a-4846-8c6e-18598cbee0f1")
+    @objid ("0fd65e17-3ece-4b30-a5fa-93eab6c3137d")
     @SmaMetaAssociation(metaName="Sent", typeDataClass=DataFlowData.class, min=0, max=-1, smAssociationClass=Metadata.SentSmDependency.class, partof = true, istodelete = true)
      List<SmObjectImpl> mSent = null;
 
-    @objid ("86197e70-c80e-4a18-a80f-81d2d10daf41")
+    @objid ("5729aa3d-42c6-4638-8715-2ad7c7cdd778")
     @SmaMetaAssociation(metaName="OwnedDataFlow", typeDataClass=DataFlowData.class, min=0, max=-1, smAssociationClass=Metadata.OwnedDataFlowSmDependency.class, component = true)
      List<SmObjectImpl> mOwnedDataFlow = null;
 
-    @objid ("7be3fac0-39d8-4385-9f29-9dddc3040a25")
+    @objid ("8b226a81-6968-46ff-8dc0-80a32cd5485c")
     @SmaMetaAssociation(metaName="OwnedCollaborationUse", typeDataClass=CollaborationUseData.class, min=0, max=-1, smAssociationClass=Metadata.OwnedCollaborationUseSmDependency.class, component = true)
      List<SmObjectImpl> mOwnedCollaborationUse = null;
 
-    @objid ("d97c1221-d4f8-40d6-9d0b-7cd1f4b2f2d4")
+    @objid ("e77049b1-8009-4d8c-ba12-5f76b48635b7")
     @SmaMetaAssociation(metaName="OwnedPackageImport", typeDataClass=PackageImportData.class, min=0, max=-1, smAssociationClass=Metadata.OwnedPackageImportSmDependency.class, component = true)
      List<SmObjectImpl> mOwnedPackageImport = null;
 
-    @objid ("9f22ce58-7902-420d-bf65-d0c5a215b563")
+    @objid ("c0510c2b-bb57-4451-90d1-9f7a46cd89d0")
     @SmaMetaAssociation(metaName="Template", typeDataClass=TemplateParameterData.class, min=0, max=-1, smAssociationClass=Metadata.TemplateSmDependency.class, component = true)
      List<SmObjectImpl> mTemplate = null;
 
-    @objid ("e30977d5-9d78-4a95-8603-b08466933978")
+    @objid ("64947ab2-d39e-4d97-aac8-a364c134d675")
     @SmaMetaAssociation(metaName="Specialization", typeDataClass=GeneralizationData.class, min=0, max=-1, smAssociationClass=Metadata.SpecializationSmDependency.class, istodelete = true)
      List<SmObjectImpl> mSpecialization = null;
 
-    @objid ("cc9776e1-b799-44f5-afa0-83e6a1b2bf02")
+    @objid ("6b2c3119-b835-46f5-b91c-4574be24f59e")
     @SmaMetaAssociation(metaName="Realized", typeDataClass=InterfaceRealizationData.class, min=0, max=-1, smAssociationClass=Metadata.RealizedSmDependency.class, component = true)
      List<SmObjectImpl> mRealized = null;
 
-    @objid ("cb4c58a7-e2bc-4fb4-9ec5-cac1a957a038")
+    @objid ("bb9aa464-f210-436e-bd6d-2f829d43fdf9")
     @SmaMetaAssociation(metaName="Declared", typeDataClass=InstanceData.class, min=0, max=-1, smAssociationClass=Metadata.DeclaredSmDependency.class, component = true)
      List<SmObjectImpl> mDeclared = null;
 
-    @objid ("33893065-0718-4bec-a386-a566334c9e8a")
+    @objid ("bdd7cfbb-1462-4532-8164-2cedb72749db")
     @SmaMetaAssociation(metaName="InstanciatingBinding", typeDataClass=TemplateBindingData.class, min=0, max=-1, smAssociationClass=Metadata.InstanciatingBindingSmDependency.class, performanceRisk = true)
      List<SmObjectImpl> mInstanciatingBinding = null;
 
-    @objid ("d146f954-35de-4fa3-a470-b5ac6da83594")
+    @objid ("7063eeae-89ab-436b-ba6a-6f8367e88921")
     @SmaMetaAssociation(metaName="OwnedImport", typeDataClass=ElementImportData.class, min=0, max=-1, smAssociationClass=Metadata.OwnedImportSmDependency.class, component = true)
      List<SmObjectImpl> mOwnedImport = null;
 
-    @objid ("2f4b8498-59a4-424e-a2b6-7726833b6a13")
+    @objid ("c833d7c9-a55f-4f93-bacf-3d2e2b6ed44b")
     @SmaMetaAssociation(metaName="UserNsu", typeDataClass=NamespaceUseData.class, min=0, max=-1, smAssociationClass=Metadata.UserNsuSmDependency.class)
      List<SmObjectImpl> mUserNsu = null;
 
-    @objid ("4c438a94-a611-43b3-aa8c-58510b20cc75")
+    @objid ("ca339552-2fc0-4b43-b86b-5836201dd855")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("00948996-c4c5-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("f13de30a-d08c-4d4a-875c-27d5ab256033")
+        @objid ("beedfc40-b004-4559-a936-4538566c87ae")
         private static SmClass smClass = null;
 
-        @objid ("428a899c-277b-49c7-b4e4-fe72ff7337b5")
+        @objid ("a0d505f1-c573-465c-a734-8d66a70d66fc")
         private static SmAttribute IsAbstractAtt = null;
 
-        @objid ("b641ccd7-3501-45c2-a658-08dcaa588304")
+        @objid ("5a3f9f66-a033-4574-8807-17e05e8cfdd9")
         private static SmAttribute IsLeafAtt = null;
 
-        @objid ("262408cc-f9a3-416d-96fa-0109126cdb95")
+        @objid ("0f16644d-3498-4331-8cf0-7fbbde20e582")
         private static SmAttribute IsRootAtt = null;
 
-        @objid ("18de96fe-f8a1-4aed-bd6d-df0086a9f9f7")
+        @objid ("d2d9df8b-33ea-4de2-bbf0-a816ddc9e0fc")
         private static SmAttribute VisibilityAtt = null;
 
-        @objid ("92d1436a-4756-4aee-b892-686df3eba2d1")
+        @objid ("ff073aa5-06fb-4d08-a29a-d28824fd14f0")
         private static SmDependency ParentDep = null;
 
-        @objid ("68cf2ae9-e586-4ff2-8adb-8400274bb0b5")
+        @objid ("42abb069-ce1b-4da5-a51f-5c63191dfc25")
         private static SmDependency TemplateInstanciationDep = null;
 
-        @objid ("3edbe1a5-5e1e-4575-95c4-5e38cba4aa1c")
+        @objid ("000a4ae5-b0c6-4362-abd3-75d2f8896cb7")
         private static SmDependency RepresentingDep = null;
 
-        @objid ("1add26a5-ac60-4c0f-8653-2baf663c4594")
+        @objid ("55b8487e-a0da-4da9-876b-d9e0b42830db")
         private static SmDependency OwnedBehaviorDep = null;
 
-        @objid ("9f277731-647c-443a-94d0-d9e305667920")
+        @objid ("ef38e3a7-7138-489e-9953-f64ca03a2a6c")
         private static SmDependency ReceivedDep = null;
 
-        @objid ("fc1b674f-d26a-429e-b60e-02e4aa8a0b44")
+        @objid ("305fedbd-5899-47d2-9a4b-4b9d8c38bbd9")
         private static SmDependency UsedNsuDep = null;
 
-        @objid ("8b054d6d-507f-4a2e-828b-e007051322ca")
+        @objid ("ceb1559c-3a98-4d68-8697-8667c4374a44")
         private static SmDependency OwnedInformationFlowDep = null;
 
-        @objid ("e3a612ad-d2c1-4493-9a86-194fb165eecc")
+        @objid ("e5d3cf99-6f25-4dc0-9b03-52bc209d3e1e")
         private static SmDependency ImportingDep = null;
 
-        @objid ("eab56a42-cc66-4615-930b-e9c4c5b69f7a")
+        @objid ("7cdc7240-ea92-4433-a1ea-ef6937f88c60")
         private static SmDependency SentDep = null;
 
-        @objid ("97d48f78-d453-463b-87cc-64589181bcda")
+        @objid ("590f51b9-e916-4c90-86dd-07dbf26617b5")
         private static SmDependency OwnedDataFlowDep = null;
 
-        @objid ("830e7c82-4cd4-4983-879e-4d859caa3119")
+        @objid ("a1bbab09-2805-4a1c-8d7d-a05799121df7")
         private static SmDependency OwnedCollaborationUseDep = null;
 
-        @objid ("c9e1a271-21dc-4575-b202-6804571d5b15")
+        @objid ("1df89f62-4569-43bf-8137-71457dc9ae7f")
         private static SmDependency OwnedPackageImportDep = null;
 
-        @objid ("404260f3-9260-46ed-9ae5-9e631aa5e60a")
+        @objid ("da2df58c-411c-4fe1-9349-a0abe7893d82")
         private static SmDependency TemplateDep = null;
 
-        @objid ("0418251c-d43e-49a0-a52e-dbc0b2734881")
+        @objid ("441e3b7c-b63e-4aab-8cef-ce39f9c92b26")
         private static SmDependency SpecializationDep = null;
 
-        @objid ("58bd337a-faa4-402f-b299-cf7ad22e97a2")
+        @objid ("c533dd63-da50-45e7-a996-03251402adad")
         private static SmDependency RealizedDep = null;
 
-        @objid ("e3590801-33a4-43fb-b571-33e149e137dc")
+        @objid ("be26bf1a-a9ef-4c1f-a028-c0e2ef97f851")
         private static SmDependency DeclaredDep = null;
 
-        @objid ("2fa6c718-f780-4dd9-b713-f359608438ed")
+        @objid ("36dc74a1-c7db-496a-b5c0-7ccf46f1e4e4")
         private static SmDependency InstanciatingBindingDep = null;
 
-        @objid ("fffe7040-4c00-4716-bd6b-03325f46d8a9")
+        @objid ("a6389629-b522-4a28-8436-281dfa882b4e")
         private static SmDependency OwnedImportDep = null;
 
-        @objid ("30d808a3-e230-4c61-b96b-4d9b42765516")
+        @objid ("660bb2f5-8868-43db-ad40-3f473fa53fc9")
         private static SmDependency UserNsuDep = null;
 
-        @objid ("0388eb93-5879-4fca-bd8b-fd24a3c0774a")
+        @objid ("3ecf7088-9843-4e3e-b7dc-22ecb93ded5c")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(NameSpaceData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("bbef775e-2dc1-493f-89d9-a7b630388f14")
+        @objid ("c17e7d48-2e78-458d-854d-01838320b6e4")
         public static SmAttribute IsAbstractAtt() {
             if (IsAbstractAtt == null) {
             	IsAbstractAtt = classof().getAttributeDef("IsAbstract");
@@ -242,7 +242,7 @@ public abstract class NameSpaceData extends ModelTreeData {
             return IsAbstractAtt;
         }
 
-        @objid ("a6fecf33-4d27-47a8-9957-ebc1158c8808")
+        @objid ("fac0d16f-a707-46a7-a94c-400319e275ea")
         public static SmAttribute IsLeafAtt() {
             if (IsLeafAtt == null) {
             	IsLeafAtt = classof().getAttributeDef("IsLeaf");
@@ -250,7 +250,7 @@ public abstract class NameSpaceData extends ModelTreeData {
             return IsLeafAtt;
         }
 
-        @objid ("29a8383a-53a5-4e0e-b210-026890af4128")
+        @objid ("53615ffd-b626-4fb3-b0a5-aa69c889ba76")
         public static SmAttribute IsRootAtt() {
             if (IsRootAtt == null) {
             	IsRootAtt = classof().getAttributeDef("IsRoot");
@@ -258,7 +258,7 @@ public abstract class NameSpaceData extends ModelTreeData {
             return IsRootAtt;
         }
 
-        @objid ("0970a689-16bb-4418-bfb9-33aca8868449")
+        @objid ("c6f9ffe4-b8c7-4631-9716-7fd5b8bef01d")
         public static SmAttribute VisibilityAtt() {
             if (VisibilityAtt == null) {
             	VisibilityAtt = classof().getAttributeDef("Visibility");
@@ -266,7 +266,7 @@ public abstract class NameSpaceData extends ModelTreeData {
             return VisibilityAtt;
         }
 
-        @objid ("fbe3a390-6565-4291-bb8c-db3cca990d67")
+        @objid ("b4ddc1b8-7b0e-47ce-8526-0566a0ef9c43")
         public static SmDependency ParentDep() {
             if (ParentDep == null) {
             	ParentDep = classof().getDependencyDef("Parent");
@@ -274,7 +274,7 @@ public abstract class NameSpaceData extends ModelTreeData {
             return ParentDep;
         }
 
-        @objid ("324947b9-8a93-475d-814e-dbda3e1645f2")
+        @objid ("48667865-1853-48ce-b872-e50fa5175e32")
         public static SmDependency TemplateInstanciationDep() {
             if (TemplateInstanciationDep == null) {
             	TemplateInstanciationDep = classof().getDependencyDef("TemplateInstanciation");
@@ -282,7 +282,7 @@ public abstract class NameSpaceData extends ModelTreeData {
             return TemplateInstanciationDep;
         }
 
-        @objid ("c7e69ae4-bdf1-4a2a-8a09-34643b777f1a")
+        @objid ("0a9d473c-3514-4f88-9b0c-2697b8a9b9a3")
         public static SmDependency RepresentingDep() {
             if (RepresentingDep == null) {
             	RepresentingDep = classof().getDependencyDef("Representing");
@@ -290,7 +290,7 @@ public abstract class NameSpaceData extends ModelTreeData {
             return RepresentingDep;
         }
 
-        @objid ("36d06a9e-6566-4157-80e4-7da7d47e6bf7")
+        @objid ("75fd2591-cd67-45e0-84f4-d30e09a6408a")
         public static SmDependency OwnedBehaviorDep() {
             if (OwnedBehaviorDep == null) {
             	OwnedBehaviorDep = classof().getDependencyDef("OwnedBehavior");
@@ -298,7 +298,7 @@ public abstract class NameSpaceData extends ModelTreeData {
             return OwnedBehaviorDep;
         }
 
-        @objid ("a24846f4-0353-4bfe-82c4-392920b907f1")
+        @objid ("74918655-5b6c-443e-a666-12329dd74b97")
         public static SmDependency ReceivedDep() {
             if (ReceivedDep == null) {
             	ReceivedDep = classof().getDependencyDef("Received");
@@ -306,7 +306,7 @@ public abstract class NameSpaceData extends ModelTreeData {
             return ReceivedDep;
         }
 
-        @objid ("b9ccc587-729f-49b5-8f92-4a110239fc5f")
+        @objid ("dfa93689-1b7e-457d-8c15-eb5cc7b39a71")
         public static SmDependency UsedNsuDep() {
             if (UsedNsuDep == null) {
             	UsedNsuDep = classof().getDependencyDef("UsedNsu");
@@ -314,7 +314,7 @@ public abstract class NameSpaceData extends ModelTreeData {
             return UsedNsuDep;
         }
 
-        @objid ("8bd94bd2-1b0e-4fdf-855e-63d87193d882")
+        @objid ("911dba62-871b-4466-bdb2-719ee100bb61")
         public static SmDependency OwnedInformationFlowDep() {
             if (OwnedInformationFlowDep == null) {
             	OwnedInformationFlowDep = classof().getDependencyDef("OwnedInformationFlow");
@@ -322,7 +322,7 @@ public abstract class NameSpaceData extends ModelTreeData {
             return OwnedInformationFlowDep;
         }
 
-        @objid ("ddf821eb-b05d-467c-85f6-fb3205e90925")
+        @objid ("18138327-1f4f-4332-8918-d417fcc9e161")
         public static SmDependency ImportingDep() {
             if (ImportingDep == null) {
             	ImportingDep = classof().getDependencyDef("Importing");
@@ -330,7 +330,7 @@ public abstract class NameSpaceData extends ModelTreeData {
             return ImportingDep;
         }
 
-        @objid ("df877833-14d3-43de-acd8-3cf448aba4e5")
+        @objid ("c04b17d5-3e2e-45b8-b7d2-3669dbbe40c7")
         public static SmDependency SentDep() {
             if (SentDep == null) {
             	SentDep = classof().getDependencyDef("Sent");
@@ -338,7 +338,7 @@ public abstract class NameSpaceData extends ModelTreeData {
             return SentDep;
         }
 
-        @objid ("7dbee66a-22b8-47f2-bb3c-6dcc45c557a5")
+        @objid ("c3eae6c4-a054-49e1-983b-e0a753836480")
         public static SmDependency OwnedDataFlowDep() {
             if (OwnedDataFlowDep == null) {
             	OwnedDataFlowDep = classof().getDependencyDef("OwnedDataFlow");
@@ -346,7 +346,7 @@ public abstract class NameSpaceData extends ModelTreeData {
             return OwnedDataFlowDep;
         }
 
-        @objid ("e83f1df5-63ab-4213-91aa-673587020053")
+        @objid ("105db53f-d0ab-4a8f-ac57-b0c5476c726a")
         public static SmDependency OwnedCollaborationUseDep() {
             if (OwnedCollaborationUseDep == null) {
             	OwnedCollaborationUseDep = classof().getDependencyDef("OwnedCollaborationUse");
@@ -354,7 +354,7 @@ public abstract class NameSpaceData extends ModelTreeData {
             return OwnedCollaborationUseDep;
         }
 
-        @objid ("0d53eaee-5eee-4994-8aff-85f4e6041d64")
+        @objid ("be1da1e2-6a06-4cc5-ab82-a37b61dd329c")
         public static SmDependency OwnedPackageImportDep() {
             if (OwnedPackageImportDep == null) {
             	OwnedPackageImportDep = classof().getDependencyDef("OwnedPackageImport");
@@ -362,7 +362,7 @@ public abstract class NameSpaceData extends ModelTreeData {
             return OwnedPackageImportDep;
         }
 
-        @objid ("ba6a373e-3ab4-4815-9723-5e3de8d8dc0f")
+        @objid ("be8bd033-4d4e-49bc-9ae8-1c8e1e01acff")
         public static SmDependency TemplateDep() {
             if (TemplateDep == null) {
             	TemplateDep = classof().getDependencyDef("Template");
@@ -370,7 +370,7 @@ public abstract class NameSpaceData extends ModelTreeData {
             return TemplateDep;
         }
 
-        @objid ("3bfd0baf-f771-44f5-877c-82e37de93df5")
+        @objid ("a973c4e6-dacb-4ed4-9c30-cf72f5b01ab8")
         public static SmDependency SpecializationDep() {
             if (SpecializationDep == null) {
             	SpecializationDep = classof().getDependencyDef("Specialization");
@@ -378,7 +378,7 @@ public abstract class NameSpaceData extends ModelTreeData {
             return SpecializationDep;
         }
 
-        @objid ("36974016-84ba-4865-92f1-6c2e226af747")
+        @objid ("4ee9492d-7499-40c2-ae58-d9c7a49a43e8")
         public static SmDependency RealizedDep() {
             if (RealizedDep == null) {
             	RealizedDep = classof().getDependencyDef("Realized");
@@ -386,7 +386,7 @@ public abstract class NameSpaceData extends ModelTreeData {
             return RealizedDep;
         }
 
-        @objid ("e3f3a979-4d64-4cd4-94bc-76188a64e86c")
+        @objid ("d68d2b73-ab18-4e94-92ea-0a1f0dc1091a")
         public static SmDependency DeclaredDep() {
             if (DeclaredDep == null) {
             	DeclaredDep = classof().getDependencyDef("Declared");
@@ -394,7 +394,7 @@ public abstract class NameSpaceData extends ModelTreeData {
             return DeclaredDep;
         }
 
-        @objid ("b6261b9a-d75b-4a0f-9651-392eb6d9d362")
+        @objid ("c05d2f42-1d4d-45fd-99be-e63445e3f2cb")
         public static SmDependency InstanciatingBindingDep() {
             if (InstanciatingBindingDep == null) {
             	InstanciatingBindingDep = classof().getDependencyDef("InstanciatingBinding");
@@ -402,7 +402,7 @@ public abstract class NameSpaceData extends ModelTreeData {
             return InstanciatingBindingDep;
         }
 
-        @objid ("6c4b2986-ab04-4848-b75a-c5eecad6c306")
+        @objid ("ac67ae0b-d807-44e3-8a12-8313c20e9bca")
         public static SmDependency OwnedImportDep() {
             if (OwnedImportDep == null) {
             	OwnedImportDep = classof().getDependencyDef("OwnedImport");
@@ -410,7 +410,7 @@ public abstract class NameSpaceData extends ModelTreeData {
             return OwnedImportDep;
         }
 
-        @objid ("a731900c-ef76-4085-b4a7-3250c0da11c0")
+        @objid ("2c3e91e2-f78d-4313-9a62-fc58f64b7596")
         public static SmDependency UserNsuDep() {
             if (UserNsuDep == null) {
             	UserNsuDep = classof().getDependencyDef("UserNsu");
@@ -418,158 +418,158 @@ public abstract class NameSpaceData extends ModelTreeData {
             return UserNsuDep;
         }
 
-        @objid ("01b7f9d3-7713-4c4d-a588-06596009af4a")
-        public static SmDependency getInstanciatingBindingDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return InstanciatingBindingDep;
-        }
-
-        @objid ("85a5fd2c-1ba9-4802-abd0-5ba7681ead25")
-        public static SmDependency getDeclaredDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return DeclaredDep;
-        }
-
-        @objid ("e1265b51-cb4a-489d-aad1-9eb3a142add0")
-        public static SmDependency getOwnedCollaborationUseDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return OwnedCollaborationUseDep;
-        }
-
-        @objid ("b65e8d28-c489-4e8b-883c-e8c83bc0a085")
-        public static SmDependency getUsedNsuDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return UsedNsuDep;
-        }
-
-        @objid ("8739337b-5676-49df-8466-ea17bbee7259")
-        public static SmDependency getImportingDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return ImportingDep;
-        }
-
-        @objid ("502cee6e-f5a7-4716-8b21-271516bad6ad")
+        @objid ("7848f7bc-810d-4d76-9942-7a2b44ea7439")
         public static SmDependency getTemplateInstanciationDep() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return TemplateInstanciationDep;
         }
 
-        @objid ("736cde8c-3bc4-40cc-9258-eef1b5c423fc")
-        public static SmDependency getOwnedInformationFlowDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return OwnedInformationFlowDep;
-        }
-
-        @objid ("e1136be4-1c4b-41b2-b9f1-5bfc53b20241")
-        public static SmAttribute getIsAbstractAtt() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return IsAbstractAtt;
-        }
-
-        @objid ("5df12a65-5e1d-43cb-a1bc-56be818b15b9")
-        public static SmDependency getOwnedDataFlowDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return OwnedDataFlowDep;
-        }
-
-        @objid ("dd97bcc3-947d-4134-af5f-efcaa0660a17")
-        public static SmDependency getTemplateDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return TemplateDep;
-        }
-
-        @objid ("3bfeb8a2-201a-45ca-80d5-fcdcee50aa05")
-        public static SmAttribute getVisibilityAtt() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return VisibilityAtt;
-        }
-
-        @objid ("bb1e7850-fe68-4d1a-9cd5-11859f9ad155")
-        public static SmClass getSmClass() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return smClass;
-        }
-
-        @objid ("3cdf3b3c-2e45-49cb-88bd-6c6eb90b6816")
-        public static SmDependency getRepresentingDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return RepresentingDep;
-        }
-
-        @objid ("52270713-f29e-4ced-bd92-c365c034517a")
-        public static SmDependency getOwnedPackageImportDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return OwnedPackageImportDep;
-        }
-
-        @objid ("45c33e5d-998e-4e46-94e4-21ec2b8f1aee")
-        public static SmAttribute getIsRootAtt() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return IsRootAtt;
-        }
-
-        @objid ("a88448f2-c0db-44ea-82fc-01a5985b86ca")
-        public static SmDependency getReceivedDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return ReceivedDep;
-        }
-
-        @objid ("3887a2ae-04e9-4adf-bb81-3d415d0dec17")
-        public static SmAttribute getIsLeafAtt() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return IsLeafAtt;
-        }
-
-        @objid ("376d94bf-310b-4faa-84bb-f941e20b4080")
+        @objid ("8112511e-3e5b-484d-ad4f-e485af33bb31")
         public static SmDependency getSpecializationDep() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return SpecializationDep;
         }
 
-        @objid ("aefd1605-bd9b-45ca-956a-b76bbae71c1f")
-        public static SmDependency getOwnedBehaviorDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return OwnedBehaviorDep;
-        }
-
-        @objid ("a276c4a7-0efc-46ad-a098-c1cf2bf9c471")
+        @objid ("cf95fc7b-06af-41e9-8cd2-c2bb91692560")
         public static SmDependency getSentDep() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return SentDep;
         }
 
-        @objid ("379d9a0a-3d8b-44b1-ac24-4b4d56a8cb77")
-        public static SmDependency getRealizedDep() {
+        @objid ("44229b77-b313-43a4-baab-66a2fc673d94")
+        public static SmDependency getOwnedPackageImportDep() {
             // Automatically generated method. Please delete this comment before entering specific code.
-            return RealizedDep;
+            return OwnedPackageImportDep;
         }
 
-        @objid ("46ab59af-08d8-49d8-a99c-0bd64c615752")
-        public static SmDependency getOwnedImportDep() {
+        @objid ("e832b565-2975-43cb-b055-e246a0f96859")
+        public static SmDependency getOwnedBehaviorDep() {
             // Automatically generated method. Please delete this comment before entering specific code.
-            return OwnedImportDep;
+            return OwnedBehaviorDep;
         }
 
-        @objid ("481385a2-8da3-4caf-816c-68eab883fd01")
-        public static SmDependency getParentDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return ParentDep;
-        }
-
-        @objid ("2bf1e1b0-7069-469a-923c-e1f7cee693e6")
+        @objid ("e85b3f44-90e6-45b9-890e-83367cf4e934")
         public static SmDependency getUserNsuDep() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return UserNsuDep;
         }
 
+        @objid ("120cb9e6-8d04-4c5d-9b01-019be2d33a5b")
+        public static SmDependency getReceivedDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return ReceivedDep;
+        }
+
+        @objid ("b53b5f2a-197c-44d9-a4ef-773500fd1d03")
+        public static SmDependency getOwnedImportDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return OwnedImportDep;
+        }
+
+        @objid ("b8dddd77-78f9-4940-a9e1-23c74f97baf8")
+        public static SmAttribute getIsLeafAtt() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return IsLeafAtt;
+        }
+
+        @objid ("c8f8ac2c-bb19-4df2-adc4-b9392a12b096")
+        public static SmClass getSmClass() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return smClass;
+        }
+
+        @objid ("8c2f3054-e318-4875-bfef-87d2ebcac0cb")
+        public static SmAttribute getIsRootAtt() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return IsRootAtt;
+        }
+
+        @objid ("9f218cf6-1079-4cc0-82c5-1e759b6461d4")
+        public static SmDependency getInstanciatingBindingDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return InstanciatingBindingDep;
+        }
+
+        @objid ("4e496945-d0b9-43a8-8c25-2c3597fd6638")
+        public static SmDependency getRepresentingDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return RepresentingDep;
+        }
+
+        @objid ("9845497b-6728-47a2-bf48-ff23ab817d36")
+        public static SmDependency getDeclaredDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return DeclaredDep;
+        }
+
+        @objid ("6f0e29d9-bb9f-400c-bf8a-abbf4ff447d3")
+        public static SmDependency getImportingDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return ImportingDep;
+        }
+
+        @objid ("4e93a09a-e72e-4afe-b718-1e4d15282603")
+        public static SmAttribute getVisibilityAtt() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return VisibilityAtt;
+        }
+
+        @objid ("c888fba3-bfea-445c-939b-c6eb7fe51b27")
+        public static SmDependency getOwnedInformationFlowDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return OwnedInformationFlowDep;
+        }
+
+        @objid ("00cf3743-7f50-4727-8780-1773653b3c47")
+        public static SmDependency getRealizedDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return RealizedDep;
+        }
+
+        @objid ("27d0c9ff-087e-42c3-a494-1655fca214e8")
+        public static SmDependency getOwnedCollaborationUseDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return OwnedCollaborationUseDep;
+        }
+
+        @objid ("fb900290-818d-41d8-b6fd-14beccaf974d")
+        public static SmDependency getParentDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return ParentDep;
+        }
+
+        @objid ("f87179a9-67bd-466c-890c-43e1c5f295c9")
+        public static SmAttribute getIsAbstractAtt() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return IsAbstractAtt;
+        }
+
+        @objid ("8ff44755-93bf-47e2-8a78-fc151748a1a3")
+        public static SmDependency getUsedNsuDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return UsedNsuDep;
+        }
+
+        @objid ("c6c270be-da31-4cbd-b1dd-f0f3114a628f")
+        public static SmDependency getTemplateDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return TemplateDep;
+        }
+
+        @objid ("44c181db-8852-404e-97c9-95450d1b11ef")
+        public static SmDependency getOwnedDataFlowDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return OwnedDataFlowDep;
+        }
+
         @objid ("0094c9ec-c4c5-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("f1679fb1-db80-4f38-9395-cfad3f70c5b5")
+            @objid ("7b35e634-4453-49a0-8421-540e0c8a9866")
             public ISmObjectData createData() {
                 throw new UnsupportedOperationException();
             }
 
-            @objid ("63ede019-e5aa-49ea-9e97-8dacf1a3a7ae")
+            @objid ("eeea399b-03b1-4825-9d8c-190999e9a61f")
             public SmObjectImpl createImpl() {
                 throw new UnsupportedOperationException();
             }
@@ -578,12 +578,12 @@ public abstract class NameSpaceData extends ModelTreeData {
 
         @objid ("00952bd0-c4c5-1fd8-97fe-001ec947cd2a")
         public static class IsAbstractSmAttribute extends SmAttribute {
-            @objid ("66633729-389e-46c7-bbb5-54033906f963")
+            @objid ("b7398f8a-141a-410a-8d30-6692bf4395d9")
             public Object getValue(ISmObjectData data) {
                 return ((NameSpaceData) data).mIsAbstract;
             }
 
-            @objid ("4f0b5419-71de-4db1-900a-f0216d078509")
+            @objid ("7a09b952-224e-4beb-a3f1-f7e31e1ad5fe")
             public void setValue(ISmObjectData data, Object value) {
                 ((NameSpaceData) data).mIsAbstract = value;
             }
@@ -592,12 +592,12 @@ public abstract class NameSpaceData extends ModelTreeData {
 
         @objid ("00958c88-c4c5-1fd8-97fe-001ec947cd2a")
         public static class IsLeafSmAttribute extends SmAttribute {
-            @objid ("204c0bbd-9de7-4388-8626-b75a655694e8")
+            @objid ("91e1e327-0f59-4dd0-b307-e8fe09916a3d")
             public Object getValue(ISmObjectData data) {
                 return ((NameSpaceData) data).mIsLeaf;
             }
 
-            @objid ("89b7fbac-ece5-4e3b-8d67-e9887814208b")
+            @objid ("1dcfa965-fc96-427d-b43d-2b9116e40269")
             public void setValue(ISmObjectData data, Object value) {
                 ((NameSpaceData) data).mIsLeaf = value;
             }
@@ -606,12 +606,12 @@ public abstract class NameSpaceData extends ModelTreeData {
 
         @objid ("0095ece6-c4c5-1fd8-97fe-001ec947cd2a")
         public static class IsRootSmAttribute extends SmAttribute {
-            @objid ("4a73081e-f0d7-4d81-9223-51c03378e3df")
+            @objid ("248d9ff5-c25c-420b-9423-41a1e795d8ba")
             public Object getValue(ISmObjectData data) {
                 return ((NameSpaceData) data).mIsRoot;
             }
 
-            @objid ("13ac998b-ebfa-41e1-805e-1bfe2f7cbd21")
+            @objid ("a0b2a0e3-507e-4db2-8ab1-b65212702623")
             public void setValue(ISmObjectData data, Object value) {
                 ((NameSpaceData) data).mIsRoot = value;
             }
@@ -620,12 +620,12 @@ public abstract class NameSpaceData extends ModelTreeData {
 
         @objid ("00964fb0-c4c5-1fd8-97fe-001ec947cd2a")
         public static class VisibilitySmAttribute extends SmAttribute {
-            @objid ("6ab3c13f-217d-4e00-aa5d-4b74610d2210")
+            @objid ("cfc048ae-cfe2-4a9d-bfac-0377fcea1116")
             public Object getValue(ISmObjectData data) {
                 return ((NameSpaceData) data).mVisibility;
             }
 
-            @objid ("785fa799-b72b-4a31-ab9d-a7af1277a6c8")
+            @objid ("c25cebed-51a7-44a0-9245-c4c325505428")
             public void setValue(ISmObjectData data, Object value) {
                 ((NameSpaceData) data).mVisibility = value;
             }
@@ -634,20 +634,20 @@ public abstract class NameSpaceData extends ModelTreeData {
 
         @objid ("0096b702-c4c5-1fd8-97fe-001ec947cd2a")
         public static class OwnedCollaborationUseSmDependency extends SmMultipleDependency {
-            @objid ("a898973f-e033-4444-917e-314bcd0935ad")
+            @objid ("7e60e861-4bec-4cae-9520-79cfd2d3c513")
             @Override
             public List<SmObjectImpl> getValueList(ISmObjectData data) {
                 return (((NameSpaceData)data).mOwnedCollaborationUse != null)? ((NameSpaceData)data).mOwnedCollaborationUse:SmMultipleDependency.EMPTY;
             }
 
-            @objid ("9aa44e12-4b00-4b69-b485-84431a6046aa")
+            @objid ("bde76641-9273-47fa-b7cf-cced1f731c4a")
             @Override
             protected List<SmObjectImpl> allocateValueList(ISmObjectData data, int initialCapacity) {
                 ((NameSpaceData) data).mOwnedCollaborationUse = new ArrayList<>(initialCapacity);
                 return ((NameSpaceData) data).mOwnedCollaborationUse;
             }
 
-            @objid ("46316f5c-4e34-48ba-aea8-1c98bd56c27f")
+            @objid ("14868d87-90dd-4c75-8ba6-6d9f802656e0")
             @Override
             public SmDependency getSymetric() {
                 return CollaborationUseData.Metadata.NRepresentedDep();
@@ -657,20 +657,20 @@ public abstract class NameSpaceData extends ModelTreeData {
 
         @objid ("00971efe-c4c5-1fd8-97fe-001ec947cd2a")
         public static class ReceivedSmDependency extends SmMultipleDependency {
-            @objid ("f36e2b0b-9e3b-4b0b-b235-8b15a06bdf01")
+            @objid ("8844bb44-b364-4b42-a6ba-b0e66ad69f41")
             @Override
             public List<SmObjectImpl> getValueList(ISmObjectData data) {
                 return (((NameSpaceData)data).mReceived != null)? ((NameSpaceData)data).mReceived:SmMultipleDependency.EMPTY;
             }
 
-            @objid ("42fc19d8-0534-45ad-a03b-701a1673459c")
+            @objid ("e5782944-c43c-4e6b-a124-3573742dea54")
             @Override
             protected List<SmObjectImpl> allocateValueList(ISmObjectData data, int initialCapacity) {
                 ((NameSpaceData) data).mReceived = new ArrayList<>(initialCapacity);
                 return ((NameSpaceData) data).mReceived;
             }
 
-            @objid ("31d00c7a-b760-47fc-9fe9-6cededcbc95c")
+            @objid ("638818f4-dfb9-4023-8e50-eab15ad01aed")
             @Override
             public SmDependency getSymetric() {
                 return DataFlowData.Metadata.DestinationDep();
@@ -680,20 +680,20 @@ public abstract class NameSpaceData extends ModelTreeData {
 
         @objid ("009783ee-c4c5-1fd8-97fe-001ec947cd2a")
         public static class SentSmDependency extends SmMultipleDependency {
-            @objid ("2d106360-6024-4909-a0be-754a5de45f08")
+            @objid ("4506fedc-8354-4a92-bc6c-f5efa3a4a65b")
             @Override
             public List<SmObjectImpl> getValueList(ISmObjectData data) {
                 return (((NameSpaceData)data).mSent != null)? ((NameSpaceData)data).mSent:SmMultipleDependency.EMPTY;
             }
 
-            @objid ("80b43918-cdb6-4877-9028-c7003847347d")
+            @objid ("c0fb61f9-3053-4b97-aa05-e330c099f6ee")
             @Override
             protected List<SmObjectImpl> allocateValueList(ISmObjectData data, int initialCapacity) {
                 ((NameSpaceData) data).mSent = new ArrayList<>(initialCapacity);
                 return ((NameSpaceData) data).mSent;
             }
 
-            @objid ("4419daf1-6f92-4fdc-a171-e3b6f4c2d6c6")
+            @objid ("a5d71a1c-2119-4fa4-9e8c-b113b9517264")
             @Override
             public SmDependency getSymetric() {
                 return DataFlowData.Metadata.OriginDep();
@@ -703,20 +703,20 @@ public abstract class NameSpaceData extends ModelTreeData {
 
         @objid ("0097e8b6-c4c5-1fd8-97fe-001ec947cd2a")
         public static class OwnedDataFlowSmDependency extends SmMultipleDependency {
-            @objid ("e4af2628-d6f4-4567-aafb-f57c0972a785")
+            @objid ("67eb4236-9c05-4a05-b811-c973ddbe498e")
             @Override
             public List<SmObjectImpl> getValueList(ISmObjectData data) {
                 return (((NameSpaceData)data).mOwnedDataFlow != null)? ((NameSpaceData)data).mOwnedDataFlow:SmMultipleDependency.EMPTY;
             }
 
-            @objid ("525aaa12-697c-4827-87f1-9cea96d92a52")
+            @objid ("79328efe-b131-4bdc-b5f2-8de2e8058e98")
             @Override
             protected List<SmObjectImpl> allocateValueList(ISmObjectData data, int initialCapacity) {
                 ((NameSpaceData) data).mOwnedDataFlow = new ArrayList<>(initialCapacity);
                 return ((NameSpaceData) data).mOwnedDataFlow;
             }
 
-            @objid ("bd01244b-fc55-4234-8232-d734442f1145")
+            @objid ("faea3f81-d3a2-46cb-9d1a-9825d838133f")
             @Override
             public SmDependency getSymetric() {
                 return DataFlowData.Metadata.OwnerDep();
@@ -726,20 +726,20 @@ public abstract class NameSpaceData extends ModelTreeData {
 
         @objid ("00984de2-c4c5-1fd8-97fe-001ec947cd2a")
         public static class ImportingSmDependency extends SmMultipleDependency {
-            @objid ("71164a43-7ad6-46d0-94eb-65d41493d431")
+            @objid ("0e93a655-5499-40e4-8d0e-0d48b994493b")
             @Override
             public List<SmObjectImpl> getValueList(ISmObjectData data) {
                 return (((NameSpaceData)data).mImporting != null)? ((NameSpaceData)data).mImporting:SmMultipleDependency.EMPTY;
             }
 
-            @objid ("6b2bbe60-0330-45f5-8d3a-4e82eab1f745")
+            @objid ("436c5a34-60ae-4e97-95c9-61fe69c5442d")
             @Override
             protected List<SmObjectImpl> allocateValueList(ISmObjectData data, int initialCapacity) {
                 ((NameSpaceData) data).mImporting = new ArrayList<>(initialCapacity);
                 return ((NameSpaceData) data).mImporting;
             }
 
-            @objid ("c7b8958e-6f67-4c65-852d-0bf407e3d39d")
+            @objid ("87b7bd4f-aacd-4614-814b-caf4d1a707cc")
             @Override
             public SmDependency getSymetric() {
                 return ElementImportData.Metadata.ImportedElementDep();
@@ -749,20 +749,20 @@ public abstract class NameSpaceData extends ModelTreeData {
 
         @objid ("0000df20-c4c6-1fd8-97fe-001ec947cd2a")
         public static class OwnedImportSmDependency extends SmMultipleDependency {
-            @objid ("c5bb7a34-6134-468b-8a77-6f37142c7e3a")
+            @objid ("536d7bb3-d349-490f-ba4c-b62a9d97609f")
             @Override
             public List<SmObjectImpl> getValueList(ISmObjectData data) {
                 return (((NameSpaceData)data).mOwnedImport != null)? ((NameSpaceData)data).mOwnedImport:SmMultipleDependency.EMPTY;
             }
 
-            @objid ("f7fc6d4a-bd84-48c8-a7f5-c8b6f92f2fdf")
+            @objid ("d9fb0e32-59c5-4256-9f2c-46535565471b")
             @Override
             protected List<SmObjectImpl> allocateValueList(ISmObjectData data, int initialCapacity) {
                 ((NameSpaceData) data).mOwnedImport = new ArrayList<>(initialCapacity);
                 return ((NameSpaceData) data).mOwnedImport;
             }
 
-            @objid ("677a92b1-9e42-4c9c-9d6c-0f4b28a0ea2d")
+            @objid ("4e06c271-22c5-4049-a794-997fecdf7109")
             @Override
             public SmDependency getSymetric() {
                 return ElementImportData.Metadata.ImportingNameSpaceDep();
@@ -772,20 +772,20 @@ public abstract class NameSpaceData extends ModelTreeData {
 
         @objid ("000157d4-c4c6-1fd8-97fe-001ec947cd2a")
         public static class SpecializationSmDependency extends SmMultipleDependency {
-            @objid ("8c14c3b1-866d-496e-8a41-741b057a897a")
+            @objid ("455aaa6a-75bc-40fe-8cbb-27b02b8e7ac6")
             @Override
             public List<SmObjectImpl> getValueList(ISmObjectData data) {
                 return (((NameSpaceData)data).mSpecialization != null)? ((NameSpaceData)data).mSpecialization:SmMultipleDependency.EMPTY;
             }
 
-            @objid ("b8af7f5b-84e3-421e-a45a-edfcc65ac6de")
+            @objid ("67c69e19-066a-4d4c-8653-9ccd7e30c1eb")
             @Override
             protected List<SmObjectImpl> allocateValueList(ISmObjectData data, int initialCapacity) {
                 ((NameSpaceData) data).mSpecialization = new ArrayList<>(initialCapacity);
                 return ((NameSpaceData) data).mSpecialization;
             }
 
-            @objid ("23c3ba4e-aa09-4f7d-90bf-497f34351ed8")
+            @objid ("8ce68adb-419a-4595-b8fe-6ab4f4d75e2b")
             @Override
             public SmDependency getSymetric() {
                 return GeneralizationData.Metadata.SuperTypeDep();
@@ -795,20 +795,20 @@ public abstract class NameSpaceData extends ModelTreeData {
 
         @objid ("0001c052-c4c6-1fd8-97fe-001ec947cd2a")
         public static class ParentSmDependency extends SmMultipleDependency {
-            @objid ("cb0e2cfd-661c-4bcb-9735-f3899d953380")
+            @objid ("641e1156-b9ef-4cc5-a4a2-f62f394ce2f3")
             @Override
             public List<SmObjectImpl> getValueList(ISmObjectData data) {
                 return (((NameSpaceData)data).mParent != null)? ((NameSpaceData)data).mParent:SmMultipleDependency.EMPTY;
             }
 
-            @objid ("5ee5ef88-bc74-4a31-a7bf-73038240e820")
+            @objid ("b32ffb3e-623c-4e38-8d98-e72d0d9524d1")
             @Override
             protected List<SmObjectImpl> allocateValueList(ISmObjectData data, int initialCapacity) {
                 ((NameSpaceData) data).mParent = new ArrayList<>(initialCapacity);
                 return ((NameSpaceData) data).mParent;
             }
 
-            @objid ("7b970b88-3604-486c-bc6e-19a58919a146")
+            @objid ("68736a35-e561-4e35-a3b6-8adb39d17be2")
             @Override
             public SmDependency getSymetric() {
                 return GeneralizationData.Metadata.SubTypeDep();
@@ -818,20 +818,20 @@ public abstract class NameSpaceData extends ModelTreeData {
 
         @objid ("000228d0-c4c6-1fd8-97fe-001ec947cd2a")
         public static class RepresentingSmDependency extends SmMultipleDependency {
-            @objid ("d4314b55-4220-43b2-9d7b-7f0bf30d96e0")
+            @objid ("ecdbf167-d61d-4acc-8f86-cdfc37b89f71")
             @Override
             public List<SmObjectImpl> getValueList(ISmObjectData data) {
                 return (((NameSpaceData)data).mRepresenting != null)? ((NameSpaceData)data).mRepresenting:SmMultipleDependency.EMPTY;
             }
 
-            @objid ("c14a6125-5184-4c3a-8484-0de31a89660e")
+            @objid ("5c03bbdc-766e-4f46-8f50-2203d12a2a6e")
             @Override
             protected List<SmObjectImpl> allocateValueList(ISmObjectData data, int initialCapacity) {
                 ((NameSpaceData) data).mRepresenting = new ArrayList<>(initialCapacity);
                 return ((NameSpaceData) data).mRepresenting;
             }
 
-            @objid ("a527f794-b570-4098-932e-d4dfd6fa8934")
+            @objid ("792610af-984b-45ae-83df-a52bf025c2b9")
             @Override
             public SmDependency getSymetric() {
                 return InstanceData.Metadata.BaseDep();
@@ -841,20 +841,20 @@ public abstract class NameSpaceData extends ModelTreeData {
 
         @objid ("00029216-c4c6-1fd8-97fe-001ec947cd2a")
         public static class DeclaredSmDependency extends SmMultipleDependency {
-            @objid ("73002819-5262-442e-b2a0-02ab0b630283")
+            @objid ("03508a75-8d66-4a9e-b181-f0f1f8feae4f")
             @Override
             public List<SmObjectImpl> getValueList(ISmObjectData data) {
                 return (((NameSpaceData)data).mDeclared != null)? ((NameSpaceData)data).mDeclared:SmMultipleDependency.EMPTY;
             }
 
-            @objid ("b9672c68-0d32-4a37-a360-28293173ac2a")
+            @objid ("bf6950d8-f21e-48af-bcc3-e2e403e685c1")
             @Override
             protected List<SmObjectImpl> allocateValueList(ISmObjectData data, int initialCapacity) {
                 ((NameSpaceData) data).mDeclared = new ArrayList<>(initialCapacity);
                 return ((NameSpaceData) data).mDeclared;
             }
 
-            @objid ("f6dd3394-b9f3-4181-93e5-c555d23a5bfd")
+            @objid ("11a2ec77-36ab-49e5-b4c6-c9b094ed26b5")
             @Override
             public SmDependency getSymetric() {
                 return InstanceData.Metadata.OwnerDep();
@@ -864,20 +864,20 @@ public abstract class NameSpaceData extends ModelTreeData {
 
         @objid ("0002fb2a-c4c6-1fd8-97fe-001ec947cd2a")
         public static class OwnedBehaviorSmDependency extends SmMultipleDependency {
-            @objid ("fcccd1db-637d-45fe-aad0-3439b8910348")
+            @objid ("dc69767c-011f-4c49-9a62-ac09a7fb07ed")
             @Override
             public List<SmObjectImpl> getValueList(ISmObjectData data) {
                 return (((NameSpaceData)data).mOwnedBehavior != null)? ((NameSpaceData)data).mOwnedBehavior:SmMultipleDependency.EMPTY;
             }
 
-            @objid ("c32ade16-77dc-42ce-be46-fb9902c713b2")
+            @objid ("1dd3ea5e-9936-44d4-802d-34b6c24a3e90")
             @Override
             protected List<SmObjectImpl> allocateValueList(ISmObjectData data, int initialCapacity) {
                 ((NameSpaceData) data).mOwnedBehavior = new ArrayList<>(initialCapacity);
                 return ((NameSpaceData) data).mOwnedBehavior;
             }
 
-            @objid ("bce9aed7-d855-4c20-9b95-75f4ec45d0d8")
+            @objid ("cbda5a8c-948e-4063-849c-c05477d7f41c")
             @Override
             public SmDependency getSymetric() {
                 return BehaviorData.Metadata.OwnerDep();
@@ -887,20 +887,20 @@ public abstract class NameSpaceData extends ModelTreeData {
 
         @objid ("00036592-c4c6-1fd8-97fe-001ec947cd2a")
         public static class RealizedSmDependency extends SmMultipleDependency {
-            @objid ("7dc767e9-faa7-4efc-890e-7f5d71c96dcf")
+            @objid ("75b84c0a-7104-4cdd-8594-5bb8037cbc24")
             @Override
             public List<SmObjectImpl> getValueList(ISmObjectData data) {
                 return (((NameSpaceData)data).mRealized != null)? ((NameSpaceData)data).mRealized:SmMultipleDependency.EMPTY;
             }
 
-            @objid ("bcba93f1-7e16-4cc5-b738-d952af1f059c")
+            @objid ("481a65c0-93c9-433c-88b9-738a9da6a8e2")
             @Override
             protected List<SmObjectImpl> allocateValueList(ISmObjectData data, int initialCapacity) {
                 ((NameSpaceData) data).mRealized = new ArrayList<>(initialCapacity);
                 return ((NameSpaceData) data).mRealized;
             }
 
-            @objid ("ec055c49-e6a0-4f29-b875-227ee31358c1")
+            @objid ("8d653f00-8254-46ee-ba11-4372756a80c8")
             @Override
             public SmDependency getSymetric() {
                 return InterfaceRealizationData.Metadata.ImplementerDep();
@@ -910,20 +910,20 @@ public abstract class NameSpaceData extends ModelTreeData {
 
         @objid ("0003d022-c4c6-1fd8-97fe-001ec947cd2a")
         public static class TemplateSmDependency extends SmMultipleDependency {
-            @objid ("87c8855b-fe48-40e3-8c37-b33a6bdd5fa4")
+            @objid ("ec14230a-0484-4d60-8d0c-a750d9ce2aa5")
             @Override
             public List<SmObjectImpl> getValueList(ISmObjectData data) {
                 return (((NameSpaceData)data).mTemplate != null)? ((NameSpaceData)data).mTemplate:SmMultipleDependency.EMPTY;
             }
 
-            @objid ("1d0e7919-13f6-43c2-af73-7d4ba621fb93")
+            @objid ("459d1e80-fca0-45a9-b727-dca0f8cb2ef8")
             @Override
             protected List<SmObjectImpl> allocateValueList(ISmObjectData data, int initialCapacity) {
                 ((NameSpaceData) data).mTemplate = new ArrayList<>(initialCapacity);
                 return ((NameSpaceData) data).mTemplate;
             }
 
-            @objid ("5699d79b-0c5a-4867-8ca6-803a140d3df8")
+            @objid ("68ee8525-658b-44a3-9f4d-6005fe3e3fc6")
             @Override
             public SmDependency getSymetric() {
                 return TemplateParameterData.Metadata.ParameterizedDep();
@@ -933,20 +933,20 @@ public abstract class NameSpaceData extends ModelTreeData {
 
         @objid ("00043ac6-c4c6-1fd8-97fe-001ec947cd2a")
         public static class InstanciatingBindingSmDependency extends SmMultipleDependency {
-            @objid ("5f9ea5f2-8d79-451c-bcac-9416d845d882")
+            @objid ("08824dc3-1300-421f-89f6-40cb822e6c4a")
             @Override
             public List<SmObjectImpl> getValueList(ISmObjectData data) {
                 return (((NameSpaceData)data).mInstanciatingBinding != null)? ((NameSpaceData)data).mInstanciatingBinding:SmMultipleDependency.EMPTY;
             }
 
-            @objid ("e97153e4-70c6-4327-93d7-462bcbe1e883")
+            @objid ("25b676fe-d7e9-40b5-abca-dd09934fc4bd")
             @Override
             protected List<SmObjectImpl> allocateValueList(ISmObjectData data, int initialCapacity) {
                 ((NameSpaceData) data).mInstanciatingBinding = new ArrayList<>(initialCapacity);
                 return ((NameSpaceData) data).mInstanciatingBinding;
             }
 
-            @objid ("6e345801-d3d4-4de3-b3c4-7cf575777064")
+            @objid ("2cb8da07-69c1-4911-a565-0d2452e658c5")
             @Override
             public SmDependency getSymetric() {
                 return TemplateBindingData.Metadata.InstanciatedTemplateDep();
@@ -956,20 +956,20 @@ public abstract class NameSpaceData extends ModelTreeData {
 
         @objid ("0004a650-c4c6-1fd8-97fe-001ec947cd2a")
         public static class OwnedPackageImportSmDependency extends SmMultipleDependency {
-            @objid ("0b26fe9b-d545-4742-9920-eb1b02d18b3c")
+            @objid ("2c6367e2-7f2d-467b-8bbf-ba63d7442df4")
             @Override
             public List<SmObjectImpl> getValueList(ISmObjectData data) {
                 return (((NameSpaceData)data).mOwnedPackageImport != null)? ((NameSpaceData)data).mOwnedPackageImport:SmMultipleDependency.EMPTY;
             }
 
-            @objid ("9ac0f11e-0107-4ae3-83b1-74cca246a8c6")
+            @objid ("91d240d0-7fc8-4152-8452-94d376f116cb")
             @Override
             protected List<SmObjectImpl> allocateValueList(ISmObjectData data, int initialCapacity) {
                 ((NameSpaceData) data).mOwnedPackageImport = new ArrayList<>(initialCapacity);
                 return ((NameSpaceData) data).mOwnedPackageImport;
             }
 
-            @objid ("1b49dd33-ef6f-4de6-91cc-95cb70cf43a4")
+            @objid ("5e615f12-8954-408a-a1b1-036e787c9c34")
             @Override
             public SmDependency getSymetric() {
                 return PackageImportData.Metadata.ImportingNameSpaceDep();
@@ -979,20 +979,20 @@ public abstract class NameSpaceData extends ModelTreeData {
 
         @objid ("00051310-c4c6-1fd8-97fe-001ec947cd2a")
         public static class TemplateInstanciationSmDependency extends SmMultipleDependency {
-            @objid ("7fb42613-390c-412c-bd39-2b64e6fab508")
+            @objid ("60776dad-717e-4ed1-bf3e-a1b5f926525c")
             @Override
             public List<SmObjectImpl> getValueList(ISmObjectData data) {
                 return (((NameSpaceData)data).mTemplateInstanciation != null)? ((NameSpaceData)data).mTemplateInstanciation:SmMultipleDependency.EMPTY;
             }
 
-            @objid ("f8763d2a-236c-47fc-878c-2cc7bf035b65")
+            @objid ("e6a9119b-b923-4619-9faa-3e9903f2c8e5")
             @Override
             protected List<SmObjectImpl> allocateValueList(ISmObjectData data, int initialCapacity) {
                 ((NameSpaceData) data).mTemplateInstanciation = new ArrayList<>(initialCapacity);
                 return ((NameSpaceData) data).mTemplateInstanciation;
             }
 
-            @objid ("e9c223cd-8de6-4e05-8c27-52cd49cb0f77")
+            @objid ("c674218b-d14e-4101-bc6b-45bc57777928")
             @Override
             public SmDependency getSymetric() {
                 return TemplateBindingData.Metadata.BoundElementDep();
@@ -1002,20 +1002,20 @@ public abstract class NameSpaceData extends ModelTreeData {
 
         @objid ("00057f80-c4c6-1fd8-97fe-001ec947cd2a")
         public static class UserNsuSmDependency extends SmMultipleDependency {
-            @objid ("b7693039-a857-4a73-9978-00cfa321fd6c")
+            @objid ("1d104cc8-870d-4b76-99ef-8197c6e1eaa0")
             @Override
             public List<SmObjectImpl> getValueList(ISmObjectData data) {
                 return (((NameSpaceData)data).mUserNsu != null)? ((NameSpaceData)data).mUserNsu:SmMultipleDependency.EMPTY;
             }
 
-            @objid ("3fddbd72-9020-4270-af45-b788abfc1355")
+            @objid ("0e3dd3b5-1290-4f8f-9a7c-8a2c8c405fc4")
             @Override
             protected List<SmObjectImpl> allocateValueList(ISmObjectData data, int initialCapacity) {
                 ((NameSpaceData) data).mUserNsu = new ArrayList<>(initialCapacity);
                 return ((NameSpaceData) data).mUserNsu;
             }
 
-            @objid ("67cba86f-7b23-47ee-ab16-571a42eab89a")
+            @objid ("6d04a9f2-12ab-4b49-b134-21fc1d97179c")
             @Override
             public SmDependency getSymetric() {
                 return NamespaceUseData.Metadata.UsedDep();
@@ -1025,20 +1025,20 @@ public abstract class NameSpaceData extends ModelTreeData {
 
         @objid ("0005ecd6-c4c6-1fd8-97fe-001ec947cd2a")
         public static class UsedNsuSmDependency extends SmMultipleDependency {
-            @objid ("0734fa1f-b16c-479f-8b27-eff39fb1ca5e")
+            @objid ("dcb59264-89c8-4092-8934-59edb60bd2a6")
             @Override
             public List<SmObjectImpl> getValueList(ISmObjectData data) {
                 return (((NameSpaceData)data).mUsedNsu != null)? ((NameSpaceData)data).mUsedNsu:SmMultipleDependency.EMPTY;
             }
 
-            @objid ("b29729ab-e9ad-4dbe-8991-c161a4e276bf")
+            @objid ("24cee543-00c6-4ebd-87aa-1e2ace71a00d")
             @Override
             protected List<SmObjectImpl> allocateValueList(ISmObjectData data, int initialCapacity) {
                 ((NameSpaceData) data).mUsedNsu = new ArrayList<>(initialCapacity);
                 return ((NameSpaceData) data).mUsedNsu;
             }
 
-            @objid ("24398561-9a57-4d97-9caf-1b8b9133d09f")
+            @objid ("460552c0-5a8e-4027-8ae5-c3ef86c94c54")
             @Override
             public SmDependency getSymetric() {
                 return NamespaceUseData.Metadata.UserDep();
@@ -1048,20 +1048,20 @@ public abstract class NameSpaceData extends ModelTreeData {
 
         @objid ("00065af4-c4c6-1fd8-97fe-001ec947cd2a")
         public static class OwnedInformationFlowSmDependency extends SmMultipleDependency {
-            @objid ("baf1ade4-b3f1-4cf4-bb56-fc9dc0030dce")
+            @objid ("8e4c951f-267e-49c3-bba9-504c31f5e8d3")
             @Override
             public List<SmObjectImpl> getValueList(ISmObjectData data) {
                 return (((NameSpaceData)data).mOwnedInformationFlow != null)? ((NameSpaceData)data).mOwnedInformationFlow:SmMultipleDependency.EMPTY;
             }
 
-            @objid ("90f75f78-2396-4a5d-8543-f29becd3a80a")
+            @objid ("a0b6e972-10ab-4761-aee6-85c30dc20446")
             @Override
             protected List<SmObjectImpl> allocateValueList(ISmObjectData data, int initialCapacity) {
                 ((NameSpaceData) data).mOwnedInformationFlow = new ArrayList<>(initialCapacity);
                 return ((NameSpaceData) data).mOwnedInformationFlow;
             }
 
-            @objid ("78daa3ce-b10d-4dcd-89b3-fabd7a4a0918")
+            @objid ("b816ff85-f566-4e0e-ab13-5f8b8da6b7f0")
             @Override
             public SmDependency getSymetric() {
                 return InformationFlowData.Metadata.OwnerDep();

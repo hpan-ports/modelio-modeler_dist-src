@@ -48,6 +48,7 @@ import org.modelio.gproject.gproject.GProject;
 import org.modelio.gproject.model.IMModelServices;
 import org.modelio.gproject.model.MModelServices;
 import org.modelio.metamodel.analyst.BusinessRule;
+import org.modelio.metamodel.analyst.GenericAnalystElement;
 import org.modelio.metamodel.analyst.Goal;
 import org.modelio.metamodel.analyst.Requirement;
 import org.modelio.metamodel.analyst.Term;
@@ -153,6 +154,8 @@ public class ScopeRichTextCellEditor extends KTableCellEditor {
                 docTypeName = "requirement";
             } else if (this.editedElement instanceof Term) {
                 docTypeName = "term";
+            } else if (this.editedElement instanceof GenericAnalystElement) {
+                docTypeName = "generic_analyst";
             } else {
                 // Not an analyst element, should never happen
                 assert false : this.editedElement ;

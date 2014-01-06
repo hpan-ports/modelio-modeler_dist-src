@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.uml.infrastructure;
 
 import java.util.ArrayList;
@@ -60,73 +60,73 @@ public class TagTypeImpl extends ModelElementImpl implements TagType {
             return null;
     }
 
-    @objid ("ea6a7c0e-939b-4e38-a81c-e56cf630787e")
+    @objid ("4fc9d71d-f807-4527-8794-ecce56d08517")
     @Override
     public String getParamNumber() {
         return (String) getAttVal(TagTypeData.Metadata.ParamNumberAtt());
     }
 
-    @objid ("8d87cfd0-d72c-4444-9e8e-8afc015a0f82")
+    @objid ("daa85e76-cf95-4c59-b8c1-63bb3f7f98c4")
     @Override
     public void setParamNumber(String value) {
         setAttVal(TagTypeData.Metadata.ParamNumberAtt(), value);
     }
 
-    @objid ("d444719b-994f-4652-8a34-55d6bdfc1038")
+    @objid ("8fc21f89-2c05-446a-9ffb-72bc1e9f5859")
     @Override
     public boolean isIsQualified() {
         return (Boolean) getAttVal(TagTypeData.Metadata.IsQualifiedAtt());
     }
 
-    @objid ("9eef3272-4f3b-4516-a8d4-b843f64bbe2d")
+    @objid ("ac5d42bb-1410-4145-a672-4d898abad07a")
     @Override
     public void setIsQualified(boolean value) {
         setAttVal(TagTypeData.Metadata.IsQualifiedAtt(), value);
     }
 
-    @objid ("b19da076-ae41-420b-be95-fca837c5e314")
+    @objid ("3cad4cc4-cc8c-4d5e-8a7c-ea966ba444ec")
     @Override
     public boolean isBelongToPrototype() {
         return (Boolean) getAttVal(TagTypeData.Metadata.BelongToPrototypeAtt());
     }
 
-    @objid ("3a8e9b90-fe6e-40d2-81e4-e759ddec7746")
+    @objid ("01029fa2-cf28-4bb3-8be6-170d035fb2bc")
     @Override
     public void setBelongToPrototype(boolean value) {
         setAttVal(TagTypeData.Metadata.BelongToPrototypeAtt(), value);
     }
 
-    @objid ("0f6fc2c0-b076-4215-93c9-9e849d5843ee")
+    @objid ("48aa7fac-f9c4-4834-a9d1-de37392d621d")
     @Override
     public boolean isIsHidden() {
         return (Boolean) getAttVal(TagTypeData.Metadata.IsHiddenAtt());
     }
 
-    @objid ("a6907e5a-73b9-42e7-a35c-64583673afac")
+    @objid ("189c6927-9be4-48ae-9e83-2dd2a3fc9edb")
     @Override
     public void setIsHidden(boolean value) {
         setAttVal(TagTypeData.Metadata.IsHiddenAtt(), value);
     }
 
-    @objid ("38dc6a7b-1e96-471a-85b0-6665dcecef4c")
+    @objid ("2d286eb7-4c43-4832-8355-6c174a6175a3")
     @Override
     public String getLabelKey() {
         return (String) getAttVal(TagTypeData.Metadata.LabelKeyAtt());
     }
 
-    @objid ("0e21e449-34f2-4a5b-a5e5-9df0f93b328a")
+    @objid ("84acc99a-145d-4385-8688-fd41989e9d5e")
     @Override
     public void setLabelKey(String value) {
         setAttVal(TagTypeData.Metadata.LabelKeyAtt(), value);
     }
 
-    @objid ("e5bcfe65-f366-4e43-9e9c-6594cd381a07")
+    @objid ("ac1f9faf-2a04-4c8d-8ced-9069c10d86f0")
     @Override
     public EList<TaggedValue> getTagOccurence() {
         return new SmList<>(this, TagTypeData.Metadata.TagOccurenceDep());
     }
 
-    @objid ("0ff73fc8-fbac-43cb-9eef-6f0329f144de")
+    @objid ("e0713d46-b94f-4375-b3a8-94f46ba589c4")
     @Override
     public <T extends TaggedValue> List<T> getTagOccurence(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -139,31 +139,31 @@ public class TagTypeImpl extends ModelElementImpl implements TagType {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("dff2c010-e222-4033-9ae6-41cf6a0494ac")
+    @objid ("b07258fa-ed73-4b25-ae2e-1e72f9eecec2")
     @Override
     public Stereotype getOwnerStereotype() {
         return (Stereotype) getDepVal(TagTypeData.Metadata.OwnerStereotypeDep());
     }
 
-    @objid ("fba8a610-bdd1-43f0-8b72-92b0a717ef0a")
+    @objid ("9be2451e-a361-42d8-b3e5-cf7512854dec")
     @Override
     public void setOwnerStereotype(Stereotype value) {
         appendDepVal(TagTypeData.Metadata.OwnerStereotypeDep(), (SmObjectImpl)value);
     }
 
-    @objid ("490580bd-b2ba-4498-9748-30b4605e5fa3")
+    @objid ("def94fa7-ede9-4fac-867e-74805b33b05a")
     @Override
     public MetaclassReference getOwnerReference() {
         return (MetaclassReference) getDepVal(TagTypeData.Metadata.OwnerReferenceDep());
     }
 
-    @objid ("4a1245e5-ed54-45f8-9c78-fa90d6c0c8bf")
+    @objid ("d36f087c-298b-4cf7-9cfa-5f4671e89b76")
     @Override
     public void setOwnerReference(MetaclassReference value) {
         appendDepVal(TagTypeData.Metadata.OwnerReferenceDep(), (SmObjectImpl)value);
     }
 
-    @objid ("3f01952c-1890-46b5-abcc-b0ded85b5717")
+    @objid ("a1f9383c-a7a9-411a-b119-ae6f15feeab5")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
@@ -176,7 +176,7 @@ public class TagTypeImpl extends ModelElementImpl implements TagType {
         return super.getCompositionOwner();
     }
 
-    @objid ("43ccf714-a3e5-407f-8e3b-85670fa51992")
+    @objid ("f77fee75-f76c-4a28-8d2d-e263b74b3871")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
@@ -189,7 +189,7 @@ public class TagTypeImpl extends ModelElementImpl implements TagType {
         return super.getCompositionRelation();
     }
 
-    @objid ("6cf70648-e4f4-4b8e-938f-787f4e8b9fef")
+    @objid ("fa392288-65ce-4cdc-9694-cc033c2c10b1")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitTagType(this);

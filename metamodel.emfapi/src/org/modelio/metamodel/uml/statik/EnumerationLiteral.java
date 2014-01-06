@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.uml.statik;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
@@ -32,10 +32,10 @@ import org.modelio.metamodel.uml.statik.Enumeration;
 
 @objid ("000a43ee-c4bf-1fd8-97fe-001ec947cd2a")
 public interface EnumerationLiteral extends ModelElement {
-    @objid ("3f02c8ae-bb1b-46d7-9a53-9a060474f7e9")
+    @objid ("ef08bc9f-0e65-4133-b881-71177774954e")
     Enumeration getValuated();
 
-    @objid ("359f6e55-bced-42df-86c2-46a5502618b5")
+    @objid ("41a49918-22ce-4263-9850-cc7d1049b1f7")
     void setValuated(Enumeration value);
 
 }

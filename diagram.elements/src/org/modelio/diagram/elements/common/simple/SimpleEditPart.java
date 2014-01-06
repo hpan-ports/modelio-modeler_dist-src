@@ -78,7 +78,7 @@ public class SimpleEditPart extends GmNodeEditPart {
         // set style independent properties
         final Dimension d = new Dimension(100, 50);
         aFigure.setPreferredSize(d);
-        aFigure.setMinimumSize(d);
+        //        aFigure.setMinimumSize(d);
         
         // set style dependent properties
         refreshFromStyle(aFigure, getModelStyle());
@@ -115,20 +115,7 @@ public class SimpleEditPart extends GmNodeEditPart {
         
         aFigure.getParent().setConstraint(aFigure, model.getLayoutData());
         
-        if (model.getEditableText() != null) {
-            aFigure.setLabel(model.getEditableText().getText());
-        } else {
-            // Ugly fallback: we have to go to the Ob level ..
-            final MObject e = model.getRelatedElement();
-        
-            if (e != null) {
-                if (e instanceof ModelElement) {
-                    aFigure.setLabel(((ModelElement) e).getName());
-                } else {
-                    aFigure.setLabel(e.toString());
-                }
-            }
-        }
+        refreshFigureLabel(model, aFigure);
     }
 
     /**
@@ -187,6 +174,35 @@ public class SimpleEditPart extends GmNodeEditPart {
         
         }
         super.performRequest(req);
+    }
+
+    /**
+     * Refresh the figure label from the model.
+     * <p>
+     * By defaults:<ul>
+     * <li> call {@link GmNodeModel#getEditableText()}
+     * <li> fallback to {@link ModelElement#getName()}
+     * </ul>
+     * May be redefined to improve the label.
+     * @param model the node model
+     * @param aFigure the figure to refresh.
+     */
+    @objid ("99f4a628-0520-4406-b282-7b5a3acd0995")
+    protected void refreshFigureLabel(final GmNodeModel model, final SimpleFigure aFigure) {
+        if (model.getEditableText() != null) {
+            aFigure.setLabel(model.getEditableText().getText());
+        } else {
+            // Ugly fallback: we have to go to the Ob level ..
+            final MObject e = model.getRelatedElement();
+        
+            if (e != null) {
+                if (e instanceof ModelElement) {
+                    aFigure.setLabel(((ModelElement) e).getName());
+                } else {
+                    aFigure.setLabel(e.toString());
+                }
+            }
+        }
     }
 
 }

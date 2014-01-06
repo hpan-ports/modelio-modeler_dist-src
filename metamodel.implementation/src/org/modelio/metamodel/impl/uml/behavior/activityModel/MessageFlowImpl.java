@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.uml.behavior.activityModel;
 
 import java.util.ArrayList;
@@ -42,31 +42,31 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("00381364-c4bf-1fd8-97fe-001ec947cd2a")
 public class MessageFlowImpl extends ActivityEdgeImpl implements MessageFlow {
-    @objid ("bbe0e5f8-9e14-4b17-ba5e-54d4d64c8976")
+    @objid ("ff7d1869-d8db-4413-911c-207314132d7b")
     @Override
     public ActivityPartition getTargetPartition() {
         return (ActivityPartition) getDepVal(MessageFlowData.Metadata.TargetPartitionDep());
     }
 
-    @objid ("02f995c4-c28b-48c1-b3d5-d1be0aa88ac7")
+    @objid ("52204202-5f21-4286-9328-d21c09289b81")
     @Override
     public void setTargetPartition(ActivityPartition value) {
         appendDepVal(MessageFlowData.Metadata.TargetPartitionDep(), (SmObjectImpl)value);
     }
 
-    @objid ("8331f06e-2a20-4fd1-8dee-88cc29839a7b")
+    @objid ("d52fd985-214d-4540-b948-c5447e8b8c01")
     @Override
     public ActivityPartition getSourcePartition() {
         return (ActivityPartition) getDepVal(MessageFlowData.Metadata.SourcePartitionDep());
     }
 
-    @objid ("5ca977e2-28f9-4ba9-9485-5550559b75f5")
+    @objid ("af6e899e-844a-438d-8496-fa929d33bea6")
     @Override
     public void setSourcePartition(ActivityPartition value) {
         appendDepVal(MessageFlowData.Metadata.SourcePartitionDep(), (SmObjectImpl)value);
     }
 
-    @objid ("b8878f4e-cd8f-4b88-934d-7c886b90d03a")
+    @objid ("fcc050bc-817c-490e-af39-5463370d32df")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
@@ -76,7 +76,7 @@ public class MessageFlowImpl extends ActivityEdgeImpl implements MessageFlow {
         return super.getCompositionOwner();
     }
 
-    @objid ("d6f6268a-294e-4041-aa35-9a2d3b4d95d0")
+    @objid ("2a2daec1-f4df-4829-a141-39eb8a46936e")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
@@ -86,7 +86,7 @@ public class MessageFlowImpl extends ActivityEdgeImpl implements MessageFlow {
         return super.getCompositionRelation();
     }
 
-    @objid ("28371fc0-9a31-4b1b-af0b-f32d8d55cf4f")
+    @objid ("c9fe70ab-a120-4e95-ae6e-7c0b98c7e02e")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitMessageFlow(this);

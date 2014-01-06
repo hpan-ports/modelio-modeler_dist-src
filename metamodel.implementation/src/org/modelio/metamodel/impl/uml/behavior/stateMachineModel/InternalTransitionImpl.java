@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.uml.behavior.stateMachineModel;
 
 import java.util.ArrayList;
@@ -42,19 +42,19 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("00517a98-c4bf-1fd8-97fe-001ec947cd2a")
 public class InternalTransitionImpl extends TransitionImpl implements InternalTransition {
-    @objid ("0938c5a2-af9c-4ec3-a523-da9afca5649b")
+    @objid ("9b2c2e07-63d6-49d3-aff5-aa4499ce4f0b")
     @Override
     public State getSComposed() {
         return (State) getDepVal(InternalTransitionData.Metadata.SComposedDep());
     }
 
-    @objid ("8b55e165-ce96-42fa-a97c-bf7d7077b13d")
+    @objid ("66f154fc-8573-4493-bc44-4e457341474b")
     @Override
     public void setSComposed(State value) {
         appendDepVal(InternalTransitionData.Metadata.SComposedDep(), (SmObjectImpl)value);
     }
 
-    @objid ("40f37197-faa3-4e6f-82a9-ac60a53ac4fc")
+    @objid ("e7455a9d-781b-4bf5-8bc8-0ee85def75f1")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
@@ -64,7 +64,7 @@ public class InternalTransitionImpl extends TransitionImpl implements InternalTr
         return super.getCompositionOwner();
     }
 
-    @objid ("46d6df05-ff02-405d-9174-61a3086aebb1")
+    @objid ("6326636e-3211-4989-a9c3-16271395900e")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
@@ -74,7 +74,7 @@ public class InternalTransitionImpl extends TransitionImpl implements InternalTr
         return super.getCompositionRelation();
     }
 
-    @objid ("9d669e31-6262-4bae-a793-817b8f2f86e8")
+    @objid ("8b33b952-e935-4bf4-ad15-0cb24442092c")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitInternalTransition(this);

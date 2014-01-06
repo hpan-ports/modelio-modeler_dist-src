@@ -27,6 +27,7 @@ import org.modelio.diagram.editor.statik.elements.informationconveyed.GmConveyed
 import org.modelio.diagram.elements.common.abstractdiagram.GmAbstractDiagram;
 import org.modelio.diagram.elements.core.link.ExtensionLocation;
 import org.modelio.diagram.elements.core.link.GmLink;
+import org.modelio.diagram.elements.core.node.GmNodeModel;
 import org.modelio.diagram.persistence.IDiagramReader;
 import org.modelio.diagram.persistence.IDiagramWriter;
 import org.modelio.diagram.styles.core.MetaKey;
@@ -56,6 +57,9 @@ public class GmInformationFlowLink extends GmLink {
     @objid ("5d1270ed-5bd5-11e2-9e33-00137282c51b")
     private static final InformationFlowLinkStyleKeys STRUCTURED_KEYS = new InformationFlowLinkStyleKeys();
 
+    @objid ("efb521ab-cc49-49a3-ae72-3c879a2d88c8")
+    private GmInformationFlowLinkHeader header;
+
     /**
      * Constructor for deserialization.
      */
@@ -78,10 +82,8 @@ public class GmInformationFlowLink extends GmLink {
         
         if (role != null) {
             // Create extensions
-        
             addExtension(ExtensionLocation.TargetNW, new GmInformationFlowLinkHeader(diagram, ref));
             addExtension(ExtensionLocation.TargetSE, new GmConveyedClassifiersGroup(diagram, ref));
-        
         }
     }
 
@@ -151,6 +153,18 @@ public class GmInformationFlowLink extends GmLink {
     @Override
     public int getMajorVersion() {
         return MAJOR_VERSION;
+    }
+
+    @objid ("c2d7b5f0-1557-4d2f-85fd-4f2010149241")
+    public GmInformationFlowLinkHeader getHeader() {
+        if (this.header == null) {
+            for (GmNodeModel ext : getExtensions()) {
+                if (ext instanceof GmInformationFlowLinkHeader) {
+                    this.header = (GmInformationFlowLinkHeader) ext;
+                }
+            }
+        }
+        return this.header;
     }
 
 }

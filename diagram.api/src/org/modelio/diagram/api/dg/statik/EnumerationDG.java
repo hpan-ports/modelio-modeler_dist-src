@@ -59,13 +59,13 @@ public class EnumerationDG extends PortContainerDG {
         // Attributes
         GmCompositeNode attributeZone = mainNode.getCompositeFor(Attribute.class);
         if (attributeZone != null) {
-            nodes.addAll(DGFactory.getInstance().getDiagramNodes(this.diagramHandle, attributeZone.getChildren()));
+            nodes.addAll(DGFactory.getInstance().getDiagramNodes(this.diagramHandle, attributeZone.getVisibleChildren()));
         }
         
         // EnumerationLiteral
         GmCompositeNode enumLiteralZone = mainNode.getCompositeFor(EnumerationLiteral.class);
         if (enumLiteralZone != null) {
-            nodes.addAll(DGFactory.getInstance().getDiagramNodes(this.diagramHandle, enumLiteralZone.getChildren()));
+            nodes.addAll(DGFactory.getInstance().getDiagramNodes(this.diagramHandle, enumLiteralZone.getVisibleChildren()));
         }
         return nodes;
     }

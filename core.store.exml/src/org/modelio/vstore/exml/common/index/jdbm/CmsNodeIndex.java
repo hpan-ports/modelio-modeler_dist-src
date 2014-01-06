@@ -63,7 +63,7 @@ public class CmsNodeIndex implements ICmsNodeIndex {
     private InverseHashView<ObjId,ObjId> inverseParent;
 
     @objid ("d554d657-7f1a-11e1-ba70-001ec947ccaf")
-    private Map<ObjId, StoreReference<Collection<ObjId>>> cmsNodeContent;
+    private PrimaryHashMap<ObjId,StoreReference<Collection<ObjId>>> cmsNodeContent;
 
     @objid ("d554d65c-7f1a-11e1-ba70-001ec947ccaf")
     private RecordManager db;
@@ -152,11 +152,27 @@ public class CmsNodeIndex implements ICmsNodeIndex {
     @objid ("e1ee61fe-5c83-11e1-863f-001ec947ccaf")
     @Override
     public void removeObj(final ObjId id) throws IOException {
-        Iterable<ObjId> children = load(this.cmsNodeContent.get(id));
-        if (children != null) for (ObjId child : children) {
-            getObjectIndex(child).remove(child.id);
+        Iterable<ObjId> nodeContent = load(this.cmsNodeContent.get(id));
+        if (nodeContent != null) {
+            // Remove CMS node elements from the index
+            for (ObjId child : nodeContent) {
+                Map<UUID, ObjectIndexValue> childIndex = getObjectIndex(child);
+                ObjectIndexValue val = childIndex.remove(child.id);
+                if (val != null && ! id.equals(val.cmsNodeId)) {
+                    // The child has moved to another CMS node, put it back into the index.
+                    // perf note: as moving occurs only sometime I prefer removing the element always
+                    // and put it back if it was wrong instead of first reading it then delete it.
+                    // It spares an index access in most cases.
+                    childIndex.put(child.id, val);
+                }
+                    
+            }
+            
+            // Remove the CMS node content entry
+            this.cmsNodeContent.remove(id);
         }
         
+        // For non CMS node objects, remove it from the CMS node index
         final ObjectIndexValue idxVal = getObjectIndex(id).find(id.id);
         if (idxVal != null) {
             ObjId cmsParent = idxVal.cmsNodeId;

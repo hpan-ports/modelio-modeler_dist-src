@@ -24,11 +24,12 @@ package org.modelio.diagram.elements.common.header;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.draw2d.BorderLayout;
+import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.Figure;
-import org.eclipse.draw2d.GridData;
 import org.eclipse.draw2d.GridLayout;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.ImageFigure;
+import org.eclipse.draw2d.LineBorder;
 import org.eclipse.draw2d.OrderedLayout;
 import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.ToolbarLayout;
@@ -59,130 +60,75 @@ import org.modelio.diagram.elements.core.figures.GradientFigure;
  * </ul>
  * <p>
  * <br>
- * All labels wraps to a new line. The top and bottom labels are displayed using a font derived from the main label font
- * (reduced size).
+ * All labels wraps to a new line. The top and bottom labels are displayed using a font derived from the main label font (reduced
+ * size).
  * </p>
  */
 @objid ("7e75f9af-1dec-11e2-8cad-001ec947c8cc")
 public class WrappedHeaderFigure extends GradientFigure {
-    @objid ("7e785bcb-1dec-11e2-8cad-001ec947c8cc")
-    protected HeaderTextFlow mainLabel;
-
-    @objid ("7e785bcf-1dec-11e2-8cad-001ec947c8cc")
-    protected Font stereotypeFont = null;
-
-    @objid ("7e785bd0-1dec-11e2-8cad-001ec947c8cc")
-    protected Font tagFont = null;
-
-    @objid ("66b13247-1e83-11e2-8cad-001ec947c8cc")
-    protected Figure iconsArea;
-
-    @objid ("66b13248-1e83-11e2-8cad-001ec947c8cc")
-    protected Figure leftIconsContainer;
+    @objid ("66b5f6fb-1e83-11e2-8cad-001ec947c8cc")
+    private FlowPage topArea;
 
     @objid ("66b13249-1e83-11e2-8cad-001ec947c8cc")
-    protected Figure rightIconsContainer;
+    private Figure rightArea;
+
+    @objid ("0ba8b524-6f4d-4ae0-8dab-2df39f8d8c12")
+    private FlowPage bottomArea;
+
+    @objid ("66b13248-1e83-11e2-8cad-001ec947c8cc")
+    private Figure leftArea;
+
+    @objid ("7e785bcb-1dec-11e2-8cad-001ec947c8cc")
+    private HeaderTextFlow mainLabel;
 
     @objid ("66b1324a-1e83-11e2-8cad-001ec947c8cc")
-    protected TextFlow keywordLabel;
+    private TextFlow keywordLabel;
 
     @objid ("66b394a1-1e83-11e2-8cad-001ec947c8cc")
-    protected BlockFlow topLabelsArea;
+    private BlockFlow topLabels;
 
     @objid ("66b394a2-1e83-11e2-8cad-001ec947c8cc")
-    protected BlockFlow bottomLabelsArea;
+    private BlockFlow bottomLabels;
 
-    @objid ("66b5f6fb-1e83-11e2-8cad-001ec947c8cc")
-    protected FlowPage table;
+    @objid ("7e785bcf-1dec-11e2-8cad-001ec947c8cc")
+    private Font stereotypeFont = null;
+
+    @objid ("7e785bd0-1dec-11e2-8cad-001ec947c8cc")
+    private Font tagFont = null;
 
     /**
      * Constructor.
      */
     @objid ("7e7abe1a-1dec-11e2-8cad-001ec947c8cc")
     public WrappedHeaderFigure() {
-        // The header figure is a border layouted container.
-        // There are two children: 
-        //   - the icons area layouted as TOP 
-        //   - the contents area layouted as CENTER
+        // The header figure is a 'BorderLayout' container.
+        // Children layout:
+        // - TOP : topArea - FlowPage (keyword and stereotypes labels)
+        // - RIGHT : rightArea - Figure with tool bar layout (stereotypes icons)
+        // - BOTTOM: bottomArea - FlowPage ( tagged values)
+        // - LEFT : leftArea - Figure with tool bar layout (metaclass icon)
+        // - CENTER: contentsArea (main label)
         // Children are transparent without borders
-        //this.setLayoutManager(new BorderLayout());
-        
         Figure container = this;
-        //container.setBorder(new MarginBorder(4));
-        //container.setBorder(new LineBorder(ColorConstants.lightGreen, 4));
         container.setLayoutManager(new BorderLayout());
-        //this.add(container, BorderLayout.CENTER);
+        // TRACE: container.setBorder(new LineBorder(ColorConstants.orange, 2));
         
-        // TRACE: this.setBorder(new LineBorder(ColorConstants.orange, 1));
+        // -- LEFT Area --
+        this.leftArea = createLeftFigures(container);
         
-        // TOP figure : the icon area
-        // The icon area is a border layouted container
-        this.iconsArea = new Figure();
-        this.iconsArea.setLayoutManager(new BorderLayout());
-        // TRACE: iconsArea.setBorder(new LineBorder(ColorConstants.green, 1));
-        container.add(this.iconsArea, BorderLayout.TOP);
+        // -- RIGHT Area --
+        this.rightArea = createRightFigures(container);
         
-        // left icons container
-        // an horizontal toolbar layouted container, left aligned
-        this.leftIconsContainer = new Figure();
-        ToolbarLayout leftIconAreaLayout = new ToolbarLayout(true);
-        leftIconAreaLayout.setMinorAlignment(OrderedLayout.ALIGN_BOTTOMRIGHT);
-        leftIconAreaLayout.setSpacing(1);
-        this.leftIconsContainer.setLayoutManager(leftIconAreaLayout);
-        // TRACE: leftIconsContainer.setBorder(new LineBorder(1));
-        this.leftIconsContainer.setOpaque(false);
-        this.iconsArea.add(this.leftIconsContainer, BorderLayout.LEFT);
+        // -- TOP Area --
         
-        // right icons container
-        // an horizontal toolbar layouted container, right aligned
-        this.rightIconsContainer = new Figure();
-        ToolbarLayout righIconAreaLayout = new ToolbarRLayout();
-        righIconAreaLayout.setMinorAlignment(OrderedLayout.ALIGN_BOTTOMRIGHT);
-        righIconAreaLayout.setSpacing(1);
-        this.rightIconsContainer.setLayoutManager(righIconAreaLayout);
-        // TRACE: rightIconsContainer.setBorder(new LineBorder(1));
-        this.rightIconsContainer.setOpaque(false);
-        this.iconsArea.add(this.rightIconsContainer, BorderLayout.RIGHT);
+        this.topArea = createTopFigures(container);
         
-        // CENTER figure : the contents area
-        Figure contentArea = new Figure();
-        container.add(contentArea, BorderLayout.CENTER);
-        contentArea.setLayoutManager(new CenterAreaLayout());
-        //contentArea.setBorder(new LineBorder(ColorConstants.blue, 1));
+        // -- BOTTOM area --
+        // Lazily added. Do nothing
         
-        this.table = new FlowPage();
-        //this.table.setHorizontalAligment(PositionConstants.CENTER);
-        //this.table.setBorder(new LineBorder(ColorConstants.orange, 1));
-        contentArea.add(this.table, new GridData(SWT.FILL, SWT.CENTER, true, true)); // 
-        
-        // first row : Keyword label
-        BlockFlow keywordBlock = new BlockFlow();
-        keywordBlock.setHorizontalAligment(PositionConstants.CENTER);
-        this.keywordLabel = new TextFlow("");
-        keywordBlock.add(this.keywordLabel);
-        //TRACE: this.keywordLabel.setBorder(new LineBorder(ColorConstants.blue, 1));
-        
-        this.table.add(keywordBlock);
-        
-        // second row: top labels
-        this.topLabelsArea = new BlockFlow();
-        this.topLabelsArea.setHorizontalAligment(PositionConstants.CENTER);
-        //TRACE: this.topLabelsArea.setBorder(new LineBorder(ColorConstants.green, 1));
-        this.table.add(this.topLabelsArea);
-        
-        // Fourth child: the main label area
-        BlockFlow mainLabelBlock = new BlockFlow();
-        mainLabelBlock.setHorizontalAligment(PositionConstants.CENTER);
-        this.mainLabel = new HeaderTextFlow();
-        mainLabelBlock.add(this.mainLabel);
-        //this.mainLabel.setBorder(new MarginBorder(2, 0, 4, 0));
-        mainLabelBlock.setBorder(new MarginFlowBorder(new Insets(2, 0, 4, 0)));
-        
-        //TRACE: this.mainLabel.setBorder(new LineBorder(ColorConstants.blue, 1));
-        this.table.add(mainLabelBlock);
-        
-        // Fifth child: bottom labels
-        // Lazily added.
+        // -- CENTER Area --
+        // a Flowpage/TextFlow to hold the main label
+        this.mainLabel = createCenterFigures(container);
     }
 
     /**
@@ -192,11 +138,11 @@ public class WrappedHeaderFigure extends GradientFigure {
     @objid ("7e7abe1d-1dec-11e2-8cad-001ec947c8cc")
     public void setLeftIcons(List<Image> icons) {
         // remove existing labels
-        this.leftIconsContainer.removeAll();
+        this.leftArea.removeAll();
         // add new image figures
         for (Image img : icons) {
             ImageFigure imgFigure = new ImageFigure(img);
-            this.leftIconsContainer.add(imgFigure);
+            this.leftArea.add(imgFigure);
         }
     }
 
@@ -207,11 +153,11 @@ public class WrappedHeaderFigure extends GradientFigure {
     @objid ("7e7abe23-1dec-11e2-8cad-001ec947c8cc")
     public void setRightIcons(List<Image> icons) {
         // remove existing labels
-        this.rightIconsContainer.removeAll();
+        this.rightArea.removeAll();
         // add new image figures
         for (Image img : icons) {
             ImageFigure imgFigure = new ImageFigure(img);
-            this.rightIconsContainer.add(imgFigure);
+            this.rightArea.add(imgFigure);
         }
     }
 
@@ -223,7 +169,7 @@ public class WrappedHeaderFigure extends GradientFigure {
     public void setKeywordLabel(String text) {
         if (text == null) {
             if (this.keywordLabel != null) {
-                this.table.remove(this.keywordLabel.getParent());
+                this.topArea.remove(this.keywordLabel.getParent());
                 this.keywordLabel = null;
             }
         } else {
@@ -235,11 +181,12 @@ public class WrappedHeaderFigure extends GradientFigure {
                 this.keywordLabel = new TextFlow(text);
                 this.keywordLabel.setOpaque(false);
                 this.keywordLabel.setFont(this.stereotypeFont);
-                //TRACE: this.keywordLabel.setBorder(new LineBorder(ColorConstants.blue, 1));
+                // TRACE: this.keywordLabel.setBorder(new LineBorder(ColorConstants.blue, 1));
         
-                // XXX Workaround for silent diagram editor: since validation is synchronous, we must set the flow context before adding the figure.
-                keywordBlock.setFlowContext((FlowContext) this.table.getLayoutManager());
-                this.table.add(keywordBlock, 1);
+                // XXX Workaround for silent diagram editor: since validation is synchronous, we must set the flow context before
+                // adding the figure.
+                keywordBlock.setFlowContext((FlowContext) this.topArea.getLayoutManager());
+                this.topArea.add(keywordBlock, 1);
         
                 this.keywordLabel.setFlowContext((FlowContext) keywordBlock.getLayoutManager());
                 keywordBlock.add(this.keywordLabel);
@@ -255,7 +202,7 @@ public class WrappedHeaderFigure extends GradientFigure {
     @objid ("7e7abe2d-1dec-11e2-8cad-001ec947c8cc")
     public void setTopLabels(List<String> topLabels) {
         // remove existing labels
-        this.topLabelsArea.removeAll();
+        this.topLabels.removeAll();
         
         if (topLabels.isEmpty())
             return;
@@ -268,11 +215,12 @@ public class WrappedHeaderFigure extends GradientFigure {
         }
         
         TextFlow labelFigure = new TextFlow(sb.toString());
-        //TRACE: labelFigure.setBorder(new LineBorder(1));
+        // TRACE: labelFigure.setBorder(new LineBorder(1));
         
-        // XXX Workaround for silent diagram editor: since validation is synchronous, we must set the flow context before adding the figure.
-        labelFigure.setFlowContext((FlowContext) this.topLabelsArea.getLayoutManager());
-        this.topLabelsArea.add(labelFigure);
+        // XXX Workaround for silent diagram editor: since validation is synchronous, we must set the flow context before adding the
+        // figure.
+        labelFigure.setFlowContext((FlowContext) this.topLabels.getLayoutManager());
+        this.topLabels.add(labelFigure);
     }
 
     /**
@@ -292,25 +240,31 @@ public class WrappedHeaderFigure extends GradientFigure {
     @objid ("7e7abe37-1dec-11e2-8cad-001ec947c8cc")
     public void setBottomLabels(List<String> bottomLabels) {
         if (bottomLabels == null || bottomLabels.isEmpty()) {
-            if (this.bottomLabelsArea != null) {
-                this.table.remove(this.bottomLabelsArea);
-                this.bottomLabelsArea = null;
+            if (this.bottomArea != null) {
+                // this.table.remove(this.bottomLabelsArea);
+                this.remove(this.bottomArea);
+                this.bottomArea = null;
             }
         } else {
-            if (this.bottomLabelsArea == null) {
-                this.bottomLabelsArea = new BlockFlow();
-                this.bottomLabelsArea.setHorizontalAligment(PositionConstants.CENTER);
-                this.bottomLabelsArea.setFont(this.tagFont);
-                this.bottomLabelsArea.setForegroundColor(this.mainLabel.getForegroundColor());
-                //this.bottomLabelsArea.setOpaque(false);
-                //TRACE: this.bottomLabelsArea.setBorder(new LineBorder(ColorConstants.blue, 1));
+            if (this.bottomArea == null) {
+                this.bottomArea = new FlowPage();
+                this.bottomLabels = new BlockFlow();
+                this.bottomLabels.setHorizontalAligment(PositionConstants.CENTER);
+                this.bottomLabels.setFont(this.tagFont);
+                this.bottomLabels.setForegroundColor(this.mainLabel.getForegroundColor());
+                // this.bottomLabelsArea.setOpaque(false);
+                // TRACE: this.bottomLabelsArea.setBorder(new LineBorder(ColorConstants.blue, 1));
         
-                // XXX Workaround for silent diagram editor: since validation is synchronous, we must set the flow context before adding the figure.
-                this.bottomLabelsArea.setFlowContext((FlowContext) this.table.getLayoutManager());
-                this.table.add(this.bottomLabelsArea);
+                // XXX Workaround for silent diagram editor: since validation is synchronous, we must set the flow context before
+                // adding the figure.
+                this.bottomLabels.setFlowContext((FlowContext) this.bottomArea.getLayoutManager());
+                // this.table.add(this.bottomLabelsArea);
+        
+                this.bottomArea.add(this.bottomLabels);
+                this.add(this.bottomArea, BorderLayout.BOTTOM);
             } else {
                 // remove existing labels
-                this.bottomLabelsArea.removeAll();
+                this.bottomLabels.removeAll();
         
             }
         
@@ -324,19 +278,11 @@ public class WrappedHeaderFigure extends GradientFigure {
             }
         
             TextFlow labelFigure = new TextFlow(sb.toString());
-            // XXX Workaround for silent diagram editor: since validation is synchronous, we must set the flow context before adding the figure.
-            labelFigure.setFlowContext((FlowContext) this.bottomLabelsArea.getLayoutManager());
-            this.bottomLabelsArea.add(labelFigure);
+            // XXX Workaround for silent diagram editor: since validation is synchronous, we must set the flow context before adding
+            // the figure.
+            labelFigure.setFlowContext((FlowContext) this.bottomLabels.getLayoutManager());
+            this.bottomLabels.add(labelFigure);
         }
-    }
-
-    /**
-     * Get the main label figure.
-     * @return the main label figure.
-     */
-    @objid ("7e7abe3d-1dec-11e2-8cad-001ec947c8cc")
-    TextFlow getMainLabelFigure() {
-        return this.mainLabel;
     }
 
     @objid ("7e7abe44-1dec-11e2-8cad-001ec947c8cc")
@@ -354,12 +300,12 @@ public class WrappedHeaderFigure extends GradientFigure {
     @objid ("7e7abe4e-1dec-11e2-8cad-001ec947c8cc")
     @Override
     public void setTextColor(Color textColor) {
-        this.topLabelsArea.setForegroundColor(textColor);
+        this.topLabels.setForegroundColor(textColor);
         if (this.keywordLabel != null)
             this.keywordLabel.setForegroundColor(textColor);
         this.mainLabel.setForegroundColor(textColor);
-        if (this.bottomLabelsArea != null)
-            this.bottomLabelsArea.setForegroundColor(textColor);
+        if (this.bottomLabels != null)
+            this.bottomLabels.setForegroundColor(textColor);
     }
 
     @objid ("7e7abe52-1dec-11e2-8cad-001ec947c8cc")
@@ -367,25 +313,12 @@ public class WrappedHeaderFigure extends GradientFigure {
     public void setTextFont(Font textFont) {
         updateDerivedFonts(textFont);
         
-        this.topLabelsArea.setFont(this.stereotypeFont);
+        this.topLabels.setFont(this.stereotypeFont);
         if (this.keywordLabel != null)
             this.keywordLabel.setFont(this.stereotypeFont);
         this.mainLabel.setFont(textFont);
-        if (this.bottomLabelsArea != null)
-            this.bottomLabelsArea.setFont(this.tagFont);
-    }
-
-    @objid ("7e7abe56-1dec-11e2-8cad-001ec947c8cc")
-    private void updateDerivedFonts(Font baseFont) {
-        if (this.mainLabel.getFont() == baseFont && this.tagFont != null && this.stereotypeFont != null)
-            return;
-        
-        FontData[] fontData = baseFont.getFontData();
-        for (FontData data : fontData) {
-            data.setHeight(deriveFontHeight(data.getHeight()));
-        }
-        this.stereotypeFont = CoreFontRegistry.getFont(fontData);
-        this.tagFont = CoreFontRegistry.getModifiedFont(this.stereotypeFont, SWT.ITALIC);
+        if (this.bottomLabels != null)
+            this.bottomLabels.setFont(this.tagFont);
     }
 
     @objid ("7e7abe59-1dec-11e2-8cad-001ec947c8cc")
@@ -410,38 +343,6 @@ public class WrappedHeaderFigure extends GradientFigure {
     @Override
     public void setLineWidth(int lineWidth) {
         // Nothing to do.
-    }
-
-    @objid ("7e7d2075-1dec-11e2-8cad-001ec947c8cc")
-    private int deriveFontHeight(int height) {
-        switch (height) {
-            case 8:
-                return 7;
-        
-            case 9:
-                return 7;
-        
-            case 10:
-                return 8;
-        
-            case 11:
-                return 8;
-        
-            case 12:
-                return 9;
-        
-            case 13:
-                return 10;
-        
-            case 14:
-                return 10;
-        
-            default:
-                if (height < 8)
-                    return height;
-                //else
-                return height * 10 / 14;
-        }
     }
 
     @objid ("7e7d2079-1dec-11e2-8cad-001ec947c8cc")
@@ -470,11 +371,136 @@ public class WrappedHeaderFigure extends GradientFigure {
     }
 
     /**
-     * This class implements a right-aligned ToolBarLayout, ie children are stacked on the right side of the toolbar.
-     * NOTE: A ToolbarRLayout is always horizontal.
+     * Get the main label figure.
+     * @return the main label figure.
+     */
+    @objid ("7e7abe3d-1dec-11e2-8cad-001ec947c8cc")
+    public TextFlow getMainLabelFigure() {
+        return this.mainLabel;
+    }
+
+    @objid ("7e7abe56-1dec-11e2-8cad-001ec947c8cc")
+    private void updateDerivedFonts(Font baseFont) {
+        if (this.mainLabel.getFont() == baseFont && this.tagFont != null && this.stereotypeFont != null)
+            return;
+        
+        FontData[] fontData = baseFont.getFontData();
+        for (FontData data : fontData) {
+            data.setHeight(deriveFontHeight(data.getHeight()));
+        }
+        this.stereotypeFont = CoreFontRegistry.getFont(fontData);
+        this.tagFont = CoreFontRegistry.getModifiedFont(this.stereotypeFont, SWT.ITALIC);
+    }
+
+    @objid ("7e7d2075-1dec-11e2-8cad-001ec947c8cc")
+    private int deriveFontHeight(int height) {
+        switch (height) {
+        case 8:
+            return 7;
+        
+        case 9:
+            return 7;
+        
+        case 10:
+            return 8;
+        
+        case 11:
+            return 8;
+        
+        case 12:
+            return 9;
+        
+        case 13:
+            return 10;
+        
+        case 14:
+            return 10;
+        
+        default:
+            if (height < 8)
+                return height;
+            // else
+            return height * 10 / 14;
+        }
+    }
+
+    @objid ("aae63863-c1fa-497f-8254-c7ede775788e")
+    protected HeaderTextFlow createCenterFigures(Figure container) {
+        FlowPage centerArea = new FlowPage();
+        BlockFlow mainLabelBlock = new BlockFlow();
+        mainLabelBlock.setHorizontalAligment(PositionConstants.CENTER);
+        HeaderTextFlow label = new HeaderTextFlow();
+        mainLabelBlock.add(label);
+        // this.mainLabel.setBorder(new MarginBorder(2, 0, 4, 0));
+        mainLabelBlock.setBorder(new MarginFlowBorder(new Insets(2, 0, 3, 0)));
+        centerArea.add(mainLabelBlock);
+        container.add(centerArea, BorderLayout.CENTER);
+        return label;
+    }
+
+/*
+     * A FlowPage holding two texts: keyword and stereotypes
+     */
+    @objid ("ed7ac99f-993e-4c96-8279-3e2247e6445b")
+    protected FlowPage createTopFigures(Figure container) {
+        FlowPage topFigure = new FlowPage();
+        
+        // first row : Keyword label
+        BlockFlow keywordBlock = new BlockFlow();
+        keywordBlock.setHorizontalAligment(PositionConstants.CENTER);
+        this.keywordLabel = new TextFlow("");
+        keywordBlock.add(this.keywordLabel);
+        topFigure.add(keywordBlock);
+        
+        // second row: top labels
+        this.topLabels = new BlockFlow();
+        this.topLabels.setHorizontalAligment(PositionConstants.CENTER);
+        // TRACE: this.topLabelsArea.setBorder(new LineBorder(ColorConstants.green, 1));
+        topFigure.add(this.topLabels);
+        container.add(topFigure, BorderLayout.TOP);
+        return topFigure;
+    }
+
+/*
+     * An horizontal tool bar layouted container, center aligned
+     */
+    @objid ("4aa4308a-f09c-4ce2-9ff0-58f28e9bc061")
+    protected Figure createRightFigures(Figure container) {
+        Figure rightFigure = new Figure();
+        ToolbarLayout tbLayout = new ToolbarRLayout();
+        tbLayout.setMinorAlignment(OrderedLayout.ALIGN_CENTER);
+        tbLayout.setSpacing(1);
+        rightFigure.setLayoutManager(tbLayout);
+        rightFigure.setOpaque(false);
+        rightFigure.setBorder(new MarginFlowBorder(new Insets(0, 1, 0, 1)));
+        // TRACE: rightIconsContainer.setBorder(new LineBorder(1));
+        container.add(rightFigure, BorderLayout.RIGHT);
+        return rightFigure;
+    }
+
+/*
+     * an horizontal tool bar layouted container, center aligned
+     */
+    @objid ("3507a4fb-44ec-43eb-85bf-4b6b7db34ed9")
+    protected Figure createLeftFigures(Figure container) {
+        Figure leftFigure = new Figure();
+        ToolbarLayout tbLayout = new ToolbarLayout(true);
+        tbLayout.setMinorAlignment(OrderedLayout.ALIGN_CENTER);
+        tbLayout.setSpacing(1);
+        leftFigure.setLayoutManager(tbLayout);
+        leftFigure.setOpaque(false);
+        leftFigure.setBorder(new MarginFlowBorder(new Insets(0, 1, 0, 1)));
+        // TRACE: leftIconsContainer.setBorder(new LineBorder(1));
+        container.add(leftFigure, BorderLayout.LEFT);
+        return leftFigure;
+    }
+
+    /**
+     * This class implements a right-aligned ToolBarLayout, ie children are stacked on the right side of the toolbar. NOTE: A
+     * ToolbarRLayout is always horizontal.
      */
     @objid ("7e7d208c-1dec-11e2-8cad-001ec947c8cc")
-    private static class ToolbarRLayout extends ToolbarLayout {
+    public static class ToolbarRLayout extends ToolbarLayout {
         @objid ("7e7d2091-1dec-11e2-8cad-001ec947c8cc")
         @Override
         public void layout(IFigure parent) {
@@ -500,8 +526,8 @@ public class WrappedHeaderFigure extends GradientFigure {
      * Same as {@link org.eclipse.draw2d.MarginBorder} for {@link FlowFigure}.
      */
     @objid ("7e7d2099-1dec-11e2-8cad-001ec947c8cc")
-    private static final class MarginFlowBorder extends AbstractFlowBorder {
-        @objid ("b9f5e485-e231-4e20-8e89-5d17bcec5502")
+    public static final class MarginFlowBorder extends AbstractFlowBorder {
+        @objid ("e1862a70-b4d8-4b7e-9ab1-1fdac53bd43a")
         private Insets inset;
 
         /**
@@ -509,7 +535,7 @@ public class WrappedHeaderFigure extends GradientFigure {
          * @param inset the insets.
          */
         @objid ("7e7d20a1-1dec-11e2-8cad-001ec947c8cc")
-        MarginFlowBorder(final Insets inset) {
+        public MarginFlowBorder(final Insets inset) {
             this.inset = inset;
         }
 
@@ -530,7 +556,7 @@ public class WrappedHeaderFigure extends GradientFigure {
      */
     @objid ("7e7d20b3-1dec-11e2-8cad-001ec947c8cc")
     private static final class CenterAreaLayout extends GridLayout {
-        @objid ("8d16fbb1-7e20-41a5-9a26-63cb762518ca")
+        @objid ("33cf8391-d9ba-440f-b4b9-ab88c95ec9eb")
         private Dimension cachedPreferredHint = new Dimension(-1, -1);
 
         @objid ("7e7f82cd-1dec-11e2-8cad-001ec947c8cc")
@@ -542,6 +568,10 @@ public class WrappedHeaderFigure extends GradientFigure {
         @Override
         protected Dimension calculatePreferredSize(final IFigure cont, final int wHint, final int hHint) {
             Dimension ret = super.calculatePreferredSize(cont, wHint, hHint);
+            
+            if (ret.height == 0)
+                return ret;
+            
             if (ret.width / ret.height < 2)
                 ret.width = Math.round(ret.height * 2);
             

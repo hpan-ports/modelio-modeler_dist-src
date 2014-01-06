@@ -39,8 +39,8 @@ import org.eclipse.gef.requests.ChangeBoundsRequest;
 import org.modelio.diagram.elements.core.commands.DefaultAddBendPointCommand;
 import org.modelio.diagram.elements.core.commands.DefaultDeleteBendPointCommand;
 import org.modelio.diagram.elements.core.commands.DefaultMoveBendPointCommand;
-import org.modelio.diagram.elements.core.link.GmLink;
 import org.modelio.diagram.elements.core.link.ortho.TranslateBendpointsCommand;
+import org.modelio.diagram.elements.core.model.IGmLinkObject;
 import org.modelio.diagram.elements.core.model.IGmPath;
 
 /**
@@ -71,7 +71,7 @@ public class DefaultBendpointEditPolicy extends BendpointEditPolicy {
         final Point point = request.getLocation().getCopy();
         getConnection().translateToRelative(point);
         AbsoluteBendpoint newpoint = new AbsoluteBendpoint(point);
-        return new DefaultAddBendPointCommand((GmLink) request.getSource().getModel(), index, newpoint);
+        return new DefaultAddBendPointCommand((IGmLinkObject) request.getSource().getModel(), index, newpoint);
     }
 
     @objid ("80b6f287-1dec-11e2-8cad-001ec947c8cc")
@@ -79,7 +79,7 @@ public class DefaultBendpointEditPolicy extends BendpointEditPolicy {
     protected Command getDeleteBendpointCommand(BendpointRequest request) {
         int index = request.getIndex();
         // AbsoluteBendpoint newpoint = new AbsoluteBendpoint(request.getLocation());
-        return new DefaultDeleteBendPointCommand((GmLink) request.getSource().getModel(), index);
+        return new DefaultDeleteBendPointCommand((IGmLinkObject) request.getSource().getModel(), index);
     }
 
     @objid ("80b6f291-1dec-11e2-8cad-001ec947c8cc")
@@ -89,7 +89,7 @@ public class DefaultBendpointEditPolicy extends BendpointEditPolicy {
         final Point point = request.getLocation().getCopy();
         getConnection().translateToRelative(point);
         AbsoluteBendpoint newpoint = new AbsoluteBendpoint(point);
-        return new DefaultMoveBendPointCommand((GmLink) request.getSource().getModel(), index, newpoint);
+        return new DefaultMoveBendPointCommand((IGmLinkObject) request.getSource().getModel(), index, newpoint);
     }
 
     @objid ("80b6f29b-1dec-11e2-8cad-001ec947c8cc")
@@ -108,9 +108,11 @@ public class DefaultBendpointEditPolicy extends BendpointEditPolicy {
         ConnectionAnchor currentTargetAnchor = getConnection().getTargetAnchor();
         getConnection().setSourceAnchor(this.originalSourceAnchor);
         getConnection().setTargetAnchor(this.originalTargetAnchor);
+        
         ConnectionEditPart hostEP = (ConnectionEditPart) getHost();
-        IGmPath path = ((GmLink) hostEP.getModel()).getPath();
+        IGmPath path = ((IGmLinkObject) hostEP.getModel()).getPath();
         Command command = new TranslateBendpointsCommand(path, hostEP);
+        
         getConnection().setSourceAnchor(currentSourceAnchor);
         getConnection().setTargetAnchor(currentTargetAnchor);
         return command;

@@ -23,6 +23,7 @@ package org.modelio.diagram.editor.statik.elements.operationgroup;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.draw2d.IFigure;
+import org.eclipse.gef.EditPart;
 import org.modelio.diagram.elements.common.group.GmGroupEditPart;
 import org.modelio.diagram.elements.core.figures.borders.TLBRBorder;
 import org.modelio.diagram.elements.core.model.GmModel;
@@ -50,7 +51,20 @@ public class OperationGroupEditPart extends GmGroupEditPart {
     @objid ("3601fe20-55b7-11e2-877f-002564c97630")
     @Override
     public boolean isSelectable() {
-        return true;
+        // Already selected, return true
+        if (getViewer().getSelectedEditParts().contains(this)) {
+            return true;
+        }
+        
+        // Allow selection only if the composition parent was already selected
+        EditPart parent = getParent();
+        while (parent != null) {
+            if (parent.isSelectable()) {
+                return (parent.getSelected() != EditPart.SELECTED_NONE);
+            }
+            parent = parent.getParent();
+        }
+        return false;
     }
 
     @objid ("3601fe25-55b7-11e2-877f-002564c97630")

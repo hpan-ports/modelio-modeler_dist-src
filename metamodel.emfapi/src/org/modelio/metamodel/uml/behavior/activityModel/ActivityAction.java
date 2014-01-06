@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.uml.behavior.activityModel;
 
 import java.util.List;
@@ -34,34 +34,34 @@ import org.modelio.metamodel.uml.behavior.activityModel.OutputPin;
 
 @objid ("002688d8-c4bf-1fd8-97fe-001ec947cd2a")
 public interface ActivityAction extends ActivityNode {
-    @objid ("600b64a5-a111-4637-b159-7d66cde7fbe4")
+    @objid ("250b02bb-156b-44e9-a79b-efbb6f1fc747")
     boolean isIsMultipleInstance();
 
-    @objid ("d1cf1c2c-025c-43bc-9d41-792a948ad06c")
+    @objid ("19dbd748-ddc2-42e3-ad84-fcca20091f15")
     void setIsMultipleInstance(boolean value);
 
-    @objid ("2a2d4745-235b-4674-a140-f08ed8b0fa4c")
+    @objid ("00ec6854-e2e2-4c41-93f6-37b295fab7d4")
     boolean isIsCompensation();
 
-    @objid ("06bcd925-e754-4b9e-a4be-4ff02070aa1c")
+    @objid ("c42a7a5d-aa5b-47ea-9768-3ac2879449f0")
     void setIsCompensation(boolean value);
 
-    @objid ("4a8cd628-c070-44c0-9e54-e7f8d861d4a6")
+    @objid ("b4ba5098-ce9c-4b46-a945-9f88d5874c6a")
     EList<OutputPin> getOutput();
 
-    @objid ("84493e14-92bf-4a5b-815b-cf22ea356a5d")
+    @objid ("df1810eb-8aab-4e05-abe7-5ef2b56c808d")
     <T extends OutputPin> List<T> getOutput(java.lang.Class<T> filterClass);
 
-    @objid ("b8c3d88d-90ae-444f-b190-47d40285d5c7")
+    @objid ("2e823faf-7b22-427e-afe7-a2b6159e284a")
     EList<InputPin> getInput();
 
-    @objid ("21669fd1-92b6-46a4-872a-0d1a8fa201dc")
+    @objid ("ec438b6b-0d1d-42ed-9cb7-f043daa519f4")
     <T extends InputPin> List<T> getInput(java.lang.Class<T> filterClass);
 
-    @objid ("11b846b7-90e0-4924-8a6f-8df6bc3073e1")
+    @objid ("1ed5425c-7eec-4c0b-811c-7a0d7b895d0d")
     EList<ExceptionHandler> getHandler();
 
-    @objid ("b8adf2f5-cd59-4e35-bd99-7492d0fdb05a")
+    @objid ("4c12da7c-e7a8-4444-850a-2ba07fbcfdf6")
     <T extends ExceptionHandler> List<T> getHandler(java.lang.Class<T> filterClass);
 
 }

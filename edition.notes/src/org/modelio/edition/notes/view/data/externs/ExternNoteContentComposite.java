@@ -87,7 +87,6 @@ public class ExternNoteContentComposite extends Composite implements INoteConten
         setLayout(layout);
         
         this.text = new Text(this, SWT.BORDER | SWT.BORDER | SWT.V_SCROLL | SWT.WRAP);
-        this.text.setBackground(UIColor.TEXT_READONLY_BG);
         this.noteModifier = new ExternNoteContentModifier();
         GridData gdText = new GridData();
         gdText.grabExcessHorizontalSpace = true;
@@ -128,10 +127,16 @@ public class ExternNoteContentComposite extends Composite implements INoteConten
             this.xdoc = ((ExternDocument) aNote);
             this.text.setText(this.xdoc.getAbstract());
             this.text.setData(this.xdoc);
+            if (aNote.isModifiable()) {
+                this.text.setBackground(UIColor.POST_IT_BG);
+            } else {
+                this.text.setBackground(UIColor.TEXT_READONLY_BG);
+            }
         } else {
             this.xdoc = null;
             this.text.setText("");
             this.text.setData(null);
+            this.text.setBackground(UIColor.TEXT_READONLY_BG);
         }
         
         this.annotedElement = annotedElement;
@@ -245,9 +250,13 @@ public class ExternNoteContentComposite extends Composite implements INoteConten
                         transaction.commit();
                     }
                 }
+                
+                if (note.isModifiable()) {
+                    externDocText.setBackground(UIColor.POST_IT_BG);
+                } else {
+                    externDocText.setBackground(UIColor.TEXT_READONLY_BG);
+                }
             }
-            
-            externDocText.setBackground(UIColor.TEXT_READONLY_BG);
         }
 
     }

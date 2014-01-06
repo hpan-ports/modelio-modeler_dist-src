@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.data.uml.behavior.activityModel;
 
 import java.util.ArrayList;
@@ -43,22 +43,22 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("00337692-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=FlowFinalNode.class, factory=FlowFinalNodeData.Metadata.ObjectFactory.class)
 public class FlowFinalNodeData extends FinalNodeData {
-    @objid ("db0d3151-f4ee-4feb-b73c-b3fd0eab7386")
+    @objid ("727bbbca-c12b-4d80-8de7-45106646a525")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("0072be60-c4c3-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("3cbab846-4020-4e03-98ed-94424049fcec")
+        @objid ("57449257-2241-4490-8d2b-b0fc41c82016")
         private static SmClass smClass = null;
 
-        @objid ("5461e3fd-def5-4c62-9aa0-27bde6c4de42")
+        @objid ("35c95078-040b-4d7d-aafb-b54be5d850bc")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(FlowFinalNodeData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("f93dcc0e-21ba-46fd-8568-c801de5a648e")
+        @objid ("f7ca9885-ed62-41cb-9219-e18a7f4e03ac")
         public static SmClass getSmClass() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return smClass;
@@ -66,12 +66,12 @@ public class FlowFinalNodeData extends FinalNodeData {
 
         @objid ("007300a0-c4c3-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("5cf26378-b702-46fe-864c-6f529df21337")
+            @objid ("8de87dd8-70fc-451b-bf3e-c319d144663c")
             public ISmObjectData createData() {
                 return new FlowFinalNodeData();
             }
 
-            @objid ("278f3e14-bde8-4be5-a0c6-b6746d749eae")
+            @objid ("3a3a15ff-69c8-4619-847f-20ac415ed262")
             public SmObjectImpl createImpl() {
                 return new FlowFinalNodeImpl();
             }

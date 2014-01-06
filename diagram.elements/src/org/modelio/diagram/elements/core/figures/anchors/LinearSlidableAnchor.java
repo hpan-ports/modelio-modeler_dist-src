@@ -47,7 +47,7 @@ public class LinearSlidableAnchor extends AbstractConnectionAnchor implements IS
     /**
      * The connection anchor reference point (sometimes the same as anchor location)
      */
-    @objid ("6f129a46-1a21-408f-aa7c-edd6ce609a5d")
+    @objid ("e997e38e-5526-418f-b8c2-07fab8464c61")
     private PrecisionPoint relativeReference;
 
     /**

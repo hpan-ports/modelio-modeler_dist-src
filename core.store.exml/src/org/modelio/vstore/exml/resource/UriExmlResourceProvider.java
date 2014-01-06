@@ -80,6 +80,9 @@ public class UriExmlResourceProvider implements IExmlResourceProvider {
     @objid ("1b4b7b90-af88-49af-9496-e4f353500b74")
     private IAuthData auth;
 
+    @objid ("5dbc6657-fa15-4de1-8f87-f9f56f7db147")
+    private URI versionUri;
+
     /**
      * Initialize the resource provider.
      * @param url the URL of the repository.
@@ -93,6 +96,7 @@ public class UriExmlResourceProvider implements IExmlResourceProvider {
         
         this.modelUri = this.url.resolve(IExmlRepositoryGeometry.MODEL_DIRNAME+"/");
         this.stampUrl = this.url.resolve(IStampGeometry.STAMP_DIR_NAME+"/"+IStampGeometry.STAMP_FILE_NAME);
+        this.versionUri = this.url.resolve(IExmlRepositoryGeometry.VERSION_PATH);
               
         this.localIndexDir = localDir.resolve(IExmlRepositoryGeometry.INDEX_DIRNAME);
         this.localIndexStampPath = localDir.resolve(IStampGeometry.LOCAL_INDEX_STAMP_FILE);
@@ -313,6 +317,12 @@ public class UriExmlResourceProvider implements IExmlResourceProvider {
         } catch (FileNotFoundException e) {
             return null;
         }
+    }
+
+    @objid ("f2a9bd10-a39f-467b-992b-77acbf5fd73b")
+    @Override
+    public ExmlResource getRepositoryVersionResource() {
+        return new UriResource(this.versionUri, this.auth);
     }
 
     /**

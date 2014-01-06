@@ -31,6 +31,7 @@ import org.modelio.app.core.activation.IActivationService;
 import org.modelio.app.project.core.services.IProjectService;
 import org.modelio.core.ui.ktable.types.IPropertyType;
 import org.modelio.core.ui.ktable.types.bool.BooleanType;
+import org.modelio.core.ui.ktable.types.element.SingleElementType;
 import org.modelio.core.ui.ktable.types.list.ListType;
 import org.modelio.core.ui.ktable.types.text.MultilineStringType;
 import org.modelio.core.ui.ktable.types.text.StringType;
@@ -40,6 +41,7 @@ import org.modelio.gproject.model.facilities.AnalystPropertiesHelper;
 import org.modelio.metamodel.analyst.AnalystContainer;
 import org.modelio.metamodel.analyst.AnalystElement;
 import org.modelio.metamodel.analyst.AnalystPropertyTable;
+import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.metamodel.uml.infrastructure.properties.EnumeratedPropertyType;
 import org.modelio.metamodel.uml.infrastructure.properties.PropertyDefinition;
 import org.modelio.metamodel.uml.infrastructure.properties.PropertyEnumerationLitteral;
@@ -47,6 +49,7 @@ import org.modelio.metamodel.uml.infrastructure.properties.PropertyTableDefiniti
 import org.modelio.metamodel.uml.infrastructure.properties.PropertyType;
 import org.modelio.property.ui.data.standard.common.AbstractPropertyModel;
 import org.modelio.vcore.session.api.model.IModel;
+import org.modelio.vcore.smkernel.mapi.MRef;
 
 @objid ("7fab0858-d842-42bf-a3df-28fd657ee612")
 abstract class AbstractAnalystContainerPropertyModel<T extends AnalystContainer> extends AbstractPropertyModel<T> {
@@ -91,9 +94,13 @@ abstract class AbstractAnalystContainerPropertyModel<T extends AnalystContainer>
     @objid ("fc570747-81ad-4378-a903-b42282c78f21")
     private IProjectService projectService;
 
+    @objid ("d55922bd-aeac-47a9-ba1e-8f7616de37cb")
+    private SingleElementType elementType;
+
     @objid ("06007e66-93e6-4afe-96b2-18786f2bde82")
     protected AbstractAnalystContainerPropertyModel(T editedElement, IMModelServices modelService, IProjectService projectService, IActivationService activationService, IModel model) {
         super(editedElement);
+        this.elementType = new SingleElementType(true, Element.class, projectService.getSession());
         
         this.modelService = modelService;
         this.model = model;
@@ -112,13 +119,12 @@ abstract class AbstractAnalystContainerPropertyModel<T extends AnalystContainer>
         this.properties.add(this.theEditedElement.getMClass().getName());
         this.properties.add("Name");
         this.properties.add("Type");
+        this.properties.add("Text");
+        
         // Get the propertySet from the containing AnalystContainer.
         for (PropertyDefinition property : getDisplayedProperties()) {
             this.properties.add(property.getName());
         }
-        
-        
-        this.properties.add("Text");
     }
 
     /**
@@ -155,34 +161,28 @@ abstract class AbstractAnalystContainerPropertyModel<T extends AnalystContainer>
         if (col == 0) {
             return this.properties.get(row);
         }
-        
-        // else
-        if (col == 1) // col 1 is the property value
+        else if (col == 1) // col 1 is the property value
         {
             if (row == 0) {
                 return "Value";
             }
-            // else
-            if (row == 1) {
+            else if (row == 1) {
                 return this.theEditedElement.getName();
             }
-            // else
-            if (row == 2) {
+            else if (row == 2) {
                 return this.theEditedElement.getAnalystProperties().getType();
             }
-            // else
-            if (3 <= row && row < (this.properties.size() - 1)) {
-                return getPropertyValue(row - 3);
-            }
-            // else
-            if (row == (this.properties.size() - 1)) {
+            else if (row == 3) {
                 return this.theEditedElement.getDefinition();
             }
-            // else
-            return null;
+            else if (isPropertyRow(row)) {
+                return getPropertyValue(row - 4);
+            }
+            else
+                return null;
         }
-        // else
-        return null;
+        else
+            return null;
     }
 
     /**
@@ -202,32 +202,28 @@ abstract class AbstractAnalystContainerPropertyModel<T extends AnalystContainer>
         if (col == 0) {
             return this.labelStringType;
         }
-        // else
-        if (col == 1) // col 1 is the property value
+        else if (col == 1) // col 1 is the property value
         {
             if (row == 0) {
                 return this.labelStringType;
             }
-            // else
-            if (row == 1) {
+            else if (row == 1) {
                 return this.stringType;
             }
-            // else
-            if (row == 2) {
+            else if (row == 2) {
                 return getAvailableSets();
             }
-            // else
-            if (3 <= row && row < (this.properties.size() - 1)) {
-                return getPropertyType(row - 3);
-            }
-            // else
-            if (row == (this.properties.size() - 1)) {
+            else if (row == 3) {
                 return new MultilineStringType(this.theEditedElement, this.properties.get(row), true);
             }
-            // else
-            return null;
+            else if (isPropertyRow(row)) {
+                return getPropertyType(row - 4);
+            }
+            else 
+                return null;
         }
-        return null;
+        else 
+            return null;
     }
 
     /**
@@ -244,36 +240,27 @@ abstract class AbstractAnalystContainerPropertyModel<T extends AnalystContainer>
         if (col == 0) {
             return;
         }
-        
-        // else
         if (col == 1) // col 1 is the property value
         {
             if (row == 0) {
                 return; // Header cannot be modified
             }
-            // else
             if (row == 1) {
                 this.theEditedElement.setName(value.toString());
                 return;
             }
-            // else
             if (row == 2) {
                 setType((PropertyTableDefinition) value);
                 return;
             }
-            // else
-            if (3 <= row && row < (this.properties.size() - 1)) {
-                setPropertyValue(row - 3, value.toString());
-                return;
-            }
-            // else
-            if (row == (this.properties.size() - 1)) {
+            if (row == 3) {
                 this.theEditedElement.setDefinition(value.toString());
             }
-            // else
+            if (isPropertyRow(row) ) {
+                setPropertyValue(row - 4, value.toString());
+            }
             return;
         }
-        // else
         return;
     }
 
@@ -282,8 +269,8 @@ abstract class AbstractAnalystContainerPropertyModel<T extends AnalystContainer>
     public boolean isEditable(int row, int col) {
         if (col == 0) {
             return false;
-        } else if (3 <= row && row < (this.properties.size() - 1)) {
-            int propertyIndex = row - 3;
+        } else if (isPropertyRow(row)) {
+            int propertyIndex = row - 4;
             PropertyDefinition property = getDisplayedProperties().get(propertyIndex);
             if (!property.isIsEditable()) {
                 return false;
@@ -297,24 +284,39 @@ abstract class AbstractAnalystContainerPropertyModel<T extends AnalystContainer>
         // Get the correct PropertyDefinition:
         PropertyDefinition property = getDisplayedProperties().get(propertyIndex);
         boolean isBooleanProperty = (property.getType().getName().equals("Boolean")); //$NON-NLS-1$
+        boolean isElement = (property.getType().getName().equals("Element")); //$NON-NLS-1$
         // If property values are defined on this AnalystContainer
         // go through theEditedElement and look for the one corresponding
         // to this property
         String stringValue = this.theEditedElement.getAnalystProperties().getProperty(property);
         
         if (stringValue != null) {
-            if (isBooleanProperty) 
+            if (isBooleanProperty) {
                 return new Boolean(stringValue);
-            else
+            } else if (isElement) {
+                try {
+                    return this.projectService.getSession().getModel().findByRef(new MRef(stringValue));
+                } catch (Exception e) {
+                    // Ignore invalid values
+                    return null;
+                }
+            }
                 return stringValue;
         }
         
         // No value is already defined for this property, return the default
         // value.
-        if (isBooleanProperty) 
+        if (isElement) {
+            try {
+                return this.projectService.getSession().getModel().findByRef(new MRef(property.getDefaultValue()));
+            } catch (Exception e) {
+                return null;
+            }
+        } else if (isBooleanProperty) {
             return new Boolean(property.getDefaultValue());
-        else
+        } else {
             return property.getDefaultValue();
+        }
     }
 
     @objid ("a7ef7ca4-823a-469f-9076-668d4451e345")
@@ -342,6 +344,8 @@ abstract class AbstractAnalystContainerPropertyModel<T extends AnalystContainer>
             String propertyName = propertyType.getName();
             if (propertyName.equals("Boolean")) {
                 return this.booleanType;
+            } else if (propertyName.equals("Element")) {
+                return this.elementType;
             } else if (propertyName.equals("MultiText")) {
                 return new MultilineStringType(this.theEditedElement, "Text", true);
             } else if (propertyName.equals("Text") || propertyName.equals("Integer") || propertyName.equals("Real") || propertyName.equals("Date")) {
@@ -467,5 +471,10 @@ abstract class AbstractAnalystContainerPropertyModel<T extends AnalystContainer>
 
     @objid ("097c9e87-7329-4fad-b099-ca3732490f34")
     protected abstract IPropertyType getAvailableSets();
+
+    @objid ("0f73fb35-8610-4724-afc8-d4c00c258e7d")
+    protected boolean isPropertyRow(int row) {
+        return 4 <= row && row < this.properties.size();
+    }
 
 }

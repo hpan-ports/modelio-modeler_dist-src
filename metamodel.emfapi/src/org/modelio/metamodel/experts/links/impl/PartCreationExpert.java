@@ -32,7 +32,7 @@ import org.modelio.vcore.smkernel.mapi.MObject;
 public class PartCreationExpert extends DefaultLinkExpert {
     @objid ("335fe2e3-d411-47e5-bd6e-b591f39be457")
     @Override
-    public boolean canLink(MObject link, final MObject fromElement, final MObject toElement, final MObject linkOwner) {
+    public boolean canLink(MClass link, final MObject fromElement, final MObject toElement) {
         return ((fromElement instanceof Goal) &&
                 (toElement instanceof Goal)) ||
                ((fromElement instanceof Requirement) &&
@@ -41,7 +41,7 @@ public class PartCreationExpert extends DefaultLinkExpert {
 
     @objid ("afc1df3a-16f5-4418-819d-e4537542ddea")
     @Override
-    public boolean canLink(MClass link, final MClass fromMetaclass, final MClass toMetaclass, final MClass owner) {
+    public boolean canLink(MClass link, final MClass fromMetaclass, final MClass toMetaclass) {
         return (fromMetaclass.hasBase(Metamodel.getMClass(Requirement.class)) && toMetaclass.hasBase(Metamodel.getMClass(Requirement.class))) ||
                (fromMetaclass.hasBase(Metamodel.getMClass(Goal.class)) && toMetaclass.hasBase(Metamodel.getMClass(Goal.class)));
     }

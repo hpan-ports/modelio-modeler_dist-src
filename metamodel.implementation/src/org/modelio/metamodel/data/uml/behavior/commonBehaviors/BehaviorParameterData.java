@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.data.uml.behavior.commonBehaviors;
 
 import java.util.ArrayList;
@@ -47,43 +47,43 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("00416784-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=BehaviorParameter.class, factory=BehaviorParameterData.Metadata.ObjectFactory.class)
 public class BehaviorParameterData extends ParameterData {
-    @objid ("f23702b1-7d6e-4697-94a9-04cc9a23b9d9")
+    @objid ("6732a997-0c87-4d0e-a6e6-520f76ec3d8e")
     @SmaMetaAssociation(metaName="RepresentingObjectNode", typeDataClass=ObjectNodeData.class, min=0, max=-1, smAssociationClass=Metadata.RepresentingObjectNodeSmDependency.class)
      List<SmObjectImpl> mRepresentingObjectNode = null;
 
-    @objid ("2dd845a8-d83e-40f5-a8b3-d685f50f39af")
+    @objid ("4e690ede-275d-4218-b409-c6286a5d442f")
     @SmaMetaAssociation(metaName="Owner", typeDataClass=BehaviorData.class, min=0, max=1, smAssociationClass=Metadata.OwnerSmDependency.class)
      SmObjectImpl mOwner;
 
-    @objid ("ba90a226-f6fc-4ca5-944b-436c04b3275a")
+    @objid ("42c3ba0e-c49d-43de-bec5-5a2d8a883efc")
     @SmaMetaAssociation(metaName="Mapped", typeDataClass=ParameterData.class, min=0, max=1, smAssociationClass=Metadata.MappedSmDependency.class, partof = true)
      SmObjectImpl mMapped;
 
-    @objid ("4d86484e-2cf1-47b7-83f3-58502e1d7325")
+    @objid ("fee19e8c-68a5-4e11-8a2f-c2530886c863")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("002def06-c4c3-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("c20f3fd3-3497-45a9-b821-3fda5bb8e178")
+        @objid ("052bfabb-c706-4126-8398-90848ec5b611")
         private static SmClass smClass = null;
 
-        @objid ("15f217af-3b8d-416e-9d2c-968dc0131385")
+        @objid ("4f4a2f28-09ed-4623-994a-88b9e9363d77")
         private static SmDependency RepresentingObjectNodeDep = null;
 
-        @objid ("cd4946b5-4826-4b0e-89eb-32e322b013ca")
+        @objid ("50a8e9c5-3ab7-4753-8b84-dcde9e31dd41")
         private static SmDependency OwnerDep = null;
 
-        @objid ("97a66858-d8ee-40d1-8d00-d51ae2ef3359")
+        @objid ("96405c21-6ad4-4428-b261-5673459f555b")
         private static SmDependency MappedDep = null;
 
-        @objid ("340a8ba6-4d3c-44d7-97dc-07666f5cd68f")
+        @objid ("6bb01a28-c68a-40cf-bd06-137d1fd361c5")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(BehaviorParameterData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("970df235-2aa9-4a46-9171-10b32d3d6451")
+        @objid ("066c2059-0c24-451b-a780-6eada3d34d15")
         public static SmDependency RepresentingObjectNodeDep() {
             if (RepresentingObjectNodeDep == null) {
             	RepresentingObjectNodeDep = classof().getDependencyDef("RepresentingObjectNode");
@@ -91,7 +91,7 @@ public class BehaviorParameterData extends ParameterData {
             return RepresentingObjectNodeDep;
         }
 
-        @objid ("047d988d-444a-42ed-8263-f0b117d9cc94")
+        @objid ("f63bdcb3-3353-4d3c-9f96-d6b420504f86")
         public static SmDependency OwnerDep() {
             if (OwnerDep == null) {
             	OwnerDep = classof().getDependencyDef("Owner");
@@ -99,7 +99,7 @@ public class BehaviorParameterData extends ParameterData {
             return OwnerDep;
         }
 
-        @objid ("80349489-e8db-4d6c-8247-62f84572f4df")
+        @objid ("a0fbfa5e-038f-4b89-b5c6-264fb2929022")
         public static SmDependency MappedDep() {
             if (MappedDep == null) {
             	MappedDep = classof().getDependencyDef("Mapped");
@@ -107,38 +107,38 @@ public class BehaviorParameterData extends ParameterData {
             return MappedDep;
         }
 
-        @objid ("7a76fdda-93f3-4a5a-a982-782f5dd9a354")
-        public static SmDependency getMappedDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return MappedDep;
-        }
-
-        @objid ("d2fa486d-5589-4c9d-8653-05cd2035f5e2")
+        @objid ("03071bc8-f222-47b3-afb6-a572ae1de803")
         public static SmClass getSmClass() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return smClass;
         }
 
-        @objid ("fb320e21-47f7-48b2-89f9-4348ec27d5a8")
+        @objid ("9b5a98b8-3638-4a60-95b3-39aa4064ec54")
         public static SmDependency getRepresentingObjectNodeDep() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return RepresentingObjectNodeDep;
         }
 
-        @objid ("9f04c44e-b994-465b-b279-d4b01e7a4361")
+        @objid ("a4c716e3-576a-473b-8b64-a260caf246f0")
         public static SmDependency getOwnerDep() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return OwnerDep;
         }
 
+        @objid ("abfabb75-7a1e-4dd5-a2f2-669a8e66bfa9")
+        public static SmDependency getMappedDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return MappedDep;
+        }
+
         @objid ("002e315a-c4c3-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("3757ab7c-ab21-4f43-a428-6818a7c864eb")
+            @objid ("9d8dc2c2-4ba0-48d6-b2b0-215f2ff3aa63")
             public ISmObjectData createData() {
                 return new BehaviorParameterData();
             }
 
-            @objid ("3d25f78b-8987-457d-af7c-29d469474c99")
+            @objid ("57c10754-7721-44d6-8a88-df61b903d612")
             public SmObjectImpl createImpl() {
                 return new BehaviorParameterImpl();
             }
@@ -147,18 +147,18 @@ public class BehaviorParameterData extends ParameterData {
 
         @objid ("002e9834-c4c3-1fd8-97fe-001ec947cd2a")
         public static class OwnerSmDependency extends SmSingleDependency {
-            @objid ("3f0af832-a8dd-4133-89a3-2ee3b8b6db65")
+            @objid ("ec44eee4-7ee7-4c1c-9ec5-d4cdf557374d")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((BehaviorParameterData) data).mOwner;
             }
 
-            @objid ("6deb73d0-b4ef-42ec-95c6-69d01d631f22")
+            @objid ("57e26004-1d87-4da0-9a81-d0429c223926")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((BehaviorParameterData) data).mOwner = value;
             }
 
-            @objid ("6e37b298-9c96-4399-b299-9422c28c861c")
+            @objid ("f76ce009-c6fb-4bc7-b080-6b562cb90973")
             @Override
             public SmDependency getSymetric() {
                 return BehaviorData.Metadata.ParameterDep();
@@ -168,20 +168,20 @@ public class BehaviorParameterData extends ParameterData {
 
         @objid ("002f0ee0-c4c3-1fd8-97fe-001ec947cd2a")
         public static class RepresentingObjectNodeSmDependency extends SmMultipleDependency {
-            @objid ("58587ad9-c400-4c51-8cc7-cbf2f06bf35a")
+            @objid ("b5b85d01-6459-4880-af37-89074eebf120")
             @Override
             public List<SmObjectImpl> getValueList(ISmObjectData data) {
                 return (((BehaviorParameterData)data).mRepresentingObjectNode != null)? ((BehaviorParameterData)data).mRepresentingObjectNode:SmMultipleDependency.EMPTY;
             }
 
-            @objid ("7b69fc8f-8bef-41d7-b6ec-1fad34593857")
+            @objid ("8ae78dcc-ed14-40c5-b773-91518b3504f2")
             @Override
             protected List<SmObjectImpl> allocateValueList(ISmObjectData data, int initialCapacity) {
                 ((BehaviorParameterData) data).mRepresentingObjectNode = new ArrayList<>(initialCapacity);
                 return ((BehaviorParameterData) data).mRepresentingObjectNode;
             }
 
-            @objid ("8ea84a1d-02a0-4bca-bbb8-f25b896b1950")
+            @objid ("71a59719-040e-4446-b2a5-99a15da4aabc")
             @Override
             public SmDependency getSymetric() {
                 return ObjectNodeData.Metadata.RepresentedRealParameterDep();
@@ -191,18 +191,18 @@ public class BehaviorParameterData extends ParameterData {
 
         @objid ("002f7268-c4c3-1fd8-97fe-001ec947cd2a")
         public static class MappedSmDependency extends SmSingleDependency {
-            @objid ("a83f07ca-aee6-42ea-a85a-4129a451b915")
+            @objid ("e1029c39-5969-4ac5-bee9-107bd7e6bbc4")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((BehaviorParameterData) data).mMapped;
             }
 
-            @objid ("74f7dad4-2e14-4d26-9c55-25df189a7ff8")
+            @objid ("bb23f3e6-4ab0-4f30-bae1-9fb4fc0611c3")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((BehaviorParameterData) data).mMapped = value;
             }
 
-            @objid ("2e730896-7a92-47c9-bb2d-4bbb38b01eea")
+            @objid ("cba31724-a0f7-4656-8afe-a3aaeb31b3ef")
             @Override
             public SmDependency getSymetric() {
                 return ParameterData.Metadata.BehaviorParamDep();

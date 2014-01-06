@@ -36,10 +36,10 @@ public class SegmentLocator extends ConnectionLocator {
     @objid ("803fbd35-1dec-11e2-8cad-001ec947c8cc")
     private int index;
 
-    @objid ("45f0be1d-a241-4d6d-bab1-27cb50226d9e")
+    @objid ("dc97832f-fe72-467a-b7fa-d4558820313c")
     private static final Point ref1 = new Point();
 
-    @objid ("3e37d761-b799-4932-b439-9ff29459953b")
+    @objid ("d6527bdf-345c-4aee-a7ba-5a008d9e2b1e")
     private static final Point ref2 = new Point();
 
     /**

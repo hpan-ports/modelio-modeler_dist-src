@@ -91,9 +91,9 @@ public abstract class AbstractStyleKeyProvider {
                     styleKey = (StyleKey) field.get(null);
                     this.allKeys.add(styleKey);
                 } catch (final IllegalArgumentException e) {
-                    DiagramStyles.LOG.error(DiagramStyles.PLUGIN_ID, e);
+                    DiagramStyles.LOG.error(e);
                 } catch (final IllegalAccessException e) {
-                    DiagramStyles.LOG.error(DiagramStyles.PLUGIN_ID, e);
+                    DiagramStyles.LOG.error(e);
                 }
             }
         }

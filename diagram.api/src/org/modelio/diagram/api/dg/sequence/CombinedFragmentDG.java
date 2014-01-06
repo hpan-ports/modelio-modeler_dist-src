@@ -65,7 +65,7 @@ public class CombinedFragmentDG extends PortContainerDG {
         
         GmCompositeNode operandZone = mainNode.getCompositeFor(InteractionOperand.class);
         if (operandZone != null) {
-            return DGFactory.getInstance().getDiagramNodes(this.diagramHandle, operandZone.getChildren());
+            return DGFactory.getInstance().getDiagramNodes(this.diagramHandle, operandZone.getVisibleChildren());
         } else {
             return Collections.emptyList();
         }

@@ -35,7 +35,7 @@ import org.modelio.vcore.smkernel.mapi.MObject;
 public class RefineCreationExpert extends DefaultLinkExpert {
     @objid ("9ce952e0-8e3e-43b1-87ad-a7639faa0160")
     @Override
-    public boolean canLink(MObject link, final MObject fromElement, final MObject toElement, final MObject linkOwner) {
+    public boolean canLink(MClass link, final MObject fromElement, final MObject toElement) {
         if ((fromElement instanceof Activity) ||
             (fromElement instanceof Operation) ||
             (fromElement instanceof BusinessRule)) {
@@ -52,7 +52,7 @@ public class RefineCreationExpert extends DefaultLinkExpert {
 
     @objid ("dd718042-7db2-4d06-858d-c2d4b0d91d79")
     @Override
-    public boolean canLink(MClass link, final MClass fromMetaclass, final MClass toMetaclass, final MClass owner) {
+    public boolean canLink(MClass link, final MClass fromMetaclass, final MClass toMetaclass) {
         if (fromMetaclass.hasBase(Metamodel.getMClass(ModelElement.class)))
             return toMetaclass.hasBase(Metamodel.getMClass(Requirement.class)) || toMetaclass.hasBase(Metamodel.getMClass(BusinessRule.class));
         return false;

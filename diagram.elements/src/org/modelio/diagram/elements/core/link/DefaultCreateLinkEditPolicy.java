@@ -274,7 +274,7 @@ public class DefaultCreateLinkEditPolicy extends GraphicalNodeEditPolicy {
         
             // If creation expert does not allow and yet we ended here, this means this policy is opaque, so return non executable
             // command.
-            if (!MTools.getLinkTool().canLink(Metamodel.getMClass(context.getMetaclass()), sourceElement.getMClass(), targetElement.getMClass(), null)) {
+            if (!MTools.getLinkTool().canLink(Metamodel.getMClass(context.getMetaclass()), sourceElement, targetElement)) {
                 return null;
             }
         } else {
@@ -447,7 +447,7 @@ public class DefaultCreateLinkEditPolicy extends GraphicalNodeEditPolicy {
      */
     @objid ("7fec4aa5-1dec-11e2-8cad-001ec947c8cc")
     private static boolean canLink(final MObject newSrcElement, final MObject targetElement, final MObject linkElement) {
-        return MTools.getLinkTool().canLink(linkElement.getMClass(), newSrcElement.getMClass(), targetElement.getMClass(), null);
+        return MTools.getLinkTool().canLink(linkElement.getMClass(), newSrcElement, targetElement);
     }
 
     /**
@@ -547,7 +547,7 @@ public class DefaultCreateLinkEditPolicy extends GraphicalNodeEditPolicy {
     }
 
     /**
-     * @return
+     * @return the connection routers registry.
      */
     @objid ("7fec4ad0-1dec-11e2-8cad-001ec947c8cc")
     private ConnectionRouterRegistry getRouterRegistry() {
@@ -573,7 +573,7 @@ public class DefaultCreateLinkEditPolicy extends GraphicalNodeEditPolicy {
             final MObject targetElement = ((GmModel) getHost().getModel()).getRelatedElement();
             final IGmLinkable sourceNode = (IGmLinkable) request.getSourceEditPart().getModel();
             if (sourceNode == null || (sourceElement = sourceNode.getRelatedElement()) == null || (targetElement == null)
-                    || (!MTools.getLinkTool().canLink(Metamodel.getMClass(context.getMetaclass()), sourceElement.getMClass(), targetElement.getMClass(), null))
+                    || (!MTools.getLinkTool().canLink(Metamodel.getMClass(context.getMetaclass()), sourceElement, targetElement))
                     && !this.isOpaque) {
                 return null;
             }

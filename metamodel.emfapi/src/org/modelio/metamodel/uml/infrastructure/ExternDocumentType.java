@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.uml.infrastructure;
 
 import java.util.List;
@@ -38,46 +38,46 @@ public interface ExternDocumentType extends ModelElement {
     @objid ("1cb032b7-9ac9-46f1-b30f-f2f395b83488")
     ModuleComponent getModule();
 
-    @objid ("5bfe90c1-6b8d-4e5f-9587-d6a661017e0a")
+    @objid ("e3b7a053-3c99-4a1c-acb5-142060a60d3f")
     boolean isIsHidden();
 
-    @objid ("c5cc8e97-cb6e-49ad-81a8-678488137233")
+    @objid ("dd2a2d55-cb5a-480f-ada4-f12432de89eb")
     void setIsHidden(boolean value);
 
-    @objid ("5b10e0d4-9a44-4f0b-8943-fb0577ec15db")
+    @objid ("eba82e8d-a162-4f23-baff-0996268e11ce")
     String getLabelKey();
 
-    @objid ("31b2e354-4b2d-44b7-807a-27cc961c0c4f")
+    @objid ("69bdfba5-d57a-43a6-a8d9-0bc8fa5952e5")
     void setLabelKey(String value);
 
-    @objid ("16cf9813-3a77-47a7-b781-3c84010cdfab")
+    @objid ("674518a4-70d0-4f9b-ad69-986e15033967")
     String getIcon();
 
-    @objid ("43823302-6458-473b-bf51-835ee9372c93")
+    @objid ("3b6c2139-eb59-486e-a955-60ccbc8925b2")
     void setIcon(String value);
 
-    @objid ("8c9600d3-61c8-42a5-9bd2-a90e57dce173")
+    @objid ("e1fdba71-135a-4944-91b2-48224582e40e")
     String getImage();
 
-    @objid ("26691272-7508-448b-aef0-fe5cc51dc609")
+    @objid ("6be597e6-29b7-4243-8536-b3297e27eb74")
     void setImage(String value);
 
-    @objid ("1bd3bd9f-3de8-4b19-b514-203a79fa8138")
+    @objid ("74569419-1337-4ae4-9aa4-190ff3673ad5")
     Stereotype getOwnerStereotype();
 
-    @objid ("be953f84-657a-492e-bca2-248aec7861a7")
+    @objid ("1a843c0e-b910-483d-aca1-65426bbc9ab3")
     void setOwnerStereotype(Stereotype value);
 
-    @objid ("6b88b45e-1742-43ee-acb1-d22897727cab")
+    @objid ("bcf9c9b7-f625-40fd-bedd-052f06dcdf44")
     EList<ExternDocument> getTypedDoc();
 
-    @objid ("0d552c3c-5916-4074-9cfd-2fc7db77f140")
+    @objid ("cda079a0-7d1c-492b-b88e-67c66a4f510b")
     <T extends ExternDocument> List<T> getTypedDoc(java.lang.Class<T> filterClass);
 
-    @objid ("1af87e42-845f-415f-bdcc-d0b4cd8134f7")
+    @objid ("65f5ba19-ed4d-4397-837e-9106332cb09d")
     MetaclassReference getOwnerReference();
 
-    @objid ("4c1dc078-262d-439c-acda-7c2e5c5a842c")
+    @objid ("d835bc37-d157-46ec-842b-8cc54b5a1037")
     void setOwnerReference(MetaclassReference value);
 
 }

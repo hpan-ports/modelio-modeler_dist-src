@@ -25,13 +25,13 @@ import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.draw2d.Bendpoint;
 import org.eclipse.gef.commands.Command;
-import org.modelio.diagram.elements.core.link.GmLink;
 import org.modelio.diagram.elements.core.link.GmPath;
+import org.modelio.diagram.elements.core.model.IGmLinkObject;
 import org.modelio.diagram.elements.core.model.IGmPath;
 import org.modelio.gproject.model.api.MTools;
 
 /**
- * Command that adds a bend point to a {@link GmLink}.
+ * Command that adds a bend point to a {@link IGmLinkObject}.
  */
 @objid ("7f32532b-1dec-11e2-8cad-001ec947c8cc")
 public class DefaultAddBendPointCommand extends Command {
@@ -39,7 +39,7 @@ public class DefaultAddBendPointCommand extends Command {
     private final int index;
 
     @objid ("7f325331-1dec-11e2-8cad-001ec947c8cc")
-    private final GmLink gmLink;
+    private final IGmLinkObject gmLink;
 
     @objid ("66fd7d87-1e83-11e2-8cad-001ec947c8cc")
     private final Bendpoint newpoint;
@@ -51,7 +51,7 @@ public class DefaultAddBendPointCommand extends Command {
      * @param newpoint The bend point to insert.
      */
     @objid ("7f325337-1dec-11e2-8cad-001ec947c8cc")
-    public DefaultAddBendPointCommand(GmLink gmLink, int index, Bendpoint newpoint) {
+    public DefaultAddBendPointCommand(IGmLinkObject gmLink, int index, Bendpoint newpoint) {
         this.index = index;
         this.newpoint = newpoint;
         this.gmLink = gmLink;

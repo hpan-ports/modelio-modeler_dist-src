@@ -40,10 +40,10 @@ public class ShadowBorder extends AbstractBorder {
     @objid ("7f5f9fe7-1dec-11e2-8cad-001ec947c8cc")
     private int shadowWidth = 1;
 
-    @objid ("aaa820f3-1448-433e-89d8-e12d61919177")
+    @objid ("f8b4ef9a-b86c-4598-9a91-0cc0c5d26460")
     private Color shadowColor = null;
 
-    @objid ("fde5bd46-a9ce-45f1-9001-ec9f4a140376")
+    @objid ("a0d77c3f-390a-42dc-88e2-6ed950d457ee")
     private Insets myInsets = new Insets(0, 0, 1, 1);
 
     /**

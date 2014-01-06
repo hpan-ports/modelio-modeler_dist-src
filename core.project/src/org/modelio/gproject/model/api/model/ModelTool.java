@@ -255,7 +255,7 @@ public class ModelTool implements IModelTool {
         moveTo((SmObjectImpl) toMove, parentInitiliazer, (SmObjectImpl) oldParentHint);
     }
 
-    @objid ("b4edac1c-b2cd-46a5-89fd-cbf973890857")
+    @objid ("514cfe7f-28b1-4637-bfd1-3cf154c66a04")
     @Override
     public List<List<? extends MObject>> copyElements(List<List<? extends MObject>> toCopy, List<MObject> target) {
         CoreSession localSession = null;
@@ -527,7 +527,7 @@ public class ModelTool implements IModelTool {
             return theNaryLinkEnd.getNaryLink();
         }
 
-        @objid ("35709b91-db7e-4490-8e64-417a7ba2417f")
+        @objid ("01bfbe45-b1cc-4960-a4e3-74fd07731a83")
         @Override
         public Object visitCommunicationChannel(CommunicationChannel theChannel) {
             return theChannel.getStart();
@@ -737,7 +737,7 @@ public class ModelTool implements IModelTool {
             return theNaryLinkEnd.getSource();
         }
 
-        @objid ("249ff988-f66a-4f12-8478-2098d3be46d2")
+        @objid ("8d6d1164-5faf-4768-b890-7dbb604eba11")
         @Override
         public Object visitCommunicationChannel(CommunicationChannel theChannel) {
             return theChannel.getEnd();
@@ -1037,7 +1037,7 @@ public class ModelTool implements IModelTool {
             return null;
         }
 
-        @objid ("002061dd-9792-49d7-adc8-68686d2ae8d6")
+        @objid ("5b3e53a4-b654-4227-83ae-8fb0d8bec1bf")
         @Override
         public Object visitCommunicationChannel(CommunicationChannel theChannel) {
             theChannel.setStart((CommunicationNode) this.newSource);
@@ -1388,7 +1388,7 @@ public class ModelTool implements IModelTool {
             return null;
         }
 
-        @objid ("c1b71160-6f9a-439f-9bb5-fd6c87d954ee")
+        @objid ("ad450d41-0130-44b2-9de6-355434f10fca")
         @Override
         public Object visitCommunicationChannel(CommunicationChannel theChannel) {
             theChannel.setEnd((CommunicationNode) this.newDest);

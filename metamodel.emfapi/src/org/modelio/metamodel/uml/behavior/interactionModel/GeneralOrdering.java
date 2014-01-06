@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.uml.behavior.interactionModel;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
@@ -32,16 +32,16 @@ import org.modelio.metamodel.uml.infrastructure.Element;
 
 @objid ("0045de18-c4bf-1fd8-97fe-001ec947cd2a")
 public interface GeneralOrdering extends Element {
-    @objid ("846f440a-40ae-41cf-99d5-16f51c555297")
+    @objid ("ee0fca6e-08d3-4020-8ba1-5ca880351afa")
     OccurrenceSpecification getBefore();
 
-    @objid ("ff89d888-234f-4118-9459-2b683cf8a38a")
+    @objid ("09c624c2-7bdf-4c5f-9fe5-611a2a3e6363")
     void setBefore(OccurrenceSpecification value);
 
-    @objid ("e05b9be9-fa74-4dad-869a-611c99e69472")
+    @objid ("67b1b0c8-ad9d-4046-ba7e-1a71e5afd174")
     OccurrenceSpecification getAfter();
 
-    @objid ("9f513c0b-13bb-41d7-b5fd-ab135b280a6f")
+    @objid ("5c5fb861-2361-4296-83cf-734ea13816de")
     void setAfter(OccurrenceSpecification value);
 
 }

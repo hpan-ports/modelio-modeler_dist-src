@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.uml.statik;
 
 import java.util.ArrayList;
@@ -70,13 +70,13 @@ public class NaryAssociationImpl extends ModelElementImpl implements NaryAssocia
         return super.getCompositionRelation();
     }
 
-    @objid ("1021056a-c41c-4096-8a0f-d6d159303f68")
+    @objid ("a7b2a338-a9bc-465f-9827-00983f78df27")
     @Override
     public EList<NaryLink> getOccurence() {
         return new SmList<>(this, NaryAssociationData.Metadata.OccurenceDep());
     }
 
-    @objid ("b74c30ce-6d66-45a8-8bce-9956c626653d")
+    @objid ("2e7b071f-d100-48bc-919e-e2340ea23342")
     @Override
     public <T extends NaryLink> List<T> getOccurence(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -89,13 +89,13 @@ public class NaryAssociationImpl extends ModelElementImpl implements NaryAssocia
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("0465b8ca-7c28-40e1-85a2-5ad84cfb8644")
+    @objid ("b0fa6974-fb82-4413-ac8c-9ca556ecfa30")
     @Override
     public EList<NaryAssociationEnd> getNaryEnd() {
         return new SmList<>(this, NaryAssociationData.Metadata.NaryEndDep());
     }
 
-    @objid ("d9bd3c7a-217c-41d6-91e6-2af858af1e81")
+    @objid ("9cb5b439-3740-4fcf-9d7c-c13c7cd74f02")
     @Override
     public <T extends NaryAssociationEnd> List<T> getNaryEnd(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -108,19 +108,19 @@ public class NaryAssociationImpl extends ModelElementImpl implements NaryAssocia
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("b5bb22c1-4b5a-4a10-8425-650be172b193")
+    @objid ("ea32879e-a1f3-4bec-b59d-9a34ad37ebb0")
     @Override
     public ClassAssociation getLinkToClass() {
         return (ClassAssociation) getDepVal(NaryAssociationData.Metadata.LinkToClassDep());
     }
 
-    @objid ("12718b9d-2734-4a10-aecf-5cef2bdbb51d")
+    @objid ("606dad83-cd8e-4e5c-82e0-42c8dcd035fc")
     @Override
     public void setLinkToClass(ClassAssociation value) {
         appendDepVal(NaryAssociationData.Metadata.LinkToClassDep(), (SmObjectImpl)value);
     }
 
-    @objid ("840b4c54-abe3-4fa6-be3d-1fda13ad614e")
+    @objid ("3f822422-73ea-4d0f-a6e0-3842c3f49bd8")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitNaryAssociation(this);

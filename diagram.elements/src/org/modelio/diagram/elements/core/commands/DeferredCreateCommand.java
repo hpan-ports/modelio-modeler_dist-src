@@ -44,11 +44,11 @@ public class DeferredCreateCommand extends Command {
     @objid ("7f3bdccc-1dec-11e2-8cad-001ec947c8cc")
     private Map<?,?> editPartRegistry;
 
-    @objid ("714420e2-9696-435f-872e-bfa42abe2bf9")
-    private CreateRequest req;
-
     @objid ("7f3bdccb-1dec-11e2-8cad-001ec947c8cc")
     private GmCompositeNode gmCompositeNode;
+
+    @objid ("7c3dc469-9863-446c-b9c8-0a346f67dcea")
+    private CreateRequest req;
 
     /**
      * Create a deferred command.

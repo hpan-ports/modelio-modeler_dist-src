@@ -31,7 +31,7 @@ import org.eclipse.gef.palette.SelectionToolEntry;
 import org.eclipse.gef.tools.AbstractTool;
 import org.modelio.diagram.editor.AbstractDiagramEditor;
 import org.modelio.diagram.editor.communication.plugin.DiagramEditorCommunication;
-import org.modelio.diagram.editor.plugin.IDiagramConfigurer;
+import org.modelio.diagram.editor.plugin.AbstractDiagramConfigurer;
 import org.modelio.diagram.editor.plugin.ToolRegistry;
 import org.modelio.diagram.editor.tools.PanSelectionTool;
 
@@ -39,7 +39,7 @@ import org.modelio.diagram.editor.tools.PanSelectionTool;
  * Configures the communication diagram palette.
  */
 @objid ("7a1a5ada-55b6-11e2-877f-002564c97630")
-public class CommunicationDiagramConfigurer implements IDiagramConfigurer {
+public class CommunicationDiagramConfigurer extends AbstractDiagramConfigurer {
     @objid ("7a1a5aed-55b6-11e2-877f-002564c97630")
     @Override
     public String getContributionURI() {
@@ -122,6 +122,7 @@ public class CommunicationDiagramConfigurer implements IDiagramConfigurer {
         paletteRoot.add(createLinkGroup(toolRegistry));
         paletteRoot.add(createInformationFlowGroup(toolRegistry));
         paletteRoot.add(createCommonGroup(toolRegistry));
+        paletteRoot.add(createDrawGroup(toolRegistry));
         return paletteRoot;
     }
 

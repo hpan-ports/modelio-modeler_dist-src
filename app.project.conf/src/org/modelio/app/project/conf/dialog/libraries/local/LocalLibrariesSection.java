@@ -23,7 +23,6 @@ package org.modelio.app.project.conf.dialog.libraries.local;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
-import java.net.URI;
 import java.nio.file.Path;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
@@ -193,7 +192,7 @@ public class LocalLibrariesSection {
             }
         });
         
-        TableViewerColumn uriColumn = new TableViewerColumn(this.viewer, SWT.NONE);
+        /*TableViewerColumn uriColumn = new TableViewerColumn(this.viewer, SWT.NONE);
         uriColumn.getColumn().setWidth(300);
         uriColumn.getColumn().setResizable(true);
         uriColumn.setLabelProvider(new ColumnLabelProvider() {
@@ -210,7 +209,7 @@ public class LocalLibrariesSection {
             public Image getImage(Object element) {
                 return null;
             }
-        });
+        });*/
         
         this.viewer.setInput(null);
         

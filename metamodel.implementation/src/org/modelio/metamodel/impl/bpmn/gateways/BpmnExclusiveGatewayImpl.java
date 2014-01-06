@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.bpmn.gateways;
 
 import java.util.ArrayList;
@@ -42,33 +42,33 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("00003f2a-c4c0-1fd8-97fe-001ec947cd2a")
 public class BpmnExclusiveGatewayImpl extends BpmnGatewayImpl implements BpmnExclusiveGateway {
-    @objid ("1216fa1c-e856-42e0-8a93-79196f5f3caa")
+    @objid ("e562510b-8ced-432a-963b-7f962e7241c7")
     @Override
     public BpmnSequenceFlow getDefaultFlow() {
         return (BpmnSequenceFlow) getDepVal(BpmnExclusiveGatewayData.Metadata.DefaultFlowDep());
     }
 
-    @objid ("f1cad611-339f-4a05-a014-b2005dbee9f1")
+    @objid ("391e093d-87d4-4866-88a3-b543d14a83e1")
     @Override
     public void setDefaultFlow(BpmnSequenceFlow value) {
         appendDepVal(BpmnExclusiveGatewayData.Metadata.DefaultFlowDep(), (SmObjectImpl)value);
     }
 
-    @objid ("2ab9a263-840a-4874-a4e5-b96ae248bc42")
+    @objid ("25d5fff0-ea63-4d55-80d5-7fb370f0cefd")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("262ca256-af77-41a1-bad4-74eeeb0beb59")
+    @objid ("50c1ff19-3cfd-4a73-95ed-d5c3e4504327")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("e21d72a0-fe5d-44ba-acd0-df489935a84f")
+    @objid ("5f863899-2557-45ba-ba88-1f412e45a5f4")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitBpmnExclusiveGateway(this);

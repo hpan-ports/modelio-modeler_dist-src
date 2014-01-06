@@ -36,7 +36,8 @@ import org.modelio.diagram.elements.core.figures.RectangularFigure;
 import org.modelio.diagram.styles.core.StyleKey.LinePattern;
 
 /**
- * Figure (ie View in the GEF MVC model) for Execution in Sequence Diagram. A bit complex mainly because it has to
+ * Figure (ie View in the GEF MVC model) for Execution in Sequence Diagram.
+ * A bit complex mainly because it has to
  * handle the layout of nested Executions.
  */
 @objid ("d8e68b2a-55b6-11e2-877f-002564c97630")
@@ -216,6 +217,21 @@ public class ExecutionSpecificationFigure extends Figure implements IBrushOption
         this.visibleFigure.setUseGradient(useGradient);
     }
 
+    @objid ("a9022eab-c875-4169-a7a8-adb83faa7a79")
+    @Override
+    public void setFillAlpha(int alpha) {
+        this.visibleFigure.setFillAlpha(alpha);
+    }
+
+    @objid ("d76c22d8-882b-48f0-a7b3-e3e974484c6b")
+    @Override
+    public int getFillAlpha() {
+        return this.visibleFigure.getFillAlpha();
+    }
+
+    /**
+     * Layout that indents child figures by 3/4 the execution standard width.
+     */
     @objid ("d8e811ec-55b6-11e2-877f-002564c97630")
     class ExecutionXYLayout extends XYLayout {
         @objid ("d8e811ed-55b6-11e2-877f-002564c97630")

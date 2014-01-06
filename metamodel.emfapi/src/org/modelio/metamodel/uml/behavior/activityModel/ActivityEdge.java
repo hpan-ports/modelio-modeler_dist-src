@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.uml.behavior.activityModel;
 
 import java.util.List;
@@ -35,40 +35,40 @@ import org.modelio.metamodel.uml.infrastructure.ModelElement;
 
 @objid ("00270a1a-c4bf-1fd8-97fe-001ec947cd2a")
 public interface ActivityEdge extends ModelElement {
-    @objid ("dffaa132-797f-4a70-83f5-137385d379f6")
+    @objid ("eaa557eb-9640-4bb9-964d-496d0d1274b6")
     String getGuard();
 
-    @objid ("62f7170d-4b9a-432b-a9d0-73dee366637c")
+    @objid ("04ba39bf-f4c3-4324-8e09-660ea6632bb2")
     void setGuard(String value);
 
-    @objid ("f3ed7c6f-e098-4bc3-85d9-b00ffae82375")
+    @objid ("81a5365b-9b48-40d2-b0f9-089376f8717e")
     String getWeight();
 
-    @objid ("a670c901-e4fe-4eee-8155-8498e6b29f4d")
+    @objid ("d52b126c-267d-4755-8714-decedc6ad378")
     void setWeight(String value);
 
-    @objid ("547642f0-2173-4094-b43e-b4b0c47946e3")
+    @objid ("9cb54b8e-dce5-476b-96ca-d1c54652279d")
     ActivityNode getTarget();
 
-    @objid ("18bc9295-c4c0-48e9-924e-23f2d271ae3a")
+    @objid ("e2233571-dac8-458d-b262-96bdc99ff61d")
     void setTarget(ActivityNode value);
 
-    @objid ("3b9572a4-f8b9-4b91-90b4-7cd608e0a5e4")
+    @objid ("ae46a93e-5aaf-4968-87af-e9f077b000d0")
     ActivityNode getSource();
 
-    @objid ("41218fa8-2e04-4978-a90f-eb99a4335301")
+    @objid ("56bfd9b9-6a1d-4539-9722-f92df3685a97")
     void setSource(ActivityNode value);
 
-    @objid ("cae48487-3320-4b0c-a32f-89e005012a81")
+    @objid ("23582339-b51b-4b5a-88ab-f194e407bba6")
     InterruptibleActivityRegion getInterrupts();
 
-    @objid ("b4b0c006-b780-4314-bf80-1fcf3c1c0736")
+    @objid ("28bb639f-05fd-4556-b128-76a0887fe5da")
     void setInterrupts(InterruptibleActivityRegion value);
 
-    @objid ("ac35315f-1d3b-4dd2-a7ed-6254646c2392")
+    @objid ("f1124824-5c5b-45b4-a8fb-7eb3a1e96f1f")
     EList<InformationFlow> getRealizedInformationFlow();
 
-    @objid ("0d145be6-cceb-48cc-9cbb-f94b8044357d")
+    @objid ("08822536-68cb-4ff1-acad-3fdc6e9318c7")
     <T extends InformationFlow> List<T> getRealizedInformationFlow(java.lang.Class<T> filterClass);
 
 }

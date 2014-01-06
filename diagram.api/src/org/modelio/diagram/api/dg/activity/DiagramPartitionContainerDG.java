@@ -47,7 +47,7 @@ public class DiagramPartitionContainerDG extends DiagramNode {
     @objid ("cfbcc0c7-1ae7-4b8a-b2d3-6a08084fce9f")
     @Override
     public List<IDiagramNode> getNodes() {
-        return DGFactory.getInstance().getDiagramNodes(this.diagramHandle, ((GmCompositeNode) this.gmNode).getChildren());
+        return DGFactory.getInstance().getDiagramNodes(this.diagramHandle, ((GmCompositeNode) this.gmNode).getVisibleChildren());
     }
 
 }

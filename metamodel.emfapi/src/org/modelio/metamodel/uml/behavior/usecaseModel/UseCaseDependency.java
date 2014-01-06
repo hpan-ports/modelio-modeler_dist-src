@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.uml.behavior.usecaseModel;
 
 import java.util.List;
@@ -34,22 +34,22 @@ import org.modelio.metamodel.uml.infrastructure.ModelElement;
 
 @objid ("0058fd18-c4bf-1fd8-97fe-001ec947cd2a")
 public interface UseCaseDependency extends ModelElement {
-    @objid ("3d1caa61-5da7-4ee1-8f1e-975566b613ba")
+    @objid ("704b84b6-7dcd-44db-aaae-d7255ad70ad3")
     UseCase getOrigin();
 
-    @objid ("7d179b2c-ebdc-4bda-9ee9-b63f08de6d32")
+    @objid ("f250c123-5bf7-4bf2-b955-094dfe2254eb")
     void setOrigin(UseCase value);
 
-    @objid ("159152ad-e279-4001-8adb-31423dac7c2d")
+    @objid ("add6984f-c9cd-44fd-8af3-527b4b16ba00")
     EList<ExtensionPoint> getExtensionLocation();
 
-    @objid ("32a16fcb-466a-43a6-b6aa-dae85657b3f5")
+    @objid ("128c5b8b-e38d-41c7-aefb-261cb22ae6af")
     <T extends ExtensionPoint> List<T> getExtensionLocation(java.lang.Class<T> filterClass);
 
-    @objid ("25d35d81-6193-4958-946b-0b2e8c92e818")
+    @objid ("c10aa049-95b4-4828-8e18-bce24a86ef98")
     UseCase getTarget();
 
-    @objid ("8076c2fb-8c88-4cf0-b991-70cdb5a7e633")
+    @objid ("05f10201-7f76-438d-94f3-f3bea762d9bd")
     void setTarget(UseCase value);
 
 }

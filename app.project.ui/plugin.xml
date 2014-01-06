@@ -18,10 +18,44 @@
             class="org.modelio.app.project.ui.prefs.ProjectPreferencesPage">
       </page>
    </extension>
-     <extension
-           point="org.eclipse.core.expressions.definitions">
+     <extension point="org.eclipse.core.expressions.definitions">
+        <definition id="app.project.ui.expression.isExmlFragment">
+           <with variable="org.eclipse.ui.selection">
+              <iterate ifEmpty="false" operator="and">
+                 <or>
+                    <instanceof value="org.modelio.gproject.fragment.exml.ExmlFragment"/>
+                    <instanceof value="org.modelio.gproject.fragment.ramcfile.RamcFileFragment"/>
+                    <instanceof value="org.modelio.gproject.fragment.ramcfile.MdaFragment"/>
+                    <instanceof value="org.modelio.gproject.fragment.url.UrlFragment"/>
+                    <instanceof value="com.modeliosoft.modelio.gproject.svn.fragment.SvnFragment"/>
+                 </or>
+              </iterate>
+           </with>
+        </definition>
+        <definition id="app.project.ui.expression.isMObject">
+           <with variable="org.eclipse.ui.selection">
+              <iterate ifEmpty="false" operator="and">
+                    <instanceof value="org.modelio.vcore.smkernel.mapi.MObject"/>
+              </iterate>
+           </with>
+        </definition>
         <definition
-              id="app.project.ui.expression.isExmlFragment">
+              id="app.project.ui.expression.isProjectFragment">
+           <with
+                 variable="org.eclipse.ui.selection">
+              <iterate
+                    ifEmpty="false"
+                    operator="and">
+                 <or>
+                    <instanceof
+                          value="org.modelio.gproject.fragment.IProjectFragment">
+                    </instanceof>
+                 </or>
+              </iterate>
+           </with>
+        </definition>
+        <definition
+              id="app.project.ui.expression.showExmlAdmin">
            <with
                  variable="org.eclipse.ui.selection">
               <iterate
@@ -38,25 +72,7 @@
                           value="org.modelio.gproject.fragment.ramcfile.MdaFragment">
                     </instanceof>
                     <instanceof
-                          value="org.modelio.gproject.fragment.url.UrlFragment">
-                    </instanceof>
-                    <instanceof
                           value="com.modeliosoft.modelio.gproject.svn.fragment.SvnFragment">
-                    </instanceof>
-                 </or>
-              </iterate>
-           </with>
-        </definition>
-        <definition
-              id="app.project.ui.expression.isProjectFragment">
-           <with
-                 variable="org.eclipse.ui.selection">
-              <iterate
-                    ifEmpty="false"
-                    operator="and">
-                 <or>
-                    <instanceof
-                          value="org.modelio.gproject.fragment.IProjectFragment">
                     </instanceof>
                  </or>
               </iterate>

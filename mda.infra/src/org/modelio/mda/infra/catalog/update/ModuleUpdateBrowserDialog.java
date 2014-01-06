@@ -83,7 +83,7 @@ public class ModuleUpdateBrowserDialog extends ModelioDialog {
     @objid ("a4de78ab-9651-4da9-8930-2ad755775562")
     protected Button updateButton;
 
-    @objid ("b7babbe2-b896-420e-81d5-0216bb583c66")
+    @objid ("a03ca026-a6cd-4ec6-b83e-0809ab6883b7")
     protected IModelioProgressService progressService;
 
     @objid ("cc78bdff-9021-4b14-aa0a-f2826efbd913")

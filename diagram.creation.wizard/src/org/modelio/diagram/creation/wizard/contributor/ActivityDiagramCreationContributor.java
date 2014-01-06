@@ -169,27 +169,33 @@ public class ActivityDiagramCreationContributor extends AbstractDiagramCreationC
         
         // Unless the parent element is already an Activity, create the Activity:
         Activity activity = null;
-        if (diagramContext instanceof Activity)
+        if (diagramContext instanceof Activity) {
             activity = (Activity) diagramContext;
-        else {
-            activity = modelFactory.createActivity();
-            setElementDefaultName(activity);
-        }
-        
-        // Create the diagram, depending on parentElement, carry out the "smart" creation job
-        if ((diagramContext instanceof Classifier) && !(diagramContext instanceof UseCase)) {
-            activity.setOwner((Classifier) diagramContext);
-            diagram = smartCreateForClassifier(activity, (Classifier) diagramContext, diagramName);
-        } else if (diagramContext instanceof Operation) {
-            activity.setOwnerOperation((Operation) diagramContext);
-            diagram = smartCreateForOperation(activity, (Operation) diagramContext, diagramName);
-        } else {
-            activity.setOwner((NameSpace) diagramContext);
             diagram = smartCreateForNameSpace(activity, diagramName);
-        }
+        } else {
+            activity = modelFactory.createActivity();
+            // Create the diagram, depending on parentElement, carry out the "smart" creation job
+            if ((diagramContext instanceof Classifier) && !(diagramContext instanceof UseCase)) {
+                activity.setOwner((Classifier) diagramContext);
+                setElementDefaultName(activity);
+                diagram = smartCreateForClassifier(activity, (Classifier) diagramContext, diagramName);
+            } else if (diagramContext instanceof Operation) {
+                activity.setOwnerOperation((Operation) diagramContext);
+                setElementDefaultName(activity);
+                diagram = smartCreateForOperation(activity, (Operation) diagramContext, diagramName);
+            } else {
+                activity.setOwner((NameSpace) diagramContext);
+                setElementDefaultName(activity);
+                diagram = smartCreateForNameSpace(activity, diagramName);
+            }
+        }        
         
         if (diagram != null) {
-            setElementDefaultName(diagram);
+            if (diagramName.equals(this.getLabel())) {                
+                setElementDefaultName(diagram);
+            } else {
+                diagram.setName(diagramName);
+            }
             putNoteContent(diagram,"description", diagramDescription);
         }
         return diagram;

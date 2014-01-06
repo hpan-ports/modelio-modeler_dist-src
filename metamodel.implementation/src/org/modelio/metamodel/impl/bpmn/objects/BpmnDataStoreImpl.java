@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.bpmn.objects;
 
 import java.util.ArrayList;
@@ -41,45 +41,45 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("00041136-c4c0-1fd8-97fe-001ec947cd2a")
 public class BpmnDataStoreImpl extends BpmnItemAwareElementImpl implements BpmnDataStore {
-    @objid ("62cc0321-20da-47e2-bbf3-ccbc420bf7d9")
+    @objid ("b9523c5b-312c-4cf2-a517-36bbcdc7a2ee")
     @Override
     public int getCapacity() {
         return (Integer) getAttVal(BpmnDataStoreData.Metadata.CapacityAtt());
     }
 
-    @objid ("e713f15e-d5a3-4fc2-b09b-e2d7d255a731")
+    @objid ("903ee7bb-352c-4733-be0f-2e926b90f5de")
     @Override
     public void setCapacity(int value) {
         setAttVal(BpmnDataStoreData.Metadata.CapacityAtt(), value);
     }
 
-    @objid ("2a4ee648-6fc5-40e1-ae12-13346ca4eed0")
+    @objid ("7989c0ad-405a-46e4-b3dc-36ebb05560e8")
     @Override
     public boolean isIsUnlimited() {
         return (Boolean) getAttVal(BpmnDataStoreData.Metadata.IsUnlimitedAtt());
     }
 
-    @objid ("065e273d-e28e-4f13-9960-83105358ade5")
+    @objid ("ebc45e64-dee3-490a-8b17-802e7207e8f6")
     @Override
     public void setIsUnlimited(boolean value) {
         setAttVal(BpmnDataStoreData.Metadata.IsUnlimitedAtt(), value);
     }
 
-    @objid ("9ccbf318-e177-47de-8265-b2d87434e122")
+    @objid ("99305452-9703-45f3-9e94-87aca444bb58")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("d614d56b-c6bb-4015-aafc-9a413ad437c9")
+    @objid ("73cc8a07-102c-42d3-8d3c-0009b7111139")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("9582f498-b19d-429c-b328-2deff302295d")
+    @objid ("7f761128-ff03-4f06-915d-a64ef104f0c2")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitBpmnDataStore(this);

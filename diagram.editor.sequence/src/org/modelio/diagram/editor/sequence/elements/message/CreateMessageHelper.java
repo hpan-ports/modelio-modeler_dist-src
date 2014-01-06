@@ -391,7 +391,7 @@ public class CreateMessageHelper {
         this.request = request;
     }
 
-    @objid ("a3ca87c7-428d-4887-b435-80bb7596d582")
+    @objid ("f0bce288-e7f3-456f-ab29-0a0f75393194")
     private void endOnInteractionUse(final SourceStructure source, final GmCompositeNode targetModel, final int targetTime, final MessageType type) {
         InteractionUse targetInteractionUse = (InteractionUse) targetModel.getRelatedElement();
         Interaction interaction = SequenceModelManipulationServices.getInteraction(targetInteractionUse);
@@ -416,7 +416,7 @@ public class CreateMessageHelper {
         }
     }
 
-    @objid ("54b02222-d7aa-462f-967f-9553856014bc")
+    @objid ("b8cdb540-c718-48f2-99fb-5c2d6a678b4c")
     private SourceStructure startOnInteractionUse(final GmCompositeNode sourceModel, final int sourceTime) {
         InteractionUse sourceInteractionUse = (InteractionUse) sourceModel.getRelatedElement();
         Interaction interaction = SequenceModelManipulationServices.getInteraction(sourceInteractionUse);

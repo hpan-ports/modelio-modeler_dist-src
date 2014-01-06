@@ -29,7 +29,9 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.metamodel.Metamodel;
 import org.modelio.metamodel.analyst.AnalystProject;
 import org.modelio.metamodel.experts.meta.impl.DefaultMetaExpert;
+import org.modelio.metamodel.experts.meta.impl.PartDecompositionCreationExpert;
 import org.modelio.metamodel.mda.Project;
+import org.modelio.metamodel.uml.behavior.interactionModel.Lifeline;
 import org.modelio.metamodel.uml.behavior.stateMachineModel.InternalTransition;
 import org.modelio.metamodel.uml.behavior.stateMachineModel.State;
 import org.modelio.metamodel.uml.infrastructure.Element;
@@ -282,6 +284,7 @@ public class MetaTool implements IMetaTool {
         @objid ("0097fbc6-de01-1097-bcec-001ec947cd2a")
         public MetaExpertRegistry() {
             // Init experts
+            this.EXPERTS.put(Metamodel.getMClass(Lifeline.class), new PartDecompositionCreationExpert());
         }
 
     }

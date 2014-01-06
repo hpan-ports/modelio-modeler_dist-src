@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.uml.behavior.activityModel;
 
 import java.util.ArrayList;
@@ -41,33 +41,33 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("0024ba8a-c4bf-1fd8-97fe-001ec947cd2a")
 public class AcceptChangeEventActionImpl extends ActivityActionImpl implements AcceptChangeEventAction {
-    @objid ("19a4cdf8-df75-4c61-85c2-a52e583e3d80")
+    @objid ("688dfcab-4b50-4f46-a3d9-3dcae960b901")
     @Override
     public String getChangeExpresion() {
         return (String) getAttVal(AcceptChangeEventActionData.Metadata.ChangeExpresionAtt());
     }
 
-    @objid ("50e8d045-ae4d-4a3f-9e25-23fed593219f")
+    @objid ("e8e6baf3-50a3-4746-9bc3-6f4326dda3d1")
     @Override
     public void setChangeExpresion(String value) {
         setAttVal(AcceptChangeEventActionData.Metadata.ChangeExpresionAtt(), value);
     }
 
-    @objid ("6ae798b0-bc1c-4a56-becd-afea2abe6dfc")
+    @objid ("28b85d43-9caf-4f29-a25a-bc441d475317")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("3ade7fb4-3969-41bf-ba31-2055d63e61c0")
+    @objid ("56f73a7c-420d-4af6-ac8d-2b5654620146")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("635f5949-e67c-4a83-a066-90cc8f696a8d")
+    @objid ("9ddbe2d1-4c7c-4645-97ef-1ca4cf8b1744")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitAcceptChangeEventAction(this);

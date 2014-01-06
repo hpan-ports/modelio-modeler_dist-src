@@ -65,6 +65,7 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.Shell;
+import org.modelio.app.core.picking.IModelioPickingService;
 import org.modelio.core.ui.CoreFontRegistry;
 import org.modelio.core.ui.dialog.ModelioDialog;
 import org.modelio.diagram.styles.core.FactoryStyle;
@@ -107,11 +108,21 @@ public class StyleEditorDialog extends ModelioDialog {
     @objid ("85bed069-1926-11e2-92d2-001ec947c8cc")
     private Label title;
 
+    @objid ("28502f9a-33a9-4a20-8a1c-d1ce87d801e0")
+    private IModelioPickingService pickingService;
+
+    /**
+     * C'tor.
+     * @param parentShell the parent SWT shell
+     * @param pickingService Modelio picking service
+     */
     @objid ("85bed06b-1926-11e2-92d2-001ec947c8cc")
-    public StyleEditorDialog(Shell parentShell) {
+    public StyleEditorDialog(Shell parentShell, IModelioPickingService pickingService) {
         super(parentShell);
+        this.pickingService = pickingService;
+        
         final NamedStyle editedStyle = new NamedStyle("new style", FactoryStyle.getInstance());
-        this.model = new StyleModelProvider(editedStyle, null, true);
+        this.model = new StyleModelProvider(editedStyle, null, null, true);
         setBlockOnOpen(false);
     }
 
@@ -152,9 +163,9 @@ public class StyleEditorDialog extends ModelioDialog {
     }
 
     @objid ("85c132be-1926-11e2-92d2-001ec947c8cc")
-    private static StyleViewer createStyleViewer(Composite parent, final StyleModelProvider modelProvider) {
+    private static StyleViewer createStyleViewer(Composite parent, final StyleModelProvider modelProvider, IModelioPickingService pickingService) {
         // Create table viewer
-        return new StyleViewer(parent, modelProvider);
+        return new StyleViewer(parent, modelProvider, pickingService);
     }
 
     @objid ("85c3951b-1926-11e2-92d2-001ec947c8cc")
@@ -171,9 +182,13 @@ public class StyleEditorDialog extends ModelioDialog {
         createButton(parent, IDialogConstants.OK_ID, IDialogConstants.CLOSE_LABEL, false);
     }
 
+    /**
+     * Set the edited style
+     * @param editedStyle the edited style
+     */
     @objid ("85c39522-1926-11e2-92d2-001ec947c8cc")
-    public void setEditedStyle(IStyle editedStyle) {
-        this.model = (editedStyle != null) ? new StyleModelProvider(editedStyle, null, true) : null;
+    void setEditedStyle(IStyle editedStyle) {
+        this.model = (editedStyle != null) ? new StyleModelProvider(editedStyle, null, null, true) : null;
         
         if (editedStyle != null) {
             this.title
@@ -267,7 +282,7 @@ public class StyleEditorDialog extends ModelioDialog {
         sash.setLayoutData(fData1);
         
         // Add the style viewer table
-        this.viewer = createStyleViewer(sash, this.model);
+        this.viewer = createStyleViewer(sash, this.model, this.pickingService);
         
         // Add the description label:
         this.descriptionText = new Label(sash, SWT.WRAP | SWT.V_SCROLL);

@@ -26,6 +26,7 @@ import de.kupzog.ktable.KTable;
 import de.kupzog.ktable.KTableCellEditor;
 import de.kupzog.ktable.KTableCellRenderer;
 import de.kupzog.ktable.KTableDefaultModel;
+import de.kupzog.ktable.SWTX;
 import de.kupzog.ktable.renderers.DefaultCellRenderer;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.GC;
@@ -37,6 +38,8 @@ import org.modelio.core.ui.ktable.types.enumeration.EnumType;
 import org.modelio.core.ui.ktable.types.header.HeaderType;
 import org.modelio.core.ui.ktable.types.hybrid.HybridCellEditor;
 import org.modelio.core.ui.ktable.types.label.LabelType;
+import org.modelio.core.ui.ktable.types.text.MultilineStringType;
+import org.modelio.core.ui.ktable.types.text.StringType;
 import org.modelio.ui.UIColor;
 import org.modelio.vcore.session.api.ICoreSession;
 import org.modelio.vcore.session.api.transactions.ITransaction;
@@ -233,16 +236,38 @@ public class StandardKModel extends KTableDefaultModel {
         
         if (column == 0) {
             return getOptimalColumnWidth(0);
+        } else {
+            final int firstColumnWidth = getOptimalColumnWidth(0);
+            return (availableWidth - firstColumnWidth) / (colCount - 1);
         }
-        // else
-        final int firstColumnWidth = getOptimalColumnWidth(0);
-        return (availableWidth - firstColumnWidth) / (colCount - 1);
     }
 
     @objid ("8dd6c165-c068-11e1-8c0a-002564c97630")
     @Override
     public int getInitialRowHeight(int row) {
-        return (row == 0) ? 22 : 18;
+        if (row == 0) 
+            return 22;
+        
+        int ret = 18;
+        
+        // Ask each String cells in the row their required height
+        // and return the biggest one with 18 pix minimum
+        GC gc = null;
+        try {
+            for (int col = getFixedColumnCount(); col<getColumnCount(); col++) {
+                Object val = getContentAt(1, row);
+                if (val instanceof String) {
+                    if (gc==null) 
+                        gc = new GC(this.table);
+                    // Assumes the cell renderer uses the default font...
+                    int cell = SWTX.getCachedStringExtent(gc, val.toString()).y + 2;
+                    ret  = Math.max(cell, ret);
+                } 
+            }
+        } finally {
+            if (gc != null) gc.dispose();
+        }
+        return ret;
     }
 
     @objid ("8dd6c16b-c068-11e1-8c0a-002564c97630")

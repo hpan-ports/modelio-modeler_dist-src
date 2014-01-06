@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.data.uml.statik;
 
 import java.util.ArrayList;
@@ -45,36 +45,36 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("001106d4-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=Manifestation.class, factory=ManifestationData.Metadata.ObjectFactory.class)
 public class ManifestationData extends ModelElementData {
-    @objid ("ac816f88-5b50-4d1c-a5ba-28533802cba9")
+    @objid ("76d111cc-ce44-45f2-89ca-c567d821ae9c")
     @SmaMetaAssociation(metaName="UtilizedElement", typeDataClass=ModelElementData.class, min=1, max=1, smAssociationClass=Metadata.UtilizedElementSmDependency.class, partof = true)
      SmObjectImpl mUtilizedElement;
 
-    @objid ("f8e63111-65b5-4553-a0ff-0e0f32579968")
+    @objid ("b504419e-7fa4-40f5-95b4-254e1e2d27a7")
     @SmaMetaAssociation(metaName="Owner", typeDataClass=ArtifactData.class, min=1, max=1, smAssociationClass=Metadata.OwnerSmDependency.class)
      SmObjectImpl mOwner;
 
-    @objid ("f857c7f4-dd64-4c64-bfcd-08eac34a84b7")
+    @objid ("336d70c3-2d19-44cb-8d8b-35b700a93974")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("004f44a8-c4c3-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("b62c1f46-5899-42eb-8250-4dfd9eaaf26e")
+        @objid ("b12d7a08-6b37-41df-b2cd-42319b1d2878")
         private static SmClass smClass = null;
 
-        @objid ("6d4bd051-991e-447e-bca4-f2261cc09111")
+        @objid ("2beccf4a-7270-489b-937e-719cb81faeac")
         private static SmDependency UtilizedElementDep = null;
 
-        @objid ("65b4f812-d19e-4f89-b096-a4319727084c")
+        @objid ("dd42bd9d-1d0a-4315-b89f-c1cc18926669")
         private static SmDependency OwnerDep = null;
 
-        @objid ("f0c9794c-3b4c-4ce4-bcce-2d57fd84e9f4")
+        @objid ("eecf221f-9727-4da9-949f-a02b370691d8")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(ManifestationData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("76f7f7a1-f32d-4fd5-8ee8-a3fbcfe2e91d")
+        @objid ("3dc88d61-2b83-4df6-8ac7-a50223c92ba7")
         public static SmDependency UtilizedElementDep() {
             if (UtilizedElementDep == null) {
             	UtilizedElementDep = classof().getDependencyDef("UtilizedElement");
@@ -82,7 +82,7 @@ public class ManifestationData extends ModelElementData {
             return UtilizedElementDep;
         }
 
-        @objid ("44f6375e-fa98-47cb-913d-ede470fdfa88")
+        @objid ("de4923b6-de50-48b9-b0c2-a3ce1f4d3546")
         public static SmDependency OwnerDep() {
             if (OwnerDep == null) {
             	OwnerDep = classof().getDependencyDef("Owner");
@@ -90,19 +90,19 @@ public class ManifestationData extends ModelElementData {
             return OwnerDep;
         }
 
-        @objid ("7a63d057-e641-44d7-bfcf-f38fd816bd3e")
-        public static SmClass getSmClass() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return smClass;
-        }
-
-        @objid ("f76e4d52-2dd4-4f4c-8abe-b30bb4157820")
+        @objid ("9777aba4-3e98-4037-a691-bc9489dd82fa")
         public static SmDependency getUtilizedElementDep() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return UtilizedElementDep;
         }
 
-        @objid ("362dc241-94bf-4b9a-aa05-358ca2fcd4cf")
+        @objid ("a1cc3bc8-a8ca-4254-a2c1-ce99384b2dfa")
+        public static SmClass getSmClass() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return smClass;
+        }
+
+        @objid ("93dc12b0-3b10-4b58-bf5e-cd80e21b726f")
         public static SmDependency getOwnerDep() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return OwnerDep;
@@ -110,12 +110,12 @@ public class ManifestationData extends ModelElementData {
 
         @objid ("004f865c-c4c3-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("b4da1491-e10f-4125-8ca1-8abf9cdfd1f2")
+            @objid ("6193332c-974b-4503-aa73-8e333f08445e")
             public ISmObjectData createData() {
                 return new ManifestationData();
             }
 
-            @objid ("74439f96-7cae-41ae-917c-add8e3b6d2e6")
+            @objid ("dad3ee6b-efa5-4315-a6b1-eb05cf4a73fb")
             public SmObjectImpl createImpl() {
                 return new ManifestationImpl();
             }
@@ -124,18 +124,18 @@ public class ManifestationData extends ModelElementData {
 
         @objid ("004fe87c-c4c3-1fd8-97fe-001ec947cd2a")
         public static class OwnerSmDependency extends SmSingleDependency {
-            @objid ("9f406003-b4ad-4c0b-9f3a-ab9113ac0b08")
+            @objid ("c8d114c6-93cf-4c47-b3ff-55b46254acce")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((ManifestationData) data).mOwner;
             }
 
-            @objid ("08a73659-5cf5-4104-b19d-b252a4678448")
+            @objid ("39091545-321e-49a9-b006-5894db54d203")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((ManifestationData) data).mOwner = value;
             }
 
-            @objid ("ebd601c0-3444-4a94-8395-34d99cc77f07")
+            @objid ("ad166f0f-eaed-4d47-a962-d5d712922e9b")
             @Override
             public SmDependency getSymetric() {
                 return ArtifactData.Metadata.UtilizedDep();
@@ -145,18 +145,18 @@ public class ManifestationData extends ModelElementData {
 
         @objid ("00505d98-c4c3-1fd8-97fe-001ec947cd2a")
         public static class UtilizedElementSmDependency extends SmSingleDependency {
-            @objid ("15e7a6aa-eb2f-4c31-b69e-7210c2baa74b")
+            @objid ("976fcf15-83a9-4ad0-a9b9-3a10912f1975")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((ManifestationData) data).mUtilizedElement;
             }
 
-            @objid ("564e401c-a3e6-47d3-bcb7-dc83c6f867b3")
+            @objid ("6fbee5da-eec8-4da8-afeb-bf8ff2e080f3")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((ManifestationData) data).mUtilizedElement = value;
             }
 
-            @objid ("c27a34a3-df99-4e20-bc49-90fedb86610f")
+            @objid ("e9e3b39b-13e2-4d51-a768-f2148cf0285c")
             @Override
             public SmDependency getSymetric() {
                 return ModelElementData.Metadata.ManifestingDep();

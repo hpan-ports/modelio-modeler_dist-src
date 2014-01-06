@@ -130,10 +130,15 @@ public class DefaultElementDropEditPolicy extends GraphicalEditPolicy {
     protected EditPart getDropTargetEditPart(ModelElementDropRequest request) {
         // If either of the dropped elements cannot be unmasked, return null.
         for (final MObject droppedElement : request.getDroppedElements()) {
-            final GmModel hostModel = (GmModel) getHost().getModel();
+            final Object omodel = getHost().getModel();
+            if (!(omodel instanceof GmModel)) 
+                return null;
+            
+            final GmModel hostModel = (GmModel) omodel;
             if (!hostModel.canUnmask(droppedElement)) {
                 return null;
             }
+        
         }
         // All dropped elements understood: return host!
         return getHost();

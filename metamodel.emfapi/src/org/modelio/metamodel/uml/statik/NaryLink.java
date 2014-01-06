@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.uml.statik;
 
 import java.util.List;
@@ -36,28 +36,28 @@ import org.modelio.metamodel.uml.statik.NaryLinkEnd;
 
 @objid ("00223b3e-c4bf-1fd8-97fe-001ec947cd2a")
 public interface NaryLink extends ModelElement {
-    @objid ("13bd0be7-2299-4443-8bae-a64ce48da7d2")
+    @objid ("094f48e9-f7e3-49a6-bdea-571daf34d86e")
     EList<NaryLinkEnd> getNaryLinkEnd();
 
-    @objid ("0be307f7-a1b5-41f4-a7b3-8147eb91fdba")
+    @objid ("2a225f68-d3b1-4378-b17c-7b4c2ca276de")
     <T extends NaryLinkEnd> List<T> getNaryLinkEnd(java.lang.Class<T> filterClass);
 
-    @objid ("96184ccb-f7b7-4e89-a3fd-e75c084874ea")
+    @objid ("6bdf1cbd-6b79-41ca-a220-fffeb0d53cdc")
     NaryAssociation getModel();
 
-    @objid ("aa90cd5a-6f4e-4bda-abae-e38e4931ad98")
+    @objid ("7ddd644c-e3b4-4d33-99ef-ac0589d6ca43")
     void setModel(NaryAssociation value);
 
-    @objid ("1ed04487-9df6-46a8-9703-fa26161127a3")
+    @objid ("71c33824-150d-422c-b171-06dee80d6efb")
     EList<InformationFlow> getRealizedInformationFlow();
 
-    @objid ("9d7a169d-67de-4f80-a406-0536be64ad40")
+    @objid ("c0749712-1bf4-4dbc-b787-0596925f24f6")
     <T extends InformationFlow> List<T> getRealizedInformationFlow(java.lang.Class<T> filterClass);
 
-    @objid ("9c8d6053-c08c-46ce-9d95-2a3d290a6916")
+    @objid ("1d6c49a2-1ec9-422d-9ba4-d61124109436")
     EList<CommunicationChannel> getSent();
 
-    @objid ("f0f85c62-75f3-485f-8339-c59b59177184")
+    @objid ("9d35703d-df57-4165-adc8-73b011fa755b")
     <T extends CommunicationChannel> List<T> getSent(java.lang.Class<T> filterClass);
 
 }

@@ -23,11 +23,20 @@ package org.modelio.diagram.elements.core.figures;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
+/**
+ * Orientable shaper.
+ */
 @objid ("7fa4c432-1dec-11e2-8cad-001ec947c8cc")
 public interface IOrientableShaper extends IShaper {
+    /**
+     * @param orientation the orientation
+     */
     @objid ("7fa4c433-1dec-11e2-8cad-001ec947c8cc")
     void setOrientation(Orientation orientation);
 
+    /**
+     * Orientation
+     */
     @objid ("7fa4c435-1dec-11e2-8cad-001ec947c8cc")
     public enum Orientation {
         /**

@@ -73,31 +73,35 @@ import org.modelio.vcore.smkernel.mapi.MObject;
  */
 @objid ("7f0e9029-1dec-11e2-8cad-001ec947c8cc")
 public class ResizableGroupLayoutEditPolicy extends OrderedLayoutEditPolicy {
-    @objid ("12e2579b-56c0-491f-9cac-63750ce7ca5f")
+    @objid ("00ddff29-87e8-42e4-8011-cee9483dc990")
     private Polyline insertionLine;
 
-    @objid ("6828debb-c4f9-4cea-be7a-de44de4e4079")
+    @objid ("7e9ab84e-0268-477d-a01a-aa6d77e4473c")
     private static final Dimension DEFAULT_SIZE = new Dimension(-1, -1);
 
     @objid ("7f0e9034-1dec-11e2-8cad-001ec947c8cc")
     @Override
     protected Command getCreateCommand(CreateRequest request) {
-        final ModelioCreationContext ctx = (ModelioCreationContext) request.getNewObject();
-        final EditPart insertAfter = getInsertionReference(request);
-        final GmNodeModel insertAfterModel = (insertAfter == null ? null : (GmNodeModel) insertAfter.getModel());
+        if (request.getNewObjectType() instanceof String) {
+            final ModelioCreationContext ctx = (ModelioCreationContext) request.getNewObject();
+            final EditPart insertAfter = getInsertionReference(request);
+            final GmNodeModel insertAfterModel = (insertAfter == null ? null : (GmNodeModel) insertAfter.getModel());
         
-        getHostFigure().revalidate();
+            getHostFigure().revalidate();
         
-        int constraint = -1;
-        final Dimension containerDimension = getHostFigure().getSize();
-        if (isHorizontal() && containerDimension.width != 0) {
-            constraint = containerDimension.width / (getHostFigure().getChildren().size() + 1);
-        } else if (!isHorizontal() && containerDimension.height != 0) {
-            constraint = containerDimension.height / (getHostFigure().getChildren().size() + 1);
+            int constraint = -1;
+            final Dimension containerDimension = getHostFigure().getSize();
+            if (isHorizontal() && containerDimension.width != 0) {
+                constraint = containerDimension.width / (getHostFigure().getChildren().size() + 1);
+            } else if (!isHorizontal() && containerDimension.height != 0) {
+                constraint = containerDimension.height / (getHostFigure().getChildren().size() + 1);
+            } else {
+                constraint = -1;
+            }
+            return new AddChildToGroupCommand(getHost(), ctx, insertAfterModel, constraint);
         } else {
-            constraint = -1;
+            return null;
         }
-        return new AddChildToGroupCommand(getHost(), ctx, insertAfterModel, constraint);
     }
 
     @objid ("7f10f241-1dec-11e2-8cad-001ec947c8cc")
@@ -273,7 +277,8 @@ public class ResizableGroupLayoutEditPolicy extends OrderedLayoutEditPolicy {
         Transposer transposer = new Transposer();
         transposer.setEnabled(!isHorizontal());
         
-        Point p = transposer.t(getLocationFromRequest(request));
+        Point locationFromRequest = getLocationFromRequest(request);
+        Point p = locationFromRequest != null ? transposer.t(locationFromRequest) : new Point(0, 0);
         
         // Current row bottom, initialize to above the top.
         int rowBottom = Integer.MIN_VALUE;

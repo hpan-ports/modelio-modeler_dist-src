@@ -32,7 +32,7 @@ public class GmRaySlidableAnchor implements IPersistent {
     @objid ("7fe05f0e-1dec-11e2-8cad-001ec947c8cc")
     private static final int MAJOR_VERSION = 0;
 
-    @objid ("c647d93f-a9c0-42a0-ab70-6c37063bc42a")
+    @objid ("7242a137-da5f-45d1-afd5-5c8a8b9fe099")
     private Dimension difference;
 
     /**

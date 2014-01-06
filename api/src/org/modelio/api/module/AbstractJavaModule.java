@@ -19,6 +19,8 @@
 package org.modelio.api.module;
 
 import java.io.IOException;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
@@ -840,6 +842,27 @@ public abstract class AbstractJavaModule implements IModule {
     @Override
     public ILicenseInfos getLicenseInfos() {
         return new LicenseInfos(Status.FREE, null, "");
+    }
+
+    @objid ("3291a949-c2d8-43af-9e8e-1f99b12d1240")
+    @SuppressWarnings("unchecked")
+    @Override
+    public <I> I instanciateExternProcessor(String className, Class<I> clazz, Object... initargs) {
+        try {
+         // Look for a standard class
+            Class<I> cls = (Class<I>) Class.forName(className, true, this.getClass().getClassLoader());
+            
+            Class<?> [] initargsTypes = new Class[initargs.length];
+            for (int i = 0; i < initargs.length; i++) {
+                initargsTypes[i] = initargs[i].getClass();
+            }
+            
+            Constructor<?> constr = cls.getConstructors()[0];
+            return (I) constr.newInstance(initargs);
+        } catch (ClassNotFoundException | ClassCastException | SecurityException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+            Modelio.getInstance().getLogService().warning(this, e.toString());
+        }
+        return null;
     }
 
 }

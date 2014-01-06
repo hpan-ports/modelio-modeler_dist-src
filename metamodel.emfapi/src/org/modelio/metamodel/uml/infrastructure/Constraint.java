@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.uml.infrastructure;
 
 import java.util.List;
@@ -32,28 +32,28 @@ import org.modelio.metamodel.uml.infrastructure.ModelElement;
 
 @objid ("008538a6-c4be-1fd8-97fe-001ec947cd2a")
 public interface Constraint extends ModelElement {
-    @objid ("f942950c-398f-4241-b3b9-732154192945")
+    @objid ("874df682-6209-4bd5-8338-a20070764d2c")
     String getBaseClass();
 
-    @objid ("8dab179d-cc6f-4113-b341-6097d813d6c5")
+    @objid ("bec7006c-0253-4844-ac56-5232eb490681")
     void setBaseClass(String value);
 
-    @objid ("6e89ea0d-92aa-40f3-a9a9-9e66ae8a8715")
+    @objid ("0fdc01f3-c4de-4092-a190-1aa2c981fb3f")
     String getBody();
 
-    @objid ("25d1390f-9646-454a-97a5-2f6854a5c912")
+    @objid ("bc4f6b90-04ba-440d-b626-1fb09d8833ad")
     void setBody(String value);
 
-    @objid ("ffe3290a-dd72-438d-93d2-fc46d43ba9c6")
+    @objid ("76dd9d20-dd56-4990-a75b-4c04e001800f")
     String getLanguage();
 
-    @objid ("dca120e9-1665-4234-b486-f6d5c110caf2")
+    @objid ("34e455ba-ebee-415c-befa-11c48bd4d6bd")
     void setLanguage(String value);
 
-    @objid ("7370864a-aebb-4437-ad3a-700dc3f5824e")
+    @objid ("c2bb6fac-bec5-40dd-aa3a-4b6a878773e6")
     EList<ModelElement> getConstrainedElement();
 
-    @objid ("99b1894d-23c5-4afe-8ae5-65cd9100af3d")
+    @objid ("ed862ecc-1025-4a1d-8ac2-c53d7afd7141")
     <T extends ModelElement> List<T> getConstrainedElement(java.lang.Class<T> filterClass);
 
 }

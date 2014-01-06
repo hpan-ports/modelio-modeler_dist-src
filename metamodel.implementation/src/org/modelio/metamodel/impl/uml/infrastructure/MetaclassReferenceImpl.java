@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.uml.infrastructure;
 
 import java.util.ArrayList;
@@ -47,37 +47,37 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("0091bf72-c4be-1fd8-97fe-001ec947cd2a")
 public class MetaclassReferenceImpl extends ElementImpl implements MetaclassReference {
-    @objid ("d820a0e6-d16a-49a9-939b-467c741b329c")
+    @objid ("ce22b603-27ca-4d38-a3fb-5336207d3076")
     @Override
     public String getReferencedClassName() {
         return (String) getAttVal(MetaclassReferenceData.Metadata.ReferencedClassNameAtt());
     }
 
-    @objid ("cd0fd12e-8de6-490a-b99d-b3b02c734969")
+    @objid ("6175fd4d-e56c-4be6-b975-885e1778017a")
     @Override
     public void setReferencedClassName(String value) {
         setAttVal(MetaclassReferenceData.Metadata.ReferencedClassNameAtt(), value);
     }
 
-    @objid ("ebb4de09-f345-41da-a13b-910b104576e4")
+    @objid ("4ec26d41-8947-4be7-916b-2938fb29ea03")
     @Override
     public PropertyTableDefinition getDefinedTable() {
         return (PropertyTableDefinition) getDepVal(MetaclassReferenceData.Metadata.DefinedTableDep());
     }
 
-    @objid ("77d7c0af-f965-453c-861d-fb331ccdb630")
+    @objid ("3ec0b464-e1b1-4d04-8d95-2b974cf61430")
     @Override
     public void setDefinedTable(PropertyTableDefinition value) {
         appendDepVal(MetaclassReferenceData.Metadata.DefinedTableDep(), (SmObjectImpl)value);
     }
 
-    @objid ("394b282d-ace1-491e-bc4b-ffb641293c0a")
+    @objid ("ac59dc1f-be68-4356-aac3-b990a6a19af1")
     @Override
     public EList<NoteType> getDefinedNoteType() {
         return new SmList<>(this, MetaclassReferenceData.Metadata.DefinedNoteTypeDep());
     }
 
-    @objid ("fcc77021-34df-43e5-9d11-81b82f86f93f")
+    @objid ("0d68e2b6-1dd5-4217-8607-5f7474a75d4d")
     @Override
     public <T extends NoteType> List<T> getDefinedNoteType(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -90,13 +90,13 @@ public class MetaclassReferenceImpl extends ElementImpl implements MetaclassRefe
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("2bf90eae-b67a-4ac0-941b-d30bf1c00a9d")
+    @objid ("83ea9a64-fde2-4a4e-bf6f-2714f00dd36c")
     @Override
     public EList<ExternDocumentType> getDefinedExternDocumentType() {
         return new SmList<>(this, MetaclassReferenceData.Metadata.DefinedExternDocumentTypeDep());
     }
 
-    @objid ("1e05722e-ff15-4478-9c3a-ab01588c7d7d")
+    @objid ("f99365c6-e778-43da-a1f7-187e1fb07ba5")
     @Override
     public <T extends ExternDocumentType> List<T> getDefinedExternDocumentType(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -109,25 +109,25 @@ public class MetaclassReferenceImpl extends ElementImpl implements MetaclassRefe
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("eb914172-5140-4b5a-82e5-45defed130bc")
+    @objid ("cefa8494-e12b-4b71-ab38-13e0b60c6861")
     @Override
     public Profile getOwnerProfile() {
         return (Profile) getDepVal(MetaclassReferenceData.Metadata.OwnerProfileDep());
     }
 
-    @objid ("592958ef-4a5c-4274-a873-49f1c90e8a80")
+    @objid ("377d6ba3-6988-4257-9ed4-8301bccb7139")
     @Override
     public void setOwnerProfile(Profile value) {
         appendDepVal(MetaclassReferenceData.Metadata.OwnerProfileDep(), (SmObjectImpl)value);
     }
 
-    @objid ("3b945357-b8b5-447f-9355-7346266ca757")
+    @objid ("5279e231-204c-4d42-8ed2-862a51e5d02f")
     @Override
     public EList<TagType> getDefinedTagType() {
         return new SmList<>(this, MetaclassReferenceData.Metadata.DefinedTagTypeDep());
     }
 
-    @objid ("b4cfbabc-c007-429e-b631-adc6e1c6d7c1")
+    @objid ("bedfa293-50d0-4668-ac54-f2da9e0ebc5f")
     @Override
     public <T extends TagType> List<T> getDefinedTagType(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -140,7 +140,7 @@ public class MetaclassReferenceImpl extends ElementImpl implements MetaclassRefe
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("db6b9249-7096-45e8-9011-3a5bd7272101")
+    @objid ("226fedc2-8054-45ca-a037-75502ad24850")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
@@ -150,7 +150,7 @@ public class MetaclassReferenceImpl extends ElementImpl implements MetaclassRefe
         return super.getCompositionOwner();
     }
 
-    @objid ("8b6481d0-e0a1-40eb-b4fc-2abd9243c176")
+    @objid ("de9d9592-ac6f-4e6c-b2ce-3a42b0e644aa")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
@@ -160,7 +160,7 @@ public class MetaclassReferenceImpl extends ElementImpl implements MetaclassRefe
         return super.getCompositionRelation();
     }
 
-    @objid ("ee34d42a-865b-479c-af81-6658f47c9af4")
+    @objid ("f6b61b88-db5e-4f39-9a0f-0df950040c00")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitMetaclassReference(this);

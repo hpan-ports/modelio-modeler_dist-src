@@ -68,8 +68,10 @@ public class ModelLoaderProvider implements IModelLoaderProvider {
     public IModelLoader beginLoadSession() {
         IModelLoader ret = this.loaderPool.poll();
         if (ret == null) {
-            return new ModelLoader(this.loaderConfig, this.loaderPool);
+            ret = new ModelLoader(this.loaderConfig, this.loaderPool);
         }
+        
+        ret.begin();
         return ret;
     }
 
@@ -78,8 +80,10 @@ public class ModelLoaderProvider implements IModelLoaderProvider {
     public IModelRefresher beginRefreshSession() {
         IModelRefresher ret = (IModelRefresher) this.refreshPool.poll();
         if (ret == null) {
-            return new ModelRefresher(this.loaderConfig, this.refreshPool);
+            ret = new ModelRefresher(this.loaderConfig, this.refreshPool);
         }
+        
+        ret.begin();
         return ret;
     }
 

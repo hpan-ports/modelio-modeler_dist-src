@@ -30,12 +30,12 @@ import org.eclipse.draw2d.geometry.Point;
 import org.modelio.api.diagram.ILinkPath;
 
 /**
- * Implementation of ILinkPath using an ArrayList of Points.
+ * Implementation of {@link ILinkPath} using an {@link ArrayList} of Points.
  */
 @objid ("83bb65fd-0645-4308-864d-aaea2d62a9ef")
 public class LinkPath implements ILinkPath {
     @objid ("b8003ebe-c309-4d42-94b8-8ee3000cd71e")
-     List<Point> points = new ArrayList<>();
+    private List<Point> points = new ArrayList<>();
 
     /**
      * Creates a new empty link path.
@@ -55,8 +55,8 @@ public class LinkPath implements ILinkPath {
 
     @objid ("a549225f-96c6-49bf-82d5-55d645178b0f")
     @Override
-    public Collection<Point> getPoints() {
-        Collection<Point> oldPoints = new ArrayList<> ();
+    public List<Point> getPoints() {
+        List<Point> oldPoints = new ArrayList<> ();
         for (Point p : this.points) {
             oldPoints.add(new AbsoluteBendpoint(p.x, p.y));
         }
@@ -67,6 +67,12 @@ public class LinkPath implements ILinkPath {
     @Override
     public void movePoint(int index, Point point) {
         movePoint(index, new AbsoluteBendpoint(point.x, point.y));
+    }
+
+    @objid ("21af0563-1824-44f3-9c5f-9ff89e539c8c")
+    @Override
+    public void movePoint(int index, int x, int y) {
+        movePoint(index, new AbsoluteBendpoint(x, y));
     }
 
     @objid ("298efc4f-4092-4226-a474-576f946fba72")

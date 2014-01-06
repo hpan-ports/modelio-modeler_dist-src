@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.uml.infrastructure;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
@@ -31,16 +31,16 @@ import org.modelio.metamodel.uml.statik.Classifier;
 
 @objid ("008dd736-c4be-1fd8-97fe-001ec947cd2a")
 public interface Substitution extends ModelElement {
-    @objid ("e3999d8b-23bd-47ce-9c74-478c7a3a113f")
+    @objid ("86605587-1b87-4705-8b90-e3608dc510e0")
     Classifier getContract();
 
-    @objid ("138bb5be-d300-4458-9745-1b203fa1804b")
+    @objid ("77ec61e7-9571-448f-a3bd-6dcd89f832e4")
     void setContract(Classifier value);
 
-    @objid ("2a9eb17a-2de3-4c55-8ef5-92703030e046")
+    @objid ("a40dd91c-58d5-4b17-9841-cf8be0d1667d")
     Classifier getSubstitutingClassifier();
 
-    @objid ("1f57637e-629a-4e3e-8301-2a67954d983e")
+    @objid ("751e3cec-01a9-4975-92c1-0364ca0f67a5")
     void setSubstitutingClassifier(Classifier value);
 
 }

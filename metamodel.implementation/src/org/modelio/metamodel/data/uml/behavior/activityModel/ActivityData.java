@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.data.uml.behavior.activityModel;
 
 import java.util.ArrayList;
@@ -47,50 +47,50 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("002659ee-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=Activity.class, factory=ActivityData.Metadata.ObjectFactory.class, cmsnode=true)
 public class ActivityData extends BehaviorData {
-    @objid ("3e5277b1-1c62-466a-8c46-fa3580f1c887")
+    @objid ("09231f2d-0ab8-4514-aac1-a0cdef35b4fc")
     @SmaMetaAttribute(metaName="IsSingleExecution", type=Boolean.class, smAttributeClass=Metadata.IsSingleExecutionSmAttribute.class)
      Object mIsSingleExecution = false;
 
-    @objid ("f8f51cbd-3f34-4631-afc2-8bebdffe2fdf")
+    @objid ("9b4cd2ab-b35c-4357-9dc1-0893ee7d4fa9")
     @SmaMetaAttribute(metaName="IsReadOnly", type=Boolean.class, smAttributeClass=Metadata.IsReadOnlySmAttribute.class)
      Object mIsReadOnly = false;
 
-    @objid ("104db45f-4e78-4a3c-add8-76a55782112d")
+    @objid ("f541a7b3-9a10-49ab-8671-a9bebd1862df")
     @SmaMetaAssociation(metaName="OwnedGroup", typeDataClass=ActivityGroupData.class, min=0, max=-1, smAssociationClass=Metadata.OwnedGroupSmDependency.class, component = true)
      List<SmObjectImpl> mOwnedGroup = null;
 
-    @objid ("3d73c490-7422-43b3-81cc-4f15df5a5d5a")
+    @objid ("56934ec2-0947-4608-9750-0fe1931352ad")
     @SmaMetaAssociation(metaName="OwnedNode", typeDataClass=ActivityNodeData.class, min=0, max=-1, smAssociationClass=Metadata.OwnedNodeSmDependency.class, component = true)
      List<SmObjectImpl> mOwnedNode = null;
 
-    @objid ("b9d22ef4-6d17-4fb7-85a2-6d4c3fbf9e0c")
+    @objid ("d17373cd-10ef-4e36-aeff-c96f8e0dabe3")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("0044107e-c4c4-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("79365e23-de7d-4b86-9af8-0db64c15579f")
+        @objid ("1bc0bbd8-b5f2-43be-a5b9-bfd247bae497")
         private static SmClass smClass = null;
 
-        @objid ("d1e7c77b-f1a5-41d3-ad70-106a22fbbf90")
+        @objid ("2c4a886c-d5d3-48fa-89a5-589e1e5c98b3")
         private static SmAttribute IsSingleExecutionAtt = null;
 
-        @objid ("af455605-4e30-48c3-a879-24adf216568c")
+        @objid ("12ee2915-2203-44f6-b8ee-982b12fc2eec")
         private static SmAttribute IsReadOnlyAtt = null;
 
-        @objid ("701c7e59-3627-4d70-ab48-540dcdf1cb43")
+        @objid ("6606d1c9-47db-4a65-91cc-266b0be5722e")
         private static SmDependency OwnedGroupDep = null;
 
-        @objid ("bb0da36b-4f89-4d4e-a52c-27407caaaf5d")
+        @objid ("4213e084-0914-4b62-ab4f-44e33015e262")
         private static SmDependency OwnedNodeDep = null;
 
-        @objid ("701221aa-3a98-456c-b2bc-07841a7143a9")
+        @objid ("a476c82b-d7d0-4956-89cf-f2090afb48c8")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(ActivityData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("8adc977e-677c-4628-8f7f-d6831771d40b")
+        @objid ("f52d2be1-90a5-4e53-83df-c744a3478c5d")
         public static SmAttribute IsSingleExecutionAtt() {
             if (IsSingleExecutionAtt == null) {
             	IsSingleExecutionAtt = classof().getAttributeDef("IsSingleExecution");
@@ -98,7 +98,7 @@ public class ActivityData extends BehaviorData {
             return IsSingleExecutionAtt;
         }
 
-        @objid ("c68cf7ca-3555-43b8-a9a3-4e771b5841cc")
+        @objid ("6f341f02-4346-4fbd-b85a-e49b0dca0683")
         public static SmAttribute IsReadOnlyAtt() {
             if (IsReadOnlyAtt == null) {
             	IsReadOnlyAtt = classof().getAttributeDef("IsReadOnly");
@@ -106,7 +106,7 @@ public class ActivityData extends BehaviorData {
             return IsReadOnlyAtt;
         }
 
-        @objid ("3a60f591-841e-4398-8763-cbddd4e69f00")
+        @objid ("0df3b3f7-0f27-4e24-b6a1-3dcca96bb273")
         public static SmDependency OwnedGroupDep() {
             if (OwnedGroupDep == null) {
             	OwnedGroupDep = classof().getDependencyDef("OwnedGroup");
@@ -114,7 +114,7 @@ public class ActivityData extends BehaviorData {
             return OwnedGroupDep;
         }
 
-        @objid ("3948c19f-2c03-4dbb-aadc-c71ac88c9464")
+        @objid ("38b2acb4-8ba2-412f-842f-9a346b4a0b3a")
         public static SmDependency OwnedNodeDep() {
             if (OwnedNodeDep == null) {
             	OwnedNodeDep = classof().getDependencyDef("OwnedNode");
@@ -122,44 +122,44 @@ public class ActivityData extends BehaviorData {
             return OwnedNodeDep;
         }
 
-        @objid ("3232b623-7686-4038-8c4a-f4154746a5e2")
-        public static SmAttribute getIsReadOnlyAtt() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return IsReadOnlyAtt;
-        }
-
-        @objid ("21c15d66-2736-4c52-a766-6681ef716098")
+        @objid ("864e244f-dbd5-43e1-9fc6-4e6ff2421b11")
         public static SmAttribute getIsSingleExecutionAtt() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return IsSingleExecutionAtt;
         }
 
-        @objid ("c7b6a834-f0e0-4313-814b-417d7275870a")
-        public static SmDependency getOwnedGroupDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return OwnedGroupDep;
-        }
-
-        @objid ("24b12e03-eb6e-46a5-a242-8384ca4df20a")
-        public static SmDependency getOwnedNodeDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return OwnedNodeDep;
-        }
-
-        @objid ("87d2f12d-c9f9-427d-b482-2e0aff29ff1c")
+        @objid ("2c48581d-bf37-401c-b4f1-0904f44e2a5b")
         public static SmClass getSmClass() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return smClass;
         }
 
+        @objid ("d6c1a471-8c27-4498-834b-9c32177fb1f8")
+        public static SmDependency getOwnedGroupDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return OwnedGroupDep;
+        }
+
+        @objid ("eec36519-02fd-49c2-a466-4b809b33a43a")
+        public static SmDependency getOwnedNodeDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return OwnedNodeDep;
+        }
+
+        @objid ("b4848e3c-91f1-419d-92d1-2a21a24e0d70")
+        public static SmAttribute getIsReadOnlyAtt() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return IsReadOnlyAtt;
+        }
+
         @objid ("004450fc-c4c4-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("4caa2bac-0ae8-40b8-878d-c252a2e36b27")
+            @objid ("8431fa07-d12c-4a0f-8175-c8135cba4f69")
             public ISmObjectData createData() {
                 return new ActivityData();
             }
 
-            @objid ("3945cb58-d427-493f-a424-e4073cdd0803")
+            @objid ("d72a1399-89ae-491c-81ad-8d8e700c4dbe")
             public SmObjectImpl createImpl() {
                 return new ActivityImpl();
             }
@@ -168,12 +168,12 @@ public class ActivityData extends BehaviorData {
 
         @objid ("0044b2fe-c4c4-1fd8-97fe-001ec947cd2a")
         public static class IsSingleExecutionSmAttribute extends SmAttribute {
-            @objid ("88456a22-41e8-48b6-8ba8-dd92bd4c5963")
+            @objid ("6165eb48-b331-4d9d-9769-cc40a70fc808")
             public Object getValue(ISmObjectData data) {
                 return ((ActivityData) data).mIsSingleExecution;
             }
 
-            @objid ("cc8f952a-eef7-4a56-8643-623e59090876")
+            @objid ("17f9e4ca-bee6-42af-8e3f-835a303c907f")
             public void setValue(ISmObjectData data, Object value) {
                 ((ActivityData) data).mIsSingleExecution = value;
             }
@@ -182,12 +182,12 @@ public class ActivityData extends BehaviorData {
 
         @objid ("004513a2-c4c4-1fd8-97fe-001ec947cd2a")
         public static class IsReadOnlySmAttribute extends SmAttribute {
-            @objid ("745d3907-15a4-4fc1-89fc-c7c64dfd4793")
+            @objid ("afe54200-2a29-4f70-99d2-b8a18756370f")
             public Object getValue(ISmObjectData data) {
                 return ((ActivityData) data).mIsReadOnly;
             }
 
-            @objid ("bf22f46a-0558-47e9-9e0a-bb723d63d4d8")
+            @objid ("3cad2831-58da-4b8e-8bc0-fd835ea91bb3")
             public void setValue(ISmObjectData data, Object value) {
                 ((ActivityData) data).mIsReadOnly = value;
             }
@@ -196,20 +196,20 @@ public class ActivityData extends BehaviorData {
 
         @objid ("004575d6-c4c4-1fd8-97fe-001ec947cd2a")
         public static class OwnedNodeSmDependency extends SmMultipleDependency {
-            @objid ("722254c9-ef9b-4332-8269-fbb577b86f09")
+            @objid ("79e9998e-d4d0-46fd-b773-180acb2605e3")
             @Override
             public List<SmObjectImpl> getValueList(ISmObjectData data) {
                 return (((ActivityData)data).mOwnedNode != null)? ((ActivityData)data).mOwnedNode:SmMultipleDependency.EMPTY;
             }
 
-            @objid ("e8975d0b-91dd-438c-96ae-e6283bbd2b6a")
+            @objid ("254495d9-dcdd-4394-b259-d821d2c585a0")
             @Override
             protected List<SmObjectImpl> allocateValueList(ISmObjectData data, int initialCapacity) {
                 ((ActivityData) data).mOwnedNode = new ArrayList<>(initialCapacity);
                 return ((ActivityData) data).mOwnedNode;
             }
 
-            @objid ("4555948a-f567-4068-8ada-bea80af8111d")
+            @objid ("6821f519-c746-4c11-9bb3-064f2f893353")
             @Override
             public SmDependency getSymetric() {
                 return ActivityNodeData.Metadata.OwnerDep();
@@ -219,20 +219,20 @@ public class ActivityData extends BehaviorData {
 
         @objid ("0045d922-c4c4-1fd8-97fe-001ec947cd2a")
         public static class OwnedGroupSmDependency extends SmMultipleDependency {
-            @objid ("e9ae8ab3-7d51-465a-996c-eba8193e979a")
+            @objid ("6312c7fd-f412-48ce-8a57-c334e5fb2a8f")
             @Override
             public List<SmObjectImpl> getValueList(ISmObjectData data) {
                 return (((ActivityData)data).mOwnedGroup != null)? ((ActivityData)data).mOwnedGroup:SmMultipleDependency.EMPTY;
             }
 
-            @objid ("8c56a842-b4cd-4d5f-b2d6-e0c4731acc2a")
+            @objid ("b3ed821f-d6b1-4191-b8bf-ae2f2e4d22e7")
             @Override
             protected List<SmObjectImpl> allocateValueList(ISmObjectData data, int initialCapacity) {
                 ((ActivityData) data).mOwnedGroup = new ArrayList<>(initialCapacity);
                 return ((ActivityData) data).mOwnedGroup;
             }
 
-            @objid ("32932163-0e2c-46d9-8416-eac973afabe2")
+            @objid ("4472a97d-d9d5-4906-b5ea-ca6665a3becb")
             @Override
             public SmDependency getSymetric() {
                 return ActivityGroupData.Metadata.InActivityDep();

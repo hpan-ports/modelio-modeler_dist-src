@@ -26,6 +26,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map.Entry;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.swt.graphics.Color;
@@ -294,11 +295,9 @@ public class Style implements IPersistent, IStyle, IStyleChangeListener {
     @objid ("857c0e96-1926-11e2-92d2-001ec947c8cc")
     @Override
     public void setProperty(StyleKey key, Object value) {
-        if (!key.getType().isInstance(value)) {
-            throw new IllegalArgumentException("value must be a " + key.getType() + " for key " + key);
-        }
+        key.validate(value);
         
-        if (value != null && value.equals(this.properties.get(key))) {
+        if (Objects.equals(value, this.properties.get(key))) {
             // no op, return.
             return;
         }

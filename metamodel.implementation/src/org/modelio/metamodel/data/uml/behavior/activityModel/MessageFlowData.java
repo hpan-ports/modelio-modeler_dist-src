@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.data.uml.behavior.activityModel;
 
 import java.util.ArrayList;
@@ -44,36 +44,36 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("00384dac-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=MessageFlow.class, factory=MessageFlowData.Metadata.ObjectFactory.class)
 public class MessageFlowData extends ActivityEdgeData {
-    @objid ("bdf75b9c-d54f-4084-aed0-10c158b2a196")
+    @objid ("7098b2be-ab37-4f00-955c-99538f755182")
     @SmaMetaAssociation(metaName="TargetPartition", typeDataClass=ActivityPartitionData.class, min=0, max=1, smAssociationClass=Metadata.TargetPartitionSmDependency.class, partof = true)
      SmObjectImpl mTargetPartition;
 
-    @objid ("25fd7fc3-7fb4-4421-a14f-deb2227e93e3")
+    @objid ("159b0df4-cc28-4f56-9038-5078b92f7880")
     @SmaMetaAssociation(metaName="SourcePartition", typeDataClass=ActivityPartitionData.class, min=0, max=1, smAssociationClass=Metadata.SourcePartitionSmDependency.class)
      SmObjectImpl mSourcePartition;
 
-    @objid ("60b9185c-7682-4da3-811b-a252089aa00f")
+    @objid ("c63cbaed-d0d6-4ca1-bdd7-6e5bead973c0")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("00678cf2-c4c5-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("3833d37a-b20a-47e4-bf0c-36d2fb84cfd9")
+        @objid ("b41de03c-d2d9-42b4-af33-125e48538a21")
         private static SmClass smClass = null;
 
-        @objid ("a3d0a19a-2f62-430f-a25e-85cea83fe077")
+        @objid ("8250eb87-2622-4de9-bce9-63ff62d22b43")
         private static SmDependency TargetPartitionDep = null;
 
-        @objid ("6e32507d-fbc8-4c96-a2a3-99967cf9fa43")
+        @objid ("d3de8de2-6d46-4805-8ece-053a009bf422")
         private static SmDependency SourcePartitionDep = null;
 
-        @objid ("69937190-b35c-4c40-a4fa-096defb1168a")
+        @objid ("df2fd972-2aac-4d7c-bb9f-52b89ac34b80")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(MessageFlowData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("f8fd1a5a-f9b5-4a04-875d-4a76cc3f66de")
+        @objid ("3e2ba94b-38f7-4194-8c42-2dd0a688646e")
         public static SmDependency TargetPartitionDep() {
             if (TargetPartitionDep == null) {
             	TargetPartitionDep = classof().getDependencyDef("TargetPartition");
@@ -81,7 +81,7 @@ public class MessageFlowData extends ActivityEdgeData {
             return TargetPartitionDep;
         }
 
-        @objid ("a0b3ef7f-5975-491a-ac46-c45f12beaabd")
+        @objid ("d109bbbe-725b-4b4b-9451-cf52eb0d2ca7")
         public static SmDependency SourcePartitionDep() {
             if (SourcePartitionDep == null) {
             	SourcePartitionDep = classof().getDependencyDef("SourcePartition");
@@ -89,19 +89,19 @@ public class MessageFlowData extends ActivityEdgeData {
             return SourcePartitionDep;
         }
 
-        @objid ("b65856a3-75bd-4955-a3dc-ee411ef220ff")
-        public static SmDependency getSourcePartitionDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return SourcePartitionDep;
-        }
-
-        @objid ("e757e958-3faa-4dfc-b4d6-2c98836364d0")
+        @objid ("65264570-b38b-4d07-93f8-e1edf2ace1c7")
         public static SmDependency getTargetPartitionDep() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return TargetPartitionDep;
         }
 
-        @objid ("9399c99a-952c-429f-bded-9e64503b9784")
+        @objid ("6fc90fff-6a31-45b5-8fc6-b1f946265701")
+        public static SmDependency getSourcePartitionDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return SourcePartitionDep;
+        }
+
+        @objid ("ac87ab00-9119-4e79-b592-1943d733f8bc")
         public static SmClass getSmClass() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return smClass;
@@ -109,12 +109,12 @@ public class MessageFlowData extends ActivityEdgeData {
 
         @objid ("0067ce7e-c4c5-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("3c7896c4-96b3-45a2-954b-0d2ef6752bf8")
+            @objid ("2f25f219-1262-464d-89b8-72fd43015bf7")
             public ISmObjectData createData() {
                 return new MessageFlowData();
             }
 
-            @objid ("55160a4e-8a75-4d5d-ae00-f564549ff0ef")
+            @objid ("b84ddb0e-4e87-4560-988a-22e891f98f6b")
             public SmObjectImpl createImpl() {
                 return new MessageFlowImpl();
             }
@@ -123,18 +123,18 @@ public class MessageFlowData extends ActivityEdgeData {
 
         @objid ("006830b2-c4c5-1fd8-97fe-001ec947cd2a")
         public static class SourcePartitionSmDependency extends SmSingleDependency {
-            @objid ("55845ea8-7251-4219-bf61-2f76fde89efe")
+            @objid ("cbb0853d-764e-4cb6-aa07-f3f64891394d")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((MessageFlowData) data).mSourcePartition;
             }
 
-            @objid ("db6483c0-cc9d-4ea9-a1e1-026eaa9c868c")
+            @objid ("b2f077e0-aec0-41bc-b7f1-7af4959d280c")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((MessageFlowData) data).mSourcePartition = value;
             }
 
-            @objid ("c7c5d82f-e044-4471-a6f9-d2d1098d8064")
+            @objid ("a49ffe50-fc60-4fbc-ae4e-09fed0eb071a")
             @Override
             public SmDependency getSymetric() {
                 return ActivityPartitionData.Metadata.OutgoingDep();
@@ -144,18 +144,18 @@ public class MessageFlowData extends ActivityEdgeData {
 
         @objid ("0068a51a-c4c5-1fd8-97fe-001ec947cd2a")
         public static class TargetPartitionSmDependency extends SmSingleDependency {
-            @objid ("22b2bd26-efac-4e71-b4f0-b7806f2dd8ae")
+            @objid ("235d3e25-d9d3-4843-b1b0-c950773abbda")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((MessageFlowData) data).mTargetPartition;
             }
 
-            @objid ("32735ed9-653b-44e2-a771-24b1031bd554")
+            @objid ("b6fa4bc2-8bb1-46bb-87b4-dea8e39f6ca1")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((MessageFlowData) data).mTargetPartition = value;
             }
 
-            @objid ("b7f4e63c-b03c-4cef-9295-33ce29fdcce9")
+            @objid ("079227de-2376-4dea-be33-2e0a51362f34")
             @Override
             public SmDependency getSymetric() {
                 return ActivityPartitionData.Metadata.IncomingDep();

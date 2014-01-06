@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.data.bpmn.gateways;
 
 import java.util.ArrayList;
@@ -44,29 +44,29 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("000085b6-c4c0-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=BpmnExclusiveGateway.class, factory=BpmnExclusiveGatewayData.Metadata.ObjectFactory.class)
 public class BpmnExclusiveGatewayData extends BpmnGatewayData {
-    @objid ("be35b3f9-be9d-45f3-919c-a0ede3f5e5b0")
+    @objid ("1000580a-cd6f-4cfc-bc7d-7969c20329ab")
     @SmaMetaAssociation(metaName="DefaultFlow", typeDataClass=BpmnSequenceFlowData.class, min=0, max=1, smAssociationClass=Metadata.DefaultFlowSmDependency.class, partof = true)
      SmObjectImpl mDefaultFlow;
 
-    @objid ("134832c8-7643-4779-98a5-d2962246ed14")
+    @objid ("fcabdb06-5fc3-4054-a44c-5f0c18dc7b60")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("005831b2-c4c3-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("989066e7-ecff-4d7f-af24-c65dc55efe3f")
+        @objid ("0eda0145-fd85-4241-bee3-8ded00258cce")
         private static SmClass smClass = null;
 
-        @objid ("c8511daf-28b1-499f-baf6-254f5e271758")
+        @objid ("3fe8ffab-ed82-4b46-bfe3-22e2ccc57008")
         private static SmDependency DefaultFlowDep = null;
 
-        @objid ("4c39f800-dd7f-45d0-9f6f-3efb685522d1")
+        @objid ("7912ccfa-727e-4b8b-9f11-3fa2e6145c29")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(BpmnExclusiveGatewayData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("dce2c9bf-6dc6-4648-b52b-fb8a18a169ac")
+        @objid ("7c0a2087-b736-416d-91bf-6357e946e0a8")
         public static SmDependency DefaultFlowDep() {
             if (DefaultFlowDep == null) {
             	DefaultFlowDep = classof().getDependencyDef("DefaultFlow");
@@ -74,13 +74,13 @@ public class BpmnExclusiveGatewayData extends BpmnGatewayData {
             return DefaultFlowDep;
         }
 
-        @objid ("ae5c7efc-036c-4b33-be51-a5ff2d8b6fa9")
+        @objid ("f75b6380-c7af-4fc3-9ff2-07d65ed57bd8")
         public static SmDependency getDefaultFlowDep() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return DefaultFlowDep;
         }
 
-        @objid ("e8d6226b-fc8f-485d-a40b-c7561927d0ae")
+        @objid ("6b1d97be-50f3-40a1-bcb5-a7a3ab65bcb1")
         public static SmClass getSmClass() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return smClass;
@@ -88,12 +88,12 @@ public class BpmnExclusiveGatewayData extends BpmnGatewayData {
 
         @objid ("00587e92-c4c3-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("17e0b855-9e6c-4725-b7ee-334d838d145e")
+            @objid ("210f8b92-19ff-4fe8-ba26-05d1b82e1f26")
             public ISmObjectData createData() {
                 return new BpmnExclusiveGatewayData();
             }
 
-            @objid ("120e44fb-884f-455a-88b4-ef2104f61fbd")
+            @objid ("7dccda44-3095-41bc-9e42-faad32917e38")
             public SmObjectImpl createImpl() {
                 return new BpmnExclusiveGatewayImpl();
             }
@@ -102,18 +102,18 @@ public class BpmnExclusiveGatewayData extends BpmnGatewayData {
 
         @objid ("0058e29c-c4c3-1fd8-97fe-001ec947cd2a")
         public static class DefaultFlowSmDependency extends SmSingleDependency {
-            @objid ("cdefaa71-a26a-4f16-a288-4f0b38714609")
+            @objid ("a28aee2a-233a-4a16-a515-06a4d4a8c7d7")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((BpmnExclusiveGatewayData) data).mDefaultFlow;
             }
 
-            @objid ("6bd0bfc0-8b6c-47fc-9831-0f58ce47ca0f")
+            @objid ("ebfdbdef-93ff-4d42-be16-9083d4fa5914")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((BpmnExclusiveGatewayData) data).mDefaultFlow = value;
             }
 
-            @objid ("9123dee8-e273-42f5-a8a5-953bccde6adf")
+            @objid ("c53164b8-b69a-4a1a-b76a-d73cc356aee4")
             @Override
             public SmDependency getSymetric() {
                 return BpmnSequenceFlowData.Metadata.DefaultOfExclusiveDep();

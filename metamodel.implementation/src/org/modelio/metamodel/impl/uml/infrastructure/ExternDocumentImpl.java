@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.uml.infrastructure;
 
 import java.util.ArrayList;
@@ -43,67 +43,67 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("00927aac-c4be-1fd8-97fe-001ec947cd2a")
 public class ExternDocumentImpl extends ModelElementImpl implements ExternDocument {
-    @objid ("bf4d7d20-3204-4799-a23d-7d58e62db969")
+    @objid ("b6b74843-dae8-462b-b048-68f0490831a3")
     @Override
     public String getMimeType() {
         return (String) getAttVal(ExternDocumentData.Metadata.MimeTypeAtt());
     }
 
-    @objid ("fef7b1fd-f699-4cdf-a753-35e66b6d4f1d")
+    @objid ("10c0aa3e-f20c-48f5-92e9-c1fa7f58aba8")
     @Override
     public void setMimeType(String value) {
         setAttVal(ExternDocumentData.Metadata.MimeTypeAtt(), value);
     }
 
-    @objid ("12569b02-b98b-4cdf-b464-92177e571e85")
+    @objid ("8c537874-6bf0-4bbd-a8d8-201fbcebfdd3")
     @Override
     public String getPath() {
         return (String) getAttVal(ExternDocumentData.Metadata.PathAtt());
     }
 
-    @objid ("ca8c3640-cd64-4f15-91dd-e67720ff7849")
+    @objid ("bc31654b-9365-426f-8b37-0368097ed4da")
     @Override
     public void setPath(String value) {
         setAttVal(ExternDocumentData.Metadata.PathAtt(), value);
     }
 
-    @objid ("150af35a-3d08-42fa-9fed-87cb8a2da8ec")
+    @objid ("3c37db60-1c7a-4135-aa48-9efeebf8294a")
     @Override
     public String getAbstract() {
         return (String) getAttVal(ExternDocumentData.Metadata.AbstractAtt());
     }
 
-    @objid ("d85f2f4e-e787-42a4-8564-ca381fa10176")
+    @objid ("bf6c3fea-9093-4470-b72d-c0cd1dbea15a")
     @Override
     public void setAbstract(String value) {
         setAttVal(ExternDocumentData.Metadata.AbstractAtt(), value);
     }
 
-    @objid ("3b4ef07e-f118-48d0-bdb4-b88102eb919d")
+    @objid ("08aa1548-8326-4b88-88ea-161b4a6d367c")
     @Override
     public ExternDocumentType getType() {
         return (ExternDocumentType) getDepVal(ExternDocumentData.Metadata.TypeDep());
     }
 
-    @objid ("a1d061c3-0b51-4372-acba-7ad24c8206a9")
+    @objid ("35da36ec-d5f8-48e9-8805-96107e4cc25b")
     @Override
     public void setType(ExternDocumentType value) {
         appendDepVal(ExternDocumentData.Metadata.TypeDep(), (SmObjectImpl)value);
     }
 
-    @objid ("a5ff391b-2ed3-4812-a9d6-456dd93c223c")
+    @objid ("50b0145e-0456-453c-bf22-8d72a567fbc2")
     @Override
     public ModelElement getSubject() {
         return (ModelElement) getDepVal(ExternDocumentData.Metadata.SubjectDep());
     }
 
-    @objid ("7ea255d0-13f9-4c5d-92d8-b362c91fcb4b")
+    @objid ("a5a3cf8a-d57d-4e83-b23f-f3f8c6f41b7f")
     @Override
     public void setSubject(ModelElement value) {
         appendDepVal(ExternDocumentData.Metadata.SubjectDep(), (SmObjectImpl)value);
     }
 
-    @objid ("26ac8081-6f01-4850-bd7e-dffe6fbda0a1")
+    @objid ("d1172a87-cf6d-4003-9dea-a1de6c5182bd")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
@@ -113,7 +113,7 @@ public class ExternDocumentImpl extends ModelElementImpl implements ExternDocume
         return super.getCompositionOwner();
     }
 
-    @objid ("3696c21f-c091-48d1-8ff4-872382e3539f")
+    @objid ("8a24f6b3-c41b-49e2-af27-a2514c86c248")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
@@ -123,7 +123,7 @@ public class ExternDocumentImpl extends ModelElementImpl implements ExternDocume
         return super.getCompositionRelation();
     }
 
-    @objid ("0e0d20e8-17c1-4c1a-9dc1-09e60f0986a8")
+    @objid ("e2078b07-dfa9-4735-8fbb-6509f3640043")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitExternDocument(this);

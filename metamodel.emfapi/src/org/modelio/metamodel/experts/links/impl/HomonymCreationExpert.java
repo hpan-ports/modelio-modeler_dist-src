@@ -31,13 +31,13 @@ import org.modelio.vcore.smkernel.mapi.MObject;
 public class HomonymCreationExpert extends DefaultLinkExpert {
     @objid ("3dfeb92c-1304-4722-94c3-4214b8b6fc40")
     @Override
-    public boolean canLink(MObject link, final MObject fromElement, final MObject toElement, final MObject linkOwner) {
+    public boolean canLink(MClass link, final MObject fromElement, final MObject toElement) {
         return (fromElement instanceof Term) && (toElement instanceof Term);
     }
 
     @objid ("26aecd4b-ab5d-456b-982d-86c420df87d0")
     @Override
-    public boolean canLink(MClass link, final MClass fromMetaclass, final MClass toMetaclass, final MClass owner) {
+    public boolean canLink(MClass link, final MClass fromMetaclass, final MClass toMetaclass) {
         return fromMetaclass.hasBase(Metamodel.getMClass(Term.class)) && toMetaclass.hasBase(Metamodel.getMClass(Term.class));
     }
 

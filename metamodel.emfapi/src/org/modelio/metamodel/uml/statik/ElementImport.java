@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.uml.statik;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
@@ -34,28 +34,28 @@ import org.modelio.metamodel.uml.statik.VisibilityMode;
 
 @objid ("0008034a-c4bf-1fd8-97fe-001ec947cd2a")
 public interface ElementImport extends ModelElement {
-    @objid ("141a89f8-e2ba-4d74-917d-5a3bed620da1")
+    @objid ("cc3bf0b1-77bd-4bcc-9a0c-4c072cc3e0d0")
     VisibilityMode getVisibility();
 
-    @objid ("87983343-a834-416b-aeb1-82b4af0efe63")
+    @objid ("a2c7e0db-97e8-42e4-a6e6-2a68c6ada381")
     void setVisibility(VisibilityMode value);
 
-    @objid ("33be54fb-de20-4a03-8f77-620b304545ac")
+    @objid ("38471c53-cc7e-4409-abc3-929b7f7aa3a3")
     NameSpace getImportingNameSpace();
 
-    @objid ("36cffcdb-e368-4806-b4cd-18d1d78b4b41")
+    @objid ("f620750d-7122-4b63-bbff-6147747caa4b")
     void setImportingNameSpace(NameSpace value);
 
-    @objid ("10eeb4bc-62c4-4694-8e18-86ae3562a368")
+    @objid ("1a0b7968-dfd6-4260-9d4e-314e653dab1c")
     NameSpace getImportedElement();
 
-    @objid ("16728776-4c9a-4df4-9f6a-7d0beb64b2d8")
+    @objid ("c87570bf-9579-4f4f-bb54-5e510f784726")
     void setImportedElement(NameSpace value);
 
-    @objid ("4ce7c8d5-0056-4363-86a1-43e8ee3c8b6d")
+    @objid ("e558b97d-8e58-4e1c-9d92-087604853f76")
     Operation getImportingOperation();
 
-    @objid ("1111ae9a-a0cf-4724-a70b-929a6ce54ea0")
+    @objid ("1091746c-563b-4c0e-a3e1-473952d584f4")
     void setImportingOperation(Operation value);
 
 }

@@ -30,9 +30,12 @@ import org.eclipse.swt.graphics.Font;
 import org.modelio.diagram.elements.core.figures.PenOptions;
 import org.modelio.diagram.elements.core.figures.RoundedBoxFigure;
 
+/**
+ * {@link RoundedBoxFigure} with a {@link Label} in the center.
+ */
 @objid ("7f21a2e2-1dec-11e2-8cad-001ec947c8cc")
 public class RoundedSimpleFigure extends RoundedBoxFigure {
-    @objid ("d435547b-2203-4315-b9a6-a92deb193802")
+    @objid ("70aa9cd3-1ebd-4f85-a844-bde8be3aa533")
     private Label label;
 
     /**

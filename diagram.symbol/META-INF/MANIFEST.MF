@@ -34,7 +34,8 @@ Require-Bundle: org.modelio.diagram.editor,
  org.eclipse.e4.ui.services,
  org.modelio.api,
  org.modelio.metamodel.implementation,
- org.eclipse.e4.ui.model.workbench
+ org.eclipse.e4.ui.model.workbench,
+ org.eclipse.e4.core.di.extensions
 Bundle-ClassPath: res/,
  .
 Import-Package: javax.annotation;version="1.1.0",

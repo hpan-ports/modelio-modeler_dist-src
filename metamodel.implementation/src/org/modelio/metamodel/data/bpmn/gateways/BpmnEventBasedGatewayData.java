@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.data.bpmn.gateways;
 
 import java.util.ArrayList;
@@ -44,36 +44,36 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("00985c10-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=BpmnEventBasedGateway.class, factory=BpmnEventBasedGatewayData.Metadata.ObjectFactory.class)
 public class BpmnEventBasedGatewayData extends BpmnGatewayData {
-    @objid ("66397228-1cd9-45c2-9820-f4f6e2b9535d")
+    @objid ("6d08b3c9-9428-4f53-92bf-cb61d6098799")
     @SmaMetaAttribute(metaName="Instanciate", type=Boolean.class, smAttributeClass=Metadata.InstanciateSmAttribute.class)
      Object mInstanciate = false;
 
-    @objid ("2a0d1e94-f623-40ec-a143-ade3e48b5595")
+    @objid ("27ab4380-d88e-4dce-b7ad-00c5413847c9")
     @SmaMetaAttribute(metaName="EventGatewayType", type=BpmnEventBasedGatewayType.class, smAttributeClass=Metadata.EventGatewayTypeSmAttribute.class)
      Object mEventGatewayType = BpmnEventBasedGatewayType.EXCLUSIVEGATEWAY;
 
-    @objid ("bcaee160-9c74-4162-9efe-180be461cf0f")
+    @objid ("a106bec3-f5c1-41e6-ae80-b051f9700943")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("00099124-c4c4-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("457aca69-58af-45f8-ad72-be5cfa526e45")
+        @objid ("fcf35616-068e-4162-b500-de18a546b7ea")
         private static SmClass smClass = null;
 
-        @objid ("29f40d09-04d9-47d4-878b-928773660bd9")
+        @objid ("5c7bedf8-b72c-495c-bbd8-19af9084d847")
         private static SmAttribute InstanciateAtt = null;
 
-        @objid ("dd201fad-6852-4687-8492-495fbc92dfc9")
+        @objid ("ddb0ee7d-3e27-44e9-9216-b00c1c816e2f")
         private static SmAttribute EventGatewayTypeAtt = null;
 
-        @objid ("b8ca40b2-f7db-4a64-ac21-cf5b70b1e4c1")
+        @objid ("741bd6f9-3983-4d3e-91e7-fab42e31b44a")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(BpmnEventBasedGatewayData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("f18c6b89-088c-4861-992c-dabd9665f279")
+        @objid ("913ec13e-75b6-492c-b704-ec91b80d37e7")
         public static SmAttribute InstanciateAtt() {
             if (InstanciateAtt == null) {
             	InstanciateAtt = classof().getAttributeDef("Instanciate");
@@ -81,7 +81,7 @@ public class BpmnEventBasedGatewayData extends BpmnGatewayData {
             return InstanciateAtt;
         }
 
-        @objid ("3f7ace29-96af-4fdc-a5fc-c0f694a2e63d")
+        @objid ("e71bdfc3-98ef-43ef-91f2-e5da79a69b88")
         public static SmAttribute EventGatewayTypeAtt() {
             if (EventGatewayTypeAtt == null) {
             	EventGatewayTypeAtt = classof().getAttributeDef("EventGatewayType");
@@ -89,19 +89,19 @@ public class BpmnEventBasedGatewayData extends BpmnGatewayData {
             return EventGatewayTypeAtt;
         }
 
-        @objid ("39663cec-524c-4325-b256-2bfac4637a35")
+        @objid ("1e75ec14-944a-46eb-ae3b-a14c3dc57416")
         public static SmClass getSmClass() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return smClass;
         }
 
-        @objid ("10bc578e-6650-4fcf-b488-ac02bc05d416")
+        @objid ("36469430-5636-4832-8af5-04035a014297")
         public static SmAttribute getInstanciateAtt() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return InstanciateAtt;
         }
 
-        @objid ("26b724dc-9bf6-4c25-925b-b4e12523e2e6")
+        @objid ("dcc0af96-a41f-440e-bea9-ec7762622d6e")
         public static SmAttribute getEventGatewayTypeAtt() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return EventGatewayTypeAtt;
@@ -109,12 +109,12 @@ public class BpmnEventBasedGatewayData extends BpmnGatewayData {
 
         @objid ("0009e34a-c4c4-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("34fcdaf5-c6d2-4c7e-a848-5370ab0f4141")
+            @objid ("2664fe95-dceb-4922-930e-05e6c000df8a")
             public ISmObjectData createData() {
                 return new BpmnEventBasedGatewayData();
             }
 
-            @objid ("e6aaca70-1d3c-49e8-b84d-2da0a3f546fc")
+            @objid ("0540ef34-d27a-46f0-b41e-85efe95d71b2")
             public SmObjectImpl createImpl() {
                 return new BpmnEventBasedGatewayImpl();
             }
@@ -123,12 +123,12 @@ public class BpmnEventBasedGatewayData extends BpmnGatewayData {
 
         @objid ("000a5870-c4c4-1fd8-97fe-001ec947cd2a")
         public static class InstanciateSmAttribute extends SmAttribute {
-            @objid ("a1f1cb88-404d-420e-a0a0-7262a058ebb6")
+            @objid ("09887945-ca3a-4f00-8fe2-d4978ae15ba0")
             public Object getValue(ISmObjectData data) {
                 return ((BpmnEventBasedGatewayData) data).mInstanciate;
             }
 
-            @objid ("89913fad-e596-4ab9-a7a5-a988d6113cd9")
+            @objid ("65f02200-5a98-41e9-adbe-2ed793a26343")
             public void setValue(ISmObjectData data, Object value) {
                 ((BpmnEventBasedGatewayData) data).mInstanciate = value;
             }
@@ -137,12 +137,12 @@ public class BpmnEventBasedGatewayData extends BpmnGatewayData {
 
         @objid ("000acbc0-c4c4-1fd8-97fe-001ec947cd2a")
         public static class EventGatewayTypeSmAttribute extends SmAttribute {
-            @objid ("c6e19327-1c76-4aa3-9e86-8d4359282e6c")
+            @objid ("a9e636b0-d550-4de3-b354-b86c8ee49caf")
             public Object getValue(ISmObjectData data) {
                 return ((BpmnEventBasedGatewayData) data).mEventGatewayType;
             }
 
-            @objid ("628253c4-3eba-4e35-b6a9-d90c398940d2")
+            @objid ("7adc7b2f-5b05-4112-848a-511ae9d90534")
             public void setValue(ISmObjectData data, Object value) {
                 ((BpmnEventBasedGatewayData) data).mEventGatewayType = value;
             }

@@ -28,16 +28,13 @@ import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.metamodel.uml.infrastructure.NoteType;
 import org.modelio.metamodel.uml.infrastructure.Profile;
 import org.modelio.metamodel.uml.infrastructure.Stereotype;
-import org.modelio.metamodel.uml.infrastructure.TagParameter;
 import org.modelio.metamodel.uml.infrastructure.TagType;
-import org.modelio.metamodel.uml.infrastructure.TaggedValue;
 import org.modelio.xmi.generation.ProfileExportVisitorImpl;
 import org.modelio.xmi.generation.TotalExportMap;
 import org.modelio.xmi.util.AbstractObjingModelNavigation;
 import org.modelio.xmi.util.GenerationProperties;
 import org.modelio.xmi.util.ObjingEAnnotation;
 import org.modelio.xmi.util.ProfileUtils;
-import org.modelio.xmi.util.ResourceLoader;
 
 @objid ("0614af7e-f3e0-4f37-b361-db99bfbefbe6")
 public class PExportStereotype implements IExportProfileElement {
@@ -96,38 +93,14 @@ public class PExportStereotype implements IExportProfileElement {
 
     @objid ("96b7f855-5fc6-4be0-9eb8-04683d15e71f")
     private void setIcon(org.eclipse.uml2.uml.Stereotype stereotype) {
-        String iconPath = null;
+        String iconPath = this.objingElt.getIcon();
         
-        String smallIconPath = null;
-        
-        String explorerIconPath = null;
-        for (TaggedValue tag : this.objingElt.getTag()){
-        
-            String typeName = tag.getDefinition().getName();
-        
-            if (typeName.equals("icon")){
-                for (TagParameter actual : tag.getActual()){
-                    iconPath = actual.getValue();
-                }
-            }else if (typeName.equals("smallIcon")){
-                for (TagParameter actual : tag.getActual()){
-                    smallIconPath = actual.getValue();
-                }
-            }else if (typeName.equals("explorerIcon")){
-                for (TagParameter actual : tag.getActual()){
-                    explorerIconPath = actual.getValue();
-                }
-            }
-        }        
-        
-        String genroot = ResourceLoader.getInstance().getProjectRoot();
-        
-        if ((iconPath != null) && (!iconPath.equals("")))
-            ProfileUtils.setStereotypeImage(genroot + iconPath, stereotype);
-        else if ((smallIconPath != null) && (!smallIconPath.equals("")))
-            ProfileUtils.setStereotypeImage(genroot + smallIconPath, stereotype);
-        else if ((explorerIconPath != null) && (!explorerIconPath.equals("")))
-            ProfileUtils.setStereotypeImage(genroot + explorerIconPath, stereotype);
+        String imagePath = this.objingElt.getImage();       
+                
+         if ((imagePath != null) && (!imagePath.equals("")))
+            ProfileUtils.setStereotypeImage( imagePath, stereotype);
+         else if ((iconPath != null) && (!iconPath.equals("")))
+            ProfileUtils.setStereotypeImage(iconPath, stereotype);
     }
 
     @objid ("d247064c-3133-4a3a-8e4e-cbe2cdeb009f")

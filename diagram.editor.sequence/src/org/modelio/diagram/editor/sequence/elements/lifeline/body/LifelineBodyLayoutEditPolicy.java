@@ -74,7 +74,17 @@ public class LifelineBodyLayoutEditPolicy extends DefaultFreeZoneLayoutEditPolic
     @Override
     protected Command createAddCommand(final EditPart child, final Object constraint) {
         if (((GmModel) child.getModel()).getRelatedElement() instanceof ExecutionSpecification) {
-            return createAddCommandForExecution(child, constraint);
+            Rectangle requestConstraint = (Rectangle) constraint;
+            Rectangle tmp = requestConstraint.getCopy();
+            tmp.translate(getLayoutOrigin());
+            int newTime = tmp.y;
+            
+            ExecutionSpecification spec = (ExecutionSpecification) ((GmModel) child.getModel()).getRelatedElement();
+            if (spec.getLineNumber() == -1 || newTime == spec.getLineNumber()) {
+                return createAddCommandForExecution(child, constraint);
+            } else {
+                return null;
+            }
         } else if (((GmModel) child.getModel()).getRelatedElement() instanceof StateInvariant) {
             return createAddCommandForStateInvariant(child, constraint);
         } else if (((GmModel) child.getModel()).getRelatedElement() instanceof ExecutionOccurenceSpecification) {

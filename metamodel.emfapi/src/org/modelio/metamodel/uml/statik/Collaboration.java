@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.uml.statik;
 
 import java.util.List;
@@ -34,28 +34,28 @@ import org.modelio.metamodel.uml.statik.Operation;
 
 @objid ("0003f692-c4bf-1fd8-97fe-001ec947cd2a")
 public interface Collaboration extends NameSpace {
-    @objid ("8e6499c0-9e4e-4e91-a7a3-caed787e799e")
+    @objid ("acdd533f-62a9-4ff8-85f7-a2464af72ce2")
     boolean isIsConcurrent();
 
-    @objid ("d30ce4f1-2c83-4845-b034-cbc443547a99")
+    @objid ("7741b6a4-8ed2-4876-bc79-2f0e6898a35f")
     void setIsConcurrent(boolean value);
 
-    @objid ("26aa4ae1-abc8-401f-a705-036b6238d7dd")
+    @objid ("cd89251a-e124-47a9-ae98-0366b814b654")
     Operation getORepresented();
 
-    @objid ("5ccdf660-067f-45c7-8bd0-c5be91f9a58c")
+    @objid ("c3574232-35d4-4d16-be50-417185925b4d")
     void setORepresented(Operation value);
 
-    @objid ("e88345b9-c4b6-4514-be21-fcb74ddb5a69")
+    @objid ("2d9b9f83-6b8b-4626-9aae-320f3ffd0ebd")
     Behavior getBRepresented();
 
-    @objid ("a54e1db1-a435-45ca-8e09-0076e8feda12")
+    @objid ("9b9593df-21d0-4ccf-9a59-f53d997270ad")
     void setBRepresented(Behavior value);
 
-    @objid ("5ff5f04e-57e7-4432-8777-0b10e623b9b2")
+    @objid ("829b081a-645a-4fe6-97ee-b62360890fbf")
     EList<CollaborationUse> getOccurrence();
 
-    @objid ("8413c9e9-395a-420e-9030-d9a71263283a")
+    @objid ("497ebd4b-baf9-47a2-9ad0-b0e4cf747eaf")
     <T extends CollaborationUse> List<T> getOccurrence(java.lang.Class<T> filterClass);
 
 }

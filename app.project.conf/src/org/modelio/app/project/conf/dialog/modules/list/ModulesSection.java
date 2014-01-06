@@ -48,11 +48,13 @@ import org.eclipse.jface.viewers.TableViewerColumn;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
@@ -77,6 +79,7 @@ import org.modelio.gproject.gproject.GProject;
 import org.modelio.gproject.module.GModule;
 import org.modelio.gproject.module.IModuleHandle;
 import org.modelio.gproject.module.ModuleHandleComparator;
+import org.modelio.mda.infra.catalog.CompatibilityHelper;
 import org.modelio.mda.infra.catalog.ModuleCatalogPanel;
 import org.modelio.mda.infra.service.IModuleService;
 import org.modelio.metamodel.mda.ModuleComponent;
@@ -90,40 +93,40 @@ import org.modelio.vcore.smkernel.AccessDeniedException;
  */
 @objid ("a73f82a6-33f6-11e2-a514-002564c97630")
 public class ModulesSection {
-    @objid ("ae549ed1-f8f4-45d9-a773-9b6eafe71439")
-    protected IEclipseContext applicationContext;
-
-    @objid ("38317f1f-9285-4fac-aee6-1bc197e6d4d8")
-    private TableViewer modulesTable;
-
-    @objid ("7a604ce6-4912-45f3-8a84-d219aced684d")
-    protected Button removeButton;
-
-    @objid ("ccfb5aba-9df7-4882-a69f-14a1d941093d")
-    protected static final Image CHECKED = AbstractUIPlugin
-    .imageDescriptorFromPlugin(AppProjectConf.PLUGIN_ID, "icons/checked.gif").createImage();
-
-    @objid ("24b4b14a-c5da-4fc4-a46c-33d847f5ab91")
-    protected static final Image UNCHECKED = AbstractUIPlugin.imageDescriptorFromPlugin(AppProjectConf.PLUGIN_ID,
-            "icons/unchecked.gif").createImage();
-
-    @objid ("b804796d-a4d6-4a71-9405-eb343fcd9d2c")
-    private Button addButton;
-
-    @objid ("ef6f48c6-3f04-412f-9a30-f740d2c09f4f")
-    private IStructuredSelection moduleSelectionsInCatalog;
-
-    @objid ("c8b19faf-29e1-45ea-a854-cf78bb67ad12")
-    private Button catalogButton;
-
     /**
      * The project that is currently being displayed by the section.
      */
     @objid ("a73f82a8-33f6-11e2-a514-002564c97630")
     private ProjectModel projectAdapter;
 
+    @objid ("a73f82aa-33f6-11e2-a514-002564c97630")
+    protected IEclipseContext applicationContext;
+
+    @objid ("a73f82ab-33f6-11e2-a514-002564c97630")
+    private TableViewer modulesTable;
+
+    @objid ("a73f82ad-33f6-11e2-a514-002564c97630")
+    protected Button removeButton;
+
+    @objid ("af20f1c8-3ed8-11e2-8121-002564c97630")
+    protected static final Image CHECKED = AbstractUIPlugin
+    .imageDescriptorFromPlugin(AppProjectConf.PLUGIN_ID, "icons/checked.gif").createImage();
+
+    @objid ("af20f1ca-3ed8-11e2-8121-002564c97630")
+    protected static final Image UNCHECKED = AbstractUIPlugin.imageDescriptorFromPlugin(AppProjectConf.PLUGIN_ID,
+            "icons/unchecked.gif").createImage();
+
+    @objid ("496695f8-4e09-4d0c-823f-13523624edbf")
+    private Button addButton;
+
+    @objid ("5724b605-254e-481b-be67-aa6f34f29710")
+    private IStructuredSelection moduleSelectionsInCatalog;
+
     @objid ("e310a2d1-2b07-40d4-a1a1-15b35793dc6b")
-    private ModelioEnv env;
+    protected ModelioEnv env;
+
+    @objid ("e3603a3d-944f-4c70-9e0a-e809159a92ca")
+    private Button catalogButton;
 
     @objid ("7938901f-13fa-451f-9543-7699a5a0991c")
     protected CatalogController catalogController;
@@ -134,7 +137,7 @@ public class ModulesSection {
     @objid ("45bd66ad-956a-46e3-9bf8-0be27611f68b")
     protected IModuleService moduleService;
 
-    @objid ("a6974b15-9862-43bb-b768-597de867d2b9")
+    @objid ("bc59e504-6e74-4fe2-ba11-2da4a66b0b16")
     protected IModelioProgressService progressService;
 
     @objid ("a73f82ae-33f6-11e2-a514-002564c97630")
@@ -314,6 +317,49 @@ public class ModulesSection {
             }
         });
         
+        TableViewerColumn compatibilityColumn = new TableViewerColumn(this.modulesTable, SWT.LEFT);
+        compatibilityColumn.getColumn().setText(AppProjectConf.I18N.getString("ModulesSection.CompatibilityColumn")); //$NON-NLS-1$
+        compatibilityColumn.getColumn().setWidth(200);
+        compatibilityColumn.setLabelProvider(new ColumnLabelProvider() {
+            @Override
+            public String getText(Object element) {
+                if (element instanceof GModule) {
+                    IModuleHandle mh = ((GModule) element).getModuleHandle();
+                    switch (CompatibilityHelper.getCompatibilityLevel(ModulesSection.this.env, mh)) {
+                    case COMPATIBLE:
+                        return AppProjectConf.I18N.getString("ModulesSection.Compatible");
+                    case FULLYCOMPATIBLE:
+                        return AppProjectConf.I18N.getString("ModulesSection.FullyCompatible");
+                    case MODELIO_TOO_OLD:
+                        return AppProjectConf.I18N.getString("ModulesSection.ModelioTooOld");
+                    case MODULE_TOO_OLD:
+                        return AppProjectConf.I18N.getString("ModulesSection.ModuleTooOld");
+                    default:
+                        break;
+                    }
+                }
+                return "";
+            }
+        
+            @Override
+            public Color getForeground(Object element) {
+                if (element instanceof GModule) {
+                    IModuleHandle mh = ((GModule) element).getModuleHandle();
+                    switch (CompatibilityHelper.getCompatibilityLevel(ModulesSection.this.env, mh)) {
+                    case COMPATIBLE:
+                        return Display.getCurrent().getSystemColor(SWT.COLOR_BLUE);
+                    case FULLYCOMPATIBLE:
+                        return Display.getCurrent().getSystemColor(SWT.COLOR_DARK_GREEN);
+                    case MODELIO_TOO_OLD:
+                    case MODULE_TOO_OLD:
+                        return Display.getCurrent().getSystemColor(SWT.COLOR_RED);
+                    default:
+                        break;
+                    }
+                }
+                return super.getForeground(element);
+            }
+        });
         this.modulesTable.setInput(null);
         
         this.modulesTable.addSelectionChangedListener(new ISelectionChangedListener() {
@@ -499,7 +545,7 @@ public class ModulesSection {
         return (Composite) ModulesSection.this.moduleCatalogPanel.getComposite();
     }
 
-    @objid ("661b3595-61d5-4bfe-9891-015ecb7cc019")
+    @objid ("1388620e-79d6-41bc-b84c-5052d29a0e82")
     protected void addSelectedModules() {
         IRunnableWithProgress runnable = new IRunnableWithProgress() {
             
@@ -542,7 +588,7 @@ public class ModulesSection {
                 try (ITransaction t = project.getSession().getTransactionSupport().createTransaction("install a module")) { //$NON-NLS-1$
                     moduleService.installModule(project, module.getArchive());
                     t.commit();
-                } catch (ModuleException | IllegalArgumentException e) {
+                } catch (ModuleException e) {
                     // Error dialog
                     MessageDialog.openError(null, AppProjectConf.I18N.getString("ModulesSection.ModuleInstallationErrorTitle"), e.getMessage());
                     AppProjectConf.LOG.debug(e);
@@ -551,7 +597,7 @@ public class ModulesSection {
             monitor.done();
         }
 
-        @objid ("9253ef20-a992-4750-95f0-1de8842aa140")
+        @objid ("9ce64677-493c-4635-b691-3df4248a08ce")
         private static List<String> getExistFragmentIdList(ProjectModel projectAdapter) {
             List<String> fragmentIds = new ArrayList<>();
             List<IProjectFragment> fragments = projectAdapter.getAllFragments();

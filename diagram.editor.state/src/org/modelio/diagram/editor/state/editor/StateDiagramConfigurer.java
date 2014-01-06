@@ -30,7 +30,7 @@ import org.eclipse.gef.palette.PaletteRoot;
 import org.eclipse.gef.palette.SelectionToolEntry;
 import org.eclipse.gef.tools.AbstractTool;
 import org.modelio.diagram.editor.AbstractDiagramEditor;
-import org.modelio.diagram.editor.plugin.IDiagramConfigurer;
+import org.modelio.diagram.editor.plugin.AbstractDiagramConfigurer;
 import org.modelio.diagram.editor.plugin.ToolRegistry;
 import org.modelio.diagram.editor.state.plugin.DiagramEditorState;
 import org.modelio.diagram.editor.tools.PanSelectionTool;
@@ -39,7 +39,7 @@ import org.modelio.diagram.editor.tools.PanSelectionTool;
  * Configure a State diagram editor.
  */
 @objid ("f4eb651a-55b6-11e2-877f-002564c97630")
-public class StateDiagramConfigurer implements IDiagramConfigurer {
+public class StateDiagramConfigurer extends AbstractDiagramConfigurer {
 //    @objid ("f4eb651e-55b6-11e2-877f-002564c97630")
 //    @Override
 //    public DiagramEditorInput createDiagramEditorInput(final CoreSession session, final IAbstractDiagram target) {
@@ -110,6 +110,7 @@ public class StateDiagramConfigurer implements IDiagramConfigurer {
         
         paletteRoot.add(this.createStateGroup(toolRegistry));
         paletteRoot.add(this.createCommonGroup(toolRegistry));
+        paletteRoot.add(createDrawGroup(toolRegistry));
         return paletteRoot;
     }
 

@@ -33,9 +33,9 @@ import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.ConnectionEditPart;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.handles.HandleBounds;
-import org.modelio.diagram.elements.core.link.GmLink;
 import org.modelio.diagram.elements.core.link.GmPath;
 import org.modelio.diagram.elements.core.link.IAnchorModelProvider;
+import org.modelio.diagram.elements.core.model.IGmLinkObject;
 import org.modelio.diagram.elements.core.model.IGmPath;
 
 /**
@@ -61,7 +61,7 @@ public class ChangeLinkRoutingConstraintCommand extends Command {
     private Object targetAnchorModel;
 
     @objid ("80316efa-1dec-11e2-8cad-001ec947c8cc")
-    private GmLink model;
+    private IGmLinkObject model;
 
     /**
      * Creates a command that changes the routing constraint of the given connection.
@@ -71,7 +71,7 @@ public class ChangeLinkRoutingConstraintCommand extends Command {
     @objid ("80316efe-1dec-11e2-8cad-001ec947c8cc")
     @SuppressWarnings("unchecked")
     public ChangeLinkRoutingConstraintCommand(final IGmPath path, final ConnectionEditPart connectionEP) {
-        this.model = (GmLink) connectionEP.getModel();
+        this.model = (IGmLinkObject) connectionEP.getModel();
         this.connection = (Connection) connectionEP.getFigure();
         this.path = new GmPath(path);
         this.routingConstraint = (List<Bendpoint>) this.connection.getRoutingConstraint();

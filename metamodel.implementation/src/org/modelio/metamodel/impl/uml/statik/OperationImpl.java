@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.uml.statik;
 
 import java.util.ArrayList;
@@ -65,49 +65,49 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("0014913c-c4bf-1fd8-97fe-001ec947cd2a")
 public class OperationImpl extends BehavioralFeatureImpl implements Operation {
-    @objid ("12d14f63-a1e7-44a0-9f97-18274252ae71")
+    @objid ("8ac1a7bc-103c-4b53-98e2-a452a5dff127")
     @Override
     public boolean isConcurrency() {
         return (Boolean) getAttVal(OperationData.Metadata.ConcurrencyAtt());
     }
 
-    @objid ("31f9e2ca-fce2-4033-bdd7-9ce291442bfd")
+    @objid ("878721ea-f3bd-451a-8c0b-e772687ee900")
     @Override
     public void setConcurrency(boolean value) {
         setAttVal(OperationData.Metadata.ConcurrencyAtt(), value);
     }
 
-    @objid ("489eea56-7f58-4bcc-9d48-9cab024a82fb")
+    @objid ("6ea974a6-12ef-42d3-a274-3f545c0034e5")
     @Override
     public boolean isFinal() {
         return (Boolean) getAttVal(OperationData.Metadata.FinalAtt());
     }
 
-    @objid ("307bab61-63b8-43cc-a396-354d7e0f866d")
+    @objid ("0d36b899-c51d-4db0-9d7d-cfe0be32b2b1")
     @Override
     public void setFinal(boolean value) {
         setAttVal(OperationData.Metadata.FinalAtt(), value);
     }
 
-    @objid ("65fc73f0-8c92-4f14-8ef2-b73826f9fd4d")
+    @objid ("e195200f-b38d-48bb-8d92-80e81eec51ec")
     @Override
     public MethodPassingMode getPassing() {
         return (MethodPassingMode) getAttVal(OperationData.Metadata.PassingAtt());
     }
 
-    @objid ("2f25c7eb-3631-4c9e-98cd-9e34ff992dd0")
+    @objid ("6b1a5cf1-d6cf-454d-b3ff-91cae30955a1")
     @Override
     public void setPassing(MethodPassingMode value) {
         setAttVal(OperationData.Metadata.PassingAtt(), value);
     }
 
-    @objid ("ead1712e-267d-4450-a26f-55f99ef541a0")
+    @objid ("e565faeb-614c-4a95-838b-ecb5b7592ebb")
     @Override
     public EList<ElementImport> getOwnedImport() {
         return new SmList<>(this, OperationData.Metadata.OwnedImportDep());
     }
 
-    @objid ("84ceb388-0a5b-4c6e-9e81-c6b600bd262b")
+    @objid ("8b2d214e-4cbc-4919-8c2b-0d564ff24e3a")
     @Override
     public <T extends ElementImport> List<T> getOwnedImport(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -120,13 +120,13 @@ public class OperationImpl extends BehavioralFeatureImpl implements Operation {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("4ced060a-3e09-4680-92d1-fc0cf5ff32f2")
+    @objid ("f184554d-d8a8-4ace-8b5b-93ebbc428b51")
     @Override
     public EList<RaisedException> getThrown() {
         return new SmList<>(this, OperationData.Metadata.ThrownDep());
     }
 
-    @objid ("73d7635a-7475-416b-adbf-3e4a099b99ed")
+    @objid ("8e46fc54-05fd-4cbb-a3c4-003698f613fb")
     @Override
     public <T extends RaisedException> List<T> getThrown(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -139,13 +139,13 @@ public class OperationImpl extends BehavioralFeatureImpl implements Operation {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("a5bff199-d3c3-46cd-99b9-44db47d4846d")
+    @objid ("c34f9c83-ac04-45f4-bf9c-29ac10932338")
     @Override
     public EList<BpmnReceiveTask> getCallerReceiveTask() {
         return new SmList<>(this, OperationData.Metadata.CallerReceiveTaskDep());
     }
 
-    @objid ("b94726e9-0d25-4d5e-9779-16d3645120eb")
+    @objid ("0b5639e8-e5ca-4af7-a0d1-a534e4b6f882")
     @Override
     public <T extends BpmnReceiveTask> List<T> getCallerReceiveTask(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -158,13 +158,13 @@ public class OperationImpl extends BehavioralFeatureImpl implements Operation {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("1fc25448-99cc-4067-8680-c5310996c147")
+    @objid ("701794fe-053f-4b88-9fe9-9ad9b7aec072")
     @Override
     public EList<Operation> getRedefinition() {
         return new SmList<>(this, OperationData.Metadata.RedefinitionDep());
     }
 
-    @objid ("e0d5988c-82af-4858-b9f9-cc0c68bbc820")
+    @objid ("540e8580-252f-4b70-8492-330fc1c4bbbb")
     @Override
     public <T extends Operation> List<T> getRedefinition(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -177,13 +177,13 @@ public class OperationImpl extends BehavioralFeatureImpl implements Operation {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("391a1486-8c23-4d5b-a1db-0f4c530f8c7c")
+    @objid ("cb55f5db-2593-4230-ada6-e401d048269d")
     @Override
     public EList<Collaboration> getExample() {
         return new SmList<>(this, OperationData.Metadata.ExampleDep());
     }
 
-    @objid ("066cf8a0-88b6-474a-985a-1767c8f6b318")
+    @objid ("3efc1f55-f752-4214-9d7b-ff3a506c18b9")
     @Override
     public <T extends Collaboration> List<T> getExample(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -196,13 +196,13 @@ public class OperationImpl extends BehavioralFeatureImpl implements Operation {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("705cddfa-60e1-476a-aae5-171f8089e09d")
+    @objid ("8981c61d-440c-4167-b0f1-a5bb571ce089")
     @Override
     public EList<Signal> getSRepresentation() {
         return new SmList<>(this, OperationData.Metadata.SRepresentationDep());
     }
 
-    @objid ("2c12449d-54ad-44e8-8fc2-8d8c8d00de60")
+    @objid ("1d26e5fc-969c-41c1-8aae-ca2566b70d82")
     @Override
     public <T extends Signal> List<T> getSRepresentation(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -215,13 +215,13 @@ public class OperationImpl extends BehavioralFeatureImpl implements Operation {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("01f765c8-0a50-447f-8a19-208be1fccccd")
+    @objid ("8a96e7f6-4068-4c5c-bb21-9f20b9ad7820")
     @Override
     public EList<Behavior> getOwnedBehavior() {
         return new SmList<>(this, OperationData.Metadata.OwnedBehaviorDep());
     }
 
-    @objid ("82d881c3-19a7-4c90-8a55-123636e123c6")
+    @objid ("ad2eab61-f123-4832-b27b-82ab39493b24")
     @Override
     public <T extends Behavior> List<T> getOwnedBehavior(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -234,13 +234,13 @@ public class OperationImpl extends BehavioralFeatureImpl implements Operation {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("fa8a0bfb-5169-410f-b7e1-3f01b2d835d3")
+    @objid ("6679e12e-7d77-438f-a78a-9039cd8366e6")
     @Override
     public EList<BpmnOperation> getBpmnOperationRef() {
         return new SmList<>(this, OperationData.Metadata.BpmnOperationRefDep());
     }
 
-    @objid ("a3b93582-d5ce-4293-87c3-fe31dd507b94")
+    @objid ("068a8e3b-a74e-4747-94d6-8c394cf5a9d8")
     @Override
     public <T extends BpmnOperation> List<T> getBpmnOperationRef(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -253,13 +253,13 @@ public class OperationImpl extends BehavioralFeatureImpl implements Operation {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("289b2c71-460e-44e6-a1e9-efd2e784d4a6")
+    @objid ("985e14cd-138e-4b2a-9e78-65d17188c8f0")
     @Override
     public EList<BpmnSendTask> getCallerSendTask() {
         return new SmList<>(this, OperationData.Metadata.CallerSendTaskDep());
     }
 
-    @objid ("cca521f9-0b8b-4841-a773-734ce80dd024")
+    @objid ("6a49d677-c63a-48dd-89a2-c4e9f0837fda")
     @Override
     public <T extends BpmnSendTask> List<T> getCallerSendTask(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -272,13 +272,13 @@ public class OperationImpl extends BehavioralFeatureImpl implements Operation {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("c46e8090-906c-4494-b80a-ff8d67c195ab")
+    @objid ("5615baa4-b9ce-44d0-a140-e5afe2c4832d")
     @Override
     public EList<Parameter> getIO() {
         return new SmList<>(this, OperationData.Metadata.IODep());
     }
 
-    @objid ("2ae54634-c6b6-4160-b57a-d2ba5acc9a5d")
+    @objid ("700872cf-9cf1-4ab3-8f0d-cf7ad3b822b3")
     @Override
     public <T extends Parameter> List<T> getIO(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -291,13 +291,13 @@ public class OperationImpl extends BehavioralFeatureImpl implements Operation {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("22d2b4df-529a-4f93-bae5-73216814e7f4")
+    @objid ("6114f255-f5e5-4c75-a734-7411c5b47266")
     @Override
     public EList<TemplateBinding> getTemplateInstanciation() {
         return new SmList<>(this, OperationData.Metadata.TemplateInstanciationDep());
     }
 
-    @objid ("b642e5d6-6cdf-4cf7-bd87-90b4b0fbda6b")
+    @objid ("8c8eac2e-c788-4f7f-b1f3-c8529bd09424")
     @Override
     public <T extends TemplateBinding> List<T> getTemplateInstanciation(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -310,25 +310,25 @@ public class OperationImpl extends BehavioralFeatureImpl implements Operation {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("51bf1ff4-d6f4-4ef6-84d0-0b76585ecc89")
+    @objid ("a4b7cd84-a4ec-4008-9289-a467cba47bfd")
     @Override
     public Classifier getOwner() {
         return (Classifier) getDepVal(OperationData.Metadata.OwnerDep());
     }
 
-    @objid ("c75da10e-4afb-48ae-93e1-57c8417d40fa")
+    @objid ("ad278627-99c2-4de5-a5f1-00181a69028f")
     @Override
     public void setOwner(Classifier value) {
         appendDepVal(OperationData.Metadata.OwnerDep(), (SmObjectImpl)value);
     }
 
-    @objid ("0dacf953-0680-476d-812e-0921f8da8c52")
+    @objid ("3c82c044-6d7b-4192-aba5-92ab51d22adf")
     @Override
     public EList<PackageImport> getOwnedPackageImport() {
         return new SmList<>(this, OperationData.Metadata.OwnedPackageImportDep());
     }
 
-    @objid ("c3c8ecef-259c-4f0c-b259-b2825c695268")
+    @objid ("34f23c77-316b-44ca-b3a4-2e58399dc552")
     @Override
     public <T extends PackageImport> List<T> getOwnedPackageImport(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -341,25 +341,25 @@ public class OperationImpl extends BehavioralFeatureImpl implements Operation {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("4f815fc1-9fb6-407e-aec2-18945036cd1c")
+    @objid ("18ff9da2-85c8-4654-9bf6-8854be37f1ea")
     @Override
     public Parameter getReturn() {
         return (Parameter) getDepVal(OperationData.Metadata.ReturnDep());
     }
 
-    @objid ("398d2d82-21eb-4243-88fc-278e1aab6695")
+    @objid ("2ebb4202-8e0c-4030-b6c7-1cbadd2d6be2")
     @Override
     public void setReturn(Parameter value) {
         appendDepVal(OperationData.Metadata.ReturnDep(), (SmObjectImpl)value);
     }
 
-    @objid ("ec966910-2fe8-43cf-993e-91537beb44ff")
+    @objid ("e0d02eae-f711-489d-9920-9660d9ee1e67")
     @Override
     public EList<TemplateBinding> getInstanciatingBinding() {
         return new SmList<>(this, OperationData.Metadata.InstanciatingBindingDep());
     }
 
-    @objid ("02316923-aead-4ade-8de0-708472942a7d")
+    @objid ("c430f366-ce6c-4f6f-b991-4ecd20baa526")
     @Override
     public <T extends TemplateBinding> List<T> getInstanciatingBinding(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -372,13 +372,13 @@ public class OperationImpl extends BehavioralFeatureImpl implements Operation {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("95ecf328-ebb5-442a-ad61-fd6af5fe06a9")
+    @objid ("53e8f93e-36d7-4fdb-86c3-7f620a89b8fe")
     @Override
     public EList<Message> getUsage() {
         return new SmList<>(this, OperationData.Metadata.UsageDep());
     }
 
-    @objid ("76c5a67c-c1d0-4e3a-8d69-4bfc6e61281e")
+    @objid ("18657704-adc2-44a7-9c59-7825cf4c06ef")
     @Override
     public <T extends Message> List<T> getUsage(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -391,13 +391,13 @@ public class OperationImpl extends BehavioralFeatureImpl implements Operation {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("7ae1aeb2-0fdc-485d-bf6d-8257d771b295")
+    @objid ("38b9d11c-47de-48a8-a1cc-5add21dd4454")
     @Override
     public EList<TemplateParameter> getTemplate() {
         return new SmList<>(this, OperationData.Metadata.TemplateDep());
     }
 
-    @objid ("bddb277e-0d0d-4b43-b576-a6cce90be0c7")
+    @objid ("116da042-2f79-4243-9af1-6f8d3e96cd4c")
     @Override
     public <T extends TemplateParameter> List<T> getTemplate(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -410,13 +410,13 @@ public class OperationImpl extends BehavioralFeatureImpl implements Operation {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("f45cfaab-a258-4bab-b719-bfe13579e106")
+    @objid ("508e6716-6bee-4b3e-a4c1-f6704e79c75e")
     @Override
     public EList<BpmnServiceTask> getCallerServiceTask() {
         return new SmList<>(this, OperationData.Metadata.CallerServiceTaskDep());
     }
 
-    @objid ("47fed04d-a230-42a2-8864-9e77b8bedbab")
+    @objid ("52328500-d745-40d6-b8fc-764994d0e9d5")
     @Override
     public <T extends BpmnServiceTask> List<T> getCallerServiceTask(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -429,13 +429,13 @@ public class OperationImpl extends BehavioralFeatureImpl implements Operation {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("50d98866-ddab-4a49-b23c-66519aab3f3e")
+    @objid ("7e66c476-e039-4aa7-928e-56ad9f281ad1")
     @Override
     public EList<Event> getOccurence() {
         return new SmList<>(this, OperationData.Metadata.OccurenceDep());
     }
 
-    @objid ("ff486ef1-bd5c-4046-8a78-07ed06dadc5f")
+    @objid ("72430682-f20d-48ef-9310-c451b0a140ec")
     @Override
     public <T extends Event> List<T> getOccurence(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -448,13 +448,13 @@ public class OperationImpl extends BehavioralFeatureImpl implements Operation {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("2c752932-2923-463c-a394-d04a45a9f694")
+    @objid ("3bc8143a-6de2-4d79-a769-d70cd2d63a0c")
     @Override
     public EList<Transition> getInvoker() {
         return new SmList<>(this, OperationData.Metadata.InvokerDep());
     }
 
-    @objid ("b0354193-a165-44f8-8548-db47b8a63426")
+    @objid ("c97cd354-387f-4a8c-9d74-2feebdfd9466")
     @Override
     public <T extends Transition> List<T> getInvoker(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -467,13 +467,13 @@ public class OperationImpl extends BehavioralFeatureImpl implements Operation {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("5b098add-6687-4a2b-a478-7bee5df3ab42")
+    @objid ("c669f194-7f08-43f5-971c-00a5bef416b2")
     @Override
     public EList<CommunicationMessage> getCommunicationUsage() {
         return new SmList<>(this, OperationData.Metadata.CommunicationUsageDep());
     }
 
-    @objid ("7e4adc56-6667-4a5c-9d90-ee418305f8f7")
+    @objid ("a31b36ce-fc8b-49b1-b165-3bce4459665e")
     @Override
     public <T extends CommunicationMessage> List<T> getCommunicationUsage(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -486,13 +486,13 @@ public class OperationImpl extends BehavioralFeatureImpl implements Operation {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("34169e0a-93d7-41c6-9147-aa4da9bb2c6a")
+    @objid ("96cd6302-5d64-498c-ad9a-7042e20bfd31")
     @Override
     public EList<CollaborationUse> getOwnedCollaborationUse() {
         return new SmList<>(this, OperationData.Metadata.OwnedCollaborationUseDep());
     }
 
-    @objid ("d1cb8ab3-b9fc-427c-905f-5696c0879f7a")
+    @objid ("86982a89-9257-45ec-8876-a6c43b834b75")
     @Override
     public <T extends CollaborationUse> List<T> getOwnedCollaborationUse(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -505,25 +505,25 @@ public class OperationImpl extends BehavioralFeatureImpl implements Operation {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("caa0490b-da62-4019-ba17-fb9486eb43ac")
+    @objid ("6206e8cf-fe2a-410e-9cf1-6492210894cf")
     @Override
     public Operation getRedefines() {
         return (Operation) getDepVal(OperationData.Metadata.RedefinesDep());
     }
 
-    @objid ("2c9bee22-6688-4725-8ee3-2097fabaa54c")
+    @objid ("1fa98c80-fef2-4b17-92dd-f7d34a3203b6")
     @Override
     public void setRedefines(Operation value) {
         appendDepVal(OperationData.Metadata.RedefinesDep(), (SmObjectImpl)value);
     }
 
-    @objid ("947c9e13-9725-47c9-8ad3-d5910de5846b")
+    @objid ("bd75ff59-4507-4bbd-9a87-3a202b68e2e4")
     @Override
     public EList<BpmnCallActivity> getCaller() {
         return new SmList<>(this, OperationData.Metadata.CallerDep());
     }
 
-    @objid ("a63579e1-bb9f-4566-97e3-dcdd128dab4f")
+    @objid ("e2690567-bc9f-4853-a903-f2cb84ba583a")
     @Override
     public <T extends BpmnCallActivity> List<T> getCaller(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -536,13 +536,13 @@ public class OperationImpl extends BehavioralFeatureImpl implements Operation {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("b86ee361-38e5-4f13-afef-a86ce2dbd9a7")
+    @objid ("c0d34d1c-6903-476d-99db-a3d08ef4d0dc")
     @Override
     public EList<CallOperationAction> getCallingAction() {
         return new SmList<>(this, OperationData.Metadata.CallingActionDep());
     }
 
-    @objid ("5fe938b7-2330-4c87-99ea-d40db9f417c1")
+    @objid ("d69e12b6-93db-45aa-ace5-1430e965751b")
     @Override
     public <T extends CallOperationAction> List<T> getCallingAction(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -555,13 +555,13 @@ public class OperationImpl extends BehavioralFeatureImpl implements Operation {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("8ae9984c-2da6-4f63-80dc-189d07747829")
+    @objid ("a26232f7-3e41-4409-a44c-b96a45184d0b")
     @Override
     public EList<AcceptCallEventAction> getEntryPointAction() {
         return new SmList<>(this, OperationData.Metadata.EntryPointActionDep());
     }
 
-    @objid ("9e21fbed-3591-4777-bc0d-16b25670c47b")
+    @objid ("ab25ed7b-e53f-424e-baaf-d74f757f3a13")
     @Override
     public <T extends AcceptCallEventAction> List<T> getEntryPointAction(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -574,7 +574,7 @@ public class OperationImpl extends BehavioralFeatureImpl implements Operation {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("994be3dd-0259-4464-9a49-6e6dc72a6f65")
+    @objid ("15e5a158-e9dd-449e-9ed4-814b585e2bfb")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
@@ -584,7 +584,7 @@ public class OperationImpl extends BehavioralFeatureImpl implements Operation {
         return super.getCompositionOwner();
     }
 
-    @objid ("cadbdce5-83b7-464f-b257-2232eac04848")
+    @objid ("9ef5e910-4184-4247-8bd7-1971cc9fc0f3")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
@@ -594,7 +594,7 @@ public class OperationImpl extends BehavioralFeatureImpl implements Operation {
         return super.getCompositionRelation();
     }
 
-    @objid ("c9ac2894-79d8-4467-8c6c-9758ddca6266")
+    @objid ("51eaead4-a5bd-40d3-975e-b5467fd41df9")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitOperation(this);

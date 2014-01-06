@@ -82,28 +82,42 @@
       <handlers xmi:id="_nO2ccO1fEeKI3J_Ppjd_yQ" elementId="org.modelio.model.browser.handler.openrelated_diagram" contributionURI="bundleclass://org.modelio.model.browser/org.modelio.model.browser.handlers.OpenRelatedDiagramHandler" command="_vmGtIByEEeOKmunD3rzg2A"/>
       <menus xsi:type="menu:PopupMenu" xmi:id="_ddZMANATEeGJuKvxQtgCUw" elementId="model.browser.popupmenu.0" label="">
         <tags>popup:org.modelio.popupmenu.cms</tags>
-        <tags>popup:org.modelio.popupmenu.1</tags>
-        <children xsi:type="menu:Menu" xmi:id="_STbYgNAUEeGJuKvxQtgCUw" elementId="org.modelio.model.browser.menu.createelement" label="%CreateElementMenu.label" iconURI="platform:/plugin/org.modelio.model.browser/icons/uml.png"/>
-        <children xsi:type="menu:MenuSeparator" xmi:id="_oMLE0EFoEeODJ4EDWZysYw" elementId="org.modelio.popupmenu.1"/>
+        <children xsi:type="menu:Menu" xmi:id="_STbYgNAUEeGJuKvxQtgCUw" elementId="org.modelio.model.browser.menu.createelement" label="%CreateElementMenu.label" iconURI="platform:/plugin/org.modelio.model.browser/icons/uml.png">
+          <visibleWhen xsi:type="ui:CoreExpression" xmi:id="_PFDlYFjgEeOa4qI4oICZTA" coreExpressionId="app.project.ui.expression.isMObject"/>
+        </children>
         <children xsi:type="menu:MenuSeparator" xmi:id="_d4DaMJFfEeKOUpje-do_Rw" elementId="model.browser.popupmenu.0.menuseparator.0"/>
-        <children xsi:type="menu:HandledMenuItem" xmi:id="_LfacUITlEeK8HPFXYIuaeQ" elementId="model.browser.handledmenuitem.addstereotype" label="%AddStereotype.label" iconURI="platform:/plugin/org.modelio.model.browser/icons/addstereotype.png" tooltip="%AddStereotype.tooltip" command="_NeVAEITlEeK8HPFXYIuaeQ"/>
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_LfacUITlEeK8HPFXYIuaeQ" elementId="model.browser.handledmenuitem.addstereotype" label="%AddStereotype.label" iconURI="platform:/plugin/org.modelio.model.browser/icons/addstereotype.png" tooltip="%AddStereotype.tooltip" command="_NeVAEITlEeK8HPFXYIuaeQ">
+          <visibleWhen xsi:type="ui:CoreExpression" xmi:id="_LDafcFjhEeOFPP7LCOYLmg" coreExpressionId="app.project.ui.expression.isMObject"/>
+        </children>
         <children xsi:type="menu:HandledMenuItem" xmi:id="_4PRMYM9WEeKk9eLXstrZSw" elementId="model.browser.handledmenuitem.createstereotype" label="%CreateStereotype.label" iconURI="platform:/plugin/org.modelio.model.browser/icons/createstereotype.png" tooltip="%CreateStereotype.tooltip" command="_0hNmQM9WEeKk9eLXstrZSw">
           <visibleWhen xsi:type="ui:CoreExpression" xmi:id="_L3cF0M9XEeKk9eLXstrZSw" coreExpressionId="model.browser.test.createstereotype.id"/>
         </children>
         <children xsi:type="menu:HandledMenuItem" xmi:id="_mygpoM3tEeKwT-cXufMKNA" elementId="model.browser.handledmenuitem.editstereotype" label="%EditStereotype.label" iconURI="platform:/plugin/org.modelio.model.browser/icons/editstereotype.png" tooltip="%EditStereotype.tooltip" command="_3Y8XkM3FEeKL8rgdF7XmkQ">
           <visibleWhen xsi:type="ui:CoreExpression" xmi:id="_yC6m4M3tEeKwT-cXufMKNA" coreExpressionId="model.browser.test.editstereotype.id"/>
         </children>
-        <children xsi:type="menu:HandledMenuItem" xmi:id="_B-y0YB3cEeKvYtQlpLRNvw" elementId="model.browser.handledmenuitem.rename" label="%RenameElement.label" iconURI="platform:/plugin/org.modelio.model.browser/icons/rename.png" tooltip="%RenameElement.tooltip" command="_L4uysMRIEeKg_6BTgiRzpQ"/>
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_B-y0YB3cEeKvYtQlpLRNvw" elementId="model.browser.handledmenuitem.rename" label="%RenameElement.label" iconURI="platform:/plugin/org.modelio.model.browser/icons/rename.png" tooltip="%RenameElement.tooltip" command="_L4uysMRIEeKg_6BTgiRzpQ">
+          <visibleWhen xsi:type="ui:CoreExpression" xmi:id="_k8MQwFjgEeOa4qI4oICZTA" coreExpressionId="app.project.ui.expression.isMObject"/>
+        </children>
         <children xsi:type="menu:MenuSeparator" xmi:id="_atbRQJFfEeKOUpje-do_Rw" elementId="model.browser.popupmenu.0.menuseparator.1"/>
-        <children xsi:type="menu:HandledMenuItem" xmi:id="_8FYQwBOlEeKe5u6LafdXcQ" elementId="model.browser.handledmenuitem.0" label="%DeleteElement.label" iconURI="platform:/plugin/org.modelio.model.browser/icons/delete.png" tooltip="%DeleteElement.tooltip" command="_daBMIBOkEeKe5u6LafdXcQ"/>
-        <children xsi:type="menu:HandledMenuItem" xmi:id="_U5wh0CToEeK9F7cTOj1t4Q" elementId="model.browser.handledmenuitem.2" label="%CutElement.label" iconURI="platform:/plugin/org.modelio.model.browser/icons/cut.png" tooltip="%CutElement.tooltip" command="_OhrlcCToEeK9F7cTOj1t4Q"/>
-        <children xsi:type="menu:HandledMenuItem" xmi:id="_VWFRcCToEeK9F7cTOj1t4Q" elementId="model.browser.handledmenuitem.3" label="%CopyElement.label" iconURI="platform:/plugin/org.modelio.model.browser/icons/copy.png" tooltip="%CopyElement.tooltip" command="_O5bXECToEeK9F7cTOj1t4Q"/>
-        <children xsi:type="menu:HandledMenuItem" xmi:id="_VklAcCToEeK9F7cTOj1t4Q" elementId="model.browser.handledmenuitem.4" label="%PasteElement.label" iconURI="platform:/plugin/org.modelio.model.browser/icons/paste.png" tooltip="%PasteElement.tooltip" command="_PA3b0CToEeK9F7cTOj1t4Q"/>
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_8FYQwBOlEeKe5u6LafdXcQ" elementId="model.browser.handledmenuitem.0" label="%DeleteElement.label" iconURI="platform:/plugin/org.modelio.model.browser/icons/delete.png" tooltip="%DeleteElement.tooltip" command="_daBMIBOkEeKe5u6LafdXcQ">
+          <visibleWhen xsi:type="ui:CoreExpression" xmi:id="_RtwF8FjgEeOa4qI4oICZTA" coreExpressionId="app.project.ui.expression.isMObject"/>
+        </children>
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_U5wh0CToEeK9F7cTOj1t4Q" elementId="model.browser.handledmenuitem.2" label="%CutElement.label" iconURI="platform:/plugin/org.modelio.model.browser/icons/cut.png" tooltip="%CutElement.tooltip" command="_OhrlcCToEeK9F7cTOj1t4Q">
+          <visibleWhen xsi:type="ui:CoreExpression" xmi:id="_SK-NcFjgEeOa4qI4oICZTA" coreExpressionId="app.project.ui.expression.isMObject"/>
+        </children>
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_VWFRcCToEeK9F7cTOj1t4Q" elementId="model.browser.handledmenuitem.3" label="%CopyElement.label" iconURI="platform:/plugin/org.modelio.model.browser/icons/copy.png" tooltip="%CopyElement.tooltip" command="_O5bXECToEeK9F7cTOj1t4Q">
+          <visibleWhen xsi:type="ui:CoreExpression" xmi:id="_SuS88FjgEeOa4qI4oICZTA" coreExpressionId="app.project.ui.expression.isMObject"/>
+        </children>
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_VklAcCToEeK9F7cTOj1t4Q" elementId="model.browser.handledmenuitem.4" label="%PasteElement.label" iconURI="platform:/plugin/org.modelio.model.browser/icons/paste.png" tooltip="%PasteElement.tooltip" command="_PA3b0CToEeK9F7cTOj1t4Q">
+          <visibleWhen xsi:type="ui:CoreExpression" xmi:id="_TSAG8FjgEeOa4qI4oICZTA" coreExpressionId="app.project.ui.expression.isMObject"/>
+        </children>
         <children xsi:type="menu:DynamicMenuContribution" xmi:id="_0jYZIO1VEeKI3J_Ppjd_yQ" elementId="org.modelio.model.browser.menu.relateddiagrams" contributionURI="bundleclass://org.modelio.model.browser/org.modelio.model.browser.context.RelatedDiagramsForModelBrowser"/>
-        <children xsi:type="menu:MenuSeparator" xmi:id="_ceHiQEFoEeODJ4EDWZysYw" elementId="org.modelio.popupmenu.cms"/>
+        <children xsi:type="menu:MenuSeparator" xmi:id="_u38hIFE-EeOxPvmodYTYgw" elementId="org.modelio.popupmenu.cms"/>
         <children xsi:type="menu:MenuSeparator" xmi:id="_iRhf0EU3EeK0D9nRHZj9jw" elementId="model.browser.popupmenu.0.menuseparator.2"/>
         <children xsi:type="menu:MenuSeparator" xmi:id="_TeYw8NpLEeKBPfbWkDzT6w" elementId="model.browser.popupmenu.0.menuseparator.3"/>
-        <children xsi:type="menu:HandledMenuItem" xmi:id="_jztrUEU3EeK0D9nRHZj9jw" elementId="model.browser.handledmenuitem.checkmodel" label="%CheckElement.Name" iconURI="platform:/plugin/org.modelio.model.browser/icons/checkmodel.png" tooltip="%CheckElement.Description" command="_V0Z30EU3EeK0D9nRHZj9jw"/>
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_jztrUEU3EeK0D9nRHZj9jw" elementId="model.browser.handledmenuitem.checkmodel" label="%CheckElement.Name" iconURI="platform:/plugin/org.modelio.model.browser/icons/checkmodel.png" tooltip="%CheckElement.Description" command="_V0Z30EU3EeK0D9nRHZj9jw">
+          <visibleWhen xsi:type="ui:CoreExpression" xmi:id="_B4A8UFjgEeOa4qI4oICZTA" coreExpressionId="app.project.ui.expression.isMObject"/>
+        </children>
         <children xsi:type="menu:MenuSeparator" xmi:id="_nlxAoEU3EeK0D9nRHZj9jw" elementId="model.browser.popupmenu.0.menuseparator.4"/>
         <children xsi:type="menu:DirectMenuItem" xmi:id="_7PiMQPHXEeGDvYH1eZ-kcw" elementId="model.browser.directtoolitem.1" label="%OpenNewBrowser.label" iconURI="platform:/plugin/org.modelio.model.browser/icons/explorer.png" tooltip="%OpenNewBrowser.tooltip" contributionURI="bundleclass://org.modelio.model.browser/org.modelio.model.browser.handlers.OpenNewBrowserHandler"/>
         <children xsi:type="menu:DynamicMenuContribution" xmi:id="_RBZWENdWEeK1QOP0kMMjeA" elementId="org.modelio.model.browser.menu.module" contributionURI="bundleclass://org.modelio.model.browser/org.modelio.model.browser.context.ModuleCommandsForModelBrowser"/>

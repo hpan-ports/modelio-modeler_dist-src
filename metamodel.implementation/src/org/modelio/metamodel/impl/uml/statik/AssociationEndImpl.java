@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.uml.statik;
 
 import java.util.ArrayList;
@@ -253,73 +253,73 @@ public class AssociationEndImpl extends StructuralFeatureImpl implements Associa
         }
     }
 
-    @objid ("48b9a545-82cc-4171-930a-0e820795f4c2")
+    @objid ("02f34a54-06db-49cc-96a4-9581c540d8fd")
     @Override
     public AggregationKind getAggregation() {
         return (AggregationKind) getAttVal(AssociationEndData.Metadata.AggregationAtt());
     }
 
-    @objid ("c05fd157-9b27-4ab7-ad58-0daeb586baf0")
+    @objid ("e7c86153-3ab1-40d1-a03f-9186639ef22c")
     @Override
     public void setAggregation(AggregationKind value) {
         setAttVal(AssociationEndData.Metadata.AggregationAtt(), value);
     }
 
-    @objid ("7b9601f6-0d98-40d4-bf1f-4371908ffffe")
+    @objid ("bd50ed26-99e7-41cd-bdb3-7bb5be9e0ae2")
     @Override
     public boolean isIsChangeable() {
         return (Boolean) getAttVal(AssociationEndData.Metadata.IsChangeableAtt());
     }
 
-    @objid ("89715b21-2df7-4c93-b9d0-af99361a52aa")
+    @objid ("e4a2ad1a-8b0b-4843-b440-b2dac0e503d6")
     @Override
     public void setIsChangeable(boolean value) {
         setAttVal(AssociationEndData.Metadata.IsChangeableAtt(), value);
     }
 
-    @objid ("22913b12-7e98-4574-9a94-06d4f35cc2f8")
+    @objid ("ea384943-9a95-4c11-a168-ef4868c02488")
     @Override
     public Classifier getTarget() {
         return (Classifier) getDepVal(AssociationEndData.Metadata.TargetDep());
     }
 
-    @objid ("eae53f23-b3dc-47f8-b4f7-019023346250")
+    @objid ("63e050d0-1321-47dc-8ff5-581647c35788")
     @Override
     public void setTarget(Classifier value) {
         appendDepVal(AssociationEndData.Metadata.TargetDep(), (SmObjectImpl)value);
     }
 
-    @objid ("9de8252c-8af6-497b-8f91-84021e130bce")
+    @objid ("5fd00b1b-8a55-46ba-a1f8-d40e1f853bda")
     @Override
     public AssociationEnd getOppositeOwner() {
         return (AssociationEnd) getDepVal(AssociationEndData.Metadata.OppositeOwnerDep());
     }
 
-    @objid ("5fe38730-e8a3-4b96-8f3a-2f88f862bbe1")
+    @objid ("f01602a6-1e2f-40cb-82af-7730043470b5")
     @Override
     public void setOppositeOwner(AssociationEnd value) {
         appendDepVal(AssociationEndData.Metadata.OppositeOwnerDep(), (SmObjectImpl)value);
     }
 
-    @objid ("dec68ec5-f524-4c4a-acb9-5929be2ad96f")
+    @objid ("630f3e6d-d076-4da3-bac7-12e015c7c22e")
     @Override
     public Classifier getSource() {
         return (Classifier) getDepVal(AssociationEndData.Metadata.SourceDep());
     }
 
-    @objid ("31190b6d-2238-49a9-959b-52fe92a7a21a")
+    @objid ("340cc331-d2ed-40db-9213-29798456a09b")
     @Override
     public void setSource(Classifier value) {
         appendDepVal(AssociationEndData.Metadata.SourceDep(), (SmObjectImpl)value);
     }
 
-    @objid ("ffa90adb-2e4d-4d70-b6b4-c8714e288778")
+    @objid ("4762ffe2-2a30-43a5-86d3-7bab344f7279")
     @Override
     public EList<LinkEnd> getOccurence() {
         return new SmList<>(this, AssociationEndData.Metadata.OccurenceDep());
     }
 
-    @objid ("74254117-df15-4f55-887e-854f9ee21bd1")
+    @objid ("c9ac0f7b-f890-465e-9a44-355c08da7fc1")
     @Override
     public <T extends LinkEnd> List<T> getOccurence(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -332,13 +332,13 @@ public class AssociationEndImpl extends StructuralFeatureImpl implements Associa
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("eb841f50-e472-4bce-bffe-9b022e306c5b")
+    @objid ("c3583bd8-e998-43ac-a69c-0c177e79b16d")
     @Override
     public EList<InformationFlow> getSent() {
         return new SmList<>(this, AssociationEndData.Metadata.SentDep());
     }
 
-    @objid ("deb23d7d-3475-4f5d-a392-6850f7c6675f")
+    @objid ("e2a7c6af-54f8-4e0d-ba30-6bc3e5864d1a")
     @Override
     public <T extends InformationFlow> List<T> getSent(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -351,13 +351,13 @@ public class AssociationEndImpl extends StructuralFeatureImpl implements Associa
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("9f0f58a7-24be-47f4-ae48-b560cd498b38")
+    @objid ("bf5e0c2e-e973-4cbe-83a9-9bd0c0f0373e")
     @Override
     public EList<Attribute> getQualifier() {
         return new SmList<>(this, AssociationEndData.Metadata.QualifierDep());
     }
 
-    @objid ("a602906e-033c-4a2b-89a5-17270ffd902f")
+    @objid ("8697f19f-35f9-401b-ac34-29bb337b385d")
     @Override
     public <T extends Attribute> List<T> getQualifier(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -370,25 +370,25 @@ public class AssociationEndImpl extends StructuralFeatureImpl implements Associa
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("91a8700a-8cd9-4e0c-b544-ecfcb7723b4b")
+    @objid ("d6c96a01-0b29-4e71-9eb7-a073f1b5dde7")
     @Override
     public AssociationEnd getOpposite() {
         return (AssociationEnd) getDepVal(AssociationEndData.Metadata.OppositeDep());
     }
 
-    @objid ("af9ddc4b-74e9-4a81-a66d-91e552856428")
+    @objid ("ede929c6-588c-491f-b0f6-e9c651fe4a21")
     @Override
     public void setOpposite(AssociationEnd value) {
         appendDepVal(AssociationEndData.Metadata.OppositeDep(), (SmObjectImpl)value);
     }
 
-    @objid ("2eed6786-000b-4582-b589-357724449f73")
+    @objid ("c0e71715-96ae-46a3-89e5-a2a5e3ce8977")
     @Override
     public EList<ObjectNode> getRepresentingObjectNode() {
         return new SmList<>(this, AssociationEndData.Metadata.RepresentingObjectNodeDep());
     }
 
-    @objid ("4912fc44-4375-48c8-8c8b-bf1a95c1fa9a")
+    @objid ("e4057cf9-8e25-49d3-8528-4d3d4cc50fe6")
     @Override
     public <T extends ObjectNode> List<T> getRepresentingObjectNode(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -401,25 +401,25 @@ public class AssociationEndImpl extends StructuralFeatureImpl implements Associa
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("98bba406-0faa-4d03-9b51-d157c909d7aa")
+    @objid ("f054ff6e-a774-45c4-a700-186fc13612c9")
     @Override
     public Association getAssociation() {
         return (Association) getDepVal(AssociationEndData.Metadata.AssociationDep());
     }
 
-    @objid ("d9b2f9a0-a072-457e-8787-1eb441f94aab")
+    @objid ("8c685a06-c8e5-4150-acda-15fb8917a0f1")
     @Override
     public void setAssociation(Association value) {
         appendDepVal(AssociationEndData.Metadata.AssociationDep(), (SmObjectImpl)value);
     }
 
-    @objid ("427195c1-5505-43cd-afe7-98d986a62682")
+    @objid ("44e3dbc3-59da-4fcd-b6eb-2425cea93b31")
     @Override
     public EList<BpmnItemAwareElement> getRepresentingItem() {
         return new SmList<>(this, AssociationEndData.Metadata.RepresentingItemDep());
     }
 
-    @objid ("3fff72d9-48e7-4753-994c-3622bc5c59e2")
+    @objid ("f92b1bf9-e919-4eec-b8b5-1d73a7b6777f")
     @Override
     public <T extends BpmnItemAwareElement> List<T> getRepresentingItem(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -432,7 +432,7 @@ public class AssociationEndImpl extends StructuralFeatureImpl implements Associa
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("9f4bf55b-1d19-4d84-b1aa-aa63835805f7")
+    @objid ("98a2df0c-fdcd-4d7f-bd24-1909fdcf0bdf")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitAssociationEnd(this);

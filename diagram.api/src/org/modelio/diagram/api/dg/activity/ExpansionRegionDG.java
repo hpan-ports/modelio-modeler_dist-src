@@ -51,7 +51,7 @@ public class ExpansionRegionDG extends PortContainerDG {
         // Inner nodes
         GmExpansionRegionPrimaryNode mainNode = (GmExpansionRegionPrimaryNode) getPrimaryNode();
         if (mainNode.getInnerZone() != null) {
-            return DGFactory.getInstance().getDiagramNodes(this.diagramHandle, mainNode.getInnerZone().getChildren());
+            return DGFactory.getInstance().getDiagramNodes(this.diagramHandle, mainNode.getInnerZone().getVisibleChildren());
         } else
             return Collections.emptyList();
     }

@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.uml.behavior.interactionModel;
 
 import java.util.ArrayList;
@@ -42,45 +42,45 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("0049f7c8-c4bf-1fd8-97fe-001ec947cd2a")
 public abstract class MessageEndImpl extends OccurrenceSpecificationImpl implements MessageEnd {
-    @objid ("8a5b563c-5f18-4d4b-92db-1c8217a3bff9")
+    @objid ("c586e298-f067-43e4-add8-690c73c0cb74")
     @Override
     public Message getReceivedMessage() {
         return (Message) getDepVal(MessageEndData.Metadata.ReceivedMessageDep());
     }
 
-    @objid ("7a73f6b7-1711-4c12-b64c-409985ed9369")
+    @objid ("1f6fd841-bcf9-425d-ac8a-b8cc92b80bde")
     @Override
     public void setReceivedMessage(Message value) {
         appendDepVal(MessageEndData.Metadata.ReceivedMessageDep(), (SmObjectImpl)value);
     }
 
-    @objid ("ce56379d-ee72-4298-a0b6-775db5a691ae")
+    @objid ("3bd347ee-cbe0-4239-8efa-c15e9a243743")
     @Override
     public Message getSentMessage() {
         return (Message) getDepVal(MessageEndData.Metadata.SentMessageDep());
     }
 
-    @objid ("85739a5f-9890-4b9b-b239-d655001390bf")
+    @objid ("0cf2e9b0-1a30-4752-b181-a278a30e4f10")
     @Override
     public void setSentMessage(Message value) {
         appendDepVal(MessageEndData.Metadata.SentMessageDep(), (SmObjectImpl)value);
     }
 
-    @objid ("2efaede5-0e7a-4e4a-87ad-d8faba762da3")
+    @objid ("dd87ce09-54d1-4f8d-8920-b4622bf6d3be")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("71818b4c-b43c-4552-a4e7-d1e2a91979e9")
+    @objid ("1d7d91ac-c9bc-4528-a4e9-e1015e64823c")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("d80edac6-7e52-4e8f-bda6-be5ead299802")
+    @objid ("6fa3353a-45f6-471c-82c5-572ed63abb61")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitMessageEnd(this);

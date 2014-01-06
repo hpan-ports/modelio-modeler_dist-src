@@ -613,12 +613,6 @@ public class RakeLinkEditPolicy extends SelectionHandlesEditPolicy implements Pr
      */
     @objid ("8065e297-1dec-11e2-8cad-001ec947c8cc")
     public static class SetRakeConstraintCommand extends Command {
-        @objid ("0bf5f70d-82d9-4273-af98-8cec3ee792f8")
-        private Point sourceRakePos;
-
-        @objid ("a5a0369c-e25b-4126-8450-6655a4af7ae1")
-        private Point targetRakePos;
-
         @objid ("e885fc7f-3948-4dbf-ade0-3fee65795335")
         private ConnectionEditPart connectionEditPart;
 
@@ -630,6 +624,12 @@ public class RakeLinkEditPolicy extends SelectionHandlesEditPolicy implements Pr
 
         @objid ("8065e29e-1dec-11e2-8cad-001ec947c8cc")
         private Object targetAnchorModel;
+
+        @objid ("20e8ea0e-0014-4c2e-9615-5696c61fdac2")
+        private Point sourceRakePos;
+
+        @objid ("98c82692-f33e-499b-a77e-0ec28246e4d7")
+        private Point targetRakePos;
 
         /**
          * Creates the command.

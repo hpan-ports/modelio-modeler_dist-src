@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.uml.statik;
 
 import java.util.ArrayList;
@@ -45,13 +45,13 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("000e545c-c4bf-1fd8-97fe-001ec947cd2a")
 public class InterfaceImpl extends GeneralClassImpl implements Interface {
-    @objid ("94baef55-dc1d-4c20-80e2-4498e959b97c")
+    @objid ("92e5b85d-a47c-4d51-a36c-4d5afebcee30")
     @Override
     public EList<RequiredInterface> getRequiring() {
         return new SmList<>(this, InterfaceData.Metadata.RequiringDep());
     }
 
-    @objid ("e2963d79-b63f-4d4f-84be-5462348dd57a")
+    @objid ("4fe28582-dde9-4678-8d65-cab7bd9ef57a")
     @Override
     public <T extends RequiredInterface> List<T> getRequiring(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -64,13 +64,13 @@ public class InterfaceImpl extends GeneralClassImpl implements Interface {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("c705ee86-c1b8-4951-b4c6-4c02c52c0a50")
+    @objid ("bb27ece9-075b-44bb-b54a-42662d7db2c3")
     @Override
     public EList<InterfaceRealization> getImplementedLink() {
         return new SmList<>(this, InterfaceData.Metadata.ImplementedLinkDep());
     }
 
-    @objid ("5eb0cf62-3fce-477a-bdf9-448c0d292e45")
+    @objid ("54b65feb-def9-4a74-95ef-4e8a6baf0b4b")
     @Override
     public <T extends InterfaceRealization> List<T> getImplementedLink(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -83,13 +83,13 @@ public class InterfaceImpl extends GeneralClassImpl implements Interface {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("c1580adf-24c0-47a9-b73b-9bf45c8f9a82")
+    @objid ("d49164c6-bb72-4603-919f-01bd2b21330c")
     @Override
     public EList<ProvidedInterface> getProviding() {
         return new SmList<>(this, InterfaceData.Metadata.ProvidingDep());
     }
 
-    @objid ("14aa8714-48d6-4bee-84d8-62f9f45fb762")
+    @objid ("c1ea8928-d3e0-452d-88fa-7c43882806d5")
     @Override
     public <T extends ProvidedInterface> List<T> getProviding(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -102,21 +102,21 @@ public class InterfaceImpl extends GeneralClassImpl implements Interface {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("af61a9b3-28af-430b-9b19-f86e0fe12fea")
+    @objid ("d9ccc482-0680-4bb2-8a6a-05f649b09869")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("3924a063-5a2d-42ce-a138-fd352c7e60db")
+    @objid ("44aa1ba4-30cd-4496-9f59-e5e61170f302")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("08abdf14-0b5d-4217-8861-bd847bdf7e84")
+    @objid ("e5041813-a126-41fc-b95b-b7787019db0e")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitInterface(this);

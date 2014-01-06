@@ -31,11 +31,12 @@ import org.modelio.xmi.util.NotFoundException;
 import org.modelio.xmi.util.ObjingEAnnotation;
 
 @objid ("95d9960c-8cf7-4440-b0bc-c5ce81f4ef9c")
-public class OClass extends ONameSpace implements IOElement {
+public class OClass extends ONameSpace {
     @objid ("56236cf4-9fcf-4360-869f-d5352e0182d7")
     private boolean isIsClassAssociation = false;
 
     @objid ("ec3f9196-03b3-44d8-96c7-c7016bf03e90")
+    @Override
     public org.eclipse.uml2.uml.Element createEcoreElt() {
         if (!this.isIsClassAssociation){
             return createEcoreClass();
@@ -50,8 +51,8 @@ public class OClass extends ONameSpace implements IOElement {
 
     @objid ("e68fdbf9-a34e-43c7-b174-069dc278ddef")
     private org.eclipse.uml2.uml.Element getOrCreateEcoreAssociationClass() {
-        return (org.eclipse.uml2.uml.AssociationClass) GenerationProperties.getInstance()
-                .getMappedElement(((Class)getObjingElement()));
+        return GenerationProperties.getInstance()
+                .getMappedElement((getObjingElement()));
     }
 
     @objid ("1157bb84-fe52-46b4-a871-77dace7d1d03")
@@ -61,6 +62,7 @@ public class OClass extends ONameSpace implements IOElement {
     }
 
     @objid ("72ca974f-3f59-43d9-9f1f-2a68d94d9883")
+    @Override
     public void attach(org.eclipse.uml2.uml.Element ecoreElt) {
         // The "isIsClassAssociation" test may be done on sub-classes, like
         // "Component" that inherits from "Class".
@@ -71,6 +73,7 @@ public class OClass extends ONameSpace implements IOElement {
     }
 
     @objid ("800bd8b2-4e87-4e9a-9fed-3728711677f0")
+    @Override
     public void setProperties(org.eclipse.uml2.uml.Element ecoreElt) {
         super.setProperties(ecoreElt);
         

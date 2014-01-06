@@ -27,18 +27,18 @@ import org.modelio.ui.i18n.BundledMessages;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceReference;
 
-@objid ("7b8c48a2-df35-403b-932e-a4f61d53081a")
+@objid ("33beb656-1c91-4a87-ae51-11ffff75a345")
 public class AmdTool extends AbstractUIPlugin {
-    @objid ("e2716058-3977-498f-9b2a-c777c1ea38bc")
+    @objid ("4a890383-81b5-4491-8712-d5579777f905")
     public static final String PLUGIN_ID = "org.modelio.admtool"; // $NON-NLS-1$
 
-    @objid ("6b854323-7ef8-44c4-bbae-3d13e9c560dc")
+    @objid ("9fcdd022-2ad3-4ce1-8ca8-e5d21bbdc025")
     public static PluginLogger LOG;
 
-    @objid ("43bf0ae9-4a89-4a83-8548-117954a1362f")
+    @objid ("9819a69b-38b6-46e2-aef8-6d02e6fb950e")
     public static BundledMessages I18N;
 
-    @objid ("cb9a1f2c-e4b5-485d-a77a-86b9b4be84b5")
+    @objid ("418ffdaa-7867-4312-8ca2-c66096e94634")
     @Override
     public void start(BundleContext bundleContext) throws Exception {
         ServiceReference<ExtendedLogService> ref = bundleContext.getServiceReference(ExtendedLogService.class);
@@ -47,7 +47,7 @@ public class AmdTool extends AbstractUIPlugin {
         I18N = new BundledMessages(LOG, ResourceBundle.getBundle("admtool"));
     }
 
-    @objid ("6f31e588-eb44-4353-870c-029b3b6178be")
+    @objid ("a5fef189-2227-40b0-8d45-c67df88b2ee1")
     @Override
     public void stop(BundleContext bundleContext) throws Exception {
         // Nothing to do

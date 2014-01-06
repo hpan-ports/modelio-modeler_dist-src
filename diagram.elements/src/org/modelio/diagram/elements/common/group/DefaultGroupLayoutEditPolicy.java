@@ -60,14 +60,16 @@ public class DefaultGroupLayoutEditPolicy extends OrderedLayoutEditPolicy {
     @objid ("7e4fd3cb-1dec-11e2-8cad-001ec947c8cc")
     @Override
     protected Command getCreateCommand(CreateRequest request) {
-        final ModelioCreationContext ctx = (ModelioCreationContext) request.getNewObject();
-        final MClass metaclassToCreate = Metamodel.getMClass(ctx.getMetaclass());
+        if (request.getNewObjectType() instanceof String) {
+            final ModelioCreationContext ctx = (ModelioCreationContext) request.getNewObject();
+            final MClass metaclassToCreate = Metamodel.getMClass(ctx.getMetaclass());
         
-        final GmCompositeNode gmGroup = (GmCompositeNode) getHost().getModel();
-        final boolean returnCommand = MTools.getMetaTool().canCompose(gmGroup.getRelatedElement(), metaclassToCreate, null);
-        if (returnCommand) {
+            final GmCompositeNode gmGroup = (GmCompositeNode) getHost().getModel();
+            final boolean returnCommand = MTools.getMetaTool().canCompose(gmGroup.getRelatedElement(), metaclassToCreate, null);
+            if (returnCommand) {
         
-            return new DefaultCreateElementCommand(gmGroup, ctx, Integer.valueOf(-1));
+                return new DefaultCreateElementCommand(gmGroup, ctx, Integer.valueOf(-1));
+            }
         }
         return null;
     }
@@ -150,7 +152,7 @@ public class DefaultGroupLayoutEditPolicy extends OrderedLayoutEditPolicy {
             }
             return null;
         }
-        return getHost();
+        return null;
     }
 
     /**

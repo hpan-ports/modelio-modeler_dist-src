@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.bpmn.events;
 
 import java.util.ArrayList;
@@ -41,45 +41,45 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("00969aa6-c4bf-1fd8-97fe-001ec947cd2a")
 public class BpmnTimerEventDefinitionImpl extends BpmnEventDefinitionImpl implements BpmnTimerEventDefinition {
-    @objid ("397dfd79-ee75-448c-8082-02cd97f99a39")
+    @objid ("d8889aaf-174a-493f-bf16-ae7f5135698c")
     @Override
     public String getTimeCycle() {
         return (String) getAttVal(BpmnTimerEventDefinitionData.Metadata.TimeCycleAtt());
     }
 
-    @objid ("2ef3e60a-9deb-48c8-8578-3f67baeee3b1")
+    @objid ("66ad86cf-91e7-4cf8-b794-33e5e0c59d88")
     @Override
     public void setTimeCycle(String value) {
         setAttVal(BpmnTimerEventDefinitionData.Metadata.TimeCycleAtt(), value);
     }
 
-    @objid ("1c15ace1-64be-4c1f-b4dc-310b559c35de")
+    @objid ("e7e09e61-2a58-42e7-846b-a4d4c833b3c8")
     @Override
     public String getTimeD() {
         return (String) getAttVal(BpmnTimerEventDefinitionData.Metadata.TimeDAtt());
     }
 
-    @objid ("2a09aa0c-9e7b-4729-9a82-b549bced5e77")
+    @objid ("9c8d47e3-4944-4509-b3be-e8c85aa17ec2")
     @Override
     public void setTimeD(String value) {
         setAttVal(BpmnTimerEventDefinitionData.Metadata.TimeDAtt(), value);
     }
 
-    @objid ("347e5053-46e1-480a-8137-f8bba4de4411")
+    @objid ("d0df10f7-443f-48a9-acf8-7c194e797168")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("edd90895-c120-45f5-b050-af050acbbf77")
+    @objid ("a7233ef4-d8db-4ae4-a3f3-dd3d821d8c0a")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("e23e3a19-1380-4129-9ad3-d6e4d935f3e4")
+    @objid ("555913fd-da02-4df3-a7a7-c41a7eb66ce9")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitBpmnTimerEventDefinition(this);

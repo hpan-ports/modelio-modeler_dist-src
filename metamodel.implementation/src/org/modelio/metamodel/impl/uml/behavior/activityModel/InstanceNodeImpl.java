@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.uml.behavior.activityModel;
 
 import java.util.ArrayList;
@@ -41,21 +41,21 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("0035f444-c4bf-1fd8-97fe-001ec947cd2a")
 public class InstanceNodeImpl extends ObjectNodeImpl implements InstanceNode {
-    @objid ("4e5486c2-b93a-4794-a11b-4d1ab2fa4d83")
+    @objid ("25d2e233-11ca-43bb-9539-9739906d74e8")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("ffe1ac88-b30f-4db5-8f09-cd4402805e05")
+    @objid ("da7ec3ab-59ca-488b-a730-ce281f1e89b3")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("c6d5dbbb-52ab-4026-8846-ed6a24ae4784")
+    @objid ("d89a565b-ef51-463e-b295-641fa51cd542")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitInstanceNode(this);

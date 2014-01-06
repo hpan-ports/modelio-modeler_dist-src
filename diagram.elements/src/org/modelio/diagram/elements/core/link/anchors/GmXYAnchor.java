@@ -37,7 +37,7 @@ public class GmXYAnchor implements IPersistent {
     @objid ("7fe2c165-1dec-11e2-8cad-001ec947c8cc")
     private static final int MAJOR_VERSION = 0;
 
-    @objid ("dc0dfdbb-c9c0-420f-a8c4-d791847103d6")
+    @objid ("3f30ac48-20f6-4227-bb41-8b01f37e319b")
     private Point ref;
 
     /**

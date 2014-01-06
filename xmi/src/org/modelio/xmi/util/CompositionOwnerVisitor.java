@@ -1926,7 +1926,7 @@ public class CompositionOwnerVisitor {
             return null;
         }
 
-        @objid ("5f4e6501-7e14-4f19-a7fe-58bfd7b1f4f9")
+        @objid ("b260cb46-e4dd-419b-b2c7-359f20c0e8a0")
         public CompositionOwnerSelector() {
             super();
         }

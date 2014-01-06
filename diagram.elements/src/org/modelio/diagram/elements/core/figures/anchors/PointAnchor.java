@@ -61,4 +61,13 @@ public class PointAnchor extends XYAnchor {
         return getReferencePoint();
     }
 
+    /**
+     * Get the reference point in coordinates <i>relative</i> to the owner.
+     * @return the reference point in coordinates <i>relative</i> to the owner.
+     */
+    @objid ("1907e416-fd58-46a3-aa2b-0ed76200dfd1")
+    public Point getRelativeReferencePoint() {
+        return super.getReferencePoint();
+    }
+
 }

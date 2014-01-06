@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.bpmn.events;
 
 import java.util.ArrayList;
@@ -42,45 +42,45 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("008790d8-c4bf-1fd8-97fe-001ec947cd2a")
 public class BpmnBoundaryEventImpl extends BpmnCatchEventImpl implements BpmnBoundaryEvent {
-    @objid ("f7bd1a5d-9ed6-427c-bdb2-1f62ff7af994")
+    @objid ("d06d6b02-12e2-40e3-9bda-37f9d232cf68")
     @Override
     public boolean isCancelActivity() {
         return (Boolean) getAttVal(BpmnBoundaryEventData.Metadata.CancelActivityAtt());
     }
 
-    @objid ("0b5110d8-5066-4396-a121-491af36cde8a")
+    @objid ("72c263c5-b37e-4a6a-916b-ad0c57e61ce5")
     @Override
     public void setCancelActivity(boolean value) {
         setAttVal(BpmnBoundaryEventData.Metadata.CancelActivityAtt(), value);
     }
 
-    @objid ("5670af61-0bad-46ed-a1fc-4f59cb9827af")
+    @objid ("f81e6516-1014-433d-b78d-117d6ebb633f")
     @Override
     public BpmnActivity getAttachedToRef() {
         return (BpmnActivity) getDepVal(BpmnBoundaryEventData.Metadata.AttachedToRefDep());
     }
 
-    @objid ("3412a4cb-2de4-4e2e-8614-462548ac49a2")
+    @objid ("46977b23-a4b5-4081-a8a6-cc2930333c5d")
     @Override
     public void setAttachedToRef(BpmnActivity value) {
         appendDepVal(BpmnBoundaryEventData.Metadata.AttachedToRefDep(), (SmObjectImpl)value);
     }
 
-    @objid ("020230be-6e70-4b76-8216-f11f3746e7ca")
+    @objid ("2d1545d4-83cf-4963-bc57-d07509b429ce")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("efad0e67-2ed2-4e44-a58c-f60ad8d39a84")
+    @objid ("44d3cc44-4559-4ee5-9618-faa119e14f54")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("f21dc03d-7c4e-41e1-bc93-f01bbc81b840")
+    @objid ("08fe8c4d-2be7-4560-a9f4-7c29f0855799")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitBpmnBoundaryEvent(this);

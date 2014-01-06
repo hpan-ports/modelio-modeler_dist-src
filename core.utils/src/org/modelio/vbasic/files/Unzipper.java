@@ -141,7 +141,7 @@ public class Unzipper {
     }
 
     @objid ("0059a268-b821-1ffa-8e11-001ec947cd2a")
-    private ZipEntry[] findEntry(File archive, String regexp) throws IOException {
+    public ZipEntry[] findEntry(File archive, String regexp) throws IOException {
         List<ZipEntry> entries = new ArrayList<>();
         
         try (ZipInputStream zis = new ZipInputStream(new BufferedInputStream(new FileInputStream(archive.getCanonicalFile())))) {

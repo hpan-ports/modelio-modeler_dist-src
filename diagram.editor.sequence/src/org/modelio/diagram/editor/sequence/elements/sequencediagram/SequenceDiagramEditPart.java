@@ -32,8 +32,10 @@ import org.modelio.diagram.elements.common.abstractdiagram.AbstractDiagramEditPa
 import org.modelio.diagram.elements.common.abstractdiagram.GmAbstractDiagram;
 import org.modelio.diagram.elements.common.linkednode.LinkedNodeFinishCreationEditPolicy;
 import org.modelio.diagram.elements.common.linkednode.LinkedNodeRequestConstants;
+import org.modelio.diagram.elements.core.link.GmLink;
 import org.modelio.diagram.elements.core.model.GmAbstractObject;
 import org.modelio.diagram.elements.core.model.GmModel;
+import org.modelio.diagram.elements.core.node.GmNodeModel;
 import org.modelio.diagram.elements.core.requests.ModelElementDropRequest;
 import org.modelio.diagram.styles.core.IStyle;
 
@@ -46,7 +48,7 @@ import org.modelio.diagram.styles.core.IStyle;
 public class SequenceDiagramEditPart extends AbstractDiagramEditPart {
     @objid ("d97c1471-55b6-11e2-877f-002564c97630")
     @Override
-    protected void addChildVisual(final EditPart childEditPart, final int index) {
+    protected void doAddChildVisual(final EditPart childEditPart, final int index) {
         GmModel model = (GmModel) childEditPart.getModel();
         Object layoutData = model.getLayoutData();
         if (layoutData == null) {
@@ -57,10 +59,10 @@ public class SequenceDiagramEditPart extends AbstractDiagramEditPart {
         if (layoutData instanceof Rectangle && childEditPart instanceof IPlacementConstraintProvider) {
             // On first time, fix the constraint.
             layoutData = ((IPlacementConstraintProvider) childEditPart).createPlacementConstraint(model,
-                                                                                                  ((Rectangle) layoutData).x,
-                                                                                                  ((Rectangle) layoutData).y,
-                                                                                                  ((Rectangle) layoutData).width,
-                                                                                                  ((Rectangle) layoutData).height);
+                    ((Rectangle) layoutData).x,
+                    ((Rectangle) layoutData).y,
+                    ((Rectangle) layoutData).width,
+                    ((Rectangle) layoutData).height);
             model.setLayoutData(layoutData);
         }
         IFigure child = ((GraphicalEditPart) childEditPart).getFigure();
@@ -73,7 +75,7 @@ public class SequenceDiagramEditPart extends AbstractDiagramEditPart {
         super.createEditPolicies();
         // Policy to create notes
         installEditPolicy(LinkedNodeRequestConstants.REQ_LINKEDNODE_END,
-                          new LinkedNodeFinishCreationEditPolicy());
+                new LinkedNodeFinishCreationEditPolicy());
         
         // Layout policy specific to Sequen ce diagram.
         installEditPolicy(EditPolicy.LAYOUT_ROLE, new SequenceDiagramLayoutPolicy());

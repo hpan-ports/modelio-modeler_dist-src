@@ -243,4 +243,15 @@ public interface IDiagramNode extends IDiagramGraphic {
     @objid ("a4294121-0ecc-11e2-96c4-002564c97630")
     void setBounds(final Rectangle newBounds);
 
+    /**
+     * Return the location and size as a Rectangle for the node, including its satellites.
+     * <p>
+     * When no satellites are displayed, returns the same value as getBounds().
+     * </p>
+     * @return the node bounds.
+     * @since 3.1
+     */
+    @objid ("9e0c3150-92ee-4bd8-948d-daff6a89082a")
+    Rectangle getOverallBounds();
+
 }

@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.data.bpmn.events;
 
 import java.util.ArrayList;
@@ -43,22 +43,22 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("008f16f0-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=BpmnIntermediateCatchEvent.class, factory=BpmnIntermediateCatchEventData.Metadata.ObjectFactory.class)
 public class BpmnIntermediateCatchEventData extends BpmnCatchEventData {
-    @objid ("fcb8bdda-f535-4d91-b04f-205c2fb72c7f")
+    @objid ("159689a6-909d-475e-a8d9-b16deff29ac4")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("0010ad74-c4c4-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("9a42efb2-184b-4daa-a317-9edda65587f1")
+        @objid ("1bc16186-8d69-4881-b535-80e805ca8382")
         private static SmClass smClass = null;
 
-        @objid ("af07b7f2-7318-45cb-b018-74e598da9fc8")
+        @objid ("2e977c80-bce5-4f05-ac86-1c80d53010f1")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(BpmnIntermediateCatchEventData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("45dd501d-76bf-414f-9748-0bb75a788c97")
+        @objid ("46ccf048-9816-463d-bdf8-2ef157b192f5")
         public static SmClass getSmClass() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return smClass;
@@ -66,12 +66,12 @@ public class BpmnIntermediateCatchEventData extends BpmnCatchEventData {
 
         @objid ("0010ece4-c4c4-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("882e64a6-2274-497f-93f9-b39cab044255")
+            @objid ("b29faddf-fea0-4b43-a975-6efd828c69b4")
             public ISmObjectData createData() {
                 return new BpmnIntermediateCatchEventData();
             }
 
-            @objid ("4c91af3d-6356-4eb3-a502-7ac08589b986")
+            @objid ("cb477ac6-a8c5-4790-8642-a2a0014ec25f")
             public SmObjectImpl createImpl() {
                 return new BpmnIntermediateCatchEventImpl();
             }

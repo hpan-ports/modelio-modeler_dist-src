@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.data.bpmn.rootElements;
 
 import java.util.ArrayList;
@@ -47,50 +47,50 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("00783e94-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=BpmnBaseElement.class, factory=BpmnBaseElementData.Metadata.ObjectFactory.class)
 public abstract class BpmnBaseElementData extends ModelElementData {
-    @objid ("9fd6fcba-53f8-41ec-8a8c-eacf6736c3f1")
+    @objid ("e33f8597-52f9-4a7d-86cc-24808b8d4c87")
     @SmaMetaAssociation(metaName="OutgoingAssoc", typeDataClass=BpmnAssociationData.class, min=0, max=-1, smAssociationClass=Metadata.OutgoingAssocSmDependency.class)
      List<SmObjectImpl> mOutgoingAssoc = null;
 
-    @objid ("aa459b8d-0be5-40ca-8035-7d1240024da5")
+    @objid ("c3338ffd-ad5d-40a8-82e5-61e256e49f80")
     @SmaMetaAssociation(metaName="IncomingAssoc", typeDataClass=BpmnAssociationData.class, min=0, max=-1, smAssociationClass=Metadata.IncomingAssocSmDependency.class)
      List<SmObjectImpl> mIncomingAssoc = null;
 
-    @objid ("3f14b547-ace7-4088-b1a2-938d2f92953c")
+    @objid ("7112395c-47b9-4127-84fe-f22c8ae36f9b")
     @SmaMetaAssociation(metaName="IncomingFlow", typeDataClass=BpmnMessageFlowData.class, min=0, max=-1, smAssociationClass=Metadata.IncomingFlowSmDependency.class)
      List<SmObjectImpl> mIncomingFlow = null;
 
-    @objid ("7326947c-d226-4311-9aea-a9568a9744a6")
+    @objid ("05a65196-85db-4752-83bb-1fbe0b187d36")
     @SmaMetaAssociation(metaName="OutgoingFlow", typeDataClass=BpmnMessageFlowData.class, min=0, max=-1, smAssociationClass=Metadata.OutgoingFlowSmDependency.class)
      List<SmObjectImpl> mOutgoingFlow = null;
 
-    @objid ("e84d95a4-046b-4f77-872d-ac5a4c73c882")
+    @objid ("d37b70e2-60eb-48ce-864e-611427cdc29b")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("004c525c-c4c4-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("2397f4a4-f2e6-4c9b-a07a-4805419ede5a")
+        @objid ("89d2d300-6fc3-4a73-9243-68fb804ed39a")
         private static SmClass smClass = null;
 
-        @objid ("75449f9d-fdb6-4066-b6c6-cf6bebe77bea")
+        @objid ("a9fed8ac-3d34-484e-a525-28a056697aa6")
         private static SmDependency OutgoingAssocDep = null;
 
-        @objid ("9109d6cf-df15-4101-8b6d-d95bf6438e7c")
+        @objid ("6ac02e68-cc3c-49b3-9c6b-27732f13ff7d")
         private static SmDependency IncomingAssocDep = null;
 
-        @objid ("c1b26cab-5501-45ed-9d68-d7401692514d")
+        @objid ("5b705993-f07f-4c2b-b31a-cdc65954d4ef")
         private static SmDependency IncomingFlowDep = null;
 
-        @objid ("05145478-7161-4b5f-bbb7-fa978a1818f5")
+        @objid ("a4ba4682-f32f-4428-9cb7-d473e334ed5a")
         private static SmDependency OutgoingFlowDep = null;
 
-        @objid ("1cab7ff1-53b8-4bd2-9416-de22b212e2eb")
+        @objid ("aa48f227-6e29-4cd3-b735-a6f1f4b12d06")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(BpmnBaseElementData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("b9410698-7769-40f8-84b4-ddb3bc14fc37")
+        @objid ("0b7744c5-547a-43e3-87d6-d2ef4dda8ae1")
         public static SmDependency OutgoingAssocDep() {
             if (OutgoingAssocDep == null) {
             	OutgoingAssocDep = classof().getDependencyDef("OutgoingAssoc");
@@ -98,7 +98,7 @@ public abstract class BpmnBaseElementData extends ModelElementData {
             return OutgoingAssocDep;
         }
 
-        @objid ("553ad764-3442-484c-84df-0afa98802026")
+        @objid ("bf07e49d-cae3-4b41-9431-d047889b8ab1")
         public static SmDependency IncomingAssocDep() {
             if (IncomingAssocDep == null) {
             	IncomingAssocDep = classof().getDependencyDef("IncomingAssoc");
@@ -106,7 +106,7 @@ public abstract class BpmnBaseElementData extends ModelElementData {
             return IncomingAssocDep;
         }
 
-        @objid ("278f6d86-c3b4-4a78-9a9a-b22ffd0a264d")
+        @objid ("f195c5dc-7634-4c1c-9026-e723ef12cafb")
         public static SmDependency IncomingFlowDep() {
             if (IncomingFlowDep == null) {
             	IncomingFlowDep = classof().getDependencyDef("IncomingFlow");
@@ -114,7 +114,7 @@ public abstract class BpmnBaseElementData extends ModelElementData {
             return IncomingFlowDep;
         }
 
-        @objid ("cf1a74d1-69ab-4b65-8274-daccd20abd73")
+        @objid ("59495a81-3a9a-4b55-b734-c726c66fdb3b")
         public static SmDependency OutgoingFlowDep() {
             if (OutgoingFlowDep == null) {
             	OutgoingFlowDep = classof().getDependencyDef("OutgoingFlow");
@@ -122,44 +122,44 @@ public abstract class BpmnBaseElementData extends ModelElementData {
             return OutgoingFlowDep;
         }
 
-        @objid ("d82d1669-8e3b-4179-b34a-dc961f745581")
-        public static SmDependency getIncomingFlowDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return IncomingFlowDep;
-        }
-
-        @objid ("5d619a9f-f290-4891-9dc6-2ec94aa1e4ea")
-        public static SmDependency getOutgoingAssocDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return OutgoingAssocDep;
-        }
-
-        @objid ("964c9a8b-8337-4ca4-93b4-005b45aa263f")
-        public static SmDependency getOutgoingFlowDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return OutgoingFlowDep;
-        }
-
-        @objid ("15e52235-6809-4db0-899e-f6c84ee4d792")
-        public static SmDependency getIncomingAssocDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return IncomingAssocDep;
-        }
-
-        @objid ("30d28bc2-b804-48b8-89ef-b0bb04f1090b")
+        @objid ("52ce09ca-a31a-46b3-98aa-78a077b39a75")
         public static SmClass getSmClass() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return smClass;
         }
 
+        @objid ("e1099878-a22d-40ad-a755-f03689c12ae5")
+        public static SmDependency getOutgoingAssocDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return OutgoingAssocDep;
+        }
+
+        @objid ("4a2b7985-f91d-4d93-b555-b500bc95e5cc")
+        public static SmDependency getOutgoingFlowDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return OutgoingFlowDep;
+        }
+
+        @objid ("9837d449-4102-4c9c-911f-2ebabdca6017")
+        public static SmDependency getIncomingAssocDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return IncomingAssocDep;
+        }
+
+        @objid ("07bc580d-cf74-4e3f-a958-f95708bd6cb0")
+        public static SmDependency getIncomingFlowDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return IncomingFlowDep;
+        }
+
         @objid ("004c926c-c4c4-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("78d4e7a1-496e-47f1-bf7c-8aab514e41f6")
+            @objid ("51e87ac2-6a6a-4f64-bcd9-cf6e666e7ae5")
             public ISmObjectData createData() {
                 throw new UnsupportedOperationException();
             }
 
-            @objid ("f3aeb6e6-444b-406b-b006-7d0fa40eb897")
+            @objid ("4959a724-842d-4672-aa26-ec528bcebd7e")
             public SmObjectImpl createImpl() {
                 throw new UnsupportedOperationException();
             }
@@ -168,20 +168,20 @@ public abstract class BpmnBaseElementData extends ModelElementData {
 
         @objid ("004cf446-c4c4-1fd8-97fe-001ec947cd2a")
         public static class OutgoingAssocSmDependency extends SmMultipleDependency {
-            @objid ("2ccfd784-1c75-43e5-8487-2e4d2e569fe6")
+            @objid ("14293d4f-dade-4b32-bc30-fe2ca32e6079")
             @Override
             public List<SmObjectImpl> getValueList(ISmObjectData data) {
                 return (((BpmnBaseElementData)data).mOutgoingAssoc != null)? ((BpmnBaseElementData)data).mOutgoingAssoc:SmMultipleDependency.EMPTY;
             }
 
-            @objid ("06bdd93d-0b61-4289-b6db-cb447459e794")
+            @objid ("2956bcb8-0f82-4c66-b53a-d80a3d473c09")
             @Override
             protected List<SmObjectImpl> allocateValueList(ISmObjectData data, int initialCapacity) {
                 ((BpmnBaseElementData) data).mOutgoingAssoc = new ArrayList<>(initialCapacity);
                 return ((BpmnBaseElementData) data).mOutgoingAssoc;
             }
 
-            @objid ("5cd0335f-c960-4a67-96a6-b78b4d106031")
+            @objid ("08bf23ce-dff6-4a73-a992-a33cda737cc4")
             @Override
             public SmDependency getSymetric() {
                 return BpmnAssociationData.Metadata.SourceRefDep();
@@ -191,20 +191,20 @@ public abstract class BpmnBaseElementData extends ModelElementData {
 
         @objid ("004d5530-c4c4-1fd8-97fe-001ec947cd2a")
         public static class IncomingAssocSmDependency extends SmMultipleDependency {
-            @objid ("4aba61e0-b19d-49cc-be6a-651eff0a0f15")
+            @objid ("11ac5f40-2a7a-402e-a052-4e6b9be62bbe")
             @Override
             public List<SmObjectImpl> getValueList(ISmObjectData data) {
                 return (((BpmnBaseElementData)data).mIncomingAssoc != null)? ((BpmnBaseElementData)data).mIncomingAssoc:SmMultipleDependency.EMPTY;
             }
 
-            @objid ("a8ec683c-247a-4032-85ba-5451704b080c")
+            @objid ("2949c77d-1662-4e10-9b7e-d79af44a9040")
             @Override
             protected List<SmObjectImpl> allocateValueList(ISmObjectData data, int initialCapacity) {
                 ((BpmnBaseElementData) data).mIncomingAssoc = new ArrayList<>(initialCapacity);
                 return ((BpmnBaseElementData) data).mIncomingAssoc;
             }
 
-            @objid ("5793236b-1479-48c9-818a-4d267d1646b2")
+            @objid ("4804e91c-61e7-4252-8fb7-76737ed4db8f")
             @Override
             public SmDependency getSymetric() {
                 return BpmnAssociationData.Metadata.TargetRefDep();
@@ -214,20 +214,20 @@ public abstract class BpmnBaseElementData extends ModelElementData {
 
         @objid ("004db6ec-c4c4-1fd8-97fe-001ec947cd2a")
         public static class IncomingFlowSmDependency extends SmMultipleDependency {
-            @objid ("9ff317f2-49d8-4cdd-8607-596032a140d1")
+            @objid ("e5fd571c-5282-4a2f-a849-48b4ff8b7c67")
             @Override
             public List<SmObjectImpl> getValueList(ISmObjectData data) {
                 return (((BpmnBaseElementData)data).mIncomingFlow != null)? ((BpmnBaseElementData)data).mIncomingFlow:SmMultipleDependency.EMPTY;
             }
 
-            @objid ("b9a9bd7d-d8cd-4044-87fb-43330f8aab87")
+            @objid ("b569298e-5a40-4419-88bf-e94f19b5c4bc")
             @Override
             protected List<SmObjectImpl> allocateValueList(ISmObjectData data, int initialCapacity) {
                 ((BpmnBaseElementData) data).mIncomingFlow = new ArrayList<>(initialCapacity);
                 return ((BpmnBaseElementData) data).mIncomingFlow;
             }
 
-            @objid ("c1bb47e4-87b6-428a-bdab-283f231645af")
+            @objid ("63896ad3-ea39-49f1-8b46-a8ea2766dba8")
             @Override
             public SmDependency getSymetric() {
                 return BpmnMessageFlowData.Metadata.TargetRefDep();
@@ -237,20 +237,20 @@ public abstract class BpmnBaseElementData extends ModelElementData {
 
         @objid ("004e2366-c4c4-1fd8-97fe-001ec947cd2a")
         public static class OutgoingFlowSmDependency extends SmMultipleDependency {
-            @objid ("65cbf654-abfc-4c2a-95c8-94ba5d9aeeb1")
+            @objid ("9189ad9c-a580-4bca-bdf0-cf49e03a6486")
             @Override
             public List<SmObjectImpl> getValueList(ISmObjectData data) {
                 return (((BpmnBaseElementData)data).mOutgoingFlow != null)? ((BpmnBaseElementData)data).mOutgoingFlow:SmMultipleDependency.EMPTY;
             }
 
-            @objid ("5f7f2da5-b29c-48d1-831c-30fde0a2049b")
+            @objid ("27c1fec5-2484-4fb0-aa4f-2bbc5489e3fd")
             @Override
             protected List<SmObjectImpl> allocateValueList(ISmObjectData data, int initialCapacity) {
                 ((BpmnBaseElementData) data).mOutgoingFlow = new ArrayList<>(initialCapacity);
                 return ((BpmnBaseElementData) data).mOutgoingFlow;
             }
 
-            @objid ("fd0a4801-7311-47b4-b22a-676015a6c63d")
+            @objid ("bad38776-964f-48f9-a824-d7ca11088561")
             @Override
             public SmDependency getSymetric() {
                 return BpmnMessageFlowData.Metadata.SourceRefDep();

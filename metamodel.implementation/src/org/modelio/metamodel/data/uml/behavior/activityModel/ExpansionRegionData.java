@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.data.uml.behavior.activityModel;
 
 import java.util.ArrayList;
@@ -46,43 +46,43 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("00322346-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=ExpansionRegion.class, factory=ExpansionRegionData.Metadata.ObjectFactory.class)
 public class ExpansionRegionData extends StructuredActivityNodeData {
-    @objid ("cc9ff304-4040-48aa-916e-928c9b67a532")
+    @objid ("365113e4-8b78-4240-9786-f67c5109ef49")
     @SmaMetaAttribute(metaName="Mode", type=ExpansionKind.class, smAttributeClass=Metadata.ModeSmAttribute.class)
      Object mMode = ExpansionKind.ITERATIVE;
 
-    @objid ("fa610c3d-ce17-42e3-8f16-6edb7b690ef6")
+    @objid ("38eb180c-c4fe-49ca-bc72-13d6d816389e")
     @SmaMetaAssociation(metaName="OutputElement", typeDataClass=ExpansionNodeData.class, min=0, max=-1, smAssociationClass=Metadata.OutputElementSmDependency.class, component = true, partof = true)
      List<SmObjectImpl> mOutputElement = null;
 
-    @objid ("f9cf5b88-89e8-409b-a315-7a7e562acae7")
+    @objid ("919b7634-f28e-4d72-878f-e6f121bd935f")
     @SmaMetaAssociation(metaName="InputElement", typeDataClass=ExpansionNodeData.class, min=1, max=-1, smAssociationClass=Metadata.InputElementSmDependency.class, component = true, partof = true)
      List<SmObjectImpl> mInputElement = null;
 
-    @objid ("bf8bf0eb-eda5-41d1-a966-916f60e066ae")
+    @objid ("8b836b26-a388-4f08-a322-d05d9ccb2444")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("008dd3da-c4c4-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("a9155dcf-5058-43f9-b0cc-b7beade53bdc")
+        @objid ("f814d43d-4636-4bd2-a982-afee4e543343")
         private static SmClass smClass = null;
 
-        @objid ("7ee2d5a7-ef91-47b8-9410-9c6f7e578415")
+        @objid ("f3b02785-9e2b-465b-9baf-4d2112e87506")
         private static SmAttribute ModeAtt = null;
 
-        @objid ("cc300ab2-be8a-47d8-9636-16aa90a68ed5")
+        @objid ("ee3afe22-19fc-4af9-99af-7dc0bd67064f")
         private static SmDependency OutputElementDep = null;
 
-        @objid ("ec8e7d45-9a15-485c-bbb4-d1e2c385c359")
+        @objid ("8bccacf4-77ac-42f1-84e5-0073d2da2b8f")
         private static SmDependency InputElementDep = null;
 
-        @objid ("3f829370-822c-44c2-be27-6c520e137e54")
+        @objid ("e878d11d-d2e9-4e47-a0ea-744c8fffd4f3")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(ExpansionRegionData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("0e96bbb2-d1f0-4ade-92c6-a04fbd38dd0c")
+        @objid ("4e0dd9d0-9cfd-4b2d-8648-34c4ff5d65e1")
         public static SmAttribute ModeAtt() {
             if (ModeAtt == null) {
             	ModeAtt = classof().getAttributeDef("Mode");
@@ -90,7 +90,7 @@ public class ExpansionRegionData extends StructuredActivityNodeData {
             return ModeAtt;
         }
 
-        @objid ("01f38fbf-cc32-4828-8a30-05e1380c9edb")
+        @objid ("076f7c60-6632-483c-9ecf-5cf5814c4773")
         public static SmDependency OutputElementDep() {
             if (OutputElementDep == null) {
             	OutputElementDep = classof().getDependencyDef("OutputElement");
@@ -98,7 +98,7 @@ public class ExpansionRegionData extends StructuredActivityNodeData {
             return OutputElementDep;
         }
 
-        @objid ("77ff3e03-5dda-44d3-be8c-a394a638cbc4")
+        @objid ("e0775197-7407-4527-9a9c-40fff55bad9b")
         public static SmDependency InputElementDep() {
             if (InputElementDep == null) {
             	InputElementDep = classof().getDependencyDef("InputElement");
@@ -106,25 +106,25 @@ public class ExpansionRegionData extends StructuredActivityNodeData {
             return InputElementDep;
         }
 
-        @objid ("cfc07761-6ea6-447d-8151-a3253effe15d")
-        public static SmClass getSmClass() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return smClass;
-        }
-
-        @objid ("b049d6d1-c233-43c7-acd8-b15db762818b")
+        @objid ("9662b1b6-6cd2-49e2-9d25-919d318a4f1f")
         public static SmDependency getInputElementDep() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return InputElementDep;
         }
 
-        @objid ("7639befb-3917-4971-8de6-cffbdf4d8f45")
+        @objid ("a7295526-2457-4025-b123-54330150cd4f")
+        public static SmClass getSmClass() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return smClass;
+        }
+
+        @objid ("eb2a0ff1-78c9-4321-8332-7c329428bd7d")
         public static SmAttribute getModeAtt() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return ModeAtt;
         }
 
-        @objid ("414faab7-8520-4933-8094-adec4be7ac21")
+        @objid ("1676f918-3895-4e28-b346-c1bd95c20b13")
         public static SmDependency getOutputElementDep() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return OutputElementDep;
@@ -132,12 +132,12 @@ public class ExpansionRegionData extends StructuredActivityNodeData {
 
         @objid ("008e2a2e-c4c4-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("34810ed7-cc1b-4473-8687-7376e22981e5")
+            @objid ("4e2b4d6e-349d-4c80-8311-2f3cbbd13e1e")
             public ISmObjectData createData() {
                 return new ExpansionRegionData();
             }
 
-            @objid ("bb4b7eb1-1191-45fc-8698-1d104defbe84")
+            @objid ("d72984e6-ddff-4d01-aeed-cea8eb0a2efb")
             public SmObjectImpl createImpl() {
                 return new ExpansionRegionImpl();
             }
@@ -146,12 +146,12 @@ public class ExpansionRegionData extends StructuredActivityNodeData {
 
         @objid ("008e9842-c4c4-1fd8-97fe-001ec947cd2a")
         public static class ModeSmAttribute extends SmAttribute {
-            @objid ("a9521202-9cb9-440e-918b-8f3f4b54fa47")
+            @objid ("541a276b-946d-44a0-9ea7-7bf0d1a50871")
             public Object getValue(ISmObjectData data) {
                 return ((ExpansionRegionData) data).mMode;
             }
 
-            @objid ("7000cf39-2338-4e5a-9670-c8bb60d48f25")
+            @objid ("27d9bce9-711d-49f3-94b2-3524cc0f9f17")
             public void setValue(ISmObjectData data, Object value) {
                 ((ExpansionRegionData) data).mMode = value;
             }
@@ -160,20 +160,20 @@ public class ExpansionRegionData extends StructuredActivityNodeData {
 
         @objid ("008ff340-c4c4-1fd8-97fe-001ec947cd2a")
         public static class InputElementSmDependency extends SmMultipleDependency {
-            @objid ("b12ca069-0fd9-4db8-93f2-42a2a139de57")
+            @objid ("ad45f755-6ccc-4213-9956-2f40941b5b81")
             @Override
             public List<SmObjectImpl> getValueList(ISmObjectData data) {
                 return (((ExpansionRegionData)data).mInputElement != null)? ((ExpansionRegionData)data).mInputElement:SmMultipleDependency.EMPTY;
             }
 
-            @objid ("94af7047-1a4c-4b7b-807d-656936e7cad8")
+            @objid ("5b3e71cc-196c-4f3b-8e18-1a9bbef06717")
             @Override
             protected List<SmObjectImpl> allocateValueList(ISmObjectData data, int initialCapacity) {
                 ((ExpansionRegionData) data).mInputElement = new ArrayList<>(initialCapacity);
                 return ((ExpansionRegionData) data).mInputElement;
             }
 
-            @objid ("9bc6dcb9-84dc-4454-a44e-9f1f8248a530")
+            @objid ("c244cf5c-aebc-42c6-9ad1-207b2c1c5903")
             @Override
             public SmDependency getSymetric() {
                 return ExpansionNodeData.Metadata.RegionAsInputDep();
@@ -183,20 +183,20 @@ public class ExpansionRegionData extends StructuredActivityNodeData {
 
         @objid ("00907252-c4c4-1fd8-97fe-001ec947cd2a")
         public static class OutputElementSmDependency extends SmMultipleDependency {
-            @objid ("543ce33c-a0ea-4e28-a312-1d0b2ff6c9b4")
+            @objid ("e084766a-b3a6-4c9b-bd5b-aab70e899fd9")
             @Override
             public List<SmObjectImpl> getValueList(ISmObjectData data) {
                 return (((ExpansionRegionData)data).mOutputElement != null)? ((ExpansionRegionData)data).mOutputElement:SmMultipleDependency.EMPTY;
             }
 
-            @objid ("40da1a2f-5565-474e-88bb-73eb4673e28c")
+            @objid ("e08081fe-2124-4b0b-8175-543f125fd304")
             @Override
             protected List<SmObjectImpl> allocateValueList(ISmObjectData data, int initialCapacity) {
                 ((ExpansionRegionData) data).mOutputElement = new ArrayList<>(initialCapacity);
                 return ((ExpansionRegionData) data).mOutputElement;
             }
 
-            @objid ("de44a705-96b4-4cf3-9430-1b6109cca3a7")
+            @objid ("981584f0-c2c1-4395-bcaa-23107ae58b45")
             @Override
             public SmDependency getSymetric() {
                 return ExpansionNodeData.Metadata.RegionAsOutputDep();

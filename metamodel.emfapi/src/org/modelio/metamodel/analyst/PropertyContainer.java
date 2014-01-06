@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.analyst;
 
 import java.util.List;
@@ -35,22 +35,22 @@ import org.modelio.metamodel.uml.infrastructure.properties.PropertyType;
 
 @objid ("0062d8ba-c4bf-1fd8-97fe-001ec947cd2a")
 public interface PropertyContainer extends ModelElement {
-    @objid ("f343d2c7-0679-4c95-b3b0-40c5c455f7ae")
+    @objid ("075a10ad-23a6-4025-a10f-c9979ee95435")
     EList<PropertyTableDefinition> getDefinedTable();
 
-    @objid ("e05b3dc1-ef94-46d0-894b-2985b9bd873c")
+    @objid ("33622597-dcf0-4b84-a438-a3ee26019388")
     <T extends PropertyTableDefinition> List<T> getDefinedTable(java.lang.Class<T> filterClass);
 
-    @objid ("4f0f396f-2165-4b5f-a4c0-afe6af145da1")
+    @objid ("74122a33-dc6e-4991-b7a3-7f1841382bc7")
     AnalystProject getOwnerProject();
 
-    @objid ("2d87a959-91cf-4267-9e5e-b172433b3a1e")
+    @objid ("a972f2ae-7264-457e-bc2d-82a02f0737b3")
     void setOwnerProject(AnalystProject value);
 
-    @objid ("6a18095b-673d-4952-94e5-f311d1324f18")
+    @objid ("a69be267-cb08-4e52-8e74-cad9b06842da")
     EList<PropertyType> getDefinedType();
 
-    @objid ("12dac582-5682-4421-b25f-094d340da0af")
+    @objid ("cedc5d1b-7f4d-4dc5-8b41-50ef505816ce")
     <T extends PropertyType> List<T> getDefinedType(java.lang.Class<T> filterClass);
 
 }

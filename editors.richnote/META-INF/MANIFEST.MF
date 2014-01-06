@@ -36,7 +36,8 @@ Export-Package: org.modelio.editors.richnote.api,
  org.modelio.editors.richnote.gui.ktable,
  org.modelio.editors.richnote.gui.typechooser,
  org.modelio.editors.richnote.handlers,
- org.modelio.editors.richnote.helper
+ org.modelio.editors.richnote.helper,
+ org.modelio.editors.richnote.management
 Service-Component: OSGI-INF/RichNoteInputProviderFunction.xml
 Bundle-ActivationPolicy: lazy
 Bundle-Activator: org.modelio.editors.richnote.plugin.EditorsRichNote

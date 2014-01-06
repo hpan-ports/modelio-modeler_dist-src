@@ -108,15 +108,19 @@ public class DefaultModuleAction implements IModuleAction {
             }
         
             if (this.allowedStereotypes.size() > 0) {
-                // If allowedStereotypes have been added. Actions are visible only if
-                // one of the allowed stereotypes is present on the selected element.
+                // If allowedStereotypes have been added. Actions are visible
+                // only if
+                // one of the allowed stereotypes is present on the selected
+                // element.
                 for (Stereotype stereotype : this.allowedStereotypes) {
                     MObject element = selectedElements[i];
                     if (element instanceof ModelElement) {
                         ModelElement modelElement = (ModelElement) element;
-                        if (modelElement.getExtension().contains(stereotype)) {
-                            matchStereotype = true;
-                            break;
+                        for (Stereotype extention : modelElement.getExtension()) {
+                            if (compareStereotype(extention, stereotype)) {
+                                matchStereotype = true;
+                                break;
+                            }
                         }
                     }
                 }
@@ -128,7 +132,14 @@ public class DefaultModuleAction implements IModuleAction {
             if (!matchMetaClass || !matchStereotype)
                 return false;
         }
-        return this.command.accept(Arrays.asList(selectedElements), this.module);
+        
+        Boolean result = false;
+        try {
+            result = this.command.accept(Arrays.asList(selectedElements), this.module);
+        } catch (Exception e) {
+        
+        }
+        return result;
     }
 
     @objid ("00d00158-0001-5dea-0000-000000000000")
@@ -231,14 +242,32 @@ public class DefaultModuleAction implements IModuleAction {
             }
         }
         
-        // User test
-        return this.command.isActiveFor(Arrays.asList(selectedElements), this.module);
+        // User test        
+        Boolean result = false;
+        try {
+            result =  this.command.isActiveFor(Arrays.asList(selectedElements), this.module);
+        } catch (Exception e) {
+        
+        }
+        return result;
     }
 
     @objid ("72d5ec5f-e247-11dd-abd0-0014222a9f79")
     @Override
     public boolean needReadWriteObject() {
         return this.needReadWriteObject;
+    }
+
+    @objid ("0885feff-fd17-43a9-a3b1-3524a1b1ebf2")
+    private Boolean compareStereotype(Stereotype stereotype, Stereotype type) {
+        if (stereotype.equals(type)) {
+            return true;
+        } else {
+            if (stereotype.getParent() != null) {
+                return compareStereotype(stereotype.getParent(), type);
+            }
+        }
+        return false;
     }
 
 }

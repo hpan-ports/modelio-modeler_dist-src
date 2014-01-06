@@ -60,7 +60,7 @@ public class OldModelElementHeaderEditPart extends GmNodeEditPart {
     @objid ("915b26ce-1e83-11e2-8cad-001ec947c8cc")
     protected static final List<String> emptyLabelList = Collections.emptyList();
 
-    @objid ("e2ab40b4-955e-4c38-96d9-afe83d1f474a")
+    @objid ("242e5285-a41a-487f-9e94-babaf6c5cbf2")
     protected static final List<Image> emptyImageList = Collections.emptyList();
 
     /**
@@ -176,7 +176,7 @@ public class OldModelElementHeaderEditPart extends GmNodeEditPart {
      * @return the main label figure.
      */
     @objid ("7e75f971-1dec-11e2-8cad-001ec947c8cc")
-    Label getMainLabelFigure() {
+    public Label getMainLabelFigure() {
         return ((HeaderFigure) this.getFigure()).getMainLabelFigure();
     }
 
@@ -205,13 +205,14 @@ public class OldModelElementHeaderEditPart extends GmNodeEditPart {
         refreshTaggedValues(headerFigure);
         
         // Stereotypes
-        refreshStereotypes(headerFigure);
+        ShowStereotypeMode mode = getStereotypeMode(gm);
+        refreshStereotypes(headerFigure, mode);
         
         // Keyword
-        refreshMetaclassKeyword(headerFigure, gm);
+        refreshMetaclassKeyword(headerFigure, gm, mode);
         
         // Metaclass icon
-        refreshMetaclassIcon(headerFigure, gm);
+        refreshMetaclassIcon(headerFigure, gm, mode);
         
         // Set style dependent properties
         refreshFromStyle(headerFigure, getModelStyle());
@@ -225,23 +226,20 @@ public class OldModelElementHeaderEditPart extends GmNodeEditPart {
         super.refreshFromStyle(headerFigure, style);
         
         // We have to deal with stereotype mode and show/hide for name, stereotypes and tags
+        ShowStereotypeMode mode = getStereotypeMode((GmModelElementHeader) getModel());
         refreshLabel((HeaderFigure) headerFigure);
-        refreshStereotypes((HeaderFigure) headerFigure);
+        refreshStereotypes((HeaderFigure) headerFigure, mode);
         refreshTaggedValues((HeaderFigure) headerFigure);
     }
 
     /**
      * To be called when the stereotype mode changes or when the applied stereotypes change.
+     * @param mode
      * @param headerFigure The figure to update.
      */
     @objid ("7e75f989-1dec-11e2-8cad-001ec947c8cc")
-    protected final void refreshStereotypes(HeaderFigure headerFigure) {
+    protected final void refreshStereotypes(HeaderFigure headerFigure, ShowStereotypeMode mode) {
         GmModelElementHeader gm = (GmModelElementHeader) getModel();
-        
-        ShowStereotypeMode mode = gm.getStyle().getProperty(gm.getStyleKey(MetaKey.SHOWSTEREOTYPES));
-        if (mode == null) {
-            mode = ShowStereotypeMode.NONE;
-        }
         
         switch (mode) {
             case ICON:
@@ -256,6 +254,7 @@ public class OldModelElementHeaderEditPart extends GmNodeEditPart {
                 headerFigure.setRightIcons(gm.getStereotypeIcons());
                 headerFigure.setTopLabels(gm.getStereotypeLabels());
                 break;
+            default:
             case NONE:
                 headerFigure.setRightIcons(emptyImageList);
                 headerFigure.setTopLabels(emptyLabelList);
@@ -269,6 +268,8 @@ public class OldModelElementHeaderEditPart extends GmNodeEditPart {
         final HeaderFigure aFigure = (HeaderFigure) getFigure();
         final GmModelElementHeader gm = (GmModelElementHeader) getModel();
         
+        ShowStereotypeMode mode = getStereotypeMode(gm);
+        
         // Layout data
         final Object layoutData = gm.getLayoutData();
         if (layoutData != null)
@@ -281,13 +282,13 @@ public class OldModelElementHeaderEditPart extends GmNodeEditPart {
         refreshTaggedValues(aFigure);
         
         // Stereotypes
-        refreshStereotypes(aFigure);
+        refreshStereotypes(aFigure,mode);
         
         // Metaclass Keyword
-        refreshMetaclassKeyword(aFigure, gm);
+        refreshMetaclassKeyword(aFigure, gm, mode);
         
         // Metaclass Icon
-        refreshMetaclassIcon(aFigure, gm);
+        refreshMetaclassIcon(aFigure, gm, mode);
     }
 
     @objid ("7e75f990-1dec-11e2-8cad-001ec947c8cc")
@@ -303,18 +304,18 @@ public class OldModelElementHeaderEditPart extends GmNodeEditPart {
     }
 
     @objid ("7e75f993-1dec-11e2-8cad-001ec947c8cc")
-    protected void refreshMetaclassIcon(final HeaderFigure headerFigure, final GmModelElementHeader gm) {
+    protected void refreshMetaclassIcon(final HeaderFigure headerFigure, final GmModelElementHeader gm, ShowStereotypeMode mode) {
         ArrayList<Image> icons = new ArrayList<>();
-        if (gm.isShowMetaclassIcon()) {
+        if (gm.isShowMetaclassIcon() && mode != ShowStereotypeMode.NONE && mode != ShowStereotypeMode.TEXT) {
             icons.add(gm.getMetaclassIcon());
         }
         headerFigure.setLeftIcons(icons);
     }
 
     @objid ("7e75f999-1dec-11e2-8cad-001ec947c8cc")
-    protected void refreshMetaclassKeyword(final HeaderFigure headerFigure, final GmModelElementHeader gm) {
-        if (gm.isShowMetaclassKeyword()) {
-            headerFigure.setKeywordLabel("<<" + gm.getRelatedElement().getMClass().getName() + ">>");
+    protected void refreshMetaclassKeyword(final HeaderFigure headerFigure, final GmModelElementHeader gm, ShowStereotypeMode mode) {
+        if (gm.isShowMetaclassKeyword() && mode != ShowStereotypeMode.NONE && mode != ShowStereotypeMode.ICON ) {
+            headerFigure.setKeywordLabel("<<" + gm.getMetaclassKeyword() + ">>");
         } else {
             headerFigure.setKeywordLabel(null);
         }
@@ -334,6 +335,15 @@ public class OldModelElementHeaderEditPart extends GmNodeEditPart {
         } else {
             aFigure.setBottomLabels(emptyLabelList);
         }
+    }
+
+    @objid ("4282b386-4e94-494e-b042-6b464fb580c5")
+    protected ShowStereotypeMode getStereotypeMode(final GmModelElementHeader gm) {
+        ShowStereotypeMode mode = gm.getStyle().getProperty(gm.getStyleKey(MetaKey.SHOWSTEREOTYPES));
+        if (mode == null) {
+            mode = ShowStereotypeMode.NONE;
+        }
+        return mode;
     }
 
 }

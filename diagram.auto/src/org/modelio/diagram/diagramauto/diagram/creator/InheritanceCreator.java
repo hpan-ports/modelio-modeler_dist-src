@@ -31,8 +31,9 @@ import org.modelio.api.diagram.IDiagramNode;
 import org.modelio.api.diagram.InvalidDestinationPointException;
 import org.modelio.api.diagram.InvalidPointsPathException;
 import org.modelio.api.diagram.InvalidSourcePointException;
-import org.modelio.diagram.diagramauto.diagram.StyleConstants;
+import org.modelio.diagram.diagramauto.diagram.DiagramStyleHandle;
 import org.modelio.diagram.diagramauto.diagram.layout.FourGroupStructuralLayout;
+import org.modelio.diagram.styles.plugin.DiagramStyles;
 import org.modelio.gproject.model.IMModelServices;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
 import org.modelio.metamodel.uml.infrastructure.ModelTree;
@@ -214,13 +215,13 @@ public class InheritanceCreator extends AbstractDiagramCreator {
     @objid ("1a7d63b1-2635-4cd1-bea2-1dcf028cdecf")
     public void initStyle(final ModelTree main, final ModelTree owner, final IDiagramNode node) {
         if (main.equals(node.getElement())) {
-            node.setStyle(StyleConstants.getStyleHandle(StyleConstants.MAIN));
+            node.setStyle(new DiagramStyleHandle(DiagramStyles.getStyleManager().getStyle(DiagramStyles.MAIN_STYLE_NAME)));
         } else if (node.getElement().getStatus().isRamc()) {
-            node.setStyle(StyleConstants.getStyleHandle(StyleConstants.RAMC));
+            node.setStyle(new DiagramStyleHandle(DiagramStyles.getStyleManager().getStyle(DiagramStyles.RAMC_STYLE_NAME)));
         } else if (isInSamePackage(main, owner)) {
-            node.setStyle(StyleConstants.getStyleHandle(StyleConstants.INTERN));
+            node.setStyle(new DiagramStyleHandle(DiagramStyles.getStyleManager().getStyle(DiagramStyles.INTERN_STYLE_NAME)));
         } else {
-            node.setStyle(StyleConstants.getStyleHandle(StyleConstants.EXTERN));
+            node.setStyle(new DiagramStyleHandle(DiagramStyles.getStyleManager().getStyle(DiagramStyles.EXTERN_STYLE_NAME)));
         }
     }
 

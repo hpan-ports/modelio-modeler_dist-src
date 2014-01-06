@@ -47,7 +47,6 @@ import org.modelio.diagram.elements.core.figures.routers.OrthogonalRouter;
 import org.modelio.diagram.elements.core.figures.routers.RakeRouter;
 import org.modelio.diagram.elements.core.link.CreateBendedConnectionRequest;
 import org.modelio.diagram.elements.core.link.GmAbstractLinkAnchor;
-import org.modelio.diagram.elements.core.link.GmLink;
 import org.modelio.diagram.elements.core.link.anchors.AnchorRegistry;
 import org.modelio.diagram.elements.core.link.anchors.GmBorderAnchor;
 import org.modelio.diagram.elements.core.link.anchors.GmNodeAnchor;
@@ -55,6 +54,7 @@ import org.modelio.diagram.elements.core.link.anchors.GmPointAnchor;
 import org.modelio.diagram.elements.core.link.anchors.GmRaySlidableAnchor;
 import org.modelio.diagram.elements.core.link.anchors.GmSourceSatelliteAnchor;
 import org.modelio.diagram.elements.core.link.anchors.GmXYAnchor;
+import org.modelio.diagram.elements.core.model.IGmLinkObject;
 import org.modelio.diagram.elements.core.model.IGmPath;
 import org.modelio.diagram.styles.core.StyleKey.ConnectionRouterId;
 
@@ -83,7 +83,7 @@ public class RectangleNodeAnchorProvider {
     private static RectangleNodeAnchorProvider singleton = new RectangleNodeAnchorProvider();
 
     @objid ("80a17d8b-1dec-11e2-8cad-001ec947c8cc")
-    private GmLink gmLink;
+    private IGmLinkObject gmLink;
 
     @objid ("80a17d8c-1dec-11e2-8cad-001ec947c8cc")
     private Object gmSourceAnchor;
@@ -527,8 +527,7 @@ public class RectangleNodeAnchorProvider {
 
     /**
      * Get the routing mode from the connection figure.
-     * @param connectionEditPart
-     * @return
+     * @return the connection routing mode
      */
     @objid ("80a64246-1dec-11e2-8cad-001ec947c8cc")
     private ConnectionRouterId getFigureRoutingMode() {
@@ -549,7 +548,7 @@ public class RectangleNodeAnchorProvider {
     @objid ("80a6424a-1dec-11e2-8cad-001ec947c8cc")
     private void init(final ConnectionEditPart aConnectionEditPart) {
         this.connectionEditPart = aConnectionEditPart;
-        this.gmLink = (GmLink) aConnectionEditPart.getModel();
+        this.gmLink = (IGmLinkObject) aConnectionEditPart.getModel();
         
         final IGmPath path = this.gmLink.getPath();
         this.gmSourceAnchor = path.getSourceAnchor();

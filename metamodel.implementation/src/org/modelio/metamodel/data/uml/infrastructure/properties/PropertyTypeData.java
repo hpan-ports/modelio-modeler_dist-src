@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.data.uml.infrastructure.properties;
 
 import java.util.ArrayList;
@@ -49,50 +49,50 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("006f8eac-ec87-1098-b22e-001ec947cd2a")
 @SmaMetaClass(mmClass=PropertyType.class, factory=PropertyTypeData.Metadata.ObjectFactory.class, cmsnode=true)
 public class PropertyTypeData extends ModelElementData {
-    @objid ("6b961fb7-82bb-40cb-89fe-788d3be83d1f")
+    @objid ("79f1873b-692a-493f-9aeb-5e7fe1a9c613")
     @SmaMetaAttribute(metaName="BaseType", type=PropertyBaseType.class, smAttributeClass=Metadata.BaseTypeSmAttribute.class)
      Object mBaseType = PropertyBaseType.STRING;
 
-    @objid ("4d2e8380-9208-48fc-a048-317ed13cdc0e")
+    @objid ("e6abf1a3-033c-4861-b600-3efe296c56d9")
     @SmaMetaAssociation(metaName="AnalystOwner", typeDataClass=PropertyContainerData.class, min=1, max=1, smAssociationClass=Metadata.AnalystOwnerSmDependency.class)
      SmObjectImpl mAnalystOwner;
 
-    @objid ("8568be55-3094-4b3b-9dc6-9f818fd72c16")
+    @objid ("044841c3-36b9-44b7-a9e7-df3ca080af82")
     @SmaMetaAssociation(metaName="Typed", typeDataClass=PropertyDefinitionData.class, min=0, max=-1, smAssociationClass=Metadata.TypedSmDependency.class)
      List<SmObjectImpl> mTyped = null;
 
-    @objid ("18b296a7-3fa1-469b-9dd6-a266edd84b4a")
+    @objid ("51529b90-acc8-45fc-b10e-9b37c53a42a5")
     @SmaMetaAssociation(metaName="ModuleOwner", typeDataClass=ModuleComponentData.class, min=1, max=1, smAssociationClass=Metadata.ModuleOwnerSmDependency.class)
      SmObjectImpl mModuleOwner;
 
-    @objid ("22c30150-7baf-478a-80f2-d79a021fc5e4")
+    @objid ("f0e435ba-3494-4685-aeaa-137698b4141c")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("00499648-ec98-1098-b22e-001ec947cd2a")
     public static class Metadata {
-        @objid ("5e433992-3b98-4b3a-bbb2-46319fbd7a90")
+        @objid ("0b38c82b-996b-439e-8e01-78326cf5139c")
         private static SmClass smClass = null;
 
-        @objid ("a921aa24-918c-4dd8-882e-4823f5875e18")
+        @objid ("7ca1099d-c55d-4cd7-bcf8-51b3d011766c")
         private static SmAttribute BaseTypeAtt = null;
 
-        @objid ("f08a34dc-8974-4669-82e4-4dfaf55e82d4")
+        @objid ("0109178c-c2b4-4734-bf42-129201dd1ef8")
         private static SmDependency AnalystOwnerDep = null;
 
-        @objid ("1b0929b3-e958-416a-bc92-9d83b383cf5c")
+        @objid ("0722a167-aedf-4440-af7e-039b343cb06c")
         private static SmDependency TypedDep = null;
 
-        @objid ("728daeac-f2ca-42ed-9207-cf95a328112f")
+        @objid ("99885fcc-5ae0-4f5b-b7d4-c03a35b1e9fa")
         private static SmDependency ModuleOwnerDep = null;
 
-        @objid ("a7ba8eed-a6ac-4d29-8efa-34ef2b74a560")
+        @objid ("1cec6980-90de-4909-95e7-e76a93670057")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(PropertyTypeData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("79bf10f5-d08f-4ea0-b9ce-ed45cc9a8c14")
+        @objid ("11e99aa8-d4af-4ed6-88a2-e80ba3ec81b0")
         public static SmAttribute BaseTypeAtt() {
             if (BaseTypeAtt == null) {
             	BaseTypeAtt = classof().getAttributeDef("BaseType");
@@ -100,7 +100,7 @@ public class PropertyTypeData extends ModelElementData {
             return BaseTypeAtt;
         }
 
-        @objid ("b7295740-2734-4e16-9fa6-4973c4fb2cc9")
+        @objid ("8e44b832-6c66-4b27-8098-41b86c7bd07b")
         public static SmDependency AnalystOwnerDep() {
             if (AnalystOwnerDep == null) {
             	AnalystOwnerDep = classof().getDependencyDef("AnalystOwner");
@@ -108,7 +108,7 @@ public class PropertyTypeData extends ModelElementData {
             return AnalystOwnerDep;
         }
 
-        @objid ("61122ec1-b348-4958-bb58-f6d6e71ba980")
+        @objid ("bed8c872-fce5-4e06-bcac-1c3ad2f1f969")
         public static SmDependency TypedDep() {
             if (TypedDep == null) {
             	TypedDep = classof().getDependencyDef("Typed");
@@ -116,7 +116,7 @@ public class PropertyTypeData extends ModelElementData {
             return TypedDep;
         }
 
-        @objid ("07a0fe45-aa1e-47ed-821d-f12b3ee843c7")
+        @objid ("2bb6639e-c95f-4da3-96e0-29d10800ca49")
         public static SmDependency ModuleOwnerDep() {
             if (ModuleOwnerDep == null) {
             	ModuleOwnerDep = classof().getDependencyDef("ModuleOwner");
@@ -124,44 +124,44 @@ public class PropertyTypeData extends ModelElementData {
             return ModuleOwnerDep;
         }
 
-        @objid ("a62f89b8-6f3b-4f67-aca0-fe9ce31fcf5e")
-        public static SmDependency getAnalystOwnerDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return AnalystOwnerDep;
-        }
-
-        @objid ("a4cddd68-1ffa-40a7-8bbb-e623a74c4b61")
-        public static SmDependency getTypedDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return TypedDep;
-        }
-
-        @objid ("890db728-7018-497a-934b-bae95d400460")
+        @objid ("45d3e451-ff98-4496-a713-999ac3fce635")
         public static SmClass getSmClass() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return smClass;
         }
 
-        @objid ("35adeaed-40df-4c35-97e1-8807225f8256")
+        @objid ("177546c9-e072-4a9a-b201-c5badd5775dc")
+        public static SmDependency getAnalystOwnerDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return AnalystOwnerDep;
+        }
+
+        @objid ("e9a545a3-848f-4624-9bf3-30b3be98a663")
         public static SmAttribute getBaseTypeAtt() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return BaseTypeAtt;
         }
 
-        @objid ("da4ead82-de43-4f93-9c82-f6efc2e6fefb")
+        @objid ("6c4a7b5c-aabc-4228-bcec-57a710b2d652")
         public static SmDependency getModuleOwnerDep() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return ModuleOwnerDep;
         }
 
+        @objid ("84e54fad-2d87-4b20-9907-8f0fb1a092a7")
+        public static SmDependency getTypedDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return TypedDep;
+        }
+
         @objid ("0049f962-ec98-1098-b22e-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("077d2ac9-b6df-47c6-b029-abf0b8a2a112")
+            @objid ("6ab9befe-fcb7-405a-b2fd-ca7cabf7c938")
             public ISmObjectData createData() {
                 return new PropertyTypeData();
             }
 
-            @objid ("37d042e8-8b49-4b3a-bc27-8c54e7b568aa")
+            @objid ("9874fd51-db99-41ba-91a1-be7d09829028")
             public SmObjectImpl createImpl() {
                 return new PropertyTypeImpl();
             }
@@ -170,20 +170,20 @@ public class PropertyTypeData extends ModelElementData {
 
         @objid ("004ad864-ec98-1098-b22e-001ec947cd2a")
         public static class TypedSmDependency extends SmMultipleDependency {
-            @objid ("da729fe8-c95a-4e90-88de-10e01464aaea")
+            @objid ("458342ca-ec8d-480a-8e0e-0ea2d740b6a3")
             @Override
             public List<SmObjectImpl> getValueList(ISmObjectData data) {
                 return (((PropertyTypeData)data).mTyped != null)? ((PropertyTypeData)data).mTyped:SmMultipleDependency.EMPTY;
             }
 
-            @objid ("d3301ba1-14b6-4922-9ffb-2cea647315b4")
+            @objid ("cb8aadcf-a40c-4212-9314-c913ffda3979")
             @Override
             protected List<SmObjectImpl> allocateValueList(ISmObjectData data, int initialCapacity) {
                 ((PropertyTypeData) data).mTyped = new ArrayList<>(initialCapacity);
                 return ((PropertyTypeData) data).mTyped;
             }
 
-            @objid ("06329e79-f204-41ff-99cf-27169b4a1132")
+            @objid ("e186011d-7a64-40c8-9d03-1adbdab23165")
             @Override
             public SmDependency getSymetric() {
                 return PropertyDefinitionData.Metadata.TypeDep();
@@ -193,18 +193,18 @@ public class PropertyTypeData extends ModelElementData {
 
         @objid ("099f04db-280e-11e2-b500-001ec947ccaf")
         public static class AnalystOwnerSmDependency extends SmSingleDependency {
-            @objid ("891768b0-9d85-4062-8cdb-5c0f8ad10e9a")
+            @objid ("6b1fc0e6-1a7e-4054-808c-be7829b79a14")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((PropertyTypeData) data).mAnalystOwner;
             }
 
-            @objid ("6d307e67-0691-4227-922b-a77d21587b36")
+            @objid ("b5ca9b81-d4ec-4d8f-8a09-b53ca2a9844e")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((PropertyTypeData) data).mAnalystOwner = value;
             }
 
-            @objid ("221c7371-ffac-4d5e-8052-f40a236b6e82")
+            @objid ("4563bb75-8d82-4c26-9c66-ea2851420052")
             @Override
             public SmDependency getSymetric() {
                 return PropertyContainerData.Metadata.DefinedTypeDep();
@@ -214,18 +214,18 @@ public class PropertyTypeData extends ModelElementData {
 
         @objid ("09a3c987-280e-11e2-b500-001ec947ccaf")
         public static class ModuleOwnerSmDependency extends SmSingleDependency {
-            @objid ("c3d05ef3-1677-4534-9721-daba41b1af67")
+            @objid ("d1de45fd-e6a9-4982-b632-de163db0757c")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((PropertyTypeData) data).mModuleOwner;
             }
 
-            @objid ("b2f6a641-fca4-44bd-84ff-40d3556ef9bf")
+            @objid ("011e3855-c3ff-49b6-8649-2c72f853c985")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((PropertyTypeData) data).mModuleOwner = value;
             }
 
-            @objid ("abe31736-96b1-4b0c-a51b-09ca00528dfa")
+            @objid ("73054e0f-ebdd-4ad1-bb28-9d2ad6e2f510")
             @Override
             public SmDependency getSymetric() {
                 return ModuleComponentData.Metadata.DefinedPropertyTypeDep();
@@ -235,12 +235,12 @@ public class PropertyTypeData extends ModelElementData {
 
         @objid ("13c25e19-281f-11e2-bf07-001ec947ccaf")
         public static class BaseTypeSmAttribute extends SmAttribute {
-            @objid ("afcf17df-0e6b-42d6-ba74-5ae53ac48658")
+            @objid ("683abb00-45b4-483e-928d-ee1f6826544d")
             public Object getValue(ISmObjectData data) {
                 return ((PropertyTypeData) data).mBaseType;
             }
 
-            @objid ("7d00953f-c243-438e-909b-cb51075c6530")
+            @objid ("28f676e3-fa83-4d45-829f-69a172e4bff7")
             public void setValue(ISmObjectData data, Object value) {
                 ((PropertyTypeData) data).mBaseType = value;
             }

@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.uml.behavior.stateMachineModel;
 
 import java.util.ArrayList;
@@ -41,21 +41,21 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("0050f62c-c4bf-1fd8-97fe-001ec947cd2a")
 public class InitialPseudoStateImpl extends AbstractPseudoStateImpl implements InitialPseudoState {
-    @objid ("8fef1fbd-c97a-4aaf-aa42-3ece244c760d")
+    @objid ("9ba3cb81-22ab-444a-b6f8-d94c0aa6f682")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("7c34633b-24b3-4dc6-81ee-26c0b943da7d")
+    @objid ("dae5f691-9891-4b61-a78f-36b8e7af93aa")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("75d20e70-1204-482c-9f8e-6a3143bf208d")
+    @objid ("60a722f5-4bd1-443c-94b2-a18a89c0c1fd")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitInitialPseudoState(this);

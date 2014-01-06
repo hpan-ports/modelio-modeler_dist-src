@@ -32,14 +32,14 @@ import org.modelio.vcore.smkernel.mapi.MObject;
 public class SatisfyCreationExpert extends DefaultLinkExpert {
     @objid ("178f2bea-3140-4877-a1e2-c9a84e222f5d")
     @Override
-    public boolean canLink(MObject link, final MObject fromElement, final MObject toElement, final MObject linkOwner) {
+    public boolean canLink(MClass link, final MObject fromElement, final MObject toElement) {
         return (fromElement instanceof ModelElement) &&
                (toElement instanceof Requirement);
     }
 
     @objid ("4c50ecd5-a3b7-403b-8275-a616cb2e130f")
     @Override
-    public boolean canLink(MClass link, final MClass fromMetaclass, final MClass toMetaclass, final MClass owner) {
+    public boolean canLink(MClass link, final MClass fromMetaclass, final MClass toMetaclass) {
         return fromMetaclass.hasBase(Metamodel.getMClass(ModelElement.class)) &&
                toMetaclass.hasBase(Metamodel.getMClass(Requirement.class));
     }

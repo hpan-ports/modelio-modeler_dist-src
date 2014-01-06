@@ -47,7 +47,7 @@ public class BpmnLaneSetContainerDG extends DiagramNode {
     @objid ("a1eef93c-cceb-4c2b-a9f8-9561f257130d")
     @Override
     public List<IDiagramNode> getNodes() {
-        return DGFactory.getInstance().getDiagramNodes(this.diagramHandle, ((GmBpmnLaneSetContainer) this.gmNode).getChildren());
+        return DGFactory.getInstance().getDiagramNodes(this.diagramHandle, ((GmBpmnLaneSetContainer) this.gmNode).getVisibleChildren());
     }
 
 }

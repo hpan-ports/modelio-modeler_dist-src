@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.uml.infrastructure.properties;
 
 import java.util.ArrayList;
@@ -51,19 +51,19 @@ public class PropertyEnumerationLitteralImpl extends ModelElementImpl implements
         return Integer.compare(literals.indexOf(l), literals.indexOf(this));
     }
 
-    @objid ("f49e4237-a9b1-4bef-a390-1fb6c3f7c834")
+    @objid ("4c3ef36c-8352-4ecb-8f38-fcbefbd212ca")
     @Override
     public EnumeratedPropertyType getOwner() {
         return (EnumeratedPropertyType) getDepVal(PropertyEnumerationLitteralData.Metadata.OwnerDep());
     }
 
-    @objid ("66331a13-8fa8-4b6c-9101-c5f46b10832f")
+    @objid ("1a22a1b3-baec-401b-8960-2c8fff40fbcf")
     @Override
     public void setOwner(EnumeratedPropertyType value) {
         appendDepVal(PropertyEnumerationLitteralData.Metadata.OwnerDep(), (SmObjectImpl)value);
     }
 
-    @objid ("8ca805e6-71e9-47c7-961c-cc3ed347711a")
+    @objid ("886778a4-fa12-441e-88bc-8d049d3891d2")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
@@ -73,7 +73,7 @@ public class PropertyEnumerationLitteralImpl extends ModelElementImpl implements
         return super.getCompositionOwner();
     }
 
-    @objid ("3d0cb9d5-7bd7-41fa-ab4f-e9e6a3c30f83")
+    @objid ("b79c4fee-041b-4dea-9b71-77fc9d96fc31")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
@@ -83,7 +83,7 @@ public class PropertyEnumerationLitteralImpl extends ModelElementImpl implements
         return super.getCompositionRelation();
     }
 
-    @objid ("68732aad-9ba1-4ff8-8c91-4708d431083f")
+    @objid ("7c4c731a-307f-4914-a6d1-a086d3952830")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitPropertyEnumerationLitteral(this);

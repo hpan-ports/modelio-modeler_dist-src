@@ -24,6 +24,9 @@ package org.modelio.model.browser.views.treeview;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.vcore.smkernel.mapi.MObject;
 
+/**
+ * Browser node that contain link elements.
+ */
 @objid ("d86d566a-c06d-11e1-abda-001ec947c8cc")
 public class LinkContainer {
     @objid ("d86d566b-c06d-11e1-abda-001ec947c8cc")
@@ -32,17 +35,28 @@ public class LinkContainer {
     @objid ("68b8428a-2f04-11e2-9ab7-002564c97630")
     private int nbLinks;
 
+    /**
+     * C'tor.
+     * @param element the related model object.
+     * @param nbLinks links count.
+     */
     @objid ("d86d566e-c06d-11e1-abda-001ec947c8cc")
     public LinkContainer(MObject element, int nbLinks) {
         this.element = element;
         this.nbLinks = nbLinks;
     }
 
+    /**
+     * @return the related model object.
+     */
     @objid ("d86d5673-c06d-11e1-abda-001ec947c8cc")
     public MObject getElement() {
         return this.element;
     }
 
+    /**
+     * @return the links count.
+     */
     @objid ("68b8428d-2f04-11e2-9ab7-002564c97630")
     public int getNbLinks() {
         return this.nbLinks;

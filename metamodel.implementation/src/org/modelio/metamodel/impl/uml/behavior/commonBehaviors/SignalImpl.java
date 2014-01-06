@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.uml.behavior.commonBehaviors;
 
 import java.util.ArrayList;
@@ -39,7 +39,6 @@ import org.modelio.metamodel.uml.behavior.communicationModel.CommunicationMessag
 import org.modelio.metamodel.uml.behavior.interactionModel.Message;
 import org.modelio.metamodel.uml.behavior.stateMachineModel.Transition;
 import org.modelio.metamodel.uml.informationFlow.DataFlow;
-import org.modelio.metamodel.uml.infrastructure.ModelElement;
 import org.modelio.metamodel.uml.statik.GeneralClass;
 import org.modelio.metamodel.uml.statik.Operation;
 import org.modelio.metamodel.uml.statik.Parameter;
@@ -54,37 +53,37 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("0042379a-c4bf-1fd8-97fe-001ec947cd2a")
 public class SignalImpl extends GeneralClassImpl implements Signal {
-    @objid ("38e1142b-3d3d-4c4a-aadd-ad98dd1c3e60")
+    @objid ("0e49523a-56b8-4a91-9365-0e6857fc8545")
     @Override
     public boolean isIsEvent() {
         return (Boolean) getAttVal(SignalData.Metadata.IsEventAtt());
     }
 
-    @objid ("103e0a7a-195f-441f-b835-14338a6fe3ed")
+    @objid ("ae1d6bda-97e2-4da1-b85f-ccf9bea3e5b7")
     @Override
     public void setIsEvent(boolean value) {
         setAttVal(SignalData.Metadata.IsEventAtt(), value);
     }
 
-    @objid ("67ebf7e8-ff77-4917-a734-e95c64c40ea7")
+    @objid ("03b3159e-1479-48b6-84a3-dcb04fc33536")
     @Override
     public boolean isIsException() {
         return (Boolean) getAttVal(SignalData.Metadata.IsExceptionAtt());
     }
 
-    @objid ("83b9b1cb-2bb7-4589-be7f-fb61bf4211d6")
+    @objid ("5958b4bc-9be0-492e-a8f6-30a04c29a3c2")
     @Override
     public void setIsException(boolean value) {
         setAttVal(SignalData.Metadata.IsExceptionAtt(), value);
     }
 
-    @objid ("9b8f8a48-3500-4aac-a547-2b8e0ff66683")
+    @objid ("53e678ac-3e68-4e88-864d-e9a9dcf8fe33")
     @Override
     public EList<SendSignalAction> getSender() {
         return new SmList<>(this, SignalData.Metadata.SenderDep());
     }
 
-    @objid ("8aa4fc22-5114-4b0b-b9b7-fbda2356965b")
+    @objid ("62795d85-3ef2-44a7-b510-375263c8f413")
     @Override
     public <T extends SendSignalAction> List<T> getSender(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -97,13 +96,13 @@ public class SignalImpl extends GeneralClassImpl implements Signal {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("c4e5df3e-3a0f-4b51-bb4a-ff73004bdc53")
+    @objid ("e826e668-b185-4b09-804d-d710a899a2d1")
     @Override
     public EList<Message> getUsage() {
         return new SmList<>(this, SignalData.Metadata.UsageDep());
     }
 
-    @objid ("a47f1071-d007-41cb-8926-7adb4ef7111c")
+    @objid ("2dcee7d1-eba6-4d2d-bf78-13aca1b8d880")
     @Override
     public <T extends Message> List<T> getUsage(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -116,13 +115,13 @@ public class SignalImpl extends GeneralClassImpl implements Signal {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("dba15828-b65b-4e2a-9774-dbd32c4837ca")
+    @objid ("af89053f-be03-49da-b999-fca55eb58aaa")
     @Override
     public EList<Transition> getSends() {
         return new SmList<>(this, SignalData.Metadata.SendsDep());
     }
 
-    @objid ("c0766d8c-e9c6-44e3-84f6-33e8b6e7b160")
+    @objid ("cf1ef012-3c34-4815-bdaa-3836fd66a40f")
     @Override
     public <T extends Transition> List<T> getSends(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -135,37 +134,37 @@ public class SignalImpl extends GeneralClassImpl implements Signal {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("8e5ef557-8368-404b-b6ea-fc63c6eba66f")
+    @objid ("f2077e35-8e5c-4958-b111-6be60ba8ff8c")
     @Override
     public Parameter getPBase() {
         return (Parameter) getDepVal(SignalData.Metadata.PBaseDep());
     }
 
-    @objid ("1cda1ffb-a02c-43d9-bb01-98d4a01c970d")
+    @objid ("1ea78a06-5633-487f-8eb7-0cf905ebfdcf")
     @Override
     public void setPBase(Parameter value) {
         appendDepVal(SignalData.Metadata.PBaseDep(), (SmObjectImpl)value);
     }
 
-    @objid ("46f78d25-5d15-4a58-95b5-d882e98a0e84")
+    @objid ("8c4efd5f-4d0f-416e-a791-e6874f05abca")
     @Override
     public Operation getOBase() {
         return (Operation) getDepVal(SignalData.Metadata.OBaseDep());
     }
 
-    @objid ("25fd94de-98e7-4ff5-87a0-349902bb4b35")
+    @objid ("4bb10f2e-0ce8-4ab8-accc-0aa4c9b0cbed")
     @Override
     public void setOBase(Operation value) {
         appendDepVal(SignalData.Metadata.OBaseDep(), (SmObjectImpl)value);
     }
 
-    @objid ("c13d7814-b2e2-4f25-9282-f4ee048f34a5")
+    @objid ("52087cc0-b9d6-401d-9e7e-5cb311433b87")
     @Override
     public EList<CommunicationMessage> getCommunicationUsage() {
         return new SmList<>(this, SignalData.Metadata.CommunicationUsageDep());
     }
 
-    @objid ("effc7fe7-d10f-4f2d-8f15-710bb5fbab7b")
+    @objid ("58a0418e-c5b0-4b60-8501-02430fcc3c18")
     @Override
     public <T extends CommunicationMessage> List<T> getCommunicationUsage(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -178,13 +177,13 @@ public class SignalImpl extends GeneralClassImpl implements Signal {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("354e1b17-6121-4cc8-b7f0-689bd481cdb2")
+    @objid ("4f424c4a-f1e6-4643-9377-e84dddb0c434")
     @Override
     public EList<DataFlow> getDOccurence() {
         return new SmList<>(this, SignalData.Metadata.DOccurenceDep());
     }
 
-    @objid ("01d61517-2b0f-4d09-908b-838fa630e442")
+    @objid ("fc4f8d01-522e-4dda-a348-032146eb74c2")
     @Override
     public <T extends DataFlow> List<T> getDOccurence(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -197,13 +196,13 @@ public class SignalImpl extends GeneralClassImpl implements Signal {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("5e4dc1c2-815e-455c-9d9e-6d77137b44d8")
+    @objid ("1c92bac0-c7a1-4e1e-bb21-6c466010139b")
     @Override
     public EList<Event> getEOccurence() {
         return new SmList<>(this, SignalData.Metadata.EOccurenceDep());
     }
 
-    @objid ("40433b4c-893f-4b87-b1c2-909420827a9b")
+    @objid ("dba7b4b7-7741-4689-8089-403ab20bdcec")
     @Override
     public <T extends Event> List<T> getEOccurence(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -216,25 +215,25 @@ public class SignalImpl extends GeneralClassImpl implements Signal {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("1013eb8b-7369-4dec-bb96-c2b9b62c0318")
+    @objid ("d55c02a0-7323-4eb2-a494-d83a4ca7e93c")
     @Override
     public GeneralClass getBase() {
         return (GeneralClass) getDepVal(SignalData.Metadata.BaseDep());
     }
 
-    @objid ("6683d992-0ef1-4d6d-9a8d-d5a442fd543d")
+    @objid ("494e868c-548c-42f5-8023-db5db53eebd3")
     @Override
     public void setBase(GeneralClass value) {
         appendDepVal(SignalData.Metadata.BaseDep(), (SmObjectImpl)value);
     }
 
-    @objid ("9e385d13-65f4-4019-aeb7-9dc978a0b882")
+    @objid ("5864c147-85a6-45fd-9dd7-e38d5ad499c5")
     @Override
     public EList<AcceptSignalAction> getReceiver() {
         return new SmList<>(this, SignalData.Metadata.ReceiverDep());
     }
 
-    @objid ("8b21d780-de27-4867-8218-8ce803fd6ef2")
+    @objid ("985872d0-f01c-46ea-9843-8ef1490048b0")
     @Override
     public <T extends AcceptSignalAction> List<T> getReceiver(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -247,21 +246,21 @@ public class SignalImpl extends GeneralClassImpl implements Signal {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("45b735ba-9b30-4a23-8c9c-233324c08cf0")
+    @objid ("d0a238da-d706-4b3c-bf89-be1d13383227")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("2c666027-dae7-4ba6-b8df-c2d7ef9b22fd")
+    @objid ("3bf91f26-5ecb-4e34-9972-10a7ac3a3007")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("cde04cdd-b441-4601-85ba-be0877cee079")
+    @objid ("77c87dea-a166-47fe-bf59-d746dbfc5cef")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitSignal(this);

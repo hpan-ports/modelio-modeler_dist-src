@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.data.uml.behavior.activityModel;
 
 import java.util.ArrayList;
@@ -45,29 +45,29 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("0036eb56-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=InterruptibleActivityRegion.class, factory=InterruptibleActivityRegionData.Metadata.ObjectFactory.class)
 public class InterruptibleActivityRegionData extends ActivityGroupData {
-    @objid ("b6ad9db5-1ee1-4a04-9dd1-68ffef3ab8a4")
+    @objid ("21694848-745c-41c6-8104-423626cf6e6a")
     @SmaMetaAssociation(metaName="InterruptingEdge", typeDataClass=ActivityEdgeData.class, min=0, max=-1, smAssociationClass=Metadata.InterruptingEdgeSmDependency.class, partof = true)
      List<SmObjectImpl> mInterruptingEdge = null;
 
-    @objid ("a3cf8ce8-ec5f-416b-be67-07477b79a42c")
+    @objid ("49b38b34-daf5-407a-ab85-59471baddc57")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("006e2fb2-c4c4-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("af1bd3d3-6b13-48e4-a51d-8d76a1ff4d9f")
+        @objid ("0e10e54b-bc99-454a-9cfc-5147209853c0")
         private static SmClass smClass = null;
 
-        @objid ("0d901cb4-a507-4f1d-804e-8e6d509d6ca2")
+        @objid ("adcf19cc-407f-4da3-88ba-40c6261156d9")
         private static SmDependency InterruptingEdgeDep = null;
 
-        @objid ("704a41d3-792a-4c5e-ad57-1759cd84eb6e")
+        @objid ("cff72445-11b3-4e36-affe-feabad54e800")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(InterruptibleActivityRegionData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("91ae8eaa-ff6c-489a-9429-78e6934f29c1")
+        @objid ("786f490b-b524-4928-87e2-225c8439d1d9")
         public static SmDependency InterruptingEdgeDep() {
             if (InterruptingEdgeDep == null) {
             	InterruptingEdgeDep = classof().getDependencyDef("InterruptingEdge");
@@ -75,13 +75,13 @@ public class InterruptibleActivityRegionData extends ActivityGroupData {
             return InterruptingEdgeDep;
         }
 
-        @objid ("af9aa81f-36ee-44c7-ae32-2bc9b9f7ba72")
+        @objid ("39cd46ff-26ef-4011-aa5a-46fae00e66ff")
         public static SmClass getSmClass() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return smClass;
         }
 
-        @objid ("e50911cb-794e-4a92-9dfc-bd9e6dd6c8f9")
+        @objid ("09d13256-d0a0-4f91-87fe-1e45fc1c284b")
         public static SmDependency getInterruptingEdgeDep() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return InterruptingEdgeDep;
@@ -89,12 +89,12 @@ public class InterruptibleActivityRegionData extends ActivityGroupData {
 
         @objid ("006e706c-c4c4-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("85a8a631-bf0d-48d7-bda6-5830fd546494")
+            @objid ("08d0090c-8d7f-4f2b-8ee1-70c712abe394")
             public ISmObjectData createData() {
                 return new InterruptibleActivityRegionData();
             }
 
-            @objid ("1c392fb0-cdd7-4723-a376-4d25ef7e2aec")
+            @objid ("a1bea877-6e15-4187-abf4-8c9cc0bea7de")
             public SmObjectImpl createImpl() {
                 return new InterruptibleActivityRegionImpl();
             }
@@ -103,20 +103,20 @@ public class InterruptibleActivityRegionData extends ActivityGroupData {
 
         @objid ("006ed2a0-c4c4-1fd8-97fe-001ec947cd2a")
         public static class InterruptingEdgeSmDependency extends SmMultipleDependency {
-            @objid ("989db65e-980e-42d7-8cd0-3a5a6b436f0c")
+            @objid ("de30fb61-1596-4cfc-aa1f-998fb4e62e83")
             @Override
             public List<SmObjectImpl> getValueList(ISmObjectData data) {
                 return (((InterruptibleActivityRegionData)data).mInterruptingEdge != null)? ((InterruptibleActivityRegionData)data).mInterruptingEdge:SmMultipleDependency.EMPTY;
             }
 
-            @objid ("a0f5bdd8-0877-4cbe-8918-df96f0ad2a97")
+            @objid ("5b382971-88a4-453f-b92b-4a0b75592bc6")
             @Override
             protected List<SmObjectImpl> allocateValueList(ISmObjectData data, int initialCapacity) {
                 ((InterruptibleActivityRegionData) data).mInterruptingEdge = new ArrayList<>(initialCapacity);
                 return ((InterruptibleActivityRegionData) data).mInterruptingEdge;
             }
 
-            @objid ("97aa7cc0-1208-47f6-aca1-ac622a7d4159")
+            @objid ("45c8ee13-a7f9-4937-88df-beebd44d0f77")
             @Override
             public SmDependency getSymetric() {
                 return ActivityEdgeData.Metadata.InterruptsDep();

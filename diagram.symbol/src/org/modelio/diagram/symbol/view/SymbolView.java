@@ -24,15 +24,21 @@ package org.modelio.diagram.symbol.view;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
+import javax.inject.Inject;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.contexts.RunAndTrack;
+import org.eclipse.e4.core.di.annotations.Optional;
+import org.eclipse.e4.core.di.extensions.EventTopic;
 import org.eclipse.e4.ui.model.application.ui.basic.MPart;
 import org.eclipse.e4.ui.services.IServiceConstants;
 import org.eclipse.e4.ui.workbench.modeling.EModelService;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.swt.widgets.Composite;
+import org.modelio.app.core.events.ModelioEventTopics;
+import org.modelio.app.core.picking.IModelioPickingService;
+import org.modelio.app.core.picking.IPickingSession;
 import org.modelio.diagram.elements.core.model.IGmObject;
 import org.modelio.diagram.symbol.plugin.DiagramSymbol;
 
@@ -48,6 +54,9 @@ public class SymbolView {
      */
     @objid ("ac5129e9-55b7-11e2-877f-002564c97630")
     public static final String VIEW_ID = "org.modelio.diagram.symbol.SymbolViewID";
+
+    @objid ("37c580f0-9ff6-46d3-8063-ceea59e60ecd")
+    private volatile boolean isPinned;
 
     @objid ("325f9f43-5991-11e2-8bfd-001ec947ccaf")
     private SymbolPanelProvider symbolPanel;
@@ -72,11 +81,12 @@ public class SymbolView {
      * @param parent the composite the view must add its content into.
      * @param part the part model
      * @param svc the model service
+     * @param pickingService the Modelio picking service
      */
     @objid ("325d3d02-5991-11e2-8bfd-001ec947ccaf")
     @PostConstruct
-    public void createControls(Composite parent, MPart part, EModelService svc) {
-        this.symbolPanel = new SymbolPanelProvider();
+    public void createControls(Composite parent, MPart part, EModelService svc, IModelioPickingService pickingService) {
+        this.symbolPanel = new SymbolPanelProvider(pickingService);
         this.symbolPanel.create(parent);
         
         part.getContext().runAndTrack(new Updater());
@@ -121,7 +131,7 @@ public class SymbolView {
         // - we are pinned
         // - the selection is our own selection
         // - the selection is same selection
-        if (sel == null) {
+        if (sel == null || isPinned()) {
             return;
         }
         
@@ -134,6 +144,34 @@ public class SymbolView {
         } else {
             this.symbolPanel.setSelectedSymbol(null);
         }
+    }
+
+    @objid ("ff46da9a-b36b-44a5-abae-3ff4c1f095b0")
+    @Inject
+    @Optional
+    @SuppressWarnings("unused")
+    void onPickingStart(@EventTopic(ModelioEventTopics.PICKING_START) final IPickingSession session) {
+        // Temporary pin the view when picking is in progress
+        setPinned(true);
+    }
+
+    @objid ("1900b032-4768-47ca-a74f-68f355ef0f14")
+    @Inject
+    @SuppressWarnings("unused")
+    @Optional
+    void onPickingSessionStop(@EventTopic(ModelioEventTopics.PICKING_STOP) final IPickingSession session) {
+        // Unpit the view
+        setPinned(false);
+    }
+
+    @objid ("849ed246-cf9e-4a14-b0b9-17cdeb6ad4a0")
+    private boolean isPinned() {
+        return this.isPinned;
+    }
+
+    @objid ("bc973ffd-17a7-4df3-a064-40c82726d0ac")
+    private void setPinned(boolean val) {
+        this.isPinned = val;
     }
 
     /**

@@ -113,7 +113,7 @@ public class FourGroupStructuralLayout {
         for (IDiagramNode node : dgs) {
             //TODO node.fitToContent();
         
-            Rectangle r = node.getBounds();
+            Rectangle r = node.getOverallBounds();
             width  = width + r.width + HSPACING;
             height = Math.max(height, r.height);
         }
@@ -135,7 +135,7 @@ public class FourGroupStructuralLayout {
         for (IDiagramNode node : dgs) {
             //TODO node.fitToContent();
         
-            Rectangle r = node.getBounds();
+            Rectangle r = node.getOverallBounds();
             width  = Math.max(width, r.width);
             height = height + r.height + VSPACING;
         }
@@ -165,7 +165,7 @@ public class FourGroupStructuralLayout {
         // compute left group height, vertical group
         for (IDiagramNode left : leftDgs) {
             int nlinks = left.getFromLinks().size() + left.getToLinks().size();
-            Rectangle r = left.getBounds();
+            Rectangle r = left.getOverallBounds();
             left.setSize(r.width, r.height + (nlinks-1) * ANCHORSPACING);
         }
         
@@ -177,7 +177,7 @@ public class FourGroupStructuralLayout {
         // compute right group height
         for (IDiagramNode right : rightDgs) {
             int nlinks = right.getFromLinks().size() + right.getToLinks().size();
-            Rectangle r = right.getBounds();
+            Rectangle r = right.getOverallBounds();
             right.setSize(r.width, r.height + (nlinks-1) * ANCHORSPACING);
         }
         
@@ -191,7 +191,7 @@ public class FourGroupStructuralLayout {
         this._reflexivegW = REFLECT_SPACING * (linkDgs.size() + 1);
         
         mainDG.fitToContent();
-        Rectangle mainRect = mainDG.getBounds();
+        Rectangle mainRect = mainDG.getOverallBounds();
         
         // compute main size
         this._mainW = Math.max(180, Math.max(mainRect.width, this._reflexivegW)) + this._reflexivegW;
@@ -249,7 +249,7 @@ public class FourGroupStructuralLayout {
         
         // move links on left nodes
         for (IDiagramNode left : leftDgs) {
-            Rectangle r = left.getBounds();
+            Rectangle r = left.getOverallBounds();
             int n = left.getFromLinks().size() + left.getToLinks().size();
             int h = r.height;
             int yoffset = (h - ((n-1) * ANCHORSPACING))/2;
@@ -285,7 +285,7 @@ public class FourGroupStructuralLayout {
         
         // move links on right nodes
         for (IDiagramNode right : rightDgs) {
-            Rectangle r = right.getBounds();
+            Rectangle r = right.getOverallBounds();
             int n = right.getFromLinks().size() + right.getToLinks().size();
             int h = r.height;
             int yoffset = (h - ((n-1) * ANCHORSPACING))/2;
@@ -321,7 +321,7 @@ public class FourGroupStructuralLayout {
         
         // links on top nodes
         for (IDiagramNode top : topDgs) {
-            Rectangle r = top.getBounds();
+            Rectangle r = top.getOverallBounds();
             int n = top.getFromLinks().size() + top.getToLinks().size();
             int w = r.width;
             int xoffset = (w - ((n-1) * ANCHORSPACING))/2;
@@ -359,7 +359,7 @@ public class FourGroupStructuralLayout {
         
         // links on top nodes
         for (IDiagramNode bottom : bottomDgs) {
-            Rectangle r = bottom.getBounds();
+            Rectangle r = bottom.getOverallBounds();
             int n = bottom.getFromLinks().size() + bottom.getToLinks().size();
             int w = r.width;
             int xoffset = (w - ((n-1) * ANCHORSPACING))/2;
@@ -421,7 +421,7 @@ public class FourGroupStructuralLayout {
         int y = y0;
         for (IDiagramNode right : dgs) {
             right.setLocation(x, y);
-            int w = right.getBounds().width;
+            int w = right.getOverallBounds().width;
             right.setSize(w, nodeHeigth);
             x = x + w + HSPACING;
         }
@@ -433,7 +433,7 @@ public class FourGroupStructuralLayout {
         int y = y0;
         for (IDiagramNode node : dgs) {
             node.setLocation(x, y);
-            int h = node.getBounds().height;
+            int h = node.getOverallBounds().height;
             node.setSize(nodeWidth, h);
             y = y + h + VSPACING;
         }

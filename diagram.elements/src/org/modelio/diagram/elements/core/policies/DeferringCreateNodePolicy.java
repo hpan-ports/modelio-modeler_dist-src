@@ -110,8 +110,13 @@ public class DeferringCreateNodePolicy extends DefaultCreateNodeEditPolicy {
     @Override
     protected EditPart getCreateTargetEditPart(CreateRequest createRequest) {
         // Creation request, only one element is involved
-        final String metaclassName = (String) createRequest.getNewObjectType();
-        return getEditPartFor(Metamodel.getJavaInterface(Metamodel.getMClass(metaclassName)), createRequest.getLocation());
+        final Object newObjectType = createRequest.getNewObjectType();
+        if (newObjectType instanceof String) {
+            final String metaclassName = (String) newObjectType;
+            return getEditPartFor(Metamodel.getJavaInterface(Metamodel.getMClass(metaclassName)), createRequest.getLocation());
+        } else {
+            return null;
+        }
     }
 
     /**

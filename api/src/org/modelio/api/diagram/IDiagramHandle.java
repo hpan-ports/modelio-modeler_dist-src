@@ -121,4 +121,25 @@ public interface IDiagramHandle extends AutoCloseable {
     @objid ("a4223c13-0ecc-11e2-96c4-002564c97630")
     void setBatchMode(boolean batchMode);
 
+    /**
+     * Return the drawing graphics matching the given identifier.
+     * <p>
+     * Returns <i>null</i> if no drawing graphic matches the identifier.
+     * @param identifier a drawing graphic identifier
+     * @return the matching drawing graphic
+     * @since 3.1
+     */
+    @objid ("168e19e5-4358-4a29-9d28-8aec652de972")
+    IDiagramGraphic getDrawingGraphic(String identifier);
+
+    /**
+     * Get the diagram graphics creation factory.
+     * <p>
+     * To be used to unmask elements and create new diagram drawings.
+     * @return the diagrams graphics creation factory.
+     * @since 3.1
+     */
+    @objid ("0a70fa7c-af47-45ce-b1a0-baea79006ea3")
+    IDiagramGraphicFactory getCreationFactory();
+
 }

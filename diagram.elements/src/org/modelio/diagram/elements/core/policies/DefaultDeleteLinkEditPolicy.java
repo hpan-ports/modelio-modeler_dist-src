@@ -27,7 +27,7 @@ import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.editpolicies.ConnectionEditPolicy;
 import org.eclipse.gef.requests.GroupRequest;
 import org.modelio.diagram.elements.core.commands.DeleteInDiagramCommand;
-import org.modelio.diagram.elements.core.model.GmModel;
+import org.modelio.diagram.elements.core.model.IGmObject;
 
 /**
  * Edit policy to remove a diagram link from the diagram.
@@ -44,7 +44,7 @@ public class DefaultDeleteLinkEditPolicy extends ConnectionEditPolicy {
     protected Command getDeleteCommand(GroupRequest request) {
         if (getHost().isSelectable()) {
             DeleteInDiagramCommand ret = new DeleteInDiagramCommand();
-            ret.setNodetoDelete((GmModel) getHost().getModel());
+            ret.setNodetoDelete( (IGmObject) getHost().getModel());
             return ret;
         } else {
             return getHost().getParent().getCommand(request);

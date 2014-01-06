@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.uml.statik;
 
 import java.util.ArrayList;
@@ -41,21 +41,21 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("00781720-17e8-10a1-88a0-001ec947cd2a")
 public class NaryConnectorEndImpl extends NaryLinkEndImpl implements NaryConnectorEnd {
-    @objid ("f6172420-2dea-486d-9a52-278046469916")
+    @objid ("a5c67740-579a-4c20-bf4e-57b1357077a9")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("637c0873-9bc4-41dd-8dae-db89b0f9544e")
+    @objid ("30663ef8-cefa-447b-bcaa-af55e81c9ddc")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("a218e068-8ab6-4416-954d-ce504a7dd26d")
+    @objid ("24fafe68-f8be-4428-b474-2620ffdab3ab")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitNaryConnectorEnd(this);

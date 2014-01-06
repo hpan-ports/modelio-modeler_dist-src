@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.bpmn.activities;
 
 import java.util.List;
@@ -34,28 +34,28 @@ import org.modelio.metamodel.bpmn.rootElements.BpmnFlowElement;
 
 @objid ("00843028-c4bf-1fd8-97fe-001ec947cd2a")
 public interface BpmnSubProcess extends BpmnActivity {
-    @objid ("94f055bd-26bd-475d-8189-7d5a5f6ffbc4")
+    @objid ("e0fd9c24-34ba-4a59-8b67-99fcb8e64412")
     boolean isTriggeredByEvent();
 
-    @objid ("a58fca8a-f9a7-4710-b764-aba9f89ee06d")
+    @objid ("3072f6e8-0456-4f58-857b-29834bf6630f")
     void setTriggeredByEvent(boolean value);
 
-    @objid ("a13e0896-a2fe-40c5-af70-fca226d1598f")
+    @objid ("82c45ccc-a9e3-4c9a-81d0-4e547c9d3d88")
     EList<BpmnArtifact> getArtifact();
 
-    @objid ("842e42bb-c31a-41f6-9b86-ac178cecd4a4")
+    @objid ("26e19a33-fb8d-4a44-bcc8-8b4d463e207e")
     <T extends BpmnArtifact> List<T> getArtifact(java.lang.Class<T> filterClass);
 
-    @objid ("78bbbe6c-a688-45c2-8841-6cd70104a29e")
+    @objid ("a82ec34d-c3be-4ec2-896c-ce02b6239094")
     EList<BpmnFlowElement> getFlowElement();
 
-    @objid ("bb126790-89da-4746-8809-f7d2c9e31750")
+    @objid ("17511a1e-a38e-471f-8769-303f547e6996")
     <T extends BpmnFlowElement> List<T> getFlowElement(java.lang.Class<T> filterClass);
 
-    @objid ("b3fa9be5-7d0b-468b-b917-33d1db0e5fd2")
+    @objid ("9056cbc7-11fe-42b0-8e18-a092ee214c6d")
     EList<BpmnLaneSet> getLaneSet();
 
-    @objid ("58070e46-fdd2-4ba1-90d5-d73c526e09c2")
+    @objid ("f63088a2-a604-4ae3-a505-c678551e293d")
     <T extends BpmnLaneSet> List<T> getLaneSet(java.lang.Class<T> filterClass);
 
 }

@@ -208,7 +208,9 @@ public class GProjectConfigurer {
             IAuthData authData  = rp.getAuthConfiguration().getAuthData();
             ProjectDescriptor newServerDesc = GProjectFactory.getRemoteDescriptor(newDesc, authData, mon.newChild(100));
             
-            if (needsReconfiguration(newServerDesc)) {
+            if (newServerDesc == null) {
+                rp.getMonitorSupport().fireMonitors(GProjectEvent.buildWarning(new IOException("No remote project descriptor at "+rp.getRemoteLocation()+".")));
+            } else if (needsReconfiguration(newServerDesc)) {
                 
                 DescriptorServices.removeSharedPart(newDesc);
                 //DescriptorServices.resolveUris(newDesc, getProjectDataPath().toUri()); 

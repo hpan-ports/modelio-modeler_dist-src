@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.uml.statik;
 
 import java.util.List;
@@ -35,22 +35,22 @@ import org.modelio.metamodel.uml.statik.LinkEnd;
 
 @objid ("815acdf3-5af8-48c5-894b-85d62dbe2e9b")
 public interface Link extends ModelElement {
-    @objid ("bb268073-f002-4d71-a94a-fce2f8a3521f")
+    @objid ("65789039-d705-44ba-a067-fb18e1ee9a2a")
     Association getModel();
 
-    @objid ("6e6ed556-2889-45be-9a44-26208570a6a0")
+    @objid ("e23ea78b-8797-4a9c-8dac-da8314cd9d10")
     void setModel(Association value);
 
-    @objid ("645cc416-d17e-4d1e-9004-c9aaaff37a91")
+    @objid ("e051ed7d-bfd5-4dc2-a215-ea4dd85ec9a4")
     EList<LinkEnd> getLinkEnd();
 
-    @objid ("32f1ebcc-cc0c-46d1-9433-4946d0b82ef8")
+    @objid ("3ca70b3d-e287-4c0b-b16e-7f5f40e6bb31")
     <T extends LinkEnd> List<T> getLinkEnd(java.lang.Class<T> filterClass);
 
-    @objid ("0c2e7273-76ab-44e1-a330-8acfe90add71")
+    @objid ("e9ca254b-60b1-4813-9292-0402645b9b4e")
     CommunicationChannel getSent();
 
-    @objid ("b523bc28-50cd-478c-92da-8d6955b352b3")
+    @objid ("f0e8cdc8-2d4e-4dc8-88e6-83211bc2cedf")
     void setSent(CommunicationChannel value);
 
 }

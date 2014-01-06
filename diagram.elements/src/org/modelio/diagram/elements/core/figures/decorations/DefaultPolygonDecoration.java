@@ -36,7 +36,7 @@ import org.modelio.diagram.styles.core.StyleKey.LinePattern;
  * {@link PolygonDecoration} that:
  * <ul>
  * .
- * <li>Supports {@link IPenOptionsSupport}.
+ * <li>Supports {@link IPenOptionsSupport} and {@link IBrushOptionsSupport}.
  * <li>Scales itself whit its line width so that the decoration background is still visible.
  * </ul>
  * 
@@ -45,10 +45,13 @@ import org.modelio.diagram.styles.core.StyleKey.LinePattern;
 @objid ("7f70504e-1dec-11e2-8cad-001ec947c8cc")
 public class DefaultPolygonDecoration extends PolygonDecoration implements IPenOptionsSupport, IBrushOptionsSupport {
     @objid ("7f705052-1dec-11e2-8cad-001ec947c8cc")
-     double scalex = 1;
+    private double scalex = 1;
 
     @objid ("7f705053-1dec-11e2-8cad-001ec947c8cc")
-     double scaley = 1;
+    private double scaley = 1;
+
+    @objid ("47ca4568-635e-4183-8980-b5aed29734dc")
+    private int alpha;
 
     @objid ("7f705054-1dec-11e2-8cad-001ec947c8cc")
     @Override
@@ -150,7 +153,7 @@ public class DefaultPolygonDecoration extends PolygonDecoration implements IPenO
         // is too small when the drawn figure is a triangle and the line width
         // is large.
         if (this.bounds == null) {
-            this.bounds = getPoints().getBounds().getExpanded(this.lineWidth, this.lineWidth);
+            this.bounds = getPoints().getBounds().getExpanded(getLineWidth(), getLineWidth());
         }
         return this.bounds;
     }
@@ -165,6 +168,21 @@ public class DefaultPolygonDecoration extends PolygonDecoration implements IPenO
     @Override
     public void setLinePattern(LinePattern linePattern) {
         this.setLineStyle(linePattern.toSWTConstant());
+    }
+
+    @objid ("2af825e6-e386-4ee9-b11b-40d50ae8912c")
+    @Override
+    public void setFillAlpha(int alpha) {
+        if (this.alpha != alpha) {
+            this.alpha = alpha;
+            this.repaint();
+        }
+    }
+
+    @objid ("238e7d9c-6491-4ca2-a4cd-ad470b384037")
+    @Override
+    public int getFillAlpha() {
+        return this.alpha;
     }
 
 }

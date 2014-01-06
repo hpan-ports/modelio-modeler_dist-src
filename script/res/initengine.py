@@ -307,6 +307,10 @@ from org.modelio.metamodel.uml.infrastructure.properties import PropertyType
 from org.modelio.metamodel.uml.infrastructure.properties import EnumeratedPropertyType
 from org.modelio.metamodel.uml.infrastructure.properties import PropertyEnumerationLitteral
 from org.modelio.metamodel.uml.infrastructure.properties import PropertyBaseType
+from org.modelio.metamodel.uml.infrastructure.matrix import MatrixDefinition
+from org.modelio.metamodel.uml.infrastructure.matrix import QueryDefinition
+from org.modelio.metamodel.uml.infrastructure.matrix import MatrixValueDefinition
+from org.modelio.metamodel.uml.infrastructure import ExternProcessor
 from org.modelio.metamodel.uml.statik import AggregationKind
 from org.modelio.metamodel.uml.statik import KindOfAccess
 from org.modelio.metamodel.uml.statik import MethodPassingMode

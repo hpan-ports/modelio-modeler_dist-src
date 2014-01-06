@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.data.bpmn.activities;
 
 import java.util.ArrayList;
@@ -46,43 +46,43 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("007fcaf6-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=BpmnComplexBehaviorDefinition.class, factory=BpmnComplexBehaviorDefinitionData.Metadata.ObjectFactory.class)
 public class BpmnComplexBehaviorDefinitionData extends BpmnBaseElementData {
-    @objid ("a8534d6d-dfc2-487b-9f77-db96772a8a71")
+    @objid ("72413222-cce1-4ae8-baad-d7c23ac8435f")
     @SmaMetaAttribute(metaName="Condition", type=String.class, smAttributeClass=Metadata.ConditionSmAttribute.class)
      Object mCondition = "";
 
-    @objid ("ec69c7a3-5594-4bc9-ab9a-0e3b0b1cda66")
+    @objid ("0b2e5368-e20c-4f23-a4f8-cf821edfeaf0")
     @SmaMetaAssociation(metaName="Owner", typeDataClass=BpmnMultiInstanceLoopCharacteristicsData.class, min=1, max=1, smAssociationClass=Metadata.OwnerSmDependency.class)
      SmObjectImpl mOwner;
 
-    @objid ("5a2e8cd7-e46b-459c-89cb-af48cdbc9766")
+    @objid ("dc8d164f-0194-4609-9ae2-d5681342e6c2")
     @SmaMetaAssociation(metaName="Event", typeDataClass=BpmnImplicitThrowEventData.class, min=0, max=1, smAssociationClass=Metadata.EventSmDependency.class, component = true)
      SmObjectImpl mEvent;
 
-    @objid ("c82a0b45-4c86-4a6d-8ee9-f324ece7c000")
+    @objid ("a5ac99b6-922b-4ef4-a520-69ce7f8f88bf")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("00579914-c4c4-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("f7278781-5cbb-442c-9230-19528724d9d0")
+        @objid ("8d525527-658d-4bfa-9356-3e1b9d157e24")
         private static SmClass smClass = null;
 
-        @objid ("509a185b-53da-402a-a544-6017820358a1")
+        @objid ("1ff142fb-5f7e-464b-948f-03cbd1f85c19")
         private static SmAttribute ConditionAtt = null;
 
-        @objid ("e69de37a-d007-41c6-a27f-02fafbfe8f21")
+        @objid ("a0bfc75c-d55d-4769-a9ed-33e4044484cf")
         private static SmDependency OwnerDep = null;
 
-        @objid ("583c0cb8-f44c-4aca-abb1-14a04dac1969")
+        @objid ("81952fdc-f254-4fd4-a901-d004d91c0dab")
         private static SmDependency EventDep = null;
 
-        @objid ("e0663007-4457-4e82-ad63-2d97d3ed2d06")
+        @objid ("d4ecdbb0-db5e-4c05-b3bf-383b4ba4300a")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(BpmnComplexBehaviorDefinitionData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("44c046b5-6a64-46ef-886e-f542708e84b0")
+        @objid ("29de6b57-3929-466d-a102-12524a52f6d2")
         public static SmAttribute ConditionAtt() {
             if (ConditionAtt == null) {
             	ConditionAtt = classof().getAttributeDef("Condition");
@@ -90,7 +90,7 @@ public class BpmnComplexBehaviorDefinitionData extends BpmnBaseElementData {
             return ConditionAtt;
         }
 
-        @objid ("fe52691a-bead-4522-a1f6-a76402c5f6ce")
+        @objid ("20195e6b-58cf-4104-b382-fcb969086d26")
         public static SmDependency OwnerDep() {
             if (OwnerDep == null) {
             	OwnerDep = classof().getDependencyDef("Owner");
@@ -98,7 +98,7 @@ public class BpmnComplexBehaviorDefinitionData extends BpmnBaseElementData {
             return OwnerDep;
         }
 
-        @objid ("5ddf4a0c-7573-4eb9-9325-c85ac20773ef")
+        @objid ("7a8ec848-9ae0-4dfe-add1-c833609e08f7")
         public static SmDependency EventDep() {
             if (EventDep == null) {
             	EventDep = classof().getDependencyDef("Event");
@@ -106,38 +106,38 @@ public class BpmnComplexBehaviorDefinitionData extends BpmnBaseElementData {
             return EventDep;
         }
 
-        @objid ("a59a3591-f004-4d1d-8555-b5d6862d30c0")
-        public static SmAttribute getConditionAtt() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return ConditionAtt;
-        }
-
-        @objid ("4961f50d-f654-43ba-b6aa-fd22bf07c156")
-        public static SmDependency getOwnerDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return OwnerDep;
-        }
-
-        @objid ("1d982255-e8f8-47ab-9230-2648f36a702b")
-        public static SmDependency getEventDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return EventDep;
-        }
-
-        @objid ("81c2e457-97e9-41de-9a28-047029cb0ce1")
+        @objid ("d8bba8a2-e253-4b69-b39e-e99e90894734")
         public static SmClass getSmClass() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return smClass;
         }
 
+        @objid ("f3be7a2f-dcfd-466c-8c37-071b175ea997")
+        public static SmDependency getOwnerDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return OwnerDep;
+        }
+
+        @objid ("41ee6c66-98cd-4344-8c8c-82b4c50bf41c")
+        public static SmAttribute getConditionAtt() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return ConditionAtt;
+        }
+
+        @objid ("84f5e6a6-4dc9-42b9-8721-4188ec7727e0")
+        public static SmDependency getEventDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return EventDep;
+        }
+
         @objid ("0057e4be-c4c4-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("ca12ebff-6a0e-4500-9b8b-e93ab54c4888")
+            @objid ("654326b1-c94e-4d4e-8c97-ed4cf5f25f52")
             public ISmObjectData createData() {
                 return new BpmnComplexBehaviorDefinitionData();
             }
 
-            @objid ("b90ae24f-cac5-46a9-aba2-14ae9a28890a")
+            @objid ("8bec14c2-cbef-485b-8ec6-119878a0b358")
             public SmObjectImpl createImpl() {
                 return new BpmnComplexBehaviorDefinitionImpl();
             }
@@ -146,12 +146,12 @@ public class BpmnComplexBehaviorDefinitionData extends BpmnBaseElementData {
 
         @objid ("005846f2-c4c4-1fd8-97fe-001ec947cd2a")
         public static class ConditionSmAttribute extends SmAttribute {
-            @objid ("f1f49bf9-3707-485e-9cd4-465c1f869d6e")
+            @objid ("5017ffe6-f36e-4842-854e-238cf01efb2e")
             public Object getValue(ISmObjectData data) {
                 return ((BpmnComplexBehaviorDefinitionData) data).mCondition;
             }
 
-            @objid ("08487c9e-bf0d-4a1c-9459-62b30ab16d9c")
+            @objid ("79193ece-674f-48ad-9d74-0768d633da8c")
             public void setValue(ISmObjectData data, Object value) {
                 ((BpmnComplexBehaviorDefinitionData) data).mCondition = value;
             }
@@ -160,18 +160,18 @@ public class BpmnComplexBehaviorDefinitionData extends BpmnBaseElementData {
 
         @objid ("0058a908-c4c4-1fd8-97fe-001ec947cd2a")
         public static class EventSmDependency extends SmSingleDependency {
-            @objid ("1b00ed06-900b-4f60-b986-b7d313257e09")
+            @objid ("efc3cd3a-7b6b-4099-bf47-f6fc09884139")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((BpmnComplexBehaviorDefinitionData) data).mEvent;
             }
 
-            @objid ("f65b8a8b-abec-4274-8f46-913620b86ac6")
+            @objid ("8669659f-b290-4ac3-911e-87cb8fdc1aa3")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((BpmnComplexBehaviorDefinitionData) data).mEvent = value;
             }
 
-            @objid ("5bc31e53-f478-4d8a-9f45-1b36d92dba6b")
+            @objid ("3cdfcca2-10c2-48b1-a2fe-7a0225510df1")
             @Override
             public SmDependency getSymetric() {
                 return BpmnImplicitThrowEventData.Metadata.OwnerDep();
@@ -181,18 +181,18 @@ public class BpmnComplexBehaviorDefinitionData extends BpmnBaseElementData {
 
         @objid ("005929dc-c4c4-1fd8-97fe-001ec947cd2a")
         public static class OwnerSmDependency extends SmSingleDependency {
-            @objid ("a77c12ad-97d1-4909-8507-b284cd007ba1")
+            @objid ("0c0a4abe-3c27-41b7-a49f-3765fa19448f")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((BpmnComplexBehaviorDefinitionData) data).mOwner;
             }
 
-            @objid ("4ac8a9b4-6038-4009-91b8-fe70b3221bf7")
+            @objid ("ce6c3923-481b-4c69-82b6-39dc595a6517")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((BpmnComplexBehaviorDefinitionData) data).mOwner = value;
             }
 
-            @objid ("0117ba15-3d45-4d16-a8bd-18cf510b84d7")
+            @objid ("6f6a3c6b-2526-4f2d-8042-02b25604fa36")
             @Override
             public SmDependency getSymetric() {
                 return BpmnMultiInstanceLoopCharacteristicsData.Metadata.ComplexBehaviorDefinitionDep();

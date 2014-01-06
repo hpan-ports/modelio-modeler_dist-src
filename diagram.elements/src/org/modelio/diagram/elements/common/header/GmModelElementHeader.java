@@ -487,4 +487,9 @@ public abstract class GmModelElementHeader extends GmSimpleNode implements IEdit
         return MAJOR_VERSION;
     }
 
+    @objid ("daf6ae16-f5ef-4356-85a2-0c22d8cf1c82")
+    protected String getMetaclassKeyword() {
+        return getRelatedElement().getMClass().getName();
+    }
+
 }

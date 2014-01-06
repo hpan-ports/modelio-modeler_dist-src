@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.uml.behavior.activityModel;
 
 import java.util.ArrayList;
@@ -48,37 +48,37 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("0028d9f8-c4bf-1fd8-97fe-001ec947cd2a")
 public abstract class ActivityNodeImpl extends ModelElementImpl implements ActivityNode {
-    @objid ("97d2e853-294a-46b7-a2a4-a55ac6efbed9")
+    @objid ("e5e0b815-ff90-4504-9c56-9237fb6f17a4")
     @Override
     public Activity getOwner() {
         return (Activity) getDepVal(ActivityNodeData.Metadata.OwnerDep());
     }
 
-    @objid ("fcd22870-81ca-4288-876c-13d6d49d57b7")
+    @objid ("21473479-4890-4bf2-9b95-70e4cae16c03")
     @Override
     public void setOwner(Activity value) {
         appendDepVal(ActivityNodeData.Metadata.OwnerDep(), (SmObjectImpl)value);
     }
 
-    @objid ("848f1a72-6468-482d-83b6-48b17e81f52b")
+    @objid ("794968f0-1929-43d6-bb6d-fbbef910d088")
     @Override
     public ActivityPartition getOwnerPartition() {
         return (ActivityPartition) getDepVal(ActivityNodeData.Metadata.OwnerPartitionDep());
     }
 
-    @objid ("02558fc7-3164-4684-aacf-0ae17427e5e1")
+    @objid ("ca16e121-9325-48ac-880d-a52d904280b1")
     @Override
     public void setOwnerPartition(ActivityPartition value) {
         appendDepVal(ActivityNodeData.Metadata.OwnerPartitionDep(), (SmObjectImpl)value);
     }
 
-    @objid ("84180d2c-07a5-42dc-b2f7-7ca066968ec8")
+    @objid ("8626ae30-ee1d-4b01-b93c-1c50450c6b66")
     @Override
     public EList<ActivityEdge> getIncoming() {
         return new SmList<>(this, ActivityNodeData.Metadata.IncomingDep());
     }
 
-    @objid ("caaf4b21-9858-4167-9625-92091c5b0858")
+    @objid ("ce1dcecb-ce96-49e7-9fda-868ed15db761")
     @Override
     public <T extends ActivityEdge> List<T> getIncoming(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -91,37 +91,37 @@ public abstract class ActivityNodeImpl extends ModelElementImpl implements Activ
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("14443d23-0953-4912-b100-892bb58aead7")
+    @objid ("f5f884af-e2e4-400d-a9c8-e90c08b4191b")
     @Override
     public Clause getOwnerClause() {
         return (Clause) getDepVal(ActivityNodeData.Metadata.OwnerClauseDep());
     }
 
-    @objid ("b2b8285e-0105-40d0-9a06-291448580048")
+    @objid ("4e3ca1e4-7b76-48b1-b4d8-fd5df4997045")
     @Override
     public void setOwnerClause(Clause value) {
         appendDepVal(ActivityNodeData.Metadata.OwnerClauseDep(), (SmObjectImpl)value);
     }
 
-    @objid ("04daa095-0be4-4ec8-9303-82c39a24ac6f")
+    @objid ("c07ce1f1-5e9e-4b36-b8b3-01ed346129b2")
     @Override
     public StructuredActivityNode getOwnerNode() {
         return (StructuredActivityNode) getDepVal(ActivityNodeData.Metadata.OwnerNodeDep());
     }
 
-    @objid ("8890ab4c-9d8b-4130-8adc-db37ea44a037")
+    @objid ("0c7d78dc-e99b-46ea-b566-7fb86fa85c73")
     @Override
     public void setOwnerNode(StructuredActivityNode value) {
         appendDepVal(ActivityNodeData.Metadata.OwnerNodeDep(), (SmObjectImpl)value);
     }
 
-    @objid ("109e8636-a363-48ba-aa62-3dcdfe5bf013")
+    @objid ("c3aaddc9-bfb6-439f-a1e9-1b7728659b87")
     @Override
     public EList<ActivityEdge> getOutgoing() {
         return new SmList<>(this, ActivityNodeData.Metadata.OutgoingDep());
     }
 
-    @objid ("d3e5630d-86b1-4d16-ad17-51be220e9b6c")
+    @objid ("45542963-f9b4-4543-91c7-ddbf532f23be")
     @Override
     public <T extends ActivityEdge> List<T> getOutgoing(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -134,7 +134,7 @@ public abstract class ActivityNodeImpl extends ModelElementImpl implements Activ
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("0a53af8e-d7ae-4871-828a-529534961610")
+    @objid ("afec3864-2a99-4543-94dd-7403ccf1f722")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
@@ -153,7 +153,7 @@ public abstract class ActivityNodeImpl extends ModelElementImpl implements Activ
         return super.getCompositionOwner();
     }
 
-    @objid ("75c2fefe-25b1-48ba-93ca-b03d77255369")
+    @objid ("80cdc3e4-9a17-484d-b883-5c6918cceef4")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
@@ -172,7 +172,7 @@ public abstract class ActivityNodeImpl extends ModelElementImpl implements Activ
         return super.getCompositionRelation();
     }
 
-    @objid ("1af3dd43-cd23-433e-accc-85bf9f6c8362")
+    @objid ("c24503b9-1e56-4625-85cb-cf7f02bbecb8")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitActivityNode(this);

@@ -32,15 +32,24 @@ import org.modelio.diagram.styles.core.StyleKey;
 import org.modelio.diagram.styles.editingsupport.checkbox.CheckboxLabelProvider;
 import org.modelio.diagram.styles.editingsupport.color.ColorLabelProvider;
 import org.modelio.diagram.styles.editingsupport.combo.EnumComboBoxLabelProvider;
+import org.modelio.diagram.styles.editingsupport.element.ElementLabelProvider;
 import org.modelio.diagram.styles.editingsupport.font.FontLabelProvider;
 import org.modelio.diagram.styles.editingsupport.text.TextLabelProvider;
 import org.modelio.diagram.styles.viewer.StyleViewer;
+import org.modelio.vcore.smkernel.mapi.MRef;
 
+/**
+ * Style key value label provider.
+ */
 @objid ("85b0826d-1926-11e2-92d2-001ec947c8cc")
 public class StyleCellLabelProvider extends ColumnLabelProvider {
     @objid ("85b0826e-1926-11e2-92d2-001ec947c8cc")
     private Map<Class<?>, ColumnLabelProvider> providers = new HashMap<>();
 
+    /**
+     * C'tor.
+     * @param viewer the viewer.
+     */
     @objid ("85b2e4a5-1926-11e2-92d2-001ec947c8cc")
     public StyleCellLabelProvider(StyleViewer viewer) {
         this.providers.put(Boolean.class, new CheckboxLabelProvider(viewer));
@@ -49,6 +58,7 @@ public class StyleCellLabelProvider extends ColumnLabelProvider {
         this.providers.put(Integer.class, new TextLabelProvider(viewer));
         this.providers.put(Font.class, new FontLabelProvider(viewer));
         this.providers.put(Enum.class, new EnumComboBoxLabelProvider(viewer));
+        this.providers.put(MRef.class, new ElementLabelProvider(viewer));
     }
 
     @objid ("85b2e4a8-1926-11e2-92d2-001ec947c8cc")
@@ -66,9 +76,6 @@ public class StyleCellLabelProvider extends ColumnLabelProvider {
             } else
                 super.update(cell);
         }
-        //        else {
-        //            super.update(cell);
-        //        }
     }
 
     @objid ("85b2e4ac-1926-11e2-92d2-001ec947c8cc")

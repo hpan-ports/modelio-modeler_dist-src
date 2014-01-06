@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.data.uml.behavior.activityModel;
 
 import java.util.ArrayList;
@@ -43,22 +43,22 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("002e4dac-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=ControlFlow.class, factory=ControlFlowData.Metadata.ObjectFactory.class)
 public class ControlFlowData extends ActivityEdgeData {
-    @objid ("3ef603a6-d683-4346-94e7-f029e51147b4")
+    @objid ("66847e03-ccb9-492a-933a-3d7c96bab779")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("00415adc-c4c2-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("532fb1b1-7c95-4ada-849c-5586eb542efb")
+        @objid ("b551e04f-a39c-458c-b18a-459d4838abcf")
         private static SmClass smClass = null;
 
-        @objid ("072be4e3-b9d4-41d3-a380-91214dbcb30c")
+        @objid ("5eb0c4ea-b5a6-43b9-be4a-ece27c6c852a")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(ControlFlowData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("af6e26eb-9b8b-4690-9926-1c69bdec6a3c")
+        @objid ("1e375b83-f870-43d5-b778-16102713804c")
         public static SmClass getSmClass() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return smClass;
@@ -66,12 +66,12 @@ public class ControlFlowData extends ActivityEdgeData {
 
         @objid ("0041a870-c4c2-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("892830e1-cc05-4fee-b87d-b69c78899bc3")
+            @objid ("4e2c8061-907b-4377-88eb-41295abbc864")
             public ISmObjectData createData() {
                 return new ControlFlowData();
             }
 
-            @objid ("03f17203-b3b8-477f-a397-bdffe4faa57d")
+            @objid ("365e48d7-00b5-4f2c-bf14-22c2bd1050ea")
             public SmObjectImpl createImpl() {
                 return new ControlFlowImpl();
             }

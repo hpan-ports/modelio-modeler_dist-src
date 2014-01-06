@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.uml.statik;
 
 import java.util.ArrayList;
@@ -41,21 +41,21 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("002014c6-c4bf-1fd8-97fe-001ec947cd2a")
 public class BehavioralFeatureImpl extends FeatureImpl implements BehavioralFeature {
-    @objid ("8b780a00-b9fc-4428-bbac-fbfe48a55895")
+    @objid ("d4924439-6403-4bd9-bfa4-f48c141bc3a1")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("4cca9a64-7ed1-453d-a861-b240b95e4bb3")
+    @objid ("c3fd9ae6-6ac9-4eab-ace6-54d6435a69ee")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("ee092957-900f-4e9f-a92f-405743531703")
+    @objid ("42009372-c8be-4cfc-a92d-f34beecc64a9")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitBehavioralFeature(this);

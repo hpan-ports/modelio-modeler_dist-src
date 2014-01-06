@@ -412,7 +412,7 @@ public class PortContainerEditPart extends GmNodeEditPart {
                 if (this.childModel.getLayoutData() instanceof Border) {
                     final Border portConstraint = (Border) this.childModel.getLayoutData();
                     final PortConstraint newConstraint = computeRectangleFromBorder(portConstraint);
-                    
+            
                     this.childModel.setLayoutData(newConstraint);
                     container.setConstraint(this.childFigure, newConstraint);
                 }

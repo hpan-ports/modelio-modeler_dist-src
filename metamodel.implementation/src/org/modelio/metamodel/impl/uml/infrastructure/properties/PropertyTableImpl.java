@@ -20,24 +20,33 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.uml.infrastructure.properties;
 
 import java.io.IOException;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.lang.ref.SoftReference;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Properties;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
+import org.eclipse.emf.common.util.EList;
 import org.modelio.metamodel.data.uml.infrastructure.properties.PropertyTableData;
 import org.modelio.metamodel.impl.uml.infrastructure.ElementImpl;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
+import org.modelio.metamodel.uml.infrastructure.matrix.MatrixValueDefinition;
+import org.modelio.metamodel.uml.infrastructure.matrix.QueryDefinition;
 import org.modelio.metamodel.uml.infrastructure.properties.PropertyTable;
 import org.modelio.metamodel.visitors.IModelVisitor;
+import org.modelio.vcore.smkernel.SmConstrainedList;
 import org.modelio.vcore.smkernel.SmDepVal;
+import org.modelio.vcore.smkernel.SmList;
 import org.modelio.vcore.smkernel.SmObjectImpl;
+import org.modelio.vcore.smkernel.mapi.MClass;
 import org.modelio.vcore.smkernel.mapi.MVisitor;
+import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("00691798-ec87-1098-b22e-001ec947cd2a")
 public class PropertyTableImpl extends ElementImpl implements PropertyTable {
@@ -87,71 +96,6 @@ public class PropertyTableImpl extends ElementImpl implements PropertyTable {
         props.setProperty(key, value);
         
         setContent(props);
-    }
-
-    @objid ("4d1a1c62-a2ec-4465-a2e4-9b334288c4a0")
-    @Override
-    public String getName() {
-        return (String) getAttVal(PropertyTableData.Metadata.nameAtt());
-    }
-
-    @objid ("685b3a00-73a6-463d-a187-5c9dfe41dc27")
-    @Override
-    public void setName(String value) {
-        setAttVal(PropertyTableData.Metadata.nameAtt(), value);
-    }
-
-    @objid ("9e5fd56c-8872-44c8-833e-966a2c1482c2")
-    @Override
-    public String getContent() {
-        return (String) getAttVal(PropertyTableData.Metadata.contentAtt());
-    }
-
-    @objid ("94b683b8-8c6a-4535-894e-1096c5a35cf8")
-    @Override
-    public void setContent(String value) {
-        setAttVal(PropertyTableData.Metadata.contentAtt(), value);
-    }
-
-    @objid ("eee21f8c-9983-4e15-abda-dea7eb8964c4")
-    @Override
-    public ModelElement getOwner() {
-        return (ModelElement) getDepVal(PropertyTableData.Metadata.OwnerDep());
-    }
-
-    @objid ("c0ac281b-9f67-4b06-a6dc-13d3f4d324b9")
-    @Override
-    public void setOwner(ModelElement value) {
-        appendDepVal(PropertyTableData.Metadata.OwnerDep(), (SmObjectImpl) value);
-    }
-
-    @objid ("afd1bdc5-1730-44cc-bb4d-1c97f84b3c3c")
-    @Override
-    public SmObjectImpl getCompositionOwner() {
-        SmObjectImpl obj;
-        obj = (SmObjectImpl) this.getDepVal(PropertyTableData.Metadata.OwnerDep());
-        if (obj != null)
-            return obj;
-        return super.getCompositionOwner();
-    }
-
-    @objid ("ee7d55b6-ae11-4e75-87bf-ef462cf3678e")
-    @Override
-    public SmDepVal getCompositionRelation() {
-        SmObjectImpl obj;
-        obj = (SmObjectImpl) this.getDepVal(PropertyTableData.Metadata.OwnerDep());
-        if (obj != null)
-            return new SmDepVal(PropertyTableData.Metadata.OwnerDep(), obj);
-        return super.getCompositionRelation();
-    }
-
-    @objid ("ef8d6698-4833-40dd-b8ca-fc058a5725e1")
-    @Override
-    public Object accept(MVisitor v) {
-        if (v instanceof IModelVisitor)
-            return ((IModelVisitor) v).visitPropertyTable(this);
-        else
-            return null;
     }
 
     /**
@@ -205,6 +149,106 @@ public class PropertyTableImpl extends ElementImpl implements PropertyTable {
         if (this.tableHash != getContent().hashCode())
             return null;
         return props;
+    }
+
+    @objid ("519bd90c-3ad7-4b59-9c9a-e95d8117fa3e")
+    @Override
+    public String getName() {
+        return (String) getAttVal(PropertyTableData.Metadata.nameAtt());
+    }
+
+    @objid ("a866ae32-cb62-4d97-913f-ab278de87a26")
+    @Override
+    public void setName(String value) {
+        setAttVal(PropertyTableData.Metadata.nameAtt(), value);
+    }
+
+    @objid ("74a08c48-c14a-4426-b52b-d5412eef3223")
+    @Override
+    public String getContent() {
+        return (String) getAttVal(PropertyTableData.Metadata.contentAtt());
+    }
+
+    @objid ("e0c12f31-d3f5-4ab5-bba0-c468b7f6f8a0")
+    @Override
+    public void setContent(String value) {
+        setAttVal(PropertyTableData.Metadata.contentAtt(), value);
+    }
+
+    @objid ("66727dd9-6d86-4d3a-b24d-e235a2056540")
+    @Override
+    public ModelElement getOwner() {
+        return (ModelElement) getDepVal(PropertyTableData.Metadata.OwnerDep());
+    }
+
+    @objid ("839a38a5-7358-4423-9336-6f82eddb08a0")
+    @Override
+    public void setOwner(ModelElement value) {
+        appendDepVal(PropertyTableData.Metadata.OwnerDep(), (SmObjectImpl)value);
+    }
+
+    @objid ("89895273-4888-4b55-a960-fbdda5660ccb")
+    @Override
+    public MatrixValueDefinition getOwnerValDef() {
+        return (MatrixValueDefinition) getDepVal(PropertyTableData.Metadata.OwnerValDefDep());
+    }
+
+    @objid ("65003711-adb0-405e-a94b-c6775bf635e9")
+    @Override
+    public void setOwnerValDef(MatrixValueDefinition value) {
+        appendDepVal(PropertyTableData.Metadata.OwnerValDefDep(), (SmObjectImpl)value);
+    }
+
+    @objid ("20f240a5-0d53-45aa-9dc1-0bcaec682559")
+    @Override
+    public QueryDefinition getOwnerQuery() {
+        return (QueryDefinition) getDepVal(PropertyTableData.Metadata.OwnerQueryDep());
+    }
+
+    @objid ("990e9fe1-7520-47fe-adce-3f417ec8806c")
+    @Override
+    public void setOwnerQuery(QueryDefinition value) {
+        appendDepVal(PropertyTableData.Metadata.OwnerQueryDep(), (SmObjectImpl)value);
+    }
+
+    @objid ("be1473f7-ce55-4e76-9e05-37a87a6ee162")
+    @Override
+    public SmObjectImpl getCompositionOwner() {
+        SmObjectImpl obj;
+        obj = (SmObjectImpl)this.getDepVal(PropertyTableData.Metadata.OwnerDep());
+        if (obj != null)
+          return obj;
+        obj = (SmObjectImpl)this.getDepVal(PropertyTableData.Metadata.OwnerValDefDep());
+        if (obj != null)
+          return obj;
+        obj = (SmObjectImpl)this.getDepVal(PropertyTableData.Metadata.OwnerQueryDep());
+        if (obj != null)
+          return obj;
+        return super.getCompositionOwner();
+    }
+
+    @objid ("6987c443-4487-489e-ab51-5381b871c3b4")
+    @Override
+    public SmDepVal getCompositionRelation() {
+        SmObjectImpl obj;
+        obj = (SmObjectImpl)this.getDepVal(PropertyTableData.Metadata.OwnerDep());
+        if (obj != null)
+          return new SmDepVal(PropertyTableData.Metadata.OwnerDep(), obj);
+        obj = (SmObjectImpl)this.getDepVal(PropertyTableData.Metadata.OwnerValDefDep());
+        if (obj != null)
+          return new SmDepVal(PropertyTableData.Metadata.OwnerValDefDep(), obj);
+        obj = (SmObjectImpl)this.getDepVal(PropertyTableData.Metadata.OwnerQueryDep());
+        if (obj != null)
+          return new SmDepVal(PropertyTableData.Metadata.OwnerQueryDep(), obj);
+        return super.getCompositionRelation();
+    }
+
+    @objid ("462fd0a0-f321-4624-b1bb-24962fc3f768")
+    public Object accept(MVisitor v) {
+        if (v instanceof IModelVisitor)
+          return ((IModelVisitor)v).visitPropertyTable(this);
+        else
+          return null;
     }
 
 }

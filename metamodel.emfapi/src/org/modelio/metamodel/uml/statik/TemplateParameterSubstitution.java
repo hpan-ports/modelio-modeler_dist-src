@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.uml.statik;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
@@ -33,28 +33,28 @@ import org.modelio.metamodel.uml.statik.TemplateParameter;
 
 @objid ("001dff92-c4bf-1fd8-97fe-001ec947cd2a")
 public interface TemplateParameterSubstitution extends ModelElement {
-    @objid ("65957b52-c0cf-4704-910b-e4ee198818e5")
+    @objid ("eb44f455-0bf9-4ee9-831b-2f7166dccf65")
     String getValue();
 
-    @objid ("f9ee811a-992c-4978-9da5-dc456d239a82")
+    @objid ("f9ea534c-5d08-467a-b49b-a4d4051ad7e5")
     void setValue(String value);
 
-    @objid ("2e450036-a0a9-4bfe-b360-fb20383dea5e")
+    @objid ("2bccfacb-9533-4de8-b04e-483cc256e4a1")
     TemplateBinding getOwner();
 
-    @objid ("399ecc78-5ee2-4b2b-99e7-31397cfcc59c")
+    @objid ("80a69087-5aaa-4b9d-b4fa-f467864f0cd1")
     void setOwner(TemplateBinding value);
 
-    @objid ("bedd3204-c759-4f66-baf2-ad587afc90a0")
+    @objid ("edba3fb8-d30f-484d-89ee-618f4419e1e8")
     ModelElement getActual();
 
-    @objid ("17d492c2-5dfb-4a62-b4f6-7b74b982ae1b")
+    @objid ("d618944b-807f-41d4-be8d-f2c3568e09d6")
     void setActual(ModelElement value);
 
-    @objid ("f09d13bf-946c-46cc-ae56-1bc35471d9a6")
+    @objid ("dadd6c50-1bca-4c34-a6c0-a18e16449dc3")
     TemplateParameter getFormalParameter();
 
-    @objid ("ca85c32c-02f0-418a-be4e-dd12899a38f8")
+    @objid ("d20b3519-e006-48c1-babf-4782649ddf48")
     void setFormalParameter(TemplateParameter value);
 
 }

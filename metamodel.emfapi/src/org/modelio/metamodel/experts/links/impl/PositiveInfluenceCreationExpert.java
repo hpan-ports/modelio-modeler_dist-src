@@ -31,14 +31,14 @@ import org.modelio.vcore.smkernel.mapi.MObject;
 public class PositiveInfluenceCreationExpert extends DefaultLinkExpert {
     @objid ("d3015b9c-8f65-4428-8587-12a66458e5a5")
     @Override
-    public boolean canLink(MObject link, final MObject fromElement, final MObject toElement, final MObject linkOwner) {
+    public boolean canLink(MClass link, final MObject fromElement, final MObject toElement) {
         return (fromElement instanceof Goal) &&
                (toElement instanceof Goal);
     }
 
     @objid ("f130aa8f-301e-4b6c-81de-6d42b287c2ab")
     @Override
-    public boolean canLink(MClass link, final MClass fromMetaclass, final MClass toMetaclass, final MClass owner) {
+    public boolean canLink(MClass link, final MClass fromMetaclass, final MClass toMetaclass) {
         return fromMetaclass.hasBase(Metamodel.getMClass(Goal.class)) &&
                toMetaclass.hasBase(Metamodel.getMClass(Goal.class));
     }

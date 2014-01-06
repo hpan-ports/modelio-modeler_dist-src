@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.bpmn.activities;
 
 import java.util.ArrayList;
@@ -41,57 +41,57 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("0083ce8a-c4bf-1fd8-97fe-001ec947cd2a")
 public class BpmnStandardLoopCharacteristicsImpl extends BpmnLoopCharacteristicsImpl implements BpmnStandardLoopCharacteristics {
-    @objid ("31a2bced-cf70-4eaa-b657-e3c150690695")
+    @objid ("e8054804-58e9-4841-baf9-394c85bd6e4c")
     @Override
     public boolean isTestBefore() {
         return (Boolean) getAttVal(BpmnStandardLoopCharacteristicsData.Metadata.TestBeforeAtt());
     }
 
-    @objid ("8e2cb4aa-d87b-481a-95be-f4570febb0ed")
+    @objid ("fc1e79ea-fddd-411c-a53e-b1365bafd739")
     @Override
     public void setTestBefore(boolean value) {
         setAttVal(BpmnStandardLoopCharacteristicsData.Metadata.TestBeforeAtt(), value);
     }
 
-    @objid ("ed30c005-fed6-46b6-b8a1-4088ad06503c")
+    @objid ("546590f1-51c5-4a1e-a64c-0034d2ed65bd")
     @Override
     public String getLoopCondition() {
         return (String) getAttVal(BpmnStandardLoopCharacteristicsData.Metadata.LoopConditionAtt());
     }
 
-    @objid ("d5140e96-6378-44d1-acc1-b0032f35ca08")
+    @objid ("9e456e2f-56ec-4865-bd61-82a3a8d29abd")
     @Override
     public void setLoopCondition(String value) {
         setAttVal(BpmnStandardLoopCharacteristicsData.Metadata.LoopConditionAtt(), value);
     }
 
-    @objid ("e093d83a-4bda-4cbf-8c02-7ba10c4ceded")
+    @objid ("36871f6e-ff4b-427f-9876-b59fd0644eb6")
     @Override
     public String getLoopMaximum() {
         return (String) getAttVal(BpmnStandardLoopCharacteristicsData.Metadata.LoopMaximumAtt());
     }
 
-    @objid ("3ee7652b-2dc4-426f-95ee-e428a99590be")
+    @objid ("28845973-3171-44c9-8224-4e23bec699e7")
     @Override
     public void setLoopMaximum(String value) {
         setAttVal(BpmnStandardLoopCharacteristicsData.Metadata.LoopMaximumAtt(), value);
     }
 
-    @objid ("b2a4f502-3751-4b1e-a38d-3e34da76bc5f")
+    @objid ("0f80e930-fc4e-409f-b764-30258eff230a")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("5464b996-a630-4cae-8684-1fa0a3349768")
+    @objid ("10159238-7d6b-4892-8dbd-efed9842e7d6")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("08c5def5-8511-4dd7-ac47-c055e4bc0638")
+    @objid ("892f4d68-3dd6-4b65-a6f4-d4cb0c273730")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitBpmnStandardLoopCharacteristics(this);

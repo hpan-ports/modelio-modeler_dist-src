@@ -57,10 +57,10 @@ public class DefaultMetaExpert implements IMetaExpert {
         SmClass smClass = (SmClass) owner;
         SmDependency smDep = smClass.getDependencyDef(dep);
         if (smDep != null) {
-        return (smDep.isComposition() || smDep.isSharedComposition()) && ((SmClass) smDep.getTarget()).hasBase(composed)
-                && RULES.canCreate(composed, owner);
+            return (smDep.isComposition() || smDep.isSharedComposition()) && ((SmClass) smDep.getTarget()).hasBase(composed)
+                    && RULES.canCreate(composed, owner);
         } else {
-            return RULES.canCreate(composed, owner);            
+            return RULES.canCreate(composed, owner);
         }
     }
 
@@ -129,12 +129,14 @@ public class DefaultMetaExpert implements IMetaExpert {
         private void registerUmlNodes() {
             // AcceptCallEventAction
             addRule("AcceptCallEventAction", "Constraint");
+            addRule("AcceptCallEventAction", "MatrixDefinition");
             addRule("AcceptCallEventAction", "Note");
             addRule("AcceptCallEventAction", "ExternDocument");
             addRule("AcceptCallEventAction", "OutputPin");
             
             // AcceptChangeEventAction
             addRule("AcceptChangeEventAction", "Constraint");
+            addRule("AcceptChangeEventAction", "MatrixDefinition");
             addRule("AcceptChangeEventAction", "Note");
             addRule("AcceptChangeEventAction", "ExternDocument");
             addRule("AcceptChangeEventAction", "OutputPin");
@@ -147,6 +149,7 @@ public class DefaultMetaExpert implements IMetaExpert {
             
             // AcceptTimeEventAction
             addRule("AcceptTimeEventAction", "Constraint");
+            addRule("AcceptTimeEventAction", "MatrixDefinition");
             addRule("AcceptTimeEventAction", "Note");
             addRule("AcceptTimeEventAction", "ExternDocument");
             addRule("AcceptTimeEventAction", "OutputPin");
@@ -164,6 +167,7 @@ public class DefaultMetaExpert implements IMetaExpert {
             addRule("Activity", "CentralBufferNode");
             addRule("Activity", "ConditionalNode");
             addRule("Activity", "Constraint");
+            addRule("Activity", "MatrixDefinition");
             addRule("Activity", "DataStoreNode");
             addRule("Activity", "DecisionMergeNode");
             addRule("Activity", "FlowFinalNode");
@@ -183,11 +187,13 @@ public class DefaultMetaExpert implements IMetaExpert {
             
             // ActivityFinalNode
             addRule("ActivityFinalNode", "Constraint");
+            addRule("ActivityFinalNode", "MatrixDefinition");
             addRule("ActivityFinalNode", "Note");
             addRule("ActivityFinalNode", "ExternDocument");
             
             // ActivityParameterNode
             addRule("ActivityParameterNode", "Constraint");
+            addRule("ActivityParameterNode", "MatrixDefinition");
             addRule("ActivityParameterNode", "Note");
             addRule("ActivityParameterNode", "ExternDocument");
             
@@ -203,6 +209,7 @@ public class DefaultMetaExpert implements IMetaExpert {
             addRule("ActivityPartition", "CentralBufferNode");
             addRule("ActivityPartition", "ConditionalNode");
             addRule("ActivityPartition", "Constraint");
+            addRule("ActivityPartition", "MatrixDefinition");
             addRule("ActivityPartition", "DataStoreNode");
             addRule("ActivityPartition", "DecisionMergeNode");
             addRule("ActivityPartition", "FlowFinalNode");
@@ -227,6 +234,7 @@ public class DefaultMetaExpert implements IMetaExpert {
             addRule("Actor", "Collaboration");
             addRule("Actor", "CollaborationUse");
             addRule("Actor", "Constraint");
+            addRule("Actor", "MatrixDefinition");
             addRule("Actor", "DataFlow");
             addRule("Actor", "ElementImport");
             addRule("Actor", "Generalization");
@@ -248,6 +256,7 @@ public class DefaultMetaExpert implements IMetaExpert {
             addRule("Artifact", "Attribute");
             addRule("Artifact", "BindableInstance");
             addRule("Artifact", "Constraint");
+            addRule("Artifact", "MatrixDefinition");
             addRule("Artifact", "DataFlow");
             addRule("Artifact", "ElementImport");
             addRule("Artifact", "Generalization");
@@ -269,6 +278,7 @@ public class DefaultMetaExpert implements IMetaExpert {
             addRule("AssociationEnd", "AssociationEnd");
             addRule("AssociationEnd", "Attribute");
             addRule("AssociationEnd", "Constraint");
+            addRule("AssociationEnd", "MatrixDefinition");
             addRule("AssociationEnd", "Note");
             addRule("AssociationEnd", "ExternDocument");
             addRule("AssociationEnd", "TaggedValue");
@@ -276,6 +286,7 @@ public class DefaultMetaExpert implements IMetaExpert {
             
             // Attribute
             addRule("Attribute", "Constraint");
+            addRule("Attribute", "MatrixDefinition");
             addRule("Attribute", "Note");
             addRule("Attribute", "ExternDocument");
             addRule("Attribute", "TaggedValue");
@@ -283,6 +294,7 @@ public class DefaultMetaExpert implements IMetaExpert {
             
             // AttributeLink
             addRule("AttributeLink", "Constraint");
+            addRule("AttributeLink", "MatrixDefinition");
             addRule("AttributeLink", "Note");
             addRule("AttributeLink", "ExternDocument");
             addRule("AttributeLink", "Usage");
@@ -291,6 +303,7 @@ public class DefaultMetaExpert implements IMetaExpert {
             addRule("BindableInstance", "AttributeLink");
             addRule("BindableInstance", "BindableInstance");
             addRule("BindableInstance", "Constraint");
+            addRule("BindableInstance", "MatrixDefinition");
             addRule("BindableInstance", "Note");
             addRule("BindableInstance", "ExternDocument");
             addRule("BindableInstance", "Port");
@@ -300,12 +313,14 @@ public class DefaultMetaExpert implements IMetaExpert {
             
             // Binding
             addRule("Binding", "Constraint");
+            addRule("Binding", "MatrixDefinition");
             addRule("Binding", "Note");
             addRule("Binding", "ExternDocument");
             addRule("Binding", "TaggedValue");
             
             // BusinessRule
             addRule("BusinessRule", "Constraint");
+            addRule("BusinessRule", "MatrixDefinition");
             addRule("BusinessRule", "Note");
             addRule("BusinessRule", "ExternDocument");
             addRule("BusinessRule", "PropertyValueSet");
@@ -313,6 +328,7 @@ public class DefaultMetaExpert implements IMetaExpert {
             
             // BusinessRuleContainer
             addRule("BusinessRuleContainer", "Constraint");
+            addRule("BusinessRuleContainer", "MatrixDefinition");
             addRule("BusinessRuleContainer", "Note");
             addRule("BusinessRuleContainer", "ExternDocument");
             addRule("BusinessRuleContainer", "BusinessRule");
@@ -320,6 +336,7 @@ public class DefaultMetaExpert implements IMetaExpert {
             
             // CallBehaviorAction
             addRule("CallBehaviorAction", "Constraint");
+            addRule("CallBehaviorAction", "MatrixDefinition");
             addRule("CallBehaviorAction", "InputPin");
             addRule("CallBehaviorAction", "ValuePin");
             addRule("CallBehaviorAction", "Note");
@@ -328,6 +345,7 @@ public class DefaultMetaExpert implements IMetaExpert {
             
             // CallOperationAction
             addRule("CallOperationAction", "Constraint");
+            addRule("CallOperationAction", "MatrixDefinition");
             addRule("CallOperationAction", "InputPin");
             addRule("CallOperationAction", "ValuePin");
             addRule("CallOperationAction", "Note");
@@ -336,11 +354,13 @@ public class DefaultMetaExpert implements IMetaExpert {
             
             // CentralBufferNode
             addRule("CentralBufferNode", "Constraint");
+            addRule("CentralBufferNode", "MatrixDefinition");
             addRule("CentralBufferNode", "Note");
             addRule("CentralBufferNode", "ExternDocument");
             
             // ChoicePseudoState
             addRule("ChoicePseudoState", "Constraint");
+            addRule("ChoicePseudoState", "MatrixDefinition");
             addRule("ChoicePseudoState", "Note");
             addRule("ChoicePseudoState", "ExternDocument");
             
@@ -355,6 +375,7 @@ public class DefaultMetaExpert implements IMetaExpert {
             addRule("Class", "CollaborationUse");
             addRule("Class", "Component");
             addRule("Class", "Constraint");
+            addRule("Class", "MatrixDefinition");
             addRule("Class", "DataFlow");
             addRule("Class", "DataType");
             addRule("Class", "ElementImport");
@@ -395,6 +416,7 @@ public class DefaultMetaExpert implements IMetaExpert {
             addRule("Clause", "CentralBufferNode");
             addRule("Clause", "ConditionalNode");
             addRule("Clause", "Constraint");
+            addRule("Clause", "MatrixDefinition");
             addRule("Clause", "DataStoreNode");
             addRule("Clause", "DecisionMergeNode");
             addRule("Clause", "FlowFinalNode");
@@ -416,6 +438,7 @@ public class DefaultMetaExpert implements IMetaExpert {
             addRule("Collaboration", "BindableInstance");
             addRule("Collaboration", "CollaborationUse");
             addRule("Collaboration", "Constraint");
+            addRule("Collaboration", "MatrixDefinition");
             addRule("Collaboration", "ElementImport");
             addRule("Collaboration", "Generalization");
             addRule("Collaboration", "InformationItem");
@@ -434,6 +457,7 @@ public class DefaultMetaExpert implements IMetaExpert {
             
             // CollaborationUse
             addRule("CollaborationUse", "Constraint");
+            addRule("CollaborationUse", "MatrixDefinition");
             addRule("CollaborationUse", "Note");
             addRule("CollaborationUse", "ExternDocument");
             addRule("CollaborationUse", "TaggedValue");
@@ -441,6 +465,7 @@ public class DefaultMetaExpert implements IMetaExpert {
             
             // CombinedFragment
             addRule("CombinedFragment", "Constraint");
+            addRule("CombinedFragment", "MatrixDefinition");
             addRule("CombinedFragment", "InteractionOperand");
             addRule("CombinedFragment", "Note");
             addRule("CombinedFragment", "ExternDocument");
@@ -448,23 +473,27 @@ public class DefaultMetaExpert implements IMetaExpert {
             // CommunicationInteraction
             addRule("CommunicationInteraction", "CommunicationNode");
             addRule("CommunicationInteraction", "Constraint");
+            addRule("CommunicationInteraction", "MatrixDefinition");
             addRule("CommunicationInteraction", "Note");
             addRule("CommunicationInteraction", "ExternDocument");
             addRule("CommunicationInteraction", "CommunicationDiagram");
             
             // CommunicationChannel
             addRule("CommunicationChannel", "Constraint");
+            addRule("CommunicationChannel", "MatrixDefinition");
             addRule("CommunicationChannel", "Note");
             addRule("CommunicationChannel", "ExternDocument");
             addRule("CommunicationChannel", "CommunicationMessage");
             
             // CommunicationMessage
             addRule("CommunicationMessage", "Constraint");
+            addRule("CommunicationMessage", "MatrixDefinition");
             addRule("CommunicationMessage", "Note");
             addRule("CommunicationMessage", "ExternDocument");
             
             // CommunicationNode
             addRule("CommunicationNode", "Constraint");
+            addRule("CommunicationNode", "MatrixDefinition");
             addRule("CommunicationNode", "Note");
             addRule("CommunicationNode", "ExternDocument");
             
@@ -479,6 +508,7 @@ public class DefaultMetaExpert implements IMetaExpert {
             addRule("Component", "CollaborationUse");
             addRule("Component", "Component");
             addRule("Component", "Constraint");
+            addRule("Component", "MatrixDefinition");
             addRule("Component", "DataFlow");
             addRule("Component", "DataType");
             addRule("Component", "ElementImport");
@@ -512,6 +542,7 @@ public class DefaultMetaExpert implements IMetaExpert {
             // ConditionalNode
             addRule("ConditionalNode", "Clause");
             addRule("ConditionalNode", "Constraint");
+            addRule("ConditionalNode", "MatrixDefinition");
             addRule("ConditionalNode", "InputPin");
             addRule("ConditionalNode", "Note");
             addRule("ConditionalNode", "ExternDocument");
@@ -520,28 +551,33 @@ public class DefaultMetaExpert implements IMetaExpert {
             
             // ConnectionPointReference
             addRule("ConnectionPointReference", "Constraint");
+            addRule("ConnectionPointReference", "MatrixDefinition");
             addRule("ConnectionPointReference", "Note");
             addRule("ConnectionPointReference", "ExternDocument");
             
             // ConnectorEnd
             addRule("ConnectorEnd", "ConnectorEnd");
             addRule("ConnectorEnd", "Constraint");
+            addRule("ConnectorEnd", "MatrixDefinition");
             addRule("ConnectorEnd", "Note");
             addRule("ConnectorEnd", "ExternDocument");
             
             // Constraint
             addRule("Constraint", "Constraint");
+            addRule("Constraint", "MatrixDefinition");
             addRule("Constraint", "Note");
             addRule("Constraint", "ExternDocument");
             
             // ControlFlow
             addRule("ControlFlow", "Constraint");
+            addRule("ControlFlow", "MatrixDefinition");
             addRule("ControlFlow", "InformationFlow");
             addRule("ControlFlow", "Note");
             addRule("ControlFlow", "ExternDocument");
             
             // DataFlow
             addRule("DataFlow", "Constraint");
+            addRule("DataFlow", "MatrixDefinition");
             addRule("DataFlow", "Note");
             addRule("DataFlow", "ExternDocument");
             addRule("DataFlow", "Stereotype");
@@ -550,6 +586,7 @@ public class DefaultMetaExpert implements IMetaExpert {
             
             // DataStoreNode
             addRule("DataStoreNode", "Constraint");
+            addRule("DataStoreNode", "MatrixDefinition");
             addRule("DataStoreNode", "Note");
             addRule("DataStoreNode", "ExternDocument");
             
@@ -558,6 +595,7 @@ public class DefaultMetaExpert implements IMetaExpert {
             addRule("DataType", "Attribute");
             addRule("DataType", "BindableInstance");
             addRule("DataType", "Constraint");
+            addRule("DataType", "MatrixDefinition");
             addRule("DataType", "ElementImport");
             addRule("DataType", "Generalization");
             addRule("DataType", "Instance");
@@ -573,16 +611,19 @@ public class DefaultMetaExpert implements IMetaExpert {
             
             // DecisionMergeNode
             addRule("DecisionMergeNode", "Constraint");
+            addRule("DecisionMergeNode", "MatrixDefinition");
             addRule("DecisionMergeNode", "Note");
             addRule("DecisionMergeNode", "ExternDocument");
             
             // DeepHistoryPseudoState
             addRule("DeepHistoryPseudoState", "Constraint");
+            addRule("DeepHistoryPseudoState", "MatrixDefinition");
             addRule("DeepHistoryPseudoState", "Note");
             addRule("DeepHistoryPseudoState", "ExternDocument");
             
             // Dependency
             addRule("Dependency", "Constraint");
+            addRule("Dependency", "MatrixDefinition");
             addRule("Dependency", "InformationFlow");
             addRule("Dependency", "Note");
             addRule("Dependency", "ExternDocument");
@@ -592,6 +633,7 @@ public class DefaultMetaExpert implements IMetaExpert {
             
             // Dictionary
             addRule("Dictionary", "Constraint");
+            addRule("Dictionary", "MatrixDefinition");
             addRule("Dictionary", "Dictionary");
             addRule("Dictionary", "Note");
             addRule("Dictionary", "ExternDocument");
@@ -599,21 +641,25 @@ public class DefaultMetaExpert implements IMetaExpert {
             
             // ElementImport
             addRule("ElementImport", "Constraint");
+            addRule("ElementImport", "MatrixDefinition");
             addRule("ElementImport", "Note");
             addRule("ElementImport", "ExternDocument");
             
             // ElementRealization
             addRule("ElementRealization", "Constraint");
+            addRule("ElementRealization", "MatrixDefinition");
             addRule("ElementRealization", "Note");
             addRule("ElementRealization", "ExternDocument");
             
             // EntryPointPseudoState
             addRule("EntryPointPseudoState", "Constraint");
+            addRule("EntryPointPseudoState", "MatrixDefinition");
             addRule("EntryPointPseudoState", "Note");
             addRule("EntryPointPseudoState", "ExternDocument");
             
             // EnumeratedPropertyType
             addRule("EnumeratedPropertyType", "Constraint");
+            addRule("EnumeratedPropertyType", "MatrixDefinition");
             addRule("EnumeratedPropertyType", "Note");
             addRule("EnumeratedPropertyType", "ExternDocument");
             addRule("EnumeratedPropertyType", "PropertyEnumerationLitteral");
@@ -623,6 +669,7 @@ public class DefaultMetaExpert implements IMetaExpert {
             addRule("Enumeration", "Attribute");
             addRule("Enumeration", "Class");
             addRule("Enumeration", "Constraint");
+            addRule("Enumeration", "MatrixDefinition");
             addRule("Enumeration", "DataType");
             addRule("Enumeration", "ElementImport");
             addRule("Enumeration", "Enumeration");
@@ -641,12 +688,14 @@ public class DefaultMetaExpert implements IMetaExpert {
             
             // EnumerationLiteral
             addRule("EnumerationLiteral", "Constraint");
+            addRule("EnumerationLiteral", "MatrixDefinition");
             addRule("EnumerationLiteral", "Note");
             addRule("EnumerationLiteral", "ExternDocument");
             addRule("EnumerationLiteral", "Usage");
             
             // Event
             addRule("Event", "Constraint");
+            addRule("Event", "MatrixDefinition");
             addRule("Event", "Note");
             addRule("Event", "ExternDocument");
             addRule("Event", "Stereotype");
@@ -664,6 +713,7 @@ public class DefaultMetaExpert implements IMetaExpert {
             addRule("ExpansionRegion", "CentralBufferNode");
             addRule("ExpansionRegion", "ConditionalNode");
             addRule("ExpansionRegion", "Constraint");
+            addRule("ExpansionRegion", "MatrixDefinition");
             addRule("ExpansionRegion", "DataStoreNode");
             addRule("ExpansionRegion", "DecisionMergeNode");
             addRule("ExpansionRegion", "FlowFinalNode");
@@ -683,61 +733,73 @@ public class DefaultMetaExpert implements IMetaExpert {
             
             // ExpansionNode
             addRule("ExpansionNode", "Constraint");
+            addRule("ExpansionNode", "MatrixDefinition");
             addRule("ExpansionNode", "Note");
             addRule("ExpansionNode", "ExternDocument");
             
             // ExecutionOccurenceSpecification
             addRule("ExecutionOccurenceSpecification", "Constraint");
+            addRule("ExecutionOccurenceSpecification", "MatrixDefinition");
             addRule("ExecutionOccurenceSpecification", "Note");
             addRule("ExecutionOccurenceSpecification", "ExternDocument");
             
             // ExecutionSpecification
             addRule("ExecutionSpecification", "Constraint");
+            addRule("ExecutionSpecification", "MatrixDefinition");
             addRule("ExecutionSpecification", "Note");
             addRule("ExecutionSpecification", "ExternDocument");
             
             // ExitPointPseudoState
             addRule("ExitPointPseudoState", "Constraint");
+            addRule("ExitPointPseudoState", "MatrixDefinition");
             addRule("ExitPointPseudoState", "Note");
             addRule("ExitPointPseudoState", "ExternDocument");
             
             // ExtensionPoint
             addRule("ExtensionPoint", "Constraint");
+            addRule("ExtensionPoint", "MatrixDefinition");
             addRule("ExtensionPoint", "Note");
             addRule("ExtensionPoint", "ExternDocument");
             
             // FinalState
             addRule("FinalState", "Constraint");
+            addRule("FinalState", "MatrixDefinition");
             addRule("FinalState", "Note");
             addRule("FinalState", "ExternDocument");
             
             // FlowFinalNode
             addRule("FlowFinalNode", "Constraint");
+            addRule("FlowFinalNode", "MatrixDefinition");
             addRule("FlowFinalNode", "Note");
             addRule("FlowFinalNode", "ExternDocument");
             
             // ForkJoinNode
             addRule("ForkJoinNode", "Constraint");
+            addRule("ForkJoinNode", "MatrixDefinition");
             addRule("ForkJoinNode", "Note");
             addRule("ForkJoinNode", "ExternDocument");
             
             // ForkPseudoState
             addRule("ForkPseudoState", "Constraint");
+            addRule("ForkPseudoState", "MatrixDefinition");
             addRule("ForkPseudoState", "Note");
             addRule("ForkPseudoState", "ExternDocument");
             
             // Gate
             addRule("Gate", "Constraint");
+            addRule("Gate", "MatrixDefinition");
             addRule("Gate", "Note");
             addRule("Gate", "ExternDocument");
             
             // Generalization
             addRule("Generalization", "Constraint");
+            addRule("Generalization", "MatrixDefinition");
             addRule("Generalization", "Note");
             addRule("Generalization", "ExternDocument");
             
             // Goal
             addRule("Goal", "Constraint");
+            addRule("Goal", "MatrixDefinition");
             addRule("Goal", "Note");
             addRule("Goal", "ExternDocument");
             addRule("Goal", "PropertyValueSet");
@@ -745,6 +807,7 @@ public class DefaultMetaExpert implements IMetaExpert {
             
             // GoalContainer
             addRule("GoalContainer", "Constraint");
+            addRule("GoalContainer", "MatrixDefinition");
             addRule("GoalContainer", "Note");
             addRule("GoalContainer", "ExternDocument");
             addRule("GoalContainer", "Goal");
@@ -752,21 +815,25 @@ public class DefaultMetaExpert implements IMetaExpert {
             
             // InformationItem
             addRule("InformationItem", "Constraint");
+            addRule("InformationItem", "MatrixDefinition");
             addRule("InformationItem", "Note");
             addRule("InformationItem", "ExternDocument");
             
             // InitialNode
             addRule("InitialNode", "Constraint");
+            addRule("InitialNode", "MatrixDefinition");
             addRule("InitialNode", "Note");
             addRule("InitialNode", "ExternDocument");
             
             // InitialPseudoState
             addRule("InitialPseudoState", "Constraint");
+            addRule("InitialPseudoState", "MatrixDefinition");
             addRule("InitialPseudoState", "Note");
             addRule("InitialPseudoState", "ExternDocument");
             
             // InputPin
             addRule("InputPin", "Constraint");
+            addRule("InputPin", "MatrixDefinition");
             addRule("InputPin", "Note");
             addRule("InputPin", "ExternDocument");
             
@@ -774,6 +841,7 @@ public class DefaultMetaExpert implements IMetaExpert {
             addRule("Instance", "AttributeLink");
             addRule("Instance", "BindableInstance");
             addRule("Instance", "Constraint");
+            addRule("Instance", "MatrixDefinition");
             addRule("Instance", "LinkEnd");
             addRule("Instance", "Note");
             addRule("Instance", "ExternDocument");
@@ -785,12 +853,14 @@ public class DefaultMetaExpert implements IMetaExpert {
             
             // InstanceNode
             addRule("InstanceNode", "Constraint");
+            addRule("InstanceNode", "MatrixDefinition");
             addRule("InstanceNode", "Note");
             addRule("InstanceNode", "ExternDocument");
             
             // Interaction
             addRule("Interaction", "CombinedFragment");
             addRule("Interaction", "Constraint");
+            addRule("Interaction", "MatrixDefinition");
             addRule("Interaction", "Gate");
             addRule("Interaction", "InteractionUse");
             addRule("Interaction", "Lifeline");
@@ -802,14 +872,17 @@ public class DefaultMetaExpert implements IMetaExpert {
             // InteractionOperand
             addRule("InteractionOperand", "CombinedFragment");
             addRule("InteractionOperand", "Constraint");
+            addRule("InteractionOperand", "MatrixDefinition");
             addRule("InteractionOperand", "InteractionUse");
             addRule("InteractionOperand", "Note");
             addRule("InteractionOperand", "ExternDocument");
             
             // InteractionUse
             addRule("InteractionUse", "Constraint");
+            addRule("InteractionUse", "MatrixDefinition");
             addRule("InteractionUse", "Note");
             addRule("InteractionUse", "ExternDocument");
+            addRule("InteractionUse", "Gate");
             
             // Interface
             addRule("Interface", "Activity");
@@ -818,6 +891,7 @@ public class DefaultMetaExpert implements IMetaExpert {
             addRule("Interface", "Class");
             addRule("Interface", "Collaboration");
             addRule("Interface", "Constraint");
+            addRule("Interface", "MatrixDefinition");
             addRule("Interface", "DataFlow");
             addRule("Interface", "DataType");
             addRule("Interface", "ElementImport");
@@ -846,11 +920,13 @@ public class DefaultMetaExpert implements IMetaExpert {
             
             // InterfaceRealization
             addRule("InterfaceRealization", "Constraint");
+            addRule("InterfaceRealization", "MatrixDefinition");
             addRule("InterfaceRealization", "Note");
             addRule("InterfaceRealization", "ExternDocument");
             
             // InternalTransition
             addRule("InternalTransition", "Constraint");
+            addRule("InternalTransition", "MatrixDefinition");
             addRule("InternalTransition", "Note");
             addRule("InternalTransition", "ExternDocument");
             addRule("InternalTransition", "Usage");
@@ -866,6 +942,7 @@ public class DefaultMetaExpert implements IMetaExpert {
             addRule("InterruptibleActivityRegion", "CentralBufferNode");
             addRule("InterruptibleActivityRegion", "ConditionalNode");
             addRule("InterruptibleActivityRegion", "Constraint");
+            addRule("InterruptibleActivityRegion", "MatrixDefinition");
             addRule("InterruptibleActivityRegion", "DataStoreNode");
             addRule("InterruptibleActivityRegion", "DecisionMergeNode");
             addRule("InterruptibleActivityRegion", "FlowFinalNode");
@@ -884,16 +961,19 @@ public class DefaultMetaExpert implements IMetaExpert {
             
             // JoinPseudoState
             addRule("JoinPseudoState", "Constraint");
+            addRule("JoinPseudoState", "MatrixDefinition");
             addRule("JoinPseudoState", "Note");
             addRule("JoinPseudoState", "ExternDocument");
             
             // JunctionPseudoState
             addRule("JunctionPseudoState", "Constraint");
+            addRule("JunctionPseudoState", "MatrixDefinition");
             addRule("JunctionPseudoState", "Note");
             addRule("JunctionPseudoState", "ExternDocument");
             
             // Lifeline
             addRule("Lifeline", "Constraint");
+            addRule("Lifeline", "MatrixDefinition");
             addRule("Lifeline", "ExecutionOccurenceSpecification");
             addRule("Lifeline", "ExecutionSpecification");
             addRule("Lifeline", "Note");
@@ -903,17 +983,20 @@ public class DefaultMetaExpert implements IMetaExpert {
             
             // LinkEnd
             addRule("LinkEnd", "Constraint");
+            addRule("LinkEnd", "MatrixDefinition");
             addRule("LinkEnd", "LinkEnd");
             addRule("LinkEnd", "Note");
             addRule("LinkEnd", "ExternDocument");
             
             // LocalNote
             addRule("LocalNote", "Constraint");
+            addRule("LocalNote", "MatrixDefinition");
             addRule("LocalNote", "Note");
             addRule("LocalNote", "ExternDocument");
             
             // LocalTaggedValue
             addRule("LocalTaggedValue", "Constraint");
+            addRule("LocalTaggedValue", "MatrixDefinition");
             addRule("LocalTaggedValue", "Note");
             addRule("LocalTaggedValue", "ExternDocument");
             
@@ -928,6 +1011,7 @@ public class DefaultMetaExpert implements IMetaExpert {
             addRule("LoopNode", "CentralBufferNode");
             addRule("LoopNode", "ConditionalNode");
             addRule("LoopNode", "Constraint");
+            addRule("LoopNode", "MatrixDefinition");
             addRule("LoopNode", "DataStoreNode");
             addRule("LoopNode", "DecisionMergeNode");
             addRule("LoopNode", "FlowFinalNode");
@@ -949,13 +1033,19 @@ public class DefaultMetaExpert implements IMetaExpert {
             
             // Manifestation
             addRule("Manifestation", "Constraint");
+            addRule("Manifestation", "MatrixDefinition");
             addRule("Manifestation", "Note");
             addRule("Manifestation", "ExternDocument");
             addRule("Manifestation", "Stereotype");
             addRule("Manifestation", "TaggedValue");
             
+            // MatrixDefinition
+            addRule("MatrixDefinition", "QueryDefinition");
+            addRule("Manifestation", "MatrixValueDefinition");
+            
             // Message
             addRule("Message", "Constraint");
+            addRule("Message", "MatrixDefinition");
             addRule("Message", "InformationFlow");
             addRule("Message", "Note");
             addRule("Message", "ExternDocument");
@@ -963,13 +1053,27 @@ public class DefaultMetaExpert implements IMetaExpert {
             // MessageFlow
             addRule("MessageFlow", "InformationFlow");
             
+            // MetaclassReference
+            addRule("MetaclassReference", "Constraint");
+            addRule("MetaclassReference", "ExternDocument");
+            addRule("MetaclassReference", "ExternDocumentType");
+            addRule("MetaclassReference", "MatrixDefinition");
+            addRule("MetaclassReference", "Note");
+            addRule("MetaclassReference", "NoteType");
+            addRule("MetaclassReference", "TagType");
+            
             // ModelElement
             addRule("ModelElement", "Constraint");
+            addRule("ModelElement", "MatrixDefinition");
             addRule("ModelElement", "ElementRealization");
             addRule("ModelElement", "LocalNote");
             addRule("ModelElement", "LocalTaggedValue");
             addRule("ModelElement", "Note");
             addRule("ModelElement", "ExternDocument");
+            addRule("ModelElement", "MatrixDefinition");
+            
+            // ModuleComponent
+            addRule("ModuleComponent", "Profile");
             
             // Node
             addRule("Node", "AssociationEnd");
@@ -977,6 +1081,7 @@ public class DefaultMetaExpert implements IMetaExpert {
             addRule("Node", "BindableInstance");
             addRule("Node", "CollaborationUse");
             addRule("Node", "Constraint");
+            addRule("Node", "MatrixDefinition");
             addRule("Node", "DataFlow");
             addRule("Node", "ElementImport");
             addRule("Node", "Generalization");
@@ -1000,22 +1105,26 @@ public class DefaultMetaExpert implements IMetaExpert {
             
             // Note
             addRule("Note", "Constraint");
+            addRule("Note", "MatrixDefinition");
             addRule("Note", "Note");
             addRule("Note", "ExternDocument");
             
             // ObjectFlow
             addRule("ObjectFlow", "Constraint");
+            addRule("ObjectFlow", "MatrixDefinition");
             addRule("ObjectFlow", "InformationFlow");
             addRule("ObjectFlow", "Note");
             addRule("ObjectFlow", "ExternDocument");
             
             // ObjectNode
             addRule("ObjectNode", "Constraint");
+            addRule("ObjectNode", "MatrixDefinition");
             addRule("ObjectNode", "Note");
             addRule("ObjectNode", "ExternDocument");
             
             // OpaqueAction
             addRule("OpaqueAction", "Constraint");
+            addRule("OpaqueAction", "MatrixDefinition");
             addRule("OpaqueAction", "InputPin");
             addRule("OpaqueAction", "ValuePin");
             addRule("OpaqueAction", "Note");
@@ -1027,6 +1136,7 @@ public class DefaultMetaExpert implements IMetaExpert {
             addRule("Operation", "Collaboration");
             addRule("Operation", "CollaborationUse");
             addRule("Operation", "Constraint");
+            addRule("Operation", "MatrixDefinition");
             addRule("Operation", "ElementImport");
             addRule("Operation", "Interaction");
             addRule("Operation", "Note");
@@ -1044,6 +1154,7 @@ public class DefaultMetaExpert implements IMetaExpert {
             
             // OutputPin
             addRule("OutputPin", "Constraint");
+            addRule("OutputPin", "MatrixDefinition");
             addRule("OutputPin", "Note");
             addRule("OutputPin", "ExternDocument");
             
@@ -1056,6 +1167,7 @@ public class DefaultMetaExpert implements IMetaExpert {
             addRule("Package", "CommunicationInteraction");
             addRule("Package", "Component");
             addRule("Package", "Constraint");
+            addRule("Package", "MatrixDefinition");
             addRule("Package", "DataFlow");
             addRule("Package", "DataType");
             addRule("Package", "ElementImport");
@@ -1087,11 +1199,13 @@ public class DefaultMetaExpert implements IMetaExpert {
             
             // PackageImport
             addRule("PackageImport", "Constraint");
+            addRule("PackageImport", "MatrixDefinition");
             addRule("PackageImport", "Note");
             addRule("PackageImport", "ExternDocument");
             
             // PackageMerge
             addRule("PackageMerge", "Constraint");
+            addRule("PackageMerge", "MatrixDefinition");
             addRule("PackageMerge", "Note");
             addRule("PackageMerge", "ExternDocument");
             addRule("PackageMerge", "Stereotype");
@@ -1099,6 +1213,7 @@ public class DefaultMetaExpert implements IMetaExpert {
             
             // Parameter
             addRule("Parameter", "Constraint");
+            addRule("Parameter", "MatrixDefinition");
             addRule("Parameter", "Note");
             addRule("Parameter", "ExternDocument");
             addRule("Parameter", "Stereotype");
@@ -1108,6 +1223,7 @@ public class DefaultMetaExpert implements IMetaExpert {
             // Port
             addRule("Port", "ConnectorEnd");
             addRule("Port", "Constraint");
+            addRule("Port", "MatrixDefinition");
             addRule("Port", "Note");
             addRule("Port", "ExternDocument");
             addRule("Port", "ProvidedInterface");
@@ -1116,57 +1232,73 @@ public class DefaultMetaExpert implements IMetaExpert {
             addRule("Port", "TaggedValue");
             addRule("Port", "Usage");
             
+            // Profile
+            addRule("Profile", "MetaclassReference");
+            addRule("Profile", "Stereotype");
+            
             // Project
             addRule("Project", "Constraint");
+            addRule("Project", "MatrixDefinition");
             addRule("Project", "Note");
             addRule("Project", "ExternDocument");
             addRule("Project", "Package");
             
             // Property
             addRule("Property", "Constraint");
+            addRule("Property", "MatrixDefinition");
             addRule("Property", "Note");
             addRule("Property", "ExternDocument");
             
+            // PropertyContainer
+            addRule("PropertyContainer", "Constraint");
+            addRule("PropertyContainer", "MatrixDefinition");
+            addRule("PropertyContainer", "Note");
+            addRule("PropertyContainer", "ExternDocument");
+            addRule("PropertyContainer", "PropertyTableDefinition");
+            addRule("PropertyContainer", "PropertyType");
+            addRule("PropertyContainer", "EnumeratedPropertyType");
+            
             // PropertyEnumerationLitteral
             addRule("PropertyEnumerationLitteral", "Constraint");
+            addRule("PropertyEnumerationLitteral", "MatrixDefinition");
             addRule("PropertyEnumerationLitteral", "Note");
             addRule("PropertyEnumerationLitteral", "ExternDocument");
             
-            // PropertySet
-            addRule("PropertySet", "Constraint");
-            addRule("PropertySet", "Note");
-            addRule("PropertySet", "ExternDocument");
-            addRule("PropertySet", "Property");
+            // PropertyDefinition
+            addRule("PropertyDefinition", "Constraint");
+            addRule("PropertyDefinition", "MatrixDefinition");
+            addRule("PropertyDefinition", "Note");
+            addRule("PropertyDefinition", "ExternDocument");
+            
+            // PropertyTableDefinition
+            addRule("PropertyTableDefinition", "Constraint");
+            addRule("PropertyTableDefinition", "MatrixDefinition");
+            addRule("PropertyTableDefinition", "Note");
+            addRule("PropertyTableDefinition", "ExternDocument");
+            addRule("PropertyTableDefinition", "PropertyDefinition");
             
             // PropertyType
             addRule("PropertyType", "Constraint");
+            addRule("PropertyType", "MatrixDefinition");
             addRule("PropertyType", "Note");
             addRule("PropertyType", "ExternDocument");
             
-            // PropertyValue
-            addRule("PropertyValue", "Constraint");
-            addRule("PropertyValue", "Note");
-            addRule("PropertyValue", "ExternDocument");
-            
-            // PropertyValueSet
-            addRule("PropertyValueSet", "Constraint");
-            addRule("PropertyValueSet", "Note");
-            addRule("PropertyValueSet", "ExternDocument");
-            addRule("PropertyValueSet", "PropertyValue");
-            
             // ProvidedInterface
             addRule("ProvidedInterface", "Constraint");
+            addRule("ProvidedInterface", "MatrixDefinition");
             addRule("ProvidedInterface", "Note");
             addRule("ProvidedInterface", "ExternDocument");
             
             // RaisedException
             addRule("RaisedException", "Constraint");
+            addRule("RaisedException", "MatrixDefinition");
             addRule("RaisedException", "Note");
             addRule("RaisedException", "ExternDocument");
             
             // Region
             addRule("Region", "ChoicePseudoState");
             addRule("Region", "Constraint");
+            addRule("Region", "MatrixDefinition");
             addRule("Region", "DeepHistoryPseudoState");
             addRule("Region", "FinalState");
             addRule("Region", "ForkPseudoState");
@@ -1185,11 +1317,13 @@ public class DefaultMetaExpert implements IMetaExpert {
             
             // RequiredInterface
             addRule("RequiredInterface", "Constraint");
+            addRule("RequiredInterface", "MatrixDefinition");
             addRule("RequiredInterface", "Note");
             addRule("RequiredInterface", "ExternDocument");
             
             // Requirement
             addRule("Requirement", "Constraint");
+            addRule("Requirement", "MatrixDefinition");
             addRule("Requirement", "Note");
             addRule("Requirement", "ExternDocument");
             addRule("Requirement", "PropertyValueSet");
@@ -1197,6 +1331,7 @@ public class DefaultMetaExpert implements IMetaExpert {
             
             // RequirementContainer
             addRule("RequirementContainer", "Constraint");
+            addRule("RequirementContainer", "MatrixDefinition");
             addRule("RequirementContainer", "Note");
             addRule("RequirementContainer", "ExternDocument");
             addRule("RequirementContainer", "Requirement");
@@ -1204,6 +1339,7 @@ public class DefaultMetaExpert implements IMetaExpert {
             
             // SendSignalAction
             addRule("SendSignalAction", "Constraint");
+            addRule("SendSignalAction", "MatrixDefinition");
             addRule("SendSignalAction", "InputPin");
             addRule("SendSignalAction", "Note");
             addRule("SendSignalAction", "ExternDocument");
@@ -1211,6 +1347,7 @@ public class DefaultMetaExpert implements IMetaExpert {
             
             // ShallowHistoryPseudoState
             addRule("ShallowHistoryPseudoState", "Constraint");
+            addRule("ShallowHistoryPseudoState", "MatrixDefinition");
             addRule("ShallowHistoryPseudoState", "Note");
             addRule("ShallowHistoryPseudoState", "ExternDocument");
             
@@ -1220,6 +1357,7 @@ public class DefaultMetaExpert implements IMetaExpert {
             addRule("Signal", "Collaboration");
             addRule("Signal", "CollaborationUse");
             addRule("Signal", "Constraint");
+            addRule("Signal", "MatrixDefinition");
             addRule("Signal", "DataType");
             addRule("Signal", "ElementImport");
             addRule("Signal", "Enumeration");
@@ -1239,6 +1377,7 @@ public class DefaultMetaExpert implements IMetaExpert {
             // State
             addRule("State", "ConnectionPointReference");
             addRule("State", "Constraint");
+            addRule("State", "MatrixDefinition");
             addRule("State", "EntryPointPseudoState");
             addRule("State", "ExitPointPseudoState");
             addRule("State", "InternalTransition");
@@ -1252,6 +1391,7 @@ public class DefaultMetaExpert implements IMetaExpert {
             
             // StateInvariant
             addRule("StateInvariant", "Constraint");
+            addRule("StateInvariant", "MatrixDefinition");
             addRule("StateInvariant", "Note");
             addRule("StateInvariant", "ExternDocument");
             
@@ -1263,13 +1403,18 @@ public class DefaultMetaExpert implements IMetaExpert {
             
             // StaticDiagram
             addRule("StaticDiagram", "Constraint");
+            addRule("StaticDiagram", "MatrixDefinition");
             addRule("StaticDiagram", "Note");
             addRule("StaticDiagram", "ExternDocument");
             
             // Stereotype
             addRule("Stereotype", "Constraint");
-            addRule("Stereotype", "Note");
             addRule("Stereotype", "ExternDocument");
+            addRule("Stereotype", "ExternDocumentType");
+            addRule("Stereotype", "MatrixDefinition");
+            addRule("Stereotype", "Note");
+            addRule("Stereotype", "NoteType");
+            addRule("Stereotype", "TagType");
             
             // StructuredActivityNode
             addRule("StructuredActivityNode", "AcceptCallEventAction");
@@ -1282,6 +1427,7 @@ public class DefaultMetaExpert implements IMetaExpert {
             addRule("StructuredActivityNode", "CentralBufferNode");
             addRule("StructuredActivityNode", "ConditionalNode");
             addRule("StructuredActivityNode", "Constraint");
+            addRule("StructuredActivityNode", "MatrixDefinition");
             addRule("StructuredActivityNode", "DataStoreNode");
             addRule("StructuredActivityNode", "DecisionMergeNode");
             addRule("StructuredActivityNode", "FlowFinalNode");
@@ -1303,11 +1449,13 @@ public class DefaultMetaExpert implements IMetaExpert {
             
             // TaggedValue
             addRule("TaggedValue", "Constraint");
+            addRule("TaggedValue", "MatrixDefinition");
             addRule("TaggedValue", "Note");
             addRule("TaggedValue", "ExternDocument");
             
             // TemplateBinding
             addRule("TemplateBinding", "Constraint");
+            addRule("TemplateBinding", "MatrixDefinition");
             addRule("TemplateBinding", "Note");
             addRule("TemplateBinding", "ExternDocument");
             addRule("TemplateBinding", "Stereotype");
@@ -1323,6 +1471,7 @@ public class DefaultMetaExpert implements IMetaExpert {
             addRule("TemplateParameter", "Collaboration");
             addRule("TemplateParameter", "Component");
             addRule("TemplateParameter", "Constraint");
+            addRule("TemplateParameter", "MatrixDefinition");
             addRule("TemplateParameter", "DataType");
             addRule("TemplateParameter", "Enumeration");
             addRule("TemplateParameter", "Instance");
@@ -1341,6 +1490,7 @@ public class DefaultMetaExpert implements IMetaExpert {
             
             // TemplateParameterSubstitution
             addRule("TemplateParameterSubstitution", "Constraint");
+            addRule("TemplateParameterSubstitution", "MatrixDefinition");
             addRule("TemplateParameterSubstitution", "Note");
             addRule("TemplateParameterSubstitution", "ExternDocument");
             addRule("TemplateParameterSubstitution", "Stereotype");
@@ -1348,16 +1498,19 @@ public class DefaultMetaExpert implements IMetaExpert {
             
             // Term
             addRule("Term", "Constraint");
+            addRule("Term", "MatrixDefinition");
             addRule("Term", "Note");
             addRule("Term", "ExternDocument");
             
             // TerminatePseudoState
             addRule("TerminatePseudoState", "Constraint");
+            addRule("TerminatePseudoState", "MatrixDefinition");
             addRule("TerminatePseudoState", "Note");
             addRule("TerminatePseudoState", "ExternDocument");
             
             // Transition
             addRule("Transition", "Constraint");
+            addRule("Transition", "MatrixDefinition");
             addRule("Transition", "Note");
             addRule("Transition", "ExternDocument");
             addRule("Transition", "Stereotype");
@@ -1366,6 +1519,7 @@ public class DefaultMetaExpert implements IMetaExpert {
             
             // Usage
             addRule("Usage", "Constraint");
+            addRule("Usage", "MatrixDefinition");
             addRule("Usage", "Note");
             addRule("Usage", "ExternDocument");
             
@@ -1377,6 +1531,7 @@ public class DefaultMetaExpert implements IMetaExpert {
             addRule("UseCase", "Collaboration");
             addRule("UseCase", "CollaborationUse");
             addRule("UseCase", "Constraint");
+            addRule("UseCase", "MatrixDefinition");
             addRule("UseCase", "DataFlow");
             addRule("UseCase", "ElementImport");
             addRule("UseCase", "ExtensionPoint");
@@ -1397,11 +1552,13 @@ public class DefaultMetaExpert implements IMetaExpert {
             
             // UseCaseDependency
             addRule("UseCaseDependency", "Constraint");
+            addRule("UseCaseDependency", "MatrixDefinition");
             addRule("UseCaseDependency", "Note");
             addRule("UseCaseDependency", "ExternDocument");
             
             // ValuePin
             addRule("ValuePin", "Constraint");
+            addRule("ValuePin", "MatrixDefinition");
             addRule("ValuePin", "Note");
             addRule("ValuePin", "ExternDocument");
         }

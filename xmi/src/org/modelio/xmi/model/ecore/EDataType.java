@@ -21,7 +21,6 @@
 
 package org.modelio.xmi.model.ecore;
 
-import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.api.modelio.Modelio;
 import org.modelio.metamodel.uml.infrastructure.Element;
@@ -40,7 +39,7 @@ import org.modelio.xmi.util.ReverseProperties;
  * @author ebrosse
  */
 @objid ("6ce204df-d714-4384-a48b-20c59dcd591c")
-public class EDataType extends ENamedElement implements IEElement {
+public class EDataType extends ENamedElement {
     @objid ("d1d75979-db80-4d98-8088-59b3e164b72d")
     private org.eclipse.uml2.uml.DataType ecoreElement;
 
@@ -81,11 +80,6 @@ public class EDataType extends ENamedElement implements IEElement {
                 }
             }
         }
-    }
-
-    @objid ("4112275a-7d60-4179-b80b-5b78edf1833f")
-    @Override
-    public void attach(List<Object> objingElts) {
     }
 
     @objid ("5b5546ff-ec80-4e5f-afec-16dc57c3cdd3")

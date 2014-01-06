@@ -72,7 +72,7 @@ public class ExpandToContentCommand extends Command {
         
         final Dimension oldSize = fig.getSize();
         final Dimension newSize = fig.getPreferredSize();
-        final Dimension diff = newSize.getDifference(oldSize);
+        final Dimension diff = newSize.getShrinked(oldSize);
         
         if (diff.isEmpty())
             return null;

@@ -30,6 +30,8 @@ import org.modelio.metamodel.uml.behavior.interactionModel.ExecutionSpecificatio
 import org.modelio.metamodel.uml.behavior.interactionModel.Message;
 import org.modelio.metamodel.uml.behavior.interactionModel.MessageEnd;
 import org.modelio.metamodel.uml.behavior.interactionModel.MessageSort;
+import org.modelio.vcore.session.api.ICoreSession;
+import org.modelio.vcore.session.api.transactions.ITransaction;
 
 /**
  * Command that actually does the work of moving a Message in a sequence diagram.
@@ -51,30 +53,34 @@ public class MoveMessageCommand extends Command {
     @objid ("d969c508-55b6-11e2-877f-002564c97630")
     @Override
     public void execute() {
-        MessageEnd sendEvent = this.message.getSendEvent();
-        sendEvent.setLineNumber(sendEvent.getLineNumber() + this.sourceTimeDelta);
-        if (sendEvent instanceof ExecutionOccurenceSpecification &&
-            ((ExecutionOccurenceSpecification) sendEvent).getStarted() != null) {
-            ExecutionSpecification execution = ((ExecutionOccurenceSpecification) sendEvent).getStarted();
-            execution.setLineNumber(execution.getLineNumber() + this.sourceTimeDelta);
-            execution.getFinish().setLineNumber(execution.getFinish().getLineNumber() + this.sourceTimeDelta);
-        }
-        MessageEnd receiveEvent = this.message.getReceiveEvent();
-        receiveEvent.setLineNumber(receiveEvent.getLineNumber() + this.targetTimeDelta);
-        if (receiveEvent instanceof ExecutionOccurenceSpecification &&
-            ((ExecutionOccurenceSpecification) receiveEvent).getStarted() != null) {
-            ExecutionSpecification execution = ((ExecutionOccurenceSpecification) receiveEvent).getStarted();
-            execution.setLineNumber(execution.getLineNumber() + this.targetTimeDelta);
-            execution.getFinish().setLineNumber(execution.getFinish().getLineNumber() + this.targetTimeDelta);
-            if (execution.getFinish().getSentMessage() != null &&
-                execution.getFinish().getSentMessage().getSortOfMessage() == MessageSort.RETURNMESSAGE) {
-                MoveMessageCommand command = new MoveMessageCommand();
-                command.setDiagram(this.diagram);
-                command.setMessage(execution.getFinish().getSentMessage());
-                command.setSourceTimeDelta(0);
-                command.setTargetTimeDelta(this.targetTimeDelta);
-                command.execute();
+        final ICoreSession session = this.diagram.getModelManager().getModelingSession();
+        try (ITransaction transaction = session.getTransactionSupport().createTransaction("Clone properties")) {
+            MessageEnd sendEvent = this.message.getSendEvent();
+            sendEvent.setLineNumber(sendEvent.getLineNumber() + this.sourceTimeDelta);
+            if (sendEvent instanceof ExecutionOccurenceSpecification &&
+                    ((ExecutionOccurenceSpecification) sendEvent).getStarted() != null) {
+                ExecutionSpecification execution = ((ExecutionOccurenceSpecification) sendEvent).getStarted();
+                execution.setLineNumber(execution.getLineNumber() + this.sourceTimeDelta);
+                execution.getFinish().setLineNumber(execution.getFinish().getLineNumber() + this.sourceTimeDelta);
             }
+            MessageEnd receiveEvent = this.message.getReceiveEvent();
+            receiveEvent.setLineNumber(receiveEvent.getLineNumber() + this.targetTimeDelta);
+            if (receiveEvent instanceof ExecutionOccurenceSpecification &&
+                    ((ExecutionOccurenceSpecification) receiveEvent).getStarted() != null) {
+                ExecutionSpecification execution = ((ExecutionOccurenceSpecification) receiveEvent).getStarted();
+                execution.setLineNumber(execution.getLineNumber() + this.targetTimeDelta);
+                execution.getFinish().setLineNumber(execution.getFinish().getLineNumber() + this.targetTimeDelta);
+                if (execution.getFinish().getSentMessage() != null &&
+                        execution.getFinish().getSentMessage().getSortOfMessage() == MessageSort.RETURNMESSAGE) {
+                    MoveMessageCommand command = new MoveMessageCommand();
+                    command.setDiagram(this.diagram);
+                    command.setMessage(execution.getFinish().getSentMessage());
+                    command.setSourceTimeDelta(0);
+                    command.setTargetTimeDelta(this.targetTimeDelta);
+                    command.execute();
+                }
+            }
+            transaction.commit();
         }
     }
 

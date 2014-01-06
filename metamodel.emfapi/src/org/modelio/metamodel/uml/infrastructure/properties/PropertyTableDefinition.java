@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.uml.infrastructure.properties;
 
 import java.util.List;
@@ -37,34 +37,34 @@ import org.modelio.metamodel.uml.infrastructure.properties.TypedPropertyTable;
 
 @objid ("00669770-ec87-1098-b22e-001ec947cd2a")
 public interface PropertyTableDefinition extends ModelElement {
-    @objid ("a20b406e-b889-44a3-a4d7-0a291614245a")
+    @objid ("895ec834-7462-49a6-9719-2ee5cb6ba6bc")
     PropertyContainer getOwner();
 
-    @objid ("196a382d-d6b2-41fa-848c-314031c87570")
+    @objid ("cdabaad0-808a-4202-97dd-c325103a9360")
     void setOwner(PropertyContainer value);
 
-    @objid ("4d3d35da-27c4-46cb-8e65-f3b26f2eb26d")
+    @objid ("7137d4cc-102b-4979-b1f2-afd47cdaa723")
     EList<TypedPropertyTable> getTypedTable();
 
-    @objid ("a0cef041-fb25-4f1f-892e-3f595fcbfc96")
+    @objid ("127e071c-5192-4a85-ac91-8023d92c618b")
     <T extends TypedPropertyTable> List<T> getTypedTable(java.lang.Class<T> filterClass);
 
-    @objid ("acf3c88f-72b8-487c-bc9e-801337629f02")
+    @objid ("4c8ef568-cc2f-4359-9e29-6cc9f3477275")
     MetaclassReference getOwnerReference();
 
-    @objid ("bf9ceecc-00f0-44e2-a254-09f260ca6f3f")
+    @objid ("1477287f-1e41-48d7-aeef-3676521cb114")
     void setOwnerReference(MetaclassReference value);
 
-    @objid ("6091837e-f1bc-45cc-bdd0-24d17adbb4ec")
+    @objid ("2c5d21c7-6fbc-423e-bab9-0c8c418c534e")
     Stereotype getOwnerStereotype();
 
-    @objid ("07a7b326-46c0-49ce-b866-ebd40a8a146c")
+    @objid ("55c56429-3dfc-4b4c-a904-a04c41711c25")
     void setOwnerStereotype(Stereotype value);
 
-    @objid ("276456b2-3cb3-440b-b1d7-391d2d5daaef")
+    @objid ("ee3d1397-a7eb-4bc7-a540-0c9856623ac7")
     EList<PropertyDefinition> getOwned();
 
-    @objid ("ea1eb736-c47a-426e-96b5-e7d8b8674e82")
+    @objid ("00dcab40-60bc-4ac8-a7eb-f11aed7dc5b7")
     <T extends PropertyDefinition> List<T> getOwned(java.lang.Class<T> filterClass);
 
 }

@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.uml.behavior.activityModel;
 
 import java.util.ArrayList;
@@ -41,21 +41,21 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("002e18a0-c4bf-1fd8-97fe-001ec947cd2a")
 public class ControlFlowImpl extends ActivityEdgeImpl implements ControlFlow {
-    @objid ("d4216971-c933-4173-8b91-b08b2a22daf9")
+    @objid ("7e1b3fa1-10f7-4842-9307-67fec7884d52")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("3b580edf-8e24-499d-b099-d56923b39fd0")
+    @objid ("573b1bb1-3bd1-4210-91e2-e5ab63a13810")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("3885e6a3-0a57-4cd0-ba3f-9212e95597c8")
+    @objid ("53f7734e-8c13-4e90-8ed4-f466e48a40fd")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitControlFlow(this);

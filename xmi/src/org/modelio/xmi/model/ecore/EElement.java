@@ -56,6 +56,7 @@ public class EElement implements IEElement {
     }
 
     @objid ("c5bb634b-1044-4ca8-a882-e98f5079b5bd")
+    @Override
     public void setStereotypes() {
         Object object = ReverseProperties.getInstance().getMappedElement(this.ecoreElt);
         
@@ -67,7 +68,7 @@ public class EElement implements IEElement {
                     for ( Object stereo : this.ecoreElt.getAppliedStereotypes()){
                         setStereotype(modelElement, (org.eclipse.uml2.uml.Stereotype) stereo);
                     }                    
-        //                setStereotypesAnnotation(modelElement);
+               
             }else if (object instanceof List<?>){
                 for (Object createdElt : (List<?>) object){
                     if (createdElt instanceof ModelElement){
@@ -77,7 +78,7 @@ public class EElement implements IEElement {
                             for (Object stereo : this.ecoreElt.getAppliedStereotypes()){
                                 setStereotype(modelElement, (org.eclipse.uml2.uml.Stereotype) stereo);
                             }
-        //                        setStereotypesAnnotation(modelElement);
+        //                                setStereotypesAnnotation(modelElement);
                     }
                 }
             }else if (this.ecoreElt instanceof org.eclipse.uml2.uml.Manifestation){

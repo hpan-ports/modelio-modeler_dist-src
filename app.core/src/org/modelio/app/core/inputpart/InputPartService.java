@@ -54,10 +54,6 @@ public class InputPartService implements IInputPartService {
     @Optional
     private MWindow workbenchWindow;
 
-    @objid ("792907a4-3334-11e2-95fe-001ec947c8cc")
-    @Inject
-    private EPartService partService;
-
     @objid ("b9bbfc33-2fd8-11e2-a79f-bc305ba4815c")
     @Override
     public MInputPart createInputPart(String id) {
@@ -68,7 +64,7 @@ public class InputPartService implements IInputPartService {
     @objid ("b9bbfc39-2fd8-11e2-a79f-bc305ba4815c")
     @Override
     public MPlaceholder createSharedInputPart(String id, String inputURI) {
-        MWindow sharedWindow = getWindow();
+        MWindow sharedWindow = getModelioWindow();
         // Do we already have the part to share?
         MInputPart sharedPart = null;
         
@@ -107,7 +103,7 @@ public class InputPartService implements IInputPartService {
     }
 
     @objid ("b9bbfc45-2fd8-11e2-a79f-bc305ba4815c")
-    private MWindow getWindow() {
+    private MWindow getModelioWindow() {
         if (this.workbenchWindow != null)
             return this.workbenchWindow;
         if (this.application.getSelectedElement() != null)
@@ -167,23 +163,25 @@ public class InputPartService implements IInputPartService {
             }
             ((MInputPart)part).setInputURI(inputURI);
         }
-        return this.partService.showPart(part, partState);
+        return getPartService().showPart(part, partState);
     }
 
     @objid ("303322d8-3ff6-4aac-b978-9da3bd64327e")
     @Override
     public void hideInputPart(MPart part) {
-        this.partService.hidePart(part, true);
+        //Force to show the part before hidding it (actually the part cannot be hidden if it is not visible in the current perspective)
+        getPartService().showPart(part, PartState.VISIBLE); 
+        getPartService().hidePart(part, true);
     }
 
     @objid ("659a254f-d1f7-4e51-a121-a46fcbd1a50b")
     @Override
     public Collection<? extends MPart> getInputParts(String id) {
         List<MPart> mParts = new ArrayList<>();
-        for (MPart part : this.partService.getParts()) {
-        if (part.getElementId().equals(id)) {
-            mParts.add(part);
-        }
+        for (MPart part : getPartService().getParts()) {
+            if (part.getElementId().equals(id)) {
+                mParts.add(part);
+            }
         }
         return mParts;
     }
@@ -191,12 +189,24 @@ public class InputPartService implements IInputPartService {
     @objid ("f27c9c88-d9e4-4d06-8b63-3a7ac4c45507")
     @Override
     public MPart getInputPart(String id, String inputURI) {
-        for (MPart inputPart : this.partService.getInputParts(inputURI)) {
+        for (MPart inputPart : getPartService().getInputParts(inputURI)) {
             if (id.equals(inputPart.getElementId())) {
                 return inputPart;
             }
         }
         return null;
+    }
+
+    /**
+     * Get the EPartService from the Modelio window.
+     * <p>
+     * Warning: do not inject the EPartService, it could be broken if a modal dialog is running.
+     * </p>
+     * @return the current EPartService.
+     */
+    @objid ("0529ae92-b7e1-4f6a-bed8-ac29948786e8")
+    private EPartService getPartService() {
+        return getModelioWindow().getContext().get(EPartService.class);
     }
 
 }

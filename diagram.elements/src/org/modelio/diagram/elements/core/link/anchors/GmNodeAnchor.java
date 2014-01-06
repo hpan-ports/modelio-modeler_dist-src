@@ -32,7 +32,7 @@ public class GmNodeAnchor implements IPersistent {
     @objid ("7fddfcc1-1dec-11e2-8cad-001ec947c8cc")
     private static final int MAJOR_VERSION = 0;
 
-    @objid ("6e96b04b-a9e8-475a-a8e5-4d55e29f28af")
+    @objid ("f3b481ad-a10c-4b94-ab4b-879b10afb17d")
     private Dimension difference;
 
     /**

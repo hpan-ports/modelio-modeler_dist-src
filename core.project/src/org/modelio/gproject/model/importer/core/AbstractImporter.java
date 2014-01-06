@@ -27,6 +27,8 @@ import java.util.List;
 import java.util.Map.Entry;
 import java.util.Map;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
+import org.modelio.gproject.fragment.IProjectFragment;
+import org.modelio.gproject.gproject.GProject;
 import org.modelio.gproject.model.facilities.BrokenElementTester;
 import org.modelio.metamodel.Metamodel;
 import org.modelio.metamodel.mda.Project;
@@ -64,7 +66,7 @@ public abstract class AbstractImporter {
         importDependencies();
         
         // STEP 4: Process orphan roots
-        fixOrphanRoots(localSession, localRoot, refRoots);
+        fixRoots(localSession, localRoot, refRoots);
         
         // STEP 5: Fix broken elements
         fixElements(localSession, refSession);
@@ -112,8 +114,17 @@ public abstract class AbstractImporter {
     @objid ("008ea44a-5246-1091-8d81-001ec947cd2a")
     protected abstract void importReferenceDependencies(final SmObjectImpl refObject, SmObjectImpl localObject);
 
+    /**
+     * Post process imported roots composition relation.
+     * <p>
+     * Should ensure that all imported roots have a composition owner.<br>
+     * This method should look for orphan elements then call {@link #reparentElements(Map, ICoreSession, SmObjectImpl)}.
+     * @param localSession the target session
+     * @param localRoot the target element
+     * @param refRoots the imported roots in the source model.
+     */
     @objid ("008df932-5246-1091-8d81-001ec947cd2a")
-    protected final void fixOrphanRoots(final ICoreSession localSession, final SmObjectImpl localRoot, List<SmObjectImpl> refRoots) {
+    protected void fixRoots(final ICoreSession localSession, final SmObjectImpl localRoot, List<SmObjectImpl> refRoots) {
         // Gather all root orphans
         Map<SmObjectImpl, SmDependency> rootOrphans = new HashMap<>();
         for (SmObjectImpl refRoot : refRoots) {
@@ -128,12 +139,29 @@ public abstract class AbstractImporter {
             }
         }
         
-        fixOrphanRoots(rootOrphans, localSession, localRoot);
+        // Reparent only orphan roots
+        reparentElements(rootOrphans, localSession, localRoot);
     }
 
+    /**
+     * Called by {@link #fixRoots(ICoreSession, SmObjectImpl, List)}.
+     * <p>
+     * Change the composition owner of the map keys to the given parent, using the map values
+     * as dependency.
+     * @param toReparent the map of elements to reparent in the target local model
+     * @param localSession the target local session
+     * @param localRoot the target root destination element where roots should be reparented to.
+     */
     @objid ("008e597c-5246-1091-8d81-001ec947cd2a")
-    protected abstract void fixOrphanRoots(Map<SmObjectImpl, SmDependency> orphans, ICoreSession localSession, SmObjectImpl localRoot);
+    protected abstract void reparentElements(Map<SmObjectImpl, SmDependency> toReparent, ICoreSession localSession, SmObjectImpl localRoot);
 
+    /**
+     * Fix all imported elements.
+     * <p>
+     * Either repair or delete broken elements.
+     * @param localSession the target model session
+     * @param refSession the source model session
+     */
     @objid ("008debcc-5246-1091-8d81-001ec947cd2a")
     protected final void fixElements(ICoreSession localSession, ICoreSession refSession) {
         for (Entry<SmObjectImpl, SmObjectImpl> entry : this.result.getCreations().entrySet()) {
@@ -155,14 +183,26 @@ public abstract class AbstractImporter {
         }
     }
 
+    /**
+     * Fix the given element if broken.
+     * @param localObject the target model object to fix
+     * @param refObject the source model object
+     * @param localSession the target model session
+     * @param refSession the source model session
+     */
     @objid ("008e4112-5246-1091-8d81-001ec947cd2a")
     protected abstract void fixElement(SmObjectImpl localObject, final SmObjectImpl refObject, ICoreSession localSession, ICoreSession refSession);
 
+    /**
+     * Iterates ~garbaged~ elements,
+     * Finds the orphan elements that are not root elements,
+     * then schedule them for deletion.
+     */
     @objid ("008789c6-e548-108f-8d81-001ec947cd2a")
     protected final void collectGarbage() {
         // Iterates ~garbaged~ elements,
         // Finds the orphan elements that are not root elements,
-        // then delete them.
+        // then schedule them for deletion.
         BrokenElementTester tester = new BrokenElementTester();
         
         // Get rid of orphan
@@ -188,6 +228,9 @@ public abstract class AbstractImporter {
         }
     }
 
+    /**
+     * Delete objects scheduled for deletion.
+     */
     @objid ("008e3334-5246-1091-8d81-001ec947cd2a")
     protected void deleteGarbage() {
         for (SmObjectImpl localObjectToDelete : this.result.getDeletions()) {
@@ -195,9 +238,74 @@ public abstract class AbstractImporter {
         }
     }
 
+    /**
+     * Test whether the given model object is a composition root.
+     * @param obj a model object
+     * @return <code>true</code> only if it is a composition root.
+     */
     @objid ("0087a488-e548-108f-8d81-001ec947cd2a")
-    protected static boolean isRoot(final SmObjectImpl obj) {
+    public static boolean isRoot(final SmObjectImpl obj) {
+        // Look for the fragment and search obj in its roots.
+        GProject proj = GProject.getProject(obj);
+        if (proj != null) {
+            IProjectFragment f = proj.getFragment(obj);
+            if (f != null) {
+                return f.getRoots().contains(obj);
+            }
+        }
+        
+        // Test for known root metaclass
         return obj.getMClass() == Metamodel.getMClass(Project.class);
+    }
+
+    /**
+     * Run a copy/import operation on multiple roots at the same time.
+     * <p/>
+     * @param localSession the destination session
+     * @param localRootList the destination root elements
+     * @param refSession the source modeling session
+     * @param refRootsList the elements to copy/import
+     * @return the result of the import operation
+     */
+    @objid ("660c3522-3c87-46c8-be6d-a3bce980c603")
+    public final IImportReport execute(final ICoreSession localSession, final List<SmObjectImpl> localRootList, final ICoreSession refSession, List<List<SmObjectImpl>> refRootsList) {
+        if (localRootList.size() != refRootsList.size()) {
+            throw new IllegalArgumentException(localRootList.size() +" local roots but " +refRootsList.size()+ " reference roots.");
+        }
+        
+        this.result = new Result();
+        
+        List<SmObjectImpl> mergedRefRoots = new ArrayList<>();
+        for (List<SmObjectImpl> refList : refRootsList )
+            mergedRefRoots.addAll(refList);
+        
+        // STEP 1:
+        prepare(localSession, localRootList.get(0), refSession, mergedRefRoots);
+            
+        // STEP 2: Create or find all 'nodes' and update meta-attributes
+        importElements(localSession, localRootList.get(0), refSession, mergedRefRoots);
+        
+        // STEP 3: fill links between nodes
+        importDependencies();
+        
+        // STEP 4: Process orphan roots
+        for (int i = 0; i < localRootList.size(); i++) {
+            SmObjectImpl localRoot = localRootList.get(i);
+            List<SmObjectImpl> refRoots = refRootsList.get(i);
+            fixRoots(localSession, localRoot, refRoots);
+        }
+        
+        // STEP 5: Fix broken elements
+        fixElements(localSession, refSession);
+        
+        // STEP 6: Mark all remaining orphan elements as 'to delete'
+        collectGarbage();
+        
+        // STEP 7: Definitively delete unwanted elements
+        deleteGarbage();
+        
+        // STEP 8: Build the import report
+        return new ImportReport(this.result);
     }
 
     @objid ("00924ae6-5246-1091-8d81-001ec947cd2a")

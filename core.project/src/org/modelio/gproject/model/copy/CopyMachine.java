@@ -23,6 +23,7 @@ package org.modelio.gproject.model.copy;
 
 import java.security.InvalidParameterException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map.Entry;
 import java.util.Map;
@@ -101,23 +102,23 @@ public class CopyMachine extends DefaultImporter {
 
     @objid ("000cfcc4-5247-1091-8d81-001ec947cd2a")
     @Override
-    protected void fixOrphanRoots(Map<SmObjectImpl, SmDependency> orphans, ICoreSession localSession, SmObjectImpl localRoot) {
-        if (localRoot == null && isMonoSession()) {
-            for (Entry<SmObjectImpl, SmDependency> orphanEntry : orphans.entrySet()) {
-                SmObjectImpl orphan = orphanEntry.getKey();
+    protected void reparentElements(Map<SmObjectImpl, SmDependency> toReparent, ICoreSession localSession, SmObjectImpl newLocalParent) {
+        if (newLocalParent == null && isMonoSession()) {
+            for (Entry<SmObjectImpl, SmDependency> elemEntry : toReparent.entrySet()) {
+                SmObjectImpl orphan = elemEntry.getKey();
         
                 for (Entry<SmObjectImpl, SmObjectImpl> entry : this.result.getCreations().entrySet()) {
                     SmObjectImpl localObject = entry.getValue();
                     if (orphan.equals(localObject)) {
                         SmObjectImpl refObject = entry.getKey();
                         CompositionInitializer initializer = new CompositionInitializer(refObject.getCompositionOwner());
-                        initializer.execute(orphan, orphanEntry.getValue());
+                        initializer.execute(orphan, elemEntry.getValue());
                         break;
                     }
                 }
             }
         } else {
-            super.fixOrphanRoots(orphans, localSession, localRoot);
+            super.reparentElements(toReparent, localSession, newLocalParent);
         }
     }
 
@@ -136,54 +137,26 @@ public class CopyMachine extends DefaultImporter {
     }
 
     /**
-     * Run a copy operation on multiple roots at the same time.
-     * <p/>
-     * @param localSession the destination session
-     * @param localRootList the destination root elements
-     * @param refSession the source modeling session
-     * @param refRootsList the elements to copy/import
-     * @return the result of the import operation
+     * Redefined to reparent all selection roots, orphan or not.
      */
-    @objid ("d57397e2-ea50-4192-9efd-0fecd3388e33")
-    public IImportReport execute(final ICoreSession localSession, final List<SmObjectImpl> localRootList, final ICoreSession refSession, List<List<SmObjectImpl>> refRootsList) {
-        if (localRootList.size() != refRootsList.size()) {
-            throw new InvalidParameterException();
+    @objid ("097acc3b-4530-4bf5-90ef-efc690b0302c")
+    @Override
+    protected void fixRoots(final ICoreSession localSession, final SmObjectImpl localRoot, List<SmObjectImpl> refRoots) {
+        // Gather all roots, orphans or not
+        Map<SmObjectImpl, SmDependency> toReparent = new HashMap<>();
+        for (SmObjectImpl refRoot : refRoots) {
+            SmObjectImpl localObject = this.result.getObjectCreatedFrom(refRoot);
+        
+            if (localObject == null) {
+                localObject = this.result.getObjectUpdatedFrom(refRoot);
+            }
+        
+            if (localObject!=null) {
+                toReparent.put(localObject, refRoot.getCompositionRelation().dep);
+            }
         }
         
-        this.result = new Result();
-        
-        for (int i = 0; i < localRootList.size(); i++) {
-            SmObjectImpl localRoot = localRootList.get(i);
-            List<SmObjectImpl> refRoots = refRootsList.get(i);
-        
-            // STEP 1:
-            prepare(localSession, localRoot, refSession, refRoots);
-        
-            // STEP 2: Create or find all 'nodes' and update meta-attributes
-            importElements(localSession, localRoot, refSession, refRoots);
-        }
-        
-        // STEP 3: fill links between nodes
-        importDependencies();
-        
-        // STEP 4: Process orphan roots
-        for (int i = 0; i < localRootList.size(); i++) {
-            SmObjectImpl localRoot = localRootList.get(i);
-            List<SmObjectImpl> refRoots = refRootsList.get(i);
-            fixOrphanRoots(localSession, localRoot, refRoots);
-        }
-        
-        // STEP 5: Fix broken elements
-        fixElements(localSession, refSession);
-        
-        // STEP 6: Mark all remaining orphan elements as 'to delete'
-        collectGarbage();
-        
-        // STEP 7: Definitively delete unwanted elements
-        deleteGarbage();
-        
-        // STEP 8: Build the import report
-        return new ImportReport(this.result);
+        reparentElements(toReparent, localSession, localRoot);
     }
 
 }

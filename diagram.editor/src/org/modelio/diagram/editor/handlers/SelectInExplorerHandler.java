@@ -70,8 +70,10 @@ public class SelectInExplorerHandler {
             for (Object selectedObject : selectionAsList) {
                 if (selectedObject instanceof GraphicalEditPart) {
                     GraphicalEditPart editPart = (GraphicalEditPart) selectedObject;
-                    final MObject elt = ((GmModel) editPart.getModel()).getRelatedElement();
-                    selectedElements.add(elt);
+                    
+                    final MObject elt = (MObject) editPart.getAdapter(MObject.class);
+                    if (elt != null)
+                        selectedElements.add(elt);
                 }
             }
         }

@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.analyst;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
@@ -32,16 +32,16 @@ import org.modelio.metamodel.uml.infrastructure.ModelElement;
 
 @objid ("ab041cd6-1250-48a8-9ddb-0a1064baf5c4")
 public interface AnalystItem extends ModelElement {
-    @objid ("70b93023-9bb8-4ca9-b17e-3a1b009bb995")
+    @objid ("6b453462-19ca-4cd2-bee0-955e3f9ee137")
     String getDefinition();
 
-    @objid ("62398d17-1d3b-40bb-92c1-0a919d00ea50")
+    @objid ("e9588571-e3f0-4cf6-a4d3-116d18a3d265")
     void setDefinition(String value);
 
-    @objid ("16b3f511-b849-44d9-a279-6268562fe8fc")
+    @objid ("077c9f80-f868-4281-9544-7cc509010db0")
     AnalystPropertyTable getAnalystProperties();
 
-    @objid ("98392e02-2572-420e-b008-db529feba861")
+    @objid ("e6246207-d7bd-405e-b53d-00839c35af21")
     void setAnalystProperties(AnalystPropertyTable value);
 
 }

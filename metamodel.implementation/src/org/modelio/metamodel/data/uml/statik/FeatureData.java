@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.data.uml.statik;
 
 import java.util.ArrayList;
@@ -45,43 +45,43 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("000b775a-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=Feature.class, factory=FeatureData.Metadata.ObjectFactory.class)
 public abstract class FeatureData extends ModelElementData {
-    @objid ("8d2f029e-07a6-46a6-8951-68dfb2787c48")
+    @objid ("b0443063-63f2-4a90-ac19-99e7e919ce49")
     @SmaMetaAttribute(metaName="Visibility", type=VisibilityMode.class, smAttributeClass=Metadata.VisibilitySmAttribute.class)
      Object mVisibility = VisibilityMode.PUBLIC;
 
-    @objid ("3f518e29-681f-4a7e-aee8-9f57a5e7f16e")
+    @objid ("217fe7b0-9f13-4c9c-825b-3a5f8a8808cf")
     @SmaMetaAttribute(metaName="IsClass", type=Boolean.class, smAttributeClass=Metadata.IsClassSmAttribute.class)
      Object mIsClass = false;
 
-    @objid ("8abe2494-c580-479c-91cd-6d0aace31c2f")
+    @objid ("e5581681-d1ec-4de4-adb7-43838c17ba69")
     @SmaMetaAttribute(metaName="IsAbstract", type=Boolean.class, smAttributeClass=Metadata.IsAbstractSmAttribute.class)
      Object mIsAbstract = false;
 
-    @objid ("6545646c-d7a9-40b1-a46a-2dc1dd7827e5")
+    @objid ("91ead244-a4a5-4e18-ba7a-dc26a7a87743")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("00230b68-c4c4-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("c5955a67-432e-4e69-9b17-4e4305b94ef8")
+        @objid ("dc9ed288-d276-4144-8f7f-d036ccc82cd6")
         private static SmClass smClass = null;
 
-        @objid ("5c5c7b30-7d30-461f-a30d-378afdc67731")
+        @objid ("6ffed4fd-9cbc-4d58-9827-787839469878")
         private static SmAttribute VisibilityAtt = null;
 
-        @objid ("a1851d4b-7f9b-4d7d-9618-f39daabc8933")
+        @objid ("cd673e09-340d-4720-84a6-97c92b7cd02a")
         private static SmAttribute IsClassAtt = null;
 
-        @objid ("8617aec9-8798-45d3-8f8a-cd4576a7ae5b")
+        @objid ("124b5afc-0f25-41d7-be7f-65dfdfb7ae80")
         private static SmAttribute IsAbstractAtt = null;
 
-        @objid ("9d92a728-326d-4451-ba20-4167a2e72337")
+        @objid ("44d18e93-4b2e-470f-a59e-57ebe0798427")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(FeatureData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("b323c4d1-44dd-4670-a08e-15f0826d4be8")
+        @objid ("792052ca-bae5-4e63-98de-8c2090148653")
         public static SmAttribute VisibilityAtt() {
             if (VisibilityAtt == null) {
             	VisibilityAtt = classof().getAttributeDef("Visibility");
@@ -89,7 +89,7 @@ public abstract class FeatureData extends ModelElementData {
             return VisibilityAtt;
         }
 
-        @objid ("771b35e8-54ad-4911-bc51-86d414e59fb0")
+        @objid ("ba9b636f-e749-4eb8-8abd-698980b83c86")
         public static SmAttribute IsClassAtt() {
             if (IsClassAtt == null) {
             	IsClassAtt = classof().getAttributeDef("IsClass");
@@ -97,7 +97,7 @@ public abstract class FeatureData extends ModelElementData {
             return IsClassAtt;
         }
 
-        @objid ("1307318c-8848-4f7c-ac61-0f5dbd44f7cd")
+        @objid ("cfa2219a-2b98-443f-a538-19a62b87f31c")
         public static SmAttribute IsAbstractAtt() {
             if (IsAbstractAtt == null) {
             	IsAbstractAtt = classof().getAttributeDef("IsAbstract");
@@ -105,25 +105,25 @@ public abstract class FeatureData extends ModelElementData {
             return IsAbstractAtt;
         }
 
-        @objid ("4f553774-21f0-4590-8e52-b1b24512f9b7")
-        public static SmClass getSmClass() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return smClass;
-        }
-
-        @objid ("c8c8e9bb-3e8e-4608-aff9-2455e58b68fc")
-        public static SmAttribute getIsAbstractAtt() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return IsAbstractAtt;
-        }
-
-        @objid ("0a1ecf09-7eba-4f13-b6c0-8fbc37f2151e")
+        @objid ("69eff208-1954-4998-87b7-406825f74bf9")
         public static SmAttribute getIsClassAtt() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return IsClassAtt;
         }
 
-        @objid ("032e7cfa-5670-46de-a244-876ec8cb0c39")
+        @objid ("683b29d9-bab6-41d9-9941-49b9588a932c")
+        public static SmClass getSmClass() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return smClass;
+        }
+
+        @objid ("33456232-138f-42ad-9972-8fa886752ff9")
+        public static SmAttribute getIsAbstractAtt() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return IsAbstractAtt;
+        }
+
+        @objid ("28ae7c60-5aeb-4264-91ca-33ab4ad6dd85")
         public static SmAttribute getVisibilityAtt() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return VisibilityAtt;
@@ -131,12 +131,12 @@ public abstract class FeatureData extends ModelElementData {
 
         @objid ("00234b8c-c4c4-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("02623bb0-3ff7-4ff7-b9ac-e43eef5b5374")
+            @objid ("96bbf690-4262-4249-afb1-5f6d8bb588f1")
             public ISmObjectData createData() {
                 throw new UnsupportedOperationException();
             }
 
-            @objid ("8eb20ed4-6b78-4e50-be53-b5a47ec67169")
+            @objid ("96ea70ae-2ba3-4d72-8045-133ce333133f")
             public SmObjectImpl createImpl() {
                 throw new UnsupportedOperationException();
             }
@@ -145,12 +145,12 @@ public abstract class FeatureData extends ModelElementData {
 
         @objid ("0023b0fe-c4c4-1fd8-97fe-001ec947cd2a")
         public static class VisibilitySmAttribute extends SmAttribute {
-            @objid ("5f1bcfa3-a3e5-46b2-a720-fe2790cc49e0")
+            @objid ("eed631d9-4239-4dce-abb1-7e8c64b4edc5")
             public Object getValue(ISmObjectData data) {
                 return ((FeatureData) data).mVisibility;
             }
 
-            @objid ("f985a4f7-b391-44e7-8945-4a8d9702e93f")
+            @objid ("259300a9-4b48-4f3f-975d-e6ae36787abe")
             public void setValue(ISmObjectData data, Object value) {
                 ((FeatureData) data).mVisibility = value;
             }
@@ -159,12 +159,12 @@ public abstract class FeatureData extends ModelElementData {
 
         @objid ("00241206-c4c4-1fd8-97fe-001ec947cd2a")
         public static class IsClassSmAttribute extends SmAttribute {
-            @objid ("b9ede04e-db15-4acc-b41a-ac669bfefe63")
+            @objid ("46434431-bf66-4373-bd8b-be9d91c1c043")
             public Object getValue(ISmObjectData data) {
                 return ((FeatureData) data).mIsClass;
             }
 
-            @objid ("25d215c4-7da1-4f74-b535-31f0441f4496")
+            @objid ("7f6b8d9c-ba27-40c6-8b17-f3dc8ab09067")
             public void setValue(ISmObjectData data, Object value) {
                 ((FeatureData) data).mIsClass = value;
             }
@@ -173,12 +173,12 @@ public abstract class FeatureData extends ModelElementData {
 
         @objid ("002471ec-c4c4-1fd8-97fe-001ec947cd2a")
         public static class IsAbstractSmAttribute extends SmAttribute {
-            @objid ("42ea8f11-ed27-4f01-95dd-e1bf3b7786c4")
+            @objid ("062d8dec-2e8e-4663-8fd7-c7692e9f152d")
             public Object getValue(ISmObjectData data) {
                 return ((FeatureData) data).mIsAbstract;
             }
 
-            @objid ("b9f2d65e-fd63-4693-825f-91b9d32c96c2")
+            @objid ("c8692e7b-9345-40ca-95d9-314d3cda0ccb")
             public void setValue(ISmObjectData data, Object value) {
                 ((FeatureData) data).mIsAbstract = value;
             }

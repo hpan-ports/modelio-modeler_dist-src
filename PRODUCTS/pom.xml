@@ -5,12 +5,12 @@
 	<parent>
 		<groupId>org.modelio</groupId>
 		<artifactId>modelio</artifactId>
-		<version>3.0.0-SNAPSHOT</version>
+		<version>3.1.0-SNAPSHOT</version>
 	</parent>
 
 	<groupId>PRODUCTS</groupId>
 	<artifactId>PRODUCTS</artifactId>
-	<version>3.0.0-SNAPSHOT</version>
+	<version>1.0.0-SNAPSHOT</version>
 	
 	<build>
 		<plugins>
@@ -43,7 +43,7 @@
 						<product>
 							<id>org.modelio.product</id>
 							<attachId>OpenSource</attachId>
-							<rootFolder></rootFolder>
+							<rootFolder>Modelio 3.1</rootFolder>
 						</product>
 					</products>
 					<installFeatures>true</installFeatures>

@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.uml.behavior.interactionModel;
 
 import java.util.List;
@@ -32,16 +32,16 @@ import org.modelio.metamodel.uml.behavior.interactionModel.GeneralOrdering;
 
 @objid ("004a586c-c4bf-1fd8-97fe-001ec947cd2a")
 public interface OccurrenceSpecification extends InteractionFragment {
-    @objid ("e5f3f208-e3e4-4e7c-86b3-283f17821cf4")
+    @objid ("408f752f-f424-4d7a-8b64-0597d0b5a9a9")
     EList<GeneralOrdering> getToAfter();
 
-    @objid ("6cfe1da4-2008-4f34-906d-bd532a4db0c8")
+    @objid ("aa2afc3c-eedf-4c4d-ba9c-0a517e4748de")
     <T extends GeneralOrdering> List<T> getToAfter(java.lang.Class<T> filterClass);
 
-    @objid ("3b42bc63-c300-4b01-8ea8-d3c66f8a0785")
+    @objid ("bc07c4ef-f638-426b-8385-b12d815f9002")
     EList<GeneralOrdering> getToBefore();
 
-    @objid ("ed982ca1-22a6-44f5-896f-c554eaeb216c")
+    @objid ("8da80f27-3068-4578-92eb-b99a858a8de7")
     <T extends GeneralOrdering> List<T> getToBefore(java.lang.Class<T> filterClass);
 
 }

@@ -38,11 +38,9 @@ import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.RequestConstants;
 import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
-import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Control;
-import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.ScrollBar;
 import org.eclipse.swt.widgets.Scrollable;
 import org.modelio.gproject.model.IMModelServices;
@@ -98,6 +96,8 @@ public class BackgroundEditPart extends AbstractGraphicalEditPart implements Pro
     public void performRequest(final Request req) {
         if (RequestConstants.REQ_OPEN.equals(req.getType())) {
             LinkEditorView.getOptions().setPinned(!LinkEditorView.getOptions().isPinned());
+            LinkEditorView.configureToolbar();
+            getModel().contentChanged();
         } else {
             super.performRequest(req);
         }
@@ -115,8 +115,7 @@ public class BackgroundEditPart extends AbstractGraphicalEditPart implements Pro
             BackgroundEditPart.VERTICAL_RANK_GAP = -BackgroundEditPart.VERTICAL_GAP / 4 * 3;
             BackgroundEditPart.HORIZONTAL_GAP = (int) (BackgroundEditPart.HORIZONTAL_RANK_GAP * 1.5);
         
-            this.getFigure().setBackgroundColor(
-                    (LinkEditorView.getOptions().isPinned() ? UIColor.TEXT_WRITABLE_BG : UIColor.TEXT_READONLY_BG));
+            this.getFigure().setBackgroundColor((LinkEditorView.getOptions().isPinned() ? UIColor.TEXT_WRITABLE_BG : UIColor.POST_IT_BG));
             this.getFigure().getUpdateManager().addInvalidFigure(this.getFigure());
         
             this.refreshChildren();
@@ -147,7 +146,7 @@ public class BackgroundEditPart extends AbstractGraphicalEditPart implements Pro
         FreeformLayer freeformLayer = new FreeformLayer();
         freeformLayer.setLayoutManager(new FreeformLayout());
         freeformLayer.setOpaque(true);
-        Color swtColor = LinkEditorView.getOptions().isPinned() ? UIColor.TEXT_WRITABLE_BG : UIColor.TEXT_READONLY_BG;
+        Color swtColor = LinkEditorView.getOptions().isPinned() ? UIColor.TEXT_WRITABLE_BG : UIColor.POST_IT_BG;
         freeformLayer.setBackgroundColor(swtColor);
         return freeformLayer;
     }

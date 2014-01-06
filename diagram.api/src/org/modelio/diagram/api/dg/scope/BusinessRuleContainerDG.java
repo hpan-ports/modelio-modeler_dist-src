@@ -52,7 +52,7 @@ public class BusinessRuleContainerDG extends PortContainerDG {
         // Inner nodes
         GmFreeZone bodyNode = (GmFreeZone) ((GmCompositeNode) getPrimaryNode()).getFirstChild("body");
         if (bodyNode != null) {
-            return DGFactory.getInstance().getDiagramNodes(this.diagramHandle, bodyNode.getChildren());
+            return DGFactory.getInstance().getDiagramNodes(this.diagramHandle, bodyNode.getVisibleChildren());
         } else {
             return Collections.emptyList();
         }

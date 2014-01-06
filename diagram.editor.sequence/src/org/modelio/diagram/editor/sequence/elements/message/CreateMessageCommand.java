@@ -27,6 +27,11 @@ import org.modelio.diagram.elements.core.link.CreateBendedConnectionRequest;
 import org.modelio.diagram.elements.core.link.DefaultCreateLinkCommand;
 import org.modelio.diagram.elements.core.link.ModelioLinkCreationContext;
 import org.modelio.diagram.elements.core.model.ModelManager;
+import org.modelio.metamodel.Metamodel;
+import org.modelio.metamodel.uml.behavior.interactionModel.Gate;
+import org.modelio.metamodel.uml.behavior.interactionModel.Message;
+import org.modelio.vcore.smkernel.mapi.MClass;
+import org.modelio.vcore.smkernel.mapi.MObject;
 
 /**
  * Command that creates a relationship element between the 2 node model org.modelio.diagram.editor.sequence.elements represented by the given EditPart.
@@ -54,7 +59,28 @@ public class CreateMessageCommand extends DefaultCreateLinkCommand {
     @objid ("d94fd461-55b6-11e2-877f-002564c97630")
     @Override
     public boolean canExecute() {
-        return super.canExecute();
+        if (super.canExecute()) {
+            // If it is an actual creation (and not a simple unmasking).
+            if (this.context.getElementToUnmask() == null) {
+                MClass toCreateMetaclass = Metamodel.getMClass(this.context.getMetaclass());
+                if (toCreateMetaclass == Metamodel.getMClass(Message.class))
+                if (this.targetNode != null) {
+                    final MObject targetEl = this.targetNode.getRelatedElement();
+                    if (targetEl instanceof Gate) {
+                        // Creation and destruction messages targeting a gate are forbidden
+                        MessageType type = MessageType.valueOf((String) this.context.getProperties().get("messageType"));
+                        switch (type) {
+                        case Creation:
+                        case Destruction:
+                            return false;
+                        default:
+                        }
+                    }
+                }
+            }
+            return true;
+        }
+        return false;
     }
 
     @objid ("d9515adb-55b6-11e2-877f-002564c97630")

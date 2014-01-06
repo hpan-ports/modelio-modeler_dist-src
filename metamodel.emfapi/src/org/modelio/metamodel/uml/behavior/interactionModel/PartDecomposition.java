@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.uml.behavior.interactionModel;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
@@ -31,10 +31,10 @@ import org.modelio.metamodel.uml.behavior.interactionModel.Lifeline;
 
 @objid ("004ae91c-c4bf-1fd8-97fe-001ec947cd2a")
 public interface PartDecomposition extends InteractionUse {
-    @objid ("b0906459-0b7f-4dea-9ad2-d0d807289dbe")
+    @objid ("8f7657f0-74d4-4eb1-a6ca-a8efa70e01f4")
     Lifeline getDecomposed();
 
-    @objid ("e9e21e3b-93f3-4311-a48a-1c8cbb5156f4")
+    @objid ("ac7c3054-44c2-4d10-9acd-8064db253fa5")
     void setDecomposed(Lifeline value);
 
 }

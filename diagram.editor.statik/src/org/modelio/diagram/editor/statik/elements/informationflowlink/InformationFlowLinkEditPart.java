@@ -22,6 +22,7 @@
 package org.modelio.diagram.editor.statik.elements.informationflowlink;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
+import org.eclipse.draw2d.Connection;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.PolylineConnection;
 import org.eclipse.draw2d.PolylineDecoration;
@@ -29,9 +30,13 @@ import org.eclipse.gef.EditPolicy;
 import org.eclipse.swt.SWT;
 import org.modelio.diagram.elements.common.linkednode.LinkedNodeRequestConstants;
 import org.modelio.diagram.elements.common.linkednode.LinkedNodeStartCreationEditPolicy;
+import org.modelio.diagram.elements.core.figures.IPenOptionsSupport;
+import org.modelio.diagram.elements.core.figures.LinkFigure;
+import org.modelio.diagram.elements.core.figures.RoundedLinkFigure;
 import org.modelio.diagram.elements.core.figures.decorations.DefaultPolygonDecoration;
 import org.modelio.diagram.elements.core.figures.decorations.DefaultPolylineDecoration;
 import org.modelio.diagram.elements.core.link.DefaultCreateLinkEditPolicy;
+import org.modelio.diagram.elements.core.link.GmLink;
 import org.modelio.diagram.elements.core.link.GmLinkEditPart;
 import org.modelio.diagram.elements.core.link.extensions.FractionalConnectionLocator;
 import org.modelio.diagram.elements.core.model.IGmObject;
@@ -39,6 +44,8 @@ import org.modelio.diagram.elements.core.tools.multipoint.CreateMultiPointReques
 import org.modelio.diagram.elements.umlcommon.constraint.ConstraintLinkEditPolicy;
 import org.modelio.diagram.styles.core.IStyle;
 import org.modelio.diagram.styles.core.MetaKey;
+import org.modelio.diagram.styles.core.StyleKey.LinePattern;
+import org.modelio.diagram.styles.core.StyleKey;
 
 /**
  * Edit part for {@link GmInformationFlowLink}.
@@ -69,21 +76,8 @@ public class InformationFlowLinkEditPart extends GmLinkEditPart {
         arrow.setFill(false);
         connection.setTargetDecoration(arrow);
         
-        // Information flow arrow
-        this.deco = new DefaultPolygonDecoration();
-        this.deco.setTemplate(PolylineDecoration.TRIANGLE_TIP);
-        this.deco.setScale(12, 10);
-        this.deco.setOpaque(true);
-        this.deco.setFill(true);
-        
-        FractionalConnectionLocator locator = new FractionalConnectionLocator(connection, 0.66);
-        locator.setTowardTarget(true);
-        connection.add(this.deco, locator);
-        
-        refreshFromStyle(connection, getModelStyle());
-        
         // Set style dependent properties
-        // Already done by super.createFigure()
+        refreshFromStyle(connection, getModelStyle());
         return connection;
     }
 
@@ -92,9 +86,21 @@ public class InformationFlowLinkEditPart extends GmLinkEditPart {
     protected void refreshFromStyle(final IFigure aFigure, final IStyle style) {
         super.refreshFromStyle(aFigure, style);
         
-        if (this.deco != null) {
-            IGmObject gmModel = (IGmObject) getModel();
+        final GmInformationFlowLink gmModel = (GmInformationFlowLink) getModel();
         
+        PolylineConnection connection = (PolylineConnection) aFigure;
+        if (style.getBoolean(StyleKey.getInstance("INFOFLOWLINK_SHOWFLOWARROW"))) {
+            showFlowArrow(connection);
+        } else {
+            hideFlowArrow(connection);
+        }
+        
+        if (gmModel.getHeader() != null) {
+            gmModel.getHeader().setShowLabel(style.getBoolean(gmModel.getStyleKey(MetaKey.SHOWLABEL)));
+            
+        } else System.out.println("NULL");
+        
+        if (this.deco != null) {
             if (gmModel.getStyleKey(MetaKey.LINECOLOR) != null)
                 this.deco.setFillColor(style.getColor(gmModel.getStyleKey(MetaKey.LINECOLOR)));
         }
@@ -106,9 +112,32 @@ public class InformationFlowLinkEditPart extends GmLinkEditPart {
         super.createEditPolicies();
         
         installEditPolicy(EditPolicy.NODE_ROLE, new DefaultCreateLinkEditPolicy());
-        installEditPolicy(LinkedNodeRequestConstants.REQ_LINKEDNODE_START,
-                          new LinkedNodeStartCreationEditPolicy());
+        installEditPolicy(LinkedNodeRequestConstants.REQ_LINKEDNODE_START, new LinkedNodeStartCreationEditPolicy());
         installEditPolicy(CreateMultiPointRequest.REQ_MULTIPOINT_FIRST, new ConstraintLinkEditPolicy(false));
+    }
+
+    @objid ("1ac0d31e-9146-4f4f-9a76-64e16825d496")
+    private void showFlowArrow(final PolylineConnection connection) {
+        if (this.deco != null)
+            hideFlowArrow(connection);
+        
+        this.deco = new DefaultPolygonDecoration();
+        this.deco.setTemplate(PolylineDecoration.TRIANGLE_TIP);
+        this.deco.setScale(12, 10);
+        this.deco.setOpaque(true);
+        this.deco.setFill(true);
+        
+        FractionalConnectionLocator locator = new FractionalConnectionLocator(connection, 0.66);
+        locator.setTowardTarget(true);
+        connection.add(this.deco, locator);
+    }
+
+    @objid ("d4a7fe11-317d-45a3-84b1-954f3770bb3c")
+    private void hideFlowArrow(final PolylineConnection connection) {
+        if (this.deco != null) {
+            connection.remove(this.deco);
+            this.deco = null;
+        }
     }
 
 }

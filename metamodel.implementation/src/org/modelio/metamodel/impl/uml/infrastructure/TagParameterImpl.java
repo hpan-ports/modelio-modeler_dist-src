@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.uml.infrastructure;
 
 import java.util.ArrayList;
@@ -42,43 +42,43 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("008ec7d6-c4be-1fd8-97fe-001ec947cd2a")
 public class TagParameterImpl extends ElementImpl implements TagParameter {
-    @objid ("721a74a1-7842-4aa3-8ff4-1fbd2b9ee9b8")
+    @objid ("50f1ba14-72ab-4dfc-a92b-5fa968df8407")
     @Override
     public String getValue() {
         return (String) getAttVal(TagParameterData.Metadata.ValueAtt());
     }
 
-    @objid ("52d4b059-4219-40f3-a647-a596b82f2e37")
+    @objid ("0796413c-6d40-42bb-a970-fb1bcc30d648")
     @Override
     public void setValue(String value) {
         setAttVal(TagParameterData.Metadata.ValueAtt(), value);
     }
 
-    @objid ("b1e90265-b957-4369-8cc9-57ed19888a3d")
+    @objid ("d0df3780-624a-45cc-a4f1-b17e4af844ec")
     @Override
     public TaggedValue getAnnoted() {
         return (TaggedValue) getDepVal(TagParameterData.Metadata.AnnotedDep());
     }
 
-    @objid ("44e02261-b078-411e-9022-81d6d933094a")
+    @objid ("34e979cd-f18f-40ba-a39f-57a0eedec946")
     @Override
     public void setAnnoted(TaggedValue value) {
         appendDepVal(TagParameterData.Metadata.AnnotedDep(), (SmObjectImpl)value);
     }
 
-    @objid ("5d2a14a9-bb17-470a-b988-f0a946d4cfbc")
+    @objid ("78e0f607-57cd-4247-be95-5ef1f3a1c924")
     @Override
     public TaggedValue getQualified() {
         return (TaggedValue) getDepVal(TagParameterData.Metadata.QualifiedDep());
     }
 
-    @objid ("360b8aae-84f5-4441-874b-2d0792787cc9")
+    @objid ("16e24dc8-8fff-4d34-994a-20bcbc495342")
     @Override
     public void setQualified(TaggedValue value) {
         appendDepVal(TagParameterData.Metadata.QualifiedDep(), (SmObjectImpl)value);
     }
 
-    @objid ("7733e985-ac91-4cea-b521-7fa6e91ac30c")
+    @objid ("b530d5f9-d3af-4374-9ef3-ab6ce11e30f3")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
@@ -91,7 +91,7 @@ public class TagParameterImpl extends ElementImpl implements TagParameter {
         return super.getCompositionOwner();
     }
 
-    @objid ("41063339-980c-4809-af2a-8332bdff6b5e")
+    @objid ("ec4dd443-aca6-4fd9-957c-ebaa9b3b42ad")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
@@ -104,7 +104,7 @@ public class TagParameterImpl extends ElementImpl implements TagParameter {
         return super.getCompositionRelation();
     }
 
-    @objid ("4942e189-0b4b-4bd6-ad52-658139933bea")
+    @objid ("1c83b337-e6b9-42d7-aa74-bd6040b22b63")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitTagParameter(this);

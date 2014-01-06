@@ -119,21 +119,21 @@ public class FragmentImageService {
     @objid ("8acb7ee0-8813-43d3-afe1-35bb72db6dd3")
     public static Image getStateImage(FragmentState fragmentState) {
         switch (fragmentState) {
-            case DOWN:
-            case INITIAL:
-                return FRAG_STATE_DOWN;
-            case MOUNTING:
-                return FRAG_STATE_MOUNTING;
-            case UP_FULL:
-                return FRAG_STATE_UP;
-            case UP_LIGHT:
-                return FRAG_STATE_UP_LIGHT;
-            default:
-                return null;
+        case DOWN:
+        case INITIAL:
+            return FRAG_STATE_DOWN;
+        case MOUNTING:
+            return FRAG_STATE_MOUNTING;
+        case UP_FULL:
+            return FRAG_STATE_UP;
+        case UP_LIGHT:
+            return FRAG_STATE_UP_LIGHT;
+        default:
+            return null;
         }
     }
 
-    @objid ("ad06fb79-b76f-410d-9d2a-07f88b769e08")
+    @objid ("6bbbd64d-3ec5-46a6-b1b7-d86cdd90d1b7")
     public static Image getImage(FragmentDescriptor fragment) {
         // null object special case
         if (fragment == null) {
@@ -151,7 +151,7 @@ public class FragmentImageService {
 
 static {
         UNDEFINED_FRAGMENT_IMAGE = loadImage("sample.png");
-        
+
         upImages.put(FragmentType.EXML, loadImage("exmlfragment.png"));
         upImages.put(FragmentType.RAMC, loadImage("ramcfragment.png"));
         upImages.put(FragmentType.MDA, loadImage("modulefragment.png"));
@@ -166,7 +166,7 @@ static {
 
         UNDEFINED_FRAGMENT_DOWN_IMAGE = (new DecorationOverlayIcon(UNDEFINED_FRAGMENT_IMAGE, downOverlay,
                 IDecoration.BOTTOM_RIGHT)).createImage();
-        
+
         downImages.put(FragmentType.EXML, (new DecorationOverlayIcon(upImages.get(FragmentType.EXML), downOverlay,
                 IDecoration.BOTTOM_RIGHT)).createImage());
 
@@ -181,7 +181,7 @@ static {
 
         downImages.put(FragmentType.EXML_SVN, (new DecorationOverlayIcon(upImages.get(FragmentType.EXML_SVN), downOverlay,
                 IDecoration.BOTTOM_RIGHT)).createImage());
-        
+
         // fragment state images
         FRAG_STATE_DOWN = loadImage("fragment_state_down.png");
         FRAG_STATE_MOUNTING = loadImage("fragment_state_mounting.png");

@@ -19,6 +19,7 @@
 package org.modelio.api.model;
 
 import java.io.IOException;
+import java.nio.file.Path;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.metamodel.bpmn.activities.BpmnActivity;
@@ -26,7 +27,6 @@ import org.modelio.metamodel.bpmn.activities.BpmnAdHocSubProcess;
 import org.modelio.metamodel.bpmn.activities.BpmnBusinessRuleTask;
 import org.modelio.metamodel.bpmn.activities.BpmnCallActivity;
 import org.modelio.metamodel.bpmn.activities.BpmnComplexBehaviorDefinition;
-import org.modelio.metamodel.bpmn.activities.BpmnLoopCharacteristics;
 import org.modelio.metamodel.bpmn.activities.BpmnManualTask;
 import org.modelio.metamodel.bpmn.activities.BpmnMultiInstanceLoopCharacteristics;
 import org.modelio.metamodel.bpmn.activities.BpmnReceiveTask;
@@ -45,14 +45,11 @@ import org.modelio.metamodel.bpmn.bpmnService.BpmnInterface;
 import org.modelio.metamodel.bpmn.bpmnService.BpmnOperation;
 import org.modelio.metamodel.bpmn.events.BpmnBoundaryEvent;
 import org.modelio.metamodel.bpmn.events.BpmnCancelEventDefinition;
-import org.modelio.metamodel.bpmn.events.BpmnCatchEvent;
 import org.modelio.metamodel.bpmn.events.BpmnCompensateEventDefinition;
 import org.modelio.metamodel.bpmn.events.BpmnConditionalEventDefinition;
 import org.modelio.metamodel.bpmn.events.BpmnEndEvent;
 import org.modelio.metamodel.bpmn.events.BpmnErrorEventDefinition;
 import org.modelio.metamodel.bpmn.events.BpmnEscalationEventDefinition;
-import org.modelio.metamodel.bpmn.events.BpmnEvent;
-import org.modelio.metamodel.bpmn.events.BpmnEventDefinition;
 import org.modelio.metamodel.bpmn.events.BpmnImplicitThrowEvent;
 import org.modelio.metamodel.bpmn.events.BpmnIntermediateCatchEvent;
 import org.modelio.metamodel.bpmn.events.BpmnIntermediateThrowEvent;
@@ -61,7 +58,6 @@ import org.modelio.metamodel.bpmn.events.BpmnMessageEventDefinition;
 import org.modelio.metamodel.bpmn.events.BpmnSignalEventDefinition;
 import org.modelio.metamodel.bpmn.events.BpmnStartEvent;
 import org.modelio.metamodel.bpmn.events.BpmnTerminateEventDefinition;
-import org.modelio.metamodel.bpmn.events.BpmnThrowEvent;
 import org.modelio.metamodel.bpmn.events.BpmnTimerEventDefinition;
 import org.modelio.metamodel.bpmn.flows.BpmnMessage;
 import org.modelio.metamodel.bpmn.flows.BpmnMessageFlow;
@@ -69,7 +65,6 @@ import org.modelio.metamodel.bpmn.flows.BpmnSequenceFlow;
 import org.modelio.metamodel.bpmn.gateways.BpmnComplexGateway;
 import org.modelio.metamodel.bpmn.gateways.BpmnEventBasedGateway;
 import org.modelio.metamodel.bpmn.gateways.BpmnExclusiveGateway;
-import org.modelio.metamodel.bpmn.gateways.BpmnGateway;
 import org.modelio.metamodel.bpmn.gateways.BpmnInclusiveGateway;
 import org.modelio.metamodel.bpmn.gateways.BpmnParallelGateway;
 import org.modelio.metamodel.bpmn.objects.BpmnDataAssociation;
@@ -78,7 +73,6 @@ import org.modelio.metamodel.bpmn.objects.BpmnDataObject;
 import org.modelio.metamodel.bpmn.objects.BpmnDataOutput;
 import org.modelio.metamodel.bpmn.objects.BpmnDataState;
 import org.modelio.metamodel.bpmn.objects.BpmnDataStore;
-import org.modelio.metamodel.bpmn.objects.BpmnItemAwareElement;
 import org.modelio.metamodel.bpmn.objects.BpmnItemDefinition;
 import org.modelio.metamodel.bpmn.objects.BpmnSequenceFlowDataAssociation;
 import org.modelio.metamodel.bpmn.processCollaboration.BpmnCollaboration;
@@ -90,14 +84,9 @@ import org.modelio.metamodel.bpmn.resources.BpmnResource;
 import org.modelio.metamodel.bpmn.resources.BpmnResourceParameter;
 import org.modelio.metamodel.bpmn.resources.BpmnResourceParameterBinding;
 import org.modelio.metamodel.bpmn.resources.BpmnResourceRole;
-import org.modelio.metamodel.bpmn.rootElements.BpmnArtifact;
 import org.modelio.metamodel.bpmn.rootElements.BpmnAssociation;
-import org.modelio.metamodel.bpmn.rootElements.BpmnBaseElement;
 import org.modelio.metamodel.bpmn.rootElements.BpmnBehavior;
-import org.modelio.metamodel.bpmn.rootElements.BpmnFlowElement;
-import org.modelio.metamodel.bpmn.rootElements.BpmnFlowNode;
 import org.modelio.metamodel.bpmn.rootElements.BpmnGroup;
-import org.modelio.metamodel.bpmn.rootElements.BpmnRootElement;
 import org.modelio.metamodel.diagrams.ActivityDiagram;
 import org.modelio.metamodel.diagrams.ClassDiagram;
 import org.modelio.metamodel.diagrams.CommunicationDiagram;
@@ -148,6 +137,9 @@ import org.modelio.metamodel.uml.behavior.commonBehaviors.BehaviorParameter;
 import org.modelio.metamodel.uml.behavior.commonBehaviors.Event;
 import org.modelio.metamodel.uml.behavior.commonBehaviors.OpaqueBehavior;
 import org.modelio.metamodel.uml.behavior.commonBehaviors.Signal;
+import org.modelio.metamodel.uml.behavior.communicationModel.CommunicationChannel;
+import org.modelio.metamodel.uml.behavior.communicationModel.CommunicationMessage;
+import org.modelio.metamodel.uml.behavior.communicationModel.CommunicationNode;
 import org.modelio.metamodel.uml.behavior.interactionModel.CombinedFragment;
 import org.modelio.metamodel.uml.behavior.interactionModel.DurationConstraint;
 import org.modelio.metamodel.uml.behavior.interactionModel.ExecutionOccurenceSpecification;
@@ -193,6 +185,7 @@ import org.modelio.metamodel.uml.infrastructure.Dependency;
 import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.metamodel.uml.infrastructure.ExternDocument;
 import org.modelio.metamodel.uml.infrastructure.ExternDocumentType;
+import org.modelio.metamodel.uml.infrastructure.ExternProcessor;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
 import org.modelio.metamodel.uml.infrastructure.Note;
 import org.modelio.metamodel.uml.infrastructure.NoteType;
@@ -202,6 +195,9 @@ import org.modelio.metamodel.uml.infrastructure.TagParameter;
 import org.modelio.metamodel.uml.infrastructure.TagType;
 import org.modelio.metamodel.uml.infrastructure.TaggedValue;
 import org.modelio.metamodel.uml.infrastructure.Usage;
+import org.modelio.metamodel.uml.infrastructure.matrix.MatrixDefinition;
+import org.modelio.metamodel.uml.infrastructure.matrix.MatrixValueDefinition;
+import org.modelio.metamodel.uml.infrastructure.matrix.QueryDefinition;
 import org.modelio.metamodel.uml.infrastructure.properties.EnumeratedPropertyType;
 import org.modelio.metamodel.uml.infrastructure.properties.LocalPropertyTable;
 import org.modelio.metamodel.uml.infrastructure.properties.PropertyDefinition;
@@ -440,6 +436,9 @@ public interface IUmlModel {
     @objid ("f7f2af52-644e-11e0-b650-001ec947cd2a")
     Actor createActor(String name, NameSpace owner, Stereotype stereotype);
 
+    @objid ("ae17a569-020f-4958-9b56-5c1e5423a03f")
+    Actor createActor(String name, NameSpace owner, String moduleName, String stereotypeName) throws ExtensionNotFoundException;
+
     /**
      * Create an Artifact.
      * 
@@ -478,6 +477,9 @@ public interface IUmlModel {
     @objid ("f7f2af4f-644e-11e0-b650-001ec947cd2a")
     Artifact createArtifact(String name, NameSpace owner, Stereotype stereotype);
 
+    @objid ("f3f1567d-b273-473e-860d-41f12314eae5")
+    Artifact createArtifact(String name, NameSpace owner, String moduleName, String stereotypeName) throws ExtensionNotFoundException;
+
     /**
      * Create a binary association.
      * 
@@ -490,6 +492,9 @@ public interface IUmlModel {
      */
     @objid ("f7f2af4d-644e-11e0-b650-001ec947cd2a")
     Association createAssociation(Classifier source, Classifier destination, String destinationRole);
+
+    @objid ("813fe811-baec-4136-a206-6da97a28a677")
+    Association createAssociation();
 
     /**
      * Create an AssociationEnd.
@@ -536,6 +541,9 @@ public interface IUmlModel {
      */
     @objid ("f7f2af4a-644e-11e0-b650-001ec947cd2a")
     Attribute createAttribute(String name, GeneralClass type, Classifier owner, Stereotype stereotype);
+
+    @objid ("17860a00-43ab-4c62-8083-b412c76b53ca")
+    Attribute createAttribute(String name, GeneralClass type, Classifier owner, String moduleName, String stereotypeName) throws ExtensionNotFoundException;
 
     /**
      * Create an AttributeLink.
@@ -592,25 +600,11 @@ public interface IUmlModel {
     BpmnAdHocSubProcess createBpmnAdHocSubProcess();
 
     /**
-     * Create a BpmnArtifact.
-     * @return An IBpmnArtifact representing the BpmnArtifact in the Model
-     */
-    @objid ("60096b4f-e396-11e0-889f-002564c97630")
-    BpmnArtifact createBpmnArtifact();
-
-    /**
      * Create a BpmnAssociation.
      * @return An IBpmnAssociation representing the BpmnAssociation in the Model
      */
     @objid ("6008a7fc-e396-11e0-889f-002564c97630")
     BpmnAssociation createBpmnAssociation();
-
-    /**
-     * Create a BpmnBaseElement.
-     * @return An IBpmnBaseElement representing the BpmnBaseElement in the Model
-     */
-    @objid ("60091d2e-e396-11e0-889f-002564c97630")
-    BpmnBaseElement createBpmnBaseElement();
 
     /**
      * Create a BpmnBehavior.
@@ -646,13 +640,6 @@ public interface IUmlModel {
      */
     @objid ("5ff8f051-e396-11e0-889f-002564c97630")
     BpmnCancelEventDefinition createBpmnCancelEventDefinition();
-
-    /**
-     * Create a BpmnCatchEvent.
-     * @return An IBpmnCatchEvent representing the BpmnCatchEvent in the Model
-     */
-    @objid ("5ff93e72-e396-11e0-889f-002564c97630")
-    BpmnCatchEvent createBpmnCatchEvent();
 
     /**
      * Create a BpmnCollaboration.
@@ -760,13 +747,6 @@ public interface IUmlModel {
     BpmnEscalationEventDefinition createBpmnEscalationEventDefinition();
 
     /**
-     * Create a BpmnEvent.
-     * @return An IBpmnEvent representing the BpmnEvent in the Model
-     */
-    @objid ("5ffb3a4a-e396-11e0-889f-002564c97630")
-    BpmnEvent createBpmnEvent();
-
-    /**
      * Create a BpmnEventBasedGateway.
      * @return An IBpmnEventBasedGateway representing the BpmnEventBasedGateway in the Model
      */
@@ -774,39 +754,11 @@ public interface IUmlModel {
     BpmnEventBasedGateway createBpmnEventBasedGateway();
 
     /**
-     * Create a BpmnEventDefinition.
-     * @return An IBpmnEventDefinition representing the BpmnEventDefinition in the Model
-     */
-    @objid ("5ffb886b-e396-11e0-889f-002564c97630")
-    BpmnEventDefinition createBpmnEventDefinition();
-
-    /**
      * Create a BpmnExclusiveGateway.
      * @return An IBpmnExclusiveGateway representing the BpmnExclusiveGateway in the Model
      */
     @objid ("6000dfaf-e396-11e0-889f-002564c97630")
     BpmnExclusiveGateway createBpmnExclusiveGateway();
-
-    /**
-     * Create a BpmnFlowElement.
-     * @return An IBpmnFlowElement representing the BpmnFlowElement in the Model
-     */
-    @objid ("6009b970-e396-11e0-889f-002564c97630")
-    BpmnFlowElement createBpmnFlowElement();
-
-    /**
-     * Create a BpmnFlowNode.
-     * @return An IBpmnFlowNode representing the BpmnFlowNode in the Model
-     */
-    @objid ("600a2ea2-e396-11e0-889f-002564c97630")
-    BpmnFlowNode createBpmnFlowNode();
-
-    /**
-     * Create a BpmnGateway.
-     * @return An IBpmnGateway representing the BpmnGateway in the Model
-     */
-    @objid ("60012dd0-e396-11e0-889f-002564c97630")
-    BpmnGateway createBpmnGateway();
 
     /**
      * Create a BpmnGroup.
@@ -851,13 +803,6 @@ public interface IUmlModel {
     BpmnIntermediateThrowEvent createBpmnIntermediateThrowEvent();
 
     /**
-     * Create a BpmnItemAwareElement.
-     * @return An IBpmnItemAwareElement representing the BpmnItemAwareElement in the Model
-     */
-    @objid ("6004622c-e396-11e0-889f-002564c97630")
-    BpmnItemAwareElement createBpmnItemAwareElement();
-
-    /**
      * Create a BpmnItemDefinition.
      * @return An IBpmnItemDefinition representing the BpmnItemDefinition in the Model
      */
@@ -884,13 +829,6 @@ public interface IUmlModel {
      */
     @objid ("5ffcc0f0-e396-11e0-889f-002564c97630")
     BpmnLinkEventDefinition createBpmnLinkEventDefinition();
-
-    /**
-     * Create a BpmnLoopCharacteristics.
-     * @return An IBpmnLoopCharacteristics representing the BpmnLoopCharacteristics in the Model.
-     */
-    @objid ("5ff3c01e-e396-11e0-889f-002564c97630")
-    BpmnLoopCharacteristics createBpmnLoopCharacteristics();
 
     /**
      * Create a BpmnManualTask.
@@ -998,13 +936,6 @@ public interface IUmlModel {
     BpmnResourceRole createBpmnResourceRole();
 
     /**
-     * Create a BpmnRootElement.
-     * @return An IBpmnRootElement representing the BpmnRootElement in the Model
-     */
-    @objid ("600acae4-e396-11e0-889f-002564c97630")
-    BpmnRootElement createBpmnRootElement();
-
-    /**
      * Create a BpmnScriptTask.
      * @return An IBpmnScriptTask representing the BpmnScriptTask in the Model
      */
@@ -1087,13 +1018,6 @@ public interface IUmlModel {
      */
     @objid ("5ffe2085-e396-11e0-889f-002564c97630")
     BpmnTerminateEventDefinition createBpmnTerminateEventDefinition();
-
-    /**
-     * Create a BpmnThrowEvent.
-     * @return An IBpmnThrowEvent representing the BpmnThrowEvent in the Model
-     */
-    @objid ("5ffe95b6-e396-11e0-889f-002564c97630")
-    BpmnThrowEvent createBpmnThrowEvent();
 
     /**
      * Create a BpmnTimerEventDefinition.
@@ -1191,6 +1115,9 @@ public interface IUmlModel {
     @objid ("f7f04d3b-644e-11e0-b650-001ec947cd2a")
     Class createClass(String name, NameSpace owner, Stereotype stereotype);
 
+    @objid ("ce9ed345-fb5e-40f3-872d-71ce569b82ee")
+    Class createClass(String name, NameSpace owner, String moduleName, String stereotypeName) throws ExtensionNotFoundException;
+
     /**
      * Create a ClassAssociation.
      * 
@@ -1266,6 +1193,9 @@ public interface IUmlModel {
     @objid ("f7f2af3b-644e-11e0-b650-001ec947cd2a")
     CombinedFragment createCombinedFragment(InteractionOperator operator);
 
+    @objid ("ed6e89f5-e92f-437c-b2bf-447320fa02cf")
+    CommunicationChannel createCommunicationChannel();
+
     /**
      * Create a CommunicationDiagram.
      * 
@@ -1279,6 +1209,12 @@ public interface IUmlModel {
      */
     @objid ("ffcdb4d9-87a7-11e0-bfd2-002564c97630")
     CommunicationDiagram createCommunicationDiagram(final String name, final ModelElement owner, final Stereotype stereotype);
+
+    @objid ("ef4c6f2d-c7d3-413e-9171-ef9be4543088")
+    CommunicationMessage createCommunicationMessage();
+
+    @objid ("978e5148-9952-449a-86eb-7e341bd4b437")
+    CommunicationNode createCommunicationNode();
 
     /**
      * Create a Component.
@@ -1313,6 +1249,9 @@ public interface IUmlModel {
      */
     @objid ("f7f2af38-644e-11e0-b650-001ec947cd2a")
     Component createComponent(String name, NameSpace owner, Stereotype stereotype);
+
+    @objid ("05e7fd4c-cdd4-4722-8fc6-268187b9f99f")
+    Component createComponent(String name, NameSpace owner, String moduleName, String stereotypeName) throws ExtensionNotFoundException;
 
     /**
      * Create a CompositeStructureDiagram.
@@ -1349,6 +1288,21 @@ public interface IUmlModel {
      */
     @objid ("f7f2af36-644e-11e0-b650-001ec947cd2a")
     ConnectionPointReference createConnectionPointReference();
+
+    /**
+     * Create a connector between two bindable instances.
+     * This method create a binary connector between two instances and give a name to the destination role. The created
+     * connector has a navigable role.
+     * @param source the source instance of the Connector.
+     * @param destination the destination instance of the Connector.
+     * @param destinationRole the Name of the destination role.
+     * @return An IConnectorEnd representing the Connector in the Model.
+     */
+    @objid ("ad0de2a3-1217-11e2-bfed-002564c97630")
+    Connector createConnector(BindableInstance source, BindableInstance destination, String destinationRole);
+
+    @objid ("0608d8e9-f410-42fd-948c-5f7c3187c6c0")
+    Connector createConnector();
 
     /**
      * Create a ConnectorEnd.
@@ -1434,6 +1388,9 @@ public interface IUmlModel {
     @objid ("f7f2af2c-644e-11e0-b650-001ec947cd2a")
     DataType createDataType(String name, NameSpace owner, Stereotype stereotype);
 
+    @objid ("0b410214-af9c-4d33-a28d-1240bef3a3b5")
+    DataType createDataType(String name, NameSpace owner, String moduleName, String stereotypeName) throws ExtensionNotFoundException;
+
     /**
      * Create a DecisionMergeNode.
      * 
@@ -1475,6 +1432,9 @@ public interface IUmlModel {
      */
     @objid ("f7f2af28-644e-11e0-b650-001ec947cd2a")
     Dependency createDependency(ModelElement source, ModelElement destination, Stereotype stereotype);
+
+    @objid ("e3d1a098-a654-4231-9366-09287d202a2c")
+    Dependency createDependency(ModelElement source, ModelElement destination, String moduleName, String stereotypeName) throws ExtensionNotFoundException;
 
     /**
      * Create a DeploymentDiagram.
@@ -1587,6 +1547,9 @@ public interface IUmlModel {
     @objid ("f7f04d3e-644e-11e0-b650-001ec947cd2a")
     EntryPointPseudoState createEntryPointPseudoState();
 
+    @objid ("9761d3a7-348d-11e2-b056-002564c97630")
+    EnumeratedPropertyType createEnumeratedPropertyType();
+
     /**
      * Create an Enumeration.
      * 
@@ -1617,6 +1580,9 @@ public interface IUmlModel {
     @objid ("f7f2af20-644e-11e0-b650-001ec947cd2a")
     Enumeration createEnumeration(String name, NameSpace owner, Stereotype stereotype);
 
+    @objid ("cf1a65f8-5c95-49fd-b874-c87340bbc400")
+    Enumeration createEnumeration(String name, NameSpace owner, String moduleName, String stereotypeName) throws ExtensionNotFoundException;
+
     /**
      * Create an EnumerationLiteral.
      * 
@@ -1646,6 +1612,9 @@ public interface IUmlModel {
      */
     @objid ("f7f2af1d-644e-11e0-b650-001ec947cd2a")
     EnumerationLiteral createEnumerationLiteral(String name, Enumeration owner, Stereotype stereotype);
+
+    @objid ("325a2b78-1608-417d-b112-40195429603e")
+    EnumerationLiteral createEnumerationLiteral(String name, Enumeration owner, String moduleName, String stereotypeName) throws ExtensionNotFoundException;
 
     /**
      * Create an Event.
@@ -1755,6 +1724,37 @@ public interface IUmlModel {
      */
     @objid ("1275546b-1fe7-11e1-938e-002564c97630")
     ExternDocument createExternDocument(String moduleName, final String documentRole, final ModelElement owner, final String mimeType) throws IOException, ExtensionNotFoundException;
+
+    /**
+     * Creates a rich note.
+     * @throws org.modelio.api.model.ExtensionNotFoundException if no document type matching the given name and the element metaclass is found
+     * @since 2.1
+     * @param type the type of the rich note.
+     * @param owner the composition owner of the rich note.
+     * @param mimeType the MIME type of the rich note.
+     * @return An {@link ExternDocument} representing the rich note in the model.
+     * @throws java.io.IOException in case of failure creating the file.
+     */
+    @objid ("66cff0ff-3cbd-47f8-9a42-81b1c8fc2171")
+    ExternDocument createExternDocument(final ExternDocumentType type, final ModelElement owner, final String mimeType) throws IOException;
+
+    /**
+     * Create a ExternProcessor.
+     * @return a new ExternProcessor instance.
+     * @since 3.1.0
+     */
+    @objid ("05ddfe9c-6760-4ece-a4d8-0e73622df6ea")
+    ExternProcessor createExternProcessor();
+
+    /**
+     * Create an ExternProcessor, bound to the implementation class from the specified module.
+     * @param implementationClassName the complete name of the implementation class.
+     * @param moduleName the module implementing the class. <code>null</code> for standard implementations defined by Modelio itself.
+     * @return a new ExternProcessor instance.
+     * @since 3.1.0
+     */
+    @objid ("8bf08602-4114-4b49-9f88-648e8d0f79fe")
+    ExternProcessor createExternProcessor(String implementationClassName, String moduleName);
 
     /**
      * Create a FinalState.
@@ -1867,6 +1867,9 @@ public interface IUmlModel {
      */
     @objid ("f7f2af10-644e-11e0-b650-001ec947cd2a")
     Parameter createIOParameter(String name, GeneralClass type, Operation owner, Stereotype stereotype);
+
+    @objid ("6e796f98-3862-4de1-ba46-0ee11af64a89")
+    Parameter createIOParameter(String name, GeneralClass type, Operation owner, String moduleName, String stereotypeName) throws ExtensionNotFoundException;
 
     /**
      * Create an include UseCaseDependency between two NameSpaces.
@@ -2041,6 +2044,9 @@ public interface IUmlModel {
     @objid ("f7f04d44-644e-11e0-b650-001ec947cd2a")
     Interface createInterface(String name, NameSpace owner, Stereotype stereotype);
 
+    @objid ("a1ad4d62-c52e-4112-b205-442cabdd8da0")
+    Interface createInterface(String name, NameSpace owner, String moduleName, String stereotypeName) throws ExtensionNotFoundException;
+
     /**
      * Create an InterfaceRealization.
      * 
@@ -2149,6 +2155,9 @@ public interface IUmlModel {
     @objid ("f7f2aef6-644e-11e0-b650-001ec947cd2a")
     Link createLink(Instance source, Instance destination, String destinationRole);
 
+    @objid ("ca53f680-aca8-42db-aa69-00b853b49aa3")
+    Link createLink();
+
     /**
      * Create a LinkEnd.
      * 
@@ -2158,6 +2167,9 @@ public interface IUmlModel {
      */
     @objid ("f7f04d35-644e-11e0-b650-001ec947cd2a")
     LinkEnd createLinkEnd();
+
+    @objid ("9761d3a9-348d-11e2-b056-002564c97630")
+    LocalPropertyTable createLocalPropertyTable();
 
     /**
      * Create a LoopNode.
@@ -2178,6 +2190,48 @@ public interface IUmlModel {
      */
     @objid ("f7f2aef2-644e-11e0-b650-001ec947cd2a")
     Manifestation createManifestation();
+
+    /**
+     * Create a MatrixDefinition.
+     * @return a new MatrixDefinition instance.
+     * @since 3.1.0
+     */
+    @objid ("fbd0148b-4efb-4099-8a47-ad403f5136f1")
+    MatrixDefinition createMatrixDefinition();
+
+    /**
+     * Create a MatrixDefinition with all its contents.
+     * @param name the name of the matrix to create.
+     * @param lineQuery the QueryDefinition defining the line axis. Mandatory.
+     * @param colQuery the QueryDefinition defining the column axis. If <code>null</code>, the lineQuery will also be used for columns.
+     * @param depthQuery the QueryDefinition defining the depth axis. Might be <code>null</code>.
+     * @param valueDefinition the MatrixValueDefinition defining the content of the matrix's cells.
+     * @return a new MatrixDefinition instance.
+     * @since 3.1.0
+     */
+    @objid ("fd063fd1-6cc1-4207-8aef-53bda4611e6d")
+    MatrixDefinition createMatrixDefinition(String name, QueryDefinition lineQuery, QueryDefinition colQuery, QueryDefinition depthQuery, MatrixValueDefinition valueDefinition);
+
+    /**
+     * Create a MatrixValueDefinition.
+     * @return a new MatrixValueDefinition instance.
+     * @since 3.1.0
+     */
+    @objid ("36fd4032-b66b-4dd9-97c0-e41cf35c35ac")
+    MatrixValueDefinition createMatrixValueDefinition();
+
+    /**
+     * Create a MatrixValueDefinition implemented by a java class.
+     * <p>
+     * The created MatrixValueDefinition owns an ExternProcessor, bound to the implementation class from the specified module.
+     * </p>
+     * @param implementationClassName the complete name of the implementation class. Ex: <code>com.modeliosoft.modelio.matrix.model.contentaccessor.JythonMatrixContentAccessor</code>
+     * @param moduleName the module implementing the IMatrixContentAccessor interface. <code>null</code> for standard implementations defined by Modelio itself.
+     * @return a new MatrixValueDefinition instance.
+     * @since 3.1.0
+     */
+    @objid ("b159506a-b6b3-48c6-aae1-3653e5595358")
+    MatrixValueDefinition createMatrixValueDefinition(String implementationClassName, String moduleName);
 
     /**
      * Create a Message.
@@ -2240,6 +2294,33 @@ public interface IUmlModel {
     @objid ("f7f2aeec-644e-11e0-b650-001ec947cd2a")
     NamespaceUse createNamespaceUse();
 
+    @objid ("e957a868-f99e-4d53-92a9-561156fe8f15")
+    NaryAssociation createNaryAssociation();
+
+    @objid ("1061ed44-e894-4af1-ac7f-ac8aa6b47653")
+    NaryAssociation createNaryAssociation(List<Classifier> ends);
+
+    @objid ("c5ef9df6-9dd0-4c3e-b07a-b5f4e1bf037c")
+    NaryAssociationEnd createNaryAssociationEnd();
+
+    @objid ("4099071e-6b7a-43db-ab0a-788c1ba622da")
+    NaryConnector createNaryConnector();
+
+    @objid ("6871393c-16ac-42af-9c2e-6b233cf101ab")
+    NaryConnector createNaryConnector(List<BindableInstance> ends);
+
+    @objid ("4192f61a-9875-4da0-8e40-da06c15b293c")
+    NaryConnectorEnd createNaryConnectorEnd();
+
+    @objid ("67fb9a8a-527b-44e5-8ff6-0615aba429aa")
+    NaryLink createNaryLink();
+
+    @objid ("32605af5-f874-48fc-9577-901bfe343cea")
+    NaryLink createNaryLink(List<Instance> source);
+
+    @objid ("41106a00-7db7-4767-9405-77ed66209d85")
+    NaryLinkEnd createNaryLinkEnd();
+
     /**
      * Create a Node.
      * 
@@ -2271,6 +2352,17 @@ public interface IUmlModel {
      */
     @objid ("f7f2aee9-644e-11e0-b650-001ec947cd2a")
     Note createNote(String moduleName, String noteType, ModelElement owner, String content) throws ExtensionNotFoundException;
+
+    /**
+     * Create a Note.
+     * @throws org.modelio.api.model.ExtensionNotFoundException if no note type matching the given name and the element metaclass is found
+     * @param noteType the type of the Note.
+     * @param owner the composition owner of the Note.
+     * @param content the text of the Note.
+     * @return An INote representing the Note in the Model.
+     */
+    @objid ("e4e59454-7f92-4293-9438-986176a842ad")
+    Note createNote(NoteType noteType, ModelElement owner, String content);
 
     /**
      * Create a ObjectDiagram.
@@ -2346,6 +2438,9 @@ public interface IUmlModel {
     @objid ("f7f2aee4-644e-11e0-b650-001ec947cd2a")
     Operation createOperation(String name, Classifier owner, Stereotype stereotype);
 
+    @objid ("b0311e1c-8609-4558-b9b3-9d6836d90d3c")
+    Operation createOperation(String name, Classifier owner, String moduleName, String stereotypeName) throws ExtensionNotFoundException;
+
     /**
      * Create a OutputPin.
      * 
@@ -2385,6 +2480,9 @@ public interface IUmlModel {
      */
     @objid ("f7f2aee0-644e-11e0-b650-001ec947cd2a")
     Package createPackage(String name, NameSpace owner, Stereotype stereotype);
+
+    @objid ("44818770-e84b-4587-93df-a139bd12a63a")
+    Package createPackage(String name, NameSpace owner, String moduleName, String stereotypeName) throws ExtensionNotFoundException;
 
     /**
      * Create a PackageImport.
@@ -2487,6 +2585,21 @@ public interface IUmlModel {
     @objid ("f7f2aed7-644e-11e0-b650-001ec947cd2a")
     Port createPort(String name, Classifier owner);
 
+    @objid ("9761d3ab-348d-11e2-b056-002564c97630")
+    PropertyDefinition createPropertyDefinition();
+
+    @objid ("9761d3ad-348d-11e2-b056-002564c97630")
+    PropertyEnumerationLitteral createPropertyEnumerationLitteral();
+
+    @objid ("9761d3af-348d-11e2-b056-002564c97630")
+    PropertyTable createPropertyTable();
+
+    @objid ("9764350a-348d-11e2-b056-002564c97630")
+    PropertyTableDefinition createPropertyTableDefinition();
+
+    @objid ("9764350c-348d-11e2-b056-002564c97630")
+    PropertyType createPropertyType();
+
     /**
      * Create a ProvidedInterface.
      * 
@@ -2505,6 +2618,27 @@ public interface IUmlModel {
      */
     @objid ("f7f2aed5-644e-11e0-b650-001ec947cd2a")
     ProvidedInterface createProvidedInterface(Port owner, List<Interface> interfaces);
+
+    /**
+     * Create a QueryDefinition.
+     * @return a new QueryDefinition instance.
+     * @since 3.1.0
+     */
+    @objid ("ceae4218-11f6-486d-98fc-b186b6d6c7ae")
+    QueryDefinition createQueryDefinition();
+
+    /**
+     * Create a QueryDefinition implemented by a java class.
+     * <p>
+     * The created QueryDefinition owns an ExternProcessor, bound to the implementation class from the specified module.
+     * </p>
+     * @param implementationClassName the complete name of the implementation class. Ex: <code>com.modeliosoft.modelio.matrix.model.queries.AllInstancesQuery</code>
+     * @param moduleName the module implementing the IQuery interface. <code>null</code> for standard implementations defined by Modelio itself.
+     * @return a new QueryDefinition instance.
+     * @since 3.1.0
+     */
+    @objid ("f7d7f612-d28c-420b-97bc-9968de5a43ed")
+    QueryDefinition createQueryDefinition(String implementationClassName, String moduleName);
 
     /**
      * Create a RaisedException.
@@ -2566,6 +2700,9 @@ public interface IUmlModel {
      */
     @objid ("f7f2aece-644e-11e0-b650-001ec947cd2a")
     Parameter createReturnParameter(String name, GeneralClass type, Operation owner, Stereotype stereotype);
+
+    @objid ("6520e604-3da5-4fb9-8d1f-b259228f8503")
+    Parameter createReturnParameter(String name, GeneralClass type, Operation owner, String moduleName, String stereotypeName) throws ExtensionNotFoundException;
 
     /**
      * Create a SendSignalAction.
@@ -2677,6 +2814,9 @@ public interface IUmlModel {
     @objid ("f7f2aec5-644e-11e0-b650-001ec947cd2a")
     StaticDiagram createStaticDiagram(String name, ModelElement owner, Stereotype stereotype);
 
+    @objid ("d94088ca-438f-4acd-8a3d-2dea9ad0436e")
+    StaticDiagram createStaticDiagram(String name, ModelElement owner, String moduleName, String stereotypeName) throws ExtensionNotFoundException;
+
     /**
      * Create a StructuredActivityNode.
      * 
@@ -2739,6 +2879,16 @@ public interface IUmlModel {
     TaggedValue createTaggedValue(String moduleName, String tagType, ModelElement owner) throws ExtensionNotFoundException;
 
     /**
+     * Create a TaggedValue.
+     * @throws org.modelio.api.model.ExtensionNotFoundException if no tag type matching the given name and the element metaclass is found
+     * @param tagType the type of the TaggedValue.
+     * @param owner the ModelElement that contains the Taggedvalue.
+     * @return An ITaggedValue representing the TaggedValue in the Model.
+     */
+    @objid ("3a6526a0-a6f8-4b86-a385-7f56ce19b216")
+    TaggedValue createTaggedValue(TagType tagType, ModelElement owner);
+
+    /**
      * Create a TemplateBinding.
      * 
      * The created TemplateBinding has no composition owner. In order to build a valid model, a composition owner must
@@ -2790,6 +2940,9 @@ public interface IUmlModel {
     @objid ("f7f2aeba-644e-11e0-b650-001ec947cd2a")
     Transition createTransition();
 
+    @objid ("9764350e-348d-11e2-b056-002564c97630")
+    TypedPropertyTable createTypedPropertyTable();
+
     /**
      * Create a Usage.
      * 
@@ -2839,6 +2992,9 @@ public interface IUmlModel {
     @objid ("f7f2aeb5-644e-11e0-b650-001ec947cd2a")
     UseCase createUseCase(String name, NameSpace owner, Stereotype stereotype);
 
+    @objid ("8f677b9e-3b82-4e5f-8c36-b755e0b303a5")
+    UseCase createUseCase(String name, NameSpace owner, String moduleName, String stereotypeName) throws ExtensionNotFoundException;
+
     /**
      * Create a UseCaseDependency.
      * 
@@ -2864,21 +3020,6 @@ public interface IUmlModel {
     UseCaseDiagram createUseCaseDiagram(final String name, final ModelElement owner, final Stereotype stereotype);
 
     /**
-     * Get all the roots of the editable model.
-     * They are mostly instances of {@link Project}.
-     * @return The model root elements.
-     */
-    @objid ("f7f2aeb2-644e-11e0-b650-001ec947cd2a")
-    List<MObject> getModelRoots();
-
-    /**
-     * Get access to the UML types
-     * @return an object that allow access to UML types
-     */
-    @objid ("f7f2aeb1-644e-11e0-b650-001ec947cd2a")
-    IUMLTypes getUmlTypes();
-
-    /**
      * Create a ValuePin.
      * 
      * The created ValuePin has no composition owner. In order to build a valid model, a composition owner must be
@@ -2889,41 +3030,8 @@ public interface IUmlModel {
     @objid ("91b13b12-63aa-11e1-89ef-002564c97630")
     ValuePin createValuePin();
 
-    /**
-     * Create a connector between two bindable instances.
-     * This method create a binary connector between two instances and give a name to the destination role. The created
-     * connector has a navigable role.
-     * @param source the source instance of the Connector.
-     * @param destination the destination instance of the Connector.
-     * @param destinationRole the Name of the destination role.
-     * @return An IConnectorEnd representing the Connector in the Model.
-     */
-    @objid ("ad0de2a3-1217-11e2-bfed-002564c97630")
-    Connector createConnector(BindableInstance source, BindableInstance destination, String destinationRole);
-
-    @objid ("9761d3a7-348d-11e2-b056-002564c97630")
-    EnumeratedPropertyType createEnumeratedPropertyType();
-
-    @objid ("9761d3a9-348d-11e2-b056-002564c97630")
-    LocalPropertyTable createLocalPropertyTable();
-
-    @objid ("9761d3ab-348d-11e2-b056-002564c97630")
-    PropertyDefinition createPropertyDefinition();
-
-    @objid ("9761d3ad-348d-11e2-b056-002564c97630")
-    PropertyEnumerationLitteral createPropertyEnumerationLitteral();
-
-    @objid ("9761d3af-348d-11e2-b056-002564c97630")
-    PropertyTable createPropertyTable();
-
-    @objid ("9764350a-348d-11e2-b056-002564c97630")
-    PropertyTableDefinition createPropertyTableDefinition();
-
-    @objid ("9764350c-348d-11e2-b056-002564c97630")
-    PropertyType createPropertyType();
-
-    @objid ("9764350e-348d-11e2-b056-002564c97630")
-    TypedPropertyTable createTypedPropertyTable();
+    @objid ("4b3fbc4f-4bd7-479b-b75b-0dbcbc4d3580")
+    IDefaultNameService getDefaultNameService();
 
     /**
      * Get all the roots of the libraries.
@@ -2933,96 +3041,13 @@ public interface IUmlModel {
     @objid ("214e558c-3572-11e2-b290-002564c97630")
     List<MObject> getLibraryRoots();
 
-    @objid ("ca53f680-aca8-42db-aa69-00b853b49aa3")
-    Link createLink();
-
-    @objid ("0608d8e9-f410-42fd-948c-5f7c3187c6c0")
-    Connector createConnector();
-
-    @objid ("813fe811-baec-4136-a206-6da97a28a677")
-    Association createAssociation();
-
-    @objid ("ae17a569-020f-4958-9b56-5c1e5423a03f")
-    Actor createActor(String name, NameSpace owner, String moduleName, String stereotypeName) throws ExtensionNotFoundException;
-
-    @objid ("f3f1567d-b273-473e-860d-41f12314eae5")
-    Artifact createArtifact(String name, NameSpace owner, String moduleName, String stereotypeName) throws ExtensionNotFoundException;
-
-    @objid ("17860a00-43ab-4c62-8083-b412c76b53ca")
-    Attribute createAttribute(String name, GeneralClass type, Classifier owner, String moduleName, String stereotypeName) throws ExtensionNotFoundException;
-
-    @objid ("ce9ed345-fb5e-40f3-872d-71ce569b82ee")
-    Class createClass(String name, NameSpace owner, String moduleName, String stereotypeName) throws ExtensionNotFoundException;
-
-    @objid ("05e7fd4c-cdd4-4722-8fc6-268187b9f99f")
-    Component createComponent(String name, NameSpace owner, String moduleName, String stereotypeName) throws ExtensionNotFoundException;
-
-    @objid ("0b410214-af9c-4d33-a28d-1240bef3a3b5")
-    DataType createDataType(String name, NameSpace owner, String moduleName, String stereotypeName) throws ExtensionNotFoundException;
-
-    @objid ("e3d1a098-a654-4231-9366-09287d202a2c")
-    Dependency createDependency(ModelElement source, ModelElement destination, String moduleName, String stereotypeName) throws ExtensionNotFoundException;
-
-    @objid ("cf1a65f8-5c95-49fd-b874-c87340bbc400")
-    Enumeration createEnumeration(String name, NameSpace owner, String moduleName, String stereotypeName) throws ExtensionNotFoundException;
-
-    @objid ("325a2b78-1608-417d-b112-40195429603e")
-    EnumerationLiteral createEnumerationLiteral(String name, Enumeration owner, String moduleName, String stereotypeName) throws ExtensionNotFoundException;
-
     /**
-     * Creates a rich note.
-     * @throws org.modelio.api.model.ExtensionNotFoundException if no document type matching the given name and the element metaclass is found
-     * @since 2.1
-     * @param type the type of the rich note.
-     * @param owner the composition owner of the rich note.
-     * @param mimeType the MIME type of the rich note.
-     * @return An {@link ExternDocument} representing the rich note in the model.
-     * @throws java.io.IOException in case of failure creating the file.
+     * Get all the roots of the editable model.
+     * They are mostly instances of {@link Project}.
+     * @return The model root elements.
      */
-    @objid ("66cff0ff-3cbd-47f8-9a42-81b1c8fc2171")
-    ExternDocument createExternDocument(final ExternDocumentType type, final ModelElement owner, final String mimeType) throws IOException;
-
-    @objid ("6e796f98-3862-4de1-ba46-0ee11af64a89")
-    Parameter createIOParameter(String name, GeneralClass type, Operation owner, String moduleName, String stereotypeName) throws ExtensionNotFoundException;
-
-    @objid ("a1ad4d62-c52e-4112-b205-442cabdd8da0")
-    Interface createInterface(String name, NameSpace owner, String moduleName, String stereotypeName) throws ExtensionNotFoundException;
-
-    /**
-     * Create a Note.
-     * @throws org.modelio.api.model.ExtensionNotFoundException if no note type matching the given name and the element metaclass is found
-     * @param noteType the type of the Note.
-     * @param owner the composition owner of the Note.
-     * @param content the text of the Note.
-     * @return An INote representing the Note in the Model.
-     */
-    @objid ("e4e59454-7f92-4293-9438-986176a842ad")
-    Note createNote(NoteType noteType, ModelElement owner, String content);
-
-    @objid ("b0311e1c-8609-4558-b9b3-9d6836d90d3c")
-    Operation createOperation(String name, Classifier owner, String moduleName, String stereotypeName) throws ExtensionNotFoundException;
-
-    @objid ("44818770-e84b-4587-93df-a139bd12a63a")
-    Package createPackage(String name, NameSpace owner, String moduleName, String stereotypeName) throws ExtensionNotFoundException;
-
-    @objid ("6520e604-3da5-4fb9-8d1f-b259228f8503")
-    Parameter createReturnParameter(String name, GeneralClass type, Operation owner, String moduleName, String stereotypeName) throws ExtensionNotFoundException;
-
-    @objid ("d94088ca-438f-4acd-8a3d-2dea9ad0436e")
-    StaticDiagram createStaticDiagram(String name, ModelElement owner, String moduleName, String stereotypeName) throws ExtensionNotFoundException;
-
-    /**
-     * Create a TaggedValue.
-     * @throws org.modelio.api.model.ExtensionNotFoundException if no tag type matching the given name and the element metaclass is found
-     * @param tagType the type of the TaggedValue.
-     * @param owner the ModelElement that contains the Taggedvalue.
-     * @return An ITaggedValue representing the TaggedValue in the Model.
-     */
-    @objid ("3a6526a0-a6f8-4b86-a385-7f56ce19b216")
-    TaggedValue createTaggedValue(TagType tagType, ModelElement owner);
-
-    @objid ("8f677b9e-3b82-4e5f-8c36-b755e0b303a5")
-    UseCase createUseCase(String name, NameSpace owner, String moduleName, String stereotypeName) throws ExtensionNotFoundException;
+    @objid ("f7f2aeb2-644e-11e0-b650-001ec947cd2a")
+    List<MObject> getModelRoots();
 
     /**
      * Get  the roots of the object in parameter.
@@ -3033,34 +3058,14 @@ public interface IUmlModel {
     @objid ("3421a7c5-0483-4b33-8dd3-0adcd39b9543")
     MObject getRoot(MObject context);
 
-    @objid ("4b3fbc4f-4bd7-479b-b75b-0dbcbc4d3580")
-    IDefaultNameService getDefaultNameService();
+    /**
+     * Get access to the UML types
+     * @return an object that allow access to UML types
+     */
+    @objid ("f7f2aeb1-644e-11e0-b650-001ec947cd2a")
+    IUMLTypes getUmlTypes();
 
-    @objid ("e957a868-f99e-4d53-92a9-561156fe8f15")
-    NaryAssociation createNaryAssociation();
-
-    @objid ("1061ed44-e894-4af1-ac7f-ac8aa6b47653")
-    NaryAssociation createNaryAssociation(List<Classifier> ends);
-
-    @objid ("c5ef9df6-9dd0-4c3e-b07a-b5f4e1bf037c")
-    NaryAssociationEnd createNaryAssociationEnd();
-
-    @objid ("4099071e-6b7a-43db-ab0a-788c1ba622da")
-    NaryConnector createNaryConnector();
-
-    @objid ("6871393c-16ac-42af-9c2e-6b233cf101ab")
-    NaryConnector createNaryConnector(List<BindableInstance> ends);
-
-    @objid ("4192f61a-9875-4da0-8e40-da06c15b293c")
-    NaryConnectorEnd createNaryConnectorEnd();
-
-    @objid ("67fb9a8a-527b-44e5-8ff6-0615aba429aa")
-    NaryLink createNaryLink();
-
-    @objid ("32605af5-f874-48fc-9577-901bfe343cea")
-    NaryLink createNaryLink(List<Instance> source);
-
-    @objid ("41106a00-7db7-4767-9405-77ed66209d85")
-    NaryLinkEnd createNaryLinkEnd();
+    @objid ("c741d8fa-976a-4b07-82be-732a16638891")
+    ExternDocument createExternDocument(String moduleName, String documentRole, ModelElement owner, String mimeType, Path initialContent) throws IOException, ExtensionNotFoundException;
 
 }

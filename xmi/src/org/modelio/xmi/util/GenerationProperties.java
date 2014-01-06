@@ -30,6 +30,7 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.uml2.uml.Model;
 import org.eclipse.uml2.uml.Stereotype;
 import org.modelio.api.modelio.Modelio;
+import org.modelio.metamodel.mda.Project;
 import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
 import org.modelio.metamodel.uml.infrastructure.ModelTree;
@@ -85,16 +86,16 @@ public class GenerationProperties {
     private ScopeChecker scopeChecker;
 
     @objid ("5d482f13-d0d9-4169-ae70-7b061c034517")
-    private List<ModelElement> stereotypesExported = new ArrayList<ModelElement>();
+    private List<ModelElement> stereotypesExported = new ArrayList<>();
 
     @objid ("154d06cd-05bd-4061-a025-2b6c593b6c72")
-    private List<Stereotype> defaultStereotyped = new ArrayList<Stereotype>();
+    private List<Stereotype> defaultStereotyped = new ArrayList<>();
 
     @objid ("c2051c32-041d-4c1d-8aa9-9916f9735444")
     private Model ecoreModel = null;
 
     @objid ("3e625fca-02f3-48a1-9637-f9533faefdee")
-    private List<ModelElement> sysMLElementExported = new ArrayList<ModelElement>();
+    private List<ModelElement> sysMLElementExported = new ArrayList<>();
 
     @objid ("0393666f-a5e5-44c7-8f44-02fe05027399")
     private Map<String, ArrayList<String>> classTabConvertion = null;
@@ -103,10 +104,13 @@ public class GenerationProperties {
     private org.eclipse.uml2.uml.Profile sysMLProfile = null;
 
     @objid ("4b98ec69-5fab-4a07-9445-906be04cdd40")
-    private List<org.eclipse.uml2.uml.Profile> exportedProfiles = new ArrayList<org.eclipse.uml2.uml.Profile>();
+    private List<org.eclipse.uml2.uml.Profile> exportedProfiles = new ArrayList<>();
 
     @objid ("bfc7d31e-2aa1-4f3d-afab-21112e32a430")
     private ReportModel report = null;
+
+    @objid ("66db909b-66ee-48b6-9bb5-b6e558bfc864")
+    private List<Project> libraryExported = new ArrayList<>();
 
     @objid ("f6b1a4f3-dbf0-44df-9d03-14499e99fb84")
     private GenerationProperties() {
@@ -146,16 +150,16 @@ public class GenerationProperties {
 
     @objid ("bd681edf-8521-439d-a6e6-790ca951ef42")
     public void cleanStereotypesExported() {
-        this.stereotypesExported = new ArrayList<ModelElement>();
+        this.stereotypesExported = new ArrayList<>();
     }
 
     @objid ("8ae2b41a-ab3c-411b-9478-280f8443b67d")
     public void supressProfile() {
-        for (org.eclipse.uml2.uml.Profile current : exportedProfiles){
+        for (org.eclipse.uml2.uml.Profile current : this.exportedProfiles){
             if (this.ecoreModel.isProfileApplied(current))
                 this.ecoreModel.unapplyProfile(current);
         }
-        this.exportedProfiles = new ArrayList<org.eclipse.uml2.uml.Profile>();
+        this.exportedProfiles = new ArrayList<>();
     }
 
     @objid ("8d39655f-9afc-4d23-84a7-856a17adbb66")
@@ -232,7 +236,6 @@ public class GenerationProperties {
 
     @objid ("066c2f35-cf35-4051-aca2-b7fbb2e7f9c8")
     public boolean isRoundtripEnabled() {
-        // Automatically generated method. Please delete this comment before entering specific code.
         return this.roundtripEnabled;
     }
 
@@ -274,8 +277,9 @@ public class GenerationProperties {
     @objid ("23d44bef-8e0a-4140-8297-7e6b7376764a")
     public void initialize() {
         PrimitiveTypeMapper.clean();     
-                TotalExportMap.getInstance().clear();
-                PartialExportMap.getInstance().clear();
+        TotalExportMap.getInstance().clear();
+        PartialExportMap.getInstance().clear();
+        this.libraryExported.clear();
     }
 
     @objid ("5566bb47-9411-49db-a239-edef9639b9c2")
@@ -317,7 +321,7 @@ public class GenerationProperties {
 
     @objid ("2e8ff273-97d1-4e72-9d2f-582aa9adf85f")
     public void cleanSysMLElementExported() {
-        this.sysMLElementExported = new ArrayList<ModelElement>();
+        this.sysMLElementExported = new ArrayList<>();
     }
 
     @objid ("61d89b8a-b8e4-4a25-a74a-c8c4cbd89d0e")
@@ -392,7 +396,7 @@ public class GenerationProperties {
         List<String> result = this.classTabConvertion.get(objClassName);
         
         if (result == null)
-            return new ArrayList<String>();
+            return new ArrayList<>();
         else
             return result;
     }
@@ -400,7 +404,7 @@ public class GenerationProperties {
     @objid ("45903e53-b622-43a3-9025-cd0d06ba1f2c")
     @SuppressWarnings("serial")
     private void initClassTabConvertion() {
-        this.classTabConvertion = new HashMap<String, ArrayList<String>>();
+        this.classTabConvertion = new HashMap<>();
         this.classTabConvertion.put("Abstraction",  new ArrayList<String>(){{add("Abstraction");}});
         this.classTabConvertion.put("AcceptCallEventAction",  new ArrayList<String>(){{add("AcceptEventAction");}});
         this.classTabConvertion.put("AcceptChangeEventAction",  new ArrayList<String>(){{add("AcceptEventAction");}});
@@ -533,6 +537,17 @@ public class GenerationProperties {
     @objid ("c9b21349-292b-497a-88b2-553ac6bbd6dc")
     public void setSysMLApplied() {
         this.sysmlApplied = true;
+    }
+
+    @objid ("fb013641-9695-476c-a0b7-4129306f49f7")
+    public List<Project> getExportedLibrary() {
+        return this.libraryExported;
+    }
+
+    @objid ("a2f4c3e2-0e55-4d75-ad0a-d2fad2edc6f8")
+    public void addExportedLibrary(final Project libraryProject) {
+        if (!(this.libraryExported.contains(libraryProject)))
+            this.libraryExported.add(libraryProject);
     }
 
 }

@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.data.uml.behavior.activityModel;
 
 import java.util.ArrayList;
@@ -43,29 +43,29 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("0025dabe-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=AcceptTimeEventAction.class, factory=AcceptTimeEventActionData.Metadata.ObjectFactory.class)
 public class AcceptTimeEventActionData extends ActivityActionData {
-    @objid ("bda03ca2-a2f7-46eb-8052-a27595abac11")
+    @objid ("b46de061-b544-4a90-b96e-fa7f27a3c065")
     @SmaMetaAttribute(metaName="TimeExpresion", type=String.class, smAttributeClass=Metadata.TimeExpresionSmAttribute.class)
      Object mTimeExpresion = "";
 
-    @objid ("9eaddd53-e4e9-4f29-99e8-df82bb8085e5")
+    @objid ("1a4a47ef-d381-40de-a030-7945f03e4fb3")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("000f808e-c4c3-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("50cab8c9-7539-4674-b2b7-3bfa09445f21")
+        @objid ("4ae80173-2882-4300-a766-b7b1c4129291")
         private static SmClass smClass = null;
 
-        @objid ("96358935-0c93-4f3e-a5cf-cf74f0512a90")
+        @objid ("363713da-96e1-45e4-82dd-46cb976e1e31")
         private static SmAttribute TimeExpresionAtt = null;
 
-        @objid ("851c21ed-6f58-4744-a734-3b6395dcdaef")
+        @objid ("8508f6b7-1386-40a0-b553-10e4ae0306f5")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(AcceptTimeEventActionData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("2d4fdf7b-b5fd-430f-9051-01abfd2d145a")
+        @objid ("91b9bf89-59e2-4fb3-98ac-0f069447fe20")
         public static SmAttribute TimeExpresionAtt() {
             if (TimeExpresionAtt == null) {
             	TimeExpresionAtt = classof().getAttributeDef("TimeExpresion");
@@ -73,13 +73,13 @@ public class AcceptTimeEventActionData extends ActivityActionData {
             return TimeExpresionAtt;
         }
 
-        @objid ("c89e2ebc-5a6b-48d3-af5c-48cf5eb63b95")
+        @objid ("b8da8cd6-e14b-482a-9117-106be46a6598")
         public static SmAttribute getTimeExpresionAtt() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return TimeExpresionAtt;
         }
 
-        @objid ("2b652de0-cc6d-406c-a943-6c39628ecb2b")
+        @objid ("ef6de5ad-dc2c-4968-b7f4-f69900cdcbb1")
         public static SmClass getSmClass() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return smClass;
@@ -87,12 +87,12 @@ public class AcceptTimeEventActionData extends ActivityActionData {
 
         @objid ("000fc2ec-c4c3-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("01e43297-049e-439d-968e-66ab9bdf1c9c")
+            @objid ("d6612d9d-89ae-450e-a5d2-b40737133f78")
             public ISmObjectData createData() {
                 return new AcceptTimeEventActionData();
             }
 
-            @objid ("3105e4fd-5e4f-4ef3-990a-7cee061c266f")
+            @objid ("68e3d0be-638a-4a55-9ff2-574b823754ac")
             public SmObjectImpl createImpl() {
                 return new AcceptTimeEventActionImpl();
             }
@@ -101,12 +101,12 @@ public class AcceptTimeEventActionData extends ActivityActionData {
 
         @objid ("00102584-c4c3-1fd8-97fe-001ec947cd2a")
         public static class TimeExpresionSmAttribute extends SmAttribute {
-            @objid ("967c58ca-4dc8-4fcc-92f2-5ae4dcd8a23e")
+            @objid ("6e9678aa-ee0d-487a-9985-247cd84b7c45")
             public Object getValue(ISmObjectData data) {
                 return ((AcceptTimeEventActionData) data).mTimeExpresion;
             }
 
-            @objid ("1310523a-66a5-4912-a5ac-b8fdabff6943")
+            @objid ("6e44758d-cf3e-4818-8b81-ac9a75bd0c39")
             public void setValue(ISmObjectData data, Object value) {
                 ((AcceptTimeEventActionData) data).mTimeExpresion = value;
             }

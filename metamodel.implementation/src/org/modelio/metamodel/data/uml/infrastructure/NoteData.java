@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.data.uml.infrastructure;
 
 import java.util.ArrayList;
@@ -45,43 +45,43 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("008a4260-c4be-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=Note.class, factory=NoteData.Metadata.ObjectFactory.class)
 public class NoteData extends ModelElementData {
-    @objid ("eb2eaaeb-ec63-48e7-9342-033a24301b51")
+    @objid ("27d88974-e694-4454-964e-8e1b524b61f4")
     @SmaMetaAttribute(metaName="Content", type=String.class, smAttributeClass=Metadata.ContentSmAttribute.class)
      Object mContent = "";
 
-    @objid ("99cde557-2764-4911-a8d3-fc69bd748966")
+    @objid ("5952337d-341a-4ad2-9f34-17d973b2dc5f")
     @SmaMetaAssociation(metaName="Model", typeDataClass=NoteTypeData.class, min=1, max=1, smAssociationClass=Metadata.ModelSmDependency.class, partof = true)
      SmObjectImpl mModel;
 
-    @objid ("e9a9de8e-f298-4210-a851-89a3eb19f9ed")
+    @objid ("d090bc9f-e693-496c-b0ef-3ee0468e0244")
     @SmaMetaAssociation(metaName="Subject", typeDataClass=ModelElementData.class, min=0, max=1, smAssociationClass=Metadata.SubjectSmDependency.class)
      SmObjectImpl mSubject;
 
-    @objid ("66bbf216-212f-47a3-94d7-5aab7d131911")
+    @objid ("e6e1218f-8193-4e9a-8cd6-a6fc80640373")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("00185db2-c4c3-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("7065aec1-e185-4a16-acfd-578bbd8c82bc")
+        @objid ("5a23fef5-1608-40d9-a6b6-f25a7bcf2602")
         private static SmClass smClass = null;
 
-        @objid ("531a2521-4cad-48ca-b443-7b85e864aad2")
+        @objid ("69fe99c8-3b7f-42fa-87a1-070c5b007c44")
         private static SmAttribute ContentAtt = null;
 
-        @objid ("c16035a6-4373-479f-8472-48ef503c725d")
+        @objid ("be5cb364-0928-488a-b38a-7597bfd465e4")
         private static SmDependency ModelDep = null;
 
-        @objid ("f2f8f90d-5a06-46f3-92c1-c4eb3a0a15b2")
+        @objid ("e7de75a9-dc4a-42e4-9396-3a049df9fd77")
         private static SmDependency SubjectDep = null;
 
-        @objid ("1623e7c1-6b52-44a7-80ee-ba1c31d5cbcc")
+        @objid ("7641eee2-f2b4-41c2-995b-5ba4a8e08f4d")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(NoteData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("e5e27048-a27d-454c-a100-23b78c4fe58b")
+        @objid ("869a9480-c750-4fa5-91fa-104e8133004f")
         public static SmAttribute ContentAtt() {
             if (ContentAtt == null) {
             	ContentAtt = classof().getAttributeDef("Content");
@@ -89,7 +89,7 @@ public class NoteData extends ModelElementData {
             return ContentAtt;
         }
 
-        @objid ("e6375951-72c0-49e0-8b46-abbd33848a01")
+        @objid ("2ed9539a-62a7-4d99-8205-6e0ac921935a")
         public static SmDependency ModelDep() {
             if (ModelDep == null) {
             	ModelDep = classof().getDependencyDef("Model");
@@ -97,7 +97,7 @@ public class NoteData extends ModelElementData {
             return ModelDep;
         }
 
-        @objid ("24c155e2-2fc4-4b27-9ff8-50726abb6647")
+        @objid ("ebce505e-f48f-4f4f-ab12-cd2470952ca7")
         public static SmDependency SubjectDep() {
             if (SubjectDep == null) {
             	SubjectDep = classof().getDependencyDef("Subject");
@@ -105,25 +105,25 @@ public class NoteData extends ModelElementData {
             return SubjectDep;
         }
 
-        @objid ("059425c2-c771-45a5-9259-b03914c1ee56")
-        public static SmClass getSmClass() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return smClass;
-        }
-
-        @objid ("5c26efa9-6a42-457a-a87e-fcf041daa2f7")
+        @objid ("57b66ec8-45f3-4433-ab95-4750a064bf56")
         public static SmDependency getModelDep() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return ModelDep;
         }
 
-        @objid ("0878222d-8c6f-4cfe-952f-ee412da43c4e")
+        @objid ("f5b64a54-0b14-4a2c-891a-ea12cefe489a")
+        public static SmClass getSmClass() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return smClass;
+        }
+
+        @objid ("dedcd703-e932-4cd2-b974-4ed5c9a20bbf")
         public static SmAttribute getContentAtt() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return ContentAtt;
         }
 
-        @objid ("be0efbb5-15bd-4da6-a87a-9dde222fd315")
+        @objid ("31c8f1fc-2969-4e06-973f-43ebd9e423ff")
         public static SmDependency getSubjectDep() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return SubjectDep;
@@ -131,12 +131,12 @@ public class NoteData extends ModelElementData {
 
         @objid ("0018a15a-c4c3-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("01391141-e4c4-40ec-a45b-fe99efb9bc4f")
+            @objid ("9968106f-3ad6-4501-b607-d926fd927116")
             public ISmObjectData createData() {
                 return new NoteData();
             }
 
-            @objid ("857e21d1-44ad-430d-8da1-cfb0d8ec3c68")
+            @objid ("069c96b8-f1a4-4c85-a42c-499f33677aa4")
             public SmObjectImpl createImpl() {
                 return new NoteImpl();
             }
@@ -145,12 +145,12 @@ public class NoteData extends ModelElementData {
 
         @objid ("0019030c-c4c3-1fd8-97fe-001ec947cd2a")
         public static class ContentSmAttribute extends SmAttribute {
-            @objid ("cc282115-28cb-4b22-be24-8bb103817be2")
+            @objid ("ced0a26a-ea4f-40ea-b8e1-74c8da703e60")
             public Object getValue(ISmObjectData data) {
                 return ((NoteData) data).mContent;
             }
 
-            @objid ("4078aa5b-7e20-4f54-8c26-a8af224bb5c4")
+            @objid ("9c884af5-7f8e-488c-9e2d-3d5ee767bea6")
             public void setValue(ISmObjectData data, Object value) {
                 ((NoteData) data).mContent = value;
             }
@@ -159,18 +159,18 @@ public class NoteData extends ModelElementData {
 
         @objid ("00196612-c4c3-1fd8-97fe-001ec947cd2a")
         public static class SubjectSmDependency extends SmSingleDependency {
-            @objid ("6fa7c0dc-d10f-4cc6-85f1-9a1e7e35f4d5")
+            @objid ("51d2ef4b-eef3-412e-ac8e-db3712a726a3")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((NoteData) data).mSubject;
             }
 
-            @objid ("e5bbc7fd-47d8-4f38-8ab8-e6f1005d6385")
+            @objid ("6f60880c-cbc0-42f1-9152-7734c1705462")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((NoteData) data).mSubject = value;
             }
 
-            @objid ("cd2830eb-9bdd-485c-a168-8cda2fd381ff")
+            @objid ("f3d8e588-d1d9-4a61-85fc-a4d9c68fb4ad")
             @Override
             public SmDependency getSymetric() {
                 return ModelElementData.Metadata.DescriptorDep();
@@ -180,18 +180,18 @@ public class NoteData extends ModelElementData {
 
         @objid ("0019dd7c-c4c3-1fd8-97fe-001ec947cd2a")
         public static class ModelSmDependency extends SmSingleDependency {
-            @objid ("13f3703d-1fb5-4d4a-9d8b-fdb63c56f757")
+            @objid ("7f87953d-12b1-4b27-ab67-ebdc3d5bc538")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((NoteData) data).mModel;
             }
 
-            @objid ("60345896-a315-457d-a813-2dfc3d850322")
+            @objid ("4d4a18b5-7cd2-4363-af67-566c4342a2ce")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((NoteData) data).mModel = value;
             }
 
-            @objid ("3053d9bc-5961-46a8-b0fe-643ce0139bba")
+            @objid ("8096351a-7487-4c89-8867-858f401954e6")
             @Override
             public SmDependency getSymetric() {
                 return NoteTypeData.Metadata.ElementDep();

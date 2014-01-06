@@ -31,13 +31,13 @@ import org.modelio.vcore.smkernel.mapi.MObject;
 public class ContextCreationExpert extends DefaultLinkExpert {
     @objid ("f7377640-315f-4097-96e9-bb8d7794a6a2")
     @Override
-    public boolean canLink(MObject link, final MObject fromElement, final MObject toElement, final MObject linkOwner) {
+    public boolean canLink(MClass link, final MObject fromElement, final MObject toElement) {
         return (fromElement instanceof Term) && (toElement instanceof Term);
     }
 
     @objid ("0014d58d-c6ce-4317-ae52-a4b8feb21137")
     @Override
-    public boolean canLink(MClass link, final MClass fromMetaclass, final MClass toMetaclass, final MClass owner) {
+    public boolean canLink(MClass link, final MClass fromMetaclass, final MClass toMetaclass) {
         return fromMetaclass.hasBase(Metamodel.getMClass(Term.class)) && toMetaclass.hasBase(Metamodel.getMClass(Term.class));
     }
 

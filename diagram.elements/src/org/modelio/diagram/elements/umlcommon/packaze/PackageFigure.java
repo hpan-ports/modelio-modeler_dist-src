@@ -285,6 +285,19 @@ public class PackageFigure extends Figure implements IPenOptionsSupport, IBrushO
         return minimumSize;
     }
 
+    @objid ("464d5504-fd46-4550-bbe1-91b4367fc76c")
+    @Override
+    public void setFillAlpha(int alpha) {
+        // ignore
+    }
+
+    @objid ("c109747c-e462-4f15-926e-fe3f5b588c04")
+    @Override
+    public int getFillAlpha() {
+        // always opaque
+        return 255;
+    }
+
     /**
      * Specific layout for header zone.
      */

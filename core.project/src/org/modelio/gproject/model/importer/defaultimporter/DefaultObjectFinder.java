@@ -24,13 +24,8 @@ package org.modelio.gproject.model.importer.defaultimporter;
 import java.util.Collection;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.gproject.model.importer.core.IObjectFinder;
-import org.modelio.metamodel.analyst.AnalystContainer;
 import org.modelio.metamodel.analyst.AnalystProject;
-import org.modelio.metamodel.analyst.BusinessRuleContainer;
-import org.modelio.metamodel.analyst.Dictionary;
-import org.modelio.metamodel.analyst.GoalContainer;
 import org.modelio.metamodel.analyst.PropertyContainer;
-import org.modelio.metamodel.analyst.RequirementContainer;
 import org.modelio.metamodel.mda.Project;
 import org.modelio.metamodel.uml.statik.Package;
 import org.modelio.vcore.session.api.model.IModel;
@@ -55,10 +50,6 @@ public class DefaultObjectFinder implements IObjectFinder {
                 ret = (SmObjectImpl) getSameAnalystProject(searchedSession, (AnalystProject) searchedObject);
             } else if (searchedObject instanceof PropertyContainer) {
                 ret = (SmObjectImpl) getSamePropertyContainer(searchedSession, (PropertyContainer) searchedObject);
-            } else if (searchedObject instanceof AnalystContainer) {
-                ret = (SmObjectImpl) getSameRequirementContainer(searchedSession, (AnalystContainer) searchedObject);
-            } else if (searchedObject instanceof Dictionary) {
-                ret = (SmObjectImpl) getSameDictionary(searchedSession, (Dictionary) searchedObject);
             }
         }
         
@@ -84,7 +75,7 @@ public class DefaultObjectFinder implements IObjectFinder {
             } else {
                 // On a 2 objets de classe differente avec le m?me identifiant.
                 // La base a quelques probl?mes ...
-                String msg;
+                //String msg;
                 // FIXME error message
                 // msg.pformat
                 // (RC2::getRC("import.properties").getString("ErrorDifferentClassObjectWithSameIdentifierFound").cstr(),
@@ -111,19 +102,6 @@ public class DefaultObjectFinder implements IObjectFinder {
             }
         }
         return projects.iterator().next();
-    }
-
-    @objid ("006956e0-d3aa-108f-8d81-001ec947cd2a")
-    protected Dictionary getSameDictionary(IModel searchedSession, Dictionary anObject) {
-        // FIXME what about analyst objects?
-        //        AnalystProject srcReqProject = anObject.getOwnerProject();
-        //        if (srcReqProject != null) {
-        //            AnalystProject destReqProject = getSameAnalystProject(searchedSession, srcReqProject);
-        //            if (destReqProject != null) {
-        //                return destReqProject.getDictionaryRoot();
-        //            }
-        //        }
-        return null;
     }
 
     @objid ("00697cc4-d3aa-108f-8d81-001ec947cd2a")
@@ -158,34 +136,6 @@ public class DefaultObjectFinder implements IObjectFinder {
                 return destReqProject.getPropertyRoot();
             }
         }
-        return null;
-    }
-
-    @objid ("0069f08c-d3aa-108f-8d81-001ec947cd2a")
-    protected AnalystContainer getSameRequirementContainer(IModel searchedSession, AnalystContainer anObject) {
-        // FIXME what about analyst objects?
-        //        AnalystProject srcReqProject = anObject instanceof RequirementContainer ? ((RequirementContainer) anObject).getOwnerProject() : null;
-        //        AnalystProject srcGoalProject = anObject instanceof GoalContainer ? ((GoalContainer) anObject).getOwnerProject() : null;
-        //        AnalystProject srcRuleProject = anObject instanceof BusinessRuleContainer ? ((BusinessRuleContainer) anObject).getOwnerProject() : null;
-        //        if (srcReqProject != null) {
-        //            // anObject is the root RequirementContainer
-        //            AnalystProject destReqProject = getSameAnalystProject(searchedSession, srcReqProject);
-        //            if (destReqProject != null) {
-        //                return destReqProject.getRequirementRoot();
-        //            }
-        //        } else if (srcGoalProject != null) {
-        //            // anObject is the root RequirementContainer
-        //            AnalystProject destReqProject = getSameAnalystProject(searchedSession, srcGoalProject);
-        //            if (destReqProject != null) {
-        //                return destReqProject.getGoalRoot();
-        //            }
-        //        } else if (srcRuleProject != null) {
-        //            // anObject is the root RequirementContainer
-        //            AnalystProject destReqProject = getSameAnalystProject(searchedSession, srcRuleProject);
-        //            if (destReqProject != null) {
-        //                return destReqProject.getBusinessRuleRoot();
-        //            }
-        //        }
         return null;
     }
 

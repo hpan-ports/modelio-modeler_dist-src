@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.bpmn.events;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
@@ -31,10 +31,10 @@ import org.modelio.metamodel.bpmn.activities.BpmnComplexBehaviorDefinition;
 
 @objid ("008df234-c4bf-1fd8-97fe-001ec947cd2a")
 public interface BpmnImplicitThrowEvent extends BpmnThrowEvent {
-    @objid ("70433fba-02b1-455a-ac40-8186a0f9c823")
+    @objid ("58a19990-59be-4602-b1c1-8f7df23bda7b")
     BpmnComplexBehaviorDefinition getOwner();
 
-    @objid ("e66f3bf1-7c79-4aae-be6e-707fb03bdab5")
+    @objid ("67d350b9-82b5-496f-9aa6-85b955aba9f8")
     void setOwner(BpmnComplexBehaviorDefinition value);
 
 }

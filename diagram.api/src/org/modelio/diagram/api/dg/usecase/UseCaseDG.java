@@ -63,35 +63,35 @@ public class UseCaseDG extends PortContainerDG {
         GmCompositeNode attributeZone = mainNode.getCompositeFor(Attribute.class);
         if (attributeZone != null) {
             nodes.addAll(DGFactory.getInstance().getDiagramNodes(this.diagramHandle,
-                                                                 attributeZone.getChildren()));
+                                                                 attributeZone.getVisibleChildren()));
         }
         
         // CollaborationUse
         GmCompositeNode collabuseZone = mainNode.getCompositeFor(CollaborationUse.class);
         if (collabuseZone != null) {
             nodes.addAll(DGFactory.getInstance().getDiagramNodes(this.diagramHandle,
-                                                                 collabuseZone.getChildren()));
+                                                                 collabuseZone.getVisibleChildren()));
         }
         
         // ExtensionPoint
         GmCompositeNode extensionPointZone = mainNode.getCompositeFor(ExtensionPoint.class);
         if (extensionPointZone != null) {
             nodes.addAll(DGFactory.getInstance().getDiagramNodes(this.diagramHandle,
-                                                                 extensionPointZone.getChildren()));
+                                                                 extensionPointZone.getVisibleChildren()));
         }
         
         // Instances
         GmCompositeNode instanceZone = mainNode.getCompositeFor(Instance.class);
         if (instanceZone != null) {
             nodes.addAll(DGFactory.getInstance().getDiagramNodes(this.diagramHandle,
-                                                                 instanceZone.getChildren()));
+                                                                 instanceZone.getVisibleChildren()));
         }
         
         // Operations
         GmCompositeNode operationZone = mainNode.getCompositeFor(Operation.class);
         if (operationZone != null) {
             nodes.addAll(DGFactory.getInstance().getDiagramNodes(this.diagramHandle,
-                                                                 operationZone.getChildren()));
+                                                                 operationZone.getVisibleChildren()));
         }
         return nodes;
     }

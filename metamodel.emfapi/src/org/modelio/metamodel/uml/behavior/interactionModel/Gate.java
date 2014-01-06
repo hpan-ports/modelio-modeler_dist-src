@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.uml.behavior.interactionModel;
 
 import java.util.List;
@@ -34,34 +34,34 @@ import org.modelio.metamodel.uml.behavior.interactionModel.InteractionUse;
 
 @objid ("004545ca-c4bf-1fd8-97fe-001ec947cd2a")
 public interface Gate extends MessageEnd {
-    @objid ("ecdcd149-44c6-435c-a18d-4f68153aa616")
+    @objid ("801fbb43-7b95-418f-afc2-eec768e586f9")
     InteractionUse getOwnerUse();
 
-    @objid ("cd8404ca-a2ca-48dc-88c7-515adbb3ff6d")
+    @objid ("f0871c86-fb4c-49fc-8061-b911a5200dd5")
     void setOwnerUse(InteractionUse value);
 
-    @objid ("78e9bb35-066f-46f0-b9a7-1ecc699bc8a7")
+    @objid ("981ce475-86ff-4155-9278-86d34d882920")
     EList<Gate> getActual();
 
-    @objid ("97644d19-6cda-4abf-8a8a-2d701462e3db")
+    @objid ("8381845a-c2e4-4a1a-82f8-05911caa538c")
     <T extends Gate> List<T> getActual(java.lang.Class<T> filterClass);
 
-    @objid ("b87bb896-8d34-4e57-b836-02184b37fae8")
+    @objid ("d1341ace-a5f4-43a0-91aa-03c3b0d024d4")
     Interaction getOwnerInteraction();
 
-    @objid ("12acf25e-60a5-48d3-ad76-5e9e3c0cb00a")
+    @objid ("4a4380dc-5390-439e-84fb-b937dd1afe97")
     void setOwnerInteraction(Interaction value);
 
-    @objid ("cf2a2869-f9bd-4833-83f6-617c71bcc140")
+    @objid ("376d23f3-0e52-49da-86ba-6754fbcaa6b6")
     CombinedFragment getOwnerFragment();
 
-    @objid ("f7825c92-5272-4f9b-ac86-89119099ea9e")
+    @objid ("d77c87ea-ccb1-4948-bb30-957e77fef68b")
     void setOwnerFragment(CombinedFragment value);
 
-    @objid ("e235a8ce-135d-4103-8144-fa846abb14f8")
+    @objid ("65f41b44-b48a-4dc6-bdb5-f0129f751048")
     Gate getFormal();
 
-    @objid ("3be5a77c-ea17-47f0-995f-5c533d6511e2")
+    @objid ("4e72ad98-4b1f-4e42-959b-c52ff5431f22")
     void setFormal(Gate value);
 
 }

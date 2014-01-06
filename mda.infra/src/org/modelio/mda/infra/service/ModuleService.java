@@ -272,7 +272,7 @@ public class ModuleService implements IModuleService {
                 final Entry toSelect = gModule.getParameters().getProperty(GModule.SELECT_ON_OPEN);
                 if (toSelect != null && toSelect.getValue().equals("true")) {
                     installer.moduleFirstInstall(gModule, gModule.getModuleHandle());
-        
+                    
                     // Remove the property, next time it will be a simple start
                     gModule.getParameters().remove(GModule.SELECT_ON_OPEN);
                 } else {

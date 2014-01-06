@@ -152,23 +152,22 @@ public class R2060 extends AbstractRule {
                 //A NameSpace element was updated (potentially its name).
                 //If it's owned by another NameSpace, we need to check the rule is still valid on this NameSpace.
                 MObject owner = element.getCompositionOwner();
-                if (owner instanceof NameSpace)
+                if (owner instanceof NameSpace) {
                     diagnostic.addEntry(checkR2060((NameSpace) owner));
+                }
                 //We also need to check this NameSpace itself in case it was updated from a move.
                 diagnostic.addEntry(checkR2060((NameSpace) element));
             } else
                 Audit.LOG.warning(Audit.PLUGIN_ID,
-                            "R2060: unsupported element type '%s'",
-                            element.getMClass().getName());
+                        "R2060: unsupported element type '%s'",
+                        element.getMClass().getName());
             return diagnostic;
         }
 
         @objid ("60f7d85a-0c50-41b4-9f79-6d5da1ea2f04")
         private IAuditEntry checkR2060(final NameSpace nameSpace) {
-            AuditEntry auditEntry = new AuditEntry(this.rule.getRuleId(),
-                                                   AuditSeverity.AuditSuccess,
-                                                   nameSpace,
-                                                   null);
+            List<Object> linkedObjects = new ArrayList<>();
+            IAuditEntry entry = new AuditEntry(this.rule.getRuleId(), AuditSeverity.AuditSuccess, nameSpace, linkedObjects);
             
             Map<String, List<NameSpace>> duplicates = new HashMap<>();
             
@@ -179,18 +178,21 @@ public class R2060 extends AbstractRule {
                 duplicates.get(me.getName()).add(me);
             }
             
-            for (Entry<String, List<NameSpace>> entry : duplicates.entrySet())
-                if (entry.getValue().size() > 1) {
+            boolean dupFound = false;
+            for (Entry<String, List<NameSpace>> e : duplicates.entrySet()) {
+                if (e.getValue().size() > 1) {
+                    dupFound = true;
             
                     //Rule failed
-            
-                    auditEntry.setSeverity(this.rule.getSeverity());
-                    ArrayList<Object> linkedObjects = new ArrayList<>();
-                    linkedObjects.add(nameSpace);
-                    linkedObjects.add(entry.getKey());
-                    auditEntry.setLinkedInfos(linkedObjects);
+                    linkedObjects.addAll(e.getValue());
                 }
-            return auditEntry;
+            }
+            
+            if (dupFound) {
+                linkedObjects.add(0, nameSpace);
+                entry.setSeverity(this.rule.getSeverity());
+            }
+            return entry;
         }
 
     }

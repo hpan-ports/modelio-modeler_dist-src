@@ -284,7 +284,7 @@ public class DefaultImporter extends AbstractImporter {
 
     @objid ("0003a58e-5247-1091-8d81-001ec947cd2a")
     @Override
-    protected void fixOrphanRoots(Map<SmObjectImpl, SmDependency> orphans, ICoreSession localSession, SmObjectImpl localRoot) {
+    protected void reparentElements(Map<SmObjectImpl, SmDependency> orphans, ICoreSession localSession, SmObjectImpl localRoot) {
         // Process broken links by delegation to the customized IBrokenDependencyHandler
         this.brokenDependencyHandler.postProcess();
         
@@ -318,7 +318,7 @@ public class DefaultImporter extends AbstractImporter {
         }
 
         @objid ("008669b0-e548-108f-8d81-001ec947cd2a")
-        protected List<SmObjectImpl> reparentOrphans(final Map<SmObjectImpl, SmDependency> orphans, SmObjectImpl fallbackParent, ICoreSession session) {
+        public List<SmObjectImpl> reparentOrphans(final Map<SmObjectImpl, SmDependency> orphans, SmObjectImpl fallbackParent, ICoreSession session) {
             ImportCompositionInitializer initializer = new ImportCompositionInitializer(fallbackParent, session);
             
             List<SmObjectImpl> stillOrphans = new ArrayList<>();
@@ -334,21 +334,14 @@ public class DefaultImporter extends AbstractImporter {
         }
 
         @objid ("0086b500-e548-108f-8d81-001ec947cd2a")
-        private static boolean attach(final SmObjectImpl orphan, SmDependency smDependency, org.modelio.gproject.model.importer.defaultimporter.DefaultImporter.AddToRootProcessor.ImportCompositionInitializer initializer) {
-            // Is the local object orphan ?
-            assert (orphan.getCompositionOwner() == null);
-            
+        private static boolean attach(final SmObjectImpl orphan, SmDependency smDependency, ImportCompositionInitializer initializer) {
             // Try adding it to the local root
             boolean res = initializer.execute(orphan, smDependency);
-            
-            if (!res && !isRoot(orphan)) {
-                return false;
-            }
-            return true;
+            return (res || isRoot(orphan)) ;
         }
 
         @objid ("0086e0d4-e548-108f-8d81-001ec947cd2a")
-        private class ImportCompositionInitializer extends CompositionInitializer {
+        private static class ImportCompositionInitializer extends CompositionInitializer {
             @objid ("0086f0f6-e548-108f-8d81-001ec947cd2a")
             private final AnalystProject reqProject;
 

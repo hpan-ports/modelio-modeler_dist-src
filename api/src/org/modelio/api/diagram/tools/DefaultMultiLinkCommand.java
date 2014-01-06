@@ -65,7 +65,7 @@ public abstract class DefaultMultiLinkCommand implements IMultiLinkCommand {
     @objid ("b31cc97a-251b-11de-81ed-8000600fe800")
     private String tooltip;
 
-    @objid ("b97c6c5d-6255-4e9c-b997-0feea9561ffe")
+    @objid ("1bd6d6bc-35de-4e3c-acae-5ec413573e50")
     private ImageDescriptor bitmap;
 
     /**

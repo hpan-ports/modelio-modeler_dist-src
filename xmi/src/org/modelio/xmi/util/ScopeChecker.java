@@ -23,6 +23,7 @@ package org.modelio.xmi.util;
 
 import java.util.HashMap;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
+import org.modelio.api.modelio.Modelio;
 import org.modelio.metamodel.analyst.AnalystProject;
 import org.modelio.metamodel.analyst.Requirement;
 import org.modelio.metamodel.analyst.RequirementContainer;
@@ -194,6 +195,7 @@ public class ScopeChecker {
         }
 
         @objid ("50363bc8-d56d-47a3-a510-cfc60b4ebdf2")
+        @Override
         public Object visitBinding(Binding eltToTest) {
             contains(eltToTest.getCompositionOwner());
             return null;
@@ -208,18 +210,21 @@ public class ScopeChecker {
         }
 
         @objid ("75e2e0f6-7939-4a4f-8703-6ceb27d7dc63")
+        @Override
         public Object visitCollaborationUse(CollaborationUse eltToTest) {
             contains(eltToTest.getCompositionOwner());
             return null;
         }
 
         @objid ("c4a54dba-7b92-44eb-bcc2-0ecb2db885ec")
+        @Override
         public Object visitConnectionPointReference(ConnectionPointReference eltToTest) {
             contains(eltToTest.getCompositionOwner());
             return null;
         }
 
         @objid ("71d90d2a-368e-4f96-bf3e-2e2276c1887e")
+        @Override
         public Object visitConnector(Connector eltToTest) {
             for (LinkEnd linkEnd : eltToTest.getLinkEnd()) {
                 if (!contains(linkEnd.getOwner()))
@@ -229,14 +234,12 @@ public class ScopeChecker {
         }
 
         @objid ("3747bce3-9be6-495c-8302-3d9074d61785")
+        @Override
         public Object visitConnectorEnd(ConnectorEnd eltToTest) {
             contains(eltToTest.getOwner());
             
             if (theResult) {
-            
-                if (!contains(eltToTest.getOpposite().getOwner()))
-                    return null;
-            
+                contains(eltToTest.getOpposite().getOwner());               
             }
             return null;
         }
@@ -281,16 +284,6 @@ public class ScopeChecker {
         public Object visitElementImport(ElementImport eltToTest) {
             if (contains(eltToTest.getImportedElement()))
                 contains(eltToTest.getCompositionOwner());
-            
-            // if (contains(eltToTest.getImportedElement())) {
-            // Operation importingOp = eltToTest.getImportingOperation();
-            // if (importingOp != null) {
-            // contains(importingOp.getOwner());
-            // }
-            // else {
-            // contains(eltToTest.getImportingNameSpace().getOwner());
-            // }
-            // }
             return null;
         }
 
@@ -324,12 +317,14 @@ public class ScopeChecker {
         }
 
         @objid ("d47af5b0-5a9a-4622-a272-b399e7218140")
+        @Override
         public Object visitInformationFlow(InformationFlow eltToTest) {
             contains(eltToTest.getOwner());
             return null;
         }
 
         @objid ("caff9179-9fad-4f7e-9ded-4fb131d7c3bd")
+        @Override
         public Object visitInformationItem(InformationItem eltToTest) {
             contains(eltToTest.getOwner());
             return null;
@@ -371,8 +366,6 @@ public class ScopeChecker {
             contains(eltToTest.getOwner());
             
             if (theResult) {
-            
-            
                 if (!contains(eltToTest.getOpposite().getOwner()))
                     return null;
             }
@@ -401,8 +394,9 @@ public class ScopeChecker {
                 theResult = false;
             else if (eltToTest.equals(localRoot))
                 theResult = true;
-            else
+            else{
                 contains(eltToTest.getCompositionOwner());
+            }
             return null;
         }
 
@@ -423,10 +417,6 @@ public class ScopeChecker {
         @objid ("feb93109-c02a-49b7-b94d-3d3fd9bf816a")
         @Override
         public Object visitPackageImport(PackageImport eltToTest) {
-            //            if (eltToTest.equals(Modelio.getInstance().getModelingSession().getModel().getRoot()))
-            //                theResult = true;
-            //            
-            //            else 
             if (contains(eltToTest.getImportedPackage()))
                 contains(eltToTest.getCompositionOwner());
             return null;
@@ -691,7 +681,7 @@ public class ScopeChecker {
         @Override
         public Object visitDataType(final DataType eltToTest) {
             if (PrimitiveTypeMapper.isPredefinedType(eltToTest))
-                theResult = true;
+                theResult = false;
             else{
                 contains(eltToTest.getCompositionOwner());
             }
@@ -701,7 +691,11 @@ public class ScopeChecker {
         @objid ("46265bdb-ccee-4ce7-801e-74f7612972cf")
         @Override
         public Object visitProject(final Project eltToTest) {
-            theResult = true;
+            if (Modelio.getInstance().getModelingSession().getModel().getLibraryRoots().contains(eltToTest)){
+                theResult = true;
+                GenerationProperties.getInstance().addExportedLibrary(eltToTest);
+            }else
+                theResult = false;
             return null;
         }
 

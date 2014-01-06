@@ -29,13 +29,13 @@ import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.tools.CellEditorLocator;
 import org.eclipse.gef.tools.DirectEditManager;
 import org.eclipse.jface.viewers.CellEditor;
-import org.modelio.diagram.elements.core.model.GmModel;
+import org.modelio.diagram.elements.core.model.IGmObject;
 
 /**
- * Specialization of GEF DirectEditManager that temporarily disables context key bindings during edition.<br>
+ * Specialization of GEF {@link DirectEditManager} that temporarily disables context key bindings during edition.<br>
  * Key bindings are restored when edition is done.
  * <p>
- * Note: when redefining the initCellEditor() method, do not forget to call the super method.
+ * <b>Note:</b> when redefining the {@link #initCellEditor()} method, do not forget to call the super method.
  */
 @objid ("7e2e72d8-1dec-11e2-8cad-001ec947c8cc")
 public abstract class DirectEditManager2 extends DirectEditManager {
@@ -69,11 +69,14 @@ public abstract class DirectEditManager2 extends DirectEditManager {
         super(source, editorType, locator, feature);
     }
 
+    /**
+     * <b>Note:</b> when redefining, do not forget to call the {@link DirectEditManager#initCellEditor()} super method.
+     */
     @objid ("7e2e72f5-1dec-11e2-8cad-001ec947c8cc")
     @Override
     protected void initCellEditor() {
         // We must deactivate the active contexts during the edition, to avoid the editor's shortcuts to be triggered when entering an element's name... 
-        EContextService contextService = ((GmModel)getEditPart().getModel()).getDiagram().getModelManager().getContextService();
+        EContextService contextService = ((IGmObject)getEditPart().getModel()).getDiagram().getModelManager().getContextService();
         
         // Store those contexts for further reactivation
         this.activeContexts = new ArrayList<>(contextService.getActiveContextIds());
@@ -86,7 +89,7 @@ public abstract class DirectEditManager2 extends DirectEditManager {
     @Override
     protected void bringDown() {
         // Restore previously deactivated contexts
-        EContextService contextService = ((GmModel)getEditPart().getModel()).getDiagram().getModelManager().getContextService();
+        EContextService contextService = ((IGmObject)getEditPart().getModel()).getDiagram().getModelManager().getContextService();
         for (String contextId : this.activeContexts) {
             contextService.activateContext(contextId);
         }

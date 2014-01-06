@@ -39,6 +39,7 @@ import org.eclipse.e4.ui.workbench.swt.modeling.EMenuService;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.util.IPropertyChangeListener;
 import org.eclipse.jface.util.PropertyChangeEvent;
+import org.eclipse.jface.viewers.AbstractTreeViewer;
 import org.eclipse.jface.viewers.DoubleClickEvent;
 import org.eclipse.jface.viewers.IDoubleClickListener;
 import org.eclipse.jface.viewers.ISelection;
@@ -46,6 +47,7 @@ import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.StructuredSelection;
+import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.swt.events.MenuDetectEvent;
 import org.eclipse.swt.events.MenuDetectListener;
 import org.eclipse.swt.widgets.Composite;
@@ -291,6 +293,11 @@ public class BrowserView {
                                     final Object selectedObject = ((IStructuredSelection) selection).getFirstElement();
                                     if (selectedObject instanceof MObject) {
                                         BrowserView.this.activationService.activateMObject((MObject) selectedObject);
+                                        TreeViewer tv = BrowserView.this.browserTreePanel.getComposite();
+                                        if (tv.getExpandedState(selectedObject))
+                                            tv.collapseToLevel(selectedObject, AbstractTreeViewer.ALL_LEVELS);
+                                        else
+                                            tv.expandToLevel(selectedObject, 1);
                                     }
                                 }
         

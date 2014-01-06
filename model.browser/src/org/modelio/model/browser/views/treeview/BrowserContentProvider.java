@@ -36,6 +36,8 @@ import org.modelio.metamodel.analyst.AnalystProject;
 import org.modelio.metamodel.analyst.BusinessRule;
 import org.modelio.metamodel.analyst.BusinessRuleContainer;
 import org.modelio.metamodel.analyst.Dictionary;
+import org.modelio.metamodel.analyst.GenericAnalystContainer;
+import org.modelio.metamodel.analyst.GenericAnalystElement;
 import org.modelio.metamodel.analyst.Goal;
 import org.modelio.metamodel.analyst.GoalContainer;
 import org.modelio.metamodel.analyst.PropertyContainer;
@@ -129,6 +131,7 @@ import org.modelio.metamodel.uml.infrastructure.ModelTree;
 import org.modelio.metamodel.uml.infrastructure.Profile;
 import org.modelio.metamodel.uml.infrastructure.Stereotype;
 import org.modelio.metamodel.uml.infrastructure.Usage;
+import org.modelio.metamodel.uml.infrastructure.matrix.MatrixDefinition;
 import org.modelio.metamodel.uml.infrastructure.properties.EnumeratedPropertyType;
 import org.modelio.metamodel.uml.infrastructure.properties.PropertyDefinition;
 import org.modelio.metamodel.uml.infrastructure.properties.PropertyEnumerationLitteral;
@@ -297,9 +300,11 @@ class BrowserContentProvider implements IModelChangeListener, IStatusChangeListe
             IProjectFragment fragment = (IProjectFragment) parent;
             return getFragmentRoots(fragment).toArray();
         } else if (parent instanceof MObject) {
-            return visitor.getChildren((MObject) parent, true, true);
+            return visitor.getChildren((MObject) parent, true, true).toArray();
         } else if (parent instanceof LinkContainer) {
             return visitor.getLinks((LinkContainer) parent);
+        } else if (parent instanceof ArchiveContainer) {
+            return visitor.getArchivedVersions((ArchiveContainer) parent);
         }
         return new Object[0];
     }
@@ -455,6 +460,9 @@ class BrowserContentProvider implements IModelChangeListener, IStatusChangeListe
         @objid ("c22eb469-c6e9-410a-b6ff-af3d49a65124")
         private boolean findLinksChildren;
 
+        @objid ("1535fe78-e9dd-4395-b6bb-5205d8055aab")
+        private boolean findArchivedVersionChildren;
+
         @objid ("73644ebd-ff3b-4bab-8af0-aa35e37d0421")
         private ArrayList<MObject> result;
 
@@ -464,23 +472,24 @@ class BrowserContentProvider implements IModelChangeListener, IStatusChangeListe
         }
 
         @objid ("d45f3143-2662-4cbf-8701-c1df3efcc9a6")
-        public Object[] getChildren(final MObject parent, boolean findUml, boolean findScope) {
-            List<MObject> umlChildren = getChildren(parent, findUml, findScope, false);
-            List<MObject> auxChildren = getChildren(parent, false, false, true);
-            if (auxChildren.isEmpty()) {
-                return umlChildren.toArray();
-            } else {
-                Object[] tmpArray = new Object[umlChildren.size() + 1];
-                umlChildren.toArray(tmpArray);
-                tmpArray[umlChildren.size()] = new LinkContainer(parent, auxChildren.size());
-                return tmpArray;
-            }
+        public List<Object> getChildren(final MObject parent, boolean findUml, boolean findScope) {
+            List<MObject> umlChildren = getChildren(parent, findUml, findScope, false, false);
+            List<MObject> auxChildren = getChildren(parent, false, false, true, false);
+            List<MObject> archiveChildren = getChildren(parent, false, false, false, true);
+            
+            List<Object> ret = new ArrayList<>(umlChildren.size() + 2);
+            ret.addAll(umlChildren);
+            if (! auxChildren.isEmpty())
+                ret.add(new LinkContainer(parent, auxChildren.size()));
+            if (! archiveChildren.isEmpty())
+                ret.add(new ArchiveContainer(parent, archiveChildren.size()));
+            return ret;
         }
 
         @objid ("0cbc32a5-acc0-4c92-9643-b72c893433d5")
         public boolean hasChildren(final MObject parent, boolean findUml, boolean findScope) {
             // TODO: optimize?
-            return getChildren(parent, findUml, findScope).length > 0;
+            return getChildren(parent, findUml, findScope).size() > 0;
         }
 
         /**
@@ -489,10 +498,11 @@ class BrowserContentProvider implements IModelChangeListener, IStatusChangeListe
          * @return The children to display when expanding the tree node.
          */
         @objid ("89370d4c-0e5d-4b5c-aa1a-3c4b5404848c")
-        private List<MObject> getChildren(MObject parent, boolean findUml, boolean findScope, boolean findLinks) {
+        private List<MObject> getChildren(MObject parent, boolean findUml, boolean findScope, boolean findLinks, boolean findArchivedVersion) {
             this.findUmlChildren = findUml;
             this.findScopeChildren = findScope;
             this.findLinksChildren = findLinks;
+            this.findArchivedVersionChildren = findArchivedVersion; 
             this.result = new ArrayList<>();
             parent.accept(this);
             return this.result;
@@ -500,7 +510,7 @@ class BrowserContentProvider implements IModelChangeListener, IStatusChangeListe
 
         @objid ("b3164446-3f7b-4307-95e5-a511a60586dc")
         public Object[] getLinks(LinkContainer parent) {
-            return getChildren(parent.getElement(), false, false, true).toArray();
+            return getChildren(parent.getElement(), false, false, true, false).toArray();
         }
 
         @objid ("f93d8eed-28fe-44ff-b1ca-819d07abe7bb")
@@ -811,6 +821,9 @@ class BrowserContentProvider implements IModelChangeListener, IStatusChangeListe
             
                 // Goals
                 addResults(theAnalystProject.getGoalRoot());
+                
+                // Generic items
+                addResults(theAnalystProject.getGenericRoot());
             
                 // Dictionaries
                 addResults(theAnalystProject.getDictionaryRoot());
@@ -1061,6 +1074,9 @@ class BrowserContentProvider implements IModelChangeListener, IStatusChangeListe
             }
             if (this.findUmlChildren) {
                 addResults(theModelElement.getProduct());
+                
+                // Matrix
+                addResults(theModelElement.getMatrix());
             }
             return super.visitModelElement(theModelElement);
         }
@@ -1953,6 +1969,10 @@ class BrowserContentProvider implements IModelChangeListener, IStatusChangeListe
                     addResult(requirement);
                 }
             }
+            
+            // Old versions
+            if (this.findArchivedVersionChildren) 
+                addResults(theRequirement.getArchivedRequirementVersion());
             return super.visitRequirement(theRequirement);
         }
 
@@ -1965,6 +1985,10 @@ class BrowserContentProvider implements IModelChangeListener, IStatusChangeListe
                     addResult(businessRule);
                 }
             }
+            
+            // Old versions
+            if (this.findArchivedVersionChildren) 
+                addResults(theBusinessRule.getArchivedRuleVersion());
             return super.visitBusinessRule(theBusinessRule);
         }
 
@@ -1977,6 +2001,10 @@ class BrowserContentProvider implements IModelChangeListener, IStatusChangeListe
                     addResult(goal);
                 }
             }
+            
+            // Old versions
+            if (this.findArchivedVersionChildren) 
+                addResults(theGoal.getArchivedGoalVersion());
             return super.visitGoal(theGoal);
         }
 
@@ -2005,7 +2033,7 @@ class BrowserContentProvider implements IModelChangeListener, IStatusChangeListe
 
         /**
          * Avoid having duplicated elements in the result, but preserves order unlike a Set.
-         * @param elt the element to add.
+         * @param elts the element to add.
          */
         @objid ("7f29ac99-30e3-479e-a283-17ca3e951f9c")
         private void addResults(List<? extends MObject> elts) {
@@ -2029,7 +2057,7 @@ class BrowserContentProvider implements IModelChangeListener, IStatusChangeListe
             return super.visitNaryAssociationEnd(theNaryAssociationEnd);
         }
 
-        @objid ("ce3db682-f514-4e2b-aeab-5143c87a72a5")
+        @objid ("a9e188b0-8115-4103-84d9-480eb741ed4b")
         @Override
         public Object visitCommunicationChannel(CommunicationChannel theCommunicationChannel) {
             if (this.findUmlChildren) {
@@ -2040,7 +2068,22 @@ class BrowserContentProvider implements IModelChangeListener, IStatusChangeListe
             return super.visitCommunicationChannel(theCommunicationChannel);
         }
 
-        @objid ("4497148e-58d2-408b-9486-61548cfa6636")
+        @objid ("953e9e84-9521-48e3-adad-0a054e6e6ddc")
+        @Override
+        public Object visitMatrixDefinition(MatrixDefinition theMatrixDefinition) {
+            if (this.findUmlChildren) {
+                addResult(theMatrixDefinition.getLinesDefinition());
+                
+                addResult(theMatrixDefinition.getColumnsDefinition());
+                
+                addResult(theMatrixDefinition.getDepthDefinition());
+                
+                addResult(theMatrixDefinition.getValuesDefinition());
+            }
+            return super.visitMatrixDefinition(theMatrixDefinition);
+        }
+
+        @objid ("041fe7fb-42b3-4960-a8c7-ff0f9073ace4")
         @Override
         public Object visitAssociation(Association theAssociation) {
             if (this.findUmlChildren) {
@@ -2049,13 +2092,60 @@ class BrowserContentProvider implements IModelChangeListener, IStatusChangeListe
             return super.visitAssociation(theAssociation);
         }
 
-        @objid ("5b691e51-df3e-4528-9147-8e2498cb7db9")
+        @objid ("c0c0a678-8058-4b84-9bb8-55f0e7daa5ab")
         @Override
         public Object visitLinkEnd(LinkEnd theLinkEnd) {
             if (this.findUmlChildren) {
                 addResult(theLinkEnd.getLink());
             }
             return super.visitLinkEnd(theLinkEnd);
+        }
+
+        @objid ("51de2b4e-b072-4a1b-96dc-f1992a43469a")
+        @Override
+        public Object visitGenericAnalystContainer(GenericAnalystContainer obj) {
+            if (this.findScopeChildren) {
+                // GenericAnalystContainer
+                for (GenericAnalystContainer requirementContainer : obj.getOwnedContainer()) {
+                    addResult(requirementContainer);
+                }
+            
+                // GenericAnalystElement
+                for (GenericAnalystElement requirement : obj.getOwnedElement()) {
+                    addResult(requirement);
+                }
+            }
+            return super.visitGenericAnalystContainer(obj);
+        }
+
+        @objid ("f2e996b1-4c4c-4348-8559-2b2969a43f13")
+        @Override
+        public Object visitGenericAnalystElement(GenericAnalystElement obj) {
+            if (this.findScopeChildren) {
+                // Sub GenericAnalystElement
+                for (GenericAnalystElement requirement : obj.getSubElement()) {
+                    addResult(requirement);
+                }
+            }    
+            
+            // Old versions
+            if (this.findArchivedVersionChildren) 
+                addResults(obj.getArchivedElementVersion());
+            return super.visitGenericAnalystElement(obj);
+        }
+
+        @objid ("a95e03fb-764f-47d4-9e92-dc02a3784526")
+        @Override
+        public Object visitTerm(Term obj) {
+            // Old versions
+            if (this.findArchivedVersionChildren) 
+                addResults(obj.getArchivedTermVersion());
+            return super.visitTerm(obj);
+        }
+
+        @objid ("3f6e6d13-659c-4e8c-a751-c7f1133b1cab")
+        public Object[] getArchivedVersions(ArchiveContainer parent) {
+            return getChildren(parent.getElement(), false, false, false, true).toArray();
         }
 
     }

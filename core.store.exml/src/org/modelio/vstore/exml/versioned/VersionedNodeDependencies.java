@@ -140,8 +140,8 @@ public class VersionedNodeDependencies {
         
         recursionContext.add(object);
         
-        // Loop on externalisable non-empty dependencies
-        List<SmDependency> dependencies = ExmlUtils.getExternalisableDeps(object);
+        // Loop on all dependencies
+        List<SmDependency> dependencies = object.getClassOf().getAllDepDef();
         
         for (SmDependency dep : dependencies) {
             List<SmObjectImpl> depTargets = object.getDepValList(dep);
@@ -166,8 +166,8 @@ public class VersionedNodeDependencies {
                     }
                 }
         
-            } else {
-                // The dep is not a composition.
+            } else if (dep.isPartOf()) {
+                // The dep is a {partOf}.
                 //   - if the 'depended on' object is an 'ext', add it
                 //   - if the object is not an 'ext', add it as a link and add its parent CMS Node (if one can be found) as an extRef.
                 for ( SmObjectImpl target : depTargets) {

@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.bpmn.activities;
 
 import java.util.ArrayList;
@@ -50,49 +50,49 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("007d9466-c4bf-1fd8-97fe-001ec947cd2a")
 public class BpmnActivityImpl extends BpmnFlowNodeImpl implements BpmnActivity {
-    @objid ("a89ebba0-7d7f-40fb-b9f2-63de75794ff1")
+    @objid ("20e64736-42f6-4fd7-917e-6c30de3a343d")
     @Override
     public boolean isIsForCompensation() {
         return (Boolean) getAttVal(BpmnActivityData.Metadata.IsForCompensationAtt());
     }
 
-    @objid ("a2d3d7a3-0f56-4c1b-b683-d7b43b2859f6")
+    @objid ("ae5d7fc7-ac23-4236-91a8-84c12d6e1ba6")
     @Override
     public void setIsForCompensation(boolean value) {
         setAttVal(BpmnActivityData.Metadata.IsForCompensationAtt(), value);
     }
 
-    @objid ("a4f0bb28-fdda-4a27-8596-42f3db86418e")
+    @objid ("cc729565-c2b4-4c8a-94b5-2552d94d478b")
     @Override
     public int getStartQuantity() {
         return (Integer) getAttVal(BpmnActivityData.Metadata.StartQuantityAtt());
     }
 
-    @objid ("6b8fb984-3972-408d-95ff-fcc6a79c42e2")
+    @objid ("276ab9a6-8f55-41fa-8aac-d9f2952fd693")
     @Override
     public void setStartQuantity(int value) {
         setAttVal(BpmnActivityData.Metadata.StartQuantityAtt(), value);
     }
 
-    @objid ("eb1f8057-52bc-4a24-8706-9288196b59c7")
+    @objid ("d90a333b-48a6-47bc-9a6e-9b0d4002a62f")
     @Override
     public int getCompletionQuantity() {
         return (Integer) getAttVal(BpmnActivityData.Metadata.CompletionQuantityAtt());
     }
 
-    @objid ("399b99c2-1266-483f-9f01-fc1eda40ff0f")
+    @objid ("e74eb5c1-e833-444d-9b4e-ba79b161278f")
     @Override
     public void setCompletionQuantity(int value) {
         setAttVal(BpmnActivityData.Metadata.CompletionQuantityAtt(), value);
     }
 
-    @objid ("f826331b-2234-4888-801f-e9c629b6f2ad")
+    @objid ("c8382dd1-2523-4588-ac07-7b673834c859")
     @Override
     public EList<BpmnCompensateEventDefinition> getCompensateEventDefinitions() {
         return new SmList<>(this, BpmnActivityData.Metadata.CompensateEventDefinitionsDep());
     }
 
-    @objid ("5b838a09-1f57-4777-9859-147a0515cdda")
+    @objid ("944a9d6c-7ef3-451c-9da7-e8f71087ed6f")
     @Override
     public <T extends BpmnCompensateEventDefinition> List<T> getCompensateEventDefinitions(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -105,13 +105,13 @@ public class BpmnActivityImpl extends BpmnFlowNodeImpl implements BpmnActivity {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("f8f7b9e2-de92-4689-a690-6ef1fead2be0")
+    @objid ("f21bf07b-691c-42e4-bb71-2a1459cc18c6")
     @Override
     public EList<BpmnDataInput> getInputSpecification() {
         return new SmList<>(this, BpmnActivityData.Metadata.InputSpecificationDep());
     }
 
-    @objid ("e36fffac-6672-4f62-8ee0-fe28b7f6eb3b")
+    @objid ("bc1afa56-36f5-48ba-81b2-e6746deeae41")
     @Override
     public <T extends BpmnDataInput> List<T> getInputSpecification(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -124,13 +124,13 @@ public class BpmnActivityImpl extends BpmnFlowNodeImpl implements BpmnActivity {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("c2d5d2c0-0244-4704-9a48-21076d573612")
+    @objid ("0939b112-2597-4247-b2bf-d02aacd7e772")
     @Override
     public EList<BpmnDataAssociation> getDataInputAssociation() {
         return new SmList<>(this, BpmnActivityData.Metadata.DataInputAssociationDep());
     }
 
-    @objid ("89eeb189-d72e-4218-9c8d-b1fa1efacd26")
+    @objid ("8b708eac-3511-455c-abe5-701e4da8183e")
     @Override
     public <T extends BpmnDataAssociation> List<T> getDataInputAssociation(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -143,13 +143,13 @@ public class BpmnActivityImpl extends BpmnFlowNodeImpl implements BpmnActivity {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("856f7b7f-d552-4fd3-bc4e-4b7a3c4f5d33")
+    @objid ("7fcbd68b-4a49-4104-806d-f5a00ee98339")
     @Override
     public EList<BpmnDataOutput> getOutputSpecification() {
         return new SmList<>(this, BpmnActivityData.Metadata.OutputSpecificationDep());
     }
 
-    @objid ("c4ee0598-f921-474d-9cde-75799d61a558")
+    @objid ("149389ed-4e09-438d-9411-620d6b0dab0b")
     @Override
     public <T extends BpmnDataOutput> List<T> getOutputSpecification(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -162,25 +162,25 @@ public class BpmnActivityImpl extends BpmnFlowNodeImpl implements BpmnActivity {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("cf64d6c2-c674-4318-b6ec-8a68d63f4c14")
+    @objid ("ce569abc-4c54-42e7-bf92-5146c6307369")
     @Override
     public BpmnLoopCharacteristics getLoopCharacteristics() {
         return (BpmnLoopCharacteristics) getDepVal(BpmnActivityData.Metadata.LoopCharacteristicsDep());
     }
 
-    @objid ("11d78ef2-ff78-40f8-8a82-ddf8cb7b3b72")
+    @objid ("ce3ce961-501e-4098-9e95-8c2148f9acb7")
     @Override
     public void setLoopCharacteristics(BpmnLoopCharacteristics value) {
         appendDepVal(BpmnActivityData.Metadata.LoopCharacteristicsDep(), (SmObjectImpl)value);
     }
 
-    @objid ("089ef5b4-7551-49ef-8632-bfbe06257427")
+    @objid ("cf302843-b410-4d97-b577-8b20c5a4c72b")
     @Override
     public EList<BpmnBoundaryEvent> getBoundaryEventRef() {
         return new SmList<>(this, BpmnActivityData.Metadata.BoundaryEventRefDep());
     }
 
-    @objid ("7309c3b3-28cc-46b5-a80a-c9c3add2540f")
+    @objid ("a3b35672-db6b-4621-bab1-e4bcbc8285a3")
     @Override
     public <T extends BpmnBoundaryEvent> List<T> getBoundaryEventRef(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -193,13 +193,13 @@ public class BpmnActivityImpl extends BpmnFlowNodeImpl implements BpmnActivity {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("d6a6930f-e57f-48e7-8814-b81c493a536e")
+    @objid ("5377255e-d5b1-4e98-b4c5-43ead9c9ef10")
     @Override
     public EList<BpmnDataAssociation> getDataOutputAssociation() {
         return new SmList<>(this, BpmnActivityData.Metadata.DataOutputAssociationDep());
     }
 
-    @objid ("9a057647-8581-460b-a715-71315b98da5a")
+    @objid ("871f9144-64b6-4370-b81f-3165047bc7be")
     @Override
     public <T extends BpmnDataAssociation> List<T> getDataOutputAssociation(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -212,33 +212,33 @@ public class BpmnActivityImpl extends BpmnFlowNodeImpl implements BpmnActivity {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("645e45cf-a0c3-44f0-be3e-a6c29a1aade7")
+    @objid ("677eb9f9-2614-4726-9802-e3765282e674")
     @Override
     public BpmnSequenceFlow getDefaultFlow() {
         return (BpmnSequenceFlow) getDepVal(BpmnActivityData.Metadata.DefaultFlowDep());
     }
 
-    @objid ("05f9f336-272c-4e2e-8d84-134d5b6468ad")
+    @objid ("f67c6a28-f12e-4f2d-bd58-b60aa3cfb5cf")
     @Override
     public void setDefaultFlow(BpmnSequenceFlow value) {
         appendDepVal(BpmnActivityData.Metadata.DefaultFlowDep(), (SmObjectImpl)value);
     }
 
-    @objid ("3198588f-121c-412a-9a4d-05d73fdda505")
+    @objid ("7595aef2-1460-4b77-886b-eb07b140646b")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("9e1aa95e-8028-4014-b226-6ec39ee6ea00")
+    @objid ("9a9df31e-603d-45f2-9de6-3199a05fe890")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("c082d174-779a-45ce-8bd1-e334b42bc5ea")
+    @objid ("9812398a-6899-445d-a555-ed6e3ec21f2c")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitBpmnActivity(this);

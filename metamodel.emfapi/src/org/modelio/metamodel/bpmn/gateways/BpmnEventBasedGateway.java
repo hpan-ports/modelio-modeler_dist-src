@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.bpmn.gateways;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
@@ -31,16 +31,16 @@ import org.modelio.metamodel.bpmn.gateways.BpmnEventBasedGatewayType;
 
 @objid ("0097e370-c4bf-1fd8-97fe-001ec947cd2a")
 public interface BpmnEventBasedGateway extends BpmnGateway {
-    @objid ("3e5569f9-adde-49aa-81b0-5e0fba659d22")
+    @objid ("505eaa99-30c9-4812-a43b-5dc31f5baa1a")
     boolean isInstanciate();
 
-    @objid ("2362d677-3bbd-4cb0-9c14-5a6241b86d58")
+    @objid ("b6f8990e-0fee-4ee8-b452-739f79d75ac0")
     void setInstanciate(boolean value);
 
-    @objid ("be61e616-ec35-4f72-9e43-4c4b09cb09e7")
+    @objid ("ae3609ff-6603-4e9e-b314-45d0984a3d2c")
     BpmnEventBasedGatewayType getEventGatewayType();
 
-    @objid ("2ec66aa5-4bf9-4f73-b794-5104826843f7")
+    @objid ("79f6dcb1-1fbe-4495-984e-4969197af538")
     void setEventGatewayType(BpmnEventBasedGatewayType value);
 
 }

@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.uml.behavior.activityModel;
 
 import java.util.ArrayList;
@@ -45,37 +45,37 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("0026b060-c4bf-1fd8-97fe-001ec947cd2a")
 public abstract class ActivityActionImpl extends ActivityNodeImpl implements ActivityAction {
-    @objid ("da47160d-454b-4853-975e-33ad7e057be2")
+    @objid ("5fd7ad4d-7aa2-4459-ab33-2edd3fe44905")
     @Override
     public boolean isIsMultipleInstance() {
         return (Boolean) getAttVal(ActivityActionData.Metadata.IsMultipleInstanceAtt());
     }
 
-    @objid ("f51761ff-9d15-43da-aebf-b2202bbbd19d")
+    @objid ("014ced8c-65c7-4f75-b3d0-fdd401fe5e62")
     @Override
     public void setIsMultipleInstance(boolean value) {
         setAttVal(ActivityActionData.Metadata.IsMultipleInstanceAtt(), value);
     }
 
-    @objid ("26c3c703-e789-4c5a-a783-a0ed597b97a7")
+    @objid ("ba3c8c2d-499a-4686-b862-ef62b3cd1486")
     @Override
     public boolean isIsCompensation() {
         return (Boolean) getAttVal(ActivityActionData.Metadata.IsCompensationAtt());
     }
 
-    @objid ("7289f538-4c72-433b-811c-c64a1f070fc6")
+    @objid ("e0b6c4ea-da6f-4850-ab7b-bf0f44dab51c")
     @Override
     public void setIsCompensation(boolean value) {
         setAttVal(ActivityActionData.Metadata.IsCompensationAtt(), value);
     }
 
-    @objid ("261095da-1bc7-453b-a87d-6dce371507fd")
+    @objid ("95a690f2-6ca6-4c6b-ac4b-0e8389d50c41")
     @Override
     public EList<OutputPin> getOutput() {
         return new SmList<>(this, ActivityActionData.Metadata.OutputDep());
     }
 
-    @objid ("05324753-19b1-48ae-8065-f71feddc1950")
+    @objid ("9e4c38c8-5385-4727-aa65-3e7e47f8cddd")
     @Override
     public <T extends OutputPin> List<T> getOutput(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -88,13 +88,13 @@ public abstract class ActivityActionImpl extends ActivityNodeImpl implements Act
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("e75fd973-3cb7-4e54-8b37-4bbba5541dd8")
+    @objid ("258dba9f-fc39-49fe-bd23-1583dc80888d")
     @Override
     public EList<InputPin> getInput() {
         return new SmList<>(this, ActivityActionData.Metadata.InputDep());
     }
 
-    @objid ("0c87c252-dda4-4d7d-89d7-04d298ad12c8")
+    @objid ("a3b06c04-51c8-414a-8671-b6801688a0cc")
     @Override
     public <T extends InputPin> List<T> getInput(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -107,13 +107,13 @@ public abstract class ActivityActionImpl extends ActivityNodeImpl implements Act
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("26a5cb33-88c6-45e9-9c60-a519c68b8ff4")
+    @objid ("31cc64f8-db0e-48f0-b16b-ec9e0bd88dfe")
     @Override
     public EList<ExceptionHandler> getHandler() {
         return new SmList<>(this, ActivityActionData.Metadata.HandlerDep());
     }
 
-    @objid ("5710f370-89b1-4a74-a771-773ad6d7b0c8")
+    @objid ("9b9744b6-2f67-470f-9de8-14b97c24bded")
     @Override
     public <T extends ExceptionHandler> List<T> getHandler(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -126,21 +126,21 @@ public abstract class ActivityActionImpl extends ActivityNodeImpl implements Act
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("3af17f86-13ac-479c-ad58-380634d55e64")
+    @objid ("949a3c29-bd00-47c4-a404-81b6e2315d67")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("d1619d8a-98aa-4c18-a701-64c45a22d630")
+    @objid ("e6edc2f8-6176-4971-90d1-a871531b0a2a")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("2db46333-4c0f-47b9-9c20-1562df5b64d0")
+    @objid ("c895b29c-983e-41d6-91d2-b1f10f4f3dcb")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitActivityAction(this);

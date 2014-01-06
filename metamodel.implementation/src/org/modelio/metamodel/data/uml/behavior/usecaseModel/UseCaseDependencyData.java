@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.data.uml.behavior.usecaseModel;
 
 import java.util.ArrayList;
@@ -47,43 +47,43 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("00595600-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=UseCaseDependency.class, factory=UseCaseDependencyData.Metadata.ObjectFactory.class)
 public class UseCaseDependencyData extends ModelElementData {
-    @objid ("bab25f0b-e232-4212-a06b-ba32c77d3e8f")
+    @objid ("93a98afb-5a24-4d12-affe-1e5b2832c08e")
     @SmaMetaAssociation(metaName="Origin", typeDataClass=UseCaseData.class, min=1, max=1, smAssociationClass=Metadata.OriginSmDependency.class)
      SmObjectImpl mOrigin;
 
-    @objid ("62ab9cda-f5f4-4944-95d3-71691f51e853")
+    @objid ("41637eea-bd82-4fd1-81bd-b1279d438c26")
     @SmaMetaAssociation(metaName="ExtensionLocation", typeDataClass=ExtensionPointData.class, min=0, max=-1, smAssociationClass=Metadata.ExtensionLocationSmDependency.class, partof = true)
      List<SmObjectImpl> mExtensionLocation = null;
 
-    @objid ("90e7eac9-f2e4-4ac7-afa1-d2b076d4a0a7")
+    @objid ("ec4f4fb9-ab9d-4f45-b538-348056203388")
     @SmaMetaAssociation(metaName="Target", typeDataClass=UseCaseData.class, min=1, max=1, smAssociationClass=Metadata.TargetSmDependency.class, partof = true)
      SmObjectImpl mTarget;
 
-    @objid ("81af1ee1-4c7d-4e1a-847b-3498073ea1af")
+    @objid ("e6ea4212-e5bf-43b2-80cc-8dccafb38f4b")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("007a55d0-c4c2-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("a0708071-df42-4458-ae55-3a37ef9e8e25")
+        @objid ("4f0f5edb-2ad5-46b4-babd-ac9228d3b2e1")
         private static SmClass smClass = null;
 
-        @objid ("bf92793e-73eb-4b74-b7a0-91b9cecc5488")
+        @objid ("eee76a57-9772-46c0-9434-23b7d835f53f")
         private static SmDependency OriginDep = null;
 
-        @objid ("27eb6988-9afb-4318-bc8b-e809627ecda6")
+        @objid ("a8867204-72dd-4b67-8afd-7d1e00d8f4b7")
         private static SmDependency ExtensionLocationDep = null;
 
-        @objid ("750f77f8-dc32-4301-b282-181ec65bb156")
+        @objid ("01e56d05-6660-4f6b-b5c6-573d29ceaaf4")
         private static SmDependency TargetDep = null;
 
-        @objid ("e80f9665-bc42-4022-8835-c363698e6e44")
+        @objid ("5d43311f-81d3-408b-a10d-45be6466e439")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(UseCaseDependencyData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("fbb861cf-e056-4d54-85c1-1c35a7acc135")
+        @objid ("62ccc79b-2087-4f1a-ba91-f17df2114965")
         public static SmDependency OriginDep() {
             if (OriginDep == null) {
             	OriginDep = classof().getDependencyDef("Origin");
@@ -91,7 +91,7 @@ public class UseCaseDependencyData extends ModelElementData {
             return OriginDep;
         }
 
-        @objid ("2fb7682e-3c30-4d4b-b468-975680728877")
+        @objid ("a9e5b3e2-9fbc-4823-a24f-54654b54db83")
         public static SmDependency ExtensionLocationDep() {
             if (ExtensionLocationDep == null) {
             	ExtensionLocationDep = classof().getDependencyDef("ExtensionLocation");
@@ -99,7 +99,7 @@ public class UseCaseDependencyData extends ModelElementData {
             return ExtensionLocationDep;
         }
 
-        @objid ("6d45ed7d-b236-44ab-a7f7-2c3ad410854f")
+        @objid ("0e81e49b-fefb-4833-aadc-cbb48ebc5b5f")
         public static SmDependency TargetDep() {
             if (TargetDep == null) {
             	TargetDep = classof().getDependencyDef("Target");
@@ -107,38 +107,38 @@ public class UseCaseDependencyData extends ModelElementData {
             return TargetDep;
         }
 
-        @objid ("9fe88ebd-8789-4451-a4eb-676ccd6d59b9")
-        public static SmDependency getExtensionLocationDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return ExtensionLocationDep;
-        }
-
-        @objid ("f25a763c-b936-4650-b84d-c84997f01bbc")
+        @objid ("4f30e50d-4841-470f-9c6e-b76551058b01")
         public static SmDependency getOriginDep() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return OriginDep;
         }
 
-        @objid ("c44abc36-291c-481b-a900-60c3225ec115")
-        public static SmClass getSmClass() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return smClass;
-        }
-
-        @objid ("37db5165-0223-4374-95a9-85857f137a3d")
+        @objid ("761db747-b006-458d-bbc7-e1d5c8e411ca")
         public static SmDependency getTargetDep() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return TargetDep;
         }
 
+        @objid ("0df2a9d5-5bd1-4a00-bdc4-231e15b1ab95")
+        public static SmClass getSmClass() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return smClass;
+        }
+
+        @objid ("248d2785-ed0a-46fd-ad74-96eda952c448")
+        public static SmDependency getExtensionLocationDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return ExtensionLocationDep;
+        }
+
         @objid ("007a97fc-c4c2-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("2bffd90d-f470-440a-a97c-1137bb80ee59")
+            @objid ("5f1900ec-8a88-41e5-963b-b2afce06a522")
             public ISmObjectData createData() {
                 return new UseCaseDependencyData();
             }
 
-            @objid ("1697aeb0-faa1-4247-a068-c0bfc621c3a1")
+            @objid ("6bbae600-c996-4a32-8bd9-ef3b3ce32507")
             public SmObjectImpl createImpl() {
                 return new UseCaseDependencyImpl();
             }
@@ -147,20 +147,20 @@ public class UseCaseDependencyData extends ModelElementData {
 
         @objid ("007afbca-c4c2-1fd8-97fe-001ec947cd2a")
         public static class ExtensionLocationSmDependency extends SmMultipleDependency {
-            @objid ("c6c342ad-83ff-4e08-99ee-d218d9574124")
+            @objid ("43781e91-9b6e-4c76-9fc9-61f9ae3cb3e8")
             @Override
             public List<SmObjectImpl> getValueList(ISmObjectData data) {
                 return (((UseCaseDependencyData)data).mExtensionLocation != null)? ((UseCaseDependencyData)data).mExtensionLocation:SmMultipleDependency.EMPTY;
             }
 
-            @objid ("c7966557-7851-43e0-b634-24b42c894f12")
+            @objid ("83e7d219-c61c-4d3f-991a-b26d5ade7040")
             @Override
             protected List<SmObjectImpl> allocateValueList(ISmObjectData data, int initialCapacity) {
                 ((UseCaseDependencyData) data).mExtensionLocation = new ArrayList<>(initialCapacity);
                 return ((UseCaseDependencyData) data).mExtensionLocation;
             }
 
-            @objid ("f60c61a8-5fcc-4212-bf9d-4fe033be304e")
+            @objid ("393b05f1-a117-4599-8870-dde98c6c762b")
             @Override
             public SmDependency getSymetric() {
                 return ExtensionPointData.Metadata.ExtendedDep();
@@ -170,18 +170,18 @@ public class UseCaseDependencyData extends ModelElementData {
 
         @objid ("007b5ff2-c4c2-1fd8-97fe-001ec947cd2a")
         public static class OriginSmDependency extends SmSingleDependency {
-            @objid ("41b9d8ec-6a10-4100-9c09-6717361f5814")
+            @objid ("2d6e4807-bc6d-42a3-be1e-85113f708f59")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((UseCaseDependencyData) data).mOrigin;
             }
 
-            @objid ("aa2a8309-59c0-48bb-b466-200481608183")
+            @objid ("cee8c89e-1e76-4b10-a150-d2ae5d657d4f")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((UseCaseDependencyData) data).mOrigin = value;
             }
 
-            @objid ("461d1fe8-d06d-4fec-a570-1456a8da5a1f")
+            @objid ("8de09062-1852-438d-96fc-9e93e424f7fb")
             @Override
             public SmDependency getSymetric() {
                 return UseCaseData.Metadata.UsedDep();
@@ -191,18 +191,18 @@ public class UseCaseDependencyData extends ModelElementData {
 
         @objid ("007bd5ea-c4c2-1fd8-97fe-001ec947cd2a")
         public static class TargetSmDependency extends SmSingleDependency {
-            @objid ("59cbc326-7a67-4dcb-a3d2-53eb0638f102")
+            @objid ("64d17fc0-15a6-41c8-b017-0b5c05041589")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((UseCaseDependencyData) data).mTarget;
             }
 
-            @objid ("79f47e51-4536-45b4-b093-892ad751e178")
+            @objid ("98fb7794-8538-4823-ac7f-87b4d23fefc1")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((UseCaseDependencyData) data).mTarget = value;
             }
 
-            @objid ("7e233b2a-0a52-4f50-9783-f737e653fe6b")
+            @objid ("7a5671c7-2770-4c63-a1c6-b3c68eb178cb")
             @Override
             public SmDependency getSymetric() {
                 return UseCaseData.Metadata.UserDep();

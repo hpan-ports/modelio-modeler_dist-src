@@ -87,7 +87,7 @@ public class EExecutionSpecification extends EInteractionFragment {
         }
     }
 
-    @objid ("c6124497-a112-4935-89ab-fbf75780ded4")
+    @objid ("e206bd62-3a11-45ee-abce-a6c3b9a54baa")
     private void check(ExecutionSpecification objingElt) {
         if (objingElt.getStart().getLineNumber() > objingElt.getFinish().getLineNumber()){
             objingElt.delete();

@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.uml.behavior.stateMachineModel;
 
 import java.util.ArrayList;
@@ -41,21 +41,21 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("004de7e8-c4bf-1fd8-97fe-001ec947cd2a")
 public class ChoicePseudoStateImpl extends AbstractPseudoStateImpl implements ChoicePseudoState {
-    @objid ("7937cda4-72b9-4782-b8bc-222059df9132")
+    @objid ("ee4a9ec6-a659-4542-9731-6836fb64ec5b")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("37bf5c63-b379-49f2-b1d8-031f2f96a32b")
+    @objid ("3a9d34d9-de04-4168-a394-b615670ab93f")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("2f368a6f-f0b2-4f13-bb9b-ca1c987a7ebd")
+    @objid ("034501ce-63ef-4a08-b298-3ea6e9f6ec26")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitChoicePseudoState(this);

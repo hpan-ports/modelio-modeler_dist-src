@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.uml.behavior.activityModel;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
@@ -30,10 +30,10 @@ import org.eclipse.emf.ecore.EObject;
 
 @objid ("00249514-c4bf-1fd8-97fe-001ec947cd2a")
 public interface AcceptChangeEventAction extends ActivityAction {
-    @objid ("70e840e1-1e61-4898-929b-f96b58f7333d")
+    @objid ("fb59dd11-8b0f-4537-bbc0-fa15f3a75826")
     String getChangeExpresion();
 
-    @objid ("95d8ad77-ed13-432f-914e-524e58a9a39e")
+    @objid ("47487a4f-151f-4a40-b377-6b67835a1e08")
     void setChangeExpresion(String value);
 
 }

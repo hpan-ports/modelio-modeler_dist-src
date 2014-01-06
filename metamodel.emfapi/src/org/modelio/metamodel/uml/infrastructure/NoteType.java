@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.uml.infrastructure;
 
 import java.util.List;
@@ -29,40 +29,43 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.modelio.metamodel.mda.ModuleComponent;
+import org.modelio.metamodel.uml.infrastructure.MetaclassReference;
+import org.modelio.metamodel.uml.infrastructure.Note;
+import org.modelio.metamodel.uml.infrastructure.Stereotype;
 
 @objid ("008bb80c-c4be-1fd8-97fe-001ec947cd2a")
 public interface NoteType extends ModelElement {
     @objid ("86c9b1d3-36e0-4281-ae56-13648e6465ec")
     ModuleComponent getModule();
 
-    @objid ("2f435fab-7d76-4dab-9ce4-7695d16f5aab")
+    @objid ("1f2cb91b-d56b-4fcf-8ec2-8bac3727556c")
     boolean isIsHidden();
 
-    @objid ("e7a3a6e7-a087-42d6-b6df-f14e8db7a546")
+    @objid ("ad8b5f26-2949-49f7-be0c-e420cc667cfe")
     void setIsHidden(boolean value);
 
-    @objid ("157c4367-7679-4628-b046-61324bc5dab3")
+    @objid ("15be2f3f-7e3e-4ab5-a288-9106d4caf8b3")
     String getLabelKey();
 
-    @objid ("bfbf15a2-9f74-46fc-a7f5-f19f2491c432")
+    @objid ("172ed30c-ea9f-4d9e-9bd8-bd33cbaadd3c")
     void setLabelKey(String value);
 
-    @objid ("901a52a8-65bd-4baf-8c10-bebef0ba193e")
+    @objid ("47131feb-3cc4-4ca3-981c-ef579c1cc1c6")
     EList<Note> getElement();
 
-    @objid ("0a4b4175-2a1c-46c8-926c-dfd6920879e3")
+    @objid ("5ee9d6c2-6543-4599-baa6-da3a94454fb4")
     <T extends Note> List<T> getElement(java.lang.Class<T> filterClass);
 
-    @objid ("9edb2320-d9e2-4331-89e0-e902d83c61bb")
+    @objid ("614a68b3-dac5-48b5-b13b-c292ba08995c")
     Stereotype getOwnerStereotype();
 
-    @objid ("a9f0f208-ceb2-4a1c-94fe-7abaed2461bb")
+    @objid ("03758635-e9f8-4f35-886f-5c2cd8ab7efc")
     void setOwnerStereotype(Stereotype value);
 
-    @objid ("7edfa865-09ce-433e-bf08-50133d4f795d")
+    @objid ("8cda1033-973a-480a-946a-68cd4da2bb44")
     MetaclassReference getOwnerReference();
 
-    @objid ("33a95f87-ca1e-456e-8443-b2f1d6abe17e")
+    @objid ("6b4367d6-4ff8-4d5d-828e-bb77fcc368d0")
     void setOwnerReference(MetaclassReference value);
 
 }

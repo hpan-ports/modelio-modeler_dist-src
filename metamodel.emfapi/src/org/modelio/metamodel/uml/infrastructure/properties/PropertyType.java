@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.uml.infrastructure.properties;
 
 import java.util.List;
@@ -36,28 +36,28 @@ import org.modelio.metamodel.uml.infrastructure.properties.PropertyDefinition;
 
 @objid ("006e6798-ec87-1098-b22e-001ec947cd2a")
 public interface PropertyType extends ModelElement {
-    @objid ("982ab65e-847c-4002-ba65-e28cbb533801")
+    @objid ("61a154b7-ab7b-4b35-9e15-f7b89e7f7088")
     PropertyBaseType getBaseType();
 
-    @objid ("944960c1-5133-4639-86d7-6e721c0bc38c")
+    @objid ("b61f0ea4-c9da-4d61-ba8c-f79407ee3b49")
     void setBaseType(PropertyBaseType value);
 
-    @objid ("cc8fa5ca-7676-44f2-a284-cabcbbaab195")
+    @objid ("1fcf65c6-77ec-4a6c-8024-361489a18e5e")
     PropertyContainer getAnalystOwner();
 
-    @objid ("e894daf4-4305-4592-a57e-561f56f0f14b")
+    @objid ("6ab92e94-733a-4cb9-b6f1-ccb7eee41841")
     void setAnalystOwner(PropertyContainer value);
 
-    @objid ("6110f1b2-f8be-4f93-ac4b-f8e235859670")
+    @objid ("27b2f955-2d32-4422-b6f8-b22c46b922de")
     EList<PropertyDefinition> getTyped();
 
-    @objid ("89ff1c76-f36d-490f-af94-2483aee9e807")
+    @objid ("db87f54f-5f0f-4ad9-bc43-f6393c0fc228")
     <T extends PropertyDefinition> List<T> getTyped(java.lang.Class<T> filterClass);
 
-    @objid ("fce05c8f-a560-4096-b469-352e26a1ded9")
+    @objid ("15c39d5c-bed6-46b8-bf95-a0434ab86195")
     ModuleComponent getModuleOwner();
 
-    @objid ("2f357482-7424-4241-b36e-477166a29b73")
+    @objid ("34518f8d-bb6e-4a60-8c51-ac0de41c82c8")
     void setModuleOwner(ModuleComponent value);
 
 }

@@ -123,8 +123,8 @@ public abstract class AbstractCreationPopupProvider {
         if (entries.size() > 0) {
             // create a new handled item
             MMenu elementCreationMenu = MMenuFactory.INSTANCE.createMenu();
-            elementCreationMenu.setLabel(DiagramEditor.I18N.getString("CreateElementMenu.label"));
-            elementCreationMenu.setIconURI("platform:/plugin/org.modelio.diagram.editor/icons/uml.png");
+            elementCreationMenu.setLabel(getMenuLabel());
+            elementCreationMenu.setIconURI(getMenuIconPath());
         
             // make the menu visible
             elementCreationMenu.setEnabled(true);
@@ -192,7 +192,6 @@ public abstract class AbstractCreationPopupProvider {
         URL url = getCreatePopupXmlFile();
         
         CreationPopupXmlLoader loader = new CreationPopupXmlLoader();
-        loader.parseCreationPopupEntries(url);
         
         this.popupEntries = loader.parseCreationPopupEntries(url);
     }
@@ -302,6 +301,16 @@ public abstract class AbstractCreationPopupProvider {
             }
         }
         return command;
+    }
+
+    @objid ("c879bed1-5a48-42c2-9d8c-fc7bfa78d0f2")
+    protected String getMenuIconPath() {
+        return "platform:/plugin/org.modelio.diagram.editor/icons/uml.png";
+    }
+
+    @objid ("5fcca183-4bf9-4fee-9bdf-d933304631de")
+    protected String getMenuLabel() {
+        return DiagramEditor.I18N.getString("CreateElementMenu.label");
     }
 
 }

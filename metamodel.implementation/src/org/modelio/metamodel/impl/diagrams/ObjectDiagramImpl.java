@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.diagrams;
 
 import java.util.ArrayList;
@@ -41,21 +41,21 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("00726384-c4bf-1fd8-97fe-001ec947cd2a")
 public class ObjectDiagramImpl extends StaticDiagramImpl implements ObjectDiagram {
-    @objid ("f632ae7d-f443-4831-a02b-3e1fb4ba9fa4")
+    @objid ("ed6a7313-9a0a-47c0-be95-57a2c887e943")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("ae405a07-968c-4102-bdce-27294681405c")
+    @objid ("3e638100-b4d1-4c3c-a608-05c16ff33e45")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("294d3b9c-c89b-4cba-947d-24cfae7b3745")
+    @objid ("f94cae2a-6fb2-447b-9a63-9544c8e5c356")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitObjectDiagram(this);

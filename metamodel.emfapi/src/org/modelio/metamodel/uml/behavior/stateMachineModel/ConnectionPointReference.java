@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.uml.behavior.stateMachineModel;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
@@ -33,22 +33,22 @@ import org.modelio.metamodel.uml.behavior.stateMachineModel.State;
 
 @objid ("004e3efa-c4bf-1fd8-97fe-001ec947cd2a")
 public interface ConnectionPointReference extends StateVertex {
-    @objid ("3c6db8a4-f6f6-4783-886e-a2354e0e8405")
+    @objid ("97210769-8695-4914-b9e9-cd395d5a6da6")
     ExitPointPseudoState getExit();
 
-    @objid ("0b49945c-05c2-43a8-9509-0c8462837340")
+    @objid ("b0a2920c-e9c8-4230-a034-d63df3c203bf")
     void setExit(ExitPointPseudoState value);
 
-    @objid ("7cf86e01-4d75-4223-b2e3-55974d4d65d0")
+    @objid ("655390bb-2449-40c3-9d0c-2bf594fea7aa")
     EntryPointPseudoState getEntry();
 
-    @objid ("edc03ed8-d7dc-46d8-bf64-9a0a8aba5fa5")
+    @objid ("c818e050-0922-46d7-89fc-cec08b686e85")
     void setEntry(EntryPointPseudoState value);
 
-    @objid ("515b2104-6939-4db2-9f68-222ddb28ddc8")
+    @objid ("3bb54826-747d-4cf0-810f-c7608528a44b")
     State getOwnerState();
 
-    @objid ("4a3a63bc-f81c-4ef2-ac88-0f90cf09bc18")
+    @objid ("7f487f2c-6abf-4265-9397-68300fd28248")
     void setOwnerState(State value);
 
 }

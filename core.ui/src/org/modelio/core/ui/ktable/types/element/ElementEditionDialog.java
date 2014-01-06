@@ -598,11 +598,6 @@ public class ElementEditionDialog extends ModelioDialog implements IPickingClien
                 this.contentTree.setInput(this.content);
             }
         
-            if (this.pickingSession != null) {
-                this.pickingService.stopPicking(this.pickingSession);
-                this.pickingSession = null;
-            }
-        
             return true;
         } else {
             return false;

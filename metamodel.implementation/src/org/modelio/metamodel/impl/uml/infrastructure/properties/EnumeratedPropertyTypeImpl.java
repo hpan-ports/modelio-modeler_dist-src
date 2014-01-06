@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.uml.infrastructure.properties;
 
 import java.util.ArrayList;
@@ -53,13 +53,13 @@ public class EnumeratedPropertyTypeImpl extends PropertyTypeImpl implements Enum
         return null;
     }
 
-    @objid ("f007d18b-f4c2-49b0-988b-66063ad49ae0")
+    @objid ("67b7f2c2-58d1-42b9-a7d4-b9b0f0a453b9")
     @Override
     public EList<PropertyEnumerationLitteral> getLitteral() {
         return new SmList<>(this, EnumeratedPropertyTypeData.Metadata.LitteralDep());
     }
 
-    @objid ("c3a0128e-69e8-497f-92f9-2eaeb8c6f692")
+    @objid ("675f4dcb-b597-4602-a2d8-2c9229566273")
     @Override
     public <T extends PropertyEnumerationLitteral> List<T> getLitteral(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -72,21 +72,21 @@ public class EnumeratedPropertyTypeImpl extends PropertyTypeImpl implements Enum
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("3a395dfd-c0c6-4808-bd01-3ed28228763a")
+    @objid ("acc15c3c-a623-42fc-aa20-012c47ce25c7")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("836a5f55-9929-46af-9d8a-881ed988f1fa")
+    @objid ("dae09b89-3e9f-4bf5-875f-1142b805238a")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("caf7ad0b-fecf-43bb-afb4-ff510deb6722")
+    @objid ("d792ee2a-17bc-46f6-ada5-346d0e0fa3a5")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitEnumeratedPropertyType(this);

@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.bpmn.bpmnService;
 
 import java.util.ArrayList;
@@ -44,13 +44,13 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("000ebc26-c4c0-1fd8-97fe-001ec947cd2a")
 public class BpmnEndPointImpl extends BpmnRootElementImpl implements BpmnEndPoint {
-    @objid ("6b6f2fc1-1337-45f8-b705-8b8f6a333539")
+    @objid ("f847380e-6c15-41f3-8604-59309e9395a1")
     @Override
     public EList<BpmnParticipant> getParticipantRefs() {
         return new SmList<>(this, BpmnEndPointData.Metadata.ParticipantRefsDep());
     }
 
-    @objid ("3b6a963b-9d70-45ea-9b76-a5daa9a9f0fe")
+    @objid ("fc59411c-74c5-4057-8e32-1888a43f71c5")
     @Override
     public <T extends BpmnParticipant> List<T> getParticipantRefs(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -63,21 +63,21 @@ public class BpmnEndPointImpl extends BpmnRootElementImpl implements BpmnEndPoin
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("d9872c46-f05f-4abc-b988-e6709820f28c")
+    @objid ("f123ca7e-1890-4c70-9e8a-65527f8d9934")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("6445f521-6c7f-4c5d-9e23-632e1e9890f1")
+    @objid ("af91f0aa-3e62-44ed-92fb-8c61f50396a1")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("7b48e520-81a7-4fd4-be08-9e2b86504cbe")
+    @objid ("e4109b69-4378-4fdc-b093-ff7a9788240f")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitBpmnEndPoint(this);

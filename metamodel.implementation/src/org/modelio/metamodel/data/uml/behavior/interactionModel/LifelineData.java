@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.data.uml.behavior.interactionModel;
 
 import java.util.ArrayList;
@@ -49,57 +49,57 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("00490d86-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=Lifeline.class, factory=LifelineData.Metadata.ObjectFactory.class)
 public class LifelineData extends ModelElementData {
-    @objid ("0b57711f-4db0-41cf-89a2-e10c731cf39b")
+    @objid ("d506924e-2b00-4524-8247-3c42643b64db")
     @SmaMetaAttribute(metaName="Selector", type=String.class, smAttributeClass=Metadata.SelectorSmAttribute.class)
      Object mSelector = "";
 
-    @objid ("7d2ae5a2-d1b1-4b2d-a5a4-83381e16fd13")
+    @objid ("c0bd6384-61bd-4a35-9d59-36af91278ab3")
     @SmaMetaAssociation(metaName="CoveredBy", typeDataClass=InteractionFragmentData.class, min=0, max=-1, smAssociationClass=Metadata.CoveredBySmDependency.class)
      List<SmObjectImpl> mCoveredBy = null;
 
-    @objid ("59627da3-1554-4c5a-8b50-e4c2915aa06a")
+    @objid ("69515d36-20b5-43b8-9c1c-5370bd7614ef")
     @SmaMetaAssociation(metaName="DecomposedAs", typeDataClass=PartDecompositionData.class, min=0, max=1, smAssociationClass=Metadata.DecomposedAsSmDependency.class, component = true)
      SmObjectImpl mDecomposedAs;
 
-    @objid ("8bdeef6b-37b7-4bf9-982a-b99dd5b4172d")
+    @objid ("83b24d98-3d35-41f9-8191-581550513021")
     @SmaMetaAssociation(metaName="Owner", typeDataClass=InteractionData.class, min=0, max=1, smAssociationClass=Metadata.OwnerSmDependency.class)
      SmObjectImpl mOwner;
 
-    @objid ("7d21d1f8-aefe-4a29-a086-4f393843fa64")
+    @objid ("15cee6f7-d07a-4782-9f7e-bb44eb4b9333")
     @SmaMetaAssociation(metaName="Represented", typeDataClass=InstanceData.class, min=0, max=1, smAssociationClass=Metadata.RepresentedSmDependency.class, partof = true)
      SmObjectImpl mRepresented;
 
-    @objid ("4e623a2f-e1fd-4ee5-b9d8-97bf863da65b")
+    @objid ("578d1544-04e6-443f-b724-3d71ebe5608b")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("0051c94e-c4c3-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("6085c7a3-38f2-476b-8dda-6ca3709dd30c")
+        @objid ("60f7dea4-14f0-4107-8767-c91bcd7d7422")
         private static SmClass smClass = null;
 
-        @objid ("61f2ec0d-1d84-4e85-97e1-b8b0f1337f54")
+        @objid ("e2bd54eb-7625-4838-a7e9-ff3b72475f91")
         private static SmAttribute SelectorAtt = null;
 
-        @objid ("8fc56db1-d3bc-4508-9623-87087cd8e6ce")
+        @objid ("ebd9bd49-4b6f-4744-bf31-7b8d4c8c2223")
         private static SmDependency CoveredByDep = null;
 
-        @objid ("e69fd15c-463a-4de0-a9cf-9c7c09f7f10a")
+        @objid ("c66af7b3-9c09-42ee-bb6b-3536e6fe834d")
         private static SmDependency DecomposedAsDep = null;
 
-        @objid ("35685b90-8ae0-4f08-bdfb-2e134df87e85")
+        @objid ("894c8953-e529-402c-ac57-ff4e7cfc5052")
         private static SmDependency OwnerDep = null;
 
-        @objid ("b4455b5d-40ef-4c63-927c-e350155babe4")
+        @objid ("59868306-9ea2-4460-a1c9-9e4c47b6d560")
         private static SmDependency RepresentedDep = null;
 
-        @objid ("981c2dec-9134-4abb-b49a-1e4dde08f9f0")
+        @objid ("1cb37163-94cb-42a8-b8dc-1848beb368db")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(LifelineData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("6fde7fdc-cfb9-4a92-8e3c-a426e376dd92")
+        @objid ("4896b7a4-17b1-4e8c-87a4-eb6f46c5a7df")
         public static SmAttribute SelectorAtt() {
             if (SelectorAtt == null) {
             	SelectorAtt = classof().getAttributeDef("Selector");
@@ -107,7 +107,7 @@ public class LifelineData extends ModelElementData {
             return SelectorAtt;
         }
 
-        @objid ("21cdec65-a02d-4541-a882-9529d37e8c25")
+        @objid ("c6661f16-d35e-4c4d-80e0-761f2875187c")
         public static SmDependency CoveredByDep() {
             if (CoveredByDep == null) {
             	CoveredByDep = classof().getDependencyDef("CoveredBy");
@@ -115,7 +115,7 @@ public class LifelineData extends ModelElementData {
             return CoveredByDep;
         }
 
-        @objid ("470670a6-e625-4ed7-8caf-e42da8da1a24")
+        @objid ("fc109057-af82-441b-914d-b320d2f7b4c7")
         public static SmDependency DecomposedAsDep() {
             if (DecomposedAsDep == null) {
             	DecomposedAsDep = classof().getDependencyDef("DecomposedAs");
@@ -123,7 +123,7 @@ public class LifelineData extends ModelElementData {
             return DecomposedAsDep;
         }
 
-        @objid ("9e081905-d9e7-4d31-b5a9-9b55fc063ed6")
+        @objid ("2f875f89-c6b3-44c8-a1ed-d4397846cb9e")
         public static SmDependency OwnerDep() {
             if (OwnerDep == null) {
             	OwnerDep = classof().getDependencyDef("Owner");
@@ -131,7 +131,7 @@ public class LifelineData extends ModelElementData {
             return OwnerDep;
         }
 
-        @objid ("72a93f0c-8dde-41c4-ac29-5b862cce4a96")
+        @objid ("0ce7ba3d-c94c-4e88-adbc-ad5984b1404d")
         public static SmDependency RepresentedDep() {
             if (RepresentedDep == null) {
             	RepresentedDep = classof().getDependencyDef("Represented");
@@ -139,37 +139,37 @@ public class LifelineData extends ModelElementData {
             return RepresentedDep;
         }
 
-        @objid ("42aa33d4-39c1-45c0-b857-0c3e3581ab82")
+        @objid ("63e77fef-8b5b-4040-bcfd-7113e720a206")
         public static SmDependency getCoveredByDep() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return CoveredByDep;
         }
 
-        @objid ("5f00faec-79e4-4703-b149-b46caa64483f")
-        public static SmAttribute getSelectorAtt() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return SelectorAtt;
-        }
-
-        @objid ("e2d78177-c31d-492d-831b-f57fa151f461")
-        public static SmDependency getRepresentedDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return RepresentedDep;
-        }
-
-        @objid ("838a3cea-e17f-4111-b81d-dbbe2e9b672e")
+        @objid ("25b09c46-2f6e-4c5f-b038-8f402a0c08ea")
         public static SmClass getSmClass() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return smClass;
         }
 
-        @objid ("0c2b8fd9-61da-47be-8a57-feb7611ca6b3")
+        @objid ("286f2dae-1bb1-4765-8284-90ef0ca8a2ff")
         public static SmDependency getOwnerDep() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return OwnerDep;
         }
 
-        @objid ("ec71bfa5-c275-4914-9b83-55d95182e21b")
+        @objid ("8c7f72b2-7afc-4f5c-b669-162556c7605c")
+        public static SmAttribute getSelectorAtt() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return SelectorAtt;
+        }
+
+        @objid ("338f0a0c-fbb7-4c29-a8a9-c85e2f0a3aa2")
+        public static SmDependency getRepresentedDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return RepresentedDep;
+        }
+
+        @objid ("017bec1f-45a6-40d6-854b-089e3e5d3e5c")
         public static SmDependency getDecomposedAsDep() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return DecomposedAsDep;
@@ -177,12 +177,12 @@ public class LifelineData extends ModelElementData {
 
         @objid ("00520b52-c4c3-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("f41538eb-3d66-4ec0-a7a3-f85c4085e90c")
+            @objid ("6b8a99ce-a4ba-4fc1-a169-9b3d780a6884")
             public ISmObjectData createData() {
                 return new LifelineData();
             }
 
-            @objid ("6d41a0be-e2f8-44a1-99f2-ab06a46f2197")
+            @objid ("b6171967-6722-4e6c-b967-e65b439e2f99")
             public SmObjectImpl createImpl() {
                 return new LifelineImpl();
             }
@@ -191,12 +191,12 @@ public class LifelineData extends ModelElementData {
 
         @objid ("00526e30-c4c3-1fd8-97fe-001ec947cd2a")
         public static class SelectorSmAttribute extends SmAttribute {
-            @objid ("509c11cc-6957-4d8a-ac22-6817b330b8ed")
+            @objid ("4ca7b862-af26-479a-8a78-cefc6f670fd4")
             public Object getValue(ISmObjectData data) {
                 return ((LifelineData) data).mSelector;
             }
 
-            @objid ("81d7c78f-d9d7-42a3-87f8-9ff67a2567bd")
+            @objid ("4461978e-1dcb-482e-9c0c-52f485af2de3")
             public void setValue(ISmObjectData data, Object value) {
                 ((LifelineData) data).mSelector = value;
             }
@@ -205,20 +205,20 @@ public class LifelineData extends ModelElementData {
 
         @objid ("0052d1f4-c4c3-1fd8-97fe-001ec947cd2a")
         public static class CoveredBySmDependency extends SmMultipleDependency {
-            @objid ("af70a376-e3ae-47bc-b5e0-7f179d7bbb3d")
+            @objid ("4c0e563c-c4fb-4d5b-bc11-cf5d598d5fab")
             @Override
             public List<SmObjectImpl> getValueList(ISmObjectData data) {
                 return (((LifelineData)data).mCoveredBy != null)? ((LifelineData)data).mCoveredBy:SmMultipleDependency.EMPTY;
             }
 
-            @objid ("e8d5a31b-c709-4195-90a3-0e82c7445e27")
+            @objid ("3b86dadc-8fc6-47ac-8492-fb29aa4bf08a")
             @Override
             protected List<SmObjectImpl> allocateValueList(ISmObjectData data, int initialCapacity) {
                 ((LifelineData) data).mCoveredBy = new ArrayList<>(initialCapacity);
                 return ((LifelineData) data).mCoveredBy;
             }
 
-            @objid ("bf9ec48c-f71f-417d-baf8-a143865f3b3c")
+            @objid ("762935c0-270d-4c4f-8d22-339f3b443df6")
             @Override
             public SmDependency getSymetric() {
                 return InteractionFragmentData.Metadata.CoveredDep();
@@ -228,18 +228,18 @@ public class LifelineData extends ModelElementData {
 
         @objid ("00533694-c4c3-1fd8-97fe-001ec947cd2a")
         public static class DecomposedAsSmDependency extends SmSingleDependency {
-            @objid ("a28dec90-a203-4a86-af56-baa8fdbc7a38")
+            @objid ("d90d1ffd-c507-4a6d-8b3d-ff429c2d9e2c")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((LifelineData) data).mDecomposedAs;
             }
 
-            @objid ("53aa9264-6271-4777-bd2c-519afff614e1")
+            @objid ("aa84c2ec-3dca-400a-8571-1fd283b65244")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((LifelineData) data).mDecomposedAs = value;
             }
 
-            @objid ("987e402c-3b25-4928-a069-46128bc6cc2f")
+            @objid ("e31dcdfd-e838-497a-90b5-0ba18a6e4d0b")
             @Override
             public SmDependency getSymetric() {
                 return PartDecompositionData.Metadata.DecomposedDep();
@@ -249,18 +249,18 @@ public class LifelineData extends ModelElementData {
 
         @objid ("0053adc2-c4c3-1fd8-97fe-001ec947cd2a")
         public static class OwnerSmDependency extends SmSingleDependency {
-            @objid ("91cd52c8-6d96-4596-9c67-2d1f468a96ba")
+            @objid ("c4952246-68fb-423c-aa3c-9b891aac6035")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((LifelineData) data).mOwner;
             }
 
-            @objid ("3a2bffc8-61e8-48d1-80c2-2cea5a22087a")
+            @objid ("5d1b56b4-bffd-4b0b-a2c0-f0099a6ec1d4")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((LifelineData) data).mOwner = value;
             }
 
-            @objid ("c909b63b-b257-475b-b20c-242c2c94cac6")
+            @objid ("44192083-510e-4ef9-9acf-3ea26eb46178")
             @Override
             public SmDependency getSymetric() {
                 return InteractionData.Metadata.OwnedLineDep();
@@ -270,18 +270,18 @@ public class LifelineData extends ModelElementData {
 
         @objid ("005424aa-c4c3-1fd8-97fe-001ec947cd2a")
         public static class RepresentedSmDependency extends SmSingleDependency {
-            @objid ("52c0ed3e-2e97-47d2-ae9d-ff61b3f62d92")
+            @objid ("43f2894a-c5eb-4273-8eaf-419dfd244a3f")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((LifelineData) data).mRepresented;
             }
 
-            @objid ("65e5252f-366e-4560-b81a-e2a6041f4e0d")
+            @objid ("d3fb5002-ac0a-44a5-a8d1-1e20d5b0b017")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((LifelineData) data).mRepresented = value;
             }
 
-            @objid ("d26be470-2079-4a98-90cf-d18d9d952bba")
+            @objid ("e3cdfe8c-bebf-4192-869e-86ed58a9c56f")
             @Override
             public SmDependency getSymetric() {
                 return InstanceData.Metadata.RepresentedLifeLineDep();

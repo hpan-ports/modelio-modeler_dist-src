@@ -49,9 +49,6 @@ import org.modelio.vcore.smkernel.mapi.MRef;
  */
 @objid ("7e29ae57-1dec-11e2-8cad-001ec947c8cc")
 public class UnmaskNoteCommand extends Command {
-    @objid ("a6728baf-eeb5-4932-befd-580cfdc95ac7")
-    private final Point dropLocation;
-
     @objid ("7e29ae5b-1dec-11e2-8cad-001ec947c8cc")
     private final Note theNote;
 
@@ -63,6 +60,9 @@ public class UnmaskNoteCommand extends Command {
 
     @objid ("7e2c107e-1dec-11e2-8cad-001ec947c8cc")
     private final AbstractDiagramEditPart host;
+
+    @objid ("14b62e62-73b5-4040-ba6b-d709cb6b06e4")
+    private final Point dropLocation;
 
     /**
      * C'tor.

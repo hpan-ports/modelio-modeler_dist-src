@@ -644,4 +644,10 @@ public class FakeModule implements IModule {
         return new LicenseInfos(Status.UNDEFINED, null, "");
     }
 
+    @objid ("62c88539-71ba-4cd2-b31d-53e4e778e3e5")
+    @Override
+    public <I> I instanciateExternProcessor(String className, Class<I> clazz, Object... initargs) {
+        return null;
+    }
+
 }

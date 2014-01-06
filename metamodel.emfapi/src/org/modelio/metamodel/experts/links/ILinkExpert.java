@@ -28,10 +28,10 @@ import org.modelio.vcore.smkernel.mapi.MObject;
 @objid ("005da692-d07d-1098-bcec-001ec947cd2a")
 public interface ILinkExpert {
     @objid ("005daf84-d07d-1098-bcec-001ec947cd2a")
-    boolean canLink(MClass link, MClass from, MClass to, MClass owner);
+    boolean canLink(MClass link, MClass from, MClass to);
 
     @objid ("005dd338-d07d-1098-bcec-001ec947cd2a")
-    boolean canLink(MObject link, MObject from, MObject to, MObject owner);
+    boolean canLink(MClass link, MObject from, MObject to);
 
     @objid ("005dee4a-d07d-1098-bcec-001ec947cd2a")
     boolean canSource(MClass link, MClass from);

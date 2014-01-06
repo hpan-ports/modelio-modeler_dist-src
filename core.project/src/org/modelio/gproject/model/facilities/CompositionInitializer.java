@@ -143,6 +143,9 @@ import org.modelio.metamodel.uml.infrastructure.Substitution;
 import org.modelio.metamodel.uml.infrastructure.TagParameter;
 import org.modelio.metamodel.uml.infrastructure.TagType;
 import org.modelio.metamodel.uml.infrastructure.TaggedValue;
+import org.modelio.metamodel.uml.infrastructure.matrix.MatrixDefinition;
+import org.modelio.metamodel.uml.infrastructure.matrix.MatrixValueDefinition;
+import org.modelio.metamodel.uml.infrastructure.matrix.QueryDefinition;
 import org.modelio.metamodel.uml.infrastructure.properties.EnumeratedPropertyType;
 import org.modelio.metamodel.uml.infrastructure.properties.PropertyDefinition;
 import org.modelio.metamodel.uml.infrastructure.properties.PropertyEnumerationLitteral;
@@ -1727,6 +1730,47 @@ public class CompositionInitializer extends DefaultModelVisitor {
         if (this.parent instanceof Dictionary) {
             theTerm.setOwnerDictionary((Dictionary) this.parent);
             AnalystPropertiesHelper.synchronizeAnalystProperties((Dictionary) this.parent, Collections.singletonList((AnalystElement)theTerm));
+            return true;
+        }
+        return false;
+    }
+
+    @objid ("e2c58ea3-ce75-47ea-8a4d-32cabb1f69a0")
+    @Override
+    public Object visitMatrixDefinition(MatrixDefinition theMatrixDefinition) {
+        if (this.parent instanceof ModelElement) {
+            theMatrixDefinition.setOwner((ModelElement) this.parent);
+            return true;
+        }
+        return false;
+    }
+
+    @objid ("765abde3-4c2e-4382-ac68-39b290fff330")
+    @Override
+    public Object visitQueryDefinition(QueryDefinition theQueryDefinition) {
+        if (this.parent instanceof MatrixDefinition) {
+            if (this.smDep == null) {
+                this.smDep = (SmDependency) MTools.getMetaTool().getDefaultCompositionDep(this.parent, theQueryDefinition);
+            }
+            if ("LinesDefinition".equals(this.smDep.getName()) || "OwnerAsLine".equals(this.smDep.getName())) {
+                theQueryDefinition.setOwnerAsLine((MatrixDefinition) this.parent);
+                return true;
+            } else if ("ColumnsDefinition".equals(this.smDep.getName()) || "OwnerAsCol".equals(this.smDep.getName())) {
+                theQueryDefinition.setOwnerAsCol((MatrixDefinition) this.parent);
+                return true;
+            } else {
+                theQueryDefinition.setOwnerAsDepth((MatrixDefinition) this.parent);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @objid ("1dc6d18a-51a6-4e09-9ff7-bb98d0d6a00d")
+    @Override
+    public Object visitMatrixValueDefinition(MatrixValueDefinition theMatrixValueDefinition) {
+        if (this.parent instanceof MatrixDefinition) {
+            theMatrixValueDefinition.setMatrix((MatrixDefinition) this.parent);
             return true;
         }
         return false;

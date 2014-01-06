@@ -47,7 +47,7 @@ public class CircleLayout {
         for (IDiagramNode content : contentDgs) {
             content.fitToContent();
         
-            Rectangle r = content.getBounds();
+            Rectangle r = content.getOverallBounds();
         
             maxWidth = Math.max(maxWidth, r.width);
             maxHeight = Math.max(maxHeight, r.height);
@@ -64,14 +64,14 @@ public class CircleLayout {
         
         // move links on content nodes
         for (IDiagramNode source : contentDgs) {
-            Rectangle sourceR = source.getBounds();
+            Rectangle sourceR = source.getOverallBounds();
         
             // Links to the content
             for (IDiagramLink link : source.getFromLinks()) {
                 link.setRouterKind(LinkRouterKind.DIRECT);
         
                 IDiagramNode target = (IDiagramNode)link.getTo();
-                Rectangle targetR = target.getBounds();
+                Rectangle targetR = target.getOverallBounds();
         
                 ILinkPath path = link.getPath();
         
@@ -112,7 +112,7 @@ public class CircleLayout {
         // Compute the center point of each dg
         PrecisionPoint p = new PrecisionPoint(0, radius);
         for (IDiagramNode node : dgs) {
-            Rectangle r = node.getBounds();
+            Rectangle r = node.getOverallBounds();
             
             // Set the node in the correct place in the circle, with a shift corresponding to the center's coordinates 
             node.setLocation(center.x + p.x - r.width/2, center.y + p.y - r.height/2);

@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.analyst;
 
 import java.util.ArrayList;
@@ -43,45 +43,45 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("901bf652-8771-4ad2-9eff-9f03ee6e7461")
 public abstract class AnalystItemImpl extends ModelElementImpl implements AnalystItem {
-    @objid ("3df27c51-5d87-4537-abf6-b0dbb0092ddc")
+    @objid ("0ff466f8-16de-4541-9a6d-45904781a250")
     @Override
     public String getDefinition() {
         return (String) getAttVal(AnalystItemData.Metadata.DefinitionAtt());
     }
 
-    @objid ("ff6cd1c0-262a-4b7d-b2b8-1e0d41818cd5")
+    @objid ("2bbade37-dc41-4580-94e1-88324e6b5106")
     @Override
     public void setDefinition(String value) {
         setAttVal(AnalystItemData.Metadata.DefinitionAtt(), value);
     }
 
-    @objid ("faa234a0-7af6-4d1f-90a9-20fc8fc4388c")
+    @objid ("2ad86769-55fa-4b43-be00-b19ac73777af")
     @Override
     public AnalystPropertyTable getAnalystProperties() {
         return (AnalystPropertyTable) getDepVal(AnalystItemData.Metadata.AnalystPropertiesDep());
     }
 
-    @objid ("62270c32-4683-4a32-8add-9c9f8b8e87b0")
+    @objid ("4642a184-0bd6-4a39-b92c-9baba94d0d46")
     @Override
     public void setAnalystProperties(AnalystPropertyTable value) {
         appendDepVal(AnalystItemData.Metadata.AnalystPropertiesDep(), (SmObjectImpl)value);
     }
 
-    @objid ("2e967552-8817-4cca-9afa-fb3f7b7e0063")
+    @objid ("435d4ada-5899-45d3-8b2f-903653907236")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("d7e8debd-e4ff-4359-bb50-c49732145706")
+    @objid ("afe348d0-f588-4197-abde-67b9ae1b08e2")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("b8f8f3c6-f5e4-466e-890f-2c66fe063b4c")
+    @objid ("73d8ece9-deb2-4a8a-907b-446a87eb9682")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitAnalystItem(this);

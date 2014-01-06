@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.bpmn.activities;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
@@ -34,28 +34,28 @@ import org.modelio.metamodel.uml.statik.Operation;
 
 @objid ("007f01c0-c4bf-1fd8-97fe-001ec947cd2a")
 public interface BpmnCallActivity extends BpmnActivity {
-    @objid ("23973df0-720e-4c48-a20e-891ee7b0019d")
+    @objid ("cb9b9bda-963e-491b-9b59-e6fe7e445a96")
     BpmnTask getCalledGlobalTask();
 
-    @objid ("d0dcd8f4-73e1-42ca-9557-a6af27e75623")
+    @objid ("d94e3e23-2e95-41a3-a41f-c121901f85fb")
     void setCalledGlobalTask(BpmnTask value);
 
-    @objid ("a2794d39-39f6-43cf-b4e6-038b96f3ade4")
+    @objid ("146eef21-b5c8-464d-9ee2-9210534e1532")
     BpmnProcess getCalledProcess();
 
-    @objid ("a021ad9f-bac1-418a-b9aa-d09c26e72596")
+    @objid ("ff3d1185-d36a-4dd7-97fe-cd370c43ba94")
     void setCalledProcess(BpmnProcess value);
 
-    @objid ("f26e7549-66a4-4d77-9915-9b54a1986d85")
+    @objid ("527282ac-6a95-4988-b161-099df937107f")
     Operation getCalledOperation();
 
-    @objid ("1ef39e1d-93e6-44c2-84e7-86bd88d4ec6b")
+    @objid ("cd02056e-9d4b-4ebc-8a8b-70fbb8f7de3b")
     void setCalledOperation(Operation value);
 
-    @objid ("b12e02da-7d80-434f-a2fa-a7cb004a06f9")
+    @objid ("acecc211-3be6-4ce8-8a94-3bfcc54a7fa3")
     Behavior getCalledBehavior();
 
-    @objid ("81c98351-b379-4097-9c70-f8076a0187a1")
+    @objid ("d7c8e846-fc41-4da1-9049-03297d528d09")
     void setCalledBehavior(Behavior value);
 
 }

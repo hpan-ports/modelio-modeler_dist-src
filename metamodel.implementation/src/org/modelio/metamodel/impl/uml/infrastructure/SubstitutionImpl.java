@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.uml.infrastructure;
 
 import java.util.ArrayList;
@@ -42,31 +42,31 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("008e0fa8-c4be-1fd8-97fe-001ec947cd2a")
 public class SubstitutionImpl extends ModelElementImpl implements Substitution {
-    @objid ("e2025b2f-4313-42ae-9b4a-4cc4ff40d641")
+    @objid ("ec2e4efa-19eb-4031-94f5-74c5dfc15e7e")
     @Override
     public Classifier getContract() {
         return (Classifier) getDepVal(SubstitutionData.Metadata.ContractDep());
     }
 
-    @objid ("9820d7fb-01fe-4e32-b880-cf6b4933fdef")
+    @objid ("c266c8ec-31d6-4632-abec-b1ad15bd2eda")
     @Override
     public void setContract(Classifier value) {
         appendDepVal(SubstitutionData.Metadata.ContractDep(), (SmObjectImpl)value);
     }
 
-    @objid ("b11ba95a-354e-42cd-be1a-e5d58db3dbff")
+    @objid ("729e3244-2488-47f0-b707-31f19d96b2df")
     @Override
     public Classifier getSubstitutingClassifier() {
         return (Classifier) getDepVal(SubstitutionData.Metadata.SubstitutingClassifierDep());
     }
 
-    @objid ("5c9e4c21-b5d5-473e-89c4-7a339e4c5338")
+    @objid ("3da7c672-a7d2-4402-baf5-b99548a31911")
     @Override
     public void setSubstitutingClassifier(Classifier value) {
         appendDepVal(SubstitutionData.Metadata.SubstitutingClassifierDep(), (SmObjectImpl)value);
     }
 
-    @objid ("21fd65e2-b628-4518-807e-51994f8413d3")
+    @objid ("a14131f1-2d77-4a05-8a34-bf7da766f7e5")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
@@ -76,7 +76,7 @@ public class SubstitutionImpl extends ModelElementImpl implements Substitution {
         return super.getCompositionOwner();
     }
 
-    @objid ("99be0cc3-5f2d-43e9-9368-243ffeea149c")
+    @objid ("b7c13ec8-6b51-4804-8457-59b77bf76765")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
@@ -86,7 +86,7 @@ public class SubstitutionImpl extends ModelElementImpl implements Substitution {
         return super.getCompositionRelation();
     }
 
-    @objid ("4b09fa1f-8d89-4700-890d-2a29106d10d2")
+    @objid ("bcdf2c9c-a25b-475d-bbd3-e11634034dfe")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitSubstitution(this);

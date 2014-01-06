@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.uml.infrastructure;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
@@ -32,34 +32,34 @@ import org.modelio.metamodel.uml.infrastructure.ModelElement;
 
 @objid ("00924014-c4be-1fd8-97fe-001ec947cd2a")
 public interface ExternDocument extends ModelElement {
-    @objid ("8ec7cced-a41d-48dd-86ad-5b6e4f314d0d")
+    @objid ("855a988b-b5dc-4733-b5a6-a3d55d81e49a")
     String getMimeType();
 
-    @objid ("4755f053-0a4a-468e-a0db-0f19341ea087")
+    @objid ("be22be40-7110-4223-a70b-b231631546bc")
     void setMimeType(String value);
 
-    @objid ("41797ece-801f-445b-9d80-c50fe32b7d18")
+    @objid ("5b2c34f1-0c00-426b-88aa-326054bee668")
     String getPath();
 
-    @objid ("a81aa379-1bd4-411c-8f21-0509cbc1bd2f")
+    @objid ("6c653baa-b2fe-47b7-b37c-cc93c07eafbc")
     void setPath(String value);
 
-    @objid ("5ceb6563-450b-4ad9-9fc0-803f127ce503")
+    @objid ("66ab25f3-751d-4bfe-817f-8e3a3726c33c")
     String getAbstract();
 
-    @objid ("47ac04b8-5b1d-4224-8fd8-e87fccd76c6e")
+    @objid ("c6db34e0-0385-4afc-ba34-3f06fadc9295")
     void setAbstract(String value);
 
-    @objid ("12855976-6b80-42ae-99f2-5b72f6f6e431")
+    @objid ("d4261a5d-e36a-484e-b050-c67c17831a43")
     ExternDocumentType getType();
 
-    @objid ("b35bc1a3-99a5-40b1-ae52-3ec8eaac03ae")
+    @objid ("66a07f22-af2a-45fd-b71c-ad2190810209")
     void setType(ExternDocumentType value);
 
-    @objid ("dced7f9f-3e4b-4b65-af54-335d82af0d12")
+    @objid ("83aed9eb-3624-4693-b1c5-02fa241777c8")
     ModelElement getSubject();
 
-    @objid ("0a6fd6ff-c2cd-4cda-944d-2c7c09142ce8")
+    @objid ("5b250321-87ab-434d-be7e-33b692fcd0d8")
     void setSubject(ModelElement value);
 
 }

@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.uml.statik;
 
 import java.util.ArrayList;
@@ -56,61 +56,61 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("0011931a-c4bf-1fd8-97fe-001ec947cd2a")
 public abstract class NameSpaceImpl extends ModelTreeImpl implements NameSpace {
-    @objid ("036e8899-face-4018-bb95-bd08d2832cf4")
+    @objid ("6f09c2aa-ef79-42f9-9253-33e27668e599")
     @Override
     public boolean isIsAbstract() {
         return (Boolean) getAttVal(NameSpaceData.Metadata.IsAbstractAtt());
     }
 
-    @objid ("2116fd4f-b370-43e6-8169-7a86986774ed")
+    @objid ("0b899ba2-0506-455e-bc32-c18d87befd69")
     @Override
     public void setIsAbstract(boolean value) {
         setAttVal(NameSpaceData.Metadata.IsAbstractAtt(), value);
     }
 
-    @objid ("bfd8a223-6c71-4d35-b2fc-f016b7c70fab")
+    @objid ("5185fc72-4bbd-4460-bd3c-391b816a4ec0")
     @Override
     public boolean isIsLeaf() {
         return (Boolean) getAttVal(NameSpaceData.Metadata.IsLeafAtt());
     }
 
-    @objid ("12609951-b024-4633-9a2f-4b2df6699297")
+    @objid ("dbb12773-a6f3-4b40-8a47-54014202e53c")
     @Override
     public void setIsLeaf(boolean value) {
         setAttVal(NameSpaceData.Metadata.IsLeafAtt(), value);
     }
 
-    @objid ("a9961549-26c6-424e-b608-69e341201be5")
+    @objid ("21f91eca-95ec-42b3-8f52-ed171b771fa4")
     @Override
     public boolean isIsRoot() {
         return (Boolean) getAttVal(NameSpaceData.Metadata.IsRootAtt());
     }
 
-    @objid ("8667057c-7815-4fd1-9a63-d44c99ce0da4")
+    @objid ("1bae77b5-ab02-4b1e-abaf-896ab1b5f092")
     @Override
     public void setIsRoot(boolean value) {
         setAttVal(NameSpaceData.Metadata.IsRootAtt(), value);
     }
 
-    @objid ("aa709bde-c3b7-43dc-b49f-a65e1172b498")
+    @objid ("9423f1f0-d6a5-4f8d-b44c-c7539b069d73")
     @Override
     public VisibilityMode getVisibility() {
         return (VisibilityMode) getAttVal(NameSpaceData.Metadata.VisibilityAtt());
     }
 
-    @objid ("8bb4a3fb-62ba-4241-a87b-20de7e1ddde0")
+    @objid ("57dbd06a-8364-4ee7-969f-20724f86ab07")
     @Override
     public void setVisibility(VisibilityMode value) {
         setAttVal(NameSpaceData.Metadata.VisibilityAtt(), value);
     }
 
-    @objid ("0e36bbc9-0344-4adc-9aab-3dc1a22e08a5")
+    @objid ("d916db17-1f86-4fea-bb35-9a0c9e7183fc")
     @Override
     public EList<Generalization> getParent() {
         return new SmList<>(this, NameSpaceData.Metadata.ParentDep());
     }
 
-    @objid ("48b83ee6-680f-4a3b-af89-8840204e4055")
+    @objid ("781e9261-d1e0-4738-bba5-b51829735f95")
     @Override
     public <T extends Generalization> List<T> getParent(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -123,13 +123,13 @@ public abstract class NameSpaceImpl extends ModelTreeImpl implements NameSpace {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("a37070c1-00e3-4a14-b843-2f52fe26196d")
+    @objid ("7f927364-d033-433d-8cb5-9babe6e174ed")
     @Override
     public EList<TemplateBinding> getTemplateInstanciation() {
         return new SmList<>(this, NameSpaceData.Metadata.TemplateInstanciationDep());
     }
 
-    @objid ("1cbba6f3-4dc1-42c0-99b0-b6d2ebf1be37")
+    @objid ("913198e8-030c-4c93-acab-a4e75997850b")
     @Override
     public <T extends TemplateBinding> List<T> getTemplateInstanciation(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -142,13 +142,13 @@ public abstract class NameSpaceImpl extends ModelTreeImpl implements NameSpace {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("cbd43974-318c-4fbe-abaf-42bd21564000")
+    @objid ("3f9f8aaa-8207-4627-a2f0-3d187bd250b0")
     @Override
     public EList<Instance> getRepresenting() {
         return new SmList<>(this, NameSpaceData.Metadata.RepresentingDep());
     }
 
-    @objid ("f7c91da9-4480-438e-abfe-b5fe5431ae85")
+    @objid ("b8801ca6-fbae-4909-8b09-8fe1795abf8b")
     @Override
     public <T extends Instance> List<T> getRepresenting(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -161,13 +161,13 @@ public abstract class NameSpaceImpl extends ModelTreeImpl implements NameSpace {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("d292d46d-0d0c-4111-a3ec-f3cf74c1479c")
+    @objid ("94dc62a5-749f-4c08-bda5-903202ae4962")
     @Override
     public EList<Behavior> getOwnedBehavior() {
         return new SmList<>(this, NameSpaceData.Metadata.OwnedBehaviorDep());
     }
 
-    @objid ("79202c67-a114-470a-bae5-f01f12f39a96")
+    @objid ("955a2169-7d13-4bf2-9645-e0ea0408c8ba")
     @Override
     public <T extends Behavior> List<T> getOwnedBehavior(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -180,13 +180,13 @@ public abstract class NameSpaceImpl extends ModelTreeImpl implements NameSpace {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("f7e98523-7ca1-44ac-b5a0-b5a55031d8a4")
+    @objid ("6c8b74b5-9cf9-4703-8393-5b31ae62f741")
     @Override
     public EList<DataFlow> getReceived() {
         return new SmList<>(this, NameSpaceData.Metadata.ReceivedDep());
     }
 
-    @objid ("ec19993a-c419-4376-9be8-4f806bfc8a93")
+    @objid ("a9ff7a78-a9b4-4539-a00d-ffb62bdae53c")
     @Override
     public <T extends DataFlow> List<T> getReceived(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -199,13 +199,13 @@ public abstract class NameSpaceImpl extends ModelTreeImpl implements NameSpace {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("9408b521-1f06-4e36-8fd4-e24044735e0c")
+    @objid ("6b163a84-6162-4337-afb4-6ccbb409692e")
     @Override
     public EList<NamespaceUse> getUsedNsu() {
         return new SmList<>(this, NameSpaceData.Metadata.UsedNsuDep());
     }
 
-    @objid ("30c14192-22fe-453d-b029-e37bbfcf6653")
+    @objid ("26ccee4e-a5e8-4c33-a36e-280395611b47")
     @Override
     public <T extends NamespaceUse> List<T> getUsedNsu(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -218,13 +218,13 @@ public abstract class NameSpaceImpl extends ModelTreeImpl implements NameSpace {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("0f81dddf-53f0-4d6e-b1d3-f3e229e8a919")
+    @objid ("753522b6-2c96-4a38-a1f0-e0595f2417b4")
     @Override
     public EList<InformationFlow> getOwnedInformationFlow() {
         return new SmList<>(this, NameSpaceData.Metadata.OwnedInformationFlowDep());
     }
 
-    @objid ("54053c6b-b080-441e-89c7-c02755f771ee")
+    @objid ("1059cec5-094c-4d52-998a-1f121aca9c6e")
     @Override
     public <T extends InformationFlow> List<T> getOwnedInformationFlow(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -237,13 +237,13 @@ public abstract class NameSpaceImpl extends ModelTreeImpl implements NameSpace {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("94cffc12-d19e-4989-a86d-0d625f6046c6")
+    @objid ("58476e5c-dcb0-4fd5-b053-fc0222aeb2a5")
     @Override
     public EList<ElementImport> getImporting() {
         return new SmList<>(this, NameSpaceData.Metadata.ImportingDep());
     }
 
-    @objid ("6f083217-f60f-4b80-977a-1c193f35ffa1")
+    @objid ("557f12a2-a161-4932-8245-4fa6207aec38")
     @Override
     public <T extends ElementImport> List<T> getImporting(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -256,13 +256,13 @@ public abstract class NameSpaceImpl extends ModelTreeImpl implements NameSpace {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("8349fb2a-4f43-4ccb-9f76-5b0cca1a5467")
+    @objid ("be6575cb-d889-4482-967b-f7286e7439e3")
     @Override
     public EList<DataFlow> getSent() {
         return new SmList<>(this, NameSpaceData.Metadata.SentDep());
     }
 
-    @objid ("090ee6ff-ff5e-4aab-bb7e-c01e02dfde05")
+    @objid ("ba675cfb-978e-4828-a4cb-78d257b8777c")
     @Override
     public <T extends DataFlow> List<T> getSent(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -275,13 +275,13 @@ public abstract class NameSpaceImpl extends ModelTreeImpl implements NameSpace {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("65d5c20c-b071-469e-b606-7678688c0104")
+    @objid ("f1316862-6ad2-4e8c-bb21-e5b33b02bde0")
     @Override
     public EList<DataFlow> getOwnedDataFlow() {
         return new SmList<>(this, NameSpaceData.Metadata.OwnedDataFlowDep());
     }
 
-    @objid ("94345437-5022-40cf-93cc-75b01005d478")
+    @objid ("9ca9dfc0-ffdb-4474-951a-d98f5e80c0f8")
     @Override
     public <T extends DataFlow> List<T> getOwnedDataFlow(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -294,13 +294,13 @@ public abstract class NameSpaceImpl extends ModelTreeImpl implements NameSpace {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("b2645cfa-fbc4-4401-9550-799f8eac0604")
+    @objid ("162f7012-8071-4d60-a4c3-fc7141b1b6cf")
     @Override
     public EList<CollaborationUse> getOwnedCollaborationUse() {
         return new SmList<>(this, NameSpaceData.Metadata.OwnedCollaborationUseDep());
     }
 
-    @objid ("2fe96310-c1ed-4a07-a51d-6d96a07c649e")
+    @objid ("78a2cb9e-dc06-4b4b-bf29-9ab5318cd5ea")
     @Override
     public <T extends CollaborationUse> List<T> getOwnedCollaborationUse(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -313,13 +313,13 @@ public abstract class NameSpaceImpl extends ModelTreeImpl implements NameSpace {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("9bf0bdad-4d70-4822-bc52-5e6e59ca41e1")
+    @objid ("6ecc9322-9f03-4730-b9a2-dcea6297ccff")
     @Override
     public EList<PackageImport> getOwnedPackageImport() {
         return new SmList<>(this, NameSpaceData.Metadata.OwnedPackageImportDep());
     }
 
-    @objid ("27e96978-feb3-42e4-a5b0-85898b176ea2")
+    @objid ("fcc1fd9b-87d3-4301-82a8-5690008210e8")
     @Override
     public <T extends PackageImport> List<T> getOwnedPackageImport(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -332,13 +332,13 @@ public abstract class NameSpaceImpl extends ModelTreeImpl implements NameSpace {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("cf70c735-4c7d-40f1-a48a-65cac102451c")
+    @objid ("2e644372-df28-4056-aba7-ef42dbbe2294")
     @Override
     public EList<TemplateParameter> getTemplate() {
         return new SmList<>(this, NameSpaceData.Metadata.TemplateDep());
     }
 
-    @objid ("1aee3117-60f9-489f-bffc-b754c85fda1b")
+    @objid ("702599d1-de6a-4869-b907-227fbe297b94")
     @Override
     public <T extends TemplateParameter> List<T> getTemplate(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -351,13 +351,13 @@ public abstract class NameSpaceImpl extends ModelTreeImpl implements NameSpace {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("71340c1b-230e-416f-b0e4-fbe715e007cd")
+    @objid ("33dd818b-60ee-4b3f-8d57-8a957dd8b716")
     @Override
     public EList<Generalization> getSpecialization() {
         return new SmList<>(this, NameSpaceData.Metadata.SpecializationDep());
     }
 
-    @objid ("d925b6d5-6c58-4a12-acd4-7d8873fe32cd")
+    @objid ("0a062633-8e49-42fd-9122-2c29381bc1d2")
     @Override
     public <T extends Generalization> List<T> getSpecialization(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -370,13 +370,13 @@ public abstract class NameSpaceImpl extends ModelTreeImpl implements NameSpace {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("e06f680b-3ae0-47f6-a238-b639fced556c")
+    @objid ("40b9244d-8fe8-47dc-aac4-3fd801eb86c8")
     @Override
     public EList<InterfaceRealization> getRealized() {
         return new SmList<>(this, NameSpaceData.Metadata.RealizedDep());
     }
 
-    @objid ("1f5477e2-9607-4346-8331-333b5915e8ea")
+    @objid ("946c5a6f-3284-45ac-a228-1241d3eb8693")
     @Override
     public <T extends InterfaceRealization> List<T> getRealized(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -389,13 +389,13 @@ public abstract class NameSpaceImpl extends ModelTreeImpl implements NameSpace {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("1edba25b-2ca1-4f62-b0dc-0f4de07838e6")
+    @objid ("dae846d4-402a-474b-8fc0-409b7e871860")
     @Override
     public EList<Instance> getDeclared() {
         return new SmList<>(this, NameSpaceData.Metadata.DeclaredDep());
     }
 
-    @objid ("b4392606-5b83-4c4a-9256-94aad1002119")
+    @objid ("bab06d39-b851-4cb2-89a5-62b809992b4e")
     @Override
     public <T extends Instance> List<T> getDeclared(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -408,13 +408,13 @@ public abstract class NameSpaceImpl extends ModelTreeImpl implements NameSpace {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("963f2684-7e4d-481b-9403-425c3c8bd200")
+    @objid ("173feec7-faeb-4d75-9ba9-2bd56cb9368d")
     @Override
     public EList<TemplateBinding> getInstanciatingBinding() {
         return new SmList<>(this, NameSpaceData.Metadata.InstanciatingBindingDep());
     }
 
-    @objid ("6fc9d901-f445-4191-9cec-796bb12506c0")
+    @objid ("33284303-85f3-4a5c-bbde-8b1d3fc742df")
     @Override
     public <T extends TemplateBinding> List<T> getInstanciatingBinding(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -427,13 +427,13 @@ public abstract class NameSpaceImpl extends ModelTreeImpl implements NameSpace {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("e5a92632-2a53-4b40-ab05-827b9ee9de6e")
+    @objid ("42092a4a-2922-414d-a060-992d9c5c1815")
     @Override
     public EList<ElementImport> getOwnedImport() {
         return new SmList<>(this, NameSpaceData.Metadata.OwnedImportDep());
     }
 
-    @objid ("92adc9ce-9d5f-4589-9bfd-498655ddf91f")
+    @objid ("83e1acae-15bf-4c03-9d7d-6ea67dd31434")
     @Override
     public <T extends ElementImport> List<T> getOwnedImport(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -446,13 +446,13 @@ public abstract class NameSpaceImpl extends ModelTreeImpl implements NameSpace {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("9e150c83-531f-487f-85b4-aeb789f476cc")
+    @objid ("cad0f1a8-35fe-4634-b0d9-ac3cc40b1f93")
     @Override
     public EList<NamespaceUse> getUserNsu() {
         return new SmList<>(this, NameSpaceData.Metadata.UserNsuDep());
     }
 
-    @objid ("08567ace-02e5-410c-af0d-4808b8c91aec")
+    @objid ("c962a952-41a2-4cac-a900-3fdcdbc3c462")
     @Override
     public <T extends NamespaceUse> List<T> getUserNsu(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -465,21 +465,21 @@ public abstract class NameSpaceImpl extends ModelTreeImpl implements NameSpace {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("4548918e-c99b-4b4a-8e03-76ff64864b5c")
+    @objid ("79434cb8-3713-4960-8016-27dcbe760228")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("20f1ae57-f038-4f88-af9d-b71304a29c5a")
+    @objid ("2585abf9-3196-4fcd-982f-a1a0a274e78c")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("b4f103cd-fee6-4d19-9cba-946b51f8fe07")
+    @objid ("bb61aa7d-087e-4815-aced-7cfefac258d4")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitNameSpace(this);

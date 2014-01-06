@@ -36,17 +36,17 @@ import org.modelio.vcore.smkernel.mapi.MObject;
  */
 @objid ("7f3bdca0-1dec-11e2-8cad-001ec947c8cc")
 public class DefaultUnmaskElementCommand extends Command {
-    @objid ("e7eb2f02-fa70-4f4b-82b4-cdb4cb004d1e")
-    private Point location;
-
-    @objid ("d7510909-4394-4816-a035-f6d4c242f452")
-    private Dimension size;
-
     @objid ("7f3bdca7-1dec-11e2-8cad-001ec947c8cc")
     private MObject toUnmask;
 
     @objid ("7f3bdca8-1dec-11e2-8cad-001ec947c8cc")
     private GmCompositeNode parentNode;
+
+    @objid ("ff86a9ad-5f48-43ad-879d-71298d62924b")
+    private Point location;
+
+    @objid ("bf177912-30fa-4ce8-a593-d65fa891d7e4")
+    private Dimension size;
 
     /**
      * Constructor.

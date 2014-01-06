@@ -293,7 +293,7 @@ public class EConnectorEnd extends EElement {
         }
     }
 
-    @objid ("887d493b-a081-4cfe-a478-133a2446d014")
+    @objid ("0373a739-dcf6-4e72-b18c-e283bdea0df6")
     private void setOpposite(LinkEnd objingElt) {
         Link link = objingElt.getLink();
         if (link.getLinkEnd().size() == 2){

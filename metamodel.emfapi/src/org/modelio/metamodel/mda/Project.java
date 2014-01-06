@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.mda;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
@@ -33,28 +33,28 @@ import org.modelio.metamodel.uml.statik.Package;
 
 @objid ("006602e2-c4bf-1fd8-97fe-001ec947cd2a")
 public interface Project extends ModelElement {
-    @objid ("beecef2c-cf37-4b47-8e8a-961cc4f2f501")
+    @objid ("810926d5-12e3-4e88-afea-df3b255f06ba")
     String getProjectContext();
 
-    @objid ("f20fd451-ff63-41d3-9296-228c8a43e973")
+    @objid ("ce179aad-9f96-4353-8d23-cc71d5dbc202")
     void setProjectContext(String value);
 
-    @objid ("0e8a776a-6622-42ae-a866-3f0d429c211d")
+    @objid ("260e349a-8ffe-4553-9e17-4dce26b36c57")
     String getProjectDescr();
 
-    @objid ("41d443b1-6895-4590-ab76-7a5014998f3a")
+    @objid ("a344d6b4-5750-42f6-875a-ceed0b31e1c5")
     void setProjectDescr(String value);
 
-    @objid ("922e4369-3eeb-4dab-805d-99c47da4d10b")
+    @objid ("25df9471-004c-496f-b00c-f2202d919df7")
     DiagramSet getDiagramRoot();
 
-    @objid ("aa452de0-63f7-4a9a-b808-3f69576fa012")
+    @objid ("fd98c984-6846-44e5-ad22-270964dbe37a")
     void setDiagramRoot(DiagramSet value);
 
-    @objid ("7e7478ff-e70a-4620-bba1-d3001c0ab330")
+    @objid ("e8852a4e-ad33-44f5-85ca-a2e9566e31dc")
     Package getModel();
 
-    @objid ("ebb7b47a-bda3-42fe-a2d7-1b104c2ead22")
+    @objid ("ae965f26-ddbd-4ee9-9be6-9c0f64439fe1")
     void setModel(Package value);
 
 }

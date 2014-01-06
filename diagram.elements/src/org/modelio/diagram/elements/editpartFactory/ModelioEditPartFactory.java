@@ -41,6 +41,7 @@ import org.modelio.diagram.elements.common.image.NonSelectableImageEditPart;
 import org.modelio.diagram.elements.common.label.base.GmElementLabel;
 import org.modelio.diagram.elements.common.label.base.GmElementLabelEditPart;
 import org.modelio.diagram.elements.common.label.modelelement.GmDefaultFlatHeader;
+import org.modelio.diagram.elements.common.label.modelelement.GmModelElementFlatHeader;
 import org.modelio.diagram.elements.common.label.modelelement.ModelElementFlatHeaderEditPart;
 import org.modelio.diagram.elements.common.label.name.GmNameLabel;
 import org.modelio.diagram.elements.common.label.name.GmNameSimpleLabel;
@@ -57,6 +58,8 @@ import org.modelio.diagram.elements.core.link.GmLinkEditPart;
 import org.modelio.diagram.elements.core.model.GmModel;
 import org.modelio.diagram.elements.core.node.GmNodeModel;
 import org.modelio.diagram.elements.core.node.IImageableNode;
+import org.modelio.diagram.elements.drawings.core.GmDrawing;
+import org.modelio.diagram.elements.drawings.layer.GmDrawingLayer;
 import org.modelio.diagram.elements.umlcommon.constraint.ConstraintBodyEditPart;
 import org.modelio.diagram.elements.umlcommon.constraint.ConstraintLinkEditPart;
 import org.modelio.diagram.elements.umlcommon.constraint.GmConstraintBody;
@@ -120,6 +123,9 @@ public class ModelioEditPartFactory implements EditPartFactory {
     @objid ("68278379-1e83-11e2-8cad-001ec947c8cc")
     private Map<String, EditPartFactory> cascadedFactories = new HashMap<>();
 
+    @objid ("eaa04cf4-6faa-4d5d-8ba5-1360d762d3e9")
+    private DrawingEditPartFactory drawingEditPartFactory = new DrawingEditPartFactory();
+
     /**
      * @return the instance.
      */
@@ -162,7 +168,7 @@ public class ModelioEditPartFactory implements EditPartFactory {
         }
         
         if (model instanceof GmNodeModel) {
-            // For node models, delegates according the representation model.
+            // For node models, delegates according the representation mode.
             GmNodeModel node = (GmNodeModel) model;
             switch (node.getRepresentationMode()) {
                 case IMAGE:
@@ -186,7 +192,19 @@ public class ModelioEditPartFactory implements EditPartFactory {
                                                " is not supported in " +
                                                node.getRepresentationMode() +
                                                " mode.");
+        } 
+        
+        if (model instanceof GmDrawing || model instanceof GmDrawingLayer) {
+            // For drawings, use dedicated factory
+            editPart = this.drawingEditPartFactory.createEditPart(context, model);
+        
+            if (editPart != null)
+                return editPart;
+        
+            throw new IllegalArgumentException(model +
+                                               " is not supported.");
         }
+        
         // Link models are always in structured mode.
         editPart = this.structuredModeEditPartFactory.createEditPart(context, model);
         
@@ -246,6 +264,7 @@ public class ModelioEditPartFactory implements EditPartFactory {
                     return editPart;
                 }
             }
+            
             
             // Not handled
             return null;
@@ -317,12 +336,6 @@ public class ModelioEditPartFactory implements EditPartFactory {
                 return editPart;
             }
             
-            if (model.getClass() == SimpleModeNameLabel.class) {
-                editPart = new ModelElementFlatHeaderEditPart();
-                editPart.setModel(model);
-                return editPart;
-            }
-            
             if (model.getClass() == GmBodyFreeZone.class) {
                 editPart = new GmFreeZoneEditPart();
                 editPart.setModel(model);
@@ -349,12 +362,6 @@ public class ModelioEditPartFactory implements EditPartFactory {
             
             if (model.getClass() == GmExternDocumentLink.class) {
                 editPart = new GmLinkEditPart();
-                editPart.setModel(model);
-                return editPart;
-            }
-            
-            if (model.getClass() == GmDefaultFlatHeader.class) {
-                editPart = new ModelElementFlatHeaderEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
@@ -422,6 +429,12 @@ public class ModelioEditPartFactory implements EditPartFactory {
             
             if (model instanceof GmFreeZone) {
                 editPart = new GmFreeZoneEditPart();
+                editPart.setModel(model);
+                return editPart;
+            }
+            
+            if (model instanceof GmModelElementFlatHeader) {
+                editPart = new ModelElementFlatHeaderEditPart();
                 editPart.setModel(model);
                 return editPart;
             }

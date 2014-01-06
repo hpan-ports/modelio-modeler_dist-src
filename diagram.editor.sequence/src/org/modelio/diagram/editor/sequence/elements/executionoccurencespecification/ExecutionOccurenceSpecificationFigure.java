@@ -139,4 +139,16 @@ public class ExecutionOccurenceSpecificationFigure extends Figure implements IBr
         }
     }
 
+    @objid ("fe408b64-95d0-4591-834d-7c1c7c09f384")
+    @Override
+    public void setFillAlpha(int alpha) {
+        this.brushOptions.alpha = alpha;
+    }
+
+    @objid ("8aa7b7aa-e2ff-4bbe-8961-ba9eafcd6ffd")
+    @Override
+    public int getFillAlpha() {
+        return this.brushOptions.alpha ;
+    }
+
 }

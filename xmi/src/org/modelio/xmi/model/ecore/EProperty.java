@@ -68,56 +68,55 @@ public class EProperty extends EFeature {
     public List<ModelElement> createObjingElt() {
         Property ecoreElement = (Property) getEcoreElement();
         //        if (!(ecoreElement.getType() instanceof org.eclipse.uml2.uml.Stereotype)){    
-            if (ecoreElement.getOwner() instanceof org.eclipse.uml2.uml.Stereotype){       
-                ProfileUtils.visitProperty(ecoreElement);      
-            }else{
+        if (ecoreElement.getOwner() instanceof org.eclipse.uml2.uml.Stereotype){       
+            ProfileUtils.visitProperty(ecoreElement);      
+        }else{
         
-                List<ModelElement> result = new ArrayList<>();
+            List<ModelElement> result = new ArrayList<>();
         
-                IUmlModel objingModel = Modelio.getInstance().getModelingSession().getModel();
-                // association
-                if (EcoreModelNavigation.isAssocEnd(ecoreElement)) {
-                    if (EcoreModelNavigation.hasTwoValidEnds(ecoreElement.getAssociation())
-                            && (EcoreModelNavigation.isValid(ecoreElement))){
-                        if (ecoreElement.getAssociation().getMemberEnds().size() == 2 ){
-                            result.add(objingModel.createAssociationEnd());
-                        }else{
-                            result.add(objingModel.createNaryAssociationEnd()); 
-                        }
-                    }       
-                } 
-        
-                if (EcoreModelNavigation.isPart(ecoreElement)){
-                    BindableInstance inst = objingModel.createBindableInstance();
-                    if (EcoreModelNavigation.isAssocEnd(ecoreElement)){
-                        inst.setRepresentedFeature(result.get(0));
+            IUmlModel objingModel = Modelio.getInstance().getModelingSession().getModel();
+            // association
+            if (EcoreModelNavigation.isAssocEnd(ecoreElement)) {
+                if (EcoreModelNavigation.hasTwoValidEnds(ecoreElement.getAssociation())
+                        && (EcoreModelNavigation.isValid(ecoreElement))){
+                    if (ecoreElement.getAssociation().getMemberEnds().size() == 2 ){
+                        result.add(objingModel.createAssociationEnd());
+                    }else{
+                        result.add(objingModel.createNaryAssociationEnd()); 
                     }
-                    result.add(inst);
-                } else if (EcoreModelNavigation.isPort(ecoreElement)){
-                    result.add( objingModel.createPort());
+                }       
+            } 
+        
+            if (EcoreModelNavigation.isPart(ecoreElement)){
+                BindableInstance inst = objingModel.createBindableInstance();
+                if (EcoreModelNavigation.isAssocEnd(ecoreElement)){
+                    inst.setRepresentedFeature(result.get(0));
                 }
+                result.add(inst);
+            } else if (EcoreModelNavigation.isPort(ecoreElement)){
+                result.add( objingModel.createPort());
+            }
         
-                if (EcoreModelNavigation.isConnectorEnd(ecoreElement)){
-                    result.add(objingModel.createBindableInstance());
-                }
+            if (EcoreModelNavigation.isConnectorEnd(ecoreElement)){
+                result.add(objingModel.createBindableInstance());
+            }
         
-                if (result.size() == 0 ){ 
-                    org.eclipse.uml2.uml.Element ecoreOwner = getEcoreElement().getOwner();
+            if (result.size() == 0 ){ 
+                org.eclipse.uml2.uml.Element ecoreOwner = getEcoreElement().getOwner();
         
-                    if (ecoreOwner != null){
-                        Object objingOwner = ReverseProperties.getInstance().getMappedElement(ecoreOwner);
-                        // case qualifier
-                        if ((objingOwner instanceof Classifier) ||  
-                                ((ecoreOwner instanceof Property) 
-                                        && (EcoreModelNavigation.isAssocEnd((Property)ecoreOwner)))){
-                            result.add(objingModel.createAttribute());
-                        }else{ 
-                            result.add(objingModel.createBindableInstance());
-                        }
+                if (ecoreOwner != null){
+                    Object objingOwner = ReverseProperties.getInstance().getMappedElement(ecoreOwner);
+                    // case qualifier
+                    if ((objingOwner instanceof Classifier) ||  
+                            ((ecoreOwner instanceof Property) 
+                                    && (EcoreModelNavigation.isAssocEnd((Property)ecoreOwner)))){
+                        result.add(objingModel.createAttribute());
+                    }else{ 
+                        result.add(objingModel.createBindableInstance());
                     }
                 }
-                return result;
-        //            }
+            }
+            return result;
         }
         return null;
     }
@@ -273,24 +272,26 @@ public class EProperty extends EFeature {
                 if (oppositeEnd.isNavigable()){
                     objEnd.setOpposite(objOppositeEnd);
         
-        
                 } else{
                     objEnd.setSource((Classifier)  ReverseProperties.getInstance().getMappedElement(oppositeEnd.getType()));
                     objEnd.setOpposite(objOppositeEnd);
                 }
             }
-        }
         
-        Association objAssoc = null;
-        org.eclipse.uml2.uml.Association assoc = currentEnd.getAssociation();
         
-        if (assoc instanceof AssociationClass){
-            objAssoc = ((org.modelio.metamodel.uml.statik.Class) ReverseProperties.getInstance().getMappedElement(currentEnd.getAssociation())).getLinkToAssociation().getAssociationPart();
+            Association objAssoc = null;
+            org.eclipse.uml2.uml.Association assoc = currentEnd.getAssociation();
+        
+            if (assoc instanceof AssociationClass){
+                objAssoc = ((org.modelio.metamodel.uml.statik.Class) ReverseProperties.getInstance().getMappedElement(currentEnd.getAssociation())).getLinkToAssociation().getAssociationPart();
+            }else{
+                objAssoc = (Association)  ReverseProperties.getInstance().getMappedElement(assoc);
+            }
+        
+            objEnd.setAssociation(objAssoc);
         }else{
-            objAssoc = (Association)  ReverseProperties.getInstance().getMappedElement(assoc);
+            objEnd.delete();
         }
-        
-        objEnd.setAssociation(objAssoc);
     }
 
     @objid ("23bd6341-e7ed-4e88-9cf1-d82e92c1f149")
@@ -500,6 +501,8 @@ public class EProperty extends EFeature {
                 while (ecoreOwner instanceof Property){
                     ecoreOwner = ecoreOwner.getOwner();
                 }
+            }else if (ecoreOwner instanceof org.eclipse.uml2.uml.Association){            
+                ecoreOwner = ecoreElement.getType();              
             }
         
             Element objingOwner = (Element) ReverseProperties.getInstance().getMappedElement(ecoreOwner);

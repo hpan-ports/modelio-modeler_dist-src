@@ -40,7 +40,7 @@ public abstract class HybridType extends PropertyType {
 
     @objid ("397bfca5-c5d8-11e1-8f21-002564c97630")
     public HybridType(ICoreSession session) {
-        super(false);
+        super(true);
         
         this.session = session;
     }

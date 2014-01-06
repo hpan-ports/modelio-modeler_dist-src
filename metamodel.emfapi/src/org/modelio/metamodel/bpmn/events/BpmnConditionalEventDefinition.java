@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.bpmn.events;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
@@ -30,10 +30,10 @@ import org.eclipse.emf.ecore.EObject;
 
 @objid ("0089eafe-c4bf-1fd8-97fe-001ec947cd2a")
 public interface BpmnConditionalEventDefinition extends BpmnEventDefinition {
-    @objid ("958550cb-7f7f-4aa7-9b8d-ca5a49130258")
+    @objid ("1f09c2b4-d0ce-438f-91fd-1145cbde82a9")
     String getCondition();
 
-    @objid ("ed73d093-a733-4c57-b91b-2c7f1f2b42c7")
+    @objid ("326acff7-a228-4347-aa81-c1dc5b2ecd69")
     void setCondition(String value);
 
 }

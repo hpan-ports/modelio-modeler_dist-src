@@ -52,7 +52,7 @@ public class SystemDG extends DiagramNode {
         // Inner nodes
         GmSystemFreeZone bodyNode = (GmSystemFreeZone) ((GmCompositeNode) this.gmNode).getFirstChild("body");
         if (bodyNode != null) {
-            return DGFactory.getInstance().getDiagramNodes(this.diagramHandle, bodyNode.getChildren());
+            return DGFactory.getInstance().getDiagramNodes(this.diagramHandle, bodyNode.getVisibleChildren());
         } else {
             return Collections.emptyList();
         }

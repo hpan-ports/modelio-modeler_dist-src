@@ -48,7 +48,7 @@ public class BpmnSubProcessDG extends PortContainerDG {
     @Override
     protected List<IDiagramNode> getPrimaryChildrenNodes() {
         GmBpmnSubProcessPrimaryNode mainNode = (GmBpmnSubProcessPrimaryNode) getPrimaryNode();
-        return DGFactory.getInstance().getDiagramNodes(this.diagramHandle, mainNode.getInnerZone().getChildren());
+        return DGFactory.getInstance().getDiagramNodes(this.diagramHandle, mainNode.getInnerZone().getVisibleChildren());
     }
 
 }

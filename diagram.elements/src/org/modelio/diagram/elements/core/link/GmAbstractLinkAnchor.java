@@ -45,7 +45,7 @@ public abstract class GmAbstractLinkAnchor implements IPersistent {
      * Links that use this anchor.
      */
     @objid ("800dabb9-1dec-11e2-8cad-001ec947c8cc")
-    private Collection<GmLink> links = new ArrayList<>(1);
+    private Collection<IGmAnchorListener> links = new ArrayList<>(1);
 
     /**
      * The anchor reference point location relative to the node location.
@@ -105,7 +105,7 @@ public abstract class GmAbstractLinkAnchor implements IPersistent {
     public void setLocation(Dimension location) {
         this.location = location;
         
-        for (GmLink l : this.links)
+        for (IGmAnchorListener l : this.links)
             l.fireAnchorMoved(this);
     }
 
@@ -115,13 +115,17 @@ public abstract class GmAbstractLinkAnchor implements IPersistent {
         out.writeProperty("location", this.location);
     }
 
+    /**
+     * Called by the link on deserialization
+     * @param l a link
+     */
     @objid ("80100df3-1dec-11e2-8cad-001ec947c8cc")
-    void addLink(GmLink l) {
+    public void addLink(IGmAnchorListener l) {
         this.links.add(l);
     }
 
     @objid ("80100df6-1dec-11e2-8cad-001ec947c8cc")
-    void removeLink(GmLink l) {
+    public void removeLink(IGmAnchorListener l) {
         this.links.remove(l);
     }
 

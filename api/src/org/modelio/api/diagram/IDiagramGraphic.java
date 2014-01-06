@@ -20,29 +20,61 @@ package org.modelio.api.diagram;
 
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
+import org.modelio.api.diagram.dg.IDiagramLayer;
 import org.modelio.api.diagram.style.IStyleHandle;
 import org.modelio.vcore.smkernel.mapi.MObject;
 
 /**
  * <p>
- * Base interface of all graphical elements that are related to an {@link Element} model.
+ * Base interface of all graphical elements.
  * </p>
  * <p>
  * A IDiagramGraphic may be a node ({@link IDiagramNode}) or a link ({@link IDiagramLink}).
  * </p>
  * <p>
+ * A graphic element may be related to an {@link MObject} model.
  * The element might not exist any longer (IDiagramGraphic#getElement returns <code>null</code>), meaning the graphical element is a "ghost".
- * Therefore, the only information still available are the Name of the ghost element, and its ObRef.
+ * Therefore, the only information still available are the Name of the ghost element, and its MRef.
  * </p>
  */
 @objid ("b766dc64-644a-11e0-b650-001ec947cd2a")
 public interface IDiagramGraphic {
+    /**
+     * Get the element this {@link IDiagramGraphic} is related to.
+     * <p>
+     * <b>Note:</b> May return <i>null</i> if the element is not resolved.
+     * or the graphic does not represent a model element, such as diagram drawings..
+     * @return the represented element or <i>null</i> if the element is not resolved.
+     */
+    @objid ("a42e2341-0ecc-11e2-96c4-002564c97630")
+    MObject getElement();
+
     /**
      * Return the links that are starting (ie outgoing links) from this node.
      * @return A list of links in any case, possibly an empty one. Never returns null
      */
     @objid ("6d1b014f-69b5-11e0-adf3-002564c97630")
     List<IDiagramLink> getFromLinks();
+
+    /**
+     * For graphics that may have an hyper link to a model object, get the linked object.
+     * <p>
+     * Returns <i>null</i> for graphics that cannot have hyper-link to a model object.
+     * @return the linked model object or <i>null</i>.
+     * 
+     * @since 3.1
+     */
+    @objid ("45a04f02-9765-4276-b269-c5e1cde0e0f1")
+    MObject getHyperLink();
+
+    /**
+     * Get the layer this graphic belongs to.
+     * @return the layer.
+     * 
+     * @since 3.1
+     */
+    @objid ("69aefe54-3510-412d-b274-186505da80f6")
+    IDiagramLayer getLayer();
 
     /**
      * Get the list of all properties which values have been changed from their default "style" value.
@@ -115,6 +147,16 @@ public interface IDiagramGraphic {
     void mask();
 
     /**
+     * Move the graphic to another layer.
+     * <p>
+     * The new layer must be compatible with the old one.
+     * @param newLayer the new layer
+     * @throws java.lang.IllegalArgumentException if the new layer is not compatible with the graphic.
+     */
+    @objid ("4abde33e-c018-4ebd-bf35-8e3a4352c994")
+    void moveToLayer(IDiagramLayer newLayer) throws IllegalArgumentException;
+
+    /**
      * Normalizing an element's style consists in removing from its local definitions the values that are currently the same as the value in cascaded style.
      * @since 2.1.1
      */
@@ -130,6 +172,17 @@ public interface IDiagramGraphic {
     void resetLocalProperties();
 
     /**
+     * For graphics that may have an hyper link to a model object, set the linked object.
+     * <p>
+     * Has no effect on a graphic that cannot have hyper-link to a model object.
+     * @param obj the linked model object or <i>null</i>.
+     * 
+     * @since 3.1
+     */
+    @objid ("99668aab-ae29-4b04-8c7a-c0150b3b82f9")
+    void setHyperLink(MObject obj);
+
+    /**
      * Sets the local property value of this graphic element for 'property'.
      * @param property The property name
      * @param value The property value
@@ -143,14 +196,5 @@ public interface IDiagramGraphic {
      */
     @objid ("e97e5d15-861c-11e0-b2a1-002564c97630")
     void setStyle(final IStyleHandle style);
-
-    /**
-     * Get the element this {@link IDiagramGraphic} is related to.
-     * <p>
-     * <b>Note:</b> May return <i>null</i> if the element is not resolved.
-     * @return the represented element or <i>null</i> if the element is not resolved.
-     */
-    @objid ("a42e2341-0ecc-11e2-96c4-002564c97630")
-    MObject getElement();
 
 }

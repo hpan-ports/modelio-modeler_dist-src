@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.uml.informationFlow;
 
 import java.util.List;
@@ -41,70 +41,70 @@ import org.modelio.metamodel.uml.statik.StructuralFeature;
 
 @objid ("0063764e-c4bf-1fd8-97fe-001ec947cd2a")
 public interface InformationFlow extends ModelElement {
-    @objid ("13a0ef24-6923-4057-a3f6-e716ff6c026b")
+    @objid ("df590b07-1b20-4416-9f42-37280c5d1b35")
     NameSpace getOwner();
 
-    @objid ("d680e87c-3a82-4a2c-b6da-eff9fc519359")
+    @objid ("fe98ab4e-1583-4c6b-863b-2461ef2d581b")
     void setOwner(NameSpace value);
 
-    @objid ("6c65cb49-02f5-4de6-b7e7-265901892981")
+    @objid ("7ec8d5d9-0530-4f2a-9313-47be838f77c4")
     EList<ModelElement> getInformationSource();
 
-    @objid ("e0dfdd0c-2ceb-4289-ac07-d0fbe17745e3")
+    @objid ("00b7d104-2e94-444f-bbaa-85b7e03cda81")
     <T extends ModelElement> List<T> getInformationSource(java.lang.Class<T> filterClass);
 
-    @objid ("cab60aca-d255-4a9c-80b4-6e3bad6a40b0")
+    @objid ("31246edd-2b97-4468-9113-501946073372")
     EList<ModelElement> getInformationTarget();
 
-    @objid ("192dc6b9-7763-45f9-8c7b-187c2d689410")
+    @objid ("fafc24f4-eadb-4eed-b3aa-ec5efe427de8")
     <T extends ModelElement> List<T> getInformationTarget(java.lang.Class<T> filterClass);
 
-    @objid ("c87eb6c3-2690-46ca-839a-7012b0a3e6e1")
+    @objid ("87897fc3-212a-477e-851c-d9a5b45b2dda")
     EList<ActivityEdge> getRealizingActivityEdge();
 
-    @objid ("66c1a693-983a-4e74-b2e1-2d82b65065d8")
+    @objid ("93cfb796-30fe-4f3e-af75-c1f962a6f5b9")
     <T extends ActivityEdge> List<T> getRealizingActivityEdge(java.lang.Class<T> filterClass);
 
-    @objid ("a7f407ae-add7-439a-bea3-d9ad72a9e068")
+    @objid ("ac1e37e3-c054-4358-9b7e-ce8ab4aaaa47")
     EList<CommunicationMessage> getRealizingCommunicationMessage();
 
-    @objid ("25f76e64-9d41-45ce-9b2f-ba67dd661574")
+    @objid ("49f9da7d-8a8a-4488-a40a-d76841a87984")
     <T extends CommunicationMessage> List<T> getRealizingCommunicationMessage(java.lang.Class<T> filterClass);
 
-    @objid ("c036e957-27ea-4a84-b679-555502bebdb6")
+    @objid ("7c88aed1-87ac-494d-aaf9-e85b07a73cab")
     EList<StructuralFeature> getRealizingFeature();
 
-    @objid ("2dea5f4c-4a93-4b4b-9e4d-da2066ad42c0")
+    @objid ("9319c829-ad5b-465f-9aba-e1412859b383")
     <T extends StructuralFeature> List<T> getRealizingFeature(java.lang.Class<T> filterClass);
 
-    @objid ("6a628309-3c03-4be0-b243-8f05c72ccd1d")
+    @objid ("eea2ce48-71d4-40e4-aac8-ba2a551bbb34")
     EList<LinkEnd> getRealizingLink();
 
-    @objid ("cb2fd6ef-9e11-4f7a-bd53-c4399b13755e")
+    @objid ("c69b381c-f81a-4f59-acfa-c2f9bda76881")
     <T extends LinkEnd> List<T> getRealizingLink(java.lang.Class<T> filterClass);
 
-    @objid ("91a36339-efd6-4fd2-bc9f-30cc993f47ca")
+    @objid ("34b19548-a369-4ddc-b3c3-2e8ebd58d1a9")
     EList<Message> getRealizingMessage();
 
-    @objid ("e3dbbbaf-7a5b-4e9e-995c-44adb2558b12")
+    @objid ("200b5671-7e9e-4f10-898b-4b6567c2ef2b")
     <T extends Message> List<T> getRealizingMessage(java.lang.Class<T> filterClass);
 
-    @objid ("950e3142-1532-4ef9-b34a-92533b6e7cbe")
+    @objid ("96d1180a-d540-41d1-9557-27dd384fad6e")
     EList<NaryLink> getRealizingNaryLink();
 
-    @objid ("fe2b60da-b6ca-4e4f-a18b-b84f2f60653b")
+    @objid ("c95201b8-f709-46cb-9de5-88b9eec5d2ba")
     <T extends NaryLink> List<T> getRealizingNaryLink(java.lang.Class<T> filterClass);
 
-    @objid ("51a148fd-396e-4dc5-98de-8382a903e5cb")
+    @objid ("b3bfdac6-66e7-458f-bf92-a47fa3940b3d")
     EList<Classifier> getConveyed();
 
-    @objid ("c39909bd-e760-4c1a-90f7-9fae3e604c40")
+    @objid ("d1a88ffc-d49a-44b1-95ee-007fc4b10129")
     <T extends Classifier> List<T> getConveyed(java.lang.Class<T> filterClass);
 
-    @objid ("7d5fc037-4c87-43fe-9500-eba1a869086e")
+    @objid ("49fc2783-ad9d-4824-8caf-3d76ec26711f")
     AssociationEnd getChannel();
 
-    @objid ("071c51dd-5253-49f8-9363-368dc8507e79")
+    @objid ("dc11b583-4c88-4dae-9a5a-6020f8becb7b")
     void setChannel(AssociationEnd value);
 
 }

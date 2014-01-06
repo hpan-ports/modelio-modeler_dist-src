@@ -48,7 +48,7 @@ public class RegionDG extends DiagramNode {
     @Override
     public List<IDiagramNode> getNodes() {
         // Inner nodes
-        return DGFactory.getInstance().getDiagramNodes(this.diagramHandle, ((GmCompositeNode)this.gmNode).getChildren());
+        return DGFactory.getInstance().getDiagramNodes(this.diagramHandle, ((GmCompositeNode)this.gmNode).getVisibleChildren());
     }
 
 }

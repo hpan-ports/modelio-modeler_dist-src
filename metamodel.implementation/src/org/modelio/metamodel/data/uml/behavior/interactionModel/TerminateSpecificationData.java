@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.data.uml.behavior.interactionModel;
 
 import java.util.ArrayList;
@@ -43,22 +43,22 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("004c77aa-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=TerminateSpecification.class, factory=TerminateSpecificationData.Metadata.ObjectFactory.class)
 public class TerminateSpecificationData extends ExecutionOccurenceSpecificationData {
-    @objid ("dd4d4b6a-b3a3-45ca-9b11-5cf9b4b072f1")
+    @objid ("49ee9597-4803-4d37-9865-4d617a571551")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("0087d138-c4c4-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("9f9c79c4-3bbb-47f5-9e58-a2d8317fa58b")
+        @objid ("b8b011b2-f158-47a2-acea-df265db5398d")
         private static SmClass smClass = null;
 
-        @objid ("603eac55-4be8-4468-9f12-748e103c9fde")
+        @objid ("f9eb4196-74cb-4962-b23b-ecc1ede45488")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(TerminateSpecificationData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("51627957-b9e8-4cfd-8a22-b95cb62793e0")
+        @objid ("d22c91b1-40db-43aa-8429-4c41c8f9de6c")
         public static SmClass getSmClass() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return smClass;
@@ -66,12 +66,12 @@ public class TerminateSpecificationData extends ExecutionOccurenceSpecificationD
 
         @objid ("008811f2-c4c4-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("c23eb13f-5147-4929-a70b-618fd2a9f4bd")
+            @objid ("61736d27-1263-4bff-b7e1-d787ce7cb815")
             public ISmObjectData createData() {
                 return new TerminateSpecificationData();
             }
 
-            @objid ("dd8cb7a4-beb7-49a3-8bc8-cd8ba81903ae")
+            @objid ("f9209cd4-e31e-427b-92a2-a05de52312a2")
             public SmObjectImpl createImpl() {
                 return new TerminateSpecificationImpl();
             }

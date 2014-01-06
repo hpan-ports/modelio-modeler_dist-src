@@ -77,6 +77,7 @@ import org.eclipse.gef.ui.parts.ScrollingGraphicalViewer;
 import org.eclipse.gef.ui.parts.SelectionSynchronizer;
 import org.eclipse.gef.ui.properties.UndoablePropertySheetPage;
 import org.eclipse.jface.action.IAction;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
@@ -283,8 +284,7 @@ public abstract class AbstractDiagramEditor implements IModelChangeListener, IEd
         viewer.setEditDomain(getEditDomain());
         
         // Initialize the graphical model
-        // initializeModel();
-        GmAbstractDiagram gmDiagram = getEditorInput().getGmDiagram();
+        GmAbstractDiagram gmDiagram = getEditorInput() != null ? getEditorInput().getGmDiagram() : null;
         
         // Plug our own command stack that is bound to the Modelio transaction
         // manager
@@ -659,14 +659,16 @@ public abstract class AbstractDiagramEditor implements IModelChangeListener, IEd
         AbstractDiagramEditor.initializeConnectionRouters(routersRegistry);
         
         // Set the viewer content
-        GmAbstractDiagram gmDiagram = getEditorInput().getGmDiagram();
-        viewer.setContents(gmDiagram);
-        // Force a complete refresh now that edit parts are finally listening to
-        // events that might
-        // be sent by the model (e.g.: links that have changed source and/or
-        // target while diagram
-        // was closed).
-        gmDiagram.refreshAllFromObModel();
+        if (getEditorInput() != null) {
+            GmAbstractDiagram gmDiagram = getEditorInput().getGmDiagram();
+            viewer.setContents(gmDiagram);
+            // Force a complete refresh now that edit parts are finally listening to
+            // events that might
+            // be sent by the model (e.g.: links that have changed source and/or
+            // target while diagram
+            // was closed).
+            gmDiagram.refreshAllFromObModel();
+        }
     }
 
     @objid ("6578dfc9-33f7-11e2-95fe-001ec947c8cc")
@@ -727,20 +729,25 @@ public abstract class AbstractDiagramEditor implements IModelChangeListener, IEd
     @PostConstruct
     public void postConstruct(Composite composite, DiagramEditorInput diagramEditorInput, MPart mPart, IDiagramConfigurerRegistry configurerRegistry, ToolRegistry toolRegistry) {
         this.part = mPart;
-        // init
-        init(diagramEditorInput);
-        // createPartControl
-        createPartControl(composite);
         
-        // Palette
-        AbstractDiagram editedDiagram = diagramEditorInput.getDiagram();
-        List<String> stereotypes = new ArrayList<>();
-        for (Stereotype stereotype : editedDiagram.getExtension()) {
-            stereotypes.add(stereotype.getName());
-        }
-        List<IDiagramConfigurer> configurers = configurerRegistry.getConfigurers(editedDiagram.getMClass().getName(), stereotypes);
-        for (IDiagramConfigurer stereotypeConfigurer : configurers) {
-            setPaletteRoot(stereotypeConfigurer.initPalette(this, toolRegistry));
+        if (diagramEditorInput != null) {
+            // init
+            init(diagramEditorInput);
+            // createPartControl
+            createPartControl(composite);
+        
+            // Palette
+            AbstractDiagram editedDiagram = diagramEditorInput.getDiagram();
+            List<String> stereotypes = new ArrayList<>();
+            for (Stereotype stereotype : editedDiagram.getExtension()) {
+                stereotypes.add(stereotype.getName());
+            }
+            List<IDiagramConfigurer> configurers = configurerRegistry.getConfigurers(editedDiagram.getMClass().getName(), stereotypes);
+            for (IDiagramConfigurer stereotypeConfigurer : configurers) {
+                setPaletteRoot(stereotypeConfigurer.initPalette(this, toolRegistry));
+            }
+        } else {
+            MessageDialog.openError(composite.getShell(), DiagramEditor.I18N.getMessage("InvalidDiagram.title"), DiagramEditor.I18N.getMessage("InvalidDiagram.message"));
         }
     }
 
@@ -794,11 +801,14 @@ public abstract class AbstractDiagramEditor implements IModelChangeListener, IEd
     @objid ("657b420c-33f7-11e2-95fe-001ec947c8cc")
     @Focus
     public void setFocus() {
-        getGraphicalViewer().getControl().setFocus();
+        final GraphicalViewer viewer = getGraphicalViewer();
+        if (viewer != null) {
+            viewer.getControl().setFocus();
         
-        // Initialize the module contextual menu creator with the part having
-        // the focus...
-        ModuleMenuCreator.setPart(this.part);
+            // Initialize the module contextual menu creator with the part having
+            // the focus...
+            ModuleMenuCreator.setPart(this.part);
+        }
     }
 
     /**
@@ -842,7 +852,7 @@ public abstract class AbstractDiagramEditor implements IModelChangeListener, IEd
             // The diagram in no longer valid, close the editor
             // use the PartService to close this editor
             // Re enter the UI thread
-            Display display = graphicalViewer.getControl().getDisplay();
+            Display display = this.graphicalViewer.getControl().getDisplay();
             display.asyncExec(new Runnable() {
                 @Override
                 public void run() {
@@ -1000,34 +1010,35 @@ public abstract class AbstractDiagramEditor implements IModelChangeListener, IEd
             GridData gd = new GridData(SWT.FILL, SWT.FILL, true, true);
             canvas.setLayoutData(gd);
             LightweightSystem lws = new LightweightSystem(canvas);
-            this.thumbnail = new ScrollableThumbnail((Viewport) ((ScalableFreeformRootEditPart) AbstractDiagramEditor.this
-                    .getGraphicalViewer().getRootEditPart()).getFigure());
+            final GraphicalViewer viewer = AbstractDiagramEditor.this.getGraphicalViewer();
+            if (viewer != null) {
+                this.thumbnail = new ScrollableThumbnail((Viewport) ((ScalableFreeformRootEditPart) viewer.getRootEditPart()).getFigure());
             
-            this.thumbnail.setSource(((ScalableFreeformRootEditPart) AbstractDiagramEditor.this.getGraphicalViewer()
-                    .getRootEditPart()).getLayer(LayerConstants.PRINTABLE_LAYERS));
-            lws.setContents(this.thumbnail);
+                this.thumbnail.setSource(((ScalableFreeformRootEditPart) viewer.getRootEditPart()).getLayer(LayerConstants.PRINTABLE_LAYERS));
+                lws.setContents(this.thumbnail);
             
-            // add a dispose listener for cleaning
-            this.disposeListener = new DisposeListener() {
-                @Override
-                public void widgetDisposed(DisposeEvent e) {
-                    if (OutlinePage.this.thumbnail != null) {
-                        OutlinePage.this.thumbnail.deactivate();
-                        OutlinePage.this.thumbnail = null;
+                // add a dispose listener for cleaning
+                this.disposeListener = new DisposeListener() {
+                    @Override
+                    public void widgetDisposed(DisposeEvent e) {
+                        if (OutlinePage.this.thumbnail != null) {
+                            OutlinePage.this.thumbnail.deactivate();
+                            OutlinePage.this.thumbnail = null;
+                        }
+                        OutlinePage.this.dispose(); // dispose the outline page to
+                        // avoid a graphical refresh
+                        // problem
                     }
-                    OutlinePage.this.dispose(); // dispose the outline page to
-                                                // avoid a graphical refresh
-                                                // problem
-                }
-            };
-            AbstractDiagramEditor.this.getGraphicalViewer().getControl().addDisposeListener(this.disposeListener);
+                };
+                viewer.getControl().addDisposeListener(this.disposeListener);
+            }
         }
 
         @objid ("6571b8b5-33f7-11e2-95fe-001ec947c8cc")
         @Override
         public void dispose() {
             AbstractDiagramEditor.this.getSelectionSynchronizer().removeViewer(this.getViewer());
-            if (AbstractDiagramEditor.this.getGraphicalViewer().getControl() != null
+            if (AbstractDiagramEditor.this.getGraphicalViewer() != null && AbstractDiagramEditor.this.getGraphicalViewer().getControl() != null
                     && !AbstractDiagramEditor.this.getGraphicalViewer().getControl().isDisposed()) {
                 AbstractDiagramEditor.this.getGraphicalViewer().getControl().removeDisposeListener(this.disposeListener);
             }

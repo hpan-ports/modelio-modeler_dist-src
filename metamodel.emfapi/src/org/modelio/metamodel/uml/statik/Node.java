@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.uml.statik;
 
 import java.util.List;
@@ -32,10 +32,10 @@ import org.modelio.metamodel.uml.statik.Artifact;
 
 @objid ("0012fb88-c4bf-1fd8-97fe-001ec947cd2a")
 public interface Node extends Classifier {
-    @objid ("d2a1bd09-5793-4862-a083-1d1c24212a0f")
+    @objid ("6f26c6cb-b013-468a-9314-354ba58ba9b3")
     EList<Artifact> getResident();
 
-    @objid ("f0c6c6d2-6c6b-475d-9dd7-06ce9deff6aa")
+    @objid ("5b8d5d1a-5dea-4da7-a7a0-33e5d6a23a58")
     <T extends Artifact> List<T> getResident(java.lang.Class<T> filterClass);
 
 }

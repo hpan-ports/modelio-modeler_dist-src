@@ -63,7 +63,7 @@ public abstract class DefaultLinkCommand implements ILinkCommand {
     @objid ("01e402b4-0000-6bbb-0000-000000000000")
     private String tooltip;
 
-    @objid ("848c3cb2-270d-4177-be0a-3c3bfc581ffc")
+    @objid ("b3d49bc4-7cb7-41e8-903c-4f5e39797fd1")
     private ImageDescriptor bitmap;
 
     /**

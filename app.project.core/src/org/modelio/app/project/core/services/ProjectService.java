@@ -36,6 +36,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
+import java.util.zip.ZipEntry;
 import javax.inject.Inject;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -47,6 +48,7 @@ import org.eclipse.e4.core.di.annotations.Optional;
 import org.eclipse.e4.core.di.extensions.EventTopic;
 import org.eclipse.e4.core.services.events.IEventBroker;
 import org.eclipse.e4.core.services.statusreporter.StatusReporter;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.util.IPropertyChangeListener;
@@ -365,9 +367,21 @@ class ProjectService implements IProjectService, EventHandler {
         final Unzipper unzipper = new Unzipper();
         final IModelioProgress monitor = null;
         try {
-            unzipper.unzip(archiveFile, getWorkspace(), monitor);
-            AppProjectCore.LOG.info("Imported archive '%s' %d bytes.", archiveFile, Files.size(archiveFile));
-            refreshWorkspace();
+            ZipEntry[] projectConf = unzipper.findEntry(archiveFile.toFile(), "^[^/]+/project\\.conf$");
+            String projectName = "";
+            if (projectConf.length == 1) {
+                projectName = projectConf[0].getName().substring(0, projectConf[0].getName().indexOf("/"));
+                if (getWorkspace().resolve(projectName).toFile().exists()) { // Checks for an already existing project
+                    if (!MessageDialog.openQuestion(null, AppProjectCore.I18N.getString("CannotImportExistingProjectTitle"), AppProjectCore.I18N.getMessage("CannotImportExistingProjectMsg", projectName))) {                    
+                        return;
+                    }
+                }
+                unzipper.unzip(archiveFile, getWorkspace(), monitor);
+                AppProjectCore.LOG.info("Imported archive '%s' %d bytes.", archiveFile, Files.size(archiveFile));
+                refreshWorkspace();
+            } else {
+                MessageDialog.openInformation(null, AppProjectCore.I18N.getString("InvalidProjectArchiveTitle"), AppProjectCore.I18N.getMessage("InvalidProjectArchiveMsg", archiveFile.toString()));
+            }
         } catch (final IOException e) {
             AppProjectCore.LOG.error(e);
         }

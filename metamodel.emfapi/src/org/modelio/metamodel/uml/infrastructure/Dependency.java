@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.uml.infrastructure;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
@@ -31,28 +31,28 @@ import org.modelio.metamodel.uml.infrastructure.ModelElement;
 
 @objid ("0085d9be-c4be-1fd8-97fe-001ec947cd2a")
 public interface Dependency extends ModelElement {
-    @objid ("90782e54-fd9b-4e55-b158-471bc40d8334")
+    @objid ("22d81040-79c9-421c-8cc6-582e2e430c96")
     String getDependsOnId();
 
-    @objid ("3c79557a-0a42-472d-ae49-2e9fca07fb92")
+    @objid ("c351016b-ee0d-43bf-84b7-d4b69a51e8bc")
     void setDependsOnId(String value);
 
-    @objid ("8e172740-f891-447f-bb7a-626912bf0c65")
+    @objid ("e286b582-b19f-419a-909f-2bf5684bf36c")
     String getDependsOnName();
 
-    @objid ("6859bffc-7429-4229-80f3-9b2311129ffa")
+    @objid ("fd35d69e-2018-4913-92b0-73295f1d5c5e")
     void setDependsOnName(String value);
 
-    @objid ("4fb4cb8f-dfff-4aba-9301-c4917a836a8b")
+    @objid ("f339b34c-e4d7-4e2d-9435-7bd6edd0641f")
     ModelElement getDependsOn();
 
-    @objid ("b81cccc1-0078-4c4b-b130-eefb0c7a3597")
+    @objid ("c88c0a5b-b922-4f16-8901-94740a93fe55")
     void setDependsOn(ModelElement value);
 
-    @objid ("a5a9c6d0-6abf-4dd4-acd3-e288fd4e149e")
+    @objid ("7eb8d6aa-e3e5-4ab6-b18d-4b9fb582827c")
     ModelElement getImpacted();
 
-    @objid ("e21d9823-460b-4813-8330-604af578f3c0")
+    @objid ("108f0325-395b-4e8e-9a49-c13b39b461a1")
     void setImpacted(ModelElement value);
 
 }

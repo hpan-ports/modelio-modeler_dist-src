@@ -49,6 +49,7 @@ import org.eclipse.uml2.uml.UMLPackage;
 import org.eclipse.uml2.uml.internal.resource.UMLResourceFactoryImpl;
 import org.eclipse.uml2.uml.resource.UMLResource;
 import org.modelio.metamodel.analyst.Requirement;
+import org.modelio.metamodel.mda.Project;
 import org.modelio.metamodel.uml.infrastructure.Dependency;
 import org.modelio.metamodel.uml.infrastructure.MetaclassReference;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
@@ -146,7 +147,7 @@ public class ExportServices {
     private void applyProfile() {
         GenerationProperties genProp = GenerationProperties.getInstance();
         
-        Model model = genProp.getEcoreModel();
+        Model model = genProp.getEcoreModel(); 
         
         for(org.eclipse.uml2.uml.Profile profile : genProp.getExportedProfiles()){
             try{
@@ -212,24 +213,25 @@ public class ExportServices {
         
             Package selectedPkg = genProp.getSelectedPackage();
         
+            List<ModelTree> exportScopeElts = new ArrayList<>();
+        
+            exportScopeElts.add(selectedPkg);
+        
+            //create Model
             Model ecoreModel = UMLFactory.eINSTANCE.createModel();
             ObjingEAnnotation.setExporterVersion(ecoreModel, version);
             ObjingEAnnotation.setRoundTrip(ecoreModel, genProp.isRoundtripEnabled());
             ecoreModel.setName(selectedPkg.getName());
             genProp.setEcoreModel(ecoreModel);
-        
-            List<ModelTree> exportScopeElts = new ArrayList<>();
-        
-            exportScopeElts.add(selectedPkg);
-        
+         
             partialMap.put(selectedPkg.getUuid().toString(), ecoreModel);
-        
             genProp.setExportScopeElts(exportScopeElts);
-        
+                 
             XMIExportBehavior exportBehavior = new XMIExportBehavior(progressBar);
             GenericMetamodelVisitor visitObjingModel = new GenericMetamodelVisitor(exportBehavior);
             genProp.setObjingVisitor(visitObjingModel);
         
+            
             boolean ecoreRootNull = true;
             for (ModelTree rootElt : exportScopeElts) {
                 rootElt.accept(visitObjingModel);
@@ -246,10 +248,19 @@ public class ExportServices {
                     for (org.eclipse.uml2.uml.PrimitiveType primitive :  PrimitiveTypeMapper.getPredifinedTypeList()){
                         ecoreModel.getPackagedElements().add(primitive);
                     }
+                    
+                    for (Project library :  GenerationProperties.getInstance().getExportedLibrary()){
+                        Package libraryModel = library.getModel(); 
+                        libraryModel.accept(visitObjingModel);              
+                        ecoreModel.getPackagedElements().add((org.eclipse.uml2.uml.Package) genProp
+                                .getMappedElement(libraryModel));
+                    }
                 }
             }
         
             if (!ecoreRootNull) {
+                
+                
                 if(progressBar != null) 
                     progressBar.setLabel(Xmi.I18N.getString("progressBar.content.export.XMIFileSave"));
         
@@ -541,6 +552,8 @@ public class ExportServices {
             resource.save(null);
         } catch (IOException e) {
             Xmi.LOG.error(Xmi.PLUGIN_ID, e);
+            
+            e.printStackTrace(System.err);
             return true;
         }
         return false;

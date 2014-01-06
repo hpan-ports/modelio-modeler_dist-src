@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.analyst;
 
 import java.util.ArrayList;
@@ -46,13 +46,13 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("00630880-c4bf-1fd8-97fe-001ec947cd2a")
 public class PropertyContainerImpl extends ModelElementImpl implements PropertyContainer {
-    @objid ("b8341bbd-e31f-4dd8-857e-1a09f2f7bc12")
+    @objid ("c79597ea-ee6c-494d-9cb3-6f60070975fa")
     @Override
     public EList<PropertyTableDefinition> getDefinedTable() {
         return new SmList<>(this, PropertyContainerData.Metadata.DefinedTableDep());
     }
 
-    @objid ("18982cf8-a4f6-4205-9d84-f8edca6093e7")
+    @objid ("8b5f5783-7041-4b96-bba4-0bc6191f30e1")
     @Override
     public <T extends PropertyTableDefinition> List<T> getDefinedTable(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -65,25 +65,25 @@ public class PropertyContainerImpl extends ModelElementImpl implements PropertyC
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("e924ff6b-f20a-47d6-b9b9-1f10a06a87a6")
+    @objid ("6059756b-6ac1-4808-b9ae-bbee4313fd7e")
     @Override
     public AnalystProject getOwnerProject() {
         return (AnalystProject) getDepVal(PropertyContainerData.Metadata.OwnerProjectDep());
     }
 
-    @objid ("7c1ac64f-a396-4998-a006-5567ed240800")
+    @objid ("5e10f125-1319-453e-b1e5-bcb33de5f90a")
     @Override
     public void setOwnerProject(AnalystProject value) {
         appendDepVal(PropertyContainerData.Metadata.OwnerProjectDep(), (SmObjectImpl)value);
     }
 
-    @objid ("084d853a-1dcc-41ea-baad-cc20ce6a8c72")
+    @objid ("62d47276-c887-40e4-969b-1efdcc7a8628")
     @Override
     public EList<PropertyType> getDefinedType() {
         return new SmList<>(this, PropertyContainerData.Metadata.DefinedTypeDep());
     }
 
-    @objid ("d8ba19ae-3dea-4412-a5ee-a6f62de3f24d")
+    @objid ("b037c657-800e-4074-9ba0-791e1999e9e6")
     @Override
     public <T extends PropertyType> List<T> getDefinedType(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -96,7 +96,7 @@ public class PropertyContainerImpl extends ModelElementImpl implements PropertyC
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("e49d193f-e1ab-4d8c-8e4a-03dffa83b9ce")
+    @objid ("9431ea61-8b2f-46ce-92b8-22152ca7e57f")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
@@ -106,7 +106,7 @@ public class PropertyContainerImpl extends ModelElementImpl implements PropertyC
         return super.getCompositionOwner();
     }
 
-    @objid ("b699a921-2281-4c4e-a8e3-fe09da8a878c")
+    @objid ("4f6b4f72-07e2-4f0c-ab53-59522c1d9214")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
@@ -116,7 +116,7 @@ public class PropertyContainerImpl extends ModelElementImpl implements PropertyC
         return super.getCompositionRelation();
     }
 
-    @objid ("60c6c527-32d8-43e6-bf3f-84225d17d0b3")
+    @objid ("2cbdbf18-9162-43a8-99ee-5b529d33fff0")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitPropertyContainer(this);

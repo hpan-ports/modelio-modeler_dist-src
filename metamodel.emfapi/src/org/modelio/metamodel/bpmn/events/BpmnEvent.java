@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.bpmn.events;
 
 import java.util.List;
@@ -33,10 +33,10 @@ import org.modelio.metamodel.bpmn.rootElements.BpmnFlowNode;
 
 @objid ("008c8ed0-c4bf-1fd8-97fe-001ec947cd2a")
 public interface BpmnEvent extends BpmnFlowNode {
-    @objid ("e0cd9107-90e6-49c3-9395-b1b291107882")
+    @objid ("53d160d5-8638-421c-a467-f8e3cf95a17f")
     EList<BpmnEventDefinition> getEventDefinitions();
 
-    @objid ("91de2e28-7016-4460-8b6d-78accbd0bfb1")
+    @objid ("21a130a1-4ac0-4270-ab80-6d9457e121aa")
     <T extends BpmnEventDefinition> List<T> getEventDefinitions(java.lang.Class<T> filterClass);
 
 }

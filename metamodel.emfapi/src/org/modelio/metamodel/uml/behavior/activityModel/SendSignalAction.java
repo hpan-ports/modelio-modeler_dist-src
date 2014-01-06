@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.uml.behavior.activityModel;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
@@ -31,10 +31,10 @@ import org.modelio.metamodel.uml.behavior.commonBehaviors.Signal;
 
 @objid ("003d3af6-c4bf-1fd8-97fe-001ec947cd2a")
 public interface SendSignalAction extends ActivityAction {
-    @objid ("99a2e449-bb60-48ee-bd4e-7f3e47404879")
+    @objid ("009f132a-1a27-47a5-ba5e-cdff148b5795")
     Signal getSent();
 
-    @objid ("39f25dde-5816-4754-ba6e-68fdc2501de7")
+    @objid ("1d880c13-819f-4bdb-aa59-a6c73e9137db")
     void setSent(Signal value);
 
 }

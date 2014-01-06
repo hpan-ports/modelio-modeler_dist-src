@@ -35,6 +35,7 @@ import org.eclipse.swt.graphics.RGB;
 import org.modelio.core.ui.CoreColorRegistry;
 import org.modelio.core.ui.CoreFontRegistry;
 import org.modelio.diagram.styles.plugin.DiagramStyles;
+import org.modelio.vcore.smkernel.mapi.MRef;
 
 /**
  * This class loads the properties of a Style from a textual property file.<br>
@@ -91,7 +92,7 @@ public class StyleLoader {
         try (InputStream inputStream = url.openStream()){
             loadedValues.load(inputStream);
         } catch (IOException e) {
-            DiagramStyles.LOG.error(DiagramStyles.PLUGIN_ID, e);
+            DiagramStyles.LOG.error(e);
         }
         
         // Process raw properties to dispatch StyleKey versus non-StyleKey values
@@ -105,7 +106,7 @@ public class StyleLoader {
                         this.styleProperties.put(sKey, value);
                     }
                 } catch (IOException e) {
-                    DiagramStyles.LOG.error(DiagramStyles.PLUGIN_ID, e);
+                    DiagramStyles.LOG.error(e);
                 }
             } else {
                 this.adminProperties.put(k, loadedValues.getProperty(k));
@@ -218,13 +219,20 @@ public class StyleLoader {
             return data;
         }
         
+        if (type == MRef.class) {
+            if (data.trim().isEmpty())
+                return null;
+            else
+                return new MRef(data);
+        }
+        
         if (type.isEnum()) {
             return Enum.valueOf((Class<? extends Enum>) type, data.trim());
         }
         
-        DiagramStyles.LOG.warning(DiagramStyles.PLUGIN_ID,
-                    "StyleLoader.parseData()  missing converter for '%s'",
-                    type.getName());
+        
+        
+        DiagramStyles.LOG.warning( "StyleLoader.parseData()  missing converter for '%s'", type.getName());
         return null;
     }
 

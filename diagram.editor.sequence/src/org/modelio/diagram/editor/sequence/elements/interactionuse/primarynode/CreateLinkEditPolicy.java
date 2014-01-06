@@ -40,9 +40,9 @@ import org.modelio.metamodel.uml.behavior.interactionModel.Message;
 /**
  * Edit policy that allow creating Links to/from an InteractionUse
  */
-@objid ("af5af396-7360-4fc1-a13c-b71a4ff47f9d")
+@objid ("5b48ccf5-1979-442a-81b8-7b0fc0ab4d7d")
 public class CreateLinkEditPolicy extends DefaultCreateLinkEditPolicy {
-    @objid ("401df720-8672-4edf-b930-977ae7885e57")
+    @objid ("8a281fad-3c4b-4251-b587-ad75601606b6")
     @Override
     protected Command getConnectionCompleteCommand(CreateConnectionRequest req) {
         if (req.getNewObject() instanceof ModelioLinkCreationContext) {
@@ -67,7 +67,7 @@ public class CreateLinkEditPolicy extends DefaultCreateLinkEditPolicy {
         return super.getConnectionCompleteCommand(req);
     }
 
-    @objid ("7cb581b2-1bad-4966-8fdb-ba95bddd4683")
+    @objid ("5bc4f5ea-f36f-4606-9fc4-61b877c2fbb9")
     @Override
     protected Command getConnectionCreateCommand(CreateConnectionRequest req) {
         if (req.getNewObject() instanceof ModelioLinkCreationContext) {
@@ -92,7 +92,7 @@ public class CreateLinkEditPolicy extends DefaultCreateLinkEditPolicy {
         return super.getConnectionCreateCommand(req);
     }
 
-    @objid ("f9edd5ee-bb44-419c-a9e2-0ea1af2143e1")
+    @objid ("22b375c5-7179-4e32-b8ff-e1181422e414")
     @Override
     protected Command getReconnectSourceCommand(ReconnectRequest req) {
         if (((GmModel) req.getConnectionEditPart().getModel()).getRelatedElement() instanceof Message) {
@@ -102,7 +102,7 @@ public class CreateLinkEditPolicy extends DefaultCreateLinkEditPolicy {
         }
     }
 
-    @objid ("4e31be7f-e3b1-49b7-b53a-e9635cfe9703")
+    @objid ("467257ef-3e6b-4015-84d4-9a9494e272c9")
     @Override
     protected Command getReconnectTargetCommand(ReconnectRequest req) {
         if (((GmModel) req.getConnectionEditPart().getModel()).getRelatedElement() instanceof Message) {
@@ -112,7 +112,7 @@ public class CreateLinkEditPolicy extends DefaultCreateLinkEditPolicy {
         }
     }
 
-    @objid ("99a1497e-192b-43be-82fd-0d17117a9b64")
+    @objid ("94d5eac9-b1ce-4a18-96ed-66dafddcd0f8")
     @Override
     protected void showCreationFeedback(CreateConnectionRequest request) {
         // Copy and hack the request to make sure the "destination" Y is never

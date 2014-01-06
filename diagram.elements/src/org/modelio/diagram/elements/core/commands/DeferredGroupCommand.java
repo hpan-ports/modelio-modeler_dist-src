@@ -44,11 +44,11 @@ public class DeferredGroupCommand extends Command {
     @objid ("7f3e3ef8-1dec-11e2-8cad-001ec947c8cc")
     private Map<?,?> editPartRegistry;
 
-    @objid ("e72edbbc-2a17-4c9d-8154-b8fdc6fc9151")
-    private GroupRequest req;
-
     @objid ("7f3e3ef7-1dec-11e2-8cad-001ec947c8cc")
     private GmCompositeNode gmClass;
+
+    @objid ("e098a421-421a-4d5d-9601-b96162beb35b")
+    private GroupRequest req;
 
     /**
      * Create a deferred command.

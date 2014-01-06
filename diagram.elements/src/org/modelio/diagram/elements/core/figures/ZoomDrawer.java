@@ -36,8 +36,8 @@ import org.eclipse.draw2d.PrinterGraphics;
 public class ZoomDrawer {
     /**
      * Set the graphics line width depending on the zoom level and the graphics type.
-     * @param g
-     * @param width
+     * @param g the graphics
+     * @param width line width
      */
     @objid ("7fcfae69-1dec-11e2-8cad-001ec947c8cc")
     public static void setLineWidth(Graphics g, int width) {

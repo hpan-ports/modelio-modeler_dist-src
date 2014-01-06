@@ -27,11 +27,8 @@ import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
-import java.util.Collection;
-import java.util.Collections;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.editors.richnote.api.RichNoteFormat;
-import org.modelio.editors.richnote.api.RichNoteFormatRegistry;
 import org.modelio.editors.richnote.editor.IRichNoteEditor;
 import org.modelio.editors.richnote.editor.IRichNoteFileRepository;
 import org.modelio.editors.richnote.helper.RichNoteFilesGeometry;
@@ -90,7 +87,9 @@ class FileRepository implements IRichNoteFileRepository {
             Files.createDirectories(dest.getParent());
             Files.copy(is, dest, StandardCopyOption.REPLACE_EXISTING);
             
-            this.editorsRegistry.addEditor(blobId, doc, editor);
+            if (editor != null) {
+                this.editorsRegistry.addEditor(blobId, doc, editor);
+            }
             
             return dest;
         }
@@ -162,6 +161,28 @@ class FileRepository implements IRichNoteFileRepository {
         IBlobInfo toInfo = new BlobInfo(getBlobId(to), label);
         if (BlobCopier.copy(getBlobId(from), fromRepo, toInfo, toRepo))        
             to.setPath(label);
+    }
+
+    @objid ("4bdae04b-d4d3-4f3b-8b19-0396a5c482d4")
+    @Override
+    public void initRichNoteFromFile(ExternDocument doc, Path fileToSave) throws IOException {
+        IRepository repo = this.session.getRepositorySupport().getRepository(doc);
+        String label = this.geometry.getRelativePath(fileToSave);
+        try (OutputStream os = repo.writeBlob(new BlobInfo(getBlobId(doc), label))) {
+            Files.copy(fileToSave, os);
+        }
+        
+        // Compute the extension
+        String extension;
+        int i = fileToSave.toString().lastIndexOf('.');
+        if (i >= 0) {
+            extension = fileToSave.toString().substring(i + 1);
+        } else {
+            extension = ""; 
+        }
+        
+        Path p = this.geometry.getDefaultPath(doc, extension);
+        doc.setPath(p.toString());
     }
 
 }

@@ -194,11 +194,11 @@ public class DeferringCreateNodeOnLinkEditPolicy extends LayoutEditPolicy {
         @objid ("80ca054f-1dec-11e2-8cad-001ec947c8cc")
         private Map<?,?> editPartRegistry;
 
-        @objid ("1f05e11c-8458-433e-b6bb-0c606b20c971")
-        private Request req;
-
         @objid ("80ca054e-1dec-11e2-8cad-001ec947c8cc")
         private GmLink gmLink;
+
+        @objid ("8cf977ca-7356-40c7-be83-17cca24899e3")
+        private Request req;
 
         /**
          * Create a deferred command.
@@ -276,11 +276,11 @@ public class DeferringCreateNodeOnLinkEditPolicy extends LayoutEditPolicy {
         @objid ("80ca057a-1dec-11e2-8cad-001ec947c8cc")
         private Map<?,?> editPartRegistry;
 
-        @objid ("2a18cec3-29fc-4a74-8148-a59c25c06bca")
-        private ChangeBoundsRequest req;
-
         @objid ("80ca0579-1dec-11e2-8cad-001ec947c8cc")
         private GmLink gmLink;
+
+        @objid ("22093461-e056-4214-86c2-cdaaafd69115")
+        private ChangeBoundsRequest req;
 
         /**
          * Create a deferred command.

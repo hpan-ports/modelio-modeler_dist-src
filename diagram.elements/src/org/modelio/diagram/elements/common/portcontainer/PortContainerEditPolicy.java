@@ -173,12 +173,15 @@ public class PortContainerEditPolicy extends BaseFreeZoneLayoutEditPolicy {
     protected Rectangle getCurrentConstraintFor(GraphicalEditPart child) {
         IFigure fig = child.getFigure();
         Object constraint = fig.getParent().getLayoutManager().getConstraint(fig);
-        if (constraint == null)
+        if (constraint == null) {
             return null;
-        if (constraint instanceof Rectangle)
+        } else if (constraint instanceof Rectangle) {
             return (Rectangle) constraint;
-        // else
-        return ((PortConstraint) constraint).getRequestedBounds();
+        } else if (constraint instanceof PortConstraint) {
+            return ((PortConstraint) constraint).getRequestedBounds();
+        } else {
+            return null;
+        }
     }
 
     @objid ("7ef6b887-1dec-11e2-8cad-001ec947c8cc")

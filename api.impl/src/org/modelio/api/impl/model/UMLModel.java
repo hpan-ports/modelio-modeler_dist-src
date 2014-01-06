@@ -1,6 +1,7 @@
 package org.modelio.api.impl.model;
 
 import java.io.IOException;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -8,6 +9,8 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.api.model.IDefaultNameService;
 import org.modelio.api.model.IUMLTypes;
 import org.modelio.api.model.IUmlModel;
+import org.modelio.editors.richnote.editor.IRichNoteFileRepository;
+import org.modelio.editors.richnote.management.RichNotesSession;
 import org.modelio.gproject.fragment.IProjectFragment;
 import org.modelio.gproject.gproject.GProject;
 import org.modelio.gproject.model.IMModelServices;
@@ -16,7 +19,6 @@ import org.modelio.metamodel.bpmn.activities.BpmnAdHocSubProcess;
 import org.modelio.metamodel.bpmn.activities.BpmnBusinessRuleTask;
 import org.modelio.metamodel.bpmn.activities.BpmnCallActivity;
 import org.modelio.metamodel.bpmn.activities.BpmnComplexBehaviorDefinition;
-import org.modelio.metamodel.bpmn.activities.BpmnLoopCharacteristics;
 import org.modelio.metamodel.bpmn.activities.BpmnManualTask;
 import org.modelio.metamodel.bpmn.activities.BpmnMultiInstanceLoopCharacteristics;
 import org.modelio.metamodel.bpmn.activities.BpmnReceiveTask;
@@ -35,14 +37,11 @@ import org.modelio.metamodel.bpmn.bpmnService.BpmnInterface;
 import org.modelio.metamodel.bpmn.bpmnService.BpmnOperation;
 import org.modelio.metamodel.bpmn.events.BpmnBoundaryEvent;
 import org.modelio.metamodel.bpmn.events.BpmnCancelEventDefinition;
-import org.modelio.metamodel.bpmn.events.BpmnCatchEvent;
 import org.modelio.metamodel.bpmn.events.BpmnCompensateEventDefinition;
 import org.modelio.metamodel.bpmn.events.BpmnConditionalEventDefinition;
 import org.modelio.metamodel.bpmn.events.BpmnEndEvent;
 import org.modelio.metamodel.bpmn.events.BpmnErrorEventDefinition;
 import org.modelio.metamodel.bpmn.events.BpmnEscalationEventDefinition;
-import org.modelio.metamodel.bpmn.events.BpmnEvent;
-import org.modelio.metamodel.bpmn.events.BpmnEventDefinition;
 import org.modelio.metamodel.bpmn.events.BpmnImplicitThrowEvent;
 import org.modelio.metamodel.bpmn.events.BpmnIntermediateCatchEvent;
 import org.modelio.metamodel.bpmn.events.BpmnIntermediateThrowEvent;
@@ -51,7 +50,6 @@ import org.modelio.metamodel.bpmn.events.BpmnMessageEventDefinition;
 import org.modelio.metamodel.bpmn.events.BpmnSignalEventDefinition;
 import org.modelio.metamodel.bpmn.events.BpmnStartEvent;
 import org.modelio.metamodel.bpmn.events.BpmnTerminateEventDefinition;
-import org.modelio.metamodel.bpmn.events.BpmnThrowEvent;
 import org.modelio.metamodel.bpmn.events.BpmnTimerEventDefinition;
 import org.modelio.metamodel.bpmn.flows.BpmnMessage;
 import org.modelio.metamodel.bpmn.flows.BpmnMessageFlow;
@@ -59,7 +57,6 @@ import org.modelio.metamodel.bpmn.flows.BpmnSequenceFlow;
 import org.modelio.metamodel.bpmn.gateways.BpmnComplexGateway;
 import org.modelio.metamodel.bpmn.gateways.BpmnEventBasedGateway;
 import org.modelio.metamodel.bpmn.gateways.BpmnExclusiveGateway;
-import org.modelio.metamodel.bpmn.gateways.BpmnGateway;
 import org.modelio.metamodel.bpmn.gateways.BpmnInclusiveGateway;
 import org.modelio.metamodel.bpmn.gateways.BpmnParallelGateway;
 import org.modelio.metamodel.bpmn.objects.BpmnDataAssociation;
@@ -68,7 +65,6 @@ import org.modelio.metamodel.bpmn.objects.BpmnDataObject;
 import org.modelio.metamodel.bpmn.objects.BpmnDataOutput;
 import org.modelio.metamodel.bpmn.objects.BpmnDataState;
 import org.modelio.metamodel.bpmn.objects.BpmnDataStore;
-import org.modelio.metamodel.bpmn.objects.BpmnItemAwareElement;
 import org.modelio.metamodel.bpmn.objects.BpmnItemDefinition;
 import org.modelio.metamodel.bpmn.objects.BpmnSequenceFlowDataAssociation;
 import org.modelio.metamodel.bpmn.processCollaboration.BpmnCollaboration;
@@ -80,14 +76,9 @@ import org.modelio.metamodel.bpmn.resources.BpmnResource;
 import org.modelio.metamodel.bpmn.resources.BpmnResourceParameter;
 import org.modelio.metamodel.bpmn.resources.BpmnResourceParameterBinding;
 import org.modelio.metamodel.bpmn.resources.BpmnResourceRole;
-import org.modelio.metamodel.bpmn.rootElements.BpmnArtifact;
 import org.modelio.metamodel.bpmn.rootElements.BpmnAssociation;
-import org.modelio.metamodel.bpmn.rootElements.BpmnBaseElement;
 import org.modelio.metamodel.bpmn.rootElements.BpmnBehavior;
-import org.modelio.metamodel.bpmn.rootElements.BpmnFlowElement;
-import org.modelio.metamodel.bpmn.rootElements.BpmnFlowNode;
 import org.modelio.metamodel.bpmn.rootElements.BpmnGroup;
-import org.modelio.metamodel.bpmn.rootElements.BpmnRootElement;
 import org.modelio.metamodel.diagrams.ActivityDiagram;
 import org.modelio.metamodel.diagrams.ClassDiagram;
 import org.modelio.metamodel.diagrams.CommunicationDiagram;
@@ -138,6 +129,9 @@ import org.modelio.metamodel.uml.behavior.commonBehaviors.BehaviorParameter;
 import org.modelio.metamodel.uml.behavior.commonBehaviors.Event;
 import org.modelio.metamodel.uml.behavior.commonBehaviors.OpaqueBehavior;
 import org.modelio.metamodel.uml.behavior.commonBehaviors.Signal;
+import org.modelio.metamodel.uml.behavior.communicationModel.CommunicationChannel;
+import org.modelio.metamodel.uml.behavior.communicationModel.CommunicationMessage;
+import org.modelio.metamodel.uml.behavior.communicationModel.CommunicationNode;
 import org.modelio.metamodel.uml.behavior.interactionModel.CombinedFragment;
 import org.modelio.metamodel.uml.behavior.interactionModel.DurationConstraint;
 import org.modelio.metamodel.uml.behavior.interactionModel.ExecutionOccurenceSpecification;
@@ -183,6 +177,7 @@ import org.modelio.metamodel.uml.infrastructure.Dependency;
 import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.metamodel.uml.infrastructure.ExternDocument;
 import org.modelio.metamodel.uml.infrastructure.ExternDocumentType;
+import org.modelio.metamodel.uml.infrastructure.ExternProcessor;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
 import org.modelio.metamodel.uml.infrastructure.Note;
 import org.modelio.metamodel.uml.infrastructure.NoteType;
@@ -192,6 +187,9 @@ import org.modelio.metamodel.uml.infrastructure.TagParameter;
 import org.modelio.metamodel.uml.infrastructure.TagType;
 import org.modelio.metamodel.uml.infrastructure.TaggedValue;
 import org.modelio.metamodel.uml.infrastructure.Usage;
+import org.modelio.metamodel.uml.infrastructure.matrix.MatrixDefinition;
+import org.modelio.metamodel.uml.infrastructure.matrix.MatrixValueDefinition;
+import org.modelio.metamodel.uml.infrastructure.matrix.QueryDefinition;
 import org.modelio.metamodel.uml.infrastructure.properties.EnumeratedPropertyType;
 import org.modelio.metamodel.uml.infrastructure.properties.LocalPropertyTable;
 import org.modelio.metamodel.uml.infrastructure.properties.PropertyDefinition;
@@ -720,463 +718,391 @@ public class UMLModel implements IUmlModel {
     @objid ("940e7185-195e-4dba-ba26-acb50ccebf09")
     @Override
     public BpmnActivity createBpmnActivity() {
-        return (BpmnActivity) this.modelService.getModelFactory().createElement("BpmnActivity");
+        return this.modelService.getModelFactory().createBpmnActivity();
     }
 
     @objid ("99392a8f-d87a-49c1-af2c-467b8a60cd72")
     @Override
     public BpmnAdHocSubProcess createBpmnAdHocSubProcess() {
-        return (BpmnAdHocSubProcess) this.modelService.getModelFactory().createElement("BpmnAdHocSubProcess");
-    }
-
-    @objid ("4e3daa87-3fb7-4a59-aec7-7dc1b74485ed")
-    @Override
-    public BpmnArtifact createBpmnArtifact() {
-        return (BpmnArtifact) this.modelService.getModelFactory().createElement("BpmnArtifact");
+        return this.modelService.getModelFactory().createBpmnAdHocSubProcess();
     }
 
     @objid ("abbf4b29-cc51-4567-9815-1282e4bf9c56")
     @Override
     public BpmnAssociation createBpmnAssociation() {
-        return (BpmnAssociation) this.modelService.getModelFactory().createElement("BpmnAssociation");
-    }
-
-    @objid ("eb16a382-372f-4fe8-bbd1-9cd06c49a04f")
-    @Override
-    public BpmnBaseElement createBpmnBaseElement() {
-        return (BpmnBaseElement) this.modelService.getModelFactory().createElement("BpmnBaseElement");
+        return this.modelService.getModelFactory().createBpmnAssociation();
     }
 
     @objid ("fde6de47-ef86-4be0-a508-215ea2e3e80c")
     @Override
     public BpmnBehavior createBpmnBehavior() {
-        return (BpmnBehavior) this.modelService.getModelFactory().createElement("BpmnBehavior");
+        return this.modelService.getModelFactory().createBpmnBehavior();
     }
 
     @objid ("80c198f9-69c5-457d-95d8-c62221a74ae3")
     @Override
     public BpmnBoundaryEvent createBpmnBoundaryEvent() {
-        return (BpmnBoundaryEvent) this.modelService.getModelFactory().createElement("BpmnBoundaryEvent");
+        return this.modelService.getModelFactory().createBpmnBoundaryEvent();
     }
 
     @objid ("6f04cb16-44b7-45c6-ac44-6f6d8bde825b")
     @Override
     public BpmnBusinessRuleTask createBpmnBusinessRuleTask() {
-        return (BpmnBusinessRuleTask) this.modelService.getModelFactory().createElement("BpmnBusinessRuleTask");
+        return this.modelService.getModelFactory().createBpmnBusinessRuleTask();
     }
 
     @objid ("a9dc16b9-17ad-4d04-bc11-072831282c7d")
     @Override
     public BpmnCallActivity createBpmnCallActivity() {
-        return (BpmnCallActivity) this.modelService.getModelFactory().createElement("BpmnCallActivity");
+        return this.modelService.getModelFactory().createBpmnCallActivity();
     }
 
     @objid ("2e12726a-ff59-407f-93c4-ce15c10ff370")
     @Override
     public BpmnCancelEventDefinition createBpmnCancelEventDefinition() {
-        return (BpmnCancelEventDefinition) this.modelService.getModelFactory().createElement("BpmnCancelEventDefinition");
-    }
-
-    @objid ("39e510ed-5f90-413a-b71a-365162cc7896")
-    @Override
-    public BpmnCatchEvent createBpmnCatchEvent() {
-        return (BpmnCatchEvent) this.modelService.getModelFactory().createElement("BpmnCatchEvent");
+        return this.modelService.getModelFactory().createBpmnCancelEventDefinition();
     }
 
     @objid ("9ed37f33-1fa8-42f8-b41d-4fa77c62720c")
     @Override
     public BpmnCollaboration createBpmnCollaboration() {
-        return (BpmnCollaboration) this.modelService.getModelFactory().createElement("BpmnCollaboration");
+        return this.modelService.getModelFactory().createBpmnCollaboration();
     }
 
     @objid ("b615280b-c8ee-4de8-980f-812b277aa7c5")
     @Override
     public BpmnCompensateEventDefinition createBpmnCompensateEventDefinition() {
-        return (BpmnCompensateEventDefinition) this.modelService.getModelFactory().createElement("BpmnCompensateEventDefinition");
+        return this.modelService.getModelFactory().createBpmnCompensateEventDefinition();
     }
 
     @objid ("af557d61-1740-4b9d-ad14-f4a49dae54f8")
     @Override
     public BpmnComplexBehaviorDefinition createBpmnComplexBehaviorDefinition() {
-        return (BpmnComplexBehaviorDefinition) this.modelService.getModelFactory().createElement("BpmnComplexBehaviorDefinition");
+        return this.modelService.getModelFactory().createBpmnComplexBehaviorDefinition();
     }
 
     @objid ("d078b831-5074-4518-8fba-be9e403a1006")
     @Override
     public BpmnComplexGateway createBpmnComplexGateway() {
-        return (BpmnComplexGateway) this.modelService.getModelFactory().createElement("BpmnComplexGateway");
+        return this.modelService.getModelFactory().createBpmnComplexGateway();
     }
 
     @objid ("ccca606e-4c60-4725-b266-85b2da21d97b")
     @Override
     public BpmnConditionalEventDefinition createBpmnConditionalEventDefinition() {
-        return (BpmnConditionalEventDefinition) this.modelService.getModelFactory().createElement("BpmnConditionalEventDefinition");
+        return this.modelService.getModelFactory().createBpmnConditionalEventDefinition();
     }
 
     @objid ("9f378ea5-d091-4f47-8aa4-e4882a0dfe56")
     @Override
     public BpmnDataAssociation createBpmnDataAssociation() {
-        return (BpmnDataAssociation) this.modelService.getModelFactory().createElement("BpmnDataAssociation");
+        return this.modelService.getModelFactory().createBpmnDataAssociation();
     }
 
     @objid ("ad7f056c-8b14-472c-b3c0-dfec6b9a286a")
     @Override
     public BpmnDataInput createBpmnDataInput() {
-        return (BpmnDataInput) this.modelService.getModelFactory().createElement("BpmnDataInput");
+        return this.modelService.getModelFactory().createBpmnDataInput();
     }
 
     @objid ("2e95676c-676e-4141-9872-7dd083248472")
     @Override
     public BpmnDataObject createBpmnDataObject() {
-        return (BpmnDataObject) this.modelService.getModelFactory().createElement("BpmnDataObject");
+        return this.modelService.getModelFactory().createBpmnDataObject();
     }
 
     @objid ("b596f13d-aecc-41c4-8050-39a0eb4757ce")
     @Override
     public BpmnDataOutput createBpmnDataOutput() {
-        return (BpmnDataOutput) this.modelService.getModelFactory().createElement("BpmnDataOutput");
+        return this.modelService.getModelFactory().createBpmnDataOutput();
     }
 
     @objid ("101ea253-0bac-4bea-8c8e-6585d3f31c21")
     @Override
     public BpmnDataState createBpmnDataState() {
-        return (BpmnDataState) this.modelService.getModelFactory().createElement("BpmnDataState");
+        return this.modelService.getModelFactory().createBpmnDataState();
     }
 
     @objid ("c1e49dbd-90ca-41d9-b222-f873543d37a5")
     @Override
     public BpmnDataStore createBpmnDataStore() {
-        return (BpmnDataStore) this.modelService.getModelFactory().createElement("BpmnDataStore");
+        return this.modelService.getModelFactory().createBpmnDataStore();
     }
 
     @objid ("0246504d-36fd-4356-820c-acbfcc40b8aa")
     @Override
     public BpmnEndEvent createBpmnEndEvent() {
-        return (BpmnEndEvent) this.modelService.getModelFactory().createElement("BpmnEndEvent");
+        return this.modelService.getModelFactory().createBpmnEndEvent();
     }
 
     @objid ("de8d9746-cf08-48ab-9618-5e5e4360dafc")
     @Override
     public BpmnEndPoint createBpmnEndPoint() {
-        return (BpmnEndPoint) this.modelService.getModelFactory().createElement("BpmnEndPoint");
+        return this.modelService.getModelFactory().createBpmnEndPoint();
     }
 
     @objid ("aa4468eb-dbfb-4487-af0c-be72bcfb947b")
     @Override
     public BpmnErrorEventDefinition createBpmnErrorEventDefinition() {
-        return (BpmnErrorEventDefinition) this.modelService.getModelFactory().createElement("BpmnErrorEventDefinition");
+        return this.modelService.getModelFactory().createBpmnErrorEventDefinition();
     }
 
     @objid ("e275d9d6-68e6-437b-8659-ba8651ddc7f5")
     @Override
     public BpmnEscalationEventDefinition createBpmnEscalationEventDefinition() {
-        return (BpmnEscalationEventDefinition) this.modelService.getModelFactory().createElement("BpmnEscalationEventDefinition");
-    }
-
-    @objid ("2b685852-2abd-44f6-833c-ebe4a41a299c")
-    @Override
-    public BpmnEvent createBpmnEvent() {
-        return (BpmnEvent) this.modelService.getModelFactory().createElement("BpmnEvent");
+        return this.modelService.getModelFactory().createBpmnEscalationEventDefinition();
     }
 
     @objid ("0b1210a1-68d4-4fe8-b016-d1a90bcbd8d7")
     @Override
     public BpmnEventBasedGateway createBpmnEventBasedGateway() {
-        return (BpmnEventBasedGateway) this.modelService.getModelFactory().createElement("BpmnEventBasedGateway");
-    }
-
-    @objid ("6ddc8480-0343-4710-84c9-7a01a68eb657")
-    @Override
-    public BpmnEventDefinition createBpmnEventDefinition() {
-        return (BpmnEventDefinition) this.modelService.getModelFactory().createElement("BpmnEventDefinition");
+        return this.modelService.getModelFactory().createBpmnEventBasedGateway();
     }
 
     @objid ("1902445d-c836-41e1-8da4-173e61c32b2f")
     @Override
     public BpmnExclusiveGateway createBpmnExclusiveGateway() {
-        return (BpmnExclusiveGateway) this.modelService.getModelFactory().createElement("BpmnExclusiveGateway");
-    }
-
-    @objid ("2326cf43-ca26-4db3-a3f6-26ab4e742e4b")
-    @Override
-    public BpmnFlowElement createBpmnFlowElement() {
-        return (BpmnFlowElement) this.modelService.getModelFactory().createElement("BpmnFlowElement");
-    }
-
-    @objid ("c16a0725-b757-4f9a-bfd3-b9c0a648f740")
-    @Override
-    public BpmnFlowNode createBpmnFlowNode() {
-        return (BpmnFlowNode) this.modelService.getModelFactory().createElement("BpmnFlowNode");
-    }
-
-    @objid ("1148f7de-f589-4d6f-9f1c-c6daece83278")
-    @Override
-    public BpmnGateway createBpmnGateway() {
-        return (BpmnGateway) this.modelService.getModelFactory().createElement("BpmnGateway");
+        return this.modelService.getModelFactory().createBpmnExclusiveGateway();
     }
 
     @objid ("2bb1d426-be5b-47bf-b9e9-5da3852c80c5")
     @Override
     public BpmnGroup createBpmnGroup() {
-        return (BpmnGroup) this.modelService.getModelFactory().createElement("BpmnGroup");
+        return this.modelService.getModelFactory().createBpmnGroup();
     }
 
     @objid ("a5d1c3bb-6b6d-4f6b-b58e-41922c85faa4")
     @Override
     public BpmnImplicitThrowEvent createBpmnImplicitThrowEvent() {
-        return (BpmnImplicitThrowEvent) this.modelService.getModelFactory().createElement("BpmnImplicitThrowEvent");
+        return this.modelService.getModelFactory().createBpmnImplicitThrowEvent();
     }
 
     @objid ("fe2edb37-aa4b-4bcc-b871-321c449ebd0c")
     @Override
     public BpmnInclusiveGateway createBpmnInclusiveGateway() {
-        return (BpmnInclusiveGateway) this.modelService.getModelFactory().createElement("BpmnInclusiveGateway");
+        return this.modelService.getModelFactory().createBpmnInclusiveGateway();
     }
 
     @objid ("40eaae94-0b3c-48c4-84bf-708dcfc0ccf6")
     @Override
     public BpmnInterface createBpmnInterface() {
-        return (BpmnInterface) this.modelService.getModelFactory().createElement("BpmnInterface");
+        return this.modelService.getModelFactory().createBpmnInterface();
     }
 
     @objid ("96777f85-b711-44d1-90d1-6f8553dd9fbf")
     @Override
     public BpmnIntermediateCatchEvent createBpmnIntermediateCatchEvent() {
-        return (BpmnIntermediateCatchEvent) this.modelService.getModelFactory().createElement("BpmnIntermediateCatchEvent");
+        return this.modelService.getModelFactory().createBpmnIntermediateCatchEvent();
     }
 
     @objid ("e3e5a9e4-e9cb-4476-88bd-92b75a79629f")
     @Override
     public BpmnIntermediateThrowEvent createBpmnIntermediateThrowEvent() {
-        return (BpmnIntermediateThrowEvent) this.modelService.getModelFactory().createElement("BpmnIntermediateThrowEvent");
-    }
-
-    @objid ("65eb2b11-f87e-40c8-b4a4-64e212b4c108")
-    @Override
-    public BpmnItemAwareElement createBpmnItemAwareElement() {
-        return (BpmnItemAwareElement) this.modelService.getModelFactory().createElement("BpmnItemAwareElement");
+        return this.modelService.getModelFactory().createBpmnIntermediateThrowEvent();
     }
 
     @objid ("24cca37b-477f-45af-b847-7c8b234eca33")
     @Override
     public BpmnItemDefinition createBpmnItemDefinition() {
-        return (BpmnItemDefinition) this.modelService.getModelFactory().createElement("BpmnItemDefinition");
+        return this.modelService.getModelFactory().createBpmnItemDefinition();
     }
 
     @objid ("fd6db924-74d2-4195-9c64-500e4562ef04")
     @Override
     public BpmnLane createBpmnLane() {
-        return (BpmnLane) this.modelService.getModelFactory().createElement("BpmnLane");
+        return this.modelService.getModelFactory().createBpmnLane();
     }
 
     @objid ("66c07dd6-15c1-4520-93d0-23628de43bee")
     @Override
     public BpmnLaneSet createBpmnLaneSet() {
-        return (BpmnLaneSet) this.modelService.getModelFactory().createElement("BpmnLaneSet");
+        return this.modelService.getModelFactory().createBpmnLaneSet();
     }
 
     @objid ("79f50287-6217-435a-822a-252d590f26a4")
     @Override
     public BpmnLinkEventDefinition createBpmnLinkEventDefinition() {
-        return (BpmnLinkEventDefinition) this.modelService.getModelFactory().createElement("BpmnLinkEventDefinition");
-    }
-
-    @objid ("1d3aaac8-f829-4cf6-a1ab-054889ca3d3e")
-    @Override
-    public BpmnLoopCharacteristics createBpmnLoopCharacteristics() {
-        return (BpmnLoopCharacteristics) this.modelService.getModelFactory().createElement("BpmnLoopCharacteristics");
+        return this.modelService.getModelFactory().createBpmnLinkEventDefinition();
     }
 
     @objid ("aa96ad71-eab1-4213-8a46-3e8c471fa350")
     @Override
     public BpmnManualTask createBpmnManualTask() {
-        return (BpmnManualTask) this.modelService.getModelFactory().createElement("BpmnManualTask");
+        return this.modelService.getModelFactory().createBpmnManualTask();
     }
 
     @objid ("292963a5-4bce-4da1-93bc-cd53bb92609e")
     @Override
     public BpmnMessage createBpmnMessage() {
-        return (BpmnMessage) this.modelService.getModelFactory().createElement("BpmnMessage");
+        return this.modelService.getModelFactory().createBpmnMessage();
     }
 
     @objid ("9619fcb3-045e-40ef-8349-b9e7650c2f31")
     @Override
     public BpmnMessageEventDefinition createBpmnMessageEventDefinition() {
-        return (BpmnMessageEventDefinition) this.modelService.getModelFactory().createElement("BpmnMessageEventDefinition");
+        return this.modelService.getModelFactory().createBpmnMessageEventDefinition();
     }
 
     @objid ("4b32acd8-b81e-496a-8e9c-ae0ded26f996")
     @Override
     public BpmnMessageFlow createBpmnMessageFlow() {
-        return (BpmnMessageFlow) this.modelService.getModelFactory().createElement("BpmnMessageFlow");
+        return this.modelService.getModelFactory().createBpmnMessageFlow();
     }
 
     @objid ("4ca59a48-78d5-412c-b82a-763fbec903d5")
     @Override
     public BpmnMultiInstanceLoopCharacteristics createBpmnMultiInstanceLoopCharacteristics() {
-        return (BpmnMultiInstanceLoopCharacteristics) this.modelService.getModelFactory().createElement("BpmnMultiInstanceLoopCharacteristics");
+        return this.modelService.getModelFactory().createBpmnMultiInstanceLoopCharacteristics();
     }
 
     @objid ("21a906d8-c1a5-4e77-8b62-156033a715ea")
     @Override
     public BpmnOperation createBpmnOperation() {
-        return (BpmnOperation) this.modelService.getModelFactory().createElement("BpmnOperation");
+        return this.modelService.getModelFactory().createBpmnOperation();
     }
 
     @objid ("9c55de46-3c3a-43d4-9246-5329312bc915")
     @Override
     public BpmnParallelGateway createBpmnParallelGateway() {
-        return (BpmnParallelGateway) this.modelService.getModelFactory().createElement("BpmnParallelGateway");
+        return this.modelService.getModelFactory().createBpmnParallelGateway();
     }
 
     @objid ("c0460184-1d6b-405a-a414-3ea8e29e440b")
     @Override
     public BpmnParticipant createBpmnParticipant() {
-        return (BpmnParticipant) this.modelService.getModelFactory().createElement("BpmnParticipant");
+        return this.modelService.getModelFactory().createBpmnParticipant();
     }
 
     @objid ("ffff88f7-16e7-4343-b419-6e6702cae37c")
     @Override
     public BpmnProcess createBpmnProcess() {
-        return (BpmnProcess) this.modelService.getModelFactory().createElement("BpmnProcess");
+        return this.modelService.getModelFactory().createBpmnProcess();
     }
 
     @objid ("9ddac939-5a1e-4cbe-9135-65f521b2d7db")
     @Override
     public BpmnProcessCollaborationDiagram createBpmnProcessCollaborationDiagram() {
-        return (BpmnProcessCollaborationDiagram) this.modelService.getModelFactory().createElement("BpmnProcessCollaborationDiagram");
+        return this.modelService.getModelFactory().createBpmnProcessCollaborationDiagram();
     }
 
     @objid ("e99e740c-4aa4-4f8a-8c78-ed89eee9037f")
     @Override
     public BpmnReceiveTask createBpmnReceiveTask() {
-        return (BpmnReceiveTask) this.modelService.getModelFactory().createElement("BpmnReceiveTask");
+        return this.modelService.getModelFactory().createBpmnReceiveTask();
     }
 
     @objid ("148270a2-ae30-497c-84c6-95219bf9af70")
     @Override
     public BpmnResource createBpmnResource() {
-        return (BpmnResource) this.modelService.getModelFactory().createElement("BpmnResource");
+        return this.modelService.getModelFactory().createBpmnResource();
     }
 
     @objid ("7cf1385f-e41c-4f92-8d50-5964853e61df")
     @Override
     public BpmnResourceParameter createBpmnResourceParameter() {
-        return (BpmnResourceParameter) this.modelService.getModelFactory().createElement("BpmnResourceParameter");
+        return this.modelService.getModelFactory().createBpmnResourceParameter();
     }
 
     @objid ("726f8e03-80df-4427-8e2e-783f523d14f1")
     @Override
     public BpmnResourceParameterBinding createBpmnResourceParameterBinding() {
-        return (BpmnResourceParameterBinding) this.modelService.getModelFactory().createElement("BpmnResourceParameterBinding");
+        return this.modelService.getModelFactory().createBpmnResourceParameterBinding();
     }
 
     @objid ("9764ed36-adc8-448e-99f3-46c10d0d2c26")
     @Override
     public BpmnResourceRole createBpmnResourceRole() {
-        return (BpmnResourceRole) this.modelService.getModelFactory().createElement("BpmnResourceRole");
-    }
-
-    @objid ("c947ec68-621b-43d8-99f3-3fb081531ad3")
-    @Override
-    public BpmnRootElement createBpmnRootElement() {
-        return (BpmnRootElement) this.modelService.getModelFactory().createElement("BpmnRootElement");
+        return this.modelService.getModelFactory().createBpmnResourceRole();
     }
 
     @objid ("58e150a3-d1b4-4e93-8c21-5a6bed007c5b")
     @Override
     public BpmnScriptTask createBpmnScriptTask() {
-        return (BpmnScriptTask) this.modelService.getModelFactory().createElement("BpmnScriptTask");
+        return this.modelService.getModelFactory().createBpmnScriptTask();
     }
 
     @objid ("9131b8aa-80f5-4f8f-999a-abd050a5069c")
     @Override
     public BpmnSendTask createBpmnSendTask() {
-        return (BpmnSendTask) this.modelService.getModelFactory().createElement("BpmnSendTask");
+        return this.modelService.getModelFactory().createBpmnSendTask();
     }
 
     @objid ("2b8f0931-8096-4fb1-b7b5-a767fa5306e6")
     @Override
     public BpmnSequenceFlow createBpmnSequenceFlow() {
-        return (BpmnSequenceFlow) this.modelService.getModelFactory().createElement("BpmnSequenceFlow");
+        return this.modelService.getModelFactory().createBpmnSequenceFlow();
     }
 
     @objid ("65e4b4ac-ba57-4df5-ad73-b185c44ca380")
     @Override
     public BpmnSequenceFlowDataAssociation createBpmnSequenceFlowDataAssociation() {
-        return (BpmnSequenceFlowDataAssociation) this.modelService.getModelFactory().createElement("BpmnSequenceFlowDataAssociation");
+        return this.modelService.getModelFactory().createBpmnSequenceFlowDataAssociation();
     }
 
     @objid ("e3f1710c-fde5-45b6-9045-b2b0dfa6757b")
     @Override
     public BpmnServiceTask createBpmnServiceTask() {
-        return (BpmnServiceTask) this.modelService.getModelFactory().createElement("BpmnServiceTask");
+        return this.modelService.getModelFactory().createBpmnServiceTask();
     }
 
     @objid ("915931b0-c401-4eef-8d5c-7beb5672f490")
     @Override
     public BpmnSignalEventDefinition createBpmnSignalEventDefinition() {
-        return (BpmnSignalEventDefinition) this.modelService.getModelFactory().createElement("BpmnSignalEventDefinition");
+        return this.modelService.getModelFactory().createBpmnSignalEventDefinition();
     }
 
     @objid ("6209d9fa-e278-4c39-84e6-f8db48788ca4")
     @Override
     public BpmnStandardLoopCharacteristics createBpmnStandardLoopCharacteristics() {
-        return (BpmnStandardLoopCharacteristics) this.modelService.getModelFactory().createElement("BpmnStandardLoopCharacteristics");
+        return this.modelService.getModelFactory().createBpmnStandardLoopCharacteristics();
     }
 
     @objid ("7ed4b744-1ffa-4701-b032-66ee5ddee0c1")
     @Override
     public BpmnStartEvent createBpmnStartEvent() {
-        return (BpmnStartEvent) this.modelService.getModelFactory().createElement("BpmnStartEvent");
+        return this.modelService.getModelFactory().createBpmnStartEvent();
     }
 
     @objid ("33e1919e-956e-46b9-9495-b96e3fd44a2f")
     @Override
     public BpmnSubProcess createBpmnSubProcess() {
-        return (BpmnSubProcess) this.modelService.getModelFactory().createElement("BpmnSubProcess");
+        return this.modelService.getModelFactory().createBpmnSubProcess();
     }
 
     @objid ("6e24cfcb-2a8b-4f9d-a330-3b12e2d475dd")
     @Override
     public BpmnSubProcessDiagram createBpmnSubProcessDiagram() {
-        return (BpmnSubProcessDiagram) this.modelService.getModelFactory().createElement("BpmnSubProcessDiagram");
+        return this.modelService.getModelFactory().createBpmnSubProcessDiagram();
     }
 
     @objid ("e7a604d8-1013-4197-9560-2b4db5a52109")
     @Override
     public BpmnTask createBpmnTask() {
-        return (BpmnTask) this.modelService.getModelFactory().createElement("BpmnTask");
+        return this.modelService.getModelFactory().createBpmnTask();
     }
 
     @objid ("196854d8-50e5-4a9e-bfd7-c6ab450fde73")
     @Override
     public BpmnTerminateEventDefinition createBpmnTerminateEventDefinition() {
-        return (BpmnTerminateEventDefinition) this.modelService.getModelFactory().createElement("BpmnTerminateEventDefinition");
-    }
-
-    @objid ("86184bb2-c7d2-4d50-a789-a6ced1c9ba66")
-    @Override
-    public BpmnThrowEvent createBpmnThrowEvent() {
-        return (BpmnThrowEvent) this.modelService.getModelFactory().createElement("BpmnThrowEvent");
+        return this.modelService.getModelFactory().createBpmnTerminateEventDefinition();
     }
 
     @objid ("e31c5338-92ab-418c-81f3-257778dea160")
     @Override
     public BpmnTimerEventDefinition createBpmnTimerEventDefinition() {
-        return (BpmnTimerEventDefinition) this.modelService.getModelFactory().createElement("BpmnTimerEventDefinition");
+        return this.modelService.getModelFactory().createBpmnTimerEventDefinition();
     }
 
     @objid ("93ee2466-113f-4b5a-acb7-02c2b0b1cc8e")
     @Override
     public BpmnTransaction createBpmnTransaction() {
-        return (BpmnTransaction) this.modelService.getModelFactory().createElement("BpmnTransaction");
+        return this.modelService.getModelFactory().createBpmnTransaction();
     }
 
     @objid ("fbf0fe26-43ad-4cb7-aecb-2840b88ce427")
     @Override
     public BpmnUserTask createBpmnUserTask() {
-        return (BpmnUserTask) this.modelService.getModelFactory().createElement("BpmnUserTask");
+        return this.modelService.getModelFactory().createBpmnUserTask();
     }
 
     /**
@@ -1901,7 +1827,7 @@ public class UMLModel implements IUmlModel {
     @objid ("0fea5d06-760d-4249-96de-3f4e4ba713a0")
     @Override
     public ExceptionHandler createExceptionHandler() {
-        return (ExceptionHandler) this.modelService.getModelFactory().createElement("ExceptionHandler");
+        return this.modelService.getModelFactory().createExceptionHandler();
     }
 
     /**
@@ -1955,13 +1881,13 @@ public class UMLModel implements IUmlModel {
     @objid ("d825e70d-4ba6-4857-894b-9aecc3894629")
     @Override
     public ExpansionNode createExpansionNode() {
-        return (ExpansionNode) this.modelService.getModelFactory().createElement("ExpansionNode");
+        return this.modelService.getModelFactory().createExpansionNode();
     }
 
     @objid ("6c31b7ca-e85f-4fa4-8302-ba6ec7761dd2")
     @Override
     public ExpansionRegion createExpansionRegion() {
-        return (ExpansionRegion) this.modelService.getModelFactory().createElement("ExpansionRegion");
+        return this.modelService.getModelFactory().createExpansionRegion();
     }
 
     /**
@@ -2006,11 +1932,7 @@ public class UMLModel implements IUmlModel {
     @objid ("04162f69-8ca8-4dd6-b3d1-457eaec97f62")
     @Override
     public ExternDocument createExternDocument(String moduleName, final String documentRole, final ModelElement owner, final String mimeType) throws IOException, ExtensionNotFoundException {
-        try {
-            return this.modelService.getModelFactory().createExternDocument(moduleName, documentRole, owner, mimeType);
-        } catch (ExtensionNotFoundException e) {
-            throw new ExtensionNotFoundException(e);
-        }
+        return createExternDocument(moduleName, documentRole, owner, mimeType, null);
     }
 
     /**
@@ -3992,6 +3914,107 @@ public class UMLModel implements IUmlModel {
     @Override
     public NaryLinkEnd createNaryLinkEnd() {
         return this.modelService.getModelFactory().createNaryLinkEnd();
+    }
+
+    @objid ("582e17e3-cae0-4b70-b8bc-251a14890adc")
+    @Override
+    public CommunicationChannel createCommunicationChannel() {
+        return this.modelService.getModelFactory().createCommunicationChannel();
+    }
+
+    @objid ("47b687c5-e3b5-44d2-9dd9-f61dfc6196e1")
+    @Override
+    public CommunicationNode createCommunicationNode() {
+        return this.modelService.getModelFactory().createCommunicationNode();
+    }
+
+    @objid ("22826c98-0257-4788-9657-83941c3aed7d")
+    @Override
+    public CommunicationMessage createCommunicationMessage() {
+        return this.modelService.getModelFactory().createCommunicationMessage();
+    }
+
+    @objid ("bd435e1e-f663-41ec-bdf8-62bc74f11adb")
+    @Override
+    public MatrixDefinition createMatrixDefinition() {
+        return this.modelService.getModelFactory().createMatrixDefinition();
+    }
+
+    @objid ("2b538b63-efe1-47e0-be8d-bb7c58c68c64")
+    @Override
+    public QueryDefinition createQueryDefinition() {
+        return this.modelService.getModelFactory().createQueryDefinition();
+    }
+
+    @objid ("e1fd87d8-da6a-4dca-b640-5f2283c03a32")
+    @Override
+    public MatrixValueDefinition createMatrixValueDefinition() {
+        return this.modelService.getModelFactory().createMatrixValueDefinition();
+    }
+
+    @objid ("0bb57389-0b12-4906-a6db-59fc1a62acd0")
+    @Override
+    public ExternProcessor createExternProcessor() {
+        return this.modelService.getModelFactory().createExternProcessor();
+    }
+
+    @objid ("5dbef4ae-a701-4826-8921-65d2091298fd")
+    @Override
+    public QueryDefinition createQueryDefinition(String implementationClassName, String moduleName) {
+        QueryDefinition query = createQueryDefinition();
+        
+        ExternProcessor queryProcessor = createExternProcessor(moduleName, implementationClassName);
+        query.setProcessor(queryProcessor);
+        return query;
+    }
+
+    @objid ("a0eb05da-f108-473c-8bf4-61d20795cdd5")
+    @Override
+    public ExternProcessor createExternProcessor(String implementationClassName, String moduleName) {
+        ExternProcessor processor = createExternProcessor();
+        processor.setClassName(moduleName != null ? "module:/" + moduleName + "/" + implementationClassName : implementationClassName);
+        return processor;
+    }
+
+    @objid ("5126fe16-6bd3-4d79-a157-cda1047826d3")
+    @Override
+    public MatrixValueDefinition createMatrixValueDefinition(String implementationClassName, String moduleName) {
+        MatrixValueDefinition valueDef = createMatrixValueDefinition();
+        
+        ExternProcessor queryProcessor = createExternProcessor(moduleName, implementationClassName);
+        valueDef.setProcessor(queryProcessor);
+        return valueDef;
+    }
+
+    @objid ("3df097a6-2565-46c4-af11-c04dbf7e54fc")
+    @Override
+    public MatrixDefinition createMatrixDefinition(String name, QueryDefinition lineQuery, QueryDefinition colQuery, QueryDefinition depthQuery, MatrixValueDefinition valueDefinition) {
+        MatrixDefinition matrixDef = createMatrixDefinition();
+        matrixDef.setName(name);
+        
+        matrixDef.setLinesDefinition(lineQuery);
+        matrixDef.setColumnsDefinition(colQuery);
+        matrixDef.setDepthDefinition(depthQuery);
+        matrixDef.setValuesDefinition(valueDefinition);
+        return matrixDef;
+    }
+
+    @objid ("ab63da4f-a60f-4f0d-a880-9e8f6373934e")
+    @Override
+    public ExternDocument createExternDocument(String moduleName, final String documentRole, final ModelElement owner, final String mimeType, Path initialContent) throws IOException, ExtensionNotFoundException {
+        try {
+            final ExternDocument doc = this.modelService.getModelFactory().createExternDocument(moduleName, documentRole, owner, mimeType);
+            
+            // Initialize the document
+            if (initialContent != null) {
+                IRichNoteFileRepository fileRepository = RichNotesSession.get(this.openedProject).getFileRepository();
+                fileRepository.initRichNoteFromFile(doc, initialContent);
+            }
+            
+            return doc;
+        } catch (ExtensionNotFoundException e) {
+            throw new ExtensionNotFoundException(e);
+        }
     }
 
 }

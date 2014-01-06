@@ -74,6 +74,12 @@ public interface IExmlRepositoryGeometry {
     public static final String EXT_BLOB = ".blob";
 
     /**
+     * Path of the versions property file relative to the repository directory.
+     */
+    @objid ("2a5b046d-d7d8-455a-8f78-e734872c8a72")
+    public static final String VERSION_PATH = ADMIN_DIRNAME + "/format_version.dat";
+
+    /**
      * Get the file where the given blob should be stored.
      * @param blobKey a Blob key
      * @return the file where the blob is stored.

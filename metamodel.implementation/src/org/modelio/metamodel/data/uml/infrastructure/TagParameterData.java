@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.data.uml.infrastructure;
 
 import java.util.ArrayList;
@@ -44,85 +44,85 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("008f0606-c4be-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=TagParameter.class, factory=TagParameterData.Metadata.ObjectFactory.class)
 public class TagParameterData extends ElementData {
-    @objid ("3d7a1723-2458-42c4-be9a-b8910e53da51")
-    @SmaMetaAssociation(metaName="Annoted", typeDataClass=TaggedValueData.class, min=0, max=1, smAssociationClass=Metadata.AnnotedSmDependency.class)
-     SmObjectImpl mAnnoted;
-
-    @objid ("809690ad-827f-478a-b140-c6fe221ae5be")
-    @SmaMetaAssociation(metaName="Qualified", typeDataClass=TaggedValueData.class, min=0, max=1, smAssociationClass=Metadata.QualifiedSmDependency.class)
-     SmObjectImpl mQualified;
-
-    @objid ("20e4d730-848f-4c32-8e27-7b383abc41e7")
+    @objid ("1b327891-48b4-4621-8f8c-43675cd7bfd7")
     @SmaMetaAttribute(metaName="Value", type=String.class, smAttributeClass=Metadata.ValueSmAttribute.class)
      Object mValue = "";
 
-    @objid ("c70f2288-3cc2-453e-83c2-7f46977087e1")
+    @objid ("5522525d-79d0-475b-be0c-593e2037613c")
+    @SmaMetaAssociation(metaName="Annoted", typeDataClass=TaggedValueData.class, min=0, max=1, smAssociationClass=Metadata.AnnotedSmDependency.class)
+     SmObjectImpl mAnnoted;
+
+    @objid ("acef9b6f-9e9e-4b78-a49a-880f5e498076")
+    @SmaMetaAssociation(metaName="Qualified", typeDataClass=TaggedValueData.class, min=0, max=1, smAssociationClass=Metadata.QualifiedSmDependency.class)
+     SmObjectImpl mQualified;
+
+    @objid ("235694b8-0eff-448c-a2bd-a468fe2a7b4d")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("004595ac-c4c3-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("85a64884-72c1-4784-a1af-0101cb6bbe50")
+        @objid ("a85694a5-5b33-406a-a28e-7bec08d2a298")
         private static SmClass smClass = null;
 
-        @objid ("6de8be52-d421-4f2b-8418-1337af37693a")
+        @objid ("5899f2d2-7441-4cb5-9796-e272b982e98f")
         private static SmAttribute ValueAtt = null;
 
-        @objid ("0d1020ef-b1b0-4940-8187-9801cabeb41a")
+        @objid ("d403056e-f918-40a2-9a37-39cd30c45c94")
         private static SmDependency AnnotedDep = null;
 
-        @objid ("e61829d1-4754-4329-af2a-04a07a0cbe6c")
+        @objid ("06714670-c26d-4723-b378-dd2862944740")
         private static SmDependency QualifiedDep = null;
 
-        @objid ("762e1c24-b875-47c4-b10d-b25b7a756232")
+        @objid ("2d353d4b-2793-4b27-b2ab-5ad9cc2e659d")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(TagParameterData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("4e284965-3f69-4758-973e-f63a82b9c174")
+        @objid ("fe416136-5b7b-4b55-b2d1-f5ca9c8c0356")
         public static SmAttribute ValueAtt() {
             if (ValueAtt == null) {
-                ValueAtt = classof().getAttributeDef("Value");
+            	ValueAtt = classof().getAttributeDef("Value");
             }
             return ValueAtt;
         }
 
-        @objid ("3e4e7d4f-5920-4f09-ad9f-b137df7baea2")
+        @objid ("320efe03-2652-429c-9c64-a0d32ea2dfc3")
         public static SmDependency AnnotedDep() {
             if (AnnotedDep == null) {
-                AnnotedDep = classof().getDependencyDef("Annoted");
+            	AnnotedDep = classof().getDependencyDef("Annoted");
             }
             return AnnotedDep;
         }
 
-        @objid ("38430d61-0a41-4da9-ba25-ceaf7367a641")
+        @objid ("ecfc10f4-8048-4600-9f21-4129e4fa434f")
         public static SmDependency QualifiedDep() {
             if (QualifiedDep == null) {
-                QualifiedDep = classof().getDependencyDef("Qualified");
+            	QualifiedDep = classof().getDependencyDef("Qualified");
             }
             return QualifiedDep;
         }
 
-        @objid ("0650a868-ec4f-4609-995b-ebf07bac6668")
-        public static SmDependency getAnnotedDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return AnnotedDep;
-        }
-
-        @objid ("a790fdb6-bdd8-4934-9b39-4bfad885d522")
+        @objid ("0a17229d-c6f5-4b99-b8b4-077b7f671e23")
         public static SmClass getSmClass() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return smClass;
         }
 
-        @objid ("4e2a8fda-fbd9-4eba-b39a-84334c116724")
+        @objid ("4cac430c-2af7-444f-815e-ffa2685321dc")
         public static SmDependency getQualifiedDep() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return QualifiedDep;
         }
 
-        @objid ("b22d0c8a-8eb9-40ca-bdec-24bb574254d4")
+        @objid ("aa1bfa70-1b88-4825-a61a-5307f362ae7e")
+        public static SmDependency getAnnotedDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return AnnotedDep;
+        }
+
+        @objid ("ac9778fd-a90c-4db9-87c8-21c987c64cd6")
         public static SmAttribute getValueAtt() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return ValueAtt;
@@ -130,12 +130,12 @@ public class TagParameterData extends ElementData {
 
         @objid ("0045d6fc-c4c3-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("91e11499-9a2f-4719-9275-d5f519e096f4")
+            @objid ("a355e00a-b9f6-4fd4-bd99-5190a25c82d9")
             public ISmObjectData createData() {
                 return new TagParameterData();
             }
 
-            @objid ("a5cccf85-2b56-46f0-b1c0-39d40d99002a")
+            @objid ("3bd1199a-06a4-4887-8ab9-d19288af9622")
             public SmObjectImpl createImpl() {
                 return new TagParameterImpl();
             }
@@ -144,12 +144,12 @@ public class TagParameterData extends ElementData {
 
         @objid ("00463818-c4c3-1fd8-97fe-001ec947cd2a")
         public static class ValueSmAttribute extends SmAttribute {
-            @objid ("addcc0dd-a73c-47f2-a76b-6c7c0dd3c35a")
+            @objid ("16f4e4c9-7d73-48c6-b5ce-a190a1391fa4")
             public Object getValue(ISmObjectData data) {
                 return ((TagParameterData) data).mValue;
             }
 
-            @objid ("833fd731-8867-4ef2-8129-f4e789103c87")
+            @objid ("f585d12d-430c-44c5-9616-f21470edc908")
             public void setValue(ISmObjectData data, Object value) {
                 ((TagParameterData) data).mValue = value;
             }
@@ -158,18 +158,18 @@ public class TagParameterData extends ElementData {
 
         @objid ("00469bc8-c4c3-1fd8-97fe-001ec947cd2a")
         public static class AnnotedSmDependency extends SmSingleDependency {
-            @objid ("e0673cda-3af3-4101-a96f-d8c6d31235fc")
+            @objid ("b2291c52-8da0-49e7-ad8d-8645b460cc6d")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((TagParameterData) data).mAnnoted;
             }
 
-            @objid ("9b7359dd-80be-4a7b-bd26-6a05a10efc22")
+            @objid ("1c966305-8e9b-437e-8442-5964e76310c8")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((TagParameterData) data).mAnnoted = value;
             }
 
-            @objid ("ccace437-ab78-4b84-ae14-fe0e8ae9776e")
+            @objid ("a8862e7f-09bc-43ff-ad85-4ad7fc819481")
             @Override
             public SmDependency getSymetric() {
                 return TaggedValueData.Metadata.ActualDep();
@@ -179,18 +179,18 @@ public class TagParameterData extends ElementData {
 
         @objid ("0047126a-c4c3-1fd8-97fe-001ec947cd2a")
         public static class QualifiedSmDependency extends SmSingleDependency {
-            @objid ("c17b3671-62dc-4214-95cd-b8c9142a94cf")
+            @objid ("5d30de6e-bc90-4061-8a36-85e32858036e")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((TagParameterData) data).mQualified;
             }
 
-            @objid ("1d934784-f720-4d7c-81fa-44ea45e757ed")
+            @objid ("4be6505b-749a-4b6c-b297-84155837bf6b")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((TagParameterData) data).mQualified = value;
             }
 
-            @objid ("33146023-373b-4729-ad2f-c6928783d003")
+            @objid ("9046999d-2cd3-47f5-8857-ae12c51726c1")
             @Override
             public SmDependency getSymetric() {
                 return TaggedValueData.Metadata.QualifierDep();

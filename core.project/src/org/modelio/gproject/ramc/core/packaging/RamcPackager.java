@@ -108,7 +108,7 @@ public class RamcPackager {
 
     @objid ("c2e0400a-a5b8-11e1-aa98-001ec947ccaf")
     private void exportModel(Path modelPath, Metadatas metadatas, SubProgress monitor) throws IOException {
-        SubProgress subMonitor = SubProgress.convert(monitor, 50);
+        SubProgress subMonitor = SubProgress.convert(monitor, 60);
         subMonitor.subTask(CoreProject.I18N.getString("RamcPackager.ExportModel"));
         
         CoreSession targetSession = new CoreSession();
@@ -133,6 +133,8 @@ public class RamcPackager {
         
             // Save the exported repository
             targetSession.save(subMonitor.newChild(10));
+            
+            targetRepository.getMaintenance().compressIndexes(subMonitor.newChild(10));
         } finally {
             targetSession.close();
         }

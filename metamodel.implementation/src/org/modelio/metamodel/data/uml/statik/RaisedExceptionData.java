@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.data.uml.statik;
 
 import java.util.ArrayList;
@@ -46,36 +46,36 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("001afd60-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=RaisedException.class, factory=RaisedExceptionData.Metadata.ObjectFactory.class)
 public class RaisedExceptionData extends ModelElementData {
-    @objid ("c7b52ea8-8379-4db2-81e0-918b9f29e6a2")
+    @objid ("e2de8cfc-525e-4fbc-bba1-ce0d473c95c8")
     @SmaMetaAssociation(metaName="ThrownType", typeDataClass=ClassifierData.class, min=1, max=1, smAssociationClass=Metadata.ThrownTypeSmDependency.class, partof = true)
      SmObjectImpl mThrownType;
 
-    @objid ("5f0f9620-045e-4865-8dd8-1643a6be6988")
+    @objid ("5a3b12cf-83c7-4816-958e-7ba74d6490d5")
     @SmaMetaAssociation(metaName="Thrower", typeDataClass=OperationData.class, min=1, max=1, smAssociationClass=Metadata.ThrowerSmDependency.class)
      SmObjectImpl mThrower;
 
-    @objid ("894476e5-828e-472d-8031-56d233fc1703")
+    @objid ("1dc598a1-9513-4f82-b01e-9a32597edba5")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("0032c044-c4c4-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("44900b06-5a2f-48d8-9b02-5e110530c665")
+        @objid ("08f3d007-5397-4dbf-b470-b9d03f7c8a79")
         private static SmClass smClass = null;
 
-        @objid ("744ba1c1-f336-4a82-91f7-5b5cac077240")
+        @objid ("cd8ddc97-f9af-47b3-9a96-4a4aa31f59b1")
         private static SmDependency ThrownTypeDep = null;
 
-        @objid ("acb6099c-ff4b-4321-816f-50b4def13526")
+        @objid ("7dcbc8a3-ffea-4ea3-841a-a7dd26eb1253")
         private static SmDependency ThrowerDep = null;
 
-        @objid ("810d3f59-1cce-4a7b-ab33-d5fe50b15c53")
+        @objid ("cf2a6c2a-382d-42cc-8a96-a1b9f1d83851")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(RaisedExceptionData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("05406a1e-e2be-484f-88ff-582e7f333360")
+        @objid ("231ee945-b3da-49ba-9014-f56181debc4d")
         public static SmDependency ThrownTypeDep() {
             if (ThrownTypeDep == null) {
             	ThrownTypeDep = classof().getDependencyDef("ThrownType");
@@ -83,7 +83,7 @@ public class RaisedExceptionData extends ModelElementData {
             return ThrownTypeDep;
         }
 
-        @objid ("58d7258d-748b-4c05-9e50-76a0ce897020")
+        @objid ("dbf6a909-95f1-46a1-8537-b04b7c11995a")
         public static SmDependency ThrowerDep() {
             if (ThrowerDep == null) {
             	ThrowerDep = classof().getDependencyDef("Thrower");
@@ -91,32 +91,32 @@ public class RaisedExceptionData extends ModelElementData {
             return ThrowerDep;
         }
 
-        @objid ("dceb140d-d938-4b4e-af01-8cf1c640aa49")
-        public static SmDependency getThrownTypeDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return ThrownTypeDep;
-        }
-
-        @objid ("1ef7bf7e-5284-44d9-86a9-f43558f30a22")
+        @objid ("6dbd6706-de58-4526-b27c-a940e1c370e0")
         public static SmClass getSmClass() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return smClass;
         }
 
-        @objid ("345f5734-15d6-4ab5-8322-faccc2744ff9")
+        @objid ("8ce05f91-01d6-4a8a-b022-d8f1a3ee7945")
         public static SmDependency getThrowerDep() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return ThrowerDep;
         }
 
+        @objid ("f98bd413-fd29-41ed-8f16-f0fce9d3390d")
+        public static SmDependency getThrownTypeDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return ThrownTypeDep;
+        }
+
         @objid ("00330270-c4c4-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("e26cf45e-52ee-4c70-bd2a-ec281546118f")
+            @objid ("4badf973-7ece-4732-9050-7269f34890c8")
             public ISmObjectData createData() {
                 return new RaisedExceptionData();
             }
 
-            @objid ("b5b95765-820b-4387-a19a-9690b20be14c")
+            @objid ("b047ab12-ae86-4287-8db1-8753271684b9")
             public SmObjectImpl createImpl() {
                 return new RaisedExceptionImpl();
             }
@@ -125,18 +125,18 @@ public class RaisedExceptionData extends ModelElementData {
 
         @objid ("003366fc-c4c4-1fd8-97fe-001ec947cd2a")
         public static class ThrowerSmDependency extends SmSingleDependency {
-            @objid ("94f5128d-81ee-4a85-b040-06bb58f27e31")
+            @objid ("196e0adf-f15e-4ef8-80a5-2633d40a47f8")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((RaisedExceptionData) data).mThrower;
             }
 
-            @objid ("c7f909ab-be50-4727-ad62-f62d543a363f")
+            @objid ("024bba15-20ac-4089-ad5c-e476b2199129")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((RaisedExceptionData) data).mThrower = value;
             }
 
-            @objid ("1cf9b84b-26f6-4cd7-b25e-a4c217b55e5b")
+            @objid ("db1438ce-eec8-4889-9d88-2dff49b238fb")
             @Override
             public SmDependency getSymetric() {
                 return OperationData.Metadata.ThrownDep();
@@ -146,18 +146,18 @@ public class RaisedExceptionData extends ModelElementData {
 
         @objid ("0033db82-c4c4-1fd8-97fe-001ec947cd2a")
         public static class ThrownTypeSmDependency extends SmSingleDependency {
-            @objid ("9ad09f89-5126-4f1f-894b-abe6546b2e83")
+            @objid ("9d3f8665-6b75-4c97-a743-39268caae0e9")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((RaisedExceptionData) data).mThrownType;
             }
 
-            @objid ("6a55c447-845a-4123-822d-6068c3df8b4e")
+            @objid ("6dab9049-38c1-44be-b92a-21c843f7ebac")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((RaisedExceptionData) data).mThrownType = value;
             }
 
-            @objid ("6bd037d5-6e1d-45e7-993a-fc47704c501f")
+            @objid ("dbbe0a16-5b25-4d0f-8473-d4c2b4cf3720")
             @Override
             public SmDependency getSymetric() {
                 return ClassifierData.Metadata.ThrowingDep();

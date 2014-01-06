@@ -57,7 +57,7 @@ public class CommandVisiblePropertyTester extends PropertyTester {
                         return false;
                     }
                 }
-                return true;
+                return selection.size() > 0;
             case "editstereotype":
                 if (selection.size() == 1 && element instanceof Stereotype) {
                     return true;

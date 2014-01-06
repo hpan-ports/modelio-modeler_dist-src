@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.data.uml.statik;
 
 import java.util.ArrayList;
@@ -44,43 +44,43 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("00027d80-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=Class.class, factory=ClassData.Metadata.ObjectFactory.class, cmsnode=true)
 public class ClassData extends GeneralClassData {
-    @objid ("fc830acb-15fe-4531-acb3-a0699789ea4c")
+    @objid ("4f1237a9-bc9e-4926-b442-835a6f582470")
     @SmaMetaAttribute(metaName="IsActive", type=Boolean.class, smAttributeClass=Metadata.IsActiveSmAttribute.class)
      Object mIsActive = false;
 
-    @objid ("5b5a817b-3054-44da-b287-fab827239cca")
+    @objid ("ce0fa1b0-4c09-448c-8406-c623f5730a2d")
     @SmaMetaAttribute(metaName="IsMain", type=Boolean.class, smAttributeClass=Metadata.IsMainSmAttribute.class)
      Object mIsMain = false;
 
-    @objid ("3e3d0485-34e3-4358-b7aa-c99bb40c8ae8")
+    @objid ("3599472a-1499-4253-a891-5bac4ce158dd")
     @SmaMetaAssociation(metaName="LinkToAssociation", typeDataClass=ClassAssociationData.class, min=0, max=1, smAssociationClass=Metadata.LinkToAssociationSmDependency.class, istodelete = true)
      SmObjectImpl mLinkToAssociation;
 
-    @objid ("e97a8466-3ba6-43cc-a1f3-a1412bb63cc4")
+    @objid ("e8a4c52c-8d3e-4e38-96eb-77c3ae45d471")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("0088a950-c4c2-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("2688b0a9-f714-49ab-a5f3-e0d85dca7d05")
+        @objid ("c1886eb9-f7d0-44d6-80e4-ddb8e97fcc2c")
         private static SmClass smClass = null;
 
-        @objid ("1d1aad7b-5e78-4372-92c5-40529160481a")
+        @objid ("7a1bdc67-a2dc-4b6e-8b5f-a6dd009c2ba8")
         private static SmAttribute IsActiveAtt = null;
 
-        @objid ("d56eea01-09e5-47dd-aa9a-d85243d3e964")
+        @objid ("eb72a8d4-3b5b-460b-b4ee-a0cc925f1c9d")
         private static SmAttribute IsMainAtt = null;
 
-        @objid ("bf67a3e8-b8aa-42fc-b1a9-bb605955a4b0")
+        @objid ("b4a61a99-849c-4c6c-bd2a-8a8f241afe9a")
         private static SmDependency LinkToAssociationDep = null;
 
-        @objid ("638d92a1-96a3-4dcf-85b3-3aac40c9280b")
+        @objid ("94320095-d082-42a8-a4a0-9dfc016a7734")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(ClassData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("628d8afd-d014-403a-aa1d-6ad2f709cfff")
+        @objid ("51847027-c215-4991-9df3-fae43f302dd5")
         public static SmAttribute IsActiveAtt() {
             if (IsActiveAtt == null) {
             	IsActiveAtt = classof().getAttributeDef("IsActive");
@@ -88,7 +88,7 @@ public class ClassData extends GeneralClassData {
             return IsActiveAtt;
         }
 
-        @objid ("aa008b73-6fb6-4145-bec7-a6144fbb851d")
+        @objid ("ca15a33b-56ec-4cb1-9d0b-bf9cc5fd2a4c")
         public static SmAttribute IsMainAtt() {
             if (IsMainAtt == null) {
             	IsMainAtt = classof().getAttributeDef("IsMain");
@@ -96,7 +96,7 @@ public class ClassData extends GeneralClassData {
             return IsMainAtt;
         }
 
-        @objid ("8d0c4fd6-c189-4a8c-a336-b0e7bee20238")
+        @objid ("72d4efee-98bc-49fe-8f9d-02888342fa79")
         public static SmDependency LinkToAssociationDep() {
             if (LinkToAssociationDep == null) {
             	LinkToAssociationDep = classof().getDependencyDef("LinkToAssociation");
@@ -104,38 +104,38 @@ public class ClassData extends GeneralClassData {
             return LinkToAssociationDep;
         }
 
-        @objid ("392dd512-04e3-4e3d-bd3e-bc45eb5dc356")
-        public static SmAttribute getIsMainAtt() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return IsMainAtt;
-        }
-
-        @objid ("d6304f20-cab8-43ec-ae01-3467e698bc26")
-        public static SmDependency getLinkToAssociationDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return LinkToAssociationDep;
-        }
-
-        @objid ("54274c45-5435-4335-99c9-73a9a4bd54fc")
+        @objid ("96d3ebce-7926-4b61-ad0c-3fef9fb9535e")
         public static SmAttribute getIsActiveAtt() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return IsActiveAtt;
         }
 
-        @objid ("aa07e33f-c907-47a5-8c75-47bc8e9750b1")
+        @objid ("c48b560e-3672-489d-97d9-cb64a75df453")
         public static SmClass getSmClass() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return smClass;
         }
 
+        @objid ("8e83991f-defe-4980-8858-4fc9fb8f954e")
+        public static SmAttribute getIsMainAtt() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return IsMainAtt;
+        }
+
+        @objid ("851c9f81-4f5e-42e8-a5ce-d23751f23dac")
+        public static SmDependency getLinkToAssociationDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return LinkToAssociationDep;
+        }
+
         @objid ("0088eaaa-c4c2-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("7fcce3f7-3e61-409e-86d2-0135ce2bab8f")
+            @objid ("995d3a5c-2604-4c22-a035-b717471f9dea")
             public ISmObjectData createData() {
                 return new ClassData();
             }
 
-            @objid ("7cd394f0-3aa1-4de2-95fd-7ca7801c3413")
+            @objid ("62277c21-f841-4119-a227-1115e8f6633d")
             public SmObjectImpl createImpl() {
                 return new ClassImpl();
             }
@@ -144,12 +144,12 @@ public class ClassData extends GeneralClassData {
 
         @objid ("00894bd0-c4c2-1fd8-97fe-001ec947cd2a")
         public static class IsActiveSmAttribute extends SmAttribute {
-            @objid ("f216a430-3001-4371-84c3-50319068439a")
+            @objid ("400e0da9-71cf-4bc8-a5db-12702ea1f940")
             public Object getValue(ISmObjectData data) {
                 return ((ClassData) data).mIsActive;
             }
 
-            @objid ("35c7ebda-611a-4ddd-91f9-910e4e03ad31")
+            @objid ("db60a47b-1032-4f4c-a560-6868699c49da")
             public void setValue(ISmObjectData data, Object value) {
                 ((ClassData) data).mIsActive = value;
             }
@@ -158,12 +158,12 @@ public class ClassData extends GeneralClassData {
 
         @objid ("0089ac92-c4c2-1fd8-97fe-001ec947cd2a")
         public static class IsMainSmAttribute extends SmAttribute {
-            @objid ("ccfa6d0f-70b3-463b-9f8b-8d5a0b53384c")
+            @objid ("28c44f1d-aee4-427d-a9a6-08cc0715506e")
             public Object getValue(ISmObjectData data) {
                 return ((ClassData) data).mIsMain;
             }
 
-            @objid ("a94515eb-e811-4a38-b424-cc7a0f4b453c")
+            @objid ("efb44bc8-831d-47f6-8c7c-133c3ea51432")
             public void setValue(ISmObjectData data, Object value) {
                 ((ClassData) data).mIsMain = value;
             }
@@ -172,18 +172,18 @@ public class ClassData extends GeneralClassData {
 
         @objid ("008a138a-c4c2-1fd8-97fe-001ec947cd2a")
         public static class LinkToAssociationSmDependency extends SmSingleDependency {
-            @objid ("49fb5de1-d0aa-48fa-98cc-d1434a7908a0")
+            @objid ("4897b93f-2024-4fe1-812e-427cf64dd64d")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((ClassData) data).mLinkToAssociation;
             }
 
-            @objid ("f90083f9-dcb6-44ad-aa45-7f6211a575f5")
+            @objid ("41899f31-b4ff-45f3-9139-23d5dffad1c1")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((ClassData) data).mLinkToAssociation = value;
             }
 
-            @objid ("7a2a5b55-f1ac-4be8-af9e-fd2380713630")
+            @objid ("25197155-6c76-44eb-83c7-e02f7b9da095")
             @Override
             public SmDependency getSymetric() {
                 return ClassAssociationData.Metadata.ClassPartDep();

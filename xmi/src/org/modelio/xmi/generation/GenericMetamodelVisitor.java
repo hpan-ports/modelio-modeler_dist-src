@@ -45,7 +45,8 @@ public class GenericMetamodelVisitor extends OwnershipMetamodelVisitor {
     @Override
     public Object visitAssociationEnd(final AssociationEnd param) {
         Object lObject = super.visitAssociationEnd(param);
-        param.getAssociation().accept(this);
+        if ( param.getAssociation() != null)
+            param.getAssociation().accept(this);
         return lObject;
     }
 

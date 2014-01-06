@@ -45,20 +45,21 @@ import org.osgi.framework.Bundle;
 @objid ("008ed532-8bd5-1065-a2b8-001ec947cd2a")
 public class PythonRunner implements IScriptRunner {
     /**
-     * Jython 2.7 interpreter initialisation string.
+     * Jython 2.7 interpreter initialization string.
      * <ol>
-     * <li>import the 'sys' builtin module</li>
+     * <li>import the 'sys' built-in module</li>
      * <li>set the class loader to 'CLASSLOADER' which is a Java variable exported to Jython using engine.put()</li>
-     * <li>complete sys.path with the /Lib subdirectory that contains standard modules like os, zlib adn so on...</li>
+     * <li>complete sys.path with the /Lib sub-directory that contains standard modules like os, zlib adn so on...</li>
      * </ol>
      */
     @objid ("004696d2-fb86-10ee-9fe5-001ec947cd2a")
-    private final String JYTHON_INIT = "import sys\n" + "sys.setClassLoader (CLASSLOADER)\n"
+    private final String JYTHON_INIT = "import sys\n" 
+            + "sys.setClassLoader (CLASSLOADER)\n"
             + "if  sys.path.count('__pyclasspath__/Lib') == 0:\n" 
-    		+ "\tsys.path.append('__pyclasspath__/Lib')\n"
-            + "from encodings import iso8859_1\n";
+            + "\tsys.path.append('__pyclasspath__/Lib')\n"
+            + "sys.prefix = '.'\n";
 
-    @objid ("cde9eda6-7e4c-4aed-b0d4-ee6f4eaece17")
+    @objid ("6058ceb1-9f9c-4655-b38d-c535a4f745cd")
     private static final String INITSCRIPT = "res/initengine.py";
 
     @objid ("00760a48-cbcd-1065-a2b8-001ec947cd2a")
@@ -285,7 +286,7 @@ public class PythonRunner implements IScriptRunner {
         this.classLoader.add(base);
     }
 
-    @objid ("04d7cc1d-3a8a-41eb-80fb-9c48d99f9741")
+    @objid ("7c16d9bf-6525-4f82-95c3-f9fa5ed94df1")
     private String getInitScript() {
         String path="";
         Bundle bundle = Platform.getBundle(ScriptEnginePlugin.PLUGIN_ID);

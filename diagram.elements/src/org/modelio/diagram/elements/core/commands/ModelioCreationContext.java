@@ -123,7 +123,7 @@ public class ModelioCreationContext implements CreationFactory {
     }
 
     /**
-     * Get the {@link Element} to unmask.
+     * Get the {@link MObject} to unmask.
      * <p>
      * If null, the MObject must be created.
      * @return The model element to unmask.

@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.uml.behavior.activityModel;
 
 import java.util.List;
@@ -32,10 +32,10 @@ import org.modelio.metamodel.uml.behavior.activityModel.ActivityEdge;
 
 @objid ("00366bf4-c4bf-1fd8-97fe-001ec947cd2a")
 public interface InterruptibleActivityRegion extends ActivityGroup {
-    @objid ("d8777c65-1549-4fff-a458-b11517ef53af")
+    @objid ("15ce69bd-b7ca-41b2-9de9-5db86c0828d1")
     EList<ActivityEdge> getInterruptingEdge();
 
-    @objid ("8320be32-f88e-4069-97ca-6ead0f97f96e")
+    @objid ("8df29e77-d59e-4d0c-816c-0a4bed67505a")
     <T extends ActivityEdge> List<T> getInterruptingEdge(java.lang.Class<T> filterClass);
 
 }

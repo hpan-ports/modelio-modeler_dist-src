@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.data.analyst;
 
 import java.util.ArrayList;
@@ -30,6 +30,7 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.metamodel.analyst.AnalystProject;
 import org.modelio.metamodel.data.analyst.BusinessRuleContainerData;
 import org.modelio.metamodel.data.analyst.DictionaryData;
+import org.modelio.metamodel.data.analyst.GenericAnalystContainerData;
 import org.modelio.metamodel.data.analyst.GoalContainerData;
 import org.modelio.metamodel.data.analyst.PropertyContainerData;
 import org.modelio.metamodel.data.analyst.RequirementContainerData;
@@ -50,57 +51,64 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("00621268-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=AnalystProject.class, factory=AnalystProjectData.Metadata.ObjectFactory.class, cmsnode=true)
 public class AnalystProjectData extends ModelElementData {
-    @objid ("421b17b8-f5da-482f-bc1a-047d02f88f39")
+    @objid ("56c7108d-9303-452a-a6d8-9b34566139f2")
     @SmaMetaAssociation(metaName="PropertyRoot", typeDataClass=PropertyContainerData.class, min=1, max=1, smAssociationClass=Metadata.PropertyRootSmDependency.class, component = true)
      SmObjectImpl mPropertyRoot;
 
-    @objid ("3066b00e-f5a9-4fd1-9d03-cc872f87424c")
+    @objid ("dc20a853-2afc-4f71-9d9b-f3a460de1474")
     @SmaMetaAssociation(metaName="GoalRoot", typeDataClass=GoalContainerData.class, min=0, max=-1, smAssociationClass=Metadata.GoalRootSmDependency.class, component = true)
      List<SmObjectImpl> mGoalRoot = null;
 
-    @objid ("5b0cbb1f-7ed6-40e6-87dd-95c91c5ed26d")
+    @objid ("0a6f9ae0-0f21-42a4-b219-d6151fb711ac")
     @SmaMetaAssociation(metaName="BusinessRuleRoot", typeDataClass=BusinessRuleContainerData.class, min=0, max=-1, smAssociationClass=Metadata.BusinessRuleRootSmDependency.class, component = true)
      List<SmObjectImpl> mBusinessRuleRoot = null;
 
-    @objid ("2222c6a0-4e4d-4c3a-80b7-70400de24827")
+    @objid ("c3868933-904b-4b45-a400-f0e674ffe158")
     @SmaMetaAssociation(metaName="DictionaryRoot", typeDataClass=DictionaryData.class, min=0, max=-1, smAssociationClass=Metadata.DictionaryRootSmDependency.class, component = true)
      List<SmObjectImpl> mDictionaryRoot = null;
 
-    @objid ("156e6f2c-daf1-49be-a2a7-016589e92e2a")
+    @objid ("1c56bbfa-b731-4ebd-b924-a45cc3f301b9")
     @SmaMetaAssociation(metaName="RequirementRoot", typeDataClass=RequirementContainerData.class, min=0, max=-1, smAssociationClass=Metadata.RequirementRootSmDependency.class, component = true)
      List<SmObjectImpl> mRequirementRoot = null;
 
-    @objid ("571abd73-fe96-436f-b811-4251a4293ca7")
+    @objid ("94d07cd1-c43e-4cdf-92e6-4f281118f317")
+    @SmaMetaAssociation(metaName="GenericRoot", typeDataClass=GenericAnalystContainerData.class, min=0, max=-1, smAssociationClass=Metadata.GenericRootSmDependency.class, component = true)
+     List<SmObjectImpl> mGenericRoot = null;
+
+    @objid ("15bfc511-0f28-453e-9cae-49777e60160b")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("0038fd06-c4c2-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("f4d24664-405b-40c1-841f-243822bc7168")
+        @objid ("4e251d71-4054-430d-a2c7-3f167d4e2951")
         private static SmClass smClass = null;
 
-        @objid ("4f0c3339-ba37-449e-a7a6-216d7baabdb3")
+        @objid ("3f80d854-159c-4e8c-91e5-974f21a9debb")
         private static SmDependency PropertyRootDep = null;
 
-        @objid ("e18d2919-0257-4fd1-b725-96d79fdeba3c")
+        @objid ("55958d76-a750-4973-b0c4-4a8d4d26e3af")
         private static SmDependency GoalRootDep = null;
 
-        @objid ("acd48079-e10d-43c9-b7da-f7baea3a9ea6")
+        @objid ("332a12a9-0ebc-420d-beaf-b96959c31ef3")
         private static SmDependency BusinessRuleRootDep = null;
 
-        @objid ("654e25e3-eda1-417c-9295-a156ecbf7ddb")
+        @objid ("2133fd14-da30-4e79-b2da-31125174af3e")
         private static SmDependency DictionaryRootDep = null;
 
-        @objid ("c6ea40b0-e1c8-4e93-b254-b995c2620369")
+        @objid ("e587e760-0ece-4829-b9b5-a684540a624c")
         private static SmDependency RequirementRootDep = null;
 
-        @objid ("295bbded-5d20-434b-a8ba-0cc5ff5020be")
+        @objid ("af275fd4-92b9-435d-b6d1-55656379357d")
+        private static SmDependency GenericRootDep = null;
+
+        @objid ("99d3b658-8417-4a61-b81a-d4bfbbb1aa85")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(AnalystProjectData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("96bad3dd-72be-4754-bce8-01832c1b620a")
+        @objid ("379569c3-0b9c-4c15-b3a5-988e0c56d067")
         public static SmDependency PropertyRootDep() {
             if (PropertyRootDep == null) {
             	PropertyRootDep = classof().getDependencyDef("PropertyRoot");
@@ -108,7 +116,7 @@ public class AnalystProjectData extends ModelElementData {
             return PropertyRootDep;
         }
 
-        @objid ("ac659d63-7169-46ec-82a0-6715c7ffbcc0")
+        @objid ("3a28b896-aa2c-4a9e-9d23-6aebd012596f")
         public static SmDependency GoalRootDep() {
             if (GoalRootDep == null) {
             	GoalRootDep = classof().getDependencyDef("GoalRoot");
@@ -116,7 +124,7 @@ public class AnalystProjectData extends ModelElementData {
             return GoalRootDep;
         }
 
-        @objid ("091e2f62-787c-4410-8c65-4066a31d97c1")
+        @objid ("e61083ad-7a64-4a6a-954d-1d56abb2343a")
         public static SmDependency BusinessRuleRootDep() {
             if (BusinessRuleRootDep == null) {
             	BusinessRuleRootDep = classof().getDependencyDef("BusinessRuleRoot");
@@ -124,7 +132,7 @@ public class AnalystProjectData extends ModelElementData {
             return BusinessRuleRootDep;
         }
 
-        @objid ("2bebdced-d8d3-4404-93a3-7515ce6da606")
+        @objid ("bd5a7fb2-60ee-4df8-98c0-6eabd90e7d93")
         public static SmDependency DictionaryRootDep() {
             if (DictionaryRootDep == null) {
             	DictionaryRootDep = classof().getDependencyDef("DictionaryRoot");
@@ -132,7 +140,7 @@ public class AnalystProjectData extends ModelElementData {
             return DictionaryRootDep;
         }
 
-        @objid ("a04d66e8-ca1b-4eaa-a8e3-d5b158cd1516")
+        @objid ("d9dabdde-0520-4836-9e1f-7b60e99e870b")
         public static SmDependency RequirementRootDep() {
             if (RequirementRootDep == null) {
             	RequirementRootDep = classof().getDependencyDef("RequirementRoot");
@@ -140,50 +148,64 @@ public class AnalystProjectData extends ModelElementData {
             return RequirementRootDep;
         }
 
-        @objid ("2f506429-b671-44ed-8883-63b103045dc7")
-        public static SmDependency getBusinessRuleRootDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return BusinessRuleRootDep;
+        @objid ("7c583212-b3f8-4c59-9ab9-7bd9c93bfe67")
+        public static SmDependency GenericRootDep() {
+            if (GenericRootDep == null) {
+            	GenericRootDep = classof().getDependencyDef("GenericRoot");
+            }
+            return GenericRootDep;
         }
 
-        @objid ("a266b2a2-e90c-4299-8584-db45c3ce954d")
-        public static SmDependency getGoalRootDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return GoalRootDep;
-        }
-
-        @objid ("8499e7d4-1947-44e0-ad8d-029352bd3918")
-        public static SmClass getSmClass() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return smClass;
-        }
-
-        @objid ("bfaf3907-1271-4c29-a4d2-0943ff31d456")
+        @objid ("7d49d51e-f639-461d-8e15-c0fbc8a3ab8d")
         public static SmDependency getDictionaryRootDep() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return DictionaryRootDep;
         }
 
-        @objid ("ab4d863a-6f7e-4f35-99a0-d4fe4bc7837e")
-        public static SmDependency getRequirementRootDep() {
+        @objid ("5ef51d17-b91e-4d1d-8c26-16e81c01075f")
+        public static SmDependency getBusinessRuleRootDep() {
             // Automatically generated method. Please delete this comment before entering specific code.
-            return RequirementRootDep;
+            return BusinessRuleRootDep;
         }
 
-        @objid ("a1f1ec92-e5c0-432a-a078-72a06bf9de69")
+        @objid ("fcf49754-af8a-4384-9456-a51d48a24060")
+        public static SmDependency getGoalRootDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return GoalRootDep;
+        }
+
+        @objid ("f33abc0b-a556-497d-8d60-1a735133cc87")
         public static SmDependency getPropertyRootDep() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return PropertyRootDep;
         }
 
+        @objid ("121bcce4-5946-473d-923a-77ec54ba8fee")
+        public static SmDependency getRequirementRootDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return RequirementRootDep;
+        }
+
+        @objid ("d13c0b84-9256-4dbb-91d6-ea208c07a8ab")
+        public static SmDependency getGenericRootDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return GenericRootDep;
+        }
+
+        @objid ("fdaff840-aa5e-4716-a8ff-156cd006dd66")
+        public static SmClass getSmClass() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return smClass;
+        }
+
         @objid ("00394cac-c4c2-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("f6651590-c2e1-4959-a14d-b72ef8a31e7d")
+            @objid ("3f84df51-de69-4b4d-a838-0b3171dc2c0e")
             public ISmObjectData createData() {
                 return new AnalystProjectData();
             }
 
-            @objid ("b0f132cd-b8d2-4d82-bc3e-f0b3be063116")
+            @objid ("24198b73-5d1f-40ce-ba29-b453f35a537a")
             public SmObjectImpl createImpl() {
                 return new AnalystProjectImpl();
             }
@@ -192,20 +214,20 @@ public class AnalystProjectData extends ModelElementData {
 
         @objid ("003a3d56-c4c2-1fd8-97fe-001ec947cd2a")
         public static class DictionaryRootSmDependency extends SmMultipleDependency {
-            @objid ("3b58d60d-90df-4956-9cde-fa4720f9e253")
+            @objid ("c3471e92-c7c0-4425-857d-36eb61d9457b")
             @Override
             public List<SmObjectImpl> getValueList(ISmObjectData data) {
                 return (((AnalystProjectData)data).mDictionaryRoot != null)? ((AnalystProjectData)data).mDictionaryRoot:SmMultipleDependency.EMPTY;
             }
 
-            @objid ("280ae702-eceb-4970-95de-f3d2db973035")
+            @objid ("d36973c4-bd01-4b4d-bc9e-a026e7c7a385")
             @Override
             protected List<SmObjectImpl> allocateValueList(ISmObjectData data, int initialCapacity) {
                 ((AnalystProjectData) data).mDictionaryRoot = new ArrayList<>(initialCapacity);
                 return ((AnalystProjectData) data).mDictionaryRoot;
             }
 
-            @objid ("819fd46f-08f7-474f-b028-92bdb86d15e1")
+            @objid ("d065a897-e477-4cf1-b9f9-e78ed6d666b4")
             @Override
             public SmDependency getSymetric() {
                 return DictionaryData.Metadata.OwnerProjectDep();
@@ -215,20 +237,20 @@ public class AnalystProjectData extends ModelElementData {
 
         @objid ("003abdbc-c4c2-1fd8-97fe-001ec947cd2a")
         public static class RequirementRootSmDependency extends SmMultipleDependency {
-            @objid ("8ffe81d9-27d0-4ee0-b1ab-386023cedc41")
+            @objid ("72c563e1-e47a-4952-a5b0-7c9fe6c6e4f3")
             @Override
             public List<SmObjectImpl> getValueList(ISmObjectData data) {
                 return (((AnalystProjectData)data).mRequirementRoot != null)? ((AnalystProjectData)data).mRequirementRoot:SmMultipleDependency.EMPTY;
             }
 
-            @objid ("079f7fe9-bb85-456d-a6a7-0a8983a3e2c2")
+            @objid ("b3026f0c-37cd-46c4-b77b-d04f34e3dbb0")
             @Override
             protected List<SmObjectImpl> allocateValueList(ISmObjectData data, int initialCapacity) {
                 ((AnalystProjectData) data).mRequirementRoot = new ArrayList<>(initialCapacity);
                 return ((AnalystProjectData) data).mRequirementRoot;
             }
 
-            @objid ("90a603bf-443f-42f4-bb7a-1dce3d9e1ab1")
+            @objid ("e1742cbf-e81e-4ad3-aeeb-dd60ff8c3839")
             @Override
             public SmDependency getSymetric() {
                 return RequirementContainerData.Metadata.OwnerProjectDep();
@@ -238,20 +260,20 @@ public class AnalystProjectData extends ModelElementData {
 
         @objid ("003b3ef4-c4c2-1fd8-97fe-001ec947cd2a")
         public static class GoalRootSmDependency extends SmMultipleDependency {
-            @objid ("8d06b83e-25e6-4682-a56c-d32404325431")
+            @objid ("9775d995-6ee8-4ab9-b54e-b6d446c62df7")
             @Override
             public List<SmObjectImpl> getValueList(ISmObjectData data) {
                 return (((AnalystProjectData)data).mGoalRoot != null)? ((AnalystProjectData)data).mGoalRoot:SmMultipleDependency.EMPTY;
             }
 
-            @objid ("a34e2f2c-a2bc-4424-b929-5140e18cc542")
+            @objid ("a092c8db-a5c7-4349-8978-1050bda94188")
             @Override
             protected List<SmObjectImpl> allocateValueList(ISmObjectData data, int initialCapacity) {
                 ((AnalystProjectData) data).mGoalRoot = new ArrayList<>(initialCapacity);
                 return ((AnalystProjectData) data).mGoalRoot;
             }
 
-            @objid ("3f448458-b965-4d00-93ea-b6c9f488485c")
+            @objid ("515d455e-e37f-4dbd-a282-13c84f24df02")
             @Override
             public SmDependency getSymetric() {
                 return GoalContainerData.Metadata.OwnerProjectDep();
@@ -261,20 +283,20 @@ public class AnalystProjectData extends ModelElementData {
 
         @objid ("003be39a-c4c2-1fd8-97fe-001ec947cd2a")
         public static class BusinessRuleRootSmDependency extends SmMultipleDependency {
-            @objid ("77cd5dbc-48b6-4db7-801b-5bf5bbaff77c")
+            @objid ("383084bb-4767-47fc-ae05-882337eb5e1c")
             @Override
             public List<SmObjectImpl> getValueList(ISmObjectData data) {
                 return (((AnalystProjectData)data).mBusinessRuleRoot != null)? ((AnalystProjectData)data).mBusinessRuleRoot:SmMultipleDependency.EMPTY;
             }
 
-            @objid ("c0ec5cac-e37d-4751-8999-ee20361890ed")
+            @objid ("74a11d9e-ac3a-4176-aa66-01defaa8b9a5")
             @Override
             protected List<SmObjectImpl> allocateValueList(ISmObjectData data, int initialCapacity) {
                 ((AnalystProjectData) data).mBusinessRuleRoot = new ArrayList<>(initialCapacity);
                 return ((AnalystProjectData) data).mBusinessRuleRoot;
             }
 
-            @objid ("b9542aa1-f541-4519-977a-7433c895d027")
+            @objid ("a841206c-db27-49a4-936a-f6a0a38c957e")
             @Override
             public SmDependency getSymetric() {
                 return BusinessRuleContainerData.Metadata.OwnerProjectDep();
@@ -284,21 +306,44 @@ public class AnalystProjectData extends ModelElementData {
 
         @objid ("af575df3-2811-11e2-b500-001ec947ccaf")
         public static class PropertyRootSmDependency extends SmSingleDependency {
-            @objid ("49d5eb95-7c65-4f17-a253-60e53617c534")
+            @objid ("85a836aa-88d9-45d2-908f-05e85a1f05c7")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((AnalystProjectData) data).mPropertyRoot;
             }
 
-            @objid ("6e9b859d-26da-4886-bc50-f770b0c9fa26")
+            @objid ("43fe4fa2-25e8-4091-9f2b-4855c9258968")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((AnalystProjectData) data).mPropertyRoot = value;
             }
 
-            @objid ("03145827-79ed-4a81-9c83-d3cd4442f29f")
+            @objid ("63481778-0e91-45b5-a139-6d7f48b3779d")
             @Override
             public SmDependency getSymetric() {
                 return PropertyContainerData.Metadata.OwnerProjectDep();
+            }
+
+        }
+
+        @objid ("78378f24-7471-44c1-8df2-112e58790f75")
+        public static class GenericRootSmDependency extends SmMultipleDependency {
+            @objid ("f5f7073c-ee66-499c-84b4-345e1f4db388")
+            @Override
+            public List<SmObjectImpl> getValueList(ISmObjectData data) {
+                return (((AnalystProjectData)data).mGenericRoot != null)? ((AnalystProjectData)data).mGenericRoot:SmMultipleDependency.EMPTY;
+            }
+
+            @objid ("0eb10020-4d8f-4820-9254-0dd43123f981")
+            @Override
+            protected List<SmObjectImpl> allocateValueList(ISmObjectData data, int initialCapacity) {
+                ((AnalystProjectData) data).mGenericRoot = new ArrayList<>(initialCapacity);
+                return ((AnalystProjectData) data).mGenericRoot;
+            }
+
+            @objid ("70f193bc-8500-4a73-a361-7bdac2a0e306")
+            @Override
+            public SmDependency getSymetric() {
+                return GenericAnalystContainerData.Metadata.OwnerProjectDep();
             }
 
         }

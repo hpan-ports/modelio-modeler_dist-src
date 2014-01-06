@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.data.uml.behavior.activityModel;
 
 import java.util.ArrayList;
@@ -44,36 +44,36 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("0030401c-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=DecisionMergeNode.class, factory=DecisionMergeNodeData.Metadata.ObjectFactory.class)
 public class DecisionMergeNodeData extends ControlNodeData {
-    @objid ("15e7de1f-4096-41cc-ba16-eacc84e9420e")
+    @objid ("d99242f8-4413-458b-bc15-573478dce149")
     @SmaMetaAttribute(metaName="DecisionKind", type=DecisionNodeKind.class, smAttributeClass=Metadata.DecisionKindSmAttribute.class)
      Object mDecisionKind = DecisionNodeKind.EXCLUSIVEDECISION;
 
-    @objid ("84b525d0-38d4-44c9-8b91-74af8253d924")
+    @objid ("25dad50a-387b-4cb0-8a0a-66fada8b1e32")
     @SmaMetaAttribute(metaName="DecisionInputBehavior", type=String.class, smAttributeClass=Metadata.DecisionInputBehaviorSmAttribute.class)
      Object mDecisionInputBehavior = "";
 
-    @objid ("63ead1d0-e6db-404f-a262-9fcbdb7e07dd")
+    @objid ("2c089186-5137-4e56-a552-737a1a3c5795")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("005bf8c4-c4c3-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("7e0e1495-f447-4f34-bca5-838ebf682ca7")
+        @objid ("86496e7c-e50c-4f1c-8e71-b14555fc91c7")
         private static SmClass smClass = null;
 
-        @objid ("646e9d71-041b-4d07-afdd-8ff285b88130")
+        @objid ("1d963b8d-ab97-4f68-88d1-3270463eddda")
         private static SmAttribute DecisionKindAtt = null;
 
-        @objid ("875bcada-ac60-442b-aa01-4340a091abaa")
+        @objid ("dd0a35a6-c872-4d84-b594-d54f8fadea3f")
         private static SmAttribute DecisionInputBehaviorAtt = null;
 
-        @objid ("b5e1bcef-d761-4320-9956-2b7605d0d5ba")
+        @objid ("e93ea920-7446-4854-b3a7-73e9ae74abd0")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(DecisionMergeNodeData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("042b8706-5216-4396-a7ff-c7259c7da098")
+        @objid ("4917f533-19fd-448b-a970-47124517f1c6")
         public static SmAttribute DecisionKindAtt() {
             if (DecisionKindAtt == null) {
             	DecisionKindAtt = classof().getAttributeDef("DecisionKind");
@@ -81,7 +81,7 @@ public class DecisionMergeNodeData extends ControlNodeData {
             return DecisionKindAtt;
         }
 
-        @objid ("6671cf77-a78b-43b2-bec9-aa6459ddf464")
+        @objid ("21ae7cce-478f-4d61-922d-f6fbb03ee1ac")
         public static SmAttribute DecisionInputBehaviorAtt() {
             if (DecisionInputBehaviorAtt == null) {
             	DecisionInputBehaviorAtt = classof().getAttributeDef("DecisionInputBehavior");
@@ -89,19 +89,19 @@ public class DecisionMergeNodeData extends ControlNodeData {
             return DecisionInputBehaviorAtt;
         }
 
-        @objid ("89ce997b-0a24-48b4-aff1-ec7ce8f78328")
-        public static SmAttribute getDecisionInputBehaviorAtt() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return DecisionInputBehaviorAtt;
-        }
-
-        @objid ("5e4190b7-63fa-4f30-a302-e2ba819f5840")
+        @objid ("903a2538-9c66-4bb9-8723-43c08ad2272a")
         public static SmClass getSmClass() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return smClass;
         }
 
-        @objid ("543e4ed9-5500-4c57-b43a-050a22080637")
+        @objid ("3720cdef-5cdd-4813-b695-47c69ac6042c")
+        public static SmAttribute getDecisionInputBehaviorAtt() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return DecisionInputBehaviorAtt;
+        }
+
+        @objid ("f952473d-1ae8-4940-a1e5-ffc8ddf61c3a")
         public static SmAttribute getDecisionKindAtt() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return DecisionKindAtt;
@@ -109,12 +109,12 @@ public class DecisionMergeNodeData extends ControlNodeData {
 
         @objid ("005c3ad2-c4c3-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("faea9314-bec4-4635-8e6e-67668884cb9c")
+            @objid ("90410fb5-8a4f-4def-9d80-469d86719c65")
             public ISmObjectData createData() {
                 return new DecisionMergeNodeData();
             }
 
-            @objid ("2019fbaa-39da-4bd3-b902-a8555e92af1e")
+            @objid ("c5e86256-4688-4282-b688-b947fdd9b846")
             public SmObjectImpl createImpl() {
                 return new DecisionMergeNodeImpl();
             }
@@ -123,12 +123,12 @@ public class DecisionMergeNodeData extends ControlNodeData {
 
         @objid ("005c9d56-c4c3-1fd8-97fe-001ec947cd2a")
         public static class DecisionKindSmAttribute extends SmAttribute {
-            @objid ("131250b9-24e8-4eb3-934d-62feb6903f10")
+            @objid ("18019dbc-5141-4e00-916f-3debe3d5775e")
             public Object getValue(ISmObjectData data) {
                 return ((DecisionMergeNodeData) data).mDecisionKind;
             }
 
-            @objid ("21c8cc65-c823-4950-b286-72ea5d6d1dcd")
+            @objid ("b58899f3-12e7-4101-836e-4f596e6aa027")
             public void setValue(ISmObjectData data, Object value) {
                 ((DecisionMergeNodeData) data).mDecisionKind = value;
             }
@@ -137,12 +137,12 @@ public class DecisionMergeNodeData extends ControlNodeData {
 
         @objid ("005f81b0-c4c3-1fd8-97fe-001ec947cd2a")
         public static class DecisionInputBehaviorSmAttribute extends SmAttribute {
-            @objid ("632dc905-9cbf-4a75-a0c3-d62fffc80020")
+            @objid ("21ae3c8d-fc2f-4766-b06e-01362b4de6e9")
             public Object getValue(ISmObjectData data) {
                 return ((DecisionMergeNodeData) data).mDecisionInputBehavior;
             }
 
-            @objid ("9d77e1e8-6467-4409-8501-37ed560efeba")
+            @objid ("3b7ed8fa-a7fc-4071-8854-d275e720ee45")
             public void setValue(ISmObjectData data, Object value) {
                 ((DecisionMergeNodeData) data).mDecisionInputBehavior = value;
             }

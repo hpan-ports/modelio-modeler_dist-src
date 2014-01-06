@@ -274,6 +274,29 @@ public class ProjectInfoHtmlGenerator {
     }
 
     /**
+     * Create Work Models Fragments table content
+     * Columns: Name, Type, Uri
+     * @param fragments @return
+     */
+    @objid ("e6e1e47c-e272-42d3-8feb-e1d7ab2ee2dc")
+    private String createWorkModelsTableContent(List<FragmentDescriptor> fragments) {
+        String content = "";
+        for(FragmentDescriptor fragment : fragments) {                              
+            content += "<tr>";
+            String fIconPath = getFragmentIconPath(fragment.getType());
+            String addIconString = "<img src=\"" + getFilePathOf(fIconPath) + "\"> ";
+            boolean isDistance = fragment.getType().equals(FragmentType.EXML_SVN);
+            String fType = isDistance ? AppProjectUi.I18N.getString("ProjectInfoHtmlGenerator.workmodeltype.distant"):AppProjectUi.I18N.getString("ProjectInfoHtmlGenerator.workmodeltype.local");
+            String fUriString = isDistance ? fragment.getUri().toString().replaceAll("%20", " ") : "";
+            content += "<td>" + addIconString + fragment.getId() + "</td>";
+            content += "<td>" + fType + "</td>";
+            content += "<td>" + fUriString + "</td>";
+            content += "</tr>"; 
+        }
+        return content;
+    }
+
+    /**
      * Create Libraries Fragments table content
      * Columns: Name, Version, Description
      * @param fragments @return
@@ -287,7 +310,6 @@ public class ProjectInfoHtmlGenerator {
             String addIconString = "<img src=\"" + getFilePathOf(fIconPath) + "\"> ";
             String fVersion = fragment.getProperties().getValue("FragmentVersion");
             String fDescription = fragment.getProperties().getValue("FragmentDescription");
-        
             content += "<td>"+ addIconString + fragment.getId() + "</td>";
             content += "<td>" + (fVersion==null?"":fVersion) + "</td>";
             content += "<td><textarea class='librarieDescriptorTextarea' rows='3' readonly>" + (fDescription==null?"":fDescription) + "</textarea></td>";
@@ -356,29 +378,6 @@ public class ProjectInfoHtmlGenerator {
         default:
             return "";
         }
-    }
-
-    /**
-     * Create Work Models Fragments table content
-     * Columns: Name, Type, Uri
-     * @param fragments @return
-     */
-    @objid ("92e163e0-1261-4c31-89f7-c50fe7336aef")
-    private String createWorkModelsTableContent(List<FragmentDescriptor> fragments) {
-        String content = "";
-        for(FragmentDescriptor fragment : fragments) {                              
-            content += "<tr>";
-            String fIconPath = getFragmentIconPath(fragment.getType());
-            String addIconString = "<img src=\"" + getFilePathOf(fIconPath) + "\"> ";
-            boolean isDistance = fragment.getType().equals(FragmentType.EXML_SVN);
-            String fType = isDistance ? AppProjectUi.I18N.getString("ProjectInfoHtmlGenerator.workmodeltype.distant"):AppProjectUi.I18N.getString("ProjectInfoHtmlGenerator.workmodeltype.local");
-            String fUriString = isDistance ? fragment.getUri().toString().replaceAll("%20", " ") : "";
-            content += "<td>" + addIconString + fragment.getId() + "</td>";
-            content += "<td>" + fType + "</td>";
-            content += "<td>" + fUriString + "</td>";
-            content += "</tr>"; 
-        }
-        return content;
     }
 
 }

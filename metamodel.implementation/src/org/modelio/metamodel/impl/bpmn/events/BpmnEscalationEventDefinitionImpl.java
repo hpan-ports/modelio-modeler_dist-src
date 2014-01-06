@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.bpmn.events;
 
 import java.util.ArrayList;
@@ -41,33 +41,33 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("008c1a7c-c4bf-1fd8-97fe-001ec947cd2a")
 public class BpmnEscalationEventDefinitionImpl extends BpmnEventDefinitionImpl implements BpmnEscalationEventDefinition {
-    @objid ("a257b862-2497-43d0-81b1-863e84bb10ba")
+    @objid ("655f856b-cae6-4a00-86b7-54d7638a84fa")
     @Override
     public String getEscalationCode() {
         return (String) getAttVal(BpmnEscalationEventDefinitionData.Metadata.EscalationCodeAtt());
     }
 
-    @objid ("e026509e-4d30-49f4-948f-dd6ba2795c93")
+    @objid ("ce0d614c-57b2-4d30-b7f8-c1883c186742")
     @Override
     public void setEscalationCode(String value) {
         setAttVal(BpmnEscalationEventDefinitionData.Metadata.EscalationCodeAtt(), value);
     }
 
-    @objid ("9b73290c-127c-4461-8aa1-d05e42115fe2")
+    @objid ("5c9489bc-37b8-45cd-ae37-450e5def9522")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("f33e5cfd-f8a2-435c-8bd1-52ef2df41d3a")
+    @objid ("bcd3c587-2321-4986-aef6-0f912370bd1a")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("73b5a0ad-bb91-48a2-9033-003d85c8c71e")
+    @objid ("2f53dacb-d921-4579-845d-a635ba8df785")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitBpmnEscalationEventDefinition(this);

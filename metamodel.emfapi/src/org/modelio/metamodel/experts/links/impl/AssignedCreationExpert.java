@@ -39,7 +39,7 @@ import org.modelio.vcore.smkernel.mapi.MObject;
 public class AssignedCreationExpert extends DefaultLinkExpert {
     @objid ("ba031b8f-ea1e-4347-826e-49b9a83d0410")
     @Override
-    public boolean canLink(MObject link, final MObject fromElement, final MObject toElement, final MObject linkOwner) {
+    public boolean canLink(MClass link, final MObject fromElement, final MObject toElement) {
         if ((fromElement instanceof Interface) ||
             (fromElement instanceof Actor) ||
             (fromElement instanceof Package) ||
@@ -51,7 +51,7 @@ public class AssignedCreationExpert extends DefaultLinkExpert {
 
     @objid ("45e5e0d8-9882-435b-a553-51e1ee471bf2")
     @Override
-    public boolean canLink(MClass link, final MClass fromMetaclass, final MClass toMetaclass, final MClass owner) {
+    public boolean canLink(MClass link, final MClass fromMetaclass, final MClass toMetaclass) {
         if ((fromMetaclass.hasBase(Metamodel.getMClass(Interface.class))) ||
             (fromMetaclass.hasBase(Metamodel.getMClass(Actor.class))) ||
             (fromMetaclass.hasBase(Metamodel.getMClass(Package.class))) ||

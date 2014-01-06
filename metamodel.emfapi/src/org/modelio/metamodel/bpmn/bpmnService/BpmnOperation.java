@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.bpmn.bpmnService;
 
 import java.util.List;
@@ -39,52 +39,52 @@ import org.modelio.metamodel.uml.statik.Operation;
 
 @objid ("000d4990-c4c0-1fd8-97fe-001ec947cd2a")
 public interface BpmnOperation extends BpmnBaseElement {
-    @objid ("1e5e141e-e66e-43c7-8cd5-6b8da0b2834c")
+    @objid ("ce462df9-c3ad-4418-86e6-27c6f21ccee6")
     EList<BpmnSendTask> getSender();
 
-    @objid ("df70057c-bf18-4236-9b57-3fd05c2be273")
+    @objid ("a0db956d-3f8c-4eaf-b9c8-d72fed03bde3")
     <T extends BpmnSendTask> List<T> getSender(java.lang.Class<T> filterClass);
 
-    @objid ("dd2111ee-a52a-4284-8301-935c4f35ac32")
+    @objid ("ea1c722e-bf5d-49e8-baaa-2fa39b52b349")
     BpmnMessage getInMessageRef();
 
-    @objid ("43e89eda-5846-4059-bda9-74826a74dfd7")
+    @objid ("4fda3789-27ba-497c-9051-d9c9b9650e41")
     void setInMessageRef(BpmnMessage value);
 
-    @objid ("422021b8-245d-4219-8943-1f246d527c5f")
+    @objid ("2adbad13-aad6-461d-af78-c8fa5bc91370")
     EList<BpmnServiceTask> getCaller();
 
-    @objid ("3d598e64-e597-4ed5-9098-f171c97677b6")
+    @objid ("599ac8ed-bc2d-486b-9a49-e54df02464fd")
     <T extends BpmnServiceTask> List<T> getCaller(java.lang.Class<T> filterClass);
 
-    @objid ("d17a7797-4eb4-4498-8100-f1a0510a4b85")
+    @objid ("5e8605be-58e5-430a-a326-a7a3f49f109f")
     BpmnMessage getOutMessageRef();
 
-    @objid ("d91ac22b-2727-42cd-8fd4-8cfd12c8bd16")
+    @objid ("b794b2bd-008b-4a4e-bed0-6ba65cbc152c")
     void setOutMessageRef(BpmnMessage value);
 
-    @objid ("b3f4cb5c-8ada-4c26-abd8-ec45457ea818")
+    @objid ("5b8f3250-c088-4453-a259-0d894f524040")
     EList<BpmnMessageEventDefinition> getEventDefinition();
 
-    @objid ("ecaff9b1-34fe-4022-a570-d5d96dc17c71")
+    @objid ("b0754413-feaa-42fe-b2c7-e1d7802e01fa")
     <T extends BpmnMessageEventDefinition> List<T> getEventDefinition(java.lang.Class<T> filterClass);
 
-    @objid ("90711a77-f5c0-41fe-867e-bd87d9639aaa")
+    @objid ("579a55e4-761b-43f4-af97-fdb0f0288f90")
     Operation getImplementationRef();
 
-    @objid ("79a80ab2-bbd0-4c0a-b463-527296f78dec")
+    @objid ("801d297f-95ae-427f-9311-81bcfe0b2ccc")
     void setImplementationRef(Operation value);
 
-    @objid ("c273b708-4c1c-4d6c-b9ea-67fb5d0f6a09")
+    @objid ("c822b55b-112d-4536-8d14-e4013d237540")
     BpmnInterface getBpmnInterfaceRef();
 
-    @objid ("681c4bfc-c54e-4b49-8649-2d3eb5006761")
+    @objid ("c9adfc77-ea91-4761-b622-fcf7a64e4576")
     void setBpmnInterfaceRef(BpmnInterface value);
 
-    @objid ("02ab491f-c0de-48f7-82a1-59f6dc00539f")
+    @objid ("63784244-7039-4189-a5a3-4f0f26cb0e1b")
     EList<BpmnReceiveTask> getReceiver();
 
-    @objid ("1b71c72a-1e3a-4ffc-989b-e2340796951f")
+    @objid ("4fae9acc-4d77-4f38-8f9e-b48c3ce944ed")
     <T extends BpmnReceiveTask> List<T> getReceiver(java.lang.Class<T> filterClass);
 
 }

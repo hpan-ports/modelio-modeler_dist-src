@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.uml.behavior.activityModel;
 
 import java.util.ArrayList;
@@ -46,61 +46,61 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("0030ab7e-c4bf-1fd8-97fe-001ec947cd2a")
 public class ExceptionHandlerImpl extends ModelElementImpl implements ExceptionHandler {
-    @objid ("8eb6e289-4d21-4e5b-b1d5-cf6d2a792816")
+    @objid ("90414ad4-f959-401d-b2ae-d1fe751dc3c6")
     @Override
     public String getGuard() {
         return (String) getAttVal(ExceptionHandlerData.Metadata.GuardAtt());
     }
 
-    @objid ("7534de3a-3752-4865-a22f-373b9921f430")
+    @objid ("9503e981-5bee-4d29-b69f-76800a6cb376")
     @Override
     public void setGuard(String value) {
         setAttVal(ExceptionHandlerData.Metadata.GuardAtt(), value);
     }
 
-    @objid ("29c336fd-95a9-4237-9565-9bd3283f453b")
+    @objid ("69899aab-40f2-49ce-ab5a-52e93db927f0")
     @Override
     public String getWeight() {
         return (String) getAttVal(ExceptionHandlerData.Metadata.WeightAtt());
     }
 
-    @objid ("7c26b2d6-32b3-4352-b4d4-6ff14c57e828")
+    @objid ("ead5364d-2d90-4bf4-90ea-6f04c23f1fb2")
     @Override
     public void setWeight(String value) {
         setAttVal(ExceptionHandlerData.Metadata.WeightAtt(), value);
     }
 
-    @objid ("4cff39e8-d7d6-4225-bf47-9437f343b715")
+    @objid ("1f68c28f-8811-42df-bba2-900333302613")
     @Override
     public ActivityAction getProtectedNode() {
         return (ActivityAction) getDepVal(ExceptionHandlerData.Metadata.ProtectedNodeDep());
     }
 
-    @objid ("54b9f712-35a2-4d25-b8d3-438c34cb88ae")
+    @objid ("42f9b3f3-d409-4c41-aeb7-0e2f3e729218")
     @Override
     public void setProtectedNode(ActivityAction value) {
         appendDepVal(ExceptionHandlerData.Metadata.ProtectedNodeDep(), (SmObjectImpl)value);
     }
 
-    @objid ("ad0917b1-6462-4864-bfd8-cb9ed0362eda")
+    @objid ("73fd5227-7c6f-41c3-b3cf-f8838827b8a2")
     @Override
     public InputPin getExceptionInput() {
         return (InputPin) getDepVal(ExceptionHandlerData.Metadata.ExceptionInputDep());
     }
 
-    @objid ("34582d25-24c7-4423-acea-fa4f82f8689c")
+    @objid ("69e49636-9429-421f-8a05-94d6e86fc9ca")
     @Override
     public void setExceptionInput(InputPin value) {
         appendDepVal(ExceptionHandlerData.Metadata.ExceptionInputDep(), (SmObjectImpl)value);
     }
 
-    @objid ("b0c91249-4e56-4a4d-9717-c72cfec0f314")
+    @objid ("f441c88b-46e9-4147-8207-49781e702243")
     @Override
     public EList<GeneralClass> getExceptionType() {
         return new SmList<>(this, ExceptionHandlerData.Metadata.ExceptionTypeDep());
     }
 
-    @objid ("1255b07d-c984-4f38-8f13-2af8445ef3be")
+    @objid ("b4a9ac9b-0e01-4234-934d-90d71c10ec37")
     @Override
     public <T extends GeneralClass> List<T> getExceptionType(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -113,7 +113,7 @@ public class ExceptionHandlerImpl extends ModelElementImpl implements ExceptionH
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("8b058323-bb18-4c95-8a51-63360391d6e4")
+    @objid ("826c1f1a-f1c7-4d42-a157-31b8c911e9df")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
@@ -123,7 +123,7 @@ public class ExceptionHandlerImpl extends ModelElementImpl implements ExceptionH
         return super.getCompositionOwner();
     }
 
-    @objid ("ca9355e6-b16e-41ae-bca6-f56cf70cbbae")
+    @objid ("7cd0c711-37b0-4cc1-8f44-2dbb14a2ce51")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
@@ -133,7 +133,7 @@ public class ExceptionHandlerImpl extends ModelElementImpl implements ExceptionH
         return super.getCompositionRelation();
     }
 
-    @objid ("b9f020a7-6b62-4c8b-8a6b-2a44f38fb16c")
+    @objid ("66ab5f8d-351b-43b7-8699-3b21bd102842")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitExceptionHandler(this);

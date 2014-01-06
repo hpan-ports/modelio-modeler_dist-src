@@ -478,4 +478,10 @@ public class BrokenModule implements IModule {
         return new LicenseInfos(Status.UNDEFINED, null, "");
     }
 
+    @objid ("58ff62c5-fc6c-49ab-9058-5bd45e585968")
+    @Override
+    public <I> I instanciateExternProcessor(String className, Class<I> clazz, Object... initargs) {
+        return null;
+    }
+
 }

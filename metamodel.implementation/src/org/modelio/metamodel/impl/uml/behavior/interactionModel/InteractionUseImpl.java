@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.uml.behavior.interactionModel;
 
 import java.util.ArrayList;
@@ -44,25 +44,25 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("00485742-c4bf-1fd8-97fe-001ec947cd2a")
 public class InteractionUseImpl extends InteractionFragmentImpl implements InteractionUse {
-    @objid ("69c6b860-8d91-4418-845c-bcbfc77e1b5b")
+    @objid ("c1909445-bdd7-410e-8205-4559008a3781")
     @Override
     public int getEndLineNumber() {
         return (Integer) getAttVal(InteractionUseData.Metadata.EndLineNumberAtt());
     }
 
-    @objid ("781c8572-43a3-4743-8873-09e523ec0248")
+    @objid ("6c6433ce-02d3-4a1f-8129-04319303e4cd")
     @Override
     public void setEndLineNumber(int value) {
         setAttVal(InteractionUseData.Metadata.EndLineNumberAtt(), value);
     }
 
-    @objid ("9a1e3099-7d1d-4c78-bbeb-f32047777c75")
+    @objid ("8b41a291-c5f3-4b90-9cc3-b7404d94120e")
     @Override
     public EList<Gate> getActualGate() {
         return new SmList<>(this, InteractionUseData.Metadata.ActualGateDep());
     }
 
-    @objid ("7f9f7f6a-9c83-45a3-adb8-0a43b811b5e0")
+    @objid ("0e933836-b411-452e-a26c-8d64058d9b23")
     @Override
     public <T extends Gate> List<T> getActualGate(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -75,33 +75,33 @@ public class InteractionUseImpl extends InteractionFragmentImpl implements Inter
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("55bcd633-ffc2-4f2c-8a6d-9e1bfc586d1e")
+    @objid ("197c9cb6-2487-4636-8c91-6d30209eb420")
     @Override
     public Interaction getRefersTo() {
         return (Interaction) getDepVal(InteractionUseData.Metadata.RefersToDep());
     }
 
-    @objid ("9fbdf360-018f-49c9-b344-0dbb78670322")
+    @objid ("54ff27ef-f798-4ce6-8c82-d58bffeae96e")
     @Override
     public void setRefersTo(Interaction value) {
         appendDepVal(InteractionUseData.Metadata.RefersToDep(), (SmObjectImpl)value);
     }
 
-    @objid ("54cb19c8-6f85-485e-b40f-1dad4c5693c8")
+    @objid ("e0313671-964a-46ab-9273-05c8fc2be634")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("052dc71e-d536-48ab-84ba-c2809ad3c5db")
+    @objid ("c50f0d76-eb11-406e-861e-e6d370ee5a07")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("d5a11787-4962-41b3-bc7d-9b9b9ef5aef1")
+    @objid ("36d4611a-cc1c-419e-9611-a36330f09795")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitInteractionUse(this);

@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.data.diagrams;
 
 import java.util.ArrayList;
@@ -43,22 +43,22 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("00705882-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=StateMachineDiagram.class, factory=StateMachineDiagramData.Metadata.ObjectFactory.class, cmsnode=true)
 public class StateMachineDiagramData extends BehaviorDiagramData {
-    @objid ("f18efe0e-f8f1-4a30-9cf0-cbaea716bb81")
+    @objid ("9321a2c9-77f9-4709-a66f-bff83c3da061")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("008f440e-c4c2-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("c93565ba-3741-4df8-86a7-327a121ffecd")
+        @objid ("397fd9ce-71a0-4afc-822d-dcbd1c05e6f2")
         private static SmClass smClass = null;
 
-        @objid ("35a26773-aed5-4284-b215-e33ec9a84804")
+        @objid ("0c381c45-d175-4e77-a907-b84cba18229f")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(StateMachineDiagramData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("83942aba-0862-4a53-93f0-04c6ab046655")
+        @objid ("95bdd81e-6257-47ee-a8a1-ce57b32067e5")
         public static SmClass getSmClass() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return smClass;
@@ -66,12 +66,12 @@ public class StateMachineDiagramData extends BehaviorDiagramData {
 
         @objid ("008f84f0-c4c2-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("6cfe66b3-d24b-4f96-9aa3-a27f57f4c80c")
+            @objid ("adc55169-455c-4c2f-bc6e-f0ac709e3d74")
             public ISmObjectData createData() {
                 return new StateMachineDiagramData();
             }
 
-            @objid ("162919a1-eb7d-4cc4-9768-6e9a743c7b01")
+            @objid ("96fd731e-de91-48c9-9aa6-30a912fd4e99")
             public SmObjectImpl createImpl() {
                 return new StateMachineDiagramImpl();
             }

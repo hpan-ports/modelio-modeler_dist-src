@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.data.uml.statik;
 
 import java.util.ArrayList;
@@ -45,36 +45,36 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("00177474-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=PackageMerge.class, factory=PackageMergeData.Metadata.ObjectFactory.class)
 public class PackageMergeData extends ModelElementData {
-    @objid ("04f79303-9c8c-48a9-bb47-fb6f72f5ee81")
+    @objid ("f790b6f7-59bc-4f81-9033-165a93e1c9a5")
     @SmaMetaAssociation(metaName="MergedPackage", typeDataClass=PackageData.class, min=1, max=1, smAssociationClass=Metadata.MergedPackageSmDependency.class, partof = true)
      SmObjectImpl mMergedPackage;
 
-    @objid ("a4ff8568-993a-410f-9006-fe53fbce56e3")
+    @objid ("54a0fe4d-0da2-4d74-81ff-60d61d78a233")
     @SmaMetaAssociation(metaName="ReceivingPackage", typeDataClass=PackageData.class, min=1, max=1, smAssociationClass=Metadata.ReceivingPackageSmDependency.class)
      SmObjectImpl mReceivingPackage;
 
-    @objid ("c5799373-31d4-4feb-bb79-8a6614b5b5da")
+    @objid ("db830aba-48c8-4d33-b911-d9e467d4fe74")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("00698020-c4c3-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("e2b96b95-3994-4a11-a871-6119b4381e8a")
+        @objid ("aadda0c5-a271-422c-bb59-ebd9e1bd060d")
         private static SmClass smClass = null;
 
-        @objid ("aacd8f78-d488-4ca0-a5e5-86feea32267c")
+        @objid ("eb899bed-26a1-4fdf-80e1-e49be081a542")
         private static SmDependency MergedPackageDep = null;
 
-        @objid ("a0b5c791-7473-4d30-bd93-b4949c7c6c3e")
+        @objid ("e0b3a1d7-91e8-43cb-b49d-c53ef291f211")
         private static SmDependency ReceivingPackageDep = null;
 
-        @objid ("e88a84c1-b08e-430f-bbfd-0bd86d55ec56")
+        @objid ("924febed-79f8-4199-901f-a598bbce5087")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(PackageMergeData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("81470dbd-d229-4a1e-ac32-8ee1be3d50ac")
+        @objid ("15298a3f-135a-4659-a5fe-3537e2115afc")
         public static SmDependency MergedPackageDep() {
             if (MergedPackageDep == null) {
             	MergedPackageDep = classof().getDependencyDef("MergedPackage");
@@ -82,7 +82,7 @@ public class PackageMergeData extends ModelElementData {
             return MergedPackageDep;
         }
 
-        @objid ("271b64fa-f4f4-4850-95e7-df50f5b59497")
+        @objid ("c95c25e1-7d01-4e19-91dd-cfe49cc60ed1")
         public static SmDependency ReceivingPackageDep() {
             if (ReceivingPackageDep == null) {
             	ReceivingPackageDep = classof().getDependencyDef("ReceivingPackage");
@@ -90,19 +90,19 @@ public class PackageMergeData extends ModelElementData {
             return ReceivingPackageDep;
         }
 
-        @objid ("ae5bb093-c8f1-4ec3-b9a6-1e54a08f0bb4")
-        public static SmDependency getReceivingPackageDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return ReceivingPackageDep;
-        }
-
-        @objid ("fef2840f-9b31-4652-8180-137cdaeb26c9")
+        @objid ("21a75338-2b7f-4a00-8a05-a1cc0474c665")
         public static SmClass getSmClass() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return smClass;
         }
 
-        @objid ("bfcee078-0602-4fac-a179-b8e217ef1902")
+        @objid ("a1428f82-bffc-4c25-bcbf-7870ae1341dd")
+        public static SmDependency getReceivingPackageDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return ReceivingPackageDep;
+        }
+
+        @objid ("af711a71-38f0-4186-9035-335dd9387f47")
         public static SmDependency getMergedPackageDep() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return MergedPackageDep;
@@ -110,12 +110,12 @@ public class PackageMergeData extends ModelElementData {
 
         @objid ("0069c1ac-c4c3-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("0087b8dc-cc8a-4f54-a02e-6c17976a48fd")
+            @objid ("2bb0d6e6-224f-4481-aacb-d41d1049ebf6")
             public ISmObjectData createData() {
                 return new PackageMergeData();
             }
 
-            @objid ("817873f8-3ec6-4a13-9ef2-fda4321e3e32")
+            @objid ("98367684-67e3-43cb-9a4b-89b64ba859fe")
             public SmObjectImpl createImpl() {
                 return new PackageMergeImpl();
             }
@@ -124,18 +124,18 @@ public class PackageMergeData extends ModelElementData {
 
         @objid ("006a2426-c4c3-1fd8-97fe-001ec947cd2a")
         public static class ReceivingPackageSmDependency extends SmSingleDependency {
-            @objid ("1f447333-3ec1-415d-b7a0-44a33649f31b")
+            @objid ("ba17bb5c-2576-4996-bd5a-26150f450edd")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((PackageMergeData) data).mReceivingPackage;
             }
 
-            @objid ("90aead62-e720-4742-a637-218bb1d4e3c5")
+            @objid ("ce8b13c9-d540-4c5e-908a-e0b65528c7a0")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((PackageMergeData) data).mReceivingPackage = value;
             }
 
-            @objid ("ffa070ed-7570-4795-a1bf-9dcb02ecb0d0")
+            @objid ("e17a89d6-31ef-4c03-ba75-a653f55e15fb")
             @Override
             public SmDependency getSymetric() {
                 return PackageData.Metadata.MergeDep();
@@ -145,18 +145,18 @@ public class PackageMergeData extends ModelElementData {
 
         @objid ("006a9870-c4c3-1fd8-97fe-001ec947cd2a")
         public static class MergedPackageSmDependency extends SmSingleDependency {
-            @objid ("38fc705a-3a33-4066-9cd7-28c43ed67cc9")
+            @objid ("0463e173-8004-4584-9f42-76fbab817fa6")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((PackageMergeData) data).mMergedPackage;
             }
 
-            @objid ("af45bf80-2313-408f-b252-27c5257c8538")
+            @objid ("01222893-6219-4c0f-907d-58057302d37c")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((PackageMergeData) data).mMergedPackage = value;
             }
 
-            @objid ("219f4eae-5fb5-4aac-969e-1d68eeced945")
+            @objid ("0d6637f7-3d76-424a-8e2a-59b13a587f8b")
             @Override
             public SmDependency getSymetric() {
                 return PackageData.Metadata.ReceivingMergeDep();

@@ -153,7 +153,9 @@ public class R2160 extends AbstractRule {
                 if (containerOwner != null) {
                     diagnostic.addEntry(checkR2160(containerOwner));
                 } else {
-                    diagnostic.addEntry(checkR2160(((Requirement) element).getParentRequirement()));
+                    Requirement parentReq = ((Requirement) element).getParentRequirement();
+                    if (parentReq != null)
+                        diagnostic.addEntry(checkR2160(parentReq));
                 }
             } else {
                 Audit.LOG.warning(Audit.PLUGIN_ID,

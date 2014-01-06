@@ -135,25 +135,6 @@ public class LinkEditorView implements CommandStackListener {
     @objid ("8574796d-78f7-4205-91a3-c08d0602bd89")
     private static final String POPUPID = "org.modelio.linkeditor.popupmenu";
 
-    @objid ("bcea56d2-0071-458f-af27-8b65ed082d29")
-    @Inject
-    private EMenuService menuService;
-
-    @objid ("740ab584-877a-4fe3-b63c-38ab8117fd9f")
-    @Inject
-    private EModelService eModelService;
-
-    @objid ("f7c0f1f0-200d-47f3-bc6f-89cb9a654313")
-    @Inject
-    @Optional
-    private MApplication application;
-
-    @objid ("7302c09c-1592-45be-a3ea-afd328ec09cc")
-    private MToolBar toolbar;
-
-    @objid ("77cba6eb-bd18-4376-9a80-596bb1ac20fb")
-    private MMenu menu;
-
     @objid ("1ba44c85-5e33-11e2-b81d-002564c97630")
     private MObject currentSelection;
 
@@ -169,23 +150,42 @@ public class LinkEditorView implements CommandStackListener {
     @Optional
     public static IMModelServices modelServices;
 
+    @objid ("81054bf8-e7db-4ad5-b9f8-49cbe55d38d4")
+    private EditDomain editDomain;
+
+    @objid ("e3571523-4096-4585-9997-d2b08d571337")
+    private SelectionSynchronizer synchronizer;
+
 // FIXME CHM this shouldn't be static...
     @objid ("8fe48f6f-e2f9-45a2-a58f-354a734b3d12")
     private static LinkEditorOptions options = new LinkEditorOptions(null,null);
 
-    @objid ("586f90a3-b396-45be-a012-14c38739eb30")
+    @objid ("43f311f1-376c-4f92-b7d4-6b1f98ced3a9")
     @Inject
-     IModelioNavigationService navigationService;
+    private EMenuService menuService;
 
-    @objid ("c874260f-bdc9-4546-a4b9-795c7dbf5556")
-    private EditDomain editDomain;
-
-    @objid ("8a710645-e026-45e1-b4cb-74d939870800")
-    private SelectionSynchronizer synchronizer;
-
-    @objid ("7d691d84-7083-4ba5-8860-d0b191b49b7c")
+    @objid ("9b195c92-ac77-40b0-8fcb-3bd008c58df3")
     @Inject
     private Shell activeShell;
+
+    @objid ("1eada249-9f7a-45db-b3f4-d7b716f25be1")
+    @Inject
+    private EModelService eModelService;
+
+    @objid ("2ef4ad13-1583-46df-bec9-5a4246524b75")
+    @Inject
+    @Optional
+    private MApplication application;
+
+    @objid ("12712677-9bf0-4b6a-ba0d-807546c4668e")
+    private static MToolBar toolbar;
+
+    @objid ("a8992ae6-4faf-415f-9f4c-6915389d9ae8")
+    private MMenu menu;
+
+    @objid ("6ef267ce-960b-4a58-ad8a-71e047c73176")
+    @Inject
+     IModelioNavigationService navigationService;
 
     /**
      * This method changes the contents of the view. It is usually called when the selected element changes in the application.
@@ -440,7 +440,7 @@ public class LinkEditorView implements CommandStackListener {
         this.getEditDomain().setActiveTool(null);
         
         // Free resources
-        this.toolbar = null;
+        LinkEditorView.toolbar = null;
         this.application = null;
         this.projectService = null;
         LinkEditorView.modelServices = null;
@@ -540,7 +540,7 @@ public class LinkEditorView implements CommandStackListener {
     @objid ("1ba90f3e-5e33-11e2-b81d-002564c97630")
     private void createPart(MPart part) {
         // Toolbar
-        this.toolbar = part.getToolbar();
+        LinkEditorView.toolbar = part.getToolbar();
         
         // View menu
         for (MMenu mmenu : part.getMenus()) {
@@ -771,9 +771,9 @@ public class LinkEditorView implements CommandStackListener {
      * @param theOptions the editor options
      */
     @objid ("c7203f3d-9ad0-4b2f-8b3f-0833ee992d7f")
-    public void configureToolbar() {
+    public static void configureToolbar() {
         // The view might not be opened yet
-        if (this.toolbar == null) {
+        if (toolbar == null) {
             return;
         }
         
@@ -842,9 +842,9 @@ public class LinkEditorView implements CommandStackListener {
     }
 
     @objid ("0a29c2ff-5cbd-436f-8ac0-e1c2c9ca0b4b")
-    private Map<String, MToolBarElement> buildToolbarElementsMap() {
+    private static Map<String, MToolBarElement> buildToolbarElementsMap() {
         Map<String, MToolBarElement> toolbarElements = new HashMap<>();
-        for (MToolBarElement element : this.toolbar.getChildren()) {           
+        for (MToolBarElement element : toolbar.getChildren()) {           
             toolbarElements.put(element.getElementId(), element);
         }
         return toolbarElements;
@@ -868,7 +868,7 @@ public class LinkEditorView implements CommandStackListener {
     }
 
     @objid ("13fb35ea-2f7a-4b1b-bf0b-49b56552398b")
-    public void showPinnedBackground(boolean pinned) {
+    public void refreshPinnedBackground() {
         BackgroundModel model = (BackgroundModel)(this.getGraphicalViewer().getContents().getModel());
         model.contentChanged();
     }

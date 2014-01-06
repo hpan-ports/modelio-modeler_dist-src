@@ -54,6 +54,9 @@ public class StyleKeyTypeConverter {
 
     /**
      * Convert a value to a String.
+     * @param key a style key
+     * @param value its value
+     * @return its value converted to string
      */
     @objid ("024df590-605c-485b-9d75-afdba3f338db")
     public static String convertToString(final StyleKey key, final Object value) {
@@ -94,6 +97,9 @@ public class StyleKeyTypeConverter {
 
     /**
      * Convert stringValue to the type of the StyleKey.
+     * @param key a style key
+     * @param stringValue a style key value as a string
+     * @return the same value converted to the style key type
      */
     @objid ("5cbff0d8-ed61-406f-93b6-62abccd9ff19")
     public static Object convertFromString(final StyleKey key, final String stringValue) {

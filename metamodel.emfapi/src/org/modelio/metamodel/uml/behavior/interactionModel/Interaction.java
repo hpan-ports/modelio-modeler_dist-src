@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.uml.behavior.interactionModel;
 
 import java.util.List;
@@ -36,28 +36,28 @@ import org.modelio.metamodel.uml.behavior.interactionModel.Lifeline;
 
 @objid ("004683fe-c4bf-1fd8-97fe-001ec947cd2a")
 public interface Interaction extends Behavior {
-    @objid ("41508569-e510-4147-9ab3-be6b12b2d217")
+    @objid ("8a47a386-5d9b-4a76-958b-8cda4f87860c")
     EList<Gate> getFormalGate();
 
-    @objid ("539923ff-b949-4824-9306-7d534f027655")
+    @objid ("ce33f86a-6899-42a4-a064-2a72ccf28865")
     <T extends Gate> List<T> getFormalGate(java.lang.Class<T> filterClass);
 
-    @objid ("27e13eeb-f93b-4ef3-b0a8-ddc02294aabf")
+    @objid ("0b72628d-2e05-4598-b324-b7e589a7eac7")
     EList<InteractionFragment> getFragment();
 
-    @objid ("c8a7d2a4-8dd0-4740-9e3a-931011f7852c")
+    @objid ("5439c79a-2211-4ba7-bd72-3bd33e121db5")
     <T extends InteractionFragment> List<T> getFragment(java.lang.Class<T> filterClass);
 
-    @objid ("f29e6166-05cb-4677-a3fc-b65657c7df50")
+    @objid ("62125a98-5416-4699-8a8f-3d9abe0d34cd")
     EList<Lifeline> getOwnedLine();
 
-    @objid ("196f9ce8-7c50-4972-937a-8a917eaf6000")
+    @objid ("0863c90d-08e6-4ed6-ac5e-950abd968057")
     <T extends Lifeline> List<T> getOwnedLine(java.lang.Class<T> filterClass);
 
-    @objid ("fd285f5b-b881-467a-ad20-dcb834420303")
+    @objid ("79d00918-c5c3-4349-92c9-977f964257b9")
     EList<InteractionUse> getReferedUse();
 
-    @objid ("ffb5c567-6bf7-4a12-9556-3046c1517929")
+    @objid ("f975b06c-b2df-464c-bfc5-9357054595f7")
     <T extends InteractionUse> List<T> getReferedUse(java.lang.Class<T> filterClass);
 
 }

@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.data.uml.behavior.activityModel;
 
 import java.util.ArrayList;
@@ -48,57 +48,57 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("0030e0d0-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=ExceptionHandler.class, factory=ExceptionHandlerData.Metadata.ObjectFactory.class)
 public class ExceptionHandlerData extends ModelElementData {
-    @objid ("1437194d-313b-4796-b53b-b76544d0f247")
+    @objid ("5f14daa9-7042-4f76-8a7c-4ebbf4362bf6")
     @SmaMetaAttribute(metaName="Guard", type=String.class, smAttributeClass=Metadata.GuardSmAttribute.class)
      Object mGuard = "";
 
-    @objid ("25f57670-fc90-46d4-885c-d4453aa9a8d5")
+    @objid ("9e18750a-8d5a-4176-81ee-345f320e1fba")
     @SmaMetaAttribute(metaName="Weight", type=String.class, smAttributeClass=Metadata.WeightSmAttribute.class)
      Object mWeight = "1";
 
-    @objid ("3c0a306e-9707-4f71-88a5-18d49a0be419")
+    @objid ("68a6a923-f8f2-422a-9ad0-c1968037a3b2")
     @SmaMetaAssociation(metaName="ProtectedNode", typeDataClass=ActivityActionData.class, min=1, max=1, smAssociationClass=Metadata.ProtectedNodeSmDependency.class)
      SmObjectImpl mProtectedNode;
 
-    @objid ("c186b396-c2f3-408e-80f6-f44983b6c44b")
+    @objid ("69bd5ec5-9c40-4b79-9ec4-0ab682bbe493")
     @SmaMetaAssociation(metaName="ExceptionInput", typeDataClass=InputPinData.class, min=1, max=1, smAssociationClass=Metadata.ExceptionInputSmDependency.class, partof = true)
      SmObjectImpl mExceptionInput;
 
-    @objid ("8c6d7370-62d4-4ea8-b29c-02c9d1430835")
+    @objid ("09a460c7-1fc7-4c9f-a82d-54dcae976d93")
     @SmaMetaAssociation(metaName="ExceptionType", typeDataClass=GeneralClassData.class, min=0, max=-1, smAssociationClass=Metadata.ExceptionTypeSmDependency.class, partof = true)
      List<SmObjectImpl> mExceptionType = null;
 
-    @objid ("cbc056f4-9402-415d-a3d3-e55461d2cb80")
+    @objid ("da737de0-6139-4caa-a21e-33bc4f101952")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("000cff94-c4c6-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("92d4fbc7-94fd-4a0d-8141-8edf5acf3cfd")
+        @objid ("ff624c97-6e5d-432b-a180-8f2e40f762de")
         private static SmClass smClass = null;
 
-        @objid ("eab3d81e-7dbf-40ec-8147-72e05f6ac831")
+        @objid ("a595e9ee-cf2e-430d-9510-e215846d03b8")
         private static SmAttribute GuardAtt = null;
 
-        @objid ("aa300947-0bd4-4a1f-b999-e3dea88670ec")
+        @objid ("611abde2-4fe9-4e00-901a-a07f2d3e2ada")
         private static SmAttribute WeightAtt = null;
 
-        @objid ("33c2bd9a-ffa1-41c6-b0a1-28f33652bd8f")
+        @objid ("bb96aa22-ec53-40cd-bd10-dffbcd4e57c6")
         private static SmDependency ProtectedNodeDep = null;
 
-        @objid ("6ccec8f7-a6dd-493a-b94e-15b9d1673036")
+        @objid ("4ae2565a-9ac2-4192-9d3e-d66cb0bd6458")
         private static SmDependency ExceptionInputDep = null;
 
-        @objid ("ce9e0885-0135-4723-9b2c-203a3dd82910")
+        @objid ("37b87701-5317-484a-b0de-fd7711e62599")
         private static SmDependency ExceptionTypeDep = null;
 
-        @objid ("78753c8d-bb28-41f9-be4e-5ddd64d6fe9f")
+        @objid ("f2069d02-5976-48c4-a776-1c24a98d25ff")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(ExceptionHandlerData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("fcaa3cfa-f33c-47b2-bd9d-7c9d54b987dc")
+        @objid ("e68af5ea-d2db-4c3b-9890-bc9a15df7c85")
         public static SmAttribute GuardAtt() {
             if (GuardAtt == null) {
             	GuardAtt = classof().getAttributeDef("Guard");
@@ -106,7 +106,7 @@ public class ExceptionHandlerData extends ModelElementData {
             return GuardAtt;
         }
 
-        @objid ("f4caa735-7d17-4c00-aee3-df4a031b66a5")
+        @objid ("04c00594-4165-458a-91cf-56b40eb58c4d")
         public static SmAttribute WeightAtt() {
             if (WeightAtt == null) {
             	WeightAtt = classof().getAttributeDef("Weight");
@@ -114,7 +114,7 @@ public class ExceptionHandlerData extends ModelElementData {
             return WeightAtt;
         }
 
-        @objid ("eabf926a-bdd3-4b58-b9c7-cab30fcfcda8")
+        @objid ("edadcda8-6c56-489c-8a4d-37d824c4669e")
         public static SmDependency ProtectedNodeDep() {
             if (ProtectedNodeDep == null) {
             	ProtectedNodeDep = classof().getDependencyDef("ProtectedNode");
@@ -122,7 +122,7 @@ public class ExceptionHandlerData extends ModelElementData {
             return ProtectedNodeDep;
         }
 
-        @objid ("aa7283fc-e014-4ca3-8494-68ee62e27384")
+        @objid ("483a9d48-655b-469c-9835-ceb388f4ecd6")
         public static SmDependency ExceptionInputDep() {
             if (ExceptionInputDep == null) {
             	ExceptionInputDep = classof().getDependencyDef("ExceptionInput");
@@ -130,7 +130,7 @@ public class ExceptionHandlerData extends ModelElementData {
             return ExceptionInputDep;
         }
 
-        @objid ("1a74609b-faec-4f36-be79-35746076c6f6")
+        @objid ("ec139031-54c9-4dc4-93e0-f221e15589a1")
         public static SmDependency ExceptionTypeDep() {
             if (ExceptionTypeDep == null) {
             	ExceptionTypeDep = classof().getDependencyDef("ExceptionType");
@@ -138,50 +138,50 @@ public class ExceptionHandlerData extends ModelElementData {
             return ExceptionTypeDep;
         }
 
-        @objid ("627afa97-8743-49cb-927a-ff0cb9c2aebe")
-        public static SmDependency getExceptionInputDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return ExceptionInputDep;
-        }
-
-        @objid ("ef1a3089-75ab-4ab2-b7c3-a19af3f7b267")
-        public static SmDependency getExceptionTypeDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return ExceptionTypeDep;
-        }
-
-        @objid ("7530f78f-5cda-4717-8e15-0de63db8ad07")
-        public static SmDependency getProtectedNodeDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return ProtectedNodeDep;
-        }
-
-        @objid ("702e6ec9-8637-4a70-a7fd-fe05aeae72ad")
+        @objid ("994c1646-f997-48b7-8b3d-4388f6d6fc9a")
         public static SmAttribute getWeightAtt() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return WeightAtt;
         }
 
-        @objid ("03ec15cb-85a5-463a-a1d1-8f0aadca6a07")
+        @objid ("284ca3eb-3408-43f4-892a-4eafb708f57d")
         public static SmAttribute getGuardAtt() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return GuardAtt;
         }
 
-        @objid ("787d19d8-0b6e-4056-a9f7-1f2c85b79526")
+        @objid ("97841d5d-5ab7-401a-9360-11edb78a8184")
+        public static SmDependency getExceptionInputDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return ExceptionInputDep;
+        }
+
+        @objid ("f86f36c4-cdcd-4c33-aefa-88e973527d06")
         public static SmClass getSmClass() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return smClass;
         }
 
+        @objid ("5fe74dd7-2e17-47b0-a238-0755cb181e9a")
+        public static SmDependency getExceptionTypeDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return ExceptionTypeDep;
+        }
+
+        @objid ("2ffefd9e-b2cc-47a8-8e30-fceddb1932bd")
+        public static SmDependency getProtectedNodeDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return ProtectedNodeDep;
+        }
+
         @objid ("000d40d0-c4c6-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("dd55f4c0-be7a-4aa4-b653-ce1dfa7201cf")
+            @objid ("ae2394b2-04af-4d48-afa1-a80e8bdb4d67")
             public ISmObjectData createData() {
                 return new ExceptionHandlerData();
             }
 
-            @objid ("8a5d57ca-8c9b-4eca-ab45-1bb9400a638a")
+            @objid ("16fa8724-9b0e-4c05-b01a-9319f7fd13c6")
             public SmObjectImpl createImpl() {
                 return new ExceptionHandlerImpl();
             }
@@ -190,12 +190,12 @@ public class ExceptionHandlerData extends ModelElementData {
 
         @objid ("000da2d2-c4c6-1fd8-97fe-001ec947cd2a")
         public static class GuardSmAttribute extends SmAttribute {
-            @objid ("2cea968c-7d81-4610-9d3e-3b9cca386d6a")
+            @objid ("c93ae493-1f5a-4bb2-b034-5c60d740d6ac")
             public Object getValue(ISmObjectData data) {
                 return ((ExceptionHandlerData) data).mGuard;
             }
 
-            @objid ("1d00fe5e-49c1-49ea-9334-72b749416036")
+            @objid ("46727028-debf-4076-894b-e46a08a8f461")
             public void setValue(ISmObjectData data, Object value) {
                 ((ExceptionHandlerData) data).mGuard = value;
             }
@@ -204,12 +204,12 @@ public class ExceptionHandlerData extends ModelElementData {
 
         @objid ("000e092a-c4c6-1fd8-97fe-001ec947cd2a")
         public static class WeightSmAttribute extends SmAttribute {
-            @objid ("880e2c52-3704-4339-8973-ad5075845e7e")
+            @objid ("fe49df62-a7f8-44df-b870-8a76ef518e48")
             public Object getValue(ISmObjectData data) {
                 return ((ExceptionHandlerData) data).mWeight;
             }
 
-            @objid ("dfddaff7-14ae-4b54-9c25-fa59833d90e4")
+            @objid ("c8f8a4bd-4633-4e68-a6d3-1542515e093b")
             public void setValue(ISmObjectData data, Object value) {
                 ((ExceptionHandlerData) data).mWeight = value;
             }
@@ -218,18 +218,18 @@ public class ExceptionHandlerData extends ModelElementData {
 
         @objid ("000e6c9e-c4c6-1fd8-97fe-001ec947cd2a")
         public static class ExceptionInputSmDependency extends SmSingleDependency {
-            @objid ("0ae3701b-a65a-4b21-abfd-6441a46c5776")
+            @objid ("d5567f5b-cddb-4bcf-be2d-50de1902f3ce")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((ExceptionHandlerData) data).mExceptionInput;
             }
 
-            @objid ("b6a43fdc-601c-493b-a731-353bf722c76e")
+            @objid ("5b44fedd-d1de-4c92-865a-9ddf7050a523")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((ExceptionHandlerData) data).mExceptionInput = value;
             }
 
-            @objid ("aec90295-6a00-44d5-9b6a-66fba416e4e5")
+            @objid ("8379e8ef-e0dc-424b-a1bf-b6136db563c4")
             @Override
             public SmDependency getSymetric() {
                 return InputPinData.Metadata.HandlerDep();
@@ -239,18 +239,18 @@ public class ExceptionHandlerData extends ModelElementData {
 
         @objid ("000ee368-c4c6-1fd8-97fe-001ec947cd2a")
         public static class ProtectedNodeSmDependency extends SmSingleDependency {
-            @objid ("74350549-8a58-40a4-b40f-c41b88d817f6")
+            @objid ("6ccfd69f-b8d8-46c6-a1a3-65efd1ae2285")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((ExceptionHandlerData) data).mProtectedNode;
             }
 
-            @objid ("979c0547-6fcd-4d0f-bdb4-c25179d03a06")
+            @objid ("ccd8653f-e7cb-4812-854e-dc6cadce8935")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((ExceptionHandlerData) data).mProtectedNode = value;
             }
 
-            @objid ("ac77bb45-a813-4bff-8c50-d74c228f0b8b")
+            @objid ("30ad3a4a-4b0a-48d4-ab30-161f3f8f7349")
             @Override
             public SmDependency getSymetric() {
                 return ActivityActionData.Metadata.HandlerDep();
@@ -260,20 +260,20 @@ public class ExceptionHandlerData extends ModelElementData {
 
         @objid ("000f5974-c4c6-1fd8-97fe-001ec947cd2a")
         public static class ExceptionTypeSmDependency extends SmMultipleDependency {
-            @objid ("607e6ef5-9db5-491c-945b-3939615dc024")
+            @objid ("2e947dbf-4421-4a6e-9cc6-80f6e27d7a9e")
             @Override
             public List<SmObjectImpl> getValueList(ISmObjectData data) {
                 return (((ExceptionHandlerData)data).mExceptionType != null)? ((ExceptionHandlerData)data).mExceptionType:SmMultipleDependency.EMPTY;
             }
 
-            @objid ("449f8287-08d5-4034-b21e-539fc64e92e7")
+            @objid ("8732adb3-8022-4fbb-af84-3c5b84953f8c")
             @Override
             protected List<SmObjectImpl> allocateValueList(ISmObjectData data, int initialCapacity) {
                 ((ExceptionHandlerData) data).mExceptionType = new ArrayList<>(initialCapacity);
                 return ((ExceptionHandlerData) data).mExceptionType;
             }
 
-            @objid ("da9a4428-ebcb-43e9-80df-b74293ec3a30")
+            @objid ("81a5f165-058f-4505-ac13-6251211685d9")
             @Override
             public SmDependency getSymetric() {
                 return GeneralClassData.Metadata.ExceptionInputDep();

@@ -37,11 +37,11 @@ import org.modelio.diagram.styles.core.StyleKey.ConnectionRouterId;
  */
 @objid ("80494675-1dec-11e2-8cad-001ec947c8cc")
 public class ObliqueConnectionHelper implements IConnectionHelper {
-    @objid ("dba7ffb3-c6e3-4dfe-a9b9-781f93c480bb")
-    private List<Point> bendPoints = new ArrayList<>();
-
     @objid ("48640c96-d892-420a-b162-5d0457ed8510")
     private Connection connection;
+
+    @objid ("67bd0702-1f19-4ccd-80ec-f2764126084a")
+    private List<Point> bendPoints = new ArrayList<>();
 
     /**
      * Get all bend points without extremity points.

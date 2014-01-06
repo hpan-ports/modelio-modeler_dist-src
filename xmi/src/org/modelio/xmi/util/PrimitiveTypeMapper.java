@@ -72,8 +72,11 @@ public class PrimitiveTypeMapper {
     @objid ("47fc370e-7906-46d9-a95a-aa0bfd4ecf28")
     private static final String unlimitedNaturalName = "UnlimitedNatural";
 
+    @objid ("ea81f12d-fe85-4953-9cf7-a6e2ecb953a2")
+    private static final String eStringEcoreName = "EString";
+
     @objid ("652a94e7-9949-418a-885d-5c013fc36be1")
-    private static List<org.eclipse.uml2.uml.PrimitiveType> predefinedType = new ArrayList<org.eclipse.uml2.uml.PrimitiveType>();
+    private static List<org.eclipse.uml2.uml.PrimitiveType> predefinedType = new ArrayList<>();
 
     @objid ("2f6ac003-73f4-449b-a322-742e2e1d9553")
     private static org.eclipse.uml2.uml.PrimitiveType BYTE = null;
@@ -421,7 +424,7 @@ public class PrimitiveTypeMapper {
         STRING = null;
         INTEGER = null;
         UNLIMITED = null;
-        predefinedType = new ArrayList<org.eclipse.uml2.uml.PrimitiveType>();
+        predefinedType = new ArrayList<>();
     }
 
     /**
@@ -498,6 +501,8 @@ public class PrimitiveTypeMapper {
                 return umlTypes.getSHORT();
             }else if (currentEcoreTypeName.equals(charEcoreName)){
                 return umlTypes.getCHAR();
+            }else if (currentEcoreTypeName.equals(eStringEcoreName)){
+                return umlTypes.getSTRING();
             }
         }
         
@@ -543,23 +548,27 @@ public class PrimitiveTypeMapper {
     public static boolean isPredefinedType(final org.eclipse.uml2.uml.Type ecoreType) {
         String ecoreTypeName = ecoreType.getName();
         
+        String ecoreContainerName = "";
+        
         if (ecoreTypeName == null) {
             if (ecoreType instanceof PrimitiveTypeImpl){
                 ecoreTypeName = ((PrimitiveTypeImpl) ecoreType).eProxyURI().fragment();
+                ecoreContainerName = ((PrimitiveTypeImpl) ecoreType).eProxyURI().lastSegment();
             }else if (ecoreType.eResource() != null)
                 ecoreTypeName = ecoreType.eResource().getURI().fragment();
         }
         
         if (ecoreTypeName != null) {
         
-            if ((ecoreType.eContainer() instanceof ModelImpl) && ((ModelImpl) ecoreType.eContainer()).getName().equals("EcorePrimitiveTypes")){
+            if (ecoreContainerName.contains("EcorePrimitiveTypes")){
                 if ((ecoreTypeName.equals(byteEcoreName)) 
                         || (ecoreTypeName.equals(dateEcoreName))
                         || (ecoreTypeName.equals(doubleEcoreName))
                         || (ecoreTypeName.equals(floatEcoreName)) 
                         || (ecoreTypeName.equals(longEcoreName))
                         || (ecoreTypeName.equals(shortEcoreName))
-                        || (ecoreTypeName.equals(charEcoreName))){
+                        || (ecoreTypeName.equals(charEcoreName))
+                        || (ecoreTypeName.equals(eStringEcoreName))){
                     return true;
                 }
             }
@@ -609,6 +618,18 @@ public class PrimitiveTypeMapper {
             return  (obType.equals(Modelio.getInstance().getModelingSession().getModel().getUmlTypes().getBOOLEAN()));
         }
         return false;
+    }
+
+    /**
+     * This methods return the Ecore org.eclipse.uml2.uml.PrimitiveType associated to the String Modelio Predefined org.eclipse.uml2.uml.Type
+     * @return the 'String' Ecore org.eclipse.uml2.uml.PrimitiveType
+     */
+    @objid ("be15c4e5-7396-465d-962b-e53d003cdc75")
+    public static org.eclipse.uml2.uml.PrimitiveType getEString() {
+        if (STRING == null){        
+            STRING = (org.eclipse.uml2.uml.PrimitiveType) UMLMetamodel.getInstance().getEcoreLibrary().getOwnedType(eStringEcoreName);
+        }
+        return STRING;
     }
 
 }

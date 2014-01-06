@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.uml.statik;
 
 import java.util.List;
@@ -35,34 +35,34 @@ import org.modelio.metamodel.uml.statik.TemplateParameterSubstitution;
 
 @objid ("001c3784-c4bf-1fd8-97fe-001ec947cd2a")
 public interface TemplateBinding extends ModelElement {
-    @objid ("e1558548-1b5a-449b-9030-ccb91a2a15c0")
+    @objid ("9bfd3493-3ed8-415f-a3f8-e3e1447c0e8f")
     EList<TemplateParameterSubstitution> getParameterSubstitution();
 
-    @objid ("3072eaf4-ee0a-464a-9e7f-bc4599390bff")
+    @objid ("e8e76731-5018-4652-9bc1-d4e9f90276ab")
     <T extends TemplateParameterSubstitution> List<T> getParameterSubstitution(java.lang.Class<T> filterClass);
 
-    @objid ("9029d296-0ab9-4faa-bf1b-52f3e7ee3d43")
+    @objid ("c1514761-5fa5-4f49-af42-e60d84f7f9b9")
     Operation getBoundOperation();
 
-    @objid ("49cc9951-6be3-430d-91bd-64d4e103f6d4")
+    @objid ("bc0e0e62-454f-4aa4-a4b6-f477a7aa2072")
     void setBoundOperation(Operation value);
 
-    @objid ("c8302037-2d23-4718-95de-01218a85409d")
+    @objid ("d2ef941a-f6fa-4e5f-896d-83459d148b1a")
     Operation getInstanciatedTemplateOperation();
 
-    @objid ("6185910e-3cda-44b8-865e-576a327e7072")
+    @objid ("45ecdb47-526f-4924-b339-18d0e2ffd0b9")
     void setInstanciatedTemplateOperation(Operation value);
 
-    @objid ("ac35a017-f17f-481b-bbc6-2a211fe590bc")
+    @objid ("3aa6a630-9948-4603-9f6a-cb47a6e49227")
     NameSpace getInstanciatedTemplate();
 
-    @objid ("a901ec42-70a6-41b1-8072-835545d772b6")
+    @objid ("a88e92a2-f378-4166-9a73-f6d7ae3348b0")
     void setInstanciatedTemplate(NameSpace value);
 
-    @objid ("7a78c622-647a-4f9f-8185-5b02b24ae3b3")
+    @objid ("8f5e722c-f7a1-4422-8f0f-7b63021b8d79")
     NameSpace getBoundElement();
 
-    @objid ("9daad9a3-b7a1-430c-8014-6c4eee3769c8")
+    @objid ("8d29970d-b7bb-4470-8d3a-21fa6965d94e")
     void setBoundElement(NameSpace value);
 
 }

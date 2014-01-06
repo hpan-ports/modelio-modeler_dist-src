@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.uml.behavior.activityModel;
 
 import java.util.ArrayList;
@@ -41,33 +41,33 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("002a9180-c4bf-1fd8-97fe-001ec947cd2a")
 public abstract class CallActionImpl extends ActivityActionImpl implements CallAction {
-    @objid ("7dfe2183-6a51-45ef-95bf-9c185a7695df")
+    @objid ("48cd31e7-480d-4942-92a8-0eb9308675a3")
     @Override
     public boolean isIsSynchronous() {
         return (Boolean) getAttVal(CallActionData.Metadata.IsSynchronousAtt());
     }
 
-    @objid ("ca926faf-9d97-400e-ba3d-19cdd0bb6455")
+    @objid ("8ac1f833-14f3-4601-8e53-a537b0a52fa5")
     @Override
     public void setIsSynchronous(boolean value) {
         setAttVal(CallActionData.Metadata.IsSynchronousAtt(), value);
     }
 
-    @objid ("45d28edf-e969-49fd-a332-9fbd7286040e")
+    @objid ("5a131c94-3bb9-4172-bf20-d05202c229ee")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("bd574fb3-9330-4edb-ae20-d121493e7d73")
+    @objid ("1062d377-fbd8-4c9a-96e6-ddc7941d734e")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("93fb3ca0-7e0a-43b3-b462-848db3cb27f1")
+    @objid ("92665601-af23-47a4-a8d9-0f1013e7d035")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitCallAction(this);

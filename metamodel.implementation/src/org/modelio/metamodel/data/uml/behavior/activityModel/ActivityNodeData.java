@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.data.uml.behavior.activityModel;
 
 import java.util.ArrayList;
@@ -50,64 +50,64 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("00290914-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=ActivityNode.class, factory=ActivityNodeData.Metadata.ObjectFactory.class)
 public abstract class ActivityNodeData extends ModelElementData {
-    @objid ("12623c56-d44d-449a-95cc-add90958ee7a")
+    @objid ("e39f85c6-9bde-49a2-9db1-3e73448ed8eb")
     @SmaMetaAssociation(metaName="Owner", typeDataClass=ActivityData.class, min=0, max=1, smAssociationClass=Metadata.OwnerSmDependency.class)
      SmObjectImpl mOwner;
 
-    @objid ("aa67c965-7eeb-4336-b0a0-d986677604b9")
+    @objid ("2a37924e-7a02-4783-b43b-77fd9a6c8e1b")
     @SmaMetaAssociation(metaName="OwnerPartition", typeDataClass=ActivityPartitionData.class, min=0, max=1, smAssociationClass=Metadata.OwnerPartitionSmDependency.class)
      SmObjectImpl mOwnerPartition;
 
-    @objid ("35455123-7100-40e9-8e5c-0518e54fc7df")
+    @objid ("96e00b14-da09-45c1-85c1-d984ea3edb27")
     @SmaMetaAssociation(metaName="Incoming", typeDataClass=ActivityEdgeData.class, min=0, max=-1, smAssociationClass=Metadata.IncomingSmDependency.class, istodelete = true)
      List<SmObjectImpl> mIncoming = null;
 
-    @objid ("f99cc220-a2c9-4279-a635-d19992ffb92d")
+    @objid ("9cc27b30-d22f-464c-90ce-25bfedf3bebd")
     @SmaMetaAssociation(metaName="OwnerClause", typeDataClass=ClauseData.class, min=0, max=1, smAssociationClass=Metadata.OwnerClauseSmDependency.class)
      SmObjectImpl mOwnerClause;
 
-    @objid ("22a0291b-8787-4ee0-82f6-42475cb1b484")
+    @objid ("5763ee27-d6a8-4b49-a1cd-7e2ef537212d")
     @SmaMetaAssociation(metaName="OwnerNode", typeDataClass=StructuredActivityNodeData.class, min=0, max=1, smAssociationClass=Metadata.OwnerNodeSmDependency.class)
      SmObjectImpl mOwnerNode;
 
-    @objid ("6cc8ceb7-e87f-4b9d-9fde-893e31fada9e")
+    @objid ("ea14b4ce-866a-4f86-89a3-8d7c88a613be")
     @SmaMetaAssociation(metaName="Outgoing", typeDataClass=ActivityEdgeData.class, min=0, max=-1, smAssociationClass=Metadata.OutgoingSmDependency.class, component = true)
      List<SmObjectImpl> mOutgoing = null;
 
-    @objid ("90f8e174-9e45-4cb1-8184-9efeff158210")
+    @objid ("b96b5c3f-caa7-423f-b488-65663ee9906b")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("000044ca-c4c5-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("80f366e3-0ae1-4827-bc9f-dc07450ca42d")
+        @objid ("8ec6b084-7ae9-4d78-9f94-2967b51ad909")
         private static SmClass smClass = null;
 
-        @objid ("5b5817b8-6b0e-4989-aa35-7369f2a4cdcc")
+        @objid ("057a196b-7acf-45a8-932d-057bd76a59c4")
         private static SmDependency OwnerDep = null;
 
-        @objid ("698ef549-19d9-4fd2-b48a-d608659c710e")
+        @objid ("d8df882b-067b-4816-a0c4-090e7a2d0e25")
         private static SmDependency OwnerPartitionDep = null;
 
-        @objid ("b1e5f6e8-5406-4376-b707-72b310d2b69f")
+        @objid ("53c1b11c-0c32-4bba-815d-64fb0d91a282")
         private static SmDependency IncomingDep = null;
 
-        @objid ("88c8bf32-f50e-4fa6-89bb-60a7ee429da9")
+        @objid ("5ef16855-0b38-4d0e-bff4-773d0030a551")
         private static SmDependency OwnerClauseDep = null;
 
-        @objid ("cc4eb014-a56a-4459-9f68-7e76b070ea34")
+        @objid ("7353c7fa-9957-4425-a8c3-32945c92e8a4")
         private static SmDependency OwnerNodeDep = null;
 
-        @objid ("f190bbd9-0254-43e1-b07e-78852dc7435d")
+        @objid ("17b8eaac-0313-44be-8083-dc1fcdc8bb88")
         private static SmDependency OutgoingDep = null;
 
-        @objid ("a6a4678f-6888-4fbd-9fef-95d8fd2292c2")
+        @objid ("f1a144c6-2f48-477b-b196-f78aaafa6f93")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(ActivityNodeData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("f4dc9ad3-d634-4c7b-8b10-b4e9e6552d6d")
+        @objid ("e58507ca-555e-4615-8898-4def10d224bf")
         public static SmDependency OwnerDep() {
             if (OwnerDep == null) {
             	OwnerDep = classof().getDependencyDef("Owner");
@@ -115,7 +115,7 @@ public abstract class ActivityNodeData extends ModelElementData {
             return OwnerDep;
         }
 
-        @objid ("c1250012-c0c9-4bc8-ba35-fcc574884f5e")
+        @objid ("7a8b30d9-910d-4055-8a98-5fd0495a5dfa")
         public static SmDependency OwnerPartitionDep() {
             if (OwnerPartitionDep == null) {
             	OwnerPartitionDep = classof().getDependencyDef("OwnerPartition");
@@ -123,7 +123,7 @@ public abstract class ActivityNodeData extends ModelElementData {
             return OwnerPartitionDep;
         }
 
-        @objid ("8fb701d9-060c-46c0-93fc-92e8a35e5afc")
+        @objid ("7111ba20-e137-47e9-b9cb-38b2507a206d")
         public static SmDependency IncomingDep() {
             if (IncomingDep == null) {
             	IncomingDep = classof().getDependencyDef("Incoming");
@@ -131,7 +131,7 @@ public abstract class ActivityNodeData extends ModelElementData {
             return IncomingDep;
         }
 
-        @objid ("b8bbee89-e1e4-4be8-a074-bbd9df49463f")
+        @objid ("a4e78a1c-3a12-46b3-9c58-583ec2d7a403")
         public static SmDependency OwnerClauseDep() {
             if (OwnerClauseDep == null) {
             	OwnerClauseDep = classof().getDependencyDef("OwnerClause");
@@ -139,7 +139,7 @@ public abstract class ActivityNodeData extends ModelElementData {
             return OwnerClauseDep;
         }
 
-        @objid ("476ce30c-a546-4ecc-a333-09dbe164f4d7")
+        @objid ("75ca56e2-6c6f-4c99-a721-ffa4ffc5835b")
         public static SmDependency OwnerNodeDep() {
             if (OwnerNodeDep == null) {
             	OwnerNodeDep = classof().getDependencyDef("OwnerNode");
@@ -147,7 +147,7 @@ public abstract class ActivityNodeData extends ModelElementData {
             return OwnerNodeDep;
         }
 
-        @objid ("c44c4df9-8cb8-4e08-a9ca-cd8ad73bb7a0")
+        @objid ("8538ee90-caa6-4384-934e-c74fdc2516d5")
         public static SmDependency OutgoingDep() {
             if (OutgoingDep == null) {
             	OutgoingDep = classof().getDependencyDef("Outgoing");
@@ -155,56 +155,56 @@ public abstract class ActivityNodeData extends ModelElementData {
             return OutgoingDep;
         }
 
-        @objid ("42e5f930-a0fa-45c4-b9a6-666b84ea2aed")
-        public static SmDependency getOutgoingDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return OutgoingDep;
-        }
-
-        @objid ("25410d1e-b4d6-465e-85e0-17175b72812c")
-        public static SmDependency getOwnerPartitionDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return OwnerPartitionDep;
-        }
-
-        @objid ("067eb972-2350-46e9-a64a-a9914dd4a8c1")
-        public static SmDependency getOwnerDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return OwnerDep;
-        }
-
-        @objid ("92d2a91c-24b9-430e-b152-4a3d49da92d7")
-        public static SmDependency getOwnerClauseDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return OwnerClauseDep;
-        }
-
-        @objid ("f6c1a84d-8612-4a1e-9f52-512d54c5b52d")
-        public static SmClass getSmClass() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return smClass;
-        }
-
-        @objid ("56759980-4350-4ed8-a899-60d9a4216278")
-        public static SmDependency getOwnerNodeDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return OwnerNodeDep;
-        }
-
-        @objid ("9b1579cf-c0b9-498e-b007-5f623049a416")
+        @objid ("6699cf43-50ff-4063-814e-379e2cb46081")
         public static SmDependency getIncomingDep() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return IncomingDep;
         }
 
+        @objid ("df0c45bc-0179-4890-936c-c48cd2645747")
+        public static SmDependency getOwnerNodeDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return OwnerNodeDep;
+        }
+
+        @objid ("254e636e-672e-4fac-8240-c8d51ad104b4")
+        public static SmDependency getOwnerDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return OwnerDep;
+        }
+
+        @objid ("affe7d48-f465-4a07-986a-ccca5bc78beb")
+        public static SmClass getSmClass() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return smClass;
+        }
+
+        @objid ("be2d0cc9-c623-4bf5-97b4-c4d6f39fe878")
+        public static SmDependency getOwnerClauseDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return OwnerClauseDep;
+        }
+
+        @objid ("c03cf062-ddb1-4a10-b8ec-a5acadf1d4f0")
+        public static SmDependency getOutgoingDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return OutgoingDep;
+        }
+
+        @objid ("852a23bc-b130-47c4-a37f-0fa84d04c79a")
+        public static SmDependency getOwnerPartitionDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return OwnerPartitionDep;
+        }
+
         @objid ("0000922c-c4c5-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("5507e2b8-d06b-4b48-be7e-698b3c3eed35")
+            @objid ("17a33544-34a5-4040-9089-041df0db0d3b")
             public ISmObjectData createData() {
                 throw new UnsupportedOperationException();
             }
 
-            @objid ("2c9768b4-48b0-414b-97c4-319156dd7b7a")
+            @objid ("4f4a37b7-e4f5-4819-b102-769329d3de09")
             public SmObjectImpl createImpl() {
                 throw new UnsupportedOperationException();
             }
@@ -213,20 +213,20 @@ public abstract class ActivityNodeData extends ModelElementData {
 
         @objid ("00010108-c4c5-1fd8-97fe-001ec947cd2a")
         public static class IncomingSmDependency extends SmMultipleDependency {
-            @objid ("243e4cec-6a33-44f9-8da2-b97a427d5612")
+            @objid ("a74edbe7-38d3-48d0-aded-d43756255d5a")
             @Override
             public List<SmObjectImpl> getValueList(ISmObjectData data) {
                 return (((ActivityNodeData)data).mIncoming != null)? ((ActivityNodeData)data).mIncoming:SmMultipleDependency.EMPTY;
             }
 
-            @objid ("df6afc57-fe6f-4d5b-acf0-3c26c65096ec")
+            @objid ("6e6aacb9-d9de-432b-b859-f72e9a316ac2")
             @Override
             protected List<SmObjectImpl> allocateValueList(ISmObjectData data, int initialCapacity) {
                 ((ActivityNodeData) data).mIncoming = new ArrayList<>(initialCapacity);
                 return ((ActivityNodeData) data).mIncoming;
             }
 
-            @objid ("b927a0fd-4bc6-43ce-8f66-be06b6b49d7b")
+            @objid ("3aef6b2d-daf5-4840-8a98-2ef5ab91961e")
             @Override
             public SmDependency getSymetric() {
                 return ActivityEdgeData.Metadata.TargetDep();
@@ -236,20 +236,20 @@ public abstract class ActivityNodeData extends ModelElementData {
 
         @objid ("0001732c-c4c5-1fd8-97fe-001ec947cd2a")
         public static class OutgoingSmDependency extends SmMultipleDependency {
-            @objid ("2997f0eb-2af9-47ed-bcbc-f2d801477d01")
+            @objid ("fbb0c6f8-53a9-4adc-9bbf-d17f62f5eed1")
             @Override
             public List<SmObjectImpl> getValueList(ISmObjectData data) {
                 return (((ActivityNodeData)data).mOutgoing != null)? ((ActivityNodeData)data).mOutgoing:SmMultipleDependency.EMPTY;
             }
 
-            @objid ("55a28433-38b6-4451-a1c6-d5e43c7c4320")
+            @objid ("252e1949-508f-4126-9adc-4d738ffade0d")
             @Override
             protected List<SmObjectImpl> allocateValueList(ISmObjectData data, int initialCapacity) {
                 ((ActivityNodeData) data).mOutgoing = new ArrayList<>(initialCapacity);
                 return ((ActivityNodeData) data).mOutgoing;
             }
 
-            @objid ("7e380b26-9b94-4275-b110-892cd2916c93")
+            @objid ("a5c95d11-c342-44f6-bd83-951f5ae21e07")
             @Override
             public SmDependency getSymetric() {
                 return ActivityEdgeData.Metadata.SourceDep();
@@ -259,18 +259,18 @@ public abstract class ActivityNodeData extends ModelElementData {
 
         @objid ("0001ec12-c4c5-1fd8-97fe-001ec947cd2a")
         public static class OwnerSmDependency extends SmSingleDependency {
-            @objid ("3387f837-f47f-4376-8651-008d5e8b69f7")
+            @objid ("82bb6012-f65a-4aea-b0ce-13fa29dde114")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((ActivityNodeData) data).mOwner;
             }
 
-            @objid ("2bf30d09-551a-45da-aba8-9aab8325d22a")
+            @objid ("fc1ac3a3-da77-4faf-938e-8d6465f01e5d")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((ActivityNodeData) data).mOwner = value;
             }
 
-            @objid ("8209e5fc-c4ee-4870-9ff9-c876d99d3f80")
+            @objid ("1bc967b7-991a-4c99-b765-51e3a782a206")
             @Override
             public SmDependency getSymetric() {
                 return ActivityData.Metadata.OwnedNodeDep();
@@ -280,18 +280,18 @@ public abstract class ActivityNodeData extends ModelElementData {
 
         @objid ("000263b8-c4c5-1fd8-97fe-001ec947cd2a")
         public static class OwnerNodeSmDependency extends SmSingleDependency {
-            @objid ("9e7cefad-7a89-4f33-87c8-dadcd1fc7eeb")
+            @objid ("83875e38-2a51-49f0-bf87-aa8354b9a3fe")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((ActivityNodeData) data).mOwnerNode;
             }
 
-            @objid ("56238bc0-c8f6-4bb0-8405-2fe0d0b506d7")
+            @objid ("3e033150-1a27-43ae-9012-5f2cf8007e6d")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((ActivityNodeData) data).mOwnerNode = value;
             }
 
-            @objid ("375658c3-bc05-44ac-b062-3d4a104ddf35")
+            @objid ("f709abed-9b5d-4e37-9324-28703ae07926")
             @Override
             public SmDependency getSymetric() {
                 return StructuredActivityNodeData.Metadata.BodyDep();
@@ -301,18 +301,18 @@ public abstract class ActivityNodeData extends ModelElementData {
 
         @objid ("0002dce4-c4c5-1fd8-97fe-001ec947cd2a")
         public static class OwnerClauseSmDependency extends SmSingleDependency {
-            @objid ("e9b139b8-a320-4e73-995e-9e804b8cf8fe")
+            @objid ("22ea82bb-77e2-40b8-b5af-7857eff1a5d3")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((ActivityNodeData) data).mOwnerClause;
             }
 
-            @objid ("49d5d0cd-21fb-4b37-a64b-68528e3f44f2")
+            @objid ("5909f129-b4dd-47eb-aa31-0ea6c0d5c65f")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((ActivityNodeData) data).mOwnerClause = value;
             }
 
-            @objid ("494fbd10-521a-4777-860d-db82acf15791")
+            @objid ("feb0a393-6ad4-489a-a2e2-b70b67230d48")
             @Override
             public SmDependency getSymetric() {
                 return ClauseData.Metadata.BodyDep();
@@ -322,18 +322,18 @@ public abstract class ActivityNodeData extends ModelElementData {
 
         @objid ("000354da-c4c5-1fd8-97fe-001ec947cd2a")
         public static class OwnerPartitionSmDependency extends SmSingleDependency {
-            @objid ("bfaaa51f-025f-4d37-ac14-4545abd328aa")
+            @objid ("8a56f076-478e-41c7-bb3d-95c8273d1e0a")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((ActivityNodeData) data).mOwnerPartition;
             }
 
-            @objid ("9a9fdd5b-9022-4bce-abcb-4e8af25c59f2")
+            @objid ("ff00eb20-eaf7-4ecf-af41-91edf157d2ad")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((ActivityNodeData) data).mOwnerPartition = value;
             }
 
-            @objid ("772e8bf7-9c5c-4ab9-a2b2-954d15113b3c")
+            @objid ("2338d018-a8e5-4d62-8dae-f3a316dfc45b")
             @Override
             public SmDependency getSymetric() {
                 return ActivityPartitionData.Metadata.ContainedNodeDep();

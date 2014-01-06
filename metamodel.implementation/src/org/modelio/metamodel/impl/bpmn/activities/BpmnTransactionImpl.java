@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.bpmn.activities;
 
 import java.util.ArrayList;
@@ -42,45 +42,45 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("0085963e-c4bf-1fd8-97fe-001ec947cd2a")
 public class BpmnTransactionImpl extends BpmnSubProcessImpl implements BpmnTransaction {
-    @objid ("975573ae-a307-4d64-8a0c-9e9eb25d4f72")
+    @objid ("7ea25d30-e3e2-4f09-8606-44a8ebc1dd3f")
     @Override
     public String getProtocol() {
         return (String) getAttVal(BpmnTransactionData.Metadata.ProtocolAtt());
     }
 
-    @objid ("dabdc6d1-3b63-48a5-972e-cf383c55fc2b")
+    @objid ("a4156301-22cd-4199-a5e9-3ffc1f49e333")
     @Override
     public void setProtocol(String value) {
         setAttVal(BpmnTransactionData.Metadata.ProtocolAtt(), value);
     }
 
-    @objid ("8d1c6a34-33e0-46e1-b288-d9606f21d210")
+    @objid ("f3459065-1a47-4353-a0b1-1cbc87027f09")
     @Override
     public TransactionMethod getMethod() {
         return (TransactionMethod) getAttVal(BpmnTransactionData.Metadata.MethodAtt());
     }
 
-    @objid ("285508e3-727a-4ba6-8232-b8c00982cd75")
+    @objid ("33776c36-e00e-41ef-9375-1f4d836e986f")
     @Override
     public void setMethod(TransactionMethod value) {
         setAttVal(BpmnTransactionData.Metadata.MethodAtt(), value);
     }
 
-    @objid ("47e1a6b5-378e-4d72-965e-a8e4260cb9d4")
+    @objid ("b35ecf04-3ab5-4887-8ce9-0e4c66c64769")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("b61a7a34-2a38-4e4f-bcc0-a555ed92bb94")
+    @objid ("5565a8da-1076-4c24-a338-0ce059777897")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("7cbfa25b-bd1a-4b6c-a034-49133dab5602")
+    @objid ("afa89db3-c2fb-4f04-820b-79c97a99e87d")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitBpmnTransaction(this);

@@ -21,12 +21,14 @@
 
 package org.modelio.vstore.exml.common;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URI;
 import java.nio.file.FileSystemException;
 import java.nio.file.FileSystems;
+import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -35,6 +37,7 @@ import java.util.List;
 import java.util.Map.Entry;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Properties;
 import java.util.UUID;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -588,6 +591,8 @@ public abstract class AbstractExmlRepository implements IExmlBase {
         
         initializeLoader();
         
+        checkVersions();
+        
         openIndexes(monitor);
         
         this.baseOpen = true;
@@ -1131,6 +1136,62 @@ public abstract class AbstractExmlRepository implements IExmlBase {
     @objid ("d79ead26-1aa7-453d-ab62-b8462e95022c")
     public IMaintenanceOperations getMaintenance() {
         return new MaintenanceOperations(this);
+    }
+
+    @objid ("66a95b14-c2a3-40db-b880-9f468aacbc72")
+    private void checkVersions() throws IOException {
+        RepositoryVersions repoVersion = getRepositoryVersion();
+        
+        if (repoVersion == null) {
+            if (this.writeable == Boolean.TRUE) {
+                // Compute and store repository version
+                // This code is to be removed on future versions, this case must not be allowed
+                // and the repository must then be migrated.
+                Log.trace("No version file for '"+this.getURI()+"' repository. Creating one");
+                saveRepositoryVersion();
+            } else {
+                Log.trace("No version file for read only '"+this.getURI()+"' repository.");
+            }
+        } else {
+            repoVersion.checkCompatible();
+        }
+    }
+
+    /**
+     * Save the repository format versions.
+     * @throws java.io.IOException in case of I/O failure
+     */
+    @objid ("12142941-df53-4a59-958c-4222e7ca32d7")
+    protected final void saveRepositoryVersion() throws IOException {
+        try (OutputStream out = getResourceProvider().getRepositoryVersionResource().write();) {
+            RepositoryVersions v = RepositoryVersions.current();
+            Properties props = new Properties();
+            v.write(props);
+            props.store(out, "Repository version, DO NOT EDIT.");
+        }
+    }
+
+    /**
+     * Get the repository formats versions.
+     * <p>
+     * May return <i>null</i> if it is an old repository with no format version file.
+     * @return the repository versions.
+     * @throws java.io.IOException in case of error getting the versions
+     */
+    @objid ("dd2ae746-400e-4c20-820d-1f59cc8d11b4")
+    public final RepositoryVersions getRepositoryVersion() throws IOException {
+        Properties props = new Properties();
+        try (InputStream inStream = getResourceProvider().getRepositoryVersionResource().read();) {
+            if (inStream == null) {
+                return null;
+            } else {
+                props.load(inStream);
+                
+                return new RepositoryVersions(props);
+            }
+        } catch (FileNotFoundException| NoSuchFileException e) {
+            return null;
+        }
     }
 
 }

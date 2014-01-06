@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.uml.behavior.activityModel;
 
 import java.util.List;
@@ -34,28 +34,28 @@ import org.modelio.metamodel.uml.behavior.commonBehaviors.Behavior;
 
 @objid ("0026094e-c4bf-1fd8-97fe-001ec947cd2a")
 public interface Activity extends Behavior {
-    @objid ("ac3824e7-ae44-43fc-bcef-cc74c46acc6f")
+    @objid ("abb25070-f4db-443c-a5df-f6c3414e9fc3")
     boolean isIsSingleExecution();
 
-    @objid ("2e11f2c6-0be9-45f3-b833-774420d83988")
+    @objid ("ef493d6f-4578-4207-abb2-836c4a882fc9")
     void setIsSingleExecution(boolean value);
 
-    @objid ("07106601-0ac6-4de0-b965-24df2e8df9cd")
+    @objid ("3f0bf8ad-7ec7-46be-926e-f21a21618796")
     boolean isIsReadOnly();
 
-    @objid ("cfc5bfa2-87c0-44bc-911a-d67c6d231621")
+    @objid ("07dd5692-efb7-43e6-ad1e-188a131e89d9")
     void setIsReadOnly(boolean value);
 
-    @objid ("bf99fb62-3b5a-4d88-9622-51ec0434a44d")
+    @objid ("bba2c556-c12b-4af2-97e4-a168272518e5")
     EList<ActivityGroup> getOwnedGroup();
 
-    @objid ("05db418b-8bdc-4862-92cf-2bb91d493a21")
+    @objid ("1d0e34f7-47bd-4713-8d58-042128c79808")
     <T extends ActivityGroup> List<T> getOwnedGroup(java.lang.Class<T> filterClass);
 
-    @objid ("cb71eb85-1029-49e5-a9b5-5e65e9f76056")
+    @objid ("92919846-bf70-43cc-ad37-84cffdd2637d")
     EList<ActivityNode> getOwnedNode();
 
-    @objid ("298ad041-f383-4c10-b1f6-2f6e1a705c15")
+    @objid ("bf20fc05-6a8d-412e-a0f1-527ab4f6abd5")
     <T extends ActivityNode> List<T> getOwnedNode(java.lang.Class<T> filterClass);
 
 }

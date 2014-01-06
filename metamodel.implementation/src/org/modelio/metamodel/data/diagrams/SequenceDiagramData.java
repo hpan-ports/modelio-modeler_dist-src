@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.data.diagrams;
 
 import java.util.ArrayList;
@@ -43,22 +43,22 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("006fd556-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=SequenceDiagram.class, factory=SequenceDiagramData.Metadata.ObjectFactory.class, cmsnode=true)
 public class SequenceDiagramData extends BehaviorDiagramData {
-    @objid ("01d55b02-6dbe-4ad8-aa42-3cdc4ef4c23d")
+    @objid ("f827d2c4-c90d-4ca3-9f51-c0cbee4b5d9d")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("0011cd94-c4c4-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("f5d95626-f863-43c2-bfc1-c59360a3e29a")
+        @objid ("57da1444-e3e3-4ce8-ad25-84744d79c30b")
         private static SmClass smClass = null;
 
-        @objid ("c45db8f1-650b-4188-b062-7f7d4d421a2e")
+        @objid ("5c555884-ca20-49f2-9dc6-05a28d0e8a11")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(SequenceDiagramData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("e8464a76-9e2b-497c-b404-b56eaff366cf")
+        @objid ("446f3fce-7484-4ac6-9b47-c00054d860c0")
         public static SmClass getSmClass() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return smClass;
@@ -66,12 +66,12 @@ public class SequenceDiagramData extends BehaviorDiagramData {
 
         @objid ("00120c28-c4c4-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("319b866b-1de7-4f4c-95a7-588a8c75c138")
+            @objid ("85d7213b-a1ee-4d11-a159-6ff3312685dd")
             public ISmObjectData createData() {
                 return new SequenceDiagramData();
             }
 
-            @objid ("e75beed6-142b-41eb-b962-b2663375251b")
+            @objid ("63282418-76eb-4b44-81b3-1eadbe5b9c88")
             public SmObjectImpl createImpl() {
                 return new SequenceDiagramImpl();
             }

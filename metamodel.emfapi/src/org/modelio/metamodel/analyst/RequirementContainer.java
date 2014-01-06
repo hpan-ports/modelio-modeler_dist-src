@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.analyst;
 
 import java.util.List;
@@ -33,28 +33,28 @@ import org.modelio.metamodel.analyst.Requirement;
 
 @objid ("0ba1c716-f645-446a-a591-f70aa2d0071d")
 public interface RequirementContainer extends AnalystContainer {
-    @objid ("937c0b37-cf8a-4d7b-9f9c-23ab670203f3")
+    @objid ("7defe8be-f487-4bd9-bf7a-e474e48c28bd")
     EList<Requirement> getOwnedRequirement();
 
-    @objid ("ad3a9786-214d-4322-b421-1bdaffe6de69")
+    @objid ("5b4b7d9e-eff9-495d-b389-aa7ac737af0b")
     <T extends Requirement> List<T> getOwnedRequirement(java.lang.Class<T> filterClass);
 
-    @objid ("7d0917a2-6c49-4182-b92b-07795a175e81")
+    @objid ("4ec13ad1-937c-4f72-95e8-ec3b7907e5d9")
     RequirementContainer getOwnerContainer();
 
-    @objid ("ca4cab20-39a3-4925-a9df-35872d06b846")
+    @objid ("773c501d-affe-4688-abe4-4778dd4aadd3")
     void setOwnerContainer(RequirementContainer value);
 
-    @objid ("df034bb6-52f3-493f-a499-35da20b94453")
+    @objid ("bed8471d-0559-4c7e-a892-e931e613a1dd")
     EList<RequirementContainer> getOwnedContainer();
 
-    @objid ("feeaed33-6814-4c0b-9017-9fbc5e322568")
+    @objid ("6b588194-4324-41c2-9d6f-f8c80af56712")
     <T extends RequirementContainer> List<T> getOwnedContainer(java.lang.Class<T> filterClass);
 
-    @objid ("8855f3c4-369c-4ca6-9016-f4c7ad10dae1")
+    @objid ("d08e1a77-bd5c-470d-a0dc-2bf56ddf6649")
     AnalystProject getOwnerProject();
 
-    @objid ("8f01b793-f46a-4b90-b553-177a5707cd34")
+    @objid ("49045850-1a69-4305-8a29-655eefd71d4b")
     void setOwnerProject(AnalystProject value);
 
 }

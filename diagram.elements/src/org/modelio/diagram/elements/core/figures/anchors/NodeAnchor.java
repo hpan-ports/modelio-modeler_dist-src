@@ -40,19 +40,19 @@ public class NodeAnchor extends AbstractConnectionAnchor {
     /**
      * Location of the anchor relative to the owner figure top left corner.
      */
-    @objid ("4464917b-c0bb-4868-8803-59bee7c7c82e")
+    @objid ("8d11e6f6-6fe4-4073-b320-8b4c7824038e")
     private Dimension anchorOffset;
 
     /**
      * Temporary rectangle to avoid allocation.
      */
-    @objid ("5ffb312a-7c59-441b-8034-1c4c39aa001c")
+    @objid ("c463fa8c-1577-413b-92e3-05b6ca823a61")
     private static Rectangle A_RECTANGLE = new Rectangle();
 
     /**
      * Temporary point to avoid allocation.
      */
-    @objid ("8008a459-e785-467b-81b2-784bc86ce47c")
+    @objid ("fcb8b26a-3e65-4e2c-be72-445b0b3dbda8")
     private static Point A_POINT = new Point();
 
     /**

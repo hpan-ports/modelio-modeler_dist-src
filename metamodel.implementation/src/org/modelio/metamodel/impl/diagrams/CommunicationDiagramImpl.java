@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.diagrams;
 
 import java.util.ArrayList;
@@ -41,21 +41,21 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("006cd48c-c4bf-1fd8-97fe-001ec947cd2a")
 public class CommunicationDiagramImpl extends BehaviorDiagramImpl implements CommunicationDiagram {
-    @objid ("d49e1c3d-5796-4428-b11c-8f69585979ef")
+    @objid ("a4bc2580-7b03-4ad3-bbbd-723ea2898d2a")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("46e7ff97-d433-4347-95cc-579860e72556")
+    @objid ("95e2115d-5255-4388-8d6a-fd430dc60024")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("8fea594e-9025-446a-9528-8bd50fd0da62")
+    @objid ("24125f53-0375-4cf5-b6e9-9a671527e3cc")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitCommunicationDiagram(this);

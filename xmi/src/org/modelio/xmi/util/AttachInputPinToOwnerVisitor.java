@@ -33,7 +33,7 @@ public class AttachInputPinToOwnerVisitor {
     @objid ("248c7af0-bdbc-44b9-b79c-d26408547278")
      org.eclipse.uml2.uml.InputPin _inputPin = null;
 
-    @objid ("5e0ca856-1351-4c21-8040-2756128651dc")
+    @objid ("bf511ee0-cdaf-4a6f-818a-95cead75d4a5")
      org.modelio.metamodel.uml.behavior.activityModel.InputPin _obInputPin = null;
 
     @objid ("c69b01a5-18de-428e-a477-0e9abde60509")

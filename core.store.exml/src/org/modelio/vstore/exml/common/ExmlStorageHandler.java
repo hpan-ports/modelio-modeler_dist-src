@@ -305,9 +305,9 @@ public class ExmlStorageHandler implements IRepositoryObject {
             try (IModelLoader modelLoader = this.base.getModelLoaderProvider().beginLoadSession()) {
                 success = this.base.reloadCmsNode(this.cmsNode, modelLoader);
             } catch (DuplicateObjectException e) {
-                this.base.getErrorSupport().fireError(e);
+                this.base.getErrorSupport().fireError(new IOException("Failed loading "+this+": "+e.getLocalizedMessage(), e));
             } catch (RuntimeException e) {
-                this.base.getErrorSupport().fireError(e);
+                this.base.getErrorSupport().fireError(new IOException("Failed loading "+this+": "+e.toString(), e));
             } finally {
                 this.isLoaded = success;
             }

@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.bpmn.events;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
@@ -30,16 +30,16 @@ import org.eclipse.emf.ecore.EObject;
 
 @objid ("00965cf8-c4bf-1fd8-97fe-001ec947cd2a")
 public interface BpmnTimerEventDefinition extends BpmnEventDefinition {
-    @objid ("71a54f6c-db47-4212-a695-22dfcea0df6a")
+    @objid ("b27bcf57-3d12-43cd-8fbd-79fe567c1c39")
     String getTimeCycle();
 
-    @objid ("c46a4450-c0ae-40bd-a672-643101913330")
+    @objid ("bebc3a84-16ac-43d1-b51d-01d0c424ca5a")
     void setTimeCycle(String value);
 
-    @objid ("bcd018fd-fe0b-45b8-bf8e-1e6f00730468")
+    @objid ("f010cdbf-be28-4e13-9a96-b1028adec8b8")
     String getTimeD();
 
-    @objid ("b5e4554f-d597-4502-a05d-a34d9a459e3d")
+    @objid ("8e391991-3347-46ae-aab3-e8feb16c9414")
     void setTimeD(String value);
 
 }

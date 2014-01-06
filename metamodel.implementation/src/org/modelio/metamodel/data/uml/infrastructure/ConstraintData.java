@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.data.uml.infrastructure;
 
 import java.util.ArrayList;
@@ -45,50 +45,50 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("00859e2c-c4be-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=Constraint.class, factory=ConstraintData.Metadata.ObjectFactory.class)
 public class ConstraintData extends ModelElementData {
-    @objid ("a48fa8a1-34b8-46f5-8387-801acf304332")
+    @objid ("5b49d325-6ff6-42d2-b67a-27e98fb2e9cd")
     @SmaMetaAttribute(metaName="BaseClass", type=String.class, smAttributeClass=Metadata.BaseClassSmAttribute.class)
      Object mBaseClass = "";
 
-    @objid ("cd11ce35-5b5e-4955-88b8-db4150d4f56e")
+    @objid ("304f188d-4569-4a68-9982-28e2cad733b7")
     @SmaMetaAttribute(metaName="Body", type=String.class, smAttributeClass=Metadata.BodySmAttribute.class)
      Object mBody = "";
 
-    @objid ("13c67fba-820b-40e7-8b48-dd47c2203beb")
+    @objid ("cfdd73b9-370b-444a-975a-fb38bfd6ff13")
     @SmaMetaAttribute(metaName="Language", type=String.class, smAttributeClass=Metadata.LanguageSmAttribute.class)
      Object mLanguage = "";
 
-    @objid ("d8244f1d-dab7-484c-9ada-1bde1f7f48b1")
+    @objid ("9b51d8da-a193-4734-ad2a-1cab2d726215")
     @SmaMetaAssociation(metaName="ConstrainedElement", typeDataClass=ModelElementData.class, min=0, max=-1, smAssociationClass=Metadata.ConstrainedElementSmDependency.class, partof = true)
      List<SmObjectImpl> mConstrainedElement = null;
 
-    @objid ("7be7c61b-5480-4ee3-8d00-f134cea46c11")
+    @objid ("3aba2548-5324-4479-9cca-1edf37851542")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("00982a7e-c4c2-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("e6e192f6-d9e2-4751-934c-cac2e5acbd19")
+        @objid ("2192ea84-4c4f-476e-977d-9ccd84c6d798")
         private static SmClass smClass = null;
 
-        @objid ("10d99b48-623b-45dc-a67a-5764161a3623")
+        @objid ("15c1563a-50bd-45c9-9ffb-3939fda3c8dc")
         private static SmAttribute BaseClassAtt = null;
 
-        @objid ("eca3217c-a29a-49b3-a37f-89ad6196b081")
+        @objid ("8038e113-7a95-42bb-9644-6bc7d31e6875")
         private static SmAttribute BodyAtt = null;
 
-        @objid ("609d4b73-44dd-48e0-90a9-80790c0014b5")
+        @objid ("409b7391-e31a-48dd-af6e-97353ac9516d")
         private static SmAttribute LanguageAtt = null;
 
-        @objid ("644883b9-69fe-4bab-aa59-eab95c37b427")
+        @objid ("67246691-3be3-4dab-be18-cf7b1724ea47")
         private static SmDependency ConstrainedElementDep = null;
 
-        @objid ("ee40c935-a983-478c-a962-9739bb6c7cb2")
+        @objid ("66bea0c6-1a6e-4aa7-8334-e1b1ab82c201")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(ConstraintData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("eac93759-e0f7-40bc-be32-9b5804faceff")
+        @objid ("e3af0a9a-9e50-474c-836c-d4586b5a067c")
         public static SmAttribute BaseClassAtt() {
             if (BaseClassAtt == null) {
             	BaseClassAtt = classof().getAttributeDef("BaseClass");
@@ -96,7 +96,7 @@ public class ConstraintData extends ModelElementData {
             return BaseClassAtt;
         }
 
-        @objid ("dbcf68cf-f89c-4c14-adc8-9ff86fcac6ab")
+        @objid ("12c03a04-70ba-4853-9c35-fa5bd592bf89")
         public static SmAttribute BodyAtt() {
             if (BodyAtt == null) {
             	BodyAtt = classof().getAttributeDef("Body");
@@ -104,7 +104,7 @@ public class ConstraintData extends ModelElementData {
             return BodyAtt;
         }
 
-        @objid ("6fcecd74-7c56-4235-8af3-7d3d66d62f46")
+        @objid ("ab909c64-0c2a-46f1-b66e-15d8baca73c4")
         public static SmAttribute LanguageAtt() {
             if (LanguageAtt == null) {
             	LanguageAtt = classof().getAttributeDef("Language");
@@ -112,7 +112,7 @@ public class ConstraintData extends ModelElementData {
             return LanguageAtt;
         }
 
-        @objid ("8ded9ad2-8036-4e65-a4e5-519a7fc5386b")
+        @objid ("33b895ae-83de-4a3e-98e4-23db43b8566a")
         public static SmDependency ConstrainedElementDep() {
             if (ConstrainedElementDep == null) {
             	ConstrainedElementDep = classof().getDependencyDef("ConstrainedElement");
@@ -120,44 +120,44 @@ public class ConstraintData extends ModelElementData {
             return ConstrainedElementDep;
         }
 
-        @objid ("6852f8da-09b2-44a7-a096-94e7ff5864bd")
-        public static SmClass getSmClass() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return smClass;
-        }
-
-        @objid ("b59afc19-1088-43fd-98f5-2cdbfd090973")
-        public static SmAttribute getBodyAtt() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return BodyAtt;
-        }
-
-        @objid ("a0238d96-6106-42b8-bdef-446e3fce9d1a")
-        public static SmAttribute getBaseClassAtt() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return BaseClassAtt;
-        }
-
-        @objid ("4cb78fef-3388-46d2-87de-103cca6e4bf4")
+        @objid ("853c78f7-d65a-46a1-a6b9-ddbf34c7f3a4")
         public static SmAttribute getLanguageAtt() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return LanguageAtt;
         }
 
-        @objid ("82191684-aa27-4707-a1a7-2fc5c4e6ecf3")
+        @objid ("0da8705c-ed83-41bf-9d69-280b867cdc6e")
+        public static SmAttribute getBodyAtt() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return BodyAtt;
+        }
+
+        @objid ("12f032e4-55c9-48c0-b9de-0bebce991331")
         public static SmDependency getConstrainedElementDep() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return ConstrainedElementDep;
         }
 
+        @objid ("4838b033-0e43-4c0b-b959-b666c0947edf")
+        public static SmAttribute getBaseClassAtt() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return BaseClassAtt;
+        }
+
+        @objid ("bb300a13-99b7-4d4d-bf88-4d1bddc6a2fc")
+        public static SmClass getSmClass() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return smClass;
+        }
+
         @objid ("00986bec-c4c2-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("9fbefb18-548b-498c-8942-b80f98c0aca4")
+            @objid ("d732e715-2bde-4e3c-9a85-f6c382f0a5f5")
             public ISmObjectData createData() {
                 return new ConstraintData();
             }
 
-            @objid ("e62de3d2-f2ee-462d-8810-0f3b82b8ba6b")
+            @objid ("3829a919-6e9d-4755-aada-b506f76fd596")
             public SmObjectImpl createImpl() {
                 return new ConstraintImpl();
             }
@@ -166,12 +166,12 @@ public class ConstraintData extends ModelElementData {
 
         @objid ("00003b10-c4c3-1fd8-97fe-001ec947cd2a")
         public static class BaseClassSmAttribute extends SmAttribute {
-            @objid ("1e36362e-f5fd-4e1a-8ec7-cac8f668dd27")
+            @objid ("1ac0ea98-b811-483b-b7af-9f055e25c099")
             public Object getValue(ISmObjectData data) {
                 return ((ConstraintData) data).mBaseClass;
             }
 
-            @objid ("f2692c59-94d3-4c9b-a291-f5bdc84047fa")
+            @objid ("00971add-3adf-4b49-a605-eab7b8ed88dc")
             public void setValue(ISmObjectData data, Object value) {
                 ((ConstraintData) data).mBaseClass = value;
             }
@@ -180,12 +180,12 @@ public class ConstraintData extends ModelElementData {
 
         @objid ("00009cd6-c4c3-1fd8-97fe-001ec947cd2a")
         public static class BodySmAttribute extends SmAttribute {
-            @objid ("1cfe85c9-7b0b-4d79-84ef-4f02d7e8e54e")
+            @objid ("17a2e9eb-a0ed-433d-b6ef-51cf07f9778a")
             public Object getValue(ISmObjectData data) {
                 return ((ConstraintData) data).mBody;
             }
 
-            @objid ("2bb8746f-ae38-4252-9840-55c6e8d3848d")
+            @objid ("89032494-51e7-4563-8014-3a785738cf6f")
             public void setValue(ISmObjectData data, Object value) {
                 ((ConstraintData) data).mBody = value;
             }
@@ -194,12 +194,12 @@ public class ConstraintData extends ModelElementData {
 
         @objid ("0000fd98-c4c3-1fd8-97fe-001ec947cd2a")
         public static class LanguageSmAttribute extends SmAttribute {
-            @objid ("297f183a-7e53-4a17-8439-3bc49ad9415e")
+            @objid ("ac631f5d-b27f-4470-a828-48ebb152dab2")
             public Object getValue(ISmObjectData data) {
                 return ((ConstraintData) data).mLanguage;
             }
 
-            @objid ("2d45108d-8f1a-4bda-badd-ca00a7681803")
+            @objid ("37156bc9-0010-4ea3-85c2-493ac7df09d2")
             public void setValue(ISmObjectData data, Object value) {
                 ((ConstraintData) data).mLanguage = value;
             }
@@ -208,20 +208,20 @@ public class ConstraintData extends ModelElementData {
 
         @objid ("00016238-c4c3-1fd8-97fe-001ec947cd2a")
         public static class ConstrainedElementSmDependency extends SmMultipleDependency {
-            @objid ("34487356-6f05-4f34-9f0e-0e5f9a05f89e")
+            @objid ("6ba5aa26-eaaa-4787-9a03-ed065a125206")
             @Override
             public List<SmObjectImpl> getValueList(ISmObjectData data) {
                 return (((ConstraintData)data).mConstrainedElement != null)? ((ConstraintData)data).mConstrainedElement:SmMultipleDependency.EMPTY;
             }
 
-            @objid ("17a74a3a-556b-48c6-ae27-f98d898693ad")
+            @objid ("0315a123-4050-4551-8056-81e96b4c306b")
             @Override
             protected List<SmObjectImpl> allocateValueList(ISmObjectData data, int initialCapacity) {
                 ((ConstraintData) data).mConstrainedElement = new ArrayList<>(initialCapacity);
                 return ((ConstraintData) data).mConstrainedElement;
             }
 
-            @objid ("10440a9b-593e-49a4-a5ca-382104ee0b0d")
+            @objid ("fe316cfe-887d-4f7d-b4f6-828fb437b9f8")
             @Override
             public SmDependency getSymetric() {
                 return ModelElementData.Metadata.ConstraintDefinitionDep();

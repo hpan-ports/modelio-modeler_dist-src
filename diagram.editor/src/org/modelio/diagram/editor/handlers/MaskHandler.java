@@ -38,11 +38,14 @@ import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.modelio.diagram.elements.common.abstractdiagram.AbstractDiagramEditPart;
 
+/**
+ * Mask element from diagram handler.
+ */
 @objid ("65b21862-33f7-11e2-95fe-001ec947c8cc")
 public class MaskHandler {
     @objid ("65b21863-33f7-11e2-95fe-001ec947c8cc")
     @Execute
-    public Object execute(@Named(IServiceConstants.ACTIVE_SELECTION) ISelection selection) {
+    public void execute(@Named(IServiceConstants.ACTIVE_SELECTION) ISelection selection) {
         List<GraphicalEditPart> selected = new ArrayList<>();
         if (selection instanceof IStructuredSelection) {
             for (Object selectedObject : ((IStructuredSelection) selection).toList()) {
@@ -51,24 +54,10 @@ public class MaskHandler {
                 }
             }
         }
-        mask(selected);
-        return null;
-    }
-
-    @objid ("65b21873-33f7-11e2-95fe-001ec947c8cc")
-    void mask(List<GraphicalEditPart> selected) {
         if (selected.isEmpty())
             return;
         
-        GroupRequest deleteReq = new GroupRequest(RequestConstants.REQ_DELETE);
-        deleteReq.setEditParts(selected);
-        
-        CompoundCommand compound = new CompoundCommand("Mask");
-        for (EditPart editPart : selected) {
-            Command cmd = editPart.getCommand(deleteReq);
-            if (cmd != null)
-                compound.add(cmd);
-        }
+        Command compound = buildGefCommand(selected);
         
         if (compound.canExecute()) {
             selected.get(0).getViewer().getEditDomain().getCommandStack().execute(compound);
@@ -86,7 +75,23 @@ public class MaskHandler {
                 }
             }
         }
-        return !selected.isEmpty();
+        
+        Command compound = buildGefCommand(selected);
+        return compound.canExecute();
+    }
+
+    @objid ("d0296de7-2d80-4b76-8a43-d795fcbfee42")
+    private Command buildGefCommand(List<GraphicalEditPart> selected) {
+        GroupRequest deleteReq = new GroupRequest(RequestConstants.REQ_DELETE);
+        deleteReq.setEditParts(selected);
+        
+        CompoundCommand compound = new CompoundCommand("Mask");
+        for (EditPart editPart : selected) {
+            Command cmd = editPart.getCommand(deleteReq);
+            if (cmd != null)
+                compound.add(cmd);
+        }
+        return compound.unwrap();
     }
 
 }

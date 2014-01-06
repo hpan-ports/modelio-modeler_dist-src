@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.data.bpmn.activities;
 
 import java.util.ArrayList;
@@ -44,36 +44,36 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("0085d32e-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=BpmnTransaction.class, factory=BpmnTransactionData.Metadata.ObjectFactory.class)
 public class BpmnTransactionData extends BpmnSubProcessData {
-    @objid ("a1fdea15-9862-41c0-878e-e34ecf978c32")
+    @objid ("968fbda5-a8fc-4e2a-a608-976dceb7ee46")
     @SmaMetaAttribute(metaName="Protocol", type=String.class, smAttributeClass=Metadata.ProtocolSmAttribute.class)
      Object mProtocol = "";
 
-    @objid ("467551f5-339d-4afd-aa31-3db4de2da189")
+    @objid ("0142f627-2b4b-43a8-bc11-98467a1a91b4")
     @SmaMetaAttribute(metaName="Method", type=TransactionMethod.class, smAttributeClass=Metadata.MethodSmAttribute.class)
      Object mMethod = TransactionMethod.COMPENSATETRANSACTION;
 
-    @objid ("61cce2df-4cc7-449d-8457-913407899706")
+    @objid ("f9eacff6-1bcf-4d68-a898-773dc5bd6e33")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("003853ce-c4c4-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("c2e779b6-6aa8-4f41-b331-cc6f36c84135")
+        @objid ("1a024ac8-9288-458a-bb16-c3a755b2aacc")
         private static SmClass smClass = null;
 
-        @objid ("6104c4d5-21d3-4ee4-ad2a-74c1b0e931f4")
+        @objid ("c15aaa3d-6c30-4d7e-8728-1d6c8d884423")
         private static SmAttribute ProtocolAtt = null;
 
-        @objid ("2cafa575-b1c1-40ed-aeae-66f5107fac1c")
+        @objid ("afeb92e1-3174-48da-ac3d-ae35f8064893")
         private static SmAttribute MethodAtt = null;
 
-        @objid ("06f9e09a-0ecc-4d45-a4ec-91d30047d292")
+        @objid ("71f77db5-6c7c-48da-b49e-2a305a73f7af")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(BpmnTransactionData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("1a688f58-a37c-4d13-8a8b-01897b88dad3")
+        @objid ("6c08f951-0800-46b7-ac21-5a021880ca13")
         public static SmAttribute ProtocolAtt() {
             if (ProtocolAtt == null) {
             	ProtocolAtt = classof().getAttributeDef("Protocol");
@@ -81,7 +81,7 @@ public class BpmnTransactionData extends BpmnSubProcessData {
             return ProtocolAtt;
         }
 
-        @objid ("5be0a62a-1a25-42e1-a03d-59f00d8073c5")
+        @objid ("c8c311a6-8d85-4eda-b7da-41b218865e50")
         public static SmAttribute MethodAtt() {
             if (MethodAtt == null) {
             	MethodAtt = classof().getAttributeDef("Method");
@@ -89,32 +89,32 @@ public class BpmnTransactionData extends BpmnSubProcessData {
             return MethodAtt;
         }
 
-        @objid ("95aadafb-8a7f-40d9-9dff-14d3c90aec84")
-        public static SmAttribute getMethodAtt() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return MethodAtt;
-        }
-
-        @objid ("7d7956e5-7f42-4c1d-9ab1-9768a3e74634")
-        public static SmClass getSmClass() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return smClass;
-        }
-
-        @objid ("e97b9b75-7624-495f-830d-c48552ec4962")
+        @objid ("05c1b595-7145-4d12-ac11-0991a68d7941")
         public static SmAttribute getProtocolAtt() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return ProtocolAtt;
         }
 
+        @objid ("5e348e90-7b55-46ba-9d95-7dd72c7728af")
+        public static SmAttribute getMethodAtt() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return MethodAtt;
+        }
+
+        @objid ("52778542-0008-4fb2-8441-13600a03b288")
+        public static SmClass getSmClass() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return smClass;
+        }
+
         @objid ("003893b6-c4c4-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("d03b85b1-748c-4e24-b90a-5f46cbf9ae38")
+            @objid ("02dfcead-7835-4f17-b6f2-f8f3246d823e")
             public ISmObjectData createData() {
                 return new BpmnTransactionData();
             }
 
-            @objid ("b6cc3078-382a-4b30-8109-943535ddab1e")
+            @objid ("53775ce3-d595-47f5-9d36-26873c03ecb0")
             public SmObjectImpl createImpl() {
                 return new BpmnTransactionImpl();
             }
@@ -123,12 +123,12 @@ public class BpmnTransactionData extends BpmnSubProcessData {
 
         @objid ("0038f450-c4c4-1fd8-97fe-001ec947cd2a")
         public static class ProtocolSmAttribute extends SmAttribute {
-            @objid ("c1924ae8-5fd8-4487-bbfb-b1fda3a9d6da")
+            @objid ("53790543-c237-4bf6-99fe-0e0a24991c51")
             public Object getValue(ISmObjectData data) {
                 return ((BpmnTransactionData) data).mProtocol;
             }
 
-            @objid ("c6603a8c-835c-417e-b744-195930620170")
+            @objid ("a7e6d57f-b0ef-40a2-8d5d-d8dc3e92bb22")
             public void setValue(ISmObjectData data, Object value) {
                 ((BpmnTransactionData) data).mProtocol = value;
             }
@@ -137,12 +137,12 @@ public class BpmnTransactionData extends BpmnSubProcessData {
 
         @objid ("003953dc-c4c4-1fd8-97fe-001ec947cd2a")
         public static class MethodSmAttribute extends SmAttribute {
-            @objid ("252affa2-3939-4123-b2d3-66d2f37ba6d8")
+            @objid ("07f7c8a9-cbd2-415a-9426-24b5f42c81ed")
             public Object getValue(ISmObjectData data) {
                 return ((BpmnTransactionData) data).mMethod;
             }
 
-            @objid ("b77cd14d-fa57-4ca4-be50-660e1940ff0c")
+            @objid ("1a4fde26-f2c1-4717-a19b-4046ae0bdece")
             public void setValue(ISmObjectData data, Object value) {
                 ((BpmnTransactionData) data).mMethod = value;
             }

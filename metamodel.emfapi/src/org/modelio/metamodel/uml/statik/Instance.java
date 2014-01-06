@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.uml.statik;
 
 import java.util.List;
@@ -41,94 +41,94 @@ import org.modelio.metamodel.uml.statik.NaryLinkEnd;
 
 @objid ("000d46d4-c4bf-1fd8-97fe-001ec947cd2a")
 public interface Instance extends ModelElement {
-    @objid ("88446e08-f1e1-47a8-8277-8c11433838c3")
+    @objid ("b2f6f8b3-47bf-448b-a566-f6fdb6eafc88")
     boolean isIsConstant();
 
-    @objid ("5b0e2f03-ab1f-41fa-b023-6a59ee2e5a63")
+    @objid ("100aca8c-4079-49ea-8f0a-17437ebdccbb")
     void setIsConstant(boolean value);
 
-    @objid ("d15cd599-c865-477b-bed8-070eee033a11")
+    @objid ("ebb45117-0f17-423f-b119-472aacfcd2af")
     String getMultiplicityMin();
 
-    @objid ("aadfa6c1-5589-4e2a-bb88-5f3efcba90dc")
+    @objid ("bc0a85aa-1ac9-4ca4-9fcf-08f5a36ad29a")
     void setMultiplicityMin(String value);
 
-    @objid ("27ba86bc-adec-4102-9bf9-7a391eb79c61")
+    @objid ("ded2ac46-be40-45f7-b3bc-fa3367bfea17")
     String getMultiplicityMax();
 
-    @objid ("0b5f6414-3c49-4431-918a-252fc1a2f3ce")
+    @objid ("3e627e43-e0ef-4a10-bfe3-b2ebda170033")
     void setMultiplicityMax(String value);
 
-    @objid ("d77f0f00-5753-4117-8595-70bd33b05ffa")
+    @objid ("566f9549-f17e-48bf-b981-ac0965a9b977")
     String getValue();
 
-    @objid ("e8c6c67b-afff-4e7d-834d-ede4bffa0cee")
+    @objid ("3df50aee-afca-4b0e-b5bd-4346479860e5")
     void setValue(String value);
 
-    @objid ("d30c75a2-c0d0-482b-85a9-42d205caea1a")
+    @objid ("688526bb-d71b-4289-9353-a4c1520d9509")
     EList<CommunicationNode> getRepresentedCommunicationNode();
 
-    @objid ("8a622883-34cf-4674-8e9f-965ec9eb3369")
+    @objid ("def712df-8320-44c1-b754-0e6c3f2227fb")
     <T extends CommunicationNode> List<T> getRepresentedCommunicationNode(java.lang.Class<T> filterClass);
 
-    @objid ("70e134f7-7691-464f-9fac-c5c303147750")
+    @objid ("adb61b9a-c9a7-428f-84d0-5d0ad0f0957b")
     EList<BpmnItemAwareElement> getRepresentingItem();
 
-    @objid ("d37d7c08-8b64-4aa2-8140-0bb98319ac04")
+    @objid ("9c1b3f13-5c6b-400c-8f7c-9382f0c6f2a3")
     <T extends BpmnItemAwareElement> List<T> getRepresentingItem(java.lang.Class<T> filterClass);
 
-    @objid ("0fa05d52-990c-4aa9-bf33-ad893f80aa28")
+    @objid ("bffce6aa-f9ac-4527-b9a3-6c5193861b21")
     EList<LinkEnd> getOwnedEnd();
 
-    @objid ("95dca6e3-b465-4579-a1e9-a1eb70ee5c55")
+    @objid ("744ec779-a522-4141-90cb-919fb1089230")
     <T extends LinkEnd> List<T> getOwnedEnd(java.lang.Class<T> filterClass);
 
-    @objid ("f5d273a2-610c-4845-ba56-1ea02e11432f")
+    @objid ("d610e95b-f9a5-42b2-832a-76b9e4eeeba3")
     NameSpace getBase();
 
-    @objid ("74e01df9-82ac-446d-a34e-a749b5acace7")
+    @objid ("00717f56-907a-4b9e-8683-1fe7da7429e8")
     void setBase(NameSpace value);
 
-    @objid ("35d28ba3-0526-4a7c-8509-e834a03c65be")
+    @objid ("5be0b95f-00c0-42cd-bc48-ccbff9815ff1")
     EList<ObjectNode> getRepresentingObjectNode();
 
-    @objid ("ced7ed9d-838b-4f0e-b595-4ba4a3f76527")
+    @objid ("637d9fb1-faa5-4b1b-87dc-4cb6fc0dc1c3")
     <T extends ObjectNode> List<T> getRepresentingObjectNode(java.lang.Class<T> filterClass);
 
-    @objid ("5537c74d-2a1a-42a2-a190-29037a757f53")
+    @objid ("2ec781a2-928a-4f77-8bbb-7f8ddfcb4532")
     NameSpace getOwner();
 
-    @objid ("aa606080-7504-4401-baf7-ea352e9d1b60")
+    @objid ("fa75e38f-5ed8-4da5-a795-4fa201525264")
     void setOwner(NameSpace value);
 
-    @objid ("0831901d-7e09-41a1-9d32-8a47e03c8287")
+    @objid ("74b99b17-6069-4ae4-b945-e81b4f3614bd")
     EList<NaryLinkEnd> getOwnedNaryEnd();
 
-    @objid ("8326374a-f78a-40ae-8844-ec1f07839ff7")
+    @objid ("56d2b1a5-37c2-406c-a8df-96b2ec6d5549")
     <T extends NaryLinkEnd> List<T> getOwnedNaryEnd(java.lang.Class<T> filterClass);
 
-    @objid ("3a90e153-bf95-4850-b5fc-438e2e50937f")
+    @objid ("0735e740-9d10-4f2d-9f98-ec0d1b17a826")
     EList<Lifeline> getRepresentedLifeLine();
 
-    @objid ("334e602a-73b9-4975-b120-6a45daf3c02b")
+    @objid ("44830cc7-19a6-47eb-a82a-502d2403b971")
     <T extends Lifeline> List<T> getRepresentedLifeLine(java.lang.Class<T> filterClass);
 
-    @objid ("aa24383e-32e3-4acc-a5ad-08b2ce2bfc79")
+    @objid ("c0e50ff3-93d0-4043-8d13-f46faff4d94f")
     EList<AttributeLink> getSlot();
 
-    @objid ("72e56f00-62a1-4c47-8444-39184019f910")
+    @objid ("f38336e8-1a75-43bf-b443-2e181f62a29a")
     <T extends AttributeLink> List<T> getSlot(java.lang.Class<T> filterClass);
 
-    @objid ("dd7c56b6-4060-499e-a5d4-eb8d16cf172e")
+    @objid ("5fc0e27a-16b4-41ae-aa89-5a259ee2e09b")
     EList<BindableInstance> getPart();
 
-    @objid ("4630dd21-b80c-4333-94bb-d57fcbccb863")
+    @objid ("202609c1-f80a-403c-bbfd-61dd8aa3493d")
     <T extends BindableInstance> List<T> getPart(java.lang.Class<T> filterClass);
 
-    @objid ("11bbe80e-35d8-480c-96c6-096dfa786df9")
+    @objid ("b8d4ca47-5b4d-4260-b9a4-e607d07dd94e")
     EList<LinkEnd> getTargetingEnd();
 
-    @objid ("78408346-b7ea-48f6-bea3-20f1236d104e")
+    @objid ("9a502c6d-26ad-4ea8-9d31-51028d36eef3")
     <T extends LinkEnd> List<T> getTargetingEnd(java.lang.Class<T> filterClass);
 
 }

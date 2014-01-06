@@ -62,7 +62,6 @@ public class NoteContentComposite extends Composite implements INoteContent {
         setLayout(new FillLayout());
         
         this.noteText = new Text(this, SWT.BORDER | SWT.BORDER | SWT.V_SCROLL | SWT.WRAP);
-        this.noteText.setBackground(UIColor.TEXT_READONLY_BG);
     }
 
     @objid ("26ef6c51-186f-11e2-bc4e-002564c97630")
@@ -74,9 +73,16 @@ public class NoteContentComposite extends Composite implements INoteContent {
         if (this.note != null) {
             this.noteText.setText(this.note.getContent());
             this.noteText.setData(this.note);
+            
+            if (this.note.isModifiable()) {
+                this.noteText.setBackground(UIColor.POST_IT_BG);
+            } else {
+                this.noteText.setBackground(UIColor.TEXT_READONLY_BG);
+            }
         } else {
             this.noteText.setText("");
             this.noteText.setData(null);
+            this.noteText.setBackground(UIColor.TEXT_READONLY_BG);
         }
     }
 
@@ -192,8 +198,6 @@ public class NoteContentComposite extends Composite implements INoteContent {
             Text text = (Text) event.getSource();
             Note note = (Note) text.getData();
             
-            text.setBackground(UIColor.TEXT_READONLY_BG);
-            
             if (note != null && note.getStatus().isModifiable()) {
                 String s = text.getText();
             
@@ -204,6 +208,12 @@ public class NoteContentComposite extends Composite implements INoteContent {
                         note.setContent(s);
                         transaction.commit();
                     }
+                }
+                
+                if (note.isModifiable()) {
+                    text.setBackground(UIColor.POST_IT_BG);
+                } else {
+                    text.setBackground(UIColor.TEXT_READONLY_BG);
                 }
             }
         }

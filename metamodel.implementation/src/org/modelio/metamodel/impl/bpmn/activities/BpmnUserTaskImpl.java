@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.bpmn.activities;
 
 import java.util.ArrayList;
@@ -41,33 +41,33 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("0086559c-c4bf-1fd8-97fe-001ec947cd2a")
 public class BpmnUserTaskImpl extends BpmnTaskImpl implements BpmnUserTask {
-    @objid ("7caeab32-f65f-4ae6-aca2-79a236239cd0")
+    @objid ("7142065c-9dfe-4017-b71b-9f71c6e203da")
     @Override
     public String getImplementation() {
         return (String) getAttVal(BpmnUserTaskData.Metadata.ImplementationAtt());
     }
 
-    @objid ("d45b60fd-35f5-4ca9-b471-df2f1a5249cf")
+    @objid ("5613e099-b682-4f2b-ada0-e605c8b49ad0")
     @Override
     public void setImplementation(String value) {
         setAttVal(BpmnUserTaskData.Metadata.ImplementationAtt(), value);
     }
 
-    @objid ("56fa37bd-020d-45b4-b45b-4be38d9962d6")
+    @objid ("a69c89a1-524c-47d2-ac43-d0865f622a43")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("cf896a86-de3e-4d50-8558-945d242802ce")
+    @objid ("dc287448-b191-46a5-ab1a-885490fb5906")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("2612ffa9-5e6e-40fa-8ad5-34a95234303f")
+    @objid ("c93b67b2-5d91-424b-8b80-027e88873072")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitBpmnUserTask(this);

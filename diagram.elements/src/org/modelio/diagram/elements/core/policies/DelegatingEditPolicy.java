@@ -184,15 +184,19 @@ public class DelegatingEditPolicy implements EditPolicy {
     private EditPart getTargetEditPartForCreateRequest(Request request) {
         // Creation request, only one element is involved
         final CreateRequest createReq = (CreateRequest) request;
-        final String metaclassName = (String) createReq.getNewObjectType();
-        EditPart targetEditPart = getEditPartFor(Metamodel.getJavaInterface(Metamodel.getMClass(metaclassName)));
-        if (targetEditPart == null)
+        final Object newObjectType = createReq.getNewObjectType();
+        if (newObjectType instanceof String) {
+            final String metaclassName = (String) newObjectType;
+            EditPart targetEditPart = getEditPartFor(Metamodel.getJavaInterface(Metamodel.getMClass(metaclassName)));
+            if (targetEditPart == null)
+                return null;
+            else if (targetEditPart.equals(getHost()))
+                return targetEditPart;
+            else
+                return targetEditPart.getTargetEditPart(request);
+        } else {
             return null;
-        // else
-        if (targetEditPart.equals(getHost()))
-            return targetEditPart;
-        // else
-        return targetEditPart.getTargetEditPart(request);
+        }
     }
 
     @objid ("80d38ec0-1dec-11e2-8cad-001ec947c8cc")
@@ -253,7 +257,7 @@ public class DelegatingEditPolicy implements EditPolicy {
     /**
      * Get the child EditPart where elements of the given metaclass are displayed.
      * <p>
-     * {@link GmCompositeNode#getContainerFor(Class)} is used on the model in order to find the right edit part.
+     * {@link GmCompositeNode#getCompositeFor(Class)} is used on the model in order to find the right edit part.
      * <p>
      * If no child model is found, return <tt>null</tt>.<br>
      * If the found model is not visible, return the host edit part.

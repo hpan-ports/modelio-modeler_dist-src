@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.bpmn.activities;
 
 import java.util.ArrayList;
@@ -43,19 +43,19 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("00801fec-c4bf-1fd8-97fe-001ec947cd2a")
 public abstract class BpmnLoopCharacteristicsImpl extends BpmnBaseElementImpl implements BpmnLoopCharacteristics {
-    @objid ("baf2c4c2-1ed9-4531-ac73-47a004b63dec")
+    @objid ("afdb2fc9-11b5-4d77-b91e-1a4a5cb1a1df")
     @Override
     public BpmnActivity getOwnerActivity() {
         return (BpmnActivity) getDepVal(BpmnLoopCharacteristicsData.Metadata.OwnerActivityDep());
     }
 
-    @objid ("fe565286-80ef-47ab-8c5b-fb26f5451579")
+    @objid ("17f08d74-4906-4860-ad05-a40957c8b359")
     @Override
     public void setOwnerActivity(BpmnActivity value) {
         appendDepVal(BpmnLoopCharacteristicsData.Metadata.OwnerActivityDep(), (SmObjectImpl)value);
     }
 
-    @objid ("8628daa5-9b8b-4471-8fbc-6421784f5423")
+    @objid ("d27cf3d2-4b62-44c9-a4d7-a4d571474a2f")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
@@ -65,7 +65,7 @@ public abstract class BpmnLoopCharacteristicsImpl extends BpmnBaseElementImpl im
         return super.getCompositionOwner();
     }
 
-    @objid ("369d8305-8f7d-4e1a-8bc1-076aa7e2ef61")
+    @objid ("ae0f896f-29ed-468a-8814-b5d510c5634c")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
@@ -75,7 +75,7 @@ public abstract class BpmnLoopCharacteristicsImpl extends BpmnBaseElementImpl im
         return super.getCompositionRelation();
     }
 
-    @objid ("a683279e-799e-40e3-8a93-67812c90b45a")
+    @objid ("2cc7d357-72d3-4fd5-80c9-bb8ba7d8983b")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitBpmnLoopCharacteristics(this);

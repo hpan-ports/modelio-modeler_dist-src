@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.data.uml.behavior.activityModel;
 
 import java.util.ArrayList;
@@ -44,29 +44,29 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("00246896-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=AcceptCallEventAction.class, factory=AcceptCallEventActionData.Metadata.ObjectFactory.class)
 public class AcceptCallEventActionData extends ActivityActionData {
-    @objid ("ffa16a76-1515-482b-b2ed-b407dfab2282")
+    @objid ("8b5a1e54-eaa1-4c6f-9a47-bdbeb908f26f")
     @SmaMetaAssociation(metaName="Called", typeDataClass=OperationData.class, min=0, max=1, smAssociationClass=Metadata.CalledSmDependency.class, partof = true)
      SmObjectImpl mCalled;
 
-    @objid ("d0449eb8-8aaf-4372-acdb-62a3ce665916")
+    @objid ("26901360-83e1-495c-9836-d7fc42ba693a")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("00443982-c4c5-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("3f0731dc-3491-40aa-b367-df1042da3a9c")
+        @objid ("b6abb3d1-f59b-4832-8ddc-bb306ace86fd")
         private static SmClass smClass = null;
 
-        @objid ("53b2733f-1a9d-4489-9bdc-4d6caf4ac1c5")
+        @objid ("8e86b585-203a-4760-a1f7-78e001f6cb6c")
         private static SmDependency CalledDep = null;
 
-        @objid ("7d6a5ef3-b332-45b5-a6dc-998e9aa71754")
+        @objid ("76a7846b-c9c9-495e-8739-40add5f56c29")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(AcceptCallEventActionData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("cf4de497-1d08-4f3c-81ee-f7e4c2c80c0a")
+        @objid ("c8af073e-05e8-416f-b435-c419c2335e72")
         public static SmDependency CalledDep() {
             if (CalledDep == null) {
             	CalledDep = classof().getDependencyDef("Called");
@@ -74,26 +74,26 @@ public class AcceptCallEventActionData extends ActivityActionData {
             return CalledDep;
         }
 
-        @objid ("d91b151a-f5e8-47a5-b94c-4f51488f4961")
-        public static SmClass getSmClass() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return smClass;
-        }
-
-        @objid ("4736c662-c695-41a3-90b8-57084fc2e71f")
+        @objid ("7296a485-eb7f-4d9f-8a1d-9428cdedfdd0")
         public static SmDependency getCalledDep() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return CalledDep;
         }
 
+        @objid ("cca9728e-3414-4dbc-be7e-0902e4b856ed")
+        public static SmClass getSmClass() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return smClass;
+        }
+
         @objid ("00447e10-c4c5-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("79263861-b8ad-4a02-a78d-fb36a1396134")
+            @objid ("06489bb4-48d7-4ddf-93e1-7954e599d433")
             public ISmObjectData createData() {
                 return new AcceptCallEventActionData();
             }
 
-            @objid ("138a59ab-d9ee-4f88-afe9-ebfedbb58977")
+            @objid ("de5e56cf-0c17-4a05-8a38-b958cf4b6da2")
             public SmObjectImpl createImpl() {
                 return new AcceptCallEventActionImpl();
             }
@@ -102,18 +102,18 @@ public class AcceptCallEventActionData extends ActivityActionData {
 
         @objid ("0044e102-c4c5-1fd8-97fe-001ec947cd2a")
         public static class CalledSmDependency extends SmSingleDependency {
-            @objid ("ca52e49e-cd19-4a0e-a686-48372885bd82")
+            @objid ("8d7395b6-a2ce-4441-a812-54cf351cd6d7")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((AcceptCallEventActionData) data).mCalled;
             }
 
-            @objid ("d15bba11-def7-460d-977f-e50c2dd9d72e")
+            @objid ("effa43a3-1561-4d0c-b506-a78f402bfd65")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((AcceptCallEventActionData) data).mCalled = value;
             }
 
-            @objid ("65c341b1-7e28-4c07-b7a7-5100b726116c")
+            @objid ("3f94efcf-c874-41cd-bd8f-0858a4d16fd6")
             @Override
             public SmDependency getSymetric() {
                 return OperationData.Metadata.EntryPointActionDep();

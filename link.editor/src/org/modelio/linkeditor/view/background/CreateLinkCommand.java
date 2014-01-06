@@ -71,10 +71,8 @@ public class CreateLinkCommand extends Command {
      * C'tor.
      * @param from the origin
      * @param to the destination
-     * @param newLinkTypes the type(s) of the link to create, can be any mix of
-     * {@link AssociationEnd}.class, {@link ElementImport} .class,
-     * {@link Generalization}.class, {@link Dependency}.class and
-     * Stereotype(s) that can be applied to a dependency;
+     * @param newLinkTypes the type(s) of the link to create, can be any mix of {@link AssociationEnd}.class, {@link ElementImport} .class,
+     * {@link Generalization}.class, {@link Dependency}.class and Stereotype(s) that can be applied to a dependency;
      */
     @objid ("e6088f98-5efd-11e2-a8be-00137282c51b")
     public CreateLinkCommand(final MObject from, final MObject to, final List<Object> newLinkTypes) {
@@ -95,23 +93,19 @@ public class CreateLinkCommand extends Command {
             Object newLinkType = this.newLinkTypes.get(0);
             if (newLinkType instanceof Class) {
                 if (AssociationEnd.class.isAssignableFrom((Class<?>) newLinkType)) {
-                    canLink = MTools.getLinkTool().canLink(Metamodel.getMClass(AssociationEnd.class), this.from.getMClass(), this.to.getMClass(),
-                            null);
+                    canLink = MTools.getLinkTool().canLink(Metamodel.getMClass(AssociationEnd.class), this.from, this.to);
                 } else if (Dependency.class.isAssignableFrom((Class<?>) newLinkType)) {
-                    canLink = MTools.getLinkTool().canLink(Metamodel.getMClass(Dependency.class), this.from.getMClass(), this.to.getMClass(),
-                            null);
+                    canLink = MTools.getLinkTool().canLink(Metamodel.getMClass(Dependency.class), this.from, this.to);
                 } else if (ElementImport.class.isAssignableFrom((Class<?>) newLinkType)) {
-                    canLink = MTools.getLinkTool().canLink(Metamodel.getMClass(ElementImport.class), this.from.getMClass(), this.to.getMClass(),
-                            null);
+                    canLink = MTools.getLinkTool().canLink(Metamodel.getMClass(ElementImport.class), this.from, this.to);
                 } else if (Generalization.class.isAssignableFrom((Class<?>) newLinkType)) {
-                    canLink = MTools.getLinkTool().canLink(Metamodel.getMClass(Generalization.class), this.from.getMClass(), this.to.getMClass(),
-                            null);
+                    canLink = MTools.getLinkTool().canLink(Metamodel.getMClass(Generalization.class), this.from, this.to);
                 } else if (InterfaceRealization.class.isAssignableFrom((Class<?>) newLinkType)) {
-                    canLink = MTools.getLinkTool().canLink(Metamodel.getMClass(InterfaceRealization.class), this.from.getMClass(),
-                            this.to.getMClass(), null);
+                    canLink = MTools.getLinkTool().canLink(Metamodel.getMClass(InterfaceRealization.class), this.from, this.to);
                 }
             } else if (newLinkType instanceof Stereotype) {
-                canLink = MTools.getLinkTool().canLink(((Stereotype) newLinkType), Metamodel.getMClass(Dependency.class), this.from.getMClass(), this.to.getMClass(), null);
+                canLink = MTools.getLinkTool().canLink(((Stereotype) newLinkType), Metamodel.getMClass(Dependency.class),
+                        this.from, this.to);
             }
         }
         // else {
@@ -159,9 +153,9 @@ public class CreateLinkCommand extends Command {
         if (CreateLinkCommand.linkTypeToUse instanceof Class<?>) {
             if (AssociationEnd.class.isAssignableFrom((Class<?>) CreateLinkCommand.linkTypeToUse)) {
                 newElement = factory.createAssociation((Classifier) this.from, (Classifier) this.to, "");
-                for (AssociationEnd end : ((Association)newElement).getEnd()) {
+                for (AssociationEnd end : ((Association) newElement).getEnd()) {
                     if (end.isNavigable()) {
-                        end.setName(namer.getUniqueName(end));                
+                        end.setName(namer.getUniqueName(end));
                     }
                 }
             } else if (ElementImport.class.isAssignableFrom((Class<?>) CreateLinkCommand.linkTypeToUse)) {
@@ -188,7 +182,7 @@ public class CreateLinkCommand extends Command {
             dependency.getExtension().add((Stereotype) CreateLinkCommand.linkTypeToUse);
             newElement = dependency;
         }
-        if (newElement != null) {            
+        if (newElement != null) {
             newElement.setName(namer.getUniqueName(newElement));
         }
     }

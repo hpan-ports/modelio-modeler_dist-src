@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.analyst;
 
 import java.util.List;
@@ -33,28 +33,28 @@ import org.modelio.metamodel.analyst.Term;
 
 @objid ("005b9e06-c4bf-1fd8-97fe-001ec947cd2a")
 public interface Dictionary extends AnalystContainer {
-    @objid ("8d42fe20-5a5e-45b9-bd91-2a5d1f270021")
+    @objid ("2c8f8887-dcda-4cb8-bcd0-0483af48a8aa")
     EList<Dictionary> getOwnedDictionary();
 
-    @objid ("a5b1be60-6882-4c4a-a13d-bf28b9f5ac25")
+    @objid ("024f94a9-5a3c-4c87-b627-39f8abeb4b7e")
     <T extends Dictionary> List<T> getOwnedDictionary(java.lang.Class<T> filterClass);
 
-    @objid ("a89cdf6f-e664-47e8-b445-8d2843235245")
+    @objid ("2cc90112-2a72-41aa-b5dd-e8b7719b6e1a")
     Dictionary getOwnerDictionary();
 
-    @objid ("828df68a-e4cb-45c3-a84a-33153a272189")
+    @objid ("09e4e082-ab9b-42c1-be65-f65cefdecee7")
     void setOwnerDictionary(Dictionary value);
 
-    @objid ("6c0acf92-f35f-49d9-8aff-736b780bf9ea")
+    @objid ("2c187960-509c-4c48-b64d-e775c0a80c80")
     AnalystProject getOwnerProject();
 
-    @objid ("4099bc71-64e1-4adf-898a-bd411e376050")
+    @objid ("023a5042-3e51-4078-9d8e-466bdbf4e1f9")
     void setOwnerProject(AnalystProject value);
 
-    @objid ("54757e6f-13a8-4cb2-85fd-255bf5462414")
+    @objid ("d6d5c223-3563-4d29-a398-c372376f80e5")
     EList<Term> getOwnedTerm();
 
-    @objid ("df7027a7-61c7-43b0-bee0-c46e7f34a77e")
+    @objid ("e8fedad8-ede4-40c5-b9f0-4660ae9e2074")
     <T extends Term> List<T> getOwnedTerm(java.lang.Class<T> filterClass);
 
 }

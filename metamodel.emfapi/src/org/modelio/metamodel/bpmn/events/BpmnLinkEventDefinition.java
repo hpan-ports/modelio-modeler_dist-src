@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.bpmn.events;
 
 import java.util.List;
@@ -31,16 +31,16 @@ import org.eclipse.emf.ecore.EObject;
 
 @objid ("0090129e-c4bf-1fd8-97fe-001ec947cd2a")
 public interface BpmnLinkEventDefinition extends BpmnEventDefinition {
-    @objid ("e5b04714-c197-4704-bec8-422976d8b662")
+    @objid ("dce8dd20-43ae-4e7b-9c98-6d6fdf2713ad")
     EList<BpmnLinkEventDefinition> getSource();
 
-    @objid ("927c6324-c1ff-4a47-8c8a-9c814f8da7c1")
+    @objid ("e54bfe94-70fb-4e41-b9c4-c8c826785189")
     <T extends BpmnLinkEventDefinition> List<T> getSource(java.lang.Class<T> filterClass);
 
-    @objid ("05967fcc-6a89-4e8e-821b-04770fb2369c")
+    @objid ("b844b2ce-6e94-4e54-a65e-24fb8fafc964")
     BpmnLinkEventDefinition getTarget();
 
-    @objid ("0ebbf3ee-99f0-4d55-abf9-0e0b67795858")
+    @objid ("a89c609b-9d41-4d75-9c33-d39f448c6287")
     void setTarget(BpmnLinkEventDefinition value);
 
 }

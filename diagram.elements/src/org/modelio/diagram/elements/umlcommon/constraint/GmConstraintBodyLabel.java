@@ -21,22 +21,18 @@
 
 package org.modelio.diagram.elements.umlcommon.constraint;
 
-import java.util.Collections;
-import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.diagram.elements.common.abstractdiagram.GmAbstractDiagram;
 import org.modelio.diagram.elements.common.header.GmDefaultModelElementHeader;
 import org.modelio.diagram.persistence.IDiagramReader;
 import org.modelio.diagram.persistence.IDiagramWriter;
 import org.modelio.metamodel.uml.infrastructure.Constraint;
-import org.modelio.metamodel.uml.infrastructure.TaggedValue;
 import org.modelio.vcore.smkernel.mapi.MRef;
 
 /**
  * Specialisation of the default header to:
  * <ul>
  * <li>replace main label by the correct label for a constraint.</li>
- * <li>filter tags so that they never appear.</li>
  * </ul>
  * 
  * @author fpoyer
@@ -68,12 +64,6 @@ public class GmConstraintBodyLabel extends GmDefaultModelElementHeader {
     @objid ("811d77d1-1dec-11e2-8cad-001ec947c8cc")
     public GmConstraintBodyLabel(final GmAbstractDiagram diagram, final MRef relatedRef) {
         super(diagram, relatedRef);
-    }
-
-    @objid ("811d77d8-1dec-11e2-8cad-001ec947c8cc")
-    @Override
-    public List<TaggedValue> filterTags(final List<TaggedValue> taggedValues) {
-        return Collections.emptyList();
     }
 
     @objid ("811d77e3-1dec-11e2-8cad-001ec947c8cc")

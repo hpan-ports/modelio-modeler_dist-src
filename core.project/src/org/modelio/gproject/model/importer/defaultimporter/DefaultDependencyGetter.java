@@ -21,7 +21,6 @@
 
 package org.modelio.gproject.model.importer.defaultimporter;
 
-import java.util.ArrayList;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.gproject.model.importer.core.IDependencyGetter;
@@ -40,16 +39,7 @@ public class DefaultDependencyGetter implements IDependencyGetter {
     @objid ("007ec8ae-d3aa-108f-8d81-001ec947cd2a")
     @Override
     public List<SmDependency> getReferenceDeps(final SmObjectImpl obj) {
-        List<SmDependency> ret = new ArrayList<>();
-        
-        // Excludes dependencies symetric to compositions, to avoid problems with AssociationEnds and Constraints
-        List<SmDependency> allReferenceDepDef = ((SmClass) obj.getMClass()).getAllReferenceDepDef();
-        for (SmDependency smDependency : allReferenceDepDef) {
-            if (!smDependency.getSymetric().isSharedComposition() && !smDependency.getSymetric().isComposition()) {
-                ret.add(smDependency);
-            }
-        }
-        return ret;
+        return ((SmClass) obj.getMClass()).getAllReferenceDepDef();
     }
 
 }

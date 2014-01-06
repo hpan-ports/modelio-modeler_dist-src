@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.uml.behavior.interactionModel;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
@@ -31,16 +31,16 @@ import org.modelio.metamodel.uml.behavior.interactionModel.ExecutionOccurenceSpe
 
 @objid ("0044c988-c4bf-1fd8-97fe-001ec947cd2a")
 public interface ExecutionSpecification extends InteractionFragment {
-    @objid ("09946a81-7f84-423b-b8a5-3fe394f7d08e")
+    @objid ("c09f63d3-31fb-413a-b727-dcaa00e19c71")
     ExecutionOccurenceSpecification getFinish();
 
-    @objid ("90668055-bed6-40be-928c-db0a0b90ff2f")
+    @objid ("a6a5ad2d-4bd0-4970-ad43-6e05e670bd6b")
     void setFinish(ExecutionOccurenceSpecification value);
 
-    @objid ("d8c4623c-c8b3-4aa4-ba6c-2035647954b0")
+    @objid ("5c10c0f5-dd12-4425-807c-0f96093a6bbf")
     ExecutionOccurenceSpecification getStart();
 
-    @objid ("287a76e3-e824-464e-9fc7-99edb2ff3876")
+    @objid ("586f9b9c-7539-4ff8-a2f5-93a45b33c7be")
     void setStart(ExecutionOccurenceSpecification value);
 
 }

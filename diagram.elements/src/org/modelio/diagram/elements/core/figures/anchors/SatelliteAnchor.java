@@ -39,7 +39,7 @@ public class SatelliteAnchor extends AbstractConnectionAnchor {
     /**
      * Location of the anchor relative to the owner figure top left corner.
      */
-    @objid ("f90eb844-8cc2-4e61-9d24-f6b8febe8253")
+    @objid ("d2391399-10f8-42e0-ac09-f11c14f8c23b")
     private Dimension distance;
 
     /**

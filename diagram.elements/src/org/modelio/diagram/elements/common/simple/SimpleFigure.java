@@ -26,6 +26,7 @@ import org.eclipse.draw2d.BorderLayout;
 import org.eclipse.draw2d.Label;
 import org.eclipse.draw2d.LineBorder;
 import org.eclipse.draw2d.MarginBorder;
+import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Font;
 import org.modelio.diagram.elements.core.figures.GradientFigure;
@@ -36,7 +37,7 @@ import org.modelio.diagram.elements.core.figures.PenOptions;
  */
 @objid ("7f240543-1dec-11e2-8cad-001ec947c8cc")
 public class SimpleFigure extends GradientFigure {
-    @objid ("b3addb9f-1b08-44e9-93db-f27a8613199d")
+    @objid ("3d876b64-d356-4a3f-a89d-f83a38c1c638")
     private Label label;
 
     /**
@@ -59,7 +60,12 @@ public class SimpleFigure extends GradientFigure {
         this.updateBorder();
         
         //  child: the text area
-        this.label = new Label();
+        this.label = new Label() {
+            @Override
+            public Dimension getMinimumSize(int w, int h) {
+                return getPreferredSize(w, h);
+            }
+        };
         this.label.setOpaque(false);
         this.label.setBorder(new MarginBorder(4));
         this.add(this.label, BorderLayout.CENTER);

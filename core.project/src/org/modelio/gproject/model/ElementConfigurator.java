@@ -31,6 +31,8 @@ import org.modelio.metamodel.analyst.AnalystPropertyTable;
 import org.modelio.metamodel.analyst.BusinessRule;
 import org.modelio.metamodel.analyst.BusinessRuleContainer;
 import org.modelio.metamodel.analyst.Dictionary;
+import org.modelio.metamodel.analyst.GenericAnalystContainer;
+import org.modelio.metamodel.analyst.GenericAnalystElement;
 import org.modelio.metamodel.analyst.Goal;
 import org.modelio.metamodel.analyst.GoalContainer;
 import org.modelio.metamodel.analyst.Requirement;
@@ -54,14 +56,25 @@ import org.modelio.vcore.session.api.model.IModel;
 import org.modelio.vcore.session.impl.CoreSession;
 import org.modelio.vcore.smkernel.mapi.MObject;
 
+/**
+ * Default implementation of {@link IElementConfigurator}.
+ */
 @objid ("dc130502-e9e1-41d8-9e62-ee45aae6a134")
 public class ElementConfigurator implements IElementConfigurator {
+    /**
+     * Property name for {@link #configure(IModelFactory, MObject, Map)}
+     * to configure aggregation kind for associations.
+     */
     @objid ("9ba6a0e8-6ef8-47f1-b976-29f2b5117786")
     public static final String AGGREGATION = "aggregation";
 
     @objid ("af9a094d-544e-4695-9e49-af785ce51313")
     private ElementConfiguratorVisitor visitor;
 
+    /**
+     * Property name for {@link #configure(IModelFactory, MObject, Map)}
+     * to configure activity nodes and activity parameters.
+     */
     @objid ("f4629918-aa7f-4ea8-93ee-00f36a7a1406")
     public static final Object COMPLETE = "complete";
 
@@ -91,6 +104,9 @@ public class ElementConfigurator implements IElementConfigurator {
 
         @objid ("a73901af-cfe0-44f3-8e54-de97e59a916c")
         private final PropertyTableDefinition DEFAULT_REQUIREMENT_TABLE;
+
+        @objid ("7ed29b5d-701a-496d-90a0-b9f78aaf7b2f")
+        private final PropertyTableDefinition DEFAULT_GENERIC_TABLE;
 
         @objid ("63ae6187-35f0-4867-a7a2-71b87a0ccc14")
         @Override
@@ -204,6 +220,9 @@ public class ElementConfigurator implements IElementConfigurator {
                     UUID.fromString("00bc470c-0000-0018-0000-000000000000"));
             this.DEFAULT_BUSINESSRULE_TABLE = iModel.findById(PropertyTableDefinition.class,
                     UUID.fromString("00bc470c-0000-0019-0000-000000000000"));
+            
+            // Use the same default table as requirement
+            this.DEFAULT_GENERIC_TABLE = this.DEFAULT_REQUIREMENT_TABLE;
         }
 
         /**
@@ -221,10 +240,9 @@ public class ElementConfigurator implements IElementConfigurator {
          * find the default table definition all take default values from it.</li>
          * </ul>
          * </p>
-         * @param defaultTypeId
-         * the default property table definition.
          * @param newElement the element to initialize.
          * @param owner the owner to take default properties from.
+         * @param defaultType the default property table definition.
          */
         @objid ("6e0f7d32-c68c-45ed-9774-a87dc0b49452")
         private void initializeAnalystProperties(AnalystContainer newElement, AnalystContainer owner, PropertyTableDefinition defaultType) {
@@ -369,6 +387,22 @@ public class ElementConfigurator implements IElementConfigurator {
         public Object visitTerm(Term theTerm) {
             initializeAnalystProperties(theTerm);
             return super.visitTerm(theTerm);
+        }
+
+        @objid ("5e92fed9-ec20-46c7-af6c-e704e446d630")
+        @Override
+        public Object visitGenericAnalystElement(GenericAnalystElement obj) {
+            initializeAnalystProperties(obj);
+            return super.visitGenericAnalystElement(obj);
+        }
+
+        @objid ("3a7cdf56-5cde-4771-a747-d5ef239fb437")
+        @Override
+        public Object visitGenericAnalystContainer(GenericAnalystContainer obj) {
+            GenericAnalystContainer ownerContainer = obj.getOwnerContainer();
+            
+            initializeAnalystProperties(obj, ownerContainer, this.DEFAULT_GENERIC_TABLE);
+            return super.visitGenericAnalystContainer(obj);
         }
 
     }

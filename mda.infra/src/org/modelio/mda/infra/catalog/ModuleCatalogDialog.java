@@ -64,7 +64,7 @@ public class ModuleCatalogDialog extends ModelioDialog {
     @objid ("097c1053-1bcc-4df6-a7db-d5ca4a2c017d")
     private static final String HELP_TOPIC = "/org.modelio.documentation.modeler/html/Modeler-_modeler_modelio_settings_modules_catalog.html";
 
-    @objid ("9319cc27-9eea-48a2-ac53-22af1156e340")
+    @objid ("17d0bb77-9f68-4088-992d-1ef90f943155")
     protected boolean validUpdateSite;
 
     @objid ("f3a7ed6b-536c-48a1-aaa4-1952106a65f6")
@@ -82,10 +82,10 @@ public class ModuleCatalogDialog extends ModelioDialog {
     @objid ("1f54c94d-39f4-4a00-b1e8-d4ce6a93cf0a")
     private Button updateButton;
 
-    @objid ("65a4cb6c-43db-47ac-994b-d8df70dda224")
+    @objid ("99e7d0b1-e6c3-4436-8322-9895e7173022")
     protected IModelioProgressService progressService;
 
-    @objid ("9ef27f66-b716-4f35-8ca5-314ba12ad628")
+    @objid ("ec8eb56f-95fb-4348-a95c-2ba090b06a35")
     protected List<ModuleUpdateDescriptor> modulesToUpdate = new ArrayList<>();
 
     @objid ("6cfffb59-1769-4820-8416-4db028b5bdd1")

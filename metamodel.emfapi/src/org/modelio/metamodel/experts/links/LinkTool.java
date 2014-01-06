@@ -72,17 +72,16 @@ public class LinkTool implements ILinkTool {
 
     @objid ("000103ce-de02-1097-bcec-001ec947cd2a")
     @Override
-    public boolean canLink(MClass link, MClass from, MClass to, MClass owner) {
-        return this.REGISTRY.getExpert(link).canLink(link, from, to, owner);
+    public boolean canLink(MClass link, MClass from, MClass to) {
+        return this.REGISTRY.getExpert(link).canLink(link, from, to);
     }
 
     @objid ("0001bee0-de02-1097-bcec-001ec947cd2a")
     @Override
-    public boolean canLink(MObject link, MObject from, MObject to, MObject owner) {
-        for (ILinkExpert expert : this.REGISTRY.getExperts(link)) {
-            if (expert.canLink(link, from, to, owner) == false) {
-                return false;
-            }
+    public boolean canLink(MClass link, MObject from, MObject to) {
+        ILinkExpert expert = this.REGISTRY.getExpert(link);
+        if (expert.canLink(link, from, to) == false) {
+            return false;
         }
         return true;
     }
@@ -123,8 +122,6 @@ public class LinkTool implements ILinkTool {
             return true;
         case "AssociationEnd":
             return true;
-        case "Association":
-            return true;
         case "Binding":
             return true;
         case "BpmnDataAssociation":
@@ -134,6 +131,8 @@ public class LinkTool implements ILinkTool {
         case "BpmnSequenceFlow":
             return true;
         case "CommunicationChannel":
+            return true;
+        case "ConnectorEnd":
             return true;
         case "ControlFlow":
             return true;
@@ -150,8 +149,6 @@ public class LinkTool implements ILinkTool {
         case "InformationFlow":
             return true;
         case "InterfaceRealization":
-            return true;
-        case "Link":
             return true;
         case "LinkEnd":
             return true;
@@ -201,10 +198,11 @@ public class LinkTool implements ILinkTool {
 
     @objid ("889323b1-0bd4-43da-adec-249a2846de30")
     @Override
-    public boolean canLink(Stereotype stereotypedLink, MClass link, MClass from, MClass to, MClass owner) {
-        final List<ILinkExpert> experts = stereotypedLink != null ? this.REGISTRY.getExperts(stereotypedLink) : Arrays.asList(this.REGISTRY.getExpert(link));
+    public boolean canLink(Stereotype stereotypedLink, MClass link, MObject from, MObject to) {
+        final List<ILinkExpert> experts = stereotypedLink != null ? this.REGISTRY.getExperts(stereotypedLink) : Arrays
+                .asList(this.REGISTRY.getExpert(link));
         for (ILinkExpert expert : experts) {
-            if (!expert.canLink(link, from, to, owner)) {
+            if (!expert.canLink(link, from, to)) {
                 return false;
             }
         }
@@ -357,22 +355,22 @@ public class LinkTool implements ILinkTool {
             MClass dependency = Metamodel.getMClass(Dependency.class);
             this.STEREOTYPE_EXPERTS.put(dependency.getName() + "." + "+influence", new PositiveInfluenceCreationExpert());
             this.STEREOTYPE_EXPERTS.put(dependency.getName() + "." + "-influence", new NegativeInfluenceCreationExpert());
-            this.STEREOTYPE_EXPERTS.put(dependency.getName() + "." + "antonym",    new AntonymCreationExpert());
-            this.STEREOTYPE_EXPERTS.put(dependency.getName() + "." + "assigned",   new AssignedCreationExpert());
-            this.STEREOTYPE_EXPERTS.put(dependency.getName() + "." + "context",    new ContextCreationExpert());
-            this.STEREOTYPE_EXPERTS.put(dependency.getName() + "." + "derive",     new DeriveCreationExpert());
-            this.STEREOTYPE_EXPERTS.put(dependency.getName() + "." + "guarantee",  new GuaranteeCreationExpert());
-            this.STEREOTYPE_EXPERTS.put(dependency.getName() + "." + "homonym",    new HomonymCreationExpert());
-            this.STEREOTYPE_EXPERTS.put(dependency.getName() + "." + "implement",  new ImplementCreationExpert());
-            this.STEREOTYPE_EXPERTS.put(dependency.getName() + "." + "kind-of",    new KindOfCreationExpert());
-            this.STEREOTYPE_EXPERTS.put(dependency.getName() + "." + "measure",    new MeasureCreationExpert());
-            this.STEREOTYPE_EXPERTS.put(dependency.getName() + "." + "part",       new PartCreationExpert());
-            this.STEREOTYPE_EXPERTS.put(dependency.getName() + "." + "refers",     new RefersCreationExpert());
-            this.STEREOTYPE_EXPERTS.put(dependency.getName() + "." + "refine",     new RefineCreationExpert());
-            this.STEREOTYPE_EXPERTS.put(dependency.getName() + "." + "related",    new RelatedCreationExpert());
-            this.STEREOTYPE_EXPERTS.put(dependency.getName() + "." + "satisfy",    new SatisfyCreationExpert());
-            this.STEREOTYPE_EXPERTS.put(dependency.getName() + "." + "synonym",    new SynonymCreationExpert());
-            this.STEREOTYPE_EXPERTS.put(dependency.getName() + "." + "verify",     new VerifyCreationExpert());
+            this.STEREOTYPE_EXPERTS.put(dependency.getName() + "." + "antonym", new AntonymCreationExpert());
+            this.STEREOTYPE_EXPERTS.put(dependency.getName() + "." + "assigned", new AssignedCreationExpert());
+            this.STEREOTYPE_EXPERTS.put(dependency.getName() + "." + "context", new ContextCreationExpert());
+            this.STEREOTYPE_EXPERTS.put(dependency.getName() + "." + "derive", new DeriveCreationExpert());
+            this.STEREOTYPE_EXPERTS.put(dependency.getName() + "." + "guarantee", new GuaranteeCreationExpert());
+            this.STEREOTYPE_EXPERTS.put(dependency.getName() + "." + "homonym", new HomonymCreationExpert());
+            this.STEREOTYPE_EXPERTS.put(dependency.getName() + "." + "implement", new ImplementCreationExpert());
+            this.STEREOTYPE_EXPERTS.put(dependency.getName() + "." + "kind-of", new KindOfCreationExpert());
+            this.STEREOTYPE_EXPERTS.put(dependency.getName() + "." + "measure", new MeasureCreationExpert());
+            this.STEREOTYPE_EXPERTS.put(dependency.getName() + "." + "part", new PartCreationExpert());
+            this.STEREOTYPE_EXPERTS.put(dependency.getName() + "." + "refers", new RefersCreationExpert());
+            this.STEREOTYPE_EXPERTS.put(dependency.getName() + "." + "refine", new RefineCreationExpert());
+            this.STEREOTYPE_EXPERTS.put(dependency.getName() + "." + "related", new RelatedCreationExpert());
+            this.STEREOTYPE_EXPERTS.put(dependency.getName() + "." + "satisfy", new SatisfyCreationExpert());
+            this.STEREOTYPE_EXPERTS.put(dependency.getName() + "." + "synonym", new SynonymCreationExpert());
+            this.STEREOTYPE_EXPERTS.put(dependency.getName() + "." + "verify", new VerifyCreationExpert());
         }
 
     }

@@ -24,13 +24,17 @@ public class UseCaseDiagramCreationContributor extends AbstractDiagramCreationCo
     @objid ("6e62d737-ea71-4d66-9752-6cf19e47995d")
     @Override
     public AbstractDiagram actionPerformed(final ModelElement diagramContext, final String diagramName, final String diagramDescription) {
-        IModelFactory modelFactory = this.mmServices.getModelFactory(diagramContext);
+        IModelFactory modelFactory = this.mmServices.getModelFactory();
         AbstractDiagram diagram = this.createUseCaseDiagram(modelFactory,
                                                              diagramName,
                                                              diagramContext);
         
         if (diagram != null) {
-            setElementDefaultName(diagram);
+            if (diagramName.equals(this.getLabel())) {                
+                setElementDefaultName(diagram);
+            } else {
+                diagram.setName(diagramName);
+            }
             putNoteContent(diagram, "description", diagramDescription);
         }
         return diagram;

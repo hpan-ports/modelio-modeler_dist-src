@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.uml.behavior.interactionModel;
 
 import java.util.ArrayList;
@@ -44,37 +44,37 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("0047c124-c4bf-1fd8-97fe-001ec947cd2a")
 public class InteractionOperandImpl extends InteractionFragmentImpl implements InteractionOperand {
-    @objid ("88704d5f-9d39-4a76-bc67-21e726f30450")
+    @objid ("0220d035-da30-4840-8935-381968a0e707")
     @Override
     public String getGuard() {
         return (String) getAttVal(InteractionOperandData.Metadata.GuardAtt());
     }
 
-    @objid ("f44d8110-7c4d-4270-aa14-ff571ea32f7b")
+    @objid ("dbc9bb1d-6d77-4ca8-9673-a83893f23c8a")
     @Override
     public void setGuard(String value) {
         setAttVal(InteractionOperandData.Metadata.GuardAtt(), value);
     }
 
-    @objid ("eb6de846-dd44-4d52-b964-45970fc52499")
+    @objid ("4fdb0c90-ec34-4c6e-a0ad-51c34922b01d")
     @Override
     public int getEndLineNumber() {
         return (Integer) getAttVal(InteractionOperandData.Metadata.EndLineNumberAtt());
     }
 
-    @objid ("54c4e2d6-4efc-41a7-85fe-b78e1fce7f18")
+    @objid ("b6df437f-e0bc-4e5c-9cc0-0bc83d889982")
     @Override
     public void setEndLineNumber(int value) {
         setAttVal(InteractionOperandData.Metadata.EndLineNumberAtt(), value);
     }
 
-    @objid ("c42398d1-0864-4373-9cf3-f0c22d6e013b")
+    @objid ("cdbb8c1c-0464-4a8d-b6f9-40660c328103")
     @Override
     public EList<InteractionFragment> getFragment() {
         return new SmList<>(this, InteractionOperandData.Metadata.FragmentDep());
     }
 
-    @objid ("afaa6e72-bdf1-4299-919a-a37f60cdfc35")
+    @objid ("ba7f105b-dc1a-48b6-8ed3-da1829a89041")
     @Override
     public <T extends InteractionFragment> List<T> getFragment(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -87,19 +87,19 @@ public class InteractionOperandImpl extends InteractionFragmentImpl implements I
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("32242e5c-22ed-4d7c-b212-8f06a2416d31")
+    @objid ("cd9c48c7-e8c2-4c88-b441-b608356b45e5")
     @Override
     public CombinedFragment getOwnerFragment() {
         return (CombinedFragment) getDepVal(InteractionOperandData.Metadata.OwnerFragmentDep());
     }
 
-    @objid ("ee04c0eb-a42a-41da-b4b7-c1e96bacc40b")
+    @objid ("0be2111f-8eda-4669-a66b-a14e595a95e4")
     @Override
     public void setOwnerFragment(CombinedFragment value) {
         appendDepVal(InteractionOperandData.Metadata.OwnerFragmentDep(), (SmObjectImpl)value);
     }
 
-    @objid ("3574a1b3-cf6d-4617-8e89-7f14ffaa1bb0")
+    @objid ("d3175354-c0e0-4c10-abcb-ba273eb92a70")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
@@ -109,7 +109,7 @@ public class InteractionOperandImpl extends InteractionFragmentImpl implements I
         return super.getCompositionOwner();
     }
 
-    @objid ("117306e2-63b2-4b76-bf35-6e9adbe706c9")
+    @objid ("373c0994-a4b7-4ae0-ba80-39121eafbd3b")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
@@ -119,7 +119,7 @@ public class InteractionOperandImpl extends InteractionFragmentImpl implements I
         return super.getCompositionRelation();
     }
 
-    @objid ("7cce8446-be48-4994-b76d-75362c1501da")
+    @objid ("518ceedc-cc52-4a91-a94c-a8257ac51117")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitInteractionOperand(this);

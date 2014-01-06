@@ -58,4 +58,24 @@ public interface IBrushOptionsSupport {
     @objid ("7fa4c42f-1dec-11e2-8cad-001ec947c8cc")
     boolean getUseGradient();
 
+    /**
+     * Set the transparency level.
+     * <p>
+     * Values may range from 0 to 255. A value of 0 is completely transparent.
+     * @see org.eclipse.draw2d.Graphics#setAlpha(int)
+     * @param alpha an alpha value (0-255)
+     */
+    @objid ("9b37c0ed-781c-4dfd-902d-dffe6af53137")
+    void setFillAlpha(int alpha);
+
+    /**
+     * Set the transparency level.
+     * <p>
+     * Values may range from 0 to 255. A value of 0 is completely transparent.
+     * @see org.eclipse.draw2d.Graphics#setAlpha(int)
+     * @return an alpha value (0-255)
+     */
+    @objid ("2315f1fa-1106-4272-995c-59835f1ce38d")
+    int getFillAlpha();
+
 }

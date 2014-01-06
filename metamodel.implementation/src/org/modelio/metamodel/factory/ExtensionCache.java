@@ -40,15 +40,15 @@ import org.modelio.vcore.smkernel.mapi.MClass;
  * Extensions that are not valid anymore are removed when found.
  * Extensions have to be added to this cache manually.
  */
-@objid ("7c7c2303-adda-4186-89e3-605593be7fc3")
+@objid ("08ad383f-18b9-4718-a73d-36594f2cbe79")
 public class ExtensionCache {
-    @objid ("9864d92d-6497-429b-8605-da7055522876")
+    @objid ("2421efc0-ca68-436f-ba41-7085f054d716")
     private Map<Integer, NoteType> nmap = new HashMap<>();
 
-    @objid ("93087623-0d01-4113-8919-58118c5544e3")
+    @objid ("7f93405f-88b5-470a-8a3e-62254d94bc93")
     private Map<Integer, TagType> tmap = new HashMap<>();
 
-    @objid ("47393bab-a42c-40fa-80ee-46ffc43eeecd")
+    @objid ("2b1d8fc0-786c-4db0-be2e-8dda3d500beb")
     private Map<Integer, Stereotype> smap = new HashMap<>();
 
     /**
@@ -58,7 +58,7 @@ public class ExtensionCache {
      * @param metaclass the metaclass
      * @return the hash key
      */
-    @objid ("dbbc62d1-b5d6-4d17-97df-9ca9d9979bb2")
+    @objid ("690fc0c9-f129-4f05-ab0b-4c61f7cb7c27")
     private static int getKey(String moduleName, String name, MClass metaclass) {
         final int prime = 31;
         int result = 1;
@@ -74,7 +74,7 @@ public class ExtensionCache {
      * @param metaclass the metaclass to register
      * @param element the note type
      */
-    @objid ("d0b5dae1-543a-40f3-a849-bc6a347b57b4")
+    @objid ("97e52d00-275c-41b2-ad4b-8ab429554e92")
     public void add(String moduleName, MClass metaclass, NoteType element) {
         int key = getKey(moduleName, element.getName(), metaclass);
         this.nmap.put(key, element);
@@ -86,7 +86,7 @@ public class ExtensionCache {
      * @param metaclass the metaclass to register
      * @param element the tag type
      */
-    @objid ("5e4a8a1d-4256-4088-8ca3-e54537d051af")
+    @objid ("2fa8ddd4-4850-4614-b48f-e2daa4ed2811")
     public void add(String moduleName, MClass metaclass, TagType element) {
         int key = getKey(moduleName, element.getName(), metaclass);
         this.tmap.put(key, element);
@@ -98,7 +98,7 @@ public class ExtensionCache {
      * @param metaclass the metaclass to register
      * @param element the stereotype
      */
-    @objid ("a74d5c28-eb66-486b-bdd0-23fc577d308a")
+    @objid ("1f896dc0-906d-4f79-841b-6433be77eeb6")
     public void add(String moduleName, MClass metaclass, Stereotype element) {
         int key = getKey(moduleName, element.getName(), metaclass);
         this.smap.put(key, element);
@@ -111,7 +111,7 @@ public class ExtensionCache {
      * @param metaclass the metaclass
      * @return the found element or <code>null</code>.
      */
-    @objid ("af7abd2e-641c-40f8-a564-8254a4f755b5")
+    @objid ("1841446a-ea02-4b7a-a68a-c8c59b2dfef8")
     public NoteType getNoteType(String moduleName, String name, MClass metaclass) {
         int key = getKey(moduleName, name, metaclass);
         
@@ -139,7 +139,7 @@ public class ExtensionCache {
      * @param metaclass the metaclass
      * @return the found element or <code>null</code>.
      */
-    @objid ("a1308e9f-a178-4550-ad72-2b077077621e")
+    @objid ("fb8a1b47-2686-46ad-a37d-9298c1a43604")
     public TagType getTagType(String moduleName, String name, MClass metaclass) {
         int key = getKey(moduleName, name, metaclass);
         
@@ -167,7 +167,7 @@ public class ExtensionCache {
      * @param metaclass the metaclass
      * @return the found element or <code>null</code>.
      */
-    @objid ("8a88ff79-d7c7-4fc9-8b19-0b2975fb0b0d")
+    @objid ("934cddf2-8fd9-425d-aa05-fbb76ee6dff0")
     public Stereotype getStereotype(String moduleName, String name, MClass metaclass) {
         int key = getKey(moduleName, name, metaclass);
         
@@ -189,7 +189,7 @@ public class ExtensionCache {
         return null;
     }
 
-    @objid ("619e8869-130c-4b40-b617-678b4323f320")
+    @objid ("5b47b485-d2f8-4c7b-a9b4-f254856cdaf4")
     private static MClass getBaseClass(MetaclassReference classRef, Stereotype ste) {
         if (ste != null) {
             return getBaseClass(ste.getBaseClassName());
@@ -199,7 +199,7 @@ public class ExtensionCache {
         return null;
     }
 
-    @objid ("b18b0f08-b119-4d2d-b021-33bee0b9c23d")
+    @objid ("f407c4b0-d9b0-468b-8ce0-3bf2a671c86b")
     private static MClass getBaseClass(String baseName) {
         return Metamodel.getMClass(baseName);
     }

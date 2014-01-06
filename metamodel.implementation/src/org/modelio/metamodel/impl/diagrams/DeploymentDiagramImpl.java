@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.diagrams;
 
 import java.util.ArrayList;
@@ -41,21 +41,21 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("006d4be2-c4bf-1fd8-97fe-001ec947cd2a")
 public class DeploymentDiagramImpl extends StaticDiagramImpl implements DeploymentDiagram {
-    @objid ("24669113-817c-49aa-a2b9-8a60a6722189")
+    @objid ("f734c395-d795-431b-9346-32ca87e07bf2")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("52239774-b2e3-4439-9bb3-92079c9a445b")
+    @objid ("cd71a940-3835-490b-a76e-5a9196f3f8fc")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("b0dd3696-5f9d-43b2-8208-e8cc87fa4de9")
+    @objid ("6672b666-35e4-4b00-bf2a-9f7daadff28e")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitDeploymentDiagram(this);

@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.bpmn.activities;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
@@ -30,10 +30,10 @@ import org.eclipse.emf.ecore.EObject;
 
 @objid ("0086182a-c4bf-1fd8-97fe-001ec947cd2a")
 public interface BpmnUserTask extends BpmnTask {
-    @objid ("de2906f7-e74e-4a2f-9516-7bab1c08c098")
+    @objid ("20a4a20c-763a-49cc-80ae-1d8f830fac7c")
     String getImplementation();
 
-    @objid ("2c9f601e-8c0f-4e29-ae91-fe19895e0121")
+    @objid ("8c4a2dcf-af86-4b15-a380-e359ebcdda61")
     void setImplementation(String value);
 
 }

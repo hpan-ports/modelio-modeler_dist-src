@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.uml.statik;
 
 import java.util.ArrayList;
@@ -41,21 +41,21 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("4ae8a661-1aef-45be-9c0f-6d0a1c1e2ef4")
 public class ConnectorImpl extends LinkImpl implements Connector {
-    @objid ("926e06f3-9584-4802-b10b-cdbf2c251872")
+    @objid ("1f4e6009-9f76-4517-8b1a-169276437a0d")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("59a7507a-2250-4bc8-9ef5-f239113b8f7a")
+    @objid ("a67328ef-0132-4810-92c7-9841826d2cc4")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("ef51b4ce-b1ca-4411-b31d-64705aee5140")
+    @objid ("bfbc46a7-dfa2-4e01-9afe-0d61a07f1826")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitConnector(this);

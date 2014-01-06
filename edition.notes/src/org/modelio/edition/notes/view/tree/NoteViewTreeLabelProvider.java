@@ -75,7 +75,7 @@ public class NoteViewTreeLabelProvider extends LabelProvider {
                 }
                 
                 final String label = ModuleI18NService.getLabel(type);
-                return name + "[" + label + "]";
+                return label.isEmpty() ? name + "[" + type.getName() + "]" : name + "[" + label + "]";
                 
             } else {
                 return EditionNotes.I18N.getString("ExternDocument");

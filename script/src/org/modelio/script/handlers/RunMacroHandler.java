@@ -27,7 +27,9 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.e4.core.di.annotations.CanExecute;
 import org.eclipse.e4.core.di.annotations.Execute;
 import org.eclipse.e4.core.di.annotations.Optional;
+import org.eclipse.e4.ui.model.application.ui.MUIElement;
 import org.eclipse.e4.ui.model.application.ui.basic.MPart;
+import org.eclipse.e4.ui.model.application.ui.basic.MWindow;
 import org.eclipse.e4.ui.workbench.modeling.EPartService.PartState;
 import org.eclipse.e4.ui.workbench.modeling.EPartService;
 import org.modelio.script.engine.core.engine.IScriptRunner;
@@ -47,14 +49,28 @@ public class RunMacroHandler {
 
     @objid ("98ec7b4f-cfc5-4e35-9daa-05fc96520fbb")
     @Execute
-    public void execute(EPartService partService, @Optional
+    public void execute(EPartService partService, MWindow window, @Optional
 @Named(RUNMACRO_FILE) final String file) {
         MPart part = partService.findPart(ScriptView.PARTID);
+        //If the part is not found try to browse the shared elements to find the script part
+        if (part == null && window != null) {
+            for (MUIElement x : window.getSharedElements()) {
+                if (x.getElementId().equals(ScriptView.PARTID)) {
+                    part  = (MPart) x;
+                    break;
+                }
+            }
+        }
         if (part.getContext() == null) {
             // Create script view if it is not created yet in order to run the script
             if (!partService.isPartVisible(part)) {
                 partService.showPart(part, PartState.CREATE);
             }
+        }
+        else {
+            //Force the activation of the script view
+            if (part !=null)
+                partService.showPart(part, PartState.ACTIVATE);
         }
         
         // Activate the part to give it focus
@@ -72,8 +88,10 @@ public class RunMacroHandler {
     @objid ("69b79019-f73d-45ac-8d85-fed5b5cbd2ad")
     @CanExecute
     public boolean isEnable(EPartService partService) {
-        MPart part = partService.findPart(ScriptView.PARTID);
-        return part != null;
+        /* MPart part = partService.findPart(ScriptView.PARTID);
+        return part != null;*/
+        //The method execute() must show the macro view in all cases
+        return true;
     }
 
 }

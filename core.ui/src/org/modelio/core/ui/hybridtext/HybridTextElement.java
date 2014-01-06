@@ -494,6 +494,11 @@ public class HybridTextElement {
             final List<Element> elements = this.searcher.search(this.session, this.searchCriteria);
             
             if (elements.isEmpty()) {
+                // Close the other tooltip, to avoid an exception with the dispose of the text
+                if (this.tooltip != null) {
+                    this.tooltip.hide();
+                }
+                
                 MessageDialog.openInformation(this.text.getShell(),
                         CoreUi.I18N.getString("TextElement.NotFoundTitle"),
                         CoreUi.I18N.getString("TextElement.NotFoundMessage"));
@@ -648,7 +653,7 @@ public class HybridTextElement {
         @objid ("a76a6c1b-eedb-42f8-8a7e-b96418547703")
         private IPickingSession pickingSession;
 
-        @objid ("9e71f42d-ad7e-43fb-80f6-fba154417f64")
+        @objid ("90a37983-94d4-440f-af0a-0c663a75b880")
         private DisposeListener disposeListener;
 
         @objid ("63e871c1-570d-4928-b7b0-4b3358318111")

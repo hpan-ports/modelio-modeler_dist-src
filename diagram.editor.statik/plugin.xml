@@ -19,6 +19,17 @@
 		<definition id="diagram.editor.statik.test.iscompositionlink.id">
 			<test property="diagram.editor.statik.test.iscompositionlink"/>
 		</definition>
+  <definition
+        id="diagram.editor.statik.expr.showunmaskmenu">
+     <and>
+        <test
+              property="diagram.editor.statik.test.iscompositionlink">
+        </test>
+        <reference
+              definitionId="org.modelio.diagram.editor.corexp.has-gmmodel.id">
+        </reference>
+     </and>
+  </definition>
 	</extension>
   
 	<extension point="org.eclipse.core.expressions.propertyTesters">
@@ -191,7 +202,7 @@
 			<context metaclass="NaryLink" dependency="null"  router="NINSTANCELINK_CONNECTIONROUTER">
 			</context>	
 		</creationtool>
-		<creationtool id="CREATE_NARY_CONNECTOR" label="%NaryLink.label" tooltip="%NaryLink.tooltip" interactor="multipoint" icon="icons/narylink.png">
+		<creationtool id="CREATE_NARY_CONNECTOR" label="%NaryConnector.label" tooltip="%NaryConnector.tooltip" interactor="multipoint" icon="icons/narylink.png">
 			<context metaclass="NaryConnector" dependency="null"  router="NCONNECTOR_CONNECTIONROUTER">
 			</context>	
 		</creationtool>

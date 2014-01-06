@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.uml.behavior.stateMachineModel;
 
 import java.util.ArrayList;
@@ -41,21 +41,21 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("005678d6-c4bf-1fd8-97fe-001ec947cd2a")
 public class FinalStateImpl extends StateImpl implements FinalState {
-    @objid ("c2b39f06-81bd-48c7-8703-03a684171bb3")
+    @objid ("193142c4-d66b-468f-8f3f-f10fed9fcc55")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("65f8f509-2757-4bd6-8ada-fa01b6076cd4")
+    @objid ("5a9558af-c0b2-4b77-aa34-d953e62c6da5")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("b5813822-cdd3-44ba-9939-440737707898")
+    @objid ("e226f666-5be1-456d-afaf-1eefd168abfc")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitFinalState(this);

@@ -32,7 +32,7 @@ import org.modelio.vcore.smkernel.mapi.MObject;
 public class DeriveCreationExpert extends DefaultLinkExpert {
     @objid ("9dc906c1-06d0-43bd-ad66-b01927857693")
     @Override
-    public boolean canLink(MObject link, final MObject fromElement, final MObject toElement, final MObject linkOwner) {
+    public boolean canLink(MClass link, final MObject fromElement, final MObject toElement) {
         if ((fromElement instanceof UseCase) ||
             (fromElement instanceof Requirement))
             return (toElement instanceof Requirement);
@@ -41,7 +41,7 @@ public class DeriveCreationExpert extends DefaultLinkExpert {
 
     @objid ("94bcbbe3-bba4-439f-93f1-00f32aac1d2e")
     @Override
-    public boolean canLink(MClass link, final MClass fromMetaclass, final MClass toMetaclass, final MClass owner) {
+    public boolean canLink(MClass link, final MClass fromMetaclass, final MClass toMetaclass) {
         if ((fromMetaclass.hasBase(Metamodel.getMClass(UseCase.class))) ||
             (fromMetaclass.hasBase(Metamodel.getMClass(Requirement.class))))
             return toMetaclass.hasBase(Metamodel.getMClass(Requirement.class));

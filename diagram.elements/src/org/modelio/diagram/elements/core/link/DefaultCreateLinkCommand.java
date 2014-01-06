@@ -91,7 +91,7 @@ public class DefaultCreateLinkCommand extends Command {
                 final MObject targetEl = this.targetNode.getRelatedElement();
                 if (targetEl == null || targetEl.isShell() || targetEl.isDeleted())
                     return false;
-                if (!MTools.getLinkTool().canLink(toCreateStereotype, toCreateMetaclass, srcElement.getMClass(), targetEl.getMClass(), null))
+                if (!MTools.getLinkTool().canLink(toCreateStereotype, toCreateMetaclass, srcElement, targetEl))
                     return false;
                 
                 // The access right expert must allow the command

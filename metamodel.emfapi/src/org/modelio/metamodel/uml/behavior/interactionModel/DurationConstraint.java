@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.uml.behavior.interactionModel;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
@@ -31,16 +31,16 @@ import org.modelio.metamodel.uml.infrastructure.Constraint;
 
 @objid ("0043d1ea-c4bf-1fd8-97fe-001ec947cd2a")
 public interface DurationConstraint extends Constraint {
-    @objid ("89ad07fa-1b37-4d44-9c7d-86000681f51b")
+    @objid ("6f16189c-b10e-4dcf-8677-35c6c54b802d")
     String getDurationMin();
 
-    @objid ("9ab14501-812c-4077-a765-d2a7420da9e9")
+    @objid ("b3d5a29b-4326-4cfc-8e20-48fd8ae99576")
     void setDurationMin(String value);
 
-    @objid ("8874e982-96d7-4d4e-86c5-66ebc41d8645")
+    @objid ("b4b426b0-5b89-4f43-a947-7c62534cf5c7")
     String getDurationMax();
 
-    @objid ("7e8f4568-c8bb-47a4-9035-f938382fefcf")
+    @objid ("faf73044-7cc9-456d-a359-a158556f1892")
     void setDurationMax(String value);
 
 }

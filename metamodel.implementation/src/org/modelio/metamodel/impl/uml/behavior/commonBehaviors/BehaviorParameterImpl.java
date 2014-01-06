@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.uml.behavior.commonBehaviors;
 
 import java.util.ArrayList;
@@ -46,13 +46,13 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("00413f3e-c4bf-1fd8-97fe-001ec947cd2a")
 public class BehaviorParameterImpl extends ParameterImpl implements BehaviorParameter {
-    @objid ("7c5f0696-dcb1-44f9-8041-a43538b73ec1")
+    @objid ("296f9fdc-9ab6-46e7-b6c0-8c9e1d6c0dc7")
     @Override
     public EList<ObjectNode> getRepresentingObjectNode() {
         return new SmList<>(this, BehaviorParameterData.Metadata.RepresentingObjectNodeDep());
     }
 
-    @objid ("43a96d09-cff6-4666-9438-8d0ed1344625")
+    @objid ("25f70a31-43d1-4be0-ba7f-523f85404366")
     @Override
     public <T extends ObjectNode> List<T> getRepresentingObjectNode(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -65,31 +65,31 @@ public class BehaviorParameterImpl extends ParameterImpl implements BehaviorPara
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("d85abd63-c0dc-4e52-9abb-b91e1829e1f6")
+    @objid ("a6193956-dab8-4190-ab3c-25283ddb2ad2")
     @Override
     public Behavior getOwner() {
         return (Behavior) getDepVal(BehaviorParameterData.Metadata.OwnerDep());
     }
 
-    @objid ("fd8009ec-eb71-4a1e-bf37-21e6b14dbf4c")
+    @objid ("dae602be-fedc-4c65-b224-1ca647afc834")
     @Override
     public void setOwner(Behavior value) {
         appendDepVal(BehaviorParameterData.Metadata.OwnerDep(), (SmObjectImpl)value);
     }
 
-    @objid ("12258775-c815-4468-83d6-bd809d5556e1")
+    @objid ("39529b5a-c815-4065-a55d-8f0e52655179")
     @Override
     public Parameter getMapped() {
         return (Parameter) getDepVal(BehaviorParameterData.Metadata.MappedDep());
     }
 
-    @objid ("2b09ffca-aea6-421e-bb32-536fd57f0370")
+    @objid ("93d0113c-6abf-4ac9-add3-8163705fee60")
     @Override
     public void setMapped(Parameter value) {
         appendDepVal(BehaviorParameterData.Metadata.MappedDep(), (SmObjectImpl)value);
     }
 
-    @objid ("e0db26f5-9dde-4e67-b8df-3006d76348cb")
+    @objid ("eb70dbc2-5893-43eb-90c5-87e30e052d65")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
@@ -99,7 +99,7 @@ public class BehaviorParameterImpl extends ParameterImpl implements BehaviorPara
         return super.getCompositionOwner();
     }
 
-    @objid ("379964da-6b86-435a-a00a-389ae78632d8")
+    @objid ("7a622bc6-9e58-4de3-9486-976e567883f1")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
@@ -109,7 +109,7 @@ public class BehaviorParameterImpl extends ParameterImpl implements BehaviorPara
         return super.getCompositionRelation();
     }
 
-    @objid ("d9e3f480-954d-44f2-b65e-c1be1fa6c153")
+    @objid ("5314dd09-357c-4d5c-8ffd-008def2e09c0")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitBehaviorParameter(this);

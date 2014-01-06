@@ -27,6 +27,7 @@ import java.net.URISyntaxException;
 import java.nio.file.NoSuchFileException;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.gproject.descriptor.ProjectDescriptor;
+import org.modelio.gproject.gproject.ProjectType;
 import org.modelio.gproject.gproject.remote.GRemoteProject;
 import org.modelio.gproject.module.IModuleCatalog;
 import org.modelio.vbasic.auth.IAuthData;
@@ -88,6 +89,12 @@ public class GUrlProject extends GRemoteProject {
             throw e2;
         }
         return ret;
+    }
+
+    @objid ("e0f84f49-f8d6-4109-82e0-565ee6e35589")
+    @Override
+    public ProjectType getType() {
+        return ProjectType.HTTP;
     }
 
 }

@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.bpmn.activities;
 
 import java.util.ArrayList;
@@ -42,57 +42,57 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("007e160c-c4bf-1fd8-97fe-001ec947cd2a")
 public class BpmnAdHocSubProcessImpl extends BpmnSubProcessImpl implements BpmnAdHocSubProcess {
-    @objid ("bfb3fe93-9e0c-4886-8cdd-39d31b89950b")
+    @objid ("930f2c05-ac7c-4d3a-a771-cee6c3a11069")
     @Override
     public AdHocOrdering getOrdering() {
         return (AdHocOrdering) getAttVal(BpmnAdHocSubProcessData.Metadata.OrderingAtt());
     }
 
-    @objid ("20505b69-cd8d-4c82-9a6e-3c6a126747ae")
+    @objid ("a6cee15d-8843-4d17-b26d-4cc148bb6a13")
     @Override
     public void setOrdering(AdHocOrdering value) {
         setAttVal(BpmnAdHocSubProcessData.Metadata.OrderingAtt(), value);
     }
 
-    @objid ("8709b095-2ae1-442c-94c7-37b7a56236fb")
+    @objid ("614c74e8-a1cd-4546-b83d-93deaf836444")
     @Override
     public boolean isCancelRemainingInstances() {
         return (Boolean) getAttVal(BpmnAdHocSubProcessData.Metadata.CancelRemainingInstancesAtt());
     }
 
-    @objid ("2818511c-446e-454b-8473-d1b5a6302d87")
+    @objid ("cbebe31f-938c-42da-93d9-38269fb8c843")
     @Override
     public void setCancelRemainingInstances(boolean value) {
         setAttVal(BpmnAdHocSubProcessData.Metadata.CancelRemainingInstancesAtt(), value);
     }
 
-    @objid ("cbd340b4-6ce0-4949-937d-79df31f76740")
+    @objid ("763959f7-7cc1-4c08-839c-857588e8e764")
     @Override
     public String getCompletionCondition() {
         return (String) getAttVal(BpmnAdHocSubProcessData.Metadata.CompletionConditionAtt());
     }
 
-    @objid ("5805beea-13ca-48a8-84bd-83b4c86bf93a")
+    @objid ("b81795ab-d2b4-47e5-b6f9-91ba57c80331")
     @Override
     public void setCompletionCondition(String value) {
         setAttVal(BpmnAdHocSubProcessData.Metadata.CompletionConditionAtt(), value);
     }
 
-    @objid ("2b7a1d47-bbf0-4001-a6ad-1bb7afd108fb")
+    @objid ("f1b8cce5-2784-4697-b1e1-0eeb2930bf3d")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("e59ef9f0-b55c-497f-a33f-22d7eeacdf7e")
+    @objid ("50ae8730-efc5-4901-b22c-581b83b26eea")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("ab1e37f8-a0cc-48e6-a503-6523294e682e")
+    @objid ("c518c63e-6b02-4d2c-ab13-3da5ac7337fa")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitBpmnAdHocSubProcess(this);

@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.uml.infrastructure;
 
 import java.util.ArrayList;
@@ -41,33 +41,33 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("0084cc0e-c4be-1fd8-97fe-001ec947cd2a")
 public class AbstractionImpl extends DependencyImpl implements Abstraction {
-    @objid ("a98d04de-dd92-486d-abf1-8d390cd976fa")
+    @objid ("e20641b2-1952-40c9-9b02-b9ad8ceec7cf")
     @Override
     public String getMapping() {
         return (String) getAttVal(AbstractionData.Metadata.MappingAtt());
     }
 
-    @objid ("53c9e217-d278-4776-bef7-4470f6b8c4f7")
+    @objid ("f0e56de4-2099-47a1-8592-d55ecf2beb8f")
     @Override
     public void setMapping(String value) {
         setAttVal(AbstractionData.Metadata.MappingAtt(), value);
     }
 
-    @objid ("91d6b165-bc69-49bf-86fe-05f1ea193dcf")
+    @objid ("ca49869e-c96c-4a69-b10c-a629f25a334a")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("e23b6a0a-94c5-4020-9ef5-bbc3dda9743c")
+    @objid ("4fbbe8b3-2ed1-42ba-85f0-75e150dc78dd")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("9d42f1c9-0c8d-4a31-84d8-c697bd47d375")
+    @objid ("ca6e02aa-9cb8-44da-a0ea-bfa132544d3a")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitAbstraction(this);

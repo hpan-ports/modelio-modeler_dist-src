@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.diagrams;
 
 import java.util.ArrayList;
@@ -41,21 +41,21 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("0071b7ea-c4bf-1fd8-97fe-001ec947cd2a")
 public class UseCaseDiagramImpl extends StaticDiagramImpl implements UseCaseDiagram {
-    @objid ("c48f89ea-c919-4426-849f-6d44c03c1cca")
+    @objid ("d26ca4f5-30e7-4ac9-849c-6c9bbdf511e5")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("2b0af4c7-ac12-4840-8b76-6225c39aa99f")
+    @objid ("c06420cc-0cb9-4261-a546-6195611fbc4e")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("bd73fc4e-dd94-4645-ad54-cf82bbdfb09e")
+    @objid ("171e7c37-a74f-4d55-8562-9e2aadf1a192")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitUseCaseDiagram(this);

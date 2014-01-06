@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.uml.behavior.commonBehaviors;
 
 import java.util.List;
@@ -34,22 +34,22 @@ import org.modelio.metamodel.uml.statik.Parameter;
 
 @objid ("004119be-c4bf-1fd8-97fe-001ec947cd2a")
 public interface BehaviorParameter extends Parameter {
-    @objid ("41a3bb24-5abd-4e45-b2ab-bce2fdcf33aa")
+    @objid ("20172ce8-f91f-4fb5-92c9-60faeeefca0c")
     EList<ObjectNode> getRepresentingObjectNode();
 
-    @objid ("507aa2df-7332-41dc-8fa0-f8ff268940a1")
+    @objid ("f7e18cd1-ccdf-4124-a8b9-d4577845d4c9")
     <T extends ObjectNode> List<T> getRepresentingObjectNode(java.lang.Class<T> filterClass);
 
-    @objid ("d8883b6b-802e-4477-b0e7-e4d35587dc0a")
+    @objid ("ac204dc6-dd9b-49f4-a0c4-0473892c4916")
     Behavior getOwner();
 
-    @objid ("6d31de79-fcc4-4172-ab7d-323aacbf23bc")
+    @objid ("e0a6a238-82db-40b7-8bb4-10496d451391")
     void setOwner(Behavior value);
 
-    @objid ("1940b1c3-ea30-4be0-9a3e-464bb36d5189")
+    @objid ("ee9eb44f-3fa2-4947-b85a-0efc8d5cc5a0")
     Parameter getMapped();
 
-    @objid ("dfa7c275-d250-4553-875b-d498a71c0b42")
+    @objid ("1cb21758-34f2-4127-a5c1-72e65cd4f2ef")
     void setMapped(Parameter value);
 
 }

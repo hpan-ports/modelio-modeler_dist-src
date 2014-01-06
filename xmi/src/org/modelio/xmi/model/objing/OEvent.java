@@ -35,11 +35,12 @@ import org.modelio.xmi.util.IModelerModuleStereotypes;
 import org.modelio.xmi.util.PrimitiveTypeMapper;
 
 @objid ("81806c76-d9a2-4ce0-85de-683203b9b685")
-public class OEvent extends OModelElement implements IOElement {
+public class OEvent extends OModelElement {
     @objid ("c1554f26-05c8-48b3-9f09-3b29aadded76")
     private Event objingElement = null;
 
     @objid ("80f35277-703a-4f13-b158-72cb9ec13b59")
+    @Override
     public org.eclipse.uml2.uml.Element createEcoreElt() {
         EventType eventType = this.objingElement.getKind();
         if (eventType != null){
@@ -52,6 +53,8 @@ public class OEvent extends OModelElement implements IOElement {
                     return UMLFactory.eINSTANCE.createTimeEvent();
                 case CHANGEEVENT :
                     return UMLFactory.eINSTANCE.createChangeEvent();
+            default:
+                return UMLFactory.eINSTANCE.createCallEvent();
         
             }
         }
@@ -73,6 +76,7 @@ public class OEvent extends OModelElement implements IOElement {
     }
 
     @objid ("53e82951-8555-423c-ba3c-bd4e0957acfc")
+    @Override
     public void attach(org.eclipse.uml2.uml.Element ecoreElt) {
         Behavior oldOwner = this.objingElement.getComposed();
         
@@ -81,7 +85,7 @@ public class OEvent extends OModelElement implements IOElement {
         org.eclipse.uml2.uml.Element ecoreOwner = GenerationProperties.getInstance().getMappedElement(oldOwner);
         
         if ((newOwner != null) && 
-                ((ecoreOwner != null) && ((ecoreOwner instanceof org.eclipse.uml2.uml. BehavioredClassifier) || (ecoreOwner instanceof  org.eclipse.uml2.uml.Transition)
+                ((ecoreOwner != null) && ((ecoreOwner instanceof org.eclipse.uml2.uml.BehavioredClassifier) || (ecoreOwner instanceof  org.eclipse.uml2.uml.Transition)
                         || (ecoreOwner instanceof org.eclipse.uml2.uml.State) || (ecoreOwner instanceof  org.eclipse.uml2.uml.AcceptEventAction) ))){
         
             org.eclipse.uml2.uml.Element newEcoreOwner = GenerationProperties.getInstance().getMappedElement(newOwner);
@@ -93,6 +97,7 @@ public class OEvent extends OModelElement implements IOElement {
     }
 
     @objid ("72d42797-76b6-4b76-afa8-ebbd738404ef")
+    @Override
     public void setProperties(org.eclipse.uml2.uml.Element ecoreElt) {
         if (ecoreElt instanceof  org.eclipse.uml2.uml.Event ){
             super.setProperties(ecoreElt);

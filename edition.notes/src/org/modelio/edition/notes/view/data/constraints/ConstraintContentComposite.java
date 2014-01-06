@@ -65,7 +65,6 @@ public class ConstraintContentComposite extends Composite implements INoteConten
         setLayout(new FillLayout());
         
         this.constraintText = new Text(this, SWT.BORDER | SWT.BORDER | SWT.V_SCROLL | SWT.WRAP);
-        this.constraintText.setBackground(UIColor.TEXT_READONLY_BG);
         
         this.constraintModifier = new ConstraintContentModifier();
     }
@@ -92,9 +91,15 @@ public class ConstraintContentComposite extends Composite implements INoteConten
         if (this.constraint != null) {
             this.constraintText.setText(this.constraint.getBody());
             this.constraintText.setData(this.constraint);
+            if (this.constraint.isModifiable()) {
+                this.constraintText.setBackground(UIColor.POST_IT_BG);
+            } else {
+                this.constraintText.setBackground(UIColor.TEXT_READONLY_BG);
+            }
         } else {
             this.constraintText.setText("");
             this.constraintText.setData(null);
+            this.constraintText.setBackground(UIColor.TEXT_READONLY_BG);
         }
     }
 
@@ -189,22 +194,26 @@ public class ConstraintContentComposite extends Composite implements INoteConten
         @objid ("26eaa9b7-186f-11e2-bc4e-002564c97630")
         private void validate(final TypedEvent event) {
             Text text = (Text) event.getSource();
-            Constraint constraint = (Constraint) text.getData();
+            Constraint constraintToEdit = (Constraint) text.getData();
             
-            if (constraint != null && constraint.getStatus().isModifiable()) {
+            if (constraintToEdit != null && constraintToEdit.getStatus().isModifiable()) {
                 String s = text.getText();
             
-                if (!s.equals(constraint.getBody())) {
+                if (!s.equals(constraintToEdit.getBody())) {
                     try (ITransaction transaction = ConstraintContentComposite.this.modelingSession.getTransactionSupport()
                             .createTransaction(EditionNotes.I18N.getString("UpdateDescriptionNote"))) {
                         s = s.replaceAll("\r\n", "\n");
-                        constraint.setBody(s);
+                        constraintToEdit.setBody(s);
                         transaction.commit();
                     }
                 }
+                
+                if (constraintToEdit.isModifiable()) {
+                    text.setBackground(UIColor.POST_IT_BG);
+                } else {
+                    text.setBackground(UIColor.TEXT_READONLY_BG);
+                }
             }
-            
-            text.setBackground(UIColor.TEXT_READONLY_BG);
         }
 
         @objid ("26ed0ad0-186f-11e2-bc4e-002564c97630")

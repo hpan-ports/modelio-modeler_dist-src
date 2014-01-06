@@ -390,6 +390,9 @@ public interface IModule {
     @objid ("d0f20abf-b0ac-404e-ae01-2c75875c3643")
     ILicenseInfos getLicenseInfos();
 
+    @objid ("4b8ff81b-0d93-4388-87e9-1a8cbf5fbf9c")
+    <I> I instanciateExternProcessor(String className, Class<I> clazz, Object... initargs);
+
     @objid ("8e52ef63-72a1-11dd-a1d1-001ec947cd2a")
     public enum ImageType {
         ICON,

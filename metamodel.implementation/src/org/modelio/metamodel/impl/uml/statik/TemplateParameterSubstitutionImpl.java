@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.uml.statik;
 
 import java.util.ArrayList;
@@ -45,55 +45,55 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("001e4902-c4bf-1fd8-97fe-001ec947cd2a")
 public class TemplateParameterSubstitutionImpl extends ModelElementImpl implements TemplateParameterSubstitution {
-    @objid ("5ba28ebf-68c4-4d29-b783-f20a84bd1718")
+    @objid ("23d96c2a-dd0c-41cf-8326-2fce99122fcd")
     @Override
     public String getValue() {
         return (String) getAttVal(TemplateParameterSubstitutionData.Metadata.ValueAtt());
     }
 
-    @objid ("91d0c940-fcc6-44f4-848f-d504920f7cd6")
+    @objid ("c1b0dcde-de75-4fd9-9190-77828cc973b7")
     @Override
     public void setValue(String value) {
         setAttVal(TemplateParameterSubstitutionData.Metadata.ValueAtt(), value);
     }
 
-    @objid ("bbe85b73-0eda-4718-a96a-68af7fde58ad")
+    @objid ("f6230a5f-3efe-44af-b12e-309e4552de53")
     @Override
     public TemplateBinding getOwner() {
         return (TemplateBinding) getDepVal(TemplateParameterSubstitutionData.Metadata.OwnerDep());
     }
 
-    @objid ("5c59907f-45c5-447f-8fe9-d035bcb22d8e")
+    @objid ("ee4215a0-0109-4bba-86f4-092ff39b9cd4")
     @Override
     public void setOwner(TemplateBinding value) {
         appendDepVal(TemplateParameterSubstitutionData.Metadata.OwnerDep(), (SmObjectImpl)value);
     }
 
-    @objid ("38279c60-effd-4217-b0b1-09a06191b0f9")
+    @objid ("98940660-7e2b-4dc0-8730-3576b4b8ec51")
     @Override
     public ModelElement getActual() {
         return (ModelElement) getDepVal(TemplateParameterSubstitutionData.Metadata.ActualDep());
     }
 
-    @objid ("229b9d8a-3700-4d89-b484-c9d5719de6b6")
+    @objid ("ec45d254-c642-460a-b042-d337b28d522e")
     @Override
     public void setActual(ModelElement value) {
         appendDepVal(TemplateParameterSubstitutionData.Metadata.ActualDep(), (SmObjectImpl)value);
     }
 
-    @objid ("bebc6885-f590-4a12-84c2-20b85d0b193f")
+    @objid ("7888bdb5-234d-4559-bc34-03d3bf1e4b01")
     @Override
     public TemplateParameter getFormalParameter() {
         return (TemplateParameter) getDepVal(TemplateParameterSubstitutionData.Metadata.FormalParameterDep());
     }
 
-    @objid ("73374b57-3516-4f4b-bfaf-75de20136f58")
+    @objid ("b68dbfc8-ace7-44d5-b257-ed833c0cc8f2")
     @Override
     public void setFormalParameter(TemplateParameter value) {
         appendDepVal(TemplateParameterSubstitutionData.Metadata.FormalParameterDep(), (SmObjectImpl)value);
     }
 
-    @objid ("02b02fff-e51a-42ae-a9a1-8a63d2a3e97d")
+    @objid ("5c8eb496-fc03-4040-a07f-86dca82c9f02")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
@@ -103,7 +103,7 @@ public class TemplateParameterSubstitutionImpl extends ModelElementImpl implemen
         return super.getCompositionOwner();
     }
 
-    @objid ("7bc055f9-c8c6-469a-b615-a0c6327dc989")
+    @objid ("82f78fd1-039b-4b84-ae3d-7aca22503c2d")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
@@ -113,7 +113,7 @@ public class TemplateParameterSubstitutionImpl extends ModelElementImpl implemen
         return super.getCompositionRelation();
     }
 
-    @objid ("e2b57c1b-d67b-4b3c-9db5-5267e8f90aa7")
+    @objid ("c34a631c-56f5-442a-8ca3-66f72281883e")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitTemplateParameterSubstitution(this);

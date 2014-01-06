@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.uml.statik;
 
 import java.util.ArrayList;
@@ -46,55 +46,55 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("00164f7c-c4bf-1fd8-97fe-001ec947cd2a")
 public class PackageImportImpl extends ModelElementImpl implements PackageImport {
-    @objid ("fbe1f717-3136-4058-b8a7-5d909daffefe")
+    @objid ("13040ad7-ecb6-4940-9333-b94945935e6b")
     @Override
     public VisibilityMode getVisibility() {
         return (VisibilityMode) getAttVal(PackageImportData.Metadata.VisibilityAtt());
     }
 
-    @objid ("47762307-2a5c-4280-9b53-eb7cbb1813f8")
+    @objid ("b13d6e46-ba2e-464e-a7a6-107f71c4a372")
     @Override
     public void setVisibility(VisibilityMode value) {
         setAttVal(PackageImportData.Metadata.VisibilityAtt(), value);
     }
 
-    @objid ("813ee604-0a0b-4b03-b1f4-e4c7c1af4bc0")
+    @objid ("b6e006a4-a021-44de-b63e-d093a81f2000")
     @Override
     public Operation getImportingOperation() {
         return (Operation) getDepVal(PackageImportData.Metadata.ImportingOperationDep());
     }
 
-    @objid ("d5cbfc90-5686-4aa2-9fdc-414fe9a24f80")
+    @objid ("d5e87dad-8cd4-4d57-a884-dead55a6ecd2")
     @Override
     public void setImportingOperation(Operation value) {
         appendDepVal(PackageImportData.Metadata.ImportingOperationDep(), (SmObjectImpl)value);
     }
 
-    @objid ("89d611c9-24e8-4c04-ac42-13a274eda63f")
+    @objid ("2ca3cb12-99cc-4acc-9e37-ed78b3483e0e")
     @Override
     public NameSpace getImportingNameSpace() {
         return (NameSpace) getDepVal(PackageImportData.Metadata.ImportingNameSpaceDep());
     }
 
-    @objid ("5ef7720c-d93f-4707-bca9-67ee58191e05")
+    @objid ("b6cc5271-8807-453c-a11c-fd911ab30a24")
     @Override
     public void setImportingNameSpace(NameSpace value) {
         appendDepVal(PackageImportData.Metadata.ImportingNameSpaceDep(), (SmObjectImpl)value);
     }
 
-    @objid ("e191b473-dd9c-44bc-a5c8-d5d33ac924eb")
+    @objid ("0d554d3c-eb5f-4cd1-b47e-273efde1d5e2")
     @Override
     public Package getImportedPackage() {
         return (Package) getDepVal(PackageImportData.Metadata.ImportedPackageDep());
     }
 
-    @objid ("94f72dc0-4137-4ee9-b878-ee34319af24f")
+    @objid ("a1346578-350c-43f9-a205-93dcb5e2b234")
     @Override
     public void setImportedPackage(Package value) {
         appendDepVal(PackageImportData.Metadata.ImportedPackageDep(), (SmObjectImpl)value);
     }
 
-    @objid ("5db1e0ae-77b5-4f1a-8596-2890e33de2d5")
+    @objid ("78fdd491-bb8f-417c-bc8a-ad89da3bd683")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
@@ -107,7 +107,7 @@ public class PackageImportImpl extends ModelElementImpl implements PackageImport
         return super.getCompositionOwner();
     }
 
-    @objid ("d4f2517c-6ca0-4ace-bd7f-e0adc9722272")
+    @objid ("47a0eb9b-c474-410a-b8eb-02e324e0a1ee")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
@@ -120,7 +120,7 @@ public class PackageImportImpl extends ModelElementImpl implements PackageImport
         return super.getCompositionRelation();
     }
 
-    @objid ("61480217-9d5d-4e11-b4ad-a78550efb393")
+    @objid ("b1b3a588-c46d-4796-8d17-ddeeb1668e74")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitPackageImport(this);

@@ -30,7 +30,7 @@ import org.eclipse.gef.palette.PaletteRoot;
 import org.eclipse.gef.palette.SelectionToolEntry;
 import org.eclipse.gef.tools.AbstractTool;
 import org.modelio.diagram.editor.AbstractDiagramEditor;
-import org.modelio.diagram.editor.plugin.IDiagramConfigurer;
+import org.modelio.diagram.editor.plugin.AbstractDiagramConfigurer;
 import org.modelio.diagram.editor.plugin.ToolRegistry;
 import org.modelio.diagram.editor.statik.editor.StaticDiagramEditor;
 import org.modelio.diagram.editor.tools.PanSelectionTool;
@@ -39,12 +39,7 @@ import org.modelio.diagram.editor.tools.PanSelectionTool;
  * Configures the diagram palette.
  */
 @objid ("36ecfa5a-55b7-11e2-877f-002564c97630")
-public class ClassDiagramConfigurer implements IDiagramConfigurer {
-//    @objid ("36ecfa5e-55b7-11e2-877f-002564c97630")
-//    @Override
-//    public DiagramEditorInput createDiagramEditorInput(final CoreSession session, final IAbstractDiagram target) {
-//        return new StaticDiagramEditorInput(session, target);
-//    }
+public class ClassDiagramConfigurer extends AbstractDiagramConfigurer {
     @objid ("36ecfa6d-55b7-11e2-877f-002564c97630")
     @Override
     public String getContributionURI() {
@@ -75,6 +70,7 @@ public class ClassDiagramConfigurer implements IDiagramConfigurer {
         paletteRoot.add(this.createImportGroup(toolRegistry));
         paletteRoot.add(this.createInformationFlowGroup(toolRegistry));
         paletteRoot.add(this.createCommonGroup(toolRegistry));
+        paletteRoot.add(this.createDrawGroup(toolRegistry));
         return paletteRoot;
     }
 

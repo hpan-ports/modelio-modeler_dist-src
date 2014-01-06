@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.data.uml.behavior.activityModel;
 
 import java.util.ArrayList;
@@ -44,57 +44,57 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("0038ffd6-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=ObjectFlow.class, factory=ObjectFlowData.Metadata.ObjectFactory.class)
 public class ObjectFlowData extends ActivityEdgeData {
-    @objid ("3ada2116-4d9d-4790-b636-05aaf8c7de07")
+    @objid ("a69bb9eb-9404-40fc-aefb-a197462129a8")
     @SmaMetaAttribute(metaName="TransformationBehavior", type=String.class, smAttributeClass=Metadata.TransformationBehaviorSmAttribute.class)
      Object mTransformationBehavior = "";
 
-    @objid ("d6b87337-f8b9-4b44-a7be-83ec94dcc136")
+    @objid ("75783269-e822-48fd-9f84-812c65206b8d")
     @SmaMetaAttribute(metaName="SelectionBehavior", type=String.class, smAttributeClass=Metadata.SelectionBehaviorSmAttribute.class)
      Object mSelectionBehavior = "";
 
-    @objid ("cec9c167-c536-42d0-b649-11cf23808050")
+    @objid ("aaf1c91c-c005-40ea-b959-489f3f556a11")
     @SmaMetaAttribute(metaName="IsMultiCast", type=Boolean.class, smAttributeClass=Metadata.IsMultiCastSmAttribute.class)
      Object mIsMultiCast = false;
 
-    @objid ("d16e1bdb-1fd3-4ef8-bbde-6bbe71e1b2db")
+    @objid ("624ffb1b-aa1a-48a4-a291-44a769c76941")
     @SmaMetaAttribute(metaName="IsMultiReceive", type=Boolean.class, smAttributeClass=Metadata.IsMultiReceiveSmAttribute.class)
      Object mIsMultiReceive = false;
 
-    @objid ("6387bc3b-1b48-4a3f-a81f-4e0a2d332b04")
+    @objid ("0515b9b8-440e-402a-a3c6-80ab98895576")
     @SmaMetaAttribute(metaName="Effect", type=ObjectFlowEffectKind.class, smAttributeClass=Metadata.EffectSmAttribute.class)
      Object mEffect = ObjectFlowEffectKind.READFLOW;
 
-    @objid ("e4269cd8-18a9-4921-b89e-db291370a7e5")
+    @objid ("fc5eca3b-9c2c-4536-9843-ef85f84ebb86")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("006907f8-c4c5-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("98d3265e-a485-4942-bf66-e9bb18e6994b")
+        @objid ("267c00e6-c722-4e91-b63e-a9a085e29c7c")
         private static SmClass smClass = null;
 
-        @objid ("0747a55f-e46f-4d81-9602-cae8311706d5")
+        @objid ("447f9278-bd06-4ba9-86ea-d57157262a0b")
         private static SmAttribute TransformationBehaviorAtt = null;
 
-        @objid ("504debfb-7b59-48e6-95b8-226816feedd9")
+        @objid ("ff98070d-d6d9-497b-9fab-afb7c8eb1f8e")
         private static SmAttribute SelectionBehaviorAtt = null;
 
-        @objid ("45ee92b4-89ae-423f-9150-6dd4c8dcee70")
+        @objid ("dbbac348-aaf6-4209-8bce-1967a2653974")
         private static SmAttribute IsMultiCastAtt = null;
 
-        @objid ("36b3c53c-b682-4816-8aa2-0c0281da4892")
+        @objid ("49560db2-c58f-4ab0-afde-59f1bdda1f7a")
         private static SmAttribute IsMultiReceiveAtt = null;
 
-        @objid ("66ea2f72-87fc-4290-9c10-158a405c6b73")
+        @objid ("a3af27a4-6d8a-4c9b-85d0-1c69e56da04c")
         private static SmAttribute EffectAtt = null;
 
-        @objid ("b97c90ba-0cd5-468c-87ba-be1cd00fe363")
+        @objid ("4af45185-3fb8-4f56-b027-178905587d23")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(ObjectFlowData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("4fc7f09f-8b06-4e6e-8fcf-c3b7bcdc782c")
+        @objid ("011243c8-7eba-4899-a53b-6071d66a835d")
         public static SmAttribute TransformationBehaviorAtt() {
             if (TransformationBehaviorAtt == null) {
             	TransformationBehaviorAtt = classof().getAttributeDef("TransformationBehavior");
@@ -102,7 +102,7 @@ public class ObjectFlowData extends ActivityEdgeData {
             return TransformationBehaviorAtt;
         }
 
-        @objid ("efde76df-8848-4c04-8234-133f548d3a84")
+        @objid ("2647e44d-6cea-4d68-b596-d876d5fe7055")
         public static SmAttribute SelectionBehaviorAtt() {
             if (SelectionBehaviorAtt == null) {
             	SelectionBehaviorAtt = classof().getAttributeDef("SelectionBehavior");
@@ -110,7 +110,7 @@ public class ObjectFlowData extends ActivityEdgeData {
             return SelectionBehaviorAtt;
         }
 
-        @objid ("d3fa70e6-598e-4596-acde-d869a98f8008")
+        @objid ("fabb3161-2a56-492d-a5fc-02e7baec905c")
         public static SmAttribute IsMultiCastAtt() {
             if (IsMultiCastAtt == null) {
             	IsMultiCastAtt = classof().getAttributeDef("IsMultiCast");
@@ -118,7 +118,7 @@ public class ObjectFlowData extends ActivityEdgeData {
             return IsMultiCastAtt;
         }
 
-        @objid ("8d2e665c-c366-48b4-9f60-87f49d870598")
+        @objid ("826b582a-46b4-4de4-afd2-72d66e95c495")
         public static SmAttribute IsMultiReceiveAtt() {
             if (IsMultiReceiveAtt == null) {
             	IsMultiReceiveAtt = classof().getAttributeDef("IsMultiReceive");
@@ -126,7 +126,7 @@ public class ObjectFlowData extends ActivityEdgeData {
             return IsMultiReceiveAtt;
         }
 
-        @objid ("5b827bc5-1327-477b-9249-24d3f2fe7e30")
+        @objid ("7f35b5d6-048b-46b9-8b5b-6bc6464837fc")
         public static SmAttribute EffectAtt() {
             if (EffectAtt == null) {
             	EffectAtt = classof().getAttributeDef("Effect");
@@ -134,50 +134,50 @@ public class ObjectFlowData extends ActivityEdgeData {
             return EffectAtt;
         }
 
-        @objid ("ae7261a2-b66e-4d82-8866-9e893f033684")
-        public static SmAttribute getIsMultiReceiveAtt() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return IsMultiReceiveAtt;
-        }
-
-        @objid ("fdca4d02-eecf-46fc-b917-43f637868851")
-        public static SmClass getSmClass() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return smClass;
-        }
-
-        @objid ("fe5373b3-a9ec-4f5b-b8a6-596ae14a93bf")
+        @objid ("ea81da03-7ad3-4cca-b278-bbe6e63919a5")
         public static SmAttribute getEffectAtt() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return EffectAtt;
         }
 
-        @objid ("ca518c65-d3ee-4ae7-8a57-2003cee71ef5")
-        public static SmAttribute getTransformationBehaviorAtt() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return TransformationBehaviorAtt;
-        }
-
-        @objid ("86b4304a-abde-4a3d-965f-83cc1a2a9346")
-        public static SmAttribute getSelectionBehaviorAtt() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return SelectionBehaviorAtt;
-        }
-
-        @objid ("3d0e078d-a5c2-4f88-b139-cf14837883fb")
+        @objid ("7498dcf8-7b09-494c-9ede-d345207c0f6d")
         public static SmAttribute getIsMultiCastAtt() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return IsMultiCastAtt;
         }
 
+        @objid ("2f56a500-46a1-4108-aaec-dfb75cc32508")
+        public static SmAttribute getIsMultiReceiveAtt() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return IsMultiReceiveAtt;
+        }
+
+        @objid ("fcf28e2e-7d3c-4ab6-ab9f-8209907626fb")
+        public static SmClass getSmClass() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return smClass;
+        }
+
+        @objid ("717e6c0f-8846-45e5-98b0-6df2bf95574e")
+        public static SmAttribute getTransformationBehaviorAtt() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return TransformationBehaviorAtt;
+        }
+
+        @objid ("e3d3340f-f4b8-4995-9581-198ff3eef2a9")
+        public static SmAttribute getSelectionBehaviorAtt() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return SelectionBehaviorAtt;
+        }
+
         @objid ("00695320-c4c5-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("f4a88255-406d-475f-b46e-1e6b1648afd5")
+            @objid ("3b2456cd-c56c-4ee8-b4ed-d9dcdc625654")
             public ISmObjectData createData() {
                 return new ObjectFlowData();
             }
 
-            @objid ("73efa666-1f81-428e-ab23-b550c0746b9f")
+            @objid ("ccab6b95-2c8f-40a2-927c-6d1580089c87")
             public SmObjectImpl createImpl() {
                 return new ObjectFlowImpl();
             }
@@ -186,12 +186,12 @@ public class ObjectFlowData extends ActivityEdgeData {
 
         @objid ("0069b5d6-c4c5-1fd8-97fe-001ec947cd2a")
         public static class TransformationBehaviorSmAttribute extends SmAttribute {
-            @objid ("3b80c162-e620-4c4a-9f28-c43f11c0bdf7")
+            @objid ("cdd43205-afd8-49dc-9bb1-f883011abc79")
             public Object getValue(ISmObjectData data) {
                 return ((ObjectFlowData) data).mTransformationBehavior;
             }
 
-            @objid ("c88dd650-7d73-4860-a0f0-2780841d7c0b")
+            @objid ("205b084c-47b9-4368-b1d9-a1b36287bac7")
             public void setValue(ISmObjectData data, Object value) {
                 ((ObjectFlowData) data).mTransformationBehavior = value;
             }
@@ -200,12 +200,12 @@ public class ObjectFlowData extends ActivityEdgeData {
 
         @objid ("006a1670-c4c5-1fd8-97fe-001ec947cd2a")
         public static class SelectionBehaviorSmAttribute extends SmAttribute {
-            @objid ("b2b857f1-6759-4bd1-8153-4a33cb475250")
+            @objid ("2544a186-45ad-4dd3-a74e-3a84d1074254")
             public Object getValue(ISmObjectData data) {
                 return ((ObjectFlowData) data).mSelectionBehavior;
             }
 
-            @objid ("7893328e-5685-4171-879d-f57f8670aaf4")
+            @objid ("22e5c3d5-b64f-44b8-99af-70ddf43a0a53")
             public void setValue(ISmObjectData data, Object value) {
                 ((ObjectFlowData) data).mSelectionBehavior = value;
             }
@@ -214,12 +214,12 @@ public class ObjectFlowData extends ActivityEdgeData {
 
         @objid ("006a7854-c4c5-1fd8-97fe-001ec947cd2a")
         public static class IsMultiCastSmAttribute extends SmAttribute {
-            @objid ("0af1ae1e-8736-4fa4-9f7a-58c08c702401")
+            @objid ("13fe17a2-813f-4802-a596-df651f35e882")
             public Object getValue(ISmObjectData data) {
                 return ((ObjectFlowData) data).mIsMultiCast;
             }
 
-            @objid ("312e1326-b335-4024-85a7-d6d9d6dfc7ed")
+            @objid ("e0dec473-0b21-4d82-a012-3221462e717b")
             public void setValue(ISmObjectData data, Object value) {
                 ((ObjectFlowData) data).mIsMultiCast = value;
             }
@@ -228,12 +228,12 @@ public class ObjectFlowData extends ActivityEdgeData {
 
         @objid ("006ada56-c4c5-1fd8-97fe-001ec947cd2a")
         public static class IsMultiReceiveSmAttribute extends SmAttribute {
-            @objid ("8cf035e6-e3ae-46b6-967c-062c154a8d5c")
+            @objid ("3a9d536b-214e-40c1-ba16-f4cd099e0456")
             public Object getValue(ISmObjectData data) {
                 return ((ObjectFlowData) data).mIsMultiReceive;
             }
 
-            @objid ("8c2b0bc4-acee-46ca-8cbd-c5b7028ba8c6")
+            @objid ("791066d6-c6fd-4006-a216-7ec487be182e")
             public void setValue(ISmObjectData data, Object value) {
                 ((ObjectFlowData) data).mIsMultiReceive = value;
             }
@@ -242,12 +242,12 @@ public class ObjectFlowData extends ActivityEdgeData {
 
         @objid ("006b3cf8-c4c5-1fd8-97fe-001ec947cd2a")
         public static class EffectSmAttribute extends SmAttribute {
-            @objid ("df995252-8d0a-430c-aef3-06a39089287f")
+            @objid ("2e83e057-be35-4ece-9c5c-a51278684fb2")
             public Object getValue(ISmObjectData data) {
                 return ((ObjectFlowData) data).mEffect;
             }
 
-            @objid ("f877729d-d372-411c-b203-30b5a9fd3850")
+            @objid ("fa284f30-d1cc-4a43-94c2-dcb518581d2f")
             public void setValue(ISmObjectData data, Object value) {
                 ((ObjectFlowData) data).mEffect = value;
             }

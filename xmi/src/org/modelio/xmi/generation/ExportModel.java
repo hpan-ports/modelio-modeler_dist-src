@@ -136,11 +136,7 @@ public class ExportModel {
     private void finishElementCreation(org.eclipse.uml2.uml.Element ecoreElt, IOElement ioelem) {
         ioelem.attach(ecoreElt);
         ioelem.setProperties(ecoreElt);
-                
-        //        if (GenerationProperties.getInstance().isRoundtripEnabled()){            
-        //            ObjingEAnnotation.addObjingID(ecoreElt, ioelem.getObjingElement().getUuid().toString());
-        //        }
-              
+           
         if (this.progressBar != null){
             this.progressBar.addElement();
             if (ioelem.getObjingElement() instanceof NameSpace){

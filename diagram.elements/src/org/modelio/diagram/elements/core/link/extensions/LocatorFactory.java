@@ -66,10 +66,7 @@ public class LocatorFactory {
      */
     @objid ("8008e6d8-1dec-11e2-8cad-001ec947c8cc")
     public SidedConnectionEndpointLocator getLocator(Connection conn, IFigure extension, Dimension moveDelta, Point mouseLocation) {
-        return this.sidedConnectionEndpointLocatorFactory.getLocator(conn,
-                                                                     extension,
-                                                                     moveDelta,
-                                                                     mouseLocation);
+        return this.sidedConnectionEndpointLocatorFactory.getLocator(conn, extension, moveDelta, mouseLocation);
     }
 
     /**
@@ -173,7 +170,7 @@ public class LocatorFactory {
             Point endPoint = new Point();
             
             final SidedConnectionEndpointLocator currentLocator = (SidedConnectionEndpointLocator) conn.getLayoutManager()
-                                                                                                       .getConstraint(extension);
+                    .getConstraint(extension);
             final boolean isTargetSide = currentLocator.isEnd();
             
             final PointList connPoints = conn.getPoints();
@@ -202,9 +199,8 @@ public class LocatorFactory {
             this.transposer.setEnabled(false);
             
             /*
-             * Label placement calculations are done as if the connection point is
-             * along the left or right side of the figure. If the connection point
-             * is along the top or bottom, values are transposed.
+             * Label placement calculations are done as if the connection point is along the left or right side of the figure. If
+             * the connection point is along the top or bottom, values are transposed.
              */
             if (quadrant == 1 || quadrant == 3)
                 this.transposer.setEnabled(true);
@@ -219,42 +215,40 @@ public class LocatorFactory {
             mousePosition = this.transposer.t(mousePosition);
             final double tan = calculateTan(startPoint, endPoint);
             
-            Point initialLocation = getLocation(currentLocator.getUDistance(),
-                                                currentLocator.getVDistance(),
-                                                startPoint,
-                                                figureSize,
-                                                cos,
-                                                tan);
+            Point initialLocation = getLocation(currentLocator.getUDistance(), currentLocator.getVDistance(), startPoint,
+                    figureSize, cos, tan);
             Point location = new Point(initialLocation.x + delta.width, initialLocation.y + delta.height);
             
             int[] uvDistance = getUVDistance(location, startPoint, figureSize, cos, tan);
             int uDistance = uvDistance[0];
             int vDistance = uvDistance[1];
             
-            int[] mouseUVDistance = getUVDistance(mousePosition, startPoint, new Dimension(0, 0), cos, tan);
-            int mouseV = mouseUVDistance[1];
             
-            if ((mouseV >= 0 && vDistance <= 0) || (mouseV <= 0 && vDistance >= 0)) {
-                vDistance = 0;
-            } else if ((mouseV > 0 && currentLocator.getVDistance() < 0) ||
-                       (mouseV < 0 && currentLocator.getVDistance() > 0)) {
-                int sign = currentLocator.getVDistance() > 0 ? 1 : -1;
-                location.y += figureSize.height * sign;
-                uvDistance = getUVDistance(location, startPoint, figureSize, cos, tan);
-                vDistance = uvDistance[1];
-                if ((mouseV >= 0 && vDistance <= 0) || (mouseV <= 0 && vDistance >= 0)) {
-                    vDistance = 0;
-                }
-            } else if (currentLocator.getVDistance() == 0) {
-                if (Math.abs(delta.height) < figureSize.height / 2) {
-                    vDistance = 0;
-                } else {
-                    int sign = vDistance < 0 ? 1 : -1;
-                    location.y += figureSize.height / 2 * sign;
-                    uvDistance = getUVDistance(location, startPoint, figureSize, cos, tan);
-                    vDistance = uvDistance[1];
-                }
-            }
+            // int[] mouseUVDistance = getUVDistance(mousePosition, startPoint, new Dimension(0, 0), cos, tan);
+            // int mouseV = mouseUVDistance[1];
+            
+            // if ((mouseV >= 0 && vDistance <= 0) || (mouseV <= 0 && vDistance >= 0)) {
+            //    vDistance = 0;
+            // } else
+            //   if ((mouseV > 0 && currentLocator.getVDistance() < 0) ||
+            //      (mouseV < 0 && currentLocator.getVDistance() > 0)) {
+            //      int sign = currentLocator.getVDistance() > 0 ? 1 : -1;
+            //      location.y += figureSize.height * sign;
+            //      uvDistance = getUVDistance(location, startPoint, figureSize, cos, tan);
+            //      vDistance = uvDistance[1];
+            //   if ((mouseV >= 0 && vDistance <= 0) || (mouseV <= 0 && vDistance >= 0)) {
+            //     vDistance = 0;
+            //   }
+            // } else if (currentLocator.getVDistance() == 0) {
+            //    if (Math.abs(delta.height) < figureSize.height / 2) {
+            //    vDistance = 100;
+            // } else {
+            //    int sign = vDistance < 0 ? 1 : -1;
+            //    location.y += figureSize.height / 2 * sign;
+            //    uvDistance = getUVDistance(location, startPoint, figureSize, cos, tan);
+            //    vDistance = uvDistance[1];
+            //  }
+            // }
             
             SidedConnectionEndpointLocator ret = new SidedConnectionEndpointLocator(conn, isTargetSide);
             ret.setUDistance(uDistance);
@@ -263,8 +257,8 @@ public class LocatorFactory {
         }
 
         /**
-         * Returns an integer representing the side of the passed Rectangle that a point lies on. 1 == Top 2 == Right 3
-         * == Bottom 4 == Left
+         * Returns an integer representing the side of the passed Rectangle that a point lies on. 1 == Top 2 == Right 3 == Bottom 4
+         * == Left
          * @param loc The point that is to be located
          */
         @objid ("800b4949-1dec-11e2-8cad-001ec947c8cc")
@@ -298,8 +292,7 @@ public class LocatorFactory {
         }
 
         /**
-         * This method is used to calculate the "quadrant" value of a connection that does not have an owner on its
-         * starting point.
+         * This method is used to calculate the "quadrant" value of a connection that does not have an owner on its starting point.
          * 
          * 1 == Top 2 == Right 3 == Bottom 4 == Left
          * @param startPoint The starting point of the connection.
@@ -321,8 +314,8 @@ public class LocatorFactory {
         }
 
         /**
-         * Calculates 'tan' which is used as a factor for y adjustment when placing the connection label. 'tan' is
-         * capped at 1.0 in the positive direction and -1.0 in the negative direction.
+         * Calculates 'tan' which is used as a factor for y adjustment when placing the connection label. 'tan' is capped at 1.0 in
+         * the positive direction and -1.0 in the negative direction.
          * @param startPoint The starting point of the connection.
          * @param endPoint The end point of the connection.
          * 

@@ -44,7 +44,7 @@ public class PrecisionPointList extends PointList {
     @objid ("7f9d9d04-1dec-11e2-8cad-001ec947c8cc")
      static final long serialVersionUID = 1;
 
-    @objid ("8e2caedb-2932-4545-92ce-8d41882ed74d")
+    @objid ("e8b74cf9-ceb6-4c9f-afde-69ce9c9fa079")
     private PrecisionRectangle bounds;
 
     /**

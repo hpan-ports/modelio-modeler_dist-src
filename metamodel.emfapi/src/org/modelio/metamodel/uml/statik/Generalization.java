@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.uml.statik;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
@@ -32,22 +32,22 @@ import org.modelio.metamodel.uml.statik.NameSpace;
 
 @objid ("000c7bb4-c4bf-1fd8-97fe-001ec947cd2a")
 public interface Generalization extends ModelElement {
-    @objid ("54728c91-2a8e-4a32-8428-acda8990e219")
+    @objid ("e6764f60-ac17-45c5-839e-a9e9ffab711a")
     String getDiscriminator();
 
-    @objid ("74684811-a2cc-4ca5-8387-fb4ae87c6980")
+    @objid ("c9d24952-b594-4e6d-8818-defc1d79ff2d")
     void setDiscriminator(String value);
 
-    @objid ("381b7737-0ea4-4223-94ba-03a5b44e92ff")
+    @objid ("4a1f9a16-f5d8-4502-b8a5-abc4fb3a711c")
     NameSpace getSuperType();
 
-    @objid ("6d82c674-7033-4569-aa86-27b0e2b67057")
+    @objid ("dc273ac1-8c9b-4066-8d55-589e0b285250")
     void setSuperType(NameSpace value);
 
-    @objid ("7e8cadb2-3dcc-496b-862e-4a3f95964f44")
+    @objid ("0a9df315-fda0-40cc-89ba-37b124249e0e")
     NameSpace getSubType();
 
-    @objid ("79fd209c-b529-426d-be3d-c9a3d6b97698")
+    @objid ("da44a0a5-b3a1-4158-8f8c-f257ecf7ffc6")
     void setSubType(NameSpace value);
 
 }

@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.uml.behavior.activityModel;
 
 import java.util.ArrayList;
@@ -41,57 +41,57 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("00376270-c4bf-1fd8-97fe-001ec947cd2a")
 public class LoopNodeImpl extends StructuredActivityNodeImpl implements LoopNode {
-    @objid ("e624429d-1b0a-4607-9553-9b0ecce9a921")
+    @objid ("71847cb4-0397-4129-8e2f-097250f16118")
     @Override
     public boolean isIsTestedFirst() {
         return (Boolean) getAttVal(LoopNodeData.Metadata.IsTestedFirstAtt());
     }
 
-    @objid ("c859d8d4-2c00-4383-bd21-48e371293264")
+    @objid ("2b1a297b-f24d-403f-9a13-3ef9eee3f0d4")
     @Override
     public void setIsTestedFirst(boolean value) {
         setAttVal(LoopNodeData.Metadata.IsTestedFirstAtt(), value);
     }
 
-    @objid ("d654aeae-f1ce-4c68-b2b1-2bcf9d8c910c")
+    @objid ("a6af1815-9a67-4ab0-b17e-f3aa73436f76")
     @Override
     public String getSetup() {
         return (String) getAttVal(LoopNodeData.Metadata.SetupAtt());
     }
 
-    @objid ("2b77716c-121d-4523-a3bb-e52495ac3d17")
+    @objid ("b2436611-ef1d-4049-90a6-ef0271563b13")
     @Override
     public void setSetup(String value) {
         setAttVal(LoopNodeData.Metadata.SetupAtt(), value);
     }
 
-    @objid ("f75ec5bf-50d2-4098-9ebc-77aee303ab01")
+    @objid ("52d9f6e4-5358-4caa-9a0a-ccf5fbe9bf24")
     @Override
     public String getTest() {
         return (String) getAttVal(LoopNodeData.Metadata.TestAtt());
     }
 
-    @objid ("340d9edc-c7d4-4495-9cd5-1402fc4a61e2")
+    @objid ("b94f6bf5-a9aa-4bbf-85ac-100dc4524e86")
     @Override
     public void setTest(String value) {
         setAttVal(LoopNodeData.Metadata.TestAtt(), value);
     }
 
-    @objid ("3400235e-014f-460f-b986-0c2a9be11337")
+    @objid ("e7cd537c-565b-4306-a8d0-e8a00f0cf2bd")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("8b3b64b2-1469-4a4e-83bd-b55e03f6ec25")
+    @objid ("aa3b0e40-8c2f-49f9-9aa0-b5e12f1876a1")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("f8b8c1f5-1826-4e1e-bab5-91ca0d548dfb")
+    @objid ("d58f0d73-48fc-4c6f-ac31-1a4bb969e6a4")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitLoopNode(this);

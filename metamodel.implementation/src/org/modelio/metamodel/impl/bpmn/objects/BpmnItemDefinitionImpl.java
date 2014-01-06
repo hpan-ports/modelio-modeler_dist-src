@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.bpmn.objects;
 
 import java.util.ArrayList;
@@ -48,49 +48,49 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("0007d5be-c4c0-1fd8-97fe-001ec947cd2a")
 public class BpmnItemDefinitionImpl extends BpmnRootElementImpl implements BpmnItemDefinition {
-    @objid ("f3a6779f-316b-43ac-b8ae-f46b40af34f0")
+    @objid ("073d7216-3f61-4cb4-a2ca-fad42cf308c5")
     @Override
     public BpmnItemKind getItemKind() {
         return (BpmnItemKind) getAttVal(BpmnItemDefinitionData.Metadata.ItemKindAtt());
     }
 
-    @objid ("c985c49c-daf9-473b-8fef-439246219663")
+    @objid ("20dd9655-39e7-4a3c-a132-3edc13f2e6ff")
     @Override
     public void setItemKind(BpmnItemKind value) {
         setAttVal(BpmnItemDefinitionData.Metadata.ItemKindAtt(), value);
     }
 
-    @objid ("ce2baadc-09d5-4b10-887d-df4dc6b6c177")
+    @objid ("d59ac3f9-cc58-4a51-bfe3-3cb13c3dafe4")
     @Override
     public boolean isIsCollection() {
         return (Boolean) getAttVal(BpmnItemDefinitionData.Metadata.IsCollectionAtt());
     }
 
-    @objid ("66159af0-449c-425c-9b83-d5c62202bb83")
+    @objid ("eccf94e6-0f3d-47d2-85b4-6b03fe17c633")
     @Override
     public void setIsCollection(boolean value) {
         setAttVal(BpmnItemDefinitionData.Metadata.IsCollectionAtt(), value);
     }
 
-    @objid ("ea4d4330-bce6-471b-99a0-c640783de4a4")
+    @objid ("723eea98-19a2-40f3-a445-9fcb9273b46d")
     @Override
     public GeneralClass getStructureRef() {
         return (GeneralClass) getDepVal(BpmnItemDefinitionData.Metadata.StructureRefDep());
     }
 
-    @objid ("11c3ebe2-1b84-45d1-b09a-96d2187e2452")
+    @objid ("31c42b5f-eb60-4bcf-b33b-cff3ac155c2c")
     @Override
     public void setStructureRef(GeneralClass value) {
         appendDepVal(BpmnItemDefinitionData.Metadata.StructureRefDep(), (SmObjectImpl)value);
     }
 
-    @objid ("9e163141-90e9-4895-90b1-8f42bb102211")
+    @objid ("346b9353-467a-40b7-b84a-43dd9472d60d")
     @Override
     public EList<BpmnMessage> getTypedMessage() {
         return new SmList<>(this, BpmnItemDefinitionData.Metadata.TypedMessageDep());
     }
 
-    @objid ("4dc04916-8eed-4760-9438-f03abfbda217")
+    @objid ("5bb86839-b796-48b2-818d-9b7c8f212849")
     @Override
     public <T extends BpmnMessage> List<T> getTypedMessage(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -103,13 +103,13 @@ public class BpmnItemDefinitionImpl extends BpmnRootElementImpl implements BpmnI
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("690e4ac0-4dc8-40d9-b795-83de369e5017")
+    @objid ("104c676a-92cd-42fe-9d3e-6c6835e48b06")
     @Override
     public EList<BpmnItemAwareElement> getTypedItem() {
         return new SmList<>(this, BpmnItemDefinitionData.Metadata.TypedItemDep());
     }
 
-    @objid ("a1d1523a-7c01-4eff-a0d4-f3ec0f03d5ac")
+    @objid ("88a0ff05-ea39-40eb-af3d-e053b0874f5d")
     @Override
     public <T extends BpmnItemAwareElement> List<T> getTypedItem(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -122,13 +122,13 @@ public class BpmnItemDefinitionImpl extends BpmnRootElementImpl implements BpmnI
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("e2eefaf7-f753-4b88-a0fc-3d3c2e782ec2")
+    @objid ("099bb953-cde7-4629-b6fe-d42c853a6010")
     @Override
     public EList<BpmnResourceParameter> getTypedResourceParameter() {
         return new SmList<>(this, BpmnItemDefinitionData.Metadata.TypedResourceParameterDep());
     }
 
-    @objid ("fdb02f3e-046b-4dce-91d4-d30fe62ce96b")
+    @objid ("6d61b833-a7e3-4cc0-aa09-edf85d401d2f")
     @Override
     public <T extends BpmnResourceParameter> List<T> getTypedResourceParameter(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -141,21 +141,21 @@ public class BpmnItemDefinitionImpl extends BpmnRootElementImpl implements BpmnI
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("b0199fde-7eaa-4f2f-b840-fb3aaf237052")
+    @objid ("446dc91f-cd54-437a-af46-f68f6b73f80e")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("a38c151f-595f-4ae2-9dc4-33194d5a6597")
+    @objid ("3f582163-3d08-4757-8107-32a0efe4bf14")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("eb95564a-8e56-4b1c-be46-0473beaff128")
+    @objid ("8e2b0e18-724c-4517-ad1f-8e40968c37c1")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitBpmnItemDefinition(this);

@@ -44,9 +44,6 @@ public class RoundedBoxFigure extends Figure implements IBrushOptionsSupport, IP
     @objid ("7fabeb1d-1dec-11e2-8cad-001ec947c8cc")
     private int radius = 14;
 
-    @objid ("52c746ff-3589-47e0-9d07-305688de9577")
-    private static Rectangle tempRect = new Rectangle();
-
     /**
      * Simple convenient public data structure of a brush properties.
      */
@@ -58,6 +55,9 @@ public class RoundedBoxFigure extends Figure implements IBrushOptionsSupport, IP
      */
     @objid ("7fabeb20-1dec-11e2-8cad-001ec947c8cc")
     protected PenOptions penOptions;
+
+    @objid ("ce9a2a00-c8c8-43e4-a3b5-803ca9b608eb")
+    private static Rectangle tempRect = new Rectangle();
 
     /**
      * Creates a rounded box figure.
@@ -259,6 +259,7 @@ public class RoundedBoxFigure extends Figure implements IBrushOptionsSupport, IP
                 graphics.clipPath(path);
             }
         
+            graphics.setAlpha(this.brushOptions.alpha);
             if (this.brushOptions.useGradient) {
                 graphics.fillGradient(tempRect, false);
                 gradientColor.dispose();
@@ -288,6 +289,21 @@ public class RoundedBoxFigure extends Figure implements IBrushOptionsSupport, IP
         // hsb[1] * 0.1f, hsb[2] /*Math.min(hsb[2] * 1.1f, 1.0f)*/ ));
         Color derivedColor = new Color(base.getDevice(), new RGB(255, 255, 255));
         return derivedColor;
+    }
+
+    @objid ("7a7a409e-9a62-49dc-8b65-8d71426b90fd")
+    @Override
+    public void setFillAlpha(int alpha) {
+        if (this.brushOptions.alpha != alpha) {
+            this.brushOptions.alpha = alpha;
+            this.repaint();
+        }
+    }
+
+    @objid ("db96871a-8231-4d40-9bd9-ff9fa6af3c65")
+    @Override
+    public int getFillAlpha() {
+        return this.brushOptions.alpha;
     }
 
     /**

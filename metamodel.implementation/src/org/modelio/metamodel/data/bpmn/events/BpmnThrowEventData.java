@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.data.bpmn.events;
 
 import java.util.ArrayList;
@@ -46,36 +46,36 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("009614d2-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=BpmnThrowEvent.class, factory=BpmnThrowEventData.Metadata.ObjectFactory.class)
 public abstract class BpmnThrowEventData extends BpmnEventData {
-    @objid ("1d8e6bb0-61e8-4e7b-b563-36f5ce76e25f")
+    @objid ("69526b49-4c70-4b9b-9d0f-aaac649134ff")
     @SmaMetaAssociation(metaName="DataInputAssociation", typeDataClass=BpmnDataAssociationData.class, min=0, max=-1, smAssociationClass=Metadata.DataInputAssociationSmDependency.class, component = true)
      List<SmObjectImpl> mDataInputAssociation = null;
 
-    @objid ("ee0e977b-7bac-40b3-b5e9-64e33353c79f")
+    @objid ("20aa9d5d-62c6-488b-bdc0-7a777734ddbd")
     @SmaMetaAssociation(metaName="DataInput", typeDataClass=BpmnDataInputData.class, min=0, max=1, smAssociationClass=Metadata.DataInputSmDependency.class, component = true)
      SmObjectImpl mDataInput;
 
-    @objid ("fd3bf564-3446-49da-8cda-566514919077")
+    @objid ("3fd74ee5-abc6-4705-8103-bca10abd0d1d")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("00038720-c4c3-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("dc62e26d-283a-4732-8314-6cd58ad68e4f")
+        @objid ("50910935-2cc8-45fe-9d74-00d9fe79877c")
         private static SmClass smClass = null;
 
-        @objid ("78df499c-d3d0-4b9f-b07f-ea6300fa5956")
+        @objid ("21c36405-77fa-4452-beb6-1c751feb173a")
         private static SmDependency DataInputAssociationDep = null;
 
-        @objid ("fd452d93-a72f-4aae-af28-c2dedf5ef7a9")
+        @objid ("240f8980-c06d-4d87-b081-38b6bcbf3b38")
         private static SmDependency DataInputDep = null;
 
-        @objid ("d71e0e74-52f2-4b7c-8450-50d3f5865aad")
+        @objid ("b7ca1298-12f8-45a8-b971-48846a5a6d2a")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(BpmnThrowEventData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("fbce8f4a-63f0-4f6b-90a0-2fe78f07adc2")
+        @objid ("7354ab23-b7c6-411a-aab0-fdc71e7083dd")
         public static SmDependency DataInputAssociationDep() {
             if (DataInputAssociationDep == null) {
             	DataInputAssociationDep = classof().getDependencyDef("DataInputAssociation");
@@ -83,7 +83,7 @@ public abstract class BpmnThrowEventData extends BpmnEventData {
             return DataInputAssociationDep;
         }
 
-        @objid ("4ade72a7-672b-470d-9a0a-71e7adcea853")
+        @objid ("8197a43f-64bd-410c-ae46-eeb29026723d")
         public static SmDependency DataInputDep() {
             if (DataInputDep == null) {
             	DataInputDep = classof().getDependencyDef("DataInput");
@@ -91,32 +91,32 @@ public abstract class BpmnThrowEventData extends BpmnEventData {
             return DataInputDep;
         }
 
-        @objid ("f3d6054d-ef43-456a-a05e-753915f29190")
-        public static SmClass getSmClass() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return smClass;
-        }
-
-        @objid ("02d19472-dae0-41fe-b314-80fddebdaf01")
-        public static SmDependency getDataInputDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return DataInputDep;
-        }
-
-        @objid ("f3fef697-a827-46c2-a974-14cc6925e71c")
+        @objid ("c841d0c0-23ec-4cff-affa-f092d2e21f17")
         public static SmDependency getDataInputAssociationDep() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return DataInputAssociationDep;
         }
 
+        @objid ("4d06c6af-3bec-4630-a324-d7197d3b0d5c")
+        public static SmDependency getDataInputDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return DataInputDep;
+        }
+
+        @objid ("97f4d619-abad-42c5-8508-0b855ecac173")
+        public static SmClass getSmClass() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return smClass;
+        }
+
         @objid ("0003cbfe-c4c3-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("7db52852-77fe-4e62-966f-c346ce111cfc")
+            @objid ("31b14eab-bb24-42ec-9ef7-2949965f4d80")
             public ISmObjectData createData() {
                 throw new UnsupportedOperationException();
             }
 
-            @objid ("7bd3dc27-f7d7-4f9e-8a59-d7f24a647098")
+            @objid ("3f5165c2-b175-40bd-9fc4-4aa341967034")
             public SmObjectImpl createImpl() {
                 throw new UnsupportedOperationException();
             }
@@ -125,18 +125,18 @@ public abstract class BpmnThrowEventData extends BpmnEventData {
 
         @objid ("00042f0e-c4c3-1fd8-97fe-001ec947cd2a")
         public static class DataInputSmDependency extends SmSingleDependency {
-            @objid ("f3fc84a9-a721-4cfc-8e58-388af0105bf4")
+            @objid ("f839288f-7060-4737-ae7f-e4a16bdbc51c")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((BpmnThrowEventData) data).mDataInput;
             }
 
-            @objid ("511a70bb-dc55-43ed-a312-60916a200d3d")
+            @objid ("e5b76bf3-3acd-41ee-b7f1-eac23988049a")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((BpmnThrowEventData) data).mDataInput = value;
             }
 
-            @objid ("681e9f64-a009-41d9-9dc2-63ee7aa815c0")
+            @objid ("5960ce52-8bae-4973-9d03-529e745ac25c")
             @Override
             public SmDependency getSymetric() {
                 return BpmnDataInputData.Metadata.OwnerThrowEventDep();
@@ -146,20 +146,20 @@ public abstract class BpmnThrowEventData extends BpmnEventData {
 
         @objid ("0004a3b2-c4c3-1fd8-97fe-001ec947cd2a")
         public static class DataInputAssociationSmDependency extends SmMultipleDependency {
-            @objid ("0eaf1854-c96e-4bc9-a15a-c6341f88e13a")
+            @objid ("18f9b5de-50f1-4bff-bcce-6a9eff790465")
             @Override
             public List<SmObjectImpl> getValueList(ISmObjectData data) {
                 return (((BpmnThrowEventData)data).mDataInputAssociation != null)? ((BpmnThrowEventData)data).mDataInputAssociation:SmMultipleDependency.EMPTY;
             }
 
-            @objid ("1b5d2d52-8292-433c-89dd-5ce78d5e413e")
+            @objid ("c5103dcb-2634-4505-bf3a-c25daa527d51")
             @Override
             protected List<SmObjectImpl> allocateValueList(ISmObjectData data, int initialCapacity) {
                 ((BpmnThrowEventData) data).mDataInputAssociation = new ArrayList<>(initialCapacity);
                 return ((BpmnThrowEventData) data).mDataInputAssociation;
             }
 
-            @objid ("3aa166e9-0b52-49c5-9517-184bfcf59009")
+            @objid ("61aa217e-bc67-48da-a7d3-ef6b8d8f9171")
             @Override
             public SmDependency getSymetric() {
                 return BpmnDataAssociationData.Metadata.StartingEventDep();

@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.uml.statik;
 
 import java.util.ArrayList;
@@ -44,13 +44,13 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("0006c57a-c4bf-1fd8-97fe-001ec947cd2a")
 public class ConnectorEndImpl extends LinkEndImpl implements ConnectorEnd {
-    @objid ("75afa3ad-46ae-4c7f-b90b-787d9eca0af5")
+    @objid ("54e04489-607d-4edb-aaab-2bbca14fd528")
     @Override
     public EList<Binding> getRepresentation() {
         return new SmList<>(this, ConnectorEndData.Metadata.RepresentationDep());
     }
 
-    @objid ("4325244d-b364-4679-bda7-52c3b5192df2")
+    @objid ("5ba11838-7092-476e-9089-0d01183b4e39")
     @Override
     public <T extends Binding> List<T> getRepresentation(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -63,33 +63,33 @@ public class ConnectorEndImpl extends LinkEndImpl implements ConnectorEnd {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("d30a3762-d941-410a-9dc5-a7ac6a6aab50")
+    @objid ("c827e591-c638-4d81-877f-ce83250d90f8")
     @Override
     public ModelElement getRepresentedFeature() {
         return (ModelElement) getDepVal(ConnectorEndData.Metadata.RepresentedFeatureDep());
     }
 
-    @objid ("2ed44fb2-2126-47ce-92b4-5bc686e991c2")
+    @objid ("cce45bf4-52d0-41be-96f2-beacf984deb9")
     @Override
     public void setRepresentedFeature(ModelElement value) {
         appendDepVal(ConnectorEndData.Metadata.RepresentedFeatureDep(), (SmObjectImpl)value);
     }
 
-    @objid ("8a8e453a-4b8a-4695-b663-b365754077be")
+    @objid ("1035a46b-bc9b-4eb8-8689-1f58cca54063")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("14af8f1f-a9c9-479b-9bc8-a615ab2a7352")
+    @objid ("20b65f77-bf02-423f-aedf-87b70dfecf0f")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("36e6b04f-9c25-4785-b8bf-9b652a6d344f")
+    @objid ("34acf9ec-5dfe-461c-9bf2-cea4840581af")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitConnectorEnd(this);

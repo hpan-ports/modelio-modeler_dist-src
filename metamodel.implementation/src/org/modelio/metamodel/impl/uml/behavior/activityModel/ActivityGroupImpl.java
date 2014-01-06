@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.uml.behavior.activityModel;
 
 import java.util.ArrayList;
@@ -43,19 +43,19 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("00283d2c-c4bf-1fd8-97fe-001ec947cd2a")
 public abstract class ActivityGroupImpl extends ModelElementImpl implements ActivityGroup {
-    @objid ("e24460d6-066d-43be-805f-8ad7b9aaeaca")
+    @objid ("36fc8390-ad51-46e9-beca-0b0190411030")
     @Override
     public Activity getInActivity() {
         return (Activity) getDepVal(ActivityGroupData.Metadata.InActivityDep());
     }
 
-    @objid ("a24d01d6-9d47-4f5f-b9dc-2235c928a577")
+    @objid ("660421c9-9d10-4c80-a3b6-71cd15a6968b")
     @Override
     public void setInActivity(Activity value) {
         appendDepVal(ActivityGroupData.Metadata.InActivityDep(), (SmObjectImpl)value);
     }
 
-    @objid ("d5c7c44a-650e-4451-b397-37b419991676")
+    @objid ("e2ac0b13-3acc-4e6c-8f6e-0858218a3c65")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
@@ -65,7 +65,7 @@ public abstract class ActivityGroupImpl extends ModelElementImpl implements Acti
         return super.getCompositionOwner();
     }
 
-    @objid ("90f023f8-3bd2-4758-b5e3-1d3f4a5e7e54")
+    @objid ("dc69ae45-b060-4ac5-9ac9-8deb063222f4")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
@@ -75,7 +75,7 @@ public abstract class ActivityGroupImpl extends ModelElementImpl implements Acti
         return super.getCompositionRelation();
     }
 
-    @objid ("e08ffa20-64a6-4c0b-8e58-270b6ba13bcd")
+    @objid ("6a3948aa-b628-467d-9a42-5c714fcf2668")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitActivityGroup(this);

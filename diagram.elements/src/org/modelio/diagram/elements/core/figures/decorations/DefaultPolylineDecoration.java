@@ -124,7 +124,7 @@ public class DefaultPolylineDecoration extends PolylineDecoration implements IPe
         // is too small when the drawn figure is a triangle and the line width
         // is big.
         if (this.bounds == null) {
-            this.bounds = getPoints().getBounds().getExpanded(this.lineWidth, this.lineWidth);
+            this.bounds = getPoints().getBounds().getExpanded(getLineWidth(), getLineWidth());
         }
         return this.bounds;
     }

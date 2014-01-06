@@ -43,6 +43,7 @@ import org.modelio.metamodel.bpmn.activities.BpmnMultiInstanceLoopCharacteristic
 import org.modelio.metamodel.bpmn.activities.BpmnStandardLoopCharacteristics;
 import org.modelio.metamodel.bpmn.activities.BpmnSubProcess;
 import org.modelio.metamodel.bpmn.events.BpmnBoundaryEvent;
+import org.modelio.metamodel.bpmn.processCollaboration.BpmnLaneSet;
 import org.modelio.metamodel.bpmn.rootElements.BpmnBaseElement;
 import org.modelio.vcore.smkernel.mapi.MObject;
 import org.modelio.vcore.smkernel.mapi.MRef;
@@ -117,7 +118,8 @@ public class GmBpmnSubProcessPrimaryNode extends GmNoStyleCompositeNode implemen
     @Override
     public boolean canCreate(Class<? extends MObject> type) {
         return BpmnBaseElement.class.isAssignableFrom(type) &&
-               !BpmnBoundaryEvent.class.isAssignableFrom(type);
+               !BpmnBoundaryEvent.class.isAssignableFrom(type) &&
+               !BpmnLaneSet.class.isAssignableFrom(type);
     }
 
     @objid ("61cb83fd-55b6-11e2-877f-002564c97630")

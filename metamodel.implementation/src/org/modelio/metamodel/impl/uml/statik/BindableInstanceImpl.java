@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.uml.statik;
 
 import java.util.ArrayList;
@@ -46,37 +46,37 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("0000df02-c4bf-1fd8-97fe-001ec947cd2a")
 public class BindableInstanceImpl extends InstanceImpl implements BindableInstance {
-    @objid ("1130bb4e-3ac9-424f-b2c3-5e4f7a82cf62")
+    @objid ("7471ea68-0708-4a03-8857-8e8630eb1598")
     @Override
     public Instance getCluster() {
         return (Instance) getDepVal(BindableInstanceData.Metadata.ClusterDep());
     }
 
-    @objid ("94664543-ef4a-4767-bcae-2f04db38cbd0")
+    @objid ("8459484f-1dd6-4002-b57d-ae1948fd9101")
     @Override
     public void setCluster(Instance value) {
         appendDepVal(BindableInstanceData.Metadata.ClusterDep(), (SmObjectImpl)value);
     }
 
-    @objid ("c930a6f5-3b91-4726-afb7-db003b107785")
+    @objid ("befdc733-7f01-45d9-9611-7b92e3233f52")
     @Override
     public Classifier getInternalOwner() {
         return (Classifier) getDepVal(BindableInstanceData.Metadata.InternalOwnerDep());
     }
 
-    @objid ("089ccca1-c914-48bf-a3a3-9531c15db622")
+    @objid ("6a2fbe55-1a5c-47f3-aa9a-6e4b01e58717")
     @Override
     public void setInternalOwner(Classifier value) {
         appendDepVal(BindableInstanceData.Metadata.InternalOwnerDep(), (SmObjectImpl)value);
     }
 
-    @objid ("e4548162-1d70-4730-8b65-1012e248916d")
+    @objid ("be2333bd-5184-4754-920e-67addf04a3a5")
     @Override
     public EList<Binding> getRepresentation() {
         return new SmList<>(this, BindableInstanceData.Metadata.RepresentationDep());
     }
 
-    @objid ("90b3b5c5-05d8-4383-ac4c-abe7dc228845")
+    @objid ("44d2637d-23f0-4990-af4e-5a1211115271")
     @Override
     public <T extends Binding> List<T> getRepresentation(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -89,19 +89,19 @@ public class BindableInstanceImpl extends InstanceImpl implements BindableInstan
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("8d9dd656-ef9f-4b1b-9a45-f81a8ab54608")
+    @objid ("e4c53899-0d77-419f-a0b4-97d5f89bc848")
     @Override
     public ModelElement getRepresentedFeature() {
         return (ModelElement) getDepVal(BindableInstanceData.Metadata.RepresentedFeatureDep());
     }
 
-    @objid ("cdab0cce-425b-40a5-a20a-da6857f96321")
+    @objid ("2f2f4863-6a09-4806-b0ba-8d00c631135b")
     @Override
     public void setRepresentedFeature(ModelElement value) {
         appendDepVal(BindableInstanceData.Metadata.RepresentedFeatureDep(), (SmObjectImpl)value);
     }
 
-    @objid ("12868c39-ede7-47c9-a53c-55ba7c49aadb")
+    @objid ("1a596a24-13e6-4e4a-91a2-ca3306bf665f")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
@@ -114,7 +114,7 @@ public class BindableInstanceImpl extends InstanceImpl implements BindableInstan
         return super.getCompositionOwner();
     }
 
-    @objid ("44312d42-3d20-420d-b13e-dcbe896dd17a")
+    @objid ("66681a2a-f609-4e5e-bae8-ff83782897dc")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
@@ -127,7 +127,7 @@ public class BindableInstanceImpl extends InstanceImpl implements BindableInstan
         return super.getCompositionRelation();
     }
 
-    @objid ("96e594fc-4e04-486b-be09-9dff528e0dab")
+    @objid ("6faf7a73-4af9-498a-b43f-a8660f30762b")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitBindableInstance(this);

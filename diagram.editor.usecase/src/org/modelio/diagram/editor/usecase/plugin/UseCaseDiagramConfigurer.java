@@ -30,13 +30,42 @@ import org.eclipse.gef.palette.PaletteRoot;
 import org.eclipse.gef.palette.SelectionToolEntry;
 import org.eclipse.gef.tools.AbstractTool;
 import org.modelio.diagram.editor.AbstractDiagramEditor;
-import org.modelio.diagram.editor.plugin.IDiagramConfigurer;
+import org.modelio.diagram.editor.plugin.AbstractDiagramConfigurer;
 import org.modelio.diagram.editor.plugin.ToolRegistry;
 import org.modelio.diagram.editor.tools.PanSelectionTool;
 import org.modelio.diagram.editor.usecase.editor.UseCaseDiagramEditor;
 
+/**
+ * Use case diagrams palette configurer.
+ */
 @objid ("5e2eb8cb-55b7-11e2-877f-002564c97630")
-public class UseCaseDiagramConfigurer implements IDiagramConfigurer {
+public class UseCaseDiagramConfigurer extends AbstractDiagramConfigurer {
+    @objid ("5e303f7f-55b7-11e2-877f-002564c97630")
+    @Override
+    public PaletteRoot initPalette(final AbstractDiagramEditor diagram, final ToolRegistry toolRegistry) {
+        PaletteRoot paletteRoot = new PaletteRoot();
+        
+        PaletteGroup group = new PaletteGroup("main");
+        
+        SelectionToolEntry selectionToolEntry = new SelectionToolEntry();
+        selectionToolEntry.setToolClass(PanSelectionTool.class);
+        paletteRoot.setDefaultEntry(selectionToolEntry);
+        group.add(selectionToolEntry);
+        
+        MarqueeToolEntry entry = new MarqueeToolEntry();
+        entry.setToolProperty(AbstractTool.PROPERTY_UNLOAD_WHEN_FINISHED, true);
+        group.add(entry);
+        
+        paletteRoot.add(group);
+        
+        paletteRoot.add(createNodeGroup(toolRegistry));
+        paletteRoot.add(createLinkGroup(toolRegistry));
+        paletteRoot.add(createInformationFlowGroup(toolRegistry));
+        paletteRoot.add(createCommonGroup(toolRegistry));
+        paletteRoot.add(createDrawGroup(toolRegistry));
+        return paletteRoot;
+    }
+
     @objid ("5e303f67-55b7-11e2-877f-002564c97630")
     private PaletteDrawer createCommonGroup(ToolRegistry toolRegistry) {
         // common group
@@ -81,31 +110,6 @@ public class UseCaseDiagramConfigurer implements IDiagramConfigurer {
         group.add(toolRegistry.getTool("CREATE_ATTRIBUTE"));
         group.add(toolRegistry.getTool("CREATE_OPERATION"));
         return group;
-    }
-
-    @objid ("5e303f7f-55b7-11e2-877f-002564c97630")
-    @Override
-    public PaletteRoot initPalette(final AbstractDiagramEditor diagram, final ToolRegistry toolRegistry) {
-        PaletteRoot paletteRoot = new PaletteRoot();
-        
-        PaletteGroup group = new PaletteGroup("main");
-        
-        SelectionToolEntry selectionToolEntry = new SelectionToolEntry();
-        selectionToolEntry.setToolClass(PanSelectionTool.class);
-        paletteRoot.setDefaultEntry(selectionToolEntry);
-        group.add(selectionToolEntry);
-        
-        MarqueeToolEntry entry = new MarqueeToolEntry();
-        entry.setToolProperty(AbstractTool.PROPERTY_UNLOAD_WHEN_FINISHED, true);
-        group.add(entry);
-        
-        paletteRoot.add(group);
-        
-        paletteRoot.add(createNodeGroup(toolRegistry));
-        paletteRoot.add(createLinkGroup(toolRegistry));
-        paletteRoot.add(createInformationFlowGroup(toolRegistry));
-        paletteRoot.add(createCommonGroup(toolRegistry));
-        return paletteRoot;
     }
 
     @objid ("5e303f8c-55b7-11e2-877f-002564c97630")

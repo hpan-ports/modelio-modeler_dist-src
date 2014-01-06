@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.uml.infrastructure.properties;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
@@ -41,10 +41,10 @@ public interface PropertyEnumerationLitteral extends ModelElement {
     @objid ("3f7c4c9d-6307-4688-9ae7-6d02f373cc0f")
     int compareTo(PropertyEnumerationLitteral l);
 
-    @objid ("1db0d513-6229-4617-a296-aec8c38e2456")
+    @objid ("48790a9b-1ad6-4109-a863-424bb9860a18")
     EnumeratedPropertyType getOwner();
 
-    @objid ("88658cdc-a136-4fdc-82b8-71d1203ffa10")
+    @objid ("56898cb8-487b-40d0-b048-808f77b2374a")
     void setOwner(EnumeratedPropertyType value);
 
 }

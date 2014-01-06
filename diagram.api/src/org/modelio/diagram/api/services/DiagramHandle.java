@@ -22,22 +22,19 @@
 package org.modelio.diagram.api.services;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.e4.ui.model.application.ui.basic.MPart;
 import org.eclipse.emf.common.command.CommandStack;
-import org.eclipse.gef.EditPart;
 import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.GraphicalViewer;
 import org.eclipse.gef.RootEditPart;
-import org.eclipse.gef.commands.Command;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.ImageData;
 import org.eclipse.swt.graphics.ImageLoader;
 import org.modelio.api.diagram.IDiagramGraphic;
+import org.modelio.api.diagram.IDiagramGraphicFactory;
 import org.modelio.api.diagram.IDiagramHandle;
 import org.modelio.api.diagram.dg.IDiagramDG;
 import org.modelio.app.project.core.services.IProjectService;
@@ -46,7 +43,6 @@ import org.modelio.diagram.api.dg.common.DiagramDG;
 import org.modelio.diagram.editor.DiagramCommandStack;
 import org.modelio.diagram.editor.DiagramEditorInput;
 import org.modelio.diagram.editor.IDiagramEditor;
-import org.modelio.diagram.editor.ScalableFreeformRootEditPart2;
 import org.modelio.diagram.editor.activity.editor.ActivityDiagramEditorInput;
 import org.modelio.diagram.editor.bpmn.editor.BpmnDiagramEditorInput;
 import org.modelio.diagram.editor.communication.editor.CommunicationDiagramEditorInput;
@@ -63,17 +59,18 @@ import org.modelio.diagram.elements.core.model.GmModel;
 import org.modelio.diagram.elements.core.model.IGmObject;
 import org.modelio.diagram.elements.core.model.ModelManager;
 import org.modelio.diagram.elements.core.node.GmNodeModel;
-import org.modelio.diagram.elements.core.requests.ModelElementDropRequest;
+import org.modelio.diagram.elements.drawings.core.IGmDrawing;
 import org.modelio.metamodel.diagrams.AbstractDiagram;
 import org.modelio.vcore.smkernel.mapi.MObject;
 import org.modelio.vcore.smkernel.mapi.MRef;
 
 /**
- * A handle on the content of a Diagram, allowing interactions like navigating nodes and links, masking and unmasking elements,
+ * A handle on the content of a Diagram, allowing interactions like navigating nodes and links,
+ * masking and unmasking elements,
  * saving the content of the diagram into a file, etc.
  * 
- * The static method {@link #create(AbstractDiagram)} should be use to get one handle, and the handle should be {@link #close()
- * closed} when it isn't needed anymore.
+ * The static method {@link #create(IDiagramEditor)} should be use to get one handle,
+ * and the handle should be {@link #close() closed} when it isn't needed anymore.
  * 
  * @since 2.0
  */
@@ -85,15 +82,24 @@ public class DiagramHandle implements IDiagramHandle {
     @objid ("ea2f31f2-5240-4ed8-9e9e-a53bfaa40bb1")
     private IDiagramEditor editor;
 
+    @objid ("65afe438-c843-473f-b461-1dd98149c9f4")
+    private IDiagramGraphicFactory creationFactory;
+
     @objid ("869afd7e-eee8-40cf-87f8-cc9785c2b4c0")
     private DiagramHandle(final IDiagramEditor editor, DiagramEditorInput diagramEditorInput) {
         this.editor = editor;
         this.diagramEditorInput = diagramEditorInput;
+        this.creationFactory = new DiagramGraphicFactory(this);
     }
 
     /**
      * Creates and returns a DiagramHandle for the given diagram. It is the caller's responsibility to call {@link #close()} on the
      * handle once it isn't needed anymore.
+     * @param manager a diagram model manager
+     * @param abstractDiagram the diagram model element.
+     * @param projectService the project service
+     * @param editorManager the diagram editors registry.
+     * @return a diagram handle.
      */
     @objid ("392e5957-d5dd-4caf-abf2-87a798299e50")
     public static DiagramHandle create(ModelManager manager, AbstractDiagram abstractDiagram, IProjectService projectService, DiagramEditorsManager editorManager) {
@@ -155,6 +161,8 @@ public class DiagramHandle implements IDiagramHandle {
 
     /**
      * Returns the edit part for the passed object.
+     * @param gmObject the graphic object model
+     * @return the edit part
      */
     @objid ("36a43f0b-0ba1-48cb-82ea-2f1ece213b92")
     public GraphicalEditPart getEditPart(IGmObject gmObject) {
@@ -177,52 +185,7 @@ public class DiagramHandle implements IDiagramHandle {
     @objid ("e2db9e35-dd39-4a1e-9791-b585a3e501fa")
     @Override
     public List<IDiagramGraphic> unmask(MObject element, int x, int y) {
-        List<IDiagramGraphic> existingGraphics = getDiagramGraphics(element);
-        List<GmModel> existingGMs = getDiagramGraphicModels(element);
-        
-        GraphicalEditPart diagramEditPart = getEditPart(getDiagramEditorInput().getGmDiagram());
-        GraphicalViewer viewer = (GraphicalViewer) diagramEditPart.getViewer();
-        Point dropLocation = new Point(x, y);
-        
-        // Adapt the given coordinates if necessary
-        ((ScalableFreeformRootEditPart2) diagramEditPart.getViewer().getRootEditPart()).getFigure().translateToParent(dropLocation);
-        
-        final ModelElementDropRequest req = new ModelElementDropRequest();
-        req.setDroppedElements(new MObject[] { element });
-        req.setLocation(dropLocation);
-        req.isSmart(false);
-        
-        EditPart targetEditPart = viewer.findObjectAtExcluding(dropLocation, Collections.EMPTY_LIST, new Conditional(req));
-        
-        targetEditPart = targetEditPart.getTargetEditPart(req);
-        if (targetEditPart != null) {
-        
-            Command com = targetEditPart.getCommand(req);
-            if (com != null && com.canExecute()) {
-                targetEditPart.getViewer().getEditDomain().getCommandStack().execute(com);
-        
-                List<IDiagramGraphic> allGraphics = getDiagramGraphics(element);
-                List<IDiagramGraphic> results = new ArrayList<>();
-                for (IDiagramGraphic dg : allGraphics) {
-                    if (!existingGraphics.contains(dg)) {
-                        results.add(dg);
-                    }
-                }
-        
-                List<GmModel> allGMs = getDiagramGraphicModels(element);
-                for (GmModel dg : allGMs) {
-                    if (!existingGMs.contains(dg)) {
-                        EditPart newEP = getEditPart(dg);
-                        if (newEP != null) {
-                            ((GraphicalEditPart) newEP).getFigure().getUpdateManager().performValidation();
-                        }
-                    }
-                }
-        
-                return results;
-            }
-        }
-        return null;
+        return getCreationFactory().unmask(element, x, y);
     }
 
     @objid ("54450799-3ffe-4b7a-a299-8bc07dbea76e")
@@ -250,7 +213,7 @@ public class DiagramHandle implements IDiagramHandle {
     }
 
     @objid ("f3870c49-f586-409e-a99b-6b2c7c91ed31")
-    private List<GmModel> getDiagramGraphicModels(final MObject element) {
+    List<GmModel> getDiagramGraphicModels(final MObject element) {
         List<GmModel> ret = new ArrayList<>();
         for (GmModel gm : getDiagramEditorInput().getGmDiagram().getAllGMRepresenting(new MRef(element))) {
             if ((gm instanceof GmNodeModel) && !((GmNodeModel) gm).isVisible()) {
@@ -282,8 +245,12 @@ public class DiagramHandle implements IDiagramHandle {
     }
 
     /**
-     * Creates and returns a DiagramHandle for the given diagram editor. It is the caller's responsibility to call {@link #close()}
+     * Creates and returns a DiagramHandle for the given diagram editor.
+     * <p>
+     * It is the caller's responsibility to call {@link #close()}
      * on the handle once it isn't needed anymore.
+     * @param editor a diagram editor.
+     * @return a diagram handle
      */
     @objid ("b536f45b-38b6-423c-ba07-f253a2085b5b")
     public static DiagramHandle create(final IDiagramEditor editor) {
@@ -291,7 +258,7 @@ public class DiagramHandle implements IDiagramHandle {
     }
 
     @objid ("e61c1fa7-ec5e-475f-98a8-83cd1019c2e1")
-    private DiagramEditorInput getDiagramEditorInput() {
+    DiagramEditorInput getDiagramEditorInput() {
         if (this.diagramEditorInput == null || this.diagramEditorInput.getGmDiagram() == null) {
             throw new IllegalStateException("editor disposed");
         }
@@ -307,22 +274,21 @@ public class DiagramHandle implements IDiagramHandle {
         }
     }
 
-    @objid ("747c03ab-c2ff-4297-b4dc-30a7d391f3b1")
-    private class Conditional implements org.eclipse.gef.EditPartViewer.Conditional {
-        @objid ("f16d4ae3-5d65-4b42-8797-637b7977bcdb")
-        private final ModelElementDropRequest req;
+    @objid ("a15e0b0a-3ec8-42c9-b030-b67a1153165d")
+    @Override
+    public IDiagramGraphic getDrawingGraphic(String identifier) {
+        IGmDrawing gm = getDiagramEditorInput().getGmDiagram().getDrawing(identifier);
+        
+        if (gm != null)
+            return DGFactory.getInstance().getDiagramGraphic(this, gm);
+        else
+            return null;
+    }
 
-        @objid ("9a7b81dd-4cfc-4524-8bc8-6ca003a55c60")
-        public Conditional(final ModelElementDropRequest req) {
-            this.req = req;
-        }
-
-        @objid ("ea8c0c67-5793-4505-b2ec-b1f562944e51")
-        @Override
-        public boolean evaluate(final EditPart editpart) {
-            return editpart.getTargetEditPart(this.req) != null;
-        }
-
+    @objid ("bd5921e3-757b-44e5-9e28-89551cc10fc3")
+    @Override
+    public IDiagramGraphicFactory getCreationFactory() {
+        return this.creationFactory;
     }
 
 }

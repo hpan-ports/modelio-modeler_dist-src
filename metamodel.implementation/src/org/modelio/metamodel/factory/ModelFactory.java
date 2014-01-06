@@ -22,7 +22,6 @@
 package org.modelio.metamodel.factory;
 
 import java.lang.ref.SoftReference;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.WeakHashMap;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
@@ -43,7 +42,10 @@ public class ModelFactory {
     @objid ("991492c3-c87e-4c0e-b252-f1a7dbaa7c34")
     public static final ElementInitializer INITIALIZER = new ElementInitializer();
 
-    @objid ("73446711-8c57-4567-bfdc-7591b0402190")
+    /**
+     * Factory cache.
+     */
+    @objid ("8c7cddfa-9d52-472e-9b21-8c84ca87db82")
     private static final Map<ICoreSession, SoftReference<IModelFactory>> factories = new WeakHashMap<>();
 
     /**

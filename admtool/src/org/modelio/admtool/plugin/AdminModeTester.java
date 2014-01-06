@@ -27,9 +27,9 @@ import org.modelio.app.preferences.ScopedPreferenceStore;
 import org.modelio.app.ui.logconfig.LogPreferencesKeys;
 import org.modelio.app.ui.plugin.AppUi;
 
-@objid ("f8cb6c2d-5765-402e-a722-7225ac32a3f3")
+@objid ("d8ad7d7a-df88-4b35-bd84-28230e49866e")
 public class AdminModeTester extends PropertyTester {
-    @objid ("a029cd70-cdfd-4b8a-b031-99bcbe4f9e1c")
+    @objid ("85455b1f-127a-4b07-9f66-19df40a17881")
     @Override
     public boolean test(Object receiver, String property, Object[] args, Object expectedValue) {
         if (! (receiver instanceof ISelection))

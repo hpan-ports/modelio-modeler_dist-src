@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.data.uml.statik;
 
 import java.util.ArrayList;
@@ -48,22 +48,22 @@ public class DataTypeData extends GeneralClassData {
         this.mIsElementary = Boolean.TRUE;
     }
 
-    @objid ("8d42c29f-0572-449d-8a14-99e6e77931a9")
+    @objid ("a11d1212-8520-4742-950a-8767ce8f409a")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("00113e10-c4c4-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("ccd9976c-8521-4b96-9ccb-71af134a2946")
+        @objid ("8283e78c-a34d-45ba-9bc1-c71fba709546")
         private static SmClass smClass = null;
 
-        @objid ("7d6c77ef-fac0-4c9d-b4ac-9dc85c7f42a1")
+        @objid ("07179935-2d35-4899-b91c-37babdd399cf")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(DataTypeData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("390e8499-f82e-43b8-b783-c8b2bc092c24")
+        @objid ("434ca53e-10e0-4504-a6c0-42b73422a717")
         public static SmClass getSmClass() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return smClass;
@@ -71,12 +71,12 @@ public class DataTypeData extends GeneralClassData {
 
         @objid ("00117eac-c4c4-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("31b7a69a-db4c-455e-a044-2db7e73ebc35")
+            @objid ("ffae66d8-6cb9-43a8-b503-510d0b5b190b")
             public ISmObjectData createData() {
                 return new DataTypeData();
             }
 
-            @objid ("82978fcc-05da-43be-90a9-1faa0f42e601")
+            @objid ("cf561a77-d4e3-44e2-89ce-eed645eb9d38")
             public SmObjectImpl createImpl() {
                 return new DataTypeImpl();
             }

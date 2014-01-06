@@ -49,6 +49,7 @@ public class FigureUtilities2 extends FigureUtilities {
     /**
      * Produces a ghosting effect on the shape <i>s</i>.
      * @param s the shape
+     * @param refFigure unused
      * @return the ghosted shape
      */
     @objid ("7f79d9dc-1dec-11e2-8cad-001ec947c8cc")

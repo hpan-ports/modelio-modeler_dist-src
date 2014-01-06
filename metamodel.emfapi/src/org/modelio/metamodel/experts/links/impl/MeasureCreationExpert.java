@@ -32,14 +32,14 @@ import org.modelio.vcore.smkernel.mapi.MObject;
 public class MeasureCreationExpert extends DefaultLinkExpert {
     @objid ("cbd4de82-ea64-4d2f-b81c-e8533447cc85")
     @Override
-    public boolean canLink(MObject link, final MObject fromElement, final MObject toElement, final MObject linkOwner) {
+    public boolean canLink(MClass link, final MObject fromElement, final MObject toElement) {
         return (fromElement instanceof ModelElement) &&
                (toElement instanceof Goal);
     }
 
     @objid ("a5363157-93e2-4df8-9190-da24dbf2fd8b")
     @Override
-    public boolean canLink(MClass link, final MClass fromMetaclass, final MClass toMetaclass, final MClass owner) {
+    public boolean canLink(MClass link, final MClass fromMetaclass, final MClass toMetaclass) {
         return fromMetaclass.hasBase(Metamodel.getMClass(ModelElement.class)) &&
                toMetaclass.hasBase(Metamodel.getMClass(Goal.class));
     }

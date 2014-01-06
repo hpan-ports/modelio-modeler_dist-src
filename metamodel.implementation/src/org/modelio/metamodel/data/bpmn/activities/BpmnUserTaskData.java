@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.data.bpmn.activities;
 
 import java.util.ArrayList;
@@ -43,29 +43,29 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("0086919c-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=BpmnUserTask.class, factory=BpmnUserTaskData.Metadata.ObjectFactory.class)
 public class BpmnUserTaskData extends BpmnTaskData {
-    @objid ("7e98251f-b77e-4d16-b0d4-0d28a1aa2748")
+    @objid ("bb9f6a77-2f18-4605-ab53-bf68e9c863a6")
     @SmaMetaAttribute(metaName="Implementation", type=String.class, smAttributeClass=Metadata.ImplementationSmAttribute.class)
      Object mImplementation = "##WebService";
 
-    @objid ("50091c14-c465-42bf-9277-449295f591af")
+    @objid ("259bb6c0-0776-4eea-b659-942b5b7157be")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("00923290-c4c3-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("a8b606e5-0631-4caa-ad8f-2a6f39005d52")
+        @objid ("c469ed3a-9d4c-438b-b3a2-aac0f3f034d3")
         private static SmClass smClass = null;
 
-        @objid ("fbd8ae5a-5df7-40a0-ba05-3801b376e22f")
+        @objid ("7b92e0f6-dd79-44aa-9dc2-1ac48f28b4a3")
         private static SmAttribute ImplementationAtt = null;
 
-        @objid ("cb10328a-5924-49cf-ab75-7840e694d496")
+        @objid ("8da7bda9-c1fc-44b6-b7ea-d6b4ec4a15f0")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(BpmnUserTaskData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("787775f6-fffd-4254-b494-9d8582f14743")
+        @objid ("5dd62c01-315b-47a4-b3e2-d992bbe1bd03")
         public static SmAttribute ImplementationAtt() {
             if (ImplementationAtt == null) {
             	ImplementationAtt = classof().getAttributeDef("Implementation");
@@ -73,26 +73,26 @@ public class BpmnUserTaskData extends BpmnTaskData {
             return ImplementationAtt;
         }
 
-        @objid ("3e45c774-3993-4a04-be3f-be15a6876750")
-        public static SmAttribute getImplementationAtt() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return ImplementationAtt;
-        }
-
-        @objid ("20781ade-e0a6-4e0e-9678-de5ada77cefb")
+        @objid ("f31c6318-f742-4204-9e76-b043bb015c0e")
         public static SmClass getSmClass() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return smClass;
         }
 
+        @objid ("03c026c9-5c38-44dd-a209-84623ce54d91")
+        public static SmAttribute getImplementationAtt() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return ImplementationAtt;
+        }
+
         @objid ("00927fb6-c4c3-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("417fc63c-4ba5-4de3-b6b5-077477226b68")
+            @objid ("1416a8ae-2cee-4372-96a2-cbccf9a0cc50")
             public ISmObjectData createData() {
                 return new BpmnUserTaskData();
             }
 
-            @objid ("9bf2112a-7d71-4cc0-a421-061eb56ad067")
+            @objid ("9e42599b-025e-401e-8f5d-2982abea4e53")
             public SmObjectImpl createImpl() {
                 return new BpmnUserTaskImpl();
             }
@@ -101,12 +101,12 @@ public class BpmnUserTaskData extends BpmnTaskData {
 
         @objid ("0092e366-c4c3-1fd8-97fe-001ec947cd2a")
         public static class ImplementationSmAttribute extends SmAttribute {
-            @objid ("1f874a2c-fd82-425c-a5ca-f36e4718cbe0")
+            @objid ("967315c4-bed7-45c5-bdab-0fddc4033815")
             public Object getValue(ISmObjectData data) {
                 return ((BpmnUserTaskData) data).mImplementation;
             }
 
-            @objid ("6f494b39-92b1-4a21-8e25-407fd522fae3")
+            @objid ("501ce571-6586-4716-8abb-206f4f5b89e2")
             public void setValue(ISmObjectData data, Object value) {
                 ((BpmnUserTaskData) data).mImplementation = value;
             }

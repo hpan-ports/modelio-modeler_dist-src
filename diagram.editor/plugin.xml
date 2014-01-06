@@ -29,6 +29,31 @@
 		<definition id="org.modelio.diagram.editor.corexp.is-gmnsu.id">
         	<test property="org.modelio.diagram.editor.corexp.is-gmnsu"/>
 		</definition>
+		<definition id="org.modelio.diagram.editor.corexp.is-gmnodedrawing.id">
+     <with
+           variable="org.eclipse.ui.selection">
+        <iterate
+              ifEmpty="false"
+              operator="or">
+           <adapt
+                 type="org.modelio.diagram.elements.drawings.core.IGmDrawing">
+           </adapt>
+        </iterate>
+     </with>
+		</definition>
+  <definition
+        id="org.modelio.diagram.editor.corexp.has-gmmodel.id">
+     <with
+           variable="org.eclipse.ui.selection">
+        <iterate
+              ifEmpty="false"
+              operator="or">
+           <adapt
+                 type="org.modelio.diagram.elements.core.model.GmModel">
+           </adapt>
+        </iterate>
+     </with>
+  </definition>
 </extension>
   
 <extension point="org.eclipse.core.expressions.propertyTesters">

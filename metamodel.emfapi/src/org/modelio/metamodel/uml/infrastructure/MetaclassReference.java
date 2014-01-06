@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.uml.infrastructure;
 
 import java.util.List;
@@ -36,40 +36,40 @@ import org.modelio.metamodel.uml.infrastructure.properties.PropertyTableDefiniti
 
 @objid ("0091820a-c4be-1fd8-97fe-001ec947cd2a")
 public interface MetaclassReference extends Element {
-    @objid ("2b9f1ceb-9405-46d7-b680-b74c17c24d9f")
+    @objid ("61d04908-7b55-4d7b-9304-49313eb48d99")
     String getReferencedClassName();
 
-    @objid ("e5d3ae67-51bb-42cd-a902-d74ee51e31cb")
+    @objid ("fbefcf8b-40aa-4058-8cfe-586578ef9fbb")
     void setReferencedClassName(String value);
 
-    @objid ("c422f056-f871-4e4d-8a4a-4c52e31349e7")
+    @objid ("e514957a-1f64-465a-b004-174881dc10f9")
     PropertyTableDefinition getDefinedTable();
 
-    @objid ("0390e348-d1bb-4d13-a917-b577dfcba3c6")
+    @objid ("ce1326be-c3d8-4004-bed8-441f16656d64")
     void setDefinedTable(PropertyTableDefinition value);
 
-    @objid ("e9eaa7e0-3866-4ee7-b292-eaf23f0501b1")
+    @objid ("611a6070-2274-4900-af8d-871567334cc2")
     EList<NoteType> getDefinedNoteType();
 
-    @objid ("a874ced8-6e37-4707-92ce-1762f5c916d1")
+    @objid ("0886911d-34ad-4d26-9fc3-bb7339404e23")
     <T extends NoteType> List<T> getDefinedNoteType(java.lang.Class<T> filterClass);
 
-    @objid ("9b6c114a-3725-4333-90ac-1b46e45d2174")
+    @objid ("f720b5fd-0112-4a43-bed1-9578fe6f64b4")
     EList<ExternDocumentType> getDefinedExternDocumentType();
 
-    @objid ("17e3f5e8-bbde-48a4-8003-e8f785d3c778")
+    @objid ("8cc6eca2-8b9b-40f7-bb70-aac73da42a5e")
     <T extends ExternDocumentType> List<T> getDefinedExternDocumentType(java.lang.Class<T> filterClass);
 
-    @objid ("d65100e2-c10f-4661-94e9-2428774c2835")
+    @objid ("c948e9a5-a14b-4fe9-800b-9a438ac9485f")
     Profile getOwnerProfile();
 
-    @objid ("1e163a53-2d07-4d93-8977-ee38c2c21cf5")
+    @objid ("bc6f7fd8-2bae-41cc-9b7a-1cab950d7f7a")
     void setOwnerProfile(Profile value);
 
-    @objid ("b46c0a46-93fa-4456-be1e-67af6785a173")
+    @objid ("b853f5d8-5b00-4e9c-afce-acb3be115f80")
     EList<TagType> getDefinedTagType();
 
-    @objid ("a7ff1304-1d48-4c79-ba54-7b6b0c54ecd5")
+    @objid ("8e13f064-d70c-4877-95db-c3611137ba4d")
     <T extends TagType> List<T> getDefinedTagType(java.lang.Class<T> filterClass);
 
 }

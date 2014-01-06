@@ -30,6 +30,8 @@ import org.modelio.metamodel.analyst.AnalystProject;
 import org.modelio.metamodel.analyst.BusinessRule;
 import org.modelio.metamodel.analyst.BusinessRuleContainer;
 import org.modelio.metamodel.analyst.Dictionary;
+import org.modelio.metamodel.analyst.GenericAnalystContainer;
+import org.modelio.metamodel.analyst.GenericAnalystElement;
 import org.modelio.metamodel.analyst.Goal;
 import org.modelio.metamodel.analyst.GoalContainer;
 import org.modelio.metamodel.analyst.Requirement;
@@ -213,6 +215,9 @@ import org.modelio.metamodel.uml.infrastructure.Stereotype;
 import org.modelio.metamodel.uml.infrastructure.Substitution;
 import org.modelio.metamodel.uml.infrastructure.TagType;
 import org.modelio.metamodel.uml.infrastructure.Usage;
+import org.modelio.metamodel.uml.infrastructure.matrix.MatrixDefinition;
+import org.modelio.metamodel.uml.infrastructure.matrix.MatrixValueDefinition;
+import org.modelio.metamodel.uml.infrastructure.matrix.QueryDefinition;
 import org.modelio.metamodel.uml.infrastructure.properties.EnumeratedPropertyType;
 import org.modelio.metamodel.uml.infrastructure.properties.PropertyDefinition;
 import org.modelio.metamodel.uml.infrastructure.properties.PropertyEnumerationLitteral;
@@ -247,6 +252,7 @@ import org.modelio.metamodel.uml.statik.LinkEnd;
 import org.modelio.metamodel.uml.statik.Manifestation;
 import org.modelio.metamodel.uml.statik.NamespaceUse;
 import org.modelio.metamodel.uml.statik.NaryAssociation;
+import org.modelio.metamodel.uml.statik.NaryLink;
 import org.modelio.metamodel.uml.statik.NaryLinkEnd;
 import org.modelio.metamodel.uml.statik.Node;
 import org.modelio.metamodel.uml.statik.Operation;
@@ -266,6 +272,8 @@ import org.modelio.property.ui.data.standard.analyst.AnalystProjectPropertyModel
 import org.modelio.property.ui.data.standard.analyst.BusinessRuleContainerPropertyModel;
 import org.modelio.property.ui.data.standard.analyst.BusinessRulePropertyModel;
 import org.modelio.property.ui.data.standard.analyst.DictionaryPropertyModel;
+import org.modelio.property.ui.data.standard.analyst.GenericAnalystContainerPropertyModel;
+import org.modelio.property.ui.data.standard.analyst.GenericAnalystElementPropertyModel;
 import org.modelio.property.ui.data.standard.analyst.GoalContainerPropertyModel;
 import org.modelio.property.ui.data.standard.analyst.GoalPropertyModel;
 import org.modelio.property.ui.data.standard.analyst.RequirementContainerPropertyModel;
@@ -1789,22 +1797,65 @@ class DataModelFactory extends DefaultModelVisitor {
         return new ValuePinPropertyModel(theValuePin);
     }
 
-    @objid ("3414772f-b048-48c0-92bc-27741b826a87")
+    @objid ("61172982-c280-41b7-9471-7ced71fc05eb")
     @Override
     public Object visitLink(Link theLink) {
         return new LinkPropertyModel(theLink);
     }
 
-    @objid ("00d066e7-9876-4117-b309-0f77261023cc")
+    @objid ("a0e46c7a-ad1b-4318-87c8-6f345daa9d65")
     @Override
     public Object visitConnector(Connector theConnector) {
         return new ConnectorPropertyModel(theConnector);
     }
 
-    @objid ("d26726c1-6ec3-43d3-9f99-255c815fb277")
+    @objid ("6c00d4a9-d2c0-4ee3-b901-4d18c0c2ebd9")
     @Override
-    public Object visitAssociation(Association obj) {
-        return new AssociationPropertyModel(obj);
+    public Object visitAssociation(Association theAssociation) {
+        return new AssociationPropertyModel(theAssociation);
+    }
+
+    @objid ("545403ad-ced3-4229-9a9c-d3176f45071c")
+    @Override
+    public Object visitQueryDefinition(QueryDefinition theQueryDefinition) {
+        return new QueryDefinitionPropertyModel(theQueryDefinition, this.model);
+    }
+
+    @objid ("90284b61-c748-41ad-809d-60ffd82f4666")
+    @Override
+    public Object visitMatrixDefinition(MatrixDefinition theMatrixDefinition) {
+        return new MatrixDefinitionPropertyModel(theMatrixDefinition);
+    }
+
+    @objid ("ef67f434-317d-4e07-92e7-2178eddb4034")
+    @Override
+    public Object visitMatrixValueDefinition(MatrixValueDefinition theMatrixValueDefinition) {
+        return new MatrixValueDefinitionPropertyModel(theMatrixValueDefinition);
+    }
+
+    @objid ("5b48a8c8-4d09-4375-8637-2d514bac1cf1")
+    @Override
+    public Object visitGenericAnalystElement(GenericAnalystElement obj) {
+        return new GenericAnalystElementPropertyModel(obj, 
+                this.modelService, 
+                this.projectService, 
+                this.activationService);
+    }
+
+    @objid ("86bd513f-3a37-4b23-ab76-7083da703bbc")
+    @Override
+    public Object visitGenericAnalystContainer(GenericAnalystContainer obj) {
+        return new GenericAnalystContainerPropertyModel(obj, 
+                this.modelService, 
+                this.model, 
+                this.projectService, 
+                this.activationService);
+    }
+
+    @objid ("959bc5f3-767c-4401-af7d-a5256a567c89")
+    @Override
+    public Object visitNaryLink(NaryLink obj) {
+        return new LinkEndNPropertyModel(obj.getNaryLinkEnd().get(0));
     }
 
 }

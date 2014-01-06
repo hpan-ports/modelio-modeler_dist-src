@@ -51,7 +51,7 @@ public class ClauseDG extends DiagramNode {
     public List<IDiagramNode> getNodes() {
         GmCompositeNode innerZone = ((GmClause) this.gmNode).getInnerZone();
         if (innerZone != null) {
-            return DGFactory.getInstance().getDiagramNodes(this.diagramHandle, innerZone.getChildren());
+            return DGFactory.getInstance().getDiagramNodes(this.diagramHandle, innerZone.getVisibleChildren());
         } else {
             return Collections.emptyList();
         }

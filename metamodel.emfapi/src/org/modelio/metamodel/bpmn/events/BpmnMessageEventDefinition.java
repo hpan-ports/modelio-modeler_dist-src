@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.bpmn.events;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
@@ -32,16 +32,16 @@ import org.modelio.metamodel.bpmn.flows.BpmnMessage;
 
 @objid ("0090c6e4-c4bf-1fd8-97fe-001ec947cd2a")
 public interface BpmnMessageEventDefinition extends BpmnEventDefinition {
-    @objid ("21d07ecb-e4e1-4b22-a23f-7342f59d5c99")
+    @objid ("be45ff7e-ced0-4c8e-be17-bfbf0bb834a6")
     BpmnMessage getMessageRef();
 
-    @objid ("110a7177-1a3f-4ee4-bed3-d5d90aff2b01")
+    @objid ("2f7f6d09-251b-4074-8b9e-4848a18367bb")
     void setMessageRef(BpmnMessage value);
 
-    @objid ("a66133d4-07e6-496b-be57-4f76058ff8ed")
+    @objid ("14e4f129-2920-4372-83ff-43fbe82dd175")
     BpmnOperation getOperationRef();
 
-    @objid ("0fbede3a-5316-4cf6-bbd9-8039dc14d111")
+    @objid ("d9aeaceb-3320-4613-b55c-8c3fed147777")
     void setOperationRef(BpmnOperation value);
 
 }

@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.analyst;
 
 import java.util.ArrayList;
@@ -43,19 +43,19 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("008a372a-ec8f-1098-b22e-001ec947cd2a")
 public class AnalystPropertyTableImpl extends TypedPropertyTableImpl implements AnalystPropertyTable {
-    @objid ("8ddf1d64-27c3-4829-9a77-9a06b819cfdd")
+    @objid ("99ae4058-e0cb-43b2-a851-1582cfd92ff3")
     @Override
     public AnalystItem getAnalystOwner() {
         return (AnalystItem) getDepVal(AnalystPropertyTableData.Metadata.AnalystOwnerDep());
     }
 
-    @objid ("3cb216fb-93aa-4f34-94ea-99c5017f9032")
+    @objid ("c2ed4d98-3c5a-4f83-baf8-4723dec76b4d")
     @Override
     public void setAnalystOwner(AnalystItem value) {
         appendDepVal(AnalystPropertyTableData.Metadata.AnalystOwnerDep(), (SmObjectImpl)value);
     }
 
-    @objid ("0609d626-0f6e-40a3-a232-94fed0c79a8d")
+    @objid ("a1eb9f85-a00d-4b24-8128-255ff2c506c7")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
@@ -65,7 +65,7 @@ public class AnalystPropertyTableImpl extends TypedPropertyTableImpl implements 
         return super.getCompositionOwner();
     }
 
-    @objid ("c06104c1-0987-43d8-ba10-a2d219d11e5a")
+    @objid ("575560e4-3fb9-475e-93cb-ca531d33145a")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
@@ -75,7 +75,7 @@ public class AnalystPropertyTableImpl extends TypedPropertyTableImpl implements 
         return super.getCompositionRelation();
     }
 
-    @objid ("04f0c089-3daf-466a-a4e6-014cdb5fb7e2")
+    @objid ("a05b26b8-7af3-4765-8a88-6b92de00b5a5")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitAnalystPropertyTable(this);

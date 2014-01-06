@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.uml.behavior.communicationModel;
 
 import java.util.List;
@@ -36,40 +36,40 @@ import org.modelio.metamodel.uml.statik.NaryLink;
 
 @objid ("5451d474-f72f-46a9-b8b5-35997413d584")
 public interface CommunicationChannel extends ModelElement {
-    @objid ("ba8ed6b7-7dc4-4caf-b0b9-259097d9b338")
+    @objid ("00ab8fba-90f3-454c-b0b9-9a4d369d6003")
     EList<CommunicationMessage> getStartToEndMessage();
 
-    @objid ("72a34a2b-8985-44ef-840b-3f9558ef4eb4")
+    @objid ("4a5bc9a4-184e-4b25-8862-323eb99c6b7c")
     <T extends CommunicationMessage> List<T> getStartToEndMessage(java.lang.Class<T> filterClass);
 
-    @objid ("0bd111b3-b7cd-4a35-95ef-6288d5680949")
+    @objid ("9ecf0151-7311-47e5-a7fc-a142d28ded35")
     Link getChannel();
 
-    @objid ("b6e33911-0422-4619-b784-d3508ea83158")
+    @objid ("5a871567-66d3-4f8c-ae5b-597ab8e8c34b")
     void setChannel(Link value);
 
-    @objid ("0afba48c-f676-45ac-9128-32070e231957")
+    @objid ("76d50006-6436-4ed8-abc8-c60736192d0e")
     CommunicationNode getStart();
 
-    @objid ("ae5a0ad5-039b-48f7-8fb1-9a7f02856161")
+    @objid ("320a488a-6dae-47b0-acbd-6ddaa3676aff")
     void setStart(CommunicationNode value);
 
-    @objid ("85628e19-79ba-4986-8823-fc843ece400f")
+    @objid ("4ef7b594-acc5-4d3c-8e8a-59bb927917ff")
     NaryLink getNaryChannel();
 
-    @objid ("64b5a62e-6a89-4e14-acab-e26fea2fb1c6")
+    @objid ("c26f18da-6362-40d9-ac50-855f6acff5e6")
     void setNaryChannel(NaryLink value);
 
-    @objid ("599c11c2-4754-48b4-ab58-d290926ae7ee")
+    @objid ("2103ab2b-fa8b-4544-af23-f89a86be8d8d")
     EList<CommunicationMessage> getEndToStartMessage();
 
-    @objid ("d9ed2988-04c5-4d24-827a-ed862146bbe1")
+    @objid ("cafc86cb-df9f-4c97-8c30-cfbb5d7a2b6b")
     <T extends CommunicationMessage> List<T> getEndToStartMessage(java.lang.Class<T> filterClass);
 
-    @objid ("7875576e-ef4c-4687-8b8b-1bcec764fef6")
+    @objid ("b8613be4-a3bf-4700-a278-8a5e97faed32")
     CommunicationNode getEnd();
 
-    @objid ("f202b366-46b5-4488-9ae3-bfa1898512b2")
+    @objid ("06c6a394-4335-47df-ad24-97fd7f1770f0")
     void setEnd(CommunicationNode value);
 
 }

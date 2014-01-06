@@ -77,7 +77,11 @@ public class CommunicationDiagramCreationContributor extends AbstractDiagramCrea
         }
         
         if (diagram != null) {
-            setElementDefaultName(diagram);
+            if (diagramName.equals(this.getLabel())) {                
+                setElementDefaultName(diagram);
+            } else {
+                diagram.setName(diagramName);
+            }
             putNoteContent(diagram, "description", diagramDescription);
         }
         return diagram;

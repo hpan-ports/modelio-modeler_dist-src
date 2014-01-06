@@ -231,24 +231,12 @@ class ModuleLoader {
 
     @objid ("8a81c9b3-f34b-11e1-9458-001ec947c8cc")
     private static void addPluginsClassLoaders(List<ClassLoader> parentLoaders) {
-        // FIXME: define exactly what plugins the module should be given access
-        // to.
-        // --------------------------------------------------------------------
-        // // Add the ClassLoader of hades.script if available (== only in the
-        // // enterprise versions)
-        // // so that the RamComponent module can launch contextual commands.
-        addPluginClassLoader(parentLoaders, "org.modelio.api",
-                "org.modelio.api.module.IModule");
-        addPluginClassLoader(parentLoaders, "org.modelio.core.utils",
-                "org.modelio.vbasic.version.Version");
-        //
-        // // Add the ClassLoader of hades.svn if available (== only in the
-        // // enterprise versions)
-        // // so that the Subversion module module can use its classes.
-        // addPluginClassLoader(parentLoaders,
-        // "com.modeliosoft.modelio.svn",
-        // "com.modeliosoft.modelio.internal.svn.impl.plugin.Svn");
-        //
+        addPluginClassLoader(parentLoaders, "org.modelio.api", "org.modelio.api.module.IModule");
+        addPluginClassLoader(parentLoaders, "org.modelio.core.utils", "org.modelio.vbasic.version.Version");
+        
+        
+        addPluginClassLoader(parentLoaders, "com.modeliosoft.modelio.app.svn", "com.modeliosoft.modelio.cms.api.ICmsServices");
+        addPluginClassLoader(parentLoaders, "com.modeliosoft.modelio.matrix", "com.modeliosoft.modelio.matrix.api.IMatrixService");
     }
 
     @objid ("7f10303c-0263-11e2-9fca-001ec947c8cc")

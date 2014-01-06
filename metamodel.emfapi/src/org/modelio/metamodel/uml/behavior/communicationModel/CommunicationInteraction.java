@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.uml.behavior.communicationModel;
 
 import java.util.List;
@@ -33,10 +33,10 @@ import org.modelio.metamodel.uml.behavior.communicationModel.CommunicationNode;
 
 @objid ("005a13d8-c4bf-1fd8-97fe-001ec947cd2a")
 public interface CommunicationInteraction extends Behavior {
-    @objid ("ac8b135d-2729-4a62-9b43-37fed92880e2")
+    @objid ("b19761bc-c92e-402d-a37b-870498bc463e")
     EList<CommunicationNode> getOwned();
 
-    @objid ("47802d8b-8c2b-4234-8978-38810b60a5fa")
+    @objid ("8565eb18-e648-451b-92b7-3a048c359ca7")
     <T extends CommunicationNode> List<T> getOwned(java.lang.Class<T> filterClass);
 
 }

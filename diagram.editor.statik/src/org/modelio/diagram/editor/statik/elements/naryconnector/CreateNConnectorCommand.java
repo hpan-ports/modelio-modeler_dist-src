@@ -63,7 +63,7 @@ public class CreateNConnectorCommand extends Command {
     /**
      * Initial layout constraint
      */
-    @objid ("70f9b96d-dfd4-4daa-b7cb-61903b9c8f08")
+    @objid ("396ac692-111e-4d2a-b466-926874eb31eb")
     private Rectangle layoutConstraint;
 
     /**

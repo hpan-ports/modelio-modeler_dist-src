@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.uml.behavior.activityModel;
 
 import java.util.ArrayList;
@@ -43,37 +43,37 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("002d81b0-c4bf-1fd8-97fe-001ec947cd2a")
 public class ConditionalNodeImpl extends StructuredActivityNodeImpl implements ConditionalNode {
-    @objid ("e1f91c0f-403d-454d-9bf0-d60f0af129ba")
+    @objid ("7cc9ce62-7dbb-4c41-8ca8-8886afefb796")
     @Override
     public boolean isIsDeterminate() {
         return (Boolean) getAttVal(ConditionalNodeData.Metadata.IsDeterminateAtt());
     }
 
-    @objid ("918393cf-1e3f-4f56-aa0c-3d324e48b0c7")
+    @objid ("89d82904-1193-45d8-9687-d082ca1a2fe3")
     @Override
     public void setIsDeterminate(boolean value) {
         setAttVal(ConditionalNodeData.Metadata.IsDeterminateAtt(), value);
     }
 
-    @objid ("e2101e90-3665-40bd-b143-261f7cf3eb68")
+    @objid ("5d749174-59dc-4c94-9995-11904d8f2e6e")
     @Override
     public boolean isIsAssured() {
         return (Boolean) getAttVal(ConditionalNodeData.Metadata.IsAssuredAtt());
     }
 
-    @objid ("9d4df648-9fac-4c5c-b4f8-5257827b9daa")
+    @objid ("a3abc210-20a7-4fd3-a6dc-7c63ff040832")
     @Override
     public void setIsAssured(boolean value) {
         setAttVal(ConditionalNodeData.Metadata.IsAssuredAtt(), value);
     }
 
-    @objid ("32d44de6-9135-4b1d-90fa-9c4434294178")
+    @objid ("a2dec71a-8705-4155-8dbe-a0f4dc4127de")
     @Override
     public EList<Clause> getOwnedClause() {
         return new SmList<>(this, ConditionalNodeData.Metadata.OwnedClauseDep());
     }
 
-    @objid ("1052626f-d82b-4bc3-9914-004ba2af2a99")
+    @objid ("4daa62ab-7f8f-45b9-9605-d08a7c7e03e4")
     @Override
     public <T extends Clause> List<T> getOwnedClause(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -86,21 +86,21 @@ public class ConditionalNodeImpl extends StructuredActivityNodeImpl implements C
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("7cb312d4-3e63-46fe-be88-92680a37b1e6")
+    @objid ("3bff3fc8-2291-436a-ab91-da93d20d789d")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("737d906a-cd13-455c-b5cf-df1b3c279438")
+    @objid ("6f57f96f-63bf-4401-919f-6d87c6b6eaa6")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("ef72128d-9a4a-42d5-94a7-ee08b2d55c9a")
+    @objid ("9ab75abe-172d-41a3-b4d3-66a318027ee2")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitConditionalNode(this);

@@ -60,19 +60,19 @@ public class StateDG extends PortContainerDG {
         // InternalTransition
         GmCompositeNode transitionZone = mainNode.getCompositeFor(InternalTransition.class);
         if (transitionZone != null) {
-            nodes.addAll(DGFactory.getInstance().getDiagramNodes(this.diagramHandle, transitionZone.getChildren()));
+            nodes.addAll(DGFactory.getInstance().getDiagramNodes(this.diagramHandle, transitionZone.getVisibleChildren()));
         }
         
         // Region
         GmCompositeNode regionZone = mainNode.getCompositeFor(Region.class);
         if (regionZone != null) {
-            nodes.addAll(DGFactory.getInstance().getDiagramNodes(this.diagramHandle, regionZone.getChildren()));
+            nodes.addAll(DGFactory.getInstance().getDiagramNodes(this.diagramHandle, regionZone.getVisibleChildren()));
         }
         
         // StateVertex
         GmCompositeNode stateVertexZone = mainNode.getCompositeFor(StateVertex.class);
         if (stateVertexZone != null) {
-            nodes.addAll(DGFactory.getInstance().getDiagramNodes(this.diagramHandle, stateVertexZone.getChildren()));
+            nodes.addAll(DGFactory.getInstance().getDiagramNodes(this.diagramHandle, stateVertexZone.getVisibleChildren()));
         }
         return nodes;
     }

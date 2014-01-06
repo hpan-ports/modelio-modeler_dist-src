@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.bpmn.events;
 
 import java.util.ArrayList;
@@ -41,21 +41,21 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("00882ebc-c4bf-1fd8-97fe-001ec947cd2a")
 public class BpmnCancelEventDefinitionImpl extends BpmnEventDefinitionImpl implements BpmnCancelEventDefinition {
-    @objid ("bc6eab9f-76af-468d-82e5-3151a64f433c")
+    @objid ("9c35d3c2-a73a-4855-ae9a-54671860b286")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("7a286675-104a-4b9e-8b8f-9994f80b8ab7")
+    @objid ("fa1153ae-6637-4bec-98ab-d0d9590820cd")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("0762b186-fc98-432d-a4e6-36c1bb664d1c")
+    @objid ("a1c4fb8e-8119-4d33-9e6b-e0f985aec8bf")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitBpmnCancelEventDefinition(this);

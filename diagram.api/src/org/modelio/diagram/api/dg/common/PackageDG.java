@@ -51,7 +51,7 @@ public class PackageDG extends PortContainerDG {
         // Inner nodes
         GmCompositeNode bodyNode = ((GmPackagePrimaryNode) getPrimaryNode()).getBody();
         if (bodyNode != null) {
-            return DGFactory.getInstance().getDiagramNodes(this.diagramHandle, bodyNode.getChildren());
+            return DGFactory.getInstance().getDiagramNodes(this.diagramHandle, bodyNode.getVisibleChildren());
         } else {
             return Collections.emptyList();
         }

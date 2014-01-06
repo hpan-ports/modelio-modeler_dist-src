@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.bpmn.gateways;
 
 import java.util.ArrayList;
@@ -41,21 +41,21 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("0002797a-c4c0-1fd8-97fe-001ec947cd2a")
 public class BpmnParallelGatewayImpl extends BpmnGatewayImpl implements BpmnParallelGateway {
-    @objid ("eaa14046-98dd-49a2-8952-30577cde3522")
+    @objid ("1d55d646-029a-4b5f-9f8c-65c211e9c457")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("f7bb3535-2a0a-431f-8dbf-4616f9229038")
+    @objid ("d02e7ba8-71ff-4764-9af0-acbd642f5666")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("66e81571-4383-43e6-a71b-4b3bedfdca44")
+    @objid ("a1861883-3575-46f8-aea6-6673e0fd2eb2")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitBpmnParallelGateway(this);

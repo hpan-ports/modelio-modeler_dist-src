@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.uml.statik;
 
 import java.util.List;
@@ -32,10 +32,10 @@ import org.modelio.metamodel.uml.statik.EnumerationLiteral;
 
 @objid ("000981a2-c4bf-1fd8-97fe-001ec947cd2a")
 public interface Enumeration extends GeneralClass {
-    @objid ("d950aa9c-46e5-46cb-a6bb-4bc2d6c371fc")
+    @objid ("7eba394d-4b30-41ac-9ccc-a1d5aae3c046")
     EList<EnumerationLiteral> getValue();
 
-    @objid ("08e6641f-f455-4d0c-85dc-7c079889aa02")
+    @objid ("20e99004-9403-47ca-84fe-2c4326a6b486")
     <T extends EnumerationLiteral> List<T> getValue(java.lang.Class<T> filterClass);
 
 }

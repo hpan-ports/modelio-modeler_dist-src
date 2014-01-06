@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.bpmn.rootElements;
 
 import java.util.ArrayList;
@@ -46,13 +46,13 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("0079514e-c4bf-1fd8-97fe-001ec947cd2a")
 public abstract class BpmnFlowElementImpl extends BpmnBaseElementImpl implements BpmnFlowElement {
-    @objid ("acae6cbb-af49-4e9c-a70d-772154593ba8")
+    @objid ("b20c73a3-d48f-42d4-86f5-42733b5713c4")
     @Override
     public EList<BpmnGroup> getGroups() {
         return new SmList<>(this, BpmnFlowElementData.Metadata.GroupsDep());
     }
 
-    @objid ("0918cf8d-976e-4385-9a59-a37b4526cb1d")
+    @objid ("5545c398-23f8-4945-933b-8e0a46b22f0a")
     @Override
     public <T extends BpmnGroup> List<T> getGroups(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -65,25 +65,25 @@ public abstract class BpmnFlowElementImpl extends BpmnBaseElementImpl implements
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("5d317091-e272-4267-8f41-7e6e779ea68b")
+    @objid ("a36dc752-5d19-4b39-a9f1-0d655c1e6a26")
     @Override
     public BpmnSubProcess getSubProcess() {
         return (BpmnSubProcess) getDepVal(BpmnFlowElementData.Metadata.SubProcessDep());
     }
 
-    @objid ("118a889d-ea82-4b28-bad5-219f84f64d86")
+    @objid ("42470b98-c929-4c1b-ab34-b93e85794a5a")
     @Override
     public void setSubProcess(BpmnSubProcess value) {
         appendDepVal(BpmnFlowElementData.Metadata.SubProcessDep(), (SmObjectImpl)value);
     }
 
-    @objid ("962696ef-7b40-4b3f-90e2-4c14e0905d84")
+    @objid ("1e1ce1a9-b620-411b-a4c9-02c5fe027ba2")
     @Override
     public EList<BpmnLane> getLane() {
         return new SmList<>(this, BpmnFlowElementData.Metadata.LaneDep());
     }
 
-    @objid ("05ecb654-a0a6-4076-afa1-06862c86fdc2")
+    @objid ("17e303a4-b9cb-4c0a-b266-81d100bdc335")
     @Override
     public <T extends BpmnLane> List<T> getLane(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -96,19 +96,19 @@ public abstract class BpmnFlowElementImpl extends BpmnBaseElementImpl implements
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("f8e44e52-27eb-4f6d-a694-a66ecdfc16c9")
+    @objid ("d6d4f87f-7aab-46d6-b664-f2efb6dbf31b")
     @Override
     public BpmnProcess getContainer() {
         return (BpmnProcess) getDepVal(BpmnFlowElementData.Metadata.ContainerDep());
     }
 
-    @objid ("ca9b12a2-1b27-48a2-84d2-31cb2786791a")
+    @objid ("6c70e9bb-1576-43cd-b41f-783ec6efcedd")
     @Override
     public void setContainer(BpmnProcess value) {
         appendDepVal(BpmnFlowElementData.Metadata.ContainerDep(), (SmObjectImpl)value);
     }
 
-    @objid ("2dc1ca28-10bf-4e52-b3d8-1bc60b89173c")
+    @objid ("4f7aaee5-a114-4641-98f1-bc033fbba19d")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
@@ -121,7 +121,7 @@ public abstract class BpmnFlowElementImpl extends BpmnBaseElementImpl implements
         return super.getCompositionOwner();
     }
 
-    @objid ("fbbb41be-81df-4914-8c25-161c49e96ee6")
+    @objid ("64a29868-fdff-469a-8ea6-c3aedf019cf4")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
@@ -134,7 +134,7 @@ public abstract class BpmnFlowElementImpl extends BpmnBaseElementImpl implements
         return super.getCompositionRelation();
     }
 
-    @objid ("3cdcb87c-6c96-4e3c-9117-5d98c38a33d1")
+    @objid ("066ddc1e-11f2-4575-97e9-d58d0bed8f1b")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitBpmnFlowElement(this);

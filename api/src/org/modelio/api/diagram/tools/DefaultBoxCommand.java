@@ -57,7 +57,7 @@ public abstract class DefaultBoxCommand implements IBoxCommand {
     @objid ("01e402b4-0000-6b89-0000-000000000000")
     private String tooltip;
 
-    @objid ("587ee474-7aab-4ddf-9fcb-40bc4ab4274a")
+    @objid ("dcf711db-81f2-4845-b08a-e3f7723c483f")
     private ImageDescriptor bitmap;
 
     /**

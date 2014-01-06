@@ -27,6 +27,7 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.core.ui.ktable.types.IPropertyType;
 import org.modelio.core.ui.ktable.types.element.SingleElementType;
 import org.modelio.core.ui.ktable.types.text.StringType;
+import org.modelio.metamodel.Metamodel;
 import org.modelio.metamodel.uml.behavior.commonBehaviors.Signal;
 import org.modelio.metamodel.uml.statik.Class;
 import org.modelio.metamodel.uml.statik.Generalization;
@@ -157,7 +158,7 @@ public class GeneralizationPropertyModel extends AbstractPropertyModel<Generaliz
                         allowedClasses.add(Class.class);
                         return new SingleElementType(false, allowedClasses);
                     } else {
-                        return new SingleElementType(false, this.theEditedElement.getSubType().getClass(), CoreSession.getSession(this.theEditedElement));
+                        return new SingleElementType(false, Metamodel.getJavaInterface(this.theEditedElement.getSubType().getMClass()), CoreSession.getSession(this.theEditedElement));
                     }
                 case 2:
                     return this.stringType;

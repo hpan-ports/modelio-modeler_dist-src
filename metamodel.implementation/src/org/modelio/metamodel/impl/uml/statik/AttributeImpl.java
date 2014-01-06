@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.uml.statik;
 
 import java.util.ArrayList;
@@ -48,73 +48,73 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("00981c78-c4be-1fd8-97fe-001ec947cd2a")
 public class AttributeImpl extends StructuralFeatureImpl implements Attribute {
-    @objid ("f576d500-7add-4500-9c14-e29e962af7de")
+    @objid ("6e9a4e71-25ae-4a67-b2c6-52d75b5bbe75")
     @Override
     public String getTypeConstraint() {
         return (String) getAttVal(AttributeData.Metadata.TypeConstraintAtt());
     }
 
-    @objid ("0bd2cb46-f1b1-42b0-95da-5e8c9acda396")
+    @objid ("9c88dd9d-4b93-4c85-8e19-d7972dca407e")
     @Override
     public void setTypeConstraint(String value) {
         setAttVal(AttributeData.Metadata.TypeConstraintAtt(), value);
     }
 
-    @objid ("5e2abf14-91d7-487c-a7cc-bd74970d1121")
+    @objid ("71fe6cd5-900e-4680-b1c2-78a2a41b9305")
     @Override
     public String getValue() {
         return (String) getAttVal(AttributeData.Metadata.ValueAtt());
     }
 
-    @objid ("2e488dc8-f731-4a9c-b8c9-55e66e1a8e96")
+    @objid ("61bdd34f-edf8-423b-9d28-e71fe07c44d0")
     @Override
     public void setValue(String value) {
         setAttVal(AttributeData.Metadata.ValueAtt(), value);
     }
 
-    @objid ("49ae11e4-2fa3-4518-a8f0-3b536cc33722")
+    @objid ("20ed6466-97d2-4e11-8513-6cbf3da354ea")
     @Override
     public boolean isTargetIsClass() {
         return (Boolean) getAttVal(AttributeData.Metadata.TargetIsClassAtt());
     }
 
-    @objid ("40128532-b96b-4424-a11e-a8865a3f57a8")
+    @objid ("38e90d39-3309-4db7-9d3c-6143737be109")
     @Override
     public void setTargetIsClass(boolean value) {
         setAttVal(AttributeData.Metadata.TargetIsClassAtt(), value);
     }
 
-    @objid ("0198dd4e-1a1f-4da9-88f7-3f667e7459c4")
+    @objid ("d85a9176-7f18-4ce2-907c-73fcdf096ae8")
     @Override
     public GeneralClass getType() {
         return (GeneralClass) getDepVal(AttributeData.Metadata.TypeDep());
     }
 
-    @objid ("0000bdb2-db4e-4918-b1a6-9dc6179afa77")
+    @objid ("7c9c86d4-e563-42ed-ac16-83440cbd275c")
     @Override
     public void setType(GeneralClass value) {
         appendDepVal(AttributeData.Metadata.TypeDep(), (SmObjectImpl)value);
     }
 
-    @objid ("d622fe0d-863e-4bb3-809b-c77cbbea09fc")
+    @objid ("70699099-a60d-40d4-b0d3-35e30a54ff69")
     @Override
     public Classifier getOwner() {
         return (Classifier) getDepVal(AttributeData.Metadata.OwnerDep());
     }
 
-    @objid ("502a21e4-4f4e-419d-be09-aef40689aa99")
+    @objid ("f8628ee1-c8c0-49ff-9621-7ea7c7c12362")
     @Override
     public void setOwner(Classifier value) {
         appendDepVal(AttributeData.Metadata.OwnerDep(), (SmObjectImpl)value);
     }
 
-    @objid ("8897708c-f2d9-47d7-9266-f7ce46df675a")
+    @objid ("03b69b67-d2fa-43f1-95bd-d09f0e037699")
     @Override
     public EList<AttributeLink> getOccurence() {
         return new SmList<>(this, AttributeData.Metadata.OccurenceDep());
     }
 
-    @objid ("47be48f6-a9be-4d4f-a864-6d0488858b16")
+    @objid ("f34e78d3-09c0-466e-b4c1-97afc9f0ab28")
     @Override
     public <T extends AttributeLink> List<T> getOccurence(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -127,13 +127,13 @@ public class AttributeImpl extends StructuralFeatureImpl implements Attribute {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("b8d9a14e-a4a2-46dc-9336-f93ebd6f5799")
+    @objid ("995aa081-d175-4b93-9b27-bfff72f3dbc3")
     @Override
     public EList<BpmnItemAwareElement> getRepresentingItem() {
         return new SmList<>(this, AttributeData.Metadata.RepresentingItemDep());
     }
 
-    @objid ("9ac80d70-5098-4c2f-b231-f46fbd0c47bc")
+    @objid ("0433c384-ee82-44c0-bcaa-bae9c6a06bb5")
     @Override
     public <T extends BpmnItemAwareElement> List<T> getRepresentingItem(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -146,13 +146,13 @@ public class AttributeImpl extends StructuralFeatureImpl implements Attribute {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("a60c5996-f163-4a68-84d6-4b7d17294edd")
+    @objid ("44c8c649-0505-4633-9087-9c65a66e0a6a")
     @Override
     public EList<ObjectNode> getRepresentingObjectNode() {
         return new SmList<>(this, AttributeData.Metadata.RepresentingObjectNodeDep());
     }
 
-    @objid ("135274b1-6ce5-44d3-ae6d-6382db34e8a6")
+    @objid ("a3fdd087-5732-477f-b2ba-b7835d28d33c")
     @Override
     public <T extends ObjectNode> List<T> getRepresentingObjectNode(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -165,19 +165,19 @@ public class AttributeImpl extends StructuralFeatureImpl implements Attribute {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("894ad8e8-db57-4662-ac2b-70a6966fb474")
+    @objid ("b53539f3-639d-4f82-8827-ff1a423b7b6e")
     @Override
     public AssociationEnd getQualified() {
         return (AssociationEnd) getDepVal(AttributeData.Metadata.QualifiedDep());
     }
 
-    @objid ("594d88d5-0df5-4c35-a7c9-8fb2506f0538")
+    @objid ("35069dfa-4856-435c-ad82-a4a3766c449f")
     @Override
     public void setQualified(AssociationEnd value) {
         appendDepVal(AttributeData.Metadata.QualifiedDep(), (SmObjectImpl)value);
     }
 
-    @objid ("c113af20-8e1f-445e-bf01-5d2766693e6d")
+    @objid ("0cec26d2-9c93-47c6-83eb-2670f15430f4")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
@@ -190,7 +190,7 @@ public class AttributeImpl extends StructuralFeatureImpl implements Attribute {
         return super.getCompositionOwner();
     }
 
-    @objid ("7789003a-b5ee-4e9f-901c-7f431b51a445")
+    @objid ("47e65351-6ca7-4bac-a536-6ade9cb3983f")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
@@ -203,7 +203,7 @@ public class AttributeImpl extends StructuralFeatureImpl implements Attribute {
         return super.getCompositionRelation();
     }
 
-    @objid ("68e3068d-fd5d-4c9d-a68e-a83916ce3c80")
+    @objid ("c5a8da4b-dfee-4661-8914-ca5b6e128585")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitAttribute(this);

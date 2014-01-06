@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.uml.statik;
 
 import java.util.ArrayList;
@@ -41,21 +41,21 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("00078320-c4bf-1fd8-97fe-001ec947cd2a")
 public class DataTypeImpl extends GeneralClassImpl implements DataType {
-    @objid ("a7c71338-a8bc-48ad-a2cc-54a2403049d7")
+    @objid ("3e18dd26-abca-4af2-95c1-f725e2972451")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("19c58c59-7dfd-42e4-9ff9-85cad8270fa3")
+    @objid ("2f76da15-3ccc-4a5d-8630-e9f4eb0e8859")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("c1c7a54e-744e-4048-80b4-cbb52cd5edb6")
+    @objid ("4e65af8b-c983-497f-a105-6abd546e187d")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitDataType(this);

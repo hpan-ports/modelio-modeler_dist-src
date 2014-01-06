@@ -68,7 +68,8 @@ public class GradientFigure extends Figure implements IBrushOptionsSupport, IPen
             Color gradientColor = this.brushOptions.useGradient ? this.computeGradientColor(base) : base;
             graphics.setBackgroundColor(gradientColor);
             graphics.setForegroundColor(base);
-        
+            graphics.setAlpha(this.brushOptions.alpha);
+            
             tempRect = this.getBounds();
             if (this.brushOptions.useGradient) {
                 graphics.fillGradient(tempRect, false);
@@ -193,6 +194,21 @@ public class GradientFigure extends Figure implements IBrushOptionsSupport, IPen
             this.penOptions.linePattern = lineStyle;
             this.repaint();
         }
+    }
+
+    @objid ("8e1447f4-a6ee-4e12-a9b2-70b54a996a7f")
+    @Override
+    public void setFillAlpha(int alpha) {
+        if (this.brushOptions.alpha != alpha) {
+            this.brushOptions.alpha = alpha;
+            this.repaint();
+        }
+    }
+
+    @objid ("d12ba4b3-4884-4030-8eeb-0a91ef43bbc8")
+    @Override
+    public int getFillAlpha() {
+        return this.brushOptions.alpha;
     }
 
 }

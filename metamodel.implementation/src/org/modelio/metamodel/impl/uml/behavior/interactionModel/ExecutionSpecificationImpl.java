@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.uml.behavior.interactionModel;
 
 import java.util.ArrayList;
@@ -42,45 +42,45 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("0044efbc-c4bf-1fd8-97fe-001ec947cd2a")
 public class ExecutionSpecificationImpl extends InteractionFragmentImpl implements ExecutionSpecification {
-    @objid ("aa8ed054-8af4-4225-a9ae-b5aaaa1bc229")
+    @objid ("611164e3-fab2-4fce-b5d9-0707f06ce392")
     @Override
     public ExecutionOccurenceSpecification getFinish() {
         return (ExecutionOccurenceSpecification) getDepVal(ExecutionSpecificationData.Metadata.FinishDep());
     }
 
-    @objid ("9fb9744a-b6da-4092-99e0-ada02de99aad")
+    @objid ("6c12d12d-11d4-4dae-98e7-a2729b60e109")
     @Override
     public void setFinish(ExecutionOccurenceSpecification value) {
         appendDepVal(ExecutionSpecificationData.Metadata.FinishDep(), (SmObjectImpl)value);
     }
 
-    @objid ("a006bd31-b239-4e5b-bee9-60617519cd74")
+    @objid ("52c13503-9aea-46b7-a132-36db2f2a107c")
     @Override
     public ExecutionOccurenceSpecification getStart() {
         return (ExecutionOccurenceSpecification) getDepVal(ExecutionSpecificationData.Metadata.StartDep());
     }
 
-    @objid ("6c09b9a7-bcc6-4491-8851-1d21fa1ae404")
+    @objid ("b9611538-9903-46d5-a15d-dcfb33ad48c4")
     @Override
     public void setStart(ExecutionOccurenceSpecification value) {
         appendDepVal(ExecutionSpecificationData.Metadata.StartDep(), (SmObjectImpl)value);
     }
 
-    @objid ("d1b5aad2-a337-452d-9c19-e13a04c91f9a")
+    @objid ("9c93130c-1539-4e2f-be82-7fa098eef156")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("c28f424e-b6f5-4fec-bbcc-f7fbdab6afc6")
+    @objid ("44447160-d496-4e43-bd6a-824e109f5ef0")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("c37df38c-8320-49e8-b3c7-a7160a625b50")
+    @objid ("2dc4c253-e85f-4880-8a8b-554be287415b")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitExecutionSpecification(this);

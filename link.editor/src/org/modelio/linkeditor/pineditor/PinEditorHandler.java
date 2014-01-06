@@ -41,9 +41,9 @@ public class PinEditorHandler {
     public Object execute(MPart part) {
         if (part.getObject() instanceof LinkEditorView) {            
             final LinkEditorView linkEditorView = (LinkEditorView) part.getObject();
-            linkEditorView.getOptions().setPinned(!linkEditorView.getOptions().isPinned());
+            LinkEditorView.getOptions().setPinned(!LinkEditorView.getOptions().isPinned());
             
-            linkEditorView.showPinnedBackground(linkEditorView.getOptions().isPinned()); 
+            linkEditorView.refreshPinnedBackground(); 
         }
         return null;
     }

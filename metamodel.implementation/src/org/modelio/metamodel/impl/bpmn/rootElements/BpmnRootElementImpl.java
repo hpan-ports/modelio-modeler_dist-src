@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.bpmn.rootElements;
 
 import java.util.ArrayList;
@@ -42,19 +42,19 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("007ad76c-c4bf-1fd8-97fe-001ec947cd2a")
 public abstract class BpmnRootElementImpl extends BpmnBaseElementImpl implements BpmnRootElement {
-    @objid ("35f0072c-b1ab-44dd-9198-1d2efa2ff5ec")
+    @objid ("db6cbdb1-dbad-4448-9c87-803b40ad7807")
     @Override
     public BpmnBehavior getOwner() {
         return (BpmnBehavior) getDepVal(BpmnRootElementData.Metadata.OwnerDep());
     }
 
-    @objid ("e48b8301-a9a9-4abe-a83c-8cb1dbba3cbf")
+    @objid ("ee02874d-e529-42c9-a2b9-928a645352f1")
     @Override
     public void setOwner(BpmnBehavior value) {
         appendDepVal(BpmnRootElementData.Metadata.OwnerDep(), (SmObjectImpl)value);
     }
 
-    @objid ("8154b0e2-5bd7-415e-b526-4b5206a4649b")
+    @objid ("ea67c089-f41c-4eab-be75-8c8817bc63c4")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
@@ -64,7 +64,7 @@ public abstract class BpmnRootElementImpl extends BpmnBaseElementImpl implements
         return super.getCompositionOwner();
     }
 
-    @objid ("d39eb38a-9d15-4a62-86a1-aa030ea38a1c")
+    @objid ("3d20d3f2-7d21-46b4-b430-5cae8e5bb24d")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
@@ -74,7 +74,7 @@ public abstract class BpmnRootElementImpl extends BpmnBaseElementImpl implements
         return super.getCompositionRelation();
     }
 
-    @objid ("540493f3-7ed2-4321-b1e7-1bd763117bbb")
+    @objid ("7ddaaa37-e09c-4ee9-9636-038edd618dc6")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitBpmnRootElement(this);

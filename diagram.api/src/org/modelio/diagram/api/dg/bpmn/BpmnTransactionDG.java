@@ -48,7 +48,7 @@ public class BpmnTransactionDG extends PortContainerDG {
     @Override
     protected List<IDiagramNode> getPrimaryChildrenNodes() {
         GmBpmnTransactionPrimaryNode mainNode = (GmBpmnTransactionPrimaryNode) getPrimaryNode();
-        return DGFactory.getInstance().getDiagramNodes(this.diagramHandle, mainNode.getInnerZone().getChildren());
+        return DGFactory.getInstance().getDiagramNodes(this.diagramHandle, mainNode.getInnerZone().getVisibleChildren());
     }
 
 }

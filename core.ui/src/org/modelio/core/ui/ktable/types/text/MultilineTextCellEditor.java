@@ -34,6 +34,11 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Text;
 import org.modelio.metamodel.uml.infrastructure.Element;
 
+/**
+ * Our KTable cell editor for multi-line texts.
+ * <p>
+ * Opens a big dialog box that allows the user to enter multi-line text.
+ */
 @objid ("8db9c37f-c068-11e1-8c0a-002564c97630")
 public class MultilineTextCellEditor extends KTableCellEditor {
     @objid ("8db9c380-c068-11e1-8c0a-002564c97630")
@@ -123,7 +128,7 @@ public class MultilineTextCellEditor extends KTableCellEditor {
     @objid ("8dbb4a12-c068-11e1-8c0a-002564c97630")
     @Override
     protected Control createControl() {
-        final Text m_Text2 = new Text(this.m_Table, SWT.NONE);
+        final Text m_Text2 = new Text(this.m_Table, SWT.MULTI);
         m_Text2.setData(null);
         m_Text2.setEnabled(false);
         m_Text2.setEditable(false);

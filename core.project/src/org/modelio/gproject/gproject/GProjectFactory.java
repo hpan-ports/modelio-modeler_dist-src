@@ -30,6 +30,7 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.gproject.descriptor.DefinitionScope;
 import org.modelio.gproject.descriptor.ProjectDescriptor;
 import org.modelio.gproject.descriptor.ProjectDescriptorReader;
+import org.modelio.gproject.gproject.url.GUrlProjectFactory;
 import org.modelio.gproject.module.IModuleCatalog;
 import org.modelio.vbasic.auth.IAuthData;
 import org.modelio.vbasic.progress.IModelioProgress;
@@ -178,4 +179,9 @@ public class GProjectFactory {
         return null;
     }
 
+
+static {
+        // Register the URI project factory.
+        factories.add(new GUrlProjectFactory());
+    }
 }

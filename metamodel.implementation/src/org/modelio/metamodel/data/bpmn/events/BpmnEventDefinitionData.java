@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.data.bpmn.events;
 
 import java.util.ArrayList;
@@ -47,36 +47,36 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("008db116-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=BpmnEventDefinition.class, factory=BpmnEventDefinitionData.Metadata.ObjectFactory.class)
 public abstract class BpmnEventDefinitionData extends BpmnBaseElementData {
-    @objid ("d57e3bec-65b6-4201-9518-fd148f20f40d")
+    @objid ("1aa31ef9-f323-4e07-a5e6-cbcc4cd31346")
     @SmaMetaAssociation(metaName="Defined", typeDataClass=BpmnEventData.class, min=0, max=1, smAssociationClass=Metadata.DefinedSmDependency.class)
      SmObjectImpl mDefined;
 
-    @objid ("4b3c96a2-64c1-4dd3-9711-3d863c84bf38")
+    @objid ("a63e4859-881c-4a95-8a8f-12115aa426c3")
     @SmaMetaAssociation(metaName="LoopRef", typeDataClass=BpmnMultiInstanceLoopCharacteristicsData.class, min=0, max=-1, smAssociationClass=Metadata.LoopRefSmDependency.class)
      List<SmObjectImpl> mLoopRef = null;
 
-    @objid ("f6084fe6-ba2d-44b8-b0bf-b188d1929e59")
+    @objid ("68e466b3-a220-4fe0-af24-01d1ce816c54")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("0090d9e0-c4c4-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("7e398002-b284-487b-b168-8e30a45e8b2f")
+        @objid ("7d494505-67ba-4c21-829b-4f853fd00ee9")
         private static SmClass smClass = null;
 
-        @objid ("ef3429de-c304-4505-a8c5-eb4d630e3a22")
+        @objid ("59fd8185-69ca-4336-871d-f066d4dd71ff")
         private static SmDependency DefinedDep = null;
 
-        @objid ("aad978b0-3ac0-418f-973a-55e25f2c1345")
+        @objid ("35703a8c-b55f-4f95-bac6-168fe299a1e1")
         private static SmDependency LoopRefDep = null;
 
-        @objid ("8b61255d-defe-423b-adbd-b8c234aa89df")
+        @objid ("0318c106-ba7c-40f0-b3d3-e6af01c817ca")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(BpmnEventDefinitionData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("e589614c-8491-4109-8b80-a74fcaf37f80")
+        @objid ("242705d3-d5ac-4a34-ae87-ad47ba4f5a40")
         public static SmDependency DefinedDep() {
             if (DefinedDep == null) {
             	DefinedDep = classof().getDependencyDef("Defined");
@@ -84,7 +84,7 @@ public abstract class BpmnEventDefinitionData extends BpmnBaseElementData {
             return DefinedDep;
         }
 
-        @objid ("3d0cdbfa-e978-4fbd-894c-a5a4bf2cbf7e")
+        @objid ("3b75e385-dee8-4a41-b894-33cc30c2543a")
         public static SmDependency LoopRefDep() {
             if (LoopRefDep == null) {
             	LoopRefDep = classof().getDependencyDef("LoopRef");
@@ -92,19 +92,19 @@ public abstract class BpmnEventDefinitionData extends BpmnBaseElementData {
             return LoopRefDep;
         }
 
-        @objid ("db85257d-035f-4513-82dc-df394f7af4a8")
-        public static SmClass getSmClass() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return smClass;
-        }
-
-        @objid ("51d169cc-ae78-42bc-9dca-d213fdddb9a2")
+        @objid ("6efbd777-07c0-400a-a2f0-64a0a44104bc")
         public static SmDependency getDefinedDep() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return DefinedDep;
         }
 
-        @objid ("70ead839-da1a-4c32-b9d6-f8ea8b644fae")
+        @objid ("9839bc89-74c9-4387-b007-88034c130eb8")
+        public static SmClass getSmClass() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return smClass;
+        }
+
+        @objid ("4c52a936-5a3f-49b4-a02a-02ac8f3d3791")
         public static SmDependency getLoopRefDep() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return LoopRefDep;
@@ -112,12 +112,12 @@ public abstract class BpmnEventDefinitionData extends BpmnBaseElementData {
 
         @objid ("009130ca-c4c4-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("da5ff021-5d1d-4a94-900b-1c7d6549ce1a")
+            @objid ("dab70f36-fd2f-4a5c-bb2e-8bd44befd246")
             public ISmObjectData createData() {
                 throw new UnsupportedOperationException();
             }
 
-            @objid ("5a710b1e-57b7-4a05-bb15-8b4048ed8adc")
+            @objid ("db971123-6a74-4f83-982f-42cfdb9f18b2")
             public SmObjectImpl createImpl() {
                 throw new UnsupportedOperationException();
             }
@@ -126,20 +126,20 @@ public abstract class BpmnEventDefinitionData extends BpmnBaseElementData {
 
         @objid ("0091a442-c4c4-1fd8-97fe-001ec947cd2a")
         public static class LoopRefSmDependency extends SmMultipleDependency {
-            @objid ("3fac0f4e-8bae-4ca1-8354-ed6d67df1dd7")
+            @objid ("1b1e2711-877a-4932-a1d8-19ed0758a406")
             @Override
             public List<SmObjectImpl> getValueList(ISmObjectData data) {
                 return (((BpmnEventDefinitionData)data).mLoopRef != null)? ((BpmnEventDefinitionData)data).mLoopRef:SmMultipleDependency.EMPTY;
             }
 
-            @objid ("08e3022b-f874-4d37-bf67-a657c89f093d")
+            @objid ("4a6addf7-0789-4a85-9b78-e9504f69ea29")
             @Override
             protected List<SmObjectImpl> allocateValueList(ISmObjectData data, int initialCapacity) {
                 ((BpmnEventDefinitionData) data).mLoopRef = new ArrayList<>(initialCapacity);
                 return ((BpmnEventDefinitionData) data).mLoopRef;
             }
 
-            @objid ("bfda7c78-bcfd-48c9-b511-13311ab48748")
+            @objid ("6f4bb7cf-b539-43f1-9414-43ad8c9d1c39")
             @Override
             public SmDependency getSymetric() {
                 return BpmnMultiInstanceLoopCharacteristicsData.Metadata.CompletionEventRefDep();
@@ -149,18 +149,18 @@ public abstract class BpmnEventDefinitionData extends BpmnBaseElementData {
 
         @objid ("00921ada-c4c4-1fd8-97fe-001ec947cd2a")
         public static class DefinedSmDependency extends SmSingleDependency {
-            @objid ("347bb493-9683-4fd1-8ae5-a7ecd89326d2")
+            @objid ("4ac502f0-7ae9-4f8c-98b3-ed5ca8833cf2")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((BpmnEventDefinitionData) data).mDefined;
             }
 
-            @objid ("5a6a1e42-59f0-460e-99d8-493994ec2bb2")
+            @objid ("15db47a1-35f9-4c8b-805c-1da644300a82")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((BpmnEventDefinitionData) data).mDefined = value;
             }
 
-            @objid ("bee70cba-aab9-45c8-bdc9-a0d466bf1479")
+            @objid ("c07e3efe-935b-4ddc-bc79-9356eb0425ec")
             @Override
             public SmDependency getSymetric() {
                 return BpmnEventData.Metadata.EventDefinitionsDep();

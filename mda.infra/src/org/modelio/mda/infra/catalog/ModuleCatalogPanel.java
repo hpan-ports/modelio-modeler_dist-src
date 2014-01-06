@@ -314,7 +314,7 @@ public class ModuleCatalogPanel implements IPanelProvider {
         return this.controller.allModules();
     }
 
-    @objid ("e7267829-0dab-405e-8c7c-9df89e929ef9")
+    @objid ("16e7ef0a-c575-4b5a-9199-3f514061151c")
     public void addDoubleClickListener(IDoubleClickListener listener) {
         this.treeViewer.addDoubleClickListener(listener);
     }

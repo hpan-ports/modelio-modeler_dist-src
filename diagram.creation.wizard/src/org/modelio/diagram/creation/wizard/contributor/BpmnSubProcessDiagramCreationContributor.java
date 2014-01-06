@@ -19,9 +19,8 @@ public class BpmnSubProcessDiagramCreationContributor extends AbstractDiagramCre
     @objid ("8e3fe408-1c52-443e-a4e2-4efdda11f7f9")
     @Override
     public AbstractDiagram actionPerformed(final ModelElement diagramContext, final String diagramName, final String diagramDescription) {
-        //ICoreSession modelingSession = this.projectService.getSession();
-        IModelFactory modelFactory = this.mmServices.getModelFactory(diagramContext);
-        BpmnSubProcessDiagram diagram = createBpmnSubProcessDiagram(modelFactory, diagramContext);
+        IModelFactory modelFactory = this.mmServices.getModelFactory();
+        BpmnSubProcessDiagram diagram = createBpmnSubProcessDiagram(modelFactory, diagramContext, diagramName);
         if (diagram != null) {
             putNoteContent(diagram, "description", diagramDescription);
         }
@@ -37,10 +36,14 @@ public class BpmnSubProcessDiagramCreationContributor extends AbstractDiagramCre
     }
 
     @objid ("6478ea12-7a14-4e5d-bd31-06f2e6ab92ae")
-    private BpmnSubProcessDiagram createBpmnSubProcessDiagram(final IModelFactory modelFactory, final ModelElement diagramContext) {
+    private BpmnSubProcessDiagram createBpmnSubProcessDiagram(final IModelFactory modelFactory, final ModelElement diagramContext, final String diagramName) {
         BpmnSubProcessDiagram diagram = modelFactory.createBpmnSubProcessDiagram();
         diagram.setOrigin(diagramContext);
-        setElementDefaultName(diagram);
+        if (diagramName.equals(this.getLabel())) {                
+            setElementDefaultName(diagram);
+        } else {
+            diagram.setName(diagramName);
+        }
         return diagram;
     }
 

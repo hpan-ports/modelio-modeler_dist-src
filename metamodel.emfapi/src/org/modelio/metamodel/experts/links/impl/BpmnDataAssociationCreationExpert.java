@@ -65,7 +65,7 @@ public class BpmnDataAssociationCreationExpert extends DefaultLinkExpert {
 
     @objid ("7e974166-1eb2-11e2-8009-002564c97630")
     @Override
-    public boolean canLink(final MClass link, final MClass from, final MClass to, final MClass owner) {
+    public boolean canLink(final MClass link, final MClass from, final MClass to) {
         if (!canSource(link, from)) {
             return false;
         }
@@ -144,8 +144,8 @@ public class BpmnDataAssociationCreationExpert extends DefaultLinkExpert {
 
     @objid ("97d3a7a1-0bb7-4312-98c3-2c6c2a11133c")
     @Override
-    public boolean canLink(final MObject link, final MObject from, final MObject to, final MObject owner) {
-        if (!canSource(link, from)) {
+    public boolean canLink(final MClass link, final MObject from, final MObject to) {
+        if (!canSource(link, from.getMClass())) {
             return false;
         }
         

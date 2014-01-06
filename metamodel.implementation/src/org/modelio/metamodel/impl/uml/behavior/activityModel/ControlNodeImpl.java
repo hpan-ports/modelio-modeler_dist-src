@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.uml.behavior.activityModel;
 
 import java.util.ArrayList;
@@ -41,21 +41,21 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("002eb59e-c4bf-1fd8-97fe-001ec947cd2a")
 public abstract class ControlNodeImpl extends ActivityNodeImpl implements ControlNode {
-    @objid ("8eca18a1-1842-4d6c-96bc-3c8c4ed53b78")
+    @objid ("ca179274-0dff-4466-9f1b-7def7d0d761d")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("61d63f56-af0a-4d50-a0db-77d00bfe7c2f")
+    @objid ("6f53a880-b5d3-41e1-84c8-482595670024")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("b30df37d-d1b7-4620-8a22-b734de58a1e3")
+    @objid ("538ff4c0-eaec-4e30-8450-096003c3f146")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitControlNode(this);

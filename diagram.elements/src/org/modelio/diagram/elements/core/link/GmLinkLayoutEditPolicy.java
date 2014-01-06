@@ -40,6 +40,7 @@ import org.modelio.diagram.elements.core.link.extensions.GmConnectionEndpoinLoca
 import org.modelio.diagram.elements.core.link.extensions.GmConnectionLocator;
 import org.modelio.diagram.elements.core.link.extensions.GmFractionalConnectionLocator;
 import org.modelio.diagram.elements.core.link.extensions.IGmLocator;
+import org.modelio.diagram.elements.core.model.IGmLink;
 import org.modelio.diagram.elements.core.model.IGmObject;
 
 /**
@@ -54,7 +55,7 @@ public class GmLinkLayoutEditPolicy extends LayoutEditPolicy {
             return null;
         
         final IGmObject gmExtension = (IGmObject) child.getModel();
-        final GmLink gmlink = (GmLink) getHost().getModel();
+        final IGmLink gmlink = (IGmLink) getHost().getModel();
         
         final IGmLocator locator = gmlink.getLayoutContraint(gmExtension);
         

@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.data.diagrams;
 
 import java.util.ArrayList;
@@ -47,64 +47,64 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("00678cde-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=AbstractDiagram.class, factory=AbstractDiagramData.Metadata.ObjectFactory.class)
 public abstract class AbstractDiagramData extends ModelElementData {
-    @objid ("1a38eca6-5990-4818-831e-38af48f07491")
+    @objid ("71a3ca83-8d4d-4911-a8df-d1183b4c9b20")
     @SmaMetaAttribute(metaName="UiDataVersion", type=Integer.class, smAttributeClass=Metadata.UiDataVersionSmAttribute.class)
      Object mUiDataVersion = 0;
 
-    @objid ("8a7f9b63-41fc-4002-a602-17a0b1c32df4")
+    @objid ("09ec6253-906b-4f77-a943-19b40a125fec")
     @SmaMetaAttribute(metaName="UiData", type=String.class, smAttributeClass=Metadata.UiDataSmAttribute.class)
      Object mUiData = "";
 
-    @objid ("e5ad57f5-0f0c-408e-9edc-1316434d31c9")
+    @objid ("3648f78a-d529-402e-8a0b-28db27d06e9e")
     @SmaMetaAttribute(metaName="PdeProperties", type=String.class, smAttributeClass=Metadata.PdePropertiesSmAttribute.class)
      Object mPdeProperties = "";
 
-    @objid ("4a4d08c0-287c-4627-9cb3-5205221dce6f")
+    @objid ("7b4e6674-4863-46c9-bf2e-d1af1cd30feb")
     @SmaMetaAssociation(metaName="Origin", typeDataClass=ModelElementData.class, min=0, max=1, smAssociationClass=Metadata.OriginSmDependency.class, partof = true)
      SmObjectImpl mOrigin;
 
-    @objid ("cbed1c1a-a9b7-43f1-aa09-36fda20214aa")
+    @objid ("5efd65ff-d296-45f9-a117-b670badd05dd")
     @SmaMetaAssociation(metaName="Represented", typeDataClass=ElementData.class, min=0, max=-1, smAssociationClass=Metadata.RepresentedSmDependency.class, partof = true)
      List<SmObjectImpl> mRepresented = null;
 
-    @objid ("d0a5109a-9d64-4d07-8378-d2589c87ce27")
+    @objid ("1fd4cd03-52fb-47f0-bd85-fe058a44da3b")
     @SmaMetaAssociation(metaName="ReferencingSet", typeDataClass=DiagramSetData.class, min=0, max=-1, smAssociationClass=Metadata.ReferencingSetSmDependency.class)
      List<SmObjectImpl> mReferencingSet = null;
 
-    @objid ("bb4425e3-2620-453c-ac14-c73520c997f6")
+    @objid ("30c450c3-fb31-4c04-b9f3-a0eb42849836")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("000913f2-c4c6-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("f07af0cf-6efc-4d21-b3c2-bd2102ffcac8")
+        @objid ("fb6e143e-bad5-4c04-85a5-0ee269dc87e3")
         private static SmClass smClass = null;
 
-        @objid ("635315e5-aa2f-4d1b-b327-ce2b770f0e53")
+        @objid ("a456aac2-b29a-4a44-8545-290d1a781274")
         private static SmAttribute UiDataVersionAtt = null;
 
-        @objid ("ee2bb002-4b6e-48f3-a6b5-5ca6843dc9ca")
+        @objid ("fd75d83c-d3a1-4b29-9cbf-7845041da9d5")
         private static SmAttribute UiDataAtt = null;
 
-        @objid ("4fd96c42-900e-444b-b401-f9d69b764945")
+        @objid ("407c74b3-ba4d-4904-b196-c4b684682f37")
         private static SmAttribute PdePropertiesAtt = null;
 
-        @objid ("4023d842-e5a1-403c-b418-f8be4ccfe550")
+        @objid ("03f7fb5b-af7c-4cb6-a180-d89710da96e8")
         private static SmDependency OriginDep = null;
 
-        @objid ("6a7a5e33-3f34-441a-8087-11f4d35cd6fe")
+        @objid ("52a3871e-c4c2-4c3a-9d7b-d27e34bdc2bf")
         private static SmDependency RepresentedDep = null;
 
-        @objid ("ae2dd9b0-8af8-4e8a-a947-2debccc4952d")
+        @objid ("6850278f-3225-4ec7-81a0-7ee0b847d148")
         private static SmDependency ReferencingSetDep = null;
 
-        @objid ("72b26bda-bf85-4c45-84f4-083472f9a26c")
+        @objid ("20c166e4-a6a9-4d9e-a6e9-f4310a9f1230")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(AbstractDiagramData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("5b3d6557-7f69-4f04-9c3a-bd1cc4f1e3ed")
+        @objid ("981606e8-b6dc-4afb-90e1-86bd169bcb55")
         public static SmAttribute UiDataVersionAtt() {
             if (UiDataVersionAtt == null) {
             	UiDataVersionAtt = classof().getAttributeDef("UiDataVersion");
@@ -112,7 +112,7 @@ public abstract class AbstractDiagramData extends ModelElementData {
             return UiDataVersionAtt;
         }
 
-        @objid ("3f1fa136-bbff-4ecf-a587-70de604579a5")
+        @objid ("1476ce2f-5fcd-442f-adbd-713496086233")
         public static SmAttribute UiDataAtt() {
             if (UiDataAtt == null) {
             	UiDataAtt = classof().getAttributeDef("UiData");
@@ -120,7 +120,7 @@ public abstract class AbstractDiagramData extends ModelElementData {
             return UiDataAtt;
         }
 
-        @objid ("03eff5be-b28f-4ca2-88ef-806ea4f3b8de")
+        @objid ("b88bf00e-75cf-45c2-8aeb-4beb381c932c")
         public static SmAttribute PdePropertiesAtt() {
             if (PdePropertiesAtt == null) {
             	PdePropertiesAtt = classof().getAttributeDef("PdeProperties");
@@ -128,7 +128,7 @@ public abstract class AbstractDiagramData extends ModelElementData {
             return PdePropertiesAtt;
         }
 
-        @objid ("0e342732-63d3-4cde-9087-2f66519b933e")
+        @objid ("a6f81d9f-26aa-44af-8094-9d8bdcdfa06e")
         public static SmDependency OriginDep() {
             if (OriginDep == null) {
             	OriginDep = classof().getDependencyDef("Origin");
@@ -136,7 +136,7 @@ public abstract class AbstractDiagramData extends ModelElementData {
             return OriginDep;
         }
 
-        @objid ("49e92954-7f17-4ba9-bf6f-38f14253aa2c")
+        @objid ("7c1c83e7-aeb6-4841-baf5-e4c6b9c1fa7c")
         public static SmDependency RepresentedDep() {
             if (RepresentedDep == null) {
             	RepresentedDep = classof().getDependencyDef("Represented");
@@ -144,7 +144,7 @@ public abstract class AbstractDiagramData extends ModelElementData {
             return RepresentedDep;
         }
 
-        @objid ("5306944a-1b1f-4db6-8b82-bc6a35c5cb39")
+        @objid ("f9fd1a2f-5cd8-4fae-8f09-7c57eed0ec30")
         public static SmDependency ReferencingSetDep() {
             if (ReferencingSetDep == null) {
             	ReferencingSetDep = classof().getDependencyDef("ReferencingSet");
@@ -152,43 +152,43 @@ public abstract class AbstractDiagramData extends ModelElementData {
             return ReferencingSetDep;
         }
 
-        @objid ("d335a870-f029-475e-b62e-2910f44aba91")
-        public static SmDependency getReferencingSetDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return ReferencingSetDep;
-        }
-
-        @objid ("97257023-4e09-4ace-8bb1-327b5e770da6")
-        public static SmDependency getOriginDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return OriginDep;
-        }
-
-        @objid ("6d39804a-3b3e-4433-958c-480e8d056109")
-        public static SmAttribute getPdePropertiesAtt() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return PdePropertiesAtt;
-        }
-
-        @objid ("7529c731-7cdf-4c36-b694-469b04799dc0")
-        public static SmAttribute getUiDataAtt() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return UiDataAtt;
-        }
-
-        @objid ("58085cbd-bed3-4692-ba6f-08da817d446f")
-        public static SmAttribute getUiDataVersionAtt() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return UiDataVersionAtt;
-        }
-
-        @objid ("e3c61328-4598-4110-955b-fb11b5e11cf8")
+        @objid ("b2079c90-1cc4-4901-b874-cf56392b15ff")
         public static SmClass getSmClass() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return smClass;
         }
 
-        @objid ("32f3de74-966b-437d-8927-304ed3dec6ca")
+        @objid ("5b3a18f3-d950-4d01-a241-041e913bdf5e")
+        public static SmAttribute getUiDataAtt() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return UiDataAtt;
+        }
+
+        @objid ("06f6dd43-9b06-49a3-b8eb-0673f9fe0d68")
+        public static SmAttribute getUiDataVersionAtt() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return UiDataVersionAtt;
+        }
+
+        @objid ("d1ea17d8-7b08-4d30-a835-c3cbf8126281")
+        public static SmDependency getOriginDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return OriginDep;
+        }
+
+        @objid ("0082a4cf-4228-43d5-96af-75369a59d350")
+        public static SmAttribute getPdePropertiesAtt() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return PdePropertiesAtt;
+        }
+
+        @objid ("e85682af-7394-47b6-ba03-dde5b7c41915")
+        public static SmDependency getReferencingSetDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return ReferencingSetDep;
+        }
+
+        @objid ("03ba12f2-2b69-4a34-8cd3-7d00a0660ddd")
         public static SmDependency getRepresentedDep() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return RepresentedDep;
@@ -196,12 +196,12 @@ public abstract class AbstractDiagramData extends ModelElementData {
 
         @objid ("000952d6-c4c6-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("431a949a-2c07-4206-b147-fc472497fd6c")
+            @objid ("2e7fa8a2-ef14-41d2-8d2f-ba85c5be87af")
             public ISmObjectData createData() {
                 throw new UnsupportedOperationException();
             }
 
-            @objid ("2ab74e62-8552-4dd9-a17b-123e13a81212")
+            @objid ("6a96214c-5d16-484d-808d-5d137a90e30e")
             public SmObjectImpl createImpl() {
                 throw new UnsupportedOperationException();
             }
@@ -210,12 +210,12 @@ public abstract class AbstractDiagramData extends ModelElementData {
 
         @objid ("0009b280-c4c6-1fd8-97fe-001ec947cd2a")
         public static class UiDataSmAttribute extends SmAttribute {
-            @objid ("ff75cf8e-3de1-4d19-8a27-3450f78b80c2")
+            @objid ("8ded0a08-a9c0-4fe9-913f-cdd8a56e6c2d")
             public Object getValue(ISmObjectData data) {
                 return ((AbstractDiagramData) data).mUiData;
             }
 
-            @objid ("158d2834-2250-4d69-8b7e-0740875b355d")
+            @objid ("248c5545-4adf-4751-9a9d-bc3cb53c613d")
             public void setValue(ISmObjectData data, Object value) {
                 ((AbstractDiagramData) data).mUiData = value;
             }
@@ -224,12 +224,12 @@ public abstract class AbstractDiagramData extends ModelElementData {
 
         @objid ("000a11e4-c4c6-1fd8-97fe-001ec947cd2a")
         public static class PdePropertiesSmAttribute extends SmAttribute {
-            @objid ("3a0abd00-5898-49aa-b2fe-9c7ff35754d1")
+            @objid ("1db61337-51ea-4d7a-9bd8-f6619f05695d")
             public Object getValue(ISmObjectData data) {
                 return ((AbstractDiagramData) data).mPdeProperties;
             }
 
-            @objid ("e8cf086c-63fb-417d-8504-f0673310399f")
+            @objid ("792f7007-eb89-4d5d-9794-d276af0006bb")
             public void setValue(ISmObjectData data, Object value) {
                 ((AbstractDiagramData) data).mPdeProperties = value;
             }
@@ -238,20 +238,20 @@ public abstract class AbstractDiagramData extends ModelElementData {
 
         @objid ("000a740e-c4c6-1fd8-97fe-001ec947cd2a")
         public static class RepresentedSmDependency extends SmMultipleDependency {
-            @objid ("52a150ce-53ce-4abf-a007-69eb26f71299")
+            @objid ("97d1dd43-32bc-41ac-8410-308d146b6e38")
             @Override
             public List<SmObjectImpl> getValueList(ISmObjectData data) {
                 return (((AbstractDiagramData)data).mRepresented != null)? ((AbstractDiagramData)data).mRepresented:SmMultipleDependency.EMPTY;
             }
 
-            @objid ("64138aba-591d-433c-b497-b28a32f4c41a")
+            @objid ("9a3bf217-958a-49cb-9501-60b5c10ef3fe")
             @Override
             protected List<SmObjectImpl> allocateValueList(ISmObjectData data, int initialCapacity) {
                 ((AbstractDiagramData) data).mRepresented = new ArrayList<>(initialCapacity);
                 return ((AbstractDiagramData) data).mRepresented;
             }
 
-            @objid ("bc4aa89e-05f4-4d25-88b1-57b89dbf6e5f")
+            @objid ("9f67a920-e4eb-454f-abab-4af832a35095")
             @Override
             public SmDependency getSymetric() {
                 return ElementData.Metadata.DiagramElementDep();
@@ -261,18 +261,18 @@ public abstract class AbstractDiagramData extends ModelElementData {
 
         @objid ("000ad5b6-c4c6-1fd8-97fe-001ec947cd2a")
         public static class OriginSmDependency extends SmSingleDependency {
-            @objid ("933ff8b4-f244-4714-b2ad-069f8dbfda0f")
+            @objid ("7cbb2e31-ecfb-444b-a6d4-895bb5ed6394")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((AbstractDiagramData) data).mOrigin;
             }
 
-            @objid ("93886b9c-59ec-4bab-8383-557b547ea6f0")
+            @objid ("c48ca38a-a756-46cd-a35a-7adf55028d5d")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((AbstractDiagramData) data).mOrigin = value;
             }
 
-            @objid ("5766e1c3-71b6-4e88-aa6e-14c25b83a4d8")
+            @objid ("16d49129-8faa-4077-94fb-747740237cf3")
             @Override
             public SmDependency getSymetric() {
                 return ModelElementData.Metadata.ProductDep();
@@ -282,20 +282,20 @@ public abstract class AbstractDiagramData extends ModelElementData {
 
         @objid ("000bbfd0-c4c6-1fd8-97fe-001ec947cd2a")
         public static class ReferencingSetSmDependency extends SmMultipleDependency {
-            @objid ("837cc4ec-6e59-4b0f-86aa-cd2849e61a55")
+            @objid ("eb27ee5a-7f9c-43e9-a2c4-a48ca407da29")
             @Override
             public List<SmObjectImpl> getValueList(ISmObjectData data) {
                 return (((AbstractDiagramData)data).mReferencingSet != null)? ((AbstractDiagramData)data).mReferencingSet:SmMultipleDependency.EMPTY;
             }
 
-            @objid ("789e717d-656b-4380-ba64-52d0e03c069a")
+            @objid ("6981c23f-6ed4-46a8-97b6-71a3ba8778b0")
             @Override
             protected List<SmObjectImpl> allocateValueList(ISmObjectData data, int initialCapacity) {
                 ((AbstractDiagramData) data).mReferencingSet = new ArrayList<>(initialCapacity);
                 return ((AbstractDiagramData) data).mReferencingSet;
             }
 
-            @objid ("b9c3f061-ca85-432b-a4fc-14a7cc5aa574")
+            @objid ("cb6d5149-2ea2-4f78-a846-d5b27a9783a2")
             @Override
             public SmDependency getSymetric() {
                 return DiagramSetData.Metadata.ReferencedDiagramDep();
@@ -305,12 +305,12 @@ public abstract class AbstractDiagramData extends ModelElementData {
 
         @objid ("e9904bc6-c5d6-4d5e-ab2a-92df477da72e")
         public static class UiDataVersionSmAttribute extends SmAttribute {
-            @objid ("fdb63159-0270-4ad6-a534-a911a1911de2")
+            @objid ("f808349d-8c4a-4e14-8120-5c9dd0cfb6ed")
             public Object getValue(ISmObjectData data) {
                 return ((AbstractDiagramData) data).mUiDataVersion;
             }
 
-            @objid ("7e175a5d-3c54-4934-8164-dd185215cd7c")
+            @objid ("81cb6ae0-2940-4d23-adc3-975bfa68459c")
             public void setValue(ISmObjectData data, Object value) {
                 ((AbstractDiagramData) data).mUiDataVersion = value;
             }

@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.uml.statik;
 
 import java.util.ArrayList;
@@ -72,13 +72,13 @@ public class NaryLinkImpl extends ModelElementImpl implements NaryLink {
         return super.getCompositionRelation();
     }
 
-    @objid ("3433b280-3c3c-4ec9-9105-95d477a1e22a")
+    @objid ("6e551893-7a04-42e1-9e5c-37d55fb6e5b6")
     @Override
     public EList<NaryLinkEnd> getNaryLinkEnd() {
         return new SmList<>(this, NaryLinkData.Metadata.NaryLinkEndDep());
     }
 
-    @objid ("c0138618-de06-41bb-a432-cff8336e7724")
+    @objid ("9bcff389-48c3-41dc-a154-50898b63e142")
     @Override
     public <T extends NaryLinkEnd> List<T> getNaryLinkEnd(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -91,25 +91,25 @@ public class NaryLinkImpl extends ModelElementImpl implements NaryLink {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("80cd9baf-0718-4973-9ced-e6230f6d8d2a")
+    @objid ("6e9fe77d-2847-40fb-9b76-8984b9cccc9a")
     @Override
     public NaryAssociation getModel() {
         return (NaryAssociation) getDepVal(NaryLinkData.Metadata.ModelDep());
     }
 
-    @objid ("4aaaba95-ac9d-4691-892a-0294c3e76fc2")
+    @objid ("c4782769-2867-436f-840d-6450a75f3a2e")
     @Override
     public void setModel(NaryAssociation value) {
         appendDepVal(NaryLinkData.Metadata.ModelDep(), (SmObjectImpl)value);
     }
 
-    @objid ("d66b492c-667e-41bf-a208-530d0badb041")
+    @objid ("471d98f6-2393-48a0-b7df-9c0b9d15626a")
     @Override
     public EList<InformationFlow> getRealizedInformationFlow() {
         return new SmList<>(this, NaryLinkData.Metadata.RealizedInformationFlowDep());
     }
 
-    @objid ("2bb97675-c73b-41c8-9d4f-a97ab7a886df")
+    @objid ("3935e20a-c854-489c-89a1-cdec76fdd2c5")
     @Override
     public <T extends InformationFlow> List<T> getRealizedInformationFlow(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -122,13 +122,13 @@ public class NaryLinkImpl extends ModelElementImpl implements NaryLink {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("afde9dd9-1b55-4b98-9e24-22365707c8b6")
+    @objid ("485488e9-daf1-4c44-b73b-df4752cbebbd")
     @Override
     public EList<CommunicationChannel> getSent() {
         return new SmList<>(this, NaryLinkData.Metadata.SentDep());
     }
 
-    @objid ("88cc12aa-a42d-4323-9cca-ef1f3cb0e3c3")
+    @objid ("bfc1928c-7a25-40a4-8d49-ad0bb7542a3b")
     @Override
     public <T extends CommunicationChannel> List<T> getSent(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -141,7 +141,7 @@ public class NaryLinkImpl extends ModelElementImpl implements NaryLink {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("bdf2d0f2-37f4-4be2-a911-c3c9b5462fe2")
+    @objid ("dfe57e8c-55da-4337-9976-8b806d6fd3d4")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitNaryLink(this);

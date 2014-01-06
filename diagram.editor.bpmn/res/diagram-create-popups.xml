@@ -499,6 +499,11 @@
     </command>
   </popup>
   <popup metaclass="BpmnLane">
+  	<command id="org.modelio.app.ui.command.create.element">
+		<parameter name="metaclass" value="BpmnLane" />
+		<parameter name="dependency" value="LaneSet" />
+	</command>
+	<separator />
     <command id="org.modelio.CreateBpmnFlowElementCommand">
       <parameter name="metaclass" value="BpmnSubProcess"/>
       <parameter name="dependency" value="FlowElement"/>

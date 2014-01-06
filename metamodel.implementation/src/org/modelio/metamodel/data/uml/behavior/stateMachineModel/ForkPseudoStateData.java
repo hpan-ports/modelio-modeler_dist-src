@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.data.uml.behavior.stateMachineModel;
 
 import java.util.ArrayList;
@@ -43,22 +43,22 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("00509d58-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=ForkPseudoState.class, factory=ForkPseudoStateData.Metadata.ObjectFactory.class)
 public class ForkPseudoStateData extends AbstractPseudoStateData {
-    @objid ("de6d8f36-b676-4d44-ab88-7db2fec985f1")
+    @objid ("80086429-2e86-47d0-8648-444f2e0a81b6")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("0068642e-c4c2-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("d5f4f07a-b5d6-4b10-88b0-45d32cca5ad2")
+        @objid ("25d3d16a-76cb-4533-b32f-ae4545258886")
         private static SmClass smClass = null;
 
-        @objid ("4636a8da-7b3e-4851-8b43-62af30b388a4")
+        @objid ("632f5c0e-e58c-45ec-8d14-ceb7def9c893")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(ForkPseudoStateData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("f6af2039-9df9-4771-9cb0-b02373cee4d7")
+        @objid ("fa7e4ff8-f84a-40a3-b43d-fb8c466f0621")
         public static SmClass getSmClass() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return smClass;
@@ -66,12 +66,12 @@ public class ForkPseudoStateData extends AbstractPseudoStateData {
 
         @objid ("0068a5d8-c4c2-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("19724d68-2150-45b9-b64e-c064d5b836a1")
+            @objid ("a66c6beb-af2c-480a-92ba-88e8d638682c")
             public ISmObjectData createData() {
                 return new ForkPseudoStateData();
             }
 
-            @objid ("6e572403-e6f3-409a-8f2a-c7f6be9f5d5e")
+            @objid ("ab9e71eb-b529-41e3-a3a8-5a2de11a48fc")
             public SmObjectImpl createImpl() {
                 return new ForkPseudoStateImpl();
             }

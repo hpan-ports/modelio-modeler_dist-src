@@ -31,7 +31,7 @@ import org.eclipse.gef.palette.SelectionToolEntry;
 import org.eclipse.gef.tools.AbstractTool;
 import org.modelio.diagram.editor.AbstractDiagramEditor;
 import org.modelio.diagram.editor.bpmn.plugin.DiagramEditorBpmn;
-import org.modelio.diagram.editor.plugin.IDiagramConfigurer;
+import org.modelio.diagram.editor.plugin.AbstractDiagramConfigurer;
 import org.modelio.diagram.editor.plugin.ToolRegistry;
 import org.modelio.diagram.editor.tools.PanSelectionTool;
 
@@ -39,7 +39,7 @@ import org.modelio.diagram.editor.tools.PanSelectionTool;
  * Configures the BPMN diagram palette.
  */
 @objid ("622a1ed4-55b6-11e2-877f-002564c97630")
-public class BpmnDiagramConfigurer implements IDiagramConfigurer {
+public class BpmnDiagramConfigurer extends AbstractDiagramConfigurer {
     @objid ("622ba56a-55b6-11e2-877f-002564c97630")
     @Override
     public String getContributionURI() {
@@ -48,8 +48,6 @@ public class BpmnDiagramConfigurer implements IDiagramConfigurer {
 
     /**
      * Creates the note and constraint and dependency group.
-     * @param imageService
-     * service used to get metaclasses bitmaps.
      * @return The created group.
      */
     @objid ("622ba56f-55b6-11e2-877f-002564c97630")
@@ -180,6 +178,7 @@ public class BpmnDiagramConfigurer implements IDiagramConfigurer {
         paletteRoot.add(this.createObjectGroup(toolRegistry));
         paletteRoot.add(this.createFlowGroup(toolRegistry));
         paletteRoot.add(this.createCommonGroup(toolRegistry));
+        paletteRoot.add(this.createDrawGroup(toolRegistry));
         return paletteRoot;
     }
 

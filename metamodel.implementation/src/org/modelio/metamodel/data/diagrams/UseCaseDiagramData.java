@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.data.diagrams;
 
 import java.util.ArrayList;
@@ -43,22 +43,22 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("0071f0fc-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=UseCaseDiagram.class, factory=UseCaseDiagramData.Metadata.ObjectFactory.class, cmsnode=true)
 public class UseCaseDiagramData extends StaticDiagramData {
-    @objid ("0ba30edf-dbf8-4562-a1ba-cfb29ac3372d")
+    @objid ("540096ab-73b3-42c1-af3f-ecc782b87b91")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("002c6442-c4c3-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("b5744278-bb3c-4110-808c-eab348d5a52d")
+        @objid ("5fa4160c-4926-4c93-90d8-ef43813d012b")
         private static SmClass smClass = null;
 
-        @objid ("1eb455cd-7672-4ffd-af76-8264e4a82607")
+        @objid ("60cf7025-6261-49c6-84e8-7f4dd9c2efc1")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(UseCaseDiagramData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("9afcd67c-0ec7-435e-aaf8-680cca2ac23e")
+        @objid ("d1739205-86b4-4ebc-a22d-1718ca41837c")
         public static SmClass getSmClass() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return smClass;
@@ -66,12 +66,12 @@ public class UseCaseDiagramData extends StaticDiagramData {
 
         @objid ("002ca4b6-c4c3-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("e7d58d06-4a71-46b9-b65a-26e0b4065ce3")
+            @objid ("9955df56-bb86-4e20-a2f2-7384f38bab7c")
             public ISmObjectData createData() {
                 return new UseCaseDiagramData();
             }
 
-            @objid ("452df64a-2f0d-4cd7-88c3-e0d4a276263d")
+            @objid ("3c65bb3e-07ee-4774-a399-bba49c7f655f")
             public SmObjectImpl createImpl() {
                 return new UseCaseDiagramImpl();
             }

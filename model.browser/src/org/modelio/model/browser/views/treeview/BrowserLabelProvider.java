@@ -41,7 +41,9 @@ import org.modelio.core.ui.images.ElementStyler;
 import org.modelio.core.ui.images.FragmentImageService;
 import org.modelio.core.ui.images.FragmentStyledLabelProvider;
 import org.modelio.core.ui.images.IModelioElementLabelProvider;
+import org.modelio.core.ui.images.ModuleI18NService;
 import org.modelio.gproject.fragment.IProjectFragment;
+import org.modelio.metamodel.analyst.AnalystElement;
 import org.modelio.metamodel.uml.behavior.activityModel.AcceptCallEventAction;
 import org.modelio.metamodel.uml.behavior.activityModel.AcceptSignalAction;
 import org.modelio.metamodel.uml.behavior.activityModel.ActivityEdge;
@@ -70,6 +72,7 @@ import org.modelio.metamodel.uml.behavior.usecaseModel.UseCase;
 import org.modelio.metamodel.uml.behavior.usecaseModel.UseCaseDependency;
 import org.modelio.metamodel.uml.informationFlow.DataFlow;
 import org.modelio.metamodel.uml.informationFlow.InformationFlow;
+import org.modelio.metamodel.uml.infrastructure.Abstraction;
 import org.modelio.metamodel.uml.infrastructure.Dependency;
 import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.metamodel.uml.infrastructure.MetaclassReference;
@@ -88,6 +91,7 @@ import org.modelio.metamodel.uml.statik.Classifier;
 import org.modelio.metamodel.uml.statik.Collaboration;
 import org.modelio.metamodel.uml.statik.CollaborationUse;
 import org.modelio.metamodel.uml.statik.ElementImport;
+import org.modelio.metamodel.uml.statik.ElementRealization;
 import org.modelio.metamodel.uml.statik.Feature;
 import org.modelio.metamodel.uml.statik.GeneralClass;
 import org.modelio.metamodel.uml.statik.Generalization;
@@ -129,8 +133,8 @@ public class BrowserLabelProvider extends LabelProvider implements IModelioEleme
     @objid ("7234e8b1-4540-11e2-aeb7-002564c97630")
     private boolean showVisibility = true;
 
-    @objid ("c13d663c-d63b-11e1-9955-002564c97630")
-     BrowserLabelService umlLabelService;
+    @objid ("e75bc680-1ad2-4560-b538-15e5ed669cf2")
+    private static final Image ARCHIVE_CONTAINER = loadImage("analyst_archives.png");
 
     @objid ("68baa3ed-2f04-11e2-9ab7-002564c97630")
     private static final Image LINK_CONTAINER = loadImage("links.png");
@@ -140,6 +144,9 @@ public class BrowserLabelProvider extends LabelProvider implements IModelioEleme
 
     @objid ("eff7f691-cef5-496e-9751-06152e130e46")
      static final Font italicFont = CoreFontRegistry.getModifiedFont(normalFont, SWT.ITALIC);
+
+    @objid ("c13d663c-d63b-11e1-9955-002564c97630")
+     BrowserLabelService umlLabelService;
 
     /**
      * Default c'tor.
@@ -162,11 +169,66 @@ public class BrowserLabelProvider extends LabelProvider implements IModelioEleme
             return FragmentImageService.getImage((IProjectFragment) obj);
         } else if (obj instanceof LinkContainer) {
             return LINK_CONTAINER;
+        } else if (obj instanceof ArchiveContainer) {
+            return ARCHIVE_CONTAINER;
         }
         
         // Should never happen
         assert (false);
         return null;
+    }
+
+    @objid ("8d6903fc-0043-4649-bca9-2d939542e439")
+    @Override
+    public StyledString getStyledText(Object obj) {
+        if (obj == null) {
+            return new StyledString("<null>", StyledString.createColorRegistryStyler("red", null));
+        } else if (obj instanceof Element) {
+            return this.umlLabelService.getLabel((Element) obj, this.showVisibility);
+        } else if (obj instanceof IProjectFragment) {
+            return FragmentStyledLabelProvider.getStyledText((IProjectFragment) obj);
+        } else if (obj instanceof LinkContainer) {
+            final int nbLinks = ((LinkContainer) obj).getNbLinks();
+            return new StyledString(nbLinks <= 1
+                    ? ModelBrowser.I18N.getMessage("LinkContainer.Single", nbLinks)
+                    : ModelBrowser.I18N.getMessage("LinkContainer.Multi", nbLinks));
+            
+        } else if (obj instanceof ArchiveContainer) {
+            final int nbVersions = ((ArchiveContainer) obj).getNbVersions();
+            return new StyledString(nbVersions <= 1 
+                    ? ModelBrowser.I18N.getMessage("ArchiveContainer.Single", nbVersions)
+                    : ModelBrowser.I18N.getMessage("ArchiveContainer.Multi", nbVersions));
+        }
+        
+        // Unknown object
+        return new StyledString(obj.toString(), StyledString.createColorRegistryStyler("red", null));
+    }
+
+    /**
+     * Returns the simple label of an object, without style additions.
+     * Uses {@link BrowserLabelProvider#getStyledText(Object)}.
+     */
+    @objid ("7ffe017a-d90b-4845-ad9b-9bfd1a76b146")
+    @Override
+    public String getText(Object element) {
+        return getStyledText(element).getString();
+    }
+
+    /**
+     * @return <code>true</code> if feature visibility is shown.
+     */
+    @objid ("7234e8b4-4540-11e2-aeb7-002564c97630")
+    public boolean isShowVisibility() {
+        return this.showVisibility;
+    }
+
+    /**
+     * Enable or disable display of element visibility.
+     * @param showVisibility <code>true</code> to enable, <code>false</code> to disable.
+     */
+    @objid ("7234e8b8-4540-11e2-aeb7-002564c97630")
+    public void setShowVisibility(boolean showVisibility) {
+        this.showVisibility = showVisibility;
     }
 
     @objid ("0017ec42-e1fe-100f-85b1-001ec947cd2a")
@@ -194,43 +256,6 @@ public class BrowserLabelProvider extends LabelProvider implements IModelioEleme
             assert (image != null);
         }
         return image;
-    }
-
-    @objid ("7234e8b4-4540-11e2-aeb7-002564c97630")
-    public boolean isShowVisibility() {
-        return this.showVisibility;
-    }
-
-    @objid ("7234e8b8-4540-11e2-aeb7-002564c97630")
-    public void setShowVisibility(boolean showVisibility) {
-        this.showVisibility = showVisibility;
-    }
-
-    @objid ("8d6903fc-0043-4649-bca9-2d939542e439")
-    @Override
-    public StyledString getStyledText(Object obj) {
-        if (obj == null) {
-            return new StyledString("<null>");
-        } else if (obj instanceof Element) {
-            return this.umlLabelService.getLabel((Element) obj, this.showVisibility);
-        } else if (obj instanceof IProjectFragment) {
-            return FragmentStyledLabelProvider.getStyledText((IProjectFragment) obj);
-        } else if (obj instanceof LinkContainer) {
-            final int nbLinks = ((LinkContainer) obj).getNbLinks();
-            return new StyledString(nbLinks <= 1 ? ModelBrowser.I18N.getMessage("LinkContainer.Single", Integer.toString(nbLinks))
-                    : ModelBrowser.I18N.getMessage("LinkContainer.Multi", Integer.toString(nbLinks)));
-        }
-        return new StyledString();
-    }
-
-    /**
-     * Returns the simple label of an object, without style additions.
-     * Uses {@link BrowserLabelProvider#getStyledText(Object)}.
-     */
-    @objid ("7ffe017a-d90b-4845-ad9b-9bfd1a76b146")
-    @Override
-    public String getText(Object element) {
-        return getStyledText(element).getString();
     }
 
     /**
@@ -412,6 +437,22 @@ public class BrowserLabelProvider extends LabelProvider implements IModelioEleme
             }
             
             this.elementStyledLabel = symbol;
+            return null;
+        }
+
+        @objid ("d31fd921-5031-4c58-8fca-4b9392ba4efb")
+        @Override
+        public Object visitAnalystElement(AnalystElement obj) {
+            final Styler styler = ElementStyler.getStyler(obj);
+            final StringBuilder label = new StringBuilder (obj.getName());
+            
+            if (obj.getVersion() != 0) {
+                label.append(" (v");
+                label.append(obj.getVersion());
+                label.append(")");
+            }
+            
+            this.elementStyledLabel = new StyledString(label.toString(), styler);
             return null;
         }
 
@@ -729,14 +770,15 @@ public class BrowserLabelProvider extends LabelProvider implements IModelioEleme
         @Override
         public Object visitDependency(Dependency theDependency) {
             final StyledString symbol = new StyledString();
-            
             final Styler styler = ElementStyler.getStyler(theDependency);
-            
+            final StringBuilder verb = getDependencyVerb(theDependency).append(" ");
             final ModelElement destination = theDependency.getDependsOn();
             
             if (destination != null) {
-                symbol.append("Dependency ", styler);
-                symbol.append(destination.getName(), ElementStyler.getStyler(theDependency, destination));
+                symbol.append(verb.toString(), styler);
+                
+                StyledString destLabel = new BrowserLabelService().getLabel(destination, false);
+                symbol.append(destLabel.getString(), ElementStyler.getStyler(theDependency, destination));
             
                 ModelTree owner = null;
             
@@ -750,6 +792,7 @@ public class BrowserLabelProvider extends LabelProvider implements IModelioEleme
                     symbol.append(")", styler);
                 }
             } else {
+                symbol.append(verb.toString(), styler);
                 symbol.append("<No destination>", styler);
             }
             
@@ -1096,6 +1139,60 @@ public class BrowserLabelProvider extends LabelProvider implements IModelioEleme
             
                 this.elementStyledLabel = symbol;
             }
+            return null;
+        }
+
+        @objid ("a36acd77-2c63-4597-99fe-b76eafb3f9dd")
+        @Override
+        public Object visitNaryAssociationEnd(NaryAssociationEnd theAssociationEnd) {
+            final StyledString symbol = new StyledString();
+            Styler styler = ElementStyler.getStyler(theAssociationEnd);
+            
+            final VisibilityMode visibility = theAssociationEnd.getVisibility();
+            symbol.append(getVisibilitySymbol(visibility), styler);
+            
+            if (theAssociationEnd.isIsDerived()) {
+                symbol.append("/", styler);
+            }
+            
+            final String associationEndName = theAssociationEnd.getName();
+            if (associationEndName.isEmpty()) {
+                symbol.append(ModelBrowser.I18N.getString("NoName"), styler);
+            } else {
+                symbol.append(theAssociationEnd.getName(), styler);
+            }
+            
+            symbol.append(": ", styler);
+            
+            // The type
+            final NaryAssociation type = theAssociationEnd.getNaryAssociation();
+            symbol.append(type.getName(), ElementStyler.getStyler(theAssociationEnd, type));
+            
+            // The cardinality
+            symbol.append(getNaryAssociationEndMultiplicity(theAssociationEnd).toString(), styler);
+            
+            this.elementStyledLabel = symbol;
+            return null;
+        }
+
+        @objid ("47574be7-1d18-4e9f-9362-ae557fdfbc85")
+        @Override
+        public Object visitNaryLinkEnd(NaryLinkEnd theLinkEnd) {
+            final StyledString symbol = new StyledString();
+            final Styler styler = ElementStyler.getStyler(theLinkEnd);
+                        
+            final String linkEndName = theLinkEnd.getName();
+            
+            if (linkEndName.equals("")) {
+                symbol.append(ModelBrowser.I18N.getString("NoName"), styler);
+            } else {
+                symbol.append(linkEndName, styler);
+            }
+            final NaryLink linked = theLinkEnd.getNaryLink();
+            symbol.append("::", styler);
+            symbol.append(linked.getName(), ElementStyler.getStyler(theLinkEnd, linked));
+            
+            this.elementStyledLabel = symbol;
             return null;
         }
 
@@ -1695,6 +1792,59 @@ public class BrowserLabelProvider extends LabelProvider implements IModelioEleme
             return multiplicity;
         }
 
+        @objid ("48eaf5dc-f40d-4707-9419-495caec4ed77")
+        private static StringBuilder getDependencyVerb(Dependency dep) {
+            StringBuilder stringBuilder = new StringBuilder();
+            if ( ! (dep.getExtension().isEmpty())) {
+                for (Stereotype v : dep.getExtension()) {
+                    stringBuilder.append(ModuleI18NService.getLabel(v));
+                    
+                    stringBuilder.append(", ");
+                }
+                // remove last ", "
+                stringBuilder.delete(stringBuilder.length()-2, stringBuilder.length());
+            } else {
+                if (dep instanceof Usage)
+                    stringBuilder.append("uses");
+                else if (dep instanceof ElementRealization)
+                    stringBuilder.append("realizes");
+                else if (dep instanceof Abstraction)
+                    stringBuilder.append("abstracts");
+                else
+                    stringBuilder.append("depends on");
+            }
+            return stringBuilder;
+        }
+
+        @objid ("0c96c88b-c64a-430f-9635-6894b6271d77")
+        private static StringBuilder getNaryAssociationEndMultiplicity(NaryAssociationEnd theAssociationEnd) {
+            final StringBuilder multiplicity = new StringBuilder();
+            
+            final String multiplicityMinStr = theAssociationEnd.getMultiplicityMin();
+            final String multiplicityMaxStr = theAssociationEnd.getMultiplicityMax();
+            String separator = "";
+            
+            if (!multiplicityMinStr.equals("") || !multiplicityMaxStr.equals("")) {
+                multiplicity.append(" [");
+            
+                if (multiplicityMinStr.equals(multiplicityMaxStr)) {
+                    multiplicity.append(multiplicityMinStr);
+                } else if (multiplicityMinStr.equals("0") && multiplicityMaxStr.equals("*")) {
+                    multiplicity.append("*");
+                } else {
+                    if (!multiplicityMinStr.equals("") && !multiplicityMaxStr.equals("")) {
+                        separator = "..";
+                    }
+            
+                    multiplicity.append(multiplicityMinStr);
+                    multiplicity.append(separator);
+                    multiplicity.append(multiplicityMaxStr);
+                }
+                multiplicity.append("]");
+            }
+            return multiplicity;
+        }
+
         @objid ("c1499b12-d63b-11e1-9955-002564c97630")
         private static StringBuilder getParameterMultiplicity(Parameter theParameter) {
             final StringBuilder multiplicity = new StringBuilder();
@@ -1830,89 +1980,6 @@ public class BrowserLabelProvider extends LabelProvider implements IModelioEleme
             
             }
             return hasCycle;
-        }
-
-        @objid ("a36acd77-2c63-4597-99fe-b76eafb3f9dd")
-        @Override
-        public Object visitNaryAssociationEnd(NaryAssociationEnd theAssociationEnd) {
-            final StyledString symbol = new StyledString();
-            Styler styler = ElementStyler.getStyler(theAssociationEnd);
-            
-            final VisibilityMode visibility = theAssociationEnd.getVisibility();
-            symbol.append(getVisibilitySymbol(visibility), styler);
-            
-            if (theAssociationEnd.isIsDerived()) {
-                symbol.append("/", styler);
-            }
-            
-            final String associationEndName = theAssociationEnd.getName();
-            if (associationEndName.isEmpty()) {
-                symbol.append(ModelBrowser.I18N.getString("NoName"), styler);
-            } else {
-                symbol.append(theAssociationEnd.getName(), styler);
-            }
-            
-            symbol.append(": ", styler);
-            
-            // The type
-            final NaryAssociation type = theAssociationEnd.getNaryAssociation();
-            symbol.append(type.getName(), ElementStyler.getStyler(theAssociationEnd, type));
-            
-            // The cardinality
-            symbol.append(getNaryAssociationEndMultiplicity(theAssociationEnd).toString(), styler);
-            
-            this.elementStyledLabel = symbol;
-            return null;
-        }
-
-        @objid ("47574be7-1d18-4e9f-9362-ae557fdfbc85")
-        @Override
-        public Object visitNaryLinkEnd(NaryLinkEnd theLinkEnd) {
-            final StyledString symbol = new StyledString();
-            final Styler styler = ElementStyler.getStyler(theLinkEnd);
-                        
-            final String linkEndName = theLinkEnd.getName();
-            
-            if (linkEndName.equals("")) {
-                symbol.append(ModelBrowser.I18N.getString("NoName"), styler);
-            } else {
-                symbol.append(linkEndName, styler);
-            }
-            final NaryLink linked = theLinkEnd.getNaryLink();
-            symbol.append("::", styler);
-            symbol.append(linked.getName(), ElementStyler.getStyler(theLinkEnd, linked));
-            
-            this.elementStyledLabel = symbol;
-            return null;
-        }
-
-        @objid ("0c96c88b-c64a-430f-9635-6894b6271d77")
-        private static StringBuilder getNaryAssociationEndMultiplicity(NaryAssociationEnd theAssociationEnd) {
-            final StringBuilder multiplicity = new StringBuilder();
-            
-            final String multiplicityMinStr = theAssociationEnd.getMultiplicityMin();
-            final String multiplicityMaxStr = theAssociationEnd.getMultiplicityMax();
-            String separator = "";
-            
-            if (!multiplicityMinStr.equals("") || !multiplicityMaxStr.equals("")) {
-                multiplicity.append(" [");
-            
-                if (multiplicityMinStr.equals(multiplicityMaxStr)) {
-                    multiplicity.append(multiplicityMinStr);
-                } else if (multiplicityMinStr.equals("0") && multiplicityMaxStr.equals("*")) {
-                    multiplicity.append("*");
-                } else {
-                    if (!multiplicityMinStr.equals("") && !multiplicityMaxStr.equals("")) {
-                        separator = "..";
-                    }
-            
-                    multiplicity.append(multiplicityMinStr);
-                    multiplicity.append(separator);
-                    multiplicity.append(multiplicityMaxStr);
-                }
-                multiplicity.append("]");
-            }
-            return multiplicity;
         }
 
     }

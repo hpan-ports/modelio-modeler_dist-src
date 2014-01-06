@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.uml.behavior.interactionModel;
 
 import java.util.ArrayList;
@@ -47,25 +47,25 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("0048dfe6-c4bf-1fd8-97fe-001ec947cd2a")
 public class LifelineImpl extends ModelElementImpl implements Lifeline {
-    @objid ("6ba0ea59-a7e2-4497-abe5-fff9f124ec58")
+    @objid ("44847b96-ceae-44dd-84f0-ef7b3a6b0f57")
     @Override
     public String getSelector() {
         return (String) getAttVal(LifelineData.Metadata.SelectorAtt());
     }
 
-    @objid ("a3af020f-c3ff-4c18-934c-6287f9c73386")
+    @objid ("183e480b-caea-4df4-a9bf-f610dfbe8e7e")
     @Override
     public void setSelector(String value) {
         setAttVal(LifelineData.Metadata.SelectorAtt(), value);
     }
 
-    @objid ("4b6ed9f7-51a6-4c1f-972b-7c3b723770a4")
+    @objid ("18905cdf-daea-489e-bcff-973fa0a601b2")
     @Override
     public EList<InteractionFragment> getCoveredBy() {
         return new SmList<>(this, LifelineData.Metadata.CoveredByDep());
     }
 
-    @objid ("adbecbfe-9982-4914-b1ef-4de60e0560a4")
+    @objid ("d27b8c5b-6899-4fc1-829f-3e67fb04665a")
     @Override
     public <T extends InteractionFragment> List<T> getCoveredBy(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -78,43 +78,43 @@ public class LifelineImpl extends ModelElementImpl implements Lifeline {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("b50e5ba0-80e7-4f89-8d23-5d876259117e")
+    @objid ("4406787d-281f-4ad4-b464-9f58ad87db98")
     @Override
     public PartDecomposition getDecomposedAs() {
         return (PartDecomposition) getDepVal(LifelineData.Metadata.DecomposedAsDep());
     }
 
-    @objid ("590e5a96-bc55-45df-b504-909b88a3c517")
+    @objid ("46c846d2-370f-4dc9-aa2b-8b33117b9a7b")
     @Override
     public void setDecomposedAs(PartDecomposition value) {
         appendDepVal(LifelineData.Metadata.DecomposedAsDep(), (SmObjectImpl)value);
     }
 
-    @objid ("aaf7619e-8b48-4577-9ced-9e5c8fe44860")
+    @objid ("b4005978-5043-4a7d-aea2-75c62bb9ef04")
     @Override
     public Interaction getOwner() {
         return (Interaction) getDepVal(LifelineData.Metadata.OwnerDep());
     }
 
-    @objid ("3bab91ac-4c7e-4100-9805-9c60763a390e")
+    @objid ("18ea0d59-b830-4114-82c0-64c919e6e02b")
     @Override
     public void setOwner(Interaction value) {
         appendDepVal(LifelineData.Metadata.OwnerDep(), (SmObjectImpl)value);
     }
 
-    @objid ("116509c2-3bd5-4d10-a5fb-83f5f803d517")
+    @objid ("0a4aab43-1a12-4588-a9a0-1f72ec97e0b6")
     @Override
     public Instance getRepresented() {
         return (Instance) getDepVal(LifelineData.Metadata.RepresentedDep());
     }
 
-    @objid ("26e7562f-1ec9-40ee-95c8-13383489db1e")
+    @objid ("cb814a50-2825-4fff-be73-1cefede26300")
     @Override
     public void setRepresented(Instance value) {
         appendDepVal(LifelineData.Metadata.RepresentedDep(), (SmObjectImpl)value);
     }
 
-    @objid ("bb0a22d0-889f-4ff6-8804-405c47e1e720")
+    @objid ("263161ab-d8c9-4a1b-80da-5df33a8faf89")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
@@ -124,7 +124,7 @@ public class LifelineImpl extends ModelElementImpl implements Lifeline {
         return super.getCompositionOwner();
     }
 
-    @objid ("95681080-5c51-4fda-9745-bb7ec70c040d")
+    @objid ("1144fdea-bef3-43cc-b6d8-07b9bfdda451")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
@@ -134,7 +134,7 @@ public class LifelineImpl extends ModelElementImpl implements Lifeline {
         return super.getCompositionRelation();
     }
 
-    @objid ("bac70f15-8060-483a-ba73-507b8d24e79c")
+    @objid ("8e70e66a-739a-4f7e-94fd-81278c3b64e8")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitLifeline(this);

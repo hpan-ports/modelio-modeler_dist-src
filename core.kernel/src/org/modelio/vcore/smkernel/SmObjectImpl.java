@@ -28,6 +28,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.emf.common.notify.Adapter;
@@ -199,46 +200,44 @@ public abstract class SmObjectImpl implements ISmMeta, ISmStorable, MObject, Ser
     @objid ("007dc0da-9fc0-1f4f-9c13-001ec947cd2a")
     @Override
     public boolean appendDepVal(final SmDependency dep, final SmObjectImpl value) {
-        //        if (isShell()) {
-        //            throwShellObject();
-        //        }
-                
-                dep.assertValueType(this, value);
-                
-                boolean returnCode = true;
-                
-                // Do some cleaning first
-                if (dep.getMax() == 1) {
-                    // Erase the old reference
-                    SmObjectImpl oldValue = (SmObjectImpl) getDepVal(dep);
-                    if (oldValue == value) {
-                        // Nothing to do
-                        return false;
-                    } else if (oldValue != null) {
-                        // Erase old reference
-                        this.eraseDepVal(dep, oldValue);
-                    }
-                } else {
-                    if (value == null) {
-                        throw new IllegalArgumentException("cannot append null to "+dep);
-                    }
-                
-                    // Prevent dep_val from being twice in the list
-                    this.eraseDepVal(dep, value);
-                }
-                
-                // ==== Do the job ====================================================
-                returnCode = getData().getMetaOf().appendObjDepVal(this, dep, value);
-                
-                // ==== If the dependency is symmetric and have to propagate
-                if (returnCode) {
-                    propagateAppendToSymetric(dep, value);
-                }
-                
-                if (returnCode) {
-                    afterAppendDepVal(dep, value);
-                }
-        return (returnCode);
+        dep.assertValueType(this, value);
+        
+        boolean returnCode = true;
+        
+        // Do some cleaning first
+        if (dep.getMax() == 1) {
+            // Erase the old reference
+            SmObjectImpl oldValue = (SmObjectImpl) getDepVal(dep);
+            if (Objects.equals(oldValue, value)) {
+                // Nothing to do
+                return false;
+            } else if (oldValue != null) {
+                // Erase old reference
+                this.eraseDepVal(dep, oldValue);
+        
+                // Fast exit if appendDepVal(dep, null)
+                if (value == null)
+                    return true;
+            }
+        } else {
+            if (value == null) {
+                throw new IllegalArgumentException("cannot append null to "+this+"."+dep.getName());
+            }
+        
+            // Prevent dep_val from being twice in the list
+            this.eraseDepVal(dep, value);
+        }
+        
+        // ==== Do the job ====================================================
+        returnCode = getData().getMetaOf().appendObjDepVal(this, dep, value);
+        
+        // ==== If the dependency is symmetric and have to propagate
+        if (returnCode) {
+            propagateAppendToSymetric(dep, value);
+        
+            afterAppendDepVal(dep, value);
+        }
+        return returnCode;
     }
 
     /**

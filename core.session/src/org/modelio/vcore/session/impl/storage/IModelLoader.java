@@ -144,4 +144,10 @@ public interface IModelLoader extends AutoCloseable {
     @Override
     void close();
 
+    /**
+     * Begin a loading session.
+     */
+    @objid ("bbdb3793-a7c1-4d56-af35-ad1f5a4ab2fa")
+    void begin();
+
 }

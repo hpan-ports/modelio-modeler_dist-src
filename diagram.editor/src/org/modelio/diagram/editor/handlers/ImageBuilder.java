@@ -24,6 +24,7 @@ package org.modelio.diagram.editor.handlers;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.draw2d.ConnectionLayer;
 import org.eclipse.draw2d.Figure;
+import org.eclipse.draw2d.FreeformFigure;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.Layer;
@@ -81,7 +82,7 @@ public class ImageBuilder {
 
     @objid ("d3118d79-4e32-4601-a1d4-7b54d98f1460")
     public double getLastBuildScale() {
-        return scale;
+        return this.scale;
     }
 
     @objid ("39cf4348-5bf2-4f54-83c7-379cb70d716d")
@@ -90,23 +91,24 @@ public class ImageBuilder {
         // that it is present in the saved image
         final LayerManager lm = (LayerManager) rootEditPart;
         final IFigure backgroundLayer = lm.getLayer("BACKGROUND_LAYER");
+        final IFigure drawingLayers = lm.getLayer("LAYER_PANE_DRAWING");
         final Layer printableLayers = (Layer) lm.getLayer(LayerConstants.PRINTABLE_LAYERS);
         final ConnectionLayer connectionLayer = (ConnectionLayer) lm.getLayer(LayerConstants.CONNECTION_LAYER);
         printableLayers.add(backgroundLayer, 0);
         
         // Scaling
-        final Rectangle contentsBounds = computeContentsBounds(printableLayers, connectionLayer);
-        int width = contentsBounds.width + 2 * margin;
-        int height = contentsBounds.height + 2 * margin;
+        final Rectangle contentsBounds = computeContentsBounds(printableLayers, connectionLayer, drawingLayers);
+        int width = contentsBounds.width + 2 * this.margin;
+        int height = contentsBounds.height + 2 * this.margin;
         
-        double scaleX = (width > maxWidth) ? (double) width / (double) maxWidth : (double) 1.0;
-        double scaleY = (height > maxHeight) ? (double) height / (double) maxHeight : (double) 1.0;
+        double scaleX = (width > this.maxWidth) ? (double) width / (double) this.maxWidth : (double) 1.0;
+        double scaleY = (height > this.maxHeight) ? (double) height / (double) this.maxHeight : (double) 1.0;
         this.scale = Math.min(scaleX, scaleY);
-        int effectiveWidth = (int) (width * scale);
-        int effectiveHeight = (int) (height * scale);
+        int effectiveWidth = (int) (width * this.scale);
+        int effectiveHeight = (int) (height * this.scale);
         
-        if (scale < 1.0)
-            DiagramEditor.LOG.debug("makeImage: %dx%d ?> %dx%d =>using scale %f, %dx%d", width, height, maxWidth, maxHeight, scale,
+        if (this.scale < 1.0)
+            DiagramEditor.LOG.debug("makeImage: %dx%d ?> %dx%d =>using scale %f, %dx%d", width, height, this.maxWidth, this.maxHeight, this.scale,
                     effectiveWidth, effectiveHeight);
         
         // Protection agains't image size being greater than 64Mb
@@ -114,9 +116,9 @@ public class ImageBuilder {
         long max = 64 * 1024 * 1024;
         if (totalSize > max) {
             DiagramEditor.LOG.warning("Make image, size %d x %d would exced max size !", effectiveWidth, effectiveHeight);
-            scale = Math.sqrt((double) max / (double) totalSize);
-            effectiveWidth = (int) (effectiveWidth * scale);
-            effectiveHeight = (int) (effectiveHeight * scale);
+            this.scale = Math.sqrt((double) max / (double) totalSize);
+            effectiveWidth = (int) (effectiveWidth * this.scale);
+            effectiveHeight = (int) (effectiveHeight * this.scale);
             DiagramEditor.LOG.warning("Make image, image resized to %d x %d  ", effectiveWidth, effectiveHeight);
         }
         
@@ -128,11 +130,11 @@ public class ImageBuilder {
         // - compensate for the margin
         // - deal with x and y of the contents bounds
         // the role of the scaling is ... obvious
-        final int deltaX = margin + (-contentsBounds.x);
-        final int deltaY = margin + (-contentsBounds.y);
+        final int deltaX = this.margin + (-contentsBounds.x);
+        final int deltaY = this.margin + (-contentsBounds.y);
         
         final Graphics graphics = new SWTGraphics(imageGC);
-        graphics.scale(scale);
+        graphics.scale(this.scale);
         graphics.translate(deltaX, deltaY);
         graphics.setClip(contentsBounds);
         
@@ -176,17 +178,22 @@ public class ImageBuilder {
      * Compute the minimum contents size of the diagram. This size is defined as
      * the union of the smallest bounding rectangle that encloses both all the
      * nodes and all the links
-     * @param layer
-     * @param connectionLayer @return
+     * @param layer the diagram figure layer
+     * @param connectionLayer the connection layer
+     * @param drawingLayers the drawing layers pane
+     * @return the bounds to export
      */
     @objid ("65b21837-33f7-11e2-95fe-001ec947c8cc")
-    private Rectangle computeContentsBounds(Layer printableLayers, ConnectionLayer connectionLayer) {
+    private Rectangle computeContentsBounds(Layer printableLayers, ConnectionLayer connectionLayer, IFigure drawingLayers) {
         Rectangle results = null;
-        
         // Compute for the nodes
         final AbstractDiagramFigure diagramFigure = getDiagramFigure(printableLayers);
         assert (diagramFigure != null);
         results = this.computeMinimumBounds(diagramFigure);
+        
+        // Compute for drawing layers
+        final Rectangle drawingsBounds = ((FreeformFigure) drawingLayers).getFreeformExtent();
+        results.union( drawingsBounds);
         
         // Compute for links
         
@@ -243,7 +250,16 @@ public class ImageBuilder {
         int yMax = Integer.MIN_VALUE;
         
         for (final Object fig : figure.getChildren()) {
-            final Rectangle b = ((Figure) fig).getBounds();
+            final Rectangle b ;
+            if (fig instanceof FreeformFigure)
+                b = ((FreeformFigure) fig).getFreeformExtent();
+            else if (fig instanceof ConnectionLayer)
+                b = computeMinimumBounds((ConnectionLayer) fig);
+            else
+                b = ((Figure) fig).getBounds();
+            
+            if (b.isEmpty())
+                continue;
         
             if (b.x < xMin) {
                 xMin = b.x;

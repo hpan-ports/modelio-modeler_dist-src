@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.data.bpmn.rootElements;
 
 import java.util.ArrayList;
@@ -46,29 +46,29 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("007b8856-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=BpmnBehavior.class, factory=BpmnBehaviorData.Metadata.ObjectFactory.class, cmsnode=true)
 public class BpmnBehaviorData extends BehaviorData {
-    @objid ("bb7ec1c9-4fb8-4f90-b5df-e76712889975")
+    @objid ("c24dbdd8-df6d-49fe-b7c3-9efec57449ef")
     @SmaMetaAssociation(metaName="RootElement", typeDataClass=BpmnRootElementData.class, min=0, max=-1, smAssociationClass=Metadata.RootElementSmDependency.class, component = true)
      List<SmObjectImpl> mRootElement = null;
 
-    @objid ("8a043cb0-b152-4a48-ba24-340832c27875")
+    @objid ("84df8a9a-39e7-4450-af70-f9000d34078f")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("006b8f00-c4c5-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("557f429a-0241-4d1d-83c0-fece8c760d6c")
+        @objid ("d382fe0b-d203-477d-b4c6-3ed70a9d527f")
         private static SmClass smClass = null;
 
-        @objid ("d20fffa9-e51c-48ef-a4f4-9a7a9b1a3bc0")
+        @objid ("96519184-95e1-4280-b013-b1a565b4ec21")
         private static SmDependency RootElementDep = null;
 
-        @objid ("a8ca302c-0a4b-49ef-980b-3979e8121de6")
+        @objid ("a68812bf-91bf-4cc8-9699-237dad657658")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(BpmnBehaviorData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("d94917bf-ffad-4cd6-8951-a4c35e318dc1")
+        @objid ("3783de95-b183-4475-95c2-9e09d2b9a3a6")
         public static SmDependency RootElementDep() {
             if (RootElementDep == null) {
             	RootElementDep = classof().getDependencyDef("RootElement");
@@ -76,13 +76,13 @@ public class BpmnBehaviorData extends BehaviorData {
             return RootElementDep;
         }
 
-        @objid ("2b35ef75-763c-4595-b4d4-45f44cfdba67")
+        @objid ("ca5330a0-337e-4f8e-bacf-dd6c16968b81")
         public static SmDependency getRootElementDep() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return RootElementDep;
         }
 
-        @objid ("1756aeb0-c732-47fe-afee-9ec621c4c40d")
+        @objid ("310ca721-affb-425a-bf03-7a353607d5cb")
         public static SmClass getSmClass() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return smClass;
@@ -90,12 +90,12 @@ public class BpmnBehaviorData extends BehaviorData {
 
         @objid ("006bced4-c4c5-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("0629551b-9f85-4729-b0f8-3cc5a364f923")
+            @objid ("89ec7e22-84b2-41e5-ba6c-cd4cb3802ed2")
             public ISmObjectData createData() {
                 return new BpmnBehaviorData();
             }
 
-            @objid ("d45d2163-ac7b-484b-8379-262f68c74472")
+            @objid ("73cc8653-b391-4a0d-b2f9-2ff7152e121e")
             public SmObjectImpl createImpl() {
                 return new BpmnBehaviorImpl();
             }
@@ -104,20 +104,20 @@ public class BpmnBehaviorData extends BehaviorData {
 
         @objid ("006c3086-c4c5-1fd8-97fe-001ec947cd2a")
         public static class RootElementSmDependency extends SmMultipleDependency {
-            @objid ("0d3b23eb-b8d3-4d06-a982-55d03143d66b")
+            @objid ("b6c8b433-4d64-4238-80c8-7e38edd2b748")
             @Override
             public List<SmObjectImpl> getValueList(ISmObjectData data) {
                 return (((BpmnBehaviorData)data).mRootElement != null)? ((BpmnBehaviorData)data).mRootElement:SmMultipleDependency.EMPTY;
             }
 
-            @objid ("2b778daa-4566-4846-a68c-40416af59ddb")
+            @objid ("45d33f4f-a195-47cd-85df-6c40334d1004")
             @Override
             protected List<SmObjectImpl> allocateValueList(ISmObjectData data, int initialCapacity) {
                 ((BpmnBehaviorData) data).mRootElement = new ArrayList<>(initialCapacity);
                 return ((BpmnBehaviorData) data).mRootElement;
             }
 
-            @objid ("8309e0c8-d2e1-449a-ab08-ed9136bd8a0d")
+            @objid ("dbd8a992-5350-4cb2-90e2-39a0391fee86")
             @Override
             public SmDependency getSymetric() {
                 return BpmnRootElementData.Metadata.OwnerDep();

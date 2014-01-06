@@ -26,6 +26,7 @@ import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Dimension;
+import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.GraphicalEditPart;
 import org.modelio.api.diagram.IDiagramLink;
 import org.modelio.api.diagram.IDiagramNode;
@@ -65,7 +66,7 @@ public abstract class PortContainerDG extends DiagramNode {
         }
         
         GmPortContainer pc = (GmPortContainer) this.gmNode;
-        for (GmNodeModel gm : pc.getChildren()) {
+        for (GmNodeModel gm : pc.getVisibleChildren()) {
             if (pc.isPort(gm) || pc.isSatellite(gm)) {
                 IDiagramNode diagramNode = DGFactory.getInstance().getDiagramNode(this.diagramHandle, gm);
                 if (diagramNode != null)
@@ -128,6 +129,16 @@ public abstract class PortContainerDG extends DiagramNode {
         }
         // Default behavior, should not happen...
         return super.getMinimumSize();
+    }
+
+    @objid ("891af5ff-ec08-4ff2-941b-4dbea3ff5616")
+    @Override
+    public Rectangle getOverallBounds() {
+        final GraphicalEditPart p = this.diagramHandle.getEditPart(getModel());
+        if (p == null) {
+            return null;
+        }
+        return p.getFigure().getBounds().getCopy();
     }
 
 }

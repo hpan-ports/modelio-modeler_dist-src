@@ -1061,7 +1061,7 @@ public abstract class AbstractObjingModelNavigation {
 
     @objid ("338c5241-f43b-467e-bc30-06c87a55e9dd")
     public static boolean isIsClassAssociation(final AssociationEnd assocEnd) {
-        return ((assocEnd != null) && (assocEnd.getAssociation().getLinkToClass() != null));
+        return ((assocEnd != null) && (assocEnd.getAssociation() != null) && (assocEnd.getAssociation().getLinkToClass() != null));
     }
 
 }

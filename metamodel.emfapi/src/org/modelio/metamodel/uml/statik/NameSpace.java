@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.uml.statik;
 
 import java.util.List;
@@ -45,142 +45,142 @@ import org.modelio.metamodel.uml.statik.VisibilityMode;
 
 @objid ("00115274-c4bf-1fd8-97fe-001ec947cd2a")
 public interface NameSpace extends ModelTree {
-    @objid ("67177f66-6389-4cb5-acc1-1d95f7f6106f")
+    @objid ("9b601ef6-6a03-46b8-b2b1-b5ae30844a6f")
     boolean isIsAbstract();
 
-    @objid ("047ffe4b-898f-4a74-a4b7-e42102abb792")
+    @objid ("fe8008c6-ff62-4bd6-ae25-793e0015bd63")
     void setIsAbstract(boolean value);
 
-    @objid ("b941cf1d-1b43-4f5b-b5c1-e84630666ef1")
+    @objid ("b98dbfc5-be5c-4b62-8d0e-2503cb9da204")
     boolean isIsLeaf();
 
-    @objid ("50743492-f520-43f6-b4d5-f3b5086722b8")
+    @objid ("a5b3dd0c-df85-4d2b-9460-e4f910a6b256")
     void setIsLeaf(boolean value);
 
-    @objid ("c0e2df9c-14e4-4978-b747-85075b84f715")
+    @objid ("eb817ceb-81ed-414d-a396-17e6f92a9d2a")
     boolean isIsRoot();
 
-    @objid ("5709e61a-e834-459a-a90d-1115aa7f8cb5")
+    @objid ("d49453d1-23fd-44ff-8c6d-0b95060db29c")
     void setIsRoot(boolean value);
 
-    @objid ("78bf586b-83ca-4b63-b440-7239657bebe3")
+    @objid ("37c156fe-b8cc-41dd-acd1-d4fd3a5b2f8d")
     VisibilityMode getVisibility();
 
-    @objid ("b983a9b5-3df8-4ffa-9ed1-c0edae071cb5")
+    @objid ("fbccf08b-a4ae-406a-af9d-2c6d4bdf8328")
     void setVisibility(VisibilityMode value);
 
-    @objid ("fa77fd62-6319-4be1-99db-d2460f34e4e1")
+    @objid ("16b303d0-c9fb-4fae-a7b9-2ccf01c0c12c")
     EList<Generalization> getParent();
 
-    @objid ("6eb0c1d6-fb35-419f-b893-2d7aa0cc9d77")
+    @objid ("f16992cf-06c2-4ec3-97ca-d0ae8332baac")
     <T extends Generalization> List<T> getParent(java.lang.Class<T> filterClass);
 
-    @objid ("ceda7a86-7c0a-44b6-bff4-f129219d8459")
+    @objid ("8bcda86f-059a-41b3-9b65-8c1e97e7b6e6")
     EList<TemplateBinding> getTemplateInstanciation();
 
-    @objid ("c10a33bd-4759-425d-8989-58940278bd01")
+    @objid ("5371828c-4f47-48c5-90f9-83aae511df21")
     <T extends TemplateBinding> List<T> getTemplateInstanciation(java.lang.Class<T> filterClass);
 
-    @objid ("93ac1f24-4937-4745-a228-9bc15a43e21b")
+    @objid ("704e72d6-566c-4f21-ad7c-c7984da224be")
     EList<Instance> getRepresenting();
 
-    @objid ("eea09093-588a-4f82-b8d7-eadec82d7ac1")
+    @objid ("ae9d7238-afac-4e60-845e-0219febbe198")
     <T extends Instance> List<T> getRepresenting(java.lang.Class<T> filterClass);
 
-    @objid ("e659eecb-4b77-4b68-9fa8-ef3519e5f7d6")
+    @objid ("ca4b2f59-2178-496c-bb23-74ead710a8b2")
     EList<Behavior> getOwnedBehavior();
 
-    @objid ("a5385eea-fc88-4ab4-a09f-f29f3254931a")
+    @objid ("78ef39ec-204d-40ec-a943-996e30761a34")
     <T extends Behavior> List<T> getOwnedBehavior(java.lang.Class<T> filterClass);
 
-    @objid ("88c0a45c-95cb-4b83-90d5-60a809965383")
+    @objid ("2aef34bf-997f-43ba-a392-7c3b2e12f787")
     EList<DataFlow> getReceived();
 
-    @objid ("b3a0cca8-ae4a-46ef-94ae-52507e03ff92")
+    @objid ("ea23b630-00e2-4a7e-8c23-b6076b53ff6e")
     <T extends DataFlow> List<T> getReceived(java.lang.Class<T> filterClass);
 
-    @objid ("ed3f7624-7792-4e11-aeee-0b1351bb566d")
+    @objid ("45e99999-8ef6-4b4c-b5c7-92e2ee871537")
     EList<NamespaceUse> getUsedNsu();
 
-    @objid ("c5fd1ebd-491b-43d3-807e-8cee90913686")
+    @objid ("c6943186-65b7-46d9-8aba-c5a566d369d1")
     <T extends NamespaceUse> List<T> getUsedNsu(java.lang.Class<T> filterClass);
 
-    @objid ("4ebab6cc-0998-4e6a-96d3-346ec2f67a6a")
+    @objid ("8d491660-2a85-43dc-9843-ec22901471fd")
     EList<InformationFlow> getOwnedInformationFlow();
 
-    @objid ("677189eb-41a7-4370-bbba-6d02c911b5a3")
+    @objid ("e0f29fb3-34a6-4306-a59c-31cac2c6379f")
     <T extends InformationFlow> List<T> getOwnedInformationFlow(java.lang.Class<T> filterClass);
 
-    @objid ("7882db15-35a0-48d9-8824-8637c3dbd15f")
+    @objid ("0aac8c07-3f27-4360-87dc-edac04753820")
     EList<ElementImport> getImporting();
 
-    @objid ("1c5bd274-f6d9-4cd5-8d64-bafa597c4cad")
+    @objid ("c8593d3f-8df5-43d6-a1b3-87af3639f05f")
     <T extends ElementImport> List<T> getImporting(java.lang.Class<T> filterClass);
 
-    @objid ("32a6b634-5335-4947-acb4-0e1fdbe464b7")
+    @objid ("c2b48b9e-e70a-44be-add7-1063cac09266")
     EList<DataFlow> getSent();
 
-    @objid ("cfb62c95-d34e-4796-be75-b955380416fe")
+    @objid ("8ddeddaf-a7e6-4fd6-a30d-3478a9ba0de4")
     <T extends DataFlow> List<T> getSent(java.lang.Class<T> filterClass);
 
-    @objid ("58655b33-1d8d-4a99-ada4-651ea38b7f5d")
+    @objid ("3ca237df-b49c-4103-bb84-d0b37fb3360a")
     EList<DataFlow> getOwnedDataFlow();
 
-    @objid ("c4978da6-32f4-4565-a559-c843a63665d7")
+    @objid ("b8d773c0-31d1-46e1-acbd-f1b7b039d7bd")
     <T extends DataFlow> List<T> getOwnedDataFlow(java.lang.Class<T> filterClass);
 
-    @objid ("f2e8995a-c38b-4c3f-8dc6-d98548238845")
+    @objid ("32bb72c8-75fe-46b8-9faf-db7d58af8364")
     EList<CollaborationUse> getOwnedCollaborationUse();
 
-    @objid ("52b2fb07-2e87-4964-8204-20e418de27cf")
+    @objid ("ca499d3b-d258-4015-a156-3ee341e04fca")
     <T extends CollaborationUse> List<T> getOwnedCollaborationUse(java.lang.Class<T> filterClass);
 
-    @objid ("c9fd33cc-61da-4578-92a1-fe67f27e8a76")
+    @objid ("76b1919e-1283-4b14-86e2-68982d4ea11b")
     EList<PackageImport> getOwnedPackageImport();
 
-    @objid ("50d8d4bd-5957-4e7c-a451-def1dffe1e64")
+    @objid ("e58d3417-063b-4b05-a595-6bc932eb70b1")
     <T extends PackageImport> List<T> getOwnedPackageImport(java.lang.Class<T> filterClass);
 
-    @objid ("4640de7a-2689-4a91-a5a5-f474733f3ce9")
+    @objid ("f693ba2f-8457-4efd-a594-adb213cd72e4")
     EList<TemplateParameter> getTemplate();
 
-    @objid ("26433ae3-628c-4360-9639-7982a9bdaa03")
+    @objid ("703a853c-2cd2-42d9-9c05-2423b4f35038")
     <T extends TemplateParameter> List<T> getTemplate(java.lang.Class<T> filterClass);
 
-    @objid ("938abc20-40f8-4570-b476-8a523e31fdb6")
+    @objid ("ecb15d0e-987a-45d9-bcb8-c3ed811b23f9")
     EList<Generalization> getSpecialization();
 
-    @objid ("53b18ca7-ca81-4880-a9f6-cd47eb8b4e46")
+    @objid ("f810f4fb-a13c-437d-9cb1-56249dc0e720")
     <T extends Generalization> List<T> getSpecialization(java.lang.Class<T> filterClass);
 
-    @objid ("d3d04a46-285f-410a-847e-b3a05ff0135c")
+    @objid ("efead869-7823-4ba8-acf2-70dc7385a68e")
     EList<InterfaceRealization> getRealized();
 
-    @objid ("bdd3e3fe-bb6e-4818-b6e5-0236228e8567")
+    @objid ("51cd551d-fcee-4653-8168-5163563f6b1d")
     <T extends InterfaceRealization> List<T> getRealized(java.lang.Class<T> filterClass);
 
-    @objid ("2293808e-5e89-4b6c-a0f4-0eafdb6e6c1e")
+    @objid ("15296f79-48f3-4db2-a0a7-57929228e733")
     EList<Instance> getDeclared();
 
-    @objid ("0b06c30e-b266-4d3d-8150-6a3c34785066")
+    @objid ("f94d2364-1e12-4b14-b84c-361fafd74a80")
     <T extends Instance> List<T> getDeclared(java.lang.Class<T> filterClass);
 
-    @objid ("9afd1d8f-52e7-4e82-bbfe-9cb1ce2e5e3e")
+    @objid ("f3b7885c-dd0a-4199-93cd-77aacd844958")
     EList<TemplateBinding> getInstanciatingBinding();
 
-    @objid ("cf12ec5b-a8a5-4662-b52f-fd3d637c0568")
+    @objid ("c6f5d69f-04b0-4446-84f1-1efa4845b89a")
     <T extends TemplateBinding> List<T> getInstanciatingBinding(java.lang.Class<T> filterClass);
 
-    @objid ("5f5572fc-1f59-4a5a-b93f-96d6c9f3e2c1")
+    @objid ("8a6c6b94-9123-4c48-9fd1-4f2e8d3f9719")
     EList<ElementImport> getOwnedImport();
 
-    @objid ("87009b1c-70e8-4105-a0ba-d81f46410c47")
+    @objid ("ca96728f-7753-4bc3-8304-48cc1a8050b0")
     <T extends ElementImport> List<T> getOwnedImport(java.lang.Class<T> filterClass);
 
-    @objid ("131db884-6ff0-4a7c-a460-2de0c6a74e87")
+    @objid ("b66284d6-c9c0-4159-8f5d-546cde6c7a48")
     EList<NamespaceUse> getUserNsu();
 
-    @objid ("4596e046-8645-4d81-8067-bac57adaed9c")
+    @objid ("0f713d7a-d969-4b5f-9a0e-40029b53484c")
     <T extends NamespaceUse> List<T> getUserNsu(java.lang.Class<T> filterClass);
 
 }

@@ -49,7 +49,7 @@ public class ProfileDG extends DiagramNode {
     public List<IDiagramNode> getNodes() {
         // Inner nodes
         GmCompositeNode bodyNode = (GmCompositeNode) ((GmCompositeNode) this.gmNode).getFirstChild("body");
-        return DGFactory.getInstance().getDiagramNodes(this.diagramHandle, bodyNode.getChildren());
+        return DGFactory.getInstance().getDiagramNodes(this.diagramHandle, bodyNode.getVisibleChildren());
     }
 
 }

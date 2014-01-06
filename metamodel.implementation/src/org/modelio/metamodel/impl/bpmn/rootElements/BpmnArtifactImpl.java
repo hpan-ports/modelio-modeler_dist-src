@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.bpmn.rootElements;
 
 import java.util.ArrayList;
@@ -44,43 +44,43 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("0078aed8-c4bf-1fd8-97fe-001ec947cd2a")
 public abstract class BpmnArtifactImpl extends BpmnBaseElementImpl implements BpmnArtifact {
-    @objid ("1d2d4a29-0396-46d9-a98a-931cbe3881f1")
+    @objid ("8b10a6be-5ba5-40eb-b1d3-43b58e1cca0d")
     @Override
     public BpmnSubProcess getSubProcess() {
         return (BpmnSubProcess) getDepVal(BpmnArtifactData.Metadata.SubProcessDep());
     }
 
-    @objid ("c628cfd9-fc60-4fb4-a95b-9d4d48f385dc")
+    @objid ("1f9ece1e-6d77-4392-a0f2-9fe5eb472ee2")
     @Override
     public void setSubProcess(BpmnSubProcess value) {
         appendDepVal(BpmnArtifactData.Metadata.SubProcessDep(), (SmObjectImpl)value);
     }
 
-    @objid ("5ecb835e-3b4d-4e2c-9743-d7b9772a04a5")
+    @objid ("c05abdf3-2230-496b-a3a5-2658a436ba0d")
     @Override
     public BpmnCollaboration getCollaboration() {
         return (BpmnCollaboration) getDepVal(BpmnArtifactData.Metadata.CollaborationDep());
     }
 
-    @objid ("74030361-9513-4ed2-869c-a76b4f4bfcc1")
+    @objid ("4bf10635-9eb8-43bd-89b1-ef54467293cd")
     @Override
     public void setCollaboration(BpmnCollaboration value) {
         appendDepVal(BpmnArtifactData.Metadata.CollaborationDep(), (SmObjectImpl)value);
     }
 
-    @objid ("049f85f0-2449-4b5d-a7c2-9b63c59524b8")
+    @objid ("bfd88927-11fe-4cbd-bca0-e3f7d69dff6d")
     @Override
     public BpmnProcess getProcess() {
         return (BpmnProcess) getDepVal(BpmnArtifactData.Metadata.ProcessDep());
     }
 
-    @objid ("c51c3a99-e192-4339-835c-0db697c5dc1e")
+    @objid ("c023577d-06ea-48ab-9df6-f7a6388f8b9e")
     @Override
     public void setProcess(BpmnProcess value) {
         appendDepVal(BpmnArtifactData.Metadata.ProcessDep(), (SmObjectImpl)value);
     }
 
-    @objid ("2bc43f62-cd63-4192-9827-79afe75b8d59")
+    @objid ("f40226c5-f709-4592-9d47-68ffdbe648eb")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
@@ -96,7 +96,7 @@ public abstract class BpmnArtifactImpl extends BpmnBaseElementImpl implements Bp
         return super.getCompositionOwner();
     }
 
-    @objid ("27a286c7-8e30-44e8-853d-f9747a10880f")
+    @objid ("9d12207c-c731-4a9c-bc33-0a6a5775d8e9")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
@@ -112,7 +112,7 @@ public abstract class BpmnArtifactImpl extends BpmnBaseElementImpl implements Bp
         return super.getCompositionRelation();
     }
 
-    @objid ("e453b811-0814-4669-ba91-26cedfa1fe13")
+    @objid ("5c3c3523-adcd-4885-a4be-183560f1f018")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitBpmnArtifact(this);

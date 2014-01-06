@@ -27,6 +27,7 @@ import org.eclipse.jface.viewers.TreeViewerColumn;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
+import org.modelio.app.core.picking.IModelioPickingService;
 import org.modelio.diagram.styles.core.IStyle;
 import org.modelio.diagram.styles.core.IStyleChangeListener;
 import org.modelio.diagram.styles.core.StyleKey;
@@ -45,19 +46,25 @@ public class StyleViewer implements IStyleChangeListener {
     private StyleModelProvider model;
 
     @objid ("85cf80dd-1926-11e2-92d2-001ec947c8cc")
-    private final StyleModelProvider emptyModel = new StyleModelProvider(null);
+    private final StyleModelProvider emptyModel = new StyleModelProvider(null, null);
 
     @objid ("85cf80df-1926-11e2-92d2-001ec947c8cc")
     private TreeViewer treeViewer;
+
+    @objid ("a9c6d983-bf26-48ce-bd9d-b2024a922e2e")
+    private IModelioPickingService modelioPickingService;
 
     /**
      * C'tor.
      * @param parent the composite into which this view is fit.
      * @param model the edited style model
+     * @param modelioPickingService the Modelio picking service.
      */
     @objid ("85cf80e0-1926-11e2-92d2-001ec947c8cc")
-    public StyleViewer(Composite parent, StyleModelProvider model) {
+    public StyleViewer(Composite parent, StyleModelProvider model, IModelioPickingService modelioPickingService) {
         StyleModelProvider initialModel = (model != null) ? model : this.emptyModel;
+        
+        this.modelioPickingService = modelioPickingService;
         
         this.model = initialModel;
         this.treeViewer = new TreeViewer(parent, SWT.HIDE_SELECTION |
@@ -135,11 +142,17 @@ public class StyleViewer implements IStyleChangeListener {
         return column;
     }
 
+    /**
+     * @return the currently edited style.
+     */
     @objid ("85d1e340-1926-11e2-92d2-001ec947c8cc")
     public IStyle getEditedStyle() {
         return this.model.getStyleData();
     }
 
+    /**
+     * @return the style tree viewer.
+     */
     @objid ("85d1e344-1926-11e2-92d2-001ec947c8cc")
     public TreeViewer getTreeViewer() {
         return this.treeViewer;
@@ -195,10 +208,21 @@ public class StyleViewer implements IStyleChangeListener {
         this.treeViewer.getTree().redraw();
     }
 
+    /**
+     * @return the edited style model.
+     */
     @objid ("85d1e357-1926-11e2-92d2-001ec947c8cc")
     public StyleModelProvider getModel() {
         // Automatically generated method. Please delete this comment before entering specific code.
         return this.model;
+    }
+
+    /**
+     * @return the Modelio picking service
+     */
+    @objid ("955c6457-5101-40d2-9f7a-631cd2d37f68")
+    public IModelioPickingService getPickingService() {
+        return this.modelioPickingService;
     }
 
 }

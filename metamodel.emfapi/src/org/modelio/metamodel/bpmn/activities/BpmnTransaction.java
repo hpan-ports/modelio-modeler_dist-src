@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.bpmn.activities;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
@@ -31,16 +31,16 @@ import org.modelio.metamodel.bpmn.activities.TransactionMethod;
 
 @objid ("00855ebc-c4bf-1fd8-97fe-001ec947cd2a")
 public interface BpmnTransaction extends BpmnSubProcess {
-    @objid ("183e6880-0c69-4d01-afd9-0f4065077b61")
+    @objid ("4a77a146-5808-4f9a-8489-674606746c5c")
     String getProtocol();
 
-    @objid ("3dfc259f-8350-487a-bdb7-f06b27314165")
+    @objid ("87ad0dfa-4e3a-4586-8484-37dd3d4ed3d6")
     void setProtocol(String value);
 
-    @objid ("cef8cdd1-3494-4b0f-ad44-4c38438215f1")
+    @objid ("bfc334eb-627d-4315-806b-451d91777a85")
     TransactionMethod getMethod();
 
-    @objid ("e2fe0ce9-fe85-4f5c-8cbd-c82119a16363")
+    @objid ("63e9b243-aee6-4114-9c50-d8a2dbf54e37")
     void setMethod(TransactionMethod value);
 
 }

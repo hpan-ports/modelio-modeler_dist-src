@@ -169,7 +169,7 @@ public class SmallNodeNonResizeableEditPolicy extends DefaultNodeResizableEditPo
     @objid ("80d853a3-1dec-11e2-8cad-001ec947c8cc")
     private Dimension computeSizeDelta() {
         final IFigure fig = getHostFigure();
-        return fig.getPreferredSize().getDifference(fig.getBounds().getSize());
+        return fig.getPreferredSize().getShrinked(fig.getBounds().getSize());
     }
 
 }

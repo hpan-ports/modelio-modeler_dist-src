@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.uml.statik;
 
 import java.util.ArrayList;
@@ -52,61 +52,61 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("000d8770-c4bf-1fd8-97fe-001ec947cd2a")
 public class InstanceImpl extends ModelElementImpl implements Instance {
-    @objid ("e95969fe-db74-4924-9227-9c27bbea8a5f")
+    @objid ("6268b516-b4f9-4c79-8ab3-16bb584b26b0")
     @Override
     public boolean isIsConstant() {
         return (Boolean) getAttVal(InstanceData.Metadata.IsConstantAtt());
     }
 
-    @objid ("9ff13663-e330-429c-be17-49103ba8c92a")
+    @objid ("ac29a3bc-ffba-48ff-ac31-7fd0337c4ae5")
     @Override
     public void setIsConstant(boolean value) {
         setAttVal(InstanceData.Metadata.IsConstantAtt(), value);
     }
 
-    @objid ("62bdc2b2-fa7e-48a2-8da9-307d89536426")
+    @objid ("feade99a-10dd-4bde-a47d-0f9ddb46880c")
     @Override
     public String getMultiplicityMin() {
         return (String) getAttVal(InstanceData.Metadata.MultiplicityMinAtt());
     }
 
-    @objid ("deae0a12-031e-4333-9249-86c1bd4f5317")
+    @objid ("2ff1ec21-48d7-41ee-af13-e0a62629eae1")
     @Override
     public void setMultiplicityMin(String value) {
         setAttVal(InstanceData.Metadata.MultiplicityMinAtt(), value);
     }
 
-    @objid ("f6a5661e-3ea6-45f0-a820-8c283581e55f")
+    @objid ("90927c2f-52ae-42c8-bbef-e9ee7e60b46e")
     @Override
     public String getMultiplicityMax() {
         return (String) getAttVal(InstanceData.Metadata.MultiplicityMaxAtt());
     }
 
-    @objid ("65968ff2-738c-47b0-9568-d18574918f63")
+    @objid ("468fbcdb-cf2a-4c0d-af94-0708c232f033")
     @Override
     public void setMultiplicityMax(String value) {
         setAttVal(InstanceData.Metadata.MultiplicityMaxAtt(), value);
     }
 
-    @objid ("6f21ca2a-8df3-48a0-8898-ffb0d9580cb4")
+    @objid ("bc53591c-2fd2-4f1a-9483-7995fed5b825")
     @Override
     public String getValue() {
         return (String) getAttVal(InstanceData.Metadata.ValueAtt());
     }
 
-    @objid ("e51f8332-9994-4676-b820-c8e7ede6c95a")
+    @objid ("1439d258-c913-47c4-9157-5d9b6ad26605")
     @Override
     public void setValue(String value) {
         setAttVal(InstanceData.Metadata.ValueAtt(), value);
     }
 
-    @objid ("0e4b6604-3ecc-45af-b72b-24f1c6bee31a")
+    @objid ("872f8ae6-ed8a-4731-acd6-52d6208bbaed")
     @Override
     public EList<CommunicationNode> getRepresentedCommunicationNode() {
         return new SmList<>(this, InstanceData.Metadata.RepresentedCommunicationNodeDep());
     }
 
-    @objid ("630adf12-9ea2-439e-9aa9-9e7fb85c27e7")
+    @objid ("239dafa9-0a9e-4468-b872-9f4062d5cef1")
     @Override
     public <T extends CommunicationNode> List<T> getRepresentedCommunicationNode(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -119,13 +119,13 @@ public class InstanceImpl extends ModelElementImpl implements Instance {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("9145e7a7-ed28-496e-9c7b-4bc6b7e0cc64")
+    @objid ("ac0156e3-f38f-4d28-83f8-a711657b06a8")
     @Override
     public EList<BpmnItemAwareElement> getRepresentingItem() {
         return new SmList<>(this, InstanceData.Metadata.RepresentingItemDep());
     }
 
-    @objid ("26955911-c3b2-4430-874d-565bcf988fa4")
+    @objid ("88fa5fbc-2db7-4036-bac3-ae97d6a703fd")
     @Override
     public <T extends BpmnItemAwareElement> List<T> getRepresentingItem(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -138,13 +138,13 @@ public class InstanceImpl extends ModelElementImpl implements Instance {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("6edccb01-557d-40d9-b81c-8f1cc7eb1ea9")
+    @objid ("36a5e3fd-40da-49a7-991c-8810e575655a")
     @Override
     public EList<LinkEnd> getOwnedEnd() {
         return new SmList<>(this, InstanceData.Metadata.OwnedEndDep());
     }
 
-    @objid ("4bac5899-6989-4680-b3a6-5ae5f4a7748d")
+    @objid ("abaa3986-4acd-432f-95ac-d5f2bd1b1bb5")
     @Override
     public <T extends LinkEnd> List<T> getOwnedEnd(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -157,25 +157,25 @@ public class InstanceImpl extends ModelElementImpl implements Instance {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("e40e3f31-fa61-476e-aa10-72fe8be8d564")
+    @objid ("b69eae55-8091-4cd4-9b9a-9d5c3b767a5d")
     @Override
     public NameSpace getBase() {
         return (NameSpace) getDepVal(InstanceData.Metadata.BaseDep());
     }
 
-    @objid ("1efc0a51-9ee4-4624-ad43-14c1616ba85e")
+    @objid ("469c04a9-acc4-428c-ac92-5ea47886b366")
     @Override
     public void setBase(NameSpace value) {
         appendDepVal(InstanceData.Metadata.BaseDep(), (SmObjectImpl)value);
     }
 
-    @objid ("ca183d9b-1435-40b0-b6dd-8e4175b98ce2")
+    @objid ("7eb4c34b-b10c-4048-b8f5-ff1902575beb")
     @Override
     public EList<ObjectNode> getRepresentingObjectNode() {
         return new SmList<>(this, InstanceData.Metadata.RepresentingObjectNodeDep());
     }
 
-    @objid ("2f56d05c-a999-44e3-bac4-ff9fb577133b")
+    @objid ("d25d5ee8-41a2-47ae-bf59-4c6915a809f6")
     @Override
     public <T extends ObjectNode> List<T> getRepresentingObjectNode(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -188,25 +188,25 @@ public class InstanceImpl extends ModelElementImpl implements Instance {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("ae6c3c7e-3e8d-42ca-b74d-86316c46f597")
+    @objid ("8b5e1caa-13d3-4aed-8755-8a30f94fdf9f")
     @Override
     public NameSpace getOwner() {
         return (NameSpace) getDepVal(InstanceData.Metadata.OwnerDep());
     }
 
-    @objid ("b23f829f-a82f-409d-bfff-3258853c387a")
+    @objid ("15f14b97-f36f-49ce-acd9-be1905edaa8a")
     @Override
     public void setOwner(NameSpace value) {
         appendDepVal(InstanceData.Metadata.OwnerDep(), (SmObjectImpl)value);
     }
 
-    @objid ("08cb3d2d-b920-4090-99f7-40d24ba89a9b")
+    @objid ("d3bfebd9-9c6e-4f33-949c-3fe6407038c2")
     @Override
     public EList<NaryLinkEnd> getOwnedNaryEnd() {
         return new SmList<>(this, InstanceData.Metadata.OwnedNaryEndDep());
     }
 
-    @objid ("df02a519-956f-43c2-979d-a29739adea75")
+    @objid ("89adca98-9946-4ed8-9359-da12db4346a6")
     @Override
     public <T extends NaryLinkEnd> List<T> getOwnedNaryEnd(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -219,13 +219,13 @@ public class InstanceImpl extends ModelElementImpl implements Instance {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("4a41940b-9a4c-447f-af41-ef31cc2b0257")
+    @objid ("fbe3a577-e16d-4c5e-9942-88034844dc56")
     @Override
     public EList<Lifeline> getRepresentedLifeLine() {
         return new SmList<>(this, InstanceData.Metadata.RepresentedLifeLineDep());
     }
 
-    @objid ("5df2fa83-c6b2-4212-a86b-4817139bdca2")
+    @objid ("d75f8142-94a8-4d0c-adda-d0fa2b0a75cc")
     @Override
     public <T extends Lifeline> List<T> getRepresentedLifeLine(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -238,13 +238,13 @@ public class InstanceImpl extends ModelElementImpl implements Instance {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("71288670-9f62-4405-860b-ce4f52b1be6a")
+    @objid ("a408c5f8-8089-4d3a-bedb-199ab892acd4")
     @Override
     public EList<AttributeLink> getSlot() {
         return new SmList<>(this, InstanceData.Metadata.SlotDep());
     }
 
-    @objid ("cb80a89f-f134-4027-98cd-81d1d994deef")
+    @objid ("0bcf05b9-a001-424b-8f21-48c569e63517")
     @Override
     public <T extends AttributeLink> List<T> getSlot(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -257,13 +257,13 @@ public class InstanceImpl extends ModelElementImpl implements Instance {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("a969fe71-355e-4725-ac46-0236881ca50c")
+    @objid ("09f3133f-eef7-48bc-ad74-c3b2277ffd97")
     @Override
     public EList<BindableInstance> getPart() {
         return new SmList<>(this, InstanceData.Metadata.PartDep());
     }
 
-    @objid ("81e92ca7-46e1-493a-8642-119a3bdc7f90")
+    @objid ("0b05505c-8a39-4f28-b6dd-69fa313bf78c")
     @Override
     public <T extends BindableInstance> List<T> getPart(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -276,13 +276,13 @@ public class InstanceImpl extends ModelElementImpl implements Instance {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("172b10a2-31ef-4527-8d2b-c3f2cdd5f594")
+    @objid ("c897908c-1bf9-4af9-8c05-9c6b502b8dde")
     @Override
     public EList<LinkEnd> getTargetingEnd() {
         return new SmList<>(this, InstanceData.Metadata.TargetingEndDep());
     }
 
-    @objid ("ec9248ac-c3c8-4b43-a948-df1d7936fb9b")
+    @objid ("8455394f-98ce-43f8-95d3-16cf9a4ee61d")
     @Override
     public <T extends LinkEnd> List<T> getTargetingEnd(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -295,7 +295,7 @@ public class InstanceImpl extends ModelElementImpl implements Instance {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("4a8fb36f-f451-4cd6-a942-3460b8411086")
+    @objid ("822b2515-b6e4-4824-9fbf-5368e541d604")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
@@ -305,7 +305,7 @@ public class InstanceImpl extends ModelElementImpl implements Instance {
         return super.getCompositionOwner();
     }
 
-    @objid ("f8f64238-ebf5-4f70-b252-d70122462c73")
+    @objid ("ced61bf3-c911-4c09-baf2-95cb61c8aa72")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
@@ -315,7 +315,7 @@ public class InstanceImpl extends ModelElementImpl implements Instance {
         return super.getCompositionRelation();
     }
 
-    @objid ("e6bf1180-e508-405a-957d-0021f72c2bfe")
+    @objid ("657f83b2-6eac-4acd-94ce-5fd7dafe1f30")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitInstance(this);

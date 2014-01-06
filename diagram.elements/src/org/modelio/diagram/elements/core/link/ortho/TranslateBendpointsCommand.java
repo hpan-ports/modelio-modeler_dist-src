@@ -29,8 +29,8 @@ import org.eclipse.draw2d.Connection;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.gef.ConnectionEditPart;
 import org.eclipse.gef.commands.Command;
-import org.modelio.diagram.elements.core.link.GmLink;
 import org.modelio.diagram.elements.core.link.GmPath;
+import org.modelio.diagram.elements.core.model.IGmLinkObject;
 import org.modelio.diagram.elements.core.model.IGmPath;
 
 /**
@@ -42,7 +42,7 @@ public class TranslateBendpointsCommand extends Command {
     private IGmPath path;
 
     @objid ("80421f5f-1dec-11e2-8cad-001ec947c8cc")
-    private GmLink model;
+    private IGmLinkObject model;
 
     @objid ("65c78bd8-1e83-11e2-8cad-001ec947c8cc")
     private List<Bendpoint> routingConstraint;
@@ -50,7 +50,7 @@ public class TranslateBendpointsCommand extends Command {
     @objid ("80421f60-1dec-11e2-8cad-001ec947c8cc")
     @SuppressWarnings("unchecked")
     public TranslateBendpointsCommand(final IGmPath path, final ConnectionEditPart connectionEP) {
-        this.model = (GmLink) connectionEP.getModel();
+        this.model = (IGmLinkObject) connectionEP.getModel();
         this.path = new GmPath(path);
         this.routingConstraint = (List<Bendpoint>) ((Connection) connectionEP.getFigure()).getRoutingConstraint();
     }

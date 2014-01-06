@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.analyst;
 
 import java.util.List;
@@ -33,28 +33,28 @@ import org.modelio.metamodel.analyst.Goal;
 
 @objid ("37c1a4e9-5d7e-4442-9d86-e66dd60b684c")
 public interface GoalContainer extends AnalystContainer {
-    @objid ("937da1b9-dc8d-41eb-9fec-68729b124cd5")
+    @objid ("9ba294f1-99ac-4f84-abf7-d41ef49b28f4")
     EList<Goal> getOwnedGoal();
 
-    @objid ("3e99f404-95b9-475c-b093-885d72d2fa12")
+    @objid ("5499ab92-f469-4c70-84ae-dac4da45c128")
     <T extends Goal> List<T> getOwnedGoal(java.lang.Class<T> filterClass);
 
-    @objid ("a3e01a23-67a1-4d0d-bffb-9b2d49d562be")
+    @objid ("3e6f2293-97a7-447a-9b5c-066a50ac137b")
     GoalContainer getOwnerContainer();
 
-    @objid ("c90874ce-71b0-4735-86a5-a704330e3bf2")
+    @objid ("17a538ca-e0be-4601-a36e-87cdb7aaa697")
     void setOwnerContainer(GoalContainer value);
 
-    @objid ("2778f31f-4c59-420b-b030-8e1931cef013")
+    @objid ("c9caee46-f5f5-45bd-916c-adf607920a0a")
     EList<GoalContainer> getOwnedContainer();
 
-    @objid ("a14e7daa-44bc-4d87-8035-de71caf7e282")
+    @objid ("1ce46ead-ec7a-4fcb-a5e6-72c7265c6488")
     <T extends GoalContainer> List<T> getOwnedContainer(java.lang.Class<T> filterClass);
 
-    @objid ("d0864e97-4e48-4875-830d-dede96ec409c")
+    @objid ("04b8a416-784c-4a61-b710-0af607e48aba")
     AnalystProject getOwnerProject();
 
-    @objid ("17f9ad4c-98ff-41df-98d4-26fa77fd00f1")
+    @objid ("c8db1fcb-5df3-453b-90ea-f1d5a32749b3")
     void setOwnerProject(AnalystProject value);
 
 }

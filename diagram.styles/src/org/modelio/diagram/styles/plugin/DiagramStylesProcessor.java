@@ -70,25 +70,22 @@ public class DiagramStylesProcessor {
         }
         
         // ensure the existence of the default.style file
-        String defaultFileName = DiagramStyles.DEFAULT_STYLE_NAME + DiagramStyles.STYLE_FILE_EXTENSION;
-        Path defaultStyleFile = projectStyleDir.resolve(defaultFileName);
-        if (!Files.exists(defaultStyleFile)) {
-            copyStyleFileTo(defaultFileName, defaultStyleFile);
-        }
+        ensureExistence(projectStyleDir, DiagramStyles.DEFAULT_STYLE_NAME);
         
         // ensure the existence of the ramc.style file
-        String ramcFileName = DiagramStyles.RAMC_STYLE_NAME + DiagramStyles.STYLE_FILE_EXTENSION;
-        Path ramcStyleFile = projectStyleDir.resolve(ramcFileName);
-        if (!Files.exists(ramcStyleFile)) {
-            copyStyleFileTo(ramcFileName, ramcStyleFile);
-        }
+        ensureExistence(projectStyleDir, DiagramStyles.RAMC_STYLE_NAME);
         
         // ensure the existence of the usecase.style file
-        String usecaseFileName = DiagramStyles.USECASE_STYLE_NAME + DiagramStyles.STYLE_FILE_EXTENSION;
-        Path usecaseStyleFile = projectStyleDir.resolve(usecaseFileName);
-        if (!Files.exists(usecaseStyleFile)) {
-            copyStyleFileTo(usecaseFileName, usecaseStyleFile);
-        }
+        ensureExistence(projectStyleDir, DiagramStyles.USECASE_STYLE_NAME);
+        
+        // ensure the existence of the intern.style file
+        ensureExistence(projectStyleDir, DiagramStyles.INTERN_STYLE_NAME);
+        
+        // ensure the existence of the extern.style file
+        ensureExistence(projectStyleDir, DiagramStyles.EXTERN_STYLE_NAME);
+        
+        // ensure the existence of the usecase.style file
+        ensureExistence(projectStyleDir, DiagramStyles.MAIN_STYLE_NAME);
     }
 
     @objid ("12c628f4-19f0-11e2-92d2-001ec947c8cc")
@@ -106,6 +103,15 @@ public class DiagramStylesProcessor {
             }
         } catch (Exception e) {
             DiagramStyles.LOG.error(e);
+        }
+    }
+
+    @objid ("86f125b1-fdea-4dc3-b44e-0287e0dc3a6d")
+    protected static void ensureExistence(Path projectStyleDir, String styleName) {
+        String defaultFileName = styleName + DiagramStyles.STYLE_FILE_EXTENSION;
+        Path defaultStyleFile = projectStyleDir.resolve(defaultFileName);
+        if (!Files.exists(defaultStyleFile)) {
+            copyStyleFileTo(defaultFileName, defaultStyleFile);
         }
     }
 

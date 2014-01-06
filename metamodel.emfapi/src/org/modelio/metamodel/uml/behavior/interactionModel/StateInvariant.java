@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.uml.behavior.interactionModel;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
@@ -30,16 +30,16 @@ import org.eclipse.emf.ecore.EObject;
 
 @objid ("004b7b34-c4bf-1fd8-97fe-001ec947cd2a")
 public interface StateInvariant extends OccurrenceSpecification {
-    @objid ("7d0143e2-0404-4dea-9bd8-6916b44a28b3")
+    @objid ("ac8a929a-83d5-441e-bcc9-b95c0794bc6e")
     String getBody();
 
-    @objid ("c071e365-555e-4ea8-9d59-95175facb24e")
+    @objid ("a9c84370-86e0-44fb-8a47-68c516ab859a")
     void setBody(String value);
 
-    @objid ("fa51f81c-3d8e-4676-9d44-a02dd93b85f5")
+    @objid ("d7ee5b1f-eeb9-4d5b-802c-8ab8b68ec824")
     int getEndLineNumber();
 
-    @objid ("722bc203-458c-435b-981a-ecc9cd8d3053")
+    @objid ("a49b5511-c075-4574-9d95-33492c019161")
     void setEndLineNumber(int value);
 
 }

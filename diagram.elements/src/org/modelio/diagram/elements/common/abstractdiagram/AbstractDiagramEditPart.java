@@ -21,17 +21,25 @@
 
 package org.modelio.diagram.elements.common.abstractdiagram;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.draw2d.ConnectionAnchor;
+import org.eclipse.draw2d.FreeformLayeredPane;
 import org.eclipse.draw2d.IFigure;
+import org.eclipse.draw2d.LayeredPane;
 import org.eclipse.draw2d.XYAnchor;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.PrecisionDimension;
+import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPartViewer;
 import org.eclipse.gef.EditPolicy;
+import org.eclipse.gef.GraphicalEditPart;
+import org.eclipse.gef.LayerConstants;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.SnapToGrid;
 import org.eclipse.gef.SnapToHelper;
@@ -43,6 +51,8 @@ import org.modelio.diagram.elements.common.linktovoid.LinkToVoidConstants;
 import org.modelio.diagram.elements.common.linktovoid.LinkToVoidFinishCreationEditPolicy;
 import org.modelio.diagram.elements.core.node.GmNodeEditPart;
 import org.modelio.diagram.elements.core.requests.ModelElementDropRequest;
+import org.modelio.diagram.elements.drawings.core.IGmDrawingLayer;
+import org.modelio.diagram.elements.drawings.layer.DrawingLayerEditPart;
 import org.modelio.diagram.styles.core.IStyle;
 import org.modelio.metamodel.Metamodel;
 import org.modelio.metamodel.uml.infrastructure.Constraint;
@@ -87,6 +97,12 @@ public class AbstractDiagramEditPart extends GmNodeEditPart {
      */
     @objid ("90df2ca2-1e83-11e2-8cad-001ec947c8cc")
     public static final String PROPERTY_FILL_TILE_SIZE = "AbstractDiagramEditPart.FillTileSize";
+
+    /**
+     * ID of the layer pane where drawing layers are put.
+     */
+    @objid ("9eeff616-9943-42e1-8193-1a4fa86532d1")
+    private static final String LAYER_PANE_DRAWING = "LAYER_PANE_DRAWING";
 
     /**
      * Default constructor.
@@ -285,6 +301,106 @@ public class AbstractDiagramEditPart extends GmNodeEditPart {
             return new PrecisionDimension(width, height);
         }
         return null;
+    }
+
+    @objid ("3cb77c77-2b4d-47c8-834a-ae8b5344a64e")
+    @Override
+    protected List<Object> getModelChildren() {
+        GmAbstractDiagram d = (GmAbstractDiagram) getModel();
+        // Add background layer first
+        // default children next
+        // and finish with foreground layers.
+        
+        final List<?> modelChildren = super.getModelChildren();
+        final Collection<IGmDrawingLayer> drawingLayers = d.getDrawingLayers();
+        
+        ArrayList<Object> ret = new ArrayList<>(modelChildren.size()+ drawingLayers.size() + 1);
+        
+        if (d.getBackgroundDrawingLayer()!= null)
+            ret.add(d.getBackgroundDrawingLayer());
+        
+        ret.addAll(modelChildren);
+        ret.addAll(drawingLayers);
+        return ret;
+    }
+
+    /**
+     * Redefined to add {@link DrawingLayerEditPart} layers in the drawing layer pane.
+     * <p/>
+     * Subclasses willing to redefine this method must redefine {@link #doAddChildVisual(EditPart, int)} instead,
+     * so that they won't be annoyed by drawing layers.
+     */
+    @objid ("80a29b4a-33d5-4b9f-813d-bb17f88ff7d5")
+    @Override
+    protected final void addChildVisual(EditPart childEditPart, int index) {
+        if (childEditPart instanceof DrawingLayerEditPart) {
+            // Add all drawing layers to the drawing layer pane, except the background layer
+            // that stays in this layer.
+            if (index != 0) {
+                getDrawingLayerPane().add(((DrawingLayerEditPart) childEditPart).getFigure());
+            } else {
+                super.addChildVisual(childEditPart, index);
+            }
+        } else {
+            doAddChildVisual(childEditPart, index);
+        }
+    }
+
+    /**
+     * Redefined to remove DrawingLayerEditPart layers from the drawing layer pane.
+     * <br/>
+     * Subclasses must redefine {@link #doRemoveChildVisual(EditPart)}.
+     */
+    @objid ("78c57828-b40b-489b-b4eb-11e103e5eae4")
+    @Override
+    protected final void removeChildVisual(EditPart childEditPart) {
+        if (childEditPart instanceof DrawingLayerEditPart) {
+            final IFigure childFigure = ((GraphicalEditPart) childEditPart).getFigure();
+            childFigure.getParent().remove(childFigure);
+        } else {
+            doRemoveChildVisual(childEditPart);
+        }
+    }
+
+    /**
+     * Get the layer pane where drawing layers are put.
+     * @return the drawings layer pane.
+     */
+    @objid ("2b7373ed-b77c-4cd3-bbae-8887dba3c516")
+    protected final LayeredPane getDrawingLayerPane() {
+        LayeredPane pane = (LayeredPane) getLayer(LAYER_PANE_DRAWING);
+        if (pane == null)
+            pane = createDrawingLayerPane();
+        return pane;
+    }
+
+    /**
+     * Creates the layer pane where drawing layers are put.
+     * <p>
+     * The layer pane is put on top of the {@link LayerConstants#PRINTABLE_LAYERS} layer.
+     * @return the drawings layer pane.
+     */
+    @objid ("a7c40bc5-f7d4-42c6-b604-273fc07d900b")
+    protected LayeredPane createDrawingLayerPane() {
+        // Ensure the diagram layers already exist
+        getFigure();
+        
+        // Create the drawing layer on top of the diagram layer.
+        FreeformLayeredPane drawLayerPane = new FreeformLayeredPane();
+        //getViewer().getEditPartRegistry().put(drawLayerPane, LAYER_PANE_DRAWING);
+        LayeredPane pane = (LayeredPane) getLayer(LayerConstants.PRINTABLE_LAYERS);
+        pane.add(drawLayerPane, LAYER_PANE_DRAWING);
+        return drawLayerPane;
+    }
+
+    @objid ("e13d5a6e-f507-4d36-834c-e75a3cbe351d")
+    protected void doAddChildVisual(EditPart childEditPart, int index) {
+        super.addChildVisual(childEditPart, index);
+    }
+
+    @objid ("18a001e2-2d25-40da-9873-644e28ddd622")
+    protected void doRemoveChildVisual(EditPart childEditPart) {
+        super.removeChildVisual(childEditPart);
     }
 
 }

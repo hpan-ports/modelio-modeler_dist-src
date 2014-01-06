@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.data.uml.behavior.interactionModel;
 
 import java.util.ArrayList;
@@ -46,50 +46,50 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("0047edde-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=InteractionOperand.class, factory=InteractionOperandData.Metadata.ObjectFactory.class)
 public class InteractionOperandData extends InteractionFragmentData {
-    @objid ("262f2d74-a7ff-4779-b5fe-df0ac669d963")
+    @objid ("eda41bef-6666-48ce-8440-6d3930b9722e")
     @SmaMetaAttribute(metaName="Guard", type=String.class, smAttributeClass=Metadata.GuardSmAttribute.class)
      Object mGuard = "";
 
-    @objid ("754da072-2125-4ed0-a0a4-1b4a6b081dc5")
+    @objid ("90274be2-fe71-432d-9928-0f30f1c819a6")
     @SmaMetaAttribute(metaName="EndLineNumber", type=Integer.class, smAttributeClass=Metadata.EndLineNumberSmAttribute.class)
      Object mEndLineNumber = 0;
 
-    @objid ("497c365f-5bac-413d-bc19-7079721f7705")
+    @objid ("e64b475e-4c50-41eb-a87e-d6c988c4fd50")
     @SmaMetaAssociation(metaName="Fragment", typeDataClass=InteractionFragmentData.class, min=0, max=-1, smAssociationClass=Metadata.FragmentSmDependency.class, component = true)
      List<SmObjectImpl> mFragment = null;
 
-    @objid ("3e09bea9-103d-48f4-8155-775fc789475c")
+    @objid ("1749ce6a-61cc-461c-8b37-35089e033344")
     @SmaMetaAssociation(metaName="OwnerFragment", typeDataClass=CombinedFragmentData.class, min=0, max=1, smAssociationClass=Metadata.OwnerFragmentSmDependency.class)
      SmObjectImpl mOwnerFragment;
 
-    @objid ("a7d5dc8d-c2a2-4ec9-bd6e-41c3b6bffb68")
+    @objid ("8e7de43a-1159-4fd8-a305-a0813bf28db5")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("00473d80-c4c5-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("8a5be8e1-ec33-47d7-86ce-d1c6de046a4f")
+        @objid ("9f392908-1731-4f42-823d-8b7f7072e056")
         private static SmClass smClass = null;
 
-        @objid ("a0a11f29-ad47-4b4c-a644-8d4bf22f08a2")
+        @objid ("ba65ca39-f811-4847-a3f4-d5edf752516b")
         private static SmAttribute GuardAtt = null;
 
-        @objid ("17d51b07-f373-401f-bbee-c124c48eb8ec")
+        @objid ("d12330fb-9856-46da-86fd-b0475be8d21a")
         private static SmAttribute EndLineNumberAtt = null;
 
-        @objid ("0e6dce0e-9c41-4bd6-bbba-7ebad2372891")
+        @objid ("7298d77b-4a70-48d1-8ddf-101a1f1f20fa")
         private static SmDependency FragmentDep = null;
 
-        @objid ("af628e03-6406-415d-b9e3-81707448ddaa")
+        @objid ("7aa4fa6c-5cd5-4593-b567-d528d92f9fc3")
         private static SmDependency OwnerFragmentDep = null;
 
-        @objid ("4dee9977-8965-4ccc-b573-a746f821a5b1")
+        @objid ("88b77626-dc7f-4e8d-8472-902c97ba105d")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(InteractionOperandData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("ed4653d5-0d44-4c51-9d5e-5c56afacecdd")
+        @objid ("ed32dd9f-5aad-47e9-a3ff-f5c2005226dd")
         public static SmAttribute GuardAtt() {
             if (GuardAtt == null) {
             	GuardAtt = classof().getAttributeDef("Guard");
@@ -97,7 +97,7 @@ public class InteractionOperandData extends InteractionFragmentData {
             return GuardAtt;
         }
 
-        @objid ("0254a9b1-e99c-4b15-828e-e0a76feac141")
+        @objid ("9652013c-2ec3-4795-ad45-392a94d27073")
         public static SmAttribute EndLineNumberAtt() {
             if (EndLineNumberAtt == null) {
             	EndLineNumberAtt = classof().getAttributeDef("EndLineNumber");
@@ -105,7 +105,7 @@ public class InteractionOperandData extends InteractionFragmentData {
             return EndLineNumberAtt;
         }
 
-        @objid ("515f563f-c44c-4572-a916-80f0fa3b8295")
+        @objid ("b38b9710-46ef-4cd6-964d-619a612b6ad7")
         public static SmDependency FragmentDep() {
             if (FragmentDep == null) {
             	FragmentDep = classof().getDependencyDef("Fragment");
@@ -113,7 +113,7 @@ public class InteractionOperandData extends InteractionFragmentData {
             return FragmentDep;
         }
 
-        @objid ("0aa9b249-f79f-4ba5-95fa-aed3709f24c3")
+        @objid ("8164bc3f-c8a6-4089-97a3-eb1e1a8e61a5")
         public static SmDependency OwnerFragmentDep() {
             if (OwnerFragmentDep == null) {
             	OwnerFragmentDep = classof().getDependencyDef("OwnerFragment");
@@ -121,31 +121,31 @@ public class InteractionOperandData extends InteractionFragmentData {
             return OwnerFragmentDep;
         }
 
-        @objid ("85b48372-c090-4643-b6ad-901a8a43b352")
-        public static SmDependency getOwnerFragmentDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return OwnerFragmentDep;
-        }
-
-        @objid ("4844c3ea-dd67-493c-9ce7-9645fc9ab626")
-        public static SmDependency getFragmentDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return FragmentDep;
-        }
-
-        @objid ("f55b2891-e262-4026-af06-7a936feda725")
+        @objid ("f84d2069-987d-47f4-880a-ecceb0e20c2d")
         public static SmAttribute getEndLineNumberAtt() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return EndLineNumberAtt;
         }
 
-        @objid ("c040ae33-2074-4057-a473-676ca581da55")
+        @objid ("bac9d2ff-e854-430b-aad3-155a32107f1d")
+        public static SmDependency getFragmentDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return FragmentDep;
+        }
+
+        @objid ("98ffc998-882f-4542-88b4-047bfde09e86")
+        public static SmDependency getOwnerFragmentDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return OwnerFragmentDep;
+        }
+
+        @objid ("e91e90d1-3a36-4e66-b836-d9410d2e60cf")
         public static SmClass getSmClass() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return smClass;
         }
 
-        @objid ("6479f484-82a8-421b-85c3-440fa26353c5")
+        @objid ("91486b01-324c-4ee3-a84c-533913a39a89")
         public static SmAttribute getGuardAtt() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return GuardAtt;
@@ -153,12 +153,12 @@ public class InteractionOperandData extends InteractionFragmentData {
 
         @objid ("00477e94-c4c5-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("6027e25b-c28f-4220-813a-60d2908f3de1")
+            @objid ("273ea7d4-a2b6-4960-ba54-2b8910b809c0")
             public ISmObjectData createData() {
                 return new InteractionOperandData();
             }
 
-            @objid ("cc1d3e9a-474c-47e5-adeb-96dc2cfd5364")
+            @objid ("835a41ed-cc0e-4ee1-abb1-5ca8fd695173")
             public SmObjectImpl createImpl() {
                 return new InteractionOperandImpl();
             }
@@ -167,12 +167,12 @@ public class InteractionOperandData extends InteractionFragmentData {
 
         @objid ("0047e032-c4c5-1fd8-97fe-001ec947cd2a")
         public static class GuardSmAttribute extends SmAttribute {
-            @objid ("3e9ec5eb-e5db-4da6-8b00-c79b326e733e")
+            @objid ("83f1d96b-c505-4f8a-af1a-3327c519930b")
             public Object getValue(ISmObjectData data) {
                 return ((InteractionOperandData) data).mGuard;
             }
 
-            @objid ("3bc72753-e2a2-4c86-9d0d-2a19f899f44c")
+            @objid ("fd456e7a-95b2-4c41-9891-a1a13f92010a")
             public void setValue(ISmObjectData data, Object value) {
                 ((InteractionOperandData) data).mGuard = value;
             }
@@ -181,12 +181,12 @@ public class InteractionOperandData extends InteractionFragmentData {
 
         @objid ("004849c8-c4c5-1fd8-97fe-001ec947cd2a")
         public static class EndLineNumberSmAttribute extends SmAttribute {
-            @objid ("6c8a1795-0794-4ac2-99ff-c13d919869c9")
+            @objid ("42771bf3-579c-457d-ae78-c1cd1fc58ac0")
             public Object getValue(ISmObjectData data) {
                 return ((InteractionOperandData) data).mEndLineNumber;
             }
 
-            @objid ("2eab43ed-827c-46ec-8700-9515f0e228bc")
+            @objid ("4ca74ff1-f291-4352-9e79-07d467d49103")
             public void setValue(ISmObjectData data, Object value) {
                 ((InteractionOperandData) data).mEndLineNumber = value;
             }
@@ -195,18 +195,18 @@ public class InteractionOperandData extends InteractionFragmentData {
 
         @objid ("0048add2-c4c5-1fd8-97fe-001ec947cd2a")
         public static class OwnerFragmentSmDependency extends SmSingleDependency {
-            @objid ("0053a5d4-95e3-4494-9d23-179263c04dd1")
+            @objid ("c678238d-b10d-4673-b030-773241b5c0ea")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((InteractionOperandData) data).mOwnerFragment;
             }
 
-            @objid ("b89b1660-3c69-4545-9a93-0385cbeb5952")
+            @objid ("355b9dc6-5743-4239-9e46-cff31a1c665b")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((InteractionOperandData) data).mOwnerFragment = value;
             }
 
-            @objid ("79dda47c-4133-4ca8-a2ed-79f968c48c32")
+            @objid ("16ef432e-af7d-4471-bf8d-e9b4e1e69a77")
             @Override
             public SmDependency getSymetric() {
                 return CombinedFragmentData.Metadata.OperandDep();
@@ -216,20 +216,20 @@ public class InteractionOperandData extends InteractionFragmentData {
 
         @objid ("00492398-c4c5-1fd8-97fe-001ec947cd2a")
         public static class FragmentSmDependency extends SmMultipleDependency {
-            @objid ("5d26ea33-453a-42b4-8dac-d8c4204ca612")
+            @objid ("1201e972-8327-410a-8558-2368dc9ccc59")
             @Override
             public List<SmObjectImpl> getValueList(ISmObjectData data) {
                 return (((InteractionOperandData)data).mFragment != null)? ((InteractionOperandData)data).mFragment:SmMultipleDependency.EMPTY;
             }
 
-            @objid ("760a08b0-531b-4234-aaf2-8b61713ba1bf")
+            @objid ("cc33f407-f6f5-46b4-b8af-ad69221a956d")
             @Override
             protected List<SmObjectImpl> allocateValueList(ISmObjectData data, int initialCapacity) {
                 ((InteractionOperandData) data).mFragment = new ArrayList<>(initialCapacity);
                 return ((InteractionOperandData) data).mFragment;
             }
 
-            @objid ("ca592d68-62cb-4ee6-b916-8c436d69e609")
+            @objid ("4365ec09-6331-444a-8373-010f177e0d39")
             @Override
             public SmDependency getSymetric() {
                 return InteractionFragmentData.Metadata.EnclosingOperandDep();

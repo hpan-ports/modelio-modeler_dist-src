@@ -28,7 +28,6 @@ import java.io.OutputStream;
 import java.net.URI;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.DirectoryStream;
-import java.nio.file.FileSystemException;
 import java.nio.file.Files;
 import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
@@ -70,6 +69,9 @@ public class LocalExmlResourceProvider implements IExmlResourceProvider {
     @objid ("4070fd54-8e58-4e10-a53a-bb99f8bdd6ca")
     private Path blobsDir;
 
+    @objid ("1b898bae-c8f8-4a31-bed0-666f507ebd51")
+    private Path versionPath;
+
     /**
      * Initialize the resource provider.
      * @param repositoryPath a path on the local file system.
@@ -84,6 +86,7 @@ public class LocalExmlResourceProvider implements IExmlResourceProvider {
         this.stampPath = repositoryPath.resolve(IStampGeometry.STAMP_DIR_NAME).resolve(IStampGeometry.STAMP_FILE_NAME);
         this.indexPath = runtimePath.resolve(IExmlRepositoryGeometry.INDEX_DIRNAME);
         this.blobsDir = repositoryPath.resolve(IExmlRepositoryGeometry.BLOBS_DIRNAME);
+        this.versionPath = repositoryPath.resolve(IExmlRepositoryGeometry.VERSION_PATH);
     }
 
     @objid ("cf50781d-03e4-11e2-b5bf-001ec947ccaf")
@@ -94,7 +97,7 @@ public class LocalExmlResourceProvider implements IExmlResourceProvider {
 
     @objid ("cf50782b-03e4-11e2-b5bf-001ec947ccaf")
     @Override
-    public void close() throws IOException, FileSystemException {
+    public void close() {
         // Nothing to do.
     }
 
@@ -287,6 +290,12 @@ public class LocalExmlResourceProvider implements IExmlResourceProvider {
             }
         } else
             return null;
+    }
+
+    @objid ("786673ff-0dab-4036-86a6-c2128d89e7a5")
+    @Override
+    public ExmlResource getRepositoryVersionResource() {
+        return new LocalResource(this.versionPath);
     }
 
     /**

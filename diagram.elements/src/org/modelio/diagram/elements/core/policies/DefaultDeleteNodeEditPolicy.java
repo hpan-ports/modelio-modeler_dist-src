@@ -32,6 +32,8 @@ import org.modelio.diagram.elements.common.ghostlink.GhostLinkEditPart;
 import org.modelio.diagram.elements.common.ghostnode.GhostNodeEditPart;
 import org.modelio.diagram.elements.core.commands.DeleteInDiagramCommand;
 import org.modelio.diagram.elements.core.model.GmModel;
+import org.modelio.diagram.elements.core.model.IGmObject;
+import org.modelio.diagram.elements.drawings.core.IGmDrawing;
 
 /**
  * Default edit policy for the {@link EditPolicy#COMPONENT_ROLE} role that can delete a graphic element from the
@@ -69,23 +71,35 @@ public class DefaultDeleteNodeEditPolicy extends AbstractEditPolicy {
     }
 
     /**
-     * Create a DeleteInDiagramCommand if the edit part is selectable. Forward the request to its parent if the edit
-     * part is not selectable.
+     * Create a DeleteInDiagramCommand if the edit part is selectable.
+     * <p>
+     * Forwards the request to its parent if the edit part is not selectable.
      * @param request the DeleteRequest
      * @return a delete command
      */
     @objid ("80bbb754-1dec-11e2-8cad-001ec947c8cc")
     protected Command getDeleteCommand(GroupRequest request) {
-        if (getHost().isSelectable() &&
-                ((((GmModel)getHost().getModel()).getRepresentedElement() != null)
+        if (getHost().isSelectable()) {
+            final Object model = getHost().getModel();
+            if (model instanceof GmModel) {
+                final GmModel gmModel = (GmModel)model;
+        
+                // Allow deletion only if the graphic is a main node/link
+                if (((gmModel.getRepresentedElement() != null)
+                       
                         || getHost() instanceof GhostNodeEditPart
                         || getHost() instanceof GhostLinkEditPart)) {
-            DeleteInDiagramCommand ret = new DeleteInDiagramCommand();
-            ret.setNodetoDelete((GmModel) getHost().getModel());
-            return ret;
-        } else {
-            return getHost().getParent().getCommand(request);
+                    DeleteInDiagramCommand ret = new DeleteInDiagramCommand();
+                    ret.setNodetoDelete((IGmObject) model);
+                    return ret;
+                }
+            } else if(model instanceof IGmDrawing) {
+                DeleteInDiagramCommand ret = new DeleteInDiagramCommand();
+                ret.setNodetoDelete((IGmObject) model);
+                return ret;
+            } 
         }
+        return getHost().getParent().getCommand(request);
     }
 
 }

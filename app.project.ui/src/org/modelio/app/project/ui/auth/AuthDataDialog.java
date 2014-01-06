@@ -45,7 +45,7 @@ public class AuthDataDialog extends ModelioDialog {
     private String toAuthenticate;
 
     @objid ("dca78735-c3ad-43a7-ba9d-f0b9c22d23bc")
-    private static final String HELP_TOPIC = "/com.modeliosoft.modelio.documentation.modeler/html/Teamwork-_svn_teamwork_set_up_set_up.html";
+    private static final String HELP_TOPIC = "/org.modelio.documentation.modeler/html/Teamwork-_svn_teamwork_set_up_set_up.html";
 
     @objid ("b6e2c006-ce32-44a4-833f-d15c72702902")
     private AuthDataPanel authDataPanel;

@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.bpmn.activities;
 
 import java.util.ArrayList;
@@ -44,69 +44,69 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("0082b734-c4bf-1fd8-97fe-001ec947cd2a")
 public class BpmnSendTaskImpl extends BpmnTaskImpl implements BpmnSendTask {
-    @objid ("93fd3d84-8cc4-423e-b1e6-9b438f935aec")
+    @objid ("5db69b91-5ae1-465d-bc44-b3e68b78530c")
     @Override
     public String getImplementation() {
         return (String) getAttVal(BpmnSendTaskData.Metadata.ImplementationAtt());
     }
 
-    @objid ("c43f5ad7-7438-4063-8b64-0651f586f095")
+    @objid ("6c0046c4-62f0-48f9-973f-9ae1c46da4bf")
     @Override
     public void setImplementation(String value) {
         setAttVal(BpmnSendTaskData.Metadata.ImplementationAtt(), value);
     }
 
-    @objid ("ace608a4-b166-4209-bb74-def11953d5d2")
+    @objid ("ecebfd3a-2a89-4fbb-a1b0-07ba7c9cac64")
     @Override
     public BpmnMessage getMessageRef() {
         return (BpmnMessage) getDepVal(BpmnSendTaskData.Metadata.MessageRefDep());
     }
 
-    @objid ("7c50d3bd-d86e-4f8a-96ed-9d93612abd57")
+    @objid ("02fcf23a-69ee-45ed-b3a2-1d3592442db0")
     @Override
     public void setMessageRef(BpmnMessage value) {
         appendDepVal(BpmnSendTaskData.Metadata.MessageRefDep(), (SmObjectImpl)value);
     }
 
-    @objid ("b36dab63-339c-4dd4-9e6c-7f777d3da58b")
+    @objid ("910e3e4f-eef1-412b-b267-b4901fcf2976")
     @Override
     public BpmnOperation getOperationRef() {
         return (BpmnOperation) getDepVal(BpmnSendTaskData.Metadata.OperationRefDep());
     }
 
-    @objid ("31c5145d-3ebc-40ab-a489-aad417893ce2")
+    @objid ("f3a24532-bd5e-4014-8fc8-521042b90039")
     @Override
     public void setOperationRef(BpmnOperation value) {
         appendDepVal(BpmnSendTaskData.Metadata.OperationRefDep(), (SmObjectImpl)value);
     }
 
-    @objid ("fe6bc13e-c130-4877-82e1-0b2c2d51a121")
+    @objid ("339b3fca-9f4c-4d84-899a-c70b15753a36")
     @Override
     public Operation getCalledOperation() {
         return (Operation) getDepVal(BpmnSendTaskData.Metadata.CalledOperationDep());
     }
 
-    @objid ("532a9b15-02c8-4958-b5a6-865725630a3b")
+    @objid ("b569dba7-b883-4b23-852d-5c75a0f90dd3")
     @Override
     public void setCalledOperation(Operation value) {
         appendDepVal(BpmnSendTaskData.Metadata.CalledOperationDep(), (SmObjectImpl)value);
     }
 
-    @objid ("113d2a96-b348-479a-a88f-9affd8dc3f6c")
+    @objid ("7692c7f4-ea61-453c-8670-02668a8d6ea0")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("0d2897f9-8b91-4fc1-a2cf-96d02ce99b88")
+    @objid ("68a429e1-e2ae-472c-ab8b-5ce8deee0f83")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("e8d37122-8b6c-466c-bb73-3975b502032e")
+    @objid ("8f2c00c0-a673-4190-ad53-9143edfcf672")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitBpmnSendTask(this);

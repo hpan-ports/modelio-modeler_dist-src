@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.bpmn.events;
 
 import java.util.ArrayList;
@@ -42,19 +42,19 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("008e2808-c4bf-1fd8-97fe-001ec947cd2a")
 public class BpmnImplicitThrowEventImpl extends BpmnThrowEventImpl implements BpmnImplicitThrowEvent {
-    @objid ("ae9b5dce-0b2f-4252-bcc4-e56c2d9c6df6")
+    @objid ("5f9ed1a6-c193-4224-be6d-b2766784f048")
     @Override
     public BpmnComplexBehaviorDefinition getOwner() {
         return (BpmnComplexBehaviorDefinition) getDepVal(BpmnImplicitThrowEventData.Metadata.OwnerDep());
     }
 
-    @objid ("2314c601-f43e-4cd1-83a7-aa3dd249acd4")
+    @objid ("7aff9152-056d-4efe-b961-0a173b5d53a9")
     @Override
     public void setOwner(BpmnComplexBehaviorDefinition value) {
         appendDepVal(BpmnImplicitThrowEventData.Metadata.OwnerDep(), (SmObjectImpl)value);
     }
 
-    @objid ("a279530f-680b-4849-adfb-17fe18e034d0")
+    @objid ("a2cdbb91-1244-4955-8288-e841fa4e4693")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
@@ -64,7 +64,7 @@ public class BpmnImplicitThrowEventImpl extends BpmnThrowEventImpl implements Bp
         return super.getCompositionOwner();
     }
 
-    @objid ("c84fd471-c3a2-4a17-b1c8-7168de480a18")
+    @objid ("a8c72b9d-317a-40d1-8c39-4858430e0d97")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
@@ -74,7 +74,7 @@ public class BpmnImplicitThrowEventImpl extends BpmnThrowEventImpl implements Bp
         return super.getCompositionRelation();
     }
 
-    @objid ("0868c2d2-adee-47b5-b70e-9f4393baccc3")
+    @objid ("442d5fb3-ce3d-4ddf-a936-ffd14d2cc6c7")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitBpmnImplicitThrowEvent(this);

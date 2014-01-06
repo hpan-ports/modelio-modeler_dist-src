@@ -31,13 +31,13 @@ import org.modelio.vcore.smkernel.mapi.MObject;
 public class AntonymCreationExpert extends DefaultLinkExpert {
     @objid ("89516ce7-cbd4-4bcb-afa4-1368bd0199de")
     @Override
-    public boolean canLink(MObject link, final MObject fromElement, final MObject toElement, final MObject linkOwner) {
+    public boolean canLink(MClass link, final MObject fromElement, final MObject toElement) {
         return (fromElement instanceof Term) && (toElement instanceof Term);
     }
 
     @objid ("dda17e89-e1aa-46d1-81d9-19010bf3a195")
     @Override
-    public boolean canLink(MClass link, final MClass fromMetaclass, final MClass toMetaclass, final MClass owner) {
+    public boolean canLink(MClass link, final MClass fromMetaclass, final MClass toMetaclass) {
         return fromMetaclass.hasBase(Metamodel.getMClass(Term.class)) && toMetaclass.hasBase(Metamodel.getMClass(Term.class));
     }
 

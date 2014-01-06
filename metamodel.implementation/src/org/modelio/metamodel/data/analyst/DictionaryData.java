@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.data.analyst;
 
 import java.util.ArrayList;
@@ -46,50 +46,50 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("005be7bc-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=Dictionary.class, factory=DictionaryData.Metadata.ObjectFactory.class, cmsnode=true)
 public class DictionaryData extends AnalystContainerData {
-    @objid ("751cf6b0-c5f1-4134-afef-9e4a9a510b59")
+    @objid ("d485f607-2731-459d-bc23-4891ed5ad329")
     @SmaMetaAssociation(metaName="OwnedDictionary", typeDataClass=DictionaryData.class, min=0, max=-1, smAssociationClass=Metadata.OwnedDictionarySmDependency.class, component = true)
      List<SmObjectImpl> mOwnedDictionary = null;
 
-    @objid ("d57d743d-0d7a-49d4-9d0b-9b4651683eed")
+    @objid ("bafa0dbe-4955-4274-a949-68444dde7b59")
     @SmaMetaAssociation(metaName="OwnerDictionary", typeDataClass=DictionaryData.class, min=0, max=1, smAssociationClass=Metadata.OwnerDictionarySmDependency.class)
      SmObjectImpl mOwnerDictionary;
 
-    @objid ("e9f49a63-982a-4015-8e9e-f896421a7142")
+    @objid ("38aed818-eec9-4f0b-afd6-ae9cda52c09f")
     @SmaMetaAssociation(metaName="OwnerProject", typeDataClass=AnalystProjectData.class, min=0, max=1, smAssociationClass=Metadata.OwnerProjectSmDependency.class)
      SmObjectImpl mOwnerProject;
 
-    @objid ("6e372440-20ea-4a7f-b82a-2e5c93f6fd15")
+    @objid ("97f58cbb-1cfc-444a-9072-30dc56f372ba")
     @SmaMetaAssociation(metaName="OwnedTerm", typeDataClass=TermData.class, min=0, max=-1, smAssociationClass=Metadata.OwnedTermSmDependency.class, component = true)
      List<SmObjectImpl> mOwnedTerm = null;
 
-    @objid ("f0e0d45c-236c-42b3-8d62-6533761e6a2d")
+    @objid ("be54d9bf-f429-4dbf-9d11-73c239327cd3")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("0081b7f8-c4c4-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("04657621-6ad7-43b0-afe6-1d3ec34a4a61")
+        @objid ("0770505b-0a1f-476e-a138-470275153ac1")
         private static SmClass smClass = null;
 
-        @objid ("1a4150e8-1e21-4c21-9d3d-afd927c3653f")
+        @objid ("6a91b3ba-66ce-439c-a60b-3dca0807dcd2")
         private static SmDependency OwnedDictionaryDep = null;
 
-        @objid ("bf8fba28-3894-4e41-af70-4130fcc246d9")
+        @objid ("28c0a193-551b-4077-a6f5-321caf17ba87")
         private static SmDependency OwnerDictionaryDep = null;
 
-        @objid ("1a3225ee-2d45-4cbd-a56b-34797fe34f93")
+        @objid ("5f5cd530-9c83-4555-a668-7a72399d93bc")
         private static SmDependency OwnerProjectDep = null;
 
-        @objid ("a6d3cfc0-a455-4347-94ea-d74e78e6c537")
+        @objid ("0dc080fe-0780-425a-8c5f-0ef62e5b2829")
         private static SmDependency OwnedTermDep = null;
 
-        @objid ("ae3ee875-bd86-4445-bd2d-9e52f557ad6d")
+        @objid ("117f6b84-364c-42ea-8ace-d60cfa7ea8f7")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(DictionaryData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("fa930bbe-5632-4a2c-9074-2c2f36d1c9da")
+        @objid ("d869f26f-5afc-4b00-8636-cd3be5793fd2")
         public static SmDependency OwnedDictionaryDep() {
             if (OwnedDictionaryDep == null) {
             	OwnedDictionaryDep = classof().getDependencyDef("OwnedDictionary");
@@ -97,7 +97,7 @@ public class DictionaryData extends AnalystContainerData {
             return OwnedDictionaryDep;
         }
 
-        @objid ("80afbc40-68e3-4d5b-8330-f6d01e3adb81")
+        @objid ("413366b9-d584-4fc1-97b3-423b8542fd86")
         public static SmDependency OwnerDictionaryDep() {
             if (OwnerDictionaryDep == null) {
             	OwnerDictionaryDep = classof().getDependencyDef("OwnerDictionary");
@@ -105,7 +105,7 @@ public class DictionaryData extends AnalystContainerData {
             return OwnerDictionaryDep;
         }
 
-        @objid ("d931b50a-362d-4bab-a128-4e485e17b289")
+        @objid ("1dbecc85-ca13-492d-b7d0-08fee8acb47a")
         public static SmDependency OwnerProjectDep() {
             if (OwnerProjectDep == null) {
             	OwnerProjectDep = classof().getDependencyDef("OwnerProject");
@@ -113,7 +113,7 @@ public class DictionaryData extends AnalystContainerData {
             return OwnerProjectDep;
         }
 
-        @objid ("87c5ff6c-d414-49ed-8a6f-90f422464f87")
+        @objid ("da6a12fe-9403-46c5-955d-c5d17e81f5ca")
         public static SmDependency OwnedTermDep() {
             if (OwnedTermDep == null) {
             	OwnedTermDep = classof().getDependencyDef("OwnedTerm");
@@ -121,44 +121,44 @@ public class DictionaryData extends AnalystContainerData {
             return OwnedTermDep;
         }
 
-        @objid ("11a51882-9389-49a6-a071-6c5bb6b99999")
-        public static SmDependency getOwnedDictionaryDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return OwnedDictionaryDep;
-        }
-
-        @objid ("3defdf47-5e91-4d44-bfcd-cbefb6f2ba1b")
-        public static SmDependency getOwnerProjectDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return OwnerProjectDep;
-        }
-
-        @objid ("d3853013-bf26-4d4c-8a0b-8e9a2633f298")
-        public static SmClass getSmClass() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return smClass;
-        }
-
-        @objid ("a48747d3-00a6-40c5-a205-f7b955128498")
-        public static SmDependency getOwnerDictionaryDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return OwnerDictionaryDep;
-        }
-
-        @objid ("2da62988-74c2-43f4-b27b-1366ab48641a")
+        @objid ("33c929ec-c507-4d95-b597-8b3a9872ccde")
         public static SmDependency getOwnedTermDep() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return OwnedTermDep;
         }
 
+        @objid ("4e4fcf6b-b2cc-42d1-b16d-eec25ba97820")
+        public static SmDependency getOwnedDictionaryDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return OwnedDictionaryDep;
+        }
+
+        @objid ("d77e864e-d607-4b5b-b818-fada3f13c38d")
+        public static SmDependency getOwnerDictionaryDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return OwnerDictionaryDep;
+        }
+
+        @objid ("e34ee698-4f69-414c-a88b-ba8db5593cb4")
+        public static SmClass getSmClass() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return smClass;
+        }
+
+        @objid ("56d28fd8-aaac-45f4-9313-9a582d588917")
+        public static SmDependency getOwnerProjectDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return OwnerProjectDep;
+        }
+
         @objid ("0081f84e-c4c4-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("0c42cf7d-f656-4fbf-8e98-052151dabe94")
+            @objid ("d2135b7b-6a3d-4d57-9cf8-883948f1ad00")
             public ISmObjectData createData() {
                 return new DictionaryData();
             }
 
-            @objid ("5c78c968-59cf-4250-a45d-90c4fe5e6335")
+            @objid ("72980eee-9545-497a-973d-c83e67cc9040")
             public SmObjectImpl createImpl() {
                 return new DictionaryImpl();
             }
@@ -167,20 +167,20 @@ public class DictionaryData extends AnalystContainerData {
 
         @objid ("08c7dafc-6d39-439b-ad42-f68c1a95b402")
         public static class OwnedDictionarySmDependency extends SmMultipleDependency {
-            @objid ("cee4eee9-3a49-494f-b767-b448fed8d0b5")
+            @objid ("6828ee77-be02-4292-90f3-aec86c6ae81b")
             @Override
             public List<SmObjectImpl> getValueList(ISmObjectData data) {
                 return (((DictionaryData)data).mOwnedDictionary != null)? ((DictionaryData)data).mOwnedDictionary:SmMultipleDependency.EMPTY;
             }
 
-            @objid ("b6b11267-beb9-49d9-86e8-f53763c0b170")
+            @objid ("1a621d8f-0d52-46bb-b693-ff743dab4cc5")
             @Override
             protected List<SmObjectImpl> allocateValueList(ISmObjectData data, int initialCapacity) {
                 ((DictionaryData) data).mOwnedDictionary = new ArrayList<>(initialCapacity);
                 return ((DictionaryData) data).mOwnedDictionary;
             }
 
-            @objid ("87b523bd-2b40-4a24-8ed7-b18282e3ae9f")
+            @objid ("76abd7ae-0c33-441e-93e6-7a7e08fe79aa")
             @Override
             public SmDependency getSymetric() {
                 return DictionaryData.Metadata.OwnerDictionaryDep();
@@ -190,18 +190,18 @@ public class DictionaryData extends AnalystContainerData {
 
         @objid ("a1fb7aa6-9ccc-4afb-a391-41088931d3bb")
         public static class OwnerDictionarySmDependency extends SmSingleDependency {
-            @objid ("78adddb9-f48c-4c01-9ebf-c47fd1d61246")
+            @objid ("64d2f3cb-9cff-4f91-a7be-5ac6697f49d8")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((DictionaryData) data).mOwnerDictionary;
             }
 
-            @objid ("36440563-7486-452f-88a9-0aabddc9b410")
+            @objid ("57efe2eb-ed61-4a99-84f9-b7c43372a2fb")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((DictionaryData) data).mOwnerDictionary = value;
             }
 
-            @objid ("062d3cbe-9fcf-42d0-b082-84c73eb98892")
+            @objid ("539b0821-4cef-437f-befb-f7d2aa754ae1")
             @Override
             public SmDependency getSymetric() {
                 return DictionaryData.Metadata.OwnedDictionaryDep();
@@ -211,20 +211,20 @@ public class DictionaryData extends AnalystContainerData {
 
         @objid ("d76aebd1-35ee-4bd6-b519-b941b14b33b5")
         public static class OwnedTermSmDependency extends SmMultipleDependency {
-            @objid ("0135c8e4-5c54-4c97-b726-93148035b7d3")
+            @objid ("c701177f-ec62-4ce5-a48a-d05f9cf5fdea")
             @Override
             public List<SmObjectImpl> getValueList(ISmObjectData data) {
                 return (((DictionaryData)data).mOwnedTerm != null)? ((DictionaryData)data).mOwnedTerm:SmMultipleDependency.EMPTY;
             }
 
-            @objid ("1a44d501-cc74-4a6d-90f2-255b86310470")
+            @objid ("6432cedd-8607-478f-96c2-9f448135937b")
             @Override
             protected List<SmObjectImpl> allocateValueList(ISmObjectData data, int initialCapacity) {
                 ((DictionaryData) data).mOwnedTerm = new ArrayList<>(initialCapacity);
                 return ((DictionaryData) data).mOwnedTerm;
             }
 
-            @objid ("7f939f0c-b2b5-415e-9e30-43dd4f60466b")
+            @objid ("3a15f3de-00d1-43e3-9c4d-223691e6778c")
             @Override
             public SmDependency getSymetric() {
                 return TermData.Metadata.OwnerDictionaryDep();
@@ -234,18 +234,18 @@ public class DictionaryData extends AnalystContainerData {
 
         @objid ("be55b810-47b3-4534-b494-ef9bca486e4d")
         public static class OwnerProjectSmDependency extends SmSingleDependency {
-            @objid ("caf5dff1-bce8-4970-94fd-2f479f624900")
+            @objid ("63318aa7-9ffc-4d44-b4f0-92941ea71ad3")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((DictionaryData) data).mOwnerProject;
             }
 
-            @objid ("612e8047-dfdc-42e4-ac5c-1cd242fa127f")
+            @objid ("e0bb8a6c-0936-4c66-82e8-69e68881dfa7")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((DictionaryData) data).mOwnerProject = value;
             }
 
-            @objid ("baf050ef-85ca-4b94-9246-7ae116a13b17")
+            @objid ("945fa55f-a189-4d28-8e1e-588029b9fd9d")
             @Override
             public SmDependency getSymetric() {
                 return AnalystProjectData.Metadata.DictionaryRootDep();

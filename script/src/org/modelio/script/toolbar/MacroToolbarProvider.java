@@ -139,7 +139,7 @@ public class MacroToolbarProvider {
             @Override
             public void widgetSelected(SelectionEvent e) {
                 RunMacroHandler runner = new RunMacroHandler();
-                runner.execute(MacroToolbarProvider.this.partService, entry.getScriptPath().toString());
+                runner.execute(MacroToolbarProvider.this.partService, MacroToolbarProvider.this.application.getSelectedElement(), entry.getScriptPath().toString());
             }
         
             @Override

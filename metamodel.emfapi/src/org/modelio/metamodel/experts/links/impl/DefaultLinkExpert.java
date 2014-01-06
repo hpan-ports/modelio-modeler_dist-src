@@ -43,25 +43,13 @@ public class DefaultLinkExpert implements ILinkExpert {
 
     @objid ("6094c53b-1f4d-11e2-8009-002564c97630")
     @Override
-    public boolean canLink(MObject link, MObject from, MObject to, MObject owner) {
-        if (owner != null) {
-            // Check ownership
-            if (this.metaUtils.canCompose(owner, link, null) == false) {
-                return false;
-            }
-        }
-        return RULES.canLink(link.getMClass(), from.getMClass(), to.getMClass());
+    public boolean canLink(MClass link, MObject from, MObject to) {
+        return RULES.canLink(link, from.getMClass(), to.getMClass());
     }
 
     @objid ("6094c546-1f4d-11e2-8009-002564c97630")
     @Override
-    public boolean canLink(MClass link, MClass from, MClass to, MClass owner) {
-        if (owner != null) {
-            // Check ownership
-            if (this.metaUtils.canCompose(owner, link, null) == false) {
-                return false;
-            }
-        }
+    public boolean canLink(MClass link, MClass from, MClass to) {
         return RULES.canLink(link, from, to);
     }
 

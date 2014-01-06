@@ -101,7 +101,7 @@ public class ProjectCreator implements IProjectCreator {
                     @Override
                     public void run() {
                         MessageDialog.openError(Display.getDefault().getActiveShell(), AppProjectUiExt.I18N.getString("NewProjectFailed.Title"), AppProjectUiExt.I18N.getString("NewProjectFailed.Message"));
-            }
+                    }
                 });
                 AppProjectUiExt.LOG.error("Unable to create project, Modeler Module is missing");
                 throw new IOException();

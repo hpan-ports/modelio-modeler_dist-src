@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.bpmn.gateways;
 
 import java.util.ArrayList;
@@ -42,45 +42,45 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("009813cc-c4bf-1fd8-97fe-001ec947cd2a")
 public class BpmnEventBasedGatewayImpl extends BpmnGatewayImpl implements BpmnEventBasedGateway {
-    @objid ("e87526a7-fc22-41c4-9e12-36168111ef47")
+    @objid ("2e47bfc7-d63a-4ca0-a2ee-0c382c8c1538")
     @Override
     public boolean isInstanciate() {
         return (Boolean) getAttVal(BpmnEventBasedGatewayData.Metadata.InstanciateAtt());
     }
 
-    @objid ("eaef43aa-631b-4a3a-bd4c-253596545842")
+    @objid ("0c12b40d-14fe-4490-a808-952110415bf7")
     @Override
     public void setInstanciate(boolean value) {
         setAttVal(BpmnEventBasedGatewayData.Metadata.InstanciateAtt(), value);
     }
 
-    @objid ("8f5e86a5-5a43-495c-a1b6-860d677ec718")
+    @objid ("fd251bb3-37c5-454b-be6d-5e70e14fa72f")
     @Override
     public BpmnEventBasedGatewayType getEventGatewayType() {
         return (BpmnEventBasedGatewayType) getAttVal(BpmnEventBasedGatewayData.Metadata.EventGatewayTypeAtt());
     }
 
-    @objid ("64017935-408d-4e2a-bcc3-841f143e917a")
+    @objid ("902d60b0-6842-4d28-b7bd-1d76b76a1496")
     @Override
     public void setEventGatewayType(BpmnEventBasedGatewayType value) {
         setAttVal(BpmnEventBasedGatewayData.Metadata.EventGatewayTypeAtt(), value);
     }
 
-    @objid ("f3ddbb0d-f241-42f7-9044-a586cb8cf6f3")
+    @objid ("83ddb942-46d3-468e-ab3e-e586cfbeea67")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("1ef8f09b-35ac-4d60-b636-117c27ba79ec")
+    @objid ("aa753244-ac35-438d-b061-e89654735f19")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("3d94fc48-e731-4467-945f-34acb239bad2")
+    @objid ("8155ec34-b641-43c7-bf86-ec1c241bb930")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitBpmnEventBasedGateway(this);

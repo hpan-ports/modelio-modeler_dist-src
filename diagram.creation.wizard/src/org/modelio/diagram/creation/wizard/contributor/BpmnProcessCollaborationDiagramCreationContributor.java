@@ -33,7 +33,7 @@ public class BpmnProcessCollaborationDiagramCreationContributor extends Abstract
     @objid ("53c16dfc-36b2-43a4-86f4-bce9a605086b")
     @Override
     public AbstractDiagram actionPerformed(final ModelElement diagramContext, final String diagramName, final String diagramDescription) {
-        IModelFactory modelFactory = this.mmServices.getModelFactory(diagramContext);
+        IModelFactory modelFactory = this.mmServices.getModelFactory();
         BpmnProcess process = null;
         
         if (diagramContext instanceof BpmnProcess)
@@ -71,7 +71,11 @@ public class BpmnProcessCollaborationDiagramCreationContributor extends Abstract
     private BpmnProcessCollaborationDiagram createBPMNDiagram(final IModelFactory modelFactory, final BpmnProcess owner, final String diagramName) {
         BpmnProcessCollaborationDiagram diagram = modelFactory.createBpmnProcessCollaborationDiagram();
         diagram.setOrigin(owner);
-        diagram.setName(diagramName);
+        if (diagramName.equals(this.getLabel())) {                
+            setElementDefaultName(diagram);
+        } else {
+            diagram.setName(diagramName);
+        }
         return diagram;
     }
 

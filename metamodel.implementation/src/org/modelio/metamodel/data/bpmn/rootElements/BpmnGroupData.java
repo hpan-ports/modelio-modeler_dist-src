@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.data.bpmn.rootElements;
 
 import java.util.ArrayList;
@@ -45,36 +45,36 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("007a84d8-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=BpmnGroup.class, factory=BpmnGroupData.Metadata.ObjectFactory.class)
 public class BpmnGroupData extends BpmnArtifactData {
-    @objid ("7f60849c-f4a0-4a91-9f78-523fc8d7af98")
+    @objid ("81ad6361-2566-4bef-8f69-4d4955c338a6")
     @SmaMetaAttribute(metaName="Category", type=String.class, smAttributeClass=Metadata.CategorySmAttribute.class)
      Object mCategory = "";
 
-    @objid ("bbea8b7e-9610-40d7-bb90-cf6e6db80fb3")
+    @objid ("a9d334f2-2b97-4e01-afa9-4744e205595f")
     @SmaMetaAssociation(metaName="Categorized", typeDataClass=BpmnFlowElementData.class, min=0, max=-1, smAssociationClass=Metadata.CategorizedSmDependency.class, partof = true)
      List<SmObjectImpl> mCategorized = null;
 
-    @objid ("a7a5cf37-0f87-4d39-ad01-d2b9b95195ec")
+    @objid ("39736cf5-53db-4ee8-b5e6-33f832f857b9")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("00942bb8-c4c3-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("01a2e03f-71e1-4211-b24a-e98196a8af4d")
+        @objid ("6f0046ce-53bd-49f1-a81e-14eeb23fe467")
         private static SmClass smClass = null;
 
-        @objid ("b8b54686-83b7-454c-a876-94ea2dc37f52")
+        @objid ("36e63b76-8a7a-4dc6-aca0-2532e6ffd3a6")
         private static SmAttribute CategoryAtt = null;
 
-        @objid ("89c0e9b5-c904-479a-95b4-1c19224a1183")
+        @objid ("508801d5-65ad-46a6-b82c-b6bd14a506fe")
         private static SmDependency CategorizedDep = null;
 
-        @objid ("69aed248-d603-41f0-b5e9-80104256834c")
+        @objid ("20880cc5-d8d3-471e-bb9a-18ff5e9b49ae")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(BpmnGroupData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("07a2cfee-0b4e-4982-9356-1e4ff61c6ba9")
+        @objid ("5a849c31-d815-4fb6-a668-a883966115c2")
         public static SmAttribute CategoryAtt() {
             if (CategoryAtt == null) {
             	CategoryAtt = classof().getAttributeDef("Category");
@@ -82,7 +82,7 @@ public class BpmnGroupData extends BpmnArtifactData {
             return CategoryAtt;
         }
 
-        @objid ("c8db7481-50c9-475a-954e-7734f4c8f03c")
+        @objid ("f3d8c49f-1edd-4e27-b2e1-d7f065afaadd")
         public static SmDependency CategorizedDep() {
             if (CategorizedDep == null) {
             	CategorizedDep = classof().getDependencyDef("Categorized");
@@ -90,19 +90,19 @@ public class BpmnGroupData extends BpmnArtifactData {
             return CategorizedDep;
         }
 
-        @objid ("af81374b-aca6-4399-a6f8-6565a1c9280f")
-        public static SmDependency getCategorizedDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return CategorizedDep;
-        }
-
-        @objid ("9ed3f9f5-167e-4fbb-a569-81798af04eb4")
+        @objid ("7b8a6e7e-d30b-48d5-b765-7fd76b2c5905")
         public static SmClass getSmClass() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return smClass;
         }
 
-        @objid ("19d569e2-54dc-4eba-bf5e-76de77420a9e")
+        @objid ("b345766f-7e23-400a-a762-f6b4b074c3d7")
+        public static SmDependency getCategorizedDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return CategorizedDep;
+        }
+
+        @objid ("e8515382-82ea-43a8-a760-e482f120e707")
         public static SmAttribute getCategoryAtt() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return CategoryAtt;
@@ -110,12 +110,12 @@ public class BpmnGroupData extends BpmnArtifactData {
 
         @objid ("009533dc-c4c3-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("68b8becf-1c45-4fde-b741-0000085016a0")
+            @objid ("c0a46d15-f15d-46d1-968f-3d787f8ee378")
             public ISmObjectData createData() {
                 return new BpmnGroupData();
             }
 
-            @objid ("f2c5638c-4b70-4f39-a523-feb499b5be19")
+            @objid ("da0e12d1-c86f-40e1-99b0-084ed0586c4f")
             public SmObjectImpl createImpl() {
                 return new BpmnGroupImpl();
             }
@@ -124,12 +124,12 @@ public class BpmnGroupData extends BpmnArtifactData {
 
         @objid ("0095a7ea-c4c3-1fd8-97fe-001ec947cd2a")
         public static class CategorySmAttribute extends SmAttribute {
-            @objid ("6266acb3-0b0b-46ad-b222-d288c220dd16")
+            @objid ("b4979a64-017f-47d0-a81f-9df46a298583")
             public Object getValue(ISmObjectData data) {
                 return ((BpmnGroupData) data).mCategory;
             }
 
-            @objid ("b622275a-13a2-4e5e-a86f-6bdba651802d")
+            @objid ("70dd280e-d7bc-4dcf-8e12-6c58135391c9")
             public void setValue(ISmObjectData data, Object value) {
                 ((BpmnGroupData) data).mCategory = value;
             }
@@ -138,20 +138,20 @@ public class BpmnGroupData extends BpmnArtifactData {
 
         @objid ("00960bae-c4c3-1fd8-97fe-001ec947cd2a")
         public static class CategorizedSmDependency extends SmMultipleDependency {
-            @objid ("2f59b52b-fb4c-40ef-8a70-06419eeba49b")
+            @objid ("c93fccf0-efd6-4dd4-aeee-18700a865b64")
             @Override
             public List<SmObjectImpl> getValueList(ISmObjectData data) {
                 return (((BpmnGroupData)data).mCategorized != null)? ((BpmnGroupData)data).mCategorized:SmMultipleDependency.EMPTY;
             }
 
-            @objid ("2f9aba8d-b4a9-4a47-a46f-e92524e07dc6")
+            @objid ("062ff6e4-51f7-460d-ba83-2e15ee1ba254")
             @Override
             protected List<SmObjectImpl> allocateValueList(ISmObjectData data, int initialCapacity) {
                 ((BpmnGroupData) data).mCategorized = new ArrayList<>(initialCapacity);
                 return ((BpmnGroupData) data).mCategorized;
             }
 
-            @objid ("fcfadcba-b678-44a5-92bf-9793dddc2e71")
+            @objid ("3017bb59-f36b-4ed1-a440-c23d1294af69")
             @Override
             public SmDependency getSymetric() {
                 return BpmnFlowElementData.Metadata.GroupsDep();

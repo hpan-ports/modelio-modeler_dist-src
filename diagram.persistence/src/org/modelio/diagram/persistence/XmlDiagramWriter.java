@@ -506,8 +506,10 @@ public class XmlDiagramWriter implements IDiagramWriter {
 
     /**
      * Write a string attribute.
-     * @param attName
-     * @param value
+     * <p>
+     * String attribute values are put in a text xml node to support line breaks.
+     * @param attName attribute name
+     * @param value attribute value
      * @throws org.modelio.diagram.persistence.PersistenceException in case of unexpected error.
      */
     @objid ("cb835c92-186f-11e2-92d2-001ec947c8cc")
@@ -517,7 +519,12 @@ public class XmlDiagramWriter implements IDiagramWriter {
             this.writer.writeStartElement(SchemaConstants.TAG_PROP);
             this.writer.writeAttribute(SchemaConstants.ATT_PROP_NAME, attName);
         
-            this.writeValue(value);
+            //this.writeValue(value);
+            this.writer.writeStartElement(SchemaConstants.TAG_VALUE);
+            this.writer.writeAttribute(SchemaConstants.ATT_VALUE_TYPE, "String");
+            if (value != null)
+                this.writer.writeCharacters(value);
+            this.writer.writeEndElement();
         
             this.writer.writeEndElement();
         } catch (XMLStreamException e) {

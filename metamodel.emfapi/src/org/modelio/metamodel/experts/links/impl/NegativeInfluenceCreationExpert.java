@@ -31,14 +31,14 @@ import org.modelio.vcore.smkernel.mapi.MObject;
 public class NegativeInfluenceCreationExpert extends DefaultLinkExpert {
     @objid ("fe30276b-8b17-43ec-9fb1-5ab3d1010f91")
     @Override
-    public boolean canLink(MObject link, final MObject fromElement, final MObject toElement, final MObject linkOwner) {
+    public boolean canLink(MClass link, final MObject fromElement, final MObject toElement) {
         return (fromElement instanceof Goal) &&
                (toElement instanceof Goal);
     }
 
     @objid ("b28521f3-ffe2-4e58-b860-e0164bda8451")
     @Override
-    public boolean canLink(MClass link, final MClass fromMetaclass, final MClass toMetaclass, final MClass owner) {
+    public boolean canLink(MClass link, final MClass fromMetaclass, final MClass toMetaclass) {
         return fromMetaclass.hasBase(Metamodel.getMClass(Goal.class)) &&
                toMetaclass.hasBase(Metamodel.getMClass(Goal.class));
     }

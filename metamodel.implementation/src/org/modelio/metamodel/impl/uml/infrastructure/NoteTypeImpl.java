@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.uml.infrastructure;
 
 import java.util.ArrayList;
@@ -60,37 +60,37 @@ public class NoteTypeImpl extends ModelElementImpl implements NoteType {
             return null;
     }
 
-    @objid ("4d82b7f3-4951-4f81-8157-dcd9ad8f949e")
+    @objid ("26294a04-21c7-4b35-89cb-dbaad70aba76")
     @Override
     public boolean isIsHidden() {
         return (Boolean) getAttVal(NoteTypeData.Metadata.IsHiddenAtt());
     }
 
-    @objid ("c3c306cc-7cf3-4b15-ad8c-7e6baeca7488")
+    @objid ("298a1385-64c6-48a5-82f4-4d0c32d265b0")
     @Override
     public void setIsHidden(boolean value) {
         setAttVal(NoteTypeData.Metadata.IsHiddenAtt(), value);
     }
 
-    @objid ("3942d10c-559a-48c1-81c4-b0ef7c507bc7")
+    @objid ("00d2a4fd-2113-442e-9cc4-f0c808bfcb66")
     @Override
     public String getLabelKey() {
         return (String) getAttVal(NoteTypeData.Metadata.LabelKeyAtt());
     }
 
-    @objid ("feb47dae-92e2-421a-8af1-2839b39b92b8")
+    @objid ("52472758-c689-4316-8911-db9704365cdb")
     @Override
     public void setLabelKey(String value) {
         setAttVal(NoteTypeData.Metadata.LabelKeyAtt(), value);
     }
 
-    @objid ("5747c615-498a-4095-817a-ef48feebd6ff")
+    @objid ("7e7653f3-7bbb-4ce1-a318-46cfd7150891")
     @Override
     public EList<Note> getElement() {
         return new SmList<>(this, NoteTypeData.Metadata.ElementDep());
     }
 
-    @objid ("b1760b70-d3cc-48cd-962b-458c0ebbd177")
+    @objid ("a4571f53-6c09-4145-abb4-24a0b79d4eb8")
     @Override
     public <T extends Note> List<T> getElement(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -103,31 +103,31 @@ public class NoteTypeImpl extends ModelElementImpl implements NoteType {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("bb6afbdd-91db-450a-8576-a87cd4655d4d")
+    @objid ("4d10bac5-ba37-4ae9-9810-c3e904a7a35b")
     @Override
     public Stereotype getOwnerStereotype() {
         return (Stereotype) getDepVal(NoteTypeData.Metadata.OwnerStereotypeDep());
     }
 
-    @objid ("04ffc7a5-46b9-44dc-9f68-f12a2dbd5904")
+    @objid ("ca1fbe34-d7b7-4d50-a331-2f1e29a41b42")
     @Override
     public void setOwnerStereotype(Stereotype value) {
         appendDepVal(NoteTypeData.Metadata.OwnerStereotypeDep(), (SmObjectImpl)value);
     }
 
-    @objid ("35ed3d49-32f7-417b-8ca9-d04b49282811")
+    @objid ("3bf97857-8a80-4751-b61b-179658a2a317")
     @Override
     public MetaclassReference getOwnerReference() {
         return (MetaclassReference) getDepVal(NoteTypeData.Metadata.OwnerReferenceDep());
     }
 
-    @objid ("e06ea7d2-b29c-47e3-ba37-3168f4ca445e")
+    @objid ("8774db59-5f92-4c0a-a02b-94ccb687cc15")
     @Override
     public void setOwnerReference(MetaclassReference value) {
         appendDepVal(NoteTypeData.Metadata.OwnerReferenceDep(), (SmObjectImpl)value);
     }
 
-    @objid ("ac7152ee-fd96-41a8-8faa-86bc5105f9df")
+    @objid ("9e7dba81-fd32-4799-b80d-b2f6639b3334")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
@@ -140,7 +140,7 @@ public class NoteTypeImpl extends ModelElementImpl implements NoteType {
         return super.getCompositionOwner();
     }
 
-    @objid ("fe5090c4-18db-4392-ab25-4b45bf351b7d")
+    @objid ("0adc36c6-7141-41ad-8472-e0e4edd43ef8")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
@@ -153,7 +153,7 @@ public class NoteTypeImpl extends ModelElementImpl implements NoteType {
         return super.getCompositionRelation();
     }
 
-    @objid ("194203fb-5ff0-46de-b654-41afc3d61bde")
+    @objid ("0173e6a8-c88d-4fe3-8582-5f7deabb990a")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitNoteType(this);

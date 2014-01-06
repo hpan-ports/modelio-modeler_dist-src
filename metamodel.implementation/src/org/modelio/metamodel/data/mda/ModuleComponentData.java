@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.data.mda;
 
 import java.util.ArrayList;
@@ -49,106 +49,106 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("0065c782-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=ModuleComponent.class, factory=ModuleComponentData.Metadata.ObjectFactory.class, cmsnode=true)
 public class ModuleComponentData extends ComponentData {
-    @objid ("bcad952f-829b-4a69-99e4-b0e8f3412f78")
+    @objid ("71d6a989-a785-419a-95c8-019fd781e5e8")
     @SmaMetaAttribute(metaName="LicenseKey", type=Integer.class, smAttributeClass=Metadata.LicenseKeySmAttribute.class)
      Object mLicenseKey = 0;
 
-    @objid ("51d458d5-1d00-4814-9158-49ae7a54bdce")
+    @objid ("40f24f1b-1622-4d00-af31-ed755f60ee6a")
     @SmaMetaAttribute(metaName="MajVersion", type=Integer.class, smAttributeClass=Metadata.MajVersionSmAttribute.class)
      Object mMajVersion = 0;
 
-    @objid ("d4499f2b-e055-4ea1-adce-595791eb80ac")
+    @objid ("5da127ad-e372-45af-8579-d13636eeb5e2")
     @SmaMetaAttribute(metaName="MinVersion", type=Integer.class, smAttributeClass=Metadata.MinVersionSmAttribute.class)
      Object mMinVersion = 0;
 
-    @objid ("4213f67a-2835-467c-a49e-5cb5a5e846e6")
+    @objid ("754431f9-878a-46b0-ace8-0687933a709e")
     @SmaMetaAttribute(metaName="MinMinVersion", type=String.class, smAttributeClass=Metadata.MinMinVersionSmAttribute.class)
      Object mMinMinVersion = "";
 
-    @objid ("6c752fbf-2654-4aeb-b891-5c13cbd71d6f")
+    @objid ("9e6fff41-904a-48b3-b4a6-66be7d02628a")
     @SmaMetaAttribute(metaName="MinBinVersionCompatibility", type=String.class, smAttributeClass=Metadata.MinBinVersionCompatibilitySmAttribute.class)
      Object mMinBinVersionCompatibility = "";
 
-    @objid ("7c13deb9-8f09-4be1-9dce-8e52e9459160")
+    @objid ("15a39c9f-7de1-4f7f-94ea-8f4467cf410b")
     @SmaMetaAttribute(metaName="JavaClassName", type=String.class, smAttributeClass=Metadata.JavaClassNameSmAttribute.class)
      Object mJavaClassName = "";
 
-    @objid ("026fb69e-6f68-42ae-bf80-c111171f5d12")
+    @objid ("c6abbfd6-f68c-4624-88d4-9698262edcb8")
     @SmaMetaAttribute(metaName="State", type=ModuleState.class, smAttributeClass=Metadata.StateSmAttribute.class, einoexternalize=true)
      Object mState = ModuleState.SOMODULESTATEACTIVATED;
 
-    @objid ("cc6d55fe-9a6a-4440-939a-f7e986fa8544")
+    @objid ("3f642aee-e1d8-4408-97ea-166b774299b4")
     @SmaMetaAssociation(metaName="DefinedPropertyType", typeDataClass=PropertyTypeData.class, min=0, max=-1, smAssociationClass=Metadata.DefinedPropertyTypeSmDependency.class, component = true)
      List<SmObjectImpl> mDefinedPropertyType = null;
 
-    @objid ("0894c909-60e9-48f0-89ae-77aebdc8b70d")
+    @objid ("903746e6-e041-430c-b4bb-572fb6686375")
     @SmaMetaAssociation(metaName="OwnedProfile", typeDataClass=ProfileData.class, min=0, max=-1, smAssociationClass=Metadata.OwnedProfileSmDependency.class, component = true)
      List<SmObjectImpl> mOwnedProfile = null;
 
-    @objid ("04ba2169-d04b-449a-a4fb-be14ab7f2bb3")
+    @objid ("8718ada4-a200-41c2-b89e-1ef549a35238")
     @SmaMetaAssociation(metaName="ModuleParameter", typeDataClass=ModuleParameterData.class, min=0, max=-1, smAssociationClass=Metadata.ModuleParameterSmDependency.class, component = true)
      List<SmObjectImpl> mModuleParameter = null;
 
-    @objid ("8e7ca51e-cabb-45ed-8f17-cd04e4bb4f64")
+    @objid ("71aed06e-07fe-4084-928a-749ed3b64f69")
     @SmaMetaAssociation(metaName="DependsOn", typeDataClass=ModuleComponentData.class, min=0, max=-1, smAssociationClass=Metadata.DependsOnSmDependency.class, partof = true)
      List<SmObjectImpl> mDependsOn = null;
 
-    @objid ("6a3b322e-2936-432b-b471-0618b7fcbef2")
+    @objid ("df65331e-8dfd-44ea-afa9-b5fbd60bc627")
     @SmaMetaAssociation(metaName="Impacted", typeDataClass=ModuleComponentData.class, min=0, max=-1, smAssociationClass=Metadata.ImpactedSmDependency.class)
      List<SmObjectImpl> mImpacted = null;
 
-    @objid ("39e843ec-cc6b-45c3-a954-e43f72ab7438")
+    @objid ("ca4fdec2-84e5-4c00-aca9-ef6f452d6ce8")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("00182518-c4c4-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("8639fd11-527a-4f78-bff4-bf8e7b40907c")
+        @objid ("ffdf04a7-1ad5-45bd-8b5d-e08993ca01f1")
         private static SmClass smClass = null;
 
-        @objid ("ad0b7e1b-59a4-44eb-8bfd-813c2193e22a")
+        @objid ("175e4ae5-842c-45a9-8501-f08bcf40c0bb")
         private static SmAttribute LicenseKeyAtt = null;
 
-        @objid ("59fc0637-ed02-44ae-85ea-44bdd1db7176")
+        @objid ("b5044c03-03c0-4f33-be0a-1f77631bac89")
         private static SmAttribute MajVersionAtt = null;
 
-        @objid ("3942a3da-98bf-441b-95f3-f4580f706903")
+        @objid ("f33fba61-738e-4fe1-9dd5-b65fa3db09d0")
         private static SmAttribute MinVersionAtt = null;
 
-        @objid ("108eb248-d8b3-4f75-84ef-93ffcc653834")
+        @objid ("5e4245ec-ad62-428f-b921-c08b70d14ee6")
         private static SmAttribute MinMinVersionAtt = null;
 
-        @objid ("1e7d8a64-664c-446a-b2d9-53a4c8d9a569")
+        @objid ("9d92763e-0521-4837-9400-b9f00aca4856")
         private static SmAttribute MinBinVersionCompatibilityAtt = null;
 
-        @objid ("0981fded-bc23-4511-9d49-3411fdf3f8e9")
+        @objid ("22db5b03-c385-4c02-a623-dd66dc4baa7e")
         private static SmAttribute JavaClassNameAtt = null;
 
-        @objid ("28d21b02-be4a-48dd-9cd6-67a8af18832d")
+        @objid ("0176784e-3878-4cb2-946f-83777c1821a2")
         private static SmAttribute StateAtt = null;
 
-        @objid ("07744167-ba60-429a-b19d-bc40f5cc9d06")
+        @objid ("c7121b8c-5718-40d4-a3ca-80170d604e81")
         private static SmDependency DefinedPropertyTypeDep = null;
 
-        @objid ("2ba9da37-03cb-44fe-b7ed-e6eb9cf4dd23")
+        @objid ("0f36447d-9fe0-44fe-bca8-0c4d7a5b3e9d")
         private static SmDependency OwnedProfileDep = null;
 
-        @objid ("00dd12b8-b0fa-4b20-ae8d-5abe5cb2db3d")
+        @objid ("419185dc-645c-4f78-99e8-093e32cd7062")
         private static SmDependency ModuleParameterDep = null;
 
-        @objid ("015a914e-ad04-482b-8024-78557062d7a3")
+        @objid ("55cf38ec-9d60-4bd2-9a38-88c5d9cea6f5")
         private static SmDependency DependsOnDep = null;
 
-        @objid ("b024a778-22eb-47ae-85f1-562efaa0831d")
+        @objid ("1c649232-1981-4405-ae9f-625eec882ac6")
         private static SmDependency ImpactedDep = null;
 
-        @objid ("2563020f-5163-4c43-8d16-576e7acd0bf3")
+        @objid ("9093ee8b-7058-48e5-93e4-bae19f8216aa")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(ModuleComponentData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("727a2612-6b74-4c20-8dcc-fa18db568c00")
+        @objid ("40dae54a-469c-4fd1-aaa2-24d6d65a0e47")
         public static SmAttribute LicenseKeyAtt() {
             if (LicenseKeyAtt == null) {
             	LicenseKeyAtt = classof().getAttributeDef("LicenseKey");
@@ -156,7 +156,7 @@ public class ModuleComponentData extends ComponentData {
             return LicenseKeyAtt;
         }
 
-        @objid ("175d7a35-72f5-4322-b85a-d57ace57fe36")
+        @objid ("1d5acb7f-5426-48f4-8638-6d4b6035939f")
         public static SmAttribute MajVersionAtt() {
             if (MajVersionAtt == null) {
             	MajVersionAtt = classof().getAttributeDef("MajVersion");
@@ -164,7 +164,7 @@ public class ModuleComponentData extends ComponentData {
             return MajVersionAtt;
         }
 
-        @objid ("b6cb096c-c038-4213-aab0-0c36c874fdf6")
+        @objid ("b73dfff0-84ff-498e-be13-d44fb00f9415")
         public static SmAttribute MinVersionAtt() {
             if (MinVersionAtt == null) {
             	MinVersionAtt = classof().getAttributeDef("MinVersion");
@@ -172,7 +172,7 @@ public class ModuleComponentData extends ComponentData {
             return MinVersionAtt;
         }
 
-        @objid ("b28e90a6-54fb-4e1c-baaa-5c4c60326072")
+        @objid ("1a753686-aba1-4dac-a9ce-701c33250535")
         public static SmAttribute MinMinVersionAtt() {
             if (MinMinVersionAtt == null) {
             	MinMinVersionAtt = classof().getAttributeDef("MinMinVersion");
@@ -180,7 +180,7 @@ public class ModuleComponentData extends ComponentData {
             return MinMinVersionAtt;
         }
 
-        @objid ("d227f4ee-a36b-403d-946b-befea18e9af9")
+        @objid ("e8ebd436-054f-4595-99d7-c51f7d39579a")
         public static SmAttribute MinBinVersionCompatibilityAtt() {
             if (MinBinVersionCompatibilityAtt == null) {
             	MinBinVersionCompatibilityAtt = classof().getAttributeDef("MinBinVersionCompatibility");
@@ -188,7 +188,7 @@ public class ModuleComponentData extends ComponentData {
             return MinBinVersionCompatibilityAtt;
         }
 
-        @objid ("7a00d3aa-5c68-4741-95b3-e14527260a1e")
+        @objid ("d1fcbac2-9673-4f2c-9712-1f1a4897c4e1")
         public static SmAttribute JavaClassNameAtt() {
             if (JavaClassNameAtt == null) {
             	JavaClassNameAtt = classof().getAttributeDef("JavaClassName");
@@ -196,7 +196,7 @@ public class ModuleComponentData extends ComponentData {
             return JavaClassNameAtt;
         }
 
-        @objid ("3ddf4645-0bad-4fb9-89f7-b62e42f4a391")
+        @objid ("10177b3a-3459-4c5c-b229-e75b70dcbb71")
         public static SmAttribute StateAtt() {
             if (StateAtt == null) {
             	StateAtt = classof().getAttributeDef("State");
@@ -204,7 +204,7 @@ public class ModuleComponentData extends ComponentData {
             return StateAtt;
         }
 
-        @objid ("5a8d0e71-d2e5-40f7-8969-2aec584ee7ae")
+        @objid ("0a3e8935-cb3c-42cb-92ad-4263f11a79f7")
         public static SmDependency DefinedPropertyTypeDep() {
             if (DefinedPropertyTypeDep == null) {
             	DefinedPropertyTypeDep = classof().getDependencyDef("DefinedPropertyType");
@@ -212,7 +212,7 @@ public class ModuleComponentData extends ComponentData {
             return DefinedPropertyTypeDep;
         }
 
-        @objid ("92b74026-6f35-420d-b46e-4c18cbc0e9f9")
+        @objid ("c4509e92-58fb-42de-bac4-0b71e10218fc")
         public static SmDependency OwnedProfileDep() {
             if (OwnedProfileDep == null) {
             	OwnedProfileDep = classof().getDependencyDef("OwnedProfile");
@@ -220,7 +220,7 @@ public class ModuleComponentData extends ComponentData {
             return OwnedProfileDep;
         }
 
-        @objid ("984afe05-0511-4c48-a89b-01f7332f1675")
+        @objid ("66085d59-5c81-48dd-bc4a-23b9409059b0")
         public static SmDependency ModuleParameterDep() {
             if (ModuleParameterDep == null) {
             	ModuleParameterDep = classof().getDependencyDef("ModuleParameter");
@@ -228,7 +228,7 @@ public class ModuleComponentData extends ComponentData {
             return ModuleParameterDep;
         }
 
-        @objid ("19af281e-98be-411b-88dc-0faa3bd333a1")
+        @objid ("ac56f06e-ebb6-4a99-b96e-a8d0bf350ef6")
         public static SmDependency DependsOnDep() {
             if (DependsOnDep == null) {
             	DependsOnDep = classof().getDependencyDef("DependsOn");
@@ -236,7 +236,7 @@ public class ModuleComponentData extends ComponentData {
             return DependsOnDep;
         }
 
-        @objid ("f08c675f-5373-46b9-a4fc-ddca07242eb4")
+        @objid ("6dd70dd2-620d-493b-98c0-1b704cb85cb6")
         public static SmDependency ImpactedDep() {
             if (ImpactedDep == null) {
             	ImpactedDep = classof().getDependencyDef("Impacted");
@@ -244,92 +244,92 @@ public class ModuleComponentData extends ComponentData {
             return ImpactedDep;
         }
 
-        @objid ("e798e3e6-abf3-4589-b708-e16eb13f4e97")
-        public static SmDependency getModuleParameterDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return ModuleParameterDep;
-        }
-
-        @objid ("82917b42-beb6-435b-a007-839b4eebf2a1")
-        public static SmDependency getDependsOnDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return DependsOnDep;
-        }
-
-        @objid ("2919ce84-b329-4d0a-a53b-ffd1c318b305")
-        public static SmAttribute getJavaClassNameAtt() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return JavaClassNameAtt;
-        }
-
-        @objid ("0c97063d-c4f5-44e6-921b-f46f71f7d6b5")
-        public static SmAttribute getLicenseKeyAtt() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return LicenseKeyAtt;
-        }
-
-        @objid ("a3dd1ea6-4074-4c5e-be3b-7dd68caef541")
+        @objid ("9380e93d-5bf4-4fa4-8d32-231f2639d963")
         public static SmDependency getOwnedProfileDep() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return OwnedProfileDep;
         }
 
-        @objid ("d0d82f64-96cf-4b91-bcc3-920fd6d6d2ee")
-        public static SmAttribute getStateAtt() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return StateAtt;
-        }
-
-        @objid ("485baf80-dab6-44f6-b4ee-ced0c13e961a")
-        public static SmAttribute getMinBinVersionCompatibilityAtt() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return MinBinVersionCompatibilityAtt;
-        }
-
-        @objid ("354b6b50-9a56-4f68-9bd3-e07721d71917")
-        public static SmDependency getImpactedDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return ImpactedDep;
-        }
-
-        @objid ("41adc40d-4efb-45f5-9302-5e80805f8b61")
-        public static SmAttribute getMinMinVersionAtt() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return MinMinVersionAtt;
-        }
-
-        @objid ("3e0f0a19-336e-47b4-8060-bd99f61e4f74")
-        public static SmAttribute getMajVersionAtt() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return MajVersionAtt;
-        }
-
-        @objid ("14cc5cc8-95cb-4ae2-841e-cbdbbb656644")
-        public static SmClass getSmClass() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return smClass;
-        }
-
-        @objid ("c0d717d6-abda-49f6-8770-4fa10e6040e8")
+        @objid ("44abac43-30f6-4ff7-aef3-b7675a5df7b2")
         public static SmDependency getDefinedPropertyTypeDep() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return DefinedPropertyTypeDep;
         }
 
-        @objid ("49f8b879-75a7-4c4b-8c98-4682c5eb6133")
+        @objid ("c13c7520-8f6a-4e3e-967a-464dbab2b8fa")
+        public static SmAttribute getStateAtt() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return StateAtt;
+        }
+
+        @objid ("3270591b-d7b2-4c1a-ab1b-7dfc93040465")
+        public static SmAttribute getLicenseKeyAtt() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return LicenseKeyAtt;
+        }
+
+        @objid ("a9107f66-6dce-4012-b40f-a543570b38fa")
+        public static SmAttribute getJavaClassNameAtt() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return JavaClassNameAtt;
+        }
+
+        @objid ("b0f69a5b-9712-43e8-a1c5-ff3cf58bc0f9")
+        public static SmDependency getImpactedDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return ImpactedDep;
+        }
+
+        @objid ("ba049b09-bdcc-4ff1-a127-3b65459e591a")
+        public static SmClass getSmClass() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return smClass;
+        }
+
+        @objid ("f1a85cd6-7ce5-4754-b151-09b9efd8d91e")
+        public static SmDependency getDependsOnDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return DependsOnDep;
+        }
+
+        @objid ("dae16395-2838-4b68-9943-71df115a8737")
+        public static SmDependency getModuleParameterDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return ModuleParameterDep;
+        }
+
+        @objid ("ab581f5b-123b-4b98-bcfa-b3cd69332d1b")
         public static SmAttribute getMinVersionAtt() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return MinVersionAtt;
         }
 
+        @objid ("4f4612e9-332b-4b38-9223-26f7c136087b")
+        public static SmAttribute getMajVersionAtt() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return MajVersionAtt;
+        }
+
+        @objid ("02929f38-df56-4741-92c5-457fdcfabe08")
+        public static SmAttribute getMinMinVersionAtt() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return MinMinVersionAtt;
+        }
+
+        @objid ("3c2c7e38-e285-409b-ab35-716616b1885a")
+        public static SmAttribute getMinBinVersionCompatibilityAtt() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return MinBinVersionCompatibilityAtt;
+        }
+
         @objid ("0018638e-c4c4-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("5b33c793-39e5-4a7e-85b0-81498e5a6ebc")
+            @objid ("b3259ea9-7945-4e00-8050-8af8807ed854")
             public ISmObjectData createData() {
                 return new ModuleComponentData();
             }
 
-            @objid ("4715a995-0f4b-41cc-b9b3-fd62be451e24")
+            @objid ("6053c057-b0fb-4b8e-b0af-5e75ba6bf9ab")
             public SmObjectImpl createImpl() {
                 return new ModuleComponentImpl();
             }
@@ -338,12 +338,12 @@ public class ModuleComponentData extends ComponentData {
 
         @objid ("0018c6e4-c4c4-1fd8-97fe-001ec947cd2a")
         public static class LicenseKeySmAttribute extends SmAttribute {
-            @objid ("0187a59f-b26f-4277-81c1-bc7d7f48e665")
+            @objid ("31ffaec9-a3fc-4d29-9a89-878f2e071a52")
             public Object getValue(ISmObjectData data) {
                 return ((ModuleComponentData) data).mLicenseKey;
             }
 
-            @objid ("cfa626f3-60b1-43f7-b1a2-fc91d7670086")
+            @objid ("33e5527f-de69-4cb9-afd6-8ceea0364303")
             public void setValue(ISmObjectData data, Object value) {
                 ((ModuleComponentData) data).mLicenseKey = value;
             }
@@ -352,12 +352,12 @@ public class ModuleComponentData extends ComponentData {
 
         @objid ("0019857a-c4c4-1fd8-97fe-001ec947cd2a")
         public static class MajVersionSmAttribute extends SmAttribute {
-            @objid ("83ae3387-cffe-4ec4-a5f5-e039488681ee")
+            @objid ("03560d58-e0e6-4715-94de-eb11822d9113")
             public Object getValue(ISmObjectData data) {
                 return ((ModuleComponentData) data).mMajVersion;
             }
 
-            @objid ("a8dfc7fd-013e-4eee-a003-a4f46588c9ae")
+            @objid ("7a530aff-3503-4e92-9692-0a4e04f96afc")
             public void setValue(ISmObjectData data, Object value) {
                 ((ModuleComponentData) data).mMajVersion = value;
             }
@@ -366,12 +366,12 @@ public class ModuleComponentData extends ComponentData {
 
         @objid ("0019e754-c4c4-1fd8-97fe-001ec947cd2a")
         public static class MinVersionSmAttribute extends SmAttribute {
-            @objid ("2853fff8-bb63-4d98-b0d4-72e9014ac0ad")
+            @objid ("ac2e9656-f91a-465a-98ae-036a5fdccbca")
             public Object getValue(ISmObjectData data) {
                 return ((ModuleComponentData) data).mMinVersion;
             }
 
-            @objid ("b041b1b2-5983-4e3c-aee6-21f77a739559")
+            @objid ("9e064b2d-9d93-4685-83eb-3cb851e5211f")
             public void setValue(ISmObjectData data, Object value) {
                 ((ModuleComponentData) data).mMinVersion = value;
             }
@@ -380,12 +380,12 @@ public class ModuleComponentData extends ComponentData {
 
         @objid ("001a4802-c4c4-1fd8-97fe-001ec947cd2a")
         public static class MinMinVersionSmAttribute extends SmAttribute {
-            @objid ("4caedf2b-b1b4-486b-8e15-6215acf2fd0b")
+            @objid ("e90f05fa-aeeb-4ed7-91cd-8d8d112aa883")
             public Object getValue(ISmObjectData data) {
                 return ((ModuleComponentData) data).mMinMinVersion;
             }
 
-            @objid ("686bb65e-6170-442a-a572-a277fca5180e")
+            @objid ("2056cf77-005a-45b7-a763-ad437a3c681e")
             public void setValue(ISmObjectData data, Object value) {
                 ((ModuleComponentData) data).mMinMinVersion = value;
             }
@@ -394,12 +394,12 @@ public class ModuleComponentData extends ComponentData {
 
         @objid ("001aa928-c4c4-1fd8-97fe-001ec947cd2a")
         public static class MinBinVersionCompatibilitySmAttribute extends SmAttribute {
-            @objid ("f4c23fdb-8692-4162-8fbe-559d4f3e8daa")
+            @objid ("80a5f77f-1253-4566-9e22-c38cbb570171")
             public Object getValue(ISmObjectData data) {
                 return ((ModuleComponentData) data).mMinBinVersionCompatibility;
             }
 
-            @objid ("e1ee1c01-3f87-42b8-9b99-2ef986f5a511")
+            @objid ("c9f232c3-aff5-4a3e-b9b9-430899162bcd")
             public void setValue(ISmObjectData data, Object value) {
                 ((ModuleComponentData) data).mMinBinVersionCompatibility = value;
             }
@@ -408,12 +408,12 @@ public class ModuleComponentData extends ComponentData {
 
         @objid ("001b6e9e-c4c4-1fd8-97fe-001ec947cd2a")
         public static class JavaClassNameSmAttribute extends SmAttribute {
-            @objid ("fd264cfa-3f35-4a93-8515-a67041b30f5c")
+            @objid ("d71ca9ee-edd0-41d9-bf1e-c546b5cf7490")
             public Object getValue(ISmObjectData data) {
                 return ((ModuleComponentData) data).mJavaClassName;
             }
 
-            @objid ("aa253636-8131-46a6-8d39-8bf673763529")
+            @objid ("99088b18-e9a7-40c4-8714-2da373300999")
             public void setValue(ISmObjectData data, Object value) {
                 ((ModuleComponentData) data).mJavaClassName = value;
             }
@@ -422,12 +422,12 @@ public class ModuleComponentData extends ComponentData {
 
         @objid ("001bd10e-c4c4-1fd8-97fe-001ec947cd2a")
         public static class StateSmAttribute extends SmAttribute {
-            @objid ("c93e4b87-a154-41da-b16a-707e2fdaf800")
+            @objid ("cde576b9-bcf3-409e-954b-1df923419251")
             public Object getValue(ISmObjectData data) {
                 return ((ModuleComponentData) data).mState;
             }
 
-            @objid ("5eb69418-6dd2-4095-9f2f-ce9d1261a46a")
+            @objid ("ee20c7e4-68b7-47ed-be1c-e23252c3ed52")
             public void setValue(ISmObjectData data, Object value) {
                 ((ModuleComponentData) data).mState = value;
             }
@@ -436,20 +436,20 @@ public class ModuleComponentData extends ComponentData {
 
         @objid ("001d2824-c4c4-1fd8-97fe-001ec947cd2a")
         public static class DependsOnSmDependency extends SmMultipleDependency {
-            @objid ("e825d60a-512e-4f99-adf7-9f0392848743")
+            @objid ("cf1dcbdf-2087-4169-baae-226c02026318")
             @Override
             public List<SmObjectImpl> getValueList(ISmObjectData data) {
                 return (((ModuleComponentData)data).mDependsOn != null)? ((ModuleComponentData)data).mDependsOn:SmMultipleDependency.EMPTY;
             }
 
-            @objid ("95c64ee8-e14d-4ebb-bd00-8952c3347b39")
+            @objid ("345352cc-d72a-42e5-b7de-f1ef8441569a")
             @Override
             protected List<SmObjectImpl> allocateValueList(ISmObjectData data, int initialCapacity) {
                 ((ModuleComponentData) data).mDependsOn = new ArrayList<>(initialCapacity);
                 return ((ModuleComponentData) data).mDependsOn;
             }
 
-            @objid ("56f3c714-8b45-4957-a429-fd5b1f06516e")
+            @objid ("dc8dc164-e466-4d39-9f96-235a25455980")
             @Override
             public SmDependency getSymetric() {
                 return ModuleComponentData.Metadata.ImpactedDep();
@@ -459,20 +459,20 @@ public class ModuleComponentData extends ComponentData {
 
         @objid ("001d9430-c4c4-1fd8-97fe-001ec947cd2a")
         public static class ImpactedSmDependency extends SmMultipleDependency {
-            @objid ("76fda374-7476-474c-ac51-5759f2da798d")
+            @objid ("8167de58-ae7f-4a7b-8b81-54dc35c6adcd")
             @Override
             public List<SmObjectImpl> getValueList(ISmObjectData data) {
                 return (((ModuleComponentData)data).mImpacted != null)? ((ModuleComponentData)data).mImpacted:SmMultipleDependency.EMPTY;
             }
 
-            @objid ("6f196296-a333-4e4d-a3cc-7ae05f47129a")
+            @objid ("6d034c36-a7d6-49e7-a688-36a4cecff639")
             @Override
             protected List<SmObjectImpl> allocateValueList(ISmObjectData data, int initialCapacity) {
                 ((ModuleComponentData) data).mImpacted = new ArrayList<>(initialCapacity);
                 return ((ModuleComponentData) data).mImpacted;
             }
 
-            @objid ("d21ba8f4-8007-49ce-a379-0fecb4ecd370")
+            @objid ("1611fc63-55ff-41fb-b85c-5bd9bc528226")
             @Override
             public SmDependency getSymetric() {
                 return ModuleComponentData.Metadata.DependsOnDep();
@@ -482,20 +482,20 @@ public class ModuleComponentData extends ComponentData {
 
         @objid ("001dfc7c-c4c4-1fd8-97fe-001ec947cd2a")
         public static class OwnedProfileSmDependency extends SmMultipleDependency {
-            @objid ("3e56ab90-223a-4e6d-91e9-64dd6fd14d0c")
+            @objid ("f912c5fe-fae8-4d52-a0d7-5b180d2ad014")
             @Override
             public List<SmObjectImpl> getValueList(ISmObjectData data) {
                 return (((ModuleComponentData)data).mOwnedProfile != null)? ((ModuleComponentData)data).mOwnedProfile:SmMultipleDependency.EMPTY;
             }
 
-            @objid ("21a584da-4e3f-419a-9a24-e97f8f8d3cab")
+            @objid ("6bc196b7-12c8-4c8a-ade8-67cdb324d734")
             @Override
             protected List<SmObjectImpl> allocateValueList(ISmObjectData data, int initialCapacity) {
                 ((ModuleComponentData) data).mOwnedProfile = new ArrayList<>(initialCapacity);
                 return ((ModuleComponentData) data).mOwnedProfile;
             }
 
-            @objid ("b2bacd55-fc11-4bff-8c66-29d23274aafe")
+            @objid ("22c46f48-e6a2-4af0-8962-d1399132fdc8")
             @Override
             public SmDependency getSymetric() {
                 return ProfileData.Metadata.OwnerModuleDep();
@@ -505,20 +505,20 @@ public class ModuleComponentData extends ComponentData {
 
         @objid ("001e6432-c4c4-1fd8-97fe-001ec947cd2a")
         public static class ModuleParameterSmDependency extends SmMultipleDependency {
-            @objid ("e6d90d9a-99c4-4c86-9ef9-4cac789738f0")
+            @objid ("111ba556-e0d7-441a-9761-08494dacb815")
             @Override
             public List<SmObjectImpl> getValueList(ISmObjectData data) {
                 return (((ModuleComponentData)data).mModuleParameter != null)? ((ModuleComponentData)data).mModuleParameter:SmMultipleDependency.EMPTY;
             }
 
-            @objid ("fe386daf-c47d-4af6-9a29-db2d12e0391e")
+            @objid ("500b17e2-923f-46c4-a9fc-2d656c2714ab")
             @Override
             protected List<SmObjectImpl> allocateValueList(ISmObjectData data, int initialCapacity) {
                 ((ModuleComponentData) data).mModuleParameter = new ArrayList<>(initialCapacity);
                 return ((ModuleComponentData) data).mModuleParameter;
             }
 
-            @objid ("557e9cfe-7468-4412-89d0-289645b94068")
+            @objid ("bf2c5eb4-7e08-48c8-a273-2953bde42881")
             @Override
             public SmDependency getSymetric() {
                 return ModuleParameterData.Metadata.OwnerDep();
@@ -528,20 +528,20 @@ public class ModuleComponentData extends ComponentData {
 
         @objid ("0075f8c8-ec98-1098-b22e-001ec947cd2a")
         public static class DefinedPropertyTypeSmDependency extends SmMultipleDependency {
-            @objid ("a7f77353-eb66-4f63-82ce-10ef92b359e0")
+            @objid ("51ebd5a1-b065-408e-83fd-bafae7760600")
             @Override
             public List<SmObjectImpl> getValueList(ISmObjectData data) {
                 return (((ModuleComponentData)data).mDefinedPropertyType != null)? ((ModuleComponentData)data).mDefinedPropertyType:SmMultipleDependency.EMPTY;
             }
 
-            @objid ("f0e4ee8c-5749-4391-aff4-ba1919b66c55")
+            @objid ("2632f587-3119-4b49-bf1b-58d87f957788")
             @Override
             protected List<SmObjectImpl> allocateValueList(ISmObjectData data, int initialCapacity) {
                 ((ModuleComponentData) data).mDefinedPropertyType = new ArrayList<>(initialCapacity);
                 return ((ModuleComponentData) data).mDefinedPropertyType;
             }
 
-            @objid ("98de6cb4-07b7-4a19-8e22-270b9c3ac0af")
+            @objid ("b904079a-1b30-4910-a8f4-4e0310018215")
             @Override
             public SmDependency getSymetric() {
                 return PropertyTypeData.Metadata.ModuleOwnerDep();

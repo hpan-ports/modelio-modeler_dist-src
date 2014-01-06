@@ -69,10 +69,12 @@ public class ExmlIndex {
      * <li> 7: 03/01/2013 : add name to object index
      * <li> 8: 18/01/2013, 28/01/2013: indexes were not correctly updated on svn update
      * and child lost their parent when the parent index was recomputed.
+     * <li> 9: 06/12/2013 : found  & fixed bugs in indexes refresh on Modelio 3.0.1.
+     *            Force index rebuild to avoid shell objects in the model.
      * </ul>
      */
     @objid ("7dc0cd99-1877-11e2-9dfc-001ec947ccaf")
-    private static final int INDEX_FORMAT_VERSION = 8;
+    private static final int INDEX_FORMAT_VERSION = 9;
 
     @objid ("40d51080-1878-11e2-9dfc-001ec947ccaf")
     private static final String VERSION_OBJ_NAME = "version_of_index";

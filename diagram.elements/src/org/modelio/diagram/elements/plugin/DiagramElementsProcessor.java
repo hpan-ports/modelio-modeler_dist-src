@@ -27,6 +27,10 @@ import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.e4.core.di.annotations.Execute;
 import org.modelio.diagram.elements.common.abstractdiagram.GmAbstractDiagramStyleKeys;
+import org.modelio.diagram.elements.drawings.ellipse.GmEllipseStyleKeys;
+import org.modelio.diagram.elements.drawings.line.GmLineStyleKeys;
+import org.modelio.diagram.elements.drawings.rectangle.GmRectangleStyleKeys;
+import org.modelio.diagram.elements.drawings.text.GmTextStyleKeys;
 import org.modelio.diagram.elements.umlcommon.constraint.GmConstraintStyleKeys;
 import org.modelio.diagram.elements.umlcommon.dependency.GmDependencyStyleKeys;
 import org.modelio.diagram.elements.umlcommon.externdocument.GmExternDocumentStyleKeys;
@@ -82,6 +86,17 @@ public class DiagramElementsProcessor {
         
         // Note
         factory.declareProvider(GmNoteStyleKeys.class);
+        
+        // Drawings
+        factory.declareProvider(GmRectangleStyleKeys.class);
+        factory.declareProvider(GmRectangleStyleKeys.Label.class);
+        factory.declareProvider(GmEllipseStyleKeys.class);
+        factory.declareProvider(GmEllipseStyleKeys.Label.class);
+        factory.declareProvider(GmTextStyleKeys.class);
+        factory.declareProvider(GmLineStyleKeys.class);
+        factory.declareProvider(GmLineStyleKeys.SourceDeco.class);
+        factory.declareProvider(GmLineStyleKeys.TargetDeco.class);
+        //factory.declareProvider(GmLineStyleKeys.Label.class);
     }
 
 }

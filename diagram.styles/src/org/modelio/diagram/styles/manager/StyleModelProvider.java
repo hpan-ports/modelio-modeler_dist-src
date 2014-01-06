@@ -33,6 +33,7 @@ import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.Viewer;
 import org.modelio.diagram.styles.core.IStyle;
 import org.modelio.diagram.styles.core.StyleKey;
+import org.modelio.vcore.session.api.ICoreSession;
 
 /**
  * The StyleModelProvider is a IContentProvider suited for the StyleViewer.<br>
@@ -69,6 +70,9 @@ public class StyleModelProvider implements ITreeContentProvider {
 
     @objid ("85cd1ea3-1926-11e2-92d2-001ec947c8cc")
     private static final Object[] NO_OBJECTS = new Object[0];
+
+    @objid ("cbb91b9b-718d-4485-8208-cdabaf23b067")
+    private ICoreSession coreSession;
 
     @objid ("85cd1ea8-1926-11e2-92d2-001ec947c8cc")
     @Override
@@ -128,12 +132,14 @@ public class StyleModelProvider implements ITreeContentProvider {
     /**
      * C'tor.
      * @param styleData the edited style data
+     * @param session the modeling session
      * @param keyfilter the keys subset to edit
      * @param isEditable whether or not this style can be edited
      */
     @objid ("85cd1eb8-1926-11e2-92d2-001ec947c8cc")
-    public StyleModelProvider(IStyle styleData, Collection<StyleKey> keyfilter, boolean isEditable) {
+    public StyleModelProvider(IStyle styleData, ICoreSession session, Collection<StyleKey> keyfilter, boolean isEditable) {
         this.styleData = styleData;
+        this.coreSession = session;
         this.keyfilter = keyfilter;
         this.isEditable = isEditable;
     }
@@ -141,10 +147,11 @@ public class StyleModelProvider implements ITreeContentProvider {
     /**
      * C'tor.
      * @param editedStyle the edited style data
+     * @param session the modeling session
      */
     @objid ("85cd1ec0-1926-11e2-92d2-001ec947c8cc")
-    public StyleModelProvider(IStyle editedStyle) {
-        this(editedStyle, null, false);
+    public StyleModelProvider(IStyle editedStyle, ICoreSession session) {
+        this(editedStyle, session, null, false);
     }
 
     @objid ("85cd1ec4-1926-11e2-92d2-001ec947c8cc")
@@ -183,9 +190,20 @@ public class StyleModelProvider implements ITreeContentProvider {
         return false;
     }
 
+    /**
+     * @return <code>true</code> if the style is editable else <code>false</code>.
+     */
     @objid ("85cd1ed7-1926-11e2-92d2-001ec947c8cc")
     public boolean isEditable() {
         return this.isEditable;
+    }
+
+    /**
+     * @return the modeling session
+     */
+    @objid ("564d9cff-8ddd-44c4-bead-7a9a53b3bfe4")
+    public ICoreSession getSession() {
+        return this.coreSession;
     }
 
 }

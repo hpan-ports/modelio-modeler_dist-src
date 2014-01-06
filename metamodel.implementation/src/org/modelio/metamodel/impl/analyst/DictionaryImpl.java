@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.analyst;
 
 import java.util.ArrayList;
@@ -44,13 +44,13 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("005bc1ec-c4bf-1fd8-97fe-001ec947cd2a")
 public class DictionaryImpl extends AnalystContainerImpl implements Dictionary {
-    @objid ("f25a6d1b-29be-428a-a701-a1528b8621e6")
+    @objid ("7bf1ab81-4df4-4315-8584-42135a926f44")
     @Override
     public EList<Dictionary> getOwnedDictionary() {
         return new SmList<>(this, DictionaryData.Metadata.OwnedDictionaryDep());
     }
 
-    @objid ("faf7d2f2-ec4b-4c62-bb75-1e810c88173f")
+    @objid ("82976b45-0e4f-4134-8061-13840edbf43f")
     @Override
     public <T extends Dictionary> List<T> getOwnedDictionary(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -63,37 +63,37 @@ public class DictionaryImpl extends AnalystContainerImpl implements Dictionary {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("c42355e7-c416-42cf-ac57-70114c0a35fc")
+    @objid ("7c891b27-9c83-43a2-ad9e-08011238de12")
     @Override
     public Dictionary getOwnerDictionary() {
         return (Dictionary) getDepVal(DictionaryData.Metadata.OwnerDictionaryDep());
     }
 
-    @objid ("55c98d98-a2c8-4de5-b9da-12d92afac1ce")
+    @objid ("626f8e04-d1ef-46e9-8378-1dddce016df5")
     @Override
     public void setOwnerDictionary(Dictionary value) {
         appendDepVal(DictionaryData.Metadata.OwnerDictionaryDep(), (SmObjectImpl)value);
     }
 
-    @objid ("80b039f7-59b3-4b16-acac-ff478f161a6f")
+    @objid ("6ec95247-1568-4d44-b8d6-31996958187d")
     @Override
     public AnalystProject getOwnerProject() {
         return (AnalystProject) getDepVal(DictionaryData.Metadata.OwnerProjectDep());
     }
 
-    @objid ("26b94cfb-7d53-4704-ac41-0931f8bd0d06")
+    @objid ("964f2289-09cf-40ca-84db-29e3430f6f34")
     @Override
     public void setOwnerProject(AnalystProject value) {
         appendDepVal(DictionaryData.Metadata.OwnerProjectDep(), (SmObjectImpl)value);
     }
 
-    @objid ("632d018a-f1c6-4b64-a1c4-3638e5c86e3a")
+    @objid ("928a8fdc-2cc4-46eb-880f-3eaec7cbbe1d")
     @Override
     public EList<Term> getOwnedTerm() {
         return new SmList<>(this, DictionaryData.Metadata.OwnedTermDep());
     }
 
-    @objid ("4b567b6e-8bd4-4ecb-887f-ca9c45de13b4")
+    @objid ("5db59f8d-2aa0-400e-9728-0f995d554570")
     @Override
     public <T extends Term> List<T> getOwnedTerm(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -106,7 +106,7 @@ public class DictionaryImpl extends AnalystContainerImpl implements Dictionary {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("1258779c-ad2f-4dbf-a830-7016f86acb59")
+    @objid ("e632aeff-b79d-40f6-a095-a7fb78811687")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
@@ -119,7 +119,7 @@ public class DictionaryImpl extends AnalystContainerImpl implements Dictionary {
         return super.getCompositionOwner();
     }
 
-    @objid ("bea2c805-a430-4603-9331-cc2dd91e111f")
+    @objid ("593ff88f-5009-47f4-ab0f-b92ba65bb695")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
@@ -132,7 +132,7 @@ public class DictionaryImpl extends AnalystContainerImpl implements Dictionary {
         return super.getCompositionRelation();
     }
 
-    @objid ("cca27a58-54d4-4999-9c2b-627dc09ee617")
+    @objid ("3cfcc3a7-561c-4dc5-b585-cc6453e7a113")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitDictionary(this);

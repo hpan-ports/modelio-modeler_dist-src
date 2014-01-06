@@ -106,9 +106,11 @@ class ModelLoader implements IModelLoader {
     }
 
     @objid ("f6c04912-3948-11e2-920a-001ec947ccaf")
+    @Override
     public final void close() {
         doClose();
         
+        this.loadingMetaOf.endLoading();
         this.pool.add(this);
     }
 
@@ -270,10 +272,20 @@ class ModelLoader implements IModelLoader {
             }
         
             // Add in cache
-            addToCacheManagerNoFail(ret);
-            this.shellRepository.addObject(ret);
-            addObjToInitialize(ret);
-            addLoadedData(data);
+            try {
+                this.cacheManager.addToCache(ret);
+                this.shellRepository.addObject(ret);
+                addObjToInitialize(ret);
+                addLoadedData(data);
+            } catch (DuplicateObjectException e) {
+                // The object has been loaded concurrently
+                ret = (SmObjectImpl) this.session.getModel().findById(metaclass, id);
+                if (ret == null) {
+                    // This should not occur
+                    throw new Error(e);
+                }
+            }
+        
         
             return ret;
         }
@@ -312,24 +324,6 @@ class ModelLoader implements IModelLoader {
 
     @objid ("d7ed84ef-e8f1-4b4e-896a-a910c4f83cb2")
     void initStatus(SmObjectImpl obj) {
-        /*ISmObjectData data = obj.getData();
-        
-        IPStatus pStatus = data.getPStatus(); 
-        IRStatus rStatus = data.getRStatus();
-        
-        // Backup data status
-        IPStatus oldPStatus = pStatus.getCopy(); 
-        IRStatus oldRStatus = rStatus.getRCopy(); 
-        
-        // Reinitialize status with default values
-        SmStatusFactory.resetRStatus(data);
-        SmStatusFactory.resetPStatus(data);
-        
-        // Apply the saved object status to the new one
-        rStatus.apply(oldRStatus, null);
-        pStatus.apply(oldPStatus, null);
-        */
-        
         // Allow access manager to modify the object status
         this.accessManager.initStatus(obj, this.accessManagerModelLoader);
         
@@ -340,15 +334,6 @@ class ModelLoader implements IModelLoader {
     @objid ("33430ab9-4097-11e2-87cb-001ec947ccaf")
     private void addObjToInitialize(SmObjectImpl obj) {
         this.toInitialize.add(obj);
-    }
-
-    @objid ("09ff9c9c-09ab-4c9c-b64b-497c6ac0ae0e")
-    private void addToCacheManagerNoFail(SmObjectImpl ret) {
-        try {
-            this.cacheManager.addToCache(ret);
-        } catch (DuplicateObjectException e) {
-            throw new Error(e);
-        }
     }
 
     @objid ("3a92a4a9-2972-4102-b376-28febc1bf0ee")
@@ -385,6 +370,12 @@ class ModelLoader implements IModelLoader {
                 this.loadedData = new ArrayList<>(10);
             }
         }
+    }
+
+    @objid ("e857c9bf-d56e-4f72-bdd4-7e3dad3e82b0")
+    @Override
+    public void begin() {
+        this.loadingMetaOf.beginLoading();
     }
 
 }

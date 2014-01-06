@@ -36,11 +36,6 @@ import org.modelio.diagram.elements.core.model.GmModel;
  */
 @objid ("80bbb764-1dec-11e2-8cad-001ec947c8cc")
 public class DefaultElementDirectEditPolicy extends DirectEditPolicy {
-    @objid ("80bbb768-1dec-11e2-8cad-001ec947c8cc")
-    public DefaultElementDirectEditPolicy() {
-        super();
-    }
-
     @objid ("80bbb76a-1dec-11e2-8cad-001ec947c8cc")
     @Override
     protected Command getDirectEditCommand(DirectEditRequest edit) {

@@ -28,6 +28,8 @@ import org.modelio.metamodel.analyst.AnalystPropertyTable;
 import org.modelio.metamodel.analyst.BusinessRule;
 import org.modelio.metamodel.analyst.BusinessRuleContainer;
 import org.modelio.metamodel.analyst.Dictionary;
+import org.modelio.metamodel.analyst.GenericAnalystContainer;
+import org.modelio.metamodel.analyst.GenericAnalystElement;
 import org.modelio.metamodel.analyst.Goal;
 import org.modelio.metamodel.analyst.GoalContainer;
 import org.modelio.metamodel.analyst.PropertyContainer;
@@ -150,6 +152,7 @@ import org.modelio.metamodel.uml.behavior.commonBehaviors.BehaviorParameter;
 import org.modelio.metamodel.uml.behavior.commonBehaviors.Event;
 import org.modelio.metamodel.uml.behavior.commonBehaviors.OpaqueBehavior;
 import org.modelio.metamodel.uml.behavior.commonBehaviors.Signal;
+import org.modelio.metamodel.uml.behavior.communicationModel.CommunicationChannel;
 import org.modelio.metamodel.uml.behavior.communicationModel.CommunicationInteraction;
 import org.modelio.metamodel.uml.behavior.communicationModel.CommunicationMessage;
 import org.modelio.metamodel.uml.behavior.communicationModel.CommunicationNode;
@@ -199,6 +202,7 @@ import org.modelio.metamodel.uml.infrastructure.Dependency;
 import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.metamodel.uml.infrastructure.ExternDocument;
 import org.modelio.metamodel.uml.infrastructure.ExternDocumentType;
+import org.modelio.metamodel.uml.infrastructure.ExternProcessor;
 import org.modelio.metamodel.uml.infrastructure.MetaclassReference;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
 import org.modelio.metamodel.uml.infrastructure.Note;
@@ -210,6 +214,9 @@ import org.modelio.metamodel.uml.infrastructure.TagParameter;
 import org.modelio.metamodel.uml.infrastructure.TagType;
 import org.modelio.metamodel.uml.infrastructure.TaggedValue;
 import org.modelio.metamodel.uml.infrastructure.Usage;
+import org.modelio.metamodel.uml.infrastructure.matrix.MatrixDefinition;
+import org.modelio.metamodel.uml.infrastructure.matrix.MatrixValueDefinition;
+import org.modelio.metamodel.uml.infrastructure.matrix.QueryDefinition;
 import org.modelio.metamodel.uml.infrastructure.properties.EnumeratedPropertyType;
 import org.modelio.metamodel.uml.infrastructure.properties.LocalPropertyTable;
 import org.modelio.metamodel.uml.infrastructure.properties.PropertyDefinition;
@@ -1846,5 +1853,44 @@ public interface IModelFactory {
 
     @objid ("5e02b444-63b7-4ed2-96d4-746b51b54069")
     Goal createGoal(String name, GoalContainer owner);
+
+    @objid ("1c2861a7-5537-44fe-89be-e8fe43f5d8c5")
+    CommunicationChannel createCommunicationChannel();
+
+    @objid ("cf269e47-c913-4ecc-9b46-94dce1c8fb7e")
+    MatrixDefinition createMatrixDefinition();
+
+    @objid ("f5893b41-a99e-43fd-8035-0e6f96016660")
+    QueryDefinition createQueryDefinition();
+
+    @objid ("ca66d4a7-b02d-46b6-94e3-49c8b7e1f2bc")
+    MatrixValueDefinition createMatrixValueDefinition();
+
+    @objid ("5c5a15f8-89b9-4e02-825f-ac17e7c72252")
+    ExternProcessor createExternProcessor();
+
+    @objid ("f040907a-2ea5-49b6-92be-116d0abc9131")
+    GenericAnalystContainer createGenericAnalystContainer();
+
+    @objid ("88e9629c-efc5-4d52-bbda-b85f8ce92a2a")
+    GenericAnalystElement createGenericAnalystElement();
+
+    @objid ("d3eace07-c9bb-4f42-8e87-8eae3c111ee6")
+    GenericAnalystContainer createGenericAnalystContainer(String name, GenericAnalystContainer owner, String moduleName, String stereotypeName) throws ExtensionNotFoundException;
+
+    @objid ("3eea30f3-906e-41ea-9645-fcf6321e26a9")
+    GenericAnalystContainer createGenericAnalystContainer(String name, GenericAnalystContainer owner, Stereotype ste);
+
+    @objid ("10a0fb18-0698-4d4f-9313-d1d284eaafa7")
+    GenericAnalystElement createGenericAnalystElement(String name, GenericAnalystElement owner, Stereotype ste);
+
+    @objid ("09304cb9-e807-4627-a771-e3f4f26a2433")
+    GenericAnalystElement createGenericAnalystElement(String name, GenericAnalystElement owner, String moduleName, String stereotypeName) throws ExtensionNotFoundException;
+
+    @objid ("c4121159-d9e5-4366-a8ea-6217c6ba47d6")
+    GenericAnalystElement createGenericAnalystElement(String name, GenericAnalystContainer owner, Stereotype ste);
+
+    @objid ("674230fc-c143-4415-b4b9-789ee20edc0e")
+    GenericAnalystElement createGenericAnalystElement(String name, GenericAnalystContainer owner, String moduleName, String stereotypeName) throws ExtensionNotFoundException;
 
 }

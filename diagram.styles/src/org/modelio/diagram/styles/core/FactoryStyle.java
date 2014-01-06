@@ -30,6 +30,7 @@ import org.eclipse.swt.graphics.Font;
 import org.modelio.diagram.persistence.IDiagramReader;
 import org.modelio.diagram.persistence.IDiagramWriter;
 import org.modelio.diagram.persistence.IPersistent;
+import org.modelio.vcore.smkernel.mapi.MRef;
 
 /**
  * Factory settings for style property values. This class must define a VALID value for each StyleKey.
@@ -192,7 +193,7 @@ public class FactoryStyle implements IStyle, IPersistent {
             value = FactoryStyleDefaults.getDefaultValue(propertyKey);
         }
         
-        assert (value != null) : "No factory setting for property " + propertyKey;
+        assert (value != null || propertyKey.getType()==MRef.class) : "No factory setting for property " + propertyKey;
         return (T) value;
     }
 

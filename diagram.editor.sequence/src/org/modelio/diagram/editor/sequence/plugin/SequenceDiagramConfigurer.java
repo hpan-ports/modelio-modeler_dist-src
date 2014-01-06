@@ -29,13 +29,13 @@ import org.eclipse.gef.palette.PaletteRoot;
 import org.eclipse.gef.palette.SelectionToolEntry;
 import org.eclipse.gef.tools.AbstractTool;
 import org.modelio.diagram.editor.AbstractDiagramEditor;
-import org.modelio.diagram.editor.plugin.IDiagramConfigurer;
+import org.modelio.diagram.editor.plugin.AbstractDiagramConfigurer;
 import org.modelio.diagram.editor.plugin.ToolRegistry;
 import org.modelio.diagram.editor.sequence.editor.SequenceDiagramEditor;
 import org.modelio.diagram.editor.tools.PanSelectionTool;
 
 @objid ("d9a3c0b8-55b6-11e2-877f-002564c97630")
-public class SequenceDiagramConfigurer implements IDiagramConfigurer {
+public class SequenceDiagramConfigurer extends AbstractDiagramConfigurer {
     @objid ("d9a3c0cb-55b6-11e2-877f-002564c97630")
     @Override
     public String getContributionURI() {
@@ -64,6 +64,7 @@ public class SequenceDiagramConfigurer implements IDiagramConfigurer {
         paletteRoot.add(createLinkGroup(toolRegistry));
         paletteRoot.add(createInformationFlowGroup(toolRegistry));
         paletteRoot.add(createCommonGroup(toolRegistry));
+        paletteRoot.add(createDrawGroup(toolRegistry));
         return paletteRoot;
     }
 

@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.uml.behavior.activityModel;
 
 import java.util.ArrayList;
@@ -41,33 +41,33 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("003a3022-c4bf-1fd8-97fe-001ec947cd2a")
 public class OpaqueActionImpl extends ActivityActionImpl implements OpaqueAction {
-    @objid ("3ce572a9-2c75-4131-9c49-dc1f2f8bf13d")
+    @objid ("3e048c03-8d0a-43d4-87d1-a9bc8e5a5ca4")
     @Override
     public String getBody() {
         return (String) getAttVal(OpaqueActionData.Metadata.BodyAtt());
     }
 
-    @objid ("dd351c82-83d3-4884-8999-010600930db6")
+    @objid ("25787d43-f636-4883-985b-97c29514b1e3")
     @Override
     public void setBody(String value) {
         setAttVal(OpaqueActionData.Metadata.BodyAtt(), value);
     }
 
-    @objid ("96411dbf-4f74-481b-9380-702a589b6be5")
+    @objid ("36f476ae-cb15-4a46-b077-8bf32643f911")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("fe716705-0b6b-409b-b5e6-209d607f32f0")
+    @objid ("27ffd811-0490-4218-9645-12086cf8ca78")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("92525aa1-d606-4c3c-b255-b12043a8aad8")
+    @objid ("9a9b7c53-970d-42bd-8e2c-2947cb8c40ff")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitOpaqueAction(this);

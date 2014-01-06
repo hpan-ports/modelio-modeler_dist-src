@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.uml.statik;
 
 import java.util.ArrayList;
@@ -43,13 +43,13 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("0009bc1c-c4bf-1fd8-97fe-001ec947cd2a")
 public class EnumerationImpl extends GeneralClassImpl implements Enumeration {
-    @objid ("8c57c2a1-83da-4530-b42d-9a499a17601b")
+    @objid ("9878d595-4771-4587-baa8-a7ebea206416")
     @Override
     public EList<EnumerationLiteral> getValue() {
         return new SmList<>(this, EnumerationData.Metadata.ValueDep());
     }
 
-    @objid ("86e63698-abd4-4847-a922-6bc0fd2c7ac5")
+    @objid ("ca19d5fc-0196-4893-85f3-1a86720a0cb4")
     @Override
     public <T extends EnumerationLiteral> List<T> getValue(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -62,21 +62,21 @@ public class EnumerationImpl extends GeneralClassImpl implements Enumeration {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("5d0d171a-1040-4f3b-bffd-957159da8715")
+    @objid ("7db6a1a9-d41a-427f-ae32-d93d00fec2fb")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("ec392caa-1822-4fea-8a42-33436273c6b5")
+    @objid ("9e719ecb-6907-4696-80ba-194849456c91")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("b6b98713-ec31-421b-890c-2f7d56e239fc")
+    @objid ("edc09ff4-8658-4d2c-81f3-b617b4972374")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitEnumeration(this);

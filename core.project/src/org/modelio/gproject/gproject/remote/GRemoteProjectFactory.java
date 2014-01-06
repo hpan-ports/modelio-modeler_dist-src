@@ -31,6 +31,7 @@ import org.modelio.gproject.descriptor.ProjectDescriptorReader;
 import org.modelio.gproject.gproject.GProjectAuthenticationException;
 import org.modelio.gproject.gproject.IProjectFactory;
 import org.modelio.vbasic.auth.IAuthData;
+import org.modelio.vbasic.files.FileUtils;
 import org.modelio.vbasic.progress.IModelioProgress;
 import org.xml.sax.InputSource;
 
@@ -47,7 +48,7 @@ public abstract class GRemoteProjectFactory implements IProjectFactory {
      * Name of the remote project descriptor file.
      */
     @objid ("2dd9c111-5e5d-4c4d-8db2-6672824e9798")
-    protected static final String REMOTE_PROJECT_CONF = "project.server.conf";
+    public static final String REMOTE_PROJECT_CONF = "project.server.conf";
 
     /**
      * Fetch the remote descriptor from its remote location.
@@ -65,9 +66,21 @@ public abstract class GRemoteProjectFactory implements IProjectFactory {
     @Override
     public final ProjectDescriptor getRemoteDescriptor(ProjectDescriptor localDescriptor, IAuthData authData, IModelioProgress monitor) throws GProjectAuthenticationException, IOException {
         InputSource is = readRemoteDescriptor(localDescriptor, authData, monitor);
-        
-        ProjectDescriptor newServerDesc = new ProjectDescriptorReader().read(is, DefinitionScope.SHARED);
-        return newServerDesc;
+        try {
+            ProjectDescriptor newServerDesc = new ProjectDescriptorReader().read(is, DefinitionScope.SHARED);
+            return newServerDesc;
+        } catch (IOException e) {
+            // Enriches the exception with the descriptor content if possible.
+            try {
+                InputSource is2 = readRemoteDescriptor(localDescriptor, authData, monitor);
+                String content = FileUtils.readWhole(is2.getByteStream(), "utf-8");
+                e.addSuppressed(new Throwable("Descriptor content:\n"+content));
+                
+            } catch (Exception e2) {
+                e.addSuppressed(e2);
+            }
+            throw e;
+        }
     }
 
     @objid ("151079c2-d162-4f44-a4f9-f3226ee7955c")

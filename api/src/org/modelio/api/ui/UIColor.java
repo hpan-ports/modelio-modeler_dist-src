@@ -62,7 +62,7 @@ public interface UIColor {
     public static final Color TEXT_WRITABLE_BG = new Color(Display.getCurrent(), 255, 255, 255);
 
     @objid ("dffeb833-120f-11e2-b5c6-002564c97630")
-    public static final Color TEXT_READONLY_BG = new Color(Display.getCurrent(), 242, 242, 242);
+    public static final Color TEXT_READONLY_BG = new Color(Display.getCurrent(), 232, 232, 232);
 
     /**
      * Editors highlighting colors
@@ -93,5 +93,8 @@ public interface UIColor {
      */
     @objid ("dffeb843-120f-11e2-b5c6-002564c97630")
     public static final Color HYPERLINK_FG = new Color(Display.getCurrent(), 0, 0, 128);
+
+    @objid ("e8e1d185-64c9-4809-8792-0da37518ee89")
+    public static final Color POST_IT_BG = new Color(Display.getCurrent(), 255, 255, 210);
 
 }

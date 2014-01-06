@@ -21,16 +21,15 @@
 
 package org.modelio.app.ui.handlers;
 
-import javax.inject.Inject;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.e4.core.di.annotations.CanExecute;
 import org.eclipse.e4.core.di.annotations.Execute;
 import org.eclipse.swt.program.Program;
 import org.modelio.app.ui.plugin.AppUi;
 
-@objid ("7a782685-0770-4fce-83fc-a424f961a17d")
+@objid ("c80533ae-6a43-44de-b6a5-909ed22e6a27")
 public class SubmitIssueHandler {
-    @objid ("42f9e782-0d49-4ae8-93b8-94cb3bfddb8f")
+    @objid ("ec5d7ff6-836d-45a4-9dfe-3768433f4b58")
     @Execute
     public void execute() {
         String href = AppUi.I18N.getString("SubmitIssue.site");
@@ -41,7 +40,7 @@ public class SubmitIssueHandler {
         }
     }
 
-    @objid ("5c02683c-0178-490d-bbed-072b594aea3f")
+    @objid ("176f4621-1200-49ad-b178-2d6854f010bc")
     @CanExecute
     boolean canExecute() {
         return true;

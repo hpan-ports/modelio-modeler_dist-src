@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.uml.statik;
 
 import java.util.ArrayList;
@@ -42,57 +42,57 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("000247ca-c4bf-1fd8-97fe-001ec947cd2a")
 public class ClassImpl extends GeneralClassImpl implements Class {
-    @objid ("370afeb2-c584-48b4-9123-fe4c3120fb49")
+    @objid ("cf36e382-0f83-471b-a8ae-18f7e2eb7634")
     @Override
     public boolean isIsActive() {
         return (Boolean) getAttVal(ClassData.Metadata.IsActiveAtt());
     }
 
-    @objid ("db73874f-9925-4095-86c0-4b1c8273d829")
+    @objid ("5b3162fd-43d5-4473-8181-a46c02f44e59")
     @Override
     public void setIsActive(boolean value) {
         setAttVal(ClassData.Metadata.IsActiveAtt(), value);
     }
 
-    @objid ("36a3d186-47fc-48b4-a9e4-a9fb93f7f057")
+    @objid ("fcf3bd0c-0ff0-4ff6-8952-ded232fc8c40")
     @Override
     public boolean isIsMain() {
         return (Boolean) getAttVal(ClassData.Metadata.IsMainAtt());
     }
 
-    @objid ("b043ea66-7ead-4422-a12f-3c3419852541")
+    @objid ("fb14c332-6032-4247-9e7a-e407f9b55bec")
     @Override
     public void setIsMain(boolean value) {
         setAttVal(ClassData.Metadata.IsMainAtt(), value);
     }
 
-    @objid ("ce8a0ea8-4bf0-402e-a1ba-6c222c0b2930")
+    @objid ("7141485c-beea-4869-8a31-1da2392e3171")
     @Override
     public ClassAssociation getLinkToAssociation() {
         return (ClassAssociation) getDepVal(ClassData.Metadata.LinkToAssociationDep());
     }
 
-    @objid ("a5be14ea-dd30-4f3f-a826-f89c2b177de9")
+    @objid ("0cd94bcd-48c4-480e-b17e-ea1f7230fd05")
     @Override
     public void setLinkToAssociation(ClassAssociation value) {
         appendDepVal(ClassData.Metadata.LinkToAssociationDep(), (SmObjectImpl)value);
     }
 
-    @objid ("b3375ccb-168d-4754-9a16-142cd59b6be9")
+    @objid ("9790e8f4-cd0e-4b89-84e7-aa360aaaf3fc")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("2365d997-a133-45e6-a990-4823294023f7")
+    @objid ("04ad298f-2f90-4dfa-a568-6be2f40a69a0")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("261d9ebf-d1dc-4983-a252-83c0c0d8fdd1")
+    @objid ("d171cca6-3e05-4d33-a288-44df08850bb1")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitClass(this);

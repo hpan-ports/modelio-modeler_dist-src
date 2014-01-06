@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.uml.statik;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
@@ -33,16 +33,16 @@ import org.modelio.metamodel.uml.statik.NameSpace;
 
 @objid ("000ee2e6-c4bf-1fd8-97fe-001ec947cd2a")
 public interface InterfaceRealization extends ModelElement {
-    @objid ("c24f6d0d-14c2-4246-a2b1-ff6286f93f27")
+    @objid ("2c066df4-1f45-4944-8779-077e17a9ebc0")
     Interface getImplemented();
 
-    @objid ("d52b39a4-d032-4087-bb5f-4fe32a83314b")
+    @objid ("73efc173-b082-4f47-a353-623e54673593")
     void setImplemented(Interface value);
 
-    @objid ("927b7ff8-73ef-4203-b7cf-cc44e4971d7e")
+    @objid ("b54f7ea7-4015-4268-93e4-1c4cffe0a932")
     NameSpace getImplementer();
 
-    @objid ("5520384a-e1c0-4246-9c2d-ab51111d93ee")
+    @objid ("7c170e63-0923-401c-be30-e413174ca268")
     void setImplementer(NameSpace value);
 
 }

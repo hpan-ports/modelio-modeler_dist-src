@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.uml.behavior.interactionModel;
 
 import java.util.ArrayList;
@@ -45,25 +45,25 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("00456c76-c4bf-1fd8-97fe-001ec947cd2a")
 public class GateImpl extends MessageEndImpl implements Gate {
-    @objid ("55f06c00-ed50-4034-9a2c-c2dc0b2b5522")
+    @objid ("c60d6606-f0c5-4513-a34d-9c3cbce56f91")
     @Override
     public InteractionUse getOwnerUse() {
         return (InteractionUse) getDepVal(GateData.Metadata.OwnerUseDep());
     }
 
-    @objid ("75ea9f20-76a2-431f-9a11-e4f242bedcf8")
+    @objid ("f19a2fdb-39e7-4c90-ab7a-f06fedf2a01e")
     @Override
     public void setOwnerUse(InteractionUse value) {
         appendDepVal(GateData.Metadata.OwnerUseDep(), (SmObjectImpl)value);
     }
 
-    @objid ("eae46473-3a9b-4f9a-a2a1-668dbd410a43")
+    @objid ("0b2c840b-90e3-463c-87b4-44b7882f322e")
     @Override
     public EList<Gate> getActual() {
         return new SmList<>(this, GateData.Metadata.ActualDep());
     }
 
-    @objid ("8ab13518-bfe3-43bf-9762-fea0b6048d17")
+    @objid ("a1f44990-c082-4c5e-92bc-299ce19df604")
     @Override
     public <T extends Gate> List<T> getActual(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -76,43 +76,43 @@ public class GateImpl extends MessageEndImpl implements Gate {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("b32a6c3c-1df6-4745-b925-aa92cca93a78")
+    @objid ("1e0ef20d-633e-480b-86b5-f6ee2041bcce")
     @Override
     public Interaction getOwnerInteraction() {
         return (Interaction) getDepVal(GateData.Metadata.OwnerInteractionDep());
     }
 
-    @objid ("8343af5a-dba2-4b83-8001-4eacadc2f4f9")
+    @objid ("94343283-8232-4067-897e-7538dde5c129")
     @Override
     public void setOwnerInteraction(Interaction value) {
         appendDepVal(GateData.Metadata.OwnerInteractionDep(), (SmObjectImpl)value);
     }
 
-    @objid ("f3611b0d-f84f-4b7a-b1d9-141242767bee")
+    @objid ("9fe7fb57-fc6f-47f2-bfeb-62eae4dfa78f")
     @Override
     public CombinedFragment getOwnerFragment() {
         return (CombinedFragment) getDepVal(GateData.Metadata.OwnerFragmentDep());
     }
 
-    @objid ("860d0406-376c-43a8-aa35-3ebc645c688f")
+    @objid ("8382542f-f52f-410d-8240-0d936cd5facc")
     @Override
     public void setOwnerFragment(CombinedFragment value) {
         appendDepVal(GateData.Metadata.OwnerFragmentDep(), (SmObjectImpl)value);
     }
 
-    @objid ("da403e0f-9428-4a7e-b53d-bfa8c91a18bc")
+    @objid ("403dc1b2-cc07-43ff-824d-dc0983c17c6e")
     @Override
     public Gate getFormal() {
         return (Gate) getDepVal(GateData.Metadata.FormalDep());
     }
 
-    @objid ("0ca53ca0-66ec-415d-bd25-80b760e5e3f2")
+    @objid ("337aaa13-9135-4cba-9d64-1bb08e8a123e")
     @Override
     public void setFormal(Gate value) {
         appendDepVal(GateData.Metadata.FormalDep(), (SmObjectImpl)value);
     }
 
-    @objid ("bc1e2e4b-701e-459c-a9f9-535139d0735d")
+    @objid ("b95a30f3-4dbd-432c-a58d-4a59fec3665a")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
@@ -128,7 +128,7 @@ public class GateImpl extends MessageEndImpl implements Gate {
         return super.getCompositionOwner();
     }
 
-    @objid ("0abdb1f0-e0d6-4369-abef-258b9eb91416")
+    @objid ("abc59cd7-feb8-4613-acea-b3edf4e77dbb")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
@@ -144,7 +144,7 @@ public class GateImpl extends MessageEndImpl implements Gate {
         return super.getCompositionRelation();
     }
 
-    @objid ("5811466d-ac13-482c-bcf4-53a1b59091bb")
+    @objid ("2584a0b8-de70-4b17-973d-075aff2c08f1")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitGate(this);

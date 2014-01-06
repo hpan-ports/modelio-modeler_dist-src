@@ -46,9 +46,6 @@ import org.modelio.vcore.smkernel.mapi.MRef;
  */
 @objid ("7e24e9ab-1dec-11e2-8cad-001ec947c8cc")
 public class UnmaskLinkedNodeCommand extends Command {
-    @objid ("8e53f4a7-8d72-4ed6-9cac-7b7dbae46d4a")
-    private final Point dropLocation;
-
     @objid ("7e24e9af-1dec-11e2-8cad-001ec947c8cc")
     private final MObject theElement;
 
@@ -60,6 +57,9 @@ public class UnmaskLinkedNodeCommand extends Command {
 
     @objid ("7e24e9b5-1dec-11e2-8cad-001ec947c8cc")
     private final AbstractDiagramEditPart host;
+
+    @objid ("fdfff5a2-fdf5-4d65-9dff-5baf4579e744")
+    private final Point dropLocation;
 
     /**
      * C'tor.

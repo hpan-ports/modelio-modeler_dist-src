@@ -43,8 +43,9 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.modelio.diagram.editor.plugin.DiagramEditor;
 import org.modelio.diagram.elements.common.abstractdiagram.AbstractDiagramEditPart;
 import org.modelio.diagram.elements.common.portcontainer.GmPortContainer;
-import org.modelio.diagram.elements.core.model.GmModel;
+import org.modelio.diagram.elements.core.model.IGmModelRelated;
 import org.modelio.diagram.elements.core.node.GmNodeModel;
+import org.modelio.vcore.smkernel.mapi.MObject;
 
 /**
  * Handler for the autosize command that will reduce a selection of node edit parts to their minimum size.
@@ -53,9 +54,12 @@ import org.modelio.diagram.elements.core.node.GmNodeModel;
  */
 @objid ("65ad5386-33f7-11e2-95fe-001ec947c8cc")
 public class AutoSizeHandler {
+    /**
+     * @param selection the Eclipse selection
+     */
     @objid ("65ad5399-33f7-11e2-95fe-001ec947c8cc")
     @Execute
-    public Object execute(@Named(IServiceConstants.ACTIVE_SELECTION) ISelection selection) {
+    public void execute(@Named(IServiceConstants.ACTIVE_SELECTION) ISelection selection) {
         GraphicalEditPart primarySelection = null;
         List<GraphicalEditPart> otherSelections = new ArrayList<>();
         if (selection instanceof IStructuredSelection) {
@@ -65,9 +69,15 @@ public class AutoSizeHandler {
                     GraphicalEditPart editPart = (GraphicalEditPart) selectedObject;
                     boolean isPrimary = editPart.getSelected() == EditPart.SELECTED_PRIMARY;
         
-                    // Only keep 'main' gms
-                    while (((GmModel)editPart.getModel()).getRepresentedElement() == null) {
-                        editPart = (GraphicalEditPart) editPart.getParent();
+                    Object model = editPart.getModel();
+                    if (model instanceof IGmModelRelated) {
+                        // Only keep 'main' gms
+                        MObject representedElement = ((IGmModelRelated)model).getRepresentedElement();
+                        while (representedElement == null) {
+                            editPart = (GraphicalEditPart) editPart.getParent();
+                            model = editPart.getModel();
+                            representedElement = ((IGmModelRelated)model).getRepresentedElement();
+                        }
                     }
         
                     if (isPrimary) {
@@ -88,7 +98,6 @@ public class AutoSizeHandler {
         
         // Resize the elements
         execute(primarySelection, otherSelections);
-        return null;
     }
 
     @objid ("65ad538e-33f7-11e2-95fe-001ec947c8cc")

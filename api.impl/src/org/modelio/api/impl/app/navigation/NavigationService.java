@@ -20,7 +20,7 @@ public class NavigationService implements INavigationService {
     @Inject
     private IModelioNavigationService selectionService;
 
-    @objid ("70b7c9fd-9bc2-4331-b6fa-81f78acf8b2d")
+    @objid ("59d4487f-bbc7-4be2-9add-d804e3f9005f")
      List<INavigationListener> listeners = null;
 
     @objid ("b032da61-2ab5-43a5-ad65-6232b5547fcc")
@@ -44,7 +44,7 @@ public class NavigationService implements INavigationService {
         }
     }
 
-    @objid ("e48805ff-c96d-414c-9ddc-d1055e7c4b10")
+    @objid ("7b31167b-ea47-4494-a915-c30b299d80f5")
     @Inject
     @Optional
     public void onNavigateElement(@EventTopic(ModelioEventTopics.NAVIGATE_ELEMENT) final List<MObject> elements) {
@@ -53,7 +53,7 @@ public class NavigationService implements INavigationService {
         }
     }
 
-    @objid ("5f71bfa9-aae5-4237-8a30-a57e5c176e51")
+    @objid ("14c8f9ac-9495-42b1-815d-c6985c719773")
     @Inject
     @Optional
     public void onNavigateElement(@EventTopic(ModelioEventTopics.NAVIGATE_ELEMENT) final MObject element) {
@@ -62,13 +62,13 @@ public class NavigationService implements INavigationService {
         }
     }
 
-    @objid ("cd8e60e5-3083-4946-9903-4546414f210a")
+    @objid ("656944fc-8d72-4efa-9ecf-adbedd29f39a")
     @Override
     public void addNavigationListener(INavigationListener listener) {
         this.listeners.add(listener);
     }
 
-    @objid ("e7e1ecf0-3cc8-4e1f-b73d-f3473e4066cd")
+    @objid ("2ba53622-70d9-48f6-a4a7-60575cc08cfd")
     @Override
     public void removeNavigationListener(INavigationListener listener) {
         this.listeners.remove(listener);

@@ -94,6 +94,7 @@ class AccessManagerModelLoader implements IModelLoader {
     }
 
     @objid ("a8d99b94-42ee-11e2-91c9-001ec947ccaf")
+    @Override
     public void close() {
         // do nothing.
     }
@@ -114,6 +115,12 @@ class AccessManagerModelLoader implements IModelLoader {
     @Override
     public void setRStatus(SmObjectImpl obj, long trueFlags, long falseFlags, long undefFlags) {
         obj.getData().setRFlags(trueFlags, falseFlags, undefFlags);
+    }
+
+    @objid ("e9233f8a-eae0-446d-a3b6-177fedbc34df")
+    @Override
+    public void begin() {
+        // ignore
     }
 
 }

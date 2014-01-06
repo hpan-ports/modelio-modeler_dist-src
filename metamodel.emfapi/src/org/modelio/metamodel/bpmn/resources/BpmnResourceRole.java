@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.bpmn.resources;
 
 import java.util.List;
@@ -36,28 +36,28 @@ import org.modelio.metamodel.bpmn.rootElements.BpmnFlowNode;
 
 @objid ("000a8606-c4c0-1fd8-97fe-001ec947cd2a")
 public interface BpmnResourceRole extends BpmnBaseElement {
-    @objid ("1fbb5110-fb08-4258-bd46-d2f56a645e49")
+    @objid ("c114ca9c-ae47-406d-9928-513fe45d2661")
     BpmnResource getResourceRef();
 
-    @objid ("511af3fc-0401-4d19-8f53-c4762cea9778")
+    @objid ("e290436b-47d0-432c-a8c7-919686f913fb")
     void setResourceRef(BpmnResource value);
 
-    @objid ("f9d70e63-8a78-4a1e-b937-4881d9695bac")
+    @objid ("c0451357-677f-463b-bbba-2b513868a3c8")
     BpmnFlowNode getAnnotated();
 
-    @objid ("e9fb011f-93cc-4fa8-94d2-7f557f00e41e")
+    @objid ("d347ce63-1309-42f1-ab5a-d06c3ae7f2a4")
     void setAnnotated(BpmnFlowNode value);
 
-    @objid ("c5df886e-ec35-4476-8460-c5bdeeb16bee")
+    @objid ("796a0d33-3aee-4c23-9860-ccf6486e790e")
     EList<BpmnResourceParameterBinding> getResourceParameterBinding();
 
-    @objid ("22cb4a4e-dd5a-4e7d-98ba-33a3f0dbd8f1")
+    @objid ("f06a9114-5db8-436a-8d64-069ddeaa6ee8")
     <T extends BpmnResourceParameterBinding> List<T> getResourceParameterBinding(java.lang.Class<T> filterClass);
 
-    @objid ("9a71e038-c577-4ace-ac42-edbd76bf29a9")
+    @objid ("7fcf12bb-d0f3-45a8-beec-5c9d39f8eada")
     BpmnProcess getProcess();
 
-    @objid ("05d2f061-ef24-4ade-bd6b-44125d54f3df")
+    @objid ("5447de7d-b77c-4b83-8e0b-98472803857a")
     void setProcess(BpmnProcess value);
 
 }

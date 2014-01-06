@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.uml.infrastructure.properties;
 
 import java.util.Properties;
@@ -30,6 +30,8 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
+import org.modelio.metamodel.uml.infrastructure.matrix.MatrixValueDefinition;
+import org.modelio.metamodel.uml.infrastructure.matrix.QueryDefinition;
 
 @objid ("00688c1a-ec87-1098-b22e-001ec947cd2a")
 public interface PropertyTable extends Element {
@@ -68,22 +70,34 @@ public interface PropertyTable extends Element {
     @objid ("5652fdb3-2826-11e2-bf07-001ec947ccaf")
     Properties toProperties() throws IllegalStateException;
 
-    @objid ("aa3dac83-9495-46b1-a83d-bcc70034a63e")
+    @objid ("b9c7be26-bac2-4d32-a66f-28e66b87b1ec")
     String getName();
 
-    @objid ("097fc333-ba27-4bdb-9af3-6dc662a5ce03")
+    @objid ("2f620f99-3ab7-42be-9425-d643509cce9b")
     void setName(String value);
 
-    @objid ("c6a9ecf8-195d-4aa3-9de4-99ab0b44566d")
+    @objid ("94b0cc90-1c89-4bbb-8aa7-f1e5cfcd23b5")
     String getContent();
 
-    @objid ("169b41b7-f78c-4d13-8d4c-5aa9dcef3d11")
+    @objid ("c1da0b50-a08d-40c1-9aca-b83789675cb3")
     void setContent(String value);
 
-    @objid ("08516986-d86e-4993-bfed-396d224df3f8")
+    @objid ("ce03fe97-38ea-40ce-8a74-d7821a82823d")
     ModelElement getOwner();
 
-    @objid ("83af81aa-a0d5-4ed3-8948-bb06f98be3d3")
+    @objid ("7763a21a-8303-40f4-9efe-f9a58109467d")
     void setOwner(ModelElement value);
+
+    @objid ("4162990f-7ccd-4e37-bc88-88a532b8d3d3")
+    MatrixValueDefinition getOwnerValDef();
+
+    @objid ("23a010ec-47c3-4a66-be30-ca72b084b35d")
+    void setOwnerValDef(MatrixValueDefinition value);
+
+    @objid ("0318cb66-dd82-4c11-8fe4-96b455a81bbc")
+    QueryDefinition getOwnerQuery();
+
+    @objid ("532a6771-9b2b-4823-bca3-29eeca1446ab")
+    void setOwnerQuery(QueryDefinition value);
 
 }

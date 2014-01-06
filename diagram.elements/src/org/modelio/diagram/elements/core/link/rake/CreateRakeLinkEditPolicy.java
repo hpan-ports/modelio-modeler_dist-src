@@ -182,20 +182,22 @@ public class CreateRakeLinkEditPolicy extends GraphicalNodeEditPolicy {
 
     @objid ("805c5946-1dec-11e2-8cad-001ec947c8cc")
     protected boolean isHandled(final Request request) {
+        final Object model = getHost().getModel();
         if (request instanceof ReconnectRequest) {
-            if (((ReconnectRequest) request).getConnectionEditPart() instanceof GmLinkEditPart) {
-                GmLinkEditPart toReconnect = (GmLinkEditPart) ((ReconnectRequest) request).getConnectionEditPart();
-                if (toReconnect.getModel().getClass() == getHost().getModel().getClass()) {
+            final ReconnectRequest reconnectRequest = (ReconnectRequest) request;
+            if (reconnectRequest.getConnectionEditPart() instanceof GmLinkEditPart) {
+                GmLinkEditPart toReconnect = (GmLinkEditPart) reconnectRequest.getConnectionEditPart();
+                if (toReconnect.getModel().getClass() == model.getClass()) {
                     return true;
                 }
             }
         
-        } else if (request instanceof CreateConnectionRequest) {
+        } else if (request instanceof CreateConnectionRequest && model instanceof GmLink) {
             // Test the metaclass
             Class<? extends MObject> toCreate = getMetaclass((CreateConnectionRequest) request);
-            MObject repEl = ((GmLink) getHost().getModel()).getRelatedElement();
-            if (toCreate.isAssignableFrom(repEl.getClass()))
-                return false; // TODO true;
+            MObject repEl = ((GmLink) model).getRelatedElement();
+            if (toCreate!= null && Metamodel.getMClass(toCreate) == repEl.getMClass())
+                return true;
         
             return false;
         }
@@ -290,8 +292,13 @@ public class CreateRakeLinkEditPolicy extends GraphicalNodeEditPolicy {
     @objid ("805c596f-1dec-11e2-8cad-001ec947c8cc")
     private boolean allowRakeCreation(final CreateConnectionRequest request) {
         // Deny if the policy is disabled
-        if (!activated)
+        if (!activated) {
             return false;
+        }
+        
+        if (!isHandled(request)) {
+            return false;
+        }
         
         // Disable the policy and see if another policy allows something.
         // If another policy handles the request answer false.

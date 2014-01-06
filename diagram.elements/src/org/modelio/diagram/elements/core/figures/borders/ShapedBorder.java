@@ -29,6 +29,9 @@ import org.eclipse.draw2d.geometry.Insets;
 import org.eclipse.swt.graphics.Color;
 import org.modelio.diagram.elements.core.figures.IShaper;
 
+/**
+ * Line border based on a {@link IShaper}.
+ */
 @objid ("7f620252-1dec-11e2-8cad-001ec947c8cc")
 public class ShapedBorder extends LineBorder {
     @objid ("7f620255-1dec-11e2-8cad-001ec947c8cc")
@@ -38,6 +41,7 @@ public class ShapedBorder extends LineBorder {
      * Constructs a ShapedBorder with the specified color and of the specified line width and shaped by the shaper
      * @param color The color of the border.
      * @param width The width of the border in pixels.
+     * @param shaper the border shape
      * @since 2.0
      */
     @objid ("7f620256-1dec-11e2-8cad-001ec947c8cc")

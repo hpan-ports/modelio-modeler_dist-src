@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.uml.statik;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
@@ -32,22 +32,22 @@ import org.modelio.metamodel.uml.statik.VisibilityMode;
 
 @objid ("000b00cc-c4bf-1fd8-97fe-001ec947cd2a")
 public interface Feature extends ModelElement {
-    @objid ("03a6f776-8d65-4760-9d08-3490d8ba8d58")
+    @objid ("d824c2d0-976e-49b2-8332-ab858a780ed9")
     VisibilityMode getVisibility();
 
-    @objid ("99570495-6236-4a29-be28-574125f24872")
+    @objid ("a107f946-eb43-4ba4-92c2-c0f86cd4f28d")
     void setVisibility(VisibilityMode value);
 
-    @objid ("39fafc18-647d-4ed1-8b11-ca21be2ad760")
+    @objid ("1541784f-0d18-48ae-9449-1614e0eeecdf")
     boolean isIsClass();
 
-    @objid ("0f4bf0bf-c5a2-47b7-97a5-f0cad3ef9a20")
+    @objid ("3382cf59-39e8-4a33-8b47-da1e422ea247")
     void setIsClass(boolean value);
 
-    @objid ("d5b07c6d-6103-477b-a26a-1901cfcff44c")
+    @objid ("3ee146c5-5392-472d-b85a-a423de8e6eab")
     boolean isIsAbstract();
 
-    @objid ("94c04ab3-de32-4d9e-a560-6c9841878998")
+    @objid ("25131e30-ae51-461e-be78-6bd44568e9db")
     void setIsAbstract(boolean value);
 
 }

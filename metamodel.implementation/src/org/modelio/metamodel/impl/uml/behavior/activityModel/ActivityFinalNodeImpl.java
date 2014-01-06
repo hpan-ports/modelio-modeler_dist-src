@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.uml.behavior.activityModel;
 
 import java.util.ArrayList;
@@ -41,21 +41,21 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("0027b7ee-c4bf-1fd8-97fe-001ec947cd2a")
 public class ActivityFinalNodeImpl extends FinalNodeImpl implements ActivityFinalNode {
-    @objid ("dbf98bb7-8eb4-4f7c-af34-91f2b97240a7")
+    @objid ("4a17900f-9391-460a-a65e-30a13beab4c8")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("e610275d-2c2d-4fc1-9aa3-5c97fe9c1ef5")
+    @objid ("5f996872-3220-461d-81fb-1861a5be2b52")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("b7035b77-7887-4507-9068-269e1045e408")
+    @objid ("f042d620-557e-4896-bca9-3faaa215d751")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitActivityFinalNode(this);

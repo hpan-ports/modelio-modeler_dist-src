@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.uml.infrastructure;
 
 import java.util.ArrayList;
@@ -41,21 +41,21 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("0090fb64-c4be-1fd8-97fe-001ec947cd2a")
 public class UsageImpl extends DependencyImpl implements Usage {
-    @objid ("a4fbba79-a99c-460f-9b02-6d012fcfa514")
+    @objid ("0a283910-13fa-421a-9665-08254a3ca16a")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("45046bfd-71ca-4d16-a699-73e5630f0d04")
+    @objid ("03c72572-2baa-46bd-a2f6-11f61213b9bb")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("7daae39e-0aa7-46ff-aadb-5e4bdb69e0e9")
+    @objid ("b1def0ce-21d3-40e5-a24a-d1e8cb1a8d85")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitUsage(this);

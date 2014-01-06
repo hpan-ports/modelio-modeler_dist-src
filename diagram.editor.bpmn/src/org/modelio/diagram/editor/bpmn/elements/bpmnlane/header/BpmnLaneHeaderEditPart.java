@@ -40,6 +40,7 @@ import org.modelio.core.ui.images.ElementImageService;
 import org.modelio.diagram.elements.common.edition.DirectEditManager2;
 import org.modelio.diagram.elements.common.header.OldModelElementHeaderEditPart;
 import org.modelio.diagram.elements.core.model.GmModel;
+import org.modelio.diagram.styles.core.StyleKey.ShowStereotypeMode;
 
 /**
  * Specialisation of the ModelElementHeaderEditPart that allows selection while delegating the actual selection feedback
@@ -96,7 +97,8 @@ public class BpmnLaneHeaderEditPart extends OldModelElementHeaderEditPart {
         headerFigure.setMainLabel(gm.getMainLabel());
         
         // Stereotypes
-        refreshStereotypes(headerFigure);
+        ShowStereotypeMode mode = getStereotypeMode(gm);
+        refreshStereotypes(headerFigure, mode);
         
         // Keyword
         if (gm.isShowMetaclassKeyword()) {
@@ -124,10 +126,10 @@ public class BpmnLaneHeaderEditPart extends OldModelElementHeaderEditPart {
             final CellEditorLocator cellEditorLocator = new CellEditorLocator() {
                 @Override
                 public void relocate(CellEditor cellEditor) {
-                    Label label = getMainLabel();
+                    Label label = getMainLabelFigure();
                     final Rectangle rect = label.getBounds().getCopy();
                     rect.setSize(rect.getSize().getTransposed());
-                    final Rectangle rect2 = label.getTextBounds();
+                    final Rectangle rect2 = label.getBounds();
                     rect2.setSize(rect2.getSize().getTransposed());
         
                     label.translateToAbsolute(rect);
@@ -167,17 +169,6 @@ public class BpmnLaneHeaderEditPart extends OldModelElementHeaderEditPart {
         } else {
             super.performRequest(req);
         }
-    }
-
-    /**
-     * Get the main label figure.
-     * <p>
-     * The main label usually displays the element name.
-     * @return the main label figure.
-     */
-    @objid ("611f177c-55b6-11e2-877f-002564c97630")
-    Label getMainLabel() {
-        return ((BpmnLaneHeaderFigure) this.getFigure()).getMainLabel();
     }
 
 }

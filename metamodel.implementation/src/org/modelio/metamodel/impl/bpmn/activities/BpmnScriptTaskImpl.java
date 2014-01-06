@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.bpmn.activities;
 
 import java.util.ArrayList;
@@ -41,45 +41,45 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("00822bd4-c4bf-1fd8-97fe-001ec947cd2a")
 public class BpmnScriptTaskImpl extends BpmnTaskImpl implements BpmnScriptTask {
-    @objid ("61b5e884-b9d3-48fd-b9d9-934157e1efc7")
+    @objid ("9e424d88-4aab-4f87-979a-5c70a9677f10")
     @Override
     public String getScriptLanguage() {
         return (String) getAttVal(BpmnScriptTaskData.Metadata.ScriptLanguageAtt());
     }
 
-    @objid ("4dbe3e91-0ace-47d9-a866-d76abac381d4")
+    @objid ("a9c8f4c8-4237-48d2-aa61-9513d6caa9f6")
     @Override
     public void setScriptLanguage(String value) {
         setAttVal(BpmnScriptTaskData.Metadata.ScriptLanguageAtt(), value);
     }
 
-    @objid ("4bcebd02-fed1-41ff-b523-4730310ea4bd")
+    @objid ("eda37c5d-08ed-4e9f-8c46-f2a24f9d97e8")
     @Override
     public String getScript() {
         return (String) getAttVal(BpmnScriptTaskData.Metadata.ScriptAtt());
     }
 
-    @objid ("956979dc-d824-4e29-bceb-e0084cc385e4")
+    @objid ("e4d24471-ac10-467b-a2db-8527de0abfe6")
     @Override
     public void setScript(String value) {
         setAttVal(BpmnScriptTaskData.Metadata.ScriptAtt(), value);
     }
 
-    @objid ("9a5633d9-0fd3-4344-9dc1-388e0319bc78")
+    @objid ("72e84b6e-f2e5-4eb6-b811-b83df722dca7")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("e7a42c01-794b-43f6-9a32-c50ff3395098")
+    @objid ("01b3adcf-a67f-478e-b19d-fbf53297a87d")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("a52dfa89-a49c-4533-a537-26e5aef28da4")
+    @objid ("1b67f275-fa73-44ce-8786-dcf2b18e18ca")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitBpmnScriptTask(this);

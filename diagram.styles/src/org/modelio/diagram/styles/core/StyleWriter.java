@@ -34,12 +34,13 @@ import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.FontData;
 import org.eclipse.swt.graphics.RGB;
 import org.modelio.diagram.styles.plugin.DiagramStyles;
+import org.modelio.vcore.smkernel.mapi.MRef;
 
 /**
  * This class writes the properties of a NamedStyle to a textual property file.<br>
  * It writes two kinds of properties:
  * <ul>
- * <li>style properties ie known StyleKeys defined in the Style.</li>
+ * <li>style properties ie known {@link StyleKey StyleKeys} defined in the {@link NamedStyle Style} .</li>
  * <li>admin properties about the cascading scheme</li>
  * </ul>
  */
@@ -56,6 +57,7 @@ public class StyleWriter {
 
     /**
      * Constructor.
+     * @param file the file to save into.
      */
     @objid ("8587fa8d-1926-11e2-92d2-001ec947c8cc")
     public StyleWriter(Path file) {
@@ -63,9 +65,8 @@ public class StyleWriter {
     }
 
     /**
-     * Save property values to file.
-     * @param url
-     * the url of the file to strore the style to.
+     * Save a style to the file.
+     * @param style the style to save.
      */
     @objid ("8587fa91-1926-11e2-92d2-001ec947c8cc")
     public void save(NamedStyle style) {
@@ -91,21 +92,12 @@ public class StyleWriter {
                 properties.store(outputStream, "");
             }
         } catch (IOException e) {
-            DiagramStyles.LOG.error(DiagramStyles.PLUGIN_ID, e);
+            DiagramStyles.LOG.error(e);
         }
     }
 
     /**
-     * This method tries to extract a value for the StyleKey 'sKey' from the raw properties 'loadedValues' that have been read from
-     * a property file.<br>
-     * When no value can directly be extracted from 'loadedValue' the method tries to analyze 'sKey' as a MetaKey to guess a
-     * reasonable default value (asking the defaults provider if some). If nothing work, it returns null.
-     * @param loadedValues
-     * the raw loaded values from the property file
-     * @throws java.io.IOException
-     * If the parsing of the value failed.
-     * @param sKey the StyleKey for which the method is expected to fetch a value
-     * @return the value for 'sKey' or null if none.
+     * Serializes a property value to a string.
      */
     @objid ("8587fa95-1926-11e2-92d2-001ec947c8cc")
     private static String formatValue(StyleKey sKey, Object value) {
@@ -128,11 +120,18 @@ public class StyleWriter {
         if (type == String.class) {
             return (String) value;
         }
+        if (type == MRef.class) {
+            if (value == null)
+                return "";
+            else
+                return ((MRef)value).toString();
+        }
+        
         if (type.isEnum()) {
             return value.toString();
         }
         
-        DiagramStyles.LOG.warning(DiagramStyles.PLUGIN_ID, "StyleWriter.formatValue(): missing converter for type '%s'",
+        DiagramStyles.LOG.warning("StyleWriter.formatValue(): missing converter for type '%s'",
                 type.getName());
         return "not supported type " + type;
     }

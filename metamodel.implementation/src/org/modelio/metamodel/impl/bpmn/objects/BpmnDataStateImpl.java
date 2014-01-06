@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.bpmn.objects;
 
 import java.util.ArrayList;
@@ -44,31 +44,31 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("00087bf4-c4c0-1fd8-97fe-001ec947cd2a")
 public class BpmnDataStateImpl extends BpmnBaseElementImpl implements BpmnDataState {
-    @objid ("b3d54fd0-0fc4-4057-8a89-5c1aa937e857")
+    @objid ("a8880f18-f181-4a00-a497-2d269719a089")
     @Override
     public BpmnItemAwareElement getItem() {
         return (BpmnItemAwareElement) getDepVal(BpmnDataStateData.Metadata.ItemDep());
     }
 
-    @objid ("4dfecaae-f13f-496c-bff6-3a70b77d5ae5")
+    @objid ("0b53367f-8a7c-4f88-971a-732bf89277c6")
     @Override
     public void setItem(BpmnItemAwareElement value) {
         appendDepVal(BpmnDataStateData.Metadata.ItemDep(), (SmObjectImpl)value);
     }
 
-    @objid ("06aef3a5-4dbb-4536-83f6-361b5a60014e")
+    @objid ("177bdd9a-919d-4ccc-8d6c-56061b7f706e")
     @Override
     public State getUmlState() {
         return (State) getDepVal(BpmnDataStateData.Metadata.UmlStateDep());
     }
 
-    @objid ("1c3ea64c-112e-48a3-bd4a-8c6fb889657b")
+    @objid ("1211db9b-113b-405f-a1a5-886a9345ad0d")
     @Override
     public void setUmlState(State value) {
         appendDepVal(BpmnDataStateData.Metadata.UmlStateDep(), (SmObjectImpl)value);
     }
 
-    @objid ("d75abf59-176e-4aad-ada2-a6ca1a2db0e2")
+    @objid ("6cc5f9ad-b454-4eea-b653-264e702e3163")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
@@ -78,7 +78,7 @@ public class BpmnDataStateImpl extends BpmnBaseElementImpl implements BpmnDataSt
         return super.getCompositionOwner();
     }
 
-    @objid ("de50235a-13ca-4c81-b00d-d8174b53a962")
+    @objid ("48ccdf74-7eed-47f2-a904-6f8f08dd1a8a")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
@@ -88,7 +88,7 @@ public class BpmnDataStateImpl extends BpmnBaseElementImpl implements BpmnDataSt
         return super.getCompositionRelation();
     }
 
-    @objid ("7ece7148-93c8-4d40-9492-b50edfed0768")
+    @objid ("f1837010-a092-4bed-846f-3d73ed956ccc")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitBpmnDataState(this);

@@ -31,7 +31,7 @@ import org.eclipse.gef.palette.SelectionToolEntry;
 import org.eclipse.gef.tools.AbstractTool;
 import org.modelio.diagram.editor.AbstractDiagramEditor;
 import org.modelio.diagram.editor.composite.plugin.DiagramEditorComposite;
-import org.modelio.diagram.editor.plugin.IDiagramConfigurer;
+import org.modelio.diagram.editor.plugin.AbstractDiagramConfigurer;
 import org.modelio.diagram.editor.plugin.ToolRegistry;
 import org.modelio.diagram.editor.tools.PanSelectionTool;
 
@@ -39,7 +39,7 @@ import org.modelio.diagram.editor.tools.PanSelectionTool;
  * Composite diagram palette configurer.
  */
 @objid ("8089b19a-55b6-11e2-877f-002564c97630")
-public class CompositeDiagramConfigurer implements IDiagramConfigurer {
+public class CompositeDiagramConfigurer extends AbstractDiagramConfigurer {
     /**
      * Creates the note and constraint and dependency group.
      * service used to get metaclasses bitmaps.
@@ -120,6 +120,7 @@ public class CompositeDiagramConfigurer implements IDiagramConfigurer {
     public PaletteRoot initPalette(AbstractDiagramEditor diagram, ToolRegistry toolRegistry) {
         PaletteRoot paletteRoot = new PaletteRoot();
         
+        // Main group
         PaletteGroup group = new PaletteGroup("main");
         
         SelectionToolEntry selectionToolEntry = new SelectionToolEntry();
@@ -133,10 +134,12 @@ public class CompositeDiagramConfigurer implements IDiagramConfigurer {
         
         paletteRoot.add(group);
         
+        // Other groups
         paletteRoot.add(createNodeGroup(toolRegistry));
         paletteRoot.add(createLinkGroup(toolRegistry));
         paletteRoot.add(createInformationFlowGroup(toolRegistry));
         paletteRoot.add(createCommonGroup(toolRegistry));
+        paletteRoot.add(createDrawGroup(toolRegistry));
         return paletteRoot;
     }
 

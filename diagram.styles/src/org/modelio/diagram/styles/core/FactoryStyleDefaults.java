@@ -125,7 +125,7 @@ public class FactoryStyleDefaults {
             return defaultMediumFont;
         }
         // Should not happen if factory.settings properly defined
-        DiagramStyles.LOG.error(DiagramStyles.PLUGIN_ID, "FactoryStyleDefaults: cannot guess a default for type '%s'",
+        DiagramStyles.LOG.warning("FactoryStyleDefaults: cannot guess a default for type '%s'",
                 type.getSimpleName());
         return null;
     }
@@ -184,9 +184,13 @@ public class FactoryStyleDefaults {
             return defaultRoutingMode;
         }
         
+        if (MetaKey.HYPERREFLINK.equals(metaKey)) {
+            // No reference by default
+            return null;
+        }
+        
         // Should not happen
-        DiagramStyles.LOG.error(DiagramStyles.PLUGIN_ID,
-                "FactoryStyleDefaults(): cannot guess a default value for unknown metakey '%s'", metaKey);
+        DiagramStyles.LOG.warning("FactoryStyleDefaults(): cannot guess a default value for unknown metakey '%s'", metaKey);
         return null;
     }
 

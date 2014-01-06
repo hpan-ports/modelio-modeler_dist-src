@@ -24,11 +24,15 @@ public class DeploymentDiagramCreationContributor extends AbstractDiagramCreatio
     @objid ("65419b8f-51eb-43cd-a6b8-bc0af296134d")
     @Override
     public AbstractDiagram actionPerformed(final ModelElement diagramContext, final String diagramName, final String diagramDescription) {
-        IModelFactory modelFactory = this.mmServices.getModelFactory(diagramContext);
+        IModelFactory modelFactory = this.mmServices.getModelFactory();
         StaticDiagram diagram = this.createDeploymentDiagram(modelFactory, diagramName, diagramContext);
         
         if (diagram != null) {
-            setElementDefaultName(diagram);
+            if (diagramName.equals(this.getLabel())) {                
+                setElementDefaultName(diagram);
+            } else {
+                diagram.setName(diagramName);
+            }
             putNoteContent(diagram, "description", diagramDescription);
         }
         return diagram;

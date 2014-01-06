@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.uml.behavior.interactionModel;
 
 import java.util.ArrayList;
@@ -41,45 +41,45 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("004bb34c-c4bf-1fd8-97fe-001ec947cd2a")
 public class StateInvariantImpl extends OccurrenceSpecificationImpl implements StateInvariant {
-    @objid ("cafedf03-809e-44a5-952c-67fe25d98281")
+    @objid ("d997beb2-f2d1-4e02-94ea-2e24a288755b")
     @Override
     public String getBody() {
         return (String) getAttVal(StateInvariantData.Metadata.BodyAtt());
     }
 
-    @objid ("3da1f72b-7c33-4dff-831e-f10ca15ab68f")
+    @objid ("8fc05157-b126-4b97-83e4-ef540acdb63a")
     @Override
     public void setBody(String value) {
         setAttVal(StateInvariantData.Metadata.BodyAtt(), value);
     }
 
-    @objid ("7bc28010-1560-4877-b4c6-1155ef28e22b")
+    @objid ("c65a024b-bc94-4535-9166-e3c432e526b1")
     @Override
     public int getEndLineNumber() {
         return (Integer) getAttVal(StateInvariantData.Metadata.EndLineNumberAtt());
     }
 
-    @objid ("0b5d00d1-4867-4f3a-979e-e761582120bd")
+    @objid ("3ea61010-f1b7-4785-8812-f97b194e8b9d")
     @Override
     public void setEndLineNumber(int value) {
         setAttVal(StateInvariantData.Metadata.EndLineNumberAtt(), value);
     }
 
-    @objid ("2e3e5580-45e5-4e5b-b32a-eb0e7c7f0706")
+    @objid ("09ac05e4-753a-4ca8-a378-5294a1d6ffc7")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("f701ccc4-6def-427a-891b-75d6a6346637")
+    @objid ("7f6a2478-85e9-4675-a763-18d4b253ad93")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("53c0bed4-ed8b-426d-8242-74fba4cd2dde")
+    @objid ("fcae29f3-7ee8-428d-b191-de8a8af9d36d")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitStateInvariant(this);

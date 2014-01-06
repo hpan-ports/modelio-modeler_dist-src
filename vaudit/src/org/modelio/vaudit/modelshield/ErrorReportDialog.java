@@ -92,9 +92,11 @@ public class ErrorReportDialog extends IconAndMessageDialog {
             msg.append(getInlineCSS());
             msg.append("</style></head>");
         
-            msg.append("<p id = \"what\">");
+            msg.append("<p>");
+            msg.append("<div id = \"what\">");
             msg.append(error.getRuleId() + ": ");
             msg.append(ErrorFormatter.getWhat(error));
+            msg.append("</div>");
         
             msg.append("<br/><span id=\"desc\">");
             msg.append(ErrorFormatter.getDescription(error));

@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.uml.behavior.stateMachineModel;
 
 import java.util.List;
@@ -34,22 +34,22 @@ import org.modelio.metamodel.uml.behavior.stateMachineModel.StateMachine;
 
 @objid ("004fc78e-c4bf-1fd8-97fe-001ec947cd2a")
 public interface ExitPointPseudoState extends AbstractPseudoState {
-    @objid ("e5bdc08f-9b1c-4645-93b9-fbcfead063d8")
+    @objid ("f90aaa84-aeef-42ec-809d-82a4e3acd2b1")
     State getExitOf();
 
-    @objid ("e0dd82e5-a45f-4ea8-b99f-2c17fd30ac68")
+    @objid ("e634c951-718f-42e0-a244-c2b335889bf3")
     void setExitOf(State value);
 
-    @objid ("b51cfe15-82aa-4d3e-b7ce-84a153bcbc09")
+    @objid ("65e5251e-c713-4faa-aa33-5b7a713ace87")
     EList<ConnectionPointReference> getConnection();
 
-    @objid ("7639f355-d4ec-4d91-9dc9-fa46f723308d")
+    @objid ("7f51bbad-f051-4946-95f7-1c242f34a980")
     <T extends ConnectionPointReference> List<T> getConnection(java.lang.Class<T> filterClass);
 
-    @objid ("3582ae0c-d251-4b83-8b68-22006dc61616")
+    @objid ("849d1d6e-b318-45c6-8d80-467ba0a59c8d")
     StateMachine getExitOfMachine();
 
-    @objid ("48993ea1-5b9b-4ace-ad57-21c6996e8b47")
+    @objid ("9fdead2a-394e-4df8-98ba-9142fc09052b")
     void setExitOfMachine(StateMachine value);
 
 }

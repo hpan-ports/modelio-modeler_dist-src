@@ -34,6 +34,7 @@ import org.eclipse.swt.custom.SashForm;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Text;
+import org.modelio.app.core.picking.IModelioPickingService;
 import org.modelio.diagram.elements.core.model.IGmObject;
 import org.modelio.diagram.styles.core.IStyle;
 import org.modelio.diagram.styles.core.IStyleChangeListener;
@@ -42,6 +43,7 @@ import org.modelio.diagram.styles.manager.StyleModelProvider;
 import org.modelio.diagram.styles.viewer.StyleViewer;
 import org.modelio.ui.UIColor;
 import org.modelio.ui.panel.IPanelProvider;
+import org.modelio.vcore.session.api.ICoreSession;
 
 /**
  * Diagram symbol view panel provider.
@@ -62,11 +64,16 @@ public class SymbolPanelProvider implements IPanelProvider, IStyleChangeListener
     @objid ("ac5129f4-55b7-11e2-877f-002564c97630")
     private Text descriptionText;
 
+    @objid ("727af078-1dfa-46db-a0f5-08ab79d6461b")
+    private IModelioPickingService pickingService;
+
     /**
      * C'tor
+     * @param pickingService the Modelio picking service
      */
     @objid ("3256161a-5991-11e2-8bfd-001ec947ccaf")
-    public SymbolPanelProvider() {
+    public SymbolPanelProvider(IModelioPickingService pickingService) {
+        this.pickingService = pickingService;
     }
 
     @objid ("3256161e-5991-11e2-8bfd-001ec947ccaf")
@@ -75,7 +82,7 @@ public class SymbolPanelProvider implements IPanelProvider, IStyleChangeListener
         this.sash = new SashForm(parent, SWT.VERTICAL);
         this.sash.setLayout(new FillLayout());
         
-        this.styleViewer = new StyleViewer(this.sash, null);
+        this.styleViewer = new StyleViewer(this.sash, null, this.pickingService);
         
         //
         this.descriptionText = createHelpPanel(this.sash);
@@ -130,8 +137,12 @@ public class SymbolPanelProvider implements IPanelProvider, IStyleChangeListener
             // Change the StyleViewer model provider
             // Instead of providing the symbol Style, we provide a StyleEditor proxy
             // that will be responsible for managing transactions in the model in case of modifications
-            final StyleModelProvider model = new StyleModelProvider(new StyleEditor(this.selectedSymbol),
-                                                                    this.selectedSymbol.getStyleKeys(), true);
+            ICoreSession session = this.selectedSymbol.getDiagram().getModelManager().getModelingSession();
+            final StyleModelProvider model = new StyleModelProvider(
+                    new StyleEditor(this.selectedSymbol),
+                    session, 
+                    this.selectedSymbol.getStyleKeys(), 
+                    true);
         
             this.styleViewer.setModel(model);
             this.styleViewer.getTreeViewer().expandAll();
@@ -153,8 +164,12 @@ public class SymbolPanelProvider implements IPanelProvider, IStyleChangeListener
             // Change the StyleViewer model provider
             // Instead of providing the symbol Style, we provide a StyleEditor proxy
             // that will be responsible for managing transactions in the model in case of modifications
-            final StyleModelProvider model = new StyleModelProvider(new StyleEditor(this.selectedSymbol),
-                                                                    this.selectedSymbol.getStyleKeys(), true);
+            ICoreSession session = this.selectedSymbol.getDiagram().getModelManager().getModelingSession();
+            StyleModelProvider model = new StyleModelProvider(
+                    new StyleEditor(this.selectedSymbol),
+                    session, 
+                    this.selectedSymbol.getStyleKeys(), 
+                    true);
         
             this.styleViewer.setModel(model);
             this.styleViewer.getTreeViewer().expandAll();
@@ -197,7 +212,12 @@ public class SymbolPanelProvider implements IPanelProvider, IStyleChangeListener
             // Change the StyleViewer model provider
             // Instead of providing the symbol Style, we provide a StyleEditor proxy
             // that will be responsible for managing transactions in the model in case of modifications
-            final StyleModelProvider model = new StyleModelProvider(new StyleEditor(selectedSymbol), selectedSymbol.getStyleKeys(), isEditable);
+            ICoreSession session = this.selectedSymbol.getDiagram().getModelManager().getModelingSession();
+            final StyleModelProvider model = new StyleModelProvider(
+                    new StyleEditor(selectedSymbol), 
+                    session, 
+                    selectedSymbol.getStyleKeys(), 
+                    isEditable);
         
             this.styleViewer.setModel(model);
             this.styleViewer.getTreeViewer().expandAll();

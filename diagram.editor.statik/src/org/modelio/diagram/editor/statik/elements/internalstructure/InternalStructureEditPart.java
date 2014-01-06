@@ -67,7 +67,20 @@ public class InternalStructureEditPart extends GmNodeEditPart {
     @objid ("3595a7c3-55b7-11e2-877f-002564c97630")
     @Override
     public boolean isSelectable() {
-        return true;
+        // Already selected, return true
+        if (getViewer().getSelectedEditParts().contains(this)) {
+            return true;
+        }
+        
+        // Allow selection only if the composition parent was already selected
+        EditPart parent = getParent();
+        while (parent != null) {
+            if (parent.isSelectable()) {
+                return (parent.getSelected() != EditPart.SELECTED_NONE);
+            }
+            parent = parent.getParent();
+        }
+        return false;
     }
 
     @objid ("3595a7c8-55b7-11e2-877f-002564c97630")

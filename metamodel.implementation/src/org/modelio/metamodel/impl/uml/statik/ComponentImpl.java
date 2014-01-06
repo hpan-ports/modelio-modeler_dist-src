@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.uml.statik;
 
 import java.util.ArrayList;
@@ -41,21 +41,21 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("00055032-c4bf-1fd8-97fe-001ec947cd2a")
 public class ComponentImpl extends ClassImpl implements Component {
-    @objid ("85e98076-b576-462c-bd12-d332668f14fe")
+    @objid ("959b8124-87d9-48f7-b8fd-5db3b7d190d9")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("03400a2b-4d6c-4336-b635-2dee4182bbc7")
+    @objid ("e9e8af07-a5ce-4ed6-98c0-8596d8d4cbb1")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("c7ccfd49-f0c0-49be-aa58-0d066237c75d")
+    @objid ("dce44f79-9379-4338-9f74-dfca89c6198a")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitComponent(this);

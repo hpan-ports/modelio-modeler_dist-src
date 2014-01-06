@@ -30,14 +30,18 @@ import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.RGB;
 import org.eclipse.swt.widgets.Tree;
+import org.modelio.app.core.picking.IModelioPickingService;
 import org.modelio.core.ui.CoreColorRegistry;
 import org.modelio.diagram.styles.core.IStyle;
 import org.modelio.diagram.styles.core.StyleKey;
 import org.modelio.diagram.styles.editingsupport.color.ColorCellEditor2;
 import org.modelio.diagram.styles.editingsupport.combo.EnumComboBoxCellEditor;
+import org.modelio.diagram.styles.editingsupport.element.ElementCellEditor;
 import org.modelio.diagram.styles.editingsupport.font.FontDialogEditor;
 import org.modelio.diagram.styles.editingsupport.number.IntegerCellEditor;
 import org.modelio.diagram.styles.viewer.StyleViewer;
+import org.modelio.vcore.session.api.ICoreSession;
+import org.modelio.vcore.smkernel.mapi.MRef;
 
 /**
  * StyleEditingSupport provides EditingSupport implementation for the StyleViewer.
@@ -92,6 +96,12 @@ public class StylePropertyEditingSupport extends EditingSupport {
         if (stype.equals(Color.class)) {
             return new ColorCellEditor2(tree, SWT.SINGLE);
         }
+        if (stype.equals(MRef.class)) {
+            ICoreSession session = this.viewer.getModel().getSession();
+            IModelioPickingService pickingService = this.viewer.getPickingService();
+            
+            return new ElementCellEditor(tree, session, pickingService);
+        }
         if (stype.isEnum()) {
             return new EnumComboBoxCellEditor(tree, stype, SWT.SINGLE);
         }
@@ -123,6 +133,9 @@ public class StylePropertyEditingSupport extends EditingSupport {
         }
         if (stype.equals(Color.class)) {
             return editedStyle.getColor(skey).getRGB();
+        }
+        if (stype.equals(MRef.class)) {
+            return editedStyle.getProperty(skey);
         }
         if (stype.isEnum()) {
             return editedStyle.getProperty(skey);
@@ -162,8 +175,17 @@ public class StylePropertyEditingSupport extends EditingSupport {
             if (stype.equals(Color.class)) {
                 editedStyle.setProperty(skey, CoreColorRegistry.getColor((RGB) value));
             }
+            // MRef
+            if (stype.equals(MRef.class)) {
+                editedStyle.setProperty(skey, value);
+            }
             // Enum
             if (stype.isEnum()) {
+                editedStyle.setProperty(skey, value);
+            }
+        } else {
+            // MRef
+            if (stype.equals(MRef.class)) {
                 editedStyle.setProperty(skey, value);
             }
         }

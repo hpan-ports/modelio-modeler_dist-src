@@ -35,7 +35,6 @@ import java.nio.file.FileVisitor;
 import java.nio.file.Files;
 import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.security.MessageDigest;
@@ -52,11 +51,9 @@ import java.util.TreeSet;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.gproject.module.IModuleCatalog;
 import org.modelio.gproject.module.IModuleHandle;
-import org.modelio.metamodel.data.MetamodelLoader;
 import org.modelio.vbasic.files.FileUtils;
 import org.modelio.vbasic.files.Unzipper;
 import org.modelio.vbasic.progress.IModelioProgress;
-import org.modelio.vbasic.progress.NullProgress;
 import org.modelio.vbasic.progress.SubProgress;
 import org.modelio.vcore.Log;
 
@@ -120,7 +117,7 @@ public class FileModuleStore implements IModuleCatalog {
     public List<IModuleHandle> findAllModules(IModelioProgress monitor) throws IOException {
         List<IModuleHandle> ret = new ArrayList<>();
         
-        String archiveName = "[a-zA-Z0-9]+_[0-9]+\\.[0-9]+\\.[0-9]+\\.jmdac";
+        String archiveName = "[a-zA-Z0-9 _]+_[0-9]+\\.[0-9]+\\.[0-9]+\\.jmdac";
         
         ModuleFileSearcher visitor = new ModuleFileSearcher(archiveName);
         Files.walkFileTree(this.cachePath, EnumSet.of(FileVisitOption.FOLLOW_LINKS), SEARCH_DEPTH, visitor);
@@ -187,23 +184,6 @@ public class FileModuleStore implements IModuleCatalog {
             env.put("create", "true");
         }
         return FileSystems.newFileSystem(uri, env);
-    }
-
-    /**
-     * Local test method.
-     * @param args command line args
-     * @throws java.io.IOException in case of fail
-     */
-    @objid ("2c9748e0-f37d-11e1-a3c7-002564c97630")
-    public static void main(String[] args) throws IOException {
-        MetamodelLoader.Load();
-        
-        FileModuleStore catalog = new FileModuleStore(Paths.get("C:", "Users", "cmalgouyres", ".modelio", "3.0", "modules"));
-        // ModuleHandle moduleContents = catalog.getModuleHandle(Paths.get("C:", "tmp", "cacheTest", "JavaDesigner_2.1.06.jmdac"),
-        // new NullProgress());
-        IModuleHandle moduleContents = catalog.findModule("ModelerModule", null, new NullProgress());
-        
-        System.out.println(moduleContents.getName() + " " + moduleContents.getVersion());
     }
 
     /**

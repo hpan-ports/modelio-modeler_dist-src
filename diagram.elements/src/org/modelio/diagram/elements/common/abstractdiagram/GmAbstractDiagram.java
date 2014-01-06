@@ -23,9 +23,12 @@ package org.modelio.diagram.elements.common.abstractdiagram;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.CopyOnWriteArrayList;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.swt.widgets.Display;
 import org.modelio.diagram.elements.common.label.base.GmElementLabel;
@@ -33,11 +36,16 @@ import org.modelio.diagram.elements.core.link.GmLink;
 import org.modelio.diagram.elements.core.model.GmModel;
 import org.modelio.diagram.elements.core.model.IGmLink;
 import org.modelio.diagram.elements.core.model.IGmLinkFactory;
+import org.modelio.diagram.elements.core.model.IGmLinkObject;
 import org.modelio.diagram.elements.core.model.IGmLinkable;
 import org.modelio.diagram.elements.core.model.IGmNodeFactory;
+import org.modelio.diagram.elements.core.model.IGmObject;
 import org.modelio.diagram.elements.core.model.ModelManager;
 import org.modelio.diagram.elements.core.node.GmCompositeNode;
 import org.modelio.diagram.elements.core.node.GmNodeModel;
+import org.modelio.diagram.elements.drawings.core.IGmDrawing;
+import org.modelio.diagram.elements.drawings.core.IGmDrawingLayer;
+import org.modelio.diagram.elements.drawings.layer.GmDrawingLayer;
 import org.modelio.diagram.elements.plugin.DiagramElements;
 import org.modelio.diagram.persistence.IDiagramReader;
 import org.modelio.diagram.persistence.IDiagramWriter;
@@ -63,35 +71,50 @@ public abstract class GmAbstractDiagram extends GmCompositeNode {
     @objid ("7e169b68-1dec-11e2-8cad-001ec947c8cc")
     private static final int MAJOR_VERSION = 0;
 
+    @objid ("c21d5b02-6ce1-4f68-b4e4-853f6e86816b")
+    private static final String PROP_BG_DRAWING_LAYER = "BgDrawingLayer";
+
+    @objid ("9d3eb649-bff4-4544-a308-b8edc1b5f779")
+    private static final String PROP_DRAWING_LAYERS = "DrawingLayers";
+
+    @objid ("7e169b62-1dec-11e2-8cad-001ec947c8cc")
+    protected long lastSavedUiDataVersion = -1;
+
     /**
      * Current version of this Gm. Defaults to 0.
      */
     @objid ("7e169b65-1dec-11e2-8cad-001ec947c8cc")
     private final int minorVersion = 0;
 
-    @objid ("7e169b62-1dec-11e2-8cad-001ec947c8cc")
-    protected long lastSavedUiDataVersion = -1;
-
     @objid ("7e169b6a-1dec-11e2-8cad-001ec947c8cc")
     private transient boolean visible = false;
 
-    @objid ("7e169b55-1dec-11e2-8cad-001ec947c8cc")
-    private ModelManager modelManager;
+    @objid ("fc0a1ce2-102f-4343-90aa-b66c00d92ddf")
+    private IGmDrawingLayer backgroundDrawingLayer;
 
-    @objid ("7e169b5b-1dec-11e2-8cad-001ec947c8cc")
-    protected IDiagramRefresher modelChangeHandler;
+    @objid ("bcbddc8f-2844-491a-a770-6c319533b101")
+    private final List<IGmDrawingLayer> drawingLayers = new CopyOnWriteArrayList<>();
 
-    @objid ("7e169b63-1dec-11e2-8cad-001ec947c8cc")
-    private IDiagramRefresher hiddenModelChangeHandler;
-
-    @objid ("7e169b5c-1dec-11e2-8cad-001ec947c8cc")
-    private IGmNodeFactory gmNodeFactory;
+    @objid ("898a69f8-6243-4aec-b266-6e68ca4ee393")
+    private Map<String, IGmDrawing> drawingMap = new HashMap<>();
 
     @objid ("7e169b5d-1dec-11e2-8cad-001ec947c8cc")
     private IGmLinkFactory gmLinkCreationFactory;
 
+    @objid ("7e169b5c-1dec-11e2-8cad-001ec947c8cc")
+    private IGmNodeFactory gmNodeFactory;
+
+    @objid ("7e169b63-1dec-11e2-8cad-001ec947c8cc")
+    private IDiagramRefresher hiddenModelChangeHandler;
+
     @objid ("7e169b5e-1dec-11e2-8cad-001ec947c8cc")
-    private final List<GmLink> links = new ArrayList<>();
+    private final List<IGmLinkObject> links = new ArrayList<>();
+
+    @objid ("7e169b5b-1dec-11e2-8cad-001ec947c8cc")
+    protected IDiagramRefresher modelChangeHandler;
+
+    @objid ("7e169b55-1dec-11e2-8cad-001ec947c8cc")
+    private ModelManager modelManager;
 
     /**
      * Visibility is 'protected' in order to be accessible to GmSequenceDiagram.
@@ -120,6 +143,30 @@ public abstract class GmAbstractDiagram extends GmCompositeNode {
         this.models = new MultiHashMap<>();
         this.models.putValue(getRepresentedRef(), this);
         initModelChangeListeners();
+        
+        if (this.drawingLayers.isEmpty()) {
+            // Add a default layer
+            final GmDrawingLayer childNode = new GmDrawingLayer(this, diagramRef, GmDrawingLayer.LAYER_ID_TOP);
+            this.drawingLayers.add(childNode);
+        }
+        
+        this.backgroundDrawingLayer = new GmDrawingLayer(this, diagramRef, GmDrawingLayer.LAYER_ID_BACKGROUND);
+    }
+
+    /**
+     * Add a drawing to the diagram.
+     * @param child a drawing.
+     */
+    @objid ("98cd15c5-bb69-4f5c-87c2-b3f42b25e77e")
+    public void addDrawingLayer(GmDrawingLayer child) {
+        this.drawingLayers.add(child);
+        
+        //child.setParent(this);
+        
+        // set child style
+        // child.getStyle().setCascadedStyle(this.getStyle());
+        
+        firePropertyChange(IGmObject.PROPERTY_CHILDREN, null, child);
     }
 
     /**
@@ -129,13 +176,23 @@ public abstract class GmAbstractDiagram extends GmCompositeNode {
      * @param model the graphic element to add.
      */
     @objid ("7e169b77-1dec-11e2-8cad-001ec947c8cc")
-    public final void addGraphicModel(GmModel model) {
-        if (model != this) {
-            this.models.putValue(model.getRepresentedRef(), model);
+    public final void addGraphicModel(IGmObject model) {
+        if (model != this && model instanceof GmModel) {
+            final GmModel gmModel = (GmModel) model;
+            this.models.putValue(gmModel.getRepresentedRef(), gmModel);
         }
         
-        if (model instanceof GmLink) {
-            this.links.add((GmLink) model);
+        if (model instanceof IGmLinkObject) {
+            this.links.add((IGmLinkObject) model);
+        }
+        
+        if (model instanceof IGmDrawing) {
+            IGmDrawing dg = (IGmDrawing) model;
+            IGmDrawing old = this.drawingMap.put(dg.getIdentifier(), dg);
+            if (old != null) {
+                this.drawingMap.put(dg.getIdentifier(), old);
+                throw new IllegalArgumentException("Diagram already contains a "+old.getClass().getSimpleName()+" with '"+dg.getIdentifier()+"' identifier");
+            }
         }
     }
 
@@ -164,6 +221,19 @@ public abstract class GmAbstractDiagram extends GmCompositeNode {
         }
         for (final IGmLink l : new ArrayList<>(getEndingLinks())) {
             l.delete();
+        }
+        
+        for (final IGmDrawingLayer child : this.getDrawingLayers()) {
+            child.delete();
+        }
+        
+        // Add a default foreground layer
+        this.drawingLayers.add(new GmDrawingLayer(this, getRepresentedRef(), GmDrawingLayer.LAYER_ID_TOP));
+        
+        if (this.backgroundDrawingLayer != null) {
+            this.backgroundDrawingLayer.delete();
+            // Add a default background layer
+            this.backgroundDrawingLayer = new GmDrawingLayer(this, getRepresentedRef(), GmDrawingLayer.LAYER_ID_BACKGROUND);
         }
         
         final GmCompositeNode gmParent = getParentNode();
@@ -238,10 +308,37 @@ public abstract class GmAbstractDiagram extends GmCompositeNode {
         return ret;
     }
 
+    /**
+     * Get the background drawing layer.
+     * @return the background drawing layer.
+     */
+    @objid ("d6e87752-e465-4828-86ae-418b86338533")
+    public IGmDrawingLayer getBackgroundDrawingLayer() {
+        return this.backgroundDrawingLayer;
+    }
+
     @objid ("7e18fdce-1dec-11e2-8cad-001ec947c8cc")
     @Override
     public final GmAbstractDiagram getDiagram() {
         return this;
+    }
+
+    /**
+     * Get the drawing identified by the given string.
+     * @param identifier the drawing identifier.
+     * @return the found drawing or <i>null</i>.
+     */
+    @objid ("d69caf90-c1d2-4ee5-805b-b8bbdf1c16f1")
+    public IGmDrawing getDrawing(String identifier) {
+        return this.drawingMap.get(identifier);
+    }
+
+    /**
+     * @return the diagram drawings
+     */
+    @objid ("f630fc18-b847-4543-beb0-8014587c61ce")
+    public List<IGmDrawingLayer> getDrawingLayers() {
+        return this.drawingLayers;
     }
 
     @objid ("7e18fdd3-1dec-11e2-8cad-001ec947c8cc")
@@ -270,18 +367,18 @@ public abstract class GmAbstractDiagram extends GmCompositeNode {
         return this.modelManager == null;
     }
 
-    @objid ("7e18fde8-1dec-11e2-8cad-001ec947c8cc")
-    @Override
-    public boolean isVisible() {
-        return this.visible;
-    }
-
     @objid ("7e1b6048-1dec-11e2-8cad-001ec947c8cc")
     @Override
     public final boolean isEditable() {
         MObject relatedElement = getRelatedElement();
         return relatedElement != null && !(relatedElement.isShell() || relatedElement.isDeleted())
                 && relatedElement.getStatus().isModifiable();
+    }
+
+    @objid ("7e18fde8-1dec-11e2-8cad-001ec947c8cc")
+    @Override
+    public boolean isVisible() {
+        return this.visible;
     }
 
     @objid ("7e18fded-1dec-11e2-8cad-001ec947c8cc")
@@ -316,7 +413,8 @@ public abstract class GmAbstractDiagram extends GmCompositeNode {
         }
         
         for (final GmModel m : toUpdate) {
-            m.obElementsUpdated();
+            if (m != this)
+                m.obElementsUpdated();
         }
     }
 
@@ -327,11 +425,33 @@ public abstract class GmAbstractDiagram extends GmCompositeNode {
      * @param model the graphic element to remove.
      */
     @objid ("7e18fdf4-1dec-11e2-8cad-001ec947c8cc")
-    public void removeGraphicModel(GmModel model) {
-        this.models.remove(model.getRepresentedRef(), model);
+    public void removeGraphicModel(IGmObject model) {
+        if (model instanceof GmModel) {
+            GmModel gmmodel = (GmModel) model;
+            this.models.remove(gmmodel.getRepresentedRef(), gmmodel);
+        }
         
-        if (model instanceof GmLink) {
+        if (model instanceof IGmLinkObject) {
             this.links.remove(model);
+        }
+        
+        if (model instanceof IGmDrawing)
+            this.drawingMap.remove(((IGmDrawing)model).getIdentifier());
+    }
+
+    /**
+     * Remove a drawing layer
+     * @param gmDrawingLayer a drawing layer
+     */
+    @objid ("44a65a3a-8d44-48ab-96ec-10da54535eb2")
+    public void removeLayer(GmDrawingLayer gmDrawingLayer) {
+        if (this.backgroundDrawingLayer == gmDrawingLayer) {
+            this.backgroundDrawingLayer = null;
+            firePropertyChange(IGmObject.PROPERTY_CHILDREN, gmDrawingLayer,  null);
+        } else if (this.drawingLayers.remove(gmDrawingLayer)) {
+            firePropertyChange(IGmObject.PROPERTY_CHILDREN, gmDrawingLayer,  null);
+        } else {
+            throw new IllegalArgumentException(gmDrawingLayer+" not owned by the diagram.");
         }
     }
 
@@ -435,7 +555,7 @@ public abstract class GmAbstractDiagram extends GmCompositeNode {
      */
     @objid ("7e1b6025-1dec-11e2-8cad-001ec947c8cc")
     public final void updateLastSaveDate() {
-        lastSavedUiDataVersion = ((AbstractDiagram)this.getRelatedElement()).getUiDataVersion();
+        this.lastSavedUiDataVersion = ((AbstractDiagram)this.getRelatedElement()).getUiDataVersion();
     }
 
     @objid ("7e1b6028-1dec-11e2-8cad-001ec947c8cc")
@@ -449,6 +569,12 @@ public abstract class GmAbstractDiagram extends GmCompositeNode {
         if (this.minorVersion != 0) {
             out.writeProperty("GmAbstractDiagram." + MINOR_VERSION_PROPERTY, Integer.valueOf(this.minorVersion));
         }
+        
+        // Write background drawings layer
+        out.writeProperty(PROP_BG_DRAWING_LAYER, this.backgroundDrawingLayer);
+        
+        // Write foreground drawings layers
+        out.writeProperty(PROP_DRAWING_LAYERS, this.drawingLayers);
     }
 
     /**
@@ -458,13 +584,6 @@ public abstract class GmAbstractDiagram extends GmCompositeNode {
     @objid ("7e1b602c-1dec-11e2-8cad-001ec947c8cc")
     IGmNodeFactory getGmNodeFactory() {
         return this.gmNodeFactory;
-    }
-
-    @objid ("7e169b74-1dec-11e2-8cad-001ec947c8cc")
-    @Override
-    protected final void finalize() throws Throwable {
-        dispose();
-        super.finalize();
     }
 
     /**
@@ -507,6 +626,19 @@ public abstract class GmAbstractDiagram extends GmCompositeNode {
         }
     }
 
+    @objid ("7e169b74-1dec-11e2-8cad-001ec947c8cc")
+    @Override
+    protected final void finalize() throws Throwable {
+        dispose();
+        super.finalize();
+    }
+
+    @objid ("7e1b6043-1dec-11e2-8cad-001ec947c8cc")
+    protected void initModelChangeListeners() {
+        this.modelChangeHandler = new ModelChangeListener();
+        this.hiddenModelChangeHandler = new HiddenModelChangeListener();
+    }
+
     /**
      * Get the factory used to unmask relationship model elements such as Associations, ElementImports or Dependencies.
      * @return The graphic link factory.
@@ -516,23 +648,90 @@ public abstract class GmAbstractDiagram extends GmCompositeNode {
         return this.gmLinkCreationFactory;
     }
 
-    @objid ("7e1b6043-1dec-11e2-8cad-001ec947c8cc")
-    protected void initModelChangeListeners() {
-        this.modelChangeHandler = new ModelChangeListener();
-        this.hiddenModelChangeHandler = new HiddenModelChangeListener();
-    }
-
     @objid ("7e1b6045-1dec-11e2-8cad-001ec947c8cc")
+    @SuppressWarnings("unchecked")
     private void read_0(IDiagramReader in) {
+        // Clear existing/default layers
+        for (final IGmDrawingLayer child : new ArrayList<>(getDrawingLayers()))
+            child.delete();
+        if (this.backgroundDrawingLayer!=null)
+            this.backgroundDrawingLayer.delete();
+            
+        
+        // Call inherited loading
         super.read(in);
+        
         // re-normalize the identifier (because copied diagrams are deserialized with a wrong id)
         // "this" diagram provides the right one.
         final MRef newId = new MRef(getRelatedElement());
         getRepresentedRef().mc = newId.mc;
         getRepresentedRef().uuid = newId.uuid;
         
-        // resume deserialization
-        in.readListProperty("Links");
+        // Resume deserialization : 
+        //  Read all links. No need to get the result of readListProperty() : links add themselves to this.links
+        in.readListProperty("Links"); 
+        
+        // Read foreground drawing layers
+        this.drawingLayers.addAll((Collection<? extends IGmDrawingLayer>) in.readListProperty(PROP_DRAWING_LAYERS));
+        
+        if (this.drawingLayers.isEmpty()) {
+            // Add a default layer
+            final GmDrawingLayer childNode = new GmDrawingLayer(this, newId, GmDrawingLayer.LAYER_ID_TOP);
+            this.drawingLayers.add(childNode);
+        }
+            
+        // Read background layer
+        this.backgroundDrawingLayer = (GmDrawingLayer) in.readProperty(PROP_BG_DRAWING_LAYER);
+        if (this.backgroundDrawingLayer == null) {
+            this.backgroundDrawingLayer = new GmDrawingLayer(this, newId, GmDrawingLayer.LAYER_ID_BACKGROUND);
+        }
+        
+        firePropertyChange(IGmObject.PROPERTY_CHILDREN, null, this.drawingLayers);
+    }
+
+    /**
+     * Updates the Graphic Model from the Ob model.
+     */
+    @objid ("7e1dc274-1dec-11e2-8cad-001ec947c8cc")
+    private class HiddenModelChangeListener implements IDiagramRefresher {
+        /**
+         * Default constructor.
+         */
+        @objid ("7e1dc276-1dec-11e2-8cad-001ec947c8cc")
+        public HiddenModelChangeListener() {
+        }
+
+        @objid ("7e1dc279-1dec-11e2-8cad-001ec947c8cc")
+        @Override
+        public void handleModelChange(final IModelChangeEvent event) {
+            final MObject obDiagram = getRelatedElement();
+            // Refresh the diagram in the display thread
+            Display.getDefault().asyncExec(new Runnable() {
+                @Override
+                public void run() {
+                    if (!obDiagram.isShell() && !obDiagram.isDeleted() && !isDisposed() && obDiagram.getStatus().isModifiable()) {
+                        final Collection<GmModel> toRefresh = getAllModels();
+            
+                        for (final GmModel model : toRefresh) {
+                            final MObject el = model.getRelatedElement();
+                            if (el != null && el.isDeleted()) {
+                                model.obElementDeleted();
+                            }
+                        }
+            
+                        // Save the refreshed diagram
+                        DiagramPersistence.saveDiagram(GmAbstractDiagram.this);
+                    }
+                }
+            });
+        }
+
+        @objid ("7e1dc27e-1dec-11e2-8cad-001ec947c8cc")
+        @Override
+        public final void modelChanged(IModelChangeEvent event) {
+            // Do nothing.
+        }
+
     }
 
     /**
@@ -608,8 +807,6 @@ public abstract class GmAbstractDiagram extends GmCompositeNode {
 
         /**
          * Reload the diagram if it has been modified outside of the diagram editor.
-         * @param session
-         * The modeling session
          * @param event The change event.
          */
         @objid ("7e1dc26b-1dec-11e2-8cad-001ec947c8cc")
@@ -660,51 +857,6 @@ public abstract class GmAbstractDiagram extends GmCompositeNode {
             
             // Save the refreshed diagram
             DiagramPersistence.saveDiagram(GmAbstractDiagram.this);
-        }
-
-    }
-
-    /**
-     * Updates the Graphic Model from the Ob model.
-     */
-    @objid ("7e1dc274-1dec-11e2-8cad-001ec947c8cc")
-    private class HiddenModelChangeListener implements IDiagramRefresher {
-        /**
-         * Default constructor.
-         */
-        @objid ("7e1dc276-1dec-11e2-8cad-001ec947c8cc")
-        public HiddenModelChangeListener() {
-        }
-
-        @objid ("7e1dc279-1dec-11e2-8cad-001ec947c8cc")
-        @Override
-        public void handleModelChange(final IModelChangeEvent event) {
-            final MObject obDiagram = getRelatedElement();
-            // Refresh the diagram in the display thread
-            Display.getDefault().asyncExec(new Runnable() {
-                @Override
-                public void run() {
-                    if (!obDiagram.isShell() && !obDiagram.isDeleted() && !isDisposed() && obDiagram.getStatus().isModifiable()) {
-                        final Collection<GmModel> toRefresh = getAllModels();
-            
-                        for (final GmModel model : toRefresh) {
-                            final MObject el = model.getRelatedElement();
-                            if (el != null && el.isDeleted()) {
-                                model.obElementDeleted();
-                            }
-                        }
-            
-                        // Save the refreshed diagram
-                        DiagramPersistence.saveDiagram(GmAbstractDiagram.this);
-                    }
-                }
-            });
-        }
-
-        @objid ("7e1dc27e-1dec-11e2-8cad-001ec947c8cc")
-        @Override
-        public final void modelChanged(IModelChangeEvent event) {
-            // Do nothing.
         }
 
     }

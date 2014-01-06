@@ -61,25 +61,25 @@ public class ActorDG extends PortContainerDG {
         // Attributes
         GmCompositeNode attributeZone = mainNode.getCompositeFor(Attribute.class);
         if (attributeZone != null) {
-            nodes.addAll(DGFactory.getInstance().getDiagramNodes(this.diagramHandle, attributeZone.getChildren()));
+            nodes.addAll(DGFactory.getInstance().getDiagramNodes(this.diagramHandle, attributeZone.getVisibleChildren()));
         }
         
         // CollaborationUse
         GmCompositeNode collabuseZone = mainNode.getCompositeFor(CollaborationUse.class);
         if (collabuseZone != null) {
-            nodes.addAll(DGFactory.getInstance().getDiagramNodes(this.diagramHandle, collabuseZone.getChildren()));
+            nodes.addAll(DGFactory.getInstance().getDiagramNodes(this.diagramHandle, collabuseZone.getVisibleChildren()));
         }
         
         // Instances
         GmCompositeNode instanceZone = mainNode.getCompositeFor(Instance.class);
         if (instanceZone != null) {
-            nodes.addAll(DGFactory.getInstance().getDiagramNodes(this.diagramHandle, instanceZone.getChildren()));
+            nodes.addAll(DGFactory.getInstance().getDiagramNodes(this.diagramHandle, instanceZone.getVisibleChildren()));
         }
         
         // Operations
         GmCompositeNode operationZone = mainNode.getCompositeFor(Operation.class);
         if (operationZone != null) {
-            nodes.addAll(DGFactory.getInstance().getDiagramNodes(this.diagramHandle, operationZone.getChildren()));
+            nodes.addAll(DGFactory.getInstance().getDiagramNodes(this.diagramHandle, operationZone.getVisibleChildren()));
         }
         return nodes;
     }

@@ -55,7 +55,7 @@ public class ConditionalNodeDG extends PortContainerDG {
         
         GmCompositeNode clauseZone = mainNode.getCompositeFor(Clause.class);
         if (clauseZone != null) {
-            return DGFactory.getInstance().getDiagramNodes(this.diagramHandle, clauseZone.getChildren());
+            return DGFactory.getInstance().getDiagramNodes(this.diagramHandle, clauseZone.getVisibleChildren());
         }
         return Collections.emptyList();
     }

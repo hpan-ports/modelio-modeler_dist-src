@@ -31,6 +31,7 @@ import org.eclipse.gef.palette.SelectionToolEntry;
 import org.eclipse.gef.tools.AbstractTool;
 import org.modelio.diagram.editor.AbstractDiagramEditor;
 import org.modelio.diagram.editor.object.plugin.DiagramEditorObject;
+import org.modelio.diagram.editor.plugin.AbstractDiagramConfigurer;
 import org.modelio.diagram.editor.plugin.IDiagramConfigurer;
 import org.modelio.diagram.editor.plugin.ToolRegistry;
 import org.modelio.diagram.editor.tools.PanSelectionTool;
@@ -39,7 +40,7 @@ import org.modelio.diagram.editor.tools.PanSelectionTool;
  * Object diagram palette configurer.
  */
 @objid ("807cb94c-55b6-11e2-877f-002564c97630")
-public class ObjectDiagramConfigurer implements IDiagramConfigurer {
+public class ObjectDiagramConfigurer extends AbstractDiagramConfigurer {
     @objid ("9d5b9fb1-55b6-11e2-877f-002564c97630")
     @Override
     public String getContributionURI() {
@@ -123,6 +124,7 @@ public class ObjectDiagramConfigurer implements IDiagramConfigurer {
         paletteRoot.add(createLinkGroup(toolRegistry));
         paletteRoot.add(createInformationFlowGroup(toolRegistry));
         paletteRoot.add(createCommonGroup(toolRegistry));
+        paletteRoot.add(createDrawGroup(toolRegistry));
         return paletteRoot;
     }
 

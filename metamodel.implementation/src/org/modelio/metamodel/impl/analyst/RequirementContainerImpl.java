@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.analyst;
 
 import java.util.ArrayList;
@@ -44,13 +44,13 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("41b13368-1afd-46b7-a5b0-17463a4f640a")
 public class RequirementContainerImpl extends AnalystContainerImpl implements RequirementContainer {
-    @objid ("f7f0f86d-a57e-4b1e-a961-4fd8b927e017")
+    @objid ("5fc69c70-3527-47e4-9095-266b7af76d14")
     @Override
     public EList<Requirement> getOwnedRequirement() {
         return new SmList<>(this, RequirementContainerData.Metadata.OwnedRequirementDep());
     }
 
-    @objid ("8ba90a70-cde9-4be1-8fdb-0ed3facbd333")
+    @objid ("d57d0ea0-0aec-412c-b457-ecfa78421ef8")
     @Override
     public <T extends Requirement> List<T> getOwnedRequirement(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -63,25 +63,25 @@ public class RequirementContainerImpl extends AnalystContainerImpl implements Re
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("f29d41f8-a7a8-4451-bb74-aca4128a18e0")
+    @objid ("0ac97d62-fd44-4e8a-8f23-04b56077d22f")
     @Override
     public RequirementContainer getOwnerContainer() {
         return (RequirementContainer) getDepVal(RequirementContainerData.Metadata.OwnerContainerDep());
     }
 
-    @objid ("f7eaef7a-d969-4efd-9382-b60cf4d5762e")
+    @objid ("c630089b-d12d-4269-97b2-2893804b399d")
     @Override
     public void setOwnerContainer(RequirementContainer value) {
         appendDepVal(RequirementContainerData.Metadata.OwnerContainerDep(), (SmObjectImpl)value);
     }
 
-    @objid ("baf72ed9-e0cb-4e8b-a649-65954778176f")
+    @objid ("6d13ede8-b7a2-4067-bd82-bcef9b9008d5")
     @Override
     public EList<RequirementContainer> getOwnedContainer() {
         return new SmList<>(this, RequirementContainerData.Metadata.OwnedContainerDep());
     }
 
-    @objid ("37559f22-96c0-45e8-8103-0239aebfc2b9")
+    @objid ("356a9d40-3ac9-45d6-a6b9-bfb913948bf4")
     @Override
     public <T extends RequirementContainer> List<T> getOwnedContainer(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -94,19 +94,19 @@ public class RequirementContainerImpl extends AnalystContainerImpl implements Re
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("9555cf0d-4c21-4d98-9802-1f2874d8eff5")
+    @objid ("bdcb7fe0-7359-4871-80ac-e54e743771d3")
     @Override
     public AnalystProject getOwnerProject() {
         return (AnalystProject) getDepVal(RequirementContainerData.Metadata.OwnerProjectDep());
     }
 
-    @objid ("f085ed90-904c-470d-8191-d6081532978d")
+    @objid ("df1ad56d-b0ed-4f15-b7b5-9efcce993a2c")
     @Override
     public void setOwnerProject(AnalystProject value) {
         appendDepVal(RequirementContainerData.Metadata.OwnerProjectDep(), (SmObjectImpl)value);
     }
 
-    @objid ("32c544d4-e6bb-4417-a02f-f4e125eba1b4")
+    @objid ("f388d586-e007-44b8-86f4-16e9e832334e")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
@@ -119,7 +119,7 @@ public class RequirementContainerImpl extends AnalystContainerImpl implements Re
         return super.getCompositionOwner();
     }
 
-    @objid ("35974c62-ec8a-41f1-a8e2-a97ed7bbcf69")
+    @objid ("15726d7f-03d3-46c1-81d6-f77f09168f12")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
@@ -132,7 +132,7 @@ public class RequirementContainerImpl extends AnalystContainerImpl implements Re
         return super.getCompositionRelation();
     }
 
-    @objid ("0d5609a1-7724-4984-aa9d-48a1bcb7562a")
+    @objid ("7d2e42b8-d6b4-463a-9bfb-9f790608bf83")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitRequirementContainer(this);

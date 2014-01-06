@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.bpmn.resources;
 
 import java.util.ArrayList;
@@ -44,43 +44,43 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("000b59e6-c4c0-1fd8-97fe-001ec947cd2a")
 public class BpmnResourceParameterBindingImpl extends BpmnBaseElementImpl implements BpmnResourceParameterBinding {
-    @objid ("785f0713-d214-4323-a391-3df5af5e888f")
+    @objid ("daadf016-d90c-45e4-86aa-900b2d459b91")
     @Override
     public String getExpression() {
         return (String) getAttVal(BpmnResourceParameterBindingData.Metadata.ExpressionAtt());
     }
 
-    @objid ("c1c2343d-6803-4fd4-b83a-3d6bfeb19d7f")
+    @objid ("df1431fc-af8d-4695-9f7e-d5c1cbecf1ef")
     @Override
     public void setExpression(String value) {
         setAttVal(BpmnResourceParameterBindingData.Metadata.ExpressionAtt(), value);
     }
 
-    @objid ("0ab1fcda-8281-49bd-9461-5f43dd2db864")
+    @objid ("81505ba3-f97e-495c-bcb4-e852890c70d9")
     @Override
     public BpmnResourceRole getResourceRole() {
         return (BpmnResourceRole) getDepVal(BpmnResourceParameterBindingData.Metadata.ResourceRoleDep());
     }
 
-    @objid ("7b400be7-9a7f-42f7-aa4c-2cab2ce84e2a")
+    @objid ("cbc37e62-0329-4ac3-b6a0-c4c7f1b5cf35")
     @Override
     public void setResourceRole(BpmnResourceRole value) {
         appendDepVal(BpmnResourceParameterBindingData.Metadata.ResourceRoleDep(), (SmObjectImpl)value);
     }
 
-    @objid ("fde11179-079c-4d45-8b45-9118b6c9de3d")
+    @objid ("6bfbeb6e-1558-4069-b2ed-84c1982276e6")
     @Override
     public BpmnResourceParameter getParameterRef() {
         return (BpmnResourceParameter) getDepVal(BpmnResourceParameterBindingData.Metadata.ParameterRefDep());
     }
 
-    @objid ("88a361b2-ac3b-4e84-8e18-4b3ed55fb099")
+    @objid ("aabb0791-41d1-45f8-a752-38af3e937274")
     @Override
     public void setParameterRef(BpmnResourceParameter value) {
         appendDepVal(BpmnResourceParameterBindingData.Metadata.ParameterRefDep(), (SmObjectImpl)value);
     }
 
-    @objid ("fa2e99b9-0e30-4b6e-8859-b5326c0d007d")
+    @objid ("cc71ca5c-c03c-4947-9670-ccfa10a4276a")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
@@ -90,7 +90,7 @@ public class BpmnResourceParameterBindingImpl extends BpmnBaseElementImpl implem
         return super.getCompositionOwner();
     }
 
-    @objid ("d418cd98-8918-4e9a-a8ef-b8d048955758")
+    @objid ("255a604e-67d7-4b7c-b256-6bab7bc603f3")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
@@ -100,7 +100,7 @@ public class BpmnResourceParameterBindingImpl extends BpmnBaseElementImpl implem
         return super.getCompositionRelation();
     }
 
-    @objid ("78672ce2-86cd-4d6b-9e91-9ce10ff9568c")
+    @objid ("e32a4d91-5826-4626-9871-8b800e9db0e0")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitBpmnResourceParameterBinding(this);

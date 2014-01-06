@@ -47,88 +47,91 @@ import org.eclipse.swt.widgets.Display;
  */
 @objid ("8d550e35-c068-11e1-8c0a-002564c97630")
 public interface UIColor {
-    @objid ("d60d8336-e17a-43eb-bdc1-20c961fdf639")
+    @objid ("2e35436e-6f5a-460a-9df1-fe4842fcb1e8")
     public static final Color BLACK = new Color(Display.getCurrent(), 0, 0, 0);
 
-    @objid ("8ddd09d9-144d-4768-b0fe-d130119221df")
+    @objid ("5de595a3-f382-4a17-aae6-39bdc39cb822")
     public static final Color WHITE = new Color(Display.getCurrent(), 255, 255, 255);
 
-    @objid ("72708225-1581-4089-ad72-b0829bc5f6b3")
+    @objid ("538ae918-32e9-4ea7-af41-f2499091f8eb")
     public static final Color RED = new Color(Display.getCurrent(), 255, 0, 0);
 
     /**
      * KTable even/odd row colors
      */
-    @objid ("623e9c49-b784-4038-8941-2f1d865d3b95")
+    @objid ("5b2dbf7e-3a56-44f3-9b1f-18ea5a439ef7")
     public static final Color TABLE_EVENROW_BG = new Color(Display.getCurrent(), 230, 240, 255);
 
-    @objid ("0e06ed70-34e2-436f-919c-c8ed9759aee4")
+    @objid ("437f9b75-ad58-40f6-a707-0e1ac8bbc4a6")
     public static final Color TABLE_ODDROW_BG = new Color(Display.getCurrent(), 245, 255, 255);
 
-    @objid ("921309a3-6efc-419c-a65b-ca83b3dbeb10")
+    @objid ("49f5619d-a70a-4f3c-a3df-2faa1b846f4d")
     public static final Color TABLE_HEADER_BG = new Color(Display.getCurrent(), 212, 208, 200);
 
     /**
      * Text Field colors
      */
-    @objid ("f5c7724d-d4d2-44b6-9575-c635ba3c0418")
+    @objid ("357a9357-bbad-442b-a301-ebe0e5eb7a7b")
     public static final Color TEXT_WRITABLE_BG = new Color(Display.getCurrent(), 255, 255, 255);
 
-    @objid ("bf3492e3-6a88-47e9-96d3-87391dfded76")
-    public static final Color TEXT_READONLY_BG = new Color(Display.getCurrent(), 242, 242, 242);
+    @objid ("bc506949-94e5-4fdc-9fa6-841665df3a81")
+    public static final Color TEXT_READONLY_BG = new Color(Display.getCurrent(), 232, 232, 232);
 
     /**
      * Editors highlighting colors
      */
-    @objid ("c4aa6786-3cd9-43c1-a646-22c74b35b49c")
+    @objid ("123d2e37-2c63-4cc4-af7a-cf85f4789f8b")
     public static final Color EDITOR_ROTEXT_FG = new Color(Display.getCurrent(), 0, 0, 0);
 
-    @objid ("f5f048f6-0b63-4009-9be0-c91b46603518")
+    @objid ("bf6db22f-205f-499b-ad05-89a5259f835a")
     public static final Color EDITOR_RWTEXT_FG = new Color(Display.getCurrent(), 0, 0, 160);
 
-    @objid ("7d1f24ab-0f4b-46a8-b9db-a885891ec1f5")
+    @objid ("c2ff6735-b87f-49fc-a07e-7b636174b03c")
     public static final Color EDITOR_KEYWORD_FG = new Color(Display.getCurrent(), 120, 0, 164);
 
-    @objid ("3073da9b-c5f6-4d44-9674-edfbe7737d2f")
+    @objid ("ace73310-bf48-4487-82c1-4e74bdc91b12")
     public static final Color EDITOR_MDDTAG_FG = new Color(Display.getCurrent(), 160, 160, 160);
 
-    @objid ("74970769-fc5a-478e-af57-84f436d4496c")
+    @objid ("df4da4c9-a066-4ec9-bf54-73893e08d57c")
     public static final Color EDITOR_COMMENT_FG = new Color(Display.getCurrent(), 0, 128, 0);
 
     /**
      * Label
      */
-    @objid ("50edd859-6cac-40f5-9743-0163c83e9f0d")
+    @objid ("97613193-2647-4278-a53a-64c35b101ce0")
     public static final Color LABEL_TIP_FG = new Color(Display.getCurrent(), 113, 111, 100);
 
     /**
      * Hyperlink color.
      */
-    @objid ("a8f59bf9-24eb-42fc-b7b5-50f86a478b34")
+    @objid ("23a9519e-77b8-4067-931f-572b5492edca")
     public static final Color HYPERLINK_FG = new Color(Display.getCurrent(), 0, 0, 128);
 
     /**
      * Ramc model elements font color is modified yellow #3d5c99
      */
-    @objid ("272465f7-859e-4a2c-bf2d-74f26f362ef5")
+    @objid ("af49841f-c6f2-49b5-aefb-af920d759944")
     public static final Color RAMC_ELEMENT = new Color(Display.getCurrent(), 61, 92, 153);
 
     /**
      * Incomplete model elements font color is light red #FF8080.
      */
-    @objid ("d9e571aa-645b-409c-937e-05376228407e")
+    @objid ("1adf4f60-46cf-48e2-9290-2a20366bec58")
     public static final Color SHELL_ELEMENT = new Color(Display.getCurrent(), 255, 128, 128);
 
     /**
      * Modifiable model elements font color is black #000000.
      */
-    @objid ("c5b79f65-3de4-4e62-b157-a9a6fe462a4d")
+    @objid ("69673c9c-df55-46cb-b4e4-ac9e45efe51b")
     public static final Color MODIFIABLE_ELEMENT = BLACK;
 
     /**
      * Non-modifiable model component elements font color is dark grey #606060.
      */
-    @objid ("58719bca-fb0b-4dee-8593-0e18b5255b5f")
+    @objid ("98a4dbca-8ddc-48d2-9462-0fb2fce0636a")
     public static final Color NONMODIFIABLE_ELEMENT = new Color(Display.getCurrent(), 96, 96, 96);
+
+    @objid ("5f82ae00-4565-49fc-a29f-6a7711107df9")
+    public static final Color POST_IT_BG = new Color(Display.getCurrent(), 255, 255, 210);
 
 }

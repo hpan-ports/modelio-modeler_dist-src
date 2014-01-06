@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.data.uml.behavior.commonBehaviors;
 
 import java.util.ArrayList;
@@ -34,7 +34,6 @@ import org.modelio.metamodel.data.uml.behavior.communicationModel.CommunicationM
 import org.modelio.metamodel.data.uml.behavior.interactionModel.MessageData;
 import org.modelio.metamodel.data.uml.behavior.stateMachineModel.TransitionData;
 import org.modelio.metamodel.data.uml.informationFlow.DataFlowData;
-import org.modelio.metamodel.data.uml.infrastructure.ModelElementData;
 import org.modelio.metamodel.data.uml.statik.GeneralClassData;
 import org.modelio.metamodel.data.uml.statik.OperationData;
 import org.modelio.metamodel.data.uml.statik.ParameterData;
@@ -55,106 +54,106 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("0042606c-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=Signal.class, factory=SignalData.Metadata.ObjectFactory.class, cmsnode=true)
 public class SignalData extends GeneralClassData {
-    @objid ("8f9070c8-9cf1-4532-aeb8-a4d88b59db58")
+    @objid ("2c88d5e6-6f79-4114-982b-cd21a46594fd")
     @SmaMetaAttribute(metaName="IsEvent", type=Boolean.class, smAttributeClass=Metadata.IsEventSmAttribute.class)
      Object mIsEvent = false;
 
-    @objid ("98754c2d-d5f5-4816-b977-602a2c20fd61")
+    @objid ("8f5f1702-3b42-4101-befd-a40898d34fc3")
     @SmaMetaAttribute(metaName="IsException", type=Boolean.class, smAttributeClass=Metadata.IsExceptionSmAttribute.class)
      Object mIsException = false;
 
-    @objid ("f4ea9068-4ff8-44c0-9d71-5408d779b7a5")
+    @objid ("3a8dc254-b51b-4f7d-9c4d-2479f5383602")
     @SmaMetaAssociation(metaName="Sender", typeDataClass=SendSignalActionData.class, min=0, max=-1, smAssociationClass=Metadata.SenderSmDependency.class)
      List<SmObjectImpl> mSender = null;
 
-    @objid ("938314fc-012f-4ea0-b111-5bb209f57555")
+    @objid ("d28f457b-cae9-497b-8a64-7c295fc9a37d")
     @SmaMetaAssociation(metaName="Usage", typeDataClass=MessageData.class, min=0, max=-1, smAssociationClass=Metadata.UsageSmDependency.class)
      List<SmObjectImpl> mUsage = null;
 
-    @objid ("550c2a3b-ac6f-49ed-95ac-74aae0bf189d")
+    @objid ("cf4f27c6-9a61-49af-98b9-615935592a57")
     @SmaMetaAssociation(metaName="Sends", typeDataClass=TransitionData.class, min=0, max=-1, smAssociationClass=Metadata.SendsSmDependency.class)
      List<SmObjectImpl> mSends = null;
 
-    @objid ("e684a0c4-ba41-48e0-8e63-c5a8376ce52c")
+    @objid ("53ae22b0-796e-415b-a331-4fc4ec4fa786")
     @SmaMetaAssociation(metaName="PBase", typeDataClass=ParameterData.class, min=0, max=1, smAssociationClass=Metadata.PBaseSmDependency.class, partof = true)
      SmObjectImpl mPBase;
 
-    @objid ("9797057a-eb0a-4fc5-ad44-faf0e2d146e3")
+    @objid ("57caa70c-553c-4a1b-9157-d40e198ef1e6")
     @SmaMetaAssociation(metaName="OBase", typeDataClass=OperationData.class, min=0, max=1, smAssociationClass=Metadata.OBaseSmDependency.class, partof = true)
      SmObjectImpl mOBase;
 
-    @objid ("19972f52-23b5-4eb8-962d-b416db1204b3")
+    @objid ("f9656c70-016e-491b-a5e6-6a350d151dc6")
     @SmaMetaAssociation(metaName="CommunicationUsage", typeDataClass=CommunicationMessageData.class, min=0, max=-1, smAssociationClass=Metadata.CommunicationUsageSmDependency.class)
      List<SmObjectImpl> mCommunicationUsage = null;
 
-    @objid ("9bc17a59-d12a-436a-9eae-fb481b6106b6")
+    @objid ("7fa0173d-8674-4c2b-9542-81f6c053fdd1")
     @SmaMetaAssociation(metaName="DOccurence", typeDataClass=DataFlowData.class, min=0, max=-1, smAssociationClass=Metadata.DOccurenceSmDependency.class)
      List<SmObjectImpl> mDOccurence = null;
 
-    @objid ("aee870a5-113b-425e-9a15-eea76679a191")
+    @objid ("92f2ee23-49ab-4dca-b0ac-954039a8b15b")
     @SmaMetaAssociation(metaName="EOccurence", typeDataClass=EventData.class, min=0, max=-1, smAssociationClass=Metadata.EOccurenceSmDependency.class)
      List<SmObjectImpl> mEOccurence = null;
 
-    @objid ("f1081772-f8b3-4c47-88ae-789b084531cd")
+    @objid ("a7bd5ece-cdf6-44d1-a019-2b093f90a21d")
     @SmaMetaAssociation(metaName="Base", typeDataClass=GeneralClassData.class, min=0, max=1, smAssociationClass=Metadata.BaseSmDependency.class, partof = true)
      SmObjectImpl mBase;
 
-    @objid ("e25ccb3c-71fc-41b5-8a90-b9d95e87dd00")
+    @objid ("a097a439-9c47-40db-81a6-fc0ff485b8da")
     @SmaMetaAssociation(metaName="Receiver", typeDataClass=AcceptSignalActionData.class, min=0, max=-1, smAssociationClass=Metadata.ReceiverSmDependency.class)
      List<SmObjectImpl> mReceiver = null;
 
-    @objid ("0904ddc5-5da6-4c44-b1f7-c2fbe87f3ea1")
+    @objid ("f487ba3e-5ee2-4b68-9719-beff31abe695")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("006db992-c4c2-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("3eb0e539-d006-49ee-829e-82bec67bfe43")
+        @objid ("d4793b99-464e-4fa8-a7ef-dce63b9699ad")
         private static SmClass smClass = null;
 
-        @objid ("84836a05-d659-490c-b823-235fcb5cddaf")
+        @objid ("38c13a3a-a756-4f20-a18a-81614b7f9d14")
         private static SmAttribute IsEventAtt = null;
 
-        @objid ("edf29d5f-0c33-4cca-a460-52e9f1d4bdb6")
+        @objid ("7da75018-b260-4a3d-aee0-cc81b91cdc2a")
         private static SmAttribute IsExceptionAtt = null;
 
-        @objid ("7e5db96e-1661-4918-90c2-6403d66c9204")
+        @objid ("07e811e5-eba2-4496-890b-21b4fa6cb7a0")
         private static SmDependency SenderDep = null;
 
-        @objid ("8272829b-603a-4ccd-84c3-b97829987a3e")
+        @objid ("7ff170dd-896d-4546-a21e-54ad5275fb80")
         private static SmDependency UsageDep = null;
 
-        @objid ("95631cc1-4d67-47b4-8f7b-570b13cc2e03")
+        @objid ("4e8f65ab-6403-4afd-b11b-11f53fb9402a")
         private static SmDependency SendsDep = null;
 
-        @objid ("273d7846-aba1-4c2e-b199-21a83cbc69ad")
+        @objid ("abfe6be2-71f2-4aba-9d04-397a0d03e7b3")
         private static SmDependency PBaseDep = null;
 
-        @objid ("ecabbc2b-6d6e-4db5-bee5-ee0da3e3e2c6")
+        @objid ("b49c2ebc-6360-4645-969d-4828a091a793")
         private static SmDependency OBaseDep = null;
 
-        @objid ("2dddcbb4-1cf7-45de-b55a-97bd5f04a0cb")
+        @objid ("f55dc2bc-cd1d-450f-b303-a2d4641f3c18")
         private static SmDependency CommunicationUsageDep = null;
 
-        @objid ("f7e17f82-1d0a-44f4-a798-391565b1d630")
+        @objid ("46ab98eb-cef3-4a8c-900a-25591673540f")
         private static SmDependency DOccurenceDep = null;
 
-        @objid ("9595108d-9159-4aea-ad48-772354c0879d")
+        @objid ("e2a4db0e-83ce-45c5-8114-df90a7306f25")
         private static SmDependency EOccurenceDep = null;
 
-        @objid ("f417e162-99f4-498e-a798-581ce2e2a24e")
+        @objid ("a38be948-87d5-413d-bf9b-ae0160495534")
         private static SmDependency BaseDep = null;
 
-        @objid ("a5040d49-9998-45b0-bbb6-686e9fc8a983")
+        @objid ("86e7e5ac-3238-4ddd-837f-7c178b74ad22")
         private static SmDependency ReceiverDep = null;
 
-        @objid ("45558e00-b2c1-4677-a0c9-6ad96e5540a0")
+        @objid ("17e893c5-a670-434a-a174-761532e08c22")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(SignalData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("ecfaf003-12a8-47f7-934d-72d1a6417698")
+        @objid ("7d393147-d74b-4b7a-bee5-6ba705384410")
         public static SmAttribute IsEventAtt() {
             if (IsEventAtt == null) {
             	IsEventAtt = classof().getAttributeDef("IsEvent");
@@ -162,7 +161,7 @@ public class SignalData extends GeneralClassData {
             return IsEventAtt;
         }
 
-        @objid ("a4451d0e-41d7-4b1e-8c33-06df5086a97a")
+        @objid ("eccdd6a8-c06a-4ebf-bf60-12093651df2e")
         public static SmAttribute IsExceptionAtt() {
             if (IsExceptionAtt == null) {
             	IsExceptionAtt = classof().getAttributeDef("IsException");
@@ -170,7 +169,7 @@ public class SignalData extends GeneralClassData {
             return IsExceptionAtt;
         }
 
-        @objid ("5e2f95b0-13e2-44bd-ac29-8f42e8b7bff5")
+        @objid ("a5e74a7b-23b0-4838-91f8-ae4a05a3af49")
         public static SmDependency SenderDep() {
             if (SenderDep == null) {
             	SenderDep = classof().getDependencyDef("Sender");
@@ -178,7 +177,7 @@ public class SignalData extends GeneralClassData {
             return SenderDep;
         }
 
-        @objid ("45a45c1d-b932-405d-be91-45a3698e2dc2")
+        @objid ("88d24e26-35ef-430e-87f0-7e66fd2033df")
         public static SmDependency UsageDep() {
             if (UsageDep == null) {
             	UsageDep = classof().getDependencyDef("Usage");
@@ -186,7 +185,7 @@ public class SignalData extends GeneralClassData {
             return UsageDep;
         }
 
-        @objid ("577ed86d-bc70-43cb-b720-63b7947d01c1")
+        @objid ("6d849962-1699-494b-bb8b-d394715f7e99")
         public static SmDependency SendsDep() {
             if (SendsDep == null) {
             	SendsDep = classof().getDependencyDef("Sends");
@@ -194,7 +193,7 @@ public class SignalData extends GeneralClassData {
             return SendsDep;
         }
 
-        @objid ("fdeef11d-ce12-4133-8413-7be80768c135")
+        @objid ("9aa87504-66a2-44fc-918d-866443b56110")
         public static SmDependency PBaseDep() {
             if (PBaseDep == null) {
             	PBaseDep = classof().getDependencyDef("PBase");
@@ -202,7 +201,7 @@ public class SignalData extends GeneralClassData {
             return PBaseDep;
         }
 
-        @objid ("d0fb436e-9b8a-451f-87f9-59b7095ec67b")
+        @objid ("14a7eef3-f966-4371-8fdc-2688cae4f5d6")
         public static SmDependency OBaseDep() {
             if (OBaseDep == null) {
             	OBaseDep = classof().getDependencyDef("OBase");
@@ -210,7 +209,7 @@ public class SignalData extends GeneralClassData {
             return OBaseDep;
         }
 
-        @objid ("1e5713de-5978-4155-942b-e434180a602a")
+        @objid ("f3280b1a-08fa-4c51-8830-0d2668f7f2eb")
         public static SmDependency CommunicationUsageDep() {
             if (CommunicationUsageDep == null) {
             	CommunicationUsageDep = classof().getDependencyDef("CommunicationUsage");
@@ -218,7 +217,7 @@ public class SignalData extends GeneralClassData {
             return CommunicationUsageDep;
         }
 
-        @objid ("95f9d4fd-ffbd-426d-81a1-3381c27a990e")
+        @objid ("b21e4efd-b587-4478-9371-347cf84a16c1")
         public static SmDependency DOccurenceDep() {
             if (DOccurenceDep == null) {
             	DOccurenceDep = classof().getDependencyDef("DOccurence");
@@ -226,7 +225,7 @@ public class SignalData extends GeneralClassData {
             return DOccurenceDep;
         }
 
-        @objid ("5cd95a22-1020-43fc-8edd-7cee4fbbd7fe")
+        @objid ("add3eb03-1008-48ff-8376-6d2b452819d7")
         public static SmDependency EOccurenceDep() {
             if (EOccurenceDep == null) {
             	EOccurenceDep = classof().getDependencyDef("EOccurence");
@@ -234,7 +233,7 @@ public class SignalData extends GeneralClassData {
             return EOccurenceDep;
         }
 
-        @objid ("6a8ceb51-0796-4ad1-a6fc-aa4d416d76cf")
+        @objid ("35f30769-62a8-49ed-91a2-a8e082a780fd")
         public static SmDependency BaseDep() {
             if (BaseDep == null) {
             	BaseDep = classof().getDependencyDef("Base");
@@ -242,7 +241,7 @@ public class SignalData extends GeneralClassData {
             return BaseDep;
         }
 
-        @objid ("da789356-cf79-4151-ac4d-d5c4e40df14e")
+        @objid ("31fc899e-87eb-49b5-a590-f19e99ca7450")
         public static SmDependency ReceiverDep() {
             if (ReceiverDep == null) {
             	ReceiverDep = classof().getDependencyDef("Receiver");
@@ -250,79 +249,79 @@ public class SignalData extends GeneralClassData {
             return ReceiverDep;
         }
 
-        @objid ("0a422e2a-28cd-4008-94a5-13fc27ace50c")
-        public static SmDependency getPBaseDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return PBaseDep;
-        }
-
-        @objid ("d016482f-0260-4215-b78e-e9291c115a07")
-        public static SmDependency getReceiverDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return ReceiverDep;
-        }
-
-        @objid ("fc83ef26-75f2-4c94-8229-84bf30740c9b")
-        public static SmDependency getBaseDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return BaseDep;
-        }
-
-        @objid ("54af3df2-2091-40ff-b862-3d998562055b")
-        public static SmDependency getEOccurenceDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return EOccurenceDep;
-        }
-
-        @objid ("afac24ce-a723-4388-9f3d-f575e6a7e6ce")
-        public static SmAttribute getIsEventAtt() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return IsEventAtt;
-        }
-
-        @objid ("1b1c8f3f-1696-4c9a-95ff-85c4cacb5212")
-        public static SmDependency getOBaseDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return OBaseDep;
-        }
-
-        @objid ("99004d4d-3539-496d-b499-99b61125ba46")
-        public static SmDependency getDOccurenceDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return DOccurenceDep;
-        }
-
-        @objid ("6f7150d4-49fc-48b0-92ff-6967faf9e07a")
+        @objid ("ddfd821c-f211-4ece-8af6-16ad7c830e20")
         public static SmDependency getSenderDep() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return SenderDep;
         }
 
-        @objid ("38ca02ae-cf5f-4004-accf-dfc06341bdda")
+        @objid ("3ce2be5d-029c-47e2-a4dd-529432a08795")
+        public static SmDependency getReceiverDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return ReceiverDep;
+        }
+
+        @objid ("5f5eed69-c473-43ef-b9d9-564c2cde8bab")
+        public static SmDependency getPBaseDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return PBaseDep;
+        }
+
+        @objid ("fcc1f5bc-b643-4be4-b8b4-7639cf599c2f")
+        public static SmDependency getDOccurenceDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return DOccurenceDep;
+        }
+
+        @objid ("ad8a533f-5f3d-4ebc-a8e0-a3d312199eaf")
         public static SmDependency getCommunicationUsageDep() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return CommunicationUsageDep;
         }
 
-        @objid ("a3cb1411-af2a-49b7-b437-e9b3d4fec86d")
-        public static SmClass getSmClass() {
+        @objid ("edbd1f82-6924-4dd3-b66b-d4106221c9a3")
+        public static SmDependency getEOccurenceDep() {
             // Automatically generated method. Please delete this comment before entering specific code.
-            return smClass;
+            return EOccurenceDep;
         }
 
-        @objid ("e5a82da5-020b-4546-a551-9012d3386646")
+        @objid ("599876b9-4ac7-41d0-b0e8-36d53cd212e6")
+        public static SmDependency getOBaseDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return OBaseDep;
+        }
+
+        @objid ("8f2fd2ec-6147-4ba3-9811-baf1dfce7c68")
+        public static SmAttribute getIsEventAtt() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return IsEventAtt;
+        }
+
+        @objid ("5722983c-6b44-4201-94e9-827ecf3c3694")
         public static SmDependency getUsageDep() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return UsageDep;
         }
 
-        @objid ("29a199fd-efc6-4501-8030-cd70c89ce90a")
+        @objid ("ced4f414-7b88-4f5e-93fd-3059eaf7baea")
+        public static SmClass getSmClass() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return smClass;
+        }
+
+        @objid ("1850e674-e79b-4808-8fce-6959524bb5d9")
+        public static SmDependency getBaseDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return BaseDep;
+        }
+
+        @objid ("9d16bd04-fe4d-476a-9450-08ab2e551374")
         public static SmDependency getSendsDep() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return SendsDep;
         }
 
-        @objid ("ac411265-b484-44f9-a39a-b3ad1a7229a1")
+        @objid ("30bd1040-6199-4689-b460-724cde199191")
         public static SmAttribute getIsExceptionAtt() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return IsExceptionAtt;
@@ -330,12 +329,12 @@ public class SignalData extends GeneralClassData {
 
         @objid ("006dfbdc-c4c2-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("e8f2881a-6aeb-4de2-b462-5b881b272118")
+            @objid ("6729961e-6042-4b15-89ab-769dd19468b1")
             public ISmObjectData createData() {
                 return new SignalData();
             }
 
-            @objid ("0d590eee-da78-4b9f-872c-a7d4ecc0d9a7")
+            @objid ("6d1bc6ca-ea70-4676-9ad3-dbc1dae2c6f4")
             public SmObjectImpl createImpl() {
                 return new SignalImpl();
             }
@@ -344,12 +343,12 @@ public class SignalData extends GeneralClassData {
 
         @objid ("006e5dc0-c4c2-1fd8-97fe-001ec947cd2a")
         public static class IsEventSmAttribute extends SmAttribute {
-            @objid ("b3a7b3b8-4f3a-404c-8130-49a8a3a258e1")
+            @objid ("8fbb3bb4-297a-48c9-9be8-9757613a0a8b")
             public Object getValue(ISmObjectData data) {
                 return ((SignalData) data).mIsEvent;
             }
 
-            @objid ("d309f965-8381-43c8-9bba-1c825529d1b4")
+            @objid ("3d388e78-1cb0-489c-b7c8-41cd32dafea9")
             public void setValue(ISmObjectData data, Object value) {
                 ((SignalData) data).mIsEvent = value;
             }
@@ -358,12 +357,12 @@ public class SignalData extends GeneralClassData {
 
         @objid ("006ec0a8-c4c2-1fd8-97fe-001ec947cd2a")
         public static class IsExceptionSmAttribute extends SmAttribute {
-            @objid ("6d25cb73-93f3-46c4-9a5b-47733246530f")
+            @objid ("1559dc23-bffe-484c-a294-22a0704620f4")
             public Object getValue(ISmObjectData data) {
                 return ((SignalData) data).mIsException;
             }
 
-            @objid ("7e9ba962-c571-44f0-bbb7-6ebf9bf61be4")
+            @objid ("7cf4bd80-5488-4eb8-afd9-e86590f6149e")
             public void setValue(ISmObjectData data, Object value) {
                 ((SignalData) data).mIsException = value;
             }
@@ -372,20 +371,20 @@ public class SignalData extends GeneralClassData {
 
         @objid ("006f26ba-c4c2-1fd8-97fe-001ec947cd2a")
         public static class EOccurenceSmDependency extends SmMultipleDependency {
-            @objid ("9c4ffebe-2414-4011-bd74-5a8f43ed44a7")
+            @objid ("74becc22-11a3-4ce4-80ad-126cc9a6f99e")
             @Override
             public List<SmObjectImpl> getValueList(ISmObjectData data) {
                 return (((SignalData)data).mEOccurence != null)? ((SignalData)data).mEOccurence:SmMultipleDependency.EMPTY;
             }
 
-            @objid ("77aba262-c056-4dd7-8357-f8f234b6f45a")
+            @objid ("2406210c-a84a-4e3e-befa-a29c93e081b3")
             @Override
             protected List<SmObjectImpl> allocateValueList(ISmObjectData data, int initialCapacity) {
                 ((SignalData) data).mEOccurence = new ArrayList<>(initialCapacity);
                 return ((SignalData) data).mEOccurence;
             }
 
-            @objid ("9a79bfdb-e211-4fa7-9ed8-f1b51f5c952c")
+            @objid ("52d6ac28-05fd-46cf-b446-ec9a0feba173")
             @Override
             public SmDependency getSymetric() {
                 return EventData.Metadata.ModelDep();
@@ -395,20 +394,20 @@ public class SignalData extends GeneralClassData {
 
         @objid ("006f8b00-c4c2-1fd8-97fe-001ec947cd2a")
         public static class SendsSmDependency extends SmMultipleDependency {
-            @objid ("fe2c5f13-4283-44a2-99e3-096ce78fb165")
+            @objid ("faafa38c-513d-4d55-82cd-06ba6133f44f")
             @Override
             public List<SmObjectImpl> getValueList(ISmObjectData data) {
                 return (((SignalData)data).mSends != null)? ((SignalData)data).mSends:SmMultipleDependency.EMPTY;
             }
 
-            @objid ("de241ea6-1449-4e1e-8369-2bac51d8b5d1")
+            @objid ("d665754c-d58c-4f00-ab68-8878c0a3de1c")
             @Override
             protected List<SmObjectImpl> allocateValueList(ISmObjectData data, int initialCapacity) {
                 ((SignalData) data).mSends = new ArrayList<>(initialCapacity);
                 return ((SignalData) data).mSends;
             }
 
-            @objid ("f26a3bcd-f8f8-4f2b-9723-cc4213dc618c")
+            @objid ("12c9338f-abb7-473c-b0fc-e90e289e3b56")
             @Override
             public SmDependency getSymetric() {
                 return TransitionData.Metadata.EffectsDep();
@@ -418,18 +417,18 @@ public class SignalData extends GeneralClassData {
 
         @objid ("006fefd2-c4c2-1fd8-97fe-001ec947cd2a")
         public static class PBaseSmDependency extends SmSingleDependency {
-            @objid ("d5a63705-84d2-4af9-afb6-bdb698625777")
+            @objid ("8ea7ae03-ac9f-4a3e-a38c-0452c6bb6ff6")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((SignalData) data).mPBase;
             }
 
-            @objid ("41cfb601-fd45-433d-ae68-04dfd06e5804")
+            @objid ("f372a4b9-c2c5-4dce-a8b9-413b787f61c6")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((SignalData) data).mPBase = value;
             }
 
-            @objid ("ce43d269-0832-41d5-826f-f06642e68e1a")
+            @objid ("8eedcc01-50ff-48a2-a2b7-b6dfbd754f16")
             @Override
             public SmDependency getSymetric() {
                 return ParameterData.Metadata.SRepresentationDep();
@@ -439,18 +438,18 @@ public class SignalData extends GeneralClassData {
 
         @objid ("00706714-c4c2-1fd8-97fe-001ec947cd2a")
         public static class OBaseSmDependency extends SmSingleDependency {
-            @objid ("09360399-718b-47f9-93c1-5f826a41185a")
+            @objid ("788dd029-c2da-4d0d-ad65-6e891aa225a1")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((SignalData) data).mOBase;
             }
 
-            @objid ("19fae289-5740-436d-9ee3-4b58e23bf329")
+            @objid ("4a2cae09-b6fc-4e42-ab91-b7899435e746")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((SignalData) data).mOBase = value;
             }
 
-            @objid ("c33a7c5a-2b5a-4a1c-b27a-70e36ef1f97d")
+            @objid ("99cd62a6-545f-4980-9acd-ebbbba8735bc")
             @Override
             public SmDependency getSymetric() {
                 return OperationData.Metadata.SRepresentationDep();
@@ -460,18 +459,18 @@ public class SignalData extends GeneralClassData {
 
         @objid ("0070de1a-c4c2-1fd8-97fe-001ec947cd2a")
         public static class BaseSmDependency extends SmSingleDependency {
-            @objid ("c981a6d5-93c6-4792-b247-37ab83236b69")
+            @objid ("d3660b50-708c-4fe6-a3e2-639372f5886c")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((SignalData) data).mBase;
             }
 
-            @objid ("4bcde289-8667-4134-b496-a551b04b6918")
+            @objid ("ea97b806-c53b-4aef-a146-d18163481a32")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((SignalData) data).mBase = value;
             }
 
-            @objid ("b852b12d-da12-477b-b8a5-8489c92faac2")
+            @objid ("a2933f6d-630a-440d-868c-942e5587507c")
             @Override
             public SmDependency getSymetric() {
                 return GeneralClassData.Metadata.SRepresentationDep();
@@ -481,20 +480,20 @@ public class SignalData extends GeneralClassData {
 
         @objid ("007156a6-c4c2-1fd8-97fe-001ec947cd2a")
         public static class DOccurenceSmDependency extends SmMultipleDependency {
-            @objid ("1a9ba3c2-c9a6-4fc8-a5c4-26b695162985")
+            @objid ("12679361-bd3d-4de4-bb6c-37a1264d49e8")
             @Override
             public List<SmObjectImpl> getValueList(ISmObjectData data) {
                 return (((SignalData)data).mDOccurence != null)? ((SignalData)data).mDOccurence:SmMultipleDependency.EMPTY;
             }
 
-            @objid ("7c98b132-f1d1-4fce-bca7-8f0c8d1fcf83")
+            @objid ("2bdc0639-dab4-477f-8bfd-a084dc493494")
             @Override
             protected List<SmObjectImpl> allocateValueList(ISmObjectData data, int initialCapacity) {
                 ((SignalData) data).mDOccurence = new ArrayList<>(initialCapacity);
                 return ((SignalData) data).mDOccurence;
             }
 
-            @objid ("111439c3-fd94-48e2-8ffe-996f11451500")
+            @objid ("10080836-42d9-408d-925d-7d7db18846a8")
             @Override
             public SmDependency getSymetric() {
                 return DataFlowData.Metadata.SModelDep();
@@ -504,20 +503,20 @@ public class SignalData extends GeneralClassData {
 
         @objid ("00723652-c4c2-1fd8-97fe-001ec947cd2a")
         public static class SenderSmDependency extends SmMultipleDependency {
-            @objid ("3d7acd1b-2624-46c7-aa15-23cc01487fd4")
+            @objid ("440b7318-d5d3-420e-a7fc-84f3fb52f089")
             @Override
             public List<SmObjectImpl> getValueList(ISmObjectData data) {
                 return (((SignalData)data).mSender != null)? ((SignalData)data).mSender:SmMultipleDependency.EMPTY;
             }
 
-            @objid ("a70d29d1-cd70-449f-9a86-dc9325241fd8")
+            @objid ("cb3cae93-a195-4db5-addd-e59f110242c3")
             @Override
             protected List<SmObjectImpl> allocateValueList(ISmObjectData data, int initialCapacity) {
                 ((SignalData) data).mSender = new ArrayList<>(initialCapacity);
                 return ((SignalData) data).mSender;
             }
 
-            @objid ("3e6ea5ce-10dc-4200-a3a5-3e9ee016766b")
+            @objid ("4d2ac436-8864-44c1-b864-f36d10d588dd")
             @Override
             public SmDependency getSymetric() {
                 return SendSignalActionData.Metadata.SentDep();
@@ -527,20 +526,20 @@ public class SignalData extends GeneralClassData {
 
         @objid ("00729e58-c4c2-1fd8-97fe-001ec947cd2a")
         public static class UsageSmDependency extends SmMultipleDependency {
-            @objid ("abd3d0cc-a445-47cb-b53c-68f2f2ffa0de")
+            @objid ("dd698269-2bf9-4b8b-843a-87741b193399")
             @Override
             public List<SmObjectImpl> getValueList(ISmObjectData data) {
                 return (((SignalData)data).mUsage != null)? ((SignalData)data).mUsage:SmMultipleDependency.EMPTY;
             }
 
-            @objid ("207cffc0-5c06-411e-accd-1240ea3b9283")
+            @objid ("cdcca934-c3e6-429c-ae02-10b79eb2add2")
             @Override
             protected List<SmObjectImpl> allocateValueList(ISmObjectData data, int initialCapacity) {
                 ((SignalData) data).mUsage = new ArrayList<>(initialCapacity);
                 return ((SignalData) data).mUsage;
             }
 
-            @objid ("2121388f-a668-4164-8a2d-a53b9ebd8676")
+            @objid ("2fdf88dc-cfee-4e99-bf8a-47b2e12a9e03")
             @Override
             public SmDependency getSymetric() {
                 return MessageData.Metadata.SignalSignatureDep();
@@ -550,20 +549,20 @@ public class SignalData extends GeneralClassData {
 
         @objid ("007307e4-c4c2-1fd8-97fe-001ec947cd2a")
         public static class ReceiverSmDependency extends SmMultipleDependency {
-            @objid ("629854a1-f9c5-4a6b-84a0-ac3b9e877e52")
+            @objid ("c5b7674f-a1e1-460d-bdf0-e32a87c85e2c")
             @Override
             public List<SmObjectImpl> getValueList(ISmObjectData data) {
                 return (((SignalData)data).mReceiver != null)? ((SignalData)data).mReceiver:SmMultipleDependency.EMPTY;
             }
 
-            @objid ("0d4e2cdb-f2ce-4f0d-96c4-c829ca6bc408")
+            @objid ("c92c4449-2dfe-47ae-85f7-a1810916d512")
             @Override
             protected List<SmObjectImpl> allocateValueList(ISmObjectData data, int initialCapacity) {
                 ((SignalData) data).mReceiver = new ArrayList<>(initialCapacity);
                 return ((SignalData) data).mReceiver;
             }
 
-            @objid ("19bab43c-f5ce-4c51-9175-9e42de33cf1d")
+            @objid ("d43cb505-f41a-412b-84f9-189cf2ce8fd1")
             @Override
             public SmDependency getSymetric() {
                 return AcceptSignalActionData.Metadata.AcceptedDep();
@@ -573,20 +572,20 @@ public class SignalData extends GeneralClassData {
 
         @objid ("00737198-c4c2-1fd8-97fe-001ec947cd2a")
         public static class CommunicationUsageSmDependency extends SmMultipleDependency {
-            @objid ("bcc16ccf-d149-4f42-bed7-50a1220c9a95")
+            @objid ("7442600e-31da-42e7-b1e4-b49fac3fcd39")
             @Override
             public List<SmObjectImpl> getValueList(ISmObjectData data) {
                 return (((SignalData)data).mCommunicationUsage != null)? ((SignalData)data).mCommunicationUsage:SmMultipleDependency.EMPTY;
             }
 
-            @objid ("d7ec581b-6a87-499f-9cf2-a26e1a688d62")
+            @objid ("1195c2a0-1a37-4bbe-953a-e69066da2144")
             @Override
             protected List<SmObjectImpl> allocateValueList(ISmObjectData data, int initialCapacity) {
                 ((SignalData) data).mCommunicationUsage = new ArrayList<>(initialCapacity);
                 return ((SignalData) data).mCommunicationUsage;
             }
 
-            @objid ("3e868154-8948-4c67-af00-65db50134881")
+            @objid ("9b6c5c1c-1957-443a-ae0c-8fe3502688ba")
             @Override
             public SmDependency getSymetric() {
                 return CommunicationMessageData.Metadata.SignalSignatureDep();

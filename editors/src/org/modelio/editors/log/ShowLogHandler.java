@@ -29,7 +29,7 @@ import org.modelio.editors.service.EditionManager;
 
 /**
  * Handler for the "Show Log" command.
- * Opens a read only text editor on the modelio.log file in {user.home}/.modelio/3.0.
+ * Opens a read only text editor on the modelio.log file in {user.home}/.modelio/3.1.
  */
 @objid ("a29e2c00-4307-4bb9-86f2-523e5d0eb9c1")
 public class ShowLogHandler {
@@ -37,7 +37,7 @@ public class ShowLogHandler {
     @Execute
     public void execute() {
         String userPath = System.getProperty("user.home");
-        File logFile = new File(userPath, "/.modelio/3.0/modelio.log");
+        File logFile = new File(userPath, "/.modelio/3.1/modelio.log");
         EditionManager.services().openEditor(null, logFile, EditorType.TXTEditor, true);
     }
 

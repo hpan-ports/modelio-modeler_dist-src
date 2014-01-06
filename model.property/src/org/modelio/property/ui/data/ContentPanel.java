@@ -67,8 +67,8 @@ public class ContentPanel extends Composite {
     public void setInput(IProjectService projectService, IMModelServices modelService, IModelioPickingService pickingService, IActivationService activationService, final Element typedElement, final Object typingElement) {
         // Do not refresh when elements are the same
         if (this.typedElement == typedElement && this.typingElement == typingElement) {
-            if (this.propertyPanel != null)
-                this.propertyPanel.refresh();
+        	if (this.propertyPanel != null)
+        	    this.propertyPanel.refresh();
             return;
         }
         this.typedElement = typedElement;

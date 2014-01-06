@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.uml.statik;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
@@ -33,16 +33,16 @@ import org.modelio.metamodel.uml.statik.Operation;
 
 @objid ("001a6e72-c4bf-1fd8-97fe-001ec947cd2a")
 public interface RaisedException extends ModelElement {
-    @objid ("74ac4a6e-3f39-47a8-9777-689982cb5254")
+    @objid ("76ad19f7-79d7-4069-9d0f-37c1c928f7f0")
     Classifier getThrownType();
 
-    @objid ("9b35a523-7e5b-49fb-9dd3-87021f669816")
+    @objid ("241aad2e-6d33-49cb-afd3-5d6ef36ca2a1")
     void setThrownType(Classifier value);
 
-    @objid ("6db7eb5c-8b4f-47d8-a6d6-a816549043af")
+    @objid ("6c4dfbe2-dfeb-4dbc-9ddb-2bec1085b2f2")
     Operation getThrower();
 
-    @objid ("68521542-b8e0-4a3d-8d89-c3c71fcac657")
+    @objid ("2c7f2248-46af-4e3b-9b9e-cd4795c67f60")
     void setThrower(Operation value);
 
 }

@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.diagrams;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
@@ -30,10 +30,10 @@ import org.eclipse.emf.ecore.EObject;
 
 @objid ("0067c92e-c4bf-1fd8-97fe-001ec947cd2a")
 public interface ActivityDiagram extends BehaviorDiagram {
-    @objid ("01cc62af-099f-4496-9de3-47af688de300")
+    @objid ("7674ebf4-a50f-46b8-b090-97d1914be9f7")
     boolean isIsVertical();
 
-    @objid ("fe61e9ab-ebfe-46d9-a6f0-b9f1f9f9f9d9")
+    @objid ("85a6c797-37da-4d13-83ab-91f583d78525")
     void setIsVertical(boolean value);
 
 }

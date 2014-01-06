@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.data.uml.infrastructure.properties;
 
 import java.util.ArrayList;
@@ -45,29 +45,29 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("00718aa4-ec87-1098-b22e-001ec947cd2a")
 @SmaMetaClass(mmClass=EnumeratedPropertyType.class, factory=EnumeratedPropertyTypeData.Metadata.ObjectFactory.class, cmsnode=true)
 public class EnumeratedPropertyTypeData extends PropertyTypeData {
-    @objid ("e4d8b180-7404-4259-ab78-fb46814e0e47")
+    @objid ("71262dae-5bab-45ae-b7db-762b512e14f6")
     @SmaMetaAssociation(metaName="Litteral", typeDataClass=PropertyEnumerationLitteralData.class, min=0, max=-1, smAssociationClass=Metadata.LitteralSmDependency.class, component = true)
      List<SmObjectImpl> mLitteral = null;
 
-    @objid ("e868253a-7da3-4322-97d0-d4ed6056aacf")
+    @objid ("f2759e6a-9daf-47dc-bcf0-b9546d53e191")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("00591c3a-ec98-1098-b22e-001ec947cd2a")
     public static class Metadata {
-        @objid ("6f8c3a35-317e-474f-a85e-b43fd70816c0")
+        @objid ("bc6edf82-673c-4511-abaa-776c7cbc50c6")
         private static SmClass smClass = null;
 
-        @objid ("7e0f5de7-e533-4f99-a602-94529507d7b3")
+        @objid ("b6a7f46f-aca5-4f67-8353-83e0e0078737")
         private static SmDependency LitteralDep = null;
 
-        @objid ("79f2391b-e43b-43a0-8d20-232d27636e80")
+        @objid ("9c95575a-bb72-4943-b97f-bf8a0f9e69fc")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(EnumeratedPropertyTypeData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("b66fed64-9640-49fa-9f68-79030fdfcb3d")
+        @objid ("6944b9a6-1d0d-455d-bdd5-2d14b4b047a3")
         public static SmDependency LitteralDep() {
             if (LitteralDep == null) {
             	LitteralDep = classof().getDependencyDef("Litteral");
@@ -75,13 +75,13 @@ public class EnumeratedPropertyTypeData extends PropertyTypeData {
             return LitteralDep;
         }
 
-        @objid ("9a20f87a-7c88-40b0-8784-296b64067103")
+        @objid ("c33055b8-c1ad-49f9-b9c3-d24e9ff54403")
         public static SmClass getSmClass() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return smClass;
         }
 
-        @objid ("93a0ac9e-cfef-4359-b95d-4646f92d3e9d")
+        @objid ("f30d15e8-35f7-443a-b4be-009025ee992f")
         public static SmDependency getLitteralDep() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return LitteralDep;
@@ -89,12 +89,12 @@ public class EnumeratedPropertyTypeData extends PropertyTypeData {
 
         @objid ("00597d1a-ec98-1098-b22e-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("257de96c-669f-4304-a58d-dcd5ad96f5e9")
+            @objid ("b1c87fe4-cbed-4307-a98f-64809895b844")
             public ISmObjectData createData() {
                 return new EnumeratedPropertyTypeData();
             }
 
-            @objid ("ad9bf552-dece-45e5-818c-3b042668d3a2")
+            @objid ("020e9b5a-1dcb-4f58-9032-9fdb4e9d95cf")
             public SmObjectImpl createImpl() {
                 return new EnumeratedPropertyTypeImpl();
             }
@@ -103,20 +103,20 @@ public class EnumeratedPropertyTypeData extends PropertyTypeData {
 
         @objid ("005a5816-ec98-1098-b22e-001ec947cd2a")
         public static class LitteralSmDependency extends SmMultipleDependency {
-            @objid ("ef59028d-e881-439e-bcd2-9e548b303acb")
+            @objid ("b882dbe3-571c-41cb-b3e2-9b89b4b19807")
             @Override
             public List<SmObjectImpl> getValueList(ISmObjectData data) {
                 return (((EnumeratedPropertyTypeData)data).mLitteral != null)? ((EnumeratedPropertyTypeData)data).mLitteral:SmMultipleDependency.EMPTY;
             }
 
-            @objid ("acb77b6c-38e6-47d5-b386-58c947135e2a")
+            @objid ("50ab860a-e8d6-465c-82bc-701155b94d56")
             @Override
             protected List<SmObjectImpl> allocateValueList(ISmObjectData data, int initialCapacity) {
                 ((EnumeratedPropertyTypeData) data).mLitteral = new ArrayList<>(initialCapacity);
                 return ((EnumeratedPropertyTypeData) data).mLitteral;
             }
 
-            @objid ("bde4dc9c-a8a5-489b-9e90-1bf96dfb464e")
+            @objid ("a5560f09-ab0a-4f42-9a04-3de0c6e39cd8")
             @Override
             public SmDependency getSymetric() {
                 return PropertyEnumerationLitteralData.Metadata.OwnerDep();

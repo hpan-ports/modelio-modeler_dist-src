@@ -69,9 +69,9 @@ public class ImportServices {
     private int ownedElements = 0;
 
     @objid ("379d1b50-de78-4b0c-8bb9-acdaf444751e")
-    private List<String> profiles = new ArrayList<String>();
+    private List<String> profiles = new ArrayList<>();
 
-    @objid ("00dd0207-d8f7-48ff-9884-4c0e16950dd9")
+    @objid ("35823324-d979-4f50-bef0-eaa8d6b6fa11")
     private Shell _shell = null;
 
     @objid ("178269f7-c1d6-40dd-8299-8c64c15addec")
@@ -131,7 +131,7 @@ public class ImportServices {
         PartialImportMap partialImportMap = PartialImportMap.getInstance();
         TotalImportMap totalImportMap = TotalImportMap.getInstance();
         
-        List <org.eclipse.uml2.uml.Element> externalElements = new ArrayList <org.eclipse.uml2.uml.Element>();
+        List <org.eclipse.uml2.uml.Element> externalElements = new ArrayList <>();
         
         for (Object key : partialImportMap.keySet()) {
             if (key != null){
@@ -151,9 +151,8 @@ public class ImportServices {
                     partialImportMap.remove(externalElt);
                 } else if (externalElt instanceof org.eclipse.uml2.uml.PrimitiveType) {
                     attachExternalPrimitiveType((org.eclipse.uml2.uml.PrimitiveType) externalElt, partialImportMap, totalImportMap);        
-                } else {
-                    visitEcoreModel.doSwitch(externalElt);
-        
+        //                } else {
+        //                    visitEcoreModel.doSwitch(externalElt);      
                 }
             }else{
         
@@ -470,7 +469,7 @@ public class ImportServices {
     private Resource loadModel(final File oldFile, final List<String> oldPatterns, final List<String> newPatterns) {
         File newFile = null;
         File tempFile = null;
-        List<File> listeFile = new ArrayList<File>();
+        List<File> listeFile = new ArrayList<>();
         Resource newresource = null; 
         
         try{
@@ -595,7 +594,7 @@ public class ImportServices {
 
     @objid ("73adb37d-ba61-4908-912d-d0cb284caf22")
     private List<String> getOldUMLPatterns() {
-        List<String> patterns = new LinkedList<String>();
+        List<String> patterns = new LinkedList<>();
         patterns.add("xmlns:uml=\"http://schema.omg.org/spec/UML/2.1.1/uml.xml");  
         patterns.add("xmlns:uml[\\s]?=[\\s]?[\"]?[\']?http://www.omg.org/spec/UML/20090901[\"]?[\']?");
         patterns.add("xmlns:uml[\\s]?=[\\s]?[\"]?[\']?http://www.omg.org/spec/UML/20100901[\"]?[\']?");
@@ -609,7 +608,7 @@ public class ImportServices {
 
     @objid ("90f607a8-4379-4aa5-bb79-9dec705ed493")
     private List<String> getNewUMLPatterns() {
-        List<String> patterns = new LinkedList<String>();
+        List<String> patterns = new LinkedList<>();
         patterns.add("xmlns:uml=\"http://www.eclipse.org/uml2/3.0.0/UML" );
         patterns.add("xmlns:uml=\"http://www.eclipse.org/uml2/3.0.0/UML\"" );
         patterns.add("xmlns:uml=\"http://www.eclipse.org/uml2/3.0.0/UML\"" );
@@ -623,7 +622,7 @@ public class ImportServices {
 
     @objid ("5b43ef46-fdcd-41f9-81ed-774baf5356ac")
     private List<String> getNewEMFPatterns() {
-        List<String> patterns = new LinkedList<String>();
+        List<String> patterns = new LinkedList<>();
         patterns.add("xmlns:uml=\"http://www.eclipse.org/uml2/3.0.0/UML\"");
         patterns.add("xmlns:uml=\"http://www.eclipse.org/uml2/3.0.0/UML\"");
         patterns.add("href=\"http://www.eclipse.org/uml2/3.0.0/UML");
@@ -633,7 +632,7 @@ public class ImportServices {
 
     @objid ("34de1e69-677d-4fb8-9262-83c3e60479ec")
     private List<String> getOldEMFPatterns() {
-        List<String> patterns = new LinkedList<String>();
+        List<String> patterns = new LinkedList<>();
         patterns.add("xmlns:uml[\\s]?=[\\s]?\"?\'?http://www.eclipse.org/uml2/3.1.0/UML[/]?\"?\'?");
         patterns.add("xmlns:uml[\\s]?=[\\s]?\"?\'?http://www.eclipse.org/uml2/2.[01]+.0/UML[/]?\"?\'?");
         patterns.add("href[\\s]?=[\\s]?\"?\'?http://www.eclipse.org/uml2/2.[01]+.0/UML");
@@ -644,7 +643,7 @@ public class ImportServices {
     private void cleanExternalElements() {
         PartialImportMap partialImportMap = PartialImportMap.getInstance();
         
-        List <org.eclipse.uml2.uml.Element> externalElements = new ArrayList <org.eclipse.uml2.uml.Element>();
+        List <org.eclipse.uml2.uml.Element> externalElements = new ArrayList <>();
         
         for (Object key : partialImportMap.keySet()) {
             if (key != null){

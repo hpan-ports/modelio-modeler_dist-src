@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.uml.behavior.activityModel;
 
 import java.util.List;
@@ -35,34 +35,34 @@ import org.modelio.metamodel.uml.statik.GeneralClass;
 
 @objid ("00307956-c4bf-1fd8-97fe-001ec947cd2a")
 public interface ExceptionHandler extends ModelElement {
-    @objid ("9b026ab5-9e05-48f1-a7d8-3ee9e5895020")
+    @objid ("e5135b25-795c-4322-8132-a5f4b330ba32")
     String getGuard();
 
-    @objid ("04df00e2-11ae-4338-9d80-c5f4a7d2099b")
+    @objid ("5c638b1b-64e4-4d1a-9e13-9a189e644e02")
     void setGuard(String value);
 
-    @objid ("3b629ffb-a958-40a2-85a5-a3db33f46aba")
+    @objid ("58a2de97-a62c-4e80-a289-f59d7a34ce34")
     String getWeight();
 
-    @objid ("4dbab200-6da7-4bc3-bce0-d14ba50c2dc0")
+    @objid ("52307cb5-37a7-4847-90bb-bffaf5a89606")
     void setWeight(String value);
 
-    @objid ("0bdb615c-5fff-4cf4-80b4-a36a3c64d354")
+    @objid ("a99127db-c06d-4a7a-b3ea-5c6e445b0b29")
     ActivityAction getProtectedNode();
 
-    @objid ("30f02884-5351-49aa-a3f1-ad4aceacf5c5")
+    @objid ("281d7fe0-9f29-4795-ab1a-c7728d6a4384")
     void setProtectedNode(ActivityAction value);
 
-    @objid ("9005ae47-8399-43bd-99fc-e9db6e80f878")
+    @objid ("c853a4e1-c077-4a41-bc5a-a10dcf684b0b")
     InputPin getExceptionInput();
 
-    @objid ("58597bfb-47cc-4bf6-b3bf-7f34b640307b")
+    @objid ("5ffe6dd4-29e4-4386-b8f3-081a872a2132")
     void setExceptionInput(InputPin value);
 
-    @objid ("b6010d7c-8b02-4f6c-99bc-93a05c83c50b")
+    @objid ("09f35cce-c27b-4b60-beb5-844a7110263a")
     EList<GeneralClass> getExceptionType();
 
-    @objid ("fd4545f3-8743-48ed-9a6d-3c3692758b9a")
+    @objid ("73e4ede4-a448-4b92-b4a7-175ecc216268")
     <T extends GeneralClass> List<T> getExceptionType(java.lang.Class<T> filterClass);
 
 }

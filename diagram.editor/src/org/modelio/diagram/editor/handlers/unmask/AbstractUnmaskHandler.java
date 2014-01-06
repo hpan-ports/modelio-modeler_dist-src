@@ -38,13 +38,18 @@ import org.modelio.diagram.elements.core.model.GmModel;
 import org.modelio.vcore.session.api.ICoreSession;
 
 /**
- * Base abstract class for all unmask command handlers.
+ * Base abstract class for all E4 unmask command handlers.
  */
 @objid ("65eb508f-33f7-11e2-95fe-001ec947c8cc")
 public abstract class AbstractUnmaskHandler {
     @objid ("65eb5091-33f7-11e2-95fe-001ec947c8cc")
     protected static UnmaskManager unmaskManager = new UnmaskManager();
 
+    /**
+     * Execute the handler
+     * @param project project service
+     * @param selection eclipse selection
+     */
     @objid ("65eb5092-33f7-11e2-95fe-001ec947c8cc")
     @Execute
     public final void execute(IProjectService project, @Named(IServiceConstants.ACTIVE_SELECTION) IStructuredSelection selection) {
@@ -66,34 +71,45 @@ public abstract class AbstractUnmaskHandler {
                 : figure.getBounds().getCopy();
     }
 
+    /**
+     * Get all <i>main</i> edit parts from the Eclipse selection.
+     * <p>
+     * Separates the primary selection from other selected elements.
+     * The primary element is returned and the other are added to <code>secondarySelection</code>.
+     * @param selection the Eclipse selection
+     * @param secondarySelection among the Eclipse selection, the secondary selection
+     * @return the primary selected edit part main node edit part.
+     */
     @objid ("65eb50a0-33f7-11e2-95fe-001ec947c8cc")
     protected GraphicalEditPart getSelection(IStructuredSelection selection, final List<GraphicalEditPart> secondarySelection) {
         GraphicalEditPart primarySelection = null;
         
-            List<?> selectedObjects = selection.toList();
-            for (Object selectedObject : selectedObjects) {
-                if (selectedObject instanceof GraphicalEditPart) {
-                    GraphicalEditPart editPart = (GraphicalEditPart) selectedObject;
-                    boolean isPrimary = editPart.getSelected() == EditPart.SELECTED_PRIMARY;
+        List<?> selectedObjects = selection.toList();
+        for (Object selectedObject : selectedObjects) {
+            if (selectedObject instanceof GraphicalEditPart && 
+                    ((EditPart)selectedObject).getModel() instanceof GmModel) {
+                GraphicalEditPart editPart = (GraphicalEditPart) selectedObject;
+                boolean isPrimary = editPart.getSelected() == EditPart.SELECTED_PRIMARY;
         
-                    // Only keep 'main' gms
-                    while (((GmModel)editPart.getModel()).getRepresentedElement() == null) {
-                        editPart = (GraphicalEditPart) editPart.getParent();
-                    }
+                // Only keep 'main' gms
+                while (((GmModel)editPart.getModel()).getRepresentedElement() == null) {
+                    editPart = (GraphicalEditPart) editPart.getParent();
+                }
         
-                    if (isPrimary) {
-                        primarySelection = editPart;
+                if (isPrimary) {
+                    primarySelection = editPart;
         
-                        // Avoid keeping the same edit part more than once
-                        secondarySelection.remove(editPart);
-                    } else {
-                        // Avoid keeping the same edit part more than once
-                        if (editPart != primarySelection && !secondarySelection.contains(editPart)) {
-                            secondarySelection.add(editPart);
-                        }
+                    // Avoid keeping the same edit part more than once
+                    secondarySelection.remove(editPart);
+                } else {
+                    // Avoid keeping the same edit part more than once
+                    if (editPart != primarySelection && !secondarySelection.contains(editPart)) {
+                        secondarySelection.add(editPart);
                     }
                 }
             }
+        }
+        
         filterSelection(primarySelection, secondarySelection);
         return primarySelection;
     }
@@ -101,6 +117,15 @@ public abstract class AbstractUnmaskHandler {
     @objid ("65eb50a8-33f7-11e2-95fe-001ec947c8cc")
     protected abstract void unmask(final GraphicalEditPart primarySelection, final List<GraphicalEditPart> secondarySelection, ICoreSession session);
 
+    /**
+     * Filter the secondary selection: when an ancestor is also in one of the selections, remove the child
+     * from the secondary selection.
+     * <p>
+     * That is done because any translation/resizing applied to the ancestor will already have an
+     * impact on the child.
+     * @param primarySelection the primary selected edit part
+     * @param secondarySelection the secondary selection to be filtered
+     */
     @objid ("65edb2ed-33f7-11e2-95fe-001ec947c8cc")
     private void filterSelection(final GraphicalEditPart primarySelection, final List<GraphicalEditPart> secondarySelection) {
         // Filter the selection: when an ancestor is also in selection, remove the child.

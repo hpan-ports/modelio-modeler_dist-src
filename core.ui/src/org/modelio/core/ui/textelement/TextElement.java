@@ -615,7 +615,7 @@ public class TextElement {
         @objid ("cc247753-f1b1-4cc4-ad6a-49f7ff75ab39")
         private IPickingSession pickingSession;
 
-        @objid ("0cd911bb-0e95-42b5-bb40-e39aaf5a898f")
+        @objid ("8a3c679d-ef77-4fe5-b977-ec3ecca387e0")
         private DisposeListener disposeListener;
 
         @objid ("91485e7d-16ee-4ddf-8def-591e3d49afda")

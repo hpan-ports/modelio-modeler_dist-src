@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.data.uml.behavior.stateMachineModel;
 
 import java.util.ArrayList;
@@ -43,22 +43,22 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("0055823c-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=TerminatePseudoState.class, factory=TerminatePseudoStateData.Metadata.ObjectFactory.class)
 public class TerminatePseudoStateData extends AbstractPseudoStateData {
-    @objid ("94aa1076-abb9-43bd-9990-9db32b785825")
+    @objid ("50d0ddb9-40b7-445e-a419-29c141e66cc1")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("007e38d0-c4c5-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("ccea30a0-759e-4d0b-8ba9-839f3feef91f")
+        @objid ("1e8ce866-f604-4425-ae13-a6724f5f7caa")
         private static SmClass smClass = null;
 
-        @objid ("0e932e45-a2c5-4917-8618-89a0fec62dea")
+        @objid ("1e8bc264-1048-4a7a-992d-198cb52896e4")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(TerminatePseudoStateData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("449b4a77-8bc4-435b-ba07-9f536255800d")
+        @objid ("ae550bc3-eec8-4367-a766-745d14bdf927")
         public static SmClass getSmClass() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return smClass;
@@ -66,12 +66,12 @@ public class TerminatePseudoStateData extends AbstractPseudoStateData {
 
         @objid ("007e8ca4-c4c5-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("22005afc-c6ec-4cd3-8b65-cced2a82cbdc")
+            @objid ("50c66248-8b16-4184-bc0c-0ffa04a39b35")
             public ISmObjectData createData() {
                 return new TerminatePseudoStateData();
             }
 
-            @objid ("f1380a4b-8670-420f-b3ef-e5367f89d871")
+            @objid ("7e3a665d-384a-4212-91b3-ac946a2f53ae")
             public SmObjectImpl createImpl() {
                 return new TerminatePseudoStateImpl();
             }

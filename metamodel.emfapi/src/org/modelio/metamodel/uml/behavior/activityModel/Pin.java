@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.uml.behavior.activityModel;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
@@ -31,22 +31,22 @@ import org.modelio.metamodel.uml.statik.Parameter;
 
 @objid ("003b6582-c4bf-1fd8-97fe-001ec947cd2a")
 public interface Pin extends ObjectNode {
-    @objid ("898217a5-6d19-4dbe-a6ae-87305b9ae071")
+    @objid ("69a6de26-294a-4368-8d71-f1b3d536e9d9")
     boolean isIsControl();
 
-    @objid ("8e7cc294-7b41-4d39-b439-595860405f59")
+    @objid ("60b70207-21e5-4721-83c3-76e391e27e71")
     void setIsControl(boolean value);
 
-    @objid ("44e413a0-f55f-427a-b930-c70a276b9a28")
+    @objid ("b3df3228-5654-4bf8-b99d-29669ef7ba15")
     boolean isIsExpansion();
 
-    @objid ("054e4a16-d6c1-427a-80f2-0a748cc25c7b")
+    @objid ("302883aa-267c-422c-844c-c51cc6858268")
     void setIsExpansion(boolean value);
 
-    @objid ("c1acd249-4dad-4255-a493-893f0b76020e")
+    @objid ("e14e5f48-42f7-4a5c-9916-17a25b42f3b1")
     Parameter getMatched();
 
-    @objid ("86d374f6-86a0-407b-8b5f-988384d862ca")
+    @objid ("068138cb-7d1f-42de-8f41-6f2dab9662c1")
     void setMatched(Parameter value);
 
 }

@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.uml.infrastructure;
 
 import java.util.List;
@@ -41,82 +41,82 @@ public interface Stereotype extends ModelElement {
     @objid ("27dde74f-c802-420a-8472-e6f2e9d112a7")
     ModuleComponent getModule();
 
-    @objid ("72c3ae3d-7b96-48fd-97ea-70fa97d5ad0b")
+    @objid ("d8a4244a-ec16-4631-bb3c-3fbb2f779279")
     String getImage();
 
-    @objid ("de79d213-fbd2-4ee6-957e-b3fb44a18d53")
+    @objid ("6c338f28-5bf2-46d5-90f9-3cdef119e06b")
     void setImage(String value);
 
-    @objid ("6f8b7106-88c0-4b2f-90b7-990842480f88")
+    @objid ("bbcf9a9a-22ea-40d7-a145-fd23b141522a")
     String getIcon();
 
-    @objid ("4c41df3a-8835-4e95-9c45-f573ea963d3b")
+    @objid ("7d77e5be-e1b3-459d-aa35-d477eb952736")
     void setIcon(String value);
 
-    @objid ("98c631fa-e2bc-4c35-9ca4-cd94eb32a5f6")
+    @objid ("575841e1-a609-4f4f-823f-c24d24eadaf6")
     boolean isIsHidden();
 
-    @objid ("29106cdf-cfc2-448d-a273-3d5da9889875")
+    @objid ("f5fac9ca-5385-4754-bd9d-ed39bac7c4f1")
     void setIsHidden(boolean value);
 
-    @objid ("b8906586-fe55-4b73-9693-8c6fe388e07f")
+    @objid ("0b6c4349-48b7-41a6-a018-47b24f0842be")
     String getLabelKey();
 
-    @objid ("546351d3-ede6-4fc4-a9f3-219fd02fe903")
+    @objid ("6bbe55c4-57d3-4be5-a4db-851c8e39a83c")
     void setLabelKey(String value);
 
-    @objid ("9db53837-bd91-4763-9b64-1fbe758a6cac")
+    @objid ("73b8e0ce-fcd6-41bf-bb9a-f958903355fb")
     String getBaseClassName();
 
-    @objid ("a71cdbfd-8bd4-4ec3-af35-a8bc775d9588")
+    @objid ("d08397a9-1b6b-43fa-9215-4fa31bc71626")
     void setBaseClassName(String value);
 
-    @objid ("fc8fc21a-4834-4131-9d4c-53133d2f7015")
+    @objid ("8875d630-ff94-4e02-be68-1554958173ad")
     PropertyTableDefinition getDefinedTable();
 
-    @objid ("8fed3874-cda9-4c13-b83c-15435830cf4d")
+    @objid ("71054d1a-1b39-4635-87ee-e446cdab1c7c")
     void setDefinedTable(PropertyTableDefinition value);
 
-    @objid ("152f37b6-4f4e-4127-a4ab-b22935691af1")
+    @objid ("3bd4cdf5-247b-4e53-939b-5a2854481e5e")
     EList<ModelElement> getExtendedElement();
 
-    @objid ("7d3f56b2-07b4-4502-b43f-05167f5ee41a")
+    @objid ("acea35e1-1c6f-4903-9786-54a0c830c91b")
     <T extends ModelElement> List<T> getExtendedElement(java.lang.Class<T> filterClass);
 
-    @objid ("2ef468e6-74c7-483e-9731-aae50be63fbc")
+    @objid ("b020e24f-3b3f-45c9-aa38-ec8fb6d6d1d3")
     EList<ExternDocumentType> getDefinedExternDocumentType();
 
-    @objid ("622d75b7-6473-4295-b8c5-0ddf3239389f")
+    @objid ("bee531b3-0b46-441f-9896-653081c0fe28")
     <T extends ExternDocumentType> List<T> getDefinedExternDocumentType(java.lang.Class<T> filterClass);
 
-    @objid ("766d78ca-5955-48c3-a778-5a6c59a3d908")
+    @objid ("0163a5ae-2187-40ca-8c38-daa45e324fdf")
     Profile getOwner();
 
-    @objid ("d62adf2c-4351-45f9-bf01-e4f180bbf793")
+    @objid ("927f1bf5-f5c4-4b20-abf2-80bd979c5743")
     void setOwner(Profile value);
 
-    @objid ("28dbb50c-d23b-4ed3-a51c-544986003b88")
+    @objid ("7d8d232d-8246-48a9-8f45-272b484f39aa")
     Stereotype getParent();
 
-    @objid ("5252715d-147f-4791-9dff-4f449947c2ff")
+    @objid ("695474e4-c4fb-40c8-ae0b-ee00322f6744")
     void setParent(Stereotype value);
 
-    @objid ("cd926573-ae23-44b0-9f8b-abd94e0701c9")
+    @objid ("86704172-1222-484a-9d97-9d039b38bd53")
     EList<TagType> getDefinedTagType();
 
-    @objid ("ff72ba24-3c3a-4e44-a6e5-49fea3cd820d")
+    @objid ("857235af-c956-43a6-a7ac-ad07cefa84df")
     <T extends TagType> List<T> getDefinedTagType(java.lang.Class<T> filterClass);
 
-    @objid ("c1073e12-47cf-4d99-97de-1d8fb8e5dd3c")
+    @objid ("e1e1c3c0-c033-41b7-b801-c824609fc7cc")
     EList<Stereotype> getChild();
 
-    @objid ("6d7d8b71-6a47-4494-a324-06e0cf9b1e78")
+    @objid ("7958a977-b93c-4825-a3bb-10f0327b809d")
     <T extends Stereotype> List<T> getChild(java.lang.Class<T> filterClass);
 
-    @objid ("949137f3-2dbf-48d5-9b9f-a263046e6b8e")
+    @objid ("ab3a6707-3217-4f2f-aaf3-49cdb18ba915")
     EList<NoteType> getDefinedNoteType();
 
-    @objid ("ecbdddf5-121f-467c-983f-f926f1a00efc")
+    @objid ("1c1e7c4f-b071-4c77-8775-bce68b342025")
     <T extends NoteType> List<T> getDefinedNoteType(java.lang.Class<T> filterClass);
 
 }

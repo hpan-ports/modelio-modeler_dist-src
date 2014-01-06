@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.data.uml.behavior.interactionModel;
 
 import java.util.ArrayList;
@@ -47,43 +47,43 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("0043a60c-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=CombinedFragment.class, factory=CombinedFragmentData.Metadata.ObjectFactory.class)
 public class CombinedFragmentData extends InteractionFragmentData {
-    @objid ("87bf0442-4d16-4701-8589-9d6c58887eba")
+    @objid ("4cec9901-cb52-4860-9edf-e36cebd823d1")
     @SmaMetaAttribute(metaName="Operator", type=InteractionOperator.class, smAttributeClass=Metadata.OperatorSmAttribute.class)
      Object mOperator = InteractionOperator.SEQOP;
 
-    @objid ("5984ee78-18a9-48e0-bde1-787c2e039416")
+    @objid ("0348ba9d-5621-434a-b3ca-c1787951c106")
     @SmaMetaAssociation(metaName="Operand", typeDataClass=InteractionOperandData.class, min=1, max=-1, smAssociationClass=Metadata.OperandSmDependency.class, component = true)
      List<SmObjectImpl> mOperand = null;
 
-    @objid ("0a7290bf-7aa3-48bf-b032-d612ae7cd757")
+    @objid ("cb5459ee-61b8-4ffa-8fbf-609333b68548")
     @SmaMetaAssociation(metaName="FragmentGate", typeDataClass=GateData.class, min=0, max=-1, smAssociationClass=Metadata.FragmentGateSmDependency.class, component = true)
      List<SmObjectImpl> mFragmentGate = null;
 
-    @objid ("a0d08647-7045-4c2d-8b05-07259f05d0f7")
+    @objid ("1682cb1c-4afd-43f9-94dd-f2321ab9abc2")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("0073515e-c4c3-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("67601ed2-bc63-49ee-8048-0386ffb27c32")
+        @objid ("94133131-4877-42f2-a0b3-9d1203a465ff")
         private static SmClass smClass = null;
 
-        @objid ("62215ad7-c28e-4e6a-ba12-b39ac3cd6ea8")
+        @objid ("3101fc21-c5e0-461d-a619-a76177cff5de")
         private static SmAttribute OperatorAtt = null;
 
-        @objid ("e132310f-b267-4e3c-b10c-531a468ed734")
+        @objid ("03ddcaa3-bcb9-40f5-8e84-bc4f43d1aab5")
         private static SmDependency OperandDep = null;
 
-        @objid ("24091522-40cf-4121-8d03-1e57db2adba0")
+        @objid ("e03f94df-6b7f-47e0-a609-c77e663e2231")
         private static SmDependency FragmentGateDep = null;
 
-        @objid ("89b055b2-d877-4ddb-a604-2177766a22de")
+        @objid ("c5d60880-7777-4225-9533-97ac9385748a")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(CombinedFragmentData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("ad044159-d05e-47a0-ba30-c0ece90a7397")
+        @objid ("a08fe712-0bfa-48e1-9d11-902bfa09b76d")
         public static SmAttribute OperatorAtt() {
             if (OperatorAtt == null) {
             	OperatorAtt = classof().getAttributeDef("Operator");
@@ -91,7 +91,7 @@ public class CombinedFragmentData extends InteractionFragmentData {
             return OperatorAtt;
         }
 
-        @objid ("610f1efa-056c-41d5-ba15-fcf13d44883f")
+        @objid ("a05da221-023a-4b7a-b6d9-be7523edce18")
         public static SmDependency OperandDep() {
             if (OperandDep == null) {
             	OperandDep = classof().getDependencyDef("Operand");
@@ -99,7 +99,7 @@ public class CombinedFragmentData extends InteractionFragmentData {
             return OperandDep;
         }
 
-        @objid ("703c843d-b02f-45a7-b8e2-b3bf437c3702")
+        @objid ("5a25457a-cd53-4113-a5f8-0614414fc88f")
         public static SmDependency FragmentGateDep() {
             if (FragmentGateDep == null) {
             	FragmentGateDep = classof().getDependencyDef("FragmentGate");
@@ -107,38 +107,38 @@ public class CombinedFragmentData extends InteractionFragmentData {
             return FragmentGateDep;
         }
 
-        @objid ("89fac859-f805-4c9c-80dd-08430ac188ed")
-        public static SmDependency getFragmentGateDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return FragmentGateDep;
-        }
-
-        @objid ("88796a8e-c3ea-4190-bdd9-14964b4711d4")
+        @objid ("47bf18cd-63f1-4af8-aa70-c39f61fd6ef3")
         public static SmAttribute getOperatorAtt() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return OperatorAtt;
         }
 
-        @objid ("1e41f7a8-ec40-4788-9143-3ab5803f97ca")
+        @objid ("248f377d-909a-432b-b46d-0829cc76c4d2")
         public static SmDependency getOperandDep() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return OperandDep;
         }
 
-        @objid ("870aa6b2-26e3-4a79-8a15-29ad6c35d4d2")
+        @objid ("0a8f30dc-4b3e-4ad7-9840-15abf8c60a4d")
         public static SmClass getSmClass() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return smClass;
         }
 
+        @objid ("19b66140-e143-466b-a429-c7fc21191247")
+        public static SmDependency getFragmentGateDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return FragmentGateDep;
+        }
+
         @objid ("0073940c-c4c3-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("e75f91d0-fdb0-4eec-a071-120f5a5b546f")
+            @objid ("79e0e942-1038-4b9d-b011-6df34e6f590a")
             public ISmObjectData createData() {
                 return new CombinedFragmentData();
             }
 
-            @objid ("314c07b1-0ae4-4591-9f3c-d47debdd607c")
+            @objid ("d6cd4483-5e0c-4280-892b-67a851622ed9")
             public SmObjectImpl createImpl() {
                 return new CombinedFragmentImpl();
             }
@@ -147,12 +147,12 @@ public class CombinedFragmentData extends InteractionFragmentData {
 
         @objid ("00740b62-c4c3-1fd8-97fe-001ec947cd2a")
         public static class OperatorSmAttribute extends SmAttribute {
-            @objid ("e93af0a7-9029-4970-b6a8-921cc1d7a93c")
+            @objid ("04c584b7-ed06-4f08-853a-0cbace8b708e")
             public Object getValue(ISmObjectData data) {
                 return ((CombinedFragmentData) data).mOperator;
             }
 
-            @objid ("6ba2ac25-2890-4978-9ffd-c1ef2ed1374d")
+            @objid ("3775060c-426c-4892-828c-f26e833d3fc9")
             public void setValue(ISmObjectData data, Object value) {
                 ((CombinedFragmentData) data).mOperator = value;
             }
@@ -161,20 +161,20 @@ public class CombinedFragmentData extends InteractionFragmentData {
 
         @objid ("007473f4-c4c3-1fd8-97fe-001ec947cd2a")
         public static class FragmentGateSmDependency extends SmMultipleDependency {
-            @objid ("edcc5adc-5a90-4505-a436-b4e5026a099d")
+            @objid ("47574ff5-3fbd-4355-baac-81460dc7799f")
             @Override
             public List<SmObjectImpl> getValueList(ISmObjectData data) {
                 return (((CombinedFragmentData)data).mFragmentGate != null)? ((CombinedFragmentData)data).mFragmentGate:SmMultipleDependency.EMPTY;
             }
 
-            @objid ("ec8c4564-65b4-4079-8a21-e8a6a5a66c4a")
+            @objid ("1cf74e8b-a08c-4738-a753-16acb2f30404")
             @Override
             protected List<SmObjectImpl> allocateValueList(ISmObjectData data, int initialCapacity) {
                 ((CombinedFragmentData) data).mFragmentGate = new ArrayList<>(initialCapacity);
                 return ((CombinedFragmentData) data).mFragmentGate;
             }
 
-            @objid ("87dca936-6749-4197-a583-a06640707b88")
+            @objid ("9b7f28bf-bb29-4aa0-a659-f088b730f5c5")
             @Override
             public SmDependency getSymetric() {
                 return GateData.Metadata.OwnerFragmentDep();
@@ -184,20 +184,20 @@ public class CombinedFragmentData extends InteractionFragmentData {
 
         @objid ("0074d880-c4c3-1fd8-97fe-001ec947cd2a")
         public static class OperandSmDependency extends SmMultipleDependency {
-            @objid ("0b717f3a-1a45-4376-bdbd-8891121e0e08")
+            @objid ("d8721f52-cf1d-4897-a61d-68c1591f59ed")
             @Override
             public List<SmObjectImpl> getValueList(ISmObjectData data) {
                 return (((CombinedFragmentData)data).mOperand != null)? ((CombinedFragmentData)data).mOperand:SmMultipleDependency.EMPTY;
             }
 
-            @objid ("f3a55dc7-310e-47a1-8402-7a6e89469280")
+            @objid ("77106132-595c-438a-8b41-13bb2edecc42")
             @Override
             protected List<SmObjectImpl> allocateValueList(ISmObjectData data, int initialCapacity) {
                 ((CombinedFragmentData) data).mOperand = new ArrayList<>(initialCapacity);
                 return ((CombinedFragmentData) data).mOperand;
             }
 
-            @objid ("a30e1280-9723-4090-8b65-2620832981ec")
+            @objid ("796113b2-ea47-444a-b1f5-15125e69b827")
             @Override
             public SmDependency getSymetric() {
                 return InteractionOperandData.Metadata.OwnerFragmentDep();

@@ -27,6 +27,7 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.api.diagram.IDiagramGraphic;
 import org.modelio.api.diagram.IDiagramLink;
 import org.modelio.api.diagram.IDiagramNode;
+import org.modelio.api.diagram.dg.IDiagramLayer;
 import org.modelio.diagram.api.dg.activity.AcceptCallEventActionDG;
 import org.modelio.diagram.api.dg.activity.AcceptChangeEventActionDG;
 import org.modelio.diagram.api.dg.activity.AcceptSignalActionDG;
@@ -97,6 +98,7 @@ import org.modelio.diagram.api.dg.bpmn.BpmnTransactionDG;
 import org.modelio.diagram.api.dg.bpmn.BpmnUserTaskDG;
 import org.modelio.diagram.api.dg.common.ConstraintDG;
 import org.modelio.diagram.api.dg.common.DependencyDG;
+import org.modelio.diagram.api.dg.common.DiagramDrawingLayerDG;
 import org.modelio.diagram.api.dg.common.DiagramHolderDG;
 import org.modelio.diagram.api.dg.common.LabelDG;
 import org.modelio.diagram.api.dg.common.NamespaceUseDG;
@@ -109,6 +111,8 @@ import org.modelio.diagram.api.dg.deployment.ArtifactDG;
 import org.modelio.diagram.api.dg.deployment.DeploymentDiagramDG;
 import org.modelio.diagram.api.dg.deployment.ManifestationDG;
 import org.modelio.diagram.api.dg.deployment.NodeDG;
+import org.modelio.diagram.api.dg.drawings.common.DiagramDrawingLinkDG;
+import org.modelio.diagram.api.dg.drawings.common.DiagramDrawingNodeDG;
 import org.modelio.diagram.api.dg.object.ObjectDiagramDG;
 import org.modelio.diagram.api.dg.scope.BusinessRuleContainerDG;
 import org.modelio.diagram.api.dg.scope.BusinessRuleDG;
@@ -345,10 +349,17 @@ import org.modelio.diagram.editor.usecase.elements.usecase.GmUseCase;
 import org.modelio.diagram.editor.usecase.elements.usecasedependency.GmUseCaseDependency;
 import org.modelio.diagram.editor.usecase.elements.usecasediagram.GmUseCaseDiagram;
 import org.modelio.diagram.elements.common.label.base.GmElementLabel;
-import org.modelio.diagram.elements.core.model.GmModel;
 import org.modelio.diagram.elements.core.model.IGmLink;
-import org.modelio.diagram.elements.core.model.IGmModelRelated;
+import org.modelio.diagram.elements.core.model.IGmObject;
 import org.modelio.diagram.elements.core.node.GmNodeModel;
+import org.modelio.diagram.elements.drawings.core.IGmDrawing;
+import org.modelio.diagram.elements.drawings.core.IGmDrawingLayer;
+import org.modelio.diagram.elements.drawings.core.IGmDrawingLink;
+import org.modelio.diagram.elements.drawings.core.IGmNodeDrawing;
+import org.modelio.diagram.elements.drawings.ellipse.GmEllipseDrawing;
+import org.modelio.diagram.elements.drawings.line.GmLineDrawing;
+import org.modelio.diagram.elements.drawings.rectangle.GmRectangleDrawing;
+import org.modelio.diagram.elements.drawings.text.GmTextDrawing;
 import org.modelio.diagram.elements.umlcommon.constraint.GmConstraintBody;
 import org.modelio.diagram.elements.umlcommon.dependency.GmDependency;
 import org.modelio.diagram.elements.umlcommon.diagramholder.GmDiagramHolder;
@@ -382,12 +393,15 @@ public class DGFactory {
      * @return a {@link DiagramGraphic}
      */
     @objid ("ee0d0909-6811-4561-9079-4d28986cdd1a")
-    public IDiagramGraphic getDiagramGraphic(DiagramHandle diagramHandle, IGmModelRelated gmModel) {
+    public IDiagramGraphic getDiagramGraphic(DiagramHandle diagramHandle, IGmObject gmModel) {
         if (gmModel instanceof GmNodeModel)
             return this.getDiagramNode(diagramHandle, (GmNodeModel) gmModel);
         
         if (gmModel instanceof IGmLink)
             return this.getDiagramLink(diagramHandle, (IGmLink) gmModel);
+        
+        if (gmModel instanceof IGmDrawing)
+            return getDiagramDrawingGraphic(diagramHandle, (IGmDrawing) gmModel);
         return null;
     }
 
@@ -398,9 +412,9 @@ public class DGFactory {
      * @return a list of {@link DiagramGraphic}
      */
     @objid ("01817c25-cee2-42ca-b74c-c3510518726e")
-    public List<IDiagramGraphic> getDiagramGraphics(DiagramHandle diagramHandle, List<GmModel> models) {
+    public List<IDiagramGraphic> getDiagramGraphics(DiagramHandle diagramHandle, List<? extends IGmObject> models) {
         List<IDiagramGraphic> list = new ArrayList<>();
-        for (GmModel gm : models) {
+        for (IGmObject gm : models) {
             IDiagramGraphic diagramGraphic = this.getDiagramGraphic(diagramHandle, gm);
             if (diagramGraphic != null) {
                 list.add(diagramGraphic);
@@ -1481,6 +1495,76 @@ public class DGFactory {
         // GmMessage
         if (gmLinkModel instanceof GmMessage) {
             return new MessageDG(diagramHandle, gmLinkModel);
+        }
+        return null;
+    }
+
+    /**
+     * Returns a DiagramGraphic for the given model. Can be either a DiagramNode or a DiagramLink.
+     * @param diagramHandle a handle to the diagram
+     * @param gmModel the model.
+     * @return a {@link DiagramGraphic}
+     */
+    @objid ("3ca91567-1b18-4cdf-96bc-9967012ecaa8")
+    public IDiagramGraphic getDiagramDrawingGraphic(DiagramHandle diagramHandle, IGmDrawing gmModel) {
+        // Drawing links
+        if (gmModel instanceof GmLineDrawing)
+            return getDiagramLink(diagramHandle, (IGmDrawingLink) gmModel);
+        
+        // Drawing nodes
+        if (gmModel instanceof GmEllipseDrawing)
+            return new DiagramDrawingNodeDG(diagramHandle, (IGmNodeDrawing) gmModel);
+        
+        if (gmModel instanceof GmRectangleDrawing)
+            return new DiagramDrawingNodeDG(diagramHandle, (IGmNodeDrawing) gmModel);
+        
+        if (gmModel instanceof GmTextDrawing)
+            return new DiagramDrawingNodeDG(diagramHandle, (IGmNodeDrawing) gmModel);
+        
+        if (gmModel instanceof IGmDrawingLayer)
+            return new DiagramDrawingLayerDG(diagramHandle, (IGmDrawingLayer) gmModel);
+        return null;
+    }
+
+    /**
+     * Return a list of {@link IDiagramLayer} for each given model.
+     * @param diagramHandle a handle to the diagram
+     * @param models the models
+     * @return a list of {@link IDiagramLayer}
+     */
+    @objid ("44fd8b16-ce0a-44ba-a7e7-6b4d240a9cb2")
+    public List<IDiagramLayer> getDiagramLayers(DiagramHandle diagramHandle, List<IGmDrawingLayer> models) {
+        List<IDiagramLayer> list = new ArrayList<>();
+        for (IGmDrawingLayer gm : models) {
+            IDiagramLayer diagramNode = this.getDiagramLayer(diagramHandle, gm);
+            if (diagramNode != null) {
+                list.add(diagramNode);
+            }
+        }
+        return list;
+    }
+
+    /**
+     * Returns a {@link IDiagramLayer} for the given model.
+     * @param diagramHandle the diagram in which the model is shown.
+     * @param gm the model.
+     * @return a {@link IDiagramLayer}
+     */
+    @objid ("c5f5db05-572a-49e3-b7fc-c5de750a8245")
+    public IDiagramLayer getDiagramLayer(DiagramHandle diagramHandle, IGmDrawingLayer gm) {
+        return new DiagramDrawingLayerDG(diagramHandle, gm);
+    }
+
+    /**
+     * Returns a {@link IDiagramLink} for the given drawing link model.
+     * @param diagramHandle the diagram in which the model is shown.
+     * @param gmLinkModel the drawing link model.
+     * @return a {@link IDiagramLink}
+     */
+    @objid ("4cc1c832-4eba-44bb-839d-833a7fc978a6")
+    public IDiagramLink getDiagramLink(DiagramHandle diagramHandle, IGmDrawingLink gmLinkModel) {
+        if (gmLinkModel instanceof GmLineDrawing) {
+            return new DiagramDrawingLinkDG(diagramHandle, gmLinkModel);
         }
         return null;
     }

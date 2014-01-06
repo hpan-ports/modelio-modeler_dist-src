@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.diagrams;
 
 import java.util.List;
@@ -34,28 +34,28 @@ import org.modelio.metamodel.uml.infrastructure.ModelElement;
 
 @objid ("006e175c-c4bf-1fd8-97fe-001ec947cd2a")
 public interface DiagramSet extends ModelElement {
-    @objid ("da9d2686-7568-44e9-b3be-63e5bfbcce8b")
+    @objid ("e5beb030-9c31-4c53-b293-e8dbc9f153a9")
     EList<DiagramSet> getSub();
 
-    @objid ("3fe3b94f-40cc-4b05-9b0a-e79d8e4c032c")
+    @objid ("a386e3dc-fc62-497e-94f3-ff575346279b")
     <T extends DiagramSet> List<T> getSub(java.lang.Class<T> filterClass);
 
-    @objid ("be449d1b-79f5-4023-b929-a99c2fbf5afe")
+    @objid ("c15e7415-35e9-4c9d-a674-802da0434959")
     DiagramSet getParent();
 
-    @objid ("9842f3a5-0b80-45eb-9e35-8136f19cbb74")
+    @objid ("664eaf8a-be5f-41e5-ab8f-fa54d81232f7")
     void setParent(DiagramSet value);
 
-    @objid ("9a1c6889-8856-4e77-baeb-d38dcbb510c1")
+    @objid ("09fcc139-706a-4d4f-b2d7-e40d2a1efff9")
     EList<AbstractDiagram> getReferencedDiagram();
 
-    @objid ("bff8cd50-1bec-4a5f-b1f3-855a4102c7ac")
+    @objid ("c9480680-d618-4374-b182-447d841fba87")
     <T extends AbstractDiagram> List<T> getReferencedDiagram(java.lang.Class<T> filterClass);
 
-    @objid ("d6a96337-cf90-4469-90e6-b24a898ab312")
+    @objid ("e681e823-6924-43bc-9b8c-e2d5b37bf0ce")
     Project getOwner();
 
-    @objid ("dad4caf7-c3a6-49ca-bf7f-10377430efad")
+    @objid ("73a3c05d-b90d-4b9f-a7f9-e86ec826e845")
     void setOwner(Project value);
 
 }

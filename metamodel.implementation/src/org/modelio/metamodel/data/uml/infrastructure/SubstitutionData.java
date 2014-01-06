@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.data.uml.infrastructure;
 
 import java.util.ArrayList;
@@ -44,36 +44,36 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("008e4b26-c4be-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=Substitution.class, factory=SubstitutionData.Metadata.ObjectFactory.class)
 public class SubstitutionData extends ModelElementData {
-    @objid ("495d0c83-b414-4248-9101-bc56aeb58ad4")
+    @objid ("c2fa5af4-8cce-43ce-9f77-0b18cb36ae5f")
     @SmaMetaAssociation(metaName="Contract", typeDataClass=ClassifierData.class, min=0, max=1, smAssociationClass=Metadata.ContractSmDependency.class, partof = true)
      SmObjectImpl mContract;
 
-    @objid ("46b8ff5e-d2fb-47fd-ae6e-2d01fbb2326d")
+    @objid ("53a27401-a5ae-4699-b0bd-89113eb059f7")
     @SmaMetaAssociation(metaName="SubstitutingClassifier", typeDataClass=ClassifierData.class, min=0, max=1, smAssociationClass=Metadata.SubstitutingClassifierSmDependency.class)
      SmObjectImpl mSubstitutingClassifier;
 
-    @objid ("a2c3673a-50eb-40fd-9f81-72ecac7fa82c")
+    @objid ("7a9bf1b1-dd13-4a64-82f8-1e213ddd3abe")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("004975f0-c4c5-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("98dba97a-a6df-468c-a30b-ffe5239780bf")
+        @objid ("32b8d3bf-407a-44f9-8bd1-cee541cecf39")
         private static SmClass smClass = null;
 
-        @objid ("bb54cc6f-ec5b-468f-88cd-e1dc0364511d")
+        @objid ("c6b2f0e3-ee96-4afd-9852-0f4031738078")
         private static SmDependency ContractDep = null;
 
-        @objid ("c6e0e9a4-f9f9-47ee-a3c1-17f3aa9367a3")
+        @objid ("fa064059-acbe-4c0a-ab24-d0789e18f09d")
         private static SmDependency SubstitutingClassifierDep = null;
 
-        @objid ("85757cb0-f398-420f-a97c-3bdda6a3ccf7")
+        @objid ("fae161bc-0f25-4b6d-9da0-8c7c9c9f115f")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(SubstitutionData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("5ed6c504-2cc5-4290-a418-cf91d29acfe2")
+        @objid ("f6f7aafe-875c-4ee4-943b-c04e1b3c72ec")
         public static SmDependency ContractDep() {
             if (ContractDep == null) {
             	ContractDep = classof().getDependencyDef("Contract");
@@ -81,7 +81,7 @@ public class SubstitutionData extends ModelElementData {
             return ContractDep;
         }
 
-        @objid ("4a54992a-bce8-44a5-a88b-eab92558e778")
+        @objid ("02127c25-7550-4a24-914a-b43d5c12c6fd")
         public static SmDependency SubstitutingClassifierDep() {
             if (SubstitutingClassifierDep == null) {
             	SubstitutingClassifierDep = classof().getDependencyDef("SubstitutingClassifier");
@@ -89,19 +89,19 @@ public class SubstitutionData extends ModelElementData {
             return SubstitutingClassifierDep;
         }
 
-        @objid ("0c31df41-fd97-48a3-be6b-c9c6d6cff9b9")
+        @objid ("cde79371-44be-46de-bd53-7983ffb82eb7")
         public static SmDependency getSubstitutingClassifierDep() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return SubstitutingClassifierDep;
         }
 
-        @objid ("2fbec962-03c3-48b5-86b0-6cd8714a93eb")
+        @objid ("0910b08c-6708-4600-921d-7552df7b6c60")
         public static SmDependency getContractDep() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return ContractDep;
         }
 
-        @objid ("500dca67-7110-41cd-ae41-0fb0e77b33b2")
+        @objid ("b60d2555-ade4-49e7-9523-784be4e6074a")
         public static SmClass getSmClass() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return smClass;
@@ -109,12 +109,12 @@ public class SubstitutionData extends ModelElementData {
 
         @objid ("0049b5c4-c4c5-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("1440889d-8674-4113-b335-6d12624a34ce")
+            @objid ("739ffd0f-1396-4a1e-bf6d-21bef98c7dfe")
             public ISmObjectData createData() {
                 return new SubstitutionData();
             }
 
-            @objid ("0035df04-27ea-45e8-be64-7c5af867792b")
+            @objid ("8dd8eadf-5007-4f29-9279-fedc45637901")
             public SmObjectImpl createImpl() {
                 return new SubstitutionImpl();
             }
@@ -123,18 +123,18 @@ public class SubstitutionData extends ModelElementData {
 
         @objid ("004a16f4-c4c5-1fd8-97fe-001ec947cd2a")
         public static class SubstitutingClassifierSmDependency extends SmSingleDependency {
-            @objid ("2138b442-6fd3-41bd-91b0-2f5c7b05bf99")
+            @objid ("947e2114-61e6-478e-828f-ce51058b7466")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((SubstitutionData) data).mSubstitutingClassifier;
             }
 
-            @objid ("6bc616be-b73f-4b40-a82f-98cb05bfe106")
+            @objid ("61649610-e5ef-4211-aa84-75c52e1cf555")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((SubstitutionData) data).mSubstitutingClassifier = value;
             }
 
-            @objid ("45da92fa-3c4d-45e3-a6b7-7ec230bf74a0")
+            @objid ("ab49cd56-61d7-41c2-8ca7-1d102a734c9b")
             @Override
             public SmDependency getSymetric() {
                 return ClassifierData.Metadata.SubstituedDep();
@@ -144,18 +144,18 @@ public class SubstitutionData extends ModelElementData {
 
         @objid ("004a8fda-c4c5-1fd8-97fe-001ec947cd2a")
         public static class ContractSmDependency extends SmSingleDependency {
-            @objid ("266246ec-0de1-423b-89e7-166a77c1662d")
+            @objid ("98c6a99d-1544-4219-ae04-b4bedcb67f22")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((SubstitutionData) data).mContract;
             }
 
-            @objid ("2c663a8e-593a-4f73-b472-4baad0bbf093")
+            @objid ("62114bfc-7761-499e-9e12-86c1d6564108")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((SubstitutionData) data).mContract = value;
             }
 
-            @objid ("9a1862f8-219b-49cd-80ba-45363f4bbf1d")
+            @objid ("8045435f-eb08-4359-a63e-5864649b9327")
             @Override
             public SmDependency getSymetric() {
                 return ClassifierData.Metadata.SubstitutingSubstitutionDep();

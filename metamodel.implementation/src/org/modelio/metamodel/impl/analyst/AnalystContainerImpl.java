@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.analyst;
 
 import java.util.ArrayList;
@@ -41,21 +41,21 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("d4ce44b9-e020-414a-80ff-c1370e154f89")
 public abstract class AnalystContainerImpl extends AnalystItemImpl implements AnalystContainer {
-    @objid ("b56c9109-9f32-4b9e-b8e5-298f86d0461e")
+    @objid ("dd2b129f-55fc-4a36-b6d8-13ce577170d4")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("3e5006c5-dc34-42f8-85de-505956fd9acc")
+    @objid ("45b5603d-7436-4e5a-9b08-ba202c872bd8")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("7647d795-a254-4b9a-8331-6530fccb6aa9")
+    @objid ("27c5c331-4855-49bd-96b0-0e8b63d732d5")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitAnalystContainer(this);

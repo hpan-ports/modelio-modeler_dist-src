@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.data.bpmn.activities;
 
 import java.util.ArrayList;
@@ -43,22 +43,22 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("007ec354-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=BpmnBusinessRuleTask.class, factory=BpmnBusinessRuleTaskData.Metadata.ObjectFactory.class)
 public class BpmnBusinessRuleTaskData extends BpmnTaskData {
-    @objid ("e69db1e9-5f44-4162-a32e-13928ad88724")
+    @objid ("98b17c5d-8bff-4c60-b2fa-dcaf4d52683c")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("00218e82-c4c4-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("e19d9b99-c583-41d9-8560-5cbae991421f")
+        @objid ("f724558b-b138-4f05-b243-ea0c26729ad8")
         private static SmClass smClass = null;
 
-        @objid ("af28ddc6-92a6-4960-bbe8-c0fceebfbf38")
+        @objid ("1d55e570-2cb6-4dd1-96b9-588e4be864cb")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(BpmnBusinessRuleTaskData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("6b4f81c8-a339-4f7a-9574-0ab69b4c6dc6")
+        @objid ("3816a1f5-6179-4668-a538-7ccc7f33f5c9")
         public static SmClass getSmClass() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return smClass;
@@ -66,12 +66,12 @@ public class BpmnBusinessRuleTaskData extends BpmnTaskData {
 
         @objid ("0022b5dc-c4c4-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("a562cee4-8e3e-42a3-adc1-1e2e317e5382")
+            @objid ("f677ea0d-31ef-463c-9739-4567ac29ab34")
             public ISmObjectData createData() {
                 return new BpmnBusinessRuleTaskData();
             }
 
-            @objid ("dc178858-5853-431d-a552-fd59a7f50945")
+            @objid ("09d0405a-e5d2-4ec5-9caf-b5a0aa2bf11d")
             public SmObjectImpl createImpl() {
                 return new BpmnBusinessRuleTaskImpl();
             }

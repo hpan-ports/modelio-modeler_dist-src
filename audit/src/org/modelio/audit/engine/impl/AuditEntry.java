@@ -87,7 +87,8 @@ public class AuditEntry implements IAuditEntry {
     public boolean equals(Object other) {
         if (other instanceof AuditEntry) {
             if (this.element.equals(((AuditEntry) other).getElement()) &&
-                this.ruleId.equals(((AuditEntry) other).getRuleId())) {
+                this.ruleId.equals(((AuditEntry) other).getRuleId()) /*&&
+                /*this.linkedObjects.equals(((AuditEntry) other).getLinkedObjects())*/) {
                 return true;
             }
         }
@@ -131,6 +132,7 @@ public class AuditEntry implements IAuditEntry {
         result = prime * result + ((this.element == null) ? 0 : this.element.hashCode());
         result = prime * result + ((this.jobId == null) ? 0 : this.jobId.hashCode());
         result = prime * result + ((this.ruleId == null) ? 0 : this.ruleId.hashCode());
+        //result = prime * result + ((this.linkedObjects == null) ? 0 : this.linkedObjects.hashCode());
         return result;
     }
 

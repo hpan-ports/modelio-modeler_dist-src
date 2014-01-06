@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.bpmn.rootElements;
 
 import java.util.List;
@@ -33,22 +33,22 @@ import org.modelio.metamodel.bpmn.resources.BpmnResourceRole;
 
 @objid ("0079b594-c4bf-1fd8-97fe-001ec947cd2a")
 public interface BpmnFlowNode extends BpmnFlowElement {
-    @objid ("6a791039-f738-41e4-b024-98fce8e9660b")
+    @objid ("4162852c-5d30-4654-b866-94f0e6bc662d")
     EList<BpmnSequenceFlow> getOutgoing();
 
-    @objid ("2b7c2cfe-300d-41d5-8cd4-dc9dd1e685e5")
+    @objid ("06921129-3d55-43d9-9bea-88c6e517567a")
     <T extends BpmnSequenceFlow> List<T> getOutgoing(java.lang.Class<T> filterClass);
 
-    @objid ("cf8c0e6b-a00f-4341-a75f-47d67c4ef1a0")
+    @objid ("905f0da0-ff3b-4c1d-af66-76d37e2fec1f")
     EList<BpmnResourceRole> getResource();
 
-    @objid ("3f3c328e-0b77-43fb-b1ad-f10b5cfc64b0")
+    @objid ("8c14bfdc-e13c-4ca3-abbc-3b2dfaf8e079")
     <T extends BpmnResourceRole> List<T> getResource(java.lang.Class<T> filterClass);
 
-    @objid ("fac80167-6445-48d5-86cd-a2e2d910878d")
+    @objid ("bedc6d37-263a-4ff1-b38c-f5b839a4ed01")
     EList<BpmnSequenceFlow> getIncoming();
 
-    @objid ("a62c421b-ca38-4a4e-972c-c78dfe15382a")
+    @objid ("3989ab5a-2630-4813-9869-c35a95a8d608")
     <T extends BpmnSequenceFlow> List<T> getIncoming(java.lang.Class<T> filterClass);
 
 }

@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.diagrams;
 
 import java.util.ArrayList;
@@ -41,21 +41,21 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("0069c5b2-c4bf-1fd8-97fe-001ec947cd2a")
 public abstract class BehaviorDiagramImpl extends AbstractDiagramImpl implements BehaviorDiagram {
-    @objid ("192a6a81-7a60-4bb7-ba2d-fff529a87467")
+    @objid ("47ea4a06-2a31-4b96-8761-3aa68fc4af60")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("4d6e5905-a622-4346-b88f-7c15f464ec99")
+    @objid ("e0fbafe7-0cdc-4924-836f-74880b4e5630")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("37ae83b5-8c44-489a-b325-7f2673022b53")
+    @objid ("bc6555b6-7cbf-4e90-a356-1c8b4dfa071f")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitBehaviorDiagram(this);

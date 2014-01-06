@@ -51,7 +51,7 @@ import org.modelio.vcore.smkernel.mapi.MRef;
  * Represents a link between 2 nodes in the diagram.
  */
 @objid ("80100e01-1dec-11e2-8cad-001ec947c8cc")
-public abstract class GmLink extends GmModel implements IGmLink {
+public abstract class GmLink extends GmModel implements IGmLink, IGmAnchorListener {
     /**
      * Current version of this Gm. Defaults to 0.
      */
@@ -350,6 +350,7 @@ public abstract class GmLink extends GmModel implements IGmLink {
      * @return The locator model.
      */
     @objid ("8014d2b8-1dec-11e2-8cad-001ec947c8cc")
+    @Override
     public final IGmLocator getLayoutContraint(IGmObject extension) {
         return this.extensions.get(extension);
     }
@@ -702,7 +703,8 @@ public abstract class GmLink extends GmModel implements IGmLink {
      * @param gmLinkAnchor The moved anchor.
      */
     @objid ("8019974a-1dec-11e2-8cad-001ec947c8cc")
-    final void fireAnchorMoved(GmAbstractLinkAnchor gmLinkAnchor) {
+    @Override
+    public final void fireAnchorMoved(GmAbstractLinkAnchor gmLinkAnchor) {
         firePropertyChange(PROPERTY_LAYOUTDATA, null, gmLinkAnchor);
     }
 

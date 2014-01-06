@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.uml.statik;
 
 import java.util.List;
@@ -34,40 +34,40 @@ import org.modelio.metamodel.uml.statik.RequiredInterface;
 
 @objid ("0018a768-c4bf-1fd8-97fe-001ec947cd2a")
 public interface Port extends BindableInstance {
-    @objid ("8102f491-7235-4362-9519-b5fb59b902e6")
+    @objid ("1be9f4a1-05bc-46a8-8616-71c6edfb5dc7")
     boolean isIsBehavior();
 
-    @objid ("ae8ea28a-04c1-4cfb-9c97-6987f314fec2")
+    @objid ("fb97ca9b-2cfc-40f5-9b17-5b835e6eb5b8")
     void setIsBehavior(boolean value);
 
-    @objid ("49340bdf-3b4e-4fce-849d-235a8b31f33b")
+    @objid ("f776ff36-a281-41e6-847b-5eedda4889ee")
     boolean isIsService();
 
-    @objid ("01be65dc-e6a7-4996-af21-ed7742b89223")
+    @objid ("5dfe034d-195a-478c-a44c-8448996a8bda")
     void setIsService(boolean value);
 
-    @objid ("7fb94783-e54a-4c1d-84e1-e19aecbb024c")
+    @objid ("5b342019-e14c-4e35-98e9-ebacb8a92ee3")
     boolean isIsConjugated();
 
-    @objid ("9bcd977d-f566-4f0b-a28b-5cdf61b6361c")
+    @objid ("1be276b4-0097-41bb-bcce-e27b160011fe")
     void setIsConjugated(boolean value);
 
-    @objid ("ddde8cd2-d6df-4a40-830f-b16bc6ce02bc")
+    @objid ("b3192652-6710-449e-9a04-ebdc7d731d31")
     PortOrientation getDirection();
 
-    @objid ("884f5e36-7e3b-491b-a377-a263ce31c323")
+    @objid ("608f1d8c-3f31-4051-adf4-f4e3bed1a71b")
     void setDirection(PortOrientation value);
 
-    @objid ("81dd2e83-ce3a-4c73-93c3-1427717e23dc")
+    @objid ("c3581196-a900-4376-9a51-f263d5529b80")
     EList<ProvidedInterface> getProvided();
 
-    @objid ("1a7554ba-e1ac-49de-9537-3725fcf9ec44")
+    @objid ("56c55f6f-299c-41c8-a07c-c5e51df649b0")
     <T extends ProvidedInterface> List<T> getProvided(java.lang.Class<T> filterClass);
 
-    @objid ("1a92ca77-cd43-4272-be0a-0bbca043a664")
+    @objid ("bca8c7df-ef06-487e-b9b3-4bad8c936920")
     EList<RequiredInterface> getRequired();
 
-    @objid ("20ea558b-496a-4ee1-8e43-ab53dcfe0c4c")
+    @objid ("1d53c3d6-f5c9-4662-b852-2a3ad786b725")
     <T extends RequiredInterface> List<T> getRequired(java.lang.Class<T> filterClass);
 
 }

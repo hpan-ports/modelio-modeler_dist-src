@@ -30,12 +30,12 @@ import org.eclipse.gef.palette.SelectionToolEntry;
 import org.eclipse.gef.tools.AbstractTool;
 import org.modelio.diagram.editor.AbstractDiagramEditor;
 import org.modelio.diagram.editor.bpmn.plugin.DiagramEditorBpmn;
-import org.modelio.diagram.editor.plugin.IDiagramConfigurer;
+import org.modelio.diagram.editor.plugin.AbstractDiagramConfigurer;
 import org.modelio.diagram.editor.plugin.ToolRegistry;
 import org.modelio.diagram.editor.tools.PanSelectionTool;
 
 @objid ("622d2c02-55b6-11e2-877f-002564c97630")
-public class BpmnSubProcessDiagramConfigurer implements IDiagramConfigurer {
+public class BpmnSubProcessDiagramConfigurer extends AbstractDiagramConfigurer {
     @objid ("622d2c14-55b6-11e2-877f-002564c97630")
     @Override
     public String getContributionURI() {
@@ -164,6 +164,7 @@ public class BpmnSubProcessDiagramConfigurer implements IDiagramConfigurer {
         paletteRoot.add(this.createObjectGroup(toolRegistry));
         paletteRoot.add(this.createFlowGroup(toolRegistry));
         paletteRoot.add(this.createCommonGroup(toolRegistry));
+        paletteRoot.add(createDrawGroup(toolRegistry));
         return paletteRoot;
     }
 

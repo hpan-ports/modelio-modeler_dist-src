@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.diagrams;
 
 import java.util.ArrayList;
@@ -41,21 +41,21 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("006f91b8-c4bf-1fd8-97fe-001ec947cd2a")
 public class SequenceDiagramImpl extends BehaviorDiagramImpl implements SequenceDiagram {
-    @objid ("e4c54296-84ba-40aa-8313-5b4b08a6d01c")
+    @objid ("88429ff0-49e2-428f-86ba-9687bb3ca082")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("66e0a0cf-3489-489e-9f3b-a0aa8f455b73")
+    @objid ("039fe101-560e-466f-8084-874d28acbea9")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("b7e9b46f-eec4-402b-b997-bd306bc88063")
+    @objid ("fd454129-7d39-4090-a8a7-511bb8302adc")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitSequenceDiagram(this);

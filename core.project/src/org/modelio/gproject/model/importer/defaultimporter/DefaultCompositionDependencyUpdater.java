@@ -112,11 +112,7 @@ public class DefaultCompositionDependencyUpdater implements IDependencyUpdater {
         List<MObject> localValues = localObject.mGet(smDep);
         if (!setEqual(refValues, localValues, smDep.isOrdered())) {
             // Clean old content
-            // TODO : don't remove non CMS managed elements (RAMC) from composition assoc (ModelTree:OwnedElement)
             for (MObject obj : localValues) {
-                // FIXME what about the mode?
-                // this.dest.eraseDepVal(this.dep, obj, mode);
-                // localObject.mGet(smDep).clear();
                 toGarbage.add((SmObjectImpl) obj);
             }
         
@@ -124,9 +120,7 @@ public class DefaultCompositionDependencyUpdater implements IDependencyUpdater {
             localValues.clear();
         
             // Replace by values from the reference model
-            // TODO : handle old non CMS managed elements (RAMC) from composition assoc (ModelTree:OwnedElement)
             for (SmObjectImpl obj : equivalentLocalValues) {
-                // FIXME what about the mode?
                 localObject.appendDepVal(smDep, obj);
             }
         }
@@ -145,7 +139,7 @@ public class DefaultCompositionDependencyUpdater implements IDependencyUpdater {
                     equivalentLocalValues.add(sameObj);
                 }
             } else {
-                String msg;
+                //String msg;
                 // FIXME message
                 // msg.pformat(RC2::getRC("import.properties").getString("Error_Null_element_in_dependency").c_str(),
                 // src.ClassOf.Name.c_str(),

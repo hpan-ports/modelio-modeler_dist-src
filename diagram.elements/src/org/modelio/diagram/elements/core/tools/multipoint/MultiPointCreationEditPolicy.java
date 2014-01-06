@@ -41,6 +41,7 @@ import org.eclipse.gef.editpolicies.FeedbackHelper;
 import org.eclipse.gef.editpolicies.GraphicalEditPolicy;
 import org.modelio.diagram.elements.core.figures.FigureUtilities2;
 import org.modelio.diagram.elements.core.link.ModelioLinkCreationContext;
+import org.modelio.diagram.elements.drawings.core.GmDrawing;
 import org.modelio.metamodel.Metamodel;
 import org.modelio.vcore.smkernel.mapi.MObject;
 
@@ -268,9 +269,14 @@ public abstract class MultiPointCreationEditPolicy extends GraphicalEditPolicy {
      */
     @objid ("80edc8bf-1dec-11e2-8cad-001ec947c8cc")
     protected final Class<? extends MObject> getCreationMetaclass(final CreateMultiPointRequest request) {
-        final ModelioLinkCreationContext ctx = (ModelioLinkCreationContext) request.getNewObject();
-        final Class<? extends MObject> metaclass = Metamodel.getJavaInterface(Metamodel.getMClass(ctx.getMetaclass()));
-        return metaclass;
+        final Object newObject = request.getNewObject();
+        if (newObject instanceof ModelioLinkCreationContext) {
+            final ModelioLinkCreationContext ctx = (ModelioLinkCreationContext) newObject;
+            final Class<? extends MObject> metaclass = Metamodel.getJavaInterface(Metamodel.getMClass(ctx.getMetaclass()));
+            return metaclass;
+        }
+        else 
+            return null;
     }
 
     /**
@@ -419,8 +425,8 @@ public abstract class MultiPointCreationEditPolicy extends GraphicalEditPolicy {
      */
     @objid ("80f02b27-1dec-11e2-8cad-001ec947c8cc")
     protected final boolean isCreationOf(final CreateMultiPointRequest request, final Class<?> c) {
-        final Class<? extends MObject> metaclass = getCreationMetaclass(request);
-        return (c.isAssignableFrom(metaclass));
+        final Class<?> objType = getCreationType(request);
+        return (objType!= null && c.isAssignableFrom(objType));
     }
 
     /**
@@ -484,6 +490,21 @@ public abstract class MultiPointCreationEditPolicy extends GraphicalEditPolicy {
         }
         compound.add(getMultiPointFinalCommand(multiPointRequest));
         return compound.unwrap();
+    }
+
+    /**
+     * Utility method to get the type of the object to create.
+     * <p>
+     * Returns a metamodel class or the GmDrawing class.
+     * @param request the creation request
+     * @return The requested metamodel class or the GmDrawing class.
+     */
+    @objid ("ed891901-8d4c-4c76-acd9-934186e0b858")
+    protected final Class<?> getCreationType(final CreateMultiPointRequest request) {
+        final Object newObjectType = request.getNewObjectType();
+        if (newObjectType instanceof Class<?> && GmDrawing.class.isAssignableFrom((Class<?>) newObjectType) )
+            return (Class<?>) newObjectType;
+        return getCreationMetaclass(request);
     }
 
 }

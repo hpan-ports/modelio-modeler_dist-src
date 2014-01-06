@@ -47,7 +47,7 @@ import org.eclipse.gef.requests.BendpointRequest;
 import org.eclipse.gef.requests.ChangeBoundsRequest;
 import org.eclipse.gef.requests.ReconnectRequest;
 import org.modelio.diagram.elements.core.figures.geometry.Orientation;
-import org.modelio.diagram.elements.core.link.GmLink;
+import org.modelio.diagram.elements.core.model.IGmLinkObject;
 import org.modelio.diagram.elements.core.model.IGmPath;
 
 /**
@@ -195,7 +195,7 @@ public class OrthoBendpointEditPolicy extends SelectionHandlesEditPolicy impleme
     @objid ("803d5a90-1dec-11e2-8cad-001ec947c8cc")
     protected Command getMoveBendpointCommand(final BendpointRequest request) {
         ConnectionEditPart hostEP = (ConnectionEditPart) getHost();
-        IGmPath path = ((GmLink) hostEP.getModel()).getPath();
+        IGmPath path = ((IGmLinkObject) hostEP.getModel()).getPath();
         return new ChangeLinkRoutingConstraintCommand(path, hostEP);
     }
 
@@ -273,7 +273,7 @@ public class OrthoBendpointEditPolicy extends SelectionHandlesEditPolicy impleme
     @objid ("803d5ab5-1dec-11e2-8cad-001ec947c8cc")
     private Command getMoveSegmentCommand(final BendpointRequest request) {
         ConnectionEditPart hostEP = (ConnectionEditPart) getHost();
-        IGmPath path = ((GmLink) hostEP.getModel()).getPath();
+        IGmPath path = ((IGmLinkObject) hostEP.getModel()).getPath();
         return new ChangeLinkRoutingConstraintCommand(path, hostEP);
     }
 
@@ -557,7 +557,7 @@ public class OrthoBendpointEditPolicy extends SelectionHandlesEditPolicy impleme
         getConnection().setSourceAnchor(this.originalSourceAnchor);
         getConnection().setTargetAnchor(this.originalTargetAnchor);
         ConnectionEditPart hostEP = (ConnectionEditPart) getHost();
-        IGmPath path = ((GmLink) hostEP.getModel()).getPath();
+        IGmPath path = ((IGmLinkObject) hostEP.getModel()).getPath();
         Command command = new TranslateBendpointsCommand(path, hostEP);
         getConnection().setSourceAnchor(currentSourceAnchor);
         getConnection().setTargetAnchor(currentTargetAnchor);

@@ -626,4 +626,10 @@ public class IncompatibleModule implements IModule {
         return new LicenseInfos(Status.UNDEFINED, null, "");
     }
 
+    @objid ("69dd482a-c8e3-4fa6-aa67-47c1037b62df")
+    @Override
+    public <I> I instanciateExternProcessor(String className, Class<I> clazz, Object... initargs) {
+        return null;
+    }
+
 }

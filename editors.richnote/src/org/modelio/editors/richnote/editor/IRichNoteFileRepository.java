@@ -39,7 +39,7 @@ public interface IRichNoteFileRepository {
      * Extract it from blob if needed.
      * @param doc a rich note
      * @param editor The editor willing to edit the note.
-     * It will be fired if the original note is modified externally, by SVN for example.
+     * It will be fired if the original note is modified externally, by SVN for example. <code>null</code> means no edition.
      * @return its file.
      * @throws java.io.IOException in case of failure
      */
@@ -78,5 +78,8 @@ public interface IRichNoteFileRepository {
      */
     @objid ("077c1d91-07c2-4144-927c-762e7adb33c2")
     void removeEditor(IRichNoteEditor editor);
+
+    @objid ("be65d41b-e8b1-4cb7-93b7-d5487bbb94ed")
+    void initRichNoteFromFile(ExternDocument doc, Path fileToSave) throws IOException;
 
 }

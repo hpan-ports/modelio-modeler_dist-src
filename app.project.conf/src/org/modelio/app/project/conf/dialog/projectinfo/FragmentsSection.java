@@ -44,6 +44,8 @@ import org.modelio.app.project.conf.dialog.ProjectModel;
 import org.modelio.app.project.conf.plugin.AppProjectConf;
 import org.modelio.core.ui.images.FragmentImageService;
 import org.modelio.gproject.fragment.IProjectFragment;
+import org.modelio.gproject.fragment.exml.ExmlFragment;
+import org.modelio.gproject.fragment.ramcfile.RamcFileFragment;
 import org.modelio.ui.UIColor;
 
 /**
@@ -165,7 +167,9 @@ class FragmentsSection {
             @Override
             public String getText(Object element) {
                 URI uri = null;
-                if (element instanceof IProjectFragment) {
+                if (element instanceof RamcFileFragment || element instanceof ExmlFragment) {
+                    // Ignore uri
+                } else if (element instanceof IProjectFragment) {
                     uri = ((IProjectFragment) element).getUri();
                 }
                 return uri != null ? uri.toString().replaceAll("%20", " ") : ""; //$NON-NLS-1$

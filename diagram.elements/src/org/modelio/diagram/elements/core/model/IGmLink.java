@@ -23,13 +23,14 @@ package org.modelio.diagram.elements.core.model;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.diagram.elements.core.link.GmLink;
+import org.modelio.diagram.elements.core.link.extensions.IGmLocator;
 import org.modelio.vcore.smkernel.mapi.MObject;
 
 /**
  * This interface means that the diagram graphic is a Connection.
  */
 @objid ("80801c75-1dec-11e2-8cad-001ec947c8cc")
-public interface IGmLink extends IGmLinkable {
+public interface IGmLink extends IGmLinkable, IGmLinkObject {
     /**
      * @return The link source
      */
@@ -39,7 +40,7 @@ public interface IGmLink extends IGmLinkable {
     /**
      * Update the link origin.
      * <p>
-     * This method is intended to be called only by {@link IGmLinkable#addEndingLink(GmLink)}. It does not fire change
+     * This method is intended to be called only by {@link IGmLinkable#addEndingLink(IGmLink)}. It does not fire change
      * event.
      * @param from The new link origin
      */
@@ -68,10 +69,15 @@ public interface IGmLink extends IGmLinkable {
     @objid ("80801c85-1dec-11e2-8cad-001ec947c8cc")
     MObject getToElement();
 
-    @objid ("80801c87-1dec-11e2-8cad-001ec947c8cc")
-    IGmPath getPath();
-
     @objid ("80801c89-1dec-11e2-8cad-001ec947c8cc")
     void firePathChanged(final IGmPath path);
+
+    /**
+     * Get the locator model used to layout the given extension.
+     * @param extension A link extension.
+     * @return The locator model.
+     */
+    @objid ("6f7d10c3-0c8d-4be2-9e40-8fb85ea88517")
+    IGmLocator getLayoutContraint(IGmObject extension);
 
 }

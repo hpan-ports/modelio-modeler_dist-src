@@ -32,6 +32,8 @@ import org.modelio.metamodel.analyst.AnalystPropertyTable;
 import org.modelio.metamodel.analyst.BusinessRule;
 import org.modelio.metamodel.analyst.BusinessRuleContainer;
 import org.modelio.metamodel.analyst.Dictionary;
+import org.modelio.metamodel.analyst.GenericAnalystContainer;
+import org.modelio.metamodel.analyst.GenericAnalystElement;
 import org.modelio.metamodel.analyst.Goal;
 import org.modelio.metamodel.analyst.GoalContainer;
 import org.modelio.metamodel.analyst.PropertyContainer;
@@ -157,6 +159,7 @@ import org.modelio.metamodel.uml.behavior.commonBehaviors.BehaviorParameter;
 import org.modelio.metamodel.uml.behavior.commonBehaviors.Event;
 import org.modelio.metamodel.uml.behavior.commonBehaviors.OpaqueBehavior;
 import org.modelio.metamodel.uml.behavior.commonBehaviors.Signal;
+import org.modelio.metamodel.uml.behavior.communicationModel.CommunicationChannel;
 import org.modelio.metamodel.uml.behavior.communicationModel.CommunicationInteraction;
 import org.modelio.metamodel.uml.behavior.communicationModel.CommunicationMessage;
 import org.modelio.metamodel.uml.behavior.communicationModel.CommunicationNode;
@@ -206,6 +209,7 @@ import org.modelio.metamodel.uml.infrastructure.Dependency;
 import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.metamodel.uml.infrastructure.ExternDocument;
 import org.modelio.metamodel.uml.infrastructure.ExternDocumentType;
+import org.modelio.metamodel.uml.infrastructure.ExternProcessor;
 import org.modelio.metamodel.uml.infrastructure.MetaclassReference;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
 import org.modelio.metamodel.uml.infrastructure.Note;
@@ -217,6 +221,9 @@ import org.modelio.metamodel.uml.infrastructure.TagParameter;
 import org.modelio.metamodel.uml.infrastructure.TagType;
 import org.modelio.metamodel.uml.infrastructure.TaggedValue;
 import org.modelio.metamodel.uml.infrastructure.Usage;
+import org.modelio.metamodel.uml.infrastructure.matrix.MatrixDefinition;
+import org.modelio.metamodel.uml.infrastructure.matrix.MatrixValueDefinition;
+import org.modelio.metamodel.uml.infrastructure.matrix.QueryDefinition;
 import org.modelio.metamodel.uml.infrastructure.properties.EnumeratedPropertyType;
 import org.modelio.metamodel.uml.infrastructure.properties.LocalPropertyTable;
 import org.modelio.metamodel.uml.infrastructure.properties.PropertyDefinition;
@@ -301,7 +308,7 @@ public class ModelFactoryImpl implements IModelFactory {
     @objid ("5e16f535-e682-48f6-8083-91a2c91964f7")
     private final IRepository localRepository;
 
-    @objid ("17ec358d-8ddc-4c8b-bd92-cf347020fa0c")
+    @objid ("a86a9407-7d2a-49a3-829e-a9cc6947ae5e")
     private ExtensionCache extensionCache = new ExtensionCache();
 
     @objid ("344046c3-c674-4643-944c-e8feced3d7e8")
@@ -3701,6 +3708,128 @@ public class ModelFactoryImpl implements IModelFactory {
         Goal newElement = this.genericFactory.create(Goal.class, this.scratchRepository);
         newElement.setOwnerContainer(owner);
         newElement.setName(name);
+        this.elementInitializer.initialize(this, newElement);
+        return newElement;
+    }
+
+    @objid ("f8eb1232-dc89-4d99-8dd0-8b1580909b3c")
+    @Override
+    public CommunicationChannel createCommunicationChannel() {
+        CommunicationChannel newElement = this.genericFactory.create(CommunicationChannel.class, this.scratchRepository);
+        this.elementInitializer.initialize(this, newElement);
+        return newElement;
+    }
+
+    @objid ("b1e92e78-5d17-47ec-9229-e85efc0c73ff")
+    @Override
+    public MatrixDefinition createMatrixDefinition() {
+        MatrixDefinition newElement = this.genericFactory.create(MatrixDefinition.class, this.scratchRepository);
+        this.elementInitializer.initialize(this, newElement);
+        return newElement;
+    }
+
+    @objid ("70ebbe78-22ea-4b24-83c7-cb454421fb6b")
+    @Override
+    public QueryDefinition createQueryDefinition() {
+        QueryDefinition newElement = this.genericFactory.create(QueryDefinition.class, this.scratchRepository);
+        this.elementInitializer.initialize(this, newElement);
+        return newElement;
+    }
+
+    @objid ("18d6ea08-cee1-4ae1-bde9-4dd045d590fc")
+    @Override
+    public MatrixValueDefinition createMatrixValueDefinition() {
+        MatrixValueDefinition newElement = this.genericFactory.create(MatrixValueDefinition.class, this.scratchRepository);
+        this.elementInitializer.initialize(this, newElement);
+        return newElement;
+    }
+
+    @objid ("779637ff-ef98-4754-9e7a-79f97e7941ca")
+    @Override
+    public ExternProcessor createExternProcessor() {
+        ExternProcessor newElement = this.genericFactory.create(ExternProcessor.class, this.scratchRepository);
+        this.elementInitializer.initialize(this, newElement);
+        return newElement;
+    }
+
+    @objid ("6762b3e1-8331-4c7c-86f5-9d9f33971bec")
+    @Override
+    public GenericAnalystElement createGenericAnalystElement() {
+        GenericAnalystElement newElement = this.genericFactory.create(GenericAnalystElement.class, this.scratchRepository);
+        this.elementInitializer.initialize(this, newElement);
+        return newElement;
+    }
+
+    @objid ("b379b90c-c0fa-452c-8e43-13d9ee8866b7")
+    @Override
+    public GenericAnalystContainer createGenericAnalystContainer() {
+        GenericAnalystContainer newElement = this.genericFactory.create(GenericAnalystContainer.class, this.scratchRepository);
+        this.elementInitializer.initialize(this, newElement);
+        return newElement;
+    }
+
+    @objid ("4f3b7f24-b3d5-4708-984a-20ff7f2d32ef")
+    @Override
+    public GenericAnalystElement createGenericAnalystElement(String name, GenericAnalystElement owner, Stereotype ste) {
+        GenericAnalystElement newElement = this.genericFactory.create(GenericAnalystElement.class, this.scratchRepository);
+        newElement.setParentElement(owner);
+        newElement.setName(name);
+        newElement.getExtension().add(ste);
+        this.elementInitializer.initialize(this, newElement);
+        return newElement;
+    }
+
+    @objid ("80614aeb-90cd-45eb-80f9-c9f6897a03ce")
+    @Override
+    public GenericAnalystElement createGenericAnalystElement(String name, GenericAnalystContainer owner, Stereotype ste) {
+        GenericAnalystElement newElement = this.genericFactory.create(GenericAnalystElement.class, this.scratchRepository);
+        newElement.setOwnerContainer(owner);
+        newElement.setName(name);
+        newElement.getExtension().add(ste);
+        this.elementInitializer.initialize(this, newElement);
+        return newElement;
+    }
+
+    @objid ("d2850449-cf2d-48f2-a63c-e1e9e4613f5d")
+    @Override
+    public GenericAnalystElement createGenericAnalystElement(String name, GenericAnalystContainer owner, String moduleName, String stereotypeName) throws ExtensionNotFoundException {
+        GenericAnalystElement newElement = this.genericFactory.create(GenericAnalystElement.class, this.scratchRepository);
+        newElement.setOwnerContainer(owner);
+        newElement.setName(name);
+        newElement.addStereotype(moduleName, stereotypeName);
+        this.elementInitializer.initialize(this, newElement);
+        return newElement;
+    }
+
+    @objid ("07c4828b-27f6-47bc-8235-edc87097526a")
+    @Override
+    public GenericAnalystElement createGenericAnalystElement(String name, GenericAnalystElement owner, String moduleName, String stereotypeName) throws ExtensionNotFoundException {
+        GenericAnalystElement newElement = this.genericFactory.create(GenericAnalystElement.class, this.scratchRepository);
+        newElement.setParentElement(owner);
+        newElement.setName(name);
+        newElement.addStereotype(moduleName, stereotypeName);
+        this.elementInitializer.initialize(this, newElement);
+        return newElement;
+    }
+
+    @objid ("dd16f0b2-7ade-42fb-bf69-fd62c31f265a")
+    @Override
+    public GenericAnalystContainer createGenericAnalystContainer(String name, GenericAnalystContainer owner, Stereotype ste) {
+        GenericAnalystContainer newElement = this.genericFactory.create(GenericAnalystContainer.class, this.scratchRepository);
+        newElement.setOwnerContainer(owner);
+        newElement.setName(name);
+        newElement.getExtension().add(ste);
+        this.elementInitializer.initialize(this, newElement);
+        return newElement;
+    }
+
+    @objid ("7ca75971-e345-4525-ae8b-f0907b743f95")
+    @Override
+    public GenericAnalystContainer createGenericAnalystContainer(String name, GenericAnalystContainer owner, String moduleName, String stereotypeName) throws ExtensionNotFoundException {
+        GenericAnalystContainer newElement = this.genericFactory.create(GenericAnalystContainer.class, this.scratchRepository);
+        newElement.setOwnerContainer(owner);
+        newElement.setName(name);
+        newElement.addStereotype(moduleName, stereotypeName);
         this.elementInitializer.initialize(this, newElement);
         return newElement;
     }

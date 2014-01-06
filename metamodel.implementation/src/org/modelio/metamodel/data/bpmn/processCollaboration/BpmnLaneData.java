@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.data.bpmn.processCollaboration;
 
 import java.util.ArrayList;
@@ -48,50 +48,50 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("0074d240-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=BpmnLane.class, factory=BpmnLaneData.Metadata.ObjectFactory.class)
 public class BpmnLaneData extends BpmnBaseElementData {
-    @objid ("d2ff1b25-57ef-49a8-bb5d-c13b7730e585")
+    @objid ("344e4c36-2dee-461a-b16e-444aa7a913d2")
     @SmaMetaAssociation(metaName="ChildLaneSet", typeDataClass=BpmnLaneSetData.class, min=0, max=1, smAssociationClass=Metadata.ChildLaneSetSmDependency.class, component = true)
      SmObjectImpl mChildLaneSet;
 
-    @objid ("f953145d-0395-4d01-ba21-c021fede5043")
+    @objid ("a9a71f54-22a7-4ce3-8192-7817a5801352")
     @SmaMetaAssociation(metaName="PartitionElement", typeDataClass=ModelElementData.class, min=0, max=1, smAssociationClass=Metadata.PartitionElementSmDependency.class, partof = true)
      SmObjectImpl mPartitionElement;
 
-    @objid ("02e118c3-f4a0-44ed-9a68-ac304739501b")
+    @objid ("fb738eb6-bb03-464e-9363-5152e2930171")
     @SmaMetaAssociation(metaName="FlowElementRef", typeDataClass=BpmnFlowElementData.class, min=0, max=-1, smAssociationClass=Metadata.FlowElementRefSmDependency.class, partof = true, istodelete = true)
      List<SmObjectImpl> mFlowElementRef = null;
 
-    @objid ("db52c784-9df7-4436-8936-cfc9f3cc7a8f")
+    @objid ("d1c46508-d6a5-4721-9a0d-479546a90b2c")
     @SmaMetaAssociation(metaName="LaneSet", typeDataClass=BpmnLaneSetData.class, min=1, max=1, smAssociationClass=Metadata.LaneSetSmDependency.class)
      SmObjectImpl mLaneSet;
 
-    @objid ("e53ed654-cff3-4512-a759-40969c6e848d")
+    @objid ("475495d0-8263-447a-a72b-6d54b4d12dcb")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("004af650-c4c5-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("d7ed334a-5489-49fc-b806-711727c5313e")
+        @objid ("d075922b-318f-49a7-9aee-36f22a9435b4")
         private static SmClass smClass = null;
 
-        @objid ("4b63319c-6b1a-499b-8b2f-e291d6371468")
+        @objid ("4afb843f-ddda-46c2-a509-74f746f1af25")
         private static SmDependency ChildLaneSetDep = null;
 
-        @objid ("14613e5c-fea6-4fcc-8119-89fc7c0896de")
+        @objid ("95ed4fbf-71f6-477b-8f5e-164d2bfe3ce1")
         private static SmDependency PartitionElementDep = null;
 
-        @objid ("d1d5506b-9dce-4d4d-bb0a-248f0cd6e33a")
+        @objid ("90ec3a71-bb19-4a0e-b984-ccaec6738c49")
         private static SmDependency FlowElementRefDep = null;
 
-        @objid ("1da7e601-0f25-419e-b12e-ea557f7bda13")
+        @objid ("418d2465-e81c-4ad9-8cac-03d977589459")
         private static SmDependency LaneSetDep = null;
 
-        @objid ("e0a3040f-e5be-4d85-b182-d24bb9fc3871")
+        @objid ("c7c27f02-ea65-49c0-b889-4ea92e26bbd1")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(BpmnLaneData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("f3134efa-ccfd-49e8-a0f5-70c77c1f3339")
+        @objid ("1a68387d-e6c2-47ed-abee-e53b02d29db9")
         public static SmDependency ChildLaneSetDep() {
             if (ChildLaneSetDep == null) {
             	ChildLaneSetDep = classof().getDependencyDef("ChildLaneSet");
@@ -99,7 +99,7 @@ public class BpmnLaneData extends BpmnBaseElementData {
             return ChildLaneSetDep;
         }
 
-        @objid ("008d8fe6-c501-4746-9e59-ee856f486def")
+        @objid ("e0cebc92-83ff-4ce7-8837-974440633468")
         public static SmDependency PartitionElementDep() {
             if (PartitionElementDep == null) {
             	PartitionElementDep = classof().getDependencyDef("PartitionElement");
@@ -107,7 +107,7 @@ public class BpmnLaneData extends BpmnBaseElementData {
             return PartitionElementDep;
         }
 
-        @objid ("5eb726e8-6f94-4d69-92c2-d37ea836c130")
+        @objid ("91819167-64fd-4046-8de5-dd0b2ca17043")
         public static SmDependency FlowElementRefDep() {
             if (FlowElementRefDep == null) {
             	FlowElementRefDep = classof().getDependencyDef("FlowElementRef");
@@ -115,7 +115,7 @@ public class BpmnLaneData extends BpmnBaseElementData {
             return FlowElementRefDep;
         }
 
-        @objid ("0ed479a6-fc21-4389-b4b8-89e9b08cb672")
+        @objid ("6d9efb13-df9b-4d33-813b-e64edab706d4")
         public static SmDependency LaneSetDep() {
             if (LaneSetDep == null) {
             	LaneSetDep = classof().getDependencyDef("LaneSet");
@@ -123,44 +123,44 @@ public class BpmnLaneData extends BpmnBaseElementData {
             return LaneSetDep;
         }
 
-        @objid ("a18d10bb-fb62-4042-bb3b-957e53704f78")
-        public static SmClass getSmClass() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return smClass;
-        }
-
-        @objid ("22b6a5d7-7b7d-49c2-885e-4f108c9246d7")
-        public static SmDependency getFlowElementRefDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return FlowElementRefDep;
-        }
-
-        @objid ("52cf67d4-787d-4c62-becc-d61aa65f4ee6")
-        public static SmDependency getPartitionElementDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return PartitionElementDep;
-        }
-
-        @objid ("6f90b6f3-1931-4d04-9730-0d12ba4e1dd4")
-        public static SmDependency getLaneSetDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return LaneSetDep;
-        }
-
-        @objid ("11b2b63e-c9ad-4b1d-bf79-faf051e860d7")
+        @objid ("2d52d4f3-7204-41b9-b2c9-3fedb65c2761")
         public static SmDependency getChildLaneSetDep() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return ChildLaneSetDep;
         }
 
+        @objid ("3ad77aed-0b57-4ca6-8ae9-726b50184b7c")
+        public static SmDependency getFlowElementRefDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return FlowElementRefDep;
+        }
+
+        @objid ("fde75832-dff2-44ae-8168-313876003518")
+        public static SmClass getSmClass() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return smClass;
+        }
+
+        @objid ("4237a107-a5dc-46b3-b352-1f98b7646eb9")
+        public static SmDependency getLaneSetDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return LaneSetDep;
+        }
+
+        @objid ("7ad15d8d-2fe5-4cf0-bd8c-60a8a4d3fc3e")
+        public static SmDependency getPartitionElementDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return PartitionElementDep;
+        }
+
         @objid ("004b3688-c4c5-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("ff68ff08-6b38-4bd8-8342-05922b04774a")
+            @objid ("0252fdcc-b7cd-4cdf-8313-a49cdf402d3e")
             public ISmObjectData createData() {
                 return new BpmnLaneData();
             }
 
-            @objid ("37c64bfe-6b95-4752-b3f3-4edc10aabfec")
+            @objid ("cabef829-a897-497c-961a-91294dc4f631")
             public SmObjectImpl createImpl() {
                 return new BpmnLaneImpl();
             }
@@ -169,18 +169,18 @@ public class BpmnLaneData extends BpmnBaseElementData {
 
         @objid ("004b97d6-c4c5-1fd8-97fe-001ec947cd2a")
         public static class ChildLaneSetSmDependency extends SmSingleDependency {
-            @objid ("bb4db093-f8dc-4b05-b43a-d6c349fa7494")
+            @objid ("d2d9f409-b0fc-4de8-a3c5-73813ab74168")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((BpmnLaneData) data).mChildLaneSet;
             }
 
-            @objid ("2908e1de-4319-4126-8699-ee2b91135c26")
+            @objid ("023cefea-2312-468e-ad93-16f2cfb0f59d")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((BpmnLaneData) data).mChildLaneSet = value;
             }
 
-            @objid ("968e5952-f42d-4f68-8771-c14bf56dc360")
+            @objid ("f718473a-fe1d-4706-8986-984f54bcb4c1")
             @Override
             public SmDependency getSymetric() {
                 return BpmnLaneSetData.Metadata.ParentLaneDep();
@@ -190,18 +190,18 @@ public class BpmnLaneData extends BpmnBaseElementData {
 
         @objid ("004c0b30-c4c5-1fd8-97fe-001ec947cd2a")
         public static class PartitionElementSmDependency extends SmSingleDependency {
-            @objid ("a07d9bf3-61d1-44b7-8830-bba39c426932")
+            @objid ("d0e5ef46-c2b8-41b2-878d-c83ec52de509")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((BpmnLaneData) data).mPartitionElement;
             }
 
-            @objid ("1794d7bb-e8fa-4560-b114-ca208e096eef")
+            @objid ("2a4bc4c4-d235-4e76-a29d-1bfded73fef7")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((BpmnLaneData) data).mPartitionElement = value;
             }
 
-            @objid ("3f5c7eda-2f6e-48e4-927c-8a08f607a106")
+            @objid ("cd8bddbe-f29f-4511-9210-1795594095e8")
             @Override
             public SmDependency getSymetric() {
                 return ModelElementData.Metadata.BpmnLaneRefsDep();
@@ -211,20 +211,20 @@ public class BpmnLaneData extends BpmnBaseElementData {
 
         @objid ("004c7f0c-c4c5-1fd8-97fe-001ec947cd2a")
         public static class FlowElementRefSmDependency extends SmMultipleDependency {
-            @objid ("7d175520-170b-4219-85a5-c14c0a2bbf28")
+            @objid ("595a5043-aa3d-4174-a8d0-8ad10e0f5b83")
             @Override
             public List<SmObjectImpl> getValueList(ISmObjectData data) {
                 return (((BpmnLaneData)data).mFlowElementRef != null)? ((BpmnLaneData)data).mFlowElementRef:SmMultipleDependency.EMPTY;
             }
 
-            @objid ("212e9efa-c754-464a-b77f-a0073e5fa041")
+            @objid ("8bc60df9-6b7d-4cc1-8503-9187e092bd09")
             @Override
             protected List<SmObjectImpl> allocateValueList(ISmObjectData data, int initialCapacity) {
                 ((BpmnLaneData) data).mFlowElementRef = new ArrayList<>(initialCapacity);
                 return ((BpmnLaneData) data).mFlowElementRef;
             }
 
-            @objid ("bc546f57-e6ca-4ca7-a2e8-9a2ffd25ce38")
+            @objid ("bbaef370-f385-41f0-81cf-a88eaa43b10e")
             @Override
             public SmDependency getSymetric() {
                 return BpmnFlowElementData.Metadata.LaneDep();
@@ -234,18 +234,18 @@ public class BpmnLaneData extends BpmnBaseElementData {
 
         @objid ("004cf220-c4c5-1fd8-97fe-001ec947cd2a")
         public static class LaneSetSmDependency extends SmSingleDependency {
-            @objid ("156b4542-71ae-48f6-83bf-10c813bfe280")
+            @objid ("31f1f569-7648-4810-a843-6c4395c005f2")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((BpmnLaneData) data).mLaneSet;
             }
 
-            @objid ("00c812a2-088d-40e2-aa84-1e8d61ffa633")
+            @objid ("317ad70d-788b-4d51-ba17-b39953120a49")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((BpmnLaneData) data).mLaneSet = value;
             }
 
-            @objid ("bd867c16-9579-40cc-92c9-fafc71327efd")
+            @objid ("457a7a82-622e-408b-9d9f-54a18453ff20")
             @Override
             public SmDependency getSymetric() {
                 return BpmnLaneSetData.Metadata.LaneDep();

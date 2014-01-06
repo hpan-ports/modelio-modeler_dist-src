@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.uml.statik;
 
 import java.util.ArrayList;
@@ -47,67 +47,67 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("000191ae-c4bf-1fd8-97fe-001ec947cd2a")
 public class BindingImpl extends ModelElementImpl implements Binding {
-    @objid ("4773349e-feb8-46e2-85b2-ce4da56b0fa2")
+    @objid ("54131299-01fb-4526-9d91-adc271422f2b")
     @Override
     public ConnectorEnd getConnectorEndRole() {
         return (ConnectorEnd) getDepVal(BindingData.Metadata.ConnectorEndRoleDep());
     }
 
-    @objid ("633b54d5-d399-437a-a4b1-1e321fc545ba")
+    @objid ("6d693840-25d7-432f-b2db-f870163a8446")
     @Override
     public void setConnectorEndRole(ConnectorEnd value) {
         appendDepVal(BindingData.Metadata.ConnectorEndRoleDep(), (SmObjectImpl)value);
     }
 
-    @objid ("d74c6b8b-21b8-47d2-ab24-1c9368522175")
+    @objid ("9f09c8fe-8c76-4fd1-8725-e3f8f6e16582")
     @Override
     public NaryConnector getConnectorRole() {
         return (NaryConnector) getDepVal(BindingData.Metadata.ConnectorRoleDep());
     }
 
-    @objid ("b8b92e38-62d7-4de6-8db3-a650a4bf8e36")
+    @objid ("16653590-b809-4375-b2aa-a19fb0657e89")
     @Override
     public void setConnectorRole(NaryConnector value) {
         appendDepVal(BindingData.Metadata.ConnectorRoleDep(), (SmObjectImpl)value);
     }
 
-    @objid ("c353b6c3-fe06-4a6d-aa61-48ca43fe2765")
+    @objid ("35eb9776-fc69-41bb-a43b-0afa66e1b9ad")
     @Override
     public BindableInstance getRole() {
         return (BindableInstance) getDepVal(BindingData.Metadata.RoleDep());
     }
 
-    @objid ("4614cf5e-3e7b-4265-b2fb-2d43a3aced28")
+    @objid ("4a5fa1c4-4099-44ac-bad5-22f8eacfa0fb")
     @Override
     public void setRole(BindableInstance value) {
         appendDepVal(BindingData.Metadata.RoleDep(), (SmObjectImpl)value);
     }
 
-    @objid ("e704455f-3b52-4ca5-9af0-34f0611c0ae4")
+    @objid ("bbbb786c-1326-4e91-b7b9-9bc32258edab")
     @Override
     public ModelElement getRepresentedFeature() {
         return (ModelElement) getDepVal(BindingData.Metadata.RepresentedFeatureDep());
     }
 
-    @objid ("7aa1890c-b795-4a57-86ec-ca0b6a08cda8")
+    @objid ("7dcc7366-7de9-4a33-8dcf-228f012d7b44")
     @Override
     public void setRepresentedFeature(ModelElement value) {
         appendDepVal(BindingData.Metadata.RepresentedFeatureDep(), (SmObjectImpl)value);
     }
 
-    @objid ("9bea30b5-4ed2-4890-824f-5cebe85844ae")
+    @objid ("7f331b81-8d05-4d11-8c09-5ba965aefa3f")
     @Override
     public CollaborationUse getOwner() {
         return (CollaborationUse) getDepVal(BindingData.Metadata.OwnerDep());
     }
 
-    @objid ("e2c6b946-3c51-40cf-b8d8-d8e76af5d535")
+    @objid ("d5a79495-f4b6-4dfc-a1d3-e7af84970853")
     @Override
     public void setOwner(CollaborationUse value) {
         appendDepVal(BindingData.Metadata.OwnerDep(), (SmObjectImpl)value);
     }
 
-    @objid ("56894715-f013-44c4-b47f-628d236a9a1e")
+    @objid ("7426b15f-da74-4d2a-9800-f200daf477a4")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
@@ -117,7 +117,7 @@ public class BindingImpl extends ModelElementImpl implements Binding {
         return super.getCompositionOwner();
     }
 
-    @objid ("efb6aa9c-e242-46dd-90b4-799193b569f4")
+    @objid ("c6ea9af7-5908-406e-8e31-162081fd5349")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
@@ -127,7 +127,7 @@ public class BindingImpl extends ModelElementImpl implements Binding {
         return super.getCompositionRelation();
     }
 
-    @objid ("40a066ad-cc5a-4553-a99f-12cd5e88c346")
+    @objid ("94b1d063-1f5a-4058-aca9-906b24bd1e2c")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitBinding(this);

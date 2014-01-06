@@ -66,7 +66,7 @@ public class GmUseCaseDiagram extends GmAbstractDiagram {
         super(manager, diagramRef);
         this.element = theStateDiagram;
         
-        NamedStyle namedStyle = DiagramStyles.getStyleManager().getStyle("use case");
+        NamedStyle namedStyle = DiagramStyles.getStyleManager().getStyle(DiagramStyles.USECASE_STYLE_NAME);
         if (namedStyle != null) {
             this.getStyle().setCascadedStyle(namedStyle);
         }

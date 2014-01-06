@@ -35,12 +35,16 @@
   <imports xsi:type="commands:Command" xmi:id="_8bQWoIylEeKbH-WHrunjdQ" elementId="org.modelio.diagram.editor.command.directedit"/>
   <imports xsi:type="commands:Command" xmi:id="_d681AIywEeKbH-WHrunjdQ" elementId="org.modelio.diagram.editor.command.selectall"/>
   <imports xsi:type="commands:Command" xmi:id="_9R-wcMRiEeKzIKCziwJO6Q" elementId="org.modelio.app.ui.command.rename"/>
+  <imports xsi:type="commands:Command" xmi:id="_cA5U4FE5EeOxPvmodYTYgw" elementId="diagram.editor.command.MoveDrawingsToBackground"/>
+  <imports xsi:type="commands:Command" xmi:id="_cvIT4FE5EeOxPvmodYTYgw" elementId="diagram.editor.command.MoveDrawingsToForeground"/>
+  <imports xsi:type="commands:Command" xmi:id="_NEVTMGP2EeOKPIEepcCqnQ" elementId="org.modelio.diagram.editor.command.ZoomFitCommand"/>
   <fragments xsi:type="fragment:StringModelFragment" xmi:id="_0E3XoDS6EeKL_YUGDpxo2Q" featurename="descriptors" parentElementId="org.modelio.app.application">
     <elements xsi:type="basic:PartDescriptor" xmi:id="_5jpUgDS6EeKL_YUGDpxo2Q" elementId="org.modelio.diagram.editor.communication.CommunicationDiagramEditorID" label="%CommunicationEditor.label" tooltip="%CommunicationEditor.tooltip" bindingContexts="_QcFAoIymEeKbH-WHrunjdQ" allowMultiple="true" category="TEST_EDITOR" closeable="true" dirtyable="true" contributionURI="bundleclass://org.modelio.diagram.editor.communication/org.modelio.diagram.editor.communication.editor.CommunicationDiagramEditor">
       <handlers xmi:id="_7MdioID8EeKKLZZAYaz6Sg" elementId="diagram.editor.communication.handler.createelement" contributionURI="bundleclass://org.modelio.diagram.editor/org.modelio.diagram.editor.popup.handlers.CreateElementHandler" command="_5eXpIID8EeKKLZZAYaz6Sg"/>
       <handlers xmi:id="_jIW0wIWvEeKYkaRTRtSF_A" elementId="diagram.editor.communication.handler.delete" contributionURI="bundleclass://org.modelio.diagram.editor/org.modelio.diagram.editor.handlers.DeleteInModelHandler" command="_elXKsIWvEeKYkaRTRtSF_A"/>
       <menus xsi:type="menu:PopupMenu" xmi:id="_juRlQIWvEeKYkaRTRtSF_A" elementId="org.modelio.diagram.editor.communication.menu.popupmenu" label="" tooltip="Test de popup menu pour communication">
         <tags>popup:org.modelio.popupmenu.cms</tags>
+        <tags>popup:org.modelio.diagram.editor.popup</tags>
         <children xsi:type="menu:DynamicMenuContribution" xmi:id="_8pF4soD8EeKKLZZAYaz6Sg" elementId="org.modelio.diagram.editor.communication.menu.createelement" contributionURI="bundleclass://org.modelio.diagram.editor.communication/org.modelio.diagram.editor.communication.editor.CommunicationCreationPopupProvider"/>
         <children xsi:type="menu:HandledMenuItem" xmi:id="_juRlRIWvEeKYkaRTRtSF_A" elementId="org.modelio.diagram.editor.communication.handledmenuitem.AddStereotype" label="%AddStereotype.label" iconURI="platform:/plugin/org.modelio.diagram.editor/icons/addstereotype.png" tooltip="%AddStereotype.tooltip" command="_hbfDQIWvEeKYkaRTRtSF_A"/>
         <children xsi:type="menu:HandledMenuItem" xmi:id="_YVRdAMR2EeK8YvcDBW3yZQ" elementId="org.modelio.diagram.editor.communication.handledmenuitem.rename" label="%RenameElement.label" iconURI="platform:/plugin/org.modelio.diagram.editor/icons/rename.png" tooltip="%RenameElement.tooltip" command="_9R-wcMRiEeKzIKCziwJO6Q"/>
@@ -50,18 +54,12 @@
         <children xsi:type="menu:MenuSeparator" xmi:id="_2A8qcB7FEeO9r6b_vtRk6A" elementId="diagram.editor.communication.menuseparator.1"/>
         <children xsi:type="menu:HandledMenuItem" xmi:id="_juRlRoWvEeKYkaRTRtSF_A" elementId="org.modelio.diagram.editor.communication.handledmenuitem.Mask" label="%Mask.label" iconURI="platform:/plugin/org.modelio.diagram.editor/icons/mask.png" tooltip="%Mask.tooltip" command="_3XHBsGOwEeKZr6syzOEatQ"/>
         <children xsi:type="menu:HandledMenuItem" xmi:id="_juRlR4WvEeKYkaRTRtSF_A" elementId="org.modelio.diagram.editor.communication.handledmenuitem.delete" label="%Delete.label" iconURI="platform:/plugin/org.modelio.diagram.editor/icons/delete.png" tooltip="%Delete.tooltip" command="_elXKsIWvEeKYkaRTRtSF_A"/>
-        <children xsi:type="menu:Menu" xmi:id="_juRlSIWvEeKYkaRTRtSF_A" elementId="org.modelio.diagram.editor.communication.menu.align" label="%Align.label">
-          <children xsi:type="menu:HandledMenuItem" xmi:id="_juRlSYWvEeKYkaRTRtSF_A" elementId="org.modelio.diagram.editor.communication.handledmenuitem.TopAlign" label="%TopAlign" iconURI="platform:/plugin/org.modelio.diagram.editor/icons/align_top.png" tooltip="%TopAlign" command="_zhUfcGGNEeKZr6syzOEatQ"/>
-          <children xsi:type="menu:HandledMenuItem" xmi:id="_juRlSoWvEeKYkaRTRtSF_A" elementId="org.modelio.diagram.editor.communication.handledmenuitem.LeftAlignHandler" label="%LeftAlign" iconURI="platform:/plugin/org.modelio.diagram.editor/icons/align_left.png" tooltip="%LeftAlign" command="_SysQoGGOEeKZr6syzOEatQ"/>
-          <children xsi:type="menu:HandledMenuItem" xmi:id="_juRlS4WvEeKYkaRTRtSF_A" elementId="org.modelio.diagram.editor.communication.handledmenuitem.BottomAlign" label="%BottomAlign" iconURI="platform:/plugin/org.modelio.diagram.editor/icons/align_bottom.png" tooltip="%BottomAlign" command="_s4OPEGGOEeKZr6syzOEatQ"/>
-          <children xsi:type="menu:HandledMenuItem" xmi:id="_juRlTIWvEeKYkaRTRtSF_A" elementId="org.modelio.diagram.editor.communication.handledmenuitem.RightAlign" label="%RightAlign" iconURI="platform:/plugin/org.modelio.diagram.editor/icons/align_right.png" tooltip="%RightAlign" command="_HAdGwGGQEeKZr6syzOEatQ"/>
-          <children xsi:type="menu:HandledMenuItem" xmi:id="_juRlTYWvEeKYkaRTRtSF_A" elementId="org.modelio.diagram.editor.communication.handledmenuitem.CenterHAlign" label="%CenterHAlign" iconURI="platform:/plugin/org.modelio.diagram.editor/icons/align_center_h.png" tooltip="%CenterHAlign" command="_u3iJgGGQEeKZr6syzOEatQ"/>
-          <children xsi:type="menu:HandledMenuItem" xmi:id="_juRlToWvEeKYkaRTRtSF_A" elementId="org.modelio.diagram.editor.communication.handledmenuitem.CenterVAlign" label="%CenterVAlign" iconURI="platform:/plugin/org.modelio.diagram.editor/icons/align_center_v.png" tooltip="%CenterVAlign" command="_HjgUAGGREeKZr6syzOEatQ"/>
-          <children xsi:type="menu:HandledMenuItem" xmi:id="_juRlT4WvEeKYkaRTRtSF_A" elementId="org.modelio.diagram.editor.communication.handledmenuitem.SameHeight" label="%SameHeight" iconURI="platform:/plugin/org.modelio.diagram.editor/icons/same_height.png" tooltip="%SameHeight" command="_ax5bgGGREeKZr6syzOEatQ"/>
-          <children xsi:type="menu:HandledMenuItem" xmi:id="_juRlUIWvEeKYkaRTRtSF_A" elementId="org.modelio.diagram.editor.communication.handledmenuitem.SameWidth" label="%SameWidth" iconURI="platform:/plugin/org.modelio.diagram.editor/icons/same_width.png" tooltip="%SameWidth" command="_nKV-4GGREeKZr6syzOEatQ"/>
-          <children xsi:type="menu:HandledMenuItem" xmi:id="_juRlUYWvEeKYkaRTRtSF_A" elementId="org.modelio.diagram.editor.communication.handledmenuitem.SameSize" label="%SameSize" iconURI="platform:/plugin/org.modelio.diagram.editor/icons/same_size.png" tooltip="%SameSize" command="_uFfzIGGREeKZr6syzOEatQ"/>
+        <children xsi:type="menu:Menu" xmi:id="_hNJ2AFFHEeOxPvmodYTYgw" elementId="org.modelio.diagram.editor.menu.align" label="%Align.label">
+          <tags>popup:org.modelio.diagram.editor.layoutmenu</tags>
+          <visibleWhen xsi:type="ui:CoreExpression" xmi:id="_hNJ2AVFHEeOxPvmodYTYgw" coreExpressionId="diagram.editor.statik.test.iscompositionlink.id"/>
         </children>
         <children xsi:type="menu:Menu" xmi:id="_juRlUoWvEeKYkaRTRtSF_A" elementId="org.modelio.diagram.editor.communication.menu.unmask" label="%Unmask.label">
+          <visibleWhen xsi:type="ui:CoreExpression" xmi:id="_r8VZkGZQEeOcF5k7r3prOw" coreExpressionId="org.modelio.diagram.editor.corexp.has-gmmodel.id"/>
           <children xsi:type="menu:HandledMenuItem" xmi:id="_juRlU4WvEeKYkaRTRtSF_A" elementId="org.modelio.diagram.editor.communication.handledmenuitem.UnmaskChildLinks" label="%UnmaskChildLinks.label" tooltip="%UnmaskChildLinks.tooltip" command="_e6a0sIWvEeKYkaRTRtSF_A"/>
           <children xsi:type="menu:HandledMenuItem" xmi:id="_juRlVIWvEeKYkaRTRtSF_A" elementId="org.modelio.diagram.editor.communication.handledmenuitem.UnmaskNonStructuringLinksAndNodes" label="%UnmaskNonStructuringLinksAndNodes.label" tooltip="%UnmaskNonStructuringLinksAndNodes.tooltip" command="_fML6IIWvEeKYkaRTRtSF_A"/>
           <children xsi:type="menu:HandledMenuItem" xmi:id="_juRlVYWvEeKYkaRTRtSF_A" elementId="org.modelio.diagram.editor.communication.handledmenuitem.UnmaskNonStructuringLinks" label="%UnmaskNonStructuringLinks.label" tooltip="%UnmaskNonStructuringLinks.tooltip" command="_fjdKoIWvEeKYkaRTRtSF_A"/>
@@ -136,7 +134,6 @@
         <parameters xmi:id="_Z1JsMeJCEeKWx8-qQ2OLqA" elementId="metaclass" name="metaclass" value="Note"/>
         <parameters xmi:id="_sPafsOJQEeKWx8-qQ2OLqA" elementId="dependency" name="dependency" value="Descriptor"/>
       </bindings>
-      <bindings xmi:id="_bxv7wOJCEeKWx8-qQ2OLqA" elementId="" keySequence="/" command="_tOGN4GGNEeKZr6syzOEatQ"/>
       <bindings xmi:id="_cNcZQOJCEeKWx8-qQ2OLqA" elementId="" keySequence="M1+U M1+D" command="_fjdKoIWvEeKYkaRTRtSF_A"/>
       <bindings xmi:id="_ckj4wOJCEeKWx8-qQ2OLqA" elementId="" keySequence="M1+U M1+M2+D" command="_fML6IIWvEeKYkaRTRtSF_A"/>
       <bindings xmi:id="_c_L_QOJCEeKWx8-qQ2OLqA" elementId="" keySequence="M1+U M1+G" command="_e6a0sIWvEeKYkaRTRtSF_A"/>
@@ -144,6 +141,10 @@
       <bindings xmi:id="_d7E_wOJCEeKWx8-qQ2OLqA" elementId="" keySequence="M1+U M1+L" command="_g2oCsIWvEeKYkaRTRtSF_A"/>
       <bindings xmi:id="_eZmHwOJCEeKWx8-qQ2OLqA" elementId="" keySequence="M1+U M1+M2+L" command="_gitoMIWvEeKYkaRTRtSF_A"/>
       <bindings xmi:id="_e06x0OJCEeKWx8-qQ2OLqA" elementId="" keySequence="M1+U M1+N" command="_f2T1MIWvEeKYkaRTRtSF_A"/>
+      <bindings xmi:id="_Pac2AGP2EeOKPIEepcCqnQ" elementId="" keySequence="+" command="_dX-5gGF8EeKZr6syzOEatQ"/>
+      <bindings xmi:id="_PzPwgGP2EeOKPIEepcCqnQ" elementId="" keySequence="-" command="_WhqQAGF-EeKZr6syzOEatQ"/>
+      <bindings xmi:id="_QJhigGP2EeOKPIEepcCqnQ" elementId="" keySequence="*" command="_NEVTMGP2EeOKPIEepcCqnQ"/>
+      <bindings xmi:id="_QfB4cGP2EeOKPIEepcCqnQ" elementId="" keySequence="/" command="_N9JRQGF-EeKZr6syzOEatQ"/>
     </elements>
   </fragments>
   <fragments xsi:type="fragment:StringModelFragment" xmi:id="__BO6YIylEeKbH-WHrunjdQ" featurename="children" parentElementId="org.eclipse.ui.contexts.window">

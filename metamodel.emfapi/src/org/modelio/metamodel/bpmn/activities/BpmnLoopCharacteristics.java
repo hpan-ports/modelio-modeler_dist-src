@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.bpmn.activities;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
@@ -32,10 +32,10 @@ import org.modelio.metamodel.bpmn.rootElements.BpmnBaseElement;
 
 @objid ("007ff738-c4bf-1fd8-97fe-001ec947cd2a")
 public interface BpmnLoopCharacteristics extends BpmnBaseElement {
-    @objid ("c938480f-06fb-455c-8c05-3b9858684d38")
+    @objid ("cf4e9a2e-2fe0-4f9e-a26b-fad513b00340")
     BpmnActivity getOwnerActivity();
 
-    @objid ("6c533fa7-3191-4927-8020-d46ed92a6f09")
+    @objid ("617e682d-1d25-455a-a809-250b0b4566db")
     void setOwnerActivity(BpmnActivity value);
 
 }

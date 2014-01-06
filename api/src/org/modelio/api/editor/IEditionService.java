@@ -20,6 +20,7 @@ package org.modelio.api.editor;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.metamodel.diagrams.AbstractDiagram;
@@ -120,5 +121,44 @@ public interface IEditionService {
      */
     @objid ("a4084ac9-0ecc-11e2-96c4-002564c97630")
     boolean createDocumentContent(final ExternDocument doc) throws IOException;
+
+    /**
+     * Set a document content for the given document.
+     * @param doc The document to update.
+     * @param content the content to set.
+     * @throws java.io.IOException in case of error trying to set the file.
+     * @since 3.1
+     */
+    @objid ("bc8aec62-33c9-458d-b57f-41b09ea08346")
+    void setDocumentContent(ExternDocument doc, Path content) throws IOException;
+
+    /**
+     * Get a copy of the file for a given external document.
+     * @param doc an external document.
+     * @param listener A listener fired if the original note is modified externally, by SVN for example. <code>null</code> means no edition.
+     * @return its file.
+     * @throws java.io.IOException in case of failure.
+     * @since 3.1
+     */
+    @objid ("513826ce-ccdb-487e-829d-2417eb0a7d99")
+    Path editRichNote(ExternDocument doc, IExternDocumentChangeListener listener) throws IOException;
+
+    /**
+     * Save the external document.
+     * @param doc the external document model object.
+     * @param fileToSave the external document content
+     * @throws java.io.IOException in case of failure.
+     * @since 3.1
+     */
+    @objid ("a9cccc45-56c4-4cf9-9961-104104bff393")
+    void saveRichNote(ExternDocument doc, Path fileToSave) throws IOException;
+
+    /**
+     * To call when an listener is not used anymore.
+     * @param editor the listener to unregister.
+     * @since 3.1
+     */
+    @objid ("97d3bf10-fafd-4ea6-9c37-7787852c9daf")
+    void unregisterListener(IExternDocumentChangeListener editor);
 
 }

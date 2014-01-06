@@ -25,8 +25,8 @@ import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.draw2d.Bendpoint;
 import org.eclipse.gef.commands.Command;
-import org.modelio.diagram.elements.core.link.GmLink;
 import org.modelio.diagram.elements.core.link.GmPath;
+import org.modelio.diagram.elements.core.model.IGmLinkObject;
 import org.modelio.diagram.elements.core.model.IGmPath;
 import org.modelio.gproject.model.api.MTools;
 
@@ -39,7 +39,7 @@ public class DefaultMoveBendPointCommand extends Command {
     private final int index;
 
     @objid ("7f397a4d-1dec-11e2-8cad-001ec947c8cc")
-    private final GmLink gmLink;
+    private final IGmLinkObject gmLink;
 
     @objid ("65c9ee2f-1e83-11e2-8cad-001ec947c8cc")
     private final Bendpoint newpoint;
@@ -51,7 +51,7 @@ public class DefaultMoveBendPointCommand extends Command {
      * @param newpoint the new bend point position.
      */
     @objid ("7f397a4f-1dec-11e2-8cad-001ec947c8cc")
-    public DefaultMoveBendPointCommand(GmLink gmLink, int index, Bendpoint newpoint) {
+    public DefaultMoveBendPointCommand(IGmLinkObject gmLink, int index, Bendpoint newpoint) {
         this.index = index;
         this.newpoint = newpoint;
         this.gmLink = gmLink;

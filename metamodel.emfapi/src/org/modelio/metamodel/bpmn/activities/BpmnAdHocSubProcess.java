@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.bpmn.activities;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
@@ -31,22 +31,22 @@ import org.modelio.metamodel.bpmn.activities.AdHocOrdering;
 
 @objid ("007df21c-c4bf-1fd8-97fe-001ec947cd2a")
 public interface BpmnAdHocSubProcess extends BpmnSubProcess {
-    @objid ("a472e1d3-f015-4799-a1ed-a4b8132e8497")
+    @objid ("668aaed9-8636-48a4-aaf4-13d3e50af7d9")
     AdHocOrdering getOrdering();
 
-    @objid ("f0f8da03-2a0f-4d11-8258-e7b84f04e3f7")
+    @objid ("654ba5dc-cc1c-4165-8e2e-c30973849bf3")
     void setOrdering(AdHocOrdering value);
 
-    @objid ("6d1b582b-4325-4d2c-ac17-a42af0e2539f")
+    @objid ("9fab003b-6f24-4136-9d98-eff691d2013a")
     boolean isCancelRemainingInstances();
 
-    @objid ("3d2d27d8-99fa-4392-b598-cde172e4b0ea")
+    @objid ("0c93a72a-9b9e-41ae-abbf-db9107906388")
     void setCancelRemainingInstances(boolean value);
 
-    @objid ("a51b297f-9082-4d1c-8f8d-c8737cee5333")
+    @objid ("6984a09a-dfb1-470f-b72c-6ab40f9f384a")
     String getCompletionCondition();
 
-    @objid ("98741ea4-21bd-4cda-b8c5-9858c0b0759e")
+    @objid ("84584dad-1f81-4104-9e87-8afad3c4b705")
     void setCompletionCondition(String value);
 
 }

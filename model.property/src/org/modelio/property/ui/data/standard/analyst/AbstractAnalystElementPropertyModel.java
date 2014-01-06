@@ -30,6 +30,7 @@ import org.modelio.app.core.activation.IActivationService;
 import org.modelio.app.project.core.services.IProjectService;
 import org.modelio.core.ui.ktable.types.IPropertyType;
 import org.modelio.core.ui.ktable.types.bool.BooleanType;
+import org.modelio.core.ui.ktable.types.element.SingleElementType;
 import org.modelio.core.ui.ktable.types.list.ListType;
 import org.modelio.core.ui.ktable.types.text.MultilineStringType;
 import org.modelio.core.ui.ktable.types.text.StringType;
@@ -37,12 +38,14 @@ import org.modelio.editors.richnote.gui.ktable.ScopeRichTextType;
 import org.modelio.gproject.model.IMModelServices;
 import org.modelio.metamodel.analyst.AnalystElement;
 import org.modelio.metamodel.analyst.AnalystPropertyTable;
+import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.metamodel.uml.infrastructure.ExternDocument;
 import org.modelio.metamodel.uml.infrastructure.properties.EnumeratedPropertyType;
 import org.modelio.metamodel.uml.infrastructure.properties.PropertyDefinition;
 import org.modelio.metamodel.uml.infrastructure.properties.PropertyEnumerationLitteral;
 import org.modelio.metamodel.uml.infrastructure.properties.PropertyTableDefinition;
 import org.modelio.property.ui.data.standard.common.AbstractPropertyModel;
+import org.modelio.vcore.smkernel.mapi.MRef;
 
 @objid ("01f89e83-fde5-4e61-8378-fbec71cb2c3c")
 abstract class AbstractAnalystElementPropertyModel<T extends AnalystElement> extends AbstractPropertyModel<T> {
@@ -80,9 +83,14 @@ abstract class AbstractAnalystElementPropertyModel<T extends AnalystElement> ext
     @objid ("bbedbc57-0551-4de1-be25-32908e036670")
     private IProjectService projectService;
 
+    @objid ("cd99e0c5-08d6-47d1-85cb-d584094a30bd")
+    private SingleElementType elementType;
+
     @objid ("920ba5a8-b649-4339-b059-c83a2dd16b7b")
     public AbstractAnalystElementPropertyModel(T theEditedElement, IMModelServices modelService, IProjectService projectService, IActivationService activationService) {
         super(theEditedElement);
+        this.elementType = new SingleElementType(true, Element.class, projectService.getSession());
+        
         this.modelService = modelService;
         this.activationService = activationService;
         this.projectService = projectService;
@@ -94,6 +102,8 @@ abstract class AbstractAnalystElementPropertyModel<T extends AnalystElement> ext
     private void buildDisplayedProperties() {
         this.properties.add(this.theEditedElement.getMClass().getName());
         this.properties.add("Name");
+        this.properties.add("Text");
+        
         // Get the propertySet from the containing AnalystContainer.
         PropertyTableDefinition propertySet = this.theEditedElement.getDefaultProperties().getType();
         if (propertySet != null) {
@@ -101,7 +111,6 @@ abstract class AbstractAnalystElementPropertyModel<T extends AnalystElement> ext
                 this.properties.add(property.getName());
             }
         }
-        this.properties.add("Text");
     }
 
     /**
@@ -136,26 +145,22 @@ abstract class AbstractAnalystElementPropertyModel<T extends AnalystElement> ext
     @Override
     public Object getValueAt(int row, int col) {
         if (col == 0) {
+            // col 0 is the title column
             return this.properties.get(row);
-        }
-        
-        // else
-        if (col == 1) // col 1 is the property value
-        {
+        } else if (col == 1) {
+            // col 1 is the property value
             if (row == 0) {
+                // Header line
                 return "Value";
-            }
-            // else
-            if (row == 1) {
+            } else if (row == 1) {
+                // name
                 return this.theEditedElement.getName();
-            }
-            // else
-            if (2 <= row && row < (this.properties.size() - 1)) {
-                return getPropertyValue(row - 2);
-            }
-            // else
-            if (row == (this.properties.size() - 1)) {
+            } else if (row == 2) {
+                // Text definition
                 return this.theEditedElement.getDefinition();
+            } else if (3 <= row && row < this.properties.size()) {
+                // properties
+                return getPropertyValue(row - 3);
             }
             // else
             return null;
@@ -180,26 +185,21 @@ abstract class AbstractAnalystElementPropertyModel<T extends AnalystElement> ext
     public IPropertyType getTypeAt(int row, int col) {
         if (col == 0) {
             return this.labelStringType;
-        }
-        // else
-        if (col == 1) // col 1 is the property value
+        } 
+        else if (col == 1) // col 1 is the property value
         {
             if (row == 0) {
                 return this.labelStringType;
             }
-            // else
-            if (row == 1) {
+            else if (row == 1) {
                 return this.stringType;
             }
-            // else
-            if (2 <= row && row < (this.properties.size() - 1)) {
-                return getPropertyType(row - 2);
-            }
-            // else
-            if (row == (this.properties.size() - 1)) {
+            else if (row == 2) {
                 return new MultilineStringType(this.theEditedElement, this.properties.get(row), true);
             }
-            // else
+            else if (3 <= row && row < this.properties.size()) {
+                return getPropertyType(row - 3);
+            }
             return null;
         }
         return null;
@@ -219,31 +219,23 @@ abstract class AbstractAnalystElementPropertyModel<T extends AnalystElement> ext
         if (col == 0) {
             return;
         }
-        
-        // else
-        if (col == 1) // col 1 is the property value
+        else if (col == 1) // col 1 is the property value
         {
             if (row == 0) {
                 return; // Header cannot be modified
             }
-            // else
-            if (row == 1) {
+            else if (row == 1) {
                 this.theEditedElement.setName(value.toString());
                 return;
             }
-            // else
-            if (2 <= row && row < (this.properties.size() - 1)) {
-                setPropertyValue(row - 2, value.toString());
-                return;
-            }
-            // else
-            if (row == (this.properties.size() - 1)) {
+            else if (row == 2) {
                 this.theEditedElement.setDefinition(value.toString());
             }
-            // else
-            return;
+            else {
+                setPropertyValue(row - 3, value.toString());
+                return;
+            }
         }
-        // else
         return;
     }
 
@@ -252,8 +244,8 @@ abstract class AbstractAnalystElementPropertyModel<T extends AnalystElement> ext
     public boolean isEditable(int row, int col) {
         if (col == 0) {
             return false;
-        } else if (2 <= row && row < (this.properties.size() - 1)) {
-            int propertyIndex = row - 2;
+        } else if (3 <= row && row < this.properties.size()) {
+            int propertyIndex = row - 3;
             PropertyDefinition property = this.theEditedElement.getDefaultProperties().getType().getOwned().get(propertyIndex);
             if (!property.isIsEditable()) {
                 return false;
@@ -273,6 +265,7 @@ abstract class AbstractAnalystElementPropertyModel<T extends AnalystElement> ext
         PropertyDefinition property = this.theEditedElement.getDefaultProperties().getType().getOwned().get(propertyIndex);
         boolean isBooleanProperty = (property.getType().getName().equals("Boolean")); //$NON-NLS-1$
         boolean isRichTextProperty = (property.getType().getName().equals("RichText")); //$NON-NLS-1$
+        boolean isElement = (property.getType().getName().equals("Element")); //$NON-NLS-1$
         
         // If property values are defined on this AnalystElement
         // go through theEditedElement and look for the one corresponding
@@ -283,6 +276,13 @@ abstract class AbstractAnalystElementPropertyModel<T extends AnalystElement> ext
             if (stringValue != null) {
                 if (isBooleanProperty) {
                     return new Boolean(stringValue);
+                } else if (isElement) {
+                    try {
+                        return this.projectService.getSession().getModel().findByRef(new MRef(stringValue));
+                    } catch (Exception e) {
+                        // Ignore invalid values
+                        return null;
+                    }
                 } else if (isRichTextProperty) {
                     String docTypeName = getRichTextType();
                     for (ExternDocument doc : this.theEditedElement.getDocument()) {
@@ -299,7 +299,13 @@ abstract class AbstractAnalystElementPropertyModel<T extends AnalystElement> ext
         
         // No value is already defined for this property, return the default
         // value.
-        if (isBooleanProperty) {
+        if (isElement) {
+            try {
+                return this.projectService.getSession().getModel().findByRef(new MRef(property.getDefaultValue()));
+            } catch (Exception e) {
+                return null;
+            }
+        } else if (isBooleanProperty) {
             return new Boolean(property.getDefaultValue());
         } else {
             return property.getDefaultValue();
@@ -336,6 +342,8 @@ abstract class AbstractAnalystElementPropertyModel<T extends AnalystElement> ext
             String propertyName = propertyType.getName();
             if (propertyName.equals("Boolean")) {
                 return this.booleanType;
+            } else if (propertyName.equals("Element")) {
+                return this.elementType;
             } else if (propertyName.equals("MultiText")) {
                 return new MultilineStringType(this.theEditedElement, "Text", true);
             } else if (propertyName.equals("Text") || propertyName.equals("Integer") || propertyName.equals("Real") || propertyName.equals("Date")) {

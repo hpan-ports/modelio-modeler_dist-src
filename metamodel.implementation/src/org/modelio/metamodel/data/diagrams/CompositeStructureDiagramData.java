@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.data.diagrams;
 
 import java.util.ArrayList;
@@ -43,22 +43,22 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("00735334-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=CompositeStructureDiagram.class, factory=CompositeStructureDiagramData.Metadata.ObjectFactory.class, cmsnode=true)
 public class CompositeStructureDiagramData extends StaticDiagramData {
-    @objid ("90040c24-57a8-4e9f-ab91-00b142576b7d")
+    @objid ("60498d55-bc9e-4de2-83b5-9fbacc45ddf9")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("0007c0ec-c4c5-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("f6c8d9d8-5095-4581-8332-45b47147b55c")
+        @objid ("e6b8e962-c173-40f3-8ae4-f3a5918cef7a")
         private static SmClass smClass = null;
 
-        @objid ("21090928-c792-43eb-978a-153fa138a4b6")
+        @objid ("b10271d0-f12b-4bdb-a61d-5b387594dba5")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(CompositeStructureDiagramData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("7b9ee49a-90c3-40a9-8612-8e95c481541e")
+        @objid ("e8ab6df1-2b9d-4d79-8782-a7eae426341e")
         public static SmClass getSmClass() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return smClass;
@@ -66,12 +66,12 @@ public class CompositeStructureDiagramData extends StaticDiagramData {
 
         @objid ("00080f52-c4c5-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("48d25ddc-ac6d-430c-ac34-a1107d4a8f46")
+            @objid ("a4c0cb96-1ccd-4f12-885a-e4723c3226db")
             public ISmObjectData createData() {
                 return new CompositeStructureDiagramData();
             }
 
-            @objid ("b5406a62-fd7d-42f3-8ff5-9132e63350fd")
+            @objid ("a5fbb294-468e-492f-bdfa-1d7e974daeb2")
             public SmObjectImpl createImpl() {
                 return new CompositeStructureDiagramImpl();
             }

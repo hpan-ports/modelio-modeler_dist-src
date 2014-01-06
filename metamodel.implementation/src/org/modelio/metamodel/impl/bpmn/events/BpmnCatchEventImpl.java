@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.bpmn.events;
 
 import java.util.ArrayList;
@@ -44,25 +44,25 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("0088d56a-c4bf-1fd8-97fe-001ec947cd2a")
 public abstract class BpmnCatchEventImpl extends BpmnEventImpl implements BpmnCatchEvent {
-    @objid ("6c1aa767-6f66-4c5b-88e4-5ee0a7cdc901")
+    @objid ("52706d4e-6eaf-4c75-a864-838d9967ce0d")
     @Override
     public boolean isParallelMultiple() {
         return (Boolean) getAttVal(BpmnCatchEventData.Metadata.ParallelMultipleAtt());
     }
 
-    @objid ("18038560-d521-4337-a80a-20ec839022d4")
+    @objid ("36b367e9-917b-4b98-b79b-da6c2cbb6623")
     @Override
     public void setParallelMultiple(boolean value) {
         setAttVal(BpmnCatchEventData.Metadata.ParallelMultipleAtt(), value);
     }
 
-    @objid ("901f1708-be7e-4e4d-9a47-d49f3e974d09")
+    @objid ("bb66f725-df56-44e6-95fa-45a5b8cfca47")
     @Override
     public EList<BpmnDataAssociation> getDataOutputAssociation() {
         return new SmList<>(this, BpmnCatchEventData.Metadata.DataOutputAssociationDep());
     }
 
-    @objid ("20adbec8-72d3-4fee-86e8-268f5125d41c")
+    @objid ("177f3df2-ff34-43ca-94bb-41f77c8764bb")
     @Override
     public <T extends BpmnDataAssociation> List<T> getDataOutputAssociation(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -75,33 +75,33 @@ public abstract class BpmnCatchEventImpl extends BpmnEventImpl implements BpmnCa
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("a396bffb-8509-4eaf-90e9-b831bb8536b5")
+    @objid ("167d24d6-d736-4b88-b0ef-930a954e8b57")
     @Override
     public BpmnDataOutput getDataOutput() {
         return (BpmnDataOutput) getDepVal(BpmnCatchEventData.Metadata.DataOutputDep());
     }
 
-    @objid ("411aa1d1-c63f-4680-95af-a051d7e77ee7")
+    @objid ("50887d75-14db-46d1-91c9-1ebad4b50fb8")
     @Override
     public void setDataOutput(BpmnDataOutput value) {
         appendDepVal(BpmnCatchEventData.Metadata.DataOutputDep(), (SmObjectImpl)value);
     }
 
-    @objid ("572e50b2-3de3-4239-a0dc-8da233319505")
+    @objid ("29ca5637-4ace-41e2-8ddc-91e99e7843d2")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("9a750287-106d-4de8-9b4a-519813e50fd8")
+    @objid ("a665e6a3-3a09-4298-a5f4-ceb6a8682668")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("1285dbf7-2ef9-4ea6-b790-f616c78c9a1e")
+    @objid ("478256dd-8294-40d3-953b-2de34c5dfc2a")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitBpmnCatchEvent(this);

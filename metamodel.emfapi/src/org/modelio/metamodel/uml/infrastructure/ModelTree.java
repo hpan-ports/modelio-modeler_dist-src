@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.uml.infrastructure;
 
 import java.util.List;
@@ -31,16 +31,16 @@ import org.eclipse.emf.ecore.EObject;
 
 @objid ("00891e1c-c4be-1fd8-97fe-001ec947cd2a")
 public interface ModelTree extends ModelElement {
-    @objid ("0f9350ea-0aaa-4ad2-a0e9-7152eff9080b")
+    @objid ("8442fe23-92a8-49ac-a1f4-c042cc4a5ff5")
     ModelTree getOwner();
 
-    @objid ("973d46d1-ea42-4697-9b3c-3da75e617e33")
+    @objid ("5f13be47-7ec5-4c76-b412-49a5ada82c7c")
     void setOwner(ModelTree value);
 
-    @objid ("7f7f7f8d-65ff-48a2-b5e9-dbeeb1469eb2")
+    @objid ("afa1985c-a468-4834-8533-e9df66b73398")
     EList<ModelTree> getOwnedElement();
 
-    @objid ("63cd7436-900c-4a9e-9a91-dd959bf80775")
+    @objid ("f9bf94a0-2ca4-4443-ba3f-3ba88ab8c09b")
     <T extends ModelTree> List<T> getOwnedElement(java.lang.Class<T> filterClass);
 
 }

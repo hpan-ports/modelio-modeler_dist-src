@@ -32,7 +32,7 @@ import org.modelio.vcore.smkernel.mapi.MObject;
 public class RelatedCreationExpert extends DefaultLinkExpert {
     @objid ("631ddd79-6f71-4243-9e16-3cebacb2cfd5")
     @Override
-    public boolean canLink(MObject link, final MObject fromElement, final MObject toElement, final MObject linkOwner) {
+    public boolean canLink(MClass link, final MObject fromElement, final MObject toElement) {
         return ((fromElement instanceof BusinessRule) &&
                 (toElement instanceof BusinessRule)) ||
                 ((fromElement instanceof Term) &&
@@ -41,7 +41,7 @@ public class RelatedCreationExpert extends DefaultLinkExpert {
 
     @objid ("5a27b568-e175-4f41-a17f-30dadbda6ee8")
     @Override
-    public boolean canLink(MClass link, final MClass fromMetaclass, final MClass toMetaclass, final MClass owner) {
+    public boolean canLink(MClass link, final MClass fromMetaclass, final MClass toMetaclass) {
         return (fromMetaclass.hasBase(Metamodel.getMClass(BusinessRule.class)) && toMetaclass.hasBase(Metamodel.getMClass(BusinessRule.class))) ||
                 (fromMetaclass.hasBase(Metamodel.getMClass(Term.class)) && toMetaclass.hasBase(Metamodel.getMClass(Term.class)));
     }

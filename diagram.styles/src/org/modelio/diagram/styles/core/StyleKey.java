@@ -26,24 +26,27 @@ import java.util.HashMap;
 import java.util.Map;
 import com.modeliosoft.modelio.javadesigner.annotations.mdl;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
+import org.modelio.diagram.styles.plugin.DiagramStyles;
+import org.modelio.vcore.smkernel.mapi.MRef;
 
 /**
  * Represents a style property key.
  * <p>
- * {@link StyleKey} are composed of a key and a meta-key. <br>
- * The key is used to associate the StyleKey to a particular metaclass. The meta-key describes the 'nature' of the
- * property, it might be the no-meta-key null value.<br>
+ * {@link StyleKey} are composed of a key and a {@link MetaKey meta-key}. <br>
+ * The key is used to associate the <code>StyleKey</code> to a particular metaclass. The meta-key describes the 'nature' of the
+ * property, it might be the no-meta-key <i>null</i> value.<br>
  * <p>
- * Metakey are used to compare and match StyleKey instances in order to decide that they match even though their
- * metaclass keys differs. The null value matches with absolutely no metakey including itself.
+ * {@link MetaKey} are used to compare and match <code>StyleKey</code> instances in order to decide that they match even though their
+ * metaclass keys differs. The <i>null</i> value matches with absolutely no metakey including itself.
  * <p>
- * Meta-keys defines 'concepts' for properties. For example the MetaKey.FILLCOLOR represents the concept of the
+ * Meta-keys defines 'concepts' for properties. For example the {@link MetaKey#FILLCOLOR} represents the concept of the
  * background color of a 'box-like' graphic. Therefore, when cloning properties between let say a Class and a Package,
  * it is possible to copy the CLAZZ_FILLCOLOR property of the class to the PACKAGE_FILLCOLOR property of the package
- * because both these properties are based on the same MetaKey.FILLCOLOR metakey.<br>
- * The important rule when defining new StyleKey instances, is that the pair (key, metakey) is strictly unique.
+ * because both these properties are based on the same {@link MetaKey#FILLCOLOR} metakey.<br>
+ * The important rule when defining new <code>StyleKey</code> instances, is that the pair (key, metakey) is strictly unique.
  * <p>
- * All style properties are enumerated below as static attributes and no other can be instantiated outside this class.
+ * All style properties for a graphic model class are enumerated as static attributes in
+ * a dedicated style key class extending the {@link AbstractStyleKeyProvider} class.
  */
 @objid ("857c0eba-1926-11e2-92d2-001ec947c8cc")
 public class StyleKey {
@@ -237,6 +240,27 @@ public class StyleKey {
     @Override
     public String toString() {
         return this.id;
+    }
+
+    /**
+     * Checks the given value is valid for this style key.
+     * <p>
+     * Throws an exception explaining the problem if the value is not valid.
+     * The exception message may be directly displayed in the GUI so must be human readable.
+     * @param value the style key value to check
+     * @throws java.lang.IllegalArgumentException if the value is not valid. The message tells why.
+     */
+    @objid ("abef35ab-465b-4112-86b7-ff622bb2b57c")
+    public void validate(Object value) throws IllegalArgumentException {
+        // Accepts null only for MRef
+        if (value == null && getType() == MRef.class)
+            return;
+        
+        // Check the value type matches the style key type
+        if (!getType().isInstance(value)) {
+            String msg = DiagramStyles.I18N.getMessage("StyleKey.InvalidValue", String.valueOf(value), this.id, getType().getSimpleName());
+            throw new IllegalArgumentException(msg);
+        }
     }
 
     /**

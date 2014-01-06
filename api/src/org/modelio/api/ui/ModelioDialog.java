@@ -47,8 +47,8 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
-import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
+import org.modelio.core.help.system.ModelioHelpSystem;
 
 /**
  * Dialog template that has :<ul>
@@ -605,8 +605,8 @@ public abstract class ModelioDialog extends TrayDialog implements IModelioDialog
                 @Override
                 public void helpRequested(HelpEvent e) {
                     String hId = getHelpId();
-                    if (hId!= null) {
-                        PlatformUI.getWorkbench().getHelpSystem().displayHelpResource(hId);
+                    if (hId != null) {
+                        ModelioHelpSystem.getInstance().displayHelpResource(hId);
                     }
                 }
             });

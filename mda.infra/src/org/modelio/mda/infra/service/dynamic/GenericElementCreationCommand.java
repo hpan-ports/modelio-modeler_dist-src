@@ -90,7 +90,9 @@ class GenericElementCreationCommand extends DefaultModuleContextualCommand {
                     }
         
                     // Set name.
-                    newElement.setName(this.name);
+                    if (newElement instanceof ModelElement) {
+                        modelFactory.getDefaultNameService().setDefaultName((ModelElement) newElement, this.name);
+                    }
                 } else {
                     newElement.delete();
                 }
@@ -98,6 +100,12 @@ class GenericElementCreationCommand extends DefaultModuleContextualCommand {
         
             tr.commit();
         }
+    }
+
+    @objid ("4161d8db-de05-4aa4-88de-ff5ce1cbbdf7")
+    @Override
+    public boolean accept(List<MObject> selectedElements, IModule module) {
+        return selectedElements.size() > 0;
     }
 
 }

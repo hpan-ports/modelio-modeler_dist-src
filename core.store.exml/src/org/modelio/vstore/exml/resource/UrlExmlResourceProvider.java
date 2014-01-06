@@ -78,6 +78,9 @@ public class UrlExmlResourceProvider implements IExmlResourceProvider {
     @objid ("32f3c5fd-b2cf-4c53-9498-c7a119427d82")
     private Path localIndexStampPath;
 
+    @objid ("19f773d5-7d94-4da7-a0db-4f3073b52b4d")
+    private URL versionUrl;
+
     /**
      * Compute HTTP authentification request property.
      * <p>
@@ -112,8 +115,9 @@ public class UrlExmlResourceProvider implements IExmlResourceProvider {
             this.url = url;
             this.name = url.getFile();
         
-            this.modelUrl = new URL(url.toString()+ "/"+IExmlRepositoryGeometry.MODEL_DIRNAME);
-            this.stampUrl = new URL(url.toString()+ "/"+IStampGeometry.STAMP_DIR_NAME+"/"+IStampGeometry.STAMP_FILE_NAME);
+            this.modelUrl = new URL(url.toString()+ "/" + IExmlRepositoryGeometry.MODEL_DIRNAME);
+            this.stampUrl = new URL(url.toString()+ "/" + IStampGeometry.STAMP_DIR_NAME+"/"+IStampGeometry.STAMP_FILE_NAME);
+            this.versionUrl = new URL(url.toString()+ "/" + IExmlRepositoryGeometry.VERSION_PATH);
         
             this.localIndexDir = localDir.resolve(IExmlRepositoryGeometry.INDEX_DIRNAME);
             this.localIndexStampPath = localDir.resolve(IStampGeometry.LOCAL_INDEX_STAMP_FILE);
@@ -362,6 +366,12 @@ public class UrlExmlResourceProvider implements IExmlResourceProvider {
         } catch (FileNotFoundException e) {
             return null;
         }
+    }
+
+    @objid ("0e81c0f5-dff3-4e2d-ad03-a68b9b2d520d")
+    @Override
+    public ExmlResource getRepositoryVersionResource() {
+        return new UrlResource(this.versionUrl, this.auth);
     }
 
     /**

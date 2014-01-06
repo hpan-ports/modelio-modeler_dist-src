@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.bpmn.events;
 
 import java.util.List;
@@ -34,16 +34,16 @@ import org.modelio.metamodel.bpmn.rootElements.BpmnBaseElement;
 
 @objid ("008d3f9c-c4bf-1fd8-97fe-001ec947cd2a")
 public interface BpmnEventDefinition extends BpmnBaseElement {
-    @objid ("7f8a8340-a22e-4bed-a593-adfe799ba106")
+    @objid ("eaa1880d-4edc-42f3-b275-0dafde838528")
     BpmnEvent getDefined();
 
-    @objid ("547fbf17-fbe6-4639-80f0-5caf14f24bb8")
+    @objid ("354a2e9a-33cf-4361-8cf8-cc43432555d5")
     void setDefined(BpmnEvent value);
 
-    @objid ("cd4e2203-2601-47fa-9796-8d9e55a9684b")
+    @objid ("240cdb64-99c2-4283-933b-fd5dfd64c9c7")
     EList<BpmnMultiInstanceLoopCharacteristics> getLoopRef();
 
-    @objid ("1069cd0a-3702-4922-be97-fb0439432117")
+    @objid ("3540bc7b-82cc-487e-b052-dd19662999ba")
     <T extends BpmnMultiInstanceLoopCharacteristics> List<T> getLoopRef(java.lang.Class<T> filterClass);
 
 }

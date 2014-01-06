@@ -37,7 +37,6 @@
         </children>
       </menus>
       <menus xsi:type="menu:PopupMenu" xmi:id="_o_6C8GVuEeKpoNjm4nPb8Q" elementId="org.modelio.linkeditor.popupmenu">
-        <tags>popup:org.modelio.popupmenu.cms</tags>
         <children xsi:type="menu:HandledMenuItem" xmi:id="_0Ie54GVuEeKpoNjm4nPb8Q" elementId="org.modelio.linkeditor.popupmenu.Delete" label="%Delete" iconURI="platform:/plugin/org.modelio.link.editor/icons/delete.png" tooltip="%Delete" command="_br0PkF_wEeKxFZW_aaCuxw"/>
         <children xsi:type="menu:HandledMenuItem" xmi:id="_LQ3REGV3EeKtruKl39yArQ" elementId="org.modelio.linkeditor.popupmenu.ShowCause" label="%ShowCause" iconURI="platform:/plugin/org.modelio.link.editor/icons/show_cause.png" tooltip="%ShowCause" command="_zEBOANfyEeKjSfPDByQfxw"/>
         <children xsi:type="menu:HandledMenuItem" xmi:id="_QynpcGV3EeKtruKl39yArQ" elementId="org.modelio.linkeditor.popupmenu.SelectInExplorer" label="%SelectInExplorer" iconURI="platform:/plugin/org.modelio.link.editor/icons/select.png" tooltip="%SelectInExplorer" command="_Yv8FUGV3EeKtruKl39yArQ"/>

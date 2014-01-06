@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.bpmn.processCollaboration;
 
 import java.util.List;
@@ -35,28 +35,28 @@ import org.modelio.metamodel.uml.infrastructure.ModelElement;
 
 @objid ("00746c56-c4bf-1fd8-97fe-001ec947cd2a")
 public interface BpmnLane extends BpmnBaseElement {
-    @objid ("cee4740e-cdd8-484b-97ff-68313eab59fc")
+    @objid ("ad7fd5be-664e-4d2a-a43b-c7784cb3f235")
     BpmnLaneSet getChildLaneSet();
 
-    @objid ("5e4a8942-ca7b-452b-9a4b-1959102ac027")
+    @objid ("dbf98a42-9910-4feb-be01-eefc84509630")
     void setChildLaneSet(BpmnLaneSet value);
 
-    @objid ("8911ff7c-9d54-4f28-b40a-9af9f88ffc9a")
+    @objid ("138147e9-8be8-4af2-8415-ad8b86f831e7")
     ModelElement getPartitionElement();
 
-    @objid ("7da8379b-652d-4b8c-a2aa-ec3e8438c442")
+    @objid ("4eead2c0-70c5-433e-a1e1-1d3a4e1d5eb2")
     void setPartitionElement(ModelElement value);
 
-    @objid ("9a24e1a9-08f3-4996-a6c8-ae57141803a6")
+    @objid ("dab52957-b77d-47f3-a8c1-ff1852d44ffe")
     EList<BpmnFlowElement> getFlowElementRef();
 
-    @objid ("e2d41cbf-69a2-472b-8e15-0d627f324e42")
+    @objid ("ee52c9f5-3089-4241-81a9-b91cc697bc0a")
     <T extends BpmnFlowElement> List<T> getFlowElementRef(java.lang.Class<T> filterClass);
 
-    @objid ("5c7dfc39-5295-4ae0-8dbe-2f9c48e74c03")
+    @objid ("70a74e17-f636-48b6-b8ad-8ef991d460ab")
     BpmnLaneSet getLaneSet();
 
-    @objid ("caf357ee-f609-496c-a8e0-4e439d354bf6")
+    @objid ("4a5f9438-c976-4f6f-b252-f9cfdb46cec6")
     void setLaneSet(BpmnLaneSet value);
 
 }

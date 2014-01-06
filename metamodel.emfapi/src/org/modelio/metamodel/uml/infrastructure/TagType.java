@@ -20,8 +20,8 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9015              */
-/*   SemGen version   : 2.0.06.9012       */
+/*   Metamodel version: 9019              */
+/*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.uml.infrastructure;
 
 import java.util.List;
@@ -29,58 +29,61 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.modelio.metamodel.mda.ModuleComponent;
+import org.modelio.metamodel.uml.infrastructure.MetaclassReference;
+import org.modelio.metamodel.uml.infrastructure.Stereotype;
+import org.modelio.metamodel.uml.infrastructure.TaggedValue;
 
 @objid ("008f48d2-c4be-1fd8-97fe-001ec947cd2a")
 public interface TagType extends ModelElement {
     @objid ("1bb2d0a1-acf1-4d78-85d4-08a7d74e0427")
     ModuleComponent getModule();
 
-    @objid ("f30eb3a4-245c-4c7d-8aba-5ff46b826938")
+    @objid ("93596d58-4b09-4905-b9ef-d10721d88cce")
     String getParamNumber();
 
-    @objid ("cc713a28-6318-4ade-8407-438f8fd368b2")
+    @objid ("d7887f17-a942-4826-a619-d8ac96f6a591")
     void setParamNumber(String value);
 
-    @objid ("67bd8cd0-b684-4a55-bf85-cb75a4a196aa")
+    @objid ("480e6cec-b6ed-4911-a090-cbf0595c5a42")
     boolean isIsQualified();
 
-    @objid ("f797593f-df90-4a83-a3ba-5e34155d1f34")
+    @objid ("05544f73-9b30-47a2-84e6-2f17b08f8da5")
     void setIsQualified(boolean value);
 
-    @objid ("ef7e2639-19ba-48c0-a0cf-92db3f6e5ae4")
+    @objid ("96a55b75-efad-474d-99c5-f469a0ff4882")
     boolean isBelongToPrototype();
 
-    @objid ("439e40ba-9897-48fe-a03b-6c593684e972")
+    @objid ("fe781c13-6dc1-471d-b3b1-a8b758d2a110")
     void setBelongToPrototype(boolean value);
 
-    @objid ("c2327c7b-f32f-4d68-804f-716b448f5899")
+    @objid ("0f4923e0-d48d-4969-ba4c-cdda6fb86a17")
     boolean isIsHidden();
 
-    @objid ("33d354d1-2009-4ab0-99b6-2e15f8736af9")
+    @objid ("f928b198-04e4-47fa-978e-9e449f16962e")
     void setIsHidden(boolean value);
 
-    @objid ("a3f44d7a-2f2c-4189-bdcd-06b314fd5f5e")
+    @objid ("2bc67e37-c342-46a4-ada5-0939421ada69")
     String getLabelKey();
 
-    @objid ("f5c90b6b-60bc-4f29-9748-524ea0d2526d")
+    @objid ("0cf36c5e-36b7-4219-b757-6edd0b7ee616")
     void setLabelKey(String value);
 
-    @objid ("6643a4d5-377a-4d4e-af17-f73373baaba9")
+    @objid ("9b4c4cba-0534-4c3e-b0e7-69c41e9d73b7")
     EList<TaggedValue> getTagOccurence();
 
-    @objid ("6ef139b9-1da5-4be6-aaf4-ac38907bbad8")
+    @objid ("8621d34a-5bda-4393-86fe-99008ba33476")
     <T extends TaggedValue> List<T> getTagOccurence(java.lang.Class<T> filterClass);
 
-    @objid ("d055b5ab-807a-4ea4-9484-6fb97f64aa38")
+    @objid ("88b1c587-9b3e-4108-b815-3023ca4ea765")
     Stereotype getOwnerStereotype();
 
-    @objid ("4aa95813-49c7-4293-a7f6-b11b48792244")
+    @objid ("d0ca9415-e18a-4aee-af06-c6e038785c7c")
     void setOwnerStereotype(Stereotype value);
 
-    @objid ("dde3f981-50f9-4afb-9ca3-01c942a60d65")
+    @objid ("1e1d75f3-83ef-413f-babb-3a2030f4aeff")
     MetaclassReference getOwnerReference();
 
-    @objid ("33301765-e28e-4dae-a8a3-9433fd0aab95")
+    @objid ("53a222f9-bb1a-4496-a674-e7b29a3bfb9e")
     void setOwnerReference(MetaclassReference value);
 
 }
