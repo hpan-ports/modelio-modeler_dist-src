@@ -24,9 +24,7 @@ package org.modelio.diagram.editor.sequence.elements.message;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.draw2d.AncestorListener;
 import org.eclipse.draw2d.ColorConstants;
@@ -40,20 +38,17 @@ import org.eclipse.draw2d.XYAnchor;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.PointList;
 import org.eclipse.gef.ConnectionEditPart;
-import org.eclipse.gef.EditPart;
 import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.NodeEditPart;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.commands.Command;
+import org.eclipse.gef.commands.UnexecutableCommand;
 import org.eclipse.gef.editpolicies.FeedbackHelper;
 import org.eclipse.gef.editpolicies.SelectionHandlesEditPolicy;
 import org.eclipse.gef.handles.ConnectionHandle;
 import org.eclipse.gef.requests.ChangeBoundsRequest;
 import org.eclipse.gef.requests.ReconnectRequest;
-import org.modelio.diagram.editor.sequence.elements.modelmanipulation.IsBeforePredicate;
-import org.modelio.diagram.editor.sequence.elements.modelmanipulation.Predicate;
-import org.modelio.diagram.editor.sequence.elements.modelmanipulation.TimeReference;
-import org.modelio.diagram.editor.sequence.elements.modelmanipulation.Variable;
+import org.modelio.diagram.editor.sequence.elements.modelmanipulation.ManipulationHelper;
 import org.modelio.diagram.elements.core.model.GmModel;
 import org.modelio.diagram.elements.core.node.GmNodeModel;
 import org.modelio.metamodel.uml.behavior.interactionModel.ExecutionOccurenceSpecification;
@@ -61,6 +56,7 @@ import org.modelio.metamodel.uml.behavior.interactionModel.ExecutionSpecificatio
 import org.modelio.metamodel.uml.behavior.interactionModel.Message;
 import org.modelio.metamodel.uml.behavior.interactionModel.MessageEnd;
 import org.modelio.metamodel.uml.behavior.interactionModel.MessageSort;
+import org.modelio.vcore.smkernel.mapi.MObject;
 import org.modelio.vcore.smkernel.mapi.MRef;
 
 /**
@@ -72,12 +68,6 @@ import org.modelio.vcore.smkernel.mapi.MRef;
 public class MessageTranslationEditPolicy extends SelectionHandlesEditPolicy {
     @objid ("d965312d-55b6-11e2-877f-002564c97630")
     private ConnectionFocus focus;
-
-    @objid ("d9653132-55b6-11e2-877f-002564c97630")
-    private Map<TimeReference, Variable> variables = new HashMap<>();
-
-    @objid ("d966b79a-55b6-11e2-877f-002564c97630")
-    private List<Predicate> predicates = new ArrayList<>();
 
     @objid ("6b97c28d-1316-4332-8639-e6db294bde60")
     private FeedbackHelper feedbackHelper;
@@ -93,6 +83,9 @@ public class MessageTranslationEditPolicy extends SelectionHandlesEditPolicy {
 
     @objid ("d0f48e1d-6aae-4bfa-baa9-a63fb0bf56db")
     private ConnectionAnchor originalTargetAnchor;
+
+    @objid ("78ac62fc-9bcb-49b9-b88b-3d5cd85fe210")
+    private ManipulationHelper manipHelper;
 
     @objid ("d966b79d-55b6-11e2-877f-002564c97630")
     @Override
@@ -114,7 +107,7 @@ public class MessageTranslationEditPolicy extends SelectionHandlesEditPolicy {
             // Compute predicates, update variables and check predicates
             computePredicatesForHost();
             updateVariablesFromRequest((ChangeBoundsRequest) request);
-            if (checkAllPredicates()) {
+            if (this.manipHelper.checkAllPredicates()) {
                 // Ignore request to move along the X axis
                 ((ChangeBoundsRequest) request).getMoveDelta().x = 0;
                 GmMessage gmMessage = (GmMessage) getHost().getModel();
@@ -124,6 +117,8 @@ public class MessageTranslationEditPolicy extends SelectionHandlesEditPolicy {
                 moveMessageCommand.setSourceTimeDelta(((ChangeBoundsRequest) request).getMoveDelta().y);
                 moveMessageCommand.setTargetTimeDelta(((ChangeBoundsRequest) request).getMoveDelta().y);
                 return moveMessageCommand;
+            } else {
+                return UnexecutableCommand.INSTANCE;
             }
         }
         return null;
@@ -267,14 +262,14 @@ public class MessageTranslationEditPolicy extends SelectionHandlesEditPolicy {
         List<GmModel> sourceEndModels = messageModel.getDiagram().getAllGMRelatedTo(new MRef(sourceEnd));
         for (GmModel sourceEndModel : sourceEndModels) {
             if (((GmNodeModel) sourceEndModel).isVisible()) {
-                ((EditPart) getHost().getViewer().getEditPartRegistry().get(sourceEndModel)).showSourceFeedback(request);
+                getEditPart(sourceEndModel).showSourceFeedback(request);
             }
         }
         MessageEnd targetEnd = message.getReceiveEvent();
         List<GmModel> targetEndModels = messageModel.getDiagram().getAllGMRelatedTo(new MRef(targetEnd));
         for (GmModel targetEndModel : targetEndModels) {
             if (((GmNodeModel) targetEndModel).isVisible()) {
-                ((EditPart) getHost().getViewer().getEditPartRegistry().get(targetEndModel)).showSourceFeedback(request);
+                getEditPart(targetEndModel).showSourceFeedback(request);
             }
         }
         if (this.originalSourceAnchor == null) {
@@ -291,6 +286,11 @@ public class MessageTranslationEditPolicy extends SelectionHandlesEditPolicy {
         this.dummyTargetAnchor.setLocation(p);
         getConnection().setSourceAnchor(this.dummySourceAnchor);
         getConnection().setTargetAnchor(this.dummyTargetAnchor);
+        
+        
+        computePredicatesForHost();
+        updateVariablesFromRequest(request);
+        this.manipHelper.showFeedBack(getFeedbackLayer());
     }
 
     @objid ("d9683e39-55b6-11e2-877f-002564c97630")
@@ -302,14 +302,14 @@ public class MessageTranslationEditPolicy extends SelectionHandlesEditPolicy {
         List<GmModel> sourceEndModels = messageModel.getDiagram().getAllGMRelatedTo(new MRef(sourceEnd));
         for (GmModel sourceEndModel : sourceEndModels) {
             if (((GmNodeModel) sourceEndModel).isVisible()) {
-                ((EditPart) getHost().getViewer().getEditPartRegistry().get(sourceEndModel)).eraseSourceFeedback(request);
+                getEditPart(sourceEndModel).eraseSourceFeedback(request);
             }
         }
         MessageEnd targetEnd = message.getReceiveEvent();
         List<GmModel> targetEndModels = messageModel.getDiagram().getAllGMRelatedTo(new MRef(targetEnd));
         for (GmModel targetEndModel : targetEndModels) {
             if (((GmNodeModel) targetEndModel).isVisible()) {
-                ((EditPart) getHost().getViewer().getEditPartRegistry().get(targetEndModel)).eraseSourceFeedback(request);
+                getEditPart(targetEndModel).eraseSourceFeedback(request);
             }
         }
         
@@ -321,6 +321,9 @@ public class MessageTranslationEditPolicy extends SelectionHandlesEditPolicy {
         }
         this.originalSourceAnchor = null;
         this.originalTargetAnchor = null;
+        
+        IFigure fbLayer = getFeedbackLayer();
+        this.manipHelper.eraseFeedback(fbLayer);
     }
 
     @objid ("d9683e3d-55b6-11e2-877f-002564c97630")
@@ -334,11 +337,9 @@ public class MessageTranslationEditPolicy extends SelectionHandlesEditPolicy {
 
     @objid ("d9683e43-55b6-11e2-877f-002564c97630")
     private void computePredicatesForHost() {
-        this.variables.clear();
-        this.predicates.clear();
         // Move and/or resizing an ExecutionSpecification, is really like move the ExecutionOccurrenceSpecification at each end.
         Message message = ((GmMessage) getHost().getModel()).getRelatedElement();
-        computePredicatesForMessage(message);
+        this.manipHelper.computePredicatesForHost(message);
     }
 
     @objid ("d9683e45-55b6-11e2-877f-002564c97630")
@@ -361,110 +362,6 @@ public class MessageTranslationEditPolicy extends SelectionHandlesEditPolicy {
                     updateVariablesForMessage(request.getMoveDelta().y, (Message) model.getRelatedElement());
                 }
         
-            }
-        }
-    }
-
-    @objid ("d9683e49-55b6-11e2-877f-002564c97630")
-    private boolean checkAllPredicates() {
-        for (Predicate predicate : this.predicates) {
-            if (!predicate.evaluate())
-                return false;
-        }
-        // All predicate evaluated to true
-        return true;
-    }
-
-    @objid ("d9683e4d-55b6-11e2-877f-002564c97630")
-    private void computePredicatesForMessageEnd(final MessageEnd messageEnd) {
-        TimeReference timeReference = new TimeReference(messageEnd);
-        Variable variable = this.variables.get(timeReference);
-        if (variable == null) {
-            variable = new Variable();
-            variable.setValue(messageEnd.getLineNumber());
-            this.variables.put(timeReference, variable);
-        }
-        if (messageEnd instanceof ExecutionOccurenceSpecification &&
-            ((ExecutionOccurenceSpecification) messageEnd).getStarted() != null) {
-            ExecutionOccurenceSpecification otherEnd = ((ExecutionOccurenceSpecification) messageEnd).getStarted()
-                                                                                                       .getFinish();
-            TimeReference otherEndTimeReference = new TimeReference(otherEnd);
-            Variable variable2 = this.variables.get(otherEndTimeReference);
-            if (variable2 == null) {
-                variable2 = new Variable();
-                variable2.setValue(otherEnd.getLineNumber());
-                this.variables.put(otherEndTimeReference, variable2);
-            }
-            Predicate predicate = new IsBeforePredicate(variable,
-                                                        variable2,
-                                                        0/*execution specification min size*/,
-                                                        true);
-            this.predicates.add(predicate);
-        }
-        if (messageEnd instanceof ExecutionOccurenceSpecification &&
-            ((ExecutionOccurenceSpecification) messageEnd).getFinished() != null) {
-            ExecutionOccurenceSpecification otherEnd = ((ExecutionOccurenceSpecification) messageEnd).getFinished()
-                                                                                                       .getStart();
-            TimeReference otherEndTimeReference = new TimeReference(otherEnd);
-            Variable variable2 = this.variables.get(otherEndTimeReference);
-            if (variable2 == null) {
-                variable2 = new Variable();
-                variable2.setValue(otherEnd.getLineNumber());
-                this.variables.put(otherEndTimeReference, variable2);
-            }
-            Predicate predicate = new IsBeforePredicate(variable2,
-                                                        variable,
-                                                        0/*execution specification min size*/,
-                                                        true);
-            this.predicates.add(predicate);
-        }
-        if (messageEnd.getSentMessage() != null) {
-            MessageEnd otherEnd = messageEnd.getSentMessage().getReceiveEvent();
-            TimeReference otherEndTimeReference = new TimeReference(otherEnd);
-            Variable variable2 = this.variables.get(otherEndTimeReference);
-            if (variable2 == null) {
-                variable2 = new Variable();
-                variable2.setValue(otherEnd.getLineNumber());
-                this.variables.put(otherEndTimeReference, variable2);
-            }
-            Predicate predicate = new IsBeforePredicate(variable, variable2, 0, false);
-            this.predicates.add(predicate);
-        }
-        if (messageEnd.getReceivedMessage() != null) {
-            MessageEnd otherEnd = messageEnd.getReceivedMessage().getSendEvent();
-            TimeReference otherEndTimeReference = new TimeReference(otherEnd);
-            Variable variable2 = this.variables.get(otherEndTimeReference);
-            if (variable2 == null) {
-                variable2 = new Variable();
-                variable2.setValue(otherEnd.getLineNumber());
-                this.variables.put(otherEndTimeReference, variable2);
-            }
-            Predicate predicate = new IsBeforePredicate(variable2, variable, 0, false);
-            this.predicates.add(predicate);
-        }
-    }
-
-    /**
-     * @param message
-     */
-    @objid ("d9683e53-55b6-11e2-877f-002564c97630")
-    private void computePredicatesForMessage(final Message message) {
-        computePredicatesForMessageEnd(message.getSendEvent());
-        if (message.getSendEvent() instanceof ExecutionOccurenceSpecification &&
-            ((ExecutionOccurenceSpecification) message.getSendEvent()).getStarted() != null) {
-            ExecutionOccurenceSpecification finishExecutionOccurrenceSpecification = ((ExecutionOccurenceSpecification) message.getSendEvent()).getStarted()
-                                                                                                                                                 .getFinish();
-            computePredicatesForMessageEnd(finishExecutionOccurrenceSpecification);
-        }
-        computePredicatesForMessageEnd(message.getReceiveEvent());
-        if (message.getReceiveEvent() instanceof ExecutionOccurenceSpecification &&
-            ((ExecutionOccurenceSpecification) message.getReceiveEvent()).getStarted() != null) {
-            ExecutionOccurenceSpecification finishExecutionOccurenceSpecification = ((ExecutionOccurenceSpecification) message.getReceiveEvent()).getStarted()
-                                                                                                                                                   .getFinish();
-            computePredicatesForMessageEnd(finishExecutionOccurenceSpecification);
-            if (finishExecutionOccurenceSpecification.getSentMessage() != null &&
-                finishExecutionOccurenceSpecification.getSentMessage().getSortOfMessage() == MessageSort.RETURNMESSAGE) {
-                computePredicatesForMessage(finishExecutionOccurenceSpecification.getSentMessage());
             }
         }
     }
@@ -500,11 +397,8 @@ public class MessageTranslationEditPolicy extends SelectionHandlesEditPolicy {
     @objid ("d9683e62-55b6-11e2-877f-002564c97630")
     private void updateVariablesForExecutionSpecification(final ExecutionSpecification executionSpecification, final int shift, final int sizeDelta) {
         // Start with the Execution itself.
-        Variable variable1 = this.variables.get(new TimeReference(executionSpecification));
-        if (variable1 != null) {
-            int newLineNumber = executionSpecification.getLineNumber() + shift;
-            variable1.setValue(newLineNumber);
-        }
+        this.manipHelper.updateVariable(executionSpecification, executionSpecification.getLineNumber() + shift);
+        
         // Now the Execution start.
         updateVariablesForMessageEnd(executionSpecification.getStart(), shift);
         // And finally the Execution end.
@@ -513,11 +407,32 @@ public class MessageTranslationEditPolicy extends SelectionHandlesEditPolicy {
 
     @objid ("d9683e6c-55b6-11e2-877f-002564c97630")
     private void updateVariablesForMessageEnd(final MessageEnd messageEnd, final int shift) {
-        Variable variable2 = this.variables.get(new TimeReference(messageEnd));
-        if (variable2 != null) {
-            int newLineNumber = messageEnd.getLineNumber() + shift;
-            variable2.setValue(newLineNumber);
+        this.manipHelper.updateVariable(messageEnd, messageEnd.getLineNumber() + shift);
+    }
+
+    @objid ("dac6be03-2c18-4622-a8ab-3dc261cd930a")
+    @Override
+    public void activate() {
+        super.activate();
+        
+        this.manipHelper = new ManipulationHelper((GraphicalEditPart) getHost());
+    }
+
+    @objid ("6da2e559-729d-44c7-86ef-ac5c901f32fd")
+    protected GraphicalEditPart getEditPart(MObject obj) {
+        GmMessage messageModel = (GmMessage) getHost().getModel();
+        List<GmModel> sourceEndModels = messageModel.getDiagram().getAllGMRelatedTo(new MRef(obj));
+        for (GmModel sourceEndModel : sourceEndModels) {
+            if (((GmNodeModel) sourceEndModel).isVisible()) {
+                return getEditPart(sourceEndModel);
+            }
         }
+        return null;
+    }
+
+    @objid ("9e9f8d33-4c03-449a-9ed7-ef22bb6d6c4b")
+    protected GraphicalEditPart getEditPart(GmModel model) {
+        return (GraphicalEditPart) getHost().getViewer().getEditPartRegistry().get(model);
     }
 
     @objid ("d9683e74-55b6-11e2-877f-002564c97630")

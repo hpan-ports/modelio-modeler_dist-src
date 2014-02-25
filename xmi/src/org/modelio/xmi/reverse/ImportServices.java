@@ -598,11 +598,14 @@ public class ImportServices {
         patterns.add("xmlns:uml=\"http://schema.omg.org/spec/UML/2.1.1/uml.xml");  
         patterns.add("xmlns:uml[\\s]?=[\\s]?[\"]?[\']?http://www.omg.org/spec/UML/20090901[\"]?[\']?");
         patterns.add("xmlns:uml[\\s]?=[\\s]?[\"]?[\']?http://www.omg.org/spec/UML/20100901[\"]?[\']?");
+        patterns.add("xmlns:uml[\\s]?=[\\s]?[\"]?[\']?http://www.omg.org/spec/UML/20110701[\"]?[\']?");
+        patterns.add("xmlns:uml[\\s]?=[\\s]?[\"]?[\']?http://www.omg.org/spec/UML/20110701[\"]?[\']?");
         patterns.add("xmlns:uml[\\s]?=[\\s]?\'?\"?http://schema.omg.org/spec/UML/2.[1.1]?[1.2]?[1]?[2]?[3]?\'?\"");
         patterns.add("http://schema.omg.org/spec/UML/2.2/ [http://www.eclipse.org/uml2/3.0.0/UML]?");
         patterns.add("http://schema.omg.org/spec/UML/2.1.1/uml.xml");
         patterns.add("http://schema.omg.org/spec/UML/2.2/uml.xml");
         patterns.add("http://www.omg.org/spec/UML/20090901/UML.xmi");
+        patterns.add("http://www.omg.org/spec/UML/20110701/UML.xmi");
         return patterns;
     }
 
@@ -613,7 +616,10 @@ public class ImportServices {
         patterns.add("xmlns:uml=\"http://www.eclipse.org/uml2/3.0.0/UML\"" );
         patterns.add("xmlns:uml=\"http://www.eclipse.org/uml2/3.0.0/UML\"" );
         patterns.add("xmlns:uml=\"http://www.eclipse.org/uml2/3.0.0/UML\"" );
+        patterns.add("xmlns:uml=\"http://www.eclipse.org/uml2/3.0.0/UML\"" );
+        patterns.add("xmlns:uml=\"http://www.eclipse.org/uml2/3.0.0/UML\"" );
         patterns.add("http://www.eclipse.org/uml2/3.0.0/UML/");
+        patterns.add("pathmap://UML_METAMODELS/UML.metamodel.uml");
         patterns.add("pathmap://UML_METAMODELS/UML.metamodel.uml");
         patterns.add("pathmap://UML_METAMODELS/UML.metamodel.uml");
         patterns.add("pathmap://UML_METAMODELS/UML.metamodel.uml");

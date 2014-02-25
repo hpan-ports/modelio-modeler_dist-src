@@ -149,7 +149,7 @@ public class NoteViewTreePanel extends Composite {
         properties[0] = "name";
         this.treeViewer.setColumnProperties(properties);
         
-        this.constraintNameModifier = new ElementNameModifier(this.view, this.session);
+        this.constraintNameModifier = new ElementNameModifier(this.view);
         this.treeViewer.setCellModifier(this.constraintNameModifier);
         this.treeViewer.getTree().addKeyListener(this.constraintNameModifier);
         

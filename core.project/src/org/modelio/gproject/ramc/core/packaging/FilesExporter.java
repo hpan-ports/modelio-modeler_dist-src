@@ -30,9 +30,10 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.gproject.plugin.CoreProject;
 import org.modelio.gproject.ramc.core.packaging.IModelComponentContributor.ExportedFileEntry;
 import org.modelio.vbasic.progress.SubProgress;
+import org.modelio.vcore.Log;
 
 @objid ("ae8240c1-608b-44f5-a471-920e2e982dfe")
-public class FilesExporter {
+class FilesExporter {
     @objid ("3b012391-28d9-4607-9374-b067b5f08b91")
     private Path exportPath;
 
@@ -41,29 +42,18 @@ public class FilesExporter {
         this.exportPath = exportPath;
     }
 
-    @objid ("1ccc1838-2515-43b8-8136-fa2641eb275c")
-    private void exportFiles(SubProgress subMonitor) throws IOException {
-        //
-    }
-
     @objid ("8f1ef777-c37c-4d27-911d-f9b4b801b080")
-    public void run(List<ExportedFileEntry> filesToExport, Metadatas metadatas, SubProgress subMonitor) {
+    public void run(List<ExportedFileEntry> filesToExport, Metadatas metadatas, SubProgress subMonitor) throws IOException {
         subMonitor.subTask(CoreProject.I18N.getString("RamcPackager.ExportFiles"));
         
         // Copy exported files in the export area
         
         int idx = 0;
         for (ExportedFileEntry fileEntry : filesToExport) {
-            try {
-                String metaName = "File" + idx;
-                copyFile(fileEntry, metaName);
-                metadatas.addExportedFileDef(metaName, fileEntry);
-                idx++;
-            } catch (IOException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-            
+            String metaName = "File" + idx;
+            copyFile(fileEntry, metaName);
+            metadatas.addExportedFileDef(metaName, fileEntry);
+            idx++;
         }
     }
 
@@ -73,7 +63,7 @@ public class FilesExporter {
         if (Files.isRegularFile(file)) {
             Files.copy(file, this.exportPath.resolve(metaName));
         } else {
-            System.err.println("RamcPackager - Invalid file path: " + file.toString());
+            Log.warning("RamcPackager - Invalid file path: " + file.toString());
         }
     }
 

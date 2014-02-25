@@ -31,7 +31,7 @@ import org.modelio.diagram.elements.common.abstractdiagram.DiagramElementDropEdi
 import org.modelio.diagram.elements.core.model.GmModel;
 import org.modelio.diagram.elements.core.node.GmCompositeNode;
 import org.modelio.diagram.elements.core.requests.ModelElementDropRequest;
-import org.modelio.metamodel.diagrams.ObjectDiagram;
+import org.modelio.metamodel.diagrams.AbstractDiagram;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
 import org.modelio.metamodel.uml.statik.AssociationEnd;
 import org.modelio.metamodel.uml.statik.Attribute;
@@ -119,7 +119,7 @@ public class ObjectDiagramElementDropEditPolicy extends DiagramElementDropEditPo
     @objid ("341654f0-949e-453b-b487-1bd6912aab0e")
     private Command getSmartDropCommand(final Point dropLocation, final MObject toUnmask) {
         final GmModel gmModel = (GmModel) getHost().getModel();
-        final ObjectDiagram owner = (ObjectDiagram) gmModel.getRelatedElement();
+        final AbstractDiagram owner = (AbstractDiagram) gmModel.getRelatedElement();
         ModelElement origin = owner.getOrigin();
         if (origin instanceof NameSpace) {
             return new SmartCreateInstanceCommand(dropLocation, toUnmask, getHost(), origin);

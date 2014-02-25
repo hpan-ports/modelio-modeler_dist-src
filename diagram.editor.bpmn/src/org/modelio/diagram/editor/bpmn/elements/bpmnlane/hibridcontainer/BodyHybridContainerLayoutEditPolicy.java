@@ -29,6 +29,7 @@ import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.editpolicies.AbstractEditPolicy;
 import org.eclipse.gef.editpolicies.LayoutEditPolicy;
 import org.eclipse.gef.requests.ChangeBoundsRequest;
+import org.eclipse.gef.requests.CreateConnectionRequest;
 import org.eclipse.gef.requests.CreateRequest;
 import org.modelio.diagram.editor.bpmn.elements.bpmnlane.BpmnLaneEditPart;
 import org.modelio.diagram.editor.bpmn.elements.bpmnlane.hibridcontainer.BodyHybridContainerEditPart.Behaviour;

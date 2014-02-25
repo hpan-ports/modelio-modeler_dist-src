@@ -21,25 +21,20 @@
 
 package org.modelio.diagram.editor.sequence.elements.executionoccurencespecification;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.gef.GraphicalEditPart;
+import org.eclipse.gef.Request;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.commands.UnexecutableCommand;
 import org.eclipse.gef.requests.ChangeBoundsRequest;
-import org.modelio.diagram.editor.sequence.elements.modelmanipulation.IsBeforePredicate;
-import org.modelio.diagram.editor.sequence.elements.modelmanipulation.Predicate;
-import org.modelio.diagram.editor.sequence.elements.modelmanipulation.TimeReference;
-import org.modelio.diagram.editor.sequence.elements.modelmanipulation.Variable;
+import org.modelio.diagram.editor.sequence.elements.modelmanipulation.ManipulationHelper;
 import org.modelio.diagram.elements.core.model.GmModel;
 import org.modelio.diagram.elements.core.policies.DefaultNodeNonResizableEditPolicy;
 import org.modelio.metamodel.uml.behavior.interactionModel.ExecutionOccurenceSpecification;
 import org.modelio.metamodel.uml.behavior.interactionModel.ExecutionSpecification;
 import org.modelio.metamodel.uml.behavior.interactionModel.Message;
 import org.modelio.metamodel.uml.behavior.interactionModel.MessageEnd;
+import org.modelio.vcore.smkernel.mapi.MObject;
 
 /**
  * Specialisation of the default resize edit policy to add some model checks before returning a command.
@@ -49,10 +44,7 @@ import org.modelio.metamodel.uml.behavior.interactionModel.MessageEnd;
 @objid ("d8e070bb-55b6-11e2-877f-002564c97630")
 public class MoveExecutionOccurrenceSpecificationEditPolicy extends DefaultNodeNonResizableEditPolicy {
     @objid ("d8e070bf-55b6-11e2-877f-002564c97630")
-    private Map<TimeReference, Variable> variables = new HashMap<>();
-
-    @objid ("d8e070c3-55b6-11e2-877f-002564c97630")
-    private List<Predicate> predicates = new ArrayList<>();
+    private ManipulationHelper manipHelper;
 
     @objid ("d8e070c6-55b6-11e2-877f-002564c97630")
     @Override
@@ -60,7 +52,7 @@ public class MoveExecutionOccurrenceSpecificationEditPolicy extends DefaultNodeN
         // Compute predicates, update variables and check predicates
         computePredicatesForHost();
         updateVariablesFromRequest(request);
-        if (checkAllPredicates()) {
+        if (this.manipHelper.checkAllPredicates()) {
             return super.getMoveCommand(request);
         } else {
             return UnexecutableCommand.INSTANCE;
@@ -69,52 +61,8 @@ public class MoveExecutionOccurrenceSpecificationEditPolicy extends DefaultNodeN
 
     @objid ("d8e070cc-55b6-11e2-877f-002564c97630")
     private void computePredicatesForHost() {
-        this.variables.clear();
-        this.predicates.clear();
         ExecutionOccurenceSpecification executionOccurrenceSpecification = (ExecutionOccurenceSpecification) ((GmExecutionOccurenceSpecification) getHost().getModel()).getRelatedElement();
-        Variable variable = new Variable();
-        variable.setValue(executionOccurrenceSpecification.getLineNumber());
-        this.variables.put(new TimeReference(executionOccurrenceSpecification), variable);
-        if (executionOccurrenceSpecification.getStarted() != null) {
-            ExecutionOccurenceSpecification otherEnd = executionOccurrenceSpecification.getStarted()
-                                                                                        .getFinish();
-            Variable variable2 = new Variable();
-            variable2.setValue(otherEnd.getLineNumber());
-            this.variables.put(new TimeReference(otherEnd), variable2);
-            Predicate predicate = new IsBeforePredicate(variable,
-                                                        variable2,
-                                                        0/*execution specification min size*/,
-                                                        true);
-            this.predicates.add(predicate);
-        }
-        if (executionOccurrenceSpecification.getFinished() != null) {
-            ExecutionOccurenceSpecification otherEnd = executionOccurrenceSpecification.getFinished()
-                                                                                        .getStart();
-            Variable variable2 = new Variable();
-            variable2.setValue(otherEnd.getLineNumber());
-            this.variables.put(new TimeReference(otherEnd), variable2);
-            Predicate predicate = new IsBeforePredicate(variable2,
-                                                        variable,
-                                                        0/*execution specification min size*/,
-                                                        true);
-            this.predicates.add(predicate);
-        }
-        if (executionOccurrenceSpecification.getSentMessage() != null) {
-            MessageEnd otherEnd = executionOccurrenceSpecification.getSentMessage().getReceiveEvent();
-            Variable variable2 = new Variable();
-            variable2.setValue(otherEnd.getLineNumber());
-            this.variables.put(new TimeReference(otherEnd), variable2);
-            Predicate predicate = new IsBeforePredicate(variable, variable2, 0, false);
-            this.predicates.add(predicate);
-        }
-        if (executionOccurrenceSpecification.getReceivedMessage() != null) {
-            MessageEnd otherEnd = executionOccurrenceSpecification.getReceivedMessage().getSendEvent();
-            Variable variable2 = new Variable();
-            variable2.setValue(otherEnd.getLineNumber());
-            this.variables.put(new TimeReference(otherEnd), variable2);
-            Predicate predicate = new IsBeforePredicate(variable2, variable, 0, false);
-            this.predicates.add(predicate);
-        }
+        this.manipHelper.computePredicatesForHost(executionOccurrenceSpecification);
     }
 
     @objid ("d8e070ce-55b6-11e2-877f-002564c97630")
@@ -126,70 +74,54 @@ public class MoveExecutionOccurrenceSpecificationEditPolicy extends DefaultNodeN
             GraphicalEditPart editPart = (GraphicalEditPart) obj;
             if (editPart != null) {
                 GmModel model = (GmModel) editPart.getModel();
-                Variable variable1 = this.variables.get(new TimeReference(model.getRelatedElement()));
-                if (model.getRelatedElement() instanceof MessageEnd && variable1 != null) {
-                    int newLineNumber = ((MessageEnd) model.getRelatedElement()).getLineNumber();
+                MObject el = model.getRelatedElement();
+                if (el instanceof MessageEnd ) {
+                    int newLineNumber = ((MessageEnd) el).getLineNumber();
                     newLineNumber += request.getMoveDelta().y;
-                    variable1.setValue(newLineNumber);
-                } else if (model.getRelatedElement() instanceof ExecutionSpecification) {
+                    this.manipHelper.updateVariable(el, newLineNumber);
+                } else if (el instanceof ExecutionSpecification) {
                     // Start with the Execution itself.
-                    ExecutionSpecification executionSpecification = (ExecutionSpecification) model.getRelatedElement();
-                    if (variable1 != null) {
-                        int newLineNumber = executionSpecification.getLineNumber();
-                        newLineNumber += request.getMoveDelta().y;
-                        variable1.setValue(newLineNumber);
-                    }
-                    // Now the Execution start.
-                    variable1 = this.variables.get(new TimeReference(executionSpecification.getStart()));
-                    if (variable1 != null) {
-                        int newLineNumber = executionSpecification.getStart().getLineNumber();
-                        newLineNumber += request.getMoveDelta().y;
-                        variable1.setValue(newLineNumber);
-                    }
-                    // And finally the Execution end.
-                    variable1 = this.variables.get(new TimeReference(executionSpecification.getFinish()));
-                    if (variable1 != null) {
-                        int newLineNumber = executionSpecification.getFinish().getLineNumber();
-                        newLineNumber += request.getMoveDelta().y + request.getSizeDelta().height;
-                        variable1.setValue(newLineNumber);
-                    }
+                    ExecutionSpecification executionSpecification = (ExecutionSpecification) el;
+                    int newLineNumber = executionSpecification.getLineNumber();
+                    newLineNumber += request.getMoveDelta().y;
+                    this.manipHelper.updateVariable(el, newLineNumber);
         
-                } else if (model.getRelatedElement() instanceof Message) {
-                    Message message = (Message) model.getRelatedElement();
-                    variable1 = this.variables.get(new TimeReference(message.getSendEvent()));
-                    if (variable1 != null) {
+                    // Now the Execution start.
+                    newLineNumber = executionSpecification.getStart().getLineNumber();
+                    newLineNumber += request.getMoveDelta().y;
+                    this.manipHelper.updateVariable(executionSpecification.getStart(), newLineNumber);
+        
+                    // And finally the Execution end.
+                    newLineNumber = executionSpecification.getFinish().getLineNumber();
+                    newLineNumber += request.getMoveDelta().y + request.getSizeDelta().height;
+                    this.manipHelper.updateVariable(executionSpecification.getFinish(), newLineNumber);
+        
+                } else if (el instanceof Message) {
+                    Message message = (Message) el;
                         int newLineNumber = message.getSendEvent().getLineNumber();
                         newLineNumber += request.getMoveDelta().y;
-                        variable1.setValue(newLineNumber);
-                    }
-                    variable1 = this.variables.get(new TimeReference(message.getReceiveEvent()));
-                    if (variable1 != null) {
-                        int newLineNumber = message.getReceiveEvent().getLineNumber();
+                        this.manipHelper.updateVariable(message.getSendEvent(), newLineNumber);
+        
+                        newLineNumber = message.getReceiveEvent().getLineNumber();
                         newLineNumber += request.getMoveDelta().y;
-                        variable1.setValue(newLineNumber);
-                    }
+                        this.manipHelper.updateVariable(message.getReceiveEvent(), newLineNumber);
+        
                     // If the moved message starts some execution specification, they will be moved too.
                     if (message.getSendEvent() instanceof ExecutionOccurenceSpecification &&
                         ((ExecutionOccurenceSpecification) message.getSendEvent()).getStarted() != null) {
                         MessageEnd otherEnd = ((ExecutionOccurenceSpecification) message.getSendEvent()).getStarted()
                                                                                                           .getFinish();
-                        variable1 = this.variables.get(new TimeReference(otherEnd));
-                        if (variable1 != null) {
-                            int newLineNumber = otherEnd.getLineNumber();
-                            newLineNumber += request.getMoveDelta().y;
-                            variable1.setValue(newLineNumber);
-                        }
+                        newLineNumber = otherEnd.getLineNumber();
+                        newLineNumber += request.getMoveDelta().y;
+                        this.manipHelper.updateVariable(otherEnd, newLineNumber);
                     }
                     if (message.getReceiveEvent() instanceof ExecutionOccurenceSpecification &&
                         ((ExecutionOccurenceSpecification) message.getReceiveEvent()).getStarted() != null) {
                         MessageEnd otherEnd = ((ExecutionOccurenceSpecification) message.getReceiveEvent()).getStarted()
                                                                                                              .getFinish();
-                        variable1 = this.variables.get(new TimeReference(otherEnd));
-                        if (variable1 != null) {
-                            int newLineNumber = otherEnd.getLineNumber();
-                            newLineNumber += request.getMoveDelta().y;
-                            variable1.setValue(newLineNumber);
-                        }
+                        newLineNumber = otherEnd.getLineNumber();
+                        newLineNumber += request.getMoveDelta().y;
+                        this.manipHelper.updateVariable(otherEnd, newLineNumber);
                     }
                 }
         
@@ -197,14 +129,37 @@ public class MoveExecutionOccurrenceSpecificationEditPolicy extends DefaultNodeN
         }
     }
 
-    @objid ("d8e070d2-55b6-11e2-877f-002564c97630")
-    private boolean checkAllPredicates() {
-        for (Predicate predicate : this.predicates) {
-            if (!predicate.evaluate())
-                return false;
+    @objid ("237cd2d6-9fc0-4fba-95e4-28ec89bc4ce9")
+    @Override
+    public void activate() {
+        super.activate();
+        
+        this.manipHelper = new ManipulationHelper((GraphicalEditPart) getHost());
+    }
+
+    @objid ("6aee83a4-6d27-4422-94fe-1df86fa7d8d8")
+    @Override
+    public void showSourceFeedback(Request request) {
+        Object type = request.getType();
+        if (type.equals(REQ_MOVE) || type.equals(REQ_RESIZE)) {
+            computePredicatesForHost();
+            updateVariablesFromRequest((ChangeBoundsRequest) request);
+            this.manipHelper.showFeedBack(getFeedbackLayer());
+        } else {
+            super.showSourceFeedback(request);
+            this.manipHelper.eraseFeedback(getFeedbackLayer());
         }
-        // All predicate evaluated to true
-        return true;
+    }
+
+    @objid ("febe3e69-f8b0-481e-857f-989b5fb90db6")
+    @Override
+    public void eraseSourceFeedback(Request request) {
+        super.eraseSourceFeedback(request);
+        
+        Object type = request.getType();
+        if (type.equals(REQ_MOVE) || type.equals(REQ_RESIZE)) {
+            this.manipHelper.eraseFeedback(getFeedbackLayer());
+        }
     }
 
 }

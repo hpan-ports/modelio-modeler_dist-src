@@ -24,6 +24,7 @@ package org.modelio.linkeditor.view.background;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.regex.Pattern;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.draw2d.ChopboxAnchor;
 import org.eclipse.draw2d.ColorConstants;
@@ -52,15 +53,12 @@ import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.widgets.Display;
 import org.modelio.core.ui.CoreFontRegistry;
 import org.modelio.core.ui.images.ModuleI18NService;
-import org.modelio.gproject.model.IMModelServices;
 import org.modelio.gproject.model.api.MTools;
 import org.modelio.linkeditor.options.LinkEditorOptions;
-import org.modelio.linkeditor.plugin.LinkEditor;
 import org.modelio.linkeditor.view.LinkEditorView;
-import org.modelio.linkeditor.view.background.LinkEditorDropTargetListener;
 import org.modelio.linkeditor.view.node.GraphNode;
 import org.modelio.metamodel.Metamodel;
-import org.modelio.metamodel.factory.ElementNotUniqueException;
+import org.modelio.metamodel.mda.ModuleComponent;
 import org.modelio.metamodel.uml.infrastructure.Dependency;
 import org.modelio.metamodel.uml.infrastructure.Stereotype;
 import org.modelio.metamodel.uml.statik.AssociationEnd;
@@ -68,6 +66,9 @@ import org.modelio.metamodel.uml.statik.ElementImport;
 import org.modelio.metamodel.uml.statik.Generalization;
 import org.modelio.metamodel.uml.statik.InterfaceRealization;
 import org.modelio.ui.UIFont;
+import org.modelio.vcore.session.api.model.IModel;
+import org.modelio.vcore.session.impl.CoreSession;
+import org.modelio.vcore.smkernel.mapi.MClass;
 import org.modelio.vcore.smkernel.mapi.MObject;
 
 /**
@@ -89,9 +90,6 @@ public class DropEditPolicy extends XYLayoutEditPolicy {
      */
     @objid ("1b914183-5e33-11e2-b81d-002564c97630")
     private static final String OPENING = "\u00AB ";
-
-    @objid ("e5dda542-5efd-11e2-a8be-00137282c51b")
-    private static IMModelServices modelServices;
 
     @objid ("bf01e1a2-c3e7-4f5e-bb35-4f243d835e65")
     private final XYAnchor dummyXYAnchor = new XYAnchor(new Point(10, 10));
@@ -205,12 +203,10 @@ public class DropEditPolicy extends XYLayoutEditPolicy {
             }
         }
         if (options.isTraceShown()) {
-            try {
-                types.add(DropEditPolicy.modelServices.getStereotype("ModelerModule", "trace", Metamodel.getMClass(Dependency.class)));
-            } catch (ElementNotUniqueException e) {
-                LinkEditor.LOG.debug(e);
-            }
-        
+                final Stereotype type = getStereotype(CoreSession.getSession(centerElement).getModel(), "ModelerModule", "trace", Metamodel.getMClass(Dependency.class));
+                if (type != null) {
+                types.add(type);
+                }
         }
         return types;
     }
@@ -404,10 +400,20 @@ public class DropEditPolicy extends XYLayoutEditPolicy {
         return centerNode;
     }
 
-    @objid ("e5e0079c-5efd-11e2-a8be-00137282c51b")
-    public DropEditPolicy(IMModelServices modelServices) {
-        // TODO check if it can't be injected
-        DropEditPolicy.modelServices = modelServices;
+    @objid ("91d509e5-fe4e-45ad-adaa-0875e7805491")
+    public static Stereotype getStereotype(IModel iModel, String moduleName, String stereotypeName, MClass metaclass) {
+        Pattern p = Pattern.compile((moduleName == null || moduleName.isEmpty()) ? ".*" : moduleName);
+        
+        for (Stereotype type : iModel.findByAtt(Stereotype.class, "Name", stereotypeName)) {
+            ModuleComponent module = type.getModule();
+            if (module != null) {
+                MClass steClass = Metamodel.getMClass(type.getBaseClassName());
+                if (metaclass.hasBase(steClass) && p.matcher(module.getName()).matches()) {
+                    return type;
+                }
+            }
+        }
+        return null;
     }
 
 }

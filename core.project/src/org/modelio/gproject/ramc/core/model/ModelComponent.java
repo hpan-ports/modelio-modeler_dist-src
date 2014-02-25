@@ -50,17 +50,18 @@ import org.modelio.metamodel.uml.statik.ElementImport;
 import org.modelio.metamodel.uml.statik.Manifestation;
 import org.modelio.metamodel.uml.statik.NameSpace;
 import org.modelio.vbasic.version.Version;
-import org.modelio.vcore.Log;
 
 /**
- * This class is an in-memory convenient representation of a ModelComponent as
- * described by an annotated Artifact.
- * 
- * The constructor is used to convert from an Artifact into an instance of this
- * ModelComponent class. A ModelComponent can be modified in order to change its
- * configuration. However, only the updateArtifact() method will actually modify
+ * This class is an in-memory convenient representation of a Model Component (RAMC) as
+ * described by an annotated {@link Artifact}.
+ * <p>
+ * The constructor is used to convert from an {@link Artifact} into an instance of this
+ * <code>ModelComponent</code> class.
+ * <p>
+ * A <code>ModelComponent</code> can be modified in order to change its
+ * configuration. However, only the {@link #updateArtifact()} method will actually modify
  * the artifact itself, thereby providing a convenient means of updating the
- * model artifact configuration to the values of 'this' ModelComponent.
+ * model artifact configuration to the values of <i>this</i> <code>ModelComponent</code>.
  * 
  * 
  * @author phv
@@ -91,6 +92,10 @@ public class ModelComponent implements Comparable<ModelComponent>, IModelCompone
     @objid ("4b6735c0-6fbd-4614-90b8-0fda3b58a36c")
     private Set<ExportedFileEntry> exportedFiles;
 
+    /**
+     * Initialize a <code>ModelComponent</code> from an {@link Artifact} .
+     * @param ramc the model component artifact.
+     */
     @objid ("c738cb04-0d54-4fa4-a865-fe0e5be87c05")
     public ModelComponent(Artifact ramc) {
         this.artifact = ramc;
@@ -361,13 +366,13 @@ public class ModelComponent implements Comparable<ModelComponent>, IModelCompone
                 if (note != null)
                     note.setContent(description);
             } catch (ExtensionNotFoundException e) {
-                Log.error("Note type 'ModelerModule#description' not found or not unique");
+                //Log.error("Note type 'ModelerModule#description' not found or not unique");
             }
         }
 
         @objid ("cbaff0fc-a306-4773-a34a-759dc93e1f26")
         public static void setVersion(Artifact ramc, Version version) {
-            String v = String.format("%d.%d.%02d", version.getMajorVersion(), version.getMinorVersion(), version.getBuildVersion());
+            String v = String.format("%d.%d.%02d.%04d", version.getMajorVersion(), version.getMinorVersion(), version.getBuildVersion(), version.getMetamodelVersion());
             
             try {
                 TaggedValue taggedValue = ramc.getTag(MODELER_MODULE, "ModelComponentVersion");
@@ -382,8 +387,7 @@ public class ModelComponent implements Comparable<ModelComponent>, IModelCompone
                     parameters.get(0).setValue(v);
                 }
             } catch (ExtensionNotFoundException e) {
-                Log.error("Tag type 'ModelerModule#ModelComponentVersion not found or not unique.");
-                return;
+                //Log.error("Tag type 'ModelerModule#ModelComponentVersion not found or not unique.");
             }
         }
 
@@ -407,7 +411,7 @@ public class ModelComponent implements Comparable<ModelComponent>, IModelCompone
             try {
                 filesTag = modelFactory.createTaggedValue(MODELER_MODULE, "ModelComponentFiles", ramc);
             } catch (ExtensionNotFoundException e) {
-                Log.error("Tag type 'ModelerModule#ModelComponentFiles' not found or not unique.");
+                //Log.error("Tag type 'ModelerModule#ModelComponentFiles' not found or not unique.");
                 return;
             }
             
@@ -479,7 +483,7 @@ public class ModelComponent implements Comparable<ModelComponent>, IModelCompone
             try {
                 contributorsTag = modelFactory.createTaggedValue(MODELER_MODULE, "ModelComponentContributors", ramc);
             } catch (ExtensionNotFoundException e) {
-                Log.error("Tag type 'ModelerModule#ModelComponentContributors' not found or not unique.");
+                //Log.error("Tag type 'ModelerModule#ModelComponentContributors' not found or not unique.");
                 return;
             }
             

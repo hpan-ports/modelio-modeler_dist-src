@@ -65,4 +65,7 @@ public class GmConstraintStyleKeys extends ElementsAbstractStyleKeyProvider {
     @objid ("81223c86-1dec-11e2-8cad-001ec947c8cc")
      static final StyleKey LINEPATTERN = createStyleKey("CONSTRAINT_LINEPATTERN", MetaKey.LINEPATTERN);
 
+    @objid ("0c733044-56aa-439f-8a3a-0477f0e5eb72")
+     static final StyleKey ALIGNMENT = createStyleKey("CONSTRAINT_ALIGNMENT", HAlign.class);
+
 }

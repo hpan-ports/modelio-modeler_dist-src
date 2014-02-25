@@ -32,6 +32,7 @@ import org.eclipse.draw2d.TextUtilities;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.draw2d.text.TextFlow;
+import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.RequestConstants;
@@ -44,6 +45,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Text;
 import org.modelio.diagram.elements.common.edition.DirectEditManager2;
+import org.modelio.diagram.elements.core.link.GmLink;
 import org.modelio.diagram.elements.core.model.GmModel;
 import org.modelio.diagram.elements.core.model.IEditableText;
 import org.modelio.diagram.elements.core.model.IGmObject;
@@ -71,8 +73,33 @@ public class ModelElementHeaderEditPart extends GmNodeEditPart {
     @objid ("7e7134e1-1dec-11e2-8cad-001ec947c8cc")
     @Override
     public boolean isSelectable() {
-        GmNodeModel model = (GmNodeModel) getModel();
-        return model.getParentLink() != null && !getMainLabelFigure().getText().isEmpty();
+        // Already selected, return true
+        if (getViewer().getSelectedEditParts().contains(this)) {
+            return true;
+        }
+        
+        GmNodeModel model = (GmNodeModel) getModel(); 
+        final GmLink parentLink = model.getParentLink();
+        // Not a label on a link, assume it's not selectable
+        if (parentLink == null) {
+            return false;
+        }
+        
+        // Not empty label, allow selection 
+        final boolean hasLabel = !getMainLabelFigure().getText().isEmpty();
+        if (hasLabel) {
+            return true;
+        }
+        
+        // Allow selection when the parent link is already selected
+        EditPart parent = getParent();
+        while (parent != null) {
+            if (parent.isSelectable()) {
+                return (parent.getSelected() != EditPart.SELECTED_NONE);
+            }
+            parent = parent.getParent();
+        }
+        return false;
     }
 
     @objid ("7e73970b-1dec-11e2-8cad-001ec947c8cc")

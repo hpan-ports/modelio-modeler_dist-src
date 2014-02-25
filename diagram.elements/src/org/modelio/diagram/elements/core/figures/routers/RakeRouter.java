@@ -135,11 +135,13 @@ public class RakeRouter implements ConnectionRouter {
         // Target anchor
         P4.setLocation(targetAnchor.getLocation(rakePos));
         
-        // Align rake anchor to be orthogonal to the target anchor
+        // Align segments on source and target points.
         if (rakeOrientation == Orientation.VERTICAL) {
             P3.x = P4.x;
+            P2.x = P1.x;
         } else {
             P3.y = P4.y;
+            P2.y = P1.y;
         }
         
         conn.translateToRelative(P1);
@@ -202,6 +204,16 @@ public class RakeRouter implements ConnectionRouter {
         
         // Target anchor
         P4.setLocation(targetAnchor.getLocation(ref2));
+        
+        // Align segments on source and target points.
+        if (rakeOrientation == Orientation.VERTICAL) {
+            P3.x = P4.x;
+            P2.x = P1.x;
+        } else {
+            P3.y = P4.y;
+            P2.y = P1.y;
+        }
+        
         
         conn.translateToRelative(P1);
         conn.translateToRelative(P2);

@@ -33,21 +33,17 @@ import org.modelio.edition.notes.view.NotesPanelProvider;
 import org.modelio.metamodel.uml.infrastructure.Constraint;
 import org.modelio.metamodel.uml.infrastructure.ExternDocument;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
-import org.modelio.vcore.session.api.ICoreSession;
 import org.modelio.vcore.session.api.transactions.ITransaction;
+import org.modelio.vcore.session.impl.CoreSession;
 
 @objid ("26f8f198-186f-11e2-bc4e-002564c97630")
 public class ElementNameModifier implements ICellModifier, KeyListener {
     @objid ("26f8f199-186f-11e2-bc4e-002564c97630")
     private final NotesPanelProvider noteView;
 
-    @objid ("26f8f19a-186f-11e2-bc4e-002564c97630")
-    private final ICoreSession session;
-
     @objid ("26f8f19b-186f-11e2-bc4e-002564c97630")
-    public ElementNameModifier(NotesPanelProvider noteView, ICoreSession session) {
+    public ElementNameModifier(NotesPanelProvider noteView) {
         this.noteView = noteView;
-        this.session = session;
     }
 
     @objid ("26f8f19f-186f-11e2-bc4e-002564c97630")
@@ -75,7 +71,8 @@ public class ElementNameModifier implements ICellModifier, KeyListener {
             if (data instanceof ModelElement) {
                 ModelElement element = (ModelElement) data;
                 if (!element.getName().equals(value)) {
-                    try (ITransaction transaction = this.session.getTransactionSupport().createTransaction("Rename")) {
+                    final CoreSession session = CoreSession.getSession(element);
+                    try (ITransaction transaction = session.getTransactionSupport().createTransaction("Rename")) {
                         element.setName((String) value);
                         transaction.commit();
                     } catch (Exception e) {

@@ -46,7 +46,7 @@ public class SaveImageHandler {
      static int initialFilterIndex = 0; // PNG
 
     @objid ("c2ce5a68-3896-11e2-95fe-001ec947c8cc")
-     static final String[] filterExtensions = { ".png", ".bmp", ".jpg", ".gif" };
+     static final String[] filterExtensions = { "*.png", "*.bmp", "*.jpg", "*.gif" };
 
     @objid ("c2d7e3d3-3896-11e2-95fe-001ec947c8cc")
      static final String[] filterNames = { "PNG", "BMP", "JPEG", "GIF" };
@@ -91,7 +91,7 @@ public class SaveImageHandler {
         dlg.setFilterNames(filterNames);
         dlg.setFilterIndex(initialFilterIndex);
         dlg.setFilterPath(initialFilterPath);
-        dlg.setFileName(diagramName + filterExtensions[initialFilterIndex]);   
+        dlg.setFileName(diagramName + filterExtensions[initialFilterIndex].substring(1));   
         dlg.setOverwrite(true);
         
         String saveLocation = dlg.open();
@@ -100,7 +100,7 @@ public class SaveImageHandler {
             return null;
         
         int filterIndex = dlg.getFilterIndex();
-        saveLocation = normalizeFilename(saveLocation, filterExtensions[filterIndex]);
+        saveLocation = normalizeFilename(saveLocation, filterExtensions[filterIndex].substring(1));
         
         // for next usage...
         initialFilterIndex = filterIndex;

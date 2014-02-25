@@ -57,7 +57,7 @@ public class DiagramStyles implements BundleActivator {
     public static final String RAMC_STYLE_NAME = "ramc";
 
     @objid ("9a6f0aa4-4dc4-43f3-9fdc-3705c7d69238")
-    public static final String USECASE_STYLE_NAME = "usecase";
+    public static final String USECASE_STYLE_NAME = "use case";
 
     @objid ("e4546265-f81d-4d33-91bf-071f52ac7029")
     public static final String MAIN_STYLE_NAME = "main";

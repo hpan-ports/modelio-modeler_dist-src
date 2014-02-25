@@ -28,6 +28,7 @@ import java.util.regex.Pattern;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.api.module.IModule;
 import org.modelio.app.ramcs.plugin.AppRamcs;
+import org.modelio.metamodel.Metamodel;
 import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.metamodel.uml.statik.Artifact;
 import org.modelio.metamodel.uml.statik.ElementImport;
@@ -69,8 +70,9 @@ class Controller {
     @objid ("b7432b87-8c7a-4dd1-bf68-6e8b50c7a3b7")
     public void onModifyVersion(String value) {
         boolean valid = isValidVersion(value);
-        if (valid)
+        if (valid) {
             this.model.setRamcVersion(new Version(value));
+        }
         this.dialog.invalidateRamcVersion(!valid);
     }
 
@@ -118,9 +120,14 @@ class Controller {
 
     @objid ("1d55f0ab-9ff4-40db-b5fe-e7da7a35d78d")
     public void onApply() {
-        ICoreSession session = CoreSession.getSession(model.getArtifact());
-        try (ITransaction t = session.getTransactionSupport().createTransaction("apply changes to ramc")) {
-            model.updateArtifact();
+        ICoreSession session = CoreSession.getSession(this.model.getArtifact());
+        try (ITransaction t = session.getTransactionSupport().createTransaction("Apply changes to '"+this.model.getName()+"' RAMC.")) {
+            // Force the metamodel version.
+            Version v = this.model.getVersion();
+            v = new Version(v.getMajorVersion(), v.getMinorVersion(), v.getBuildVersion(), Integer.parseInt(Metamodel.VERSION));
+            this.model.setRamcVersion(v);
+        
+            this.model.updateArtifact();
             t.commit();
         }
     }

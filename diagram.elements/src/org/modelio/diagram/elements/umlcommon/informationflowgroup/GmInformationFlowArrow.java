@@ -152,7 +152,7 @@ public final class GmInformationFlowArrow extends GmNoStyleSimpleNode {
     @objid ("8169c2fc-1dec-11e2-8cad-001ec947c8cc")
     @Override
     public final void styleChanged(StyleKey property, Object newValue) {
-        if (property == getStyleKeyStrict(MetaKey.SHOWINFORMATIONFLOWS)) {
+        if (property == getStyleKey(MetaKey.SHOWINFORMATIONFLOWS)) {
             fireVisibilityChanged();
         } else {
             super.styleChanged(property, newValue);
@@ -162,7 +162,7 @@ public final class GmInformationFlowArrow extends GmNoStyleSimpleNode {
     @objid ("8169c301-1dec-11e2-8cad-001ec947c8cc")
     @Override
     protected void doSetVisible(boolean visible) {
-        getStyle().setProperty(getStyleKeyStrict(MetaKey.SHOWINFORMATIONFLOWS), visible);
+        getStyle().setProperty(getStyleKey(MetaKey.SHOWINFORMATIONFLOWS), visible);
     }
 
     @objid ("8169c305-1dec-11e2-8cad-001ec947c8cc")

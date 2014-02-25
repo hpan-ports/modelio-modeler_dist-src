@@ -33,16 +33,27 @@ import org.modelio.gproject.gproject.GProject;
 import org.modelio.gproject.plugin.CoreProject;
 import org.modelio.gproject.ramc.core.model.ModelComponent;
 import org.modelio.gproject.ramc.core.packaging.IModelComponentContributor.ExportedFileEntry;
+import org.modelio.metamodel.Metamodel;
 import org.modelio.metamodel.uml.statik.Artifact;
 import org.modelio.vbasic.files.FileUtils;
 import org.modelio.vbasic.files.Zipper;
 import org.modelio.vbasic.progress.IModelioProgress;
 import org.modelio.vbasic.progress.SubProgress;
+import org.modelio.vbasic.version.Version;
 import org.modelio.vcore.session.api.transactions.ITransaction;
 import org.modelio.vcore.session.impl.CoreSession;
 import org.modelio.vcore.session.impl.permission.BasicAccessManager;
 import org.modelio.vstore.exml.local.ExmlBase;
 
+/**
+ * Model component (RAMC) packager.
+ * <p>
+ * Usage :
+ * <ul>
+ * <li> use a constructor like {@link #RamcPackager(GProject, Artifact, Path)},
+ * <li> call {@link #run(IModelioProgress)}.
+ * </li>
+ */
 @objid ("88190e3b-9e9c-11e1-a22d-001ec947ccaf")
 public class RamcPackager {
     @objid ("f7558748-f5e8-4f18-b036-50bda9a1450b")
@@ -75,6 +86,11 @@ public class RamcPackager {
         this.gproject = gproject;
         this.contributors = contributors;
         this.includeArtifact = true;
+        
+        // Force the metamodel version to the current one.
+        Version v = this.ramc.getVersion();
+        v = new Version(v.getMajorVersion(), v.getMinorVersion(), v.getBuildVersion(), Integer.parseInt(Metamodel.VERSION));
+        this.ramc.setRamcVersion(v);
     }
 
     @objid ("c2e03ffd-a5b8-11e1-aa98-001ec947ccaf")
@@ -88,7 +104,7 @@ public class RamcPackager {
         Path modelPath = this.workPath.resolve("model");
         Files.createDirectories(modelPath);
         
-        Metadatas metadatas = new Metadatas(ramc);
+        Metadatas metadatas = new Metadatas(this.ramc);
         
         // Export the model
         exportModel(modelPath, metadatas, subMonitor.newChild(10));
@@ -134,6 +150,7 @@ public class RamcPackager {
             // Save the exported repository
             targetSession.save(subMonitor.newChild(10));
             
+            // Compress the indexes, they have plenty holes
             targetRepository.getMaintenance().compressIndexes(subMonitor.newChild(10));
         } finally {
             targetSession.close();
@@ -144,7 +161,7 @@ public class RamcPackager {
     private void exportFiles(Path exportPath, Metadatas metadatas, SubProgress subMonitor) throws IOException {
         subMonitor.subTask(CoreProject.I18N.getString("RamcPackager.ExportFiles"));
         FilesExporter exporter = new FilesExporter(exportPath);
-        exporter.run(getFilesToExport(ramc, contributors), metadatas, subMonitor);
+        exporter.run(getFilesToExport(), metadatas, subMonitor);
     }
 
     @objid ("c2e04000-a5b8-11e1-aa98-001ec947ccaf")
@@ -157,16 +174,16 @@ public class RamcPackager {
     }
 
     @objid ("3ae7dea2-eb51-473c-a8ed-969d6d1ec1af")
-    private List<ExportedFileEntry> getFilesToExport(ModelComponent ramc, List<IModelComponentContributor> contributors) {
+    private List<ExportedFileEntry> getFilesToExport() {
         List<ExportedFileEntry> exportedFiles = new ArrayList<>();
         
         // Files from RAMC definition
-        for (ExportedFileEntry file : ramc.getExportedFiles()) {
+        for (ExportedFileEntry file : this.ramc.getExportedFiles()) {
             exportedFiles.add(file);
         }
         
         // Files from contributors
-        for (IModelComponentContributor contributor : contributors) {
+        for (IModelComponentContributor contributor : this.contributors) {
             for (ExportedFileEntry file : contributor.getFiles()) {
                 exportedFiles.add(file);
             }

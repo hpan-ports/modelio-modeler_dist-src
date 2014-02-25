@@ -75,13 +75,13 @@ public class GmRoleNameLabel extends GmDefaultModelElementHeader {
     @objid ("33f08342-55b7-11e2-877f-002564c97630")
     @Override
     public ModelElement getRelatedElement() {
-        return getRepresentedElement();
+        return this.role;
     }
 
     @objid ("33f08349-55b7-11e2-877f-002564c97630")
     @Override
     public ModelElement getRepresentedElement() {
-        return this.role;
+        return null;
     }
 
     @objid ("33f08350-55b7-11e2-877f-002564c97630")

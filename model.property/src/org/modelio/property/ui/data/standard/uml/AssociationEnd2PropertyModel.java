@@ -35,6 +35,7 @@ import org.modelio.core.ui.ktable.types.list.EditableListType;
 import org.modelio.core.ui.ktable.types.text.StringType;
 import org.modelio.metamodel.mda.ModuleComponent;
 import org.modelio.metamodel.uml.statik.AggregationKind;
+import org.modelio.metamodel.uml.statik.Association;
 import org.modelio.metamodel.uml.statik.AssociationEnd;
 import org.modelio.metamodel.uml.statik.Classifier;
 import org.modelio.metamodel.uml.statik.KindOfAccess;
@@ -252,7 +253,11 @@ public class AssociationEnd2PropertyModel extends AbstractPropertyModel<Associat
             }
             return "";
         case 1:
-            return associationEnd.getAssociation().getName();
+            final Association association = associationEnd.getAssociation();
+            if (association != null)
+                return association.getName();
+            else
+                return "<null>";
         case 2:
             return associationEnd.isNavigable();
         case 3:

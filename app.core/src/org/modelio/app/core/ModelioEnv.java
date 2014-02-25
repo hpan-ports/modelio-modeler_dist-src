@@ -48,7 +48,7 @@ import org.modelio.vbasic.version.Version;
 @Singleton
 public class ModelioEnv {
     @objid ("003e9a0e-9277-103f-87fd-001ec947cd2a")
-    public static final String MODELIO_VERSION = "3.1.0";
+    public static final String MODELIO_VERSION = "3.1.1";
 
     @objid ("0065c1a6-856d-103f-87fd-001ec947cd2a")
     private Version version;

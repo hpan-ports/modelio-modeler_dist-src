@@ -140,7 +140,7 @@ public final class GmInfoFlowsGroup extends GmGroup {
     @objid ("8164fe66-1dec-11e2-8cad-001ec947c8cc")
     @Override
     public final void styleChanged(StyleKey property, Object newValue) {
-        if (property == getStyleKeyStrict(MetaKey.SHOWINFORMATIONFLOWS)) {
+        if (property == getStyleKey(MetaKey.SHOWINFORMATIONFLOWS)) {
             fireVisibilityChanged();
         } else {
             super.styleChanged(property, newValue);
@@ -158,7 +158,7 @@ public final class GmInfoFlowsGroup extends GmGroup {
     @objid ("8167607f-1dec-11e2-8cad-001ec947c8cc")
     @Override
     protected void doSetVisible(boolean visible) {
-        getStyle().setProperty(getStyleKeyStrict(MetaKey.SHOWINFORMATIONFLOWS), visible);
+        getStyle().setProperty(getStyleKey(MetaKey.SHOWINFORMATIONFLOWS), visible);
     }
 
     @objid ("81676083-1dec-11e2-8cad-001ec947c8cc")

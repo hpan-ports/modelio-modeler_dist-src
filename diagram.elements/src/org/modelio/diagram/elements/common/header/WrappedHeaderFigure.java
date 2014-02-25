@@ -24,12 +24,10 @@ package org.modelio.diagram.elements.common.header;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.draw2d.BorderLayout;
-import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.GridLayout;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.ImageFigure;
-import org.eclipse.draw2d.LineBorder;
 import org.eclipse.draw2d.OrderedLayout;
 import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.ToolbarLayout;
@@ -95,6 +93,9 @@ public class WrappedHeaderFigure extends GradientFigure {
 
     @objid ("7e785bd0-1dec-11e2-8cad-001ec947c8cc")
     private Font tagFont = null;
+
+    @objid ("4f9918c0-8924-4871-bc51-a9f2834bf2a9")
+    private BlockFlow mainLabelBlock;
 
     /**
      * Constructor.
@@ -427,13 +428,13 @@ public class WrappedHeaderFigure extends GradientFigure {
     @objid ("aae63863-c1fa-497f-8254-c7ede775788e")
     protected HeaderTextFlow createCenterFigures(Figure container) {
         FlowPage centerArea = new FlowPage();
-        BlockFlow mainLabelBlock = new BlockFlow();
-        mainLabelBlock.setHorizontalAligment(PositionConstants.CENTER);
+        this.mainLabelBlock = new BlockFlow();
+        this.mainLabelBlock.setHorizontalAligment(PositionConstants.CENTER);
         HeaderTextFlow label = new HeaderTextFlow();
-        mainLabelBlock.add(label);
+        this.mainLabelBlock.add(label);
         // this.mainLabel.setBorder(new MarginBorder(2, 0, 4, 0));
-        mainLabelBlock.setBorder(new MarginFlowBorder(new Insets(2, 0, 3, 0)));
-        centerArea.add(mainLabelBlock);
+        this.mainLabelBlock.setBorder(new MarginFlowBorder(new Insets(2, 0, 3, 0)));
+        centerArea.add(this.mainLabelBlock);
         container.add(centerArea, BorderLayout.CENTER);
         return label;
     }
@@ -493,6 +494,38 @@ public class WrappedHeaderFigure extends GradientFigure {
         // TRACE: leftIconsContainer.setBorder(new LineBorder(1));
         container.add(leftFigure, BorderLayout.LEFT);
         return leftFigure;
+    }
+
+    /**
+     * Sets the horitontal aligment of the main label block. Valid values are:
+     * <UL>
+     * <LI>{@link PositionConstants#NONE NONE} - (default) Alignment is
+     * inherited from parent. If a parent is not found then LEFT is used.</LI>
+     * <LI>{@link PositionConstants#LEFT} - Alignment is with leading edge</LI>
+     * <LI>{@link PositionConstants#RIGHT} - Alignment is with trailing edge</LI>
+     * <LI>{@link PositionConstants#CENTER}</LI>
+     * <LI>{@link PositionConstants#ALWAYS_LEFT} - Left, irrespective of
+     * orientation</LI>
+     * <LI>{@link PositionConstants#ALWAYS_RIGHT} - Right, irrespective of
+     * orientation</LI>
+     * </UL>
+     * @param value the aligment
+     */
+    @objid ("0f194a3d-86e7-492a-9811-d1928c2bf940")
+    public void setMainLabelAlignement(int value) {
+        this.mainLabelBlock.setHorizontalAligment(value);
+    }
+
+    /**
+     * Returns the effective horizontal alignment of the main label block.
+     * This method will never return {@link PositionConstants#NONE}. If the value is none, it will return the
+     * inherited alignment. If no alignment was inherited, it will return the
+     * default alignment ({@link PositionConstants#LEFT}).
+     * @return the effective alignment
+     */
+    @objid ("7c2231e4-9c9b-4dd6-8bfb-b6bf1cf05d9f")
+    public int getMainLabelAlignement() {
+        return this.mainLabelBlock.getHorizontalAligment();
     }
 
     /**

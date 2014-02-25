@@ -99,37 +99,6 @@ public class EAssociationClass extends ENamedElement implements IEElement {
         }
     }
 
-//    @objid ("171e7ce6-8393-4666-9991-66926abd0533")
-//    private void attachAssociation() {
-//        if (!this.isDeleted) {
-//            ReverseProperties revProp = ReverseProperties.getInstance();
-//            int nbEnds = 0;
-//            for (Object memberEnd : ((org.eclipse.uml2.uml.AssociationClass)getEcoreElement()).getMemberEnds()) {
-//
-//                Object ends = revProp.getMappedElement((org.eclipse.uml2.uml.Element) memberEnd);
-//                AssociationEnd objingAssocEnd = null;
-//                for (ModelElement end : (ArrayList<ModelElement>) ends ){
-//                    if (end instanceof AssociationEnd){
-//                        objingAssocEnd = (AssociationEnd) end;
-//                        break;
-//                    }
-//                }
-//
-//                if (objingAssocEnd != null) {
-//                    // Links the AssociationEnd to the org.eclipse.uml2.uml.Association:
-//                    objingAssocEnd.setAssociation(this.objingAssociation);
-//                    nbEnds++;
-//                }
-//            }
-//
-//            if(nbEnds !=2){
-//                this.objingAssociation.delete();
-//                this.objingAssociation = null;
-//
-//            }
-//
-//        }
-//    }
     @objid ("9bce2204-e396-494c-9cb5-23982ab3bf99")
     private void setClassProperties() {
         if (!this.isDeleted) {
@@ -222,7 +191,7 @@ public class EAssociationClass extends ENamedElement implements IEElement {
     public void attach(Element objingElt) {
         initialize((Class) objingElt);
         attachClass();
-        //        attachAssociation();
+        attachAssociation();
     }
 
     @objid ("ffdcf409-5e05-4eeb-aa8f-3830c2e0f567")
@@ -242,6 +211,38 @@ public class EAssociationClass extends ENamedElement implements IEElement {
             this.objingAssociation = this.objingClassAssociation.getAssociationPart();
         } catch (Exception e) {
             deleteElements();
+        }
+    }
+
+    @objid ("b46b0714-758c-404a-93c7-61c9843ae47b")
+    private void attachAssociation() {
+        if (!this.isDeleted) {
+            ReverseProperties revProp = ReverseProperties.getInstance();
+            int nbEnds = 0;
+            for (Object memberEnd : ((org.eclipse.uml2.uml.AssociationClass)getEcoreElement()).getMemberEnds()) {
+        
+                Object ends = revProp.getMappedElement((org.eclipse.uml2.uml.Element) memberEnd);
+                AssociationEnd objingAssocEnd = null;
+                for (ModelElement end : (ArrayList<ModelElement>) ends ){
+                    if (end instanceof AssociationEnd){
+                        objingAssocEnd = (AssociationEnd) end;
+                        break;
+                    }
+                }
+        
+                if (objingAssocEnd != null) {
+                    // Links the AssociationEnd to the org.eclipse.uml2.uml.Association:
+                    objingAssocEnd.setAssociation(this.objingAssociation);
+                    nbEnds++;
+                }
+            }
+        
+            if(nbEnds !=2){
+                this.objingAssociation.delete();
+                this.objingAssociation = null;
+        
+            }
+        
         }
     }
 

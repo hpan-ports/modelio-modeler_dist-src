@@ -51,9 +51,6 @@ public class GmLinkLayoutEditPolicy extends LayoutEditPolicy {
     @objid ("802320d7-1dec-11e2-8cad-001ec947c8cc")
     @Override
     protected EditPolicy createChildEditPolicy(EditPart child) {
-        if (!child.isSelectable())
-            return null;
-        
         final IGmObject gmExtension = (IGmObject) child.getModel();
         final IGmLink gmlink = (IGmLink) getHost().getModel();
         

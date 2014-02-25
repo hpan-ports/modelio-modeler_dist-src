@@ -25,7 +25,9 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.vcore.smkernel.mapi.MObject;
 
 /**
- * A structure used to describe a point in time in a Sequence. For example, this might either describe an
+ * A structure used to describe a point in time in a Sequence.
+ * <p>
+ * For example, this might either describe an
  * ExecutionOccurrenceSpecification (which is a "point") or the beginning or end of an InteractionUse (which is a
  * "box"), etc.
  */
@@ -79,6 +81,24 @@ public class TimeReference {
         } else if (!this.modelElement.equals(other.modelElement))
             return false;
         return true;
+    }
+
+    @objid ("eca89d93-9ded-4358-af6c-2fff8145db09")
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(this.modelElement);
+        if (this.discriminant != null) {
+            sb.append("[");
+            sb.append(this.discriminant.name());
+            sb.append("]");
+        }
+        return sb.toString();
+    }
+
+    @objid ("797b694e-f56e-439e-9f51-f46e64c44cf7")
+    public MObject getElement() {
+        return this.modelElement;
     }
 
     /**

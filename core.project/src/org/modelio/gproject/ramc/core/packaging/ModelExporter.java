@@ -42,10 +42,16 @@ import org.modelio.metamodel.uml.infrastructure.NoteType;
 import org.modelio.metamodel.uml.infrastructure.Stereotype;
 import org.modelio.metamodel.uml.infrastructure.TagType;
 import org.modelio.metamodel.uml.infrastructure.TaggedValue;
+import org.modelio.vcore.model.CompositionGetter.IStopFilter;
+import org.modelio.vcore.model.CompositionGetter;
 import org.modelio.vcore.model.filter.IObjectFilter;
 import org.modelio.vcore.session.api.ICoreSession;
+import org.modelio.vcore.session.api.model.IModel;
 import org.modelio.vcore.session.api.repository.IRepository;
 import org.modelio.vcore.session.impl.CoreSession;
+import org.modelio.vcore.session.impl.SmFactory;
+import org.modelio.vcore.smkernel.IRStatus;
+import org.modelio.vcore.smkernel.SmObjectImpl;
 import org.modelio.vcore.smkernel.mapi.MClass;
 import org.modelio.vcore.smkernel.mapi.MDependency;
 import org.modelio.vcore.smkernel.mapi.MObject;
@@ -59,41 +65,104 @@ class ModelExporter {
     @objid ("bb83a292-4467-11e2-b513-002564c97630")
     private ICoreSession targetSession;
 
-    @objid ("9247aa1d-bb83-11e1-9fd3-001ec947ccaf")
-    private Set<MObject> objectsToExternalize = new HashSet<>();
+    @objid ("f4801d3c-ae27-4ec4-af64-820b6adf6500")
+    private Map<UUID, MObject> aliases = new HashMap<>();
+
+    @objid ("99625d2d-cc56-4e9c-aa46-3311ca599fe6")
+    private final DepWalker depWalker = new DepWalker();
 
     @objid ("9247aa20-bb83-11e1-9fd3-001ec947ccaf")
     private Set<MObject> done = new HashSet<>();
 
-    @objid ("9247aa27-bb83-11e1-9fd3-001ec947ccaf")
-    private IRepository targetRepository;
-
-    @objid ("f4801d3c-ae27-4ec4-af64-820b6adf6500")
-    private Map<UUID, MObject> aliases = new HashMap<>();
-
     @objid ("968cea54-8776-492c-b216-20351dac32f3")
     private IObjectFilter modelFilter;
 
-    @objid ("99625d2d-cc56-4e9c-aa46-3311ca599fe6")
-    private final DepWalker depWalker = new DepWalker();
+    @objid ("9247aa1d-bb83-11e1-9fd3-001ec947ccaf")
+    private Set<MObject> objectsToExternalize = new HashSet<>();
+
+    @objid ("9247aa27-bb83-11e1-9fd3-001ec947ccaf")
+    private IRepository targetRepository;
+
+    @objid ("c2e03fe8-a5b8-11e1-aa98-001ec947ccaf")
+    public ModelExporter(final ICoreSession targetSession, final IRepository targetRepository) {
+        assert (targetSession != null);
+        assert (targetRepository != null);
+        
+        this.targetSession = targetSession;
+        this.targetRepository = targetRepository;
+    }
 
     @objid ("ac6e882e-a419-11e1-aa98-001ec947ccaf")
     public void addObject(final MObject o) {
         this.objectsToExternalize.add(o);
     }
 
+    @objid ("6e27ea41-a8d2-4e5c-aee7-dbc68daa1361")
+    public void configureModelExporter(ModelComponent ramc, boolean exportArtifact, List<IModelComponentContributor> contributors) {
+        // The ramc artifact itself
+        if (exportArtifact)
+            addObject(ramc.getArtifact());
+        
+        // Elements directly manifested by the RAMC
+        for (Element e : ramc.getExportedElements()) {
+            addObject(e);
+        }
+        
+        RamcFilterBuilder builder = new RamcFilterBuilder(ramc.getArtifact());
+        
+        for (IModelComponentContributor contributor : contributors) {
+            // System.out.printf("Contributions by '%s'\n",
+            // contributor.toString());
+            // Additional elements by contributor
+            for (MObject o : contributor.getElements()) {
+                if (o != null) {
+                    addObject(o);
+                    // System.out.printf("  - element '%s'\n", o.toString());
+                }
+            }
+            // Filter configuration by contributor
+            for (NoteType type : contributor.getNoteTypes()) {
+                if (type != null) {
+                    builder.addNoteType(type);
+                    // System.out.printf("  - note type '%s'\n",
+                    // type.toString());
+                }
+            }
+            for (TagType type : contributor.getTagTypes()) {
+                if (type != null) {
+                    builder.addTagType(type);
+                    // System.out.printf("  - tag type '%s'\n",
+                    // type.toString());
+                }
+            }
+            for (Stereotype type : contributor.getDependencyStereotypes()) {
+                if (type != null) {
+                    builder.addDependencyStereotype(type);
+                    // System.out.printf("  - dep stereotype '%s'\n",
+                    // type.toString());
+                }
+            }
+        }
+        
+        // Filter configured by contributors
+        setModelFilter(builder.getModelFilter());
+    }
+
     @objid ("ac70ea45-a419-11e1-aa98-001ec947ccaf")
     public void run(Metadatas metadatas) {
         assert (this.modelFilter != null);
+        
+        createEmptyObjects();
         
         // Export the manifested objects
         for (MObject anObject : this.objectsToExternalize) {
             externalizeObject(anObject);
         }
         
+        
         // Export the stub objects, this will also compute root elements
         Set<MObject> stubs = computeStubObjectsToExport(metadatas);
-        externalizeStubObject(metadatas, stubs);
+        externalizeStubObject(stubs);
         
         // Remap roots: as some root elements might have been exported as
         // aliases...
@@ -107,79 +176,9 @@ class ModelExporter {
         this.done.clear();
     }
 
-    @objid ("ac70ea4a-a419-11e1-aa98-001ec947ccaf")
-    private MObject externalizeObject(final MObject obj) {
-        //System.out.println("ModelExporter.externalizeObject() " + obj);
-        
-        // Look for 'obj' equivalent in the target session
-        MObject targetObj = this.targetSession.getModel().findById(obj.getMClass(), obj.getUuid());
-        
-        // If 'obj' is known to have been already processed, return the target
-        // equivalent object found above.
-        if (this.done.contains(obj))
-            return targetObj;
-        
-        // As we are about to process it, add 'obj' to done objects.
-        // We have to mark it here because of the natural recursive behavior of
-        // externalizeObject
-        this.done.add(obj);
-        
-        // Create target object if necessary ie:
-        // a) if targetObj is null, the case is straightforward => create the
-        // object
-        // b) if targetObj is not null but is a shell, the trick is that the
-        // createObject() of the factory will take care of smartly "un-shelling"
-        // the existing shell object into a plain viable object
-        if (targetObj == null || targetObj.isShell()) {
-            targetObj = ((CoreSession) this.targetSession).getSmFactory().createObject((SmClass) obj.getMClass(),
-                    this.targetRepository, obj.getUuid());
-        }
-        
-        // Copy meta-attribute values
-        for (SmAttribute att : ((SmClass) obj.getMClass()).getAllAttDef()) {
-            targetObj.mSet(att, obj.mGet(att));
-        }
-        
-        // Export composition dependencies
-        for (MDependency desc : this.depWalker.getCompositionDeps(obj)) {
-            SmDependency smDep = (SmDependency) desc;
-            for (MObject val : obj.mGet(smDep)) {
-                if (this.modelFilter.accept(val)) {
-                    MObject targetVal = externalizeObject(val);
-                    targetObj.mGet(smDep).add(targetVal);
-                }
-            }
-        }
-        
-        // Export non-composition dependencies
-        for (MDependency desc : this.depWalker.getReferenceDeps(obj)) {
-            SmDependency smDep = (SmDependency) desc;
-            for (MObject val : obj.mGet(smDep)) {
-                MObject targetVal = getTargetObject(val);
-                targetObj.mGet(smDep).add(targetVal);
-            }
-        }
-        return targetObj;
-    }
-
-    @objid ("ac70ea4f-a419-11e1-aa98-001ec947ccaf")
-    private MObject getTargetObject(final MObject anObject) {
-        MObject ret = ((CoreSession) this.targetSession).getModel().findById(anObject.getMClass(), anObject.getUuid());
-        
-        if (ret == null) {
-            ret = ((CoreSession) this.targetSession).getSmFactory().createShellObject((SmClass) anObject.getMClass(),
-                    ((CoreSession) this.targetSession).getShellRepository(), anObject.getUuid(), anObject.getName());
-        }
-        return ret;
-    }
-
-    @objid ("c2e03fe8-a5b8-11e1-aa98-001ec947ccaf")
-    public ModelExporter(final ICoreSession targetSession, final IRepository targetRepository) {
-        assert (targetSession != null);
-        assert (targetRepository != null);
-        
-        this.targetSession = targetSession;
-        this.targetRepository = targetRepository;
+    @objid ("e61232c9-d02c-11e1-a8eb-001ec947ccaf")
+    public void setModelFilter(ConfigurableModelFilter modelFilter) {
+        this.modelFilter = modelFilter;
     }
 
     /**
@@ -225,13 +224,92 @@ class ModelExporter {
         return stubObjectsToExport;
     }
 
-    @objid ("e61232c9-d02c-11e1-a8eb-001ec947ccaf")
-    public void setModelFilter(ConfigurableModelFilter modelFilter) {
-        this.modelFilter = modelFilter;
+    /**
+     * Create empty objects in the target session for each object to externalize and its composition graph.
+     */
+    @objid ("42bb3384-e5d5-4842-accb-ed7904d4e868")
+    private void createEmptyObjects() {
+        final SmFactory smFactory = ((CoreSession) this.targetSession).getSmFactory();
+        IModel modelService = ((CoreSession) this.targetSession).getModel();
+        for (MObject obj : this.objectsToExternalize) {
+            smFactory.createObject((SmClass) obj.getMClass(), this.targetRepository, obj.getUuid());
+        }
+        
+        Collection<SmObjectImpl> roots = new ArrayList<>();
+        for (MObject o : this.objectsToExternalize)
+            roots.add((SmObjectImpl) o);
+        
+        final IObjectFilter theModelfilter = this.modelFilter;
+        final IStopFilter filter = new IStopFilter() {
+        
+            @Override
+            public boolean accept(SmObjectImpl val) {
+                return theModelfilter.accept(val);
+            }
+        };
+        for (MObject obj : CompositionGetter.getAllChildren(roots, filter)) {
+            SmClass metaclass = (SmClass) obj.getMClass();
+            UUID uuid = obj.getUuid();
+            // Ignore already created objects.
+            SmObjectImpl ret = (SmObjectImpl) modelService.findById(metaclass, uuid);
+            if (ret == null || ret.hasStatus(IRStatus.SHELL)) {
+                smFactory.createObject(metaclass, this.targetRepository, uuid);
+            }
+        }
+    }
+
+    @objid ("ac70ea4a-a419-11e1-aa98-001ec947ccaf")
+    private MObject externalizeObject(final MObject obj) {
+        //System.out.println("ModelExporter.externalizeObject() " + obj);
+        
+        // Look for 'obj' equivalent in the target session
+        MObject targetObj = this.targetSession.getModel().findById(obj.getMClass(), obj.getUuid());
+        
+        // If 'obj' is known to have been already processed, return the target
+        // equivalent object found above.
+        if (this.done.contains(obj))
+            return targetObj;
+        
+        // As we are about to process it, add 'obj' to done objects.
+        // We have to mark it here because of the natural recursive behavior of
+        // externalizeObject
+        this.done.add(obj);
+        
+        if (targetObj == null || targetObj.isShell()) {
+            throw new IllegalStateException(obj+" not found or shell in the target session.");
+        }
+        
+        // Copy meta-attribute values
+        for (SmAttribute att : ((SmClass) obj.getMClass()).getAllAttDef()) {
+            targetObj.mSet(att, obj.mGet(att));
+        }
+        
+        // Export composition dependencies
+        for (MDependency desc : this.depWalker.getCompositionDeps(obj)) {
+            SmDependency smDep = (SmDependency) desc;
+            for (MObject val : obj.mGet(smDep)) {
+                if (this.modelFilter.accept(val)) {
+                    MObject targetVal = externalizeObject(val);
+                    targetObj.mGet(smDep).add(targetVal);
+                }
+            }
+        }
+        
+        // Export non-composition dependencies
+        for (MDependency desc : this.depWalker.getReferenceDeps(obj)) {
+            SmDependency smDep = (SmDependency) desc;
+            for (MObject val : obj.mGet(smDep)) {
+                MObject targetVal = getTargetObject(val);
+                targetObj.mGet(smDep).add(targetVal);
+            }
+        }
+        return targetObj;
     }
 
     @objid ("6dcca2cc-77f5-4860-9da4-ae5e9a6c4536")
-    private void externalizeStubObject(Metadatas metadatas, Set<MObject> stubObjects) {
+    private void externalizeStubObject(Set<MObject> stubObjects) {
+        final MClass MODELELEMENT_MCLASS = Metamodel.getMClass(ModelElement.class);
+        
         if (stubObjects.isEmpty()) {
             return;
         }
@@ -242,13 +320,13 @@ class ModelExporter {
         
         Stereotype aliasStereotype = null;
         List<Stereotype> stereotypes = factory.findStereotype("ModelerModule", "ModelComponentElementAlias",
-                Metamodel.getMClass(ModelElement.class));
+                MODELELEMENT_MCLASS);
         if (!stereotypes.isEmpty())
             // Get the stereotype from the target session!
             aliasStereotype = (Stereotype) getTargetObject(stereotypes.get(0));
         
         TagType uuidTagType = null;
-        List<TagType> tagTypes = factory.findTagType("ModelerModule", "uuid", Metamodel.getMClass(ModelElement.class));
+        List<TagType> tagTypes = factory.findTagType("ModelerModule", "uuid", MODELELEMENT_MCLASS);
         if (!tagTypes.isEmpty())
             // Get the tag type from the target session!
             uuidTagType = (TagType) getTargetObject(tagTypes.get(0));
@@ -323,63 +401,23 @@ class ModelExporter {
         }
     }
 
-    @objid ("6e27ea41-a8d2-4e5c-aee7-dbc68daa1361")
-    public void configureModelExporter(ModelComponent ramc, boolean exportArtifact, List<IModelComponentContributor> contributors) {
-        // The ramc artifact itself
-        if (exportArtifact)
-            addObject(ramc.getArtifact());
+    @objid ("ac70ea4f-a419-11e1-aa98-001ec947ccaf")
+    private MObject getTargetObject(final MObject anObject) {
+        MObject ret = ((CoreSession) this.targetSession).getModel().findById(anObject.getMClass(), anObject.getUuid());
         
-        // Elements directly manifested by the RAMC
-        for (Element e : ramc.getExportedElements()) {
-            addObject(e);
+        if (ret == null) {
+            ret = ((CoreSession) this.targetSession).getSmFactory().createShellObject((SmClass) anObject.getMClass(),
+                    ((CoreSession) this.targetSession).getShellRepository(), anObject.getUuid(), anObject.getName());
         }
-        
-        RamcFilterBuilder builder = new RamcFilterBuilder(ramc.getArtifact());
-        
-        for (IModelComponentContributor contributor : contributors) {
-            // System.out.printf("Contributions by '%s'\n",
-            // contributor.toString());
-            // Additional elements by contributor
-            for (MObject o : contributor.getElements()) {
-                if (o != null) {
-                    addObject(o);
-                    // System.out.printf("  - element '%s'\n", o.toString());
-                }
-            }
-            // Filter configuration by contributor
-            for (NoteType type : contributor.getNoteTypes()) {
-                if (type != null) {
-                    builder.addNoteType(type);
-                    // System.out.printf("  - note type '%s'\n",
-                    // type.toString());
-                }
-            }
-            for (TagType type : contributor.getTagTypes()) {
-                if (type != null) {
-                    builder.addTagType(type);
-                    // System.out.printf("  - tag type '%s'\n",
-                    // type.toString());
-                }
-            }
-            for (Stereotype type : contributor.getDependencyStereotypes()) {
-                if (type != null) {
-                    builder.addDependencyStereotype(type);
-                    // System.out.printf("  - dep stereotype '%s'\n",
-                    // type.toString());
-                }
-            }
-        }
-        
-        // Filter configured by contributors
-        setModelFilter(builder.getModelFilter());
+        return ret;
     }
 
     @objid ("bc08eef2-d369-40c7-8a83-1a28ed412943")
     private static class DepWalker {
-        @objid ("c4da04e5-2b54-4895-b60d-d0ea8abb5486")
+        @objid ("8fd82804-ffe3-4e2d-868c-d1f876110d4b")
         private Map<MClass, Collection<MDependency>> compositionDeps = new HashMap<>();
 
-        @objid ("a12ec7d1-4454-49dd-9277-793bb68313ca")
+        @objid ("840b07a3-eaae-4b07-b1b1-3814b7e77e3a")
         private Map<MClass, Collection<MDependency>> referenceDeps = new HashMap<>();
 
         /**
@@ -423,6 +461,11 @@ class ModelExporter {
             
             this.referenceDeps.put(srcObject.getMClass(), ret);
             return ret;
+        }
+
+        @objid ("e1f6f405-b0d4-4881-ae46-b324d8436371")
+        public DepWalker() {
+            super();
         }
 
     }

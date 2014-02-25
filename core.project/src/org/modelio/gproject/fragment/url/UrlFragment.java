@@ -21,7 +21,13 @@
 
 package org.modelio.gproject.fragment.url;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.URI;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
 import java.util.Collection;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
@@ -29,11 +35,18 @@ import org.modelio.gproject.descriptor.DefinitionScope;
 import org.modelio.gproject.descriptor.FragmentType;
 import org.modelio.gproject.descriptor.GAuthConf;
 import org.modelio.gproject.descriptor.GProperties;
+import org.modelio.gproject.descriptor.VersionDescriptors;
 import org.modelio.gproject.fragment.AbstractFragment;
+import org.modelio.gproject.gproject.GProjectEvent;
+import org.modelio.gproject.plugin.CoreProject;
+import org.modelio.metamodel.Metamodel;
 import org.modelio.metamodel.analyst.AnalystProject;
 import org.modelio.metamodel.mda.ModuleComponent;
 import org.modelio.metamodel.mda.Project;
+import org.modelio.vbasic.net.UriConnections;
+import org.modelio.vbasic.net.UriUtils;
 import org.modelio.vbasic.progress.IModelioProgress;
+import org.modelio.vcore.Log;
 import org.modelio.vcore.session.api.IAccessManager;
 import org.modelio.vcore.session.api.repository.IRepository;
 import org.modelio.vcore.session.impl.permission.BasicAccessManager;
@@ -142,6 +155,35 @@ public class UrlFragment extends AbstractFragment {
         final BasicAccessManager ret = new BasicAccessManager();
         ret.setWriteable(false);
         return ret;
+    }
+
+    @objid ("9e5e011e-35c0-47c4-ba4f-9b3f87bdb652")
+    @Override
+    public VersionDescriptors getMetamodelVersion() throws IOException {
+        URI mmuri = UriUtils.asDirectoryUri(this.repoUrl).resolve("admin/").resolve(MMVERSION_FILE_NAME);
+        
+        try (InputStream is = UriConnections.openInputStream(mmuri, getAuthData());
+                InputStreamReader in = new InputStreamReader(is, StandardCharsets.UTF_8)) {
+            return new VersionDescriptors(in);
+        } catch (FileNotFoundException | NoSuchFileException e) {
+            Log.warning("No '"+mmuri+"' metamodel version file. Assume last metamodel version.");
+            return VersionDescriptors.current();
+        }
+    }
+
+    @objid ("aa4fba17-786f-454b-afa1-abaf26f4ae6c")
+    @Override
+    protected void checkMmVersion() throws IOException {
+        VersionDescriptors fragmentVersion = getMetamodelVersion();
+        if (! fragmentVersion.isSame(VersionDescriptors.current())) {
+            // last compatible version 9017
+            // first incompatible version 9016
+            final int mmVersion = fragmentVersion.getMmVersion();
+            if (mmVersion < 9017 || mmVersion > Integer.parseInt(Metamodel.VERSION))
+                throw new IOException(CoreProject.getMessage("AbstractFragment.DifferentMmVersion", fragmentVersion));
+            else
+                getProject().getMonitorSupport().fireMonitors(GProjectEvent.buildWarning(this, new IOException(CoreProject.getMessage("RamcFileFragment.DifferentMmVersion", fragmentVersion))));
+        }
     }
 
 }

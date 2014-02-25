@@ -73,7 +73,7 @@ public class GmLinkRoleNameLabel extends GmDefaultModelElementHeader {
 
     @objid ("355eb977-55b7-11e2-877f-002564c97630")
     @Override
-    public LinkEnd getRepresentedElement() {
+    public ModelElement getRelatedElement() {
         return this.role;
     }
 
@@ -95,12 +95,6 @@ public class GmLinkRoleNameLabel extends GmDefaultModelElementHeader {
                 break;
             }
         }
-    }
-
-    @objid ("35603fdd-55b7-11e2-877f-002564c97630")
-    @Override
-    public ModelElement getRelatedElement() {
-        return getRepresentedElement();
     }
 
     @objid ("35603fe4-55b7-11e2-877f-002564c97630")
@@ -133,6 +127,12 @@ public class GmLinkRoleNameLabel extends GmDefaultModelElementHeader {
     @Override
     public int getMajorVersion() {
         return MAJOR_VERSION;
+    }
+
+    @objid ("06580b40-8c6f-4174-898b-d93405524e1b")
+    @Override
+    public ModelElement getRepresentedElement() {
+        return null;
     }
 
 }

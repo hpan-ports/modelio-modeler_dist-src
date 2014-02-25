@@ -21,6 +21,7 @@
 
 package org.modelio.diagram.editor.sequence.elements.modelmanipulation;
 
+import java.util.Arrays;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
 /**
@@ -42,5 +43,13 @@ public abstract class Predicate {
 
     @objid ("d96e58d8-55b6-11e2-877f-002564c97630")
     public abstract boolean evaluate();
+
+    /**
+     * @return the involved variables.
+     */
+    @objid ("9a04934e-3bd2-4fd5-8af1-e30c57ccbc12")
+    public Iterable<Variable> getVariables() {
+        return Arrays.asList(this.firstVariable, this.secondVariable);
+    }
 
 }

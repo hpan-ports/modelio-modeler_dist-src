@@ -28,6 +28,8 @@ import java.util.Map;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.metamodel.Metamodel;
 import org.modelio.metamodel.analyst.AnalystProject;
+import org.modelio.metamodel.bpmn.processCollaboration.BpmnLane;
+import org.modelio.metamodel.experts.meta.impl.BpmnLaneCreationExpert;
 import org.modelio.metamodel.experts.meta.impl.DefaultMetaExpert;
 import org.modelio.metamodel.experts.meta.impl.PartDecompositionCreationExpert;
 import org.modelio.metamodel.mda.Project;
@@ -285,6 +287,7 @@ public class MetaTool implements IMetaTool {
         public MetaExpertRegistry() {
             // Init experts
             this.EXPERTS.put(Metamodel.getMClass(Lifeline.class), new PartDecompositionCreationExpert());
+            this.EXPERTS.put(Metamodel.getMClass(BpmnLane.class), new BpmnLaneCreationExpert());
         }
 
     }

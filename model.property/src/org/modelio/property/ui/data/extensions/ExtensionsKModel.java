@@ -388,7 +388,7 @@ public class ExtensionsKModel extends KTableDefaultModel {
             
             if (module != null) {
                 for (TagType tagType : ExtensionsKModel.this.modelService.findTagTypes(module.getName(), ".*", metaclass)) {
-                    if (!tagType.isIsHidden()) {
+                    if (tagType.getOwnerStereotype() == null && !tagType.isIsHidden()) {
                         ret.add(tagType);
                     }
                 }
@@ -443,9 +443,6 @@ public class ExtensionsKModel extends KTableDefaultModel {
 
         /**
          * This operation returns the tagged value with the corresponding type.
-         * @param element IModelElement on which the tagged value is search for.
-         * @param type The tagged value type name
-         * @return The tag or null if it can't be found
          */
         @objid ("2845e304-12f2-11e2-8060-002564c97630")
         private TaggedValue getTag(ModelElement element, TagType type) {
@@ -461,8 +458,6 @@ public class ExtensionsKModel extends KTableDefaultModel {
         /**
          * This operation deletes the tagged value having this type from the given element.
          * @param session the modeling session.
-         * @param element IModelElement on which the tagged value is removed.
-         * @param type The tagged value type name
          */
         @objid ("2845e30b-12f2-11e2-8060-002564c97630")
         private void removeTag(ModelElement element, TagType type) {
@@ -478,9 +473,6 @@ public class ExtensionsKModel extends KTableDefaultModel {
          * If values is <tt>null</tt> or empty the existing tag is deleted.
          * @param session the modeling session used to create the tagged value if it does not exist.
          * @throws org.modelio.gproject.model._ElementNotUniqueException when no tag type with the given name exists on the element's metaclass.
-         * @param element IModelElement on which the tagged value is created or updated.
-         * @param tagType The tagged value type name.
-         * @param value The values to store on the first tag parameter. If values is <tt>null</tt> the tag is deleted.
          */
         @objid ("2845e310-12f2-11e2-8060-002564c97630")
         private void putTagValue(ModelElement element, TagType tagType, String value) {
@@ -527,9 +519,6 @@ public class ExtensionsKModel extends KTableDefaultModel {
          * If values is <tt>null</tt> or empty the existing tag is deleted.
          * @param session the modeling session used to create the tagged value if it does not exist.
          * @throws org.modelio.gproject.model._ElementNotUniqueException when no tag type with the given name exists on the element's metaclass.
-         * @param element IModelElement on which the tagged value is created or updated.
-         * @param type The tagged value type name.
-         * @param values The values to store on the tag parameters. If values is <tt>null</tt> or empty the tag is deleted.
          */
         @objid ("2845e316-12f2-11e2-8060-002564c97630")
         private void putTagValues(ModelElement element, TagType type, List<String> values) {

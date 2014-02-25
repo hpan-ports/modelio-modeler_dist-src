@@ -234,7 +234,9 @@ public abstract class AbstractImporter {
     @objid ("008e3334-5246-1091-8d81-001ec947cd2a")
     protected void deleteGarbage() {
         for (SmObjectImpl localObjectToDelete : this.result.getDeletions()) {
-            localObjectToDelete.delete();
+            if (localObjectToDelete.isValid()) {
+                localObjectToDelete.delete();
+            }
         }
     }
 

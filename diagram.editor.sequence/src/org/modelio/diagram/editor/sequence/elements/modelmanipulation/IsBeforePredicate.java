@@ -66,4 +66,11 @@ public class IsBeforePredicate extends Predicate {
         }
     }
 
+    @objid ("d590d08a-bc75-4348-a942-cbabd51735b6")
+    @Override
+    public String toString() {
+        String op = this.strict ? "<" : "<=" ;
+        return this.firstVariable.getRef() + " + " + this.offset + op + " " + this.secondVariable.getRef();
+    }
+
 }

@@ -37,6 +37,7 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.gproject.ramc.core.model.ModelComponent;
 import org.modelio.gproject.ramc.core.packaging.IModelComponentContributor.ExportedFileEntry;
 import org.modelio.vbasic.version.Version;
+import org.modelio.vcore.Log;
 import org.modelio.vcore.smkernel.mapi.MRef;
 
 /**
@@ -46,7 +47,7 @@ import org.modelio.vcore.smkernel.mapi.MRef;
  * @author phv
  */
 @objid ("aa3687e8-7908-41f1-9c19-eff0d2ab45c3")
-public class Metadatas {
+class Metadatas {
     @objid ("179828c2-8443-47b3-a284-ba9a3075f7e2")
     private static final String MANIFEST_VERSION = "2.0";
 
@@ -59,23 +60,40 @@ public class Metadatas {
     @objid ("63d147eb-f1da-4338-a0a7-4dd686d074a7")
     private List<MRef> roots = new ArrayList<>();
 
+    /**
+     * initialize the meta datas.
+     * @param ramc the model component representation.
+     */
     @objid ("154faeef-56c6-4de9-85db-0e9deb66ef4b")
     public Metadatas(ModelComponent ramc) {
         this.ramc = ramc;
     }
 
+    /**
+     * Add files to export
+     * @param metafileName the file name in the archive
+     * @param fileEntry the entry telling where the file must be deployed.
+     */
     @objid ("4e57c868-9fca-491d-8f77-95fdd210f821")
     public void addExportedFileDef(String metafileName, ExportedFileEntry fileEntry) {
         this.files.put(metafileName, fileEntry);
     }
 
+    /**
+     * @param root a model element to include
+     */
     @objid ("92e4ce92-4d49-4975-be1b-d04b09e09640")
     public void addRoot(MRef root) {
         this.roots.add(root);
     }
 
+    /**
+     * Write the RAMC metadata file in the given directory.
+     * @param exportPath the directory where to write the metadatas.xml file.
+     * @throws java.io.IOException in case of I/O error
+     */
     @objid ("9ffcedf6-e353-4f69-a321-1d35164be6e2")
-    public void write(Path exportPath) {
+    public void write(Path exportPath) throws IOException {
         Path metadataFile = exportPath.resolve("metadatas.xml");
         
         try (BufferedWriter metadataWriter = Files.newBufferedWriter(metadataFile, StandardCharsets.UTF_8)) {
@@ -100,9 +118,6 @@ public class Metadatas {
             // Footer
             writeMetadataFooter(metadataWriter);
         
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
         }
     }
 
@@ -114,7 +129,12 @@ public class Metadatas {
         buffer.append("<?xml version=\"1.0\" encoding=\"" + StandardCharsets.UTF_8.name() + "\"?>\n");
         
         buffer.append("<ram-component manifest-version=\"" + MANIFEST_VERSION + "\"\n");
-        buffer.append("               name=\"" + this.ramc.getName() + "\" version=\"" + ramcVersion.getMajorVersion() + "\" release=\"" + ramcVersion.getMinorVersion() + "\"  clevel=\"" + ramcVersion.getBuildVersion() + "\">\n");
+        buffer.append("               name=\"" + this.ramc.getName() +
+                "\" version=\"" + ramcVersion.getMajorVersion() +
+                "\" release=\"" + ramcVersion.getMinorVersion() + 
+                "\" clevel=\"" + ramcVersion.getBuildVersion() + 
+                "\" metamodel=\"" + ramcVersion.getMetamodelVersion() +
+                "\">\n");
         
         buffer.append("    <description>\n");
         buffer.append("        <![CDATA[" + ramcDescription + "]" + "]>\n");
@@ -167,7 +187,7 @@ public class Metadatas {
             metadata.append(String.valueOf(Files.getLastModifiedTime(file).to(TimeUnit.SECONDS)));
             metadata.append("\"/>\n");
         } else {
-            System.err.println("RamcPackager - Invalid file path: " + file.toString());
+            Log.warning(getClass().getName()+" - Invalid file path: " + file.toString());
         }
     }
 

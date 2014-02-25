@@ -36,6 +36,7 @@ import org.modelio.metamodel.uml.statik.Collaboration;
 import org.modelio.metamodel.uml.statik.Component;
 import org.modelio.metamodel.uml.statik.DataType;
 import org.modelio.metamodel.uml.statik.Enumeration;
+import org.modelio.metamodel.uml.statik.GeneralClass;
 import org.modelio.metamodel.uml.statik.Interface;
 import org.modelio.metamodel.uml.statik.NameSpace;
 import org.modelio.metamodel.uml.statik.Node;
@@ -71,9 +72,9 @@ public class E204Checker extends TypeChecker {
             return;
         }
         
-        if (checkedObject instanceof NameSpace && !(checkedObject instanceof Interface)) {
-            NameSpace checkedClass = (NameSpace) checkedObject;
-            if (checkedClass.isIsAbstract()) {
+        if (checkedObject instanceof GeneralClass && !(checkedObject instanceof Interface)) {
+            GeneralClass checkedClass = (GeneralClass) checkedObject;
+            if (checkedClass.isIsElementary()) {
                 List<Object> objects = new ArrayList<>();
                 objects.add(object);
                 objects.add(checkedClass);

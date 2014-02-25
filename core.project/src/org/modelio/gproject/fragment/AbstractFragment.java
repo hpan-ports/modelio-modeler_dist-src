@@ -31,8 +31,10 @@ import org.modelio.gproject.descriptor.DefinitionScope;
 import org.modelio.gproject.descriptor.FragmentDescriptor;
 import org.modelio.gproject.descriptor.GAuthConf;
 import org.modelio.gproject.descriptor.GProperties;
+import org.modelio.gproject.descriptor.VersionDescriptors;
 import org.modelio.gproject.gproject.GProject;
 import org.modelio.gproject.gproject.GProjectEvent;
+import org.modelio.gproject.plugin.CoreProject;
 import org.modelio.vbasic.auth.IAuthData;
 import org.modelio.vbasic.files.FileUtils;
 import org.modelio.vbasic.progress.IModelioProgress;
@@ -65,6 +67,14 @@ public abstract class AbstractFragment implements IProjectFragment {
 
     @objid ("4417921b-39f5-4b0a-9f7f-346475d15790")
     private final String encodedDirName;
+
+    /**
+     * File name of the file containing the metamodel versions.
+     * <p>
+     * To be used by {@link #getMetamodelVersion()} in most cases.
+     */
+    @objid ("56ffb25b-35a1-40b0-aead-be40f853cf28")
+    protected static final String MMVERSION_FILE_NAME = "mmversion.dat";
 
     @objid ("a303e5f8-abf1-11e1-8392-001ec947ccaf")
     private GProperties properties;
@@ -258,10 +268,14 @@ public abstract class AbstractFragment implements IProjectFragment {
             IAccessManager accessManager = doInitAccessManager();
             aProject.getSession().getRepositorySupport().connectRepository(repository, getId(), accessManager, mon);
             
+            checkMmVersion();
+            
             mon.setWorkRemaining(100);
             doMountPostConnect(mon);
             
             setState(FragmentState.UP_FULL);
+        } catch (RuntimeException e) {
+            setDown(e);
         } catch (IOException e) {
             setDown(e);
         } finally {
@@ -391,10 +405,15 @@ public abstract class AbstractFragment implements IProjectFragment {
     /**
      * Instantiate the {@link #getRepository() repository}.
      * <p>
-     * This hook called by {@link #mount(GProject, IModelioProgress)}.
-     * The implementation must just instantiate it without mounting it.
-     * @param aMonitor the progress monitor to use for reporting progress to the user. It is the caller's responsibility to call
-     * <code>done()</code> on the given monitor. Accepts <code>null</code>, indicating that no progress should be
+     * This is a hook called by {@link #mount(GProject, IModelioProgress)}.
+     * The implementation must just instantiate the {@link IRepository} without opening it.
+     * <p>
+     * The implementation must <b>not</b> call <code>done()</code> on the given monitor and must leave
+     * a non negligible part of the progress unconsumed.
+     * @param aMonitor the progress monitor to use for reporting progress to the user.
+     * The implementation must <b>not</b> call <code>done()</code> the given monitor and must leave
+     * a non negligible part of the progress unconsumed.
+     * Accepts <code>null</code>, indicating that no progress should be
      * reported and that the operation cannot be cancelled.
      * @return the instantiated repository.
      * @throws java.io.IOException in case of failure.
@@ -455,10 +474,34 @@ public abstract class AbstractFragment implements IProjectFragment {
     }
 
     /**
+     * Get the fragment metamodel versions.
+     * @return the fragment metamodel versions.
+     * @throws java.io.IOException in case of I/O failure reading the version
+     */
+    @objid ("de579a41-ffb4-48f7-9ef6-592270f353d7")
+    public abstract VersionDescriptors getMetamodelVersion() throws IOException;
+
+    @objid ("86471d8d-0b51-4f7c-b692-423a07a2286f")
+    protected void checkMmVersion() throws IOException {
+        VersionDescriptors fragmentVersion = getMetamodelVersion();
+        if (! fragmentVersion.isSame(VersionDescriptors.current())) {
+            throw new IOException(CoreProject.getMessage("AbstractFragment.MmVersionNotSupported", getId(), fragmentVersion, VersionDescriptors.current()));
+        }
+    }
+
+    /**
+     * @return the last metamodel version.
+     */
+    @objid ("292a9f4d-5d85-4cdf-beac-e129cb79b79d")
+    protected VersionDescriptors getLastMmVersion() {
+        return VersionDescriptors.current();
+    }
+
+    /**
      * Repository error listener.
      * <p>
-     * TODO : catch repository errors and transmit them to a
-     * higher level listener, on GProject for example.
+     * Catches repository errors and transmit them to the {@link GProject}
+     * event monitor.
      */
     @objid ("6a70dfd0-d66d-11e1-9f03-001ec947ccaf")
     private class RepositoryListener implements IRepositoryErrorListener {

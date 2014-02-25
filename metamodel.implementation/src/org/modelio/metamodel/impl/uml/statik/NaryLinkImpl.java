@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9020              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.uml.statik;
 
@@ -29,11 +29,13 @@ import java.util.Collections;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.emf.common.util.EList;
+import org.modelio.metamodel.data.uml.statik.NaryAssociationData;
 import org.modelio.metamodel.data.uml.statik.NaryLinkData;
 import org.modelio.metamodel.impl.uml.infrastructure.ModelElementImpl;
 import org.modelio.metamodel.uml.behavior.communicationModel.CommunicationChannel;
 import org.modelio.metamodel.uml.informationFlow.InformationFlow;
 import org.modelio.metamodel.uml.statik.NaryAssociation;
+import org.modelio.metamodel.uml.statik.NaryAssociationEnd;
 import org.modelio.metamodel.uml.statik.NaryLink;
 import org.modelio.metamodel.uml.statik.NaryLinkEnd;
 import org.modelio.metamodel.visitors.IModelVisitor;
@@ -44,6 +46,7 @@ import org.modelio.vcore.smkernel.SmObjectImpl;
 import org.modelio.vcore.smkernel.mapi.MClass;
 import org.modelio.vcore.smkernel.mapi.MVisitor;
 import org.modelio.vcore.smkernel.meta.SmClass;
+import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("00227a86-c4bf-1fd8-97fe-001ec947cd2a")
 public class NaryLinkImpl extends ModelElementImpl implements NaryLink {
@@ -72,13 +75,13 @@ public class NaryLinkImpl extends ModelElementImpl implements NaryLink {
         return super.getCompositionRelation();
     }
 
-    @objid ("6e551893-7a04-42e1-9e5c-37d55fb6e5b6")
+    @objid ("f269be34-1125-47b5-bccc-bfa221cb6427")
     @Override
     public EList<NaryLinkEnd> getNaryLinkEnd() {
         return new SmList<>(this, NaryLinkData.Metadata.NaryLinkEndDep());
     }
 
-    @objid ("9bcff389-48c3-41dc-a154-50898b63e142")
+    @objid ("f3699254-df19-42c1-9fa7-0ef88a909ded")
     @Override
     public <T extends NaryLinkEnd> List<T> getNaryLinkEnd(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -91,25 +94,25 @@ public class NaryLinkImpl extends ModelElementImpl implements NaryLink {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("6e9fe77d-2847-40fb-9b76-8984b9cccc9a")
+    @objid ("18565354-762c-49a6-987c-0bec57a0d86e")
     @Override
     public NaryAssociation getModel() {
         return (NaryAssociation) getDepVal(NaryLinkData.Metadata.ModelDep());
     }
 
-    @objid ("c4782769-2867-436f-840d-6450a75f3a2e")
+    @objid ("7169983e-810f-47b2-a531-ce8ee9df5764")
     @Override
     public void setModel(NaryAssociation value) {
         appendDepVal(NaryLinkData.Metadata.ModelDep(), (SmObjectImpl)value);
     }
 
-    @objid ("471d98f6-2393-48a0-b7df-9c0b9d15626a")
+    @objid ("1f0dfd9c-721e-4845-a7a9-7e16b151769e")
     @Override
     public EList<InformationFlow> getRealizedInformationFlow() {
         return new SmList<>(this, NaryLinkData.Metadata.RealizedInformationFlowDep());
     }
 
-    @objid ("3935e20a-c854-489c-89a1-cdec76fdd2c5")
+    @objid ("6d2d5acc-f1f2-4cf1-af5a-46df0a8ac7a5")
     @Override
     public <T extends InformationFlow> List<T> getRealizedInformationFlow(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -122,13 +125,13 @@ public class NaryLinkImpl extends ModelElementImpl implements NaryLink {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("485488e9-daf1-4c44-b73b-df4752cbebbd")
+    @objid ("a5b06243-88ad-42ad-85fb-5fa0ff7e7ebc")
     @Override
     public EList<CommunicationChannel> getSent() {
         return new SmList<>(this, NaryLinkData.Metadata.SentDep());
     }
 
-    @objid ("bfc1928c-7a25-40a4-8d49-ad0bb7542a3b")
+    @objid ("d1d400d8-a2e7-4595-a47e-cdaf259d4338")
     @Override
     public <T extends CommunicationChannel> List<T> getSent(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -141,12 +144,30 @@ public class NaryLinkImpl extends ModelElementImpl implements NaryLink {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("dfe57e8c-55da-4337-9976-8b806d6fd3d4")
+    @objid ("16b15030-2205-4281-8b59-a2b29d4efd28")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitNaryLink(this);
         else
           return null;
+    }
+
+    @objid ("9d635ed3-8666-4eaa-be31-8cde824199c0")
+    @Override
+    public void afterEraseDepVal(SmDependency dep, SmObjectImpl value) {
+        if (dep == NaryLinkData.Metadata.NaryLinkEndDep()) {
+            // Workaround bug where the storage handle is not updated
+            EList<NaryLinkEnd> remainingOwners = getNaryLinkEnd();
+            if (! remainingOwners.isEmpty()) {
+                // Remove and add again the first remaining owner.
+                // Note : this will trigger recursively the removal & addition of all other owners.
+                NaryLinkEnd r = remainingOwners.get(0);
+                r.setNaryLink(null);
+                r.setNaryLink(this);
+            }
+        }
+        
+        super.afterEraseDepVal(dep, value);
     }
 
 }

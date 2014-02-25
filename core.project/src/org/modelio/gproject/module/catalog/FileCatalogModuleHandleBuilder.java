@@ -50,6 +50,7 @@ import org.modelio.gproject.module.jaxbmodel.JxbModule;
 import org.modelio.gproject.module.jaxbmodel.JxbNotetype;
 import org.modelio.gproject.module.jaxbmodel.JxbTaggedvalues;
 import org.modelio.gproject.plugin.CoreProject;
+import org.modelio.gproject.ramc.core.model.ModelComponent;
 import org.modelio.gproject.ramc.core.packaging.RamcPackager;
 import org.modelio.metamodel.mda.ModuleComponent;
 import org.modelio.metamodel.mda.Project;
@@ -57,7 +58,6 @@ import org.modelio.metamodel.uml.infrastructure.MetaclassReference;
 import org.modelio.metamodel.uml.infrastructure.Profile;
 import org.modelio.metamodel.uml.infrastructure.Stereotype;
 import org.modelio.metamodel.uml.statik.Artifact;
-import org.modelio.metamodel.uml.statik.Manifestation;
 import org.modelio.metamodel.uml.statik.Package;
 import org.modelio.vbasic.files.FileUtils;
 import org.modelio.vbasic.progress.IModelioProgress;
@@ -328,25 +328,15 @@ class FileCatalogModuleHandleBuilder {
             
             ModelFactory modelfactory = new ModelFactory(s, repo);
             
-            try (ITransaction t = s.getTransactionSupport().createTransaction("init module ramc")) {
+            try (ITransaction t = s.getTransactionSupport().createTransaction("Init "+loadedModule.getName()+" module RAMC")) {
                 GenericFactory gf = s.getModel().getGenericFactory();
             
                 Project proj = gf.create(Project.class, repo);
-            
                 Package p = gf.create(Package.class, repo);
                 proj.setModel(p);
             
                 // Create the module itself
                 ModuleComponent module = modelfactory.createModule(loadedModule);
-            
-                // Setup RAMC packaging.
-                Artifact a = gf.create(Artifact.class, p);
-                a.setName(loadedModule.getName());
-                p.getOwnedElement().add(a);
-            
-                Manifestation m = gf.create(Manifestation.class, p);
-                m.setOwner(a);
-                m.setUtilizedElement(module);
             
                 // Import Profiles, Stereotypes, TagTypes and so on.
                 for (Object child : loadedModule.getParameterOrProfileOrGui()) {
@@ -406,10 +396,22 @@ class FileCatalogModuleHandleBuilder {
                         }
                     }
                 }
+                
+                // Setup RAMC packaging.
+                // Generate the RAMC Artifact
+                Artifact aa = gf.create(Artifact.class, p);
+                aa.setName(loadedModule.getName());
+                p.getOwnedElement().add(aa);
+                
+                ModelComponent ramcFact = new ModelComponent(aa);
+                ramcFact.setRamcName(loadedModule.getName());
+                ramcFact.setRamcVersion(new Version(loadedModule.getVersion()));
+                ramcFact.getExportedElements().add(module);
+                ramcFact.updateArtifact();
             
                 t.commit();
             
-                return a;
+                return aa;
             }
         }
 

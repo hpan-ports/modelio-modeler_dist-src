@@ -24,6 +24,7 @@ package org.modelio.diagram.elements.umlcommon.constraint;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.diagram.elements.common.abstractdiagram.GmAbstractDiagram;
 import org.modelio.diagram.elements.common.header.GmDefaultModelElementHeader;
+import org.modelio.diagram.elements.core.model.IEditableText;
 import org.modelio.diagram.persistence.IDiagramReader;
 import org.modelio.diagram.persistence.IDiagramWriter;
 import org.modelio.metamodel.uml.infrastructure.Constraint;
@@ -85,16 +86,16 @@ public class GmConstraintBodyLabel extends GmDefaultModelElementHeader {
         Object versionProperty = in.readProperty("GmConstraintBodyLabel." + MINOR_VERSION_PROPERTY);
         int readVersion = versionProperty == null ? 0 : ((Integer) versionProperty).intValue();
         switch (readVersion) {
-            case 0: {
-                read_0(in);
-                break;
-            }
-            default: {
-                assert (false) : "version number not covered!";
-                // reading as last handled version: 0
-                read_0(in);
-                break;
-            }
+        case 0: {
+            read_0(in);
+            break;
+        }
+        default: {
+            assert (false) : "version number not covered!";
+            // reading as last handled version: 0
+            read_0(in);
+            break;
+        }
         }
     }
 
@@ -118,6 +119,22 @@ public class GmConstraintBodyLabel extends GmDefaultModelElementHeader {
     @Override
     public int getMajorVersion() {
         return MAJOR_VERSION;
+    }
+
+    @objid ("96351e3e-407b-4f1c-9125-e00a1a53f4be")
+    @Override
+    public IEditableText getEditableText() {
+        return new IEditableText() {
+            @Override
+            public String getText() {
+        return GmConstraintBodyLabel.this.getRelatedElement().getBody();
+                    }
+        
+                    @Override
+                    public void setText(String text) {
+        GmConstraintBodyLabel.this.getRelatedElement().setBody(text);
+                    }
+                };
     }
 
 }

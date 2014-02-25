@@ -32,57 +32,52 @@
 		<repository>
 			<id>astyle</id>
 			<layout>p2</layout>
-			<url>http://repository.modelio.org/p2/astyle/</url>
+			<url>file://${basedir}/../RCPTARGET/astyle/</url>
 		</repository>
 		<repository>
 			<id>ktable</id>
 			<layout>p2</layout>
-			<url>http://repository.modelio.org/p2/ktable/</url>
-		</repository>
-		<repository>
-			<id>svnkit</id>
-			<layout>p2</layout>
-			<url>http://repository.modelio.org/p2/svnkit/</url>
+			<url>file://${basedir}/../RCPTARGET/ktable/</url>
 		</repository>
 		<repository>
 			<id>gef</id>
 			<layout>p2</layout>
-			<url>http://repository.modelio.org/p2/gef/</url>
+			<url>file://${basedir}/../RCPTARGET/gef/</url>
 		</repository>
 		<repository>
 			<id>nebula</id>
 			<layout>p2</layout>
-			<url>http://repository.modelio.org/p2/nebula/</url>
+			<url>file://${basedir}/../RCPTARGET/nebula/</url>
 		</repository>
 		<repository>
 			<id>nebula-nattable</id>
 			<layout>p2</layout>
-			<url>http://repository.modelio.org/p2/nebula-nattable/</url>
+			<url>file://${basedir}/../RCPTARGET/nebula-nattable/</url>
 		</repository>
 		<repository>
 			<id>nebula-incubator</id>
 			<layout>p2</layout>
-			<url>http://repository.modelio.org/p2/nebula-incubator/</url>
+			<url>file://${basedir}/../RCPTARGET/nebula-incubator/</url>
 		</repository>
 		<repository>
 			<id>apache-commons-lang</id>
 			<layout>p2</layout>
-			<url>http://repository.modelio.org/p2/apache-commons-lang/</url>
+			<url>file://${basedir}/../RCPTARGET/commons-lang/</url>
 		</repository>
 		<repository>
 			<id>uml2-3.2</id>
 			<layout>p2</layout>
-			<url>http://repository.modelio.org/p2/uml2-3.2/</url>
+			<url>file://${basedir}/../RCPTARGET/uml2_3.2/</url>
 		</repository>
 		<repository>
 			<id>emf</id>
 			<layout>p2</layout>
-			<url>http://repository.modelio.org/p2/emf/</url>
+			<url>file://${basedir}/../RCPTARGET/emf/</url>
 		</repository>
 		<repository>
 			<id>documentation-en</id>
 			<layout>p2</layout>
-			<url>http://repository.modelio.org/p2/documentation-en/</url>
+			<url>file://${basedir}/../RCPTARGET/documentation-en/</url>
 		</repository>
 	</repositories>
 

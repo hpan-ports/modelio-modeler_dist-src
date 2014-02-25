@@ -122,6 +122,7 @@ public class DiagramHandle implements IDiagramHandle {
             /*case "ScopeDiagram":
             return new ScopeDiagramEditorInput(projectService.getSession(), abstractDiagram, modelServices);*/
         case "BpmnCollaborationDiagram":
+        case "BpmnProcessCollaborationDiagram":
             return new BpmnDiagramEditorInput(manager, abstractDiagram);
         case "CommunicationDiagram":
             return new CommunicationDiagramEditorInput(manager, abstractDiagram);

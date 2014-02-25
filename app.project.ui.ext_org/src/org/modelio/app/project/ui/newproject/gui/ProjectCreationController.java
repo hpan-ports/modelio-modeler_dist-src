@@ -27,8 +27,8 @@ import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
+import org.modelio.app.project.core.creation.ProjectCreationDataModel;
 import org.modelio.app.project.core.creation.ProjectNameValidator;
-import org.modelio.app.project.ui.newproject.ProjectCreationDataModel;
 import org.modelio.gproject.module.IModuleCatalog;
 import org.modelio.gproject.module.IModuleHandle;
 

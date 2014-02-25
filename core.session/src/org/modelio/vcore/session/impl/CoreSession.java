@@ -407,8 +407,10 @@ public class CoreSession implements ICoreSession, IRepositorySupport {
             Collection<String> blobs = this.blobSupport.getRelatedBlobs(obj);
             if (! blobs.isEmpty())  {
                 IRepository repo = getRepository(obj);
-                for (String blob : blobs)
-                    repo.removeBlob(blob);
+                if (repo != null) {
+                    for (String blob : blobs)
+                      repo.removeBlob(blob);
+                }
             }
                 
             // Definitively remove from base and delete deleted objects

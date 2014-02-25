@@ -22,6 +22,7 @@
 package org.modelio.vcore.smkernel;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
+import org.modelio.vcore.smkernel.mapi.MObject;
 import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("007daa3c-b535-1f33-94a4-001ec947cd2a")
@@ -30,10 +31,10 @@ public class SmDepVal {
     public final SmDependency dep;
 
     @objid ("779cf9eb-9b64-11e1-94a3-001ec947ccaf")
-    public final Object value;
+    public final MObject value;
 
     @objid ("0082e0f6-b5bf-1f33-94a4-001ec947cd2a")
-    public SmDepVal(final SmDependency dep, final Object value) {
+    public SmDepVal(final SmDependency dep, final MObject value) {
         this.dep = dep;
         this.value = value;
     }

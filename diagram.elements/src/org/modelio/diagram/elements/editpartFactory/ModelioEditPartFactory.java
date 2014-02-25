@@ -40,14 +40,12 @@ import org.modelio.diagram.elements.common.image.LabelledImageEditPart;
 import org.modelio.diagram.elements.common.image.NonSelectableImageEditPart;
 import org.modelio.diagram.elements.common.label.base.GmElementLabel;
 import org.modelio.diagram.elements.common.label.base.GmElementLabelEditPart;
-import org.modelio.diagram.elements.common.label.modelelement.GmDefaultFlatHeader;
 import org.modelio.diagram.elements.common.label.modelelement.GmModelElementFlatHeader;
 import org.modelio.diagram.elements.common.label.modelelement.ModelElementFlatHeaderEditPart;
 import org.modelio.diagram.elements.common.label.name.GmNameLabel;
 import org.modelio.diagram.elements.common.label.name.GmNameSimpleLabel;
 import org.modelio.diagram.elements.common.label.name.NameLabelEditPart;
 import org.modelio.diagram.elements.common.label.name.NameSimpleLabelEditPart;
-import org.modelio.diagram.elements.common.label.name.SimpleModeNameLabel;
 import org.modelio.diagram.elements.common.portcontainer.GmPortContainer;
 import org.modelio.diagram.elements.common.portcontainer.PortContainerEditPart;
 import org.modelio.diagram.elements.common.simple.NonSelectableSimpleEditPart;
@@ -61,6 +59,7 @@ import org.modelio.diagram.elements.core.node.IImageableNode;
 import org.modelio.diagram.elements.drawings.core.GmDrawing;
 import org.modelio.diagram.elements.drawings.layer.GmDrawingLayer;
 import org.modelio.diagram.elements.umlcommon.constraint.ConstraintBodyEditPart;
+import org.modelio.diagram.elements.umlcommon.constraint.ConstraintBodyLabelEditPart;
 import org.modelio.diagram.elements.umlcommon.constraint.ConstraintLinkEditPart;
 import org.modelio.diagram.elements.umlcommon.constraint.GmConstraintBody;
 import org.modelio.diagram.elements.umlcommon.constraint.GmConstraintBodyLabel;
@@ -385,7 +384,7 @@ public class ModelioEditPartFactory implements EditPartFactory {
             }
             
             if (model instanceof GmConstraintBodyLabel) {
-                editPart = new ModelElementHeaderEditPart();
+                editPart = new ConstraintBodyLabelEditPart();
                 editPart.setModel(model);
                 return editPart;
             }

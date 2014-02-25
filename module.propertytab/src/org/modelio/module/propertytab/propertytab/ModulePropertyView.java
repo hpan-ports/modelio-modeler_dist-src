@@ -39,6 +39,7 @@ import org.modelio.api.module.propertiesPage.IModulePropertyPage;
 import org.modelio.app.core.picking.IModelioPickingService;
 import org.modelio.app.project.core.services.IProjectService;
 import org.modelio.mda.infra.service.IModuleService;
+import org.modelio.module.propertytab.plugin.ModulePropertyTab;
 import org.modelio.vcore.smkernel.mapi.MObject;
 
 @objid ("c884caa2-1eba-11e2-9382-bc305ba4815c")
@@ -76,20 +77,25 @@ public class ModulePropertyView {
     @Optional
     @Inject
     public void update(@Named(IServiceConstants.ACTIVE_SELECTION) final IStructuredSelection selection) {
-        // This method listen to the selection changes in the workbench.
-        if (selection != null && this.modulePanel != null) {
-            List<MObject> selectedElements = new ArrayList<>();
-            for (Object object : selection.toList()) {
-                if (object instanceof MObject) {
-                    selectedElements.add((MObject) object);
-                } else if (object instanceof IAdaptable) {
-                    final MObject adapter = (MObject) ((IAdaptable) object).getAdapter(MObject.class);
-                    if (adapter != null) {
-                        selectedElements.add(adapter);
-                    }
-                } 
+        try {
+            // This method listen to the selection changes in the workbench.
+            if (selection != null && this.modulePanel != null) {
+                List<MObject> selectedElements = new ArrayList<>();
+                for (Object object : selection.toList()) {
+                    if (object instanceof MObject) {
+                        selectedElements.add((MObject) object);
+                    } else if (object instanceof IAdaptable) {
+                        final MObject adapter = (MObject) ((IAdaptable) object).getAdapter(MObject.class);
+                        if (adapter != null) {
+                            selectedElements.add(adapter);
+                        }
+                    } 
+                }
+                this.modulePanel.setInput(selectedElements);
             }
-            this.modulePanel.setInput(selectedElements);
+        } catch (RuntimeException e) {
+            // avoid runtime exceptions to go propagate, preventing other tabs to refresh
+            ModulePropertyTab.LOG.error(e);
         }
     }
 

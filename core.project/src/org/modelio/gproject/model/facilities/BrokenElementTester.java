@@ -33,9 +33,11 @@ import org.modelio.metamodel.uml.infrastructure.Usage;
 import org.modelio.metamodel.uml.infrastructure.properties.TypedPropertyTable;
 import org.modelio.metamodel.uml.statik.AssociationEnd;
 import org.modelio.metamodel.uml.statik.Binding;
+import org.modelio.metamodel.uml.statik.Classifier;
 import org.modelio.metamodel.uml.statik.ElementImport;
 import org.modelio.metamodel.uml.statik.ElementRealization;
 import org.modelio.metamodel.uml.statik.Generalization;
+import org.modelio.metamodel.uml.statik.Instance;
 import org.modelio.metamodel.uml.statik.InterfaceRealization;
 import org.modelio.metamodel.uml.statik.LinkEnd;
 import org.modelio.metamodel.uml.statik.Manifestation;
@@ -67,11 +69,39 @@ public class BrokenElementTester {
 
         @objid ("2542c06e-0d7a-11de-bb0e-001ec947ccaf")
         @Override
-        public Object visitAssociationEnd(AssociationEnd theElement) {
-            if (theElement.getOpposite() == null) {
+        public Object visitAssociationEnd(AssociationEnd currentRole) {
+            AssociationEnd oppositeRole = currentRole.getOpposite();
+            if (oppositeRole == null) {
                 return true;
+            }
+            
+            Classifier currentSource = currentRole.getSource();
+            Classifier currentTarget = currentRole.getTarget();
+            boolean currentNavigability = currentRole.isNavigable();
+            
+            Classifier oppositeSource = oppositeRole.getSource();
+            Classifier oppositeTarget = oppositeRole.getTarget();
+            boolean oppositeNavigability = oppositeRole.isNavigable();
+            
+            boolean ok = false;
+            if (currentNavigability && !oppositeNavigability) { // THISSIDE
+                // only current source and target must be filled
+                ok = currentSource != null && currentTarget != null && oppositeSource == null && oppositeTarget == null;
+            } else if (!currentNavigability && oppositeNavigability) { //OTHERSIDE:
+                // only opposite source and target must be filled
+                ok = currentSource == null && currentTarget == null && oppositeSource != null && oppositeTarget != null;
+            } else if (currentNavigability && oppositeNavigability) { // BOTHSIDES:
+                // current source must be equals to opposite target as well as current target and opposite source
+                ok = currentSource != null && currentTarget != null && currentSource.equals(oppositeTarget) && currentTarget.equals(oppositeSource);
+            } else if (!currentNavigability && !oppositeNavigability) { 
+                // both sources must be filled, but no target
+                ok = currentSource != null && currentTarget == null && oppositeSource != null && oppositeTarget == null;
+            }
+            
+            if (ok) {
+                return visitFeature(currentRole);
             } else {
-                return visitFeature(theElement);
+                return true;
             }
         }
 
@@ -135,11 +165,39 @@ public class BrokenElementTester {
 
         @objid ("2542c077-0d7a-11de-bb0e-001ec947ccaf")
         @Override
-        public Object visitLinkEnd(LinkEnd theElement) {
-            if (theElement.getOpposite() == null) {
+        public Object visitLinkEnd(LinkEnd currentRole) {
+            LinkEnd oppositeRole = currentRole.getOpposite();
+            if (oppositeRole == null) {
                 return true;
+            }
+            
+            Instance currentSource = currentRole.getSource();
+            Instance currentTarget = currentRole.getTarget();
+            boolean currentNavigability = currentRole.isNavigable();
+            
+            Instance oppositeSource = oppositeRole.getSource();
+            Instance oppositeTarget = oppositeRole.getTarget();
+            boolean oppositeNavigability = oppositeRole.isNavigable();
+            
+            boolean ok = false;
+            if (currentNavigability && !oppositeNavigability) { // THISSIDE
+                // only current source and target must be filled
+                ok = currentSource != null && currentTarget != null && oppositeSource == null && oppositeTarget == null;
+            } else if (!currentNavigability && oppositeNavigability) { //OTHERSIDE:
+                // only opposite source and target must be filled
+                ok = currentSource == null && currentTarget == null && oppositeSource != null && oppositeTarget != null;
+            } else if (currentNavigability && oppositeNavigability) { // BOTHSIDES:
+                // current source must be equals to opposite target as well as current target and opposite source
+                ok = currentSource != null && currentTarget != null && currentSource.equals(oppositeTarget) && currentTarget.equals(oppositeSource);
+            } else if (!currentNavigability && !oppositeNavigability) { 
+                // both sources must be filled, but no target
+                ok = currentSource != null && currentTarget == null && oppositeSource != null && oppositeTarget == null;
+            }
+            
+            if (ok) {
+                return visitModelElement(currentRole);
             } else {
-                return visitModelElement(theElement);
+                return true;
             }
         }
 

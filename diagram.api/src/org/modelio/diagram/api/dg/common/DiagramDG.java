@@ -27,6 +27,7 @@ import java.util.List;
 import java.util.Objects;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.draw2d.Figure;
+import org.eclipse.draw2d.FreeformFigure;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.GraphicalEditPart;
@@ -123,26 +124,23 @@ public abstract class DiagramDG extends DiagramNode implements IDiagramDG, IDiag
      */
     @objid ("bab00664-04aa-45ad-8ffe-f0aaf7d43910")
     private Rectangle computeMinimumBounds(final IFigure iFigure) {
-        int xMin = Integer.MAX_VALUE;
-        int xMax = Integer.MIN_VALUE;
-        int yMin = Integer.MAX_VALUE;
-        int yMax = Integer.MIN_VALUE;
+        Rectangle ret = null;
         
         for (Object fig : iFigure.getChildren()) {
-            Rectangle b = ((Figure) fig).getBounds();
-        
-            if (b.x < xMin)
-                xMin = b.x;
-            if (b.x + b.width > xMax)
-                xMax = b.x + b.width;
-        
-            if (b.y < yMin)
-                yMin = b.y;
-            if (b.y + b.height > yMax)
-                yMax = b.y + b.height;
-        
+            Rectangle b;
+            if (fig instanceof FreeformFigure) {
+                FreeformFigure f = (FreeformFigure) fig;
+                b = computeMinimumBounds(f);
+            } else {
+                b = ((Figure) fig).getBounds();
+            }
+            
+            if (ret == null)
+                ret = b;
+            else
+                ret.union(b);
         }
-        return new Rectangle(xMin, yMin, xMax - xMin, yMax - yMin);
+        return ret;
     }
 
     @objid ("6a9fa5e2-9741-46bb-81a1-600d1da1863d")

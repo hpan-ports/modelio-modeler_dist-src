@@ -185,28 +185,30 @@ public class ModelBrowserPanelProvider implements IPanelProvider {
         TextCellEditor editor = new TextCellEditor(this.treeViewer.getTree(), SWT.NONE) {
             private Collection<String> activeContexts;
         
+            @SuppressWarnings("synthetic-access")
             @Override
             public void activate() {
                 // We must deactivate the active contexts during the edition, to avoid the editor's shortcuts to be triggered when entering an element's name... 
                 // Store those contexts for further reactivation
-                this.activeContexts = new ArrayList<>(BrowserView.contextService.getActiveContextIds());
+                this.activeContexts = new ArrayList<>(BrowserView.getContextService().getActiveContextIds());
                 for (String contextId : this.activeContexts) {
-                    BrowserView.contextService.deactivateContext(contextId);
+                    BrowserView.getContextService().deactivateContext(contextId);
                 }
-                contentProvider.isEditorActive = true;
+                ModelBrowserPanelProvider.this.contentProvider.isEditorActive = true;
         
                 super.activate();
             }
         
+            @SuppressWarnings("synthetic-access")
             @Override
             public void deactivate() {
                 if (this.activeContexts != null) {
                     // Restore previously deactivated contexts
                     for (String contextId : this.activeContexts) {
-                        BrowserView.contextService.activateContext(contextId);
+                        BrowserView.getContextService().activateContext(contextId);
                     }
-                    contentProvider.isEditorActive = false;
-                    treeViewer.refresh(true);
+                    ModelBrowserPanelProvider.this.contentProvider.isEditorActive = false;
+                    ModelBrowserPanelProvider.this.treeViewer.refresh(true);
                     
                     this.activeContexts = null;
                 }

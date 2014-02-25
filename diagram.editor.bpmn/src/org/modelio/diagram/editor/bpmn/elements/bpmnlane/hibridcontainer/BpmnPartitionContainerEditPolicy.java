@@ -35,6 +35,7 @@ import org.modelio.diagram.elements.core.node.GmNodeModel;
 import org.modelio.diagram.elements.core.policies.DiagramEditLayoutPolicy;
 import org.modelio.metamodel.Metamodel;
 import org.modelio.metamodel.bpmn.processCollaboration.BpmnLane;
+import org.modelio.metamodel.diagrams.AbstractDiagram;
 import org.modelio.vcore.smkernel.mapi.MObject;
 
 @objid ("6134744d-55b6-11e2-877f-002564c97630")
@@ -101,6 +102,12 @@ public class BpmnPartitionContainerEditPolicy extends DiagramEditLayoutPolicy {
                 getHostCompositeNode(),
                 (GmNodeModel) child.getModel(),
                 constraint);
+    }
+
+    @objid ("481272b6-9b57-45a2-9478-f3e72976ac0b")
+    @Override
+    protected MObject getHostElement() {
+        return getHostCompositeNode().getRelatedElement();
     }
 
 }

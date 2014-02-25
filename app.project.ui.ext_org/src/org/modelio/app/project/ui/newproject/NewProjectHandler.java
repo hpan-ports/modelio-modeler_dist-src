@@ -41,6 +41,8 @@ import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.swt.widgets.Shell;
 import org.modelio.app.core.activation.IActivationService;
 import org.modelio.app.core.navigate.IModelioNavigationService;
+import org.modelio.app.project.core.creation.ProjectCreationDataModel;
+import org.modelio.app.project.core.creation.ProjectCreator;
 import org.modelio.app.project.core.services.IProjectService;
 import org.modelio.app.project.ui.newproject.gui.ProjectCreationDialog;
 import org.modelio.app.project.ui.plugin.AppProjectUiExt;

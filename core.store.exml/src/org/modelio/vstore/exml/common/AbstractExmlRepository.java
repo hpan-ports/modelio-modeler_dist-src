@@ -1068,9 +1068,19 @@ public abstract class AbstractExmlRepository implements IExmlBase {
     @objid ("074ab913-ee11-446f-a674-4c5e34d2b53a")
     @Override
     public final synchronized boolean reloadCmsNode(SmObjectImpl obj, IModelLoader modelLoader) throws DuplicateObjectException {
-        boolean ret = doReloadCmsNode(obj, modelLoader);
+        final ExmlStorageHandler exmlHandler = (ExmlStorageHandler) obj.getRepositoryObject();
+        boolean ret = false;
         
-        ((ExmlStorageHandler) obj.getRepositoryObject()).setDirty(false);
+        try {
+            exmlHandler.setLoaded(true);
+            
+            ret = doReloadCmsNode(obj, modelLoader);
+        
+            exmlHandler.setDirty(false);
+        } finally {
+            if (! ret)
+                exmlHandler.setLoaded(false);
+        }
         return ret;
     }
 

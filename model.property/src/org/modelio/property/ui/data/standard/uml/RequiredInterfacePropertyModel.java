@@ -23,6 +23,7 @@ package org.modelio.property.ui.data.standard.uml;
 
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
+import org.eclipse.emf.common.util.EList;
 import org.modelio.core.ui.ktable.types.IPropertyType;
 import org.modelio.core.ui.ktable.types.element.MultipleElementType;
 import org.modelio.core.ui.ktable.types.text.StringType;
@@ -58,6 +59,8 @@ public class RequiredInterfacePropertyModel extends AbstractPropertyModel<Requir
 
     /**
      * Create a new <i>RequiredInterface</i> data model from an <i>RequiredInterface</i>.
+     * @param theEditedElement the edited element.
+     * @param model access to the model
      */
     @objid ("8f710892-c068-11e1-8c0a-002564c97630")
     public RequiredInterfacePropertyModel(RequiredInterface theEditedElement, IModel model) {
@@ -166,12 +169,12 @@ public class RequiredInterfacePropertyModel extends AbstractPropertyModel<Requir
                 case 0:
                     return; // Header cannot be modified
                 case 1:
-                    for (Interface s : this.theEditedElement.getRequiredElement())
-                        this.theEditedElement.getRequiredElement().remove(s);
-                    
+                    EList<Interface> currentContent = this.theEditedElement.getRequiredElement();
                     List<Interface> newcontent = (List<Interface>)value;
-                    for (Interface s : newcontent)
-                        this.theEditedElement.getRequiredElement().add(s);
+                    if (! newcontent.equals(currentContent)) {
+                        currentContent.clear();
+                        currentContent.addAll(newcontent);
+                    }
                     break;
                 default:
                     return;

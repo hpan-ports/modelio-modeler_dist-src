@@ -235,8 +235,11 @@ public class ModelComponentArchive {
                     int version = Integer.parseInt(ramcElement.getAttribute("version"));
                     int release = Integer.parseInt(ramcElement.getAttribute("release"));
                     int clevel = Integer.parseInt(ramcElement.getAttribute("clevel"));
+                    String sMmVersion = ramcElement.getAttribute("metamodel");
+                    
+                    int mmVersion = (sMmVersion!=null && !sMmVersion.isEmpty()) ? Integer.parseInt(sMmVersion) : 0;
             
-                    modelComponentInfos.setVersion(new Version(version, release, clevel, 0));
+                    modelComponentInfos.setVersion(new Version(version, release, clevel, mmVersion));
             
                     NodeList childNodes = xmlDoc.getDocumentElement().getChildNodes();
             

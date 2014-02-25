@@ -185,7 +185,7 @@ public class InteractionOperandContainerLayoutEditPolicy extends ResizableGroupL
         
         }
         // Not found, something is wrong here
-        throw new IllegalArgumentException("argument edit part is not a child of current container");
+        throw new IllegalArgumentException(resizedChild+ " edit part is not a child of current container "+ getHost());
     }
 
 }

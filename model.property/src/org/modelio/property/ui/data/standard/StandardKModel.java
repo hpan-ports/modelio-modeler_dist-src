@@ -38,8 +38,7 @@ import org.modelio.core.ui.ktable.types.enumeration.EnumType;
 import org.modelio.core.ui.ktable.types.header.HeaderType;
 import org.modelio.core.ui.ktable.types.hybrid.HybridCellEditor;
 import org.modelio.core.ui.ktable.types.label.LabelType;
-import org.modelio.core.ui.ktable.types.text.MultilineStringType;
-import org.modelio.core.ui.ktable.types.text.StringType;
+import org.modelio.property.plugin.ModelProperty;
 import org.modelio.ui.UIColor;
 import org.modelio.vcore.session.api.ICoreSession;
 import org.modelio.vcore.session.api.transactions.ITransaction;
@@ -166,8 +165,16 @@ public class StandardKModel extends KTableDefaultModel {
     @objid ("8dd6c14d-c068-11e1-8c0a-002564c97630")
     @Override
     public Object doGetContentAt(int col, int row) {
+        final Object value;
+        
+        try {
+            value = this.data.getValueAt(row, col);
+        } catch (RuntimeException e) {
+            ModelProperty.LOG.error(e);
+            return "<!"+e.getClass().getSimpleName()+"!>";
+        }
+        
         boolean i18n = false;
-        final Object value = this.data.getValueAt(row, col);
         String key = null;
         Object label = value;
         
@@ -219,9 +226,7 @@ public class StandardKModel extends KTableDefaultModel {
         try (ITransaction t = this.modelingSession.getTransactionSupport().createTransaction("doSetContentAt")) {
             this.data.setValueAt(row, col, value);
             t.commit();
-        } catch (final Exception e) {
-            e.printStackTrace();
-        }
+        } 
         
         if (!this.table.isDisposed()) {
             this.table.redraw();

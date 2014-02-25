@@ -21,6 +21,7 @@
 
 package org.modelio.vcore.session.impl.load;
 
+import java.util.ConcurrentModificationException;
 import java.util.List;
 import java.util.Objects;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
@@ -228,21 +229,55 @@ class ModelLoaderMetaObject implements IMetaOf {
         notifyAll();
     }
 
+    /**
+     * Check whether the given object is being loaded by another thread.
+     * <p>
+     * Tests whether the current thread is the one using this meta object.
+     * In the other case waits for the other thread to finish loading for 10 seconds.
+     * @param obj the object to access
+     * @return <i>true</i> if the object was concurrently being loaded.
+     * @throws java.util.ConcurrentModificationException if after 10 seconds the object is still being loaded.
+     */
     @objid ("6bb8dddc-c205-4cc4-a84a-11a877385dd6")
-    private boolean concurrentLoading(SmObjectImpl obj) {
+    private boolean concurrentLoading(SmObjectImpl obj) throws ConcurrentModificationException {
         if (this.loadingThread == Thread.currentThread()) {
             return false;
         } else {
             synchronized(this) {
                 try {
-                    while (obj.getMetaOf() == this)
-                        wait();
+                    int i = 0; 
+                    ISmObjectData data = obj.getData();
+                    // Wait for 50*200ms = 10 seconds checking each 200ms the meta object
+                    while (data.getMetaOf() == this && i++ < 50) {
+                        wait(200);
+                    }
+                    if (data.getMetaOf() == this)
+                        throw createDeadLockException(obj, null);
                 } catch (InterruptedException e) {
-                    throw new IllegalStateException(e);
+                    throw createDeadLockException(obj, e);
                 }
             }
             return true;
         }
+    }
+
+    @objid ("a815e54d-f49b-4dea-9187-2e2a064ac056")
+    private ConcurrentModificationException createDeadLockException(SmObjectImpl obj, Throwable cause) {
+        Thread curLoadingThread = this.loadingThread;
+        String msg = "Dead lock waiting for "+obj.getUuid()
+                +" "+obj.getMClass().getName()+" object to finish loading.\n"
+                +"loading thread = "+curLoadingThread+", current thread="+Thread.currentThread();
+        
+        ConcurrentModificationException exc = new ConcurrentModificationException(msg, cause);
+        
+        if (curLoadingThread != null) {
+            // Add the loading thread stack trace as a suppressed exception
+            StackTraceElement[] loadingThreadStackTrace = curLoadingThread.getStackTrace();
+            Throwable t = new Throwable(curLoadingThread.toString()+" loading thread stack trace:");
+            t.setStackTrace(loadingThreadStackTrace);
+            exc.addSuppressed(t);
+        }
+        return exc;
     }
 
 }

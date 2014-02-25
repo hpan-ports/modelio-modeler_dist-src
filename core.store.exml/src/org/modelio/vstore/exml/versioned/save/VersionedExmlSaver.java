@@ -131,8 +131,8 @@ public class VersionedExmlSaver implements ExmlTags {
         
         this.out.writeEndElement();
         
-        // Processed, remove from context
-        recursionContext.remove(object);
+        // // Processed, remove from context
+        // recursionContext.remove(object);
     }
 
     @objid ("3de29102-121a-11e2-816a-001ec947ccaf")

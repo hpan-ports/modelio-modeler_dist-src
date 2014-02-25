@@ -34,11 +34,14 @@ import org.modelio.gproject.descriptor.DefinitionScope;
 import org.modelio.gproject.descriptor.FragmentType;
 import org.modelio.gproject.descriptor.GAuthConf;
 import org.modelio.gproject.descriptor.GProperties;
+import org.modelio.gproject.descriptor.VersionDescriptor;
+import org.modelio.gproject.descriptor.VersionDescriptors;
 import org.modelio.gproject.fragment.AbstractFragment;
 import org.modelio.gproject.gproject.GProjectEvent;
 import org.modelio.gproject.plugin.CoreProject;
 import org.modelio.gproject.ramc.core.archive.IModelComponentInfos;
 import org.modelio.gproject.ramc.core.archive.ModelComponentArchive;
+import org.modelio.metamodel.Metamodel;
 import org.modelio.vbasic.files.Unzipper;
 import org.modelio.vbasic.net.UriPathAccess;
 import org.modelio.vbasic.progress.IModelioProgress;
@@ -248,6 +251,33 @@ public class RamcFileFragment extends AbstractFragment {
     @objid ("0614b2bc-cefb-436d-9be2-84630005c75e")
     private Path getContentDirectory() {
         return getDataDirectory().resolve("content");
+    }
+
+    @objid ("39044ea2-7a39-47c3-b400-404b03190ea0")
+    @Override
+    public VersionDescriptors getMetamodelVersion() throws IOException {
+        VersionDescriptor v = new VersionDescriptor();
+        v.setName("Modelio");
+        v.setVersion(getInformations().getVersion().getMetamodelVersion());
+        return new VersionDescriptors(v);
+    }
+
+    @objid ("8638f6a8-b7d6-4dbd-bcf2-e5907332d8a0")
+    @Override
+    protected void checkMmVersion() throws IOException {
+        VersionDescriptors fragmentVersion = getMetamodelVersion();
+        if (! fragmentVersion.isSame(getLastMmVersion())) {
+            // last compatible version 9017
+            // first incompatible version 9016
+            final int mmVersion = fragmentVersion.getMmVersion();
+            final String fragLabel = getId()+" v"+getInformations().getVersion();
+            if (mmVersion == 0)
+                getProject().getMonitorSupport().fireMonitors(GProjectEvent.buildWarning(this, new IOException(CoreProject.getMessage("RamcFileFragment.UnspecifiedMmVersion", fragLabel, fragmentVersion))));
+            else if (mmVersion < 9017 || mmVersion > Integer.parseInt(Metamodel.VERSION)) {
+                throw new IOException(CoreProject.getMessage("AbstractFragment.MmVersionNotSupported", getId(), fragmentVersion, getLastMmVersion()));
+            } else
+                getProject().getMonitorSupport().fireMonitors(GProjectEvent.buildWarning(this, new IOException(CoreProject.getMessage("RamcFileFragment.DifferentMmVersion", fragLabel, fragmentVersion))));
+        }
     }
 
 }

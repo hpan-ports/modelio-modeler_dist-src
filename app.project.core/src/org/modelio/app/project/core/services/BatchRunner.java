@@ -23,8 +23,11 @@ package org.modelio.app.project.core.services;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.api.modelio.Modelio;
+import org.modelio.app.project.core.creation.ProjectCreationDataModel;
+import org.modelio.app.project.core.creation.ProjectCreator;
 import org.modelio.app.project.core.plugin.AppProjectCore;
 import org.modelio.gproject.gproject.GProject;
 import org.modelio.gproject.gproject.GProjectAuthenticationException;
@@ -70,54 +73,39 @@ public class BatchRunner implements Runnable {
                 this.projectService.changeWorkspace(wkdir.toPath());
             }
         }
-        //
-        if (this.batchData.isCreate() && this.batchData.getProjectName() != null) {
-            // TODO implement a project creation
+        
+        // Handle -create option
+        final String projectName = this.batchData.getProjectName();
+        if (this.batchData.isCreate() && projectName != null) {
+            // Check option parameters
+            // The project must not exist in the current workspace
+            if (!Files.exists(this.projectService.getWorkspace().resolve(projectName))) {
+                ProjectCreationDataModel pm = new ProjectCreationDataModel(this.projectService.getWorkspace());
+                pm.setProjectName(projectName);
+        
+                ProjectCreator projectCreator = new ProjectCreator();
+        
+                this.projectService.createProject(projectCreator, pm);
+            } else {
+                AppProjectCore.LOG.error("The project '%s'  already exists in the workspace.", projectName);
+                System.exit(-1);
+            }
         }
         
-        // // -project & -create must not be filled at the same time
-        // if (projectToOpen != null && projectToCreate != null) {
-        // AppUi.LOG.error("Invalid workspace directory: %s %s", projectToOpen, projectToCreate);
-        // System.exit(-1);
-        // }
-        //
-        // // Check option parameters
-        // // The project must not exist in the current workspace
-        // if (projectToCreate != null) {
-        // if (!ProjectExistsInWorkspace(projectToCreate)) {
-        // ProjectCreationDataModel pm = new ProjectCreationDataModel(template);
-        // pm.setProjectName(projectToCreate);
-        //
-        // ProjectCreator projectCreator = new ProjectCreator(App.getInstance().getWorkspace(), pm);
-        //
-        // IProgressService service = PlatformUI.getWorkbench().getProgressService();
-        // try {
-        // service.run(false, false, projectCreator);
-        // } catch (InvocationTargetException e) {
-        // AppUi.LOG.error(e);
-        // } catch (InterruptedException e) {
-        // AppUi.LOG.error(e);
-        // }
-        // } else {
-        // AppUi.LOG.error("The project '%s'  already exists in the workspace.", projectToCreate);
-        // System.exit(-1);
-        // }
-        // }
-        //
         // Check option parameters
         // The project must exist in the current workspace
         GProject openedProject = this.projectService.getOpenedProject();
-        if (this.batchData.getProjectName() != null) {
+        if (projectName != null) {
             assert (openedProject == null);
             try {
-                this.projectService.openProject(this.batchData.getProjectName(), null, null);
+                this.projectService.openProject(projectName, null, null);
             } catch (GProjectAuthenticationException e) {
                 AppProjectCore.LOG.error(e);
             }
             openedProject = this.projectService.getOpenedProject();
             if (openedProject == null) {
                 AppProjectCore.LOG
-                .error("The project '%s'  could not be opened in the workspace.", this.batchData.getProjectName());
+                .error("The project '%s'  could not be opened in the workspace.", projectName);
                 System.exit(-1);
             }
         }

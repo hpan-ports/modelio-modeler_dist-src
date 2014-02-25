@@ -37,7 +37,7 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 public abstract class SmObjectData implements ISmObjectData {
     @objid ("00275434-117d-1f35-b94f-001ec947cd2a")
     @SmaMetaAttribute(metaName = "status", smAttributeClass = Metadata.StatusSmAttribute.class, type = Long.class)
-     long status;
+     volatile long status;
 
     @objid ("0022240a-fd1a-1f27-a7da-001ec947cd2a")
     private static final long serialVersionUID = 4272487596063422376L;
@@ -46,16 +46,16 @@ public abstract class SmObjectData implements ISmObjectData {
      * Identifier for an object in memory.
      */
     @objid ("0014fd8e-35bd-10bf-bd58-001ec947cd2a")
-    private long liveId;
+    private volatile long liveId;
 
     @objid ("2d463f39-40e6-4016-89ec-fbc9d36c8e36")
     private int lastAccess;
 
     @objid ("2c9b5b2f-5261-4e55-a843-094c84fdd65f")
-    private transient IMetaOf metaOf;
+    private volatile transient IMetaOf metaOf;
 
     @objid ("466990f4-0073-4364-aea7-a71fe83b6ef9")
-    private transient IRepositoryObject repositoryObject = DummyRepositoryObject.instance;
+    private volatile transient IRepositoryObject repositoryObject = DummyRepositoryObject.instance;
 
     @objid ("bcb40add-8aa1-4a1a-bffd-117372183abc")
     private UUID uuid;

@@ -135,7 +135,7 @@ public class BackgroundEditPart extends AbstractGraphicalEditPart implements Pro
     @Override
     protected void createEditPolicies() {
         // TODO add edit policies for the background (if any?)
-        this.installEditPolicy(EditPolicy.LAYOUT_ROLE, new DropEditPolicy(BackgroundEditPart.modelServices));
+        this.installEditPolicy(EditPolicy.LAYOUT_ROLE, new DropEditPolicy());
     }
 
     @objid ("1b87bc1a-5e33-11e2-b81d-002564c97630")

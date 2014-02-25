@@ -22,6 +22,8 @@
 package org.modelio.vcore.emf;
 
 import java.util.ArrayDeque;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Deque;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
@@ -99,6 +101,33 @@ public class MTreeIterator<E extends EObject> implements TreeIterator<E> {
     @objid ("bbd3a25b-bc87-11e1-b576-001ec947ccaf")
     private void walkToNext() {
         boolean cycle = false;
+        
+        do {
+            // first look in depth
+            final State nextDepth = new State(this.nextObj);
+            this.nextObj = nextDepth.next();
+            cycle = this.nextObj!= null && isCycle(this.nextObj);
+        
+            if (this.nextObj != null && !cycle) {
+                if (! cycle) {
+                    this.stack.push(this.current);
+                    this.previousState = this.current;
+                    this.current = nextDepth;
+                }
+            } else {
+                this.nextObj = this.current.next();
+        
+                while (this.nextObj == null && ! this.stack.isEmpty()) {
+                    this.current = this.stack.pop();
+                    this.previousState = null;
+                    this.nextObj = this.current.next();
+                }
+            }
+        } while (this.nextObj!=null && cycle);
+        
+        /*
+        
+        //boolean cycle = false;
         do {
             this.nextObj = this.current.next();
             cycle = isCycle(this.nextObj);
@@ -106,7 +135,7 @@ public class MTreeIterator<E extends EObject> implements TreeIterator<E> {
                 if (! cycle) {
                     this.stack.push(this.current);
                     this.previousState = this.current;
-                    this.current = new State(this.nextObj);
+                    this.current = nextDepth;
                 }
             } else {
                 while (this.nextObj == null && ! this.stack.isEmpty()) {
@@ -115,7 +144,7 @@ public class MTreeIterator<E extends EObject> implements TreeIterator<E> {
                     this.nextObj = this.current.next();
                 }
             }
-        } while (this.nextObj!=null && cycle);
+        } while (this.nextObj!=null && cycle);*/
     }
 
     @objid ("eff85a91-bea9-11e1-b576-001ec947ccaf")
@@ -125,6 +154,22 @@ public class MTreeIterator<E extends EObject> implements TreeIterator<E> {
                 return true;
         }
         return false;
+    }
+
+    @objid ("836bce6e-74e2-4e0c-989a-feab8296c7f1")
+    @Override
+    public String toString() {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(getClass().getSimpleName());
+        stringBuilder.append("{nextObj=");
+        stringBuilder.append(this.nextObj);
+        stringBuilder.append(", stack=");
+        for(State s : this.stack) {
+            stringBuilder.append(s);
+            stringBuilder.append("; ");
+        }
+        stringBuilder.append("}");
+        return stringBuilder.toString();
     }
 
     @objid ("cb8d6350-bc83-11e1-b576-001ec947ccaf")
@@ -142,7 +187,10 @@ public class MTreeIterator<E extends EObject> implements TreeIterator<E> {
         public State(SmObjectImpl obj) {
             this.depit = obj.getClassOf().getAllComponentAndSharedDepDef().iterator();
             this.obj = obj;
-            this.depvalIt = obj.getDepValList(this.depit.next()).iterator();
+            if (this.depit.hasNext())
+                this.depvalIt = obj.getDepValList(this.depit.next()).iterator();
+            else
+                this.depvalIt = Collections.emptyListIterator();
         }
 
         @objid ("cb8fc5b2-bc83-11e1-b576-001ec947ccaf")
@@ -157,6 +205,12 @@ public class MTreeIterator<E extends EObject> implements TreeIterator<E> {
                     return null;
                 }
             }
+        }
+
+        @objid ("08258859-3060-45cd-b395-684ebc5fee5c")
+        @Override
+        public String toString() {
+            return "MTreeIterator.State{obj="+this.obj+"}";
         }
 
     }

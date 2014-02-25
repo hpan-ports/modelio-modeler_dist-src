@@ -24,6 +24,7 @@ package org.modelio.diagram.editor.bpmn.elements.bpmnlane;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.Request;
+import org.eclipse.gef.requests.CreateConnectionRequest;
 import org.modelio.diagram.elements.core.link.CreateBendedConnectionRequest;
 import org.modelio.diagram.elements.core.link.DefaultCreateLinkEditPolicy;
 import org.modelio.diagram.elements.core.link.ModelioLinkCreationContext;
@@ -58,6 +59,11 @@ public class BpmnLaneLinkEditPolicy extends DefaultCreateLinkEditPolicy {
                     newobject.getMetaclass().equals("BpmnDataAssociation")) {
                     return null;
                 }
+            }
+            
+            if (request instanceof CreateConnectionRequest) {
+                MObject element = model.getRelatedElement();
+                    return getHost();           
             }
         
             MObject element = model.getRelatedElement();

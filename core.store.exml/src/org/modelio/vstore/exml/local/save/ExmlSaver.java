@@ -133,8 +133,8 @@ public class ExmlSaver implements ExmlTags {
         
         this.out.writeEndElement();
         
-        // Processed, remove from context
-        recursionContext.remove(object);
+        // // Processed, remove from context
+        // recursionContext.remove(object);
     }
 
     @objid ("fd245738-5986-11e1-991a-001ec947ccaf")

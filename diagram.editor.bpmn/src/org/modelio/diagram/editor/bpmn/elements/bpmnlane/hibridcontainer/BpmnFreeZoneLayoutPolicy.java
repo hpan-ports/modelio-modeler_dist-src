@@ -27,6 +27,7 @@ import org.eclipse.gef.Request;
 import org.eclipse.gef.RequestConstants;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.requests.ChangeBoundsRequest;
+import org.eclipse.gef.requests.CreateConnectionRequest;
 import org.eclipse.gef.requests.CreateRequest;
 import org.modelio.diagram.editor.bpmn.elements.bpmnboundaryevent.GmBpmnBoundaryEvent;
 import org.modelio.diagram.editor.bpmn.elements.bpmnlanesetcontainer.BpmnLaneSetContainerEditPart;
@@ -152,7 +153,7 @@ public class BpmnFreeZoneLayoutPolicy extends DefaultFreeZoneLayoutEditPolicy {
                 return null;
             }
         } else if (RequestConstants.REQ_CONNECTION_END.equals(request.getType())) {
-            CreateBendedConnectionRequest crequest = (CreateBendedConnectionRequest) request;
+            CreateConnectionRequest crequest = (CreateConnectionRequest) request;
         
             if (crequest.getTargetEditPart() instanceof BpmnLaneSetContainerEditPart) {
                 return null;

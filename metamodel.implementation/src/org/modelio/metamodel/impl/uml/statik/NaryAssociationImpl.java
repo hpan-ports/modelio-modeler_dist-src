@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9020              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.uml.statik;
 
@@ -29,6 +29,7 @@ import java.util.Collections;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.emf.common.util.EList;
+import org.modelio.metamodel.data.uml.statik.NaryAssociationData.Metadata.NaryEndSmDependency;
 import org.modelio.metamodel.data.uml.statik.NaryAssociationData;
 import org.modelio.metamodel.impl.uml.infrastructure.ModelElementImpl;
 import org.modelio.metamodel.uml.statik.ClassAssociation;
@@ -43,6 +44,7 @@ import org.modelio.vcore.smkernel.SmObjectImpl;
 import org.modelio.vcore.smkernel.mapi.MClass;
 import org.modelio.vcore.smkernel.mapi.MVisitor;
 import org.modelio.vcore.smkernel.meta.SmClass;
+import org.modelio.vcore.smkernel.meta.SmDependency;
 
 @objid ("0021a61a-c4bf-1fd8-97fe-001ec947cd2a")
 public class NaryAssociationImpl extends ModelElementImpl implements NaryAssociation {
@@ -70,13 +72,13 @@ public class NaryAssociationImpl extends ModelElementImpl implements NaryAssocia
         return super.getCompositionRelation();
     }
 
-    @objid ("a7b2a338-a9bc-465f-9827-00983f78df27")
+    @objid ("5eb6dcf9-6f2b-4630-b05c-73bde20616e3")
     @Override
     public EList<NaryLink> getOccurence() {
         return new SmList<>(this, NaryAssociationData.Metadata.OccurenceDep());
     }
 
-    @objid ("2e7b071f-d100-48bc-919e-e2340ea23342")
+    @objid ("e7c9aa99-cda3-4ebd-9282-4f7af38e016f")
     @Override
     public <T extends NaryLink> List<T> getOccurence(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -89,13 +91,13 @@ public class NaryAssociationImpl extends ModelElementImpl implements NaryAssocia
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("b0fa6974-fb82-4413-ac8c-9ca556ecfa30")
+    @objid ("0c743a7b-d389-4997-bd7e-187cc756cd28")
     @Override
     public EList<NaryAssociationEnd> getNaryEnd() {
         return new SmList<>(this, NaryAssociationData.Metadata.NaryEndDep());
     }
 
-    @objid ("9cb5b439-3740-4fcf-9d7c-c13c7cd74f02")
+    @objid ("ac1822c2-3406-47f9-afcd-b76a5b5d5439")
     @Override
     public <T extends NaryAssociationEnd> List<T> getNaryEnd(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -108,24 +110,42 @@ public class NaryAssociationImpl extends ModelElementImpl implements NaryAssocia
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("ea32879e-a1f3-4bec-b59d-9a34ad37ebb0")
+    @objid ("e1fe2356-f64f-4eeb-a4e7-7feeb408749c")
     @Override
     public ClassAssociation getLinkToClass() {
         return (ClassAssociation) getDepVal(NaryAssociationData.Metadata.LinkToClassDep());
     }
 
-    @objid ("606dad83-cd8e-4e5c-82e0-42c8dcd035fc")
+    @objid ("244f539d-90ad-45f2-aa91-83bdf7627b16")
     @Override
     public void setLinkToClass(ClassAssociation value) {
         appendDepVal(NaryAssociationData.Metadata.LinkToClassDep(), (SmObjectImpl)value);
     }
 
-    @objid ("3f822422-73ea-4d0f-a6e0-3842c3f49bd8")
+    @objid ("a0b06fc3-6599-46e9-80fc-59616768b69a")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitNaryAssociation(this);
         else
           return null;
+    }
+
+    @objid ("9fa0432b-1708-470d-9074-f9fc3d97fa0c")
+    @Override
+    public void afterEraseDepVal(SmDependency dep, SmObjectImpl value) {
+        if (dep == NaryAssociationData.Metadata.NaryEndDep()) {
+            // Workaround bug where the storage handle is not updated
+            EList<NaryAssociationEnd> remainingOwners = getNaryEnd();
+            if (! remainingOwners.isEmpty()) {
+                // Remove and add again the first remaining owner.
+                // Note : this will trigger recursively the removal & addition of all other owners.
+                NaryAssociationEnd r = remainingOwners.get(0);
+                r.setNaryAssociation(null);
+                r.setNaryAssociation(this);
+            }
+        }
+        
+        super.afterEraseDepVal(dep, value);
     }
 
 }

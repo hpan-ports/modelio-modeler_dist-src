@@ -14,9 +14,13 @@ import org.modelio.metamodel.factory.IModelFactory;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
 import org.modelio.metamodel.uml.statik.Class;
 import org.modelio.metamodel.uml.statik.Collaboration;
+import org.modelio.metamodel.uml.statik.Component;
 import org.modelio.metamodel.uml.statik.Node;
 import org.modelio.vcore.smkernel.mapi.MClass;
 
+/**
+ * Creation contributor for "Composite structure" diagrams.
+ */
 @objid ("9a4f178d-88a9-4e71-acbd-303e15a0f02b")
 public class CompositeDiagramCreationContributor extends AbstractDiagramCreationContributor {
     @objid ("51aaaa11-a3f0-4349-bea1-fd15d6e8a557")
@@ -42,6 +46,7 @@ public class CompositeDiagramCreationContributor extends AbstractDiagramCreation
     public List<MClass> getAcceptedMetaclasses() {
         List<MClass> allowedMetaclasses = new ArrayList<>();
         allowedMetaclasses.add(Metamodel.getMClass(Collaboration.class));
+        allowedMetaclasses.add(Metamodel.getMClass(Component.class));
         allowedMetaclasses.add(Metamodel.getMClass(Class.class));
         allowedMetaclasses.add(Metamodel.getMClass(Node.class));
         return allowedMetaclasses;

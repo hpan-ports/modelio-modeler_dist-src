@@ -23,6 +23,7 @@ package org.modelio.model.browser.views;
 
 import java.util.List;
 import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import javax.inject.Inject;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.e4.core.di.annotations.Optional;
@@ -62,6 +63,7 @@ import org.modelio.gproject.model.api.MTools;
 import org.modelio.gproject.module.GModule;
 import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.model.browser.context.ElementCreationDynamicMenuManager;
+import org.modelio.model.browser.plugin.ModelBrowser;
 import org.modelio.model.browser.views.treeview.ModelBrowserPanelProvider;
 import org.modelio.vcore.smkernel.mapi.MObject;
 
@@ -96,12 +98,12 @@ public class BrowserView {
 
     @objid ("000a3912-493b-105c-aa42-001ec947cd2a")
     @Inject
-    public MPart myPart;
+     MPart myPart;
 
     @objid ("f0f31289-ae17-4470-8220-a73e9c142821")
     @Inject
     @Optional
-    public ESelectionService selectionService;
+     ESelectionService selectionService;
 
     @objid ("03dab967-b100-44ba-b2f0-a9ed19cf170b")
      Composite parentComposite;
@@ -120,18 +122,21 @@ public class BrowserView {
     @objid ("06e86809-ab94-4f19-b916-81b3105af41b")
     @Inject
     @Optional
-    public EModelService modelService;
+     EModelService modelService;
 
     @objid ("cbbb8469-3ab0-48ff-bcd6-8520c805e184")
      BrowserConfigurator configurator;
 
     @objid ("87d61f2c-6505-4b48-bbf0-d2b5710c8998")
     @Inject
-    public static EContextService contextService;
+     static EContextService contextService;
+
+    @objid ("0b9d550a-fffd-47ad-89bb-f622b99f2308")
+    private IPropertyChangeListener projPreferenceListener;
 
     @objid ("00177910-dd16-1fab-b27f-001ec947cd2a")
     @PostConstruct
-    public void createControls(final Composite parent, EMenuService menuService, @Optional IProjectService projectService) {
+    void createControls(final Composite parent, EMenuService menuService, @Optional IProjectService projectService) {
         this.parentComposite = parent;
         
         // Sometimes, the view is instantiated only after the project is opened
@@ -476,7 +481,7 @@ public class BrowserView {
             this.configurator = new BrowserConfigurator(projectService, this.myPart);
         
             // Add a property change listener for future updates
-            projectService.getProjectPreferences(this.myPart.getElementId()).addPropertyChangeListener(new IPropertyChangeListener() {
+            this.projPreferenceListener = new IPropertyChangeListener() {
         
                 @Override
                 public void propertyChange(PropertyChangeEvent event) {
@@ -488,7 +493,8 @@ public class BrowserView {
                         }
                     });
                 }
-            });
+            };
+            projectService.getProjectPreferences(this.myPart.getElementId()).addPropertyChangeListener(this.projPreferenceListener);
         }
         if (BrowserView.this.browserTreePanel != null) {
             this.configurator.loadConfiguration(BrowserView.this.browserTreePanel);
@@ -545,6 +551,26 @@ public class BrowserView {
     @objid ("6ee19fc9-6353-4500-b1d9-45be4afd8f96")
     public List<Object> getRoots() {
         return this.browserTreePanel.getLocalRoots();
+    }
+
+    @objid ("c64ea87f-f2fd-454f-9e41-e8e0337b8122")
+    @PreDestroy
+    void onDispose(@Optional IProjectService projectService) {
+        if (projectService != null && this.myPart!=null) {
+            // Remove the project preferences change listener 
+            projectService.getProjectPreferences(this.myPart.getElementId()).removePropertyChangeListener(this.projPreferenceListener);
+            this.projPreferenceListener = null;
+        } else if (this.projPreferenceListener != null) {
+            ModelBrowser.LOG.warning(new Throwable("Cannot unregister project preferences listener, projectService="+projectService+", myPart="+this.myPart));
+        }
+    }
+
+    /**
+     * @return the Eclipse context service.
+     */
+    @objid ("6574205c-b6f6-4937-9aaa-74986b9044d6")
+    public static EContextService getContextService() {
+        return contextService;
     }
 
     @objid ("2efe5dfc-acc9-4d28-8b45-bece3ca07c53")
