@@ -21,6 +21,7 @@
 
 package org.modelio.mda.infra.service.dynamic;
 
+import java.util.HashMap;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.api.model.IMetamodelExtensions;
@@ -29,8 +30,10 @@ import org.modelio.api.model.IUmlModel;
 import org.modelio.api.modelio.Modelio;
 import org.modelio.api.module.IModule;
 import org.modelio.api.module.commands.DefaultModuleContextualCommand;
+import org.modelio.gproject.model.ElementConfigurator;
 import org.modelio.gproject.model.api.MTools;
 import org.modelio.metamodel.diagrams.AbstractDiagram;
+import org.modelio.metamodel.factory.ModelFactory;
 import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
 import org.modelio.vcore.smkernel.mapi.MDependency;
@@ -71,6 +74,12 @@ class GenericElementCreationCommand extends DefaultModuleContextualCommand {
             ModelElement parent = (ModelElement) selectedElements.get(0);
             if (newElement instanceof AbstractDiagram) {
                 ((AbstractDiagram) newElement).setOrigin(parent);
+                // Apply stereotype (if any).
+                if (this.stereotype != null) {
+                    IMetamodelExtensions metamodelExtensions = Modelio.getInstance().getModelingSession().getMetamodelExtensions();
+                    ((ModelElement) newElement).getExtension().add(metamodelExtensions.getStereotype(this.stereotype, newElement.getMClass()));
+                }
+                modelFactory.getDefaultNameService().setDefaultName((ModelElement) newElement);
             } else {
                 // Get dependency by name.
                 MDependency dependency = parent.getMClass().getDependency(this.relation);
@@ -87,12 +96,13 @@ class GenericElementCreationCommand extends DefaultModuleContextualCommand {
                             IMetamodelExtensions metamodelExtensions = Modelio.getInstance().getModelingSession().getMetamodelExtensions();
                             ((ModelElement) newElement).getExtension().add(metamodelExtensions.getStereotype(this.stereotype, newElement.getMClass()));
                         }
-                    }
         
-                    // Set name.
-                    if (newElement instanceof ModelElement) {
+        
+                        // Set name.
                         modelFactory.getDefaultNameService().setDefaultName((ModelElement) newElement, this.name);
                     }
+        
+                    new ElementConfigurator().configure(ModelFactory.getFactory(newElement), newElement, new HashMap<String, Object>());
                 } else {
                     newElement.delete();
                 }

@@ -22,6 +22,7 @@
 package org.modelio.model.browser.handlers.tree;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -73,7 +74,7 @@ public class SelectAsRootHandler {
         if (button != null && button.isSelected()) {
             view.setRoots(selectedElements);
         } else {
-            view.setRoots(null);
+            view.setRoots(Collections.emptyList());
         }
     }
 

@@ -149,6 +149,9 @@ public class FragmentDescriptor implements Serializable {
         this.type = fd.type;
         this.properties = new GProperties(fd.properties);
         this.scope = fd.scope;
+        
+        if (fd.auth != null)
+            this.auth = new AuthDescriptor(fd.auth.getData(), fd.auth.getScope());
     }
 
     /**

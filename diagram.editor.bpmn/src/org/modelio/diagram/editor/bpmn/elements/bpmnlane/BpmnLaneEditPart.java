@@ -56,14 +56,15 @@ public class BpmnLaneEditPart extends GmNodeEditPart {
         BpmnLaneFigure fig = null;
         if (lane.getLaneSet().getProcess() != null) {
             fig = new BpmnLaneFigure();
+            fig.setPreferredSize(700, 200);
         } else {
             fig = new BpmnSubLaneFigure();
+            //fig.setPreferredSize(700, 200);
         }
         
         fig.setLayoutManager(new BorderLayout());
         // set style independent properties
         fig.setOpaque(true);
-        fig.setPreferredSize(700, 200);
         // set style dependent properties
         refreshFromStyle(fig, getModelStyle());
         // return the figure

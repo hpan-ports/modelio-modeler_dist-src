@@ -283,10 +283,16 @@ public class ExtensionsKModel extends KTableDefaultModel {
             } else if (ExtensionsKModel.this.typingElement instanceof Stereotype) {
                 Stereotype s = (Stereotype) ExtensionsKModel.this.typingElement;
                 this.tagTypes = new ArrayList<>();
-                for (TagType tagType : s.getDefinedTagType()) {
-                    if (!tagType.isIsHidden()) {
-                        this.tagTypes.add(tagType);
+                while (s != null) {
+                    List<TagType> currentLevelTypes = new ArrayList<>();
+                    for (TagType tagType : s.getDefinedTagType()) {
+                        if (!tagType.isIsHidden()) {
+                            currentLevelTypes.add(tagType);
+                        }
                     }
+                    // Put tag types from parent stereotypes first...
+                    this.tagTypes.addAll(0, currentLevelTypes);
+                    s = s.getParent();
                 }
             } else if (ExtensionsKModel.this.typingElement instanceof ModuleComponent) {
                 this.tagTypes = getModuleTagTypesForMetaclass((ModuleComponent) ExtensionsKModel.this.typingElement, ExtensionsKModel.this.typedElement.getMClass());

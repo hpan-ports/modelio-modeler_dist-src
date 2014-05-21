@@ -60,10 +60,8 @@ class AnalystNamer implements IElementNamer {
      * </ol>
      */
     @objid ("0d07e0e0-80c3-44c4-a061-99749c3cb2a3")
-    private String computeSmartName(MObject obj, Set<String> siblings) {
+    private String computeSmartName(String prefix, MObject obj, Set<String> siblings) {
         int index = 0;
-        String prefix = getBaseName(obj);
-        
         
         for (String s : siblings) {
             Matcher x = this.pattern.matcher(s);
@@ -106,7 +104,7 @@ class AnalystNamer implements IElementNamer {
         if ((object instanceof AnalystElement)) { // Keep the code rock solid whatever object is passed
             // Compute siblings
             Set<String> siblings = new GetSiblingsVisitor().getSiblings((Element) object);
-            String smartName = computeSmartName(object, siblings);
+            String smartName = computeSmartName(basename, object, siblings);
             if (smartName != null)
                 return smartName;
         }

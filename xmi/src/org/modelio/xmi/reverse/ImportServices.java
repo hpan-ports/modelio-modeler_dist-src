@@ -71,7 +71,7 @@ public class ImportServices {
     @objid ("379d1b50-de78-4b0c-8bb9-acdaf444751e")
     private List<String> profiles = new ArrayList<>();
 
-    @objid ("35823324-d979-4f50-bef0-eaa8d6b6fa11")
+    @objid ("a1fe1cc3-bce6-4f5f-b529-b299c9603860")
     private Shell _shell = null;
 
     @objid ("178269f7-c1d6-40dd-8299-8c64c15addec")
@@ -186,7 +186,7 @@ public class ImportServices {
     @objid ("3c930297-3485-4ed3-a72c-c7fa35a33fcd")
     public Resource getResource(File xmiFile) throws Exception {
         //load file
-        if (XMIFileUtils.containsPatterns(xmiFile, getOldUMLPatterns())){
+        if (XMIFileUtils.containsPatterns(xmiFile, getUMLPatterns())){
             return loadModel(xmiFile, getOldUMLPatterns(), getNewUMLPatterns());
         }else{
             return loadModel(xmiFile, getOldEMFPatterns(), getNewEMFPatterns());
@@ -595,6 +595,7 @@ public class ImportServices {
     @objid ("73adb37d-ba61-4908-912d-d0cb284caf22")
     private List<String> getOldUMLPatterns() {
         List<String> patterns = new LinkedList<>();
+        patterns.add("xmlns:xmi=\"http://www.omg.org/spec/XMI/20110701");  
         patterns.add("xmlns:uml=\"http://schema.omg.org/spec/UML/2.1.1/uml.xml");  
         patterns.add("xmlns:uml[\\s]?=[\\s]?[\"]?[\']?http://www.omg.org/spec/UML/20090901[\"]?[\']?");
         patterns.add("xmlns:uml[\\s]?=[\\s]?[\"]?[\']?http://www.omg.org/spec/UML/20100901[\"]?[\']?");
@@ -612,6 +613,7 @@ public class ImportServices {
     @objid ("90f607a8-4379-4aa5-bb79-9dec705ed493")
     private List<String> getNewUMLPatterns() {
         List<String> patterns = new LinkedList<>();
+        patterns.add("xmlns:xmi=\"http://schema.omg.org/spec/XMI/2.1");  
         patterns.add("xmlns:uml=\"http://www.eclipse.org/uml2/3.0.0/UML" );
         patterns.add("xmlns:uml=\"http://www.eclipse.org/uml2/3.0.0/UML\"" );
         patterns.add("xmlns:uml=\"http://www.eclipse.org/uml2/3.0.0/UML\"" );
@@ -629,6 +631,7 @@ public class ImportServices {
     @objid ("5b43ef46-fdcd-41f9-81ed-774baf5356ac")
     private List<String> getNewEMFPatterns() {
         List<String> patterns = new LinkedList<>();
+        patterns.add("xmlns:xmi=\"http://schema.omg.org/spec/XMI/2.1");          
         patterns.add("xmlns:uml=\"http://www.eclipse.org/uml2/3.0.0/UML\"");
         patterns.add("xmlns:uml=\"http://www.eclipse.org/uml2/3.0.0/UML\"");
         patterns.add("href=\"http://www.eclipse.org/uml2/3.0.0/UML");
@@ -639,6 +642,7 @@ public class ImportServices {
     @objid ("34de1e69-677d-4fb8-9262-83c3e60479ec")
     private List<String> getOldEMFPatterns() {
         List<String> patterns = new LinkedList<>();
+        patterns.add("xmlns:xmi=\"http://www.omg.org/spec/XMI/20110701");  
         patterns.add("xmlns:uml[\\s]?=[\\s]?\"?\'?http://www.eclipse.org/uml2/3.1.0/UML[/]?\"?\'?");
         patterns.add("xmlns:uml[\\s]?=[\\s]?\"?\'?http://www.eclipse.org/uml2/2.[01]+.0/UML[/]?\"?\'?");
         patterns.add("href[\\s]?=[\\s]?\"?\'?http://www.eclipse.org/uml2/2.[01]+.0/UML");
@@ -674,6 +678,23 @@ public class ImportServices {
                 }
             }
         }
+    }
+
+    @objid ("3907551f-bdab-45ab-a336-cbea3f842931")
+    private List<String> getUMLPatterns() {
+        List<String> patterns = new LinkedList<>();
+        patterns.add("xmlns:uml=\"http://schema.omg.org/spec/UML/2.1.1/uml.xml");  
+        patterns.add("xmlns:uml[\\s]?=[\\s]?[\"]?[\']?http://www.omg.org/spec/UML/20090901[\"]?[\']?");
+        patterns.add("xmlns:uml[\\s]?=[\\s]?[\"]?[\']?http://www.omg.org/spec/UML/20100901[\"]?[\']?");
+        patterns.add("xmlns:uml[\\s]?=[\\s]?[\"]?[\']?http://www.omg.org/spec/UML/20110701[\"]?[\']?");
+        patterns.add("xmlns:uml[\\s]?=[\\s]?[\"]?[\']?http://www.omg.org/spec/UML/20110701[\"]?[\']?");
+        patterns.add("xmlns:uml[\\s]?=[\\s]?\'?\"?http://schema.omg.org/spec/UML/2.[1.1]?[1.2]?[1]?[2]?[3]?\'?\"");
+        patterns.add("http://schema.omg.org/spec/UML/2.2/ [http://www.eclipse.org/uml2/3.0.0/UML]?");
+        patterns.add("http://schema.omg.org/spec/UML/2.1.1/uml.xml");
+        patterns.add("http://schema.omg.org/spec/UML/2.2/uml.xml");
+        patterns.add("http://www.omg.org/spec/UML/20090901/UML.xmi");
+        patterns.add("http://www.omg.org/spec/UML/20110701/UML.xmi");
+        return patterns;
     }
 
 }

@@ -24,7 +24,11 @@ public abstract class AbstractDiagramCreationContributor implements IDiagramWiza
             for (MClass metaclass : getAcceptedMetaclasses()) {
                 if (metaclass.hasBase(owner.getMClass())) {
                     MStatus elementStatus = owner.getStatus();
-                    return (owner.getMClass().isCmsNode() || elementStatus.isModifiable());
+                    if (owner.getMClass().isCmsNode() && elementStatus.isCmsManaged()) {
+                        return !elementStatus.isRamc();
+                    } else {
+                        return owner.isModifiable();
+                    }
                 }
             }
         }

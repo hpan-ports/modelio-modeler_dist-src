@@ -23,12 +23,9 @@ package org.modelio.diagram.editor.bpmn.elements.bpmndataobject.datainput;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.diagram.editor.bpmn.elements.bpmndataobject.GmBpmnDataLabel;
-import org.modelio.diagram.editor.bpmn.elements.bpmndataobject.GmBpmnDataObjectStyleKeys;
 import org.modelio.diagram.elements.common.abstractdiagram.GmAbstractDiagram;
 import org.modelio.diagram.persistence.IDiagramReader;
 import org.modelio.diagram.persistence.IDiagramWriter;
-import org.modelio.metamodel.bpmn.objects.BpmnDataInput;
-import org.modelio.metamodel.bpmn.objects.BpmnItemDefinition;
 import org.modelio.vcore.smkernel.mapi.MRef;
 
 @objid ("60b447e1-55b6-11e2-877f-002564c97630")
@@ -45,64 +42,6 @@ public class GmBpmnDataInputLabel extends GmBpmnDataLabel {
     @objid ("60b5ce3e-55b6-11e2-877f-002564c97630")
     public GmBpmnDataInputLabel(final GmAbstractDiagram diagram, final MRef ref) {
         super(diagram, ref);
-    }
-
-    @objid ("60b5ce48-55b6-11e2-877f-002564c97630")
-    @Override
-    protected String computeLabel() {
-        String mlabel = null;
-        String reference = null;
-        
-        if (getRelatedElement() != null && !getRelatedElement().getName().equals("")) {
-            mlabel = getRelatedElement().getName();
-        }
-        
-        BpmnDataInput element = (BpmnDataInput) getRelatedElement();
-        if (element.getRepresentedAttribute() != null) {
-            reference = element.getRepresentedAttribute().getName();
-        } else if (element.getRepresentedInstance() != null) {
-            reference = element.getRepresentedInstance().getName();
-        } else if (element.getRepresentedAssociationEnd() != null) {
-            reference = element.getRepresentedAssociationEnd().getName();
-        } else if (element.getRepresentedParameter() != null) {
-            reference = element.getRepresentedParameter().getName();
-        } else if (element.getType() != null) {
-            reference = element.getType().getName();
-        } else if (element.getInState() != null) {
-            reference = element.getInState().getName();
-        } else if (element.getItemSubjectRef() != null) {
-            BpmnItemDefinition item = element.getItemSubjectRef();
-            if (item.getStructureRef() != null) {
-                reference = item.getStructureRef().getName();
-            } else {
-                reference = item.getName();
-            }
-        }
-        
-        StringBuilder s = new StringBuilder();
-        
-        Boolean showrepresented = getStyle().getProperty(GmBpmnDataObjectStyleKeys.SHOWREPRESENTED);
-        
-        if (!showrepresented) {
-            if (reference != null) {
-                s.append(reference);
-            } else if (mlabel != null) {
-                s.append(mlabel);
-            }
-        } else {
-            if (mlabel != null) {
-                s.append(mlabel);
-                if (reference != null) {
-                    s.append(" : ");
-                }
-            }
-        
-            if (reference != null) {
-                s.append(reference);
-            }
-        
-        }
-        return s.toString();
     }
 
     /**

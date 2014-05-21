@@ -36,6 +36,7 @@ import org.modelio.core.ui.ktable.IPropertyModel;
 import org.modelio.gproject.model.IMModelServices;
 import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.property.ui.data.IPropertyPanel;
+import org.modelio.property.ui.data.ModelioKTable;
 import org.modelio.vcore.session.api.ICoreSession;
 
 /**
@@ -68,9 +69,13 @@ public class StandardPropertyPanel implements IPropertyPanel {
         this.typedElement = element;
         ICoreSession session = projectService != null ? projectService.getSession() : null;
         final DataModelFactory f = new DataModelFactory(modelService, projectService, activationService, session != null ? session.getModel() : null);
-        final IPropertyModel data = f.getPropertyModel(this.typedElement);
-        final KTableModel model = this.propertyModelFactory.getIPropertyModel(session, pickingService, this.table, data);
-        this.table.setModel(model);
+        
+        // Avoid refreshing the KTable during stop()
+        if (this.typedElement != null || this.table.getModel() == null) {
+            final IPropertyModel data = f.getPropertyModel(this.typedElement);
+            final KTableModel model = this.propertyModelFactory.getIPropertyModel(session, pickingService, this.table, data);
+            this.table.setModel(model);
+        }
     }
 
     @objid ("8fa7c830-c068-11e1-8c0a-002564c97630")
@@ -111,7 +116,7 @@ public class StandardPropertyPanel implements IPropertyPanel {
         // comp.setBackground(comp.getDisplay().getSystemColor(SWT.COLOR_BLUE));
         
         final int tableStyle = SWTX.AUTO_SCROLL | SWTX.FILL_WITH_LASTCOL;
-        this.table = new KTable(this.comp, tableStyle);
+        this.table = new ModelioKTable(this.comp, tableStyle);
         
         final GridData gridData = new GridData(GridData.FILL_BOTH | GridData.HORIZONTAL_ALIGN_FILL | GridData.GRAB_HORIZONTAL);
         gridData.minimumHeight = 20;

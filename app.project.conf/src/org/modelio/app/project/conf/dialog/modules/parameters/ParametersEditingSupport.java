@@ -99,7 +99,7 @@ class ParametersEditingSupport extends EditingSupport {
         } else if (property instanceof IntParameterModel) {
             return new IntegerCellEditor(tree, SWT.SINGLE);
         } else if (property instanceof PasswordParameterModel) {
-            return new TextCellEditor(tree);
+            return new TextCellEditor(tree, SWT.PASSWORD);
         } else if (property instanceof StringParameterModel) {
             return new TextCellEditor(tree);
         } else {
@@ -128,7 +128,7 @@ class ParametersEditingSupport extends EditingSupport {
         } else if (property instanceof IntParameterModel) {
             return Integer.valueOf(((ParameterModel) property).getStringValue());
         } else if (property instanceof PasswordParameterModel) {
-            return ((ParameterModel) property).getStringValue();
+            return ((PasswordParameterModel) property).getPasswordValue();
         } else if (property instanceof StringParameterModel) {
             return ((ParameterModel) property).getStringValue();
         } else {

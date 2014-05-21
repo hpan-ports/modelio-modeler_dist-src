@@ -28,6 +28,8 @@ import org.modelio.metamodel.analyst.AnalystProject;
 import org.modelio.metamodel.analyst.BusinessRule;
 import org.modelio.metamodel.analyst.BusinessRuleContainer;
 import org.modelio.metamodel.analyst.Dictionary;
+import org.modelio.metamodel.analyst.GenericAnalystContainer;
+import org.modelio.metamodel.analyst.GenericAnalystElement;
 import org.modelio.metamodel.analyst.Goal;
 import org.modelio.metamodel.analyst.GoalContainer;
 import org.modelio.metamodel.analyst.PropertyContainer;
@@ -1084,6 +1086,44 @@ public class GetSiblingsVisitor extends DefaultModelVisitor {
         Dictionary theOwnerDictionary = theTerm.getOwnerDictionary();
         if (theOwnerDictionary != null) {
             for (Term e : theOwnerDictionary.getOwnedTerm()) {
+                this.results.add(e.getName());
+            }
+        }
+        return null;
+    }
+
+    @objid ("a4a1f211-d626-4d7c-8417-406f9f2a4afe")
+    @Override
+    public Object visitGenericAnalystContainer(GenericAnalystContainer theGoalContainer) {
+        GenericAnalystContainer theContainer = theGoalContainer.getOwnerContainer();
+        if (theContainer != null) {
+            for (Element e : theContainer.getOwnedContainer()) {
+                this.results.add(e.getName());
+            }
+        } else {                
+            AnalystProject theProject = theGoalContainer.getOwnerProject();
+            if (theProject != null) {
+                for (Element e : theProject.getRequirementRoot()) {
+                    this.results.add(e.getName());
+                }
+            }
+        }
+        return null;
+    }
+
+    @objid ("29432a58-96ec-40bc-81b0-91b0b964fada")
+    @Override
+    public Object visitGenericAnalystElement(GenericAnalystElement theRequirementElement) {
+        GenericAnalystContainer theContainer = theRequirementElement.getOwnerContainer();
+        if (theContainer != null) {
+            for (GenericAnalystElement e : theContainer.getOwnedElement()) {
+                this.results.add(e.getName());
+            }
+        }
+        
+        GenericAnalystElement theRequirement = theRequirementElement.getParentElement();
+        if (theRequirement != null) {
+            for (GenericAnalystElement e : theRequirement.getSubElement()) {
                 this.results.add(e.getName());
             }
         }

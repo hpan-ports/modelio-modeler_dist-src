@@ -24,12 +24,17 @@ package org.modelio.vaudit.modelshield.standard.checkers;
 import java.util.Arrays;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.metamodel.Metamodel;
+import org.modelio.metamodel.uml.behavior.interactionModel.CombinedFragment;
 import org.modelio.metamodel.uml.behavior.interactionModel.ExecutionOccurenceSpecification;
+import org.modelio.metamodel.uml.behavior.interactionModel.ExecutionSpecification;
 import org.modelio.metamodel.uml.behavior.interactionModel.InteractionFragment;
+import org.modelio.metamodel.uml.behavior.interactionModel.InteractionOperand;
 import org.modelio.metamodel.uml.behavior.interactionModel.InteractionUse;
 import org.modelio.metamodel.uml.behavior.interactionModel.Lifeline;
 import org.modelio.metamodel.uml.behavior.interactionModel.Message;
 import org.modelio.metamodel.uml.behavior.interactionModel.MessageSort;
+import org.modelio.metamodel.uml.behavior.interactionModel.OccurrenceSpecification;
+import org.modelio.metamodel.uml.behavior.interactionModel.PartDecomposition;
 import org.modelio.vaudit.modelshield.IErrorReport;
 import org.modelio.vaudit.modelshield.internal.ModelError;
 import org.modelio.vaudit.modelshield.standard.TriggerType;
@@ -64,12 +69,48 @@ public class E274Checker implements IChecker {
     public void register(final Plan plan) {
         // trigger=create, metaclass=InteractionFragment, feature=null
         plan.registerChecker(this, Metamodel.getMClass(InteractionFragment.class), TriggerType.Create, null);
+        plan.registerChecker(this, Metamodel.getMClass(CombinedFragment.class), TriggerType.Create, null);
+        plan.registerChecker(this, Metamodel.getMClass(ExecutionSpecification.class), TriggerType.Create, null);
+        plan.registerChecker(this, Metamodel.getMClass(InteractionOperand.class), TriggerType.Create, null);
+        plan.registerChecker(this, Metamodel.getMClass(InteractionUse.class), TriggerType.Create, null);
+        plan.registerChecker(this, Metamodel.getMClass(OccurrenceSpecification.class), TriggerType.Create, null);
+        plan.registerChecker(this, Metamodel.getMClass(PartDecomposition.class), TriggerType.Create, null);
         
-        // trigger=create, metaclass=InteractionFragment, feature=Covered
+        // trigger=update, metaclass=InteractionFragment, feature=Covered
         plan.registerChecker(this, Metamodel.getMClass(InteractionFragment.class), TriggerType.Update, "Covered");
+        plan.registerChecker(this, Metamodel.getMClass(CombinedFragment.class), TriggerType.Update, "Covered");
+        plan.registerChecker(this, Metamodel.getMClass(ExecutionSpecification.class), TriggerType.Update, "Covered");
+        plan.registerChecker(this, Metamodel.getMClass(InteractionOperand.class), TriggerType.Update, "Covered");
+        plan.registerChecker(this, Metamodel.getMClass(InteractionUse.class), TriggerType.Update, "Covered");
+        plan.registerChecker(this, Metamodel.getMClass(OccurrenceSpecification.class), TriggerType.Update, "Covered");
+        plan.registerChecker(this, Metamodel.getMClass(PartDecomposition.class), TriggerType.Update, "Covered");
         
-        // trigger=create, metaclass=InteractionFragment, feature=Covered
+        // trigger=update, metaclass=InteractionFragment, feature=LineNumber
+        plan.registerChecker(this, Metamodel.getMClass(InteractionFragment.class), TriggerType.Update, "LineNumber");
+        plan.registerChecker(this, Metamodel.getMClass(CombinedFragment.class), TriggerType.Update, "LineNumber");
+        plan.registerChecker(this, Metamodel.getMClass(ExecutionSpecification.class), TriggerType.Update, "LineNumber");
+        plan.registerChecker(this, Metamodel.getMClass(InteractionOperand.class), TriggerType.Update, "LineNumber");
+        plan.registerChecker(this, Metamodel.getMClass(InteractionUse.class), TriggerType.Update, "LineNumber");
+        plan.registerChecker(this, Metamodel.getMClass(OccurrenceSpecification.class), TriggerType.Update, "LineNumber");
+        plan.registerChecker(this, Metamodel.getMClass(PartDecomposition.class), TriggerType.Update, "LineNumber");
+        
+        // trigger=move, metaclass=InteractionFragment, feature=Covered
         plan.registerChecker(this, Metamodel.getMClass(InteractionFragment.class), TriggerType.Move, "Covered");
+        plan.registerChecker(this, Metamodel.getMClass(CombinedFragment.class), TriggerType.Move, "Covered");
+        plan.registerChecker(this, Metamodel.getMClass(ExecutionSpecification.class), TriggerType.Move, "Covered");
+        plan.registerChecker(this, Metamodel.getMClass(InteractionOperand.class), TriggerType.Move, "Covered");
+        plan.registerChecker(this, Metamodel.getMClass(InteractionUse.class), TriggerType.Move, "Covered");
+        plan.registerChecker(this, Metamodel.getMClass(OccurrenceSpecification.class), TriggerType.Move, "Covered");
+        plan.registerChecker(this, Metamodel.getMClass(PartDecomposition.class), TriggerType.Move, "Covered");
+        
+        // trigger=move, metaclass=InteractionFragment, feature=LineNumber
+        plan.registerChecker(this, Metamodel.getMClass(InteractionFragment.class), TriggerType.Move, "LineNumber");
+        plan.registerChecker(this, Metamodel.getMClass(CombinedFragment.class), TriggerType.Move, "LineNumber");
+        plan.registerChecker(this, Metamodel.getMClass(ExecutionSpecification.class), TriggerType.Move, "LineNumber");
+        plan.registerChecker(this, Metamodel.getMClass(InteractionOperand.class), TriggerType.Move, "LineNumber");
+        plan.registerChecker(this, Metamodel.getMClass(InteractionUse.class), TriggerType.Move, "LineNumber");
+        plan.registerChecker(this, Metamodel.getMClass(OccurrenceSpecification.class), TriggerType.Move, "LineNumber");
+        plan.registerChecker(this, Metamodel.getMClass(PartDecomposition.class), TriggerType.Move, "LineNumber");
     }
 
     @objid ("00684fa2-edf7-1f71-90c1-001ec947cd2a")

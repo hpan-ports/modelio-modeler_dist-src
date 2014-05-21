@@ -797,6 +797,22 @@ public class DefaultMetaExpert implements IMetaExpert {
             addRule("Generalization", "Note");
             addRule("Generalization", "ExternDocument");
             
+            // GenericAnalystElement
+            addRule("GenericAnalystElement", "Constraint");
+            addRule("GenericAnalystElement", "MatrixDefinition");
+            addRule("GenericAnalystElement", "Note");
+            addRule("GenericAnalystElement", "ExternDocument");
+            addRule("GenericAnalystElement", "PropertyValueSet");
+            addRule("GenericAnalystElement", "GenericAnalystElement");
+            
+            // GenericAnalystContainer
+            addRule("GenericAnalystContainer", "Constraint");
+            addRule("GenericAnalystContainer", "MatrixDefinition");
+            addRule("GenericAnalystContainer", "Note");
+            addRule("GenericAnalystContainer", "ExternDocument");
+            addRule("GenericAnalystContainer", "GenericAnalystElement");
+            addRule("GenericAnalystContainer", "GenericAnalystContainer");
+            
             // Goal
             addRule("Goal", "Constraint");
             addRule("Goal", "MatrixDefinition");
@@ -1530,6 +1546,7 @@ public class DefaultMetaExpert implements IMetaExpert {
             addRule("UseCase", "BindableInstance");
             addRule("UseCase", "Collaboration");
             addRule("UseCase", "CollaborationUse");
+            addRule("UseCase", "CommunicationInteraction");
             addRule("UseCase", "Constraint");
             addRule("UseCase", "MatrixDefinition");
             addRule("UseCase", "DataFlow");

@@ -22,6 +22,9 @@
 package org.modelio.audit.rules;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.audit.engine.core.IAuditEntry;
 import org.modelio.audit.engine.core.IAuditPlan;
@@ -77,17 +80,17 @@ public class R2240 extends AbstractRule {
         plan.registerRule(Metamodel.getMClass(Component.class).getName(), this, AuditTrigger.UPDATE);
         
         plan.registerRule(Metamodel.getMClass(ElementImport.class).getName(), this, AuditTrigger.CREATE |
-                                                              AuditTrigger.MOVE |
-                                                              AuditTrigger.UPDATE);
+                AuditTrigger.MOVE |
+                AuditTrigger.UPDATE);
         plan.registerRule(Metamodel.getMClass(PackageImport.class).getName(), this, AuditTrigger.CREATE |
-                                                              AuditTrigger.MOVE |
-                                                              AuditTrigger.UPDATE);
+                AuditTrigger.MOVE |
+                AuditTrigger.UPDATE);
         plan.registerRule(Metamodel.getMClass(PackageMerge.class).getName(), this, AuditTrigger.CREATE |
-                                                             AuditTrigger.MOVE |
-                                                             AuditTrigger.UPDATE);
+                AuditTrigger.MOVE |
+                AuditTrigger.UPDATE);
         plan.registerRule(Metamodel.getMClass(Dependency.class).getName(), this, AuditTrigger.CREATE |
-                                                           AuditTrigger.MOVE |
-                                                           AuditTrigger.UPDATE);
+                AuditTrigger.MOVE |
+                AuditTrigger.UPDATE);
         
         //plan.registerRule(Metamodel.getMClass(Usage.class).getName(), this, AuditTrigger.CREATE | AuditTrigger.MOVE | AuditTrigger.UPDATE);
     }
@@ -174,11 +177,11 @@ public class R2240 extends AbstractRule {
         @objid ("5b53e612-ab39-40a9-9cee-d8c6b5674cb6")
         private IAuditEntry checkR2240(final NameSpace nameSpace) {
             AuditEntry auditEntry = new AuditEntry(this.rule.getRuleId(),
-                                                   AuditSeverity.AuditSuccess,
-                                                   nameSpace,
-                                                   null);
+                    AuditSeverity.AuditSuccess,
+                    nameSpace,
+                    null);
             
-            if (checkDependanceCycle(nameSpace, new ArrayList<NameSpace>())) {
+            if (checkDependencyCycle(nameSpace, new ArrayList<NameSpace>())) {
             
                 // Rule failed
             
@@ -191,40 +194,56 @@ public class R2240 extends AbstractRule {
         }
 
         @objid ("d409a903-7964-4c67-8a64-556df61d0a5c")
-        private boolean checkDependanceCycle(final NameSpace nameSpace, final ArrayList<NameSpace> foundNameSpaces) {
-            if (foundNameSpaces.contains(nameSpace))
+        private boolean checkDependencyCycle(final NameSpace tested, final List<NameSpace> analysedPath) {
+            if (analysedPath.contains(tested)) {
+                // Cycle detected in the current analyzed path
                 return true;
-            else
-                foundNameSpaces.add(nameSpace);
+            } else {
+                // Add tested namespace to the analyzed path
+                analysedPath.add(tested);
+            }
             
-            for (Dependency dep : nameSpace.getDependsOnDependency()) {
+            // Gathers all namespaces the tested element has a link to
+            Set<NameSpace> targets = new HashSet<>();
+            
+            for (Dependency dep : tested.getDependsOnDependency()) {
                 ModelElement me = dep.getDependsOn();
-                if (me != null && (me instanceof Package || me instanceof Component))
-                    if (checkDependanceCycle((NameSpace) me, foundNameSpaces))
-                        return true;
-            }
-            
-            for (ElementImport ei : nameSpace.getOwnedImport()) {
-                NameSpace ns = ei.getImportedElement();
-                if (ns != null && (ns instanceof Package || ns instanceof Component))
-                    if (checkDependanceCycle(ns, foundNameSpaces))
-                        return true;
-            }
-            
-            for (PackageImport pi : nameSpace.getOwnedPackageImport()) {
-                Package pkg = pi.getImportedPackage();
-                if (pkg != null)
-                    if (checkDependanceCycle(pkg, foundNameSpaces))
-                        return true;
-            }
-            
-            if (nameSpace instanceof Package)
-                for (PackageMerge pm : ((Package) nameSpace).getMerge()) {
-                    Package pkg = pm.getMergedPackage();
-                    if (pkg != null)
-                        if (checkDependanceCycle(pkg, foundNameSpaces))
-                            return true;
+                if (me != null && (me instanceof Package || me instanceof Component)) {
+                    targets.add((NameSpace) me);
                 }
+            }
+            
+            for (ElementImport ei : tested.getOwnedImport()) {
+                NameSpace ns = ei.getImportedElement();
+                if (ns != null && (ns instanceof Package || ns instanceof Component)) {
+                    targets.add(ns);
+                }
+            }
+            
+            for (PackageImport pi : tested.getOwnedPackageImport()) {
+                Package pkg = pi.getImportedPackage();
+                if (pkg != null) {
+                    targets.add(pkg);
+                }
+            }
+            
+            if (tested instanceof Package) {
+                for (PackageMerge pm : ((Package) tested).getMerge()) {
+                    Package pkg = pm.getMergedPackage();
+                    if (pkg != null) {
+                        targets.add(pkg);
+                    }
+                }
+            }
+            
+            // Check for a cycle in each of these paths
+            for (NameSpace ns : targets) {
+                if (checkDependencyCycle(ns, analysedPath))
+                    return true;
+            }
+            
+            // No cycle found, remove tested namespace from the analyzed path
+            analysedPath.remove(tested);
             return false;
         }
 

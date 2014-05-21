@@ -48,15 +48,14 @@ public class BpmnLaneSetContainerLayout extends ToolbarLayout {
     @objid ("613c154e-55b6-11e2-877f-002564c97630")
     @Override
     protected Dimension getChildPreferredSize(IFigure child, int wHint, int hHint) {
-        int height = hHint;
+        int width = wHint;
         Integer constraint = this.constraints.get(child);
         if (constraint == null || constraint.intValue() == -1) {
             Dimension childPrefSize = child.getPreferredSize(wHint, hHint);
-            constraint = Integer.valueOf(childPrefSize.width);
-            height = childPrefSize.height;
-        
+            constraint = Integer.valueOf(childPrefSize.height);
+            width = childPrefSize.width;
         }
-        return new Dimension(height, constraint.intValue());
+        return new Dimension(width, constraint.intValue());
     }
 
     @objid ("613c1557-55b6-11e2-877f-002564c97630")
@@ -88,8 +87,8 @@ public class BpmnLaneSetContainerLayout extends ToolbarLayout {
         // then ignore the height hint (set it to -1); otherwise, ignore the
         // width hint. These hints will be passed to the children of the parent
         // figure when getting their preferred size.
-        int wHint = -1;
-        int hHint = parent.getClientArea(Rectangle.SINGLETON).height;
+        int wHint = parent.getClientArea(Rectangle.SINGLETON).width;
+        int hHint = -1; 
         
         /*
          * Calculate sum of preferred heights of all children(totalHeight).

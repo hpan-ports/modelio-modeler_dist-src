@@ -21,18 +21,26 @@
 
 package org.modelio.property.ui.data.standard.bpmn;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.core.ui.ktable.types.IPropertyType;
 import org.modelio.core.ui.ktable.types.element.SingleElementType;
+import org.modelio.core.ui.ktable.types.modelelement.ModelElementListType;
 import org.modelio.core.ui.ktable.types.text.StringType;
 import org.modelio.metamodel.bpmn.objects.BpmnDataObject;
 import org.modelio.metamodel.bpmn.objects.BpmnItemDefinition;
+import org.modelio.metamodel.uml.behavior.stateMachineModel.Region;
 import org.modelio.metamodel.uml.behavior.stateMachineModel.State;
+import org.modelio.metamodel.uml.behavior.stateMachineModel.StateMachine;
+import org.modelio.metamodel.uml.infrastructure.ModelElement;
 import org.modelio.metamodel.uml.statik.AssociationEnd;
 import org.modelio.metamodel.uml.statik.Attribute;
 import org.modelio.metamodel.uml.statik.AttributeLink;
 import org.modelio.metamodel.uml.statik.GeneralClass;
 import org.modelio.metamodel.uml.statik.Instance;
+import org.modelio.metamodel.uml.statik.Operation;
 import org.modelio.property.ui.data.standard.common.AbstractPropertyModel;
 import org.modelio.vcore.session.api.model.IModel;
 import org.modelio.vcore.session.impl.CoreSession;
@@ -154,7 +162,7 @@ public class BpmnDataObjectPropertyModel extends AbstractPropertyModel<BpmnDataO
                     case 2:
                         return new SingleElementType(true, GeneralClass.class, CoreSession.getSession(this.theEditedElement));
                     case 3:    
-                        return new SingleElementType(true, State.class, CoreSession.getSession(this.theEditedElement));
+                        return getInStateType();
                     case 4:
                         return new SingleElementType(true, Instance.class, CoreSession.getSession(this.theEditedElement));
                     case 5:
@@ -233,6 +241,63 @@ public class BpmnDataObjectPropertyModel extends AbstractPropertyModel<BpmnDataO
             default:
                 return;
         }
+    }
+
+    @objid ("69a2bfba-c073-4c0c-b5c1-d86db29d13c0")
+    private IPropertyType getInStateType() {
+        GeneralClass referencedClass = this.theEditedElement.getType();
+        if (referencedClass == null) {
+            return new SingleElementType(true, State.class, CoreSession.getSession(this.theEditedElement));
+        }
+        
+        List<ModelElement> availableStates = getAvailableStates(referencedClass);
+        
+        ModelElementListType type = new ModelElementListType(true, State.class, availableStates, CoreSession.getSession(this.theEditedElement));
+        return type;
+    }
+
+    /**
+     * Get all states defined in a class.
+     */
+    @objid ("d2fe9ff5-b380-4116-affc-232e6243dc25")
+    private List<ModelElement> getAvailableStates(GeneralClass referencedClass) {
+        List<ModelElement> states = new ArrayList<>();
+        
+        // Add states from owned state machines
+        for (StateMachine sm : referencedClass.getOwnedBehavior(StateMachine.class)) {
+            final Region topRegion = sm.getTop();
+            states.addAll(getAvailableStates(topRegion));
+        }
+        
+        // Add states from owned operations
+        for (Operation op : referencedClass.getOwnedOperation()) {
+            for (StateMachine sm : op.getOwnedBehavior(StateMachine.class)) {
+                final Region topRegion = sm.getTop();
+                states.addAll(getAvailableStates(topRegion));
+            }
+        }
+        
+        // Add states from owned classes
+        for (GeneralClass sub : referencedClass.getOwnedElement(GeneralClass.class)) {
+            states.addAll(getAvailableStates(sub));
+        }
+        return states;
+    }
+
+    /**
+     * Get all states defined in a region.
+     */
+    @objid ("4defc4d5-7b78-409f-91e1-a6efce008d57")
+    private Collection<? extends ModelElement> getAvailableStates(Region region) {
+        List<ModelElement> states = new ArrayList<>();
+        for (State s : region.getSub(State.class)) {
+            states.add(s);
+            
+            for (Region subRegion : s.getOwnedRegion()) {
+                states.addAll(getAvailableStates(subRegion));
+            }
+        }
+        return states;
     }
 
 }

@@ -32,6 +32,8 @@ import org.modelio.metamodel.analyst.AnalystPropertyTable;
 import org.modelio.metamodel.analyst.BusinessRule;
 import org.modelio.metamodel.analyst.BusinessRuleContainer;
 import org.modelio.metamodel.analyst.Dictionary;
+import org.modelio.metamodel.analyst.GenericAnalystContainer;
+import org.modelio.metamodel.analyst.GenericAnalystElement;
 import org.modelio.metamodel.analyst.Goal;
 import org.modelio.metamodel.analyst.GoalContainer;
 import org.modelio.metamodel.analyst.PropertyContainer;
@@ -1771,6 +1773,35 @@ public class CompositionInitializer extends DefaultModelVisitor {
     public Object visitMatrixValueDefinition(MatrixValueDefinition theMatrixValueDefinition) {
         if (this.parent instanceof MatrixDefinition) {
             theMatrixValueDefinition.setMatrix((MatrixDefinition) this.parent);
+            return true;
+        }
+        return false;
+    }
+
+    @objid ("ee3e8d63-45e2-47f8-a439-767d7ff56b66")
+    @Override
+    public Object visitGenericAnalystElement(GenericAnalystElement theGenericElement) {
+        if (this.parent instanceof GenericAnalystContainer) {
+            theGenericElement.setOwnerContainer((GenericAnalystContainer) this.parent);
+            AnalystPropertiesHelper.synchronizeAnalystProperties((GenericAnalystContainer) this.parent, Collections.singletonList((AnalystElement)theGenericElement));
+            return true;
+        }
+        if (this.parent instanceof GenericAnalystElement) {
+            theGenericElement.setParentElement((GenericAnalystElement) this.parent);
+            AnalystPropertiesHelper.synchronizeAnalystProperties((GenericAnalystElement) this.parent, Collections.singletonList((AnalystElement)theGenericElement));
+            return true;
+        }
+        return false;
+    }
+
+    @objid ("e7e4ea5a-ecff-4330-b8bf-fa69744dd48a")
+    @Override
+    public Object visitGenericAnalystContainer(GenericAnalystContainer theGenericContainer) {
+        if (this.parent instanceof GenericAnalystContainer) {
+            theGenericContainer.setOwnerContainer((GenericAnalystContainer) this.parent);
+            return true;
+        } else if (this.parent instanceof AnalystProject) {
+            theGenericContainer.setOwnerProject((AnalystProject) this.parent);
             return true;
         }
         return false;

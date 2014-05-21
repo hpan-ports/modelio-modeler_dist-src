@@ -179,10 +179,14 @@ public class UrlFragment extends AbstractFragment {
             // last compatible version 9017
             // first incompatible version 9016
             final int mmVersion = fragmentVersion.getMmVersion();
-            if (mmVersion < 9017 || mmVersion > Integer.parseInt(Metamodel.VERSION))
-                throw new IOException(CoreProject.getMessage("AbstractFragment.DifferentMmVersion", fragmentVersion));
-            else
-                getProject().getMonitorSupport().fireMonitors(GProjectEvent.buildWarning(this, new IOException(CoreProject.getMessage("RamcFileFragment.DifferentMmVersion", fragmentVersion))));
+            if (mmVersion < 9017 || mmVersion > Integer.parseInt(Metamodel.VERSION)) {
+                // too old or more recent than Modelio
+                String msg = CoreProject.getMessage("AbstractFragment.MmVersionNotSupported", getId(), fragmentVersion, VersionDescriptors.current().toString());
+                throw new IOException(msg);
+            } else {
+                String msg = CoreProject.getMessage("AbstractFragment.DifferentMmVersion", getId(), fragmentVersion, VersionDescriptors.current().toString());
+                getProject().getMonitorSupport().fireMonitors(GProjectEvent.buildWarning(this, new IOException(msg)));
+            }
         }
     }
 

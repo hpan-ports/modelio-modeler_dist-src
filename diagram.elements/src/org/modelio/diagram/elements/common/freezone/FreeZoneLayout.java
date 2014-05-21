@@ -32,7 +32,7 @@ import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 
 /**
- * Specialisation of the XYLayout to add the fact that children constraints should be fixed to fit as much as possible
+ * Specialisation of the XYLayout to add the fact that children position should be fixed to fit as much as possible
  * within the client area of the parent figure.
  * 
  * @author fpoyer
@@ -40,7 +40,7 @@ import org.eclipse.draw2d.geometry.Rectangle;
 @objid ("7e37fc80-1dec-11e2-8cad-001ec947c8cc")
 public class FreeZoneLayout extends XYLayout {
     /**
-     * Fix the child rectangle so that it is inside the client area rectangle as much as possible
+     * Fix the child position so that it is inside the client area rectangle as much as possible
      * @param clientArea the area in which the child rectangle must fit.
      * @param childRectangle The rectangle to fix.
      */
@@ -53,28 +53,17 @@ public class FreeZoneLayout extends XYLayout {
         // Fix top left
         childRectangle.x = Math.max(childRectangle.x, clientArea.x);
         childRectangle.y = Math.max(childRectangle.y, clientArea.y);
-        
-        // Fix width and height
-        childRectangle.width = Math.min(childRectangle.width, clientArea.width);
-        childRectangle.height = Math.min(childRectangle.height, clientArea.height);
-        
-        if (childRectangle.width < -1) {
-            childRectangle.width = -1;
-        }
-        
-        if (childRectangle.height < -1) {
-            childRectangle.height = -1;
-        }
     }
 
     @objid ("7e37fc8d-1dec-11e2-8cad-001ec947c8cc")
     @Override
     public void layout(IFigure parent) {
-        Iterator<?> children = parent.getChildren().iterator();
         Point offset = getOrigin(parent);
-        IFigure f;
+        Rectangle clientArea = parent.getClientArea();
+        
+        Iterator<?> children = parent.getChildren().iterator();
         while (children.hasNext()) {
-            f = (IFigure) children.next();
+            IFigure f = (IFigure) children.next();
             Rectangle bounds = (Rectangle) getConstraint(f);
             if (bounds == null)
                 continue;
@@ -87,8 +76,11 @@ public class FreeZoneLayout extends XYLayout {
                 if (bounds.height == -1)
                     bounds.height = childPreferredSize.height;
             }
-            bounds = bounds.getTranslated(offset);
-            fitChildRectangleInClientArea(parent.getClientArea(), bounds);
+            
+            bounds.translate(offset);
+            
+            fitChildRectangleInClientArea(clientArea, bounds);
+            
             f.setBounds(bounds);
         }
     }

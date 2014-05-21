@@ -24,10 +24,12 @@ package org.modelio.diagram.editor.bpmn.elements.policies;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.commands.Command;
+import org.modelio.diagram.editor.bpmn.elements.bpmnsequenceflow.SequenceFlowEditPolicy;
 import org.modelio.diagram.elements.core.model.GmModel;
 import org.modelio.diagram.elements.core.node.GmCompositeNode;
 import org.modelio.diagram.elements.core.node.GmNodeModel;
 import org.modelio.metamodel.bpmn.activities.BpmnSubProcess;
+import org.modelio.metamodel.bpmn.flows.BpmnSequenceFlow;
 import org.modelio.metamodel.bpmn.processCollaboration.BpmnLane;
 import org.modelio.metamodel.bpmn.processCollaboration.BpmnProcess;
 import org.modelio.metamodel.bpmn.rootElements.BpmnFlowElement;
@@ -72,7 +74,7 @@ public class BpmnFlowElementReparentElementCommand extends Command {
     @Override
     public boolean canExecute() {
         final MObject childElement = this.reparentedChild.getRelatedElement();
-        if (this.newParentElement == null || childElement == null)
+        if (this.newParentElement == null || childElement == null || childElement instanceof BpmnSequenceFlow)
             return false;
         if (!this.newParentElement.getStatus().isModifiable() ||
             !childElement.getStatus().isModifiable())

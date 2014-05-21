@@ -38,6 +38,7 @@ import org.modelio.metamodel.diagrams.AbstractDiagram;
 import org.modelio.metamodel.uml.statik.Classifier;
 import org.modelio.vcore.session.api.transactions.ITransaction;
 import org.modelio.vcore.smkernel.mapi.MObject;
+import org.modelio.vcore.smkernel.mapi.MStatus;
 
 @objid ("397bf5c8-994d-4f08-b555-4645f6573de9")
 public class InheritanceDiagram extends AbstractHandler {
@@ -72,8 +73,12 @@ public class InheritanceDiagram extends AbstractHandler {
         List<MObject> selectedElements = getSelection(selection);
         for (MObject elt : selectedElements) {
             if ((elt instanceof Classifier)) {
-                // Deactivate for RAMC elements
-                if (elt.getStatus().isRamc()) {
+                MStatus elementStatus = elt.getStatus();
+                if (elt.getMClass().isCmsNode() && elementStatus.isCmsManaged()) {
+                    if (elementStatus.isRamc()) {
+                        return false;
+                    }
+                } else if (!elt.isModifiable()) {
                     return false;
                 }
         

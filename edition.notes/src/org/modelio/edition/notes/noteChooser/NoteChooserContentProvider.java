@@ -110,11 +110,14 @@ public class NoteChooserContentProvider implements ITreeContentProvider {
         
                 for (Stereotype stereotype : profile.getDefinedStereotype()) {
                     if (this.element.getExtension().contains(stereotype)) {
-                        for (NoteType noteType : stereotype.getDefinedNoteType()) {
-                            if (!noteType.isIsHidden()) {
-                                ret.add(stereotype);
-                                break;
+                        while (stereotype != null) {
+                            for (NoteType noteType : stereotype.getDefinedNoteType()) {
+                                if (!noteType.isIsHidden()) {
+                                    ret.add(stereotype);
+                                    break;
+                                }
                             }
+                            stereotype = stereotype.getParent();
                         }
                     }
                 }
@@ -122,10 +125,13 @@ public class NoteChooserContentProvider implements ITreeContentProvider {
         } else if (parent instanceof Stereotype) {
             Stereotype stereotype = (Stereotype) parent;
             if (this.element.getExtension().contains(stereotype)) {
-                for (NoteType noteType : stereotype.getDefinedNoteType()) {
-                    if (!noteType.isIsHidden()) {
-                        ret.add(noteType);
+                while (stereotype != null) {
+                    for (NoteType noteType : stereotype.getDefinedNoteType()) {
+                        if (!noteType.isIsHidden()) {
+                            ret.add(noteType);
+                        }
                     }
+                    stereotype = stereotype.getParent();
                 }
             }
         }
@@ -175,20 +181,26 @@ public class NoteChooserContentProvider implements ITreeContentProvider {
         
                 for (Stereotype stereotype : profile.getDefinedStereotype()) {
                     if (this.element.getExtension().contains(stereotype)) {
-                        for (NoteType noteType : stereotype.getDefinedNoteType()) {
-                            if (!noteType.isIsHidden()) {
-                                return true;
+                        while (stereotype != null) {   
+                            for (NoteType noteType : stereotype.getDefinedNoteType()) {
+                                if (!noteType.isIsHidden()) {
+                                    return true;
+                                }
                             }
+                            stereotype = stereotype.getParent();
                         }
                     }
                 }
             }
         } else if (parent instanceof Stereotype) {
             Stereotype stereotype = (Stereotype) parent;
-            for (NoteType noteType : stereotype.getDefinedNoteType()) {
-                if (!noteType.isIsHidden()) {
-                    return true;
+            while (stereotype != null) {
+                for (NoteType noteType : stereotype.getDefinedNoteType()) {
+                    if (!noteType.isIsHidden()) {
+                        return true;
+                    }
                 }
+                stereotype = stereotype.getParent();
             }
         }
         return false;

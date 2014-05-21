@@ -21,6 +21,7 @@
 
 package org.modelio.core.ui.ktable.types.hybrid;
 
+import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import de.kupzog.ktable.KTableModel;
 import de.kupzog.ktable.SWTX;
@@ -31,6 +32,8 @@ import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Text;
 import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
+import org.modelio.metamodel.uml.statik.Operation;
+import org.modelio.metamodel.uml.statik.Parameter;
 import org.modelio.ui.UIImages;
 
 /**
@@ -116,7 +119,35 @@ public class HybridCellRenderer extends DefaultCellRenderer {
         
         if (content == null) {
             text = "null";
-        } else if (content instanceof ModelElement) {
+        } else if (content instanceof Operation) {
+            //PAN issue #902
+            Operation operation = (Operation)content;
+            final List<Parameter> parameters = operation.getIO();
+            final int parameterNumber = parameters.size();
+            
+            text = operation.getName();
+            text = text + "(";
+            
+            for (int i = 0; i < parameterNumber; i++) {
+                final Parameter parameter = parameters.get(i);
+                text = text + parameter.getType().getName();
+                if (i < parameterNumber - 1) {
+                    text = text + ", ";
+                }
+            }
+            text = text + ")";
+           final Parameter returnParam = operation.getReturn();
+           if (returnParam != null)
+               text = text + ":" + returnParam.getType().getName();
+            
+            if (this.displayOwner) {
+                Element owner = (Element) operation.getCompositionOwner();
+                if (owner instanceof ModelElement) {
+                    text = text + " (from " + ((ModelElement) owner).getName() + ")";
+                }
+            }
+            //PAN
+        } else if (content instanceof ModelElement) {        
             ModelElement me = (ModelElement) content;
             text = me.getName();
         

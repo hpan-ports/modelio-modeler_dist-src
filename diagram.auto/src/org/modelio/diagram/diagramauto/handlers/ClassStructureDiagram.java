@@ -37,6 +37,7 @@ import org.modelio.metamodel.diagrams.AbstractDiagram;
 import org.modelio.metamodel.uml.statik.Classifier;
 import org.modelio.vcore.session.api.transactions.ITransaction;
 import org.modelio.vcore.smkernel.mapi.MObject;
+import org.modelio.vcore.smkernel.mapi.MStatus;
 
 @objid ("327a99b7-f436-4891-9e5f-b02e0495f72f")
 public class ClassStructureDiagram extends AbstractHandler {
@@ -68,29 +69,33 @@ public class ClassStructureDiagram extends AbstractHandler {
     @CanExecute
     public boolean isEnabled(@Named(IServiceConstants.ACTIVE_SELECTION) final Object selection, IMModelServices modelServices) {
         ClassStructureCreator pc = new ClassStructureCreator(modelServices);
-            
+        
         List<MObject> selectedElements = getSelection(selection);
         for (MObject elt : selectedElements) {
-        if ((elt instanceof Classifier)) {
-        // Deactivate for RAMC elements
-        if (elt.getStatus().isRamc()) {
-        return false;
-        }
-            
-        // Deactivate if no context is found
-        if (pc.getAutoDiagramContext((Classifier) elt) == null) {
-        return false;
-        }
-            
-        AbstractDiagram existingdiagramauto = pc.getExistingAutoDiagram((Classifier) elt);
-            
-        // Unmodifiable diagram means the command is disabled
-        if (existingdiagramauto != null && !existingdiagramauto.getStatus().isModifiable()) {
-        return false;
-        }
-        } else {
-        return false;
-        }
+            if ((elt instanceof Classifier)) {
+                MStatus elementStatus = elt.getStatus();
+                if (elt.getMClass().isCmsNode() && elementStatus.isCmsManaged()) {
+                    if (elementStatus.isRamc()) {
+                        return false;
+                    }
+                } else if (!elt.isModifiable()) {
+                    return false;
+                }
+        
+                // Deactivate if no context is found
+                if (pc.getAutoDiagramContext((Classifier) elt) == null) {
+                    return false;
+                }
+        
+                AbstractDiagram existingdiagramauto = pc.getExistingAutoDiagram((Classifier) elt);
+        
+                // Unmodifiable diagram means the command is disabled
+                if (existingdiagramauto != null && !existingdiagramauto.getStatus().isModifiable()) {
+                    return false;
+                }
+            } else {
+                return false;
+            }
         }
         return !selectedElements.isEmpty();
     }

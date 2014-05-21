@@ -23,6 +23,7 @@ package org.modelio.model.browser.views.treeview;
 
 import java.net.URL;
 import java.util.List;
+import java.util.Stack;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.IPath;
@@ -191,13 +192,13 @@ public class BrowserLabelProvider extends LabelProvider implements IModelioEleme
             final int nbLinks = ((LinkContainer) obj).getNbLinks();
             return new StyledString(nbLinks <= 1
                     ? ModelBrowser.I18N.getMessage("LinkContainer.Single", nbLinks)
-                    : ModelBrowser.I18N.getMessage("LinkContainer.Multi", nbLinks));
-            
+                            : ModelBrowser.I18N.getMessage("LinkContainer.Multi", nbLinks));
+        
         } else if (obj instanceof ArchiveContainer) {
             final int nbVersions = ((ArchiveContainer) obj).getNbVersions();
             return new StyledString(nbVersions <= 1 
                     ? ModelBrowser.I18N.getMessage("ArchiveContainer.Single", nbVersions)
-                    : ModelBrowser.I18N.getMessage("ArchiveContainer.Multi", nbVersions));
+                            : ModelBrowser.I18N.getMessage("ArchiveContainer.Multi", nbVersions));
         }
         
         // Unknown object
@@ -269,13 +270,17 @@ public class BrowserLabelProvider extends LabelProvider implements IModelioEleme
         @objid ("557c5b5c-d145-424d-8244-7a83d21bc34c")
          StyledString elementStyledLabel;
 
+        @objid ("78cd3b70-ff9c-40b6-b329-464a7e409848")
+        private Stack<Element> elementStack;
+
         /**
          * Initialize the label service.
          */
         @objid ("c13eecbb-d63b-11e1-9955-002564c97630")
-        public BrowserLabelService() {
+        public BrowserLabelService(Stack<Element> elementStack) {
             super();
             this.elementStyledLabel = new StyledString();
+            this.elementStack = elementStack;
         }
 
         /**
@@ -291,15 +296,27 @@ public class BrowserLabelProvider extends LabelProvider implements IModelioEleme
                 return new StyledString("<null>", ElementStyler.getStyler(element));
             }
             
-            // reset the returned value
-            this.elementStyledLabel = new StyledString();
-            this.showVisibility = mustShowVisibility;
+            if (this.elementStack.contains(element)) {
+                // loop detected, return the name...
+                return new StyledString(element.getName());
+            }
             
-            // call the visitor
-            element.accept(this);
+            // store the element for loop detection
+            this.elementStack.push(element);
             
-            // return the value
-            return this.elementStyledLabel;
+            try {
+                // reset the returned value
+                this.elementStyledLabel = new StyledString();
+                this.showVisibility = mustShowVisibility;
+            
+                // call the visitor
+                element.accept(this);
+            
+                // return the value
+                return this.elementStyledLabel;
+            } finally {
+                this.elementStack.pop();
+            }
         }
 
         @objid ("c13eecc4-d63b-11e1-9955-002564c97630")
@@ -351,7 +368,7 @@ public class BrowserLabelProvider extends LabelProvider implements IModelioEleme
             final ActivityNode target = theActivityEdge.getTarget();
             
             if (target != null) {
-                final BrowserLabelService labelService = new BrowserLabelService();
+                final BrowserLabelService labelService = new BrowserLabelService(this.elementStack);
                 symbol.append(labelService.getLabel(target, this.showVisibility).toString(), ElementStyler.getStyler(theActivityEdge, target));
             } else {
                 final String name = theActivityEdge.getName();
@@ -431,7 +448,7 @@ public class BrowserLabelProvider extends LabelProvider implements IModelioEleme
                 if (represented instanceof ActivityPartition) {
                     symbol.append(represented.getName(), representedStyler);
                 } else {
-                    final BrowserLabelService labelService = new BrowserLabelService();
+                    final BrowserLabelService labelService = new BrowserLabelService(this.elementStack);
                     symbol.append(labelService.getLabel(represented, this.showVisibility).toString(), representedStyler);
                 }
             }
@@ -604,7 +621,7 @@ public class BrowserLabelProvider extends LabelProvider implements IModelioEleme
             final ModelElement role = theBinding.getRole();
             final ModelElement feature = theBinding.getRepresentedFeature();
             
-            final BrowserLabelService labelService = new BrowserLabelService();
+            final BrowserLabelService labelService = new BrowserLabelService(this.elementStack);
             if (role != null) {
                 symbol.append(labelService.getLabel(role, this.showVisibility).toString(), ElementStyler.getStyler(theBinding, role));
             }
@@ -739,7 +756,7 @@ public class BrowserLabelProvider extends LabelProvider implements IModelioEleme
             final Instance instance = theCommunicationNode.getRepresented();
             
             if (instance != null) {
-                final BrowserLabelService labelService = new BrowserLabelService();
+                final BrowserLabelService labelService = new BrowserLabelService(this.elementStack);
                 symbol.append(labelService.getLabel(instance, this.showVisibility).toString(), ElementStyler.getStyler(theCommunicationNode, instance));
             } else {
                 symbol.append(theCommunicationNode.getName(), styler);
@@ -776,8 +793,8 @@ public class BrowserLabelProvider extends LabelProvider implements IModelioEleme
             
             if (destination != null) {
                 symbol.append(verb.toString(), styler);
-                
-                StyledString destLabel = new BrowserLabelService().getLabel(destination, false);
+            
+                StyledString destLabel = new BrowserLabelService(this.elementStack).getLabel(destination, false);
                 symbol.append(destLabel.getString(), ElementStyler.getStyler(theDependency, destination));
             
                 ModelTree owner = null;
@@ -895,7 +912,7 @@ public class BrowserLabelProvider extends LabelProvider implements IModelioEleme
             final Styler styler = ElementStyler.getStyler(theGeneralization);
             symbol.append("is_a ", styler);
             
-            final BrowserLabelService labelService = new BrowserLabelService();
+            final BrowserLabelService labelService = new BrowserLabelService(this.elementStack);
             final NameSpace parent = theGeneralization.getSuperType();
             
             if (parent != null) {
@@ -972,16 +989,16 @@ public class BrowserLabelProvider extends LabelProvider implements IModelioEleme
                 symbol.append(": ", styler);
                 symbol.append(type.getName(), ElementStyler.getStyler(theInstanceNode, type));
             } else if (instance != null) {
-                final BrowserLabelService labelService = new BrowserLabelService();
+                final BrowserLabelService labelService = new BrowserLabelService(this.elementStack);
                 symbol.append(labelService.getLabel(instance, this.showVisibility).toString(), ElementStyler.getStyler(theInstanceNode, instance));
             } else if (attribut != null) {
-                final BrowserLabelService labelService = new BrowserLabelService();
+                final BrowserLabelService labelService = new BrowserLabelService(this.elementStack);
                 symbol.append(labelService.getLabel(attribut, this.showVisibility).toString(), ElementStyler.getStyler(theInstanceNode, attribut));
             } else if (assocEnd != null) {
-                final BrowserLabelService labelService = new BrowserLabelService();
+                final BrowserLabelService labelService = new BrowserLabelService(this.elementStack);
                 symbol.append(labelService.getLabel(assocEnd, this.showVisibility).toString(), ElementStyler.getStyler(theInstanceNode, assocEnd));
             } else if (behaviorParameter != null) {
-                final BrowserLabelService labelService = new BrowserLabelService();
+                final BrowserLabelService labelService = new BrowserLabelService(this.elementStack);
                 symbol.append(labelService.getLabel(behaviorParameter, this.showVisibility).toString(), ElementStyler.getStyler(theInstanceNode, behaviorParameter));
             } else {
                 symbol.append(theInstanceNode.getName(), styler);
@@ -999,7 +1016,7 @@ public class BrowserLabelProvider extends LabelProvider implements IModelioEleme
             
             // symbol.append("Realize ");
             
-            final BrowserLabelService labelService = new BrowserLabelService();
+            final BrowserLabelService labelService = new BrowserLabelService(this.elementStack);
             final Interface implemented = theInterfaceRealization.getImplemented();
             
             if (implemented != null) {
@@ -1033,7 +1050,7 @@ public class BrowserLabelProvider extends LabelProvider implements IModelioEleme
         public Object visitLinkEnd(LinkEnd theLinkEnd) {
             final StyledString symbol = new StyledString();
             final Styler styler = ElementStyler.getStyler(theLinkEnd);
-                        
+            
             final String linkEndName = theLinkEnd.getName();
             
             if (linkEndName.equals("")) {
@@ -1046,7 +1063,7 @@ public class BrowserLabelProvider extends LabelProvider implements IModelioEleme
                 symbol.append("::", styler);
                 symbol.append(linked.getName(), ElementStyler.getStyler(theLinkEnd, theLinkEnd.getTarget()));
             }
-                  
+            
             this.elementStyledLabel = symbol;
             return null;
         }
@@ -1120,7 +1137,7 @@ public class BrowserLabelProvider extends LabelProvider implements IModelioEleme
                 symbol.append(name, styler);
             
                 // append template instantiations
-                final BrowserLabelService labelService = new BrowserLabelService();
+                final BrowserLabelService labelService = new BrowserLabelService(this.elementStack);
             
                 if (!name.isEmpty()) {
                     symbol.append(": ", styler);
@@ -1180,7 +1197,7 @@ public class BrowserLabelProvider extends LabelProvider implements IModelioEleme
         public Object visitNaryLinkEnd(NaryLinkEnd theLinkEnd) {
             final StyledString symbol = new StyledString();
             final Styler styler = ElementStyler.getStyler(theLinkEnd);
-                        
+            
             final String linkEndName = theLinkEnd.getName();
             
             if (linkEndName.equals("")) {
@@ -1206,7 +1223,7 @@ public class BrowserLabelProvider extends LabelProvider implements IModelioEleme
             final Attribute attribute = theObjectNode.getRepresentedAttribute();
             final AssociationEnd role = theObjectNode.getRepresentedRole();
             
-            final BrowserLabelService labelService = new BrowserLabelService();
+            final BrowserLabelService labelService = new BrowserLabelService(this.elementStack);
             
             if (parameter != null) {
                 symbol.append(labelService.getLabel(parameter, this.showVisibility).toString(), ElementStyler.getStyler(theObjectNode, parameter));
@@ -1368,7 +1385,7 @@ public class BrowserLabelProvider extends LabelProvider implements IModelioEleme
                             symbol.append(", ", styler);
                         }
                         RequiredInterface ri = requiredInterfaces.get(i);
-                        final BrowserLabelService labelService = new BrowserLabelService();
+                        final BrowserLabelService labelService = new BrowserLabelService(this.elementStack);
                         symbol.append(labelService.getLabel(ri, this.showVisibility).toString(), ElementStyler.getStyler(thePort, ri));
                     }
                 }
@@ -1384,7 +1401,7 @@ public class BrowserLabelProvider extends LabelProvider implements IModelioEleme
                             symbol.append(", ", styler);
                         }
                         ProvidedInterface pi = providedInterfaces.get(i);
-                        final BrowserLabelService labelService = new BrowserLabelService();
+                        final BrowserLabelService labelService = new BrowserLabelService(this.elementStack);
                         symbol.append(labelService.getLabel(pi, this.showVisibility).toString(), ElementStyler.getStyler(thePort, pi));
                     }
                 }
@@ -1407,7 +1424,7 @@ public class BrowserLabelProvider extends LabelProvider implements IModelioEleme
                         symbol.append(", ", styler);
                     }
                     Interface pe = providedElements.get(i);
-                    final BrowserLabelService labelService = new BrowserLabelService();
+                    final BrowserLabelService labelService = new BrowserLabelService(this.elementStack);
                     symbol.append(labelService.getLabel(pe, this.showVisibility).toString(), ElementStyler.getStyler(theProvidedInterface, pe));
                 }
             } else {
@@ -1425,7 +1442,7 @@ public class BrowserLabelProvider extends LabelProvider implements IModelioEleme
             final Styler styler = ElementStyler.getStyler(theRaisedException);
             symbol.append("throws ", styler);
             
-            final BrowserLabelService labelService = new BrowserLabelService();
+            final BrowserLabelService labelService = new BrowserLabelService(this.elementStack);
             final Classifier thrownType = theRaisedException.getThrownType();
             
             if (thrownType != null) {
@@ -1457,7 +1474,7 @@ public class BrowserLabelProvider extends LabelProvider implements IModelioEleme
                         symbol.append(", ", styler);
                     }
                     Interface re = requiredElements.get(i);
-                    final BrowserLabelService labelService = new BrowserLabelService();
+                    final BrowserLabelService labelService = new BrowserLabelService(this.elementStack);
                     symbol.append(labelService.getLabel(re, this.showVisibility).toString(), ElementStyler.getStyler(theRequiredInterface, re));
                 }
             } else {
@@ -1509,7 +1526,7 @@ public class BrowserLabelProvider extends LabelProvider implements IModelioEleme
                     symbol.append(", ", styler);
                 }
                 TemplateParameterSubstitution ts = substitutions.get(i);
-                final BrowserLabelService labelService = new BrowserLabelService();
+                final BrowserLabelService labelService = new BrowserLabelService(this.elementStack);
                 symbol.append(labelService.getLabel(ts, this.showVisibility).toString(), ElementStyler.getStyler(theTemplateBinding, ts));
             }
             
@@ -1532,7 +1549,7 @@ public class BrowserLabelProvider extends LabelProvider implements IModelioEleme
                 if (theTemplateParameter.isIsValueParameter()) {
                     symbol.append(":", styler);
             
-                    final BrowserLabelService labelService = new BrowserLabelService();
+                    final BrowserLabelService labelService = new BrowserLabelService(this.elementStack);
                     symbol.append(labelService.getLabel(type, this.showVisibility).toString(), typeStyler);
             
                     symbol.append(" expression", styler);
@@ -1547,7 +1564,7 @@ public class BrowserLabelProvider extends LabelProvider implements IModelioEleme
                     if (isConstrained) {
                         symbol.append(" > ", styler);
             
-                        final BrowserLabelService labelService = new BrowserLabelService();
+                        final BrowserLabelService labelService = new BrowserLabelService(this.elementStack);
                         symbol.append(labelService.getLabel(type, this.showVisibility).toString(), typeStyler);
                     } else if (type.getClass() != Class.class || type.getExtension().size() != 0) {
                         symbol.append(" : ", styler);
@@ -1565,7 +1582,7 @@ public class BrowserLabelProvider extends LabelProvider implements IModelioEleme
         public Object visitTemplateParameterSubstitution(TemplateParameterSubstitution theTemplateParameterSubstitution) {
             final StyledString symbol = new StyledString();
             final Styler styler = ElementStyler.getStyler(theTemplateParameterSubstitution);
-            final BrowserLabelService labelService = new BrowserLabelService();
+            final BrowserLabelService labelService = new BrowserLabelService(this.elementStack);
             
             final TemplateParameter templateParameter = theTemplateParameterSubstitution.getFormalParameter();
             if (templateParameter != null) {
@@ -1662,7 +1679,7 @@ public class BrowserLabelProvider extends LabelProvider implements IModelioEleme
             if (symbol.length() == 0) {
                 if (targetVertex instanceof AbstractPseudoState) {
                     final AbstractPseudoState target = ((AbstractPseudoState) targetVertex);
-                    final BrowserLabelService labelService = new BrowserLabelService();
+                    final BrowserLabelService labelService = new BrowserLabelService(this.elementStack);
                     symbol.append(labelService.getLabel(target, this.showVisibility).toString(), styler);
                 } else {
                     symbol.append(theTransition.getName(), styler);
@@ -1798,7 +1815,7 @@ public class BrowserLabelProvider extends LabelProvider implements IModelioEleme
             if ( ! (dep.getExtension().isEmpty())) {
                 for (Stereotype v : dep.getExtension()) {
                     stringBuilder.append(ModuleI18NService.getLabel(v));
-                    
+            
                     stringBuilder.append(", ");
                 }
                 // remove last ", "
@@ -1980,6 +1997,11 @@ public class BrowserLabelProvider extends LabelProvider implements IModelioEleme
             
             }
             return hasCycle;
+        }
+
+        @objid ("9de74646-d227-432c-806b-18e0dfc19246")
+        public BrowserLabelService() {
+            this(new Stack<Element>());
         }
 
     }

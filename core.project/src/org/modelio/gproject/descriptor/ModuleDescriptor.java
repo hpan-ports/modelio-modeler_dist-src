@@ -140,6 +140,9 @@ public final class ModuleDescriptor implements Serializable {
         this.parameters = new GProperties(md.getParameters());
         this.scope = md.scope;
         this.activated = md.activated;
+        
+        if (md.auth != null)
+            this.auth = new AuthDescriptor(md.auth.getData(), md.auth.getScope());
     }
 
     /**

@@ -37,9 +37,7 @@ import org.modelio.metamodel.uml.statik.AssociationEnd;
 import org.modelio.metamodel.uml.statik.Attribute;
 import org.modelio.metamodel.uml.statik.BindableInstance;
 import org.modelio.metamodel.uml.statik.GeneralClass;
-import org.modelio.metamodel.uml.statik.Instance;
 import org.modelio.metamodel.uml.statik.NameSpace;
-import org.modelio.metamodel.uml.statik.Port;
 import org.modelio.vcore.smkernel.mapi.MObject;
 
 /**
@@ -135,7 +133,7 @@ public class ObjectDiagramElementDropEditPolicy extends DiagramElementDropEditPo
             return false;
         return (element instanceof AssociationEnd ||
                 element instanceof Attribute ||
-                (element instanceof Instance && !(element instanceof Port)) || element instanceof GeneralClass);
+                element instanceof GeneralClass);
     }
 
     @objid ("ee96e1d6-64aa-479d-b704-47ac6c350a91")

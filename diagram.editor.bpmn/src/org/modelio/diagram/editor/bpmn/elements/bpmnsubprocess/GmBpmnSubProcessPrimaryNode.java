@@ -39,12 +39,14 @@ import org.modelio.diagram.persistence.IDiagramWriter;
 import org.modelio.diagram.styles.core.MetaKey;
 import org.modelio.diagram.styles.core.StyleKey.RepresentationMode;
 import org.modelio.diagram.styles.core.StyleKey;
+import org.modelio.gproject.model.api.MTools;
 import org.modelio.metamodel.bpmn.activities.BpmnMultiInstanceLoopCharacteristics;
 import org.modelio.metamodel.bpmn.activities.BpmnStandardLoopCharacteristics;
 import org.modelio.metamodel.bpmn.activities.BpmnSubProcess;
 import org.modelio.metamodel.bpmn.events.BpmnBoundaryEvent;
 import org.modelio.metamodel.bpmn.processCollaboration.BpmnLaneSet;
 import org.modelio.metamodel.bpmn.rootElements.BpmnBaseElement;
+import org.modelio.metamodel.experts.meta.MetaTool;
 import org.modelio.vcore.smkernel.mapi.MObject;
 import org.modelio.vcore.smkernel.mapi.MRef;
 
@@ -125,7 +127,7 @@ public class GmBpmnSubProcessPrimaryNode extends GmNoStyleCompositeNode implemen
     @objid ("61cb83fd-55b6-11e2-877f-002564c97630")
     @Override
     public boolean canUnmask(MObject el) {
-        return el instanceof BpmnBaseElement &&
+        return el instanceof BpmnBaseElement && !MTools.getLinkTool().isLink(el.getMClass()) &&
                ((BpmnBaseElement) el).getCompositionOwner().equals(getRelatedElement());
     }
 

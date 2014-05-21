@@ -40,6 +40,7 @@ import org.modelio.metamodel.uml.infrastructure.ModelTree;
 import org.modelio.metamodel.uml.statik.Package;
 import org.modelio.vcore.session.api.transactions.ITransaction;
 import org.modelio.vcore.smkernel.mapi.MObject;
+import org.modelio.vcore.smkernel.mapi.MStatus;
 
 @objid ("07c0ade8-005e-486e-abdf-25b0868fd7f6")
 public class PackageStructureDiagram extends AbstractHandler {
@@ -74,8 +75,12 @@ public class PackageStructureDiagram extends AbstractHandler {
         List<MObject> selectedElements = getSelection(selection);
         for (MObject elt : selectedElements) {
             if (elt instanceof Package) {
-                // Deactivate for RAMC elements
-                if (elt.getStatus().isRamc()) {
+                MStatus elementStatus = elt.getStatus();
+                if (elt.getMClass().isCmsNode() && elementStatus.isCmsManaged()) {
+                    if (elementStatus.isRamc()) {
+                        return false;
+                    }
+                } else if (!elt.isModifiable()) {
                     return false;
                 }
         

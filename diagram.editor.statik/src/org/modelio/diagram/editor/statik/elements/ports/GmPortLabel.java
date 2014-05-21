@@ -119,33 +119,35 @@ public class GmPortLabel extends GmModelElementFlatHeader {
     @Override
     protected String computeLabel() {
         String mlabel = null;
-        String reference = null;
+        String baseName = null;
         
         Port port = (Port) getRelatedElement();
         
-        if (!port.getName().equals("")) {
+        if (!port.getName().isEmpty()) {
             mlabel = getRelatedElement().getName();
         }
         
-        if (port.getBase() != null && !port.getBase().getName().equals("")) {
-            reference = port.getBase().getName();
+        if (port.getBase() != null && !port.getBase().getName().isEmpty()) {
+            baseName = port.getBase().getName();
         }
         
         StringBuilder s = new StringBuilder();
         
+        // Skip the Port name if :
+        // - the Port has a name that begin with the metaclass name (eg Port1 )
+        // - and the Port has a type.
         String basename = getDiagram().getModelManager().getModelServices().getElementNamer().getBaseName(port.getMClass());
-        if (mlabel != null && !mlabel.equals("")) {
-            if (!mlabel.startsWith(basename) || reference == null) {
+        if (mlabel != null && !mlabel.isEmpty()) {
+            if (!mlabel.startsWith(basename) || baseName == null) {
                 s.append(mlabel);
-        
-                if (reference != null) {
-                    s.append(":");
-                }
             }
-        
         }
-        if (reference != null)
-            s.append(reference);
+        
+        // Append referenced element
+        if (baseName != null) {
+            s.append(":");
+            s.append(baseName);
+        }
         return s.toString();
     }
 

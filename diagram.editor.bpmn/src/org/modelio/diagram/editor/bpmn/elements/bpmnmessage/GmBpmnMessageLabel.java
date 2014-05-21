@@ -24,6 +24,7 @@ package org.modelio.diagram.editor.bpmn.elements.bpmnmessage;
 import java.util.ArrayList;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
+import org.modelio.diagram.editor.bpmn.elements.bpmndataobject.GmBpmnDataObjectStyleKeys;
 import org.modelio.diagram.elements.common.abstractdiagram.GmAbstractDiagram;
 import org.modelio.diagram.elements.common.label.modelelement.GmModelElementFlatHeader;
 import org.modelio.diagram.elements.core.model.IEditableText;
@@ -35,6 +36,7 @@ import org.modelio.diagram.styles.core.StyleKey.RepresentationMode;
 import org.modelio.diagram.styles.core.StyleKey;
 import org.modelio.metamodel.bpmn.flows.BpmnMessage;
 import org.modelio.metamodel.bpmn.objects.BpmnItemDefinition;
+import org.modelio.metamodel.uml.behavior.stateMachineModel.State;
 import org.modelio.metamodel.uml.infrastructure.Stereotype;
 import org.modelio.metamodel.uml.infrastructure.TaggedValue;
 import org.modelio.vcore.smkernel.mapi.MRef;
@@ -135,8 +137,6 @@ public class GmBpmnMessageLabel extends GmModelElementFlatHeader {
         BpmnMessage element = (BpmnMessage) getRelatedElement();
         if (element.getType() != null) {
             reference = element.getType().getName();
-        } else if (element.getInState() != null) {
-            reference = element.getInState().getName();
         } else if (element.getItemRef() != null) {
             BpmnItemDefinition item = element.getItemRef();
             if (item.getStructureRef() != null) {
@@ -148,18 +148,38 @@ public class GmBpmnMessageLabel extends GmModelElementFlatHeader {
         
         StringBuilder s = new StringBuilder();
         
-        String basename = getDiagram().getModelManager().getModelServices().getElementNamer().getBaseName(element.getMClass());
-        if (mlabel != null && !mlabel.equals("")) {
-            if (!mlabel.startsWith(basename) || reference == null) {
-                s.append(mlabel);
-        
-                if (reference != null) {
-                    s.append(":");
+        if (reference != null) {
+            Boolean showrepresented = getStyle().getProperty(GmBpmnDataObjectStyleKeys.SHOWREPRESENTED);
+            if (Boolean.TRUE.equals(showrepresented)) {
+                // Begin with the element name if :
+                // - the element has a name that does not begin with the default name 
+                // - or the element represents no UML element.
+                String basename = getDiagram().getModelManager().getModelServices().getElementNamer().getBaseName(element);
+                if (mlabel != null && !mlabel.startsWith(basename)) {
+                    s.append(mlabel);
                 }
+        
+                // Append represented element name
+                s.append(": ");
+                s.append(reference);
+            } else {
+                s.append(mlabel);
             }
+        
+        } else if (mlabel != null) {
+            // No represented element, just append the name
+            s.append(mlabel);
+        } 
+        
+        // Add state
+        State inState = element.getInState();
+        
+        if (inState != null) {
+            String stateName = inState.getName();
+            s.append(" [");
+            s.append(stateName);
+            s.append("]");
         }
-        if (reference != null)
-            s.append(reference);
         return s.toString();
     }
 

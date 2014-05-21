@@ -38,6 +38,7 @@ import org.modelio.metamodel.diagrams.AbstractDiagram;
 import org.modelio.metamodel.uml.statik.NameSpace;
 import org.modelio.vcore.session.api.transactions.ITransaction;
 import org.modelio.vcore.smkernel.mapi.MObject;
+import org.modelio.vcore.smkernel.mapi.MStatus;
 
 @objid ("d567ad58-dcd4-4cf6-8288-01056c0ec845")
 public class DependencyDiagram extends AbstractHandler {
@@ -73,8 +74,12 @@ public class DependencyDiagram extends AbstractHandler {
         
         for (MObject elt : selectedElements) {
             if ((elt instanceof NameSpace)) {
-                // Deactivate for RAMC elements
-                if (elt.getStatus().isRamc()) {
+                MStatus elementStatus = elt.getStatus();
+                if (elt.getMClass().isCmsNode() && elementStatus.isCmsManaged()) {
+                    if (elementStatus.isRamc()) {
+                        return false;
+                    }
+                } else if (!elt.isModifiable()) {
                     return false;
                 }
         

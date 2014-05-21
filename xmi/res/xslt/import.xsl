@@ -134,7 +134,7 @@
 <xsl:template match="//*/type[@xmi:idref]"/> 
 
  <!-- Supress defaultValue with no type -->
-<xsl:template match="//defaultValue[not((@xmi:type) or (@xsi:type))]"/>
+<xsl:template match="//defaultValue[not((../@xmi:type) or (../@xsi:type) or (../type))]"/>
 
 
 <!-- Supress action element with is abstract element -->   

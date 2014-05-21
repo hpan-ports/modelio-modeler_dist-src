@@ -98,8 +98,8 @@ public class XMIFileUtils {
     public static void changeToUML(final String filePath) {
         File file = new File(filePath);
         
-        List<String> oldPatterns = new LinkedList<String>();
-        List<String> newPatterns = new LinkedList<String>();
+        List<String> oldPatterns = new LinkedList<>();
+        List<String> newPatterns = new LinkedList<>();
         
         
         File xslExportFile = null;

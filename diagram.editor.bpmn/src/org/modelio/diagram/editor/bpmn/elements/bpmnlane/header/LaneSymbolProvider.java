@@ -21,10 +21,12 @@
 
 package org.modelio.diagram.editor.bpmn.elements.bpmnlane.header;
 
+import java.util.regex.Pattern;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.gproject.model.IElementNamer;
 import org.modelio.metamodel.bpmn.processCollaboration.BpmnLane;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
+import org.modelio.vcore.smkernel.mapi.MObject;
 
 /**
  * Utility class that computes partition symbol.
@@ -40,6 +42,7 @@ public class LaneSymbolProvider {
 
     /**
      * Get the partition label at the following format: "name : type"
+     * @param elementNamer service that assigns a default name to new model elements.
      * @param c the partition
      * @return the computed label
      */
@@ -50,17 +53,25 @@ public class LaneSymbolProvider {
         
         ModelElement type = c.getPartitionElement();
         if (type != null) {
-            String basename = elementNamer.getBaseName(c.getMClass());
-            if (!name.startsWith(basename) && !name.equals("")) {
+            if (!hasDefaultName(c, elementNamer)) {
                 s.append(name);
-                s.append(" : ");
             }
         
+            s.append(": ");
             s.append(type.getName());
         } else {
             s.append(name);
         }
         return s.toString();
+    }
+
+    @objid ("f918d428-19b7-4c93-b25a-751e36a96fe3")
+    private static boolean hasDefaultName(MObject element, IElementNamer elementNamer) {
+        String basename = elementNamer.getBaseName(element);
+        basename = Pattern.quote(basename);
+        
+        String aLabel = element.getName();
+        return aLabel == null || aLabel.matches(basename+"[0-9]*");
     }
 
 }

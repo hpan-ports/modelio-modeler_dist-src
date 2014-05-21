@@ -35,7 +35,7 @@ import org.modelio.gproject.model.IMModelServices;
 import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
 import org.modelio.property.ui.data.IPropertyPanel;
-import org.modelio.vcore.session.api.ICoreSession;
+import org.modelio.property.ui.data.ModelioKTable;
 
 /**
  * Implementation of the "Extensions" part of the property panel, available when
@@ -118,7 +118,7 @@ public class ExtensionsPropertyPanel implements IPropertyPanel {
         this.comp.setLayout(layout);
         
         final int tableStyle = SWTX.AUTO_SCROLL | SWTX.FILL_WITH_LASTCOL;
-        this.table = new KTable(this.comp, tableStyle);
+        this.table = new ModelioKTable(this.comp, tableStyle);
         
         final GridData gridData = new GridData(GridData.FILL_BOTH | GridData.HORIZONTAL_ALIGN_FILL | GridData.GRAB_HORIZONTAL);
         gridData.minimumHeight = 20;
