@@ -22,7 +22,6 @@
 package org.modelio.xmi.util;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.modelio.api.modelio.Modelio;
 import org.modelio.metamodel.uml.behavior.commonBehaviors.Behavior;
 import org.modelio.metamodel.uml.behavior.stateMachineModel.InternalTransition;
 import org.modelio.metamodel.uml.behavior.stateMachineModel.State;
@@ -108,7 +107,7 @@ public class ModelUtils {
     @objid ("5ea56988-9496-4690-bdd7-d030089f185c")
     public static InternalTransition stateMapping(org.eclipse.uml2.uml.OpaqueBehavior opaqueBehavior, State state, org.eclipse.uml2.uml.State ecoreState) {
         ReverseProperties revProp = ReverseProperties.getInstance();
-        InternalTransition intTrans = Modelio.getInstance().getModelingSession().getModel().createInternalTransition();
+        InternalTransition intTrans = ReverseProperties.getInstance().getMModelServices().getModelFactory().createInternalTransition();
         intTrans.setSComposed(state);
         
         if ((ecoreState.getExit() != null) 

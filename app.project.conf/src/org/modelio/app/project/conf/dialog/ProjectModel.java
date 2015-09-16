@@ -29,13 +29,13 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.app.project.conf.dialog.urls.PropertiesUrlAdapter;
 import org.modelio.app.project.conf.dialog.urls.UrlEntry;
 import org.modelio.app.project.conf.plugin.AppProjectConf;
-import org.modelio.gproject.descriptor.FragmentType;
-import org.modelio.gproject.descriptor.GProperties;
+import org.modelio.gproject.data.project.FragmentType;
+import org.modelio.gproject.data.project.GProperties;
+import org.modelio.gproject.data.project.ProjectType;
 import org.modelio.gproject.fragment.IProjectFragment;
 import org.modelio.gproject.fragment.ramcfile.MdaFragment;
 import org.modelio.gproject.fragment.ramcfile.RamcFileFragment;
 import org.modelio.gproject.gproject.GProject;
-import org.modelio.gproject.gproject.ProjectType;
 import org.modelio.gproject.module.GModule;
 import org.modelio.vbasic.progress.NullProgress;
 

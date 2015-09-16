@@ -167,8 +167,8 @@ public class ModelShield {
     @objid ("82488fee-1dd5-11e2-82de-002564c97630")
     @Optional
     @Inject
-    void onProjectOpening(@EventTopic(ModelioEventTopics.PROJECT_OPENING) final GProject openedProject, @Optional
-@Named(IServiceConstants.ACTIVE_SHELL) final Shell parentShell, StatusReporter statusReporter, IModelioProgressService progressService) {
+    void onProjectOpening(@EventTopic(ModelioEventTopics.PROJECT_OPENING) final GProject openedProject, StatusReporter statusReporter, IModelioProgressService progressService) {
+        // removed @Optional @Named(IServiceConstants.ACTIVE_SHELL) final Shell parentShell
         if (openedProject != null) {
             // Create the core agent
             if (this.agents.isEmpty()) {
@@ -181,15 +181,14 @@ public class ModelShield {
             
             // Create a default diagnostic listener
             if (this.diagnosticListeners.isEmpty()) {
+                
                 addDiagnosticListener(new IErrorReportListener() {
                     @Override
                     public void onCommitDiagnostic(final IErrorReport errors) {
-                        Display.getDefault().asyncExec(new Runnable() {
-                            @Override
-                            public void run() {
-                                new ErrorReportDialog(parentShell, Vaudit.I18N.getString("CoreAudit.report.title"), Vaudit.I18N.getString("CoreAudit.report.message"), errors).open();
-                            }
-                        });
+                        ErrorReportDialog.open(
+                                Vaudit.I18N.getString("CoreAudit.report.title"),
+                                Vaudit.I18N.getString("CoreAudit.report.message"),
+                                errors);
                     }
                 });
             }

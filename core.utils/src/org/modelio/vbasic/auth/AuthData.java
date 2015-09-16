@@ -90,4 +90,48 @@ public abstract class AuthData implements IAuthData {
             return ret;
     }
 
+    /**
+     * Default implementation that should fit any subclass.
+     */
+    @objid ("9f5ed6d3-924a-4ac7-8ff3-2ef3b8214c8b")
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((getSchemeId() == null) ? 0 : getSchemeId().hashCode());
+        result = prime * result + ((getData() == null) ? 0 : getData().hashCode());
+        return result;
+    }
+
+    /**
+     * Default implementation that should fit any subclass.
+     */
+    @objid ("7995fb8d-6ef3-4178-aa0a-68f72c777251")
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        
+        AuthData other = (AuthData) obj;
+        
+        if (! getSchemeId().equals(other.getSchemeId()))
+            return false;
+        
+        if (getData() == null) {
+            if (other.getData() != null) {
+                return false;
+            }
+        } else if (!getData().equals(other.getData())) {
+            return false;
+        }
+        return true;
+    }
+
 }

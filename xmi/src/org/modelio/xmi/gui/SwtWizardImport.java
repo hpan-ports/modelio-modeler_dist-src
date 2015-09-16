@@ -26,7 +26,6 @@ import javax.inject.Inject;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.progress.IProgressService;
 import org.modelio.app.project.core.services.IProjectService;
@@ -34,7 +33,6 @@ import org.modelio.gproject.gproject.GProject;
 import org.modelio.vcore.session.api.transactions.ITransaction;
 import org.modelio.xmi.gui.report.ReportManager;
 import org.modelio.xmi.plugin.Xmi;
-import org.modelio.xmi.util.GenerationProperties;
 import org.modelio.xmi.util.ResourceLoader;
 import org.modelio.xmi.util.ReverseProperties;
 
@@ -49,11 +47,17 @@ public class SwtWizardImport extends AbstractSwtWizardWindow {
     public void validationAction() {
         final File theFile = getFileChooserComposite().getCurrentFile();
         ReverseProperties.getInstance().setFilePath(theFile);
-        this.path = theFile.getParent();
+         this.path = theFile.getParent();
+         
         if (theFile.exists() && theFile.isFile()) {
+            
             String extension = theFile.getName();
             extension = extension.substring(extension.lastIndexOf("."));
-            if (extension.equals(".uml") || extension.equals(".xmi") || extension.equals(".xml")) {
+            
+            if (extension.equals(".uml") 
+                    || extension.equals(".xmi") 
+                    || extension.equals(".xml")) {
+               
                 try(ITransaction t = GProject.getProject(this.selectedElt).getSession().getTransactionSupport().createTransaction("Import") ) {
         
                     this.progressService.busyCursorWhile (new ImportThread(this.shell,
@@ -64,35 +68,26 @@ public class SwtWizardImport extends AbstractSwtWizardWindow {
                         Display.getDefault().asyncExec(new Runnable() {
                             @Override
                             public void run() {
-                                ReportManager.showGenerationReport(GenerationProperties.getInstance().getReportModel());
+                                ReportManager.showGenerationReport(SwtWizardImport.this.shell, 
+                                        ReverseProperties.getInstance().getReportModel());
                             }
                         });
         
                     }else{
                         completeBox();
                     }        
-        
-                    this.shell.dispose();
-        
-                } catch (final Exception e) {
-                    this.error = true;
-                    catchException(e, Xmi.I18N.getString("error.import.uncatchedException"));
+                
+                } catch (final Exception e) {                      
+                    catchException(e);
                 } 
             } else {
-                Display.getDefault().asyncExec(new Runnable() {
-                    @Override
-                    public void run() {
-                        final MessageBox messageBox = new MessageBox(SwtWizardImport.this.shell, SWT.ICON_INFORMATION);
-                        messageBox.setText(Xmi.I18N.getString("fileChooser.dialog.wrongEcoreFormat.title"));
-                        messageBox.setMessage(Xmi.I18N.getString("fileChooser.dialog.wrongEcoreFormat.description"));
-                        messageBox.open();
-                    }
-                });
+                wrongFileExtension();
+                enableComposites();
             }
         } else {
             fileDontExist();
+            enableComposites();
         }
-        enableComposites();
     }
 
     @objid ("073f156d-159c-4419-aeca-d5a56261250b")
@@ -124,7 +119,7 @@ public class SwtWizardImport extends AbstractSwtWizardWindow {
     @Override
     public void setDefaultDialog() {
         this.fileChooserComposite.getDialog().setFilterNames(new String[] {"All Files (*.xmi; *.uml; *.xml)", "XMI Files (*.xmi)", "UML Files (*.uml)", "XML Files (*.xml)" });
-        this.fileChooserComposite.getDialog().setFilterExtensions(new String[] { "*.xmi" + File.pathSeparator +  "*.uml" + File.pathSeparator + "*.xml", "*.xmi", "*.uml", "*.xml" });         
+        this.fileChooserComposite.getDialog().setFilterExtensions(new String[] { "*.xmi; *.uml; *.xml", "*.xmi", "*.uml", "*.xml" });         
         setPath();
     }
 
@@ -153,29 +148,6 @@ public class SwtWizardImport extends AbstractSwtWizardWindow {
     @Override
     public void setOptionComposite(final Shell shell, IProjectService projectService) {
         this.optionComposite = null;
-    }
-
-    @objid ("6bb85ce3-50ed-4094-bb7f-f7801e8dd76b")
-    private void catchException(final Exception e, final String title) {
-        Xmi.LOG.error(Xmi.PLUGIN_ID, e);
-        
-        final String msgTitle = title;
-        final String msg = e.getClass().getCanonicalName();
-        
-        Display.getDefault().asyncExec(new Runnable() {
-            @Override
-            public void run() {
-                if (!SwtWizardImport.this.shell.isDisposed()){
-                    final MessageBox messageBox = new MessageBox(SwtWizardImport.this.shell, SWT.ICON_ERROR);
-        
-                    if (msg != null)
-                        messageBox.setMessage(msg);
-        
-                    messageBox.setText(msgTitle);
-                    messageBox.open();        
-                }
-            }
-        });
     }
 
 }

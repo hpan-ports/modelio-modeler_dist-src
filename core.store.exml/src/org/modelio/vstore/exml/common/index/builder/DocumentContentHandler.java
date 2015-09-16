@@ -25,7 +25,7 @@ import java.io.IOError;
 import java.io.IOException;
 import java.util.UUID;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.modelio.vcore.Log;
+import org.modelio.vbasic.log.Log;
 import org.modelio.vcore.smkernel.meta.SmClass;
 import org.modelio.vstore.exml.common.index.ICmsNodeIndex;
 import org.modelio.vstore.exml.common.index.IUserNodeIndex;

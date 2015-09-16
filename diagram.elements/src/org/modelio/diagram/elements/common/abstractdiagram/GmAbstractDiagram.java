@@ -255,9 +255,9 @@ public abstract class GmAbstractDiagram extends GmCompositeNode {
         if (this.modelChangeHandler != null) {
         
             final IModelChangeSupport modelChangeSupport = this.modelManager.getModelingSession().getModelChangeSupport();
-            modelChangeSupport.removeModelChangeHandler(this.modelChangeHandler);
+            modelChangeSupport.removePersistentViewListener(this.modelChangeHandler);
             modelChangeSupport.removeModelChangeListener(this.modelChangeHandler);
-            modelChangeSupport.removeModelChangeHandler(this.hiddenModelChangeHandler);
+            modelChangeSupport.removePersistentViewListener(this.hiddenModelChangeHandler);
             modelChangeSupport.removeModelChangeListener(this.hiddenModelChangeHandler);
             this.modelChangeHandler = null;
             this.modelManager = null;
@@ -608,9 +608,9 @@ public abstract class GmAbstractDiagram extends GmCompositeNode {
         super.doSetVisible(newVisible);
         final IModelChangeSupport changeSupport = this.modelManager.getModelingSession().getModelChangeSupport();
         if (newVisible) {
-            changeSupport.removeModelChangeHandler(this.hiddenModelChangeHandler);
+            changeSupport.removePersistentViewListener(this.hiddenModelChangeHandler);
             changeSupport.removeModelChangeListener(this.hiddenModelChangeHandler);
-            changeSupport.addModelChangeHandler(this.modelChangeHandler);
+            changeSupport.addPersistentViewListener(this.modelChangeHandler);
             changeSupport.addModelChangeListener(this.modelChangeHandler);
         
             MObject relatedElement = getRelatedElement();
@@ -618,9 +618,9 @@ public abstract class GmAbstractDiagram extends GmCompositeNode {
                 DiagramPersistence.loadDiagram(this);
             }
         } else {
-            changeSupport.removeModelChangeHandler(this.modelChangeHandler);
+            changeSupport.removePersistentViewListener(this.modelChangeHandler);
             changeSupport.removeModelChangeListener(this.modelChangeHandler);
-            changeSupport.addModelChangeHandler(this.hiddenModelChangeHandler);
+            changeSupport.addPersistentViewListener(this.hiddenModelChangeHandler);
             changeSupport.addModelChangeListener(this.hiddenModelChangeHandler);
         
         }
@@ -703,7 +703,7 @@ public abstract class GmAbstractDiagram extends GmCompositeNode {
 
         @objid ("7e1dc279-1dec-11e2-8cad-001ec947c8cc")
         @Override
-        public void handleModelChange(final IModelChangeEvent event) {
+        public void updateView(final IModelChangeEvent event) {
             final MObject obDiagram = getRelatedElement();
             // Refresh the diagram in the display thread
             Display.getDefault().asyncExec(new Runnable() {
@@ -753,7 +753,7 @@ public abstract class GmAbstractDiagram extends GmCompositeNode {
          */
         @objid ("7e1dc265-1dec-11e2-8cad-001ec947c8cc")
         @Override
-        public void handleModelChange(final IModelChangeEvent event) {
+        public void updateView(final IModelChangeEvent event) {
             final AbstractDiagram obDiagram = (AbstractDiagram)getRelatedElement();
             // Refresh the diagram in the display thread
             Display.getDefault().syncExec(new Runnable() {

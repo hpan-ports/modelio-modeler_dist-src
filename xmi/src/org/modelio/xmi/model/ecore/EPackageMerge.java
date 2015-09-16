@@ -21,9 +21,7 @@
 
 package org.modelio.xmi.model.ecore;
 
-import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.modelio.api.modelio.Modelio;
 import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.metamodel.uml.statik.Package;
 import org.modelio.metamodel.uml.statik.PackageMerge;
@@ -35,14 +33,15 @@ import org.modelio.xmi.util.ReverseProperties;
  * @author ebrosse
  */
 @objid ("f135ef20-329c-439b-8aa2-03be1500fb55")
-public class EPackageMerge extends EElement implements IEElement {
+public class EPackageMerge extends EElement {
     @objid ("34099d1f-fcf5-47c2-96b2-637f28555c82")
     private org.eclipse.uml2.uml.PackageMerge ecoreElement = null;
 
     @objid ("2e65987b-3f91-4379-baac-af493974154f")
+    @Override
     public Element createObjingElt() {
-        return Modelio.getInstance()
-                .getModelingSession().getModel().createPackageMerge();
+        return  ReverseProperties.getInstance().getMModelServices().getModelFactory()
+                .createPackageMerge();
     }
 
     @objid ("691ad382-3c3a-47b4-ae58-3c72a77e3c5b")
@@ -52,6 +51,7 @@ public class EPackageMerge extends EElement implements IEElement {
     }
 
     @objid ("c70db464-db13-4995-9196-0b55a7b7175b")
+    @Override
     public void attach(Element objingElt) {
         ReverseProperties revProp = ReverseProperties.getInstance();
         
@@ -71,11 +71,8 @@ public class EPackageMerge extends EElement implements IEElement {
         }
     }
 
-    @objid ("476276f9-d57a-4b0b-8887-abef14f65754")
-    public void attach(List<Object> objingElts) {
-    }
-
     @objid ("868c76d5-fd0d-49eb-ac5e-5de3c65e054b")
+    @Override
     public void setProperties(Element objingElt) {
         super.setProperties(objingElt);
         setName((PackageMerge) objingElt);

@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.data.uml.behavior.interactionModel;
 
@@ -44,36 +44,36 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("00441e70-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=DurationConstraint.class, factory=DurationConstraintData.Metadata.ObjectFactory.class)
 public class DurationConstraintData extends ConstraintData {
-    @objid ("2d7f5532-7e22-4683-91e8-7a331388ffe3")
+    @objid ("26a09dcd-20a6-47af-9bcc-c8519bbb31a5")
     @SmaMetaAttribute(metaName="DurationMin", type=String.class, smAttributeClass=Metadata.DurationMinSmAttribute.class)
      Object mDurationMin = "";
 
-    @objid ("42cfe6cd-4e0f-40dc-b566-23ec6b19aacb")
+    @objid ("362b68c0-73eb-47c6-ad2f-dca94e2b23b3")
     @SmaMetaAttribute(metaName="DurationMax", type=String.class, smAttributeClass=Metadata.DurationMaxSmAttribute.class)
      Object mDurationMax = "";
 
-    @objid ("cb3d94e5-f224-40b8-9004-7a8cd3dc8360")
+    @objid ("6e602944-efb1-4564-8cbe-913ee61eece1")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("0042d6fa-c4c5-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("38cd0a02-00e4-4b4f-8a4e-87b9dc34d911")
+        @objid ("146c0606-f07a-48b1-af35-62b4d02ab1fe")
         private static SmClass smClass = null;
 
-        @objid ("c091c30b-1317-4679-9dc6-ea115b3e428f")
+        @objid ("4d88ec74-6405-4752-9661-5f1c6dc68c67")
         private static SmAttribute DurationMinAtt = null;
 
-        @objid ("1b00fcf2-022f-4a83-91b8-8ab729b30f92")
+        @objid ("b0102215-1e83-4005-a103-68ee997d2564")
         private static SmAttribute DurationMaxAtt = null;
 
-        @objid ("7b1c5230-a063-4020-a7fe-448049ddb40a")
+        @objid ("e888be89-9ffd-4f8e-8698-24fa7e906c1c")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(DurationConstraintData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("dd57b69e-316c-44f5-98c7-21aa3dca52dc")
+        @objid ("d4b2c55b-1e8c-4dda-b2b7-cadc54cdf7c7")
         public static SmAttribute DurationMinAtt() {
             if (DurationMinAtt == null) {
             	DurationMinAtt = classof().getAttributeDef("DurationMin");
@@ -81,7 +81,7 @@ public class DurationConstraintData extends ConstraintData {
             return DurationMinAtt;
         }
 
-        @objid ("e15aa572-f2e4-440b-bda5-2e69c6699b20")
+        @objid ("e5c2e910-282d-47c9-b155-e4b3fc4467cb")
         public static SmAttribute DurationMaxAtt() {
             if (DurationMaxAtt == null) {
             	DurationMaxAtt = classof().getAttributeDef("DurationMax");
@@ -89,32 +89,32 @@ public class DurationConstraintData extends ConstraintData {
             return DurationMaxAtt;
         }
 
-        @objid ("8a4290d6-edda-4a8c-86db-2f3cdda1a12b")
+        @objid ("ab285cb1-e20a-4e6b-a063-bbbb36f1ec37")
         public static SmClass getSmClass() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return smClass;
         }
 
-        @objid ("19688bbe-fa04-4ab9-9159-8059c19bb767")
-        public static SmAttribute getDurationMinAtt() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return DurationMinAtt;
-        }
-
-        @objid ("7f302dba-30fc-400f-ae96-76d76b942266")
+        @objid ("6732f379-4745-45aa-bcce-30275f2f93ef")
         public static SmAttribute getDurationMaxAtt() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return DurationMaxAtt;
         }
 
+        @objid ("ff018b93-a7d2-4994-80a3-7e47f951dd25")
+        public static SmAttribute getDurationMinAtt() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return DurationMinAtt;
+        }
+
         @objid ("00432452-c4c5-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("80426b8f-dc46-47c4-8454-a2eab1b8718f")
+            @objid ("83bed663-cd86-411f-86a0-8d91fec3dcf8")
             public ISmObjectData createData() {
                 return new DurationConstraintData();
             }
 
-            @objid ("c73eb5cf-4ea1-43bd-ba24-d9058f8c169f")
+            @objid ("4ee8fb14-54e2-4acd-b271-b3e4543a25ab")
             public SmObjectImpl createImpl() {
                 return new DurationConstraintImpl();
             }
@@ -123,12 +123,12 @@ public class DurationConstraintData extends ConstraintData {
 
         @objid ("004387e4-c4c5-1fd8-97fe-001ec947cd2a")
         public static class DurationMinSmAttribute extends SmAttribute {
-            @objid ("606d12c7-8053-4f38-a042-446910103e2f")
+            @objid ("212e0aa6-99fe-457e-937d-a320f09c9095")
             public Object getValue(ISmObjectData data) {
                 return ((DurationConstraintData) data).mDurationMin;
             }
 
-            @objid ("508e6d01-964c-4852-bd6a-70f25c6c170d")
+            @objid ("525a1e66-df38-469e-91b2-2e7920413118")
             public void setValue(ISmObjectData data, Object value) {
                 ((DurationConstraintData) data).mDurationMin = value;
             }
@@ -137,12 +137,12 @@ public class DurationConstraintData extends ConstraintData {
 
         @objid ("0043e996-c4c5-1fd8-97fe-001ec947cd2a")
         public static class DurationMaxSmAttribute extends SmAttribute {
-            @objid ("1bbb6f8e-1dad-4631-8063-01a869a719df")
+            @objid ("4658f6fa-0581-4c0f-94a3-fea9f4ae8896")
             public Object getValue(ISmObjectData data) {
                 return ((DurationConstraintData) data).mDurationMax;
             }
 
-            @objid ("d082bf97-18be-4703-b9a3-99db32804625")
+            @objid ("e498e046-9d55-45cb-aad6-36545902bfc2")
             public void setValue(ISmObjectData data, Object value) {
                 ((DurationConstraintData) data).mDurationMax = value;
             }

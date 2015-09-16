@@ -35,7 +35,7 @@ import org.modelio.vcore.smkernel.SmObjectImpl;
 import org.modelio.vcore.smkernel.mapi.MObject;
 
 /**
- * This class is in charge of removing a Module from a project.
+ * This class is in charge of removing a Jxbv2Module from a project.
  */
 @objid ("a0a6bbf9-8fac-4a06-9132-0d188c62ff9d")
 class ModuleRemover {
@@ -43,14 +43,14 @@ class ModuleRemover {
     public static void remove(ModuleComponent module) throws ModuleException {
         CoreSession session = CoreSession.getSession(module);
         
-        try (ITransaction t = session.getTransactionSupport().createTransaction("Remove Module")) {
+        try (ITransaction t = session.getTransactionSupport().createTransaction("Remove Jxbv2Module")) {
         
             //checkCanRemoveModule(module, null);
             deleteModel(module);
         
             t.commit();
         } catch (Error e) {
-            throw new ModuleException("Module could not be deleted", e);
+            throw new ModuleException("Jxbv2Module could not be deleted", e);
         }
     }
 

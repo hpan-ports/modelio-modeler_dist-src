@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.uml.statik;
 
@@ -32,16 +32,16 @@ import org.modelio.metamodel.uml.statik.Package;
 
 @objid ("0016e662-c4bf-1fd8-97fe-001ec947cd2a")
 public interface PackageMerge extends ModelElement {
-    @objid ("cb670f74-2ff8-4de1-b729-fa04b99f704e")
+    @objid ("77ab888a-667f-4650-a608-ec4723412418")
     Package getMergedPackage();
 
-    @objid ("fa9789a5-1ad5-47c0-8e12-a561dd44db7b")
+    @objid ("e1568762-510d-4ca4-a044-af7f22a3bf2f")
     void setMergedPackage(Package value);
 
-    @objid ("73d5a4df-7dd3-4d33-8cfa-e6bf9e9a7a37")
+    @objid ("cb610823-0de4-46e4-b7a8-ebfb7bcdc395")
     Package getReceivingPackage();
 
-    @objid ("77b8e43f-fb09-4acd-9d3f-ccffb502bf45")
+    @objid ("be6d0797-8a8a-4efb-b99e-3869a7481bbf")
     void setReceivingPackage(Package value);
 
 }

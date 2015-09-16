@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Core
 Bundle-SymbolicName: org.modelio.app.project.core;singleton:=true
-Bundle-Version: 1.0.0.qualifier
+Bundle-Version: 3.2.1.qualifier
 Bundle-Activator: org.modelio.app.project.core.plugin.AppProjectCore
 Require-Bundle: org.modelio.app.core,
  org.modelio.core.project,
@@ -23,8 +23,10 @@ Require-Bundle: org.modelio.app.core,
  org.modelio.script.engine,
  org.eclipse.ui.workbench,
  org.modelio.api,
- org.modelio.metamodel.implementation;bundle-version="1.0.0",
- org.eclipse.e4.core.services
+ org.modelio.metamodel.implementation,
+ org.eclipse.e4.core.services,
+ org.modelio.core.project.data,
+ org.eclipse.ui.forms
 Bundle-ActivationPolicy: lazy
 Export-Package: org.modelio.app.project.core.creation,
  org.modelio.app.project.core.prefs,

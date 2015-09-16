@@ -47,7 +47,7 @@ import org.modelio.app.project.core.services.IProjectService;
 import org.modelio.app.project.ui.newproject.gui.ProjectCreationDialog;
 import org.modelio.app.project.ui.plugin.AppProjectUiExt;
 import org.modelio.app.project.ui.saveproject.SaveProjectHandler;
-import org.modelio.gproject.descriptor.ProjectDescriptor;
+import org.modelio.gproject.data.project.ProjectDescriptor;
 import org.modelio.gproject.gproject.GProject;
 import org.modelio.gproject.gproject.GProjectAuthenticationException;
 import org.modelio.gproject.gproject.GProjectFactory;

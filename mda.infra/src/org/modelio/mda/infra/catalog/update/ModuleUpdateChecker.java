@@ -58,13 +58,13 @@ public class ModuleUpdateChecker extends Thread {
     @objid ("eb14e81e-ca89-4478-a98c-e45b552ff7f5")
     private boolean validUpdateSite = true;
 
-    @objid ("027b5499-6cca-4c20-8566-3bcbe052edd7")
-    protected FileModuleStore catalog;
-
     @objid ("3c60c64e-cf8e-488b-a386-5eb3421f605f")
     private Collection<IModuleHandle> catalogModules = new ArrayList<>();
 
-    @objid ("0bf54274-3b69-4668-8b54-be0a20c94724")
+    @objid ("8b916c1a-9147-4a15-8ff5-3d56c6d2ff5a")
+    protected FileModuleStore catalog;
+
+    @objid ("fa8d7ab2-498f-4eb4-82b0-1ac84bd248ab")
     private List<ModuleUpdateDescriptor> modulesToUpdate;
 
     /**

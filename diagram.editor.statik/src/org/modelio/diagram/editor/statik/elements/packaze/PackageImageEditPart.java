@@ -21,12 +21,16 @@
 
 package org.modelio.diagram.editor.statik.elements.packaze;
 
+import java.util.ArrayList;
+import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.draw2d.IFigure;
+import org.eclipse.gef.EditPolicy;
 import org.modelio.diagram.editor.statik.elements.namespacinglink.GmCompositionLink;
 import org.modelio.diagram.editor.statik.elements.namespacinglink.redraw.RedrawCompositionLinkEditPolicy;
 import org.modelio.diagram.elements.common.image.ImageFigure;
 import org.modelio.diagram.elements.common.image.NonSelectableImageEditPart;
+import org.modelio.diagram.elements.core.model.IGmLink;
 import org.modelio.diagram.elements.core.node.GmCompositeNode;
 import org.modelio.diagram.elements.core.node.GmNodeModel;
 import org.modelio.diagram.styles.core.IStyle;
@@ -44,34 +48,46 @@ public class PackageImageEditPart extends NonSelectableImageEditPart {
     @Override
     protected void refreshFromStyle(final IFigure aFigure, final IStyle style) {
         if (aFigure.getClass() == ImageFigure.class) {
-            if (switchRepresentationMode()) {
-                GmPackagePrimaryNode model = (GmPackagePrimaryNode) getModel();
-                if (model.getRepresentationMode() == RepresentationMode.SIMPLE) {
-                    // reparent all content of body to port container as satellites and add composition link
-                    for (GmNodeModel child : model.getBody().getChildren()) {
-                        child.setRoleInComposition(GmPackage.BODY_CONTENT_AS_SATELLITE);
-                        model.getBody().removeChild(child);
-                        model.getParentNode().addChild(child);
-                        GmCompositionLink link = new GmCompositionLink(model.getDiagram(),
-                                                                       model.getRepresentedRef());
-                        model.addStartingLink(link);
-                        child.addEndingLink(link);
+            GmPackagePrimaryNode model = (GmPackagePrimaryNode) getModel();
+            if (model.getRepresentationMode() == RepresentationMode.STRUCTURED) {
+                // Start by cleaning all children that might have been created by the auto-unmask behaviors.            
+                for (GmNodeModel mbodyChild : model.getBody().getChildren()) {
+                    mbodyChild.delete();
+                }
+                // Delete composition links.
+                List<IGmLink> linksToDelete = new ArrayList<>();
+                for (IGmLink link : model.getStartingLinks()) {
+                    if (link instanceof GmCompositionLink) {
+                        linksToDelete.add(link);
                     }
                 }
+                for (IGmLink link : linksToDelete) {
+                    link.delete();
+                }
+                // new representation mode is not SIMPLE, put back body content into body BEFORE the switch.
+                for (GmNodeModel child : model.getParentNode().getChildren(GmPackage.BODY_CONTENT_AS_SATELLITE)) {
+                    model.getParentNode().removeChild(child);
+                    child.setRoleInComposition("");
+                    model.getBody().addChild(child);   
+                }
+                
+            }
+            super.refreshFromStyle(aFigure, style);
+            if (model.getRepresentationMode() != RepresentationMode.IMAGE) {
                 GmPackage gmPackage = (GmPackage) model.getParentNode();
                 GmCompositeNode ancestor = gmPackage.getParentNode();
                 int index = ancestor.getChildIndex(gmPackage);
                 // This will "delete" the current edit part.
                 ancestor.removeChild(gmPackage);
-        
+                
                 // This will invoke the ModelioEditPartFactory that will
                 // create another edit part.
                 ancestor.addChild(gmPackage, index);
                 return;
             }
+        } else {
+            super.refreshFromStyle(aFigure, style);
         }
-        
-        super.refreshFromStyle(aFigure, style);
     }
 
     @objid ("3629aa75-55b7-11e2-877f-002564c97630")
@@ -80,6 +96,7 @@ public class PackageImageEditPart extends NonSelectableImageEditPart {
         super.createEditPolicies();
         // Add specific policy to handle requests to redraw composition links.
         installEditPolicy("RedrawCompositionLinkEditPolicy", new RedrawCompositionLinkEditPolicy());
+        installEditPolicy(EditPolicy.LAYOUT_ROLE, new SimpleModeOwnedElementCreationEditPolicy());
     }
 
 }

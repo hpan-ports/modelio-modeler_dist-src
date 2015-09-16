@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.uml.behavior.usecaseModel;
 
@@ -42,21 +42,21 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("00583680-c4bf-1fd8-97fe-001ec947cd2a")
 public class ActorImpl extends GeneralClassImpl implements Actor {
-    @objid ("d082513a-b177-4820-85a9-07a76bed9f3f")
+    @objid ("7ffa580f-a290-44c1-b0ad-7e232224cb77")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("23da4794-05a9-4047-b2a5-56ddd2e83cca")
+    @objid ("4f162efe-4a20-4dc0-bdfe-501643bec365")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("4e26f0c2-e4a7-4082-b0c1-7563e48fe96f")
+    @objid ("95580045-d217-4f22-bdcc-7ae0509f1ba2")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitActor(this);

@@ -62,6 +62,10 @@ import org.modelio.gproject.gproject.GProject;
 import org.modelio.gproject.model.api.MTools;
 import org.modelio.gproject.module.GModule;
 import org.modelio.metamodel.uml.infrastructure.Element;
+import org.modelio.metamodel.uml.statik.Attribute;
+import org.modelio.metamodel.uml.statik.AttributeLink;
+import org.modelio.metamodel.uml.statik.Instance;
+import org.modelio.metamodel.uml.statik.Parameter;
 import org.modelio.model.browser.context.ElementCreationDynamicMenuManager;
 import org.modelio.model.browser.plugin.ModelBrowser;
 import org.modelio.model.browser.views.treeview.ModelBrowserPanelProvider;
@@ -158,8 +162,24 @@ public class BrowserView {
         
             @Override
             public void run() {
-                if (editedElement != null && MTools.getLinkTool().isLink(editedElement.getMClass())) {
-                    selectElement(MTools.getModelTool().getTarget(editedElement));
+                if (editedElement != null) {
+                    if ( MTools.getLinkTool().isLink(editedElement.getMClass())) {
+                        selectElement(MTools.getModelTool().getTarget(editedElement));
+                    } else {
+                        MObject target = null;
+                        if (editedElement instanceof Attribute) {
+                            target = (((Attribute) editedElement).getType());
+                        } else if (editedElement instanceof Parameter) {
+                            target = (((Parameter) editedElement).getType());
+                        } else if (editedElement instanceof Instance) {
+                            target = (((Instance) editedElement).getBase());
+                        } else if (editedElement instanceof AttributeLink) {
+                            final AttributeLink attributeLink = (AttributeLink) editedElement;
+                            target = (attributeLink.getBase());
+                        }
+                        if (target != null)
+                            selectElement(target);
+                    }
                 }
             }
         });
@@ -175,7 +195,7 @@ public class BrowserView {
         
             @Override
             public void run() {
-                if (BrowserView.this.browserTreePanel != null && !BrowserView.this.browserTreePanel.getComposite().getTree().isDisposed()) {
+                if (BrowserView.this.browserTreePanel != null && !BrowserView.this.browserTreePanel.getPanel().getTree().isDisposed()) {
                     BrowserView.this.browserTreePanel.setInput(BrowserView.this.browserTreePanel.getInput());
                 }
             }
@@ -192,7 +212,7 @@ public class BrowserView {
         
             @Override
             public void run() {
-                if (BrowserView.this.browserTreePanel != null && !BrowserView.this.browserTreePanel.getComposite().getTree().isDisposed()) {
+                if (BrowserView.this.browserTreePanel != null && !BrowserView.this.browserTreePanel.getPanel().getTree().isDisposed()) {
                     BrowserView.this.browserTreePanel.setInput(BrowserView.this.browserTreePanel.getInput());
                 }
             }
@@ -208,7 +228,7 @@ public class BrowserView {
         
             @Override
             public void run() {
-                BrowserView.this.browserTreePanel.getComposite().setSelection(new StructuredSelection(elements));
+                BrowserView.this.browserTreePanel.getPanel().setSelection(new StructuredSelection(elements));
             }
         });
     }
@@ -222,7 +242,7 @@ public class BrowserView {
         
             @Override
             public void run() {
-                BrowserView.this.browserTreePanel.getComposite().setSelection(new StructuredSelection(element));
+                BrowserView.this.browserTreePanel.getPanel().setSelection(new StructuredSelection(element));
             }
         });
     }
@@ -276,13 +296,13 @@ public class BrowserView {
                     if (openedProject != null) {
                         // Create the view content
                         BrowserView.this.browserTreePanel = new ModelBrowserPanelProvider();
-                        BrowserView.this.browserTreePanel.create(BrowserView.this.parentComposite);
+                        BrowserView.this.browserTreePanel.createPanel(BrowserView.this.parentComposite);
         
                         // Add the contextual menu
-                        menuService.registerContextMenu(BrowserView.this.browserTreePanel.getComposite().getTree(), POPUPID);
+                        menuService.registerContextMenu(BrowserView.this.browserTreePanel.getPanel().getTree(), POPUPID);
         
                         // Add the selection provider
-                        BrowserView.this.browserTreePanel.getComposite().addSelectionChangedListener(new ISelectionChangedListener() {
+                        BrowserView.this.browserTreePanel.getPanel().addSelectionChangedListener(new ISelectionChangedListener() {
                             @Override
                             public void selectionChanged(SelectionChangedEvent event) {
                                 if (BrowserView.this.selectionService != null) {
@@ -290,7 +310,7 @@ public class BrowserView {
                                 }
                             }
                         });
-                        BrowserView.this.browserTreePanel.getComposite().addDoubleClickListener(new IDoubleClickListener() {
+                        BrowserView.this.browserTreePanel.getPanel().addDoubleClickListener(new IDoubleClickListener() {
                             @Override
                             public void doubleClick(DoubleClickEvent event) {
                                 final ISelection selection = event.getSelection();
@@ -298,7 +318,7 @@ public class BrowserView {
                                     final Object selectedObject = ((IStructuredSelection) selection).getFirstElement();
                                     if (selectedObject instanceof MObject) {
                                         BrowserView.this.activationService.activateMObject((MObject) selectedObject);
-                                        TreeViewer tv = BrowserView.this.browserTreePanel.getComposite();
+                                        TreeViewer tv = BrowserView.this.browserTreePanel.getPanel();
                                         if (tv.getExpandedState(selectedObject))
                                             tv.collapseToLevel(selectedObject, AbstractTreeViewer.ALL_LEVELS);
                                         else
@@ -313,10 +333,10 @@ public class BrowserView {
                         {
                             // Each time the popupmenu is about to be displayed,
                             // re-configure it
-                            BrowserView.this.browserTreePanel.getComposite().getTree().addMenuDetectListener(new MenuDetectListener() {
+                            BrowserView.this.browserTreePanel.getPanel().getTree().addMenuDetectListener(new MenuDetectListener() {
                                 @Override
                                 public void menuDetected(MenuDetectEvent e) {
-                                    final ISelection selection = BrowserView.this.browserTreePanel.getComposite().getSelection();
+                                    final ISelection selection = BrowserView.this.browserTreePanel.getPanel().getSelection();
                                     if (selection.isEmpty()) {
                                         return;
                                     }
@@ -359,12 +379,12 @@ public class BrowserView {
         
             @Override
             public void run() {
-                if (BrowserView.this.browserTreePanel != null && !BrowserView.this.browserTreePanel.getComposite().getTree().isDisposed()) {
+                if (BrowserView.this.browserTreePanel != null && !BrowserView.this.browserTreePanel.getPanel().getTree().isDisposed()) {
                     // avoid java.lang.IllegalStateException: KernelRegistry - Provider
                     // service id 1 no longer active.
                     // because of
                     // StructuredViewer.preservingSelection(StructuredViewer.java:1404)
-                    BrowserView.this.browserTreePanel.getComposite().setSelection(null);
+                    BrowserView.this.browserTreePanel.getPanel().setSelection(null);
                     BrowserView.this.browserTreePanel.activateEdition(null);
                     BrowserView.this.browserTreePanel.setInput(null);
         
@@ -381,13 +401,13 @@ public class BrowserView {
      */
     @objid ("4e50bb86-ccde-11e1-97e5-001ec947c8cc")
     public void edit(final Element elementToEdit) {
-        Display display = this.browserTreePanel.getComposite().getControl().getDisplay();
+        Display display = this.browserTreePanel.getPanel().getControl().getDisplay();
         display.asyncExec(new Runnable() {
         
             @Override
             public void run() {
-                BrowserView.this.browserTreePanel.getComposite().expandToLevel(elementToEdit, 0);
-                BrowserView.this.browserTreePanel.getComposite().editElement(elementToEdit, 0);
+                BrowserView.this.browserTreePanel.getPanel().expandToLevel(elementToEdit, 0);
+                BrowserView.this.browserTreePanel.getPanel().editElement(elementToEdit, 0);
             }
         });
     }
@@ -410,7 +430,7 @@ public class BrowserView {
 
     @objid ("35e43636-43a7-11e2-b513-002564c97630")
     public void collapseAll() {
-        this.browserTreePanel.getComposite().collapseAll();
+        this.browserTreePanel.getPanel().collapseAll();
     }
 
     @objid ("f34dc898-88a8-4bc9-a3e8-c23e0bb783cd")
@@ -463,12 +483,12 @@ public class BrowserView {
 
     @objid ("031063bd-4607-11e2-960d-002564c97630")
     public void selectElement(MObject element) {
-        this.browserTreePanel.getComposite().setSelection(new StructuredSelection(element));
+        this.browserTreePanel.getPanel().setSelection(new StructuredSelection(element));
     }
 
     @objid ("031063c0-4607-11e2-960d-002564c97630")
     public void selectElement(List<MObject> elements) {
-        this.browserTreePanel.getComposite().setSelection(new StructuredSelection(elements));
+        this.browserTreePanel.getPanel().setSelection(new StructuredSelection(elements));
     }
 
     /**
@@ -506,7 +526,7 @@ public class BrowserView {
     @Focus
     void setFocus() {
         if (this.browserTreePanel != null) {
-            this.browserTreePanel.getComposite().getTree().setFocus();
+            this.browserTreePanel.getPanel().getTree().setFocus();
         }
     }
 

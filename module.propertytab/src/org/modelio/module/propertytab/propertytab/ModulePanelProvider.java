@@ -83,7 +83,7 @@ public class ModulePanelProvider implements IPanelProvider {
 
     @objid ("c8831cf3-1eba-11e2-9382-bc305ba4815c")
     @Override
-    public SashForm getComposite() {
+    public SashForm getPanel() {
         return this.shform;
     }
 
@@ -100,7 +100,7 @@ public class ModulePanelProvider implements IPanelProvider {
 
     @objid ("c8836b11-1eba-11e2-9382-bc305ba4815c")
     @Override
-    public SashForm create(Composite parent) {
+    public SashForm createPanel(Composite parent) {
         this.parentComposite = parent;
         
         this.shform = new SashForm(parent, SWT.HORIZONTAL);
@@ -204,6 +204,18 @@ public class ModulePanelProvider implements IPanelProvider {
     @objid ("c8845570-1eba-11e2-9382-bc305ba4815c")
     public ModulePanelProvider(IModulePropertyPage propertyPage) {
         this.propertyPage = propertyPage;
+    }
+
+    @objid ("75dab102-8ea1-4368-be4d-0a338e50198b")
+    @Override
+    public boolean isRelevantFor(Object obj) {
+        return true;
+    }
+
+    @objid ("c2a2f432-55cb-4a54-99e3-07f080bd7a5a")
+    @Override
+    public String getHelpTopic() {
+        return null;
     }
 
     @objid ("c8845573-1eba-11e2-9382-bc305ba4815c")

@@ -102,4 +102,11 @@ public interface IModuleUserConfiguration {
     @objid ("4294bf47-6e25-4947-aa58-1407bb92dc83")
     boolean isLocked(String key);
 
+    /**
+     * Returns the style path.
+     * @return the style path.
+     */
+    @objid ("5b1183a7-896e-4f8c-a22a-102913888a2a")
+    Map<String, Path> getStylePath();
+
 }

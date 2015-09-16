@@ -37,7 +37,7 @@ public class TotalImportMap {
 
     @objid ("bef12e6c-5398-4ee0-88df-7887d83c241c")
     private TotalImportMap() {
-        modelMap = new HashMap<Object, Object>();
+        this.modelMap = new HashMap<>();
     }
 
     @objid ("3df0ae6f-b44e-4197-846f-4c1ff007fea4")
@@ -49,52 +49,52 @@ public class TotalImportMap {
 
     @objid ("ddf8e20f-e1bb-4c10-ab97-96af2d40968e")
     public void clear() {
-        modelMap.clear();
+        this.modelMap.clear();
     }
 
     @objid ("059ca5aa-1d56-4823-8cf8-9f06cf43447c")
     public boolean containsKey(Object key) {
-        return modelMap.containsKey(key);
+        return  this.modelMap.containsKey(key);
     }
 
     @objid ("b949f27a-0d0c-410d-a744-b363d6325d1c")
     public boolean containsValue(Object val) {
-        return modelMap.containsValue(val);
+        return  this.modelMap.containsValue(val);
     }
 
     @objid ("858b5ec0-063d-4aaa-bda2-251cee9691e0")
     public Object get(Object key) {
-        return modelMap.get(key);
+        return  this.modelMap.get(key);
     }
 
     @objid ("750a2abb-f099-49c9-90f5-2180a1e0e532")
     public boolean isEmpty() {
-        return modelMap.isEmpty();
+        return  this.modelMap.isEmpty();
     }
 
     @objid ("43b0093f-bb61-4aac-98d7-83b256dee961")
     public Set<Object> keySet() {
-        return modelMap.keySet();
+        return  this.modelMap.keySet();
     }
 
     @objid ("5491292b-e36d-4ff3-b926-7db1b59e7001")
     public Object put(Object key, Object value) {
-        return modelMap.put(key, value);
+        return  this.modelMap.put(key, value);
     }
 
     @objid ("1096fa5e-ee6d-4d66-be84-9311d065cb83")
     public Object remove(Object key) {
-        return modelMap.remove(key);
+        return  this.modelMap.remove(key);
     }
 
     @objid ("ba14640b-b364-4b87-9ad5-87ee1f62dea1")
     public int size() {
-        return modelMap.size();
+        return  this.modelMap.size();
     }
 
     @objid ("eac0a812-0db2-4aff-a46f-04ef79053895")
     public Collection<Object> values() {
-        return modelMap.values();
+        return  this.modelMap.values();
     }
 
 }

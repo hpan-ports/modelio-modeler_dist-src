@@ -57,6 +57,7 @@ import org.modelio.metamodel.factory.IModelFactory;
 import org.modelio.metamodel.uml.infrastructure.ExternDocument;
 import org.modelio.metamodel.uml.infrastructure.ExternDocumentType;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
+import org.modelio.vbasic.files.FileUtils;
 import org.modelio.vcore.session.api.ICoreSession;
 import org.modelio.vcore.session.api.transactions.ITransaction;
 
@@ -233,7 +234,7 @@ public class ScopeRichTextCellEditor extends KTableCellEditor {
             EditorsRichNote.LOG.error(e);
             MessageDialog.openError(Display.getDefault().getActiveShell(), 
                     EditorsRichNote.I18N.getMessage("ScopeRichTextCellEditor.CannotCreateRichNote"), 
-                                    e.getLocalizedMessage());
+                    FileUtils.getLocalizedMessage(e));
         }
         return externDoc;
     }

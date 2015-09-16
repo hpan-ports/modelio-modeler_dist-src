@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.uml.behavior.activityModel;
 
@@ -30,10 +30,10 @@ import org.eclipse.emf.ecore.EObject;
 
 @objid ("00258b22-c4bf-1fd8-97fe-001ec947cd2a")
 public interface AcceptTimeEventAction extends ActivityAction {
-    @objid ("ab48467b-6dbd-45dc-8c01-56d2b4b62967")
+    @objid ("bdfce959-e9cd-41f3-8e36-efd31dad63c7")
     String getTimeExpresion();
 
-    @objid ("9ca29e08-44d5-4f67-a33c-343404f46831")
+    @objid ("89db7e54-388e-4b2f-aca5-1e0d5b5801a2")
     void setTimeExpresion(String value);
 
 }

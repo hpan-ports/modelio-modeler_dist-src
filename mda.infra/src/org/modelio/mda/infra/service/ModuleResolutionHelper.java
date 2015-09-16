@@ -22,20 +22,23 @@
 package org.modelio.mda.infra.service;
 
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.api.module.IModule;
+import org.modelio.api.module.ModuleException;
 import org.modelio.gproject.gproject.GProject;
 import org.modelio.gproject.module.GModule;
 import org.modelio.gproject.module.IModuleHandle;
 import org.modelio.gproject.module.ModuleId;
+import org.modelio.gproject.module.ModuleSorter;
+import org.modelio.vbasic.collections.TopologicalSorter.CyclicDependencyException;
 import org.modelio.vbasic.version.Version;
 
 /**
- * Hepler class to convert ModuleComponent into IModule or a name into a GModule, get the list of weak dependencies, etc.
+ * Helper class to convert {@link GModule} into {@link IModule} or a name into a {@link GModule}, get the list of weak dependencies, etc.
  */
 @objid ("2f013d2a-0233-11e2-9fca-001ec947c8cc")
 class ModuleResolutionHelper {
@@ -80,11 +83,13 @@ class ModuleResolutionHelper {
     }
 
     /**
-     * Returns wether the passed module is Version compatible with the passed reference Version. Current strategy is to return true
+     * Returns whether the passed module is Version compatible with the passed reference Version.
+     * <p>
+     * Current strategy is to return <i>true</i>
      * if the module Version is equal or newer than the reference Version.
      * @param moduleVersion the Version to test for compatibility.
      * @param referenceVersion the reference version.
-     * @return
+     * @return <i>true</i> if the passed module is version compatible with the reference.
      */
     @objid ("0fe5a024-67b6-4172-a32a-1cb93f3e3d9c")
     static boolean isVersionCompatible(Version moduleVersion, Version referenceVersion) {
@@ -117,7 +122,7 @@ class ModuleResolutionHelper {
 
     /**
      * Returns the list of mandatory IModule required by the passed module component.
-     * @param moduleComponent the module component for which to get mandatory dependencies.
+     * @param moduleHandle the module handle for which to get mandatory dependencies.
      * @param moduleService the module service.
      * @return the list of mandatory IModule required by the passed module.
      */
@@ -158,8 +163,8 @@ class ModuleResolutionHelper {
     }
 
     /**
-     * Returns the list of GModule of the passed project that the passed GModule depends on (i.e. the returned GModules are required
-     * as mandatory by the passed GModule).
+     * Returns the list of GModule of the passed project that the passed GModule depends on
+     * (i.e. the returned GModules are required as mandatory by the passed GModule).
      * @param gModule the GModule to look dependencies for
      * @param gProject the project to look into.
      * @return the list of GModule of the passed project that the passed GModule depends on.
@@ -170,9 +175,9 @@ class ModuleResolutionHelper {
     }
 
     /**
-     * Returns the list of GModule of the passed project that the passed ModuleComponent depends on (i.e. the returned GModules are
-     * required as mandatory by the passed ModuleComponent).
-     * @param moduleComponent the ModuleComponent to look dependencies for
+     * Returns the list of GModule of the passed project that the passed ModuleComponent depends on
+     * (i.e. the returned GModules are required as mandatory by the passed ModuleComponent).
+     * @param moduleHandle the module handle to look dependencies for
      * @param gProject the project to look into.
      * @return the list of GModule of the passed project that the passed ModuleComponent depends on.
      */
@@ -230,12 +235,14 @@ class ModuleResolutionHelper {
     }
 
     /**
-     * Returns <code>true</code> if the module defined by the passed ModuleHandle can safely be installed in the project. Current
-     * strategy is to test if all modules required by the passed module can be found in the passed project in a version compatible
+     * Returns <i>true</i> if the module defined by the passed ModuleHandle can safely be installed in the project.
+     * <p>
+     * Current strategy is to test if all modules required by the passed module can be found in
+     * the passed project in a version compatible
      * with the requirement and that no module in the project requires a newer version of this model.
      * @param moduleHandle the module to test.
      * @param gProject the project in which the passed module would be installed
-     * @return <code>true</code> if the passed ModuleHandle can safely be installed in the project
+     * @return <i>true</i> if the passed ModuleHandle can safely be installed in the project
      */
     @objid ("f51019ab-0358-4a08-ad63-d38979b5fc87")
     static boolean checkCanInstall(IModuleHandle moduleHandle, GProject gProject) {
@@ -264,46 +271,47 @@ class ModuleResolutionHelper {
     }
 
     /**
-     * Returns the list of all GModules in the project that have a dependency (direct or not, strong or weak) on the passed module.
-     * @param gModule
-     * the module for which dependents are searched.
+     * Returns the topologically sorted list of all {@link GModule GModules} in the project
+     * that have a dependency (direct or not, strong or weak) on the passed module.
+     * <p>
+     * The returned list is topologically sorted by uninstallation/stopping order.
+     * @param moduleHandle the module for which dependents are searched.
      * @param gProject the project to search into.
      * @return the list of GModules in the project that have a dependency (direct or not, strong or weak) on the passed module.
+     * @throws org.modelio.api.module.ModuleException in case of cyclic module dependency.
      */
     @objid ("0b2b4156-be19-4e2b-862a-5e5044934ee3")
-    static Collection<GModule> getModuleHandleDependentGModules(IModuleHandle moduleHandle, GProject gProject) {
-        Set<GModule> weakDependents = new HashSet<>();
-        // Go through each module in the project and look at its dependencies in case it contains the passed
-        // module...
-        for (GModule gModuleInProject : gProject.getModules()) {
-            // Weak dependencies
-            for (ModuleId moduleId : gModuleInProject.getModuleHandle().getWeakDependencies()) {
-                if (moduleHandle.getName().equals(moduleId.getName())
-                        && isVersionCompatible(moduleHandle.getVersion(), moduleId.getVersion())) {
-                    weakDependents.add(gModuleInProject);
-                    // ... and recursively
-                    weakDependents.addAll(getModuleHandleDependentGModules(gModuleInProject.getModuleHandle(), gProject));
-                }
-            }
-            // Strong dependencies
-            for (ModuleId moduleId : gModuleInProject.getModuleHandle().getDependencies()) {
-                if (moduleHandle.getName().equals(moduleId.getName())) {
-                    weakDependents.add(gModuleInProject);
-                    // ... and recursively
-                    weakDependents.addAll(getModuleHandleDependentGModules(gModuleInProject.getModuleHandle(), gProject));
-                }
-            }
+    static List<GModule> getModuleHandleDependentGModules(IModuleHandle moduleHandle, GProject gProject) throws ModuleException {
+        Set<GModule> deps = new HashSet<>();
+        getModuleHandleDependentGModules(moduleHandle, gProject, deps);
+        try {
+            final List<GModule> sortedModules = ModuleSorter.sortModules(deps);
+            // the sorter returns modules in installation order, reverse it.
+            Collections.reverse(sortedModules);
+            return sortedModules;
+        } catch (CyclicDependencyException e) {
+            throw new ModuleException(e.getLocalizedMessage(), e);
         }
-        return weakDependents;
     }
 
+    /**
+     * Returns the list of all loaded {@link IModule} in the project that have a dependency
+     * (direct or not, strong or weak) on the passed module.
+     * <p>
+     * The returned list is topologically sorted by installation order.
+     * @param iModule the module for which dependents are searched.
+     * @param gProject the project to search into.
+     * @param moduleService the modules service.
+     * @return the list of {@link IModule} in the project that have a dependency (direct or not, strong or weak) on the passed module.
+     * @throws org.modelio.api.module.ModuleException in case of cyclic module dependency.
+     */
     @objid ("b96097d6-0aa5-4dfb-9259-5cf5a83768dc")
-    public static Collection<IModule> getIModuleDependentIModules(IModule iModule, GProject gProject, ModuleService moduleService) {
-        Set<IModule> ret = new HashSet<>();
+    public static List<IModule> getIModuleDependentIModules(IModule iModule, GProject gProject, ModuleService moduleService) throws ModuleException {
+        List<IModule> ret = new ArrayList<>();
         
         GModule gModule = ModuleResolutionHelper.getGModuleByName(gProject, iModule.getName());
         
-        Collection<GModule> dependentGModules = getModuleHandleDependentGModules(gModule.getModuleHandle(), gProject);
+        List<GModule> dependentGModules = getModuleHandleDependentGModules(gModule.getModuleHandle(), gProject);
         for (GModule dependentGModule : dependentGModules) {
             IModule dependentLoadedModule = moduleService.getModuleRegistry().getLoadedModule(dependentGModule.getModuleElement());
             if (dependentLoadedModule != null) {
@@ -311,6 +319,31 @@ class ModuleResolutionHelper {
             }
         }
         return ret;
+    }
+
+    @objid ("0f380173-9925-4d1a-8e58-2fc0f6dc1fe9")
+    private static void getModuleHandleDependentGModules(IModuleHandle moduleHandle, GProject gProject, Set<GModule> dependents) {
+        // Go through each module in the project and look at its dependencies in case it contains the passed
+        // module...
+        for (GModule gModuleInProject : gProject.getModules()) {
+            // Weak dependencies
+            for (ModuleId moduleId : gModuleInProject.getModuleHandle().getWeakDependencies()) {
+                if (moduleHandle.getName().equals(moduleId.getName())
+                        && isVersionCompatible(moduleHandle.getVersion(), moduleId.getVersion())) {
+                    dependents.add(gModuleInProject);
+                    // ... and recursively
+                    getModuleHandleDependentGModules(gModuleInProject.getModuleHandle(), gProject, dependents);
+                }
+            }
+            // Strong dependencies
+            for (ModuleId moduleId : gModuleInProject.getModuleHandle().getDependencies()) {
+                if (moduleHandle.getName().equals(moduleId.getName())) {
+                    dependents.add(gModuleInProject);
+                    // ... and recursively
+                    getModuleHandleDependentGModules(gModuleInProject.getModuleHandle(), gProject, dependents);
+                }
+            }
+        }
     }
 
 }

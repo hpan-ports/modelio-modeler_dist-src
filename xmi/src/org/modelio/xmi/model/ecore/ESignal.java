@@ -42,7 +42,7 @@ public class ESignal extends ENamedElement {
     @objid ("3f92d9cb-1b61-4d0d-852b-cf94aa1fd2c6")
     @Override
     public Element createObjingElt() {
-        return Modelio.getInstance().getModelingSession().getModel()
+        return ReverseProperties.getInstance().getMModelServices().getModelFactory()
         .createSignal();
     }
 

@@ -29,8 +29,8 @@ import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.gproject.plugin.CoreProject;
 import org.modelio.gproject.ramc.core.packaging.IModelComponentContributor.ExportedFileEntry;
+import org.modelio.vbasic.log.Log;
 import org.modelio.vbasic.progress.SubProgress;
-import org.modelio.vcore.Log;
 
 @objid ("ae8240c1-608b-44f5-a471-920e2e982dfe")
 class FilesExporter {

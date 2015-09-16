@@ -37,7 +37,7 @@ public class PartialExportMap {
 
     @objid ("b82d400d-8517-4f3a-a1fa-61dce1bd2d64")
     private PartialExportMap() {
-        modelMap = new HashMap<String, org.eclipse.uml2.uml.Element>();
+        this.modelMap = new HashMap<>();
     }
 
     @objid ("f4652430-7213-4180-a714-2e9704e96994")
@@ -49,52 +49,52 @@ public class PartialExportMap {
 
     @objid ("d26fdced-c353-44d3-b73d-3d36b4bf1769")
     public void clear() {
-        modelMap.clear();
+        this.modelMap.clear();
     }
 
     @objid ("9069aa2a-0a0b-427f-84ae-c50d7f961c1b")
     public boolean containsKey(String key) {
-        return modelMap.containsKey(key);
+        return  this.modelMap.containsKey(key);
     }
 
     @objid ("f5da7079-d363-4f9b-8e6e-40557c308bf8")
     public org.eclipse.uml2.uml.Element get(String key) {
-        return modelMap.get(key);
+        return  this.modelMap.get(key);
     }
 
     @objid ("d9ff9a96-323b-49e6-9a31-db873b912e76")
     public boolean isEmpty() {
-        return modelMap.isEmpty();
+        return  this.modelMap.isEmpty();
     }
 
     @objid ("9ce7fce6-f9c7-4e0e-9790-f1c67c91ad7e")
     public Set<String> keySet() {
-        return modelMap.keySet();
+        return  this.modelMap.keySet();
     }
 
     @objid ("9c1f907a-1dec-4aae-a5af-1e182af3b510")
     public int size() {
-        return modelMap.size();
+        return  this.modelMap.size();
     }
 
     @objid ("27981962-9051-43d7-9cab-aea7e7394cf4")
     public Collection<org.eclipse.uml2.uml.Element> values() {
-        return modelMap.values();
+        return  this.modelMap.values();
     }
 
     @objid ("aaf0d233-2496-48fd-a7b2-b584848a1002")
     public boolean containsValue(org.eclipse.uml2.uml.Element val) {
-        return modelMap.containsValue(val);
+        return  this.modelMap.containsValue(val);
     }
 
     @objid ("5ed6a160-16d1-478c-9328-05a2377ed2fe")
     public org.eclipse.uml2.uml.Element put(String key, org.eclipse.uml2.uml.Element value) {
-        return modelMap.put(key, value);
+        return  this.modelMap.put(key, value);
     }
 
     @objid ("fae8d3fd-d5b1-4026-ac48-fd0b749522a0")
     public org.eclipse.uml2.uml.Element remove(String key) {
-        return modelMap.remove(key);
+        return this.modelMap.remove(key);
     }
 
 }

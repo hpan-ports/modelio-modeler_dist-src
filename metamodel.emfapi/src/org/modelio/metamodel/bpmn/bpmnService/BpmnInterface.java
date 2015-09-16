@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.bpmn.bpmnService;
 
@@ -35,22 +35,22 @@ import org.modelio.metamodel.uml.statik.GeneralClass;
 
 @objid ("000de92c-c4c0-1fd8-97fe-001ec947cd2a")
 public interface BpmnInterface extends BpmnRootElement {
-    @objid ("e637e365-0612-423f-a2bb-1de527f0c9a9")
+    @objid ("d833b728-c3f9-4118-9717-264fa5114ec3")
     GeneralClass getImplementationRef();
 
-    @objid ("b1504001-e7db-4dd4-b4d3-1251ec062b75")
+    @objid ("d8b0a412-631d-4e5e-9ea1-158083b12f03")
     void setImplementationRef(GeneralClass value);
 
-    @objid ("5de7e3f2-816b-4dc0-ba25-e679ce7bbc14")
+    @objid ("6e165708-7669-4e21-bc0c-e2896a1c4f37")
     EList<BpmnOperation> getOperation();
 
-    @objid ("10bc14c1-f26b-4438-aebe-3645161d24c7")
+    @objid ("335db24c-18b6-417c-8b8d-7390c908ae2b")
     <T extends BpmnOperation> List<T> getOperation(java.lang.Class<T> filterClass);
 
-    @objid ("5dccf113-32c4-4a0d-b9da-01399ac95fea")
+    @objid ("510fbf49-3dbf-4665-8f9c-b0a2b5ccd2a4")
     EList<BpmnParticipant> getParticipantRef();
 
-    @objid ("c604f508-d41e-4c20-9400-b78390b13c18")
+    @objid ("43f13e8d-90ac-44d7-b79c-ce4df4190438")
     <T extends BpmnParticipant> List<T> getParticipantRef(java.lang.Class<T> filterClass);
 
 }

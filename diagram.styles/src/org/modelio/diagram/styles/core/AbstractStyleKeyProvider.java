@@ -23,18 +23,23 @@ package org.modelio.diagram.styles.core;
 
 import java.lang.reflect.AccessibleObject;
 import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.diagram.styles.plugin.DiagramStyles;
 
 /**
- * This class is actually a helper for Gm's to implement their {@link IStyleProvider} behavior. To properly use this
- * helper a Gm must: <li>create a class GmXXXStyleKeyProvider derived from AbstractStyleKeyProvider <li>create the
- * supported {@link StyleKey} instances in GmXXXStyleKeyProvider (as public static StyleKey instances) <li>create and
- * initialize a static instance of GmXXXStyleKeyProvider in the Gm class <li>implement the
- * {@link IStyleProvider#getStyleKeys() getStyleKeys()} and {@link IStyleProvider#getStyleKey(MetaKey)} methods in the
- * Gm by delegating the call to the GmXXXStyleKeyProvider instance</li></br></br>
+ * This class is actually a helper for Gm's to implement their {@link IStyleProvider} behavior.
+ * To properly use this helper a Gm must:<ul>
+ * <li> create a class GmXXXStyleKeyProvider derived from AbstractStyleKeyProvider
+ * <li>create the supported {@link StyleKey} instances in GmXXXStyleKeyProvider
+ * (as public {@link StyleKey} instances)
+ * <li>create and initialize a static instance of GmXXXStyleKeyProvider in the Gm class
+ * <li>implement the {@link IStyleProvider#getStyleKeys() getStyleKeys()}
+ * and {@link IStyleProvider#getStyleKey(MetaKey)} methods in the
+ * GmXXX by delegating the call to the GmXXXStyleKeyProvider instance</li>
+ * </ul>
  * 
  * @author pvlaemyn
  */
@@ -48,11 +53,11 @@ public abstract class AbstractStyleKeyProvider {
      * @return all declared style keys.
      */
     @objid ("85479adb-1926-11e2-92d2-001ec947c8cc")
-    public List<StyleKey> getStyleKeys() {
+    public final List<StyleKey> getStyleKeys() {
         if (this.allKeys == null) {
             this.allKeys = new ArrayList<>();
         
-            this.scanForStyleKeys(this.getClass());
+            this.scanForStyleKeys(this);
         }
         return this.allKeys;
     }
@@ -63,7 +68,7 @@ public abstract class AbstractStyleKeyProvider {
      * @return the found style key, or null if none found.
      */
     @objid ("85479ae2-1926-11e2-92d2-001ec947c8cc")
-    public StyleKey getStyleKey(MetaKey metakey) {
+    public final StyleKey getStyleKey(MetaKey metakey) {
         for (final StyleKey s : this.getStyleKeys()) {
             if (metakey.equals(s.getMetakey()))
                 return s;
@@ -73,11 +78,11 @@ public abstract class AbstractStyleKeyProvider {
 
     /**
      * Find the declared style keys in the class and its inner classes, and add them to the {@link #allKeys} list.
-     * @throws SecurityException
-     * @param aClass The class to scan
+     * @param obj The AbstractStyleKeyProvider object or class to scan
      */
     @objid ("85479ae8-1926-11e2-92d2-001ec947c8cc")
-    private void scanForStyleKeys(Class<?> aClass) throws SecurityException {
+    private void scanForStyleKeys(Object obj) {
+        Class<?> aClass = obj instanceof Class ? (Class<?>)obj : obj.getClass();
         final Field[] declaredFields = aClass.getDeclaredFields();
         
         // Allow access to private fields.
@@ -88,11 +93,26 @@ public abstract class AbstractStyleKeyProvider {
             if (field.getType() == StyleKey.class) {
                 StyleKey styleKey;
                 try {
-                    styleKey = (StyleKey) field.get(null);
-                    this.allKeys.add(styleKey);
-                } catch (final IllegalArgumentException e) {
+                    if (Modifier.isStatic(field.getModifiers())) {
+                        styleKey = (StyleKey) field.get(null);
+                        this.allKeys.add(styleKey);
+                    } else if (obj != aClass) {
+                        // obj is an instance, get the instance field value
+                        styleKey = (StyleKey) field.get(obj);
+                        this.allKeys.add(styleKey);
+                    }
+                } catch (IllegalArgumentException e) {
                     DiagramStyles.LOG.error(e);
-                } catch (final IllegalAccessException e) {
+                } catch (IllegalAccessException e) {
+                    DiagramStyles.LOG.error(e);
+                }
+            }
+            else if ( AbstractStyleKeyProvider.class.isAssignableFrom(field.getType()) 
+                    && !Modifier.isStatic(field.getModifiers())) {
+                // instance field to a style key container, scan it
+                try {
+                    this.scanForStyleKeys(field.get(obj));
+                } catch (IllegalArgumentException | IllegalAccessException e) {
                     DiagramStyles.LOG.error(e);
                 }
             }

@@ -27,9 +27,8 @@ import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.modelio.vbasic.auth.AuthData;
 import org.modelio.vbasic.auth.IAuthData;
 
 /**
@@ -43,7 +42,7 @@ import org.modelio.vbasic.auth.IAuthData;
 @objid ("16aba2ab-05b1-4ec1-aac8-f86b8c64da12")
 public class UriConnections {
     @objid ("9d4d65aa-d553-4f68-8fcc-b7ae08adf1f7")
-    private static Collection<IUriConnectionFactory> handlers = new ArrayList<>();
+    private static List<IUriConnectionFactory> handlers = new ArrayList<>();
 
     /**
      * Service class, no instance.
@@ -88,12 +87,14 @@ public class UriConnections {
     }
 
     /**
-     * Add an URI connection handler
+     * Add an URI connection handler.
+     * <p>
+     * The added handler takes priority from existing handlers.
      * @param handler a new URI handler.
      */
     @objid ("73150088-8f5d-4529-82ef-13515c6c4802")
     public static void addHandler(IUriConnectionFactory handler) {
-        handlers.add(handler);
+        handlers.add(0, handler);
     }
 
     /**
@@ -114,7 +115,11 @@ public class UriConnections {
 
 static {
         // Add handler for https URIs
-        handlers.add(new HttpsUriConnection.Factory());
+        //handlers.add(new HttpsUriConnection.Factory());
+
+        // Add HTTP & HTTPS handler that uses Apache "httpclient" library.
+        handlers.add(new ApacheUriConnection.ApacheUriConnectionFactory());
+        
         // Add the default URI handler that support already supported URL.
         handlers.add(new UrlUriHandler());
     }

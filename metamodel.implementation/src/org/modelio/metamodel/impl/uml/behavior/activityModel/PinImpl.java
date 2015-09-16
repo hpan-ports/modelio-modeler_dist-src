@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.uml.behavior.activityModel;
 
@@ -42,57 +42,57 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("003cae42-c4bf-1fd8-97fe-001ec947cd2a")
 public abstract class PinImpl extends ObjectNodeImpl implements Pin {
-    @objid ("b0f6f5bf-ee98-4295-8772-bcdd65b1869e")
+    @objid ("c04af8ec-fd3d-4770-9e1f-935bf5bbdc29")
     @Override
     public boolean isIsControl() {
         return (Boolean) getAttVal(PinData.Metadata.IsControlAtt());
     }
 
-    @objid ("0e3c356a-4122-4491-8b13-ec0b039c2693")
+    @objid ("2da37939-1f2f-4c6a-b03c-331825e13470")
     @Override
     public void setIsControl(boolean value) {
         setAttVal(PinData.Metadata.IsControlAtt(), value);
     }
 
-    @objid ("c94563cf-c355-4efb-a78d-5abe8170d3e0")
+    @objid ("1bfe5a90-5ddb-4baf-987c-1fd9f4128fb8")
     @Override
     public boolean isIsExpansion() {
         return (Boolean) getAttVal(PinData.Metadata.IsExpansionAtt());
     }
 
-    @objid ("a8d37858-11ab-4305-8a13-29cd916d6f10")
+    @objid ("d8248465-e539-4749-94aa-7522d1e29ea6")
     @Override
     public void setIsExpansion(boolean value) {
         setAttVal(PinData.Metadata.IsExpansionAtt(), value);
     }
 
-    @objid ("889806e3-65d2-4525-b9b0-75b184e00116")
+    @objid ("ca39d5f7-45b1-4611-8ef6-08a3d687c558")
     @Override
     public Parameter getMatched() {
         return (Parameter) getDepVal(PinData.Metadata.MatchedDep());
     }
 
-    @objid ("7de2ecee-96eb-4b3d-bbe6-222f70ea0d2c")
+    @objid ("aa25fb05-0500-42e8-8196-fe77a05bc4ff")
     @Override
     public void setMatched(Parameter value) {
         appendDepVal(PinData.Metadata.MatchedDep(), (SmObjectImpl)value);
     }
 
-    @objid ("152e2eaf-adb0-4776-abe8-593f1142f84a")
+    @objid ("56e734e2-5651-45eb-a4f1-3fd9707e7786")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("c06d2183-0a52-4e6c-8d22-a3ee9ae50d37")
+    @objid ("6c935b50-4cdd-4c6e-8abd-b6c5b7ff21fa")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("7d85956d-709d-4d12-8a7c-408a4f909ba2")
+    @objid ("1581949f-7ad1-488c-b252-865b933c0b00")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitPin(this);

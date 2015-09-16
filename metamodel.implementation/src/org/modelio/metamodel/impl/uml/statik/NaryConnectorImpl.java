@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.uml.statik;
 
@@ -44,13 +44,13 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("00060c52-c4bf-1fd8-97fe-001ec947cd2a")
 public class NaryConnectorImpl extends NaryLinkImpl implements NaryConnector {
-    @objid ("6b1061b9-57f9-469b-9970-e6b4c73cda29")
+    @objid ("789cc15c-83e1-4b99-a7d8-eaa8ab56d381")
     @Override
     public EList<Binding> getRepresentation() {
         return new SmList<>(this, NaryConnectorData.Metadata.RepresentationDep());
     }
 
-    @objid ("44bd38f9-af58-4d6d-9b0e-ee7e75582b5a")
+    @objid ("fd18f46e-d613-4440-bc42-11859cdf0feb")
     @Override
     public <T extends Binding> List<T> getRepresentation(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -63,33 +63,33 @@ public class NaryConnectorImpl extends NaryLinkImpl implements NaryConnector {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("1337307a-48eb-44c9-90df-ed161a47ba7a")
+    @objid ("a0e0e1d4-78f6-4107-8738-fcbcd3127985")
     @Override
     public ModelElement getRepresentedFeature() {
         return (ModelElement) getDepVal(NaryConnectorData.Metadata.RepresentedFeatureDep());
     }
 
-    @objid ("fc463968-8cc9-4d33-99c2-e30ca34829a4")
+    @objid ("da8e32fe-65f6-441e-969b-5ff63f4f1ff4")
     @Override
     public void setRepresentedFeature(ModelElement value) {
         appendDepVal(NaryConnectorData.Metadata.RepresentedFeatureDep(), (SmObjectImpl)value);
     }
 
-    @objid ("712b46da-d338-45b4-a89c-c09e1c2632ec")
+    @objid ("85a8092d-af2a-4cdd-9e6b-ef01376b43c1")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("f86bfe89-5c2e-4d41-9691-a296f1166687")
+    @objid ("6be12493-ad9a-4d6e-9974-d67e6d84f1de")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("0612c3dc-979b-4709-b12a-821e7da1f46d")
+    @objid ("c1441e2e-7407-4615-b568-d95590d98acf")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitNaryConnector(this);

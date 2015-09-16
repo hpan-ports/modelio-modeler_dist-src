@@ -21,18 +21,18 @@
 
 package org.modelio.xmi.model.ecore;
 
-import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.modelio.api.modelio.Modelio;
 import org.modelio.metamodel.uml.behavior.interactionModel.CombinedFragment;
 import org.modelio.metamodel.uml.infrastructure.Element;
+import org.modelio.xmi.util.ReverseProperties;
 
 @objid ("38817e77-e98b-42ec-afec-551b4405b01f")
-public class ECombinedFragment extends EInteractionFragment implements IEElement {
+public class ECombinedFragment extends EInteractionFragment {
     @objid ("e3d6344c-f73e-42eb-a85d-efb79972cbb2")
+    @Override
     public Element createObjingElt() {
-        return Modelio.getInstance().getModelingSession().getModel()
-                 .createCombinedFragment();
+        return ReverseProperties.getInstance().getMModelServices().getModelFactory()
+                .createCombinedFragment();
     }
 
     @objid ("1b540561-ca4e-4683-b6ef-d24fc48a7359")
@@ -40,16 +40,8 @@ public class ECombinedFragment extends EInteractionFragment implements IEElement
         super(element);
     }
 
-    @objid ("6a3ecb00-ec3a-45e6-933a-33297a41552b")
-    public void attach(Element objingElt) {
-        super.attach(objingElt);
-    }
-
-    @objid ("250771cf-11e9-4c51-b404-d5261dd77a00")
-    public void attach(List<Object> objingElts) {
-    }
-
     @objid ("11605d63-faff-48e1-b558-50b6a9615b8b")
+    @Override
     public void setProperties(Element objingElt) {
         super.setProperties(objingElt);
         setOperand((CombinedFragment) objingElt);
@@ -58,46 +50,48 @@ public class ECombinedFragment extends EInteractionFragment implements IEElement
     @objid ("f8b20d02-7bb9-41b3-a4ed-2ac0bcf708e8")
     private void setOperand(CombinedFragment fragment) {
         org.eclipse.uml2.uml.InteractionOperatorKind kindOfOperator = ( (org.eclipse.uml2.uml.CombinedFragment) getEcoreElement())
-               .getInteractionOperator();
-                
-                switch (kindOfOperator.getValue()) {
-                case  org.eclipse.uml2.uml.InteractionOperatorKind.ALT:
-           fragment.setOperator(org.modelio.metamodel.uml.behavior.interactionModel.InteractionOperator.ALTOP);
-           break;
-                case  org.eclipse.uml2.uml.InteractionOperatorKind.ASSERT:
-           fragment.setOperator(org.modelio.metamodel.uml.behavior.interactionModel.InteractionOperator.ASSERTOP);
-           break;
-                case  org.eclipse.uml2.uml.InteractionOperatorKind.BREAK:
-           fragment.setOperator(org.modelio.metamodel.uml.behavior.interactionModel.InteractionOperator.BREAKOP);
-           break;
-                case  org.eclipse.uml2.uml.InteractionOperatorKind.CONSIDER:
-           fragment.setOperator(org.modelio.metamodel.uml.behavior.interactionModel.InteractionOperator.CONSIDEROP);
-           break;
-                case  org.eclipse.uml2.uml.InteractionOperatorKind.CRITICAL:
-           fragment.setOperator(org.modelio.metamodel.uml.behavior.interactionModel.InteractionOperator.CRITICALOP);
-           break;
-                case  org.eclipse.uml2.uml.InteractionOperatorKind.IGNORE:
-           fragment.setOperator(org.modelio.metamodel.uml.behavior.interactionModel.InteractionOperator.IGNOREOP);
-           break;
-                case  org.eclipse.uml2.uml.InteractionOperatorKind.LOOP:
-           fragment.setOperator(org.modelio.metamodel.uml.behavior.interactionModel.InteractionOperator.LOOPOP);
-           break;
-                case  org.eclipse.uml2.uml.InteractionOperatorKind.NEG:
-           fragment.setOperator(org.modelio.metamodel.uml.behavior.interactionModel.InteractionOperator.NEGOP);
-           break;
-                case  org.eclipse.uml2.uml.InteractionOperatorKind.OPT:
-           fragment.setOperator(org.modelio.metamodel.uml.behavior.interactionModel.InteractionOperator.OPTOP);
-           break;
-                case  org.eclipse.uml2.uml.InteractionOperatorKind.PAR:
-           fragment.setOperator(org.modelio.metamodel.uml.behavior.interactionModel.InteractionOperator.PAROP);
-           break;
-                case  org.eclipse.uml2.uml.InteractionOperatorKind.SEQ:
-           fragment.setOperator(org.modelio.metamodel.uml.behavior.interactionModel.InteractionOperator.SEQOP);
-           break;
-                case  org.eclipse.uml2.uml.InteractionOperatorKind.STRICT:
-           fragment.setOperator(org.modelio.metamodel.uml.behavior.interactionModel.InteractionOperator.STRICTOP);
-           break;
-                }
+                .getInteractionOperator();
+        
+        switch (kindOfOperator.getValue()) {
+        case  org.eclipse.uml2.uml.InteractionOperatorKind.ALT:
+            fragment.setOperator(org.modelio.metamodel.uml.behavior.interactionModel.InteractionOperator.ALTOP);
+            break;
+        case  org.eclipse.uml2.uml.InteractionOperatorKind.ASSERT:
+            fragment.setOperator(org.modelio.metamodel.uml.behavior.interactionModel.InteractionOperator.ASSERTOP);
+            break;
+        case  org.eclipse.uml2.uml.InteractionOperatorKind.BREAK:
+            fragment.setOperator(org.modelio.metamodel.uml.behavior.interactionModel.InteractionOperator.BREAKOP);
+            break;
+        case  org.eclipse.uml2.uml.InteractionOperatorKind.CONSIDER:
+            fragment.setOperator(org.modelio.metamodel.uml.behavior.interactionModel.InteractionOperator.CONSIDEROP);
+            break;
+        case  org.eclipse.uml2.uml.InteractionOperatorKind.CRITICAL:
+            fragment.setOperator(org.modelio.metamodel.uml.behavior.interactionModel.InteractionOperator.CRITICALOP);
+            break;
+        case  org.eclipse.uml2.uml.InteractionOperatorKind.IGNORE:
+            fragment.setOperator(org.modelio.metamodel.uml.behavior.interactionModel.InteractionOperator.IGNOREOP);
+            break;
+        case  org.eclipse.uml2.uml.InteractionOperatorKind.LOOP:
+            fragment.setOperator(org.modelio.metamodel.uml.behavior.interactionModel.InteractionOperator.LOOPOP);
+            break;
+        case  org.eclipse.uml2.uml.InteractionOperatorKind.NEG:
+            fragment.setOperator(org.modelio.metamodel.uml.behavior.interactionModel.InteractionOperator.NEGOP);
+            break;
+        case  org.eclipse.uml2.uml.InteractionOperatorKind.OPT:
+            fragment.setOperator(org.modelio.metamodel.uml.behavior.interactionModel.InteractionOperator.OPTOP);
+            break;
+        case  org.eclipse.uml2.uml.InteractionOperatorKind.PAR:
+            fragment.setOperator(org.modelio.metamodel.uml.behavior.interactionModel.InteractionOperator.PAROP);
+            break;
+        case  org.eclipse.uml2.uml.InteractionOperatorKind.SEQ:
+            fragment.setOperator(org.modelio.metamodel.uml.behavior.interactionModel.InteractionOperator.SEQOP);
+            break;
+        case  org.eclipse.uml2.uml.InteractionOperatorKind.STRICT:
+            fragment.setOperator(org.modelio.metamodel.uml.behavior.interactionModel.InteractionOperator.STRICTOP);
+            break;
+        default :
+            break;
+        }
     }
 
 }

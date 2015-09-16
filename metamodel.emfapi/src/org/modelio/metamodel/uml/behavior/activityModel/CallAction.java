@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.uml.behavior.activityModel;
 
@@ -30,10 +30,10 @@ import org.eclipse.emf.ecore.EObject;
 
 @objid ("002a65de-c4bf-1fd8-97fe-001ec947cd2a")
 public interface CallAction extends ActivityAction {
-    @objid ("b7c67550-ddac-463e-bdad-b3aebd446e41")
+    @objid ("8cb06a5b-eac7-4053-a8e2-53597a6fa861")
     boolean isIsSynchronous();
 
-    @objid ("5d80e995-6500-4c60-81e2-717065489dcd")
+    @objid ("a44cbc98-f57c-4645-a45c-3fb0cd9d40d1")
     void setIsSynchronous(boolean value);
 
 }

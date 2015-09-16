@@ -26,11 +26,14 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.file.NoSuchFileException;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.modelio.gproject.descriptor.ProjectDescriptor;
+import org.modelio.gproject.data.project.ProjectDescriptor;
+import org.modelio.gproject.data.project.ProjectType;
 import org.modelio.gproject.gproject.GProject;
-import org.modelio.gproject.gproject.ProjectType;
+import org.modelio.gproject.gproject.GProjectAuthenticationException;
 import org.modelio.gproject.gproject.remote.GRemoteProjectFactory;
 import org.modelio.vbasic.auth.IAuthData;
+import org.modelio.vbasic.files.FileUtils;
+import org.modelio.vbasic.net.UriAuthenticationException;
 import org.modelio.vbasic.net.UriConnections;
 import org.modelio.vbasic.net.UriUtils;
 import org.modelio.vbasic.progress.IModelioProgress;
@@ -55,13 +58,17 @@ public class GUrlProjectFactory extends GRemoteProjectFactory {
 
     @objid ("9540f2aa-501c-4710-b893-0982c35d32e1")
     @Override
-    public InputSource readRemoteDescriptor(ProjectDescriptor projectDescriptor, IAuthData authData, IModelioProgress monitor) throws IOException {
+    public InputSource readRemoteDescriptor(ProjectDescriptor projectDescriptor, IAuthData authData, IModelioProgress monitor) throws GProjectAuthenticationException, IOException {
         URI remoteUri = UriUtils.asDirectoryUri(getRemoteDirUri(projectDescriptor));
         URI remoteConfUri =  remoteUri.resolve(REMOTE_PROJECT_CONF);
         
-        InputSource inputSource = new InputSource(UriConnections.openInputStream(remoteConfUri, authData));
-        inputSource.setSystemId(remoteConfUri.toString());
-        return inputSource;
+        try {
+            InputSource inputSource = new InputSource(UriConnections.openInputStream(remoteConfUri, authData));
+            inputSource.setSystemId(remoteConfUri.toString());
+            return inputSource;
+        } catch (UriAuthenticationException e) {
+            throw new GProjectAuthenticationException(FileUtils.getLocalizedMessage(e), e);
+        }
     }
 
     @objid ("f11a47b0-e529-4c11-93ca-dbf2b63edf5a")

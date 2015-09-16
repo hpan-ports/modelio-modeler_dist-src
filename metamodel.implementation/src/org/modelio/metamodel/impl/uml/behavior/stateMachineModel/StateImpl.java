@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.uml.behavior.stateMachineModel;
 
@@ -53,13 +53,13 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("0053a458-c4bf-1fd8-97fe-001ec947cd2a")
 public class StateImpl extends StateVertexImpl implements State {
-    @objid ("babcfef5-5b2b-468e-aac0-5e838e53cc23")
+    @objid ("a7eb211e-a07f-4e39-94ed-2d6171579fd9")
     @Override
     public EList<ExitPointPseudoState> getExitPoint() {
         return new SmList<>(this, StateData.Metadata.ExitPointDep());
     }
 
-    @objid ("c71c0803-b713-47cb-a026-c9ddfc4069b4")
+    @objid ("af3076ca-a046-4138-b686-c8c5e31be31d")
     @Override
     public <T extends ExitPointPseudoState> List<T> getExitPoint(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -72,13 +72,13 @@ public class StateImpl extends StateVertexImpl implements State {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("07b3a359-9c97-4263-abe3-0f3944d5a8d2")
+    @objid ("918226fd-61d1-4b7b-94bf-4a8559997dad")
     @Override
     public EList<BpmnDataState> getBpmnDataStateRefs() {
         return new SmList<>(this, StateData.Metadata.BpmnDataStateRefsDep());
     }
 
-    @objid ("dd158788-12ba-4936-94c1-447b7eaa1ce2")
+    @objid ("f8320440-0cc6-4113-acf3-1a96e99835c3")
     @Override
     public <T extends BpmnDataState> List<T> getBpmnDataStateRefs(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -91,13 +91,13 @@ public class StateImpl extends StateVertexImpl implements State {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("73e8133e-be27-4f59-b2c6-648cd9e2b3f1")
+    @objid ("cd0eefec-f3b9-4bae-954d-d83ef34d9e97")
     @Override
     public EList<Event> getDeffered() {
         return new SmList<>(this, StateData.Metadata.DefferedDep());
     }
 
-    @objid ("ccfcb6bb-b1b8-4550-ba49-1f9fb0bba093")
+    @objid ("3f1550c2-8d6f-428e-8ed6-3efe769df326")
     @Override
     public <T extends Event> List<T> getDeffered(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -110,13 +110,13 @@ public class StateImpl extends StateVertexImpl implements State {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("92477ae9-0ff7-4041-900e-d45aeb5fad0f")
+    @objid ("76ced5f7-3484-4ee3-a582-1a9c23f1cce3")
     @Override
     public EList<InternalTransition> getInternal() {
         return new SmList<>(this, StateData.Metadata.InternalDep());
     }
 
-    @objid ("19566b63-93d2-41d2-8047-1c408b412105")
+    @objid ("c9c3260a-3939-48e1-a731-05e16fb9bbd2")
     @Override
     public <T extends InternalTransition> List<T> getInternal(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -129,13 +129,13 @@ public class StateImpl extends StateVertexImpl implements State {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("54fc95ba-9fdb-44e3-990e-fc61f07b3549")
+    @objid ("f655c222-286e-422e-b4b0-76ec40478d1c")
     @Override
     public EList<EntryPointPseudoState> getEntryPoint() {
         return new SmList<>(this, StateData.Metadata.EntryPointDep());
     }
 
-    @objid ("4dadfa59-607e-4382-a0f8-b6cb14ca01a7")
+    @objid ("68102604-9103-4adc-88d9-f69ef9f4766b")
     @Override
     public <T extends EntryPointPseudoState> List<T> getEntryPoint(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -148,13 +148,13 @@ public class StateImpl extends StateVertexImpl implements State {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("75cc9875-8643-44f9-9d50-0c789760a027")
+    @objid ("546cf271-620c-4e8a-9130-004e6858e5a9")
     @Override
     public EList<Region> getOwnedRegion() {
         return new SmList<>(this, StateData.Metadata.OwnedRegionDep());
     }
 
-    @objid ("a048a335-9718-4b5f-8298-ea9e4c230858")
+    @objid ("017db38b-ebe7-4c2f-989f-6889b6e823f2")
     @Override
     public <T extends Region> List<T> getOwnedRegion(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -167,13 +167,13 @@ public class StateImpl extends StateVertexImpl implements State {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("4aced8a5-5ee9-49a8-ae3f-6c1d5e1346ee")
+    @objid ("6d9c1a8e-fd5d-47bc-bfbc-96b2a5661833")
     @Override
     public EList<BpmnMessage> getRequiredStateOfBpmnMessage() {
         return new SmList<>(this, StateData.Metadata.RequiredStateOfBpmnMessageDep());
     }
 
-    @objid ("d7995902-a37e-474d-b4d6-1dd7872e2e22")
+    @objid ("31654805-ab3e-4be2-a4f1-3585510fabcf")
     @Override
     public <T extends BpmnMessage> List<T> getRequiredStateOfBpmnMessage(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -186,13 +186,13 @@ public class StateImpl extends StateVertexImpl implements State {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("35810b6f-aef6-427f-80c8-41c2222be437")
+    @objid ("3ac533a2-eccc-4ee2-89c4-f8faa30c139c")
     @Override
     public EList<ObjectNode> getRequiredStateOf() {
         return new SmList<>(this, StateData.Metadata.RequiredStateOfDep());
     }
 
-    @objid ("4d72c528-80f9-4195-ac8b-f49b4316602b")
+    @objid ("6af37d4b-ca5e-4db4-8c66-5a022dc8e3c0")
     @Override
     public <T extends ObjectNode> List<T> getRequiredStateOf(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -205,13 +205,13 @@ public class StateImpl extends StateVertexImpl implements State {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("47e8ce14-d61b-4db1-8ff6-f140b9719cd0")
+    @objid ("a4bedfc4-3702-464e-931d-d00a0c1d67ed")
     @Override
     public EList<ConnectionPointReference> getConnection() {
         return new SmList<>(this, StateData.Metadata.ConnectionDep());
     }
 
-    @objid ("e1af2264-d088-4289-a0b7-ce1e484b5d05")
+    @objid ("e961c0c4-aec2-41b7-b82c-99a45a455522")
     @Override
     public <T extends ConnectionPointReference> List<T> getConnection(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -224,25 +224,25 @@ public class StateImpl extends StateVertexImpl implements State {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("570d3278-695c-4dfc-aec3-4815b1fa46b2")
+    @objid ("38194b50-8cae-4e3b-a9d5-17bf6a3b30d6")
     @Override
     public StateMachine getSubMachine() {
         return (StateMachine) getDepVal(StateData.Metadata.SubMachineDep());
     }
 
-    @objid ("216b4263-a106-45fc-b070-ce40f7d917d4")
+    @objid ("d1018c0f-3d96-412d-bd04-3732dee27d3d")
     @Override
     public void setSubMachine(StateMachine value) {
         appendDepVal(StateData.Metadata.SubMachineDep(), (SmObjectImpl)value);
     }
 
-    @objid ("45f55464-65c4-4844-9b20-54331025f1ab")
+    @objid ("24ef5849-4451-4186-95b4-f8b5bf77c9a5")
     @Override
     public EList<BpmnItemAwareElement> getRequiredStateOfBpmnItem() {
         return new SmList<>(this, StateData.Metadata.RequiredStateOfBpmnItemDep());
     }
 
-    @objid ("25586957-6cf9-4388-acf8-4568e16eaa6c")
+    @objid ("504e1a21-259a-4e25-b2b1-7748229a7529")
     @Override
     public <T extends BpmnItemAwareElement> List<T> getRequiredStateOfBpmnItem(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -255,21 +255,21 @@ public class StateImpl extends StateVertexImpl implements State {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("d60beace-d377-4079-9dbb-cb594d8fe543")
+    @objid ("fb91a72d-f7a8-4717-94aa-e19057ee6729")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("af95e22d-b539-4484-950b-5a154d812a1c")
+    @objid ("66519d38-e7a0-4c61-8fb4-b9c98a326045")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("08d10b08-f75e-47f4-8f67-4956ff8f699a")
+    @objid ("39e1a61a-21b1-4d20-bd48-9b5303bb7afa")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitState(this);

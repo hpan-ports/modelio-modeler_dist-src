@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.bpmn.events;
 
@@ -41,33 +41,33 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("008b71e4-c4bf-1fd8-97fe-001ec947cd2a")
 public class BpmnErrorEventDefinitionImpl extends BpmnEventDefinitionImpl implements BpmnErrorEventDefinition {
-    @objid ("316850c8-7469-4627-9d16-d83ef7c236bd")
+    @objid ("5c55bc94-83eb-4d24-ab8d-7bf95b75eace")
     @Override
     public String getErrorCode() {
         return (String) getAttVal(BpmnErrorEventDefinitionData.Metadata.ErrorCodeAtt());
     }
 
-    @objid ("d085fbac-3898-412b-b1a0-614e8b1e9e09")
+    @objid ("fecd7939-f6e4-4f1e-8db2-ce8a233325da")
     @Override
     public void setErrorCode(String value) {
         setAttVal(BpmnErrorEventDefinitionData.Metadata.ErrorCodeAtt(), value);
     }
 
-    @objid ("3f0199b5-87ef-4aca-97cb-32d00ccdcb87")
+    @objid ("40908398-ac3b-4d83-a59d-d4be2671f177")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("b097ccb4-9c61-4b9f-bab7-ad3312dda729")
+    @objid ("37c17ea6-cc72-48d4-a2d7-bfe35afeac58")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("4aa5007e-1b5d-4ab8-8142-cede5b5cefbe")
+    @objid ("daded436-c691-418f-afd2-076a8d18c75e")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitBpmnErrorEventDefinition(this);

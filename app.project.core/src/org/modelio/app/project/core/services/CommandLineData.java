@@ -21,8 +21,12 @@
 
 package org.modelio.app.project.core.services;
 
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 import com.modeliosoft.modelio.javadesigner.annotations.mdl;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
+import org.modelio.app.project.core.plugin.AppProjectCore;
 
 /**
  * Modelio command line arguments.
@@ -109,14 +113,27 @@ public class CommandLineData {
     }
 
     /**
+     * Batch parameter.
+     */
+    @objid ("a1e3682c-3ef5-4126-a182-196c1071240b")
+    private static final String PARAM_OPTION = "-param";
+
+    @objid ("f56f34a4-f175-42c4-8ae4-4d83fd356ca8")
+    private final Map<String, String> batchParams = new HashMap<>();
+
+    /**
      * C'tor
      * @param args the command line arguments
+     * @throws java.lang.IllegalArgumentException if the command line is invalid
      */
     @objid ("df8b6edb-1fab-478f-a8ce-81850b7732e6")
-    public CommandLineData(String[] args) {
+    public CommandLineData(String[] args) throws IllegalArgumentException {
         parse(args);
     }
 
+    /**
+     * @return <i>true</i> if batch mode but there is nothing to do.
+     */
     @objid ("8943438c-bdd0-44ff-baa8-10ad28be47b1")
     public boolean isEmpty() {
         return this.emptyBatch;
@@ -128,6 +145,9 @@ public class CommandLineData {
         return "project=" + this.projectName + " create=" + this.createProject + " workspace=" + this.workspace;
     }
 
+    /**
+     * @return <i>true</i> if the project is to be created else <i>false</i>.
+     */
     @objid ("0b10bee0-f483-48fa-a1f7-0cb8843600fc")
     public boolean isCreate() {
         return this.createProject;
@@ -139,39 +159,78 @@ public class CommandLineData {
         int i = 0;
         
         while (i < args.length) {
-            if (args[i].equals(PROJECT_OPTION)) {
+            final String argi = args[i];
+            if (argi.equals(PROJECT_OPTION)) {
+                checkSupArg(args, i, 1);
                 this.projectName = args[i + 1];
                 this.emptyBatch = false;
                 i += 2;
-            } else if (args[i].equals(BATCH_OPTION)) {
+            } else if (argi.equals(BATCH_OPTION)) {
+                checkSupArg(args, i, 1);
                 this.script = args[i + 1];
                 this.emptyBatch = false;
                 i += 2;
-            } else if (args[i].equals(WORKSPACE_OPTION)) {
+            } else if (argi.equals(WORKSPACE_OPTION)) {
+                checkSupArg(args, i, 1);
                 this.workspace = args[i + 1];
                 this.emptyBatch = false;
                 i += 2;
-            } else if (args[i].equals(CREATE_OPTION)) {
+            } else if (argi.equals(CREATE_OPTION)) {
+                checkSupArg(args, i, 1);
                 this.createProject = true;
                 this.projectName = args[i + 1];
                 this.emptyBatch = false;
                 i += 2;
-            } else if (args[i].equals(TEMPLATE_OPTION)) {
+            } else if (argi.equals(TEMPLATE_OPTION)) {
+                checkSupArg(args, i, 1);
                 this.template = args[i + 1];
                 this.emptyBatch = false;
                 i += 2;
-            } else if (args[i].equals(MDEBUG_OPTION)) {
+            } else if (argi.equals(MDEBUG_OPTION)) {
                 this.debug = true;
-                i += 1;
+                i += 1; 
+            } else if (argi.equals(PARAM_OPTION)) {
+                checkSupArg(args, i, 2);
+                this.batchParams.put(args[i + 1], args[i + 2]);
+                i += 3; 
             } else {
                 i++;
             }
         }
     }
 
+    /**
+     * @return <i>true</i> if batch mode else <i>false</i>.
+     */
     @objid ("fa50daad-f574-410c-9615-3e3588c44e20")
     public boolean isBatch() {
         return this.projectName != null && this.script != null;
+    }
+
+    /**
+     * Check the command line arguments contains <i>nbRequired</i> more arguments to match an argument parameter.
+     * @param args the command line arguments
+     * @param index index of the parameterized argument
+     * @param nbRequired count of required more arguments for the argument <i>args[index]</i>
+     */
+    @objid ("927f5681-348b-4c67-b3a7-274839b8a2fd")
+    private void checkSupArg(String[] args, int index, int nbRequired) {
+        if (args.length < index + nbRequired) {
+            String msg = AppProjectCore.I18N.getMessage("CommandlineData.ArgNeedParameter", 
+                    Arrays.toString(args),
+                    args[index],
+                    nbRequired);
+            throw new IllegalArgumentException(msg);
+        }
+    }
+
+    /**
+     * Get the batch parameters.
+     * @return batch parameters.
+     */
+    @objid ("4fdfb664-311b-4089-88bb-b90063c00be0")
+    public Map<String, String> getBatchParameters() {
+        return this.batchParams;
     }
 
 }

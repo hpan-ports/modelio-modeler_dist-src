@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.uml.infrastructure.matrix;
 
@@ -45,43 +45,43 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("2fb6d68e-b51f-429d-a006-2a9a07892168")
 public class MatrixValueDefinitionImpl extends ElementImpl implements MatrixValueDefinition {
-    @objid ("3f33da91-8d7f-40e7-ad5d-080520468a56")
+    @objid ("4f5f4c39-3ba1-4e68-8bb8-ed6f1a15f631")
     @Override
     public ExternProcessor getProcessor() {
         return (ExternProcessor) getDepVal(MatrixValueDefinitionData.Metadata.ProcessorDep());
     }
 
-    @objid ("b359e398-09c2-4c0b-8333-17dc464b6094")
+    @objid ("d5f07a53-12ec-48ab-9ad9-14116e106420")
     @Override
     public void setProcessor(ExternProcessor value) {
         appendDepVal(MatrixValueDefinitionData.Metadata.ProcessorDep(), (SmObjectImpl)value);
     }
 
-    @objid ("93278e78-0731-48e5-86cc-a94b2842d36b")
+    @objid ("f31cd5cb-39ac-4403-82b9-205e878f3a5e")
     @Override
     public PropertyTable getParameters() {
         return (PropertyTable) getDepVal(MatrixValueDefinitionData.Metadata.ParametersDep());
     }
 
-    @objid ("b902a4eb-588e-4ec6-978c-83207d9b6832")
+    @objid ("3a7a0b92-ea32-4bbe-9332-a6515947562b")
     @Override
     public void setParameters(PropertyTable value) {
         appendDepVal(MatrixValueDefinitionData.Metadata.ParametersDep(), (SmObjectImpl)value);
     }
 
-    @objid ("476ac2cf-0ef7-4014-af4e-5e6ee5284652")
+    @objid ("7be4c81d-884b-45a0-96d6-a5b147198d63")
     @Override
     public MatrixDefinition getMatrix() {
         return (MatrixDefinition) getDepVal(MatrixValueDefinitionData.Metadata.MatrixDep());
     }
 
-    @objid ("334772cf-22ec-4c8f-b9d9-fd01156e0069")
+    @objid ("44b2d89a-d99e-43dc-b886-05fb5f6bffe5")
     @Override
     public void setMatrix(MatrixDefinition value) {
         appendDepVal(MatrixValueDefinitionData.Metadata.MatrixDep(), (SmObjectImpl)value);
     }
 
-    @objid ("b88bb138-03fd-4b7a-a97a-f3c4e1ab379e")
+    @objid ("2cb5079f-fab8-4ef3-9ede-d0b358ce62c1")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
@@ -91,7 +91,7 @@ public class MatrixValueDefinitionImpl extends ElementImpl implements MatrixValu
         return super.getCompositionOwner();
     }
 
-    @objid ("90ae7a5a-c140-4216-a106-cf2f1403d752")
+    @objid ("2d390b8b-d68d-408b-b17f-5b0f1eff9661")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
@@ -101,7 +101,7 @@ public class MatrixValueDefinitionImpl extends ElementImpl implements MatrixValu
         return super.getCompositionRelation();
     }
 
-    @objid ("63f89b57-78ed-48ba-938d-36391abfe114")
+    @objid ("bd24c10c-b617-4676-91ca-11792760da8f")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitMatrixValueDefinition(this);

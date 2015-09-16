@@ -10,7 +10,7 @@
   <imports xsi:type="basic:Part" xmi:id="_0AthoA8aEeOqHsz9OftqbQ" elementId="org.modelio.browser.part"/>
   <imports xsi:type="basic:Part" xmi:id="_2gzXcA8oEeOqHsz9OftqbQ" elementId="org.modelio.audit.AuditViewID"/>
   <imports xsi:type="basic:Part" xmi:id="_m4S8EA8pEeOqHsz9OftqbQ" elementId="org.modelio.linkeditor.view.LinkEditorViewID"/>
-  <fragments xsi:type="fragment:StringModelFragment" xmi:id="_ysHeYAvGEeONGrYNBZi8bg" featurename="children" parentElementId="org.modelio.app.ui.stack.perspectives" positionInList="last">
+  <fragments xsi:type="fragment:StringModelFragment" xmi:id="_ysHeYAvGEeONGrYNBZi8bg" featurename="children" parentElementId="org.modelio.app.ui.stack.perspectives" positionInList="">
     <elements xsi:type="advanced:Perspective" xmi:id="_2kDZQAvGEeONGrYNBZi8bg" elementId="org.modelio.diagram.perspective" selectedElement="_2kDZQQvGEeONGrYNBZi8bg" label="%Diagram.perspective.label" iconURI="platform:/plugin/org.modelio.app.ui/icons/diagramspersp.png" tooltip="%Diagram.perspective.tooltip">
       <tags>project</tags>
       <tags>default</tags>

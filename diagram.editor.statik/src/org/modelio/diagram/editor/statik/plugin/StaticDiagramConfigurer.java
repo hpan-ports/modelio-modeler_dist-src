@@ -38,11 +38,6 @@ import org.modelio.diagram.editor.statik.editor.StaticDiagramEditor;
  */
 @objid ("36f007d2-55b7-11e2-877f-002564c97630")
 public class StaticDiagramConfigurer implements IDiagramConfigurer {
-//    @objid ("36f007d6-55b7-11e2-877f-002564c97630")
-//    @Override
-//    public DiagramEditorInput createDiagramEditorInput(final CoreSession session, final IAbstractDiagram target) {
-//        return new StaticDiagramEditorInput(session, target);
-//    }
     @objid ("36f18e3a-55b7-11e2-877f-002564c97630")
     @Override
     public String getContributionURI() {

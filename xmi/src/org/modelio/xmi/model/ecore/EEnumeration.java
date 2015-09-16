@@ -22,7 +22,6 @@
 package org.modelio.xmi.model.ecore;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.modelio.api.modelio.Modelio;
 import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.metamodel.uml.infrastructure.ModelTree;
 import org.modelio.metamodel.uml.infrastructure.Profile;
@@ -35,8 +34,7 @@ public class EEnumeration extends EDataType {
     @objid ("94ef5f45-4554-4ac7-bce7-9c2cbe31315b")
     @Override
     public Element createObjingElt() {
-        return Modelio.getInstance()
-                .getModelingSession().getModel().createEnumeration();
+        return ReverseProperties.getInstance().getMModelServices().getModelFactory().createEnumeration();
     }
 
     @objid ("257e8d9e-f5ed-44da-90a4-89f48e9cfca2")

@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.uml.behavior.usecaseModel;
 
@@ -34,22 +34,22 @@ import org.modelio.metamodel.uml.statik.GeneralClass;
 
 @objid ("00588716-c4bf-1fd8-97fe-001ec947cd2a")
 public interface UseCase extends GeneralClass {
-    @objid ("619cc122-110c-4797-a63c-0af0da8f6133")
+    @objid ("df9b1614-579a-400b-90a5-f53e0f0cc035")
     EList<UseCaseDependency> getUsed();
 
-    @objid ("1c6a86f8-ab0a-46a8-af8d-bcde12db4c0d")
+    @objid ("7e8f79ac-4b3c-46b1-855f-2d78230b079b")
     <T extends UseCaseDependency> List<T> getUsed(java.lang.Class<T> filterClass);
 
-    @objid ("4167fdfd-882e-45fa-a1c5-1167d1e6132e")
+    @objid ("56ff6998-c765-478b-bd26-b4bf67f51406")
     EList<ExtensionPoint> getOwnedExtension();
 
-    @objid ("e6cfae17-5fca-4e38-80f3-198f700512ae")
+    @objid ("dc5e947f-ba7f-4bfa-bdfe-df01895c168f")
     <T extends ExtensionPoint> List<T> getOwnedExtension(java.lang.Class<T> filterClass);
 
-    @objid ("ed7fff39-b414-4c3b-b108-ce9a6aca23cb")
+    @objid ("319d4138-e760-422d-b1d0-c69dacf279b7")
     EList<UseCaseDependency> getUser();
 
-    @objid ("1332396e-368b-4a67-a98a-9ee55ff6f10a")
+    @objid ("d36c28a3-88a1-4049-a951-782e8c7d3d7a")
     <T extends UseCaseDependency> List<T> getUser(java.lang.Class<T> filterClass);
 
 }

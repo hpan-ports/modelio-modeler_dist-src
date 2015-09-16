@@ -1,0 +1,79 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<title>Model components lifecycle</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link href="style.css" media="screen" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<a name="The-life-cycle-of-a-model-component"></a>
+<h1 >The life cycle of a model component<a href="#The-life-cycle-of-a-model-component" class="wiki-anchor">&para;</a></h1>
+
+<a name="The-model-component-life-cycle"></a>
+<h4 >The model component life cycle<a href="#The-model-component-life-cycle" class="wiki-anchor">&para;</a></h4>
+
+<p>The life cycle of a model component can be broken down into four distinct
+stages:</p>
+
+<ol>
+<li><p>The <a href="Model_components_development.html">development phase</a>, during which a model component developer
+prepares a model component for packaging. This phase includes the construction
+of the UML model, and the creation and definition of the future model
+component itself, as well as the modeling of its dependency on other model
+components.</p></li>
+<li><p>The <a href="Model_components_development.html">packaging phase</a>, during which the model component is
+actually produced by a model component developer. This phase sees the
+definition of packaging information, and the production of a unique model
+component file, suffixed &ldquo;.ramc&rdquo;.</p></li>
+<li><p>The <a href="Model_components_deployment.html">deployment phase</a>, during which a model component is deployed
+by a user in a user project. If the deployment operation should encounter any
+deployment issues, these can be solved here, before re-running the deployment
+command.</p></li>
+</ol>
+
+
+<a name="Model-component-versions-and-dependencies-between-model-components"></a>
+<h4 >Model component versions and dependencies between model components<a href="#Model-component-versions-and-dependencies-between-model-components" class="wiki-anchor">&para;</a></h4>
+
+<p>When a model component is developed, it is assigned a version number. This
+version number can be incremented each time a model component is subsequently
+repackaged (either following modifications made to it or when making scheduled
+deliveries).</p>
+
+<p>The dependencies that exist between Modelio model components are so-called
+strict dependencies. This means that a model component depends on a specific
+version of another model component. This version must be respected during
+model component deployment in a project.</p>
+
+<p>For example, let&rsquo;s imagine that we have two model components, &ldquo;A&rdquo; and &ldquo;B&rdquo;,
+both of which are in version 1.0.0. If version 1.0.0 of the &ldquo;B&rdquo; model
+component depends on version 1.0.0 of the &ldquo;A&rdquo; model component, and if the &ldquo;B&rdquo;
+model component is to be deployed in a project, the following steps must be
+carried out:</p>
+
+<ul>
+<li><p>Version 1.0.0 of the &ldquo;A&rdquo; model component must first be deployed in
+the project.</p></li>
+<li><p>Version 1.0.0 of the &ldquo;B&rdquo; model component can then be deployed.</p></li>
+</ul>
+
+
+<p>Now let&rsquo;s imagine that the &ldquo;A&rdquo; model component is modified and subsequently
+repackaged, with a new version number, 2.0.0. We still want to deploy both the
+&ldquo;A&rdquo; and the &ldquo;B&rdquo; model components in our project. The following steps must be
+carried out:</p>
+
+<ul>
+<li><p>First, the original dependency between the &ldquo;B&rdquo; model component and
+version 1.0.0 of the &ldquo;A&rdquo; model component must be deleted.</p></li>
+<li><p>Next, a new dependency must be created between the &ldquo;B&rdquo; model
+component and version 2.0.0 of the &ldquo;A&rdquo; model component.</p></li>
+<li><p>The &ldquo;A&rdquo; model component must then be repackaged, and its version
+number incremented.</p></li>
+<li><p>Version 2.0.0 of the &ldquo;A&rdquo; model component can now be deployed in a
+project, followed by the new version of the &ldquo;B&rdquo; model component.</p></li>
+</ul>
+
+
+<div id="footer"><iframe frameborder="0" scrolling="no" height="25" width="100%" src="_footer.html"></iframe></div> </body>
+</html>

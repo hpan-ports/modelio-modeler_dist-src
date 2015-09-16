@@ -38,8 +38,8 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.modelio.app.project.conf.dialog.ProjectModel;
 import org.modelio.app.project.conf.plugin.AppProjectConf;
-import org.modelio.gproject.ramc.core.archive.IModelComponentInfos.ExportedFile;
-import org.modelio.gproject.ramc.core.archive.IModelComponentInfos;
+import org.modelio.gproject.data.ramc.IModelComponentInfos.ExportedFile;
+import org.modelio.gproject.data.ramc.IModelComponentInfos;
 import org.modelio.ui.UIColor;
 import org.modelio.vbasic.version.Version;
 

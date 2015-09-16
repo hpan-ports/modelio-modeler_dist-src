@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.data.diagrams;
 
@@ -43,22 +43,22 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("006cfce6-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=CommunicationDiagram.class, factory=CommunicationDiagramData.Metadata.ObjectFactory.class, cmsnode=true)
 public class CommunicationDiagramData extends BehaviorDiagramData {
-    @objid ("4db4758e-d0f1-473a-9f2d-636c7939509f")
+    @objid ("2331e56b-e7f0-4d4a-8281-9a7aaf575894")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("005fda2a-c4c3-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("8981af1f-fc70-47dd-86b9-28bc28264e8d")
+        @objid ("ea9bdcb2-71ed-45b1-9308-676b796b01b2")
         private static SmClass smClass = null;
 
-        @objid ("1a600d0a-d9ce-4333-b29b-c981f8e7080f")
+        @objid ("7de8bdec-2e9f-4d05-8ca3-35d4651f3307")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(CommunicationDiagramData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("71075162-4967-4c35-94f5-4916f5eb94c6")
+        @objid ("3696d4b7-78ef-44a7-b41b-2e3986df5c6d")
         public static SmClass getSmClass() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return smClass;
@@ -66,12 +66,12 @@ public class CommunicationDiagramData extends BehaviorDiagramData {
 
         @objid ("00601bac-c4c3-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("04442e12-3b1a-4ef3-96ff-862dd9aa6e8c")
+            @objid ("4f1ddc99-57b0-454e-9c2f-a1ac98ba5edc")
             public ISmObjectData createData() {
                 return new CommunicationDiagramData();
             }
 
-            @objid ("0fb8b061-cb5f-4e3c-a7f3-3092b28a7578")
+            @objid ("e0816b1b-5da3-4b11-aa0c-3a95a330f918")
             public SmObjectImpl createImpl() {
                 return new CommunicationDiagramImpl();
             }

@@ -33,8 +33,9 @@ import org.modelio.xmi.util.ObjingEAnnotation;
 import org.modelio.xmi.util.ReverseProperties;
 
 @objid ("0f95f041-a539-44ae-bbb1-1f094dfcca61")
-public class EPin extends EActivityNode implements IEElement {
+public class EPin extends EActivityNode {
     @objid ("ad8bad16-99ce-42fa-82ef-6594b7bc6c9a")
+    @Override
     public Element createObjingElt() {
         return null;
     }
@@ -44,15 +45,8 @@ public class EPin extends EActivityNode implements IEElement {
         super(element);
     }
 
-    @objid ("8daf6d23-ae48-48ca-b4ba-0d89b3ecf0a1")
-    public void attach(Element objingElt) {
-    }
-
-    @objid ("ec5e2105-6464-4539-8d7b-33d25dcc3ddc")
-    public void attach(List<Object> objingElts) {
-    }
-
     @objid ("56eae77e-9f03-4e87-97b9-a30781ea4875")
+    @Override
     public void setProperties(Element objingElt) {
         super.setProperties(objingElt);
         

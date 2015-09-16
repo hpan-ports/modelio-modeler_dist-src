@@ -21,39 +21,31 @@
 
 package org.modelio.xmi.model.ecore;
 
-import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.modelio.api.modelio.Modelio;
 import org.modelio.metamodel.uml.behavior.activityModel.StructuredActivityNode;
 import org.modelio.metamodel.uml.infrastructure.Element;
+import org.modelio.xmi.util.ReverseProperties;
 
 @objid ("a2ce9455-4ae1-4594-ba1b-032ac5b88ab6")
-public class EStructuredActivityNode extends EActivityNode implements IEElement {
+public class EStructuredActivityNode extends EActivityNode {
     @objid ("24901712-65a6-49fa-8f64-93aba86a0a5d")
     private org.eclipse.uml2.uml.StructuredActivityNode ecoreElement = null;
 
     @objid ("345b13c1-17b0-490e-ab70-ecaddea4619e")
+    @Override
     public Element createObjingElt() {
-        return Modelio.getInstance().getModelingSession().getModel()
+        return ReverseProperties.getInstance().getMModelServices().getModelFactory()
                 .createStructuredActivityNode();
     }
 
     @objid ("adb50113-62fe-4d42-ad2f-5de6cad1ad16")
     public EStructuredActivityNode(org.eclipse.uml2.uml.StructuredActivityNode element) {
         super(element);
-        ecoreElement = element;
-    }
-
-    @objid ("f7db93a7-1dcf-46d3-967c-1db90d08ccba")
-    public void attach(Element objingElt) {
-        super.attach(objingElt);
-    }
-
-    @objid ("e26d9519-3724-4348-a7c4-27eda297726f")
-    public void attach(List<Object> objingElts) {
+        this.ecoreElement = element;
     }
 
     @objid ("bb65bfff-ef60-45db-b6f5-ce9599e6edba")
+    @Override
     public void setProperties(Element objingElt) {
         super.setProperties(objingElt);
         setMustIsolate((StructuredActivityNode) objingElt);
@@ -61,7 +53,7 @@ public class EStructuredActivityNode extends EActivityNode implements IEElement 
 
     @objid ("034bbfe1-4f31-4d33-94ac-d0dca61e126e")
     private void setMustIsolate(StructuredActivityNode node) {
-        node.setMustIsolate(ecoreElement.isMustIsolate());
+        node.setMustIsolate(this.ecoreElement.isMustIsolate());
     }
 
 }

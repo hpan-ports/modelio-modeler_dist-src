@@ -28,7 +28,7 @@ public class PasswordParameterModel extends ParameterModel {
         super(conf, name, label, description, defaultValue);
     }
 
-    @objid ("284911ce-ddca-473d-bb2d-cdac2c34b104")
+    @objid ("559297b6-8bee-4992-a0ed-6af2e36899e7")
     @Override
     public String getStringValue() {
         StringBuilder ret = new StringBuilder();
@@ -38,7 +38,7 @@ public class PasswordParameterModel extends ParameterModel {
         return ret.toString();
     }
 
-    @objid ("d00aeb95-7bcc-45d8-ae88-9832ab48cd81")
+    @objid ("f8a19fab-9c3b-4761-aad9-209dcca503b3")
     public String getPasswordValue() {
         return super.getStringValue();
     }

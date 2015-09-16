@@ -1,0 +1,31 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<title>Modeler audit rules R2770</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link href="style.css" media="screen" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<a name="R2770"></a>
+<h1 >R2770<a href="#R2770" class="wiki-anchor">&para;</a></h1>
+
+<a name="Summary"></a>
+<h4 >Summary<a href="#Summary" class="wiki-anchor">&para;</a></h4>
+
+<p>A <em>JoinPseudoState</em> segment must always originate from a state, not a
+<em>PseudoState</em>.</p>
+
+<a name="Details"></a>
+<h4 >Details<a href="#Details" class="wiki-anchor">&para;</a></h4>
+
+<p>A join node is a control node that joins together several flows from
+concurrent states.</p>
+
+<a name="Tips"></a>
+<h4 >Tips<a href="#Tips" class="wiki-anchor">&para;</a></h4>
+
+<p>Transitions targeting a <em>JoinPseudoState</em> and coming from pseudo states should
+be removed.</p>
+
+<div id="footer"><iframe frameborder="0" scrolling="no" height="25" width="100%" src="_footer.html"></iframe></div> </body>
+</html>

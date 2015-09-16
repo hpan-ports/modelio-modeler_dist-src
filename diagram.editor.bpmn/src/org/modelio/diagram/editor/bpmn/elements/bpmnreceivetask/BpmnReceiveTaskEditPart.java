@@ -84,6 +84,9 @@ public class BpmnReceiveTaskEditPart extends GmNodeEditPart {
         if (index == 0)
             this.getFigure().add(child, BorderLayout.TOP, index);
         if (index == 1) {
+            this.getFigure().add(child, BorderLayout.CENTER, index);
+        }
+        if (index == 2) {
             this.getFigure().add(child, BorderLayout.BOTTOM, index);
         }
     }

@@ -25,24 +25,27 @@ import java.util.ArrayList;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.emf.common.util.EList;
-import org.modelio.api.modelio.Modelio;
+import org.modelio.metamodel.factory.ElementNotUniqueException;
 import org.modelio.metamodel.uml.infrastructure.Dependency;
 import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
 import org.modelio.metamodel.uml.infrastructure.Stereotype;
+import org.modelio.metamodel.uml.infrastructure.Substitution;
 import org.modelio.metamodel.uml.statik.Artifact;
 import org.modelio.metamodel.uml.statik.BindableInstance;
 import org.modelio.metamodel.uml.statik.Binding;
+import org.modelio.metamodel.uml.statik.Classifier;
 import org.modelio.metamodel.uml.statik.CollaborationUse;
 import org.modelio.metamodel.uml.statik.ConnectorEnd;
+import org.modelio.metamodel.uml.statik.ElementRealization;
 import org.modelio.metamodel.uml.statik.Interface;
 import org.modelio.metamodel.uml.statik.Manifestation;
 import org.modelio.metamodel.uml.statik.NaryConnector;
 import org.modelio.metamodel.uml.statik.Port;
 import org.modelio.metamodel.uml.statik.ProvidedInterface;
 import org.modelio.metamodel.uml.statik.RequiredInterface;
+import org.modelio.xmi.plugin.Xmi;
 import org.modelio.xmi.util.EcoreModelNavigation;
-import org.modelio.xmi.util.IModelerModuleStereotypes;
 import org.modelio.xmi.util.ObjingEAnnotation;
 import org.modelio.xmi.util.ReverseProperties;
 
@@ -196,8 +199,7 @@ public class EDependency extends ENamedElement {
     @objid ("adcaa553-d00d-4035-9521-5b0e3f41a0a9")
     private Element createTypeOfDependency(ModelElement objingClient, ModelElement objingSupplier) {
         Element objingTypeOfDependency = null;
-        
-        if (this.ecoreElement instanceof org.eclipse.uml2.uml.Manifestation) {
+         if (this.ecoreElement instanceof org.eclipse.uml2.uml.Manifestation) {
             objingTypeOfDependency = createManifestation(objingClient,
                     objingSupplier);
         }else if ((this.ecoreElement.getOwner() instanceof  org.eclipse.uml2.uml.CollaborationUse) 
@@ -214,7 +216,7 @@ public class EDependency extends ENamedElement {
 
     @objid ("bb64fd8a-0608-48b2-90b8-8944e681c880")
     private Binding createBinding(ModelElement objingSupplier, org.eclipse.uml2.uml.CollaborationUse ecoreOwner) {
-        Binding objElement = Modelio.getInstance().getModelingSession().getModel().createBinding();
+        Binding objElement = ReverseProperties.getInstance().getMModelServices().getModelFactory().createBinding();
         
         CollaborationUse objOwner = (CollaborationUse) ReverseProperties.getInstance().getMappedElement(ecoreOwner);
         
@@ -252,8 +254,7 @@ public class EDependency extends ENamedElement {
     @objid ("e2a527de-34be-4b32-9d7c-9f64a44997fa")
     private Manifestation createManifestation(ModelElement objingClient, ModelElement objingSupplier) {
         if (objingClient instanceof Artifact) {
-            Manifestation manif = Modelio.getInstance()
-                    .getModelingSession().getModel().createManifestation();
+            Manifestation manif = ReverseProperties.getInstance().getMModelServices().getModelFactory().createManifestation();
         
             String name = this.ecoreElement.getName();
             if (EcoreModelNavigation.isNotNull(name))
@@ -270,8 +271,7 @@ public class EDependency extends ENamedElement {
 
     @objid ("08a7905e-af58-4551-a71b-0a6a565d0b55")
     private RequiredInterface createRequiredInterface(List<ModelElement> objingClients, ModelElement objingSupplier) {
-        RequiredInterface required = Modelio.getInstance()
-                .getModelingSession().getModel().createRequiredInterface();
+        RequiredInterface required = ReverseProperties.getInstance().getMModelServices().getModelFactory().createRequiredInterface();
         
         required.setRequiring((Port)objingSupplier);
         for (ModelElement objingClient :  objingClients)
@@ -281,8 +281,7 @@ public class EDependency extends ENamedElement {
 
     @objid ("b4020e92-99ad-471f-a5a6-8a23193ccae1")
     private ProvidedInterface createProvidedInterface(ModelElement objingClient, List<ModelElement> objingSuppliers) {
-        ProvidedInterface provided = Modelio.getInstance()
-                .getModelingSession().getModel().createProvidedInterface();
+        ProvidedInterface provided = ReverseProperties.getInstance().getMModelServices().getModelFactory().createProvidedInterface();
         
         provided.setProviding((Port)objingClient);
         for (ModelElement objingSupplier :  objingSuppliers)
@@ -293,18 +292,16 @@ public class EDependency extends ENamedElement {
     @objid ("08988dc5-207d-4eb3-9075-131de65d5f4c")
     private Dependency createDependency(ModelElement objingClient, ModelElement objingSupplier) {
         Dependency objingDependency = null;
-        if (this.ecoreElement instanceof org.eclipse.uml2.uml.Abstraction) {
-            objingDependency = Modelio.getInstance().getModelingSession().getModel().createDependency();
         
-            objingDependency.getExtension().add(Modelio.getInstance().getModelingSession().getMetamodelExtensions()
-                    .getStereotype( IModelerModuleStereotypes.UML2ABSTRACTION, objingDependency.getMClass()));
         
+        if (this.ecoreElement instanceof org.eclipse.uml2.uml.Realization) {
+            objingDependency = ReverseProperties.getInstance().getMModelServices().getModelFactory().createElementRealization();
+        } else  if (this.ecoreElement instanceof org.eclipse.uml2.uml.Abstraction) {
+            objingDependency = ReverseProperties.getInstance().getMModelServices().getModelFactory().createAbstraction();
         } else if (this.ecoreElement instanceof org.eclipse.uml2.uml.Usage) {
-            objingDependency = Modelio.getInstance().getModelingSession()
-                    .getModel().createUsage();
+            objingDependency = ReverseProperties.getInstance().getMModelServices().getModelFactory().createUsage();
         } else {
-            objingDependency = Modelio.getInstance().getModelingSession()
-                    .getModel().createDependency();
+            objingDependency = ReverseProperties.getInstance().getMModelServices().getModelFactory().createDependency();
         }
         
         if (objingDependency != null){
@@ -344,12 +341,35 @@ public class EDependency extends ENamedElement {
     private void setFlow(ModelElement objingElt) {
         if (ObjingEAnnotation.isFlow(this.ecoreElement)){
         
-            Stereotype ster = Modelio.getInstance().getModelingSession().getMetamodelExtensions().getStereotype("flow", objingElt.getMClass());
+            try {
+                Stereotype ster = ReverseProperties.getInstance().getMModelServices().getStereotype("flow", objingElt.getMClass());
         
-            if (!objingElt.isStereotyped("ModelerModule", "flow"))
-                objingElt.getExtension().add(ster);
+                if (!objingElt.isStereotyped("ModelerModule", "flow"))
+                    objingElt.getExtension().add(ster);
+            } catch (ElementNotUniqueException e) {
+                Xmi.LOG.warning(e);
+            }
         
         }
+    }
+
+    @objid ("986f7593-6d83-450b-82d4-05e0167f20af")
+    private Substitution createSubstitution(ModelElement objingClient, ModelElement objingSupplier) {
+        if ((objingClient instanceof Classifier) && (objingSupplier instanceof Classifier)) {
+        
+            Substitution manif = ReverseProperties.getInstance().getMModelServices().getModelFactory().createSubstitution();
+        
+            String name = this.ecoreElement.getName();
+            if (EcoreModelNavigation.isNotNull(name))
+                manif.setName(name);
+            else 
+                manif.setName("");
+        
+            manif.setSubstitutingClassifier((Classifier) objingClient);
+            manif.setContract((Classifier) objingSupplier);
+            return manif;
+        }
+        return null;
     }
 
 }

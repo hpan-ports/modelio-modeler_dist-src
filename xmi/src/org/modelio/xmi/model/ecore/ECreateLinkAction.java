@@ -21,44 +21,37 @@
 
 package org.modelio.xmi.model.ecore;
 
-import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.modelio.api.modelio.Modelio;
+import org.modelio.gproject.model.IMModelServices;
+import org.modelio.metamodel.factory.ElementNotUniqueException;
 import org.modelio.metamodel.uml.behavior.activityModel.OpaqueAction;
 import org.modelio.metamodel.uml.infrastructure.Element;
-import org.modelio.metamodel.uml.infrastructure.Stereotype;
+import org.modelio.xmi.plugin.Xmi;
 import org.modelio.xmi.util.IModelerModuleStereotypes;
+import org.modelio.xmi.util.ReverseProperties;
 
 @objid ("21c137cc-3eda-4255-8637-3227e9524b74")
-public class ECreateLinkAction extends EActivityNode implements IEElement {
+public class ECreateLinkAction extends EActivityNode {
     @objid ("50d8f1fa-b7b3-43e2-ae22-784176be84a8")
+    @Override
     public Element createObjingElt() {
-        OpaqueAction element = Modelio.getInstance().getModelingSession().getModel()
+        IMModelServices mmServices = ReverseProperties.getInstance().getMModelServices();
+        
+        OpaqueAction element = mmServices.getModelFactory()
                 .createOpaqueAction();
         
-        Stereotype stereo = Modelio.getInstance().getModelingSession().getMetamodelExtensions()
-                .getStereotype( IModelerModuleStereotypes.UML2CREATELINKACTION, element.getMClass());
-        element.getExtension().add(stereo);
+        try {
+            element.getExtension().add(mmServices
+                    .getStereotype( IModelerModuleStereotypes.UML2CREATELINKACTION, element.getMClass()));
+        } catch (ElementNotUniqueException e) {
+           Xmi.LOG.warning(e);
+        }
         return element;
     }
 
     @objid ("b795bd28-dd1c-489a-aaf8-77f989f63624")
     public ECreateLinkAction(org.eclipse.uml2.uml.CreateLinkAction element) {
         super(element);
-    }
-
-    @objid ("430fcfcf-4c08-46ac-a387-3cd25bb65187")
-    public void attach(Element objingElt) {
-        super.attach(objingElt);
-    }
-
-    @objid ("35fc25ae-200b-4726-8319-78f63a3440af")
-    public void attach(List<Object> objingElts) {
-    }
-
-    @objid ("f69bc752-1575-4922-b81e-828e11099e6d")
-    public void setProperties(Element objingElt) {
-        super.setProperties(objingElt);
     }
 
 }

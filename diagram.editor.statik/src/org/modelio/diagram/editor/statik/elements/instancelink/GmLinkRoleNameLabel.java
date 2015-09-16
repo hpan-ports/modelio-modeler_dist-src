@@ -129,7 +129,7 @@ public class GmLinkRoleNameLabel extends GmDefaultModelElementHeader {
         return MAJOR_VERSION;
     }
 
-    @objid ("06580b40-8c6f-4174-898b-d93405524e1b")
+    @objid ("0f9733cc-f1be-4818-8edb-a27126773031")
     @Override
     public ModelElement getRepresentedElement() {
         return null;

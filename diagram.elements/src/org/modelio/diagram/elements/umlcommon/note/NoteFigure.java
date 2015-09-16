@@ -171,19 +171,16 @@ public class NoteFigure extends GradientFigure {
         if (this.isOpaque()) {
             final Path path = new Path(Display.getCurrent());
             final Rectangle r1 = new Rectangle(aBounds.x, aBounds.y, aBounds.width - FOLDSIZE, aBounds.height);
-            final Rectangle r2 = new Rectangle(aBounds.x + aBounds.width - FOLDSIZE,
-                                               aBounds.y + FOLDSIZE,
-                                               FOLDSIZE,
-                                               aBounds.height);
+            final Rectangle r2 = new Rectangle(aBounds.x + aBounds.width - FOLDSIZE, aBounds.y + FOLDSIZE, FOLDSIZE, aBounds.height - FOLDSIZE);
             path.addRectangle(r1.x, r1.y, r1.width, r1.height);
             path.addRectangle(r2.x, r2.y, r2.width, r2.height);
             graphics.setClip(path);
             // now let the BoxFigure draw the gradient
             super.paintFigure(graphics);
-        
-            path.dispose();
             graphics.setClip(originalClip);
+            path.dispose();
         
+            
             // paint the fold background
             final PointList polygon = NoteFigure.foldTemplate.getCopy();
             polygon.translate(aBounds.x + aBounds.width - FOLDSIZE, aBounds.y);
@@ -192,7 +189,6 @@ public class NoteFigure extends GradientFigure {
         } // end is opaque
         
         // Draw outline
-        
         if (this.penOptions.lineWidth % 2 == 1) {
             aBounds.width--;
             aBounds.height--;
@@ -215,7 +211,7 @@ public class NoteFigure extends GradientFigure {
         
         graphics.setLineStyle(SWT.LINE_DOT);
         final Rectangle r = this.scrollPane.getBounds();
-        graphics.drawLine(r.x - 8, r.y, r.x + r.width - 8, r.y);
+        graphics.drawLine(r.x + 4, r.y, r.x + r.width - 4, r.y);
     }
 
     /**

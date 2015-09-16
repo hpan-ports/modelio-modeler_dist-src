@@ -25,6 +25,7 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.vcore.session.api.IAccessManager;
 import org.modelio.vcore.smkernel.IRStatus;
 import org.modelio.vcore.smkernel.SmObjectImpl;
+import org.modelio.vcore.smkernel.SmStatus;
 import org.modelio.vcore.smkernel.StatusState;
 
 /**
@@ -148,6 +149,14 @@ public class BasicAccessManager implements IAccessManager {
             this.on &= ~bitdef;
             this.off &= ~bitdef;
             this.undef &= ~bitdef;
+        }
+
+        @objid ("13805952-35fe-4d1d-8708-bad40173ff6c")
+        @Override
+        public String toString() {
+            return "StatusConf( on="+SmStatus.flagsToString(this.on)
+                    +",\n   off="+SmStatus.flagsToString(this.off)
+                    +",\n   undefine="+SmStatus.flagsToString(this.undef)+")";
         }
 
     }

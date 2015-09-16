@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.uml.infrastructure;
 
@@ -43,43 +43,43 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("008a098a-c4be-1fd8-97fe-001ec947cd2a")
 public class NoteImpl extends ModelElementImpl implements Note {
-    @objid ("d0b70888-a783-445d-b947-fe3ad5a98bf4")
+    @objid ("194d4e76-b694-44f8-ac87-8745c7d1a06b")
     @Override
     public String getContent() {
         return (String) getAttVal(NoteData.Metadata.ContentAtt());
     }
 
-    @objid ("8daf88ff-ab5b-47d9-8891-f81bc0dc2983")
+    @objid ("a03821ee-6297-4a08-a224-1050f7b7c246")
     @Override
     public void setContent(String value) {
         setAttVal(NoteData.Metadata.ContentAtt(), value);
     }
 
-    @objid ("fa79c2a8-d708-4647-97fd-82ca1db56280")
+    @objid ("c8ef6643-288f-4f4c-ba6b-bfbbe0025f6a")
     @Override
     public NoteType getModel() {
         return (NoteType) getDepVal(NoteData.Metadata.ModelDep());
     }
 
-    @objid ("bf349599-7215-44f3-a419-b1ba16710213")
+    @objid ("b39dbbad-eba6-46b9-94f5-74be4bce4e3f")
     @Override
     public void setModel(NoteType value) {
         appendDepVal(NoteData.Metadata.ModelDep(), (SmObjectImpl)value);
     }
 
-    @objid ("51706bf4-9ec1-4a4d-aef6-e8901514b02e")
+    @objid ("aba61077-f00f-4262-babb-ba1747fe3a61")
     @Override
     public ModelElement getSubject() {
         return (ModelElement) getDepVal(NoteData.Metadata.SubjectDep());
     }
 
-    @objid ("da09e1da-16e6-4af2-b483-faf9cebb186e")
+    @objid ("ee4eac90-e4df-429d-aa60-b62221bbb9c9")
     @Override
     public void setSubject(ModelElement value) {
         appendDepVal(NoteData.Metadata.SubjectDep(), (SmObjectImpl)value);
     }
 
-    @objid ("65dc32fa-d0c4-4325-8c35-ce84e64af2df")
+    @objid ("8d575772-9b81-4fa5-9a6d-4a401864c1c3")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
@@ -89,7 +89,7 @@ public class NoteImpl extends ModelElementImpl implements Note {
         return super.getCompositionOwner();
     }
 
-    @objid ("667ca6ac-8588-41f0-926c-762b29476e77")
+    @objid ("093d2ba0-f800-4aff-bbca-bf63970931fd")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
@@ -99,7 +99,7 @@ public class NoteImpl extends ModelElementImpl implements Note {
         return super.getCompositionRelation();
     }
 
-    @objid ("8fa11686-6804-49dc-8b0d-c2f613c02c42")
+    @objid ("c8381568-48c4-4859-9660-f85011549aca")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitNote(this);

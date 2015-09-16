@@ -1,0 +1,43 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<title>Modeler audit rules R1490</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link href="style.css" media="screen" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<a name="R1490"></a>
+<h1 >R1490<a href="#R1490" class="wiki-anchor">&para;</a></h1>
+
+<a name="Summary"></a>
+<h4 >Summary<a href="#Summary" class="wiki-anchor">&para;</a></h4>
+
+<p>In an <em>Instance</em>, the type of an instanciated <em>Attribute</em> must be part of the
+instanciated class or one of its parent classes.</p>
+
+<a name="Details"></a>
+<h4 >Details<a href="#Details" class="wiki-anchor">&para;</a></h4>
+
+<p>The related <em>Attribute</em> of an <em>AttributeLink</em> must be owned by:</p>
+
+<ul>
+<li>the <em>Classifier</em> typing the <em>Instance</em></li>
+<li>one of the parent Classifiers of the <em>Classifier</em> typing the <em>Instance</em></li>
+</ul>
+
+
+<a name="Tips"></a>
+<h4 >Tips<a href="#Tips" class="wiki-anchor">&para;</a></h4>
+
+<p>If you have a slot related to an attribute that is not accessible from the
+instance’s classifier, you should either:</p>
+
+<ul>
+<li>Change the related attribute to one of the classifier’s attributes</li>
+<li>Make the attribute accessible to the classifier, by adding an
+inheritance link for example</li>
+</ul>
+
+
+<div id="footer"><iframe frameborder="0" scrolling="no" height="25" width="100%" src="_footer.html"></iframe></div> </body>
+</html>

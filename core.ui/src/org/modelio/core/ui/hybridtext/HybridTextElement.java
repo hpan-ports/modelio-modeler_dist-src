@@ -368,7 +368,9 @@ public class HybridTextElement {
             if (!this.text.isDisposed()) {
                 this.text.setText(textString);
             }
-        
+        } else if (value == null && ! isAcceptNullValue()) {
+            validate(false);
+            return;
         }
         validate(true);
     }

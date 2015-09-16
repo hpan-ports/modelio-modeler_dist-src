@@ -29,8 +29,7 @@ import org.eclipse.uml2.uml.Property;
 import org.eclipse.uml2.uml.internal.impl.EnumerationLiteralImpl;
 import org.eclipse.uml2.uml.internal.impl.ExtensionImpl;
 import org.eclipse.uml2.uml.internal.impl.PrimitiveTypeImpl;
-import org.modelio.api.model.IUmlModel;
-import org.modelio.api.modelio.Modelio;
+import org.modelio.metamodel.factory.IModelFactory;
 import org.modelio.metamodel.uml.infrastructure.Dependency;
 import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
@@ -51,6 +50,7 @@ public class EElement implements IEElement {
     private org.eclipse.uml2.uml.Element ecoreElt = null;
 
     @objid ("dd9b8f90-a822-4583-995e-31fd15b816a9")
+    @Override
     public org.eclipse.uml2.uml.Element getEcoreElement() {
         return this.ecoreElt;
     }
@@ -78,7 +78,6 @@ public class EElement implements IEElement {
                             for (Object stereo : this.ecoreElt.getAppliedStereotypes()){
                                 setStereotype(modelElement, (org.eclipse.uml2.uml.Stereotype) stereo);
                             }
-        //                                setStereotypesAnnotation(modelElement);
                     }
                 }
             }else if (this.ecoreElt instanceof org.eclipse.uml2.uml.Manifestation){
@@ -153,7 +152,8 @@ public class EElement implements IEElement {
     private void setProperties(ModelElement objModelElement, org.eclipse.uml2.uml.Stereotype stereotype, Property property, List<Property> listStereotypeProperties) {
         String propertyName = property.getName();
         ProfileUtils.visitProperty(property);
-        IUmlModel model = Modelio.getInstance().getModelingSession().getModel();
+        
+        IModelFactory model = ReverseProperties.getInstance().getMModelServices().getModelFactory();
         org.eclipse.uml2.uml.Type ecoreType = property.getType();
         TagType tagType = null;
         String taggedValueId = ObjingEAnnotation.getTaggedValue(property);
@@ -232,10 +232,10 @@ public class EElement implements IEElement {
 
     @objid ("3e3fd273-c599-4840-8309-a71216bf2f77")
     private void setStringProperty(ModelElement objModelElement, org.eclipse.uml2.uml.Stereotype stereotype, TagType tagType, String taggedValueId, final List<Property> listStereotypeProperties) {
-        IUmlModel model = Modelio.getInstance().getModelingSession().getModel();
+        IModelFactory model = ReverseProperties.getInstance().getMModelServices().getModelFactory();
         
         TaggedValue taggedValue = createTaggedValue(tagType, objModelElement);
-        ArrayList<Object> toBeRemoved = new ArrayList<Object>();
+        ArrayList<Object> toBeRemoved = new ArrayList<>();
         
         //Qualifier
         
@@ -303,7 +303,7 @@ public class EElement implements IEElement {
 //            List<Stereotype> objStereotypes = new ArrayList<Stereotype>();
 //
 //
-//            for (IModule currentModule : Modelio.getInstance().getModelingSession().getModel().getProject().getInstalled()){
+//            for (IModule currentModule : ReverseProperties.getInstance().getMModelServices().getModelFactory().getProject().getInstalled()){
 //                if (currentModule.getName().equals("LocalModule")){
 //                    for(org.eclipse.uml2.uml.Profile currentProfile : currentModule.getOwnedProfile()){
 //                        if (currentProfile.getName().equals(profile)){
@@ -320,12 +320,12 @@ public class EElement implements IEElement {
 //
 //            if (objStereotypes.size() != 0){
 //
-//                List<Stereotype> objStereotypesClass = Modelio.getInstance().getModelingSession().getMetamodelExtensions().getStereotypes(modelElement.getClass());
+//                List<Stereotype> objStereotypesClass = ReverseProperties.getInstance().getMModelServices().getStereotypes(modelElement.getClass());
 //
 //                for(Stereotype objStereotype : objStereotypes){
 //
 //                    if (objStereotypesClass.contains(objStereotype)){
-//                        IUmlModel model = Modelio.getInstance().getModelingSession().getModel();
+//                        IUmlModel model = ReverseProperties.getInstance().getMModelServices().getModelFactory();
 //                        modelElement.getExtension().add(objStereotype);
 //
 //                        for (TagType tagType : objStereotype.getDefinedTagType()){
@@ -349,7 +349,7 @@ public class EElement implements IEElement {
 //    }
     @objid ("93c356ea-0c27-42ee-a222-63582ffc2f8a")
     private TaggedValue createTaggedValue(TagType tagType, ModelElement modelElt) {
-        TaggedValue taggedValue = Modelio.getInstance().getModelingSession().getModel().createTaggedValue();
+        TaggedValue taggedValue = ReverseProperties.getInstance().getMModelServices().getModelFactory().createTaggedValue();
         taggedValue.setDefinition(tagType);
         taggedValue.setAnnoted(modelElt);
         return taggedValue;

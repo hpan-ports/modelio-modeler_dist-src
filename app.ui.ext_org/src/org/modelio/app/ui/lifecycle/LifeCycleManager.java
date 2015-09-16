@@ -34,6 +34,7 @@ import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.services.events.IEventBroker;
 import org.eclipse.e4.core.services.statusreporter.StatusReporter;
+import org.eclipse.e4.ui.internal.workbench.E4Workbench;
 import org.eclipse.e4.ui.model.application.MApplication;
 import org.eclipse.e4.ui.workbench.UIEvents;
 import org.eclipse.e4.ui.workbench.lifecycle.PostContextCreate;
@@ -41,8 +42,6 @@ import org.eclipse.e4.ui.workbench.lifecycle.PreSave;
 import org.eclipse.e4.ui.workbench.lifecycle.ProcessAdditions;
 import org.eclipse.e4.ui.workbench.lifecycle.ProcessRemovals;
 import org.eclipse.equinox.app.IApplicationContext;
-import org.eclipse.help.IToc;
-import org.eclipse.help.ITopic;
 import org.eclipse.osgi.service.datalocation.Location;
 import org.eclipse.ui.help.IWorkbenchHelpSystem;
 import org.eclipse.ui.progress.IProgressService;
@@ -78,6 +77,11 @@ import org.osgi.service.event.EventHandler;
 import org.osgi.service.log.LogService;
 import org.osgi.service.prefs.BackingStoreException;
 
+/**
+ * E4 life cycle manager.
+ * <p>
+ * Drives Modelio start sequence.
+ */
 @objid ("474f0435-3e51-43c4-b021-4a3fae2bfab1")
 public class LifeCycleManager {
     @objid ("c767d44e-2514-4993-947d-a221ee6abb67")
@@ -279,6 +283,14 @@ public class LifeCycleManager {
                 @SuppressWarnings("synthetic-access")
                 @Override
                 public void handleEvent(Event arg0) {
+                    // Unlock the workspace
+                    Location instanceLocation = (Location) context.get(E4Workbench.INSTANCE_LOCATION);
+                    if (instanceLocation != null) {
+                        instanceLocation.release();
+                    }
+        
+                    // Run Batch
+                    // MANTAYORY: keep this code sequence the last one of the method
                     eventBroker.post("BATCH", LifeCycleManager.this.cmdLineData);
                 }
             };

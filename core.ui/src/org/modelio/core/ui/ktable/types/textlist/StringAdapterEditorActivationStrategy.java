@@ -33,8 +33,8 @@ class StringAdapterEditorActivationStrategy extends ColumnViewerEditorActivation
     @objid ("8dca8c69-c068-11e1-8c0a-002564c97630")
      int time = 0;
 
-    @objid ("8dca8c6a-c068-11e1-8c0a-002564c97630")
-     StringAdapter selectedElement = null;
+    @objid ("2a31f4a5-4744-4b7f-adbd-2f160a8c54af")
+     String selectedElement = null;
 
     @objid ("8dca8c6b-c068-11e1-8c0a-002564c97630")
     public StringAdapterEditorActivationStrategy(ColumnViewer viewer) {
@@ -51,14 +51,14 @@ class StringAdapterEditorActivationStrategy extends ColumnViewerEditorActivation
         } else if (event.eventType == ColumnViewerEditorActivationEvent.MOUSE_CLICK_SELECTION) {
             // Retrieve selected element:
             //---------------------------
-            StringAdapter sourceElement = null;
+            String sourceElement = null;
         
             Object eventSource = event.getSource();
             if (eventSource instanceof ViewerCell) {
                 ViewerCell sourceCell = (ViewerCell) eventSource;
                 Object sourceObject = sourceCell.getElement();
-                if (sourceObject instanceof StringAdapter) {
-                    sourceElement = (StringAdapter)sourceObject;
+                if (sourceObject instanceof String) {
+                    sourceElement = (String)sourceObject;
                 }
             }
         

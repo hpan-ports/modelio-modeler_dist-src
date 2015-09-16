@@ -1,0 +1,57 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<title>Modeler audit rules R1100</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link href="style.css" media="screen" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<a name="R1100"></a>
+<h1 >R1100<a href="#R1100" class="wiki-anchor">&para;</a></h1>
+
+<a name="Summary"></a>
+<h4 >Summary<a href="#Summary" class="wiki-anchor">&para;</a></h4>
+
+<p>If an <em>ActivityPartition</em> represents a <em>Part</em> and is contained in a super
+<em>ActivityPartition</em>, then the super <em>ActivityPartition</em> must represent a
+<em>Classifier</em> containing the <em>Part</em> or a <em>Part</em> that instanciates that
+<em>Classifier</em>.</p>
+
+<a name="Details"></a>
+<h4 >Details<a href="#Details" class="wiki-anchor">&para;</a></h4>
+
+<p>If an <em>ActivityPartition</em> represents a <em>Part</em> and is contained by another
+<em>ActivityPartition</em>, then the <em>Part</em> must be of a <em>Classifier</em> represented by
+the containing <em>ActivityPartition</em>, or of a <em>Classifier</em> that is the type of a
+<em>Part</em> represented by the containing <em>ActivityPartition</em>.</p>
+
+<p><em>Example</em>:</p>
+
+<p><img src="Modeler_audit_rules_R1100_modeler_fig_1100.gif" alt="" /></p>
+
+<ul>
+<li><p><font style='color:green'>Both the “Development” (representing “Developers”) and “Support”
+(representing “Technicians”) <em>ActivityPartitions</em> are valid because their
+super <em>ActivityPartition</em> “IT Service” represents a <em>Part</em> that is typed by
+the “ITService” <em>Classifier</em>, which contains “Developers” and “Technicians”.</font></p></li>
+<li><p><font style='color:red'>The “Recruitment” (representing “Recruiters”) and “Management”
+(representing “Managers”) <em>ActivityPartitions</em> are invalid because their super
+<em>ActivityPartition</em> represents the <em>Classifier</em> “ManagementService”, which
+does not contain the “Recruiters” and “Managers” <em>Parts</em>.</font></p></li>
+</ul>
+
+
+<a name="Tips"></a>
+<h4 >Tips<a href="#Tips" class="wiki-anchor">&para;</a></h4>
+
+<p>Getting an R1100 error indicates an inconsistency between the organization of
+the <em>ActivityPartitions</em> and the structure of the <em>Classifiers </em>and _Parts</p>
+
+<p><em>they represent. The solution usually implies the reorganization of the
+</em>ActivityPartitions<em> to respect the design expressed by the structure of the
+represented </em>Classifiers<em> and </em>Parts<em>, or the modification of the design of
+the represented </em>Classifiers<em> and </em>Parts<em> so they respect the responsibility
+scheme expressed by the organization of the </em>ActivityPartitions_.</p>
+
+<div id="footer"><iframe frameborder="0" scrolling="no" height="25" width="100%" src="_footer.html"></iframe></div> </body>
+</html>

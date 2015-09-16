@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9020              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.uml.infrastructure;
 
@@ -64,69 +64,6 @@ public class ConstraintImpl extends ModelElementImpl implements Constraint {
           return new SmDepVal(ConstraintData.Metadata.ConstrainedElementDep(), list.get(0));
     }
 
-    @objid ("fdfb8751-5bef-45ce-b02c-aee54da4675e")
-    @Override
-    public String getBaseClass() {
-        return (String) getAttVal(ConstraintData.Metadata.BaseClassAtt());
-    }
-
-    @objid ("6edb7b59-11fd-4258-aca6-71850c4ed277")
-    @Override
-    public void setBaseClass(String value) {
-        setAttVal(ConstraintData.Metadata.BaseClassAtt(), value);
-    }
-
-    @objid ("4b67ac03-5cf0-493a-80eb-07a420f34ad0")
-    @Override
-    public String getBody() {
-        return (String) getAttVal(ConstraintData.Metadata.BodyAtt());
-    }
-
-    @objid ("d5546a92-9c34-4528-8b6e-8d7993fd8ec3")
-    @Override
-    public void setBody(String value) {
-        setAttVal(ConstraintData.Metadata.BodyAtt(), value);
-    }
-
-    @objid ("dcfa99ca-f765-44be-99c9-67135050b238")
-    @Override
-    public String getLanguage() {
-        return (String) getAttVal(ConstraintData.Metadata.LanguageAtt());
-    }
-
-    @objid ("9b22347c-d6ca-4ff5-9667-3fbd650b6e68")
-    @Override
-    public void setLanguage(String value) {
-        setAttVal(ConstraintData.Metadata.LanguageAtt(), value);
-    }
-
-    @objid ("1acf5cf9-2654-401b-89e7-4fe9cb76fbf4")
-    @Override
-    public EList<ModelElement> getConstrainedElement() {
-        return new SmList<>(this, ConstraintData.Metadata.ConstrainedElementDep());
-    }
-
-    @objid ("d6639080-ef69-459e-b85c-c9890d9b49b8")
-    @Override
-    public <T extends ModelElement> List<T> getConstrainedElement(java.lang.Class<T> filterClass) {
-        final List<T> results = new ArrayList<>();
-        final MClass mClass = SmClass.getClass(filterClass);
-        for (final ModelElement element : getConstrainedElement()) {
-          if (element.getMClass().hasBase(mClass)) {
-            results.add(filterClass.cast(element));
-          }
-        }
-        return Collections.unmodifiableList(results);
-    }
-
-    @objid ("9ddb35c6-2c4a-49af-8b9e-363142bba5b4")
-    public Object accept(MVisitor v) {
-        if (v instanceof IModelVisitor)
-          return ((IModelVisitor)v).visitConstraint(this);
-        else
-          return null;
-    }
-
     @objid ("dc0243f1-0d07-41a0-a075-8956cb67cd32")
     @Override
     public void afterEraseDepVal(SmDependency dep, SmObjectImpl value) {
@@ -144,6 +81,69 @@ public class ConstraintImpl extends ModelElementImpl implements Constraint {
         }
         
         super.afterEraseDepVal(dep, value);
+    }
+
+    @objid ("3794a28b-179c-4904-88da-7c1c4708b176")
+    @Override
+    public String getBaseClass() {
+        return (String) getAttVal(ConstraintData.Metadata.BaseClassAtt());
+    }
+
+    @objid ("cfd0b6c3-6b8c-43ce-bdf1-80dd249e36bb")
+    @Override
+    public void setBaseClass(String value) {
+        setAttVal(ConstraintData.Metadata.BaseClassAtt(), value);
+    }
+
+    @objid ("7db92708-c6cb-4beb-9f1c-7b3de02d9580")
+    @Override
+    public String getBody() {
+        return (String) getAttVal(ConstraintData.Metadata.BodyAtt());
+    }
+
+    @objid ("f92558d5-7885-439b-8e52-120a3e8c71b7")
+    @Override
+    public void setBody(String value) {
+        setAttVal(ConstraintData.Metadata.BodyAtt(), value);
+    }
+
+    @objid ("6f122f54-a3d1-4edb-bf53-fcd54da45634")
+    @Override
+    public String getLanguage() {
+        return (String) getAttVal(ConstraintData.Metadata.LanguageAtt());
+    }
+
+    @objid ("d49477b3-95f3-451a-a144-4f0189641bf0")
+    @Override
+    public void setLanguage(String value) {
+        setAttVal(ConstraintData.Metadata.LanguageAtt(), value);
+    }
+
+    @objid ("6e96e077-3e78-4d18-a77e-91c701c439a3")
+    @Override
+    public EList<ModelElement> getConstrainedElement() {
+        return new SmList<>(this, ConstraintData.Metadata.ConstrainedElementDep());
+    }
+
+    @objid ("c1955e63-ba5c-46be-8891-3cc6cfed9e6c")
+    @Override
+    public <T extends ModelElement> List<T> getConstrainedElement(java.lang.Class<T> filterClass) {
+        final List<T> results = new ArrayList<>();
+        final MClass mClass = SmClass.getClass(filterClass);
+        for (final ModelElement element : getConstrainedElement()) {
+          if (element.getMClass().hasBase(mClass)) {
+            results.add(filterClass.cast(element));
+          }
+        }
+        return Collections.unmodifiableList(results);
+    }
+
+    @objid ("851f75f7-57c4-4777-b761-a30c6781f3a8")
+    public Object accept(MVisitor v) {
+        if (v instanceof IModelVisitor)
+          return ((IModelVisitor)v).visitConstraint(this);
+        else
+          return null;
     }
 
 }

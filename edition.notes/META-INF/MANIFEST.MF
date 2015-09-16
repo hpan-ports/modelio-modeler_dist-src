@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Notes
 Bundle-SymbolicName: org.modelio.edition.notes; singleton:=true
-Bundle-Version: 1.0.0.qualifier
+Bundle-Version: 3.2.1.qualifier
 Bundle-Localization: plugin
 Bundle-Activator: org.modelio.edition.notes.plugin.EditionNotes
 Bundle-Vendor: modelio.org
@@ -28,7 +28,8 @@ Require-Bundle: org.eclipse.jface,
  org.eclipse.e4.ui.model.workbench,
  org.eclipse.e4.ui.workbench.swt,
  org.modelio.api,
- org.modelio.editors.richnote
+ org.modelio.editors.richnote,
+ org.modelio.edition.html
 Bundle-ClassPath: res/,
  .
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7

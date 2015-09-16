@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Exml
 Bundle-SymbolicName: org.modelio.core.store.exml
-Bundle-Version: 1.0.0.qualifier
+Bundle-Version: 3.2.1.qualifier
 Require-Bundle: org.modelio.core.kernel,
  org.modelio.core.session,
  org.modelio.core.utils,
@@ -14,3 +14,5 @@ Export-Package: org.modelio.vstore.exml.common;x-friends:="com.modeliosoft.model
  org.modelio.vstore.exml.resource,
  org.modelio.vstore.exml.versioned
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Bundle-ClassPath: res/,
+ .

@@ -24,11 +24,12 @@ package org.modelio.vcore.session.impl.transactions.events;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.modelio.vcore.Log;
+import org.modelio.vbasic.log.Log;
 import org.modelio.vcore.session.api.model.change.IModelChangeEvent;
 import org.modelio.vcore.session.api.model.change.IModelChangeHandler;
 import org.modelio.vcore.session.api.model.change.IModelChangeListener;
 import org.modelio.vcore.session.api.model.change.IModelChangeSupport;
+import org.modelio.vcore.session.api.model.change.IPersistentViewModelChangeListener;
 import org.modelio.vcore.session.api.model.change.IStatusChangeEvent;
 import org.modelio.vcore.session.api.model.change.IStatusChangeListener;
 
@@ -48,6 +49,9 @@ public class ModelChangeSupport implements IModelChangeSupport {
     @objid ("7d7cdcf0-1c43-11e2-8eb9-001ec947ccaf")
     private final List<IStatusChangeListener> statusListeners = new CopyOnWriteArrayList<>();
 
+    @objid ("2aaf3ef1-4c8e-46e6-822c-c9384cce2efb")
+    private final List<IPersistentViewModelChangeListener> persistentViewChangeHandlers = new CopyOnWriteArrayList<>();
+
     @objid ("006ece0e-0d1e-1f20-85a5-001ec947cd2a")
     @Override
     public void addModelChangeHandler(final IModelChangeHandler aHandler) {
@@ -58,6 +62,12 @@ public class ModelChangeSupport implements IModelChangeSupport {
     @Override
     public void addModelChangeListener(final IModelChangeListener aListener) {
         this.modelChangeListeners.add(aListener);
+    }
+
+    @objid ("e53318d4-778f-49bf-8194-d39a80a0a37a")
+    @Override
+    public void addPersistentViewListener(IPersistentViewModelChangeListener aHandler) {
+        this.persistentViewChangeHandlers.add(aHandler);
     }
 
     @objid ("7d7cdcf4-1c43-11e2-8eb9-001ec947ccaf")
@@ -76,6 +86,12 @@ public class ModelChangeSupport implements IModelChangeSupport {
     @Override
     public void removeModelChangeListener(final IModelChangeListener aListener) {
         this.modelChangeListeners.remove(aListener);
+    }
+
+    @objid ("48a8549d-9c47-4548-a35a-ac681c0bf011")
+    @Override
+    public void removePersistentViewListener(IPersistentViewModelChangeListener aHandler) {
+        this.persistentViewChangeHandlers.remove(aHandler);
     }
 
     @objid ("7d7cdcf8-1c43-11e2-8eb9-001ec947ccaf")
@@ -121,14 +137,22 @@ public class ModelChangeSupport implements IModelChangeSupport {
     }
 
     /**
-     * Fires model change handlers. Handler can modify the model
-     * @param event a model change event
+     * Get the model change handlers.
+     * <p>
+     * Do not modify the returned list!
+     * @return the model change handlers.
      */
-    @objid ("7d7cdd06-1c43-11e2-8eb9-001ec947ccaf")
-    public void fireModelChangeHandlers(final IModelChangeEvent event) {
-        for (IModelChangeHandler it : this.modelChangeHandlers) {
-            it.handleModelChange(event);
-        }
+    @objid ("056c9b92-ff9d-4e4a-8731-53d3a9ea8bfa")
+    public List<IModelChangeHandler> getModelChangeHandlers() {
+        return this.modelChangeHandlers;
+    }
+
+    /**
+     * @return persistent view change listeners.
+     */
+    @objid ("7fd8a57c-95df-46a1-aba8-cc957c7ab33d")
+    public List<IPersistentViewModelChangeListener> getPersistentViewChangeListeners() {
+        return this.persistentViewChangeHandlers;
     }
 
 }

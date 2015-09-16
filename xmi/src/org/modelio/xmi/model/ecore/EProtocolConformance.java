@@ -21,40 +21,36 @@
 
 package org.modelio.xmi.model.ecore;
 
-import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.modelio.api.modelio.Modelio;
+import org.modelio.gproject.model.IMModelServices;
+import org.modelio.metamodel.factory.ElementNotUniqueException;
 import org.modelio.metamodel.uml.infrastructure.Dependency;
 import org.modelio.metamodel.uml.infrastructure.Element;
+import org.modelio.xmi.plugin.Xmi;
 import org.modelio.xmi.util.IModelerModuleStereotypes;
+import org.modelio.xmi.util.ReverseProperties;
 
 @objid ("5b3b64cc-f9ad-4680-9bd2-4d4f9b234224")
-public class EProtocolConformance extends EElement implements IEElement {
+public class EProtocolConformance extends EElement {
     @objid ("e5946d3a-8772-4e2f-b7fb-a3a2451793bc")
+    @Override
     public Element createObjingElt() {
-        Dependency result = Modelio.getInstance().getModelingSession().getModel().createDependency();
+        IMModelServices mmServices = ReverseProperties.getInstance().getMModelServices();
         
-        result.getExtension().add(Modelio.getInstance().getModelingSession().getMetamodelExtensions().getStereotype(
-                IModelerModuleStereotypes.UML2PROTOCOLCONFORMANCE, result.getMClass()));
+        Dependency result = mmServices.getModelFactory().createDependency();
+        
+        try {
+            result.getExtension().add(mmServices.getStereotype(
+                    IModelerModuleStereotypes.UML2PROTOCOLCONFORMANCE, result.getMClass()));
+        } catch (ElementNotUniqueException e) {
+            Xmi.LOG.warning(e);
+        }
         return result;
     }
 
     @objid ("f4d78669-5c4c-4504-bf76-35c6b9399a3d")
     public EProtocolConformance(org.eclipse.uml2.uml.ProtocolConformance element) {
         super(element);
-    }
-
-    @objid ("0df6d940-46f9-45a4-bbf2-7df10ad56115")
-    public void attach(Element objingElt) {
-    }
-
-    @objid ("52d78696-4b32-44b5-8863-5832c8fb676a")
-    public void attach(List<Object> objingElts) {
-    }
-
-    @objid ("904d028a-b06f-4f74-a525-ba7e1518d52e")
-    public void setProperties(Element objingElt) {
-        super.setProperties(objingElt);
     }
 
 }

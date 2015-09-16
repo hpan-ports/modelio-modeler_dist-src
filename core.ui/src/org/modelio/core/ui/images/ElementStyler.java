@@ -35,6 +35,17 @@ import org.modelio.metamodel.uml.statik.Feature;
 import org.modelio.metamodel.uml.statik.Interface;
 import org.modelio.ui.UIColor;
 
+/**
+ * Default {@link Styler} implementation for {@link Element}.
+ * <p>
+ * Set the foreground color for the given element according to those rules:
+ * <ul>
+ * <li>Modifiable model elements font color is black #000000.</li>
+ * <li>Non-modifiable model component elements font color is dark grey #606060.</li>
+ * <li>Incomplete model elements font color is light red #FF8080.</li>
+ * <li>Ramc model elements font color is modified yellow #A0A000.</li>
+ * </ul>
+ */
 @objid ("cc2ea6eb-1fd3-4577-95b1-4f0b88b8b6fe")
 public class ElementStyler extends Styler {
     @objid ("5c34aac3-907e-4714-979d-0691521651ca")
@@ -111,15 +122,12 @@ public class ElementStyler extends Styler {
     }
 
     /**
-     * Get the background color for the given element in the given state
-     * @param elements
-     * the element
-     * @param status
-     * the element state
+     * Get the background color for the given element in the given state.
+     * @param e the element
      * @return its background color
      */
     @objid ("baa543e9-dcb0-4e48-8fd5-d50876836c1d")
-    private Color getBackground(@SuppressWarnings("unused") Element e) {
+    private Color getBackground(Element e) {
         return null;
     }
 

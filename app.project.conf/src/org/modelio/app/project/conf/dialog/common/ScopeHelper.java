@@ -24,9 +24,9 @@ package org.modelio.app.project.conf.dialog.common;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.swt.widgets.Control;
 import org.modelio.app.project.conf.plugin.AppProjectConf;
-import org.modelio.gproject.descriptor.DefinitionScope;
-import org.modelio.gproject.descriptor.GProperties.Entry;
-import org.modelio.gproject.descriptor.GProperties;
+import org.modelio.gproject.data.project.DefinitionScope;
+import org.modelio.gproject.data.project.GProperties.Entry;
+import org.modelio.gproject.data.project.GProperties;
 
 /**
  * Helper class to handle fields enablement following

@@ -55,6 +55,14 @@ public interface MObject extends Comparable<MObject> {
 
     /**
      * Get the child objects in the composition graph.
+     * <p>
+     * Navigates string composition dependencies and shared composition ones.
+     * <p>
+     * <b>Beware:</b> There are cycles in the composition graph computed using this method.
+     * <p>
+     * To avoid dealing with cycles you can use
+     * {@link org.modelio.vcore.model.CompositionGetter#getAllChildren(java.util.Collection) CompositionGetter.getAllChildren(Collection<MObject>)}
+     * @see org.modelio.vcore.model.CompositionGetter#getAllChildren(java.util.Collection)
      * @return the owned objects.
      */
     @objid ("0062e7ce-b2b0-1f4f-9c13-001ec947cd2a")

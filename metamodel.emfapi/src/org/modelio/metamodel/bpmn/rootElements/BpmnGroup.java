@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.bpmn.rootElements;
 
@@ -32,16 +32,16 @@ import org.modelio.metamodel.bpmn.rootElements.BpmnFlowElement;
 
 @objid ("007a3514-c4bf-1fd8-97fe-001ec947cd2a")
 public interface BpmnGroup extends BpmnArtifact {
-    @objid ("2e4ac15c-0f2d-4609-8a26-bccf28ae15d7")
+    @objid ("06adf2ff-1702-45ff-90eb-5a7baaa9aee9")
     String getCategory();
 
-    @objid ("4f99a5c9-ee89-43f7-ad0e-29b3aa076a56")
+    @objid ("a7021d83-5560-48ea-84cf-ac58dc52a917")
     void setCategory(String value);
 
-    @objid ("d605a63c-6975-429a-a780-afdf4393fb07")
+    @objid ("0b8b2bf1-b70b-497a-a791-d43d4c887e74")
     EList<BpmnFlowElement> getCategorized();
 
-    @objid ("145d66e7-5ba3-41e1-b61d-0ab7c152d5bf")
+    @objid ("fa53e15a-ca38-42d6-bd7f-b12017f851de")
     <T extends BpmnFlowElement> List<T> getCategorized(java.lang.Class<T> filterClass);
 
 }

@@ -400,7 +400,7 @@ public class DropEditPolicy extends XYLayoutEditPolicy {
         return centerNode;
     }
 
-    @objid ("91d509e5-fe4e-45ad-adaa-0875e7805491")
+    @objid ("a31a487a-e70a-4fa8-ae7c-afb23717ea59")
     public static Stereotype getStereotype(IModel iModel, String moduleName, String stereotypeName, MClass metaclass) {
         Pattern p = Pattern.compile((moduleName == null || moduleName.isEmpty()) ? ".*" : moduleName);
         

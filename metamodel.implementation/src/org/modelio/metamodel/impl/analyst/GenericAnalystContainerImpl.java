@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.analyst;
 
@@ -44,13 +44,13 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("2dcbabc7-1ffe-4eae-a040-8300156dfdc3")
 public class GenericAnalystContainerImpl extends AnalystContainerImpl implements GenericAnalystContainer {
-    @objid ("5c4c6ee5-97d4-4a6c-95e2-13203a52bbcf")
+    @objid ("06885266-1266-4c24-98eb-ed86cc4d6a2e")
     @Override
     public EList<GenericAnalystElement> getOwnedElement() {
         return new SmList<>(this, GenericAnalystContainerData.Metadata.OwnedElementDep());
     }
 
-    @objid ("86caac10-4f1f-4b3a-b0e3-4db00aca0bba")
+    @objid ("60634c23-d2e8-4d42-a4a9-2fb8ae200c6f")
     @Override
     public <T extends GenericAnalystElement> List<T> getOwnedElement(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -63,25 +63,25 @@ public class GenericAnalystContainerImpl extends AnalystContainerImpl implements
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("66158350-5314-4d4e-8b55-8aa26fe5fd96")
+    @objid ("e5fe87c8-172b-461d-9f20-27ded244c725")
     @Override
     public GenericAnalystContainer getOwnerContainer() {
         return (GenericAnalystContainer) getDepVal(GenericAnalystContainerData.Metadata.OwnerContainerDep());
     }
 
-    @objid ("0d6ba3af-e8eb-4a17-942d-93589d02f8e3")
+    @objid ("60dd3dee-f9db-4ae6-a00d-afe113edd482")
     @Override
     public void setOwnerContainer(GenericAnalystContainer value) {
         appendDepVal(GenericAnalystContainerData.Metadata.OwnerContainerDep(), (SmObjectImpl)value);
     }
 
-    @objid ("ae36fc5b-342a-4e71-8c81-e9c3874c0dae")
+    @objid ("0dd2994f-471b-460b-9b7a-f7d1fd0867b1")
     @Override
     public EList<GenericAnalystContainer> getOwnedContainer() {
         return new SmList<>(this, GenericAnalystContainerData.Metadata.OwnedContainerDep());
     }
 
-    @objid ("79e1b988-bf8f-4aeb-9cd4-fbe3e02c1cfa")
+    @objid ("76ccb818-9242-420b-aac9-b0af6a83d5a3")
     @Override
     public <T extends GenericAnalystContainer> List<T> getOwnedContainer(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -94,19 +94,19 @@ public class GenericAnalystContainerImpl extends AnalystContainerImpl implements
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("857469ff-a546-4f37-a696-baa1df071902")
+    @objid ("1a67e989-a356-4294-8107-ad318f572c60")
     @Override
     public AnalystProject getOwnerProject() {
         return (AnalystProject) getDepVal(GenericAnalystContainerData.Metadata.OwnerProjectDep());
     }
 
-    @objid ("b7d7fcfd-ab2c-4641-8da7-dafe9bc2f4a2")
+    @objid ("60c13ebb-7d2e-4565-a51e-17b46ea61427")
     @Override
     public void setOwnerProject(AnalystProject value) {
         appendDepVal(GenericAnalystContainerData.Metadata.OwnerProjectDep(), (SmObjectImpl)value);
     }
 
-    @objid ("591e46c5-6861-4dd4-978d-a05f519e346b")
+    @objid ("0916bb76-daf3-4b3b-87c7-56d96cd8bfa7")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
@@ -119,7 +119,7 @@ public class GenericAnalystContainerImpl extends AnalystContainerImpl implements
         return super.getCompositionOwner();
     }
 
-    @objid ("e1a6fadb-57a2-4b37-8f36-1eef3dd8ea45")
+    @objid ("71588031-dcc6-4cb2-b2fb-22d6d3cfee98")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
@@ -132,7 +132,7 @@ public class GenericAnalystContainerImpl extends AnalystContainerImpl implements
         return super.getCompositionRelation();
     }
 
-    @objid ("8773bfec-0c2c-417e-8446-1d4db518d0c4")
+    @objid ("09afe74f-800a-471b-b5e5-81c545f35523")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitGenericAnalystContainer(this);

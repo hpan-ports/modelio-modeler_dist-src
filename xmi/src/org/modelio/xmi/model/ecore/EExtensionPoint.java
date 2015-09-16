@@ -21,9 +21,7 @@
 
 package org.modelio.xmi.model.ecore;
 
-import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.modelio.api.modelio.Modelio;
 import org.modelio.metamodel.uml.behavior.usecaseModel.ExtensionPoint;
 import org.modelio.metamodel.uml.behavior.usecaseModel.UseCase;
 import org.modelio.metamodel.uml.infrastructure.Element;
@@ -32,29 +30,31 @@ import org.modelio.xmi.util.ObjingEAnnotation;
 import org.modelio.xmi.util.ReverseProperties;
 
 @objid ("7b5534d8-28e9-4f0c-8260-0f7e48a2e912")
-public class EExtensionPoint extends ENamedElement implements IEElement {
+public class EExtensionPoint extends ENamedElement {
     @objid ("f5a5b432-acff-4675-8440-d26a112549b3")
     private org.eclipse.uml2.uml.ExtensionPoint ecoreElement;
 
     @objid ("f974ceb0-c485-4d34-bc2e-784ecc70536a")
+    @Override
     public Element createObjingElt() {
-        return Modelio.getInstance()
-                .getModelingSession().getModel().createExtensionPoint();
+        return  ReverseProperties.getInstance().getMModelServices().getModelFactory()
+                .createExtensionPoint();
     }
 
     @objid ("8350fdb9-5b91-4bff-9545-2c999b37aaa9")
     public EExtensionPoint(org.eclipse.uml2.uml.ExtensionPoint element) {
         super(element);
-        ecoreElement = element;
+        this.ecoreElement = element;
     }
 
     @objid ("e2459a24-bbb4-4336-95ff-314b276d370a")
+    @Override
     public void attach(Element objingElt) {
         ReverseProperties revProp = ReverseProperties.getInstance();
                 
         ExtensionPoint currentObjingElt = (ExtensionPoint) objingElt;
                 
-        org.eclipse.uml2.uml.UseCase ecoreOwner = (org.eclipse.uml2.uml.UseCase) ecoreElement.getOwner();
+        org.eclipse.uml2.uml.UseCase ecoreOwner = (org.eclipse.uml2.uml.UseCase) this.ecoreElement.getOwner();
                 
         UseCase objingOwner = (UseCase) revProp
                 .getMappedElement(ecoreOwner);
@@ -64,11 +64,8 @@ public class EExtensionPoint extends ENamedElement implements IEElement {
         }
     }
 
-    @objid ("5d3f32fb-6358-4ca4-8124-b537ee39c105")
-    public void attach(List<Object> objingElts) {
-    }
-
     @objid ("3d7e1c9d-ec0f-477e-bf47-15ace26cb85d")
+    @Override
     public void setProperties(Element objingElt) {
         super.setProperties(objingElt);
         setVisibility((ExtensionPoint) objingElt);
@@ -76,7 +73,7 @@ public class EExtensionPoint extends ENamedElement implements IEElement {
 
     @objid ("f4f3805a-eca9-4882-876c-3427b77835c3")
     public void setVisibility(ExtensionPoint objingElt) {
-        switch (ecoreElement.getVisibility().getValue()) {
+        switch (this.ecoreElement.getVisibility().getValue()) {
         case org.eclipse.uml2.uml.VisibilityKind.PUBLIC:
             objingElt.setVisibility(VisibilityMode.PUBLIC);
             break;
@@ -93,7 +90,7 @@ public class EExtensionPoint extends ENamedElement implements IEElement {
             objingElt.setVisibility(VisibilityMode.PUBLIC);
         }
         
-        if (ObjingEAnnotation.isUndefined(ecoreElement))
+        if (ObjingEAnnotation.isUndefined(this.ecoreElement))
             objingElt
             .setVisibility(VisibilityMode.VISIBILITYUNDEFINED);
     }

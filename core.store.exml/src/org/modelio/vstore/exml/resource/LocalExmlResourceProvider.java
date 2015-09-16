@@ -298,6 +298,12 @@ public class LocalExmlResourceProvider implements IExmlResourceProvider {
         return new LocalResource(this.versionPath);
     }
 
+    @objid ("c1ed907d-0941-4154-92f4-875605f2f2c2")
+    @Override
+    public boolean isBrowsable() {
+        return true;
+    }
+
     /**
      * Local EXML resource.
      */

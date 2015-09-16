@@ -96,7 +96,9 @@ public class EditRamcDialog extends ViewRamcDialog {
             @SuppressWarnings("synthetic-access")
             @Override
             public void widgetSelected(SelectionEvent e) {
-                EditRamcDialog.this.controller.onApply();
+                if (EditRamcDialog.this.dataModel.isEditable()) {
+                    EditRamcDialog.this.controller.onApply();
+                }
                 EditRamcDialog.this.setReturnCode(IDialogConstants.FINISH_ID);
                 EditRamcDialog.this.close();
             }
@@ -108,22 +110,24 @@ public class EditRamcDialog extends ViewRamcDialog {
         });
         
         // the 'apply changes' button (bound to PROCEED_ID)
-        Button apply = this.createButton(parent, IDialogConstants.PROCEED_ID, AppRamcs.I18N.getString("EditRamcDialog.Modify"), true);
-        apply.addSelectionListener(new SelectionListener() {
-            
-            @SuppressWarnings("synthetic-access")
-            @Override
-            public void widgetSelected(SelectionEvent e) {
-                EditRamcDialog.this.controller.onApply();
-                EditRamcDialog.this.setReturnCode(IDialogConstants.PROCEED_ID);
-                //EditRamcDialog.this.close();
-            }
+        if (this.dataModel.isEditable()) {
+            Button apply = this.createButton(parent, IDialogConstants.PROCEED_ID, AppRamcs.I18N.getString("EditRamcDialog.Modify"), true);
+            apply.addSelectionListener(new SelectionListener() {
         
-            @Override
-            public void widgetDefaultSelected(SelectionEvent e) {
-                //
-            }
-        });
+                @SuppressWarnings("synthetic-access")
+                @Override
+                public void widgetSelected(SelectionEvent e) {
+                    EditRamcDialog.this.controller.onApply();
+                    EditRamcDialog.this.setReturnCode(IDialogConstants.PROCEED_ID);
+                    //EditRamcDialog.this.close();
+                }
+        
+                @Override
+                public void widgetDefaultSelected(SelectionEvent e) {
+                    //
+                }
+            });
+        }
         // The super method will add the cancel button
         super.addButtonsInButtonBar(parent);
     }
@@ -138,28 +142,30 @@ public class EditRamcDialog extends ViewRamcDialog {
 
     @objid ("f1084ce1-979c-4281-8645-284d3eeca026")
     private void reconfigureforEdition() {
-        this.controller = new Controller(this, this.dataModel);
+        if (this.dataModel.isEditable()) {
+            this.controller = new Controller(this, this.dataModel);
         
-        // Name text field
-        reconfigureNameTextField();
+            // Name text field
+            reconfigureNameTextField();
         
-        // Ramc version field
-        reconfigureVersionTextField();
+            // Ramc version field
+            reconfigureVersionTextField();
         
-        // Description
-        reconfigureDescriptionTextField();
+            // Description
+            reconfigureDescriptionTextField();
         
-        // Manifestation list field
-        reconfigureManifestationsList();
+            // Manifestation list field
+            reconfigureManifestationsList();
         
-        // Dependencies list field
-        reconfigureDependenciesList();
+            // Dependencies list field
+            reconfigureDependenciesList();
         
-        // Exported files field
-        reconfigureFilesList();
+            // Exported files field
+            reconfigureFilesList();
         
-        // Reconfigure contributors list
-        reconfigureContributorsList();
+            // Reconfigure contributors list
+            reconfigureContributorsList();
+        }
     }
 
     @objid ("7fcb2865-d1d0-4b20-8f9a-49800d770442")
@@ -245,7 +251,7 @@ public class EditRamcDialog extends ViewRamcDialog {
         DependenciesDropListener depDropListener = new DependenciesDropListener(this.dependenciesTable, this.controller,
                 session.getModel());
         this.dependenciesTable
-                .addDropSupport(DND.DROP_MOVE, new Transfer[] { ModelElementTransfer.getInstance() }, depDropListener);
+        .addDropSupport(DND.DROP_MOVE, new Transfer[] { ModelElementTransfer.getInstance() }, depDropListener);
         
         // Del key to remove a dependency
         this.dependenciesTable.getTable().addKeyListener(new KeyListener() {

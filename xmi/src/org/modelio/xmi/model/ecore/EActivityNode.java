@@ -34,47 +34,39 @@ import org.modelio.xmi.util.EcoreModelNavigation;
 import org.modelio.xmi.util.ReverseProperties;
 
 @objid ("08d3d55e-f178-4680-9292-5a9108619472")
-public class EActivityNode extends ENamedElement implements IEElement {
-    @objid ("f9ad2f6a-9b26-41a5-afb2-e6b2c2fb2041")
-    public Element createObjingElt() {
-        return null;
-    }
-
+public class EActivityNode extends ENamedElement {
     @objid ("30c50b21-ccb2-41c8-aeb3-7fcc250fe3f0")
     public EActivityNode(final org.eclipse.uml2.uml.ActivityNode element) {
         super(element);
     }
 
-    @objid ("3532db19-93b2-497e-859c-5204ffe1e975")
-    public void attach(List<Object> objingElts) {
-    }
-
     @objid ("691b1b36-1442-4301-b25c-8e28577d124e")
+    @Override
     public void attach(Element objingElt) {
         org.eclipse.uml2.uml.ActivityNode ecoreElement = (org.eclipse.uml2.uml.ActivityNode) getEcoreElement();
-                if (ecoreElement.getOwner() != null) {
-           if (EcoreModelNavigation.isInClause(ecoreElement)) {
-               attachToClause(objingElt);
-           } else if (EcoreModelNavigation.isInPartition(ecoreElement)) {
-               attachToPartition(objingElt);
-           } else if (EcoreModelNavigation
-                   .isInStructuredActivityNode(ecoreElement)) {
-               attachToStructuredActivityNode(objingElt);
-           } else if (EcoreModelNavigation.isInActivity(ecoreElement)) {
-               attachToActivity(objingElt);
-           } else {
-               ReverseProperties.getInstance().deleteElement(ecoreElement, objingElt);
-           }
-                }
+        if (ecoreElement.getOwner() != null) {
+            if (EcoreModelNavigation.isInClause(ecoreElement)) {
+                attachToClause(objingElt);
+            } else if (EcoreModelNavigation.isInPartition(ecoreElement)) {
+                attachToPartition(objingElt);
+            } else if (EcoreModelNavigation
+                    .isInStructuredActivityNode(ecoreElement)) {
+                attachToStructuredActivityNode(objingElt);
+            } else if (EcoreModelNavigation.isInActivity(ecoreElement)) {
+                attachToActivity(objingElt);
+            } else {
+                ReverseProperties.getInstance().deleteElement(ecoreElement, objingElt);
+            }
+        }
     }
 
     @objid ("25424326-2ee8-472e-b4e3-4276d2d3760f")
     private void attachToPartition(final Element objingElt) {
         List<org.eclipse.uml2.uml.ActivityPartition> ecorePartitions = EcoreModelNavigation
-        .getOwnerPartitions((org.eclipse.uml2.uml.ActivityNode)getEcoreElement());
+                .getOwnerPartitions((org.eclipse.uml2.uml.ActivityNode)getEcoreElement());
         
         if (ecorePartitions.size() > 0) {
-             org.eclipse.uml2.uml.ActivityPartition ecorePartition = null;
+            org.eclipse.uml2.uml.ActivityPartition ecorePartition = null;
             if (ecorePartitions.size() > 1)
                 ecorePartition = EcoreModelNavigation
                 .getLeafPartition(ecorePartitions);
@@ -83,7 +75,7 @@ public class EActivityNode extends ENamedElement implements IEElement {
         
             if (ecorePartition != null) {
                 ActivityPartition objingPartition = (ActivityPartition)  ReverseProperties.getInstance()
-                .getMappedElement(ecorePartition);
+                        .getMappedElement(ecorePartition);
                 ((ActivityNode) objingElt).setOwnerPartition(objingPartition);
             }
         }
@@ -92,17 +84,17 @@ public class EActivityNode extends ENamedElement implements IEElement {
     @objid ("bd3661fe-a17a-49c3-905a-036af05fa908")
     private void attachToStructuredActivityNode(final Element objingElt) {
         org.eclipse.uml2.uml.StructuredActivityNode ecoreNode = EcoreModelNavigation
-        .getOwnerStructuredActivityNode((org.eclipse.uml2.uml.ActivityNode)getEcoreElement());
+                .getOwnerStructuredActivityNode((org.eclipse.uml2.uml.ActivityNode)getEcoreElement());
         if (ecoreNode != null) {
             StructuredActivityNode objingNode = (StructuredActivityNode)  ReverseProperties.getInstance()
-            .getMappedElement(ecoreNode);
+                    .getMappedElement(ecoreNode);
             if (objingNode != null) {
                 if (objingNode instanceof ConditionalNode)
-                     attachToActivity(objingElt);
+                    attachToActivity(objingElt);
                 else
-                ((ActivityNode) objingElt).setOwnerNode(objingNode);
+                    ((ActivityNode) objingElt).setOwnerNode(objingNode);
             }
-                
+        
         }
     }
 
@@ -111,7 +103,7 @@ public class EActivityNode extends ENamedElement implements IEElement {
         org.eclipse.uml2.uml.Clause ecoreClause = EcoreModelNavigation.getOwnerClause((org.eclipse.uml2.uml.ActivityNode)getEcoreElement());
         if (ecoreClause != null) {
             Clause objingClause = (Clause)  ReverseProperties.getInstance()
-            .getMappedElement(ecoreClause);
+                    .getMappedElement(ecoreClause);
             if (objingClause != null)
                 ((ActivityNode) objingElt)
                 .setOwnerClause(objingClause);
@@ -122,19 +114,14 @@ public class EActivityNode extends ENamedElement implements IEElement {
     private void attachToActivity(final Element objingElt) {
         org.eclipse.uml2.uml.Activity ecoreActivity = EcoreModelNavigation
                 .getOwnerActivity((org.eclipse.uml2.uml.ActivityNode) getEcoreElement());
-                
-                if (ecoreActivity != null) {
-           Activity objingActivity = (Activity)  ReverseProperties.getInstance()
-           .getMappedElement(ecoreActivity);
-           
-           if (objingActivity != null)
-               ((ActivityNode) objingElt).setOwner(objingActivity);
-                }
-    }
-
-    @objid ("cbfacb80-49e9-4ac8-9342-f0127245db99")
-    public void setProperties(Element objingElt) {
-        super.setProperties(objingElt);
+        
+        if (ecoreActivity != null) {
+            Activity objingActivity = (Activity)  ReverseProperties.getInstance()
+                    .getMappedElement(ecoreActivity);
+        
+            if (objingActivity != null)
+                ((ActivityNode) objingElt).setOwner(objingActivity);
+        }
     }
 
 }

@@ -23,7 +23,7 @@ package org.modelio.gproject.gproject;
 
 import java.io.IOException;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.modelio.gproject.descriptor.ProjectDescriptor;
+import org.modelio.gproject.data.project.ProjectDescriptor;
 import org.modelio.vbasic.auth.IAuthData;
 import org.modelio.vbasic.progress.IModelioProgress;
 

@@ -45,38 +45,43 @@ public class OTaggedValue extends OElement implements IOElement {
     private org.eclipse.uml2.uml.PrimitiveType stringType = PrimitiveTypeMapper.getString();
 
     @objid ("9dd64097-b7dd-4c04-8fac-d78aca065aa7")
+    @Override
     public org.eclipse.uml2.uml.Element createEcoreElt() {
-        return setTaggedValues(objingElement);
+        return setTaggedValues();
     }
 
     @objid ("4629fb84-44c0-4729-b931-a1816413145a")
     @Override
     public String getObjingID() {
-        return objingElement.getUuid().toString();
+        return this.objingElement.getUuid().toString();
     }
 
     @objid ("f76bc778-a826-4beb-a12d-e154730b03ef")
     @Override
     public Element getObjingElement() {
-        return objingElement;
+        return this.objingElement;
     }
 
     @objid ("b23c089b-1dbd-4e9c-9770-42d570d3deec")
     public OTaggedValue(TaggedValue element) {
         super(element);
-        objingElement = element;
+        this.objingElement = element;
     }
 
     @objid ("9f1684ea-5320-4e84-90de-cb49b802acba")
+    @Override
     public void attach(org.eclipse.uml2.uml.Element ecoreElt) {
+        // TODO Auto-generated method stub
     }
 
     @objid ("34ffa6b5-25d1-4d3b-aa44-e2099391d104")
+    @Override
     public void setProperties(org.eclipse.uml2.uml.Element ecoreElt) {
+        // TODO Auto-generated method stub
     }
 
     @objid ("e5bb3260-7aca-4a61-938a-a63f4ed8b071")
-    private Property setTaggedValues(TaggedValue obTaggedValue) {
+    private Property setTaggedValues() {
         if( GenerationProperties.getInstance().isRoundtripEnabled()){
             return createValueEAnnotation();
         }else{
@@ -86,9 +91,9 @@ public class OTaggedValue extends OElement implements IOElement {
 
     @objid ("d439fa99-1d1e-426f-bf26-1a99f1b1e759")
     private Property createValueEAnnotation() {
-        ModelElement element = objingElement.getAnnoted();
+        ModelElement element = this.objingElement.getAnnoted();
                 
-        TagType tagType = objingElement.getDefinition(); 
+        TagType tagType = this.objingElement.getDefinition(); 
                 
         // r?cuperation du stereotype
                 
@@ -122,9 +127,9 @@ public class OTaggedValue extends OElement implements IOElement {
                 
             String name = tagType.getName();
             if (tagType.getParamNumber().equals("0")){
-                return stereotype.getOwnedAttribute(name, booleanType); 
+                return stereotype.getOwnedAttribute(name, this.booleanType); 
             }else {
-                return stereotype.getOwnedAttribute(name, stringType); 
+                return stereotype.getOwnedAttribute(name, this.stringType); 
             }
                 
         }
@@ -133,9 +138,9 @@ public class OTaggedValue extends OElement implements IOElement {
 
     @objid ("11b90ed4-d2ab-4a8c-8193-cc8ad1556533")
     private Property createValue() {
-        ModelElement element = objingElement.getAnnoted();
+        ModelElement element = this.objingElement.getAnnoted();
                 
-        TagType tagType = objingElement.getDefinition(); 
+        TagType tagType = this.objingElement.getDefinition(); 
                 
         // r?cuperation du stereotype
                 
@@ -170,9 +175,9 @@ public class OTaggedValue extends OElement implements IOElement {
             String name = tagType.getName(); 
             
             if (tagType.getParamNumber().equals("0")){
-                return stereotype.getOwnedAttribute(name, booleanType); 
+                return stereotype.getOwnedAttribute(name, this.booleanType); 
             }else {
-                return stereotype.getOwnedAttribute(name, stringType); 
+                return stereotype.getOwnedAttribute(name, this.stringType); 
             }
         }
         return null;

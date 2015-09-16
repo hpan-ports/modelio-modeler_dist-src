@@ -85,6 +85,8 @@ public class BpmnReceiveTaskPropertyModel extends AbstractPropertyModel<BpmnRece
     @objid ("8e4c3f81-c068-11e1-8c0a-002564c97630")
     @Override
     public int getRowsNumber() {
+        // Init properties here to avoid problems with UNDO
+        initPropertyModel();
         return this.properties.size();
     }
 

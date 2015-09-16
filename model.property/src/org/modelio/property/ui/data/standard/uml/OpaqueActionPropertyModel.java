@@ -23,6 +23,7 @@ package org.modelio.property.ui.data.standard.uml;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.core.ui.ktable.types.IPropertyType;
+import org.modelio.core.ui.ktable.types.text.MultilineStringType;
 import org.modelio.core.ui.ktable.types.text.StringType;
 import org.modelio.metamodel.uml.behavior.activityModel.OpaqueAction;
 import org.modelio.property.ui.data.standard.common.AbstractPropertyModel;
@@ -52,6 +53,9 @@ public class OpaqueActionPropertyModel extends AbstractPropertyModel<OpaqueActio
     @objid ("fac9077a-c5d4-11e1-8f21-002564c97630")
     private StringType stringType;
 
+    @objid ("7d18d8a7-b0dd-4295-b781-a2ad59f0113f")
+    private MultilineStringType multilineStringType;
+
     /**
      * Create a new <i>OpaqueAction</i> data model from an <i>OpaqueAction</i>.
      */
@@ -61,6 +65,7 @@ public class OpaqueActionPropertyModel extends AbstractPropertyModel<OpaqueActio
         
         this.labelStringType = new StringType(false);
         this.stringType = new StringType(true);
+        this.multilineStringType = new MultilineStringType(this.theEditedElement, "Body", true);
     }
 
     /**
@@ -137,7 +142,7 @@ public class OpaqueActionPropertyModel extends AbstractPropertyModel<OpaqueActio
                 case 1:
                     return this.stringType;
                 case 2:
-                    return this.stringType;
+                    return this.multilineStringType;
                 default:
                     return null;
             }

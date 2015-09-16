@@ -4,5 +4,15 @@
 	<extension point="org.eclipse.e4.workbench.model" id="modelContribution">
 		<fragment uri="e4model/property.e4xmi"></fragment> 
 	</extension>
+ <extension
+       point="org.eclipse.core.expressions.definitions">
+    <definition
+          id="model.property.definition.allowShowHiddenAnnotations">
+       <test
+             forcePluginActivation="true"
+             property="admtool.test.adminmode">
+       </test>
+    </definition>
+ </extension>
 
 </plugin>

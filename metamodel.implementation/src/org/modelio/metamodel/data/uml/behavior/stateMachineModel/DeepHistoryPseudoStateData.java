@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.data.uml.behavior.stateMachineModel;
 
@@ -43,22 +43,22 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("004f11fe-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=DeepHistoryPseudoState.class, factory=DeepHistoryPseudoStateData.Metadata.ObjectFactory.class)
 public class DeepHistoryPseudoStateData extends AbstractPseudoStateData {
-    @objid ("fc4a7a2a-ef18-4ec5-bc61-c6ae25b8dea8")
+    @objid ("9ff383ec-2575-4059-821d-9090399b8690")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("00579e14-c4c3-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("efa0d332-32e3-4593-8ebd-f08bf686a302")
+        @objid ("c91ecc5c-e5f9-471a-94e9-6eea8bfd8127")
         private static SmClass smClass = null;
 
-        @objid ("6aa7260b-ff69-41b9-9691-ac7612a4f04a")
+        @objid ("7e3da221-8862-42a2-b78b-13baeb613ca0")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(DeepHistoryPseudoStateData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("a219b032-a297-4f8f-a5c3-db7228bb9e6b")
+        @objid ("053c61a9-998b-4b44-8cb0-26cd41086a5e")
         public static SmClass getSmClass() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return smClass;
@@ -66,12 +66,12 @@ public class DeepHistoryPseudoStateData extends AbstractPseudoStateData {
 
         @objid ("0057e086-c4c3-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("514f9577-b2fa-4b4c-a6bf-5d06aa14a5f8")
+            @objid ("183100f5-6d45-4d13-a522-dbc7627038b3")
             public ISmObjectData createData() {
                 return new DeepHistoryPseudoStateData();
             }
 
-            @objid ("93b8d254-ed0f-4072-8a38-b700f3bff4f9")
+            @objid ("a066ac66-913a-4f30-9978-77c670f16e3f")
             public SmObjectImpl createImpl() {
                 return new DeepHistoryPseudoStateImpl();
             }

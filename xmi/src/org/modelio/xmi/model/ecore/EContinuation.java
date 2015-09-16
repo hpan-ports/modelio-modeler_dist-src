@@ -21,33 +21,13 @@
 
 package org.modelio.xmi.model.ecore;
 
-import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.modelio.metamodel.uml.infrastructure.Element;
 
 @objid ("9ba59624-4253-4659-98ad-7a217841543e")
-public class EContinuation extends ENamedElement implements IEElement {
-    @objid ("b0705213-d227-4d27-ab70-0f393f449cfe")
-    public Element createObjingElt() {
-        return null;
-    }
-
+public class EContinuation extends ENamedElement {
     @objid ("1900504b-0f4d-45bb-8eb9-0b06eded2721")
     public EContinuation(org.eclipse.uml2.uml.Continuation element) {
         super(element);
-    }
-
-    @objid ("565fe8c2-c2a6-474d-9cd4-24074e526b54")
-    public void attach(Element objingElt) {
-    }
-
-    @objid ("3cf6d032-6af0-4b99-9210-9abd6af38e21")
-    public void attach(List<Object> objingElts) {
-    }
-
-    @objid ("8feca65d-e9da-47d8-940d-895554711e83")
-    public void setProperties(Element objingElt) {
-        super.setProperties(objingElt);
     }
 
 }

@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.data.uml.statik;
 
@@ -48,22 +48,22 @@ public class DataTypeData extends GeneralClassData {
         this.mIsElementary = Boolean.TRUE;
     }
 
-    @objid ("a11d1212-8520-4742-950a-8767ce8f409a")
+    @objid ("7d408576-d56e-4871-aae8-0abf802dc182")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("00113e10-c4c4-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("8283e78c-a34d-45ba-9bc1-c71fba709546")
+        @objid ("a2725284-3ccd-4d11-8b0d-cd3953e8f732")
         private static SmClass smClass = null;
 
-        @objid ("07179935-2d35-4899-b91c-37babdd399cf")
+        @objid ("ff8c4177-204e-4d9b-b3a5-3fd197a7942a")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(DataTypeData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("434ca53e-10e0-4504-a6c0-42b73422a717")
+        @objid ("fd3f27bb-b3e7-41aa-85e2-7cacfdc8c2ed")
         public static SmClass getSmClass() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return smClass;
@@ -71,12 +71,12 @@ public class DataTypeData extends GeneralClassData {
 
         @objid ("00117eac-c4c4-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("ffae66d8-6cb9-43a8-b503-510d0b5b190b")
+            @objid ("ce9d3bf2-9fc1-4592-91f7-dce6949f3413")
             public ISmObjectData createData() {
                 return new DataTypeData();
             }
 
-            @objid ("cf561a77-d4e3-44e2-89ce-eed645eb9d38")
+            @objid ("2d8344ad-469b-4254-ba14-be19c575a30a")
             public SmObjectImpl createImpl() {
                 return new DataTypeImpl();
             }

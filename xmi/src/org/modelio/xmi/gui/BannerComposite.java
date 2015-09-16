@@ -86,6 +86,7 @@ public class BannerComposite extends Composite {
         fd_text.top = new FormAttachment(0, 0);
         fd_text.right = new FormAttachment(100, 0);
         fd_text.bottom = new FormAttachment(0, 50);
+        fd_text.width = 500;
         text.setLayoutData(fd_text);
     }
 

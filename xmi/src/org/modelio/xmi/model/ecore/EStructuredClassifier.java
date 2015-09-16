@@ -25,8 +25,9 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.metamodel.uml.infrastructure.Element;
 
 @objid ("a14b08b9-b0ab-4820-95c3-70724cf19931")
-public class EStructuredClassifier extends EElement implements IEElement {
+public class EStructuredClassifier extends EElement {
     @objid ("a7355b7a-d721-4dbd-9be7-a561d83c3210")
+    @Override
     public Element createObjingElt() {
         return null;
     }
@@ -34,18 +35,6 @@ public class EStructuredClassifier extends EElement implements IEElement {
     @objid ("d48332b4-25b8-4217-9d67-497accdfcd3b")
     public EStructuredClassifier(org.eclipse.uml2.uml.StructuredClassifier element) {
         super(element);
-    }
-
-    @objid ("16212cad-91e6-405a-8c75-f49ab50c73c7")
-    public void attach(Element objingElt) {
-    }
-
-    @objid ("9dc8eab4-3ff5-4dfa-ba14-221fae3cf47b")
-    public void setProperties(Element objingElt) {
-    }
-
-    @objid ("74a506ce-60da-42ae-91b0-c6d5ee8a0750")
-    public void setStereotypes() {
     }
 
 }

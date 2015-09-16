@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.diagrams;
 
@@ -34,40 +34,40 @@ import org.modelio.metamodel.uml.infrastructure.ModelElement;
 
 @objid ("006721c2-c4bf-1fd8-97fe-001ec947cd2a")
 public interface AbstractDiagram extends ModelElement {
-    @objid ("e6d9ea97-134f-4192-853f-5c4fc9cb13f7")
+    @objid ("559442b4-431d-4dc3-a401-eee21dc8a938")
     int getUiDataVersion();
 
-    @objid ("1e316eaa-6932-4b10-ab7c-3d92f65937ea")
+    @objid ("243fa6a4-a5e6-4610-8836-3e572295ba32")
     void setUiDataVersion(int value);
 
-    @objid ("4d02d4c3-68f1-4cfb-bdbd-47b3517de831")
+    @objid ("c1ddff6c-306c-4d37-9067-1b4af6e10360")
     String getUiData();
 
-    @objid ("8f90695b-828c-493f-9c8f-15f534a5312e")
+    @objid ("5b78aa75-aa64-404e-8c65-18e46eb445a8")
     void setUiData(String value);
 
-    @objid ("109f49e3-503f-4b7e-8523-01d2035e8013")
+    @objid ("ec48a0cc-1998-4b95-860a-228e9217211c")
     String getPdeProperties();
 
-    @objid ("9031c4d6-854c-4e5d-bff4-ef85ce3a41b3")
+    @objid ("164b6152-6c12-4d31-bb00-2a27ac10e912")
     void setPdeProperties(String value);
 
-    @objid ("c0241400-1e8d-44ba-b816-717bd0ecbe87")
+    @objid ("97fce8ec-5203-40fe-b6a9-c4b59fdd6b84")
     ModelElement getOrigin();
 
-    @objid ("9d132915-24ac-484c-8317-6948f7183d39")
+    @objid ("58d5eb47-d0dc-43bd-a20c-63147a735172")
     void setOrigin(ModelElement value);
 
-    @objid ("354a9c10-45af-4d48-8355-e82256bf071f")
+    @objid ("ee4b459e-aa0f-4cc5-9e4a-34250bc0f64e")
     EList<Element> getRepresented();
 
-    @objid ("56bb61ab-d7c0-4d03-96cd-c0c53ef51144")
+    @objid ("5b932398-6789-4b7e-9bfc-37cea3f913d3")
     <T extends Element> List<T> getRepresented(java.lang.Class<T> filterClass);
 
-    @objid ("3bf9c4cf-d778-4431-937a-f6380a6fda59")
+    @objid ("11fb9128-b2d7-4f64-85bd-184f96089286")
     EList<DiagramSet> getReferencingSet();
 
-    @objid ("eeec8574-9ff0-4419-ae22-42de2efeab09")
+    @objid ("2aa6658b-9977-4128-b3f8-ffbdd0cc4667")
     <T extends DiagramSet> List<T> getReferencingSet(java.lang.Class<T> filterClass);
 
 }

@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.data.analyst;
 
@@ -43,59 +43,59 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaAttribute;
 import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 
 @objid ("efe46dc4-941a-4fc9-9c1b-e10b1c1e8cea")
-@SmaMetaClass(mmClass=GenericAnalystElement.class, factory=GenericAnalystElementData.Metadata.ObjectFactory.class)
+@SmaMetaClass(mmClass=GenericAnalystElement.class, factory=GenericAnalystElementData.Metadata.ObjectFactory.class, cmsnode=true)
 public class GenericAnalystElementData extends AnalystElementData {
-    @objid ("40901a61-8a63-4c6a-b640-375ab5e8179e")
+    @objid ("9d5b2ac8-126b-4067-abe2-db39a5a582c4")
     @SmaMetaAssociation(metaName="SubElement", typeDataClass=GenericAnalystElementData.class, min=0, max=-1, smAssociationClass=Metadata.SubElementSmDependency.class, component = true)
      List<SmObjectImpl> mSubElement = null;
 
-    @objid ("c852161d-862a-43c5-8abb-1125cb085417")
+    @objid ("c7e2561d-f24a-4bf8-8fdc-1258985e348b")
     @SmaMetaAssociation(metaName="OwnerContainer", typeDataClass=GenericAnalystContainerData.class, min=0, max=1, smAssociationClass=Metadata.OwnerContainerSmDependency.class)
      SmObjectImpl mOwnerContainer;
 
-    @objid ("165e3b92-ddad-4413-be73-1ffb00f930b1")
+    @objid ("6cfef27f-06cf-4b0f-84e6-b19780ccacd7")
     @SmaMetaAssociation(metaName="ParentElement", typeDataClass=GenericAnalystElementData.class, min=0, max=1, smAssociationClass=Metadata.ParentElementSmDependency.class)
      SmObjectImpl mParentElement;
 
-    @objid ("93394503-da6c-462e-8f1d-e7c8db93d91e")
+    @objid ("5a03d6e8-91da-446d-ad61-fcf9db7cd053")
     @SmaMetaAssociation(metaName="LastElementVersion", typeDataClass=GenericAnalystElementData.class, min=0, max=1, smAssociationClass=Metadata.LastElementVersionSmDependency.class)
      SmObjectImpl mLastElementVersion;
 
-    @objid ("777e5744-f066-4b55-a620-892beb267214")
+    @objid ("46dc56fe-a09d-4b10-8d92-dd7f7c121c29")
     @SmaMetaAssociation(metaName="ArchivedElementVersion", typeDataClass=GenericAnalystElementData.class, min=0, max=-1, smAssociationClass=Metadata.ArchivedElementVersionSmDependency.class, component = true)
      List<SmObjectImpl> mArchivedElementVersion = null;
 
-    @objid ("666f9012-5205-4500-a2b6-3d30f42318d9")
+    @objid ("fafae6e3-4eb6-4aa0-a160-6d6cfbb52a21")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("d5741ea9-0633-4aae-88e4-b33548a7bdb5")
     public static class Metadata {
-        @objid ("297355fd-79cd-4ecd-b16d-9ee73df740d9")
+        @objid ("d78edb21-d13e-4737-aaa4-ac04eb2ee1d9")
         private static SmClass smClass = null;
 
-        @objid ("4e3904f5-25ae-4b41-92b8-c9bdc7f1753d")
+        @objid ("b7072b0e-1d5c-4b33-9177-f0bb4ea6fadf")
         private static SmDependency SubElementDep = null;
 
-        @objid ("33567382-372d-412d-9a33-72d5a28ab42c")
+        @objid ("4131baa4-604d-4b5f-a7fd-a643208face9")
         private static SmDependency OwnerContainerDep = null;
 
-        @objid ("e58f3d8b-4b5c-4ec9-88ec-399157fe61c6")
+        @objid ("9dbfcd53-ea88-4f6b-b980-2cdf21935d67")
         private static SmDependency ParentElementDep = null;
 
-        @objid ("3ae6e853-ef39-44c3-b19c-7376fb7322ad")
+        @objid ("ce5cc2c9-b67b-4f60-bea7-177802ae1041")
         private static SmDependency LastElementVersionDep = null;
 
-        @objid ("195d9971-683c-485d-930c-390ef3f4aca7")
+        @objid ("4bfc6225-b6e6-40fe-bac8-119efd69c8dd")
         private static SmDependency ArchivedElementVersionDep = null;
 
-        @objid ("642bb1af-f89b-4471-b82a-7947c7373703")
+        @objid ("fd3ae8f7-6650-4a9c-a9ca-a6c23812faaf")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(GenericAnalystElementData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("2e0841c8-9244-424e-a66b-ab0bcdd668cf")
+        @objid ("4932b0f5-ec46-47f3-bd82-e7b7a2f3c930")
         public static SmDependency SubElementDep() {
             if (SubElementDep == null) {
             	SubElementDep = classof().getDependencyDef("SubElement");
@@ -103,7 +103,7 @@ public class GenericAnalystElementData extends AnalystElementData {
             return SubElementDep;
         }
 
-        @objid ("be940669-0cb8-48dd-849f-a4a4be54a768")
+        @objid ("77273b4d-111a-4d82-85cf-2c5d5d223857")
         public static SmDependency OwnerContainerDep() {
             if (OwnerContainerDep == null) {
             	OwnerContainerDep = classof().getDependencyDef("OwnerContainer");
@@ -111,7 +111,7 @@ public class GenericAnalystElementData extends AnalystElementData {
             return OwnerContainerDep;
         }
 
-        @objid ("c35d402c-a2e6-4ca6-b9ac-f94659dcb3c4")
+        @objid ("8c0940ec-50f6-4be6-8553-3942bf693dcc")
         public static SmDependency ParentElementDep() {
             if (ParentElementDep == null) {
             	ParentElementDep = classof().getDependencyDef("ParentElement");
@@ -119,7 +119,7 @@ public class GenericAnalystElementData extends AnalystElementData {
             return ParentElementDep;
         }
 
-        @objid ("fc5c51b8-a4b0-4783-b7da-cec9ac4aefc4")
+        @objid ("ccca3420-afb7-418b-ab89-f6beb3ff83e2")
         public static SmDependency LastElementVersionDep() {
             if (LastElementVersionDep == null) {
             	LastElementVersionDep = classof().getDependencyDef("LastElementVersion");
@@ -127,7 +127,7 @@ public class GenericAnalystElementData extends AnalystElementData {
             return LastElementVersionDep;
         }
 
-        @objid ("6f337d44-5bfa-41ad-a64e-56839f50e23b")
+        @objid ("fe7cb448-0817-4a7d-a8de-093049648ec3")
         public static SmDependency ArchivedElementVersionDep() {
             if (ArchivedElementVersionDep == null) {
             	ArchivedElementVersionDep = classof().getDependencyDef("ArchivedElementVersion");
@@ -135,50 +135,50 @@ public class GenericAnalystElementData extends AnalystElementData {
             return ArchivedElementVersionDep;
         }
 
-        @objid ("fa1759a4-e5a2-4fe3-8c0c-d856d38df1ed")
-        public static SmDependency getLastElementVersionDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return LastElementVersionDep;
-        }
-
-        @objid ("abbd7ef9-3053-4def-ba1b-0b4b09cdab3c")
+        @objid ("7e5a2340-ea6d-400c-a4e7-26b630ace608")
         public static SmDependency getSubElementDep() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return SubElementDep;
         }
 
-        @objid ("51e521c0-19d5-47fe-b138-24c0f49dd940")
-        public static SmDependency getOwnerContainerDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return OwnerContainerDep;
-        }
-
-        @objid ("3dd0427f-7e09-415c-bee8-ccbd34fbef44")
+        @objid ("05f72c7e-4135-45e8-a6f7-0504a7e49729")
         public static SmClass getSmClass() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return smClass;
         }
 
-        @objid ("9a9d1f27-a4de-4f5d-a7a7-ab7ec4052078")
-        public static SmDependency getArchivedElementVersionDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return ArchivedElementVersionDep;
-        }
-
-        @objid ("0a207458-18f0-4db7-b8bb-96da74377264")
+        @objid ("c0916149-5f3f-4aed-ae30-27f656f80398")
         public static SmDependency getParentElementDep() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return ParentElementDep;
         }
 
+        @objid ("07fbec86-fac5-442c-aeda-a05a7335bc26")
+        public static SmDependency getLastElementVersionDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return LastElementVersionDep;
+        }
+
+        @objid ("c894ff34-fa4c-4a2a-87cf-2b8c44efce8c")
+        public static SmDependency getArchivedElementVersionDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return ArchivedElementVersionDep;
+        }
+
+        @objid ("b097f2e6-3f42-4fed-91ba-611ffffe67f7")
+        public static SmDependency getOwnerContainerDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return OwnerContainerDep;
+        }
+
         @objid ("cc1ce53d-0f1b-43c2-9c59-dcd9e04d69c7")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("e03b5f29-7075-4c05-94a1-fe3a2f39b69c")
+            @objid ("885c8343-85b0-45d6-8d05-0e6cfb207de2")
             public ISmObjectData createData() {
                 return new GenericAnalystElementData();
             }
 
-            @objid ("ed794062-9bbb-4b2c-a7ca-105f4a4d8a06")
+            @objid ("6f26ee97-07a4-4218-a59c-2cf05c35207a")
             public SmObjectImpl createImpl() {
                 return new GenericAnalystElementImpl();
             }
@@ -187,20 +187,20 @@ public class GenericAnalystElementData extends AnalystElementData {
 
         @objid ("cea8b035-ed3b-494e-a32d-368ef075b1db")
         public static class SubElementSmDependency extends SmMultipleDependency {
-            @objid ("2ac2cbe3-2852-4348-9fca-02786cbda293")
+            @objid ("af223ba4-0303-4125-b200-ca3d03c9fbbf")
             @Override
             public List<SmObjectImpl> getValueList(ISmObjectData data) {
                 return (((GenericAnalystElementData)data).mSubElement != null)? ((GenericAnalystElementData)data).mSubElement:SmMultipleDependency.EMPTY;
             }
 
-            @objid ("fc1710a0-1d7b-4940-a6cd-100b31029b3d")
+            @objid ("a7c8680b-16ec-4628-9c49-fb54db06c1ba")
             @Override
             protected List<SmObjectImpl> allocateValueList(ISmObjectData data, int initialCapacity) {
                 ((GenericAnalystElementData) data).mSubElement = new ArrayList<>(initialCapacity);
                 return ((GenericAnalystElementData) data).mSubElement;
             }
 
-            @objid ("6cf6e08f-0dbd-4f2d-a620-ddc5cde2eed2")
+            @objid ("bb95f7b9-f92c-4fe8-8059-0be5d45114f4")
             @Override
             public SmDependency getSymetric() {
                 return GenericAnalystElementData.Metadata.ParentElementDep();
@@ -210,18 +210,18 @@ public class GenericAnalystElementData extends AnalystElementData {
 
         @objid ("8e30e4ba-172d-4cea-8352-de8b6d58661c")
         public static class OwnerContainerSmDependency extends SmSingleDependency {
-            @objid ("d13402bf-ff64-4286-88bf-8674d5df7f1a")
+            @objid ("f69e8c9b-8079-4684-86d2-1ec2227aa018")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((GenericAnalystElementData) data).mOwnerContainer;
             }
 
-            @objid ("c0270c8a-f75f-4882-8165-95c48d8a040a")
+            @objid ("b02248b2-42c3-46c7-8dd2-91fb1b0e31cf")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((GenericAnalystElementData) data).mOwnerContainer = value;
             }
 
-            @objid ("76fb1d71-d583-4ca6-97d7-9326019a6729")
+            @objid ("db2a1441-0793-4813-a5b2-a0f34d3b40e0")
             @Override
             public SmDependency getSymetric() {
                 return GenericAnalystContainerData.Metadata.OwnedElementDep();
@@ -231,18 +231,18 @@ public class GenericAnalystElementData extends AnalystElementData {
 
         @objid ("736a5f2b-71ab-4258-8737-9d9e5687c9d1")
         public static class ParentElementSmDependency extends SmSingleDependency {
-            @objid ("188f1d58-4719-4f5d-8ff3-7a4107d60653")
+            @objid ("f42b7cd5-e09c-4023-a39e-2ece874e2b1d")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((GenericAnalystElementData) data).mParentElement;
             }
 
-            @objid ("5c13d214-8355-444d-9947-82c5ea5eaa59")
+            @objid ("c8cfc0b7-b28a-4904-9363-379e02234562")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((GenericAnalystElementData) data).mParentElement = value;
             }
 
-            @objid ("86f33f63-bfe8-4757-9757-db199fe1042e")
+            @objid ("eeb6b276-690d-4d9b-9e40-2569411c6fd3")
             @Override
             public SmDependency getSymetric() {
                 return GenericAnalystElementData.Metadata.SubElementDep();
@@ -252,18 +252,18 @@ public class GenericAnalystElementData extends AnalystElementData {
 
         @objid ("1e706646-429b-4798-8d27-7429d6326ca3")
         public static class LastElementVersionSmDependency extends SmSingleDependency {
-            @objid ("c8d99f85-d90a-4955-8738-6d370015ad51")
+            @objid ("46711bed-5804-4b26-aa2c-f5070f7177f4")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((GenericAnalystElementData) data).mLastElementVersion;
             }
 
-            @objid ("a6d485e0-639e-4ba8-a9a2-8b929f2c5a47")
+            @objid ("6707e668-d57e-4c2d-82ca-cdd1c9b53444")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((GenericAnalystElementData) data).mLastElementVersion = value;
             }
 
-            @objid ("188a356a-c8d3-4347-835b-0ab4c81b01f5")
+            @objid ("b1527925-4b4a-4e75-87a8-41e6a165e74b")
             @Override
             public SmDependency getSymetric() {
                 return GenericAnalystElementData.Metadata.ArchivedElementVersionDep();
@@ -273,20 +273,20 @@ public class GenericAnalystElementData extends AnalystElementData {
 
         @objid ("ca7a2736-8b29-4dfc-8232-5be80f7ed531")
         public static class ArchivedElementVersionSmDependency extends SmMultipleDependency {
-            @objid ("6757008e-8b27-4ae7-ae87-e9de88f9cd74")
+            @objid ("dfd6cf09-d5e7-47b3-ae8f-54e238c101cb")
             @Override
             public List<SmObjectImpl> getValueList(ISmObjectData data) {
                 return (((GenericAnalystElementData)data).mArchivedElementVersion != null)? ((GenericAnalystElementData)data).mArchivedElementVersion:SmMultipleDependency.EMPTY;
             }
 
-            @objid ("09346765-ddad-4bf5-9ddc-20ba047eeba2")
+            @objid ("28703721-0212-4b7c-ba59-6e1cbc42c4fd")
             @Override
             protected List<SmObjectImpl> allocateValueList(ISmObjectData data, int initialCapacity) {
                 ((GenericAnalystElementData) data).mArchivedElementVersion = new ArrayList<>(initialCapacity);
                 return ((GenericAnalystElementData) data).mArchivedElementVersion;
             }
 
-            @objid ("8a386735-ef0f-48be-83dd-d5bae9699dfc")
+            @objid ("e3d69d05-13a7-4b7b-8d75-f951db597e23")
             @Override
             public SmDependency getSymetric() {
                 return GenericAnalystElementData.Metadata.LastElementVersionDep();

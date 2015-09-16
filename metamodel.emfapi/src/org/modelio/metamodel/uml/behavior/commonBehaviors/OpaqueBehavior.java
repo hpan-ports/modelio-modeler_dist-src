@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.uml.behavior.commonBehaviors;
 
@@ -30,10 +30,10 @@ import org.eclipse.emf.ecore.EObject;
 
 @objid ("00419286-c4bf-1fd8-97fe-001ec947cd2a")
 public interface OpaqueBehavior extends Behavior {
-    @objid ("626dbdb8-c88f-4eae-a89f-f61d23ebaa3f")
+    @objid ("48fd71ab-0368-467e-aae9-cc42dd0ef753")
     String getBody();
 
-    @objid ("41bccf85-6ee9-4820-936b-2032d2c55dee")
+    @objid ("7d89ccbd-578c-427b-9a2d-28e8e48f4f86")
     void setBody(String value);
 
 }

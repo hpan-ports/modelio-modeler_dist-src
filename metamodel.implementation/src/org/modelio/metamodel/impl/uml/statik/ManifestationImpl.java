@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.uml.statik;
 
@@ -44,31 +44,31 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("0010c444-c4bf-1fd8-97fe-001ec947cd2a")
 public class ManifestationImpl extends ModelElementImpl implements Manifestation {
-    @objid ("31dd1b9b-a5d7-4ce9-9cc1-2075aeb85a68")
+    @objid ("6ef9f9db-4f07-4aaa-979a-7e60530512b9")
     @Override
     public ModelElement getUtilizedElement() {
         return (ModelElement) getDepVal(ManifestationData.Metadata.UtilizedElementDep());
     }
 
-    @objid ("cbd25c5c-9e0e-4702-9f3b-5a14d34e53b3")
+    @objid ("be4f2010-7c8b-40dd-aad0-ccefe6b6278c")
     @Override
     public void setUtilizedElement(ModelElement value) {
         appendDepVal(ManifestationData.Metadata.UtilizedElementDep(), (SmObjectImpl)value);
     }
 
-    @objid ("bfe67336-1986-4a53-9003-efa6c251a4af")
+    @objid ("c3d7f87f-f053-4941-8564-9516361ddf40")
     @Override
     public Artifact getOwner() {
         return (Artifact) getDepVal(ManifestationData.Metadata.OwnerDep());
     }
 
-    @objid ("bf7ed956-3568-47ef-ada3-3b46c1cd66f5")
+    @objid ("cfa596d7-2d5e-44da-9f23-b1ac062dc7d9")
     @Override
     public void setOwner(Artifact value) {
         appendDepVal(ManifestationData.Metadata.OwnerDep(), (SmObjectImpl)value);
     }
 
-    @objid ("83feffc9-8d73-43a3-beb0-6f2bf1d750cf")
+    @objid ("f6cd100a-adc4-432f-b9a3-72487c077b51")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
@@ -78,7 +78,7 @@ public class ManifestationImpl extends ModelElementImpl implements Manifestation
         return super.getCompositionOwner();
     }
 
-    @objid ("cd2cdd8a-0fd3-440f-b1e2-dbbe12a445e9")
+    @objid ("899bbba6-dcf0-4fc9-9dd7-ad7ae8c9acdb")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
@@ -88,7 +88,7 @@ public class ManifestationImpl extends ModelElementImpl implements Manifestation
         return super.getCompositionRelation();
     }
 
-    @objid ("4d0ec0d1-f5b0-4360-94fa-7163393e3e1e")
+    @objid ("ef76c97b-5ea8-4934-bcbe-4ef40d96ad66")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitManifestation(this);

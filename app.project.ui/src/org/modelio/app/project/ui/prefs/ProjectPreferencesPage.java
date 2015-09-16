@@ -90,20 +90,22 @@ class ProjectPreferencesPage extends PreferencePage {
         layout.numColumns = 1;
         top.setLayout(layout);
         
-        createSpacer(top);
+        if (getPreferenceStore() != null) {
+            createSpacer(top);
         
-        createTitleZone(top, AppProjectUi.I18N.getString("ProjectPrefs.Attributes"));
-        createAttributeZone(top);
+            createTitleZone(top, AppProjectUi.I18N.getString("ProjectPrefs.Attributes"));
+            createAttributeZone(top);
         
-        createSpacer(top);
+            createSpacer(top);
         
-        createTitleZone(top, AppProjectUi.I18N.getString("ProjectPrefs.Operations"));
-        createOperationZone(top);
+            createTitleZone(top, AppProjectUi.I18N.getString("ProjectPrefs.Operations"));
+            createOperationZone(top);
         
-        createSpacer(top);
+            createSpacer(top);
         
-        createTitleZone(top, AppProjectUi.I18N.getString("ProjectPrefs.RichNotes"));
-        createRichNoteZone(top);
+            createTitleZone(top, AppProjectUi.I18N.getString("ProjectPrefs.RichNotes"));
+            createRichNoteZone(top);
+        }
         return top;
     }
 
@@ -116,7 +118,8 @@ class ProjectPreferencesPage extends PreferencePage {
         if (openedProject == null) {
             // no currently opened project => no store, page not visible
             setPreferenceStore(null);
-            this.setVisible(false);
+            if (isControlCreated())
+                this.setVisible(false);
             return;
         }
         
@@ -157,18 +160,6 @@ class ProjectPreferencesPage extends PreferencePage {
             AppProjectUi.LOG.warning("no predefined types found");
             return new ArrayList<>();
         }
-    }
-
-    @objid ("41a2013b-7f82-43b2-90e4-3f8031be5b85")
-    @Override
-    public boolean isValid() {
-        return super.isValid();
-    }
-
-    @objid ("ebe368fc-2f03-41c0-9863-4ffc3f94f815")
-    @Override
-    protected void performDefaults() {
-        super.performDefaults();
     }
 
     @objid ("4fa6dc25-455e-484b-bdba-64adf851d816")
@@ -265,6 +256,17 @@ class ProjectPreferencesPage extends PreferencePage {
         
         Label sep = new Label(parent, SWT.SEPARATOR | SWT.HORIZONTAL);
         GridDataFactory.defaultsFor(sep).span(2, 1).applyTo(sep);
+    }
+
+    @objid ("8e659095-8d5f-4d20-90de-4d8c56eed2c4")
+    @Override
+    protected void setControl(Control newControl) {
+        super.setControl(newControl);
+        
+        if (getPreferenceStore() == null) {
+            // no currently opened project => no store, page not visible
+            this.setVisible(false);
+        }
     }
 
 }

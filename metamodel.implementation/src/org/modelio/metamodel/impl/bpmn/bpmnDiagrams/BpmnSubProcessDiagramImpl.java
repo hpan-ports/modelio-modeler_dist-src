@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.bpmn.bpmnDiagrams;
 
@@ -42,21 +42,21 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("000cb9c6-c4c0-1fd8-97fe-001ec947cd2a")
 public class BpmnSubProcessDiagramImpl extends BehaviorDiagramImpl implements BpmnSubProcessDiagram {
-    @objid ("51c657af-96fc-46d6-8835-a6a56f99fb62")
+    @objid ("bba17e0b-9013-4536-8f5f-46cddd0e6aaa")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("afd171de-c77d-42b0-8ce8-83c12abd11a4")
+    @objid ("1d2ab685-cdf8-4061-8627-e788af353a27")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("ed56105e-0366-4611-9db1-37d73f1ad949")
+    @objid ("b279f5b5-6c6f-48b0-aa1f-bb6550393efc")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitBpmnSubProcessDiagram(this);

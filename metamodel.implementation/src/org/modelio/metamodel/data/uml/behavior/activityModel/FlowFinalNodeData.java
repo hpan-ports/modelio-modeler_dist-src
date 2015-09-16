@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.data.uml.behavior.activityModel;
 
@@ -43,22 +43,22 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("00337692-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=FlowFinalNode.class, factory=FlowFinalNodeData.Metadata.ObjectFactory.class)
 public class FlowFinalNodeData extends FinalNodeData {
-    @objid ("727bbbca-c12b-4d80-8de7-45106646a525")
+    @objid ("db12cbc4-5d81-44ce-be56-cbcfb2a21feb")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("0072be60-c4c3-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("57449257-2241-4490-8d2b-b0fc41c82016")
+        @objid ("72adb2e5-55ca-4c88-975b-3e8b06868745")
         private static SmClass smClass = null;
 
-        @objid ("35c95078-040b-4d7d-aafb-b54be5d850bc")
+        @objid ("90204c7c-2306-40ad-99d7-4b1f6974665e")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(FlowFinalNodeData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("f7ca9885-ed62-41cb-9219-e18a7f4e03ac")
+        @objid ("64f524b4-155c-41d2-9841-4f035a97c94d")
         public static SmClass getSmClass() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return smClass;
@@ -66,12 +66,12 @@ public class FlowFinalNodeData extends FinalNodeData {
 
         @objid ("007300a0-c4c3-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("8de87dd8-70fc-451b-bf3e-c319d144663c")
+            @objid ("6ca5ba5c-aeec-4ed7-b693-1dbdd31fe325")
             public ISmObjectData createData() {
                 return new FlowFinalNodeData();
             }
 
-            @objid ("3a3a15ff-69c8-4619-847f-20ac415ed262")
+            @objid ("d6b9dfb6-3b03-4f5f-8c25-3dd4748c8a07")
             public SmObjectImpl createImpl() {
                 return new FlowFinalNodeImpl();
             }

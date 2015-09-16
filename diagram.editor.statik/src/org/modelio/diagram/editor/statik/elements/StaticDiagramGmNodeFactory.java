@@ -47,10 +47,12 @@ import org.modelio.diagram.editor.statik.elements.interaction.GmInteraction;
 import org.modelio.diagram.editor.statik.elements.interfaze.GmInterface;
 import org.modelio.diagram.editor.statik.elements.namespacelabel.GmNameSpaceLabel;
 import org.modelio.diagram.editor.statik.elements.naryassoc.GmNAssocNode;
+import org.modelio.diagram.editor.statik.elements.naryconnector.GmNConnectorNode;
 import org.modelio.diagram.editor.statik.elements.narylink.GmNLinkNode;
 import org.modelio.diagram.editor.statik.elements.operation.GmOperation;
 import org.modelio.diagram.editor.statik.elements.packaze.GmPackage;
 import org.modelio.diagram.editor.statik.elements.ports.GmPort;
+import org.modelio.diagram.editor.statik.elements.requiredinterface.GmLollipopConnection;
 import org.modelio.diagram.editor.statik.elements.signal.GmSignal;
 import org.modelio.diagram.editor.statik.elements.slot.GmSlot;
 import org.modelio.diagram.editor.statik.elements.statemachine.GmStateMachine;
@@ -86,7 +88,9 @@ import org.modelio.metamodel.uml.statik.Instance;
 import org.modelio.metamodel.uml.statik.Interface;
 import org.modelio.metamodel.uml.statik.NameSpace;
 import org.modelio.metamodel.uml.statik.NaryAssociation;
+import org.modelio.metamodel.uml.statik.NaryConnector;
 import org.modelio.metamodel.uml.statik.NaryLink;
+import org.modelio.metamodel.uml.statik.NaryLinkEnd;
 import org.modelio.metamodel.uml.statik.Operation;
 import org.modelio.metamodel.uml.statik.Package;
 import org.modelio.metamodel.uml.statik.Parameter;
@@ -451,6 +455,27 @@ public class StaticDiagramGmNodeFactory implements IGmNodeFactory {
             GmNLinkNode node = new GmNLinkNode(this.diagram, theNaryLink, new MRef(theNaryLink));
             node.setLayoutData(this.initialLayoutData);
             return node;
+        }
+
+        @objid ("4f8b9a84-619c-4260-8c1b-5a6d0e28aa8e")
+        @Override
+        public Object visitNaryConnector(NaryConnector theNaryConnector) {
+            boolean isLollipopConnection = true;
+            for (NaryLinkEnd end : theNaryConnector.getNaryLinkEnd()) {
+                if (end.getProvider() == null && end.getConsumer() == null) {
+                    isLollipopConnection = false;
+                    break;
+                }
+            }
+            if (isLollipopConnection) {
+                GmLollipopConnection node = new GmLollipopConnection(this.diagram, theNaryConnector);
+                node.setLayoutData(this.initialLayoutData);
+                return node;
+            } else {
+                GmNConnectorNode node = new GmNConnectorNode(this.diagram, theNaryConnector, new MRef(theNaryConnector));
+                node.setLayoutData(this.initialLayoutData);
+                return node;
+            }
         }
 
     }

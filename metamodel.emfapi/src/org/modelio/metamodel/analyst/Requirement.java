@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.analyst;
 
@@ -32,34 +32,34 @@ import org.modelio.metamodel.analyst.RequirementContainer;
 
 @objid ("2a1baa12-05dd-4955-bc67-2839831d9bb9")
 public interface Requirement extends AnalystElement {
-    @objid ("8cf37caa-8de0-44a8-9145-3b1bf4b5808f")
+    @objid ("25438924-f141-4259-b5e9-913c5969e3d5")
     EList<Requirement> getSubRequirement();
 
-    @objid ("6ac6a322-a34f-4631-806c-483535b8fdd4")
+    @objid ("a4bfd9df-9522-4121-b835-d4b2ee659ed0")
     <T extends Requirement> List<T> getSubRequirement(java.lang.Class<T> filterClass);
 
-    @objid ("04a5fa69-af16-4ff2-881d-a20dc01cd8b9")
+    @objid ("b1bfd6e5-02e4-43f1-90c2-8bbf82dc79ed")
     RequirementContainer getOwnerContainer();
 
-    @objid ("5f4796fd-9198-4a26-b8d1-e07b67c605d5")
+    @objid ("92c1328a-7748-4d30-aba2-f920bcd0ca5b")
     void setOwnerContainer(RequirementContainer value);
 
-    @objid ("54d771ff-c10d-4f05-b800-0d1492d80e39")
+    @objid ("ef3e4427-e20f-4e23-8392-679ded1c4eee")
     Requirement getParentRequirement();
 
-    @objid ("99703459-50e0-421d-8f2d-e59b41cd5481")
+    @objid ("68343a5b-9124-4243-bb96-790ca93ead84")
     void setParentRequirement(Requirement value);
 
-    @objid ("94012233-1670-4987-9bcc-5e10d4afb023")
+    @objid ("e49caf1b-4989-4ed6-ac2f-6f42e9f6b6ed")
     EList<Requirement> getArchivedRequirementVersion();
 
-    @objid ("9e82dbc6-7d43-46b9-9767-65b9301a84dd")
+    @objid ("d0af6771-35dd-4b33-8c5f-b0be82e9ed20")
     <T extends Requirement> List<T> getArchivedRequirementVersion(java.lang.Class<T> filterClass);
 
-    @objid ("78454e6c-685b-4f49-90b1-b892a7835e7e")
+    @objid ("9d93c209-5e04-4e3b-93a5-b26edea55cea")
     Requirement getLastRequirementVersion();
 
-    @objid ("a4d71a30-6b39-494f-9c2b-5dd3ca0e9550")
+    @objid ("d1d209b2-bb60-4700-b9c3-8f063dc101de")
     void setLastRequirementVersion(Requirement value);
 
 }

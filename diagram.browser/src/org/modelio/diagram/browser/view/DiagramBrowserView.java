@@ -125,7 +125,7 @@ public class DiagramBrowserView {
      */
     @objid ("000d76e0-0d4f-10c6-842f-001ec947cd2a")
     public void selectElement(Element element) {
-        this.diagramBrowserPanelProvider.getComposite().setSelection(new StructuredSelection(element), true);
+        this.diagramBrowserPanelProvider.getPanel().setSelection(new StructuredSelection(element), true);
     }
 
     /**
@@ -234,7 +234,7 @@ public class DiagramBrowserView {
             @Override
             public void run() {
                 DiagramBrowserView.this.diagramBrowserPanelProvider.setInput(null);
-                DiagramBrowserView.this.diagramBrowserPanelProvider.getComposite().getTree().dispose();
+                DiagramBrowserView.this.diagramBrowserPanelProvider.getPanel().getTree().dispose();
                 DiagramBrowserView.this.diagramBrowserPanelProvider = null;
             }           
         });
@@ -244,13 +244,13 @@ public class DiagramBrowserView {
     @Focus
     public void setFocus() {
         if (this.diagramBrowserPanelProvider != null) {
-            this.diagramBrowserPanelProvider.getComposite().getTree().setFocus();
+            this.diagramBrowserPanelProvider.getPanel().getTree().setFocus();
         }
     }
 
     @objid ("28686740-4ab5-11e2-a4d3-002564c97630")
     public void selectElement(List<Element> elements) {
-        this.diagramBrowserPanelProvider.getComposite().setSelection(new StructuredSelection(elements), true);
+        this.diagramBrowserPanelProvider.getPanel().setSelection(new StructuredSelection(elements), true);
     }
 
     @objid ("2869ede2-4ab5-11e2-a4d3-002564c97630")
@@ -262,7 +262,7 @@ public class DiagramBrowserView {
         
             @Override
             public void run() {
-                DiagramBrowserView.this.diagramBrowserPanelProvider.getComposite().setSelection(new StructuredSelection(elements));
+                DiagramBrowserView.this.diagramBrowserPanelProvider.getPanel().setSelection(new StructuredSelection(elements));
             }           
         });
     }
@@ -277,7 +277,7 @@ public class DiagramBrowserView {
             @Override
             public void run() {
                 if (DiagramBrowserView.this.diagramBrowserPanelProvider != null) {
-                    DiagramBrowserView.this.pickingManager = new DiagramBrowserPickingManager(DiagramBrowserView.this.diagramBrowserPanelProvider.getComposite(), session);
+                    DiagramBrowserView.this.pickingManager = new DiagramBrowserPickingManager(DiagramBrowserView.this.diagramBrowserPanelProvider.getPanel(), session);
                     DiagramBrowserView.this.pickingManager.beginPicking();
                 }
             }           
@@ -314,13 +314,13 @@ public class DiagramBrowserView {
      */
     @objid ("cd493808-54c7-11e2-ae63-002564c97630")
     public void edit(final Element elementToEdit) {
-        Display display = this.diagramBrowserPanelProvider.getComposite().getControl().getDisplay();
+        Display display = this.diagramBrowserPanelProvider.getPanel().getControl().getDisplay();
         display.asyncExec(new Runnable() {
             
             @Override
             public void run() {
-                DiagramBrowserView.this.diagramBrowserPanelProvider.getComposite().expandToLevel(elementToEdit, 0);
-                DiagramBrowserView.this.diagramBrowserPanelProvider.getComposite().editElement(elementToEdit, 0);
+                DiagramBrowserView.this.diagramBrowserPanelProvider.getPanel().expandToLevel(elementToEdit, 0);
+                DiagramBrowserView.this.diagramBrowserPanelProvider.getPanel().editElement(elementToEdit, 0);
             }
         });
     }
@@ -328,17 +328,17 @@ public class DiagramBrowserView {
     @objid ("cd49380d-54c7-11e2-ae63-002564c97630")
     public void collapseAll() {
         if (this.diagramBrowserPanelProvider != null) {            
-            this.diagramBrowserPanelProvider.getComposite().collapseAll();
+            this.diagramBrowserPanelProvider.getPanel().collapseAll();
         }
     }
 
     @objid ("fc05adf8-2a43-402f-8e86-0018f85d2c90")
     protected void initDiagramBrowserPanelProvider() {
         this.diagramBrowserPanelProvider = new DiagramBrowserPanelProvider(this.projectService.getOpenedProject());
-        this.diagramBrowserPanelProvider.create(this.parent);
+        this.diagramBrowserPanelProvider.createPanel(this.parent);
         
         // Add the selection provider
-        this.diagramBrowserPanelProvider.getComposite().addSelectionChangedListener(new ISelectionChangedListener() {
+        this.diagramBrowserPanelProvider.getPanel().addSelectionChangedListener(new ISelectionChangedListener() {
             @Override
             public void selectionChanged(SelectionChangedEvent event) {
                 if (DiagramBrowserView.this.selectionService != null) {
@@ -348,7 +348,7 @@ public class DiagramBrowserView {
         });
         
         // Add the double click listener
-        this.diagramBrowserPanelProvider.getComposite().addDoubleClickListener(new IDoubleClickListener() {
+        this.diagramBrowserPanelProvider.getPanel().addDoubleClickListener(new IDoubleClickListener() {
             @Override
             public void doubleClick(DoubleClickEvent event) {
                 final ISelection selection = event.getSelection();
@@ -372,7 +372,7 @@ public class DiagramBrowserView {
         });
         
         // Add the contextual menu
-        MPopupMenu popupMenu = this.menuService.registerContextMenu(this.diagramBrowserPanelProvider.getComposite().getTree(), POPUPID);
+        MPopupMenu popupMenu = this.menuService.registerContextMenu(this.diagramBrowserPanelProvider.getPanel().getTree(), POPUPID);
         
         // FIXME Hack : PopupMenu are disposed when the view is closed and not loaded the second time. Force reloading of e4 popupmenu model 
         MMenu moduleMenu = MMenuFactory.INSTANCE.createMenu();

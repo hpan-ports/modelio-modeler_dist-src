@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.analyst;
 
@@ -32,34 +32,34 @@ import org.modelio.metamodel.analyst.GenericAnalystContainer;
 
 @objid ("b3e7a343-fe88-4eec-9078-87bfbbaaa3f0")
 public interface GenericAnalystElement extends AnalystElement {
-    @objid ("871f6925-3b9d-4a81-9dde-2d4193fc53ee")
+    @objid ("287563ca-728b-4aeb-a4d2-1f93b943a89c")
     EList<GenericAnalystElement> getSubElement();
 
-    @objid ("1d475a6e-600e-4909-b461-97eafcdda14f")
+    @objid ("8993c8e5-285a-4279-a048-8344a91f134c")
     <T extends GenericAnalystElement> List<T> getSubElement(java.lang.Class<T> filterClass);
 
-    @objid ("896de2b7-cb96-453e-9cb0-e4c2f91cbbed")
+    @objid ("0da08278-1d02-4657-994d-56c1bb6fc652")
     GenericAnalystContainer getOwnerContainer();
 
-    @objid ("6eb0f684-d79b-481f-a760-00c1b10bf069")
+    @objid ("4085f87c-0eb9-498a-9300-881f73c8a36d")
     void setOwnerContainer(GenericAnalystContainer value);
 
-    @objid ("d9536230-5fb7-4e61-989a-c935ec2355e5")
+    @objid ("fdb86f76-9c0f-4ba7-92cb-750513080b67")
     GenericAnalystElement getParentElement();
 
-    @objid ("c92e906a-b066-4569-bcbf-998a9389064d")
+    @objid ("7a2f7115-91cc-47a1-8b6a-61745a5ac489")
     void setParentElement(GenericAnalystElement value);
 
-    @objid ("11e5a339-2f29-4919-9705-631fc9f300c0")
+    @objid ("63559d3a-0d8d-4fb6-874f-818f6fcbd8a3")
     GenericAnalystElement getLastElementVersion();
 
-    @objid ("7bc570b4-d1f8-4db4-bcea-49fc10405564")
+    @objid ("45f6d844-2775-449c-93bb-f57ad76397c5")
     void setLastElementVersion(GenericAnalystElement value);
 
-    @objid ("df69ef64-d4c2-4ce6-b15c-df52b8fc13ae")
+    @objid ("1d704ab0-37b2-45a0-93eb-89e00dcd9516")
     EList<GenericAnalystElement> getArchivedElementVersion();
 
-    @objid ("e6b7efe2-1cd2-4201-80d5-91920c3f69ab")
+    @objid ("4e08ce58-09f6-4a75-bd0d-3ab6db3c1b77")
     <T extends GenericAnalystElement> List<T> getArchivedElementVersion(java.lang.Class<T> filterClass);
 
 }

@@ -24,7 +24,7 @@ package org.modelio.vcore.smkernel;
 import java.util.ArrayList;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.modelio.vcore.Log;
+import org.modelio.vbasic.log.Log;
 
 /**
  * Registry for all {@link IKernelServiceProvider}.

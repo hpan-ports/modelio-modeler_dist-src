@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.data.uml.statik;
 
@@ -43,22 +43,22 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("00205526-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=BehavioralFeature.class, factory=BehavioralFeatureData.Metadata.ObjectFactory.class)
 public class BehavioralFeatureData extends FeatureData {
-    @objid ("f4b30226-79eb-4d4f-a949-6077b79e54ba")
+    @objid ("df9adfd2-bf45-4af8-8fb7-98a50951a040")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("00578b86-c4c5-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("f4bfb54c-576d-47a1-955b-de9ff7ffbeab")
+        @objid ("09e3f852-f29b-4768-ac88-1437d1d6515d")
         private static SmClass smClass = null;
 
-        @objid ("41346bf5-d3fa-4c2d-99e9-004dbc878329")
+        @objid ("0554bdf0-f42e-4ffd-a329-02d29d6665e9")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(BehavioralFeatureData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("3ba44945-febc-43a3-b770-1592d2ef1747")
+        @objid ("8b25e666-8aa8-4645-8d51-29e290c6ecb6")
         public static SmClass getSmClass() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return smClass;
@@ -66,12 +66,12 @@ public class BehavioralFeatureData extends FeatureData {
 
         @objid ("005895ee-c4c5-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("13b79b7f-9948-42df-96ab-cf87fe7c3cb3")
+            @objid ("5af7fb1a-3cd9-4e2e-b41d-2b4e9fb5a6ac")
             public ISmObjectData createData() {
                 return new BehavioralFeatureData();
             }
 
-            @objid ("763b37c6-37d9-4539-8fd5-b4996f482538")
+            @objid ("da609b87-1525-4cdf-9410-2b5c5ec1907f")
             public SmObjectImpl createImpl() {
                 return new BehavioralFeatureImpl();
             }

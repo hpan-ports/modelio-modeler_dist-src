@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.uml.behavior.stateMachineModel;
 
@@ -37,34 +37,34 @@ import org.modelio.metamodel.uml.behavior.stateMachineModel.State;
 
 @objid ("005404fc-c4bf-1fd8-97fe-001ec947cd2a")
 public interface StateMachine extends Behavior {
-    @objid ("9db9a735-a528-4e0e-ba6d-9067bcf8fe7c")
+    @objid ("766eaf0a-2ef1-49ed-b67d-85c9339f17e0")
     KindOfStateMachine getKind();
 
-    @objid ("3f74cfa8-0928-4a45-9a53-7561b5fc37ab")
+    @objid ("14f36c2f-31e6-465a-bb16-40036d4d7e0c")
     void setKind(KindOfStateMachine value);
 
-    @objid ("59820a82-5d31-41d7-a13d-70acee8a1ea2")
+    @objid ("b65facdd-fad8-47f1-9d12-38c6360d69b7")
     Region getTop();
 
-    @objid ("1ffd2e1d-89b5-41b9-b84c-7ede6dc3f7dc")
+    @objid ("805d719b-da03-4628-8e75-da623b3c95c0")
     void setTop(Region value);
 
-    @objid ("f9cf8bdf-1e8d-4c00-b29c-be8876581d71")
+    @objid ("3caa2ef9-d583-4f1c-91b9-c6dc6dd0c43f")
     EList<State> getSubmachineState();
 
-    @objid ("cec710b8-e34f-4721-aa8b-2c0f0e9e3b0a")
+    @objid ("10d7bc10-cc65-4d09-8c1c-9b77452ff379")
     <T extends State> List<T> getSubmachineState(java.lang.Class<T> filterClass);
 
-    @objid ("70355193-faf5-4033-87cb-186c33ec9e5f")
+    @objid ("b7dba46d-0bf9-4f7f-a730-eecd1aab03f6")
     EList<EntryPointPseudoState> getEntryPoint();
 
-    @objid ("e9032dbc-92d8-46e6-8eca-ad46e9d15b07")
+    @objid ("a054d5c6-341e-439a-85ef-147d54813483")
     <T extends EntryPointPseudoState> List<T> getEntryPoint(java.lang.Class<T> filterClass);
 
-    @objid ("4599f2a4-09fa-44d9-b4c7-eacd29dae3c5")
+    @objid ("26e4dddc-1d9a-4c5b-8a06-a2089878a6cd")
     EList<ExitPointPseudoState> getExitPoint();
 
-    @objid ("16b2e5b5-dfd6-41eb-91bc-92c6b8e711e2")
+    @objid ("5ee21dd2-68a2-465f-ba2e-b061b11432d3")
     <T extends ExitPointPseudoState> List<T> getExitPoint(java.lang.Class<T> filterClass);
 
 }

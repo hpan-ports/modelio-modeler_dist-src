@@ -22,7 +22,8 @@
 package org.modelio.xmi.model.ecore;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.modelio.api.modelio.Modelio;
+import org.modelio.gproject.model.IMModelServices;
+import org.modelio.metamodel.factory.ElementNotUniqueException;
 import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.metamodel.uml.statik.Operation;
 import org.modelio.metamodel.uml.statik.Parameter;
@@ -36,10 +37,16 @@ public class EOperationTemplateParameter extends EElement {
     @objid ("c1051335-bb37-4b8f-ae86-31fbab26ede2")
     @Override
     public Element createObjingElt() {
-        Parameter result = Modelio.getInstance().getModelingSession().getModel().createParameter();
+        IMModelServices mmServices = ReverseProperties.getInstance().getMModelServices();
         
-        result.getExtension().add(Modelio.getInstance().getModelingSession().getMetamodelExtensions().getStereotype(
-                IModelerModuleStereotypes.UML2OPERATIONTEMPLATEPARAMETER, result.getMClass()));
+        Parameter result = mmServices.getModelFactory().createParameter();
+        
+        try {
+            result.getExtension().add(mmServices.getStereotype(
+                    IModelerModuleStereotypes.UML2OPERATIONTEMPLATEPARAMETER, result.getMClass()));
+        } catch (ElementNotUniqueException e) {
+           Xmi.LOG.warning(e);
+        }
         return result;
     }
 
@@ -57,7 +64,7 @@ public class EOperationTemplateParameter extends EElement {
             objingOperation = (Element) ReverseProperties.getInstance()
                     .getMappedElement(ecoreOwner);
         }catch (RuntimeException e){
-            Xmi.LOG.error(Xmi.PLUGIN_ID, e);
+            Xmi.LOG.error(e);
         }
         
         if (objingOperation instanceof Operation) {
@@ -69,12 +76,6 @@ public class EOperationTemplateParameter extends EElement {
         }else{
             objingElt.delete();
         }
-    }
-
-    @objid ("4f538376-6ff5-4967-9f49-e50a1085f08b")
-    @Override
-    public void setProperties(Element objingElt) {
-        super.setProperties(objingElt);
     }
 
 }

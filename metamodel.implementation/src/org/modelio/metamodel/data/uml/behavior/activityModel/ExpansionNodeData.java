@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.data.uml.behavior.activityModel;
 
@@ -44,36 +44,36 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("00318170-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=ExpansionNode.class, factory=ExpansionNodeData.Metadata.ObjectFactory.class)
 public class ExpansionNodeData extends ObjectNodeData {
-    @objid ("ada39d99-ba75-4ca3-86e8-f697db540c28")
+    @objid ("1879695b-c847-44f2-99a3-928ec62076f5")
     @SmaMetaAssociation(metaName="RegionAsOutput", typeDataClass=ExpansionRegionData.class, min=0, max=1, smAssociationClass=Metadata.RegionAsOutputSmDependency.class)
      SmObjectImpl mRegionAsOutput;
 
-    @objid ("17d79872-ba65-4190-8a34-b1425f3e04af")
+    @objid ("e5b80b12-00ff-4ff4-ad69-53325be217cb")
     @SmaMetaAssociation(metaName="RegionAsInput", typeDataClass=ExpansionRegionData.class, min=0, max=1, smAssociationClass=Metadata.RegionAsInputSmDependency.class)
      SmObjectImpl mRegionAsInput;
 
-    @objid ("48a79880-beb0-42c0-a406-cab87a391508")
+    @objid ("1fb8894c-2094-45ce-9dac-d8a3a73b7ed6")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("00374c86-c4c2-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("31954bdf-0dcf-4e92-bdb5-685fc951c896")
+        @objid ("64ac2f37-83ae-4b04-9772-560f46140f2d")
         private static SmClass smClass = null;
 
-        @objid ("a9057694-da61-4653-9df7-4840b6e6509e")
+        @objid ("fa012320-0ecc-44de-affa-a6ab8d1c3626")
         private static SmDependency RegionAsOutputDep = null;
 
-        @objid ("2fd6a108-a3b4-4327-a362-b6489a12126e")
+        @objid ("2d5edf3f-168b-4f38-a72d-a5d49f234ce1")
         private static SmDependency RegionAsInputDep = null;
 
-        @objid ("4354a320-cda3-4acb-9872-f2d6762bbfee")
+        @objid ("5c66b221-a0c5-42ab-9ea9-33df7e1519b8")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(ExpansionNodeData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("4fef06c8-d0d9-41c2-b4c9-140d7199aa91")
+        @objid ("46305db8-a1a4-441f-b230-a96cc2fd1da3")
         public static SmDependency RegionAsOutputDep() {
             if (RegionAsOutputDep == null) {
             	RegionAsOutputDep = classof().getDependencyDef("RegionAsOutput");
@@ -81,7 +81,7 @@ public class ExpansionNodeData extends ObjectNodeData {
             return RegionAsOutputDep;
         }
 
-        @objid ("b88b7619-21bf-4e06-9d1e-09380a8ba87a")
+        @objid ("b4e451a6-055d-4805-a9f7-b08882a2adf0")
         public static SmDependency RegionAsInputDep() {
             if (RegionAsInputDep == null) {
             	RegionAsInputDep = classof().getDependencyDef("RegionAsInput");
@@ -89,32 +89,32 @@ public class ExpansionNodeData extends ObjectNodeData {
             return RegionAsInputDep;
         }
 
-        @objid ("6529eb39-a3dd-49c2-8426-997755ce4af2")
+        @objid ("6d72bd02-9b42-4585-b4ac-8a64549760f6")
         public static SmDependency getRegionAsOutputDep() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return RegionAsOutputDep;
         }
 
-        @objid ("65daf233-3a3f-4ab3-bf07-5bec51673462")
-        public static SmDependency getRegionAsInputDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return RegionAsInputDep;
-        }
-
-        @objid ("3ba003b4-fc93-4098-9e52-2c3ffe1e0026")
+        @objid ("9a2b3285-9647-44ae-acfe-01d5064e7df6")
         public static SmClass getSmClass() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return smClass;
         }
 
+        @objid ("6e073ec5-c196-4444-a8b4-d026a66c9b8b")
+        public static SmDependency getRegionAsInputDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return RegionAsInputDep;
+        }
+
         @objid ("0037998e-c4c2-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("d72f6f4a-4008-42a0-a0be-b34810446835")
+            @objid ("3bfa9bbd-8289-4adb-aae1-51dfd82984b4")
             public ISmObjectData createData() {
                 return new ExpansionNodeData();
             }
 
-            @objid ("5dd7fb41-809f-4d68-a039-496aa82c74be")
+            @objid ("9287bf62-cab7-4a07-93fa-d0daa021c3d8")
             public SmObjectImpl createImpl() {
                 return new ExpansionNodeImpl();
             }
@@ -123,18 +123,18 @@ public class ExpansionNodeData extends ObjectNodeData {
 
         @objid ("003807fc-c4c2-1fd8-97fe-001ec947cd2a")
         public static class RegionAsInputSmDependency extends SmSingleDependency {
-            @objid ("692dfde3-33ed-42cd-84f9-658a83e9cfa5")
+            @objid ("efc64a19-4a06-43a1-9dd2-8f9f04727396")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((ExpansionNodeData) data).mRegionAsInput;
             }
 
-            @objid ("5082a541-b312-420f-ac46-8d1b229a294a")
+            @objid ("fd362f78-e52f-4146-92e6-741b2ed82543")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((ExpansionNodeData) data).mRegionAsInput = value;
             }
 
-            @objid ("2e0e49a8-fc63-4660-abac-6389a1f9267c")
+            @objid ("d3871b1f-b249-420b-adc7-b1b1ca9d36a2")
             @Override
             public SmDependency getSymetric() {
                 return ExpansionRegionData.Metadata.InputElementDep();
@@ -144,18 +144,18 @@ public class ExpansionNodeData extends ObjectNodeData {
 
         @objid ("0038892a-c4c2-1fd8-97fe-001ec947cd2a")
         public static class RegionAsOutputSmDependency extends SmSingleDependency {
-            @objid ("ff75e152-8d85-44eb-be78-68869b569e73")
+            @objid ("2cfd0e25-732d-4f54-a2c3-18befb337835")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((ExpansionNodeData) data).mRegionAsOutput;
             }
 
-            @objid ("57af5b07-bc7e-4bbe-bca5-686a841600fa")
+            @objid ("f2f53dac-2403-4506-ab3e-55f8235595c8")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((ExpansionNodeData) data).mRegionAsOutput = value;
             }
 
-            @objid ("c6b5cb92-2057-49ed-88e5-cc0353bb98ea")
+            @objid ("7472d914-b29f-4625-85b1-5e79e769c2fd")
             @Override
             public SmDependency getSymetric() {
                 return ExpansionRegionData.Metadata.OutputElementDep();

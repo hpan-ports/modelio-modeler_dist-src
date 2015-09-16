@@ -34,7 +34,7 @@ import java.util.Map;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.api.module.IModule;
 import org.modelio.api.module.ModuleException;
-import org.modelio.gproject.descriptor.GProperties.Entry;
+import org.modelio.gproject.data.project.GProperties.Entry;
 import org.modelio.gproject.gproject.GProject;
 import org.modelio.gproject.module.GModule;
 import org.modelio.gproject.module.IModuleHandle;
@@ -256,12 +256,14 @@ class ModuleInstaller {
      * Stop and unload all dependent modules so they can be restarted
      * with the dependency filled once the
      * module is installed
-     * @throws ModuleException
-     * @param rtModuleHandle @return
+     * @param rtModuleHandle the handle of the module whose dependencies must be stopped.
+     * @return all stopped dependent modules
+     * @throws org.modelio.api.module.ModuleException in case of failure
      */
     @objid ("acef8e0f-535e-47f4-9e3c-08e25b7a07fc")
     private Collection<GModule> stopDependentModules(IModuleHandle rtModuleHandle) throws ModuleException {
-        Collection<GModule> dependentGModules = ModuleResolutionHelper.getModuleHandleDependentGModules(rtModuleHandle, this.gProject);
+        List<GModule> dependentGModules = ModuleResolutionHelper.getModuleHandleDependentGModules(rtModuleHandle, this.gProject);
+        
         for (GModule dependentGModule : dependentGModules) {
             IModule started = this.moduleService.getModuleRegistry().getStartedModule(dependentGModule.getModuleElement());
             if (started != null) {

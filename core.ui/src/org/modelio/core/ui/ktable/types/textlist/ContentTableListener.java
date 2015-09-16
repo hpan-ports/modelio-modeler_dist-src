@@ -36,10 +36,10 @@ import org.eclipse.swt.widgets.TableColumn;
 @objid ("8dc905a9-c068-11e1-8c0a-002564c97630")
 class ContentTableListener implements ISelectionChangedListener, KeyListener, ControlListener {
     @objid ("8dc905aa-c068-11e1-8c0a-002564c97630")
-    private StringListEditionDialog dialog = null;
+    private StringListEditionComposite dialog = null;
 
     @objid ("8dc905ab-c068-11e1-8c0a-002564c97630")
-    public ContentTableListener(StringListEditionDialog dialog) {
+    public ContentTableListener(StringListEditionComposite dialog) {
         this.dialog = dialog;
     }
 
@@ -69,17 +69,17 @@ class ContentTableListener implements ISelectionChangedListener, KeyListener, Co
     @Override
     public void keyReleased(KeyEvent event) {
         if (event.keyCode == SWT.DEL) {
-            List<StringAdapter> adapters = this.dialog.getSelectedAdapters();
+            List<String> adapters = this.dialog.getSelectedAdapters();
             this.dialog.removeAdapters(adapters);
         } else if (event.keyCode == SWT.ARROW_UP && (event.stateMask & SWT.CTRL) != 0
                 || event.keyCode == 'u' && (event.stateMask & SWT.CTRL) != 0
                 || event.keyCode == 'U' && (event.stateMask & SWT.CTRL) != 0) {
-            List<StringAdapter> adapters = this.dialog.getSelectedAdapters();
+            List<String> adapters = this.dialog.getSelectedAdapters();
             this.dialog.moveUp(adapters);
         } else if (event.keyCode == SWT.ARROW_DOWN && (event.stateMask & SWT.CTRL) != 0
                 || event.keyCode == 'd' && (event.stateMask & SWT.CTRL) != 0
                 || event.keyCode == 'D' && (event.stateMask & SWT.CTRL) != 0) {
-            List<StringAdapter> adapters = this.dialog.getSelectedAdapters();
+            List<String> adapters = this.dialog.getSelectedAdapters();
             this.dialog.moveDown(adapters);
         }
     }
@@ -87,7 +87,7 @@ class ContentTableListener implements ISelectionChangedListener, KeyListener, Co
     @objid ("8dc905be-c068-11e1-8c0a-002564c97630")
     @Override
     public void selectionChanged(SelectionChangedEvent event) {
-        List<StringAdapter> adapters = this.dialog.getSelectedAdapters();
+        List<String> adapters = this.dialog.getSelectedAdapters();
         
         boolean enable = adapters.size() > 0;
         

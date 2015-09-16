@@ -31,8 +31,11 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
  * <li>Major version
  * <li>Minor version
  * <li>Build version
- * <li>Metamodel version
+ * <li>Metamodel version (optional, zero  = not specified)
  * </ul>
+ * <p>
+ * Two Versions are considered equal if the only difference between them
+ * is one of their metamodel version being zero.
  */
 @objid ("063d7a23-c9cc-11e1-8052-001ec947ccaf")
 public class Version {
@@ -102,6 +105,8 @@ public class Version {
      * <p>
      * The result is true if and only if the argument is not null and is a
      * Version object that represents the same version object as this object.
+     * <p>
+     * Two Versions are considered equal if the only difference is one of their metamodel version being zero.
      * @param anObject The object to compare this Version against.
      * @return true if the given object represents a Version equivalent to this
      * Version, false otherwise.
@@ -114,8 +119,10 @@ public class Version {
         }
         if (anObject instanceof Version) {
             Version other = (Version) anObject;
-            return (this.majorVersion == other.majorVersion && this.minorVersion == other.minorVersion
-                    && this.buildVersion == other.buildVersion && this.metamodelVersion == other.metamodelVersion);
+            return (this.majorVersion == other.majorVersion
+                    && this.minorVersion == other.minorVersion
+                    && this.buildVersion == other.buildVersion 
+                    && (this.metamodelVersion == other.metamodelVersion || this.metamodelVersion==0 || other.metamodelVersion==0));
         }
         return false;
     }
@@ -140,7 +147,11 @@ public class Version {
 
     /**
      * Get the metamodel number of this version.
-     * @return the metamodel number of this version.
+     * <p>
+     * Zero means not specified.
+     * <p>
+     * Two Versions are considered equal if the only difference is one of their metamodel version being <i>zero</i>.
+     * @return the metamodel number of this version or zero.
      */
     @objid ("063d7a28-c9cc-11e1-8052-001ec947ccaf")
     public int getMetamodelVersion() {
@@ -157,9 +168,11 @@ public class Version {
     }
 
     /**
-     * Check if this Version is newer than the given Version.
+     * Check if this Version is strictly newer than the given Version.
+     * <p>
+     * Two Versions are considered equal if the only difference is one of their metamodel version being <i>zero</i>.
      * @param other the Version object that must be compared to this Version.
-     * @return true if this is newer than the given version.
+     * @return <i>true</i> if this is newer than the given version.
      */
     @objid ("063d7a2a-c9cc-11e1-8052-001ec947ccaf")
     public boolean isNewerThan(Version other) {
@@ -181,6 +194,8 @@ public class Version {
             return true;
         
         // Major, minor and build are the same, test mm version
+        if (this.metamodelVersion == 0 || other.metamodelVersion == 0)
+            return false;
         if (this.metamodelVersion < other.metamodelVersion)
             return false;
         if (this.metamodelVersion > other.metamodelVersion)
@@ -189,9 +204,11 @@ public class Version {
     }
 
     /**
-     * Check if this Version is older than the given Version
+     * Check if this Version is strictly older than the given Version.
+     * <p>
+     * Two Versions are considered equal if the only difference is one of their metamodel version being <i>zero</i>.
      * @param other the Version object that must be compared to this Version.
-     * @return true if this is older than the given version.
+     * @return <i>true</i> if this is older than the given version.
      */
     @objid ("063d7a2b-c9cc-11e1-8052-001ec947ccaf")
     public boolean isOlderThan(Version other) {
@@ -213,6 +230,8 @@ public class Version {
             return true;
         
         // Major, minor and build are the same, test mm version
+        if (this.metamodelVersion == 0 || other.metamodelVersion == 0)
+            return false;
         if (this.metamodelVersion > other.metamodelVersion)
             return false;
         if (this.metamodelVersion < other.metamodelVersion)
@@ -272,7 +291,6 @@ public class Version {
         int result = 1;
         result = prime * result + this.buildVersion;
         result = prime * result + this.majorVersion;
-        result = prime * result + this.metamodelVersion;
         result = prime * result + this.minorVersion;
         return result;
     }
@@ -298,7 +316,6 @@ public class Version {
      * version.toString("V.R") will produce 3.0
      * version.toString("V.R.C-M") will produce 3.0.01-9013
      * @return the formatted string representation of the version.
-     * @return
      */
     @objid ("5de000a8-66df-4b8a-9095-015af24b6505")
     public String toString(String format) {

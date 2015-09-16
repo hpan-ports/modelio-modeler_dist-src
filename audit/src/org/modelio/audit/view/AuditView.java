@@ -111,7 +111,7 @@ public class AuditView {
                         if (AuditView.this.project != null) {
                             // Create the view content
                             AuditView.this.view = new AuditPanelProvider(openedProject.getSession(), AuditView.this.modelService, navigationService,application, emService,"");
-                            AuditView.this.view.create(AuditView.this.parentComposite);
+                            AuditView.this.view.createPanel(AuditView.this.parentComposite);
                             AuditView.this.parentComposite.layout();
                             AuditView.this.view.setInput(auditService.getAuditEngine());
                             AuditView.this.view.refresh(auditService.getAuditEngine().getAuditDiagnostic());
@@ -159,7 +159,7 @@ public class AuditView {
     @Focus
     public void setFocus() {
         if (this.view != null) {
-            this.view.getComposite().setFocus();
+            this.view.getPanel().setFocus();
         }
     }
 

@@ -54,7 +54,7 @@ import org.modelio.core.ui.treetable.number.IntegerCellEditor;
  */
 @objid ("e7a34fbf-3a39-11e2-90eb-002564c97630")
 class ParametersEditingSupport extends EditingSupport {
-    @objid ("b65555bf-7bc7-4945-9768-f8ffefffe6e8")
+    @objid ("c85d4aed-fb32-4e7a-a464-3bc221612ecd")
     private TreeViewer viewer;
 
     /**

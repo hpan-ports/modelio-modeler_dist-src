@@ -54,6 +54,7 @@ public class OMessage extends OModelElement {
         Interaction interaction = (Interaction) AbstractObjingModelNavigation.getEnclosingElement(getObjingElement(), 
                 SmClass.getClass(Interaction.class));
         
+        
         Object ecoreInteraction =  GenerationProperties.getInstance().getMappedElement(interaction);
         
         if ((ecoreInteraction != null) && (ecoreInteraction instanceof org.eclipse.uml2.uml.Interaction)) 
@@ -115,8 +116,8 @@ public class OMessage extends OModelElement {
         
         if ((end1 != null ) 
                 && (end2 != null) 
-                && (end1.getCovered().size() != 1) 
-                &&  (end2.getCovered().size() != 1)) {
+                && (end1.getCovered().size() > 0) 
+                &&  (end2.getCovered().size() > 0)) {
         
             Lifeline lifeline1 = end1.getCovered().get(0);
             Lifeline lifeline2 = end2.getCovered().get(0);
@@ -142,6 +143,8 @@ public class OMessage extends OModelElement {
                 }
             }
         
+        }else{
+            ecoreElt.destroy();
         }
     }
 

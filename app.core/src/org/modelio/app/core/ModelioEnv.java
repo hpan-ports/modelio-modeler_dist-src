@@ -28,10 +28,15 @@ import java.nio.file.Paths;
 import javax.annotation.PostConstruct;
 import javax.inject.Singleton;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
+import org.eclipse.core.runtime.preferences.IEclipsePreferences.IPreferenceChangeListener;
+import org.eclipse.core.runtime.preferences.IEclipsePreferences.PreferenceChangeEvent;
+import org.eclipse.core.runtime.preferences.IEclipsePreferences;
+import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.e4.core.di.annotations.Creatable;
 import org.modelio.app.core.plugin.AppCore;
 import org.modelio.metamodel.Metamodel;
 import org.modelio.vbasic.version.Version;
+import org.osgi.service.prefs.BackingStoreException;
 
 /**
  * The ModelioEnv singleton holds several configuration values for Modelio.
@@ -48,7 +53,10 @@ import org.modelio.vbasic.version.Version;
 @Singleton
 public class ModelioEnv {
     @objid ("003e9a0e-9277-103f-87fd-001ec947cd2a")
-    public static final String MODELIO_VERSION = "3.1.2";
+    public static final String MODELIO_VERSION = "3.2.1";
+
+    @objid ("cc93fe4d-eaad-43f3-b511-732fe3711631")
+    public static final String MODULE_PATH_PREFERENCE = "ModuleCatalog.LocalPath";
 
     @objid ("0065c1a6-856d-103f-87fd-001ec947cd2a")
     private Version version;
@@ -57,10 +65,10 @@ public class ModelioEnv {
     private Path runtimeDataPath;
 
     @objid ("0069c58a-7778-1061-84ef-001ec947cd2a")
-    private Path moduleCatalogPath;
+    protected Path moduleCatalogPath;
 
     @objid ("008572d0-cdbe-106a-bf4f-001ec947cd2a")
-    private Path macroCatalogPath;
+    protected Path macroCatalogPath;
 
     @objid ("0001d380-de89-1040-a120-001ec947cd2a")
     @PostConstruct
@@ -71,8 +79,36 @@ public class ModelioEnv {
         // Modelio runtime data path
         this.runtimeDataPath = Paths.get(System.getProperty("user.home"), ".modelio", versionSubpath);
         
+        // Get the mda.infra preference node, as the module catalog is managed by this plugin
+        IEclipsePreferences prefs = InstanceScope.INSTANCE.getNode("org.modelio.mda.infra");
+        
         // Modelio modules catalog
-        this.moduleCatalogPath = Paths.get(this.runtimeDataPath.toString(), "modules");
+        Path defaultModuleCatalogPath = Paths.get(this.runtimeDataPath.toString(), "modules");
+        String value = prefs.get(MODULE_PATH_PREFERENCE, null);
+        if (value == null) {
+            // No value in the preference store, set the default one 
+            this.moduleCatalogPath = defaultModuleCatalogPath;
+            prefs.put(MODULE_PATH_PREFERENCE, this.moduleCatalogPath.toString());
+        
+            // Save preferences
+            try {
+                prefs.flush();
+            } catch (BackingStoreException e) {
+                AppCore.LOG.error(e.getMessage());
+            }
+        } else {
+            this.moduleCatalogPath = Paths.get(value);
+        }
+        
+        // Add a preference change listener to update module catalog path.
+        prefs.addPreferenceChangeListener(new IPreferenceChangeListener() {
+            @Override
+            public void preferenceChange(PreferenceChangeEvent event) {
+                if (MODULE_PATH_PREFERENCE.equals(event.getKey())) {
+                    ModelioEnv.this.moduleCatalogPath = Paths.get((String) event.getNewValue());
+                }
+            }
+        });
         
         // Modelio macro catalog
         this.macroCatalogPath = Paths.get(this.runtimeDataPath.toString(), "macros");

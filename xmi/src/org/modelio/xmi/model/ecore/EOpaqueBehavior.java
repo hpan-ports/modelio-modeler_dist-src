@@ -21,9 +21,7 @@
 
 package org.modelio.xmi.model.ecore;
 
-import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.modelio.api.modelio.Modelio;
 import org.modelio.metamodel.uml.behavior.commonBehaviors.OpaqueBehavior;
 import org.modelio.metamodel.uml.behavior.stateMachineModel.State;
 import org.modelio.metamodel.uml.behavior.stateMachineModel.Transition;
@@ -38,7 +36,7 @@ import org.modelio.xmi.util.ReverseProperties;
  * @author ebrosse
  */
 @objid ("c77eb15b-69ea-4781-938b-b3c2508c8cfe")
-public class EOpaqueBehavior extends ENamedElement implements IEElement {
+public class EOpaqueBehavior extends ENamedElement {
     @objid ("9bfa7de4-43f8-435b-9502-eac97e0ab2c0")
     private org.eclipse.uml2.uml.OpaqueBehavior ecoreElement = null;
 
@@ -55,7 +53,7 @@ public class EOpaqueBehavior extends ENamedElement implements IEElement {
             ModelUtils.stateMapping(this.ecoreElement, (State) objOwner, (org.eclipse.uml2.uml.State) ecoreOwner);
             return null;
         }else
-            return Modelio.getInstance().getModelingSession().getModel().createOpaqueBehavior();
+            return ReverseProperties.getInstance().getMModelServices().getModelFactory().createOpaqueBehavior();
     }
 
     @objid ("cb8f2e40-7e47-4f14-b43c-830f47819bc4")
@@ -74,11 +72,6 @@ public class EOpaqueBehavior extends ENamedElement implements IEElement {
         }else{
             objingElt.delete();
         }
-    }
-
-    @objid ("fa9d087c-2a89-4a72-92f2-2c0f4ef88412")
-    @Override
-    public void attach(List<Object> objingElts) {
     }
 
     @objid ("ce06d0ae-3c51-4625-abcc-ff61f22b45a9")

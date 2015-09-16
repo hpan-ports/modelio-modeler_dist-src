@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.bpmn.events;
 
@@ -31,10 +31,10 @@ import org.modelio.metamodel.bpmn.activities.BpmnActivity;
 
 @objid ("008944c8-c4bf-1fd8-97fe-001ec947cd2a")
 public interface BpmnCompensateEventDefinition extends BpmnEventDefinition {
-    @objid ("45b7d357-086b-4771-bf72-0298dc01ea74")
+    @objid ("2bbfc693-3a02-4080-8f5d-a1a9be9b20b7")
     BpmnActivity getActivityRef();
 
-    @objid ("0a491e74-4948-4648-9568-31c7b6dd2c6f")
+    @objid ("1ad4f7e4-4537-40e4-af47-67dcafa57740")
     void setActivityRef(BpmnActivity value);
 
 }

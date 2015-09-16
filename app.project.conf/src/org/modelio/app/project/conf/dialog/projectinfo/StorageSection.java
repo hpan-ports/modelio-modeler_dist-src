@@ -22,12 +22,14 @@
 package org.modelio.app.project.conf.dialog.projectinfo;
 
 import java.io.IOException;
+import java.nio.file.FileSystemException;
 import java.nio.file.Files;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.forms.widgets.ExpandableComposite;
@@ -78,22 +80,37 @@ class StorageSection {
         if (this.displayedProject.getPath() != null) {
             this.storagePath.setText(this.displayedProject.getPath().toString());
             this.storageSize.setText(AppProjectConf.I18N.getString("StorageSection.ComputingSize"));
-            new Thread() {
+        
+            // Compute storage size in another thread
+            final Text lstorageSize = this.storageSize;
+            final Display display = this.storageSize.getDisplay();
+            new Thread(AppProjectConf.I18N.getString("StorageSection.ComputingSize")) {
                 @Override
                 public void run() {
+                    long projectSize = -1;
+                    String msg = "?";
                     try {
-                        final Long projectSize = FileUtils.computeSize(StorageSection.this.displayedProject.getPath()) / 1024 / 1024;    //Unit: Megabyte
-                        
-                        StorageSection.this.storageSize.getDisplay().asyncExec(new Runnable() {
-                            
-                            @Override
-                            public void run() {
-                                StorageSection.this.storageSize.setText(Long.toString(projectSize)+ " "+ AppProjectConf.I18N.getString("StorageSection.SizeUnit"));
-                            }
-                        });
+                        projectSize = FileUtils.computeSize(StorageSection.this.displayedProject.getPath()) / 1024 / 1024;    //Unit: Megabyte
+                        msg = Long.toString(projectSize)+ " "+ AppProjectConf.I18N.getString("StorageSection.SizeUnit");
+                    } catch (FileSystemException e) {
+                        AppProjectConf.LOG.warning(e);
+                        msg = FileUtils.getLocalizedMessage(e);
                     } catch (IOException e) {
-                        AppProjectConf.LOG.error(e);
+                        AppProjectConf.LOG.warning(e);
+                        msg = e.getLocalizedMessage();
                     }
+                    
+                    final String textContent = msg;
+                        
+                    display.asyncExec(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (lstorageSize.isDisposed())
+                                return;
+        
+                            lstorageSize.setText(textContent);
+                        }
+                    });
                 }
             }.start();
         } else {

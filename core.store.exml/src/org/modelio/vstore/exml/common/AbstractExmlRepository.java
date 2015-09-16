@@ -28,6 +28,7 @@ import java.io.OutputStream;
 import java.net.URI;
 import java.nio.file.FileSystemException;
 import java.nio.file.FileSystems;
+import java.nio.file.Files;
 import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -43,10 +44,10 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.modelio.vbasic.files.CloseOnFail;
 import org.modelio.vbasic.files.FileUtils;
+import org.modelio.vbasic.log.Log;
 import org.modelio.vbasic.progress.IModelioProgress;
 import org.modelio.vbasic.progress.NullProgress;
 import org.modelio.vbasic.progress.SubProgress;
-import org.modelio.vcore.Log;
 import org.modelio.vcore.model.DuplicateObjectException;
 import org.modelio.vcore.model.MObjectCache;
 import org.modelio.vcore.session.api.blob.IBlobInfo;
@@ -72,6 +73,7 @@ import org.modelio.vstore.exml.common.index.IndexOutdatedException;
 import org.modelio.vstore.exml.common.model.IllegalReferenceException;
 import org.modelio.vstore.exml.common.model.ObjId;
 import org.modelio.vstore.exml.common.utils.ExmlUtils;
+import org.modelio.vstore.exml.plugin.VStoreExml;
 import org.modelio.vstore.exml.resource.FsExmlResourceProvider;
 import org.modelio.vstore.exml.resource.IExmlResourceProvider;
 import org.modelio.vstore.exml.resource.LocalExmlResourceProvider;
@@ -271,6 +273,7 @@ public abstract class AbstractExmlRepository implements IExmlBase {
     @objid ("fd21f562-5986-11e1-991a-001ec947ccaf")
     public void create() throws IOException {
         this.resProvider.createRepository();
+        saveRepositoryVersion();
     }
 
     @objid ("fd21f566-5986-11e1-991a-001ec947ccaf")
@@ -314,7 +317,19 @@ public abstract class AbstractExmlRepository implements IExmlBase {
     public SmObjectImpl findById(SmClass cls, final UUID siteIdentifier) {
         ObjId id  = new ObjId(cls, "", siteIdentifier);
         try (IModelLoader modelLoader = this.modelLoaderProvider.beginLoadSession()) {
-            return findByObjId(id, modelLoader );
+            // The search is first done for the metaclass itself
+            SmObjectImpl obj = findByObjId(id, modelLoader );
+        
+            // and then it must be carried out for all the metaclass derived from 'cls'
+            if (obj == null) {
+                for (SmClass mc : cls.getAllSubClasses()) {
+                    obj = findByObjId(new ObjId(mc, "", siteIdentifier), modelLoader );
+                    if (obj != null) 
+                        return obj;
+                }
+            }
+        
+            return obj;
         } catch (DuplicateObjectException e) {
             getErrorSupport().fireError(e);
         } catch (IOException e) {
@@ -639,13 +654,24 @@ public abstract class AbstractExmlRepository implements IExmlBase {
             }
             
             for (ExmlStorageHandler handler : dirty) {
-                // Do not save not loaded nodes: these are missing references.
-                // Do not save deleted nodes: the file is already deleted.
-                if (handler.isLoaded() && ! this.deletedNodes.containsKey(handler)) {
-                    //todo: backup files in case of future failure
-                    save (handler, mon.newChild(10));
+                try {
+                    // Do not save not loaded nodes: these are missing references.
+                    // Do not save deleted nodes: the file is already deleted.
+                    if (handler.isLoaded() && ! this.deletedNodes.containsKey(handler)) {
+                        //TODO: backup files in case of future failure
+                        save (handler, mon.newChild(10));
+                    }
+                    
+                    handler.setDirty(false);
+                } catch (IOException e) {
+                    // Report save error and try to continue
+                    String message = VStoreExml.getMessage("AbstractExmlRepository.saveNodeFailed",
+                            handler.getCmsNode().toString(),
+                            FileUtils.getLocalizedMessage(e),
+                            this.getResourceProvider().getName());
+                    
+                    getErrorSupport().fireWarning(new StorageException(this, message, e));
                 }
-                handler.setDirty(false);
             }
             
             // Commit resources, will also write a stamp
@@ -824,18 +850,45 @@ public abstract class AbstractExmlRepository implements IExmlBase {
      */
     @objid ("fd2458ee-5986-11e1-991a-001ec947ccaf")
     private boolean openIndexes(IModelioProgress aMonitor) throws IOException {
+        if (this.indexes != null) {
+            // Indexes opened before the repository
+            this.indexes.close();
+        }
+        
+        // Ensure index directory exists to check its write rights 
+        Files.createDirectories(this.resProvider.getIndexAccessPath().toPath());
+        
+        // Open indexes and check their format version
         boolean indexesRebuilt = false;
         this.indexes = new ExmlIndex(this.resProvider, getErrorSupport());
         
-        try {
-            this.indexes.open(aMonitor);
-            
-            this.indexes.checkUptodate();
-        } catch (RuntimeException e) {
-            setIndexesDamaged(new IOException(e));
-        } catch (IndexOutdatedException e) {
-            Log.trace(e);
-            this.needRebuildIndexes = true;
+        if (this.resProvider.isBrowsable() && this.resProvider.getIndexAccessPath().canWrite()) {
+            // The indexes can be rebuilt if needed.
+            try {
+                this.indexes.open(aMonitor);
+        
+                this.indexes.checkUptodate();
+            } catch (RuntimeException e) {
+                setIndexesDamaged(new IOException(e));
+            } catch (IndexOutdatedException e) {
+                Log.trace(e);
+                this.needRebuildIndexes = true;
+            }
+        } else {
+            // Indexes cannot be rebuilt : open will fail if indexes are bad.
+            try {
+                this.indexes.open(aMonitor);
+        
+                this.indexes.checkUptodate();
+            } catch (RuntimeException e) {
+                String msg = VStoreExml.getMessage("AbstractExmlRepository.RoIndexesDamaged", 
+                        this.resProvider.getName(), e.toString());
+                throw new IOException(msg, e);
+            } catch (IndexOutdatedException e) {
+                String msg = VStoreExml.getMessage("AbstractExmlRepository.RoIndexesOutdated", 
+                        this.resProvider.getName(), e.getLocalizedMessage());
+                throw new IOException(msg, e);
+            }
         }
         
         if (this.needRebuildIndexes) {
@@ -844,21 +897,22 @@ public abstract class AbstractExmlRepository implements IExmlBase {
                 SubProgress mon = SubProgress.convert(aMonitor, 100);
                 
                 // Create a new stamp in case there is none
-                if (this.resProvider.getStamp().isEmpty())
-                    this.resProvider.writeStamp();
+                //if (this.resProvider.getStamp().isEmpty())
+                // Workaround 'stamp.dat' versioned and got from fresh svn checkout: rewrite it always
+                this.resProvider.writeStamp();
                 
-                mon.subTask("Deleting "+this.resProvider.getName()+" indexes...");
+                mon.subTask( VStoreExml.getMessage("AbstractExmlRepository.mon.deletingIndexes",this.resProvider.getName()));
                 this.indexes.deleteIndexes();
                 this.indexes.open(mon.newChild(10));
                 
-                mon.subTask("Rebuilding "+this.resProvider.getName()+" indexes...");
+                mon.subTask( VStoreExml.getMessage("AbstractExmlRepository.mon.buildingIndexes",this.resProvider.getName()));
                 this.indexes.buildIndexes(mon.newChild(90));
                 
                 shield.success();
                 this.needRebuildIndexes = false;
                 indexesRebuilt = true;
             } catch (IOException e1) {
-                String msg = "Error rebuilding indexes :\n"+e1.getLocalizedMessage();
+                String msg = VStoreExml.getMessage("AbstractExmlRepository.RebuildIndexFailed", this.resProvider.getName(), e1.getLocalizedMessage());
                 throw new IOException(msg, e1);
             } 
         }
@@ -887,16 +941,13 @@ public abstract class AbstractExmlRepository implements IExmlBase {
             m1 = e.getLocalizedMessage();
         
         String reposName = this.resProvider.getName();
-        String msg = "Indexes of '"+reposName+"' are damaged (see below), they will be completely rebuilt\n."+m1;
+        String msg = VStoreExml.getMessage("AbstractExmlRepository.setIndexDamaged",reposName, m1);
         getErrorSupport().fireWarning(new StorageException(this, msg, e));
         
         if (this.indexes != null) try {
             this.indexes.close();
-        } catch (FileSystemException e1) {
-            msg = "Failed closing indexes of '"+reposName+"', see below:\n"+FileUtils.getLocalizedMessage(e1);
-            getErrorSupport().fireWarning(new StorageException(this, msg, e1));
         } catch (IOException e1) {
-            msg = "Failed closing indexes of '"+reposName+"', see below:\n"+e1.getLocalizedMessage();
+            msg = VStoreExml.getMessage("AbstractExmlRepository.setIndexDamaged.closeFailed", reposName, FileUtils.getLocalizedMessage(e1));
             getErrorSupport().fireWarning(new StorageException(this, msg, e1));
         }
         
@@ -1015,7 +1066,7 @@ public abstract class AbstractExmlRepository implements IExmlBase {
             // Update indexes
             ExmlIndex index = getIndexes(monitor.newChild(10));
         
-            monitor.subTask("Updating "+this.resProvider.getName()+" indexes ...");
+            monitor.subTask(VStoreExml.getMessage("AbstractExmlRepository.mon.updatingIndexes", this.resProvider.getName() ));
             ObjId nodeId = new ObjId();
         
             for (MRef r : deletedRefs) {

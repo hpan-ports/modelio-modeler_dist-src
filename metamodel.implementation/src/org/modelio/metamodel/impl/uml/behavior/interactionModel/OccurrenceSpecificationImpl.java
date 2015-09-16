@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.uml.behavior.interactionModel;
 
@@ -43,13 +43,13 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("004a871a-c4bf-1fd8-97fe-001ec947cd2a")
 public abstract class OccurrenceSpecificationImpl extends InteractionFragmentImpl implements OccurrenceSpecification {
-    @objid ("4c908daf-f221-4843-96a6-a66f440ae7be")
+    @objid ("910a3739-cec7-4bc8-80c0-70b3b3bcbca7")
     @Override
     public EList<GeneralOrdering> getToAfter() {
         return new SmList<>(this, OccurrenceSpecificationData.Metadata.ToAfterDep());
     }
 
-    @objid ("baf18593-c69d-43b4-ab96-ac4f9a559cca")
+    @objid ("bf28fe81-bff8-4afa-afa9-51d6a755598e")
     @Override
     public <T extends GeneralOrdering> List<T> getToAfter(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -62,13 +62,13 @@ public abstract class OccurrenceSpecificationImpl extends InteractionFragmentImp
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("9bfb2227-c7c6-4b3e-affa-04b43c1ecb13")
+    @objid ("08a9e8f4-25e1-4291-b2c0-1671ac30e0c8")
     @Override
     public EList<GeneralOrdering> getToBefore() {
         return new SmList<>(this, OccurrenceSpecificationData.Metadata.ToBeforeDep());
     }
 
-    @objid ("ec4a4e12-d573-4efa-9b1a-d132b08c2eb4")
+    @objid ("3b83b37c-2052-418f-8bda-7b494e93db25")
     @Override
     public <T extends GeneralOrdering> List<T> getToBefore(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -81,21 +81,21 @@ public abstract class OccurrenceSpecificationImpl extends InteractionFragmentImp
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("bdeaf2cd-123c-45b2-95de-bdea30cc8e7c")
+    @objid ("15eb56f0-15aa-4136-98b0-82c3d617c2c8")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("b896aa7b-c5ea-45c5-a6da-a8211c30e7fb")
+    @objid ("cf89b9a8-c883-44b9-bcc1-938e2c1a9748")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("d4b16255-c991-44a2-a1bb-d4da1a7fdbe4")
+    @objid ("e191a3fc-a476-43e0-b8f6-f0cc636f126d")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitOccurrenceSpecification(this);

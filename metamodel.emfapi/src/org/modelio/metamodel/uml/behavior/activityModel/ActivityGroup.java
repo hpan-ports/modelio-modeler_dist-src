@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.uml.behavior.activityModel;
 
@@ -32,10 +32,10 @@ import org.modelio.metamodel.uml.infrastructure.ModelElement;
 
 @objid ("002813ba-c4bf-1fd8-97fe-001ec947cd2a")
 public interface ActivityGroup extends ModelElement {
-    @objid ("e7b2c960-767b-419f-8fab-1e3b827d424d")
+    @objid ("8b60d93b-4eb4-483e-89a3-597aacc6421a")
     Activity getInActivity();
 
-    @objid ("27f54b84-e06d-442d-9153-da6a0b8ec6c0")
+    @objid ("00aa835c-384e-4c2d-a8fe-37d469a52825")
     void setInActivity(Activity value);
 
 }

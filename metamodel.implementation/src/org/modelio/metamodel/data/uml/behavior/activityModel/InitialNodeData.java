@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.data.uml.behavior.activityModel;
 
@@ -43,22 +43,22 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("0034c7ae-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=InitialNode.class, factory=InitialNodeData.Metadata.ObjectFactory.class)
 public class InitialNodeData extends ControlNodeData {
-    @objid ("4f8a732e-6185-4ed5-a293-7cb5d3c4d0e1")
+    @objid ("859bc3a7-43bd-45a2-9f3c-159de6d9298f")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("0043f530-c4c3-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("9d9d0ca4-084f-4552-aaa6-c8386dbd6d01")
+        @objid ("7f63bc01-0d58-47d1-89e4-4047028f151b")
         private static SmClass smClass = null;
 
-        @objid ("44c18faf-537e-4ac3-9012-3bf413a62b0d")
+        @objid ("b5af869b-018b-48ff-950e-270a274986b3")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(InitialNodeData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("1a894a03-7a92-4d78-ae35-48d8d350a202")
+        @objid ("0bc267cc-3d2e-4a27-ab1a-b99b43b06c97")
         public static SmClass getSmClass() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return smClass;
@@ -66,12 +66,12 @@ public class InitialNodeData extends ControlNodeData {
 
         @objid ("00443702-c4c3-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("35302066-ab2b-49b6-8bd1-0c5954896cf4")
+            @objid ("a1490862-fba0-41f7-a97f-ae5e9139249a")
             public ISmObjectData createData() {
                 return new InitialNodeData();
             }
 
-            @objid ("a191106e-16e2-4fa2-9e87-8a505774b6de")
+            @objid ("17200163-c5c0-4528-8eb5-6ad0572dda21")
             public SmObjectImpl createImpl() {
                 return new InitialNodeImpl();
             }

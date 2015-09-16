@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.uml.behavior.activityModel;
 
@@ -43,19 +43,19 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("00283d2c-c4bf-1fd8-97fe-001ec947cd2a")
 public abstract class ActivityGroupImpl extends ModelElementImpl implements ActivityGroup {
-    @objid ("36fc8390-ad51-46e9-beca-0b0190411030")
+    @objid ("36dc2c78-cd65-4d11-a4e7-1441074de2f4")
     @Override
     public Activity getInActivity() {
         return (Activity) getDepVal(ActivityGroupData.Metadata.InActivityDep());
     }
 
-    @objid ("660421c9-9d10-4c80-a3b6-71cd15a6968b")
+    @objid ("6239d91c-c156-4815-bf51-be4824076574")
     @Override
     public void setInActivity(Activity value) {
         appendDepVal(ActivityGroupData.Metadata.InActivityDep(), (SmObjectImpl)value);
     }
 
-    @objid ("e2ac0b13-3acc-4e6c-8f6e-0858218a3c65")
+    @objid ("1678bdd3-8300-4ff1-9d48-f70fb15d2026")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
@@ -65,7 +65,7 @@ public abstract class ActivityGroupImpl extends ModelElementImpl implements Acti
         return super.getCompositionOwner();
     }
 
-    @objid ("dc69ae45-b060-4ac5-9ac9-8deb063222f4")
+    @objid ("76c9d2ed-c28c-4aaf-a164-6f79d77cdf68")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
@@ -75,7 +75,7 @@ public abstract class ActivityGroupImpl extends ModelElementImpl implements Acti
         return super.getCompositionRelation();
     }
 
-    @objid ("6a3948aa-b628-467d-9a42-5c714fcf2668")
+    @objid ("8bc7bb1a-88fb-4fba-88b4-fd41f07d748e")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitActivityGroup(this);

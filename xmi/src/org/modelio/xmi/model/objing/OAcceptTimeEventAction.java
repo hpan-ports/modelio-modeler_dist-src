@@ -24,13 +24,16 @@ package org.modelio.xmi.model.objing;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.uml2.uml.UMLFactory;
 import org.modelio.metamodel.uml.behavior.activityModel.AcceptTimeEventAction;
+import org.modelio.xmi.util.GenerationProperties;
+import org.modelio.xmi.util.ObjingEAnnotation;
 
 @objid ("5c308ba5-6dba-4ef1-b326-5717bd1f1b46")
-public class OAcceptTimeEventAction extends OActivityNode implements IOElement {
+public class OAcceptTimeEventAction extends OActivityNode {
     @objid ("feac54cf-2373-411e-b581-ae2c3226e2c8")
     private AcceptTimeEventAction objingElement = null;
 
     @objid ("77abbb27-a09e-425c-8b8f-34274ec380c2")
+    @Override
     public org.eclipse.uml2.uml.Element createEcoreElt() {
         return UMLFactory.eINSTANCE.createAcceptEventAction();
     }
@@ -38,29 +41,32 @@ public class OAcceptTimeEventAction extends OActivityNode implements IOElement {
     @objid ("d63a187f-574d-4b5b-98ed-f17687d701c9")
     public OAcceptTimeEventAction(AcceptTimeEventAction element) {
         super(element);
-        objingElement = element;
+        this.objingElement = element;
     }
 
     @objid ("07e7053b-3185-4cdb-bb55-4a1ab2337825")
+    @Override
     public void attach(org.eclipse.uml2.uml.Element ecoreElt) {
         super.attach(ecoreElt);
     }
 
     @objid ("5bae2b69-3827-4e5e-bd86-a4d02715ca1a")
+    @Override
     public void setProperties(org.eclipse.uml2.uml.Element ecoreElt) {
-        super.attach(ecoreElt);
+        super.setProperties(ecoreElt);
         setTimeExpression( (org.eclipse.uml2.uml.AcceptEventAction) ecoreElt);
+        setTime((org.eclipse.uml2.uml.AcceptEventAction) ecoreElt);
     }
 
     @objid ("3de38f11-5819-4bcf-9f7e-b5594c0c61f4")
     private void setTimeExpression(org.eclipse.uml2.uml.AcceptEventAction action) {
-        String timeExpression = objingElement.getTimeExpresion();
+        String timeExpression = this.objingElement.getTimeExpresion();
         
         if ((timeExpression != null) && (!timeExpression.equals(""))){
-             org.eclipse.uml2.uml.Trigger trigger = UMLFactory.eINSTANCE.createTrigger();
+            org.eclipse.uml2.uml.Trigger trigger = UMLFactory.eINSTANCE.createTrigger();
             action.getTriggers().add(trigger);
         
-             org.eclipse.uml2.uml.TimeEvent timeEvent = UMLFactory.eINSTANCE.createTimeEvent();
+            org.eclipse.uml2.uml.TimeEvent timeEvent = UMLFactory.eINSTANCE.createTimeEvent();
             trigger.setEvent(timeEvent);
         
         
@@ -73,6 +79,13 @@ public class OAcceptTimeEventAction extends OActivityNode implements IOElement {
             // Attach the  org.eclipse.uml2.uml.Event to the model via composition relation:
             org.eclipse.uml2.uml.Package nearestPkg = action.getNearestPackage();
             nearestPkg.getPackagedElements().add(timeEvent);
+        }
+    }
+
+    @objid ("ccde4bab-cbe2-42bd-a426-9c0b8aca91dd")
+    private void setTime(final org.eclipse.uml2.uml.AcceptEventAction ecoreElt) {
+        if (GenerationProperties.getInstance().isRoundtripEnabled()){
+            ObjingEAnnotation.setSignal(ecoreElt, "time");
         }
     }
 

@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.uml.statik;
 
@@ -46,25 +46,25 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("00157246-c4bf-1fd8-97fe-001ec947cd2a")
 public class PackageImpl extends NameSpaceImpl implements Package {
-    @objid ("90731a08-ec78-4454-881b-a36f04887e56")
+    @objid ("e0ee9b09-7eb3-42ff-82d0-01c5a6794ec8")
     @Override
     public boolean isIsInstantiable() {
         return (Boolean) getAttVal(PackageData.Metadata.IsInstantiableAtt());
     }
 
-    @objid ("e43b52a8-20bb-4b09-9ba1-2fa97e9b098f")
+    @objid ("a8c8d8eb-be8a-4ec8-9fe4-b068b524184e")
     @Override
     public void setIsInstantiable(boolean value) {
         setAttVal(PackageData.Metadata.IsInstantiableAtt(), value);
     }
 
-    @objid ("9840d514-7653-4e9c-ba82-08073bb8d41c")
+    @objid ("3368485e-7576-4a07-809b-ae27abd12b3b")
     @Override
     public EList<BpmnParticipant> getBpmnRepresents() {
         return new SmList<>(this, PackageData.Metadata.BpmnRepresentsDep());
     }
 
-    @objid ("414ebefa-1bac-42df-9232-b17b11b32931")
+    @objid ("1ece9dbc-c720-4915-9c14-0c51b42c0fda")
     @Override
     public <T extends BpmnParticipant> List<T> getBpmnRepresents(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -77,13 +77,13 @@ public class PackageImpl extends NameSpaceImpl implements Package {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("723e3080-5986-4a84-8a29-adb8b17e0b08")
+    @objid ("0751802e-4feb-4bba-a64c-0c970621e3f6")
     @Override
     public EList<PackageMerge> getReceivingMerge() {
         return new SmList<>(this, PackageData.Metadata.ReceivingMergeDep());
     }
 
-    @objid ("454a66c4-0686-46d0-8183-e6cec33dd92e")
+    @objid ("416cf79f-ef22-4101-81ea-83fddd90c125")
     @Override
     public <T extends PackageMerge> List<T> getReceivingMerge(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -96,25 +96,25 @@ public class PackageImpl extends NameSpaceImpl implements Package {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("9df451f6-db8b-4388-88c2-156b6b275c36")
+    @objid ("1d09ea9e-c2f4-44f6-b804-403facb2f467")
     @Override
     public Project getRepresented() {
         return (Project) getDepVal(PackageData.Metadata.RepresentedDep());
     }
 
-    @objid ("77388c60-411a-402b-b42c-84f4f20300ed")
+    @objid ("5e776ff6-d907-4ee2-a837-9cff6deee7d6")
     @Override
     public void setRepresented(Project value) {
         appendDepVal(PackageData.Metadata.RepresentedDep(), (SmObjectImpl)value);
     }
 
-    @objid ("a2efa4e1-bc8e-4a2c-9fb2-829de14d7238")
+    @objid ("60c2cb92-9f18-4915-88f1-aa89a5e66f3d")
     @Override
     public EList<PackageMerge> getMerge() {
         return new SmList<>(this, PackageData.Metadata.MergeDep());
     }
 
-    @objid ("f4229f67-87fb-4f4c-afab-e0e1c4e3a5ab")
+    @objid ("bcda8a8d-d12a-4856-9688-7b5d8f5770f1")
     @Override
     public <T extends PackageMerge> List<T> getMerge(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -127,13 +127,13 @@ public class PackageImpl extends NameSpaceImpl implements Package {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("611401b5-0f5a-40fc-a057-8c6dd3d97151")
+    @objid ("303b67fc-1a97-40ef-902a-3e5743633aa3")
     @Override
     public EList<PackageImport> getPackageImporting() {
         return new SmList<>(this, PackageData.Metadata.PackageImportingDep());
     }
 
-    @objid ("2e40261a-9460-45ca-a354-397c2ed044c9")
+    @objid ("0b159f30-fb1f-40c0-9d63-bfa0ade04fe8")
     @Override
     public <T extends PackageImport> List<T> getPackageImporting(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -146,7 +146,7 @@ public class PackageImpl extends NameSpaceImpl implements Package {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("655f62aa-46bd-43d3-9d56-fab32146ef4d")
+    @objid ("2e25c705-6c63-4452-b66d-6328a12e3d92")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
@@ -156,7 +156,7 @@ public class PackageImpl extends NameSpaceImpl implements Package {
         return super.getCompositionOwner();
     }
 
-    @objid ("4fc68f9b-299f-4d3e-bb9a-ca2b402adff3")
+    @objid ("db23f37e-8363-477e-8025-a36dbf0d74ff")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
@@ -166,7 +166,7 @@ public class PackageImpl extends NameSpaceImpl implements Package {
         return super.getCompositionRelation();
     }
 
-    @objid ("5da527c2-06d2-4ed9-918d-561f717c2d1b")
+    @objid ("49bdeae0-90c1-477b-ab5e-bcd164ba74f0")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitPackage(this);

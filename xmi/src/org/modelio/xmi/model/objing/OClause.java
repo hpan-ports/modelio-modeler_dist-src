@@ -39,6 +39,7 @@ public class OClause extends OElement implements IOElement {
     private GenerationProperties genProp = GenerationProperties.getInstance();
 
     @objid ("1c2520a0-0742-407c-b7fd-282163495322")
+    @Override
     public org.eclipse.uml2.uml.Element createEcoreElt() {
         return UMLFactory.eINSTANCE.createClause();
     }
@@ -49,9 +50,10 @@ public class OClause extends OElement implements IOElement {
     }
 
     @objid ("332acc7c-8a66-4129-9660-aa983e7e629b")
+    @Override
     public void attach(org.eclipse.uml2.uml.Element ecoreElt) {
         ConditionalNode objingOwner = ((Clause) getObjingElement()).getOwner();
-        org.eclipse.uml2.uml.Element ecoreOwner = genProp.getMappedElement(objingOwner);
+        org.eclipse.uml2.uml.Element ecoreOwner = this.genProp.getMappedElement(objingOwner);
                 
         if (ecoreOwner instanceof org.eclipse.uml2.uml.ConditionalNode) {
             ((org.eclipse.uml2.uml.ConditionalNode) ecoreOwner).getClauses().add( (org.eclipse.uml2.uml.Clause)ecoreElt);
@@ -68,6 +70,7 @@ public class OClause extends OElement implements IOElement {
     }
 
     @objid ("3c1016ae-113d-4a7b-8749-28a64d38ff2c")
+    @Override
     public void setProperties(org.eclipse.uml2.uml.Element ecoreElt) {
         setBody( (org.eclipse.uml2.uml.Clause) ecoreElt);
         setTest( (org.eclipse.uml2.uml.Clause) ecoreElt);
@@ -78,7 +81,7 @@ public class OClause extends OElement implements IOElement {
     private void setBody(org.eclipse.uml2.uml.Clause clause) {
         Clause objingElement = (Clause) getObjingElement();
         for (ActivityNode objingBody : objingElement.getBody()) {
-            org.eclipse.uml2.uml.Element ecoreBody = genProp.getMappedElement(objingBody);
+            org.eclipse.uml2.uml.Element ecoreBody = this.genProp.getMappedElement(objingBody);
             if (ecoreBody instanceof org.eclipse.uml2.uml.ExecutableNode)
                 clause.getBodies().add( (org.eclipse.uml2.uml.ExecutableNode)ecoreBody);
         }
@@ -111,7 +114,7 @@ public class OClause extends OElement implements IOElement {
         Activity enclosingActivity = (Activity) AbstractObjingModelNavigation
                 .getEnclosingElement(((Clause) getObjingElement()), SmClass.getClass(Activity.class));
         if (enclosingActivity != null) {
-            org.eclipse.uml2.uml.Element ecoreActivity = genProp.getMappedElement(enclosingActivity);
+            org.eclipse.uml2.uml.Element ecoreActivity = this.genProp.getMappedElement(enclosingActivity);
             if (ecoreActivity instanceof  org.eclipse.uml2.uml.Activity) {
                 ((org.eclipse.uml2.uml.Activity) ecoreActivity).getNodes().add(action);
             }

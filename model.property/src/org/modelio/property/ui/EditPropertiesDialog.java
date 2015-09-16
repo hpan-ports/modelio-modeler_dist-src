@@ -42,7 +42,6 @@ import org.modelio.core.ui.dialog.ModelioDialog;
 import org.modelio.gproject.model.IMModelServices;
 import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.model.browser.views.treeview.ModelBrowserPanelProvider;
-import org.modelio.property.plugin.ModelProperty;
 
 /**
  * Dialog box displaying the properties of a model element, just like the Element view. Gathers the UML properties and tagged values
@@ -50,41 +49,29 @@ import org.modelio.property.plugin.ModelProperty;
  */
 @objid ("8fa7c852-c068-11e1-8c0a-002564c97630")
 public class EditPropertiesDialog extends ModelioDialog {
-    @objid ("8fa7c853-c068-11e1-8c0a-002564c97630")
+    @objid ("d364f8f7-276d-41c9-a9df-6915151d5ada")
     private Element editedElement;
 
-    @objid ("a9732f13-8026-47a3-8457-b7c257c8ffdf")
-    private static final String HELP_TOPIC = "/org.modelio.documentation.modeler/html/Modeler-_modeler_building_models_modifying_element_props.html";
-
-    @objid ("96ee6b2e-c108-11e1-badd-002564c97630")
-    public ModelPropertyPanelProvider propertyPanel;
-
-    @objid ("86a51aca-cf24-11e1-80a9-002564c97630")
-    private final IProjectService projectService;
-
-    @objid ("aa1e5a19-d004-11e1-9020-002564c97630")
-    private final IMModelServices modelService;
-
-    @objid ("04e0c3f5-d024-11e1-9020-002564c97630")
-    private ModelBrowserPanelProvider browserPanel;
-
-    @objid ("04e0c3f6-d024-11e1-9020-002564c97630")
+    @objid ("f0c962ee-e2fc-4d07-8932-b76199d2c421")
     private ISelectionChangedListener browserSelectionListener;
 
-    @objid ("06df0e5b-16d1-11e2-aa0d-002564c97630")
+    @objid ("b0a647b4-1790-4d97-8e5c-5b5080ac916e")
+    public ModelPropertyPanelProvider propertyPanel;
+
+    @objid ("c19c0510-8165-4036-b0f7-13fb445e3283")
+    private final IProjectService projectService;
+
+    @objid ("16850b4c-2f32-455e-8369-d70e7d6b4c7b")
+    private final IMModelServices modelService;
+
+    @objid ("42abb1cf-3ab4-4851-a4c8-39f36cf683ad")
+    private ModelBrowserPanelProvider browserPanel;
+
+    @objid ("8f561054-fb47-4d82-b188-595ab2546561")
     private final IModelioPickingService pickingService;
 
-    @objid ("4429894a-4ba2-47e5-8459-9fcbaeae8225")
+    @objid ("db1313c9-9783-4900-8b1a-bc61f4bc50a9")
     private final IActivationService activationService;
-
-    @objid ("8fa7c856-c068-11e1-8c0a-002564c97630")
-    public EditPropertiesDialog(IProjectService projectService, IMModelServices modelService, IModelioPickingService pickingService, IActivationService activationService, Shell parentShell) {
-        super(parentShell);
-        this.projectService = projectService;
-        this.modelService = modelService;
-        this.pickingService = pickingService;
-        this.activationService = activationService;
-    }
 
     @objid ("8fa7c85a-c068-11e1-8c0a-002564c97630")
     @Override
@@ -95,7 +82,7 @@ public class EditPropertiesDialog extends ModelioDialog {
         
         // Create the browser panel
         this.browserPanel = new ModelBrowserPanelProvider();
-        this.browserPanel.create(shform);
+        this.browserPanel.createPanel(shform);
         this.browserSelectionListener = new ISelectionChangedListener() {
             @Override
             public void selectionChanged(SelectionChangedEvent event) {
@@ -110,12 +97,12 @@ public class EditPropertiesDialog extends ModelioDialog {
                 }
             }
         };
-        this.browserPanel.getComposite().addSelectionChangedListener(this.browserSelectionListener);
+        this.browserPanel.getPanel().addSelectionChangedListener(this.browserSelectionListener);
         
         // Create the property panel
         this.propertyPanel = new ModelPropertyPanelProvider();
         this.propertyPanel.activateEdition(this.projectService, this.projectService.getSession(), this.modelService, this.pickingService, this.activationService);
-        this.propertyPanel.create(shform);
+        this.propertyPanel.createPanel(shform);
         this.propertyPanel.disableAutoLayout();
         this.propertyPanel.setHorizontalLayout();
         
@@ -128,46 +115,39 @@ public class EditPropertiesDialog extends ModelioDialog {
         this.browserPanel.setLocalRoots(roots);
         
         // Select the root
-        this.browserPanel.getComposite().setSelection(new StructuredSelection(this.editedElement));
+        this.browserPanel.getPanel().setSelection(new StructuredSelection(this.editedElement));
         return shform;
     }
 
-    @objid ("8fa7c861-c068-11e1-8c0a-002564c97630")
-    @Override
-    public void init() {
-        setLogoImage(null);
-        // Put the messages in the banner area
-        getShell().setText(ModelProperty.I18N.getString("EditPropertiesDialog.ShellTitle"));
-        setTitle(ModelProperty.I18N.getString("EditPropertiesDialog.Title"));
-        setMessage(this.editedElement.getClass().getSimpleName() + " \"" + this.editedElement.getName() + "\"");
-        getShell().setSize(500, 400);
-        getShell().setMinimumSize(500, 400);
+    @objid ("bb8a8c1c-4ad4-4d4d-a559-42821fc7c82f")
+    public EditPropertiesDialog(IProjectService projectService, IMModelServices modelService, IModelioPickingService pickingService, IActivationService activationService, Shell parentShell) {
+        super(parentShell);
+        this.projectService = projectService;
+        this.modelService = modelService;
+        this.pickingService = pickingService;
+        this.activationService = activationService;
     }
 
-    @objid ("8fa7c864-c068-11e1-8c0a-002564c97630")
-    @Override
-    public void addButtonsInButtonBar(Composite parent) {
-        return;
+    @objid ("28287d4a-6941-4896-8ddf-0c8415c7dcb9")
+    public Element getEditedElement() {
+        return editedElement;
     }
 
-    @objid ("8fa7c869-c068-11e1-8c0a-002564c97630")
+    @objid ("d244f2f1-e5fb-4437-845e-7d405b05b4c5")
     public void setEditedElement(Element editedElement) {
         this.editedElement = editedElement;
     }
 
-    @objid ("04e0c3f9-d024-11e1-9020-002564c97630")
+    @objid ("150dc9ef-37fa-43dc-a8ee-61b1de036c00")
     @Override
-    public boolean close() {
-        // Remove the selection listener
-        this.browserPanel.getComposite().removeSelectionChangedListener(this.browserSelectionListener);
-        this.browserSelectionListener = null;
-        return super.close();
+    public void addButtonsInButtonBar(Composite parent) {
+        // TODO Auto-generated method stub
     }
 
-    @objid ("38e0e5c2-af12-4357-a084-60a0240e0685")
+    @objid ("71bfee22-df63-4672-a7cc-4be8a23a019c")
     @Override
-    protected String getHelpId() {
-        return HELP_TOPIC;
+    public void init() {
+        // TODO Auto-generated method stub
     }
 
 }

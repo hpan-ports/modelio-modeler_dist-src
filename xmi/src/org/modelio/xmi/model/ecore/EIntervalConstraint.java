@@ -21,13 +21,13 @@
 
 package org.modelio.xmi.model.ecore;
 
-import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.metamodel.uml.infrastructure.Element;
 
 @objid ("2f8fb650-83c3-4a99-a44a-72ec06b3f927")
-public class EIntervalConstraint extends ENamedElement implements IEElement {
+public class EIntervalConstraint extends ENamedElement {
     @objid ("81930ad3-a844-476c-bba2-00dc86ea6807")
+    @Override
     public Element createObjingElt() {
         return null;
     }
@@ -35,19 +35,6 @@ public class EIntervalConstraint extends ENamedElement implements IEElement {
     @objid ("220cc290-9ce0-40a8-b1d2-bcdc36d98a7c")
     public EIntervalConstraint(org.eclipse.uml2.uml.IntervalConstraint element) {
         super(element);
-    }
-
-    @objid ("caa048d1-2b5c-4109-8a69-316d81637a25")
-    public void attach(Element objingElt) {
-    }
-
-    @objid ("1c6e8576-8dc3-4d4f-a24e-c7e7c4e744b1")
-    public void attach(List<Object> objingElts) {
-    }
-
-    @objid ("701069cf-fa14-40f4-b292-f71887d0b3fb")
-    public void setProperties(Element objingElt) {
-        super.setProperties(objingElt);
     }
 
 }

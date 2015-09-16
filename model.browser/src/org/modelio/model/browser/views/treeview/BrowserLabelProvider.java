@@ -44,7 +44,9 @@ import org.modelio.core.ui.images.FragmentStyledLabelProvider;
 import org.modelio.core.ui.images.IModelioElementLabelProvider;
 import org.modelio.core.ui.images.ModuleI18NService;
 import org.modelio.gproject.fragment.IProjectFragment;
+import org.modelio.metamodel.Metamodel;
 import org.modelio.metamodel.analyst.AnalystElement;
+import org.modelio.metamodel.bpmn.processCollaboration.BpmnLane;
 import org.modelio.metamodel.uml.behavior.activityModel.AcceptCallEventAction;
 import org.modelio.metamodel.uml.behavior.activityModel.AcceptSignalAction;
 import org.modelio.metamodel.uml.behavior.activityModel.ActivityEdge;
@@ -80,6 +82,7 @@ import org.modelio.metamodel.uml.infrastructure.MetaclassReference;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
 import org.modelio.metamodel.uml.infrastructure.ModelTree;
 import org.modelio.metamodel.uml.infrastructure.Stereotype;
+import org.modelio.metamodel.uml.infrastructure.Substitution;
 import org.modelio.metamodel.uml.infrastructure.Usage;
 import org.modelio.metamodel.uml.statik.AssociationEnd;
 import org.modelio.metamodel.uml.statik.Attribute;
@@ -91,6 +94,7 @@ import org.modelio.metamodel.uml.statik.ClassAssociation;
 import org.modelio.metamodel.uml.statik.Classifier;
 import org.modelio.metamodel.uml.statik.Collaboration;
 import org.modelio.metamodel.uml.statik.CollaborationUse;
+import org.modelio.metamodel.uml.statik.ComponentRealization;
 import org.modelio.metamodel.uml.statik.ElementImport;
 import org.modelio.metamodel.uml.statik.ElementRealization;
 import org.modelio.metamodel.uml.statik.Feature;
@@ -134,20 +138,20 @@ public class BrowserLabelProvider extends LabelProvider implements IModelioEleme
     @objid ("7234e8b1-4540-11e2-aeb7-002564c97630")
     private boolean showVisibility = true;
 
-    @objid ("e75bc680-1ad2-4560-b538-15e5ed669cf2")
-    private static final Image ARCHIVE_CONTAINER = loadImage("analyst_archives.png");
-
-    @objid ("68baa3ed-2f04-11e2-9ab7-002564c97630")
-    private static final Image LINK_CONTAINER = loadImage("links.png");
-
-    @objid ("555c0062-4270-454c-943f-2b97b6a6e1a9")
-     static final Font normalFont = CoreFontRegistry.getFont(Display.getCurrent().getSystemFont().getFontData());
-
-    @objid ("eff7f691-cef5-496e-9751-06152e130e46")
-     static final Font italicFont = CoreFontRegistry.getModifiedFont(normalFont, SWT.ITALIC);
-
     @objid ("c13d663c-d63b-11e1-9955-002564c97630")
      BrowserLabelService umlLabelService;
+
+    @objid ("c9ecbf47-97a3-4b36-8d5e-da4650a0f278")
+    private static final Image ARCHIVE_CONTAINER = loadImage("analyst_archives.png");
+
+    @objid ("02e4e8a3-149e-446d-acfb-95c4922e76dd")
+    private static final Image LINK_CONTAINER = loadImage("links.png");
+
+    @objid ("ed4047da-504e-450b-8ff8-58ee18765a5e")
+     static final Font normalFont = CoreFontRegistry.getFont(Display.getCurrent().getSystemFont().getFontData());
+
+    @objid ("8508489f-7996-4cd7-ae4f-983d88315575")
+     static final Font italicFont = CoreFontRegistry.getModifiedFont(normalFont, SWT.ITALIC);
 
     /**
      * Default c'tor.
@@ -267,14 +271,23 @@ public class BrowserLabelProvider extends LabelProvider implements IModelioEleme
         @objid ("72374a0f-4540-11e2-aeb7-002564c97630")
         private boolean showVisibility;
 
-        @objid ("557c5b5c-d145-424d-8244-7a83d21bc34c")
+        /**
+         * a stack used for recursive calls to {@link #getLabel(Element, boolean)}
+         */
+        @objid ("f94f1a9e-48bf-4431-928d-7e4cf676b564")
+        private Stack<Element> elementStack;
+
+        @objid ("0ce4f277-c7ca-41df-9f73-4d986be0c95f")
          StyledString elementStyledLabel;
 
-        @objid ("78cd3b70-ff9c-40b6-b329-464a7e409848")
-        private Stack<Element> elementStack;
+        @objid ("d4a49a92-5199-4f9c-9f9b-b93c2a9a0ec3")
+        public BrowserLabelService() {
+            this(new Stack<Element>());
+        }
 
         /**
          * Initialize the label service.
+         * @param elementStack a stack to use for recursive calls to {@link #getLabel(Element, boolean)}
          */
         @objid ("c13eecbb-d63b-11e1-9955-002564c97630")
         public BrowserLabelService(Stack<Element> elementStack) {
@@ -786,35 +799,10 @@ public class BrowserLabelProvider extends LabelProvider implements IModelioEleme
         @objid ("c141fa0c-d63b-11e1-9955-002564c97630")
         @Override
         public Object visitDependency(Dependency theDependency) {
-            final StyledString symbol = new StyledString();
-            final Styler styler = ElementStyler.getStyler(theDependency);
-            final StringBuilder verb = getDependencyVerb(theDependency).append(" ");
             final ModelElement destination = theDependency.getDependsOn();
             
-            if (destination != null) {
-                symbol.append(verb.toString(), styler);
-            
-                StyledString destLabel = new BrowserLabelService(this.elementStack).getLabel(destination, false);
-                symbol.append(destLabel.getString(), ElementStyler.getStyler(theDependency, destination));
-            
-                ModelTree owner = null;
-            
-                if (destination instanceof ModelTree) {
-                    owner = ((ModelTree) destination).getOwner();
-                }
-            
-                if (owner != null) {
-                    symbol.append(" (from ", styler);
-                    symbol.append(owner.getName(), ElementStyler.getStyler(theDependency, owner));
-                    symbol.append(")", styler);
-                }
-            } else {
-                symbol.append(verb.toString(), styler);
-                symbol.append("<No destination>", styler);
-            }
-            
-            this.elementStyledLabel = symbol;
-            return null;
+            assert (Metamodel.getMClass(Dependency.class) == theDependency.getMClass());
+            return visitDependencyLikeObject(theDependency, "depends on", destination);
         }
 
         @objid ("c1438092-d63b-11e1-9955-002564c97630")
@@ -842,11 +830,8 @@ public class BrowserLabelProvider extends LabelProvider implements IModelioEleme
             
                 final ModelTree owner = importedNamespace.getOwner();
             
-                if (owner != null) {
-                    symbol.append(" (from ", styler);
-                    symbol.append(owner.getName(), ElementStyler.getStyler(theElementImport, owner));
-                    symbol.append(")", styler);
-                }
+                appendFrom(symbol, theElementImport, owner, styler);
+                
             } else {
                 symbol.append("<No destination>", styler);
             }
@@ -919,12 +904,7 @@ public class BrowserLabelProvider extends LabelProvider implements IModelioEleme
                 symbol.append(labelService.getLabel(parent, this.showVisibility).toString(), ElementStyler.getStyler(theGeneralization, parent));
             
                 final ModelTree owner = parent.getOwner();
-            
-                if (owner != null) {
-                    symbol.append(" (from ", styler);
-                    symbol.append(owner.getName(), ElementStyler.getStyler(theGeneralization, owner));
-                    symbol.append(")", styler);
-                }
+                appendFrom(symbol, theGeneralization, owner, styler);
             }
             
             this.elementStyledLabel = symbol;
@@ -1023,12 +1003,7 @@ public class BrowserLabelProvider extends LabelProvider implements IModelioEleme
                 symbol.append(labelService.getLabel(implemented, this.showVisibility).toString(), ElementStyler.getStyler(theInterfaceRealization, implemented));
             
                 final ModelTree owner = implemented.getOwner();
-            
-                if (owner != null) {
-                    symbol.append(" (from ", styler);
-                    symbol.append(owner.getName(), ElementStyler.getStyler(theInterfaceRealization, owner));
-                    symbol.append(")", styler);
-                }
+                appendFrom(symbol, theInterfaceRealization, owner, styler);
             }
             
             this.elementStyledLabel = symbol;
@@ -1086,11 +1061,7 @@ public class BrowserLabelProvider extends LabelProvider implements IModelioEleme
                     owner = ((ModelTree) destination).getOwner();
                 }
             
-                if (owner != null) {
-                    symbol.append(" (from ", styler);
-                    symbol.append(owner.getName(), ElementStyler.getStyler(theManifestation, owner));
-                    symbol.append(")", styler);
-                }
+                appendFrom(symbol, theManifestation, owner, styler);
             } else {
                 symbol.append("<No destination>", styler);
             }
@@ -1313,12 +1284,7 @@ public class BrowserLabelProvider extends LabelProvider implements IModelioEleme
                 symbol.append(importedNamespace.getName(), ElementStyler.getStyler(thePackageImport, importedNamespace));
             
                 final ModelTree owner = importedNamespace.getOwner();
-            
-                if (owner != null) {
-                    symbol.append(" (from ", styler);
-                    symbol.append(owner.getName(), ElementStyler.getStyler(thePackageImport, owner));
-                    symbol.append(")", styler);
-                }
+                appendFrom(symbol, thePackageImport, owner, styler);
             } else {
                 symbol.append("<No destination>", styler);
             }
@@ -1340,12 +1306,7 @@ public class BrowserLabelProvider extends LabelProvider implements IModelioEleme
                 symbol.append(mergedPackage.getName(), ElementStyler.getStyler(thePackageMerge, mergedPackage));
             
                 final ModelTree owner = mergedPackage.getOwner();
-            
-                if (owner != null) {
-                    symbol.append(" (from ", styler);
-                    symbol.append(owner.getName(), ElementStyler.getStyler(thePackageMerge, owner));
-                    symbol.append(")", styler);
-                }
+                appendFrom(symbol, thePackageMerge, owner, styler);
             } else {
                 symbol.append("<No destination>", styler);
             }
@@ -1449,12 +1410,7 @@ public class BrowserLabelProvider extends LabelProvider implements IModelioEleme
                 symbol.append(labelService.getLabel(thrownType, this.showVisibility).toString(), ElementStyler.getStyler(theRaisedException, thrownType));
             
                 final ModelTree owner = thrownType.getOwner();
-            
-                if (owner != null) {
-                    symbol.append(" (from ", styler);
-                    symbol.append(owner.getName(), ElementStyler.getStyler(theRaisedException, owner));
-                    symbol.append(")", styler);
-                }
+                appendFrom(symbol, theRaisedException, owner, styler);
             }
             
             this.elementStyledLabel = symbol;
@@ -1697,31 +1653,8 @@ public class BrowserLabelProvider extends LabelProvider implements IModelioEleme
         @objid ("c1481493-d63b-11e1-9955-002564c97630")
         @Override
         public Object visitUsage(Usage theUsage) {
-            final StyledString symbol = new StyledString();
-            final Styler styler = ElementStyler.getStyler(theUsage);
             final ModelElement destination = theUsage.getDependsOn();
-            
-            if (destination != null) {
-                symbol.append("usage ", styler);
-                symbol.append(destination.getName(), ElementStyler.getStyler(theUsage, destination));
-            
-                ModelTree owner = null;
-            
-                if (destination instanceof ModelTree) {
-                    owner = ((ModelTree) destination).getOwner();
-                }
-            
-                if (owner != null) {
-                    symbol.append(" (from ", styler);
-                    symbol.append(owner.getName(), ElementStyler.getStyler(theUsage, owner));
-                    symbol.append(")", styler);
-                }
-            } else {
-                symbol.append("<No destination>", styler);
-            }
-            
-            this.elementStyledLabel = symbol;
-            return null;
+            return visitDependencyLikeObject(theUsage, "uses", destination);
         }
 
         @objid ("c1499b34-d63b-11e1-9955-002564c97630")
@@ -1810,7 +1743,7 @@ public class BrowserLabelProvider extends LabelProvider implements IModelioEleme
         }
 
         @objid ("48eaf5dc-f40d-4707-9419-495caec4ed77")
-        private static StringBuilder getDependencyVerb(Dependency dep) {
+        private static StringBuilder getDependencyVerb(ModelElement dep, String defaultVerb) {
             StringBuilder stringBuilder = new StringBuilder();
             if ( ! (dep.getExtension().isEmpty())) {
                 for (Stereotype v : dep.getExtension()) {
@@ -1821,14 +1754,15 @@ public class BrowserLabelProvider extends LabelProvider implements IModelioEleme
                 // remove last ", "
                 stringBuilder.delete(stringBuilder.length()-2, stringBuilder.length());
             } else {
-                if (dep instanceof Usage)
+                stringBuilder.append(defaultVerb);
+                /*if (dep instanceof Usage)
                     stringBuilder.append("uses");
                 else if (dep instanceof ElementRealization)
                     stringBuilder.append("realizes");
                 else if (dep instanceof Abstraction)
                     stringBuilder.append("abstracts");
                 else
-                    stringBuilder.append("depends on");
+                    stringBuilder.append("depends on");*/
             }
             return stringBuilder;
         }
@@ -1999,9 +1933,94 @@ public class BrowserLabelProvider extends LabelProvider implements IModelioEleme
             return hasCycle;
         }
 
-        @objid ("9de74646-d227-432c-806b-18e0dfc19246")
-        public BrowserLabelService() {
-            this(new Stack<Element>());
+        @objid ("2f696caa-b325-40d6-a497-60b09b4aa466")
+        private Object visitDependencyLikeObject(ModelElement theDependency, String mmverb, ModelElement destination) {
+            final StyledString symbol = new StyledString();
+            final Styler styler = ElementStyler.getStyler(theDependency);
+            final StringBuilder verb = getDependencyVerb(theDependency, mmverb).append(" ");
+            
+            if (destination != null) {
+                symbol.append(verb.toString(), styler);
+            
+                StyledString destLabel = new BrowserLabelService(this.elementStack).getLabel(destination, false);
+                symbol.append(destLabel.getString(), ElementStyler.getStyler(theDependency, destination));
+            
+                ModelTree owner = null;
+            
+                if (destination instanceof ModelTree) {
+                    owner = ((ModelTree) destination).getOwner();
+                    appendFrom(symbol, theDependency, owner, styler);
+                }
+            
+            } else {
+                symbol.append(verb.toString(), styler);
+                symbol.append("<No destination>", styler);
+            }
+            
+            this.elementStyledLabel = symbol;
+            return null;
+        }
+
+        @objid ("db5b172f-07f0-4dc0-a537-da925c8eb6af")
+        @Override
+        public Object visitAbstraction(Abstraction obj) {
+            final ModelElement destination = obj.getDependsOn();
+            return visitDependencyLikeObject(obj, "abstracts", destination);
+        }
+
+        @objid ("00fbab75-dd87-48f2-8207-d6dd633682d6")
+        @Override
+        public Object visitElementRealization(ElementRealization obj) {
+            final ModelElement destination = obj.getDependsOn();
+            return visitDependencyLikeObject(obj, "realizes", destination);
+        }
+
+        @objid ("90ff28da-ddbc-4599-be23-d2c1c7eeb4e9")
+        @Override
+        public Object visitSubstitution(Substitution obj) {
+            final ModelElement destination = obj.getContract();
+            return visitDependencyLikeObject(obj, "substitute", destination);
+        }
+
+        @objid ("329f2653-96f2-4bbc-a084-b874cf2f6e65")
+        @Override
+        public Object visitComponentRealization(ComponentRealization obj) {
+            final ModelElement destination = obj.getAbstraction();
+            return visitDependencyLikeObject(obj, "realizes", destination);
+        }
+
+        /**
+         * Append <code>"(from xxxx)"</code> to the symbol
+         * @param symbol the symbol to modify
+         * @param srcObj the source object, used to compute the style of <code>'xxxx'</code>
+         * @param owner the object to display in <code>'xxxx'</code>
+         * @param styler the style of <code>"(from "</code>
+         */
+        @objid ("7787d580-79b5-418a-8cee-5eee60f8e05c")
+        private void appendFrom(final StyledString symbol, ModelElement srcObj, ModelTree owner, final Styler styler) {
+            if (owner != null) {
+                symbol.append(" (from ", styler);
+                symbol.append(owner.getName(), ElementStyler.getStyler(srcObj, owner));
+                symbol.append(")", styler);
+            }
+        }
+
+        @objid ("ef2fd1be-7fd7-4f79-87fe-2473e5d23359")
+        @Override
+        public Object visitBpmnLane(BpmnLane obj) {
+            final StyledString symbol = new StyledString();
+            final Styler styler = ElementStyler.getStyler(obj);
+            
+            ModelElement represented = obj.getPartitionElement();
+            symbol.append(obj.getName(), styler);
+            
+            if (represented != null) {
+                symbol.append(": ", styler);
+                symbol.append(represented.getName(), ElementStyler.getStyler(obj, represented));
+            }
+            
+            this.elementStyledLabel = symbol;
+            return null;
         }
 
     }

@@ -38,9 +38,8 @@ class StringListContentProvider implements IStructuredContentProvider {
     @SuppressWarnings("unchecked")
     @Override
     public Object[] getElements(Object inputElement) {
-        List<StringAdapter> elements = (List<StringAdapter>)inputElement;
-        StringAdapter[] elementsArray = elements.toArray(new StringAdapter[elements.size()]);
-        return elementsArray;
+        List<String> elements = (List<String>)inputElement;
+        return elements.toArray(new String[elements.size()]);
     }
 
     @objid ("8dcd99aa-c068-11e1-8c0a-002564c97630")

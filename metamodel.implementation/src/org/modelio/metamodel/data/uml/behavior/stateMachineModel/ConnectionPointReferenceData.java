@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.data.uml.behavior.stateMachineModel;
 
@@ -46,43 +46,43 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("004e9526-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=ConnectionPointReference.class, factory=ConnectionPointReferenceData.Metadata.ObjectFactory.class)
 public class ConnectionPointReferenceData extends StateVertexData {
-    @objid ("e2494a72-0fcf-44cb-95eb-b2918ee4b058")
+    @objid ("473aa9ae-f5f6-46c8-9e9a-bf582200d928")
     @SmaMetaAssociation(metaName="Exit", typeDataClass=ExitPointPseudoStateData.class, min=0, max=1, smAssociationClass=Metadata.ExitSmDependency.class, partof = true)
      SmObjectImpl mExit;
 
-    @objid ("3dc5be7e-33cd-4853-b48e-3601f46b231e")
+    @objid ("80f8f6a5-917f-4d65-9aa3-a4edce96f1f6")
     @SmaMetaAssociation(metaName="Entry", typeDataClass=EntryPointPseudoStateData.class, min=0, max=1, smAssociationClass=Metadata.EntrySmDependency.class, partof = true)
      SmObjectImpl mEntry;
 
-    @objid ("74a3a020-cac2-4f40-9934-5f99a4115b1c")
+    @objid ("c821498f-6cce-461e-8349-04a4a1d906c2")
     @SmaMetaAssociation(metaName="OwnerState", typeDataClass=StateData.class, min=0, max=1, smAssociationClass=Metadata.OwnerStateSmDependency.class)
      SmObjectImpl mOwnerState;
 
-    @objid ("94fd8b6e-23f6-419d-8cb9-4786faeca7f1")
+    @objid ("41d6f59f-83f8-4322-b1bf-84f329e8642a")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("0094ba38-c4c4-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("56f3fcbf-880a-4664-ac9e-031612001f79")
+        @objid ("9bfb205f-97c2-4fa5-80b4-554420d549ca")
         private static SmClass smClass = null;
 
-        @objid ("43b4974c-c99b-4bea-b9a3-c4ad9372744a")
+        @objid ("381ac5fd-0fde-416b-b445-8d5a50453feb")
         private static SmDependency ExitDep = null;
 
-        @objid ("a9e1ab1a-7fe9-4338-b86d-5527428daaca")
+        @objid ("41a9f03f-5be4-4375-94fd-388c26626a7d")
         private static SmDependency EntryDep = null;
 
-        @objid ("5c05de3c-6050-4e93-ba59-4856d4c2f8d7")
+        @objid ("4f81be1c-fa86-4e8b-9903-3290a1a769e6")
         private static SmDependency OwnerStateDep = null;
 
-        @objid ("50484f5f-925c-4fdc-af16-6db7eefd8bcc")
+        @objid ("f3da5be9-b439-44d9-b90e-e03436041eb9")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(ConnectionPointReferenceData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("133c8345-2689-4b43-85ee-cc8fb3dfb39a")
+        @objid ("8183ebb0-911d-40c2-bbbf-0e37802808ba")
         public static SmDependency ExitDep() {
             if (ExitDep == null) {
             	ExitDep = classof().getDependencyDef("Exit");
@@ -90,7 +90,7 @@ public class ConnectionPointReferenceData extends StateVertexData {
             return ExitDep;
         }
 
-        @objid ("6715fafd-efb1-4dd4-aa3d-fe4fd9e70574")
+        @objid ("7683b960-735a-4f3f-a555-ca1e27ee6c5f")
         public static SmDependency EntryDep() {
             if (EntryDep == null) {
             	EntryDep = classof().getDependencyDef("Entry");
@@ -98,7 +98,7 @@ public class ConnectionPointReferenceData extends StateVertexData {
             return EntryDep;
         }
 
-        @objid ("fd59999b-2640-4101-87c8-f1ba896fe4f0")
+        @objid ("cf33114f-f69a-4519-8b0d-9dcec1c8fe17")
         public static SmDependency OwnerStateDep() {
             if (OwnerStateDep == null) {
             	OwnerStateDep = classof().getDependencyDef("OwnerState");
@@ -106,38 +106,38 @@ public class ConnectionPointReferenceData extends StateVertexData {
             return OwnerStateDep;
         }
 
-        @objid ("8f2046ed-4dca-4bb0-a271-2eabda2f71cd")
-        public static SmDependency getOwnerStateDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return OwnerStateDep;
-        }
-
-        @objid ("26d77162-7761-45a2-b98b-839691f465cd")
+        @objid ("e8d23b79-5226-42a6-a4a9-fff05c1a42a0")
         public static SmDependency getEntryDep() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return EntryDep;
         }
 
-        @objid ("4739b8cb-a994-4a13-b49d-91d89931e585")
-        public static SmClass getSmClass() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return smClass;
-        }
-
-        @objid ("d8dc914f-8386-4f78-83a8-9629a6adc21c")
+        @objid ("ceadcf48-69c8-412a-80a6-072f41ddbda6")
         public static SmDependency getExitDep() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return ExitDep;
         }
 
+        @objid ("e1f75812-f14e-4890-b8d9-24b568e9f982")
+        public static SmDependency getOwnerStateDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return OwnerStateDep;
+        }
+
+        @objid ("8425ca89-8a32-4765-a4d9-e2582eda4387")
+        public static SmClass getSmClass() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return smClass;
+        }
+
         @objid ("0095112c-c4c4-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("2c450feb-a33f-4f36-9d65-05c88a811bea")
+            @objid ("a3c981e3-4da2-49ce-8366-5af07621b1b5")
             public ISmObjectData createData() {
                 return new ConnectionPointReferenceData();
             }
 
-            @objid ("ad09242e-cccc-4b5c-b8c8-9b26cc70b8ee")
+            @objid ("2d05af32-03df-42ec-84ad-d403465588c3")
             public SmObjectImpl createImpl() {
                 return new ConnectionPointReferenceImpl();
             }
@@ -146,18 +146,18 @@ public class ConnectionPointReferenceData extends StateVertexData {
 
         @objid ("00958b70-c4c4-1fd8-97fe-001ec947cd2a")
         public static class EntrySmDependency extends SmSingleDependency {
-            @objid ("94e8364f-82b0-4e6d-a277-f8e557cba8c9")
+            @objid ("01ec7f00-8198-42b1-ba00-c02c586aa761")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((ConnectionPointReferenceData) data).mEntry;
             }
 
-            @objid ("c496e5b5-2b0b-4269-90e1-dc960ff18732")
+            @objid ("0391d3d2-0be7-42f0-b045-bdb65a6f7b7c")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((ConnectionPointReferenceData) data).mEntry = value;
             }
 
-            @objid ("f1203b63-d834-428c-b10c-bea636a5e676")
+            @objid ("fe141edc-1ed9-4207-a843-c0c4b9e5928a")
             @Override
             public SmDependency getSymetric() {
                 return EntryPointPseudoStateData.Metadata.ConnectionDep();
@@ -167,18 +167,18 @@ public class ConnectionPointReferenceData extends StateVertexData {
 
         @objid ("00961d2e-c4c4-1fd8-97fe-001ec947cd2a")
         public static class ExitSmDependency extends SmSingleDependency {
-            @objid ("c9882043-55fe-457c-a579-4c19f45f8cf5")
+            @objid ("6e150d44-5262-4037-8025-89671b56ce0c")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((ConnectionPointReferenceData) data).mExit;
             }
 
-            @objid ("732c16c6-5225-4f64-b1fd-d5e986beaf9e")
+            @objid ("898a4057-6faa-4f2d-834c-c2bc5ee3a879")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((ConnectionPointReferenceData) data).mExit = value;
             }
 
-            @objid ("3edbe667-ee3a-4712-a1cf-869214fec074")
+            @objid ("d390cae3-7356-4873-885d-816c58a3a439")
             @Override
             public SmDependency getSymetric() {
                 return ExitPointPseudoStateData.Metadata.ConnectionDep();
@@ -188,18 +188,18 @@ public class ConnectionPointReferenceData extends StateVertexData {
 
         @objid ("0096ac4e-c4c4-1fd8-97fe-001ec947cd2a")
         public static class OwnerStateSmDependency extends SmSingleDependency {
-            @objid ("33024a75-3039-41df-9fcd-69b16f180e20")
+            @objid ("aa043943-8cfe-4f00-9b41-6d0a3f31f671")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((ConnectionPointReferenceData) data).mOwnerState;
             }
 
-            @objid ("4ae87869-1fdf-40a2-ab93-7cb842cf724d")
+            @objid ("69c1f20e-2d40-4a58-b94b-f8a19c73709d")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((ConnectionPointReferenceData) data).mOwnerState = value;
             }
 
-            @objid ("8e4c68e2-5cde-4eae-aa7f-cf44a282313f")
+            @objid ("ea160d52-c5ce-4f33-a716-d9b2a68f3e07")
             @Override
             public SmDependency getSymetric() {
                 return StateData.Metadata.ConnectionDep();

@@ -32,11 +32,17 @@ import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.e4.core.di.annotations.Optional;
 import org.eclipse.e4.core.di.extensions.EventTopic;
 import org.eclipse.e4.ui.di.Focus;
+import org.eclipse.e4.ui.model.application.ui.basic.MPart;
+import org.eclipse.e4.ui.model.application.ui.menu.MDirectMenuItem;
 import org.eclipse.e4.ui.model.application.ui.menu.MMenu;
 import org.eclipse.e4.ui.model.application.ui.menu.MMenuFactory;
 import org.eclipse.e4.ui.model.application.ui.menu.MPopupMenu;
 import org.eclipse.e4.ui.services.IServiceConstants;
+import org.eclipse.e4.ui.workbench.modeling.EModelService;
 import org.eclipse.e4.ui.workbench.swt.modeling.EMenuService;
+import org.eclipse.jface.preference.IPreferenceStore;
+import org.eclipse.jface.util.IPropertyChangeListener;
+import org.eclipse.jface.util.PropertyChangeEvent;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
@@ -69,6 +75,12 @@ public class PropertyView {
     @objid ("0332c358-fe92-41f0-83ce-61881d425384")
     private static final String POPUPID = "org.modelio.property.popupmenu";
 
+    @objid ("dc60eed8-5eaf-4ad8-bbdd-83391e1b3df6")
+    private static final String VIEWMENU = "org.modelio.property.menu";
+
+    @objid ("44f7a7b4-b49b-487c-82c8-05edceaccc3a")
+    private static final String MENUITEM_SHOW_HIDDEN = "model.property.directmenuitem.displayhidden";
+
     @objid ("8fb871ce-c068-11e1-8c0a-002564c97630")
      ModelPropertyPanelProvider view;
 
@@ -97,25 +109,37 @@ public class PropertyView {
     @objid ("a733b15f-f85c-4411-884f-7a8004ef17a2")
      GProject project;
 
+    @objid ("56fa8d93-8a21-4b85-8e90-40aca0231732")
+    private PropertyViewConfigurator configurator;
+
+    @objid ("843c2df0-a814-4c0a-910d-d9c05ffce86a")
+    private MPart myPart;
+
+    @objid ("3d525aef-bc46-401c-99f1-9ff55e600a7b")
+    @Inject
+    @Optional
+    private EModelService eModelService;
+
     /**
      * Called by the framework to create the view and initialize it.
-     * @param projectService the project service.
+     * @param aProjectService the project service.
      * @param modelServices the model service.
      * @param modelioActivationService the activation service
      * @param modelioPickingService the picking service.
      * @param parent the composite the view must add its content into.
      * @param selection the application selection.
      * @param theMenuService the E4 menu service
+     * @param propertyPart the E4 part representing the property view
      */
     @objid ("8fb871cf-c068-11e1-8c0a-002564c97630")
     @PostConstruct
-    public void createControls(IProjectService projectService, @Optional IMModelServices modelServices, @Optional IActivationService modelioActivationService, IModelioPickingService modelioPickingService, Composite parent, @Optional
-@Named(IServiceConstants.ACTIVE_SELECTION) final IStructuredSelection selection, @Optional EMenuService theMenuService) {
+    public void createControls(IProjectService aProjectService, @Optional IMModelServices modelServices, @Optional IActivationService modelioActivationService, IModelioPickingService modelioPickingService, Composite parent, @Optional
+@Named(IServiceConstants.ACTIVE_SELECTION) final IStructuredSelection selection, @Optional EMenuService theMenuService, @Optional MPart propertyPart) {
         this.parentComposite = parent;
         
         // Sometimes, the view is instantiated only after the project is opened
-        if (projectService != null && projectService.getOpenedProject() != null) {
-            onProjectOpened(projectService.getOpenedProject(), modelServices, modelioPickingService, modelioActivationService, theMenuService);
+        if (aProjectService != null && aProjectService.getOpenedProject() != null) {
+            onProjectOpened(aProjectService.getOpenedProject(), modelServices, modelioPickingService, modelioActivationService, theMenuService, propertyPart);
             if (selection != null) {
                 update(selection);
             }
@@ -135,7 +159,7 @@ public class PropertyView {
                 // Create the view content
                 this.view = new ModelPropertyPanelProvider();
                 this.view.activateEdition(this.projectService, this.project.getSession(), this.modelService, this.pickingService, this.activationService);
-                this.view.create(this.parentComposite);
+                this.view.createPanel(this.parentComposite);
                 this.parentComposite.layout();
                 Display.getDefault().asyncExec(new Runnable() {
         
@@ -146,6 +170,7 @@ public class PropertyView {
                         popupMenu.getChildren().add(menu);
                     }
                 });
+                configurePanelByPreferences();
             } else {
                 return;
             }
@@ -178,20 +203,21 @@ public class PropertyView {
     @objid ("8fb871da-c068-11e1-8c0a-002564c97630")
     @Optional
     @Inject
-    void onProjectOpened(@EventTopic(ModelioEventTopics.PROJECT_OPENED) final GProject openedProject, @Optional IMModelServices mmService, @Optional IModelioPickingService modelioPickingService, @Optional IActivationService modelioActivationService, @Optional EMenuService theMenuService) {
+    void onProjectOpened(@EventTopic(ModelioEventTopics.PROJECT_OPENED) final GProject openedProject, @Optional IMModelServices mmService, @Optional IModelioPickingService modelioPickingService, @Optional IActivationService modelioActivationService, @Optional EMenuService theMenuService, MPart propertyPart) {
         this.project = openedProject;
         this.modelService = mmService;
         this.pickingService = modelioPickingService;
         this.activationService = modelioActivationService;
         this.menuService = theMenuService;
+        this.myPart = propertyPart;
         
         // Activate edition on the view
         if (this.view != null) {
             this.view.activateEdition(this.projectService, this.project != null ? this.project.getSession() : null, this.modelService, this.pickingService, this.activationService);
         }
         
-        // Register the blob provider, for local stereotype images.
         if (this.project != null) {
+            // Register the blob provider, for local stereotype images.
             this.blobProvider = new StereotypeIconsBlobProvider();
             this.project.getSession().getBlobSupport().addBlobProvider(this.blobProvider);
         }
@@ -225,7 +251,7 @@ public class PropertyView {
     @Focus
     void setFocus() {
         if (this.view != null) {
-            this.view.getComposite().setFocus();
+            this.view.getPanel().setFocus();
         }
     }
 
@@ -253,6 +279,59 @@ public class PropertyView {
     @objid ("650c6290-def7-47cf-85e5-e4eb3466e275")
     public ModelPropertyPanelProvider getPanel() {
         return this.view;
+    }
+
+    /**
+     * Configure panel from project preferences
+     */
+    @objid ("944a4c06-f525-470d-9c13-6dbe1b230bc2")
+    public void configurePanelByPreferences() {
+        if (this.configurator == null) {
+            this.configurator = new PropertyViewConfigurator(this.projectService, this.myPart);
+        
+            // Add a property change listener for future updates
+            this.projectService.getProjectPreferences(this.myPart.getElementId()).addPropertyChangeListener(new IPropertyChangeListener() {
+        
+                @Override
+                public void propertyChange(PropertyChangeEvent event) {
+                    Display.getDefault().asyncExec(new Runnable() {
+                        
+                        @Override
+                        public void run() {
+                            configurePanelByPreferences();
+                        }
+                    });
+                }
+            });
+        }
+        if (this.view != null) {
+            this.configurator.loadConfiguration(this.view);
+            configureMenuItem();
+        }
+    }
+
+    /**
+     * @param isShown whether hidden annotations should be displayed.
+     */
+    @objid ("fd9b4d33-c965-4a1a-ab4b-91115deb7cea")
+    public void setShowHiddenMdaElements(boolean isShown) {
+        this.configurator.setShowHiddenMdaElements(isShown);
+    }
+
+    @objid ("6815fe66-6ed0-4346-a48e-02f734cf5b96")
+    void configureMenuItem() {
+        MMenu hideMenu = null;
+        for (MMenu mmenu : this.myPart.getMenus()) {
+            if (VIEWMENU.equals(mmenu.getElementId())) {
+                hideMenu = mmenu;
+                break;
+            }
+        }
+        if (hideMenu != null) {
+            // show/hide fragments
+            MDirectMenuItem fragmentsMenuItem = (MDirectMenuItem) this.eModelService.find(MENUITEM_SHOW_HIDDEN, hideMenu);
+            fragmentsMenuItem.setSelected(this.configurator.areHiddenMdaElementsDisplayed());
+        }
     }
 
     /**
@@ -305,6 +384,69 @@ public class PropertyView {
         @objid ("1ede781f-bdd7-4dbc-ac8d-e6baef0510f4")
         private String getImageKey(MObject obj) {
             return obj.getUuid() + ".image";
+        }
+
+        @objid ("52a7679d-40dd-44fb-9e7d-6275b0a3f8d8")
+        public StereotypeIconsBlobProvider() {
+            super();
+        }
+
+    }
+
+    @objid ("1ce077eb-43aa-498a-bf6c-2bf5af5b2a32")
+    private static class PropertyViewConfigurator {
+        @objid ("8dba6bd2-f3b1-4722-b447-99a61c8665b6")
+        private static final String SHOW_HIDDEN_MDA_ELEMENTS = "ShowHiddenMdaElements";
+
+        @objid ("416f0364-d1c5-4528-9b43-1233d5f6ba0b")
+        private static final boolean SHOW_HIDDEN_MDA_ELEMENTS_DEFAULT = false;
+
+        @objid ("baa4548a-26f0-4b3e-ac45-40ce0f595ab7")
+        private IProjectService projectService;
+
+        @objid ("18b31212-4479-4ef7-9952-9b474886766a")
+        private MPart part;
+
+        @objid ("031ee441-8341-4212-8595-3cb2baea5337")
+        public void setShowHiddenMdaElements(boolean isShown) {
+            final IPreferenceStore prefs = getPreferenceStore();
+            if (prefs != null) {
+                prefs.setValue(SHOW_HIDDEN_MDA_ELEMENTS, isShown);
+            }
+        }
+
+        @objid ("412a7fee-8d3f-4dc3-b424-a092ae484a44")
+        public void loadConfiguration(ModelPropertyPanelProvider panel) {
+            final IPreferenceStore prefs = getPreferenceStore();
+            if (prefs != null) {
+                panel.setShowHiddenMdaElements(prefs.getBoolean(SHOW_HIDDEN_MDA_ELEMENTS));
+            }
+        }
+
+        @objid ("f639c91d-23b7-4d68-8fc7-3e3e9241d8e6")
+        public PropertyViewConfigurator(IProjectService projectService, MPart part) {
+            this.projectService = projectService;
+            this.part = part;
+            
+            final IPreferenceStore prefs = projectService.getProjectPreferences(part.getElementId());
+            if (prefs != null) {
+                prefs.setDefault(SHOW_HIDDEN_MDA_ELEMENTS, SHOW_HIDDEN_MDA_ELEMENTS_DEFAULT);
+            }
+        }
+
+        @objid ("a1da02dc-21bc-4be3-8909-51bc6b4f1b03")
+        public boolean areHiddenMdaElementsDisplayed() {
+            final IPreferenceStore prefs = getPreferenceStore();
+            if (prefs != null) {
+                return prefs.getBoolean(SHOW_HIDDEN_MDA_ELEMENTS);
+            }
+            return false;
+        }
+
+        @objid ("482cbe6b-f840-4c26-9d47-3fec0ab95da1")
+        private IPreferenceStore getPreferenceStore() {
+            final IPreferenceStore prefs = this.projectService.getProjectPreferences(this.part.getElementId());
+            return prefs;
         }
 
     }

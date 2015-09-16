@@ -33,13 +33,14 @@ import org.modelio.xmi.util.IModelerModuleStereotypes;
 import org.modelio.xmi.util.NotFoundException;
 
 @objid ("76472803-064d-4d70-b9ad-2415fc160c28")
-public class OArtifact extends ONameSpace implements IOElement {
+public class OArtifact extends ONameSpace {
     @objid ("df1d3d01-ce4a-4502-b6f1-e129c3e7117e")
     private Artifact objingElement = null;
 
     @objid ("d59af07b-6bb7-416c-998b-cf8c27326438")
+    @Override
     public org.eclipse.uml2.uml.Element createEcoreElt() {
-        if (objingElement.isStereotyped("ModelerModule",IModelerModuleStereotypes.UML2DEPLOYMENTSPECIFICATION)){
+        if (this.objingElement.isStereotyped("ModelerModule",IModelerModuleStereotypes.UML2DEPLOYMENTSPECIFICATION)){
             return UMLFactory.eINSTANCE.createDeploymentSpecification();
         }else{
             return UMLFactory.eINSTANCE.createArtifact();
@@ -49,14 +50,15 @@ public class OArtifact extends ONameSpace implements IOElement {
     @objid ("51c0fa88-14bd-4205-9620-abc5c6322239")
     public OArtifact(Artifact param) {
         super(param);
-        objingElement = param;
+        this.objingElement = param;
     }
 
     @objid ("9fd48579-a243-43b1-a41c-92842df3b936")
+    @Override
     public void attach(org.eclipse.uml2.uml.Element ecoreElt) {
         GenerationProperties genProp = GenerationProperties.getInstance();
         
-        ModelTree objingOwner = objingElement.getOwner();
+        ModelTree objingOwner = this.objingElement.getOwner();
         org.eclipse.uml2.uml.Element ecoreOwner = genProp.getMappedElement(objingOwner);
         
         if (ecoreOwner != null) {
@@ -85,6 +87,7 @@ public class OArtifact extends ONameSpace implements IOElement {
     }
 
     @objid ("0fa2579b-5027-48bf-83ea-f32a30434959")
+    @Override
     public void setProperties(org.eclipse.uml2.uml.Element ecoreElt) {
         super.setProperties(ecoreElt);
         setFileName((org.eclipse.uml2.uml.Artifact) ecoreElt);
@@ -93,7 +96,7 @@ public class OArtifact extends ONameSpace implements IOElement {
 
     @objid ("bc03b1e8-8b55-4a65-8f1e-3cc813b9ecdc")
     private void setFileName(org.eclipse.uml2.uml.Artifact artifact) {
-        String fileName = objingElement.getFileName();
+        String fileName = this.objingElement.getFileName();
         if (!"".equals(fileName))
             artifact.setFileName(fileName);
     }
@@ -102,9 +105,9 @@ public class OArtifact extends ONameSpace implements IOElement {
     private void setUtilized(org.eclipse.uml2.uml.Artifact artifact) {
         GenerationProperties genProp = GenerationProperties.getInstance();
         
-        List<org.eclipse.uml2.uml.Manifestation> ecoreManifList = new ArrayList<org.eclipse.uml2.uml.Manifestation>();
+        List<org.eclipse.uml2.uml.Manifestation> ecoreManifList = new ArrayList<>();
         
-        for (Manifestation objingManif : objingElement.getUtilized()) {
+        for (Manifestation objingManif : this.objingElement.getUtilized()) {
             org.eclipse.uml2.uml.Manifestation ecoreManif = (org.eclipse.uml2.uml.Manifestation) genProp
             .getMappedElement(objingManif);
         

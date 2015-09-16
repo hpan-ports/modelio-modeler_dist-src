@@ -43,7 +43,7 @@ import org.eclipse.swt.widgets.Shell;
 import org.modelio.app.project.core.services.IProjectService;
 import org.modelio.app.project.ui.plugin.AppProjectUi;
 import org.modelio.core.ui.progress.ModelioProgressAdapter;
-import org.modelio.gproject.descriptor.ProjectDescriptor;
+import org.modelio.gproject.data.project.ProjectDescriptor;
 import org.modelio.gproject.gproject.GProject;
 import org.modelio.ui.progress.IModelioProgressService;
 
@@ -77,6 +77,7 @@ public class ExportProjectHandler {
         final Path archiveFile = promptUserForFile(shell, projectToExport.getPath());
         if (archiveFile != null) {
             IRunnableWithProgress runnable = new IRunnableWithProgress() {
+                
                 @Override
                 public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
                     projectService.exportProject(projectToExport, archiveFile, new ModelioProgressAdapter(monitor));
@@ -109,6 +110,10 @@ public class ExportProjectHandler {
         if (projectDescriptors.size() != 1) {
             return false;
         }
+        
+        if (projectDescriptors.get(0).getLockInfo() != null)
+            return false;
+        
         GProject openedProject = projectService.getOpenedProject();
         if (openedProject != null) {
             // cannot export currently opened project

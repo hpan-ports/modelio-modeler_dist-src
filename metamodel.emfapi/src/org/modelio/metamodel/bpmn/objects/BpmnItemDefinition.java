@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.bpmn.objects;
 
@@ -37,40 +37,40 @@ import org.modelio.metamodel.uml.statik.GeneralClass;
 
 @objid ("0007a24c-c4c0-1fd8-97fe-001ec947cd2a")
 public interface BpmnItemDefinition extends BpmnRootElement {
-    @objid ("76b442d3-6d35-4689-a75b-4380cd9c8ef8")
+    @objid ("c7c6ac39-0829-48f3-86d9-5cd35ad488c6")
     BpmnItemKind getItemKind();
 
-    @objid ("472612ff-ec02-4e2d-985f-f22f86ed962d")
+    @objid ("06cbfe34-d580-410c-86a7-87f154f8f83d")
     void setItemKind(BpmnItemKind value);
 
-    @objid ("671eb206-8f69-421d-9495-eb56150077af")
+    @objid ("9b34bcbf-0319-4388-9cc8-7bb949dc5f5b")
     boolean isIsCollection();
 
-    @objid ("d5718c5a-9b18-4595-a09f-17ddbea12763")
+    @objid ("036dc62f-de34-4c4d-b197-23099fc75e26")
     void setIsCollection(boolean value);
 
-    @objid ("cc93e81b-e581-4af8-b630-30f107f35fa4")
+    @objid ("794a54e0-af36-4e41-9adb-a4ef7472ef39")
     GeneralClass getStructureRef();
 
-    @objid ("439f3807-4602-418e-b95f-74697c9dc6c0")
+    @objid ("c778193f-3cbd-4711-9bb2-2604903ae4ce")
     void setStructureRef(GeneralClass value);
 
-    @objid ("1cd0083c-7a29-4ce9-8afb-c16808e0ae3f")
+    @objid ("8c3e1977-c9c9-4412-a7d7-d0694b08dd17")
     EList<BpmnMessage> getTypedMessage();
 
-    @objid ("76c40be8-d071-4173-85c8-a15804e29fac")
+    @objid ("962d13bb-8bc8-4047-b6c5-5c7108cea395")
     <T extends BpmnMessage> List<T> getTypedMessage(java.lang.Class<T> filterClass);
 
-    @objid ("e1ee7766-ad63-43e9-93a7-0bd428e95a90")
+    @objid ("5f1378cb-da08-4637-a7d6-d3c488205d8e")
     EList<BpmnItemAwareElement> getTypedItem();
 
-    @objid ("c0306b0e-3ff1-4197-a5da-6231a42933ca")
+    @objid ("b8fc6a7b-6ed6-41a6-a2c3-b310a121f558")
     <T extends BpmnItemAwareElement> List<T> getTypedItem(java.lang.Class<T> filterClass);
 
-    @objid ("b0e18cf9-ee47-4034-8fb6-69f358928dbc")
+    @objid ("1e5b61d8-1ccc-430a-a197-fcf099ac724f")
     EList<BpmnResourceParameter> getTypedResourceParameter();
 
-    @objid ("e05994f2-3eb2-4d91-90d4-b3d83d04f40d")
+    @objid ("d3340643-e6d9-40fd-aecf-1829bec8366c")
     <T extends BpmnResourceParameter> List<T> getTypedResourceParameter(java.lang.Class<T> filterClass);
 
 }

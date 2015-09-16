@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.bpmn.rootElements;
 
@@ -35,28 +35,28 @@ import org.modelio.metamodel.bpmn.rootElements.BpmnGroup;
 
 @objid ("00792098-c4bf-1fd8-97fe-001ec947cd2a")
 public interface BpmnFlowElement extends BpmnBaseElement {
-    @objid ("06787bee-f222-4cce-942c-f0fb36526936")
+    @objid ("3c92ebea-ba36-4bbe-84dd-e855657316dc")
     EList<BpmnGroup> getGroups();
 
-    @objid ("bc92db29-f028-494d-83d7-a856df196836")
+    @objid ("3dfe4d22-a607-4df8-b2fc-349d9cfa95d7")
     <T extends BpmnGroup> List<T> getGroups(java.lang.Class<T> filterClass);
 
-    @objid ("6f37bba6-3f08-4829-8dc4-47c46a61ab88")
+    @objid ("c86f17cd-017f-4e2e-895f-754e62614647")
     BpmnSubProcess getSubProcess();
 
-    @objid ("1bb050ed-dfe6-413b-b113-7456dd75f694")
+    @objid ("85f52324-eb2d-449a-b668-64dd3d0e66e2")
     void setSubProcess(BpmnSubProcess value);
 
-    @objid ("c6480f31-b243-4fb4-9998-3dff811ec2b0")
+    @objid ("323f8f18-056c-4e88-8e8d-aa572fa500c0")
     EList<BpmnLane> getLane();
 
-    @objid ("28cd07f2-b21b-43a7-a46e-5c290ddb4d14")
+    @objid ("75710187-2ffc-4643-b7dc-fe22fe22e047")
     <T extends BpmnLane> List<T> getLane(java.lang.Class<T> filterClass);
 
-    @objid ("add6beff-96b3-4a8e-808e-4980a2adfda5")
+    @objid ("58ccc853-67b6-4def-980c-96310b65dc81")
     BpmnProcess getContainer();
 
-    @objid ("09425c45-3336-4fb9-9969-a15463401635")
+    @objid ("869e82f3-c0b8-42ae-8d75-02e03f96ab3f")
     void setContainer(BpmnProcess value);
 
 }

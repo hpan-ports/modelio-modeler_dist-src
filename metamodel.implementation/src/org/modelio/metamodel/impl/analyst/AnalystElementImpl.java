@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.analyst;
 
@@ -59,33 +59,33 @@ public abstract class AnalystElementImpl extends AnalystItemImpl implements Anal
         }
     }
 
-    @objid ("e2f86216-3409-471b-a8b2-f746f05990f5")
+    @objid ("d857d74b-1ef6-4ff3-aa0b-ce983bece8aa")
     @Override
     public int getVersion() {
         return (Integer) getAttVal(AnalystElementData.Metadata.VersionAtt());
     }
 
-    @objid ("68e3e90c-5f09-4ceb-8c29-b72fad836a74")
+    @objid ("6b18d718-950d-4474-b5ee-be5b2de4cfbb")
     @Override
     public void setVersion(int value) {
         setAttVal(AnalystElementData.Metadata.VersionAtt(), value);
     }
 
-    @objid ("48508c51-64d5-460b-89ec-9acd781952ce")
+    @objid ("a7b7f6a7-9e85-4f53-802b-0167d7c5d761")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("8186e4cb-723a-49e5-bd34-c58fb573ddd6")
+    @objid ("3867af7c-c86d-4572-951a-c024a0c126c8")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("25e08082-bdbc-4212-8f5e-964d305b5557")
+    @objid ("72dc4494-a6f9-4317-afd4-75da9acc2389")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitAnalystElement(this);

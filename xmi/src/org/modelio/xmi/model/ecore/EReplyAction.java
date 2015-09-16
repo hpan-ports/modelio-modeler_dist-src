@@ -21,40 +21,36 @@
 
 package org.modelio.xmi.model.ecore;
 
-import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.modelio.api.modelio.Modelio;
+import org.modelio.gproject.model.IMModelServices;
+import org.modelio.metamodel.factory.ElementNotUniqueException;
 import org.modelio.metamodel.uml.behavior.activityModel.OpaqueAction;
 import org.modelio.metamodel.uml.infrastructure.Element;
+import org.modelio.xmi.plugin.Xmi;
 import org.modelio.xmi.util.IModelerModuleStereotypes;
+import org.modelio.xmi.util.ReverseProperties;
 
 @objid ("0c992afd-ef44-499f-8198-9b919aa48bcb")
-public class EReplyAction extends ENamedElement implements IEElement {
+public class EReplyAction extends ENamedElement {
     @objid ("5b7a10ce-be9c-4840-bb57-a7f3ebd0a0bd")
+    @Override
     public Element createObjingElt() {
-        OpaqueAction result = Modelio.getInstance().getModelingSession().getModel().createOpaqueAction();
+        IMModelServices mmServices = ReverseProperties.getInstance().getMModelServices();
         
-            result.getExtension().add(Modelio.getInstance().getModelingSession().getMetamodelExtensions().getStereotype(
-                 IModelerModuleStereotypes.UML2REPLYACTION, result.getMClass()));
+        OpaqueAction result = mmServices.getModelFactory().createOpaqueAction();
+        
+        try {
+            result.getExtension().add(mmServices.getStereotype(
+                    IModelerModuleStereotypes.UML2REPLYACTION, result.getMClass()));
+        } catch (ElementNotUniqueException e) {
+            Xmi.LOG.warning(e);
+        }
         return result;
     }
 
     @objid ("e333994d-379f-4145-ad9f-859533806f19")
     public EReplyAction(org.eclipse.uml2.uml.ReplyAction element) {
         super(element);
-    }
-
-    @objid ("5eabb9b7-5c7b-4a36-9a7c-f73d9a15d600")
-    public void attach(Element objingElt) {
-    }
-
-    @objid ("fa9e39b5-591f-4bda-9315-afb07039ace9")
-    public void attach(List<Object> objingElts) {
-    }
-
-    @objid ("0507a92b-1852-40fa-853f-d5b614bdc9bc")
-    public void setProperties(Element objingElt) {
-        super.setProperties(objingElt);
     }
 
 }

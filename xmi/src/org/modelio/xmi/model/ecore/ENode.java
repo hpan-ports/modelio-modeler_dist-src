@@ -21,9 +21,7 @@
 
 package org.modelio.xmi.model.ecore;
 
-import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.modelio.api.modelio.Modelio;
 import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
 import org.modelio.metamodel.uml.infrastructure.ModelTree;
@@ -32,11 +30,12 @@ import org.modelio.metamodel.uml.statik.Node;
 import org.modelio.xmi.util.ReverseProperties;
 
 @objid ("84c1f37a-41d8-4ec0-b87f-b977cdb92979")
-public class ENode extends ENamedElement implements IEElement {
+public class ENode extends ENamedElement {
     @objid ("e7e06035-3c13-447f-bab0-c647377b3f81")
+    @Override
     public Element createObjingElt() {
-        return Modelio.getInstance().getModelingSession()
-        .getModel().createNode();
+        return  ReverseProperties.getInstance().getMModelServices().getModelFactory()
+                .createNode();
     }
 
     @objid ("7183726e-68d8-4d7c-abf9-fc9cd393029d")
@@ -45,6 +44,7 @@ public class ENode extends ENamedElement implements IEElement {
     }
 
     @objid ("e93b81aa-95a4-4763-81fa-399070b550f0")
+    @Override
     public void attach(Element objingElt) {
         ReverseProperties revProp = ReverseProperties.getInstance();
         
@@ -61,15 +61,6 @@ public class ENode extends ENamedElement implements IEElement {
         } else {
             objingCollab.setOwner(revProp.getExternalPackage());
         }
-    }
-
-    @objid ("589a603e-2457-4e64-baa2-7e135d8be491")
-    public void attach(List<Object> objingElts) {
-    }
-
-    @objid ("5b71eae5-3340-49b8-99a0-37c3ae690a09")
-    public void setProperties(Element objingElt) {
-        super.setProperties(objingElt);
     }
 
 }

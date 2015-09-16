@@ -7,6 +7,7 @@
     <elements xsi:type="commands:Handler" xmi:id="_LyytsJFOEeKOUpje-do_Rw" elementId="org.modelio.diagram.diagramauto.handler.InheritanceDiagramId" contributionURI="bundleclass://org.modelio.diagram.diagramauto/org.modelio.diagram.diagramauto.handlers.InheritanceDiagram" command="_DFDhgJFOEeKOUpje-do_Rw"/>
     <elements xsi:type="commands:Handler" xmi:id="_L1zlcJFOEeKOUpje-do_Rw" elementId="org.modelio.diagram.diagramauto.handler.PackageStructureDiagramId" contributionURI="bundleclass://org.modelio.diagram.diagramauto/org.modelio.diagram.diagramauto.handlers.PackageStructureDiagram" command="_DM-ucJFOEeKOUpje-do_Rw"/>
     <elements xsi:type="commands:Handler" xmi:id="_L5xfcJFOEeKOUpje-do_Rw" elementId="org.modelio.diagram.diagramauto.handler.SubPackageStructureDiagramId" contributionURI="bundleclass://org.modelio.diagram.diagramauto/org.modelio.diagram.diagramauto.handlers.SubPackageStructureDiagram" command="_DPsrQJFOEeKOUpje-do_Rw"/>
+    <elements xsi:type="commands:Handler" xmi:id="_QfCosAwtEeSH5aYHJXwCdg" elementId="org.modelio.diagram.diagramauto.handler.UpdateAutomaticDiagramId" contributionURI="bundleclass://org.modelio.diagram.diagramauto/org.modelio.diagram.diagramauto.handlers.UpdateAutomaticDiagram" command="_DlimsAwtEeSH5aYHJXwCdg"/>
   </fragments>
   <fragments xsi:type="fragment:StringModelFragment" xmi:id="_3GORAEN6EeK0D9nRHZj9jw" featurename="commands" parentElementId="org.modelio.app.application">
     <elements xsi:type="commands:Command" xmi:id="_-lRuYNRHEeK8uIu7e3nWgg" elementId="org.modelio.diagram.diagramauto.command.ClassStructureDiagramId" commandName="%ClassStructureDiagram.name" description="%ClassStructureDiagram.description"/>
@@ -15,6 +16,7 @@
     <elements xsi:type="commands:Command" xmi:id="_DFDhgJFOEeKOUpje-do_Rw" elementId="org.modelio.diagram.diagramauto.command.InheritanceDiagramId" commandName="%InheritanceDiagram.name" description="%InheritanceDiagram.description"/>
     <elements xsi:type="commands:Command" xmi:id="_DM-ucJFOEeKOUpje-do_Rw" elementId="org.modelio.diagram.diagramauto.command.PackageStructureDiagramId" commandName="%PackageStructureDiagram.name" description="%PackageStructureDiagram.description"/>
     <elements xsi:type="commands:Command" xmi:id="_DPsrQJFOEeKOUpje-do_Rw" elementId="org.modelio.diagram.diagramauto.command.SubPackageStructureDiagramId" commandName="%SubPackageStructureDiagram.name" description="%SubPackageStructureDiagram.description"/>
+    <elements xsi:type="commands:Command" xmi:id="_DlimsAwtEeSH5aYHJXwCdg" elementId="org.modelio.diagram.diagramauto.command.UpdateAutomaticDiagramId" commandName="%UpdateAutomaticDiagram.name" description="%UpdateAutomaticDiagram.description"/>
   </fragments>
   <fragments xsi:type="fragment:StringModelFragment" xmi:id="_t_u1AJL3EeKKiboSF5LovA" featurename="children" parentElementId="model.browser.popupmenu.0">
     <elements xsi:type="menu:Menu" xmi:id="_9oFC4JL3EeKKiboSF5LovA" elementId="org.modelio.diagram.diagramauto.popupmenu" label="%PopupMenu.label" iconURI="platform:/plugin/org.modelio.diagram.diagramauto/icons/autodiagram.png">
@@ -35,6 +37,9 @@
       </children>
       <children xsi:type="menu:HandledMenuItem" xmi:id="_JE7gsJL4EeKKiboSF5LovA" elementId="diagram.auto.handledmenuitem.SubPackageStructureDiagramId" label="%SubPackageStructureDiagram.label" tooltip="%SubPackageStructureDiagram.tooltip" command="_DPsrQJFOEeKOUpje-do_Rw">
         <visibleWhen xsi:type="ui:CoreExpression" xmi:id="_sS7pgLcpEeKaIcSThTfriQ" coreExpressionId="diagram.auto.test.subpackagstructure.id"/>
+      </children>
+      <children xsi:type="menu:HandledMenuItem" xmi:id="_ITBCcAwtEeSH5aYHJXwCdg" elementId="diagram.auto.handledmenuitem.UpdateAutomaticDiagramId" label="%UpdateAutomaticDiagram.label" tooltip="%UpdateAutomaticDiagram.tooltip" command="_DlimsAwtEeSH5aYHJXwCdg">
+        <visibleWhen xsi:type="ui:CoreExpression" xmi:id="_ITBCcQwtEeSH5aYHJXwCdg" coreExpressionId="diagram.auto.test.updatediagram.id"/>
       </children>
     </elements>
   </fragments>

@@ -22,6 +22,8 @@
 package org.modelio.xmi.model.objing;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
+import org.eclipse.uml2.uml.Element;
+import org.modelio.metamodel.uml.behavior.interactionModel.CombinedFragment;
 import org.modelio.metamodel.uml.behavior.interactionModel.Interaction;
 import org.modelio.metamodel.uml.behavior.interactionModel.InteractionFragment;
 import org.modelio.metamodel.uml.behavior.interactionModel.InteractionOperand;
@@ -34,7 +36,7 @@ import org.modelio.xmi.util.ObjingEAnnotation;
  * @author ebrosse
  */
 @objid ("d5a7a2f5-c74b-44a4-84db-a7f177eb2774")
-public class OInteractionFragment extends OModelElement implements IOElement {
+public class OInteractionFragment extends OModelElement {
     @objid ("efe35a35-f005-41e2-a2a0-77081d7c68fb")
     @Override
     public org.eclipse.uml2.uml.Element createEcoreElt() {
@@ -54,35 +56,44 @@ public class OInteractionFragment extends OModelElement implements IOElement {
     @Override
     public void attach(org.eclipse.uml2.uml.Element ecoreElt) {
         if (ecoreElt.getOwner() == null){
-            GenerationProperties genProp = GenerationProperties.getInstance();
+        
             InteractionFragment objingElement = (InteractionFragment) getObjingElement();
         
             Interaction interaction = objingElement.getEnclosingInteraction();
             InteractionOperand interactionOperand = objingElement.getEnclosingOperand();   
         
-            if (interaction != null || interactionOperand != null) {
+            if (interactionOperand == null){
         
-                // We add the fragment to the lifeline
-                for (Lifeline lifeline :  objingElement.getCovered()) {
-                    org.eclipse.uml2.uml.Lifeline ecoreLifeline = (org.eclipse.uml2.uml.Lifeline) genProp.getMappedElement(lifeline);
-                    if (ecoreLifeline != null) {
-                        try{
-                            ecoreLifeline.getCoveredBys().add((org.eclipse.uml2.uml.InteractionFragment)ecoreElt);
-                        }catch (ArrayStoreException e){
-                            e.printStackTrace();
+                int lineNumber = objingElement.getLineNumber();
+                int startNumber = 0;
+                int endNumber = -1;
+                for (CombinedFragment comFrag : interaction.getFragment(CombinedFragment.class)){
+                    for (InteractionOperand operand : comFrag.getOperand()){
+                        int startFrag = operand.getLineNumber();
+                        int endFrag = operand.getEndLineNumber();
+                        if ((startFrag < lineNumber) 
+                                && (endFrag >  lineNumber) 
+                                &&  (startFrag > startNumber)
+                                && ((endFrag < endNumber) || (endNumber == -1))){
+                            startNumber = startFrag;
+                            endNumber = endFrag;
+                            interactionOperand = operand;
                         }
                     }
                 }
+            }
         
-                // form ecore we add the fragment to the interaction
+            if (interaction != null || interactionOperand != null) {
+        
+                // for ecore we add the fragment to the interaction
                 if (interactionOperand != null) {
-                    org.eclipse.uml2.uml.InteractionOperand ecoreInteractionOperand = (org.eclipse.uml2.uml.InteractionOperand) genProp
+                    org.eclipse.uml2.uml.InteractionOperand ecoreInteractionOperand = (org.eclipse.uml2.uml.InteractionOperand) GenerationProperties.getInstance()
                             .getMappedElement(interactionOperand);
                     if ((ecoreInteractionOperand != null) && (ecoreElt instanceof org.eclipse.uml2.uml.InteractionFragment))
                         ecoreInteractionOperand.getFragments().add((org.eclipse.uml2.uml.InteractionFragment)ecoreElt);
         
                 }else  if (interaction != null) {
-                    org.eclipse.uml2.uml.Interaction ecoreInteraction = (org.eclipse.uml2.uml.Interaction) genProp.getMappedElement(interaction);
+                    org.eclipse.uml2.uml.Interaction ecoreInteraction = (org.eclipse.uml2.uml.Interaction) GenerationProperties.getInstance().getMappedElement(interaction);
                     if ((ecoreInteraction != null) && (ecoreElt instanceof org.eclipse.uml2.uml.InteractionFragment))
                         ecoreInteraction.getFragments().add((org.eclipse.uml2.uml.InteractionFragment)ecoreElt);
                 }
@@ -95,11 +106,29 @@ public class OInteractionFragment extends OModelElement implements IOElement {
     public void setProperties(org.eclipse.uml2.uml.Element ecoreElt) {
         super.setProperties(ecoreElt);
         setLineNumber(ecoreElt);
+        setCovered(ecoreElt);
     }
 
     @objid ("f1692c33-d623-4bec-8907-cbe048860035")
     private void setLineNumber(org.eclipse.uml2.uml.Element ecoreElt) {
         ObjingEAnnotation.setLineNumber(ecoreElt, ((InteractionFragment) getObjingElement()).getLineNumber());
+    }
+
+    @objid ("10d070dc-dcde-4e9f-9e65-dc0eb22c3a92")
+    private void setCovered(Element ecoreElt) {
+        InteractionFragment objingElement = (InteractionFragment) getObjingElement();
+        
+        // We add the fragment to the lifeline
+        for (Lifeline lifeline :  objingElement.getCovered()) {
+            org.eclipse.uml2.uml.Lifeline ecoreLifeline = (org.eclipse.uml2.uml.Lifeline) GenerationProperties.getInstance().getMappedElement(lifeline);
+            if (ecoreLifeline != null) {
+                try{
+                    ecoreLifeline.getCoveredBys().add((org.eclipse.uml2.uml.InteractionFragment)ecoreElt);
+                }catch (ArrayStoreException e){
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 
 }

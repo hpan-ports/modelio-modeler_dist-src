@@ -22,14 +22,13 @@
 package org.modelio.xmi.model.ecore;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.modelio.api.modelio.Modelio;
 import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.metamodel.uml.statik.Component;
 import org.modelio.metamodel.uml.statik.Package;
 import org.modelio.xmi.util.ReverseProperties;
 
 @objid ("84d1ae7d-765b-4454-9973-8c9f1d8cbb0d")
-public class EModel extends EPackage implements IEElement {
+public class EModel extends EPackage {
     @objid ("1a0312d0-acf4-4b0b-9908-6dd65a84d662")
     private boolean isRoot = false;
 
@@ -37,47 +36,47 @@ public class EModel extends EPackage implements IEElement {
     private org.eclipse.uml2.uml.Model ecoreElement;
 
     @objid ("27a141ce-342e-46db-86f8-b1dc784310b9")
+    @Override
     public Element createObjingElt() {
-        for (org.eclipse.uml2.uml.Package ecoremodel : ReverseProperties.getInstance().getEcoreModel()){
-             if (ecoreElement.equals(ecoremodel)){
-                isRoot = true;
-        //                return Modelio.getInstance().getModelingSession().getModel().getRoot();
-                return Modelio.getInstance().getModelingSession().getModel().createPackage();
-               }
+        for (org.eclipse.uml2.uml.Package ecoremodel : ReverseProperties.getInstance().getEcoreModels()){
+            if (this.ecoreElement.equals(ecoremodel)){
+                this.isRoot = true;
+                return ReverseProperties.getInstance().getMModelServices().getModelFactory().createPackage();
+            }
         }
-        return Modelio.getInstance().getModelingSession().getModel().createPackage();
+        return ReverseProperties.getInstance().getMModelServices().getModelFactory().createPackage();
     }
 
     @objid ("645fad64-be3f-4838-b299-af84e690d859")
-    public EModel(org.eclipse.uml2.uml.Model element) {
+    public EModel(final org.eclipse.uml2.uml.Model element) {
         super(element);
-        ecoreElement = element;
+        this.ecoreElement = element;
     }
 
     @objid ("c143572b-d3d7-47f9-bed8-358eb9ac3dab")
-    public void attach(Element objingElt) {
-        if (!isRoot){
+    @Override
+    public void attach(final Element objingElt) {
+        if (!this.isRoot){
+            Package objingPkg = (Package) objingElt;
             ReverseProperties revProp = ReverseProperties.getInstance();
-            org.eclipse.uml2.uml.Element ecoreOwner = ecoreElement.getOwner();
-                
-            Element objingOwner = (Element) revProp
-            .getMappedElement(ecoreOwner);
-                
-            if (ecoreOwner instanceof org.eclipse.uml2.uml.Model) {
-                Package objingPkg = (Package) objingElt;
-                objingPkg.setOwner((Package) objingOwner);
-            }else if (ecoreOwner instanceof org.eclipse.uml2.uml.Package) {
-                Package objingPkg = (Package) objingElt;
-                objingPkg.setOwner((Package) objingOwner);
-            }else if (ecoreOwner instanceof org.eclipse.uml2.uml.Component){
-                ((Package) objingElt).setOwner((Component) objingOwner);
+            org.eclipse.uml2.uml.Element ecoreOwner = this.ecoreElement.getOwner();
+        
+            if (ecoreOwner != null){
+                Element objingOwner = (Element) revProp
+                        .getMappedElement(ecoreOwner);
+        
+                if (ecoreOwner instanceof org.eclipse.uml2.uml.Model) {            
+                    objingPkg.setOwner((Package) objingOwner);
+                }else if (ecoreOwner instanceof org.eclipse.uml2.uml.Package) {             
+                    objingPkg.setOwner((Package) objingOwner);
+                }else if (ecoreOwner instanceof org.eclipse.uml2.uml.Component){
+                    objingPkg.setOwner((Component) objingOwner);
+                }
+            }else{
+                objingPkg.setOwner(ReverseProperties.getInstance().getExternalPackage());
             }
+        
         }
-    }
-
-    @objid ("7c0f5f50-68e5-428b-b2e7-bb8a4d069407")
-    public void setProperties(Element objingElt) {
-        super.setProperties(objingElt);
     }
 
 }

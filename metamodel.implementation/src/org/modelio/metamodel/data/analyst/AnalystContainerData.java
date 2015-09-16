@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.data.analyst;
 
@@ -43,22 +43,22 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("ff7ecd90-d1b2-4c61-90fa-2fb3db4bfb66")
 @SmaMetaClass(mmClass=AnalystContainer.class, factory=AnalystContainerData.Metadata.ObjectFactory.class)
 public abstract class AnalystContainerData extends AnalystItemData {
-    @objid ("7b1343d0-9aa5-4b5c-a747-f27dc9061d46")
+    @objid ("ad374897-efc9-426b-8cfa-fcc87dde0a1c")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("b72be232-efc6-47c2-874d-3173316a5e6d")
     public static class Metadata {
-        @objid ("0bcf9fc7-d67e-4145-999d-001834ca83f4")
+        @objid ("a4aa7287-89d7-4bab-be85-e135e6aa8599")
         private static SmClass smClass = null;
 
-        @objid ("fad965ed-c967-466a-97a8-cfd005b95229")
+        @objid ("b893945d-c63b-444f-9b17-e6710c0223f3")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(AnalystContainerData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("009c390f-75d5-4da2-935a-1ae40efee330")
+        @objid ("9f388897-6a2b-4d96-9ba5-957b17e929a2")
         public static SmClass getSmClass() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return smClass;
@@ -66,12 +66,12 @@ public abstract class AnalystContainerData extends AnalystItemData {
 
         @objid ("c1994255-df1e-488b-b75a-9d96aa394613")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("09f69f4b-d1d0-42ab-b24c-4c6c1d2066e8")
+            @objid ("41f76a9b-5492-4133-9b63-ac2e0784ef35")
             public ISmObjectData createData() {
                 throw new UnsupportedOperationException();
             }
 
-            @objid ("c6c835b9-41c8-4969-b179-3b4cf54ad2cf")
+            @objid ("314becd3-6db8-4e96-9405-c7e461cce772")
             public SmObjectImpl createImpl() {
                 throw new UnsupportedOperationException();
             }

@@ -65,6 +65,9 @@ public class GmLollipopConnection extends GmSimpleNode {
     @objid ("367161e1-55b7-11e2-877f-002564c97630")
     private static final int MAJOR_VERSION = 0;
 
+    @objid ("8cfc6013-c7f6-4740-9a37-e874807085c6")
+     static String PROP_REFRESH_BRANCHES = "refresh branches";
+
     /**
      * Default and deserialization constructor.
      */
@@ -77,6 +80,7 @@ public class GmLollipopConnection extends GmSimpleNode {
     @Override
     protected void refreshFromObModel() {
         refreshStyleFromModel();
+        firePropertyChange(PROP_REFRESH_BRANCHES, null, this);
     }
 
     /**
@@ -205,7 +209,7 @@ public class GmLollipopConnection extends GmSimpleNode {
     @objid ("36746f07-55b7-11e2-877f-002564c97630")
     private void read_1(final IDiagramReader in) {
         super.read(in);
-                
+        
         MObject el = resolveRef(getRepresentedRef());
         this.element = (NaryConnector) el;
     }
@@ -219,7 +223,7 @@ public class GmLollipopConnection extends GmSimpleNode {
     @objid ("ed916166-7159-4519-9465-466e3bb48c44")
     private void read_0(final IDiagramReader in) {
         super.read(in);
-                
+        
         MObject el = resolveRef(getRepresentedRef());
         if (el instanceof NaryConnectorEnd)
             this.element = (NaryConnector) ((NaryConnectorEnd) el).getNaryLink();

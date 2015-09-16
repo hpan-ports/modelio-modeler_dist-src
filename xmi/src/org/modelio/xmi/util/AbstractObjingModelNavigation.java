@@ -97,7 +97,6 @@ import org.modelio.vcore.smkernel.mapi.MClass;
 import org.modelio.vcore.smkernel.mapi.MObject;
 import org.modelio.vcore.smkernel.meta.SmClass;
 import org.modelio.xmi.plugin.Xmi;
-import org.modelio.xmi.reverse.TotalImportMap;
 
 /**
  * Services for the Modelio model navigation
@@ -333,7 +332,7 @@ public abstract class AbstractObjingModelNavigation {
     @objid ("9f3eef78-6700-47da-8a57-a62f99d31bde")
     public static Stereotype getStereotype(MClass metaclass, String stereotypeName) {
         return Modelio.getInstance().getModelingSession()
-                .getMetamodelExtensions().getStereotype( stereotypeName, metaclass);
+                .getMetamodelExtensions().getStereotype(stereotypeName, metaclass);
     }
 
     @objid ("fe3fec0d-ff09-4a77-acd7-f4292d535aab")
@@ -594,8 +593,10 @@ public abstract class AbstractObjingModelNavigation {
     public static boolean mustBeExported(TagType tagType) {
         if (tagType.getOwnerStereotype() != null){
             return mustBeExported(tagType.getOwnerStereotype());
-        }else
+        }else if (tagType.getOwnerReference() != null){
             return mustBeExported(tagType.getOwnerReference());
+        }else
+            return false;
     }
 
     @objid ("f9980de4-ffbf-4000-a0c2-6e2b726618e3")
@@ -628,7 +629,7 @@ public abstract class AbstractObjingModelNavigation {
 
     @objid ("52fa49be-4f01-4218-8091-ab64aa6ead94")
     public static BindableInstance copyAssocEndToBindableInstance(AssociationEnd initial, Property ecoreElt) {
-        BindableInstance copy = Modelio.getInstance().getModelingSession().getModel().createBindableInstance();
+        BindableInstance copy = ReverseProperties.getInstance().getMModelServices().getModelFactory().createBindableInstance();
         setInstance(copy, ecoreElt);
         copy.setOwner(initial.getOwner());
         copy.setRepresentedFeature(initial);
@@ -779,10 +780,8 @@ public abstract class AbstractObjingModelNavigation {
     @objid ("9fdf1064-c596-4149-90ec-c6d36af28906")
     public static void infoOfUnsupportedOwnedWithEMF(MObject objingOwner, ModelElement objingElement) {
         String eltName = objingElement.getName();
-        String eltClassName = objingElement.getClass().getSimpleName()
-                .substring(2);
-        String ownerClassName = objingOwner.getClass().getSimpleName()
-                .substring(2);
+        String eltClassName = objingElement.getClass().getSimpleName();
+        String ownerClassName = objingOwner.getClass().getSimpleName();
         XMILogs.getInstance().writelnInLog(
                 Xmi.I18N.getMessage("logFile.warning.unsupportedOwnerExport",
                         eltClassName, eltName, ownerClassName));
@@ -908,30 +907,6 @@ public abstract class AbstractObjingModelNavigation {
             }
         }
         return result;
-    }
-
-    @objid ("b8fa460f-5aff-45e5-8948-83d2cd80271a")
-    public static ModelElement searchElement(org.eclipse.uml2.uml.Element ecoreElt) {
-        String ecoreId = ObjingEAnnotation.getEcoreId(ecoreElt);
-        if ((ecoreId != null) && (!ecoreId.equals(""))){
-            List<ModelElement> modelElts =  new ArrayList<>();
-            modelElts.addAll(Modelio.getInstance().getModelingSession().findByClass(ModelElement.class));
-            for (ModelElement modelElt : modelElts){
-                for (TaggedValue tag : modelElt.getTag()){
-                    if (tag.getDefinition().getName().equals(IModelerModuleTagTypes.MODELELEMENT_ECOREID) &&
-                            (tag.getQualifier() != null ) &&
-                            tag.getQualifier().getValue().equals(ecoreId)){
-        
-                        TotalImportMap.getInstance().put(ecoreElt, modelElt);
-                        return modelElt;
-        
-                    }
-        
-                }
-            }
-        
-        }
-        return null;
     }
 
     @objid ("dfa3853e-f683-4e93-ae61-1d81c054e513")

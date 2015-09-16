@@ -1,145 +1,163 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <?metadataRepository version='1.1.0'?>
-<repository name='documentation-en - metadata' type='org.eclipse.equinox.internal.p2.metadata.repository.LocalMetadataRepository' version='1'>
+<repository name='documentation-en' type='org.eclipse.equinox.internal.p2.metadata.repository.LocalMetadataRepository' version='1'>
   <properties size='2'>
-    <property name='p2.timestamp' value='1400573039105'/>
+    <property name='p2.timestamp' value='1423644095517'/>
     <property name='p2.compressed' value='false'/>
   </properties>
   <units size='6'>
-    <unit id='org.modelio.documentation.modeler' version='3.1.2'>
-      <update id='org.modelio.documentation.modeler' range='[0.0.0,3.1.2)' severity='0'/>
-      <properties size='2'>
-        <property name='org.eclipse.equinox.p2.name' value='Modeler documentation'/>
-        <property name='org.eclipse.equinox.p2.provider' value='modelio.org'/>
-      </properties>
-      <provides size='3'>
-        <provided namespace='org.eclipse.equinox.p2.iu' name='org.modelio.documentation.modeler' version='3.1.2'/>
-        <provided namespace='osgi.bundle' name='org.modelio.documentation.modeler' version='3.1.2'/>
-        <provided namespace='org.eclipse.equinox.p2.eclipse.type' name='bundle' version='1.0.0'/>
-      </provides>
-      <artifacts size='1'>
-        <artifact classifier='osgi.bundle' id='org.modelio.documentation.modeler' version='3.1.2'/>
-      </artifacts>
-      <touchpoint id='org.eclipse.equinox.p2.osgi' version='1.0.0'/>
-      <touchpointData size='1'>
-        <instructions size='1'>
-          <instruction key='manifest'>
-            Bundle-SymbolicName: org.modelio.documentation.modeler;singleton=true&#xA;Bundle-Version: 3.1.2&#xA;
-          </instruction>
-        </instructions>
-      </touchpointData>
-    </unit>
-    <unit id='org.modelio.documentation.metamodel' version='3.1.2'>
-      <update id='org.modelio.documentation.metamodel' range='[0.0.0,3.1.2)' severity='0'/>
-      <properties size='2'>
-        <property name='org.eclipse.equinox.p2.name' value='Metamodel documentation'/>
-        <property name='org.eclipse.equinox.p2.provider' value='modelio.org'/>
-      </properties>
-      <provides size='3'>
-        <provided namespace='org.eclipse.equinox.p2.iu' name='org.modelio.documentation.metamodel' version='3.1.2'/>
-        <provided namespace='osgi.bundle' name='org.modelio.documentation.metamodel' version='3.1.2'/>
-        <provided namespace='org.eclipse.equinox.p2.eclipse.type' name='bundle' version='1.0.0'/>
-      </provides>
-      <artifacts size='1'>
-        <artifact classifier='osgi.bundle' id='org.modelio.documentation.metamodel' version='3.1.2'/>
-      </artifacts>
-      <touchpoint id='org.eclipse.equinox.p2.osgi' version='1.0.0'/>
-      <touchpointData size='1'>
-        <instructions size='1'>
-          <instruction key='manifest'>
-            Bundle-SymbolicName: org.modelio.documentation.metamodel;singleton=true&#xA;Bundle-Version: 3.1.2&#xA;
-          </instruction>
-        </instructions>
-      </touchpointData>
-    </unit>
-    <unit id='org.modelio.documentation.modelioapi' version='3.1.2'>
-      <update id='org.modelio.documentation.modelioapi' range='[0.0.0,3.1.2)' severity='0'/>
-      <properties size='2'>
-        <property name='org.eclipse.equinox.p2.name' value='Modelio API'/>
-        <property name='org.eclipse.equinox.p2.provider' value='modelio.org'/>
-      </properties>
-      <provides size='3'>
-        <provided namespace='org.eclipse.equinox.p2.iu' name='org.modelio.documentation.modelioapi' version='3.1.2'/>
-        <provided namespace='osgi.bundle' name='org.modelio.documentation.modelioapi' version='3.1.2'/>
-        <provided namespace='org.eclipse.equinox.p2.eclipse.type' name='bundle' version='1.0.0'/>
-      </provides>
-      <artifacts size='1'>
-        <artifact classifier='osgi.bundle' id='org.modelio.documentation.modelioapi' version='3.1.2'/>
-      </artifacts>
-      <touchpoint id='org.eclipse.equinox.p2.osgi' version='1.0.0'/>
-      <touchpointData size='1'>
-        <instructions size='1'>
-          <instruction key='manifest'>
-            Bundle-SymbolicName: org.modelio.documentation.modelioapi;singleton=true&#xA;Bundle-Version: 3.1.2&#xA;
-          </instruction>
-        </instructions>
-      </touchpointData>
-    </unit>
-    <unit id='org.modelio.documentation.vaudit' version='3.1.2'>
-      <update id='org.modelio.documentation.vaudit' range='[0.0.0,3.1.2)' severity='0'/>
+    <unit id='org.modelio.documentation.vaudit' version='3.2.1'>
+      <update id='org.modelio.documentation.vaudit' range='[0.0.0,3.2.1)' severity='0'/>
       <properties size='2'>
         <property name='org.eclipse.equinox.p2.name' value='Vaudit documentation'/>
         <property name='org.eclipse.equinox.p2.provider' value='modelio.org'/>
       </properties>
       <provides size='3'>
-        <provided namespace='org.eclipse.equinox.p2.iu' name='org.modelio.documentation.vaudit' version='3.1.2'/>
-        <provided namespace='osgi.bundle' name='org.modelio.documentation.vaudit' version='3.1.2'/>
+        <provided namespace='org.eclipse.equinox.p2.iu' name='org.modelio.documentation.vaudit' version='3.2.1'/>
+        <provided namespace='osgi.bundle' name='org.modelio.documentation.vaudit' version='3.2.1'/>
         <provided namespace='org.eclipse.equinox.p2.eclipse.type' name='bundle' version='1.0.0'/>
       </provides>
       <artifacts size='1'>
-        <artifact classifier='osgi.bundle' id='org.modelio.documentation.vaudit' version='3.1.2'/>
+        <artifact classifier='osgi.bundle' id='org.modelio.documentation.vaudit' version='3.2.1'/>
       </artifacts>
       <touchpoint id='org.eclipse.equinox.p2.osgi' version='1.0.0'/>
       <touchpointData size='1'>
-        <instructions size='1'>
+        <instructions size='2'>
           <instruction key='manifest'>
-            Bundle-SymbolicName: org.modelio.documentation.vaudit;singleton=true&#xA;Bundle-Version: 3.1.2&#xA;
+            Bundle-SymbolicName: org.modelio.documentation.vaudit;singleton=true&#xA;Bundle-Version: 3.2.1&#xA;
+          </instruction>
+          <instruction key='zipped'>
+            true
           </instruction>
         </instructions>
       </touchpointData>
     </unit>
-    <unit id='org.modelio.documentation.welcome' version='3.1.2'>
-      <update id='org.modelio.documentation.welcome' range='[0.0.0,3.1.2)' severity='0'/>
+    <unit id='org.modelio.documentation.metamodel' version='3.2.1'>
+      <update id='org.modelio.documentation.metamodel' range='[0.0.0,3.2.1)' severity='0'/>
+      <properties size='2'>
+        <property name='org.eclipse.equinox.p2.name' value='Metamodel documentation'/>
+        <property name='org.eclipse.equinox.p2.provider' value='modelio.org'/>
+      </properties>
+      <provides size='3'>
+        <provided namespace='org.eclipse.equinox.p2.iu' name='org.modelio.documentation.metamodel' version='3.2.1'/>
+        <provided namespace='osgi.bundle' name='org.modelio.documentation.metamodel' version='3.2.1'/>
+        <provided namespace='org.eclipse.equinox.p2.eclipse.type' name='bundle' version='1.0.0'/>
+      </provides>
+      <artifacts size='1'>
+        <artifact classifier='osgi.bundle' id='org.modelio.documentation.metamodel' version='3.2.1'/>
+      </artifacts>
+      <touchpoint id='org.eclipse.equinox.p2.osgi' version='1.0.0'/>
+      <touchpointData size='1'>
+        <instructions size='2'>
+          <instruction key='manifest'>
+            Bundle-SymbolicName: org.modelio.documentation.metamodel;singleton=true&#xA;Bundle-Version: 3.2.1&#xA;
+          </instruction>
+          <instruction key='zipped'>
+            true
+          </instruction>
+        </instructions>
+      </touchpointData>
+    </unit>
+    <unit id='org.modelio.documentation.modeler' version='3.2.1'>
+      <update id='org.modelio.documentation.modeler' range='[0.0.0,3.2.1)' severity='0'/>
+      <properties size='2'>
+        <property name='org.eclipse.equinox.p2.name' value='Modeler documentation'/>
+        <property name='org.eclipse.equinox.p2.provider' value='modelio.org'/>
+      </properties>
+      <provides size='3'>
+        <provided namespace='org.eclipse.equinox.p2.iu' name='org.modelio.documentation.modeler' version='3.2.1'/>
+        <provided namespace='osgi.bundle' name='org.modelio.documentation.modeler' version='3.2.1'/>
+        <provided namespace='org.eclipse.equinox.p2.eclipse.type' name='bundle' version='1.0.0'/>
+      </provides>
+      <artifacts size='1'>
+        <artifact classifier='osgi.bundle' id='org.modelio.documentation.modeler' version='3.2.1'/>
+      </artifacts>
+      <touchpoint id='org.eclipse.equinox.p2.osgi' version='1.0.0'/>
+      <touchpointData size='1'>
+        <instructions size='2'>
+          <instruction key='manifest'>
+            Bundle-SymbolicName: org.modelio.documentation.modeler;singleton=true&#xA;Bundle-Version: 3.2.1&#xA;
+          </instruction>
+          <instruction key='zipped'>
+            true
+          </instruction>
+        </instructions>
+      </touchpointData>
+    </unit>
+    <unit id='org.modelio.documentation.modelioapi' version='3.2.1'>
+      <update id='org.modelio.documentation.modelioapi' range='[0.0.0,3.2.1)' severity='0'/>
+      <properties size='2'>
+        <property name='org.eclipse.equinox.p2.name' value='Modelio API'/>
+        <property name='org.eclipse.equinox.p2.provider' value='modelio.org'/>
+      </properties>
+      <provides size='3'>
+        <provided namespace='org.eclipse.equinox.p2.iu' name='org.modelio.documentation.modelioapi' version='3.2.1'/>
+        <provided namespace='osgi.bundle' name='org.modelio.documentation.modelioapi' version='3.2.1'/>
+        <provided namespace='org.eclipse.equinox.p2.eclipse.type' name='bundle' version='1.0.0'/>
+      </provides>
+      <artifacts size='1'>
+        <artifact classifier='osgi.bundle' id='org.modelio.documentation.modelioapi' version='3.2.1'/>
+      </artifacts>
+      <touchpoint id='org.eclipse.equinox.p2.osgi' version='1.0.0'/>
+      <touchpointData size='1'>
+        <instructions size='2'>
+          <instruction key='manifest'>
+            Bundle-SymbolicName: org.modelio.documentation.modelioapi;singleton=true&#xA;Bundle-Version: 3.2.1&#xA;
+          </instruction>
+          <instruction key='zipped'>
+            true
+          </instruction>
+        </instructions>
+      </touchpointData>
+    </unit>
+    <unit id='org.modelio.documentation.welcome' version='3.2.1'>
+      <update id='org.modelio.documentation.welcome' range='[0.0.0,3.2.1)' severity='0'/>
       <properties size='2'>
         <property name='org.eclipse.equinox.p2.name' value='Welcome'/>
         <property name='org.eclipse.equinox.p2.provider' value='modelio.org'/>
       </properties>
       <provides size='3'>
-        <provided namespace='org.eclipse.equinox.p2.iu' name='org.modelio.documentation.welcome' version='3.1.2'/>
-        <provided namespace='osgi.bundle' name='org.modelio.documentation.welcome' version='3.1.2'/>
+        <provided namespace='org.eclipse.equinox.p2.iu' name='org.modelio.documentation.welcome' version='3.2.1'/>
+        <provided namespace='osgi.bundle' name='org.modelio.documentation.welcome' version='3.2.1'/>
         <provided namespace='org.eclipse.equinox.p2.eclipse.type' name='bundle' version='1.0.0'/>
       </provides>
       <artifacts size='1'>
-        <artifact classifier='osgi.bundle' id='org.modelio.documentation.welcome' version='3.1.2'/>
+        <artifact classifier='osgi.bundle' id='org.modelio.documentation.welcome' version='3.2.1'/>
       </artifacts>
       <touchpoint id='org.eclipse.equinox.p2.osgi' version='1.0.0'/>
       <touchpointData size='1'>
-        <instructions size='1'>
+        <instructions size='2'>
           <instruction key='manifest'>
-            Bundle-SymbolicName: org.modelio.documentation.welcome;singleton=true&#xA;Bundle-Version: 3.1.2&#xA;
+            Bundle-SymbolicName: org.modelio.documentation.welcome;singleton=true&#xA;Bundle-Version: 3.2.1&#xA;
+          </instruction>
+          <instruction key='zipped'>
+            true
           </instruction>
         </instructions>
       </touchpointData>
     </unit>
-    <unit id='org.modelio.documentation.copyright' version='3.1.2'>
-      <update id='org.modelio.documentation.copyright' range='[0.0.0,3.1.2)' severity='0'/>
+    <unit id='org.modelio.documentation.copyright' version='3.2.1'>
+      <update id='org.modelio.documentation.copyright' range='[0.0.0,3.2.1)' severity='0'/>
       <properties size='2'>
         <property name='org.eclipse.equinox.p2.name' value='copyright'/>
         <property name='org.eclipse.equinox.p2.provider' value='modelio.org'/>
       </properties>
       <provides size='3'>
-        <provided namespace='org.eclipse.equinox.p2.iu' name='org.modelio.documentation.copyright' version='3.1.2'/>
-        <provided namespace='osgi.bundle' name='org.modelio.documentation.copyright' version='3.1.2'/>
+        <provided namespace='org.eclipse.equinox.p2.iu' name='org.modelio.documentation.copyright' version='3.2.1'/>
+        <provided namespace='osgi.bundle' name='org.modelio.documentation.copyright' version='3.2.1'/>
         <provided namespace='org.eclipse.equinox.p2.eclipse.type' name='bundle' version='1.0.0'/>
       </provides>
       <artifacts size='1'>
-        <artifact classifier='osgi.bundle' id='org.modelio.documentation.copyright' version='3.1.2'/>
+        <artifact classifier='osgi.bundle' id='org.modelio.documentation.copyright' version='3.2.1'/>
       </artifacts>
       <touchpoint id='org.eclipse.equinox.p2.osgi' version='1.0.0'/>
       <touchpointData size='1'>
-        <instructions size='1'>
+        <instructions size='2'>
           <instruction key='manifest'>
-            Bundle-SymbolicName: org.modelio.documentation.copyright;singleton=true&#xA;Bundle-Version: 3.1.2&#xA;
+            Bundle-SymbolicName: org.modelio.documentation.copyright;singleton=true&#xA;Bundle-Version: 3.2.1&#xA;
+          </instruction>
+          <instruction key='zipped'>
+            true
           </instruction>
         </instructions>
       </touchpointData>

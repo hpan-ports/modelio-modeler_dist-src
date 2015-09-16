@@ -22,9 +22,15 @@
 package org.modelio.diagram.editor.bpmn.elements.bpmnlane.hibridcontainer;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
+import org.eclipse.draw2d.IFigure;
+import org.eclipse.draw2d.geometry.Dimension;
+import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.Request;
+import org.eclipse.gef.RequestConstants;
 import org.eclipse.gef.commands.Command;
+import org.eclipse.gef.commands.CompoundCommand;
+import org.eclipse.gef.requests.ChangeBoundsRequest;
 import org.eclipse.gef.requests.CreateRequest;
 import org.modelio.diagram.editor.bpmn.elements.bpmnlane.CreateBpmnLaneCommand;
 import org.modelio.diagram.editor.bpmn.elements.policies.BpmnLaneReparentElementCommand;
@@ -35,7 +41,7 @@ import org.modelio.diagram.elements.core.node.GmNodeModel;
 import org.modelio.diagram.elements.core.policies.DiagramEditLayoutPolicy;
 import org.modelio.metamodel.Metamodel;
 import org.modelio.metamodel.bpmn.processCollaboration.BpmnLane;
-import org.modelio.metamodel.diagrams.AbstractDiagram;
+import org.modelio.metamodel.bpmn.processCollaboration.BpmnLaneSet;
 import org.modelio.vcore.smkernel.mapi.MObject;
 
 @objid ("6134744d-55b6-11e2-877f-002564c97630")
@@ -45,22 +51,30 @@ public class BpmnPartitionContainerEditPolicy extends DiagramEditLayoutPolicy {
     protected Command getCreateCommand(final CreateRequest request) {
         if (request.getNewObjectType().equals("BpmnLane")) {
             //Element hostElement = getHostElement();
-        
+            Object requestConstraint = getConstraintFor(request);
             ModelioCreationContext ctx = (ModelioCreationContext) request.getNewObject();
         
             MObject elementToUnmask = ctx.getElementToUnmask();
         
             if (elementToUnmask != null) {
                 if (getHostCompositeNode().canUnmask(elementToUnmask)) {
-                    //Object requestConstraint = getConstraintFor(request);
-                    return new CreateBpmnLaneCommand(getHostCompositeNode(), ctx);
+                   
+                    return new CreateBpmnLaneCommand(getHostCompositeNode(),requestConstraint, ctx);
                 } else {
                     return null;
                 }
             }
         
-            //Object requestConstraint = getConstraintFor(request);
-            return new CreateBpmnLaneCommand(getHostCompositeNode(), ctx);
+            CompoundCommand compound = new CompoundCommand();
+            ChangeBoundsRequest resizeContainerRequest = new ChangeBoundsRequest(RequestConstants.REQ_RESIZE);
+            resizeContainerRequest.setEditParts(getHost().getParent());
+            resizeContainerRequest.setLocation(request.getLocation());
+            resizeContainerRequest.setSizeDelta(new Dimension(0,100));    
+            Command parentCommand = getHost().getParent().getCommand(resizeContainerRequest);
+            compound.add(parentCommand);
+            compound.add(new CreateBpmnLaneCommand(getHostCompositeNode(),requestConstraint, ctx));
+        
+            return compound;
         }
         return super.getCreateCommand(request);
     }
@@ -73,7 +87,7 @@ public class BpmnPartitionContainerEditPolicy extends DiagramEditLayoutPolicy {
             CreateRequest createRequest = (CreateRequest) request;
             final ModelioCreationContext ctx = (ModelioCreationContext) createRequest.getNewObject();
             if (createRequest.getNewObject() instanceof ModelioCreationContext) {
-                if (BpmnLane.class.isAssignableFrom(Metamodel.getJavaInterface(Metamodel.getMClass(ctx.getMetaclass())))) {
+                if (BpmnLaneSet.class.isAssignableFrom(Metamodel.getJavaInterface(Metamodel.getMClass(ctx.getMetaclass())))) {
                     if (ctx.getElementToUnmask() != null) {
                         if (getHostCompositeNode().canUnmask(ctx.getElementToUnmask())) {
                             return getHost();
@@ -81,8 +95,7 @@ public class BpmnPartitionContainerEditPolicy extends DiagramEditLayoutPolicy {
                             return null;
                         }
                     }
-                    if (canHandle(Metamodel.getJavaInterface(Metamodel.getMClass(ctx.getMetaclass()))))
-                        return getHost();
+                    return null;
                 }
             }
         }
@@ -104,10 +117,23 @@ public class BpmnPartitionContainerEditPolicy extends DiagramEditLayoutPolicy {
                 constraint);
     }
 
-    @objid ("481272b6-9b57-45a2-9478-f3e72976ac0b")
+    @objid ("251ba9dd-de8d-449c-8cdd-a6355569d6c8")
     @Override
     protected MObject getHostElement() {
         return getHostCompositeNode().getRelatedElement();
+    }
+
+    @objid ("5c53f914-d963-4278-9a30-fda2288bba41")
+    @Override
+    protected Object getConstraintFor(final CreateRequest request) {
+        // Only care about request for partitions, super can handle the rest.
+                final ModelioCreationContext ctx = (ModelioCreationContext) request.getNewObject();
+                if (!ctx.getMetaclass().equals(Metamodel.getMClass(BpmnLane.class).getName())) {
+           return super.getConstraintFor(request);
+                }  
+                
+                IFigure figure = getLayoutContainer();
+        return figure.getBounds();
     }
 
 }

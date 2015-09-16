@@ -30,6 +30,7 @@ import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.LineBorder;
 import org.eclipse.draw2d.MarginBorder;
+import org.eclipse.draw2d.ToolbarLayout;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.graphics.Color;
@@ -98,7 +99,12 @@ public class PackageFigure extends Figure implements IPenOptionsSupport, IBrushO
         this.add(top, BorderLayout.TOP);
         
         this.headerArea = new GradientFigure();
-        this.headerArea.setLayoutManager(new BorderLayout());
+        
+        // Use a toolbar layout for label wrapping...
+        final ToolbarLayout layout = new ToolbarLayout();
+        layout.setHorizontal(false);
+        layout.setStretchMinorAxis(true);
+        this.headerArea.setLayoutManager(layout);
         this.headerArea.setOpaque(true);
         top.add(this.headerArea);
         
@@ -310,6 +316,7 @@ public class PackageFigure extends Figure implements IPenOptionsSupport, IBrushO
                 IFigure headerAreaFigure = (IFigure) container.getChildren().get(0);
                 Rectangle headerAreaBounds = container.getBounds().getCopy();
                 int width = headerAreaBounds.width;
+                
                 // Header can occupy up to 1/2 of available horizontal space but no less than 1/3, and all of vertical space.
                 headerAreaBounds.width = Math.min(headerAreaFigure.getPreferredSize().width, width / 2);
                 headerAreaBounds.width = Math.max(headerAreaBounds.width, width / 3);
@@ -321,8 +328,17 @@ public class PackageFigure extends Figure implements IPenOptionsSupport, IBrushO
         @Override
         protected Dimension calculatePreferredSize(final IFigure container, final int wHint, final int hHint) {
             if (!container.getChildren().isEmpty()) {
+                // Compute base preferred size
                 IFigure headerAreaFigure = (IFigure) container.getChildren().get(0);
                 Dimension headerAreaPreferredSize = headerAreaFigure.getPreferredSize(wHint, hHint);
+                
+                // Header can occupy up to 1/2 of available horizontal space but no less than 1/3, and all of vertical space.
+                int reducedWidthHint = Math.min(headerAreaFigure.getPreferredSize().width, wHint / 2);
+                reducedWidthHint = Math.max(reducedWidthHint, wHint / 3);
+                
+                // Compute real preferred size, including the reduction
+                headerAreaPreferredSize = headerAreaFigure.getPreferredSize(reducedWidthHint, hHint);
+                
                 return headerAreaPreferredSize.getExpanded(headerAreaPreferredSize.width, 0);
             } else {
                 return new Dimension(0, 0);

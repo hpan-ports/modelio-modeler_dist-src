@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.bpmn.activities;
 
@@ -43,25 +43,25 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("0084e734-c4bf-1fd8-97fe-001ec947cd2a")
 public class BpmnTaskImpl extends BpmnActivityImpl implements BpmnTask {
-    @objid ("ca98a1a9-7d0d-4a1a-99b6-de686269efe5")
+    @objid ("ad60fa1f-742b-4b4f-8f66-24804ea83810")
     @Override
     public boolean isIsGlobal() {
         return (Boolean) getAttVal(BpmnTaskData.Metadata.IsGlobalAtt());
     }
 
-    @objid ("ea16acc4-ae63-43b7-b584-af8b4a2fc79a")
+    @objid ("2a5f29ad-c297-4cdb-a9f8-6d99212292a3")
     @Override
     public void setIsGlobal(boolean value) {
         setAttVal(BpmnTaskData.Metadata.IsGlobalAtt(), value);
     }
 
-    @objid ("3cef1250-f26a-4f78-9318-1a900eb2deb5")
+    @objid ("97918d65-80a6-442c-8c34-39b74fe4248e")
     @Override
     public EList<BpmnCallActivity> getCaller() {
         return new SmList<>(this, BpmnTaskData.Metadata.CallerDep());
     }
 
-    @objid ("b53476b8-ff4d-47c0-afcb-ca03a3d6447e")
+    @objid ("8fc4cd84-55ed-4525-abf9-1d93a7eccc7b")
     @Override
     public <T extends BpmnCallActivity> List<T> getCaller(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -74,21 +74,21 @@ public class BpmnTaskImpl extends BpmnActivityImpl implements BpmnTask {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("7f35531c-76bf-4966-90f8-c03befff49a3")
+    @objid ("18518796-f097-4b53-93b6-c8eac2b6ca37")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("8b1eb040-2997-4ea8-b10d-d156e5cac1e5")
+    @objid ("001d301f-6bb0-4a51-a3a4-970f459c6bb7")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("c331bf87-e63c-4001-b708-dfbdec16a5b4")
+    @objid ("1fccbef1-cba0-4b22-9e4b-5ce9d994fbd3")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitBpmnTask(this);

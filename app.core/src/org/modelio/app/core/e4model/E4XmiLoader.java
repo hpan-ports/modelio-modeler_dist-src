@@ -23,6 +23,7 @@ package org.modelio.app.core.e4model;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
@@ -48,7 +49,7 @@ import org.osgi.framework.Bundle;
  * @see org.eclipse.e4.ui.internal.workbench.ModelAssembler
  */
 @objid ("627cf9eb-d3d1-4c99-94a9-6eb37f10f940")
-public class E4XmiLoader {
+public final class E4XmiLoader {
     /**
      * Load an E4XMI plugin resource and merges it into the application model.
      * <p>
@@ -137,6 +138,43 @@ public class E4XmiLoader {
             addedElements.addAll(merged);
         }
         return addedElements;
+    }
+
+    /**
+     * Remove all E4 elements that belong to the given Eclipse bundle.
+     * @param application the application model to clean.
+     * @param plugin the bundle to remove.
+     */
+    @objid ("828f508c-f4a2-4127-9867-a6678a148ae0")
+    public static void unload(MApplication application, Bundle plugin) {
+        String contributorURI = URI.createPlatformPluginURI(plugin.getSymbolicName(), true).toString();
+        unload (application, contributorURI);
+    }
+
+    /**
+     * Remove all E4 elements that belong to the given contributor.
+     * @param application the application model to clean.
+     * @param contributorURI the contributorURI to remove.
+     */
+    @objid ("2b7b1b42-218c-4bdf-b86e-3004b1154b65")
+    public static void unload(MApplication application, String contributorURI) {
+        EObject eobj = (EObject) application;
+        Collection<EObject> toDel = new ArrayList<>();
+        for (TreeIterator<EObject> it = eobj.eAllContents(); it.hasNext(); ) {
+            EObject child = it.next();
+            
+            if (child instanceof MApplicationElement) {
+                MApplicationElement c = (MApplicationElement) child;
+                if (contributorURI.equals(c.getContributorURI())) {
+                    toDel.add(child);
+                    it.prune();
+                } 
+            }
+        }
+        
+        for (EObject d : toDel) {
+            EcoreUtil.delete(d);
+        }
     }
 
 }

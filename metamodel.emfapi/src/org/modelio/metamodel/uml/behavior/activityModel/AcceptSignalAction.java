@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.uml.behavior.activityModel;
 
@@ -32,10 +32,10 @@ import org.modelio.metamodel.uml.behavior.commonBehaviors.Signal;
 
 @objid ("00250f30-c4bf-1fd8-97fe-001ec947cd2a")
 public interface AcceptSignalAction extends ActivityAction {
-    @objid ("270080ed-849e-4b9e-86d9-55ace8dc2477")
+    @objid ("73abfa3d-e668-404e-bb42-5117d56aa711")
     EList<Signal> getAccepted();
 
-    @objid ("5a672cbc-c075-4d69-89e9-e39ced12101c")
+    @objid ("4c1ed5b0-daff-47cb-95bd-095fcdcb31aa")
     <T extends Signal> List<T> getAccepted(java.lang.Class<T> filterClass);
 
 }

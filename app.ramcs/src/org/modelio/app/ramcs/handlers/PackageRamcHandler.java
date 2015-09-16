@@ -55,7 +55,6 @@ import org.modelio.gproject.ramc.core.packaging.RamcPackager;
 import org.modelio.mda.infra.service.IModuleService;
 import org.modelio.metamodel.uml.statik.Artifact;
 import org.modelio.vcore.session.api.ICoreSession;
-import org.modelio.vcore.session.api.transactions.ITransaction;
 
 @objid ("14d86a9c-b9f8-447c-acb5-559c2409425f")
 public class PackageRamcHandler {
@@ -86,7 +85,7 @@ public class PackageRamcHandler {
             }
             model.setContributorCandidates(contributorCandidates);
         
-            if (ramc.isModifiable()) {
+            if (ramc.isModifiable() || ramc.getStatus().isCmsManaged()) {
                 EditRamcDialog dialog = new EditRamcDialog(shell, model);
         
                 switch (dialog.open()) {

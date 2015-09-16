@@ -1,0 +1,86 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<title>Modeler- modeler building models add richnotes</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link href="style.css" media="screen" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<a name="Adding-rich-notes-to-elements"></a>
+<h1 >Adding rich notes to elements<a href="#Adding-rich-notes-to-elements" class="wiki-anchor">&para;</a></h1>
+
+<p>Modelio lets you create rich notes. These rich notes can be MS Office documents or OpenDocuments (LibreOffice or OpenOffice).</p>
+
+<a name="Creating-a-rich-note"></a>
+<h2 >Creating a rich note<a href="#Creating-a-rich-note" class="wiki-anchor">&para;</a></h2>
+
+<p><img src="Modeler-_modeler_building_models_add_richnotes_modifelements_009_1.png" alt="1" /></p>
+
+<h6>The rich note creation process</h6>
+
+<p>Steps:</p>
+
+<ol>
+<li>Select the element you want to add a rich note to.</li>
+<li>In the &ldquo;Notes and constraints&rdquo; view, click on the &ldquo;Add rich note&rdquo; button. The &ldquo;Create a rich note&rdquo; window then appears.
+<img src="Modeler-_modeler_building_models_add_richnotes_modifelements_009_2.png" alt="3" /></li>
+<li>In the &ldquo;Create a rich note&rdquo; window, give the note a name by clicking in the &ldquo;Rich note name&rdquo; field and then entering the name of the note.</li>
+<li>In the &ldquo;Rich note role&rdquo; field, choose a role from the list.</li>
+<li>In the &ldquo;MIME format&rdquo; field, choose a format from the list.</li>
+<li>Finally, add a short description of your note in the &ldquo;Abstract&rdquo; field.</li>
+<li>Click on OK to create the rich note.</li>
+</ol>
+
+
+<p><strong><ins>Note:</ins></strong> In case Modelio cannot find automatically the OpenDocuments editor (LibreOffice or OpenOffice), check the <a href="Modeler-_modeler_modelio_settings_office_settings.html">LibreOffice/OpenOffice Rich Notes settings</a> in Modelio settings.</p>
+
+<a name="The-rich-note-editor"></a>
+<h2 >The rich note editor<a href="#The-rich-note-editor" class="wiki-anchor">&para;</a></h2>
+
+<p><img src="Modeler-_modeler_building_models_add_richnotes_modifelements_010.png" alt="2" /></p>
+
+<h6>The rich note editor</h6>
+
+<p><strong><ins>Note:</ins></strong> MS Office rich notes are saved using the second <img src="Modeler-_modeler_building_models_add_richnotes_save_16.png" alt="4" /> button in the Modelio toolbar</p>
+
+<a name="Create-a-template-for-new-rich-notes"></a>
+<h2 >Create a template for new rich notes<a href="#Create-a-template-for-new-rich-notes" class="wiki-anchor">&para;</a></h2>
+
+<p>You can create a default file for each role name. These files should be stored in the .projectdata/admin/documents directory.</p>
+
+<p>The template file can be named:</p>
+
+<ul>
+<li>role-name.mime-type.dat like file</li>
+<li>role-name.dat like file.</li>
+</ul>
+
+
+<p>All invalid characters in a file name in the document type and MIME type are replaced by &lsquo;_&rsquo; when the file is searched for. Invalid characters are [ : \ / * ? | &lt; > ].</p>
+
+<p>The following is a list of all MIME types available in Modelio:</p>
+
+<table>                 
+<tr>    <th>    Format</th><th> Mime type   </th></tr>
+<tr>    <td>    HTML (LibreOffice)  </td><td>   text/html/ooo.html  </td></tr>
+<tr>    <td>    HTML (Word) </td><td>   text/html.html  </td></tr>
+<tr>    <td>    Microsoft Excel 2000    </td><td>   application/vnd.ms-excel.xls    </td></tr>
+<tr>    <td>    Microsoft Excel 2007    </td><td>   application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.xlsx  </td></tr>
+<tr>    <td>    Microsoft PowerPoint    </td><td>   application/vnd.ms-powerpoint.ppt   </td></tr>
+<tr>    <td>    Microsoft PowerPoint 2007 Presentation  </td><td>   application/vnd.openxmlformats-officedocument.presentationml.presentation.pptx  </td></tr>
+<tr>    <td>    Microsoft Word 2007 </td><td>   application/vnd.openxmlformats-officedocument.wordprocessingml.document.docx    </td></tr>
+<tr>    <td>    Microsoft Word 6    </td><td>   application/msword.doc  </td></tr>
+<tr>    <td>    OpenOffice Calc Spreadsheet </td><td>   application/vnd.oasis.opendocument.spreadsheet.ods  </td></tr>
+<tr>    <td>    OpenOffice Draw Graphic </td><td>   application/vnd.oasis.opendocument.graphics.odg </td></tr>
+<tr>    <td>    OpenOffice Formula  </td><td>   application/vnd.oasis.opendocument.formula.odf  </td></tr>
+<tr>    <td>    OpenOffice Impress Presentation </td><td>   application/vnd.oasis.opendocument.presentation.odp </td></tr>
+<tr>    <td>    OpenOffice Web Text </td><td>   application/vnd.oasis.opendocument.text-web.odh </td></tr>
+<tr>    <td>    OpenOffice Writer Text Document </td><td>   application/vnd.oasis.opendocument.text.odt </td></tr>
+<tr>    <td>    RTF </td><td>   text/rtf.rtf    </td></tr>
+</table>
+
+
+<p></p>
+
+<div id="footer"><iframe frameborder="0" scrolling="no" height="25" width="100%" src="_footer.html"></iframe></div> </body>
+</html>

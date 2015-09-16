@@ -1,0 +1,37 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<title>Modeler audit rules R2250</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link href="style.css" media="screen" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<a name="R2250"></a>
+<h1 >R2250<a href="#R2250" class="wiki-anchor">&para;</a></h1>
+
+<a name="Summary"></a>
+<h4 >Summary<a href="#Summary" class="wiki-anchor">&para;</a></h4>
+
+<p>All <em>Operations </em>in a <em>Classifier</em> must have a different signature from
+inherited public and protected operations, except for constructor, destructor
+and redefined operations.</p>
+
+<a name="Details"></a>
+<h4 >Details<a href="#Details" class="wiki-anchor">&para;</a></h4>
+
+<p>An <em>Operation</em> is identified by its signature, so it must be unique within all
+the inherited operations in a classifier. Redefined methods are exempt since
+their job is to actually override another inherited method with the same
+signature.</p>
+
+<a name="Tips"></a>
+<h4 >Tips<a href="#Tips" class="wiki-anchor">&para;</a></h4>
+
+<ul>
+<li>Rename one of the <em>Operations</em> or change its parameters.</li>
+<li>In the Element tab of the redefined <em>Operation</em>, specify the <em>Operation</em> it redefines.</li>
+</ul>
+
+
+<div id="footer"><iframe frameborder="0" scrolling="no" height="25" width="100%" src="_footer.html"></iframe></div> </body>
+</html>

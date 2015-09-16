@@ -28,7 +28,7 @@ import org.modelio.vcore.smkernel.mapi.MObject;
  * Browser node that contain archived element versions.
  */
 @objid ("befbc2f1-f796-4bf2-861f-e9421c654427")
-public class ArchiveContainer {
+class ArchiveContainer {
     @objid ("f4185657-f12a-4542-bae6-166c67656266")
     private MObject element;
 
@@ -60,6 +60,33 @@ public class ArchiveContainer {
     @objid ("ffd14169-98d1-4d65-9d39-9d6e4ddc4c55")
     public int getNbVersions() {
         return this.nbVersions;
+    }
+
+    @objid ("18c0121f-09e1-48df-a9cc-06cc38409135")
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((this.element == null) ? 0 : this.element.hashCode());
+        return result;
+    }
+
+    @objid ("a8e19d35-bd0b-4bf1-bcd9-e55fec780862")
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        ArchiveContainer other = (ArchiveContainer) obj;
+        if (this.element == null) {
+            if (other.element != null)
+                return false;
+        } else if (!this.element.equals(other.element))
+            return false;
+        return true;
     }
 
 }

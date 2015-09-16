@@ -49,13 +49,13 @@ public class FileChooserComposite extends Composite {
     private File currentFile = null;
 
     @objid ("4491922b-98a5-42ef-a8e0-9d590d9cbbaf")
-    private Text text;
+    private Text text = null;
 
     @objid ("cb86b709-788b-4f1e-a51f-898fb7090004")
-    private Button searchButton;
+    private Button searchButton = null;
 
     @objid ("54586a06-9870-4475-a2ac-28104e9b3de2")
-    protected FileDialog dialog;
+    protected FileDialog dialog = null;
 
     /**
      * This method returns the chosen file
@@ -79,15 +79,6 @@ public class FileChooserComposite extends Composite {
     @objid ("5d963c96-83f5-4db2-b931-e66bf48e99a7")
     public void setCurrentFile(final File currentFile) {
         this.currentFile = currentFile;
-    }
-
-    /**
-     * This method returns the SWT FileDialog created inside the FileChooserComposite
-     * @return the owned FileDialog
-     */
-    @objid ("9aec9821-32f0-4b9d-8bbf-ba02a6e9d549")
-    public FileDialog getDialog() {
-        return this.dialog;
     }
 
     /**
@@ -166,6 +157,15 @@ public class FileChooserComposite extends Composite {
     @objid ("006aee3c-4c2f-40ce-9c60-10df94d30594")
     public Text getTextButton() {
         return this.text;
+    }
+
+    /**
+     * This method returns the SWT FileDialog created inside the FileChooserComposite
+     * @return the owned FileDialog
+     */
+    @objid ("59d4f7a7-847d-437a-92c7-003226fb3d64")
+    public FileDialog getDialog() {
+        return this.dialog;
     }
 
 }

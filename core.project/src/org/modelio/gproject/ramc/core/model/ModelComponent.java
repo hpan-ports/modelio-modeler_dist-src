@@ -23,6 +23,7 @@ package org.modelio.gproject.ramc.core.model;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map.Entry;
@@ -31,6 +32,7 @@ import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
+import org.modelio.gproject.plugin.CoreProject;
 import org.modelio.gproject.ramc.core.packaging.IModelComponentContributor.ExportedFileEntry;
 import org.modelio.metamodel.analyst.AnalystContainer;
 import org.modelio.metamodel.factory.ExtensionNotFoundException;
@@ -49,6 +51,7 @@ import org.modelio.metamodel.uml.statik.Artifact;
 import org.modelio.metamodel.uml.statik.ElementImport;
 import org.modelio.metamodel.uml.statik.Manifestation;
 import org.modelio.metamodel.uml.statik.NameSpace;
+import org.modelio.vbasic.log.Log;
 import org.modelio.vbasic.version.Version;
 
 /**
@@ -294,9 +297,20 @@ public class ModelComponent implements Comparable<ModelComponent>, IModelCompone
             
             for (TaggedValue taggedvalue : ramc.getTag()) {
                 TagType type = taggedvalue.getDefinition();
-                if (type != null && type.getName().equals("ModelComponentFiles")) {
+                final String TAG_TYPE = "ModelComponentFiles";
+                if (type != null && type.getName().equals(TAG_TYPE)) {
                     int nParameters = taggedvalue.getActual().size();
                     TagParameter[] parameters = taggedvalue.getActual().toArray(new TagParameter[nParameters]);
+                    
+                    if (nParameters>0 && (nParameters & 1) == 1) {
+                        // one param missing
+                        String message = CoreProject.getMessage("ModelComponent.BadModelComponentFiles", 
+                                ramc.getName(),
+                                TAG_TYPE,
+                                Arrays.deepToString(parameters));
+                        Log.warning(message);
+                        nParameters--; // recover from error
+                    }
                     for (int i = 0; i < nParameters; i += 2) {
                         exportedFiles.add(new ExportedFileEntry(parameters[i].getValue(), parameters[i + 1].getValue()));
                     }

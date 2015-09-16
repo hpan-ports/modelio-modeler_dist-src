@@ -43,7 +43,7 @@ import org.modelio.xmi.util.XMILogs;
  * @author ebrosse
  */
 @objid ("51860942-c847-44a7-8c1d-39094d70a463")
-public class OBindableInstance extends OInstance implements IOElement {
+public class OBindableInstance extends OInstance {
     @objid ("bc104eb9-6ba1-482c-87ae-12dc0b10fa05")
     private BindableInstance objingElement = null;
 

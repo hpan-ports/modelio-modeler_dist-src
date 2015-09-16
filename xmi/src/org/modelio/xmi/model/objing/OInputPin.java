@@ -149,7 +149,7 @@ public class OInputPin extends OPin implements IOElement {
                     }       
                 }
             }catch(Exception e){
-                Xmi.LOG.error(Xmi.PLUGIN_ID, e);
+                Xmi.LOG.error(e);
             }
         }
     }

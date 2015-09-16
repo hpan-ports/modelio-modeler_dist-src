@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.uml.behavior.activityModel;
 
@@ -42,31 +42,31 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("00314c5a-c4bf-1fd8-97fe-001ec947cd2a")
 public class ExpansionNodeImpl extends ObjectNodeImpl implements ExpansionNode {
-    @objid ("2924245a-a931-450c-b64b-4b1e154d84db")
+    @objid ("f0af4eae-e6b4-40da-9ff6-c3e1efcf1a67")
     @Override
     public ExpansionRegion getRegionAsOutput() {
         return (ExpansionRegion) getDepVal(ExpansionNodeData.Metadata.RegionAsOutputDep());
     }
 
-    @objid ("586785ac-b2a8-49c2-a1de-cb6382c1466a")
+    @objid ("5735c400-4777-494e-8004-927a2c675ecb")
     @Override
     public void setRegionAsOutput(ExpansionRegion value) {
         appendDepVal(ExpansionNodeData.Metadata.RegionAsOutputDep(), (SmObjectImpl)value);
     }
 
-    @objid ("fd6a6735-c459-40fc-819f-35700543d5b8")
+    @objid ("a7cacb9c-fe98-4132-b458-16201debdd39")
     @Override
     public ExpansionRegion getRegionAsInput() {
         return (ExpansionRegion) getDepVal(ExpansionNodeData.Metadata.RegionAsInputDep());
     }
 
-    @objid ("322bbb3c-b346-4dbd-b972-3b94e8aaa502")
+    @objid ("1537528a-42f0-4ac9-918d-3c79b0f83007")
     @Override
     public void setRegionAsInput(ExpansionRegion value) {
         appendDepVal(ExpansionNodeData.Metadata.RegionAsInputDep(), (SmObjectImpl)value);
     }
 
-    @objid ("75aad146-d958-48d4-9358-98e652c10fdf")
+    @objid ("0e7707f7-70c3-47d7-9c17-c09adab07a9e")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
@@ -79,7 +79,7 @@ public class ExpansionNodeImpl extends ObjectNodeImpl implements ExpansionNode {
         return super.getCompositionOwner();
     }
 
-    @objid ("bb2a70a5-1e46-42e7-85fb-52b7aa5d9674")
+    @objid ("180f20ac-880e-41eb-8757-372e69c187e5")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
@@ -92,7 +92,7 @@ public class ExpansionNodeImpl extends ObjectNodeImpl implements ExpansionNode {
         return super.getCompositionRelation();
     }
 
-    @objid ("4e8eac2a-960f-40e7-bfb0-2fd8abd352a9")
+    @objid ("c6c481d8-d9e9-4a4d-8952-7ffb6182210f")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitExpansionNode(this);

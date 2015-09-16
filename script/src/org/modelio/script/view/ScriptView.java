@@ -161,7 +161,7 @@ public class ScriptView {
         this.commandWriter.flush();
         
         //
-        this.jythonRunner = ScriptRunnerFactory.getInstance().getScriptRunner("jython");
+        this.jythonRunner = ScriptRunnerFactory.getInstance().getTransactionalScriptRunner("jython");
         assert (this.jythonRunner != null);
         this.jythonRunner.setCommandStream(this.commandWriter);
         this.jythonRunner.setErrorStream(this.errorWriter);

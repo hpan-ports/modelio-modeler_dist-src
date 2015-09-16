@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.uml.behavior.communicationModel;
 
@@ -44,13 +44,13 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("005a3822-c4bf-1fd8-97fe-001ec947cd2a")
 public class CommunicationInteractionImpl extends BehaviorImpl implements CommunicationInteraction {
-    @objid ("cd0d72a2-6710-4721-8782-92aac47dfd96")
+    @objid ("0fc106c4-0cb8-4e87-9891-4f5d19ad17f2")
     @Override
     public EList<CommunicationNode> getOwned() {
         return new SmList<>(this, CommunicationInteractionData.Metadata.OwnedDep());
     }
 
-    @objid ("babf5549-7887-4139-b812-a8d4d44ee5f9")
+    @objid ("543dde52-b8b9-4153-adc6-2bdf9c2d12cc")
     @Override
     public <T extends CommunicationNode> List<T> getOwned(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -63,21 +63,21 @@ public class CommunicationInteractionImpl extends BehaviorImpl implements Commun
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("2539b2bf-6bd5-4fe7-943d-f2c29bbefc4a")
+    @objid ("e9dab95a-00d2-4e99-84b7-59b489bd4940")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("bb39616a-8c43-4a35-b727-661686481c88")
+    @objid ("542873e4-fc83-4e2c-991a-2c1d9b714c48")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("199a7153-b66a-4767-9a7e-c3ed0927574c")
+    @objid ("e3e3f5f8-4a8b-4e22-8b7a-f823c6af9a24")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitCommunicationInteraction(this);

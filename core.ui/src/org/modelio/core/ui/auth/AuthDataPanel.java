@@ -104,7 +104,7 @@ public class AuthDataPanel implements IPanelProvider {
 
     @objid ("5f6e529a-4eb1-4ad7-9d50-eba9d59d4c92")
     @Override
-    public AuthDataPanel create(Composite parent) {
+    public AuthDataPanel createPanel(Composite parent) {
         // top level container
         this.top = new Composite(parent, SWT.NONE);
         this.top.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
@@ -167,7 +167,7 @@ public class AuthDataPanel implements IPanelProvider {
 
     @objid ("c5a62efb-1c38-43e3-9d0f-9b70c6c1f802")
     @Override
-    public Composite getComposite() {
+    public Composite getPanel() {
         return this.top;
     }
 
@@ -253,6 +253,18 @@ public class AuthDataPanel implements IPanelProvider {
         // gd.horizontalSpan = 2;
         // this.fragmentDescription.setLayoutData(gd);
         return data;
+    }
+
+    @objid ("9a2e970a-a2f4-40e5-bb0e-669381a2b030")
+    @Override
+    public boolean isRelevantFor(Object obj) {
+        return true;
+    }
+
+    @objid ("e8a72530-d6f3-4909-8426-90d87b4a814d")
+    @Override
+    public String getHelpTopic() {
+        return null;
     }
 
     @objid ("8184be64-0f5f-4f4e-bf16-4d42b44c2539")

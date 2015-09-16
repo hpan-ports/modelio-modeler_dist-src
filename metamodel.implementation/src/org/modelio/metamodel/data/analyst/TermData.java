@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.data.analyst;
 
@@ -43,45 +43,45 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaAttribute;
 import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 
 @objid ("0062a7fa-c4bf-1fd8-97fe-001ec947cd2a")
-@SmaMetaClass(mmClass=Term.class, factory=TermData.Metadata.ObjectFactory.class)
+@SmaMetaClass(mmClass=Term.class, factory=TermData.Metadata.ObjectFactory.class, cmsnode=true)
 public class TermData extends AnalystElementData {
-    @objid ("c5c1759f-894e-4238-a103-e069fbfa8ef7")
+    @objid ("05dbe2e2-e0f8-4534-a5ae-799d0a63084c")
     @SmaMetaAssociation(metaName="OwnerDictionary", typeDataClass=DictionaryData.class, min=0, max=1, smAssociationClass=Metadata.OwnerDictionarySmDependency.class)
      SmObjectImpl mOwnerDictionary;
 
-    @objid ("d8418270-f31c-4b6e-bf28-b46e0862cc31")
+    @objid ("22954ef6-2403-41cd-af03-3f3d416e83ca")
     @SmaMetaAssociation(metaName="ArchivedTermVersion", typeDataClass=TermData.class, min=0, max=-1, smAssociationClass=Metadata.ArchivedTermVersionSmDependency.class, component = true)
      List<SmObjectImpl> mArchivedTermVersion = null;
 
-    @objid ("b6477cac-4cce-481d-89f9-8ce12e12a938")
+    @objid ("b0f32928-1e13-4654-911b-d67abf8c2584")
     @SmaMetaAssociation(metaName="LastTermVersion", typeDataClass=TermData.class, min=0, max=1, smAssociationClass=Metadata.LastTermVersionSmDependency.class)
      SmObjectImpl mLastTermVersion;
 
-    @objid ("4d760666-40fe-4352-9f95-911766d9b21b")
+    @objid ("6251c18b-aa8b-4387-bdd8-c0651d0251b4")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("0078ee66-c4c2-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("fe6d21ba-7cdd-43f5-95b9-ef54f7650ebb")
+        @objid ("22d3264a-f62a-4028-b91c-1db23f6dfd3d")
         private static SmClass smClass = null;
 
-        @objid ("7f5d5948-fee6-4d7b-b380-55c6f11cc666")
+        @objid ("7c3379fc-2656-4c69-b125-b8b4c6a3cdd9")
         private static SmDependency OwnerDictionaryDep = null;
 
-        @objid ("44234c1d-269a-43e7-8969-e1fdbb95d125")
+        @objid ("375c61a1-bc23-4ee3-a69b-52e7eb906988")
         private static SmDependency ArchivedTermVersionDep = null;
 
-        @objid ("cc5e0d45-1b5e-4ecd-9ca7-4083cda365b5")
+        @objid ("234cf31d-9750-4a03-9fa8-0a07c2eb4e9e")
         private static SmDependency LastTermVersionDep = null;
 
-        @objid ("ea31cb0e-072d-457c-ba38-9797f89f30aa")
+        @objid ("0fad7b39-2d8a-46a4-baf5-1ed2fdfbcfc5")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(TermData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("4ae005aa-4600-4652-95e1-c843e51fdb6b")
+        @objid ("db746e18-2a60-4a57-8966-c98a80b0edf2")
         public static SmDependency OwnerDictionaryDep() {
             if (OwnerDictionaryDep == null) {
             	OwnerDictionaryDep = classof().getDependencyDef("OwnerDictionary");
@@ -89,7 +89,7 @@ public class TermData extends AnalystElementData {
             return OwnerDictionaryDep;
         }
 
-        @objid ("3392345b-8657-42cb-a408-9034b2fbda1d")
+        @objid ("8721dcdb-a77d-42d8-b24a-bd7fb60496da")
         public static SmDependency ArchivedTermVersionDep() {
             if (ArchivedTermVersionDep == null) {
             	ArchivedTermVersionDep = classof().getDependencyDef("ArchivedTermVersion");
@@ -97,7 +97,7 @@ public class TermData extends AnalystElementData {
             return ArchivedTermVersionDep;
         }
 
-        @objid ("e67e2387-85b8-4970-99dc-050f1247b868")
+        @objid ("00645723-d339-4a05-a15f-d9f4aa3245f1")
         public static SmDependency LastTermVersionDep() {
             if (LastTermVersionDep == null) {
             	LastTermVersionDep = classof().getDependencyDef("LastTermVersion");
@@ -105,38 +105,38 @@ public class TermData extends AnalystElementData {
             return LastTermVersionDep;
         }
 
-        @objid ("a1f53e3d-1233-41a2-b726-668b020d0020")
-        public static SmClass getSmClass() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return smClass;
-        }
-
-        @objid ("558f65de-8be3-4471-8534-5991048e2328")
-        public static SmDependency getOwnerDictionaryDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return OwnerDictionaryDep;
-        }
-
-        @objid ("456c716a-02d8-4601-b00e-4fd38ae77b85")
-        public static SmDependency getLastTermVersionDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return LastTermVersionDep;
-        }
-
-        @objid ("d5ef3244-1f36-44a7-ae76-90f83b2e465e")
+        @objid ("39abae5b-344a-45e6-bf60-3573bae8afd8")
         public static SmDependency getArchivedTermVersionDep() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return ArchivedTermVersionDep;
         }
 
+        @objid ("1598093c-574a-44e7-8855-2b1c7dd71249")
+        public static SmDependency getOwnerDictionaryDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return OwnerDictionaryDep;
+        }
+
+        @objid ("fb5ae3dc-a4d2-4302-9d01-2546df8377dd")
+        public static SmClass getSmClass() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return smClass;
+        }
+
+        @objid ("a89e6ab7-ce8d-425d-b7d1-0363f7a618bb")
+        public static SmDependency getLastTermVersionDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return LastTermVersionDep;
+        }
+
         @objid ("00792ef8-c4c2-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("4f541c65-5510-4748-88e6-bb07c30c861f")
+            @objid ("bb9bdd8c-03ea-4fe0-8fdb-2381157b5d25")
             public ISmObjectData createData() {
                 return new TermData();
             }
 
-            @objid ("1f5b8495-2300-4937-ac0a-be38c2f2e16d")
+            @objid ("d6719cad-0400-4c4e-8bb6-ca21b7220d56")
             public SmObjectImpl createImpl() {
                 return new TermImpl();
             }
@@ -145,18 +145,18 @@ public class TermData extends AnalystElementData {
 
         @objid ("18a5e5d5-88af-42b2-bba3-87f60b5b8886")
         public static class OwnerDictionarySmDependency extends SmSingleDependency {
-            @objid ("cfa11db3-c99d-464e-8413-9fe1cd309fb3")
+            @objid ("52c67aab-ca82-4fec-8261-a412145cb8c5")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((TermData) data).mOwnerDictionary;
             }
 
-            @objid ("18b429d4-8266-4c2f-ad44-f275dca30675")
+            @objid ("0b572378-d1c2-42b5-84f4-742979abade9")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((TermData) data).mOwnerDictionary = value;
             }
 
-            @objid ("82a96c6c-677a-4ab3-b13a-73ffd797e702")
+            @objid ("75c57d68-eb08-4ffe-9969-cb680b29f720")
             @Override
             public SmDependency getSymetric() {
                 return DictionaryData.Metadata.OwnedTermDep();
@@ -166,20 +166,20 @@ public class TermData extends AnalystElementData {
 
         @objid ("f2695892-cb3d-40cb-941f-6cde079025c0")
         public static class ArchivedTermVersionSmDependency extends SmMultipleDependency {
-            @objid ("aa974f9d-e7a8-41c1-a999-430e305bac67")
+            @objid ("15a3e5be-2ee4-451f-ba71-76c3ac2a7f04")
             @Override
             public List<SmObjectImpl> getValueList(ISmObjectData data) {
                 return (((TermData)data).mArchivedTermVersion != null)? ((TermData)data).mArchivedTermVersion:SmMultipleDependency.EMPTY;
             }
 
-            @objid ("3fe27a06-b1e2-4c20-8645-d86244135e50")
+            @objid ("0c143d76-8ce1-441a-8184-faf16e2eaded")
             @Override
             protected List<SmObjectImpl> allocateValueList(ISmObjectData data, int initialCapacity) {
                 ((TermData) data).mArchivedTermVersion = new ArrayList<>(initialCapacity);
                 return ((TermData) data).mArchivedTermVersion;
             }
 
-            @objid ("9dd6ef4c-cc3a-4ad9-b03b-4d62a91e95f7")
+            @objid ("19de4384-5860-41d7-8dbe-14aba5fb7c84")
             @Override
             public SmDependency getSymetric() {
                 return TermData.Metadata.LastTermVersionDep();
@@ -189,18 +189,18 @@ public class TermData extends AnalystElementData {
 
         @objid ("9c016646-3a75-447e-b074-7a3517958d82")
         public static class LastTermVersionSmDependency extends SmSingleDependency {
-            @objid ("0481a49a-a5b9-4ddf-acee-7e30c9c952e2")
+            @objid ("516a4481-e711-4f63-a69a-4e48cfa0ecf2")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((TermData) data).mLastTermVersion;
             }
 
-            @objid ("b5191331-f830-48d2-8796-f7bb3c3d466d")
+            @objid ("5738fd80-a07c-428c-bc1f-7b3eefe0d18b")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((TermData) data).mLastTermVersion = value;
             }
 
-            @objid ("cee4aec9-07d4-455f-a3ac-2f7e94802b46")
+            @objid ("9e51c4fa-0f9c-4ce7-8e0f-a4a8248c5d8f")
             @Override
             public SmDependency getSymetric() {
                 return TermData.Metadata.ArchivedTermVersionDep();

@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.bpmn.rootElements;
 
@@ -42,19 +42,19 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("007ad76c-c4bf-1fd8-97fe-001ec947cd2a")
 public abstract class BpmnRootElementImpl extends BpmnBaseElementImpl implements BpmnRootElement {
-    @objid ("db6cbdb1-dbad-4448-9c87-803b40ad7807")
+    @objid ("64f7d4e7-d0ef-46c8-bb54-1f9d99b0eb48")
     @Override
     public BpmnBehavior getOwner() {
         return (BpmnBehavior) getDepVal(BpmnRootElementData.Metadata.OwnerDep());
     }
 
-    @objid ("ee02874d-e529-42c9-a2b9-928a645352f1")
+    @objid ("1d6f78f4-7def-4e85-a17b-950d0146c8c8")
     @Override
     public void setOwner(BpmnBehavior value) {
         appendDepVal(BpmnRootElementData.Metadata.OwnerDep(), (SmObjectImpl)value);
     }
 
-    @objid ("ea67c089-f41c-4eab-be75-8c8817bc63c4")
+    @objid ("a6565189-3cd3-4f6e-846f-943ade494428")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
@@ -64,7 +64,7 @@ public abstract class BpmnRootElementImpl extends BpmnBaseElementImpl implements
         return super.getCompositionOwner();
     }
 
-    @objid ("3d20d3f2-7d21-46b4-b430-5cae8e5bb24d")
+    @objid ("cddde632-821d-4c7c-89d4-25eb2b1001f8")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
@@ -74,7 +74,7 @@ public abstract class BpmnRootElementImpl extends BpmnBaseElementImpl implements
         return super.getCompositionRelation();
     }
 
-    @objid ("7ddaaa37-e09c-4ee9-9636-038edd618dc6")
+    @objid ("cd88a07b-9d74-44b1-8dad-d27f013e3c3b")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitBpmnRootElement(this);

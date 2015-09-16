@@ -23,11 +23,6 @@ package org.modelio.property.ui.data;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.swt.widgets.Composite;
-import org.modelio.app.core.activation.IActivationService;
-import org.modelio.app.core.picking.IModelioPickingService;
-import org.modelio.app.project.core.services.IProjectService;
-import org.modelio.gproject.model.IMModelServices;
-import org.modelio.metamodel.uml.infrastructure.Element;
 
 /**
  * Property panel interface.
@@ -35,7 +30,7 @@ import org.modelio.metamodel.uml.infrastructure.Element;
 @objid ("8fa56700-c068-11e1-8c0a-002564c97630")
 public interface IPropertyPanel {
     @objid ("8fa56701-c068-11e1-8c0a-002564c97630")
-    void setInput(IProjectService projectService, IMModelServices modelService, IModelioPickingService pickingService, IActivationService activationService, Element element);
+    void setInput(DataPanelInput newInput);
 
     @objid ("8fa56705-c068-11e1-8c0a-002564c97630")
     void stop();

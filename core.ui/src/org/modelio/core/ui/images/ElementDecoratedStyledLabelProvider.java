@@ -106,6 +106,9 @@ public final class ElementDecoratedStyledLabelProvider extends StyledCellLabelPr
     @objid ("db929c89-2b38-4453-8a97-d4be9c56b65e")
     private static final Image cmsModifiedNoLock = loadImage("CMS_MODIFIED.nolock.png");
 
+    @objid ("a6111546-c975-45ad-b21d-5a0974352a01")
+    private static final Image userReadOnly = loadImage("USER_READONLY.png");
+
 // ------------------------------------------------------------------------------------
     /**
      * Initialize a new styled label provider.
@@ -281,7 +284,9 @@ public final class ElementDecoratedStyledLabelProvider extends StyledCellLabelPr
                 }
             }
         
-            if (status.isCmsReadOnly()) {
+            if (! status.isUserWrite()) {
+                return userReadOnly;
+            } else if (status.isCmsReadOnly()) {
                 return cmsReadOnly;
             } else if (status.isLockingNeeded()) {
                 return cmsReadWrite;

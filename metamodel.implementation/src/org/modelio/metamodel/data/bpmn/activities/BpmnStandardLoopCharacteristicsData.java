@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.data.bpmn.activities;
 
@@ -43,43 +43,43 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("0083ff36-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=BpmnStandardLoopCharacteristics.class, factory=BpmnStandardLoopCharacteristicsData.Metadata.ObjectFactory.class)
 public class BpmnStandardLoopCharacteristicsData extends BpmnLoopCharacteristicsData {
-    @objid ("67a8b28a-35ac-4456-9c7c-87d93b70d91d")
+    @objid ("2f86088b-c14f-4a14-b364-a49185c8de66")
     @SmaMetaAttribute(metaName="TestBefore", type=Boolean.class, smAttributeClass=Metadata.TestBeforeSmAttribute.class)
      Object mTestBefore = false;
 
-    @objid ("2e4e82ac-5fe6-417e-9a39-2db7f98995b5")
+    @objid ("e6f3748c-2470-4e6f-9988-1c97499f268b")
     @SmaMetaAttribute(metaName="LoopCondition", type=String.class, smAttributeClass=Metadata.LoopConditionSmAttribute.class)
      Object mLoopCondition = "";
 
-    @objid ("8a91f84c-8dd9-4642-9796-08b81fdedc9e")
+    @objid ("45720e8d-8953-485f-ac5f-ebe93e14918e")
     @SmaMetaAttribute(metaName="LoopMaximum", type=String.class, smAttributeClass=Metadata.LoopMaximumSmAttribute.class)
      Object mLoopMaximum = "";
 
-    @objid ("b69321d3-b402-4e41-a9e0-63e25a738f95")
+    @objid ("505f6736-e7b3-4a8e-8b1b-9fa555e1b158")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("0058fc1e-c4c5-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("2c000dfd-de38-47d9-a119-659e4b453845")
+        @objid ("d617c6c0-6b5e-4cab-8691-0fb19f258ab9")
         private static SmClass smClass = null;
 
-        @objid ("10596fb9-f3d9-484d-8c28-64189c432451")
+        @objid ("5d5a1050-c04c-4caa-8716-12650e93bd11")
         private static SmAttribute TestBeforeAtt = null;
 
-        @objid ("d4c325d6-d155-4f32-98fa-686cd6ea7c05")
+        @objid ("f37fa1a9-817f-4db5-873d-58c09634e9dc")
         private static SmAttribute LoopConditionAtt = null;
 
-        @objid ("653503b0-4bb7-4ec3-98c6-a51a55b2bb6d")
+        @objid ("dbbcc80e-2a66-4925-a1b8-77148ebddea0")
         private static SmAttribute LoopMaximumAtt = null;
 
-        @objid ("779a46e5-aa42-4d4f-8f6a-096fce625183")
+        @objid ("10632e72-dba2-4915-a061-64bd597768fc")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(BpmnStandardLoopCharacteristicsData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("7d6f30f3-6c36-4f5d-9577-448583a674bb")
+        @objid ("73d095c2-2424-4b25-83be-7fa2ac61aa1b")
         public static SmAttribute TestBeforeAtt() {
             if (TestBeforeAtt == null) {
             	TestBeforeAtt = classof().getAttributeDef("TestBefore");
@@ -87,7 +87,7 @@ public class BpmnStandardLoopCharacteristicsData extends BpmnLoopCharacteristics
             return TestBeforeAtt;
         }
 
-        @objid ("52d80377-4e14-4f37-92c3-d61653424f2e")
+        @objid ("badf7aff-4c2d-4441-a77f-4a4b3fa07d4c")
         public static SmAttribute LoopConditionAtt() {
             if (LoopConditionAtt == null) {
             	LoopConditionAtt = classof().getAttributeDef("LoopCondition");
@@ -95,7 +95,7 @@ public class BpmnStandardLoopCharacteristicsData extends BpmnLoopCharacteristics
             return LoopConditionAtt;
         }
 
-        @objid ("31020b9d-1853-4182-9ab5-42dd94737dc2")
+        @objid ("d2388e4a-58aa-44a8-af80-dc28ba2bdf4f")
         public static SmAttribute LoopMaximumAtt() {
             if (LoopMaximumAtt == null) {
             	LoopMaximumAtt = classof().getAttributeDef("LoopMaximum");
@@ -103,38 +103,38 @@ public class BpmnStandardLoopCharacteristicsData extends BpmnLoopCharacteristics
             return LoopMaximumAtt;
         }
 
-        @objid ("ac065d7a-b6be-4f90-9a3b-e77caeb741c3")
-        public static SmAttribute getLoopConditionAtt() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return LoopConditionAtt;
-        }
-
-        @objid ("8a9cb2ba-8eb7-4a85-9d60-f8d1cd2073cf")
-        public static SmAttribute getLoopMaximumAtt() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return LoopMaximumAtt;
-        }
-
-        @objid ("75be864d-4edb-4fe3-a488-35eafb6c40bc")
-        public static SmClass getSmClass() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return smClass;
-        }
-
-        @objid ("f5a75bc2-62c6-4a4a-92f5-fc3adde6a7f1")
+        @objid ("9b1380f5-7b53-4bef-af9e-d840f8b38eb7")
         public static SmAttribute getTestBeforeAtt() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return TestBeforeAtt;
         }
 
+        @objid ("a8c4091c-2b55-4415-801c-947c06e30ff7")
+        public static SmAttribute getLoopConditionAtt() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return LoopConditionAtt;
+        }
+
+        @objid ("643ba02f-cfbc-41ed-b283-be7e96dd99bd")
+        public static SmAttribute getLoopMaximumAtt() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return LoopMaximumAtt;
+        }
+
+        @objid ("815bba0d-3c69-4326-aa2c-18282b7d8e91")
+        public static SmClass getSmClass() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return smClass;
+        }
+
         @objid ("00593d82-c4c5-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("10570eaa-bbb4-42dd-829e-c7304a2f2d22")
+            @objid ("9e0468be-cd14-4e91-9e62-eb7be0c68743")
             public ISmObjectData createData() {
                 return new BpmnStandardLoopCharacteristicsData();
             }
 
-            @objid ("dc44522c-bacd-4c28-8d1a-564838a65caa")
+            @objid ("32e06cf5-9c34-4762-8522-2294b20e8aa4")
             public SmObjectImpl createImpl() {
                 return new BpmnStandardLoopCharacteristicsImpl();
             }
@@ -143,12 +143,12 @@ public class BpmnStandardLoopCharacteristicsData extends BpmnLoopCharacteristics
 
         @objid ("00599e6c-c4c5-1fd8-97fe-001ec947cd2a")
         public static class TestBeforeSmAttribute extends SmAttribute {
-            @objid ("bdd3aae4-e4eb-4ee3-a7fd-72a7c3c987e1")
+            @objid ("10fb81a1-41b0-41ec-9851-247e1850115a")
             public Object getValue(ISmObjectData data) {
                 return ((BpmnStandardLoopCharacteristicsData) data).mTestBefore;
             }
 
-            @objid ("0c69f9a5-3b5e-4ff3-a92e-967c912e0587")
+            @objid ("1c924b77-81dc-4114-a90c-ec2442f798c9")
             public void setValue(ISmObjectData data, Object value) {
                 ((BpmnStandardLoopCharacteristicsData) data).mTestBefore = value;
             }
@@ -157,12 +157,12 @@ public class BpmnStandardLoopCharacteristicsData extends BpmnLoopCharacteristics
 
         @objid ("005a0a6e-c4c5-1fd8-97fe-001ec947cd2a")
         public static class LoopConditionSmAttribute extends SmAttribute {
-            @objid ("7b7b19ce-fc45-4f51-a474-2d85741b3919")
+            @objid ("6943512a-964a-426c-842d-52aab2901dda")
             public Object getValue(ISmObjectData data) {
                 return ((BpmnStandardLoopCharacteristicsData) data).mLoopCondition;
             }
 
-            @objid ("8e9dd4ac-9bf1-4fab-8a1d-675a61325823")
+            @objid ("5f88e887-88d9-444a-9457-3b60f6841c79")
             public void setValue(ISmObjectData data, Object value) {
                 ((BpmnStandardLoopCharacteristicsData) data).mLoopCondition = value;
             }
@@ -171,12 +171,12 @@ public class BpmnStandardLoopCharacteristicsData extends BpmnLoopCharacteristics
 
         @objid ("005a6c3e-c4c5-1fd8-97fe-001ec947cd2a")
         public static class LoopMaximumSmAttribute extends SmAttribute {
-            @objid ("b2b04ff0-b92f-4818-ad36-db6d789a3144")
+            @objid ("24f2f1b5-391f-4b59-96a3-655b20a9bb0f")
             public Object getValue(ISmObjectData data) {
                 return ((BpmnStandardLoopCharacteristicsData) data).mLoopMaximum;
             }
 
-            @objid ("293874e8-f4da-4421-a62f-d379114bd1fc")
+            @objid ("d63b52a8-ef00-4726-935f-6d65fb37640d")
             public void setValue(ISmObjectData data, Object value) {
                 ((BpmnStandardLoopCharacteristicsData) data).mLoopMaximum = value;
             }

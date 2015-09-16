@@ -21,20 +21,22 @@
 
 package org.modelio.diagram.editor.statik.elements.classifier;
 
+import java.util.ArrayList;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.draw2d.IFigure;
-import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.EditPolicy;
 import org.modelio.diagram.editor.statik.elements.innerclass.GmInnerClass;
 import org.modelio.diagram.editor.statik.elements.innerclass.GmInnerClassesZone;
 import org.modelio.diagram.editor.statik.elements.namespacinglink.GmCompositionLink;
 import org.modelio.diagram.editor.statik.elements.namespacinglink.redraw.RedrawCompositionLinkEditPolicy;
 import org.modelio.diagram.editor.statik.elements.naryassoc.AcceptNAssocEditPolicy;
+import org.modelio.diagram.editor.statik.elements.packaze.SimpleModeOwnedElementCreationEditPolicy;
 import org.modelio.diagram.editor.statik.elements.policies.SmartGeneralizationEditPolicy;
 import org.modelio.diagram.elements.common.image.NonSelectableLabelledImageEditPart;
 import org.modelio.diagram.elements.common.linkednode.LinkedNodeRequestConstants;
 import org.modelio.diagram.elements.common.linkednode.LinkedNodeStartCreationEditPolicy;
 import org.modelio.diagram.elements.common.resizablegroup.GmResizableGroup;
+import org.modelio.diagram.elements.core.model.IGmLink;
 import org.modelio.diagram.elements.core.node.GmCompositeNode;
 import org.modelio.diagram.elements.core.node.GmNodeModel;
 import org.modelio.diagram.elements.core.policies.DefaultElementDropEditPolicy;
@@ -85,36 +87,45 @@ public class ImageClassifierEditPart extends NonSelectableLabelledImageEditPart 
         
         // Add specific policy to handle requests to redraw composition links.
         installEditPolicy("RedrawCompositionLinkEditPolicy", new RedrawCompositionLinkEditPolicy());
+        installEditPolicy(EditPolicy.LAYOUT_ROLE, new SimpleModeOwnedElementCreationEditPolicy());
     }
 
     @objid ("3436b413-55b7-11e2-877f-002564c97630")
     @Override
     protected void refreshFromStyle(final IFigure aFigure, final IStyle style) {
         GmCompositeNode model = (GmCompositeNode) getModel();
-        if (model.getRepresentationMode() == RepresentationMode.SIMPLE) {
-            // reparent all content of the inner zone to port container as satellites and add composition link
-            GmInnerClass inner = (GmInnerClass) ((GmResizableGroup) model.getFirstChild("")).getFirstChild("Inner");
-            if (inner != null) {
-                for (GmNodeModel gmCompositeNode : inner.getChildren()) {
-                    if (gmCompositeNode instanceof GmInnerClassesZone) {
-                        for (GmNodeModel child : ((GmInnerClassesZone) gmCompositeNode).getChildren()) {
-                            child.setRoleInComposition("body content as satellite");
-                            Rectangle constraint = (Rectangle) child.getLayoutData();
-                            // Avoid content appearing over the new figure.
-                            if (constraint.x() < DEFAULT_WIDTH + MARGIN &&
-                                constraint.y() < DEFAULT_HEIGHT + MARGIN) {
-                                constraint.setY(DEFAULT_HEIGHT + MARGIN);
+        if (model.getRepresentationMode() == RepresentationMode.STRUCTURED) {
+            GmNodeModel firstChild = model.getFirstChild("");
+            if (firstChild instanceof GmResizableGroup) {
+                GmInnerClass inner = (GmInnerClass) ((GmResizableGroup) firstChild).getFirstChild("Inner");
+                if (inner != null) {
+                    for (GmNodeModel innerChild : inner.getChildren()) {
+                        if (innerChild instanceof GmInnerClassesZone) {
+                            // Start by cleaning all children that might have been created by the auto-unmask behaviors.
+                            GmInnerClassesZone innerZone = (GmInnerClassesZone) innerChild;
+                            for (GmNodeModel zoneChild : innerZone.getChildren()) {
+                                zoneChild.delete();
                             }
-                            ((GmInnerClassesZone) gmCompositeNode).removeChild(child);
-                            model.getParentNode().addChild(child);
-                            GmCompositionLink link = new GmCompositionLink(model.getDiagram(),
-                                                                           model.getRepresentedRef());
-                            model.addStartingLink(link);
-                            child.addEndingLink(link);
+                            // Delete composition links.
+                            //List<IGmLink> linksToDelete = );
+                            for (IGmLink link : new ArrayList<>(model.getStartingLinks())) {
+                                if (link instanceof GmCompositionLink) {
+                                    // This will provoke a nested call to #refreshFromStyle (see SimpleEditPart#propertyChange) that cannot be avoided.
+                                    link.delete();
+                                }
+                            }
+                            // new representation mode is not SIMPLE, put back body content into body BEFORE the switch.
+                            for (GmNodeModel child : model.getParentNode()
+                                                          .getChildren("body content as satellite")) {
+                                model.getParentNode().removeChild(child);
+                                child.setRoleInComposition("");
+                                innerZone.addChild(child);
+                            }
                         }
                     }
                 }
             }
+            
         }
         
         if (!switchRepresentationMode()) {

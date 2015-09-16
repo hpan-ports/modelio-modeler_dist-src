@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.uml.statik;
 
@@ -34,22 +34,22 @@ import org.modelio.metamodel.uml.statik.NaryAssociation;
 
 @objid ("0002bc78-c4bf-1fd8-97fe-001ec947cd2a")
 public interface ClassAssociation extends ModelElement {
-    @objid ("95f96104-c5c9-4bac-ac22-8d74989f99a4")
+    @objid ("5e50240a-6cf6-4dce-bba0-f8c5981d1c7a")
     NaryAssociation getNaryAssociationPart();
 
-    @objid ("f3514d7f-2375-44c0-bf28-94b999d87bdb")
+    @objid ("f27bc7be-3bd9-4e7a-aa75-7020627aa85c")
     void setNaryAssociationPart(NaryAssociation value);
 
-    @objid ("7955b1dc-7c6c-4ba1-8adf-bee374dff7b5")
+    @objid ("6ae0a927-8a5c-4966-97dd-b4d0f8f92924")
     Class getClassPart();
 
-    @objid ("c5bd6def-03ef-45d8-8e4f-0aef29aff380")
+    @objid ("48f3605c-dbdb-48c1-8cdc-ba4dbe1de742")
     void setClassPart(Class value);
 
-    @objid ("5bb325dd-3a55-4e6e-a78f-43592197a86a")
+    @objid ("b50a33b9-4c2c-4b2c-8137-62b389098522")
     Association getAssociationPart();
 
-    @objid ("4ab4105f-01a6-4d47-8335-bf0d86823a4a")
+    @objid ("9427f79f-f1f6-48a5-b501-17417155be26")
     void setAssociationPart(Association value);
 
 }

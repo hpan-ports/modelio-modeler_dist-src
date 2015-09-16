@@ -15,13 +15,14 @@
       <handlers xmi:id="_gJ2tAFS_EeK4YallPPLLhg" elementId="org.modelio.diagram.browser.handler.cut" contributionURI="bundleclass://org.modelio.diagram.browser/org.modelio.diagram.browser.handlers.copy.CutElementHandler" command="_BuEK4FS9EeK4YallPPLLhg"/>
       <handlers xmi:id="_gl03UFS_EeK4YallPPLLhg" elementId="org.modelio.diagram.browser.handler.paste" contributionURI="bundleclass://org.modelio.diagram.browser/org.modelio.diagram.browser.handlers.copy.PasteElementHandler" command="_Bzak8FS9EeK4YallPPLLhg"/>
       <handlers xmi:id="_h6_WoFTDEeK4YallPPLLhg" elementId="org.modelio.diagram.browser.handler.collapse" contributionURI="bundleclass://org.modelio.diagram.browser/org.modelio.diagram.browser.handlers.CollapseAllHandler" command="_3WItwFS8EeK4YallPPLLhg"/>
+      <handlers xmi:id="_L7T3cAdOEeSGzu5o-qoXaQ" elementId="org.modelio.diagram.browser.handler.selectinbrowser" contributionURI="bundleclass://org.modelio.diagram.browser/org.modelio.diagram.browser.handlers.SelectInExplorerHandler" command="_dxP-QAdOEeSGzu5o-qoXaQ"/>
       <menus xsi:type="menu:PopupMenu" xmi:id="_3dd1cEtTEeKLy7OoR19zGw" elementId="org.modelio.diagram.browser.popupmenu">
         <tags>popup:org.modelio.popupmenu.cms</tags>
         <children xsi:type="menu:DirectMenuItem" xmi:id="_6UKVwEtTEeKLy7OoR19zGw" elementId="org.modelio.diagram.browser.popupmenu.creatediagramset" label="%CreateDiagramSet.label" iconURI="platform:/plugin/org.modelio.diagram.browser/icons/closed_set_16.png" tooltip="%CreateDiagramSet.tooltip" contributionURI="bundleclass://org.modelio.diagram.browser/org.modelio.diagram.browser.handlers.CreateDiagramSetHandler">
           <visibleWhen xsi:type="ui:CoreExpression" xmi:id="_bCMu8L1zEeKa_Z5OvMh8Mw" coreExpressionId="diagram.browser.test.createfolder.id"/>
         </children>
-        <children xsi:type="menu:DirectMenuItem" xmi:id="_wWZWcJtzEeKOK7ILwv_G4Q" elementId="org.modelio.diagram.browser.popupmenu.selectinexplorer" label="%SelectInExplorer.label" iconURI="platform:/plugin/org.modelio.diagram.browser/icons/selectinbrowser.png" tooltip="%SelectInExplorer.tooltip" contributionURI="bundleclass://org.modelio.diagram.browser/org.modelio.diagram.browser.handlers.SelectInExplorerHandler">
-          <visibleWhen xsi:type="ui:CoreExpression" xmi:id="_bT_CgL1zEeKa_Z5OvMh8Mw" coreExpressionId="diagram.browser.test.selectinexplore.id"/>
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_Px2EIAdOEeSGzu5o-qoXaQ" elementId="org.modelio.diagram.browser.popupmenu.selectinexplorer" label="%SelectInExplorer.label" iconURI="platform:/plugin/org.modelio.diagram.browser/icons/selectinbrowser.png" tooltip="%SelectInExplorer.tooltip" command="_dxP-QAdOEeSGzu5o-qoXaQ">
+          <visibleWhen xsi:type="ui:CoreExpression" xmi:id="_XJHMoAdOEeSGzu5o-qoXaQ" coreExpressionId="diagram.browser.test.selectinexplore.id"/>
         </children>
         <children xsi:type="menu:MenuSeparator" xmi:id="_sPk-IFS-EeK4YallPPLLhg" elementId="org.modelio.diagram.browser.separator.0"/>
         <children xsi:type="menu:HandledMenuItem" xmi:id="_EsbkAFS-EeK4YallPPLLhg" elementId="org.modelio.diagram.browser.popupmenu.rename" label="%RenameElement.label" iconURI="platform:/plugin/org.modelio.diagram.browser/icons/rename_16.png" tooltip="%RenameElement.tooltip" command="_0ZWzkFS8EeK4YallPPLLhg">
@@ -64,6 +65,7 @@
     </elements>
     <elements xsi:type="commands:Command" xmi:id="_0ZWzkFS8EeK4YallPPLLhg" elementId="org.modelio.diagram.browser.command.rename" commandName="%RenameElement.name" description="%RenameElement.description"/>
     <elements xsi:type="commands:Command" xmi:id="_3WItwFS8EeK4YallPPLLhg" elementId="org.modelio.diagram.browser.command.collapseall" commandName="%CollapseAll.name" description="%CollapseAll.description"/>
+    <elements xsi:type="commands:Command" xmi:id="_dxP-QAdOEeSGzu5o-qoXaQ" elementId="org.modelio.diagram.browser.command.selectinbrowser" commandName="%SelectInBrowser.name" description="%SelectInBrowser.description"/>
   </fragments>
   <fragments xsi:type="fragment:StringModelFragment" xmi:id="_jbGisFS8EeK4YallPPLLhg" featurename="bindingTables" parentElementId="org.modelio.app.application">
     <elements xsi:type="commands:BindingTable" xmi:id="_jbGisVS8EeK4YallPPLLhg" elementId="org.modelio.diagram.browser.bindings.table" bindingContext="_mV8jMVS8EeK4YallPPLLhg">
@@ -72,6 +74,7 @@
       <bindings xmi:id="_jbGitFS8EeK4YallPPLLhg" keySequence="M1+C" command="_ALIYgFS9EeK4YallPPLLhg"/>
       <bindings xmi:id="_jbGitVS8EeK4YallPPLLhg" keySequence="M1+X" command="_BuEK4FS9EeK4YallPPLLhg"/>
       <bindings xmi:id="_jbGitlS8EeK4YallPPLLhg" keySequence="M1+V" command="_Bzak8FS9EeK4YallPPLLhg"/>
+      <bindings xmi:id="_FL6AMAdOEeSGzu5o-qoXaQ" keySequence="M1+ENTER" command="_dxP-QAdOEeSGzu5o-qoXaQ"/>
     </elements>
   </fragments>
   <fragments xsi:type="fragment:StringModelFragment" xmi:id="_mV8jMFS8EeK4YallPPLLhg" featurename="children" parentElementId="org.eclipse.ui.contexts.window">

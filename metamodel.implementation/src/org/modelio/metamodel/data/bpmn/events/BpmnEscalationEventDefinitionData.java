@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.data.bpmn.events;
 
@@ -43,29 +43,29 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("008c5122-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=BpmnEscalationEventDefinition.class, factory=BpmnEscalationEventDefinitionData.Metadata.ObjectFactory.class)
 public class BpmnEscalationEventDefinitionData extends BpmnEventDefinitionData {
-    @objid ("d79cc19d-c9e8-4faa-a4ae-93ac178d0ebc")
+    @objid ("50d1756b-e9d2-4c42-95c7-520e9679d493")
     @SmaMetaAttribute(metaName="EscalationCode", type=String.class, smAttributeClass=Metadata.EscalationCodeSmAttribute.class)
      Object mEscalationCode = "";
 
-    @objid ("00a53734-9523-4a22-b162-04c8aced192c")
+    @objid ("f8bf26bb-2949-4765-b3a5-2b9946e1a188")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("000c0f80-c4c6-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("6251eb13-0095-43a3-9ef0-a14145b03bef")
+        @objid ("01e7b19b-01ba-4d9c-8ff7-93233db29afd")
         private static SmClass smClass = null;
 
-        @objid ("6595ea55-b08b-4130-bcf6-da33433d9ef8")
+        @objid ("86e0856f-b4fd-4e3d-86c3-2117b3fa22fa")
         private static SmAttribute EscalationCodeAtt = null;
 
-        @objid ("75719c32-bdbc-4fe7-a4d2-02c7d1dce212")
+        @objid ("da525cbf-c44b-492f-aa83-7c218f9e538d")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(BpmnEscalationEventDefinitionData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("f8db5803-db95-46b9-99ab-cccf2aa704c1")
+        @objid ("ac6d0a5a-1ad5-4cdc-934f-21b823217d49")
         public static SmAttribute EscalationCodeAtt() {
             if (EscalationCodeAtt == null) {
             	EscalationCodeAtt = classof().getAttributeDef("EscalationCode");
@@ -73,13 +73,13 @@ public class BpmnEscalationEventDefinitionData extends BpmnEventDefinitionData {
             return EscalationCodeAtt;
         }
 
-        @objid ("e228fea0-1ff6-41e7-87f7-84054b0d9770")
+        @objid ("1ba70b32-ab06-4025-af72-56c524746f66")
         public static SmClass getSmClass() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return smClass;
         }
 
-        @objid ("00f8ea5a-b408-43d8-b789-57a6ed8e9412")
+        @objid ("e67c4b4e-787f-44fa-9122-d31416ad0eef")
         public static SmAttribute getEscalationCodeAtt() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return EscalationCodeAtt;
@@ -87,12 +87,12 @@ public class BpmnEscalationEventDefinitionData extends BpmnEventDefinitionData {
 
         @objid ("000c5026-c4c6-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("478a2ba5-1b89-4bdf-9341-d5b3af7ad974")
+            @objid ("3a066e9d-0b72-4156-84f7-7c0e053028f6")
             public ISmObjectData createData() {
                 return new BpmnEscalationEventDefinitionData();
             }
 
-            @objid ("da7966dd-ef68-4cf3-b2a1-8a0e2f77bc70")
+            @objid ("33bb59b5-edb3-47cd-a499-7c73909eb8d7")
             public SmObjectImpl createImpl() {
                 return new BpmnEscalationEventDefinitionImpl();
             }
@@ -101,12 +101,12 @@ public class BpmnEscalationEventDefinitionData extends BpmnEventDefinitionData {
 
         @objid ("000cb07a-c4c6-1fd8-97fe-001ec947cd2a")
         public static class EscalationCodeSmAttribute extends SmAttribute {
-            @objid ("7cfc72c6-794e-446d-b4e5-90408c8208fe")
+            @objid ("8c6c2a82-8f0b-455c-b37c-44b1d2bee5a1")
             public Object getValue(ISmObjectData data) {
                 return ((BpmnEscalationEventDefinitionData) data).mEscalationCode;
             }
 
-            @objid ("84a832c8-660f-41b4-b76f-f39bea32feff")
+            @objid ("3ef1da37-866c-4bf5-8541-fef0aac7f3a5")
             public void setValue(ISmObjectData data, Object value) {
                 ((BpmnEscalationEventDefinitionData) data).mEscalationCode = value;
             }

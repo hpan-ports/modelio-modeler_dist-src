@@ -35,11 +35,13 @@ import org.modelio.diagram.diagramauto.diagram.DiagramStyleHandle;
 import org.modelio.diagram.diagramauto.diagram.layout.FourGroupStructuralLayout;
 import org.modelio.diagram.styles.plugin.DiagramStyles;
 import org.modelio.gproject.model.IMModelServices;
+import org.modelio.metamodel.diagrams.AbstractDiagram;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
 import org.modelio.metamodel.uml.infrastructure.ModelTree;
 import org.modelio.metamodel.uml.statik.NameSpace;
 import org.modelio.metamodel.uml.statik.NamespaceUse;
 import org.modelio.metamodel.uml.statik.Package;
+import org.modelio.vcore.smkernel.mapi.MObject;
 
 @objid ("022e2845-0bdd-4ce8-8ac3-9e3cd045a67b")
 public class DependencyCreator extends AbstractDiagramCreator {
@@ -181,6 +183,19 @@ public class DependencyCreator extends AbstractDiagramCreator {
                 e.printStackTrace();
             }
         }
+    }
+
+    @objid ("f2e3349a-ceb7-4a52-a5a4-ab0288050f3a")
+    @Override
+    public ModelElement getMainElement(AbstractDiagram autoDiagram) {
+        final ModelElement owner = autoDiagram.getOrigin();
+        
+        for (MObject child : owner.getCompositionChildren()) {
+            if (autoDiagram.getName().equals(child.getName() + " (" + getAutoDiagramName() + ")")) {
+                return (ModelElement) child;
+            }
+        }
+        return null;
     }
 
 }

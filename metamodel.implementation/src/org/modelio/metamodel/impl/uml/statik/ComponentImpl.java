@@ -20,16 +20,18 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.uml.statik;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.emf.common.util.EList;
 import org.modelio.metamodel.data.uml.statik.ComponentData;
 import org.modelio.metamodel.uml.statik.Component;
+import org.modelio.metamodel.uml.statik.ComponentRealization;
 import org.modelio.metamodel.visitors.IModelVisitor;
 import org.modelio.vcore.smkernel.SmConstrainedList;
 import org.modelio.vcore.smkernel.SmDepVal;
@@ -41,21 +43,40 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("00055032-c4bf-1fd8-97fe-001ec947cd2a")
 public class ComponentImpl extends ClassImpl implements Component {
-    @objid ("959b8124-87d9-48f7-b8fd-5db3b7d190d9")
+    @objid ("f0c1de79-d812-4d32-8fe3-17e44b196678")
+    @Override
+    public EList<ComponentRealization> getRealization() {
+        return new SmList<>(this, ComponentData.Metadata.RealizationDep());
+    }
+
+    @objid ("76b90a54-a152-4ce1-8a38-85c091f122f0")
+    @Override
+    public <T extends ComponentRealization> List<T> getRealization(java.lang.Class<T> filterClass) {
+        final List<T> results = new ArrayList<>();
+        final MClass mClass = SmClass.getClass(filterClass);
+        for (final ComponentRealization element : getRealization()) {
+          if (element.getMClass().hasBase(mClass)) {
+            results.add(filterClass.cast(element));
+          }
+        }
+        return Collections.unmodifiableList(results);
+    }
+
+    @objid ("6b39bdc9-b580-4a66-a4f5-b1c9da4530f4")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("e9e8af07-a5ce-4ed6-98c0-8596d8d4cbb1")
+    @objid ("23c45dd6-8843-49f4-adb1-f69cfaffd438")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("dce44f79-9379-4338-9f74-dfca89c6198a")
+    @objid ("186e7f3a-9d94-407f-943d-da619f1cbce3")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitComponent(this);

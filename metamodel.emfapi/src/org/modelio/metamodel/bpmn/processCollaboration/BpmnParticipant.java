@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.bpmn.processCollaboration;
 
@@ -38,52 +38,52 @@ import org.modelio.metamodel.uml.statik.Package;
 
 @objid ("007577d6-c4bf-1fd8-97fe-001ec947cd2a")
 public interface BpmnParticipant extends BpmnBaseElement {
-    @objid ("a8feebf5-1b95-46ca-afb3-592e3b41b3ae")
+    @objid ("96443dbd-72f5-4ac0-b09b-10d53069c882")
     int getMultiplicityMin();
 
-    @objid ("4474cb7a-9950-4332-8650-726f326edfa8")
+    @objid ("89ae594d-4266-4d1a-83fb-28f972d1b23f")
     void setMultiplicityMin(int value);
 
-    @objid ("bb0efae6-187d-4425-8c98-ac86871df8cc")
+    @objid ("ce20d40f-5d45-4471-8ebe-6ce1274eb011")
     int getMultiplicityMax();
 
-    @objid ("6cc7ecc1-eff4-46ec-a798-a7925f54d261")
+    @objid ("1a65229c-6f27-4daa-aabf-739b69816c2d")
     void setMultiplicityMax(int value);
 
-    @objid ("e240747c-6ae0-4586-b6af-7781bd3071ca")
+    @objid ("ae1615b7-7702-494a-bd45-759d40626410")
     BpmnProcess getProcess();
 
-    @objid ("ae807605-125d-486a-9af8-a7cb2f0d7c4e")
+    @objid ("08716c03-c512-4a2c-a44a-1a77beb50943")
     void setProcess(BpmnProcess value);
 
-    @objid ("b44a8061-383c-495f-9b2b-7a534644d936")
+    @objid ("5836e8d8-885b-4e10-995f-591525cca387")
     BpmnCollaboration getContainer();
 
-    @objid ("ed3068d4-db37-4ed9-b5e4-0d89b3888c49")
+    @objid ("70ab32da-deb3-4610-9428-2fb25f30aa08")
     void setContainer(BpmnCollaboration value);
 
-    @objid ("77361853-fb96-4025-ae3e-f54a14c5491b")
+    @objid ("f6ae0c23-76c1-40d0-94a7-7319c7b8519f")
     Classifier getType();
 
-    @objid ("25980abb-e47b-4277-bd77-7619522c7eb0")
+    @objid ("6d35b075-f0fa-4cb8-bb65-f5c339b90267")
     void setType(Classifier value);
 
-    @objid ("4bc95027-d797-478f-9508-f1347aae6bf2")
+    @objid ("6ae69400-121f-44e2-83fa-3b33483afd8c")
     EList<BpmnEndPoint> getEndPointRefs();
 
-    @objid ("de29d909-30bd-4d44-930b-3d524ae1ead2")
+    @objid ("b899b1c1-007d-45f5-870d-6c85c40a06ad")
     <T extends BpmnEndPoint> List<T> getEndPointRefs(java.lang.Class<T> filterClass);
 
-    @objid ("ced12937-4771-41a3-8aea-5e2c27bd8a84")
+    @objid ("7a19bbf2-6b63-4579-800b-1bfceb8ec1d8")
     EList<BpmnInterface> getInterfaceRefs();
 
-    @objid ("fcf86ff6-030a-495d-b0b2-0b18d10c98e7")
+    @objid ("3f587f29-fc2e-437c-abe4-780366ba4da5")
     <T extends BpmnInterface> List<T> getInterfaceRefs(java.lang.Class<T> filterClass);
 
-    @objid ("e6309f18-4902-4f87-86a1-a54353f489bf")
+    @objid ("d45af5ca-68fd-4619-8dd2-b043c4521fd1")
     Package getPackageRef();
 
-    @objid ("4d95a82c-23ed-417a-9454-9a65db153b34")
+    @objid ("c8b684f6-6523-4c4d-9d6a-b594f52fceae")
     void setPackageRef(Package value);
 
 }

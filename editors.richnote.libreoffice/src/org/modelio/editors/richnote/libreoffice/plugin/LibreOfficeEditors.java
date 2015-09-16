@@ -75,19 +75,12 @@ public class LibreOfficeEditors implements BundleActivator {
         context = null;
     }
 
+    /**
+     * @return the bundle context
+     */
     @objid ("384df6dd-6fa9-4a96-a813-85243b85113b")
     public static BundleContext getContext() {
         return context;
     }
 
-
-/**
-     * Returns an image descriptor for the image file at the given plug-in
-     * relative path
-     * @param path the path
-     * @return the image descriptor
-     
-    public static ImageDescriptor getImageDescriptor(final String path) {
-        return AbstractUIPlugin.imageDescriptorFromPlugin(PLUGIN_ID, path);
-    }*/
 }

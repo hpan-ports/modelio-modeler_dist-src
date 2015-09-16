@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.uml.behavior.activityModel;
 
@@ -31,16 +31,16 @@ import org.modelio.metamodel.uml.behavior.activityModel.ActivityPartition;
 
 @objid ("0037db42-c4bf-1fd8-97fe-001ec947cd2a")
 public interface MessageFlow extends ActivityEdge {
-    @objid ("f06ebdf4-0e42-4b76-8f6c-362ce1200f39")
+    @objid ("32ef1e4b-50e1-4ae7-92c9-880e5f43d0b1")
     ActivityPartition getTargetPartition();
 
-    @objid ("c7b2da81-d447-41d5-b7a0-249da988baf8")
+    @objid ("1c9531df-e4c6-42aa-8fff-12a7d6ec0250")
     void setTargetPartition(ActivityPartition value);
 
-    @objid ("2eb70c1b-ee0c-4f73-ae95-c437921986c3")
+    @objid ("bc308864-8245-4ad3-b0e6-8ca957011a8e")
     ActivityPartition getSourcePartition();
 
-    @objid ("7ec1e3bf-6ff6-4338-9210-0c19cd32e4e0")
+    @objid ("0b9fb02a-72b8-4125-9085-3bdd8aa2df59")
     void setSourcePartition(ActivityPartition value);
 
 }

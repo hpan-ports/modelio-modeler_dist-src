@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.data.bpmn.activities;
 
@@ -49,78 +49,78 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("00814890-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=BpmnMultiInstanceLoopCharacteristics.class, factory=BpmnMultiInstanceLoopCharacteristicsData.Metadata.ObjectFactory.class)
 public class BpmnMultiInstanceLoopCharacteristicsData extends BpmnLoopCharacteristicsData {
-    @objid ("54e15730-4bc9-4804-b614-9ff3439104b6")
+    @objid ("88f55bb4-d2a5-4a37-8d7a-5ed4a4798118")
     @SmaMetaAttribute(metaName="IsSequencial", type=Boolean.class, smAttributeClass=Metadata.IsSequencialSmAttribute.class)
      Object mIsSequencial = false;
 
-    @objid ("a3287419-937b-4bc5-a7f9-e84aefc873d6")
+    @objid ("34bb6fe7-a6a0-4f3c-9e78-dcc1b78b6216")
     @SmaMetaAttribute(metaName="Behavior", type=MultiInstanceBehavior.class, smAttributeClass=Metadata.BehaviorSmAttribute.class)
      Object mBehavior = MultiInstanceBehavior.ALLBEHAVIOR;
 
-    @objid ("2c279a7d-adaa-488f-adb4-1605ec84238c")
+    @objid ("0af1b809-ae09-4946-b388-4b002eeb023b")
     @SmaMetaAttribute(metaName="LoopCardinality", type=String.class, smAttributeClass=Metadata.LoopCardinalitySmAttribute.class)
      Object mLoopCardinality = "";
 
-    @objid ("029aa973-09db-45de-968d-2b7cade0e93b")
+    @objid ("96796b20-2bc7-4f57-bbee-343e4b7e9873")
     @SmaMetaAttribute(metaName="CompletionCondition", type=String.class, smAttributeClass=Metadata.CompletionConditionSmAttribute.class)
      Object mCompletionCondition = "";
 
-    @objid ("0c88a65f-3155-4a3d-84cc-1e89660d941b")
+    @objid ("b94593d7-b662-4fa9-aa7c-02a978e9806b")
     @SmaMetaAssociation(metaName="LoopDataInput", typeDataClass=BpmnDataInputData.class, min=0, max=1, smAssociationClass=Metadata.LoopDataInputSmDependency.class, component = true)
      SmObjectImpl mLoopDataInput;
 
-    @objid ("7d01a4f8-8966-47ce-b5a5-03bbd833d0b2")
+    @objid ("2eb17465-bb3f-4fd2-8681-157bdcc311f6")
     @SmaMetaAssociation(metaName="LoopDataOutputRef", typeDataClass=BpmnDataOutputData.class, min=0, max=1, smAssociationClass=Metadata.LoopDataOutputRefSmDependency.class, component = true)
      SmObjectImpl mLoopDataOutputRef;
 
-    @objid ("35f660fa-fc82-4e83-8613-18f27e5437e7")
+    @objid ("19273650-f48a-45a8-9cfd-555e53c885c5")
     @SmaMetaAssociation(metaName="CompletionEventRef", typeDataClass=BpmnEventDefinitionData.class, min=0, max=1, smAssociationClass=Metadata.CompletionEventRefSmDependency.class, partof = true)
      SmObjectImpl mCompletionEventRef;
 
-    @objid ("368848b0-658a-42a5-bd75-b96eea5faeae")
+    @objid ("64514089-57cd-4218-adf2-65db1b00cd03")
     @SmaMetaAssociation(metaName="ComplexBehaviorDefinition", typeDataClass=BpmnComplexBehaviorDefinitionData.class, min=0, max=-1, smAssociationClass=Metadata.ComplexBehaviorDefinitionSmDependency.class, component = true)
      List<SmObjectImpl> mComplexBehaviorDefinition = null;
 
-    @objid ("4afee61e-dd98-4e56-b1d1-bf59de36e2bd")
+    @objid ("adaf1212-80df-4ccf-b660-b16fb6d8abfa")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("00403210-c4c4-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("05cf4a43-16f1-466f-87b2-527743dd76e3")
+        @objid ("86c96849-de25-4623-84ae-4cb92759a190")
         private static SmClass smClass = null;
 
-        @objid ("4a717ddc-ce4e-4654-acf2-cbdd01ebf125")
+        @objid ("fad5bcc4-f646-4859-9298-300bedc2bfd2")
         private static SmAttribute IsSequencialAtt = null;
 
-        @objid ("0d28ca01-df6a-4fb4-94ee-7cf26caff158")
+        @objid ("3fb444cf-2155-4033-b78c-c8ba3f749fd8")
         private static SmAttribute BehaviorAtt = null;
 
-        @objid ("73d1314b-983a-44bf-9be5-84e44d134e5c")
+        @objid ("b5a09cf4-6fe6-407c-aa93-8978486de64f")
         private static SmAttribute LoopCardinalityAtt = null;
 
-        @objid ("fe87f80d-322c-44ca-94a0-6ffb30771f62")
+        @objid ("b54cbc3c-7205-4ac7-8b66-2a5e3a0fd6df")
         private static SmAttribute CompletionConditionAtt = null;
 
-        @objid ("cd6229cf-75b3-468f-8b99-c8df2ee3bc20")
+        @objid ("0c839bd5-d11f-408a-b53f-c055522adfc3")
         private static SmDependency LoopDataInputDep = null;
 
-        @objid ("f77dc49d-3f0a-4ea1-b7db-927864bc237e")
+        @objid ("b6a492f6-7122-4210-b22f-38aa7052d4c7")
         private static SmDependency LoopDataOutputRefDep = null;
 
-        @objid ("f294f06f-12be-457c-8c94-03be9aca3912")
+        @objid ("717e4516-076e-4698-a644-525815eb9735")
         private static SmDependency CompletionEventRefDep = null;
 
-        @objid ("5aaa0a63-8412-43b4-840f-062ec8005d6a")
+        @objid ("7309cee8-ed93-4c71-8189-3d638f0fecff")
         private static SmDependency ComplexBehaviorDefinitionDep = null;
 
-        @objid ("fa72dfb7-8947-4616-ac81-770bd1fdcd87")
+        @objid ("01cffc89-4d1e-4420-b86e-b36ec3754640")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(BpmnMultiInstanceLoopCharacteristicsData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("9f67de88-7641-489c-b6e4-54679b28fcb3")
+        @objid ("6f1708d3-b5b8-4fa3-93d8-cb1eab797c42")
         public static SmAttribute IsSequencialAtt() {
             if (IsSequencialAtt == null) {
             	IsSequencialAtt = classof().getAttributeDef("IsSequencial");
@@ -128,7 +128,7 @@ public class BpmnMultiInstanceLoopCharacteristicsData extends BpmnLoopCharacteri
             return IsSequencialAtt;
         }
 
-        @objid ("e8f19c8c-bc35-467a-8500-9193bfcdb6cf")
+        @objid ("cbe411cc-edf4-46d2-8afe-4aa87ffb6f39")
         public static SmAttribute BehaviorAtt() {
             if (BehaviorAtt == null) {
             	BehaviorAtt = classof().getAttributeDef("Behavior");
@@ -136,7 +136,7 @@ public class BpmnMultiInstanceLoopCharacteristicsData extends BpmnLoopCharacteri
             return BehaviorAtt;
         }
 
-        @objid ("3e0a04ee-645c-4e44-b1ad-b1edb40a84c6")
+        @objid ("a2143632-5dcb-4f65-a492-8ebb2ea91a93")
         public static SmAttribute LoopCardinalityAtt() {
             if (LoopCardinalityAtt == null) {
             	LoopCardinalityAtt = classof().getAttributeDef("LoopCardinality");
@@ -144,7 +144,7 @@ public class BpmnMultiInstanceLoopCharacteristicsData extends BpmnLoopCharacteri
             return LoopCardinalityAtt;
         }
 
-        @objid ("cbf99bd4-2172-46a1-864e-3c8d7304c05a")
+        @objid ("d2a9c40f-1e50-4e6d-90dc-01daf0ac3a8f")
         public static SmAttribute CompletionConditionAtt() {
             if (CompletionConditionAtt == null) {
             	CompletionConditionAtt = classof().getAttributeDef("CompletionCondition");
@@ -152,7 +152,7 @@ public class BpmnMultiInstanceLoopCharacteristicsData extends BpmnLoopCharacteri
             return CompletionConditionAtt;
         }
 
-        @objid ("dd8239e0-f06f-4714-be8e-d11fb4a9c81b")
+        @objid ("edae74e7-92e1-4d59-a55d-99e3066a6f66")
         public static SmDependency LoopDataInputDep() {
             if (LoopDataInputDep == null) {
             	LoopDataInputDep = classof().getDependencyDef("LoopDataInput");
@@ -160,7 +160,7 @@ public class BpmnMultiInstanceLoopCharacteristicsData extends BpmnLoopCharacteri
             return LoopDataInputDep;
         }
 
-        @objid ("f4153fc1-4e03-4650-b0d6-42d97a47cc23")
+        @objid ("79a66799-e81c-4b5c-8d80-78408924a97a")
         public static SmDependency LoopDataOutputRefDep() {
             if (LoopDataOutputRefDep == null) {
             	LoopDataOutputRefDep = classof().getDependencyDef("LoopDataOutputRef");
@@ -168,7 +168,7 @@ public class BpmnMultiInstanceLoopCharacteristicsData extends BpmnLoopCharacteri
             return LoopDataOutputRefDep;
         }
 
-        @objid ("7deb25a3-a0c2-4970-ad35-9acbfc5a2da3")
+        @objid ("bf7c03c7-5318-403e-a139-bebf7c411a18")
         public static SmDependency CompletionEventRefDep() {
             if (CompletionEventRefDep == null) {
             	CompletionEventRefDep = classof().getDependencyDef("CompletionEventRef");
@@ -176,7 +176,7 @@ public class BpmnMultiInstanceLoopCharacteristicsData extends BpmnLoopCharacteri
             return CompletionEventRefDep;
         }
 
-        @objid ("e0243f2e-68de-4a93-bcf2-828bc7fc7892")
+        @objid ("55063029-1740-49c6-89a6-1f7c9b8d716a")
         public static SmDependency ComplexBehaviorDefinitionDep() {
             if (ComplexBehaviorDefinitionDep == null) {
             	ComplexBehaviorDefinitionDep = classof().getDependencyDef("ComplexBehaviorDefinition");
@@ -184,68 +184,68 @@ public class BpmnMultiInstanceLoopCharacteristicsData extends BpmnLoopCharacteri
             return ComplexBehaviorDefinitionDep;
         }
 
-        @objid ("846b3f4b-6b8f-4e80-9838-fd7a0c3e9e96")
-        public static SmClass getSmClass() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return smClass;
-        }
-
-        @objid ("d647291c-07df-4123-8188-8645c93bbdd6")
-        public static SmAttribute getCompletionConditionAtt() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return CompletionConditionAtt;
-        }
-
-        @objid ("360beb87-5d9b-4749-bbfa-ccc4c31459f0")
+        @objid ("a006d2e7-8bbd-4366-b86c-81156984b950")
         public static SmDependency getComplexBehaviorDefinitionDep() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return ComplexBehaviorDefinitionDep;
         }
 
-        @objid ("8cba57dc-16ab-48a8-9cc2-5a72bb408ecf")
-        public static SmDependency getLoopDataInputDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return LoopDataInputDep;
-        }
-
-        @objid ("8bc05521-edfd-4ebd-ad3d-e2ac134e126b")
-        public static SmAttribute getIsSequencialAtt() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return IsSequencialAtt;
-        }
-
-        @objid ("e2db72f1-047c-4b57-9105-ca17f6343805")
-        public static SmDependency getCompletionEventRefDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return CompletionEventRefDep;
-        }
-
-        @objid ("c26d5049-305e-4087-96d8-df90dd85f3a7")
+        @objid ("f4c1cbde-e596-4029-8e2b-20100ee3ae11")
         public static SmAttribute getBehaviorAtt() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return BehaviorAtt;
         }
 
-        @objid ("4af73732-a8d3-471d-8bad-1803a3703668")
+        @objid ("b791ef2e-304f-4249-b792-02221206ceda")
         public static SmDependency getLoopDataOutputRefDep() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return LoopDataOutputRefDep;
         }
 
-        @objid ("eeecd9f5-ce05-40c2-b18c-7658f1cffc3a")
+        @objid ("e944a426-7226-4f0f-b257-14d321dbde68")
+        public static SmAttribute getCompletionConditionAtt() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return CompletionConditionAtt;
+        }
+
+        @objid ("be70f7b9-5eea-4dc7-bde2-5adf26c33c35")
+        public static SmClass getSmClass() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return smClass;
+        }
+
+        @objid ("f05af0b1-9a1a-4fb5-b6eb-2543a5573395")
         public static SmAttribute getLoopCardinalityAtt() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return LoopCardinalityAtt;
         }
 
+        @objid ("5a58d246-2e62-413b-9747-f5af19bff3b8")
+        public static SmDependency getCompletionEventRefDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return CompletionEventRefDep;
+        }
+
+        @objid ("de03dc74-86ae-4608-a68c-4ce8a0ac03c0")
+        public static SmAttribute getIsSequencialAtt() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return IsSequencialAtt;
+        }
+
+        @objid ("64bfbbd1-dcbc-4b5f-b6d8-1f589c410abe")
+        public static SmDependency getLoopDataInputDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return LoopDataInputDep;
+        }
+
         @objid ("004071ee-c4c4-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("dcee9280-024a-4697-b44f-73d1cfec53cd")
+            @objid ("6bdb9e46-0549-486d-9e02-5665a367355d")
             public ISmObjectData createData() {
                 return new BpmnMultiInstanceLoopCharacteristicsData();
             }
 
-            @objid ("8cd21888-6a67-4362-a6c4-dc63a84aaf49")
+            @objid ("0494e034-d5d3-4025-bbde-b18ccee6d16d")
             public SmObjectImpl createImpl() {
                 return new BpmnMultiInstanceLoopCharacteristicsImpl();
             }
@@ -254,12 +254,12 @@ public class BpmnMultiInstanceLoopCharacteristicsData extends BpmnLoopCharacteri
 
         @objid ("0040d2ba-c4c4-1fd8-97fe-001ec947cd2a")
         public static class IsSequencialSmAttribute extends SmAttribute {
-            @objid ("be0adfb0-a286-4a7a-8f7b-552265df4269")
+            @objid ("42be43e7-b815-4a94-b656-4d13075907cc")
             public Object getValue(ISmObjectData data) {
                 return ((BpmnMultiInstanceLoopCharacteristicsData) data).mIsSequencial;
             }
 
-            @objid ("f169bcc9-0623-4c2e-adf6-cfc49db79600")
+            @objid ("c7abe18f-56c2-4ea2-9455-8942a8699f22")
             public void setValue(ISmObjectData data, Object value) {
                 ((BpmnMultiInstanceLoopCharacteristicsData) data).mIsSequencial = value;
             }
@@ -268,12 +268,12 @@ public class BpmnMultiInstanceLoopCharacteristicsData extends BpmnLoopCharacteri
 
         @objid ("00413250-c4c4-1fd8-97fe-001ec947cd2a")
         public static class BehaviorSmAttribute extends SmAttribute {
-            @objid ("0f64a4a9-6d11-4b35-8bd8-e406ac0ee7a2")
+            @objid ("e176d9f2-c51e-45e1-b19d-00613083ffc7")
             public Object getValue(ISmObjectData data) {
                 return ((BpmnMultiInstanceLoopCharacteristicsData) data).mBehavior;
             }
 
-            @objid ("a5b2b5df-59d1-4aa7-b0ab-0f860eb9c76f")
+            @objid ("400dc3c8-240e-4ed8-a7be-e3b1f6f42d3c")
             public void setValue(ISmObjectData data, Object value) {
                 ((BpmnMultiInstanceLoopCharacteristicsData) data).mBehavior = value;
             }
@@ -282,12 +282,12 @@ public class BpmnMultiInstanceLoopCharacteristicsData extends BpmnLoopCharacteri
 
         @objid ("00419272-c4c4-1fd8-97fe-001ec947cd2a")
         public static class LoopCardinalitySmAttribute extends SmAttribute {
-            @objid ("b4c815bf-d958-43ab-a9cb-f627f597e9fe")
+            @objid ("24c0bb12-2c1a-4f80-b83a-377ed57257c9")
             public Object getValue(ISmObjectData data) {
                 return ((BpmnMultiInstanceLoopCharacteristicsData) data).mLoopCardinality;
             }
 
-            @objid ("8b8cd3d8-9206-4eec-8dae-ca8b5541d680")
+            @objid ("0373eccd-dc58-4ab8-9406-c561d7d88777")
             public void setValue(ISmObjectData data, Object value) {
                 ((BpmnMultiInstanceLoopCharacteristicsData) data).mLoopCardinality = value;
             }
@@ -296,12 +296,12 @@ public class BpmnMultiInstanceLoopCharacteristicsData extends BpmnLoopCharacteri
 
         @objid ("0041f442-c4c4-1fd8-97fe-001ec947cd2a")
         public static class CompletionConditionSmAttribute extends SmAttribute {
-            @objid ("e57c22b8-7a28-4bbb-847e-d710fb35f7af")
+            @objid ("dbbed2e5-331b-4e05-8880-f61bbaae73bd")
             public Object getValue(ISmObjectData data) {
                 return ((BpmnMultiInstanceLoopCharacteristicsData) data).mCompletionCondition;
             }
 
-            @objid ("ffced72c-e41f-4956-874b-c17446494c3e")
+            @objid ("890879b2-057d-4613-b37e-bf85d2daccdc")
             public void setValue(ISmObjectData data, Object value) {
                 ((BpmnMultiInstanceLoopCharacteristicsData) data).mCompletionCondition = value;
             }
@@ -310,18 +310,18 @@ public class BpmnMultiInstanceLoopCharacteristicsData extends BpmnLoopCharacteri
 
         @objid ("0042591e-c4c4-1fd8-97fe-001ec947cd2a")
         public static class LoopDataInputSmDependency extends SmSingleDependency {
-            @objid ("917b8e22-a559-4b9d-abae-f3e79bbe4497")
+            @objid ("ddbb37a7-9ae4-4726-b321-681a3adf7178")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((BpmnMultiInstanceLoopCharacteristicsData) data).mLoopDataInput;
             }
 
-            @objid ("21670ccc-a5a4-4191-b444-ef82e96eace2")
+            @objid ("9891d47f-95f4-493b-ab09-60bdf1e0be33")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((BpmnMultiInstanceLoopCharacteristicsData) data).mLoopDataInput = value;
             }
 
-            @objid ("9d266476-b65c-49bc-b068-06c1017fed1d")
+            @objid ("7c669b85-67d6-4bc7-b1e8-45b379524317")
             @Override
             public SmDependency getSymetric() {
                 return BpmnDataInputData.Metadata.OwnerLoopCharacteristicsDep();
@@ -331,18 +331,18 @@ public class BpmnMultiInstanceLoopCharacteristicsData extends BpmnLoopCharacteri
 
         @objid ("0042d182-c4c4-1fd8-97fe-001ec947cd2a")
         public static class LoopDataOutputRefSmDependency extends SmSingleDependency {
-            @objid ("8dd4a14b-edfb-48f8-bbf3-be7c50add01e")
+            @objid ("efbbee76-8b2d-40a2-b91c-1b8fd8208ec5")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((BpmnMultiInstanceLoopCharacteristicsData) data).mLoopDataOutputRef;
             }
 
-            @objid ("4aa259e5-bf58-4f57-8d5a-b031df11c702")
+            @objid ("79af5bcf-2fb0-49d4-af8a-4579d188f3be")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((BpmnMultiInstanceLoopCharacteristicsData) data).mLoopDataOutputRef = value;
             }
 
-            @objid ("eb98337f-b666-4a7d-aaa0-3a86e937c455")
+            @objid ("bc687906-9af6-4966-a9e2-59095b6927a3")
             @Override
             public SmDependency getSymetric() {
                 return BpmnDataOutputData.Metadata.OwnerLoopCharacteristicsDep();
@@ -352,18 +352,18 @@ public class BpmnMultiInstanceLoopCharacteristicsData extends BpmnLoopCharacteri
 
         @objid ("004347de-c4c4-1fd8-97fe-001ec947cd2a")
         public static class CompletionEventRefSmDependency extends SmSingleDependency {
-            @objid ("92d6ba06-c295-48a7-92ea-9d2da53fad89")
+            @objid ("2e9519ec-0dcf-44cf-8f95-46b3d7ed95da")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((BpmnMultiInstanceLoopCharacteristicsData) data).mCompletionEventRef;
             }
 
-            @objid ("8c387c5c-7c8b-40d1-bb87-4255f2d681a0")
+            @objid ("c6a0a599-e200-44ce-9791-025f1268659d")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((BpmnMultiInstanceLoopCharacteristicsData) data).mCompletionEventRef = value;
             }
 
-            @objid ("b8583175-7669-42cf-a69c-aec95b937a05")
+            @objid ("0e2b46b0-65e1-4369-8be9-f5ff9cac2756")
             @Override
             public SmDependency getSymetric() {
                 return BpmnEventDefinitionData.Metadata.LoopRefDep();
@@ -373,20 +373,20 @@ public class BpmnMultiInstanceLoopCharacteristicsData extends BpmnLoopCharacteri
 
         @objid ("0043be9e-c4c4-1fd8-97fe-001ec947cd2a")
         public static class ComplexBehaviorDefinitionSmDependency extends SmMultipleDependency {
-            @objid ("6e801209-778f-419a-b3b9-db9bfbbe3c48")
+            @objid ("48f124bb-a5f3-4825-b461-90926dc1736e")
             @Override
             public List<SmObjectImpl> getValueList(ISmObjectData data) {
                 return (((BpmnMultiInstanceLoopCharacteristicsData)data).mComplexBehaviorDefinition != null)? ((BpmnMultiInstanceLoopCharacteristicsData)data).mComplexBehaviorDefinition:SmMultipleDependency.EMPTY;
             }
 
-            @objid ("d0c43aa2-858b-4f51-be41-019f8e5b7815")
+            @objid ("09ed279e-d350-4c78-82a2-b12d69ccc436")
             @Override
             protected List<SmObjectImpl> allocateValueList(ISmObjectData data, int initialCapacity) {
                 ((BpmnMultiInstanceLoopCharacteristicsData) data).mComplexBehaviorDefinition = new ArrayList<>(initialCapacity);
                 return ((BpmnMultiInstanceLoopCharacteristicsData) data).mComplexBehaviorDefinition;
             }
 
-            @objid ("7b126af2-4654-4aeb-88b5-0d6bd3bb5cf7")
+            @objid ("48e285ec-ac7c-420d-8a93-ca8dd4e17151")
             @Override
             public SmDependency getSymetric() {
                 return BpmnComplexBehaviorDefinitionData.Metadata.OwnerDep();

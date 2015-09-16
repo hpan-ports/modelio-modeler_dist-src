@@ -1,0 +1,94 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<title>Model components development</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link href="style.css" media="screen" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<a name="Developing-and-packaging-model-components"></a>
+<h1 >Developing and packaging model components<a href="#Developing-and-packaging-model-components" class="wiki-anchor">&para;</a></h1>
+
+<a name="Introduction"></a>
+<h4 >Introduction<a href="#Introduction" class="wiki-anchor">&para;</a></h4>
+
+<p>The development of a model component is the first phase in the model component
+life cycle, during which a model component is prepared by a developer for packaging.</p>
+
+<p>Model component development includes the following operations:</p>
+
+<ul>
+<li><p>the UML model must first be built (including any specific code
+generation annotations you wish to include)</p></li>
+<li><p>the model component must then be created and defined. This includes
+the creation of the future model component itself (name, description, version
+number), as well as the definition of its contents (model parts and external
+files) and its dependencies on other model components.</p></li>
+</ul>
+
+
+<p>This section presents how to create and define a model component.</p>
+
+<a name="Creating-a-model-component"></a>
+<h4 >Creating a model component<a href="#Creating-a-model-component" class="wiki-anchor">&para;</a></h4>
+
+<p>The first step in the development of a model component is its creation inside
+a UML model.</p>
+
+<p>To create a model component, follow the steps shown below.</p>
+
+<p><img src="Model_components_development_CreateLocalLibrary2.png" alt="4" /></p>
+
+<h6>Creating a new model component</h6>
+
+<ol>
+<li>Right-click on the root of your project and run the &ldquo;Create a model component&hellip;&rdquo; command.</li>
+<li>Enter a name, version and version history.</li>
+<li>From the UML explorer, drag and drop model elements you want your model component to reference.</li>
+<li>From the UML explorer, drag and drop model components on which your model component will depend.</li>
+<li>Check the modules which are contributing to your model component.</li>
+</ol>
+
+
+<a name="Defining-model-parts-to-be-included-in-a-model-component"></a>
+<h4 >Defining model parts to be included in a model component<a href="#Defining-model-parts-to-be-included-in-a-model-component" class="wiki-anchor">&para;</a></h4>
+
+<p>Model elements to be included in a model component are referenced using
+manifestation links. These elements will be available for use in projects
+where the model component is deployed. Only high-level packages (packages
+located under the project root) can be referenced by a model component through
+a manifestation link. However, all the elements they contain will also be
+packaged in the model component.</p>
+
+<a name="Modeling-dependencies-between-model-components"></a>
+<h4 >Modeling dependencies between model components<a href="#Modeling-dependencies-between-model-components" class="wiki-anchor">&para;</a></h4>
+
+<p>If your model component is dependent on another model component, this fact
+must be modeled through a use link.</p>
+
+<a name="Defining-external-files-to-be-included-in-a-model-component"></a>
+<h4 >Defining external files to be included in a model component<a href="#Defining-external-files-to-be-included-in-a-model-component" class="wiki-anchor">&para;</a></h4>
+
+<p>External files can also be included in a model component. This is useful when
+you want your model component to install specific files like libraries, jar
+files or resource files when it&rsquo;s deployed.</p>
+
+<p>For example, let&rsquo;s imagine that you have reversed the Java JDK, in order to
+produce a reusable component. This type of model component, when deployed,
+should allow Java application development including compilation, meaning that
+JDK jar files would then have to be deployed by the model component.</p>
+
+<p>When defining external files to be included in a model component, the
+$(GenRoot) variable should be used. This variable is the root directory for
+generation, and can be defined by each user at Modelio parameter level, which
+means that the external files included in the model component will be deployed
+correctly in each user&rsquo;s own individual environment.</p>
+
+<p>Once you are satisfied that you have carried out all these steps correctly,
+click on &ldquo;Apply&rdquo; to confirm your changes and close the model component
+edition window.</p>
+
+<p>You can proceed with the packaging of your model component by clicking on &lsquo;Package&rsquo;.</p>
+
+<div id="footer"><iframe frameborder="0" scrolling="no" height="25" width="100%" src="_footer.html"></iframe></div> </body>
+</html>

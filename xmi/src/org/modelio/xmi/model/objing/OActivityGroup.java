@@ -30,11 +30,12 @@ import org.modelio.xmi.util.GenerationProperties;
 import org.modelio.xmi.util.NotFoundException;
 
 @objid ("80a79102-55c2-4b91-9bca-2fae8d2cdbe1")
-public class OActivityGroup extends OModelElement implements IOElement {
+public class OActivityGroup extends OModelElement {
     @objid ("01e850b3-1923-444b-8943-e4ab2723cf00")
     private ActivityGroup objingElement = null;
 
     @objid ("6808eaa4-86ce-4719-93e0-7e939d964fd1")
+    @Override
     public org.eclipse.uml2.uml.Element createEcoreElt() {
         return null;
     }
@@ -42,10 +43,11 @@ public class OActivityGroup extends OModelElement implements IOElement {
     @objid ("e77b4c20-3921-45af-bb75-81edbb084a6c")
     public OActivityGroup(final ActivityPartition element) {
         super(element);
-        objingElement = element;
+        this.objingElement = element;
     }
 
     @objid ("b9ec14df-7b6a-4bc2-a9d2-46054d1f0fb3")
+    @Override
     public void attach(org.eclipse.uml2.uml.Element ecoreElt) {
         MObject objingOwner = this.objingElement.getCompositionOwner();
         org.eclipse.uml2.uml.Element ecoreOwner = GenerationProperties.getInstance().getMappedElement(objingOwner);
@@ -59,6 +61,7 @@ public class OActivityGroup extends OModelElement implements IOElement {
     }
 
     @objid ("a0994055-6fef-47e8-b766-5e2a0d64027a")
+    @Override
     public void setProperties(org.eclipse.uml2.uml.Element ecoreElt) {
         super.setProperties(ecoreElt);
     }

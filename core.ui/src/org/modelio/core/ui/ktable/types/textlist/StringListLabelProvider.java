@@ -37,9 +37,7 @@ class StringListLabelProvider extends LabelProvider {
     @objid ("8dd22d95-c068-11e1-8c0a-002564c97630")
     @Override
     public String getText(Object element) {
-        final StringAdapter adapter = (StringAdapter)element;
-        String value = adapter.getValue();
-        
+        String value = (String)element;
         if (value == null || value.isEmpty()) {
             value = CoreUi.I18N.getString("KTable.EnterParameterHere");
         }

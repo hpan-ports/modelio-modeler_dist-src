@@ -24,6 +24,7 @@ package org.modelio.gproject.module;
 import java.nio.file.Path;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.metamodel.Metamodel;
 import org.modelio.vbasic.version.Version;
@@ -48,12 +49,6 @@ public class EmptyModuleHandle implements IModuleHandle {
     public EmptyModuleHandle(String moduleName, Version moduleVersion) {
         this.moduleName = moduleName;
         this.moduleVersion = moduleVersion;
-    }
-
-    @objid ("cbf0c075-2f2b-11e2-8f16-002564c97630")
-    @Override
-    public boolean isLicenseRequired() {
-        return false;
     }
 
     @objid ("cbf0c07a-2f2b-11e2-8f16-002564c97630")
@@ -138,6 +133,12 @@ public class EmptyModuleHandle implements IModuleHandle {
     @Override
     public Path getArchive() {
         return null;
+    }
+
+    @objid ("78caabf0-4d73-4817-b120-84a705788825")
+    @Override
+    public Map<String, Path> getStylePaths() {
+        return Collections.emptyMap();
     }
 
 }

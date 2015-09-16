@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.bpmn.activities;
 
@@ -41,21 +41,21 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("007e8d80-c4bf-1fd8-97fe-001ec947cd2a")
 public class BpmnBusinessRuleTaskImpl extends BpmnTaskImpl implements BpmnBusinessRuleTask {
-    @objid ("3185efc6-e5c5-428e-8455-607a20c098af")
+    @objid ("c24b8f44-715c-4165-9f9e-c4fd47bcd9ee")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("0d08fddf-75fe-443c-aef5-4eaf07120ee3")
+    @objid ("ca7282ce-0dda-4642-8fe4-d4465fc96b68")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("6749d768-07d2-4cea-ba0d-23392ea55d21")
+    @objid ("fb93ea9f-3f75-4df1-81d1-f14c9e938393")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitBpmnBusinessRuleTask(this);

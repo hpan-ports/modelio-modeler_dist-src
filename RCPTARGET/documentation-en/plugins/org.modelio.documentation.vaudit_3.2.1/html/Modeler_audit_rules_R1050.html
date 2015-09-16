@@ -1,0 +1,43 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<title>Modeler audit rules R1050</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link href="style.css" media="screen" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<a name="R1050"></a>
+<h1 >R1050<a href="#R1050" class="wiki-anchor">&para;</a></h1>
+
+<a name="Summary"></a>
+<h4 >Summary<a href="#Summary" class="wiki-anchor">&para;</a></h4>
+
+<p>An ActivityParameterNode must have either all incoming  or all outgoing ActivityEdges, but it must not have both.</p>
+
+<a name="Details"></a>
+<h4 >Details<a href="#Details" class="wiki-anchor">&para;</a></h4>
+
+<p>An ActivityParameterNode must have either all incoming or all outgoing ActivityEdges, but it must not have both.</p>
+
+<p>ActivityParameterNodes are object nodes at the beginning and end of flows that provide a means of accepting input to an Activity and providing outputs from the Activity, through the Activity parameters.</p>
+
+<a name="Tips"></a>
+<h4 >Tips<a href="#Tips" class="wiki-anchor">&para;</a></h4>
+
+<p>ActivityEdges should follow the passing mode of the BehaviorParameter represented by the ActivityParameterNode.</p>
+
+<ul>
+<li>In the case of an “in” BehaviorParameter, the ActivityParameterNode should only have outgoing ActivityEdges.</li>
+<li>In the case of an “out” BehaviorParameter, the ActivityParameterNode should only have incoming ActivityEdges.</li>
+<li>In the case of an “inout” BehaviorParameter, two ActivityParameterNodes should be used:
+
+<ul>
+<li>one for the “in” aspect, with only outgoing ActivityEdges</li>
+<li>one for the “out” aspect, with only incoming ActivityEdges</li>
+</ul>
+</li>
+</ul>
+
+
+<div id="footer"><iframe frameborder="0" scrolling="no" height="25" width="100%" src="_footer.html"></iframe></div> </body>
+</html>

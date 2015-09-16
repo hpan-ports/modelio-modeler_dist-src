@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.uml.behavior.communicationModel;
 
@@ -35,34 +35,34 @@ import org.modelio.metamodel.uml.statik.Instance;
 
 @objid ("005a9290-c4bf-1fd8-97fe-001ec947cd2a")
 public interface CommunicationNode extends ModelElement {
-    @objid ("f37f3614-0184-464b-b432-00baa80ec719")
+    @objid ("5cc07f40-1132-45c6-9f20-c17df2e98047")
     String getSelector();
 
-    @objid ("a930c01b-5c46-48d6-9034-a84822c1c826")
+    @objid ("daeefde8-5418-4ce7-b7e7-4b271cd331d7")
     void setSelector(String value);
 
-    @objid ("a7af78c7-f5c5-4b53-86a7-2572cb47cfa5")
+    @objid ("6afc95dd-b6f0-4719-9173-099b1ff03ee8")
     CommunicationInteraction getOwner();
 
-    @objid ("895fcdd9-c1d5-4cc4-b288-1075793c82ee")
+    @objid ("597c4bba-d791-469e-8e71-6de823924103")
     void setOwner(CommunicationInteraction value);
 
-    @objid ("2b0d482d-01b4-4009-a991-6f5c1a043508")
+    @objid ("a76e27c3-ffc7-479c-bf7a-9d47ca457f3f")
     Instance getRepresented();
 
-    @objid ("ca2d30b2-683e-4c6b-bf3f-26f4c9934e4b")
+    @objid ("40da44dc-bb62-408b-accb-c6bd8d1ccd7a")
     void setRepresented(Instance value);
 
-    @objid ("7f7d87f4-9693-4191-bbbb-adf2e293d4c8")
+    @objid ("ce3c20e3-478a-4d3f-8e18-c2ee6166c10a")
     EList<CommunicationChannel> getStarted();
 
-    @objid ("b2df198d-3f33-489e-bdd9-b3d28d7acabb")
+    @objid ("d63ff380-2858-40d5-af52-cd3708afcfe0")
     <T extends CommunicationChannel> List<T> getStarted(java.lang.Class<T> filterClass);
 
-    @objid ("dc029fd8-d2d3-4273-b2b8-31660044f066")
+    @objid ("e58b05f3-d527-4e14-a3ab-5cefb9388409")
     EList<CommunicationChannel> getEnded();
 
-    @objid ("88c39ab7-571c-4cd0-95fe-2615cf95df27")
+    @objid ("b6a7b1b8-f8d2-4003-866a-49ab8673218c")
     <T extends CommunicationChannel> List<T> getEnded(java.lang.Class<T> filterClass);
 
 }

@@ -268,6 +268,22 @@ public final class FileUtils {
     }
 
     /**
+     * Compute and return a user friendly message from the given IOException.
+     * <p>
+     * Delegates to {@link #getLocalizedMessage(FileSystemException)} if the parameter is a {@link FileSystemException}.
+     * In the other case calls {@link IOException#getLocalizedMessage()}.
+     * @param e the exception.
+     * @return a message, won't be null.
+     */
+    @objid ("edc68ee7-9054-433f-9f60-04d3b68f6911")
+    public static String getLocalizedMessage(IOException e) {
+        if (e instanceof FileSystemException)
+            return getLocalizedMessage((FileSystemException) e) ;
+        else
+            return e.getLocalizedMessage();
+    }
+
+    /**
      * Read the whole content of an input stream and returns it as a string.
      * <p>
      * To be used for small files.

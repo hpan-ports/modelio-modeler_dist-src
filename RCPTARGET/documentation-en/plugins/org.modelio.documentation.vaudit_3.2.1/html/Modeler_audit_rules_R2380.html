@@ -1,0 +1,36 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<title>Modeler audit rules R2380</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link href="style.css" media="screen" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<a name="R2380"></a>
+<h1 >R2380<a href="#R2380" class="wiki-anchor">&para;</a></h1>
+
+<a name="Summary"></a>
+<h4 >Summary<a href="#Summary" class="wiki-anchor">&para;</a></h4>
+
+<p>An abstract <em>Operation</em> should not redefine a concrete <em>Operation</em>.</p>
+
+<a name="Details"></a>
+<h4 >Details<a href="#Details" class="wiki-anchor">&para;</a></h4>
+
+<p>An <em>Operation</em> redefinition corresponds to a different implementation of the
+method, but abstract methods do not specify implementation, therefore an
+abstract method should not redefine another method.</p>
+
+<a name="Tips"></a>
+<h4 >Tips<a href="#Tips" class="wiki-anchor">&para;</a></h4>
+
+<ul>
+<li>Make this <em>Operation </em>non-abstract.</li>
+<li>Rework the inheritance graph to have abstract <em>Operations</em> on the
+upper part and concrete <em>Operations </em>on the lower part.</li>
+<li>Disable this rule.</li>
+</ul>
+
+
+<div id="footer"><iframe frameborder="0" scrolling="no" height="25" width="100%" src="_footer.html"></iframe></div> </body>
+</html>

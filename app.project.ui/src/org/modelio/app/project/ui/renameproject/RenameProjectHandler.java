@@ -37,7 +37,7 @@ import org.eclipse.swt.widgets.Shell;
 import org.modelio.app.project.core.creation.ProjectNameValidator;
 import org.modelio.app.project.core.services.IProjectService;
 import org.modelio.app.project.ui.plugin.AppProjectUi;
-import org.modelio.gproject.descriptor.ProjectDescriptor;
+import org.modelio.gproject.data.project.ProjectDescriptor;
 
 @objid ("00449508-cc35-1ff2-a7f4-001ec947cd2a")
 public class RenameProjectHandler {
@@ -66,9 +66,11 @@ public class RenameProjectHandler {
 @Named(IServiceConstants.ACTIVE_SELECTION) final IStructuredSelection selection) {
         if (selection == null) return false;
         List<ProjectDescriptor> projects = getSelectedElements(selection);
-        if (projects.size() != 1) {
+        if (projects.size() != 1) 
             return false;
-        }
+        
+        if (projects.get(0).getLockInfo() != null)
+            return false;
         return (projectService.getOpenedProject() == null && projects.get(0) != null);
     }
 

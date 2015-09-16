@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.uml.behavior.activityModel;
 
@@ -43,13 +43,13 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("002534f6-c4bf-1fd8-97fe-001ec947cd2a")
 public class AcceptSignalActionImpl extends ActivityActionImpl implements AcceptSignalAction {
-    @objid ("a5f70036-d84f-4117-a5d8-b9372ac19ffc")
+    @objid ("53f1bdbf-87a6-4c0e-b7db-3f20b661f3ea")
     @Override
     public EList<Signal> getAccepted() {
         return new SmList<>(this, AcceptSignalActionData.Metadata.AcceptedDep());
     }
 
-    @objid ("b13a1780-8116-47e4-abeb-3b01fc1ae0b4")
+    @objid ("5c0cfa9c-ce05-4ff9-8745-e1ee78bbebdf")
     @Override
     public <T extends Signal> List<T> getAccepted(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -62,21 +62,21 @@ public class AcceptSignalActionImpl extends ActivityActionImpl implements Accept
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("6dd61426-a5df-4d2b-ae4e-c59736362b89")
+    @objid ("f8e772a7-7aff-4f26-8df7-3b27ec2ad5f9")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("10d430b7-17e3-4af1-9676-955b99300cd6")
+    @objid ("292ec292-a7e6-4d8e-b0ba-a0a07b2a8fe0")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("ba1cb296-5085-4d40-b827-07c8e4f55fc9")
+    @objid ("9c6abce0-978c-4767-9acc-6fe33450334b")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitAcceptSignalAction(this);

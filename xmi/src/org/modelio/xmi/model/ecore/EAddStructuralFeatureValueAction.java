@@ -21,10 +21,11 @@
 
 package org.modelio.xmi.model.ecore;
 
-import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.api.model.IModelingSession;
 import org.modelio.api.modelio.Modelio;
+import org.modelio.gproject.model.IMModelServices;
+import org.modelio.metamodel.factory.ElementNotUniqueException;
 import org.modelio.metamodel.uml.behavior.activityModel.OpaqueAction;
 import org.modelio.metamodel.uml.infrastructure.Dependency;
 import org.modelio.metamodel.uml.infrastructure.Element;
@@ -35,16 +36,22 @@ import org.modelio.xmi.util.IModelerModuleStereotypes;
 import org.modelio.xmi.util.ReverseProperties;
 
 @objid ("d28ca172-410a-4e8e-bd62-85100e1fa4bb")
-public class EAddStructuralFeatureValueAction extends EActivityNode implements IEElement {
+public class EAddStructuralFeatureValueAction extends EActivityNode {
     @objid ("bc5e6943-99e8-4539-b1f4-f6c7ad093289")
+    @Override
     public Element createObjingElt() {
-        OpaqueAction element = Modelio.getInstance().getModelingSession().getModel()
+        IMModelServices mmService = ReverseProperties.getInstance().getMModelServices();
+        
+        OpaqueAction element = mmService.getModelFactory()
                 .createOpaqueAction();
         
-        Stereotype stereo = Modelio.getInstance().getModelingSession().getMetamodelExtensions()
-                .getStereotype(IModelerModuleStereotypes.UML2ADDSTRUCTURALFEATUREVALUEACTION, element.getMClass());
-        
-        element.getExtension().add(stereo);
+        try {
+            Stereotype stereo = ReverseProperties.getInstance().getMModelServices()
+                    .getStereotype(IModelerModuleStereotypes.UML2ADDSTRUCTURALFEATUREVALUEACTION, element.getMClass());
+            element.getExtension().add(stereo);
+        } catch (ElementNotUniqueException e) {
+           Xmi.LOG.warning(e);
+        }
         return element;
     }
 
@@ -53,16 +60,8 @@ public class EAddStructuralFeatureValueAction extends EActivityNode implements I
         super(element);
     }
 
-    @objid ("9656c2c9-3a6f-449d-be68-3e081eccb99e")
-    public void attach(Element objingElt) {
-        super.attach(objingElt);
-    }
-
-    @objid ("d33678d4-8956-47db-80ea-dcb5d6e74543")
-    public void attach(List<Object> objingElts) {
-    }
-
     @objid ("9d309405-c765-490c-b839-ac9dc49cbace")
+    @Override
     public void setProperties(Element objingElt) {
         super.setProperties(objingElt);
         setFeature((OpaqueAction) objingElt);
@@ -85,11 +84,7 @@ public class EAddStructuralFeatureValueAction extends EActivityNode implements I
         
         if (behavior instanceof ModelElement){
             obBehavior = (ModelElement) behavior;
-        }else if (behavior instanceof List<?>){
-            obBehavior = ((List<ModelElement>) behavior).get(0);
-        }
-        
-        if (obBehavior != null){
+               
             dependency.setDependsOn(obBehavior);
             dependency.setImpacted(objingElt);
         }else{

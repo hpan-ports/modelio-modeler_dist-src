@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.uml.behavior.interactionModel;
 
@@ -45,25 +45,25 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("00437f1a-c4bf-1fd8-97fe-001ec947cd2a")
 public class CombinedFragmentImpl extends InteractionFragmentImpl implements CombinedFragment {
-    @objid ("e4369b76-3c15-42cd-a943-03753932cc01")
+    @objid ("47a91ec9-cdb8-45ce-97f3-d72dfaffc632")
     @Override
     public InteractionOperator getOperator() {
         return (InteractionOperator) getAttVal(CombinedFragmentData.Metadata.OperatorAtt());
     }
 
-    @objid ("eab2a9d6-2a5c-42ad-b555-e11efd4726ff")
+    @objid ("91e3ead5-cc22-46a1-b347-19b922248a03")
     @Override
     public void setOperator(InteractionOperator value) {
         setAttVal(CombinedFragmentData.Metadata.OperatorAtt(), value);
     }
 
-    @objid ("f61851dc-4cad-467a-8fb3-7b423981689c")
+    @objid ("7e9cddb5-04aa-4a33-8899-5a9da5ef8ffd")
     @Override
     public EList<InteractionOperand> getOperand() {
         return new SmList<>(this, CombinedFragmentData.Metadata.OperandDep());
     }
 
-    @objid ("3d984e0b-65ab-4e11-afaf-a209665f5229")
+    @objid ("83f3d396-c875-4164-b314-615f4f6d332d")
     @Override
     public <T extends InteractionOperand> List<T> getOperand(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -76,13 +76,13 @@ public class CombinedFragmentImpl extends InteractionFragmentImpl implements Com
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("c6ed51b5-f320-4cca-8bdd-dbddcf229d21")
+    @objid ("cd1e5a3a-4a94-44be-8fe1-c766fdb95b44")
     @Override
     public EList<Gate> getFragmentGate() {
         return new SmList<>(this, CombinedFragmentData.Metadata.FragmentGateDep());
     }
 
-    @objid ("fd8a0fbc-5eaf-4460-9cfd-2e5f6986a14b")
+    @objid ("58692ce3-b934-4873-b737-8ef19284c4d6")
     @Override
     public <T extends Gate> List<T> getFragmentGate(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -95,21 +95,21 @@ public class CombinedFragmentImpl extends InteractionFragmentImpl implements Com
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("697fe314-a8bf-4591-ab9c-e8899f40f822")
+    @objid ("b3cca112-c9a4-4265-9911-7efb67b9f234")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("4e57e90d-df5d-4907-b0c6-e1ea3e65581a")
+    @objid ("8247519a-1cf9-4c29-a094-0da2bf59a3b1")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("d00b1303-b0cc-498b-a61d-7d765db30786")
+    @objid ("c55f6a28-51be-4884-9222-33f5dd6a96b1")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitCombinedFragment(this);

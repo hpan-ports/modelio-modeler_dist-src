@@ -108,15 +108,16 @@ public class GProjectEvent {
     }
 
     /**
-     * Instantiate a warning event for the project.
+     * Instantiate a warning event for a fragment.
+     * @param f the involved fragment
      * @param e an exception
      * @return the built warning
      */
     @objid ("6181ee4a-08b6-11e2-b193-001ec947ccaf")
-    public static GProjectEvent buildWarning(Exception e) {
+    public static GProjectEvent buildWarning(IProjectFragment f, Exception e) {
         GProjectEvent ev = new GProjectEvent(GProjectEventType.WARNING,
                 e.getLocalizedMessage(),
-                null,
+                f,
                 e);
         return ev;
     }
@@ -180,6 +181,35 @@ public class GProjectEvent {
         
             return ev;
         }
+    }
+
+    /**
+     * Instantiate a warning event for the project.
+     * @param e an exception
+     * @return the built warning
+     */
+    @objid ("6ce80c0e-7189-481e-aee3-e37b74fad9e9")
+    public static GProjectEvent buildWarning(Exception e) {
+        GProjectEvent ev = new GProjectEvent(GProjectEventType.WARNING,
+                e.getLocalizedMessage(),
+                null,
+                e);
+        return ev;
+    }
+
+    /**
+     * Instantiate a warning event for a fragment.
+     * @param f the involved fragment
+     * @param message the warning message
+     * @return the built warning
+     */
+    @objid ("f997d13b-c8c9-4bf0-b013-9d4f7f2ebaf6")
+    public static GProjectEvent buildWarning(IProjectFragment f, String message) {
+        GProjectEvent ev = new GProjectEvent(GProjectEventType.WARNING,
+                message,
+                f,
+                null);
+        return ev;
     }
 
 }

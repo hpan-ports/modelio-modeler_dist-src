@@ -72,7 +72,7 @@ public class ImportThread extends AbstractXMIThread implements IRunnableWithProg
             ReverseProperties.getInstance().setRollback(true);
         } catch (Exception e) {
         
-            Xmi.LOG.error(Xmi.PLUGIN_ID, e);     
+            Xmi.LOG.error(e);     
         
             catchException(e.getMessage(), Xmi.I18N.getString("error.import.invalidModel"));
         

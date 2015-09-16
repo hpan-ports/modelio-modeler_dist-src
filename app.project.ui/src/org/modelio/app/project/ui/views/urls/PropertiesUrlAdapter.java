@@ -25,8 +25,8 @@ import java.util.ArrayList;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.app.project.ui.plugin.AppProjectUi;
-import org.modelio.gproject.descriptor.DefinitionScope;
-import org.modelio.gproject.descriptor.GProperties;
+import org.modelio.gproject.data.project.DefinitionScope;
+import org.modelio.gproject.data.project.GProperties;
 
 /**
  * This class is an adapter between a GProperties (from a project or a project

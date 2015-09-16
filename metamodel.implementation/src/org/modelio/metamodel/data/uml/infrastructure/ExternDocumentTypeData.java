@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.data.uml.infrastructure;
 
@@ -47,71 +47,71 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("00937678-c4be-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=ExternDocumentType.class, factory=ExternDocumentTypeData.Metadata.ObjectFactory.class)
 public class ExternDocumentTypeData extends ModelElementData {
-    @objid ("ce0f15da-c1e8-4852-9f5d-2387f6b22410")
+    @objid ("26a883ee-7c75-4ecf-bf05-e7cd2bdc42d4")
     @SmaMetaAttribute(metaName="IsHidden", type=Boolean.class, smAttributeClass=Metadata.IsHiddenSmAttribute.class)
      Object mIsHidden = false;
 
-    @objid ("8ac1af2f-7bf6-4abc-ba71-6bf0d3b21db9")
+    @objid ("c50ead6d-4661-4a74-bbbe-8c0e597b8028")
     @SmaMetaAttribute(metaName="LabelKey", type=String.class, smAttributeClass=Metadata.LabelKeySmAttribute.class)
      Object mLabelKey = "";
 
-    @objid ("f70d6d6e-ee7c-460b-b921-e7459dca5028")
+    @objid ("50142bb9-9364-414f-b477-0eb36591141f")
     @SmaMetaAttribute(metaName="Icon", type=String.class, smAttributeClass=Metadata.IconSmAttribute.class)
      Object mIcon = "";
 
-    @objid ("6faef421-2531-4c7b-965f-8707ec0e41e3")
+    @objid ("312014df-d194-443b-86d9-318f3a0e9fb8")
     @SmaMetaAttribute(metaName="Image", type=String.class, smAttributeClass=Metadata.ImageSmAttribute.class)
      Object mImage = "";
 
-    @objid ("f7cb7883-1880-4814-adc8-8237af45f8ae")
+    @objid ("a0b79d65-f1d2-4416-a0e3-332d30529975")
     @SmaMetaAssociation(metaName="OwnerStereotype", typeDataClass=StereotypeData.class, min=0, max=1, smAssociationClass=Metadata.OwnerStereotypeSmDependency.class)
      SmObjectImpl mOwnerStereotype;
 
-    @objid ("798b80e5-a1bb-4fd9-844b-ba8c5ef4b323")
+    @objid ("a4f8d9d7-394b-4dc9-88d4-f46c9fb497ae")
     @SmaMetaAssociation(metaName="TypedDoc", typeDataClass=ExternDocumentData.class, min=0, max=-1, smAssociationClass=Metadata.TypedDocSmDependency.class, performanceRisk = true, istodelete = true)
      List<SmObjectImpl> mTypedDoc = null;
 
-    @objid ("6e5e4335-5c4a-4bbf-b7ec-91c067b71845")
+    @objid ("fdf1ea06-11ea-4a31-9cb1-30dea951f369")
     @SmaMetaAssociation(metaName="OwnerReference", typeDataClass=MetaclassReferenceData.class, min=0, max=1, smAssociationClass=Metadata.OwnerReferenceSmDependency.class)
      SmObjectImpl mOwnerReference;
 
-    @objid ("40dd744a-2b5b-4865-bcf4-7aa95ff3a1f4")
+    @objid ("629d9a72-bf62-4e45-a0d3-2c96dc8ec42e")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("0096f2da-c4c3-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("96fdf184-f9ac-4d02-b02e-c60deafba28f")
+        @objid ("871dd09e-b432-4a4a-bd6e-eccaebc94d9a")
         private static SmClass smClass = null;
 
-        @objid ("afa135c6-348b-4e50-b1bf-7dd7332094cb")
+        @objid ("27a049c5-0b9c-49c8-a0c1-f2db4d3817af")
         private static SmAttribute IsHiddenAtt = null;
 
-        @objid ("cad48f02-d950-41ce-afe3-2320a278eed9")
+        @objid ("093f51d1-6cd6-44d5-9bc8-aeabf6983c0b")
         private static SmAttribute LabelKeyAtt = null;
 
-        @objid ("9eba1195-ee72-4c74-9a30-62f878c23d17")
+        @objid ("a17a5fde-b211-45b2-81fb-4da76c3d8d57")
         private static SmAttribute IconAtt = null;
 
-        @objid ("db304d5f-bcdb-46b9-95ca-f4456531335b")
+        @objid ("2886a4e5-9520-4214-9c4a-4bf04db44a01")
         private static SmAttribute ImageAtt = null;
 
-        @objid ("245ef638-a10f-4cbf-95d8-3e9837249893")
+        @objid ("8813b37f-411a-47ab-986f-65bd8908a70d")
         private static SmDependency OwnerStereotypeDep = null;
 
-        @objid ("79cad2a3-dcb3-43d6-bb6b-d3b3c22e4df5")
+        @objid ("28c8acfe-9d95-4157-b7dd-62ce5b8f4fc3")
         private static SmDependency TypedDocDep = null;
 
-        @objid ("cf6d02ac-be3b-408f-8849-afde2e12fd7a")
+        @objid ("08580917-1611-4327-89aa-20e43a12a26c")
         private static SmDependency OwnerReferenceDep = null;
 
-        @objid ("9e10d96a-dc79-4ff1-b8d4-3ad3e3530634")
+        @objid ("40eac7f7-7494-4bd2-8569-f2a9ea99e90d")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(ExternDocumentTypeData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("9e00c13a-2bc2-47b1-bedc-716a35c39492")
+        @objid ("f1279447-13a4-40a9-b10d-a60eaed71b0d")
         public static SmAttribute IsHiddenAtt() {
             if (IsHiddenAtt == null) {
             	IsHiddenAtt = classof().getAttributeDef("IsHidden");
@@ -119,7 +119,7 @@ public class ExternDocumentTypeData extends ModelElementData {
             return IsHiddenAtt;
         }
 
-        @objid ("08374d54-7285-4851-b1ad-9bc953a385ef")
+        @objid ("542601d1-62b2-41ba-bad6-d77d722559c5")
         public static SmAttribute LabelKeyAtt() {
             if (LabelKeyAtt == null) {
             	LabelKeyAtt = classof().getAttributeDef("LabelKey");
@@ -127,7 +127,7 @@ public class ExternDocumentTypeData extends ModelElementData {
             return LabelKeyAtt;
         }
 
-        @objid ("70f2e843-ecf2-4b48-9fc4-e406c67ad9a9")
+        @objid ("b0b65a71-4b00-4bcb-b4d4-75b0f9072d65")
         public static SmAttribute IconAtt() {
             if (IconAtt == null) {
             	IconAtt = classof().getAttributeDef("Icon");
@@ -135,7 +135,7 @@ public class ExternDocumentTypeData extends ModelElementData {
             return IconAtt;
         }
 
-        @objid ("1658094f-96fc-4f8f-be6e-93ef6fb870ff")
+        @objid ("d987e234-3c04-4bde-9307-ffa9c23b87d8")
         public static SmAttribute ImageAtt() {
             if (ImageAtt == null) {
             	ImageAtt = classof().getAttributeDef("Image");
@@ -143,7 +143,7 @@ public class ExternDocumentTypeData extends ModelElementData {
             return ImageAtt;
         }
 
-        @objid ("d3ce9780-91c4-4c90-a000-34ea2b91d2b0")
+        @objid ("6511aba3-3bd4-4c1e-b35d-b5a30fd69af0")
         public static SmDependency OwnerStereotypeDep() {
             if (OwnerStereotypeDep == null) {
             	OwnerStereotypeDep = classof().getDependencyDef("OwnerStereotype");
@@ -151,7 +151,7 @@ public class ExternDocumentTypeData extends ModelElementData {
             return OwnerStereotypeDep;
         }
 
-        @objid ("a4bd86bb-6929-491e-84be-924c924678bc")
+        @objid ("26476a17-8c10-46b8-9090-81305dade3ee")
         public static SmDependency TypedDocDep() {
             if (TypedDocDep == null) {
             	TypedDocDep = classof().getDependencyDef("TypedDoc");
@@ -159,7 +159,7 @@ public class ExternDocumentTypeData extends ModelElementData {
             return TypedDocDep;
         }
 
-        @objid ("f1f14eb8-465e-45ae-b2a8-d496870053ad")
+        @objid ("47685855-8f71-44f3-9c0c-0c9026699ef7")
         public static SmDependency OwnerReferenceDep() {
             if (OwnerReferenceDep == null) {
             	OwnerReferenceDep = classof().getDependencyDef("OwnerReference");
@@ -167,62 +167,62 @@ public class ExternDocumentTypeData extends ModelElementData {
             return OwnerReferenceDep;
         }
 
-        @objid ("8d5c70c2-e1d3-4d34-aafa-fa5f32acbaa3")
-        public static SmAttribute getImageAtt() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return ImageAtt;
-        }
-
-        @objid ("c19bdda0-a5cb-4ebb-b961-2826c497b75f")
-        public static SmAttribute getIsHiddenAtt() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return IsHiddenAtt;
-        }
-
-        @objid ("efad2dee-9125-4289-b933-1e2ea06aadb3")
-        public static SmDependency getOwnerReferenceDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return OwnerReferenceDep;
-        }
-
-        @objid ("caa066b4-d8de-4805-af34-7e3df4fcb4b5")
-        public static SmAttribute getIconAtt() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return IconAtt;
-        }
-
-        @objid ("0f208ce4-4518-49a4-b097-81ce25a6a099")
-        public static SmAttribute getLabelKeyAtt() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return LabelKeyAtt;
-        }
-
-        @objid ("10563f90-03e4-4026-9ea0-7d5975c65795")
-        public static SmDependency getTypedDocDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return TypedDocDep;
-        }
-
-        @objid ("af47f775-c54c-4a1c-a7a1-1d15923cc95d")
+        @objid ("389899f1-482f-40f7-b4f4-f07e48a0646d")
         public static SmDependency getOwnerStereotypeDep() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return OwnerStereotypeDep;
         }
 
-        @objid ("523bd708-f8ad-4f31-9780-c78e9ea5c500")
+        @objid ("b529b633-fa31-4038-b27c-6dd1a4df2934")
+        public static SmDependency getTypedDocDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return TypedDocDep;
+        }
+
+        @objid ("e3ba1dd8-613d-4d07-8e0e-0c46e6a30cf1")
+        public static SmAttribute getIconAtt() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return IconAtt;
+        }
+
+        @objid ("49b2d383-367d-4717-8fe9-420b48815455")
+        public static SmDependency getOwnerReferenceDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return OwnerReferenceDep;
+        }
+
+        @objid ("71ab1fef-2207-452e-aefa-ac135e2edca3")
+        public static SmAttribute getImageAtt() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return ImageAtt;
+        }
+
+        @objid ("ea3b4841-0062-4f08-be2c-7c7b31537a0b")
+        public static SmAttribute getIsHiddenAtt() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return IsHiddenAtt;
+        }
+
+        @objid ("383f8315-b6dc-46da-b019-3f41c7e8d337")
         public static SmClass getSmClass() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return smClass;
         }
 
+        @objid ("d01a6d0e-6449-48ed-b4c9-a9016f357e44")
+        public static SmAttribute getLabelKeyAtt() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return LabelKeyAtt;
+        }
+
         @objid ("009733f8-c4c3-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("22fabbf7-f40b-4c96-87f0-f02b8aef7019")
+            @objid ("6cdd0d45-7ab7-411d-bbe8-7a25313bb66a")
             public ISmObjectData createData() {
                 return new ExternDocumentTypeData();
             }
 
-            @objid ("1acff26f-bfbf-4626-9548-5b59f418875c")
+            @objid ("457f37d2-7593-4e11-9efb-b5b9175dc491")
             public SmObjectImpl createImpl() {
                 return new ExternDocumentTypeImpl();
             }
@@ -231,12 +231,12 @@ public class ExternDocumentTypeData extends ModelElementData {
 
         @objid ("00979992-c4c3-1fd8-97fe-001ec947cd2a")
         public static class IsHiddenSmAttribute extends SmAttribute {
-            @objid ("d3f74455-4ac0-47f2-a14f-8a562444db70")
+            @objid ("cf3ee4fb-62a9-47bd-add8-3ff875f49190")
             public Object getValue(ISmObjectData data) {
                 return ((ExternDocumentTypeData) data).mIsHidden;
             }
 
-            @objid ("fafb45bc-d7d6-42ea-8ea9-6f90c2a2495c")
+            @objid ("dcf9501f-fc88-488f-8c25-dd911f5a18b5")
             public void setValue(ISmObjectData data, Object value) {
                 ((ExternDocumentTypeData) data).mIsHidden = value;
             }
@@ -245,12 +245,12 @@ public class ExternDocumentTypeData extends ModelElementData {
 
         @objid ("00985dfa-c4c3-1fd8-97fe-001ec947cd2a")
         public static class IconSmAttribute extends SmAttribute {
-            @objid ("71caf32c-4395-4e21-b722-0fe04447c1ab")
+            @objid ("f9c91d60-9a4b-44a4-ac53-7808b7646f32")
             public Object getValue(ISmObjectData data) {
                 return ((ExternDocumentTypeData) data).mIcon;
             }
 
-            @objid ("a5fd3f61-d549-4239-9286-8d6bf373bf7d")
+            @objid ("6ac07652-2284-49cb-9702-4cb673b42814")
             public void setValue(ISmObjectData data, Object value) {
                 ((ExternDocumentTypeData) data).mIcon = value;
             }
@@ -259,12 +259,12 @@ public class ExternDocumentTypeData extends ModelElementData {
 
         @objid ("00002bca-c4c4-1fd8-97fe-001ec947cd2a")
         public static class ImageSmAttribute extends SmAttribute {
-            @objid ("c48a7d81-86f7-45bb-a5f6-fec7a79835ea")
+            @objid ("8adcd77c-09b3-4218-93ca-461705dc8588")
             public Object getValue(ISmObjectData data) {
                 return ((ExternDocumentTypeData) data).mImage;
             }
 
-            @objid ("b4aae69d-a1bf-429f-8c7a-dc9024faf791")
+            @objid ("49a0fe4c-7233-417e-ae99-7460856501cf")
             public void setValue(ISmObjectData data, Object value) {
                 ((ExternDocumentTypeData) data).mImage = value;
             }
@@ -273,20 +273,20 @@ public class ExternDocumentTypeData extends ModelElementData {
 
         @objid ("000091d2-c4c4-1fd8-97fe-001ec947cd2a")
         public static class TypedDocSmDependency extends SmMultipleDependency {
-            @objid ("0a0a0e56-2f04-422d-92c2-bd4ee2b04bfd")
+            @objid ("795c228b-4b05-456c-b10d-c0ec278ec5bb")
             @Override
             public List<SmObjectImpl> getValueList(ISmObjectData data) {
                 return (((ExternDocumentTypeData)data).mTypedDoc != null)? ((ExternDocumentTypeData)data).mTypedDoc:SmMultipleDependency.EMPTY;
             }
 
-            @objid ("67887a55-476c-4fb5-ba6b-cd0f12b83206")
+            @objid ("7bf85b6d-914b-43b1-ae14-459197a4dfba")
             @Override
             protected List<SmObjectImpl> allocateValueList(ISmObjectData data, int initialCapacity) {
                 ((ExternDocumentTypeData) data).mTypedDoc = new ArrayList<>(initialCapacity);
                 return ((ExternDocumentTypeData) data).mTypedDoc;
             }
 
-            @objid ("c4b2cf1c-5df6-402f-b8d4-009c87808e8a")
+            @objid ("47f19619-ef5d-4d1a-b361-0bc067d93c9e")
             @Override
             public SmDependency getSymetric() {
                 return ExternDocumentData.Metadata.TypeDep();
@@ -296,18 +296,18 @@ public class ExternDocumentTypeData extends ModelElementData {
 
         @objid ("00010004-c4c4-1fd8-97fe-001ec947cd2a")
         public static class OwnerStereotypeSmDependency extends SmSingleDependency {
-            @objid ("ae83c3f8-915d-40b2-9d4d-110ced2d36a7")
+            @objid ("171c95ee-ff22-483b-ade1-e29ba49f276d")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((ExternDocumentTypeData) data).mOwnerStereotype;
             }
 
-            @objid ("18d19f8b-ba04-4687-8f84-fd838b4115ef")
+            @objid ("2656f240-048f-4b95-89b2-4f32cb545413")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((ExternDocumentTypeData) data).mOwnerStereotype = value;
             }
 
-            @objid ("523942da-0f88-47f3-b850-ccdda70d6f12")
+            @objid ("8de67681-4c55-4444-8346-91c89e79e752")
             @Override
             public SmDependency getSymetric() {
                 return StereotypeData.Metadata.DefinedExternDocumentTypeDep();
@@ -317,18 +317,18 @@ public class ExternDocumentTypeData extends ModelElementData {
 
         @objid ("000180a6-c4c4-1fd8-97fe-001ec947cd2a")
         public static class OwnerReferenceSmDependency extends SmSingleDependency {
-            @objid ("1ba2fa1c-beb3-407e-bd42-383629778d01")
+            @objid ("608ae87a-3c69-47a6-8940-b753df3b0d25")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((ExternDocumentTypeData) data).mOwnerReference;
             }
 
-            @objid ("301cdc01-1a89-4c79-ada1-bf1cd34ae4da")
+            @objid ("685c8615-c9a1-4461-85da-224479028a31")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((ExternDocumentTypeData) data).mOwnerReference = value;
             }
 
-            @objid ("0f79e896-07ef-4e2f-99ae-9ba2f063ccd6")
+            @objid ("6b1b4c39-4f77-4c49-9797-0193ddbb68fa")
             @Override
             public SmDependency getSymetric() {
                 return MetaclassReferenceData.Metadata.DefinedExternDocumentTypeDep();
@@ -338,12 +338,12 @@ public class ExternDocumentTypeData extends ModelElementData {
 
         @objid ("c5b47be4-961c-46e8-8bc0-b65eb132295f")
         public static class LabelKeySmAttribute extends SmAttribute {
-            @objid ("aab69514-2255-493b-a4f1-77a894d05ee4")
+            @objid ("10d73ab1-e79f-4001-9209-d73f796bf28f")
             public Object getValue(ISmObjectData data) {
                 return ((ExternDocumentTypeData) data).mLabelKey;
             }
 
-            @objid ("7aafcfd6-bacc-48d1-b3e7-3a6fed606690")
+            @objid ("fa338ef5-6f2a-4c96-9bc0-30bad2836850")
             public void setValue(ISmObjectData data, Object value) {
                 ((ExternDocumentTypeData) data).mLabelKey = value;
             }

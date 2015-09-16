@@ -69,4 +69,12 @@ public interface IDiagramCreator {
     @objid ("24d73029-ea6b-426d-b39a-8def6c26853a")
     ModelElement getAutoDiagramContext(final ModelElement main);
 
+    /**
+     * Get the element the auto diagram was created from.
+     * @param main An automatic diagram.
+     * @return The element the auto diagram was created from.
+     */
+    @objid ("86420083-9ae9-4013-98bd-5b346eadf692")
+    ModelElement getMainElement(AbstractDiagram autoDiagram);
+
 }

@@ -22,7 +22,6 @@
 package org.modelio.xmi.model.ecore;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.modelio.api.modelio.Modelio;
 import org.modelio.metamodel.uml.behavior.commonBehaviors.Behavior;
 import org.modelio.metamodel.uml.behavior.commonBehaviors.Event;
 import org.modelio.metamodel.uml.behavior.stateMachineModel.StateMachine;
@@ -40,7 +39,7 @@ public class ETimeEvent extends ENamedElement {
         org.eclipse.uml2.uml.Element ecoreOwner = getEcoreElement().getOwner();
         Element objingOwner = (Element) ReverseProperties.getInstance().getMappedElement(ecoreOwner);
         if (objingOwner instanceof Behavior){
-            Event result = Modelio.getInstance().getModelingSession().getModel().createEvent();
+            Event result = ReverseProperties.getInstance().getMModelServices().getModelFactory().createEvent();
             result.setKind(org.modelio.metamodel.uml.behavior.commonBehaviors.EventType.TIMEEVENT);
             return result;
         }else

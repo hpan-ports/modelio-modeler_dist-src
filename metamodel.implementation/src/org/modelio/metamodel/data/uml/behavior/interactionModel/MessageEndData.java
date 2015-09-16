@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.data.uml.behavior.interactionModel;
 
@@ -44,36 +44,36 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("004a25fe-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=MessageEnd.class, factory=MessageEndData.Metadata.ObjectFactory.class)
 public abstract class MessageEndData extends OccurrenceSpecificationData {
-    @objid ("c1d16938-b227-4c59-b065-01aaf175db52")
+    @objid ("f1e8aafe-d5c2-4f83-8e56-add926bd34f1")
     @SmaMetaAssociation(metaName="ReceivedMessage", typeDataClass=MessageData.class, min=0, max=1, smAssociationClass=Metadata.ReceivedMessageSmDependency.class, istodelete = true)
      SmObjectImpl mReceivedMessage;
 
-    @objid ("2ac647cd-4ff4-4b21-9295-45502b66b735")
+    @objid ("e867d048-cc8c-466c-9c0a-6c6f92b2aaed")
     @SmaMetaAssociation(metaName="SentMessage", typeDataClass=MessageData.class, min=0, max=1, smAssociationClass=Metadata.SentMessageSmDependency.class, component = true, istodelete = true)
      SmObjectImpl mSentMessage;
 
-    @objid ("b29ed303-1082-4d21-a7db-502b27b8fc95")
+    @objid ("dfaa10d5-0c37-4fc2-80f2-47b2744f0e01")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("004ad490-c4c4-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("472e475c-03f1-4b83-a118-5b9fa7f1e707")
+        @objid ("f79d0062-f612-4e4c-8d11-ebdbed4d700e")
         private static SmClass smClass = null;
 
-        @objid ("9c402c3e-0543-4402-9eb6-75fe604c43c2")
+        @objid ("783793a9-8863-4cee-aae8-50396de805b2")
         private static SmDependency ReceivedMessageDep = null;
 
-        @objid ("fff6941c-14ad-47af-9e3f-664eddd225fe")
+        @objid ("be09a2de-41ea-482a-8e63-46c63bde36b2")
         private static SmDependency SentMessageDep = null;
 
-        @objid ("a53130ad-819c-492b-b9a4-8a63ecc149f8")
+        @objid ("277762b7-042f-4cb2-829f-49ff4e558ee6")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(MessageEndData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("81613fdf-fc69-407e-abc0-871f3f018440")
+        @objid ("b21349e7-29f0-46df-b9e0-df7a93cc750b")
         public static SmDependency ReceivedMessageDep() {
             if (ReceivedMessageDep == null) {
             	ReceivedMessageDep = classof().getDependencyDef("ReceivedMessage");
@@ -81,7 +81,7 @@ public abstract class MessageEndData extends OccurrenceSpecificationData {
             return ReceivedMessageDep;
         }
 
-        @objid ("8746b75c-5ffa-4c74-a6df-3683f469f850")
+        @objid ("95ebe79f-2a7e-4e97-857a-8c9418c9e563")
         public static SmDependency SentMessageDep() {
             if (SentMessageDep == null) {
             	SentMessageDep = classof().getDependencyDef("SentMessage");
@@ -89,19 +89,19 @@ public abstract class MessageEndData extends OccurrenceSpecificationData {
             return SentMessageDep;
         }
 
-        @objid ("ad92d365-f85f-4aea-b38d-6535ef67eb9e")
-        public static SmDependency getReceivedMessageDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return ReceivedMessageDep;
-        }
-
-        @objid ("49c1825f-efd9-4dbc-b25b-c147a9b708ff")
+        @objid ("4bbc4e51-b6e3-41d2-832f-071f8483e85f")
         public static SmDependency getSentMessageDep() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return SentMessageDep;
         }
 
-        @objid ("87eac02b-5aaa-4730-9696-27b46956d23d")
+        @objid ("ceb1aff7-0236-46df-a9ce-9374a78aed07")
+        public static SmDependency getReceivedMessageDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return ReceivedMessageDep;
+        }
+
+        @objid ("27008934-a4d2-4822-bc73-ebe769724530")
         public static SmClass getSmClass() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return smClass;
@@ -109,12 +109,12 @@ public abstract class MessageEndData extends OccurrenceSpecificationData {
 
         @objid ("004b1676-c4c4-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("a13fed88-b34c-4811-8978-fec005833eca")
+            @objid ("2f1fdcc1-ee35-4299-94fb-d6a2f7dabef2")
             public ISmObjectData createData() {
                 throw new UnsupportedOperationException();
             }
 
-            @objid ("88582170-91e5-4e2e-9da5-c712ca1c8282")
+            @objid ("c1194809-6906-46ad-9675-cf49bd08d207")
             public SmObjectImpl createImpl() {
                 throw new UnsupportedOperationException();
             }
@@ -123,18 +123,18 @@ public abstract class MessageEndData extends OccurrenceSpecificationData {
 
         @objid ("004b7850-c4c4-1fd8-97fe-001ec947cd2a")
         public static class SentMessageSmDependency extends SmSingleDependency {
-            @objid ("d74999c2-d700-4acc-b61b-49d044bd8d9e")
+            @objid ("41a711da-3508-4522-af69-a34060d57f3c")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((MessageEndData) data).mSentMessage;
             }
 
-            @objid ("0d6c3306-3b3c-4a4f-90eb-ead79b9d59a1")
+            @objid ("4f423dab-b094-4b0d-b6cf-83ccf81e5678")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((MessageEndData) data).mSentMessage = value;
             }
 
-            @objid ("d9f3eaec-0915-4757-8d2c-60065cdd8be9")
+            @objid ("59e775eb-78e7-48e0-a47e-b19ddac50ed6")
             @Override
             public SmDependency getSymetric() {
                 return MessageData.Metadata.SendEventDep();
@@ -144,18 +144,18 @@ public abstract class MessageEndData extends OccurrenceSpecificationData {
 
         @objid ("004beefc-c4c4-1fd8-97fe-001ec947cd2a")
         public static class ReceivedMessageSmDependency extends SmSingleDependency {
-            @objid ("e0dab3c8-d8e0-4484-8dd6-96f553fcfa58")
+            @objid ("75d70af5-f700-451b-9c57-8e666cb52367")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((MessageEndData) data).mReceivedMessage;
             }
 
-            @objid ("802f7257-4cda-4c4b-a6ef-4f505afe9477")
+            @objid ("b9c09637-b8bf-4985-98fc-d48cc1e302a4")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((MessageEndData) data).mReceivedMessage = value;
             }
 
-            @objid ("2213cf2d-e7af-4b41-98b8-c6c50be1af75")
+            @objid ("9d6506af-2a0c-42a9-b95c-f9175bf5804a")
             @Override
             public SmDependency getSymetric() {
                 return MessageData.Metadata.ReceiveEventDep();

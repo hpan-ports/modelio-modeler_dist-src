@@ -126,7 +126,7 @@ public class PrimitiveTypeMapper {
             }else{
                 BYTE = UMLFactory.eINSTANCE.createPrimitiveType();
                 BYTE.setName(Modelio.getInstance().getModelingSession()
-                             .getModel().getUmlTypes().getBYTE().getName());
+                        .getModel().getUmlTypes().getBYTE().getName());
                 predefinedType.add(BYTE);
             }
         
@@ -147,7 +147,7 @@ public class PrimitiveTypeMapper {
             }else{
                 CHAR = UMLFactory.eINSTANCE.createPrimitiveType();
                 CHAR.setName(Modelio.getInstance().getModelingSession()
-                             .getModel().getUmlTypes().getCHAR().getName());
+                        .getModel().getUmlTypes().getCHAR().getName());
                 predefinedType.add(CHAR);
             }
         }
@@ -166,7 +166,7 @@ public class PrimitiveTypeMapper {
             }else{
                 DATE = UMLFactory.eINSTANCE.createPrimitiveType();
                 DATE.setName(Modelio.getInstance().getModelingSession()
-                             .getModel().getUmlTypes().getDATE().getName());
+                        .getModel().getUmlTypes().getDATE().getName());
                 predefinedType.add(DATE);
             }
         }
@@ -185,7 +185,7 @@ public class PrimitiveTypeMapper {
             }else{
                 DOUBLE = UMLFactory.eINSTANCE.createPrimitiveType();
                 DOUBLE.setName(Modelio.getInstance().getModelingSession()
-                               .getModel().getUmlTypes().getDOUBLE().getName());
+                        .getModel().getUmlTypes().getDOUBLE().getName());
                 predefinedType.add(DOUBLE);
             }
         }
@@ -204,7 +204,7 @@ public class PrimitiveTypeMapper {
             }else{
                 FLOAT = UMLFactory.eINSTANCE.createPrimitiveType();
                 FLOAT.setName(Modelio.getInstance().getModelingSession()
-                              .getModel().getUmlTypes().getFLOAT().getName());
+                        .getModel().getUmlTypes().getFLOAT().getName());
                 predefinedType.add(FLOAT);
             }
         }
@@ -223,7 +223,7 @@ public class PrimitiveTypeMapper {
             }else{
                 LONG = UMLFactory.eINSTANCE.createPrimitiveType();
                 LONG.setName(Modelio.getInstance().getModelingSession()
-                             .getModel().getUmlTypes().getLONG().getName());
+                        .getModel().getUmlTypes().getLONG().getName());
                 predefinedType.add(LONG);
             }
         }
@@ -290,7 +290,7 @@ public class PrimitiveTypeMapper {
             }else{
                 SHORT = UMLFactory.eINSTANCE.createPrimitiveType();
                 SHORT.setName(Modelio.getInstance().getModelingSession()
-                              .getModel().getUmlTypes().getSHORT().getName());
+                        .getModel().getUmlTypes().getSHORT().getName());
                 predefinedType.add(SHORT);
             }
         }
@@ -306,7 +306,7 @@ public class PrimitiveTypeMapper {
         if (UNDEFINED == null){
             UNDEFINED = UMLFactory.eINSTANCE.createPrimitiveType();
             UNDEFINED.setName(Modelio.getInstance().getModelingSession()
-                              .getModel().getUmlTypes().getUNDEFINED().getName());
+                    .getModel().getUmlTypes().getUNDEFINED().getName());
             predefinedType.add(UNDEFINED);
         }
         return UNDEFINED;
@@ -486,7 +486,8 @@ public class PrimitiveTypeMapper {
                 currentEcoreTypeName = ecoreType.eResource().getURI().fragment();
         }
         
-        if ((ecoreType.eContainer() instanceof ModelImpl) && ((ModelImpl) ecoreType.eContainer()).getName().equals("EcorePrimitiveTypes")){
+        if ((ecoreType.eContainer() instanceof ModelImpl) 
+                && ((ModelImpl) ecoreType.eContainer()).getName().equals("EcorePrimitiveTypes")){
             if (currentEcoreTypeName.equals(byteEcoreName)){
                 return umlTypes.getBYTE();
             }else if (currentEcoreTypeName.equals(dateEcoreName)){
@@ -522,7 +523,7 @@ public class PrimitiveTypeMapper {
                 return umlTypes.getDATE();
             }else if (currentEcoreTypeName.equals(umlTypes.getDOUBLE().getName())){
                 return umlTypes.getDOUBLE();
-            }else if ((umlTypes.getFLOAT() != null) && (currentEcoreTypeName.equals(umlTypes.getFLOAT().getName()))){
+            }else if ((currentEcoreTypeName.equals(umlTypes.getFLOAT().getName()))){
                 return umlTypes.getFLOAT();
             }else if (currentEcoreTypeName.equals(umlTypes.getLONG().getName())){
                 return umlTypes.getLONG();
@@ -550,6 +551,9 @@ public class PrimitiveTypeMapper {
         
         String ecoreContainerName = "";
         
+        if (ecoreType.getPackage() != null)
+            ecoreContainerName = ecoreType.getPackage().getName();
+        
         if (ecoreTypeName == null) {
             if (ecoreType instanceof PrimitiveTypeImpl){
                 ecoreTypeName = ((PrimitiveTypeImpl) ecoreType).eProxyURI().fragment();
@@ -576,17 +580,11 @@ public class PrimitiveTypeMapper {
             IUMLTypes umlTypes = Modelio.getInstance().getModelingSession()
                     .getModel().getUmlTypes();
         
-            String uml2IntegerTypeName = "Integer";
-        
-            String uml2BooleanTypeName = "Boolean";
-        
-            String uml2StringTypeName = "String";
-        
-            String uml2UnlimitedNaturalTypeName = "UnlimitedNatural";
-        
             ecoreTypeName = ecoreTypeName.toLowerCase();
         
-            return  ((ecoreTypeName.equals(umlTypes.getBOOLEAN().getName()))
+        
+            return  (((ecoreType instanceof org.eclipse.uml2.uml.PrimitiveType) || (ecoreType instanceof org.eclipse.uml2.uml.DataType) ) 
+                    && ((ecoreTypeName.equals(umlTypes.getBOOLEAN().getName()))
                     || (ecoreTypeName.equals(umlTypes.getBYTE().getName()))
                     || (ecoreTypeName.equals(umlTypes.getDATE().getName()))
                     || (ecoreTypeName.equals(umlTypes.getDOUBLE().getName()))
@@ -597,12 +595,10 @@ public class PrimitiveTypeMapper {
                     || (ecoreTypeName.equals(umlTypes.getINTEGER().getName()))
                     || (ecoreTypeName.equals(umlTypes.getSTRING().getName()))
                     || (ecoreTypeName.equals(umlTypes.getUNDEFINED().getName()))
-                    || (ecoreTypeName.equals(uml2IntegerTypeName))
-                    || (ecoreTypeName.equals(uml2BooleanTypeName))
-                    || (ecoreTypeName.equals(uml2StringTypeName))
-                    || (ecoreTypeName.equals(uml2UnlimitedNaturalTypeName))
-                    );
-        
+                    || (ecoreTypeName.equals(integerEcoreName))
+                    || (ecoreTypeName.equals(booleanEcoreName))
+                    || (ecoreTypeName.equals(stringEcoreName))
+                    || (ecoreTypeName.equals(unlimitedNaturalName))));
         }
         return false;
     }

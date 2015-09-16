@@ -23,8 +23,8 @@ public class DiagramBrowserModelChangeListener implements IModelChangeListener, 
     @Override
     public void modelChanged(IModelChangeEvent event) {
         // First delegate the event to the model of the browser content provider if supported
-        if (this.view.getComposite().getContentProvider() instanceof IModelChangeListener) {
-            ((IModelChangeListener) this.view.getComposite().getContentProvider()).modelChanged(event);
+        if (this.view.getPanel().getContentProvider() instanceof IModelChangeListener) {
+            ((IModelChangeListener) this.view.getPanel().getContentProvider()).modelChanged(event);
         }
         
         // Re enter the UI thread
@@ -41,8 +41,8 @@ public class DiagramBrowserModelChangeListener implements IModelChangeListener, 
     @Override
     public void statusChanged(IStatusChangeEvent event) {
         // First delegate the event to the model of the browser content provider is supported
-        if (this.view.getComposite().getContentProvider() instanceof IStatusChangeListener) {
-            ((IStatusChangeListener) this.view.getComposite().getContentProvider()).statusChanged(event);
+        if (this.view.getPanel().getContentProvider() instanceof IStatusChangeListener) {
+            ((IStatusChangeListener) this.view.getPanel().getContentProvider()).statusChanged(event);
         }
         
         // Re enter the UI thread
@@ -57,11 +57,11 @@ public class DiagramBrowserModelChangeListener implements IModelChangeListener, 
 
     @objid ("00108e16-0d4f-10c6-842f-001ec947cd2a")
     protected void updateNavigatorView() {
-        if (this.view.getComposite().getTree().isDisposed()) {
+        if (this.view.getPanel().getTree().isDisposed()) {
             return;
         }
-        this.view.getComposite().setSelection(new StructuredSelection());
-        this.view.getComposite().refresh(true);
+        this.view.getPanel().setSelection(new StructuredSelection());
+        this.view.getPanel().refresh(true);
     }
 
 }

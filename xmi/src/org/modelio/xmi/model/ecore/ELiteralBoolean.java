@@ -21,13 +21,13 @@
 
 package org.modelio.xmi.model.ecore;
 
-import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.metamodel.uml.infrastructure.Element;
 
 @objid ("acb1d0bc-17d7-4646-837b-5b138439be36")
-public class ELiteralBoolean extends ENamedElement implements IEElement {
+public class ELiteralBoolean extends ENamedElement {
     @objid ("cddbb2bd-820e-4ab4-b24d-e816d59659ec")
+    @Override
     public Element createObjingElt() {
         return null;
     }
@@ -35,19 +35,6 @@ public class ELiteralBoolean extends ENamedElement implements IEElement {
     @objid ("60445db8-7cb9-42ed-abcc-1126f9c72181")
     public ELiteralBoolean(org.eclipse.uml2.uml.LiteralBoolean element) {
         super(element);
-    }
-
-    @objid ("c3152c9d-555a-4dbb-b1d6-eff92b925f51")
-    public void attach(Element objingElt) {
-    }
-
-    @objid ("7081890c-5489-42c8-a1d9-704cd77ad08c")
-    public void attach(List<Object> objingElts) {
-    }
-
-    @objid ("2b0ba30e-9455-4c07-bd79-5874e362f0ff")
-    public void setProperties(Element objingElt) {
-        super.setProperties(objingElt);
     }
 
 }

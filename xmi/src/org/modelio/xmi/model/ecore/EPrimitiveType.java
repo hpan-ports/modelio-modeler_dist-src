@@ -22,7 +22,6 @@
 package org.modelio.xmi.model.ecore;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.modelio.api.modelio.Modelio;
 import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.metamodel.uml.infrastructure.ModelTree;
 import org.modelio.metamodel.uml.infrastructure.Profile;
@@ -36,15 +35,15 @@ import org.modelio.xmi.util.ReverseProperties;
 @objid ("6d173106-3cea-4371-8c5c-ea9d451a8193")
 public class EPrimitiveType extends ENamedElement {
     @objid ("ea3f2f96-cad2-45f2-9c7a-685db851423d")
-    private org.eclipse.uml2.uml.PrimitiveType ecoreElement;
+    private org.eclipse.uml2.uml.PrimitiveType ecoreElement = null;
 
     @objid ("c99212e7-ec16-4070-93de-dd74ab4625c0")
     @Override
     public Element createObjingElt() {
-        if (!(PrimitiveTypeMapper.isPredefinedType(this.ecoreElement))) {
-            return Modelio.getInstance().getModelingSession().getModel().createDataType();
+        if (PrimitiveTypeMapper.isPredefinedType(this.ecoreElement)) {
+            return PrimitiveTypeMapper.getPredefinedType(this.ecoreElement);
         }
-        return null;
+        return ReverseProperties.getInstance().getMModelServices().getModelFactory().createDataType();
     }
 
     @objid ("c0fae08b-dcd5-4656-bfea-2f9903c1190e")

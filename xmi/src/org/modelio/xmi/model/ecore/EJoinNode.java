@@ -21,39 +21,31 @@
 
 package org.modelio.xmi.model.ecore;
 
-import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.modelio.api.modelio.Modelio;
 import org.modelio.metamodel.uml.behavior.activityModel.ForkJoinNode;
 import org.modelio.metamodel.uml.infrastructure.Element;
+import org.modelio.xmi.util.ReverseProperties;
 
 @objid ("f6dd86a3-275b-4baa-86d3-4e8b3ec0594b")
-public class EJoinNode extends EActivityNode implements IEElement {
+public class EJoinNode extends EActivityNode {
     @objid ("48691b2c-68c7-48d8-83d7-383f8efa7d1b")
     private org.eclipse.uml2.uml.JoinNode ecoreElement;
 
     @objid ("4c4b7d95-df96-436f-acbc-39443e895e2d")
+    @Override
     public Element createObjingElt() {
-        return Modelio.getInstance().getModelingSession().getModel()
+        return ReverseProperties.getInstance().getMModelServices().getModelFactory()
                 .createForkJoinNode();
     }
 
     @objid ("0c805ee0-f75c-46d2-af17-80750ef4fd7b")
     public EJoinNode(org.eclipse.uml2.uml.JoinNode element) {
         super(element);
-        ecoreElement = element;
-    }
-
-    @objid ("ca277000-4905-450a-bdcf-bb8a0040b7d2")
-    public void attach(Element objingElt) {
-        super.attach(objingElt);
-    }
-
-    @objid ("e2087315-ccb8-403a-a010-197a70fa02d2")
-    public void attach(List<Object> objingElts) {
+        this.ecoreElement = element;
     }
 
     @objid ("2d8511d6-5ae5-4758-ad9a-d86ac966e2bf")
+    @Override
     public void setProperties(Element objingElt) {
         super.setProperties(objingElt);
         
@@ -63,17 +55,17 @@ public class EJoinNode extends EActivityNode implements IEElement {
 
     @objid ("235160bb-c28a-41bb-87e3-8e574fbcaeb4")
     private void setJoinSpec(ForkJoinNode node) {
-        org.eclipse.uml2.uml.ValueSpecification joinSpec = ecoreElement.getJoinSpec();
-                if (joinSpec != null) {
-           String value = joinSpec.stringValue();
-           if (value != null)
-               node.setJoinSpec(value);
-                }
+        org.eclipse.uml2.uml.ValueSpecification joinSpec = this.ecoreElement.getJoinSpec();
+        if (joinSpec != null) {
+            String value = joinSpec.stringValue();
+            if (value != null)
+                node.setJoinSpec(value);
+        }
     }
 
     @objid ("336e46a3-3665-4846-94b7-26b317c97dc2")
     private void setCombineDuplicate(ForkJoinNode node) {
-        node.setIsCombineDuplicate(ecoreElement.isCombineDuplicate());
+        node.setIsCombineDuplicate(this.ecoreElement.isCombineDuplicate());
     }
 
 }

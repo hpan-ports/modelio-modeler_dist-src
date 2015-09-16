@@ -21,13 +21,13 @@
 
 package org.modelio.xmi.model.ecore;
 
-import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.metamodel.uml.infrastructure.Element;
 
 @objid ("002f8b83-e7c8-444a-962d-f313a1b9ebe1")
-public class EInteractionConstraint extends ENamedElement implements IEElement {
+public class EInteractionConstraint extends ENamedElement {
     @objid ("9e706169-18e9-4ea4-8af1-a57df1001478")
+    @Override
     public Element createObjingElt() {
         return null;
     }
@@ -35,19 +35,6 @@ public class EInteractionConstraint extends ENamedElement implements IEElement {
     @objid ("58028c98-f69c-47d7-a987-1d32273549b1")
     public EInteractionConstraint(org.eclipse.uml2.uml.InteractionConstraint element) {
         super(element);
-    }
-
-    @objid ("49c85cd2-33b4-4d0b-8a8e-e519f3fdcf5b")
-    public void attach(Element objingElt) {
-    }
-
-    @objid ("2a0702d9-385a-46c8-b7b0-a54d513cfb79")
-    public void attach(List<Object> objingElts) {
-    }
-
-    @objid ("3a677ce9-b946-4b0b-9aa1-cf7c49a44ac1")
-    public void setProperties(Element objingElt) {
-        super.setProperties(objingElt);
     }
 
 }

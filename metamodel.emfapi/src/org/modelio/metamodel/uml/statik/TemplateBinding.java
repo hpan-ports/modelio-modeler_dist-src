@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.uml.statik;
 
@@ -35,34 +35,34 @@ import org.modelio.metamodel.uml.statik.TemplateParameterSubstitution;
 
 @objid ("001c3784-c4bf-1fd8-97fe-001ec947cd2a")
 public interface TemplateBinding extends ModelElement {
-    @objid ("9bfd3493-3ed8-415f-a3f8-e3e1447c0e8f")
+    @objid ("a21eb61d-189a-4afa-896a-097af693d443")
     EList<TemplateParameterSubstitution> getParameterSubstitution();
 
-    @objid ("e8e76731-5018-4652-9bc1-d4e9f90276ab")
+    @objid ("6b9245fb-af77-4717-af94-462dee04872c")
     <T extends TemplateParameterSubstitution> List<T> getParameterSubstitution(java.lang.Class<T> filterClass);
 
-    @objid ("c1514761-5fa5-4f49-af42-e60d84f7f9b9")
+    @objid ("20b7f2a4-3064-491d-a1c6-acbcf9b4640d")
     Operation getBoundOperation();
 
-    @objid ("bc0e0e62-454f-4aa4-a4b6-f477a7aa2072")
+    @objid ("0cc64a90-2b35-44c9-aa7c-9f0e389c8346")
     void setBoundOperation(Operation value);
 
-    @objid ("d2ef941a-f6fa-4e5f-896d-83459d148b1a")
+    @objid ("574179ca-eabd-4f31-9b41-d949cf20ad6b")
     Operation getInstanciatedTemplateOperation();
 
-    @objid ("45ecdb47-526f-4924-b339-18d0e2ffd0b9")
+    @objid ("c380cbae-dbf1-4aa3-890e-a81be1e6b963")
     void setInstanciatedTemplateOperation(Operation value);
 
-    @objid ("3aa6a630-9948-4603-9f6a-cb47a6e49227")
+    @objid ("21093758-22cf-4359-9d3c-6a159593e1dc")
     NameSpace getInstanciatedTemplate();
 
-    @objid ("a88e92a2-f378-4166-9a73-f6d7ae3348b0")
+    @objid ("2de942a4-f725-4d9b-8188-5df15c53791f")
     void setInstanciatedTemplate(NameSpace value);
 
-    @objid ("8f5e722c-f7a1-4422-8f0f-7b63021b8d79")
+    @objid ("e92fa858-2928-4d69-8e2e-1f3ce391a410")
     NameSpace getBoundElement();
 
-    @objid ("8d29970d-b7bb-4470-8d3a-21fa6965d94e")
+    @objid ("b6be36b9-f876-418a-9206-2e17b412cb25")
     void setBoundElement(NameSpace value);
 
 }

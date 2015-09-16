@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.uml.infrastructure;
 
@@ -42,55 +42,55 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("00860ba0-c4be-1fd8-97fe-001ec947cd2a")
 public class DependencyImpl extends ModelElementImpl implements Dependency {
-    @objid ("6880c074-c5df-4423-9e1e-f78a59fc3adb")
+    @objid ("9630a4c6-e3e7-4f0b-82c9-2ccc81af931a")
     @Override
     public String getDependsOnId() {
         return (String) getAttVal(DependencyData.Metadata.DependsOnIdAtt());
     }
 
-    @objid ("6836b2d3-791c-4266-a314-3217ac5aad09")
+    @objid ("a1d3b1b6-0bef-47f2-bf3e-d95b642d3259")
     @Override
     public void setDependsOnId(String value) {
         setAttVal(DependencyData.Metadata.DependsOnIdAtt(), value);
     }
 
-    @objid ("8c1bf782-586d-4cf1-ad34-a6854dd3286d")
+    @objid ("550f2046-115e-4d25-b191-c1931df3f62d")
     @Override
     public String getDependsOnName() {
         return (String) getAttVal(DependencyData.Metadata.DependsOnNameAtt());
     }
 
-    @objid ("428f6a5e-7ebf-4236-b3a3-b5c18f935e66")
+    @objid ("02d25fea-fe8f-4e55-9595-5aa801615d35")
     @Override
     public void setDependsOnName(String value) {
         setAttVal(DependencyData.Metadata.DependsOnNameAtt(), value);
     }
 
-    @objid ("b22946d5-429f-4ea7-9f8e-d47915b57e70")
+    @objid ("4c7f465a-3f01-47c2-9015-d9414d548190")
     @Override
     public ModelElement getDependsOn() {
         return (ModelElement) getDepVal(DependencyData.Metadata.DependsOnDep());
     }
 
-    @objid ("818d3b56-60d2-4cca-b6d5-de9b3d6e6c39")
+    @objid ("bd3a5bcb-f9ee-4595-8eeb-79b8e10a5b40")
     @Override
     public void setDependsOn(ModelElement value) {
         appendDepVal(DependencyData.Metadata.DependsOnDep(), (SmObjectImpl)value);
     }
 
-    @objid ("ee114832-90b7-4c6e-bf17-f178f3d4baab")
+    @objid ("43823bc3-6556-4dbd-be2d-d32f76334bb0")
     @Override
     public ModelElement getImpacted() {
         return (ModelElement) getDepVal(DependencyData.Metadata.ImpactedDep());
     }
 
-    @objid ("efb77832-691a-4037-ab63-1110dedd173f")
+    @objid ("940c4409-3343-4ad5-8ab7-df476e6aa0a6")
     @Override
     public void setImpacted(ModelElement value) {
         appendDepVal(DependencyData.Metadata.ImpactedDep(), (SmObjectImpl)value);
     }
 
-    @objid ("f8444576-c2f5-48c8-9267-ef8987149b23")
+    @objid ("51ee23d1-99e6-4fd8-a104-76e92e2a992b")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
@@ -100,7 +100,7 @@ public class DependencyImpl extends ModelElementImpl implements Dependency {
         return super.getCompositionOwner();
     }
 
-    @objid ("93599b5d-93a3-4f0d-b3c1-e990d1203512")
+    @objid ("f9627941-b76f-4913-a646-17685800dceb")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
@@ -110,7 +110,7 @@ public class DependencyImpl extends ModelElementImpl implements Dependency {
         return super.getCompositionRelation();
     }
 
-    @objid ("1b295f45-185a-40f8-b011-c2600493ea92")
+    @objid ("6777dff4-b5fa-404f-a209-7649cea4817f")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitDependency(this);

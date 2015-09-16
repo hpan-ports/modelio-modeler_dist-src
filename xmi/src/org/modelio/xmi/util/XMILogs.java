@@ -48,14 +48,14 @@ public class XMILogs {
     private String logFile = "";
 
     @objid ("0be73e8b-179e-4706-b83c-849912e04a40")
-    private List<String> elements = new ArrayList<String>();
+    private List<String> elements = new ArrayList<>();
 
     @objid ("c7ba313a-070d-4bfd-b6c0-1642fbff6c03")
     private File fileToSave = null;
 
     @objid ("5e6a2db0-9660-48df-9d1a-aa76d2215ff8")
     private DateFormat dateFormat = DateFormat.getDateTimeInstance(
-                                                                   DateFormat.SHORT, DateFormat.MEDIUM, Locale.getDefault());
+            DateFormat.SHORT, DateFormat.MEDIUM, Locale.getDefault());
 
     @objid ("ee5e3e91-1876-464c-9a7d-34c1a8aa08b0")
     private StringBuffer log = null;
@@ -85,8 +85,8 @@ public class XMILogs {
         if (this.log != null) {
             this.empty = false;
             String logFilepath = this.fileToSave.getAbsolutePath();
-            Xmi.LOG.error(Xmi.PLUGIN_ID, Xmi.I18N.getMessage("warning.log.check",
-                                                   logFilepath));
+            Xmi.LOG.error(Xmi.I18N.getMessage("warning.log.check",
+                    logFilepath));
             this.log = null;
         }
     }
@@ -104,6 +104,7 @@ public class XMILogs {
             if (! this.elements.contains(inputMsg)) {
                 this.elements.add(inputMsg);
                 this.log.append(inputMsg).append( this.LINE_SEPARATOR);
+                
                 try {
                     if (! this.fileToSave.exists()) {
                         if (( this.fileToSave.getParentFile() == null) 
@@ -112,19 +113,23 @@ public class XMILogs {
                             try {
                                 Thread.sleep(100);
                             } catch (InterruptedException e) {
-                                e.printStackTrace();
+                                Xmi.LOG.error(e);    
                             }
                         }
                         this.fileToSave.createNewFile();
                     }
-                    FileWriter f = new FileWriter( this.fileToSave, true);
-                    BufferedWriter bf = new BufferedWriter(f);
-                    bf.write("[" +  this.dateFormat.format(Calendar.getInstance().getTime()) + "]: " + inputMsg);
-                    bf.newLine();
-                    bf.close();
+        
+                    try (  FileWriter f = new FileWriter( this.fileToSave, true);
+                            BufferedWriter bf = new BufferedWriter(f);){
+        
+                        bf.write("[" +  this.dateFormat.format(Calendar.getInstance().getTime()) + "]: " + inputMsg);
+                        bf.newLine();
+                    } catch (IOException e) {
+                        Xmi.LOG.error(e);       
+                    }
         
                 } catch (IOException e) {
-                    Xmi.LOG.error(Xmi.PLUGIN_ID, e);       
+                    Xmi.LOG.error(e);       
                 }
             }
         }
@@ -143,7 +148,7 @@ public class XMILogs {
      */
     @objid ("2493e2db-111f-48dc-b8f0-0d47a6479ae0")
     public void setLogFile(final String logFile) {
-        this.elements = new ArrayList<String>();
+        this.elements = new ArrayList<>();
         this.logFile = logFile.substring(0, logFile.length() - 4);
         this.fileToSave = new File(this.logFile + ".log");
     }

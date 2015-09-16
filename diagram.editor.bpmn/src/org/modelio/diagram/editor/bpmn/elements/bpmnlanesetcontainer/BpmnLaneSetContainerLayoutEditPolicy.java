@@ -623,20 +623,20 @@ public class BpmnLaneSetContainerLayoutEditPolicy extends OrderedLayoutEditPolic
             Dimension constraint = getConstraintFor(request, resizedChild).getSize();
             newConstraints.put((GmNodeModel) resizedChild.getModel(), constraint.height);
             // Get the impacted neighbour:
-            GraphicalEditPart impactedNeighbour = getImpactedNeighbour(resizedChild, request);
-            if (impactedNeighbour != null) {
-                // Resize neighbour to compensate for size change of
-                // resizedChild.
-                ChangeBoundsRequest inverseRequest = new ChangeBoundsRequest(RequestConstants.REQ_RESIZE);
-                inverseRequest.setEditParts(impactedNeighbour);
-                inverseRequest.setLocation(request.getLocation());
-                inverseRequest.setSizeDelta(request.getSizeDelta().getNegated());
-                // TODO: reverse direction?
-                inverseRequest.setResizeDirection(request.getResizeDirection());
-                Dimension neighbourConstraint = getConstraintFor(inverseRequest, impactedNeighbour).getSize();
-                newConstraints.put((GmNodeModel) impactedNeighbour.getModel(), neighbourConstraint.height);
-        
-            } else {
+        //            GraphicalEditPart impactedNeighbour = getImpactedNeighbour(resizedChild, request);
+        //            if (impactedNeighbour != null) {
+        //                // Resize neighbour to compensate for size change of
+        //                // resizedChild.
+        //                ChangeBoundsRequest inverseRequest = new ChangeBoundsRequest(RequestConstants.REQ_RESIZE);
+        //                inverseRequest.setEditParts(impactedNeighbour);
+        //                inverseRequest.setLocation(request.getLocation());
+        //                inverseRequest.setSizeDelta(request.getSizeDelta().getNegated());
+        //                // TODO: reverse direction?
+        //                inverseRequest.setResizeDirection(request.getResizeDirection());
+        //                Dimension neighbourConstraint = getConstraintFor(inverseRequest, impactedNeighbour).getSize();
+        //                newConstraints.put((GmNodeModel) impactedNeighbour.getModel(), neighbourConstraint.height);
+        //        
+        //            } else {
                 // No neighbour, this means the resizedChild is on a border:
                 // request a resize of the the container and append the
                 // resulting command to the returned command.
@@ -653,7 +653,7 @@ public class BpmnLaneSetContainerLayoutEditPolicy extends OrderedLayoutEditPolic
         
                 Command parentCommand = getHost().getParent().getParent().getCommand(resizeContainerRequest);
                 compound.add(parentCommand);
-            }
+        //            }
         }
         // command.setCommonHeight(newHeight);
         command.setNewConstraints(newConstraints);

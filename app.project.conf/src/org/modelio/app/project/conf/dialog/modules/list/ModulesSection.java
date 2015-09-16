@@ -21,11 +21,11 @@
 
 package org.modelio.app.project.conf.dialog.modules.list;
 
+import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -73,18 +73,22 @@ import org.modelio.app.project.conf.dialog.common.ScopeHelper;
 import org.modelio.app.project.conf.dialog.modules.ModuleRemovalConfirmationDialog;
 import org.modelio.app.project.conf.plugin.AppProjectConf;
 import org.modelio.app.project.core.services.IProjectService;
-import org.modelio.gproject.descriptor.FragmentType;
+import org.modelio.gproject.data.project.FragmentType;
 import org.modelio.gproject.fragment.IProjectFragment;
 import org.modelio.gproject.gproject.GProject;
 import org.modelio.gproject.module.GModule;
+import org.modelio.gproject.module.IModuleCatalog;
 import org.modelio.gproject.module.IModuleHandle;
-import org.modelio.gproject.module.ModuleHandleComparator;
+import org.modelio.gproject.module.ModuleId;
+import org.modelio.gproject.module.ModuleSorter;
+import org.modelio.gproject.module.catalog.FileModuleStore;
 import org.modelio.mda.infra.catalog.CompatibilityHelper;
 import org.modelio.mda.infra.catalog.ModuleCatalogPanel;
 import org.modelio.mda.infra.service.IModuleService;
 import org.modelio.metamodel.mda.ModuleComponent;
 import org.modelio.ui.UIImages;
 import org.modelio.ui.progress.IModelioProgressService;
+import org.modelio.vbasic.collections.TopologicalSorter.CyclicDependencyException;
 import org.modelio.vcore.session.api.transactions.ITransaction;
 import org.modelio.vcore.smkernel.AccessDeniedException;
 
@@ -140,6 +144,10 @@ public class ModulesSection {
     @objid ("bc59e504-6e74-4fe2-ba11-2da4a66b0b16")
     protected IModelioProgressService progressService;
 
+    /**
+     * @param application The Eclipse context
+     * @param env Modelio environment
+     */
     @objid ("a73f82ae-33f6-11e2-a514-002564c97630")
     public ModulesSection(IEclipseContext application, ModelioEnv env) {
         this.applicationContext = application;
@@ -149,6 +157,9 @@ public class ModulesSection {
         this.progressService = this.applicationContext.get(IModelioProgressService.class);
     }
 
+    /**
+     * @param projectAdapter the project model
+     */
     @objid ("a73f82b1-33f6-11e2-a514-002564c97630")
     public void setInput(ProjectModel projectAdapter) {
         this.projectAdapter = projectAdapter;
@@ -169,6 +180,12 @@ public class ModulesSection {
         }
     }
 
+    /**
+     * Build the Eclipse form Section.
+     * @param toolkit the form toolkit
+     * @param parent the parent composite
+     * @return the built section.
+     */
     @objid ("a73f82b4-33f6-11e2-a514-002564c97630")
     public Section createControls(final FormToolkit toolkit, final Composite parent) {
         final Section section = toolkit.createSection(parent, ExpandableComposite.TITLE_BAR | ExpandableComposite.TWISTIE
@@ -298,12 +315,16 @@ public class ModulesSection {
                         IModule iModule = ModulesSection.this.moduleService.getIModule(moduleElement);
                         if (iModule != null) {
                             final ILicenseInfos licenseInfos = iModule.getLicenseInfos();
-                            Date date = licenseInfos.getDate();
-                            if (date != null) {
-                                SimpleDateFormat sdf = new SimpleDateFormat(AppProjectConf.I18N.getString("ModulesSection.License.DateFormat"));
-                                return AppProjectConf.I18N.getMessage("ModulesSection.License." + licenseInfos.getStatus().name() + ".limited", sdf.format(date));
+                            if (licenseInfos != null) {
+                                Date date = licenseInfos.getDate();
+                                if (date != null) {
+                                    SimpleDateFormat sdf = new SimpleDateFormat(AppProjectConf.I18N.getString("ModulesSection.License.DateFormat"));
+                                    return AppProjectConf.I18N.getMessage("ModulesSection.License." + licenseInfos.getStatus().name() + ".limited", sdf.format(date));
+                                } else {
+                                    return AppProjectConf.I18N.getMessage("ModulesSection.License." + licenseInfos.getStatus().name() + ".unlimited"); 
+                                }
                             } else {
-                                return AppProjectConf.I18N.getMessage("ModulesSection.License." + licenseInfos.getStatus().name() + ".unlimited"); 
+                                AppProjectConf.LOG.warning("'"+iModule.getName()+"' ("+iModule.getClass().getName()+") module has no license info (state="+iModule.getState()+")");
                             }
                         }
                     }
@@ -462,13 +483,17 @@ public class ModulesSection {
         return section;
     }
 
+    /**
+     * Add a change listener to the modules table
+     * @param listener the listener.
+     */
     @objid ("a73f82bc-33f6-11e2-a514-002564c97630")
     public void addSelectionChangedListener(ISelectionChangedListener listener) {
         this.modulesTable.addSelectionChangedListener(listener);
     }
 
     @objid ("e4304706-ec48-46c1-a1f2-11ad6bb24d90")
-    public ProjectModel getProjectAdapter() {
+    ProjectModel getProjectAdapter() {
         return ModulesSection.this.projectAdapter;
     }
 
@@ -489,7 +514,7 @@ public class ModulesSection {
     }
 
     @objid ("c173a2ce-321c-4b2b-bfca-d1c894e64f35")
-    public Collection<IModuleHandle> getModulesToAdd() {
+    Collection<IModuleHandle> getModulesToAdd() {
         Map<String, IModuleHandle> modulesToAdd = new HashMap<>();
         for (Object obj : this.moduleSelectionsInCatalog.toList()) {
             if (obj instanceof IModuleHandle) {
@@ -500,13 +525,17 @@ public class ModulesSection {
                 }
             }
         }
+        
+        addMissingDependencies(modulesToAdd);
+        
         return modulesToAdd.values();
+        //return ModuleSorter.sortHandles(modulesToAdd.values());
     }
 
     @objid ("a195e2c5-5dfa-4cca-9cc3-1a2e9ca023e5")
     ModuleCatalogPanel createModuleCatalogPanel(Composite parent) {
         ModuleCatalogPanel panel = new ModuleCatalogPanel(this.env);
-        panel.create(parent);
+        panel.createPanel(parent);
         
         panel.getViewer().addSelectionChangedListener(new ISelectionChangedListener() {
             @Override
@@ -540,21 +569,32 @@ public class ModulesSection {
         return panel;
     }
 
-    @objid ("88dd144a-5a27-48fd-bd3e-7ac85632a212")
-    public Composite getCatalogPanelComposite() {
-        return (Composite) ModulesSection.this.moduleCatalogPanel.getComposite();
-    }
-
     @objid ("1388620e-79d6-41bc-b84c-5052d29a0e82")
     protected void addSelectedModules() {
         IRunnableWithProgress runnable = new IRunnableWithProgress() {
             
             @Override
             public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
-                AppProjectConf.LOG.debug("Add module(s)"); //$NON-NLS-1$
+                final Collection<IModuleHandle> modulesToAdd = getModulesToAdd();
+                
+                if (AppProjectConf.LOG.isDebugEnabled()) {
+                    StringBuilder sb = new StringBuilder();
+                    sb.append("Add module(s):\n");//$NON-NLS-1$
+                    for (IModuleHandle h : modulesToAdd) {
+                        sb.append(" - ");
+                        sb.append(h.getName());
+                        sb.append("  v");
+                        sb.append(h.getVersion());
+                        sb.append("  (");
+                        sb.append(h.getDependencies().size() + h.getWeakDependencies().size());
+                        sb.append("  deps)\n");
+                    }
+                    AppProjectConf.LOG.debug(sb.toString()); 
+                }
+                
                 IProjectService projectService = ModulesSection.this.applicationContext.get(IProjectService.class);
                 GProject openedProject = projectService.getOpenedProject();
-                AddModuleHelper.run(openedProject, ModulesSection.this.moduleService, getModulesToAdd(), monitor, getProjectAdapter());
+                AddModuleHelper.run(openedProject, ModulesSection.this.moduleService, modulesToAdd, monitor, getProjectAdapter());
             }
         };
         try {
@@ -565,14 +605,77 @@ public class ModulesSection {
         }
     }
 
+    /**
+     * Analyze the module list and adds all required modules to it by taking the latest version in the catalog.
+     */
+    @objid ("b4e655c4-7490-4506-a966-e32523783704")
+    private void addMissingDependencies(Map<String, IModuleHandle> modulesToAdd) {
+        // Compute all missing dependencies
+        List<ModuleId> dependencies = new ArrayList<>();
+        for (IModuleHandle module : modulesToAdd.values()) {
+            for (ModuleId dep : module.getDependencies()) {
+                if (!modulesToAdd.containsKey(dep.getName())) {
+                    dependencies.add(dep);
+                }
+            }
+        }
+        
+        if (!dependencies.isEmpty()) {
+            IModuleCatalog catalog = new FileModuleStore(this.env.getModuleCatalogPath());
+        
+            try {
+                for (ModuleId moduleId : dependencies) {
+                    final IModuleHandle latestModule = catalog.findModule(moduleId.getName(), null, null);
+                    if (latestModule != null) {
+                        modulesToAdd.put(moduleId.getName(), latestModule);
+                    } else {
+                        // At least one module is missing, let the deployment phase pop an error.
+                        return;
+                    }
+                }
+        
+                // Make sure the module list is complete
+                addMissingDependencies(modulesToAdd);
+            } catch (IOException e) {
+                // log & let the deployment phase pop an error.
+                AppProjectConf.LOG.warning(e);
+            }
+        }
+    }
+
     @objid ("234a564c-79b4-4bfa-a39c-3b0664ac44b3")
     private static class AddModuleHelper {
         @objid ("cdbd5b64-6a82-42f2-8adb-f5bc22324328")
         public static void run(final GProject project, final IModuleService moduleService, Collection<IModuleHandle> modules, IProgressMonitor monitor, ProjectModel projectAdapter) {
             // Sort the module according to their dependencies
-            List<IModuleHandle> sortedModules = new ArrayList<>();
-            sortedModules.addAll(modules);
-            Collections.sort(sortedModules, new ModuleHandleComparator());
+            List<IModuleHandle> sortedModules;
+            try {
+                sortedModules = ModuleSorter.sortHandles(modules);
+                
+                if (AppProjectConf.LOG.isDebugEnabled()) {
+                    StringBuilder sb = new StringBuilder();
+                    sb.append("AddModuleHelper: Installing module(s):\n");//$NON-NLS-1$
+                    for (IModuleHandle h : sortedModules) {
+                        sb.append(" - ");
+                        sb.append(h.getName());
+                        sb.append("  v");
+                        sb.append(h.getVersion());
+                        sb.append("  (");
+                        sb.append(h.getDependencies().size() + h.getWeakDependencies().size());
+                        sb.append("  deps)\n");
+                    }
+                    AppProjectConf.LOG.debug(sb.toString()); 
+                }
+                
+            } catch (CyclicDependencyException e) {
+                // Error dialog
+                AppProjectConf.LOG.debug(e);
+                MessageDialog.openError(null, 
+                        AppProjectConf.I18N.getString("ModulesSection.ModuleInstallationErrorTitle"), 
+                        e.getLocalizedMessage());
+                return;
+            }
+            
             int sum = sortedModules.size();
             monitor.beginTask(AppProjectConf.I18N.getString("ModulesSection.AddModulesProgressTitle"), sum);
             List<String> invalidIds = getExistFragmentIdList(projectAdapter);
@@ -583,20 +686,27 @@ public class ModulesSection {
                             AppProjectConf.I18N.getMessage("ModulesSection.ModuleInstallationErrorMessage.NameExistAlready", module.getName()));
                     return;
                 }
+                
                 monitor.subTask(AppProjectConf.I18N.getMessage("ModulesSection.AddModulesProgressSubTask", String.valueOf(i+1), String.valueOf(sum), module.getName()));
                 monitor.worked(1);
+                
                 try (ITransaction t = project.getSession().getTransactionSupport().createTransaction("install a module")) { //$NON-NLS-1$
                     moduleService.installModule(project, module.getArchive());
                     t.commit();
                 } catch (ModuleException e) {
                     // Error dialog
-                    MessageDialog.openError(null, AppProjectConf.I18N.getString("ModulesSection.ModuleInstallationErrorTitle"), e.getMessage());
                     AppProjectConf.LOG.debug(e);
+                    MessageDialog.openError(null, AppProjectConf.I18N.getString("ModulesSection.ModuleInstallationErrorTitle"), e.getMessage());
                 }   
             }
             monitor.done();
         }
 
+        /**
+         * get existing model fragment identifiers, excepted MDA ones.
+         * @param projectAdapter a project
+         * @return existing model fragments identifiers
+         */
         @objid ("9ce64677-493c-4635-b691-3df4248a08ce")
         private static List<String> getExistFragmentIdList(ProjectModel projectAdapter) {
             List<String> fragmentIds = new ArrayList<>();

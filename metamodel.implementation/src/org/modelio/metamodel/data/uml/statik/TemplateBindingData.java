@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.data.uml.statik;
 
@@ -48,57 +48,57 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("001cc6ae-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=TemplateBinding.class, factory=TemplateBindingData.Metadata.ObjectFactory.class)
 public class TemplateBindingData extends ModelElementData {
-    @objid ("ef133509-ec15-4786-a4f8-609d9115de96")
+    @objid ("ed1dacf4-c8a7-4d22-9263-6c1427802a58")
     @SmaMetaAssociation(metaName="ParameterSubstitution", typeDataClass=TemplateParameterSubstitutionData.class, min=0, max=-1, smAssociationClass=Metadata.ParameterSubstitutionSmDependency.class, component = true)
      List<SmObjectImpl> mParameterSubstitution = null;
 
-    @objid ("8fd72927-79f6-45b0-b20a-25641570d210")
+    @objid ("e68575b5-9036-4547-a97c-072db2876683")
     @SmaMetaAssociation(metaName="BoundOperation", typeDataClass=OperationData.class, min=0, max=1, smAssociationClass=Metadata.BoundOperationSmDependency.class)
      SmObjectImpl mBoundOperation;
 
-    @objid ("94ccfb34-af43-429c-83b1-7f96096fa3ea")
+    @objid ("b50bf826-4c10-4dfd-99fe-59136bc24dbd")
     @SmaMetaAssociation(metaName="InstanciatedTemplateOperation", typeDataClass=OperationData.class, min=0, max=1, smAssociationClass=Metadata.InstanciatedTemplateOperationSmDependency.class, partof = true)
      SmObjectImpl mInstanciatedTemplateOperation;
 
-    @objid ("4a7f7b97-65bc-41fc-99fa-1bbdba99f76e")
+    @objid ("53eaf2f9-314f-49b3-a937-14b0bdf134aa")
     @SmaMetaAssociation(metaName="InstanciatedTemplate", typeDataClass=NameSpaceData.class, min=0, max=1, smAssociationClass=Metadata.InstanciatedTemplateSmDependency.class, partof = true)
      SmObjectImpl mInstanciatedTemplate;
 
-    @objid ("8caade2a-2d68-431f-9ec5-9b6850cd9c6b")
+    @objid ("3132759a-8a84-4d80-ab5c-7435975ac6f9")
     @SmaMetaAssociation(metaName="BoundElement", typeDataClass=NameSpaceData.class, min=0, max=1, smAssociationClass=Metadata.BoundElementSmDependency.class)
      SmObjectImpl mBoundElement;
 
-    @objid ("3fd02764-fd69-4134-bfa5-931fd6ce5d55")
+    @objid ("67e84790-bd2f-4ec5-9c59-f7b472377f0a")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("006f23ae-c4c4-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("d5b04fb2-4d9d-4cf0-843b-3eeb48e5497a")
+        @objid ("a5552642-215e-4549-90d0-1be8ef9d178d")
         private static SmClass smClass = null;
 
-        @objid ("931aee63-c265-4837-9b33-5ae429cc3d2e")
+        @objid ("b470314a-d067-4a0f-b6f9-d2574a7c0a9c")
         private static SmDependency ParameterSubstitutionDep = null;
 
-        @objid ("cf10502c-47bc-43a7-a591-47a110b8a753")
+        @objid ("1637612c-43bc-4210-8f2c-c6210a901561")
         private static SmDependency BoundOperationDep = null;
 
-        @objid ("af11bda1-6544-4d6a-a264-13fac8684ca3")
+        @objid ("b569f9db-a56a-4802-833c-a593a2fe0350")
         private static SmDependency InstanciatedTemplateOperationDep = null;
 
-        @objid ("0b37f281-9354-4351-8895-df2471c2d5cd")
+        @objid ("d26f6578-1227-4fe8-b085-040954ea1ced")
         private static SmDependency InstanciatedTemplateDep = null;
 
-        @objid ("dfe14e7e-d3a4-418d-9df7-6bae40ab65c7")
+        @objid ("ecb8ed59-dad7-43e3-a53c-bfc83c1be3f3")
         private static SmDependency BoundElementDep = null;
 
-        @objid ("87e9d9b7-bbfc-43ea-bdb9-df9930464d81")
+        @objid ("4c486c17-b8ea-47a8-9779-feea765f6ac1")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(TemplateBindingData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("2a49267b-1d79-4d27-8583-6beb69ac086f")
+        @objid ("a4e5baa8-579d-42a8-b975-304390ba1703")
         public static SmDependency ParameterSubstitutionDep() {
             if (ParameterSubstitutionDep == null) {
             	ParameterSubstitutionDep = classof().getDependencyDef("ParameterSubstitution");
@@ -106,7 +106,7 @@ public class TemplateBindingData extends ModelElementData {
             return ParameterSubstitutionDep;
         }
 
-        @objid ("b6601af1-2768-4fea-bdc3-4922f70315f9")
+        @objid ("c0479069-9132-4266-9494-8be2081d9253")
         public static SmDependency BoundOperationDep() {
             if (BoundOperationDep == null) {
             	BoundOperationDep = classof().getDependencyDef("BoundOperation");
@@ -114,7 +114,7 @@ public class TemplateBindingData extends ModelElementData {
             return BoundOperationDep;
         }
 
-        @objid ("443558aa-4ab6-4068-85ce-29ca7f997c1a")
+        @objid ("b3e683d9-0e12-44a1-a7de-00c5515e8246")
         public static SmDependency InstanciatedTemplateOperationDep() {
             if (InstanciatedTemplateOperationDep == null) {
             	InstanciatedTemplateOperationDep = classof().getDependencyDef("InstanciatedTemplateOperation");
@@ -122,7 +122,7 @@ public class TemplateBindingData extends ModelElementData {
             return InstanciatedTemplateOperationDep;
         }
 
-        @objid ("e49f266a-883f-4049-a22f-0ec6930c4945")
+        @objid ("f12b9a8d-fc97-40d7-9896-263342dfec4f")
         public static SmDependency InstanciatedTemplateDep() {
             if (InstanciatedTemplateDep == null) {
             	InstanciatedTemplateDep = classof().getDependencyDef("InstanciatedTemplate");
@@ -130,7 +130,7 @@ public class TemplateBindingData extends ModelElementData {
             return InstanciatedTemplateDep;
         }
 
-        @objid ("b18af239-5fad-4a1f-a7b6-175b013ac555")
+        @objid ("40b0fff6-0ddb-4552-a398-59bcfc301eb4")
         public static SmDependency BoundElementDep() {
             if (BoundElementDep == null) {
             	BoundElementDep = classof().getDependencyDef("BoundElement");
@@ -138,50 +138,50 @@ public class TemplateBindingData extends ModelElementData {
             return BoundElementDep;
         }
 
-        @objid ("91642871-d6e8-4105-959c-decccc99e84e")
-        public static SmDependency getParameterSubstitutionDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return ParameterSubstitutionDep;
-        }
-
-        @objid ("eaa9229e-9880-4567-b6a8-09f69872fec6")
-        public static SmDependency getInstanciatedTemplateOperationDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return InstanciatedTemplateOperationDep;
-        }
-
-        @objid ("211b18de-ad99-4f89-998d-cc0d01f06f84")
-        public static SmDependency getBoundElementDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return BoundElementDep;
-        }
-
-        @objid ("1395d2c9-0625-4b3c-baaa-0dd12175edbb")
-        public static SmDependency getBoundOperationDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return BoundOperationDep;
-        }
-
-        @objid ("a3a0d844-4792-4fa0-89fb-107a412ebba1")
-        public static SmDependency getInstanciatedTemplateDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return InstanciatedTemplateDep;
-        }
-
-        @objid ("f00901d2-a79d-49f4-95ac-9aa5862864ef")
+        @objid ("229c0e17-2f9d-461e-aed1-4d7f9a8a3f1a")
         public static SmClass getSmClass() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return smClass;
         }
 
+        @objid ("c003f3c2-4694-4dda-88a7-90720736a46b")
+        public static SmDependency getBoundOperationDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return BoundOperationDep;
+        }
+
+        @objid ("148c7bac-9ae7-42b2-89b1-6ed4ac099696")
+        public static SmDependency getBoundElementDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return BoundElementDep;
+        }
+
+        @objid ("2ea8c47b-040c-41da-9484-ff8afdb432d5")
+        public static SmDependency getParameterSubstitutionDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return ParameterSubstitutionDep;
+        }
+
+        @objid ("0e92ca77-999f-4116-8d0b-1b7b08adb02f")
+        public static SmDependency getInstanciatedTemplateOperationDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return InstanciatedTemplateOperationDep;
+        }
+
+        @objid ("f470d169-bb74-4e40-8920-9f114a64957e")
+        public static SmDependency getInstanciatedTemplateDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return InstanciatedTemplateDep;
+        }
+
         @objid ("006f6300-c4c4-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("6311cd1c-9035-4d77-89f0-fcc9f49d2ba8")
+            @objid ("c033cf74-eaed-4b43-8375-7d10880156f8")
             public ISmObjectData createData() {
                 return new TemplateBindingData();
             }
 
-            @objid ("a0c1d44d-9335-4236-9787-fbe064af4e0e")
+            @objid ("75dc934b-42e2-4f7a-9978-933028e18ab8")
             public SmObjectImpl createImpl() {
                 return new TemplateBindingImpl();
             }
@@ -190,18 +190,18 @@ public class TemplateBindingData extends ModelElementData {
 
         @objid ("006fc516-c4c4-1fd8-97fe-001ec947cd2a")
         public static class InstanciatedTemplateSmDependency extends SmSingleDependency {
-            @objid ("640a0bea-2705-4521-a3a8-be1e191ba802")
+            @objid ("931eef43-c8c7-4233-8689-9b3040ba8584")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((TemplateBindingData) data).mInstanciatedTemplate;
             }
 
-            @objid ("f5fe2c28-e5da-4afa-b4cc-551074f14d71")
+            @objid ("47a15b9e-7ca8-443f-ba69-edbd1686711d")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((TemplateBindingData) data).mInstanciatedTemplate = value;
             }
 
-            @objid ("e6284601-fb50-4cb3-9024-2bf74f525920")
+            @objid ("357c960f-dcab-47ce-b569-a40025d4ffef")
             @Override
             public SmDependency getSymetric() {
                 return NameSpaceData.Metadata.InstanciatingBindingDep();
@@ -211,18 +211,18 @@ public class TemplateBindingData extends ModelElementData {
 
         @objid ("007037c6-c4c4-1fd8-97fe-001ec947cd2a")
         public static class BoundElementSmDependency extends SmSingleDependency {
-            @objid ("6c98cf3a-adfe-417f-8e72-c1aa4e8ee5be")
+            @objid ("4dfe7e56-6154-4896-b906-6a00bc2f8cc4")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((TemplateBindingData) data).mBoundElement;
             }
 
-            @objid ("100a75e0-3f6d-4992-baf7-b64aa488bbf8")
+            @objid ("401224d5-302c-4c9e-a66c-7260146bdbc2")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((TemplateBindingData) data).mBoundElement = value;
             }
 
-            @objid ("27a8cab3-6eb8-4754-87f8-4fb008aed600")
+            @objid ("282ad190-e320-453b-9d9d-0ee0d8a436c6")
             @Override
             public SmDependency getSymetric() {
                 return NameSpaceData.Metadata.TemplateInstanciationDep();
@@ -232,18 +232,18 @@ public class TemplateBindingData extends ModelElementData {
 
         @objid ("0070abac-c4c4-1fd8-97fe-001ec947cd2a")
         public static class BoundOperationSmDependency extends SmSingleDependency {
-            @objid ("c920f997-261b-4d7b-9033-836be17e7a9a")
+            @objid ("e8f251ff-ccc5-48bc-81bc-bfc2f844c6d6")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((TemplateBindingData) data).mBoundOperation;
             }
 
-            @objid ("d0ac8068-6dae-4a97-82d0-8126c5a92c65")
+            @objid ("141c16b5-a6cf-4abc-9737-7b035e5adb03")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((TemplateBindingData) data).mBoundOperation = value;
             }
 
-            @objid ("5f057749-9f9d-43c7-ac59-26877f4f6fc2")
+            @objid ("ed75d6e8-73d6-4492-a63a-a84b07428a8d")
             @Override
             public SmDependency getSymetric() {
                 return OperationData.Metadata.TemplateInstanciationDep();
@@ -253,18 +253,18 @@ public class TemplateBindingData extends ModelElementData {
 
         @objid ("00712014-c4c4-1fd8-97fe-001ec947cd2a")
         public static class InstanciatedTemplateOperationSmDependency extends SmSingleDependency {
-            @objid ("1f0e4ac4-585f-46cb-9393-48f420eda9a1")
+            @objid ("0e23f202-4de4-4f92-b64f-1222b0b9ee20")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((TemplateBindingData) data).mInstanciatedTemplateOperation;
             }
 
-            @objid ("f36ba847-9ff8-44d5-9dfe-4ad8b90eb883")
+            @objid ("a31282bf-e18f-4198-bb74-dd626b69ccef")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((TemplateBindingData) data).mInstanciatedTemplateOperation = value;
             }
 
-            @objid ("c71dd47a-899a-4d0a-bcae-6b828026cbec")
+            @objid ("0bb6dcd7-24bb-4807-9d96-6d71aed4df5c")
             @Override
             public SmDependency getSymetric() {
                 return OperationData.Metadata.InstanciatingBindingDep();
@@ -274,20 +274,20 @@ public class TemplateBindingData extends ModelElementData {
 
         @objid ("0071959e-c4c4-1fd8-97fe-001ec947cd2a")
         public static class ParameterSubstitutionSmDependency extends SmMultipleDependency {
-            @objid ("fbcc6b88-f30f-4b5f-ac7d-8041d7b87673")
+            @objid ("d34c7bed-7d5d-4c71-aa7d-32f5a3994ae8")
             @Override
             public List<SmObjectImpl> getValueList(ISmObjectData data) {
                 return (((TemplateBindingData)data).mParameterSubstitution != null)? ((TemplateBindingData)data).mParameterSubstitution:SmMultipleDependency.EMPTY;
             }
 
-            @objid ("10949109-b3fd-4a87-b060-5d3bd65deff8")
+            @objid ("50e49397-ff92-4db5-b3b8-b30fbea0b49f")
             @Override
             protected List<SmObjectImpl> allocateValueList(ISmObjectData data, int initialCapacity) {
                 ((TemplateBindingData) data).mParameterSubstitution = new ArrayList<>(initialCapacity);
                 return ((TemplateBindingData) data).mParameterSubstitution;
             }
 
-            @objid ("d3f24019-ec0e-48e6-8d8b-58f99ae85cbf")
+            @objid ("a5c912a5-5521-4211-9ec8-789e7be2a07b")
             @Override
             public SmDependency getSymetric() {
                 return TemplateParameterSubstitutionData.Metadata.OwnerDep();

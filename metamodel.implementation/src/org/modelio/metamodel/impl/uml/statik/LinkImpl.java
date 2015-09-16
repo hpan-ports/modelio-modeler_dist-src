@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.uml.statik;
 
@@ -63,25 +63,25 @@ public class LinkImpl extends ModelElementImpl implements Link {
         return super.getCompositionRelation();
     }
 
-    @objid ("ce3cec8e-dd17-4c5c-8b78-4193deac1460")
+    @objid ("74f99276-7264-4308-ad8d-1300bab74311")
     @Override
     public Association getModel() {
         return (Association) getDepVal(LinkData.Metadata.ModelDep());
     }
 
-    @objid ("3f72c943-a7f6-4e0e-b860-f1872f94de2b")
+    @objid ("9079693e-571b-4e42-b48a-9577ef8b83c5")
     @Override
     public void setModel(Association value) {
         appendDepVal(LinkData.Metadata.ModelDep(), (SmObjectImpl)value);
     }
 
-    @objid ("c3640b1e-d12b-47b8-9ba9-65e8488b6658")
+    @objid ("ee9b5261-b381-4805-be86-0bcd65d321b7")
     @Override
     public EList<LinkEnd> getLinkEnd() {
         return new SmList<>(this, LinkData.Metadata.LinkEndDep());
     }
 
-    @objid ("d98fe0ad-4311-4491-8470-9e8f2e741ac1")
+    @objid ("7ab06fc9-19dd-4fe6-a84c-ee2d35d81d2a")
     @Override
     public <T extends LinkEnd> List<T> getLinkEnd(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -94,19 +94,19 @@ public class LinkImpl extends ModelElementImpl implements Link {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("4776ad25-cb11-4b25-abf1-515605f1e63c")
+    @objid ("e095979b-1c33-4419-a0c8-2435a7e2f31d")
     @Override
     public CommunicationChannel getSent() {
         return (CommunicationChannel) getDepVal(LinkData.Metadata.SentDep());
     }
 
-    @objid ("9fee5732-8438-4900-9de5-6ce07180863a")
+    @objid ("2f71ff4e-c4a9-4c9a-b76e-1a12bc024e04")
     @Override
     public void setSent(CommunicationChannel value) {
         appendDepVal(LinkData.Metadata.SentDep(), (SmObjectImpl)value);
     }
 
-    @objid ("544b4724-8664-4965-aaf0-f82a69e468a7")
+    @objid ("47859d6c-7d30-40b8-b50c-cef42228e84b")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitLink(this);

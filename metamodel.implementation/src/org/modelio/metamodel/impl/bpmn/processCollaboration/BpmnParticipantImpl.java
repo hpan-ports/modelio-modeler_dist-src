@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.bpmn.processCollaboration;
 
@@ -49,73 +49,73 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("0075ac2e-c4bf-1fd8-97fe-001ec947cd2a")
 public class BpmnParticipantImpl extends BpmnBaseElementImpl implements BpmnParticipant {
-    @objid ("222d0701-550c-4342-97f8-fa13fe763f8e")
+    @objid ("a0cfd924-b0cb-4ce8-83b3-7fdde320cd4f")
     @Override
     public int getMultiplicityMin() {
         return (Integer) getAttVal(BpmnParticipantData.Metadata.MultiplicityMinAtt());
     }
 
-    @objid ("8cf25d53-54d1-4423-aa41-d19c149cd3f0")
+    @objid ("2955a7b8-a344-40f4-b83e-3cd872fe0379")
     @Override
     public void setMultiplicityMin(int value) {
         setAttVal(BpmnParticipantData.Metadata.MultiplicityMinAtt(), value);
     }
 
-    @objid ("c9432c72-2746-447d-9cd9-8b34fa35aaf7")
+    @objid ("5a9fdb27-54e0-4388-822f-1954fc2c584a")
     @Override
     public int getMultiplicityMax() {
         return (Integer) getAttVal(BpmnParticipantData.Metadata.MultiplicityMaxAtt());
     }
 
-    @objid ("8d0765ea-7b51-4484-a4dc-4131e139fd12")
+    @objid ("b1262136-b0ae-413d-b229-6b9f2f1fa930")
     @Override
     public void setMultiplicityMax(int value) {
         setAttVal(BpmnParticipantData.Metadata.MultiplicityMaxAtt(), value);
     }
 
-    @objid ("e5299977-62fe-45e1-a7e1-9af99e1b79a2")
+    @objid ("ad5e077c-c405-4d79-8e10-244f4c257bf5")
     @Override
     public BpmnProcess getProcess() {
         return (BpmnProcess) getDepVal(BpmnParticipantData.Metadata.ProcessDep());
     }
 
-    @objid ("40317305-1791-46f1-962d-e166073203f6")
+    @objid ("9fadc340-c6b6-43d7-bf42-c82279dc6b83")
     @Override
     public void setProcess(BpmnProcess value) {
         appendDepVal(BpmnParticipantData.Metadata.ProcessDep(), (SmObjectImpl)value);
     }
 
-    @objid ("741459c2-39b4-4eef-ae63-de132cad79eb")
+    @objid ("8b1261fd-81b6-419d-b842-017ba828fc4f")
     @Override
     public BpmnCollaboration getContainer() {
         return (BpmnCollaboration) getDepVal(BpmnParticipantData.Metadata.ContainerDep());
     }
 
-    @objid ("dd71604d-b5dc-4aaf-9917-cb294f017714")
+    @objid ("f1b9b4d4-19dd-4e46-9ec2-0226333b53e9")
     @Override
     public void setContainer(BpmnCollaboration value) {
         appendDepVal(BpmnParticipantData.Metadata.ContainerDep(), (SmObjectImpl)value);
     }
 
-    @objid ("7cb51591-68dd-4598-a88b-0e489431b3e1")
+    @objid ("9e358ef1-c83a-41d0-9b15-00a8c1236d0c")
     @Override
     public Classifier getType() {
         return (Classifier) getDepVal(BpmnParticipantData.Metadata.TypeDep());
     }
 
-    @objid ("876c5d45-e7ae-4903-8a8e-05a9aec39cb0")
+    @objid ("984832e4-6891-40ac-b781-268f4df7bd55")
     @Override
     public void setType(Classifier value) {
         appendDepVal(BpmnParticipantData.Metadata.TypeDep(), (SmObjectImpl)value);
     }
 
-    @objid ("0db5b805-2782-4b3d-915d-128f302a7888")
+    @objid ("5d601d27-1cb8-44af-9af3-1927f5c7bf8a")
     @Override
     public EList<BpmnEndPoint> getEndPointRefs() {
         return new SmList<>(this, BpmnParticipantData.Metadata.EndPointRefsDep());
     }
 
-    @objid ("673d4a9b-6b0f-43ab-bc63-65a0415c639f")
+    @objid ("beaceebf-74e7-44a5-9d81-ec7fce5b311b")
     @Override
     public <T extends BpmnEndPoint> List<T> getEndPointRefs(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -128,13 +128,13 @@ public class BpmnParticipantImpl extends BpmnBaseElementImpl implements BpmnPart
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("be101f83-87e9-4e6d-a50f-41509453bf62")
+    @objid ("392d2c8f-5325-421d-a8fb-6cc553f79a0f")
     @Override
     public EList<BpmnInterface> getInterfaceRefs() {
         return new SmList<>(this, BpmnParticipantData.Metadata.InterfaceRefsDep());
     }
 
-    @objid ("ec0fae1b-b12a-4a80-bb0d-9cf13250e4fd")
+    @objid ("5981286b-c65a-4306-953a-a0dfc8057602")
     @Override
     public <T extends BpmnInterface> List<T> getInterfaceRefs(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -147,19 +147,19 @@ public class BpmnParticipantImpl extends BpmnBaseElementImpl implements BpmnPart
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("62c8e04a-42c9-4a64-acdf-e0c06b1725f7")
+    @objid ("0f711915-29ec-4fbe-83a7-04fe00c5e657")
     @Override
     public Package getPackageRef() {
         return (Package) getDepVal(BpmnParticipantData.Metadata.PackageRefDep());
     }
 
-    @objid ("16cdc0d6-b406-4b07-b1ab-4f6de552b5bd")
+    @objid ("71f9445c-a9ec-4210-b6cb-b6c349e58d25")
     @Override
     public void setPackageRef(Package value) {
         appendDepVal(BpmnParticipantData.Metadata.PackageRefDep(), (SmObjectImpl)value);
     }
 
-    @objid ("d8f36b12-b840-4b90-a5c2-2274729a3311")
+    @objid ("b2a75342-9c87-4624-a1bd-d287979db9e9")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
@@ -169,7 +169,7 @@ public class BpmnParticipantImpl extends BpmnBaseElementImpl implements BpmnPart
         return super.getCompositionOwner();
     }
 
-    @objid ("0b3b24dd-cf2b-48ea-911b-84d0c7066b87")
+    @objid ("e35e03e0-fd16-46cd-a764-1973b2b3762b")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
@@ -179,7 +179,7 @@ public class BpmnParticipantImpl extends BpmnBaseElementImpl implements BpmnPart
         return super.getCompositionRelation();
     }
 
-    @objid ("0a7f4819-1315-49cc-b71a-305af0f20f49")
+    @objid ("d309a6ce-629a-4a7b-beff-3bc12d3cb061")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitBpmnParticipant(this);

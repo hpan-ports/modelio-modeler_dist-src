@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.data.uml.behavior.activityModel;
 
@@ -47,43 +47,43 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("002d1d10-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=Clause.class, factory=ClauseData.Metadata.ObjectFactory.class)
 public class ClauseData extends ModelElementData {
-    @objid ("9267019a-9db5-43ea-9af3-88f42845a32c")
+    @objid ("44e74d42-377b-4962-a543-831010992976")
     @SmaMetaAttribute(metaName="Test", type=String.class, smAttributeClass=Metadata.TestSmAttribute.class)
      Object mTest = "";
 
-    @objid ("cf4033f3-d8e0-478c-b65f-ebb7d09209cb")
+    @objid ("0d14e9cc-3e12-41e3-ba26-faf3badd2cf8")
     @SmaMetaAssociation(metaName="Body", typeDataClass=ActivityNodeData.class, min=0, max=-1, smAssociationClass=Metadata.BodySmDependency.class, component = true)
      List<SmObjectImpl> mBody = null;
 
-    @objid ("53d80c03-bcee-48b9-9b6e-ee1b19079498")
+    @objid ("248a5137-bcfa-41c0-8031-6041d4c2d482")
     @SmaMetaAssociation(metaName="Owner", typeDataClass=ConditionalNodeData.class, min=0, max=1, smAssociationClass=Metadata.OwnerSmDependency.class)
      SmObjectImpl mOwner;
 
-    @objid ("cb5189ae-9960-4d7a-bea0-9739abbcc1c4")
+    @objid ("40947854-10c5-4fb3-b56e-e00883599e66")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("0039a526-c4c4-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("680c4a61-bcb5-4b1b-b79b-561e5d91b432")
+        @objid ("29096c0f-4406-4816-8eb9-3303629d1489")
         private static SmClass smClass = null;
 
-        @objid ("afb6ae7a-dfed-471f-814a-1c0f41a3206d")
+        @objid ("02545630-ae71-433d-a432-4d8617fc6330")
         private static SmAttribute TestAtt = null;
 
-        @objid ("a0d92178-021b-435a-a3b7-10bb1f09b885")
+        @objid ("6b709ab8-8f30-4f86-8a11-2e588a63a00f")
         private static SmDependency BodyDep = null;
 
-        @objid ("4530cf21-dfa7-456b-85aa-084d02809092")
+        @objid ("b9cf1264-11db-46a8-8532-f3c41e9b4eb3")
         private static SmDependency OwnerDep = null;
 
-        @objid ("8fa6549f-09da-4007-aeb9-3e5301614337")
+        @objid ("acbedff1-40bb-4525-9e9d-994f7592044c")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(ClauseData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("ef469d51-cade-49c3-a475-909efa69e83e")
+        @objid ("11cd6245-4ffa-413b-b8b4-81556185cf36")
         public static SmAttribute TestAtt() {
             if (TestAtt == null) {
             	TestAtt = classof().getAttributeDef("Test");
@@ -91,7 +91,7 @@ public class ClauseData extends ModelElementData {
             return TestAtt;
         }
 
-        @objid ("4865d045-3c82-4bdd-b68b-0c32a11fa4d5")
+        @objid ("c45916f5-d9e4-4efc-859f-99326d0ee0a2")
         public static SmDependency BodyDep() {
             if (BodyDep == null) {
             	BodyDep = classof().getDependencyDef("Body");
@@ -99,7 +99,7 @@ public class ClauseData extends ModelElementData {
             return BodyDep;
         }
 
-        @objid ("f1cf0128-8c2f-460d-b3fd-02fce6bab4f4")
+        @objid ("ef1ee311-b324-4b88-97cd-2f253e4a81d9")
         public static SmDependency OwnerDep() {
             if (OwnerDep == null) {
             	OwnerDep = classof().getDependencyDef("Owner");
@@ -107,38 +107,38 @@ public class ClauseData extends ModelElementData {
             return OwnerDep;
         }
 
-        @objid ("13ea0fb0-0e65-4420-b44a-3fcb76c74b7d")
-        public static SmDependency getBodyDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return BodyDep;
-        }
-
-        @objid ("48dc73f2-1342-4e14-bdce-95e2edd4cd9e")
+        @objid ("f9937c7b-bfc7-456c-95d8-2292a1cf5006")
         public static SmClass getSmClass() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return smClass;
         }
 
-        @objid ("1f74484f-62da-480a-994d-f1a2b12dd170")
-        public static SmAttribute getTestAtt() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return TestAtt;
-        }
-
-        @objid ("59de03ef-fc6a-400c-85e8-bfd9a9445eab")
+        @objid ("6ad7c4e9-0054-4479-a216-08c66064dd27")
         public static SmDependency getOwnerDep() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return OwnerDep;
         }
 
+        @objid ("8bd0edbd-be36-4be1-990f-6355297c7531")
+        public static SmDependency getBodyDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return BodyDep;
+        }
+
+        @objid ("677fa10b-924a-42ac-94dc-42448d636a9e")
+        public static SmAttribute getTestAtt() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return TestAtt;
+        }
+
         @objid ("0039f350-c4c4-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("ea6a9249-f1db-46a4-a080-e86bb37e7d2d")
+            @objid ("1198e38b-b839-464b-9eee-42df02185caa")
             public ISmObjectData createData() {
                 return new ClauseData();
             }
 
-            @objid ("e886c574-629c-4645-98f1-fb673cc31c51")
+            @objid ("00308b72-02a9-4006-a722-5acd8c30b499")
             public SmObjectImpl createImpl() {
                 return new ClauseImpl();
             }
@@ -147,12 +147,12 @@ public class ClauseData extends ModelElementData {
 
         @objid ("003a5c64-c4c4-1fd8-97fe-001ec947cd2a")
         public static class TestSmAttribute extends SmAttribute {
-            @objid ("f5c0e8b4-85cc-4fb8-8e76-96ae6c07b4ca")
+            @objid ("f022c660-722b-477a-823d-2416c83c5ca2")
             public Object getValue(ISmObjectData data) {
                 return ((ClauseData) data).mTest;
             }
 
-            @objid ("1a15b3f6-9bf4-4dc0-8b8e-99f7b333ae64")
+            @objid ("689f2606-3a4a-4596-ae87-e017efbe4af1")
             public void setValue(ISmObjectData data, Object value) {
                 ((ClauseData) data).mTest = value;
             }
@@ -161,18 +161,18 @@ public class ClauseData extends ModelElementData {
 
         @objid ("003abfe2-c4c4-1fd8-97fe-001ec947cd2a")
         public static class OwnerSmDependency extends SmSingleDependency {
-            @objid ("28ab8cab-0e49-48fe-b027-9147dbe7ffd3")
+            @objid ("8dde3d2f-a601-40b8-aad8-43595e270959")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((ClauseData) data).mOwner;
             }
 
-            @objid ("5765a292-f56e-49e9-9c09-df24338de0b6")
+            @objid ("b447284b-e081-4d50-afde-a1c86ca3cf27")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((ClauseData) data).mOwner = value;
             }
 
-            @objid ("9c4b64ff-21c6-4de0-98ea-f84846607d83")
+            @objid ("650a63c7-85a0-45e1-952e-ae69e2e18250")
             @Override
             public SmDependency getSymetric() {
                 return ConditionalNodeData.Metadata.OwnedClauseDep();
@@ -182,20 +182,20 @@ public class ClauseData extends ModelElementData {
 
         @objid ("003b353a-c4c4-1fd8-97fe-001ec947cd2a")
         public static class BodySmDependency extends SmMultipleDependency {
-            @objid ("d73af9ef-8c78-4489-89fe-aa2bb7b73ade")
+            @objid ("5c870a78-9f7a-43dd-92e4-bd6e9d8a16e2")
             @Override
             public List<SmObjectImpl> getValueList(ISmObjectData data) {
                 return (((ClauseData)data).mBody != null)? ((ClauseData)data).mBody:SmMultipleDependency.EMPTY;
             }
 
-            @objid ("063ede37-aea2-4f24-b89c-a92de8f8b54a")
+            @objid ("b37bb2e2-1eea-41f9-a7dd-807203d14ef1")
             @Override
             protected List<SmObjectImpl> allocateValueList(ISmObjectData data, int initialCapacity) {
                 ((ClauseData) data).mBody = new ArrayList<>(initialCapacity);
                 return ((ClauseData) data).mBody;
             }
 
-            @objid ("e6af09a3-f1a4-4134-a66f-21d684b7a6c9")
+            @objid ("a38f6816-11cd-4a95-9795-c1d34aa516e6")
             @Override
             public SmDependency getSymetric() {
                 return ActivityNodeData.Metadata.OwnerClauseDep();

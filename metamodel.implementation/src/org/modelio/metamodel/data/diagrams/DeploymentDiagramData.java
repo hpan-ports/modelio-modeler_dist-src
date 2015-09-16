@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.data.diagrams;
 
@@ -43,22 +43,22 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("006d73c4-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=DeploymentDiagram.class, factory=DeploymentDiagramData.Metadata.ObjectFactory.class, cmsnode=true)
 public class DeploymentDiagramData extends StaticDiagramData {
-    @objid ("8e9f2a9b-5f61-43a4-a60b-eb16a3e8f39b")
+    @objid ("43f64aac-266b-450d-a51d-77ec26392398")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("00966248-c4c3-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("1ff15faa-5b69-4c04-a2f2-c2cae1ab3195")
+        @objid ("0c707710-75b9-4bb7-9b9a-69a5eb3d4e9c")
         private static SmClass smClass = null;
 
-        @objid ("2b744057-ef24-4dac-b64d-2d2c818d0951")
+        @objid ("c144df7f-52df-435e-a3cc-7caa39f944d3")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(DeploymentDiagramData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("694e837f-db1b-4221-b403-35dd91783be6")
+        @objid ("b540f759-dc5f-407c-a5fe-7ea75294ca6f")
         public static SmClass getSmClass() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return smClass;
@@ -66,12 +66,12 @@ public class DeploymentDiagramData extends StaticDiagramData {
 
         @objid ("0096a352-c4c3-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("08b5e657-c860-44b6-a739-77f745531c7d")
+            @objid ("7f48b178-5657-4472-a2f2-1e9ddf2a9418")
             public ISmObjectData createData() {
                 return new DeploymentDiagramData();
             }
 
-            @objid ("5c54f618-bd23-4455-b7b8-4183769b7833")
+            @objid ("7dc3d83e-0555-4ae0-8743-bbc37dc58bc3")
             public SmObjectImpl createImpl() {
                 return new DeploymentDiagramImpl();
             }

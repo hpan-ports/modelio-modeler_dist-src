@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.data.bpmn.activities;
 
@@ -43,36 +43,36 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("00825802-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=BpmnScriptTask.class, factory=BpmnScriptTaskData.Metadata.ObjectFactory.class)
 public class BpmnScriptTaskData extends BpmnTaskData {
-    @objid ("fc9294fe-e62d-4642-9add-65bce9e7f6d9")
+    @objid ("72a795c4-322a-430b-8b59-7aae1d9230c6")
     @SmaMetaAttribute(metaName="ScriptLanguage", type=String.class, smAttributeClass=Metadata.ScriptLanguageSmAttribute.class)
      Object mScriptLanguage = "";
 
-    @objid ("362f702a-8c65-4740-a307-23aa84dd20da")
+    @objid ("fbb8768e-9f1e-4e09-9de6-c87372e44a59")
     @SmaMetaAttribute(metaName="Script", type=String.class, smAttributeClass=Metadata.ScriptSmAttribute.class)
      Object mScript = "";
 
-    @objid ("163559a7-552a-42ac-afc0-187affb932b9")
+    @objid ("e9e51238-a335-4e67-b0a4-5c576a3243c3")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("006662b4-c4c3-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("a1b72a81-10df-4606-8062-74679d128a27")
+        @objid ("fc6c76fb-7d63-4ee0-bd2a-af6cb95ffaf1")
         private static SmClass smClass = null;
 
-        @objid ("ce3faba9-69e7-4175-a1b1-bbc4abaa719e")
+        @objid ("d49fd10a-0c65-4829-a2bb-9f8e8c878db4")
         private static SmAttribute ScriptLanguageAtt = null;
 
-        @objid ("940ad760-8fb9-4705-9293-9bcbf1278898")
+        @objid ("fd691b78-9de2-46a1-8dab-1babcf0a1365")
         private static SmAttribute ScriptAtt = null;
 
-        @objid ("ada35a0a-6d2b-4e1f-8121-484d563b9bbe")
+        @objid ("04f3a201-30b7-4729-a8cc-d9d8c41a647f")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(BpmnScriptTaskData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("2aeeb36e-5b0d-4acc-a18e-e53b96e62a3e")
+        @objid ("acd3c7ed-0d57-41e4-8872-99df9be81643")
         public static SmAttribute ScriptLanguageAtt() {
             if (ScriptLanguageAtt == null) {
             	ScriptLanguageAtt = classof().getAttributeDef("ScriptLanguage");
@@ -80,7 +80,7 @@ public class BpmnScriptTaskData extends BpmnTaskData {
             return ScriptLanguageAtt;
         }
 
-        @objid ("7a0efcfe-18fa-4ad5-96df-dff80ce9ee5b")
+        @objid ("c1a5407f-90ea-44df-862a-0b3712b6ea41")
         public static SmAttribute ScriptAtt() {
             if (ScriptAtt == null) {
             	ScriptAtt = classof().getAttributeDef("Script");
@@ -88,32 +88,32 @@ public class BpmnScriptTaskData extends BpmnTaskData {
             return ScriptAtt;
         }
 
-        @objid ("a5525e46-c787-4b16-a751-cc53219c0d27")
+        @objid ("c5a86304-7b1e-4838-8601-52369e745c87")
         public static SmClass getSmClass() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return smClass;
         }
 
-        @objid ("38c934d1-171e-43bf-9312-ccd975c2c964")
-        public static SmAttribute getScriptLanguageAtt() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return ScriptLanguageAtt;
-        }
-
-        @objid ("291afcca-acb5-4419-8d31-e470aa9d992f")
+        @objid ("beef8193-938e-498b-beb7-b6c9c6f19593")
         public static SmAttribute getScriptAtt() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return ScriptAtt;
         }
 
+        @objid ("9c79cf62-34f2-4284-abd5-f55b4d5954c4")
+        public static SmAttribute getScriptLanguageAtt() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return ScriptLanguageAtt;
+        }
+
         @objid ("0066abd4-c4c3-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("c6c59557-90d7-472a-93d6-a2c660dca71d")
+            @objid ("d06d6a78-fcdc-424e-a6f7-a206d837fe2d")
             public ISmObjectData createData() {
                 return new BpmnScriptTaskData();
             }
 
-            @objid ("50b1a74b-dc33-4b3b-b756-7c9fcfd339f4")
+            @objid ("d2c1419f-a76b-4cfd-9ea2-ad8a888b2e7e")
             public SmObjectImpl createImpl() {
                 return new BpmnScriptTaskImpl();
             }
@@ -122,12 +122,12 @@ public class BpmnScriptTaskData extends BpmnTaskData {
 
         @objid ("00670f84-c4c3-1fd8-97fe-001ec947cd2a")
         public static class ScriptLanguageSmAttribute extends SmAttribute {
-            @objid ("8d9e4e7f-4345-41e3-b9a7-363dbca68b8a")
+            @objid ("06c8887d-fb69-46b4-80d7-52eca19a2d41")
             public Object getValue(ISmObjectData data) {
                 return ((BpmnScriptTaskData) data).mScriptLanguage;
             }
 
-            @objid ("1bcafd2a-3dab-4a8a-9d2a-937e76a65ec9")
+            @objid ("48b053b4-c317-4031-b11c-d526ea17ada0")
             public void setValue(ISmObjectData data, Object value) {
                 ((BpmnScriptTaskData) data).mScriptLanguage = value;
             }
@@ -136,12 +136,12 @@ public class BpmnScriptTaskData extends BpmnTaskData {
 
         @objid ("00677118-c4c3-1fd8-97fe-001ec947cd2a")
         public static class ScriptSmAttribute extends SmAttribute {
-            @objid ("cd9a235a-7f69-4cad-a2d7-fee4c78c30aa")
+            @objid ("ada29e12-fb53-4fa7-9d1f-1f09324929f8")
             public Object getValue(ISmObjectData data) {
                 return ((BpmnScriptTaskData) data).mScript;
             }
 
-            @objid ("a8bc8445-1681-4325-8967-38f85034adc9")
+            @objid ("6f49bde4-737b-4a63-88b4-df30d6bf7cf8")
             public void setValue(ISmObjectData data, Object value) {
                 ((BpmnScriptTaskData) data).mScript = value;
             }

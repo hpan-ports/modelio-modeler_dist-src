@@ -25,12 +25,15 @@ import java.io.IOException;
 import java.net.URI;
 import java.util.Collection;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.modelio.gproject.descriptor.DefinitionScope;
-import org.modelio.gproject.descriptor.FragmentDescriptor;
-import org.modelio.gproject.descriptor.FragmentType;
-import org.modelio.gproject.descriptor.GAuthConf;
-import org.modelio.gproject.descriptor.GProperties;
+import org.modelio.gproject.data.project.DefinitionScope;
+import org.modelio.gproject.data.project.FragmentDescriptor;
+import org.modelio.gproject.data.project.FragmentType;
+import org.modelio.gproject.data.project.GAuthConf;
+import org.modelio.gproject.data.project.GProperties;
+import org.modelio.gproject.data.project.VersionDescriptors;
 import org.modelio.gproject.gproject.GProject;
+import org.modelio.gproject.gproject.GProjectEvent;
+import org.modelio.gproject.gproject.GProjectEventType;
 import org.modelio.vbasic.progress.IModelioProgress;
 import org.modelio.vcore.session.api.repository.IRepository;
 import org.modelio.vcore.smkernel.mapi.MObject;
@@ -41,9 +44,19 @@ import org.modelio.vcore.smkernel.mapi.MObject;
  * A project fragment may contain model elements and files.
  * Its content may be available locally or be located on a distant server.
  * A fragment must be mounted in order for its content to be accessible.
+ * <p>
+ * This interface should not be directly implemented. Please extends {@link AbstractFragment} instead.
  */
 @objid ("225ed21f-8ed5-11e1-be7e-001ec947ccaf")
 public interface IProjectFragment {
+    /**
+     * Property that tells the fragment is read only.
+     * <p>
+     * This property must be supported by all fragment implementations.
+     */
+    @objid ("c0e73380-379f-4cd3-b33f-cb685cc2f3b4")
+    public static final String PROP_READ_ONLY = "readonly";
+
     /**
      * Delete the fragment from the disk.
      * @throws java.io.IOException if the fragment could not completely be removed from disk.
@@ -154,5 +167,34 @@ public interface IProjectFragment {
      */
     @objid ("3da5c624-a576-4396-8f7d-4e2082ec9617")
     GAuthConf getAuthConfiguration();
+
+    /**
+     * Set the fragment in "down" state, with the cause.
+     * <p>
+     * Fires a {@link GProjectEventType#FRAGMENT_DOWN FRAGMENT_DOWN} {@link GProjectEvent event}.
+     * @param error the cause of down state
+     */
+    @objid ("5b8b018a-e45c-46b5-a424-4f9a48b38ddd")
+    void setDown(Throwable error);
+
+    /**
+     * Migrate the fragment if needed.
+     * @param project the project where the fragment would be mount.
+     * @param aMonitor the progress monitor to use for reporting progress to the user. It is the caller's responsibility to call
+     * <code>done()</code> on the given monitor. Accepts <code>null</code>, indicating that no progress should be
+     * reported and that the operation cannot be cancelled.
+     * @throws java.io.IOException in case of failure
+     * @throws org.modelio.gproject.fragment.FragmentAuthenticationException in case of authentication failure
+     */
+    @objid ("9e66041e-6273-422e-8ddd-c67a8f6bfbf3")
+    void migrate(GProject project, IModelioProgress aMonitor) throws IOException, FragmentAuthenticationException;
+
+    /**
+     * Get the fragment metamodel versions.
+     * @return the fragment metamodel versions.
+     * @throws java.io.IOException in case of I/O failure reading the version
+     */
+    @objid ("de579a41-ffb4-48f7-9ef6-592270f353d7")
+    VersionDescriptors getMetamodelVersion() throws IOException;
 
 }

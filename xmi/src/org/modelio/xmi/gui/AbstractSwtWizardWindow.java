@@ -83,19 +83,19 @@ public abstract class AbstractSwtWizardWindow extends Dialog {
     @objid ("e0ec614a-0d71-430c-aae6-7ce7191b437d")
     protected String path = "";
 
-    @objid ("3363c045-5d78-478e-a31c-c392ada52368")
+    @objid ("c25ee0ff-2b3e-4cd4-b291-76e61273120c")
     protected FileChooserComposite fileChooserComposite = null;
 
-    @objid ("fb890b52-25ea-453b-8653-fb20449e2b70")
+    @objid ("9e3a2f14-3425-4159-91e7-efeadd672d18")
     protected OptionComposite optionComposite = null;
 
-    @objid ("7cbade0c-a63f-44e7-b6bc-60dcc3eb6e03")
+    @objid ("58bf281e-031e-4115-b40b-f3dcb692f6d7")
     private ValidationBoutonComposite validateComposite = null;
 
-    @objid ("b70f7aa4-ec98-469e-a5e9-dcb7d6396791")
+    @objid ("5f2d462c-655e-4836-8d80-191b97ec820e")
     protected ProgressBarComposite theProgressBar = null;
 
-    @objid ("6c978d15-13ca-4fa7-a09d-776406e3120e")
+    @objid ("9cf17c57-ea46-4251-8044-df2d9afc6e82")
     protected AbstractXMIThread theThread = null;
 
     @objid ("1774a60a-11b2-4185-a68e-b2864da06768")
@@ -134,7 +134,7 @@ public abstract class AbstractSwtWizardWindow extends Dialog {
         setLabels();
         
         this.shell = new Shell(getParent(), 67696 | SWT.APPLICATION_MODAL | SWT.RESIZE | SWT.TITLE);
-        this.shell.setLayout(new FormLayout());
+        this.shell.setLayout( new FormLayout());
         this.shell.setText(this.frametitle);
         
         this.shell.setImage(ResourceLoader.getInstance().getImage("wobjing16.bmp"));
@@ -192,9 +192,10 @@ public abstract class AbstractSwtWizardWindow extends Dialog {
         
         if (this.exportWindows) {
             final FormData fd_optionComposite = new FormData();
-            fd_optionComposite.top = new FormAttachment(this.fileChooserComposite, 0);
-            fd_optionComposite.left = new FormAttachment(this.fileChooserComposite, 5, SWT.LEFT);
+            fd_optionComposite.top = new FormAttachment(this.fileChooserComposite, 0);          
             fd_optionComposite.right = new FormAttachment(this.fileChooserComposite, -5, SWT.RIGHT);
+            fd_optionComposite.left = new FormAttachment(this.fileChooserComposite, 5, SWT.LEFT);
+          
             this.optionComposite.setLayoutData(fd_optionComposite);
         
             this.optionComposite.getUMLButton().addSelectionListener(new SelectionAdapter() {
@@ -208,14 +209,6 @@ public abstract class AbstractSwtWizardWindow extends Dialog {
                     }
                 }
             });
-        
-            this.optionComposite.getUMLButton().setToolTipText(Xmi.I18N.getString("fileChooser.options.export.description.uml"));
-        
-            this.optionComposite.getCompatibilityButton().setToolTipText(Xmi.I18N.getString("fileChooser.options.export.description.annotation"));
-        
-            this.optionComposite.getComboButton().setToolTipText(Xmi.I18N.getString("fileChooser.options.export.description.compatibility"));
-        
-            this.optionComposite.getLabelButton().setToolTipText(Xmi.I18N.getString("fileChooser.options.export.description.compatibility"));
         
         
             this.optionComposite.getXMIButton().addSelectionListener(new SelectionAdapter() {
@@ -231,9 +224,7 @@ public abstract class AbstractSwtWizardWindow extends Dialog {
         
             });
         
-            this.optionComposite.getXMIButton().setToolTipText(Xmi.I18N.getString("fileChooser.options.export.description.xmi"));
-        
-        
+                 
         }
         
         this.fileChooserComposite.getSearch().addSelectionListener(new SelectionAdapter() {
@@ -277,8 +268,8 @@ public abstract class AbstractSwtWizardWindow extends Dialog {
         
         setDefaultDialog();
         this.shell.pack();
-        this.shell.setMinimumSize(new Point(600, this.shell.getBounds().height));
-        
+        this.shell.setMinimumSize(new Point(this.shell.getBounds().width, this.shell.getBounds().height));
+                
         this.validateComposite.getValidationButton().setFocus();
     }
 
@@ -301,8 +292,7 @@ public abstract class AbstractSwtWizardWindow extends Dialog {
         if (this.theThread != null && this.theThread.isAlive()) {
             this.theThread.interrupt();
         }
-        
-        
+                
         if ((this.shell != null) && (!this.shell.isDisposed())){
             this.shell.dispose();
         }
@@ -552,7 +542,7 @@ public abstract class AbstractSwtWizardWindow extends Dialog {
     }
 
     @objid ("745d3e78-d170-474e-98ba-0451a531a7a1")
-    protected void fileCanBeCreated(File file) {
+    protected void fileCanNotBeCreated(File file) {
         MessageBox messageBox = new MessageBox(this.shell, SWT.OK);
         messageBox.setMessage(Xmi.I18N.getMessage("fileChooser.dialog.confirm.canNotCreateFile.label", file.getName()));
         messageBox.setText( Xmi.I18N.getString("fileChooser.dialog.confirm.canNotCreateFile.title"));
@@ -577,7 +567,7 @@ public abstract class AbstractSwtWizardWindow extends Dialog {
             return true;       
         } 
         
-        fileCanBeCreated(theFile);
+        fileCanNotBeCreated(theFile);
         return false;
     }
 
@@ -612,18 +602,17 @@ public abstract class AbstractSwtWizardWindow extends Dialog {
             @Override
             public void run() {
                 customMessageBox(SWT.ICON_INFORMATION);
+                AbstractSwtWizardWindow.this.shell.dispose();
             }
         });
     }
 
     @objid ("8c469992-8416-428d-849f-0ea9d7787942")
     void customMessageBox(int icon) {
-        MessageBox messageBox = new MessageBox(Display.getDefault().getActiveShell(), icon);
+        MessageBox messageBox = new MessageBox(this.shell, icon);
         messageBox.setMessage(this.description);
         messageBox.setText(this.title);
-        if (messageBox.open() == SWT.OK) {            
-            this.shell.dispose();             
-        }
+        messageBox.open();
     }
 
     @objid ("961cfe93-8b83-472a-8209-8d3dcaea1a58")
@@ -643,9 +632,48 @@ public abstract class AbstractSwtWizardWindow extends Dialog {
                 @Override
                 public void run() {
                     customMessageBox(SWT.ICON_ERROR);
+                    AbstractSwtWizardWindow.this.shell.dispose();
                 }
             });
         }
+    }
+
+    @objid ("7e575517-c869-4fbd-9bd2-ff5c5bdcb0ae")
+    protected void wrongFileExtension() {
+        Display.getDefault().asyncExec(new Runnable() {
+            @Override
+            public void run() {
+                final MessageBox messageBox = new MessageBox(AbstractSwtWizardWindow.this.shell, SWT.ICON_INFORMATION);
+                messageBox.setText(Xmi.I18N.getString("fileChooser.dialog.wrongEcoreFormat.title"));
+                messageBox.setMessage(Xmi.I18N.getString("fileChooser.dialog.wrongEcoreFormat.description"));
+                messageBox.open();
+               }
+        });
+    }
+
+    @objid ("6bb85ce3-50ed-4094-bb7f-f7801e8dd76b")
+    protected void catchException(final Exception e) {
+        this.error = true;
+        Xmi.LOG.error(e);
+               
+        final String msgTitle = Xmi.I18N.getString("error.import.uncatchedException");
+        final String msg = e.getClass().getCanonicalName();
+        
+        Display.getDefault().asyncExec(new Runnable() {
+            @Override
+            public void run() {
+                if (!AbstractSwtWizardWindow.this.shell.isDisposed()){
+                    final MessageBox messageBox = new MessageBox(AbstractSwtWizardWindow.this.shell, SWT.ICON_ERROR);
+        
+                    if (msg != null)
+                        messageBox.setMessage(msg);
+        
+                    messageBox.setText(msgTitle);
+                    messageBox.open();     
+                    AbstractSwtWizardWindow.this.shell.dispose();
+                }
+            }
+        });
     }
 
 }

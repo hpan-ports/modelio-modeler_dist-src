@@ -39,10 +39,4 @@ public class EProfile extends ENamedElement {
         super(element);
     }
 
-    @objid ("24490f6e-b30c-43a9-af91-ca5776bc3fd1")
-    @Override
-    public void setProperties(Element objingElt) {
-        super.setProperties(objingElt);
-    }
-
 }

@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.uml.behavior.interactionModel;
 
@@ -41,21 +41,21 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("004c46e0-c4bf-1fd8-97fe-001ec947cd2a")
 public class TerminateSpecificationImpl extends ExecutionOccurenceSpecificationImpl implements TerminateSpecification {
-    @objid ("391c0336-be62-42fa-8ad7-938d23ff8df3")
+    @objid ("84cc4209-69dc-4a61-8d72-59c5c72a4d6b")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("4e0c4d8e-4a7d-4ea4-9e4f-b760ca746f70")
+    @objid ("d496dc8f-f07a-438a-80a2-159df5cec83b")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("0aa29326-421e-44c5-9676-d999501fb791")
+    @objid ("6422691d-0486-4161-8351-883db3352853")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitTerminateSpecification(this);

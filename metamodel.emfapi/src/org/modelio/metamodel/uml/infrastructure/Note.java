@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.uml.infrastructure;
 
@@ -32,22 +32,22 @@ import org.modelio.metamodel.uml.infrastructure.NoteType;
 
 @objid ("0089d1ea-c4be-1fd8-97fe-001ec947cd2a")
 public interface Note extends ModelElement {
-    @objid ("7692f016-501d-4e27-9719-49a8ea7aea3b")
+    @objid ("1d06b5b2-fbb0-4a29-890d-6d136793715c")
     String getContent();
 
-    @objid ("455425b1-1236-437b-9da1-109da5d04d9e")
+    @objid ("5de2187a-762f-4b8e-b4b5-b8c9d93aea2d")
     void setContent(String value);
 
-    @objid ("1faa164f-5a53-4c83-917e-f067c368d977")
+    @objid ("1fc1deba-a4d9-48b6-996a-bb47e3b05c39")
     NoteType getModel();
 
-    @objid ("db8231dd-2d2c-41e5-bc5c-3ca16d380244")
+    @objid ("93f1d9e8-8a7b-48a1-8e45-52bc56a5a5c9")
     void setModel(NoteType value);
 
-    @objid ("a8cefaa9-8b7f-483c-81f3-fafd50f84bcc")
+    @objid ("67b2accd-e005-494a-8371-d4dc913bff00")
     ModelElement getSubject();
 
-    @objid ("9c91148f-f3be-4f01-8c54-c830e1d0f568")
+    @objid ("fdf619ca-ddac-4cd6-a1ad-e7810d34a29e")
     void setSubject(ModelElement value);
 
 }

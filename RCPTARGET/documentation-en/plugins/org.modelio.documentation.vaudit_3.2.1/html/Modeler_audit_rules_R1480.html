@@ -1,0 +1,52 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<title>Modeler audit rules R1480</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link href="style.css" media="screen" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<a name="R1480"></a>
+<h1 >R1480<a href="#R1480" class="wiki-anchor">&para;</a></h1>
+
+<a name="Summary"></a>
+<h4 >Summary<a href="#Summary" class="wiki-anchor">&para;</a></h4>
+
+<p>An <em>Attribute</em> must be typed by a primitive type.</p>
+
+<a name="Details"></a>
+<h4 >Details<a href="#Details" class="wiki-anchor">&para;</a></h4>
+
+<p>An Attribute should always be typed by a primitive type. The type of an
+attribute must be a so-called &ldquo;primitive&rdquo; type.</p>
+
+<p>Primitive types are either:</p>
+
+<ul>
+<li>UML types (Boolean, string, integer, float etc)</li>
+<li>Enumerations</li>
+<li><em>Classes</em> or <em>DataTypes</em> as long as they are defined as being &ldquo;primitive&rdquo;</li>
+</ul>
+
+
+<a name="Tips"></a>
+<h4 >Tips<a href="#Tips" class="wiki-anchor">&para;</a></h4>
+
+<p>When you get a R1480 error, choose one of the following solutions:</p>
+
+<ul>
+<li>If the current type of the attribute is not the expected one in your
+design, then consider changing the attribute type for a &ldquo;primitive&rdquo; one.</li>
+<li>If it makes sense, consider modifying the typing class or
+<em>DataType</em> to make it &ldquo;primitive&rdquo; (*).</li>
+<li>If you do not wish to make the typing <em>Class </em>or <em>DataType</em>
+primitive, consider replacing the attribute by an association to the non-
+primitive typing class or <em>DataType</em>.</li>
+</ul>
+
+
+<p>(*)To make a class or a <em>DataType</em> &ldquo;primitive&rdquo;, simply select it in the model
+and set its &ldquo;primitive&rdquo; property to true in the element property tab.</p>
+
+<div id="footer"><iframe frameborder="0" scrolling="no" height="25" width="100%" src="_footer.html"></iframe></div> </body>
+</html>

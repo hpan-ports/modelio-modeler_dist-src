@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.uml.statik;
 
@@ -45,61 +45,61 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("0018eeee-c4bf-1fd8-97fe-001ec947cd2a")
 public class PortImpl extends BindableInstanceImpl implements Port {
-    @objid ("f51ae0f7-63cd-4e8a-94f7-ec0158931a58")
+    @objid ("3d977269-1122-434c-9a72-76cc3a667523")
     @Override
     public boolean isIsBehavior() {
         return (Boolean) getAttVal(PortData.Metadata.IsBehaviorAtt());
     }
 
-    @objid ("6d2cd4ee-9b74-4d5e-98f5-47511be76e6b")
+    @objid ("4714a453-00d4-4de5-ba29-2a7148a6e82e")
     @Override
     public void setIsBehavior(boolean value) {
         setAttVal(PortData.Metadata.IsBehaviorAtt(), value);
     }
 
-    @objid ("1a986a4b-5d61-41a6-8c74-9d4a3b13926b")
+    @objid ("efe838f0-0581-4e20-af9d-e1ade555a92c")
     @Override
     public boolean isIsService() {
         return (Boolean) getAttVal(PortData.Metadata.IsServiceAtt());
     }
 
-    @objid ("b35c6119-2ec2-44a1-a164-e72e90a3fde6")
+    @objid ("fa09ef98-e15d-4f39-a84f-5a2eaf2a7bd3")
     @Override
     public void setIsService(boolean value) {
         setAttVal(PortData.Metadata.IsServiceAtt(), value);
     }
 
-    @objid ("43337f2c-b68c-49ed-9a5c-37866dfd9bed")
+    @objid ("eea6e5c5-c6b4-4c38-a184-dea24412929a")
     @Override
     public boolean isIsConjugated() {
         return (Boolean) getAttVal(PortData.Metadata.IsConjugatedAtt());
     }
 
-    @objid ("5b1a4f81-c4cf-4454-87fd-cbea0e26538f")
+    @objid ("b741438e-5569-4bf4-955d-519dc3ce3fcc")
     @Override
     public void setIsConjugated(boolean value) {
         setAttVal(PortData.Metadata.IsConjugatedAtt(), value);
     }
 
-    @objid ("58aa6fde-3dc2-4c0c-acb6-31a2697d55e8")
+    @objid ("0df6a04c-a7eb-494d-bfd2-c6a088c1df2d")
     @Override
     public PortOrientation getDirection() {
         return (PortOrientation) getAttVal(PortData.Metadata.DirectionAtt());
     }
 
-    @objid ("85d2162e-0955-4aaf-ab11-151719ad1d71")
+    @objid ("89d1561d-9c8d-4bdc-afd1-d0cb0b8324f3")
     @Override
     public void setDirection(PortOrientation value) {
         setAttVal(PortData.Metadata.DirectionAtt(), value);
     }
 
-    @objid ("3cf76621-f8ed-487e-bd66-495c17abb3d2")
+    @objid ("435a3191-7e17-471b-8bf0-f8fd94e15dd7")
     @Override
     public EList<ProvidedInterface> getProvided() {
         return new SmList<>(this, PortData.Metadata.ProvidedDep());
     }
 
-    @objid ("ccc1186d-90c4-42a2-8a61-b423f6763d97")
+    @objid ("c5c4c004-a593-44bf-83ae-10ac2cc644a9")
     @Override
     public <T extends ProvidedInterface> List<T> getProvided(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -112,13 +112,13 @@ public class PortImpl extends BindableInstanceImpl implements Port {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("e0eda6b8-5a94-4c7b-8dc5-f4351069d189")
+    @objid ("22a6c15e-be2a-4f35-a860-dcb627caa647")
     @Override
     public EList<RequiredInterface> getRequired() {
         return new SmList<>(this, PortData.Metadata.RequiredDep());
     }
 
-    @objid ("ff3fd9f3-7e6e-4765-b0d0-daa72803deda")
+    @objid ("ab59705e-cacc-4660-85eb-cce255605eac")
     @Override
     public <T extends RequiredInterface> List<T> getRequired(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -131,21 +131,21 @@ public class PortImpl extends BindableInstanceImpl implements Port {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("58605322-265e-4484-926a-6d14f7b63bbf")
+    @objid ("6cc45f2b-4dcb-4730-87f8-87150b920ce7")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("bd01b46e-0d83-49bf-a4b3-3d7857e80b1c")
+    @objid ("efe6dd8e-dc11-4a6b-bf2d-61e6827c589c")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("7e0f0fec-c166-49c2-976b-e25cc1f690b1")
+    @objid ("e6f6dc97-a31a-4a3a-b3aa-72445d8baaab")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitPort(this);

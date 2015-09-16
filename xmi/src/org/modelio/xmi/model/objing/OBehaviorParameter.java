@@ -100,6 +100,8 @@ public class OBehaviorParameter extends OElement implements IOElement {
         case ParameterEffectKind.UPDATE :
             ecoreElt.setEffect(org.eclipse.uml2.uml.ParameterEffectKind.UPDATE_LITERAL);
             break;
+        default:
+            ecoreElt.setEffect(org.eclipse.uml2.uml.ParameterEffectKind.CREATE_LITERAL);
         }
     }
 

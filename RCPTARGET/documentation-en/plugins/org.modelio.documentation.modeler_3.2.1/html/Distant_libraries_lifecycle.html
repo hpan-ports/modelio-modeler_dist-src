@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<title>Distant libraries lifecycle</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link href="style.css" media="screen" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<a name="Creating-and-publishing-a-remote-library"></a>
+<h1 >Creating and publishing a remote library<a href="#Creating-and-publishing-a-remote-library" class="wiki-anchor">&para;</a></h1>
+
+<a name="The-remote-library-life-cycle"></a>
+<h4 >The remote library life cycle<a href="#The-remote-library-life-cycle" class="wiki-anchor">&para;</a></h4>
+
+<p>The life cycle of a remote library has only two stages:</p>
+
+<ol>
+<li>The <strong>development</strong></li>
+<li>The <strong>publication</strong></li>
+</ol>
+
+
+<a name="Development"></a>
+<h4 >Development<a href="#Development" class="wiki-anchor">&para;</a></h4>
+
+<p>The development stage consists in producing the model contained by the library.
+This task is carried out using Modelio 3 and any one of the numerous means of creating models in Modelio 3: direct modeling, code reverse, XMI import and so on.</p>
+
+<p>The goal is simply to produce a model.
+Once this model is available, it can be published on an HTTP accessible site.</p>
+
+<a name="Publication"></a>
+<h4 >Publication<a href="#Publication" class="wiki-anchor">&para;</a></h4>
+
+<p>This operation consists in <em>preparing</em> and uploading the library on an HTTP server where it will be available.</p>
+
+<p>How to upload files to a server or how to setup a HTTP server is not within the scope of this document.</p>
+
+<p>However, the preparation of the Modelio project used to develop the library so that the project files can be uploaded, and which files are to be uploaded, is explained below.</p>
+
+<p><strong>Preparing the model</strong></p>
+
+<p>Let&rsquo;s name the directory of the library project <strong>$PROJECT</strong> and the work model in which the library model resides <strong>$MODEL</strong>.</p>
+
+<ol>
+<li>Prepare an empty directory (<strong>$LIBRARY</strong> in the followings) where the files to upload to the server will be prepared.</li>
+<li>Copy the content of the <strong>$PROJECT</strong>/data/fragments/<strong>$MODEL</strong>/admin directory into the <strong>$LIBRARY</strong>/<strong>$MODEL</strong>/admin directory.</li>
+<li>Copy the content of the <strong>$PROJECT</strong>/data/fragments/<strong>$MODEL</strong>/blobs directory into the <strong>$LIBRARY</strong>/<strong>$MODEL</strong>/blobs directory.</li>
+<li>Copy the content of the <strong>$PROJECT</strong>/data/fragments/<strong>$MODEL</strong>/model into the <strong>$LIBRARY</strong>/<strong>$MODEL</strong>/model directory.</li>
+<li>Copy the content of the <strong>$PROJECT</strong>/.runtime/fragments/<strong>$MODEL</strong>/.index into the <strong>$LIBRARY</strong>/<strong>$MODEL</strong>/.index directory.</li>
+<li>Upload the entire contents of <strong>$LIBRARY</strong> to the HTTP server hosting the library.</li>
+</ol>
+
+
+<p>After the upload, the library should be available for addition in Modelio 3 projects at your will, using the URL resulting from the HTTP server configuration.</p>
+
+<div id="footer"><iframe frameborder="0" scrolling="no" height="25" width="100%" src="_footer.html"></iframe></div> </body>
+</html>

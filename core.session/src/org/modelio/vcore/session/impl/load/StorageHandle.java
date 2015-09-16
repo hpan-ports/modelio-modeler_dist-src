@@ -60,6 +60,7 @@ public class StorageHandle implements IStorageHandle {
     /**
      * initialize the storage helper.
      * @param repoSupport a view of all connected repositories.
+     * @param blobSupport the BLOB support
      */
     @objid ("1fe03503-3a2d-11e2-bf6c-001ec947ccaf")
     public StorageHandle(IRepositorySupport repoSupport, IBlobSupport blobSupport) {
@@ -98,10 +99,15 @@ public class StorageHandle implements IStorageHandle {
         obj.getRepositoryObject().loadDep(obj, dep);
         
         // Threading note: we assume here that no repository will be added/removed during iteration
-        for (IRepository r : this.repoSupport.getRepositoriesView()) {
-            if (!r.isStored(obj)) {
-                r.loadDynamicDep(obj, dep);
+        this.repoSupport.getRepositoriesLock().lock();
+        try {
+            for (IRepository r : this.repoSupport.getRepositoriesView()) {
+                if (!r.isStored(obj)) {
+                    r.loadDynamicDep(obj, dep);
+                }
             }
+        } finally {
+            this.repoSupport.getRepositoriesLock().unlock();
         }
     }
 

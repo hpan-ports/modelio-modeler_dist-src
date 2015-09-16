@@ -21,13 +21,13 @@
 
 package org.modelio.xmi.model.ecore;
 
-import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.metamodel.uml.infrastructure.Element;
 
 @objid ("df8f2324-43b5-4ff3-aa51-d6c2c9b50cd9")
-public class ESendSignalEvent extends ENamedElement implements IEElement {
+public class ESendSignalEvent extends ENamedElement {
     @objid ("a0c05b64-7b06-4037-ae4e-7496ce64124b")
+    @Override
     public Element createObjingElt() {
         return null;
     }
@@ -35,19 +35,6 @@ public class ESendSignalEvent extends ENamedElement implements IEElement {
     @objid ("e21dd530-e73d-49eb-a756-38db2a8ffdb5")
     public ESendSignalEvent(org.eclipse.uml2.uml.SendSignalEvent element) {
         super(element);
-    }
-
-    @objid ("0fdbeff0-7fff-4510-81a2-be9a5bcd371a")
-    public void attach(Element objingElt) {
-    }
-
-    @objid ("e67e7110-68cd-4e94-9e87-b981098ae9d6")
-    public void attach(List<Object> objingElts) {
-    }
-
-    @objid ("35c2536d-d11e-480e-b91b-6a739da49451")
-    public void setProperties(Element objingElt) {
-        super.setProperties(objingElt);
     }
 
 }

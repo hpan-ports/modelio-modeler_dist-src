@@ -107,7 +107,7 @@ public abstract class GmElementLabel extends GmSimpleNode {
     @Override
     public List<StyleKey> getStyleKeys() {
         if (getParent() == null)
-            return Collections.emptyList();
+        return Collections.emptyList();
         return getParent().getStyleKeys();
     }
 
@@ -118,16 +118,16 @@ public abstract class GmElementLabel extends GmSimpleNode {
         Object versionProperty = in.readProperty("GmElementLabel." + MINOR_VERSION_PROPERTY);
         int readVersion = versionProperty == null ? 0 : ((Integer) versionProperty).intValue();
         switch (readVersion) {
-            case 0: {
-                read_0(in);
-                break;
-            }
-            default: {
-                assert (false) : "version number not covered!";
-                // reading as last handled version: 0
-                read_0(in);
-                break;
-            }
+        case 0: {
+            read_0(in);
+            break;
+        }
+        default: {
+            assert (false) : "version number not covered!";
+            // reading as last handled version: 0
+            read_0(in);
+            break;
+        }
         }
     }
 
@@ -156,12 +156,11 @@ public abstract class GmElementLabel extends GmSimpleNode {
     @objid ("7e90335c-1dec-11e2-8cad-001ec947c8cc")
     protected abstract String computeLabel();
 
-    @objid ("7e90335f-1dec-11e2-8cad-001ec947c8cc")
-    @Override
-    protected IStyle createStyle(GmAbstractDiagram aDiagram) {
-        return new ProxyStyle(aDiagram.getStyle());
-    }
-
+// @objid ("7e90335f-1dec-11e2-8cad-001ec947c8cc")
+// @Override
+// protected IStyle createStyle(GmAbstractDiagram aDiagram) {
+// return new ProxyStyle(aDiagram.getStyle());
+// }
     @objid ("7e903365-1dec-11e2-8cad-001ec947c8cc")
     @Override
     protected void setParent(GmCompositeNode newParent) throws IllegalStateException {

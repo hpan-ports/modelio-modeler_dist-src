@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.uml.infrastructure.properties;
 
@@ -47,10 +47,10 @@ public interface TypedPropertyTable extends PropertyTable {
     @objid ("054ae88c-2834-11e2-bf07-001ec947ccaf")
     void setProperty(PropertyDefinition prop, String value);
 
-    @objid ("8a2f179c-5110-416a-af10-da18970b5e9b")
+    @objid ("4b48163b-3f89-4342-885f-f19d74bc162a")
     PropertyTableDefinition getType();
 
-    @objid ("a75f64e0-ef54-4695-bbd6-5ff7615ea664")
+    @objid ("4cea4c28-6d62-40e1-b18a-3a4bb9f5d619")
     void setType(PropertyTableDefinition value);
 
 }

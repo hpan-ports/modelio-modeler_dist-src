@@ -23,7 +23,9 @@ package org.modelio.gproject.module.catalog;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.gproject.module.IModuleHandle;
 import org.modelio.gproject.module.ModuleId;
@@ -34,9 +36,6 @@ import org.modelio.vbasic.version.Version;
  */
 @objid ("2c9748eb-f37d-11e1-a3c7-002564c97630")
 class FileCatalogModuleHandle implements IModuleHandle, Comparable {
-    @objid ("2c9748f1-f37d-11e1-a3c7-002564c97630")
-    private boolean licenseRequired;
-
     @objid ("6949ebe8-f37d-11e1-a3c7-002564c97630")
     private String name;
 
@@ -67,19 +66,23 @@ class FileCatalogModuleHandle implements IModuleHandle, Comparable {
     @objid ("644259c1-1d90-466c-9984-b49819fb608b")
     private List<Path> jarPaths = new ArrayList<>();
 
+    @objid ("ed00681d-baa6-4572-a81e-f474faadda7f")
+    private Map<String, Path> stylePaths = new HashMap<String, Path>();
+
     @objid ("2c9748ff-f37d-11e1-a3c7-002564c97630")
-    FileCatalogModuleHandle(Path moduleCachePath, String name, Version version, String uid, String mainClassName, boolean licenseRequired, Version binaryVersion, List<ModuleId> dependencies, List<ModuleId> weakDependencies, List<Path> docPaths, List<Path> jarPaths) {
+    FileCatalogModuleHandle(Path moduleCachePath, String name, Version version, String uid, String mainClassName, Version binaryVersion, List<ModuleId> dependencies, List<ModuleId> weakDependencies, List<Path> docPaths, List<Path> jarPaths, Map<String, Path> stylePaths) {
         this.moduleCachePath = moduleCachePath;
         this.name = name;
         this.version = version;
         this.uid = uid;
         this.mainClassName = mainClassName;
-        this.licenseRequired = licenseRequired;
+               
         this.binaryVersion = binaryVersion;
         this.dependencies = dependencies;
         this.weakDependencies = weakDependencies;
         this.docPaths = docPaths;
         this.jarPaths = jarPaths;
+        this.stylePaths = stylePaths;
     }
 
     @objid ("2c974914-f37d-11e1-a3c7-002564c97630")
@@ -160,12 +163,6 @@ class FileCatalogModuleHandle implements IModuleHandle, Comparable {
         return this.weakDependencies;
     }
 
-    @objid ("691f3284-f37d-11e1-a3c7-002564c97630")
-    @Override
-    public boolean isLicenseRequired() {
-        return this.licenseRequired;
-    }
-
     @objid ("d95db795-37da-11e2-8ba4-002564c97630")
     @Override
     public Path getArchive() {
@@ -201,6 +198,12 @@ class FileCatalogModuleHandle implements IModuleHandle, Comparable {
             return this.version.toString().compareTo(((FileCatalogModuleHandle)obj).version.toString());
         }
         return 0;
+    }
+
+    @objid ("293c3919-1a3f-44de-9e6c-29bd6cc4e62c")
+    @Override
+    public Map<String, Path> getStylePaths() {
+        return this.stylePaths ;
     }
 
 }

@@ -21,9 +21,7 @@
 
 package org.modelio.xmi.model.ecore;
 
-import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.modelio.api.modelio.Modelio;
 import org.modelio.metamodel.uml.behavior.stateMachineModel.ConnectionPointReference;
 import org.modelio.metamodel.uml.behavior.stateMachineModel.EntryPointPseudoState;
 import org.modelio.metamodel.uml.behavior.stateMachineModel.ExitPointPseudoState;
@@ -32,13 +30,14 @@ import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.xmi.util.ReverseProperties;
 
 @objid ("2c4d0e08-4ea5-4c9a-be3b-d6e7a0a29ed2")
-public class EConnectionPointReference extends ENamedElement implements IEElement {
+public class EConnectionPointReference extends ENamedElement {
     @objid ("ee2bebe6-729a-425d-85af-4e3b9b9d9b79")
     private org.eclipse.uml2.uml.ConnectionPointReference ecoreElement = null;
 
     @objid ("74a235b7-b86e-4044-933e-7cee2d4c92ba")
+    @Override
     public Element createObjingElt() {
-        return Modelio.getInstance().getModelingSession().getModel().createConnectionPointReference();
+        return ReverseProperties.getInstance().getMModelServices().getModelFactory().createConnectionPointReference();
     }
 
     @objid ("1d2d240e-5ca1-4e29-a9fc-be9131ec5d1f")
@@ -48,6 +47,7 @@ public class EConnectionPointReference extends ENamedElement implements IEElemen
     }
 
     @objid ("ad08e104-4f07-4b4c-995c-38475e76215b")
+    @Override
     public void attach(Element objingElt) {
         org.eclipse.uml2.uml.State ecoreOwner = this.ecoreElement.getState();
         if (ecoreOwner != null){
@@ -59,11 +59,8 @@ public class EConnectionPointReference extends ENamedElement implements IEElemen
         }
     }
 
-    @objid ("7ec56ac2-f7f4-40ba-9243-3722fad8f743")
-    public void attach(List<Object> objingElts) {
-    }
-
     @objid ("cb8f5a30-651b-46f5-86b6-b18a60bbcc23")
+    @Override
     public void setProperties(Element objingElt) {
         super.setProperties(objingElt);
         setExit((ConnectionPointReference) objingElt);

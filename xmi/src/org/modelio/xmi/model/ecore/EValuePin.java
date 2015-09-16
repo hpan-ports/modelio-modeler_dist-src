@@ -21,18 +21,18 @@
 
 package org.modelio.xmi.model.ecore;
 
-import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.modelio.api.modelio.Modelio;
 import org.modelio.metamodel.uml.behavior.activityModel.ValuePin;
 import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.xmi.util.EcoreModelNavigation;
+import org.modelio.xmi.util.ReverseProperties;
 
 @objid ("fc8339aa-8d4d-4e85-84a9-e68401e7d6ba")
-public class EValuePin extends EInputPin implements IEElement {
+public class EValuePin extends EInputPin {
     @objid ("0bb4bfb5-da6f-4419-acae-88571755a071")
+    @Override
     public Element createObjingElt() {
-        return  Modelio.getInstance().getModelingSession().getModel()
+        return  ReverseProperties.getInstance().getMModelServices().getModelFactory()
                 .createValuePin();
     }
 
@@ -41,16 +41,8 @@ public class EValuePin extends EInputPin implements IEElement {
         super(element);
     }
 
-    @objid ("60290ac1-1484-4fe9-93f2-8b5a326892df")
-    public void attach(Element objingElt) {
-        super.attach(objingElt);
-    }
-
-    @objid ("86645eaf-00bb-4357-a97a-5d53176dc811")
-    public void attach(List<Object> objingElts) {
-    }
-
     @objid ("8bc7574c-130f-4edc-aff7-4c849e494e2e")
+    @Override
     public void setProperties(Element objingElt) {
         super.setProperties(objingElt);
         setValue((ValuePin) objingElt);
@@ -59,10 +51,10 @@ public class EValuePin extends EInputPin implements IEElement {
     @objid ("c1a7b94d-a143-4874-89c6-8926c806a35f")
     private void setValue(ValuePin objingElt) {
         org.eclipse.uml2.uml.ValueSpecification value = ((org.eclipse.uml2.uml.ValuePin) getEcoreElement()).getValue();
-                
-                if (value != null){
-           objingElt.setValue(EcoreModelNavigation.getValue(value));
-                }
+        
+        if (value != null){
+            objingElt.setValue(EcoreModelNavigation.getValue(value));
+        }
     }
 
 }

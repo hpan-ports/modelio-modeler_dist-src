@@ -102,7 +102,7 @@ public class UMLMetamodel {
             Resource resource = resoureSet.getResource(uriModel, true);
             result = (Model) EcoreUtil.getObjectByType(resource.getContents(), UMLPackage.Literals.PACKAGE);
         } catch (WrappedException we) {
-            Xmi.LOG.error(Xmi.PLUGIN_ID, we);       
+            Xmi.LOG.error(we);       
         }
         return result;
     }

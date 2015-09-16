@@ -99,7 +99,8 @@ public class MultiHashMap<K, V> extends HashMap<K,List<V>> {
      * @return true if the value was removed, false if it was not mapped to the given key.
      */
     @objid ("9e9601ca-1f4a-11e2-8814-001ec947c8cc")
-    public boolean remove(K key, V value) {
+    @Override
+    public boolean remove(Object key, Object value) {
         final List<V> vals = get(key);
         if (vals == null) {
             return false;

@@ -37,6 +37,7 @@ import org.modelio.vcore.session.api.repository.StorageErrorSupport;
 import org.modelio.vstore.exml.common.index.builder.IndexBuilder;
 import org.modelio.vstore.exml.common.index.builder.InvalidExmlException;
 import org.modelio.vstore.exml.common.model.ObjId;
+import org.modelio.vstore.exml.plugin.VStoreExml;
 import org.modelio.vstore.exml.resource.IExmlResourceProvider.ExmlResource;
 import org.modelio.vstore.exml.resource.IExmlResourceProvider;
 import org.xml.sax.InputSource;
@@ -70,7 +71,7 @@ public class ExmlIndex {
      * <li> 8: 18/01/2013, 28/01/2013: indexes were not correctly updated on svn update
      * and child lost their parent when the parent index was recomputed.
      * <li> 9: 06/12/2013 : found  & fixed bugs in indexes refresh on Modelio 3.0.1.
-     *            Force index rebuild to avoid shell objects in the model.
+     * Force index rebuild to avoid shell objects in the model.
      * </ul>
      */
     @objid ("7dc0cd99-1877-11e2-9dfc-001ec947ccaf")
@@ -178,16 +179,17 @@ public class ExmlIndex {
         try {
             // Check index is here
             if (this.cmsNodeIndex.isEmpty())
-                throw new IndexOutdatedException(this.resProvider.getName()+" index is missing.");
+                throw new IndexOutdatedException(VStoreExml.getMessage("ExmlIndex.indexMissing", this.resProvider.getName()));
             
             // Check index format
             checkIndexFormat();
             
             // Check index stamp
             if( !(getStoredStamp().equals(this.resProvider.getStamp())))
-                throw new IndexOutdatedException(this.resProvider.getName()+" index stamp mismatch:\n"+
-                        " - index stamp: "+getStoredStamp()+"\n"+
-                        " - repository stamp: "+this.resProvider.getStamp());
+                throw new IndexOutdatedException(VStoreExml.getMessage("ExmlIndex.indexNotSynchro", 
+                        this.resProvider.getName(),
+                        getStoredStamp(),
+                        this.resProvider.getStamp()));
         } catch (IOError e) {
             throw (IOException) e.getCause();
         }
@@ -317,10 +319,16 @@ public class ExmlIndex {
     @objid ("7dc0cd93-1877-11e2-9dfc-001ec947ccaf")
     private void checkIndexFormat() throws IndexOutdatedException, IOException {
         int storedVersion = getStoredVersion();
-        if ( INDEX_FORMAT_VERSION != storedVersion)
-            throw new IndexOutdatedException(this.resProvider.getName()+" index format mismatch:\n" +
-                    " - index format: "+ storedVersion+"\n"+
-                    " - expected format: " + INDEX_FORMAT_VERSION);
+        if ( INDEX_FORMAT_VERSION > storedVersion)
+            throw new IndexOutdatedException(VStoreExml.getMessage("ExmlIndex.indexFormatOld", 
+                    this.resProvider.getName(),
+                    storedVersion,
+                    INDEX_FORMAT_VERSION));
+        else if ( INDEX_FORMAT_VERSION < storedVersion)
+            throw new IndexOutdatedException(VStoreExml.getMessage("ExmlIndex.indexFormatNew", 
+                    this.resProvider.getName(),
+                    storedVersion,
+                    INDEX_FORMAT_VERSION));
     }
 
     /**
@@ -391,10 +399,10 @@ public class ExmlIndex {
 
     /**
      * Defragments the index, so it consumes less space. This commits any uncommitted data.
-     * @throws IOException
      * @param monitor the progress monitor to use for reporting progress to the user. It is the caller's responsibility to call done()
      * on the given monitor. Accepts null, indicating that no progress should be reported and that the operation cannot
      * be cancelled.
+     * @throws java.io.IOException in case of failure
      */
     @objid ("3fa2dfbe-6770-41c1-be4c-6955841eefb9")
     public void compress(IModelioProgress monitor) throws IOException {

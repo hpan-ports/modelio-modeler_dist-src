@@ -71,6 +71,7 @@ public class MaintenanceOperations implements IMaintenanceOperations {
     }
 
     @objid ("a7f3ee50-7301-42c9-b184-1d4096c12f1e")
+    @Override
     public void deleteIndexes(IModelioProgress monitor) throws IOException {
         ExmlIndex indexes = this.repo.getIndexes(monitor);
         

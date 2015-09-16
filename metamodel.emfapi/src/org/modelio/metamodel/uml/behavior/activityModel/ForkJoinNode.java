@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.uml.behavior.activityModel;
 
@@ -30,16 +30,16 @@ import org.eclipse.emf.ecore.EObject;
 
 @objid ("0033b2ec-c4bf-1fd8-97fe-001ec947cd2a")
 public interface ForkJoinNode extends ControlNode {
-    @objid ("cd2f8dbd-d9b6-412d-b89b-1045ebeba367")
+    @objid ("8dd3aaf5-bf33-48bc-be50-85c73fcfe351")
     boolean isIsCombineDuplicate();
 
-    @objid ("0a1ad754-7511-435e-ae43-6e7c964122a3")
+    @objid ("876920cb-6ea6-4372-bb3e-ce996d86f95f")
     void setIsCombineDuplicate(boolean value);
 
-    @objid ("89d41847-ccf1-4729-9fc2-861138655ed8")
+    @objid ("a651d6c1-7597-4cf7-99cd-b201ed302092")
     String getJoinSpec();
 
-    @objid ("4e3d2c47-e115-4d8a-a795-bb5690078d0f")
+    @objid ("b0b0e63f-37ef-411e-b710-d0cd242b531c")
     void setJoinSpec(String value);
 
 }

@@ -100,7 +100,7 @@ public class ExportServices {
             try {
                 Thread.sleep(100);
             } catch (InterruptedException e) {
-                 Xmi.LOG.error(Xmi.PLUGIN_ID, e);
+                Xmi.LOG.error(e);
             }
         }
         
@@ -112,13 +112,11 @@ public class ExportServices {
         resourceSet2.getPackageRegistry().put(org.eclipse.uml2.uml.UMLPackage.eNS_URI,
                 UMLPackage.eINSTANCE);
         
-        
-        
         resourceSet2.getResourceFactoryRegistry().getExtensionToFactoryMap()
         .put(UMLResource.FILE_EXTENSION, UMLResource.Factory.INSTANCE);
         Map<URI, URI> uriMap = resourceSet2.getURIConverter().getURIMap();
         final Bundle bundle = Platform.getBundle("org.eclipse.uml2.uml.resources");
-               
+        
         IPath libraries = new Path("/libraries");
         IPath metamodels = new Path("/metamodels");
         IPath profiles = new Path("/profiles");
@@ -153,7 +151,7 @@ public class ExportServices {
             try{
                 model.applyProfile(profile);
             }catch(Exception e){
-                Xmi.LOG.error(Xmi.PLUGIN_ID, e);
+                Xmi.LOG.error(e);
             }
         }
         
@@ -161,7 +159,7 @@ public class ExportServices {
             try{
                 model.applyProfile(genProp.getSysMLProfile());
             }catch(Exception e){
-                Xmi.LOG.error(Xmi.PLUGIN_ID, e);
+                Xmi.LOG.error(e);
             }
             applySysML();
         }
@@ -174,7 +172,7 @@ public class ExportServices {
             if  (ecoreElement != null){
         
                 exportStereotype(element, ecoreElement);
-                
+        
                 //Apply tagged Values
                 ProfileUtils.setValue(element, ecoreElement);
         
@@ -223,15 +221,15 @@ public class ExportServices {
             ObjingEAnnotation.setRoundTrip(ecoreModel, genProp.isRoundtripEnabled());
             ecoreModel.setName(selectedPkg.getName());
             genProp.setEcoreModel(ecoreModel);
-         
+        
             partialMap.put(selectedPkg.getUuid().toString(), ecoreModel);
             genProp.setExportScopeElts(exportScopeElts);
-                 
+        
             XMIExportBehavior exportBehavior = new XMIExportBehavior(progressBar);
             GenericMetamodelVisitor visitObjingModel = new GenericMetamodelVisitor(exportBehavior);
             genProp.setObjingVisitor(visitObjingModel);
         
-            
+        
             boolean ecoreRootNull = true;
             for (ModelTree rootElt : exportScopeElts) {
                 rootElt.accept(visitObjingModel);
@@ -248,7 +246,7 @@ public class ExportServices {
                     for (org.eclipse.uml2.uml.PrimitiveType primitive :  PrimitiveTypeMapper.getPredifinedTypeList()){
                         ecoreModel.getPackagedElements().add(primitive);
                     }
-                    
+        
                     for (Project library :  GenerationProperties.getInstance().getExportedLibrary()){
                         Package libraryModel = library.getModel(); 
                         libraryModel.accept(visitObjingModel);              
@@ -259,8 +257,8 @@ public class ExportServices {
             }
         
             if (!ecoreRootNull) {
-                
-                
+        
+        
                 if(progressBar != null) 
                     progressBar.setLabel(Xmi.I18N.getString("progressBar.content.export.XMIFileSave"));
         
@@ -286,28 +284,26 @@ public class ExportServices {
                     Display.getDefault().asyncExec(new Runnable() {
                         @Override
                         public void run() {
-                            MessageBox messageBox = new MessageBox(ExportServices.this._shell, SWT.ICON_ERROR);
+                            MessageBox messageBox = new MessageBox(Display.getDefault().getActiveShell(), SWT.ICON_ERROR);
                             messageBox.setMessage(Xmi.I18N.getString("info.export.result_failed.inSave"));
                             messageBox.setText(Xmi.I18N.getString("info.export.result_failed"));
                             messageBox.open();
-                            ExportServices.this._shell.dispose();
+        //                            ExportServices.this._shell.dispose();
                         }
                     });
         
-        
                     Xmi.LOG.error(Xmi.PLUGIN_ID, Xmi.I18N.getString("info.export.result_failed"));
-        
                 }
         
             } else {
                 Display.getDefault().asyncExec(new Runnable() {
                     @Override
                     public void run() {
-                        MessageBox messageBox = new MessageBox(ExportServices.this._shell, SWT.ICON_ERROR);
+                        MessageBox messageBox = new MessageBox(Display.getDefault().getActiveShell(), SWT.ICON_ERROR);
                         messageBox.setMessage(Xmi.I18N.getString("info.export.result_failed"));
                         messageBox.setText(Xmi.I18N.getString("info.export.result_failed.root_null"));
                         messageBox.open();
-                        ExportServices.this._shell.dispose();
+        //                        ExportServices.this._shell.dispose();
                     }
                 });
         
@@ -358,9 +354,8 @@ public class ExportServices {
                     if (!GenerationProperties.getInstance().getExportVersion().equals(FormatExport.EMF300))
                         XMIFileUtils.changeToUML(resourceProfile.getURI().toFileString());
         
-                } catch (IOException ioe) {
-        
-                    Xmi.LOG.error(Xmi.PLUGIN_ID, ioe);
+                } catch (IOException ioe) {    
+                    Xmi.LOG.error(ioe);
                 }
             }
         }
@@ -402,7 +397,7 @@ public class ExportServices {
                     XMIFileUtils.changeToUML(resourceProfile.getURI().toFileString());
         
             } catch (IOException ioe) {
-                Xmi.LOG.error(Xmi.PLUGIN_ID, ioe);
+                Xmi.LOG.error(ioe);
             }
         }
     }
@@ -520,9 +515,8 @@ public class ExportServices {
             try {
                 resource.save(null);
             } catch (Exception ioe) {
-                error = true;
-        
-                Xmi.LOG.error(Xmi.PLUGIN_ID, ioe);
+                error = true;      
+                Xmi.LOG.error(ioe);
             }
         
         
@@ -551,9 +545,7 @@ public class ExportServices {
         try {
             resource.save(null);
         } catch (IOException e) {
-            Xmi.LOG.error(Xmi.PLUGIN_ID, e);
-            
-            e.printStackTrace(System.err);
+            Xmi.LOG.error(e);
             return true;
         }
         return false;
@@ -575,9 +567,8 @@ public class ExportServices {
                 try{
                     ecoreElement.applyStereotype(ecoreStereotype);
         
-                }catch(IllegalArgumentException e){
-        
-                    Xmi.LOG.error(Xmi.PLUGIN_ID, e);
+                }catch(IllegalArgumentException e){       
+                    Xmi.LOG.error(e);
                 }
         
             }
@@ -619,10 +610,7 @@ public class ExportServices {
                         ecoreElement.setValue(requirementSter,     "Text", requirement.getDefinition());
                         ecoreElement.setValue(requirementSter,     "Id", requirement.getName());
                     }catch(Exception e){
-        
-                        String errorMsg = e.getMessage();
-                        if (errorMsg != null)
-                            Xmi.LOG.error(Xmi.PLUGIN_ID, errorMsg);
+                        Xmi.LOG.error(e);
                     }
                 }else if (element instanceof Dependency){
                     Dependency dependency  = (Dependency) element;
@@ -641,7 +629,7 @@ public class ExportServices {
                             setRequirementsRelated(dependency);
                         }
                     }catch(IllegalArgumentException e){
-                        Xmi.LOG.error(Xmi.PLUGIN_ID, e);
+                        Xmi.LOG.error(e);
                     }
                 }else if (element instanceof Note){
                     Note note = (Note) element;

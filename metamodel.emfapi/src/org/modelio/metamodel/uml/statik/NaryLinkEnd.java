@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.uml.statik;
 
@@ -35,52 +35,52 @@ import org.modelio.metamodel.uml.statik.RequiredInterface;
 
 @objid ("00749ece-17e8-10a1-88a0-001ec947cd2a")
 public interface NaryLinkEnd extends ModelElement {
-    @objid ("6f3697b8-859f-4953-9ec5-e23dfd0d21b6")
+    @objid ("36ddfabd-baf3-4ccf-811c-ae7cd2ffccc0")
     boolean isIsOrdered();
 
-    @objid ("95592705-64f3-402f-a5af-6811d2fc2b7a")
+    @objid ("ddca75ff-13ca-489c-9905-7b827a3d949b")
     void setIsOrdered(boolean value);
 
-    @objid ("ce028137-50b3-40f4-9ed5-3b09e6a96102")
+    @objid ("b2f0e8c7-db01-4bc4-b089-2142d3045d92")
     boolean isIsUnique();
 
-    @objid ("c3f4281b-8313-4065-9892-45838c12ad23")
+    @objid ("96a2ecb3-b387-4c5b-9591-11d88e7b7387")
     void setIsUnique(boolean value);
 
-    @objid ("052af170-499a-49f3-a8b1-039db4ea005a")
+    @objid ("0e018725-a545-441c-a98e-db75bf68ff61")
     String getMultiplicityMax();
 
-    @objid ("7bab9307-97fe-4601-aa32-90bd227f7d63")
+    @objid ("91ada4f4-94fe-4e5e-8103-1bdea97cc601")
     void setMultiplicityMax(String value);
 
-    @objid ("220b618e-1ae0-4a03-803c-94d27f6da1fc")
+    @objid ("dffd92f4-00e6-4fe5-a89e-787962c416dd")
     String getMultiplicityMin();
 
-    @objid ("e1fa6fae-0fa6-418a-bd28-8d3a72b7213a")
+    @objid ("9277bc94-a031-4918-aa28-11f023ac7b08")
     void setMultiplicityMin(String value);
 
-    @objid ("c4350f6b-7cfb-4816-893f-4f7535bd4c68")
+    @objid ("fcd1218e-6f3b-43e4-9366-83901b616b4a")
     Instance getSource();
 
-    @objid ("ea4f655e-5ffc-4886-b91e-6a23b91c7fc5")
+    @objid ("cd5ff3bd-2564-476b-8b76-054c60bec200")
     void setSource(Instance value);
 
-    @objid ("616ee711-fad3-4f53-a80f-902e004b3808")
+    @objid ("b1135652-7ae9-43a6-92c4-fe27638c6e6c")
     NaryLink getNaryLink();
 
-    @objid ("dc1b155c-d5cd-4148-8e94-7fab04a54793")
+    @objid ("41ba8b4e-c51a-4f54-b290-496183bf13b3")
     void setNaryLink(NaryLink value);
 
-    @objid ("976f5343-7af9-4268-9bb7-386ac695ec69")
+    @objid ("6c955c86-6e04-4da7-bda7-b7c54d8adc8b")
     RequiredInterface getConsumer();
 
-    @objid ("0eb1e8b3-a00d-4352-930a-8114960a0ab6")
+    @objid ("384627d0-b81c-44cd-866a-4d419b0f3a98")
     void setConsumer(RequiredInterface value);
 
-    @objid ("6fc6667b-0f72-4fb3-b218-147b03e6c50d")
+    @objid ("9346a9cf-8d62-4f25-aa5f-3fdb0d252ef1")
     ProvidedInterface getProvider();
 
-    @objid ("2f4c44dd-fc41-4395-8764-e858f58d1ca4")
+    @objid ("ef4d9c7a-25f2-4c22-9c03-54578315b824")
     void setProvider(ProvidedInterface value);
 
 }

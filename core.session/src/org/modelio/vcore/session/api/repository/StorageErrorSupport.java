@@ -24,7 +24,7 @@ package org.modelio.vcore.session.api.repository;
 import java.util.ArrayList;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.modelio.vcore.Log;
+import org.modelio.vbasic.log.Log;
 
 /**
  * Helper used to handle storage error reporting.

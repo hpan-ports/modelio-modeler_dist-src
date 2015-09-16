@@ -52,6 +52,8 @@ import org.modelio.diagram.elements.core.policies.DefaultNodeResizableEditPolicy
 import org.modelio.diagram.elements.drawings.core.GmDrawing;
 import org.modelio.gproject.model.api.MTools;
 import org.modelio.metamodel.Metamodel;
+import org.modelio.metamodel.bpmn.processCollaboration.BpmnLane;
+import org.modelio.metamodel.bpmn.rootElements.BpmnFlowElement;
 import org.modelio.metamodel.experts.meta.IMetaTool;
 import org.modelio.vcore.smkernel.mapi.MClass;
 import org.modelio.vcore.smkernel.mapi.MObject;
@@ -201,11 +203,15 @@ public class BaseFreeZoneLayoutEditPolicy extends XYLayoutEditPolicy {
                 final EditPart editPart = (EditPart) editPartObj;
                 if (editPart.getModel() instanceof GmModel) {
                     final GmModel gmModel = (GmModel) editPart.getModel();
-                    if (metaUtils.canCompose(getHostElement(), gmModel.getRelatedElement(), null)) {
+                    if(getHostElement() instanceof BpmnLane && gmModel.getRelatedElement() instanceof BpmnFlowElement){
+                         final Object requestConstraint = getConstraintForClone((GraphicalEditPart) editPart, request);
+                         command.add(new BpmnCloneFlowElementCommand(hostModel, (BpmnLane) getHostElement(), (BpmnFlowElement)gmModel.getRelatedElement(),
+                                 requestConstraint));
+                    } else if (metaUtils.canCompose(getHostElement(), gmModel.getRelatedElement(), null)) {
                         final Object requestConstraint = getConstraintForClone((GraphicalEditPart) editPart, request);
                         command.add(new DefaultCloneElementCommand(hostModel, getHostElement(), gmModel.getRelatedElement(),
                                 requestConstraint));
-                    }
+                    } 
                 }
             }
             return command.unwrap();

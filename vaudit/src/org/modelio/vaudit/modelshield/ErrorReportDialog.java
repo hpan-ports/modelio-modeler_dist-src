@@ -51,19 +51,19 @@ public class ErrorReportDialog extends IconAndMessageDialog {
 			+ " #what {font-size:$font_size; font-family:$font-family; color:red;}";
 
     @objid ("7c731691-49d4-44c1-ab7a-0612842bc11a")
-    private String cssStyles;
+    private static String cssStyles;
 
-    @objid ("80bceeda-6d9c-4948-9990-5d0b03dfa6ad")
-    private IErrorReport errorReport;
+    @objid ("ff04082f-045c-4cf3-9a3c-5740e524d23c")
+    private String htmlErrorReport;
 
     @objid ("4fc27ce6-7554-4419-aa90-99f8fdeb90cb")
-    public ErrorReportDialog(Shell parentShell, String dialogTitle, String message, IErrorReport errorReport) {
+    protected ErrorReportDialog(Shell parentShell, String dialogTitle, String message, String htmlErrorReport) {
         super(parentShell);
         setShellStyle(getShellStyle() | SWT.RESIZE);
         
         this.title = (dialogTitle == null) ? "" : dialogTitle;
         this.message = (message == null) ? "" : message;
-        this.errorReport = errorReport;
+        this.htmlErrorReport = htmlErrorReport;
     }
 
     @objid ("14f04041-5563-4339-9548-9ee647cc9931")
@@ -86,8 +86,57 @@ public class ErrorReportDialog extends IconAndMessageDialog {
         browser.setLayoutData(gd);
         
         // Fill contents
+        browser.setText(this.htmlErrorReport);
+        return parent;
+    }
+
+    @objid ("0b91d751-f628-4ca6-8095-349d88f7270a")
+    @Override
+    protected void createButtonsForButtonBar(Composite parent) {
+        createButton(parent, IDialogConstants.OK_ID, Vaudit.I18N.getString("CoreAudit.report.close"), true);
+    }
+
+    @objid ("d7c923a9-8483-4ab3-ac18-744aabb33ec6")
+    private static String getInlineCSS() {
+        if (cssStyles == null) {
+             // Get body font family/size
+            Font font = Display.getDefault().getSystemFont();
+            String fontFamily = font.getFontData()[0].getName();
+            int fontSize = font.getFontData()[0].getHeight();
+            cssStyles = new String(CSSSTYLES);
+            cssStyles = cssStyles.replaceAll( "\\$font_family", fontFamily);
+            cssStyles = cssStyles.replaceAll("\\$font_size", Integer.toString(fontSize)+"pt");
+        }
+        return cssStyles;
+    }
+
+    /**
+     * Open an audit report dialog.
+     * <p>
+     * The method returns immediately and the dialog is not modal.
+     * @param dialogTitle dialog title
+     * @param message dialog message displayed just before the report.
+     * @param errorReport the audit report to display.
+     */
+    @objid ("5b7d7cd0-a738-44d2-a4a4-b8341db3912b")
+    public static void open(final String dialogTitle, final String message, final IErrorReport errorReport) {
+        // Build the HTMl before the transaction is rollbacked:
+        // After roll back objects loose the modification that made them invalid,
+        // created objects become deleted and have no name, ...
+        final String htmlReport = buildHtmlReport(errorReport);
+        
+        Display.getDefault().asyncExec(new Runnable() {
+            @Override
+            public void run() {
+                new ErrorReportDialog(Display.getCurrent().getActiveShell(), dialogTitle, message, htmlReport).open();
+            }
+        });
+    }
+
+    @objid ("4fc80fb1-3f2e-46b2-9369-33fbf1dc35bd")
+    protected static String buildHtmlReport(IErrorReport errorReport) {
         StringBuilder msg = new StringBuilder();
-        for (IModelError error : this.errorReport.getEntries()) {
+        for (IModelError error : errorReport.getEntries()) {
             msg.append("<head><style>");
             msg.append(getInlineCSS());
             msg.append("</style></head>");
@@ -104,28 +153,7 @@ public class ErrorReportDialog extends IconAndMessageDialog {
             msg.append("</p>");
         
         }
-        browser.setText(msg.toString());
-        return parent;
-    }
-
-    @objid ("0b91d751-f628-4ca6-8095-349d88f7270a")
-    @Override
-    protected void createButtonsForButtonBar(Composite parent) {
-        createButton(parent, IDialogConstants.OK_ID, Vaudit.I18N.getString("CoreAudit.report.close"), true);
-    }
-
-    @objid ("d7c923a9-8483-4ab3-ac18-744aabb33ec6")
-    private String getInlineCSS() {
-        if (this.cssStyles == null) {
-             // Get body font family/size
-            Font font = Display.getDefault().getSystemFont();
-            String fontFamily = font.getFontData()[0].getName();
-            int fontSize = font.getFontData()[0].getHeight();
-            this.cssStyles = new String(CSSSTYLES);
-            this.cssStyles = this.cssStyles.replaceAll( "\\$font_family", fontFamily);
-            this.cssStyles = this.cssStyles.replaceAll("\\$font_size", Integer.toString(fontSize)+"pt");
-        }
-        return this.cssStyles;
+        return msg.toString();
     }
 
     /**

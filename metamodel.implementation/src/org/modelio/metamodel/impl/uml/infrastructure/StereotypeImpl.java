@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.uml.infrastructure;
 
@@ -56,85 +56,85 @@ public class StereotypeImpl extends ModelElementImpl implements Stereotype {
         return  (prof != null) ? prof.getOwnerModule() : null;
     }
 
-    @objid ("ac5ce6d5-e901-4eca-a323-041a0c898a0d")
+    @objid ("8e88ba8a-9f51-4f22-97d1-52834f2cadb9")
     @Override
     public String getImage() {
         return (String) getAttVal(StereotypeData.Metadata.ImageAtt());
     }
 
-    @objid ("08747901-3e7e-41b9-8ae7-4dd183275485")
+    @objid ("b2b839bc-aa1a-4343-9515-d711801fde58")
     @Override
     public void setImage(String value) {
         setAttVal(StereotypeData.Metadata.ImageAtt(), value);
     }
 
-    @objid ("7f83ec75-a6fc-4b4d-b471-05130dff7b1b")
+    @objid ("21b11a21-47db-4e63-85c1-6ba327021ee1")
     @Override
     public String getIcon() {
         return (String) getAttVal(StereotypeData.Metadata.IconAtt());
     }
 
-    @objid ("00139b52-668b-461b-9a1c-7e0bb085fbab")
+    @objid ("df7426f0-5925-49a9-a042-34d5159ad236")
     @Override
     public void setIcon(String value) {
         setAttVal(StereotypeData.Metadata.IconAtt(), value);
     }
 
-    @objid ("a084d6dd-769f-4e4c-a294-855c27b99e8c")
+    @objid ("b657f1a5-9ed6-491f-8343-dfddf7d3d553")
     @Override
     public boolean isIsHidden() {
         return (Boolean) getAttVal(StereotypeData.Metadata.IsHiddenAtt());
     }
 
-    @objid ("dab8a605-18ff-4864-8144-cf60a93ee71f")
+    @objid ("7cc41af8-bae8-4c0a-bbb1-a06e4156c1d0")
     @Override
     public void setIsHidden(boolean value) {
         setAttVal(StereotypeData.Metadata.IsHiddenAtt(), value);
     }
 
-    @objid ("53b82701-9ee8-4cf3-a738-ae75153a8b98")
+    @objid ("dc40cfe2-543c-42f0-9405-d2a714ff6f44")
     @Override
     public String getLabelKey() {
         return (String) getAttVal(StereotypeData.Metadata.LabelKeyAtt());
     }
 
-    @objid ("8c482a69-dca1-48c7-837b-eb2b298b1d3a")
+    @objid ("db3103d9-8a05-4b59-854b-2a8f7243a844")
     @Override
     public void setLabelKey(String value) {
         setAttVal(StereotypeData.Metadata.LabelKeyAtt(), value);
     }
 
-    @objid ("22abe225-59e8-4490-b1e3-170ac134ed3a")
+    @objid ("f735fb08-8418-4752-bb2d-3665a388bc4d")
     @Override
     public String getBaseClassName() {
         return (String) getAttVal(StereotypeData.Metadata.BaseClassNameAtt());
     }
 
-    @objid ("b5617456-c0a6-4b6f-a943-76bf1f668ac5")
+    @objid ("5e2f0b56-a425-4d1c-8eba-654825a2e6ad")
     @Override
     public void setBaseClassName(String value) {
         setAttVal(StereotypeData.Metadata.BaseClassNameAtt(), value);
     }
 
-    @objid ("988bbde4-edcc-4e8b-810b-6092e7630eb1")
+    @objid ("6e4f0197-1423-4e5c-88e0-1adcbe7c22c6")
     @Override
     public PropertyTableDefinition getDefinedTable() {
         return (PropertyTableDefinition) getDepVal(StereotypeData.Metadata.DefinedTableDep());
     }
 
-    @objid ("bfb4f48d-78c2-40fa-9ce0-f148c1412fa3")
+    @objid ("ac45c520-9f16-488e-ab6d-721522d3fa9e")
     @Override
     public void setDefinedTable(PropertyTableDefinition value) {
         appendDepVal(StereotypeData.Metadata.DefinedTableDep(), (SmObjectImpl)value);
     }
 
-    @objid ("f23aca4a-f8f9-438b-914e-e379c0c591d8")
+    @objid ("f7ed86b8-b896-4acd-ab1e-81cd0c13bc52")
     @Override
     public EList<ModelElement> getExtendedElement() {
         return new SmList<>(this, StereotypeData.Metadata.ExtendedElementDep());
     }
 
-    @objid ("94a78c69-2c52-4091-99ea-d7854446b587")
+    @objid ("9392d8bb-0277-4979-a713-5dbb5a7db04d")
     @Override
     public <T extends ModelElement> List<T> getExtendedElement(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -147,13 +147,13 @@ public class StereotypeImpl extends ModelElementImpl implements Stereotype {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("8664a85e-77c3-4589-b81c-87e248cf7200")
+    @objid ("bcd4d4bb-497a-4ddf-b11a-a2085c849765")
     @Override
     public EList<ExternDocumentType> getDefinedExternDocumentType() {
         return new SmList<>(this, StereotypeData.Metadata.DefinedExternDocumentTypeDep());
     }
 
-    @objid ("e34d3996-5436-4512-83cf-e41e8e5195fc")
+    @objid ("51cd8190-9deb-4683-a85e-a8a07fb6a27f")
     @Override
     public <T extends ExternDocumentType> List<T> getDefinedExternDocumentType(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -166,37 +166,37 @@ public class StereotypeImpl extends ModelElementImpl implements Stereotype {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("4fbe1b06-b50f-4309-843a-51a2712ce4b3")
+    @objid ("6c502a13-1416-47f2-b0c0-64399578cd81")
     @Override
     public Profile getOwner() {
         return (Profile) getDepVal(StereotypeData.Metadata.OwnerDep());
     }
 
-    @objid ("a617b463-9a02-4bac-8761-3913b8681860")
+    @objid ("57f663c9-d723-493d-b212-e4c4aa5670f8")
     @Override
     public void setOwner(Profile value) {
         appendDepVal(StereotypeData.Metadata.OwnerDep(), (SmObjectImpl)value);
     }
 
-    @objid ("70eaf8e3-dd7d-47e2-bbc0-cef9d6fddbb3")
+    @objid ("01e39da9-2635-4f25-8ed6-b3c1c56ef7ab")
     @Override
     public Stereotype getParent() {
         return (Stereotype) getDepVal(StereotypeData.Metadata.ParentDep());
     }
 
-    @objid ("3e29bad7-e122-4d70-b4d6-df10b411b1a0")
+    @objid ("e7bd72c7-c046-4833-8d00-a17a45cedb5f")
     @Override
     public void setParent(Stereotype value) {
         appendDepVal(StereotypeData.Metadata.ParentDep(), (SmObjectImpl)value);
     }
 
-    @objid ("06af4e55-f6ce-4ae4-9b38-2cb18a80298f")
+    @objid ("965ccd16-2403-48ab-9b85-1eaf404293db")
     @Override
     public EList<TagType> getDefinedTagType() {
         return new SmList<>(this, StereotypeData.Metadata.DefinedTagTypeDep());
     }
 
-    @objid ("e0e4d6fa-ec64-4308-a6cf-bbfca10ba220")
+    @objid ("d4e7e3dd-c5e0-440f-a075-dfd6d23fc50a")
     @Override
     public <T extends TagType> List<T> getDefinedTagType(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -209,13 +209,13 @@ public class StereotypeImpl extends ModelElementImpl implements Stereotype {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("2df9336c-ec1b-40d2-9b2d-c46c03962928")
+    @objid ("d7f120ca-8443-4bbd-a075-042c28dc776d")
     @Override
     public EList<Stereotype> getChild() {
         return new SmList<>(this, StereotypeData.Metadata.ChildDep());
     }
 
-    @objid ("61dbd810-7416-4e14-82bd-1dc8df2b6424")
+    @objid ("2c62d379-b3bb-46ff-985d-e277d3b5fb20")
     @Override
     public <T extends Stereotype> List<T> getChild(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -228,13 +228,13 @@ public class StereotypeImpl extends ModelElementImpl implements Stereotype {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("cd2c77f8-df52-4968-9494-30b9d8cb6a0a")
+    @objid ("94718db7-42ec-4f90-8c1a-61bb5dd60a40")
     @Override
     public EList<NoteType> getDefinedNoteType() {
         return new SmList<>(this, StereotypeData.Metadata.DefinedNoteTypeDep());
     }
 
-    @objid ("0dfe481f-6f2a-40e7-b80f-77636bbaabdb")
+    @objid ("47253b60-1bfd-4643-921e-015828190db6")
     @Override
     public <T extends NoteType> List<T> getDefinedNoteType(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -247,7 +247,7 @@ public class StereotypeImpl extends ModelElementImpl implements Stereotype {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("324fa732-f466-4dc8-9b1a-2f11d3383650")
+    @objid ("4fd9a6a8-912d-4942-957b-f1ae942ff363")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
@@ -257,7 +257,7 @@ public class StereotypeImpl extends ModelElementImpl implements Stereotype {
         return super.getCompositionOwner();
     }
 
-    @objid ("6185f596-79e5-41bd-aae8-104e69365782")
+    @objid ("dbf0b787-ae7c-4585-83ac-d24477310ca5")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
@@ -267,7 +267,7 @@ public class StereotypeImpl extends ModelElementImpl implements Stereotype {
         return super.getCompositionRelation();
     }
 
-    @objid ("9bce809b-0899-4889-9908-973bef5959cc")
+    @objid ("7f51c50b-ced4-490d-b817-ce144c502723")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitStereotype(this);

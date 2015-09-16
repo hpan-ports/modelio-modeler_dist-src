@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.uml.behavior.interactionModel;
 
@@ -33,22 +33,22 @@ import org.modelio.metamodel.uml.behavior.interactionModel.Interaction;
 
 @objid ("00482c5e-c4bf-1fd8-97fe-001ec947cd2a")
 public interface InteractionUse extends InteractionFragment {
-    @objid ("6243e1c7-97df-4564-bf66-e7d220398df2")
+    @objid ("94774764-859f-44ef-8573-0c574f752090")
     int getEndLineNumber();
 
-    @objid ("16b665e3-e1e1-45e0-ad4c-8ff3e4f1edc7")
+    @objid ("5b0e8711-8e04-47d3-ae34-56c202b45df2")
     void setEndLineNumber(int value);
 
-    @objid ("1c001827-0cbe-48dc-ad76-78f669d89e1d")
+    @objid ("2f41c2e8-f3d6-492c-92f7-a52228ee78eb")
     EList<Gate> getActualGate();
 
-    @objid ("f3094772-b276-4415-a6cb-784960737223")
+    @objid ("a4576be8-8f42-4cb5-8c2e-f0b768f37508")
     <T extends Gate> List<T> getActualGate(java.lang.Class<T> filterClass);
 
-    @objid ("d59f57ff-58af-462a-92b6-e8069e432510")
+    @objid ("12881451-5a14-4bc8-ae9c-8249d1ade95a")
     Interaction getRefersTo();
 
-    @objid ("6d960d54-4c11-4a61-8d67-1a0cc53e1ef5")
+    @objid ("93b8c59d-0071-4a9d-8e33-05b3c96886b5")
     void setRefersTo(Interaction value);
 
 }

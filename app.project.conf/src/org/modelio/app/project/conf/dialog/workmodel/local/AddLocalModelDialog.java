@@ -38,10 +38,10 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 import org.modelio.app.project.conf.plugin.AppProjectConf;
 import org.modelio.core.ui.dialog.ModelioDialog;
-import org.modelio.gproject.descriptor.DefinitionScope;
-import org.modelio.gproject.descriptor.FragmentDescriptor;
-import org.modelio.gproject.descriptor.FragmentType;
-import org.modelio.gproject.descriptor.GProperties;
+import org.modelio.gproject.data.project.DefinitionScope;
+import org.modelio.gproject.data.project.FragmentDescriptor;
+import org.modelio.gproject.data.project.FragmentType;
+import org.modelio.gproject.data.project.GProperties;
 import org.modelio.ui.UIColor;
 
 /**

@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.bpmn.activities;
 
@@ -30,16 +30,16 @@ import org.eclipse.emf.ecore.EObject;
 
 @objid ("0082028a-c4bf-1fd8-97fe-001ec947cd2a")
 public interface BpmnScriptTask extends BpmnTask {
-    @objid ("604c0d77-0d1a-4934-8ccf-0a73f4cc148b")
+    @objid ("1f709eab-caa7-48ef-8016-76dd06638a5c")
     String getScriptLanguage();
 
-    @objid ("e1e00d51-2d9b-4256-813b-7f8fdbc1e23b")
+    @objid ("70c01897-d615-4f29-bb64-362326fe5b26")
     void setScriptLanguage(String value);
 
-    @objid ("63785147-5352-4ad3-a100-cea1cc825fcc")
+    @objid ("8b9d4481-8424-44c6-97a3-4740084757fd")
     String getScript();
 
-    @objid ("a939d236-7b3f-44d1-9bb9-4d94a2389015")
+    @objid ("5793fdda-dbd1-4f4b-abbd-e9fef98d1b78")
     void setScript(String value);
 
 }

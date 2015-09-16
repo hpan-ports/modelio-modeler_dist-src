@@ -30,7 +30,7 @@ import java.util.zip.Deflater;
 import java.util.zip.Inflater;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.emf.ecore.xml.type.internal.DataValue.Base64;
-import org.modelio.vcore.Log;
+import org.modelio.vbasic.log.Log;
 
 @objid ("a307bbeb-0e85-4a66-b4d1-c505dbaf0401")
 public class UUBase64Compressor {

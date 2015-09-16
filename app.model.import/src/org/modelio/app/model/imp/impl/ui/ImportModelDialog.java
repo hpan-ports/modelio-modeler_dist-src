@@ -54,7 +54,7 @@ import org.eclipse.swt.widgets.Widget;
 import org.modelio.app.model.imp.impl.ModelImportDataModel;
 import org.modelio.app.model.imp.plugin.AppModelImport;
 import org.modelio.core.ui.dialog.ModelioDialog;
-import org.modelio.gproject.descriptor.ProjectDescriptor;
+import org.modelio.gproject.data.project.ProjectDescriptor;
 import org.modelio.gproject.gproject.GProjectFactory;
 import org.modelio.gproject.module.IModuleCatalog;
 import org.modelio.metamodel.analyst.AnalystPropertyTable;

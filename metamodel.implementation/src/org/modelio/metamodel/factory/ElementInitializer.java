@@ -74,7 +74,7 @@ import org.modelio.metamodel.uml.statik.TemplateParameter;
 import org.modelio.metamodel.uml.statik.TemplateParameterSubstitution;
 import org.modelio.metamodel.uml.statik.VisibilityMode;
 import org.modelio.metamodel.visitors.DefaultModelVisitor;
-import org.modelio.vcore.Log;
+import org.modelio.vbasic.log.Log;
 import org.modelio.vcore.session.api.ICoreSession;
 import org.modelio.vcore.session.api.model.IModel;
 import org.modelio.vcore.session.impl.CoreSession;

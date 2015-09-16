@@ -21,9 +21,7 @@
 
 package org.modelio.xmi.model.ecore;
 
-import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.modelio.api.modelio.Modelio;
 import org.modelio.metamodel.uml.behavior.commonBehaviors.Event;
 import org.modelio.metamodel.uml.behavior.stateMachineModel.StateMachine;
 import org.modelio.metamodel.uml.infrastructure.Element;
@@ -31,15 +29,16 @@ import org.modelio.metamodel.uml.statik.Operation;
 import org.modelio.xmi.util.ReverseProperties;
 
 @objid ("f00f1a75-3d2a-4621-8996-769b69a93ff9")
-public class ECallEvent extends ENamedElement implements IEElement {
+public class ECallEvent extends ENamedElement {
     @objid ("9086cb58-bcd2-45d1-923c-a50689d0ab40")
     private org.eclipse.uml2.uml.CallEvent ecoreElement;
 
     @objid ("6ff6a063-9b60-4d52-ad57-dcbe684c55ff")
+    @Override
     public Element createObjingElt() {
-        org.eclipse.uml2.uml.Element ecoreOwner = ecoreElement.getOwner();
+        org.eclipse.uml2.uml.Element ecoreOwner = this.ecoreElement.getOwner();
         if (ecoreOwner instanceof  org.eclipse.uml2.uml.Transition){
-            Event result = Modelio.getInstance().getModelingSession().getModel().createEvent();
+            Event result = ReverseProperties.getInstance().getMModelServices().getModelFactory().createEvent();
             result.setKind(org.modelio.metamodel.uml.behavior.commonBehaviors.EventType.CALLEVENT);
             return result;
         }
@@ -49,13 +48,14 @@ public class ECallEvent extends ENamedElement implements IEElement {
     @objid ("8eae270c-1178-4279-bacb-894ec81174fe")
     public ECallEvent(org.eclipse.uml2.uml.CallEvent element) {
         super(element);
-        ecoreElement = element;
+        this.ecoreElement = element;
     }
 
     @objid ("b7f9ff28-8134-409e-8079-8f3a744d52c9")
+    @Override
     public void attach(Element objingElt) {
         if (((Event) objingElt).getComposed() == null){
-            org.eclipse.uml2.uml.Element ecoreOwner = ecoreElement.getOwner();
+            org.eclipse.uml2.uml.Element ecoreOwner = this.ecoreElement.getOwner();
             if (ecoreOwner instanceof  org.eclipse.uml2.uml.Transition){
                 StateMachine sm = (StateMachine) ReverseProperties.getInstance().getMappedElement(( (org.eclipse.uml2.uml.Transition) ecoreOwner).getContainer().getStateMachine());
                 sm.getEComponent().add((Event)objingElt);
@@ -65,11 +65,8 @@ public class ECallEvent extends ENamedElement implements IEElement {
         }
     }
 
-    @objid ("86b984b6-5360-4ad8-a8fa-cf2c30fa9669")
-    public void attach(List<Object> objingElts) {
-    }
-
     @objid ("4664265f-c75a-4ad6-a778-36edc21b9532")
+    @Override
     public void setProperties(Element objingElt) {
         super.setProperties(objingElt);
         setOperation(objingElt);

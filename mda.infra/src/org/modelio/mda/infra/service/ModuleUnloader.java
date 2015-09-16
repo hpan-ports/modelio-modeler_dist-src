@@ -36,12 +36,12 @@ import org.modelio.gproject.gproject.GProject;
 class ModuleUnloader {
     /**
      * Unloads the passed module after making sure all the modules that depends on it are unloaded first.
-     * @throws ModuleException
      * @param iModuleToStop the module to unload.
      * @param dependentIModules the modules to be unloaded first.
      * @param moduleService the module service.
      * @param gProject the project.
      * @return a set of all unloaded modules.
+     * @throws org.modelio.api.module.ModuleException in case of failure
      */
     @objid ("f48f2f31-0d4f-11e2-b01f-002564c97630")
     static Set<IModule> unloadModule(final IModule iModuleToStop, Collection<IModule> dependentIModules, final ModuleService moduleService, GProject gProject) throws ModuleException {
@@ -59,14 +59,14 @@ class ModuleUnloader {
 
     @objid ("f48fcb75-0d4f-11e2-b01f-002564c97630")
     private static void doUnloadModule(final IModule module, final ModuleService moduleService) throws ModuleException {
-        // Add to registry and set state
+        // Remove from registry and set state
         moduleService.getModuleRegistry().removeLoadedModule(module);
         
         // Call IModuleSession#uninit() method.
         try {
             module.uninit();
-        } catch (Error e) {
-            throw new ModuleException("Could not stop" + module.getName() + ".", e);
+        } catch (RuntimeException | Error e) {
+            throw new ModuleException("uninit() failed on '" + module.getName() + "' module: "+e.toString(), e);
         }
     }
 

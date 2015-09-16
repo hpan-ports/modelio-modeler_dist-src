@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.uml.behavior.interactionModel;
 
@@ -42,45 +42,45 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("0043f6ca-c4bf-1fd8-97fe-001ec947cd2a")
 public class DurationConstraintImpl extends ConstraintImpl implements DurationConstraint {
-    @objid ("a286261d-9319-424e-a2fe-3bac25476ed1")
+    @objid ("a9e4b646-5b23-4642-8be2-24250d61370c")
     @Override
     public String getDurationMin() {
         return (String) getAttVal(DurationConstraintData.Metadata.DurationMinAtt());
     }
 
-    @objid ("e9f7f217-79a6-4659-a5c0-ad9c45513ac4")
+    @objid ("8ef35feb-e168-4eed-99bf-f3c0a47fc97b")
     @Override
     public void setDurationMin(String value) {
         setAttVal(DurationConstraintData.Metadata.DurationMinAtt(), value);
     }
 
-    @objid ("542eaaf4-c8c5-473e-87c3-2771e42315ce")
+    @objid ("443be045-ef2a-492a-b684-2c9df422c14d")
     @Override
     public String getDurationMax() {
         return (String) getAttVal(DurationConstraintData.Metadata.DurationMaxAtt());
     }
 
-    @objid ("46d8f9c7-d6f1-416b-9a7d-a1d52d8adc02")
+    @objid ("d30a0e7e-67d7-4d0e-8321-fa16b156fa6d")
     @Override
     public void setDurationMax(String value) {
         setAttVal(DurationConstraintData.Metadata.DurationMaxAtt(), value);
     }
 
-    @objid ("bb52d25d-c858-4090-a967-08979a45a119")
+    @objid ("145bea11-0194-4e7f-9987-6448c0177a4c")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("d2bc9f47-445a-40d9-9b07-38dc3673e72d")
+    @objid ("412d6991-fc3d-42c6-b1e8-30d696eae984")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("5c57d615-4741-4912-bb50-2ce9e8c0e536")
+    @objid ("159dfdfe-cbf3-4168-a8cb-a046d6a530ef")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitDurationConstraint(this);

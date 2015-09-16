@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.analyst;
 
@@ -44,13 +44,13 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("41b13368-1afd-46b7-a5b0-17463a4f640a")
 public class RequirementContainerImpl extends AnalystContainerImpl implements RequirementContainer {
-    @objid ("5fc69c70-3527-47e4-9095-266b7af76d14")
+    @objid ("e6e96ce1-7d29-4ac1-9fbf-8f794c2cac4f")
     @Override
     public EList<Requirement> getOwnedRequirement() {
         return new SmList<>(this, RequirementContainerData.Metadata.OwnedRequirementDep());
     }
 
-    @objid ("d57d0ea0-0aec-412c-b457-ecfa78421ef8")
+    @objid ("31df0e70-92ce-43f8-b681-d4869f352fef")
     @Override
     public <T extends Requirement> List<T> getOwnedRequirement(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -63,25 +63,25 @@ public class RequirementContainerImpl extends AnalystContainerImpl implements Re
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("0ac97d62-fd44-4e8a-8f23-04b56077d22f")
+    @objid ("610a0e48-70ae-4914-9cea-0c8795a728a7")
     @Override
     public RequirementContainer getOwnerContainer() {
         return (RequirementContainer) getDepVal(RequirementContainerData.Metadata.OwnerContainerDep());
     }
 
-    @objid ("c630089b-d12d-4269-97b2-2893804b399d")
+    @objid ("dc33af1d-8917-4f34-a169-f592d53e85ba")
     @Override
     public void setOwnerContainer(RequirementContainer value) {
         appendDepVal(RequirementContainerData.Metadata.OwnerContainerDep(), (SmObjectImpl)value);
     }
 
-    @objid ("6d13ede8-b7a2-4067-bd82-bcef9b9008d5")
+    @objid ("6734f653-3a34-4880-950d-68ab271936f5")
     @Override
     public EList<RequirementContainer> getOwnedContainer() {
         return new SmList<>(this, RequirementContainerData.Metadata.OwnedContainerDep());
     }
 
-    @objid ("356a9d40-3ac9-45d6-a6b9-bfb913948bf4")
+    @objid ("d725ac98-3d44-48c2-8228-5c7f585a4170")
     @Override
     public <T extends RequirementContainer> List<T> getOwnedContainer(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -94,19 +94,19 @@ public class RequirementContainerImpl extends AnalystContainerImpl implements Re
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("bdcb7fe0-7359-4871-80ac-e54e743771d3")
+    @objid ("10f86f73-586e-432f-bb97-10db04984abb")
     @Override
     public AnalystProject getOwnerProject() {
         return (AnalystProject) getDepVal(RequirementContainerData.Metadata.OwnerProjectDep());
     }
 
-    @objid ("df1ad56d-b0ed-4f15-b7b5-9efcce993a2c")
+    @objid ("ec9f3325-d006-4aa5-b40b-6d6bcbd1f2a9")
     @Override
     public void setOwnerProject(AnalystProject value) {
         appendDepVal(RequirementContainerData.Metadata.OwnerProjectDep(), (SmObjectImpl)value);
     }
 
-    @objid ("f388d586-e007-44b8-86f4-16e9e832334e")
+    @objid ("7a38cce5-cd0d-42d1-8660-bbae989ba82d")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
@@ -119,7 +119,7 @@ public class RequirementContainerImpl extends AnalystContainerImpl implements Re
         return super.getCompositionOwner();
     }
 
-    @objid ("15726d7f-03d3-46c1-81d6-f77f09168f12")
+    @objid ("14aa292f-3003-4e34-a366-3e40bcad08af")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
@@ -132,7 +132,7 @@ public class RequirementContainerImpl extends AnalystContainerImpl implements Re
         return super.getCompositionRelation();
     }
 
-    @objid ("7d2e42b8-d6b4-463a-9bfb-9f790608bf83")
+    @objid ("bc0ceae6-9225-4cf0-b902-c408314f83b8")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitRequirementContainer(this);

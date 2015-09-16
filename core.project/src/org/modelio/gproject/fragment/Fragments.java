@@ -24,7 +24,7 @@ package org.modelio.gproject.fragment;
 import java.util.ArrayList;
 import java.util.Collection;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.modelio.gproject.descriptor.FragmentDescriptor;
+import org.modelio.gproject.data.project.FragmentDescriptor;
 import org.modelio.gproject.fragment.exml.ExmlFragmentFactory;
 import org.modelio.gproject.fragment.ramcfile.RamcFileFragmentFactory;
 import org.modelio.gproject.fragment.unsupported.UnsupportedFragmentFactory;

@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.uml.statik;
 
@@ -44,25 +44,25 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("0096da48-c4be-1fd8-97fe-001ec947cd2a")
 public class ArtifactImpl extends ClassifierImpl implements Artifact {
-    @objid ("96128d11-e7b5-4160-935a-6bbbd7a349e6")
+    @objid ("670259b0-6ea9-4951-850b-bf6f4c4f3ae3")
     @Override
     public String getFileName() {
         return (String) getAttVal(ArtifactData.Metadata.FileNameAtt());
     }
 
-    @objid ("5b679c01-3799-48c7-8af5-962f2c6c8c20")
+    @objid ("c219385d-9bad-4814-8e76-9bbfcbce8617")
     @Override
     public void setFileName(String value) {
         setAttVal(ArtifactData.Metadata.FileNameAtt(), value);
     }
 
-    @objid ("17957ee9-065c-4094-8b49-a63ed5387784")
+    @objid ("1a3e74ba-4737-4bd0-b1ef-64c8fdfbd6d0")
     @Override
     public EList<Manifestation> getUtilized() {
         return new SmList<>(this, ArtifactData.Metadata.UtilizedDep());
     }
 
-    @objid ("5fb268cf-d8f8-45da-afda-e78dc17cc594")
+    @objid ("6e56fee7-b0cf-4333-ac7f-20293904d014")
     @Override
     public <T extends Manifestation> List<T> getUtilized(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -75,13 +75,13 @@ public class ArtifactImpl extends ClassifierImpl implements Artifact {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("1ba80268-f51a-43a9-a3c9-ae26d7e8e4ef")
+    @objid ("27d16be0-3f49-4ac9-9999-605ed775c8b7")
     @Override
     public EList<Node> getDeploymentLocation() {
         return new SmList<>(this, ArtifactData.Metadata.DeploymentLocationDep());
     }
 
-    @objid ("ade03bec-29da-4d4d-a03f-51bb4c423409")
+    @objid ("eb775f60-5fc9-47b7-9ca1-ce795cfcc924")
     @Override
     public <T extends Node> List<T> getDeploymentLocation(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -94,21 +94,21 @@ public class ArtifactImpl extends ClassifierImpl implements Artifact {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("77bcb9f6-6858-4bb6-9301-2c4afb904ecf")
+    @objid ("572ef954-ac0a-4ad3-afd8-057e3bd2f810")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("0f52e362-a8dd-4860-899d-7601a108b0ed")
+    @objid ("bfbb1cdd-96c3-45a8-8ac5-b1367dbfa7d7")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("aba032f0-2724-4cd5-b44b-e366d5b3e7ec")
+    @objid ("92721f33-3fd8-4a1c-a6b6-cfcd4ef1abf0")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitArtifact(this);

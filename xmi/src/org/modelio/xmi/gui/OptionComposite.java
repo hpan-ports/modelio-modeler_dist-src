@@ -27,12 +27,15 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.FormAttachment;
 import org.eclipse.swt.layout.FormData;
 import org.eclipse.swt.layout.FormLayout;
+import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.layout.RowData;
+import org.eclipse.swt.layout.RowLayout;
 import org.eclipse.swt.widgets.Button;
-import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Group;
-import org.eclipse.swt.widgets.Label;
-import org.modelio.api.exchange.XmiExportConfiguration.VersionExport;
+import org.eclipse.swt.widgets.Shell;
 import org.modelio.app.project.core.services.IProjectService;
 import org.modelio.xmi.api.FormatExport;
 import org.modelio.xmi.api.XMIExtension;
@@ -42,24 +45,15 @@ import org.modelio.xmi.preferences.XmiPreferencesKeys;
 /**
  * This class creates central composite of the XMI export dialogs (model and profile exports).
  * It is composed of several SWT composites, each of them is dedicated to a specific export option
- * i.e. the file path, the extention of the file, the UML version, etc.
+ * i.e. the file path, the extension of the file, the UML version, etc.
  * 
  * This is a SWT composite
  * @author ebrosse
  */
 @objid ("ab8ce695-54ca-4a64-a74f-1dde0fb28dc3")
 public class OptionComposite extends Composite {
-    @objid ("8da63023-21b0-4598-aa9a-cd1544a78f92")
-    private FormatExport[] versions = FormatExport.values();
-
     @objid ("eaff84d0-e392-47c7-8271-80087b73db7c")
     private Button compatibility = null;
-
-    @objid ("1c7654ba-2b7e-444c-9479-c6850500799a")
-    private Combo combo = null;
-
-    @objid ("a3b19794-b3b3-4adf-8de8-bff74ba1cd2b")
-    private Label label = null;
 
     @objid ("92416989-29c8-4d01-a2e0-aec426cf53a7")
     private Group groupOwner = null;
@@ -76,98 +70,119 @@ public class OptionComposite extends Composite {
     @objid ("de20c3fa-bd8a-4ef3-a079-f592acdd3ed3")
     private Group groupCompatibility = null;
 
+    @objid ("8c8509a5-8331-4ea1-b886-ba047e05ed65")
+    protected FileDialog dialog = null;
+
+//    private Group groupVersion = null;
+    @objid ("2c448d34-f105-481c-98b1-9e6142bae763")
+    private FormatChooserComposite format = null;
+
     /**
      * The constructor of the OptionComposite
      * @param parent : the parent composite
      * @param style : the SWT style of the returned composite
      */
     @objid ("ff77c766-2014-4379-8435-d87cfa32294e")
-    public OptionComposite(final Composite parent, final int style, IProjectService projectService) {
-        super(parent, style);
+    public OptionComposite(final Composite parent, final int style, final int typeSelection, IProjectService projectService) {
+        super(parent, style);       
+        
         setLayout(new FormLayout());
+        this.dialog = new FileDialog((Shell) parent, typeSelection);
+        
+        IPreferenceStore prefs = projectService.getProjectPreferences(Xmi.PLUGIN_ID);
         
         this.groupOwner = new Group(this, SWT.NONE);
+        final GridLayout gridLayout = new GridLayout();
+        gridLayout.numColumns = 2;
+        gridLayout.marginWidth = 20;
+        gridLayout.horizontalSpacing = 20;
+        this.groupOwner.setLayout(gridLayout);
+        
+        
         final FormData fd_group = new FormData();
-        fd_group.bottom = new FormAttachment(100, 0);
+        
+        fd_group.bottom = new FormAttachment(100, -5);
         fd_group.top = new FormAttachment(0, 0);
         fd_group.right = new FormAttachment(100, 0);
         fd_group.left = new FormAttachment(0, 0);
         
         this.groupOwner.setLayoutData(fd_group);
         
-        this.groupOwner.setText(Xmi.I18N.getString("fileChooser.options.export.group.option.name"));
-        
         this.groupCompatibility = new Group(this.groupOwner, SWT.NONE);
-        this.groupCompatibility.setBounds(35, 20, 350, 80);
-        this.groupCompatibility.setText(Xmi.I18N.getString("fileChooser.options.export.group.compatibility.name"));
+        
+        final RowLayout rl_groupCompatibility = new RowLayout(2);
+        
+        rl_groupCompatibility.justify = true;
+        rl_groupCompatibility.fill = true;
+        rl_groupCompatibility.marginLeft = 40;
+        rl_groupCompatibility.marginRight = 80;
+        final GridData fd_groupCompatibility = new GridData();
+        fd_groupCompatibility.grabExcessHorizontalSpace = true;
+        
+        this.groupCompatibility.setLayoutData(fd_groupCompatibility);
+        this.groupCompatibility.setLayout(rl_groupCompatibility);
         
         this.compatibility = new Button(this.groupCompatibility, SWT.CHECK);
-        this.compatibility.setBounds(30, 20, 220, 16);
+        final RowData fd_compatibility = new RowData();
+        fd_compatibility.height = 30;
+        this.compatibility.setLayoutData(fd_compatibility);
         
-        this.compatibility.setText(Xmi.I18N.getString("fileChooser.options.export.enableRoundtrip.name"));
-        
-        
-        IPreferenceStore prefs = projectService.getProjectPreferences(Xmi.PLUGIN_ID);
-        
+               
         String compatibilityMdacParameterValueString = prefs.getString(XmiPreferencesKeys.XMIANNOTATION_PREFKEY);
-        if (compatibilityMdacParameterValueString.equals(""))
-            compatibilityMdacParameterValueString = "true";
+        
+        //        if (compatibilityMdacParameterValueString.equals(""))
+        //            compatibilityMdacParameterValueString = "false";
         
         boolean compatibilityMdacParameterValue = Boolean.valueOf(compatibilityMdacParameterValueString);               
         
         this.compatibility.setSelection(compatibilityMdacParameterValue);
+        this.format = new FormatChooserComposite(this.groupCompatibility, SWT.NONE, SWT.OPEN, projectService);
         
-        this.combo = new Combo(this.groupCompatibility, SWT.READ_ONLY);
+        final RowData fd_format = new RowData();
+        fd_format.height = 30;
+        this.format.setLayoutData(fd_format);
         
-        String currentExport = prefs.getString(XmiPreferencesKeys.XMIFORMAT_PREFKEY);
+        this.groupExtension = new Group(this.groupOwner,  SWT.NONE);  
         
-        if( currentExport.equals(""))
-            currentExport = VersionExport.EMF300.toString();
+        final RowLayout fd_groupExtension = new RowLayout(2);
+        fd_groupExtension.fill = true;
+        fd_groupExtension.marginLeft = 40;
+        fd_groupExtension.marginRight = 60;
+        fd_groupExtension.justify = false;
         
-        for (int i = 0; i < this.versions.length; i++) {
-            this.combo.add(Xmi.I18N.getString("Ui.Parameter.VersionExport." + this.versions[i].name()));
-            if (this.versions[i].name().equals(currentExport))
-                this.combo.select(i);
+        this.groupExtension.setLayout(fd_groupExtension);
         
-        }
-        
-        this.combo.setBounds(130, 50, 150, 13);
-        
-        this.label = new Label(this.groupCompatibility, SWT.WRAP);
-        this.label.setText(Xmi.I18N.getString("fileChooser.options.export.version.name") + " : ");
-        this.label.setBounds(40, 50, 90, 13);
-               
-        this.groupExtension = new Group(this.groupOwner, SWT.NONE);
-               
-        this.groupExtension.setText(Xmi.I18N.getString("fileChooser.options.export.group.extension.name"));
-        
-        this.groupExtension.setBounds(410, 20, 140, 80);
         this.xmi = new Button(this.groupExtension, SWT.RADIO);
-        this.xmi.setBounds(40, 20, 100, 20);
+        
+        final RowData fd_xmi = new RowData();
+        fd_xmi.height = 30;
+        this.xmi.setLayoutData(fd_xmi);
+        
         this.xmi.setText(".xmi");
         
         this.uml = new Button(this.groupExtension, SWT.RADIO);
-        this.uml.setBounds(40, 50, 100, 20);
+        final RowData fd_uml = new RowData();
+        fd_uml.height = 30;
+        this.uml.setLayoutData(fd_uml);
         this.uml.setText(".uml");
         
         String extension = prefs.getString(XmiPreferencesKeys.XMIEXTENSION_PREFKEY);
-               
         if (extension.equals(XMIExtension.UML.toString())) {
             this.uml.setSelection(true);
         } else {
             this.xmi.setSelection(true);
         }
         
+        this.groupOwner.setText(Xmi.I18N.getString("fileChooser.options.export.group.option.name"));
+        this.groupCompatibility.setText(Xmi.I18N.getString("fileChooser.options.export.group.compatibility.name"));
+        this.compatibility.setText(Xmi.I18N.getString("fileChooser.options.export.enableRoundtrip.name"));
+        this.groupExtension.setText(Xmi.I18N.getString("fileChooser.options.export.group.extension.name"));
+        
+        this.uml.setToolTipText(Xmi.I18N.getString("fileChooser.options.export.description.uml"));      
+        this.groupCompatibility.setToolTipText(Xmi.I18N.getString("fileChooser.options.export.description.annotation"));       
+        this.xmi.setToolTipText(Xmi.I18N.getString("fileChooser.options.export.description.xmi"));
+        
         this.groupOwner.pack();
-    }
-
-    /**
-     * This method returns the UML version specified
-     * @return a UML version of the export
-     */
-    @objid ("9f592acb-00f8-494d-be4f-f76b9bc7634d")
-    public FormatExport getVersion() {
-        return this.versions[this.combo.getSelectionIndex()];
     }
 
     /**
@@ -210,24 +225,6 @@ public class OptionComposite extends Composite {
     }
 
     /**
-     * this method returns the label of the composite
-     * @return SWT Label
-     */
-    @objid ("ad2a3221-54a3-4890-91b2-d3f0f4d0fca5")
-    public Label getLabelButton() {
-        return this.label;
-    }
-
-    /**
-     * This method returns the UML format ComboButton
-     * @return the SWT Combo
-     */
-    @objid ("23310c6f-ac88-4b08-9595-18d0a45d8c21")
-    public Combo getComboButton() {
-        return this.combo;
-    }
-
-    /**
      * This methods updates the selection of .uml file extension
      */
     @objid ("14003bcc-0fad-45a9-9c1c-2781d5f03159")
@@ -252,6 +249,24 @@ public class OptionComposite extends Composite {
     @objid ("f6b952fe-1cfc-464b-8655-7d0b7462c2a6")
     public boolean isAnnoted() {
         return this.compatibility.getSelection();
+    }
+
+    /**
+     * This method returns the SWT FileDialog created inside the FileChooserComposite
+     * @return the owned FileDialog
+     */
+    @objid ("9aec9821-32f0-4b9d-8bbf-ba02a6e9d549")
+    public FileDialog getDialog() {
+        return this.dialog;
+    }
+
+    /**
+     * This method returns the format selected
+     * @return FormatExport
+     */
+    @objid ("53763a56-229f-414e-a035-20263beb1e2c")
+    public FormatExport getFormat() {
+        return this.format.getFormat();
     }
 
 }

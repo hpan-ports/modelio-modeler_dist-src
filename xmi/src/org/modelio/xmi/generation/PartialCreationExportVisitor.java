@@ -163,6 +163,7 @@ import org.modelio.metamodel.uml.statik.InterfaceRealization;
 import org.modelio.metamodel.uml.statik.Link;
 import org.modelio.metamodel.uml.statik.LinkEnd;
 import org.modelio.metamodel.uml.statik.Manifestation;
+import org.modelio.metamodel.uml.statik.NameSpace;
 import org.modelio.metamodel.uml.statik.NamespaceUse;
 import org.modelio.metamodel.uml.statik.NaryAssociation;
 import org.modelio.metamodel.uml.statik.NaryAssociationEnd;
@@ -1419,14 +1420,33 @@ public class PartialCreationExportVisitor {
         @objid ("f7ba9a65-89b9-444f-bf98-49a08ad0dbc4")
         @Override
         public Object visitPort(Port objingElt) {
-            MObject objOwner = AbstractObjingModelNavigation.getBindableInstanceOwner(objingElt);
+            MObject objOwner = objingElt.getCompositionOwner();
+            //            MObject objOwner = AbstractObjingModelNavigation.getBindableInstanceOwner(objingElt);
             if ( objOwner instanceof BindableInstance){
+                boolean exist = false; 
                 ModelElement representedFeature = objingElt.getRepresentedFeature();
-                if ((representedFeature != null) && (representedFeature instanceof Port) && !(representedFeature.getCompositionOwner() instanceof Instance)){
-                    PartialCreationExportVisitor.this.ecoreElt = GenerationProperties.getInstance().getMappedElement(representedFeature);
-                }else{
-                    PartialCreationExportVisitor.this.ecoreElt =  null;
+                if (objOwner instanceof Instance){
+                    NameSpace base = ((Instance) objOwner).getBase();
+                    exist = ((base!= null) && (representedFeature != null) 
+                            && (representedFeature instanceof Port)
+                            && (representedFeature.getCompositionOwner().equals(base)));
                 }
+            
+                if (exist){
+                    PartialCreationExportVisitor.this.ecoreElt = GenerationProperties.getInstance().getMappedElement(representedFeature);            
+                }else{ 
+                    if ((representedFeature != null) && (representedFeature instanceof Port)
+                            && !(representedFeature.getCompositionOwner() instanceof Instance)){
+                        PartialCreationExportVisitor.this.ecoreElt = GenerationProperties.getInstance().getMappedElement(representedFeature);
+                    }else
+                        PartialCreationExportVisitor.this.ecoreElt =  null;
+                }
+            //                ModelElement representedFeature = objingElt.getRepresentedFeature();
+            //                if ((representedFeature != null) && (representedFeature instanceof Port) && !(representedFeature.getCompositionOwner() instanceof Instance)){
+            //                    PartialCreationExportVisitor.this.ecoreElt = GenerationProperties.getInstance().getMappedElement(representedFeature);
+            //                }else{
+            //                    PartialCreationExportVisitor.this.ecoreElt =  null;
+            //                }
             }else if ( objOwner instanceof Instance)
                 PartialCreationExportVisitor.this.ecoreElt =  UMLFactory.eINSTANCE.createSlot();
             else if ( objOwner instanceof Classifier)

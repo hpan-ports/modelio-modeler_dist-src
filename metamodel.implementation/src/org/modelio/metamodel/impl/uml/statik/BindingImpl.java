@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.uml.statik;
 
@@ -47,67 +47,67 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("000191ae-c4bf-1fd8-97fe-001ec947cd2a")
 public class BindingImpl extends ModelElementImpl implements Binding {
-    @objid ("54131299-01fb-4526-9d91-adc271422f2b")
+    @objid ("592ad4e3-8743-437f-a629-e96259a5a968")
     @Override
     public ConnectorEnd getConnectorEndRole() {
         return (ConnectorEnd) getDepVal(BindingData.Metadata.ConnectorEndRoleDep());
     }
 
-    @objid ("6d693840-25d7-432f-b2db-f870163a8446")
+    @objid ("698ba0a9-8806-4aa2-8157-aa57d2c58f66")
     @Override
     public void setConnectorEndRole(ConnectorEnd value) {
         appendDepVal(BindingData.Metadata.ConnectorEndRoleDep(), (SmObjectImpl)value);
     }
 
-    @objid ("9f09c8fe-8c76-4fd1-8725-e3f8f6e16582")
+    @objid ("b31edd93-d218-48ba-bd4e-ff489dd107d1")
     @Override
     public NaryConnector getConnectorRole() {
         return (NaryConnector) getDepVal(BindingData.Metadata.ConnectorRoleDep());
     }
 
-    @objid ("16653590-b809-4375-b2aa-a19fb0657e89")
+    @objid ("e086f8b2-8429-4272-9fe1-f35b089e41de")
     @Override
     public void setConnectorRole(NaryConnector value) {
         appendDepVal(BindingData.Metadata.ConnectorRoleDep(), (SmObjectImpl)value);
     }
 
-    @objid ("35eb9776-fc69-41bb-a43b-0afa66e1b9ad")
+    @objid ("cc288a61-0c65-4d79-968b-1d0244463d8e")
     @Override
     public BindableInstance getRole() {
         return (BindableInstance) getDepVal(BindingData.Metadata.RoleDep());
     }
 
-    @objid ("4a5fa1c4-4099-44ac-bad5-22f8eacfa0fb")
+    @objid ("b496f792-3776-451d-a962-1ecc4c377d76")
     @Override
     public void setRole(BindableInstance value) {
         appendDepVal(BindingData.Metadata.RoleDep(), (SmObjectImpl)value);
     }
 
-    @objid ("bbbb786c-1326-4e91-b7b9-9bc32258edab")
+    @objid ("4e70f415-3b99-4b80-b7e5-a9c084f547e6")
     @Override
     public ModelElement getRepresentedFeature() {
         return (ModelElement) getDepVal(BindingData.Metadata.RepresentedFeatureDep());
     }
 
-    @objid ("7dcc7366-7de9-4a33-8dcf-228f012d7b44")
+    @objid ("cab780d8-890d-4682-8931-3d3d30e1dd3a")
     @Override
     public void setRepresentedFeature(ModelElement value) {
         appendDepVal(BindingData.Metadata.RepresentedFeatureDep(), (SmObjectImpl)value);
     }
 
-    @objid ("7f331b81-8d05-4d11-8c09-5ba965aefa3f")
+    @objid ("5dae38bb-6da5-4fcc-92d5-8846da9a7cfa")
     @Override
     public CollaborationUse getOwner() {
         return (CollaborationUse) getDepVal(BindingData.Metadata.OwnerDep());
     }
 
-    @objid ("d5a79495-f4b6-4dfc-a1d3-e7af84970853")
+    @objid ("a8258990-ba2a-4d55-937e-baae95d8719c")
     @Override
     public void setOwner(CollaborationUse value) {
         appendDepVal(BindingData.Metadata.OwnerDep(), (SmObjectImpl)value);
     }
 
-    @objid ("7426b15f-da74-4d2a-9800-f200daf477a4")
+    @objid ("2c1099e2-526c-4d4a-83e4-933af1f25a07")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
@@ -117,7 +117,7 @@ public class BindingImpl extends ModelElementImpl implements Binding {
         return super.getCompositionOwner();
     }
 
-    @objid ("c6ea9af7-5908-406e-8e31-162081fd5349")
+    @objid ("6c66bd0c-b62c-4493-b98f-eac215be50bf")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
@@ -127,7 +127,7 @@ public class BindingImpl extends ModelElementImpl implements Binding {
         return super.getCompositionRelation();
     }
 
-    @objid ("94b1d063-1f5a-4058-aca9-906b24bd1e2c")
+    @objid ("3f17444b-953b-4370-a493-16d2b5a5aa15")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitBinding(this);

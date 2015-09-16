@@ -36,10 +36,11 @@ import org.modelio.metamodel.uml.statik.PassingMode;
 import org.modelio.metamodel.visitors.DefaultModelVisitor;
 
 /**
- * Basic label provider for model elements. Provides the element name as label, the metaclass icon as image and apply text standard
+ * Basic label provider for model elements.
+ * <p>
+ * Provides the element name as label, the metaclass icon as image and apply text standard
  * decoration (static, abstract).<br>
- * This provider can typically be used as a base provider for a ElementDecoratedStyledLabelProvider.
- * 
+ * This provider can typically be used as a base provider for a {@link ElementDecoratedStyledLabelProvider}.
  * 
  * @author phv
  */
@@ -52,7 +53,7 @@ public class BasicModelElementLabelProvider extends AbstractModelioElementLabelP
     @Override
     public String getText(Object element) {
         //return ((Element) element).getName();
-        BasicModelElementLabelService bmels = new BasicModelElementLabelService();
+          BasicModelElementLabelService bmels = new BasicModelElementLabelService();
         return bmels.getLabel((Element)element);
     }
 
@@ -70,17 +71,17 @@ public class BasicModelElementLabelProvider extends AbstractModelioElementLabelP
         return new StyledString(s);
     }
 
-    @objid ("a640becc-0e58-40d3-b636-93f58000bd53")
+    @objid ("12da74bb-fbd1-4695-ac6c-6d32fbfbb023")
     private static class BasicModelElementLabelService extends DefaultModelVisitor {
-        @objid ("735837ac-f3b7-4982-9f77-32a39dba6ba6")
+        @objid ("8a3ba406-e9ce-47c9-9c25-0fa387d4898c")
          String label;
 
-        @objid ("d2cf6faf-50a2-4173-884c-1ed781e4a738")
+        @objid ("94062cac-b313-49ed-bca2-c02dbb5d20da")
         public BasicModelElementLabelService() {
             super();
         }
 
-        @objid ("15895e34-a7ed-4495-92b9-eaf2e82ca25b")
+        @objid ("fad05253-1cb3-40eb-b0b3-ae09ad25860c")
         public String getLabel(Element element) {
             if (element == null)
                 return "<null>";
@@ -88,14 +89,14 @@ public class BasicModelElementLabelProvider extends AbstractModelioElementLabelP
             return this.label;
         }
 
-        @objid ("9c677d9f-1969-4468-9d6f-4dc21d88e4ea")
+        @objid ("5850394e-5986-4898-9333-140c834b641b")
         @Override
         public Object visitElement(Element theElement) {
             this.label = theElement.getName();
             return null;
         }
 
-        @objid ("bf5b7223-545d-43af-8185-320f5f904072")
+        @objid ("bb7696cd-869e-4651-b1ad-9f134b3616fd")
         @Override
         public Object visitOperation(Operation theOperation) {
             final StyledString symbol = new StyledString();
@@ -133,7 +134,7 @@ public class BasicModelElementLabelProvider extends AbstractModelioElementLabelP
             return null;
         }
 
-        @objid ("fb7c0b5c-c553-4ed0-835e-642276fc9a54")
+        @objid ("bd28d639-4550-4609-916e-bbf37c663c65")
         private static StyledString getParameterSymbol(Parameter theParameter, Styler styler, Operation fromOperation) {
             final StyledString symbol = new StyledString();
             
@@ -178,7 +179,7 @@ public class BasicModelElementLabelProvider extends AbstractModelioElementLabelP
             return symbol;
         }
 
-        @objid ("a112fd2d-cfdf-4f70-ab95-de6e0e0f6959")
+        @objid ("72c46c9c-a84e-4457-a0d7-5cca6d8f17de")
         private static StringBuilder getParameterMultiplicity(Parameter theParameter) {
             final StringBuilder multiplicity = new StringBuilder();
             

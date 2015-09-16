@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: Modelio Statik Diagram Editor
 Bundle-SymbolicName: org.modelio.diagram.editor.statik;singleton:=true
 Bundle-Localization: plugin
-Bundle-Version: 1.0.0.qualifier
+Bundle-Version: 3.2.1.qualifier
 Bundle-Vendor: modelio.org
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Require-Bundle: org.modelio.diagram.editor,

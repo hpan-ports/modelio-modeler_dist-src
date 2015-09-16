@@ -294,7 +294,7 @@ public class Parseur {
         try {
             transfo = TransformerFactory.newInstance().newTransformer();
         } catch(TransformerConfigurationException e) {
-            Xmi.LOG.error(Xmi.PLUGIN_ID, e);       
+            Xmi.LOG.error(e);       
         }
         
         // configuration du transformateur
@@ -317,7 +317,7 @@ public class Parseur {
             try {
                 transfo.transform(source, resultat);
             } catch(TransformerException e) {
-                Xmi.LOG.error(Xmi.PLUGIN_ID, e);       
+                Xmi.LOG.error(e);       
             }
         }
     }

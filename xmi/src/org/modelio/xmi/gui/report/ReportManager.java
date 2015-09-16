@@ -24,6 +24,7 @@ package org.modelio.xmi.gui.report;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Shell;
 import org.modelio.api.modelio.Modelio;
 
 /**
@@ -42,7 +43,7 @@ public class ReportManager {
      * @param report : the report model exposed in report dialog
      */
     @objid ("d287868e-137b-44cd-9cc7-c5df08abf99a")
-    public static void showGenerationReport(final ReportModel report) {
+    public static void showGenerationReport(final Shell shell, final ReportModel report) {
         if (report == null || report.isEmpty ()) {
             if (ReportManager.dialog != null &&
                     !ReportManager.dialog.isDisposed ()) {
@@ -59,13 +60,13 @@ public class ReportManager {
             
             if (ReportManager.dialog == null ||
                     ReportManager.dialog.isDisposed ()) {
-                ReportManager.dialog = new ReportDialog (display.getActiveShell(), Modelio.getInstance().getNavigationService());
+                ReportManager.dialog = new ReportDialog (shell, Modelio.getInstance().getNavigationService());
             }
         
             ReportManager.dialog.setModel(report);
             
             if (ReportManager.dialog.open () == SWT.OK) {            
-                display.getActiveShell().dispose();
+                shell.dispose();
             }
         }
     }

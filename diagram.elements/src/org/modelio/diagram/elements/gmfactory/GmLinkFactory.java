@@ -27,16 +27,22 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.diagram.elements.common.abstractdiagram.GmAbstractDiagram;
 import org.modelio.diagram.elements.core.link.GmLink;
 import org.modelio.diagram.elements.core.model.IGmLinkFactory;
+import org.modelio.diagram.elements.umlcommon.abstraction.GmAbstraction;
 import org.modelio.diagram.elements.umlcommon.dependency.GmDependency;
 import org.modelio.diagram.elements.umlcommon.diagramholder.GmDiagramHolderLink;
+import org.modelio.diagram.elements.umlcommon.elementRealization.GmElementRealization;
 import org.modelio.diagram.elements.umlcommon.externdocument.GmExternDocumentLink;
 import org.modelio.diagram.elements.umlcommon.namespaceuse.GmNamespaceUse;
 import org.modelio.diagram.elements.umlcommon.note.GmNoteLink;
+import org.modelio.diagram.elements.umlcommon.usage.GmUsage;
 import org.modelio.metamodel.diagrams.AbstractDiagram;
+import org.modelio.metamodel.uml.infrastructure.Abstraction;
 import org.modelio.metamodel.uml.infrastructure.Dependency;
 import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.metamodel.uml.infrastructure.ExternDocument;
 import org.modelio.metamodel.uml.infrastructure.Note;
+import org.modelio.metamodel.uml.infrastructure.Usage;
+import org.modelio.metamodel.uml.statik.ElementRealization;
 import org.modelio.metamodel.uml.statik.NamespaceUse;
 import org.modelio.metamodel.visitors.DefaultModelVisitor;
 import org.modelio.vcore.smkernel.mapi.MObject;
@@ -66,7 +72,6 @@ public class GmLinkFactory implements IGmLinkFactory {
 
     /**
      * Creates the link factory for a diagram.
-     * @param diagram
      * the diagram the factory will be attached to.
      */
     @objid ("8100db6c-1dec-11e2-8cad-001ec947c8cc")
@@ -172,6 +177,24 @@ public class GmLinkFactory implements IGmLinkFactory {
             final GmExternDocumentLink link = new GmExternDocumentLink(this.diagram,
                                                                        new MRef(theExternDocument));
             return link;
+        }
+
+        @objid ("8d7c9dd2-58d6-42b8-b15e-f4a57e1ea836")
+        @Override
+        public Object visitUsage(Usage theUsage) {
+            return new GmUsage(this.diagram, theUsage, new MRef(theUsage));
+        }
+
+        @objid ("c47386ef-ea96-4641-a298-ecc60cec98c5")
+        @Override
+        public Object visitAbstraction(Abstraction obj) {
+            return new GmAbstraction(this.diagram, obj, new MRef(obj));
+        }
+
+        @objid ("93e9231d-20af-4539-85a8-b13e1b9f8b16")
+        @Override
+        public Object visitElementRealization(ElementRealization obj) {
+            return new GmElementRealization(this.diagram, obj, new MRef(obj));
         }
 
     }

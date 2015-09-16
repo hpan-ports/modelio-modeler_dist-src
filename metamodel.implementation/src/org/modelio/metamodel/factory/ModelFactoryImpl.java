@@ -246,6 +246,7 @@ import org.modelio.metamodel.uml.statik.Classifier;
 import org.modelio.metamodel.uml.statik.Collaboration;
 import org.modelio.metamodel.uml.statik.CollaborationUse;
 import org.modelio.metamodel.uml.statik.Component;
+import org.modelio.metamodel.uml.statik.ComponentRealization;
 import org.modelio.metamodel.uml.statik.Connector;
 import org.modelio.metamodel.uml.statik.ConnectorEnd;
 import org.modelio.metamodel.uml.statik.DataType;
@@ -1882,8 +1883,6 @@ public class ModelFactoryImpl implements IModelFactory {
         this.elementInitializer.initialize(this, newElement);
         newElement.setMimeType(mimeType);
         newElement.setType(externDocumentType);
-        // TODO for CMA extern doc
-        // DocumentCreator.createDocument(doc);
         return newElement;
     }
 
@@ -3774,7 +3773,9 @@ public class ModelFactoryImpl implements IModelFactory {
         GenericAnalystElement newElement = this.genericFactory.create(GenericAnalystElement.class, this.scratchRepository);
         newElement.setParentElement(owner);
         newElement.setName(name);
-        newElement.getExtension().add(ste);
+        if (ste != null) {
+            newElement.getExtension().add(ste);
+        }
         this.elementInitializer.initialize(this, newElement);
         return newElement;
     }
@@ -3785,7 +3786,9 @@ public class ModelFactoryImpl implements IModelFactory {
         GenericAnalystElement newElement = this.genericFactory.create(GenericAnalystElement.class, this.scratchRepository);
         newElement.setOwnerContainer(owner);
         newElement.setName(name);
-        newElement.getExtension().add(ste);
+        if (ste != null) {
+            newElement.getExtension().add(ste);
+        }
         this.elementInitializer.initialize(this, newElement);
         return newElement;
     }
@@ -3830,6 +3833,24 @@ public class ModelFactoryImpl implements IModelFactory {
         newElement.setOwnerContainer(owner);
         newElement.setName(name);
         newElement.addStereotype(moduleName, stereotypeName);
+        this.elementInitializer.initialize(this, newElement);
+        return newElement;
+    }
+
+    @objid ("e17ca827-d01f-423e-880a-a292d4ca39c7")
+    @Override
+    public ComponentRealization createComponentRealization() {
+        ComponentRealization newElement = this.genericFactory.create(ComponentRealization.class, this.scratchRepository);
+        this.elementInitializer.initialize(this, newElement);
+        return newElement;
+    }
+
+    @objid ("aad14085-0adf-43f4-a613-bfcda428df25")
+    @Override
+    public ComponentRealization createComponentRealization(Classifier source, Component destination) {
+        ComponentRealization newElement = this.genericFactory.create(ComponentRealization.class, this.scratchRepository);
+        newElement.setRealizingClassifier(source);
+        newElement.setAbstraction(destination);
         this.elementInitializer.initialize(this, newElement);
         return newElement;
     }

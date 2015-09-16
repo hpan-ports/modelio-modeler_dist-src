@@ -134,7 +134,11 @@ public class ScriptClassLoader extends URLClassLoader {
     @Override
     protected Class<? extends Object> findClass(String name) throws ClassNotFoundException {
         try {
-        
+            // Jython seems to look for non existing classes a lot, this optimization (hack?) should make execution a lot faster... 
+            if (name.endsWith("__path__")) {
+                throw new ClassNotFoundException(name);
+            }
+            
             for (ClassLoader parent : this.parents) {
                 try {
                     return parent.loadClass(name);

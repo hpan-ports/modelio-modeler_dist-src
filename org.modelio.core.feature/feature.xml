@@ -2,7 +2,7 @@
 <feature
       id="org.modelio.core.feature"
       label="Core"
-      version="1.0.0.qualifier"
+      version="3.2.1.qualifier"
       provider-name="Modelio">
 
    <copyright>
@@ -109,6 +109,13 @@ along with Modelio.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
 
    <plugin
          id="org.modelio.metamodel.implementation"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.modelio.core.project.data"
          download-size="0"
          install-size="0"
          version="0.0.0"

@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.uml.infrastructure.properties;
 
@@ -41,10 +41,10 @@ public interface PropertyEnumerationLitteral extends ModelElement {
     @objid ("3f7c4c9d-6307-4688-9ae7-6d02f373cc0f")
     int compareTo(PropertyEnumerationLitteral l);
 
-    @objid ("48790a9b-1ad6-4109-a863-424bb9860a18")
+    @objid ("51ea6e4f-d016-4748-87f1-c775ce0435c3")
     EnumeratedPropertyType getOwner();
 
-    @objid ("56898cb8-487b-40d0-b048-808f77b2374a")
+    @objid ("71b1858f-6e4f-4c80-96db-3f7de2a9fc9f")
     void setOwner(EnumeratedPropertyType value);
 
 }

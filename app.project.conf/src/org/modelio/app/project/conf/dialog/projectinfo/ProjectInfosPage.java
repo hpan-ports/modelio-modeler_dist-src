@@ -63,7 +63,10 @@ public class ProjectInfosPage {
      * Creates the SWT controls.
      * <p>
      * Called by E4 injection.
+     * @param toolkit a form toolkit
+     * @param application the E4 application model
      * @param parent the parent composite.
+     * @return the created form
      */
     @objid ("a745c477-33f6-11e2-a514-002564c97630")
     public ScrolledForm createControls(FormToolkit toolkit, MApplication application, final Composite parent) {
@@ -76,7 +79,7 @@ public class ProjectInfosPage {
         formlayout.makeColumnsEqualWidth = true;
         
         // General section
-        this.generalSection = new GeneralSection();
+        this.generalSection = new GeneralSection(this.form.getMessageManager());
         Section section = this.generalSection.createControls(toolkit, this.form.getBody());
         TableWrapData twd = new TableWrapData();
         twd.grabHorizontal = true;

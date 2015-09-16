@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.uml.behavior.stateMachineModel;
 
@@ -45,25 +45,25 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("004f6fc8-c4bf-1fd8-97fe-001ec947cd2a")
 public class EntryPointPseudoStateImpl extends AbstractPseudoStateImpl implements EntryPointPseudoState {
-    @objid ("2ff134c1-6dea-4f20-8fae-6abe1438177f")
+    @objid ("d9259570-57a7-45c6-8c1b-40d5da108dbb")
     @Override
     public State getEntryOf() {
         return (State) getDepVal(EntryPointPseudoStateData.Metadata.EntryOfDep());
     }
 
-    @objid ("2e7d55a0-adf3-47ed-b86a-37d148fa4347")
+    @objid ("042a8c72-e435-41c1-8349-a8d98ee42edf")
     @Override
     public void setEntryOf(State value) {
         appendDepVal(EntryPointPseudoStateData.Metadata.EntryOfDep(), (SmObjectImpl)value);
     }
 
-    @objid ("e0c0bba2-1004-4c80-b010-ea56369fd217")
+    @objid ("64422f10-0a95-4e4a-83fd-3ec24f6a3295")
     @Override
     public EList<ConnectionPointReference> getConnection() {
         return new SmList<>(this, EntryPointPseudoStateData.Metadata.ConnectionDep());
     }
 
-    @objid ("29bc7b09-dcda-4b10-b7ed-64e9e453d30d")
+    @objid ("f3dac5cb-b286-4c9b-9593-d05be403843e")
     @Override
     public <T extends ConnectionPointReference> List<T> getConnection(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -76,19 +76,19 @@ public class EntryPointPseudoStateImpl extends AbstractPseudoStateImpl implement
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("05bc4cb2-86aa-4d18-9b5c-b065f8ec4962")
+    @objid ("ce98d0f6-a5b2-456f-ae52-9aa95c8dab06")
     @Override
     public StateMachine getEntryOfMachine() {
         return (StateMachine) getDepVal(EntryPointPseudoStateData.Metadata.EntryOfMachineDep());
     }
 
-    @objid ("27d77658-9b01-4948-9501-ac849728788f")
+    @objid ("fc18cfbe-796c-42e5-b485-70d02a2bc73e")
     @Override
     public void setEntryOfMachine(StateMachine value) {
         appendDepVal(EntryPointPseudoStateData.Metadata.EntryOfMachineDep(), (SmObjectImpl)value);
     }
 
-    @objid ("5ef1b47a-b5d7-4394-8d9b-80b8f511f40d")
+    @objid ("7b2baa30-cb92-4167-8738-cd07d656e5c1")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
@@ -101,7 +101,7 @@ public class EntryPointPseudoStateImpl extends AbstractPseudoStateImpl implement
         return super.getCompositionOwner();
     }
 
-    @objid ("990c6d80-6225-4e45-a351-d8dfc3094e44")
+    @objid ("1e9c92b6-139c-4958-8a49-9be43bc86bc3")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
@@ -114,7 +114,7 @@ public class EntryPointPseudoStateImpl extends AbstractPseudoStateImpl implement
         return super.getCompositionRelation();
     }
 
-    @objid ("eac980d2-72b3-4ce3-864a-9f892c2f30e5")
+    @objid ("3ca9cf75-86a6-4604-be11-f7d6229cfd74")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitEntryPointPseudoState(this);

@@ -1,0 +1,84 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<title>Distant libraries development</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link href="style.css" media="screen" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<a name="Developing-remote-libraries"></a>
+<h1 >Developing remote libraries<a href="#Developing-remote-libraries" class="wiki-anchor">&para;</a></h1>
+
+<a name="Introduction"></a>
+<h4 >Introduction<a href="#Introduction" class="wiki-anchor">&para;</a></h4>
+
+<p>The development of a remote library is the first phase in the remote library
+life cycle, during which a remote library is prepared by a developer for packaging.</p>
+
+<p>Remote library development includes the following operations:</p>
+
+<ul>
+<li><p>the UML model must first be built (including any specific code
+generation annotations you wish to include)</p></li>
+<li><p>the remote library must then be created and defined. This includes
+the creation of the future remote library itself (name, description, version
+number), as well as the definition of its contents (model parts and external
+files) and its dependencies on other remote libraries.</p></li>
+</ul>
+
+
+<p>This section presents how to create and define a remote library.</p>
+
+<a name="Creating-a-remote-library"></a>
+<h4 >Creating a remote library<a href="#Creating-a-remote-library" class="wiki-anchor">&para;</a></h4>
+
+<p>The first step in the development of a remote library is its creation inside
+a UML model.</p>
+
+<p>To create a remote library, follow the steps shown below.</p>
+
+<ol>
+<li>Create a new project with a local model named P1 and create some elements into it.</li>
+<li>Create a directory named &lsquo;fragModelio&rsquo; in a shared http directory.</li>
+<li>Copy the &lsquo;admin&rsquo;, &lsquo;blobs&rsquo; and &lsquo;model&rsquo; directories from &lsquo;data/fragments/P1&rsquo; into &lsquo;fragModelio&rsquo; directory.</li>
+<li>From the &lsquo;.runtime\fragments\P1&rsquo; directory, copy the &lsquo;.index&rsquo; directory into &lsquo;fragModelio&rsquo; directory.</li>
+<li>In &lsquo;fragModelio&rsquo; directory, rename &lsquo;admin/stamp.dat&rsquo; into &lsquo;admin/stamp.conf&rsquo;.</li>
+</ol>
+
+
+<a name="Defining-model-parts-to-be-included-in-a-remote-library"></a>
+<h4 >Defining model parts to be included in a remote library<a href="#Defining-model-parts-to-be-included-in-a-remote-library" class="wiki-anchor">&para;</a></h4>
+
+<p>Model elements to be included in a remote library are referenced using
+manifestation links. These elements will be available for use in projects
+where the remote library is deployed. Only high-level packages (packages
+located under the project root) can be referenced by a remote library through
+a manifestation link. However, all the elements they contain will also be
+packaged in the remote library.</p>
+
+<a name="Modeling-dependencies-between-remote-libraries"></a>
+<h4 >Modeling dependencies between remote libraries<a href="#Modeling-dependencies-between-remote-libraries" class="wiki-anchor">&para;</a></h4>
+
+<p>If your remote library is dependent on another remote library, this fact
+must be modeled through a use link.</p>
+
+<a name="Defining-external-files-to-be-included-in-a-remote-library"></a>
+<h4 >Defining external files to be included in a remote library<a href="#Defining-external-files-to-be-included-in-a-remote-library" class="wiki-anchor">&para;</a></h4>
+
+<p>External files can also be included in a remote library. This is useful when
+you want your remote library to install specific files like libraries, jar
+files or resource files when it&rsquo;s deployed.</p>
+
+<p>For example, let&rsquo;s imagine that you have reversed the Java JDK, in order to
+produce a reusable component. This type of remote library, when deployed,
+should allow Java application development including compilation, meaning that
+JDK jar files would then have to be deployed by the remote library.</p>
+
+<p>When defining external files to be included in a remote library, the
+$(GenRoot) variable should be used. This variable is the root directory for
+generation, and can be defined by each user at Modelio parameter level, which
+means that the external files included in the remote library will be deployed
+correctly in each user&rsquo;s own individual environment.</p>
+
+<div id="footer"><iframe frameborder="0" scrolling="no" height="25" width="100%" src="_footer.html"></iframe></div> </body>
+</html>

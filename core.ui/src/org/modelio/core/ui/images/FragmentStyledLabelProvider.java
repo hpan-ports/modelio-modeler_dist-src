@@ -31,8 +31,15 @@ import org.modelio.gproject.fragment.FragmentState;
 import org.modelio.gproject.fragment.IProjectFragment;
 import org.modelio.ui.UIColor;
 
+/**
+ * Styled label provider for {@link IProjectFragment}.
+ */
 @objid ("3022cc50-1ae7-4263-a6c4-55bc862fd794")
 public class FragmentStyledLabelProvider {
+    /**
+     * @param fragment a project fragment
+     * @return its styled text.
+     */
     @objid ("eb258ac6-3161-4cfe-a96e-2e33a1e53543")
     public static StyledString getStyledText(IProjectFragment fragment) {
         return new StyledString(fragment.getId(), FragmentStyler.getStyler(fragment));
@@ -77,7 +84,10 @@ public class FragmentStyledLabelProvider {
             switch (aFragment.getType()) {
             case EXML:
             case EXML_SVN:
-                return UIColor.BLACK;
+                if (Boolean.parseBoolean(aFragment.getProperties().getValue(IProjectFragment.PROP_READ_ONLY)))
+                    return UIColor.NONMODIFIABLE_ELEMENT;
+                else
+                    return UIColor.BLACK;
             case RAMC:
             case MDA:
                 return UIColor.RAMC_ELEMENT;
@@ -91,15 +101,12 @@ public class FragmentStyledLabelProvider {
         }
 
         /**
-         * Get the background color for the given element in the given state
-         * @param element
-         * the element
-         * @param status
-         * the element state
+         * Get the background color for the given element
+         * @param aFragment a Fragment
          * @return its background color
          */
         @objid ("39127849-3761-4310-89fe-a02b49aafb00")
-        private static Color getBackground(@SuppressWarnings("unused") IProjectFragment aFragment) {
+        private static Color getBackground(IProjectFragment aFragment) {
             return null;
         }
 

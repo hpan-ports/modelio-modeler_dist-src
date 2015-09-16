@@ -235,12 +235,14 @@ public class ProgressBarComposite extends Composite {
         
         this.group.setLayoutData(fd_group);
         setTextGroup(this.title);
+        
         this.progressBar = new ProgressBar(this.group, SWT.NONE);
         final FormData fd_progressBar = new FormData();
         fd_progressBar.right = new FormAttachment(100, -5);
         fd_progressBar.left = new FormAttachment(0, 5);
-        fd_progressBar.bottom = new FormAttachment(0, 25);
+        fd_progressBar.bottom = new FormAttachment(100, -5);
         fd_progressBar.top = new FormAttachment(0, 5);
+               
         
         this.progressBar.setLayoutData(fd_progressBar);
         this.max = this.progressBar.getMaximum();

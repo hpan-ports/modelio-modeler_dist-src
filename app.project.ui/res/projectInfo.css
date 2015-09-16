@@ -11,6 +11,7 @@ h1 {border-bottom: 1px solid #000; margin-bottom: 10px}
 #wrapper {background: url(./img/header.jpg) 0 0 no-repeat; margin: 0; padding: 40px 20px; min-width:650px;}
 .horizontal-content {overflow: hidden; margin-bottom: 15px}
 #project-description {padding:5px; float: left; width: 48%; text-align: justify; max-height:140px; overflow:auto;}
+#project-description p {white-space: pre-wrap;}
 #project-infos {/*float: left;*/ margin-left : 50%; height:90px;}
 .projectDescription {font-style: italic; color: #333}
 .AccordionTitle, .AccordionContent, .AccordionContainer

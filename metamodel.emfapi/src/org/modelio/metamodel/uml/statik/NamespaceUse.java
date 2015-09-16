@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.uml.statik;
 
@@ -33,22 +33,22 @@ import org.modelio.metamodel.uml.statik.NameSpace;
 
 @objid ("0012264a-c4bf-1fd8-97fe-001ec947cd2a")
 public interface NamespaceUse extends Element {
-    @objid ("70d65bf6-ffb0-4f43-80e6-4604c22bad10")
+    @objid ("b8062200-c24d-4e43-829b-41e90a19671a")
     NameSpace getUser();
 
-    @objid ("8428ba36-597c-4283-bc87-b942b74ec6dc")
+    @objid ("11abbbb0-9574-44a4-9a27-3faba5dc2e4b")
     void setUser(NameSpace value);
 
-    @objid ("11ce6df7-e07f-459a-881b-c434482e829e")
+    @objid ("95e76a56-a637-490f-9211-41f6995e4851")
     NameSpace getUsed();
 
-    @objid ("1b3010af-4d33-4a0e-8217-82be167c2a46")
+    @objid ("7182be0b-3e0f-4a8f-a31e-4ee2f1d941e1")
     void setUsed(NameSpace value);
 
-    @objid ("d11922bc-2d4d-48c1-834f-4db89912fe8f")
+    @objid ("f39c9d60-75e6-4757-8ac2-60a08742a9d2")
     EList<Element> getCause();
 
-    @objid ("955ff3cb-176f-46cb-b59f-c5bc8dcb027d")
+    @objid ("c766f8f9-d89a-4d97-90b0-0a92c76ce8f3")
     <T extends Element> List<T> getCause(java.lang.Class<T> filterClass);
 
 }

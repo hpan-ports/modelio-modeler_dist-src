@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.data.diagrams;
 
@@ -43,29 +43,29 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("00682d06-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=ActivityDiagram.class, factory=ActivityDiagramData.Metadata.ObjectFactory.class, cmsnode=true)
 public class ActivityDiagramData extends BehaviorDiagramData {
-    @objid ("5bcc8dec-7107-4caa-8e32-cbcf85d8b8ac")
+    @objid ("43aa4d74-78a3-4de4-88bf-6fa8f3676a52")
     @SmaMetaAttribute(metaName="IsVertical", type=Boolean.class, smAttributeClass=Metadata.IsVerticalSmAttribute.class)
      Object mIsVertical = false;
 
-    @objid ("c4dea92c-ec78-468b-8253-b2ba466afd35")
+    @objid ("29c5cda4-6526-41b3-9678-6f23bdf4298d")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("000befbe-c4c4-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("682d7125-1a03-4cc1-a7d5-318f90d25ad2")
+        @objid ("e83b93c9-9e97-4e29-a1bb-35c895e0f584")
         private static SmClass smClass = null;
 
-        @objid ("a7aeb569-6b68-463d-9189-3c839512eec3")
+        @objid ("94787735-4632-4601-b66c-512bbfeac996")
         private static SmAttribute IsVerticalAtt = null;
 
-        @objid ("9b0fe5b9-fc66-4289-9a57-cb7cc386907f")
+        @objid ("4195b5bc-1016-4461-9a49-baca0b0fd012")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(ActivityDiagramData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("aefa6d2c-5a78-4419-8ec1-ec4a7d576e90")
+        @objid ("2bf60120-ffe0-4ac4-b33f-4219b9da263e")
         public static SmAttribute IsVerticalAtt() {
             if (IsVerticalAtt == null) {
             	IsVerticalAtt = classof().getAttributeDef("IsVertical");
@@ -73,26 +73,26 @@ public class ActivityDiagramData extends BehaviorDiagramData {
             return IsVerticalAtt;
         }
 
-        @objid ("2008f297-3aeb-44f7-946b-7fe5e3de48ce")
-        public static SmAttribute getIsVerticalAtt() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return IsVerticalAtt;
-        }
-
-        @objid ("f49e35e3-bd53-4f7b-915e-e9a146bc1df9")
+        @objid ("9410ed39-aac3-45be-8acc-0bafc04df876")
         public static SmClass getSmClass() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return smClass;
         }
 
+        @objid ("cb506658-e475-4d48-8006-05d95e8343ec")
+        public static SmAttribute getIsVerticalAtt() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return IsVerticalAtt;
+        }
+
         @objid ("000c4810-c4c4-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("d0604e86-772a-4813-a658-e11c88a75a1b")
+            @objid ("3c808179-619a-48be-9285-2dda1862bd78")
             public ISmObjectData createData() {
                 return new ActivityDiagramData();
             }
 
-            @objid ("7af0dfe3-5464-4530-a186-42035e132d2e")
+            @objid ("65fef172-815a-4abc-853f-95cdbbbcb8c0")
             public SmObjectImpl createImpl() {
                 return new ActivityDiagramImpl();
             }
@@ -101,12 +101,12 @@ public class ActivityDiagramData extends BehaviorDiagramData {
 
         @objid ("000cbd18-c4c4-1fd8-97fe-001ec947cd2a")
         public static class IsVerticalSmAttribute extends SmAttribute {
-            @objid ("0517c836-fb0a-4b5b-9097-71aa42a3ae48")
+            @objid ("5e1a2b59-d181-463d-9d7c-eacd08ac8039")
             public Object getValue(ISmObjectData data) {
                 return ((ActivityDiagramData) data).mIsVertical;
             }
 
-            @objid ("379aa4b2-b449-43d5-884c-7ae6e42acd90")
+            @objid ("fc0f4c94-da7d-4179-bea7-16ce7daa7ad9")
             public void setValue(ISmObjectData data, Object value) {
                 ((ActivityDiagramData) data).mIsVertical = value;
             }

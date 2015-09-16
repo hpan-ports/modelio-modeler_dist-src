@@ -1,0 +1,67 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<title>Distant libraries presentation</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link href="style.css" media="screen" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<a name="Introducing-remote-libraries"></a>
+<h1 >Introducing remote libraries<a href="#Introducing-remote-libraries" class="wiki-anchor">&para;</a></h1>
+
+<a name="What-are-remote-libraries"></a>
+<h4 >What are remote libraries?<a href="#What-are-remote-libraries" class="wiki-anchor">&para;</a></h4>
+
+<p>Remote libraries (also called HTTP models) are independent, identified and coherent parts of a larger
+model, made available on a network. The supported network protocol is http.</p>
+
+<p>Remote libraries can contain any model, either complete including all annotations (tags, notes) or simplified limited to namespace and inheritance links, as is often the case for <em>Model Components</em></p>
+
+<a name="What-are-the-benefits-of-using-remote-libraries"></a>
+<h4 >What are the benefits of using remote libraries?<a href="#What-are-the-benefits-of-using-remote-libraries" class="wiki-anchor">&para;</a></h4>
+
+<p>Being libraries, <em>remote libraries</em> provide read-only model elements just like <em>Model Components</em> (local libraries). They allow developers to share models through a network. For example, several geographically distinct teams can work together by sharing models in the form of libraries.</p>
+
+<p>Compared to model components, HTTP models are not explicitly versioned. However, as they are read directly from the network instead of being installed locally, they benefit from an almost real-time update should they be modified. More exactly, their contents are refreshed each time the project referencing them is opened. In addition, the Modelio project configurator provides an explicit <strong>Refresh</strong> command in its <em>Libraries</em> tab.</p>
+
+<p>In a large scale multi-user development project, with several people working
+together at the same time on the same project, remote libraries are helpful because they
+allow each development team to progress in its own teamwork environment and according to its own
+schedule, without affecting the work of the other project participants.</p>
+
+<p>In the following example, each team develops its own component and publishes it on a common HTTP server in order to share its work.<br/>
+The integration team does not publish any models, but rather collects all the models to build the final application.</p>
+
+<p><img src="Distant_libraries_presentation_http_libraries.png" alt="1" /></p>
+
+<h5>Several teams sharing HTTP libraries</h5>
+
+<a name="Local-or-remote-libraries-for-my-project"></a>
+<h3 >Local or remote libraries for my project?<a href="#Local-or-remote-libraries-for-my-project" class="wiki-anchor">&para;</a></h3>
+
+<p>There is no universal answer to this question.<br/>
+However, the following facts might be worth considering when you are making your choice.</p>
+
+<p><strong>Model components</strong></p>
+
+<ul>
+<li>are explicitly versioned and therefore well-identified</li>
+<li>once deployed they do not require an active network connection and may be slightly more efficiently browsed (local disk access compared to network access for HTTP models)</li>
+<li>require a deployment phase each time they have to be updated. Although such an operation is fast, it has to be carried out explicitly by the end-user, whereas an HTTP fragment is always up-to-date.</li>
+</ul>
+
+
+<p><strong>HTTP libraries</strong></p>
+
+<ul>
+<li>are not explicitly versioned, and are identified only by their URL</li>
+<li>require an active network connection for their content to be available</li>
+<li>do not require deployment or updates. Each time the project is (re-)opened, the contents are up-to-date without any operations by the end-user.</li>
+</ul>
+
+
+<p>From our experience, we recommend the use of <em>Model Component</em> libraries for stable components that are used by your project and which are <em>external</em> to your project, ie not developed in the project. For example, the JDK or other third-party software. If you plan to use <em>Model Components</em> for parts of your project, which might be a perfectly good idea in some projects, prepare a well-defined process for the management of these components: version delivery, version publication, synchronous deployment for the whole team and so on.
+On the other hand, we recommend the use of <em>HTTP Libraries</em> for your components in the projects. This way, different teams can stay up-to-date at the lowest possible cost, while still preserving a modular approach and avoiding the mortal syndrome of &ldquo;anyone can modify anything&rdquo;.</p>
+
+<div id="footer"><iframe frameborder="0" scrolling="no" height="25" width="100%" src="_footer.html"></iframe></div> </body>
+</html>

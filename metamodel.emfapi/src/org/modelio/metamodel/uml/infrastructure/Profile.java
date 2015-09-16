@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.uml.infrastructure;
 
@@ -35,28 +35,28 @@ import org.modelio.metamodel.uml.statik.Package;
 
 @objid ("008c74a4-c4be-1fd8-97fe-001ec947cd2a")
 public interface Profile extends Package {
-    @objid ("591b969d-0905-4ead-9ca4-e0f7355a02fe")
+    @objid ("bd11d967-56c0-44de-8529-57da74ab48f8")
     String getJCode();
 
-    @objid ("15259f8c-b877-427b-9c0b-db1872e9f943")
+    @objid ("dfcae7f1-6015-47f5-9e77-c546d054f57c")
     void setJCode(String value);
 
-    @objid ("4a223298-5cc7-418b-bee4-c432113c5cfb")
+    @objid ("3c69c2c4-ab52-4f43-aaac-f731cf24cac4")
     EList<Stereotype> getDefinedStereotype();
 
-    @objid ("6515e6b3-dd75-4f2a-b836-b66ece8d4823")
+    @objid ("5624fee1-8837-4cfa-acdd-e0f09e4220c7")
     <T extends Stereotype> List<T> getDefinedStereotype(java.lang.Class<T> filterClass);
 
-    @objid ("47a35160-0939-4732-a615-7e660327a0f9")
+    @objid ("1376e172-9878-4f3a-9577-33702e184b23")
     ModuleComponent getOwnerModule();
 
-    @objid ("95ae7b2b-ae79-4469-b887-c87591d1c47c")
+    @objid ("30a73e67-ce07-4183-995d-e325cb61b77e")
     void setOwnerModule(ModuleComponent value);
 
-    @objid ("3e3f4d29-8ad9-48d3-a0d1-c0a38bf64738")
+    @objid ("20e5fd04-d03f-4309-abce-2653b2326144")
     EList<MetaclassReference> getOwnedReference();
 
-    @objid ("47ea981f-f959-4c44-b9a6-8ac3319049c3")
+    @objid ("fd2761ac-84bd-4a90-9e73-4cf04011ce7c")
     <T extends MetaclassReference> List<T> getOwnedReference(java.lang.Class<T> filterClass);
 
 }

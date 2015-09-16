@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.bpmn.activities;
 
@@ -44,81 +44,81 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("0081a92a-c4bf-1fd8-97fe-001ec947cd2a")
 public class BpmnReceiveTaskImpl extends BpmnTaskImpl implements BpmnReceiveTask {
-    @objid ("8382b9cd-6911-4fa8-8d20-cd9785fece6d")
+    @objid ("d55eaa48-fb05-4e72-8710-29275daa9b26")
     @Override
     public String getImplementation() {
         return (String) getAttVal(BpmnReceiveTaskData.Metadata.ImplementationAtt());
     }
 
-    @objid ("311294c1-e849-4e3a-b90a-36546bae53de")
+    @objid ("5137f626-44e8-4f6c-a593-1a265d6227e0")
     @Override
     public void setImplementation(String value) {
         setAttVal(BpmnReceiveTaskData.Metadata.ImplementationAtt(), value);
     }
 
-    @objid ("457d6ff8-6cf3-4b04-952f-f3db36207a5e")
+    @objid ("3ba4eba8-01a7-450c-96da-6e1da3372be3")
     @Override
     public boolean isInstanciate() {
         return (Boolean) getAttVal(BpmnReceiveTaskData.Metadata.InstanciateAtt());
     }
 
-    @objid ("623a497d-b88e-42b2-8a89-f754b5f0fc4f")
+    @objid ("1826a55b-3d17-4245-893a-f041b6b2df29")
     @Override
     public void setInstanciate(boolean value) {
         setAttVal(BpmnReceiveTaskData.Metadata.InstanciateAtt(), value);
     }
 
-    @objid ("5b8b9c8f-41c0-4fe7-bfb3-ac9a038198a4")
+    @objid ("6e1a9ade-087e-4363-b4ae-8167b67ee615")
     @Override
     public BpmnMessage getMessageRef() {
         return (BpmnMessage) getDepVal(BpmnReceiveTaskData.Metadata.MessageRefDep());
     }
 
-    @objid ("4e3dfc1f-c993-4ff2-826b-8968934e7b81")
+    @objid ("2ec3e14b-d4fd-44e1-a7b7-0db3be0c5013")
     @Override
     public void setMessageRef(BpmnMessage value) {
         appendDepVal(BpmnReceiveTaskData.Metadata.MessageRefDep(), (SmObjectImpl)value);
     }
 
-    @objid ("53f8ef4b-d80f-444e-919c-8ef8ca75e1a0")
+    @objid ("cd4b6b7c-7a85-4c37-906f-fe4c216132dd")
     @Override
     public BpmnOperation getOperationRef() {
         return (BpmnOperation) getDepVal(BpmnReceiveTaskData.Metadata.OperationRefDep());
     }
 
-    @objid ("fa50c615-0715-4528-82e3-f4d5f213b7fe")
+    @objid ("ccaa43b3-81bc-44b1-8477-28915865bade")
     @Override
     public void setOperationRef(BpmnOperation value) {
         appendDepVal(BpmnReceiveTaskData.Metadata.OperationRefDep(), (SmObjectImpl)value);
     }
 
-    @objid ("f21d3dbf-da69-4239-9a24-de7b7dc191c1")
+    @objid ("0c73e8a2-be20-48cc-b4d9-982b19008f3f")
     @Override
     public Operation getCalledOperation() {
         return (Operation) getDepVal(BpmnReceiveTaskData.Metadata.CalledOperationDep());
     }
 
-    @objid ("aed4097d-ffd1-4e35-acea-9cc40ffacff5")
+    @objid ("587d314a-1c53-4ccf-affe-5106447dfd38")
     @Override
     public void setCalledOperation(Operation value) {
         appendDepVal(BpmnReceiveTaskData.Metadata.CalledOperationDep(), (SmObjectImpl)value);
     }
 
-    @objid ("3ce86e40-2baa-4130-8379-5b1460683596")
+    @objid ("67595954-6d9e-4936-95e2-0dbcffb892a9")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("160db990-ad68-4238-98fe-7ff11dbbddbc")
+    @objid ("15e3ca92-951f-4f1e-8550-fd92e29b4cf6")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("21553e60-bce1-4316-8783-6cb3bf618bce")
+    @objid ("ab3aeb74-8951-4313-8672-9435d76b67e0")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitBpmnReceiveTask(this);

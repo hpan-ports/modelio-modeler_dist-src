@@ -21,14 +21,14 @@
 
 package org.modelio.xmi.model.ecore;
 
-import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.xmi.util.ProfileUtils;
 
 @objid ("d85d800e-aa2f-4393-858d-303165d6b6a0")
-public class EStereotype extends EElement implements IEElement {
+public class EStereotype extends EElement {
     @objid ("2c9807a5-08df-44db-b1a2-c92e98b519be")
+    @Override
     public Element createObjingElt() {
         return  null;
     }
@@ -36,19 +36,7 @@ public class EStereotype extends EElement implements IEElement {
     @objid ("0fff9e13-ee5b-4079-9315-3a6279ce3cb2")
     public EStereotype(org.eclipse.uml2.uml.Stereotype element) {
         super(element);
-        ProfileUtils.visitStereotype((org.eclipse.uml2.uml.Stereotype)getEcoreElement());
-    }
-
-    @objid ("3c943910-b736-4a42-81c1-e7be41b23442")
-    public void attach(Element objingElt) {
-    }
-
-    @objid ("76ec5971-3d0e-45f7-be35-ca96974e2137")
-    public void attach(List<Object> objingElts) {
-    }
-
-    @objid ("ae2242f1-4295-4e6f-bbfb-f09e7f043e1f")
-    public void setProperties(Element objingElt) {
+        ProfileUtils.visitStereotype((org.eclipse.uml2.uml.Stereotype) getEcoreElement());
     }
 
 }

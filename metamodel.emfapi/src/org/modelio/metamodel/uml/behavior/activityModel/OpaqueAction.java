@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.uml.behavior.activityModel;
 
@@ -30,10 +30,10 @@ import org.eclipse.emf.ecore.EObject;
 
 @objid ("0039f63e-c4bf-1fd8-97fe-001ec947cd2a")
 public interface OpaqueAction extends ActivityAction {
-    @objid ("dcd4f68f-500e-4934-b9bd-5c3af6de1b9e")
+    @objid ("c615a365-e4d3-4763-aaa6-1073de5d1c08")
     String getBody();
 
-    @objid ("c19b4db1-f9cd-4a60-985a-e10c8548d445")
+    @objid ("bd6f18c6-00b7-4e9b-8e29-11ce928ff38d")
     void setBody(String value);
 
 }

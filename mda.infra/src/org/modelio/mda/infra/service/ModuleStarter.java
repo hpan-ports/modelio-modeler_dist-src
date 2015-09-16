@@ -94,10 +94,10 @@ class ModuleStarter {
             }
         } finally {
             if (startSuccessful) {
-                MdaInfra.LOG.debug("Module %s v%s started successfully.", module.getName(), module.getVersion());
+                MdaInfra.LOG.debug("Jxbv2Module %s v%s started successfully.", module.getName(), module.getVersion());
             } else {
                 // Start could not complete, remove form registry and reset state.
-                MdaInfra.LOG.debug("Module %s v%s failed to start.", module.getName(), module.getVersion());
+                MdaInfra.LOG.debug("Jxbv2Module %s v%s failed to start.", module.getName(), module.getVersion());
                 setState(module, ModuleRuntimeState.Loaded);
                 moduleService.getModuleRegistry().removeStartedModule(module);
             }

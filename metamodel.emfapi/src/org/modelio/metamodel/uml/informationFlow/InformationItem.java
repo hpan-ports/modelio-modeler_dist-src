@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.uml.informationFlow;
 
@@ -32,10 +32,10 @@ import org.modelio.metamodel.uml.statik.Classifier;
 
 @objid ("0063e890-c4bf-1fd8-97fe-001ec947cd2a")
 public interface InformationItem extends Classifier {
-    @objid ("6357bf0a-70b0-4dc1-b14f-94ff3f719678")
+    @objid ("d7a8f2a6-3426-4d40-aa7f-fc0ba9f0b734")
     EList<Classifier> getRepresented();
 
-    @objid ("90672d9a-83a0-4cb7-a1b6-bd30280cf495")
+    @objid ("a61c7591-a276-4026-862e-b7283c8c3be2")
     <T extends Classifier> List<T> getRepresented(java.lang.Class<T> filterClass);
 
 }

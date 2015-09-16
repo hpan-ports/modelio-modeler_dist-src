@@ -23,11 +23,13 @@ package org.modelio.xmi.impl;
 
 import java.io.File;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
+import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.modelio.api.module.IModule;
 import org.modelio.gproject.gproject.GProject;
+import org.modelio.gproject.model.IMModelServices;
 import org.modelio.metamodel.uml.infrastructure.Profile;
 import org.modelio.metamodel.uml.statik.Package;
 import org.modelio.vcore.session.api.transactions.ITransaction;
@@ -80,13 +82,12 @@ public class XMIService implements IXMIService {
             if (!configuration.getVersionExport().equals(FormatExport.EMF300))
                 XMIFileUtils.changeToUML(xmiFilePath);
         
-            Xmi.LOG.error(Xmi.PLUGIN_ID, Xmi.I18N.getString("info.export.result_done"));
+            Xmi.LOG.error(Xmi.I18N.getString("info.export.result_done"));
         } catch (AbortProcessException e) {
             cancelProcess(shell);
         } catch (Exception e) {
             cancelProcess(shell);
-            Xmi.LOG.error(Xmi.PLUGIN_ID, "Erreur.");
-            Xmi.LOG.error(Xmi.PLUGIN_ID, e);
+            Xmi.LOG.error(e);
         } finally {
             XMILogs logs = XMILogs.getInstance();
             logs.saveLog();
@@ -95,12 +96,12 @@ public class XMIService implements IXMIService {
 
     @objid ("3bef3178-045c-4eb1-84ab-13ac13fa4462")
     @Override
-    public void exportXMIFile(final ExportConfiguration configuration) throws Exception {
+    public void exportXMIFile(final ExportConfiguration configuration, IProgressMonitor monitor, IMModelServices mmService) throws Exception {
         if (configuration.getEntryPoint() == null) {
             Xmi.LOG.error(Xmi.PLUGIN_ID, Xmi.I18N.getString("error.nullGivenParameter"));
         } else {
             if (configuration.getXmiFile() != null) {
-                initExportService(configuration.getEntryPoint());
+                initExportService(configuration.getEntryPoint(), mmService);
                 GenerationProperties.getInstance().setFilePath(configuration.getXmiFile());
                 exportModel(configuration);
             } else {
@@ -129,7 +130,6 @@ public class XMIService implements IXMIService {
         } catch (Exception e) {
             error = true;
             // cancelProcess(shell);
-            Xmi.LOG.error(Xmi.PLUGIN_ID, "Erreur.");
             Xmi.LOG.error(Xmi.PLUGIN_ID, e);
         } finally {
             XMILogs logs = XMILogs.getInstance();
@@ -139,9 +139,9 @@ public class XMIService implements IXMIService {
     }
 
     @objid ("52d1a467-d5d9-4bff-ad95-1813be619061")
-    private void initExportService(Package entryPoint) {
+    private void initExportService(Package entryPoint, IMModelServices mmService) {
         GenerationProperties genProp = GenerationProperties.getInstance();
-        genProp.initialize();
+        genProp.initialize(mmService);
         genProp.setTimeDisplayerActivated(false);
         genProp.setSelectedPackage(entryPoint);
         
@@ -150,17 +150,18 @@ public class XMIService implements IXMIService {
     }
 
     @objid ("20b6436b-bd18-4bb7-bfea-c3e94724baa9")
-    private void initImportService() {
-        ReverseProperties.getInstance().initialize();
+    private void initImportService(IMModelServices mmService) {
+        ReverseProperties.getInstance().initialize(mmService);
         if (this.importService == null)
             this.importService = new ImportServices();
     }
 
     @objid ("2aee3059-41b4-4fb3-b908-cb359d33485d")
     @Override
-    public void importXMIModel(final ImportConfiguration configuration) {
-        if (configuration.getXmiFile() != null && configuration.getXmiFile().isFile()) {
-            initImportService();
+    public void importXMIModel(final ImportConfiguration configuration, IProgressMonitor monitor, IMModelServices mmService) {
+        if ((configuration.getXmiFile() != null) 
+                && (configuration.getXmiFile().isFile())) {
+            initImportService(mmService);
             ReverseProperties.getInstance().setUMLRoot((Package)configuration.getOwner());
             importModel(configuration.getXmiFile(), configuration.getOwner());
         } else {
@@ -170,10 +171,10 @@ public class XMIService implements IXMIService {
 
     @objid ("b3a3e446-0248-4c94-a593-9ca97b3ec5a4")
     @Override
-    public void importXMIProfile(final ImportConfiguration configuration) {
+    public void importXMIProfile(final ImportConfiguration configuration, IProgressMonitor monitor, IMModelServices mmService) {
         if(configuration.getOwner() != null && configuration.getOwner() instanceof IModule){
             if (configuration.getXmiFile() != null && configuration.getXmiFile().isFile()) {
-                initImportService();
+                initImportService(mmService);
                 importProfile(configuration.getXmiFile(), configuration.getOwner() );
             } else {
                 Xmi.LOG.error(Xmi.PLUGIN_ID, Xmi.I18N.getString("error.invalidFilePath"));
@@ -186,12 +187,12 @@ public class XMIService implements IXMIService {
 
     @objid ("9794308c-aca2-4f51-9bfb-8ae030ae70d8")
     @Override
-    public void exportXMIProfile(final ExportConfiguration configuration) throws Exception {
+    public void exportXMIProfile(final ExportConfiguration configuration, IProgressMonitor monitor, IMModelServices mmService) throws Exception {
         if (configuration.getEntryPoint() == null || !(configuration.getEntryPoint() instanceof Profile)) {
             Xmi.LOG.error(Xmi.PLUGIN_ID, Xmi.I18N.getString("error.nullGivenParameter"));
         } else {
             if (configuration.getXmiFile() != null) {
-                initExportService(configuration.getEntryPoint());
+                initExportService(configuration.getEntryPoint(), mmService);
                 GenerationProperties.getInstance().setFilePath(configuration.getXmiFile());
                 exportProfile(configuration);        
             } else {
@@ -218,8 +219,7 @@ public class XMIService implements IXMIService {
             cancelProcess(shell);
         } catch (Exception e) {
             cancelProcess(shell);
-            Xmi.LOG.error(Xmi.PLUGIN_ID, "Erreur.");
-            Xmi.LOG.error(Xmi.PLUGIN_ID, e);
+            Xmi.LOG.error(e);
         } finally {
             XMILogs logs = XMILogs.getInstance();
             logs.saveLog();
@@ -245,8 +245,7 @@ public class XMIService implements IXMIService {
         } catch (Exception e) {
             error = true;
             // cancelProcess(shell);
-            Xmi.LOG.error(Xmi.PLUGIN_ID, "Erreur.");
-            Xmi.LOG.error(Xmi.PLUGIN_ID, e);
+            Xmi.LOG.error(e);
         } finally {
             XMILogs logs = XMILogs.getInstance();
             logs.saveLog();

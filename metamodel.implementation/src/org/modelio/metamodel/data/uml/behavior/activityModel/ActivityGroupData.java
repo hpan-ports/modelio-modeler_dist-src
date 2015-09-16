@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.data.uml.behavior.activityModel;
 
@@ -45,29 +45,29 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("0028695a-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=ActivityGroup.class, factory=ActivityGroupData.Metadata.ObjectFactory.class)
 public abstract class ActivityGroupData extends ModelElementData {
-    @objid ("9d9c7396-adec-4dab-924b-7e21ee20c9e3")
+    @objid ("42d29ee5-b348-4932-81c6-01de2373dd99")
     @SmaMetaAssociation(metaName="InActivity", typeDataClass=ActivityData.class, min=0, max=1, smAssociationClass=Metadata.InActivitySmDependency.class)
      SmObjectImpl mInActivity;
 
-    @objid ("ac88382b-224b-4ddf-ba01-e88c35238780")
+    @objid ("4c1de321-fe1c-4512-ae4c-24ee29d0a53b")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("001f39c0-c4c5-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("d749934e-8545-4c06-bd00-78f2631cfa5e")
+        @objid ("44a7fb9b-8d63-433d-b39d-f7eab0ee6491")
         private static SmClass smClass = null;
 
-        @objid ("356acaf4-1054-4478-9012-41b0858bbed7")
+        @objid ("2dd84b66-7547-4af2-88b4-db71c296f2a9")
         private static SmDependency InActivityDep = null;
 
-        @objid ("71639c09-89ae-4f86-9414-fc3085ee789c")
+        @objid ("2dcc855d-3b7c-49e0-a14c-e1c640a85b65")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(ActivityGroupData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("98437753-f23d-4c70-9c89-3732a151838c")
+        @objid ("19156c07-3ac3-42de-a9a8-c9eb2b75d3a9")
         public static SmDependency InActivityDep() {
             if (InActivityDep == null) {
             	InActivityDep = classof().getDependencyDef("InActivity");
@@ -75,13 +75,13 @@ public abstract class ActivityGroupData extends ModelElementData {
             return InActivityDep;
         }
 
-        @objid ("d8467bbb-f474-4437-a0f9-f69f680336cb")
+        @objid ("e543d413-d698-4651-a831-da82b73a7604")
         public static SmClass getSmClass() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return smClass;
         }
 
-        @objid ("56a70334-3061-41e4-beca-d8e5695e2a38")
+        @objid ("7ddd259c-698c-4524-809c-708f6a9d60c4")
         public static SmDependency getInActivityDep() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return InActivityDep;
@@ -89,12 +89,12 @@ public abstract class ActivityGroupData extends ModelElementData {
 
         @objid ("001f7b2e-c4c5-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("f6d0cb24-9318-4a0e-80ba-c0cefe88a04e")
+            @objid ("137e9089-de24-492c-b215-7022ec951091")
             public ISmObjectData createData() {
                 throw new UnsupportedOperationException();
             }
 
-            @objid ("a88d7d75-ca9f-4760-9e67-18ac453bc39f")
+            @objid ("da305896-3389-4472-9d50-1c64504767b5")
             public SmObjectImpl createImpl() {
                 throw new UnsupportedOperationException();
             }
@@ -103,18 +103,18 @@ public abstract class ActivityGroupData extends ModelElementData {
 
         @objid ("001fe096-c4c5-1fd8-97fe-001ec947cd2a")
         public static class InActivitySmDependency extends SmSingleDependency {
-            @objid ("06d11721-f711-44eb-b1e8-f21434d1d925")
+            @objid ("9efcf673-43bc-4e62-ba27-78de6803ceaf")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((ActivityGroupData) data).mInActivity;
             }
 
-            @objid ("90a37000-a50c-4738-9222-ed4aedecbe87")
+            @objid ("4683ce1c-a157-431c-91ba-ab32505cde19")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((ActivityGroupData) data).mInActivity = value;
             }
 
-            @objid ("84b61a07-1305-4d0d-bdf6-903e900964f2")
+            @objid ("e4de4850-8979-4db3-8158-2471a5bae515")
             @Override
             public SmDependency getSymetric() {
                 return ActivityData.Metadata.OwnedGroupDep();

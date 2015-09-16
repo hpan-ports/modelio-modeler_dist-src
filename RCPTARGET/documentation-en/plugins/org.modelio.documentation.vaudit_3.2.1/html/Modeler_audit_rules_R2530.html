@@ -1,0 +1,38 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<title>Modeler audit rules R2530</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link href="style.css" media="screen" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<a name="R2530"></a>
+<h1 >R2530<a href="#R2530" class="wiki-anchor">&para;</a></h1>
+
+<a name="Summary"></a>
+<h4 >Summary<a href="#Summary" class="wiki-anchor">&para;</a></h4>
+
+<p>If a <em>Port</em> receives a delegation from an internal part, it must require at
+least one interface.</p>
+
+<a name="Details"></a>
+<h4 >Details<a href="#Details" class="wiki-anchor">&para;</a></h4>
+
+<p>A received delegation is a <em>Connector </em>linking a <em>Port </em>of a <em>Class </em>or
+<em>Component </em>from a part of the same class.</p>
+
+<p>A <em>Port </em>receiving a delegate <em>Connector </em>should have a required interface in
+order to have something to ask.</p>
+
+<a name="Tips"></a>
+<h4 >Tips<a href="#Tips" class="wiki-anchor">&para;</a></h4>
+
+<ul>
+<li>Add a required interface to the port.</li>
+<li>Check the delegate Connector navigation direction.</li>
+<li>Remove the delegation.</li>
+</ul>
+
+
+<div id="footer"><iframe frameborder="0" scrolling="no" height="25" width="100%" src="_footer.html"></iframe></div> </body>
+</html>

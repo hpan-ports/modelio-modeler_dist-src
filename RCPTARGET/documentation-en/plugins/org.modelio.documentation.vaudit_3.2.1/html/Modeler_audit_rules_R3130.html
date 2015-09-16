@@ -1,0 +1,37 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<title>Modeler audit rules R3130</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link href="style.css" media="screen" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<a name="R3130"></a>
+<h1 >R3130<a href="#R3130" class="wiki-anchor">&para;</a></h1>
+
+<a name="Summary"></a>
+<h4 >Summary<a href="#Summary" class="wiki-anchor">&para;</a></h4>
+
+<p>A MessageFlow cannot target an EndEvent or an IntermediateThrowEvent,
+or have a StartEvent or an IntermediateCatchEvent as its source.</p>
+
+<a name="Details"></a>
+<h4 >Details<a href="#Details" class="wiki-anchor">&para;</a></h4>
+
+<p>A <em>StartEvent</em> begins a sequence and cannot have outgoing message flows. Similarly, an
+<em>EndEvent</em> ends a sequence and cannot have any incoming message flows.</p>
+
+<p>A <em>CatchEvent</em> node catches messages but cannot send them, while a
+<em>ThrowEvent</em> sends messages but cannot catch them.</p>
+
+<a name="Tips"></a>
+<h4 >Tips<a href="#Tips" class="wiki-anchor">&para;</a></h4>
+
+<p>If you have incoming flows on a <em>StartEvent</em> or outgoing flows from an
+<em>EndEvent</em>, you must remove them. If you have incoming message flows on a
+<em>ThrowEvent</em>, you should consider changing them to a <em>CatchEvent</em> instead.
+Similarly, if you have outgoing message flows from a CatchEvent, you should
+consider making them <em>ThrowEvents</em> instead.</p>
+
+<div id="footer"><iframe frameborder="0" scrolling="no" height="25" width="100%" src="_footer.html"></iframe></div> </body>
+</html>

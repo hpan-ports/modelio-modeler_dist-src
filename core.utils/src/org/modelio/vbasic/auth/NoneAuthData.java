@@ -54,4 +54,34 @@ public class NoneAuthData extends AuthData {
         return Collections.emptyMap();
     }
 
+    /**
+     * All {@link NoneAuthData} are equal.
+     */
+    @objid ("4a00fd5b-fe8d-42b6-8455-2b1310f4c3b2")
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * All {@link NoneAuthData} are equal.
+     */
+    @objid ("849f8fea-59f5-4ce9-9eb1-b177e64bb1c3")
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + getClass().hashCode();
+        return result;
+    }
+
 }

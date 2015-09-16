@@ -105,15 +105,18 @@ import org.modelio.diagram.editor.bpmn.elements.bpmnparallelgateway.GmBpmnParall
 import org.modelio.diagram.editor.bpmn.elements.bpmnreceivetask.BpmnReceiveTaskEditPart;
 import org.modelio.diagram.editor.bpmn.elements.bpmnreceivetask.GmBpmnReceiveTask;
 import org.modelio.diagram.editor.bpmn.elements.bpmnreceivetask.GmBpmnReceiveTaskPrimaryNode;
+import org.modelio.diagram.editor.bpmn.elements.bpmnreceivetask.GmBpmnReceiveTaskTypeLabel;
 import org.modelio.diagram.editor.bpmn.elements.bpmnsendtask.BpmnSendTaskEditPart;
 import org.modelio.diagram.editor.bpmn.elements.bpmnsendtask.GmBpmnSendTask;
 import org.modelio.diagram.editor.bpmn.elements.bpmnsendtask.GmBpmnSendTaskPrimaryNode;
+import org.modelio.diagram.editor.bpmn.elements.bpmnsendtask.GmBpmnSendTaskTypeLabel;
 import org.modelio.diagram.editor.bpmn.elements.bpmnsequenceflow.BpmnSequenceFlowEditPart;
 import org.modelio.diagram.editor.bpmn.elements.bpmnsequenceflow.GmBpmnEdgeGuard;
 import org.modelio.diagram.editor.bpmn.elements.bpmnsequenceflow.GmBpmnSequenceFlow;
 import org.modelio.diagram.editor.bpmn.elements.bpmnservicetask.BpmnServiceTaskEditPart;
 import org.modelio.diagram.editor.bpmn.elements.bpmnservicetask.GmBpmnServiceTask;
 import org.modelio.diagram.editor.bpmn.elements.bpmnservicetask.GmBpmnServiceTaskPrimaryNode;
+import org.modelio.diagram.editor.bpmn.elements.bpmnservicetask.GmBpmnServiceTaskTypeLabel;
 import org.modelio.diagram.editor.bpmn.elements.bpmnsripttask.BpmnScriptTaskEditPart;
 import org.modelio.diagram.editor.bpmn.elements.bpmnsripttask.GmBpmnScriptTask;
 import org.modelio.diagram.editor.bpmn.elements.bpmnsripttask.GmBpmnScriptTaskPrimaryNode;
@@ -139,6 +142,7 @@ import org.modelio.diagram.editor.bpmn.elements.diagrams.subprocess.GmBpmnSubPro
 import org.modelio.diagram.editor.bpmn.elements.diagrams.view.GmBpmnDiagramView;
 import org.modelio.diagram.elements.common.freezone.GmBodyFreeZone;
 import org.modelio.diagram.elements.common.freezone.GmFreeZoneEditPart;
+import org.modelio.diagram.elements.common.header.ModelElementHeaderEditPart;
 import org.modelio.diagram.elements.common.label.base.GmElementLabel;
 import org.modelio.diagram.elements.common.label.base.GmElementLabelEditPart;
 import org.modelio.diagram.elements.common.label.modelelement.ModelElementFlatHeaderEditPart;
@@ -175,6 +179,9 @@ public class BpmnEditPartFactory implements EditPartFactory {
                     break;
                 case STRUCTURED:
                     editPart = this.structuredModeEditPartFactory.createEditPart(context, model);
+                    break;
+                default:
+                    break;
             }
         
             if (editPart != null)
@@ -238,6 +245,12 @@ public class BpmnEditPartFactory implements EditPartFactory {
                 return editPart;
             }
             
+            if (model.getClass() == GmBpmnSendTaskTypeLabel.class) {
+                editPart = new ModelElementHeaderEditPart();
+                editPart.setModel(model);
+                return editPart;
+            }
+            
             if (model.getClass() == GmBpmnSendTask.class) {
                 editPart = new BpmnPortContainerEditPart();
                 editPart.setModel(model);
@@ -250,6 +263,12 @@ public class BpmnEditPartFactory implements EditPartFactory {
                 return editPart;
             }
             
+            if (model.getClass() == GmBpmnReceiveTaskTypeLabel.class) {
+                editPart = new ModelElementHeaderEditPart();
+                editPart.setModel(model);
+                return editPart;
+            }
+            
             if (model.getClass() == GmBpmnReceiveTask.class) {
                 editPart = new BpmnPortContainerEditPart();
                 editPart.setModel(model);
@@ -257,6 +276,12 @@ public class BpmnEditPartFactory implements EditPartFactory {
             }
             if (model.getClass() == GmBpmnServiceTaskPrimaryNode.class) {
                 editPart = new BpmnServiceTaskEditPart();
+                editPart.setModel(model);
+                return editPart;
+            }
+            
+            if (model.getClass() == GmBpmnServiceTaskTypeLabel.class) {
+                editPart = new ModelElementHeaderEditPart();
                 editPart.setModel(model);
                 return editPart;
             }

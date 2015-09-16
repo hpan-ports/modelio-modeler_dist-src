@@ -42,6 +42,10 @@ public class NodeCreationTool extends CreationTool {
     @objid ("c3f4f339-fa88-4fe3-a4e5-179ecfc94b8a")
     @Override
     protected void enforceConstraintsForSizeOnDropCreate(CreateRequest request) {
+        if (getTargetEditPart() == null) {
+            return;
+        }
+        
         super.enforceConstraintsForSizeOnDropCreate(request);
         
         final Dimension reqSize = request.getSize();

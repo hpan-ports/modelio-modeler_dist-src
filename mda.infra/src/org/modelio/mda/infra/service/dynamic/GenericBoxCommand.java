@@ -37,7 +37,6 @@ import org.modelio.api.modelio.Modelio;
 import org.modelio.gproject.model.api.MTools;
 import org.modelio.mda.infra.plugin.MdaInfra;
 import org.modelio.metamodel.Metamodel;
-import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
 import org.modelio.metamodel.uml.infrastructure.Stereotype;
 import org.modelio.vcore.smkernel.mapi.MDependency;

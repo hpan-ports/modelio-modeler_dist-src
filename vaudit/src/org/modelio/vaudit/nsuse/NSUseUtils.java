@@ -25,7 +25,7 @@ import java.util.ArrayList;
 import java.util.Deque;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.modelio.gproject.descriptor.FragmentType;
+import org.modelio.gproject.data.project.FragmentType;
 import org.modelio.gproject.fragment.IProjectFragment;
 import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.metamodel.uml.statik.NameSpace;

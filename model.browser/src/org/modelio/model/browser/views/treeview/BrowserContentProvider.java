@@ -29,7 +29,7 @@ import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.Viewer;
-import org.modelio.gproject.descriptor.FragmentType;
+import org.modelio.gproject.data.project.FragmentType;
 import org.modelio.gproject.fragment.IProjectFragment;
 import org.modelio.gproject.gproject.GProject;
 import org.modelio.metamodel.analyst.AnalystProject;
@@ -277,13 +277,23 @@ class BrowserContentProvider implements IModelChangeListener, IStatusChangeListe
             return ((BpmnFlowElement) child).getLane().get(0);
         } else if (child instanceof BpmnBoundaryEvent && ((BpmnBoundaryEvent) child).getAttachedToRef() != null) {
             return ((BpmnBoundaryEvent) child).getAttachedToRef();
+        } else if (child instanceof LinkContainer) {
+            return ((LinkContainer)child).getElement();
+        } else if (child instanceof ArchiveContainer) {
+            return ((ArchiveContainer)child).getElement();
         } else if (child instanceof MObject) {
             SmObjectImpl element = (SmObjectImpl) child;
             SmObjectImpl owner = element.getCompositionOwner();
             if (owner != null) {
-                if (this.showProjects == false && isProject(owner)) {
+                if (! this.showProjects && isProject(owner)) {
                     return getParent(owner);
                 } else {
+                    // look for right container
+                    if (visitor.getArchivedChildren(owner).contains(element))
+                            return new ArchiveContainer(owner, -1);
+                    if (visitor.getLinkChildren(owner).contains(element))
+                        return new LinkContainer(owner, -1);
+                    
                     return owner;
                 }
             } else if (this.openedProject != null) {
@@ -449,6 +459,18 @@ class BrowserContentProvider implements IModelChangeListener, IStatusChangeListe
         this.showAnalystModel  = showAnalystModel;
     }
 
+    /**
+     * Visitor used to get tree node children.
+     * <p>
+     * <h3>Implementation note:</h3>
+     * If {@link #findLinksChildren} or {@link #findArchivedVersionChildren} is <code>true</code>,
+     * the implementation should use {@link #addResults(List)} so that children tree nodes
+     * are linked to the container. <br/>
+     * This should help the tree view not shrinking sometimes.
+     * <p>
+     * In the other case {@link #addResults(List)} should be called, to avoid creating adapters
+     * for nothing.
+     */
     @objid ("440712f4-8e83-4fbe-ada0-31de148452e4")
     private static class ModelBrowserVisitor extends DefaultModelVisitor {
         @objid ("ef200fd5-b87a-4110-a65c-7f9dcd21607d")
@@ -464,7 +486,7 @@ class BrowserContentProvider implements IModelChangeListener, IStatusChangeListe
         private boolean findArchivedVersionChildren;
 
         @objid ("73644ebd-ff3b-4bab-8af0-aa35e37d0421")
-        private ArrayList<MObject> result;
+        private ArrayList<Object> result;
 
         @objid ("e4477a8f-d66d-4a24-9a30-eb87bb7b5c0e")
         public ModelBrowserVisitor() {
@@ -473,14 +495,16 @@ class BrowserContentProvider implements IModelChangeListener, IStatusChangeListe
 
         @objid ("d45f3143-2662-4cbf-8701-c1df3efcc9a6")
         public List<Object> getChildren(final MObject parent, boolean findUml, boolean findScope) {
-            List<MObject> umlChildren = getChildren(parent, findUml, findScope, false, false);
-            List<MObject> auxChildren = getChildren(parent, false, false, true, false);
-            List<MObject> archiveChildren = getChildren(parent, false, false, false, true);
+            List<Object> umlChildren = getChildren(parent, findUml, findScope, false, false);
+            List<Object> auxChildren = getLinkChildren(parent);
+            List<Object> archiveChildren = getArchivedChildren(parent);
             
             List<Object> ret = new ArrayList<>(umlChildren.size() + 2);
             ret.addAll(umlChildren);
+            
             if (! auxChildren.isEmpty())
                 ret.add(new LinkContainer(parent, auxChildren.size()));
+            
             if (! archiveChildren.isEmpty())
                 ret.add(new ArchiveContainer(parent, archiveChildren.size()));
             return ret;
@@ -498,7 +522,7 @@ class BrowserContentProvider implements IModelChangeListener, IStatusChangeListe
          * @return The children to display when expanding the tree node.
          */
         @objid ("89370d4c-0e5d-4b5c-aa1a-3c4b5404848c")
-        private List<MObject> getChildren(MObject parent, boolean findUml, boolean findScope, boolean findLinks, boolean findArchivedVersion) {
+        private List<Object> getChildren(MObject parent, boolean findUml, boolean findScope, boolean findLinks, boolean findArchivedVersion) {
             this.findUmlChildren = findUml;
             this.findScopeChildren = findScope;
             this.findLinksChildren = findLinks;
@@ -904,6 +928,13 @@ class BrowserContentProvider implements IModelChangeListener, IStatusChangeListe
                         addResult(instance);
                     }
                 }
+            }
+            
+            if (this.findLinksChildren) {
+                // Substitutions
+                addResults(theClassifier.getSubstitued());
+                // Component realizations 
+                addResults(theClassifier.getRealizedComponent());
             }
             return super.visitClassifier(theClassifier);
         }
@@ -1582,7 +1613,7 @@ class BrowserContentProvider implements IModelChangeListener, IStatusChangeListe
             if (this.findLinksChildren) {
                 // SequenceFlow
                 for (final BpmnFlowElement element : theBpmnProcess.getFlowElement(BpmnSequenceFlow.class)) {
-                    if (element.getLane().size() == 0) {
+                    if (element.getLane().isEmpty()) {
                         addResult(element);
                     }
                 }
@@ -1922,6 +1953,8 @@ class BrowserContentProvider implements IModelChangeListener, IStatusChangeListe
                 addResults(theStereotype.getDefinedNoteType());
             
                 addResults(theStereotype.getDefinedExternDocumentType());
+                
+                addResult(theStereotype.getDefinedTable());
             }
             return super.visitStereotype(theStereotype);
         }
@@ -2025,7 +2058,7 @@ class BrowserContentProvider implements IModelChangeListener, IStatusChangeListe
          * @param elt the element to add.
          */
         @objid ("a3e8807f-29fa-485f-9a75-9a4d8d845c97")
-        private void addResult(MObject elt) {
+        private void addResult(Object elt) {
             if (elt != null && !this.result.contains(elt)) {
                 this.result.add(elt);
             }
@@ -2146,6 +2179,16 @@ class BrowserContentProvider implements IModelChangeListener, IStatusChangeListe
         @objid ("3f6e6d13-659c-4e8c-a751-c7f1133b1cab")
         public Object[] getArchivedVersions(ArchiveContainer parent) {
             return getChildren(parent.getElement(), false, false, false, true).toArray();
+        }
+
+        @objid ("b97e1abb-e2f0-40e3-a3a4-79c945f84027")
+        List<Object> getArchivedChildren(final MObject parent) {
+            return getChildren(parent, false, false, false, true);
+        }
+
+        @objid ("f7f23377-a5a8-4d32-9199-09963754f921")
+        List<Object> getLinkChildren(final MObject parent) {
+            return getChildren(parent, false, false, true, false);
         }
 
     }

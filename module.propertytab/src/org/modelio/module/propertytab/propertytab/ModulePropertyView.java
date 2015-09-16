@@ -54,7 +54,7 @@ public class ModulePropertyView {
         // Create the view content
         IModulePropertyPage page = getModulePropertyPage(modules, part);
         this.modulePanel = new ModulePanelProvider(page);
-        this.modulePanel.create(parentComposite);
+        this.modulePanel.createPanel(parentComposite);
         this.modulePanel.activateEdition(project.getSession(), pickingService);
         if(selection != null)
             update(selection);
@@ -108,7 +108,7 @@ public class ModulePropertyView {
         for (IModule module : modules.getModuleRegistry().getStartedModules()) {
             if (module.getName().equals(part.getTags().get(1))) {
                 for (IModulePropertyPage page : module.getPropertyPages()) {
-                    if (page.getName().equals(part.getTags().get(2))) {
+                    if (part.getTags().contains(page.getName())) {
                         return page;
                     }
                 }

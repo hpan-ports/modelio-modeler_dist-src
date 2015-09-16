@@ -218,11 +218,30 @@
 			<context metaclass="Dependency" stereotype="trace" router="DEPENDENCY_CONNECTIONROUTER">
 			</context>	
 		</creationtool>
+		
+		<!-- Dependency like links -->
 		<creationtool id="CREATE_USE" label="%Use.label" tooltip="%Use.tooltip" interactor="link">
 			<context metaclass="Usage" dependency="null" router="DEPENDENCY_CONNECTIONROUTER">
 			</context>	
 		</creationtool>
+		<creationtool id="CREATE_ABSTRACTION" label="%Abstraction.label" tooltip="%Abstraction.tooltip" interactor="link">
+			<context metaclass="Abstraction" dependency="null" router="DEPENDENCY_CONNECTIONROUTER">
+			</context>	
+		</creationtool>
+		<creationtool id="CREATE_ELEMENTREALIZATION" label="%ElementRealization.label" tooltip="%ElementRealization.tooltip" interactor="link">
+			<context metaclass="ElementRealization" dependency="null" router="DEPENDENCY_CONNECTIONROUTER">
+			</context>	
+		</creationtool>
+		<creationtool id="CREATE_COMPONENTREALIZATION" label="%ComponentRealization.label" tooltip="%ComponentRealization.tooltip" interactor="link">
+			<context metaclass="ComponentRealization" dependency="null" router="DEPENDENCY_CONNECTIONROUTER">
+			</context>	
+		</creationtool>
+		<creationtool id="CREATE_SUBSTITUTION" label="%Substitution.label" tooltip="%Substitution.tooltip" interactor="link">
+			<context metaclass="Substitution" dependency="null" router="DEPENDENCY_CONNECTIONROUTER">
+			</context>	
+		</creationtool>
 		
+		<!-- Notes & co -->
         <creationtool id="CREATE_NOTE" label="%Note.label" tooltip="%Note.tooltip"  interactor="linkedNode">
 			<context metaclass="Note" dependency="Descriptor"/>
 		</creationtool>

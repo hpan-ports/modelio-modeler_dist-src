@@ -83,6 +83,11 @@ public class ClassDiagramConfigurer extends AbstractDiagramConfigurer {
         group.add(toolRegistry.getTool("CREATE_EXTERNDOCUMENT"));
         group.add(toolRegistry.getTool("CREATE_DEPENDENCY"));
         group.add(toolRegistry.getTool("CREATE_TRACEABILITY"));
+        
+        group.add(toolRegistry.getTool("CREATE_ABSTRACTION"));
+        group.add(toolRegistry.getTool("CREATE_ELEMENTREALIZATION"));
+        group.add(toolRegistry.getTool("CREATE_SUBSTITUTION"));
+        
         group.add(toolRegistry.getTool("CREATE_RELATED_DIAGRAM_LINK"));
         
         group.setInitialState(PaletteDrawer.INITIAL_STATE_CLOSED);
@@ -139,6 +144,7 @@ public class ClassDiagramConfigurer extends AbstractDiagramConfigurer {
         group.add(toolRegistry.getTool("CREATE_PORT"));
         group.add(toolRegistry.getTool("CREATE_PROVIDED_INTERFACE"));
         group.add(toolRegistry.getTool("CREATE_REQUIRED_INTERFACE"));
+        group.add(toolRegistry.getTool("CREATE_COMPONENTREALIZATION"));
         
         group.setInitialState(PaletteDrawer.INITIAL_STATE_CLOSED);
         return group;

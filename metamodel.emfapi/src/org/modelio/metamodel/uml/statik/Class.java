@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.uml.statik;
 
@@ -31,22 +31,22 @@ import org.modelio.metamodel.uml.statik.ClassAssociation;
 
 @objid ("0002155c-c4bf-1fd8-97fe-001ec947cd2a")
 public interface Class extends GeneralClass {
-    @objid ("751fb3ec-0916-44e6-acc7-3dae91f332ae")
+    @objid ("83a2ef8f-204c-4232-b43a-392b615db6d0")
     boolean isIsActive();
 
-    @objid ("76dd6f28-a976-4cdd-977e-7b52e2cbcbc1")
+    @objid ("6d9ddfd9-6e96-41f8-9f45-8f8f0c47e80c")
     void setIsActive(boolean value);
 
-    @objid ("790260e9-c8a0-48d9-8656-e8e3ca315fe7")
+    @objid ("ddcedc4e-ab36-4851-aa83-53001d8b4669")
     boolean isIsMain();
 
-    @objid ("721c3eb0-c788-46c6-af9b-01b21f2a88b7")
+    @objid ("38d589a1-6d71-4635-b8e9-22b099deb087")
     void setIsMain(boolean value);
 
-    @objid ("4c806b6f-70ac-48e2-9dbf-b41036e42f11")
+    @objid ("e854c3ae-7f3f-44c0-b05b-6d005992faab")
     ClassAssociation getLinkToAssociation();
 
-    @objid ("84c45d88-15d8-449d-b866-14a37a3fff47")
+    @objid ("7cd054f5-f652-45ea-9be1-939c76b85906")
     void setLinkToAssociation(ClassAssociation value);
 
 }

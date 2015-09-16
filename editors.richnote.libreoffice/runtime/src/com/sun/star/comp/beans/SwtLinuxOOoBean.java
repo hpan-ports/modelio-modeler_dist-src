@@ -37,7 +37,9 @@ import org.eclipse.swt.events.DisposeListener;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Widget;
+import org.modelio.editors.richnote.libreoffice.plugin.LibreOfficeEditors;
 
 /**
  * @requirement FUNC.PERF.LRN/0.6
@@ -129,7 +131,7 @@ public class SwtLinuxOOoBean extends Composite {
      */
     @objid ("6c919523-361c-49dc-a38c-b8463dbdec9d")
     void dbgPrint(final String aMessage) {
-        System.err.println( "SwtOOoBean: " + aMessage );
+        LibreOfficeEditors.LOG.debug("SwtOOoBean: " + aMessage );
     }
 
     /**
@@ -169,6 +171,9 @@ public class SwtLinuxOOoBean extends Composite {
         });
         
         try {
+            // Establish the connection by requesting the ServiceFactory.
+            getMultiServiceFactory();
+                  
             // get window from OOo on demand
             initSWTOfficeWindow();
         
@@ -355,7 +360,8 @@ public class SwtLinuxOOoBean extends Composite {
                 Object aObject = getMultiServiceFactory().createInstance("com.sun.star.frame.Desktop");
                 this.xDesktop = UnoRuntime.queryInterface(com.sun.star.frame.XDesktop.class, aObject);
             } catch (com.sun.star.uno.Exception aExc) {
-            } // TBD: what if no connection exists?
+                // TBD: what if no connection exists?
+            } 
         }
         return this.xDesktop;
     }
@@ -401,8 +407,8 @@ public class SwtLinuxOOoBean extends Composite {
                                                                                    this.xURLTransformer);
                     if (xComp != null)
                         xComp.dispose();
-                } catch (java.lang.Throwable aExc) {
-                } // ignore
+                } catch (java.lang.Throwable aExc) {// ignore
+                } 
                 this.xURLTransformer = null;
             }
         
@@ -492,7 +498,7 @@ public class SwtLinuxOOoBean extends Composite {
                                     throw new com.sun.star.util.CloseVetoException("Document is still being used and cannot be closed.",
                                                                                    this);
         
-                        } catch (java.lang.IllegalStateException exp) {
+                        } catch (java.lang.IllegalStateException exp) { // ignore
                         }
                     }
         
@@ -527,7 +533,8 @@ public class SwtLinuxOOoBean extends Composite {
                     bLoaded = true;
                 } catch (com.sun.star.lang.DisposedException aExc) {
                     // stop, clear and retry
-                    aExc.printStackTrace();
+                    LibreOfficeEditors.LOG.warning(aExc.toString());
+                    LibreOfficeEditors.LOG.debug(aExc);
                     stopOOoConnection();
                 } catch (com.sun.star.uno.Exception aExc) {
                     // TDB: handling failure in createInstance
@@ -861,7 +868,6 @@ public class SwtLinuxOOoBean extends Composite {
 
     /**
      * Helper method to set tool bar visibility.
-     * @param aProperty property to change
      * @param aResourceURL property owner
      * @param bOldValue old visibility ?
      * @param bNewValue If false, the tool bar is disabled, If true, the tool bar is visible.
@@ -1403,7 +1409,11 @@ public class SwtLinuxOOoBean extends Composite {
      * @throws com.sun.star.comp.beans.NoConnectionException if no connection
      */
     @objid ("54742821-d680-47ee-a340-6152ea5dbecc")
-    void initXFrame() throws NoConnectionException, com.sun.star.uno.Exception {
+    private void initXFrame() throws NoConnectionException, com.sun.star.uno.Exception {
+        // Ensure SWT frame exists. null happens if closeDocument() is called
+        if (this.swtFrameWindow == null)
+            initSWTOfficeWindow();
+        
         // create the frame
         com.sun.star.awt.XWindow xWindow = UnoRuntime.queryInterface(com.sun.star.awt.XWindow.class,
                                                                      this.swtFrameWindow.getUNOWindowPeer());
@@ -1417,28 +1427,28 @@ public class SwtLinuxOOoBean extends Composite {
         com.sun.star.frame.XFrames xFrames = (UnoRuntime.queryInterface(com.sun.star.frame.XFramesSupplier.class,
                                                                         getOOoDesktop())).getFrames();
         xFrames.append(this.aFrame);
+        
+        this.pack(true);
+        this.layout(true);
     }
 
     /**
      * Initialize the SWTOfficeWindow.
-     * @throws NoConnectionException
+     * @throws com.sun.star.comp.beans.NoConnectionException if no connection is established and no default connection can be established.
      */
     @objid ("11496fa0-bd5c-415d-8c16-7d0c423c8854")
     private void initSWTOfficeWindow() throws NoConnectionException {
-        // Establish the connection by request of the ServiceFactory.
-        getMultiServiceFactory();
-              
         // remove existing child windows
-        innerSwtInit();
-    }
-
-    @objid ("6b450471-7e14-408b-b6c2-ae90eb458f82")
-    void innerSwtInit() throws NoConnectionException {
-        for (Control  c: getChildren())
-            c.dispose();
+        //if (! isDisposed()) {
+            for (Control  c: getChildren())
+                c.dispose();
+        //}
             
         // Create the OfficeWindow.
-        SwtLinuxOOoBean.this.swtFrameWindow = new SwtLinuxOfficeWindow(getOOoConnection(), SwtLinuxOOoBean.this) ;
+        this.swtFrameWindow = new SwtLinuxOfficeWindow(getOOoConnection(), this) ;
+        
+        this.pack(true);
+        this.layout(true);
     }
 
 //===========================================================================
@@ -1482,6 +1492,7 @@ public class SwtLinuxOOoBean extends Composite {
             try {
                 SwtLinuxOOoBean.this.iConnection.removeEventListener(this);
             } catch (Throwable aExc) {
+                // ignore
             }
             
             // do not listen on a terminating OOo anymore
@@ -1492,6 +1503,7 @@ public class SwtLinuxOOoBean extends Composite {
                 
                 aCallWatchThread.cancel();
             } catch (Throwable aExc) {
+                // ignore
             }
             
             // stop thread

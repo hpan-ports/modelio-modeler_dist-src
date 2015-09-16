@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.uml.statik;
 
@@ -54,178 +54,178 @@ import org.modelio.metamodel.uml.statik.TemplateParameter;
 
 @objid ("001449ac-c4bf-1fd8-97fe-001ec947cd2a")
 public interface Operation extends BehavioralFeature {
-    @objid ("9068841f-e8cf-4be2-aea6-03ff3e2323f6")
+    @objid ("3fd3fb17-be1a-475f-b7b8-cb9d56bca51a")
     boolean isConcurrency();
 
-    @objid ("4877fc84-b639-415e-8807-a2e6619772e2")
+    @objid ("6ae6382d-1f15-4384-9a2d-632f82735918")
     void setConcurrency(boolean value);
 
-    @objid ("a1915d8b-6506-4cf6-8738-a3d46113bd8c")
+    @objid ("dc8fc026-5220-423a-b861-b2adf56e5276")
     boolean isFinal();
 
-    @objid ("41b47da9-f98c-487f-806e-f810ec189b04")
+    @objid ("1c3a9e86-f8ea-41ea-b122-229056dc5360")
     void setFinal(boolean value);
 
-    @objid ("98d3d08d-4849-4fa0-b6e7-4993fcd9216e")
+    @objid ("96f727a5-174a-4d41-93b6-27c9fbf8220b")
     MethodPassingMode getPassing();
 
-    @objid ("c61c22ed-037c-44be-bf82-12cd852899d8")
+    @objid ("0640dc99-f328-452b-82dc-d18200c3572b")
     void setPassing(MethodPassingMode value);
 
-    @objid ("2eea2aef-450c-48fc-906d-baf37b274da3")
+    @objid ("aed8b3a4-95de-4206-90f9-96c330ca4ebf")
     EList<ElementImport> getOwnedImport();
 
-    @objid ("d6bedce5-d906-4bb6-9cc4-08ae3fef873b")
+    @objid ("58646926-0373-4ff2-bff0-b0aaf9c90f32")
     <T extends ElementImport> List<T> getOwnedImport(java.lang.Class<T> filterClass);
 
-    @objid ("50760bdb-1be2-4755-8f0c-03c153cf2c7c")
+    @objid ("d23a3f60-6dc2-4ec8-b144-d896a2570f80")
     EList<RaisedException> getThrown();
 
-    @objid ("15462edf-ebd4-4b5b-9c27-5f6ef2f71245")
+    @objid ("68703f93-59e7-4ff7-902e-d2c74bbba05d")
     <T extends RaisedException> List<T> getThrown(java.lang.Class<T> filterClass);
 
-    @objid ("723bccd3-2bd5-47b5-a435-d91e9e7038dd")
+    @objid ("827ef159-ea74-4aa9-92ee-e49dfa3e27ec")
     EList<BpmnReceiveTask> getCallerReceiveTask();
 
-    @objid ("4405be9c-5857-4e04-8978-15e2a2cbd60f")
+    @objid ("98768a5c-a9d2-4398-a9d2-8962eafd225e")
     <T extends BpmnReceiveTask> List<T> getCallerReceiveTask(java.lang.Class<T> filterClass);
 
-    @objid ("2d033603-2101-471b-addc-4ed87b5fdb00")
+    @objid ("3a69ba75-06e1-4557-b2dc-5532ce152599")
     EList<Operation> getRedefinition();
 
-    @objid ("10e1a8cb-5a20-4948-bdc9-fc90eb8772c5")
+    @objid ("6aeb28b3-5d6b-41a4-831f-25c4583c44e6")
     <T extends Operation> List<T> getRedefinition(java.lang.Class<T> filterClass);
 
-    @objid ("6e159403-2248-4050-ab14-f2d9d6d27cce")
+    @objid ("176ca2dd-2f48-4795-8103-e05a19402464")
     EList<Collaboration> getExample();
 
-    @objid ("304c246a-960d-4b57-a95d-8105dee9d080")
+    @objid ("94461843-602c-43cd-9f10-9e1c9e67f2e6")
     <T extends Collaboration> List<T> getExample(java.lang.Class<T> filterClass);
 
-    @objid ("b93c6e37-445b-407a-855c-6d6de57e9708")
+    @objid ("248eafb3-4314-4be1-a510-199bcb37eb08")
     EList<Signal> getSRepresentation();
 
-    @objid ("fc3795ac-03f1-4544-be75-6f24346c7f85")
+    @objid ("134f6959-837f-4f66-bf58-f66defcba1fe")
     <T extends Signal> List<T> getSRepresentation(java.lang.Class<T> filterClass);
 
-    @objid ("a74ab94e-1c97-42b3-a754-22636d4a3cfc")
+    @objid ("e4627abd-f3bb-4a4c-916f-e431f37395be")
     EList<Behavior> getOwnedBehavior();
 
-    @objid ("dc3f1155-a46d-4c97-b718-fe0c53f990bb")
+    @objid ("3723d7ff-9caf-48d4-acb2-030c7f025019")
     <T extends Behavior> List<T> getOwnedBehavior(java.lang.Class<T> filterClass);
 
-    @objid ("188bc767-5505-4876-a6ee-93b2125d5612")
+    @objid ("0f396d00-98eb-462c-81fe-7420e8c6ebd4")
     EList<BpmnOperation> getBpmnOperationRef();
 
-    @objid ("d3ce0c53-7f95-436f-ac2f-3a5b7807671f")
+    @objid ("8f25d179-8013-4c53-9255-34a539693714")
     <T extends BpmnOperation> List<T> getBpmnOperationRef(java.lang.Class<T> filterClass);
 
-    @objid ("e4e3a6ba-b28f-4905-904c-61a3fad38815")
+    @objid ("9e2cb79e-a6b6-4ef8-8b44-759a1ba24f39")
     EList<BpmnSendTask> getCallerSendTask();
 
-    @objid ("99f4bce3-1d68-4b62-8c98-c2aec69b7340")
+    @objid ("98645ba9-7286-4456-9561-a88d83887a4a")
     <T extends BpmnSendTask> List<T> getCallerSendTask(java.lang.Class<T> filterClass);
 
-    @objid ("0f00ed5f-2e14-4cc1-a6df-351cc79619f0")
+    @objid ("ed2c0baa-cbda-42d8-b612-90d7c4fb215d")
     EList<Parameter> getIO();
 
-    @objid ("02a5901c-67f7-4217-8792-9feb554e1a66")
+    @objid ("69425746-55a3-4bc1-aa97-4192f3f86a4c")
     <T extends Parameter> List<T> getIO(java.lang.Class<T> filterClass);
 
-    @objid ("7400a377-a1c3-405b-baee-ec2fd90e5ebc")
+    @objid ("a669938f-c356-4dfc-afd9-705c19c6fbea")
     EList<TemplateBinding> getTemplateInstanciation();
 
-    @objid ("4dab8bec-ac1f-405e-ba7b-da1fe97bc326")
+    @objid ("d08b7c7f-144f-4800-a340-382cbc12bc00")
     <T extends TemplateBinding> List<T> getTemplateInstanciation(java.lang.Class<T> filterClass);
 
-    @objid ("12fb5e78-e323-426d-bb35-4a935aeaff5f")
+    @objid ("7826c990-4464-4bc5-b9fd-30e5bd5554d5")
     Classifier getOwner();
 
-    @objid ("1581d55e-2478-479b-9fd1-7347f3632b3b")
+    @objid ("9986ecd1-b872-4d88-8010-f04e1f76e2ad")
     void setOwner(Classifier value);
 
-    @objid ("2292fd1f-f2c4-4314-a9c1-13ef2dd1b4ea")
+    @objid ("39a129bf-3c64-445c-8ea3-633ac15d5c6d")
     EList<PackageImport> getOwnedPackageImport();
 
-    @objid ("ed9c70b9-9d97-439c-a62e-ff028286bfdd")
+    @objid ("94173cda-ff5c-40dc-8d31-13198037aa43")
     <T extends PackageImport> List<T> getOwnedPackageImport(java.lang.Class<T> filterClass);
 
-    @objid ("3ba6a000-ac76-42ff-ae7c-dc6033e63754")
+    @objid ("db6c9413-16fb-4234-94b5-ad4b4d8fd22a")
     Parameter getReturn();
 
-    @objid ("7b145075-fafe-4afd-8587-2c24dcca1e61")
+    @objid ("0eaae848-4721-4d17-8731-e0e3b0417c05")
     void setReturn(Parameter value);
 
-    @objid ("1ef4be59-1210-4802-b048-c0afda2e457c")
+    @objid ("34826b8d-c7ff-4b5d-8a87-7dadc5ffc342")
     EList<TemplateBinding> getInstanciatingBinding();
 
-    @objid ("8f355ece-9899-48b5-ba60-29022b26561d")
+    @objid ("d4246933-9295-471a-bf26-dc3d07b2d45e")
     <T extends TemplateBinding> List<T> getInstanciatingBinding(java.lang.Class<T> filterClass);
 
-    @objid ("0067af44-d59c-416f-b6a1-df5404069be6")
+    @objid ("1cf93c8c-9538-487d-9280-875b28ed94e7")
     EList<Message> getUsage();
 
-    @objid ("bf008d69-f3f7-4410-8b54-500e9ab49e85")
+    @objid ("380f42bf-e3e8-44a8-bfc7-999253bed0ba")
     <T extends Message> List<T> getUsage(java.lang.Class<T> filterClass);
 
-    @objid ("45292771-bc93-4085-8191-91474541df4a")
+    @objid ("c27f7f62-42ea-4cc9-a460-1b29d0e9a1c5")
     EList<TemplateParameter> getTemplate();
 
-    @objid ("37403864-96e5-4955-84e8-cec2e053c4ad")
+    @objid ("afc1b5cd-5e5d-4991-a42f-da30e17fc0cc")
     <T extends TemplateParameter> List<T> getTemplate(java.lang.Class<T> filterClass);
 
-    @objid ("1d5c8d44-e789-4fac-91c7-bb3699baa544")
+    @objid ("a2edab75-64fd-429f-91de-e8a07dd80a9f")
     EList<BpmnServiceTask> getCallerServiceTask();
 
-    @objid ("3946a0fb-e56a-458e-9a67-1fb8d697c2ce")
+    @objid ("8f75acdb-9f10-4c59-818f-85d56b71b766")
     <T extends BpmnServiceTask> List<T> getCallerServiceTask(java.lang.Class<T> filterClass);
 
-    @objid ("a4562e33-4188-4b6c-8f21-70d6f3339ff0")
+    @objid ("da3a24ba-5137-42dd-87ce-4a3189361ad3")
     EList<Event> getOccurence();
 
-    @objid ("40fc38de-5e67-419f-bf90-52b9b222e506")
+    @objid ("a2057489-5a07-447c-afff-e716aec382fc")
     <T extends Event> List<T> getOccurence(java.lang.Class<T> filterClass);
 
-    @objid ("c52e9818-22d7-44bf-a44e-31b8c5d328d2")
+    @objid ("3210c34c-b97d-452f-9b57-457090af5022")
     EList<Transition> getInvoker();
 
-    @objid ("dad72ff0-554e-4965-a707-5e529efd2af6")
+    @objid ("84bd97a4-e899-4997-b67a-80a6cfcd7bc1")
     <T extends Transition> List<T> getInvoker(java.lang.Class<T> filterClass);
 
-    @objid ("1c9fd257-3ab5-4352-b398-8e0745cdf139")
+    @objid ("76fef8fc-9ddf-4895-8347-d6bc1d8e9b4a")
     EList<CommunicationMessage> getCommunicationUsage();
 
-    @objid ("674c03bb-85c3-4e27-b214-c2f11e781d15")
+    @objid ("b0957124-394d-44ba-b13d-e3284dd0c389")
     <T extends CommunicationMessage> List<T> getCommunicationUsage(java.lang.Class<T> filterClass);
 
-    @objid ("bd0a98f8-0a90-4e1d-bb8d-93eccf1c1991")
+    @objid ("21bad404-1bec-486b-bd7a-5297119cedc8")
     EList<CollaborationUse> getOwnedCollaborationUse();
 
-    @objid ("4647245e-2608-4fa5-8f63-fc7cdfa6e18a")
+    @objid ("d6ba7d3b-9f95-4355-9533-6aa2259e391e")
     <T extends CollaborationUse> List<T> getOwnedCollaborationUse(java.lang.Class<T> filterClass);
 
-    @objid ("880be32c-8488-403e-98dd-8ac59561f00a")
+    @objid ("0830e409-7992-48a6-ad55-0b06a501cd65")
     Operation getRedefines();
 
-    @objid ("11797ffa-e293-4653-8763-526e4064c29a")
+    @objid ("aea6c046-abf0-42d9-ae28-6eb5515e2f2c")
     void setRedefines(Operation value);
 
-    @objid ("bd5f2e34-56f1-45de-80df-6ce7100867bb")
+    @objid ("0d16f99a-d981-4e4c-a648-d1bec0a5a74e")
     EList<BpmnCallActivity> getCaller();
 
-    @objid ("cdfd2575-9110-47b2-b2e0-831e4af3bd6c")
+    @objid ("8221c89a-9091-4c2d-99d3-0a790663d4ab")
     <T extends BpmnCallActivity> List<T> getCaller(java.lang.Class<T> filterClass);
 
-    @objid ("59372597-6657-46f2-86fb-b26c0fce0bd4")
+    @objid ("00bb1762-655b-4537-903b-abf056324e4b")
     EList<CallOperationAction> getCallingAction();
 
-    @objid ("bf902f5e-67da-47e8-821c-444cf5ccb70e")
+    @objid ("4f40feeb-a974-4cb8-afd7-32203f644a70")
     <T extends CallOperationAction> List<T> getCallingAction(java.lang.Class<T> filterClass);
 
-    @objid ("7e8b55cb-9499-4d4e-935a-39c0cea1714a")
+    @objid ("f93b21c5-c146-4929-bb62-d102b868eb5f")
     EList<AcceptCallEventAction> getEntryPointAction();
 
-    @objid ("abd938c5-76ca-4d21-baa2-8521efd4df3a")
+    @objid ("2bf1d695-7c2b-4cfb-b9a5-72a0544a398c")
     <T extends AcceptCallEventAction> List<T> getEntryPointAction(java.lang.Class<T> filterClass);
 
 }

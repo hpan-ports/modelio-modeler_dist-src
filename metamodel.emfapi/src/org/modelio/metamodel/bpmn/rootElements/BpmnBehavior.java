@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.bpmn.rootElements;
 
@@ -33,10 +33,10 @@ import org.modelio.metamodel.uml.behavior.commonBehaviors.Behavior;
 
 @objid ("007b2cd0-c4bf-1fd8-97fe-001ec947cd2a")
 public interface BpmnBehavior extends Behavior {
-    @objid ("dc072dde-ae7e-47e2-84b0-92db4b5e23e4")
+    @objid ("ca10a11c-05bb-4580-ac10-77f998797bf9")
     EList<BpmnRootElement> getRootElement();
 
-    @objid ("0f55544b-8045-461f-9f93-d4021c570d71")
+    @objid ("9509bea9-f05b-4460-b535-0f25c82d44f2")
     <T extends BpmnRootElement> List<T> getRootElement(java.lang.Class<T> filterClass);
 
 }

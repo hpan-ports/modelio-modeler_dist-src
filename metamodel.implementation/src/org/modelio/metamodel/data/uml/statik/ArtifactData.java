@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.data.uml.statik;
 
@@ -46,43 +46,43 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("009712f6-c4be-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=Artifact.class, factory=ArtifactData.Metadata.ObjectFactory.class, cmsnode=true)
 public class ArtifactData extends ClassifierData {
-    @objid ("42a71b8d-fad7-4b5f-9524-085183ff2fe1")
+    @objid ("62429ae4-eee7-4178-881c-ba66a101b0b2")
     @SmaMetaAttribute(metaName="FileName", type=String.class, smAttributeClass=Metadata.FileNameSmAttribute.class)
      Object mFileName = "";
 
-    @objid ("28cd0954-e021-4caa-9da5-c48f29ea3e49")
+    @objid ("3f1283f9-1013-405f-b888-551bc806f6dd")
     @SmaMetaAssociation(metaName="Utilized", typeDataClass=ManifestationData.class, min=0, max=-1, smAssociationClass=Metadata.UtilizedSmDependency.class, component = true)
      List<SmObjectImpl> mUtilized = null;
 
-    @objid ("428627df-f081-46ad-8ebf-de1a09995ef5")
+    @objid ("6c5f0934-081f-4b85-9aab-c7ac66f720ad")
     @SmaMetaAssociation(metaName="DeploymentLocation", typeDataClass=NodeData.class, min=0, max=-1, smAssociationClass=Metadata.DeploymentLocationSmDependency.class)
      List<SmObjectImpl> mDeploymentLocation = null;
 
-    @objid ("b76fa68e-db3f-49df-91d9-c3e576ea5e06")
+    @objid ("d858b80d-c92c-4f55-aa8f-d9cc2da0c622")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("005945de-c4c3-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("72e2e3e5-20ea-4dec-b7cc-80623e62ceb6")
+        @objid ("1b385949-a813-44f3-8757-910c8594e802")
         private static SmClass smClass = null;
 
-        @objid ("74219835-92b5-4d74-9f4f-9a64cd228327")
+        @objid ("a4c62c13-228a-4f67-9508-fc2843c15b6c")
         private static SmAttribute FileNameAtt = null;
 
-        @objid ("7d3f9f76-600f-45b7-81dc-682b80aac53b")
+        @objid ("c8833c10-1b58-4e4f-bc22-07481851613a")
         private static SmDependency UtilizedDep = null;
 
-        @objid ("6c7198b7-14ea-4872-8143-442a8b3e6539")
+        @objid ("9619835e-df45-41bd-bdd1-982581cc450e")
         private static SmDependency DeploymentLocationDep = null;
 
-        @objid ("d7d3fc2a-e432-4b39-bfcd-8f4e9edb372a")
+        @objid ("87710053-2bb4-46f8-bf32-8c3775487fa1")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(ArtifactData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("3736f7b4-6067-46d2-b72f-ab917027fd40")
+        @objid ("64c0cf64-8601-4fa0-9ed9-f65e79119873")
         public static SmAttribute FileNameAtt() {
             if (FileNameAtt == null) {
             	FileNameAtt = classof().getAttributeDef("FileName");
@@ -90,7 +90,7 @@ public class ArtifactData extends ClassifierData {
             return FileNameAtt;
         }
 
-        @objid ("f6f089d2-d9c2-442a-a272-1bcbae2aff73")
+        @objid ("1038ce11-8b3a-4784-b2d9-d4122d5b39b5")
         public static SmDependency UtilizedDep() {
             if (UtilizedDep == null) {
             	UtilizedDep = classof().getDependencyDef("Utilized");
@@ -98,7 +98,7 @@ public class ArtifactData extends ClassifierData {
             return UtilizedDep;
         }
 
-        @objid ("53fdb071-d6c8-4aad-968e-7c85091209bd")
+        @objid ("042993cd-330c-41e9-b044-fefa310c35f7")
         public static SmDependency DeploymentLocationDep() {
             if (DeploymentLocationDep == null) {
             	DeploymentLocationDep = classof().getDependencyDef("DeploymentLocation");
@@ -106,38 +106,38 @@ public class ArtifactData extends ClassifierData {
             return DeploymentLocationDep;
         }
 
-        @objid ("ba922280-07fc-4f89-9ff8-227bd6fe02e4")
-        public static SmDependency getDeploymentLocationDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return DeploymentLocationDep;
-        }
-
-        @objid ("0e04e1c5-b950-4b43-a691-5f083ae81444")
-        public static SmAttribute getFileNameAtt() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return FileNameAtt;
-        }
-
-        @objid ("e56e828b-ab17-4df9-a75e-981f58e0f42e")
+        @objid ("92aa4cdd-10ac-41c4-938f-aeeaf0f80d77")
         public static SmClass getSmClass() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return smClass;
         }
 
-        @objid ("80a5435c-a301-497a-84eb-5e14285e06c0")
+        @objid ("842722ab-f145-47b1-933e-935be319906f")
+        public static SmDependency getDeploymentLocationDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return DeploymentLocationDep;
+        }
+
+        @objid ("c66abc40-4e11-4332-ab78-99c2a2b1ae96")
         public static SmDependency getUtilizedDep() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return UtilizedDep;
         }
 
+        @objid ("f208e6ff-01ca-4da1-b4ec-405dc219aad6")
+        public static SmAttribute getFileNameAtt() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return FileNameAtt;
+        }
+
         @objid ("0059868e-c4c3-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("9cdbd9b4-9258-4504-bb82-6f1896241953")
+            @objid ("c1f26ec1-5fb6-4ae3-96ba-f8766758486b")
             public ISmObjectData createData() {
                 return new ArtifactData();
             }
 
-            @objid ("d61f45c5-ce63-4cd0-9a12-b12d75d02fda")
+            @objid ("42814f77-f6cd-485b-bc95-ea80fc261178")
             public SmObjectImpl createImpl() {
                 return new ArtifactImpl();
             }
@@ -146,12 +146,12 @@ public class ArtifactData extends ClassifierData {
 
         @objid ("0059e8c2-c4c3-1fd8-97fe-001ec947cd2a")
         public static class FileNameSmAttribute extends SmAttribute {
-            @objid ("ebec6fec-cc8f-4316-a3ce-f5d611db0be7")
+            @objid ("33b21e4f-bd3e-4435-b794-e6efc1ade9a5")
             public Object getValue(ISmObjectData data) {
                 return ((ArtifactData) data).mFileName;
             }
 
-            @objid ("ca1a8317-17c9-491b-9bd1-558feb1af6d0")
+            @objid ("0b824e42-2343-41fb-9ef9-857ef44a1925")
             public void setValue(ISmObjectData data, Object value) {
                 ((ArtifactData) data).mFileName = value;
             }
@@ -160,20 +160,20 @@ public class ArtifactData extends ClassifierData {
 
         @objid ("005a4e02-c4c3-1fd8-97fe-001ec947cd2a")
         public static class DeploymentLocationSmDependency extends SmMultipleDependency {
-            @objid ("4e766021-c652-4578-aa0a-85040bc166d4")
+            @objid ("c35dfaef-9f38-4ffe-ad87-17d540edd583")
             @Override
             public List<SmObjectImpl> getValueList(ISmObjectData data) {
                 return (((ArtifactData)data).mDeploymentLocation != null)? ((ArtifactData)data).mDeploymentLocation:SmMultipleDependency.EMPTY;
             }
 
-            @objid ("748adb20-f0af-4774-a4f0-8a73659594da")
+            @objid ("9ecc7a9b-ab9b-40b9-8389-011872491e36")
             @Override
             protected List<SmObjectImpl> allocateValueList(ISmObjectData data, int initialCapacity) {
                 ((ArtifactData) data).mDeploymentLocation = new ArrayList<>(initialCapacity);
                 return ((ArtifactData) data).mDeploymentLocation;
             }
 
-            @objid ("e9520d6f-1c7e-4fff-8a19-7e1197ee1d18")
+            @objid ("ae3fdca2-8b9d-423a-b140-1a718c924164")
             @Override
             public SmDependency getSymetric() {
                 return NodeData.Metadata.ResidentDep();
@@ -183,20 +183,20 @@ public class ArtifactData extends ClassifierData {
 
         @objid ("005ab1ee-c4c3-1fd8-97fe-001ec947cd2a")
         public static class UtilizedSmDependency extends SmMultipleDependency {
-            @objid ("c01c5849-c194-45aa-8399-f78dd136a672")
+            @objid ("d9d502c9-ee9a-403f-a2e6-ae1643abe5a8")
             @Override
             public List<SmObjectImpl> getValueList(ISmObjectData data) {
                 return (((ArtifactData)data).mUtilized != null)? ((ArtifactData)data).mUtilized:SmMultipleDependency.EMPTY;
             }
 
-            @objid ("a720a865-22da-4d6a-8b0b-6270f01fc44e")
+            @objid ("ffc21feb-13d0-4b89-bc2e-4b9d78c481f7")
             @Override
             protected List<SmObjectImpl> allocateValueList(ISmObjectData data, int initialCapacity) {
                 ((ArtifactData) data).mUtilized = new ArrayList<>(initialCapacity);
                 return ((ArtifactData) data).mUtilized;
             }
 
-            @objid ("16fdcd90-1b3e-4c97-b82d-74c8255ee8da")
+            @objid ("9d70bab0-3aa8-4746-8da7-b40534d4d956")
             @Override
             public SmDependency getSymetric() {
                 return ManifestationData.Metadata.OwnerDep();

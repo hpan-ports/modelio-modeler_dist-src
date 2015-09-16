@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.uml.infrastructure.properties;
 
@@ -39,10 +39,10 @@ public interface EnumeratedPropertyType extends PropertyType {
     @objid ("980fb52a-eaee-4290-b6b6-bde39e3d8dc7")
     PropertyEnumerationLitteral getLitteral(String s);
 
-    @objid ("c49e1715-9d71-4c56-be83-54db5d96fd77")
+    @objid ("d040dbef-649f-48ef-a8d0-a0e250a1e8d5")
     EList<PropertyEnumerationLitteral> getLitteral();
 
-    @objid ("18923e37-7c4f-453a-b4e0-889b23ef92df")
+    @objid ("b881c97b-b7d1-4ba5-a684-e19cf82e996d")
     <T extends PropertyEnumerationLitteral> List<T> getLitteral(java.lang.Class<T> filterClass);
 
 }

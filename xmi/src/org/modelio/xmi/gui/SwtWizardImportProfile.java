@@ -72,6 +72,12 @@ public class SwtWizardImportProfile extends AbstractSwtWizardWindow {
         this.path = theFile.getParent();
         
         if (theFile.exists() && theFile.isFile()) {
+            String extension = theFile.getName();
+            extension = extension.substring(extension.lastIndexOf("."));
+            
+            if (extension.equals(".uml") 
+                    || extension.equals(".xmi") 
+                    || extension.equals(".xml")) {
         
             try(ITransaction t = GProject.getProject(this.selectedElt).getSession().getTransactionSupport().createTransaction("Import Profile") ) {
         
@@ -82,29 +88,28 @@ public class SwtWizardImportProfile extends AbstractSwtWizardWindow {
                     Display.getDefault().asyncExec(new Runnable() {
                         @Override
                         public void run() {
-                            ReportManager.showGenerationReport(GenerationProperties.getInstance().getReportModel());
+                            ReportManager.showGenerationReport(SwtWizardImportProfile.this.shell, 
+                                    GenerationProperties.getInstance().getReportModel());
                         }
                     });
         
                 }else{
                     completeBox();
                 }        
-        
-                this.shell.dispose();
-        
-                t.commit();
+                 t.commit();
         
             } catch (final Exception e) {
-                this.error = true;
-                Xmi.LOG.error(Xmi.PLUGIN_ID, "Exception : ");
-                Xmi.LOG.error(Xmi.PLUGIN_ID, e);
-        
+                catchException(e);
+            }
+            } else {
+                wrongFileExtension();
+                enableComposites();
             }
         
         } else {
             fileDontExist();
+            enableComposites();
         }
-        enableComposites();
     }
 
     @objid ("3acd6769-860f-4ced-8359-1d0de991e373")

@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.bpmn.events;
 
@@ -30,10 +30,10 @@ import org.eclipse.emf.ecore.EObject;
 
 @objid ("00924686-c4bf-1fd8-97fe-001ec947cd2a")
 public interface BpmnStartEvent extends BpmnCatchEvent {
-    @objid ("a28ea815-be3c-41a2-9f93-92735b34d5c6")
+    @objid ("8ca6b437-5948-4163-82f4-ff14753d4b9a")
     boolean isIsInterrupting();
 
-    @objid ("179ea5a8-0ab4-4801-ba64-68d966c61dfe")
+    @objid ("e55b8949-5ea6-42e6-a4aa-409d404bd31f")
     void setIsInterrupting(boolean value);
 
 }

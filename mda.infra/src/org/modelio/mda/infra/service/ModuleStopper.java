@@ -21,8 +21,8 @@
 
 package org.modelio.mda.infra.service;
 
-import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.api.module.AbstractJavaModule;
@@ -40,14 +40,14 @@ class ModuleStopper {
     /**
      * Stops the passed module after making sure all the modules that depends on it are stopped first.
      * @param iModuleToStop the module to stop.
-     * @param dependentIModules the modules to be stopped first.
+     * @param dependentIModules the modules to be stopped first, in order please.
      * @param moduleService the module service.
      * @param gProject the project.
      * @return a set of all stopped modules.
      * @throws org.modelio.api.module.ModuleException when the stop fails.
      */
     @objid ("1843a05c-0ca8-11e2-8ebb-002564c97630")
-    static Set<IModule> stopModule(final IModule iModuleToStop, Collection<IModule> dependentIModules, final ModuleService moduleService, GProject gProject) throws ModuleException {
+    static Set<IModule> stopModule(final IModule iModuleToStop, List<IModule> dependentIModules, final ModuleService moduleService, GProject gProject) throws ModuleException {
         Set<IModule> ret = new HashSet<>();
         
         // Stop dependent modules first

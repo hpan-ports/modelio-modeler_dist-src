@@ -21,6 +21,9 @@
 	<definition id="diagram.auto.test.subpackagstructure.id">
 		<test property="diagram.auto.test.subpackagstructure"/>
 	</definition>
+	<definition id="diagram.auto.test.updatediagram.id">
+		<test property="diagram.auto.test.updatediagram"/>
+	</definition>
  </extension>
  
  <extension
@@ -29,7 +32,7 @@
           class="org.modelio.diagram.diagramauto.handlers.properties.CommandVisiblePropertyTester"
           id="diagram.auto.propertyTester.updatevisible"
           namespace="diagram.auto.test"
-          properties="classstructure, dependencies, inheritance, packagstructure, subpackagstructure"
+          properties="classstructure, dependencies, inheritance, packagstructure, subpackagstructure, updatediagram"
           type="org.eclipse.jface.viewers.ISelection">
     </propertyTester>
  </extension>

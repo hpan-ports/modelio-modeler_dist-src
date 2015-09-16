@@ -6,7 +6,7 @@
       provider-name="modelio.org">
 
    <copyright>
-      Copyright 2014 Modeliosoft
+      Copyright 2013 Modeliosoft
 
 This file is part of Modelio.
 Modelio is free software: you can redistribute it and/or modify
@@ -24,7 +24,7 @@ along with Modelio.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
    </copyright>
 
    <license url="">
-      Copyright 2014 Modeliosoft
+      Copyright 2013 Modeliosoft
 
 This file is part of Modelio.
 Modelio is free software: you can redistribute it and/or modify
@@ -47,16 +47,16 @@ along with Modelio.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
 
    <includes
          id="org.eclipse.rcp"
-         version="4.3.0.v20130605-2000"/>
+         version="4.3.2.v20140221-1700"/>
 
    <includes
          id="org.eclipse.equinox.p2.user.ui"
-         version="2.2.0.v20130604-2046"
+         version="2.2.0.v20140221-1852"
          optional="true"/>
 
    <includes
          id="org.eclipse.help"
-         version="2.0.0.v20130605-2000"/>
+         version="2.0.2.v20140221-1700"/>
 
    <plugin
          id="org.apache.ant"
@@ -68,14 +68,14 @@ along with Modelio.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
          id="org.eclipse.ant.core"
          download-size="97"
          install-size="168"
-         version="3.2.500.v20130402-1746"
+         version="3.2.500.v20140203-1328"
          unpack="false"/>
 
    <plugin
          id="com.jcraft.jsch"
-         download-size="235"
-         install-size="432"
-         version="0.1.46.v201205102330"
+         download-size="259"
+         install-size="476"
+         version="0.1.50.v201310081430"
          unpack="false"/>
 
    <plugin
@@ -88,8 +88,8 @@ along with Modelio.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
    <plugin
          id="org.eclipse.compare"
          download-size="736"
-         install-size="1542"
-         version="3.5.400.v20130514-1224"
+         install-size="1544"
+         version="3.5.401.v20130709-1308"
          unpack="false"/>
 
    <plugin
@@ -165,7 +165,7 @@ along with Modelio.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
          id="org.eclipse.core.resources"
          download-size="810"
          install-size="1758"
-         version="3.8.100.v20130521-2026"
+         version="3.8.101.v20130717-0806"
          unpack="false"/>
 
    <plugin
@@ -227,14 +227,14 @@ along with Modelio.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
    <plugin
          id="org.eclipse.platform"
          download-size="391"
-         install-size="621"
-         version="4.3.0.v20130605-2000"/>
+         install-size="619"
+         version="4.3.2.v20140221-1700"/>
 
    <plugin
          id="org.eclipse.search"
          download-size="461"
          install-size="947"
-         version="3.9.0.v20130312-1625"
+         version="3.9.1.v20131121-1346"
          unpack="false"/>
 
    <plugin
@@ -248,7 +248,7 @@ along with Modelio.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
          id="org.eclipse.team.ui"
          download-size="1404"
          install-size="3071"
-         version="3.7.0.v20130514-1224"
+         version="3.7.1.v20130729-1104"
          unpack="false"/>
 
    <plugin
@@ -262,21 +262,21 @@ along with Modelio.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
          id="org.eclipse.jface.text"
          download-size="969"
          install-size="2039"
-         version="3.8.100.v20130515-1957"
+         version="3.8.101.v20130802-1147"
          unpack="false"/>
 
    <plugin
          id="org.eclipse.jsch.core"
-         download-size="36"
-         install-size="66"
-         version="1.1.400.v20111202-1616"
+         download-size="37"
+         install-size="69"
+         version="1.1.402.v20131127-1657"
          unpack="false"/>
 
    <plugin
          id="org.eclipse.jsch.ui"
-         download-size="88"
-         install-size="170"
-         version="1.1.400.v20111007-1310"
+         download-size="95"
+         install-size="186"
+         version="1.1.402.v20131127-1657"
          unpack="false"/>
 
    <plugin
@@ -324,7 +324,7 @@ along with Modelio.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
          id="org.eclipse.ui.navigator.resources"
          download-size="118"
          install-size="250"
-         version="3.4.500.v20130516-1049"
+         version="3.4.501.v20131021-1545"
          unpack="false"/>
 
    <plugin
@@ -338,7 +338,7 @@ along with Modelio.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
          id="org.eclipse.ui.workbench.texteditor"
          download-size="570"
          install-size="1248"
-         version="3.8.100.v20130514-1533"
+         version="3.8.101.v20130729-1318"
          unpack="false"/>
 
    <plugin
@@ -366,14 +366,14 @@ along with Modelio.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
          id="org.eclipse.ui.ide"
          download-size="2309"
          install-size="4796"
-         version="3.9.0.v20130517-0139"
+         version="3.9.2.v20131004-0923"
          unpack="false"/>
 
    <plugin
          id="org.eclipse.ui.ide.application"
          download-size="64"
          install-size="128"
-         version="1.0.400.v20130326-1250"
+         version="1.0.401.v20131105-1007"
          unpack="false"/>
 
    <plugin
@@ -523,9 +523,9 @@ along with Modelio.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
 
    <plugin
          id="org.eclipse.ui.forms"
-         download-size="294"
+         download-size="295"
          install-size="595"
-         version="3.6.0.v20130517-0139"
+         version="3.6.1.v20130822-1117"
          unpack="false"/>
 
    <plugin
@@ -572,30 +572,9 @@ along with Modelio.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
    <plugin
          id="org.eclipse.equinox.security.macosx"
          os="macosx"
-         arch="x86"
          download-size="16"
          install-size="58"
          version="1.100.200.v20130327-1442"
-         fragment="true"
-         unpack="false"/>
-
-   <plugin
-         id="org.eclipse.equinox.security.macosx"
-         os="macosx"
-         arch="x86_64"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         fragment="true"
-         unpack="false"/>
-
-   <plugin
-         id="org.eclipse.equinox.security.macosx"
-         os="macosx"
-         arch="ppc"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
          fragment="true"
          unpack="false"/>
 

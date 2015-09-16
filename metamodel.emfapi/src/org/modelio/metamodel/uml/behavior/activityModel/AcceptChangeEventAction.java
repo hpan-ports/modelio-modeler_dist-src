@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.uml.behavior.activityModel;
 
@@ -30,10 +30,10 @@ import org.eclipse.emf.ecore.EObject;
 
 @objid ("00249514-c4bf-1fd8-97fe-001ec947cd2a")
 public interface AcceptChangeEventAction extends ActivityAction {
-    @objid ("fb59dd11-8b0f-4537-bbc0-fa15f3a75826")
+    @objid ("0dc66c84-870b-4139-93b8-285f8371e4fd")
     String getChangeExpresion();
 
-    @objid ("47487a4f-151f-4a40-b377-6b67835a1e08")
+    @objid ("ddf7f03e-4966-4143-bd68-ab469720be4e")
     void setChangeExpresion(String value);
 
 }

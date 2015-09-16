@@ -16,4 +16,11 @@
         storage="org.modelio.app.preferences.GProjectPreferenceStorage"/>
 	</extension>
     
+   <extension point="org.modelio.app.preferences.preferencePages">
+      <page class="org.modelio.app.preferences.proxy.ProxyPreferencePage" 
+         id="org.eclipse.ui.internal.net.proxy" 
+         category="com.modeliosoft.modelio.app.preferences.modelio"
+         name="%ProxyPreferencePage.name">
+      </page>
+   </extension>
 </plugin>

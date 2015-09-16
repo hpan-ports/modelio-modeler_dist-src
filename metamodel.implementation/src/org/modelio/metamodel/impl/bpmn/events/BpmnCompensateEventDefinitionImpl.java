@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.bpmn.events;
 
@@ -42,33 +42,33 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("00897772-c4bf-1fd8-97fe-001ec947cd2a")
 public class BpmnCompensateEventDefinitionImpl extends BpmnEventDefinitionImpl implements BpmnCompensateEventDefinition {
-    @objid ("d30c6434-392a-4d45-a963-836d523df0b1")
+    @objid ("3f7a3baa-92bb-4abe-9eb4-455b3e90a816")
     @Override
     public BpmnActivity getActivityRef() {
         return (BpmnActivity) getDepVal(BpmnCompensateEventDefinitionData.Metadata.ActivityRefDep());
     }
 
-    @objid ("89d9cdd5-da8d-4ae7-b31e-2a74fb53c5f4")
+    @objid ("d19de508-9fe3-4514-a8f5-89f18bbaa370")
     @Override
     public void setActivityRef(BpmnActivity value) {
         appendDepVal(BpmnCompensateEventDefinitionData.Metadata.ActivityRefDep(), (SmObjectImpl)value);
     }
 
-    @objid ("e3cb0851-9665-4477-9a08-89116008965a")
+    @objid ("39d445b0-3337-46fd-9fd1-ec28dfb2241a")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("45f57aaf-22a9-4cd2-863e-fe46f1b90920")
+    @objid ("cf8330f6-a367-4e50-917c-a84fab79c4ef")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("73e33de7-b999-4d44-b73f-1527d24829a1")
+    @objid ("37d519b6-34ba-4083-82b0-efbc79312c47")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitBpmnCompensateEventDefinition(this);

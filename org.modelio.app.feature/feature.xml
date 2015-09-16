@@ -2,7 +2,7 @@
 <feature
       id="org.modelio.app.feature"
       label="Application"
-      version="1.0.0.qualifier"
+      version="3.2.1.qualifier"
       provider-name="Modelio">
 
    <copyright>
@@ -275,6 +275,55 @@ along with Modelio.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
 
    <plugin
          id="org.modelio.admtool"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.nebula.jface.cdatetime"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.nebula.widgets.datechooser"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.nebula.widgets.nattable.core"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.nebula.widgets.cdatetime"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+         
+   <plugin
+         id="org.eclipse.nebula.cwt"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+         
+   <plugin
+         id="org.apache.commons.lang"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+         
+   <plugin
+         id="org.eclipse.nebula.widgets.formattedtext"
          download-size="0"
          install-size="0"
          version="0.0.0"

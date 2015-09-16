@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.analyst;
 
@@ -32,16 +32,16 @@ import org.modelio.metamodel.uml.infrastructure.ModelElement;
 
 @objid ("ab041cd6-1250-48a8-9ddb-0a1064baf5c4")
 public interface AnalystItem extends ModelElement {
-    @objid ("6b453462-19ca-4cd2-bee0-955e3f9ee137")
+    @objid ("4a05020f-b417-4701-9cdc-91add5254ea2")
     String getDefinition();
 
-    @objid ("e9588571-e3f0-4cf6-a4d3-116d18a3d265")
+    @objid ("b212520a-2ebf-4731-ad7a-cdf1dfdd3d78")
     void setDefinition(String value);
 
-    @objid ("077c9f80-f868-4281-9544-7cc509010db0")
+    @objid ("ca2a7896-25ce-43bc-b80d-75b69ba99d8a")
     AnalystPropertyTable getAnalystProperties();
 
-    @objid ("e6246207-d7bd-405e-b53d-00839c35af21")
+    @objid ("0472b408-cdd1-4c36-89ce-15680596619a")
     void setAnalystProperties(AnalystPropertyTable value);
 
 }

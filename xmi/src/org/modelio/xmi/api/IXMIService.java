@@ -22,6 +22,8 @@
 package org.modelio.xmi.api;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.modelio.gproject.model.IMModelServices;
 
 /**
  * This interface represents the service provided by XMI plugin.
@@ -35,7 +37,7 @@ public interface IXMIService {
      * @throws java.lang.Exception : the first Exception occurring during the export
      */
     @objid ("9b2c5761-cdb7-488a-9667-2d1599fee930")
-    void exportXMIFile(final ExportConfiguration configuration) throws Exception;
+    void exportXMIFile(final ExportConfiguration configuration, IProgressMonitor monitor, IMModelServices modelServices) throws Exception;
 
     /**
      * This service imports the Model saved in the given XMI file.
@@ -44,7 +46,7 @@ public interface IXMIService {
      * @throws java.lang.Exception : the first Exception occurring during the export
      */
     @objid ("f22f71f9-3617-4cb4-92d0-b835a6d24a6f")
-    void importXMIModel(final ImportConfiguration configuration) throws Exception;
+    void importXMIModel(final ImportConfiguration configuration, IProgressMonitor monitor, IMModelServices modelServices) throws Exception;
 
     /**
      * This service imports the Profile saved in the given XMI file.
@@ -53,7 +55,7 @@ public interface IXMIService {
      * @throws java.lang.Exception : the first Exception occurring during the export
      */
     @objid ("e2d67d7f-5bd9-43a5-aa7b-407ba2296ff5")
-    void importXMIProfile(final ImportConfiguration configuration) throws Exception;
+    void importXMIProfile(final ImportConfiguration configuration, IProgressMonitor monitor, IMModelServices modelServices) throws Exception;
 
     /**
      * This service export the Profile saved in the given XMI file.
@@ -62,6 +64,6 @@ public interface IXMIService {
      * @throws java.lang.Exception : the first Exception occurring during the export
      */
     @objid ("c3c622fa-9a80-49d3-b4e4-8975feaeb086")
-    void exportXMIProfile(final ExportConfiguration configuration) throws Exception;
+    void exportXMIProfile(final ExportConfiguration configuration, IProgressMonitor monitor, IMModelServices modelServices) throws Exception;
 
 }

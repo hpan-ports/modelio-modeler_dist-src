@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.data.uml.statik;
 
@@ -45,36 +45,36 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("00211b5a-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=NaryAssociationEnd.class, factory=NaryAssociationEndData.Metadata.ObjectFactory.class)
 public class NaryAssociationEndData extends StructuralFeatureData {
-    @objid ("31e405ee-ea5f-42a3-aef0-c697deacd271")
+    @objid ("b083d0db-e9f9-4293-8a20-37648a5c41d8")
     @SmaMetaAssociation(metaName="NaryAssociation", typeDataClass=NaryAssociationData.class, min=1, max=1, smAssociationClass=Metadata.NaryAssociationSmDependency.class, sharedComponent = true)
      SmObjectImpl mNaryAssociation;
 
-    @objid ("f6d4e665-c991-4f46-80bd-b9d90a8a0bf0")
+    @objid ("18396c23-201a-41e9-9723-8563847e5601")
     @SmaMetaAssociation(metaName="Owner", typeDataClass=ClassifierData.class, min=1, max=1, smAssociationClass=Metadata.OwnerSmDependency.class)
      SmObjectImpl mOwner;
 
-    @objid ("642c3ee6-cf45-46d2-a8d8-3d10cd387d91")
+    @objid ("9df26006-84fe-469d-a1b6-bde3abc8a478")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("000d229e-c4c4-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("c94f2afd-ab5b-4322-85db-e36c7a1609c2")
+        @objid ("f11f0963-26b3-429a-a70f-2886885c474c")
         private static SmClass smClass = null;
 
-        @objid ("101c0ad0-20b3-4bff-9c56-c95e7aa28220")
+        @objid ("c5cf0584-b123-4394-91ae-39fe702e46ee")
         private static SmDependency NaryAssociationDep = null;
 
-        @objid ("33ab9e00-1d64-4364-87ab-6612b4463b49")
+        @objid ("91d11a69-9a78-4dfc-a892-93f1b2efe519")
         private static SmDependency OwnerDep = null;
 
-        @objid ("be7e8333-8494-49fb-b96c-67efb6bbefd2")
+        @objid ("78a44c35-9214-4ab0-978e-d505b86bad07")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(NaryAssociationEndData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("8224212b-3c28-450b-80ec-544044f4312f")
+        @objid ("90037472-95b3-46b6-9ea2-49dea126adf4")
         public static SmDependency NaryAssociationDep() {
             if (NaryAssociationDep == null) {
             	NaryAssociationDep = classof().getDependencyDef("NaryAssociation");
@@ -82,7 +82,7 @@ public class NaryAssociationEndData extends StructuralFeatureData {
             return NaryAssociationDep;
         }
 
-        @objid ("5b43f1ed-2d62-4b8a-849e-6839e6e89983")
+        @objid ("e1a6eef1-82b2-47c7-944d-865bba0e3257")
         public static SmDependency OwnerDep() {
             if (OwnerDep == null) {
             	OwnerDep = classof().getDependencyDef("Owner");
@@ -90,32 +90,32 @@ public class NaryAssociationEndData extends StructuralFeatureData {
             return OwnerDep;
         }
 
-        @objid ("89d71169-fc5f-472e-9f87-d70c07a3f361")
-        public static SmDependency getOwnerDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return OwnerDep;
-        }
-
-        @objid ("3b4b0fd5-d46a-4362-956c-08bda4705e2b")
-        public static SmDependency getNaryAssociationDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return NaryAssociationDep;
-        }
-
-        @objid ("c12ae192-a1fa-4ece-9f3d-b297d751dc54")
+        @objid ("e76554d8-ca0f-4bbe-9444-eb794c9ae1a5")
         public static SmClass getSmClass() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return smClass;
         }
 
+        @objid ("5cfd2a42-0298-4fdc-90d9-cb22eb6afc50")
+        public static SmDependency getNaryAssociationDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return NaryAssociationDep;
+        }
+
+        @objid ("184fb1c1-1215-462d-9a9e-11f3436d869b")
+        public static SmDependency getOwnerDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return OwnerDep;
+        }
+
         @objid ("000d78ca-c4c4-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("974648c8-61bb-4d62-8c48-4dd72c46873b")
+            @objid ("a966b7d2-c4f6-4cfa-89d0-c1f47f9d1d0b")
             public ISmObjectData createData() {
                 return new NaryAssociationEndData();
             }
 
-            @objid ("edd7f534-16ea-4964-be6b-e2343a5b560c")
+            @objid ("88a2c3d2-0636-429b-9eab-bc58756e8ee5")
             public SmObjectImpl createImpl() {
                 return new NaryAssociationEndImpl();
             }
@@ -124,18 +124,18 @@ public class NaryAssociationEndData extends StructuralFeatureData {
 
         @objid ("000df32c-c4c4-1fd8-97fe-001ec947cd2a")
         public static class OwnerSmDependency extends SmSingleDependency {
-            @objid ("e305e6d9-27eb-4b0f-87f5-d370c237136f")
+            @objid ("48154986-43a1-44b0-9397-fb66a16da324")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((NaryAssociationEndData) data).mOwner;
             }
 
-            @objid ("55980742-7ca8-430b-852c-b3bb2b22cab3")
+            @objid ("e3ca5f87-98f7-40fe-92ce-de0fd90c14fb")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((NaryAssociationEndData) data).mOwner = value;
             }
 
-            @objid ("7a4bf824-87d2-499c-861b-f99dc0c0f7ca")
+            @objid ("619e7cf3-0ff4-447e-bdd6-a62963e3b8c8")
             @Override
             public SmDependency getSymetric() {
                 return ClassifierData.Metadata.OwnedNaryEndDep();
@@ -145,18 +145,18 @@ public class NaryAssociationEndData extends StructuralFeatureData {
 
         @objid ("000e7004-c4c4-1fd8-97fe-001ec947cd2a")
         public static class NaryAssociationSmDependency extends SmSingleDependency {
-            @objid ("6cbd35dd-cfcd-4f55-8c4e-a594a6738288")
+            @objid ("304cbfb3-093f-4972-a5c4-c3a5c961c0a2")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((NaryAssociationEndData) data).mNaryAssociation;
             }
 
-            @objid ("852fd396-5e8f-4ed0-b0b8-738840f9f527")
+            @objid ("d951ba62-d12f-4a30-b07a-cb7c9b76f12c")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((NaryAssociationEndData) data).mNaryAssociation = value;
             }
 
-            @objid ("0a74d131-cfb0-4140-8406-f2038fb073e8")
+            @objid ("a410a6e5-35c4-4517-a728-54c0891ae450")
             @Override
             public SmDependency getSymetric() {
                 return NaryAssociationData.Metadata.NaryEndDep();

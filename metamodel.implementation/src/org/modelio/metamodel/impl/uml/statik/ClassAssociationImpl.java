@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.uml.statik;
 
@@ -45,43 +45,43 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("0002efae-c4bf-1fd8-97fe-001ec947cd2a")
 public class ClassAssociationImpl extends ModelElementImpl implements ClassAssociation {
-    @objid ("c50a8012-f613-4540-98f6-2ba40703ab18")
+    @objid ("dca9140b-5d4a-4c1c-897d-75f055783025")
     @Override
     public NaryAssociation getNaryAssociationPart() {
         return (NaryAssociation) getDepVal(ClassAssociationData.Metadata.NaryAssociationPartDep());
     }
 
-    @objid ("9ccae858-8c25-47a8-81a1-79b3787c0c73")
+    @objid ("f0934d6a-622c-4ac4-acad-843b684b83f8")
     @Override
     public void setNaryAssociationPart(NaryAssociation value) {
         appendDepVal(ClassAssociationData.Metadata.NaryAssociationPartDep(), (SmObjectImpl)value);
     }
 
-    @objid ("d179b319-3e40-4530-9ead-5205bea2527f")
+    @objid ("76ce4ee8-8aeb-4baa-898a-dbf665940d55")
     @Override
     public Class getClassPart() {
         return (Class) getDepVal(ClassAssociationData.Metadata.ClassPartDep());
     }
 
-    @objid ("029647d6-7db5-4888-8baf-2ec0c11e0e70")
+    @objid ("b9de0243-b9b0-4c72-b9b7-561fd49cf51a")
     @Override
     public void setClassPart(Class value) {
         appendDepVal(ClassAssociationData.Metadata.ClassPartDep(), (SmObjectImpl)value);
     }
 
-    @objid ("129f7e20-c147-4049-aa07-346d18e4f8fd")
+    @objid ("fc5659b4-0f65-4170-b720-2206041fe6ad")
     @Override
     public Association getAssociationPart() {
         return (Association) getDepVal(ClassAssociationData.Metadata.AssociationPartDep());
     }
 
-    @objid ("a1fc62da-e332-46a9-b30e-0900f5d3bba1")
+    @objid ("55d03739-fe69-47b4-a8a1-2bbea8c5d6b8")
     @Override
     public void setAssociationPart(Association value) {
         appendDepVal(ClassAssociationData.Metadata.AssociationPartDep(), (SmObjectImpl)value);
     }
 
-    @objid ("fb99da85-698c-4e55-bf76-85b951fcb384")
+    @objid ("151a13e0-287e-475e-bc1e-70a374211f3b")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
@@ -94,7 +94,7 @@ public class ClassAssociationImpl extends ModelElementImpl implements ClassAssoc
         return super.getCompositionOwner();
     }
 
-    @objid ("f29c85ce-7e36-48ad-b36b-4ad8816b6473")
+    @objid ("d730831c-be16-4bb8-a162-d1e85f4b54ed")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
@@ -107,7 +107,7 @@ public class ClassAssociationImpl extends ModelElementImpl implements ClassAssoc
         return super.getCompositionRelation();
     }
 
-    @objid ("95f780fb-d25f-4ce6-9271-4ec30d4b354c")
+    @objid ("61280f65-d4d9-406a-9e61-5b7e4aba9614")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitClassAssociation(this);

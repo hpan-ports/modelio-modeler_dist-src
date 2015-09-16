@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Project
 Bundle-SymbolicName: org.modelio.core.project
-Bundle-Version: 1.0.0.qualifier
+Bundle-Version: 3.2.1.qualifier
 Require-Bundle: org.modelio.core.store.exml,
  org.modelio.core.kernel,
  org.modelio.core.utils,
@@ -12,9 +12,9 @@ Require-Bundle: org.modelio.core.store.exml,
  org.eclipse.emf.ecore,
  org.modelio.metamodel.implementation,
  org.modelio.metamodel.emfapi,
- org.modelio.core.kernel
-Export-Package: org.modelio.gproject.descriptor,
- org.modelio.gproject.fragment,
+ org.modelio.core.kernel,
+ org.modelio.core.project.data
+Export-Package: org.modelio.gproject.fragment,
  org.modelio.gproject.fragment.exml,
  org.modelio.gproject.fragment.ramcfile,
  org.modelio.gproject.gproject,
@@ -29,8 +29,6 @@ Export-Package: org.modelio.gproject.descriptor,
  org.modelio.gproject.module,
  org.modelio.gproject.module.cache,
  org.modelio.gproject.module.catalog,
- org.modelio.gproject.module.jaxbmodel,
- org.modelio.gproject.ramc.core.archive,
  org.modelio.gproject.ramc.core.model,
  org.modelio.gproject.ramc.core.packaging
 Bundle-ClassPath: res/,

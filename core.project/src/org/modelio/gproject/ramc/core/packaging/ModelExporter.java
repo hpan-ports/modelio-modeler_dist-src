@@ -229,19 +229,19 @@ class ModelExporter {
      */
     @objid ("42bb3384-e5d5-4842-accb-ed7904d4e868")
     private void createEmptyObjects() {
-        final SmFactory smFactory = ((CoreSession) this.targetSession).getSmFactory();
+        final SmFactory smFactory = getSmFactory();
         IModel modelService = ((CoreSession) this.targetSession).getModel();
         for (MObject obj : this.objectsToExternalize) {
             smFactory.createObject((SmClass) obj.getMClass(), this.targetRepository, obj.getUuid());
         }
-        
+            
         Collection<SmObjectImpl> roots = new ArrayList<>();
         for (MObject o : this.objectsToExternalize)
             roots.add((SmObjectImpl) o);
         
         final IObjectFilter theModelfilter = this.modelFilter;
         final IStopFilter filter = new IStopFilter() {
-        
+            
             @Override
             public boolean accept(SmObjectImpl val) {
                 return theModelfilter.accept(val);
@@ -343,7 +343,7 @@ class ModelExporter {
         
             // Create target object if necessary,the created object is an alias
             if (alias == null) {
-                alias = ((CoreSession) this.targetSession).getSmFactory().createObject((SmClass) o.getMClass(),
+                alias = getSmFactory().createObject((SmClass) o.getMClass(),
                         this.targetRepository);
                 if (aliasStereotype != null) {
                     IModelFactory targetFactory = ModelFactory.getFactory(alias);
@@ -403,21 +403,20 @@ class ModelExporter {
 
     @objid ("ac70ea4f-a419-11e1-aa98-001ec947ccaf")
     private MObject getTargetObject(final MObject anObject) {
-        MObject ret = ((CoreSession) this.targetSession).getModel().findById(anObject.getMClass(), anObject.getUuid());
-        
-        if (ret == null) {
-            ret = ((CoreSession) this.targetSession).getSmFactory().createShellObject((SmClass) anObject.getMClass(),
-                    ((CoreSession) this.targetSession).getShellRepository(), anObject.getUuid(), anObject.getName());
-        }
-        return ret;
+        return getSmFactory().getObjectReference((SmClass) anObject.getMClass(), anObject.getUuid(), anObject.getName());
+    }
+
+    @objid ("7aa2da43-4fdd-4a1d-aaab-5f69898411ac")
+    private SmFactory getSmFactory() {
+        return ((CoreSession) this.targetSession).getSmFactory();
     }
 
     @objid ("bc08eef2-d369-40c7-8a83-1a28ed412943")
     private static class DepWalker {
-        @objid ("8fd82804-ffe3-4e2d-868c-d1f876110d4b")
+        @objid ("c4da04e5-2b54-4895-b60d-d0ea8abb5486")
         private Map<MClass, Collection<MDependency>> compositionDeps = new HashMap<>();
 
-        @objid ("840b07a3-eaae-4b07-b1b1-3814b7e77e3a")
+        @objid ("a12ec7d1-4454-49dd-9277-793bb68313ca")
         private Map<MClass, Collection<MDependency>> referenceDeps = new HashMap<>();
 
         /**

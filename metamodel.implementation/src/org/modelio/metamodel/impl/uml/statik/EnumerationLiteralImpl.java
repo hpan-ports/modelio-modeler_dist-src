@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.uml.statik;
 
@@ -43,19 +43,19 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("000a7e90-c4bf-1fd8-97fe-001ec947cd2a")
 public class EnumerationLiteralImpl extends ModelElementImpl implements EnumerationLiteral {
-    @objid ("88e9f48b-ece6-4ade-b7fa-87a50de3089d")
+    @objid ("8074c43b-3dc1-45dd-a7eb-4aa27d11c7c6")
     @Override
     public Enumeration getValuated() {
         return (Enumeration) getDepVal(EnumerationLiteralData.Metadata.ValuatedDep());
     }
 
-    @objid ("5ffada22-4a65-455a-9020-6134000139c2")
+    @objid ("0d33e089-92c8-4c25-86bb-ce677de61c95")
     @Override
     public void setValuated(Enumeration value) {
         appendDepVal(EnumerationLiteralData.Metadata.ValuatedDep(), (SmObjectImpl)value);
     }
 
-    @objid ("7f030cb1-b5c9-4336-829e-da3c03d1a962")
+    @objid ("c756b6fb-cfa1-4404-a471-a7810cbefdf8")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
@@ -65,7 +65,7 @@ public class EnumerationLiteralImpl extends ModelElementImpl implements Enumerat
         return super.getCompositionOwner();
     }
 
-    @objid ("70e4e49c-cc42-4379-87c3-759ed806cb6f")
+    @objid ("f40bd675-d68c-4883-9b89-6cc1b3254d8e")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
@@ -75,7 +75,7 @@ public class EnumerationLiteralImpl extends ModelElementImpl implements Enumerat
         return super.getCompositionRelation();
     }
 
-    @objid ("4ffc1840-ffb8-412a-be20-4a8401a9ca81")
+    @objid ("c591fc8a-d03b-44e0-b73e-e730f238ffa0")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitEnumerationLiteral(this);

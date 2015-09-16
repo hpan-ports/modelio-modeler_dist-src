@@ -40,6 +40,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Text;
 import org.modelio.diagram.elements.common.edition.DirectEditManager2;
+import org.modelio.diagram.elements.common.label.base.GmElementLabel;
 import org.modelio.diagram.elements.common.label.base.GmElementLabelEditPart;
 import org.modelio.diagram.elements.core.model.GmModel;
 import org.modelio.diagram.elements.core.policies.DefaultNodeResizableEditPolicy;
@@ -156,14 +157,28 @@ public class ModelElementFlatHeaderEditPart extends GmElementLabelEditPart {
 
     @objid ("7e9e816b-1dec-11e2-8cad-001ec947c8cc")
     @Override
-    protected void refreshFromStyle(IFigure headerFigure, IStyle style) {
-        // Pen and brush options are managed by the superclass
-        super.refreshFromStyle(headerFigure, style);
+    protected void refreshFromStyle(IFigure fig, IStyle style) {
+        // Pen and brush options cannot simply managed by the superclass which manages a "Label" not a "GradientFigure"
+        final GmElementLabel model = (GmElementLabel) getModel();
+        ModelElementFlatHeaderFigure headerFigure = (ModelElementFlatHeaderFigure)fig;
         
-        // We have to deal with stereotype mode and show/hide for name, stereotypes and tags
-        refreshLabel((ModelElementFlatHeaderFigure) headerFigure);
-        refreshStereotypes((ModelElementFlatHeaderFigure) headerFigure);
-        refreshTaggedValues((ModelElementFlatHeaderFigure) headerFigure);
+        StyleKey textColorStyleKey = model.getStyleKey(MetaKey.TEXTCOLOR);
+        if (textColorStyleKey != null) {
+            headerFigure.setTextColor(style.getColor(textColorStyleKey));
+        }
+        
+        StyleKey fontStyleKey = model.getStyleKey(MetaKey.FONT);
+        if (fontStyleKey != null) {
+            headerFigure.setTextFont(style.getFont(fontStyleKey));
+        }
+        
+        updateVisibility(fig);
+        
+        
+        // Additionally we have to deal with stereotype mode and show/hide for name, stereotypes and tags
+        refreshLabel(headerFigure);
+        refreshStereotypes(headerFigure);
+        refreshTaggedValues(headerFigure);
     }
 
     /**

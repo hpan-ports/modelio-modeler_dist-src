@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.uml.behavior.interactionModel;
 
@@ -34,22 +34,22 @@ import org.modelio.metamodel.uml.behavior.interactionModel.InteractionOperator;
 
 @objid ("00435a1c-c4bf-1fd8-97fe-001ec947cd2a")
 public interface CombinedFragment extends InteractionFragment {
-    @objid ("d5cbab87-f59b-4457-ae1a-f6ff5451de01")
+    @objid ("033f39b5-423f-499a-be1d-a49d262f882c")
     InteractionOperator getOperator();
 
-    @objid ("0bd9aaa6-52ff-4b8c-9d0e-9d102955591d")
+    @objid ("dfad0eda-9e8a-426f-913d-90fc944c48ca")
     void setOperator(InteractionOperator value);
 
-    @objid ("067712c0-1a63-4a93-97e4-d188ba6e2754")
+    @objid ("3678ef21-f572-4001-b2d8-b2eae9b2d340")
     EList<InteractionOperand> getOperand();
 
-    @objid ("6c7219d1-dd5e-4600-b4f8-a419ff1ef6c8")
+    @objid ("9849213c-a1e2-4244-b704-5883a3f7edbd")
     <T extends InteractionOperand> List<T> getOperand(java.lang.Class<T> filterClass);
 
-    @objid ("52e0be70-4ed3-43df-8d97-66f63ebd3122")
+    @objid ("bba432ed-3832-4de1-8dbc-5ee028c1b56e")
     EList<Gate> getFragmentGate();
 
-    @objid ("398266fc-bdd2-497e-bf1e-431fb3a9a066")
+    @objid ("f5796bb1-63ee-4206-8437-84dacb795e52")
     <T extends Gate> List<T> getFragmentGate(java.lang.Class<T> filterClass);
 
 }

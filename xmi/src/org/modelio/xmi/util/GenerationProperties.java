@@ -30,6 +30,7 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.uml2.uml.Model;
 import org.eclipse.uml2.uml.Stereotype;
 import org.modelio.api.modelio.Modelio;
+import org.modelio.gproject.model.IMModelServices;
 import org.modelio.metamodel.mda.Project;
 import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
@@ -111,6 +112,9 @@ public class GenerationProperties {
 
     @objid ("66db909b-66ee-48b6-9bb5-b6e558bfc864")
     private List<Project> libraryExported = new ArrayList<>();
+
+    @objid ("5b4b4f5f-f225-4c1e-8416-6af1598c3962")
+    private IMModelServices mmServices = null;
 
     @objid ("f6b1a4f3-dbf0-44df-9d03-14499e99fb84")
     private GenerationProperties() {
@@ -275,10 +279,11 @@ public class GenerationProperties {
     }
 
     @objid ("23d44bef-8e0a-4140-8297-7e6b7376764a")
-    public void initialize() {
+    public void initialize(IMModelServices mModelServices) {
         PrimitiveTypeMapper.clean();     
         TotalExportMap.getInstance().clear();
         PartialExportMap.getInstance().clear();
+        this.mmServices = mModelServices;
         this.libraryExported.clear();
     }
 
@@ -548,6 +553,15 @@ public class GenerationProperties {
     public void addExportedLibrary(final Project libraryProject) {
         if (!(this.libraryExported.contains(libraryProject)))
             this.libraryExported.add(libraryProject);
+    }
+
+    /**
+     * This method returns the model services
+     * @return the model services
+     */
+    @objid ("9fac5710-2c86-4e49-a16e-765ff1b1445c")
+    public IMModelServices getMModelServices() {
+        return this.mmServices;
     }
 
 }

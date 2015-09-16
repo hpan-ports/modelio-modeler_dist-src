@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.data.uml.infrastructure;
 
@@ -47,57 +47,64 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("008c3692-c4be-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=NoteType.class, factory=NoteTypeData.Metadata.ObjectFactory.class)
 public class NoteTypeData extends ModelElementData {
-    @objid ("82dfa024-27e8-4bee-a6c1-02d305d2fee0")
+    @objid ("2ba4da86-6c9c-4dde-bc90-dfeee7958dd9")
     @SmaMetaAttribute(metaName="IsHidden", type=Boolean.class, smAttributeClass=Metadata.IsHiddenSmAttribute.class)
      Object mIsHidden = false;
 
-    @objid ("ec34995b-5146-4425-8920-22cd25dac280")
+    @objid ("e15326de-7baa-41f9-8278-4d1ea5544772")
     @SmaMetaAttribute(metaName="LabelKey", type=String.class, smAttributeClass=Metadata.LabelKeySmAttribute.class)
      Object mLabelKey = "";
 
-    @objid ("9bbe428b-97fc-425b-9ecd-071e2fc41077")
+    @objid ("d96f0356-449f-450b-a779-9a0f2a9e88e1")
+    @SmaMetaAttribute(metaName="MimeType", type=String.class, smAttributeClass=Metadata.MimeTypeSmAttribute.class)
+     Object mMimeType = "";
+
+    @objid ("5a0c7060-6b55-4ca9-ba26-37c4bc33b280")
     @SmaMetaAssociation(metaName="Element", typeDataClass=NoteData.class, min=0, max=-1, smAssociationClass=Metadata.ElementSmDependency.class, performanceRisk = true, istodelete = true)
      List<SmObjectImpl> mElement = null;
 
-    @objid ("f7ca0443-269a-4cb6-8952-06fadbed78b4")
+    @objid ("1ca6ffb0-020c-490b-a81c-86b179fd4608")
     @SmaMetaAssociation(metaName="OwnerStereotype", typeDataClass=StereotypeData.class, min=0, max=1, smAssociationClass=Metadata.OwnerStereotypeSmDependency.class)
      SmObjectImpl mOwnerStereotype;
 
-    @objid ("65849f75-f88b-482e-acc8-e4f0f92aef2d")
+    @objid ("96e28ace-df91-4b84-9b85-fb484a83bbb5")
     @SmaMetaAssociation(metaName="OwnerReference", typeDataClass=MetaclassReferenceData.class, min=0, max=1, smAssociationClass=Metadata.OwnerReferenceSmDependency.class)
      SmObjectImpl mOwnerReference;
 
-    @objid ("ab4570a9-050c-4a78-94d0-4cb4b8caa9af")
+    @objid ("6f813ea2-2776-4884-894b-18fc86a33017")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("0038da56-c4c3-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("50f31dea-50f1-4540-b79d-e7f431bd604c")
+        @objid ("03728845-76d5-49a4-ac07-31a6eff46bb4")
         private static SmClass smClass = null;
 
-        @objid ("0372e03c-01f0-4aa2-88c0-9e240aa77444")
+        @objid ("9c9d81be-0945-4771-950d-450a71618118")
         private static SmAttribute IsHiddenAtt = null;
 
-        @objid ("ee3da11d-4a3b-4ef9-9335-cee8a5748d4c")
+        @objid ("60fc60bc-1bc9-4822-9968-c68d0f09430b")
         private static SmAttribute LabelKeyAtt = null;
 
-        @objid ("7633a03e-ec3b-4c75-86a8-b51dbd3291cd")
+        @objid ("0bd0bc32-e255-4824-b634-ed28397f9f82")
+        private static SmAttribute MimeTypeAtt = null;
+
+        @objid ("0c51c81e-d68e-44d8-aefe-d884f6b8cdfe")
         private static SmDependency ElementDep = null;
 
-        @objid ("aeb43dba-2d3c-47db-ac1a-aab05b425c1d")
+        @objid ("2539bb87-04b5-42ba-8afa-a07cc18463ff")
         private static SmDependency OwnerStereotypeDep = null;
 
-        @objid ("41d4f6a6-3b12-4b19-9a86-61df2bd720c3")
+        @objid ("89ef72b9-e669-4a09-b294-464d6f5856d7")
         private static SmDependency OwnerReferenceDep = null;
 
-        @objid ("4829a3e3-0fda-49e4-bfa2-df0e060fbcfe")
+        @objid ("3e393e49-c9d0-4fa9-a89f-9e8a3019be9e")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(NoteTypeData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("a7733618-c239-4ec6-bb28-960a680ce34d")
+        @objid ("94592d59-9be0-4ae4-80fc-015ddcf2a438")
         public static SmAttribute IsHiddenAtt() {
             if (IsHiddenAtt == null) {
             	IsHiddenAtt = classof().getAttributeDef("IsHidden");
@@ -105,7 +112,7 @@ public class NoteTypeData extends ModelElementData {
             return IsHiddenAtt;
         }
 
-        @objid ("99c40d10-a328-4d0b-af99-a357ab53477f")
+        @objid ("859d3f9f-f179-4950-8bd2-c9222217fab0")
         public static SmAttribute LabelKeyAtt() {
             if (LabelKeyAtt == null) {
             	LabelKeyAtt = classof().getAttributeDef("LabelKey");
@@ -113,7 +120,15 @@ public class NoteTypeData extends ModelElementData {
             return LabelKeyAtt;
         }
 
-        @objid ("040049b3-628a-4db7-92e4-96f5b5e10ad7")
+        @objid ("1a14626c-a841-4b76-9c77-1cfb4e1b946e")
+        public static SmAttribute MimeTypeAtt() {
+            if (MimeTypeAtt == null) {
+            	MimeTypeAtt = classof().getAttributeDef("MimeType");
+            }
+            return MimeTypeAtt;
+        }
+
+        @objid ("3d8ac67a-a703-459c-8352-7554c50bb2c4")
         public static SmDependency ElementDep() {
             if (ElementDep == null) {
             	ElementDep = classof().getDependencyDef("Element");
@@ -121,7 +136,7 @@ public class NoteTypeData extends ModelElementData {
             return ElementDep;
         }
 
-        @objid ("889cbe9f-b583-4fbc-978c-d60222251ec2")
+        @objid ("82b6e1da-6f60-49ce-be04-2743d424c62b")
         public static SmDependency OwnerStereotypeDep() {
             if (OwnerStereotypeDep == null) {
             	OwnerStereotypeDep = classof().getDependencyDef("OwnerStereotype");
@@ -129,7 +144,7 @@ public class NoteTypeData extends ModelElementData {
             return OwnerStereotypeDep;
         }
 
-        @objid ("fd6b697a-324f-4db9-b49b-9a4ece871d1b")
+        @objid ("09addc88-0a37-4ddc-bf7f-9e6bce479176")
         public static SmDependency OwnerReferenceDep() {
             if (OwnerReferenceDep == null) {
             	OwnerReferenceDep = classof().getDependencyDef("OwnerReference");
@@ -137,37 +152,43 @@ public class NoteTypeData extends ModelElementData {
             return OwnerReferenceDep;
         }
 
-        @objid ("a1056bb7-8108-400c-8257-7b63fe8a012b")
-        public static SmAttribute getLabelKeyAtt() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return LabelKeyAtt;
-        }
-
-        @objid ("b6727e36-70c3-4847-984b-f7da39cf7f3c")
-        public static SmDependency getOwnerStereotypeDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return OwnerStereotypeDep;
-        }
-
-        @objid ("8228a0c6-58a6-425e-bf0a-c4f28a762e22")
+        @objid ("93dd08e0-737b-4490-be0e-02067ce99eaf")
         public static SmClass getSmClass() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return smClass;
         }
 
-        @objid ("f5fd92de-4cc8-4de0-aff7-24dfc90a7eb9")
-        public static SmDependency getElementDep() {
+        @objid ("d2a275e4-1895-4536-a375-798abdf68c98")
+        public static SmAttribute getLabelKeyAtt() {
             // Automatically generated method. Please delete this comment before entering specific code.
-            return ElementDep;
+            return LabelKeyAtt;
         }
 
-        @objid ("c578fd16-5ade-455c-9da2-4913bb4b292a")
+        @objid ("3ec8e470-cc42-430a-8170-28176d197a37")
         public static SmAttribute getIsHiddenAtt() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return IsHiddenAtt;
         }
 
-        @objid ("b5216898-9599-41ce-83d3-88018ff8fda0")
+        @objid ("bc2b8640-3632-4b57-8ef0-9ba71d442d7f")
+        public static SmDependency getOwnerStereotypeDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return OwnerStereotypeDep;
+        }
+
+        @objid ("218f09b9-e061-42a7-b4f6-e1ef70997c14")
+        public static SmDependency getElementDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return ElementDep;
+        }
+
+        @objid ("76040dd8-ccac-4c03-bc18-e1f9052dafaf")
+        public static SmAttribute getMimeTypeAtt() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return MimeTypeAtt;
+        }
+
+        @objid ("230b2ea8-1bf8-4ad2-a667-dcaa167fb3fb")
         public static SmDependency getOwnerReferenceDep() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return OwnerReferenceDep;
@@ -175,12 +196,12 @@ public class NoteTypeData extends ModelElementData {
 
         @objid ("00391b74-c4c3-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("1a35607b-63aa-43b3-8072-dcde18b23db9")
+            @objid ("deed80ef-2a3f-40cd-83d7-191e71d36d6a")
             public ISmObjectData createData() {
                 return new NoteTypeData();
             }
 
-            @objid ("fcb84d18-a7a4-4857-860b-1b7496436650")
+            @objid ("b41311c6-bdf6-4ff7-ad0b-7d5a168599aa")
             public SmObjectImpl createImpl() {
                 return new NoteTypeImpl();
             }
@@ -189,12 +210,12 @@ public class NoteTypeData extends ModelElementData {
 
         @objid ("00397f74-c4c3-1fd8-97fe-001ec947cd2a")
         public static class IsHiddenSmAttribute extends SmAttribute {
-            @objid ("df027f1c-fd8d-4c13-a3ba-a32614ce0d51")
+            @objid ("728d5a54-d623-4e4a-977c-25e07514752b")
             public Object getValue(ISmObjectData data) {
                 return ((NoteTypeData) data).mIsHidden;
             }
 
-            @objid ("41a08d3e-8a5e-4d03-83b3-b95bd1ea9e7b")
+            @objid ("aaf530ba-e152-40f8-9fd0-f59864f4622e")
             public void setValue(ISmObjectData data, Object value) {
                 ((NoteTypeData) data).mIsHidden = value;
             }
@@ -203,20 +224,20 @@ public class NoteTypeData extends ModelElementData {
 
         @objid ("003a44f4-c4c3-1fd8-97fe-001ec947cd2a")
         public static class ElementSmDependency extends SmMultipleDependency {
-            @objid ("92f8faa2-c9f4-4384-946b-8f80b5ecee82")
+            @objid ("684bfca8-2416-4baf-a44a-7d99be91849a")
             @Override
             public List<SmObjectImpl> getValueList(ISmObjectData data) {
                 return (((NoteTypeData)data).mElement != null)? ((NoteTypeData)data).mElement:SmMultipleDependency.EMPTY;
             }
 
-            @objid ("bad5d563-c8e2-451d-a4c7-f856f3484566")
+            @objid ("ebfff4a9-3466-4f55-9b7b-4f69b2d152b2")
             @Override
             protected List<SmObjectImpl> allocateValueList(ISmObjectData data, int initialCapacity) {
                 ((NoteTypeData) data).mElement = new ArrayList<>(initialCapacity);
                 return ((NoteTypeData) data).mElement;
             }
 
-            @objid ("3186b409-e2e4-4431-b0c9-1966eb5e0dc4")
+            @objid ("adc87815-dc36-49f2-bd0a-3eb7dd4fa804")
             @Override
             public SmDependency getSymetric() {
                 return NoteData.Metadata.ModelDep();
@@ -226,18 +247,18 @@ public class NoteTypeData extends ModelElementData {
 
         @objid ("003b0f7e-c4c3-1fd8-97fe-001ec947cd2a")
         public static class OwnerStereotypeSmDependency extends SmSingleDependency {
-            @objid ("082ce303-42de-456d-9fc4-723f5911bc0b")
+            @objid ("03431ca2-278f-4094-85b8-6588f30a6af0")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((NoteTypeData) data).mOwnerStereotype;
             }
 
-            @objid ("61ac79ea-2084-49aa-8aba-86f953fdfc5a")
+            @objid ("16cfc526-9bca-4148-9353-6c8998758841")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((NoteTypeData) data).mOwnerStereotype = value;
             }
 
-            @objid ("fad5bc1a-7378-42a7-8f30-82dbbf44bf17")
+            @objid ("7fa43861-cfc9-4b5f-8635-740bde25185f")
             @Override
             public SmDependency getSymetric() {
                 return StereotypeData.Metadata.DefinedNoteTypeDep();
@@ -247,18 +268,18 @@ public class NoteTypeData extends ModelElementData {
 
         @objid ("003b8f30-c4c3-1fd8-97fe-001ec947cd2a")
         public static class OwnerReferenceSmDependency extends SmSingleDependency {
-            @objid ("865abaff-0c5f-49d4-9668-b7e3bc442ed1")
+            @objid ("63fea3ce-3f32-4a8c-a1bd-c4dc65b58da8")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((NoteTypeData) data).mOwnerReference;
             }
 
-            @objid ("d8eca4aa-5e84-40bb-87e0-9ae4f9a85cca")
+            @objid ("7f090322-8965-4403-825f-96e22fca4c79")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((NoteTypeData) data).mOwnerReference = value;
             }
 
-            @objid ("f2abec46-354a-4203-a5dc-8cebedef380d")
+            @objid ("b7a729e9-2e4e-44f6-b9b1-a8cf15b83bbd")
             @Override
             public SmDependency getSymetric() {
                 return MetaclassReferenceData.Metadata.DefinedNoteTypeDep();
@@ -268,14 +289,28 @@ public class NoteTypeData extends ModelElementData {
 
         @objid ("c390fed3-62cb-4e00-a1f6-4531f4b32172")
         public static class LabelKeySmAttribute extends SmAttribute {
-            @objid ("f6491046-dfd9-4fc4-9e3f-6404b6f38025")
+            @objid ("ff403f3f-a758-40b3-8da9-15ba8f0ea9cf")
             public Object getValue(ISmObjectData data) {
                 return ((NoteTypeData) data).mLabelKey;
             }
 
-            @objid ("00005b32-9d7b-43ec-b450-eacf2f199ecd")
+            @objid ("dd52e4e9-d490-4b33-b526-c59df8503d80")
             public void setValue(ISmObjectData data, Object value) {
                 ((NoteTypeData) data).mLabelKey = value;
+            }
+
+        }
+
+        @objid ("d3b69813-78de-4f13-94fd-14251d21ddb7")
+        public static class MimeTypeSmAttribute extends SmAttribute {
+            @objid ("0bae084b-e146-46a4-af14-0763c425f156")
+            public Object getValue(ISmObjectData data) {
+                return ((NoteTypeData) data).mMimeType;
+            }
+
+            @objid ("76ad8202-d1f2-424f-a998-7f803f8da455")
+            public void setValue(ISmObjectData data, Object value) {
+                ((NoteTypeData) data).mMimeType = value;
             }
 
         }

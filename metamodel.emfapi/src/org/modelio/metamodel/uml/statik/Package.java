@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.uml.statik;
 
@@ -35,40 +35,40 @@ import org.modelio.metamodel.uml.statik.PackageMerge;
 
 @objid ("001529ee-c4bf-1fd8-97fe-001ec947cd2a")
 public interface Package extends NameSpace {
-    @objid ("5af040d5-e5cb-4725-808a-634975872729")
+    @objid ("e15d244b-a208-4432-852f-b6438f3e4d39")
     boolean isIsInstantiable();
 
-    @objid ("85d49a23-b72c-4b7d-a725-de0f3d488989")
+    @objid ("4fd59cc2-06f2-4102-8c7f-f138575adc1a")
     void setIsInstantiable(boolean value);
 
-    @objid ("dd56a0ff-b9e3-4ab8-9109-9b0d88b8e434")
+    @objid ("0d2d2038-6f87-4a50-985c-31c7abb35ebf")
     EList<BpmnParticipant> getBpmnRepresents();
 
-    @objid ("4e1493d5-81ce-485a-9deb-e6560f7f6fad")
+    @objid ("7977a106-fbc4-43b8-9c9e-d277f686153c")
     <T extends BpmnParticipant> List<T> getBpmnRepresents(java.lang.Class<T> filterClass);
 
-    @objid ("5f29a995-1db4-4b81-aa3f-5faa05041bae")
+    @objid ("d34d6afc-cc4c-4dc0-99c9-6d7ea6d3eab7")
     EList<PackageMerge> getReceivingMerge();
 
-    @objid ("47366b31-5468-4293-92bb-2658bdee1631")
+    @objid ("b9c03edc-f936-4f71-86be-c0c919d911d8")
     <T extends PackageMerge> List<T> getReceivingMerge(java.lang.Class<T> filterClass);
 
-    @objid ("db892bb1-ea30-4203-a2f2-d55cfce02742")
+    @objid ("b6005a22-b23b-4bf5-bf81-64b1378f858b")
     Project getRepresented();
 
-    @objid ("93804844-3e73-4d6f-89f6-88d6d09cb3bc")
+    @objid ("2a7a0f55-c200-43a3-b445-e66af5a3c3dc")
     void setRepresented(Project value);
 
-    @objid ("f1c70880-9546-4f50-b3ee-83f400fc4d1d")
+    @objid ("e501d24f-e44d-47c3-aa8f-01353f45c94c")
     EList<PackageMerge> getMerge();
 
-    @objid ("ab26540c-f90e-4fad-9664-7fc82119a6c6")
+    @objid ("faecaa45-73b6-40df-8223-e9d41e10ac3c")
     <T extends PackageMerge> List<T> getMerge(java.lang.Class<T> filterClass);
 
-    @objid ("e76ac21a-1161-4bca-9e00-24a02e60c194")
+    @objid ("c46c9c22-f5ab-4155-b095-8333167c8796")
     EList<PackageImport> getPackageImporting();
 
-    @objid ("160fab26-d92a-4940-99d7-054f16cdc93d")
+    @objid ("54c93d58-426d-439f-8b88-b560083e7b1b")
     <T extends PackageImport> List<T> getPackageImporting(java.lang.Class<T> filterClass);
 
 }

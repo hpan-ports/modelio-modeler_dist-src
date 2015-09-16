@@ -48,7 +48,7 @@ public class DiagramBrowserPanelProvider implements IPanelProvider {
 
     @objid ("85b73ab2-54b9-11e2-85c1-002564c97630")
     @Override
-    public Object create(Composite parent) {
+    public Object createPanel(Composite parent) {
         this.treeViewer = new TreeViewer(parent, SWT.MULTI);        
         
         Transfer[] transferTypes = new Transfer[]{LocalSelectionTransfer.getTransfer()};
@@ -59,7 +59,7 @@ public class DiagramBrowserPanelProvider implements IPanelProvider {
 
     @objid ("85b73ab8-54b9-11e2-85c1-002564c97630")
     @Override
-    public TreeViewer getComposite() {
+    public TreeViewer getPanel() {
         return this.treeViewer;
     }
 
@@ -176,6 +176,18 @@ public class DiagramBrowserPanelProvider implements IPanelProvider {
         // Define editor activation strategy:
         this.actSupport = new DiagramBrowserActivationStrategy(this.treeViewer);
         TreeViewerEditor.create(this.treeViewer, null, this.actSupport, ColumnViewerEditor.TABBING_HORIZONTAL | ColumnViewerEditor.TABBING_MOVE_TO_ROW_NEIGHBOR | ColumnViewerEditor.TABBING_VERTICAL | ColumnViewerEditor.KEYBOARD_ACTIVATION);
+    }
+
+    @objid ("3ad87aea-1000-42b1-9d2f-68020cbae703")
+    @Override
+    public boolean isRelevantFor(Object obj) {
+        return true;
+    }
+
+    @objid ("3443826d-b68b-43f1-a267-1a4739d44862")
+    @Override
+    public String getHelpTopic() {
+        return null;
     }
 
     @objid ("cd4213f2-54c7-11e2-ae63-002564c97630")

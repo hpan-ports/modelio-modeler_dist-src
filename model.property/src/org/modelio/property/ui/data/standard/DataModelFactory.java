@@ -236,6 +236,7 @@ import org.modelio.metamodel.uml.statik.ClassAssociation;
 import org.modelio.metamodel.uml.statik.Collaboration;
 import org.modelio.metamodel.uml.statik.CollaborationUse;
 import org.modelio.metamodel.uml.statik.Component;
+import org.modelio.metamodel.uml.statik.ComponentRealization;
 import org.modelio.metamodel.uml.statik.Connector;
 import org.modelio.metamodel.uml.statik.ConnectorEnd;
 import org.modelio.metamodel.uml.statik.DataType;
@@ -393,7 +394,12 @@ class DataModelFactory extends DefaultModelVisitor {
     @objid ("8e693d48-c068-11e1-8c0a-002564c97630")
     public IPropertyModel getPropertyModel(Element element) {
         if (element != null) {
-            return (IPropertyModel) ((SmObjectImpl)element).accept(this);
+            // TODO handle dynamic metaclasses
+            //if (element.getMClass().isDynamic) {
+            //return new DynamicPropertyModel(element);
+            //} else {
+              return (IPropertyModel) ((SmObjectImpl)element).accept(this);
+            //}
         }
         // No element means no property model
         return null;
@@ -1856,6 +1862,12 @@ class DataModelFactory extends DefaultModelVisitor {
     @Override
     public Object visitNaryLink(NaryLink obj) {
         return new LinkEndNPropertyModel(obj.getNaryLinkEnd().get(0));
+    }
+
+    @objid ("d9debde9-52b6-4b8a-bc70-0ec31fb51aaa")
+    @Override
+    public Object visitComponentRealization(ComponentRealization obj) {
+        return new ComponentRealizationPropertyModel(obj);
     }
 
 }

@@ -44,8 +44,8 @@ import java.util.Collection;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.vbasic.files.CloseOnFail;
 import org.modelio.vbasic.files.FileUtils;
+import org.modelio.vbasic.log.Log;
 import org.modelio.vbasic.progress.IModelioProgress;
-import org.modelio.vcore.Log;
 import org.modelio.vcore.session.api.blob.IBlobInfo;
 import org.modelio.vcore.session.api.repository.BlobServices;
 import org.modelio.vstore.exml.common.index.IndexOutdatedException;
@@ -372,6 +372,12 @@ public class UrlExmlResourceProvider implements IExmlResourceProvider {
     @Override
     public ExmlResource getRepositoryVersionResource() {
         return new UrlResource(this.versionUrl, this.auth);
+    }
+
+    @objid ("4cf39a56-787f-42db-a3b3-955fddcaab6c")
+    @Override
+    public boolean isBrowsable() {
+        return false;
     }
 
     /**

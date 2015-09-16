@@ -25,8 +25,6 @@ import java.util.ArrayList;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.emf.common.util.EList;
-import org.modelio.api.modelio.Modelio;
-import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
 import org.modelio.metamodel.uml.statik.Artifact;
 import org.modelio.metamodel.uml.statik.Manifestation;
@@ -34,13 +32,14 @@ import org.modelio.xmi.util.EcoreModelNavigation;
 import org.modelio.xmi.util.ReverseProperties;
 
 @objid ("a4f17f41-b31d-4830-82b8-26d01ceb3d6c")
-public class EManifestation extends ENamedElement implements IEElement {
+public class EManifestation extends ENamedElement {
     @objid ("3b6bba62-7fde-4cbe-ad20-b3acaa605ee9")
     private org.eclipse.uml2.uml.Manifestation ecoreElement = null;
 
     @objid ("58c3b71a-4740-4595-9019-d80bb488e63a")
+    @Override
     public List<Manifestation> createObjingElt() {
-        return new ArrayList<Manifestation>();
+        return new ArrayList<>();
     }
 
     @objid ("78ad4974-a577-45e7-9659-048c5245fcbe")
@@ -49,11 +48,8 @@ public class EManifestation extends ENamedElement implements IEElement {
         this.ecoreElement = element;
     }
 
-    @objid ("31058ca5-5a2f-4be0-911f-f6e8a70c3f0a")
-    public void attach(Element objingElt) {
-    }
-
     @objid ("04862d70-e9b8-4c2b-a0fd-f3e02420826e")
+    @Override
     public void attach(List<Object> objingElts) {
         EList<?> clientList = this.ecoreElement.getClients();
         EList<?> supplierList = this.ecoreElement.getSuppliers();
@@ -89,15 +85,9 @@ public class EManifestation extends ENamedElement implements IEElement {
         }
     }
 
-    @objid ("af11b75d-ad3d-46d5-8540-40dc5826740f")
-    public void setProperties(Element objingElt) {
-        super.setProperties(objingElt);
-    }
-
     @objid ("6b992a7f-5df0-432e-aa22-149ea71fa9d2")
     private Manifestation createManifestation(Artifact objingClient, ModelElement objingSupplier) {
-        Manifestation manif = Modelio.getInstance()
-                .getModelingSession().getModel().createManifestation();
+        Manifestation manif = ReverseProperties.getInstance().getMModelServices().getModelFactory().createManifestation();
         
         String name = this.ecoreElement.getName();
         if (EcoreModelNavigation.isNotNull(name))
@@ -105,7 +95,7 @@ public class EManifestation extends ENamedElement implements IEElement {
         else 
             manif.setName("");
         
-        manif.setOwner((Artifact) objingClient);
+        manif.setOwner(objingClient);
         manif.setUtilizedElement(objingSupplier);
         return manif;
     }

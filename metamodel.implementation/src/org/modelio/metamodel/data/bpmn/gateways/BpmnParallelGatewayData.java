@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.data.bpmn.gateways;
 
@@ -43,22 +43,22 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("0002addc-c4c0-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=BpmnParallelGateway.class, factory=BpmnParallelGatewayData.Metadata.ObjectFactory.class)
 public class BpmnParallelGatewayData extends BpmnGatewayData {
-    @objid ("10a4fd33-54b5-4449-baeb-f1a47ced7afd")
+    @objid ("fa4fe5cf-7469-4484-95e5-513eb086be41")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("008aaca0-c4c5-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("b89ac819-4cee-4be1-b4fe-c6fadccb8356")
+        @objid ("bf46b9ae-6a48-4024-b378-2172917f0408")
         private static SmClass smClass = null;
 
-        @objid ("c749ca1c-63b0-4052-86be-95e065885c2d")
+        @objid ("765afd68-dceb-4ff2-a6e3-931eab483324")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(BpmnParallelGatewayData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("a4a6036b-e543-437e-a390-a9252002bfb6")
+        @objid ("c3b0a63b-8f2b-4ffe-825c-21c2228fcf53")
         public static SmClass getSmClass() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return smClass;
@@ -66,12 +66,12 @@ public class BpmnParallelGatewayData extends BpmnGatewayData {
 
         @objid ("008afc46-c4c5-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("42699b6d-ff30-4911-88cf-ee45f1c25348")
+            @objid ("ab4c64d0-02a6-4a52-a704-31ec476a561f")
             public ISmObjectData createData() {
                 return new BpmnParallelGatewayData();
             }
 
-            @objid ("50710dff-0cfd-4e90-9501-732307740b95")
+            @objid ("cc55f0f2-a416-43c0-9749-ed70d5ce0814")
             public SmObjectImpl createImpl() {
                 return new BpmnParallelGatewayImpl();
             }

@@ -113,7 +113,7 @@ public class AuditPanelProvider implements IPanelProvider, IAuditListener, IAudi
 
     @objid ("ed7e239b-2e76-4505-a921-981c45e8d74f")
     @Override
-    public Object create(Composite parent) {
+    public Object createPanel(Composite parent) {
         this.area = new Composite(parent, SWT.NO_REDRAW_RESIZE);
         final FormLayout layout = new FormLayout();
         this.area.setLayout(layout);
@@ -143,7 +143,7 @@ public class AuditPanelProvider implements IPanelProvider, IAuditListener, IAudi
 
     @objid ("50a30124-75dd-459e-a93e-82f2eff43e27")
     @Override
-    public Composite getComposite() {
+    public Composite getPanel() {
         return this.area;
     }
 
@@ -367,6 +367,18 @@ public class AuditPanelProvider implements IPanelProvider, IAuditListener, IAudi
         column.getColumn().setResizable(true);
         column.getColumn().setMoveable(true);
         return column;
+    }
+
+    @objid ("1f6d423a-3386-4de2-a6c5-bb89a7901254")
+    @Override
+    public boolean isRelevantFor(Object obj) {
+        return true;
+    }
+
+    @objid ("bb891903-9679-4937-8818-3e7c7232c53f")
+    @Override
+    public String getHelpTopic() {
+        return null;
     }
 
 }

@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.uml.behavior.interactionModel;
 
@@ -33,28 +33,28 @@ import org.modelio.metamodel.uml.behavior.interactionModel.InteractionFragment;
 
 @objid ("00479758-c4bf-1fd8-97fe-001ec947cd2a")
 public interface InteractionOperand extends InteractionFragment {
-    @objid ("1053c746-96b4-45c8-9de7-65712af1a90e")
+    @objid ("4cbb0d97-e23a-4b64-aded-3e4cf4f55cf9")
     String getGuard();
 
-    @objid ("434efdd3-c101-4fcb-a1e1-3c09f3dd6a5f")
+    @objid ("01fe0858-9872-4402-ab6b-6bf1adc8604d")
     void setGuard(String value);
 
-    @objid ("f45cf838-6d47-47d4-952b-14d3447ede1c")
+    @objid ("2f83f179-7a4b-4e91-aca8-72cca8a7676c")
     int getEndLineNumber();
 
-    @objid ("3f859c04-492e-436d-8238-8aa54e8c9119")
+    @objid ("71316928-8695-410a-b87c-15f42284785c")
     void setEndLineNumber(int value);
 
-    @objid ("de11a085-c25b-4a27-b0c4-446097a1f34e")
+    @objid ("a9f6ef76-d5e1-4363-906b-689e220493cc")
     EList<InteractionFragment> getFragment();
 
-    @objid ("4e2cd22f-1500-4ef5-a875-281aaea665f9")
+    @objid ("65601b14-f962-4940-9c29-7102607bd77e")
     <T extends InteractionFragment> List<T> getFragment(java.lang.Class<T> filterClass);
 
-    @objid ("95313f47-def4-4ae9-bd0b-0390903ab426")
+    @objid ("00c8e008-424f-4544-9bf3-00aa6cf9378f")
     CombinedFragment getOwnerFragment();
 
-    @objid ("02e114e3-f05a-4498-9ef7-da22e5618ace")
+    @objid ("4bf95308-3752-4ecb-93b1-666af99fd817")
     void setOwnerFragment(CombinedFragment value);
 
 }

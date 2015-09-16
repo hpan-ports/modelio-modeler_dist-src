@@ -24,7 +24,6 @@ package org.modelio.xmi.model.ecore;
 import java.util.ArrayList;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.modelio.api.modelio.Modelio;
 import org.modelio.metamodel.uml.behavior.interactionModel.Interaction;
 import org.modelio.metamodel.uml.behavior.interactionModel.Lifeline;
 import org.modelio.metamodel.uml.infrastructure.Element;
@@ -34,10 +33,11 @@ import org.modelio.xmi.util.ObjingEAnnotation;
 import org.modelio.xmi.util.ReverseProperties;
 
 @objid ("900e8f42-72ec-429f-9b2e-3df7f4e14880")
-public class ELifeline extends ENamedElement implements IEElement {
+public class ELifeline extends ENamedElement {
     @objid ("282781e4-2c75-43e5-ad9a-915d858f10e4")
+    @Override
     public Element createObjingElt() {
-        return Modelio.getInstance().getModelingSession().getModel().createLifeline();
+        return ReverseProperties.getInstance().getMModelServices().getModelFactory().createLifeline();
     }
 
     @objid ("f66d6908-a422-4a5b-b418-886c5436fe19")
@@ -46,20 +46,18 @@ public class ELifeline extends ENamedElement implements IEElement {
     }
 
     @objid ("9f0bed69-55fe-4c12-a4bf-d6f9970c5699")
+    @Override
     public void attach(Element objingElt) {
-        Interaction objingInt = (Interaction) ReverseProperties.getInstance()
+        Object objingInt = ReverseProperties.getInstance()
                 .getMappedElement(((org.eclipse.uml2.uml.Lifeline)getEcoreElement()).getInteraction());
         
         if (objingInt instanceof Interaction) {
-            objingInt.getOwnedLine().add((Lifeline) objingElt);
+            ((Interaction) objingInt).getOwnedLine().add((Lifeline) objingElt);
         }
     }
 
-    @objid ("f4debe3b-18d9-4fa9-8357-b124d0b8eb7d")
-    public void attach(List<Object> objingElts) {
-    }
-
     @objid ("e291341c-c106-47eb-b43a-007f58eb3ede")
+    @Override
     public void setProperties(Element objingElt) {
         super.setProperties(objingElt);
         setRepresented((Lifeline) objingElt);
@@ -73,11 +71,10 @@ public class ELifeline extends ENamedElement implements IEElement {
         
         if ( revProp.isRoundtripEnabled()) {
         
-        
             for (Object dependency : ((org.eclipse.uml2.uml.Lifeline) getEcoreElement()).getClientDependencies()){
         
                 if (ObjingEAnnotation.isRepresentation((org.eclipse.uml2.uml.Element)dependency)){
-                    Element representation = (Element)revProp.getMappedElement((org.eclipse.uml2.uml.Element)((org.eclipse.uml2.uml.Dependency)dependency).getSuppliers().get(0));
+                    Element representation = (Element)revProp.getMappedElement(((org.eclipse.uml2.uml.Dependency)dependency).getSuppliers().get(0));
         
                     if (representation instanceof Instance){
                         lifeline.setRepresented((Instance)representation);

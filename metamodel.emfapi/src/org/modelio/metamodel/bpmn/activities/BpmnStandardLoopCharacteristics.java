@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.bpmn.activities;
 
@@ -30,22 +30,22 @@ import org.eclipse.emf.ecore.EObject;
 
 @objid ("00839f78-c4bf-1fd8-97fe-001ec947cd2a")
 public interface BpmnStandardLoopCharacteristics extends BpmnLoopCharacteristics {
-    @objid ("c6ad1f94-cf39-4346-8d1a-42a9775fc4b8")
+    @objid ("e671a565-11cc-4b00-adb4-b9ccf4468c34")
     boolean isTestBefore();
 
-    @objid ("e4a54072-343c-4c92-b3c7-5c24b18cde59")
+    @objid ("2c9ce418-4982-4809-a56f-a6fa80376245")
     void setTestBefore(boolean value);
 
-    @objid ("f059f59d-2385-499f-b90e-2c15223404ac")
+    @objid ("6bc0977a-40f6-459e-b498-cc4f59b24cc5")
     String getLoopCondition();
 
-    @objid ("7ef94625-7383-4ff7-8918-5bc57096a0bc")
+    @objid ("91f79511-14a1-41e8-ba23-a87b1570c788")
     void setLoopCondition(String value);
 
-    @objid ("8638fd3f-7acb-4acf-9488-eb6b7a8b23a0")
+    @objid ("f70d0235-0442-43df-99f8-844e6ee0232a")
     String getLoopMaximum();
 
-    @objid ("2cdd349f-a020-45bd-9ed9-598f182d410a")
+    @objid ("f3790ced-0eff-480f-9651-17696105d894")
     void setLoopMaximum(String value);
 
 }

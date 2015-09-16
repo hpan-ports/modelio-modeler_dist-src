@@ -155,12 +155,14 @@ import org.modelio.metamodel.uml.informationFlow.InformationItem;
 import org.modelio.metamodel.uml.infrastructure.Dependency;
 import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
+import org.modelio.metamodel.uml.infrastructure.Substitution;
 import org.modelio.metamodel.uml.statik.Association;
 import org.modelio.metamodel.uml.statik.AssociationEnd;
 import org.modelio.metamodel.uml.statik.BindableInstance;
 import org.modelio.metamodel.uml.statik.Classifier;
 import org.modelio.metamodel.uml.statik.Collaboration;
 import org.modelio.metamodel.uml.statik.CollaborationUse;
+import org.modelio.metamodel.uml.statik.ComponentRealization;
 import org.modelio.metamodel.uml.statik.DataType;
 import org.modelio.metamodel.uml.statik.EnumerationLiteral;
 import org.modelio.metamodel.uml.statik.Instance;
@@ -1105,6 +1107,18 @@ public class GetDefaultNameVisitor extends DefaultModelVisitor {
     @Override
     public Object visitValuePin(ValuePin theValuePin) {
         return CoreProject.getMessage("DefaultName.ValuePin");
+    }
+
+    @objid ("d0c4ec7d-686e-4e18-8976-cb8be88820a6")
+    @Override
+    public Object visitComponentRealization(ComponentRealization obj) {
+        return "";
+    }
+
+    @objid ("f726a95d-10ef-448a-bc4f-64d57a15c5ae")
+    @Override
+    public Object visitSubstitution(Substitution obj) {
+        return "";
     }
 
 }

@@ -53,9 +53,9 @@ import org.modelio.gproject.module.IModuleCatalog;
 import org.modelio.gproject.module.IModuleHandle;
 import org.modelio.vbasic.files.FileUtils;
 import org.modelio.vbasic.files.Unzipper;
+import org.modelio.vbasic.log.Log;
 import org.modelio.vbasic.progress.IModelioProgress;
 import org.modelio.vbasic.progress.SubProgress;
-import org.modelio.vcore.Log;
 
 /**
  * Modules storage structure based on directories and files typically used to cache or to catalog module data, and avoid extracting/reading them over and over.
@@ -77,7 +77,7 @@ public class FileModuleStore implements IModuleCatalog {
     private static final int SEARCH_DEPTH = 3;
 
     @objid ("07d71b3e-32d3-4699-ae97-e703148fdb20")
-    private final Path cachePath;
+    private Path cachePath;
 
     /**
      * Instantiate a new FileModuleCatalog.
@@ -364,6 +364,16 @@ public class FileModuleStore implements IModuleCatalog {
              ret.add(getModuleHandle(moduleFile, null));
          }
         return ret;
+    }
+
+    @objid ("f29bb236-3733-419b-94c5-5cd4ce1bd8ad")
+    public Path getCachePath() {
+        return cachePath;
+    }
+
+    @objid ("abb2d5ba-d5a1-4c0f-b1fa-16a6ec48cb29")
+    public void setCachePath(Path cachePath) {
+        this.cachePath = cachePath;
     }
 
     @objid ("d9530939-37da-11e2-8ba4-002564c97630")

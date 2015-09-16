@@ -22,7 +22,6 @@
 package org.modelio.xmi.model.ecore;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.modelio.api.modelio.Modelio;
 import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.metamodel.uml.statik.Classifier;
 import org.modelio.metamodel.uml.statik.MethodPassingMode;
@@ -36,7 +35,7 @@ public class EOperation extends EBehavioralFeature {
     @objid ("f777b276-021a-4c9e-bd9c-7f6abbb6cff4")
     @Override
     public Element createObjingElt() {
-        return Modelio.getInstance().getModelingSession().getModel().createOperation();
+        return ReverseProperties.getInstance().getMModelServices().getModelFactory().createOperation();
     }
 
     @objid ("dfd8c873-1067-4802-9eba-3682a0f182be")

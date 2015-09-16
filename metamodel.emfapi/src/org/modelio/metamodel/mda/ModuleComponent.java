@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.mda;
 
@@ -36,76 +36,76 @@ import org.modelio.metamodel.uml.statik.Component;
 
 @objid ("006567e2-c4bf-1fd8-97fe-001ec947cd2a")
 public interface ModuleComponent extends Component {
-    @objid ("c90e255d-1dce-4431-9cec-9c975f17a893")
+    @objid ("3971137a-e58e-48ac-87b4-e17b6f109e58")
     int getLicenseKey();
 
-    @objid ("eadfcf0f-5936-4421-b00e-4be0bc7c35b9")
+    @objid ("19c5e67a-f05f-4bcc-84db-f0511b8a934c")
     void setLicenseKey(int value);
 
-    @objid ("77fcdd63-f0e0-457b-a194-332b885841ff")
+    @objid ("887e0d68-d35a-4b5a-a7c9-0a9063357a45")
     int getMajVersion();
 
-    @objid ("60069e1d-112b-4270-894d-7a091bce5013")
+    @objid ("a53a3e4d-24d0-48e6-ab0a-75b352d5c4bb")
     void setMajVersion(int value);
 
-    @objid ("f1576824-9d54-4133-899d-973d52e1c41b")
+    @objid ("b44fe7f3-36f1-44f7-ac48-fb6fb595c76d")
     int getMinVersion();
 
-    @objid ("77215840-0b00-49fe-bb0e-9ab77dc99d92")
+    @objid ("37109a1c-01d2-4a60-9802-c8f0708df5be")
     void setMinVersion(int value);
 
-    @objid ("bc28573c-1c24-4e64-9f73-fa3f2d7106f2")
+    @objid ("cd3b19a4-f8a2-419d-9b9a-b72e37135222")
     String getMinMinVersion();
 
-    @objid ("84783b37-7c43-4860-9759-18de3f8688bf")
+    @objid ("cc29f1df-309f-4db1-ad3f-b5de63bdfd69")
     void setMinMinVersion(String value);
 
-    @objid ("a4ebf86f-5182-4faf-ab4b-b8d8eaf5cb86")
+    @objid ("3c459e40-0737-4f34-827f-e122aa06e4e1")
     String getMinBinVersionCompatibility();
 
-    @objid ("449aee0a-bb71-4c81-93a7-9ee1a59906bc")
+    @objid ("87dd2c82-7f53-4251-ad77-e19003066ad3")
     void setMinBinVersionCompatibility(String value);
 
-    @objid ("fc1cbfeb-b4c0-4178-8839-e482ac7de6e1")
+    @objid ("622027d8-8975-4223-b699-9f38e561962f")
     String getJavaClassName();
 
-    @objid ("d561e821-c37d-45e5-a199-5e23ba75d0d5")
+    @objid ("8be1c0e9-40d6-4351-8363-f624a9c059c0")
     void setJavaClassName(String value);
 
-    @objid ("4fabe7ec-65d7-42df-8b62-8afd78dd7833")
+    @objid ("1c7cc118-f52f-40c1-b4ec-de094ac98b8f")
     ModuleState getState();
 
-    @objid ("1136a17f-3c06-455d-8b39-5da52a76bdc2")
+    @objid ("bcd934ab-6306-4d50-b68f-73ffa233b3e0")
     void setState(ModuleState value);
 
-    @objid ("aad0cc2d-3222-43b4-8cc7-0e4bf1ae0992")
+    @objid ("571f4a08-089e-426d-a594-9b8df754c120")
     EList<PropertyType> getDefinedPropertyType();
 
-    @objid ("6fe4b48c-6631-49d8-a702-8c39ba33e1d9")
+    @objid ("1686f39f-d9f1-4e77-8bf9-e99e910b08b9")
     <T extends PropertyType> List<T> getDefinedPropertyType(java.lang.Class<T> filterClass);
 
-    @objid ("93c2b816-b3ea-493a-85f1-4b1ae16375df")
+    @objid ("e02baa6b-4336-48f1-a44e-15d54a9f748f")
     EList<Profile> getOwnedProfile();
 
-    @objid ("90061ae1-336c-46df-ab8f-79a281a21f11")
+    @objid ("a51692e2-7594-4a79-bdad-1bda2cfe8fc3")
     <T extends Profile> List<T> getOwnedProfile(java.lang.Class<T> filterClass);
 
-    @objid ("72f9143e-e480-45ea-9103-b5cccbe858b6")
+    @objid ("f2e94f8d-fce9-4f57-8293-2012306c660b")
     EList<ModuleParameter> getModuleParameter();
 
-    @objid ("9304d761-ee49-4463-ba9e-00240d761e65")
+    @objid ("713780b3-2a7e-486f-9dac-70c3e36f0b0d")
     <T extends ModuleParameter> List<T> getModuleParameter(java.lang.Class<T> filterClass);
 
-    @objid ("be0caf3d-278c-49d6-abaa-703c6c79a142")
+    @objid ("02bb31a4-b156-4c2c-be41-ddfb0bc1fe5e")
     EList<ModuleComponent> getDependsOn();
 
-    @objid ("8eef6558-2b68-4904-9757-f79b37281a8e")
+    @objid ("0520676e-89a3-42b0-abce-74e05a847de0")
     <T extends ModuleComponent> List<T> getDependsOn(java.lang.Class<T> filterClass);
 
-    @objid ("a8d79c73-5d96-4e46-8165-1af6c75fd150")
+    @objid ("f5bc76e9-d7ba-4d15-9bee-95671be1ef0c")
     EList<ModuleComponent> getImpacted();
 
-    @objid ("d8f795f2-39e9-45c2-b029-738b2751a413")
+    @objid ("8ea28629-69ed-4c9b-9aaa-661c7777debb")
     <T extends ModuleComponent> List<T> getImpacted(java.lang.Class<T> filterClass);
 
 }

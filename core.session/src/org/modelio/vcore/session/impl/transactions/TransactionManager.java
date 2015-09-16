@@ -29,7 +29,10 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.modelio.vcore.Log;
+import org.modelio.vbasic.log.Log;
+import org.modelio.vcore.session.api.model.change.IModelChangeEvent;
+import org.modelio.vcore.session.api.model.change.IModelChangeHandler;
+import org.modelio.vcore.session.api.model.change.IPersistentViewModelChangeListener;
 import org.modelio.vcore.session.api.transactions.ConcurrentTransactionException;
 import org.modelio.vcore.session.api.transactions.EndTransactionBadIdException;
 import org.modelio.vcore.session.api.transactions.EndTransactionNoActiveTransactionException;
@@ -46,6 +49,7 @@ import org.modelio.vcore.session.impl.transactions.events.ModelChangeSupport;
 import org.modelio.vcore.session.impl.transactions.smAction.AddActionNoActiveTransactionException;
 import org.modelio.vcore.session.impl.transactions.smAction.IAction;
 import org.modelio.vcore.session.impl.transactions.smAction.IActionManager;
+import org.modelio.vcore.session.plugin.VCoreSession;
 
 /**
  * This class manages transactions stacks ("undone", "active" and "done"). It allows to open and close a transaction, as well as
@@ -131,8 +135,8 @@ public class TransactionManager implements IActionManager, ITransactionSupport {
                 Transaction currentTransaction = this.activeTransactions.peek();
                 currentTransaction.addAction(action);
             } else {
-                String message = "No transaction is open.";
-                throw new AddActionNoActiveTransactionException(message);
+                String msg = VCoreSession.getMessage("NoActiveTransactionException");
+                throw new AddActionNoActiveTransactionException(msg);
             }
         }
     }
@@ -175,13 +179,14 @@ public class TransactionManager implements IActionManager, ITransactionSupport {
         
             // commit when no active transaction => error
             if (this.activeTransactions.isEmpty()) {
-                String msg = String.format("Cannot commit '%s': there is no active transaction.", toCommit.getName());
+                String msg = VCoreSession.getMessage("NoActiveTransactionException", toCommit.getName());
+                
                 throw new EndTransactionNoActiveTransactionException(msg);
             }
         
             // if committing a transaction which is not the current top => Error
             if (this.activeTransactions.peek() != toCommit) {
-                String msg = String.format("Cannot commit '%s': '%s' must be committed first.", toCommit.getName(), this.activeTransactions.peek().getName());
+                String msg = VCoreSession.getMessage("EndTransactionBadIdException", toCommit.getName(), this.activeTransactions.peek().getName());
                 throw new EndTransactionBadIdException(msg);
             }
         
@@ -209,7 +214,7 @@ public class TransactionManager implements IActionManager, ITransactionSupport {
                 // They may modify the model, create new transactions and
                 // throw exceptions. In the last case the transaction will be rollbacked by the 
                 // try with resources that the caller MUST use.
-                this.changeSupport.fireModelChangeHandlers(evFact.getEvent());
+                fireModelChangeHandlers(toCommit, evFact);
         
                 // Check it using the transaction validator. (ModelShield)
                 if (this.transactionValidator != null) {
@@ -223,7 +228,15 @@ public class TransactionManager implements IActionManager, ITransactionSupport {
                 // Typically use to update NameSpaceUse computed model
                 if (this.transactionClosureHandler != null) {
                     this.transactionClosureHandler.commit(toCommit);
+                    evFact.updateCommitEvent(toCommit);
                 }
+                
+                // Notify persistent view model change listeners.
+                // They may modify the model, but should only non structural modifications.
+                // They should not create new transactions.
+                // They may throw exceptions. In this case the transaction will be rollbacked by the 
+                // try with resources that the caller MUST use.
+                firePersistentViewModelChangeListeners(evFact.getEvent());
                 
                 // Pop the top active session
                 this.activeTransactions.pop();
@@ -351,16 +364,19 @@ public class TransactionManager implements IActionManager, ITransactionSupport {
             }
         
             if (this.undoneTransactions.isEmpty()) {
-                String message = ("RedoNoUndoneTransactionException");
+                String message = VCoreSession.getMessage("RedoNoUndoneTransactionException");
                 throw new RedoNoUndoneTransactionException(message);
             }
         
             if (!this.activeTransactions.isEmpty()) {
-                String message = ("RedoWhileInTransactionException");
+                String message = VCoreSession.getMessage("RedoWhileInTransactionException");
                 throw new RedoNoUndoneTransactionException(message);
             }
         
             Transaction undoneTransaction = this.undoneTransactions.pop();
+            
+            Log.trace("Redo '"+ undoneTransaction.getName()+"'");
+            
             undoneTransaction.redo();
             this.doneTransactions.push(undoneTransaction);
         
@@ -410,12 +426,12 @@ public class TransactionManager implements IActionManager, ITransactionSupport {
             }
         
             if (this.activeTransactions.isEmpty()) {
-                String message = ("Cannot rollback "+toRollback.getName()+": no active transaction.");
+                String message = VCoreSession.getMessage("RollbackTransactionNoActiveTransaction",toRollback.getName());
                 throw new EndTransactionNoActiveTransactionException(message);
             }
         
             if (this.activeTransactions.peek() != toRollback) {
-                String message = ("Cannot rollback "+toRollback.getName()+": the active transaction is "+this.activeTransactions.peek().getName()+".");
+                String message = VCoreSession.getMessage("RollbackTransactionWrongTransaction",toRollback.getName(), this.activeTransactions.peek().getName());
                 throw new EndTransactionBadIdException(message);
             }
         
@@ -474,16 +490,19 @@ public class TransactionManager implements IActionManager, ITransactionSupport {
         try {
             if (this.actionsRecorded) {
                 if (!this.activeTransactions.isEmpty()) {
-                    String message = ("UndoActiveTransactionException");
+                    String message = VCoreSession.getMessage("UndoActiveTransactionException");
                     throw new UndoActiveTransactionException(message);
                 }
         
                 if (this.doneTransactions.isEmpty()) {
-                    String message = ("UndoNoDoneTransactionException");
+                    String message = VCoreSession.getMessage("UndoNoDoneTransactionException");
                     throw new UndoNoDoneTransactionException(message);
                 }
         
                 Transaction doneTransaction = this.doneTransactions.pop();
+        
+                Log.trace("Undo '"+ doneTransaction.getName()+"'");
+        
                 doneTransaction.undo(false);
                 this.undoneTransactions.push(doneTransaction);
         
@@ -545,7 +564,7 @@ public class TransactionManager implements IActionManager, ITransactionSupport {
             Transaction newTransaction = null;
         
             if (this.transactionsForbidden) {
-                String message = "No transaction can be created while firing session listeners";
+                String message = VCoreSession.getMessage("TransactionForbiddenException");
                 throw new TransactionForbiddenException(message);
         
             } else if (this.actionsRecorded) {
@@ -614,6 +633,27 @@ public class TransactionManager implements IActionManager, ITransactionSupport {
             throw new ConcurrentTransactionException(trName, lastTransaction, lastTransaction.getCreatorThread(), lastTransaction.getCreationTrace(), timeout, unit);
         else
             throw new IllegalStateException(this.transactionOwnerLock+" transaction lock still hold but transaction stack is empty.");
+    }
+
+    /**
+     * Fires model change handlers. Handler can modify the model
+     */
+    @objid ("ab39bf97-32ef-4356-b448-78912919ed53")
+    private void fireModelChangeHandlers(Transaction toCommit, EventFactory evFact) {
+        for (IModelChangeHandler it : this.changeSupport.getModelChangeHandlers()) {
+            it.handleModelChange(evFact.getEvent());
+            evFact.updateCommitEvent(toCommit);
+        }
+    }
+
+    /**
+     * Fires model change handlers. Handler can modify the model
+     */
+    @objid ("6a8c3a63-b124-413a-a9d3-dec1a0331db0")
+    private void firePersistentViewModelChangeListeners(IModelChangeEvent event) {
+        for (IPersistentViewModelChangeListener it : this.changeSupport.getPersistentViewChangeListeners()) {
+            it.updateView(event);
+        }
     }
 
     /**

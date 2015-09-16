@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.data.analyst;
 
@@ -46,50 +46,50 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("16f29540-3b49-4c2f-851d-a2d366fbab74")
 @SmaMetaClass(mmClass=GoalContainer.class, factory=GoalContainerData.Metadata.ObjectFactory.class, cmsnode=true)
 public class GoalContainerData extends AnalystContainerData {
-    @objid ("46bd070e-0fbc-41c3-860d-ee10b354404f")
+    @objid ("1a342e85-dd1a-4786-8c3e-290f8610dda6")
     @SmaMetaAssociation(metaName="OwnedGoal", typeDataClass=GoalData.class, min=0, max=-1, smAssociationClass=Metadata.OwnedGoalSmDependency.class, component = true)
      List<SmObjectImpl> mOwnedGoal = null;
 
-    @objid ("e4f32a18-8640-411b-a193-07a3ca94b48b")
+    @objid ("1c4555c0-46e5-4e02-8499-ca0af106e210")
     @SmaMetaAssociation(metaName="OwnerContainer", typeDataClass=GoalContainerData.class, min=0, max=1, smAssociationClass=Metadata.OwnerContainerSmDependency.class)
      SmObjectImpl mOwnerContainer;
 
-    @objid ("8fb62bfd-34a4-47b3-adc4-5334d902ef4b")
+    @objid ("7208e59e-dd8b-49b0-9772-721d405417e5")
     @SmaMetaAssociation(metaName="OwnedContainer", typeDataClass=GoalContainerData.class, min=0, max=-1, smAssociationClass=Metadata.OwnedContainerSmDependency.class, component = true)
      List<SmObjectImpl> mOwnedContainer = null;
 
-    @objid ("072411b4-4339-42c2-a830-6a4449a210de")
+    @objid ("894a3f2a-ff9e-4693-a109-9d3025d680ce")
     @SmaMetaAssociation(metaName="OwnerProject", typeDataClass=AnalystProjectData.class, min=0, max=1, smAssociationClass=Metadata.OwnerProjectSmDependency.class)
      SmObjectImpl mOwnerProject;
 
-    @objid ("389de3fe-c20c-498e-9473-17fd63ec14e0")
+    @objid ("3445277a-b54d-41eb-8afe-e7c2ad756c1a")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("b726a173-e683-4024-82f5-fb9cf9ec2787")
     public static class Metadata {
-        @objid ("3f5c89ed-b435-4740-b225-8c3d9ae8b3e9")
+        @objid ("30734eca-b275-473d-9c04-d1f37ece1f0c")
         private static SmClass smClass = null;
 
-        @objid ("fd27e498-1dca-4117-bb46-6b881c5eaf2d")
+        @objid ("aa961367-49fa-4491-90ac-043fa70c0a4f")
         private static SmDependency OwnedGoalDep = null;
 
-        @objid ("ec7f274d-e794-4cd9-aa25-3292108cf581")
+        @objid ("4f7ff352-39f7-451a-9fae-a61d1fdc0fcc")
         private static SmDependency OwnerContainerDep = null;
 
-        @objid ("4c8326c6-c146-442d-a28a-4b3823a2a19f")
+        @objid ("0b684ee9-15a7-4c40-bc8e-83911f2f7595")
         private static SmDependency OwnedContainerDep = null;
 
-        @objid ("152f5ab1-d884-452d-ac02-c93195bd86e0")
+        @objid ("06e6d008-0ce6-448b-b0f0-6a13da9c6e9a")
         private static SmDependency OwnerProjectDep = null;
 
-        @objid ("0ac40b88-79e5-466c-aa29-5c97faf229fc")
+        @objid ("29bc09a3-4e63-4353-9574-1780620b51cf")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(GoalContainerData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("b487b6f6-4a25-451f-aa41-7176c45b9f3f")
+        @objid ("2954ccf6-eb73-4109-9a53-29aa0acdbf44")
         public static SmDependency OwnedGoalDep() {
             if (OwnedGoalDep == null) {
             	OwnedGoalDep = classof().getDependencyDef("OwnedGoal");
@@ -97,7 +97,7 @@ public class GoalContainerData extends AnalystContainerData {
             return OwnedGoalDep;
         }
 
-        @objid ("11506f7b-4ce4-492e-bc51-13a9a343dbed")
+        @objid ("007626be-9147-4a15-86a6-9b49ac0bb20e")
         public static SmDependency OwnerContainerDep() {
             if (OwnerContainerDep == null) {
             	OwnerContainerDep = classof().getDependencyDef("OwnerContainer");
@@ -105,7 +105,7 @@ public class GoalContainerData extends AnalystContainerData {
             return OwnerContainerDep;
         }
 
-        @objid ("a5c073dd-4031-424a-8c13-699669ed09c7")
+        @objid ("bedfb5d1-006b-4283-94d8-dc3fb3b53247")
         public static SmDependency OwnedContainerDep() {
             if (OwnedContainerDep == null) {
             	OwnedContainerDep = classof().getDependencyDef("OwnedContainer");
@@ -113,7 +113,7 @@ public class GoalContainerData extends AnalystContainerData {
             return OwnedContainerDep;
         }
 
-        @objid ("36401a53-a5c9-4bb2-ae6f-71be066c7b70")
+        @objid ("f34260c4-0737-4218-b6c9-514737cd2751")
         public static SmDependency OwnerProjectDep() {
             if (OwnerProjectDep == null) {
             	OwnerProjectDep = classof().getDependencyDef("OwnerProject");
@@ -121,44 +121,44 @@ public class GoalContainerData extends AnalystContainerData {
             return OwnerProjectDep;
         }
 
-        @objid ("23611946-25f1-4e4d-8ee4-9e077cc6187c")
+        @objid ("f6925e2a-e5c7-48a9-aae6-76011cfb0bdc")
         public static SmDependency getOwnedContainerDep() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return OwnedContainerDep;
         }
 
-        @objid ("c2cc4680-16b7-4c27-8750-74156453fdaf")
-        public static SmClass getSmClass() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return smClass;
-        }
-
-        @objid ("1b1f027f-f828-4dde-941a-ef8c479dca46")
-        public static SmDependency getOwnerProjectDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return OwnerProjectDep;
-        }
-
-        @objid ("8e29018c-d9e3-4a29-93a3-6fda2750840a")
-        public static SmDependency getOwnerContainerDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return OwnerContainerDep;
-        }
-
-        @objid ("14c2f5ff-7061-4ea3-8401-fe8bbdafde76")
+        @objid ("62b6fd2c-d75b-4234-894d-d6972fe89281")
         public static SmDependency getOwnedGoalDep() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return OwnedGoalDep;
         }
 
+        @objid ("ccc88c86-4595-40b1-a21f-b5e828366bad")
+        public static SmClass getSmClass() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return smClass;
+        }
+
+        @objid ("c925383e-d024-49b0-b7fb-01f7f2ea8321")
+        public static SmDependency getOwnerProjectDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return OwnerProjectDep;
+        }
+
+        @objid ("2c47f343-b3e2-4289-ba90-1d87c194012e")
+        public static SmDependency getOwnerContainerDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return OwnerContainerDep;
+        }
+
         @objid ("82c1966e-dd5d-46c7-8a86-b49b89d360c6")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("8f600ab2-ab55-44d4-b968-19b154eef7fb")
+            @objid ("8b7df7b8-8d5e-4dfe-989c-e3dff4d43956")
             public ISmObjectData createData() {
                 return new GoalContainerData();
             }
 
-            @objid ("58ded4e1-be7b-42c8-958b-f0fb88a32449")
+            @objid ("802f0159-f14d-48b1-b29e-c2040b868538")
             public SmObjectImpl createImpl() {
                 return new GoalContainerImpl();
             }
@@ -167,20 +167,20 @@ public class GoalContainerData extends AnalystContainerData {
 
         @objid ("0d4cd347-046e-4635-bc3c-50fce1f4e17d")
         public static class OwnedGoalSmDependency extends SmMultipleDependency {
-            @objid ("eef160df-1551-4899-a248-c60af1b20e88")
+            @objid ("849c2b2b-7442-4d56-9035-535ebc6bd9fa")
             @Override
             public List<SmObjectImpl> getValueList(ISmObjectData data) {
                 return (((GoalContainerData)data).mOwnedGoal != null)? ((GoalContainerData)data).mOwnedGoal:SmMultipleDependency.EMPTY;
             }
 
-            @objid ("d33df38a-1d61-4f84-9e28-10fbeaca7611")
+            @objid ("7e29f4c1-bc79-4e5c-bd10-2a2032f8f9fa")
             @Override
             protected List<SmObjectImpl> allocateValueList(ISmObjectData data, int initialCapacity) {
                 ((GoalContainerData) data).mOwnedGoal = new ArrayList<>(initialCapacity);
                 return ((GoalContainerData) data).mOwnedGoal;
             }
 
-            @objid ("91a7447f-1fff-450e-8a65-37237703ca3f")
+            @objid ("1a94bbce-d6b7-410d-ba45-e69042e8dc1d")
             @Override
             public SmDependency getSymetric() {
                 return GoalData.Metadata.OwnerContainerDep();
@@ -190,18 +190,18 @@ public class GoalContainerData extends AnalystContainerData {
 
         @objid ("932a9100-f806-4031-a72a-cb0c9e2c06bd")
         public static class OwnerContainerSmDependency extends SmSingleDependency {
-            @objid ("cf775977-5b58-427d-8550-2e78e70e35b3")
+            @objid ("8db94350-8070-48dc-ad6a-a1096de1d3d0")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((GoalContainerData) data).mOwnerContainer;
             }
 
-            @objid ("311ffbc3-c350-4d44-978b-a61350e06c52")
+            @objid ("af4fdfcb-4ee4-4f8c-a350-00a98c72b62e")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((GoalContainerData) data).mOwnerContainer = value;
             }
 
-            @objid ("81a29bf1-dee6-4290-bbaf-ad2c65e349eb")
+            @objid ("7591288d-0d8d-4a33-a67c-101e1202d7cb")
             @Override
             public SmDependency getSymetric() {
                 return GoalContainerData.Metadata.OwnedContainerDep();
@@ -211,20 +211,20 @@ public class GoalContainerData extends AnalystContainerData {
 
         @objid ("c9f9aee3-5b94-40c4-bbf8-b89e6cb27e14")
         public static class OwnedContainerSmDependency extends SmMultipleDependency {
-            @objid ("4fc8f27d-4890-4269-86c9-face5378153a")
+            @objid ("d4c15914-0c43-4c84-8ceb-7fb3c2142e59")
             @Override
             public List<SmObjectImpl> getValueList(ISmObjectData data) {
                 return (((GoalContainerData)data).mOwnedContainer != null)? ((GoalContainerData)data).mOwnedContainer:SmMultipleDependency.EMPTY;
             }
 
-            @objid ("ec5e0728-1670-4ffc-a67b-9cb4f2bdd2ec")
+            @objid ("22ae2b2f-17c1-4c34-871c-790ef959ce20")
             @Override
             protected List<SmObjectImpl> allocateValueList(ISmObjectData data, int initialCapacity) {
                 ((GoalContainerData) data).mOwnedContainer = new ArrayList<>(initialCapacity);
                 return ((GoalContainerData) data).mOwnedContainer;
             }
 
-            @objid ("a8c6f797-3fed-45df-a624-1649e6b2fd24")
+            @objid ("b0da062b-6837-4d0e-a8ee-c8b25030bed4")
             @Override
             public SmDependency getSymetric() {
                 return GoalContainerData.Metadata.OwnerContainerDep();
@@ -234,18 +234,18 @@ public class GoalContainerData extends AnalystContainerData {
 
         @objid ("e868d39d-9d8b-427a-8309-1b428f86fc4f")
         public static class OwnerProjectSmDependency extends SmSingleDependency {
-            @objid ("2b89a4cd-991b-4f67-851d-39e9d9b74f88")
+            @objid ("a3971e03-9cd2-40c2-b6d9-1dd14985cde2")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((GoalContainerData) data).mOwnerProject;
             }
 
-            @objid ("43f5786b-ff22-4d73-8d3f-57a635810cc6")
+            @objid ("c358b8a1-79b0-49a1-bc1e-6d38bd6a6a59")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((GoalContainerData) data).mOwnerProject = value;
             }
 
-            @objid ("5fdaf2f8-706f-4003-aba0-6b36bc55eff2")
+            @objid ("e4862fd7-52d4-4ded-af1e-c0b85aac548b")
             @Override
             public SmDependency getSymetric() {
                 return AnalystProjectData.Metadata.GoalRootDep();

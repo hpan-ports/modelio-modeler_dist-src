@@ -27,16 +27,20 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Objects;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.modelio.gproject.descriptor.DefinitionScope;
-import org.modelio.gproject.descriptor.FragmentDescriptor;
-import org.modelio.gproject.descriptor.GAuthConf;
-import org.modelio.gproject.descriptor.GProperties;
-import org.modelio.gproject.descriptor.VersionDescriptors;
+import org.modelio.gproject.data.project.DefinitionScope;
+import org.modelio.gproject.data.project.FragmentDescriptor;
+import org.modelio.gproject.data.project.GAuthConf;
+import org.modelio.gproject.data.project.GProperties;
+import org.modelio.gproject.data.project.VersionDescriptors;
+import org.modelio.gproject.gproject.FragmentConflictException;
 import org.modelio.gproject.gproject.GProject;
 import org.modelio.gproject.gproject.GProjectEvent;
+import org.modelio.gproject.gproject.GProjectEventType;
 import org.modelio.gproject.plugin.CoreProject;
+import org.modelio.metamodel.Metamodel;
 import org.modelio.vbasic.auth.IAuthData;
 import org.modelio.vbasic.files.FileUtils;
+import org.modelio.vbasic.net.UriAuthenticationException;
 import org.modelio.vbasic.progress.IModelioProgress;
 import org.modelio.vbasic.progress.SubProgress;
 import org.modelio.vcore.session.api.IAccessManager;
@@ -263,12 +267,12 @@ public abstract class AbstractFragment implements IProjectFragment {
             SubProgress mon = SubProgress.convert(aMonitor, 100);
             IRepository repository = doMountInitRepository(mon);
             
+            checkMmVersion();
+            
             mon.setWorkRemaining(100);
             repository.getErrorSupport().addErrorListener(getRepositoryErrorSupport());
             IAccessManager accessManager = doInitAccessManager();
             aProject.getSession().getRepositorySupport().connectRepository(repository, getId(), accessManager, mon);
-            
-            checkMmVersion();
             
             mon.setWorkRemaining(100);
             doMountPostConnect(mon);
@@ -276,7 +280,9 @@ public abstract class AbstractFragment implements IProjectFragment {
             setState(FragmentState.UP_FULL);
         } catch (RuntimeException e) {
             setDown(e);
-        } catch (IOException e) {
+        } catch (UriAuthenticationException e) {
+            setDown(new FragmentAuthenticationException(FileUtils.getLocalizedMessage(e), e));
+        } catch (IOException | FragmentMigrationNeededException | FragmentAuthenticationException e) {
             setDown(e);
         } finally {
             if (this.state == FragmentState.MOUNTING)
@@ -314,11 +320,26 @@ public abstract class AbstractFragment implements IProjectFragment {
     @Override
     public void reconfigure(FragmentDescriptor fd, IModelioProgress aMonitor) {
         if (! Objects.equals(getUri(), fd.getUri())) {
+            // URI changed : forget this fragment and register a new one
             getProject().unregisterFragment(this);
             
             IProjectFragment fragment = Fragments.getFactory(fd).instantiate(fd);
-            getProject().registerFragment(fragment, aMonitor);
+            try {
+                getProject().registerFragment(fragment, aMonitor);
+            } catch (FragmentConflictException e) {
+                // Report error
+                getProject().getMonitorSupport().fireMonitors(GProjectEvent.buildWarning(fragment, e));
+        
+                // try to rollback
+                try {
+                    getProject().registerFragment(this, aMonitor);
+                } catch (FragmentConflictException e1) {
+                    e1.addSuppressed(e);
+                    setDown(e1);
+                }
+            }
         } else {
+            // Same URI : unmount, update properties and remount
             unmount();
             
             this.definitionScope = fd.getScope();
@@ -410,16 +431,17 @@ public abstract class AbstractFragment implements IProjectFragment {
      * <p>
      * The implementation must <b>not</b> call <code>done()</code> on the given monitor and must leave
      * a non negligible part of the progress unconsumed.
-     * @param aMonitor the progress monitor to use for reporting progress to the user.
+     * @param aMonitor the progress monitor to use for reporting progress to the user.<p>
      * The implementation must <b>not</b> call <code>done()</code> the given monitor and must leave
-     * a non negligible part of the progress unconsumed.
-     * Accepts <code>null</code>, indicating that no progress should be
+     * a non negligible part of the progress unconsumed.<p>
+     * Accepts <i>null</i>, indicating that no progress should be
      * reported and that the operation cannot be cancelled.
      * @return the instantiated repository.
      * @throws java.io.IOException in case of failure.
+     * @throws org.modelio.gproject.fragment.FragmentAuthenticationException in case of authentication failure
      */
     @objid ("8ed62b3e-07f4-11e2-b193-001ec947ccaf")
-    protected abstract IRepository doMountInitRepository(IModelioProgress aMonitor) throws IOException;
+    protected abstract IRepository doMountInitRepository(IModelioProgress aMonitor) throws IOException, FragmentAuthenticationException;
 
     /**
      * @return the fragment authentication data.
@@ -443,14 +465,25 @@ public abstract class AbstractFragment implements IProjectFragment {
     /**
      * Set the fragment in "down" state, with the cause.
      * <p>
-     * Fires a GProjectEvent.
+     * Fires a {@link GProjectEventType#FRAGMENT_DOWN FRAGMENT_DOWN} {@link GProjectEvent event}.
      * @param error the cause of down state
      */
     @objid ("6a734221-d66d-11e1-9f03-001ec947ccaf")
-    protected final void setDown(Throwable error) {
+    @Override
+    public final void setDown(Throwable error) {
+        assert (error != null);
+        
         if (this.downError != null) {
-            // Concatenate errors
-            this.downError.addSuppressed(error);
+            // Ignore if same error (pb: most exceptions don't implement equals)
+            if (!this.downError.equals(error) && !this.downError.getMessage().equals(error.getMessage())) {
+                // The new error suppresses the old
+                error.addSuppressed(this.downError);
+                this.downError = error;
+                
+                // notifies the error change
+                if (getProject() != null)
+                    getProject().getMonitorSupport().fireMonitors(GProjectEvent.FragmentDownEvent(this));
+            }
         } else {
             this.downError = error;
             
@@ -474,27 +507,50 @@ public abstract class AbstractFragment implements IProjectFragment {
     }
 
     /**
-     * Get the fragment metamodel versions.
-     * @return the fragment metamodel versions.
-     * @throws java.io.IOException in case of I/O failure reading the version
+     * Check the metamodel version against Modelio metamodel version.
+     * <p>
+     * Returns normally if the fragment may be directly open else throws an exception.
+     * @throws java.io.IOException if the metamodel version does not allow the fragment to be open.
+     * @throws org.modelio.gproject.fragment.FragmentMigrationNeededException if the fragment needs to be migrated before opening.
      */
-    @objid ("de579a41-ffb4-48f7-9ef6-592270f353d7")
-    public abstract VersionDescriptors getMetamodelVersion() throws IOException;
-
     @objid ("86471d8d-0b51-4f7c-b692-423a07a2286f")
-    protected void checkMmVersion() throws IOException {
+    protected void checkMmVersion() throws IOException, FragmentMigrationNeededException {
         VersionDescriptors fragmentVersion = getMetamodelVersion();
-        if (! fragmentVersion.isSame(VersionDescriptors.current())) {
-            throw new IOException(CoreProject.getMessage("AbstractFragment.MmVersionNotSupported", getId(), fragmentVersion, VersionDescriptors.current()));
+        VersionDescriptors lastMmVersion = getLastMmVersion();
+        
+        if (! fragmentVersion.isSame(lastMmVersion)) {
+            final int mmVersion = fragmentVersion.getMmVersion();
+            
+            if (mmVersion > lastMmVersion.getMmVersion())
+                throw new IOException(CoreProject.getMessage("AbstractFragment.FutureMmVersion", getId(), fragmentVersion, lastMmVersion));
+            else
+                throw new IOException(CoreProject.getMessage("AbstractFragment.MmVersionNotSupported", getId(), fragmentVersion, lastMmVersion));
+            
         }
     }
 
     /**
+     * Get the last available metamodel version descriptor.
      * @return the last metamodel version.
      */
-    @objid ("292a9f4d-5d85-4cdf-beac-e129cb79b79d")
-    protected VersionDescriptors getLastMmVersion() {
-        return VersionDescriptors.current();
+    @objid ("420b51fd-a248-4d22-8d40-f342f7a3d024")
+    protected static final VersionDescriptors getLastMmVersion() {
+        return VersionDescriptors.current(Integer.valueOf(Metamodel.VERSION));
+    }
+
+    /**
+     * The default implementation does nothing if version is compatible and
+     * fails with the same exception as {@link #checkMmVersion()} in the other case.
+     * @throws org.modelio.gproject.fragment.FragmentAuthenticationException in case of authentication failure
+     */
+    @objid ("954fce26-f09f-4b64-91b1-34f9705187b5")
+    @Override
+    public void migrate(GProject project, IModelioProgress aMonitor) throws IOException, FragmentAuthenticationException {
+        try {
+            checkMmVersion();
+        } catch (FragmentMigrationNeededException e) {
+            throw new IOException(e.getLocalizedMessage(), e);
+        }
     }
 
     /**

@@ -50,6 +50,7 @@ import org.modelio.diagram.editor.statik.elements.communicationinteraction.GmCom
 import org.modelio.diagram.editor.statik.elements.communicationinteraction.GmCommunicationInteractionSimpleStyleKeys;
 import org.modelio.diagram.editor.statik.elements.communicationinteraction.GmCommunicationInteractionStructuredStyleKeys;
 import org.modelio.diagram.editor.statik.elements.component.ComponentStructuredStyleKeys;
+import org.modelio.diagram.editor.statik.elements.componentRealization.GmComponentRealization;
 import org.modelio.diagram.editor.statik.elements.connector.ConnectorLinkStructuredStyleKeys;
 import org.modelio.diagram.editor.statik.elements.datatype.DataTypeStructuredStyleKeys;
 import org.modelio.diagram.editor.statik.elements.elementimport.GmElementImportStructuredStyleKeys;
@@ -80,6 +81,7 @@ import org.modelio.diagram.editor.statik.elements.statemachine.GmStateMachineSim
 import org.modelio.diagram.editor.statik.elements.statemachine.GmStateMachineStructuredStyleKeys;
 import org.modelio.diagram.editor.statik.elements.staticdiagram.GmStaticDiagramStyleKeys;
 import org.modelio.diagram.editor.statik.elements.staticdiagramview.StaticDiagramViewStructuredStyleKeys;
+import org.modelio.diagram.editor.statik.elements.substitution.GmSubstitution;
 import org.modelio.diagram.editor.statik.elements.templatebinding.TemplateBindingStructuredStyleKeys;
 import org.modelio.diagram.elements.editpartFactory.ModelioEditPartFactory;
 import org.modelio.diagram.elements.gmfactory.GmLinkFactory;
@@ -175,6 +177,9 @@ public class StaticProcessor {
         factory.declareProvider(ComponentStructuredStyleKeys.Inner.class);
         factory.declareProvider(ComponentStructuredStyleKeys.InternalStructure.class);
         
+        // Component realization
+        factory.declareProvider(GmComponentRealization.styleKeyProvider);
+        
         // Connector
         factory.declareProvider(ConnectorLinkStructuredStyleKeys.class);
         factory.declareProvider(ConnectorLinkStructuredStyleKeys.InfoFlows.class);
@@ -265,6 +270,9 @@ public class StaticProcessor {
         factory.declareProvider(GmSignalStructuredStyleKeys.Inner.class);
         factory.declareProvider(GmSignalStructuredStyleKeys.InternalStructure.class);
         
+        // Substitution
+        factory.declareProvider(GmSubstitution.styleKeyProvider);
+        
         // Template binding
         factory.declareProvider(TemplateBindingStructuredStyleKeys.class);
         
@@ -302,9 +310,10 @@ public class StaticProcessor {
     @objid ("6584e5cc-5bd5-11e2-9e33-00137282c51b")
     private void declareFactorySettings() {
         // Load the default values. Do it only here, after key providers registration.
-        StyleLoader loader = new StyleLoader();
         BundleContext bundle = DiagramEditorStatik.getContext();
         URL url = FileLocator.find(bundle.getBundle(), new Path("res/factory.settings"), null);
+        
+        StyleLoader loader = new StyleLoader();
         loader.load(url);
         FactoryStyle.getInstance().injectDefaultValues(loader.getStyleProperties());
     }

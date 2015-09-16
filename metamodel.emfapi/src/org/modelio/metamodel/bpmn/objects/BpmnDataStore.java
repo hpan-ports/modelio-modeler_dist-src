@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.bpmn.objects;
 
@@ -30,16 +30,16 @@ import org.eclipse.emf.ecore.EObject;
 
 @objid ("0003e1c0-c4c0-1fd8-97fe-001ec947cd2a")
 public interface BpmnDataStore extends BpmnItemAwareElement {
-    @objid ("dd7906b2-9813-4e19-bae6-e9689fd6d85e")
+    @objid ("6c8b9556-5726-4af8-b859-47bc8598c34f")
     int getCapacity();
 
-    @objid ("fb4bc4a3-d56d-4791-8b1e-3f55c987ffb7")
+    @objid ("6124ac20-ba3c-40cb-a73c-2b2f880386eb")
     void setCapacity(int value);
 
-    @objid ("dd67eb73-90e5-4efd-90ec-077455f49a22")
+    @objid ("ffd6c1ef-f9b3-49f5-9dfa-bd21eb45a87b")
     boolean isIsUnlimited();
 
-    @objid ("cd94ca3f-05da-41f4-a460-8a9c9bd1d19f")
+    @objid ("81cb2c25-edb9-4c98-9774-67a986a181d1")
     void setIsUnlimited(boolean value);
 
 }

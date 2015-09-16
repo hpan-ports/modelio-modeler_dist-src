@@ -29,11 +29,12 @@ import org.modelio.metamodel.uml.statik.Classifier;
 import org.modelio.xmi.util.GenerationProperties;
 
 @objid ("4e2ee150-e354-46d9-a987-262224174476")
-public class OSubstitution extends OModelElement implements IOElement {
+public class OSubstitution extends OModelElement {
     @objid ("c7e4aade-efc8-4f19-bbe2-8a27b4391c64")
     private Substitution objingElement;
 
     @objid ("4f33c20e-8df8-4b0b-b851-aa8274559513")
+    @Override
     public org.eclipse.uml2.uml.Element createEcoreElt() {
         return UMLFactory.eINSTANCE.createSubstitution();
     }
@@ -41,16 +42,17 @@ public class OSubstitution extends OModelElement implements IOElement {
     @objid ("645093ff-1a29-48d8-be34-6869b8bc1da7")
     public OSubstitution(Substitution param) {
         super(param);
-        objingElement = param;
+        this.objingElement = param;
     }
 
     @objid ("828719dc-b4f1-40ef-9083-bd942457190d")
+    @Override
     public void attach(org.eclipse.uml2.uml.Element ecoreElt) {
         GenerationProperties genProp = GenerationProperties.getInstance();
                 
-        Classifier objingSubstituting = objingElement
+        Classifier objingSubstituting = this.objingElement
                 .getSubstitutingClassifier();
-        Classifier objingContract = objingElement.getContract();
+        Classifier objingContract = this.objingElement.getContract();
                 
         if (objingSubstituting != null && objingContract != null) {
             // Gets or creates the ecore "substituting" element:
@@ -74,6 +76,7 @@ public class OSubstitution extends OModelElement implements IOElement {
     }
 
     @objid ("a949dce9-8a87-4b3b-bff3-056ad7ef0d1e")
+    @Override
     public void setProperties(org.eclipse.uml2.uml.Element ecoreElt) {
         super.setProperties(ecoreElt);
     }

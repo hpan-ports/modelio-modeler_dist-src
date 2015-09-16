@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.bpmn.events;
 
@@ -41,21 +41,21 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("008edbae-c4bf-1fd8-97fe-001ec947cd2a")
 public class BpmnIntermediateCatchEventImpl extends BpmnCatchEventImpl implements BpmnIntermediateCatchEvent {
-    @objid ("5c25584c-2459-4157-9ced-c1830e934665")
+    @objid ("12f97c41-67fb-4bf4-8c00-79e06abc338c")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("76630afc-e7fb-471d-ae42-2590891730ae")
+    @objid ("ad6c27b1-475e-4997-be4d-9068de767232")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("484f2ce7-1bfb-4ea6-bf37-661d177bd78e")
+    @objid ("54ccaddc-1a19-4e5a-88ce-599a91ae02a0")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitBpmnIntermediateCatchEvent(this);

@@ -27,6 +27,7 @@ import java.util.List;
 import javax.script.ScriptEngine;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.swt.graphics.Image;
+import org.modelio.api.diagram.ContributorCategory;
 import org.modelio.api.diagram.IDiagramCustomizer;
 import org.modelio.api.diagram.tools.IAttachedBoxCommand;
 import org.modelio.api.diagram.tools.IBoxCommand;
@@ -44,10 +45,12 @@ import org.modelio.api.module.IPeerModule;
 import org.modelio.api.module.LicenseInfos;
 import org.modelio.api.module.commands.ActionLocation;
 import org.modelio.api.module.commands.IModuleAction;
+import org.modelio.api.module.contrib.WizardContribution;
 import org.modelio.api.module.diagrams.DiagramCustomizationDescriptor;
 import org.modelio.api.module.diagrams.DiagramToolDescriptor;
 import org.modelio.api.module.paramEdition.DefaultParametersEditionModel;
 import org.modelio.api.module.propertiesPage.IModulePropertyPage;
+import org.modelio.api.ui.diagramcreation.IDiagramWizardContributor;
 import org.modelio.gproject.ramc.core.model.IModelComponent;
 import org.modelio.gproject.ramc.core.packaging.IModelComponentContributor;
 import org.modelio.metamodel.diagrams.AbstractDiagram;
@@ -89,8 +92,9 @@ public class BrokenModule implements IModule {
     /**
      * Instantiate a fake module.
      * the module configuration
-     * @param module the module model element.
      * @param modelingSession a modeling session.
+     * @param moduleName the module name
+     * @param moduleVersion the module version
      * @param moduleUserConfiguration the user version of the module configuration
      * @param moduleApiConfiguration the api version of the module configuration
      */
@@ -106,7 +110,7 @@ public class BrokenModule implements IModule {
     /**
      * Get the configuration associated to this module.
      * 
-     * Module configuration provide access to module parameter and resource paths
+     * Jxbv2Module configuration provide access to module parameter and resource paths
      * @see IModuleUserConfiguration
      * @return the module configuration.
      */
@@ -269,7 +273,7 @@ public class BrokenModule implements IModule {
     }
 
     /**
-     * Returns the minimum Modelio version that authorize the Module to be activated.
+     * Returns the minimum Modelio version that authorize the Jxbv2Module to be activated.
      * @return The minimum Modelio version
      */
     @objid ("8d7e5531-2f2d-11e2-8f16-002564c97630")
@@ -482,6 +486,24 @@ public class BrokenModule implements IModule {
     @Override
     public <I> I instanciateExternProcessor(String className, Class<I> clazz, Object... initargs) {
         return null;
+    }
+
+    @objid ("e1f84c7a-f9cc-408e-90a8-c3d6dafa1615")
+    @Override
+    public List<WizardContribution> getDiagramWizardContributions() {
+        return Collections.emptyList();
+    }
+
+    @objid ("5c5026e7-eb82-4da1-b2c7-c02d0eafa0da")
+    @Override
+    public void registerDiagramWizardContribution(ContributorCategory category, IDiagramWizardContributor contributor) {
+        // Nothing to do
+    }
+
+    @objid ("60192a53-93ae-4d38-8df9-708fe7510b81")
+    @Override
+    public void unregisterDiagramWizardContribution(ContributorCategory category, IDiagramWizardContributor contributor) {
+        // Nothing to do
     }
 
 }

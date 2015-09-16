@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.uml.infrastructure.properties;
 
@@ -151,67 +151,67 @@ public class PropertyTableImpl extends ElementImpl implements PropertyTable {
         return props;
     }
 
-    @objid ("519bd90c-3ad7-4b59-9c9a-e95d8117fa3e")
+    @objid ("c99fcdee-a870-4ede-a92b-fd47f10a3317")
     @Override
     public String getName() {
         return (String) getAttVal(PropertyTableData.Metadata.nameAtt());
     }
 
-    @objid ("a866ae32-cb62-4d97-913f-ab278de87a26")
+    @objid ("93334949-6fe7-4078-acf3-648b1f340a3a")
     @Override
     public void setName(String value) {
         setAttVal(PropertyTableData.Metadata.nameAtt(), value);
     }
 
-    @objid ("74a08c48-c14a-4426-b52b-d5412eef3223")
+    @objid ("b2bf6048-f8c1-473f-b40d-51802be78ebb")
     @Override
     public String getContent() {
         return (String) getAttVal(PropertyTableData.Metadata.contentAtt());
     }
 
-    @objid ("e0c12f31-d3f5-4ab5-bba0-c468b7f6f8a0")
+    @objid ("ea0745a2-03f5-4fd6-a33b-70d0fa46f7de")
     @Override
     public void setContent(String value) {
         setAttVal(PropertyTableData.Metadata.contentAtt(), value);
     }
 
-    @objid ("66727dd9-6d86-4d3a-b24d-e235a2056540")
+    @objid ("721bb7a0-b7a1-46dd-9c0c-8894b68df610")
     @Override
     public ModelElement getOwner() {
         return (ModelElement) getDepVal(PropertyTableData.Metadata.OwnerDep());
     }
 
-    @objid ("839a38a5-7358-4423-9336-6f82eddb08a0")
+    @objid ("fe7ce0c1-90fc-492b-b6d8-96e1c764c02d")
     @Override
     public void setOwner(ModelElement value) {
         appendDepVal(PropertyTableData.Metadata.OwnerDep(), (SmObjectImpl)value);
     }
 
-    @objid ("89895273-4888-4b55-a960-fbdda5660ccb")
+    @objid ("3a38ac79-3c31-454f-942e-79468dd5539f")
     @Override
     public MatrixValueDefinition getOwnerValDef() {
         return (MatrixValueDefinition) getDepVal(PropertyTableData.Metadata.OwnerValDefDep());
     }
 
-    @objid ("65003711-adb0-405e-a94b-c6775bf635e9")
+    @objid ("e4c73d3f-02b5-4d81-b27b-911c1c00c17e")
     @Override
     public void setOwnerValDef(MatrixValueDefinition value) {
         appendDepVal(PropertyTableData.Metadata.OwnerValDefDep(), (SmObjectImpl)value);
     }
 
-    @objid ("20f240a5-0d53-45aa-9dc1-0bcaec682559")
+    @objid ("2717292e-7ae9-4a3a-baed-96e07d6d2fc9")
     @Override
     public QueryDefinition getOwnerQuery() {
         return (QueryDefinition) getDepVal(PropertyTableData.Metadata.OwnerQueryDep());
     }
 
-    @objid ("990e9fe1-7520-47fe-adce-3f417ec8806c")
+    @objid ("1226eb50-a97a-414e-93b8-abc53774a6d0")
     @Override
     public void setOwnerQuery(QueryDefinition value) {
         appendDepVal(PropertyTableData.Metadata.OwnerQueryDep(), (SmObjectImpl)value);
     }
 
-    @objid ("be1473f7-ce55-4e76-9e05-37a87a6ee162")
+    @objid ("752272f1-52b6-4af9-8106-00c320c438cf")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
@@ -227,7 +227,7 @@ public class PropertyTableImpl extends ElementImpl implements PropertyTable {
         return super.getCompositionOwner();
     }
 
-    @objid ("6987c443-4487-489e-ab51-5381b871c3b4")
+    @objid ("267a1881-a751-4999-820a-ede01d532187")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
@@ -243,7 +243,7 @@ public class PropertyTableImpl extends ElementImpl implements PropertyTable {
         return super.getCompositionRelation();
     }
 
-    @objid ("462fd0a0-f321-4624-b1bb-24962fc3f768")
+    @objid ("4fe5ee33-bed7-4fc1-a1d2-884cc4e522d5")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitPropertyTable(this);

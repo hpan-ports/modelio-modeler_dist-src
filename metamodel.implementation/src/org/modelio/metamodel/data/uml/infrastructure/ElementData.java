@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.data.uml.infrastructure;
 
@@ -48,43 +48,43 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("0086e58e-c4be-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=Element.class, factory=ElementData.Metadata.ObjectFactory.class)
 public abstract class ElementData extends SmObjectData {
-    @objid ("1ef15666-a5d4-44c7-b13b-1cb0d83afb1b")
+    @objid ("1b977936-2e67-477b-a576-7eb35c34db33")
     @SmaMetaAssociation(metaName="DiagramElement", typeDataClass=AbstractDiagramData.class, min=0, max=-1, smAssociationClass=Metadata.DiagramElementSmDependency.class)
      List<SmObjectImpl> mDiagramElement = null;
 
-    @objid ("41cc57ef-4cfc-43b8-a7cf-8d97f25f07a5")
+    @objid ("0090c9d0-7ff0-4bed-83b9-8848f1a45b1b")
     @SmaMetaAssociation(metaName="Causing", typeDataClass=NamespaceUseData.class, min=0, max=-1, smAssociationClass=Metadata.CausingSmDependency.class)
      List<SmObjectImpl> mCausing = null;
 
-    @objid ("5ef8b80f-ce3c-4ce2-afa1-9cab5294570c")
+    @objid ("ae996f35-4b82-42d0-86f6-931cf8d46258")
     @SmaMetaAssociation(metaName="AddedToQuery", typeDataClass=QueryDefinitionData.class, min=0, max=-1, smAssociationClass=Metadata.AddedToQuerySmDependency.class, performanceRisk = true)
      List<SmObjectImpl> mAddedToQuery = null;
 
-    @objid ("f961003d-dcd2-4be7-aa90-1f03896b7f5a")
+    @objid ("dd57e72b-451d-442c-bd54-b57b01c799b5")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("000669ae-c4c5-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("fbea465e-b822-4f75-870a-bcdf01dd387c")
+        @objid ("43309da2-487a-4e68-83e3-d1842b8f8919")
         private static SmClass smClass = null;
 
-        @objid ("bf00329f-2b91-47ef-a220-4fd530038a8e")
+        @objid ("1486ed05-81d2-431e-bc9f-6f6b45479609")
         private static SmDependency DiagramElementDep = null;
 
-        @objid ("57482615-6938-4a28-9b1b-b2e9da44785d")
+        @objid ("f9b7b596-db6a-4f21-9040-a89ce024b99c")
         private static SmDependency CausingDep = null;
 
-        @objid ("c63d6969-8746-457b-a6bd-f8818d71f8ca")
+        @objid ("86988070-62c4-48ed-b033-ba61c6e51884")
         private static SmDependency AddedToQueryDep = null;
 
-        @objid ("8361c90a-1f2d-46b7-9443-544f92a435dc")
+        @objid ("dac5a744-ba7d-4a12-9df2-f7adcb0bde78")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(ElementData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("4086f0dd-ee10-47b0-978f-313686eecb14")
+        @objid ("e7ab561e-9efe-4e64-b6f2-7454acdea1fa")
         public static SmDependency DiagramElementDep() {
             if (DiagramElementDep == null) {
             	DiagramElementDep = classof().getDependencyDef("DiagramElement");
@@ -92,7 +92,7 @@ public abstract class ElementData extends SmObjectData {
             return DiagramElementDep;
         }
 
-        @objid ("7d180184-5d29-41e3-93f6-378942bdc22e")
+        @objid ("01d9f423-88c4-4507-ad4b-891002088369")
         public static SmDependency CausingDep() {
             if (CausingDep == null) {
             	CausingDep = classof().getDependencyDef("Causing");
@@ -100,7 +100,7 @@ public abstract class ElementData extends SmObjectData {
             return CausingDep;
         }
 
-        @objid ("1262e881-f766-453e-9e11-817d333ca7d8")
+        @objid ("ea906369-93c5-4fb3-8b04-ff118f6e2829")
         public static SmDependency AddedToQueryDep() {
             if (AddedToQueryDep == null) {
             	AddedToQueryDep = classof().getDependencyDef("AddedToQuery");
@@ -108,38 +108,38 @@ public abstract class ElementData extends SmObjectData {
             return AddedToQueryDep;
         }
 
-        @objid ("a6f6a443-7c31-41d0-9729-610f1bf3b36e")
-        public static SmDependency getAddedToQueryDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return AddedToQueryDep;
-        }
-
-        @objid ("c4d8eeb5-655c-494f-9883-b801a1a77ea4")
-        public static SmClass getSmClass() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return smClass;
-        }
-
-        @objid ("39f716b6-c8d1-42b1-b70d-69a3d9d2c8f7")
-        public static SmDependency getCausingDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return CausingDep;
-        }
-
-        @objid ("d39b28c5-64d7-4632-a677-1422a36552b6")
+        @objid ("ab3a9f5e-32b5-4eb4-8c26-9cc9e03caf10")
         public static SmDependency getDiagramElementDep() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return DiagramElementDep;
         }
 
+        @objid ("8e27376b-eca8-4e86-a1d6-d58e597eb763")
+        public static SmClass getSmClass() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return smClass;
+        }
+
+        @objid ("6c3db29d-d747-4c7d-b941-943f9a16a677")
+        public static SmDependency getAddedToQueryDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return AddedToQueryDep;
+        }
+
+        @objid ("7dec66bd-efb7-476c-8aaf-0d22259edc03")
+        public static SmDependency getCausingDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return CausingDep;
+        }
+
         @objid ("0006aa22-c4c5-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("576345fc-16c4-4b8f-9d0e-7a28c149f9f2")
+            @objid ("3ac40d86-00f4-49c9-92e7-73ec1dd97d10")
             public ISmObjectData createData() {
                 throw new UnsupportedOperationException();
             }
 
-            @objid ("8513b9ca-6924-40c7-9a22-69672ba0675c")
+            @objid ("af36561d-86a4-4ea8-af27-45c3c75b8d7d")
             public SmObjectImpl createImpl() {
                 throw new UnsupportedOperationException();
             }
@@ -148,20 +148,20 @@ public abstract class ElementData extends SmObjectData {
 
         @objid ("00070c6a-c4c5-1fd8-97fe-001ec947cd2a")
         public static class CausingSmDependency extends SmMultipleDependency {
-            @objid ("00ebebea-7168-488d-bae3-bed759e9bbcb")
+            @objid ("b905d65e-b1f3-4e5a-8444-6e3e8d81dc57")
             @Override
             public List<SmObjectImpl> getValueList(ISmObjectData data) {
                 return (((ElementData)data).mCausing != null)? ((ElementData)data).mCausing:SmMultipleDependency.EMPTY;
             }
 
-            @objid ("3bbb4769-04c5-46d1-84a8-5e4bbc610b65")
+            @objid ("67f10912-c583-461c-bc6d-9610e90c13b5")
             @Override
             protected List<SmObjectImpl> allocateValueList(ISmObjectData data, int initialCapacity) {
                 ((ElementData) data).mCausing = new ArrayList<>(initialCapacity);
                 return ((ElementData) data).mCausing;
             }
 
-            @objid ("3a169c6a-dfb7-42e3-b5ec-da4e3586f306")
+            @objid ("db13ed98-06e6-4f44-9d0a-a446eeb73202")
             @Override
             public SmDependency getSymetric() {
                 return NamespaceUseData.Metadata.CauseDep();
@@ -171,20 +171,20 @@ public abstract class ElementData extends SmObjectData {
 
         @objid ("00077042-c4c5-1fd8-97fe-001ec947cd2a")
         public static class DiagramElementSmDependency extends SmMultipleDependency {
-            @objid ("e52edaf9-6a70-49ea-ab9b-b918abdcb708")
+            @objid ("3a422a65-d811-46a5-a699-00daafb9ec99")
             @Override
             public List<SmObjectImpl> getValueList(ISmObjectData data) {
                 return (((ElementData)data).mDiagramElement != null)? ((ElementData)data).mDiagramElement:SmMultipleDependency.EMPTY;
             }
 
-            @objid ("fdfaa77c-66b4-4b15-9efa-2a54764f927c")
+            @objid ("0ab186cd-2c28-4bab-8047-baff2c833868")
             @Override
             protected List<SmObjectImpl> allocateValueList(ISmObjectData data, int initialCapacity) {
                 ((ElementData) data).mDiagramElement = new ArrayList<>(initialCapacity);
                 return ((ElementData) data).mDiagramElement;
             }
 
-            @objid ("3451e21e-c996-46d8-a687-67e24aa00eb3")
+            @objid ("7b5ba945-fb90-4640-aae3-540e4b3fc299")
             @Override
             public SmDependency getSymetric() {
                 return AbstractDiagramData.Metadata.RepresentedDep();
@@ -194,20 +194,20 @@ public abstract class ElementData extends SmObjectData {
 
         @objid ("ca85f4fa-79d9-4bab-bdf8-d9bac22bc9a7")
         public static class AddedToQuerySmDependency extends SmMultipleDependency {
-            @objid ("d14870af-0151-4582-83b3-3371d03795fa")
+            @objid ("feb31839-514d-4eb1-9925-687e37cbe532")
             @Override
             public List<SmObjectImpl> getValueList(ISmObjectData data) {
                 return (((ElementData)data).mAddedToQuery != null)? ((ElementData)data).mAddedToQuery:SmMultipleDependency.EMPTY;
             }
 
-            @objid ("762eab4f-26ee-4734-9dd8-0973751d3294")
+            @objid ("ae835697-2709-4662-bee1-c8f602a34a11")
             @Override
             protected List<SmObjectImpl> allocateValueList(ISmObjectData data, int initialCapacity) {
                 ((ElementData) data).mAddedToQuery = new ArrayList<>(initialCapacity);
                 return ((ElementData) data).mAddedToQuery;
             }
 
-            @objid ("7a57e02d-7db7-4b76-8245-1961652a6d91")
+            @objid ("23b9a622-9fd7-4d71-a135-eb7e48905996")
             @Override
             public SmDependency getSymetric() {
                 return QueryDefinitionData.Metadata.AddedDep();

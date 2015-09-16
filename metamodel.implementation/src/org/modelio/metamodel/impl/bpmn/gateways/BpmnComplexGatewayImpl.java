@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.bpmn.gateways;
 
@@ -42,45 +42,45 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("00976e68-c4bf-1fd8-97fe-001ec947cd2a")
 public class BpmnComplexGatewayImpl extends BpmnGatewayImpl implements BpmnComplexGateway {
-    @objid ("e3016df2-828d-4bb3-9e00-111919441794")
+    @objid ("8cf8418f-7df5-46e5-ad38-b7111f804870")
     @Override
     public String getActivationExpression() {
         return (String) getAttVal(BpmnComplexGatewayData.Metadata.ActivationExpressionAtt());
     }
 
-    @objid ("5cca9984-6366-4692-8d97-ccba55c96859")
+    @objid ("c4a0ef63-fb5e-41c5-a7e8-1490d3090804")
     @Override
     public void setActivationExpression(String value) {
         setAttVal(BpmnComplexGatewayData.Metadata.ActivationExpressionAtt(), value);
     }
 
-    @objid ("51b6fb9a-76dc-46c3-9ab7-e36c7d304fc8")
+    @objid ("1951d8f7-6e7e-4bc8-8cd0-75db1f49e444")
     @Override
     public BpmnSequenceFlow getDefaultFlow() {
         return (BpmnSequenceFlow) getDepVal(BpmnComplexGatewayData.Metadata.DefaultFlowDep());
     }
 
-    @objid ("b747f845-ae61-4049-9998-93931e72c722")
+    @objid ("336bb0ee-7078-424d-a0fa-e6894128a680")
     @Override
     public void setDefaultFlow(BpmnSequenceFlow value) {
         appendDepVal(BpmnComplexGatewayData.Metadata.DefaultFlowDep(), (SmObjectImpl)value);
     }
 
-    @objid ("da6f7546-8087-4110-bd05-9c2da4c39211")
+    @objid ("94818768-e1d9-40e8-b63f-4dad6958f37b")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("920843d6-39ee-4727-a616-aa56f8f92dce")
+    @objid ("1f59f091-ddba-46f0-8140-4fa0fe6ccb6c")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("5d545dc6-c97b-4838-9a19-7659d8c67e8c")
+    @objid ("c978dbe6-a3c3-4e43-9a66-ce25827ecfa1")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitBpmnComplexGateway(this);

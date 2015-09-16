@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.uml.statik;
 
@@ -35,22 +35,22 @@ import org.modelio.metamodel.uml.statik.Link;
 
 @objid ("28f7c9fd-bee9-46f0-8969-5c46572cec86")
 public interface Association extends ModelElement {
-    @objid ("9ffc308c-273a-45ce-8fe6-4ccab66938e1")
+    @objid ("a21832fa-415d-45ae-9997-578bd62e4ca4")
     EList<Link> getOccurence();
 
-    @objid ("38a58d70-df94-43e6-96dc-fba351aae23c")
+    @objid ("d044b040-f3d3-4f95-beb7-02fb5225a0ac")
     <T extends Link> List<T> getOccurence(java.lang.Class<T> filterClass);
 
-    @objid ("9bc40667-1d39-49b4-9bc8-5c5ac516c635")
+    @objid ("546670d1-4f46-445c-a56a-d5908913ce56")
     EList<AssociationEnd> getEnd();
 
-    @objid ("44ffd75b-c8c6-49a8-913e-f0ac04a1a8c4")
+    @objid ("33e5847b-2866-4203-9f74-e1e63b0a65bc")
     <T extends AssociationEnd> List<T> getEnd(java.lang.Class<T> filterClass);
 
-    @objid ("f2770500-ff67-4e2a-b8f9-b312a10370b7")
+    @objid ("f177ff29-a9b6-41ee-ba03-af44bf4641c5")
     ClassAssociation getLinkToClass();
 
-    @objid ("dcfbcdaf-6e7b-4986-9b88-e1d07eea405d")
+    @objid ("ab97b3d9-673b-478e-9d6d-a921f10e262d")
     void setLinkToClass(ClassAssociation value);
 
 }

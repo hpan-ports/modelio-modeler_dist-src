@@ -28,7 +28,7 @@ import org.modelio.metamodel.uml.statik.CollaborationUse;
 import org.modelio.xmi.util.GenerationProperties;
 
 @objid ("f00c449e-99cd-417e-afa7-298a41b16ba2")
-public class OCollaborationUse extends OModelElement implements IOElement {
+public class OCollaborationUse extends OModelElement {
     @objid ("3f21b35a-1943-4e5f-9f07-bd5971d1e4c9")
      GenerationProperties genProp = GenerationProperties.getInstance();
 
@@ -36,6 +36,7 @@ public class OCollaborationUse extends OModelElement implements IOElement {
     private CollaborationUse objingElt = null;
 
     @objid ("b91c7a38-b497-4c49-8dc7-dae6c36db6b9")
+    @Override
     public org.eclipse.uml2.uml.Element createEcoreElt() {
         return UMLFactory.eINSTANCE.createCollaborationUse();
     }
@@ -43,10 +44,11 @@ public class OCollaborationUse extends OModelElement implements IOElement {
     @objid ("a7eeba05-7a99-4d30-a095-0c9a49f03d9d")
     public OCollaborationUse(CollaborationUse param) {
         super(param);
-        objingElt = param;
+        this.objingElt = param;
     }
 
     @objid ("aa255297-255a-45e4-af29-941b1d611464")
+    @Override
     public void attach(org.eclipse.uml2.uml.Element ecoreElt) {
         org.eclipse.uml2.uml.Element ecoreOwner = this.genProp.getMappedElement(this.objingElt.getCompositionOwner());
                 
@@ -55,6 +57,7 @@ public class OCollaborationUse extends OModelElement implements IOElement {
     }
 
     @objid ("ae60cc0f-7f98-49ac-ac62-0f109028edb6")
+    @Override
     public void setProperties(org.eclipse.uml2.uml.Element ecoreElt) {
         super.setProperties(ecoreElt);
         setType( (org.eclipse.uml2.uml.CollaborationUse)ecoreElt);

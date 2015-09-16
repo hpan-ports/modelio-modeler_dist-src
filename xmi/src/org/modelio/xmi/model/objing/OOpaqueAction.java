@@ -36,69 +36,70 @@ import org.modelio.xmi.util.GenerationProperties;
 import org.modelio.xmi.util.IModelerModuleStereotypes;
 
 @objid ("cd9144df-04f4-412a-8b79-44ecbc476562")
-public class OOpaqueAction extends OActivityNode implements IOElement {
+public class OOpaqueAction extends OActivityNode {
     @objid ("0713de54-6321-4c2a-8c22-58c16718ab9b")
-    private OpaqueAction objingElement;
+    private OpaqueAction objingElement = null;
 
     @objid ("9e40d7df-8233-4c6b-b58f-4417907425fc")
+    @Override
     public org.eclipse.uml2.uml.Element createEcoreElt() {
-        if (objingElement.isStereotyped("ModelerModule", IModelerModuleStereotypes.UML2VALUESPECIFICATIONACTION))
+        if (this.objingElement.isStereotyped("ModelerModule", IModelerModuleStereotypes.UML2VALUESPECIFICATIONACTION))
             return UMLFactory.eINSTANCE.createValueSpecificationAction();
-        else if (objingElement.isStereotyped("ModelerModule", IModelerModuleStereotypes.UML2CREATEOBJECTACTION))
+        else if (this.objingElement.isStereotyped("ModelerModule", IModelerModuleStereotypes.UML2CREATEOBJECTACTION))
             return UMLFactory.eINSTANCE.createCreateObjectAction();
-        else if (objingElement.isStereotyped("ModelerModule", IModelerModuleStereotypes.UML2CREATELINKACTION))
+        else if (this.objingElement.isStereotyped("ModelerModule", IModelerModuleStereotypes.UML2CREATELINKACTION))
             return UMLFactory.eINSTANCE.createCreateLinkAction();
-        else if (objingElement.isStereotyped("ModelerModule", IModelerModuleStereotypes.UML2READLINKACTION))
+        else if (this.objingElement.isStereotyped("ModelerModule", IModelerModuleStereotypes.UML2READLINKACTION))
             return UMLFactory.eINSTANCE.createReadLinkAction();
-        else if (objingElement.isStereotyped("ModelerModule", IModelerModuleStereotypes.UML2DESTROYLINKACTION))
+        else if (this.objingElement.isStereotyped("ModelerModule", IModelerModuleStereotypes.UML2DESTROYLINKACTION))
             return UMLFactory.eINSTANCE.createDestroyLinkAction();
-        else if (objingElement.isStereotyped("ModelerModule", IModelerModuleStereotypes.UML2CLEARASSOCIATIONACTION))
+        else if (this.objingElement.isStereotyped("ModelerModule", IModelerModuleStereotypes.UML2CLEARASSOCIATIONACTION))
             return UMLFactory.eINSTANCE.createClearAssociationAction();
-        else if (objingElement.isStereotyped("ModelerModule", IModelerModuleStereotypes.UML2ADDSTRUCTURALFEATUREVALUEACTION))
+        else if (this.objingElement.isStereotyped("ModelerModule", IModelerModuleStereotypes.UML2ADDSTRUCTURALFEATUREVALUEACTION))
             return UMLFactory.eINSTANCE.createAddStructuralFeatureValueAction();
-        else if (objingElement.isStereotyped("ModelerModule", IModelerModuleStereotypes.UML2READSTRUCTURALFEATUREACTION))
+        else if (this.objingElement.isStereotyped("ModelerModule", IModelerModuleStereotypes.UML2READSTRUCTURALFEATUREACTION))
             return UMLFactory.eINSTANCE.createReadStructuralFeatureAction();
-        else if (objingElement.isStereotyped("ModelerModule", IModelerModuleStereotypes.UML2READEXTENTACTION))
+        else if (this.objingElement.isStereotyped("ModelerModule", IModelerModuleStereotypes.UML2READEXTENTACTION))
             return UMLFactory.eINSTANCE.createReadExtentAction();
-        else if (objingElement.isStereotyped("ModelerModule", IModelerModuleStereotypes.UML2DESTROYOBJECTACTION))
+        else if (this.objingElement.isStereotyped("ModelerModule", IModelerModuleStereotypes.UML2DESTROYOBJECTACTION))
             return UMLFactory.eINSTANCE.createDestroyObjectAction();
-        else if (objingElement.isStereotyped("ModelerModule", IModelerModuleStereotypes.UML2CREATELINKACTION))
+        else if (this.objingElement.isStereotyped("ModelerModule", IModelerModuleStereotypes.UML2CREATELINKACTION))
             return UMLFactory.eINSTANCE.createCreateLinkAction();
-        else if (objingElement.isStereotyped("ModelerModule", IModelerModuleStereotypes.UML2ADDVARIABLEVALUEACTION))
+        else if (this.objingElement.isStereotyped("ModelerModule", IModelerModuleStereotypes.UML2ADDVARIABLEVALUEACTION))
             return UMLFactory.eINSTANCE.createAddVariableValueAction();
-        else if (objingElement.isStereotyped("ModelerModule", IModelerModuleStereotypes.UML2CLEARSTRUCTURALFEATUREACTION))
+        else if (this.objingElement.isStereotyped("ModelerModule", IModelerModuleStereotypes.UML2CLEARSTRUCTURALFEATUREACTION))
             return UMLFactory.eINSTANCE.createClearStructuralFeatureAction();
-        else if (objingElement.isStereotyped("ModelerModule", IModelerModuleStereotypes.UML2CLEARVARIABLEACTION))
+        else if (this.objingElement.isStereotyped("ModelerModule", IModelerModuleStereotypes.UML2CLEARVARIABLEACTION))
             return UMLFactory.eINSTANCE.createClearVariableAction();
-        else if (objingElement.isStereotyped("ModelerModule", IModelerModuleStereotypes.UML2RAISEEXCEPTIONACTION))
+        else if (this.objingElement.isStereotyped("ModelerModule", IModelerModuleStereotypes.UML2RAISEEXCEPTIONACTION))
             return UMLFactory.eINSTANCE.createRaiseExceptionAction();
-        else if (objingElement.isStereotyped("ModelerModule", IModelerModuleStereotypes.UML2READISCLASSIFIEROBJECTACTION))
+        else if (this.objingElement.isStereotyped("ModelerModule", IModelerModuleStereotypes.UML2READISCLASSIFIEROBJECTACTION))
             return UMLFactory.eINSTANCE.createReadIsClassifiedObjectAction();
-        else if (objingElement.isStereotyped("ModelerModule", IModelerModuleStereotypes.UML2READLINKOBJECTENDACTION))
+        else if (this.objingElement.isStereotyped("ModelerModule", IModelerModuleStereotypes.UML2READLINKOBJECTENDACTION))
             return UMLFactory.eINSTANCE.createReadLinkObjectEndAction();
-        else if (objingElement.isStereotyped("ModelerModule", IModelerModuleStereotypes.UML2READLINKOBJECTENDQUALIFIERACTION))
+        else if (this.objingElement.isStereotyped("ModelerModule", IModelerModuleStereotypes.UML2READLINKOBJECTENDQUALIFIERACTION))
             return UMLFactory.eINSTANCE.createReadLinkObjectEndQualifierAction();
-        else if (objingElement.isStereotyped("ModelerModule", IModelerModuleStereotypes.UML2READSELFACTION))
+        else if (this.objingElement.isStereotyped("ModelerModule", IModelerModuleStereotypes.UML2READSELFACTION))
             return UMLFactory.eINSTANCE.createReadSelfAction();
-        else if (objingElement.isStereotyped("ModelerModule", IModelerModuleStereotypes.UML2READVARIABLEACTION))
+        else if (this.objingElement.isStereotyped("ModelerModule", IModelerModuleStereotypes.UML2READVARIABLEACTION))
             return UMLFactory.eINSTANCE.createReadVariableAction();
-        else if (objingElement.isStereotyped("ModelerModule", IModelerModuleStereotypes.UML2RECLASSIFYOBJECTACTION))
+        else if (this.objingElement.isStereotyped("ModelerModule", IModelerModuleStereotypes.UML2RECLASSIFYOBJECTACTION))
             return UMLFactory.eINSTANCE.createReclassifyObjectAction();
-        else if (objingElement.isStereotyped("ModelerModule", IModelerModuleStereotypes.UML2REDUCEACTION))
+        else if (this.objingElement.isStereotyped("ModelerModule", IModelerModuleStereotypes.UML2REDUCEACTION))
             return UMLFactory.eINSTANCE.createReduceAction();
-        else if (objingElement.isStereotyped("ModelerModule", IModelerModuleStereotypes.UML2REMOVESTRUCTURALFEATUREACTION))
+        else if (this.objingElement.isStereotyped("ModelerModule", IModelerModuleStereotypes.UML2REMOVESTRUCTURALFEATUREACTION))
             return UMLFactory.eINSTANCE.createRemoveStructuralFeatureValueAction();
-        else if (objingElement.isStereotyped("ModelerModule", IModelerModuleStereotypes.UML2REMOVEVARIABLEVALUEACTION))
+        else if (this.objingElement.isStereotyped("ModelerModule", IModelerModuleStereotypes.UML2REMOVEVARIABLEVALUEACTION))
             return UMLFactory.eINSTANCE.createRemoveVariableValueAction();
-        else if (objingElement.isStereotyped("ModelerModule", IModelerModuleStereotypes.UML2REPLYACTION))
+        else if (this.objingElement.isStereotyped("ModelerModule", IModelerModuleStereotypes.UML2REPLYACTION))
             return UMLFactory.eINSTANCE.createReplyAction();
-        else if (objingElement.isStereotyped("ModelerModule", IModelerModuleStereotypes.UML2SENDOBJECTACTION))
+        else if (this.objingElement.isStereotyped("ModelerModule", IModelerModuleStereotypes.UML2SENDOBJECTACTION))
             return UMLFactory.eINSTANCE.createSendObjectAction();
-        else if (objingElement.isStereotyped("ModelerModule", IModelerModuleStereotypes.UML2STARTCLASSIFIERBEHAVIORACTION))
+        else if (this.objingElement.isStereotyped("ModelerModule", IModelerModuleStereotypes.UML2STARTCLASSIFIERBEHAVIORACTION))
             return UMLFactory.eINSTANCE.createStartClassifierBehaviorAction();
-        else if (objingElement.isStereotyped("ModelerModule", IModelerModuleStereotypes.UML2TESTIDENTITYACTION))
+        else if (this.objingElement.isStereotyped("ModelerModule", IModelerModuleStereotypes.UML2TESTIDENTITYACTION))
             return UMLFactory.eINSTANCE.createTestIdentityAction();
-        else if (objingElement.isStereotyped("ModelerModule", IModelerModuleStereotypes.UML2UNMARSHALLACTION))
+        else if (this.objingElement.isStereotyped("ModelerModule", IModelerModuleStereotypes.UML2UNMARSHALLACTION))
             return UMLFactory.eINSTANCE.createUnmarshallAction();
         else
             return UMLFactory.eINSTANCE.createOpaqueAction();
@@ -107,15 +108,11 @@ public class OOpaqueAction extends OActivityNode implements IOElement {
     @objid ("d689dec3-c673-404b-92da-1b0629dd7bf1")
     public OOpaqueAction(OpaqueAction element) {
         super(element);
-        objingElement = element;
-    }
-
-    @objid ("84604860-7274-42a8-903a-26eece84fece")
-    public void attach(org.eclipse.uml2.uml.Element ecoreElt) {
-        super.attach(ecoreElt);
+        this.objingElement = element;
     }
 
     @objid ("09cce92c-c9fb-44a4-b0a5-adc116285745")
+    @Override
     public void setProperties(org.eclipse.uml2.uml.Element ecoreElt) {
         super.setProperties(ecoreElt);
         
@@ -136,14 +133,14 @@ public class OOpaqueAction extends OActivityNode implements IOElement {
 
     @objid ("5cdd4c4f-daa8-43e0-a932-e71094e9ad70")
     private void setBody(org.eclipse.uml2.uml.OpaqueAction action) {
-        action.getBodies().add(objingElement.getBody());
+        action.getBodies().add(this.objingElement.getBody());
     }
 
     @objid ("07fb8d53-8f57-446b-83d8-615697e40e4c")
     private void setValue(org.eclipse.uml2.uml.ValueSpecificationAction ecoreElt) {
-        if (objingElement.getOutput().size() > 0){
+        if (this.objingElement.getOutput().size() > 0){
         
-            GeneralClass primitiveType = objingElement.getOutput().get(0).getType();
+            GeneralClass primitiveType = this.objingElement.getOutput().get(0).getType();
         
             IUMLTypes umlTypes = Modelio.getInstance().getModelingSession()
                     .getModel().getUmlTypes();
@@ -151,7 +148,7 @@ public class OOpaqueAction extends OActivityNode implements IOElement {
             DataType obSTRING = umlTypes.getSTRING();
         
             String tagValue = "";
-            for (TaggedValue tag : objingElement.getTag()){
+            for (TaggedValue tag : this.objingElement.getTag()){
                 if (tag.getDefinition().getName().equals("Value")){
                     for (TagParameter params : tag.getActual()){
                         tagValue = params.getValue();
@@ -188,7 +185,7 @@ public class OOpaqueAction extends OActivityNode implements IOElement {
 
     @objid ("07817664-0145-46b3-9885-c52b383500b8")
     private void setFeature(org.eclipse.uml2.uml.StructuralFeatureAction ecoreElt) {
-        for (Dependency depend : objingElement.getDependsOnDependency()){
+        for (Dependency depend : this.objingElement.getDependsOnDependency()){
             if (depend.isStereotyped("ModelerModule", IModelerModuleStereotypes.UML2STRUCTURALFEATUREREFERENCE)){
                 org.eclipse.uml2.uml.Element structuralFeature = GenerationProperties.getInstance().getMappedElement(depend.getDependsOn());
                 if (structuralFeature instanceof org.eclipse.uml2.uml.StructuralFeature){
@@ -200,7 +197,7 @@ public class OOpaqueAction extends OActivityNode implements IOElement {
 
     @objid ("11efb652-28f1-4519-b506-1705c74ca03d")
     private void setAssociation(org.eclipse.uml2.uml.ClearAssociationAction ecoreElt) {
-        for (Dependency depend : objingElement.getDependsOnDependency()){
+        for (Dependency depend : this.objingElement.getDependsOnDependency()){
             if (depend.isStereotyped("ModelerModule", IModelerModuleStereotypes.UML2ASSOCIATIONREFERENCE)){
                 org.eclipse.uml2.uml.Element classifier = GenerationProperties.getInstance().getMappedElement(depend.getDependsOn());
                 if (classifier instanceof org.eclipse.uml2.uml.Association){
@@ -212,7 +209,7 @@ public class OOpaqueAction extends OActivityNode implements IOElement {
 
     @objid ("9310efce-052b-4a34-ad5e-726044f7f48b")
     private void setClassifier(org.eclipse.uml2.uml.ReadExtentAction ecoreElt) {
-        for (Dependency depend : objingElement.getDependsOnDependency()){
+        for (Dependency depend : this.objingElement.getDependsOnDependency()){
             if (depend.isStereotyped("ModelerModule", IModelerModuleStereotypes.UML2CLASSIFIERREFERENCE)){
                 org.eclipse.uml2.uml.Element classifier = GenerationProperties.getInstance().getMappedElement(depend.getDependsOn());
                 if (classifier instanceof org.eclipse.uml2.uml.Classifier){
@@ -224,7 +221,7 @@ public class OOpaqueAction extends OActivityNode implements IOElement {
 
     @objid ("41c57fa9-1193-439a-9be9-a4ad13601473")
     private void setClassifier(org.eclipse.uml2.uml.CreateObjectAction ecoreElt) {
-        for (Dependency depend : objingElement.getDependsOnDependency()){
+        for (Dependency depend : this.objingElement.getDependsOnDependency()){
             if (depend.isStereotyped("ModelerModule", IModelerModuleStereotypes.UML2CLASSIFIERREFERENCE)){
                 org.eclipse.uml2.uml.Element classifier = GenerationProperties.getInstance().getMappedElement(depend.getDependsOn());
                 if (classifier instanceof org.eclipse.uml2.uml.Classifier){

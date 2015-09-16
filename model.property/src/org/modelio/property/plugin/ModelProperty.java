@@ -42,7 +42,7 @@ public class ModelProperty implements BundleActivator {
     @objid ("a8ac4327-c068-11e1-8c0a-002564c97630")
     public static final String PLUGIN_ID = "org.modelio.model.property";
 
-    @objid ("8fb6106a-c068-11e1-8c0a-002564c97630")
+    @objid ("0f5f7718-1d97-4b4f-bd52-49372e6f8963")
     private static BundleContext context;
 
     @objid ("8fb6106b-c068-11e1-8c0a-002564c97630")

@@ -21,13 +21,13 @@
 
 package org.modelio.xmi.model.ecore;
 
-import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.metamodel.uml.infrastructure.Element;
 
 @objid ("061b4997-0c94-4e37-af14-3101beadcb55")
-public class EExpression extends ENamedElement implements IEElement {
+public class EExpression extends ENamedElement {
     @objid ("a9a8bc51-24dd-4083-ac36-9e6980e19abe")
+    @Override
     public Element createObjingElt() {
         return null;
     }
@@ -35,19 +35,6 @@ public class EExpression extends ENamedElement implements IEElement {
     @objid ("ea2d9c71-c0ec-44b2-908e-e2500eae7ac0")
     public EExpression(org.eclipse.uml2.uml.Expression element) {
         super(element);
-    }
-
-    @objid ("933ed265-9cd4-485a-b418-87d719c68ffd")
-    public void attach(Element objingElt) {
-    }
-
-    @objid ("b05c666e-df43-4b4f-b428-575c3bf963c6")
-    public void attach(List<Object> objingElts) {
-    }
-
-    @objid ("e296c4b3-19ef-4633-ad27-28ebb363373f")
-    public void setProperties(Element objingElt) {
-        super.setProperties(objingElt);
     }
 
 }

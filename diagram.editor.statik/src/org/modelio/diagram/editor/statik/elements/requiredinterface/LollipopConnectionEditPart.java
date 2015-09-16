@@ -21,18 +21,35 @@
 
 package org.modelio.diagram.editor.statik.elements.requiredinterface;
 
+import java.beans.PropertyChangeEvent;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.draw2d.ConnectionAnchor;
 import org.eclipse.draw2d.EllipseAnchor;
 import org.eclipse.draw2d.IFigure;
+import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.gef.ConnectionEditPart;
 import org.eclipse.gef.Request;
+import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.editpolicies.SelectionEditPolicy;
 import org.modelio.diagram.editor.statik.elements.providedinterface.GmProvidedInterfaceLink;
+import org.modelio.diagram.elements.common.abstractdiagram.AbstractDiagramEditPart;
 import org.modelio.diagram.elements.common.linktovoid.LinkToVoidConstants;
 import org.modelio.diagram.elements.core.figures.EllipseFigure;
+import org.modelio.diagram.elements.core.model.GmModel;
+import org.modelio.diagram.elements.core.model.IGmLink;
 import org.modelio.diagram.elements.core.node.GmNodeEditPart;
+import org.modelio.diagram.elements.core.node.GmNodeModel;
 import org.modelio.diagram.elements.core.policies.SmallNodeNonResizeableEditPolicy;
+import org.modelio.diagram.elements.core.requests.ModelElementDropRequest;
+import org.modelio.metamodel.uml.infrastructure.ModelElement;
+import org.modelio.metamodel.uml.statik.NaryConnector;
+import org.modelio.metamodel.uml.statik.NaryLinkEnd;
+import org.modelio.vcore.smkernel.mapi.MObject;
+import org.modelio.vcore.smkernel.mapi.MRef;
 
 /**
  * Edit part for {@link GmLollipopConnection}.
@@ -88,6 +105,69 @@ public class LollipopConnectionEditPart extends GmNodeEditPart {
     @Override
     public SelectionEditPolicy getPreferredDragRolePolicy(final String requestType) {
         return new SmallNodeNonResizeableEditPolicy();
+    }
+
+    @objid ("7c2c6909-6b8b-4216-baa3-91a45074055b")
+    @Override
+    public void propertyChange(final PropertyChangeEvent evt) {
+        if (evt.getPropertyName().equals(GmLollipopConnection.PROP_REFRESH_BRANCHES)) {
+            // Refresh the branches, look for missing branches
+            GmNodeModel gmModel = (GmNodeModel) getModel();
+            final List<ModelElement> missingBranches = getMissingBranches(gmModel);
+            if (! missingBranches.isEmpty()) {
+                Point dropLocation = getFigure().getBounds().getBottomRight();
+                getFigure().translateToAbsolute(dropLocation);
+        
+                final Map<?, ?> editPartRegistry = getViewer().getEditPartRegistry();
+                final AbstractDiagramEditPart diagramEditPart = (AbstractDiagramEditPart) editPartRegistry.get(gmModel.getDiagram());
+                
+                ModelElementDropRequest request = new ModelElementDropRequest();
+                request.setDroppedElements(missingBranches.toArray(new MObject[0]));
+                request.setLocation(dropLocation);
+        
+                final Command command = diagramEditPart.getCommand(request);
+                if (command != null) {
+                    command.execute();
+        
+                    // 'propertyChange' is called from a model change handler, we must manually trigger a refresh for these newly unmasked elements
+                    for (ModelElement modelElement : missingBranches) {
+                        for (GmModel gm : gmModel.getDiagram().getAllGMRepresenting(new MRef(modelElement))) {
+                            gm.obElementsUpdated();
+                        }
+                    }
+                }
+            }
+        }
+        
+        // In any case apply the super routine.
+        super.propertyChange(evt);
+    }
+
+    @objid ("82e84bbd-dfbb-41b6-a2dd-4cfa71a2d52f")
+    private List<ModelElement> getMissingBranches(final GmNodeModel gmModel) {
+        NaryConnector element = (NaryConnector) gmModel.getRelatedElement();
+        if (element == null || !element.isValid()) {
+            return Collections.emptyList();
+        } else {
+            List<ModelElement> newbranches = new ArrayList<>();
+            // Get all consumers/providers
+            for (NaryLinkEnd end : element.getNaryLinkEnd()) {
+                if (end.getConsumer() != null) {
+                    newbranches.add(end.getConsumer());
+                }
+        
+                if (end.getProvider() != null) {
+                    newbranches.add(end.getProvider());
+                }
+            }
+        
+            // Remove branches already unmasked
+            for (IGmLink l : gmModel.getEndingLinks()) {
+                newbranches.remove(l.getRelatedElement());
+            }
+        
+            return newbranches;
+        }
     }
 
 }

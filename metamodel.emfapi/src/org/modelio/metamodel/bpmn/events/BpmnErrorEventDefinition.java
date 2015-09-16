@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.bpmn.events;
 
@@ -30,10 +30,10 @@ import org.eclipse.emf.ecore.EObject;
 
 @objid ("008b3af8-c4bf-1fd8-97fe-001ec947cd2a")
 public interface BpmnErrorEventDefinition extends BpmnEventDefinition {
-    @objid ("69058300-2cfa-45af-a2fc-0eed69da6029")
+    @objid ("bd35a713-acb1-4e99-b61b-ec82e0f2a9eb")
     String getErrorCode();
 
-    @objid ("f391b3ea-7b13-4f66-a09c-4051f5d4c6e9")
+    @objid ("d3e9b3cd-0734-4d0c-b84b-f1e36a787d52")
     void setErrorCode(String value);
 
 }

@@ -31,11 +31,14 @@ import org.modelio.diagram.elements.drawings.ellipse.GmEllipseStyleKeys;
 import org.modelio.diagram.elements.drawings.line.GmLineStyleKeys;
 import org.modelio.diagram.elements.drawings.rectangle.GmRectangleStyleKeys;
 import org.modelio.diagram.elements.drawings.text.GmTextStyleKeys;
+import org.modelio.diagram.elements.umlcommon.abstraction.GmAbstraction;
 import org.modelio.diagram.elements.umlcommon.constraint.GmConstraintStyleKeys;
-import org.modelio.diagram.elements.umlcommon.dependency.GmDependencyStyleKeys;
+import org.modelio.diagram.elements.umlcommon.dependency.GmDependency;
+import org.modelio.diagram.elements.umlcommon.elementRealization.GmElementRealization;
 import org.modelio.diagram.elements.umlcommon.externdocument.GmExternDocumentStyleKeys;
 import org.modelio.diagram.elements.umlcommon.namespaceuse.GmNamespaceUseStyleKeys;
 import org.modelio.diagram.elements.umlcommon.note.GmNoteStyleKeys;
+import org.modelio.diagram.elements.umlcommon.usage.GmUsage;
 import org.modelio.diagram.styles.core.FactoryStyle;
 import org.modelio.diagram.styles.core.StyleLoader;
 import org.osgi.framework.BundleContext;
@@ -76,7 +79,10 @@ public class DiagramElementsProcessor {
         factory.declareProvider(GmConstraintStyleKeys.class);
         
         // Dependency
-        factory.declareProvider(GmDependencyStyleKeys.class);
+        factory.declareProvider(GmDependency.styleKeyProvider);
+        factory.declareProvider(GmAbstraction.styleKeyProvider);
+        factory.declareProvider(GmElementRealization.styleKeyProvider);
+        factory.declareProvider(GmUsage.styleKeyProvider);
         
         // MObject import
         factory.declareProvider(GmExternDocumentStyleKeys.class);

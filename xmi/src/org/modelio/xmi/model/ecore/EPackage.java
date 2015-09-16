@@ -22,7 +22,6 @@
 package org.modelio.xmi.model.ecore;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.modelio.api.modelio.Modelio;
 import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.metamodel.uml.statik.Component;
 import org.modelio.metamodel.uml.statik.Package;
@@ -34,16 +33,16 @@ public class EPackage extends ENamedElement {
     @objid ("b19d9fd0-cf29-4fbf-84da-25155c924094")
     @Override
     public Element createObjingElt() {
-        for (org.eclipse.uml2.uml.Package ecoremodel : ReverseProperties.getInstance().getEcoreModel()){
+        for (org.eclipse.uml2.uml.Package ecoremodel : ReverseProperties.getInstance().getEcoreModels()){
             if (getEcoreElement().equals(ecoremodel)){
-                    return Modelio.getInstance().getModelingSession().getModel().createPackage();
+                    return ReverseProperties.getInstance().getMModelServices().getModelFactory().createPackage();
                 }
         }
         
         if (ObjingEAnnotation.isRequirementContainer(getEcoreElement())){
-            return Modelio.getInstance().getModelingSession().getRequirementModel().createRequirementContainer();
+            return  ReverseProperties.getInstance().getMModelServices().getModelFactory().createRequirementContainer();
         }
-        return Modelio.getInstance().getModelingSession().getModel().createPackage();
+        return ReverseProperties.getInstance().getMModelServices().getModelFactory().createPackage();
     }
 
     @objid ("8645c284-2063-48a4-aa31-4715dec40995")

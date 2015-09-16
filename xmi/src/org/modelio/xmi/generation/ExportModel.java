@@ -43,7 +43,7 @@ public class ExportModel {
 
     @objid ("d901cafc-dd97-42ca-a279-7f41589ece9a")
     private ScopeChecker scopeChecker = new ScopeChecker(GenerationProperties
-                                                         .getInstance().getSelectedPackage());
+            .getInstance().getSelectedPackage());
 
     /**
      * The export method is in charge of the export sequence for a given IOElement
@@ -80,14 +80,14 @@ public class ExportModel {
                         TotalExportMap.getInstance().put(ioelem.getObjingID(), ecoreElt);
                     } else {
                         throw new NotFoundException("Element of type "
-                                                    + ioelem.getObjingElement().getClass()
-                                                    .getSimpleName()
-                                                    + " has no mapping to EMF-UML2.");
+                                + ioelem.getObjingElement().getClass()
+                                .getSimpleName()
+                                + " has no mapping to EMF-UML2.");
                     }
                 }
             }
         } catch (NotFoundException e) {
-          Xmi.LOG.warning(Xmi.PLUGIN_ID, e.getLocalizedMessage());
+            Xmi.LOG.warning(Xmi.PLUGIN_ID, e);
         }
     }
 
@@ -136,7 +136,7 @@ public class ExportModel {
     private void finishElementCreation(org.eclipse.uml2.uml.Element ecoreElt, IOElement ioelem) {
         ioelem.attach(ecoreElt);
         ioelem.setProperties(ecoreElt);
-           
+        
         if (this.progressBar != null){
             this.progressBar.addElement();
             if (ioelem.getObjingElement() instanceof NameSpace){

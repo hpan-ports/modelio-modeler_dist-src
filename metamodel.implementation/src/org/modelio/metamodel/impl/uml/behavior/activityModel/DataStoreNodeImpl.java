@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.uml.behavior.activityModel;
 
@@ -41,21 +41,21 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("002f5058-c4bf-1fd8-97fe-001ec947cd2a")
 public class DataStoreNodeImpl extends CentralBufferNodeImpl implements DataStoreNode {
-    @objid ("60600ca4-ab26-4cc8-9260-1bfd412397b4")
+    @objid ("aed8a0f9-b4a1-42c5-b8fd-b65cb19e2dbc")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("f00774b4-372a-4d19-bd84-3f0ac8dab885")
+    @objid ("cce10214-1739-4cab-864e-e54885862433")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("b55963d9-924a-474f-b51d-7cab2ad69daa")
+    @objid ("a8674cc2-a2b0-4bf6-9897-6a1753d93ecc")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitDataStoreNode(this);

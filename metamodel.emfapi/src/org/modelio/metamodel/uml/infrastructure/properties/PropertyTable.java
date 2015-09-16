@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.uml.infrastructure.properties;
 
@@ -70,34 +70,34 @@ public interface PropertyTable extends Element {
     @objid ("5652fdb3-2826-11e2-bf07-001ec947ccaf")
     Properties toProperties() throws IllegalStateException;
 
-    @objid ("b9c7be26-bac2-4d32-a66f-28e66b87b1ec")
+    @objid ("5f8d2705-d82c-46ca-9d89-a9c31d6047a3")
     String getName();
 
-    @objid ("2f620f99-3ab7-42be-9425-d643509cce9b")
+    @objid ("a64b14a8-6159-4ed7-8c01-17ffbb3a64ac")
     void setName(String value);
 
-    @objid ("94b0cc90-1c89-4bbb-8aa7-f1e5cfcd23b5")
+    @objid ("d790f5d9-a118-471b-b544-cef5bd27287d")
     String getContent();
 
-    @objid ("c1da0b50-a08d-40c1-9aca-b83789675cb3")
+    @objid ("142b0b64-b2e0-46ef-a8e3-9ad37e7de95f")
     void setContent(String value);
 
-    @objid ("ce03fe97-38ea-40ce-8a74-d7821a82823d")
+    @objid ("6a9b1079-02a4-4753-9a32-4164052cdca3")
     ModelElement getOwner();
 
-    @objid ("7763a21a-8303-40f4-9efe-f9a58109467d")
+    @objid ("0b821166-8666-4e39-a919-1d7267e51a20")
     void setOwner(ModelElement value);
 
-    @objid ("4162990f-7ccd-4e37-bc88-88a532b8d3d3")
+    @objid ("9e788e21-f97d-42e3-b633-d64bcd27fbeb")
     MatrixValueDefinition getOwnerValDef();
 
-    @objid ("23a010ec-47c3-4a66-be30-ca72b084b35d")
+    @objid ("e19fe89d-f097-47e8-adcd-610182d14f75")
     void setOwnerValDef(MatrixValueDefinition value);
 
-    @objid ("0318cb66-dd82-4c11-8fe4-96b455a81bbc")
+    @objid ("4fb0a3b1-69c0-4c0b-a620-bedadd9ed620")
     QueryDefinition getOwnerQuery();
 
-    @objid ("532a6771-9b2b-4823-bca3-29eeca1446ab")
+    @objid ("2385fdef-c13a-449e-8c64-47dee38dd7de")
     void setOwnerQuery(QueryDefinition value);
 
 }

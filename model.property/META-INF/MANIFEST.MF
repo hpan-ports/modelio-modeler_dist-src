@@ -2,10 +2,15 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Property View
 Bundle-SymbolicName: org.modelio.model.property;singleton:=true
-Bundle-Version: 1.0.0.qualifier
+Bundle-Version: 3.2.1.qualifier
 Bundle-Vendor: modelio.org
 Bundle-Localization: plugin
 Require-Bundle: org.eclipse.jface,
+ org.eclipse.nebula.jface.cdatetime,
+ org.eclipse.nebula.widgets.cdatetime,
+ org.eclipse.nebula.widgets.datechooser,
+ org.eclipse.nebula.widgets.nattable.core,
+ org.eclipse.nebula.widgets.tablecombo,
  org.modelio.metamodel.emfapi,
  org.eclipse.e4.core.di,
  org.eclipse.e4.ui.services,
@@ -30,7 +35,9 @@ Require-Bundle: org.eclipse.jface,
  org.eclipse.e4.ui.workbench.swt,
  org.eclipse.core.expressions,
  org.modelio.api,
- org.modelio.editors.richnote
+ org.modelio.editors.richnote,
+ org.modelio.core.project.data,
+ org.modelio.metamodel.implementation
 Bundle-ClassPath: res/,
  .
 Bundle-ActivationPolicy: lazy

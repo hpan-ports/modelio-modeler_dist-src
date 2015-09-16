@@ -21,10 +21,8 @@
 
 package org.modelio.xmi.model.ecore;
 
-import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.emf.common.util.EList;
-import org.modelio.api.modelio.Modelio;
 import org.modelio.metamodel.uml.behavior.stateMachineModel.Transition;
 import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.metamodel.uml.statik.Operation;
@@ -32,7 +30,7 @@ import org.modelio.xmi.util.EcoreModelNavigation;
 import org.modelio.xmi.util.ReverseProperties;
 
 @objid ("4932eaa7-ea5a-4c43-a5e6-a34c3a3dae6b")
-public class EProtocolTransition extends ETransition implements IEElement {
+public class EProtocolTransition extends ETransition {
     @objid ("ac5ea5a5-9e98-4197-aeb5-9ee1c8a080f9")
     private boolean isInternalTransition = false;
 
@@ -40,11 +38,12 @@ public class EProtocolTransition extends ETransition implements IEElement {
     private org.eclipse.uml2.uml.ProtocolTransition ecoreElement = null;
 
     @objid ("35122a87-7ba3-4229-8888-aff118d4da0e")
+    @Override
     public Element createObjingElt() {
         if (this.isInternalTransition)
-            return Modelio.getInstance().getModelingSession().getModel()
+            return ReverseProperties.getInstance().getMModelServices().getModelFactory()
             .createInternalTransition();
-        return Modelio.getInstance().getModelingSession().getModel()
+        return ReverseProperties.getInstance().getMModelServices().getModelFactory()
         .createTransition();
     }
 
@@ -56,16 +55,8 @@ public class EProtocolTransition extends ETransition implements IEElement {
         .isInternalTransition(element);
     }
 
-    @objid ("a8109401-13ed-43f1-8c61-2a6417e738df")
-    public void attach(Element objingElt) {
-        super.attach(objingElt);
-    }
-
-    @objid ("bf442e95-6e0a-4fcf-b763-54de52c4852d")
-    public void attach(List<Object> objingElts) {
-    }
-
     @objid ("cfd0c66c-1d13-4ee6-868d-70e561509540")
+    @Override
     public void setProperties(Element objingElt) {
         super.setProperties(objingElt);
         setProcessed((Transition) objingElt);

@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.data.uml.behavior.interactionModel;
 
@@ -44,36 +44,36 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("004518ac-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=ExecutionSpecification.class, factory=ExecutionSpecificationData.Metadata.ObjectFactory.class)
 public class ExecutionSpecificationData extends InteractionFragmentData {
-    @objid ("ada4c5fd-10e3-47df-a46c-15505eda87c5")
+    @objid ("340affb6-6f09-446e-a9bb-b34c103091eb")
     @SmaMetaAssociation(metaName="Finish", typeDataClass=ExecutionOccurenceSpecificationData.class, min=1, max=1, smAssociationClass=Metadata.FinishSmDependency.class, partof = true)
      SmObjectImpl mFinish;
 
-    @objid ("0a659309-261b-4384-bd6d-c3194f664fde")
+    @objid ("09ef7240-b594-47f8-923d-851c4a920f8c")
     @SmaMetaAssociation(metaName="Start", typeDataClass=ExecutionOccurenceSpecificationData.class, min=1, max=1, smAssociationClass=Metadata.StartSmDependency.class)
      SmObjectImpl mStart;
 
-    @objid ("4ea9912d-9418-4226-941d-9ca564e0c25e")
+    @objid ("c9cb68db-fb1e-4c08-a975-546c5a84a4eb")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("0048687c-c4c3-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("32c826ea-76db-4dbb-85ec-9c24a18c247d")
+        @objid ("34fab113-c28f-4130-a087-c736613ea06d")
         private static SmClass smClass = null;
 
-        @objid ("36b9c261-2e1c-45ab-b811-819301ea1603")
+        @objid ("e423ff50-2813-4c68-afa7-1357bd093052")
         private static SmDependency FinishDep = null;
 
-        @objid ("1b54a3bc-efa7-440b-9a91-451b905d97af")
+        @objid ("ac764533-aa1c-40e7-afcb-ac4c9fbbbd27")
         private static SmDependency StartDep = null;
 
-        @objid ("1b61fb6e-e6f9-44d5-af0a-df05e62761b8")
+        @objid ("6290f958-24c6-414c-b4aa-0a7f95b4fcf1")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(ExecutionSpecificationData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("23f8f6b2-2703-46ef-a22e-36f7dcf6cb21")
+        @objid ("19af408a-4065-4251-9b6b-eff040908e05")
         public static SmDependency FinishDep() {
             if (FinishDep == null) {
             	FinishDep = classof().getDependencyDef("Finish");
@@ -81,7 +81,7 @@ public class ExecutionSpecificationData extends InteractionFragmentData {
             return FinishDep;
         }
 
-        @objid ("a237e11c-30f4-4916-ae45-f666fdd296b0")
+        @objid ("0e71796a-4771-4530-aa3c-45f498d2df0b")
         public static SmDependency StartDep() {
             if (StartDep == null) {
             	StartDep = classof().getDependencyDef("Start");
@@ -89,32 +89,32 @@ public class ExecutionSpecificationData extends InteractionFragmentData {
             return StartDep;
         }
 
-        @objid ("e55dc51b-68f8-46ab-ade7-8a13c23782ce")
-        public static SmClass getSmClass() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return smClass;
-        }
-
-        @objid ("4a85c2a8-5240-4b7a-9047-dc8609daa44b")
-        public static SmDependency getStartDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return StartDep;
-        }
-
-        @objid ("92469894-81ee-47f7-8f9f-2a973c1e6f12")
+        @objid ("3177c9e7-bd28-42d6-b0d8-6e44e189ad6c")
         public static SmDependency getFinishDep() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return FinishDep;
         }
 
+        @objid ("8be5687d-0e69-45bb-92c3-92232d2a800b")
+        public static SmClass getSmClass() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return smClass;
+        }
+
+        @objid ("244ed398-935b-4bf3-ba53-e979960141ce")
+        public static SmDependency getStartDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return StartDep;
+        }
+
         @objid ("0048ab02-c4c3-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("5ee17278-b2e4-44f4-b919-3ab45fda5286")
+            @objid ("de1cfeed-1c27-4355-a4c9-dcd6a1e128a2")
             public ISmObjectData createData() {
                 return new ExecutionSpecificationData();
             }
 
-            @objid ("53c3324b-d89a-4b03-b2c5-e4381fd90d18")
+            @objid ("211e4206-4613-461d-be63-d43579a87ef2")
             public SmObjectImpl createImpl() {
                 return new ExecutionSpecificationImpl();
             }
@@ -123,18 +123,18 @@ public class ExecutionSpecificationData extends InteractionFragmentData {
 
         @objid ("00490dae-c4c3-1fd8-97fe-001ec947cd2a")
         public static class StartSmDependency extends SmSingleDependency {
-            @objid ("9fc8fdec-5889-42d4-835d-9fe639c3cedd")
+            @objid ("da299f6e-5674-42c6-97e7-e39edc902c75")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((ExecutionSpecificationData) data).mStart;
             }
 
-            @objid ("48ce44e4-447a-4879-a3aa-98eaeb06c9a8")
+            @objid ("d326ff15-b589-4110-a08b-376046cdfa4a")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((ExecutionSpecificationData) data).mStart = value;
             }
 
-            @objid ("4bd5f58c-6439-4671-afbc-a8269da72ac0")
+            @objid ("aef38dc6-71ba-4f08-adca-cb3cacb2401c")
             @Override
             public SmDependency getSymetric() {
                 return ExecutionOccurenceSpecificationData.Metadata.StartedDep();
@@ -144,18 +144,18 @@ public class ExecutionSpecificationData extends InteractionFragmentData {
 
         @objid ("004983ba-c4c3-1fd8-97fe-001ec947cd2a")
         public static class FinishSmDependency extends SmSingleDependency {
-            @objid ("1fa90a1b-1c2f-4536-866c-5856e76c7f92")
+            @objid ("b11dcf04-ac40-4a4c-b7a0-adda6e409158")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((ExecutionSpecificationData) data).mFinish;
             }
 
-            @objid ("fced1f94-be5b-4f71-b665-da81a03bcd4b")
+            @objid ("7ee2e09e-d1b3-4372-8b8f-e6cf8a31e1ea")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((ExecutionSpecificationData) data).mFinish = value;
             }
 
-            @objid ("1782a245-2251-45c2-a5e6-5800276094d0")
+            @objid ("7490a9f7-fcdd-4138-aabf-c0da659d7514")
             @Override
             public SmDependency getSymetric() {
                 return ExecutionOccurenceSpecificationData.Metadata.FinishedDep();

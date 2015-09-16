@@ -26,11 +26,12 @@ import org.eclipse.uml2.uml.UMLFactory;
 import org.modelio.metamodel.uml.behavior.interactionModel.CombinedFragment;
 
 @objid ("6d1a66a8-3ffa-4b45-9d2b-39b046579cb2")
-public class OCombinedFragment extends OInteractionFragment implements IOElement {
+public class OCombinedFragment extends OInteractionFragment {
     @objid ("3720a262-0d4b-4688-841d-87c5555f08a2")
     private CombinedFragment objingElt = null;
 
     @objid ("9ab13606-2687-458c-a678-6b418f74bbdc")
+    @Override
     public org.eclipse.uml2.uml.Element createEcoreElt() {
         return UMLFactory.eINSTANCE.createCombinedFragment();
     }
@@ -38,15 +39,17 @@ public class OCombinedFragment extends OInteractionFragment implements IOElement
     @objid ("e6118095-0945-4849-b9ae-caf4b8020d02")
     public OCombinedFragment(CombinedFragment param) {
         super(param);
-        objingElt = param;
+        this.objingElt = param;
     }
 
     @objid ("647d2071-9566-41ba-ae52-d6b41e234fba")
+    @Override
     public void attach(org.eclipse.uml2.uml.Element ecoreElt) {
         super.attach(ecoreElt);
     }
 
     @objid ("f9b66f87-fc24-4a22-9744-fe1902fee957")
+    @Override
     public void setProperties(org.eclipse.uml2.uml.Element ecoreElt) {
         if (ecoreElt instanceof org.eclipse.uml2.uml.CombinedFragment){
             setInteractionOperator( (org.eclipse.uml2.uml.CombinedFragment) ecoreElt);
@@ -103,6 +106,8 @@ public class OCombinedFragment extends OInteractionFragment implements IOElement
         case STRICTOP:
             ecoreElt
             .setInteractionOperator (org.eclipse.uml2.uml.InteractionOperatorKind.STRICT_LITERAL);
+            break;
+        default:
             break;
         }
     }

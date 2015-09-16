@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.data.bpmn.events;
 
@@ -43,36 +43,36 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("0096dd72-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=BpmnTimerEventDefinition.class, factory=BpmnTimerEventDefinitionData.Metadata.ObjectFactory.class)
 public class BpmnTimerEventDefinitionData extends BpmnEventDefinitionData {
-    @objid ("56c66a38-9438-4780-9fc2-ec569d8f93aa")
+    @objid ("2faa64f2-d06b-471e-a0a0-1c4505abf99f")
     @SmaMetaAttribute(metaName="TimeCycle", type=String.class, smAttributeClass=Metadata.TimeCycleSmAttribute.class)
      Object mTimeCycle = "";
 
-    @objid ("0b7f0312-1492-4db8-ac36-c1cd5dfde146")
+    @objid ("4fcf44ef-97fa-4a65-b30b-ccac395a4a25")
     @SmaMetaAttribute(metaName="TimeD", type=String.class, smAttributeClass=Metadata.TimeDSmAttribute.class)
      Object mTimeD = "";
 
-    @objid ("4e695b64-7389-4237-825c-d1de20ca6459")
+    @objid ("f89302e4-1f41-4a15-887c-204a785cf1bf")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("001cb3bc-c4c5-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("6b459378-6d1c-4eb1-b457-e72446d2fc1d")
+        @objid ("36925e47-fcdb-4818-a666-5e8ee6f3dc47")
         private static SmClass smClass = null;
 
-        @objid ("bb3cc836-c88a-4efe-9e7b-115fe4f35c1f")
+        @objid ("9c9bb15b-233c-49eb-8de8-839ea0370c67")
         private static SmAttribute TimeCycleAtt = null;
 
-        @objid ("b921bfb3-99a4-4500-b642-80ac8c3859d9")
+        @objid ("bc9dbc59-68be-4a06-9866-9a53abe1f602")
         private static SmAttribute TimeDAtt = null;
 
-        @objid ("e04b3b41-fb89-46ff-ae0a-8fda2f56b5a1")
+        @objid ("47b88e17-fa3b-455a-919e-2281c40d8e21")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(BpmnTimerEventDefinitionData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("fc75670c-a843-495b-8598-9b7a96958abe")
+        @objid ("618cb1d4-755d-4801-8e26-1770d10fbeab")
         public static SmAttribute TimeCycleAtt() {
             if (TimeCycleAtt == null) {
             	TimeCycleAtt = classof().getAttributeDef("TimeCycle");
@@ -80,7 +80,7 @@ public class BpmnTimerEventDefinitionData extends BpmnEventDefinitionData {
             return TimeCycleAtt;
         }
 
-        @objid ("5198810f-b2ba-4e83-b1f1-8487d9a4ab9a")
+        @objid ("76133985-4d17-46e8-9e5e-75ea61866e0f")
         public static SmAttribute TimeDAtt() {
             if (TimeDAtt == null) {
             	TimeDAtt = classof().getAttributeDef("TimeD");
@@ -88,32 +88,32 @@ public class BpmnTimerEventDefinitionData extends BpmnEventDefinitionData {
             return TimeDAtt;
         }
 
-        @objid ("70bd0368-a52e-43d4-848b-48d7656ed4f5")
-        public static SmClass getSmClass() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return smClass;
-        }
-
-        @objid ("3246125e-8606-4070-9861-f2fe10a11225")
+        @objid ("e189200d-8052-4316-ad3b-5d5f8e7dd925")
         public static SmAttribute getTimeDAtt() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return TimeDAtt;
         }
 
-        @objid ("57db1045-4295-4eee-ac8b-8b388829e073")
+        @objid ("3f66b2fd-a555-453a-9369-211590706897")
         public static SmAttribute getTimeCycleAtt() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return TimeCycleAtt;
         }
 
+        @objid ("7773283a-203d-4808-8da9-d4b12c9c879a")
+        public static SmClass getSmClass() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return smClass;
+        }
+
         @objid ("001cf3b8-c4c5-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("92c3ddb2-2466-4840-a7b5-15f1eb1c688c")
+            @objid ("1ebc558e-f88e-4758-9436-9dee68b77e9e")
             public ISmObjectData createData() {
                 return new BpmnTimerEventDefinitionData();
             }
 
-            @objid ("b8b82ea3-2df5-45c7-be14-05b3c1897281")
+            @objid ("979b1bb5-ee72-4cd6-b888-7f04ce5e7b36")
             public SmObjectImpl createImpl() {
                 return new BpmnTimerEventDefinitionImpl();
             }
@@ -122,12 +122,12 @@ public class BpmnTimerEventDefinitionData extends BpmnEventDefinitionData {
 
         @objid ("001d60d2-c4c5-1fd8-97fe-001ec947cd2a")
         public static class TimeCycleSmAttribute extends SmAttribute {
-            @objid ("072ed683-1d4b-4e95-bdf9-143211344b58")
+            @objid ("1ad8673a-da0d-4dad-acb8-65ab7d1cebfc")
             public Object getValue(ISmObjectData data) {
                 return ((BpmnTimerEventDefinitionData) data).mTimeCycle;
             }
 
-            @objid ("739561ba-297f-4a06-be81-9522520264d2")
+            @objid ("c11e87c4-9ff8-4a43-81f6-484fa8f67d28")
             public void setValue(ISmObjectData data, Object value) {
                 ((BpmnTimerEventDefinitionData) data).mTimeCycle = value;
             }
@@ -136,12 +136,12 @@ public class BpmnTimerEventDefinitionData extends BpmnEventDefinitionData {
 
         @objid ("001dc2d4-c4c5-1fd8-97fe-001ec947cd2a")
         public static class TimeDSmAttribute extends SmAttribute {
-            @objid ("b47ec25b-c5d0-4b43-98ed-2877fdb4c29b")
+            @objid ("477aeba4-74e0-47d3-9ca9-a9d8f994ac33")
             public Object getValue(ISmObjectData data) {
                 return ((BpmnTimerEventDefinitionData) data).mTimeD;
             }
 
-            @objid ("651d614a-9fd1-4b8b-a281-cc19c4a70702")
+            @objid ("c89ee69d-5910-4c10-9e11-1bfe84acd04f")
             public void setValue(ISmObjectData data, Object value) {
                 ((BpmnTimerEventDefinitionData) data).mTimeD = value;
             }

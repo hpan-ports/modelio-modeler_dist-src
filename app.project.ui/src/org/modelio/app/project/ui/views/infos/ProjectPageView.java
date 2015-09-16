@@ -21,6 +21,7 @@
 
 package org.modelio.app.project.ui.views.infos;
 
+import java.beans.EventHandler;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
@@ -30,6 +31,7 @@ import org.eclipse.swt.browser.Browser;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Shell;
 
 /**
@@ -67,6 +69,10 @@ public class ProjectPageView {
     public void createControls(final Composite parent) {
         this.browser = new Browser(parent, SWT.NULL);
         this.browser.setText("");
+        
+        Listener listener = EventHandler.create(Listener.class, this, "onBrowserActivated");
+        this.browser.addListener(SWT.Show , listener);
+        //this.browser.addListener(SWT.Activate, listener);
     }
 
     /**
@@ -112,15 +118,29 @@ public class ProjectPageView {
     public void setUrl(final String viewUrl) {
         this.url = viewUrl;
         
-        if (this.url != null)
-            this.browser.setUrl(this.url);
-        else
-            this.browser.setText("");
+        if (this.browser!=null && !this.browser.isDisposed() && this.browser.isVisible())
+            onBrowserActivated();
     }
 
     @objid ("9da585ce-d6e3-4890-807d-51d60cba2295")
     public String getUrl() {
         return this.url;
+    }
+
+    /**
+     * @see #createControls(Composite)
+     */
+    @objid ("53fd68cb-c396-44d1-af30-0f9820dec268")
+    public void onBrowserActivated() {
+        String browserUrl = this.browser.getUrl();
+        if (browserUrl.equals(this.url) ||
+                (this.url==null && this.browser.getUrl().isEmpty()))
+            return;
+        
+        if (this.url != null)
+            this.browser.setUrl(this.url);
+        else
+            this.browser.setText("");
     }
 
 

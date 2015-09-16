@@ -1,0 +1,38 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<title>Modeler audit rules R1030</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link href="style.css" media="screen" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<a name="R1030"></a>
+<h1 >R1030<a href="#R1030" class="wiki-anchor">&para;</a></h1>
+
+<a name="Summary"></a>
+<h4 >Summary<a href="#Summary" class="wiki-anchor">&para;</a></h4>
+
+<p>The source and the target of an ActivityEdge must be owned by the same Activity.</p>
+
+<a name="Details"></a>
+<h4 >Details<a href="#Details" class="wiki-anchor">&para;</a></h4>
+
+<p><img src="Modeler_audit_rules_R1030_modeler_fig_1030.gif" alt="" /></p>
+
+<p>In this example, the ControlFlow is invalid because it has its source in the “Recruitment” Activity and its target in the “Development” Activity.</p>
+
+<a name="Tips"></a>
+<h4 >Tips<a href="#Tips" class="wiki-anchor">&para;</a></h4>
+
+<p>When you get a R1030 error, you can fix it by:</p>
+
+<ul>
+<li>moving one of the ends of the ActivityEdge into an element in the same Activity as the other end</li>
+<li>moving the source of the ActivityEdge into the same Activity as the target or the other way around</li>
+</ul>
+
+
+<p>You can also use a CallBehaviorAction node to refer to a Behavior (i.e. an Activity, an Interaction or a CommunicationInteraction) from another Activity.</p>
+
+<div id="footer"><iframe frameborder="0" scrolling="no" height="25" width="100%" src="_footer.html"></iframe></div> </body>
+</html>

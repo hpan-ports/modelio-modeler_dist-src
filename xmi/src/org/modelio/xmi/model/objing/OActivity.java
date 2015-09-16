@@ -36,7 +36,7 @@ import org.modelio.xmi.util.XMILogs;
  * @author ebrosse
  */
 @objid ("d210b9e8-7a7f-4156-b669-76619c8f81a7")
-public class OActivity extends OModelElement implements IOElement {
+public class OActivity extends OModelElement {
     @objid ("691399ba-2d98-4016-8cdc-21fa42e125ab")
     private Activity objingElement = null;
 
@@ -117,10 +117,9 @@ public class OActivity extends OModelElement implements IOElement {
                                                     objingOpOwner.getName());
         
         XMILogs.getInstance().writelnInLog(errorMessage);
-        
-                
+                        
         GenerationProperties genProp = GenerationProperties.getInstance();
-        genProp.getReportModel().addWarning( errorMessage, this.objingElement);
+        genProp.getReportModel().addWarning(errorMessage, this.objingElement);
         
         org.eclipse.uml2.uml.Element ecoreOpOwner = genProp.getMappedElement(objingOpOwner);
                 

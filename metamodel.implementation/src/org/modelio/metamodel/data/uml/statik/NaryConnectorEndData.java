@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.data.uml.statik;
 
@@ -43,22 +43,22 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("00789d08-17e8-10a1-88a0-001ec947cd2a")
 @SmaMetaClass(mmClass=NaryConnectorEnd.class, factory=NaryConnectorEndData.Metadata.ObjectFactory.class)
 public class NaryConnectorEndData extends NaryLinkEndData {
-    @objid ("f73135af-dc72-4735-b953-03fecf09d6b9")
+    @objid ("eab69247-c2c5-440a-bb2f-0da0dbac1215")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("00362608-17f3-10a1-88a0-001ec947cd2a")
     public static class Metadata {
-        @objid ("210fb03b-b345-41bc-9cbc-a5be7983e449")
+        @objid ("feea0ed7-678b-41d5-a7af-736091f38240")
         private static SmClass smClass = null;
 
-        @objid ("cbc0b4e1-8352-4de2-8cbc-57f2134a1567")
+        @objid ("326218e1-8106-4b19-a021-aa427b2d82b3")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(NaryConnectorEndData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("16193258-09d6-45a6-a584-b72c8d0b40af")
+        @objid ("43d25fea-759b-430c-9cc5-c0fccf69dbd2")
         public static SmClass getSmClass() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return smClass;
@@ -66,12 +66,12 @@ public class NaryConnectorEndData extends NaryLinkEndData {
 
         @objid ("003669ba-17f3-10a1-88a0-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("41636594-0361-4f1c-91d2-dc2ba1de7dc7")
+            @objid ("451f60c6-fe63-4b81-bde1-a56379c03cff")
             public ISmObjectData createData() {
                 return new NaryConnectorEndData();
             }
 
-            @objid ("55e1fc9e-c327-44a1-8d29-53ab39b4a6c9")
+            @objid ("a2874fc8-b845-4821-8634-7941b8a992a4")
             public SmObjectImpl createImpl() {
                 return new NaryConnectorEndImpl();
             }

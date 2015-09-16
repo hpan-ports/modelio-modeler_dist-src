@@ -31,6 +31,7 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.progress.IProgressService;
 import org.modelio.app.project.core.services.IProjectService;
+import org.modelio.gproject.model.IMModelServices;
 import org.modelio.metamodel.uml.infrastructure.Profile;
 import org.modelio.vcore.smkernel.mapi.MObject;
 import org.modelio.vcore.smkernel.mapi.MStatus;
@@ -47,16 +48,15 @@ public class ExportProfile {
 
     @objid ("b0f35dc9-3434-4c42-b2b9-fd805f4db521")
     @Execute
-    public Object execute(@Named(IServiceConstants.ACTIVE_SHELL) final Shell activeShell, IProgressService progressService, IProjectService projectService) {
+    public void execute(@Named(IServiceConstants.ACTIVE_SHELL) final Shell activeShell, IProgressService progressService, IProjectService projectService, IMModelServices modelServices) {
         GenerationProperties genProp = GenerationProperties.getInstance();
-        genProp.initialize();
+        genProp.initialize(modelServices);
         genProp.setTimeDisplayerActivated(false);
         genProp.setSelectedPackage(this.selectedProfile);
         
         SwtWizardExportProfile dialog = new SwtWizardExportProfile(activeShell, progressService, projectService);
         dialog.setSelectedElt(this.selectedProfile);
         dialog.open();
-        return null;
     }
 
     @objid ("9421d2b7-89e4-4a45-9c30-8dbda32ff794")

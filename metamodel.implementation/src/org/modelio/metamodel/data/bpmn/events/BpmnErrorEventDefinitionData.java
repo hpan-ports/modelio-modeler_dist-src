@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.data.bpmn.events;
 
@@ -43,29 +43,29 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("008ba8e4-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=BpmnErrorEventDefinition.class, factory=BpmnErrorEventDefinitionData.Metadata.ObjectFactory.class)
 public class BpmnErrorEventDefinitionData extends BpmnEventDefinitionData {
-    @objid ("b55ae2c1-9ef2-4444-a4c1-a96e3b4b53dd")
+    @objid ("5d310bde-95c0-4d41-93dc-15fee17f1ea9")
     @SmaMetaAttribute(metaName="ErrorCode", type=String.class, smAttributeClass=Metadata.ErrorCodeSmAttribute.class)
      Object mErrorCode = "";
 
-    @objid ("cdd3f2eb-fd08-42ee-b43b-89c528590c08")
+    @objid ("5244e7ef-39cb-4731-bdc8-efee515d5e5d")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("0014bd06-c4c4-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("54eb1fc9-4fac-403b-92b5-a9abe9eff4de")
+        @objid ("62a555b5-b523-4291-bb7a-211b80f7096f")
         private static SmClass smClass = null;
 
-        @objid ("11c712af-066a-4b01-936f-9cdd62300360")
+        @objid ("a7a102ee-28f6-48f5-a1d8-72ea1e4fcfc1")
         private static SmAttribute ErrorCodeAtt = null;
 
-        @objid ("9a50f44d-6116-44ca-a6b9-8b238b185ea7")
+        @objid ("7757e6b0-9ffe-4135-ae47-7056c2dc3795")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(BpmnErrorEventDefinitionData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("5ee4b18d-7e90-44e8-a413-016877470f95")
+        @objid ("1f160412-aaf1-4236-83a5-8020bb7d110e")
         public static SmAttribute ErrorCodeAtt() {
             if (ErrorCodeAtt == null) {
             	ErrorCodeAtt = classof().getAttributeDef("ErrorCode");
@@ -73,13 +73,13 @@ public class BpmnErrorEventDefinitionData extends BpmnEventDefinitionData {
             return ErrorCodeAtt;
         }
 
-        @objid ("7208cbcc-1fba-49c2-8d91-cffe2ad6dbc1")
+        @objid ("1f60ee31-5ba7-470d-a59f-e4996d683d54")
         public static SmAttribute getErrorCodeAtt() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return ErrorCodeAtt;
         }
 
-        @objid ("4c575fdf-4f21-47f8-bf6f-40d27a7b5028")
+        @objid ("24a53d0f-ddbf-48fd-b79d-4ac54f88bc63")
         public static SmClass getSmClass() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return smClass;
@@ -87,12 +87,12 @@ public class BpmnErrorEventDefinitionData extends BpmnEventDefinitionData {
 
         @objid ("0014ff6e-c4c4-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("42132200-dd86-4b64-a77a-a67d6bbca51d")
+            @objid ("bfbb4ecd-a39c-44fd-8955-254a3f99a1a2")
             public ISmObjectData createData() {
                 return new BpmnErrorEventDefinitionData();
             }
 
-            @objid ("6f7c2850-a53a-4e99-af5b-b81d159a5210")
+            @objid ("4dd2c725-549b-4322-bddc-9e03f71f96d9")
             public SmObjectImpl createImpl() {
                 return new BpmnErrorEventDefinitionImpl();
             }
@@ -101,12 +101,12 @@ public class BpmnErrorEventDefinitionData extends BpmnEventDefinitionData {
 
         @objid ("0015644a-c4c4-1fd8-97fe-001ec947cd2a")
         public static class ErrorCodeSmAttribute extends SmAttribute {
-            @objid ("a5ce7486-0b98-4c82-bc89-41e15e54e9d0")
+            @objid ("727667ce-dcd3-4c3a-864a-c9a8976b67cf")
             public Object getValue(ISmObjectData data) {
                 return ((BpmnErrorEventDefinitionData) data).mErrorCode;
             }
 
-            @objid ("fb17e82d-6624-4d17-bc5d-fcf8ee026786")
+            @objid ("afdaab5b-f197-4d2b-8f48-f6bad26ec848")
             public void setValue(ISmObjectData data, Object value) {
                 ((BpmnErrorEventDefinitionData) data).mErrorCode = value;
             }

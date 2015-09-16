@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.data.uml.statik;
 
@@ -43,22 +43,22 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("83b26800-924c-4c83-b588-26b199d89d79")
 @SmaMetaClass(mmClass=Connector.class, factory=ConnectorData.Metadata.ObjectFactory.class)
 public class ConnectorData extends LinkData {
-    @objid ("2d332523-aad9-453d-8f88-21da902e5b9e")
+    @objid ("a2d3f74b-f74e-4a3b-844c-611b5c3d3a87")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("08b3d3f4-aa75-4b25-9b20-148b992d0173")
     public static class Metadata {
-        @objid ("bb159992-b7f6-469c-b227-83afe7ce678e")
+        @objid ("97c24043-7bbd-484a-b3e9-7172f121d22d")
         private static SmClass smClass = null;
 
-        @objid ("7501b504-ed49-47e5-98b8-53d8fea2a1e2")
+        @objid ("08811d92-c7cc-4503-8424-4e86567e9375")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(ConnectorData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("8c68ab69-afcb-4ca8-9de2-7fba3efc725b")
+        @objid ("137a933b-b6fe-4f3d-806b-de4a9844b459")
         public static SmClass getSmClass() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return smClass;
@@ -66,12 +66,12 @@ public class ConnectorData extends LinkData {
 
         @objid ("c7c3d260-7c0e-4c05-8e48-e1fead0968ac")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("7e77fd16-7f2d-4602-b9cb-a4cccefdf1e3")
+            @objid ("72b112df-9b1d-4bfa-9709-e648ba398b40")
             public ISmObjectData createData() {
                 return new ConnectorData();
             }
 
-            @objid ("7a82be23-f95f-4609-851a-06fd8d9425d7")
+            @objid ("7d96f31a-1c51-4f85-b3a3-03bc1881382b")
             public SmObjectImpl createImpl() {
                 return new ConnectorImpl();
             }

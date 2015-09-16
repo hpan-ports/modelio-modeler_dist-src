@@ -34,10 +34,10 @@ import org.eclipse.swt.widgets.TableItem;
 @objid ("8dca8c74-c068-11e1-8c0a-002564c97630")
 class StringAdapterModifier implements ICellModifier, KeyListener {
     @objid ("8dca8c75-c068-11e1-8c0a-002564c97630")
-    private StringListEditionDialog dialog = null;
+    private StringListEditionComposite dialog = null;
 
     @objid ("8dca8c76-c068-11e1-8c0a-002564c97630")
-    public StringAdapterModifier(StringListEditionDialog dialog) {
+    public StringAdapterModifier(StringListEditionComposite dialog) {
         this.dialog = dialog;
     }
 
@@ -50,8 +50,7 @@ class StringAdapterModifier implements ICellModifier, KeyListener {
     @objid ("8dcc12e5-c068-11e1-8c0a-002564c97630")
     @Override
     public Object getValue(Object element, String property) {
-        StringAdapter adapter = (StringAdapter)element;
-        String value = adapter.getValue();
+        String value = (String) element;
         if (value == null) {
             value = "";
         }
@@ -90,11 +89,9 @@ class StringAdapterModifier implements ICellModifier, KeyListener {
             TableItem item = (TableItem)element;
             Object data = item.getData();
             
-            if (data instanceof StringAdapter) {
-                StringAdapter adapter = (StringAdapter)data;
-                adapter.setValue((String)value);
-                this.dialog.refresh();
-            }
+            final int index = this.dialog.getContent().indexOf(data);
+            this.dialog.getContent().add(index, (String) value);
+            this.dialog.refresh();
         }
     }
 

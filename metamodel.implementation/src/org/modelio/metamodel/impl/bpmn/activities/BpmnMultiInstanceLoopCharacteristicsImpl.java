@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.bpmn.activities;
 
@@ -47,97 +47,97 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("00811ea6-c4bf-1fd8-97fe-001ec947cd2a")
 public class BpmnMultiInstanceLoopCharacteristicsImpl extends BpmnLoopCharacteristicsImpl implements BpmnMultiInstanceLoopCharacteristics {
-    @objid ("69c8a5c4-26fb-4618-8516-9cf49951b973")
+    @objid ("399ad937-a1c3-4f0f-8a0c-e26a3666be38")
     @Override
     public boolean isIsSequencial() {
         return (Boolean) getAttVal(BpmnMultiInstanceLoopCharacteristicsData.Metadata.IsSequencialAtt());
     }
 
-    @objid ("039f24f8-48a9-48fe-9da2-5a82e8fe22b4")
+    @objid ("6c2d67c6-4a1d-499e-a05b-869e62feed0b")
     @Override
     public void setIsSequencial(boolean value) {
         setAttVal(BpmnMultiInstanceLoopCharacteristicsData.Metadata.IsSequencialAtt(), value);
     }
 
-    @objid ("03f1510a-927d-40e8-a17c-0b012d5302c8")
+    @objid ("80d8995f-790a-482a-a6d4-2e5325e8828a")
     @Override
     public MultiInstanceBehavior getBehavior() {
         return (MultiInstanceBehavior) getAttVal(BpmnMultiInstanceLoopCharacteristicsData.Metadata.BehaviorAtt());
     }
 
-    @objid ("7514558b-a3cb-41ce-a708-a07878a4f1ff")
+    @objid ("05305954-9345-422f-a1f6-ba9e2f25260a")
     @Override
     public void setBehavior(MultiInstanceBehavior value) {
         setAttVal(BpmnMultiInstanceLoopCharacteristicsData.Metadata.BehaviorAtt(), value);
     }
 
-    @objid ("e59adb9f-f6b4-4f03-b2e2-dfa867f3d38e")
+    @objid ("cd1c7090-cfe7-44ba-9a34-5eb5ef328394")
     @Override
     public String getLoopCardinality() {
         return (String) getAttVal(BpmnMultiInstanceLoopCharacteristicsData.Metadata.LoopCardinalityAtt());
     }
 
-    @objid ("9616aedb-3031-489b-a380-2d622973d5d2")
+    @objid ("31f5e89d-fb45-4f7b-b9d1-1d6e55904bbc")
     @Override
     public void setLoopCardinality(String value) {
         setAttVal(BpmnMultiInstanceLoopCharacteristicsData.Metadata.LoopCardinalityAtt(), value);
     }
 
-    @objid ("f53032a1-31d9-4d39-b960-4b1feba119ef")
+    @objid ("10c0ad1c-3255-4568-bf2c-69d4e921bbba")
     @Override
     public String getCompletionCondition() {
         return (String) getAttVal(BpmnMultiInstanceLoopCharacteristicsData.Metadata.CompletionConditionAtt());
     }
 
-    @objid ("4aeababd-4759-435d-b2ec-cf71d6e78dfe")
+    @objid ("b5af1413-5cc2-44e3-ba57-3260aa8e57c3")
     @Override
     public void setCompletionCondition(String value) {
         setAttVal(BpmnMultiInstanceLoopCharacteristicsData.Metadata.CompletionConditionAtt(), value);
     }
 
-    @objid ("5cd417aa-8324-46d5-93ed-ae0ac8e249b3")
+    @objid ("0d41ea39-5a5d-4dfb-ab08-0f806ba04737")
     @Override
     public BpmnDataInput getLoopDataInput() {
         return (BpmnDataInput) getDepVal(BpmnMultiInstanceLoopCharacteristicsData.Metadata.LoopDataInputDep());
     }
 
-    @objid ("d4aed213-0124-4cf4-8a60-48e1a3fb53bc")
+    @objid ("7802ba6c-defb-4be5-bb5d-464893eb8ad7")
     @Override
     public void setLoopDataInput(BpmnDataInput value) {
         appendDepVal(BpmnMultiInstanceLoopCharacteristicsData.Metadata.LoopDataInputDep(), (SmObjectImpl)value);
     }
 
-    @objid ("ff16f92c-dec8-4705-b32a-02ffcdebc582")
+    @objid ("9f66b14e-392b-47cb-b047-ede68fbc9f10")
     @Override
     public BpmnDataOutput getLoopDataOutputRef() {
         return (BpmnDataOutput) getDepVal(BpmnMultiInstanceLoopCharacteristicsData.Metadata.LoopDataOutputRefDep());
     }
 
-    @objid ("260960fd-82dd-4b91-be7d-27c3a80df46b")
+    @objid ("b97e1cd4-a605-46ed-a572-c6f9faed0360")
     @Override
     public void setLoopDataOutputRef(BpmnDataOutput value) {
         appendDepVal(BpmnMultiInstanceLoopCharacteristicsData.Metadata.LoopDataOutputRefDep(), (SmObjectImpl)value);
     }
 
-    @objid ("f5db4aef-1839-4a92-9652-7edad1e01f42")
+    @objid ("ad5236cc-f95c-4209-8ccd-eb90bc3a6962")
     @Override
     public BpmnEventDefinition getCompletionEventRef() {
         return (BpmnEventDefinition) getDepVal(BpmnMultiInstanceLoopCharacteristicsData.Metadata.CompletionEventRefDep());
     }
 
-    @objid ("2f437e01-f4c7-4abb-8566-a6e7a453c19e")
+    @objid ("cb6eb38c-89ea-448b-8a6a-85024e5f771d")
     @Override
     public void setCompletionEventRef(BpmnEventDefinition value) {
         appendDepVal(BpmnMultiInstanceLoopCharacteristicsData.Metadata.CompletionEventRefDep(), (SmObjectImpl)value);
     }
 
-    @objid ("443d9a0a-0a58-4a7c-b8c9-a888cb811810")
+    @objid ("e6984df6-97ce-45ae-9242-fd8f6f06c5af")
     @Override
     public EList<BpmnComplexBehaviorDefinition> getComplexBehaviorDefinition() {
         return new SmList<>(this, BpmnMultiInstanceLoopCharacteristicsData.Metadata.ComplexBehaviorDefinitionDep());
     }
 
-    @objid ("13ee6ab8-8518-4634-a16d-f0bcedacf8d1")
+    @objid ("43f11a78-5d09-4578-bd60-2bcf6745158c")
     @Override
     public <T extends BpmnComplexBehaviorDefinition> List<T> getComplexBehaviorDefinition(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -150,21 +150,21 @@ public class BpmnMultiInstanceLoopCharacteristicsImpl extends BpmnLoopCharacteri
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("c41b981a-e7bd-4c3d-bcb1-855e6564aa0f")
+    @objid ("cb563d99-6c59-4e50-b379-3270af1974e4")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("5a036081-f275-4c9b-aeb3-0939bc5ba140")
+    @objid ("a09bbe33-90ef-4059-a290-6bde5f998a7d")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("dbe197c5-257f-4615-b447-c336ca145654")
+    @objid ("45369895-d5a7-4a47-b669-f62f13a69d54")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitBpmnMultiInstanceLoopCharacteristics(this);

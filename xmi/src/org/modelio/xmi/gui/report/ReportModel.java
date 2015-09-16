@@ -46,9 +46,9 @@ public class ReportModel implements IReportWriter {
      */
     @objid ("88cd91ed-15ab-4f3e-a447-df41307f2a0c")
     public ReportModel() {
-        this.errors = new TreeSet <ElementMessage> ();
-        this.warnings = new TreeSet <ElementMessage> ();
-        this.infos = new TreeSet <ElementMessage> ();
+        this.errors = new TreeSet <> ();
+        this.warnings = new TreeSet <> ();
+        this.infos = new TreeSet <> ();
     }
 
     @objid ("422c95e4-6db4-4453-8832-464ac5a50b00")

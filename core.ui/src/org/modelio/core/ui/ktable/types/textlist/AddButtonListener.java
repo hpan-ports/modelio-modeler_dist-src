@@ -29,10 +29,10 @@ import org.eclipse.swt.widgets.Text;
 @objid ("8dc77f22-c068-11e1-8c0a-002564c97630")
 class AddButtonListener implements SelectionListener {
     @objid ("8dc77f23-c068-11e1-8c0a-002564c97630")
-    private StringListEditionDialog dialog = null;
+    private StringListEditionComposite dialog = null;
 
     @objid ("8dc77f24-c068-11e1-8c0a-002564c97630")
-    public AddButtonListener(StringListEditionDialog dialog) {
+    public AddButtonListener(StringListEditionComposite dialog) {
         this.dialog = dialog;
     }
 
@@ -52,7 +52,7 @@ class AddButtonListener implements SelectionListener {
     private void addString() {
         Text addStringText = this.dialog.getAddStringText();
         String text = addStringText.getText();
-        this.dialog.addAdapter(new StringAdapter(text));
+        this.dialog.addAdapter(text);
         addStringText.setText("");
     }
 

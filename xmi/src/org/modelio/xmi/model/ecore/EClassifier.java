@@ -22,29 +22,12 @@
 package org.modelio.xmi.model.ecore;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.modelio.metamodel.uml.infrastructure.Element;
 
 @objid ("86424d20-11ca-487f-9b3d-5b769336a4a7")
-public class EClassifier extends EElement implements IEElement {
-    @objid ("46855757-eaae-46f4-94b1-042fe9435553")
-    public Element createObjingElt() {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
+public class EClassifier extends EElement {
     @objid ("8bda2bc2-1034-492a-a97f-4bc2b425b00c")
     public EClassifier(org.eclipse.uml2.uml.Behavior element) {
         super(element);
-    }
-
-    @objid ("d3553656-2c4d-4fb5-94f1-e690b8e18757")
-    public void attach(Element objingElt) {
-        // TODO Auto-generated method stub
-    }
-
-    @objid ("ba429617-4da5-49fd-8bed-3a74e2b3154a")
-    public void setProperties(Element objingElt) {
-        super.setProperties(objingElt);
     }
 
 }

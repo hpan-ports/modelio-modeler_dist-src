@@ -1,0 +1,38 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<title>Modeler audit rules R2640</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link href="style.css" media="screen" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<a name="R2640"></a>
+<h1 >R2640<a href="#R2640" class="wiki-anchor">&para;</a></h1>
+
+<a name="Summary"></a>
+<h4 >Summary<a href="#Summary" class="wiki-anchor">&para;</a></h4>
+
+<p>An <em>Interface </em>cannot have <em>StateMachines</em>, except a protocol <em>StateMachine</em>.</p>
+
+<a name="Details"></a>
+<h4 >Details<a href="#Details" class="wiki-anchor">&para;</a></h4>
+
+<p>A state machine defines the behavior of an instantiated classifier; therefore
+it cannot define an interface.</p>
+
+<p>Since an interface specifies conformity characteristics, it does not own
+detailed behavior specifications. Instead, interfaces may own a protocol state
+machine that specifies event sequences and pre/post conditions for the
+operations described by the interface.</p>
+
+<a name="Tips"></a>
+<h4 >Tips<a href="#Tips" class="wiki-anchor">&para;</a></h4>
+
+<ul>
+<li>Move the state machine to an instantiable <em>Classifier</em>.</li>
+<li>Modify the state machine to define it as a protocol state machine.</li>
+</ul>
+
+
+<div id="footer"><iframe frameborder="0" scrolling="no" height="25" width="100%" src="_footer.html"></iframe></div> </body>
+</html>

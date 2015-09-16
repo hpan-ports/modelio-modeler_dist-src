@@ -68,6 +68,7 @@ class ModuleLoader {
     private Path projectMdaRuntimePath;
 
     @objid ("8a81c9ac-f34b-11e1-9458-001ec947c8cc")
+    @SuppressWarnings("resource")
     public IModule loadModule(GModule gModule, final IModuleHandle rtModuleHandle, List<IModule> loadedDependencies) throws ModuleException {
         // No valid RT module means the module is broken
         if (rtModuleHandle == null) {
@@ -256,16 +257,18 @@ class ModuleLoader {
     }
 
     /**
-     * Returns the first "available" path (i.e. there is not an aleady existing
+     * Returns the first "available" path (i.e. there is not an already existing
      * file with this path) in moduleRuntimeBasePath.
-     * @param moduleRuntimeBasePath
-     * @param relativFilePath @return
+     * @param moduleRuntimeBasePath the module runtime path
+     * @param relativFilePath a file path relative to the runtime path
+     * @return the first "available" path .
      */
     @objid ("7f103043-0263-11e2-9fca-001ec947c8cc")
     private static Path getRuntimeJarFile(Path moduleRuntimeBasePath, Path relativFilePath) {
-        Path runTimeJarFile = moduleRuntimeBasePath.resolve(relativFilePath);
-        String jarName = relativFilePath.toString().substring(0,
+        final String jarName = relativFilePath.toString().substring(0,
                 relativFilePath.toString().lastIndexOf(".jar"));
+        
+        Path runTimeJarFile = moduleRuntimeBasePath.resolve(relativFilePath);
         
         int cpt = 0;
         while (Files.exists(runTimeJarFile)) {
@@ -299,7 +302,7 @@ class ModuleLoader {
         // Prepare the ModuleConfiguration objects for the module.
         ModuleConfiguration moduleUserConfiguration = new ModuleConfiguration(
                 gModule, projectspacePath, rtModuleHandle.getResourcePath(),
-                rtModuleHandle.getDocPaths());
+                rtModuleHandle.getDocPaths(), rtModuleHandle.getStylePaths());
         
         PeerModuleConfiguration moduleApiConfiguration = new PeerModuleConfiguration(
                 gModule, projectspacePath, rtModuleHandle.getResourcePath(),
@@ -410,8 +413,7 @@ class ModuleLoader {
 
     /**
      * Check the module version is compatible with the current Modelio
-     * @param gModule
-     * the module to check.
+     * @param rtModuleHandle the module to check.
      * @return <code>true</code> if this module is not compatible with the
      * current Modelio.
      */
@@ -439,7 +441,7 @@ class ModuleLoader {
     @objid ("8a81c9bd-f34b-11e1-9458-001ec947c8cc")
     private static class ModuleClassLoader extends URLClassLoader {
         /**
-         * Module name of the class loader.<br>
+         * Jxbv2Module name of the class loader.<br>
          * Just for debugging purpose.
          */
         @objid ("7f508e16-0263-11e2-9fca-001ec947c8cc")

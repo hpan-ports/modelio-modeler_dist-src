@@ -1,0 +1,110 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<title>Xmi coverage</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link href="style.css" media="screen" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<a name="Coverage-of-UML2"></a>
+<h1 >Coverage of UML2<a href="#Coverage-of-UML2" class="wiki-anchor">&para;</a></h1>
+
+<a name="Introduction"></a>
+<h4 >Introduction<a href="#Introduction" class="wiki-anchor">&para;</a></h4>
+
+<p>Modelio XMI Import/Export is designed to enable all model elements to be
+imported and exported.</p>
+
+<p>However, at this time, only some of the elements defined in the UML2
+metamodel are managed. Details on exactly what is covered are provided below.</p>
+
+<p>It should also be noted that imports/exports may be incomplete, because of the
+differences that exist between the UML2 and Modelio metamodels.</p>
+
+<a name="Static-diagram-elements"></a>
+<h4 >Static diagram elements<a href="#Static-diagram-elements" class="wiki-anchor">&para;</a></h4>
+
+<p><strong>Class diagrams</strong></p>
+
+<p>All class diagram elements are managed.</p>
+
+<p><strong>Object diagrams</strong></p>
+
+<p>All object diagram elements are managed.</p>
+
+<p><strong>Component diagrams</strong></p>
+
+<p>All component diagram elements are managed.</p>
+
+<p><strong>Deployment diagrams</strong></p>
+
+<p>All deployment diagram elements are managed.</p>
+
+<p><strong>Package diagrams</strong></p>
+
+<p>All package diagram elements are managed.</p>
+
+<p><strong>Composite structure diagrams</strong></p>
+
+<p>All composite structure diagram elements are managed.</p>
+
+<a name="Behavioral-diagram-elements"></a>
+<h4 >Behavioral diagram elements<a href="#Behavioral-diagram-elements" class="wiki-anchor">&para;</a></h4>
+
+<p><strong>Use case diagrams</strong></p>
+
+<p>All use case diagram elements are managed.</p>
+
+<p><strong>State diagrams</strong></p>
+
+<p>All state diagram elements are managed.</p>
+
+<p><strong>Activity diagrams</strong></p>
+
+<p>All activity diagram elements are managed.</p>
+
+<a name="Dynamic-diagram-elements"></a>
+<h4 >Dynamic diagram elements<a href="#Dynamic-diagram-elements" class="wiki-anchor">&para;</a></h4>
+
+<p><strong>Sequence diagrams</strong></p>
+
+<p>All sequence diagram elements are managed.</p>
+
+<p><strong>Communication diagrams</strong></p>
+
+<p>Communication diagram elements are not yet managed.</p>
+
+<p><strong>Timing diagrams</strong></p>
+
+<p>Timing diagram elements are not managed by Modelio.</p>
+
+<a name="Auxiliary-constructions"></a>
+<h4 >Auxiliary constructions<a href="#Auxiliary-constructions" class="wiki-anchor">&para;</a></h4>
+
+<p>Templates are managed.</p>
+
+<a name="Profiles"></a>
+<h4 >Profiles<a href="#Profiles" class="wiki-anchor">&para;</a></h4>
+
+<p>Profiles can be imported into Modelio but they must be defined in a module. <br/>
+This means that the UML profile must be imported into a module by using the <a href="Xmi_importing_profile.html" class="wiki-page.html">XMI Import Profile command</a>.</p>
+
+<p>Profiles can also be exported from Modelio through the <a href="Xmi_exporting_profile.html" class="wiki-page.html">XMI Export Profile command</a>.</p>
+
+<a name="Modelio-compatibility-option"></a>
+<h4 >Modelio compatibility option<a href="#Modelio-compatibility-option" class="wiki-anchor">&para;</a></h4>
+
+<p>By activating the <a href="Xmi_config.html">Modelio/Modelio compatibility option</a>, it is possible to
+export and re-import notes with their associated type. If this option has not
+been activated, the types of notes are lost (UML2 restriction). By default,
+imported notes are of &ldquo;comment&rdquo; type.</p>
+
+<p><strong><em>Note:</em></strong> Some metaclasses define notions that are only present either in
+UML2 or in Modelio, but not in both. These cannot be imported or exported.</p>
+
+<p>Examples: In sequence diagrams, &ldquo;Continuations&rdquo; do not exist in Modelio and
+cannot therefore be imported. &ldquo;ConsiderIgnoreFragments&rdquo; are imported simply as
+&ldquo;CombinedFragments&rdquo;.</p>
+
+<div id="footer"><iframe frameborder="0" scrolling="no" height="25" width="100%" src="_footer.html"></iframe></div> </body>
+</html>

@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.data.uml.behavior.activityModel;
 
@@ -43,29 +43,29 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("003a6c18-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=OpaqueAction.class, factory=OpaqueActionData.Metadata.ObjectFactory.class)
 public class OpaqueActionData extends ActivityActionData {
-    @objid ("5a7544c3-f450-48b3-9990-c42bc6d25a81")
+    @objid ("07789287-4a7c-4f98-8546-24cd0fa82882")
     @SmaMetaAttribute(metaName="Body", type=String.class, smAttributeClass=Metadata.BodySmAttribute.class)
      Object mBody = "";
 
-    @objid ("f6beb36f-e67c-45ea-8249-390686f58ba7")
+    @objid ("ff17f11d-a7e4-4dec-8c08-759f4f61ce4d")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("005b0374-c4c3-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("0c997230-c754-453d-9793-fb00f316aff7")
+        @objid ("67ec0ed2-f4ab-4664-8a34-c4401d611eab")
         private static SmClass smClass = null;
 
-        @objid ("935697e5-bc2d-4fb2-950c-be6a885f22b3")
+        @objid ("838bd662-b359-4ffd-a722-82d5735348c8")
         private static SmAttribute BodyAtt = null;
 
-        @objid ("f9e12cc5-a617-49f0-b4c4-a3309d320259")
+        @objid ("fea8d946-6939-4d5d-a7a6-47183a4a5075")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(OpaqueActionData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("328f8699-2afb-4a44-9fcb-cf80eb206f97")
+        @objid ("5b8ef021-f858-40bf-aad0-c04848984013")
         public static SmAttribute BodyAtt() {
             if (BodyAtt == null) {
             	BodyAtt = classof().getAttributeDef("Body");
@@ -73,26 +73,26 @@ public class OpaqueActionData extends ActivityActionData {
             return BodyAtt;
         }
 
-        @objid ("ca163b05-dec1-4d11-9e47-737129bf1128")
-        public static SmClass getSmClass() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return smClass;
-        }
-
-        @objid ("0c40f142-aaac-4e26-a823-a5ee31aaa20e")
+        @objid ("64efc5ba-e4d6-4fc1-b223-b0c28a712c64")
         public static SmAttribute getBodyAtt() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return BodyAtt;
         }
 
+        @objid ("4c365963-689f-4e80-9e75-c80f11d5f784")
+        public static SmClass getSmClass() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return smClass;
+        }
+
         @objid ("005b4564-c4c3-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("c22cdef6-4400-4eee-bd4c-4ecfd8008bc2")
+            @objid ("58b0bb3a-ecf8-480c-afb6-f595aa750efc")
             public ISmObjectData createData() {
                 return new OpaqueActionData();
             }
 
-            @objid ("331b7258-7e9d-4c0d-bc25-1177d5d88e15")
+            @objid ("62d00052-fd3a-468d-b04a-11d9d1781341")
             public SmObjectImpl createImpl() {
                 return new OpaqueActionImpl();
             }
@@ -101,12 +101,12 @@ public class OpaqueActionData extends ActivityActionData {
 
         @objid ("005ba810-c4c3-1fd8-97fe-001ec947cd2a")
         public static class BodySmAttribute extends SmAttribute {
-            @objid ("759954b1-2c2e-4d34-ae09-1af1518f9186")
+            @objid ("3fa52b84-a90f-4551-92fe-a4a00b5d3f03")
             public Object getValue(ISmObjectData data) {
                 return ((OpaqueActionData) data).mBody;
             }
 
-            @objid ("172a3fe6-4b39-4ee5-b9f4-8f27cc965065")
+            @objid ("d1e89af2-92ef-4b5c-b1df-130d48e7ea8e")
             public void setValue(ISmObjectData data, Object value) {
                 ((OpaqueActionData) data).mBody = value;
             }

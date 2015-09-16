@@ -27,10 +27,8 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.modelio.api.module.ModuleException;
 import org.modelio.core.ui.progress.ModelioProgressAdapter;
-import org.modelio.gproject.descriptor.AuthDescriptor;
-import org.modelio.gproject.descriptor.GProperties.Entry;
-import org.modelio.gproject.descriptor.GProperties;
-import org.modelio.gproject.descriptor.ModuleDescriptor;
+import org.modelio.gproject.data.project.AuthDescriptor;
+import org.modelio.gproject.data.project.ModuleDescriptor;
 import org.modelio.gproject.gproject.GProject;
 import org.modelio.gproject.gproject.GProjectAuthenticationException;
 import org.modelio.gproject.gproject.GProjectConfigurer;
@@ -93,16 +91,7 @@ public class ProjectSynchronizer extends GProjectConfigurer {
             this.moduleService.installModule(getProject(), archivePath);
             
             // Overwrite default module parameters with the server parameters
-            for (GModule  m:this.getProject().getModules()) {
-                if (m.getName().equals(fd.getName()) && m.getVersion().equals(fd.getVersion())) {
-                    m.setScope(fd.getScope());
-                    GProperties parameters = m.getParameters();
-                    for (Entry p : fd.getParameters().entries()) {
-                        parameters.setProperty(p.getName(), p.getValue(), p.getScope());
-                    }
-                    break;
-                }
-            }
+            reconfigureModule(findModule(fd.getName()), fd, mon);
             
         } catch (ModuleException e) {
             throw new IOException(e);
@@ -123,7 +112,29 @@ public class ProjectSynchronizer extends GProjectConfigurer {
     @objid ("4fbda55c-3723-4084-9ae2-b2ab8d1f6463")
     @Override
     protected void upgradeModule(GModule m, ModuleDescriptor fd, IModelioProgress mon) throws IOException {
-        installModule(fd, mon);
+        AuthDescriptor authDesc = fd.getAuthDescriptor();
+        IAuthData authData = (authDesc != null)? authDesc.getData() : null;
+        try (UriPathAccess access = new UriPathAccess(fd.getArchiveLocation(),authData)){
+            // Install the module as if the user asked for it
+            // The module may change some parameters on upgrade, they won't be lost.
+            Path archivePath = access.getPath();
+            this.moduleService.installModule(getProject(), archivePath);
+            
+            // Overwrite default module parameters with the server parameters
+            // Note: 'm' is invalid after installModule(...)
+            reconfigureModule(findModule(fd.getName()), fd, mon);
+            
+        } catch (ModuleException e) {
+            throw new IOException(e);
+        }
+    }
+
+    @objid ("006ee00d-d704-4630-9af6-3c0a68e54a0c")
+    protected GModule findModule(String name) {
+        for (GModule g : getProject().getModules())
+            if (g.getName().equals(name))
+                return g;
+        return null;
     }
 
 }

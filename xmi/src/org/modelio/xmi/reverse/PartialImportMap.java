@@ -38,7 +38,7 @@ public class PartialImportMap {
 
     @objid ("2f5742e1-aae2-4ebb-93b0-c3d22f550fc7")
     private PartialImportMap() {
-        modelMap = new HashMap <Element, Object>();
+        this.modelMap = new HashMap <>();
     }
 
     @objid ("4bb03743-8444-4c50-a1ac-f5971674ec33")
@@ -50,52 +50,52 @@ public class PartialImportMap {
 
     @objid ("fec4bd8a-f120-4e6a-b365-571ec40e64c6")
     public void clear() {
-        modelMap.clear();
+        this.modelMap.clear();
     }
 
     @objid ("0171b948-4fa0-4926-a0f8-41b0382f2ce6")
     public boolean containsKey(Object key) {
-        return modelMap.containsKey(key);
+        return this. modelMap.containsKey(key);
     }
 
     @objid ("f49a392f-b232-44be-9a24-267600f903a7")
     public boolean containsValue(Object val) {
-        return modelMap.containsValue(val);
+        return  this.modelMap.containsValue(val);
     }
 
     @objid ("1ced4db2-9f1b-4fbd-98bd-45561aadfcff")
     public Object get(org.eclipse.uml2.uml.Element key) {
-        return modelMap.get(key);
+        return  this.modelMap.get(key);
     }
 
     @objid ("8d864fa9-47f0-4b7f-99df-45fd070f9e7f")
     public boolean isEmpty() {
-        return modelMap.isEmpty();
+        return  this.modelMap.isEmpty();
     }
 
     @objid ("5da8e258-686f-4189-9bcf-7e688bf674fd")
     public Set<org.eclipse.uml2.uml.Element> keySet() {
-        return modelMap.keySet();
+        return  this.modelMap.keySet();
     }
 
     @objid ("eb3bcb32-cd8d-4e15-ac54-709746629121")
     public Object put(org.eclipse.uml2.uml.Element key, Object value) {
-        return modelMap.put(key, value);
+        return  this.modelMap.put(key, value);
     }
 
     @objid ("ce41cb29-f0ac-42eb-b0c0-a485f96a7c1e")
     public Object remove(Object key) {
-        return modelMap.remove(key);
+        return  this.modelMap.remove(key);
     }
 
     @objid ("295b0adf-e582-4b68-a64f-1c5643ebbe30")
     public int size() {
-        return modelMap.size();
+        return  this.modelMap.size();
     }
 
     @objid ("a67de848-afa3-4fd1-b5c9-6d630004c53d")
     public Collection<Object> values() {
-        return modelMap.values();
+        return  this.modelMap.values();
     }
 
 }

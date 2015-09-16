@@ -91,7 +91,7 @@ class BrowserPickingManager implements MouseListener, MouseTrackListener, MouseM
             this.yesCursor = new Cursor(Display.getCurrent(), pickingYesDesc.getImageData(), 10, 9);
         }
         
-        this.defaultCursor = view.getComposite().getTree().getCursor();
+        this.defaultCursor = view.getPanel().getTree().getCursor();
     }
 
     @objid ("840a4556-16a3-11e2-aa0d-002564c97630")
@@ -138,13 +138,13 @@ class BrowserPickingManager implements MouseListener, MouseTrackListener, MouseM
     @objid ("840a4567-16a3-11e2-aa0d-002564c97630")
     @Override
     public void mouseEnter(MouseEvent e) {
-        this.view.getComposite().getTree().setCursor(this.cursor);
+        this.view.getPanel().getTree().setCursor(this.cursor);
     }
 
     @objid ("840a456b-16a3-11e2-aa0d-002564c97630")
     @Override
     public void mouseExit(MouseEvent e) {
-        this.view.getComposite().getTree().setCursor(this.defaultCursor);
+        this.view.getPanel().getTree().setCursor(this.defaultCursor);
     }
 
     @objid ("840a456f-16a3-11e2-aa0d-002564c97630")
@@ -170,25 +170,25 @@ class BrowserPickingManager implements MouseListener, MouseTrackListener, MouseM
 
     @objid ("840a4575-16a3-11e2-aa0d-002564c97630")
     public void beginPicking() {
-        this.view.getComposite().getTree().addMouseListener(this);
-        this.view.getComposite().getTree().addMouseTrackListener(this);
-        this.view.getComposite().getTree().addMouseMoveListener(this);
+        this.view.getPanel().getTree().addMouseListener(this);
+        this.view.getPanel().getTree().addMouseTrackListener(this);
+        this.view.getPanel().getTree().addMouseMoveListener(this);
         
         // Store the current selection to restore it when the picking ends
-        this.pickingStartSelection = this.view.getComposite().getSelection();
+        this.pickingStartSelection = this.view.getPanel().getSelection();
     }
 
     @objid ("840a4577-16a3-11e2-aa0d-002564c97630")
     public void endPicking() {
         // Deactivate picking:
-        this.view.getComposite().getTree().removeMouseListener(this);
-        this.view.getComposite().getTree().removeMouseTrackListener(this);
-        this.view.getComposite().getTree().removeMouseMoveListener(this);
+        this.view.getPanel().getTree().removeMouseListener(this);
+        this.view.getPanel().getTree().removeMouseTrackListener(this);
+        this.view.getPanel().getTree().removeMouseMoveListener(this);
         
-        this.view.getComposite().getTree().setCursor(this.defaultCursor);
+        this.view.getPanel().getTree().setCursor(this.defaultCursor);
         
         // Restore old selection
-        this.view.getComposite().setSelection(this.pickingStartSelection);
+        this.view.getPanel().setSelection(this.pickingStartSelection);
         this.pickingStartSelection = null;
     }
 
@@ -213,12 +213,12 @@ class BrowserPickingManager implements MouseListener, MouseTrackListener, MouseM
         
         if (element != null) {
             if (this.pickingSession.hover(element)) {
-                this.view.getComposite().getTree().setCursor(this.yesCursor);
+                this.view.getPanel().getTree().setCursor(this.yesCursor);
             } else {
-                this.view.getComposite().getTree().setCursor(this.noCursor);
+                this.view.getPanel().getTree().setCursor(this.noCursor);
             }
         } else {
-            this.view.getComposite().getTree().setCursor(this.cursor);
+            this.view.getPanel().getTree().setCursor(this.cursor);
         }
     }
 

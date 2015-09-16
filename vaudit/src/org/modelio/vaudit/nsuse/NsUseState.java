@@ -26,9 +26,10 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.modelio.gproject.descriptor.DefinitionScope;
-import org.modelio.gproject.descriptor.GProperties;
+import org.modelio.gproject.data.project.DefinitionScope;
+import org.modelio.gproject.data.project.GProperties;
 import org.modelio.vaudit.plugin.Vaudit;
 import org.modelio.vcore.session.api.blob.BlobInfo;
 import org.modelio.vcore.session.api.blob.IBlobInfo;
@@ -76,7 +77,7 @@ class NsUseState {
 
     @objid ("c83e2e71-082c-4a16-aecd-ed993f7e91ff")
     public void setInitialized() {
-        try (OutputStream os = this.nsUseRepo.writeBlob(new BlobInfo(INITIALIZED_KEY, "Namspace uses initialized"));){
+        try (OutputStream os = this.nsUseRepo.writeBlob(new BlobInfo(INITIALIZED_KEY, "Namespace uses initialized"));){
             os.write("done".getBytes());
             //
         } catch (IOException e) {
@@ -86,7 +87,11 @@ class NsUseState {
 
     @objid ("ecfda989-f736-4133-acd0-baa4707aebcd")
     public Collection<String> getHandledFragments() {
-        return new ArrayList<>(Arrays.asList(this.projProps.getValue(FRAGMENTS_KEY, "").split(";")));
+        String fragmentsString = this.projProps.getValue(FRAGMENTS_KEY, "");
+        if (fragmentsString == null || fragmentsString.isEmpty())
+            return Collections.emptyList();
+        else
+            return new ArrayList<>(Arrays.asList(fragmentsString.split(";")));
     }
 
     @objid ("3fd9f238-ab11-4f02-9751-f73309e39f46")

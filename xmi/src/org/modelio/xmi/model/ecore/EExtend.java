@@ -21,7 +21,6 @@
 
 package org.modelio.xmi.model.ecore;
 
-import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.api.model.IMetamodelExtensions;
 import org.modelio.api.modelio.Modelio;
@@ -38,15 +37,14 @@ import org.modelio.xmi.util.ReverseProperties;
  * @author ebrosse
  */
 @objid ("1e3af1b3-5b05-4ba0-9b89-0178669ae528")
-public class EExtend extends ENamedElement implements IEElement {
+public class EExtend extends ENamedElement {
     @objid ("9abff620-2fa1-4acf-aa2a-f50363b5c14c")
     private org.eclipse.uml2.uml.Extend ecoreElement;
 
     @objid ("9dd36771-66c3-465f-ba2a-6302c8b7996f")
     @Override
     public Element createObjingElt() {
-        return Modelio
-                 .getInstance().getModelingSession().getModel()
+        return  ReverseProperties.getInstance().getMModelServices().getModelFactory()
                  .createUseCaseDependency();
     }
 
@@ -86,11 +84,6 @@ public class EExtend extends ENamedElement implements IEElement {
                 objingUseCaseDependency.getExtension().add(extendStereo);
            
         }
-    }
-
-    @objid ("28bd8e4f-9061-48a7-971c-ed0c982f2b02")
-    @Override
-    public void attach(List<Object> objingElts) {
     }
 
     @objid ("41997c2f-cdb2-491d-b9b3-232d90635e8c")

@@ -28,40 +28,40 @@ import org.modelio.metamodel.uml.statik.Operation;
 import org.modelio.xmi.util.GenerationProperties;
 
 @objid ("ce9ee64c-7e6a-4ead-95f2-33bad6aa2976")
-public class OAcceptCallEventAction extends OActivityNode implements IOElement {
+public class OAcceptCallEventAction extends OActivityNode {
     @objid ("16bd0ccb-fa9f-4085-9c3f-d70a5bda83bb")
     private AcceptCallEventAction objingElement = null;
 
-    @objid ("f7092dfc-1f50-45de-8031-4f2a7ee64af8")
-    private GenerationProperties genProp = GenerationProperties.getInstance();
-
     @objid ("d16b800b-fb4e-4269-909c-3229c0224101")
+    @Override
     public org.eclipse.uml2.uml.Element createEcoreElt() {
-        return UMLFactory.eINSTANCE.createAcceptEventAction();
+        return UMLFactory.eINSTANCE.createAcceptCallAction();
     }
 
     @objid ("2ea9c940-e432-4c17-ab94-a2c987dae40c")
     public OAcceptCallEventAction(AcceptCallEventAction element) {
         super(element);
-        objingElement = element;
+        this.objingElement = element;
     }
 
     @objid ("03ea6a70-9935-4da8-80ff-5223a89d540d")
+    @Override
     public void attach(org.eclipse.uml2.uml.Element ecoreElt) {
         super.attach(ecoreElt);
     }
 
     @objid ("4bfd6741-1954-409b-9e05-d3a9923aad90")
+    @Override
     public void setProperties(org.eclipse.uml2.uml.Element ecoreElt) {
-        super.attach(ecoreElt);
+        super.setProperties(ecoreElt);
         setCalled( (org.eclipse.uml2.uml.AcceptEventAction) ecoreElt);
     }
 
     @objid ("4cee1025-a3e3-4d98-a9fc-d4b6cfb44435")
     private void setCalled(org.eclipse.uml2.uml.AcceptEventAction action) {
-        Operation objingOperation = objingElement.getCalled();
+        Operation objingOperation = this.objingElement.getCalled();
         if (objingOperation != null) {
-            org.eclipse.uml2.uml.Element ecoreOperation = genProp.getMappedElement(objingOperation);
+            org.eclipse.uml2.uml.Element ecoreOperation = GenerationProperties.getInstance().getMappedElement(objingOperation);
             if ((ecoreOperation != null) && (ecoreOperation instanceof  org.eclipse.uml2.uml.Operation)) {
                  org.eclipse.uml2.uml.Trigger trigger = UMLFactory.eINSTANCE.createTrigger();
                  org.eclipse.uml2.uml.CallEvent event = UMLFactory.eINSTANCE

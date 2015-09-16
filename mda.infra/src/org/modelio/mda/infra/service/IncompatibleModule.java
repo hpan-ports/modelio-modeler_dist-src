@@ -39,6 +39,7 @@ import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.resource.ImageRegistry;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Display;
+import org.modelio.api.diagram.ContributorCategory;
 import org.modelio.api.diagram.IDiagramCustomizer;
 import org.modelio.api.diagram.tools.IAttachedBoxCommand;
 import org.modelio.api.diagram.tools.IBoxCommand;
@@ -56,10 +57,12 @@ import org.modelio.api.module.IPeerModule;
 import org.modelio.api.module.LicenseInfos;
 import org.modelio.api.module.commands.ActionLocation;
 import org.modelio.api.module.commands.IModuleAction;
+import org.modelio.api.module.contrib.WizardContribution;
 import org.modelio.api.module.diagrams.DiagramCustomizationDescriptor;
 import org.modelio.api.module.diagrams.DiagramToolDescriptor;
 import org.modelio.api.module.paramEdition.DefaultParametersEditionModel;
 import org.modelio.api.module.propertiesPage.IModulePropertyPage;
+import org.modelio.api.ui.diagramcreation.IDiagramWizardContributor;
 import org.modelio.gproject.ramc.core.model.IModelComponent;
 import org.modelio.gproject.ramc.core.packaging.IModelComponentContributor;
 import org.modelio.mda.infra.plugin.MdaInfra;
@@ -124,7 +127,7 @@ public class IncompatibleModule implements IModule {
     /**
      * Get the configuration associated to this module.
      * 
-     * Module configuration provide access to module parameter and resource paths
+     * Jxbv2Module configuration provide access to module parameter and resource paths
      * @see IModuleUserConfiguration
      * @return the module configuration.
      */
@@ -141,7 +144,7 @@ public class IncompatibleModule implements IModule {
     @objid ("b3216e7f-f11c-11e1-af52-001ec947c8cc")
     @Override
     public String getDescription() {
-        return "Module Incompatible with current version of Modelio : " + getName() + " " + getVersion();
+        return "Jxbv2Module Incompatible with current version of Modelio : " + getName() + " " + getVersion();
     }
 
     /**
@@ -366,7 +369,7 @@ public class IncompatibleModule implements IModule {
     }
 
     /**
-     * Returns the minimum Modelio version that authorize the Module to be activated.
+     * Returns the minimum Modelio version that authorize the Jxbv2Module to be activated.
      * @return The minimum Modelio version
      */
     @objid ("b3216ecc-f11c-11e1-af52-001ec947c8cc")
@@ -630,6 +633,24 @@ public class IncompatibleModule implements IModule {
     @Override
     public <I> I instanciateExternProcessor(String className, Class<I> clazz, Object... initargs) {
         return null;
+    }
+
+    @objid ("a0fe5450-9b6e-4d3a-8978-4bd18bbb4fae")
+    @Override
+    public List<WizardContribution> getDiagramWizardContributions() {
+        return Collections.emptyList();
+    }
+
+    @objid ("937d4edc-f35f-44a0-b5ec-1bf8aaca8efe")
+    @Override
+    public void registerDiagramWizardContribution(ContributorCategory category, IDiagramWizardContributor contributor) {
+        // Nothing to do
+    }
+
+    @objid ("1951b07c-d819-4242-829d-14654433d355")
+    @Override
+    public void unregisterDiagramWizardContribution(ContributorCategory category, IDiagramWizardContributor contributor) {
+        // Nothing to do
     }
 
 }

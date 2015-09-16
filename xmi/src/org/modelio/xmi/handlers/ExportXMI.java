@@ -31,6 +31,7 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.progress.IProgressService;
 import org.modelio.app.project.core.services.IProjectService;
+import org.modelio.gproject.model.IMModelServices;
 import org.modelio.metamodel.uml.infrastructure.Profile;
 import org.modelio.metamodel.uml.statik.Package;
 import org.modelio.vcore.smkernel.mapi.MObject;
@@ -49,17 +50,13 @@ public class ExportXMI {
 
     @objid ("bdce6cd6-25d3-47aa-a390-532adf3b5f53")
     @Execute
-    public Object execute(@Named(IServiceConstants.ACTIVE_SHELL) final Shell activeShell, IProgressService progressService, IProjectService projectService) {
+    public void execute(@Named(IServiceConstants.ACTIVE_SHELL) final Shell activeShell, IProgressService progressService, IProjectService projectService, IMModelServices modelServices) {
         GenerationProperties genProp = GenerationProperties.getInstance();
-        genProp.initialize();      
+        genProp.initialize(modelServices);      
         genProp.setTimeDisplayerActivated(false);
-        genProp.setSelectedPackage(this.selectedPackage);      
-        selectExportFile(activeShell, progressService, projectService);
-        return null;
-    }
-
-    @objid ("70df9e8d-a65c-48dd-8ecc-78ba8d887397")
-    private void selectExportFile(Shell activeShell, IProgressService progressService, IProjectService projectService) {
+        genProp.setSelectedPackage(this.selectedPackage);   
+        
+        
         final SwtWizardExport dialog = new SwtWizardExport(activeShell, progressService, projectService);
         dialog.setSelectedElt(this.selectedPackage);
         dialog.open();

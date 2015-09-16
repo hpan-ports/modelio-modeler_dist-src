@@ -27,12 +27,15 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Collection;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.modelio.gproject.descriptor.DefinitionScope;
-import org.modelio.gproject.descriptor.ProjectDescriptor;
-import org.modelio.gproject.descriptor.ProjectDescriptorReader;
+import org.modelio.gproject.data.project.DefinitionScope;
+import org.modelio.gproject.data.project.ILockInfo;
+import org.modelio.gproject.data.project.ProjectDescriptor;
+import org.modelio.gproject.data.project.ProjectDescriptorReader;
+import org.modelio.gproject.gproject.lock.ProjectLock;
 import org.modelio.gproject.gproject.url.GUrlProjectFactory;
 import org.modelio.gproject.module.IModuleCatalog;
 import org.modelio.vbasic.auth.IAuthData;
+import org.modelio.vbasic.log.Log;
 import org.modelio.vbasic.progress.IModelioProgress;
 import org.modelio.vbasic.progress.SubProgress;
 
@@ -52,24 +55,12 @@ public class GProjectFactory {
      * @param monitor a progress monitor
      * @return the built GProject.
      * @throws java.io.IOException if the project configuration cannot be read.
+     * @deprecated use {@link #openProject(ProjectDescriptor, IAuthData, IModuleCatalog, IProjectMonitor, IModelioProgress)} that takes a {@link IProjectMonitor}.
      */
     @objid ("0063105a-351e-1fc6-b42e-001ec947cd2a")
+    @Deprecated
     public static GProject openProject(final ProjectDescriptor projectDescriptor, IAuthData authData, IModuleCatalog moduleCatalog, IModelioProgress monitor) throws IOException {
-        IProjectFactory f = getProjectFactory(projectDescriptor);
-        if (f != null) {
-            SubProgress mon = SubProgress.convert(monitor, 50);
-        
-            GProject project = f.createProject(projectDescriptor);
-        
-            // Open project
-            project.open(projectDescriptor, authData, moduleCatalog, mon.newChild(50));
-            return project;
-        } else {
-            // Default case
-            GProject project = new GProject();
-            project.open(projectDescriptor, authData, moduleCatalog, monitor);
-            return project;
-        }
+        return openProject(projectDescriptor, authData, moduleCatalog, null, monitor);
     }
 
     /**
@@ -130,6 +121,12 @@ public class GProjectFactory {
         .setDefaultScope(DefinitionScope.LOCAL)
         .read(confFile, null);
         
+        try {
+            desc.setLockInfo(getLockInformations(desc));
+        } catch (IOException e) {
+            // ignore
+        }
+        
         // Return the descriptor as is
         return desc;
     }
@@ -146,6 +143,14 @@ public class GProjectFactory {
         ProjectDescriptor desc = new ProjectDescriptorReader()
         .setDefaultScope(DefinitionScope.LOCAL)
         .read(confFile, null);
+        
+        try {
+            desc.setLockInfo(getLockInformations(desc));
+        } catch (IOException e) {
+            // ignore
+            Log.trace("Cannot get lock informations on "+projectDir+":");
+            Log.trace(e);
+        }
         return desc;
     }
 
@@ -177,6 +182,61 @@ public class GProjectFactory {
             }
         }
         return null;
+    }
+
+    /**
+     * Create a GProject from a project descriptor.
+     * @param projectDescriptor the project descriptor
+     * @param authData authentication data. If not <i>null</i> this data will override the authentication descriptor.
+     * @param moduleCatalog the modules catalog
+     * @param eventListener a project monitor to add immediately on project creation. <br>This monitor will receive events fired while opening the project.
+     * The monitor will remain once the project is open. If it is not your intended behavior you have to remove it manually after this call returns.
+     * @param monitor the progress monitor to use for reporting progress to the user. It is the caller's responsibility
+     * to call {@link IModelioProgress#done()} on the given monitor. Accepts <i>null</i>, indicating that no progress should be
+     * reported and that the operation cannot be cancelled.
+     * @return the built GProject.
+     * @throws java.io.IOException if the project configuration cannot be read.
+     */
+    @objid ("6a7e4a8c-371e-4795-94e2-b178e785d6fb")
+    public static GProject openProject(final ProjectDescriptor projectDescriptor, IAuthData authData, IModuleCatalog moduleCatalog, IProjectMonitor eventListener, IModelioProgress monitor) throws IOException {
+        IProjectFactory f = getProjectFactory(projectDescriptor);
+        if (f != null) {
+            SubProgress mon = SubProgress.convert(monitor, 50);
+        
+            GProject project = f.createProject(projectDescriptor);
+            
+            if (eventListener != null)
+                project.getMonitorSupport().addMonitor(eventListener);
+        
+            // Open project
+            project.open(projectDescriptor, authData, moduleCatalog, mon.newChild(50));
+            return project;
+        } else {
+            // Default case
+            GProject project = new GProject();
+            
+            if (eventListener != null)
+                project.getMonitorSupport().addMonitor(eventListener);
+        
+            project.open(projectDescriptor, authData, moduleCatalog, monitor);
+            return project;
+        }
+    }
+
+    /**
+     * Test whether a project is locked.
+     * @param desc a project descriptor.
+     * @return lock informations if the project is locked, else <i>null</i>.
+     * @throws java.io.IOException in case of I/O failure
+     */
+    @objid ("2730c29a-29f2-48da-bf37-e87126767e2b")
+    public static ILockInfo getLockInformations(final ProjectDescriptor desc) throws IOException {
+        Path projectDir = desc.getPath();
+        
+        ProjectLock locker = ProjectLock.get(
+                projectDir.resolve(GProject.RUNTIME_SUBDIR), 
+                desc.getName());
+        return locker.test();
     }
 
 

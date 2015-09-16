@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.uml.behavior.activityModel;
 
@@ -31,10 +31,10 @@ import org.modelio.metamodel.uml.behavior.commonBehaviors.Signal;
 
 @objid ("003d3af6-c4bf-1fd8-97fe-001ec947cd2a")
 public interface SendSignalAction extends ActivityAction {
-    @objid ("009f132a-1a27-47a5-ba5e-cdff148b5795")
+    @objid ("ac989d0f-bb34-4009-9e58-f51f8a215458")
     Signal getSent();
 
-    @objid ("1d880c13-819f-4bdb-aa59-a6c73e9137db")
+    @objid ("d450ce4b-477f-4043-8521-d8d263463f55")
     void setSent(Signal value);
 
 }

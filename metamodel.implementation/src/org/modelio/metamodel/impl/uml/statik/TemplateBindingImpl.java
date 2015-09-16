@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.uml.statik;
 
@@ -46,13 +46,13 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("001c7c58-c4bf-1fd8-97fe-001ec947cd2a")
 public class TemplateBindingImpl extends ModelElementImpl implements TemplateBinding {
-    @objid ("d7b086ab-e970-48b0-a8f5-54f3feb30d64")
+    @objid ("603f8390-eb90-465c-bfc1-05ee96f8a810")
     @Override
     public EList<TemplateParameterSubstitution> getParameterSubstitution() {
         return new SmList<>(this, TemplateBindingData.Metadata.ParameterSubstitutionDep());
     }
 
-    @objid ("af3c4c30-6d2c-434b-ae19-e01c95a31ece")
+    @objid ("d3ef33ee-9ccf-4960-a7b6-d38922515018")
     @Override
     public <T extends TemplateParameterSubstitution> List<T> getParameterSubstitution(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -65,55 +65,55 @@ public class TemplateBindingImpl extends ModelElementImpl implements TemplateBin
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("6323cae6-57be-41db-a6c5-a9ad1fba7872")
+    @objid ("e0790331-2016-4c5b-93fc-6ebb10b28278")
     @Override
     public Operation getBoundOperation() {
         return (Operation) getDepVal(TemplateBindingData.Metadata.BoundOperationDep());
     }
 
-    @objid ("76d4174a-0f07-4806-b364-0a53bb8bcb9d")
+    @objid ("631247ff-a53d-4418-85d1-f56bdce415dc")
     @Override
     public void setBoundOperation(Operation value) {
         appendDepVal(TemplateBindingData.Metadata.BoundOperationDep(), (SmObjectImpl)value);
     }
 
-    @objid ("e7847355-044d-47ef-ac11-1415b4349bc8")
+    @objid ("7e91b121-60d6-4749-a7ff-77b4e1abaf5c")
     @Override
     public Operation getInstanciatedTemplateOperation() {
         return (Operation) getDepVal(TemplateBindingData.Metadata.InstanciatedTemplateOperationDep());
     }
 
-    @objid ("9b9fd390-f4bf-45eb-9dd6-572a7d3e6dc7")
+    @objid ("8dd830b2-5507-4657-aeea-cf2325641711")
     @Override
     public void setInstanciatedTemplateOperation(Operation value) {
         appendDepVal(TemplateBindingData.Metadata.InstanciatedTemplateOperationDep(), (SmObjectImpl)value);
     }
 
-    @objid ("42298af3-3ab4-4190-9f9e-4496bf31770b")
+    @objid ("7a754063-9edf-4726-a241-3c95fd89d049")
     @Override
     public NameSpace getInstanciatedTemplate() {
         return (NameSpace) getDepVal(TemplateBindingData.Metadata.InstanciatedTemplateDep());
     }
 
-    @objid ("e594b6e3-0971-48d3-98e9-60fa164a1cbc")
+    @objid ("37caea21-d411-4126-aafc-7b96c9a9a217")
     @Override
     public void setInstanciatedTemplate(NameSpace value) {
         appendDepVal(TemplateBindingData.Metadata.InstanciatedTemplateDep(), (SmObjectImpl)value);
     }
 
-    @objid ("7b3fcb24-fedb-4ed0-b085-49a6909c5d33")
+    @objid ("950175be-e050-4f80-8f93-bea44f4419ed")
     @Override
     public NameSpace getBoundElement() {
         return (NameSpace) getDepVal(TemplateBindingData.Metadata.BoundElementDep());
     }
 
-    @objid ("0854fc61-e4bf-4427-971e-0647d02de3b5")
+    @objid ("10995464-46be-4d9d-bf06-6e720c7d24b8")
     @Override
     public void setBoundElement(NameSpace value) {
         appendDepVal(TemplateBindingData.Metadata.BoundElementDep(), (SmObjectImpl)value);
     }
 
-    @objid ("0d85c98e-71dd-4142-929f-a0ced229862c")
+    @objid ("77df6aa0-bbb5-4aab-a5e3-1d4956266087")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
@@ -126,7 +126,7 @@ public class TemplateBindingImpl extends ModelElementImpl implements TemplateBin
         return super.getCompositionOwner();
     }
 
-    @objid ("62534733-ca60-46bb-9c02-7b75a3a44c70")
+    @objid ("6f48c150-4894-4297-ace7-22cbf60d344b")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
@@ -139,7 +139,7 @@ public class TemplateBindingImpl extends ModelElementImpl implements TemplateBin
         return super.getCompositionRelation();
     }
 
-    @objid ("adaff86a-b032-4965-a4ea-fa2f56f3e48f")
+    @objid ("cfeae87c-3fd0-4649-9ea2-dc903127bd69")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitTemplateBinding(this);

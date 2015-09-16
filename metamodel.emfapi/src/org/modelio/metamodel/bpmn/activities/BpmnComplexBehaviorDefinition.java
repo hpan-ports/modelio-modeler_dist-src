@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.bpmn.activities;
 
@@ -33,22 +33,22 @@ import org.modelio.metamodel.bpmn.rootElements.BpmnBaseElement;
 
 @objid ("007f7bdc-c4bf-1fd8-97fe-001ec947cd2a")
 public interface BpmnComplexBehaviorDefinition extends BpmnBaseElement {
-    @objid ("c8c7a6ff-1ab3-45df-91b9-d4385996779a")
+    @objid ("01c73e02-82c6-4198-be5d-3f3a659d25f0")
     String getCondition();
 
-    @objid ("634a6f55-e0a0-4652-a4d3-6321a650acb4")
+    @objid ("9c202dcc-0029-4e37-89e4-39b3cf098b1c")
     void setCondition(String value);
 
-    @objid ("cfca8302-2fea-4ffe-bbc7-cf22b5a36acc")
+    @objid ("4d22cc53-023a-4179-8c1c-53133c0fdc2a")
     BpmnMultiInstanceLoopCharacteristics getOwner();
 
-    @objid ("beb1457d-e151-4755-8b0d-2daa228c961d")
+    @objid ("36be173c-b3a6-4de0-b891-28588e843cf7")
     void setOwner(BpmnMultiInstanceLoopCharacteristics value);
 
-    @objid ("a986d743-9f0e-44c6-897e-bf024fe25774")
+    @objid ("9969d510-7d6c-4550-8f26-288ccc0f49f4")
     BpmnImplicitThrowEvent getEvent();
 
-    @objid ("a21e8e42-0dbe-4edc-8d5e-741b8deafe2d")
+    @objid ("31ee75c6-7b95-4a4c-9aff-761195ab56b7")
     void setEvent(BpmnImplicitThrowEvent value);
 
 }

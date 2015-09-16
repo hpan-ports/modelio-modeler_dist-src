@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.uml.behavior.interactionModel;
 
@@ -43,31 +43,31 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("004610d6-c4bf-1fd8-97fe-001ec947cd2a")
 public class GeneralOrderingImpl extends ElementImpl implements GeneralOrdering {
-    @objid ("3d500320-e9ff-4e74-94db-3289a88372af")
+    @objid ("2341200e-566a-4f9c-a848-c429abf609e6")
     @Override
     public OccurrenceSpecification getBefore() {
         return (OccurrenceSpecification) getDepVal(GeneralOrderingData.Metadata.BeforeDep());
     }
 
-    @objid ("20edf1a7-e850-4475-9ef6-c5335dbc1083")
+    @objid ("34d7c7d5-beee-4b59-a6da-a643e083e028")
     @Override
     public void setBefore(OccurrenceSpecification value) {
         appendDepVal(GeneralOrderingData.Metadata.BeforeDep(), (SmObjectImpl)value);
     }
 
-    @objid ("9af83a1d-10c7-4b71-8366-f5c77c0ba685")
+    @objid ("19c3713f-7201-4270-a77a-30358c4bbaee")
     @Override
     public OccurrenceSpecification getAfter() {
         return (OccurrenceSpecification) getDepVal(GeneralOrderingData.Metadata.AfterDep());
     }
 
-    @objid ("266c2a64-db85-40f7-8d7f-a0743f557227")
+    @objid ("5351b445-99e7-4fbd-bd69-272a28996783")
     @Override
     public void setAfter(OccurrenceSpecification value) {
         appendDepVal(GeneralOrderingData.Metadata.AfterDep(), (SmObjectImpl)value);
     }
 
-    @objid ("9891c412-eb6f-45d1-bc12-d34cfe11b165")
+    @objid ("1f29aea2-1587-452d-a846-7a5a4c94dcfd")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
@@ -77,7 +77,7 @@ public class GeneralOrderingImpl extends ElementImpl implements GeneralOrdering 
         return super.getCompositionOwner();
     }
 
-    @objid ("d7e5e5bc-6868-4eac-b50b-8cbc0f90e0d1")
+    @objid ("aab90020-0f85-4126-a186-2af9df0bb568")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
@@ -87,7 +87,7 @@ public class GeneralOrderingImpl extends ElementImpl implements GeneralOrdering 
         return super.getCompositionRelation();
     }
 
-    @objid ("b72c23fa-6ab7-4a73-9d58-2e3d1fcbfc4e")
+    @objid ("49318af5-f0f2-42d4-8604-1fa221aee336")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitGeneralOrdering(this);

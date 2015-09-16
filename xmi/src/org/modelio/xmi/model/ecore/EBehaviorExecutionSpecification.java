@@ -22,33 +22,21 @@
 package org.modelio.xmi.model.ecore;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.modelio.api.modelio.Modelio;
 import org.modelio.metamodel.uml.infrastructure.Element;
+import org.modelio.xmi.util.ReverseProperties;
 
 @objid ("7a54a601-cdb4-45aa-8df4-38f518524197")
 public class EBehaviorExecutionSpecification extends EExecutionSpecification {
     @objid ("b6df0cb3-444a-4069-89b2-403118838061")
     @Override
     public Element createObjingElt() {
-        return Modelio.getInstance().getModelingSession().getModel()
+        return ReverseProperties.getInstance().getMModelServices().getModelFactory()
                 .createExecutionSpecification();
     }
 
     @objid ("2dda147b-34f4-44e3-a400-8cba95d473ef")
     public EBehaviorExecutionSpecification(org.eclipse.uml2.uml.BehaviorExecutionSpecification element) {
         super(element);
-    }
-
-    @objid ("debe2c85-859f-4ab9-b6c2-6d4b27fd88c8")
-    @Override
-    public void attach(Element objingElt) {
-        super.attach(objingElt);
-    }
-
-    @objid ("67ecfe71-d3cd-4fd5-b808-6b9fc7ea7044")
-    @Override
-    public void setProperties(Element objingElt) {
-        super.setProperties(objingElt);
     }
 
 }

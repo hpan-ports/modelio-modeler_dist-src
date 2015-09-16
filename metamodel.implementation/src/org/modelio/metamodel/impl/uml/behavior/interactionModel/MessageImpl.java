@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.uml.behavior.interactionModel;
 
@@ -49,97 +49,97 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("00496c04-c4bf-1fd8-97fe-001ec947cd2a")
 public class MessageImpl extends ModelElementImpl implements Message {
-    @objid ("8472070d-9202-4810-85b3-42dec719d5ce")
+    @objid ("10440e6c-594a-4b0d-b0dc-6d432be1c14c")
     @Override
     public String getArgument() {
         return (String) getAttVal(MessageData.Metadata.ArgumentAtt());
     }
 
-    @objid ("f5694378-9523-4e9c-9495-e534f64d8389")
+    @objid ("6a154dd1-ab0b-4f39-8dbb-e5b092dc14f8")
     @Override
     public void setArgument(String value) {
         setAttVal(MessageData.Metadata.ArgumentAtt(), value);
     }
 
-    @objid ("2fc5f51c-9cfe-42ec-89e6-77458885b72b")
+    @objid ("13436d0a-3249-4e86-9242-9829bca40763")
     @Override
     public MessageKind getKindOfMessage() {
         return (MessageKind) getAttVal(MessageData.Metadata.KindOfMessageAtt());
     }
 
-    @objid ("c6e105af-11f3-4ad0-aefc-dbfff23a8d34")
+    @objid ("125ce430-ef4c-4978-a2fa-697c1a9e78d7")
     @Override
     public void setKindOfMessage(MessageKind value) {
         setAttVal(MessageData.Metadata.KindOfMessageAtt(), value);
     }
 
-    @objid ("dd897ad1-d30a-49d4-b224-33cac3ce888f")
+    @objid ("09cd8e41-79ad-4f66-bb01-4a20c3bcb418")
     @Override
     public MessageSort getSortOfMessage() {
         return (MessageSort) getAttVal(MessageData.Metadata.SortOfMessageAtt());
     }
 
-    @objid ("0133b3a5-0113-4b2a-b4a4-727327e1f44d")
+    @objid ("5d8a2613-f508-4ab4-a4ea-d9d06f602180")
     @Override
     public void setSortOfMessage(MessageSort value) {
         setAttVal(MessageData.Metadata.SortOfMessageAtt(), value);
     }
 
-    @objid ("17e60d89-2f4b-4a91-b362-a2351a7951bd")
+    @objid ("0f049eea-9ff6-429a-928d-b81fdc6c81a9")
     @Override
     public Signal getSignalSignature() {
         return (Signal) getDepVal(MessageData.Metadata.SignalSignatureDep());
     }
 
-    @objid ("bfc07bef-e509-424a-997e-12a71ec5b174")
+    @objid ("ab563c9a-e628-4e17-b99d-42facb11efa9")
     @Override
     public void setSignalSignature(Signal value) {
         appendDepVal(MessageData.Metadata.SignalSignatureDep(), (SmObjectImpl)value);
     }
 
-    @objid ("7d5259a8-74cc-41c3-8a13-9b1d41237635")
+    @objid ("d5eddbd7-0dc2-4558-838c-f72369596bfa")
     @Override
     public MessageEnd getReceiveEvent() {
         return (MessageEnd) getDepVal(MessageData.Metadata.ReceiveEventDep());
     }
 
-    @objid ("d31123c2-0c7a-44d1-85d7-def7f6cd20da")
+    @objid ("83d6108a-5b9f-4ed3-94fd-2b626b4e6e15")
     @Override
     public void setReceiveEvent(MessageEnd value) {
         appendDepVal(MessageData.Metadata.ReceiveEventDep(), (SmObjectImpl)value);
     }
 
-    @objid ("e429e42a-fead-4169-9d85-a729d7684ec4")
+    @objid ("042af4e6-4d16-49fd-add0-faa99eddfe66")
     @Override
     public MessageEnd getSendEvent() {
         return (MessageEnd) getDepVal(MessageData.Metadata.SendEventDep());
     }
 
-    @objid ("cdd089a1-59e6-4bee-a74b-7288d93d7855")
+    @objid ("752c8da2-47ac-45a4-8761-98cfc353574a")
     @Override
     public void setSendEvent(MessageEnd value) {
         appendDepVal(MessageData.Metadata.SendEventDep(), (SmObjectImpl)value);
     }
 
-    @objid ("4620dd12-d0f3-472b-b6d4-38a313519a25")
+    @objid ("3baf2aee-8a71-4e1a-a5ed-737b591f5bcb")
     @Override
     public Operation getInvoked() {
         return (Operation) getDepVal(MessageData.Metadata.InvokedDep());
     }
 
-    @objid ("6efc13b1-f5f5-477a-b8bd-dbf46d5ed4eb")
+    @objid ("996215dd-941b-47d7-aefd-71aae6c2b590")
     @Override
     public void setInvoked(Operation value) {
         appendDepVal(MessageData.Metadata.InvokedDep(), (SmObjectImpl)value);
     }
 
-    @objid ("d4089f0f-2247-4749-9011-581c7c450ce7")
+    @objid ("3f423ab7-8f90-41d5-9a52-4accb9b90753")
     @Override
     public EList<InformationFlow> getRealizedInformationFlow() {
         return new SmList<>(this, MessageData.Metadata.RealizedInformationFlowDep());
     }
 
-    @objid ("63401280-6843-4a28-a1d2-afd986b2a7a9")
+    @objid ("03d07e52-aedc-4a20-9571-ddecf8210b11")
     @Override
     public <T extends InformationFlow> List<T> getRealizedInformationFlow(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -152,7 +152,7 @@ public class MessageImpl extends ModelElementImpl implements Message {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("7510db1d-3c3d-4da5-aa6a-302de945ce48")
+    @objid ("3d9e4479-9ddb-42b6-95e4-42c34cc9bda5")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
@@ -162,7 +162,7 @@ public class MessageImpl extends ModelElementImpl implements Message {
         return super.getCompositionOwner();
     }
 
-    @objid ("f47ee59d-a4c2-453a-bf7d-97f8ae7c4659")
+    @objid ("231f1ba5-ed7f-495a-8120-e6d8fa6e79e0")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
@@ -172,7 +172,7 @@ public class MessageImpl extends ModelElementImpl implements Message {
         return super.getCompositionRelation();
     }
 
-    @objid ("d5c909e9-935c-49ad-9e29-548c7d21e58b")
+    @objid ("a941bcfb-dfbd-4461-a2ae-b906c217d37c")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitMessage(this);

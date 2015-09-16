@@ -24,6 +24,7 @@ package org.modelio.vcore.session.api.transactions;
 import java.util.concurrent.TimeUnit;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.vcore.session.impl.transactions.smAction.TransactionException;
+import org.modelio.vcore.session.plugin.VCoreSession;
 
 /**
  * Indicates that another transaction is already open in another thread.
@@ -78,7 +79,10 @@ public class ConcurrentTransactionException extends TransactionException {
         this.concurrentThread = otherTread;
         StackTraceElement[] runningStack = this.concurrentThread.getStackTrace();
         
-        Throwable t = new Throwable(runningTransaction.getName()+" transaction in '"+otherTread.getName()+"' stack trace");
+        String msg = VCoreSession.getMessage("ConcurrentTransactionException.st", 
+                runningTransaction.getName(), 
+                otherTread.getName());
+        Throwable t = new Throwable(msg);
         t.setStackTrace(runningStack);
         
         addSuppressed(t);
@@ -88,10 +92,14 @@ public class ConcurrentTransactionException extends TransactionException {
     @objid ("fabc1e53-9c6e-4db2-95a6-c110aefb3211")
     @Override
     public String getMessage() {
-        String msg = "Failed creating "+this.failedName+" transaction after having waited "
+        String msg = VCoreSession.getMessage("ConcurrentTransactionException", 
+                this.failedName, 
+                this.waitedTime, 
+                this.waitedTimeUnit, this.concurrentThread, this.runningTransaction.getName() );
+        /*String msg = "Failed creating "+this.failedName+" transaction after having waited "
                 + this.waitedTime + " " + this.waitedTimeUnit + "."
                 + "The " + this.concurrentThread+" thread is still running the "
-                + this.runningTransaction.getName() +" transaction";
+                + this.runningTransaction.getName() +" transaction";*/
         return msg;
     }
 

@@ -278,15 +278,17 @@ public class ModulePropertyViewHandler {
                 for (MHandledToolItem toolItem : toolItems) {
                     IsVisibleExpression expression = (IsVisibleExpression) (((MCoreExpression) toolItem.getVisibleWhen())
                             .getCoreExpression());
-                    // Creates dependency on a predefined value that can be "poked" by the evaluation service
-                    ExpressionInfo info = expression.computeExpressionInfo();
-                    String[] names = info.getAccessedPropertyNames();
-                    for (String name : names) {
-                        expressionContext.getVariable(name + ".evaluationServiceLink"); //$NON-NLS-1$
-                    }
-                    boolean visible = (expression.evaluate(expressionContext) != EvaluationResult.FALSE);
-                    if (visible != toolItem.isVisible()) {
-                        toolItem.setVisible(visible);
+                    if (expression != null) {
+                        // Creates dependency on a predefined value that can be "poked" by the evaluation service
+                        ExpressionInfo info = expression.computeExpressionInfo();
+                        String[] names = info.getAccessedPropertyNames();
+                        for (String name : names) {
+                            expressionContext.getVariable(name + ".evaluationServiceLink"); //$NON-NLS-1$
+                        } 
+                        boolean visible = (expression.evaluate(expressionContext) != EvaluationResult.FALSE);
+                        if (visible != toolItem.isVisible()) {
+                            toolItem.setVisible(visible);
+                        }
                     }
                 }
             }

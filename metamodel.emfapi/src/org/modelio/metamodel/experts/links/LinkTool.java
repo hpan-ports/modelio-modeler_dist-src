@@ -31,31 +31,35 @@ import org.modelio.metamodel.Metamodel;
 import org.modelio.metamodel.bpmn.flows.BpmnMessageFlow;
 import org.modelio.metamodel.bpmn.flows.BpmnSequenceFlow;
 import org.modelio.metamodel.bpmn.objects.BpmnDataAssociation;
-import org.modelio.metamodel.experts.links.impl.AntonymCreationExpert;
-import org.modelio.metamodel.experts.links.impl.AssignedCreationExpert;
-import org.modelio.metamodel.experts.links.impl.BindingCreationExpert;
-import org.modelio.metamodel.experts.links.impl.BpmnDataAssociationCreationExpert;
-import org.modelio.metamodel.experts.links.impl.BpmnMessageFlowCreationExpert;
-import org.modelio.metamodel.experts.links.impl.BpmnSequenceFlowCreationExpert;
-import org.modelio.metamodel.experts.links.impl.ClassAssociationCreationExpert;
-import org.modelio.metamodel.experts.links.impl.ContextCreationExpert;
-import org.modelio.metamodel.experts.links.impl.DefaultLinkExpert;
-import org.modelio.metamodel.experts.links.impl.DeriveCreationExpert;
-import org.modelio.metamodel.experts.links.impl.GuaranteeCreationExpert;
-import org.modelio.metamodel.experts.links.impl.HomonymCreationExpert;
-import org.modelio.metamodel.experts.links.impl.ImplementCreationExpert;
-import org.modelio.metamodel.experts.links.impl.KindOfCreationExpert;
-import org.modelio.metamodel.experts.links.impl.MeasureCreationExpert;
-import org.modelio.metamodel.experts.links.impl.NegativeInfluenceCreationExpert;
-import org.modelio.metamodel.experts.links.impl.PartCreationExpert;
-import org.modelio.metamodel.experts.links.impl.PositiveInfluenceCreationExpert;
-import org.modelio.metamodel.experts.links.impl.RefersCreationExpert;
-import org.modelio.metamodel.experts.links.impl.RefineCreationExpert;
-import org.modelio.metamodel.experts.links.impl.RelatedCreationExpert;
-import org.modelio.metamodel.experts.links.impl.SatisfyCreationExpert;
-import org.modelio.metamodel.experts.links.impl.SynonymCreationExpert;
-import org.modelio.metamodel.experts.links.impl.TemplateBindingCreationExpert;
-import org.modelio.metamodel.experts.links.impl.VerifyCreationExpert;
+import org.modelio.metamodel.experts.links.impl.creation.AntonymCreationExpert;
+import org.modelio.metamodel.experts.links.impl.creation.AssignedCreationExpert;
+import org.modelio.metamodel.experts.links.impl.creation.BindingCreationExpert;
+import org.modelio.metamodel.experts.links.impl.creation.BpmnDataAssociationCreationExpert;
+import org.modelio.metamodel.experts.links.impl.creation.BpmnMessageFlowCreationExpert;
+import org.modelio.metamodel.experts.links.impl.creation.BpmnSequenceFlowCreationExpert;
+import org.modelio.metamodel.experts.links.impl.creation.ClassAssociationCreationExpert;
+import org.modelio.metamodel.experts.links.impl.creation.ContextCreationExpert;
+import org.modelio.metamodel.experts.links.impl.creation.DefaultLinkExpert;
+import org.modelio.metamodel.experts.links.impl.creation.DeriveCreationExpert;
+import org.modelio.metamodel.experts.links.impl.creation.GuaranteeCreationExpert;
+import org.modelio.metamodel.experts.links.impl.creation.HomonymCreationExpert;
+import org.modelio.metamodel.experts.links.impl.creation.ImplementCreationExpert;
+import org.modelio.metamodel.experts.links.impl.creation.KindOfCreationExpert;
+import org.modelio.metamodel.experts.links.impl.creation.MeasureCreationExpert;
+import org.modelio.metamodel.experts.links.impl.creation.NegativeInfluenceCreationExpert;
+import org.modelio.metamodel.experts.links.impl.creation.PartCreationExpert;
+import org.modelio.metamodel.experts.links.impl.creation.PositiveInfluenceCreationExpert;
+import org.modelio.metamodel.experts.links.impl.creation.RefersCreationExpert;
+import org.modelio.metamodel.experts.links.impl.creation.RefineCreationExpert;
+import org.modelio.metamodel.experts.links.impl.creation.RelatedCreationExpert;
+import org.modelio.metamodel.experts.links.impl.creation.SatisfyCreationExpert;
+import org.modelio.metamodel.experts.links.impl.creation.SynonymCreationExpert;
+import org.modelio.metamodel.experts.links.impl.creation.TemplateBindingCreationExpert;
+import org.modelio.metamodel.experts.links.impl.creation.VerifyCreationExpert;
+import org.modelio.metamodel.experts.links.impl.ends.ChangeDestinationVisitor;
+import org.modelio.metamodel.experts.links.impl.ends.ChangeSourceVisitor;
+import org.modelio.metamodel.experts.links.impl.ends.GetSourceVisitor;
+import org.modelio.metamodel.experts.links.impl.ends.GetTargetVisitor;
 import org.modelio.metamodel.uml.infrastructure.Dependency;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
 import org.modelio.metamodel.uml.infrastructure.Stereotype;
@@ -65,10 +69,25 @@ import org.modelio.metamodel.uml.statik.TemplateBinding;
 import org.modelio.vcore.smkernel.mapi.MClass;
 import org.modelio.vcore.smkernel.mapi.MObject;
 
+/**
+ * Link experts and manipulation tools.
+ */
 @objid ("0000fac8-de02-1097-bcec-001ec947cd2a")
 public class LinkTool implements ILinkTool {
     @objid ("005875aa-d07d-1098-bcec-001ec947cd2a")
     private final LinkExpertRegistry REGISTRY = new LinkExpertRegistry();
+
+    @objid ("a95b9e47-9a0e-4a85-bb41-03c5d9a7f9d8")
+    private final GetTargetVisitor getTargetVisitor = new GetTargetVisitor();
+
+    @objid ("5aea8470-8d61-45a9-a0ef-27b6173f57aa")
+    private final GetSourceVisitor getSourceVisitor = new GetSourceVisitor();
+
+    @objid ("5a4f6064-ee7a-48e3-99a3-9611a409d7f7")
+    private final ChangeDestinationVisitor changeDestVisitor = new ChangeDestinationVisitor();
+
+    @objid ("45da8282-da2a-492f-8003-e3f7ff60ab58")
+    private final ChangeSourceVisitor changeSourceVisitor = new ChangeSourceVisitor();
 
     @objid ("000103ce-de02-1097-bcec-001ec947cd2a")
     @Override
@@ -118,56 +137,35 @@ public class LinkTool implements ILinkTool {
     @Override
     public boolean isLink(MClass metaclass) {
         switch (metaclass.getName()) {
+        case "Abstraction":
         case "ActivityEdge":
-            return true;
         case "AssociationEnd":
-            return true;
         case "Binding":
-            return true;
         case "BpmnDataAssociation":
-            return true;
         case "BpmnMessageFlow":
-            return true;
         case "BpmnSequenceFlow":
-            return true;
+        case "ComponentRealization":
         case "CommunicationChannel":
-            return true;
         case "ConnectorEnd":
-            return true;
         case "ControlFlow":
-            return true;
         case "DataFlow":
-            return true;
         case "Dependency":
-            return true;
         case "ElementImport":
-            return true;
+        case "ElementRealization":
         case "ExceptionHandler":
-            return true;
         case "Generalization":
-            return true;
         case "InformationFlow":
-            return true;
         case "InterfaceRealization":
-            return true;
         case "LinkEnd":
-            return true;
         case "Manifestation":
-            return true;
         case "Message":
-            return true;
         case "NamespaceUse":
-            return true;
         case "PackageImport":
-            return true;
         case "PackageMerge":
-            return true;
         case "RaisedException":
-            return true;
+        case "Substitution":
         case "TemplateBinding":
-            return true;
         case "Transition":
-            return true;
         case "UseCaseDependency":
             return true;
         default:
@@ -231,6 +229,42 @@ public class LinkTool implements ILinkTool {
         return true;
     }
 
+    @objid ("11bfc22f-1502-4ace-bbca-7b9d4c57764d")
+    @Override
+    public MObject getSource(MObject aLink) {
+        return (MObject) aLink.accept(this.getSourceVisitor);
+    }
+
+    @objid ("fe54925f-39b3-4c74-a153-39dee2720cc1")
+    @Override
+    public MObject getTarget(MObject aLink) {
+        return (MObject) aLink.accept(this.getTargetVisitor);
+    }
+
+    @objid ("42355f12-6c43-4fb0-98ac-308d83f2c9a9")
+    @Override
+    public void setSource(MObject link, final MObject oldSource, MObject newSource) throws IllegalArgumentException {
+        this.changeSourceVisitor.oldSource = oldSource;
+        this.changeSourceVisitor.newSource = newSource;
+        try {
+            link.accept(this.changeSourceVisitor);
+        } catch (final ClassCastException e) {
+            throw new IllegalArgumentException(newSource + " is not a legal source for " + link, e);
+        }
+    }
+
+    @objid ("4a959dc3-cf59-48aa-ba80-344a28195da2")
+    @Override
+    public void setTarget(MObject link, final MObject oldTarget, MObject newTarget) throws IllegalArgumentException {
+        this.changeDestVisitor.oldDest = oldTarget;
+        this.changeDestVisitor.newDest = newTarget;
+        try {
+            link.accept(this.changeDestVisitor);
+        } catch (final ClassCastException e) {
+            throw new IllegalArgumentException(newTarget + " is not a legal target for " + link, e);
+        }
+    }
+
     /**
      * Registry to get the expert for a given:
      * <ul>
@@ -242,7 +276,7 @@ public class LinkTool implements ILinkTool {
      * Custom experts must implements ILinkExpert and be registered in the <tt>initialize()</tt> method.
      * <p>
      * Stereotype creation experts can be added with {@linkplain #registerExpert(Stereotype, ILinkExpert)} and removed with
-     * {@linkplain #removeStereotypeExpert(Stereotype)}.
+     * {@linkplain #unregisterExpert(Stereotype)}.
      */
     @objid ("0002d58c-de02-1097-bcec-001ec947cd2a")
     public class LinkExpertRegistry {
@@ -285,6 +319,10 @@ public class LinkTool implements ILinkTool {
             }
         }
 
+        /**
+         * @param mObject a model link
+         * @return all experts relative the the element
+         */
         @objid ("0003a20a-de02-1097-bcec-001ec947cd2a")
         public List<ILinkExpert> getExperts(final MObject mObject) {
             List<ILinkExpert> results = new ArrayList<>();

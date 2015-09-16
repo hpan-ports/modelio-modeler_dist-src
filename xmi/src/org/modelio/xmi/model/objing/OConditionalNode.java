@@ -31,6 +31,7 @@ public class OConditionalNode extends OElement implements IOElement {
     private ConditionalNode objingElement = null;
 
     @objid ("cc45c765-26f3-4423-9091-972e057bed84")
+    @Override
     public org.eclipse.uml2.uml.Element createEcoreElt() {
         return UMLFactory.eINSTANCE.createConditionalNode();
     }
@@ -42,11 +43,13 @@ public class OConditionalNode extends OElement implements IOElement {
     }
 
     @objid ("72740f53-d783-4446-9de8-71bf3f0ac0a8")
+    @Override
     public void attach(org.eclipse.uml2.uml.Element ecoreElt) {
         // Done when mapping the super type (org.eclipse.uml2.uml.StructuredActivityNode)
     }
 
     @objid ("f3253b66-4c23-4a3e-8c40-3dd4654c97bb")
+    @Override
     public void setProperties(org.eclipse.uml2.uml.Element ecoreElt) {
         setIsAssured((org.eclipse.uml2.uml.ConditionalNode) ecoreElt);
         setDeterminate((org.eclipse.uml2.uml.ConditionalNode) ecoreElt);

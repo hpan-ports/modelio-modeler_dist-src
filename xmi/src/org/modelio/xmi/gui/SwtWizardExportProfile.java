@@ -22,7 +22,6 @@
 package org.modelio.xmi.gui;
 
 import java.io.File;
-import java.lang.reflect.InvocationTargetException;
 import javax.inject.Inject;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.jface.preference.IPreferenceStore;
@@ -31,7 +30,6 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.progress.IProgressService;
 import org.modelio.app.project.core.services.IProjectService;
-import org.modelio.metamodel.uml.infrastructure.Profile;
 import org.modelio.xmi.api.XMIExtension;
 import org.modelio.xmi.gui.report.ReportManager;
 import org.modelio.xmi.plugin.Xmi;
@@ -82,42 +80,39 @@ public class SwtWizardExportProfile extends AbstractSwtWizardWindow {
     @Override
     public void validationAction() {
         final File theFile = getFileChooserComposite().getCurrentFile();
-        GenerationProperties.getInstance().setFilePath(theFile);
         this.path = theFile.getParent();
+        
+        GenerationProperties genProp = GenerationProperties.getInstance();
+        genProp.setFilePath(theFile);
+        
         if (testExportFilePath(theFile)) {
         
-            GenerationProperties.getInstance().setFileExtension((this.getOptionComposite()).getExtension());
-        
-            GenerationProperties.getInstance().setVersionExport((this.getOptionComposite()).getVersion());
-        
-            GenerationProperties.getInstance().setRoundtripEnabled(this.getOptionComposite().getCompatibilityButton().getSelection());
+            genProp.setFileExtension((this.getOptionComposite()).getExtension());
+            genProp.setVersionExport((this.getOptionComposite()).getFormat());
+            genProp.setRoundtripEnabled(this.getOptionComposite().getCompatibilityButton().getSelection());
+            
             try {  
         
                 this.progressService.busyCursorWhile (new ExportProfileThread(this.shell,
                         getTheProgressBar()));
         
-                if (!GenerationProperties.getInstance().getReportModel().isEmpty()){
+                if (!genProp.getReportModel().isEmpty()){
                     Display.getDefault().asyncExec(new Runnable() {
                         @Override
                         public void run() {
-                            ReportManager.showGenerationReport(GenerationProperties.getInstance().getReportModel());
+                            ReportManager.showGenerationReport(SwtWizardExportProfile.this.shell, 
+                                    GenerationProperties.getInstance().getReportModel());
                         }
                     });
         
                 }else{
                     completeBox();
                 }        
-        
-                this.shell.dispose();
-        
-            } catch (final InterruptedException e) {
-                Xmi.LOG.error(Xmi.PLUGIN_ID, e);
-            } catch (final InvocationTargetException e) {
-                Xmi.LOG.error(Xmi.PLUGIN_ID, e);
+          
+            } catch (final Exception e) {
+                catchException(e);
             }
-        
-        
-        
+              
         }
     }
 
@@ -125,7 +120,7 @@ public class SwtWizardExportProfile extends AbstractSwtWizardWindow {
     @Override
     @Inject
     public void setOptionComposite(final Shell shell, IProjectService projectService) {
-        this.optionComposite = new OptionComposite(shell, SWT.NONE, projectService);
+        this.optionComposite = new OptionComposite(shell, SWT.NONE, SWT.OPEN, projectService);
     }
 
     @objid ("89d0a786-374d-480f-8dc9-34b3eeed1dc5")
@@ -144,9 +139,9 @@ public class SwtWizardExportProfile extends AbstractSwtWizardWindow {
         }
         
         this.fileChooserComposite.getDialog().setFilterPath(this.path);
-        this.fileChooserComposite.getDialog().setFileName(((Profile) this.selectedElt).getName() + extension);
+        this.fileChooserComposite.getDialog().setFileName(this.selectedElt.getName() + extension);
         this.path = checkAndReplaceEndPath(this.path);
-        this.fileChooserComposite.setText(this.path + java.io.File.separator + ((Profile) this.selectedElt).getName() + extension);
+        this.fileChooserComposite.setText(this.path + java.io.File.separator + this.selectedElt.getName() + extension);
     }
 
     @objid ("437c6b41-3323-492e-801e-d3d2780ee907")

@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.data.uml.statik;
 
@@ -54,148 +54,148 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("0018552e-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=Parameter.class, factory=ParameterData.Metadata.ObjectFactory.class)
 public class ParameterData extends ModelElementData {
-    @objid ("71872f5e-6ec3-4609-bc9c-30b5695dda15")
+    @objid ("f08a6610-1c66-4159-a0a7-0e6b0a559dde")
     @SmaMetaAttribute(metaName="ParameterPassing", type=PassingMode.class, smAttributeClass=Metadata.ParameterPassingSmAttribute.class)
      Object mParameterPassing = PassingMode.IN;
 
-    @objid ("ef3f6c02-f054-40f7-ac0d-10ce3fdc8bd3")
+    @objid ("dc7ed468-7111-4372-b118-9e3838e7f930")
     @SmaMetaAttribute(metaName="MultiplicityMin", type=String.class, smAttributeClass=Metadata.MultiplicityMinSmAttribute.class)
      Object mMultiplicityMin = "1";
 
-    @objid ("0ac4828d-4465-4c16-a391-838bc877314f")
+    @objid ("f1bfacb1-2b55-422c-a4a1-98988f92e4fc")
     @SmaMetaAttribute(metaName="MultiplicityMax", type=String.class, smAttributeClass=Metadata.MultiplicityMaxSmAttribute.class)
      Object mMultiplicityMax = "1";
 
-    @objid ("8ca67a44-6825-4064-b629-7ecc491a8fca")
+    @objid ("9f668785-5d55-4a61-8007-6f37ca223e28")
     @SmaMetaAttribute(metaName="TypeConstraint", type=String.class, smAttributeClass=Metadata.TypeConstraintSmAttribute.class)
      Object mTypeConstraint = "";
 
-    @objid ("54cd428e-50b6-4dc0-9910-26ca7509ced5")
+    @objid ("6ca22942-03f9-4d68-9a23-1f0c1e38f06e")
     @SmaMetaAttribute(metaName="DefaultValue", type=String.class, smAttributeClass=Metadata.DefaultValueSmAttribute.class)
      Object mDefaultValue = "";
 
-    @objid ("bf5ed591-4eed-4dc2-aec0-f35295fdde3c")
+    @objid ("cfe16bca-6da4-4f2f-a718-7e300a8b6d4e")
     @SmaMetaAttribute(metaName="IsOrdered", type=Boolean.class, smAttributeClass=Metadata.IsOrderedSmAttribute.class)
      Object mIsOrdered = false;
 
-    @objid ("84c9dab7-2d81-4848-a065-2ae076df955b")
+    @objid ("61360f41-c5ec-4345-9ac6-2961b03e1c93")
     @SmaMetaAttribute(metaName="IsUnique", type=Boolean.class, smAttributeClass=Metadata.IsUniqueSmAttribute.class)
      Object mIsUnique = false;
 
-    @objid ("16301b5f-bfc5-40aa-9423-679738973a83")
+    @objid ("1de3d9ea-7e40-4ea1-a099-bb5f4fea41f1")
     @SmaMetaAttribute(metaName="IsException", type=Boolean.class, smAttributeClass=Metadata.IsExceptionSmAttribute.class)
      Object mIsException = false;
 
-    @objid ("25b914ea-581c-49b1-be33-e19dd564a947")
+    @objid ("831217e1-9aef-4eb0-aea2-54ebfcc28513")
     @SmaMetaAttribute(metaName="IsStream", type=Boolean.class, smAttributeClass=Metadata.IsStreamSmAttribute.class)
      Object mIsStream = false;
 
-    @objid ("67b43328-2bba-4408-825b-227aaf09b524")
+    @objid ("ecc88005-bf0b-4305-83bf-9a5d5fb34918")
     @SmaMetaAttribute(metaName="Effect", type=ParameterEffectKind.class, smAttributeClass=Metadata.EffectSmAttribute.class)
      Object mEffect = ParameterEffectKind.READEFFECT;
 
-    @objid ("4e453ee7-7897-4415-bd66-727072e1b3d0")
+    @objid ("f646b99a-9548-42a7-8a18-7c534057d8ef")
     @SmaMetaAssociation(metaName="BpmnRepresentingDataInput", typeDataClass=BpmnDataInputData.class, min=0, max=-1, smAssociationClass=Metadata.BpmnRepresentingDataInputSmDependency.class)
      List<SmObjectImpl> mBpmnRepresentingDataInput = null;
 
-    @objid ("5566ec34-0a9d-4577-99d1-b119aa59e000")
+    @objid ("056aeaf8-13b4-467b-9b41-d3fa41358202")
     @SmaMetaAssociation(metaName="Type", typeDataClass=GeneralClassData.class, min=0, max=1, smAssociationClass=Metadata.TypeSmDependency.class, partof = true)
      SmObjectImpl mType;
 
-    @objid ("652505b6-1016-4025-afd9-9468aa31a8ec")
+    @objid ("6deb6481-128c-4484-b028-7d649f53bd27")
     @SmaMetaAssociation(metaName="Composed", typeDataClass=OperationData.class, min=0, max=1, smAssociationClass=Metadata.ComposedSmDependency.class)
      SmObjectImpl mComposed;
 
-    @objid ("a4908805-d2e2-44b2-a5c9-da0ca4ba0380")
+    @objid ("2f3f64a9-e17d-4bf8-88a8-41fc4b579bbe")
     @SmaMetaAssociation(metaName="Matching", typeDataClass=PinData.class, min=0, max=-1, smAssociationClass=Metadata.MatchingSmDependency.class, istodelete = true)
      List<SmObjectImpl> mMatching = null;
 
-    @objid ("79e34a24-a3e5-44b8-9dd2-68f2f901164b")
+    @objid ("7a4d7d62-6008-4f09-8d08-21d0d130a10a")
     @SmaMetaAssociation(metaName="BpmnRepresentingDataOutput", typeDataClass=BpmnDataOutputData.class, min=0, max=-1, smAssociationClass=Metadata.BpmnRepresentingDataOutputSmDependency.class)
      List<SmObjectImpl> mBpmnRepresentingDataOutput = null;
 
-    @objid ("c1eba245-1acb-4049-b56d-1a6ee6d92e46")
+    @objid ("e70b83a4-ab78-4dce-bb64-5ad57b86e5cd")
     @SmaMetaAssociation(metaName="SRepresentation", typeDataClass=SignalData.class, min=0, max=-1, smAssociationClass=Metadata.SRepresentationSmDependency.class)
      List<SmObjectImpl> mSRepresentation = null;
 
-    @objid ("658d564b-cf81-459f-b4d6-376c49739b28")
+    @objid ("64944bf8-1034-4ec6-ab55-d7af718e8bb9")
     @SmaMetaAssociation(metaName="Returned", typeDataClass=OperationData.class, min=0, max=1, smAssociationClass=Metadata.ReturnedSmDependency.class)
      SmObjectImpl mReturned;
 
-    @objid ("8140d7f9-0f59-4890-a0b8-0f304a70b0ad")
+    @objid ("c1a6bb9d-7306-4286-bcb0-c61260ee38d5")
     @SmaMetaAssociation(metaName="BehaviorParam", typeDataClass=BehaviorParameterData.class, min=0, max=-1, smAssociationClass=Metadata.BehaviorParamSmDependency.class, istodelete = true)
      List<SmObjectImpl> mBehaviorParam = null;
 
-    @objid ("309699d1-a1da-4a47-8a43-e33acbea5170")
+    @objid ("7782a9c7-b51c-4213-bb25-69ef881ffb44")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("00834ec4-c4c3-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("74a509df-b24d-46d7-9f38-ceb9daa5ccd4")
+        @objid ("dd7bd61a-ac24-4310-9b83-9f490ac81560")
         private static SmClass smClass = null;
 
-        @objid ("2d4bee56-3124-4f0e-9f2d-d5d890012cb3")
+        @objid ("de7f4f54-2c50-4327-b094-29540971da62")
         private static SmAttribute ParameterPassingAtt = null;
 
-        @objid ("456af6b1-4c7b-44d0-b763-1e1214ab3ddf")
+        @objid ("e55f1cbb-b95f-4dae-9e68-7afa93b6b974")
         private static SmAttribute MultiplicityMinAtt = null;
 
-        @objid ("bcc35cd0-46a8-400f-8502-4bf091eb3c7b")
+        @objid ("f69d7ea1-26fa-45cf-8500-07fdaaa46917")
         private static SmAttribute MultiplicityMaxAtt = null;
 
-        @objid ("8c45583e-8444-45f3-8ed4-9d71677aaf8b")
+        @objid ("977dc466-91b1-4acb-a524-4e27d8cd72b2")
         private static SmAttribute TypeConstraintAtt = null;
 
-        @objid ("e83e2315-bee7-4f0d-8c8b-9a8e3d59c4b4")
+        @objid ("2ebe7c89-7dcb-4dd0-98fa-bcd806466909")
         private static SmAttribute DefaultValueAtt = null;
 
-        @objid ("87620ef6-38ac-4cb7-a266-cc0682b766ac")
+        @objid ("8d214974-e530-4789-a554-34bc87b00d28")
         private static SmAttribute IsOrderedAtt = null;
 
-        @objid ("8205dcb3-d774-4841-919b-7b1ea5d3f932")
+        @objid ("b0258498-79c4-4f18-b143-e8c9b856373a")
         private static SmAttribute IsUniqueAtt = null;
 
-        @objid ("0b0fd99d-a586-4958-86f9-e74d64bce891")
+        @objid ("fc7d96c6-672c-4997-ae1c-a6f2858e8934")
         private static SmAttribute IsExceptionAtt = null;
 
-        @objid ("81ad9b3c-0a37-4bf3-9338-ac6369e305bb")
+        @objid ("de278378-7fa4-4de0-ab25-c6dea865b093")
         private static SmAttribute IsStreamAtt = null;
 
-        @objid ("63385e1c-fedd-4e27-9331-4f5b1577aaf7")
+        @objid ("e75ac8ba-fe22-4598-9eb6-81a01fdf7174")
         private static SmAttribute EffectAtt = null;
 
-        @objid ("12338ad5-faa3-4394-b4b7-5688b1c9a754")
+        @objid ("7a943c33-9ef6-4a20-b5d9-0e613ddb871e")
         private static SmDependency BpmnRepresentingDataInputDep = null;
 
-        @objid ("c59ab875-a77c-4231-81c6-d3d35aabb7c0")
+        @objid ("dbc8e29d-7c02-4530-b7f1-35dc6008766f")
         private static SmDependency TypeDep = null;
 
-        @objid ("31871919-b5ba-4742-a335-fd243a5c9bb2")
+        @objid ("2ff81dac-9e4c-4a8b-bfce-887d3b614ad0")
         private static SmDependency ComposedDep = null;
 
-        @objid ("fa6cc073-0f34-4b90-9122-8aa75ee68c10")
+        @objid ("d4debfd1-8945-4eca-b87d-04c64a3c7f2c")
         private static SmDependency MatchingDep = null;
 
-        @objid ("d6ad7262-5dbb-484a-b0ce-4b52d60d7342")
+        @objid ("7ec132d4-2350-421c-a751-fdb6e51262f4")
         private static SmDependency BpmnRepresentingDataOutputDep = null;
 
-        @objid ("6e2ed827-c620-4e74-bc6b-a7e102597a1f")
+        @objid ("7900de85-04ea-4624-958e-3bd4886b8487")
         private static SmDependency SRepresentationDep = null;
 
-        @objid ("039e8010-ad94-4aa8-9d04-be50fac85b6d")
+        @objid ("3df6a923-6547-43f8-a4d0-9a68f6100589")
         private static SmDependency ReturnedDep = null;
 
-        @objid ("95e57709-bb77-4058-bba3-b96ca92386d9")
+        @objid ("2ebc8b67-9daf-4b20-88f7-46f350e5fcf4")
         private static SmDependency BehaviorParamDep = null;
 
-        @objid ("952b38d9-fa5e-46a4-9946-24323f793f7f")
+        @objid ("4995603e-91b7-4d2e-8f1f-4bfbd4eb8ea8")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(ParameterData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("e8fd3220-3b77-4677-bab1-9d12ad3642b5")
+        @objid ("c2fbd784-7be8-4957-a966-37f64777de6e")
         public static SmAttribute ParameterPassingAtt() {
             if (ParameterPassingAtt == null) {
             	ParameterPassingAtt = classof().getAttributeDef("ParameterPassing");
@@ -203,7 +203,7 @@ public class ParameterData extends ModelElementData {
             return ParameterPassingAtt;
         }
 
-        @objid ("32250123-b114-432a-a671-22b230cc13c0")
+        @objid ("e659773c-0145-45bd-8561-590b0d7e0359")
         public static SmAttribute MultiplicityMinAtt() {
             if (MultiplicityMinAtt == null) {
             	MultiplicityMinAtt = classof().getAttributeDef("MultiplicityMin");
@@ -211,7 +211,7 @@ public class ParameterData extends ModelElementData {
             return MultiplicityMinAtt;
         }
 
-        @objid ("2e4488db-192f-4268-9d2b-ca14e63967bd")
+        @objid ("9bfa8b1f-9d3d-4b71-a112-59bd0754a883")
         public static SmAttribute MultiplicityMaxAtt() {
             if (MultiplicityMaxAtt == null) {
             	MultiplicityMaxAtt = classof().getAttributeDef("MultiplicityMax");
@@ -219,7 +219,7 @@ public class ParameterData extends ModelElementData {
             return MultiplicityMaxAtt;
         }
 
-        @objid ("3740679f-8e96-40d4-b5a9-38cc33ec2488")
+        @objid ("b1debce8-aae3-4533-99ff-3aee0114090f")
         public static SmAttribute TypeConstraintAtt() {
             if (TypeConstraintAtt == null) {
             	TypeConstraintAtt = classof().getAttributeDef("TypeConstraint");
@@ -227,7 +227,7 @@ public class ParameterData extends ModelElementData {
             return TypeConstraintAtt;
         }
 
-        @objid ("07f23198-589e-4869-b700-b988e9e0910b")
+        @objid ("6b4df664-397f-4e13-9ce1-39c0b94c7122")
         public static SmAttribute DefaultValueAtt() {
             if (DefaultValueAtt == null) {
             	DefaultValueAtt = classof().getAttributeDef("DefaultValue");
@@ -235,7 +235,7 @@ public class ParameterData extends ModelElementData {
             return DefaultValueAtt;
         }
 
-        @objid ("9976a296-0432-4a3a-bf94-8d9578128c24")
+        @objid ("45a919a7-9706-4ce5-b442-4ba9cfe424db")
         public static SmAttribute IsOrderedAtt() {
             if (IsOrderedAtt == null) {
             	IsOrderedAtt = classof().getAttributeDef("IsOrdered");
@@ -243,7 +243,7 @@ public class ParameterData extends ModelElementData {
             return IsOrderedAtt;
         }
 
-        @objid ("b095be02-225b-4122-a710-29c6e691aae8")
+        @objid ("0cdbaa6a-d29d-4171-a830-2b0cfc0fcd5e")
         public static SmAttribute IsUniqueAtt() {
             if (IsUniqueAtt == null) {
             	IsUniqueAtt = classof().getAttributeDef("IsUnique");
@@ -251,7 +251,7 @@ public class ParameterData extends ModelElementData {
             return IsUniqueAtt;
         }
 
-        @objid ("0ae5002c-a97b-46c2-abbf-8c774e336194")
+        @objid ("4692b384-b284-443c-81ce-8f3ae29d3171")
         public static SmAttribute IsExceptionAtt() {
             if (IsExceptionAtt == null) {
             	IsExceptionAtt = classof().getAttributeDef("IsException");
@@ -259,7 +259,7 @@ public class ParameterData extends ModelElementData {
             return IsExceptionAtt;
         }
 
-        @objid ("5676a83f-12d0-402b-ba9f-75d576701859")
+        @objid ("257a6200-5cf3-49de-8c63-50613e4eba18")
         public static SmAttribute IsStreamAtt() {
             if (IsStreamAtt == null) {
             	IsStreamAtt = classof().getAttributeDef("IsStream");
@@ -267,7 +267,7 @@ public class ParameterData extends ModelElementData {
             return IsStreamAtt;
         }
 
-        @objid ("b1b1cb6e-7cc2-4673-b51c-1e531759798c")
+        @objid ("99fb1966-5c51-48bd-8f90-56d29becb3e2")
         public static SmAttribute EffectAtt() {
             if (EffectAtt == null) {
             	EffectAtt = classof().getAttributeDef("Effect");
@@ -275,7 +275,7 @@ public class ParameterData extends ModelElementData {
             return EffectAtt;
         }
 
-        @objid ("962c0cb4-f158-4197-9e6e-c4edef66c9c2")
+        @objid ("42132f10-fbd6-4ced-8ec1-f71a77959401")
         public static SmDependency BpmnRepresentingDataInputDep() {
             if (BpmnRepresentingDataInputDep == null) {
             	BpmnRepresentingDataInputDep = classof().getDependencyDef("BpmnRepresentingDataInput");
@@ -283,7 +283,7 @@ public class ParameterData extends ModelElementData {
             return BpmnRepresentingDataInputDep;
         }
 
-        @objid ("36e34888-a9ac-471f-b69b-ae95c0d53c3a")
+        @objid ("71275812-5582-4bd8-ade0-8db616f3151d")
         public static SmDependency TypeDep() {
             if (TypeDep == null) {
             	TypeDep = classof().getDependencyDef("Type");
@@ -291,7 +291,7 @@ public class ParameterData extends ModelElementData {
             return TypeDep;
         }
 
-        @objid ("c7a125cd-0115-4932-a1f1-bf6a4e36cc3b")
+        @objid ("ece0e611-6a91-456b-bf6f-0ef10e7d8bbe")
         public static SmDependency ComposedDep() {
             if (ComposedDep == null) {
             	ComposedDep = classof().getDependencyDef("Composed");
@@ -299,7 +299,7 @@ public class ParameterData extends ModelElementData {
             return ComposedDep;
         }
 
-        @objid ("007e8de1-5d07-4e21-b04c-b2f4d1b087f9")
+        @objid ("c68f4767-c7ee-4646-aa10-027d3bde8ddc")
         public static SmDependency MatchingDep() {
             if (MatchingDep == null) {
             	MatchingDep = classof().getDependencyDef("Matching");
@@ -307,7 +307,7 @@ public class ParameterData extends ModelElementData {
             return MatchingDep;
         }
 
-        @objid ("cd00374e-845b-4ed3-83f8-08c7eb6faeec")
+        @objid ("47340286-8e49-4bbb-a759-19c3d6980aa3")
         public static SmDependency BpmnRepresentingDataOutputDep() {
             if (BpmnRepresentingDataOutputDep == null) {
             	BpmnRepresentingDataOutputDep = classof().getDependencyDef("BpmnRepresentingDataOutput");
@@ -315,7 +315,7 @@ public class ParameterData extends ModelElementData {
             return BpmnRepresentingDataOutputDep;
         }
 
-        @objid ("f38d7081-aa2b-4cfb-ba17-c1d70bb7bc4f")
+        @objid ("4651aba8-ef07-4187-a01d-39761a5b239e")
         public static SmDependency SRepresentationDep() {
             if (SRepresentationDep == null) {
             	SRepresentationDep = classof().getDependencyDef("SRepresentation");
@@ -323,7 +323,7 @@ public class ParameterData extends ModelElementData {
             return SRepresentationDep;
         }
 
-        @objid ("2c354737-da7c-49a5-9d9d-c11fb7a8dd37")
+        @objid ("238e9989-a482-40e3-814a-abefbe7fb033")
         public static SmDependency ReturnedDep() {
             if (ReturnedDep == null) {
             	ReturnedDep = classof().getDependencyDef("Returned");
@@ -331,7 +331,7 @@ public class ParameterData extends ModelElementData {
             return ReturnedDep;
         }
 
-        @objid ("cb80c67c-db97-470a-b784-5f5ea85c727b")
+        @objid ("9bcff3a5-91f3-4863-b201-13b23e7ff9ba")
         public static SmDependency BehaviorParamDep() {
             if (BehaviorParamDep == null) {
             	BehaviorParamDep = classof().getDependencyDef("BehaviorParam");
@@ -339,128 +339,128 @@ public class ParameterData extends ModelElementData {
             return BehaviorParamDep;
         }
 
-        @objid ("3985860c-177d-49a7-b774-5c9e9be5a666")
-        public static SmAttribute getIsStreamAtt() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return IsStreamAtt;
-        }
-
-        @objid ("35b3038c-6731-407f-9a20-f26558303aab")
-        public static SmDependency getTypeDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return TypeDep;
-        }
-
-        @objid ("2fd615ae-e454-4b10-993c-d45233f7ff5f")
-        public static SmDependency getBpmnRepresentingDataInputDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return BpmnRepresentingDataInputDep;
-        }
-
-        @objid ("db8dec26-f753-4726-8247-f25225bb8f6d")
-        public static SmAttribute getMultiplicityMaxAtt() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return MultiplicityMaxAtt;
-        }
-
-        @objid ("02ea27a2-3944-4238-85e3-de50c3c120c6")
-        public static SmAttribute getDefaultValueAtt() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return DefaultValueAtt;
-        }
-
-        @objid ("3456c64d-6692-41ff-b5af-66729ef7edd1")
-        public static SmAttribute getIsExceptionAtt() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return IsExceptionAtt;
-        }
-
-        @objid ("bb2970de-a899-4b45-a30c-d87a4dbec2b1")
-        public static SmClass getSmClass() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return smClass;
-        }
-
-        @objid ("1b1d2ace-6e9f-4ca2-9f0f-812974d54d4f")
-        public static SmDependency getComposedDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return ComposedDep;
-        }
-
-        @objid ("fc133db2-4eca-48e7-9553-7e63ae4cc4fa")
-        public static SmDependency getReturnedDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return ReturnedDep;
-        }
-
-        @objid ("83078044-58c7-4eab-a123-cb2c9c65fbcb")
-        public static SmAttribute getParameterPassingAtt() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return ParameterPassingAtt;
-        }
-
-        @objid ("5885983a-13b0-4e62-8da6-e869531fd0fa")
-        public static SmDependency getSRepresentationDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return SRepresentationDep;
-        }
-
-        @objid ("56e87082-5901-47cc-9a5c-f1225c9715cc")
-        public static SmAttribute getIsUniqueAtt() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return IsUniqueAtt;
-        }
-
-        @objid ("b32684f9-79a1-469f-ac54-8a2e2103d648")
-        public static SmAttribute getMultiplicityMinAtt() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return MultiplicityMinAtt;
-        }
-
-        @objid ("f8f53f59-14fa-4026-b93b-1d65d9c23735")
-        public static SmAttribute getTypeConstraintAtt() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return TypeConstraintAtt;
-        }
-
-        @objid ("c526cf37-34f7-4cd3-abed-64ed17f0b02c")
-        public static SmAttribute getEffectAtt() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return EffectAtt;
-        }
-
-        @objid ("218dc4a0-6a0b-41b2-8d5e-2d3426383a8f")
-        public static SmAttribute getIsOrderedAtt() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return IsOrderedAtt;
-        }
-
-        @objid ("52696045-f1d5-4ef0-a7c5-1b44fcde04ec")
-        public static SmDependency getMatchingDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return MatchingDep;
-        }
-
-        @objid ("717e6f55-679d-4ecf-a030-4a54a2c9a5fc")
+        @objid ("ea0290e4-251a-477c-925b-62c4461b51c8")
         public static SmDependency getBpmnRepresentingDataOutputDep() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return BpmnRepresentingDataOutputDep;
         }
 
-        @objid ("7794f002-a3cd-43f9-8150-e41940d08688")
+        @objid ("43accaea-5330-46f3-b75c-2629ce3f76a0")
+        public static SmDependency getSRepresentationDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return SRepresentationDep;
+        }
+
+        @objid ("554302e6-1462-43d9-a7f6-6dcd71f0e7e7")
+        public static SmAttribute getTypeConstraintAtt() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return TypeConstraintAtt;
+        }
+
+        @objid ("fe19f6fc-a133-480b-a6bb-6f849aa40674")
+        public static SmAttribute getIsOrderedAtt() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return IsOrderedAtt;
+        }
+
+        @objid ("a4ec0405-dfbf-4bb4-8e1c-d9abb7788067")
+        public static SmDependency getComposedDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return ComposedDep;
+        }
+
+        @objid ("1596f923-e676-424a-86a3-8b5999a4261f")
+        public static SmAttribute getIsUniqueAtt() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return IsUniqueAtt;
+        }
+
+        @objid ("f2798130-6e62-4653-966d-98ff13466c00")
+        public static SmDependency getBpmnRepresentingDataInputDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return BpmnRepresentingDataInputDep;
+        }
+
+        @objid ("f8858192-529a-4d11-8d49-a954df451933")
         public static SmDependency getBehaviorParamDep() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return BehaviorParamDep;
         }
 
+        @objid ("c2a5cfd0-50c0-4f4e-8b83-c85d4731f483")
+        public static SmAttribute getIsExceptionAtt() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return IsExceptionAtt;
+        }
+
+        @objid ("bccd597d-4217-4369-a67c-9ce01c325a57")
+        public static SmAttribute getIsStreamAtt() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return IsStreamAtt;
+        }
+
+        @objid ("0b12a832-12a5-4d1c-9916-842ceef03615")
+        public static SmAttribute getEffectAtt() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return EffectAtt;
+        }
+
+        @objid ("283e48e3-d1fc-4bd8-a801-249ecadabd20")
+        public static SmDependency getTypeDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return TypeDep;
+        }
+
+        @objid ("5b31fd17-229f-4e87-ae50-e69ffad188bd")
+        public static SmAttribute getMultiplicityMinAtt() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return MultiplicityMinAtt;
+        }
+
+        @objid ("09c4a00c-9812-493a-90f0-af160d224a9e")
+        public static SmAttribute getMultiplicityMaxAtt() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return MultiplicityMaxAtt;
+        }
+
+        @objid ("a64c1d9b-68b6-432c-9824-1fd772df6d09")
+        public static SmClass getSmClass() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return smClass;
+        }
+
+        @objid ("60457f51-b5b8-4ad5-9b5a-4771c7925f92")
+        public static SmAttribute getParameterPassingAtt() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return ParameterPassingAtt;
+        }
+
+        @objid ("d55b80e4-71b5-4641-8ab4-cbe333f0729e")
+        public static SmAttribute getDefaultValueAtt() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return DefaultValueAtt;
+        }
+
+        @objid ("a808034c-fb6f-4e95-b2da-aa5191fd7d9a")
+        public static SmDependency getMatchingDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return MatchingDep;
+        }
+
+        @objid ("f596529b-5376-407d-8f0f-fcb1ef50a232")
+        public static SmDependency getReturnedDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return ReturnedDep;
+        }
+
         @objid ("00839032-c4c3-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("03a2dd8d-b6d0-4158-a74b-34f51bb8947c")
+            @objid ("c2784883-430f-4b91-a4a8-5820a0d75616")
             public ISmObjectData createData() {
                 return new ParameterData();
             }
 
-            @objid ("5e11423e-b552-4917-8d5c-47f0f85fe252")
+            @objid ("1839fb80-9cce-4631-a4e4-62ee3db92e50")
             public SmObjectImpl createImpl() {
                 return new ParameterImpl();
             }
@@ -469,12 +469,12 @@ public class ParameterData extends ModelElementData {
 
         @objid ("0083f360-c4c3-1fd8-97fe-001ec947cd2a")
         public static class ParameterPassingSmAttribute extends SmAttribute {
-            @objid ("8b7e81fc-ebfc-43ea-87e5-854ce8b8b18d")
+            @objid ("629d4100-af7c-4c85-8a97-7aa27662ae99")
             public Object getValue(ISmObjectData data) {
                 return ((ParameterData) data).mParameterPassing;
             }
 
-            @objid ("6ae71b89-932c-4db9-afe9-f350b28be5c0")
+            @objid ("0f39870a-1717-4428-b24a-96d15e4f1719")
             public void setValue(ISmObjectData data, Object value) {
                 ((ParameterData) data).mParameterPassing = value;
             }
@@ -483,12 +483,12 @@ public class ParameterData extends ModelElementData {
 
         @objid ("008454d6-c4c3-1fd8-97fe-001ec947cd2a")
         public static class MultiplicityMinSmAttribute extends SmAttribute {
-            @objid ("560a72b8-70c6-4655-bf5c-c44b0116cd02")
+            @objid ("9bb99e64-2c90-4d8c-af38-33f352a101bf")
             public Object getValue(ISmObjectData data) {
                 return ((ParameterData) data).mMultiplicityMin;
             }
 
-            @objid ("a3ee7b82-b277-4fdb-a3c0-d4f0d63d5d78")
+            @objid ("4d06a134-0c73-4380-8428-d18211332303")
             public void setValue(ISmObjectData data, Object value) {
                 ((ParameterData) data).mMultiplicityMin = value;
             }
@@ -497,12 +497,12 @@ public class ParameterData extends ModelElementData {
 
         @objid ("0084b660-c4c3-1fd8-97fe-001ec947cd2a")
         public static class MultiplicityMaxSmAttribute extends SmAttribute {
-            @objid ("c45167e9-fd12-4014-9fe5-c4c2880d079a")
+            @objid ("715ef9a0-31cd-46e4-ba5e-a3b3fc86a1d6")
             public Object getValue(ISmObjectData data) {
                 return ((ParameterData) data).mMultiplicityMax;
             }
 
-            @objid ("7d4fde6c-b16e-46fc-ac27-b95de042da28")
+            @objid ("bc8271dd-a68d-40f4-b431-db5854aeb883")
             public void setValue(ISmObjectData data, Object value) {
                 ((ParameterData) data).mMultiplicityMax = value;
             }
@@ -511,12 +511,12 @@ public class ParameterData extends ModelElementData {
 
         @objid ("00852528-c4c3-1fd8-97fe-001ec947cd2a")
         public static class TypeConstraintSmAttribute extends SmAttribute {
-            @objid ("50ba7aff-ff16-4b30-8e07-7f6b75c99dbc")
+            @objid ("4e5bdf8d-de39-4f52-91c3-213773ab8b68")
             public Object getValue(ISmObjectData data) {
                 return ((ParameterData) data).mTypeConstraint;
             }
 
-            @objid ("aeda46d6-fb90-4e27-a5b7-c37acc11a430")
+            @objid ("3aa7f44e-1d81-4041-9978-31f9db836c41")
             public void setValue(ISmObjectData data, Object value) {
                 ((ParameterData) data).mTypeConstraint = value;
             }
@@ -525,12 +525,12 @@ public class ParameterData extends ModelElementData {
 
         @objid ("008589f0-c4c3-1fd8-97fe-001ec947cd2a")
         public static class DefaultValueSmAttribute extends SmAttribute {
-            @objid ("02f920a4-9de4-4397-900d-94c2caac97c0")
+            @objid ("e590f7ca-c626-4729-bc3c-4c30e0273f90")
             public Object getValue(ISmObjectData data) {
                 return ((ParameterData) data).mDefaultValue;
             }
 
-            @objid ("edbdd251-ef93-459e-89b4-1f82c84e98b5")
+            @objid ("56dd0701-750b-4d02-b86f-1192a7074e4d")
             public void setValue(ISmObjectData data, Object value) {
                 ((ParameterData) data).mDefaultValue = value;
             }
@@ -539,12 +539,12 @@ public class ParameterData extends ModelElementData {
 
         @objid ("0085ed64-c4c3-1fd8-97fe-001ec947cd2a")
         public static class IsOrderedSmAttribute extends SmAttribute {
-            @objid ("0b64f58e-453a-4688-83a2-5270c7dd5f78")
+            @objid ("5bd683f1-5337-4fa6-908e-53eb5ca3e75c")
             public Object getValue(ISmObjectData data) {
                 return ((ParameterData) data).mIsOrdered;
             }
 
-            @objid ("7bf92020-73a7-48d1-8112-f7856a2bba89")
+            @objid ("f662c06d-fdb7-40f3-b48d-f89c0cd8ed26")
             public void setValue(ISmObjectData data, Object value) {
                 ((ParameterData) data).mIsOrdered = value;
             }
@@ -553,12 +553,12 @@ public class ParameterData extends ModelElementData {
 
         @objid ("008658d0-c4c3-1fd8-97fe-001ec947cd2a")
         public static class IsUniqueSmAttribute extends SmAttribute {
-            @objid ("818e246f-d921-4869-be5d-2fc715f53fb3")
+            @objid ("45af75dc-964b-484e-b244-d2f0e0a6ec73")
             public Object getValue(ISmObjectData data) {
                 return ((ParameterData) data).mIsUnique;
             }
 
-            @objid ("ae5fb955-f8da-424f-bda8-0ffd02c2e9cd")
+            @objid ("b971ca06-4cd3-4eb3-8e44-baf67fa29a29")
             public void setValue(ISmObjectData data, Object value) {
                 ((ParameterData) data).mIsUnique = value;
             }
@@ -567,12 +567,12 @@ public class ParameterData extends ModelElementData {
 
         @objid ("0086beec-c4c3-1fd8-97fe-001ec947cd2a")
         public static class IsExceptionSmAttribute extends SmAttribute {
-            @objid ("86fa9279-351d-4222-91ba-572f9138ffb5")
+            @objid ("71e88b4c-5ea7-4455-a720-2ef53d064ea8")
             public Object getValue(ISmObjectData data) {
                 return ((ParameterData) data).mIsException;
             }
 
-            @objid ("2fa73a0e-25b4-413e-8cd0-8adef600015a")
+            @objid ("e514f4a4-7cd1-42a3-be0c-adb9249341a2")
             public void setValue(ISmObjectData data, Object value) {
                 ((ParameterData) data).mIsException = value;
             }
@@ -581,12 +581,12 @@ public class ParameterData extends ModelElementData {
 
         @objid ("00872436-c4c3-1fd8-97fe-001ec947cd2a")
         public static class IsStreamSmAttribute extends SmAttribute {
-            @objid ("f2ead7dc-16af-4040-b5f8-33be8910d870")
+            @objid ("609904d3-3170-4eb8-8a99-d192289c2f2e")
             public Object getValue(ISmObjectData data) {
                 return ((ParameterData) data).mIsStream;
             }
 
-            @objid ("6c20d0ef-083a-4e4e-a624-381a8e91c09d")
+            @objid ("09544a23-0e6a-4c0f-9d66-d6c15decaf76")
             public void setValue(ISmObjectData data, Object value) {
                 ((ParameterData) data).mIsStream = value;
             }
@@ -595,12 +595,12 @@ public class ParameterData extends ModelElementData {
 
         @objid ("008790d8-c4c3-1fd8-97fe-001ec947cd2a")
         public static class EffectSmAttribute extends SmAttribute {
-            @objid ("5a66bab2-647d-42c6-bcfe-a4c91500a9bc")
+            @objid ("809c6c79-39bc-4a46-ba1e-7ec49057360d")
             public Object getValue(ISmObjectData data) {
                 return ((ParameterData) data).mEffect;
             }
 
-            @objid ("816544b9-1140-452c-bce5-3421e1406183")
+            @objid ("0979d86a-cff9-4a79-9d05-7eff49a4b2bb")
             public void setValue(ISmObjectData data, Object value) {
                 ((ParameterData) data).mEffect = value;
             }
@@ -609,20 +609,20 @@ public class ParameterData extends ModelElementData {
 
         @objid ("0087fba4-c4c3-1fd8-97fe-001ec947cd2a")
         public static class MatchingSmDependency extends SmMultipleDependency {
-            @objid ("7bdbecf0-2ed4-46e2-b9f0-a95c00ba3c40")
+            @objid ("a76edc97-f0e4-49bd-9ecb-ec8bd6a0ae0e")
             @Override
             public List<SmObjectImpl> getValueList(ISmObjectData data) {
                 return (((ParameterData)data).mMatching != null)? ((ParameterData)data).mMatching:SmMultipleDependency.EMPTY;
             }
 
-            @objid ("9714ee2a-8ca1-4466-9539-646cd7847786")
+            @objid ("9082e260-98ab-4fe3-90f2-a9dba439d0ae")
             @Override
             protected List<SmObjectImpl> allocateValueList(ISmObjectData data, int initialCapacity) {
                 ((ParameterData) data).mMatching = new ArrayList<>(initialCapacity);
                 return ((ParameterData) data).mMatching;
             }
 
-            @objid ("6d6f5c96-481f-461f-9602-7efb78573ad6")
+            @objid ("f842a87a-ee3c-451a-942d-b4b64b1591dd")
             @Override
             public SmDependency getSymetric() {
                 return PinData.Metadata.MatchedDep();
@@ -632,20 +632,20 @@ public class ParameterData extends ModelElementData {
 
         @objid ("00886512-c4c3-1fd8-97fe-001ec947cd2a")
         public static class SRepresentationSmDependency extends SmMultipleDependency {
-            @objid ("7bb7c980-4975-4062-a148-52244fa310e4")
+            @objid ("a0cd45c1-6742-4d6c-8d79-47c7fe7da9be")
             @Override
             public List<SmObjectImpl> getValueList(ISmObjectData data) {
                 return (((ParameterData)data).mSRepresentation != null)? ((ParameterData)data).mSRepresentation:SmMultipleDependency.EMPTY;
             }
 
-            @objid ("6a68dfc0-948d-4711-aae5-cf6090726a3c")
+            @objid ("bde26c7d-aab2-4a96-b24c-e7592a3251b1")
             @Override
             protected List<SmObjectImpl> allocateValueList(ISmObjectData data, int initialCapacity) {
                 ((ParameterData) data).mSRepresentation = new ArrayList<>(initialCapacity);
                 return ((ParameterData) data).mSRepresentation;
             }
 
-            @objid ("6de1e4f6-ce98-4744-8be9-d653685cf64d")
+            @objid ("e6d7ee99-392d-4032-8d27-01ec2b97d130")
             @Override
             public SmDependency getSymetric() {
                 return SignalData.Metadata.PBaseDep();
@@ -655,18 +655,18 @@ public class ParameterData extends ModelElementData {
 
         @objid ("0088cee4-c4c3-1fd8-97fe-001ec947cd2a")
         public static class TypeSmDependency extends SmSingleDependency {
-            @objid ("730c9176-35a1-4182-877f-232478105580")
+            @objid ("27a9bcb2-7a56-45be-9952-21ebf1f2f20e")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((ParameterData) data).mType;
             }
 
-            @objid ("7bc8100e-82f6-4506-bbdc-c57056f4173b")
+            @objid ("8963e6b6-8d92-4ca8-b1d6-59641fbe3e18")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((ParameterData) data).mType = value;
             }
 
-            @objid ("bf9518ab-12fc-42ca-b17a-498041209636")
+            @objid ("861f2ad3-5203-496b-9358-6bb1a27c53c7")
             @Override
             public SmDependency getSymetric() {
                 return GeneralClassData.Metadata.OccurenceDep();
@@ -676,20 +676,20 @@ public class ParameterData extends ModelElementData {
 
         @objid ("00894b12-c4c3-1fd8-97fe-001ec947cd2a")
         public static class BehaviorParamSmDependency extends SmMultipleDependency {
-            @objid ("ea572c74-3a75-4bea-bb41-eeb99a61cb30")
+            @objid ("230fbc07-5e48-46c0-be28-0ba7646e2be5")
             @Override
             public List<SmObjectImpl> getValueList(ISmObjectData data) {
                 return (((ParameterData)data).mBehaviorParam != null)? ((ParameterData)data).mBehaviorParam:SmMultipleDependency.EMPTY;
             }
 
-            @objid ("f6dfd29d-d52e-442a-bf15-98f3c939e276")
+            @objid ("05154f1c-1b6b-4549-8eb1-a06c4963aa51")
             @Override
             protected List<SmObjectImpl> allocateValueList(ISmObjectData data, int initialCapacity) {
                 ((ParameterData) data).mBehaviorParam = new ArrayList<>(initialCapacity);
                 return ((ParameterData) data).mBehaviorParam;
             }
 
-            @objid ("c5d3ef09-2c8e-4868-915d-5835f23eb536")
+            @objid ("90626cae-3810-4130-a8cd-46588f8bb472")
             @Override
             public SmDependency getSymetric() {
                 return BehaviorParameterData.Metadata.MappedDep();
@@ -699,18 +699,18 @@ public class ParameterData extends ModelElementData {
 
         @objid ("0089b516-c4c3-1fd8-97fe-001ec947cd2a")
         public static class ComposedSmDependency extends SmSingleDependency {
-            @objid ("bad2336c-be4f-4d46-91cf-bba3eed6a79e")
+            @objid ("c2dbd4ff-19ff-428f-8cf8-7e3ba5f482cd")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((ParameterData) data).mComposed;
             }
 
-            @objid ("d7de8bbc-070d-42ea-990c-9604e4f84ed9")
+            @objid ("3f679daa-8c20-4ccb-b04f-6612cd9517fd")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((ParameterData) data).mComposed = value;
             }
 
-            @objid ("a6f6ed76-a227-449f-96be-4a93dbcb97df")
+            @objid ("23433139-076e-4f78-8f74-011dfb8b4b45")
             @Override
             public SmDependency getSymetric() {
                 return OperationData.Metadata.IODep();
@@ -720,18 +720,18 @@ public class ParameterData extends ModelElementData {
 
         @objid ("008a3360-c4c3-1fd8-97fe-001ec947cd2a")
         public static class ReturnedSmDependency extends SmSingleDependency {
-            @objid ("46c43d11-e5ee-44ac-9640-d422634df248")
+            @objid ("c7b5b7e0-b66b-4b02-a04f-e4b03bad3128")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((ParameterData) data).mReturned;
             }
 
-            @objid ("7caf6420-5357-4261-afc6-a42c0a1ab1d2")
+            @objid ("3fcb42a3-d96d-489e-8078-15d4a9bfac4a")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((ParameterData) data).mReturned = value;
             }
 
-            @objid ("01253892-2d82-4085-9c96-854e322d185b")
+            @objid ("fd9fda27-f51f-4a40-829c-2f243428415d")
             @Override
             public SmDependency getSymetric() {
                 return OperationData.Metadata.ReturnDep();
@@ -741,20 +741,20 @@ public class ParameterData extends ModelElementData {
 
         @objid ("008ab18c-c4c3-1fd8-97fe-001ec947cd2a")
         public static class BpmnRepresentingDataOutputSmDependency extends SmMultipleDependency {
-            @objid ("1a9779d0-49eb-4d8b-862f-34ba6d3f1ca9")
+            @objid ("f6b1bff5-059b-4229-8247-030d93e10378")
             @Override
             public List<SmObjectImpl> getValueList(ISmObjectData data) {
                 return (((ParameterData)data).mBpmnRepresentingDataOutput != null)? ((ParameterData)data).mBpmnRepresentingDataOutput:SmMultipleDependency.EMPTY;
             }
 
-            @objid ("567b3304-d792-4716-b83b-9592af43eeff")
+            @objid ("b137695f-42f6-44b8-ae56-cdcdc8cc5c85")
             @Override
             protected List<SmObjectImpl> allocateValueList(ISmObjectData data, int initialCapacity) {
                 ((ParameterData) data).mBpmnRepresentingDataOutput = new ArrayList<>(initialCapacity);
                 return ((ParameterData) data).mBpmnRepresentingDataOutput;
             }
 
-            @objid ("7c90e0eb-6d7a-42cc-9900-ef08b0166783")
+            @objid ("8b40c396-fb45-4e95-9048-5a57e1174b45")
             @Override
             public SmDependency getSymetric() {
                 return BpmnDataOutputData.Metadata.RepresentedParameterDep();
@@ -764,20 +764,20 @@ public class ParameterData extends ModelElementData {
 
         @objid ("008b1dc0-c4c3-1fd8-97fe-001ec947cd2a")
         public static class BpmnRepresentingDataInputSmDependency extends SmMultipleDependency {
-            @objid ("d4ab1dc5-70ff-4f94-a128-7ccf81ef4778")
+            @objid ("c4eb1dcb-eb1a-4923-a939-da096cefeb3c")
             @Override
             public List<SmObjectImpl> getValueList(ISmObjectData data) {
                 return (((ParameterData)data).mBpmnRepresentingDataInput != null)? ((ParameterData)data).mBpmnRepresentingDataInput:SmMultipleDependency.EMPTY;
             }
 
-            @objid ("1f1be1cf-8468-4bca-8913-0d4117d938b3")
+            @objid ("fdb37f5f-43a5-4c9e-99b0-ecce38d205e2")
             @Override
             protected List<SmObjectImpl> allocateValueList(ISmObjectData data, int initialCapacity) {
                 ((ParameterData) data).mBpmnRepresentingDataInput = new ArrayList<>(initialCapacity);
                 return ((ParameterData) data).mBpmnRepresentingDataInput;
             }
 
-            @objid ("c3cc165d-a043-42ac-867e-4cce4e895eca")
+            @objid ("df65c000-534a-4858-8a81-a407da38fab6")
             @Override
             public SmDependency getSymetric() {
                 return BpmnDataInputData.Metadata.RepresentedParameterDep();

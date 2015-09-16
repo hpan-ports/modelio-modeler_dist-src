@@ -22,15 +22,16 @@
 package org.modelio.xmi.model.ecore;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.api.modelio.Modelio;
+import org.modelio.gproject.model.IMModelServices;
 import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
 import org.modelio.metamodel.uml.infrastructure.Note;
 import org.modelio.metamodel.uml.infrastructure.NoteType;
 import org.modelio.metamodel.uml.statik.Class;
+import org.modelio.vcore.smkernel.meta.SmClass;
 import org.modelio.xmi.util.ObjingEAnnotation;
 import org.modelio.xmi.util.ReverseProperties;
 
@@ -47,11 +48,13 @@ public class EComment extends EElement {
 
     @objid ("d1632c07-be4d-4d08-bb18-bec150822ccb")
     private Note createNote() {
-        Note result = Modelio.getInstance().getModelingSession().getModel()
+        IMModelServices mmService = ReverseProperties.getInstance().getMModelServices();
+        
+        Note result = mmService.getModelFactory()
                 .createNote();
         
         result.setModel(Modelio.getInstance().getModelingSession()
-                .getMetamodelExtensions().findNoteTypes("comment", result.getMClass()).get(0));
+                .getMetamodelExtensions().findNoteTypes("comment", SmClass.getClass(ModelElement.class)).get(0));
         return result;
     }
 
@@ -101,21 +104,17 @@ public class EComment extends EElement {
     @objid ("3916ec60-6288-497d-a890-23390b7ed96e")
     @Override
     public void setProperties(Element objingElt) {
-        if (objingElt != null) {
-            setBody((Note) objingElt);
-        
-            if ( ReverseProperties.getInstance().isRoundtripEnabled()) {
-                setModel((Note) objingElt);
-            } 
-        
-        }
-        
         super.setProperties(objingElt);
+        
+        if ((objingElt != null) && (objingElt instanceof Note))
+            setNote((Note) objingElt);
     }
 
     @objid ("ad241920-7c0e-4196-b7e1-ca476b99b15c")
     public void createNote(Element objingAnnotatedElt, List<Object> objingElt) {
-        if ((objingAnnotatedElt != null) && (objingAnnotatedElt instanceof ModelElement)) {
+        if ((objingAnnotatedElt != null) 
+                && (objingAnnotatedElt instanceof ModelElement)) {
+        
             Note objingNote = createNote();
             objingNote.setSubject((ModelElement) objingAnnotatedElt);
             ((ModelElement) objingAnnotatedElt).getDescriptor().add(objingNote);
@@ -133,15 +132,22 @@ public class EComment extends EElement {
     @objid ("f31a49d3-e814-4a9c-b3da-c19289b22616")
     private void setModel(Note objingElt) {
         String noteTypeName = ObjingEAnnotation.getNoteTypeName(this.ecoreElement);
+               
+        if (!noteTypeName.equals("")){
+            List<NoteType> objingNoteType = ReverseProperties.getInstance().getMModelServices().findNoteTypes(noteTypeName, objingElt.getSubject().getMClass());
+           
+            if ((objingNoteType != null) && (objingNoteType.size() > 0)) {
+                objingElt.setModel(objingNoteType.get(0));
+            }
+        }
+    }
+
+    @objid ("d585e1b7-bf53-449b-ab8e-e9876f4ed316")
+    private void setNote(Note note) {
+        setBody(note);
         
-        NoteType objingNoteType = null;
-        if (noteTypeName != null)
-            objingNoteType = Modelio.getInstance().getModelingSession().getMetamodelExtensions().getNoteType(
-                    objingElt.getModel().getOwnerStereotype(), noteTypeName);
-        
-        
-        if (objingNoteType != null) {
-            objingElt.setModel(objingNoteType);
+        if (ReverseProperties.getInstance().isRoundtripEnabled()) {
+            setModel(note);
         }
     }
 

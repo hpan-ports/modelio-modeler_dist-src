@@ -36,6 +36,11 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
+import javax.naming.NamingException;
+import javax.naming.directory.Attribute;
+import javax.naming.ldap.LdapName;
+import javax.naming.ldap.Rdn;
+import javax.security.auth.x500.X500Principal;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.layout.GridDataFactory;
@@ -58,11 +63,27 @@ import org.eclipse.ui.forms.widgets.TableWrapLayout;
 import org.modelio.app.ui.plugin.AppUi;
 import org.modelio.core.ui.dialog.ModelioDialog;
 
+/**
+ * Dialog that display invalid certificates errors.
+ * <p>
+ * The dialog makes an analysis of the error, the certificate, displays the stack trace.
+ * It allows the user to either:<ul>
+ * <li>cancel the access,
+ * <li>trust the certificate forthe Modelio runtime lifetime
+ * <li>trust the certificate definitively
+ * </ul>
+ */
 @objid ("6785e103-2c70-4e3a-bb8b-3b381ce8c7c7")
 public class UntrustedServerDialog extends ModelioDialog {
+    /**
+     * Code returned by {@link #open()} to trust definitively the certificate.
+     */
     @objid ("bcda842e-0976-4c3c-8930-a0765fba0754")
     public static final int TRUST_ALWAYS_ID = 21;
 
+    /**
+     * Code returned by {@link #open()} to trust the certificate for the running session.
+     */
     @objid ("355b5bd6-560d-4c61-9270-653469afb341")
     public static final int TRUST_ONCE_ID = 20;
 
@@ -75,6 +96,12 @@ public class UntrustedServerDialog extends ModelioDialog {
     @objid ("cab86222-4f98-4ccd-96c6-dc4de6a171b7")
     private X509Certificate[] chain;
 
+    /**
+     * @param parentShell a SWT shell
+     * @param uri the accessed URI
+     * @param chain the invalid certificate chain
+     * @param error the error
+     */
     @objid ("ade4fc4d-e4ae-47f7-9b7d-498fdab65c9f")
     public UntrustedServerDialog(Shell parentShell, URI uri, X509Certificate[] chain, Throwable error) {
         super(parentShell);
@@ -194,10 +221,24 @@ public class UntrustedServerDialog extends ModelioDialog {
         s.append("\n\n");
         s.append(AppUi.I18N.getMessage("UntrustedServerDialog.diag.title"));
         s.append("\n");
-        for (String entry : getCertificateDiagnostic(this.chain[0], this.uri.getHost())) {
-            s.append(" - ");
-            s.append(entry);
+        String certFor = this.uri.getHost();
+        for (int i = 0; i < this.chain.length; i++) {
+            X509Certificate cert = this.chain[i];
+            X509Certificate nextCert = i+1 < this.chain.length ? this.chain[i+1] : null;
+        
+            String subjectName = getName(cert.getSubjectX500Principal());
+            
+            s.append(" * ");
+            s.append(AppUi.I18N.getMessage("UntrustedServerDialog.diag.title.cert", subjectName));
             s.append("\n");
+            
+            for (String entry : getCertificateDiagnostic(cert, certFor, nextCert)) {
+                s.append("    - ");
+                s.append(entry);
+                s.append("\n");
+            }
+            
+            certFor = subjectName;
         }
         return s.toString();
     }
@@ -234,15 +275,34 @@ public class UntrustedServerDialog extends ModelioDialog {
     }
 
     @objid ("b857902a-c6a1-4352-a817-c54257455fe8")
-    private static Collection<String> getCertificateDiagnostic(X509Certificate cert, String realHostName) {
+    private static Collection<String> getCertificateDiagnostic(X509Certificate cert, String realHostName, X509Certificate nextCert) {
         Collection<String> ret = new ArrayList<>();
         
-        try {
-            cert.verify(cert.getPublicKey());
-            ret.add(AppUi.I18N.getMessage("UntrustedServerDialog.diag.selfsigned"));
-        } catch (InvalidKeyException | CertificateException | NoSuchAlgorithmException | NoSuchProviderException
-                | SignatureException e1) {
-            // ignore
+        if (nextCert != null) {
+            try {
+                cert.verify(nextCert.getPublicKey());
+                ret.add(AppUi.I18N.getMessage("UntrustedServerDialog.diag.selfsigned"));
+            } catch (InvalidKeyException | CertificateException | NoSuchAlgorithmException | NoSuchProviderException
+                    | SignatureException e1) {
+                ret.add(e1.getLocalizedMessage());
+            }
+        } else {
+            // Test if the certificate is self signed
+            try {
+                cert.verify(cert.getPublicKey());
+                ret.add(AppUi.I18N.getMessage("UntrustedServerDialog.diag.selfsigned"));
+            } catch (SignatureException e1) {
+                // Not self signed
+                final X500Principal issuer = cert.getIssuerX500Principal();
+                if (issuer == null) {
+                    ret.add(AppUi.I18N.getMessage("UntrustedServerDialog.diag.noissuer"));
+                } else {
+                    ret.add(AppUi.I18N.getMessage("UntrustedServerDialog.diag.noissuercertificate", getName(issuer)));
+                }
+            } catch (InvalidKeyException | CertificateException | NoSuchAlgorithmException | NoSuchProviderException e1) {
+                // ignore
+                ret.add(e1.getLocalizedMessage());
+            }
         }
         
         Date time = new Date(System.currentTimeMillis());
@@ -255,18 +315,8 @@ public class UntrustedServerDialog extends ModelioDialog {
             // The certificate has expired.
             ret.add(AppUi.I18N.getMessage("UntrustedServerDialog.diag.expired", DateFormat.getDateTimeInstance().format(cert.getNotAfter())));
         }
-        String certHostName = cert.getSubjectDN().getName();
-        int index = certHostName.indexOf("CN=");
-        if (index >= 0) {
-            index += 3;
-            certHostName = certHostName.substring(index);
-            if (certHostName.indexOf(' ') >= 0) {
-                certHostName = certHostName.substring(0, certHostName.indexOf(' '));
-            }
-            if (certHostName.indexOf(',') >= 0) {
-                certHostName = certHostName.substring(0, certHostName.indexOf(','));
-            }
-        }
+        String certHostName = getName(cert.getSubjectX500Principal());
+        
         if (!realHostName.equals(certHostName)) {
             try {
                 Collection<List<?>> altNames = cert.getSubjectAlternativeNames();
@@ -292,6 +342,23 @@ public class UntrustedServerDialog extends ModelioDialog {
             ret.add(AppUi.I18N.getMessage("UntrustedServerDialog.diag.badhostname"));
         }
         return ret;
+    }
+
+    @objid ("89555707-2268-4175-ab19-cfbb212c0f98")
+    private static String getName(X500Principal pr) {
+        String dn = pr.getName();
+        LdapName ldapDN;
+        try {
+            ldapDN = new LdapName(dn);
+            for (Rdn r : ldapDN.getRdns()) {
+                final Attribute attribute = r.toAttributes().get("cn");
+                if (attribute != null)
+                    return (String) attribute.get();
+            }
+            return dn;
+        } catch (NamingException e) {
+            return e.toString()+"( from "+pr.toString()+")";
+        }
     }
 
 }

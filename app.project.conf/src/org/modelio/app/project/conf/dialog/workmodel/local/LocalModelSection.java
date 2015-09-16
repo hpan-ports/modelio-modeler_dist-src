@@ -21,6 +21,7 @@
 
 package org.modelio.app.project.conf.dialog.workmodel.local;
 
+import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -30,6 +31,7 @@ import org.eclipse.jface.dialogs.ProgressMonitorDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.ColumnLabelProvider;
+import org.eclipse.jface.viewers.ColumnViewerToolTipSupport;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
@@ -51,12 +53,15 @@ import org.eclipse.ui.forms.widgets.ExpandableComposite;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.Section;
 import org.modelio.app.project.conf.dialog.ProjectModel;
+import org.modelio.app.project.conf.dialog.common.ColumnHelper;
 import org.modelio.app.project.conf.dialog.common.ScopeHelper;
 import org.modelio.app.project.conf.plugin.AppProjectConf;
 import org.modelio.app.project.core.services.IProjectService;
 import org.modelio.core.ui.images.FragmentImageService;
-import org.modelio.gproject.descriptor.FragmentDescriptor;
+import org.modelio.gproject.data.project.FragmentDescriptor;
 import org.modelio.gproject.fragment.IProjectFragment;
+import org.modelio.gproject.gproject.FragmentConflictException;
+import org.modelio.vbasic.files.FileUtils;
 
 /**
  * Manage the local model section.
@@ -131,46 +136,26 @@ public class LocalModelSection {
         
         Table table = toolkit.createTable(composite, SWT.BORDER | SWT.FULL_SELECTION);
         table.setLinesVisible(true);
+        table.setHeaderVisible(true);
         this.viewer = new TableViewer(table);
         
         GridData gd = new GridData(SWT.FILL, SWT.FILL, true, true);
         table.setLayoutData(gd);
         
         this.viewer.setContentProvider(new ArrayContentProvider());
+        ColumnViewerToolTipSupport.enableFor(this.viewer);
         
-        TableViewerColumn nameColumn = new TableViewerColumn(this.viewer, SWT.NONE);
-        nameColumn.getColumn().setWidth(120);
-        nameColumn.getColumn().setResizable(true);
-        nameColumn.setLabelProvider(new ColumnLabelProvider() {
-            @Override
-            public String getText(Object element) {
-                if (element instanceof IProjectFragment) {
-                    return ((IProjectFragment) element).getId();
-                }
-                return ""; //$NON-NLS-1$
-            }
+        // Name column
+        @SuppressWarnings("unused")
+        TableViewerColumn nameColumn = ColumnHelper.createFragmentNameColumn(this.viewer);
         
-            @Override
-            public Image getImage(Object element) {
-                if (element instanceof IProjectFragment) {
-                    return FragmentImageService.getImage((IProjectFragment) element);
-                }
-                return null;
-            }
-        });
+        // Scope column
+        @SuppressWarnings("unused")
+        TableViewerColumn scopeColumn = ColumnHelper.createFragmentScopeColumn(this.viewer);
         
-        TableViewerColumn scopeColumn = new TableViewerColumn(this.viewer, SWT.NONE);
-        scopeColumn.getColumn().setWidth(120);
-        scopeColumn.getColumn().setResizable(true);
-        scopeColumn.setLabelProvider(new ColumnLabelProvider() {
-            @Override
-            public String getText(Object element) {
-                if (element instanceof IProjectFragment) {
-                    return ScopeHelper.getText(((IProjectFragment) element).getScope());
-                }
-                return ""; //$NON-NLS-1$
-            }
-        });
+        // Metamodel version column
+        @SuppressWarnings("unused")
+        TableViewerColumn mmVer = ColumnHelper.createFragmentMmVersionColumn(this.viewer);
         
         /*TableViewerColumn uriColumn = new TableViewerColumn(this.viewer, SWT.NONE);
         uriColumn.getColumn().setWidth(300);
@@ -269,7 +254,11 @@ public class LocalModelSection {
             
                     @Override
                     public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
-                        projectService.addFragment(getProjectAdapter().getOpenedProject(), fragmentDescriptor, monitor);
+                        try {
+                            projectService.addFragment(getProjectAdapter().getOpenedProject(), fragmentDescriptor, monitor);
+                        } catch (FragmentConflictException ex) {
+                            throw new InvocationTargetException(ex, ex.getLocalizedMessage());
+                        }
                     }
                 };
             

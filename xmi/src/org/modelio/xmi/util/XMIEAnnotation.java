@@ -46,7 +46,7 @@ public class XMIEAnnotation {
             EAnnotation ea = ecoreElt.getEAnnotation(eaName);
             if (ea == null)
                 ea = ecoreElt.createEAnnotation(eaName);
-                
+        
             // Gets or creates the Property
             Property prop = null;
             for (Object content : ea.getContents()) {
@@ -62,7 +62,7 @@ public class XMIEAnnotation {
                 prop = UMLFactory.eINSTANCE.createProperty();
                 prop.setName(fieldName);
             }
-                               
+        
             // Sets the field's content and adds the Property to the
             // EAnnotation:
             prop.setDefault(fieldContent);
@@ -143,7 +143,7 @@ public class XMIEAnnotation {
             EAnnotation ea = ecoreElt.getEAnnotation(eaName);
             if (ea == null)
                 ea = ecoreElt.createEAnnotation(eaName);
-                
+        
             // Gets or creates the Property:
             Property prop = null;
             for (Object content : ea.getContents()) {
@@ -159,7 +159,7 @@ public class XMIEAnnotation {
                 prop = UMLFactory.eINSTANCE.createProperty();
                 prop.setName(fieldName);
             }
-                
+        
             ea.getContents().add(prop);
         }
     }
@@ -170,7 +170,7 @@ public class XMIEAnnotation {
             // Gets or creates the EAnnotation:
             EAnnotation ea = ecoreElt.getEAnnotation(eaName);
             if (ea != null){
-                
+        
                 Property field = null;
                 for (Object content : ea.getContents()) {
                     if (content instanceof Property) {
@@ -181,16 +181,16 @@ public class XMIEAnnotation {
                         }
                     }
                 }
-                
+        
                 if (field != null){
                     ea.getContents().remove(field);
                     if (ea.getContents().size() == 0){
                         ecoreElt.getEAnnotations().remove(ea);
                     }
                 }
-                
+        
             }
-            
+        
         }
     }
 
@@ -204,7 +204,7 @@ public class XMIEAnnotation {
                     if (content instanceof Property) {
                         Property prop = (Property) content;
                         if (fieldName.equals(prop.getName())) {
-                            
+        
                             strContent = prop.getDefault();    
                             ea.getContents().remove(prop);
                             prop.destroy();
@@ -228,7 +228,7 @@ public class XMIEAnnotation {
             EAnnotation ea = ecoreElt.getEAnnotation(eaName);
             if (ea == null)
                 ea = ecoreElt.createEAnnotation(eaName);
-                
+        
             // Gets or creates the Property:
             Property prop = null;
             for (Object content : ea.getContents()) {
@@ -240,23 +240,23 @@ public class XMIEAnnotation {
                     }
                 }
             }
-            
+        
             if (prop == null) {
                 prop = UMLFactory.eINSTANCE.createProperty();
                 prop.setName(fieldName);
-               
+        
                 // Sets the field's content and adds the Property to the
                 // EAnnotation:
                 prop.setDefault(fieldContent);
                 ea.getContents().add(prop);
             }
-                
+        
         }
     }
 
     @objid ("fb4cc62c-1bfa-459a-b845-09f79a6ae83a")
     protected static List<String> getEAnnotationContents(final org.eclipse.uml2.uml.Element ecoreElt, final String eaName, final String fieldName) {
-        List<String> strContent = new ArrayList<String>();
+        List<String> strContent = new ArrayList<>();
         if (ecoreElt != null) {
             EAnnotation ea = ecoreElt.getEAnnotation(eaName);
             if (ea != null) {
@@ -270,9 +270,6 @@ public class XMIEAnnotation {
                 }
             }
         }
-        
-        //        if (strContent.size() == 0)
-        //            strContent.add("");
         return strContent;
     }
 

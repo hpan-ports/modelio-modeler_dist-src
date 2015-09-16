@@ -26,6 +26,7 @@ import org.modelio.diagram.editor.statik.elements.association.GmAssociation;
 import org.modelio.diagram.editor.statik.elements.associationclass.GmClassAssociationLink;
 import org.modelio.diagram.editor.statik.elements.bindinglink.GmBindingLink;
 import org.modelio.diagram.editor.statik.elements.collabuselink.GmCollabUseLink;
+import org.modelio.diagram.editor.statik.elements.componentRealization.GmComponentRealization;
 import org.modelio.diagram.editor.statik.elements.connector.GmConnectorLink;
 import org.modelio.diagram.editor.statik.elements.elementimport.GmElementImport;
 import org.modelio.diagram.editor.statik.elements.generalization.GmGeneralization;
@@ -40,17 +41,20 @@ import org.modelio.diagram.editor.statik.elements.providedinterface.GmProvidedIn
 import org.modelio.diagram.editor.statik.elements.raisedexception.GmRaisedException;
 import org.modelio.diagram.editor.statik.elements.realization.GmInterfaceRealization;
 import org.modelio.diagram.editor.statik.elements.requiredinterface.GmRequiredInterfaceLink;
+import org.modelio.diagram.editor.statik.elements.substitution.GmSubstitution;
 import org.modelio.diagram.editor.statik.elements.templatebinding.GmTemplateBinding;
 import org.modelio.diagram.elements.common.abstractdiagram.GmAbstractDiagram;
 import org.modelio.diagram.elements.core.link.GmLink;
 import org.modelio.diagram.elements.core.model.IGmLinkFactory;
 import org.modelio.metamodel.uml.informationFlow.InformationFlow;
 import org.modelio.metamodel.uml.infrastructure.Element;
+import org.modelio.metamodel.uml.infrastructure.Substitution;
 import org.modelio.metamodel.uml.statik.Association;
 import org.modelio.metamodel.uml.statik.AssociationEnd;
 import org.modelio.metamodel.uml.statik.Binding;
 import org.modelio.metamodel.uml.statik.ClassAssociation;
 import org.modelio.metamodel.uml.statik.CollaborationUse;
+import org.modelio.metamodel.uml.statik.ComponentRealization;
 import org.modelio.metamodel.uml.statik.Connector;
 import org.modelio.metamodel.uml.statik.ConnectorEnd;
 import org.modelio.metamodel.uml.statik.ElementImport;
@@ -301,12 +305,24 @@ public class StaticDiagramGmLinkFactory implements IGmLinkFactory {
         @Override
         public Object visitConnector(final Connector connector) {
             // If lollipop Connector is not a link
-            if (connector.getRepresentingEnd().get(0).getConsumer() != null ||connector.getRepresentingEnd().get(0).getProvider() != null || connector.getRepresentingEnd().get(0).getOpposite().getConsumer() != null || connector.getRepresentingEnd().get(0).getOpposite().getProvider() != null)
+            if (connector.getLinkEnd().get(0).getConsumer() != null ||connector.getLinkEnd().get(0).getProvider() != null || connector.getLinkEnd().get(0).getOpposite().getConsumer() != null || connector.getLinkEnd().get(0).getOpposite().getProvider() != null)
                 return null;
             return new GmConnectorLink(this.diagram,
-                    connector.getRepresentingEnd().get(0),
-                    new MRef(connector.getRepresentingEnd().get(0)),
+                    (ConnectorEnd) connector.getLinkEnd().get(0),
+                    new MRef(connector.getLinkEnd().get(0)),
                     new MRef(connector));
+        }
+
+        @objid ("2c47fdb8-ab78-4103-bc2c-0d21a42b9819")
+        @Override
+        public Object visitSubstitution(Substitution obj) {
+            return new GmSubstitution(this.diagram, obj, new MRef(obj));
+        }
+
+        @objid ("f43c0819-ff4c-4900-8ff7-27a550294ca1")
+        @Override
+        public Object visitComponentRealization(ComponentRealization obj) {
+            return new GmComponentRealization(this.diagram, obj, new MRef(obj));
         }
 
     }

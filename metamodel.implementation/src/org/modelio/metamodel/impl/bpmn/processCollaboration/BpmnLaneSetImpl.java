@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.bpmn.processCollaboration;
 
@@ -46,13 +46,13 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("0075254c-c4bf-1fd8-97fe-001ec947cd2a")
 public class BpmnLaneSetImpl extends BpmnBaseElementImpl implements BpmnLaneSet {
-    @objid ("7d28e09f-c8b0-4420-8f8c-c1a02eb9d047")
+    @objid ("f3db1557-e4bd-4c91-8858-9a44ee41f204")
     @Override
     public EList<BpmnLane> getLane() {
         return new SmList<>(this, BpmnLaneSetData.Metadata.LaneDep());
     }
 
-    @objid ("db977d7f-2be2-4425-bd80-5f7a5703fac2")
+    @objid ("836491d1-1a08-48c5-85dc-df11bb31bfd3")
     @Override
     public <T extends BpmnLane> List<T> getLane(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -65,43 +65,43 @@ public class BpmnLaneSetImpl extends BpmnBaseElementImpl implements BpmnLaneSet 
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("fee490d2-6bf9-4987-b83b-0bd7af2d6959")
+    @objid ("fb07bafc-5d5f-4fa9-8781-828ff026a300")
     @Override
     public BpmnProcess getProcess() {
         return (BpmnProcess) getDepVal(BpmnLaneSetData.Metadata.ProcessDep());
     }
 
-    @objid ("f5b3db0b-08a2-457f-8c57-102abd62f217")
+    @objid ("edcc07eb-a7e9-4daf-9547-bc8aaf85eb20")
     @Override
     public void setProcess(BpmnProcess value) {
         appendDepVal(BpmnLaneSetData.Metadata.ProcessDep(), (SmObjectImpl)value);
     }
 
-    @objid ("659eb664-40e1-46eb-af18-bbd2dcb86e89")
+    @objid ("e2dbf72a-1a34-4eb6-b446-12d817cca1aa")
     @Override
     public BpmnLane getParentLane() {
         return (BpmnLane) getDepVal(BpmnLaneSetData.Metadata.ParentLaneDep());
     }
 
-    @objid ("98da7d16-d40c-4b25-bc59-15ba6666d918")
+    @objid ("10e96148-7da9-44ee-9031-c1736382f819")
     @Override
     public void setParentLane(BpmnLane value) {
         appendDepVal(BpmnLaneSetData.Metadata.ParentLaneDep(), (SmObjectImpl)value);
     }
 
-    @objid ("fc47ba01-5bda-4eea-8757-d7f1b532eb14")
+    @objid ("78374361-b8b9-4fa5-98ca-c939df3e4917")
     @Override
     public BpmnSubProcess getSubProcess() {
         return (BpmnSubProcess) getDepVal(BpmnLaneSetData.Metadata.SubProcessDep());
     }
 
-    @objid ("f7c629b9-2cad-4bcd-986d-fefb79bb4f3f")
+    @objid ("a8cec213-f7af-428c-b67f-bddb33d67b96")
     @Override
     public void setSubProcess(BpmnSubProcess value) {
         appendDepVal(BpmnLaneSetData.Metadata.SubProcessDep(), (SmObjectImpl)value);
     }
 
-    @objid ("bfa9a34e-cf18-48c2-99ca-99545416b108")
+    @objid ("326230bf-2455-4ef7-8926-f5cbb2cfced0")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
@@ -117,7 +117,7 @@ public class BpmnLaneSetImpl extends BpmnBaseElementImpl implements BpmnLaneSet 
         return super.getCompositionOwner();
     }
 
-    @objid ("044b78f1-83d5-4c90-8c67-964992457600")
+    @objid ("0fa4c6f2-d839-4bca-b58c-4a4bcab4ec6a")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
@@ -133,7 +133,7 @@ public class BpmnLaneSetImpl extends BpmnBaseElementImpl implements BpmnLaneSet 
         return super.getCompositionRelation();
     }
 
-    @objid ("9a4cb8d6-a469-4c21-8a94-c7fb13baf34f")
+    @objid ("e6c3fc0c-b89e-4d71-8219-c0f901fe883c")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitBpmnLaneSet(this);

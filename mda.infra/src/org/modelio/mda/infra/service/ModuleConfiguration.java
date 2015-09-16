@@ -30,9 +30,9 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.emf.common.util.EList;
 import org.modelio.api.module.IConfigParamValidator;
 import org.modelio.api.module.IModuleUserConfiguration;
-import org.modelio.gproject.descriptor.DefinitionScope;
-import org.modelio.gproject.descriptor.GProperties.Entry;
-import org.modelio.gproject.descriptor.GProperties;
+import org.modelio.gproject.data.project.DefinitionScope;
+import org.modelio.gproject.data.project.GProperties.Entry;
+import org.modelio.gproject.data.project.GProperties;
 import org.modelio.gproject.module.GModule;
 import org.modelio.metamodel.mda.ModuleComponent;
 import org.modelio.metamodel.mda.ModuleParameter;
@@ -67,6 +67,15 @@ public final class ModuleConfiguration implements IModuleUserConfiguration {
     private final Map<String, IConfigParamValidator> validators = new HashMap<>();
 
     /**
+     * Map of all defined diagram named styles provided by the module.
+     * <p>
+     * The key is the style name and the value the path of the style configuration file
+     * relative to the module resources path.
+     */
+    @objid ("ecdff23f-9c3b-401f-b9c2-a10aa69ec899")
+    private Map<String, Path> stylepath;
+
+    /**
      * Unique constructor of a parameter manager.
      * <p>
      * This constructor needs the id of the module on which the parameter manager
@@ -75,13 +84,15 @@ public final class ModuleConfiguration implements IModuleUserConfiguration {
      * @param projectSpacePath The project space path.
      * @param deploymentPath The module deployment path
      * @param docpath list of all files that should be loaded for documentation.
+     * @param map Map of all defined diagram named styles provided by the module.
      */
     @objid ("9709e7a4-f374-11e1-9458-001ec947c8cc")
-    public ModuleConfiguration(GModule module, Path projectSpacePath, Path deploymentPath, final List<Path> docpath) {
+    public ModuleConfiguration(GModule module, Path projectSpacePath, Path deploymentPath, final List<Path> docpath, final Map<String, Path> map) {
         this.module = module;
         this.projectSpacePath = projectSpacePath;
         this.deploymentPath = deploymentPath;
         this.docpath = docpath;
+        this.stylepath = map;
     }
 
     @objid ("9709e77a-f374-11e1-9458-001ec947c8cc")
@@ -168,7 +179,7 @@ public final class ModuleConfiguration implements IModuleUserConfiguration {
         List<Path> realpath = new ArrayList<>();
         
         for(Path path : this.docpath){
-            realpath.add( getModuleResourcesPath().resolve(path));
+            realpath.add(getModuleResourcesPath().resolve(path));
         }
         return realpath;
     }
@@ -201,6 +212,17 @@ public final class ModuleConfiguration implements IModuleUserConfiguration {
             }
         }
         return false;
+    }
+
+    @objid ("b56c0cf6-66de-4a9d-b0a3-d66280d15627")
+    @Override
+    public Map<String, Path> getStylePath() {
+        Map<String, Path> realpath = new HashMap<>();
+        
+        for(Map.Entry<String, Path> entry : this.stylepath.entrySet()){
+            realpath.put(entry.getKey(), getModuleResourcesPath().resolve(entry.getValue()));
+        }
+        return realpath;
     }
 
 }

@@ -52,9 +52,9 @@ import org.modelio.vcore.smkernel.mapi.MObject;
  * 
  * Description : If a BpmnItemAwareElement has a type GeneralClass, then its State must also be part of that GeneralClass.
  */
-@objid ("78aae3d9-5f9b-4a3d-828e-3deeeca6e246")
+@objid ("81846efd-a0ff-42ca-b7a7-873e8315f27d")
 public class R3270 extends AbstractRule {
-    @objid ("6f86a46a-f8d6-49ed-a012-6e492f219034")
+    @objid ("997594ad-36d0-4e01-bcb3-7f9c32a771ce")
     private static final String RULEID = "R3270";
 
     /**
@@ -64,10 +64,10 @@ public class R3270 extends AbstractRule {
      * @see AbstractRule#getUpdateControl(Element)
      * @see AbstractRule#getMoveControl(ElementMovedEvent)
      */
-    @objid ("7cbc4660-75af-484e-892d-71e86f8aa3bc")
+    @objid ("b5a2f959-0010-486d-9a1f-b6a5368cb916")
     private CheckR3270 checkerInstance = null;
 
-    @objid ("a3cce8b0-d0d5-44a8-be7e-f0dc6c1c560d")
+    @objid ("38d80f1a-5ca8-4ef2-9ff8-d9b171ae6efb")
     @Override
     public void autoRegister(final IAuditPlan plan) {
         plan.registerRule(Metamodel.getMClass(BpmnDataInput.class).getName(), this, AuditTrigger.CREATE | AuditTrigger.UPDATE);
@@ -76,7 +76,7 @@ public class R3270 extends AbstractRule {
         plan.registerRule(Metamodel.getMClass(BpmnDataStore.class).getName(), this, AuditTrigger.CREATE | AuditTrigger.UPDATE);
     }
 
-    @objid ("409e64dd-dbee-41b6-b4fc-a25d66043e7c")
+    @objid ("5aaa22dd-6fbb-4b44-b41d-f9d67fbcf292")
     @Override
     public String getRuleId() {
         return RULEID;
@@ -89,7 +89,7 @@ public class R3270 extends AbstractRule {
      * tuning of the check is required for each element, because this strategy creates many objects (performance
      * issues).
      */
-    @objid ("df1d1ca8-a9ed-4362-ad4f-6b45657db4c0")
+    @objid ("454b159c-b1bf-4b6d-94e2-1cf29b28b5ce")
     @Override
     public IControl getUpdateControl(final MObject element) {
         return this.checkerInstance;
@@ -102,7 +102,7 @@ public class R3270 extends AbstractRule {
      * tuning of the check is required for each element, because this strategy creates many objects (performance
      * issues).
      */
-    @objid ("a9fa2941-6c5a-47e9-940c-9aa50612893f")
+    @objid ("bb7f7cac-4304-41c9-9b52-f958e6a303eb")
     @Override
     public IControl getMoveControl(final IElementMovedEvent moveEvent) {
         return null;
@@ -115,7 +115,7 @@ public class R3270 extends AbstractRule {
      * tuning of the check is required for each element, because this strategy creates many objects (performance
      * issues).
      */
-    @objid ("c2b0b1f8-a176-4e91-a8eb-47cb0dcb1a55")
+    @objid ("776f77f5-d72f-4e1d-8612-69726bb6b482")
     @Override
     public IControl getCreationControl(final MObject element) {
         return this.checkerInstance;
@@ -124,7 +124,7 @@ public class R3270 extends AbstractRule {
     /**
      * Default constructor for R3250
      */
-    @objid ("dd8235be-7883-4288-8547-900131166258")
+    @objid ("c1a6ea31-bde1-4cb4-8359-582e4e60e3da")
     public R3270() {
         this.checkerInstance = new CheckR3270(this);
     }
@@ -132,18 +132,18 @@ public class R3270 extends AbstractRule {
     /**
      * Actual checker for R3270: Checks that the type and inState relationships are coherent.
      */
-    @objid ("a3c8aa2d-6630-4094-952d-cd5a027c9976")
+    @objid ("690d8ee3-ff3c-4078-8b4f-a5682808e7fc")
     public static class CheckR3270 extends AbstractControl {
         /**
          * C'tor.
          * @param rule the rule to check.
          */
-        @objid ("2309f57a-1344-4440-8510-bb92f78529a7")
+        @objid ("72b87415-9b95-4b32-9f49-70c0e5e89d4d")
         public CheckR3270(final IRule rule) {
             super(rule);
         }
 
-        @objid ("5f03e75d-6b1e-4d20-84af-2684528cccfb")
+        @objid ("c6f4622d-d846-4a79-8206-be8f1dfd6625")
         @Override
         public IDiagnosticCollector doRun(final IDiagnosticCollector diagnostic, final MObject element) {
             if(element instanceof BpmnItemAwareElement)
@@ -151,7 +151,7 @@ public class R3270 extends AbstractRule {
             return diagnostic;
         }
 
-        @objid ("17157ca5-4140-45e7-8e4b-efe95f942c41")
+        @objid ("ac5160a2-ce00-4634-bc9a-b230d2df2b71")
         private IAuditEntry checkR3270(final BpmnItemAwareElement element) {
             AuditEntry auditEntry = new AuditEntry(this.rule.getRuleId(),
                     AuditSeverity.AuditSuccess,
@@ -173,7 +173,7 @@ public class R3270 extends AbstractRule {
             return auditEntry;
         }
 
-        @objid ("b1ca9916-d234-4b82-a6de-31813d998b0f")
+        @objid ("ad6dc510-679e-4bdf-9840-a48714750cda")
         private boolean isOwningClass(State state, GeneralClass type) {
             MObject parent = state;
             while (parent != null && !parent.equals(type)) {

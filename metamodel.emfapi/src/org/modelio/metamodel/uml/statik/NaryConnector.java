@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.uml.statik;
 
@@ -33,16 +33,16 @@ import org.modelio.metamodel.uml.statik.Binding;
 
 @objid ("0005d2fa-c4bf-1fd8-97fe-001ec947cd2a")
 public interface NaryConnector extends NaryLink {
-    @objid ("bea59e73-020b-4ff6-8b41-efe8a21237a4")
+    @objid ("17b02104-bb52-458f-ad64-c50c6d4a209c")
     EList<Binding> getRepresentation();
 
-    @objid ("0c6dcffb-ce38-48ff-beb8-9af5eba1b9f1")
+    @objid ("b39f7e02-ba74-4ed0-b5ee-9624c6a99f33")
     <T extends Binding> List<T> getRepresentation(java.lang.Class<T> filterClass);
 
-    @objid ("632e3c67-1d75-4501-ba73-1c1534c4b23a")
+    @objid ("92e4cb4f-512f-4391-8f08-25e2247dcd91")
     ModelElement getRepresentedFeature();
 
-    @objid ("544c584c-30f3-4ab4-97ba-ac60c5fa7d30")
+    @objid ("eb4c4213-8e6c-4f97-8d63-ac3b36991601")
     void setRepresentedFeature(ModelElement value);
 
 }

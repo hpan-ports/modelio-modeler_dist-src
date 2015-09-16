@@ -24,7 +24,7 @@ package org.modelio.gproject.gproject;
 import java.util.ArrayList;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.modelio.vcore.Log;
+import org.modelio.vbasic.log.Log;
 
 /**
  * Manages project event listeners.
@@ -78,10 +78,16 @@ public class GProjectMonitorSupport {
         public void handleProjectEvent(GProjectEvent ev) {
             switch (ev.type) {
             case FRAGMENT_DOWN:
-                ev.throwable.printStackTrace();
+                if (ev.throwable != null)
+                    Log.error(ev.throwable);
+                else
+                    Log.error(ev.message);
                 break;
             case WARNING:
-                Log.warning(ev.throwable);
+                if (ev.throwable != null)
+                    Log.warning(ev.throwable);
+                else
+                    Log.warning(String.valueOf(ev.message));
                 break;
             default:
                 break;

@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: DiagramApi
 Bundle-SymbolicName: org.modelio.diagram.api
-Bundle-Version: 1.0.0.qualifier
+Bundle-Version: 3.2.1.qualifier
 Bundle-Activator: org.modelio.diagram.api.plugin.DiagramApi
 Require-Bundle: org.eclipse.core.runtime,
  org.modelio.api,

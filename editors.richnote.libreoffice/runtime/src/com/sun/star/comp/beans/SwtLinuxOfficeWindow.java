@@ -42,6 +42,8 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.DisposeListener;
 import org.eclipse.swt.widgets.Composite;
+import org.modelio.editors.richnote.libreoffice.plugin.LibreOfficeEditors;
+import org.modelio.log.writers.PluginLogger;
 
 /**
  * This class represents a local office window.
@@ -61,6 +63,9 @@ public class SwtLinuxOfficeWindow extends Composite implements XEventListener {
 
     @objid ("09481281-e538-4d2c-94ce-fc8eded10327")
     private transient OfficeConnection mConnection;
+
+    @objid ("0e954250-a572-418c-9f0a-cb89f93b9ac4")
+     static final PluginLogger LOG = LibreOfficeEditors.LOG;
 
     /**
      * Constructor.
@@ -83,14 +88,14 @@ public class SwtLinuxOfficeWindow extends Composite implements XEventListener {
              */
             @Override
             public void widgetDisposed(DisposeEvent ev) {
-                System.out.println("SwtOfficeWindow disposed.");
+                LOG.debug("SwtOfficeWindow disposed.");
                 removeDisposeListener(this);
                 
                 try {
                     releaseSystemWindow();
                 } catch (java.lang.Exception e) {
-                    System.err.println("SwtOfficeWindow.DisposeListener: Exception in releaseSystemWindow():");
-                    e.printStackTrace(System.err);
+                    LOG.warning("SwtOfficeWindow.DisposeListener: Exception in releaseSystemWindow():");
+                    LOG.warning(e);
                 }
             }
         });

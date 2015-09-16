@@ -40,6 +40,7 @@ import java.util.zip.ZipEntry;
 import javax.inject.Inject;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.SubMonitor;
 import org.eclipse.core.runtime.preferences.IEclipsePreferences;
 import org.eclipse.core.runtime.preferences.InstanceScope;
@@ -48,12 +49,15 @@ import org.eclipse.e4.core.di.annotations.Optional;
 import org.eclipse.e4.core.di.extensions.EventTopic;
 import org.eclipse.e4.core.services.events.IEventBroker;
 import org.eclipse.e4.core.services.statusreporter.StatusReporter;
+import org.eclipse.e4.ui.services.IServiceConstants;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.util.IPropertyChangeListener;
 import org.eclipse.jface.util.PropertyChangeEvent;
+import org.eclipse.jface.window.IShellProvider;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Shell;
 import org.modelio.app.core.IModelioEventService;
 import org.modelio.app.core.events.ModelioEvent;
 import org.modelio.app.preferences.GProjectPreferenceNode;
@@ -64,14 +68,20 @@ import org.modelio.app.project.core.plugin.AppProjectCore;
 import org.modelio.app.project.core.prefs.ProjectPreferencesHelper;
 import org.modelio.app.project.core.prefs.ProjectPreferencesKeys;
 import org.modelio.core.ui.progress.ModelioProgressAdapter;
-import org.modelio.gproject.descriptor.DescriptorWriter;
-import org.modelio.gproject.descriptor.FragmentDescriptor;
-import org.modelio.gproject.descriptor.ProjectDescriptor;
+import org.modelio.gproject.data.project.DescriptorWriter;
+import org.modelio.gproject.data.project.FragmentDescriptor;
+import org.modelio.gproject.data.project.ProjectDescriptor;
+import org.modelio.gproject.fragment.FragmentAuthenticationException;
+import org.modelio.gproject.fragment.FragmentMigrationNeededException;
+import org.modelio.gproject.fragment.FragmentState;
 import org.modelio.gproject.fragment.Fragments;
 import org.modelio.gproject.fragment.IProjectFragment;
+import org.modelio.gproject.gproject.FragmentConflictException;
 import org.modelio.gproject.gproject.GProject;
 import org.modelio.gproject.gproject.GProjectAuthenticationException;
+import org.modelio.gproject.gproject.GProjectConfigurer.Failure;
 import org.modelio.gproject.gproject.GProjectEvent;
+import org.modelio.gproject.gproject.GProjectEventType;
 import org.modelio.gproject.gproject.GProjectFactory;
 import org.modelio.gproject.gproject.IProjectMonitor;
 import org.modelio.gproject.model.IMModelServices;
@@ -88,6 +98,7 @@ import org.modelio.vbasic.files.Unzipper;
 import org.modelio.vbasic.files.Zipper;
 import org.modelio.vbasic.progress.IModelioProgress;
 import org.modelio.vcore.session.api.ICoreSession;
+import org.modelio.vcore.smkernel.AccessDeniedException;
 import org.modelio.vcore.smkernel.mapi.MRef;
 import org.osgi.service.event.Event;
 import org.osgi.service.event.EventHandler;
@@ -174,21 +185,19 @@ class ProjectService implements IProjectService, EventHandler {
         }
         
         final String taskName = AppProjectCore.I18N.getMessage("ProjectService.open.task", projectToOpen.getName());
-        final SubMonitor mon = SubMonitor.convert(monitor, taskName, 150);
+        final SubMonitor mon = SubMonitor.convert(monitor, taskName, 200);
         mon.subTask(taskName);
         
         // Get the module catalog used by the application.
         final IModuleCatalog moduleCatalog = getModuleCatalog();
         
+        final ProjectMonitor projectMonitor = new ProjectMonitor();
         this.project = GProjectFactory.openProject(projectToOpen, authData, moduleCatalog,
-                new ModelioProgressAdapter(mon.newChild(50)));
+                projectMonitor, new ModelioProgressAdapter(mon.newChild(50)));
         
         try (ProjectCloser closer = new ProjectCloser()) {
         
             this.session = this.project.getSession();
-        
-            // Monitor the project
-            this.project.getMonitorSupport().addMonitor(new ProjectMonitor());
         
             // Project preferences
             this.prefsStore = new GProjectPreferenceStore(this.project);
@@ -197,6 +206,10 @@ class ProjectService implements IProjectService, EventHandler {
             // model service
             final MModelServices modelServices = new MModelServices(this.project);
             this.context.set(IMModelServices.class, modelServices);
+            
+            // Check for migration
+            migrateFragments(mon, 50);
+            mon.setWorkRemaining(100);
         
             // Fire PROJECT_OPENING
             this.context.get(IModelioEventService.class).postSyncEvent(this, ModelioEvent.PROJECT_OPENING, this.project);
@@ -206,7 +219,14 @@ class ProjectService implements IProjectService, EventHandler {
             moduleService.startAllModules(this.project, mon.newChild(50));
         
             // Synchronize the project against server
-            new ProjectSynchronizer(this.project, moduleService).synchronize(mon.newChild(50));
+            try {
+                ProjectSynchronizer projectSynchronizer = new ProjectSynchronizer(this.project, moduleService);
+                projectSynchronizer.synchronize(mon.newChild(50));
+                if (! projectSynchronizer.getFailures().isEmpty())
+                    reportSynchronizationFailures(projectSynchronizer);
+            } catch (IOException e) {
+                reportSynchronizationFail(e);
+            }
         
             // Configure project preferences
             installProjectPreferencesDefaults();
@@ -217,6 +237,7 @@ class ProjectService implements IProjectService, EventHandler {
         
             // Validate project opening
             closer.abort();
+            projectMonitor.openInProgress = false;
         }
     }
 
@@ -248,7 +269,9 @@ class ProjectService implements IProjectService, EventHandler {
         this.context.get(IModelioEventService.class).postSyncEvent(this, ModelioEvent.PROJECT_CLOSING, projectToClose);
         
         // FIXME use the current monitor...
-        this.context.get(IModuleService.class).stopAllModules(this.project);
+        IModuleService moduleService = this.context.get(IModuleService.class);
+        if (moduleService != null)
+            moduleService.stopAllModules(this.project);
         
         this.project.close();
         this.project = null;
@@ -263,6 +286,7 @@ class ProjectService implements IProjectService, EventHandler {
         final IMModelServices s = this.context.get(IMModelServices.class);
         ((MModelServices) s).invalidateProject(null);
         this.context.remove(IMModelServices.class);
+        
         // remove IModuleService from context
         this.context.remove(IModuleService.class);
         
@@ -432,7 +456,7 @@ class ProjectService implements IProjectService, EventHandler {
 
     @objid ("005385e0-bb2f-103c-a520-001ec947cd2a")
     @Override
-    public void addFragment(GProject openedProject, FragmentDescriptor fragmentDescriptor, IProgressMonitor monitor) {
+    public void addFragment(GProject openedProject, FragmentDescriptor fragmentDescriptor, IProgressMonitor monitor) throws FragmentConflictException {
         final IProjectFragment newFragment = Fragments.getFactory(fragmentDescriptor).instantiate(fragmentDescriptor);
         openedProject.registerFragment(newFragment, new ModelioProgressAdapter(monitor));
         
@@ -657,6 +681,82 @@ class ProjectService implements IProjectService, EventHandler {
         refreshWorkspace();
     }
 
+    @objid ("9cb90edd-3cb3-4b86-a51b-f0a3992de641")
+    private void reportSynchronizationFail(final IOException e) {
+        final String err = FileUtils.getLocalizedMessage(e);
+        final String message = AppProjectCore.I18N.getMessage(
+                "ProjectService.ProjectSynchroFailed.message",
+                this.project.getName(),
+                err);
+        
+        AppProjectCore.LOG.warning(message);
+        AppProjectCore.LOG.debug(e);
+        
+        // TODO detect batch mode and not display dialog box
+        Display.getDefault().asyncExec(new Runnable() {
+            @Override
+            public void run() {
+                String title = AppProjectCore.I18N.getMessage("ProjectService.ProjectSynchroFailed.title", getOpenedProject().getName());
+                MessageDialog.openWarning(Display.getCurrent().getActiveShell(), title, message);
+            }
+        });
+    }
+
+    @objid ("bc6e9b7c-48b4-4f36-ab76-51e1b856a5f2")
+    private void migrateFragments(SubMonitor mon, int allowedMonWork) {
+        new FragmentsMigrator(this.project).migrateFragments(mon, allowedMonWork );
+    }
+
+    @objid ("41d09262-e599-4095-b93d-6e639bd3bc9a")
+    private void reportSynchronizationFailures(ProjectSynchronizer projectSynchronizer) {
+        // TODO detect batch mode and not display dialog box
+        // TODO make a better dialog
+        final StringBuilder sb = new StringBuilder();
+        
+        sb.append(AppProjectCore.I18N.getMessage(
+                "ProjectService.ProjectSynchroProblems.message",
+                this.project.getName()));
+        
+        for (Failure f : projectSynchronizer.getFailures()) {
+            sb
+            .append(" - ")
+            .append(f.getSourceIdentifier())
+            .append(": ");
+            
+            Throwable cause = f.getCause();
+            if (cause instanceof IOException)
+                sb.append(FileUtils.getLocalizedMessage((IOException) cause));
+            else if (cause instanceof AccessDeniedException)
+                sb.append(cause.getLocalizedMessage());
+            else if (cause instanceof RuntimeException)
+                sb.append(cause.toString());
+            else 
+                sb.append(cause.getLocalizedMessage());
+        }
+        
+        // Get a shell
+        Shell shell = (Shell) this.context.getActive(IServiceConstants.ACTIVE_SHELL);
+        if (shell == null) {
+            IShellProvider sp = this.context.getActive(IShellProvider.class);
+            if (sp != null)
+                shell = sp.getShell();
+        }
+        
+        final Shell fshell = shell;
+        final String title = AppProjectCore.I18N.getMessage(
+                "ProjectService.ProjectSynchroProblems.title",
+                this.project.getName());
+        
+        Display d = shell != null ? shell.getDisplay() : Display.getDefault();
+        d.syncExec(new Runnable() {
+            
+            @Override
+            public void run() {
+                MessageDialog.openWarning(fshell, title, sb.toString());
+            }
+        });
+    }
+
     /**
      * ProjectService project monitor
      * <p>
@@ -664,6 +764,9 @@ class ProjectService implements IProjectService, EventHandler {
      */
     @objid ("6bc806dc-37b3-11e2-82ed-001ec947ccaf")
     private final class ProjectMonitor implements IProjectMonitor {
+        @objid ("2f56600c-3346-4f15-920c-0ba9ca220429")
+         boolean openInProgress = true;
+
         @objid ("6bca6931-37b3-11e2-82ed-001ec947ccaf")
         ProjectMonitor() {
             // nothing
@@ -674,15 +777,39 @@ class ProjectService implements IProjectService, EventHandler {
         public void handleProjectEvent(GProjectEvent ev) {
             switch (ev.type) {
             case FRAGMENT_DOWN:
-                AppProjectCore.LOG.error(ev.fragment+" fragment falled DOWN: "+ev.message);
-                AppProjectCore.LOG.error(ev.throwable);
                 
-                getContext().get(IModelioEventService.class).postAsyncEvent(ProjectService.this, ModelioEvent.FRAGMENT_DOWN, ev);
-                reportAsStatus(ev);
+                if (this.openInProgress && ev.throwable instanceof FragmentMigrationNeededException) {
+                    // don't report migration needs because dialog asks for migration
+                    // on project opening.
+                    AppProjectCore.LOG.info("%s fragment requires migration: %s", ev.fragment.getId(), ev.message);
+                } else if (this.openInProgress && ev.throwable instanceof FragmentAuthenticationException) {
+                    // don't report migration needs because caller asks for auth
+                    // on project opening.
+                    AppProjectCore.LOG.info("%s fragment requires authentication: %s", ev.fragment.getId(), ev.message);
+                } else {
+                    AppProjectCore.LOG.error("'%s' fragment falled DOWN: %s", ev.fragment.getId(), ev.message);
+                    AppProjectCore.LOG.error(ev.throwable);
+            
+                    // display problem to user
+                    reportAsStatus(ev);
+                }
+                getContext().get(IModelioEventService.class).postAsyncEvent(ProjectService.this, ModelioEvent.FRAGMENT_DOWN, ev.fragment);
                 
                 break;
             case WARNING:
-                AppProjectCore.LOG.warning(ev.throwable);
+                if (ev.throwable != null) {
+                    AppProjectCore.LOG.warning(ev.throwable);
+                } else if (ev.message != null) {
+                    if (ev.fragment != null)
+                        AppProjectCore.LOG.warning("%s : %s", ev.fragment.getId(), ev.message);
+                    else
+                        AppProjectCore.LOG.warning(ev.message);
+                }
+                break;
+            case FRAGMENT_STATE_CHANGED:
+                AppProjectCore.LOG.debug("'%s' fragment state changed to '%s'.",ev.fragment.getId(), ev.fragment.getState().toString());
+                if (ev.fragment.getState()==FragmentState.UP_FULL || ev.fragment.getState()==FragmentState.UP_LIGHT)
+                    getContext().get(IModelioEventService.class).postAsyncEvent(ProjectService.this, ModelioEvent.FRAGMENT_UP, ev.fragment);
                 break;
             default:
                 if (ev.message != null) {
@@ -701,9 +828,11 @@ class ProjectService implements IProjectService, EventHandler {
             if (ev.message != null && !ev.message.isEmpty())
                 return ev.message;
             else if (ev.throwable == null)
-                return "<no message>";
+                return AppProjectCore.I18N.getMessage("ProjectService.noEventMessage");
             else if (ev.throwable instanceof FileSystemException)
                 return FileUtils.getLocalizedMessage((FileSystemException) ev.throwable);
+            else if (ev.throwable instanceof RuntimeException)
+                return ev.throwable.toString(); // some runtime exceptions have no message at all
             else 
                 return ev.throwable.getLocalizedMessage();
         }
@@ -717,7 +846,14 @@ class ProjectService implements IProjectService, EventHandler {
             
                     @Override
                     public void run() {
-                        statusReporter.show(StatusReporter.WARNING, getMessage(ev), ev.throwable, ev);
+                        IStatus s1 ;
+                        if (ev.type == GProjectEventType.FRAGMENT_DOWN) {
+                            String message = AppProjectCore.I18N.getMessage("ProjectService.fragmentDown", ev.fragment.getId());
+                            s1 = statusReporter.newStatus(StatusReporter.WARNING, message, ev.throwable);
+                        } else {
+                            s1 = statusReporter.newStatus(StatusReporter.WARNING, getMessage(ev), ev.throwable);
+                        }
+                        statusReporter.report(s1, StatusReporter.SHOW, ev);
                     }
                 });
             }

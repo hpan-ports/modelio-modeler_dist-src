@@ -194,8 +194,7 @@ public class ModelioImpl extends Modelio {
     @objid ("42b90af5-1701-49d6-bb27-315df2f68a70")
     @Execute
     void initialize(IEclipseContext context) {
-        this.eclipseContext = context;
-              
+        this.eclipseContext = context;       
         Modelio.instance = this;
     }
 
@@ -271,14 +270,13 @@ public class ModelioImpl extends Modelio {
         IAuditService auditService = new AuditService(this.eclipseContext.get(ModelShield.class),this.eclipseContext.get(org.modelio.audit.service.IAuditService.class));    
         services.put(IAuditService.class, auditService);
                
-        
         IDiagramService diagramService = new DiagramService(this.eclipseContext);
         services.put(IDiagramService.class, diagramService);
           
         IEditionService editionService = new EditionService(this.eclipseContext.get(IModelioEventService.class));
         services.put(IEditionService.class, editionService);
               
-        IExchangeService exchangeService = new ExchangeService();
+        IExchangeService exchangeService = new ExchangeService(this.eclipseContext);
         services.put(IExchangeService.class, exchangeService);
               
         IImageService imageService = new ImageService();
@@ -302,8 +300,9 @@ public class ModelioImpl extends Modelio {
         IScriptService scriptService = new ScriptService(this.eclipseContext.get(org.modelio.mda.infra.service.IModuleService.class),this.eclipseContext.get(IProjectService.class));
         services.put(IScriptService.class, scriptService);
         
-        
         final org.modelio.mda.infra.service.IModuleService coreService = this.eclipseContext.get(org.modelio.mda.infra.service.IModuleService.class);
+        services.put(org.modelio.mda.infra.service.IModuleService.class, coreService);
+        
         IModuleService moduleService = new ModuleService(coreService.getModuleRegistry());
         services.put(IModuleService.class, moduleService);
         

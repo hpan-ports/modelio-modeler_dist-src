@@ -33,7 +33,7 @@ import org.eclipse.e4.ui.model.application.ui.basic.MPart;
 import org.eclipse.e4.ui.services.IServiceConstants;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.modelio.app.project.core.services.IProjectService;
-import org.modelio.gproject.descriptor.FragmentType;
+import org.modelio.gproject.data.project.FragmentType;
 import org.modelio.gproject.fragment.IProjectFragment;
 import org.modelio.gproject.model.IMModelServices;
 import org.modelio.metamodel.mda.ModuleComponent;

@@ -21,29 +21,35 @@
 
 package org.modelio.xmi.model.ecore;
 
-import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.modelio.api.modelio.Modelio;
+import org.modelio.gproject.model.IMModelServices;
+import org.modelio.metamodel.factory.ElementNotUniqueException;
 import org.modelio.metamodel.uml.behavior.commonBehaviors.Signal;
 import org.modelio.metamodel.uml.infrastructure.Element;
-import org.modelio.metamodel.uml.infrastructure.Stereotype;
 import org.modelio.metamodel.uml.statik.Classifier;
 import org.modelio.metamodel.uml.statik.Enumeration;
 import org.modelio.metamodel.uml.statik.Operation;
+import org.modelio.xmi.plugin.Xmi;
 import org.modelio.xmi.reverse.PartialImportMap;
 import org.modelio.xmi.reverse.TotalImportMap;
 import org.modelio.xmi.util.IModelerModuleStereotypes;
 import org.modelio.xmi.util.ReverseProperties;
 
 @objid ("76672489-f872-456a-8b03-95d3eb23180a")
-public class EReception extends EBehavioralFeature implements IEElement {
+public class EReception extends EBehavioralFeature {
     @objid ("7903628f-4cd5-4cf5-b2b1-f85fe31c25e2")
+    @Override
     public Element createObjingElt() {
-        Operation operation = Modelio.getInstance().getModelingSession().getModel().createOperation();
+        IMModelServices mmServices = ReverseProperties.getInstance().getMModelServices();
         
-        Stereotype ster = Modelio.getInstance().getModelingSession().getMetamodelExtensions().getStereotype(
-                IModelerModuleStereotypes.UML2RECEPTION, operation.getMClass());
-        operation.getExtension().add(ster);
+        Operation operation = mmServices.getModelFactory().createOperation();
+        
+        try {
+            operation.getExtension().add(mmServices.getStereotype(
+                    IModelerModuleStereotypes.UML2RECEPTION, operation.getMClass()));
+        } catch (ElementNotUniqueException e) {
+            Xmi.LOG.warning(e);
+        }
         return operation;
     }
 
@@ -55,7 +61,6 @@ public class EReception extends EBehavioralFeature implements IEElement {
     @objid ("2268bed0-cb95-4452-8be0-91fa80ebdca4")
     @Override
     public void attach(Element objingElt) {
-        //        if (objingElt != null) {
         ReverseProperties revProp = ReverseProperties.getInstance();
         org.eclipse.uml2.uml.Reception ecoreElement =  (org.eclipse.uml2.uml.Reception) getEcoreElement();
         org.eclipse.uml2.uml.Element ecoreOwner = ecoreElement.getOwner();
@@ -70,14 +75,10 @@ public class EReception extends EBehavioralFeature implements IEElement {
             TotalImportMap.getInstance().remove(ecoreElement);
             objingElt.delete();
         }
-        //        }
-    }
-
-    @objid ("9bb8e602-0324-4056-9fef-3e77f15c3518")
-    public void attach(List<Object> objingElts) {
     }
 
     @objid ("b264e5a3-3bbc-44bc-a082-d05a17cf48dc")
+    @Override
     public void setProperties(Element objingElt) {
         super.setProperties(objingElt);
         setSignal((Operation) objingElt);

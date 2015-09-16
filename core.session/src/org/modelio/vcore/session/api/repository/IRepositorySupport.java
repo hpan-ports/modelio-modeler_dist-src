@@ -23,6 +23,7 @@ package org.modelio.vcore.session.api.repository;
 
 import java.io.IOException;
 import java.util.Collection;
+import java.util.concurrent.locks.Lock;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.vbasic.progress.IModelioProgress;
 import org.modelio.vcore.session.api.IAccessManager;
@@ -144,5 +145,15 @@ public interface IRepositorySupport {
      */
     @objid ("a8ea70bc-d4a2-40ec-a887-b633e43d5e2d")
     void fireRepositoryChange(IRepositoryChangeEvent event);
+
+    /**
+     * Get the lock used to synchronize the repositories list while iterating it.
+     * <p>
+     * To be used when iterating {@link #getRepositoriesView()}.
+     * This lock allows only reading.
+     * @return the repositories synchronizer.
+     */
+    @objid ("df7b7a88-e2c5-4ed7-9025-b39ec1cd9371")
+    Lock getRepositoriesLock();
 
 }

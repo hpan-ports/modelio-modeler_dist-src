@@ -34,7 +34,7 @@ import java.util.Map.Entry;
 import java.util.Map;
 import java.util.UUID;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.modelio.vcore.Log;
+import org.modelio.vbasic.log.Log;
 import org.modelio.vcore.session.api.memory.IMemoryEventListener;
 import org.modelio.vcore.session.api.memory.IMemoryManager;
 import org.modelio.vcore.smkernel.AccessOrderer;

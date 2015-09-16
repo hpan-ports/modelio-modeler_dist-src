@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.uml.infrastructure.properties;
 
@@ -44,55 +44,55 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("0064a19a-ec87-1098-b22e-001ec947cd2a")
 public class PropertyDefinitionImpl extends ModelElementImpl implements PropertyDefinition {
-    @objid ("208a582e-a9ef-4ee9-8f02-d25b627c3ff6")
+    @objid ("0a92fffd-86d3-4cf2-9a68-43aade1393ea")
     @Override
     public boolean isIsEditable() {
         return (Boolean) getAttVal(PropertyDefinitionData.Metadata.IsEditableAtt());
     }
 
-    @objid ("f973e0dd-6b72-479a-be18-43a608d96808")
+    @objid ("f230d316-fc33-4940-aae1-07390abf7feb")
     @Override
     public void setIsEditable(boolean value) {
         setAttVal(PropertyDefinitionData.Metadata.IsEditableAtt(), value);
     }
 
-    @objid ("e2be8087-d097-4c1e-a7e2-a2311d8bf8dd")
+    @objid ("96b0d047-d35d-4d14-9e6f-87a82cff426b")
     @Override
     public String getDefaultValue() {
         return (String) getAttVal(PropertyDefinitionData.Metadata.DefaultValueAtt());
     }
 
-    @objid ("4513957e-99a6-4107-a04d-87195f78ff1d")
+    @objid ("1861ac03-9128-4c4b-a648-777aa86897b4")
     @Override
     public void setDefaultValue(String value) {
         setAttVal(PropertyDefinitionData.Metadata.DefaultValueAtt(), value);
     }
 
-    @objid ("7cc959c7-c84e-4cce-9f55-ef3523a00f7c")
+    @objid ("774b4992-cb12-443f-a371-9de589aa2afe")
     @Override
     public PropertyType getType() {
         return (PropertyType) getDepVal(PropertyDefinitionData.Metadata.TypeDep());
     }
 
-    @objid ("19c6eb88-8f89-44b8-8711-ea481d4aa0b4")
+    @objid ("14e4d8ba-2d32-4509-aabc-f5af2d2667ef")
     @Override
     public void setType(PropertyType value) {
         appendDepVal(PropertyDefinitionData.Metadata.TypeDep(), (SmObjectImpl)value);
     }
 
-    @objid ("e3bdeeba-d158-4e71-bb46-5fb5d264d93e")
+    @objid ("2a58b28b-e0d7-4d28-bf55-32cb823bce59")
     @Override
     public PropertyTableDefinition getOwner() {
         return (PropertyTableDefinition) getDepVal(PropertyDefinitionData.Metadata.OwnerDep());
     }
 
-    @objid ("0da0c408-72e2-4617-b3e3-188a89c52009")
+    @objid ("f3958b04-2799-458f-85cb-41a794c72fde")
     @Override
     public void setOwner(PropertyTableDefinition value) {
         appendDepVal(PropertyDefinitionData.Metadata.OwnerDep(), (SmObjectImpl)value);
     }
 
-    @objid ("88f2ad99-a732-45cc-b286-23493915bd2a")
+    @objid ("024ab184-b6ce-45b9-a6bf-c50d9da35a7d")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
@@ -102,7 +102,7 @@ public class PropertyDefinitionImpl extends ModelElementImpl implements Property
         return super.getCompositionOwner();
     }
 
-    @objid ("29cf0477-ca83-4834-94b8-2e8f94ccab4e")
+    @objid ("faac015a-3fea-4fe7-a903-b0e51344dd90")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
@@ -112,7 +112,7 @@ public class PropertyDefinitionImpl extends ModelElementImpl implements Property
         return super.getCompositionRelation();
     }
 
-    @objid ("b4ffcaf5-7290-458b-af31-3ed8af13bad6")
+    @objid ("25d6ab34-2af3-4941-8b15-b564c4875847")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitPropertyDefinition(this);

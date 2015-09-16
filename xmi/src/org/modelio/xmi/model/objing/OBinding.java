@@ -38,6 +38,7 @@ public class OBinding extends OElement implements IOElement {
     private Binding objElt = null;
 
     @objid ("718b60a3-ccb6-4374-9423-ff8344c4784e")
+    @Override
     public org.eclipse.uml2.uml.Element createEcoreElt() {
         return UMLFactory.eINSTANCE.createDependency();
     }
@@ -45,18 +46,19 @@ public class OBinding extends OElement implements IOElement {
     @objid ("117d587e-a45f-45c1-9489-60c621cfc17b")
     public OBinding(Binding param) {
         super(param);
-        objElt = param;
+        this.objElt = param;
     }
 
     @objid ("2435240c-7aec-4476-907c-ea638adbcf48")
+    @Override
     public void attach(org.eclipse.uml2.uml.Element ecoreElt) {
         GenerationProperties genProp = GenerationProperties.getInstance();
         
-        List<MObject> objingClientList = new ArrayList<MObject>();
+        List<MObject> objingClientList = new ArrayList<>();
         
         org.eclipse.uml2.uml.Dependency ecoreDependency = (org.eclipse.uml2.uml.Dependency) ecoreElt;
         
-        MObject objingClientTemp = objElt.getConnectorEndRole();
+        MObject objingClientTemp = this.objElt.getConnectorEndRole();
         
         if (objingClientTemp!= null){
             objingClientTemp = objingClientTemp.getCompositionOwner();
@@ -65,13 +67,13 @@ public class OBinding extends OElement implements IOElement {
             }
         }
         
-        objingClientTemp = objElt.getConnectorRole();
+        objingClientTemp = this.objElt.getConnectorRole();
         
         if (objingClientTemp!= null){
             objingClientList.add(objingClientTemp);
         }
         
-        objingClientTemp = objElt.getRole();
+        objingClientTemp = this.objElt.getRole();
         
         if (objingClientTemp!= null){
             objingClientList.add(objingClientTemp);
@@ -80,8 +82,7 @@ public class OBinding extends OElement implements IOElement {
         if (objingClientList.size() > 0) {
             for (MObject  objingClient : objingClientList){
         
-                org.eclipse.uml2.uml.Element ecoreClient = (org.eclipse.uml2.uml.Element) genProp
-                        .getMappedElement(objingClient);
+                org.eclipse.uml2.uml.Element ecoreClient =  genProp.getMappedElement(objingClient);
         
                 if ((ecoreClient != null) &&  (ecoreClient instanceof org.eclipse.uml2.uml.NamedElement)) {
         
@@ -89,29 +90,28 @@ public class OBinding extends OElement implements IOElement {
                         try{
                             ecoreDependency.getClients().add((org.eclipse.uml2.uml.NamedElement)ecoreClient);
                         }catch(ArrayStoreException e){
-                            Xmi.LOG.error(Xmi.PLUGIN_ID, e);
+                            Xmi.LOG.error(e);
                         }
                 }
             }
         }
         
-        ModelElement objingSupplier = objElt.getRepresentedFeature();
+        ModelElement objingSupplier = this.objElt.getRepresentedFeature();
         org.eclipse.uml2.uml.Element ecoreSupplier = null;
         
         if (objingSupplier != null){
             // Gets or creates the ecore "Supplier" element:
-                ecoreSupplier = (org.eclipse.uml2.uml.Element) genProp.getMappedElement(objingSupplier);
-        
+                ecoreSupplier = genProp.getMappedElement(objingSupplier);
         }
         
         
-        CollaborationUse objingCollaboration = (CollaborationUse) objElt.getCompositionOwner();
+        CollaborationUse objingCollaboration = (CollaborationUse) this.objElt.getCompositionOwner();
         
          org.eclipse.uml2.uml.CollaborationUse ecoreCollaboration =  (org.eclipse.uml2.uml.CollaborationUse) genProp.getMappedElement(objingCollaboration);
         
         if ((ecoreCollaboration != null) &&
                 ((ecoreSupplier != null) && (ecoreSupplier instanceof org.eclipse.uml2.uml.NamedElement ))){
-            ecoreDependency.getClients().add((org.eclipse.uml2.uml.NamedElement)ecoreCollaboration);
+            ecoreDependency.getClients().add(ecoreCollaboration);
         
             ecoreCollaboration.getRoleBindings().add(ecoreDependency);
             ecoreDependency.getSuppliers().add((org.eclipse.uml2.uml.NamedElement)ecoreSupplier);
@@ -121,8 +121,9 @@ public class OBinding extends OElement implements IOElement {
     }
 
     @objid ("10bddb4c-1cab-4bc8-aafd-9193ebc1abfa")
+    @Override
     public void setProperties(org.eclipse.uml2.uml.Element ecoreElt) {
-        org.eclipse.uml2.uml.Element ecoreOwner = GenerationProperties.getInstance().getMappedElement(objElt.getCompositionOwner());
+        org.eclipse.uml2.uml.Element ecoreOwner = GenerationProperties.getInstance().getMappedElement(this.objElt.getCompositionOwner());
         if (ecoreOwner instanceof  org.eclipse.uml2.uml.CollaborationUse){
             ( (org.eclipse.uml2.uml.CollaborationUse) ecoreOwner).getRoleBindings().add((org.eclipse.uml2.uml.Dependency)ecoreElt);
         }

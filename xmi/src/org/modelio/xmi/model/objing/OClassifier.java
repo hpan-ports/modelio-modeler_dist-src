@@ -27,6 +27,7 @@ import org.modelio.metamodel.uml.infrastructure.ModelElement;
 @objid ("9180155f-ac91-4133-a0a6-8e16f7ff73f6")
 public class OClassifier extends OElement implements IOElement {
     @objid ("011f3179-c9f4-41cd-8f25-de16d837a2a8")
+    @Override
     public org.eclipse.uml2.uml.Element createEcoreElt() {
         return null;
     }
@@ -37,10 +38,12 @@ public class OClassifier extends OElement implements IOElement {
     }
 
     @objid ("b4879b5f-d88a-4d56-8b8e-d3c37c2dba1a")
+    @Override
     public void attach(org.eclipse.uml2.uml.Element ecoreElt) {
     }
 
     @objid ("356bcbe7-bec9-4b24-bc99-bee9e7f09f09")
+    @Override
     public void setProperties(org.eclipse.uml2.uml.Element ecoreElt) {
     }
 

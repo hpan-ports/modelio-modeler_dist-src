@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.uml.behavior.activityModel;
 
@@ -42,33 +42,33 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("00244136-c4bf-1fd8-97fe-001ec947cd2a")
 public class AcceptCallEventActionImpl extends ActivityActionImpl implements AcceptCallEventAction {
-    @objid ("5a2db2b1-cd73-42f5-a3e9-d504d8ffe01d")
+    @objid ("f3b5e1b6-3bd3-4288-b279-904703539e9d")
     @Override
     public Operation getCalled() {
         return (Operation) getDepVal(AcceptCallEventActionData.Metadata.CalledDep());
     }
 
-    @objid ("ec4be892-f7a3-47c5-b903-3a86b69e07cc")
+    @objid ("7a3838dd-0234-4918-8816-cc90fb61dcf1")
     @Override
     public void setCalled(Operation value) {
         appendDepVal(AcceptCallEventActionData.Metadata.CalledDep(), (SmObjectImpl)value);
     }
 
-    @objid ("c9a5e42d-09ab-4da3-948b-2464210be64b")
+    @objid ("05872c0d-1196-43d4-947d-ce94ee0b5246")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("43fc70fc-342c-4a3f-bd25-09547d1f0fc3")
+    @objid ("8ba67b25-e7d4-4a3d-8001-19a3c7bd5398")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("42b99938-5e2b-4952-87ad-9d9c690dd69f")
+    @objid ("8e111f1c-ff8d-4aa0-9ce8-f8f34db099f3")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitAcceptCallEventAction(this);

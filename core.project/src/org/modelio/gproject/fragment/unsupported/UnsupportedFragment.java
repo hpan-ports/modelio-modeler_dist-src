@@ -25,17 +25,21 @@ import java.io.IOException;
 import java.net.URI;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Objects;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.modelio.gproject.descriptor.DefinitionScope;
-import org.modelio.gproject.descriptor.FragmentDescriptor;
-import org.modelio.gproject.descriptor.FragmentType;
-import org.modelio.gproject.descriptor.GAuthConf;
-import org.modelio.gproject.descriptor.GProperties;
+import org.modelio.gproject.data.project.DefinitionScope;
+import org.modelio.gproject.data.project.FragmentDescriptor;
+import org.modelio.gproject.data.project.FragmentType;
+import org.modelio.gproject.data.project.GAuthConf;
+import org.modelio.gproject.data.project.GProperties;
+import org.modelio.gproject.data.project.VersionDescriptors;
 import org.modelio.gproject.fragment.FragmentState;
 import org.modelio.gproject.fragment.Fragments;
 import org.modelio.gproject.fragment.IFragmentFactory;
 import org.modelio.gproject.fragment.IProjectFragment;
+import org.modelio.gproject.gproject.FragmentConflictException;
 import org.modelio.gproject.gproject.GProject;
+import org.modelio.gproject.gproject.GProjectEvent;
 import org.modelio.gproject.plugin.CoreProject;
 import org.modelio.vbasic.progress.IModelioProgress;
 import org.modelio.vcore.session.api.repository.IRepository;
@@ -96,7 +100,22 @@ public class UnsupportedFragment implements IProjectFragment {
         if (fact != null && fact != UnsupportedFragmentFactory.getInstance()) {
             // The fragment is now supported, mount it.
             this.project.unregisterFragment(this);
-            this.project.registerFragment(fact.instantiate(fd), aMonitor);
+        
+            final IProjectFragment fragment = fact.instantiate(fd);
+            try {
+                this.project.registerFragment(fragment, aMonitor);
+            } catch (FragmentConflictException e) {
+                // Report error
+                this.project.getMonitorSupport().fireMonitors(GProjectEvent.buildWarning(fragment, e));
+        
+                // try to rollback
+                try {
+                    this.project.registerFragment(this, aMonitor);
+                } catch (FragmentConflictException e1) {
+                    e1.addSuppressed(e);
+                    setDown(e1);
+                }
+            }
         }
     }
 
@@ -158,6 +177,31 @@ public class UnsupportedFragment implements IProjectFragment {
     @Override
     public GAuthConf getAuthConfiguration() {
         return this.authConf;
+    }
+
+    @objid ("2def712c-d1ec-4ef4-be51-7e6aabafe78b")
+    @Override
+    public void setDown(Throwable error) {
+        if (! Objects.equals(error, this.downCause)) {
+            // Stack errors
+            error.addSuppressed(this.downCause);
+            this.downCause = error;
+        
+            // fires a GProjectEvent
+            this.project.getMonitorSupport().fireMonitors(GProjectEvent.FragmentDownEvent(this));
+        }
+    }
+
+    @objid ("e68369af-c8d1-4f28-8256-b78b9bb1bee7")
+    @Override
+    public void migrate(GProject project, IModelioProgress aMonitor) throws IOException {
+        throw new IOException(this.downCause.getLocalizedMessage(), this.downCause);
+    }
+
+    @objid ("28b1d530-b1bf-4a0d-b5e8-2d1e9a4b2c1f")
+    @Override
+    public VersionDescriptors getMetamodelVersion() throws IOException {
+        throw new IOException(this.downCause.getLocalizedMessage(), this.downCause);
     }
 
 }

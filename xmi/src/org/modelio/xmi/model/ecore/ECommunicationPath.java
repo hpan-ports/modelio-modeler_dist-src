@@ -21,25 +21,37 @@
 
 package org.modelio.xmi.model.ecore;
 
-import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.modelio.api.modelio.Modelio;
+import org.modelio.gproject.model.IMModelServices;
+import org.modelio.metamodel.factory.ElementNotUniqueException;
 import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.metamodel.uml.statik.Association;
+import org.modelio.xmi.plugin.Xmi;
 import org.modelio.xmi.util.EcoreModelNavigation;
 import org.modelio.xmi.util.IModelerModuleStereotypes;
+import org.modelio.xmi.util.ReverseProperties;
 
 @objid ("1af368db-230a-4aa4-9366-022c76eec9db")
-public class ECommunicationPath extends ENamedElement implements IEElement {
+public class ECommunicationPath extends ENamedElement {
     @objid ("dce6c23e-e9d5-4c88-8a56-91a5d28db052")
+    @Override
     public Element createObjingElt() {
         Association objingAssoc = null;
         
-        if (EcoreModelNavigation.hasTwoValidEnds((org.eclipse.uml2.uml.Association)getEcoreElement())){
-            objingAssoc = Modelio.getInstance().getModelingSession().getModel().createAssociation();
+        int endNumber = EcoreModelNavigation.getValidEndNumber((org.eclipse.uml2.uml.CommunicationPath)getEcoreElement());
         
-            objingAssoc.getExtension().add(Modelio.getInstance().getModelingSession().getMetamodelExtensions()
-                    .getStereotype( IModelerModuleStereotypes.UML2COMMUNICATIONPATH, objingAssoc.getMClass()));
+        if (endNumber == 2){
+        
+        
+            IMModelServices mmServices = ReverseProperties.getInstance().getMModelServices();
+            objingAssoc = mmServices.getModelFactory().createAssociation();
+        
+            try {
+                objingAssoc.getExtension().add(mmServices
+                        .getStereotype( IModelerModuleStereotypes.UML2COMMUNICATIONPATH, objingAssoc.getMClass()));
+            } catch (ElementNotUniqueException e) {
+                Xmi.LOG.warning(e);
+            }
         
         }
         return objingAssoc;
@@ -48,19 +60,6 @@ public class ECommunicationPath extends ENamedElement implements IEElement {
     @objid ("2fa5c192-a78c-4cad-8262-125b1f8036f8")
     public ECommunicationPath(org.eclipse.uml2.uml.CommunicationPath element) {
         super(element);
-    }
-
-    @objid ("fbcf4305-f046-4e17-ac1a-aca1fee70a46")
-    public void attach(Element objingElt) {
-    }
-
-    @objid ("14b3c41a-670c-4b60-93ab-cacaffe6ebd5")
-    public void attach(List<Object> objingElts) {
-    }
-
-    @objid ("f4f027b7-b73e-4487-b145-797b02da8f52")
-    public void setProperties(Element objingElt) {
-        super.setProperties(objingElt);
     }
 
 }

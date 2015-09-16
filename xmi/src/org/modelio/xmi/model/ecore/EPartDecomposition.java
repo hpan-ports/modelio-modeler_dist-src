@@ -21,20 +21,19 @@
 
 package org.modelio.xmi.model.ecore;
 
-import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.emf.common.util.EList;
-import org.modelio.api.modelio.Modelio;
 import org.modelio.metamodel.uml.behavior.interactionModel.Lifeline;
 import org.modelio.metamodel.uml.behavior.interactionModel.PartDecomposition;
 import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.xmi.util.ReverseProperties;
 
 @objid ("97890962-4f23-471e-ab25-7e6807cc24d7")
-public class EPartDecomposition extends EInteractionUse implements IEElement {
+public class EPartDecomposition extends EInteractionUse {
     @objid ("8881b153-8ff3-423a-b860-80a147c84f4d")
+    @Override
     public Element createObjingElt() {
-        return Modelio.getInstance().getModelingSession().getModel()
+        return ReverseProperties.getInstance().getMModelServices().getModelFactory()
                 .createPartDecomposition();
     }
 
@@ -44,20 +43,12 @@ public class EPartDecomposition extends EInteractionUse implements IEElement {
     }
 
     @objid ("d6a9d8dc-ecc7-4755-87cf-5ceb8a2ad130")
+    @Override
     public void attach(Element objingElt) {
         EList<org.eclipse.uml2.uml.Lifeline> ecoreOwner = ((org.eclipse.uml2.uml.PartDecomposition) getEcoreElement()).getCovereds();
         if ((ecoreOwner.size() > 0) && (objingElt instanceof PartDecomposition)){
             ((PartDecomposition) objingElt).setDecomposed((Lifeline) ReverseProperties.getInstance().getMappedElement(ecoreOwner.get(0)));
         }
-    }
-
-    @objid ("2604aac0-a64e-448d-99bb-4fdf1c562f92")
-    public void attach(List<Object> objingElts) {
-    }
-
-    @objid ("6ecb8e6a-e2e5-40df-91ca-9a3a65f368de")
-    public void setProperties(Element objingElt) {
-        super.setProperties(objingElt);
     }
 
 }

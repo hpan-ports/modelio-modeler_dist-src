@@ -59,4 +59,18 @@ public interface IAuthData {
     @objid ("16d4f86d-96d7-4ab5-a072-35edcf3f60fd")
     String getSchemeId();
 
+    /**
+     * equals() must be implemented.
+     */
+    @objid ("0c1b0b15-11c0-4888-91eb-9cf1fa542bfe")
+    @Override
+    boolean equals(Object obj);
+
+    /**
+     * hashCode() must be implemented.
+     */
+    @objid ("ca817ec4-18a6-4fb0-8308-56e561ab3995")
+    @Override
+    int hashCode();
+
 }

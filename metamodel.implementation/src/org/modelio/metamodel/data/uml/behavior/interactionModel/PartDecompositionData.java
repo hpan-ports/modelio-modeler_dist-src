@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.data.uml.behavior.interactionModel;
 
@@ -44,29 +44,29 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("004b4588-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=PartDecomposition.class, factory=PartDecompositionData.Metadata.ObjectFactory.class)
 public class PartDecompositionData extends InteractionUseData {
-    @objid ("750d98f7-bc3a-4cf6-b9d2-a95c4fe19bfd")
+    @objid ("8c8d3f10-8b09-4595-948d-c6f4d775a076")
     @SmaMetaAssociation(metaName="Decomposed", typeDataClass=LifelineData.class, min=1, max=1, smAssociationClass=Metadata.DecomposedSmDependency.class)
      SmObjectImpl mDecomposed;
 
-    @objid ("f9c2165f-6a39-4de4-95ad-45bbe81c2ba3")
+    @objid ("0c847745-ef0b-4e0b-9907-53341da7e0c1")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("00719e54-c4c5-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("eee647e3-5593-4ad6-8b2c-3805bac00bd4")
+        @objid ("54b255d0-b593-4034-ba6a-3d99bb6e13f9")
         private static SmClass smClass = null;
 
-        @objid ("741aa1c3-09f6-4af0-bc0f-f7a9cca76ef1")
+        @objid ("6feeef9c-3740-4ef1-8440-fdcb37ca27a0")
         private static SmDependency DecomposedDep = null;
 
-        @objid ("fcda82a4-bb88-43a9-874e-a8214a8545dd")
+        @objid ("ca7c4eeb-a989-4399-ba8b-8f52bf8c3c04")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(PartDecompositionData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("0fbb93f3-2a08-40d4-bde6-bbc6d4e3ce1d")
+        @objid ("6f7762f4-d53c-483c-b834-54c8a608fdd8")
         public static SmDependency DecomposedDep() {
             if (DecomposedDep == null) {
             	DecomposedDep = classof().getDependencyDef("Decomposed");
@@ -74,26 +74,26 @@ public class PartDecompositionData extends InteractionUseData {
             return DecomposedDep;
         }
 
-        @objid ("188b5175-fbd3-4c19-9f9a-a8d4c0df0b27")
-        public static SmDependency getDecomposedDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return DecomposedDep;
-        }
-
-        @objid ("c9e074f6-653b-44cd-92f8-f30089989a4b")
+        @objid ("db2c809c-f1a0-4580-bdf3-97fc287ce1e1")
         public static SmClass getSmClass() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return smClass;
         }
 
+        @objid ("c4c13c23-1593-4c5b-bda8-2b2ec99e4862")
+        public static SmDependency getDecomposedDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return DecomposedDep;
+        }
+
         @objid ("0071f03e-c4c5-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("43cb8cdf-d59d-4579-9a5d-34d585355079")
+            @objid ("159577a4-ac25-4e12-9347-78a5d59f5c2c")
             public ISmObjectData createData() {
                 return new PartDecompositionData();
             }
 
-            @objid ("fdcd9df2-41c9-4d65-b9d9-d020d87b59ec")
+            @objid ("104fcfe8-8aff-4a6b-b501-4105259c2263")
             public SmObjectImpl createImpl() {
                 return new PartDecompositionImpl();
             }
@@ -102,18 +102,18 @@ public class PartDecompositionData extends InteractionUseData {
 
         @objid ("00726280-c4c5-1fd8-97fe-001ec947cd2a")
         public static class DecomposedSmDependency extends SmSingleDependency {
-            @objid ("b1b30b06-04a1-4ae6-8b20-374fbd1ed7f7")
+            @objid ("b4ba6eb5-bf2e-4384-920a-d5a026997905")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((PartDecompositionData) data).mDecomposed;
             }
 
-            @objid ("0d734cb1-fa14-4dc7-a58b-5294ea2bc23b")
+            @objid ("295e46a6-d01d-4ab9-ab95-63b334ff9dc8")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((PartDecompositionData) data).mDecomposed = value;
             }
 
-            @objid ("89475d2f-79c2-4188-9249-d247dd3a4017")
+            @objid ("89d6f896-a407-4457-bac0-65a6edb3cdc7")
             @Override
             public SmDependency getSymetric() {
                 return LifelineData.Metadata.DecomposedAsDep();

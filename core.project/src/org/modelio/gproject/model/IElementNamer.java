@@ -26,6 +26,8 @@ import org.modelio.vcore.smkernel.mapi.MClass;
 import org.modelio.vcore.smkernel.mapi.MObject;
 
 /**
+ * Service that gives a default name to a model element.
+ * 
  * @author phv
  */
 @objid ("00888498-030f-1035-9f91-001ec947cd2a")

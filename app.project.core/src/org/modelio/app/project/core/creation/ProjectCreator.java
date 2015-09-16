@@ -21,18 +21,19 @@
 
 package org.modelio.app.project.core.creation;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.nio.file.FileSystemException;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.eclipse.jface.dialogs.MessageDialog;
-import org.eclipse.swt.widgets.Display;
 import org.modelio.app.project.core.plugin.AppProjectCore;
-import org.modelio.gproject.descriptor.DefinitionScope;
-import org.modelio.gproject.descriptor.ProjectDescriptor;
+import org.modelio.gproject.data.project.DefinitionScope;
+import org.modelio.gproject.data.project.ProjectDescriptor;
 import org.modelio.gproject.fragment.IProjectFragment;
 import org.modelio.gproject.fragment.exml.ExmlFragmentFactory;
+import org.modelio.gproject.gproject.FragmentConflictException;
 import org.modelio.gproject.gproject.GProject;
 import org.modelio.gproject.gproject.GProjectCreator;
 import org.modelio.gproject.gproject.GProjectFactory;
@@ -43,7 +44,7 @@ import org.modelio.metamodel.factory.IModelFactory;
 import org.modelio.metamodel.factory.ModelFactory;
 import org.modelio.metamodel.mda.Project;
 import org.modelio.vbasic.progress.IModelioProgress;
-import org.modelio.vbasic.progress.NullProgress;
+import org.modelio.vbasic.progress.SubProgress;
 import org.modelio.vcore.session.api.ICoreSession;
 import org.modelio.vcore.session.api.transactions.ITransaction;
 import org.modelio.vcore.smkernel.mapi.MObject;
@@ -83,61 +84,50 @@ public class ProjectCreator implements IProjectCreator {
     @Override
     public void createProject(IProjectCreationData creationData, IModuleCatalog moduleCatalog, IModelioProgress monitor) throws IOException {
         ProjectCreationDataModel data = (ProjectCreationDataModel) creationData;
+        SubProgress mon = SubProgress.convert(monitor, 10);
         
-            String name = data.getProjectName();
-            Path projectPath = data.workspace.resolve(name);
+        String name = data.getProjectName();
+        Path projectPath = data.workspace.resolve(name);
         
-            // Find the ModelerModule, if not found : abort as this module is
-            // mandatory
-            IModuleHandle modelerModule = moduleCatalog.findModule("ModelerModule", /*
-                                                                                     * latest
-                                                                                     * version
-                                                                                     */null, null);
-            if (modelerModule == null) {
-                Display.getDefault().asyncExec(new Runnable() {
-                    
-                    @Override
-                    public void run() {
-                        MessageDialog.openError(Display.getDefault().getActiveShell(), AppProjectCore.I18N.getString("NewProjectFailed.Title"), AppProjectCore.I18N.getString("NewProjectFailed.Message"));
-                    }
-                });
-                AppProjectCore.LOG.error("Unable to create project, Modeler Module is missing");
-                throw new IOException();
-            }
+        IModuleHandle modelerModule = getModelerModule(moduleCatalog, mon.newChild(1));
         
-            // Create an empty GProject, open it
-            ProjectDescriptor projectDescriptor;
+        // Create an empty GProject, open it
+        ProjectDescriptor projectDescriptor;
         
-            projectDescriptor = GProjectCreator.buildEmptyProject(name, projectPath);
+        projectDescriptor = GProjectCreator.buildEmptyProject(name, projectPath);
         
-            GProject project = GProjectFactory.openProject(projectDescriptor, null, moduleCatalog, null);
+        GProject project = GProjectFactory.openProject(projectDescriptor, null, moduleCatalog, null);
         
-            // Create and register at least one local fragment
-            IProjectFragment fragment = ExmlFragmentFactory.instantiateLocal(name);
-            project.registerFragment(fragment, monitor);
+        // Create and register at least one local fragment
+        IProjectFragment fragment = ExmlFragmentFactory.instantiateLocal(name);
+        try {
+            project.registerFragment(fragment, mon.newChild(1));
+        } catch (FragmentConflictException e) {
+            // This should never happen here
+            throw new IOException(e.getLocalizedMessage(), e);
+        }
         
-            // IProjectFragment predefinedFragment =
-            // getPredefinedFragment(mon.newChild(100));
-            // project.registerFragment(predefinedFragment, new
-            // EclipseProgress(mon.newChild(100)));
+        // Install modules
+        mon.setWorkRemaining((1 + data.getModuleHandles().size()) * 2);
+        project.installModule(modelerModule, modelerModule.getArchive());
+        mon.worked(1);
         
-            // Install modules
-            project.installModule(modelerModule, modelerModule.getArchive());
+        for (IModuleHandle moduleHandle : data.getModuleHandles()) {
+            project.installModule(moduleHandle, moduleHandle.getArchive());
+            mon.worked(1);
+        }
         
-            for (IModuleHandle moduleHandle : data.getModuleHandles()) {
-                project.installModule(moduleHandle, moduleHandle.getArchive());
-            }
-            // Add project description
-            project.getProperties().setProperty(INFO_DESCRIPTION, data.getProjectDescription(), DefinitionScope.LOCAL);
+        // Add project description
+        project.getProperties().setProperty(INFO_DESCRIPTION, data.getProjectDescription(), DefinitionScope.LOCAL);
         
-            // Create a initial model
-            MObject root = fragment.getRoots().iterator().next();
-            if (root != null && root instanceof Project) {
-                createInitialModel(project.getSession(), ((Project)root));
-            }
+        // Create a initial model
+        MObject root = fragment.getRoots().iterator().next();
+        if (root != null && root instanceof Project) {
+            createInitialModel(project.getSession(), ((Project)root));
+        }
         
-            project.save(new NullProgress());
-            project.close();
+        project.save(mon); // _mon_ : give remaining of progress to save()
+        project.close();
     }
 
     @objid ("cde8bf09-9636-49a5-8113-d98f394c07c4")
@@ -155,11 +145,32 @@ public class ProjectCreator implements IProjectCreator {
 
     /**
      * Return the diagrams that ought to be opened when first opening the project right after its creation
-     * @return
+     * @return the diagrams to open.
      */
     @objid ("8716539d-59a0-4e88-8366-8d78d836652f")
     public List<MRef> getDiagramsToOpen() {
         return this.diagrams;
+    }
+
+    /**
+     * Find the ModelerModule, if not found : abort as this module is mandatory.
+     * @param moduleCatalog the modules catalog
+     * @param monitor a progress monitor
+     * @return the ModelerModule handle
+     * @throws java.io.IOException in case of failure
+     * @throws java.nio.file.FileSystemException in case of file system error
+     */
+    @objid ("3e9074cc-ba08-40be-ac20-9f2456c7e329")
+    private IModuleHandle getModelerModule(IModuleCatalog moduleCatalog, IModelioProgress monitor) throws IOException, FileSystemException {
+        IModuleHandle modelerModule = moduleCatalog.findModule("ModelerModule", /*
+                                                                                 * latest
+                                                                                 * version
+                                                                                 */null, monitor);
+        if (modelerModule == null) {
+            final String errMsg = AppProjectCore.I18N.getString("ModelerModuleMissing.Message");
+            throw new FileNotFoundException(errMsg);
+        }
+        return modelerModule;
     }
 
 }

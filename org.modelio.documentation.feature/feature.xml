@@ -2,7 +2,7 @@
 <feature
       id="org.modelio.documentation.feature"
       label="Feature"
-      version="1.0.0.qualifier"
+      version="3.2.1.qualifier"
       provider-name="MODELIOSOFT">
 
    <copyright>

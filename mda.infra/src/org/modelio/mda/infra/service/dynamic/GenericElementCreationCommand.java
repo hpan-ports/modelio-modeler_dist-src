@@ -80,6 +80,8 @@ class GenericElementCreationCommand extends DefaultModuleContextualCommand {
                     ((ModelElement) newElement).getExtension().add(metamodelExtensions.getStereotype(this.stereotype, newElement.getMClass()));
                 }
                 modelFactory.getDefaultNameService().setDefaultName((ModelElement) newElement);
+                
+                postConfigureElement(newElement, mdac);
             } else {
                 // Get dependency by name.
                 MDependency dependency = parent.getMClass().getDependency(this.relation);
@@ -103,11 +105,13 @@ class GenericElementCreationCommand extends DefaultModuleContextualCommand {
                     }
         
                     new ElementConfigurator().configure(ModelFactory.getFactory(newElement), newElement, new HashMap<String, Object>());
+                    
+                    postConfigureElement(newElement, mdac);
                 } else {
                     newElement.delete();
                 }
             }
-        
+            
             tr.commit();
         }
     }
@@ -116,6 +120,11 @@ class GenericElementCreationCommand extends DefaultModuleContextualCommand {
     @Override
     public boolean accept(List<MObject> selectedElements, IModule module) {
         return selectedElements.size() > 0;
+    }
+
+    @objid ("74bd3a00-9f9d-4f25-b134-daa0d4250e40")
+    protected void postConfigureElement(Element newElement, IModule mdac) {
+        // Nothing to do
     }
 
 }

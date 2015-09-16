@@ -24,6 +24,7 @@ package org.modelio.diagram.editor.bpmn.elements.policies;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.commands.Command;
+import org.modelio.diagram.editor.bpmn.elements.bpmnlane.GmBpmnLane;
 import org.modelio.diagram.elements.common.abstractdiagram.GmAbstractDiagram;
 import org.modelio.diagram.elements.core.model.GmModel;
 import org.modelio.diagram.elements.core.model.ModelManager;
@@ -147,6 +148,15 @@ public class BpmnLaneReparentElementCommand extends Command {
             newElement.setName(modelManager.getModelServices().getElementNamer().getUniqueName(newElement));
             
             newParentElem = newElement;
+            
+            // Camculate width of reparented element      
+            for(GmNodeModel children : newParent.getChildren()){
+                if(children instanceof GmBpmnLane){
+                    Rectangle chlayout = (Rectangle)((GmBpmnLane)children).getLayoutData();
+                    ((Rectangle)this.newLayoutData).width = chlayout.width;
+                    break;
+                }
+            }
         }
         
         // Some additional initializing steps might be needed.

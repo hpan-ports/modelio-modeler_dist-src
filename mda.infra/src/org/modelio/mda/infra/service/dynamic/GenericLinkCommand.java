@@ -50,11 +50,11 @@ class GenericLinkCommand extends DefaultLinkCommand {
     @objid ("47db719b-4ca9-4c65-a848-9a4e3b7334c1")
     private List<GenericScope> sources;
 
-    @objid ("6a45370b-79b6-4547-b6fa-9e77d2e73ded")
-    private List<GenericScope> targets;
-
     @objid ("4c0fbf64-58c9-41b9-a990-3007d7b7ef28")
     private GenericHandler handler;
+
+    @objid ("900400d7-ff24-4e70-8d36-5db7aca700c7")
+    private List<GenericScope> targets;
 
     @objid ("6c553f85-f7df-4af8-95c5-ccb10717d9ce")
     public GenericLinkCommand(final String name, final ImageDescriptor bitmap, final String tooltip, final GenericHandler handler, final List<GenericScope> sources, final List<GenericScope> targets) {
@@ -105,38 +105,6 @@ class GenericLinkCommand extends DefaultLinkCommand {
         return false;
     }
 
-    @objid ("0a5dfb38-c922-4601-bedb-d1196706fb18")
-    @Override
-    public boolean acceptSecondElement(final IDiagramHandle diagramHandle, final IDiagramGraphic originNode, final IDiagramGraphic targetNode) {
-        ModelElement owner = null;
-        
-        if (targetNode instanceof IDiagramDG) {
-            owner = diagramHandle.getDiagram().getOrigin();
-        } else {
-            owner = (ModelElement) targetNode.getElement();
-        }
-        
-        
-        for (GenericScope aScope : this.targets) {
-            boolean result = true;
-        
-            String metaclass = aScope.getMetaclass();
-            String stereotype = aScope.getStereotype();
-        
-            Class<? extends MObject> metaclassClass = Metamodel.getJavaInterface(Metamodel.getMClass(metaclass));
-            if (metaclass != null) {
-                result = result && metaclassClass.isAssignableFrom(owner.getClass());
-            }
-            if (stereotype != null) {
-                result = result && isStereotyped(owner, stereotype);
-            }
-        
-            if (result)
-                return true;
-        }
-        return false;
-    }
-
     @objid ("aafda059-0c7c-47e2-994c-b5bee70564fd")
     @Override
     public void actionPerformed(final IDiagramHandle diagramHandle, final IDiagramGraphic originNode, final IDiagramGraphic targetNode, final LinkRouterKind routerType, final ILinkPath path) {
@@ -180,6 +148,38 @@ class GenericLinkCommand extends DefaultLinkCommand {
         } catch (Exception e) {
             MdaInfra.LOG.error(e);
         }
+    }
+
+    @objid ("b3d48044-6bfb-4622-9d3d-e8a23577e824")
+    @Override
+    public boolean acceptSecondElement(final IDiagramHandle diagramHandle, final IDiagramGraphic originNode, final IDiagramGraphic targetNode) {
+        ModelElement owner = null;
+        
+        if (targetNode instanceof IDiagramDG) {
+            owner = diagramHandle.getDiagram().getOrigin();
+        } else {
+            owner = (ModelElement) targetNode.getElement();
+        }
+        
+        
+        for (GenericScope aScope : this.targets) {
+            boolean result = true;
+        
+            String metaclass = aScope.getMetaclass();
+            String stereotype = aScope.getStereotype();
+        
+            Class<? extends MObject> metaclassClass = Metamodel.getJavaInterface(Metamodel.getMClass(metaclass));
+            if (metaclass != null) {
+                result = result && metaclassClass.isAssignableFrom(owner.getClass());
+            }
+            if (stereotype != null) {
+                result = result && isStereotyped(owner, stereotype);
+            }
+        
+            if (result)
+                return true;
+        }
+        return false;
     }
 
 }

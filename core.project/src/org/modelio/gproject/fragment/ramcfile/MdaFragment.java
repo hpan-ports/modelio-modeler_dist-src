@@ -23,10 +23,10 @@ package org.modelio.gproject.fragment.ramcfile;
 
 import java.net.URI;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.modelio.gproject.descriptor.DefinitionScope;
-import org.modelio.gproject.descriptor.FragmentType;
-import org.modelio.gproject.descriptor.GAuthConf;
-import org.modelio.gproject.descriptor.GProperties;
+import org.modelio.gproject.data.project.DefinitionScope;
+import org.modelio.gproject.data.project.FragmentType;
+import org.modelio.gproject.data.project.GAuthConf;
+import org.modelio.gproject.data.project.GProperties;
 
 /**
  * Fragment for the RAMC provided with a module.

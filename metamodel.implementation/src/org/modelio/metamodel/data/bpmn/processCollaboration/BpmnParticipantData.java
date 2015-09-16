@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.data.bpmn.processCollaboration;
 
@@ -51,78 +51,78 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("0075e3f6-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=BpmnParticipant.class, factory=BpmnParticipantData.Metadata.ObjectFactory.class)
 public class BpmnParticipantData extends BpmnBaseElementData {
-    @objid ("e4e05ee5-e09f-4503-848b-823d165c8e80")
+    @objid ("2cd1786f-4da1-44a5-b2c8-67216099160e")
     @SmaMetaAttribute(metaName="MultiplicityMin", type=Integer.class, smAttributeClass=Metadata.MultiplicityMinSmAttribute.class)
      Object mMultiplicityMin = 0;
 
-    @objid ("3ec06bac-e1a0-4fee-a37c-7d8aeb132aa3")
+    @objid ("ddf87de8-90e7-49da-a0be-fc54ee6b820a")
     @SmaMetaAttribute(metaName="MultiplicityMax", type=Integer.class, smAttributeClass=Metadata.MultiplicityMaxSmAttribute.class)
      Object mMultiplicityMax = 0;
 
-    @objid ("0e7c76ef-272c-43d7-9458-56c6c6fab024")
+    @objid ("d4649fa2-bb89-4bcc-9406-5f7d14761362")
     @SmaMetaAssociation(metaName="Process", typeDataClass=BpmnProcessData.class, min=0, max=1, smAssociationClass=Metadata.ProcessSmDependency.class, partof = true)
      SmObjectImpl mProcess;
 
-    @objid ("943d7806-17dc-455a-8ac6-04ade00a5a10")
+    @objid ("1a2a19d7-b6b2-4f01-9e72-b3cb01d9e5ca")
     @SmaMetaAssociation(metaName="Container", typeDataClass=BpmnCollaborationData.class, min=1, max=1, smAssociationClass=Metadata.ContainerSmDependency.class)
      SmObjectImpl mContainer;
 
-    @objid ("ec0804ab-6520-480d-9808-67e73a521b69")
+    @objid ("5889e871-096b-4a33-ba88-1e480471eec4")
     @SmaMetaAssociation(metaName="Type", typeDataClass=ClassifierData.class, min=0, max=1, smAssociationClass=Metadata.TypeSmDependency.class, partof = true)
      SmObjectImpl mType;
 
-    @objid ("bbe4234e-a4d7-4200-9593-46503a4ac421")
+    @objid ("cff9be99-e037-4a9d-beef-ac0d4801abbf")
     @SmaMetaAssociation(metaName="EndPointRefs", typeDataClass=BpmnEndPointData.class, min=0, max=-1, smAssociationClass=Metadata.EndPointRefsSmDependency.class, partof = true)
      List<SmObjectImpl> mEndPointRefs = null;
 
-    @objid ("3096c49f-72d8-4513-8e93-2b472fda5ab0")
+    @objid ("c8bc1bb7-5b4b-4c52-98bc-1064842240f5")
     @SmaMetaAssociation(metaName="InterfaceRefs", typeDataClass=BpmnInterfaceData.class, min=0, max=-1, smAssociationClass=Metadata.InterfaceRefsSmDependency.class, partof = true)
      List<SmObjectImpl> mInterfaceRefs = null;
 
-    @objid ("24ca4232-3991-4d9a-a9c5-4a5ef94b6412")
+    @objid ("973a3066-01b9-4b77-b2b0-b173413d69fc")
     @SmaMetaAssociation(metaName="PackageRef", typeDataClass=PackageData.class, min=0, max=1, smAssociationClass=Metadata.PackageRefSmDependency.class, partof = true)
      SmObjectImpl mPackageRef;
 
-    @objid ("7de73ec1-c72e-449d-b620-9568cfe98ca4")
+    @objid ("f8a9cb6e-5795-4dbb-999d-a4f04312b38b")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("001a41a4-c4c3-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("399ba725-d708-4528-9fb4-6d0770556bc2")
+        @objid ("2a4927b1-fb0c-4102-a75a-54273fd1ac8e")
         private static SmClass smClass = null;
 
-        @objid ("3c59279b-cf85-4f98-9302-71cc375c972b")
+        @objid ("edb28013-064d-40ab-94d2-b5dcb3199893")
         private static SmAttribute MultiplicityMinAtt = null;
 
-        @objid ("872375f5-b993-4fe8-b707-3a4e76f0e9fe")
+        @objid ("86d64c14-1267-43fc-a987-d940a0e32b8d")
         private static SmAttribute MultiplicityMaxAtt = null;
 
-        @objid ("a0f8c2e5-1e41-4220-9118-4ceb52ee0ea7")
+        @objid ("086a11f6-2a84-453b-841a-8cf7fb6a222f")
         private static SmDependency ProcessDep = null;
 
-        @objid ("586aacd6-376d-44ac-93f5-2c708c7cf1cf")
+        @objid ("8075b861-819c-4838-9e55-0ac56db5f13a")
         private static SmDependency ContainerDep = null;
 
-        @objid ("e3f7149b-e7a5-40f5-a71d-94af23120771")
+        @objid ("52fed5e0-29ec-4255-8de9-ceac5c5b033a")
         private static SmDependency TypeDep = null;
 
-        @objid ("a593cf12-27b6-4ccd-8ece-50bb548f1166")
+        @objid ("87188682-6d80-41bf-8c14-14f5cadea866")
         private static SmDependency EndPointRefsDep = null;
 
-        @objid ("6a9a1c14-38b8-4d7c-b60f-2a4daf11d8fd")
+        @objid ("1f9d828e-11cd-45b4-85df-2371ffe94e5f")
         private static SmDependency InterfaceRefsDep = null;
 
-        @objid ("9f0a97fa-c27f-49cf-a091-d51a138a667d")
+        @objid ("779e9cb5-ba0f-451a-acb9-994c84c4e3ad")
         private static SmDependency PackageRefDep = null;
 
-        @objid ("d21029ea-2386-4eca-93c8-451a3ea234e0")
+        @objid ("eb8139ef-8c92-4415-b814-cf926f9d10fe")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(BpmnParticipantData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("26eb1f2e-f4c1-4f71-ae4c-e18949ca271c")
+        @objid ("cff4cb28-8a9f-4fbd-aa56-1d7c9f2a7ff9")
         public static SmAttribute MultiplicityMinAtt() {
             if (MultiplicityMinAtt == null) {
             	MultiplicityMinAtt = classof().getAttributeDef("MultiplicityMin");
@@ -130,7 +130,7 @@ public class BpmnParticipantData extends BpmnBaseElementData {
             return MultiplicityMinAtt;
         }
 
-        @objid ("619787a9-29e5-4494-a747-b4cb84adfcb3")
+        @objid ("d34bfd5c-6a4b-409c-893d-a0bf11c3b1e7")
         public static SmAttribute MultiplicityMaxAtt() {
             if (MultiplicityMaxAtt == null) {
             	MultiplicityMaxAtt = classof().getAttributeDef("MultiplicityMax");
@@ -138,7 +138,7 @@ public class BpmnParticipantData extends BpmnBaseElementData {
             return MultiplicityMaxAtt;
         }
 
-        @objid ("0b54b992-802b-47ca-96e8-a31bd9d6be7f")
+        @objid ("ab7829a1-b14d-4cb7-a751-16a83469c1ac")
         public static SmDependency ProcessDep() {
             if (ProcessDep == null) {
             	ProcessDep = classof().getDependencyDef("Process");
@@ -146,7 +146,7 @@ public class BpmnParticipantData extends BpmnBaseElementData {
             return ProcessDep;
         }
 
-        @objid ("0e261853-710c-452d-a535-c639fea22535")
+        @objid ("fda802aa-b733-4b68-b728-df1b55daad5c")
         public static SmDependency ContainerDep() {
             if (ContainerDep == null) {
             	ContainerDep = classof().getDependencyDef("Container");
@@ -154,7 +154,7 @@ public class BpmnParticipantData extends BpmnBaseElementData {
             return ContainerDep;
         }
 
-        @objid ("6b9d311d-8ab5-41d5-bbb4-53a0643f1861")
+        @objid ("836ebe35-b865-4dee-9a30-3a52ed20e17c")
         public static SmDependency TypeDep() {
             if (TypeDep == null) {
             	TypeDep = classof().getDependencyDef("Type");
@@ -162,7 +162,7 @@ public class BpmnParticipantData extends BpmnBaseElementData {
             return TypeDep;
         }
 
-        @objid ("645d7393-852a-4101-aee9-f8997724d129")
+        @objid ("6957c583-8a3c-4196-9c24-add64c4c65f0")
         public static SmDependency EndPointRefsDep() {
             if (EndPointRefsDep == null) {
             	EndPointRefsDep = classof().getDependencyDef("EndPointRefs");
@@ -170,7 +170,7 @@ public class BpmnParticipantData extends BpmnBaseElementData {
             return EndPointRefsDep;
         }
 
-        @objid ("5f4f5d82-dd5f-47d9-8e6a-543cb8b0cada")
+        @objid ("1756ac06-ce94-47b7-80b8-d7f07b56cffa")
         public static SmDependency InterfaceRefsDep() {
             if (InterfaceRefsDep == null) {
             	InterfaceRefsDep = classof().getDependencyDef("InterfaceRefs");
@@ -178,7 +178,7 @@ public class BpmnParticipantData extends BpmnBaseElementData {
             return InterfaceRefsDep;
         }
 
-        @objid ("bc3c4ee5-1e41-4857-956e-5cf5565bc172")
+        @objid ("3e1f57b2-d55b-4732-8e2c-346b78317ca7")
         public static SmDependency PackageRefDep() {
             if (PackageRefDep == null) {
             	PackageRefDep = classof().getDependencyDef("PackageRef");
@@ -186,68 +186,68 @@ public class BpmnParticipantData extends BpmnBaseElementData {
             return PackageRefDep;
         }
 
-        @objid ("60fb4b10-8b63-41c5-b457-8396ffb0155f")
-        public static SmDependency getTypeDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return TypeDep;
-        }
-
-        @objid ("b607b514-eb36-4520-a412-3faa9a1c6f4c")
+        @objid ("f05bbf1f-8da8-4863-9979-525cef4e3bf4")
         public static SmClass getSmClass() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return smClass;
         }
 
-        @objid ("43086a7e-9e09-45f7-95a5-773e55abdf6f")
-        public static SmDependency getPackageRefDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return PackageRefDep;
-        }
-
-        @objid ("1d516750-c037-442c-b206-a8b05ff8b11c")
+        @objid ("a08d7135-617e-46f2-b4c3-53d046600f9b")
         public static SmAttribute getMultiplicityMinAtt() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return MultiplicityMinAtt;
         }
 
-        @objid ("f5378339-03bb-47ce-8f0d-5c66bd9e65ac")
-        public static SmDependency getEndPointRefsDep() {
+        @objid ("81100dde-408f-415e-87f1-39f4f89a05dd")
+        public static SmDependency getPackageRefDep() {
             // Automatically generated method. Please delete this comment before entering specific code.
-            return EndPointRefsDep;
+            return PackageRefDep;
         }
 
-        @objid ("e54f4cc5-5ac6-4d7e-acea-cb8f7dfe6bd3")
-        public static SmDependency getProcessDep() {
+        @objid ("e303d62c-83e1-4bf6-b359-6fbb90d48a49")
+        public static SmDependency getTypeDep() {
             // Automatically generated method. Please delete this comment before entering specific code.
-            return ProcessDep;
+            return TypeDep;
         }
 
-        @objid ("91959d3f-b130-48e6-8390-e09560e94ed6")
-        public static SmDependency getContainerDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return ContainerDep;
-        }
-
-        @objid ("4cb304b4-ea43-477a-91a6-de8be731cda4")
-        public static SmAttribute getMultiplicityMaxAtt() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return MultiplicityMaxAtt;
-        }
-
-        @objid ("fc13976e-a61c-432c-84a4-7b83bd4f000a")
+        @objid ("ac02fe09-a843-4153-abac-93aebc688534")
         public static SmDependency getInterfaceRefsDep() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return InterfaceRefsDep;
         }
 
+        @objid ("db10d8a9-35f9-4d72-83d1-fa2f9441135f")
+        public static SmDependency getContainerDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return ContainerDep;
+        }
+
+        @objid ("855d093d-212f-4179-a7d8-533ed11b0acd")
+        public static SmDependency getEndPointRefsDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return EndPointRefsDep;
+        }
+
+        @objid ("fd365ac5-9155-4206-98b8-8008db5bf919")
+        public static SmAttribute getMultiplicityMaxAtt() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return MultiplicityMaxAtt;
+        }
+
+        @objid ("1f73fb92-0722-4670-8536-808dc3b58774")
+        public static SmDependency getProcessDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return ProcessDep;
+        }
+
         @objid ("001a8286-c4c3-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("2686e9c8-0332-444c-ae82-92b500985b23")
+            @objid ("081af597-5baf-4840-9c40-ae716d806c83")
             public ISmObjectData createData() {
                 return new BpmnParticipantData();
             }
 
-            @objid ("8f66315f-8e88-4542-9595-3c5b097e65a8")
+            @objid ("95f9bbfd-6d3d-4c05-8358-659d4bbb621b")
             public SmObjectImpl createImpl() {
                 return new BpmnParticipantImpl();
             }
@@ -256,12 +256,12 @@ public class BpmnParticipantData extends BpmnBaseElementData {
 
         @objid ("001aee7e-c4c3-1fd8-97fe-001ec947cd2a")
         public static class MultiplicityMinSmAttribute extends SmAttribute {
-            @objid ("3d4dafd1-b1d9-4a34-bcf8-a36e60b287df")
+            @objid ("831ec230-4a23-497a-a92a-64531d8ecaf2")
             public Object getValue(ISmObjectData data) {
                 return ((BpmnParticipantData) data).mMultiplicityMin;
             }
 
-            @objid ("c8831693-d2f4-4e71-a1d7-fecfdd47652f")
+            @objid ("e630c1f3-3422-4814-88ad-2bed3fbe1370")
             public void setValue(ISmObjectData data, Object value) {
                 ((BpmnParticipantData) data).mMultiplicityMin = value;
             }
@@ -270,12 +270,12 @@ public class BpmnParticipantData extends BpmnBaseElementData {
 
         @objid ("001b50ee-c4c3-1fd8-97fe-001ec947cd2a")
         public static class MultiplicityMaxSmAttribute extends SmAttribute {
-            @objid ("e180ac71-063a-433f-9912-7c615371ea4e")
+            @objid ("0f296831-c88e-4044-bd24-e748878ea956")
             public Object getValue(ISmObjectData data) {
                 return ((BpmnParticipantData) data).mMultiplicityMax;
             }
 
-            @objid ("bcfefd5a-f8eb-42f4-a66c-eacdbea6dc46")
+            @objid ("f53e7f16-0202-4409-ad0a-4d3a15029298")
             public void setValue(ISmObjectData data, Object value) {
                 ((BpmnParticipantData) data).mMultiplicityMax = value;
             }
@@ -284,18 +284,18 @@ public class BpmnParticipantData extends BpmnBaseElementData {
 
         @objid ("001bb598-c4c3-1fd8-97fe-001ec947cd2a")
         public static class TypeSmDependency extends SmSingleDependency {
-            @objid ("0f7b4074-9b0c-418b-97cb-6030c3463005")
+            @objid ("018d2e22-74bd-414f-93d0-c9bcad058a6a")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((BpmnParticipantData) data).mType;
             }
 
-            @objid ("861b3d39-2cbb-47ce-b093-edbebb1d0df8")
+            @objid ("c0033871-8907-4bc4-8045-d6374250dcc0")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((BpmnParticipantData) data).mType = value;
             }
 
-            @objid ("bca1b20a-26bb-4e54-97d1-78e2370631f3")
+            @objid ("b86a4720-b056-4af4-99cc-218eeae3d309")
             @Override
             public SmDependency getSymetric() {
                 return ClassifierData.Metadata.BpmnRepresentsDep();
@@ -305,18 +305,18 @@ public class BpmnParticipantData extends BpmnBaseElementData {
 
         @objid ("001c2b9a-c4c3-1fd8-97fe-001ec947cd2a")
         public static class PackageRefSmDependency extends SmSingleDependency {
-            @objid ("442f8601-9160-4049-a289-eed65d44d0cd")
+            @objid ("acf11ba2-69cb-4c76-b775-8f4374c5f5a2")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((BpmnParticipantData) data).mPackageRef;
             }
 
-            @objid ("35f890c7-c116-4de9-ad1d-409358809568")
+            @objid ("c09b50ae-5edc-4986-aa26-205d2740b54d")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((BpmnParticipantData) data).mPackageRef = value;
             }
 
-            @objid ("8b3b6c03-eb53-4621-9637-9c53ee838bea")
+            @objid ("47c81917-9967-4b69-a14f-ddfc3d0a6281")
             @Override
             public SmDependency getSymetric() {
                 return PackageData.Metadata.BpmnRepresentsDep();
@@ -326,18 +326,18 @@ public class BpmnParticipantData extends BpmnBaseElementData {
 
         @objid ("001ca1d8-c4c3-1fd8-97fe-001ec947cd2a")
         public static class ProcessSmDependency extends SmSingleDependency {
-            @objid ("43b54d21-a678-409f-ad51-7b6d5d18dd5b")
+            @objid ("b6204d4f-e9e1-4866-918d-6bd1a75cad38")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((BpmnParticipantData) data).mProcess;
             }
 
-            @objid ("e5168511-805b-44e1-ac76-af1a1ad131fd")
+            @objid ("541e462a-7436-4585-9a5f-267bed29a406")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((BpmnParticipantData) data).mProcess = value;
             }
 
-            @objid ("04ef6aa2-7d97-4dc0-9535-51ea3d7d44f5")
+            @objid ("12273eff-f9eb-42d0-9535-76d978f6224c")
             @Override
             public SmDependency getSymetric() {
                 return BpmnProcessData.Metadata.ParticipantDep();
@@ -347,20 +347,20 @@ public class BpmnParticipantData extends BpmnBaseElementData {
 
         @objid ("001d18f2-c4c3-1fd8-97fe-001ec947cd2a")
         public static class InterfaceRefsSmDependency extends SmMultipleDependency {
-            @objid ("7007bc9c-be66-4c06-8d11-f682a4a3bea1")
+            @objid ("eaa716d0-1e02-429f-aa34-121246855afa")
             @Override
             public List<SmObjectImpl> getValueList(ISmObjectData data) {
                 return (((BpmnParticipantData)data).mInterfaceRefs != null)? ((BpmnParticipantData)data).mInterfaceRefs:SmMultipleDependency.EMPTY;
             }
 
-            @objid ("a12ae811-72a9-4b49-81ea-eb3c2f188b09")
+            @objid ("a0685e7a-3843-4ab1-995e-b8f3c9fac6a2")
             @Override
             protected List<SmObjectImpl> allocateValueList(ISmObjectData data, int initialCapacity) {
                 ((BpmnParticipantData) data).mInterfaceRefs = new ArrayList<>(initialCapacity);
                 return ((BpmnParticipantData) data).mInterfaceRefs;
             }
 
-            @objid ("f927281d-e012-4e3a-898e-27a0a0ad43d8")
+            @objid ("ccf3c5a5-5b12-4ce4-86f9-41083955a1b9")
             @Override
             public SmDependency getSymetric() {
                 return BpmnInterfaceData.Metadata.ParticipantRefDep();
@@ -370,20 +370,20 @@ public class BpmnParticipantData extends BpmnBaseElementData {
 
         @objid ("001d8170-c4c3-1fd8-97fe-001ec947cd2a")
         public static class EndPointRefsSmDependency extends SmMultipleDependency {
-            @objid ("1497d874-20b3-4b73-9610-55efe79ae41d")
+            @objid ("b0158c86-b2f5-4b53-970e-8c5a1d0f9155")
             @Override
             public List<SmObjectImpl> getValueList(ISmObjectData data) {
                 return (((BpmnParticipantData)data).mEndPointRefs != null)? ((BpmnParticipantData)data).mEndPointRefs:SmMultipleDependency.EMPTY;
             }
 
-            @objid ("3cdc1221-b1e1-4d18-b0e8-0a3ed4e22eea")
+            @objid ("0dfe22eb-cb30-4e88-afe2-a74e078bb472")
             @Override
             protected List<SmObjectImpl> allocateValueList(ISmObjectData data, int initialCapacity) {
                 ((BpmnParticipantData) data).mEndPointRefs = new ArrayList<>(initialCapacity);
                 return ((BpmnParticipantData) data).mEndPointRefs;
             }
 
-            @objid ("f2f8e928-1220-4904-ac1d-4dfc21fec149")
+            @objid ("8e9e55d5-c229-4c23-a6ca-2d518c6f1177")
             @Override
             public SmDependency getSymetric() {
                 return BpmnEndPointData.Metadata.ParticipantRefsDep();
@@ -393,18 +393,18 @@ public class BpmnParticipantData extends BpmnBaseElementData {
 
         @objid ("001de836-c4c3-1fd8-97fe-001ec947cd2a")
         public static class ContainerSmDependency extends SmSingleDependency {
-            @objid ("bb1b9ef5-7098-4847-920c-55da7104e7a4")
+            @objid ("66501e0c-bce3-42b2-aacb-7135819b02b1")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((BpmnParticipantData) data).mContainer;
             }
 
-            @objid ("86234d2c-2bce-4f82-99a6-dc631c32f347")
+            @objid ("033efe22-7223-4de5-ac82-34566fc901b8")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((BpmnParticipantData) data).mContainer = value;
             }
 
-            @objid ("29d73cf1-69e5-4c8d-948e-4cccdc44e09b")
+            @objid ("ccffb1db-f324-44c1-a487-5f0e8af5d2ef")
             @Override
             public SmDependency getSymetric() {
                 return BpmnCollaborationData.Metadata.ParticipantsDep();

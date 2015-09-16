@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.uml.statik;
 
@@ -44,13 +44,13 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("0006c57a-c4bf-1fd8-97fe-001ec947cd2a")
 public class ConnectorEndImpl extends LinkEndImpl implements ConnectorEnd {
-    @objid ("54e04489-607d-4edb-aaab-2bbca14fd528")
+    @objid ("403a16ed-7344-4dbd-aa33-4949b1e469c6")
     @Override
     public EList<Binding> getRepresentation() {
         return new SmList<>(this, ConnectorEndData.Metadata.RepresentationDep());
     }
 
-    @objid ("5ba11838-7092-476e-9089-0d01183b4e39")
+    @objid ("7d3c842e-3e63-4c53-815f-fdd3b21b3aba")
     @Override
     public <T extends Binding> List<T> getRepresentation(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -63,33 +63,33 @@ public class ConnectorEndImpl extends LinkEndImpl implements ConnectorEnd {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("c827e591-c638-4d81-877f-ce83250d90f8")
+    @objid ("7128afdc-134c-40ac-a850-8116acb3713e")
     @Override
     public ModelElement getRepresentedFeature() {
         return (ModelElement) getDepVal(ConnectorEndData.Metadata.RepresentedFeatureDep());
     }
 
-    @objid ("cce45bf4-52d0-41be-96f2-beacf984deb9")
+    @objid ("dd0e58a3-acb8-4546-8f6d-b13da64c4f05")
     @Override
     public void setRepresentedFeature(ModelElement value) {
         appendDepVal(ConnectorEndData.Metadata.RepresentedFeatureDep(), (SmObjectImpl)value);
     }
 
-    @objid ("1035a46b-bc9b-4eb8-8689-1f58cca54063")
+    @objid ("a3d90f65-e8e3-4f4e-a4cf-1140b97edc00")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("20b65f77-bf02-423f-aedf-87b70dfecf0f")
+    @objid ("4e0a2d6b-c9bc-44cf-acfe-9578e5ca182a")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("34acf9ec-5dfe-461c-9bf2-cea4840581af")
+    @objid ("a589e146-5bf6-4eed-9faa-fdbec1c92c55")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitConnectorEnd(this);

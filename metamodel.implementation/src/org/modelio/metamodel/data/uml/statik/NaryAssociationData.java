@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.data.uml.statik;
 
@@ -48,43 +48,43 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("0021f11a-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=NaryAssociation.class, factory=NaryAssociationData.Metadata.ObjectFactory.class)
 public class NaryAssociationData extends ModelElementData {
-    @objid ("5fe6a25f-6d5a-4881-bec4-3145ed78b795")
+    @objid ("981f43ca-64fe-4b8b-8b40-e7ddcabc0463")
     @SmaMetaAssociation(metaName="Occurence", typeDataClass=NaryLinkData.class, min=0, max=-1, smAssociationClass=Metadata.OccurenceSmDependency.class)
      List<SmObjectImpl> mOccurence = null;
 
-    @objid ("d5a4e71e-5de8-46d0-9262-40c20272dd1c")
+    @objid ("6d47866b-370a-4829-813d-b45e63669d57")
     @SmaMetaAssociation(metaName="NaryEnd", typeDataClass=NaryAssociationEndData.class, min=0, max=-1, smAssociationClass=Metadata.NaryEndSmDependency.class, sharedComponent = true)
      List<SmObjectImpl> mNaryEnd = null;
 
-    @objid ("35c02de6-9733-433c-9d56-1420066c9ccc")
+    @objid ("6ece1762-1a9d-4098-bb3f-231b65174e6f")
     @SmaMetaAssociation(metaName="LinkToClass", typeDataClass=ClassAssociationData.class, min=0, max=1, smAssociationClass=Metadata.LinkToClassSmDependency.class, component = true)
      SmObjectImpl mLinkToClass;
 
-    @objid ("f4793221-3a2b-4af0-9adb-e28d3daa2a27")
+    @objid ("0735f737-6c38-4ee0-82f5-16800a5e03a9")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("003cd1f6-c4c5-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("7db4b845-e589-4d6c-827e-405715125f27")
+        @objid ("17b717d2-6529-4edc-b11f-a8fec050201d")
         private static SmClass smClass = null;
 
-        @objid ("b18d1233-d8ba-47e1-8aef-43e65c4c67ba")
+        @objid ("4e5ac8ec-8ced-4614-a869-83d94776a13c")
         private static SmDependency OccurenceDep = null;
 
-        @objid ("926418ba-7c6c-45c0-a6de-ce692a157bc6")
+        @objid ("c4cf4a30-c71d-448d-95d4-ef265a83c47d")
         private static SmDependency NaryEndDep = null;
 
-        @objid ("f38e5b0b-20b0-46be-9bc1-eda7df3752e7")
+        @objid ("5155739a-9fae-4890-b45d-7f9c4883684c")
         private static SmDependency LinkToClassDep = null;
 
-        @objid ("c1fc39dd-491a-43a7-829f-c963edb32e55")
+        @objid ("e438b21a-4769-4781-93e5-1e881d3d7470")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(NaryAssociationData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("95a93bd9-2424-4620-b4c4-7896a4d6587f")
+        @objid ("9c3a56ef-f438-49e2-a1c6-0914991b45d8")
         public static SmDependency OccurenceDep() {
             if (OccurenceDep == null) {
             	OccurenceDep = classof().getDependencyDef("Occurence");
@@ -92,7 +92,7 @@ public class NaryAssociationData extends ModelElementData {
             return OccurenceDep;
         }
 
-        @objid ("e0abbe83-cb5d-4076-bf51-7379eb58ad84")
+        @objid ("38d249e8-89c4-4784-81fb-a2760cadb3cf")
         public static SmDependency NaryEndDep() {
             if (NaryEndDep == null) {
             	NaryEndDep = classof().getDependencyDef("NaryEnd");
@@ -100,7 +100,7 @@ public class NaryAssociationData extends ModelElementData {
             return NaryEndDep;
         }
 
-        @objid ("f7782199-8f8b-4b44-b599-6d93ed303b7b")
+        @objid ("b42b23c3-43e4-4435-bf88-0f0cd6348b05")
         public static SmDependency LinkToClassDep() {
             if (LinkToClassDep == null) {
             	LinkToClassDep = classof().getDependencyDef("LinkToClass");
@@ -108,38 +108,38 @@ public class NaryAssociationData extends ModelElementData {
             return LinkToClassDep;
         }
 
-        @objid ("8123a658-c1ca-498a-9b48-c0293b385295")
-        public static SmDependency getLinkToClassDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return LinkToClassDep;
-        }
-
-        @objid ("46b66dbf-de81-4037-ada0-b6a5b36fa0fd")
-        public static SmDependency getOccurenceDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return OccurenceDep;
-        }
-
-        @objid ("2b94aa9f-79f9-484c-9fa7-3ec4fcbfb0a0")
+        @objid ("087429d5-d668-4b4c-a67b-37961f3f0d64")
         public static SmDependency getNaryEndDep() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return NaryEndDep;
         }
 
-        @objid ("d08b5044-b1eb-4350-ae4f-753a86c9656d")
+        @objid ("f512482c-5b1f-4022-ab6e-aa46a8d53f85")
         public static SmClass getSmClass() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return smClass;
         }
 
+        @objid ("8d8aeef7-554b-4f60-9727-067ac8d7b072")
+        public static SmDependency getLinkToClassDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return LinkToClassDep;
+        }
+
+        @objid ("23bf27a1-0615-4c92-8986-337379e3b39f")
+        public static SmDependency getOccurenceDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return OccurenceDep;
+        }
+
         @objid ("003d185a-c4c5-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("7b13aa7c-d24a-4334-8a4b-dd75beac93f6")
+            @objid ("665e3d6e-cc4b-4291-ad1e-917e1f485a3f")
             public ISmObjectData createData() {
                 return new NaryAssociationData();
             }
 
-            @objid ("3606ed3b-39be-472a-aa65-bbbd1e7e489d")
+            @objid ("c1294d00-5e5c-4d3f-a8ba-d4de2f2df501")
             public SmObjectImpl createImpl() {
                 return new NaryAssociationImpl();
             }
@@ -148,20 +148,20 @@ public class NaryAssociationData extends ModelElementData {
 
         @objid ("003d7c0a-c4c5-1fd8-97fe-001ec947cd2a")
         public static class NaryEndSmDependency extends SmMultipleDependency {
-            @objid ("d5fb745e-aad5-4140-89ba-f24fd64a3d86")
+            @objid ("d94a618c-7040-48df-926f-6e1999590ebc")
             @Override
             public List<SmObjectImpl> getValueList(ISmObjectData data) {
                 return (((NaryAssociationData)data).mNaryEnd != null)? ((NaryAssociationData)data).mNaryEnd:SmMultipleDependency.EMPTY;
             }
 
-            @objid ("b1b45b3c-5f01-4eac-bedf-f8fb2aa9f349")
+            @objid ("34b92d05-74a3-4098-8aee-a3dda6d8b4c6")
             @Override
             protected List<SmObjectImpl> allocateValueList(ISmObjectData data, int initialCapacity) {
                 ((NaryAssociationData) data).mNaryEnd = new ArrayList<>(initialCapacity);
                 return ((NaryAssociationData) data).mNaryEnd;
             }
 
-            @objid ("d4b88a85-ab56-4aff-9e60-1b56b415999d")
+            @objid ("112baf98-d51f-425e-980f-5577641164de")
             @Override
             public SmDependency getSymetric() {
                 return NaryAssociationEndData.Metadata.NaryAssociationDep();
@@ -171,20 +171,20 @@ public class NaryAssociationData extends ModelElementData {
 
         @objid ("003dde2a-c4c5-1fd8-97fe-001ec947cd2a")
         public static class OccurenceSmDependency extends SmMultipleDependency {
-            @objid ("e8d422b8-8888-4ce5-9854-e39f547dbddf")
+            @objid ("b7f708b9-9ebf-42c6-ab3a-e4e37c8d4319")
             @Override
             public List<SmObjectImpl> getValueList(ISmObjectData data) {
                 return (((NaryAssociationData)data).mOccurence != null)? ((NaryAssociationData)data).mOccurence:SmMultipleDependency.EMPTY;
             }
 
-            @objid ("35d25c6b-f831-478e-a403-22f0b46380d7")
+            @objid ("bd5ad0fa-98c4-4582-b705-8351715ec9ae")
             @Override
             protected List<SmObjectImpl> allocateValueList(ISmObjectData data, int initialCapacity) {
                 ((NaryAssociationData) data).mOccurence = new ArrayList<>(initialCapacity);
                 return ((NaryAssociationData) data).mOccurence;
             }
 
-            @objid ("a32bee7b-b721-4236-b7ff-e82721a152c2")
+            @objid ("b0d9775b-df30-45d1-9d74-1ac5f19327de")
             @Override
             public SmDependency getSymetric() {
                 return NaryLinkData.Metadata.ModelDep();
@@ -194,18 +194,18 @@ public class NaryAssociationData extends ModelElementData {
 
         @objid ("003e405e-c4c5-1fd8-97fe-001ec947cd2a")
         public static class LinkToClassSmDependency extends SmSingleDependency {
-            @objid ("108304ef-f8e8-4721-8f3c-da9faea0cbd0")
+            @objid ("7f45d899-8371-42dc-976f-cc3bd34a59b5")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((NaryAssociationData) data).mLinkToClass;
             }
 
-            @objid ("55e8a159-3571-47b8-8aa5-a5af1b47e821")
+            @objid ("0c8517b2-531e-4f25-8318-775b60c4179a")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((NaryAssociationData) data).mLinkToClass = value;
             }
 
-            @objid ("a4fcee7d-f1b8-41de-b6c3-bd785871fb83")
+            @objid ("b81e27c0-a58a-4cf3-9a04-c3d15d4c2972")
             @Override
             public SmDependency getSymetric() {
                 return ClassAssociationData.Metadata.NaryAssociationPartDep();

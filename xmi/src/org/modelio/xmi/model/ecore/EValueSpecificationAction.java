@@ -21,57 +21,56 @@
 
 package org.modelio.xmi.model.ecore;
 
-import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.modelio.api.model.IUmlModel;
-import org.modelio.api.modelio.Modelio;
+import org.modelio.gproject.model.IMModelServices;
+import org.modelio.metamodel.factory.ElementNotUniqueException;
+import org.modelio.metamodel.factory.IModelFactory;
 import org.modelio.metamodel.uml.behavior.activityModel.OpaqueAction;
 import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.metamodel.uml.infrastructure.Stereotype;
 import org.modelio.metamodel.uml.infrastructure.TagParameter;
 import org.modelio.metamodel.uml.infrastructure.TagType;
 import org.modelio.metamodel.uml.infrastructure.TaggedValue;
+import org.modelio.xmi.plugin.Xmi;
 import org.modelio.xmi.util.IModelerModuleStereotypes;
 import org.modelio.xmi.util.ObjingEAnnotation;
 import org.modelio.xmi.util.ReverseProperties;
 
 @objid ("a5cef32e-3322-4726-858f-f2c880024b39")
-public class EValueSpecificationAction extends EActivityNode implements IEElement {
+public class EValueSpecificationAction extends EActivityNode {
     @objid ("8228382d-7c4a-4e9f-af14-ccbc73844c3b")
-    private org.eclipse.uml2.uml.ValueSpecificationAction ecoreElement;
+    private org.eclipse.uml2.uml.ValueSpecificationAction ecoreElement = null;
 
     @objid ("8bf5718c-6644-4045-befb-306669ebe8d5")
+    @Override
     public Element createObjingElt() {
         if (ReverseProperties.getInstance().isRoundtripEnabled()){
-            if(ObjingEAnnotation.isDeleted(ecoreElement))
+            if(ObjingEAnnotation.isDeleted(this.ecoreElement))
                 return null;
         }
         
-        OpaqueAction element = Modelio.getInstance().getModelingSession().getModel()
+        IMModelServices mmServices = ReverseProperties.getInstance().getMModelServices();
+        
+        OpaqueAction element = mmServices.getModelFactory()
                 .createOpaqueAction();
         
-        Stereotype stereo = Modelio.getInstance().getModelingSession().getMetamodelExtensions()
-                .getStereotype(IModelerModuleStereotypes.UML2VALUESPECIFICATIONACTION, element.getMClass());
-        element.getExtension().add(stereo);
+        try {
+            element.getExtension().add(mmServices
+                    .getStereotype(IModelerModuleStereotypes.UML2VALUESPECIFICATIONACTION, element.getMClass()));
+        } catch (ElementNotUniqueException e) {
+            Xmi.LOG.warning(e);
+        }
         return element;
     }
 
     @objid ("d82583ae-51ac-4c6a-9a02-4f1a83394b69")
     public EValueSpecificationAction(org.eclipse.uml2.uml.ValueSpecificationAction element) {
         super(element);
-        ecoreElement = element;
-    }
-
-    @objid ("4e294af0-fae6-44a5-909a-2a20260a4066")
-    public void attach(Element objingElt) {
-        super.attach(objingElt);
-    }
-
-    @objid ("3ae2748a-bc20-46d8-ba3b-a66ddf2782c5")
-    public void attach(List<Object> objingElts) {
+        this.ecoreElement = element;
     }
 
     @objid ("61dfd7e4-696d-40ff-b4db-862728d05d35")
+    @Override
     public void setProperties(Element objingElt) {
         super.setProperties(objingElt);
         setValue((OpaqueAction) objingElt);
@@ -79,27 +78,31 @@ public class EValueSpecificationAction extends EActivityNode implements IEElemen
 
     @objid ("75131771-5310-419a-a5bc-6e3d57a67eeb")
     private void setValue(OpaqueAction objingElt) {
-        TagType value =  null;
+        IModelFactory model = ReverseProperties.getInstance().getMModelServices().getModelFactory();
         
-        IUmlModel model = Modelio.getInstance().getModelingSession().getModel();
+        try {
+            Stereotype stereo = ReverseProperties.getInstance().getMModelServices()
+                    .getStereotype(IModelerModuleStereotypes.UML2VALUESPECIFICATIONACTION, objingElt.getMClass());
+        
+            for (TagType tagType : stereo.getDefinedTagType()){
+                if (tagType.getName().equals("Value")){
+        
+                    TaggedValue taggedValue = model.createTaggedValue();
+        
+                    taggedValue.setDefinition(tagType);
+                    taggedValue.setAnnoted(objingElt);
+        
+                    TagParameter actual = model.createTagParameter();
+                    actual.setValue(this.ecoreElement.getValue().stringValue());
+                    taggedValue.getActual().add(actual);
+                }
+        
+            }
         
         
-        Stereotype stereo = Modelio.getInstance().getModelingSession().getMetamodelExtensions()
-                .getStereotype(IModelerModuleStereotypes.UML2VALUESPECIFICATIONACTION, objingElt.getMClass());
-        
-        for (TagType tagType : stereo.getDefinedTagType()){
-            if (tagType.getName().equals("Value"))
-                value = tagType;
+        } catch (ElementNotUniqueException e) {
+            Xmi.LOG.warning(e);
         }
-        
-        TaggedValue taggedValue = model.createTaggedValue();
-        
-        taggedValue.setDefinition(value);
-        taggedValue.setAnnoted(objingElt);
-        
-        TagParameter actual = model.createTagParameter();
-        actual.setValue(this.ecoreElement.getValue().stringValue());
-        taggedValue.getActual().add(actual);
     }
 
 }

@@ -22,8 +22,8 @@
 package org.modelio.xmi.model.ecore;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.modelio.api.modelio.Modelio;
 import org.modelio.metamodel.uml.infrastructure.Element;
+import org.modelio.xmi.util.ReverseProperties;
 
 /**
  * This class handles the import of Ecore  org.eclipse.uml2.uml.ActionExecutionSpecification
@@ -34,25 +34,13 @@ public class EActionExecutionSpecification extends EExecutionSpecification {
     @objid ("4a6f2e83-185a-4433-aeb7-f2e95d6af83e")
     @Override
     public Element createObjingElt() {
-        return Modelio.getInstance().getModelingSession().getModel()
+        return ReverseProperties.getInstance().getMModelServices().getModelFactory()
                 .createExecutionSpecification();
     }
 
     @objid ("80fb7328-bf73-4c1e-8037-2f3ea3d7d6a3")
     public EActionExecutionSpecification(org.eclipse.uml2.uml.ActionExecutionSpecification element) {
         super(element);
-    }
-
-    @objid ("17b003ad-57ec-43ae-bc1c-a04d07b8ec64")
-    @Override
-    public void attach(Element objingElt) {
-        super.attach(objingElt);
-    }
-
-    @objid ("ea366240-3637-41cf-9330-2768e7e12406")
-    @Override
-    public void setProperties(Element objingElt) {
-        super.setProperties(objingElt);
     }
 
 }

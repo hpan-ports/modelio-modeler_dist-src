@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Bundle-Vendor: modelio.org
+Bundle-Version: 3.2.1
+Built-By: integration
+Build-Jdk: 1.7.0_25
+Bundle-Name: Vaudit documentation
+Created-By: Apache Maven 3.0.4
+Bundle-SymbolicName: org.modelio.documentation.vaudit;singleton=true
+Archiver-Version: Plexus Archiver
+

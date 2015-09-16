@@ -51,28 +51,28 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("e14b41d9-cb7f-4a91-aa4b-fec920ff805c")
     public EParseModel(XMIImportBehavior behavior, Package ecoreRootModel) {
         this.behavior = behavior;
-        this.visitorMap = new HashMap<Object, Object>();
+        this.visitorMap = new HashMap<>();
         this.visitorMap.put(ecoreRootModel, ecoreRootModel);
     }
 
     @objid ("9567c8a5-a176-49f9-8128-36ddf784ad30")
     @Override
     public Object caseAbstraction(org.eclipse.uml2.uml.Abstraction inputAbstraction) {
-        Object theResult = visitorMap.get(inputAbstraction);
+        Object theResult = this.visitorMap.get(inputAbstraction);
         if (theResult == null) {
-            visitorMap.put(inputAbstraction, inputAbstraction);
+            this.visitorMap.put(inputAbstraction, inputAbstraction);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("AbstractionImpl".equals(theResult.getClass()
                         .getSimpleName()))) {
-            behavior.visitAbstraction(inputAbstraction);
+            this.behavior.visitAbstraction(inputAbstraction);
             theResult = super.caseAbstraction(inputAbstraction);
-            this.doSwitch((EObject) inputAbstraction.getMapping());
+            this.doSwitch(inputAbstraction.getMapping());
         }
         return theResult;
     }
@@ -80,21 +80,21 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("292b767d-d406-435d-a9d1-6f5592cf6462")
     @Override
     public Object caseAcceptCallAction(org.eclipse.uml2.uml.AcceptCallAction inputAcceptCallAction) {
-        Object theResult = visitorMap.get(inputAcceptCallAction);
+        Object theResult = this.visitorMap.get(inputAcceptCallAction);
         if (theResult == null) {
-            visitorMap.put(inputAcceptCallAction, inputAcceptCallAction);
+            this.visitorMap.put(inputAcceptCallAction, inputAcceptCallAction);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("AcceptCallActionImpl".equals(theResult.getClass()
                         .getSimpleName()))) {
-            behavior.visitAcceptCallAction(inputAcceptCallAction);
+            this.behavior.visitAcceptCallAction(inputAcceptCallAction);
             theResult = super.caseAcceptCallAction(inputAcceptCallAction);
-            this.doSwitch((EObject) inputAcceptCallAction
+            this.doSwitch(inputAcceptCallAction
                     .getReturnInformation());
         }
         return theResult;
@@ -103,25 +103,25 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("83180d4e-5c74-4346-859d-2f7ed2bf3dd0")
     @Override
     public Object caseAcceptEventAction(org.eclipse.uml2.uml.AcceptEventAction inputAcceptEventAction) {
-        Object theResult = visitorMap.get(inputAcceptEventAction);
+        Object theResult = this.visitorMap.get(inputAcceptEventAction);
         if (theResult == null) {
-            visitorMap.put(inputAcceptEventAction, inputAcceptEventAction);
+            this.visitorMap.put(inputAcceptEventAction, inputAcceptEventAction);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("AcceptEventActionImpl".equals(theResult.getClass()
                         .getSimpleName()))) {
-            behavior.visitAcceptEventAction(inputAcceptEventAction);
+            this.behavior.visitAcceptEventAction(inputAcceptEventAction);
             theResult = super.caseAcceptEventAction(inputAcceptEventAction);
-            for (Object result : inputAcceptEventAction.getResults()) {
-                this.doSwitch((EObject) result);
+            for (EObject result : inputAcceptEventAction.getResults()) {
+                this.doSwitch(result);
             }
-            for (Object trigger : inputAcceptEventAction.getTriggers()) {
-                this.doSwitch((EObject) trigger);
+            for (EObject trigger : inputAcceptEventAction.getTriggers()) {
+                this.doSwitch(trigger);
             }
         }
         return theResult;
@@ -131,18 +131,18 @@ public class EParseModel extends UMLSwitch<Object> {
     @Override
     public Object caseAction(org.eclipse.uml2.uml.Action inputAction) {
         Object theResult = super.caseAction(inputAction);
-        for (Object output : inputAction.getOutputs()) {
-            this.doSwitch((EObject) output);
+        for (EObject output : inputAction.getOutputs()) {
+            this.doSwitch(output);
         }
-        for (Object input : inputAction.getInputs()) {
-            this.doSwitch((EObject) input);
+        for (EObject input : inputAction.getInputs()) {
+            this.doSwitch(input);
         }
-        this.doSwitch((EObject) inputAction.getContext());
-        for (Object localPrecondition : inputAction.getLocalPreconditions()) {
-            this.doSwitch((EObject) localPrecondition);
+        this.doSwitch(inputAction.getContext());
+        for (EObject localPrecondition : inputAction.getLocalPreconditions()) {
+            this.doSwitch(localPrecondition);
         }
-        for (Object localPostcondition : inputAction.getLocalPostconditions()) {
-            this.doSwitch((EObject) localPostcondition);
+        for (EObject localPostcondition : inputAction.getLocalPostconditions()) {
+            this.doSwitch(localPostcondition);
         }
         return theResult;
     }
@@ -150,24 +150,23 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("af75c301-80f3-4e74-95ee-7331898bccc1")
     @Override
     public Object caseActionExecutionSpecification(org.eclipse.uml2.uml.ActionExecutionSpecification inputActionExecutionSpecification) {
-        Object theResult = visitorMap.get(inputActionExecutionSpecification);
+        Object theResult = this.visitorMap.get(inputActionExecutionSpecification);
         if (theResult == null) {
-            visitorMap.put(inputActionExecutionSpecification,
+            this.visitorMap.put(inputActionExecutionSpecification,
                     inputActionExecutionSpecification);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("ActionExecutionSpecificationImpl".equals(theResult
                         .getClass().getSimpleName()))) {
-            behavior
-            .visitActionExecutionSpecification(inputActionExecutionSpecification);
+            this.behavior.visitActionExecutionSpecification(inputActionExecutionSpecification);
             theResult = super
             .caseActionExecutionSpecification(inputActionExecutionSpecification);
-            this.doSwitch((EObject) inputActionExecutionSpecification
+            this.doSwitch(inputActionExecutionSpecification
                     .getAction());
         }
         return theResult;
@@ -176,21 +175,21 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("eff0aa5f-1c21-4955-9da9-542426882ad5")
     @Override
     public Object caseActionInputPin(org.eclipse.uml2.uml.ActionInputPin inputActionInputPin) {
-        Object theResult = visitorMap.get(inputActionInputPin);
+        Object theResult = this.visitorMap.get(inputActionInputPin);
         if (theResult == null) {
-            visitorMap.put(inputActionInputPin, inputActionInputPin);
+            this.visitorMap.put(inputActionInputPin, inputActionInputPin);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("ActionInputPinImpl".equals(theResult.getClass()
                         .getSimpleName()))) {
-            behavior.visitActionInputPin(inputActionInputPin);
+            this.behavior.visitActionInputPin(inputActionInputPin);
             theResult = super.caseActionInputPin(inputActionInputPin);
-            this.doSwitch((EObject) inputActionInputPin.getFromAction());
+            this.doSwitch(inputActionInputPin.getFromAction());
         }
         return theResult;
     }
@@ -198,37 +197,37 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("adbff075-ff4a-4ed5-a4c2-84949406db26")
     @Override
     public Object caseActivity(org.eclipse.uml2.uml.Activity inputActivity) {
-        Object theResult = visitorMap.get(inputActivity);
+        Object theResult = this.visitorMap.get(inputActivity);
         if (theResult == null) {
-            visitorMap.put(inputActivity, inputActivity);
+            this.visitorMap.put(inputActivity, inputActivity);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("ActivityImpl"
                         .equals(theResult.getClass().getSimpleName()))) {
-            behavior.visitActivity(inputActivity);
+            this.behavior.visitActivity(inputActivity);
             theResult = super.caseActivity(inputActivity);
-            for (Object structuredNode : inputActivity.getStructuredNodes()) {
-                this.doSwitch((EObject) structuredNode);
+            for (EObject structuredNode : inputActivity.getStructuredNodes()) {
+                this.doSwitch(structuredNode);
             }
-            for (Object variable : inputActivity.getVariables()) {
-                this.doSwitch((EObject) variable);
+            for (EObject variable : inputActivity.getVariables()) {
+                this.doSwitch(variable);
             }
-            for (Object node : inputActivity.getNodes()) {
-                this.doSwitch((EObject) node);
+            for (EObject node : inputActivity.getNodes()) {
+                this.doSwitch(node);
             }
-            for (Object edge : inputActivity.getEdges()) {
-                this.doSwitch((EObject) edge);
+            for (EObject edge : inputActivity.getEdges()) {
+                this.doSwitch(edge);
             }
-            for (Object partition : inputActivity.getPartitions()) {
-                this.doSwitch((EObject) partition);
+            for (EObject partition : inputActivity.getPartitions()) {
+                this.doSwitch(partition);
             }
-            for (Object group : inputActivity.getGroups()) {
-                this.doSwitch((EObject) group);
+            for (EObject group : inputActivity.getGroups()) {
+                this.doSwitch(group);
             }
         }
         return theResult;
@@ -238,21 +237,21 @@ public class EParseModel extends UMLSwitch<Object> {
     @Override
     public Object caseActivityEdge(org.eclipse.uml2.uml.ActivityEdge inputActivityEdge) {
         Object theResult = super.caseActivityEdge(inputActivityEdge);
-        this.doSwitch((EObject) inputActivityEdge.getActivity());
-        this.doSwitch((EObject) inputActivityEdge.getSource());
-        this.doSwitch((EObject) inputActivityEdge.getTarget());
-        for (Object redefinedEdge : inputActivityEdge.getRedefinedEdges()) {
-            this.doSwitch((EObject) redefinedEdge);
+        this.doSwitch(inputActivityEdge.getActivity());
+        this.doSwitch(inputActivityEdge.getSource());
+        this.doSwitch(inputActivityEdge.getTarget());
+        for (EObject redefinedEdge : inputActivityEdge.getRedefinedEdges()) {
+            this.doSwitch(redefinedEdge);
         }
-        for (Object inPartition : inputActivityEdge.getInPartitions()) {
-            this.doSwitch((EObject) inPartition);
+        for (EObject inPartition : inputActivityEdge.getInPartitions()) {
+            this.doSwitch(inPartition);
         }
-        this.doSwitch((EObject) inputActivityEdge.getGuard());
-        this.doSwitch((EObject) inputActivityEdge.getWeight());
-        this.doSwitch((EObject) inputActivityEdge.getInterrupts());
-        this.doSwitch((EObject) inputActivityEdge.getInStructuredNode());
-        for (Object inGroup : inputActivityEdge.getInGroups()) {
-            this.doSwitch((EObject) inGroup);
+        this.doSwitch(inputActivityEdge.getGuard());
+        this.doSwitch(inputActivityEdge.getWeight());
+        this.doSwitch(inputActivityEdge.getInterrupts());
+        this.doSwitch(inputActivityEdge.getInStructuredNode());
+        for (EObject inGroup : inputActivityEdge.getInGroups()) {
+            this.doSwitch(inGroup);
         }
         return theResult;
     }
@@ -260,19 +259,19 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("142755d1-6df0-4d12-b3fe-f91190f5df9a")
     @Override
     public Object caseActivityFinalNode(org.eclipse.uml2.uml.ActivityFinalNode inputActivityFinalNode) {
-        Object theResult = visitorMap.get(inputActivityFinalNode);
+        Object theResult = this.visitorMap.get(inputActivityFinalNode);
         if (theResult == null) {
-            visitorMap.put(inputActivityFinalNode, inputActivityFinalNode);
+            this.visitorMap.put(inputActivityFinalNode, inputActivityFinalNode);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("ActivityFinalNodeImpl".equals(theResult.getClass()
                         .getSimpleName()))) {
-            behavior.visitActivityFinalNode(inputActivityFinalNode);
+            this.behavior.visitActivityFinalNode(inputActivityFinalNode);
             theResult = super.caseActivityFinalNode(inputActivityFinalNode);
         }
         return theResult;
@@ -282,16 +281,16 @@ public class EParseModel extends UMLSwitch<Object> {
     @Override
     public Object caseActivityGroup(org.eclipse.uml2.uml.ActivityGroup inputActivityGroup) {
         Object theResult = super.caseActivityGroup(inputActivityGroup);
-        for (Object subgroup : inputActivityGroup.getSubgroups()) {
-            this.doSwitch((EObject) subgroup);
+        for (EObject subgroup : inputActivityGroup.getSubgroups()) {
+            this.doSwitch(subgroup);
         }
-        this.doSwitch((EObject) inputActivityGroup.getSuperGroup());
-        this.doSwitch((EObject) inputActivityGroup.getInActivity());
-        for (Object containedNode : inputActivityGroup.getContainedNodes()) {
-            this.doSwitch((EObject) containedNode);
+        this.doSwitch(inputActivityGroup.getSuperGroup());
+        this.doSwitch(inputActivityGroup.getInActivity());
+        for (EObject containedNode : inputActivityGroup.getContainedNodes()) {
+            this.doSwitch(containedNode);
         }
-        for (Object containedEdge : inputActivityGroup.getContainedEdges()) {
-            this.doSwitch((EObject) containedEdge);
+        for (EObject containedEdge : inputActivityGroup.getContainedEdges()) {
+            this.doSwitch(containedEdge);
         }
         return theResult;
     }
@@ -300,26 +299,26 @@ public class EParseModel extends UMLSwitch<Object> {
     @Override
     public Object caseActivityNode(org.eclipse.uml2.uml.ActivityNode inputActivityNode) {
         Object theResult = super.caseActivityNode(inputActivityNode);
-        this.doSwitch((EObject) inputActivityNode.getInStructuredNode());
-        this.doSwitch((EObject) inputActivityNode.getActivity());
-        for (Object outgoing : inputActivityNode.getOutgoings()) {
-            this.doSwitch((EObject) outgoing);
+        this.doSwitch(inputActivityNode.getInStructuredNode());
+        this.doSwitch(inputActivityNode.getActivity());
+        for (EObject outgoing : inputActivityNode.getOutgoings()) {
+            this.doSwitch(outgoing);
         }
-        for (Object incoming : inputActivityNode.getIncomings()) {
-            this.doSwitch((EObject) incoming);
+        for (EObject incoming : inputActivityNode.getIncomings()) {
+            this.doSwitch(incoming);
         }
-        for (Object redefinedNode : inputActivityNode.getRedefinedNodes()) {
-            this.doSwitch((EObject) redefinedNode);
+        for (EObject redefinedNode : inputActivityNode.getRedefinedNodes()) {
+            this.doSwitch(redefinedNode);
         }
-        for (Object inPartition : inputActivityNode.getInPartitions()) {
-            this.doSwitch((EObject) inPartition);
+        for (EObject inPartition : inputActivityNode.getInPartitions()) {
+            this.doSwitch(inPartition);
         }
-        for (Object inInterruptibleRegion : inputActivityNode
+        for (EObject inInterruptibleRegion : inputActivityNode
                 .getInInterruptibleRegions()) {
-            this.doSwitch((EObject) inInterruptibleRegion);
+            this.doSwitch(inInterruptibleRegion);
         }
-        for (Object inGroup : inputActivityNode.getInGroups()) {
-            this.doSwitch((EObject) inGroup);
+        for (EObject inGroup : inputActivityNode.getInGroups()) {
+            this.doSwitch(inGroup);
         }
         return theResult;
     }
@@ -327,23 +326,23 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("b54dfc78-3c91-4f0c-a194-c11ce3fe79cd")
     @Override
     public Object caseActivityParameterNode(org.eclipse.uml2.uml.ActivityParameterNode inputActivityParameterNode) {
-        Object theResult = visitorMap.get(inputActivityParameterNode);
+        Object theResult = this.visitorMap.get(inputActivityParameterNode);
         if (theResult == null) {
-            visitorMap.put(inputActivityParameterNode,
+            this.visitorMap.put(inputActivityParameterNode,
                     inputActivityParameterNode);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("ActivityParameterNodeImpl".equals(theResult.getClass()
                         .getSimpleName()))) {
-            behavior.visitActivityParameterNode(inputActivityParameterNode);
+            this.behavior.visitActivityParameterNode(inputActivityParameterNode);
             theResult = super
             .caseActivityParameterNode(inputActivityParameterNode);
-            this.doSwitch((EObject) inputActivityParameterNode.getParameter());
+            this.doSwitch(inputActivityParameterNode.getParameter());
         }
         return theResult;
     }
@@ -351,32 +350,32 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("836d3190-da54-43b4-ac01-ec56eea6fe2a")
     @Override
     public Object caseActivityPartition(org.eclipse.uml2.uml.ActivityPartition inputActivityPartition) {
-        Object theResult = visitorMap.get(inputActivityPartition);
+        Object theResult = this.visitorMap.get(inputActivityPartition);
         if (theResult == null) {
-            visitorMap.put(inputActivityPartition, inputActivityPartition);
+            this.visitorMap.put(inputActivityPartition, inputActivityPartition);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("ActivityPartitionImpl".equals(theResult.getClass()
                         .getSimpleName()))) {
-            behavior.visitActivityPartition(inputActivityPartition);
+            this.behavior.visitActivityPartition(inputActivityPartition);
             theResult = super.caseActivityPartition(inputActivityPartition);
-            for (Object edge : inputActivityPartition.getEdges()) {
-                this.doSwitch((EObject) edge);
+            for (EObject edge : inputActivityPartition.getEdges()) {
+                this.doSwitch(edge);
             }
-            for (Object node : inputActivityPartition.getNodes()) {
-                this.doSwitch((EObject) node);
+            for (EObject node : inputActivityPartition.getNodes()) {
+                this.doSwitch(node);
             }
-            for (Object subpartition : inputActivityPartition
+            for (EObject subpartition : inputActivityPartition
                     .getSubpartitions()) {
-                this.doSwitch((EObject) subpartition);
+                this.doSwitch(subpartition);
             }
-            this.doSwitch((EObject) inputActivityPartition.getSuperPartition());
-            this.doSwitch((EObject) inputActivityPartition.getRepresents());
+            this.doSwitch(inputActivityPartition.getSuperPartition());
+            this.doSwitch(inputActivityPartition.getRepresents());
         }
         return theResult;
     }
@@ -384,18 +383,18 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("453d9f3f-599e-48dc-bd47-b56c3039bae1")
     @Override
     public Object caseActor(org.eclipse.uml2.uml.Actor inputActor) {
-        Object theResult = visitorMap.get(inputActor);
+        Object theResult = this.visitorMap.get(inputActor);
         if (theResult == null) {
-            visitorMap.put(inputActor, inputActor);
+            this.visitorMap.put(inputActor, inputActor);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("ActorImpl".equals(theResult.getClass().getSimpleName()))) {
-            behavior.visitActor(inputActor);
+            this.behavior.visitActor(inputActor);
             theResult = super.caseActor(inputActor);
         }
         return theResult;
@@ -404,24 +403,24 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("3c70d902-57b1-460a-b972-1569aeff0d4c")
     @Override
     public Object caseAddStructuralFeatureValueAction(org.eclipse.uml2.uml.AddStructuralFeatureValueAction inputAddStructuralFeatureValueAction) {
-        Object theResult = visitorMap.get(inputAddStructuralFeatureValueAction);
+        Object theResult = this.visitorMap.get(inputAddStructuralFeatureValueAction);
         if (theResult == null) {
-            visitorMap.put(inputAddStructuralFeatureValueAction,
+            this.visitorMap.put(inputAddStructuralFeatureValueAction,
                     inputAddStructuralFeatureValueAction);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("AddStructuralFeatureValueActionImpl".equals(theResult
                         .getClass().getSimpleName()))) {
-            behavior
+            this.behavior
             .visitAddStructuralFeatureValueAction(inputAddStructuralFeatureValueAction);
             theResult = super
             .caseAddStructuralFeatureValueAction(inputAddStructuralFeatureValueAction);
-            this.doSwitch((EObject) inputAddStructuralFeatureValueAction
+            this.doSwitch(inputAddStructuralFeatureValueAction
                     .getInsertAt());
         }
         return theResult;
@@ -430,23 +429,23 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("21755bc5-f6a2-4644-b496-e0172ccd737b")
     @Override
     public Object caseAddVariableValueAction(org.eclipse.uml2.uml.AddVariableValueAction inputAddVariableValueAction) {
-        Object theResult = visitorMap.get(inputAddVariableValueAction);
+        Object theResult = this.visitorMap.get(inputAddVariableValueAction);
         if (theResult == null) {
-            visitorMap.put(inputAddVariableValueAction,
+            this.visitorMap.put(inputAddVariableValueAction,
                     inputAddVariableValueAction);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("AddVariableValueActionImpl".equals(theResult.getClass()
                         .getSimpleName()))) {
-            behavior.visitAddVariableValueAction(inputAddVariableValueAction);
+            this.behavior.visitAddVariableValueAction(inputAddVariableValueAction);
             theResult = super
             .caseAddVariableValueAction(inputAddVariableValueAction);
-            this.doSwitch((EObject) inputAddVariableValueAction.getInsertAt());
+            this.doSwitch(inputAddVariableValueAction.getInsertAt());
         }
         return theResult;
     }
@@ -454,19 +453,19 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("22fe4209-4ab7-4d47-965e-e773bc2cf0ae")
     @Override
     public Object caseAnyReceiveEvent(org.eclipse.uml2.uml.AnyReceiveEvent inputAnyReceiveEvent) {
-        Object theResult = visitorMap.get(inputAnyReceiveEvent);
+        Object theResult = this.visitorMap.get(inputAnyReceiveEvent);
         if (theResult == null) {
-            visitorMap.put(inputAnyReceiveEvent, inputAnyReceiveEvent);
+            this.visitorMap.put(inputAnyReceiveEvent, inputAnyReceiveEvent);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("AnyReceiveEventImpl".equals(theResult.getClass()
                         .getSimpleName()))) {
-            behavior.visitAnyReceiveEvent(inputAnyReceiveEvent);
+            this.behavior.visitAnyReceiveEvent(inputAnyReceiveEvent);
             theResult = super.caseAnyReceiveEvent(inputAnyReceiveEvent);
         }
         return theResult;
@@ -475,31 +474,31 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("fa0aff75-4314-49f2-ac8d-d9108525883e")
     @Override
     public Object caseArtifact(org.eclipse.uml2.uml.Artifact inputArtifact) {
-        Object theResult = visitorMap.get(inputArtifact);
+        Object theResult = this.visitorMap.get(inputArtifact);
         if (theResult == null) {
-            visitorMap.put(inputArtifact, inputArtifact);
+            this.visitorMap.put(inputArtifact, inputArtifact);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("ArtifactImpl"
                         .equals(theResult.getClass().getSimpleName()))) {
-            behavior.visitArtifact(inputArtifact);
+            this.behavior.visitArtifact(inputArtifact);
             theResult = super.caseArtifact(inputArtifact);
-            for (Object nestedArtifact : inputArtifact.getNestedArtifacts()) {
-                this.doSwitch((EObject) nestedArtifact);
+            for (EObject nestedArtifact : inputArtifact.getNestedArtifacts()) {
+                this.doSwitch(nestedArtifact);
             }
-            for (Object manifestation : inputArtifact.getManifestations()) {
-                this.doSwitch((EObject) manifestation);
+            for (EObject manifestation : inputArtifact.getManifestations()) {
+                this.doSwitch(manifestation);
             }
-            for (Object ownedOperation : inputArtifact.getOwnedOperations()) {
-                this.doSwitch((EObject) ownedOperation);
+            for (EObject ownedOperation : inputArtifact.getOwnedOperations()) {
+                this.doSwitch(ownedOperation);
             }
-            for (Object ownedAttribute : inputArtifact.getOwnedAttributes()) {
-                this.doSwitch((EObject) ownedAttribute);
+            for (EObject ownedAttribute : inputArtifact.getOwnedAttributes()) {
+                this.doSwitch(ownedAttribute);
             }
         }
         return theResult;
@@ -508,32 +507,32 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("691b0a4a-e97a-44bc-a57a-fa43e2b29193")
     @Override
     public Object caseAssociation(org.eclipse.uml2.uml.Association inputAssociation) {
-        Object theResult = visitorMap.get(inputAssociation);
+        Object theResult = this.visitorMap.get(inputAssociation);
         if (theResult == null) {
-            visitorMap.put(inputAssociation, inputAssociation);
+            this.visitorMap.put(inputAssociation, inputAssociation);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("AssociationImpl".equals(theResult.getClass()
                         .getSimpleName()))) {
-            behavior.visitAssociation(inputAssociation);
+            this.behavior.visitAssociation(inputAssociation);
             theResult = super.caseAssociation(inputAssociation);
-            for (Object ownedEnd : inputAssociation.getOwnedEnds()) {
-                this.doSwitch((EObject) ownedEnd);
+            for (EObject ownedEnd : inputAssociation.getOwnedEnds()) {
+                this.doSwitch(ownedEnd);
             }
-            for (Object endType : inputAssociation.getEndTypes()) {
-                this.doSwitch((EObject) endType);
+            for (EObject endType : inputAssociation.getEndTypes()) {
+                this.doSwitch(endType);
             }
-            for (Object memberEnd : inputAssociation.getMemberEnds()) {
-                this.doSwitch((EObject) memberEnd);
+            for (EObject memberEnd : inputAssociation.getMemberEnds()) {
+                this.doSwitch(memberEnd);
             }
-            for (Object navigableOwnedEnd : inputAssociation
+            for (EObject navigableOwnedEnd : inputAssociation
                     .getNavigableOwnedEnds()) {
-                this.doSwitch((EObject) navigableOwnedEnd);
+                this.doSwitch(navigableOwnedEnd);
             }
         }
         return theResult;
@@ -542,19 +541,19 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("a33cf265-d83a-4421-9587-3cf397e72354")
     @Override
     public Object caseAssociationClass(org.eclipse.uml2.uml.AssociationClass inputAssociationClass) {
-        Object theResult = visitorMap.get(inputAssociationClass);
+        Object theResult = this.visitorMap.get(inputAssociationClass);
         if (theResult == null) {
-            visitorMap.put(inputAssociationClass, inputAssociationClass);
+            this.visitorMap.put(inputAssociationClass, inputAssociationClass);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("AssociationClassImpl".equals(theResult.getClass()
                         .getSimpleName()))) {
-            behavior.visitAssociationClass(inputAssociationClass);
+            this.behavior.visitAssociationClass(inputAssociationClass);
             theResult = super.caseAssociationClass(inputAssociationClass);
         }
         return theResult;
@@ -564,22 +563,22 @@ public class EParseModel extends UMLSwitch<Object> {
     @Override
     public Object caseBehavior(org.eclipse.uml2.uml.Behavior inputBehavior) {
         Object theResult = super.caseBehavior(inputBehavior);
-        for (Object redefinedBehavior : inputBehavior.getRedefinedBehaviors()) {
-            this.doSwitch((EObject) redefinedBehavior);
+        for (EObject redefinedBehavior : inputBehavior.getRedefinedBehaviors()) {
+            this.doSwitch(redefinedBehavior);
         }
-        this.doSwitch((EObject) inputBehavior.getSpecification());
-        for (Object ownedParameter : inputBehavior.getOwnedParameters()) {
-            this.doSwitch((EObject) ownedParameter);
+        this.doSwitch(inputBehavior.getSpecification());
+        for (EObject ownedParameter : inputBehavior.getOwnedParameters()) {
+            this.doSwitch(ownedParameter);
         }
-        this.doSwitch((EObject) inputBehavior.getContext());
-        for (Object precondition : inputBehavior.getPreconditions()) {
-            this.doSwitch((EObject) precondition);
+        this.doSwitch(inputBehavior.getContext());
+        for (EObject precondition : inputBehavior.getPreconditions()) {
+            this.doSwitch(precondition);
         }
-        for (Object postcondition : inputBehavior.getPostconditions()) {
-            this.doSwitch((EObject) postcondition);
+        for (EObject postcondition : inputBehavior.getPostconditions()) {
+            this.doSwitch(postcondition);
         }
-        for (Object ownedParameterSet : inputBehavior.getOwnedParameterSets()) {
-            this.doSwitch((EObject) ownedParameterSet);
+        for (EObject ownedParameterSet : inputBehavior.getOwnedParameterSets()) {
+            this.doSwitch(ownedParameterSet);
         }
         return theResult;
     }
@@ -587,24 +586,24 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("9fe8dc3f-e6c1-429f-9d12-9008d53ecc4f")
     @Override
     public Object caseBehaviorExecutionSpecification(org.eclipse.uml2.uml.BehaviorExecutionSpecification inputBehaviorExecutionSpecification) {
-        Object theResult = visitorMap.get(inputBehaviorExecutionSpecification);
+        Object theResult = this.visitorMap.get(inputBehaviorExecutionSpecification);
         if (theResult == null) {
-            visitorMap.put(inputBehaviorExecutionSpecification,
+            this.visitorMap.put(inputBehaviorExecutionSpecification,
                     inputBehaviorExecutionSpecification);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("BehaviorExecutionSpecificationImpl".equals(theResult
                         .getClass().getSimpleName()))) {
-            behavior
+            this.behavior
             .visitBehaviorExecutionSpecification(inputBehaviorExecutionSpecification);
             theResult = super
             .caseBehaviorExecutionSpecification(inputBehaviorExecutionSpecification);
-            this.doSwitch((EObject) inputBehaviorExecutionSpecification
+            this.doSwitch(inputBehaviorExecutionSpecification
                     .getBehavior());
         }
         return theResult;
@@ -614,20 +613,20 @@ public class EParseModel extends UMLSwitch<Object> {
     @Override
     public Object caseBehavioralFeature(org.eclipse.uml2.uml.BehavioralFeature inputBehavioralFeature) {
         Object theResult = super.caseBehavioralFeature(inputBehavioralFeature);
-        for (Object ownedParameter : inputBehavioralFeature
+        for (EObject ownedParameter : inputBehavioralFeature
                 .getOwnedParameters()) {
-            this.doSwitch((EObject) ownedParameter);
+            this.doSwitch(ownedParameter);
         }
-        for (Object method : inputBehavioralFeature.getMethods()) {
-            this.doSwitch((EObject) method);
+        for (EObject method : inputBehavioralFeature.getMethods()) {
+            this.doSwitch(method);
         }
-        for (Object raisedException : inputBehavioralFeature
+        for (EObject raisedException : inputBehavioralFeature
                 .getRaisedExceptions()) {
-            this.doSwitch((EObject) raisedException);
+            this.doSwitch(raisedException);
         }
-        for (Object ownedParameterSet : inputBehavioralFeature
+        for (EObject ownedParameterSet : inputBehavioralFeature
                 .getOwnedParameterSets()) {
-            this.doSwitch((EObject) ownedParameterSet);
+            this.doSwitch(ownedParameterSet);
         }
         return theResult;
     }
@@ -637,18 +636,18 @@ public class EParseModel extends UMLSwitch<Object> {
     public Object caseBehavioredClassifier(org.eclipse.uml2.uml.BehavioredClassifier inputBehavioredClassifier) {
         Object theResult = super
         .caseBehavioredClassifier(inputBehavioredClassifier);
-        for (Object ownedBehavior : inputBehavioredClassifier
+        for (EObject ownedBehavior : inputBehavioredClassifier
                 .getOwnedBehaviors()) {
-            this.doSwitch((EObject) ownedBehavior);
+            this.doSwitch(ownedBehavior);
         }
-        this.doSwitch((EObject) inputBehavioredClassifier
+        this.doSwitch(inputBehavioredClassifier
                 .getClassifierBehavior());
-        for (Object interfaceRealization : inputBehavioredClassifier
+        for (EObject interfaceRealization : inputBehavioredClassifier
                 .getInterfaceRealizations()) {
-            this.doSwitch((EObject) interfaceRealization);
+            this.doSwitch(interfaceRealization);
         }
-        //        for (Object ownedTrigger : inputBehavioredClassifier.getOwnedTriggers()) {
-        //            this.doSwitch((EObject) ownedTrigger);
+        //        for (EObject ownedTrigger : inputBehavioredClassifier.getOwnedTriggers()) {
+        //            this.doSwitch(ownedTrigger);
         //        }
         return theResult;
     }
@@ -656,23 +655,23 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("940dc886-5b19-4a5b-ab38-701750d2d1bc")
     @Override
     public Object caseBroadcastSignalAction(org.eclipse.uml2.uml.BroadcastSignalAction inputBroadcastSignalAction) {
-        Object theResult = visitorMap.get(inputBroadcastSignalAction);
+        Object theResult = this.visitorMap.get(inputBroadcastSignalAction);
         if (theResult == null) {
-            visitorMap.put(inputBroadcastSignalAction,
+            this.visitorMap.put(inputBroadcastSignalAction,
                     inputBroadcastSignalAction);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("BroadcastSignalActionImpl".equals(theResult.getClass()
                         .getSimpleName()))) {
-            behavior.visitBroadcastSignalAction(inputBroadcastSignalAction);
+            this.behavior.visitBroadcastSignalAction(inputBroadcastSignalAction);
             theResult = super
             .caseBroadcastSignalAction(inputBroadcastSignalAction);
-            this.doSwitch((EObject) inputBroadcastSignalAction.getSignal());
+            this.doSwitch(inputBroadcastSignalAction.getSignal());
         }
         return theResult;
     }
@@ -681,8 +680,8 @@ public class EParseModel extends UMLSwitch<Object> {
     @Override
     public Object caseCallAction(org.eclipse.uml2.uml.CallAction inputCallAction) {
         Object theResult = super.caseCallAction(inputCallAction);
-        for (Object result : inputCallAction.getResults()) {
-            this.doSwitch((EObject) result);
+        for (EObject result : inputCallAction.getResults()) {
+            this.doSwitch(result);
         }
         return theResult;
     }
@@ -690,21 +689,21 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("6cf64002-efa4-47f9-a887-d55e46d27d10")
     @Override
     public Object caseCallBehaviorAction(org.eclipse.uml2.uml.CallBehaviorAction inputCallBehaviorAction) {
-        Object theResult = visitorMap.get(inputCallBehaviorAction);
+        Object theResult = this.visitorMap.get(inputCallBehaviorAction);
         if (theResult == null) {
-            visitorMap.put(inputCallBehaviorAction, inputCallBehaviorAction);
+            this.visitorMap.put(inputCallBehaviorAction, inputCallBehaviorAction);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("CallBehaviorActionImpl".equals(theResult.getClass()
                         .getSimpleName()))) {
-            behavior.visitCallBehaviorAction(inputCallBehaviorAction);
+            this.behavior.visitCallBehaviorAction(inputCallBehaviorAction);
             theResult = super.caseCallBehaviorAction(inputCallBehaviorAction);
-            this.doSwitch((EObject) inputCallBehaviorAction.getBehavior());
+            this.doSwitch(inputCallBehaviorAction.getBehavior());
         }
         return theResult;
     }
@@ -712,21 +711,21 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("4a6cd5f9-a7ab-4ca4-abb0-27269c788f50")
     @Override
     public Object caseCallEvent(org.eclipse.uml2.uml.CallEvent inputCallEvent) {
-        Object theResult = visitorMap.get(inputCallEvent);
+        Object theResult = this.visitorMap.get(inputCallEvent);
         if (theResult == null) {
-            visitorMap.put(inputCallEvent, inputCallEvent);
+            this.visitorMap.put(inputCallEvent, inputCallEvent);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("CallEventImpl".equals(theResult.getClass()
                         .getSimpleName()))) {
-            behavior.visitCallEvent(inputCallEvent);
+            this.behavior.visitCallEvent(inputCallEvent);
             theResult = super.caseCallEvent(inputCallEvent);
-            this.doSwitch((EObject) inputCallEvent.getOperation());
+            this.doSwitch(inputCallEvent.getOperation());
         }
         return theResult;
     }
@@ -734,22 +733,22 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("5a34fc3a-b268-49c9-95ab-b1fd2f56e611")
     @Override
     public Object caseCallOperationAction(org.eclipse.uml2.uml.CallOperationAction inputCallOperationAction) {
-        Object theResult = visitorMap.get(inputCallOperationAction);
+        Object theResult = this.visitorMap.get(inputCallOperationAction);
         if (theResult == null) {
-            visitorMap.put(inputCallOperationAction, inputCallOperationAction);
+            this.visitorMap.put(inputCallOperationAction, inputCallOperationAction);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("CallOperationActionImpl".equals(theResult.getClass()
                         .getSimpleName()))) {
-            behavior.visitCallOperationAction(inputCallOperationAction);
+            this.behavior.visitCallOperationAction(inputCallOperationAction);
             theResult = super.caseCallOperationAction(inputCallOperationAction);
-            this.doSwitch((EObject) inputCallOperationAction.getOperation());
-            this.doSwitch((EObject) inputCallOperationAction.getTarget());
+            this.doSwitch(inputCallOperationAction.getOperation());
+            this.doSwitch(inputCallOperationAction.getTarget());
         }
         return theResult;
     }
@@ -757,19 +756,19 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("5fe0fc80-6fc4-4cc2-af08-678289d14f5d")
     @Override
     public Object caseCentralBufferNode(org.eclipse.uml2.uml.CentralBufferNode inputCentralBufferNode) {
-        Object theResult = visitorMap.get(inputCentralBufferNode);
+        Object theResult = this.visitorMap.get(inputCentralBufferNode);
         if (theResult == null) {
-            visitorMap.put(inputCentralBufferNode, inputCentralBufferNode);
+            this.visitorMap.put(inputCentralBufferNode, inputCentralBufferNode);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("CentralBufferNodeImpl".equals(theResult.getClass()
                         .getSimpleName()))) {
-            behavior.visitCentralBufferNode(inputCentralBufferNode);
+            this.behavior.visitCentralBufferNode(inputCentralBufferNode);
             theResult = super.caseCentralBufferNode(inputCentralBufferNode);
         }
         return theResult;
@@ -778,21 +777,21 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("aecdfde9-6dcc-4468-b2ec-1876f1aabb65")
     @Override
     public Object caseChangeEvent(org.eclipse.uml2.uml.ChangeEvent inputChangeEvent) {
-        Object theResult = visitorMap.get(inputChangeEvent);
+        Object theResult = this.visitorMap.get(inputChangeEvent);
         if (theResult == null) {
-            visitorMap.put(inputChangeEvent, inputChangeEvent);
+            this.visitorMap.put(inputChangeEvent, inputChangeEvent);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("ChangeEventImpl".equals(theResult.getClass()
                         .getSimpleName()))) {
-            behavior.visitChangeEvent(inputChangeEvent);
+            this.behavior.visitChangeEvent(inputChangeEvent);
             theResult = super.caseChangeEvent(inputChangeEvent);
-            this.doSwitch((EObject) inputChangeEvent.getChangeExpression());
+            this.doSwitch(inputChangeEvent.getChangeExpression());
         }
         return theResult;
     }
@@ -800,36 +799,36 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("fdefee9d-3d89-41f2-ac2a-7042a99df61e")
     @Override
     public Object caseClass(org.eclipse.uml2.uml.Class inputClass) {
-        Object theResult = visitorMap.get(inputClass);
+        Object theResult = this.visitorMap.get(inputClass);
         if (theResult == null) {
-            visitorMap.put(inputClass, inputClass);
+            this.visitorMap.put(inputClass, inputClass);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("ClassImpl".equals(theResult.getClass().getSimpleName()))) {
-            behavior.visitClass(inputClass);
+            this.behavior.visitClass(inputClass);
             theResult = super.caseClass(inputClass);
-            for (Object nestedClassifier : inputClass.getNestedClassifiers()) {
-                this.doSwitch((EObject) nestedClassifier);
+            for (EObject nestedClassifier : inputClass.getNestedClassifiers()) {
+                this.doSwitch(nestedClassifier);
             }
-            for (Object ownedAttribute : inputClass.getOwnedAttributes()) {
-                this.doSwitch((EObject) ownedAttribute);
+            for (EObject ownedAttribute : inputClass.getOwnedAttributes()) {
+                this.doSwitch(ownedAttribute);
             }
-            for (Object ownedOperation : inputClass.getOwnedOperations()) {
-                this.doSwitch((EObject) ownedOperation);
+            for (EObject ownedOperation : inputClass.getOwnedOperations()) {
+                this.doSwitch(ownedOperation);
             }
-            for (Object superClass : inputClass.getSuperClasses()) {
-                this.doSwitch((EObject) superClass);
+            for (EObject superClass : inputClass.getSuperClasses()) {
+                this.doSwitch(superClass);
             }
-            for (Object ownedReception : inputClass.getOwnedReceptions()) {
-                this.doSwitch((EObject) ownedReception);
+            for (EObject ownedReception : inputClass.getOwnedReceptions()) {
+                this.doSwitch(ownedReception);
             }
-            for (Object extension : inputClass.getExtensions()) {
-                this.doSwitch((EObject) extension);
+            for (EObject extension : inputClass.getExtensions()) {
+                this.doSwitch(extension);
             }
         }
         return theResult;
@@ -839,78 +838,74 @@ public class EParseModel extends UMLSwitch<Object> {
     @Override
     public Object caseClassifier(org.eclipse.uml2.uml.Classifier inputClassifier) {
         Object theResult = super.caseClassifier(inputClassifier);
-        for (Object generalization : inputClassifier.getGeneralizations()) {
-            this.doSwitch((EObject) generalization);
+        for (EObject generalization : inputClassifier.getGeneralizations()) {
+            this.doSwitch(generalization);
         }
-        for (Object feature : inputClassifier.getFeatures()) {
-            this.doSwitch((EObject) feature);
+        for (EObject feature : inputClassifier.getFeatures()) {
+            this.doSwitch(feature);
         }
-        for (Object inheritedMember : inputClassifier.getInheritedMembers()) {
-            this.doSwitch((EObject) inheritedMember);
+        for (EObject inheritedMember : inputClassifier.getInheritedMembers()) {
+            this.doSwitch(inheritedMember);
         }
-        for (Object redefinedClassifier : inputClassifier
+        for (EObject redefinedClassifier : inputClassifier
                 .getRedefinedClassifiers()) {
-            this.doSwitch((EObject) redefinedClassifier);
+            this.doSwitch(redefinedClassifier);
         }
-        for (Object general : inputClassifier.getGenerals()) {
-            this.doSwitch((EObject) general);
+        for (EObject general : inputClassifier.getGenerals()) {
+            this.doSwitch(general);
         }
-        for (Object substitution : inputClassifier.getSubstitutions()) {
-            this.doSwitch((EObject) substitution);
+        for (EObject substitution : inputClassifier.getSubstitutions()) {
+            this.doSwitch(substitution);
         }
-        for (Object attribute : inputClassifier.getAttributes()) {
-            this.doSwitch((EObject) attribute);
+        for (EObject attribute : inputClassifier.getAttributes()) {
+            this.doSwitch(attribute);
         }
-        this.doSwitch((EObject) inputClassifier.getRepresentation());
-        for (Object collaborationUse : inputClassifier.getCollaborationUses()) {
-            this.doSwitch((EObject) collaborationUse);
+        this.doSwitch(inputClassifier.getRepresentation());
+        for (EObject collaborationUse : inputClassifier.getCollaborationUses()) {
+            this.doSwitch(collaborationUse);
         }
-        for (Object ownedUseCase : inputClassifier.getOwnedUseCases()) {
-            this.doSwitch((EObject) ownedUseCase);
+        for (EObject ownedUseCase : inputClassifier.getOwnedUseCases()) {
+            this.doSwitch(ownedUseCase);
         }
-        for (Object useCase : inputClassifier.getUseCases()) {
-            this.doSwitch((EObject) useCase);
+        for (EObject useCase : inputClassifier.getUseCases()) {
+            this.doSwitch(useCase);
         }
-        for (Object powertypeExtent : inputClassifier.getPowertypeExtents()) {
-            this.doSwitch((EObject) powertypeExtent);
+        for (EObject powertypeExtent : inputClassifier.getPowertypeExtents()) {
+            this.doSwitch(powertypeExtent);
         }
-        this.doSwitch((EObject) inputClassifier.getOwnedTemplateSignature());
-        this.doSwitch((EObject) inputClassifier.getTemplateParameter());
+        this.doSwitch(inputClassifier.getOwnedTemplateSignature());
+        this.doSwitch(inputClassifier.getTemplateParameter());
         return theResult;
     }
 
     @objid ("8f3de447-2c92-49a1-9f8c-d610b99f1e9f")
     @Override
     public Object caseClassifierTemplateParameter(org.eclipse.uml2.uml.ClassifierTemplateParameter inputClassifierTemplateParameter) {
-        Object theResult = visitorMap.get(inputClassifierTemplateParameter);
+        Object theResult = this.visitorMap.get(inputClassifierTemplateParameter);
         if (theResult == null) {
-            visitorMap.put(inputClassifierTemplateParameter,
+            this.visitorMap.put(inputClassifierTemplateParameter,
                     inputClassifierTemplateParameter);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("ClassifierTemplateParameterImpl".equals(theResult
                         .getClass().getSimpleName()))) {
-            behavior
+            this.behavior
             .visitClassifierTemplateParameter(inputClassifierTemplateParameter);
             theResult = super
             .caseClassifierTemplateParameter(inputClassifierTemplateParameter);
-            this.doSwitch((EObject) inputClassifierTemplateParameter
+            this.doSwitch(inputClassifierTemplateParameter
                     .getParameteredElement());
-            //            this.doSwitch((EObject) inputClassifierTemplateParameter
-            //                    .getDefaultClassifier());
-            this.doSwitch((EObject) inputClassifierTemplateParameter
+            this.doSwitch(inputClassifierTemplateParameter
                     .getDefault());
-            //            this.doSwitch((EObject) inputClassifierTemplateParameter
-            //                    .getConstrainingClassifier());
         
-            for (Object constrainingClassifier : inputClassifierTemplateParameter
+            for (EObject constrainingClassifier : inputClassifierTemplateParameter
                     .getConstrainingClassifiers()) {
-                this.doSwitch((EObject) constrainingClassifier);
+                this.doSwitch(constrainingClassifier);
             }
         }
         return theResult;
@@ -919,34 +914,34 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("e9934b8a-4d28-4ffd-ad6d-6a2f2cdd9065")
     @Override
     public Object caseClause(org.eclipse.uml2.uml.Clause inputClause) {
-        Object theResult = visitorMap.get(inputClause);
+        Object theResult = this.visitorMap.get(inputClause);
         if (theResult == null) {
-            visitorMap.put(inputClause, inputClause);
+            this.visitorMap.put(inputClause, inputClause);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("ClauseImpl".equals(theResult.getClass().getSimpleName()))) {
-            behavior.visitClause(inputClause);
+            this.behavior.visitClause(inputClause);
             theResult = super.caseClause(inputClause);
-            for (Object test : inputClause.getTests()) {
-                this.doSwitch((EObject) test);
+            for (EObject test : inputClause.getTests()) {
+                this.doSwitch(test);
             }
-            for (Object body : inputClause.getBodies()) {
-                this.doSwitch((EObject) body);
+            for (EObject body : inputClause.getBodies()) {
+                this.doSwitch(body);
             }
-            for (Object predecessorClause : inputClause.getPredecessorClauses()) {
-                this.doSwitch((EObject) predecessorClause);
+            for (EObject predecessorClause : inputClause.getPredecessorClauses()) {
+                this.doSwitch(predecessorClause);
             }
-            for (Object successorClause : inputClause.getSuccessorClauses()) {
-                this.doSwitch((EObject) successorClause);
+            for (EObject successorClause : inputClause.getSuccessorClauses()) {
+                this.doSwitch(successorClause);
             }
-            this.doSwitch((EObject) inputClause.getDecider());
-            for (Object bodyOutput : inputClause.getBodyOutputs()) {
-                this.doSwitch((EObject) bodyOutput);
+            this.doSwitch(inputClause.getDecider());
+            for (EObject bodyOutput : inputClause.getBodyOutputs()) {
+                this.doSwitch(bodyOutput);
             }
         }
         return theResult;
@@ -955,24 +950,24 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("cbd8c12f-70e8-4e9e-8b55-84d7801dc156")
     @Override
     public Object caseClearAssociationAction(org.eclipse.uml2.uml.ClearAssociationAction inputClearAssociationAction) {
-        Object theResult = visitorMap.get(inputClearAssociationAction);
+        Object theResult = this.visitorMap.get(inputClearAssociationAction);
         if (theResult == null) {
-            visitorMap.put(inputClearAssociationAction,
+            this.visitorMap.put(inputClearAssociationAction,
                     inputClearAssociationAction);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("ClearAssociationActionImpl".equals(theResult.getClass()
                         .getSimpleName()))) {
-            behavior.visitClearAssociationAction(inputClearAssociationAction);
+            this.behavior.visitClearAssociationAction(inputClearAssociationAction);
             theResult = super
             .caseClearAssociationAction(inputClearAssociationAction);
-            this.doSwitch((EObject) inputClearAssociationAction.getObject());
-            this.doSwitch((EObject) inputClearAssociationAction
+            this.doSwitch(inputClearAssociationAction.getObject());
+            this.doSwitch(inputClearAssociationAction
                     .getAssociation());
         }
         return theResult;
@@ -981,20 +976,20 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("ee8ab5aa-a5a0-494a-94db-ad5e113d02d7")
     @Override
     public Object caseClearStructuralFeatureAction(org.eclipse.uml2.uml.ClearStructuralFeatureAction inputClearStructuralFeatureAction) {
-        Object theResult = visitorMap.get(inputClearStructuralFeatureAction);
+        Object theResult = this.visitorMap.get(inputClearStructuralFeatureAction);
         if (theResult == null) {
-            visitorMap.put(inputClearStructuralFeatureAction,
+            this.visitorMap.put(inputClearStructuralFeatureAction,
                     inputClearStructuralFeatureAction);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("ClearStructuralFeatureActionImpl".equals(theResult
                         .getClass().getSimpleName()))) {
-            behavior
+            this.behavior
             .visitClearStructuralFeatureAction(inputClearStructuralFeatureAction);
             theResult = super
             .caseClearStructuralFeatureAction(inputClearStructuralFeatureAction);
@@ -1005,19 +1000,19 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("df42f0cf-5ddb-4a1f-9887-f5be7c4eb605")
     @Override
     public Object caseClearVariableAction(org.eclipse.uml2.uml.ClearVariableAction inputClearVariableAction) {
-        Object theResult = visitorMap.get(inputClearVariableAction);
+        Object theResult = this.visitorMap.get(inputClearVariableAction);
         if (theResult == null) {
-            visitorMap.put(inputClearVariableAction, inputClearVariableAction);
+            this.visitorMap.put(inputClearVariableAction, inputClearVariableAction);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("ClearVariableActionImpl".equals(theResult.getClass()
                         .getSimpleName()))) {
-            behavior.visitClearVariableAction(inputClearVariableAction);
+            this.behavior.visitClearVariableAction(inputClearVariableAction);
             theResult = super.caseClearVariableAction(inputClearVariableAction);
         }
         return theResult;
@@ -1026,23 +1021,23 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("7017f6fb-09a0-46a1-ae6e-7abbe2fc2002")
     @Override
     public Object caseCollaboration(org.eclipse.uml2.uml.Collaboration inputCollaboration) {
-        Object theResult = visitorMap.get(inputCollaboration);
+        Object theResult = this.visitorMap.get(inputCollaboration);
         if (theResult == null) {
-            visitorMap.put(inputCollaboration, inputCollaboration);
+            this.visitorMap.put(inputCollaboration, inputCollaboration);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("CollaborationImpl".equals(theResult.getClass()
                         .getSimpleName()))) {
-            behavior.visitCollaboration(inputCollaboration);
+            this.behavior.visitCollaboration(inputCollaboration);
             theResult = super.caseCollaboration(inputCollaboration);
-            for (Object collaborationRole : inputCollaboration
+            for (EObject collaborationRole : inputCollaboration
                     .getCollaborationRoles()) {
-                this.doSwitch((EObject) collaborationRole);
+                this.doSwitch(collaborationRole);
             }
         }
         return theResult;
@@ -1051,23 +1046,23 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("f13be56b-1922-44b2-bf59-f268f0bed03d")
     @Override
     public Object caseCollaborationUse(org.eclipse.uml2.uml.CollaborationUse inputCollaborationUse) {
-        Object theResult = visitorMap.get(inputCollaborationUse);
+        Object theResult = this.visitorMap.get(inputCollaborationUse);
         if (theResult == null) {
-            visitorMap.put(inputCollaborationUse, inputCollaborationUse);
+            this.visitorMap.put(inputCollaborationUse, inputCollaborationUse);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("CollaborationUseImpl".equals(theResult.getClass()
                         .getSimpleName()))) {
-            behavior.visitCollaborationUse(inputCollaborationUse);
+            this.behavior.visitCollaborationUse(inputCollaborationUse);
             theResult = super.caseCollaborationUse(inputCollaborationUse);
-            this.doSwitch((EObject) inputCollaborationUse.getType());
-            for (Object roleBinding : inputCollaborationUse.getRoleBindings()) {
-                this.doSwitch((EObject) roleBinding);
+            this.doSwitch(inputCollaborationUse.getType());
+            for (EObject roleBinding : inputCollaborationUse.getRoleBindings()) {
+                this.doSwitch(roleBinding);
             }
         }
         return theResult;
@@ -1076,26 +1071,26 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("70b2b1e0-0cf8-4121-85bd-92642af186e0")
     @Override
     public Object caseCombinedFragment(org.eclipse.uml2.uml.CombinedFragment inputCombinedFragment) {
-        Object theResult = visitorMap.get(inputCombinedFragment);
+        Object theResult = this.visitorMap.get(inputCombinedFragment);
         if (theResult == null) {
-            visitorMap.put(inputCombinedFragment, inputCombinedFragment);
+            this.visitorMap.put(inputCombinedFragment, inputCombinedFragment);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("CombinedFragmentImpl".equals(theResult.getClass()
                         .getSimpleName()))) {
-            behavior.visitCombinedFragment(inputCombinedFragment);
+            this.behavior.visitCombinedFragment(inputCombinedFragment);
             theResult = super.caseCombinedFragment(inputCombinedFragment);
-            for (Object operand : inputCombinedFragment.getOperands()) {
-                this.doSwitch((EObject) operand);
+            for (EObject operand : inputCombinedFragment.getOperands()) {
+                this.doSwitch(operand);
             }
-            for (Object cfragmentGate : inputCombinedFragment
+            for (EObject cfragmentGate : inputCombinedFragment
                     .getCfragmentGates()) {
-                this.doSwitch((EObject) cfragmentGate);
+                this.doSwitch(cfragmentGate);
             }
         }
         return theResult;
@@ -1104,21 +1099,21 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("1e73a1a2-a361-4b33-bb1d-834894f18e03")
     @Override
     public Object caseComment(org.eclipse.uml2.uml.Comment inputComment) {
-        Object theResult = visitorMap.get(inputComment);
+        Object theResult = this.visitorMap.get(inputComment);
         if (theResult == null) {
-            visitorMap.put(inputComment, inputComment);
+            this.visitorMap.put(inputComment, inputComment);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("CommentImpl".equals(theResult.getClass().getSimpleName()))) {
-            behavior.visitComment(inputComment);
+            this.behavior.visitComment(inputComment);
             theResult = super.caseComment(inputComment);
-            for (Object annotatedElement : inputComment.getAnnotatedElements()) {
-                this.doSwitch((EObject) annotatedElement);
+            for (EObject annotatedElement : inputComment.getAnnotatedElements()) {
+                this.doSwitch(annotatedElement);
             }
         }
         return theResult;
@@ -1127,19 +1122,19 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("e9c04e92-d3e9-445e-963a-246e7c633a5b")
     @Override
     public Object caseCommunicationPath(org.eclipse.uml2.uml.CommunicationPath inputCommunicationPath) {
-        Object theResult = visitorMap.get(inputCommunicationPath);
+        Object theResult = this.visitorMap.get(inputCommunicationPath);
         if (theResult == null) {
-            visitorMap.put(inputCommunicationPath, inputCommunicationPath);
+            this.visitorMap.put(inputCommunicationPath, inputCommunicationPath);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("CommunicationPathImpl".equals(theResult.getClass()
                         .getSimpleName()))) {
-            behavior.visitCommunicationPath(inputCommunicationPath);
+            this.behavior.visitCommunicationPath(inputCommunicationPath);
             theResult = super.caseCommunicationPath(inputCommunicationPath);
         }
         return theResult;
@@ -1148,31 +1143,31 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("dc4e50e7-2bb4-4e68-904e-f9211530b305")
     @Override
     public Object caseComponent(org.eclipse.uml2.uml.Component inputComponent) {
-        Object theResult = visitorMap.get(inputComponent);
+        Object theResult = this.visitorMap.get(inputComponent);
         if (theResult == null) {
-            visitorMap.put(inputComponent, inputComponent);
+            this.visitorMap.put(inputComponent, inputComponent);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("ComponentImpl".equals(theResult.getClass()
                         .getSimpleName()))) {
-            behavior.visitComponent(inputComponent);
+            this.behavior.visitComponent(inputComponent);
             theResult = super.caseComponent(inputComponent);
-            for (Object required : inputComponent.getRequireds()) {
-                this.doSwitch((EObject) required);
+            for (EObject required : inputComponent.getRequireds()) {
+                this.doSwitch(required);
             }
-            for (Object provided : inputComponent.getProvideds()) {
-                this.doSwitch((EObject) provided);
+            for (EObject provided : inputComponent.getProvideds()) {
+                this.doSwitch(provided);
             }
-            for (Object realization : inputComponent.getRealizations()) {
-                this.doSwitch((EObject) realization);
+            for (EObject realization : inputComponent.getRealizations()) {
+                this.doSwitch(realization);
             }
-            for (Object packagedElement : inputComponent.getPackagedElements()) {
-                this.doSwitch((EObject) packagedElement);
+            for (EObject packagedElement : inputComponent.getPackagedElements()) {
+                this.doSwitch(packagedElement);
             }
         }
         return theResult;
@@ -1181,29 +1176,26 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("d700efda-9d18-4b27-b603-3a7c3c702cd9")
     @Override
     public Object caseComponentRealization(org.eclipse.uml2.uml.ComponentRealization inputComponentRealization) {
-        Object theResult = visitorMap.get(inputComponentRealization);
+        Object theResult = this.visitorMap.get(inputComponentRealization);
         if (theResult == null) {
-            visitorMap
+            this.visitorMap
             .put(inputComponentRealization, inputComponentRealization);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("ComponentRealizationImpl".equals(theResult.getClass()
                         .getSimpleName()))) {
-            behavior.visitComponentRealization(inputComponentRealization);
+            this.behavior.visitComponentRealization(inputComponentRealization);
             theResult = super
             .caseComponentRealization(inputComponentRealization);
-            this.doSwitch((EObject) inputComponentRealization.getAbstraction());
+            this.doSwitch(inputComponentRealization.getAbstraction());
         
-            //            this.doSwitch((EObject) inputComponentRealization
-            //                    .getRealizingClassifier());
-        
-            for (Object realization : inputComponentRealization.getRealizingClassifiers()) {
-                this.doSwitch((EObject) realization);
+            for (EObject realization : inputComponentRealization.getRealizingClassifiers()) {
+                this.doSwitch(realization);
             }
         }
         return theResult;
@@ -1212,25 +1204,25 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("3fd04f14-3372-41d0-874f-23d65956359e")
     @Override
     public Object caseConditionalNode(org.eclipse.uml2.uml.ConditionalNode inputConditionalNode) {
-        Object theResult = visitorMap.get(inputConditionalNode);
+        Object theResult = this.visitorMap.get(inputConditionalNode);
         if (theResult == null) {
-            visitorMap.put(inputConditionalNode, inputConditionalNode);
+            this.visitorMap.put(inputConditionalNode, inputConditionalNode);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("ConditionalNodeImpl".equals(theResult.getClass()
                         .getSimpleName()))) {
-            behavior.visitConditionalNode(inputConditionalNode);
+            this.behavior.visitConditionalNode(inputConditionalNode);
             theResult = super.caseConditionalNode(inputConditionalNode);
-            for (Object clause : inputConditionalNode.getClauses()) {
-                this.doSwitch((EObject) clause);
+            for (EObject clause : inputConditionalNode.getClauses()) {
+                this.doSwitch(clause);
             }
-            for (Object result : inputConditionalNode.getResults()) {
-                this.doSwitch((EObject) result);
+            for (EObject result : inputConditionalNode.getResults()) {
+                this.doSwitch(result);
             }
         }
         return theResult;
@@ -1241,35 +1233,35 @@ public class EParseModel extends UMLSwitch<Object> {
     public Object caseConnectableElement(org.eclipse.uml2.uml.ConnectableElement inputConnectableElement) {
         Object theResult = super
         .caseConnectableElement(inputConnectableElement);
-        for (Object end : inputConnectableElement.getEnds()) {
-            this.doSwitch((EObject) end);
+        for (EObject end : inputConnectableElement.getEnds()) {
+            this.doSwitch(end);
         }
-        this.doSwitch((EObject) inputConnectableElement.getTemplateParameter());
+        this.doSwitch(inputConnectableElement.getTemplateParameter());
         return theResult;
     }
 
     @objid ("aa42f0e1-54d1-41fe-a816-2503589ba196")
     @Override
     public Object caseConnectableElementTemplateParameter(org.eclipse.uml2.uml.ConnectableElementTemplateParameter inputConnectableElementTemplateParameter) {
-        Object theResult = visitorMap
+        Object theResult = this.visitorMap
         .get(inputConnectableElementTemplateParameter);
         if (theResult == null) {
-            visitorMap.put(inputConnectableElementTemplateParameter,
+            this.visitorMap.put(inputConnectableElementTemplateParameter,
                     inputConnectableElementTemplateParameter);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("ConnectableElementTemplateParameterImpl".equals(theResult
                         .getClass().getSimpleName()))) {
-            behavior
+            this.behavior
             .visitConnectableElementTemplateParameter(inputConnectableElementTemplateParameter);
             theResult = super
             .caseConnectableElementTemplateParameter(inputConnectableElementTemplateParameter);
-            this.doSwitch((EObject) inputConnectableElementTemplateParameter
+            this.doSwitch(inputConnectableElementTemplateParameter
                     .getParameteredElement());
         }
         return theResult;
@@ -1278,29 +1270,29 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("e8e0a973-ef52-402b-a262-b18c78a39392")
     @Override
     public Object caseConnectionPointReference(org.eclipse.uml2.uml.ConnectionPointReference inputConnectionPointReference) {
-        Object theResult = visitorMap.get(inputConnectionPointReference);
+        Object theResult = this.visitorMap.get(inputConnectionPointReference);
         if (theResult == null) {
-            visitorMap.put(inputConnectionPointReference,
+            this.visitorMap.put(inputConnectionPointReference,
                     inputConnectionPointReference);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("ConnectionPointReferenceImpl".equals(theResult.getClass()
                         .getSimpleName()))) {
-            behavior
+            this.behavior
             .visitConnectionPointReference(inputConnectionPointReference);
             theResult = super
             .caseConnectionPointReference(inputConnectionPointReference);
-            for (Object entry : inputConnectionPointReference.getEntries()) {
-                this.doSwitch((EObject) entry);
+            for (EObject entry : inputConnectionPointReference.getEntries()) {
+                this.doSwitch(entry);
             }
-            this.doSwitch((EObject) inputConnectionPointReference.getState());
-            for (Object exit : inputConnectionPointReference.getExits()) {
-                this.doSwitch((EObject) exit);
+            this.doSwitch(inputConnectionPointReference.getState());
+            for (EObject exit : inputConnectionPointReference.getExits()) {
+                this.doSwitch(exit);
             }
         }
         return theResult;
@@ -1309,30 +1301,30 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("c8776c0a-ad90-49ec-9929-1886831c55b9")
     @Override
     public Object caseConnector(org.eclipse.uml2.uml.Connector inputConnector) {
-        Object theResult = visitorMap.get(inputConnector);
+        Object theResult = this.visitorMap.get(inputConnector);
         if (theResult == null) {
-            visitorMap.put(inputConnector, inputConnector);
+            this.visitorMap.put(inputConnector, inputConnector);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("ConnectorImpl".equals(theResult.getClass()
                         .getSimpleName()))) {
-            behavior.visitConnector(inputConnector);
+            this.behavior.visitConnector(inputConnector);
             theResult = super.caseConnector(inputConnector);
-            this.doSwitch((EObject) inputConnector.getType());
-            for (Object redefinedConnector : inputConnector
+            this.doSwitch(inputConnector.getType());
+            for (EObject redefinedConnector : inputConnector
                     .getRedefinedConnectors()) {
-                this.doSwitch((EObject) redefinedConnector);
+                this.doSwitch(redefinedConnector);
             }
-            for (Object end : inputConnector.getEnds()) {
-                this.doSwitch((EObject) end);
+            for (EObject end : inputConnector.getEnds()) {
+                this.doSwitch(end);
             }
-            for (Object contract : inputConnector.getContracts()) {
-                this.doSwitch((EObject) contract);
+            for (EObject contract : inputConnector.getContracts()) {
+                this.doSwitch(contract);
             }
         }
         return theResult;
@@ -1341,23 +1333,23 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("46dea458-935f-4a25-9abf-395c77ba1618")
     @Override
     public Object caseConnectorEnd(org.eclipse.uml2.uml.ConnectorEnd inputConnectorEnd) {
-        Object theResult = visitorMap.get(inputConnectorEnd);
+        Object theResult = this.visitorMap.get(inputConnectorEnd);
         if (theResult == null) {
-            visitorMap.put(inputConnectorEnd, inputConnectorEnd);
+            this.visitorMap.put(inputConnectorEnd, inputConnectorEnd);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("ConnectorEndImpl".equals(theResult.getClass()
                         .getSimpleName()))) {
-            behavior.visitConnectorEnd(inputConnectorEnd);
+            this.behavior.visitConnectorEnd(inputConnectorEnd);
             theResult = super.caseConnectorEnd(inputConnectorEnd);
-            this.doSwitch((EObject) inputConnectorEnd.getDefiningEnd());
-            this.doSwitch((EObject) inputConnectorEnd.getRole());
-            this.doSwitch((EObject) inputConnectorEnd.getPartWithPort());
+            this.doSwitch(inputConnectorEnd.getDefiningEnd());
+            this.doSwitch(inputConnectorEnd.getRole());
+            this.doSwitch(inputConnectorEnd.getPartWithPort());
         }
         return theResult;
     }
@@ -1365,24 +1357,24 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("cae8f9a4-1bc3-4649-8f20-726272098e67")
     @Override
     public Object caseConsiderIgnoreFragment(org.eclipse.uml2.uml.ConsiderIgnoreFragment inputConsiderIgnoreFragment) {
-        Object theResult = visitorMap.get(inputConsiderIgnoreFragment);
+        Object theResult = this.visitorMap.get(inputConsiderIgnoreFragment);
         if (theResult == null) {
-            visitorMap.put(inputConsiderIgnoreFragment,
+            this.visitorMap.put(inputConsiderIgnoreFragment,
                     inputConsiderIgnoreFragment);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("ConsiderIgnoreFragmentImpl".equals(theResult.getClass()
                         .getSimpleName()))) {
-            behavior.visitConsiderIgnoreFragment(inputConsiderIgnoreFragment);
+            this.behavior.visitConsiderIgnoreFragment(inputConsiderIgnoreFragment);
             theResult = super
             .caseConsiderIgnoreFragment(inputConsiderIgnoreFragment);
-            for (Object message : inputConsiderIgnoreFragment.getMessages()) {
-                this.doSwitch((EObject) message);
+            for (EObject message : inputConsiderIgnoreFragment.getMessages()) {
+                this.doSwitch(message);
             }
         }
         return theResult;
@@ -1391,26 +1383,26 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("dd7e3e5a-a4fc-4e18-88aa-4fd4558daa76")
     @Override
     public Object caseConstraint(org.eclipse.uml2.uml.Constraint inputConstraint) {
-        Object theResult = visitorMap.get(inputConstraint);
+        Object theResult = this.visitorMap.get(inputConstraint);
         if (theResult == null) {
-            visitorMap.put(inputConstraint, inputConstraint);
+            this.visitorMap.put(inputConstraint, inputConstraint);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("ConstraintImpl".equals(theResult.getClass()
                         .getSimpleName()))) {
-            behavior.visitConstraint(inputConstraint);
+            this.behavior.visitConstraint(inputConstraint);
             theResult = super.caseConstraint(inputConstraint);
-            for (Object constrainedElement : inputConstraint
+            for (EObject constrainedElement : inputConstraint
                     .getConstrainedElements()) {
-                this.doSwitch((EObject) constrainedElement);
+                this.doSwitch(constrainedElement);
             }
-            this.doSwitch((EObject) inputConstraint.getSpecification());
-            this.doSwitch((EObject) inputConstraint.getContext());
+            this.doSwitch(inputConstraint.getSpecification());
+            this.doSwitch(inputConstraint.getContext());
         }
         return theResult;
     }
@@ -1418,19 +1410,19 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("28a323fd-a9ed-4f2e-97a0-ae75942a8f64")
     @Override
     public Object caseContinuation(org.eclipse.uml2.uml.Continuation inputContinuation) {
-        Object theResult = visitorMap.get(inputContinuation);
+        Object theResult = this.visitorMap.get(inputContinuation);
         if (theResult == null) {
-            visitorMap.put(inputContinuation, inputContinuation);
+            this.visitorMap.put(inputContinuation, inputContinuation);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("ContinuationImpl".equals(theResult.getClass()
                         .getSimpleName()))) {
-            behavior.visitContinuation(inputContinuation);
+            this.behavior.visitContinuation(inputContinuation);
             theResult = super.caseContinuation(inputContinuation);
         }
         return theResult;
@@ -1439,19 +1431,19 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("8e8b6912-3c3f-45ec-b96c-a764986e2694")
     @Override
     public Object caseControlFlow(org.eclipse.uml2.uml.ControlFlow inputControlFlow) {
-        Object theResult = visitorMap.get(inputControlFlow);
+        Object theResult = this.visitorMap.get(inputControlFlow);
         if (theResult == null) {
-            visitorMap.put(inputControlFlow, inputControlFlow);
+            this.visitorMap.put(inputControlFlow, inputControlFlow);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("ControlFlowImpl".equals(theResult.getClass()
                         .getSimpleName()))) {
-            behavior.visitControlFlow(inputControlFlow);
+            this.behavior.visitControlFlow(inputControlFlow);
             theResult = super.caseControlFlow(inputControlFlow);
         }
         return theResult;
@@ -1466,22 +1458,22 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("1dd0755e-8f02-4a9f-8163-8d0c77cccece")
     @Override
     public Object caseCreateLinkAction(org.eclipse.uml2.uml.CreateLinkAction inputCreateLinkAction) {
-        Object theResult = visitorMap.get(inputCreateLinkAction);
+        Object theResult = this.visitorMap.get(inputCreateLinkAction);
         if (theResult == null) {
-            visitorMap.put(inputCreateLinkAction, inputCreateLinkAction);
+            this.visitorMap.put(inputCreateLinkAction, inputCreateLinkAction);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("CreateLinkActionImpl".equals(theResult.getClass()
                         .getSimpleName()))) {
-            behavior.visitCreateLinkAction(inputCreateLinkAction);
+            this.behavior.visitCreateLinkAction(inputCreateLinkAction);
             theResult = super.caseCreateLinkAction(inputCreateLinkAction);
-            for (Object endData : inputCreateLinkAction.getEndData()) {
-                this.doSwitch((EObject) endData);
+            for (EObject endData : inputCreateLinkAction.getEndData()) {
+                this.doSwitch(endData);
             }
         }
         return theResult;
@@ -1490,23 +1482,23 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("ae10c2d7-f9f3-4af0-b251-062b36f64aea")
     @Override
     public Object caseCreateLinkObjectAction(org.eclipse.uml2.uml.CreateLinkObjectAction inputCreateLinkObjectAction) {
-        Object theResult = visitorMap.get(inputCreateLinkObjectAction);
+        Object theResult = this.visitorMap.get(inputCreateLinkObjectAction);
         if (theResult == null) {
-            visitorMap.put(inputCreateLinkObjectAction,
+            this.visitorMap.put(inputCreateLinkObjectAction,
                     inputCreateLinkObjectAction);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("CreateLinkObjectActionImpl".equals(theResult.getClass()
                         .getSimpleName()))) {
-            behavior.visitCreateLinkObjectAction(inputCreateLinkObjectAction);
+            this.behavior.visitCreateLinkObjectAction(inputCreateLinkObjectAction);
             theResult = super
             .caseCreateLinkObjectAction(inputCreateLinkObjectAction);
-            this.doSwitch((EObject) inputCreateLinkObjectAction.getResult());
+            this.doSwitch(inputCreateLinkObjectAction.getResult());
         }
         return theResult;
     }
@@ -1514,22 +1506,22 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("1b32fc9e-36a4-40f5-9684-5a56bcc40259")
     @Override
     public Object caseCreateObjectAction(org.eclipse.uml2.uml.CreateObjectAction inputCreateObjectAction) {
-        Object theResult = visitorMap.get(inputCreateObjectAction);
+        Object theResult = this.visitorMap.get(inputCreateObjectAction);
         if (theResult == null) {
-            visitorMap.put(inputCreateObjectAction, inputCreateObjectAction);
+            this.visitorMap.put(inputCreateObjectAction, inputCreateObjectAction);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("CreateObjectActionImpl".equals(theResult.getClass()
                         .getSimpleName()))) {
-            behavior.visitCreateObjectAction(inputCreateObjectAction);
+            this.behavior.visitCreateObjectAction(inputCreateObjectAction);
             theResult = super.caseCreateObjectAction(inputCreateObjectAction);
-            this.doSwitch((EObject) inputCreateObjectAction.getClassifier());
-            this.doSwitch((EObject) inputCreateObjectAction.getResult());
+            this.doSwitch(inputCreateObjectAction.getClassifier());
+            this.doSwitch(inputCreateObjectAction.getResult());
         }
         return theResult;
     }
@@ -1537,19 +1529,19 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("62158ea7-b67e-4a3e-ab3c-c6acc905825d")
     @Override
     public Object caseCreationEvent(org.eclipse.uml2.uml.CreationEvent inputCreationEvent) {
-        Object theResult = visitorMap.get(inputCreationEvent);
+        Object theResult = this.visitorMap.get(inputCreationEvent);
         if (theResult == null) {
-            visitorMap.put(inputCreationEvent, inputCreationEvent);
+            this.visitorMap.put(inputCreationEvent, inputCreationEvent);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("CreationEventImpl".equals(theResult.getClass()
                         .getSimpleName()))) {
-            behavior.visitCreationEvent(inputCreationEvent);
+            this.behavior.visitCreationEvent(inputCreationEvent);
             theResult = super.caseCreationEvent(inputCreationEvent);
         }
         return theResult;
@@ -1558,19 +1550,19 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("de404ac0-70b9-411d-ad8a-f454574fd4f0")
     @Override
     public Object caseDataStoreNode(org.eclipse.uml2.uml.DataStoreNode inputDataStoreNode) {
-        Object theResult = visitorMap.get(inputDataStoreNode);
+        Object theResult = this.visitorMap.get(inputDataStoreNode);
         if (theResult == null) {
-            visitorMap.put(inputDataStoreNode, inputDataStoreNode);
+            this.visitorMap.put(inputDataStoreNode, inputDataStoreNode);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("DataStoreNodeImpl".equals(theResult.getClass()
                         .getSimpleName()))) {
-            behavior.visitDataStoreNode(inputDataStoreNode);
+            this.behavior.visitDataStoreNode(inputDataStoreNode);
             theResult = super.caseDataStoreNode(inputDataStoreNode);
         }
         return theResult;
@@ -1579,25 +1571,25 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("e11e89e4-2da5-4005-a3b0-69aaadce51e9")
     @Override
     public Object caseDataType(org.eclipse.uml2.uml.DataType inputDataType) {
-        Object theResult = visitorMap.get(inputDataType);
+        Object theResult = this.visitorMap.get(inputDataType);
         if (theResult == null) {
-            visitorMap.put(inputDataType, inputDataType);
+            this.visitorMap.put(inputDataType, inputDataType);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("DataTypeImpl"
                         .equals(theResult.getClass().getSimpleName()))) {
-            behavior.visitDataType(inputDataType);
+            this.behavior.visitDataType(inputDataType);
             theResult = super.caseDataType(inputDataType);
-            for (Object ownedAttribute : inputDataType.getOwnedAttributes()) {
-                this.doSwitch((EObject) ownedAttribute);
+            for (EObject ownedAttribute : inputDataType.getOwnedAttributes()) {
+                this.doSwitch(ownedAttribute);
             }
-            for (Object ownedOperation : inputDataType.getOwnedOperations()) {
-                this.doSwitch((EObject) ownedOperation);
+            for (EObject ownedOperation : inputDataType.getOwnedOperations()) {
+                this.doSwitch(ownedOperation);
             }
         }
         return theResult;
@@ -1606,21 +1598,21 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("637499f1-1e36-414b-b077-4312b1e8baa0")
     @Override
     public Object caseDecisionNode(org.eclipse.uml2.uml.DecisionNode inputDecisionNode) {
-        Object theResult = visitorMap.get(inputDecisionNode);
+        Object theResult = this.visitorMap.get(inputDecisionNode);
         if (theResult == null) {
-            visitorMap.put(inputDecisionNode, inputDecisionNode);
+            this.visitorMap.put(inputDecisionNode, inputDecisionNode);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("DecisionNodeImpl".equals(theResult.getClass()
                         .getSimpleName()))) {
-            behavior.visitDecisionNode(inputDecisionNode);
+            this.behavior.visitDecisionNode(inputDecisionNode);
             theResult = super.caseDecisionNode(inputDecisionNode);
-            this.doSwitch((EObject) inputDecisionNode.getDecisionInput());
+            this.doSwitch(inputDecisionNode.getDecisionInput());
         }
         return theResult;
     }
@@ -1628,25 +1620,25 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("74c9f794-32e7-4065-8ea4-82a3cc3a2c28")
     @Override
     public Object caseDependency(org.eclipse.uml2.uml.Dependency inputDependency) {
-        Object theResult = visitorMap.get(inputDependency);
+        Object theResult = this.visitorMap.get(inputDependency);
         if (theResult == null) {
-            visitorMap.put(inputDependency, inputDependency);
+            this.visitorMap.put(inputDependency, inputDependency);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("DependencyImpl".equals(theResult.getClass()
                         .getSimpleName()))) {
-            behavior.visitDependency(inputDependency);
+            this.behavior.visitDependency(inputDependency);
             theResult = super.caseDependency(inputDependency);
-            for (Object supplier : inputDependency.getSuppliers()) {
-                this.doSwitch((EObject) supplier);
+            for (EObject supplier : inputDependency.getSuppliers()) {
+                this.doSwitch(supplier);
             }
-            for (Object client : inputDependency.getClients()) {
-                this.doSwitch((EObject) client);
+            for (EObject client : inputDependency.getClients()) {
+                this.doSwitch(client);
             }
         }
         return theResult;
@@ -1661,27 +1653,27 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("1adfedae-eee0-4906-a431-e8926934fced")
     @Override
     public Object caseDeployment(org.eclipse.uml2.uml.Deployment inputDeployment) {
-        Object theResult = visitorMap.get(inputDeployment);
+        Object theResult = this.visitorMap.get(inputDeployment);
         if (theResult == null) {
-            visitorMap.put(inputDeployment, inputDeployment);
+            this.visitorMap.put(inputDeployment, inputDeployment);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("DeploymentImpl".equals(theResult.getClass()
                         .getSimpleName()))) {
-            behavior.visitDeployment(inputDeployment);
+            this.behavior.visitDeployment(inputDeployment);
             theResult = super.caseDeployment(inputDeployment);
-            for (Object deployedArtifact : inputDeployment
+            for (EObject deployedArtifact : inputDeployment
                     .getDeployedArtifacts()) {
-                this.doSwitch((EObject) deployedArtifact);
+                this.doSwitch(deployedArtifact);
             }
-            this.doSwitch((EObject) inputDeployment.getLocation());
-            for (Object configuration : inputDeployment.getConfigurations()) {
-                this.doSwitch((EObject) configuration);
+            this.doSwitch(inputDeployment.getLocation());
+            for (EObject configuration : inputDeployment.getConfigurations()) {
+                this.doSwitch(configuration);
             }
         }
         return theResult;
@@ -1690,23 +1682,23 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("c53a154a-489d-445c-95cf-4dd570086c11")
     @Override
     public Object caseDeploymentSpecification(org.eclipse.uml2.uml.DeploymentSpecification inputDeploymentSpecification) {
-        Object theResult = visitorMap.get(inputDeploymentSpecification);
+        Object theResult = this.visitorMap.get(inputDeploymentSpecification);
         if (theResult == null) {
-            visitorMap.put(inputDeploymentSpecification,
+            this.visitorMap.put(inputDeploymentSpecification,
                     inputDeploymentSpecification);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("DeploymentSpecificationImpl".equals(theResult.getClass()
                         .getSimpleName()))) {
-            behavior.visitDeploymentSpecification(inputDeploymentSpecification);
+            this.behavior.visitDeploymentSpecification(inputDeploymentSpecification);
             theResult = super
             .caseDeploymentSpecification(inputDeploymentSpecification);
-            this.doSwitch((EObject) inputDeploymentSpecification
+            this.doSwitch(inputDeploymentSpecification
                     .getDeployment());
         }
         return theResult;
@@ -1716,12 +1708,12 @@ public class EParseModel extends UMLSwitch<Object> {
     @Override
     public Object caseDeploymentTarget(org.eclipse.uml2.uml.DeploymentTarget inputDeploymentTarget) {
         Object theResult = super.caseDeploymentTarget(inputDeploymentTarget);
-        for (Object deployment : inputDeploymentTarget.getDeployments()) {
-            this.doSwitch((EObject) deployment);
+        for (EObject deployment : inputDeploymentTarget.getDeployments()) {
+            this.doSwitch(deployment);
         }
-        for (Object deployedElement : inputDeploymentTarget
+        for (EObject deployedElement : inputDeploymentTarget
                 .getDeployedElements()) {
-            this.doSwitch((EObject) deployedElement);
+            this.doSwitch(deployedElement);
         }
         return theResult;
     }
@@ -1729,22 +1721,22 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("53ada190-af59-48e5-8ed5-413a6352cc08")
     @Override
     public Object caseDestroyLinkAction(org.eclipse.uml2.uml.DestroyLinkAction inputDestroyLinkAction) {
-        Object theResult = visitorMap.get(inputDestroyLinkAction);
+        Object theResult = this.visitorMap.get(inputDestroyLinkAction);
         if (theResult == null) {
-            visitorMap.put(inputDestroyLinkAction, inputDestroyLinkAction);
+            this.visitorMap.put(inputDestroyLinkAction, inputDestroyLinkAction);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("DestroyLinkActionImpl".equals(theResult.getClass()
                         .getSimpleName()))) {
-            behavior.visitDestroyLinkAction(inputDestroyLinkAction);
+            this.behavior.visitDestroyLinkAction(inputDestroyLinkAction);
             theResult = super.caseDestroyLinkAction(inputDestroyLinkAction);
-            for (Object endData : inputDestroyLinkAction.getEndData()) {
-                this.doSwitch((EObject) endData);
+            for (EObject endData : inputDestroyLinkAction.getEndData()) {
+                this.doSwitch(endData);
             }
         }
         return theResult;
@@ -1753,21 +1745,21 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("8e176cf8-9ad4-4aa7-b0c9-cd61cd9251d2")
     @Override
     public Object caseDestroyObjectAction(org.eclipse.uml2.uml.DestroyObjectAction inputDestroyObjectAction) {
-        Object theResult = visitorMap.get(inputDestroyObjectAction);
+        Object theResult = this.visitorMap.get(inputDestroyObjectAction);
         if (theResult == null) {
-            visitorMap.put(inputDestroyObjectAction, inputDestroyObjectAction);
+            this.visitorMap.put(inputDestroyObjectAction, inputDestroyObjectAction);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("DestroyObjectActionImpl".equals(theResult.getClass()
                         .getSimpleName()))) {
-            behavior.visitDestroyObjectAction(inputDestroyObjectAction);
+            this.behavior.visitDestroyObjectAction(inputDestroyObjectAction);
             theResult = super.caseDestroyObjectAction(inputDestroyObjectAction);
-            this.doSwitch((EObject) inputDestroyObjectAction.getTarget());
+            this.doSwitch(inputDestroyObjectAction.getTarget());
         }
         return theResult;
     }
@@ -1775,19 +1767,19 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("26479f1d-4c52-4f31-81a9-fd557cd29bc4")
     @Override
     public Object caseDestructionEvent(org.eclipse.uml2.uml.DestructionEvent inputDestructionEvent) {
-        Object theResult = visitorMap.get(inputDestructionEvent);
+        Object theResult = this.visitorMap.get(inputDestructionEvent);
         if (theResult == null) {
-            visitorMap.put(inputDestructionEvent, inputDestructionEvent);
+            this.visitorMap.put(inputDestructionEvent, inputDestructionEvent);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("DestructionEventImpl".equals(theResult.getClass()
                         .getSimpleName()))) {
-            behavior.visitDestructionEvent(inputDestructionEvent);
+            this.behavior.visitDestructionEvent(inputDestructionEvent);
             theResult = super.caseDestructionEvent(inputDestructionEvent);
         }
         return theResult;
@@ -1796,18 +1788,18 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("6c732e52-b6c4-4fc4-91ee-ac2c8774414c")
     @Override
     public Object caseDevice(org.eclipse.uml2.uml.Device inputDevice) {
-        Object theResult = visitorMap.get(inputDevice);
+        Object theResult = this.visitorMap.get(inputDevice);
         if (theResult == null) {
-            visitorMap.put(inputDevice, inputDevice);
+            this.visitorMap.put(inputDevice, inputDevice);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("DeviceImpl".equals(theResult.getClass().getSimpleName()))) {
-            behavior.visitDevice(inputDevice);
+            this.behavior.visitDevice(inputDevice);
             theResult = super.caseDevice(inputDevice);
         }
         return theResult;
@@ -1818,11 +1810,11 @@ public class EParseModel extends UMLSwitch<Object> {
     public Object caseDirectedRelationship(org.eclipse.uml2.uml.DirectedRelationship inputDirectedRelationship) {
         Object theResult = super
         .caseDirectedRelationship(inputDirectedRelationship);
-        for (Object source : inputDirectedRelationship.getSources()) {
-            this.doSwitch((EObject) source);
+        for (EObject source : inputDirectedRelationship.getSources()) {
+            this.doSwitch(source);
         }
-        for (Object target : inputDirectedRelationship.getTargets()) {
-            this.doSwitch((EObject) target);
+        for (EObject target : inputDirectedRelationship.getTargets()) {
+            this.doSwitch(target);
         }
         return theResult;
     }
@@ -1830,23 +1822,23 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("e5e31a2e-75e3-4609-88fa-97cb3e601a80")
     @Override
     public Object caseDuration(org.eclipse.uml2.uml.Duration inputDuration) {
-        Object theResult = visitorMap.get(inputDuration);
+        Object theResult = this.visitorMap.get(inputDuration);
         if (theResult == null) {
-            visitorMap.put(inputDuration, inputDuration);
+            this.visitorMap.put(inputDuration, inputDuration);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("DurationImpl"
                         .equals(theResult.getClass().getSimpleName()))) {
-            behavior.visitDuration(inputDuration);
+            this.behavior.visitDuration(inputDuration);
             theResult = super.caseDuration(inputDuration);
-            this.doSwitch((EObject) inputDuration.getExpr());
-            for (Object observation : inputDuration.getObservations()) {
-                this.doSwitch((EObject) observation);
+            this.doSwitch(inputDuration.getExpr());
+            for (EObject observation : inputDuration.getObservations()) {
+                this.doSwitch(observation);
             }
         }
         return theResult;
@@ -1855,21 +1847,21 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("c686d8fc-fa66-4b13-891d-905ec0affb9a")
     @Override
     public Object caseDurationConstraint(org.eclipse.uml2.uml.DurationConstraint inputDurationConstraint) {
-        Object theResult = visitorMap.get(inputDurationConstraint);
+        Object theResult = this.visitorMap.get(inputDurationConstraint);
         if (theResult == null) {
-            visitorMap.put(inputDurationConstraint, inputDurationConstraint);
+            this.visitorMap.put(inputDurationConstraint, inputDurationConstraint);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("DurationConstraintImpl".equals(theResult.getClass()
                         .getSimpleName()))) {
-            behavior.visitDurationConstraint(inputDurationConstraint);
+            this.behavior.visitDurationConstraint(inputDurationConstraint);
             theResult = super.caseDurationConstraint(inputDurationConstraint);
-            this.doSwitch((EObject) inputDurationConstraint.getSpecification());
+            this.doSwitch(inputDurationConstraint.getSpecification());
         }
         return theResult;
     }
@@ -1877,22 +1869,22 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("270bd71f-f8d2-4170-a99a-0acdc8eace1b")
     @Override
     public Object caseDurationInterval(org.eclipse.uml2.uml.DurationInterval inputDurationInterval) {
-        Object theResult = visitorMap.get(inputDurationInterval);
+        Object theResult = this.visitorMap.get(inputDurationInterval);
         if (theResult == null) {
-            visitorMap.put(inputDurationInterval, inputDurationInterval);
+            this.visitorMap.put(inputDurationInterval, inputDurationInterval);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("DurationIntervalImpl".equals(theResult.getClass()
                         .getSimpleName()))) {
-            behavior.visitDurationInterval(inputDurationInterval);
+            this.behavior.visitDurationInterval(inputDurationInterval);
             theResult = super.caseDurationInterval(inputDurationInterval);
-            this.doSwitch((EObject) inputDurationInterval.getMin());
-            this.doSwitch((EObject) inputDurationInterval.getMax());
+            this.doSwitch(inputDurationInterval.getMin());
+            this.doSwitch(inputDurationInterval.getMax());
         }
         return theResult;
     }
@@ -1900,22 +1892,22 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("9fd90446-33b9-4433-a5a8-b70a27feac0a")
     @Override
     public Object caseDurationObservation(final DurationObservation inputDurationIservation) {
-        Object theResult = visitorMap.get(inputDurationIservation);
+        Object theResult = this.visitorMap.get(inputDurationIservation);
         if (theResult == null) {
-            visitorMap.put(inputDurationIservation, inputDurationIservation);
+            this.visitorMap.put(inputDurationIservation, inputDurationIservation);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("DurationIservationImpl".equals(theResult.getClass()
                         .getSimpleName()))) {
-            behavior.visitDurationObservation(inputDurationIservation);
+            this.behavior.visitDurationObservation(inputDurationIservation);
             theResult = super.caseDurationObservation(inputDurationIservation);
-            for (Object event : inputDurationIservation.getEvents()) {
-                this.doSwitch((EObject) event);
+            for (EObject event : inputDurationIservation.getEvents()) {
+                this.doSwitch(event);
             }
         }
         return theResult;
@@ -1925,12 +1917,12 @@ public class EParseModel extends UMLSwitch<Object> {
     @Override
     public Object caseElement(org.eclipse.uml2.uml.Element inputElement) {
         Object theResult = super.caseElement(inputElement);
-        for (Object ownedElement : inputElement.getOwnedElements()) {
-            this.doSwitch((EObject) ownedElement);
+        for (EObject ownedElement : inputElement.getOwnedElements()) {
+            this.doSwitch(ownedElement);
         }
-        this.doSwitch((EObject) inputElement.getOwner());
-        for (Object ownedComment : inputElement.getOwnedComments()) {
-            this.doSwitch((EObject) ownedComment);
+        this.doSwitch(inputElement.getOwner());
+        for (EObject ownedComment : inputElement.getOwnedComments()) {
+            this.doSwitch(ownedComment);
         }
         return theResult;
     }
@@ -1938,22 +1930,22 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("62f3bb42-e977-4611-985d-19c7668b1e3f")
     @Override
     public Object caseElementImport(org.eclipse.uml2.uml.ElementImport inputElementImport) {
-        Object theResult = visitorMap.get(inputElementImport);
+        Object theResult = this.visitorMap.get(inputElementImport);
         if (theResult == null) {
-            visitorMap.put(inputElementImport, inputElementImport);
+            this.visitorMap.put(inputElementImport, inputElementImport);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("ElementImportImpl".equals(theResult.getClass()
                         .getSimpleName()))) {
-            behavior.visitElementImport(inputElementImport);
+            this.behavior.visitElementImport(inputElementImport);
             theResult = super.caseElementImport(inputElementImport);
-            this.doSwitch((EObject) inputElementImport.getImportedElement());
-            this.doSwitch((EObject) inputElementImport.getImportingNamespace());
+            this.doSwitch(inputElementImport.getImportedElement());
+            this.doSwitch(inputElementImport.getImportingNamespace());
         }
         return theResult;
     }
@@ -1963,8 +1955,8 @@ public class EParseModel extends UMLSwitch<Object> {
     public Object caseEncapsulatedClassifier(org.eclipse.uml2.uml.EncapsulatedClassifier inputEncapsulatedClassifier) {
         Object theResult = super
         .caseEncapsulatedClassifier(inputEncapsulatedClassifier);
-        for (Object ownedPort : inputEncapsulatedClassifier.getOwnedPorts()) {
-            this.doSwitch((EObject) ownedPort);
+        for (EObject ownedPort : inputEncapsulatedClassifier.getOwnedPorts()) {
+            this.doSwitch(ownedPort);
         }
         return theResult;
     }
@@ -1972,22 +1964,22 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("83731774-7515-4a57-af57-5913afd784f6")
     @Override
     public Object caseEnumeration(org.eclipse.uml2.uml.Enumeration inputEnumeration) {
-        Object theResult = visitorMap.get(inputEnumeration);
+        Object theResult = this.visitorMap.get(inputEnumeration);
         if (theResult == null) {
-            visitorMap.put(inputEnumeration, inputEnumeration);
+            this.visitorMap.put(inputEnumeration, inputEnumeration);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("EnumerationImpl".equals(theResult.getClass()
                         .getSimpleName()))) {
-            behavior.visitEnumeration(inputEnumeration);
+            this.behavior.visitEnumeration(inputEnumeration);
             theResult = super.caseEnumeration(inputEnumeration);
-            for (Object ownedLiteral : inputEnumeration.getOwnedLiterals()) {
-                this.doSwitch((EObject) ownedLiteral);
+            for (EObject ownedLiteral : inputEnumeration.getOwnedLiterals()) {
+                this.doSwitch(ownedLiteral);
             }
         }
         return theResult;
@@ -1996,21 +1988,21 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("38bf70e7-7332-4990-945b-41fa1a398461")
     @Override
     public Object caseEnumerationLiteral(org.eclipse.uml2.uml.EnumerationLiteral inputEnumerationLiteral) {
-        Object theResult = visitorMap.get(inputEnumerationLiteral);
+        Object theResult = this.visitorMap.get(inputEnumerationLiteral);
         if (theResult == null) {
-            visitorMap.put(inputEnumerationLiteral, inputEnumerationLiteral);
+            this.visitorMap.put(inputEnumerationLiteral, inputEnumerationLiteral);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("EnumerationLiteralImpl".equals(theResult.getClass()
                         .getSimpleName()))) {
-            behavior.visitEnumerationLiteral(inputEnumerationLiteral);
+            this.behavior.visitEnumerationLiteral(inputEnumerationLiteral);
             theResult = super.caseEnumerationLiteral(inputEnumerationLiteral);
-            this.doSwitch((EObject) inputEnumerationLiteral.getEnumeration());
+            this.doSwitch(inputEnumerationLiteral.getEnumeration());
         }
         return theResult;
     }
@@ -2024,26 +2016,26 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("e9139c46-80df-4145-a772-8750f45a8f9b")
     @Override
     public Object caseExceptionHandler(ExceptionHandler inputExceptionHandler) {
-        Object theResult = visitorMap.get(inputExceptionHandler);
+        Object theResult = this.visitorMap.get(inputExceptionHandler);
         if (theResult == null) {
-            visitorMap.put(inputExceptionHandler, inputExceptionHandler);
+            this.visitorMap.put(inputExceptionHandler, inputExceptionHandler);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("ExceptionHandlerImpl".equals(theResult.getClass()
                         .getSimpleName()))) {
-            behavior.visitExceptionHandler(inputExceptionHandler);
+            this.behavior.visitExceptionHandler(inputExceptionHandler);
             theResult = super.caseExceptionHandler(inputExceptionHandler);
-            this.doSwitch((EObject) inputExceptionHandler.getProtectedNode());
-            this.doSwitch((EObject) inputExceptionHandler.getHandlerBody());
-            this.doSwitch((EObject) inputExceptionHandler.getExceptionInput());
-            for (Object exceptionType : inputExceptionHandler
+            this.doSwitch(inputExceptionHandler.getProtectedNode());
+            this.doSwitch(inputExceptionHandler.getHandlerBody());
+            this.doSwitch(inputExceptionHandler.getExceptionInput());
+            for (EObject exceptionType : inputExceptionHandler
                     .getExceptionTypes()) {
-                this.doSwitch((EObject) exceptionType);
+                this.doSwitch(exceptionType);
             }
         }
         return theResult;
@@ -2053,8 +2045,8 @@ public class EParseModel extends UMLSwitch<Object> {
     @Override
     public Object caseExecutableNode(org.eclipse.uml2.uml.ExecutableNode inputExecutableNode) {
         Object theResult = super.caseExecutableNode(inputExecutableNode);
-        for (Object handler : inputExecutableNode.getHandlers()) {
-            this.doSwitch((EObject) handler);
+        for (EObject handler : inputExecutableNode.getHandlers()) {
+            this.doSwitch(handler);
         }
         return theResult;
     }
@@ -2062,20 +2054,20 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("7ae23ae0-ab30-4694-a82f-23266dd8b1d6")
     @Override
     public Object caseExecutionEnvironment(org.eclipse.uml2.uml.ExecutionEnvironment inputExecutionEnvironment) {
-        Object theResult = visitorMap.get(inputExecutionEnvironment);
+        Object theResult = this.visitorMap.get(inputExecutionEnvironment);
         if (theResult == null) {
-            visitorMap
+            this.visitorMap
             .put(inputExecutionEnvironment, inputExecutionEnvironment);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("ExecutionEnvironmentImpl".equals(theResult.getClass()
                         .getSimpleName()))) {
-            behavior.visitExecutionEnvironment(inputExecutionEnvironment);
+            this.behavior.visitExecutionEnvironment(inputExecutionEnvironment);
             theResult = super
             .caseExecutionEnvironment(inputExecutionEnvironment);
         }
@@ -2085,19 +2077,19 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("aa37748e-df2a-4779-aad3-1c171bf89c4e")
     @Override
     public Object caseExecutionEvent(org.eclipse.uml2.uml.ExecutionEvent inputExecutionEvent) {
-        Object theResult = visitorMap.get(inputExecutionEvent);
+        Object theResult = this.visitorMap.get(inputExecutionEvent);
         if (theResult == null) {
-            visitorMap.put(inputExecutionEvent, inputExecutionEvent);
+            this.visitorMap.put(inputExecutionEvent, inputExecutionEvent);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("ExecutionEventImpl".equals(theResult.getClass()
                         .getSimpleName()))) {
-            behavior.visitExecutionEvent(inputExecutionEvent);
+            this.behavior.visitExecutionEvent(inputExecutionEvent);
             theResult = super.caseExecutionEvent(inputExecutionEvent);
         }
         return theResult;
@@ -2106,28 +2098,26 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("97c023d6-f010-400e-801f-f0b3e6db362b")
     @Override
     public Object caseExecutionOccurrenceSpecification(org.eclipse.uml2.uml.ExecutionOccurrenceSpecification inputExecutionOccurrenceSpecification) {
-        Object theResult = visitorMap
+        Object theResult = this.visitorMap
         .get(inputExecutionOccurrenceSpecification);
         if (theResult == null) {
-            visitorMap.put(inputExecutionOccurrenceSpecification,
+            this.visitorMap.put(inputExecutionOccurrenceSpecification,
                     inputExecutionOccurrenceSpecification);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("ExecutionOccurrenceSpecificationImpl".equals(theResult
                         .getClass().getSimpleName()))) {
-            behavior
+            this.behavior
             .visitExecutionOccurrenceSpecification(inputExecutionOccurrenceSpecification);
             theResult = super
             .caseExecutionOccurrenceSpecification(inputExecutionOccurrenceSpecification);
-            this.doSwitch((EObject) inputExecutionOccurrenceSpecification
+            this.doSwitch(inputExecutionOccurrenceSpecification
                     .getExecution());
-        //            this.doSwitch((EObject) inputExecutionOccurrenceSpecification
-        //                    .getEvent());
         }
         return theResult;
     }
@@ -2137,30 +2127,30 @@ public class EParseModel extends UMLSwitch<Object> {
     public Object caseExecutionSpecification(org.eclipse.uml2.uml.ExecutionSpecification inputExecutionSpecification) {
         Object theResult = super
         .caseExecutionSpecification(inputExecutionSpecification);
-        this.doSwitch((EObject) inputExecutionSpecification.getStart());
-        this.doSwitch((EObject) inputExecutionSpecification.getFinish());
+        this.doSwitch(inputExecutionSpecification.getStart());
+        this.doSwitch(inputExecutionSpecification.getFinish());
         return theResult;
     }
 
     @objid ("0fe8faf2-77ba-4c1d-ac1b-8c87e3bba2e2")
     @Override
     public Object caseExpansionNode(org.eclipse.uml2.uml.ExpansionNode inputExpansionNode) {
-        Object theResult = visitorMap.get(inputExpansionNode);
+        Object theResult = this.visitorMap.get(inputExpansionNode);
         if (theResult == null) {
-            visitorMap.put(inputExpansionNode, inputExpansionNode);
+            this.visitorMap.put(inputExpansionNode, inputExpansionNode);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("ExpansionNodeImpl".equals(theResult.getClass()
                         .getSimpleName()))) {
-            behavior.visitExpansionNode(inputExpansionNode);
+            this.behavior.visitExpansionNode(inputExpansionNode);
             theResult = super.caseExpansionNode(inputExpansionNode);
-            this.doSwitch((EObject) inputExpansionNode.getRegionAsOutput());
-            this.doSwitch((EObject) inputExpansionNode.getRegionAsInput());
+            this.doSwitch(inputExpansionNode.getRegionAsOutput());
+            this.doSwitch(inputExpansionNode.getRegionAsInput());
         }
         return theResult;
     }
@@ -2168,26 +2158,26 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("6010ba8f-3511-40bd-86b4-0e5934bad9aa")
     @Override
     public Object caseExpansionRegion(org.eclipse.uml2.uml.ExpansionRegion inputExpansionRegion) {
-        Object theResult = visitorMap.get(inputExpansionRegion);
+        Object theResult = this.visitorMap.get(inputExpansionRegion);
         if (theResult == null) {
-            visitorMap.put(inputExpansionRegion, inputExpansionRegion);
+            this.visitorMap.put(inputExpansionRegion, inputExpansionRegion);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("ExpansionRegionImpl".equals(theResult.getClass()
                         .getSimpleName()))) {
-            behavior.visitExpansionRegion(inputExpansionRegion);
+            this.behavior.visitExpansionRegion(inputExpansionRegion);
             theResult = super.caseExpansionRegion(inputExpansionRegion);
-            for (Object outputElement : inputExpansionRegion
+            for (EObject outputElement : inputExpansionRegion
                     .getOutputElements()) {
-                this.doSwitch((EObject) outputElement);
+                this.doSwitch(outputElement);
             }
-            for (Object inputElement : inputExpansionRegion.getInputElements()) {
-                this.doSwitch((EObject) inputElement);
+            for (EObject inputElement : inputExpansionRegion.getInputElements()) {
+                this.doSwitch(inputElement);
             }
         }
         return theResult;
@@ -2196,22 +2186,22 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("6e0ee4fa-45c7-484a-9cbd-d00787588e20")
     @Override
     public Object caseExpression(org.eclipse.uml2.uml.Expression inputExpression) {
-        Object theResult = visitorMap.get(inputExpression);
+        Object theResult = this.visitorMap.get(inputExpression);
         if (theResult == null) {
-            visitorMap.put(inputExpression, inputExpression);
+            this.visitorMap.put(inputExpression, inputExpression);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("ExpressionImpl".equals(theResult.getClass()
                         .getSimpleName()))) {
-            behavior.visitExpression(inputExpression);
+            this.behavior.visitExpression(inputExpression);
             theResult = super.caseExpression(inputExpression);
-            for (Object operand : inputExpression.getOperands()) {
-                this.doSwitch((EObject) operand);
+            for (EObject operand : inputExpression.getOperands()) {
+                this.doSwitch(operand);
             }
         }
         return theResult;
@@ -2220,24 +2210,24 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("d0aa227e-49b2-44d9-8ccc-18c78fc7fd93")
     @Override
     public Object caseExtend(org.eclipse.uml2.uml.Extend inputExtend) {
-        Object theResult = visitorMap.get(inputExtend);
+        Object theResult = this.visitorMap.get(inputExtend);
         if (theResult == null) {
-            visitorMap.put(inputExtend, inputExtend);
+            this.visitorMap.put(inputExtend, inputExtend);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("ExtendImpl".equals(theResult.getClass().getSimpleName()))) {
-            behavior.visitExtend(inputExtend);
+            this.behavior.visitExtend(inputExtend);
             theResult = super.caseExtend(inputExtend);
-            this.doSwitch((EObject) inputExtend.getExtendedCase());
-            this.doSwitch((EObject) inputExtend.getExtension());
-            this.doSwitch((EObject) inputExtend.getCondition());
-            for (Object extensionLocation : inputExtend.getExtensionLocations()) {
-                this.doSwitch((EObject) extensionLocation);
+            this.doSwitch(inputExtend.getExtendedCase());
+            this.doSwitch(inputExtend.getExtension());
+            this.doSwitch(inputExtend.getCondition());
+            for (EObject extensionLocation : inputExtend.getExtensionLocations()) {
+                this.doSwitch(extensionLocation);
             }
         }
         return theResult;
@@ -2246,24 +2236,24 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("164b9c3b-60e8-412b-b1be-9626e641d237")
     @Override
     public Object caseExtension(org.eclipse.uml2.uml.Extension inputExtension) {
-        Object theResult = visitorMap.get(inputExtension);
+        Object theResult = this.visitorMap.get(inputExtension);
         if (theResult == null) {
-            visitorMap.put(inputExtension, inputExtension);
+            this.visitorMap.put(inputExtension, inputExtension);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("ExtensionImpl".equals(theResult.getClass()
                         .getSimpleName()))) {
-            behavior.visitExtension(inputExtension);
+            this.behavior.visitExtension(inputExtension);
             theResult = super.caseExtension(inputExtension);
-            this.doSwitch((EObject) inputExtension.getMetaclass());
+            this.doSwitch(inputExtension.getMetaclass());
             // this.doSwitch((EObject)inputExtension.getOwnedEnd());
-            for (Object ownedEnd : inputExtension.getOwnedEnds()) {
-                this.doSwitch((EObject) ownedEnd);
+            for (EObject ownedEnd : inputExtension.getOwnedEnds()) {
+                this.doSwitch(ownedEnd);
             }
         }
         return theResult;
@@ -2272,21 +2262,21 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("e664c96c-7ee6-4ece-96cb-34a8006e1780")
     @Override
     public Object caseExtensionEnd(org.eclipse.uml2.uml.ExtensionEnd inputExtensionEnd) {
-        Object theResult = visitorMap.get(inputExtensionEnd);
+        Object theResult = this.visitorMap.get(inputExtensionEnd);
         if (theResult == null) {
-            visitorMap.put(inputExtensionEnd, inputExtensionEnd);
+            this.visitorMap.put(inputExtensionEnd, inputExtensionEnd);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("ExtensionEndImpl".equals(theResult.getClass()
                         .getSimpleName()))) {
-            behavior.visitExtensionEnd(inputExtensionEnd);
+            this.behavior.visitExtensionEnd(inputExtensionEnd);
             theResult = super.caseExtensionEnd(inputExtensionEnd);
-            this.doSwitch((EObject) inputExtensionEnd.getType());
+            this.doSwitch(inputExtensionEnd.getType());
         }
         return theResult;
     }
@@ -2294,21 +2284,21 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("b1a82dc7-d816-4aa6-90b7-a17ce92f047b")
     @Override
     public Object caseExtensionPoint(org.eclipse.uml2.uml.ExtensionPoint inputExtensionPoint) {
-        Object theResult = visitorMap.get(inputExtensionPoint);
+        Object theResult = this.visitorMap.get(inputExtensionPoint);
         if (theResult == null) {
-            visitorMap.put(inputExtensionPoint, inputExtensionPoint);
+            this.visitorMap.put(inputExtensionPoint, inputExtensionPoint);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("ExtensionPointImpl".equals(theResult.getClass()
                         .getSimpleName()))) {
-            behavior.visitExtensionPoint(inputExtensionPoint);
+            this.behavior.visitExtensionPoint(inputExtensionPoint);
             theResult = super.caseExtensionPoint(inputExtensionPoint);
-            this.doSwitch((EObject) inputExtensionPoint.getUseCase());
+            this.doSwitch(inputExtensionPoint.getUseCase());
         }
         return theResult;
     }
@@ -2317,9 +2307,9 @@ public class EParseModel extends UMLSwitch<Object> {
     @Override
     public Object caseFeature(org.eclipse.uml2.uml.Feature inputFeature) {
         Object theResult = super.caseFeature(inputFeature);
-        for (Object featuringClassifier : inputFeature
+        for (EObject featuringClassifier : inputFeature
                 .getFeaturingClassifiers()) {
-            this.doSwitch((EObject) featuringClassifier);
+            this.doSwitch(featuringClassifier);
         }
         return theResult;
     }
@@ -2333,19 +2323,19 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("7e598e46-010c-4868-9883-8d09586e8285")
     @Override
     public Object caseFinalState(FinalState inputFinalState) {
-        Object theResult = visitorMap.get(inputFinalState);
+        Object theResult = this.visitorMap.get(inputFinalState);
         if (theResult == null) {
-            visitorMap.put(inputFinalState, inputFinalState);
+            this.visitorMap.put(inputFinalState, inputFinalState);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("FinalStateImpl".equals(theResult.getClass()
                         .getSimpleName()))) {
-            behavior.visitFinalState(inputFinalState);
+            this.behavior.visitFinalState(inputFinalState);
             theResult = super.caseFinalState(inputFinalState);
         }
         return theResult;
@@ -2354,19 +2344,19 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("7f3b2625-ae45-4d15-8bb9-cf553fa5dc5a")
     @Override
     public Object caseFlowFinalNode(org.eclipse.uml2.uml.FlowFinalNode inputFlowFinalNode) {
-        Object theResult = visitorMap.get(inputFlowFinalNode);
+        Object theResult = this.visitorMap.get(inputFlowFinalNode);
         if (theResult == null) {
-            visitorMap.put(inputFlowFinalNode, inputFlowFinalNode);
+            this.visitorMap.put(inputFlowFinalNode, inputFlowFinalNode);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("FlowFinalNodeImpl".equals(theResult.getClass()
                         .getSimpleName()))) {
-            behavior.visitFlowFinalNode(inputFlowFinalNode);
+            this.behavior.visitFlowFinalNode(inputFlowFinalNode);
             theResult = super.caseFlowFinalNode(inputFlowFinalNode);
         }
         return theResult;
@@ -2375,19 +2365,19 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("52daab22-bd75-4d1c-89b9-814f49f5d5d9")
     @Override
     public Object caseForkNode(org.eclipse.uml2.uml.ForkNode inputForkNode) {
-        Object theResult = visitorMap.get(inputForkNode);
+        Object theResult = this.visitorMap.get(inputForkNode);
         if (theResult == null) {
-            visitorMap.put(inputForkNode, inputForkNode);
+            this.visitorMap.put(inputForkNode, inputForkNode);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("ForkNodeImpl"
                         .equals(theResult.getClass().getSimpleName()))) {
-            behavior.visitForkNode(inputForkNode);
+            this.behavior.visitForkNode(inputForkNode);
             theResult = super.caseForkNode(inputForkNode);
         }
         return theResult;
@@ -2396,19 +2386,19 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("7fcf10b4-672a-4011-bfac-c5aae8774ab0")
     @Override
     public Object caseFunctionBehavior(org.eclipse.uml2.uml.FunctionBehavior inputFunctionBehavior) {
-        Object theResult = visitorMap.get(inputFunctionBehavior);
+        Object theResult = this.visitorMap.get(inputFunctionBehavior);
         if (theResult == null) {
-            visitorMap.put(inputFunctionBehavior, inputFunctionBehavior);
+            this.visitorMap.put(inputFunctionBehavior, inputFunctionBehavior);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("FunctionBehaviorImpl".equals(theResult.getClass()
                         .getSimpleName()))) {
-            behavior.visitFunctionBehavior(inputFunctionBehavior);
+            this.behavior.visitFunctionBehavior(inputFunctionBehavior);
             theResult = super.caseFunctionBehavior(inputFunctionBehavior);
         }
         return theResult;
@@ -2417,18 +2407,18 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("74b9cbf6-3121-4524-9a5e-49f8d293c6a7")
     @Override
     public Object caseGate(org.eclipse.uml2.uml.Gate inputGate) {
-        Object theResult = visitorMap.get(inputGate);
+        Object theResult = this.visitorMap.get(inputGate);
         if (theResult == null) {
-            visitorMap.put(inputGate, inputGate);
+            this.visitorMap.put(inputGate, inputGate);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("GateImpl".equals(theResult.getClass().getSimpleName()))) {
-            behavior.visitGate(inputGate);
+            this.behavior.visitGate(inputGate);
             theResult = super.caseGate(inputGate);
         }
         return theResult;
@@ -2437,22 +2427,22 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("1cd28aa7-a887-40ea-9fc3-b989cbe6f398")
     @Override
     public Object caseGeneralOrdering(org.eclipse.uml2.uml.GeneralOrdering inputGeneralOrdering) {
-        Object theResult = visitorMap.get(inputGeneralOrdering);
+        Object theResult = this.visitorMap.get(inputGeneralOrdering);
         if (theResult == null) {
-            visitorMap.put(inputGeneralOrdering, inputGeneralOrdering);
+            this.visitorMap.put(inputGeneralOrdering, inputGeneralOrdering);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("GeneralOrderingImpl".equals(theResult.getClass()
                         .getSimpleName()))) {
-            behavior.visitGeneralOrdering(inputGeneralOrdering);
+            this.behavior.visitGeneralOrdering(inputGeneralOrdering);
             theResult = super.caseGeneralOrdering(inputGeneralOrdering);
-            this.doSwitch((EObject) inputGeneralOrdering.getBefore());
-            this.doSwitch((EObject) inputGeneralOrdering.getAfter());
+            this.doSwitch(inputGeneralOrdering.getBefore());
+            this.doSwitch(inputGeneralOrdering.getAfter());
         }
         return theResult;
     }
@@ -2460,25 +2450,25 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("a0c63d2c-3c88-49a1-b00d-a0c5124eac9e")
     @Override
     public Object caseGeneralization(org.eclipse.uml2.uml.Generalization inputGeneralization) {
-        Object theResult = visitorMap.get(inputGeneralization);
+        Object theResult = this.visitorMap.get(inputGeneralization);
         if (theResult == null) {
-            visitorMap.put(inputGeneralization, inputGeneralization);
+            this.visitorMap.put(inputGeneralization, inputGeneralization);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("GeneralizationImpl".equals(theResult.getClass()
                         .getSimpleName()))) {
-            behavior.visitGeneralization(inputGeneralization);
+            this.behavior.visitGeneralization(inputGeneralization);
             theResult = super.caseGeneralization(inputGeneralization);
-            this.doSwitch((EObject) inputGeneralization.getSpecific());
-            this.doSwitch((EObject) inputGeneralization.getGeneral());
-            for (Object generalizationSet : inputGeneralization
+            this.doSwitch(inputGeneralization.getSpecific());
+            this.doSwitch(inputGeneralization.getGeneral());
+            for (EObject generalizationSet : inputGeneralization
                     .getGeneralizationSets()) {
-                this.doSwitch((EObject) generalizationSet);
+                this.doSwitch(generalizationSet);
             }
         }
         return theResult;
@@ -2487,24 +2477,24 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("ca6bfd44-d79d-4248-a706-6eda83ccaf90")
     @Override
     public Object caseGeneralizationSet(org.eclipse.uml2.uml.GeneralizationSet inputGeneralizationSet) {
-        Object theResult = visitorMap.get(inputGeneralizationSet);
+        Object theResult = this.visitorMap.get(inputGeneralizationSet);
         if (theResult == null) {
-            visitorMap.put(inputGeneralizationSet, inputGeneralizationSet);
+            this.visitorMap.put(inputGeneralizationSet, inputGeneralizationSet);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("GeneralizationSetImpl".equals(theResult.getClass()
                         .getSimpleName()))) {
-            behavior.visitGeneralizationSet(inputGeneralizationSet);
+            this.behavior.visitGeneralizationSet(inputGeneralizationSet);
             theResult = super.caseGeneralizationSet(inputGeneralizationSet);
-            this.doSwitch((EObject) inputGeneralizationSet.getPowertype());
-            for (Object generalization : inputGeneralizationSet
+            this.doSwitch(inputGeneralizationSet.getPowertype());
+            for (EObject generalization : inputGeneralizationSet
                     .getGeneralizations()) {
-                this.doSwitch((EObject) generalization);
+                this.doSwitch(generalization);
             }
         }
         return theResult;
@@ -2513,18 +2503,18 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("8a91c38e-40ce-4f1f-ab60-87e68209fb70")
     @Override
     public Object caseImage(org.eclipse.uml2.uml.Image inputImage) {
-        Object theResult = visitorMap.get(inputImage);
+        Object theResult = this.visitorMap.get(inputImage);
         if (theResult == null) {
-            visitorMap.put(inputImage, inputImage);
+            this.visitorMap.put(inputImage, inputImage);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("ImageImpl".equals(theResult.getClass().getSimpleName()))) {
-            behavior.visitImage(inputImage);
+            this.behavior.visitImage(inputImage);
             theResult = super.caseImage(inputImage);
         }
         return theResult;
@@ -2533,21 +2523,21 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("184d7d30-30af-4651-a325-97600bb1993c")
     @Override
     public Object caseInclude(org.eclipse.uml2.uml.Include inputInclude) {
-        Object theResult = visitorMap.get(inputInclude);
+        Object theResult = this.visitorMap.get(inputInclude);
         if (theResult == null) {
-            visitorMap.put(inputInclude, inputInclude);
+            this.visitorMap.put(inputInclude, inputInclude);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("IncludeImpl".equals(theResult.getClass().getSimpleName()))) {
-            behavior.visitInclude(inputInclude);
+            this.behavior.visitInclude(inputInclude);
             theResult = super.caseInclude(inputInclude);
-            this.doSwitch((EObject) inputInclude.getIncludingCase());
-            this.doSwitch((EObject) inputInclude.getAddition());
+            this.doSwitch(inputInclude.getIncludingCase());
+            this.doSwitch(inputInclude.getAddition());
         }
         return theResult;
     }
@@ -2555,45 +2545,45 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("ee4a5239-0151-41d6-a9f7-601456a34d77")
     @Override
     public Object caseInformationFlow(org.eclipse.uml2.uml.InformationFlow inputInformationFlow) {
-        Object theResult = visitorMap.get(inputInformationFlow);
+        Object theResult = this.visitorMap.get(inputInformationFlow);
         if (theResult == null) {
-            visitorMap.put(inputInformationFlow, inputInformationFlow);
+            this.visitorMap.put(inputInformationFlow, inputInformationFlow);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("InformationFlowImpl".equals(theResult.getClass()
                         .getSimpleName()))) {
-            behavior.visitInformationFlow(inputInformationFlow);
+            this.behavior.visitInformationFlow(inputInformationFlow);
             theResult = super.caseInformationFlow(inputInformationFlow);
-            for (Object realization : inputInformationFlow.getRealizations()) {
-                this.doSwitch((EObject) realization);
+            for (EObject realization : inputInformationFlow.getRealizations()) {
+                this.doSwitch(realization);
             }
-            for (Object conveyed : inputInformationFlow.getConveyeds()) {
-                this.doSwitch((EObject) conveyed);
+            for (EObject conveyed : inputInformationFlow.getConveyeds()) {
+                this.doSwitch(conveyed);
             }
-            for (Object informationSource : inputInformationFlow
+            for (EObject informationSource : inputInformationFlow
                     .getInformationSources()) {
-                this.doSwitch((EObject) informationSource);
+                this.doSwitch(informationSource);
             }
-            for (Object informationTarget : inputInformationFlow
+            for (EObject informationTarget : inputInformationFlow
                     .getInformationTargets()) {
-                this.doSwitch((EObject) informationTarget);
+                this.doSwitch(informationTarget);
             }
-            for (Object realizingActivityEdge : inputInformationFlow
+            for (EObject realizingActivityEdge : inputInformationFlow
                     .getRealizingActivityEdges()) {
-                this.doSwitch((EObject) realizingActivityEdge);
+                this.doSwitch(realizingActivityEdge);
             }
-            for (Object realizingConnector : inputInformationFlow
+            for (EObject realizingConnector : inputInformationFlow
                     .getRealizingConnectors()) {
-                this.doSwitch((EObject) realizingConnector);
+                this.doSwitch(realizingConnector);
             }
-            for (Object realizingMessage : inputInformationFlow
+            for (EObject realizingMessage : inputInformationFlow
                     .getRealizingMessages()) {
-                this.doSwitch((EObject) realizingMessage);
+                this.doSwitch(realizingMessage);
             }
         }
         return theResult;
@@ -2602,22 +2592,22 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("84859ecb-f018-4c3f-bffc-e8d95d3b3e15")
     @Override
     public Object caseInformationItem(org.eclipse.uml2.uml.InformationItem inputInformationItem) {
-        Object theResult = visitorMap.get(inputInformationItem);
+        Object theResult = this.visitorMap.get(inputInformationItem);
         if (theResult == null) {
-            visitorMap.put(inputInformationItem, inputInformationItem);
+            this.visitorMap.put(inputInformationItem, inputInformationItem);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("InformationItemImpl".equals(theResult.getClass()
                         .getSimpleName()))) {
-            behavior.visitInformationItem(inputInformationItem);
+            this.behavior.visitInformationItem(inputInformationItem);
             theResult = super.caseInformationItem(inputInformationItem);
-            for (Object represented : inputInformationItem.getRepresenteds()) {
-                this.doSwitch((EObject) represented);
+            for (EObject represented : inputInformationItem.getRepresenteds()) {
+                this.doSwitch(represented);
             }
         }
         return theResult;
@@ -2626,19 +2616,19 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("e1541b2b-d18d-4a0b-927e-6732549fd7f5")
     @Override
     public Object caseInitialNode(org.eclipse.uml2.uml.InitialNode inputInitialNode) {
-        Object theResult = visitorMap.get(inputInitialNode);
+        Object theResult = this.visitorMap.get(inputInitialNode);
         if (theResult == null) {
-            visitorMap.put(inputInitialNode, inputInitialNode);
+            this.visitorMap.put(inputInitialNode, inputInitialNode);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("InitialNodeImpl".equals(theResult.getClass()
                         .getSimpleName()))) {
-            behavior.visitInitialNode(inputInitialNode);
+            this.behavior.visitInitialNode(inputInitialNode);
             theResult = super.caseInitialNode(inputInitialNode);
         }
         return theResult;
@@ -2647,19 +2637,19 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("a91c1954-bd53-4657-8da4-deeacb0bc2c7")
     @Override
     public Object caseInputPin(org.eclipse.uml2.uml.InputPin inputInputPin) {
-        Object theResult = visitorMap.get(inputInputPin);
+        Object theResult = this.visitorMap.get(inputInputPin);
         if (theResult == null) {
-            visitorMap.put(inputInputPin, inputInputPin);
+            this.visitorMap.put(inputInputPin, inputInputPin);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("InputPinImpl"
                         .equals(theResult.getClass().getSimpleName()))) {
-            behavior.visitInputPin(inputInputPin);
+            this.behavior.visitInputPin(inputInputPin);
             theResult = super.caseInputPin(inputInputPin);
         }
         return theResult;
@@ -2668,30 +2658,30 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("8895f5cd-c795-4de8-bc38-7a363b7f0ccb")
     @Override
     public Object caseInstanceSpecification(InstanceSpecification inputInstanceSpecification) {
-        Object theResult = visitorMap.get(inputInstanceSpecification);
+        Object theResult = this.visitorMap.get(inputInstanceSpecification);
         if (theResult == null) {
-            visitorMap.put(inputInstanceSpecification,
+            this.visitorMap.put(inputInstanceSpecification,
                     inputInstanceSpecification);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("InstanceSpecificationImpl".equals(theResult.getClass()
                         .getSimpleName()))) {
-            behavior.visitInstanceSpecification(inputInstanceSpecification);
+            this.behavior.visitInstanceSpecification(inputInstanceSpecification);
             theResult = super
             .caseInstanceSpecification(inputInstanceSpecification);
-            for (Object classifier : inputInstanceSpecification
+            for (EObject classifier : inputInstanceSpecification
                     .getClassifiers()) {
-                this.doSwitch((EObject) classifier);
+                this.doSwitch(classifier);
             }
-            for (Object slot : inputInstanceSpecification.getSlots()) {
-                this.doSwitch((EObject) slot);
+            for (EObject slot : inputInstanceSpecification.getSlots()) {
+                this.doSwitch(slot);
             }
-            this.doSwitch((EObject) inputInstanceSpecification
+            this.doSwitch(inputInstanceSpecification
                     .getSpecification());
         }
         return theResult;
@@ -2700,21 +2690,21 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("c807cbe6-42a1-4814-bc60-4333e24fd4a5")
     @Override
     public Object caseInstanceValue(InstanceValue inputInstanceValue) {
-        Object theResult = visitorMap.get(inputInstanceValue);
+        Object theResult = this.visitorMap.get(inputInstanceValue);
         if (theResult == null) {
-            visitorMap.put(inputInstanceValue, inputInstanceValue);
+            this.visitorMap.put(inputInstanceValue, inputInstanceValue);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("InstanceValueImpl".equals(theResult.getClass()
                         .getSimpleName()))) {
-            behavior.visitInstanceValue(inputInstanceValue);
+            this.behavior.visitInstanceValue(inputInstanceValue);
             theResult = super.caseInstanceValue(inputInstanceValue);
-            this.doSwitch((EObject) inputInstanceValue.getInstance());
+            this.doSwitch(inputInstanceValue.getInstance());
         }
         return theResult;
     }
@@ -2722,34 +2712,34 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("320064eb-69d2-436f-8498-750740cfffe1")
     @Override
     public Object caseInteraction(org.eclipse.uml2.uml.Interaction inputInteraction) {
-        Object theResult = visitorMap.get(inputInteraction);
+        Object theResult = this.visitorMap.get(inputInteraction);
         if (theResult == null) {
-            visitorMap.put(inputInteraction, inputInteraction);
+            this.visitorMap.put(inputInteraction, inputInteraction);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("InteractionImpl".equals(theResult.getClass()
                         .getSimpleName()))) {
-            behavior.visitInteraction(inputInteraction);
+            this.behavior.visitInteraction(inputInteraction);
             theResult = super.caseInteraction(inputInteraction);
-            for (Object lifeline : inputInteraction.getLifelines()) {
-                this.doSwitch((EObject) lifeline);
+            for (EObject lifeline : inputInteraction.getLifelines()) {
+                this.doSwitch(lifeline);
             }
-            for (Object message : inputInteraction.getMessages()) {
-                this.doSwitch((EObject) message);
+            for (EObject message : inputInteraction.getMessages()) {
+                this.doSwitch(message);
             }
-            for (Object fragment : inputInteraction.getFragments()) {
-                this.doSwitch((EObject) fragment);
+            for (EObject fragment : inputInteraction.getFragments()) {
+                this.doSwitch(fragment);
             }
-            for (Object action : inputInteraction.getActions()) {
-                this.doSwitch((EObject) action);
+            for (EObject action : inputInteraction.getActions()) {
+                this.doSwitch(action);
             }
-            for (Object formalGate : inputInteraction.getFormalGates()) {
-                this.doSwitch((EObject) formalGate);
+            for (EObject formalGate : inputInteraction.getFormalGates()) {
+                this.doSwitch(formalGate);
             }
         }
         return theResult;
@@ -2758,24 +2748,24 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("c782f76a-2276-4641-9b76-4041fe59865d")
     @Override
     public Object caseInteractionConstraint(org.eclipse.uml2.uml.InteractionConstraint inputInteractionConstraint) {
-        Object theResult = visitorMap.get(inputInteractionConstraint);
+        Object theResult = this.visitorMap.get(inputInteractionConstraint);
         if (theResult == null) {
-            visitorMap.put(inputInteractionConstraint,
+            this.visitorMap.put(inputInteractionConstraint,
                     inputInteractionConstraint);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("InteractionConstraintImpl".equals(theResult.getClass()
                         .getSimpleName()))) {
-            behavior.visitInteractionConstraint(inputInteractionConstraint);
+            this.behavior.visitInteractionConstraint(inputInteractionConstraint);
             theResult = super
             .caseInteractionConstraint(inputInteractionConstraint);
-            this.doSwitch((EObject) inputInteractionConstraint.getMinint());
-            this.doSwitch((EObject) inputInteractionConstraint.getMaxint());
+            this.doSwitch(inputInteractionConstraint.getMinint());
+            this.doSwitch(inputInteractionConstraint.getMaxint());
         }
         return theResult;
     }
@@ -2785,39 +2775,39 @@ public class EParseModel extends UMLSwitch<Object> {
     public Object caseInteractionFragment(org.eclipse.uml2.uml.InteractionFragment inputInteractionFragment) {
         Object theResult = super
         .caseInteractionFragment(inputInteractionFragment);
-        for (Object covered : inputInteractionFragment.getCovereds()) {
-            this.doSwitch((EObject) covered);
+        for (EObject covered : inputInteractionFragment.getCovereds()) {
+            this.doSwitch(covered);
         }
-        for (Object generalOrdering : inputInteractionFragment
+        for (EObject generalOrdering : inputInteractionFragment
                 .getGeneralOrderings()) {
-            this.doSwitch((EObject) generalOrdering);
+            this.doSwitch(generalOrdering);
         }
-        this.doSwitch((EObject) inputInteractionFragment
+        this.doSwitch(inputInteractionFragment
                 .getEnclosingInteraction());
-        this.doSwitch((EObject) inputInteractionFragment.getEnclosingOperand());
+        this.doSwitch(inputInteractionFragment.getEnclosingOperand());
         return theResult;
     }
 
     @objid ("0fb4ad93-7ac4-4345-b117-92ea55238ed1")
     @Override
     public Object caseInteractionOperand(org.eclipse.uml2.uml.InteractionOperand inputInteractionOperand) {
-        Object theResult = visitorMap.get(inputInteractionOperand);
+        Object theResult = this.visitorMap.get(inputInteractionOperand);
         if (theResult == null) {
-            visitorMap.put(inputInteractionOperand, inputInteractionOperand);
+            this.visitorMap.put(inputInteractionOperand, inputInteractionOperand);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("InteractionOperandImpl".equals(theResult.getClass()
                         .getSimpleName()))) {
-            behavior.visitInteractionOperand(inputInteractionOperand);
+            this.behavior.visitInteractionOperand(inputInteractionOperand);
             theResult = super.caseInteractionOperand(inputInteractionOperand);
-            this.doSwitch((EObject) inputInteractionOperand.getGuard());
-            for (Object fragment : inputInteractionOperand.getFragments()) {
-                this.doSwitch((EObject) fragment);
+            this.doSwitch(inputInteractionOperand.getGuard());
+            for (EObject fragment : inputInteractionOperand.getFragments()) {
+                this.doSwitch(fragment);
             }
         }
         return theResult;
@@ -2826,26 +2816,26 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("ea411216-fce3-4d0f-b235-f6fe53f0e109")
     @Override
     public Object caseInteractionUse(org.eclipse.uml2.uml.InteractionUse inputInteractionUse) {
-        Object theResult = visitorMap.get(inputInteractionUse);
+        Object theResult = this.visitorMap.get(inputInteractionUse);
         if (theResult == null) {
-            visitorMap.put(inputInteractionUse, inputInteractionUse);
+            this.visitorMap.put(inputInteractionUse, inputInteractionUse);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("InteractionUseImpl".equals(theResult.getClass()
                         .getSimpleName()))) {
-            behavior.visitInteractionUse(inputInteractionUse);
+            this.behavior.visitInteractionUse(inputInteractionUse);
             theResult = super.caseInteractionUse(inputInteractionUse);
-            this.doSwitch((EObject) inputInteractionUse.getRefersTo());
-            for (Object actualGate : inputInteractionUse.getActualGates()) {
-                this.doSwitch((EObject) actualGate);
+            this.doSwitch(inputInteractionUse.getRefersTo());
+            for (EObject actualGate : inputInteractionUse.getActualGates()) {
+                this.doSwitch(actualGate);
             }
-            for (Object argument : inputInteractionUse.getArguments()) {
-                this.doSwitch((EObject) argument);
+            for (EObject argument : inputInteractionUse.getArguments()) {
+                this.doSwitch(argument);
             }
         }
         return theResult;
@@ -2854,38 +2844,38 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("69acfc7f-b61c-4f31-b03e-137837a4fb0a")
     @Override
     public Object caseInterface(org.eclipse.uml2.uml.Interface inputInterface) {
-        Object theResult = visitorMap.get(inputInterface);
+        Object theResult = this.visitorMap.get(inputInterface);
         if (theResult == null) {
-            visitorMap.put(inputInterface, inputInterface);
+            this.visitorMap.put(inputInterface, inputInterface);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("InterfaceImpl".equals(theResult.getClass()
                         .getSimpleName()))) {
-            behavior.visitInterface(inputInterface);
+            this.behavior.visitInterface(inputInterface);
             theResult = super.caseInterface(inputInterface);
-            for (Object ownedAttribute : inputInterface.getOwnedAttributes()) {
-                this.doSwitch((EObject) ownedAttribute);
+            for (EObject ownedAttribute : inputInterface.getOwnedAttributes()) {
+                this.doSwitch(ownedAttribute);
             }
-            for (Object ownedOperation : inputInterface.getOwnedOperations()) {
-                this.doSwitch((EObject) ownedOperation);
+            for (EObject ownedOperation : inputInterface.getOwnedOperations()) {
+                this.doSwitch(ownedOperation);
             }
-            for (Object nestedClassifier : inputInterface
+            for (EObject nestedClassifier : inputInterface
                     .getNestedClassifiers()) {
-                this.doSwitch((EObject) nestedClassifier);
+                this.doSwitch(nestedClassifier);
             }
-            for (Object redefinedInterface : inputInterface
+            for (EObject redefinedInterface : inputInterface
                     .getRedefinedInterfaces()) {
-                this.doSwitch((EObject) redefinedInterface);
+                this.doSwitch(redefinedInterface);
             }
-            for (Object ownedReception : inputInterface.getOwnedReceptions()) {
-                this.doSwitch((EObject) ownedReception);
+            for (EObject ownedReception : inputInterface.getOwnedReceptions()) {
+                this.doSwitch(ownedReception);
             }
-            this.doSwitch((EObject) inputInterface.getProtocol());
+            this.doSwitch(inputInterface.getProtocol());
         }
         return theResult;
     }
@@ -2893,24 +2883,24 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("f1f07138-b1d8-4672-9136-57c1a5596e4e")
     @Override
     public Object caseInterfaceRealization(org.eclipse.uml2.uml.InterfaceRealization inputInterfaceRealization) {
-        Object theResult = visitorMap.get(inputInterfaceRealization);
+        Object theResult = this.visitorMap.get(inputInterfaceRealization);
         if (theResult == null) {
-            visitorMap
+            this.visitorMap
             .put(inputInterfaceRealization, inputInterfaceRealization);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("InterfaceRealizationImpl".equals(theResult.getClass()
                         .getSimpleName()))) {
-            behavior.visitInterfaceRealization(inputInterfaceRealization);
+            this.behavior.visitInterfaceRealization(inputInterfaceRealization);
             theResult = super
             .caseInterfaceRealization(inputInterfaceRealization);
-            this.doSwitch((EObject) inputInterfaceRealization.getContract());
-            this.doSwitch((EObject) inputInterfaceRealization
+            this.doSwitch(inputInterfaceRealization.getContract());
+            this.doSwitch(inputInterfaceRealization
                     .getImplementingClassifier());
         }
         return theResult;
@@ -2919,29 +2909,29 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("1765a5de-7ebb-40f9-a88f-a9b9088fb858")
     @Override
     public Object caseInterruptibleActivityRegion(org.eclipse.uml2.uml.InterruptibleActivityRegion inputInterruptibleActivityRegion) {
-        Object theResult = visitorMap.get(inputInterruptibleActivityRegion);
+        Object theResult = this.visitorMap.get(inputInterruptibleActivityRegion);
         if (theResult == null) {
-            visitorMap.put(inputInterruptibleActivityRegion,
+            this.visitorMap.put(inputInterruptibleActivityRegion,
                     inputInterruptibleActivityRegion);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("InterruptibleActivityRegionImpl".equals(theResult
                         .getClass().getSimpleName()))) {
-            behavior
+            this.behavior
             .visitInterruptibleActivityRegion(inputInterruptibleActivityRegion);
             theResult = super
             .caseInterruptibleActivityRegion(inputInterruptibleActivityRegion);
-            for (Object interruptingEdge : inputInterruptibleActivityRegion
+            for (EObject interruptingEdge : inputInterruptibleActivityRegion
                     .getInterruptingEdges()) {
-                this.doSwitch((EObject) interruptingEdge);
+                this.doSwitch(interruptingEdge);
             }
-            for (Object node : inputInterruptibleActivityRegion.getNodes()) {
-                this.doSwitch((EObject) node);
+            for (EObject node : inputInterruptibleActivityRegion.getNodes()) {
+                this.doSwitch(node);
             }
         }
         return theResult;
@@ -2950,22 +2940,22 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("43fb3088-18b3-4162-be4c-fa938351a8f0")
     @Override
     public Object caseInterval(org.eclipse.uml2.uml.Interval inputInterval) {
-        Object theResult = visitorMap.get(inputInterval);
+        Object theResult = this.visitorMap.get(inputInterval);
         if (theResult == null) {
-            visitorMap.put(inputInterval, inputInterval);
+            this.visitorMap.put(inputInterval, inputInterval);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("IntervalImpl"
                         .equals(theResult.getClass().getSimpleName()))) {
-            behavior.visitInterval(inputInterval);
+            this.behavior.visitInterval(inputInterval);
             theResult = super.caseInterval(inputInterval);
-            this.doSwitch((EObject) inputInterval.getMin());
-            this.doSwitch((EObject) inputInterval.getMax());
+            this.doSwitch(inputInterval.getMin());
+            this.doSwitch(inputInterval.getMax());
         }
         return theResult;
     }
@@ -2973,21 +2963,21 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("fc00f9ed-2bfb-480c-b852-ff5f0f340004")
     @Override
     public Object caseIntervalConstraint(org.eclipse.uml2.uml.IntervalConstraint inputIntervalConstraint) {
-        Object theResult = visitorMap.get(inputIntervalConstraint);
+        Object theResult = this.visitorMap.get(inputIntervalConstraint);
         if (theResult == null) {
-            visitorMap.put(inputIntervalConstraint, inputIntervalConstraint);
+            this.visitorMap.put(inputIntervalConstraint, inputIntervalConstraint);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("IntervalConstraintImpl".equals(theResult.getClass()
                         .getSimpleName()))) {
-            behavior.visitIntervalConstraint(inputIntervalConstraint);
+            this.behavior.visitIntervalConstraint(inputIntervalConstraint);
             theResult = super.caseIntervalConstraint(inputIntervalConstraint);
-            this.doSwitch((EObject) inputIntervalConstraint.getSpecification());
+            this.doSwitch(inputIntervalConstraint.getSpecification());
         }
         return theResult;
     }
@@ -2996,31 +2986,31 @@ public class EParseModel extends UMLSwitch<Object> {
     @Override
     public Object caseInvocationAction(org.eclipse.uml2.uml.InvocationAction inputInvocationAction) {
         Object theResult = super.caseInvocationAction(inputInvocationAction);
-        for (Object argument : inputInvocationAction.getArguments()) {
-            this.doSwitch((EObject) argument);
+        for (EObject argument : inputInvocationAction.getArguments()) {
+            this.doSwitch(argument);
         }
-        this.doSwitch((EObject) inputInvocationAction.getOnPort());
+        this.doSwitch(inputInvocationAction.getOnPort());
         return theResult;
     }
 
     @objid ("1d05bc84-e981-42b0-b1d4-c34bf8d40815")
     @Override
     public Object caseJoinNode(org.eclipse.uml2.uml.JoinNode inputJoinNode) {
-        Object theResult = visitorMap.get(inputJoinNode);
+        Object theResult = this.visitorMap.get(inputJoinNode);
         if (theResult == null) {
-            visitorMap.put(inputJoinNode, inputJoinNode);
+            this.visitorMap.put(inputJoinNode, inputJoinNode);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("JoinNodeImpl"
                         .equals(theResult.getClass().getSimpleName()))) {
-            behavior.visitJoinNode(inputJoinNode);
+            this.behavior.visitJoinNode(inputJoinNode);
             theResult = super.caseJoinNode(inputJoinNode);
-            this.doSwitch((EObject) inputJoinNode.getJoinSpec());
+            this.doSwitch(inputJoinNode.getJoinSpec());
         }
         return theResult;
     }
@@ -3028,27 +3018,27 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("246f801a-9100-4dd1-b17c-8d019ae4bb09")
     @Override
     public Object caseLifeline(org.eclipse.uml2.uml.Lifeline inputLifeline) {
-        Object theResult = visitorMap.get(inputLifeline);
+        Object theResult = this.visitorMap.get(inputLifeline);
         if (theResult == null) {
-            visitorMap.put(inputLifeline, inputLifeline);
+            this.visitorMap.put(inputLifeline, inputLifeline);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("LifelineImpl"
                         .equals(theResult.getClass().getSimpleName()))) {
-            behavior.visitLifeline(inputLifeline);
+            this.behavior.visitLifeline(inputLifeline);
             theResult = super.caseLifeline(inputLifeline);
-            for (Object coveredBy : inputLifeline.getCoveredBys()) {
-                this.doSwitch((EObject) coveredBy);
+            for (EObject coveredBy : inputLifeline.getCoveredBys()) {
+                this.doSwitch(coveredBy);
             }
-            this.doSwitch((EObject) inputLifeline.getRepresents());
-            this.doSwitch((EObject) inputLifeline.getInteraction());
-            this.doSwitch((EObject) inputLifeline.getSelector());
-            this.doSwitch((EObject) inputLifeline.getDecomposedAs());
+            this.doSwitch(inputLifeline.getRepresents());
+            this.doSwitch(inputLifeline.getInteraction());
+            this.doSwitch(inputLifeline.getSelector());
+            this.doSwitch(inputLifeline.getDecomposedAs());
         }
         return theResult;
     }
@@ -3057,11 +3047,11 @@ public class EParseModel extends UMLSwitch<Object> {
     @Override
     public Object caseLinkAction(org.eclipse.uml2.uml.LinkAction inputLinkAction) {
         Object theResult = super.caseLinkAction(inputLinkAction);
-        for (Object endData : inputLinkAction.getEndData()) {
-            this.doSwitch((EObject) endData);
+        for (EObject endData : inputLinkAction.getEndData()) {
+            this.doSwitch(endData);
         }
-        for (Object inputValue : inputLinkAction.getInputValues()) {
-            this.doSwitch((EObject) inputValue);
+        for (EObject inputValue : inputLinkAction.getInputValues()) {
+            this.doSwitch(inputValue);
         }
         return theResult;
     }
@@ -3069,21 +3059,21 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("558de564-7db3-4d0d-a6bc-89ca32efe0ce")
     @Override
     public Object caseLinkEndCreationData(org.eclipse.uml2.uml.LinkEndCreationData inputLinkEndCreationData) {
-        Object theResult = visitorMap.get(inputLinkEndCreationData);
+        Object theResult = this.visitorMap.get(inputLinkEndCreationData);
         if (theResult == null) {
-            visitorMap.put(inputLinkEndCreationData, inputLinkEndCreationData);
+            this.visitorMap.put(inputLinkEndCreationData, inputLinkEndCreationData);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("LinkEndCreationDataImpl".equals(theResult.getClass()
                         .getSimpleName()))) {
-            behavior.visitLinkEndCreationData(inputLinkEndCreationData);
+            this.behavior.visitLinkEndCreationData(inputLinkEndCreationData);
             theResult = super.caseLinkEndCreationData(inputLinkEndCreationData);
-            this.doSwitch((EObject) inputLinkEndCreationData.getInsertAt());
+            this.doSwitch(inputLinkEndCreationData.getInsertAt());
         }
         return theResult;
     }
@@ -3091,24 +3081,24 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("a92ca380-6add-4e9c-9242-3b6bef41e298")
     @Override
     public Object caseLinkEndData(org.eclipse.uml2.uml.LinkEndData inputLinkEndData) {
-        Object theResult = visitorMap.get(inputLinkEndData);
+        Object theResult = this.visitorMap.get(inputLinkEndData);
         if (theResult == null) {
-            visitorMap.put(inputLinkEndData, inputLinkEndData);
+            this.visitorMap.put(inputLinkEndData, inputLinkEndData);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("LinkEndDataImpl".equals(theResult.getClass()
                         .getSimpleName()))) {
-            behavior.visitLinkEndData(inputLinkEndData);
+            this.behavior.visitLinkEndData(inputLinkEndData);
             theResult = super.caseLinkEndData(inputLinkEndData);
-            this.doSwitch((EObject) inputLinkEndData.getValue());
-            this.doSwitch((EObject) inputLinkEndData.getEnd());
-            for (Object qualifier : inputLinkEndData.getQualifiers()) {
-                this.doSwitch((EObject) qualifier);
+            this.doSwitch(inputLinkEndData.getValue());
+            this.doSwitch(inputLinkEndData.getEnd());
+            for (EObject qualifier : inputLinkEndData.getQualifiers()) {
+                this.doSwitch(qualifier);
             }
         }
         return theResult;
@@ -3117,23 +3107,23 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("e9e0aa39-e41a-4aea-928c-cec8c9e93505")
     @Override
     public Object caseLinkEndDestructionData(org.eclipse.uml2.uml.LinkEndDestructionData inputLinkEndDestructionData) {
-        Object theResult = visitorMap.get(inputLinkEndDestructionData);
+        Object theResult = this.visitorMap.get(inputLinkEndDestructionData);
         if (theResult == null) {
-            visitorMap.put(inputLinkEndDestructionData,
+            this.visitorMap.put(inputLinkEndDestructionData,
                     inputLinkEndDestructionData);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("LinkEndDestructionDataImpl".equals(theResult.getClass()
                         .getSimpleName()))) {
-            behavior.visitLinkEndDestructionData(inputLinkEndDestructionData);
+            this.behavior.visitLinkEndDestructionData(inputLinkEndDestructionData);
             theResult = super
             .caseLinkEndDestructionData(inputLinkEndDestructionData);
-            this.doSwitch((EObject) inputLinkEndDestructionData.getDestroyAt());
+            this.doSwitch(inputLinkEndDestructionData.getDestroyAt());
         }
         return theResult;
     }
@@ -3141,19 +3131,19 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("08f472df-26be-4b97-a1c3-5cd14040b61c")
     @Override
     public Object caseLiteralBoolean(org.eclipse.uml2.uml.LiteralBoolean inputLiteralBoolean) {
-        Object theResult = visitorMap.get(inputLiteralBoolean);
+        Object theResult = this.visitorMap.get(inputLiteralBoolean);
         if (theResult == null) {
-            visitorMap.put(inputLiteralBoolean, inputLiteralBoolean);
+            this.visitorMap.put(inputLiteralBoolean, inputLiteralBoolean);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("LiteralBooleanImpl".equals(theResult.getClass()
                         .getSimpleName()))) {
-            behavior.visitLiteralBoolean(inputLiteralBoolean);
+            this.behavior.visitLiteralBoolean(inputLiteralBoolean);
             theResult = super.caseLiteralBoolean(inputLiteralBoolean);
         }
         return theResult;
@@ -3162,19 +3152,19 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("104024d0-3dac-4c22-a1df-e21a9d1c4b2f")
     @Override
     public Object caseLiteralInteger(org.eclipse.uml2.uml.LiteralInteger inputLiteralInteger) {
-        Object theResult = visitorMap.get(inputLiteralInteger);
+        Object theResult = this.visitorMap.get(inputLiteralInteger);
         if (theResult == null) {
-            visitorMap.put(inputLiteralInteger, inputLiteralInteger);
+            this.visitorMap.put(inputLiteralInteger, inputLiteralInteger);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("LiteralIntegerImpl".equals(theResult.getClass()
                         .getSimpleName()))) {
-            behavior.visitLiteralInteger(inputLiteralInteger);
+            this.behavior.visitLiteralInteger(inputLiteralInteger);
             theResult = super.caseLiteralInteger(inputLiteralInteger);
         }
         return theResult;
@@ -3183,19 +3173,19 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("16d5c2b8-d521-4492-a630-e809180e9967")
     @Override
     public Object caseLiteralNull(org.eclipse.uml2.uml.LiteralNull inputLiteralNull) {
-        Object theResult = visitorMap.get(inputLiteralNull);
+        Object theResult = this.visitorMap.get(inputLiteralNull);
         if (theResult == null) {
-            visitorMap.put(inputLiteralNull, inputLiteralNull);
+            this.visitorMap.put(inputLiteralNull, inputLiteralNull);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("LiteralNullImpl".equals(theResult.getClass()
                         .getSimpleName()))) {
-            behavior.visitLiteralNull(inputLiteralNull);
+            this.behavior.visitLiteralNull(inputLiteralNull);
             theResult = super.caseLiteralNull(inputLiteralNull);
         }
         return theResult;
@@ -3212,19 +3202,19 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("6f258579-c260-4f6a-8db6-31df6c4cb606")
     @Override
     public Object caseLiteralString(org.eclipse.uml2.uml.LiteralString inputLiteralString) {
-        Object theResult = visitorMap.get(inputLiteralString);
+        Object theResult = this.visitorMap.get(inputLiteralString);
         if (theResult == null) {
-            visitorMap.put(inputLiteralString, inputLiteralString);
+            this.visitorMap.put(inputLiteralString, inputLiteralString);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("LiteralStringImpl".equals(theResult.getClass()
                         .getSimpleName()))) {
-            behavior.visitLiteralString(inputLiteralString);
+            this.behavior.visitLiteralString(inputLiteralString);
             theResult = super.caseLiteralString(inputLiteralString);
         }
         return theResult;
@@ -3233,20 +3223,20 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("177d510a-dced-42ea-bb0f-008bf8599957")
     @Override
     public Object caseLiteralUnlimitedNatural(org.eclipse.uml2.uml.LiteralUnlimitedNatural inputLiteralUnlimitedNatural) {
-        Object theResult = visitorMap.get(inputLiteralUnlimitedNatural);
+        Object theResult = this.visitorMap.get(inputLiteralUnlimitedNatural);
         if (theResult == null) {
-            visitorMap.put(inputLiteralUnlimitedNatural,
+            this.visitorMap.put(inputLiteralUnlimitedNatural,
                     inputLiteralUnlimitedNatural);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("LiteralUnlimitedNaturalImpl".equals(theResult.getClass()
                         .getSimpleName()))) {
-            behavior.visitLiteralUnlimitedNatural(inputLiteralUnlimitedNatural);
+            this.behavior.visitLiteralUnlimitedNatural(inputLiteralUnlimitedNatural);
             theResult = super
             .caseLiteralUnlimitedNatural(inputLiteralUnlimitedNatural);
         }
@@ -3256,42 +3246,42 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("fac5f982-f83e-41fc-a648-ef517a41e6e2")
     @Override
     public Object caseLoopNode(org.eclipse.uml2.uml.LoopNode inputLoopNode) {
-        Object theResult = visitorMap.get(inputLoopNode);
+        Object theResult = this.visitorMap.get(inputLoopNode);
         if (theResult == null) {
-            visitorMap.put(inputLoopNode, inputLoopNode);
+            this.visitorMap.put(inputLoopNode, inputLoopNode);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("LoopNodeImpl"
                         .equals(theResult.getClass().getSimpleName()))) {
-            behavior.visitLoopNode(inputLoopNode);
+            this.behavior.visitLoopNode(inputLoopNode);
             theResult = super.caseLoopNode(inputLoopNode);
-            for (Object bodyPart : inputLoopNode.getBodyParts()) {
-                this.doSwitch((EObject) bodyPart);
+            for (EObject bodyPart : inputLoopNode.getBodyParts()) {
+                this.doSwitch(bodyPart);
             }
-            for (Object setupPart : inputLoopNode.getSetupParts()) {
-                this.doSwitch((EObject) setupPart);
+            for (EObject setupPart : inputLoopNode.getSetupParts()) {
+                this.doSwitch(setupPart);
             }
-            this.doSwitch((EObject) inputLoopNode.getDecider());
-            for (Object test : inputLoopNode.getTests()) {
-                this.doSwitch((EObject) test);
+            this.doSwitch(inputLoopNode.getDecider());
+            for (EObject test : inputLoopNode.getTests()) {
+                this.doSwitch(test);
             }
-            for (Object result : inputLoopNode.getResults()) {
-                this.doSwitch((EObject) result);
+            for (EObject result : inputLoopNode.getResults()) {
+                this.doSwitch(result);
             }
-            for (Object loopVariable : inputLoopNode.getLoopVariables()) {
-                this.doSwitch((EObject) loopVariable);
+            for (EObject loopVariable : inputLoopNode.getLoopVariables()) {
+                this.doSwitch(loopVariable);
             }
-            for (Object bodyOutput : inputLoopNode.getBodyOutputs()) {
-                this.doSwitch((EObject) bodyOutput);
+            for (EObject bodyOutput : inputLoopNode.getBodyOutputs()) {
+                this.doSwitch(bodyOutput);
             }
-            for (Object loopVariableInput : inputLoopNode
+            for (EObject loopVariableInput : inputLoopNode
                     .getLoopVariableInputs()) {
-                this.doSwitch((EObject) loopVariableInput);
+                this.doSwitch(loopVariableInput);
             }
         }
         return theResult;
@@ -3300,21 +3290,21 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("2fdaecda-c233-4d1c-ab82-bf20e2f1c8f7")
     @Override
     public Object caseManifestation(org.eclipse.uml2.uml.Manifestation inputManifestation) {
-        Object theResult = visitorMap.get(inputManifestation);
+        Object theResult = this.visitorMap.get(inputManifestation);
         if (theResult == null) {
-            visitorMap.put(inputManifestation, inputManifestation);
+            this.visitorMap.put(inputManifestation, inputManifestation);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("ManifestationImpl".equals(theResult.getClass()
                         .getSimpleName()))) {
-            behavior.visitManifestation(inputManifestation);
+            this.behavior.visitManifestation(inputManifestation);
             theResult = super.caseManifestation(inputManifestation);
-            this.doSwitch((EObject) inputManifestation.getUtilizedElement());
+            this.doSwitch(inputManifestation.getUtilizedElement());
         }
         return theResult;
     }
@@ -3322,19 +3312,19 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("16b1da18-e2ad-424d-a455-d9e628dc6176")
     @Override
     public Object caseMergeNode(org.eclipse.uml2.uml.MergeNode inputMergeNode) {
-        Object theResult = visitorMap.get(inputMergeNode);
+        Object theResult = this.visitorMap.get(inputMergeNode);
         if (theResult == null) {
-            visitorMap.put(inputMergeNode, inputMergeNode);
+            this.visitorMap.put(inputMergeNode, inputMergeNode);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("MergeNodeImpl".equals(theResult.getClass()
                         .getSimpleName()))) {
-            behavior.visitMergeNode(inputMergeNode);
+            this.behavior.visitMergeNode(inputMergeNode);
             theResult = super.caseMergeNode(inputMergeNode);
         }
         return theResult;
@@ -3343,27 +3333,27 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("d112c626-2dc5-482a-9287-ef9b2626c402")
     @Override
     public Object caseMessage(org.eclipse.uml2.uml.Message inputMessage) {
-        Object theResult = visitorMap.get(inputMessage);
+        Object theResult = this.visitorMap.get(inputMessage);
         if (theResult == null) {
-            visitorMap.put(inputMessage, inputMessage);
+            this.visitorMap.put(inputMessage, inputMessage);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("MessageImpl".equals(theResult.getClass().getSimpleName()))) {
-            behavior.visitMessage(inputMessage);
+            this.behavior.visitMessage(inputMessage);
             theResult = super.caseMessage(inputMessage);
-            this.doSwitch((EObject) inputMessage.getReceiveEvent());
-            this.doSwitch((EObject) inputMessage.getSendEvent());
-            this.doSwitch((EObject) inputMessage.getConnector());
-            this.doSwitch((EObject) inputMessage.getInteraction());
-            for (Object argument : inputMessage.getArguments()) {
-                this.doSwitch((EObject) argument);
+            this.doSwitch(inputMessage.getReceiveEvent());
+            this.doSwitch(inputMessage.getSendEvent());
+            this.doSwitch(inputMessage.getConnector());
+            this.doSwitch(inputMessage.getInteraction());
+            for (EObject argument : inputMessage.getArguments()) {
+                this.doSwitch(argument);
             }
-            this.doSwitch((EObject) inputMessage.getSignature());
+            this.doSwitch(inputMessage.getSignature());
         }
         return theResult;
     }
@@ -3372,7 +3362,7 @@ public class EParseModel extends UMLSwitch<Object> {
     @Override
     public Object caseMessageEnd(org.eclipse.uml2.uml.MessageEnd inputMessageEnd) {
         Object theResult = super.caseMessageEnd(inputMessageEnd);
-        this.doSwitch((EObject) inputMessageEnd.getMessage());
+        this.doSwitch(inputMessageEnd.getMessage());
         return theResult;
     }
 
@@ -3385,20 +3375,20 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("982ffa97-9ac6-4635-95df-6d4353077b35")
     @Override
     public Object caseMessageOccurrenceSpecification(org.eclipse.uml2.uml.MessageOccurrenceSpecification inputMessageOccurrenceSpecification) {
-        Object theResult = visitorMap.get(inputMessageOccurrenceSpecification);
+        Object theResult = this.visitorMap.get(inputMessageOccurrenceSpecification);
         if (theResult == null) {
-            visitorMap.put(inputMessageOccurrenceSpecification,
+            this.visitorMap.put(inputMessageOccurrenceSpecification,
                     inputMessageOccurrenceSpecification);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("MessageOccurrenceSpecificationImpl".equals(theResult
                         .getClass().getSimpleName()))) {
-            behavior
+            this.behavior
             .visitMessageOccurrenceSpecification(inputMessageOccurrenceSpecification);
             theResult = super
             .caseMessageOccurrenceSpecification(inputMessageOccurrenceSpecification);
@@ -3409,18 +3399,18 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("6a0d69c0-8e2e-4b6a-ae77-a044da1272a2")
     @Override
     public Object caseModel(org.eclipse.uml2.uml.Model inputModel) {
-        Object theResult = visitorMap.get(inputModel);
+        Object theResult = this.visitorMap.get(inputModel);
         if (theResult == null) {
-            visitorMap.put(inputModel, inputModel);
+            this.visitorMap.put(inputModel, inputModel);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("ModelImpl".equals(theResult.getClass().getSimpleName()))) {
-            behavior.visitModel(inputModel);
+            this.behavior.visitModel(inputModel);
             // ReverseProperties revProp = ReverseProperties.getInstance();
             // ModelImpl rootMdl = revProp.getEcoreModel();
             // if (rootMdl.getName().equals(inputModel.getName()))
@@ -3434,8 +3424,8 @@ public class EParseModel extends UMLSwitch<Object> {
     public Object caseMultiplicityElement(org.eclipse.uml2.uml.MultiplicityElement inputMultiplicityElement) {
         Object theResult = super
         .caseMultiplicityElement(inputMultiplicityElement);
-        this.doSwitch((EObject) inputMultiplicityElement.getUpperValue());
-        this.doSwitch((EObject) inputMultiplicityElement.getLowerValue());
+        this.doSwitch(inputMultiplicityElement.getUpperValue());
+        this.doSwitch(inputMultiplicityElement.getLowerValue());
         return theResult;
     }
 
@@ -3443,12 +3433,12 @@ public class EParseModel extends UMLSwitch<Object> {
     @Override
     public Object caseNamedElement(org.eclipse.uml2.uml.NamedElement inputNamedElement) {
         Object theResult = super.caseNamedElement(inputNamedElement);
-        for (Object clientDependency : inputNamedElement
+        for (EObject clientDependency : inputNamedElement
                 .getClientDependencies()) {
-            this.doSwitch((EObject) clientDependency);
+            this.doSwitch(clientDependency);
         }
-        this.doSwitch((EObject) inputNamedElement.getNamespace());
-        this.doSwitch((EObject) inputNamedElement.getNameExpression());
+        this.doSwitch(inputNamedElement.getNamespace());
+        this.doSwitch(inputNamedElement.getNameExpression());
         return theResult;
     }
 
@@ -3456,23 +3446,23 @@ public class EParseModel extends UMLSwitch<Object> {
     @Override
     public Object caseNamespace(org.eclipse.uml2.uml.Namespace inputNamespace) {
         Object theResult = super.caseNamespace(inputNamespace);
-        for (Object elementImport : inputNamespace.getElementImports()) {
-            this.doSwitch((EObject) elementImport);
+        for (EObject elementImport : inputNamespace.getElementImports()) {
+            this.doSwitch(elementImport);
         }
-        for (Object packageImport : inputNamespace.getPackageImports()) {
-            this.doSwitch((EObject) packageImport);
+        for (EObject packageImport : inputNamespace.getPackageImports()) {
+            this.doSwitch(packageImport);
         }
-        for (Object ownedRule : inputNamespace.getOwnedRules()) {
-            this.doSwitch((EObject) ownedRule);
+        for (EObject ownedRule : inputNamespace.getOwnedRules()) {
+            this.doSwitch(ownedRule);
         }
-        for (Object member : inputNamespace.getMembers()) {
-            this.doSwitch((EObject) member);
+        for (EObject member : inputNamespace.getMembers()) {
+            this.doSwitch(member);
         }
-        for (Object importedMember : inputNamespace.getImportedMembers()) {
-            this.doSwitch((EObject) importedMember);
+        for (EObject importedMember : inputNamespace.getImportedMembers()) {
+            this.doSwitch(importedMember);
         }
-        for (Object ownedMember : inputNamespace.getOwnedMembers()) {
-            this.doSwitch((EObject) ownedMember);
+        for (EObject ownedMember : inputNamespace.getOwnedMembers()) {
+            this.doSwitch(ownedMember);
         }
         return theResult;
     }
@@ -3480,21 +3470,21 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("25a7ba45-79db-40ef-9228-3d0e204ba2c2")
     @Override
     public Object caseNode(org.eclipse.uml2.uml.Node inputNode) {
-        Object theResult = visitorMap.get(inputNode);
+        Object theResult = this.visitorMap.get(inputNode);
         if (theResult == null) {
-            visitorMap.put(inputNode, inputNode);
+            this.visitorMap.put(inputNode, inputNode);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("NodeImpl".equals(theResult.getClass().getSimpleName()))) {
-            behavior.visitNode(inputNode);
+            this.behavior.visitNode(inputNode);
             theResult = super.caseNode(inputNode);
-            for (Object nestedNode : inputNode.getNestedNodes()) {
-                this.doSwitch((EObject) nestedNode);
+            for (EObject nestedNode : inputNode.getNestedNodes()) {
+                this.doSwitch(nestedNode);
             }
         }
         return theResult;
@@ -3503,22 +3493,22 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("79fcb74d-17fa-4884-9db7-141d400f1e5c")
     @Override
     public Object caseObjectFlow(ObjectFlow inputObjectFlow) {
-        Object theResult = visitorMap.get(inputObjectFlow);
+        Object theResult = this.visitorMap.get(inputObjectFlow);
         if (theResult == null) {
-            visitorMap.put(inputObjectFlow, inputObjectFlow);
+            this.visitorMap.put(inputObjectFlow, inputObjectFlow);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("ObjectFlowImpl".equals(theResult.getClass()
                         .getSimpleName()))) {
-            behavior.visitObjectFlow(inputObjectFlow);
+            this.behavior.visitObjectFlow(inputObjectFlow);
             theResult = super.caseObjectFlow(inputObjectFlow);
-            this.doSwitch((EObject) inputObjectFlow.getTransformation());
-            this.doSwitch((EObject) inputObjectFlow.getSelection());
+            this.doSwitch(inputObjectFlow.getTransformation());
+            this.doSwitch(inputObjectFlow.getSelection());
         }
         return theResult;
     }
@@ -3527,11 +3517,11 @@ public class EParseModel extends UMLSwitch<Object> {
     @Override
     public Object caseObjectNode(ObjectNode inputObjectNode) {
         Object theResult = super.caseObjectNode(inputObjectNode);
-        this.doSwitch((EObject) inputObjectNode.getUpperBound());
-        for (Object inState : inputObjectNode.getInStates()) {
-            this.doSwitch((EObject) inState);
+        this.doSwitch(inputObjectNode.getUpperBound());
+        for (EObject inState : inputObjectNode.getInStates()) {
+            this.doSwitch(inState);
         }
-        this.doSwitch((EObject) inputObjectNode.getSelection());
+        this.doSwitch(inputObjectNode.getSelection());
         return theResult;
     }
 
@@ -3544,33 +3534,33 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("83bfe7d1-b55b-4003-a48c-2694f2c0bf87")
     @Override
     public Object caseOccurrenceSpecification(org.eclipse.uml2.uml.OccurrenceSpecification inputOccurrenceSpecification) {
-        Object theResult = visitorMap.get(inputOccurrenceSpecification);
+        Object theResult = this.visitorMap.get(inputOccurrenceSpecification);
         if (theResult == null) {
-            visitorMap.put(inputOccurrenceSpecification,
+            this.visitorMap.put(inputOccurrenceSpecification,
                     inputOccurrenceSpecification);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("OccurrenceSpecificationImpl".equals(theResult.getClass()
                         .getSimpleName()))) {
-            behavior.visitOccurrenceSpecification(inputOccurrenceSpecification);
+            this.behavior.visitOccurrenceSpecification(inputOccurrenceSpecification);
             theResult = super
             .caseOccurrenceSpecification(inputOccurrenceSpecification);
             // this.doSwitch((EObject)inputOccurrenceSpecification.getCovered());
-            for (Object covered : inputOccurrenceSpecification.getCovereds()) {
-                this.doSwitch((EObject) covered);
+            for (EObject covered : inputOccurrenceSpecification.getCovereds()) {
+                this.doSwitch(covered);
             }
-            for (Object toAfter : inputOccurrenceSpecification.getToAfters()) {
-                this.doSwitch((EObject) toAfter);
+            for (EObject toAfter : inputOccurrenceSpecification.getToAfters()) {
+                this.doSwitch(toAfter);
             }
-            for (Object toBefore : inputOccurrenceSpecification.getToBefores()) {
-                this.doSwitch((EObject) toBefore);
+            for (EObject toBefore : inputOccurrenceSpecification.getToBefores()) {
+                this.doSwitch(toBefore);
             }
-        //            this.doSwitch((EObject) inputOccurrenceSpecification.getEvent());
+        //            this.doSwitch(inputOccurrenceSpecification.getEvent());
         }
         return theResult;
     }
@@ -3578,25 +3568,25 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("9184a6c9-ac67-4b60-a6dd-cf60bd1ea4bf")
     @Override
     public Object caseOpaqueAction(org.eclipse.uml2.uml.OpaqueAction inputOpaqueAction) {
-        Object theResult = visitorMap.get(inputOpaqueAction);
+        Object theResult = this.visitorMap.get(inputOpaqueAction);
         if (theResult == null) {
-            visitorMap.put(inputOpaqueAction, inputOpaqueAction);
+            this.visitorMap.put(inputOpaqueAction, inputOpaqueAction);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("OpaqueActionImpl".equals(theResult.getClass()
                         .getSimpleName()))) {
-            behavior.visitOpaqueAction(inputOpaqueAction);
+            this.behavior.visitOpaqueAction(inputOpaqueAction);
             theResult = super.caseOpaqueAction(inputOpaqueAction);
-            for (Object inputValue : inputOpaqueAction.getInputValues()) {
-                this.doSwitch((EObject) inputValue);
+            for (EObject inputValue : inputOpaqueAction.getInputValues()) {
+                this.doSwitch(inputValue);
             }
-            for (Object outputValue : inputOpaqueAction.getOutputValues()) {
-                this.doSwitch((EObject) outputValue);
+            for (EObject outputValue : inputOpaqueAction.getOutputValues()) {
+                this.doSwitch(outputValue);
             }
         }
         return theResult;
@@ -3605,19 +3595,19 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("64910ea2-4e3a-4867-a685-c9302b9001f0")
     @Override
     public Object caseOpaqueBehavior(org.eclipse.uml2.uml.OpaqueBehavior inputOpaqueBehavior) {
-        Object theResult = visitorMap.get(inputOpaqueBehavior);
+        Object theResult = this.visitorMap.get(inputOpaqueBehavior);
         if (theResult == null) {
-            visitorMap.put(inputOpaqueBehavior, inputOpaqueBehavior);
+            this.visitorMap.put(inputOpaqueBehavior, inputOpaqueBehavior);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("OpaqueBehaviorImpl".equals(theResult.getClass()
                         .getSimpleName()))) {
-            behavior.visitOpaqueBehavior(inputOpaqueBehavior);
+            this.behavior.visitOpaqueBehavior(inputOpaqueBehavior);
             theResult = super.caseOpaqueBehavior(inputOpaqueBehavior);
         }
         return theResult;
@@ -3626,22 +3616,22 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("f977cf2c-99cc-460e-aaa2-90a27c79b23d")
     @Override
     public Object caseOpaqueExpression(org.eclipse.uml2.uml.OpaqueExpression inputOpaqueExpression) {
-        Object theResult = visitorMap.get(inputOpaqueExpression);
+        Object theResult = this.visitorMap.get(inputOpaqueExpression);
         if (theResult == null) {
-            visitorMap.put(inputOpaqueExpression, inputOpaqueExpression);
+            this.visitorMap.put(inputOpaqueExpression, inputOpaqueExpression);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("OpaqueExpressionImpl".equals(theResult.getClass()
                         .getSimpleName()))) {
-            behavior.visitOpaqueExpression(inputOpaqueExpression);
+            this.behavior.visitOpaqueExpression(inputOpaqueExpression);
             theResult = super.caseOpaqueExpression(inputOpaqueExpression);
-            this.doSwitch((EObject) inputOpaqueExpression.getResult());
-            this.doSwitch((EObject) inputOpaqueExpression.getBehavior());
+            this.doSwitch(inputOpaqueExpression.getResult());
+            this.doSwitch(inputOpaqueExpression.getBehavior());
         }
         return theResult;
     }
@@ -3649,42 +3639,42 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("33a7c4ea-21a8-4d47-8345-5926dc5422a4")
     @Override
     public Object caseOperation(org.eclipse.uml2.uml.Operation inputOperation) {
-        Object theResult = visitorMap.get(inputOperation);
+        Object theResult = this.visitorMap.get(inputOperation);
         if (theResult == null) {
-            visitorMap.put(inputOperation, inputOperation);
+            this.visitorMap.put(inputOperation, inputOperation);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("OperationImpl".equals(theResult.getClass()
                         .getSimpleName()))) {
-            behavior.visitOperation(inputOperation);
+            this.behavior.visitOperation(inputOperation);
             theResult = super.caseOperation(inputOperation);
-            this.doSwitch((EObject) inputOperation.getClass_());
-            for (Object precondition : inputOperation.getPreconditions()) {
-                this.doSwitch((EObject) precondition);
+            this.doSwitch(inputOperation.getClass_());
+            for (EObject precondition : inputOperation.getPreconditions()) {
+                this.doSwitch(precondition);
             }
-            for (Object postcondition : inputOperation.getPostconditions()) {
-                this.doSwitch((EObject) postcondition);
+            for (EObject postcondition : inputOperation.getPostconditions()) {
+                this.doSwitch(postcondition);
             }
-            for (Object redefinedOperation : inputOperation
+            for (EObject redefinedOperation : inputOperation
                     .getRedefinedOperations()) {
-                this.doSwitch((EObject) redefinedOperation);
+                this.doSwitch(redefinedOperation);
             }
-            this.doSwitch((EObject) inputOperation.getDatatype());
-            this.doSwitch((EObject) inputOperation.getBodyCondition());
-            this.doSwitch((EObject) inputOperation.getType());
-            for (Object ownedParameter : inputOperation.getOwnedParameters()) {
-                this.doSwitch((EObject) ownedParameter);
+            this.doSwitch(inputOperation.getDatatype());
+            this.doSwitch(inputOperation.getBodyCondition());
+            this.doSwitch(inputOperation.getType());
+            for (EObject ownedParameter : inputOperation.getOwnedParameters()) {
+                this.doSwitch(ownedParameter);
             }
-            for (Object raisedException : inputOperation.getRaisedExceptions()) {
-                this.doSwitch((EObject) raisedException);
+            for (EObject raisedException : inputOperation.getRaisedExceptions()) {
+                this.doSwitch(raisedException);
             }
-            this.doSwitch((EObject) inputOperation.getInterface());
-            this.doSwitch((EObject) inputOperation.getTemplateParameter());
+            this.doSwitch(inputOperation.getInterface());
+            this.doSwitch(inputOperation.getTemplateParameter());
         }
         return theResult;
     }
@@ -3692,24 +3682,24 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("9ad60327-ac84-451a-a87e-2a767db1b463")
     @Override
     public Object caseOperationTemplateParameter(org.eclipse.uml2.uml.OperationTemplateParameter inputOperationTemplateParameter) {
-        Object theResult = visitorMap.get(inputOperationTemplateParameter);
+        Object theResult = this.visitorMap.get(inputOperationTemplateParameter);
         if (theResult == null) {
-            visitorMap.put(inputOperationTemplateParameter,
+            this.visitorMap.put(inputOperationTemplateParameter,
                     inputOperationTemplateParameter);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("OperationTemplateParameterImpl".equals(theResult
                         .getClass().getSimpleName()))) {
-            behavior
+            this.behavior
             .visitOperationTemplateParameter(inputOperationTemplateParameter);
             theResult = super
             .caseOperationTemplateParameter(inputOperationTemplateParameter);
-            this.doSwitch((EObject) inputOperationTemplateParameter
+            this.doSwitch(inputOperationTemplateParameter
                     .getParameteredElement());
         }
         return theResult;
@@ -3718,19 +3708,19 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("c2ed6a4d-d71c-4e3b-b33c-7baa6088517f")
     @Override
     public Object caseOutputPin(org.eclipse.uml2.uml.OutputPin inputOutputPin) {
-        Object theResult = visitorMap.get(inputOutputPin);
+        Object theResult = this.visitorMap.get(inputOutputPin);
         if (theResult == null) {
-            visitorMap.put(inputOutputPin, inputOutputPin);
+            this.visitorMap.put(inputOutputPin, inputOutputPin);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("OutputPinImpl".equals(theResult.getClass()
                         .getSimpleName()))) {
-            behavior.visitOutputPin(inputOutputPin);
+            this.behavior.visitOutputPin(inputOutputPin);
             theResult = super.caseOutputPin(inputOutputPin);
         }
         return theResult;
@@ -3739,9 +3729,9 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("05f471a9-f8a2-47f5-bcbd-ef4d9cef1dae")
     @Override
     public Object casePackage(org.eclipse.uml2.uml.Package inputPackage) {
-        Object theResult = visitorMap.get(inputPackage);
+        Object theResult = this.visitorMap.get(inputPackage);
         if (theResult == null) {
-            visitorMap.put(inputPackage, inputPackage);
+            this.visitorMap.put(inputPackage, inputPackage);
         }
         
         if (inputPackage instanceof org.eclipse.uml2.uml.Model)
@@ -3749,28 +3739,28 @@ public class EParseModel extends UMLSwitch<Object> {
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("PackageImpl".equals(theResult.getClass().getSimpleName()))) {
-            behavior.visitPackage(inputPackage);
+            this.behavior.visitPackage(inputPackage);
             theResult = super.casePackage(inputPackage);
-            for (Object packageMerge : inputPackage.getPackageMerges()) {
-                this.doSwitch((EObject) packageMerge);
+            for (EObject packageMerge : inputPackage.getPackageMerges()) {
+                this.doSwitch(packageMerge);
             }
-            for (Object packagedElement : inputPackage.getPackagedElements()) {
-                this.doSwitch((EObject) packagedElement);
+            for (EObject packagedElement : inputPackage.getPackagedElements()) {
+                this.doSwitch(packagedElement);
             }
-            for (Object ownedType : inputPackage.getOwnedTypes()) {
-                this.doSwitch((EObject) ownedType);
+            for (EObject ownedType : inputPackage.getOwnedTypes()) {
+                this.doSwitch(ownedType);
             }
-            for (Object nestedPackage : inputPackage.getNestedPackages()) {
-                this.doSwitch((EObject) nestedPackage);
+            for (EObject nestedPackage : inputPackage.getNestedPackages()) {
+                this.doSwitch(nestedPackage);
             }
-            this.doSwitch((EObject) inputPackage.getNestingPackage());
-            for (Object profileApplication : inputPackage
+            this.doSwitch(inputPackage.getNestingPackage());
+            for (EObject profileApplication : inputPackage
                     .getProfileApplications()) {
-                this.doSwitch((EObject) profileApplication);
+                this.doSwitch(profileApplication);
             }
         }
         return theResult;
@@ -3779,22 +3769,22 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("0ebd3b34-a3ea-4de8-94ad-4833048ea02e")
     @Override
     public Object casePackageImport(org.eclipse.uml2.uml.PackageImport inputPackageImport) {
-        Object theResult = visitorMap.get(inputPackageImport);
+        Object theResult = this.visitorMap.get(inputPackageImport);
         if (theResult == null) {
-            visitorMap.put(inputPackageImport, inputPackageImport);
+            this.visitorMap.put(inputPackageImport, inputPackageImport);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("PackageImportImpl".equals(theResult.getClass()
                         .getSimpleName()))) {
-            behavior.visitPackageImport(inputPackageImport);
+            this.behavior.visitPackageImport(inputPackageImport);
             theResult = super.casePackageImport(inputPackageImport);
-            this.doSwitch((EObject) inputPackageImport.getImportingNamespace());
-            this.doSwitch((EObject) inputPackageImport.getImportedPackage());
+            this.doSwitch(inputPackageImport.getImportingNamespace());
+            this.doSwitch(inputPackageImport.getImportedPackage());
         }
         return theResult;
     }
@@ -3802,22 +3792,22 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("6a6bf618-d193-45fc-b4f1-4c86a6710797")
     @Override
     public Object casePackageMerge(org.eclipse.uml2.uml.PackageMerge inputPackageMerge) {
-        Object theResult = visitorMap.get(inputPackageMerge);
+        Object theResult = this.visitorMap.get(inputPackageMerge);
         if (theResult == null) {
-            visitorMap.put(inputPackageMerge, inputPackageMerge);
+            this.visitorMap.put(inputPackageMerge, inputPackageMerge);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("PackageMergeImpl".equals(theResult.getClass()
                         .getSimpleName()))) {
-            behavior.visitPackageMerge(inputPackageMerge);
+            this.behavior.visitPackageMerge(inputPackageMerge);
             theResult = super.casePackageMerge(inputPackageMerge);
-            this.doSwitch((EObject) inputPackageMerge.getReceivingPackage());
-            this.doSwitch((EObject) inputPackageMerge.getMergedPackage());
+            this.doSwitch(inputPackageMerge.getReceivingPackage());
+            this.doSwitch(inputPackageMerge.getMergedPackage());
         }
         return theResult;
     }
@@ -3833,24 +3823,24 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("cdef8f98-3c19-4dab-a1fe-8b2a11ca5dce")
     @Override
     public Object caseParameter(org.eclipse.uml2.uml.Parameter inputParameter) {
-        Object theResult = visitorMap.get(inputParameter);
+        Object theResult = this.visitorMap.get(inputParameter);
         if (theResult == null) {
-            visitorMap.put(inputParameter, inputParameter);
+            this.visitorMap.put(inputParameter, inputParameter);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("ParameterImpl".equals(theResult.getClass()
                         .getSimpleName()))) {
-            behavior.visitParameter(inputParameter);
+            this.behavior.visitParameter(inputParameter);
             theResult = super.caseParameter(inputParameter);
-            this.doSwitch((EObject) inputParameter.getDefaultValue());
-            this.doSwitch((EObject) inputParameter.getOperation());
-            for (Object parameterSet : inputParameter.getParameterSets()) {
-                this.doSwitch((EObject) parameterSet);
+            this.doSwitch(inputParameter.getDefaultValue());
+            this.doSwitch(inputParameter.getOperation());
+            for (EObject parameterSet : inputParameter.getParameterSets()) {
+                this.doSwitch(parameterSet);
             }
         }
         return theResult;
@@ -3859,25 +3849,25 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("c66a24b3-08d4-43ce-a062-fdf16d76134f")
     @Override
     public Object caseParameterSet(org.eclipse.uml2.uml.ParameterSet inputParameterSet) {
-        Object theResult = visitorMap.get(inputParameterSet);
+        Object theResult = this.visitorMap.get(inputParameterSet);
         if (theResult == null) {
-            visitorMap.put(inputParameterSet, inputParameterSet);
+            this.visitorMap.put(inputParameterSet, inputParameterSet);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("ParameterSetImpl".equals(theResult.getClass()
                         .getSimpleName()))) {
-            behavior.visitParameterSet(inputParameterSet);
+            this.behavior.visitParameterSet(inputParameterSet);
             theResult = super.caseParameterSet(inputParameterSet);
-            for (Object parameter : inputParameterSet.getParameters()) {
-                this.doSwitch((EObject) parameter);
+            for (EObject parameter : inputParameterSet.getParameters()) {
+                this.doSwitch(parameter);
             }
-            for (Object condition : inputParameterSet.getConditions()) {
-                this.doSwitch((EObject) condition);
+            for (EObject condition : inputParameterSet.getConditions()) {
+                this.doSwitch(condition);
             }
         }
         return theResult;
@@ -3888,9 +3878,9 @@ public class EParseModel extends UMLSwitch<Object> {
     public Object caseParameterableElement(org.eclipse.uml2.uml.ParameterableElement inputParameterableElement) {
         Object theResult = super
         .caseParameterableElement(inputParameterableElement);
-        this.doSwitch((EObject) inputParameterableElement
+        this.doSwitch(inputParameterableElement
                 .getTemplateParameter());
-        this.doSwitch((EObject) inputParameterableElement
+        this.doSwitch(inputParameterableElement
                 .getOwningTemplateParameter());
         return theResult;
     }
@@ -3898,19 +3888,19 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("d85ffbac-35a6-4974-90e9-d8d7c051ba51")
     @Override
     public Object casePartDecomposition(org.eclipse.uml2.uml.PartDecomposition inputPartDecomposition) {
-        Object theResult = visitorMap.get(inputPartDecomposition);
+        Object theResult = this.visitorMap.get(inputPartDecomposition);
         if (theResult == null) {
-            visitorMap.put(inputPartDecomposition, inputPartDecomposition);
+            this.visitorMap.put(inputPartDecomposition, inputPartDecomposition);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("PartDecompositionImpl".equals(theResult.getClass()
                         .getSimpleName()))) {
-            behavior.visitPartDecomposition(inputPartDecomposition);
+            this.behavior.visitPartDecomposition(inputPartDecomposition);
             theResult = super.casePartDecomposition(inputPartDecomposition);
         }
         return theResult;
@@ -3919,18 +3909,18 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("ae4e22fe-f930-41f1-81a6-16200473628e")
     @Override
     public Object casePin(org.eclipse.uml2.uml.Pin inputPin) {
-        Object theResult = visitorMap.get(inputPin);
+        Object theResult = this.visitorMap.get(inputPin);
         if (theResult == null) {
-            visitorMap.put(inputPin, inputPin);
+            this.visitorMap.put(inputPin, inputPin);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("PinImpl".equals(theResult.getClass().getSimpleName()))) {
-            behavior.visitPin(inputPin);
+            this.behavior.visitPin(inputPin);
             theResult = super.casePin(inputPin);
         }
         return theResult;
@@ -3939,29 +3929,29 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("0f199e3f-b58e-4640-af03-ec495aab0420")
     @Override
     public Object casePort(org.eclipse.uml2.uml.Port inputPort) {
-        Object theResult = visitorMap.get(inputPort);
+        Object theResult = this.visitorMap.get(inputPort);
         if (theResult == null) {
-            visitorMap.put(inputPort, inputPort);
+            this.visitorMap.put(inputPort, inputPort);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("PortImpl".equals(theResult.getClass().getSimpleName()))) {
-            behavior.visitPort(inputPort);
+            this.behavior.visitPort(inputPort);
             theResult = super.casePort(inputPort);
-            for (Object required : inputPort.getRequireds()) {
-                this.doSwitch((EObject) required);
+            for (EObject required : inputPort.getRequireds()) {
+                this.doSwitch(required);
             }
-            for (Object redefinedPort : inputPort.getRedefinedPorts()) {
-                this.doSwitch((EObject) redefinedPort);
+            for (EObject redefinedPort : inputPort.getRedefinedPorts()) {
+                this.doSwitch(redefinedPort);
             }
-            for (Object provided : inputPort.getProvideds()) {
-                this.doSwitch((EObject) provided);
+            for (EObject provided : inputPort.getProvideds()) {
+                this.doSwitch(provided);
             }
-            this.doSwitch((EObject) inputPort.getProtocol());
+            this.doSwitch(inputPort.getProtocol());
         }
         return theResult;
     }
@@ -3969,19 +3959,19 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("7a98282c-17d8-4916-b531-dac280af7692")
     @Override
     public Object casePrimitiveType(org.eclipse.uml2.uml.PrimitiveType inputPrimitiveType) {
-        Object theResult = visitorMap.get(inputPrimitiveType);
+        Object theResult = this.visitorMap.get(inputPrimitiveType);
         if (theResult == null) {
-            visitorMap.put(inputPrimitiveType, inputPrimitiveType);
+            this.visitorMap.put(inputPrimitiveType, inputPrimitiveType);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("PrimitiveTypeImpl".equals(theResult.getClass()
                         .getSimpleName()))) {
-            behavior.visitPrimitiveType(inputPrimitiveType);
+            this.behavior.visitPrimitiveType(inputPrimitiveType);
             theResult = super.casePrimitiveType(inputPrimitiveType);
         }
         return theResult;
@@ -3990,29 +3980,29 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("3227f8b9-d078-4026-9e80-7761f541e34d")
     @Override
     public Object caseProfile(org.eclipse.uml2.uml.Profile inputProfile) {
-        Object theResult = visitorMap.get(inputProfile);
+        Object theResult = this.visitorMap.get(inputProfile);
         if (theResult == null) {
-            visitorMap.put(inputProfile, inputProfile);
+            this.visitorMap.put(inputProfile, inputProfile);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("ProfileImpl".equals(theResult.getClass().getSimpleName()))) {
-            behavior.visitProfile(inputProfile);
+            this.behavior.visitProfile(inputProfile);
             theResult = super.caseProfile(inputProfile);
-            for (Object ownedStereotype : inputProfile.getOwnedStereotypes()) {
-                this.doSwitch((EObject) ownedStereotype);
+            for (EObject ownedStereotype : inputProfile.getOwnedStereotypes()) {
+                this.doSwitch(ownedStereotype);
             }
-            for (Object metaclassReference : inputProfile
+            for (EObject metaclassReference : inputProfile
                     .getMetaclassReferences()) {
-                this.doSwitch((EObject) metaclassReference);
+                this.doSwitch(metaclassReference);
             }
-            for (Object metamodelReference : inputProfile
+            for (EObject metamodelReference : inputProfile
                     .getMetamodelReferences()) {
-                this.doSwitch((EObject) metamodelReference);
+                this.doSwitch(metamodelReference);
             }
         }
         return theResult;
@@ -4021,24 +4011,24 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("e1b868ea-f177-4e73-8d70-b1567fcfbd92")
     @Override
     public Object caseProfileApplication(org.eclipse.uml2.uml.ProfileApplication inputProfileApplication) {
-        Object theResult = visitorMap.get(inputProfileApplication);
+        Object theResult = this.visitorMap.get(inputProfileApplication);
         if (theResult == null) {
-            visitorMap.put(inputProfileApplication, inputProfileApplication);
+            this.visitorMap.put(inputProfileApplication, inputProfileApplication);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("ProfileApplicationImpl".equals(theResult.getClass()
                         .getSimpleName()))) {
-            behavior.visitProfileApplication(inputProfileApplication);
+            this.behavior.visitProfileApplication(inputProfileApplication);
             theResult = super.caseProfileApplication(inputProfileApplication);
             this
-            .doSwitch((EObject) inputProfileApplication
+            .doSwitch(inputProfileApplication
                     .getAppliedProfile());
-            this.doSwitch((EObject) inputProfileApplication
+            this.doSwitch(inputProfileApplication
                     .getApplyingPackage());
         }
         return theResult;
@@ -4047,38 +4037,38 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("49f7bdea-0988-4fbe-ab9c-80d6cfebdb0e")
     @Override
     public Object caseProperty(Property inputProperty) {
-        Object theResult = visitorMap.get(inputProperty);
+        Object theResult = this.visitorMap.get(inputProperty);
         if (theResult == null) {
-            visitorMap.put(inputProperty, inputProperty);
+            this.visitorMap.put(inputProperty, inputProperty);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("PropertyImpl"
                         .equals(theResult.getClass().getSimpleName()))) {
-            behavior.visitProperty(inputProperty);
+            this.behavior.visitProperty(inputProperty);
             theResult = super.caseProperty(inputProperty);
-            this.doSwitch((EObject) inputProperty.getClass_());
-            for (Object redefinedProperty : inputProperty
+            this.doSwitch(inputProperty.getClass_());
+            for (EObject redefinedProperty : inputProperty
                     .getRedefinedProperties()) {
-                this.doSwitch((EObject) redefinedProperty);
+                this.doSwitch(redefinedProperty);
             }
-            this.doSwitch((EObject) inputProperty.getOwningAssociation());
-            this.doSwitch((EObject) inputProperty.getDatatype());
-            this.doSwitch((EObject) inputProperty.getDefaultValue());
-            this.doSwitch((EObject) inputProperty.getOpposite());
-            for (Object subsettedProperty : inputProperty
+            this.doSwitch(inputProperty.getOwningAssociation());
+            this.doSwitch(inputProperty.getDatatype());
+            this.doSwitch(inputProperty.getDefaultValue());
+            this.doSwitch(inputProperty.getOpposite());
+            for (EObject subsettedProperty : inputProperty
                     .getSubsettedProperties()) {
-                this.doSwitch((EObject) subsettedProperty);
+                this.doSwitch(subsettedProperty);
             }
-            this.doSwitch((EObject) inputProperty.getAssociation());
-            for (Object qualifier : inputProperty.getQualifiers()) {
-                this.doSwitch((EObject) qualifier);
+            this.doSwitch(inputProperty.getAssociation());
+            for (EObject qualifier : inputProperty.getQualifiers()) {
+                this.doSwitch(qualifier);
             }
-            this.doSwitch((EObject) inputProperty.getAssociationEnd());
+            this.doSwitch(inputProperty.getAssociationEnd());
         }
         return theResult;
     }
@@ -4086,23 +4076,23 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("edd1bf8a-de44-4185-b7f7-92b801eb4118")
     @Override
     public Object caseProtocolConformance(org.eclipse.uml2.uml.ProtocolConformance inputProtocolConformance) {
-        Object theResult = visitorMap.get(inputProtocolConformance);
+        Object theResult = this.visitorMap.get(inputProtocolConformance);
         if (theResult == null) {
-            visitorMap.put(inputProtocolConformance, inputProtocolConformance);
+            this.visitorMap.put(inputProtocolConformance, inputProtocolConformance);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("ProtocolConformanceImpl".equals(theResult.getClass()
                         .getSimpleName()))) {
-            behavior.visitProtocolConformance(inputProtocolConformance);
+            this.behavior.visitProtocolConformance(inputProtocolConformance);
             theResult = super.caseProtocolConformance(inputProtocolConformance);
-            this.doSwitch((EObject) inputProtocolConformance
+            this.doSwitch(inputProtocolConformance
                     .getSpecificMachine());
-            this.doSwitch((EObject) inputProtocolConformance
+            this.doSwitch(inputProtocolConformance
                     .getGeneralMachine());
         }
         return theResult;
@@ -4111,25 +4101,25 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("a983730c-2192-4269-87be-8989aed06001")
     @Override
     public Object caseProtocolStateMachine(org.eclipse.uml2.uml.ProtocolStateMachine inputProtocolStateMachine) {
-        Object theResult = visitorMap.get(inputProtocolStateMachine);
+        Object theResult = this.visitorMap.get(inputProtocolStateMachine);
         if (theResult == null) {
-            visitorMap
+            this.visitorMap
             .put(inputProtocolStateMachine, inputProtocolStateMachine);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("ProtocolStateMachineImpl".equals(theResult.getClass()
                         .getSimpleName()))) {
-            behavior.visitProtocolStateMachine(inputProtocolStateMachine);
+            this.behavior.visitProtocolStateMachine(inputProtocolStateMachine);
             theResult = super
             .caseProtocolStateMachine(inputProtocolStateMachine);
-            for (Object conformance : inputProtocolStateMachine
+            for (EObject conformance : inputProtocolStateMachine
                     .getConformances()) {
-                this.doSwitch((EObject) conformance);
+                this.doSwitch(conformance);
             }
         }
         return theResult;
@@ -4138,25 +4128,25 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("ace397b0-81b2-4460-b3eb-fe6f2d2e4836")
     @Override
     public Object caseProtocolTransition(org.eclipse.uml2.uml.ProtocolTransition inputProtocolTransition) {
-        Object theResult = visitorMap.get(inputProtocolTransition);
+        Object theResult = this.visitorMap.get(inputProtocolTransition);
         if (theResult == null) {
-            visitorMap.put(inputProtocolTransition, inputProtocolTransition);
+            this.visitorMap.put(inputProtocolTransition, inputProtocolTransition);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("ProtocolTransitionImpl".equals(theResult.getClass()
                         .getSimpleName()))) {
-            behavior.visitProtocolTransition(inputProtocolTransition);
+            this.behavior.visitProtocolTransition(inputProtocolTransition);
             theResult = super.caseProtocolTransition(inputProtocolTransition);
-            this.doSwitch((EObject) inputProtocolTransition.getPostCondition());
-            for (Object referred : inputProtocolTransition.getReferreds()) {
-                this.doSwitch((EObject) referred);
+            this.doSwitch(inputProtocolTransition.getPostCondition());
+            for (EObject referred : inputProtocolTransition.getReferreds()) {
+                this.doSwitch(referred);
             }
-            this.doSwitch((EObject) inputProtocolTransition.getPreCondition());
+            this.doSwitch(inputProtocolTransition.getPreCondition());
         }
         return theResult;
     }
@@ -4164,22 +4154,22 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("c5f7df74-98ca-4470-abf7-caa7ea1f6085")
     @Override
     public Object casePseudostate(org.eclipse.uml2.uml.Pseudostate inputPseudostate) {
-        Object theResult = visitorMap.get(inputPseudostate);
+        Object theResult = this.visitorMap.get(inputPseudostate);
         if (theResult == null) {
-            visitorMap.put(inputPseudostate, inputPseudostate);
+            this.visitorMap.put(inputPseudostate, inputPseudostate);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("PseudostateImpl".equals(theResult.getClass()
                         .getSimpleName()))) {
-            behavior.visitPseudostate(inputPseudostate);
+            this.behavior.visitPseudostate(inputPseudostate);
             theResult = super.casePseudostate(inputPseudostate);
-            this.doSwitch((EObject) inputPseudostate.getStateMachine());
-            this.doSwitch((EObject) inputPseudostate.getState());
+            this.doSwitch(inputPseudostate.getStateMachine());
+            this.doSwitch(inputPseudostate.getState());
         }
         return theResult;
     }
@@ -4187,22 +4177,22 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("645e4a29-6beb-4543-a288-367aadeb2eca")
     @Override
     public Object caseQualifierValue(org.eclipse.uml2.uml.QualifierValue inputQualifierValue) {
-        Object theResult = visitorMap.get(inputQualifierValue);
+        Object theResult = this.visitorMap.get(inputQualifierValue);
         if (theResult == null) {
-            visitorMap.put(inputQualifierValue, inputQualifierValue);
+            this.visitorMap.put(inputQualifierValue, inputQualifierValue);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("QualifierValueImpl".equals(theResult.getClass()
                         .getSimpleName()))) {
-            behavior.visitQualifierValue(inputQualifierValue);
+            this.behavior.visitQualifierValue(inputQualifierValue);
             theResult = super.caseQualifierValue(inputQualifierValue);
-            this.doSwitch((EObject) inputQualifierValue.getQualifier());
-            this.doSwitch((EObject) inputQualifierValue.getValue());
+            this.doSwitch(inputQualifierValue.getQualifier());
+            this.doSwitch(inputQualifierValue.getValue());
         }
         return theResult;
     }
@@ -4210,23 +4200,23 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("dbe2a7ef-1858-4146-a5b9-949cce2e54e5")
     @Override
     public Object caseRaiseExceptionAction(org.eclipse.uml2.uml.RaiseExceptionAction inputRaiseExceptionAction) {
-        Object theResult = visitorMap.get(inputRaiseExceptionAction);
+        Object theResult = this.visitorMap.get(inputRaiseExceptionAction);
         if (theResult == null) {
-            visitorMap
+            this.visitorMap
             .put(inputRaiseExceptionAction, inputRaiseExceptionAction);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("RaiseExceptionActionImpl".equals(theResult.getClass()
                         .getSimpleName()))) {
-            behavior.visitRaiseExceptionAction(inputRaiseExceptionAction);
+            this.behavior.visitRaiseExceptionAction(inputRaiseExceptionAction);
             theResult = super
             .caseRaiseExceptionAction(inputRaiseExceptionAction);
-            this.doSwitch((EObject) inputRaiseExceptionAction.getException());
+            this.doSwitch(inputRaiseExceptionAction.getException());
         }
         return theResult;
     }
@@ -4234,22 +4224,22 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("38ab5bf9-fdca-4df9-a356-e17b0468ebd7")
     @Override
     public Object caseReadExtentAction(org.eclipse.uml2.uml.ReadExtentAction inputReadExtentAction) {
-        Object theResult = visitorMap.get(inputReadExtentAction);
+        Object theResult = this.visitorMap.get(inputReadExtentAction);
         if (theResult == null) {
-            visitorMap.put(inputReadExtentAction, inputReadExtentAction);
+            this.visitorMap.put(inputReadExtentAction, inputReadExtentAction);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("ReadExtentActionImpl".equals(theResult.getClass()
                         .getSimpleName()))) {
-            behavior.visitReadExtentAction(inputReadExtentAction);
+            this.behavior.visitReadExtentAction(inputReadExtentAction);
             theResult = super.caseReadExtentAction(inputReadExtentAction);
-            this.doSwitch((EObject) inputReadExtentAction.getResult());
-            this.doSwitch((EObject) inputReadExtentAction.getClassifier());
+            this.doSwitch(inputReadExtentAction.getResult());
+            this.doSwitch(inputReadExtentAction.getClassifier());
         }
         return theResult;
     }
@@ -4257,28 +4247,28 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("0a5fe7ba-5b70-4f49-9229-182de32c758c")
     @Override
     public Object caseReadIsClassifiedObjectAction(org.eclipse.uml2.uml.ReadIsClassifiedObjectAction inputReadIsClassifiedObjectAction) {
-        Object theResult = visitorMap.get(inputReadIsClassifiedObjectAction);
+        Object theResult = this.visitorMap.get(inputReadIsClassifiedObjectAction);
         if (theResult == null) {
-            visitorMap.put(inputReadIsClassifiedObjectAction,
+            this.visitorMap.put(inputReadIsClassifiedObjectAction,
                     inputReadIsClassifiedObjectAction);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("ReadIsClassifiedObjectActionImpl".equals(theResult
                         .getClass().getSimpleName()))) {
-            behavior
+            this.behavior
             .visitReadIsClassifiedObjectAction(inputReadIsClassifiedObjectAction);
             theResult = super
             .caseReadIsClassifiedObjectAction(inputReadIsClassifiedObjectAction);
-            this.doSwitch((EObject) inputReadIsClassifiedObjectAction
+            this.doSwitch(inputReadIsClassifiedObjectAction
                     .getClassifier());
-            this.doSwitch((EObject) inputReadIsClassifiedObjectAction
+            this.doSwitch(inputReadIsClassifiedObjectAction
                     .getResult());
-            this.doSwitch((EObject) inputReadIsClassifiedObjectAction
+            this.doSwitch(inputReadIsClassifiedObjectAction
                     .getObject());
         }
         return theResult;
@@ -4287,21 +4277,21 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("cbd408fa-12c7-4505-b336-c52c6d71f187")
     @Override
     public Object caseReadLinkAction(org.eclipse.uml2.uml.ReadLinkAction inputReadLinkAction) {
-        Object theResult = visitorMap.get(inputReadLinkAction);
+        Object theResult = this.visitorMap.get(inputReadLinkAction);
         if (theResult == null) {
-            visitorMap.put(inputReadLinkAction, inputReadLinkAction);
+            this.visitorMap.put(inputReadLinkAction, inputReadLinkAction);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("ReadLinkActionImpl".equals(theResult.getClass()
                         .getSimpleName()))) {
-            behavior.visitReadLinkAction(inputReadLinkAction);
+            this.behavior.visitReadLinkAction(inputReadLinkAction);
             theResult = super.caseReadLinkAction(inputReadLinkAction);
-            this.doSwitch((EObject) inputReadLinkAction.getResult());
+            this.doSwitch(inputReadLinkAction.getResult());
         }
         return theResult;
     }
@@ -4309,25 +4299,25 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("cfa7e3fa-91a1-4c32-9402-c1b552628720")
     @Override
     public Object caseReadLinkObjectEndAction(org.eclipse.uml2.uml.ReadLinkObjectEndAction inputReadLinkObjectEndAction) {
-        Object theResult = visitorMap.get(inputReadLinkObjectEndAction);
+        Object theResult = this.visitorMap.get(inputReadLinkObjectEndAction);
         if (theResult == null) {
-            visitorMap.put(inputReadLinkObjectEndAction,
+            this.visitorMap.put(inputReadLinkObjectEndAction,
                     inputReadLinkObjectEndAction);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("ReadLinkObjectEndActionImpl".equals(theResult.getClass()
                         .getSimpleName()))) {
-            behavior.visitReadLinkObjectEndAction(inputReadLinkObjectEndAction);
+            this.behavior.visitReadLinkObjectEndAction(inputReadLinkObjectEndAction);
             theResult = super
             .caseReadLinkObjectEndAction(inputReadLinkObjectEndAction);
-            this.doSwitch((EObject) inputReadLinkObjectEndAction.getObject());
-            this.doSwitch((EObject) inputReadLinkObjectEndAction.getEnd());
-            this.doSwitch((EObject) inputReadLinkObjectEndAction.getResult());
+            this.doSwitch(inputReadLinkObjectEndAction.getObject());
+            this.doSwitch(inputReadLinkObjectEndAction.getEnd());
+            this.doSwitch(inputReadLinkObjectEndAction.getResult());
         }
         return theResult;
     }
@@ -4335,29 +4325,29 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("1f980b40-6398-4969-9b37-0d715e10ce15")
     @Override
     public Object caseReadLinkObjectEndQualifierAction(org.eclipse.uml2.uml.ReadLinkObjectEndQualifierAction inputReadLinkObjectEndQualifierAction) {
-        Object theResult = visitorMap
+        Object theResult = this.visitorMap
         .get(inputReadLinkObjectEndQualifierAction);
         if (theResult == null) {
-            visitorMap.put(inputReadLinkObjectEndQualifierAction,
+            this.visitorMap.put(inputReadLinkObjectEndQualifierAction,
                     inputReadLinkObjectEndQualifierAction);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("ReadLinkObjectEndQualifierActionImpl".equals(theResult
                         .getClass().getSimpleName()))) {
-            behavior
+            this.behavior
             .visitReadLinkObjectEndQualifierAction(inputReadLinkObjectEndQualifierAction);
             theResult = super
             .caseReadLinkObjectEndQualifierAction(inputReadLinkObjectEndQualifierAction);
-            this.doSwitch((EObject) inputReadLinkObjectEndQualifierAction
+            this.doSwitch(inputReadLinkObjectEndQualifierAction
                     .getObject());
-            this.doSwitch((EObject) inputReadLinkObjectEndQualifierAction
+            this.doSwitch(inputReadLinkObjectEndQualifierAction
                     .getResult());
-            this.doSwitch((EObject) inputReadLinkObjectEndQualifierAction
+            this.doSwitch(inputReadLinkObjectEndQualifierAction
                     .getQualifier());
         }
         return theResult;
@@ -4366,21 +4356,21 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("bd1df0c8-7f42-482f-af0f-86cc49042449")
     @Override
     public Object caseReadSelfAction(org.eclipse.uml2.uml.ReadSelfAction inputReadSelfAction) {
-        Object theResult = visitorMap.get(inputReadSelfAction);
+        Object theResult = this.visitorMap.get(inputReadSelfAction);
         if (theResult == null) {
-            visitorMap.put(inputReadSelfAction, inputReadSelfAction);
+            this.visitorMap.put(inputReadSelfAction, inputReadSelfAction);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("ReadSelfActionImpl".equals(theResult.getClass()
                         .getSimpleName()))) {
-            behavior.visitReadSelfAction(inputReadSelfAction);
+            this.behavior.visitReadSelfAction(inputReadSelfAction);
             theResult = super.caseReadSelfAction(inputReadSelfAction);
-            this.doSwitch((EObject) inputReadSelfAction.getResult());
+            this.doSwitch(inputReadSelfAction.getResult());
         }
         return theResult;
     }
@@ -4388,24 +4378,24 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("7f883797-3f47-4782-ae5a-768069f9e2b3")
     @Override
     public Object caseReadStructuralFeatureAction(org.eclipse.uml2.uml.ReadStructuralFeatureAction inputReadStructuralFeatureAction) {
-        Object theResult = visitorMap.get(inputReadStructuralFeatureAction);
+        Object theResult = this.visitorMap.get(inputReadStructuralFeatureAction);
         if (theResult == null) {
-            visitorMap.put(inputReadStructuralFeatureAction,
+            this.visitorMap.put(inputReadStructuralFeatureAction,
                     inputReadStructuralFeatureAction);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("ReadStructuralFeatureActionImpl".equals(theResult
                         .getClass().getSimpleName()))) {
-            behavior
+            this.behavior
             .visitReadStructuralFeatureAction(inputReadStructuralFeatureAction);
             theResult = super
             .caseReadStructuralFeatureAction(inputReadStructuralFeatureAction);
-            this.doSwitch((EObject) inputReadStructuralFeatureAction
+            this.doSwitch(inputReadStructuralFeatureAction
                     .getResult());
         }
         return theResult;
@@ -4414,21 +4404,21 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("f83acdfd-9ebb-4295-8660-e120d7e2b908")
     @Override
     public Object caseReadVariableAction(org.eclipse.uml2.uml.ReadVariableAction inputReadVariableAction) {
-        Object theResult = visitorMap.get(inputReadVariableAction);
+        Object theResult = this.visitorMap.get(inputReadVariableAction);
         if (theResult == null) {
-            visitorMap.put(inputReadVariableAction, inputReadVariableAction);
+            this.visitorMap.put(inputReadVariableAction, inputReadVariableAction);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("ReadVariableActionImpl".equals(theResult.getClass()
                         .getSimpleName()))) {
-            behavior.visitReadVariableAction(inputReadVariableAction);
+            this.behavior.visitReadVariableAction(inputReadVariableAction);
             theResult = super.caseReadVariableAction(inputReadVariableAction);
-            this.doSwitch((EObject) inputReadVariableAction.getResult());
+            this.doSwitch(inputReadVariableAction.getResult());
         }
         return theResult;
     }
@@ -4436,19 +4426,19 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("25cc75f9-424d-4864-aaf9-5300740c82b8")
     @Override
     public Object caseRealization(org.eclipse.uml2.uml.Realization inputRealization) {
-        Object theResult = visitorMap.get(inputRealization);
+        Object theResult = this.visitorMap.get(inputRealization);
         if (theResult == null) {
-            visitorMap.put(inputRealization, inputRealization);
+            this.visitorMap.put(inputRealization, inputRealization);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("RealizationImpl".equals(theResult.getClass()
                         .getSimpleName()))) {
-            behavior.visitRealization(inputRealization);
+            this.behavior.visitRealization(inputRealization);
             theResult = super.caseRealization(inputRealization);
         }
         return theResult;
@@ -4457,23 +4447,23 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("d6268e3a-943f-4073-a96c-f51f896adb4e")
     @Override
     public Object caseReceiveOperationEvent(org.eclipse.uml2.uml.ReceiveOperationEvent inputReceiveOperationEvent) {
-        Object theResult = visitorMap.get(inputReceiveOperationEvent);
+        Object theResult = this.visitorMap.get(inputReceiveOperationEvent);
         if (theResult == null) {
-            visitorMap.put(inputReceiveOperationEvent,
+            this.visitorMap.put(inputReceiveOperationEvent,
                     inputReceiveOperationEvent);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("ReceiveOperationEventImpl".equals(theResult.getClass()
                         .getSimpleName()))) {
-            behavior.visitReceiveOperationEvent(inputReceiveOperationEvent);
+            this.behavior.visitReceiveOperationEvent(inputReceiveOperationEvent);
             theResult = super
             .caseReceiveOperationEvent(inputReceiveOperationEvent);
-            this.doSwitch((EObject) inputReceiveOperationEvent.getOperation());
+            this.doSwitch(inputReceiveOperationEvent.getOperation());
         }
         return theResult;
     }
@@ -4481,21 +4471,21 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("209c67df-a3e4-4f42-9b13-3ca94eb8f7ad")
     @Override
     public Object caseReceiveSignalEvent(org.eclipse.uml2.uml.ReceiveSignalEvent inputReceiveSignalEvent) {
-        Object theResult = visitorMap.get(inputReceiveSignalEvent);
+        Object theResult = this.visitorMap.get(inputReceiveSignalEvent);
         if (theResult == null) {
-            visitorMap.put(inputReceiveSignalEvent, inputReceiveSignalEvent);
+            this.visitorMap.put(inputReceiveSignalEvent, inputReceiveSignalEvent);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("ReceiveSignalEventImpl".equals(theResult.getClass()
                         .getSimpleName()))) {
-            behavior.visitReceiveSignalEvent(inputReceiveSignalEvent);
+            this.behavior.visitReceiveSignalEvent(inputReceiveSignalEvent);
             theResult = super.caseReceiveSignalEvent(inputReceiveSignalEvent);
-            this.doSwitch((EObject) inputReceiveSignalEvent.getSignal());
+            this.doSwitch(inputReceiveSignalEvent.getSignal());
         }
         return theResult;
     }
@@ -4503,21 +4493,21 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("7f860801-c1f1-4c72-a0ac-400e2a69d9dc")
     @Override
     public Object caseReception(org.eclipse.uml2.uml.Reception inputReception) {
-        Object theResult = visitorMap.get(inputReception);
+        Object theResult = this.visitorMap.get(inputReception);
         if (theResult == null) {
-            visitorMap.put(inputReception, inputReception);
+            this.visitorMap.put(inputReception, inputReception);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("ReceptionImpl".equals(theResult.getClass()
                         .getSimpleName()))) {
-            behavior.visitReception(inputReception);
+            this.behavior.visitReception(inputReception);
             theResult = super.caseReception(inputReception);
-            this.doSwitch((EObject) inputReception.getSignal());
+            this.doSwitch(inputReception.getSignal());
         }
         return theResult;
     }
@@ -4525,31 +4515,31 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("9fc136c4-1192-4106-9032-cd95b73d820a")
     @Override
     public Object caseReclassifyObjectAction(org.eclipse.uml2.uml.ReclassifyObjectAction inputReclassifyObjectAction) {
-        Object theResult = visitorMap.get(inputReclassifyObjectAction);
+        Object theResult = this.visitorMap.get(inputReclassifyObjectAction);
         if (theResult == null) {
-            visitorMap.put(inputReclassifyObjectAction,
+            this.visitorMap.put(inputReclassifyObjectAction,
                     inputReclassifyObjectAction);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("ReclassifyObjectActionImpl".equals(theResult.getClass()
                         .getSimpleName()))) {
-            behavior.visitReclassifyObjectAction(inputReclassifyObjectAction);
+            this.behavior.visitReclassifyObjectAction(inputReclassifyObjectAction);
             theResult = super
             .caseReclassifyObjectAction(inputReclassifyObjectAction);
-            for (Object oldClassifier : inputReclassifyObjectAction
+            for (EObject oldClassifier : inputReclassifyObjectAction
                     .getOldClassifiers()) {
-                this.doSwitch((EObject) oldClassifier);
+                this.doSwitch(oldClassifier);
             }
-            for (Object newClassifier : inputReclassifyObjectAction
+            for (EObject newClassifier : inputReclassifyObjectAction
                     .getNewClassifiers()) {
-                this.doSwitch((EObject) newClassifier);
+                this.doSwitch(newClassifier);
             }
-            this.doSwitch((EObject) inputReclassifyObjectAction.getObject());
+            this.doSwitch(inputReclassifyObjectAction.getObject());
         }
         return theResult;
     }
@@ -4559,13 +4549,13 @@ public class EParseModel extends UMLSwitch<Object> {
     public Object caseRedefinableElement(org.eclipse.uml2.uml.RedefinableElement inputRedefinableElement) {
         Object theResult = super
         .caseRedefinableElement(inputRedefinableElement);
-        for (Object redefinedElement : inputRedefinableElement
+        for (EObject redefinedElement : inputRedefinableElement
                 .getRedefinedElements()) {
-            this.doSwitch((EObject) redefinedElement);
+            this.doSwitch(redefinedElement);
         }
-        for (Object redefinitionContext : inputRedefinableElement
+        for (EObject redefinitionContext : inputRedefinableElement
                 .getRedefinitionContexts()) {
-            this.doSwitch((EObject) redefinitionContext);
+            this.doSwitch(redefinitionContext);
         }
         return theResult;
     }
@@ -4573,32 +4563,32 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("4a36ac02-5c5f-4826-8b8b-48d46ba91434")
     @Override
     public Object caseRedefinableTemplateSignature(org.eclipse.uml2.uml.RedefinableTemplateSignature inputRedefinableTemplateSignature) {
-        Object theResult = visitorMap.get(inputRedefinableTemplateSignature);
+        Object theResult = this.visitorMap.get(inputRedefinableTemplateSignature);
         if (theResult == null) {
-            visitorMap.put(inputRedefinableTemplateSignature,
+            this.visitorMap.put(inputRedefinableTemplateSignature,
                     inputRedefinableTemplateSignature);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("RedefinableTemplateSignatureImpl".equals(theResult
                         .getClass().getSimpleName()))) {
-            behavior
+            this.behavior
             .visitRedefinableTemplateSignature(inputRedefinableTemplateSignature);
             theResult = super
             .caseRedefinableTemplateSignature(inputRedefinableTemplateSignature);
-            this.doSwitch((EObject) inputRedefinableTemplateSignature
+            this.doSwitch(inputRedefinableTemplateSignature
                     .getClassifier());
-            for (Object extendedSignature : inputRedefinableTemplateSignature
+            for (EObject extendedSignature : inputRedefinableTemplateSignature
                     .getExtendedSignatures()) {
-                this.doSwitch((EObject) extendedSignature);
+                this.doSwitch(extendedSignature);
             }
-            for (Object inheritedParameter : inputRedefinableTemplateSignature
+            for (EObject inheritedParameter : inputRedefinableTemplateSignature
                     .getInheritedParameters()) {
-                this.doSwitch((EObject) inheritedParameter);
+                this.doSwitch(inheritedParameter);
             }
         }
         return theResult;
@@ -4607,23 +4597,23 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("91c58943-b5fa-4f87-b8da-ee265f9ab8c3")
     @Override
     public Object caseReduceAction(org.eclipse.uml2.uml.ReduceAction inputReduceAction) {
-        Object theResult = visitorMap.get(inputReduceAction);
+        Object theResult = this.visitorMap.get(inputReduceAction);
         if (theResult == null) {
-            visitorMap.put(inputReduceAction, inputReduceAction);
+            this.visitorMap.put(inputReduceAction, inputReduceAction);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("ReduceActionImpl".equals(theResult.getClass()
                         .getSimpleName()))) {
-            behavior.visitReduceAction(inputReduceAction);
+            this.behavior.visitReduceAction(inputReduceAction);
             theResult = super.caseReduceAction(inputReduceAction);
-            this.doSwitch((EObject) inputReduceAction.getReducer());
-            this.doSwitch((EObject) inputReduceAction.getResult());
-            this.doSwitch((EObject) inputReduceAction.getCollection());
+            this.doSwitch(inputReduceAction.getReducer());
+            this.doSwitch(inputReduceAction.getResult());
+            this.doSwitch(inputReduceAction.getCollection());
         }
         return theResult;
     }
@@ -4631,32 +4621,32 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("c1540ca1-38b0-4260-9b8b-afe912779e40")
     @Override
     public Object caseRegion(org.eclipse.uml2.uml.Region inputRegion) {
-        Object theResult = visitorMap.get(inputRegion);
+        Object theResult = this.visitorMap.get(inputRegion);
         if (theResult == null) {
-            visitorMap.put(inputRegion, inputRegion);
+            this.visitorMap.put(inputRegion, inputRegion);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("RegionImpl".equals(theResult.getClass().getSimpleName()))) {
-            behavior.visitRegion(inputRegion);
+            this.behavior.visitRegion(inputRegion);
             theResult = super.caseRegion(inputRegion);
-            for (Object subvertex : inputRegion.getSubvertices()) {
-                this.doSwitch((EObject) subvertex);
+            for (EObject subvertex : inputRegion.getSubvertices()) {
+                this.doSwitch(subvertex);
             }
-            for (Object transition : inputRegion.getTransitions()) {
-                this.doSwitch((EObject) transition);
+            for (EObject transition : inputRegion.getTransitions()) {
+                this.doSwitch(transition);
             }
-            this.doSwitch((EObject) inputRegion.getStateMachine());
-            this.doSwitch((EObject) inputRegion.getState());
-            this.doSwitch((EObject) inputRegion.getExtendedRegion());
+            this.doSwitch(inputRegion.getStateMachine());
+            this.doSwitch(inputRegion.getState());
+            this.doSwitch(inputRegion.getExtendedRegion());
             // this.doSwitch((EObject)inputRegion.getRedefinitionContext());
-            for (Object redefinitionContext : inputRegion
+            for (EObject redefinitionContext : inputRegion
                     .getRedefinitionContexts()) {
-                this.doSwitch((EObject) redefinitionContext);
+                this.doSwitch(redefinitionContext);
             }
         }
         return theResult;
@@ -4666,8 +4656,8 @@ public class EParseModel extends UMLSwitch<Object> {
     @Override
     public Object caseRelationship(org.eclipse.uml2.uml.Relationship inputRelationship) {
         Object theResult = super.caseRelationship(inputRelationship);
-        for (Object relatedElement : inputRelationship.getRelatedElements()) {
-            this.doSwitch((EObject) relatedElement);
+        for (EObject relatedElement : inputRelationship.getRelatedElements()) {
+            this.doSwitch(relatedElement);
         }
         return theResult;
     }
@@ -4675,25 +4665,25 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("c7708a40-b327-4844-91d7-e51cff1bb28f")
     @Override
     public Object caseRemoveStructuralFeatureValueAction(org.eclipse.uml2.uml.RemoveStructuralFeatureValueAction inputRemoveStructuralFeatureValueAction) {
-        Object theResult = visitorMap
+        Object theResult = this.visitorMap
         .get(inputRemoveStructuralFeatureValueAction);
         if (theResult == null) {
-            visitorMap.put(inputRemoveStructuralFeatureValueAction,
+            this.visitorMap.put(inputRemoveStructuralFeatureValueAction,
                     inputRemoveStructuralFeatureValueAction);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("RemoveStructuralFeatureValueActionImpl".equals(theResult
                         .getClass().getSimpleName()))) {
-            behavior
+            this.behavior
             .visitRemoveStructuralFeatureValueAction(inputRemoveStructuralFeatureValueAction);
             theResult = super
             .caseRemoveStructuralFeatureValueAction(inputRemoveStructuralFeatureValueAction);
-            this.doSwitch((EObject) inputRemoveStructuralFeatureValueAction
+            this.doSwitch(inputRemoveStructuralFeatureValueAction
                     .getRemoveAt());
         }
         return theResult;
@@ -4702,24 +4692,24 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("55508d79-c2ed-4a77-a476-bfbf40999649")
     @Override
     public Object caseRemoveVariableValueAction(org.eclipse.uml2.uml.RemoveVariableValueAction inputRemoveVariableValueAction) {
-        Object theResult = visitorMap.get(inputRemoveVariableValueAction);
+        Object theResult = this.visitorMap.get(inputRemoveVariableValueAction);
         if (theResult == null) {
-            visitorMap.put(inputRemoveVariableValueAction,
+            this.visitorMap.put(inputRemoveVariableValueAction,
                     inputRemoveVariableValueAction);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("RemoveVariableValueActionImpl".equals(theResult
                         .getClass().getSimpleName()))) {
-            behavior
+            this.behavior
             .visitRemoveVariableValueAction(inputRemoveVariableValueAction);
             theResult = super
             .caseRemoveVariableValueAction(inputRemoveVariableValueAction);
-            this.doSwitch((EObject) inputRemoveVariableValueAction
+            this.doSwitch(inputRemoveVariableValueAction
                     .getRemoveAt());
         }
         return theResult;
@@ -4728,24 +4718,24 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("ceddf53d-82e7-4e47-87c9-6d3040aeb1a9")
     @Override
     public Object caseReplyAction(org.eclipse.uml2.uml.ReplyAction inputReplyAction) {
-        Object theResult = visitorMap.get(inputReplyAction);
+        Object theResult = this.visitorMap.get(inputReplyAction);
         if (theResult == null) {
-            visitorMap.put(inputReplyAction, inputReplyAction);
+            this.visitorMap.put(inputReplyAction, inputReplyAction);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("ReplyActionImpl".equals(theResult.getClass()
                         .getSimpleName()))) {
-            behavior.visitReplyAction(inputReplyAction);
+            this.behavior.visitReplyAction(inputReplyAction);
             theResult = super.caseReplyAction(inputReplyAction);
-            this.doSwitch((EObject) inputReplyAction.getReplyToCall());
-            this.doSwitch((EObject) inputReplyAction.getReturnInformation());
-            for (Object replyValue : inputReplyAction.getReplyValues()) {
-                this.doSwitch((EObject) replyValue);
+            this.doSwitch(inputReplyAction.getReplyToCall());
+            this.doSwitch(inputReplyAction.getReturnInformation());
+            for (EObject replyValue : inputReplyAction.getReplyValues()) {
+                this.doSwitch(replyValue);
             }
         }
         return theResult;
@@ -4754,22 +4744,22 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("2989cd2b-31fc-4a9a-81f3-ca97fa8cd2a2")
     @Override
     public Object caseSendObjectAction(org.eclipse.uml2.uml.SendObjectAction inputSendObjectAction) {
-        Object theResult = visitorMap.get(inputSendObjectAction);
+        Object theResult = this.visitorMap.get(inputSendObjectAction);
         if (theResult == null) {
-            visitorMap.put(inputSendObjectAction, inputSendObjectAction);
+            this.visitorMap.put(inputSendObjectAction, inputSendObjectAction);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("SendObjectActionImpl".equals(theResult.getClass()
                         .getSimpleName()))) {
-            behavior.visitSendObjectAction(inputSendObjectAction);
+            this.behavior.visitSendObjectAction(inputSendObjectAction);
             theResult = super.caseSendObjectAction(inputSendObjectAction);
-            this.doSwitch((EObject) inputSendObjectAction.getTarget());
-            this.doSwitch((EObject) inputSendObjectAction.getRequest());
+            this.doSwitch(inputSendObjectAction.getTarget());
+            this.doSwitch(inputSendObjectAction.getRequest());
         }
         return theResult;
     }
@@ -4777,21 +4767,21 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("1bf80961-fb7b-42d8-8e4e-b8a5fc9c423e")
     @Override
     public Object caseSendOperationEvent(org.eclipse.uml2.uml.SendOperationEvent inputSendOperationEvent) {
-        Object theResult = visitorMap.get(inputSendOperationEvent);
+        Object theResult = this.visitorMap.get(inputSendOperationEvent);
         if (theResult == null) {
-            visitorMap.put(inputSendOperationEvent, inputSendOperationEvent);
+            this.visitorMap.put(inputSendOperationEvent, inputSendOperationEvent);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("SendOperationEventImpl".equals(theResult.getClass()
                         .getSimpleName()))) {
-            behavior.visitSendOperationEvent(inputSendOperationEvent);
+            this.behavior.visitSendOperationEvent(inputSendOperationEvent);
             theResult = super.caseSendOperationEvent(inputSendOperationEvent);
-            this.doSwitch((EObject) inputSendOperationEvent.getOperation());
+            this.doSwitch(inputSendOperationEvent.getOperation());
         }
         return theResult;
     }
@@ -4799,66 +4789,45 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("ad13892c-3a29-4c45-a445-9848bda9ae26")
     @Override
     public Object caseSendSignalAction(org.eclipse.uml2.uml.SendSignalAction inputSendSignalAction) {
-        Object theResult = visitorMap.get(inputSendSignalAction);
+        Object theResult = this.visitorMap.get(inputSendSignalAction);
         if (theResult == null) {
-            visitorMap.put(inputSendSignalAction, inputSendSignalAction);
+            this.visitorMap.put(inputSendSignalAction, inputSendSignalAction);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("SendSignalActionImpl".equals(theResult.getClass()
                         .getSimpleName()))) {
-            behavior.visitSendSignalAction(inputSendSignalAction);
+            this.behavior.visitSendSignalAction(inputSendSignalAction);
             theResult = super.caseSendSignalAction(inputSendSignalAction);
-            this.doSwitch((EObject) inputSendSignalAction.getTarget());
-            this.doSwitch((EObject) inputSendSignalAction.getSignal());
+            this.doSwitch(inputSendSignalAction.getTarget());
+            this.doSwitch(inputSendSignalAction.getSignal());
         }
         return theResult;
     }
 
-//    @objid ("1388bab8-4583-11e0-b54c-00137279a832")
-//    @Override
-//    public Object caseSendSignalEvent(org.eclipse.uml2.uml.SendSignalEvent inputSendSignalEvent) {
-//        Object theResult = visitorMap.get(inputSendSignalEvent);
-//        if (theResult == null) {
-//            visitorMap.put(inputSendSignalEvent, inputSendSignalEvent);
-//        }
-//
-//        // In particular case of this concrete element is inherited by another
-//        // concrete element, it
-//        // shall be in the visitorMap. Also do call the treatment defined at the
-//        // current super level:
-//        if (theResult == null
-//                || !("SendSignalEventImpl".equals(theResult.getClass()
-//                        .getSimpleName()))) {
-//            behavior.visitSendSignalEvent(inputSendSignalEvent);
-//            theResult = super.caseSendSignalEvent(inputSendSignalEvent);
-//            this.doSwitch((EObject) inputSendSignalEvent.getSignal());
-//        }
-//        return theResult;
-//    }
     @objid ("e7ce4221-1e9f-48fd-8bfd-dd5358d19096")
     @Override
     public Object caseSequenceNode(org.eclipse.uml2.uml.SequenceNode inputSequenceNode) {
-        Object theResult = visitorMap.get(inputSequenceNode);
+        Object theResult = this.visitorMap.get(inputSequenceNode);
         if (theResult == null) {
-            visitorMap.put(inputSequenceNode, inputSequenceNode);
+            this.visitorMap.put(inputSequenceNode, inputSequenceNode);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("SequenceNodeImpl".equals(theResult.getClass()
                         .getSimpleName()))) {
-            behavior.visitSequenceNode(inputSequenceNode);
+            this.behavior.visitSequenceNode(inputSequenceNode);
             theResult = super.caseSequenceNode(inputSequenceNode);
-            for (Object executableNode : inputSequenceNode.getExecutableNodes()) {
-                this.doSwitch((EObject) executableNode);
+            for (EObject executableNode : inputSequenceNode.getExecutableNodes()) {
+                this.doSwitch(executableNode);
             }
         }
         return theResult;
@@ -4867,21 +4836,21 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("d4634613-4917-4c81-af62-45818097f99e")
     @Override
     public Object caseSignal(org.eclipse.uml2.uml.Signal inputSignal) {
-        Object theResult = visitorMap.get(inputSignal);
+        Object theResult = this.visitorMap.get(inputSignal);
         if (theResult == null) {
-            visitorMap.put(inputSignal, inputSignal);
+            this.visitorMap.put(inputSignal, inputSignal);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("SignalImpl".equals(theResult.getClass().getSimpleName()))) {
-            behavior.visitSignal(inputSignal);
+            this.behavior.visitSignal(inputSignal);
             theResult = super.caseSignal(inputSignal);
-            for (Object ownedAttribute : inputSignal.getOwnedAttributes()) {
-                this.doSwitch((EObject) ownedAttribute);
+            for (EObject ownedAttribute : inputSignal.getOwnedAttributes()) {
+                this.doSwitch(ownedAttribute);
             }
         }
         return theResult;
@@ -4890,21 +4859,21 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("2c5990dc-8d91-4ae2-be23-6684b2e4528b")
     @Override
     public Object caseSignalEvent(org.eclipse.uml2.uml.SignalEvent inputSignalEvent) {
-        Object theResult = visitorMap.get(inputSignalEvent);
+        Object theResult = this.visitorMap.get(inputSignalEvent);
         if (theResult == null) {
-            visitorMap.put(inputSignalEvent, inputSignalEvent);
+            this.visitorMap.put(inputSignalEvent, inputSignalEvent);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("SignalEventImpl".equals(theResult.getClass()
                         .getSimpleName()))) {
-            behavior.visitSignalEvent(inputSignalEvent);
+            this.behavior.visitSignalEvent(inputSignalEvent);
             theResult = super.caseSignalEvent(inputSignalEvent);
-            this.doSwitch((EObject) inputSignalEvent.getSignal());
+            this.doSwitch(inputSignalEvent.getSignal());
         }
         return theResult;
     }
@@ -4912,23 +4881,23 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("8ca75444-7d4a-4fed-9d84-8610c143937b")
     @Override
     public Object caseSlot(org.eclipse.uml2.uml.Slot inputSlot) {
-        Object theResult = visitorMap.get(inputSlot);
+        Object theResult = this.visitorMap.get(inputSlot);
         if (theResult == null) {
-            visitorMap.put(inputSlot, inputSlot);
+            this.visitorMap.put(inputSlot, inputSlot);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("SlotImpl".equals(theResult.getClass().getSimpleName()))) {
-            behavior.visitSlot(inputSlot);
+            this.behavior.visitSlot(inputSlot);
             theResult = super.caseSlot(inputSlot);
-            this.doSwitch((EObject) inputSlot.getOwningInstance());
-            this.doSwitch((EObject) inputSlot.getDefiningFeature());
-            for (Object value : inputSlot.getValues()) {
-                this.doSwitch((EObject) value);
+            this.doSwitch(inputSlot.getOwningInstance());
+            this.doSwitch(inputSlot.getDefiningFeature());
+            for (EObject value : inputSlot.getValues()) {
+                this.doSwitch(value);
             }
         }
         return theResult;
@@ -4937,24 +4906,24 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("47f67a7d-b6e8-405e-917f-122b950556f8")
     @Override
     public Object caseStartClassifierBehaviorAction(org.eclipse.uml2.uml.StartClassifierBehaviorAction inputStartClassifierBehaviorAction) {
-        Object theResult = visitorMap.get(inputStartClassifierBehaviorAction);
+        Object theResult = this.visitorMap.get(inputStartClassifierBehaviorAction);
         if (theResult == null) {
-            visitorMap.put(inputStartClassifierBehaviorAction,
+            this.visitorMap.put(inputStartClassifierBehaviorAction,
                     inputStartClassifierBehaviorAction);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("StartClassifierBehaviorActionImpl".equals(theResult
                         .getClass().getSimpleName()))) {
-            behavior
+            this.behavior
             .visitStartClassifierBehaviorAction(inputStartClassifierBehaviorAction);
             theResult = super
             .caseStartClassifierBehaviorAction(inputStartClassifierBehaviorAction);
-            this.doSwitch((EObject) inputStartClassifierBehaviorAction
+            this.doSwitch(inputStartClassifierBehaviorAction
                     .getObject());
         }
         return theResult;
@@ -4963,41 +4932,41 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("f58f565d-1c12-4017-b822-f08c0b56a109")
     @Override
     public Object caseState(org.eclipse.uml2.uml.State inputState) {
-        Object theResult = visitorMap.get(inputState);
+        Object theResult = this.visitorMap.get(inputState);
         if (theResult == null) {
-            visitorMap.put(inputState, inputState);
+            this.visitorMap.put(inputState, inputState);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("StateImpl".equals(theResult.getClass().getSimpleName()))) {
-            behavior.visitState(inputState);
+            this.behavior.visitState(inputState);
             theResult = super.caseState(inputState);
-            this.doSwitch((EObject) inputState.getSubmachine());
-            for (Object connection : inputState.getConnections()) {
-                this.doSwitch((EObject) connection);
+            this.doSwitch(inputState.getSubmachine());
+            for (EObject connection : inputState.getConnections()) {
+                this.doSwitch(connection);
             }
-            this.doSwitch((EObject) inputState.getRedefinedState());
-            for (Object region : inputState.getRegions()) {
-                this.doSwitch((EObject) region);
+            this.doSwitch(inputState.getRedefinedState());
+            for (EObject region : inputState.getRegions()) {
+                this.doSwitch(region);
             }
             // this.doSwitch((EObject)inputState.getRedefinitionContext());
-            for (Object redefinitionContext : inputState
+            for (EObject redefinitionContext : inputState
                     .getRedefinitionContexts()) {
-                this.doSwitch((EObject) redefinitionContext);
+                this.doSwitch(redefinitionContext);
             }
-            this.doSwitch((EObject) inputState.getStateInvariant());
-            this.doSwitch((EObject) inputState.getEntry());
-            this.doSwitch((EObject) inputState.getExit());
-            this.doSwitch((EObject) inputState.getDoActivity());
-            for (Object connectionPoint : inputState.getConnectionPoints()) {
-                this.doSwitch((EObject) connectionPoint);
+            this.doSwitch(inputState.getStateInvariant());
+            this.doSwitch(inputState.getEntry());
+            this.doSwitch(inputState.getExit());
+            this.doSwitch(inputState.getDoActivity());
+            for (EObject connectionPoint : inputState.getConnectionPoints()) {
+                this.doSwitch(connectionPoint);
             }
-            for (Object deferrableTrigger : inputState.getDeferrableTriggers()) {
-                this.doSwitch((EObject) deferrableTrigger);
+            for (EObject deferrableTrigger : inputState.getDeferrableTriggers()) {
+                this.doSwitch(deferrableTrigger);
             }
         }
         return theResult;
@@ -5006,24 +4975,24 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("170e8d10-adde-415f-b7c2-ab3502559286")
     @Override
     public Object caseStateInvariant(org.eclipse.uml2.uml.StateInvariant inputStateInvariant) {
-        Object theResult = visitorMap.get(inputStateInvariant);
+        Object theResult = this.visitorMap.get(inputStateInvariant);
         if (theResult == null) {
-            visitorMap.put(inputStateInvariant, inputStateInvariant);
+            this.visitorMap.put(inputStateInvariant, inputStateInvariant);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("StateInvariantImpl".equals(theResult.getClass()
                         .getSimpleName()))) {
-            behavior.visitStateInvariant(inputStateInvariant);
+            this.behavior.visitStateInvariant(inputStateInvariant);
             theResult = super.caseStateInvariant(inputStateInvariant);
-            this.doSwitch((EObject) inputStateInvariant.getInvariant());
+            this.doSwitch(inputStateInvariant.getInvariant());
             // this.doSwitch((EObject)inputStateInvariant.getCovered());
-            for (Object covered : inputStateInvariant.getCovereds()) {
-                this.doSwitch((EObject) covered);
+            for (EObject covered : inputStateInvariant.getCovereds()) {
+                this.doSwitch(covered);
             }
         }
         return theResult;
@@ -5032,34 +5001,34 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("029bc443-233a-44f6-9a90-9f0e4764efeb")
     @Override
     public Object caseStateMachine(org.eclipse.uml2.uml.StateMachine inputStateMachine) {
-        Object theResult = visitorMap.get(inputStateMachine);
+        Object theResult = this.visitorMap.get(inputStateMachine);
         if (theResult == null) {
-            visitorMap.put(inputStateMachine, inputStateMachine);
+            this.visitorMap.put(inputStateMachine, inputStateMachine);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("StateMachineImpl".equals(theResult.getClass()
                         .getSimpleName()))) {
-            behavior.visitStateMachine(inputStateMachine);
+            this.behavior.visitStateMachine(inputStateMachine);
             theResult = super.caseStateMachine(inputStateMachine);
-            for (Object region : inputStateMachine.getRegions()) {
-                this.doSwitch((EObject) region);
+            for (EObject region : inputStateMachine.getRegions()) {
+                this.doSwitch(region);
             }
-            for (Object connectionPoint : inputStateMachine
+            for (EObject connectionPoint : inputStateMachine
                     .getConnectionPoints()) {
-                this.doSwitch((EObject) connectionPoint);
+                this.doSwitch(connectionPoint);
             }
-            for (Object extendedStateMachine : inputStateMachine
+            for (EObject extendedStateMachine : inputStateMachine
                     .getExtendedStateMachines()) {
-                this.doSwitch((EObject) extendedStateMachine);
+                this.doSwitch(extendedStateMachine);
             }
-            for (Object submachineState : inputStateMachine
+            for (EObject submachineState : inputStateMachine
                     .getSubmachineStates()) {
-                this.doSwitch((EObject) submachineState);
+                this.doSwitch(submachineState);
             }
         }
         return theResult;
@@ -5068,22 +5037,22 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("523b8f1b-2810-41b8-8a65-08334547fd69")
     @Override
     public Object caseStereotype(org.eclipse.uml2.uml.Stereotype inputStereotype) {
-        Object theResult = visitorMap.get(inputStereotype);
+        Object theResult = this.visitorMap.get(inputStereotype);
         if (theResult == null) {
-            visitorMap.put(inputStereotype, inputStereotype);
+            this.visitorMap.put(inputStereotype, inputStereotype);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("StereotypeImpl".equals(theResult.getClass()
                         .getSimpleName()))) {
-            behavior.visitStereotype(inputStereotype);
+            this.behavior.visitStereotype(inputStereotype);
             theResult = super.caseStereotype(inputStereotype);
-            for (Object icon : inputStereotype.getIcons()) {
-                this.doSwitch((EObject) icon);
+            for (EObject icon : inputStereotype.getIcons()) {
+                this.doSwitch(icon);
             }
         }
         return theResult;
@@ -5092,26 +5061,26 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("f725c931-40f6-4e3b-9f8a-64284f42ebe5")
     @Override
     public Object caseStringExpression(StringExpression inputStringExpression) {
-        Object theResult = visitorMap.get(inputStringExpression);
+        Object theResult = this.visitorMap.get(inputStringExpression);
         if (theResult == null) {
-            visitorMap.put(inputStringExpression, inputStringExpression);
+            this.visitorMap.put(inputStringExpression, inputStringExpression);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("StringExpressionImpl".equals(theResult.getClass()
                         .getSimpleName()))) {
-            behavior.visitStringExpression(inputStringExpression);
+            this.behavior.visitStringExpression(inputStringExpression);
             theResult = super.caseStringExpression(inputStringExpression);
-            for (Object subExpression : inputStringExpression
+            for (EObject subExpression : inputStringExpression
                     .getSubExpressions()) {
-                this.doSwitch((EObject) subExpression);
+                this.doSwitch(subExpression);
             }
             this
-            .doSwitch((EObject) inputStringExpression
+            .doSwitch(inputStringExpression
                     .getOwningExpression());
         }
         return theResult;
@@ -5128,40 +5097,40 @@ public class EParseModel extends UMLSwitch<Object> {
     public Object caseStructuralFeatureAction(org.eclipse.uml2.uml.StructuralFeatureAction inputStructuralFeatureAction) {
         Object theResult = super
         .caseStructuralFeatureAction(inputStructuralFeatureAction);
-        this.doSwitch((EObject) inputStructuralFeatureAction
+        this.doSwitch(inputStructuralFeatureAction
                 .getStructuralFeature());
-        this.doSwitch((EObject) inputStructuralFeatureAction.getObject());
+        this.doSwitch(inputStructuralFeatureAction.getObject());
         return theResult;
     }
 
     @objid ("3a31a582-7e57-425f-99fe-e7a7755bccf2")
     @Override
     public Object caseStructuredActivityNode(org.eclipse.uml2.uml.StructuredActivityNode inputStructuredActivityNode) {
-        Object theResult = visitorMap.get(inputStructuredActivityNode);
+        Object theResult = this.visitorMap.get(inputStructuredActivityNode);
         if (theResult == null) {
-            visitorMap.put(inputStructuredActivityNode,
+            this.visitorMap.put(inputStructuredActivityNode,
                     inputStructuredActivityNode);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("StructuredActivityNodeImpl".equals(theResult.getClass()
                         .getSimpleName()))) {
-            behavior.visitStructuredActivityNode(inputStructuredActivityNode);
+            this.behavior.visitStructuredActivityNode(inputStructuredActivityNode);
             theResult = super
             .caseStructuredActivityNode(inputStructuredActivityNode);
-            for (Object variable : inputStructuredActivityNode.getVariables()) {
-                this.doSwitch((EObject) variable);
+            for (EObject variable : inputStructuredActivityNode.getVariables()) {
+                this.doSwitch(variable);
             }
-            for (Object node : inputStructuredActivityNode.getNodes()) {
-                this.doSwitch((EObject) node);
+            for (EObject node : inputStructuredActivityNode.getNodes()) {
+                this.doSwitch(node);
             }
-            this.doSwitch((EObject) inputStructuredActivityNode.getActivity());
-            for (Object edge : inputStructuredActivityNode.getEdges()) {
-                this.doSwitch((EObject) edge);
+            this.doSwitch(inputStructuredActivityNode.getActivity());
+            for (EObject edge : inputStructuredActivityNode.getEdges()) {
+                this.doSwitch(edge);
             }
         }
         return theResult;
@@ -5172,19 +5141,19 @@ public class EParseModel extends UMLSwitch<Object> {
     public Object caseStructuredClassifier(org.eclipse.uml2.uml.StructuredClassifier inputStructuredClassifier) {
         Object theResult = super
         .caseStructuredClassifier(inputStructuredClassifier);
-        for (Object ownedAttribute : inputStructuredClassifier
+        for (EObject ownedAttribute : inputStructuredClassifier
                 .getOwnedAttributes()) {
-            this.doSwitch((EObject) ownedAttribute);
+            this.doSwitch(ownedAttribute);
         }
-        for (Object part : inputStructuredClassifier.getParts()) {
-            this.doSwitch((EObject) part);
+        for (EObject part : inputStructuredClassifier.getParts()) {
+            this.doSwitch(part);
         }
-        for (Object role : inputStructuredClassifier.getRoles()) {
-            this.doSwitch((EObject) role);
+        for (EObject role : inputStructuredClassifier.getRoles()) {
+            this.doSwitch(role);
         }
-        for (Object ownedConnector : inputStructuredClassifier
+        for (EObject ownedConnector : inputStructuredClassifier
                 .getOwnedConnectors()) {
-            this.doSwitch((EObject) ownedConnector);
+            this.doSwitch(ownedConnector);
         }
         return theResult;
     }
@@ -5192,22 +5161,22 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("a20b63e5-d03c-4bde-a5d9-5d4f93486cb1")
     @Override
     public Object caseSubstitution(org.eclipse.uml2.uml.Substitution inputSubstitution) {
-        Object theResult = visitorMap.get(inputSubstitution);
+        Object theResult = this.visitorMap.get(inputSubstitution);
         if (theResult == null) {
-            visitorMap.put(inputSubstitution, inputSubstitution);
+            this.visitorMap.put(inputSubstitution, inputSubstitution);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("SubstitutionImpl".equals(theResult.getClass()
                         .getSimpleName()))) {
-            behavior.visitSubstitution(inputSubstitution);
+            this.behavior.visitSubstitution(inputSubstitution);
             theResult = super.caseSubstitution(inputSubstitution);
-            this.doSwitch((EObject) inputSubstitution.getContract());
-            this.doSwitch((EObject) inputSubstitution
+            this.doSwitch(inputSubstitution.getContract());
+            this.doSwitch(inputSubstitution
                     .getSubstitutingClassifier());
         }
         return theResult;
@@ -5216,25 +5185,25 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("a297c2ac-4d9f-4490-80c4-b0bad458e7ce")
     @Override
     public Object caseTemplateBinding(org.eclipse.uml2.uml.TemplateBinding inputTemplateBinding) {
-        Object theResult = visitorMap.get(inputTemplateBinding);
+        Object theResult = this.visitorMap.get(inputTemplateBinding);
         if (theResult == null) {
-            visitorMap.put(inputTemplateBinding, inputTemplateBinding);
+            this.visitorMap.put(inputTemplateBinding, inputTemplateBinding);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("TemplateBindingImpl".equals(theResult.getClass()
                         .getSimpleName()))) {
-            behavior.visitTemplateBinding(inputTemplateBinding);
+            this.behavior.visitTemplateBinding(inputTemplateBinding);
             theResult = super.caseTemplateBinding(inputTemplateBinding);
-            this.doSwitch((EObject) inputTemplateBinding.getBoundElement());
-            this.doSwitch((EObject) inputTemplateBinding.getSignature());
-            for (Object parameterSubstitution : inputTemplateBinding
+            this.doSwitch(inputTemplateBinding.getBoundElement());
+            this.doSwitch(inputTemplateBinding.getSignature());
+            for (EObject parameterSubstitution : inputTemplateBinding
                     .getParameterSubstitutions()) {
-                this.doSwitch((EObject) parameterSubstitution);
+                this.doSwitch(parameterSubstitution);
             }
         }
         return theResult;
@@ -5243,27 +5212,27 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("4f13d430-ef5d-4f26-b848-d6971eddd39a")
     @Override
     public Object caseTemplateParameter(org.eclipse.uml2.uml.TemplateParameter inputTemplateParameter) {
-        Object theResult = visitorMap.get(inputTemplateParameter);
+        Object theResult = this.visitorMap.get(inputTemplateParameter);
         if (theResult == null) {
-            visitorMap.put(inputTemplateParameter, inputTemplateParameter);
+            this.visitorMap.put(inputTemplateParameter, inputTemplateParameter);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("TemplateParameterImpl".equals(theResult.getClass()
                         .getSimpleName()))) {
-            behavior.visitTemplateParameter(inputTemplateParameter);
+            this.behavior.visitTemplateParameter(inputTemplateParameter);
             theResult = super.caseTemplateParameter(inputTemplateParameter);
-            this.doSwitch((EObject) inputTemplateParameter.getSignature());
-            this.doSwitch((EObject) inputTemplateParameter
+            this.doSwitch(inputTemplateParameter.getSignature());
+            this.doSwitch(inputTemplateParameter
                     .getParameteredElement());
-            this.doSwitch((EObject) inputTemplateParameter
+            this.doSwitch(inputTemplateParameter
                     .getOwnedParameteredElement());
-            this.doSwitch((EObject) inputTemplateParameter.getDefault());
-            this.doSwitch((EObject) inputTemplateParameter.getOwnedDefault());
+            this.doSwitch(inputTemplateParameter.getDefault());
+            this.doSwitch(inputTemplateParameter.getOwnedDefault());
         }
         return theResult;
     }
@@ -5271,39 +5240,31 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("c5b50316-2942-4997-b2c0-cda65d9a3581")
     @Override
     public Object caseTemplateParameterSubstitution(org.eclipse.uml2.uml.TemplateParameterSubstitution inputTemplateParameterSubstitution) {
-        Object theResult = visitorMap.get(inputTemplateParameterSubstitution);
+        Object theResult = this.visitorMap.get(inputTemplateParameterSubstitution);
         if (theResult == null) {
-            visitorMap.put(inputTemplateParameterSubstitution,
+            this.visitorMap.put(inputTemplateParameterSubstitution,
                     inputTemplateParameterSubstitution);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("TemplateParameterSubstitutionImpl".equals(theResult
                         .getClass().getSimpleName()))) {
-            behavior
+            this.behavior
             .visitTemplateParameterSubstitution(inputTemplateParameterSubstitution);
             theResult = super
             .caseTemplateParameterSubstitution(inputTemplateParameterSubstitution);
-            this.doSwitch((EObject) inputTemplateParameterSubstitution
+            this.doSwitch(inputTemplateParameterSubstitution
                     .getFormal());
-            this.doSwitch((EObject) inputTemplateParameterSubstitution
+            this.doSwitch(inputTemplateParameterSubstitution
                     .getTemplateBinding());
-            //            for (Object actual : inputTemplateParameterSubstitution
-                    //                    .getActuals()) {
-            //                this.doSwitch((EObject) actual);
-            //            }
-            //            for (Object ownedActual : inputTemplateParameterSubstitution
-            //                    .getOwnedActuals()) {
-            //                this.doSwitch((EObject) ownedActual);
-            //            }
         
-            this.doSwitch((EObject) inputTemplateParameterSubstitution.getActual());
+            this.doSwitch(inputTemplateParameterSubstitution.getActual());
         
-            this.doSwitch((EObject)  inputTemplateParameterSubstitution.getOwnedActual());
+            this.doSwitch( inputTemplateParameterSubstitution.getOwnedActual());
         
         }
         return theResult;
@@ -5312,28 +5273,28 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("24aa0814-fea1-44fa-b9e9-c6a5743f73c0")
     @Override
     public Object caseTemplateSignature(org.eclipse.uml2.uml.TemplateSignature inputTemplateSignature) {
-        Object theResult = visitorMap.get(inputTemplateSignature);
+        Object theResult = this.visitorMap.get(inputTemplateSignature);
         if (theResult == null) {
-            visitorMap.put(inputTemplateSignature, inputTemplateSignature);
+            this.visitorMap.put(inputTemplateSignature, inputTemplateSignature);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("TemplateSignatureImpl".equals(theResult.getClass()
                         .getSimpleName()))) {
-            behavior.visitTemplateSignature(inputTemplateSignature);
+            this.behavior.visitTemplateSignature(inputTemplateSignature);
             theResult = super.caseTemplateSignature(inputTemplateSignature);
-            for (Object parameter : inputTemplateSignature.getParameters()) {
-                this.doSwitch((EObject) parameter);
+            for (EObject parameter : inputTemplateSignature.getParameters()) {
+                this.doSwitch(parameter);
             }
-            for (Object ownedParameter : inputTemplateSignature
+            for (EObject ownedParameter : inputTemplateSignature
                     .getOwnedParameters()) {
-                this.doSwitch((EObject) ownedParameter);
+                this.doSwitch(ownedParameter);
             }
-            this.doSwitch((EObject) inputTemplateSignature.getTemplate());
+            this.doSwitch(inputTemplateSignature.getTemplate());
         }
         return theResult;
     }
@@ -5343,11 +5304,11 @@ public class EParseModel extends UMLSwitch<Object> {
     public Object caseTemplateableElement(org.eclipse.uml2.uml.TemplateableElement inputTemplateableElement) {
         Object theResult = super
         .caseTemplateableElement(inputTemplateableElement);
-        for (Object templateBinding : inputTemplateableElement
+        for (EObject templateBinding : inputTemplateableElement
                 .getTemplateBindings()) {
-            this.doSwitch((EObject) templateBinding);
+            this.doSwitch(templateBinding);
         }
-        this.doSwitch((EObject) inputTemplateableElement
+        this.doSwitch(inputTemplateableElement
                 .getOwnedTemplateSignature());
         return theResult;
     }
@@ -5355,23 +5316,23 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("a1370792-8796-4fce-a391-ff11651714a7")
     @Override
     public Object caseTestIdentityAction(org.eclipse.uml2.uml.TestIdentityAction inputTestIdentityAction) {
-        Object theResult = visitorMap.get(inputTestIdentityAction);
+        Object theResult = this.visitorMap.get(inputTestIdentityAction);
         if (theResult == null) {
-            visitorMap.put(inputTestIdentityAction, inputTestIdentityAction);
+            this.visitorMap.put(inputTestIdentityAction, inputTestIdentityAction);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("TestIdentityActionImpl".equals(theResult.getClass()
                         .getSimpleName()))) {
-            behavior.visitTestIdentityAction(inputTestIdentityAction);
+            this.behavior.visitTestIdentityAction(inputTestIdentityAction);
             theResult = super.caseTestIdentityAction(inputTestIdentityAction);
-            this.doSwitch((EObject) inputTestIdentityAction.getFirst());
-            this.doSwitch((EObject) inputTestIdentityAction.getSecond());
-            this.doSwitch((EObject) inputTestIdentityAction.getResult());
+            this.doSwitch(inputTestIdentityAction.getFirst());
+            this.doSwitch(inputTestIdentityAction.getSecond());
+            this.doSwitch(inputTestIdentityAction.getResult());
         }
         return theResult;
     }
@@ -5379,21 +5340,21 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("84cd497f-a824-4893-8ed8-38958e643d85")
     @Override
     public Object caseTimeConstraint(org.eclipse.uml2.uml.TimeConstraint inputTimeConstraint) {
-        Object theResult = visitorMap.get(inputTimeConstraint);
+        Object theResult = this.visitorMap.get(inputTimeConstraint);
         if (theResult == null) {
-            visitorMap.put(inputTimeConstraint, inputTimeConstraint);
+            this.visitorMap.put(inputTimeConstraint, inputTimeConstraint);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("TimeConstraintImpl".equals(theResult.getClass()
                         .getSimpleName()))) {
-            behavior.visitTimeConstraint(inputTimeConstraint);
+            this.behavior.visitTimeConstraint(inputTimeConstraint);
             theResult = super.caseTimeConstraint(inputTimeConstraint);
-            this.doSwitch((EObject) inputTimeConstraint.getSpecification());
+            this.doSwitch(inputTimeConstraint.getSpecification());
         }
         return theResult;
     }
@@ -5401,21 +5362,21 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("b84a04c8-f481-461f-ad09-f37466ffc635")
     @Override
     public Object caseTimeEvent(org.eclipse.uml2.uml.TimeEvent inputTimeEvent) {
-        Object theResult = visitorMap.get(inputTimeEvent);
+        Object theResult = this.visitorMap.get(inputTimeEvent);
         if (theResult == null) {
-            visitorMap.put(inputTimeEvent, inputTimeEvent);
+            this.visitorMap.put(inputTimeEvent, inputTimeEvent);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("TimeEventImpl".equals(theResult.getClass()
                         .getSimpleName()))) {
-            behavior.visitTimeEvent(inputTimeEvent);
+            this.behavior.visitTimeEvent(inputTimeEvent);
             theResult = super.caseTimeEvent(inputTimeEvent);
-            this.doSwitch((EObject) inputTimeEvent.getWhen());
+            this.doSwitch(inputTimeEvent.getWhen());
         }
         return theResult;
     }
@@ -5423,23 +5384,23 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("fb7eee8a-aef6-43da-9958-17662da67c1d")
     @Override
     public Object caseTimeExpression(org.eclipse.uml2.uml.TimeExpression inputTimeExpression) {
-        Object theResult = visitorMap.get(inputTimeExpression);
+        Object theResult = this.visitorMap.get(inputTimeExpression);
         if (theResult == null) {
-            visitorMap.put(inputTimeExpression, inputTimeExpression);
+            this.visitorMap.put(inputTimeExpression, inputTimeExpression);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("TimeExpressionImpl".equals(theResult.getClass()
                         .getSimpleName()))) {
-            behavior.visitTimeExpression(inputTimeExpression);
+            this.behavior.visitTimeExpression(inputTimeExpression);
             theResult = super.caseTimeExpression(inputTimeExpression);
-            this.doSwitch((EObject) inputTimeExpression.getExpr());
-            for (Object observation : inputTimeExpression.getObservations()) {
-                this.doSwitch((EObject) observation);
+            this.doSwitch(inputTimeExpression.getExpr());
+            for (EObject observation : inputTimeExpression.getObservations()) {
+                this.doSwitch(observation);
             }
         }
         return theResult;
@@ -5448,44 +5409,44 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("14feb5fa-a23d-43dc-ba06-796fa4e83d61")
     @Override
     public Object caseTimeInterval(org.eclipse.uml2.uml.TimeInterval inputTimeInterval) {
-        Object theResult = visitorMap.get(inputTimeInterval);
+        Object theResult = this.visitorMap.get(inputTimeInterval);
         if (theResult == null) {
-            visitorMap.put(inputTimeInterval, inputTimeInterval);
+            this.visitorMap.put(inputTimeInterval, inputTimeInterval);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("TimeIntervalImpl".equals(theResult.getClass()
                         .getSimpleName()))) {
-            behavior.visitTimeInterval(inputTimeInterval);
+            this.behavior.visitTimeInterval(inputTimeInterval);
             theResult = super.caseTimeInterval(inputTimeInterval);
-            this.doSwitch((EObject) inputTimeInterval.getMax());
-            this.doSwitch((EObject) inputTimeInterval.getMin());
+            this.doSwitch(inputTimeInterval.getMax());
+            this.doSwitch(inputTimeInterval.getMin());
         }
         return theResult;
     }
 
     @objid ("c5302fcc-bf71-4bf7-b215-cf7ee4ca525a")
     @Override
-    public Object caseTimeObservation(final TimeObservation inputTimeIservation) {
-        Object theResult = visitorMap.get(inputTimeIservation);
+    public Object caseTimeObservation(final TimeObservation inputTimeObservation) {
+        Object theResult = this.visitorMap.get(inputTimeObservation);
         if (theResult == null) {
-            visitorMap.put(inputTimeIservation, inputTimeIservation);
+            this.visitorMap.put(inputTimeObservation, inputTimeObservation);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("TimeIservationImpl".equals(theResult.getClass()
                         .getSimpleName()))) {
-            behavior.visitTimeIservation(inputTimeIservation);
-            theResult = super.caseTimeObservation(inputTimeIservation);
-            this.doSwitch((EObject) inputTimeIservation.getEvent());
+            this.behavior.visitTimeObservation(inputTimeObservation);
+            theResult = super.caseTimeObservation(inputTimeObservation);
+            this.doSwitch(inputTimeObservation.getEvent());
         }
         return theResult;
     }
@@ -5493,33 +5454,33 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("be55e389-828b-4ae8-a9d9-04e8c20359cf")
     @Override
     public Object caseTransition(org.eclipse.uml2.uml.Transition inputTransition) {
-        Object theResult = visitorMap.get(inputTransition);
+        Object theResult = this.visitorMap.get(inputTransition);
         if (theResult == null) {
-            visitorMap.put(inputTransition, inputTransition);
+            this.visitorMap.put(inputTransition, inputTransition);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("TransitionImpl".equals(theResult.getClass()
                         .getSimpleName()))) {
-            behavior.visitTransition(inputTransition);
+            this.behavior.visitTransition(inputTransition);
             theResult = super.caseTransition(inputTransition);
-            this.doSwitch((EObject) inputTransition.getContainer());
-            this.doSwitch((EObject) inputTransition.getSource());
-            this.doSwitch((EObject) inputTransition.getTarget());
-            this.doSwitch((EObject) inputTransition.getRedefinedTransition());
-            this.doSwitch((EObject) inputTransition.getGuard());
+            this.doSwitch(inputTransition.getContainer());
+            this.doSwitch(inputTransition.getSource());
+            this.doSwitch(inputTransition.getTarget());
+            this.doSwitch(inputTransition.getRedefinedTransition());
+            this.doSwitch(inputTransition.getGuard());
             // this.doSwitch((EObject)inputTransition.getRedefinitionContext());
-            for (Object redefinitionContext : inputTransition
+            for (EObject redefinitionContext : inputTransition
                     .getRedefinitionContexts()) {
-                this.doSwitch((EObject) redefinitionContext);
+                this.doSwitch(redefinitionContext);
             }
-            this.doSwitch((EObject) inputTransition.getEffect());
-            for (Object trigger : inputTransition.getTriggers()) {
-                this.doSwitch((EObject) trigger);
+            this.doSwitch(inputTransition.getEffect());
+            for (EObject trigger : inputTransition.getTriggers()) {
+                this.doSwitch(trigger);
             }
         }
         return theResult;
@@ -5528,22 +5489,22 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("781c02b9-9144-4bfc-a441-59c619058445")
     @Override
     public Object caseTrigger(org.eclipse.uml2.uml.Trigger inputTrigger) {
-        Object theResult = visitorMap.get(inputTrigger);
+        Object theResult = this.visitorMap.get(inputTrigger);
         if (theResult == null) {
-            visitorMap.put(inputTrigger, inputTrigger);
+            this.visitorMap.put(inputTrigger, inputTrigger);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("TriggerImpl".equals(theResult.getClass().getSimpleName()))) {
-            behavior.visitTrigger(inputTrigger);
+            this.behavior.visitTrigger(inputTrigger);
             theResult = super.caseTrigger(inputTrigger);
-            this.doSwitch((EObject) inputTrigger.getEvent());
-            for (Object port : inputTrigger.getPorts()) {
-                this.doSwitch((EObject) port);
+            this.doSwitch(inputTrigger.getEvent());
+            for (EObject port : inputTrigger.getPorts()) {
+                this.doSwitch(port);
             }
         }
         return theResult;
@@ -5553,7 +5514,7 @@ public class EParseModel extends UMLSwitch<Object> {
     @Override
     public Object caseType(org.eclipse.uml2.uml.Type inputType) {
         Object theResult = super.caseType(inputType);
-        this.doSwitch((EObject) inputType.getPackage());
+        this.doSwitch(inputType.getPackage());
         return theResult;
     }
 
@@ -5561,32 +5522,32 @@ public class EParseModel extends UMLSwitch<Object> {
     @Override
     public Object caseTypedElement(org.eclipse.uml2.uml.TypedElement inputTypedElement) {
         Object theResult = super.caseTypedElement(inputTypedElement);
-        this.doSwitch((EObject) inputTypedElement.getType());
+        this.doSwitch(inputTypedElement.getType());
         return theResult;
     }
 
     @objid ("db3c461e-b3ef-4af2-ab66-87523eca6f5e")
     @Override
     public Object caseUnmarshallAction(org.eclipse.uml2.uml.UnmarshallAction inputUnmarshallAction) {
-        Object theResult = visitorMap.get(inputUnmarshallAction);
+        Object theResult = this.visitorMap.get(inputUnmarshallAction);
         if (theResult == null) {
-            visitorMap.put(inputUnmarshallAction, inputUnmarshallAction);
+            this.visitorMap.put(inputUnmarshallAction, inputUnmarshallAction);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("UnmarshallActionImpl".equals(theResult.getClass()
                         .getSimpleName()))) {
-            behavior.visitUnmarshallAction(inputUnmarshallAction);
+            this.behavior.visitUnmarshallAction(inputUnmarshallAction);
             theResult = super.caseUnmarshallAction(inputUnmarshallAction);
-            for (Object result : inputUnmarshallAction.getResults()) {
-                this.doSwitch((EObject) result);
+            for (EObject result : inputUnmarshallAction.getResults()) {
+                this.doSwitch(result);
             }
-            this.doSwitch((EObject) inputUnmarshallAction.getUnmarshallType());
-            this.doSwitch((EObject) inputUnmarshallAction.getObject());
+            this.doSwitch(inputUnmarshallAction.getUnmarshallType());
+            this.doSwitch(inputUnmarshallAction.getObject());
         }
         return theResult;
     }
@@ -5594,18 +5555,18 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("4873f541-2e82-45f7-845d-da2266a4791a")
     @Override
     public Object caseUsage(org.eclipse.uml2.uml.Usage inputUsage) {
-        Object theResult = visitorMap.get(inputUsage);
+        Object theResult = this.visitorMap.get(inputUsage);
         if (theResult == null) {
-            visitorMap.put(inputUsage, inputUsage);
+            this.visitorMap.put(inputUsage, inputUsage);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("UsageImpl".equals(theResult.getClass().getSimpleName()))) {
-            behavior.visitUsage(inputUsage);
+            this.behavior.visitUsage(inputUsage);
             theResult = super.caseUsage(inputUsage);
         }
         return theResult;
@@ -5614,30 +5575,30 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("83aa0fef-5518-4235-9f8b-591d3ef2c5c2")
     @Override
     public Object caseUseCase(org.eclipse.uml2.uml.UseCase inputUseCase) {
-        Object theResult = visitorMap.get(inputUseCase);
+        Object theResult = this.visitorMap.get(inputUseCase);
         if (theResult == null) {
-            visitorMap.put(inputUseCase, inputUseCase);
+            this.visitorMap.put(inputUseCase, inputUseCase);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("UseCaseImpl".equals(theResult.getClass().getSimpleName()))) {
-            behavior.visitUseCase(inputUseCase);
+            this.behavior.visitUseCase(inputUseCase);
             theResult = super.caseUseCase(inputUseCase);
-            for (Object include : inputUseCase.getIncludes()) {
-                this.doSwitch((EObject) include);
+            for (EObject include : inputUseCase.getIncludes()) {
+                this.doSwitch(include);
             }
-            for (Object extend : inputUseCase.getExtends()) {
-                this.doSwitch((EObject) extend);
+            for (EObject extend : inputUseCase.getExtends()) {
+                this.doSwitch(extend);
             }
-            for (Object extensionPoint : inputUseCase.getExtensionPoints()) {
-                this.doSwitch((EObject) extensionPoint);
+            for (EObject extensionPoint : inputUseCase.getExtensionPoints()) {
+                this.doSwitch(extensionPoint);
             }
-            for (Object subject : inputUseCase.getSubjects()) {
-                this.doSwitch((EObject) subject);
+            for (EObject subject : inputUseCase.getSubjects()) {
+                this.doSwitch(subject);
             }
         }
         return theResult;
@@ -5646,21 +5607,21 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("3e660b11-7508-4f1b-99a3-868d4929bacc")
     @Override
     public Object caseValuePin(org.eclipse.uml2.uml.ValuePin inputValuePin) {
-        Object theResult = visitorMap.get(inputValuePin);
+        Object theResult = this.visitorMap.get(inputValuePin);
         if (theResult == null) {
-            visitorMap.put(inputValuePin, inputValuePin);
+            this.visitorMap.put(inputValuePin, inputValuePin);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("ValuePinImpl"
                         .equals(theResult.getClass().getSimpleName()))) {
-            behavior.visitValuePin(inputValuePin);
+            this.behavior.visitValuePin(inputValuePin);
             theResult = super.caseValuePin(inputValuePin);
-            this.doSwitch((EObject) inputValuePin.getValue());
+            this.doSwitch(inputValuePin.getValue());
         }
         return theResult;
     }
@@ -5674,25 +5635,25 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("c13b29eb-3d3f-4d1d-981c-acfd8a4cffa8")
     @Override
     public Object caseValueSpecificationAction(org.eclipse.uml2.uml.ValueSpecificationAction inputValueSpecificationAction) {
-        Object theResult = visitorMap.get(inputValueSpecificationAction);
+        Object theResult = this.visitorMap.get(inputValueSpecificationAction);
         if (theResult == null) {
-            visitorMap.put(inputValueSpecificationAction,
+            this.visitorMap.put(inputValueSpecificationAction,
                     inputValueSpecificationAction);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("ValueSpecificationActionImpl".equals(theResult.getClass()
                         .getSimpleName()))) {
-            behavior
+            this.behavior
             .visitValueSpecificationAction(inputValueSpecificationAction);
             theResult = super
             .caseValueSpecificationAction(inputValueSpecificationAction);
-            this.doSwitch((EObject) inputValueSpecificationAction.getValue());
-            this.doSwitch((EObject) inputValueSpecificationAction.getResult());
+            this.doSwitch(inputValueSpecificationAction.getValue());
+            this.doSwitch(inputValueSpecificationAction.getResult());
         }
         return theResult;
     }
@@ -5700,22 +5661,22 @@ public class EParseModel extends UMLSwitch<Object> {
     @objid ("8ba83915-94d5-4592-ad9d-d37ff667d293")
     @Override
     public Object caseVariable(org.eclipse.uml2.uml.Variable inputVariable) {
-        Object theResult = visitorMap.get(inputVariable);
+        Object theResult = this.visitorMap.get(inputVariable);
         if (theResult == null) {
-            visitorMap.put(inputVariable, inputVariable);
+            this.visitorMap.put(inputVariable, inputVariable);
         }
         
         // In particular case of this concrete element is inherited by another
         // concrete element, it
-        // shall be in the visitorMap. Also do call the treatment defined at the
+        // shall be in the this.visitorMap. Also do call the treatment defined at the
         // current super level:
         if (theResult == null
                 || !("VariableImpl"
                         .equals(theResult.getClass().getSimpleName()))) {
-            behavior.visitVariable(inputVariable);
+            this.behavior.visitVariable(inputVariable);
             theResult = super.caseVariable(inputVariable);
-            this.doSwitch((EObject) inputVariable.getScope());
-            this.doSwitch((EObject) inputVariable.getActivityScope());
+            this.doSwitch(inputVariable.getScope());
+            this.doSwitch(inputVariable.getActivityScope());
         }
         return theResult;
     }
@@ -5724,7 +5685,7 @@ public class EParseModel extends UMLSwitch<Object> {
     @Override
     public Object caseVariableAction(org.eclipse.uml2.uml.VariableAction inputVariableAction) {
         Object theResult = super.caseVariableAction(inputVariableAction);
-        this.doSwitch((EObject) inputVariableAction.getVariable());
+        this.doSwitch(inputVariableAction.getVariable());
         return theResult;
     }
 
@@ -5732,12 +5693,12 @@ public class EParseModel extends UMLSwitch<Object> {
     @Override
     public Object caseVertex(org.eclipse.uml2.uml.Vertex inputVertex) {
         Object theResult = super.caseVertex(inputVertex);
-        this.doSwitch((EObject) inputVertex.getContainer());
-        for (Object outgoing : inputVertex.getOutgoings()) {
-            this.doSwitch((EObject) outgoing);
+        this.doSwitch(inputVertex.getContainer());
+        for (EObject outgoing : inputVertex.getOutgoings()) {
+            this.doSwitch(outgoing);
         }
-        for (Object incoming : inputVertex.getIncomings()) {
-            this.doSwitch((EObject) incoming);
+        for (EObject incoming : inputVertex.getIncomings()) {
+            this.doSwitch(incoming);
         }
         return theResult;
     }
@@ -5753,7 +5714,7 @@ public class EParseModel extends UMLSwitch<Object> {
     public Object caseWriteStructuralFeatureAction(org.eclipse.uml2.uml.WriteStructuralFeatureAction inputWriteStructuralFeatureAction) {
         Object theResult = super
         .caseWriteStructuralFeatureAction(inputWriteStructuralFeatureAction);
-        this.doSwitch((EObject) inputWriteStructuralFeatureAction.getValue());
+        this.doSwitch(inputWriteStructuralFeatureAction.getValue());
         return theResult;
     }
 
@@ -5762,7 +5723,7 @@ public class EParseModel extends UMLSwitch<Object> {
     public Object caseWriteVariableAction(org.eclipse.uml2.uml.WriteVariableAction inputWriteVariableAction) {
         Object theResult = super
         .caseWriteVariableAction(inputWriteVariableAction);
-        this.doSwitch((EObject) inputWriteVariableAction.getValue());
+        this.doSwitch(inputWriteVariableAction.getValue());
         return theResult;
     }
 

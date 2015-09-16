@@ -21,9 +21,7 @@
 
 package org.modelio.xmi.model.ecore;
 
-import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.modelio.api.modelio.Modelio;
 import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
 import org.modelio.metamodel.uml.statik.NameSpace;
@@ -42,9 +40,9 @@ import org.modelio.xmi.util.XMILogs;
  * @author ebrosse
  */
 @objid ("6781e7a1-1250-4292-bb72-1440f357b39c")
-public class EPackageImport extends EElement implements IEElement {
+public class EPackageImport extends EElement {
     @objid ("ff6b0545-c0da-4ad3-83c2-4892d010f511")
-    private org.eclipse.uml2.uml.PackageImport ecoreElement;
+    private org.eclipse.uml2.uml.PackageImport ecoreElement = null;
 
     @objid ("21db33f5-4f9e-470b-997f-720fb21c2725")
     @Override
@@ -55,9 +53,8 @@ public class EPackageImport extends EElement implements IEElement {
         
         org.eclipse.uml2.uml.Package model = EcoreModelNavigation.getRoot(ecoreImported);
         
-        if  ((model != null)  && revProp.getEcoreModel().contains(model) ){
-            return Modelio.getInstance()
-                    .getModelingSession().getModel().createPackageImport();
+        if  ((model != null)  && revProp.getEcoreModels().contains(model) ){
+            return  ReverseProperties.getInstance().getMModelServices().getModelFactory().createPackageImport();
         }
         return null;
     }
@@ -88,7 +85,7 @@ public class EPackageImport extends EElement implements IEElement {
         
         org.eclipse.uml2.uml.Package model = EcoreModelNavigation.getRoot(ecoreImported);
         
-        if  ((model != null)  && revProp.getEcoreModel().contains(model) ){
+        if  ((model != null)  && revProp.getEcoreModels().contains(model) ){
         
             if (objingImported != null && objingImporting != null) {
                 PackageImport objingPkgImport = (PackageImport) objingElt;
@@ -130,11 +127,6 @@ public class EPackageImport extends EElement implements IEElement {
             objingElt.delete();
             objingImported.delete();
         }
-    }
-
-    @objid ("5b5dcbb8-9367-4cd9-88d9-e967bdc0cf11")
-    @Override
-    public void attach(List<Object> objingElts) {
     }
 
     @objid ("5551fc73-4de9-4822-947d-b067b875d763")

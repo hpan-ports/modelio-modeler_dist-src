@@ -21,13 +21,12 @@
 
 package org.modelio.vcore.session.impl.transactions;
 
-import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Deque;
-import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.modelio.vcore.Log;
+import org.modelio.vbasic.log.Log;
 import org.modelio.vcore.session.api.transactions.ITransaction;
 import org.modelio.vcore.session.impl.transactions.smAction.IAction;
 import org.modelio.vcore.session.impl.transactions.smAction.smActionInteractions.IActionVisitor;
@@ -56,7 +55,7 @@ public class Transaction implements IAction, ITransaction {
      * Stack implementation based on {@link Deque}<br>
      */
     @objid ("00888754-702b-1f21-85a5-001ec947cd2a")
-    private Deque<IAction> actions = new ArrayDeque<>();
+    private List<IAction> actions = new ArrayList<>();
 
     @objid ("60d15189-babd-11e1-9fd3-001ec947ccaf")
     private TransactionManager manager;
@@ -90,12 +89,12 @@ public class Transaction implements IAction, ITransaction {
      */
     @objid ("006d5010-0d1e-1f20-85a5-001ec947cd2a")
     public void addAction(final IAction action) {
-        this.actions.addLast(action);
+        this.actions.add(action);
     }
 
     /**
      * Permet recursivement de:<ul>
-     * <li> positionner toutes les transactions contenue ? notUndoable,
+     * <li> positionner toutes les transactions contenue a not undoable,
      * <li> detruire toutes les actions simples.
      * </ul>
      * Cette methode est appellee par le {@link TransactionManager#reset() reset()}  de TransactionManager.
@@ -113,7 +112,7 @@ public class Transaction implements IAction, ITransaction {
                 @SuppressWarnings("resource")
                 Transaction sub = (Transaction) action;
                 sub.clearAllSimpleActions();
-                this.actions.addLast(sub);
+                this.actions.add(sub);
             }
         }
     }
@@ -141,7 +140,7 @@ public class Transaction implements IAction, ITransaction {
     @objid ("006d51d2-0d1e-1f20-85a5-001ec947cd2a")
     String getLastTransactionName() {
         if (isLastActionATransaction()) {
-            return  ((Transaction) this.actions.peekLast()).getName();
+            return  ((Transaction) this.actions.get(this.actions.size()-1)).getName();
         }
         return "";
     }
@@ -155,6 +154,7 @@ public class Transaction implements IAction, ITransaction {
     /**
      * Permet de savoir si la transaction est vide, c'est a dire ne contient aucune
      * action.
+     * @return <i>true</i> si la transaction est vide.
      */
     @objid ("006d531c-0d1e-1f20-85a5-001ec947cd2a")
     public boolean isEmpty() {
@@ -167,7 +167,7 @@ public class Transaction implements IAction, ITransaction {
     @objid ("006d53c6-0d1e-1f20-85a5-001ec947cd2a")
     public boolean isLastActionATransaction() {
         if (!this.actions.isEmpty()) {
-            return this.actions.peekLast().isTransaction();
+            return this.actions.get(this.actions.size()-1).isTransaction();
         }
         return false;
     }
@@ -178,6 +178,9 @@ public class Transaction implements IAction, ITransaction {
         return true;
     }
 
+    /**
+     * @return <i>true</i> if the transaction can be undone.
+     */
     @objid ("006d5970-0d1e-1f20-85a5-001ec947cd2a")
     public boolean isUndoable() {
         return this.undoable;
@@ -221,9 +224,8 @@ public class Transaction implements IAction, ITransaction {
         // en commencant par fin de la liste
         if (this.undoable)
         {
-            Iterator<IAction> it = this.actions.descendingIterator();
-            while (it.hasNext()) {
-                it.next().undo(rollback);
+            for (int i = this.actions.size()-1; i>=0; --i) {
+                this.actions.get(i).undo(rollback);
             }
         }
     }
@@ -234,11 +236,15 @@ public class Transaction implements IAction, ITransaction {
      */
     @objid ("008ac6cc-702b-1f21-85a5-001ec947cd2a")
     IAction forgetLastAction() {
-        return this.actions.removeLast();
+        return this.actions.remove(this.actions.size()-1);
     }
 
+    /**
+     * Please do not modify the returned list.
+     * @return the transaction actions.
+     */
     @objid ("008f242e-f11f-1f3c-aafd-001ec947cd2a")
-    public Iterable<IAction> getActions() {
+    public List<IAction> getActions() {
         return this.actions;
     }
 

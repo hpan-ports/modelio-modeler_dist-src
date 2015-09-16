@@ -22,7 +22,12 @@
 package org.modelio.mda.infra.service;
 
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
+import org.eclipse.core.runtime.preferences.IEclipsePreferences.IPreferenceChangeListener;
+import org.eclipse.core.runtime.preferences.IEclipsePreferences.PreferenceChangeEvent;
+import org.eclipse.core.runtime.preferences.IEclipsePreferences;
+import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.di.annotations.Execute;
@@ -39,9 +44,9 @@ import org.modelio.mda.infra.plugin.MdaInfra;
  * <p>
  * Also initialize the module cache and put it in the context with {@link IModuleCatalog} as key.
  */
-@objid ("dbe23471-0f02-11e2-bbe6-001ec947c8cc")
+@objid ("aa507ee3-b6c8-471f-836b-6097781f4c45")
 public class ModuleServiceInitializer {
-    @objid ("05edb389-111c-11e2-8b0d-001ec947c8cc")
+    @objid ("6b428c7e-8d37-467f-b2cb-c30c6df89c74")
     @Execute
     private static void execute(IEclipseContext context) {
         context.set(ModuleService.class, ContextInjectionFactory.make(ModuleService.class, context));
@@ -53,20 +58,32 @@ public class ModuleServiceInitializer {
      * initialize the module cache and register it in the context as {@link IModuleCatalog}.
      * @param context the context to initialize.
      */
-    @objid ("ec0f4dce-876a-479e-87a1-2136ff02f090")
+    @objid ("85f146e7-5f64-4268-a140-9cef33804584")
     private static void initModuleCache(IEclipseContext context) {
         final ModelioEnv env = context.get(ModelioEnv.class);
         
         // Instantiate and register the module catalog
-        FileModuleStore stdModuleCatalog = new FileModuleStore(env.getModuleCatalogPath());
+        final FileModuleStore stdModuleCatalog = new FileModuleStore(env.getModuleCatalogPath());
         context.set(IModuleCatalog.class, stdModuleCatalog);
         
+        
+        // Get the mda.infra preference node, as the module catalog is managed by this plugin
+           IEclipsePreferences prefs = InstanceScope.INSTANCE.getNode("org.modelio.mda.infra");
+           // Add a preference change listener to update module catalog path.
+           prefs.addPreferenceChangeListener(new IPreferenceChangeListener() {
+               @Override
+               public void preferenceChange(PreferenceChangeEvent event) {
+                   if (ModelioEnv.MODULE_PATH_PREFERENCE.equals(event.getKey())) {
+                       stdModuleCatalog.setCachePath(Paths.get((String) event.getNewValue()));
+                   }
+               }
+           });
         
         // Instantiate the module catalog cache
         Path cachePath = MdaInfra.getContext().getBundle().getDataFile("modules_cache").toPath();
         IModuleCache moduleCache = new ModuleRTCache(stdModuleCatalog, cachePath);
         
-        MdaInfra.LOG.debug("Module cache created in:"+cachePath);
+        MdaInfra.LOG.debug("Jxbv2Module cache created in:"+cachePath);
         
         // Register the module catalog cache as the module catalog
         context.set(IModuleCache.class, moduleCache);

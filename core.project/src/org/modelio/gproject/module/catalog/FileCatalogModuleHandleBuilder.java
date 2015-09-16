@@ -26,126 +26,131 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
-import java.util.UUID;
+import java.util.Map;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.modelio.gproject.descriptor.ProjectDescriptor;
-import org.modelio.gproject.gproject.GProject;
-import org.modelio.gproject.gproject.GProjectCreator;
-import org.modelio.gproject.gproject.GProjectFactory;
-import org.modelio.gproject.module.JaxbModelPersistence;
+import org.modelio.gproject.data.module.JaxbModelPersistence;
+import org.modelio.gproject.data.module.jaxbv2.Jxbv2Module.Jxbv2Dependencies.Jxbv2Optional;
+import org.modelio.gproject.data.module.jaxbv2.Jxbv2Module.Jxbv2Dependencies.Jxbv2Required;
+import org.modelio.gproject.data.module.jaxbv2.Jxbv2Module.Jxbv2Resources.Jxbv2Styles.Jxbv2Style;
+import org.modelio.gproject.data.module.jaxbv2.Jxbv2Module.Jxbv2Resources;
+import org.modelio.gproject.data.module.jaxbv2.Jxbv2Module;
+import org.modelio.gproject.data.module.jaxbv2.Jxbv2MultiPathes.Jxbv2PathEntry;
 import org.modelio.gproject.module.ModuleId;
-import org.modelio.gproject.module.jaxbmodel.JxbClasspath;
-import org.modelio.gproject.module.jaxbmodel.JxbDocpath;
-import org.modelio.gproject.module.jaxbmodel.JxbExterndocumenttype;
-import org.modelio.gproject.module.jaxbmodel.JxbModule.Dependencies.Optional;
-import org.modelio.gproject.module.jaxbmodel.JxbModule.Dependencies.Required;
-import org.modelio.gproject.module.jaxbmodel.JxbModule.Dependencies;
-import org.modelio.gproject.module.jaxbmodel.JxbModule.JxbParameter;
-import org.modelio.gproject.module.jaxbmodel.JxbModule.JxbProfile.JxbAnonymousStereotype;
-import org.modelio.gproject.module.jaxbmodel.JxbModule.JxbProfile.JxbStereotype;
-import org.modelio.gproject.module.jaxbmodel.JxbModule.JxbProfile;
-import org.modelio.gproject.module.jaxbmodel.JxbModule;
-import org.modelio.gproject.module.jaxbmodel.JxbNotetype;
-import org.modelio.gproject.module.jaxbmodel.JxbTaggedvalues;
 import org.modelio.gproject.plugin.CoreProject;
-import org.modelio.gproject.ramc.core.model.ModelComponent;
-import org.modelio.gproject.ramc.core.packaging.RamcPackager;
-import org.modelio.metamodel.mda.ModuleComponent;
-import org.modelio.metamodel.mda.Project;
-import org.modelio.metamodel.uml.infrastructure.MetaclassReference;
-import org.modelio.metamodel.uml.infrastructure.Profile;
-import org.modelio.metamodel.uml.infrastructure.Stereotype;
-import org.modelio.metamodel.uml.statik.Artifact;
-import org.modelio.metamodel.uml.statik.Package;
 import org.modelio.vbasic.files.FileUtils;
 import org.modelio.vbasic.progress.IModelioProgress;
 import org.modelio.vbasic.progress.SubProgress;
 import org.modelio.vbasic.version.Version;
-import org.modelio.vcore.Log;
-import org.modelio.vcore.session.api.ICoreSession;
-import org.modelio.vcore.session.api.repository.IRepository;
-import org.modelio.vcore.session.api.transactions.ITransaction;
-import org.modelio.vcore.session.impl.GenericFactory;
-import org.modelio.vcore.session.impl.permission.BasicAccessManager;
-import org.modelio.vcore.session.impl.storage.memory.MemoryRepository;
 
 /**
- * Service class to build a {@link FileCatalogModuleHandle} from an extracted
- * module directory.
+ * Service class to build a {@link FileCatalogModuleHandle} from an extracted module directory.
  */
 @objid ("de703be5-0b74-4f31-bc34-8f9069119d08")
 class FileCatalogModuleHandleBuilder {
+    /**
+     * Extract the dynamic part of the module model in another file ?
+     * @param moduleDynamicModelPath path of the file to write
+     * @param loadedModule the JAXB module model
+     * @param monitor a progress monitor
+     * @throws java.io.IOException in case of failure
+     */
     @objid ("2c95c273-f37d-11e1-a3c7-002564c97630")
-    private static void extractDynamicModel(Path moduleDynamicModelPath, JxbModule loadedModule, IModelioProgress monitor) throws IOException {
-        List<Object> dynamicModel = new ArrayList<>();
+    private static void extractDynamicModel(Path moduleDynamicModelPath, Jxbv2Module loadedModule, IModelioProgress monitor) throws IOException {
+        Jxbv2Module dynamicModel = new Jxbv2Module();
         
-        List<Object> allModuleContent = new ArrayList<>(loadedModule.getParameterOrProfileOrGui());
-        for (Object child : allModuleContent) {
-            if (child instanceof JxbModule.Gui) {
-                dynamicModel.add(child);
-            }
+        // Preserved values
+        dynamicModel.setAuthor(loadedModule.getAuthor());
+        dynamicModel.setBinaryversion(loadedModule.getBinaryversion());
+        dynamicModel.setClassPath(loadedModule.getClassPath());
+        dynamicModel.setClazz(loadedModule.getClazz());
+        dynamicModel.setDependencies(loadedModule.getDependencies());
+        
+        dynamicModel.setResources(new Jxbv2Resources());
+        if (loadedModule.getResources() != null) {
+            dynamicModel.getResources().setDocFiles(loadedModule.getResources().getDocFiles());
         }
         
-        // Clean up everything except the dynamic content
-        loadedModule.getParameterOrProfileOrGui().clear();
-        loadedModule.getParameterOrProfileOrGui().addAll(dynamicModel);
+        dynamicModel.setGui(loadedModule.getGui());
+        dynamicModel.setId(loadedModule.getId());
+        dynamicModel.setImage(loadedModule.getImage());
+        /* dynamicModel.setParameters(loadedModule.getParameters()); */
+        /* dynamicModel.setPropertyTypes(loadedModule.getPropertyTypes()); */
+        dynamicModel.setSchemaLevel(loadedModule.getSchemaLevel());
+        dynamicModel.setUid(loadedModule.getUid());
+        dynamicModel.setVersion(loadedModule.getVersion());
+        /* dynamicModel.getProfile().addAll(loadedModule.getProfile()); */
         
-        JaxbModelPersistence.saveJaxbModel(loadedModule, moduleDynamicModelPath);
+        // Cleaned values
+        dynamicModel.setParameters(null);
+        dynamicModel.setProfiles(null);
+        dynamicModel.setPropertyTypes(null);
         
-        // Reset the list
-        loadedModule.getParameterOrProfileOrGui().clear();
-        loadedModule.getParameterOrProfileOrGui().addAll(allModuleContent);
+        // Save simplified xml file
+        JaxbModelPersistence.saveJaxbModel(dynamicModel, moduleDynamicModelPath);
         
         monitor.done();
     }
 
     @objid ("15695cc1-0c96-11e2-b501-002564c97630")
-    private static void extractModuleInfos(JxbModule loadedModule, Path infosPath) throws IOException {
-        List<Object> moduleInfosModel = new ArrayList<>();
-        for (Object child : loadedModule.getParameterOrProfileOrGui()) {
-            if (child instanceof Dependencies) {
-                moduleInfosModel.add(child);
-            } else if (child instanceof JxbClasspath) {
-                moduleInfosModel.add(child);
-            } else if (child instanceof JxbDocpath) {
-                moduleInfosModel.add(child);
-            }
+    private static void extractModuleInfos(Jxbv2Module loadedModule, Path infosPath) throws IOException {
+        Jxbv2Module infosModel = new Jxbv2Module();
+        
+        // Preserved values
+        infosModel.setAuthor(loadedModule.getAuthor());
+        infosModel.setBinaryversion(loadedModule.getBinaryversion());
+        infosModel.setClazz(loadedModule.getClazz());
+        infosModel.setDependencies(loadedModule.getDependencies());
+        infosModel.setClassPath(loadedModule.getClassPath());
+        
+        infosModel.setResources(new Jxbv2Resources());
+        if (loadedModule.getResources() != null) {
+            infosModel.getResources().setDocFiles(loadedModule.getResources().getDocFiles());
         }
         
-        // Store the original content
-        List<Object> allModuleContent = new ArrayList<>(loadedModule.getParameterOrProfileOrGui());
+        infosModel.setId(loadedModule.getId());
+        infosModel.setImage(loadedModule.getImage());
+        infosModel.setSchemaLevel(loadedModule.getSchemaLevel());
+        infosModel.setUid(loadedModule.getUid());
+        infosModel.setVersion(loadedModule.getVersion());
         
-        // Clean up everything except the dynamic content
-        loadedModule.getParameterOrProfileOrGui().clear();
-        loadedModule.getParameterOrProfileOrGui().addAll(moduleInfosModel);
+        // Keep the style files
+        if (loadedModule.getResources() != null && loadedModule.getResources().getStyles() != null) {
+            final Jxbv2Resources resources = new Jxbv2Resources();
+            resources.setStyles(loadedModule.getResources().getStyles());
+            infosModel.setResources(resources);
+        } else {
+            infosModel.setGui(null);
+        }
+        // Cleaned values
+        infosModel.setParameters(null);
+        infosModel.setPropertyTypes(null);
+        infosModel.setProfiles(null);
         
-        JaxbModelPersistence.saveJaxbModel(loadedModule, infosPath);
-        
-        // Reset the list
-        loadedModule.getParameterOrProfileOrGui().clear();
-        loadedModule.getParameterOrProfileOrGui().addAll(allModuleContent);
+        // Save simplified xml file
+        JaxbModelPersistence.saveJaxbModel(infosModel, infosPath);
     }
 
     @objid ("2c95c265-f37d-11e1-a3c7-002564c97630")
-    private static void extractStaticModel(Path moduleStaticModelPath, JxbModule loadedModule, IModelioProgress monitor) throws IOException {
+    private static void extractStaticModel(Path moduleStaticModelPath, Jxbv2Module loadedModule, IModelioProgress monitor) throws IOException {
         try {
-            ModuleRamcCreationHelper.createRamc(loadedModule, moduleStaticModelPath, monitor);
+            new RamcBuilder(loadedModule).createRamc(moduleStaticModelPath, monitor);
         } catch (IOException e) {
-            IOException e2 = new IOException(CoreProject.getMessage("ModuleCacheManager.FailedExtractStaticModel",
-                    moduleStaticModelPath.getName(moduleStaticModelPath.getNameCount()), e.getLocalizedMessage())); //$NON-NLS-1$
+            IOException e2 = new IOException(CoreProject.getMessage(
+                    "ModuleCacheManager.FailedExtractStaticModel",
+                    moduleStaticModelPath.getFileName(), 
+                    FileUtils.getLocalizedMessage(e))); //$NON-NLS-1$
             e2.initCause(e);
             throw e2;
         }
     }
 
     @objid ("2c95c277-f37d-11e1-a3c7-002564c97630")
-    private static FileCatalogModuleHandle loadModuleInfos(Path moduleCachePath, final JxbModule loadedModule, IModelioProgress monitor) {
+    private static FileCatalogModuleHandle loadModuleInfos(Path moduleCachePath, final Jxbv2Module loadedModule, IModelioProgress monitor) {
         String uid = loadedModule.getUid();
-        String name = loadedModule.getName();
+        String name = loadedModule.getId();
         String mainClassName = loadedModule.getClazz();
-        boolean licenseRequired = Boolean.valueOf(loadedModule.isLicenseRequired());
         String moduleVersionString = loadedModule.getVersion();
         
         Version moduleVersion;
@@ -169,44 +174,41 @@ class FileCatalogModuleHandleBuilder {
         List<ModuleId> weakDependencies = new ArrayList<>();
         List<Path> jarPaths = new ArrayList<>();
         List<Path> docPaths = new ArrayList<>();
+        Map<String, Path> stylePaths = new HashMap<>();
         
-        for (Object child : loadedModule.getParameterOrProfileOrGui()) {
-            if (child instanceof Dependencies) {
-                Dependencies deps = (Dependencies) child;
-                for (Object depChild : deps.getRequiredOrOptionalOrRamc()) {
-                    if (depChild instanceof Required) {
-                        Required dep = (Required) depChild;
-                        dependencies.add(new ModuleId(dep.getName(), new Version(dep.getVersion())));
-                    } else if (depChild instanceof Optional) {
-                        Optional dep = (Optional) depChild;
-                        weakDependencies.add(new ModuleId(dep.getName(), new Version(dep.getVersion())));
-                    }
-                }
-            } else if (child instanceof JxbClasspath) {
-                JxbClasspath classpathEntries = (JxbClasspath) child;
-                for (JxbClasspath.Entry classpathEntry : classpathEntries.getEntry()) {
-                    jarPaths.add(Paths.get(classpathEntry.getPath()));
-                }
-            } else if (child instanceof JxbDocpath) {
-                JxbDocpath docpathEntries = (JxbDocpath) child;
-                for (JxbDocpath.Entry docpathEntry : docpathEntries.getEntry()) {
-                    docPaths.add(Paths.get(docpathEntry.getPath()));
-                }
+        for (Jxbv2Required dep : loadedModule.getDependencies().getRequired()) {
+            dependencies.add(new ModuleId(dep.getName(), new Version(dep.getVersion())));
+        }
+        for (Jxbv2Optional dep : loadedModule.getDependencies().getOptional()) {
+            weakDependencies.add(new ModuleId(dep.getName(), new Version(dep.getVersion())));
+        }
+        
+        for (Jxbv2PathEntry pathEntry : loadedModule.getClassPath().getPathEntry()) {
+            jarPaths.add(Paths.get(pathEntry.getPath()));
+        }
+        
+        if (loadedModule.getResources() != null && loadedModule.getResources().getDocFiles() != null) {
+            for (Jxbv2PathEntry pathEntry : loadedModule.getResources().getDocFiles().getPathEntry()) {
+                docPaths.add(Paths.get(pathEntry.getPath()));
+            }
+        }
+        
+        if (loadedModule.getResources() != null && loadedModule.getResources().getStyles() != null) {
+            for (Jxbv2Style pathEntry : loadedModule.getResources().getStyles().getStyle()) {
+                stylePaths.put(pathEntry.getId(), Paths.get(pathEntry.getPath()));
             }
         }
         
         monitor.done();
-        return new FileCatalogModuleHandle(moduleCachePath, name, moduleVersion, uid, mainClassName, licenseRequired,
-                binaryVersion, dependencies, weakDependencies, docPaths, jarPaths);
+        return new FileCatalogModuleHandle(moduleCachePath, name, moduleVersion, uid, mainClassName, binaryVersion, dependencies,
+                weakDependencies, docPaths, jarPaths, stylePaths);
     }
 
     /**
      * Build a module handle
      * @param moduleCachePath the module extracted data directory.
-     * @param monitor the progress monitor to use for reporting progress to the
-     * user. It is the caller's responsibility to call
-     * <code>done()</code> on the given monitor. Accepts
-     * <code>null</code>, indicating that no progress should be
+     * @param monitor the progress monitor to use for reporting progress to the user. It is the caller's responsibility to call
+     * <code>done()</code> on the given monitor. Accepts <code>null</code>, indicating that no progress should be
      * reported and that the operation cannot be cancelled.
      * @return the module handle
      * @throws java.io.IOException in case of failure.
@@ -218,7 +220,7 @@ class FileCatalogModuleHandleBuilder {
             Path moduleXmlPath = moduleCachePath.resolve("module.xml");
             m.worked(20);
             if (Files.exists(moduleXmlPath)) {
-                JxbModule loadedModule = null;
+                Jxbv2Module loadedModule = null;
                 // Ensure the static model ramc file exists
                 Path staticModelPath = moduleCachePath.resolve("staticModel.ramc");
                 if (Files.notExists(staticModelPath)) {
@@ -252,7 +254,7 @@ class FileCatalogModuleHandleBuilder {
                     return loadModuleInfos(moduleCachePath, loadedModule, m.newChild(20));
                 } else {
                     // Load the module info file
-                    JxbModule moduleFromInfos = JaxbModelPersistence.loadJaxbModel(infosPath);
+                    Jxbv2Module moduleFromInfos = JaxbModelPersistence.loadJaxbModel(infosPath);
                     return loadModuleInfos(moduleCachePath, moduleFromInfos, m.newChild(20));
                 }
             }
@@ -260,161 +262,11 @@ class FileCatalogModuleHandleBuilder {
             throw new IOException(CoreProject.getMessage("ModuleCacheManager.NoModuleFound", moduleCachePath.getFileName())); //$NON-NLS-1$
         } catch (IOException e) {
             IOException e2 = new IOException(CoreProject.getMessage(
-                    "ModuleCacheManager.ErrorReadingModule", moduleCachePath.getFileName(), e.getLocalizedMessage())); //$NON-NLS-1$
+                    "ModuleCacheManager.ErrorReadingModule",
+                    moduleCachePath.getFileName(), FileUtils.getLocalizedMessage(e))); //$NON-NLS-1$
             e2.initCause(e);
             throw e2;
         }
-    }
-
-    /**
-     * Helper class building a module model component from a {@link JxbModule}.
-     */
-    @objid ("156a6e31-0c96-11e2-b501-002564c97630")
-    private static class ModuleRamcCreationHelper {
-        /**
-         * Helper method creating a model component in several steps: - create a
-         * temporary {@link GProject}. - create a full {@link ModuleComponent}
-         * from a {@link JxbModule}. - package a model component containing this
-         * module. - close the temporary project and delete it.
-         * @param loadedModule the jaxb module to create the {@link ModuleComponent}
-         * from.
-         * @param ramcPath the path to package the ramc into.
-         * @param monitor the progress monitor to use for reporting progress to the
-         * user. It is the caller's responsibility to call
-         * <code>done()</code> on the given monitor. Accepts
-         * <code>null</code>, indicating that no progress should be
-         * reported and that the operation cannot be cancelled.
-         * @throws java.io.IOException in case of failure
-         */
-        @objid ("2c95c269-f37d-11e1-a3c7-002564c97630")
-        public static void createRamc(JxbModule loadedModule, Path ramcPath, IModelioProgress monitor) throws IOException {
-            SubProgress mon = SubProgress.convert(monitor, 60);
-            
-            Path tempDirectory = Files.createTempDirectory("ModelioCatalog");
-            
-            ProjectDescriptor projectDescriptor = GProjectCreator.buildEmptyProject(loadedModule.getName(), tempDirectory);
-            GProject gproject = GProjectFactory.openProject(projectDescriptor, null, null, mon.newChild(10));
-            
-            try {
-                Artifact a = initModuleRamc(gproject, loadedModule, mon.newChild(10));
-                // Run packaging
-                RamcPackager packager = new RamcPackager(gproject, a, ramcPath);
-                // For module static-model ramcs do not export the artifact
-                // itself because this artifact is only a temporary one used to
-                // package the ramc. Furthermore, keeping it in the ramc would cause
-                // trouble when removing the module.
-                packager.setIncludeArtifact(false);
-                packager.run(mon.newChild(30));
-            } finally {
-                gproject.close();
-            }
-            
-            // TODO this is a quite naive implementation, it should deal with
-            // project path for delegating project
-            try {
-                FileUtils.delete(tempDirectory);
-            } catch (IOException e) {
-                Log.warning(e);
-            }
-        }
-
-        @objid ("2c95c26d-f37d-11e1-a3c7-002564c97630")
-        private static Artifact initModuleRamc(GProject gproject, JxbModule loadedModule, IModelioProgress monitor) throws IOException {
-            ICoreSession s = gproject.getSession();
-            
-            // Create a temporary repository
-            IRepository repo = new MemoryRepository();
-            s.getRepositorySupport().connectRepository(repo, new BasicAccessManager(), monitor);
-            
-            ModelFactory modelfactory = new ModelFactory(s, repo);
-            
-            try (ITransaction t = s.getTransactionSupport().createTransaction("Init "+loadedModule.getName()+" module RAMC")) {
-                GenericFactory gf = s.getModel().getGenericFactory();
-            
-                Project proj = gf.create(Project.class, repo);
-                Package p = gf.create(Package.class, repo);
-                proj.setModel(p);
-            
-                // Create the module itself
-                ModuleComponent module = modelfactory.createModule(loadedModule);
-            
-                // Import Profiles, Stereotypes, TagTypes and so on.
-                for (Object child : loadedModule.getParameterOrProfileOrGui()) {
-                    if (child instanceof JxbProfile) {
-                        JxbProfile jaxbprofile = (JxbProfile) child;
-                        Profile profile = modelfactory.createProfile(jaxbprofile, module);
-                        for (Object profileChild : jaxbprofile.getStereotypeOrAnonymousStereotype()) {
-                            if (profileChild instanceof JxbStereotype) {
-                                JxbStereotype jaxbstereotype = (JxbStereotype) profileChild;
-                                Stereotype stereotype = modelfactory.createStereotype(jaxbstereotype, profile);
-                                for (Object stereoChild : jaxbstereotype.getIconsOrTaggedvaluesOrNotetype()) {
-                                    if (stereoChild instanceof JxbTaggedvalues) {
-                                        modelfactory.createTagType((JxbTaggedvalues) stereoChild, stereotype);
-                                    } else if (stereoChild instanceof JxbNotetype) {
-                                        modelfactory.createNoteType((JxbNotetype) stereoChild, stereotype);
-                                    } else if (stereoChild instanceof JxbExterndocumenttype) {
-                                        modelfactory.createExternalDocumentType((JxbExterndocumenttype) stereoChild, stereotype);
-                                    }
-                                }
-                            } else if (profileChild instanceof JxbAnonymousStereotype) {
-                                JxbAnonymousStereotype anonymousStereotype = (JxbAnonymousStereotype) profileChild;
-                                MetaclassReference ref = modelfactory.createMetaClassReferance(anonymousStereotype, profile);
-                                for (Object stereoChild : anonymousStereotype.getTaggedvaluesOrNotetypeOrExterndocumenttype()) {
-                                    if (stereoChild instanceof JxbTaggedvalues) {
-                                        modelfactory.createTagType((JxbTaggedvalues) stereoChild, ref);
-                                    } else if (stereoChild instanceof JxbNotetype) {
-                                        modelfactory.createNoteType((JxbNotetype) stereoChild, ref);
-                                    } else if (stereoChild instanceof JxbExterndocumenttype) {
-                                        modelfactory.createExternalDocumentType((JxbExterndocumenttype) stereoChild, ref);
-                                    }
-                                }
-                            }
-                        }
-            
-                    } else if (child instanceof JxbParameter) {
-                        modelfactory.createConfigParam((JxbParameter) child, module);
-                    }
-                }
-            
-                for (Object child : loadedModule.getParameterOrProfileOrGui()) {
-                    if (child instanceof JxbProfile) {
-                        JxbProfile jaxbprofile = (JxbProfile) child;
-                        for (Object profileChild : jaxbprofile.getStereotypeOrAnonymousStereotype()) {
-                            if (profileChild instanceof JxbStereotype) {
-                                JxbStereotype jaxbstereotype = (JxbStereotype) profileChild;
-                                if (jaxbstereotype.getOwnerStereotype() != null) {
-                                    Stereotype current = s.getModel().findById(Stereotype.class,
-                                            UUID.fromString(jaxbstereotype.getUid()));
-                                    Collection<Stereotype> owners = s.getModel().findByAtt(Stereotype.class, "Name",
-                                            jaxbstereotype.getOwnerStereotype());
-            
-                                    if (current != null && owners.size() > 0) {
-                                        current.setParent(owners.iterator().next());
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-                
-                // Setup RAMC packaging.
-                // Generate the RAMC Artifact
-                Artifact aa = gf.create(Artifact.class, p);
-                aa.setName(loadedModule.getName());
-                p.getOwnedElement().add(aa);
-                
-                ModelComponent ramcFact = new ModelComponent(aa);
-                ramcFact.setRamcName(loadedModule.getName());
-                ramcFact.setRamcVersion(new Version(loadedModule.getVersion()));
-                ramcFact.getExportedElements().add(module);
-                ramcFact.updateArtifact();
-            
-                t.commit();
-            
-                return aa;
-            }
-        }
-
     }
 
 }

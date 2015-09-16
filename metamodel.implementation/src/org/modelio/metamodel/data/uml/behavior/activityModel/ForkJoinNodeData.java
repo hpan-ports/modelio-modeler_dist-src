@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.data.uml.behavior.activityModel;
 
@@ -43,36 +43,36 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("00341f8e-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=ForkJoinNode.class, factory=ForkJoinNodeData.Metadata.ObjectFactory.class)
 public class ForkJoinNodeData extends ControlNodeData {
-    @objid ("c9b0dcc7-8eb7-44ae-b0e1-b78106fe62d7")
+    @objid ("fb4bf661-a730-4fd7-bb49-faa510867009")
     @SmaMetaAttribute(metaName="IsCombineDuplicate", type=Boolean.class, smAttributeClass=Metadata.IsCombineDuplicateSmAttribute.class)
      Object mIsCombineDuplicate = true;
 
-    @objid ("24538f4d-348a-4a5e-b325-cb9d78c0e700")
+    @objid ("de0d3490-6c83-4627-b14b-bad295a1dcbe")
     @SmaMetaAttribute(metaName="JoinSpec", type=String.class, smAttributeClass=Metadata.JoinSpecSmAttribute.class)
      Object mJoinSpec = "and";
 
-    @objid ("1bc19c5b-12f5-41d2-a9d5-ba01da872451")
+    @objid ("63736b2c-6077-4c39-8f35-604d5c20a85e")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("004db002-c4c2-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("1c5bb0cd-df73-469c-bc92-173ca5ed279c")
+        @objid ("64428042-6c4f-4b75-b6e1-cc20c0e521a9")
         private static SmClass smClass = null;
 
-        @objid ("6dee731b-3165-43a0-bf7d-0331987003cb")
+        @objid ("5f41d8df-934a-4bbb-b4ec-e76e5d053cba")
         private static SmAttribute IsCombineDuplicateAtt = null;
 
-        @objid ("cfa19316-024a-4655-bf37-ec4361d32c4e")
+        @objid ("827d7a79-cff0-454d-95b8-be5e8fec8a45")
         private static SmAttribute JoinSpecAtt = null;
 
-        @objid ("623efa1b-6a0c-4860-8af2-626b3f180c91")
+        @objid ("60dff3fb-cb48-466e-8e15-864b0f0f40db")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(ForkJoinNodeData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("04a3e042-7b27-48a7-9956-b96abc7c430a")
+        @objid ("9486c642-1336-46a3-b47c-85e037ad5fa9")
         public static SmAttribute IsCombineDuplicateAtt() {
             if (IsCombineDuplicateAtt == null) {
             	IsCombineDuplicateAtt = classof().getAttributeDef("IsCombineDuplicate");
@@ -80,7 +80,7 @@ public class ForkJoinNodeData extends ControlNodeData {
             return IsCombineDuplicateAtt;
         }
 
-        @objid ("cec00c65-2f19-4c07-940d-7214bb60d26a")
+        @objid ("5753f07d-a780-4716-9887-d87de96d9530")
         public static SmAttribute JoinSpecAtt() {
             if (JoinSpecAtt == null) {
             	JoinSpecAtt = classof().getAttributeDef("JoinSpec");
@@ -88,19 +88,19 @@ public class ForkJoinNodeData extends ControlNodeData {
             return JoinSpecAtt;
         }
 
-        @objid ("57901f45-7b44-4531-9f51-11524cd45dcb")
+        @objid ("7ad0bbdd-e601-4655-9599-a9c04e29f7b3")
         public static SmAttribute getJoinSpecAtt() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return JoinSpecAtt;
         }
 
-        @objid ("093b4a72-f157-42ca-abf5-5f6f8bd88e5c")
+        @objid ("b5fc3b8b-a60c-4df2-ae2b-dd6ae518875d")
         public static SmClass getSmClass() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return smClass;
         }
 
-        @objid ("52a5dfd0-50ff-4422-a066-f66f8a59f6f8")
+        @objid ("97f9956e-67c0-4842-967a-fdfb9671bf1f")
         public static SmAttribute getIsCombineDuplicateAtt() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return IsCombineDuplicateAtt;
@@ -108,12 +108,12 @@ public class ForkJoinNodeData extends ControlNodeData {
 
         @objid ("004df1b6-c4c2-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("37315b4c-968b-4b8e-a04d-0eba763d4c25")
+            @objid ("bceb8fc6-5635-4183-91a5-c8e896ff16e8")
             public ISmObjectData createData() {
                 return new ForkJoinNodeData();
             }
 
-            @objid ("c7005180-fc1d-4be4-b55a-750fff12089f")
+            @objid ("2ef03141-363f-47b1-b601-9d818a7bfefe")
             public SmObjectImpl createImpl() {
                 return new ForkJoinNodeImpl();
             }
@@ -122,12 +122,12 @@ public class ForkJoinNodeData extends ControlNodeData {
 
         @objid ("004e5a70-c4c2-1fd8-97fe-001ec947cd2a")
         public static class IsCombineDuplicateSmAttribute extends SmAttribute {
-            @objid ("23572a77-d7b5-45e4-96d3-d9e73fe59919")
+            @objid ("35237055-dd87-4611-ba5c-36f7f0850d99")
             public Object getValue(ISmObjectData data) {
                 return ((ForkJoinNodeData) data).mIsCombineDuplicate;
             }
 
-            @objid ("86fe98d5-cf5e-492c-b1df-73a52fbc3875")
+            @objid ("05f2ede3-0d29-463d-af0d-9a681e2c1f9c")
             public void setValue(ISmObjectData data, Object value) {
                 ((ForkJoinNodeData) data).mIsCombineDuplicate = value;
             }
@@ -136,12 +136,12 @@ public class ForkJoinNodeData extends ControlNodeData {
 
         @objid ("004ebd44-c4c2-1fd8-97fe-001ec947cd2a")
         public static class JoinSpecSmAttribute extends SmAttribute {
-            @objid ("30a33d4b-f1e2-4691-ae24-1b1749c33dfd")
+            @objid ("7cb35061-ab12-4c23-985e-f00fc739b0ba")
             public Object getValue(ISmObjectData data) {
                 return ((ForkJoinNodeData) data).mJoinSpec;
             }
 
-            @objid ("bed62482-98be-4604-98cc-1265ff1cbe40")
+            @objid ("da827d56-d294-4b81-8fbf-0094e2963ebb")
             public void setValue(ISmObjectData data, Object value) {
                 ((ForkJoinNodeData) data).mJoinSpec = value;
             }

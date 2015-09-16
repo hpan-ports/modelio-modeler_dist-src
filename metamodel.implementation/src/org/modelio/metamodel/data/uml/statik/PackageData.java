@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.data.uml.statik;
 
@@ -48,64 +48,64 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("0015b9f4-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=Package.class, factory=PackageData.Metadata.ObjectFactory.class, cmsnode=true)
 public class PackageData extends NameSpaceData {
-    @objid ("769cf2e5-40a7-49fb-a0ce-b948557038dd")
+    @objid ("0cdcbe79-f82c-499a-92a9-6a4e7c3bbff8")
     @SmaMetaAttribute(metaName="IsInstantiable", type=Boolean.class, smAttributeClass=Metadata.IsInstantiableSmAttribute.class)
      Object mIsInstantiable = false;
 
-    @objid ("3282f119-6550-4c2d-bdd6-860e3eb2bcbc")
+    @objid ("e1699e7e-dd9a-44ce-b0a7-0636a1ee1cce")
     @SmaMetaAssociation(metaName="BpmnRepresents", typeDataClass=BpmnParticipantData.class, min=0, max=-1, smAssociationClass=Metadata.BpmnRepresentsSmDependency.class)
      List<SmObjectImpl> mBpmnRepresents = null;
 
-    @objid ("df976c65-98d4-4837-a5c1-bc71bda2fd95")
+    @objid ("50e58640-cf92-4b16-b2a3-dcc46ffd8769")
     @SmaMetaAssociation(metaName="ReceivingMerge", typeDataClass=PackageMergeData.class, min=0, max=-1, smAssociationClass=Metadata.ReceivingMergeSmDependency.class, istodelete = true)
      List<SmObjectImpl> mReceivingMerge = null;
 
-    @objid ("36efcc4b-bcca-4d75-a33e-b41d95fbd730")
+    @objid ("e4edc80a-145c-4646-b51c-99a83904f157")
     @SmaMetaAssociation(metaName="Represented", typeDataClass=ProjectData.class, min=0, max=1, smAssociationClass=Metadata.RepresentedSmDependency.class)
      SmObjectImpl mRepresented;
 
-    @objid ("9ca3f8c6-466c-4dd5-a9f0-fac2e289d909")
+    @objid ("c6e33480-e323-4108-b8d5-73bb0d2bd50e")
     @SmaMetaAssociation(metaName="Merge", typeDataClass=PackageMergeData.class, min=0, max=-1, smAssociationClass=Metadata.MergeSmDependency.class, component = true)
      List<SmObjectImpl> mMerge = null;
 
-    @objid ("c1723e34-d5c4-402c-ae74-bdabbf32256c")
+    @objid ("97f77a60-c93e-437b-87f2-68ae302e2f37")
     @SmaMetaAssociation(metaName="PackageImporting", typeDataClass=PackageImportData.class, min=0, max=-1, smAssociationClass=Metadata.PackageImportingSmDependency.class, istodelete = true)
      List<SmObjectImpl> mPackageImporting = null;
 
-    @objid ("551b4149-7f22-46a8-b5ea-6ae98ae72148")
+    @objid ("0ee6308f-7943-43ec-ba7d-065b304445f8")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("007fbb56-c4c3-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("0b0e4ec9-45c0-4559-aa3c-e6621d0843b1")
+        @objid ("ca3a357e-974b-4ad3-912d-e72ba37b71b5")
         private static SmClass smClass = null;
 
-        @objid ("5e2dfb82-fd81-4170-9142-58a2322a9424")
+        @objid ("d3746c6a-9400-4a00-a18e-a5a3395cee88")
         private static SmAttribute IsInstantiableAtt = null;
 
-        @objid ("9d7b8c9b-a247-4c50-8ed4-ecf2313f800a")
+        @objid ("6fd9654d-1f3c-4141-afd7-6b45a6f4f34b")
         private static SmDependency BpmnRepresentsDep = null;
 
-        @objid ("74d6d7f2-a91c-42e2-b5b5-13870fe6e258")
+        @objid ("ea5fa955-acd5-44dc-9200-305b6e6ac728")
         private static SmDependency ReceivingMergeDep = null;
 
-        @objid ("84f4af3c-7503-4a48-82f4-09b65d53105d")
+        @objid ("d59dccba-40ed-4ec8-87ab-24b4335b7c4d")
         private static SmDependency RepresentedDep = null;
 
-        @objid ("080a4e90-7a94-469f-a582-54f2cf4531cc")
+        @objid ("b6e43b36-33a7-4541-9443-57dc9bc6dadb")
         private static SmDependency MergeDep = null;
 
-        @objid ("324a4155-060e-4ab5-8d23-e922300e9229")
+        @objid ("86dc3ef2-5b96-4b8f-b5d0-4590a8363de1")
         private static SmDependency PackageImportingDep = null;
 
-        @objid ("a531e0a5-86e7-44ee-93d6-ad5c361b5853")
+        @objid ("42cb8be7-f2a2-42cb-ae20-d5f70fe5d084")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(PackageData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("6a3bf170-8e25-4640-9131-a6f718190d36")
+        @objid ("2222fd2a-4418-42b7-99f3-9e420d6fed24")
         public static SmAttribute IsInstantiableAtt() {
             if (IsInstantiableAtt == null) {
             	IsInstantiableAtt = classof().getAttributeDef("IsInstantiable");
@@ -113,7 +113,7 @@ public class PackageData extends NameSpaceData {
             return IsInstantiableAtt;
         }
 
-        @objid ("defb0050-0e35-4b3c-afef-5e44f7a3cf87")
+        @objid ("5fcb69e5-c8a4-463d-add3-d306a9660399")
         public static SmDependency BpmnRepresentsDep() {
             if (BpmnRepresentsDep == null) {
             	BpmnRepresentsDep = classof().getDependencyDef("BpmnRepresents");
@@ -121,7 +121,7 @@ public class PackageData extends NameSpaceData {
             return BpmnRepresentsDep;
         }
 
-        @objid ("7a691c13-0dbc-4764-8f06-2987b0a804c7")
+        @objid ("44533759-8b61-4fef-81d5-255ddc2b6756")
         public static SmDependency ReceivingMergeDep() {
             if (ReceivingMergeDep == null) {
             	ReceivingMergeDep = classof().getDependencyDef("ReceivingMerge");
@@ -129,7 +129,7 @@ public class PackageData extends NameSpaceData {
             return ReceivingMergeDep;
         }
 
-        @objid ("0464021d-2be1-42aa-a190-3258cc86985b")
+        @objid ("04430a30-acc8-4a2d-a6d6-727d3a52002b")
         public static SmDependency RepresentedDep() {
             if (RepresentedDep == null) {
             	RepresentedDep = classof().getDependencyDef("Represented");
@@ -137,7 +137,7 @@ public class PackageData extends NameSpaceData {
             return RepresentedDep;
         }
 
-        @objid ("5ac5dbef-1191-4a61-a65d-2c1b286d4a55")
+        @objid ("d53be21d-fd25-4aef-8fa9-93d4fe808d0e")
         public static SmDependency MergeDep() {
             if (MergeDep == null) {
             	MergeDep = classof().getDependencyDef("Merge");
@@ -145,7 +145,7 @@ public class PackageData extends NameSpaceData {
             return MergeDep;
         }
 
-        @objid ("f3925b67-a534-422b-b014-975cb6e3df7e")
+        @objid ("715f7689-b628-40bb-9cbe-d3eea8f63e13")
         public static SmDependency PackageImportingDep() {
             if (PackageImportingDep == null) {
             	PackageImportingDep = classof().getDependencyDef("PackageImporting");
@@ -153,56 +153,56 @@ public class PackageData extends NameSpaceData {
             return PackageImportingDep;
         }
 
-        @objid ("d6a5696b-c6b8-448a-8d63-03d72ca42241")
-        public static SmDependency getPackageImportingDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return PackageImportingDep;
-        }
-
-        @objid ("6abdbae0-98c2-4c6a-b593-38cab62b2e72")
-        public static SmDependency getBpmnRepresentsDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return BpmnRepresentsDep;
-        }
-
-        @objid ("c09c6ea6-a46a-4796-9cce-97073497d840")
-        public static SmDependency getRepresentedDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return RepresentedDep;
-        }
-
-        @objid ("aac9391f-df12-4346-b761-77cb7b54a0b5")
-        public static SmAttribute getIsInstantiableAtt() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return IsInstantiableAtt;
-        }
-
-        @objid ("ce3b70b6-564f-4bf5-ae39-4c35e76c43e0")
-        public static SmClass getSmClass() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return smClass;
-        }
-
-        @objid ("8574dac4-f941-4680-b0ec-f75cb5a57cbd")
-        public static SmDependency getReceivingMergeDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return ReceivingMergeDep;
-        }
-
-        @objid ("ed6de7bf-4187-4c4a-aa35-926d4418f630")
+        @objid ("8a846275-09f5-4ef3-be66-6e852a9b28a7")
         public static SmDependency getMergeDep() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return MergeDep;
         }
 
+        @objid ("6c14ff2e-de62-42e8-87ad-625d01cc41e5")
+        public static SmClass getSmClass() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return smClass;
+        }
+
+        @objid ("66efca70-2f9c-413e-bdf4-004ce324020d")
+        public static SmDependency getPackageImportingDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return PackageImportingDep;
+        }
+
+        @objid ("8b1a147f-efc1-4935-8348-2065d8b54ac8")
+        public static SmAttribute getIsInstantiableAtt() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return IsInstantiableAtt;
+        }
+
+        @objid ("8000fcb9-7e05-4d4e-a3f1-4ca7c04a5e2c")
+        public static SmDependency getBpmnRepresentsDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return BpmnRepresentsDep;
+        }
+
+        @objid ("f2343369-100c-47fc-b6c8-7a4011289a1f")
+        public static SmDependency getRepresentedDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return RepresentedDep;
+        }
+
+        @objid ("5554e9a5-b46a-43c7-9685-c05ca6e5b0c7")
+        public static SmDependency getReceivingMergeDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return ReceivingMergeDep;
+        }
+
         @objid ("007ffc9c-c4c3-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("da39881f-2403-48ce-b1f9-a4555e7413c0")
+            @objid ("68cd71b0-6c47-4f98-a77b-c35a9c069c25")
             public ISmObjectData createData() {
                 return new PackageData();
             }
 
-            @objid ("a897c7b1-8493-4281-ad96-73ba0e86916d")
+            @objid ("49c78656-3eb3-4a27-bd69-cb4c81bdd0df")
             public SmObjectImpl createImpl() {
                 return new PackageImpl();
             }
@@ -211,12 +211,12 @@ public class PackageData extends NameSpaceData {
 
         @objid ("008061be-c4c3-1fd8-97fe-001ec947cd2a")
         public static class IsInstantiableSmAttribute extends SmAttribute {
-            @objid ("68514bad-40cc-476d-a616-0948d0560918")
+            @objid ("c86436f7-d860-41b7-b246-12af81492db2")
             public Object getValue(ISmObjectData data) {
                 return ((PackageData) data).mIsInstantiable;
             }
 
-            @objid ("a691cf38-2c8d-48b0-b968-7555689581dd")
+            @objid ("e2aec1da-f9d0-47c0-9843-3d9b2f8c4849")
             public void setValue(ISmObjectData data, Object value) {
                 ((PackageData) data).mIsInstantiable = value;
             }
@@ -225,20 +225,20 @@ public class PackageData extends NameSpaceData {
 
         @objid ("0080c546-c4c3-1fd8-97fe-001ec947cd2a")
         public static class MergeSmDependency extends SmMultipleDependency {
-            @objid ("1edd1a53-38af-464a-9b73-d2417cba3e20")
+            @objid ("754dbd1a-b6e6-413c-8c56-771211b401e2")
             @Override
             public List<SmObjectImpl> getValueList(ISmObjectData data) {
                 return (((PackageData)data).mMerge != null)? ((PackageData)data).mMerge:SmMultipleDependency.EMPTY;
             }
 
-            @objid ("44b660ef-bfc8-44e1-b350-a5b6869b7e5e")
+            @objid ("d219b8ff-fa06-443d-b225-7ed6d461766f")
             @Override
             protected List<SmObjectImpl> allocateValueList(ISmObjectData data, int initialCapacity) {
                 ((PackageData) data).mMerge = new ArrayList<>(initialCapacity);
                 return ((PackageData) data).mMerge;
             }
 
-            @objid ("93b53df3-c017-4c83-b4d9-97457569d09e")
+            @objid ("5ee6cf64-2695-43fd-bfbc-c041d760bb63")
             @Override
             public SmDependency getSymetric() {
                 return PackageMergeData.Metadata.ReceivingPackageDep();
@@ -248,20 +248,20 @@ public class PackageData extends NameSpaceData {
 
         @objid ("008128e2-c4c3-1fd8-97fe-001ec947cd2a")
         public static class PackageImportingSmDependency extends SmMultipleDependency {
-            @objid ("40ad2012-1fec-4fe4-a0a6-f4a84acf89d5")
+            @objid ("48d00a2f-d86b-4d99-bd0f-576f1b3c9025")
             @Override
             public List<SmObjectImpl> getValueList(ISmObjectData data) {
                 return (((PackageData)data).mPackageImporting != null)? ((PackageData)data).mPackageImporting:SmMultipleDependency.EMPTY;
             }
 
-            @objid ("2ba23e5d-691a-45f0-b8a6-12428e2a6a28")
+            @objid ("67e00130-a384-4130-a96e-7fc6e3e982da")
             @Override
             protected List<SmObjectImpl> allocateValueList(ISmObjectData data, int initialCapacity) {
                 ((PackageData) data).mPackageImporting = new ArrayList<>(initialCapacity);
                 return ((PackageData) data).mPackageImporting;
             }
 
-            @objid ("1e29945a-5e65-4bd3-bfad-83e5c04684ad")
+            @objid ("16aa19a4-e972-4fb4-b1a6-150db82444de")
             @Override
             public SmDependency getSymetric() {
                 return PackageImportData.Metadata.ImportedPackageDep();
@@ -271,20 +271,20 @@ public class PackageData extends NameSpaceData {
 
         @objid ("00818ee0-c4c3-1fd8-97fe-001ec947cd2a")
         public static class ReceivingMergeSmDependency extends SmMultipleDependency {
-            @objid ("2cf0a0d8-bed0-42b3-acfa-39f913e844e7")
+            @objid ("bf15a3e6-a8b1-4f10-8603-6c57a1b364fc")
             @Override
             public List<SmObjectImpl> getValueList(ISmObjectData data) {
                 return (((PackageData)data).mReceivingMerge != null)? ((PackageData)data).mReceivingMerge:SmMultipleDependency.EMPTY;
             }
 
-            @objid ("eb33b63c-72f8-4f38-a9c4-3c7c3f5fcfc0")
+            @objid ("bb1d3fe6-2abb-429b-a51b-cb80b3252385")
             @Override
             protected List<SmObjectImpl> allocateValueList(ISmObjectData data, int initialCapacity) {
                 ((PackageData) data).mReceivingMerge = new ArrayList<>(initialCapacity);
                 return ((PackageData) data).mReceivingMerge;
             }
 
-            @objid ("3a0b73bf-cf18-4dc5-9a9d-1ad4d9bfb096")
+            @objid ("e0aa90ee-5f74-4d4c-a5cc-4f0a2c051378")
             @Override
             public SmDependency getSymetric() {
                 return PackageMergeData.Metadata.MergedPackageDep();
@@ -294,18 +294,18 @@ public class PackageData extends NameSpaceData {
 
         @objid ("0081f2a4-c4c3-1fd8-97fe-001ec947cd2a")
         public static class RepresentedSmDependency extends SmSingleDependency {
-            @objid ("d4858e4f-8565-41cd-9017-99fba95c9726")
+            @objid ("00f4f4f0-fb35-492c-a4d0-557ec7eca93a")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((PackageData) data).mRepresented;
             }
 
-            @objid ("cb23a7a6-a4bd-4738-83af-3147a6934973")
+            @objid ("1ff0c3c8-df30-4fd3-9458-47908da5ba51")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((PackageData) data).mRepresented = value;
             }
 
-            @objid ("c2bc0f0c-ba51-4743-a922-94638f5ffb57")
+            @objid ("2160c8bc-f007-4c72-ae34-27caac964fdc")
             @Override
             public SmDependency getSymetric() {
                 return ProjectData.Metadata.ModelDep();
@@ -315,20 +315,20 @@ public class PackageData extends NameSpaceData {
 
         @objid ("00826a4a-c4c3-1fd8-97fe-001ec947cd2a")
         public static class BpmnRepresentsSmDependency extends SmMultipleDependency {
-            @objid ("280a2176-81fa-42f1-84ed-8eb45631f7a4")
+            @objid ("c0770a53-e55e-46e0-b676-97076c21a8c4")
             @Override
             public List<SmObjectImpl> getValueList(ISmObjectData data) {
                 return (((PackageData)data).mBpmnRepresents != null)? ((PackageData)data).mBpmnRepresents:SmMultipleDependency.EMPTY;
             }
 
-            @objid ("befa4e5a-9fb7-47b4-adb8-58236deb4d86")
+            @objid ("94e4d5a6-cfcf-4868-b661-f37ba80a772c")
             @Override
             protected List<SmObjectImpl> allocateValueList(ISmObjectData data, int initialCapacity) {
                 ((PackageData) data).mBpmnRepresents = new ArrayList<>(initialCapacity);
                 return ((PackageData) data).mBpmnRepresents;
             }
 
-            @objid ("12001ce9-255a-453e-8a83-44351483caf5")
+            @objid ("f7d84326-a5f2-4d5f-9d43-4410c9894d6d")
             @Override
             public SmDependency getSymetric() {
                 return BpmnParticipantData.Metadata.PackageRefDep();

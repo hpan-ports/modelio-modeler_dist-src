@@ -38,11 +38,14 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.ThreadFactory;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReadWriteLock;
+import java.util.concurrent.locks.ReentrantReadWriteLock;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
+import org.modelio.vbasic.log.Log;
 import org.modelio.vbasic.progress.IModelioProgress;
 import org.modelio.vbasic.progress.NullProgress;
 import org.modelio.vbasic.progress.SubProgress;
-import org.modelio.vcore.Log;
 import org.modelio.vcore.session.api.IAccessManager;
 import org.modelio.vcore.session.api.ICoreSession;
 import org.modelio.vcore.session.api.memory.IMemoryManager;
@@ -154,6 +157,9 @@ public class CoreSession implements ICoreSession, IRepositorySupport {
     @objid ("1df81043-14f1-44b5-a9b8-a0bfdf719ec2")
     private Collection<IRepositoryChangeListener> repositoryChangeListeners;
 
+    @objid ("0cfc1e11-5903-45c5-bb64-6e4cb461aa67")
+    private final ReadWriteLock repositoriesLock = new ReentrantReadWriteLock();
+
     /**
      * Get the core session owning the given model object.
      * @param obj a model object.
@@ -173,6 +179,16 @@ public class CoreSession implements ICoreSession, IRepositorySupport {
     @objid ("0005fa6e-6ebe-1f22-8c06-001ec947cd2a")
     public CoreSession() throws IOException {
         File swapPath = createSwapSpace();
+        init(swapPath);
+    }
+
+    /**
+     * Initialize the core session.
+     * @param swapPath An empty directory where the swap can be stored.
+     * @throws java.io.IOException if the swap failed to initialize.
+     */
+    @objid ("c295ebe8-91ba-45c2-93a8-ecafee94dd10")
+    public CoreSession(File swapPath) throws IOException {
         init(swapPath);
     }
 
@@ -205,14 +221,19 @@ public class CoreSession implements ICoreSession, IRepositorySupport {
             this.ksp = null;
         }
         
-        // Release repositories
-        for (IRepository base : this.repositories) {
-            base.close();
-        }
+        this.repositoriesLock.writeLock().lock();
+        try {
+            // Release repositories
+            for (IRepository base : this.repositories) {
+                base.close();
+            }
         
-        // Empty repository list
-        this.repositories.clear();
-        this.repoRegistry.clear();
+            // Empty repository list
+            this.repositories.clear();
+            this.repoRegistry.clear();
+        } finally {
+            this.repositoriesLock.writeLock().unlock();
+        }
         
         // Dispose the JMX monitor bean
         if (this.jmxBean  != null) {
@@ -251,32 +272,38 @@ public class CoreSession implements ICoreSession, IRepositorySupport {
     public void connectRepository(IRepository aBase, String key, final IAccessManager accessManager, IModelioProgress monitor) throws IOException {
         assertOpen();
         
-        if (key != null && this.repoRegistry.get(key) != null)
-            throw new IllegalArgumentException(this.repoRegistry.get(key)+ " already registered with '"+key+"' key");
+        this.repositoriesLock.writeLock().lock();
+        try {
         
-        // Open the database
-        byte rid = this.repoCounter++;
-        if (this.repoCounter == 0) throw new IllegalStateException("Too much repositories added/removed.");
+            if (key != null && this.repoRegistry.get(key) != null)
+                throw new IllegalArgumentException(this.repoRegistry.get(key)+ " already registered with '"+key+"' key");
         
-        short kid = this.ksp.getId();
-        aBase.init(rid);
+            // Open the database
+            byte rid = this.repoCounter++;
+            if (this.repoCounter == 0) throw new IllegalStateException("Too much repositories added/removed.");
         
-        if (!aBase.isOpen()) {
-            IAccessManager repoManager = new CompositeAccessManager(accessManager);
-            ModelLoaderConfiguration config = new ModelLoaderConfiguration(this, kid, rid, this.shellRepository, this.cacheManager, repoManager, this.refreshEventService);
-            ModelLoaderProvider modelLoaderProvider = new ModelLoaderProvider(config);
-            
-            aBase.open(modelLoaderProvider, monitor);
-        }
+            short kid = this.ksp.getId();
+            aBase.init(rid);
         
-        this.repositories.add(aBase);
-        this.repoRegistry.put(key, aBase);
+            if (!aBase.isOpen()) {
+                IAccessManager repoManager = new CompositeAccessManager(accessManager);
+                ModelLoaderConfiguration config = new ModelLoaderConfiguration(this, kid, rid, this.shellRepository, this.cacheManager, repoManager, this.refreshEventService);
+                ModelLoaderProvider modelLoaderProvider = new ModelLoaderProvider(config);
         
-        // Try to connect unresolved references
-        if (this.shellRepository != null && aBase != this.shellRepository) {
-            for (SmObjectImpl obj : new ArrayList<>(this.shellRepository.getAllLoadedObjects())) {
-                aBase.findById(obj.getClassOf(), obj.getUuid());
+                aBase.open(modelLoaderProvider, monitor);
             }
+        
+            this.repositories.add(aBase);
+            this.repoRegistry.put(key, aBase);
+        
+            // Try to connect unresolved references
+            if (this.shellRepository != null && aBase != this.shellRepository) {
+                for (SmObjectImpl obj : new ArrayList<>(this.shellRepository.getAllLoadedObjects())) {
+                    aBase.findById(obj.getClassOf(), obj.getUuid());
+                }
+            }
+        } finally {
+            this.repositoriesLock.writeLock().unlock();
         }
     }
 
@@ -289,27 +316,46 @@ public class CoreSession implements ICoreSession, IRepositorySupport {
     @Override
     public void disconnectRepository(IRepository toRemove) throws IllegalArgumentException {
         assertOpen();
-        
-        if (!this.repositories.contains(toRemove)) {
-            throw new IllegalArgumentException(toRemove + " repository is not connected to this session.");
-        }
-        
-        if (toRemove.isOpen()) {
-            // Move all loaded objects to the shell repository.
-            Collection<SmObjectImpl> all = new ArrayList<>(toRemove.getAllLoadedObjects());
-            for (SmObjectImpl o : all) {
-                o.getRepositoryObject().unload(o);
-                this.shellRepository.addObject(o);
+        this.repositoriesLock.writeLock().lock();
+        try {
+            if (!this.repositories.contains(toRemove)) {
+                throw new IllegalArgumentException(toRemove + " repository is not connected to this session.");
             }
-            // Close the repository.
-            toRemove.close();
-        }
         
-        this.repositories.remove(toRemove);
-        for (Iterator<Entry<String, IRepository>> it = this.repoRegistry.entrySet().iterator(); it.hasNext(); ) {
-            if (it.next().getValue() == toRemove)
-                it.remove();
+            if (toRemove.isOpen()) {
+                // Move all loaded objects to the shell repository.
+                Collection<SmObjectImpl> all = new ArrayList<>(toRemove.getAllLoadedObjects());
+                for (SmObjectImpl o : all) {
+                    o.getRepositoryObject().unload(o);
+                    this.shellRepository.addObject(o);
+                }
+                // Close the repository.
+                toRemove.close();
+            }
+        
+            this.repositories.remove(toRemove);
+            for (Iterator<Entry<String, IRepository>> it = this.repoRegistry.entrySet().iterator(); it.hasNext(); ) {
+                if (it.next().getValue() == toRemove)
+                    it.remove();
+            }
+        } finally {
+            this.repositoriesLock.writeLock().unlock();
         }
+    }
+
+    @objid ("8d51e75a-cff0-4e0b-bcd6-6f403dc28c4a")
+    @Override
+    public BlobSupport getBlobSupport() {
+        return this.blobSupport;
+    }
+
+    /**
+     * Returns the memory manager singleton.
+     */
+    @objid ("f6a8d47f-5746-42e0-935f-bf8cdcdf26c4")
+    @Override
+    public IMemoryManager getMemoryManager() {
+        return MemoryManager.get();
     }
 
     /**
@@ -340,6 +386,17 @@ public class CoreSession implements ICoreSession, IRepositorySupport {
         return this.modelChangeSupport;
     }
 
+    @objid ("695241b8-4b8b-11e2-91c9-001ec947ccaf")
+    @Override
+    public Collection<IRepository> getRepositories() {
+        getRepositoriesLock().lock();
+        try {
+            return new ArrayList<>(this.repositories);
+        } finally {
+            getRepositoriesLock().unlock();
+        }
+    }
+
     @objid ("005f6b94-fd1a-1f27-a7da-001ec947cd2a")
     @Override
     public Collection<IRepository> getRepositoriesView() {
@@ -361,10 +418,16 @@ public class CoreSession implements ICoreSession, IRepositorySupport {
         final SmObjectImpl smObj = (SmObjectImpl) anObject;
         final byte rid = SmLiveId.getRid(smObj.getLiveId());
         
-        for (IRepository r : this.repositories) {
-            if (r.getRepositoryId() == rid) {
-                return r;
+        getRepositoriesLock().lock();
+        try {
+        
+            for (IRepository r : this.repositories) {
+                if (r.getRepositoryId() == rid) {
+                    return r;
+                }
             }
+        } finally {
+            getRepositoriesLock().unlock();
         }
         return null;
     }
@@ -388,6 +451,47 @@ public class CoreSession implements ICoreSession, IRepositorySupport {
     @Override
     public ITransactionSupport getTransactionSupport() {
         return this.transactionManager;
+    }
+
+    /**
+     * Get the service used to schedule tasks in a background thread.
+     * <p>
+     * This service is closed with the session.
+     * @return the background task service.
+     */
+    @objid ("a0231731-87fe-457b-a477-64d83b65bddc")
+    public ScheduledExecutorService getSchedulerService() {
+        return this.schedulerService;
+    }
+
+    /**
+     * Get the repository where shell objects are located until they are resolved.
+     * @return the shell objects repository.
+     */
+    @objid ("bda036e0-92d7-11e1-81e9-001ec947ccaf")
+    public IRepository getShellRepository() {
+        return this.shellRepository;
+    }
+
+    @objid ("89c6a49b-ba46-400d-9bc8-511c572bcb05")
+    @Override
+    public IRepository getRepository(String key) {
+        return this.repoRegistry.get(key);
+    }
+
+    @objid ("b8e5c2b5-63a7-46c6-8d82-2575cb7d892e")
+    @Override
+    public boolean isDirty() {
+        this.repositoriesLock.readLock().lock();
+        try {
+            for (IRepository r : this.repositories) {
+                if (r.isDirty())
+                    return true;
+            }
+        } finally {
+            this.repositoriesLock.readLock().unlock();
+        }
+        return false;
     }
 
     /**
@@ -420,8 +524,13 @@ public class CoreSession implements ICoreSession, IRepositorySupport {
         mon.worked(10);
         
         // Save changes in the database
-        for (IRepository base : new ArrayList<>(this.repositories)) {
-            base.save(mon.newChild(10));
+        this.repositoriesLock.readLock().lock();
+        try {
+            for (IRepository base : new ArrayList<>(this.repositories)) {
+                base.save(mon.newChild(10));
+            }
+        } finally {
+            this.repositoriesLock.readLock().unlock();
         }
         
         // Clear the transactions
@@ -429,21 +538,6 @@ public class CoreSession implements ICoreSession, IRepositorySupport {
         
         // Clear the cache
         this.cacheManager.clearDeletedObjects();
-    }
-
-    /**
-     * Get the repository where shell objects are located until they are resolved.
-     * @return the shell objects repository.
-     */
-    @objid ("bda036e0-92d7-11e1-81e9-001ec947ccaf")
-    public IRepository getShellRepository() {
-        return this.shellRepository;
-    }
-
-    @objid ("89c6a49b-ba46-400d-9bc8-511c572bcb05")
-    @Override
-    public IRepository getRepository(String key) {
-        return this.repoRegistry.get(key);
     }
 
     /**
@@ -505,7 +599,7 @@ public class CoreSession implements ICoreSession, IRepositorySupport {
         this.model = new Model(this.cacheManager, getRepositorySupport());
         
         // Setup a SsFactory
-        this.ssFactory = new SmFactory(this.ksp.getId(), this.stdMetaObject, this.model, this.cacheManager);
+        this.ssFactory = new SmFactory(this.ksp.getId(), this.stdMetaObject, this.model, this.cacheManager, this.shellRepository);
         
         // Setup a Generic factory
         this.model.setGenericFactory(new GenericFactory(this.ssFactory, getRepositorySupport()));
@@ -554,41 +648,6 @@ public class CoreSession implements ICoreSession, IRepositorySupport {
         connectRepository(this.scratchRepository, REPOSITORY_KEY_SCRATCH, accessManager, new NullProgress());
     }
 
-    @objid ("695241b8-4b8b-11e2-91c9-001ec947ccaf")
-    @Override
-    public Collection<IRepository> getRepositories() {
-        return new ArrayList<>(this.repositories);
-    }
-
-    /**
-     * Returns the memory manager singleton.
-     */
-    @objid ("f6a8d47f-5746-42e0-935f-bf8cdcdf26c4")
-    @Override
-    public IMemoryManager getMemoryManager() {
-        return MemoryManager.get();
-    }
-
-    /**
-     * Initialize the core session.
-     * @param swapPath An empty directory where the swap can be stored.
-     * @throws java.io.IOException if the swap failed to initialize.
-     */
-    @objid ("c295ebe8-91ba-45c2-93a8-ecafee94dd10")
-    public CoreSession(File swapPath) throws IOException {
-        init(swapPath);
-    }
-
-    @objid ("b8e5c2b5-63a7-46c6-8d82-2575cb7d892e")
-    @Override
-    public boolean isDirty() {
-        for (IRepository r : this.repositories) {
-            if (r.isDirty())
-                return true;
-        }
-        return false;
-    }
-
     /**
      * Initialize the scheduled executor service.
      * @return the scheduled executor service.
@@ -632,17 +691,6 @@ public class CoreSession implements ICoreSession, IRepositorySupport {
     }
 
     /**
-     * Get the service used to schedule tasks in a background thread.
-     * <p>
-     * This service is closed with the session.
-     * @return the background task service.
-     */
-    @objid ("a0231731-87fe-457b-a477-64d83b65bddc")
-    public ScheduledExecutorService getSchedulerService() {
-        return this.schedulerService;
-    }
-
-    /**
      * Set the session access manager.
      * @param sessionAccessManager Set the session access manager.
      */
@@ -668,12 +716,6 @@ public class CoreSession implements ICoreSession, IRepositorySupport {
         return this.sessionAccessManager;
     }
 
-    @objid ("8d51e75a-cff0-4e0b-bcd6-6f403dc28c4a")
-    @Override
-    public BlobSupport getBlobSupport() {
-        return this.blobSupport;
-    }
-
     @objid ("c1dbd416-b1d1-4128-9cbd-7bc4abd2080c")
     @Override
     public void addRepositoryChangeListener(IRepositoryChangeListener listener) {
@@ -692,6 +734,12 @@ public class CoreSession implements ICoreSession, IRepositorySupport {
         for(IRepositoryChangeListener listener : this.repositoryChangeListeners) {
             listener.repositoryChanged(event);
         }
+    }
+
+    @objid ("15307786-2676-44a8-b3e0-9b6f4659b1f2")
+    @Override
+    public Lock getRepositoriesLock() {
+        return this.repositoriesLock.readLock();
     }
 
     /**

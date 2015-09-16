@@ -21,6 +21,7 @@
 
 package org.modelio.edition.notes.view.data;
 
+import java.util.regex.Pattern;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.SashForm;
@@ -34,6 +35,7 @@ import org.modelio.metamodel.uml.infrastructure.Constraint;
 import org.modelio.metamodel.uml.infrastructure.ExternDocument;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
 import org.modelio.metamodel.uml.infrastructure.Note;
+import org.modelio.metamodel.uml.infrastructure.NoteType;
 import org.modelio.vcore.session.api.ICoreSession;
 
 /**
@@ -65,6 +67,9 @@ public class NoteViewContentPanel extends Composite {
     @objid ("26f1cdae-186f-11e2-bc4e-002564c97630")
     private ExternNoteContentComposite externNoteContentComposite;
 
+    @objid ("f2843e78-8524-4a28-8fdd-053cf6c88986")
+    private static Pattern REGEX_IS_HTML = Pattern.compile(".*\\<[^>]+>.*", Pattern.DOTALL);
+
     @objid ("26f1cdaf-186f-11e2-bc4e-002564c97630")
     public NoteViewContentPanel(SashForm sash, int style, IActivationService activationService) {
         super(sash, style);
@@ -82,6 +87,9 @@ public class NoteViewContentPanel extends Composite {
         this.constraintContentComposite = new ConstraintContentComposite(this.contentArea, SWT.NONE);
         
         this.externNoteContentComposite = new ExternNoteContentComposite(this.contentArea, SWT.NONE, activationService);
+        
+        //--- Disabled HTML notes ---
+        //this.htmlNoteContentComposite = new HtmlNoteContentComposite(this.contentArea, SWT.NONE);
     }
 
     @objid ("26f1cdb5-186f-11e2-bc4e-002564c97630")
@@ -94,10 +102,18 @@ public class NoteViewContentPanel extends Composite {
             return;
         }
         
-        // INote
         if (element instanceof Note) {
             this.element = element;
             this.annotationContent = this.noteContentComposite;
+        
+            /* --- Disabled HTML notes ---
+              
+            Note note = (Note) element;
+            this.element = element;
+            if (isHtmlNote(note))
+                this.annotationContent = this.htmlNoteContentComposite;
+            else
+                this.annotationContent = this.noteContentComposite;*/
         } else if (element instanceof Constraint) {
             this.element = element;
             this.annotationContent = this.constraintContentComposite;
@@ -145,6 +161,27 @@ public class NoteViewContentPanel extends Composite {
             this.annotationContent = null;
             this.stackLayout.topControl = null;
         }
+    }
+
+    @objid ("4e6e8617-612f-4cb0-bc0f-a7dd043dd38a")
+    protected boolean isHtmlNote(Note note) {
+        final String content = note.getContent();
+        
+        if (content.trim().startsWith("<html"))
+            return true;
+        
+        final NoteType noteType = note.getModel();
+        if (noteType == null)
+            return false;
+        
+        if (noteType.getMimeType().toLowerCase().contains("html"))
+            return true;
+        
+        if (noteType.getName().equals("description")) {
+            // return true unless the content is plain text.
+            return REGEX_IS_HTML.matcher(content).matches();
+        }
+        return false;
     }
 
 }

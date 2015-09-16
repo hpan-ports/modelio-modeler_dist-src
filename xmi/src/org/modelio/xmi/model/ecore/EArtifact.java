@@ -21,9 +21,7 @@
 
 package org.modelio.xmi.model.ecore;
 
-import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.modelio.api.modelio.Modelio;
 import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.metamodel.uml.infrastructure.ModelTree;
 import org.modelio.metamodel.uml.statik.Artifact;
@@ -31,11 +29,11 @@ import org.modelio.xmi.util.EcoreModelNavigation;
 import org.modelio.xmi.util.ReverseProperties;
 
 @objid ("2f33a04f-0f41-4a92-b870-ab0d599f66cc")
-public class EArtifact extends ENamedElement implements IEElement {
+public class EArtifact extends ENamedElement {
     @objid ("2ad60c03-4f51-47dd-bf8c-6829e2b65b4a")
+    @Override
     public Element createObjingElt() {
-        return Modelio.getInstance().getModelingSession()
-        .getModel().createArtifact();
+        return ReverseProperties.getInstance().getMModelServices().getModelFactory().createArtifact();
     }
 
     @objid ("420b77a9-c0b8-46c4-b207-dd11df098c68")
@@ -44,6 +42,7 @@ public class EArtifact extends ENamedElement implements IEElement {
     }
 
     @objid ("fb0d0bf7-a9d9-472d-9dc6-264d0b965e4f")
+    @Override
     public void attach(Element objingElt) {
         //  take the model map
         ReverseProperties revProp = ReverseProperties.getInstance();
@@ -60,11 +59,8 @@ public class EArtifact extends ENamedElement implements IEElement {
         }
     }
 
-    @objid ("0acaf25c-419e-4d90-b4b8-47582db4386f")
-    public void attach(List<Object> objingElts) {
-    }
-
     @objid ("d6af4cf8-a0c8-4540-8c5d-e89b182a8126")
+    @Override
     public void setProperties(Element objingElt) {
         super.setProperties(objingElt);
         setFileName((Artifact) objingElt);

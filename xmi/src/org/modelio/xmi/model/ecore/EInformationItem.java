@@ -21,9 +21,7 @@
 
 package org.modelio.xmi.model.ecore;
 
-import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.modelio.api.modelio.Modelio;
 import org.modelio.metamodel.uml.informationFlow.InformationItem;
 import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
@@ -36,24 +34,26 @@ import org.modelio.xmi.util.ObjingEAnnotation;
 import org.modelio.xmi.util.ReverseProperties;
 
 @objid ("d043ecf6-dd6b-4b26-ab49-1b28c1b7f1ac")
-public class EInformationItem extends ENamedElement implements IEElement {
+public class EInformationItem extends ENamedElement {
     @objid ("f4a86ac2-c283-475b-ad1a-1f0138079700")
-    private org.eclipse.uml2.uml.InformationItem ecoreElement;
+    private org.eclipse.uml2.uml.InformationItem ecoreElement = null;
 
     @objid ("be582ef0-a03b-42e9-93bd-2e78999b1033")
+    @Override
     public Element createObjingElt() {
-        return Modelio.getInstance().getModelingSession().getModel().createInformationItem();
+        return ReverseProperties.getInstance().getMModelServices().getModelFactory().createInformationItem();
     }
 
     @objid ("b1d90dc5-6170-4024-9813-2ab4ad11709f")
     public EInformationItem(org.eclipse.uml2.uml.InformationItem element) {
         super(element);
-        ecoreElement = element;
+        this.ecoreElement = element;
     }
 
     @objid ("6ccbba8e-2914-440f-9d87-e0a6f0e8c310")
+    @Override
     public void attach(Element objingElt) {
-        org.eclipse.uml2.uml.Element ecoreOwner = ecoreElement.getOwner();
+        org.eclipse.uml2.uml.Element ecoreOwner = this.ecoreElement.getOwner();
         Object objOwner = ReverseProperties.getInstance().getMappedElement(ecoreOwner);
         
         if (objOwner instanceof Profile){
@@ -67,11 +67,8 @@ public class EInformationItem extends ENamedElement implements IEElement {
              ((InformationItem) objingElt).setOwner(ReverseProperties.getInstance().getExternalPackage());
     }
 
-    @objid ("6d1940dc-6217-4e39-9343-c8193437cd4e")
-    public void attach(List<Object> objingElts) {
-    }
-
     @objid ("12bc6c35-4fa0-411f-b620-6525dc2fb5c0")
+    @Override
     public void setProperties(Element objingElt) {
         super.setProperties(objingElt);
         setRepresented((InformationItem) objingElt);
@@ -85,28 +82,28 @@ public class EInformationItem extends ENamedElement implements IEElement {
 
     @objid ("69fdae02-79f8-474e-900d-316bb9bd3b20")
     private void setEAVisibility(InformationItem objingElt) {
-        int literal = ObjingEAnnotation.getVisibility(ecoreElement);
+        int literal = ObjingEAnnotation.getVisibility(this.ecoreElement);
         objingElt.setVisibility(VisibilityMode.values()[literal]);
     }
 
     @objid ("469e33e1-af65-4e69-b4b9-caa6f0929e66")
     private void setRoot(InformationItem objingElt) {
-        objingElt.setIsRoot(ObjingEAnnotation.isRoot(ecoreElement));
+        objingElt.setIsRoot(ObjingEAnnotation.isRoot(this.ecoreElement));
     }
 
     @objid ("635c8dcd-b0d5-4a80-a10c-4855c9139aba")
     private void setLeaf(InformationItem objingElt) {
-        objingElt.setIsLeaf(ObjingEAnnotation.isLeaf(ecoreElement));
+        objingElt.setIsLeaf(ObjingEAnnotation.isLeaf(this.ecoreElement));
     }
 
     @objid ("d40082dd-4546-44f9-9d12-588813f9fa30")
     private void setAbstract(InformationItem objingElt) {
-        objingElt.setIsAbstract(ObjingEAnnotation.isIsAbstract(ecoreElement));
+        objingElt.setIsAbstract(ObjingEAnnotation.isIsAbstract(this.ecoreElement));
     }
 
     @objid ("2f4795d5-d17b-4626-aa43-c0e7b952fc96")
     private void setRepresented(InformationItem objingElt) {
-        for(Object represented : ecoreElement.getRepresenteds()){
+        for(Object represented : this.ecoreElement.getRepresenteds()){
             Object objRepresented = ReverseProperties.getInstance().getMappedElement((org.eclipse.uml2.uml.Element)represented);
             if (objRepresented instanceof Classifier)
                 objingElt.getRepresented().add((Classifier) objRepresented);

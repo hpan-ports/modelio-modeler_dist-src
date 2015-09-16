@@ -21,36 +21,22 @@
 
 package org.modelio.xmi.model.ecore;
 
-import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.modelio.api.modelio.Modelio;
 import org.modelio.metamodel.uml.infrastructure.Element;
+import org.modelio.xmi.util.ReverseProperties;
 
 @objid ("603c2e8c-f558-4f9c-862e-18692a0e8974")
-public class EProtocolStateMachine extends EStateMachine implements IEElement {
+public class EProtocolStateMachine extends EStateMachine {
     @objid ("1b7f9824-82eb-45b7-8605-e13f7d265a3e")
+    @Override
     public Element createObjingElt() {
-        return Modelio.getInstance().getModelingSession().getModel()
+        return ReverseProperties.getInstance().getMModelServices().getModelFactory()
                 .createStateMachine();
     }
 
     @objid ("ff0831a5-b408-4788-a1ed-4b5d65c55898")
     public EProtocolStateMachine(org.eclipse.uml2.uml.ProtocolStateMachine element) {
         super(element);
-    }
-
-    @objid ("ff7e8516-4ea5-4eb7-96a9-b6416714f09f")
-    public void attach(Element objingElt) {
-        super.attach(objingElt);
-    }
-
-    @objid ("bfe8964e-5049-4cd9-9b39-16f40444e38e")
-    public void attach(List<Object> objingElts) {
-    }
-
-    @objid ("105ccbf8-e0bf-48d3-a433-8709bcbf9153")
-    public void setProperties(Element objingElt) {
-        super.setProperties(objingElt);
     }
 
 }

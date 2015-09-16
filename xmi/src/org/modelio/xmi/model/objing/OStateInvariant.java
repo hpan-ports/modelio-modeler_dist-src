@@ -85,10 +85,10 @@ public class OStateInvariant extends OOccurrenceSpecification implements IOEleme
                     try {
                         constraint.getConstrainedElements().add(ecoreLifeline);
                     } catch (ArrayStoreException e) {
-                        Xmi.LOG.error(Xmi.PLUGIN_ID, e);
+                        Xmi.LOG.error(e);
                         constraint.getConstrainedElements().add(ecoreElt);
                     } catch (Exception e) {
-                        Xmi.LOG.error(Xmi.PLUGIN_ID, e);
+                        Xmi.LOG.error(e);
                         constraint.getConstrainedElements().add(ecoreElt);
                     }
                 }

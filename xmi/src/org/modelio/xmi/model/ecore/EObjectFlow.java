@@ -21,9 +21,7 @@
 
 package org.modelio.xmi.model.ecore;
 
-import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.modelio.api.modelio.Modelio;
 import org.modelio.metamodel.uml.behavior.activityModel.ActivityNode;
 import org.modelio.metamodel.uml.behavior.activityModel.ObjectFlow;
 import org.modelio.metamodel.uml.behavior.activityModel.ObjectFlowEffectKind;
@@ -32,18 +30,19 @@ import org.modelio.xmi.util.ObjingEAnnotation;
 import org.modelio.xmi.util.ReverseProperties;
 
 @objid ("35fafa7a-4e79-40f1-8fa6-534716976069")
-public class EObjectFlow extends EActivityEdge implements IEElement {
+public class EObjectFlow extends EActivityEdge {
     @objid ("859c591d-b36a-4869-a776-65974a6306ed")
-    private org.eclipse.uml2.uml.ObjectFlow ecoreElement;
+    private org.eclipse.uml2.uml.ObjectFlow ecoreElement = null;
 
     @objid ("c7020d01-7e1f-4a77-ada1-916074ac07bc")
+    @Override
     public Element createObjingElt() {
-        org.eclipse.uml2.uml.ActivityNode ecoreSource = ecoreElement.getSource();
-        org.eclipse.uml2.uml.ActivityNode ecoreTarget = ecoreElement.getTarget();
+        org.eclipse.uml2.uml.ActivityNode ecoreSource = this.ecoreElement.getSource();
+        org.eclipse.uml2.uml.ActivityNode ecoreTarget = this.ecoreElement.getTarget();
                 if ((ecoreSource != null) && (ecoreTarget != null)) {
            Object objingSource = ReverseProperties.getInstance().getMappedElement(ecoreSource);
            if ((objingSource != null)&& (objingSource instanceof ActivityNode)){
-               return Modelio.getInstance().getModelingSession().getModel().createObjectFlow();
+               return ReverseProperties.getInstance().getMModelServices().getModelFactory().createObjectFlow();
            }
                 }
         return null;
@@ -52,22 +51,13 @@ public class EObjectFlow extends EActivityEdge implements IEElement {
     @objid ("14a6000a-9f1f-4880-9de6-48d6ebbcdf72")
     public EObjectFlow(org.eclipse.uml2.uml.ObjectFlow element) {
         super(element);
-        ecoreElement = element;
-    }
-
-    @objid ("2eae77ff-ec78-4d48-998d-4a0cd31480f9")
-    public void attach(Element objingElt) {
-        // Attachment is done when setting the Source of the Edge.
-    }
-
-    @objid ("720282c2-7a76-40b9-881e-fff2c088c54e")
-    public void attach(List<Object> objingElts) {
+        this.ecoreElement = element;
     }
 
     @objid ("c53f7f98-6a5c-4261-837c-64d58473bde8")
+    @Override
     public void setProperties(Element objingElt) {
-        super.setProperties(objingElt);
-        
+        super.setProperties(objingElt);        
         // Properties of IObjectFlows:
         setEffectEAnnotation((ObjectFlow) objingElt);
         setMultiCast((ObjectFlow) objingElt);
@@ -78,7 +68,7 @@ public class EObjectFlow extends EActivityEdge implements IEElement {
 
     @objid ("ba1d90c2-8d80-4da3-8f95-4e36f1863536")
     private void setEffectEAnnotation(ObjectFlow flow) {
-        String effect = ObjingEAnnotation.getEffect(ecoreElement);
+        String effect = ObjingEAnnotation.getEffect(this.ecoreElement);
         if ("CREATE_FLOW".equals(effect))
             flow.setEffect(ObjectFlowEffectKind.CREATEFLOW);
         else if ("DELETE_FLOW".equals(effect))
@@ -95,17 +85,17 @@ public class EObjectFlow extends EActivityEdge implements IEElement {
 
     @objid ("a4eb618a-d28e-4815-90fa-8cbcd0d49d35")
     private void setMultiCast(ObjectFlow flow) {
-        flow.setIsMultiCast(ecoreElement.isMulticast());
+        flow.setIsMultiCast(this.ecoreElement.isMulticast());
     }
 
     @objid ("38dc405a-08df-4c03-9985-346f7688d151")
     private void setMultiReceive(ObjectFlow flow) {
-        flow.setIsMultiReceive(ecoreElement.isMultireceive());
+        flow.setIsMultiReceive(this.ecoreElement.isMultireceive());
     }
 
     @objid ("3b2349d8-1f2c-4838-9ad3-e4193a8da8e2")
     private void setSelectionBehavior(ObjectFlow flow) {
-        org.eclipse.uml2.uml. Behavior ecoreBehavior = ecoreElement.getSelection();
+        org.eclipse.uml2.uml. Behavior ecoreBehavior = this.ecoreElement.getSelection();
         if (ecoreBehavior instanceof org.eclipse.uml2.uml.OpaqueBehavior) {
             String objingBehavior = "";
             for (Object body : ((org.eclipse.uml2.uml.OpaqueBehavior) ecoreBehavior).getBodies()) {
@@ -121,7 +111,7 @@ public class EObjectFlow extends EActivityEdge implements IEElement {
 
     @objid ("2907253e-496b-4ef3-a6bb-a8f984823914")
     private void setTransformationBehavior(ObjectFlow flow) {
-        org.eclipse.uml2.uml. Behavior ecoreBehavior = ecoreElement.getTransformation();
+        org.eclipse.uml2.uml. Behavior ecoreBehavior = this.ecoreElement.getTransformation();
         if (ecoreBehavior instanceof org.eclipse.uml2.uml.OpaqueBehavior) {
             String objingBehavior = "";
             for (Object body : ((org.eclipse.uml2.uml.OpaqueBehavior) ecoreBehavior).getBodies()) {

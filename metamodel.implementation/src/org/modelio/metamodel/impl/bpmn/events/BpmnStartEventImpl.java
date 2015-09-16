@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.bpmn.events;
 
@@ -41,33 +41,33 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("00928268-c4bf-1fd8-97fe-001ec947cd2a")
 public class BpmnStartEventImpl extends BpmnCatchEventImpl implements BpmnStartEvent {
-    @objid ("58f58619-1bb0-4fbb-a2b3-f3bb8f12242b")
+    @objid ("fc562834-7ebd-4208-a42a-278c8a031208")
     @Override
     public boolean isIsInterrupting() {
         return (Boolean) getAttVal(BpmnStartEventData.Metadata.IsInterruptingAtt());
     }
 
-    @objid ("a3b2c418-5b23-45ca-9d8a-2c1620980423")
+    @objid ("b0add9df-9136-42cc-8655-f8926a435a2a")
     @Override
     public void setIsInterrupting(boolean value) {
         setAttVal(BpmnStartEventData.Metadata.IsInterruptingAtt(), value);
     }
 
-    @objid ("065edde6-eefe-4b26-aac9-921ab09cdd6e")
+    @objid ("95cdcb6f-7867-4503-a4a1-fa9d6c6990b9")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("b4fb5b15-72e6-46ed-8180-65697d90e00c")
+    @objid ("a3c76231-723f-4de3-bec3-cc4113c68197")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("194ef3d4-6918-4060-b106-23e7ecaef103")
+    @objid ("27dcf69e-35be-41b0-9bd5-f2c2342d41b9")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitBpmnStartEvent(this);

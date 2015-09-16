@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.uml.infrastructure;
 
@@ -43,43 +43,43 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("19257ea4-a0e7-4d4a-a390-75b7f65742f4")
 public class ExternProcessorImpl extends ModelElementImpl implements ExternProcessor {
-    @objid ("d50bdfd1-658e-49e9-9df9-f6ea4e4e8350")
+    @objid ("e29b994a-ef67-487a-8c8a-3d12781aacda")
     @Override
     public String getClassName() {
         return (String) getAttVal(ExternProcessorData.Metadata.ClassNameAtt());
     }
 
-    @objid ("4c90e6d1-88b6-4dcd-a2c1-93dfb82dea05")
+    @objid ("488d3fc5-49a1-4754-8cd4-b8b08b355dae")
     @Override
     public void setClassName(String value) {
         setAttVal(ExternProcessorData.Metadata.ClassNameAtt(), value);
     }
 
-    @objid ("83d1fd13-900d-4e7a-8d53-4d8102b864ec")
+    @objid ("05671f30-e3bc-49c5-a0c4-b6d74e7ad107")
     @Override
     public QueryDefinition getOwnerQuery() {
         return (QueryDefinition) getDepVal(ExternProcessorData.Metadata.OwnerQueryDep());
     }
 
-    @objid ("307d528d-0ec5-4dec-9518-b72c94c6860d")
+    @objid ("eb9aafe5-2058-4707-808e-73a71ca03951")
     @Override
     public void setOwnerQuery(QueryDefinition value) {
         appendDepVal(ExternProcessorData.Metadata.OwnerQueryDep(), (SmObjectImpl)value);
     }
 
-    @objid ("2f782f45-6cc4-4198-86c4-88f8e85394c0")
+    @objid ("36c574ea-3d8b-46f6-9ffc-5343616db2fe")
     @Override
     public MatrixValueDefinition getOwnerValDef() {
         return (MatrixValueDefinition) getDepVal(ExternProcessorData.Metadata.OwnerValDefDep());
     }
 
-    @objid ("a13279ba-4812-481f-b1f3-b8b795149609")
+    @objid ("7c2619bd-f6e8-4167-bfee-24e52b5d61fc")
     @Override
     public void setOwnerValDef(MatrixValueDefinition value) {
         appendDepVal(ExternProcessorData.Metadata.OwnerValDefDep(), (SmObjectImpl)value);
     }
 
-    @objid ("e81d9f85-d073-43ea-a79d-e45b18908986")
+    @objid ("7e1f4199-8f9e-42a1-ac8a-f7f6db7938ea")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
@@ -92,7 +92,7 @@ public class ExternProcessorImpl extends ModelElementImpl implements ExternProce
         return super.getCompositionOwner();
     }
 
-    @objid ("fac0d9b5-c6d9-4395-ab44-b5f7417fd4c4")
+    @objid ("2e4b8fe3-f893-4b7d-9ca9-eef9b011182d")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
@@ -105,7 +105,7 @@ public class ExternProcessorImpl extends ModelElementImpl implements ExternProce
         return super.getCompositionRelation();
     }
 
-    @objid ("30563141-6383-42a6-8d7a-a104e140eab8")
+    @objid ("e3e56429-b458-4d58-8a41-5ea4792657aa")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitExternProcessor(this);

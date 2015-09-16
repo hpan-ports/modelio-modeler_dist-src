@@ -22,7 +22,7 @@
 package org.modelio.gproject.fragment.unsupported;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.modelio.gproject.descriptor.FragmentDescriptor;
+import org.modelio.gproject.data.project.FragmentDescriptor;
 import org.modelio.gproject.fragment.IFragmentFactory;
 import org.modelio.gproject.fragment.IProjectFragment;
 

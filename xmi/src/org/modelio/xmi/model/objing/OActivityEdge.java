@@ -35,7 +35,7 @@ import org.modelio.xmi.util.AbstractObjingModelNavigation;
 import org.modelio.xmi.util.GenerationProperties;
 
 @objid ("b0e9e7eb-6719-4187-8206-69317f63105d")
-public class OActivityEdge extends OModelElement implements IOElement {
+public class OActivityEdge extends OModelElement {
     @objid ("aa1476f7-d428-4424-b614-31d708a0adc5")
     public OActivityEdge(ActivityEdge element) {
         super(element);

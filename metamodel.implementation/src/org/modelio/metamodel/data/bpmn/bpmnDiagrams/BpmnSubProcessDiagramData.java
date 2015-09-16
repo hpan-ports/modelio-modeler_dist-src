@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.data.bpmn.bpmnDiagrams;
 
@@ -44,22 +44,22 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("000cee8c-c4c0-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=BpmnSubProcessDiagram.class, factory=BpmnSubProcessDiagramData.Metadata.ObjectFactory.class, cmsnode=true)
 public class BpmnSubProcessDiagramData extends BehaviorDiagramData {
-    @objid ("d45c39a4-2a71-4bcb-819a-f6a266d159a6")
+    @objid ("d7feb2a8-23ff-4bc1-b4e1-03946b38b789")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("008fd3b0-c4c2-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("7cb43a70-409b-446c-9536-9b3076c7136a")
+        @objid ("950b47da-cdbc-4f28-93f4-098c004cd211")
         private static SmClass smClass = null;
 
-        @objid ("1ae2fe54-bc0c-47e8-bc3c-2265d8e87682")
+        @objid ("3097cbde-fc7f-4afd-94c0-7e695d9c145c")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(BpmnSubProcessDiagramData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("cb0832b1-ca77-4728-b9b4-064a58cc0af9")
+        @objid ("4028a6cc-304e-499f-a473-90156581ba8a")
         public static SmClass getSmClass() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return smClass;
@@ -67,12 +67,12 @@ public class BpmnSubProcessDiagramData extends BehaviorDiagramData {
 
         @objid ("0090160e-c4c2-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("2da86dd0-fba7-4389-946c-debe81f67c7d")
+            @objid ("41b5c348-2d09-4195-a985-47e9cf85fa04")
             public ISmObjectData createData() {
                 return new BpmnSubProcessDiagramData();
             }
 
-            @objid ("6ad50cfd-3a84-4c1d-a70a-53134927e81e")
+            @objid ("b5980be7-6cc7-4694-aa9b-665933b366c7")
             public SmObjectImpl createImpl() {
                 return new BpmnSubProcessDiagramImpl();
             }

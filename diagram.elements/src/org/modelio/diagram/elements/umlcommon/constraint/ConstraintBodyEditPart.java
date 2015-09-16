@@ -29,8 +29,8 @@ import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.GraphicalEditPart;
-import org.eclipse.gef.requests.CreateConnectionRequest;
 import org.modelio.diagram.elements.core.figures.GradientFigure;
+import org.modelio.diagram.elements.core.link.CreateBendedConnectionRequest;
 import org.modelio.diagram.elements.core.link.DefaultCreateLinkCommand;
 import org.modelio.diagram.elements.core.link.ModelioLinkCreationContext;
 import org.modelio.diagram.elements.core.model.GmAbstractObject;
@@ -71,7 +71,7 @@ public class ConstraintBodyEditPart extends GmNodeEditPart {
                                                      new MRef(constrainedElement));
         
         sourceModel.addStartingLink(link);
-        CreateConnectionRequest request = new CreateConnectionRequest();
+        CreateBendedConnectionRequest request = new CreateBendedConnectionRequest();
         request.setType(REQ_CONNECTION_END);
         request.setSourceEditPart(this);
         request.setLocation(new Point(0, 0));

@@ -36,10 +36,10 @@ import org.modelio.metamodel.uml.behavior.interactionModel.MessageEnd;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
 import org.modelio.metamodel.uml.statik.BindableInstance;
 import org.modelio.metamodel.uml.statik.Classifier;
-import org.modelio.metamodel.uml.statik.Feature;
 import org.modelio.metamodel.uml.statik.Generalization;
 import org.modelio.metamodel.uml.statik.Instance;
 import org.modelio.metamodel.uml.statik.Interface;
+import org.modelio.metamodel.uml.statik.InterfaceRealization;
 import org.modelio.metamodel.uml.statik.NameSpace;
 import org.modelio.metamodel.uml.statik.Operation;
 import org.modelio.metamodel.uml.statik.Port;
@@ -133,18 +133,18 @@ public class MessagePropertyModel extends AbstractPropertyModel<Message> {
             return MessagePropertyModel.PROPERTIES[row];
         case 1: // col 1 is the property value
             switch (row) {
-                case 0: // Header
-                    return "Value";
-                case 1:
-                    return this.theEditedElement.getName();
-                case 2:
-                    return this.theEditedElement.getInvoked();
-                case 3:
-                    return this.theEditedElement.getArgument();
-                case 4:
-                    return this.theEditedElement.getSignalSignature();
-                default:
-                    return null;
+            case 0: // Header
+                return "Value";
+            case 1:
+                return this.theEditedElement.getName();
+            case 2:
+                return this.theEditedElement.getInvoked();
+            case 3:
+                return this.theEditedElement.getArgument();
+            case 4:
+                return this.theEditedElement.getSignalSignature();
+            default:
+                return null;
             }
         default:
             return null;
@@ -170,18 +170,18 @@ public class MessagePropertyModel extends AbstractPropertyModel<Message> {
             return this.labelStringType;
         case 1: // col 1 is the property value type
             switch (row) {
-                case 0: // Header
-                    return this.labelStringType;
-                case 1:
-                    return this.stringType;
-                case 2:
-                    return getInvokedOperationType();
-                case 3:
-                    return this.stringType;
-                case 4:
-                    return this.signalSignatureType;
-                default:
-                    return null;
+            case 0: // Header
+                return this.labelStringType;
+            case 1:
+                return this.stringType;
+            case 2:
+                return getInvokedOperationType();
+            case 3:
+                return this.stringType;
+            case 4:
+                return this.signalSignatureType;
+            default:
+                return null;
             }
         default:
             return null;
@@ -204,22 +204,22 @@ public class MessagePropertyModel extends AbstractPropertyModel<Message> {
             return;
         case 1: // col 1 is the property value
             switch (row) {
-                case 0:
-                    return; // Header cannot be modified
-                case 1:
-                    this.theEditedElement.setName((String) value);
-                    break;
-                case 2:
-                    this.theEditedElement.setInvoked((Operation) value);
-                    break;
-                case 3:
-                    this.theEditedElement.setArgument((String) value);
-                    break;
-                case 4:
-                    this.theEditedElement.setSignalSignature((Signal) value);
-                    break;
-                default:
-                    return;
+            case 0:
+                return; // Header cannot be modified
+            case 1:
+                this.theEditedElement.setName((String) value);
+                break;
+            case 2:
+                this.theEditedElement.setInvoked((Operation) value);
+                break;
+            case 3:
+                this.theEditedElement.setArgument((String) value);
+                break;
+            case 4:
+                this.theEditedElement.setSignalSignature((Signal) value);
+                break;
+            default:
+                return;
             }
             break;
         default:
@@ -244,7 +244,7 @@ public class MessagePropertyModel extends AbstractPropertyModel<Message> {
         if (lifeline == null) {
             return this.defaultInvokedType;
         }
-            
+        
         Instance instance = lifeline.getRepresented();
         if (instance == null) {
             return this.defaultInvokedType;
@@ -269,26 +269,27 @@ public class MessagePropertyModel extends AbstractPropertyModel<Message> {
         List<ModelElement> operationsList = new ArrayList<>(); 
         
         if (classifier != null) {
-            EList<Operation> classifierOperations = classifier.getOwnedOperation();
-            
-            for (Feature feature : classifierOperations) {
-                operationsList.add(feature);
+            // Get operations from the classifier itself:
+            for (Operation op : classifier.getOwnedOperation()) {
+                operationsList.add(op);
             }
-            
+        
             // Get operations from parents:
-            //-----------------------------
-            EList<Generalization> generalizations = classifier.getParent();
-            for (Generalization generalization : generalizations) {
+            for (Generalization generalization : classifier.getParent()) {
                 NameSpace parentNameSpace = generalization.getSuperType();
                 if (parentNameSpace instanceof Classifier) {
                     operationsList.addAll(getAvailableOperations((Classifier)parentNameSpace));
                 }
             }
-            
+        
+            // Get operations from realized interfaces:
+            for (InterfaceRealization realization : classifier.getRealized()) {
+                Interface parentNameSpace = realization.getImplemented();
+                operationsList.addAll(getAvailableOperations(parentNameSpace));
+            }
+        
             // Get operations from provided interfaces:
-            //-----------------------------------------
-            EList<BindableInstance> bindableInstances = classifier.getInternalStructure();
-            for (BindableInstance bindableInstance : bindableInstances) {
+            for (BindableInstance bindableInstance : classifier.getInternalStructure()) {
                 NameSpace biNs = bindableInstance.getBase();
                 if (biNs instanceof Classifier && !biNs.equals(classifier)) {
                     operationsList.addAll(getAvailableOperations((Classifier)biNs));

@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.uml.behavior.activityModel;
 
@@ -44,25 +44,25 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("0031ed18-c4bf-1fd8-97fe-001ec947cd2a")
 public class ExpansionRegionImpl extends StructuredActivityNodeImpl implements ExpansionRegion {
-    @objid ("39f99894-11cd-42aa-9699-88035bb6534b")
+    @objid ("4ff7ac09-8559-4d67-8079-3875b3f7bb65")
     @Override
     public ExpansionKind getMode() {
         return (ExpansionKind) getAttVal(ExpansionRegionData.Metadata.ModeAtt());
     }
 
-    @objid ("7fdd1f98-5a82-44e0-8050-b706276a51d4")
+    @objid ("06b51d8b-51a8-4104-a879-330270ea8721")
     @Override
     public void setMode(ExpansionKind value) {
         setAttVal(ExpansionRegionData.Metadata.ModeAtt(), value);
     }
 
-    @objid ("4af5635f-75f5-459e-8f4f-9d2b35a24983")
+    @objid ("ebe0cb2a-806c-4b2d-bae5-60c6bea9f2be")
     @Override
     public EList<ExpansionNode> getOutputElement() {
         return new SmList<>(this, ExpansionRegionData.Metadata.OutputElementDep());
     }
 
-    @objid ("e52db7c3-d3f8-4897-97e6-c59fcfe9d1dd")
+    @objid ("fdcd9b73-b97b-4c0a-81e8-7f91f67d3890")
     @Override
     public <T extends ExpansionNode> List<T> getOutputElement(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -75,13 +75,13 @@ public class ExpansionRegionImpl extends StructuredActivityNodeImpl implements E
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("e55c84b2-4109-4a81-83b4-010d3a16059a")
+    @objid ("2755c0f2-d14d-4eeb-b666-211074c2573c")
     @Override
     public EList<ExpansionNode> getInputElement() {
         return new SmList<>(this, ExpansionRegionData.Metadata.InputElementDep());
     }
 
-    @objid ("b9be7c77-fc6b-49c0-88a5-25392a76c218")
+    @objid ("ce4c09d5-4334-452b-b293-7358625ef2dd")
     @Override
     public <T extends ExpansionNode> List<T> getInputElement(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -94,21 +94,21 @@ public class ExpansionRegionImpl extends StructuredActivityNodeImpl implements E
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("6b6a8058-9917-4ab1-953d-c35cfa925886")
+    @objid ("9f902a1d-eb4d-47cf-a34c-45f4da5daa2c")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("3641e22e-24fc-4f6a-9dee-a61fc6ac1e5b")
+    @objid ("e48f0698-a9f8-4ae7-b9c7-7534e838244e")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("9083df04-3a5d-467f-9d6d-66a0bec11403")
+    @objid ("89bec8a9-c7e0-4550-9915-f7e501450c66")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitExpansionRegion(this);

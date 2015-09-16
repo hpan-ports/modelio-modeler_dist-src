@@ -24,6 +24,8 @@ package org.modelio.core.ui.plugin;
 import java.util.ResourceBundle;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.equinox.log.ExtendedLogService;
+import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.modelio.log.writers.PluginLogger;
 import org.modelio.ui.i18n.BundledMessages;
 import org.osgi.framework.BundleActivator;
@@ -63,6 +65,17 @@ public class CoreUi implements BundleActivator {
     @objid ("003bdbfc-8800-1ffd-ba14-001ec947cd2a")
     public static BundleContext getContext() {
         return context;
+    }
+
+    /**
+     * Returns an image descriptor for the image file at the given plug-in
+     * relative path
+     * @param path the path
+     * @return the image descriptor
+     */
+    @objid ("7e9fb815-e24c-445c-bfa8-42d4e7e6bf49")
+    public static ImageDescriptor getImageDescriptor(final String path) {
+        return AbstractUIPlugin.imageDescriptorFromPlugin(PLUGIN_ID, path);
     }
 
 }

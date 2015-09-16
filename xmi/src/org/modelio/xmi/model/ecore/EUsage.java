@@ -24,33 +24,19 @@ package org.modelio.xmi.model.ecore;
 import java.util.ArrayList;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
 
 @objid ("d37085e7-8de3-44d2-9891-306f268e82ad")
-public class EUsage extends EDependency implements IEElement {
+public class EUsage extends EDependency {
     @objid ("6fbbce2b-09c1-4c44-8025-db39b7ec7754")
+    @Override
     public List<ModelElement> createObjingElt() {
-        return new ArrayList<ModelElement>();
+        return new ArrayList<>();
     }
 
     @objid ("cae944c9-6288-4573-a786-00ee39ffd6c4")
     public EUsage(org.eclipse.uml2.uml.Usage element) {
         super(element);
-    }
-
-    @objid ("c4dcfd54-4a00-4199-b8cc-5b623a3f2ac0")
-    public void attach(Element objingElt) {
-    }
-
-    @objid ("1f1b7ba8-a8fa-4252-a616-fa3167277170")
-    public void attach(List<Object> objingElts) {
-        super.attach(objingElts);
-    }
-
-    @objid ("282444a3-992c-488c-8561-d5467db95054")
-    public void setProperties(Element objingElt) {
-        super.setProperties(objingElt);
     }
 
 }

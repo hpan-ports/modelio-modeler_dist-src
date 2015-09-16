@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.analyst;
 
@@ -32,22 +32,22 @@ import org.modelio.metamodel.analyst.Dictionary;
 
 @objid ("006241a2-c4bf-1fd8-97fe-001ec947cd2a")
 public interface Term extends AnalystElement {
-    @objid ("ffae1be2-0f69-4586-a920-0ff68609cf57")
+    @objid ("70f9b6d5-4e44-449f-b701-c170c44eafee")
     Dictionary getOwnerDictionary();
 
-    @objid ("b15c78c1-e5f7-49c4-a3f7-76c43011ddb1")
+    @objid ("ddb499de-3727-4582-a7af-9ea294ffa491")
     void setOwnerDictionary(Dictionary value);
 
-    @objid ("403eb2a4-80a4-48fe-b325-71fe9ab0dd82")
+    @objid ("90fb61a2-5b63-47ff-9d83-c04ab4b2a1e4")
     EList<Term> getArchivedTermVersion();
 
-    @objid ("e87c5cf6-58d4-4cee-b5a0-5df23f8db39b")
+    @objid ("0f8e1586-e99f-46a2-8fc5-b8cc8e80a6b5")
     <T extends Term> List<T> getArchivedTermVersion(java.lang.Class<T> filterClass);
 
-    @objid ("4d2a5c45-422b-41b8-96f7-fae659f88968")
+    @objid ("fa3bed7d-295f-4f30-a0f9-ffa3ae046381")
     Term getLastTermVersion();
 
-    @objid ("b9dc6719-5511-4c5f-aff2-1a987edd5375")
+    @objid ("44a2a937-c7d4-4d8f-85a3-ed02cdc802b0")
     void setLastTermVersion(Term value);
 
 }

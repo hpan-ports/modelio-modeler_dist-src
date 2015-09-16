@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.data.uml.behavior.stateMachineModel;
 
@@ -50,57 +50,57 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("00546122-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=StateMachine.class, factory=StateMachineData.Metadata.ObjectFactory.class, cmsnode=true)
 public class StateMachineData extends BehaviorData {
-    @objid ("466df0d3-1017-40fc-8138-c447e7d108cb")
+    @objid ("b11bb09c-f066-4a7a-898f-02392f3b0155")
     @SmaMetaAttribute(metaName="Kind", type=KindOfStateMachine.class, smAttributeClass=Metadata.KindSmAttribute.class)
      Object mKind = KindOfStateMachine.DYNAMIC;
 
-    @objid ("72bb74e0-9ffd-4231-afeb-c68dc5914eee")
+    @objid ("b7a669a4-0547-4389-903c-22eedec670ed")
     @SmaMetaAssociation(metaName="Top", typeDataClass=RegionData.class, min=1, max=1, smAssociationClass=Metadata.TopSmDependency.class, component = true)
      SmObjectImpl mTop;
 
-    @objid ("a66aed7e-0359-4f2a-a6b9-cbea102b8a7d")
+    @objid ("b0fd4e61-c3c1-4ba3-b7d8-8776dd17f678")
     @SmaMetaAssociation(metaName="SubmachineState", typeDataClass=StateData.class, min=0, max=-1, smAssociationClass=Metadata.SubmachineStateSmDependency.class)
      List<SmObjectImpl> mSubmachineState = null;
 
-    @objid ("363407aa-c7e4-44d3-9cc6-5668083ed70d")
+    @objid ("756ebccb-8ba5-41f6-9b2a-de74903fd86a")
     @SmaMetaAssociation(metaName="EntryPoint", typeDataClass=EntryPointPseudoStateData.class, min=0, max=-1, smAssociationClass=Metadata.EntryPointSmDependency.class, component = true)
      List<SmObjectImpl> mEntryPoint = null;
 
-    @objid ("be90d522-e91e-479c-829b-f6fe4851c11b")
+    @objid ("4e910e82-bb23-42e8-905e-e13745dbea16")
     @SmaMetaAssociation(metaName="ExitPoint", typeDataClass=ExitPointPseudoStateData.class, min=0, max=-1, smAssociationClass=Metadata.ExitPointSmDependency.class, component = true)
      List<SmObjectImpl> mExitPoint = null;
 
-    @objid ("e1262e63-26b8-4bea-b3f4-ca2bc8ff82c3")
+    @objid ("3c122cb5-b7ab-4b8f-9967-10c597a395f4")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("0050353e-c4c5-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("69802c48-434e-467d-b987-53825180ae14")
+        @objid ("bdb4023b-bc76-4698-97ef-ef47e2c21555")
         private static SmClass smClass = null;
 
-        @objid ("772681ff-0642-43ed-a112-8dbefe56b3e1")
+        @objid ("f7b0c02f-2539-428d-8063-6eb7c48c4c68")
         private static SmAttribute KindAtt = null;
 
-        @objid ("620bbc9c-a2d3-4ae4-a14a-5391e745e386")
+        @objid ("0bc0760e-d9d3-4dad-8d73-22c1dbe95de0")
         private static SmDependency TopDep = null;
 
-        @objid ("ff0002bd-84cb-47af-8ade-6ed2ddc9f818")
+        @objid ("cfed471f-dcec-4246-a630-d05cf622878d")
         private static SmDependency SubmachineStateDep = null;
 
-        @objid ("80772a96-97a8-4b2f-ba77-00c4bc5f9042")
+        @objid ("50aa5b61-0541-4cfd-aac7-288f5a93a6cd")
         private static SmDependency EntryPointDep = null;
 
-        @objid ("b17d2167-bcc8-4b4e-9ec6-23ec66c2aaf2")
+        @objid ("518e44bb-715b-4743-86a8-e07a7e5aebc0")
         private static SmDependency ExitPointDep = null;
 
-        @objid ("811211b2-bee3-41ea-8e30-2a89182de873")
+        @objid ("61314aca-98a8-4cba-a084-6cca73ccad5f")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(StateMachineData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("d00de56f-360a-4472-b5c7-6a8820c3dc68")
+        @objid ("d5214b86-832b-4883-98d1-f5e68784124d")
         public static SmAttribute KindAtt() {
             if (KindAtt == null) {
             	KindAtt = classof().getAttributeDef("Kind");
@@ -108,7 +108,7 @@ public class StateMachineData extends BehaviorData {
             return KindAtt;
         }
 
-        @objid ("23ff8759-7caf-4fc2-98aa-12f2dce73e5b")
+        @objid ("052c5063-7b17-467a-88bb-cf5b8289d9b3")
         public static SmDependency TopDep() {
             if (TopDep == null) {
             	TopDep = classof().getDependencyDef("Top");
@@ -116,7 +116,7 @@ public class StateMachineData extends BehaviorData {
             return TopDep;
         }
 
-        @objid ("0076505a-2d0f-403a-9ad4-f9ccf0d2cf92")
+        @objid ("ab9e6d2b-8a76-4b61-891c-3b6b4351e01b")
         public static SmDependency SubmachineStateDep() {
             if (SubmachineStateDep == null) {
             	SubmachineStateDep = classof().getDependencyDef("SubmachineState");
@@ -124,7 +124,7 @@ public class StateMachineData extends BehaviorData {
             return SubmachineStateDep;
         }
 
-        @objid ("a0cb6d36-b1f3-4bef-8b6a-9c4c895793ec")
+        @objid ("ff3028e8-57cb-4777-8a0b-f90050154025")
         public static SmDependency EntryPointDep() {
             if (EntryPointDep == null) {
             	EntryPointDep = classof().getDependencyDef("EntryPoint");
@@ -132,7 +132,7 @@ public class StateMachineData extends BehaviorData {
             return EntryPointDep;
         }
 
-        @objid ("2760f11f-d584-4d8f-8856-13fa74a787b5")
+        @objid ("e9c1100a-46e9-40d3-a736-5fc842b73e55")
         public static SmDependency ExitPointDep() {
             if (ExitPointDep == null) {
             	ExitPointDep = classof().getDependencyDef("ExitPoint");
@@ -140,37 +140,37 @@ public class StateMachineData extends BehaviorData {
             return ExitPointDep;
         }
 
-        @objid ("255da733-2919-49cc-a53d-0e631eef6bb6")
-        public static SmDependency getExitPointDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return ExitPointDep;
-        }
-
-        @objid ("3c46aeb9-6efe-4365-b5d6-2c21a52375f2")
-        public static SmDependency getSubmachineStateDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return SubmachineStateDep;
-        }
-
-        @objid ("828e3f1e-a412-48be-ad09-50a9f34a07c7")
+        @objid ("8b775d52-e6e9-43b7-898f-9e1eaf2381d1")
         public static SmClass getSmClass() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return smClass;
         }
 
-        @objid ("36751670-bfa6-4d9a-84cc-7ca3525da844")
-        public static SmDependency getEntryPointDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return EntryPointDep;
-        }
-
-        @objid ("199e7683-2e05-4af7-8087-1bef948b6123")
+        @objid ("5b7afe41-6c4e-471d-a1df-6d055f407027")
         public static SmDependency getTopDep() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return TopDep;
         }
 
-        @objid ("736a7702-be5c-465f-b9ac-e670a3e5f88c")
+        @objid ("3fa3c527-b5a8-4c00-812a-9776f4b9da77")
+        public static SmDependency getSubmachineStateDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return SubmachineStateDep;
+        }
+
+        @objid ("151c6b39-1a9a-4f74-a7c7-15ad8e8e8ef2")
+        public static SmDependency getExitPointDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return ExitPointDep;
+        }
+
+        @objid ("af3d8d15-b667-4fb0-90cd-f18bb285b02c")
+        public static SmDependency getEntryPointDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return EntryPointDep;
+        }
+
+        @objid ("eaec7928-d70f-4ef5-b2bc-56b32c65fba5")
         public static SmAttribute getKindAtt() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return KindAtt;
@@ -178,12 +178,12 @@ public class StateMachineData extends BehaviorData {
 
         @objid ("005075ee-c4c5-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("e8b28458-5cad-4b7e-9e7c-48bc0628e92d")
+            @objid ("e4e98593-8a5c-44f2-95f5-5b8b90c37c96")
             public ISmObjectData createData() {
                 return new StateMachineData();
             }
 
-            @objid ("0a5aadcd-7efa-4e2c-87a9-e30c82bf513f")
+            @objid ("e7f622e0-897f-476f-8233-06b03488ef18")
             public SmObjectImpl createImpl() {
                 return new StateMachineImpl();
             }
@@ -192,12 +192,12 @@ public class StateMachineData extends BehaviorData {
 
         @objid ("0050e0d8-c4c5-1fd8-97fe-001ec947cd2a")
         public static class KindSmAttribute extends SmAttribute {
-            @objid ("40329b3a-c8c1-4615-bb07-df5b7f2d370e")
+            @objid ("f8d63524-437d-4d33-8ff4-f4598b6ad92d")
             public Object getValue(ISmObjectData data) {
                 return ((StateMachineData) data).mKind;
             }
 
-            @objid ("d35c81e7-ac4b-4577-aefb-30224e0ce793")
+            @objid ("41b2f3a8-7bcd-4e86-9b29-12ca204a76ff")
             public void setValue(ISmObjectData data, Object value) {
                 ((StateMachineData) data).mKind = value;
             }
@@ -206,18 +206,18 @@ public class StateMachineData extends BehaviorData {
 
         @objid ("00514596-c4c5-1fd8-97fe-001ec947cd2a")
         public static class TopSmDependency extends SmSingleDependency {
-            @objid ("197faf76-17af-423d-b63e-20cf238fe2d8")
+            @objid ("9bc7c7b3-4445-4f62-9141-df59898c7fe1")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((StateMachineData) data).mTop;
             }
 
-            @objid ("f5b3be19-d087-4856-b623-2e607297fb70")
+            @objid ("053cab7e-675d-48e1-b588-131ce51c2eb1")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((StateMachineData) data).mTop = value;
             }
 
-            @objid ("e6c06a56-28af-4124-b713-c02e62f7acc4")
+            @objid ("ddaad941-f855-4e95-9f46-1962fe4ba33f")
             @Override
             public SmDependency getSymetric() {
                 return RegionData.Metadata.RepresentedDep();
@@ -227,20 +227,20 @@ public class StateMachineData extends BehaviorData {
 
         @objid ("0051bc92-c4c5-1fd8-97fe-001ec947cd2a")
         public static class SubmachineStateSmDependency extends SmMultipleDependency {
-            @objid ("9ae5242e-aee5-4a2c-b8d9-8d2e7674dc2e")
+            @objid ("b93397e1-929b-4827-ab20-ea8d1a87042d")
             @Override
             public List<SmObjectImpl> getValueList(ISmObjectData data) {
                 return (((StateMachineData)data).mSubmachineState != null)? ((StateMachineData)data).mSubmachineState:SmMultipleDependency.EMPTY;
             }
 
-            @objid ("7bc14329-75e1-488a-a237-3d3daf766cc1")
+            @objid ("0a8881b5-44bf-46c5-8fc5-c23328f7401d")
             @Override
             protected List<SmObjectImpl> allocateValueList(ISmObjectData data, int initialCapacity) {
                 ((StateMachineData) data).mSubmachineState = new ArrayList<>(initialCapacity);
                 return ((StateMachineData) data).mSubmachineState;
             }
 
-            @objid ("2efc1a89-8155-43c6-a865-e4d6ccb59b9a")
+            @objid ("550c073b-52c9-4a85-a5c9-4fc9c6ed415d")
             @Override
             public SmDependency getSymetric() {
                 return StateData.Metadata.SubMachineDep();
@@ -250,20 +250,20 @@ public class StateMachineData extends BehaviorData {
 
         @objid ("005221e6-c4c5-1fd8-97fe-001ec947cd2a")
         public static class EntryPointSmDependency extends SmMultipleDependency {
-            @objid ("e7e5edba-f5ae-45ba-ad4a-24e7f4394b6b")
+            @objid ("6f0489e3-791c-4f6e-920c-86d2d21ffd55")
             @Override
             public List<SmObjectImpl> getValueList(ISmObjectData data) {
                 return (((StateMachineData)data).mEntryPoint != null)? ((StateMachineData)data).mEntryPoint:SmMultipleDependency.EMPTY;
             }
 
-            @objid ("12af8142-0f33-41ee-88e7-73957dbd4652")
+            @objid ("6985d01d-7dc5-4aab-862e-15ec00efaf99")
             @Override
             protected List<SmObjectImpl> allocateValueList(ISmObjectData data, int initialCapacity) {
                 ((StateMachineData) data).mEntryPoint = new ArrayList<>(initialCapacity);
                 return ((StateMachineData) data).mEntryPoint;
             }
 
-            @objid ("c7b1b05c-68ae-4f05-aef3-f8b2b5979990")
+            @objid ("6b7b4518-14e2-4c07-a64b-cd57edd493f2")
             @Override
             public SmDependency getSymetric() {
                 return EntryPointPseudoStateData.Metadata.EntryOfMachineDep();
@@ -273,20 +273,20 @@ public class StateMachineData extends BehaviorData {
 
         @objid ("005285fa-c4c5-1fd8-97fe-001ec947cd2a")
         public static class ExitPointSmDependency extends SmMultipleDependency {
-            @objid ("fab2c478-5087-43d0-9592-31a2f7dcfd60")
+            @objid ("4d6a57cf-44e9-45c4-a033-1d9a7ff6974d")
             @Override
             public List<SmObjectImpl> getValueList(ISmObjectData data) {
                 return (((StateMachineData)data).mExitPoint != null)? ((StateMachineData)data).mExitPoint:SmMultipleDependency.EMPTY;
             }
 
-            @objid ("2f77bfa2-138e-4598-8b9a-15370db11d32")
+            @objid ("c3115b40-3890-4bdf-92bc-fbc2e7538027")
             @Override
             protected List<SmObjectImpl> allocateValueList(ISmObjectData data, int initialCapacity) {
                 ((StateMachineData) data).mExitPoint = new ArrayList<>(initialCapacity);
                 return ((StateMachineData) data).mExitPoint;
             }
 
-            @objid ("12b8e6e1-5e75-4584-b534-ee270f81885d")
+            @objid ("7f28dca0-bcfc-47c0-aee0-a0e03c98b1cf")
             @Override
             public SmDependency getSymetric() {
                 return ExitPointPseudoStateData.Metadata.ExitOfMachineDep();

@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.uml.behavior.activityModel;
 
@@ -31,10 +31,10 @@ import org.modelio.metamodel.uml.behavior.activityModel.ActivityAction;
 
 @objid ("003aad54-c4bf-1fd8-97fe-001ec947cd2a")
 public interface OutputPin extends Pin {
-    @objid ("ca7eaa91-5165-4abe-acd6-12de5d6962cf")
+    @objid ("0cf20a15-3bbb-4849-b620-eac141f41a03")
     ActivityAction getOutputing();
 
-    @objid ("e09dc75e-b6b2-449b-aa0d-c06b869db285")
+    @objid ("5a0987a0-f677-4d72-b593-15ac6c2d0c42")
     void setOutputing(ActivityAction value);
 
 }

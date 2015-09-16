@@ -27,11 +27,15 @@ import org.eclipse.jface.preference.BooleanFieldEditor;
 import org.eclipse.jface.preference.ComboFieldEditor;
 import org.eclipse.jface.preference.FieldEditorPreferencePage;
 import org.eclipse.jface.preference.IPreferenceStore;
+import org.eclipse.swt.widgets.Control;
 import org.modelio.app.project.core.services.IProjectService;
 import org.modelio.xmi.api.FormatExport;
 import org.modelio.xmi.api.XMIExtension;
 import org.modelio.xmi.plugin.Xmi;
 
+/**
+ * XMI preferences page.
+ */
 @objid ("e5cb73bb-449f-4642-a161-3e2fd421b118")
 public class XmiPreferencesPage extends FieldEditorPreferencePage {
     @objid ("8be08937-7372-4932-9d70-198ba440f1d7")
@@ -84,11 +88,13 @@ public class XmiPreferencesPage extends FieldEditorPreferencePage {
     private void init(IProjectService projectService) {
         if ((projectService == null) || (projectService.getOpenedProject() == null)) {
             setPreferenceStore(null);
-            this.setVisible(false);
+            if (isControlCreated())
+                setVisible(false);
         } else {
             // use project store
             IPreferenceStore preferenceStore = projectService.getProjectPreferences(Xmi.PLUGIN_ID);
             setPreferenceStore(preferenceStore);
+        
             preferenceStore.setDefault(XmiPreferencesKeys.XMIANNOTATION_PREFKEY, true);
             preferenceStore.setDefault(XmiPreferencesKeys.XMIEXTENSION_PREFKEY, XMIExtension.XMI.toString());
             preferenceStore.setDefault(XmiPreferencesKeys.XMIFORMAT_PREFKEY, FormatExport.EMF300.toString());
@@ -114,6 +120,16 @@ public class XmiPreferencesPage extends FieldEditorPreferencePage {
             this.formatField.store();
         }
         return ret;
+    }
+
+    @objid ("9891ee15-cd7c-42f5-8aa6-6487061fa14f")
+    @Override
+    protected void setControl(Control newControl) {
+        super.setControl(newControl);
+        
+        if (getPreferenceStore() == null) {
+            this.setVisible(false);
+        }
     }
 
 }

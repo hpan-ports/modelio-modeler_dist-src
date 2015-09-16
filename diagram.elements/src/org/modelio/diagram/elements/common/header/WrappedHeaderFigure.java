@@ -231,6 +231,13 @@ public class WrappedHeaderFigure extends GradientFigure {
     @objid ("7e7abe33-1dec-11e2-8cad-001ec947c8cc")
     public void setMainLabel(String s) {
         this.mainLabel.setText(s);
+        
+        if (s.isEmpty()) { 
+            if(this.mainLabel.getParent() == this.mainLabelBlock)
+                this.mainLabelBlock.remove(this.mainLabel);
+        } else if (this.mainLabel.getParent() == null)
+            this.mainLabelBlock.add(this.mainLabel);
+        
         revalidate();
     }
 
@@ -548,6 +555,9 @@ public class WrappedHeaderFigure extends GradientFigure {
             }
         }
 
+        /**
+         * C'tor.
+         */
         @objid ("7e7d2097-1dec-11e2-8cad-001ec947c8cc")
         public ToolbarRLayout() {
             super(true); // force horizontal

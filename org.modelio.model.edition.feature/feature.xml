@@ -2,7 +2,7 @@
 <feature
       id="org.modelio.model.edition.feature"
       label="Model Browser"
-      version="1.0.0.qualifier"
+      version="3.2.1.qualifier"
       provider-name="modelio.org">
 
    <copyright>
@@ -136,6 +136,5 @@ along with Modelio.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
          install-size="66"
          version="1.0.0.201302061436"
          unpack="false"/>
-
 
 </feature>

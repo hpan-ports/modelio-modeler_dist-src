@@ -32,6 +32,9 @@ import org.modelio.gproject.gproject.GProject;
 import org.modelio.gproject.module.GModule;
 import org.modelio.metamodel.mda.ModuleComponent;
 
+/**
+ * Modelio modules service interface.
+ */
 @objid ("895d3ad9-f1b7-11e1-af52-001ec947c8cc")
 public interface IModuleService extends IModelioService {
     /**
@@ -50,6 +53,7 @@ public interface IModuleService extends IModelioService {
      * <p>
      * The returned peer module can be casted without risk to the right desired
      * module.
+     * @param <T> the interface of the searched peer module.
      * @param metaclass the interface of the searched peer module.
      * @return the peer module regarding the given metaclass
      * @throws org.modelio.mda.infra.service.UnknownModuleException when the required module is not found.
@@ -68,8 +72,6 @@ public interface IModuleService extends IModelioService {
     /**
      * Stop all started modules and unloads all loaded modules of the given
      * project.
-     * @return The stopped modules
-     * @throws com.modeliosoft.modelio.api.module.ModuleException if an error occurred when stopping modules
      * @param project the project to stop all modules of.
      */
     @objid ("2bb63f07-f1ed-11e1-af52-001ec947c8cc")
@@ -77,7 +79,7 @@ public interface IModuleService extends IModelioService {
 
     /**
      * Installs, load and start the module contained in the given file in the
-     * given project. This method adds (or update) a {@link GProjectModule} in
+     * given project. This method adds (or update) a module in
      * the given GProject, then load and start the corresponding {@link IModule}.
      * @param gProject the project to install the module into.
      * @param moduleFilePath the path to the file of the module.

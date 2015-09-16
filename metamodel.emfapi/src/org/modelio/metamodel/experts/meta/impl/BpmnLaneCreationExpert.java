@@ -24,9 +24,9 @@ package org.modelio.metamodel.experts.meta.impl;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.vcore.smkernel.mapi.MClass;
 
-@objid ("0f4c4211-7c90-41ef-b988-f6e7359926f9")
+@objid ("8804770f-359e-4bb8-aa25-1bc4dd79d09f")
 public class BpmnLaneCreationExpert extends DefaultMetaExpert {
-    @objid ("faf8ad16-74e5-419c-8001-5a65434ad22f")
+    @objid ("105543d1-f538-438a-ae48-08a923d413bc")
     public boolean canCompose(final MClass owner, final MClass composed, String dep) {
         return false;
     }

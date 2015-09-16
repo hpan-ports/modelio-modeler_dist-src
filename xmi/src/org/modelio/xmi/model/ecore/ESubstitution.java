@@ -21,39 +21,39 @@
 
 package org.modelio.xmi.model.ecore;
 
-import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.modelio.api.modelio.Modelio;
 import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.metamodel.uml.infrastructure.Substitution;
 import org.modelio.metamodel.uml.statik.Classifier;
 import org.modelio.xmi.util.ReverseProperties;
 
 @objid ("f498a70d-d18a-4381-bf63-24990024e467")
-public class ESubstitution extends ENamedElement implements IEElement {
+public class ESubstitution extends ENamedElement {
     @objid ("5c52bf95-fb0f-4487-acf4-5eff29a3b7fb")
-    private org.eclipse.uml2.uml.Substitution ecoreElement;
+    private org.eclipse.uml2.uml.Substitution ecoreElement = null;
 
     @objid ("252823a6-6fb5-416b-a96b-f9e1ad83beb6")
+    @Override
     public Element createObjingElt() {
-        return Modelio.getInstance()
-                .getModelingSession().getModel().createSubstitution();
+        return  ReverseProperties.getInstance().getMModelServices().getModelFactory()
+                .createSubstitution();
     }
 
     @objid ("d91e6b6e-d32e-4644-ba0d-2d1c031a0cfe")
     public ESubstitution(org.eclipse.uml2.uml.Substitution element) {
         super(element);
-        ecoreElement = element;
+        this.ecoreElement = element;
     }
 
     @objid ("c3943c80-b94e-401b-88d4-01bbe4d40f2b")
+    @Override
     public void attach(Element objingElt) {
         //  take the model map
         ReverseProperties revProp = ReverseProperties.getInstance();
                 
         //  take the ecore Imported and Importing
-        org.eclipse.uml2.uml.Classifier ecoreContract = ecoreElement.getContract();
-        org.eclipse.uml2.uml.Classifier ecoreClassifier =  (org.eclipse.uml2.uml.Classifier) ecoreElement.getClients()
+        org.eclipse.uml2.uml.Classifier ecoreContract = this.ecoreElement.getContract();
+        org.eclipse.uml2.uml.Classifier ecoreClassifier =  (org.eclipse.uml2.uml.Classifier) this.ecoreElement.getClients()
                 .get(0);
                 
         Classifier objingContract = (Classifier) revProp
@@ -67,15 +67,6 @@ public class ESubstitution extends ENamedElement implements IEElement {
             objingRImport.setContract(objingContract);
             objingRImport.setSubstitutingClassifier(objingClassifier);
         }
-    }
-
-    @objid ("18e5cfd3-4f52-47ef-b552-d23d951b0857")
-    public void attach(List<Object> objingElts) {
-    }
-
-    @objid ("49f0aaef-b5b2-4795-858d-ec2a41a9c885")
-    public void setProperties(Element objingElt) {
-        super.setProperties(objingElt);
     }
 
 }

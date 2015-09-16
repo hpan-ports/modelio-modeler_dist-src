@@ -1,0 +1,33 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+  <meta content="text/html; charset=UTF-8" http-equiv="content-type"/>
+  <title>Metamodel user guide</title>
+  <meta content="Document Publisher, www.modeliosoft.com/" name="generator"/>
+	<link href="docp-print.css" media="print" rel="stylesheet" type="text/css"/>
+	<script src="scripts/browser.js" type="text/javascript"> </script>
+  <link href="default.css" media="screen" rel="stylesheet" type="text/css"/></head>
+  <body>
+        <div id="container">        
+            <div id="content">          
+                <div id="header">            
+ 					<div id="logo"><img src="img/logo.png"/></div>
+                    <h1 class="documentTitle">Metamodel user guide</h1>
+                    <h2 class="documentType"> </h2>            
+               </div>            
+               <div id="sidebar"><div><div class="sidePanel" id="infoArea"><h4 class="sideTitle">INFORMATIONS</h4><ul id="docProps"><li class="property">Status</li><li class="value">Release</li><li class="property">Category</li><li class="value">Modelio user guide</li><li class="property">Subject</li><li class="value"> </li><li class="property">Author</li><li class="value">Modeliosoft</li><li class="property">Version</li><li class="value">9022 (Modelio 3.2)</li><li class="property">Title</li><li class="value">Metamodel user guide</li></ul></div><div class="sidePanel" id="shortcutArea"><h4 class="sideTitle">SHORTCUTS</h4><ul id="shortcuts"><li><a href="index.html">Home</a></li><li><a href="sitemap.html">Site Map</a></li><li><a href="modelindex.html">Model Index</a></li><li><a href="tableoffigures.html">Table of Figures</a></li></ul></div></div></div>
+               <div id="mainArea">
+                    <div id="navbar"><ul><li id="prev"><a href="270.html" title="270.html">&lt; Previous</a></li><li id="home"><a href="index.html" title="Site map">Home</a></li><li id="next"><a href="272.html" title="272.html">Next &gt;</a></li></ul></div>
+                    <div id="page"><div><div align="LEFT" characterStyle="None" class="Titre5" sectionStyle="Titre5" startOnNewPage="true"><a name="toc1.5.3.3.9"><!--anchor--></a>InteractionOperand<a name="_00d00f24-0000-0fe0-0000-000000000000"><!--anchor--></a></div><div align="LEFT" class="Normal" paragraphStyle="Normal" startOnNewPage="false">Represents one operand of the enclosing CombinedFragment.</div><div align="LEFT" class="Normal" paragraphStyle="Normal" startOnNewPage="false">An InteractionOperand is contained in a CombinedFragment and contains an ordered set of InteractionFragments. It represents one operand of the expression given by the enclosing CombinedFragment. 
+
+An InteractionOperand has an optional guard expression. Only InteractionOperands with a guard that evaluates to true at this point in the interaction will be considered for the production of the traces for the enclosing CombinedFragment.</div><a name="#Figure 247"><!--anchor--></a><center><img alt=": InteractionOperand" height="271.0" paragraphStyle="Image" src="img/5a2e787e-6bc5-4248-97dc-37e6e550afbf.png" usemap="#5a2e787e-6bc5-4248-97dc-37e6e550afbf" width="505.0"/></center><div align="CENTER" class="Legende" paragraphStyle="Legende">Figure 247 : InteractionOperand</div><map name="5a2e787e-6bc5-4248-97dc-37e6e550afbf"><area ALT="Guard" coords="309,174,495,190" name="5a2e787e-6bc5-4248-97dc-37e6e550afbf" shape="rect"/><area ALT="EndLineNumber" coords="309,190,495,206" name="5a2e787e-6bc5-4248-97dc-37e6e550afbf" shape="rect"/><area ALT="InteractionOperand" coords="300,150,505,271" href="271.html#_00d00f24-0000-0fe0-0000-000000000000" name="5a2e787e-6bc5-4248-97dc-37e6e550afbf" shape="rect"/><area ALT="InteractionFragment" coords="352,0,452,50" href="270.html#_00d00f24-0000-0fde-0000-000000000000" name="5a2e787e-6bc5-4248-97dc-37e6e550afbf" shape="rect"/><area ALT="CombinedFragment" coords="0,175,100,225" href="263.html#_00d00f24-0000-0fd2-0000-000000000000" name="5a2e787e-6bc5-4248-97dc-37e6e550afbf" shape="rect"/></map><a name="#Table 336"><!--anchor--></a><div id="tableContainer"><table class="ListeclaireAccent1" horizontal="true" tableStyle="ListeclaireAccent1"><caption/><tr class="odd"><th><div align="CENTER" class="Normal" paragraphStyle="Normal" startOnNewPage="false">Attribute</div></th><th><div align="CENTER" class="Normal" paragraphStyle="Normal" startOnNewPage="false">Description</div></th></tr><tr class="even"><td><div align="LEFT" class="Normal" paragraphStyle="Normal" startOnNewPage="false"/>string Guard [1..1]</td><td><div align="LEFT" class="Normal" paragraphStyle="Normal" startOnNewPage="false">Constraint of the operand.</div></td></tr><tr class="odd"><td><div align="LEFT" class="Normal" paragraphStyle="Normal" startOnNewPage="false"/>integer EndLineNumber [1..1]</td><td/></tr></table></div><div>
+</div><a name="#Table 337"><!--anchor--></a><div id="tableContainer"><table class="ListeclaireAccent1" horizontal="true" tableStyle="ListeclaireAccent1"><caption/><tr class="odd"><th><div align="CENTER" class="Normal" paragraphStyle="Normal" startOnNewPage="false">Association</div></th><th><div align="CENTER" class="Normal" paragraphStyle="Normal" startOnNewPage="false">Description</div></th></tr><tr class="even"><td><div align="LEFT" class="Normal" paragraphStyle="Normal" startOnNewPage="false"/>Fragment : <a href="270.html#_00d00f24-0000-0fde-0000-000000000000">InteractionFragment</a> [0..*]</td><td><div align="LEFT" class="Normal" paragraphStyle="Normal" startOnNewPage="false">The fragments of the operand.</div></td></tr><tr class="odd"><td><div align="LEFT" class="Normal" paragraphStyle="Normal" startOnNewPage="false"/>OwnerFragment : <a href="263.html#_00d00f24-0000-0fd2-0000-000000000000">CombinedFragment</a> [0..1]</td><td/></tr></table></div><div>
+</div></div></div>
+                    <br/>
+                    <div class="spacer" id="navbar"><ul><li id="prev"><a href="270.html" title="270.html">&lt; Previous</a></li><li id="home"><a href="index.html" title="Site map">Home</a></li><li id="next"><a href="272.html" title="272.html">Next &gt;</a></li></ul></div>  
+					<div id="footer"><p>Document automatically generated by Modelio Document Publisher.<br/><a href="http://www.modeliosoft.com">www.modeliosoft.com</a></p></div>            
+                </div>           
+            </div>
+        </div>
+  </body>
+</html>

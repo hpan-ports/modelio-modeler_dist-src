@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.uml.behavior.usecaseModel;
 
@@ -45,13 +45,13 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("0058abf6-c4bf-1fd8-97fe-001ec947cd2a")
 public class UseCaseImpl extends GeneralClassImpl implements UseCase {
-    @objid ("db4e7b3b-26e7-455c-9a4f-46aa6d8abf96")
+    @objid ("04d8d0ee-268c-4bb7-b09b-4afadbb3bc2c")
     @Override
     public EList<UseCaseDependency> getUsed() {
         return new SmList<>(this, UseCaseData.Metadata.UsedDep());
     }
 
-    @objid ("6442bb3f-7b50-4751-87f5-5d09b27cb787")
+    @objid ("d496ae01-8fa0-4ae6-b211-dd3c0ce9f371")
     @Override
     public <T extends UseCaseDependency> List<T> getUsed(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -64,13 +64,13 @@ public class UseCaseImpl extends GeneralClassImpl implements UseCase {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("efc569ae-f05e-4114-bafe-72711ab8c3a4")
+    @objid ("309a2d1a-7313-4938-b6d0-71da75f5d130")
     @Override
     public EList<ExtensionPoint> getOwnedExtension() {
         return new SmList<>(this, UseCaseData.Metadata.OwnedExtensionDep());
     }
 
-    @objid ("301e6b31-a56b-44c6-b4eb-127cac44aaa9")
+    @objid ("a942c337-0d0d-41bc-acea-bf2b5924cea4")
     @Override
     public <T extends ExtensionPoint> List<T> getOwnedExtension(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -83,13 +83,13 @@ public class UseCaseImpl extends GeneralClassImpl implements UseCase {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("b489531b-cd59-42a4-b94b-d56b00ca6d90")
+    @objid ("23a17b6d-b400-4a50-bbc5-0d50486074c9")
     @Override
     public EList<UseCaseDependency> getUser() {
         return new SmList<>(this, UseCaseData.Metadata.UserDep());
     }
 
-    @objid ("03af4d61-0afc-4f75-adbd-c9143d0caaf0")
+    @objid ("f5238514-dbc4-49fb-976e-d023bc18796c")
     @Override
     public <T extends UseCaseDependency> List<T> getUser(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -102,21 +102,21 @@ public class UseCaseImpl extends GeneralClassImpl implements UseCase {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("2c7f80ca-4500-45ef-8492-a72290dd0a14")
+    @objid ("3ee76a76-54ac-404c-a4e4-f391f4720848")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("9d5722ea-c781-4f1b-9887-2339235a86ae")
+    @objid ("12384027-b9a2-40ca-8b13-35b931f6d75b")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("c549f239-e2f2-4ba2-8cad-c36b132f9b9f")
+    @objid ("4195f546-a9d5-4032-baf4-1b2be5962b39")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitUseCase(this);

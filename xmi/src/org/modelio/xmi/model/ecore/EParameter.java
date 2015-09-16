@@ -24,7 +24,6 @@ package org.modelio.xmi.model.ecore;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.uml2.uml.InstanceSpecification;
 import org.eclipse.uml2.uml.InstanceValue;
-import org.modelio.api.model.IModelingSession;
 import org.modelio.api.modelio.Modelio;
 import org.modelio.metamodel.factory.ExtensionNotFoundException;
 import org.modelio.metamodel.uml.behavior.commonBehaviors.Behavior;
@@ -58,9 +57,9 @@ public class EParameter extends ENamedElement {
     @Override
     public Element createObjingElt() {
         if (this.isBehavior){
-            return Modelio.getInstance().getModelingSession().getModel().createBehaviorParameter();
+            return ReverseProperties.getInstance().getMModelServices().getModelFactory().createBehaviorParameter();
         }else{ 
-            return Modelio.getInstance().getModelingSession().getModel().createParameter();
+            return ReverseProperties.getInstance().getMModelServices().getModelFactory().createParameter();
         }
     }
 
@@ -102,7 +101,7 @@ public class EParameter extends ENamedElement {
                     objingOperation = (Element) ReverseProperties.getInstance()
                             .getMappedElement(ecoreOwner);
                 }catch (RuntimeException e){
-                    Xmi.LOG.error(Xmi.PLUGIN_ID, e);
+                    Xmi.LOG.error(e);
                 }
         
                 if ((objingOperation instanceof Operation) && (objingOperation != null)){
@@ -190,11 +189,11 @@ public class EParameter extends ENamedElement {
                 if (spec != null){
                     Object instance  = ReverseProperties.getInstance().getMappedElement(spec);
                     if ((instance != null) && (instance instanceof Instance)) {
-                        IModelingSession session = Modelio.getInstance().getModelingSession();
+                        
                         try {
-                            session.getModel().createDependency(objingElt, (Instance) instance, "ModelerModule", IModelerModuleStereotypes.UML2INSTANCEVALUE);
+                            ReverseProperties.getInstance().getMModelServices().getModelFactory().createDependency(objingElt, (Instance) instance, "ModelerModule", IModelerModuleStereotypes.UML2INSTANCEVALUE);
                         } catch (ExtensionNotFoundException e) {                          
-                            e.printStackTrace();
+                            Xmi.LOG.warning(Xmi.PLUGIN_ID, e);       
                         }                          
                     }
                 }

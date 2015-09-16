@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.data.uml.behavior.usecaseModel;
 
@@ -48,43 +48,43 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("0059d030-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=ExtensionPoint.class, factory=ExtensionPointData.Metadata.ObjectFactory.class)
 public class ExtensionPointData extends ModelElementData {
-    @objid ("29869377-2db1-4afb-b307-59a634d2cfd2")
+    @objid ("d9947961-4bd7-4f2c-9146-5c3bc0a7bd6c")
     @SmaMetaAttribute(metaName="Visibility", type=VisibilityMode.class, smAttributeClass=Metadata.VisibilitySmAttribute.class)
      Object mVisibility = VisibilityMode.PUBLIC;
 
-    @objid ("abe1a3a4-76b6-4620-af14-b012abcf078f")
+    @objid ("dd880cc0-19b6-40bf-aca5-0e01294ed8da")
     @SmaMetaAssociation(metaName="Extended", typeDataClass=UseCaseDependencyData.class, min=0, max=-1, smAssociationClass=Metadata.ExtendedSmDependency.class, performanceRisk = true, istodelete = true)
      List<SmObjectImpl> mExtended = null;
 
-    @objid ("c4091d07-cdfb-447f-a1f7-79993f64b5df")
+    @objid ("bdc65332-e84d-4bc8-bc8f-04c6a617c395")
     @SmaMetaAssociation(metaName="Owner", typeDataClass=UseCaseData.class, min=0, max=1, smAssociationClass=Metadata.OwnerSmDependency.class)
      SmObjectImpl mOwner;
 
-    @objid ("92454b40-75d4-44a9-9771-357010bac1a0")
+    @objid ("feede6f1-fb78-4a97-82d8-d1bf6bdde8fa")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("003f5322-c4c3-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("16254600-ecd7-4293-8714-8325ee3c669c")
+        @objid ("2193c80b-69d1-4b6e-ae86-4cd8a8683351")
         private static SmClass smClass = null;
 
-        @objid ("c3d818f5-0c41-45af-a951-adb04a9973ce")
+        @objid ("50c61b0d-05c5-4ebb-b563-fdcbda74724c")
         private static SmAttribute VisibilityAtt = null;
 
-        @objid ("441dd476-f447-4e33-b607-6ac088d717ad")
+        @objid ("866f587b-3f17-4c84-9e31-392efe1375f9")
         private static SmDependency ExtendedDep = null;
 
-        @objid ("4dd20f4a-b19d-4e6a-af6d-a370aff7f691")
+        @objid ("4a7893c6-0a02-4828-9484-e76924fd0af7")
         private static SmDependency OwnerDep = null;
 
-        @objid ("78bfafca-feff-46b6-81c8-569c694f0464")
+        @objid ("b11f150e-7788-4c13-b7be-ef2b43887155")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(ExtensionPointData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("f06ea760-2955-4ceb-87d5-e5f08bf77155")
+        @objid ("2a74c99f-8b6b-4be3-a27b-d1a2588c7514")
         public static SmAttribute VisibilityAtt() {
             if (VisibilityAtt == null) {
             	VisibilityAtt = classof().getAttributeDef("Visibility");
@@ -92,7 +92,7 @@ public class ExtensionPointData extends ModelElementData {
             return VisibilityAtt;
         }
 
-        @objid ("2a74bfd8-9396-46e7-8786-81b4f8bb0b3a")
+        @objid ("e4086102-32c6-4350-98c2-1a60e85cd4d0")
         public static SmDependency ExtendedDep() {
             if (ExtendedDep == null) {
             	ExtendedDep = classof().getDependencyDef("Extended");
@@ -100,7 +100,7 @@ public class ExtensionPointData extends ModelElementData {
             return ExtendedDep;
         }
 
-        @objid ("03d9187f-e62f-440b-96b4-9f12ca082c58")
+        @objid ("324c6da1-15d5-42ec-b767-3bd52c4f4fe4")
         public static SmDependency OwnerDep() {
             if (OwnerDep == null) {
             	OwnerDep = classof().getDependencyDef("Owner");
@@ -108,25 +108,25 @@ public class ExtensionPointData extends ModelElementData {
             return OwnerDep;
         }
 
-        @objid ("d002a58d-df6f-407e-99c6-663637fd21e8")
-        public static SmDependency getExtendedDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return ExtendedDep;
-        }
-
-        @objid ("39d04cfd-aec5-4635-b848-472d49d8f78d")
+        @objid ("44fb5845-3046-4529-88ad-48048aa8f74b")
         public static SmClass getSmClass() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return smClass;
         }
 
-        @objid ("6794002c-43e4-4eba-8102-4233e6cc2394")
+        @objid ("8ab800ed-9bcb-4218-9351-76b942607e9a")
         public static SmAttribute getVisibilityAtt() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return VisibilityAtt;
         }
 
-        @objid ("dd77d135-c24a-43d2-89ba-f48fdb14d1d1")
+        @objid ("3023cec8-1a6d-4362-bd2c-c84d772864aa")
+        public static SmDependency getExtendedDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return ExtendedDep;
+        }
+
+        @objid ("5d51227a-bd26-48e0-89e9-321f2c61e3e1")
         public static SmDependency getOwnerDep() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return OwnerDep;
@@ -134,12 +134,12 @@ public class ExtensionPointData extends ModelElementData {
 
         @objid ("003f98e6-c4c3-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("463e6af6-5675-412e-8bc6-903f47ac9298")
+            @objid ("2180ee92-7581-4cc2-875f-65dec4bd0b40")
             public ISmObjectData createData() {
                 return new ExtensionPointData();
             }
 
-            @objid ("40b6545e-6742-4f48-9b04-abf86c4a737d")
+            @objid ("2c6152fb-b15c-4ca6-a39f-da0703d59dac")
             public SmObjectImpl createImpl() {
                 return new ExtensionPointImpl();
             }
@@ -148,12 +148,12 @@ public class ExtensionPointData extends ModelElementData {
 
         @objid ("003ffb92-c4c3-1fd8-97fe-001ec947cd2a")
         public static class VisibilitySmAttribute extends SmAttribute {
-            @objid ("cb989ef2-34db-45be-8e88-5b078c8f226e")
+            @objid ("6e33809c-cbaf-4915-9345-fbaf289199e8")
             public Object getValue(ISmObjectData data) {
                 return ((ExtensionPointData) data).mVisibility;
             }
 
-            @objid ("027b097e-3eac-4cf6-acce-4fc44e1159b4")
+            @objid ("f0958621-adad-4ca8-b33f-2c21f99b9e89")
             public void setValue(ISmObjectData data, Object value) {
                 ((ExtensionPointData) data).mVisibility = value;
             }
@@ -162,18 +162,18 @@ public class ExtensionPointData extends ModelElementData {
 
         @objid ("00405fd8-c4c3-1fd8-97fe-001ec947cd2a")
         public static class OwnerSmDependency extends SmSingleDependency {
-            @objid ("b585e2f1-d17b-4bd7-beac-939dcf112a7f")
+            @objid ("aaeb47cc-bc14-46fb-a7fd-c13a8c2a9209")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((ExtensionPointData) data).mOwner;
             }
 
-            @objid ("36c164dc-4dea-41e7-a1c1-4b18d75d2578")
+            @objid ("1c0b8f16-b3af-405c-87b8-41fe1a08af03")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((ExtensionPointData) data).mOwner = value;
             }
 
-            @objid ("a348690e-1ec5-44c7-90cc-d8fee0a9f90a")
+            @objid ("178c66fe-fc0d-4f5e-bcfb-65c10b27d882")
             @Override
             public SmDependency getSymetric() {
                 return UseCaseData.Metadata.OwnedExtensionDep();
@@ -183,20 +183,20 @@ public class ExtensionPointData extends ModelElementData {
 
         @objid ("00419ac4-c4c3-1fd8-97fe-001ec947cd2a")
         public static class ExtendedSmDependency extends SmMultipleDependency {
-            @objid ("f6380933-babf-4c89-804c-dcbf79f36879")
+            @objid ("7c00fade-e954-42f5-80cb-f242c0b1fe09")
             @Override
             public List<SmObjectImpl> getValueList(ISmObjectData data) {
                 return (((ExtensionPointData)data).mExtended != null)? ((ExtensionPointData)data).mExtended:SmMultipleDependency.EMPTY;
             }
 
-            @objid ("4b91ed14-3e94-47b9-b30d-85d1ce704475")
+            @objid ("883b26de-3c16-4144-b37a-5a612313c9a6")
             @Override
             protected List<SmObjectImpl> allocateValueList(ISmObjectData data, int initialCapacity) {
                 ((ExtensionPointData) data).mExtended = new ArrayList<>(initialCapacity);
                 return ((ExtensionPointData) data).mExtended;
             }
 
-            @objid ("c1929b58-09f2-4966-a9f1-8f4be70fdab3")
+            @objid ("a3356b98-3321-466d-9141-7b782d3755e3")
             @Override
             public SmDependency getSymetric() {
                 return UseCaseDependencyData.Metadata.ExtensionLocationDep();

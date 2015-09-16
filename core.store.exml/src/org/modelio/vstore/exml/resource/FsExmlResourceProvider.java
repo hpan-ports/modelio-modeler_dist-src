@@ -31,8 +31,8 @@ import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.vbasic.files.FileUtils;
+import org.modelio.vbasic.log.Log;
 import org.modelio.vbasic.progress.IModelioProgress;
-import org.modelio.vcore.Log;
 import org.modelio.vstore.exml.common.index.IndexOutdatedException;
 
 /**

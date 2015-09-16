@@ -30,7 +30,7 @@ import org.modelio.metamodel.uml.infrastructure.Abstraction;
  * @author ebrosse
  */
 @objid ("903a61ac-4eea-4b5e-9eb3-498f77941080")
-public class OAbstraction extends ODependency implements IOElement {
+public class OAbstraction extends ODependency {
     @objid ("8d82c3d1-f54f-453a-baca-497c3e20cd2c")
     private Abstraction objingElement = null;
 
@@ -66,17 +66,17 @@ public class OAbstraction extends ODependency implements IOElement {
     @objid ("f6c938be-41c4-46b1-8a86-7f0f5274d832")
     private void setAbstractionMapping(org.eclipse.uml2.uml.Abstraction ecoreAbstraction) {
         org.eclipse.uml2.uml.OpaqueExpression expr = UMLFactory.eINSTANCE.createOpaqueExpression();
-                String abstractionName = this.objingElement.getName();
-                String mappingName = "";
-                
-                if (!"".equals(abstractionName))
-           mappingName = abstractionName + "_";
-                
-                mappingName += "Mapping";
-                
-                expr.setName(mappingName);
-                expr.getBodies().add(this.objingElement.getMapping());
-                ecoreAbstraction.setMapping(expr);
+        String abstractionName = this.objingElement.getName();
+        String mappingName = "";
+        
+        if (!"".equals(abstractionName))
+            mappingName = abstractionName + "_";
+        
+        mappingName += "Mapping";
+        
+        expr.setName(mappingName);
+        expr.getBodies().add(this.objingElement.getMapping());
+        ecoreAbstraction.setMapping(expr);
     }
 
 }

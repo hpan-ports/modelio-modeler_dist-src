@@ -29,8 +29,9 @@ import org.modelio.metamodel.uml.statik.Parameter;
 import org.modelio.xmi.util.GenerationProperties;
 
 @objid ("ef924dc4-1d51-4c82-8501-c0f237f3fcdb")
-public class OActivityParameterNode extends OObjectNode implements IOElement {
+public class OActivityParameterNode extends OObjectNode {
     @objid ("78ada1b0-5fa5-4030-b448-00980a9d8cec")
+    @Override
     public org.eclipse.uml2.uml.Element createEcoreElt() {
         return UMLFactory.eINSTANCE.createActivityParameterNode();
     }
@@ -41,11 +42,13 @@ public class OActivityParameterNode extends OObjectNode implements IOElement {
     }
 
     @objid ("bc46ad76-6041-4fe2-9519-65ba5db25f48")
+    @Override
     public void attach(org.eclipse.uml2.uml.Element ecoreElt) {
         super.attach(ecoreElt);
     }
 
     @objid ("836454fa-ae83-42d4-9e84-bbe388969b5b")
+    @Override
     public void setProperties(org.eclipse.uml2.uml.Element ecoreElt) {
         super.setProperties(ecoreElt);
         setRepresentedRealParameter((org.eclipse.uml2.uml.ActivityParameterNode) ecoreElt);

@@ -121,11 +121,12 @@ public class ImportModel {
             }
                
         } catch (RuntimeException e) {
-        
+         
             if ("Joni org.eclipse.uml2.uml.Element Not Found".equals(e.getMessage())) {
                 PartialImportMap.getInstance().remove(ieelem.getEcoreElement());
             }
-            Xmi.LOG.warning(Xmi.PLUGIN_ID, e);
+            
+            Xmi.LOG.warning(e);
         
         }
     }

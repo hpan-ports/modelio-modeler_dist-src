@@ -78,7 +78,7 @@ public class SymbolPanelProvider implements IPanelProvider, IStyleChangeListener
 
     @objid ("3256161e-5991-11e2-8bfd-001ec947ccaf")
     @Override
-    public Object create(Composite parent) {
+    public Object createPanel(Composite parent) {
         this.sash = new SashForm(parent, SWT.VERTICAL);
         this.sash.setLayout(new FillLayout());
         
@@ -94,7 +94,7 @@ public class SymbolPanelProvider implements IPanelProvider, IStyleChangeListener
 
     @objid ("32561625-5991-11e2-8bfd-001ec947ccaf")
     @Override
-    public Object getComposite() {
+    public Object getPanel() {
         return this.sash;
     }
 
@@ -108,8 +108,8 @@ public class SymbolPanelProvider implements IPanelProvider, IStyleChangeListener
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         if (evt.getPropertyName().equals(IGmObject.PROPERTY_DELETE)) {
-           // The Gm displayed in the Symbol view has been deleted, reset the selection.
-           setSelectedSymbol(null);
+            // The Gm displayed in the Symbol view has been deleted, reset the selection.
+            setSelectedSymbol(null);
         }
     }
 
@@ -138,11 +138,8 @@ public class SymbolPanelProvider implements IPanelProvider, IStyleChangeListener
             // Instead of providing the symbol Style, we provide a StyleEditor proxy
             // that will be responsible for managing transactions in the model in case of modifications
             ICoreSession session = this.selectedSymbol.getDiagram().getModelManager().getModelingSession();
-            final StyleModelProvider model = new StyleModelProvider(
-                    new StyleEditor(this.selectedSymbol),
-                    session, 
-                    this.selectedSymbol.getStyleKeys(), 
-                    true);
+            final StyleModelProvider model = new StyleModelProvider(new StyleEditor(this.selectedSymbol), session,
+                    this.selectedSymbol.getStyleKeys(), true);
         
             this.styleViewer.setModel(model);
             this.styleViewer.getTreeViewer().expandAll();
@@ -165,11 +162,8 @@ public class SymbolPanelProvider implements IPanelProvider, IStyleChangeListener
             // Instead of providing the symbol Style, we provide a StyleEditor proxy
             // that will be responsible for managing transactions in the model in case of modifications
             ICoreSession session = this.selectedSymbol.getDiagram().getModelManager().getModelingSession();
-            StyleModelProvider model = new StyleModelProvider(
-                    new StyleEditor(this.selectedSymbol),
-                    session, 
-                    this.selectedSymbol.getStyleKeys(), 
-                    true);
+            StyleModelProvider model = new StyleModelProvider(new StyleEditor(this.selectedSymbol), session,
+                    this.selectedSymbol.getStyleKeys(), true);
         
             this.styleViewer.setModel(model);
             this.styleViewer.getTreeViewer().expandAll();
@@ -213,11 +207,8 @@ public class SymbolPanelProvider implements IPanelProvider, IStyleChangeListener
             // Instead of providing the symbol Style, we provide a StyleEditor proxy
             // that will be responsible for managing transactions in the model in case of modifications
             ICoreSession session = this.selectedSymbol.getDiagram().getModelManager().getModelingSession();
-            final StyleModelProvider model = new StyleModelProvider(
-                    new StyleEditor(selectedSymbol), 
-                    session, 
-                    selectedSymbol.getStyleKeys(), 
-                    isEditable);
+            final StyleModelProvider model = new StyleModelProvider(new StyleEditor(selectedSymbol), session,
+                    selectedSymbol.getStyleKeys(), isEditable);
         
             this.styleViewer.setModel(model);
             this.styleViewer.getTreeViewer().expandAll();
@@ -228,7 +219,7 @@ public class SymbolPanelProvider implements IPanelProvider, IStyleChangeListener
             this.selectedSymbol.addPropertyChangeListener(this);
         } else {
             this.styleViewer.setModel(null);
-            //            this.styleViewer.getTreeViewer().refresh();
+            // this.styleViewer.getTreeViewer().refresh();
         }
     }
 
@@ -241,9 +232,21 @@ public class SymbolPanelProvider implements IPanelProvider, IStyleChangeListener
         return newText;
     }
 
+    @objid ("b744288e-f16f-498d-b8a2-590ecaad93cd")
+    @Override
+    public boolean isRelevantFor(Object obj) {
+        return true;
+    }
+
+    @objid ("e85a2870-933f-4f4a-8943-edb9734ac12a")
+    @Override
+    public String getHelpTopic() {
+        return null;
+    }
+
     /**
-     * This class is the selection listener of the symbol tree view. When the selected property changes, it update sthe
-     * key description area.
+     * This class is the selection listener of the symbol tree view. When the selected property changes, it update sthe key
+     * description area.
      */
     @objid ("ac52b08e-55b7-11e2-877f-002564c97630")
     private static class DescriptionTextUpdater implements ISelectionChangedListener {

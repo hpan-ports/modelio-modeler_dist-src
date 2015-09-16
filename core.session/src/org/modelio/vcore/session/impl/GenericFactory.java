@@ -91,7 +91,8 @@ public final class GenericFactory {
      */
     @objid ("0032e420-4153-1ffc-8433-001ec947cd2a")
     public MObject create(String metaclass, MObject referent) {
-        return this.smFactory.createObject(metaclass, this.repoSupport.getRepository(referent));
+        SmClass cls = getSmClass(metaclass);
+        return this.smFactory.createObject(cls, this.repoSupport.getRepository(referent));
     }
 
     /**
@@ -103,9 +104,7 @@ public final class GenericFactory {
      */
     @objid ("0032ea2e-4153-1ffc-8433-001ec947cd2a")
     public MObject create(String metaclass, IRepository repository) {
-        SmClass cls = SmClass.getClass(metaclass);
-        if (cls == null)
-            throw new IllegalArgumentException(metaclass+ " is not a metamodel class.");
+        SmClass cls = getSmClass(metaclass);
         
         
         SmObjectImpl ret = this.smFactory.createObject(cls, repository);
@@ -125,9 +124,7 @@ public final class GenericFactory {
      */
     @objid ("8e6ffa6c-4469-11e2-91c9-001ec947ccaf")
     public MObject create(String metaclass, MObject parent, String depName) {
-        SmClass cls = SmClass.getClass(metaclass);
-        if (cls == null)
-            throw new IllegalArgumentException(metaclass+ " is not a metamodel class.");
+        SmClass cls = getSmClass(metaclass);
         
         SmDependency dep = cls.getDependencyDef(depName);
         if (dep == null)
@@ -158,6 +155,7 @@ public final class GenericFactory {
     /**
      * Create an instance of 'metaclass'. The new object will belong to the given
      * repository.
+     * @param <T>  the metaclass interface of the object to create.
      * @param metaclass the metaclass of the object to create.
      * @param repository the repository where the model object will be stored.
      * @return the created object
@@ -172,6 +170,7 @@ public final class GenericFactory {
      * Create an instance of 'metaclass'. The new object will belong to the same
      * repository as the 'referent' object. The 'referent' object is NOT the
      * composition owner of the created object.
+     * @param <T>  the metaclass interface of the object to create.
      * @param metaclass the metaclass of the object to create.
      * @param referent the referent object
      * @return the created object
@@ -180,6 +179,14 @@ public final class GenericFactory {
     @SuppressWarnings("unchecked")
     public <T extends MObject> T create(Class<T> metaclass, MObject referent) {
         return (T) this.smFactory.createObject(SmClass.getClass(metaclass), this.repoSupport.getRepository(referent));
+    }
+
+    @objid ("977d6ced-95be-4a5d-a578-0b8f1f4603a5")
+    private SmClass getSmClass(String metaclass) throws IllegalArgumentException {
+        SmClass cls = SmClass.getClass(metaclass);
+        if (cls == null)
+            throw new IllegalArgumentException(metaclass+ " is not a metamodel class.");
+        return cls;
     }
 
 }

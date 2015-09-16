@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.bpmn.flows;
 
@@ -33,28 +33,28 @@ import org.modelio.metamodel.bpmn.rootElements.BpmnBaseElement;
 
 @objid ("007c58ee-c4bf-1fd8-97fe-001ec947cd2a")
 public interface BpmnMessageFlow extends BpmnBaseElement {
-    @objid ("8f1a35e5-d2da-4e6f-a838-f6826431420a")
+    @objid ("ffea21cc-455e-4142-b1ca-c7dcfd2bba22")
     BpmnMessage getMessageRef();
 
-    @objid ("b948ee18-d4fa-44aa-a6cc-ffba591c5c2d")
+    @objid ("7afcb0ec-ef1e-4a50-b2fd-a9c2dffa55c4")
     void setMessageRef(BpmnMessage value);
 
-    @objid ("22c9e8bb-fdda-4d38-9fd4-4dbfcdd247e5")
+    @objid ("f8cb7d84-dc06-4c22-9aca-6764e2919263")
     BpmnBaseElement getSourceRef();
 
-    @objid ("31f5b2d8-581b-4c94-b618-d35fd8bdf803")
+    @objid ("ed76e239-82d6-4965-bc19-be6a88863779")
     void setSourceRef(BpmnBaseElement value);
 
-    @objid ("96a2d88b-3951-4162-9fd9-32e16ead2669")
+    @objid ("ce699582-7b6a-4652-9aaf-c76f3b59410d")
     BpmnBaseElement getTargetRef();
 
-    @objid ("a72fa3d0-ec75-4a98-9a09-b1f785c9dc3d")
+    @objid ("8e573cd1-6171-4a5d-b3bb-e1d1ff834b53")
     void setTargetRef(BpmnBaseElement value);
 
-    @objid ("8c6aa502-9059-4f1f-8685-759edeae311f")
+    @objid ("a14185bf-1498-43a7-907c-9144997f8851")
     BpmnCollaboration getCollaboration();
 
-    @objid ("da0115f1-9b05-4f80-a2d5-d5a338109c24")
+    @objid ("132ae888-52cf-4a6e-beea-940d358046a4")
     void setCollaboration(BpmnCollaboration value);
 
 }

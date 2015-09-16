@@ -32,6 +32,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map.Entry;
 import java.util.Map;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
@@ -43,6 +44,7 @@ import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.resource.ImageRegistry;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Display;
+import org.modelio.api.diagram.ContributorCategory;
 import org.modelio.api.diagram.IDiagramCustomizer;
 import org.modelio.api.diagram.tools.IAttachedBoxCommand;
 import org.modelio.api.diagram.tools.IBoxCommand;
@@ -53,11 +55,13 @@ import org.modelio.api.modelio.Modelio;
 import org.modelio.api.module.ILicenseInfos.Status;
 import org.modelio.api.module.commands.ActionLocation;
 import org.modelio.api.module.commands.IModuleAction;
+import org.modelio.api.module.contrib.WizardContribution;
 import org.modelio.api.module.diagrams.DiagramCustomizationDescriptor;
 import org.modelio.api.module.diagrams.DiagramToolDescriptor;
 import org.modelio.api.module.paramEdition.DefaultParametersEditionModel;
 import org.modelio.api.module.propertiesPage.IModulePropertyPage;
 import org.modelio.api.module.script.IScriptService;
+import org.modelio.api.ui.diagramcreation.IDiagramWizardContributor;
 import org.modelio.gproject.ramc.core.model.IModelComponent;
 import org.modelio.gproject.ramc.core.packaging.IModelComponentContributor;
 import org.modelio.metamodel.diagrams.AbstractDiagram;
@@ -125,6 +129,9 @@ public abstract class AbstractJavaModule implements IModule {
 
     @objid ("fdd785e3-7c11-4a4e-81a2-5d16c5db84c2")
     private final ResourceBundle I18N;
+
+    @objid ("14877ba4-3d14-436f-8deb-29cb8f09957c")
+    private List<WizardContribution> wizardContributions = new ArrayList<>();
 
     /**
      * Main constructor, to instantiate a new module.
@@ -410,7 +417,7 @@ public abstract class AbstractJavaModule implements IModule {
                     }
                 } catch (MalformedURLException e) {
                     Modelio.getInstance().getLogService()
-                            .error(this, e.getMessage());
+                    .error(this, e.getMessage());
                 }
             }
         
@@ -533,31 +540,8 @@ public abstract class AbstractJavaModule implements IModule {
     @objid ("a047d2c4-479d-11df-a533-001ec947ccaf")
     @Override
     public void init() {
-        for (Path docFile : this.configuration.getDocpath()) {
-            try {
-                BundleContext bundleContext = InternalPlatform.getDefault()
-                        .getBundleContext();
-        
-                Bundle bundleDoc = bundleContext
-                        .installBundle("reference:file:/" + docFile);
-                bundleDoc.start(Bundle.START_TRANSIENT);
-        
-                this.docBundles.add(bundleDoc);
-        
-            } catch (Exception e) { // Ignore
-                // Doc DuplicateBundleException: doc already installed
-                if (!e.getClass().getSimpleName()
-                        .equals("DuplicateBundleException")) {
-                    Modelio.getInstance().getLogService()
-                            .warning(this, e.getMessage());
-                }
-            }
-        }
-        
-        // Force the help to reload
-        if (!this.docBundles.isEmpty()) {
-            HelpPlugin.getTocManager().clearCache();
-        }
+        installDocs();
+        installStyles();
     }
 
     /**
@@ -616,10 +600,10 @@ public abstract class AbstractJavaModule implements IModule {
             MissingResourceException e2 = new MissingResourceException(
                     e.getLocalizedMessage() + " in '"
                             + moduleResourcesPath.toUri().toString() + "'",
-                    e.getClassName(), e.getKey());
+                            e.getClassName(), e.getKey());
             e2.initCause(e);
             Modelio.getInstance().getLogService()
-                    .error(this, e.getLocalizedMessage());
+            .error(this, e.getLocalizedMessage());
             throw e2;
         } catch (IOException e) {
             Modelio.getInstance().getLogService().error(this, e);
@@ -699,22 +683,7 @@ public abstract class AbstractJavaModule implements IModule {
     @objid ("08fa08b1-a354-11e1-abf7-001ec947c8cc")
     @Override
     public void uninit() {
-        if (!this.docBundles.isEmpty()) {
-            for (Bundle bundleDoc : this.docBundles) {
-                try {
-                    bundleDoc.stop();
-                    bundleDoc.uninstall();
-                } catch (BundleException e) {
-                    Modelio.getInstance().getLogService()
-                            .warning(this, e.getMessage());
-                }
-            }
-        
-            // Empty the local bundle cache this.docBundles.clear();
-        
-            // Force the help to reload
-            HelpPlugin.getTocManager().clearCache();
-        }
+        uninstallDocs();
     }
 
     @objid ("9994c01e-178f-11e2-aa0d-002564c97630")
@@ -849,20 +818,105 @@ public abstract class AbstractJavaModule implements IModule {
     @Override
     public <I> I instanciateExternProcessor(String className, Class<I> clazz, Object... initargs) {
         try {
-         // Look for a standard class
+            // Look for a standard class
             Class<I> cls = (Class<I>) Class.forName(className, true, this.getClass().getClassLoader());
-            
+        
             Class<?> [] initargsTypes = new Class[initargs.length];
             for (int i = 0; i < initargs.length; i++) {
                 initargsTypes[i] = initargs[i].getClass();
             }
-            
+        
             Constructor<?> constr = cls.getConstructors()[0];
             return (I) constr.newInstance(initargs);
         } catch (ClassNotFoundException | ClassCastException | SecurityException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
             Modelio.getInstance().getLogService().warning(this, e.toString());
         }
         return null;
+    }
+
+    @objid ("930fd91e-ce1a-416e-beca-3937c613b26a")
+    private void installDocs() {
+        for (Path docFile : this.configuration.getDocpath()) {
+            try {
+                BundleContext bundleContext = InternalPlatform.getDefault()
+                        .getBundleContext();
+        
+                Bundle bundleDoc = bundleContext
+                        .installBundle("reference:file:/" + docFile);
+                bundleDoc.start(Bundle.START_TRANSIENT);
+        
+                this.docBundles.add(bundleDoc);
+        
+            } catch (Exception e) { // Ignore
+                // Doc DuplicateBundleException: doc already installed
+                if (!e.getClass().getSimpleName()
+                        .equals("DuplicateBundleException")) {
+                    Modelio.getInstance().getLogService()
+                    .warning(this, e.getMessage());
+                }
+            }
+        }
+        
+        // Force the help to reload
+        if (!this.docBundles.isEmpty()) {
+            HelpPlugin.getTocManager().clearCache();
+        }
+    }
+
+    @objid ("d43767a1-8219-4723-9d5e-56155bec0751")
+    private void installStyles() {
+        for (Entry<String, Path> style : this.configuration.getStylePath().entrySet()) {
+            try {
+                if (Files.exists(style.getValue())) {
+                    Modelio.getInstance().getDiagramService().registerStyle(style.getKey(), "default", style.getValue().toFile());
+                }
+            } catch (Exception e) { // Ignore
+                // Doc DuplicateBundleException: doc already installed
+                if (!e.getClass().getSimpleName()
+                        .equals("DuplicateBundleException")) {
+                    Modelio.getInstance().getLogService()
+                    .warning(this, e.getMessage());
+                }
+            }
+        }
+    }
+
+    @objid ("f22df734-674d-43b6-858d-12e0d2990f78")
+    protected void uninstallDocs() {
+        if (!this.docBundles.isEmpty()) {
+            for (Bundle bundleDoc : this.docBundles) {
+                try {
+                    bundleDoc.stop();
+                    bundleDoc.uninstall();
+                } catch (BundleException e) {
+                    Modelio.getInstance().getLogService()
+                    .warning(this, e.getMessage());
+                }
+            }
+        
+            // Empty the local bundle cache this.docBundles.clear();
+        
+            // Force the help to reload
+            HelpPlugin.getTocManager().clearCache();
+        }
+    }
+
+    @objid ("b300704c-a26a-4940-b32f-ff9dae0dd308")
+    @Override
+    public void registerDiagramWizardContribution(ContributorCategory category, IDiagramWizardContributor contributor) {
+        this.wizardContributions.add(new WizardContribution(category, contributor));
+    }
+
+    @objid ("6132acde-d1ed-4257-8b90-b77e8eb16a73")
+    @Override
+    public void unregisterDiagramWizardContribution(ContributorCategory category, IDiagramWizardContributor contributor) {
+        this.wizardContributions.remove(new WizardContribution(category, contributor));
+    }
+
+    @objid ("6656d131-48a5-4cc6-ad9e-c5fb969aaaf0")
+    @Override
+    public List<WizardContribution> getDiagramWizardContributions() {
+        return this.wizardContributions;
     }
 
 }

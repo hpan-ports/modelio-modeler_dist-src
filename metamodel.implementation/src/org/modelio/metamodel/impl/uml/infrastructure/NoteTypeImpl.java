@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.uml.infrastructure;
 
@@ -60,37 +60,49 @@ public class NoteTypeImpl extends ModelElementImpl implements NoteType {
             return null;
     }
 
-    @objid ("26294a04-21c7-4b35-89cb-dbaad70aba76")
+    @objid ("bd4d5245-c870-47de-b8a2-b0d03e0fe614")
     @Override
     public boolean isIsHidden() {
         return (Boolean) getAttVal(NoteTypeData.Metadata.IsHiddenAtt());
     }
 
-    @objid ("298a1385-64c6-48a5-82f4-4d0c32d265b0")
+    @objid ("dfee18c4-073b-4299-b10e-b6aac0e82eb3")
     @Override
     public void setIsHidden(boolean value) {
         setAttVal(NoteTypeData.Metadata.IsHiddenAtt(), value);
     }
 
-    @objid ("00d2a4fd-2113-442e-9cc4-f0c808bfcb66")
+    @objid ("362698d4-c72c-4727-a2f0-4165edf31d5f")
     @Override
     public String getLabelKey() {
         return (String) getAttVal(NoteTypeData.Metadata.LabelKeyAtt());
     }
 
-    @objid ("52472758-c689-4316-8911-db9704365cdb")
+    @objid ("4b5c3c4b-0f25-4e47-bb63-c154182d3b0b")
     @Override
     public void setLabelKey(String value) {
         setAttVal(NoteTypeData.Metadata.LabelKeyAtt(), value);
     }
 
-    @objid ("7e7653f3-7bbb-4ce1-a318-46cfd7150891")
+    @objid ("641dc762-b199-426b-9f6c-e888a8cc7f57")
+    @Override
+    public String getMimeType() {
+        return (String) getAttVal(NoteTypeData.Metadata.MimeTypeAtt());
+    }
+
+    @objid ("d93b3b40-44c5-4335-b5fd-40056ef79e88")
+    @Override
+    public void setMimeType(String value) {
+        setAttVal(NoteTypeData.Metadata.MimeTypeAtt(), value);
+    }
+
+    @objid ("a3e090cd-b7f3-4cfa-b767-ca5e3a51a430")
     @Override
     public EList<Note> getElement() {
         return new SmList<>(this, NoteTypeData.Metadata.ElementDep());
     }
 
-    @objid ("a4571f53-6c09-4145-abb4-24a0b79d4eb8")
+    @objid ("c2c20282-5aa4-4e7d-a7eb-aa7b0c5de095")
     @Override
     public <T extends Note> List<T> getElement(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -103,31 +115,31 @@ public class NoteTypeImpl extends ModelElementImpl implements NoteType {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("4d10bac5-ba37-4ae9-9810-c3e904a7a35b")
+    @objid ("a5990ee2-9a28-4a5d-b31e-e874121547c3")
     @Override
     public Stereotype getOwnerStereotype() {
         return (Stereotype) getDepVal(NoteTypeData.Metadata.OwnerStereotypeDep());
     }
 
-    @objid ("ca1fbe34-d7b7-4d50-a331-2f1e29a41b42")
+    @objid ("e817f661-4b92-485f-b6e4-2d58cdfa67b2")
     @Override
     public void setOwnerStereotype(Stereotype value) {
         appendDepVal(NoteTypeData.Metadata.OwnerStereotypeDep(), (SmObjectImpl)value);
     }
 
-    @objid ("3bf97857-8a80-4751-b61b-179658a2a317")
+    @objid ("fec6e818-5ec2-4b46-9dc1-435e1007bc81")
     @Override
     public MetaclassReference getOwnerReference() {
         return (MetaclassReference) getDepVal(NoteTypeData.Metadata.OwnerReferenceDep());
     }
 
-    @objid ("8774db59-5f92-4c0a-a02b-94ccb687cc15")
+    @objid ("2224780b-462f-4a86-aec1-49aadcabd06e")
     @Override
     public void setOwnerReference(MetaclassReference value) {
         appendDepVal(NoteTypeData.Metadata.OwnerReferenceDep(), (SmObjectImpl)value);
     }
 
-    @objid ("9e7dba81-fd32-4799-b80d-b2f6639b3334")
+    @objid ("62c1e8f0-3359-4376-9acf-8607e41f4986")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
@@ -140,7 +152,7 @@ public class NoteTypeImpl extends ModelElementImpl implements NoteType {
         return super.getCompositionOwner();
     }
 
-    @objid ("0adc36c6-7141-41ad-8472-e0e4edd43ef8")
+    @objid ("a5ca399d-c4ce-4c4a-ac11-bbcac49021c4")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
@@ -153,7 +165,7 @@ public class NoteTypeImpl extends ModelElementImpl implements NoteType {
         return super.getCompositionRelation();
     }
 
-    @objid ("0173e6a8-c88d-4fe3-8582-5f7deabb990a")
+    @objid ("4030451d-93ed-4b2a-9b91-8c3ea7cc986c")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitNoteType(this);

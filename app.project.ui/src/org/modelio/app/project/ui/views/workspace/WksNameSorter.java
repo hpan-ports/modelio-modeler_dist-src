@@ -24,7 +24,7 @@ package org.modelio.app.project.ui.views.workspace;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerSorter;
-import org.modelio.gproject.descriptor.ProjectDescriptor;
+import org.modelio.gproject.data.project.ProjectDescriptor;
 
 @objid ("00883830-a6ec-1fe0-bf4c-001ec947cd2a")
 public class WksNameSorter extends ViewerSorter {

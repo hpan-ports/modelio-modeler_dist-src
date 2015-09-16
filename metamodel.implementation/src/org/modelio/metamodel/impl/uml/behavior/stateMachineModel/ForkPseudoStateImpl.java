@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.uml.behavior.stateMachineModel;
 
@@ -41,21 +41,21 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("0050710c-c4bf-1fd8-97fe-001ec947cd2a")
 public class ForkPseudoStateImpl extends AbstractPseudoStateImpl implements ForkPseudoState {
-    @objid ("58938ddd-d5d7-4586-9f7c-1d6770a93d09")
+    @objid ("95fe2b57-bfb5-441d-8f72-6308a54ec6bc")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("61020b9e-f4cf-43f3-93a1-07cfb0e037d1")
+    @objid ("e3ce8a86-5f99-4df1-b72b-bd69a3939616")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("b84b08a9-840a-481b-b49c-0dcd79887f57")
+    @objid ("a25b404f-12c5-4ca9-b1e2-0dbf9b244832")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitForkPseudoState(this);

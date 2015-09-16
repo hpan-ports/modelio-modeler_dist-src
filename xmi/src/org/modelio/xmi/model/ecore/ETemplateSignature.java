@@ -21,58 +21,54 @@
 
 package org.modelio.xmi.model.ecore;
 
-import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.modelio.api.modelio.Modelio;
+import org.modelio.gproject.model.IMModelServices;
+import org.modelio.metamodel.factory.ElementNotUniqueException;
 import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.metamodel.uml.statik.Classifier;
 import org.modelio.metamodel.uml.statik.Enumeration;
 import org.modelio.metamodel.uml.statik.Operation;
+import org.modelio.xmi.plugin.Xmi;
 import org.modelio.xmi.util.IModelerModuleStereotypes;
 import org.modelio.xmi.util.ObjingEAnnotation;
 import org.modelio.xmi.util.ReverseProperties;
 
 @objid ("c564792d-5160-424c-bb5a-53ca0befb1a6")
-public class ETemplateSignature extends EElement implements IEElement {
+public class ETemplateSignature extends EElement {
     @objid ("0eb36f44-055b-4bd3-9d91-f64081703927")
-    private org.eclipse.uml2.uml.TemplateSignature ecoreElement;
+    private org.eclipse.uml2.uml.TemplateSignature ecoreElement = null;
 
     @objid ("280ed59f-a602-46ba-96f5-77b551ff8648")
+    @Override
     public Element createObjingElt() {
-        if (ObjingEAnnotation.isDeleted(ecoreElement)){
-            return null;
-        }else{
-            org.eclipse.uml2.uml.Element ecoreOwner = ecoreElement.getOwner();
+        if (!ObjingEAnnotation.isDeleted(this.ecoreElement)){
+            org.eclipse.uml2.uml.Element ecoreOwner = this.ecoreElement.getOwner();
             Object objingOwner =  ReverseProperties.getInstance().getMappedElement(ecoreOwner);
-            if ((objingOwner instanceof Classifier)  && !(objingOwner instanceof Enumeration)){
-                Operation result = Modelio.getInstance().getModelingSession().getModel().createOperation();
         
-                    result.getExtension().add(Modelio.getInstance().getModelingSession().getMetamodelExtensions().getStereotype(
+            if ((objingOwner instanceof Classifier)  
+                    && !(objingOwner instanceof Enumeration)){
+        
+                IMModelServices mmServices = ReverseProperties.getInstance().getMModelServices();
+        
+                Operation result = mmServices.getModelFactory().createOperation();
+        
+                try {
+                    result.getExtension().add(mmServices.getStereotype(
                             IModelerModuleStereotypes.UML2TEMPLATESIGNATURE, result.getMClass()));
+                } catch (ElementNotUniqueException e) {
+                    Xmi.LOG.warning(e);
+                }
         
-                
                 return result;
             }
-            return null;
         }
+        return null;
     }
 
     @objid ("3aadecd8-a551-4b9f-a38f-a7247d60d739")
     public ETemplateSignature(org.eclipse.uml2.uml.TemplateSignature element) {
         super(element);
-        ecoreElement = element;
-    }
-
-    @objid ("6b3fcfa4-f069-4db9-b437-221c7cc89f62")
-    public void attach(Element objingElt) {
-    }
-
-    @objid ("e1ad28b2-ddf8-406b-a4b8-af2c5db53b38")
-    public void attach(List<Object> objingElts) {
-    }
-
-    @objid ("f692bb22-f3ef-4984-8dfc-407ebf159438")
-    public void setProperties(Element objingElt) {
+        this.ecoreElement = element;
     }
 
 }

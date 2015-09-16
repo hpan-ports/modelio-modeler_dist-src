@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.data.bpmn.rootElements;
 
@@ -46,43 +46,43 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("0078e650-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=BpmnArtifact.class, factory=BpmnArtifactData.Metadata.ObjectFactory.class)
 public abstract class BpmnArtifactData extends BpmnBaseElementData {
-    @objid ("a1be4747-51bc-4c1e-bf3c-cd6319c11dff")
+    @objid ("eb83eb76-af66-40d0-9922-72fa36f17033")
     @SmaMetaAssociation(metaName="SubProcess", typeDataClass=BpmnSubProcessData.class, min=0, max=1, smAssociationClass=Metadata.SubProcessSmDependency.class)
      SmObjectImpl mSubProcess;
 
-    @objid ("43e55c72-6eb8-43e5-8bec-fb8623c6a2cf")
+    @objid ("1f959e2c-2be4-4e79-9132-7429ea8df5ea")
     @SmaMetaAssociation(metaName="Collaboration", typeDataClass=BpmnCollaborationData.class, min=0, max=1, smAssociationClass=Metadata.CollaborationSmDependency.class)
      SmObjectImpl mCollaboration;
 
-    @objid ("6bd7a716-ed65-487b-842b-5535c4abf4d7")
+    @objid ("e658511d-41c8-4d19-92df-8f96dafb9207")
     @SmaMetaAssociation(metaName="Process", typeDataClass=BpmnProcessData.class, min=0, max=1, smAssociationClass=Metadata.ProcessSmDependency.class)
      SmObjectImpl mProcess;
 
-    @objid ("934b3cd4-7f85-42ee-9062-9aa96b2e4085")
+    @objid ("f08bcc0f-7337-4b70-b6fc-c3adcf299122")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("00752ab0-c4c3-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("e4451379-c58b-4bb2-984f-be0d498c2832")
+        @objid ("a6f66cf3-9df1-40aa-a7c8-e6bc3d5121f9")
         private static SmClass smClass = null;
 
-        @objid ("a02a970e-8d28-411b-8249-b058e0014518")
+        @objid ("39840f63-db0b-43ed-a9ae-774905db9f66")
         private static SmDependency SubProcessDep = null;
 
-        @objid ("6b4068ac-4c43-4a74-91e3-01cb91b796e3")
+        @objid ("15246f33-22b9-464b-a31c-5a7f8b5c8b56")
         private static SmDependency CollaborationDep = null;
 
-        @objid ("2562fc2c-ab2d-416f-9f37-e2a43c3e993e")
+        @objid ("0a1570e8-aa23-4683-bb4d-803849b8a0f1")
         private static SmDependency ProcessDep = null;
 
-        @objid ("6dc349d3-a098-445e-93b1-4ec9d155fb4d")
+        @objid ("35f66ea6-e249-4057-8242-35a3b4408edc")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(BpmnArtifactData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("7d61ac44-a82d-4ce8-9122-2baa0754d3ff")
+        @objid ("2959f99d-424e-4075-8ba6-d688e338b0bf")
         public static SmDependency SubProcessDep() {
             if (SubProcessDep == null) {
             	SubProcessDep = classof().getDependencyDef("SubProcess");
@@ -90,7 +90,7 @@ public abstract class BpmnArtifactData extends BpmnBaseElementData {
             return SubProcessDep;
         }
 
-        @objid ("7deb86ad-dde8-4a06-bfdb-14d5ab78e165")
+        @objid ("73346880-6eae-48c5-8dba-e5fb0cd0eb65")
         public static SmDependency CollaborationDep() {
             if (CollaborationDep == null) {
             	CollaborationDep = classof().getDependencyDef("Collaboration");
@@ -98,7 +98,7 @@ public abstract class BpmnArtifactData extends BpmnBaseElementData {
             return CollaborationDep;
         }
 
-        @objid ("4f023f4d-bc76-4ca6-8575-e8520c631717")
+        @objid ("ac687bfa-26a8-4b44-936f-be39601226d6")
         public static SmDependency ProcessDep() {
             if (ProcessDep == null) {
             	ProcessDep = classof().getDependencyDef("Process");
@@ -106,38 +106,38 @@ public abstract class BpmnArtifactData extends BpmnBaseElementData {
             return ProcessDep;
         }
 
-        @objid ("354cfaf6-adc8-42f8-93c3-aa6a6b5d562d")
-        public static SmDependency getCollaborationDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return CollaborationDep;
-        }
-
-        @objid ("735afc7e-3322-4323-963d-4cb3e254298f")
+        @objid ("aa5ef1ea-3300-4c8f-9712-9610b5b631b3")
         public static SmDependency getSubProcessDep() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return SubProcessDep;
         }
 
-        @objid ("8b4f954f-ed39-43f9-8431-0f57ed773acf")
-        public static SmClass getSmClass() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return smClass;
-        }
-
-        @objid ("e52d7893-b74a-439b-b914-b12e37893e98")
+        @objid ("f09c49a7-3413-46e5-926c-614747e30841")
         public static SmDependency getProcessDep() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return ProcessDep;
         }
 
+        @objid ("31ed3d16-6014-49d7-bb63-2d0298f99665")
+        public static SmDependency getCollaborationDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return CollaborationDep;
+        }
+
+        @objid ("66dd854a-9ec5-47ad-a750-ea24c376d1d7")
+        public static SmClass getSmClass() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return smClass;
+        }
+
         @objid ("00756c1e-c4c3-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("fa212371-0c48-496c-8f4f-143146c4f0e9")
+            @objid ("46f5d97f-a69e-48ff-87c9-d63aa4ef0e9d")
             public ISmObjectData createData() {
                 throw new UnsupportedOperationException();
             }
 
-            @objid ("089c7ffe-d376-4aee-9765-79c27cc02fc9")
+            @objid ("7031e143-df0a-4f2d-8bcb-b101bccca0cb")
             public SmObjectImpl createImpl() {
                 throw new UnsupportedOperationException();
             }
@@ -146,18 +146,18 @@ public abstract class BpmnArtifactData extends BpmnBaseElementData {
 
         @objid ("0075cf10-c4c3-1fd8-97fe-001ec947cd2a")
         public static class CollaborationSmDependency extends SmSingleDependency {
-            @objid ("5811b522-c418-4eae-a587-76a8ddae08ed")
+            @objid ("04e835ff-550c-49c6-95eb-1722fef4cc01")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((BpmnArtifactData) data).mCollaboration;
             }
 
-            @objid ("a2519280-b5a8-46c4-bab2-26be7b151c06")
+            @objid ("61bbaa8a-bdaa-4e02-a924-35572189a7a6")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((BpmnArtifactData) data).mCollaboration = value;
             }
 
-            @objid ("6f7a19d5-4ad2-4718-ae35-98ff2103a09a")
+            @objid ("371ba899-17c0-4ceb-bf02-004d91b70338")
             @Override
             public SmDependency getSymetric() {
                 return BpmnCollaborationData.Metadata.ArtifactDep();
@@ -167,18 +167,18 @@ public abstract class BpmnArtifactData extends BpmnBaseElementData {
 
         @objid ("0076444a-c4c3-1fd8-97fe-001ec947cd2a")
         public static class SubProcessSmDependency extends SmSingleDependency {
-            @objid ("275f04be-9a83-4101-bfd7-f4635511a744")
+            @objid ("a7d66063-1ebb-4bc0-8e5f-6cd96f86eb26")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((BpmnArtifactData) data).mSubProcess;
             }
 
-            @objid ("aa3f7df3-686f-4900-9ba2-a8b363d701da")
+            @objid ("0ef42dae-523d-4e0c-965b-f6239006d8b8")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((BpmnArtifactData) data).mSubProcess = value;
             }
 
-            @objid ("6f6111e6-2e03-4a7f-afa1-745f20be883f")
+            @objid ("f0bb408a-b326-43bb-9955-de5166a584dd")
             @Override
             public SmDependency getSymetric() {
                 return BpmnSubProcessData.Metadata.ArtifactDep();
@@ -188,18 +188,18 @@ public abstract class BpmnArtifactData extends BpmnBaseElementData {
 
         @objid ("0076bf6a-c4c3-1fd8-97fe-001ec947cd2a")
         public static class ProcessSmDependency extends SmSingleDependency {
-            @objid ("218269d7-64a7-4870-854c-618a758d89e0")
+            @objid ("c0df8c2e-6c89-41f5-a54a-a6051a1d3656")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((BpmnArtifactData) data).mProcess;
             }
 
-            @objid ("e58150fd-6794-45ec-8886-f280e57505f5")
+            @objid ("cf133c79-059a-4895-9144-b6cd89123da9")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((BpmnArtifactData) data).mProcess = value;
             }
 
-            @objid ("4f52839e-9b8d-4fee-9344-47158ce8bac6")
+            @objid ("0eebebed-899d-4557-929d-87c7aeb32a0e")
             @Override
             public SmDependency getSymetric() {
                 return BpmnProcessData.Metadata.ArtifactDep();

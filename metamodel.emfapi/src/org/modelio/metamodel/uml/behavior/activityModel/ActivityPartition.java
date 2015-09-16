@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.uml.behavior.activityModel;
 
@@ -34,52 +34,52 @@ import org.modelio.metamodel.uml.infrastructure.ModelElement;
 
 @objid ("0029d8f8-c4bf-1fd8-97fe-001ec947cd2a")
 public interface ActivityPartition extends ActivityGroup {
-    @objid ("4ed7971d-9eb9-4308-ae98-73d23bf5c864")
+    @objid ("8b86bd17-8e32-4e17-81ac-41aa460a9a22")
     boolean isIsDimension();
 
-    @objid ("21729afd-3e96-4608-b93c-1aca8d8c227a")
+    @objid ("0a805444-a100-4643-a8f4-cd925f60ac84")
     void setIsDimension(boolean value);
 
-    @objid ("be7ce4c0-0faa-4846-8259-44435b1c7170")
+    @objid ("aa67b672-f4ad-4c6e-8d5e-c8ffd535b47f")
     boolean isIsExternal();
 
-    @objid ("2f41155d-9608-4d84-a53f-96445e32d92b")
+    @objid ("21b00749-da65-4dbd-81e9-f0538bebbb25")
     void setIsExternal(boolean value);
 
-    @objid ("dfbd3750-a04e-428b-bfb0-d31261de0deb")
+    @objid ("2aeb4390-a618-43bc-97d0-a751473aa265")
     ModelElement getRepresented();
 
-    @objid ("4f8ca295-56a5-4bef-8d7a-5c64cfe707aa")
+    @objid ("7affd595-5b83-438e-890e-acb23acbc651")
     void setRepresented(ModelElement value);
 
-    @objid ("1a43d002-37fd-4222-9361-84a97b5ab3ca")
+    @objid ("19ccc9e3-5a79-45c1-94be-b91011d5cdf7")
     EList<ActivityNode> getContainedNode();
 
-    @objid ("da87c6ef-55c5-4a45-9834-e48baf9d4f69")
+    @objid ("00a08d0d-53dd-4bec-923c-f35e310e27c4")
     <T extends ActivityNode> List<T> getContainedNode(java.lang.Class<T> filterClass);
 
-    @objid ("345def31-0dd4-4118-9af6-cd62e463f0ea")
+    @objid ("21ba1c4a-d7b8-4f01-9db9-6f3a6b76ca27")
     EList<MessageFlow> getOutgoing();
 
-    @objid ("a4e92617-0ece-4e1a-a43c-83685885d2be")
+    @objid ("9cd7f791-76c2-47e9-8188-4feb4fafd7c4")
     <T extends MessageFlow> List<T> getOutgoing(java.lang.Class<T> filterClass);
 
-    @objid ("b2f3451a-5310-430a-9f60-30d231cd63d5")
+    @objid ("b89d41db-16a4-46b1-8c06-81c5f4a4d777")
     ActivityPartition getSuperPartition();
 
-    @objid ("c5982fc6-c1ad-45f2-b7b3-e29660bee927")
+    @objid ("2fef0143-23b3-44f5-a681-d24f47ad042f")
     void setSuperPartition(ActivityPartition value);
 
-    @objid ("a242ad4c-ea5e-4fe6-b5a0-6cc5212f2754")
+    @objid ("17b8d684-4917-4685-80d9-7c060408d84b")
     EList<ActivityPartition> getSubPartition();
 
-    @objid ("c954f214-3b15-41b8-96e2-643d44dedf5d")
+    @objid ("2d874452-f73a-4219-b153-f4a810a13a97")
     <T extends ActivityPartition> List<T> getSubPartition(java.lang.Class<T> filterClass);
 
-    @objid ("3b5aa61e-7a4d-4de1-9255-20f5fecb7ba0")
+    @objid ("add4de31-1198-4fdd-93c5-a73e3c10e1dd")
     EList<MessageFlow> getIncoming();
 
-    @objid ("02749ea2-671a-43c5-b805-3c5f0d7b100b")
+    @objid ("c3f0856e-d68a-4d58-ba27-ed79616bdf9b")
     <T extends MessageFlow> List<T> getIncoming(java.lang.Class<T> filterClass);
 
 }

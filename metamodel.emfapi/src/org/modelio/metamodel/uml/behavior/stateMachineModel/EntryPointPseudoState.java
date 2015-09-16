@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.uml.behavior.stateMachineModel;
 
@@ -34,22 +34,22 @@ import org.modelio.metamodel.uml.behavior.stateMachineModel.StateMachine;
 
 @objid ("004f3f3a-c4bf-1fd8-97fe-001ec947cd2a")
 public interface EntryPointPseudoState extends AbstractPseudoState {
-    @objid ("61be95f0-26e3-4f30-9eb2-428c5dd68c70")
+    @objid ("4dfb14ac-0517-4ed7-bb12-59d425d72623")
     State getEntryOf();
 
-    @objid ("b8fc2f96-a9bc-47e7-82ea-8a213f0ed07a")
+    @objid ("9f68825f-a3db-4bbc-8e7d-8cdae5f3b36e")
     void setEntryOf(State value);
 
-    @objid ("0a9b643d-2325-44c4-9a17-f0db950247f4")
+    @objid ("b9f6f838-ef06-4393-ab17-694fa9e7a5f4")
     EList<ConnectionPointReference> getConnection();
 
-    @objid ("a436e093-20fa-4f57-87ba-27e65775a30f")
+    @objid ("21d7421d-7e0f-4409-b319-0571401ca74c")
     <T extends ConnectionPointReference> List<T> getConnection(java.lang.Class<T> filterClass);
 
-    @objid ("a606cada-b547-48a5-aeb6-b72a5eed3772")
+    @objid ("88806fcb-86e8-425e-b564-ccdd10a656f4")
     StateMachine getEntryOfMachine();
 
-    @objid ("b1bb913d-22ab-45a6-a253-7f7c1474b92c")
+    @objid ("51a83079-7901-4815-89bd-cfab5522e1a4")
     void setEntryOfMachine(StateMachine value);
 
 }

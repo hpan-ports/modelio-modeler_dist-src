@@ -21,9 +21,7 @@
 
 package org.modelio.xmi.model.ecore;
 
-import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.modelio.api.modelio.Modelio;
 import org.modelio.metamodel.uml.behavior.activityModel.Activity;
 import org.modelio.metamodel.uml.behavior.activityModel.ActivityPartition;
 import org.modelio.metamodel.uml.infrastructure.Element;
@@ -31,10 +29,11 @@ import org.modelio.metamodel.uml.infrastructure.ModelElement;
 import org.modelio.xmi.util.ReverseProperties;
 
 @objid ("8c7aafa7-0e8e-4c8a-9a62-11efe471ed36")
-public class EActivityPartition extends ENamedElement implements IEElement {
+public class EActivityPartition extends ENamedElement {
     @objid ("88f10cc8-071c-4793-85c9-789cf26c7dd0")
+    @Override
     public Element createObjingElt() {
-        return Modelio.getInstance().getModelingSession().getModel()
+        return ReverseProperties.getInstance().getMModelServices().getModelFactory()
                 .createActivityPartition();
     }
 
@@ -44,6 +43,7 @@ public class EActivityPartition extends ENamedElement implements IEElement {
     }
 
     @objid ("8744ebd6-89b1-4a8d-afb6-2fdc8d4bf8ac")
+    @Override
     public void attach(Element objingElt) {
         ReverseProperties revProp = ReverseProperties.getInstance();
                 
@@ -69,11 +69,8 @@ public class EActivityPartition extends ENamedElement implements IEElement {
         }
     }
 
-    @objid ("c907e532-7473-40a0-a92b-de6a13d6af14")
-    public void attach(List<Object> objingElts) {
-    }
-
     @objid ("8f05f320-a599-42a4-8f30-ecde2caa2abe")
+    @Override
     public void setProperties(Element objingElt) {
         super.setProperties(objingElt);
         setDimension((ActivityPartition) objingElt);

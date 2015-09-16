@@ -85,10 +85,10 @@ public class GmSequenceDiagram extends GmAbstractDiagram {
         // Remove Default modelListener added by GmAbstractDiagram, and replace by our own.
         if (this.modelChangeHandler != null) {
             ModelManager modelManager = getModelManager();
-            modelManager.getModelingSession().getModelChangeSupport().removeModelChangeHandler(this.modelChangeHandler);
+            modelManager.getModelingSession().getModelChangeSupport().removePersistentViewListener(this.modelChangeHandler);
             modelManager.getModelingSession().getModelChangeSupport().removeModelChangeListener(this.modelChangeHandler);
             this.modelChangeHandler = new SequenceModelChangeHandler();
-            modelManager.getModelingSession().getModelChangeSupport().addModelChangeHandler(this.modelChangeHandler);
+            modelManager.getModelingSession().getModelChangeSupport().addPersistentViewListener(this.modelChangeHandler);
             modelManager.getModelingSession().getModelChangeSupport().addModelChangeListener(this.modelChangeHandler);
         }
         
@@ -256,10 +256,11 @@ public class GmSequenceDiagram extends GmAbstractDiagram {
     protected class SequenceModelChangeHandler implements IDiagramRefresher {
         @objid ("d975f9fa-55b6-11e2-877f-002564c97630")
         @Override
-        public void handleModelChange(IModelChangeEvent event) {
+        public void updateView(IModelChangeEvent event) {
             final AbstractDiagram diagram = (AbstractDiagram) getRelatedElement();
             // Refresh the diagram in the display thread
             Display.getDefault().syncExec(new Runnable() {
+                @SuppressWarnings("synthetic-access")
                 @Override
                 public void run() {
                     if (!diagram.isValid() || isDisposed() || !diagram.getStatus().isModifiable()) {
@@ -275,10 +276,10 @@ public class GmSequenceDiagram extends GmAbstractDiagram {
 
         /**
          * Reload the diagram if it has been modified outside.
-         * @param session The modeling session
          * @param event The change event.
          */
         @objid ("d975fa03-55b6-11e2-877f-002564c97630")
+        @SuppressWarnings("synthetic-access")
         @Override
         public void modelChanged(IModelChangeEvent event) {
             final AbstractDiagram diagram = (AbstractDiagram) getRelatedElement();
@@ -299,7 +300,7 @@ public class GmSequenceDiagram extends GmAbstractDiagram {
                                 // Failed to read string, log error.
                                 DiagramEditorSequence.LOG.error(DiagramEditorSequence.PLUGIN_ID, pe);
                                 // FIXME correct handling of failed reading.
-                                assert (false) : "Problem persistence: failed to load diagram!";
+                                assert (false) : "Failed to load diagram!";
                             }
                         }
                     }

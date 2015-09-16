@@ -233,6 +233,7 @@ public class DefaultMetaExpert implements IMetaExpert {
             addRule("Actor", "BindableInstance");
             addRule("Actor", "Collaboration");
             addRule("Actor", "CollaborationUse");
+            addRule("Actor", "CommunicationInteraction");
             addRule("Actor", "Constraint");
             addRule("Actor", "MatrixDefinition");
             addRule("Actor", "DataFlow");
@@ -333,6 +334,7 @@ public class DefaultMetaExpert implements IMetaExpert {
             addRule("BusinessRuleContainer", "ExternDocument");
             addRule("BusinessRuleContainer", "BusinessRule");
             addRule("BusinessRuleContainer", "BusinessRuleContainer");
+            addRule("BusinessRuleContainer", "StaticDiagram");
             
             // CallBehaviorAction
             addRule("CallBehaviorAction", "Constraint");
@@ -373,6 +375,7 @@ public class DefaultMetaExpert implements IMetaExpert {
             addRule("Class", "Class");
             addRule("Class", "Collaboration");
             addRule("Class", "CollaborationUse");
+            addRule("Class", "CommunicationInteraction");
             addRule("Class", "Component");
             addRule("Class", "Constraint");
             addRule("Class", "MatrixDefinition");
@@ -392,6 +395,7 @@ public class DefaultMetaExpert implements IMetaExpert {
             addRule("Class", "PackageImport");
             addRule("Class", "Port");
             addRule("Class", "Signal");
+            addRule("Class", "StateMachine");
             addRule("Class", "TaggedValue");
             addRule("Class", "TemplateBinding");
             addRule("Class", "TemplateParameter");
@@ -437,6 +441,7 @@ public class DefaultMetaExpert implements IMetaExpert {
             addRule("Collaboration", "Activity");
             addRule("Collaboration", "BindableInstance");
             addRule("Collaboration", "CollaborationUse");
+            addRule("Collaboration", "CommunicationInteraction");
             addRule("Collaboration", "Constraint");
             addRule("Collaboration", "MatrixDefinition");
             addRule("Collaboration", "ElementImport");
@@ -506,6 +511,7 @@ public class DefaultMetaExpert implements IMetaExpert {
             addRule("Component", "Class");
             addRule("Component", "Collaboration");
             addRule("Component", "CollaborationUse");
+            addRule("Component", "CommunicationInteraction");
             addRule("Component", "Component");
             addRule("Component", "Constraint");
             addRule("Component", "MatrixDefinition");
@@ -527,6 +533,7 @@ public class DefaultMetaExpert implements IMetaExpert {
             addRule("Component", "PackageImport");
             addRule("Component", "Port");
             addRule("Component", "Signal");
+            addRule("Component", "StateMachine");
             addRule("Component", "TaggedValue");
             addRule("Component", "TemplateBinding");
             addRule("Component", "TemplateParameter");
@@ -638,6 +645,7 @@ public class DefaultMetaExpert implements IMetaExpert {
             addRule("Dictionary", "Note");
             addRule("Dictionary", "ExternDocument");
             addRule("Dictionary", "Term");
+            addRule("Dictionary", "StaticDiagram");
             
             // ElementImport
             addRule("ElementImport", "Constraint");
@@ -828,6 +836,7 @@ public class DefaultMetaExpert implements IMetaExpert {
             addRule("GoalContainer", "ExternDocument");
             addRule("GoalContainer", "Goal");
             addRule("GoalContainer", "GoalContainer");
+            addRule("GoalContainer", "StaticDiagram");
             
             // InformationItem
             addRule("InformationItem", "Constraint");
@@ -906,6 +915,7 @@ public class DefaultMetaExpert implements IMetaExpert {
             addRule("Interface", "Attribute");
             addRule("Interface", "Class");
             addRule("Interface", "Collaboration");
+            addRule("Interface", "CommunicationInteraction");
             addRule("Interface", "Constraint");
             addRule("Interface", "MatrixDefinition");
             addRule("Interface", "DataFlow");
@@ -1096,6 +1106,7 @@ public class DefaultMetaExpert implements IMetaExpert {
             addRule("Node", "Attribute");
             addRule("Node", "BindableInstance");
             addRule("Node", "CollaborationUse");
+            addRule("Node", "CommunicationInteraction");
             addRule("Node", "Constraint");
             addRule("Node", "MatrixDefinition");
             addRule("Node", "DataFlow");
@@ -1151,6 +1162,7 @@ public class DefaultMetaExpert implements IMetaExpert {
             addRule("Operation", "Activity");
             addRule("Operation", "Collaboration");
             addRule("Operation", "CollaborationUse");
+            addRule("Operation", "CommunicationInteraction");
             addRule("Operation", "Constraint");
             addRule("Operation", "MatrixDefinition");
             addRule("Operation", "ElementImport");
@@ -1352,6 +1364,7 @@ public class DefaultMetaExpert implements IMetaExpert {
             addRule("RequirementContainer", "ExternDocument");
             addRule("RequirementContainer", "Requirement");
             addRule("RequirementContainer", "RequirementContainer");
+            addRule("RequirementContainer", "StaticDiagram");
             
             // SendSignalAction
             addRule("SendSignalAction", "Constraint");
@@ -1372,6 +1385,7 @@ public class DefaultMetaExpert implements IMetaExpert {
             addRule("Signal", "Attribute");
             addRule("Signal", "Collaboration");
             addRule("Signal", "CollaborationUse");
+            addRule("Signal", "CommunicationInteraction");
             addRule("Signal", "Constraint");
             addRule("Signal", "MatrixDefinition");
             addRule("Signal", "DataType");
@@ -1416,6 +1430,7 @@ public class DefaultMetaExpert implements IMetaExpert {
             addRule("StateMachine", "ExitPointPseudoState");
             addRule("StateMachine", "Region");
             addRule("StateMachine", "StateMachineDiagram");
+            addRule("StateMachine", "Event");
             
             // StaticDiagram
             addRule("StaticDiagram", "Constraint");

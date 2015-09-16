@@ -28,6 +28,7 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -39,6 +40,7 @@ import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.resource.ImageRegistry;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Display;
+import org.modelio.api.diagram.ContributorCategory;
 import org.modelio.api.diagram.IDiagramCustomizer;
 import org.modelio.api.diagram.tools.IAttachedBoxCommand;
 import org.modelio.api.diagram.tools.IBoxCommand;
@@ -54,9 +56,11 @@ import org.modelio.api.module.IPeerModule;
 import org.modelio.api.module.LicenseInfos;
 import org.modelio.api.module.commands.ActionLocation;
 import org.modelio.api.module.commands.IModuleAction;
+import org.modelio.api.module.contrib.WizardContribution;
 import org.modelio.api.module.diagrams.DiagramCustomizationDescriptor;
 import org.modelio.api.module.diagrams.DiagramToolDescriptor;
 import org.modelio.api.module.propertiesPage.IModulePropertyPage;
+import org.modelio.api.ui.diagramcreation.IDiagramWizardContributor;
 import org.modelio.gproject.gproject.GProject;
 import org.modelio.gproject.ramc.core.model.IModelComponent;
 import org.modelio.gproject.ramc.core.packaging.IModelComponentContributor;
@@ -553,6 +557,24 @@ public class ModuleI18NService {
         @Override
         public <I> I instanciateExternProcessor(String className, Class<I> clazz, Object... initargs) {
             return null;
+        }
+
+        @objid ("0ee207ae-a476-47dc-a23d-0707d99a02ba")
+        @Override
+        public List<WizardContribution> getDiagramWizardContributions() {
+            return Collections.emptyList();
+        }
+
+        @objid ("2c7449dd-6c91-4ff0-a8a5-b0848712ebbd")
+        @Override
+        public void registerDiagramWizardContribution(ContributorCategory category, IDiagramWizardContributor contributor) {
+            throw new UnsupportedOperationException();
+        }
+
+        @objid ("0841fa7a-fe2d-4db0-9cce-f056b47c6f71")
+        @Override
+        public void unregisterDiagramWizardContribution(ContributorCategory category, IDiagramWizardContributor contributor) {
+            throw new UnsupportedOperationException();
         }
 
     }

@@ -1,0 +1,36 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<title>Modeler audit rules R1160</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link href="style.css" media="screen" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<a name="R1160"></a>
+<h1 >R1160<a href="#R1160" class="wiki-anchor">&para;</a></h1>
+
+<a name="Summary"></a>
+<h4 >Summary<a href="#Summary" class="wiki-anchor">&para;</a></h4>
+
+<p>A target <em>Pin</em> can only be owned by a <em>CallOperationAction</em> or a
+<em>SendSignalAction</em>.</p>
+
+<a name="Details"></a>
+<h4 >Details<a href="#Details" class="wiki-anchor">&para;</a></h4>
+
+<p>The target <em>Pin</em> is an <em>InputPin</em> that represents the target object to which
+the request or signal is sent. Only <em>CallOperationActions</em> or
+<em>SendSignalActions</em> can own such a <em>Pin</em>.</p>
+
+<a name="Tips"></a>
+<h4 >Tips<a href="#Tips" class="wiki-anchor">&para;</a></h4>
+
+<p>This rule is triggered when the “<em>Self”</em> property of a <em>Pin</em> is checked and
+the owner of the <em>Pin</em> in question is neither a <em>CallOperationAction</em> nor a
+<em>SendSignalAction</em>.</p>
+
+<p>This property can be modified through the “Element” view when the <em>Pin</em> is
+selected.</p>
+
+<div id="footer"><iframe frameborder="0" scrolling="no" height="25" width="100%" src="_footer.html"></iframe></div> </body>
+</html>

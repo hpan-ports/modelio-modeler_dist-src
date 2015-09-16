@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.data.uml.statik;
 
@@ -47,64 +47,64 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("00193926-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=Port.class, factory=PortData.Metadata.ObjectFactory.class)
 public class PortData extends BindableInstanceData {
-    @objid ("049573ed-6cf2-436c-9e54-aa7fe3ccfd53")
+    @objid ("d762e0cc-465d-4c9b-bd16-69e233b0235a")
     @SmaMetaAttribute(metaName="IsBehavior", type=Boolean.class, smAttributeClass=Metadata.IsBehaviorSmAttribute.class)
      Object mIsBehavior = false;
 
-    @objid ("ea5382cf-2861-4460-8c57-edffc32d8414")
+    @objid ("1f655cb2-0b1e-4566-a3f4-3f4396200d16")
     @SmaMetaAttribute(metaName="IsService", type=Boolean.class, smAttributeClass=Metadata.IsServiceSmAttribute.class)
      Object mIsService = false;
 
-    @objid ("8ec357a4-c576-48f8-a1f0-6dab6db1785f")
+    @objid ("3121dc67-e9c9-4de7-9697-586cff6b37fa")
     @SmaMetaAttribute(metaName="IsConjugated", type=Boolean.class, smAttributeClass=Metadata.IsConjugatedSmAttribute.class)
      Object mIsConjugated = false;
 
-    @objid ("c878bf63-6672-4840-8f26-affe763d22b0")
+    @objid ("d2329211-6581-4d08-a41c-1e4b7e40f5b8")
     @SmaMetaAttribute(metaName="Direction", type=PortOrientation.class, smAttributeClass=Metadata.DirectionSmAttribute.class)
      Object mDirection = PortOrientation.NONE;
 
-    @objid ("12776e4c-c985-4fda-aeef-0118dc29d30f")
+    @objid ("182a4a15-8799-41d9-9c1f-c7042277ccb3")
     @SmaMetaAssociation(metaName="Provided", typeDataClass=ProvidedInterfaceData.class, min=0, max=-1, smAssociationClass=Metadata.ProvidedSmDependency.class, component = true)
      List<SmObjectImpl> mProvided = null;
 
-    @objid ("a2a8ea28-fa67-4200-944d-fb60f8d45ef7")
+    @objid ("a9244d6d-8e03-49d2-b75f-fe5998efd4a8")
     @SmaMetaAssociation(metaName="Required", typeDataClass=RequiredInterfaceData.class, min=0, max=-1, smAssociationClass=Metadata.RequiredSmDependency.class, component = true)
      List<SmObjectImpl> mRequired = null;
 
-    @objid ("e81c69d1-f13b-4f46-9efd-e06ddacbc13a")
+    @objid ("8f134ed5-02f8-4cee-841c-0f9a5b657cda")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("007f05e4-c4c2-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("0f40c49c-53e6-4d73-a466-18f70457ffe2")
+        @objid ("b63c0646-1014-4c87-b1f1-09cf84e842c1")
         private static SmClass smClass = null;
 
-        @objid ("087ba44e-e3e1-4368-a47a-859109a72868")
+        @objid ("2464279c-25c2-43cc-8d8f-353eb947f11f")
         private static SmAttribute IsBehaviorAtt = null;
 
-        @objid ("24a652d4-9387-48a9-a6db-10e916fa0e5b")
+        @objid ("246dbdb0-e1b1-42ed-842a-afc80107b137")
         private static SmAttribute IsServiceAtt = null;
 
-        @objid ("f378dbae-ede3-4ff3-95cf-e1698fcd9802")
+        @objid ("d872e870-0374-44a2-a85c-79dbbc4a6c6a")
         private static SmAttribute IsConjugatedAtt = null;
 
-        @objid ("f3eb1a10-34a0-419c-b034-294dec80ef08")
+        @objid ("4abc037b-a0ba-4b4f-a359-e58254cad3c7")
         private static SmAttribute DirectionAtt = null;
 
-        @objid ("039fd9a8-1840-44da-ad2a-18c94bf980af")
+        @objid ("97cbd939-774a-4bad-a36b-75a620755266")
         private static SmDependency ProvidedDep = null;
 
-        @objid ("b0e155da-94b9-4b61-ac64-2d7bf733e3bc")
+        @objid ("90e572b1-a8a9-4cdd-8331-d115bd279f31")
         private static SmDependency RequiredDep = null;
 
-        @objid ("71a975c4-7b0e-459b-b69f-c01d61d31b3a")
+        @objid ("86372afc-9122-4b1e-857a-7fd92e63f272")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(PortData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("f98cc478-e05a-4c93-a5bc-013c17000404")
+        @objid ("e33ff853-91a0-4cde-923b-ee69729570ee")
         public static SmAttribute IsBehaviorAtt() {
             if (IsBehaviorAtt == null) {
             	IsBehaviorAtt = classof().getAttributeDef("IsBehavior");
@@ -112,7 +112,7 @@ public class PortData extends BindableInstanceData {
             return IsBehaviorAtt;
         }
 
-        @objid ("ff66496e-f76c-49da-81d5-ee0309784ef1")
+        @objid ("fdbb3a19-13a3-42dd-a19b-e29d13a93f43")
         public static SmAttribute IsServiceAtt() {
             if (IsServiceAtt == null) {
             	IsServiceAtt = classof().getAttributeDef("IsService");
@@ -120,7 +120,7 @@ public class PortData extends BindableInstanceData {
             return IsServiceAtt;
         }
 
-        @objid ("aeebf94a-c9e7-4c6c-9995-7cc8eb014ed9")
+        @objid ("9c049ca0-1af0-42fc-b1f3-5c524e08dd0a")
         public static SmAttribute IsConjugatedAtt() {
             if (IsConjugatedAtt == null) {
             	IsConjugatedAtt = classof().getAttributeDef("IsConjugated");
@@ -128,7 +128,7 @@ public class PortData extends BindableInstanceData {
             return IsConjugatedAtt;
         }
 
-        @objid ("7e8011f3-9402-4ac2-a798-6d1046c8b2dc")
+        @objid ("c787bf32-ccee-42f9-8aa9-e8a119034f1d")
         public static SmAttribute DirectionAtt() {
             if (DirectionAtt == null) {
             	DirectionAtt = classof().getAttributeDef("Direction");
@@ -136,7 +136,7 @@ public class PortData extends BindableInstanceData {
             return DirectionAtt;
         }
 
-        @objid ("d2873a63-b79b-4e40-8ecc-714ca56a132d")
+        @objid ("194602fe-a6e9-4554-ae19-6c7848ba0146")
         public static SmDependency ProvidedDep() {
             if (ProvidedDep == null) {
             	ProvidedDep = classof().getDependencyDef("Provided");
@@ -144,7 +144,7 @@ public class PortData extends BindableInstanceData {
             return ProvidedDep;
         }
 
-        @objid ("d8e442b2-0bff-4292-b209-e449ced0e88e")
+        @objid ("c23ce91c-d39e-43e3-8693-85dfc99c9c9f")
         public static SmDependency RequiredDep() {
             if (RequiredDep == null) {
             	RequiredDep = classof().getDependencyDef("Required");
@@ -152,56 +152,56 @@ public class PortData extends BindableInstanceData {
             return RequiredDep;
         }
 
-        @objid ("7a0a5372-70c0-4d9c-ad8e-8ae8cd3d0fbf")
-        public static SmAttribute getIsConjugatedAtt() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return IsConjugatedAtt;
-        }
-
-        @objid ("1d36d496-5f9b-44fe-862d-7d92c12ebefe")
-        public static SmAttribute getIsServiceAtt() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return IsServiceAtt;
-        }
-
-        @objid ("c6e43d36-fa69-46e7-b174-f716ad788628")
-        public static SmAttribute getIsBehaviorAtt() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return IsBehaviorAtt;
-        }
-
-        @objid ("a0c10203-9318-450a-8b97-75f58606dce9")
-        public static SmDependency getRequiredDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return RequiredDep;
-        }
-
-        @objid ("1aefbac8-9b18-4974-8c95-f8998ed0def7")
+        @objid ("d10bf90b-1aaf-4d19-a34f-fa2edf3ba79f")
         public static SmAttribute getDirectionAtt() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return DirectionAtt;
         }
 
-        @objid ("d77b2cc2-a5ab-4a14-a08c-cddba1756fd6")
-        public static SmClass getSmClass() {
+        @objid ("bdf6245f-4c08-4f05-a05b-c17c4ca84f21")
+        public static SmAttribute getIsServiceAtt() {
             // Automatically generated method. Please delete this comment before entering specific code.
-            return smClass;
+            return IsServiceAtt;
         }
 
-        @objid ("041d9d65-56b9-4f80-8ffe-f7efae785b4b")
+        @objid ("fb554492-67e5-49de-befe-4cefb51cacd1")
+        public static SmAttribute getIsConjugatedAtt() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return IsConjugatedAtt;
+        }
+
+        @objid ("0c127f8c-44d8-4525-9051-720423f8f5a2")
         public static SmDependency getProvidedDep() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return ProvidedDep;
         }
 
+        @objid ("ec483b8f-3ae4-4512-99d3-d095e0fe2341")
+        public static SmDependency getRequiredDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return RequiredDep;
+        }
+
+        @objid ("d64a7e52-10a7-4d16-8d22-75dc6c7f1b7b")
+        public static SmClass getSmClass() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return smClass;
+        }
+
+        @objid ("40d6161a-1c4e-45a3-a70f-9235878dd689")
+        public static SmAttribute getIsBehaviorAtt() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return IsBehaviorAtt;
+        }
+
         @objid ("007f4734-c4c2-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("fdcb8197-abb3-42ae-86c4-e4d7f1f556a1")
+            @objid ("60cb9a27-3a4e-4e5a-8f76-89282f676016")
             public ISmObjectData createData() {
                 return new PortData();
             }
 
-            @objid ("26cccce9-2104-4b95-9ea4-d4afab9a2d19")
+            @objid ("23795ba3-e6f0-4c15-b4a9-97189efa392f")
             public SmObjectImpl createImpl() {
                 return new PortImpl();
             }
@@ -210,12 +210,12 @@ public class PortData extends BindableInstanceData {
 
         @objid ("007fa936-c4c2-1fd8-97fe-001ec947cd2a")
         public static class IsBehaviorSmAttribute extends SmAttribute {
-            @objid ("c7234b8f-490d-46df-bd4b-6805305282e1")
+            @objid ("bedc1640-12c8-45fd-9583-e99a83302043")
             public Object getValue(ISmObjectData data) {
                 return ((PortData) data).mIsBehavior;
             }
 
-            @objid ("4115cfc7-f055-432f-9bca-ffc6ea77fb34")
+            @objid ("679194e4-407a-4080-98a0-0cafa4d1beff")
             public void setValue(ISmObjectData data, Object value) {
                 ((PortData) data).mIsBehavior = value;
             }
@@ -224,12 +224,12 @@ public class PortData extends BindableInstanceData {
 
         @objid ("00800b6a-c4c2-1fd8-97fe-001ec947cd2a")
         public static class IsServiceSmAttribute extends SmAttribute {
-            @objid ("21db6fc8-212f-4038-9186-ef1becc1675a")
+            @objid ("cbbb09de-a489-4dde-bf5d-3e30b2d0d8d9")
             public Object getValue(ISmObjectData data) {
                 return ((PortData) data).mIsService;
             }
 
-            @objid ("34a3f7e9-489c-4ad1-a110-9a74ed9607e0")
+            @objid ("c6401925-a97d-46b9-9622-55beac7c7269")
             public void setValue(ISmObjectData data, Object value) {
                 ((PortData) data).mIsService = value;
             }
@@ -238,12 +238,12 @@ public class PortData extends BindableInstanceData {
 
         @objid ("00806fec-c4c2-1fd8-97fe-001ec947cd2a")
         public static class IsConjugatedSmAttribute extends SmAttribute {
-            @objid ("521fdc99-52f9-4b0f-827e-582f2dc6a56e")
+            @objid ("b1f9656c-ad88-46df-8a2d-a0636bf79abd")
             public Object getValue(ISmObjectData data) {
                 return ((PortData) data).mIsConjugated;
             }
 
-            @objid ("72af4145-a6e4-4b6a-844b-e84044bf8ee1")
+            @objid ("7323ce08-9c89-4f76-ba46-8b0bf728df54")
             public void setValue(ISmObjectData data, Object value) {
                 ((PortData) data).mIsConjugated = value;
             }
@@ -252,20 +252,20 @@ public class PortData extends BindableInstanceData {
 
         @objid ("0080d41e-c4c2-1fd8-97fe-001ec947cd2a")
         public static class RequiredSmDependency extends SmMultipleDependency {
-            @objid ("54445720-93cb-4c0c-baff-4059229a6948")
+            @objid ("bbbc7405-08fd-4d8e-b739-c317986d67f8")
             @Override
             public List<SmObjectImpl> getValueList(ISmObjectData data) {
                 return (((PortData)data).mRequired != null)? ((PortData)data).mRequired:SmMultipleDependency.EMPTY;
             }
 
-            @objid ("b284eeb6-1d42-4816-98b9-b08724ba599c")
+            @objid ("490c3fe9-67cb-453a-8142-55a349db1094")
             @Override
             protected List<SmObjectImpl> allocateValueList(ISmObjectData data, int initialCapacity) {
                 ((PortData) data).mRequired = new ArrayList<>(initialCapacity);
                 return ((PortData) data).mRequired;
             }
 
-            @objid ("1d854025-af2a-4982-bb23-f4f5634b2887")
+            @objid ("d7889a5f-1d3b-4c5b-9ca1-ee5bd9b36997")
             @Override
             public SmDependency getSymetric() {
                 return RequiredInterfaceData.Metadata.RequiringDep();
@@ -275,20 +275,20 @@ public class PortData extends BindableInstanceData {
 
         @objid ("00813904-c4c2-1fd8-97fe-001ec947cd2a")
         public static class ProvidedSmDependency extends SmMultipleDependency {
-            @objid ("48d70752-2a75-489e-8a28-1bb800635121")
+            @objid ("e4b04ab0-4105-4d76-93b9-023811e9bb34")
             @Override
             public List<SmObjectImpl> getValueList(ISmObjectData data) {
                 return (((PortData)data).mProvided != null)? ((PortData)data).mProvided:SmMultipleDependency.EMPTY;
             }
 
-            @objid ("d55c542a-e353-4050-b2de-347ef35e7b8e")
+            @objid ("094ce6e3-979d-471a-9bc8-73365c837682")
             @Override
             protected List<SmObjectImpl> allocateValueList(ISmObjectData data, int initialCapacity) {
                 ((PortData) data).mProvided = new ArrayList<>(initialCapacity);
                 return ((PortData) data).mProvided;
             }
 
-            @objid ("0a55e77d-de11-4faa-a560-533faf04d240")
+            @objid ("d3f35d16-1501-4f43-ba93-ad9735dc9707")
             @Override
             public SmDependency getSymetric() {
                 return ProvidedInterfaceData.Metadata.ProvidingDep();
@@ -298,12 +298,12 @@ public class PortData extends BindableInstanceData {
 
         @objid ("004dfbca-7950-1fe9-b4b9-001ec947cd2a")
         public static class DirectionSmAttribute extends SmAttribute {
-            @objid ("3ba07f67-3947-4e9c-846a-bc8615c6f2bb")
+            @objid ("75d2d1e2-08c5-4e4a-81a9-51ec15dbe937")
             public Object getValue(ISmObjectData data) {
                 return ((PortData) data).mDirection;
             }
 
-            @objid ("c3d0919a-2bd7-4bfb-b971-3297b1cba465")
+            @objid ("0063710b-3423-4e00-a482-ff47c912e8a4")
             public void setValue(ISmObjectData data, Object value) {
                 ((PortData) data).mDirection = value;
             }

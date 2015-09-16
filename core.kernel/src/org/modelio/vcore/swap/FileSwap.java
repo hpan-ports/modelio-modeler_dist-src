@@ -36,7 +36,7 @@ import java.util.UUID;
 import java.util.WeakHashMap;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.vbasic.files.FileUtils;
-import org.modelio.vcore.Log;
+import org.modelio.vbasic.log.Log;
 import org.modelio.vcore.smkernel.IMetaOf;
 import org.modelio.vcore.smkernel.IRepositoryObject;
 import org.modelio.vcore.smkernel.ISwap;

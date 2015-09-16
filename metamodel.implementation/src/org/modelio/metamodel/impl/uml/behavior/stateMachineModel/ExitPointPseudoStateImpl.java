@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.uml.behavior.stateMachineModel;
 
@@ -45,25 +45,25 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("004feeee-c4bf-1fd8-97fe-001ec947cd2a")
 public class ExitPointPseudoStateImpl extends AbstractPseudoStateImpl implements ExitPointPseudoState {
-    @objid ("5e82503f-fe34-4d25-bc71-c52b10d08d02")
+    @objid ("40e13ad0-c779-4434-bc81-09d941028873")
     @Override
     public State getExitOf() {
         return (State) getDepVal(ExitPointPseudoStateData.Metadata.ExitOfDep());
     }
 
-    @objid ("6dc3dd54-3a69-4a1d-9c78-1def41ab2e1c")
+    @objid ("775fc21c-eb98-4007-b6cc-f82288e38213")
     @Override
     public void setExitOf(State value) {
         appendDepVal(ExitPointPseudoStateData.Metadata.ExitOfDep(), (SmObjectImpl)value);
     }
 
-    @objid ("88b28fba-c564-42d9-9b6a-c1ce034d8e87")
+    @objid ("158ae0b2-57bd-4d98-9148-b45b0b20d42e")
     @Override
     public EList<ConnectionPointReference> getConnection() {
         return new SmList<>(this, ExitPointPseudoStateData.Metadata.ConnectionDep());
     }
 
-    @objid ("b9799ad4-f685-41f6-943f-9bb5dc41e97e")
+    @objid ("6d082dcd-3dd0-4ad5-9c23-7ce4fbc9efc2")
     @Override
     public <T extends ConnectionPointReference> List<T> getConnection(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -76,19 +76,19 @@ public class ExitPointPseudoStateImpl extends AbstractPseudoStateImpl implements
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("1ecf8ed6-dbaf-49b9-ad08-dfa3a28fe543")
+    @objid ("26040a4f-81bf-44b6-bd90-9e9f8abecc0d")
     @Override
     public StateMachine getExitOfMachine() {
         return (StateMachine) getDepVal(ExitPointPseudoStateData.Metadata.ExitOfMachineDep());
     }
 
-    @objid ("08c9cbe0-169a-4155-95e6-90678b9b2e84")
+    @objid ("b5eb3548-388c-4bca-9b38-75ad9878fb55")
     @Override
     public void setExitOfMachine(StateMachine value) {
         appendDepVal(ExitPointPseudoStateData.Metadata.ExitOfMachineDep(), (SmObjectImpl)value);
     }
 
-    @objid ("a10142a3-c2bd-48ca-9116-2afc6b5fc140")
+    @objid ("21b67ee9-3de3-47e6-9062-4e5a88701880")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
@@ -101,7 +101,7 @@ public class ExitPointPseudoStateImpl extends AbstractPseudoStateImpl implements
         return super.getCompositionOwner();
     }
 
-    @objid ("a284cb32-b632-4e1e-8240-f0d14c0c5133")
+    @objid ("1d576241-8971-4d66-83b7-45c7ad4c6b39")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
@@ -114,7 +114,7 @@ public class ExitPointPseudoStateImpl extends AbstractPseudoStateImpl implements
         return super.getCompositionRelation();
     }
 
-    @objid ("49eeddf3-da42-48ea-8470-f959924b5a68")
+    @objid ("f0602400-d800-4897-a3f8-04598c8bae36")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitExitPointPseudoState(this);

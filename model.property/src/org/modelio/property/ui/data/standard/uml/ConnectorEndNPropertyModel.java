@@ -52,7 +52,7 @@ import org.modelio.vcore.smkernel.mapi.MObject;
 @objid ("8ef41859-c068-11e1-8c0a-002564c97630")
 public class ConnectorEndNPropertyModel extends AbstractPropertyModel<NaryConnectorEnd> {
     /**
-     * Properties to display for <i>LinkEnd</i>.
+     * Properties to display for <i>ConnectorEnd</i>.
      * <p>
      * This array contains the first column values:
      * <ul>
@@ -61,7 +61,7 @@ public class ConnectorEndNPropertyModel extends AbstractPropertyModel<NaryConnec
      * </ul>
      */
     @objid ("a6c3fb08-c068-11e1-8c0a-002564c97630")
-    private static final String[] PROPERTIES = new String[] { "LinkEnd", "LinkName", "Base", "ConnectorRepresentedFeature",
+    private static final String[] PROPERTIES = new String[] { "NaryConnectorEnd", "LinkName", "Base", "ConnectorRepresentedFeature",
             "Linked", "Name", "ConnectorEndRepresentedFeature", "MultiplicityMin", "MultiplicityMax", "IsOrdered", "IsUnique" };
 
     @objid ("8ef41864-c068-11e1-8c0a-002564c97630")
@@ -132,7 +132,7 @@ public class ConnectorEndNPropertyModel extends AbstractPropertyModel<NaryConnec
             return getLinkPropertyValue(row, col);
         }
         
-        // LinkEnd rows
+        // ConnectorEnd rows
         switch (col) {
         
         case 0: // col 0 is the property name
@@ -186,9 +186,9 @@ public class ConnectorEndNPropertyModel extends AbstractPropertyModel<NaryConnec
                 }
                 // else
                 return this.stringType;
-            case 4: // LinkEnd Type
+            case 4: // ConnectorEnd Type
                 return this.linkedType;
-            case 5: // LinkEnd Name
+            case 5: // ConnectorEnd Name
                 return this.stringType;
             case 6:
                 return this.connectorEndRepresentedFeatureType;
@@ -258,13 +258,13 @@ public class ConnectorEndNPropertyModel extends AbstractPropertyModel<NaryConnec
     }
 
     /**
-     * Create a new <i>LinkEnd</i> data model from an <i>LinkEnd</i>.
+     * Create a new <i>ConnectorEnd</i> data model from an <i>ConnectorEnd</i>.
      * @param model
      */
     @objid ("8ef59ef2-c068-11e1-8c0a-002564c97630")
-    public ConnectorEndNPropertyModel(NaryConnectorEnd theLinkEnd) {
-        super(theLinkEnd);
-        this.theLink = theLinkEnd.getNaryLink();
+    public ConnectorEndNPropertyModel(NaryConnectorEnd theConnectorEnd) {
+        super(theConnectorEnd);
+        this.theLink = theConnectorEnd.getNaryLink();
         
         // Order the displayed roles as following:
         // - this role first for n-ary associations
@@ -297,7 +297,7 @@ public class ConnectorEndNPropertyModel extends AbstractPropertyModel<NaryConnec
         List<java.lang.Class<? extends MObject>> connectorEndRepresentedFeatureValues = new ArrayList<>();
         connectorEndRepresentedFeatureValues.add(Attribute.class);
         connectorEndRepresentedFeatureValues.add(AssociationEnd.class);
-        connectorEndRepresentedFeatureValues.add(NaryLinkEnd.class);
+        connectorEndRepresentedFeatureValues.add(NaryConnectorEnd.class);
         this.connectorEndRepresentedFeatureType = new SingleElementType(true, connectorEndRepresentedFeatureValues);
         
         List<String> cardinalityMinValues = new ArrayList<>();
@@ -328,17 +328,17 @@ public class ConnectorEndNPropertyModel extends AbstractPropertyModel<NaryConnec
     }
 
     @objid ("8ef59efe-c068-11e1-8c0a-002564c97630")
-    private Object getPropertyValue(int row, NaryLinkEnd aLinkEnd) {
+    private Object getPropertyValue(int row, NaryLinkEnd aConnectorEnd) {
         switch (row) {
         case 0: // Title
         
-            Instance type = aLinkEnd.getSource();
+            Instance type = aConnectorEnd.getSource();
         
             if (type == null) {
                 return "";
             }
         
-            if (aLinkEnd == this.theEditedElement) {
+            if (aConnectorEnd == this.theEditedElement) {
                 return "To: " + type.getName();
             }
             // else
@@ -368,25 +368,25 @@ public class ConnectorEndNPropertyModel extends AbstractPropertyModel<NaryConnec
             return null;
         
         case 4:
-            Instance relatedInstance = aLinkEnd.getSource();
+            Instance relatedInstance = aConnectorEnd.getSource();
             return relatedInstance;
         
         case 5:
-            return aLinkEnd.getName();
+            return aConnectorEnd.getName();
         case 6:
-            if (aLinkEnd instanceof NaryConnectorEnd) {
-                return ((NaryConnector) ((NaryConnectorEnd) aLinkEnd).getNaryLink()).getRepresentedFeature();
+            if (aConnectorEnd instanceof NaryConnectorEnd) {
+                return ((NaryConnector) ((NaryConnectorEnd) aConnectorEnd).getNaryLink()).getRepresentedFeature();
             }
             // else
             return null;
         case 7:
-            return aLinkEnd.getMultiplicityMin();
+            return aConnectorEnd.getMultiplicityMin();
         case 8:
-            return aLinkEnd.getMultiplicityMax();
+            return aConnectorEnd.getMultiplicityMax();
         case 9:
-            return aLinkEnd.isIsOrdered() ? Boolean.TRUE : Boolean.FALSE;
+            return aConnectorEnd.isIsOrdered() ? Boolean.TRUE : Boolean.FALSE;
         case 10:
-            return aLinkEnd.isIsUnique() ? Boolean.TRUE : Boolean.FALSE;
+            return aConnectorEnd.isIsUnique() ? Boolean.TRUE : Boolean.FALSE;
         default:
             return null;
         }

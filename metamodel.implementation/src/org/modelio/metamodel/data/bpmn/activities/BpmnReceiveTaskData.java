@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.data.bpmn.activities;
 
@@ -46,57 +46,57 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("0081d3c8-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=BpmnReceiveTask.class, factory=BpmnReceiveTaskData.Metadata.ObjectFactory.class)
 public class BpmnReceiveTaskData extends BpmnTaskData {
-    @objid ("ed763500-fcf0-40f6-9838-2ca09e59d4e7")
+    @objid ("cd8ebe57-6039-45ee-9e10-7fe271768745")
     @SmaMetaAttribute(metaName="Implementation", type=String.class, smAttributeClass=Metadata.ImplementationSmAttribute.class)
      Object mImplementation = "##WebService";
 
-    @objid ("cdb84515-a1fb-4da0-af8c-5c327dbe8988")
+    @objid ("84617d39-66b6-4b4a-b286-96f16bac922b")
     @SmaMetaAttribute(metaName="Instanciate", type=Boolean.class, smAttributeClass=Metadata.InstanciateSmAttribute.class)
      Object mInstanciate = false;
 
-    @objid ("59ba82fe-e02e-4e81-ab09-d1b16094fd65")
+    @objid ("410eca20-2766-46b2-893d-93c45c8aa8c2")
     @SmaMetaAssociation(metaName="MessageRef", typeDataClass=BpmnMessageData.class, min=0, max=1, smAssociationClass=Metadata.MessageRefSmDependency.class, partof = true)
      SmObjectImpl mMessageRef;
 
-    @objid ("42dc41a5-7647-4fd9-b805-b6f8f623691a")
+    @objid ("9d1d4a7c-b4b5-423c-9a98-bdfcaa6c9dce")
     @SmaMetaAssociation(metaName="OperationRef", typeDataClass=BpmnOperationData.class, min=0, max=1, smAssociationClass=Metadata.OperationRefSmDependency.class, partof = true)
      SmObjectImpl mOperationRef;
 
-    @objid ("cca220c1-350a-415c-ad64-a7ba9c701380")
+    @objid ("d74bb288-f8b5-4481-b041-be1d09ed4d96")
     @SmaMetaAssociation(metaName="CalledOperation", typeDataClass=OperationData.class, min=0, max=1, smAssociationClass=Metadata.CalledOperationSmDependency.class, partof = true)
      SmObjectImpl mCalledOperation;
 
-    @objid ("d7fc6279-5895-4fcf-ad2c-8832d25df0b6")
+    @objid ("6f09c621-2e49-4d22-a9ac-9ac914040aeb")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("0061ef4a-c4c4-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("89eb83af-00cf-4964-900f-b7ee66f469d1")
+        @objid ("e3927487-6423-4d8a-8a38-b86b323216c4")
         private static SmClass smClass = null;
 
-        @objid ("faaec257-4b36-4839-bc12-309a9c1f0307")
+        @objid ("38529059-501c-45a7-b08a-b592d534d65f")
         private static SmAttribute ImplementationAtt = null;
 
-        @objid ("774cee38-a9f5-44b2-8ea2-567b79bb86c0")
+        @objid ("7a69abb3-fd9c-4de1-8904-967167f60019")
         private static SmAttribute InstanciateAtt = null;
 
-        @objid ("edb16077-98ed-4475-a69f-ec8fba7a212e")
+        @objid ("48207e1d-1a79-4069-8cea-36ad7eebaafb")
         private static SmDependency MessageRefDep = null;
 
-        @objid ("4af4d0fb-a782-4552-86ba-a7319ce541f6")
+        @objid ("8db62bac-d48a-46bb-943b-1f953ec09267")
         private static SmDependency OperationRefDep = null;
 
-        @objid ("83392209-ec23-49c0-9eae-c866503e49fa")
+        @objid ("cb8b9165-4566-410e-adf9-3366e0463005")
         private static SmDependency CalledOperationDep = null;
 
-        @objid ("463a46d1-d7e9-4003-9151-ddda3414d6c4")
+        @objid ("cb830727-20b7-4432-a311-390166948183")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(BpmnReceiveTaskData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("bccd4e8f-831c-48a3-bbc7-7301928ce33a")
+        @objid ("4d6412d5-7857-47ad-ad95-6a6a59e90c64")
         public static SmAttribute ImplementationAtt() {
             if (ImplementationAtt == null) {
             	ImplementationAtt = classof().getAttributeDef("Implementation");
@@ -104,7 +104,7 @@ public class BpmnReceiveTaskData extends BpmnTaskData {
             return ImplementationAtt;
         }
 
-        @objid ("4cc420e9-86eb-4d11-9784-61e3a697c2f9")
+        @objid ("83ab2a3f-7f66-496a-9a33-c795c0537a8d")
         public static SmAttribute InstanciateAtt() {
             if (InstanciateAtt == null) {
             	InstanciateAtt = classof().getAttributeDef("Instanciate");
@@ -112,7 +112,7 @@ public class BpmnReceiveTaskData extends BpmnTaskData {
             return InstanciateAtt;
         }
 
-        @objid ("0e4b5d9d-6cfb-480f-9ab5-68f525920401")
+        @objid ("61c326c4-560f-4786-9c15-d44d08a8ecef")
         public static SmDependency MessageRefDep() {
             if (MessageRefDep == null) {
             	MessageRefDep = classof().getDependencyDef("MessageRef");
@@ -120,7 +120,7 @@ public class BpmnReceiveTaskData extends BpmnTaskData {
             return MessageRefDep;
         }
 
-        @objid ("9969cd63-974a-42da-a490-9ae951c7de75")
+        @objid ("533ed161-514b-4a6f-b095-bba51e984eb1")
         public static SmDependency OperationRefDep() {
             if (OperationRefDep == null) {
             	OperationRefDep = classof().getDependencyDef("OperationRef");
@@ -128,7 +128,7 @@ public class BpmnReceiveTaskData extends BpmnTaskData {
             return OperationRefDep;
         }
 
-        @objid ("f775f443-4a2b-40a4-94ac-def9b4da4438")
+        @objid ("e34a85d4-2d6d-40af-aeb5-3e4b6ddcfece")
         public static SmDependency CalledOperationDep() {
             if (CalledOperationDep == null) {
             	CalledOperationDep = classof().getDependencyDef("CalledOperation");
@@ -136,50 +136,50 @@ public class BpmnReceiveTaskData extends BpmnTaskData {
             return CalledOperationDep;
         }
 
-        @objid ("7579fd44-6c69-49a8-ba4f-dc0262d53be2")
-        public static SmAttribute getImplementationAtt() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return ImplementationAtt;
-        }
-
-        @objid ("d50b82d8-082d-4162-b878-c66fc93adf69")
-        public static SmDependency getOperationRefDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return OperationRefDep;
-        }
-
-        @objid ("fe527a41-83dc-4fa8-9f01-6b71407c649d")
-        public static SmClass getSmClass() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return smClass;
-        }
-
-        @objid ("9689c692-bd7f-48c0-ae2d-ad887aadb58a")
-        public static SmAttribute getInstanciateAtt() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return InstanciateAtt;
-        }
-
-        @objid ("c95bde6e-84e3-437e-a2a0-f78569b1454b")
+        @objid ("aff3ae83-960d-45da-8775-72fccbee0f5e")
         public static SmDependency getMessageRefDep() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return MessageRefDep;
         }
 
-        @objid ("f047ecf5-8266-43db-bd1c-6ba356f20d19")
+        @objid ("588b2e50-e22c-4865-949f-bdab5c66e9fc")
+        public static SmDependency getOperationRefDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return OperationRefDep;
+        }
+
+        @objid ("bcdfee16-a5e7-4449-844a-6217e3721623")
         public static SmDependency getCalledOperationDep() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return CalledOperationDep;
         }
 
+        @objid ("f4fc14f0-dd99-4ba4-8ab7-97e7fb41f73e")
+        public static SmClass getSmClass() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return smClass;
+        }
+
+        @objid ("f6414e6d-606d-41b0-b2d7-3010f79c5b72")
+        public static SmAttribute getInstanciateAtt() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return InstanciateAtt;
+        }
+
+        @objid ("87acba5a-b63c-46d7-be4b-aa2d05e96cc0")
+        public static SmAttribute getImplementationAtt() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return ImplementationAtt;
+        }
+
         @objid ("00622e92-c4c4-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("04a65206-0c02-4616-8fca-fd5995cbd346")
+            @objid ("00ec447a-9491-440e-a9df-eff782061410")
             public ISmObjectData createData() {
                 return new BpmnReceiveTaskData();
             }
 
-            @objid ("53d84a07-d3e8-42d2-b278-7037d7e5aeae")
+            @objid ("c53b7557-4194-4fde-a059-8b8cdab6ad79")
             public SmObjectImpl createImpl() {
                 return new BpmnReceiveTaskImpl();
             }
@@ -188,12 +188,12 @@ public class BpmnReceiveTaskData extends BpmnTaskData {
 
         @objid ("00628f54-c4c4-1fd8-97fe-001ec947cd2a")
         public static class ImplementationSmAttribute extends SmAttribute {
-            @objid ("79b681de-1d86-47c3-8b68-250feab6dc35")
+            @objid ("41174841-72f6-4549-b146-44233b694073")
             public Object getValue(ISmObjectData data) {
                 return ((BpmnReceiveTaskData) data).mImplementation;
             }
 
-            @objid ("35b86fc6-bfec-464d-a532-0c023af2c96f")
+            @objid ("e9b94d57-33e1-405b-a406-6a0c5f9f10da")
             public void setValue(ISmObjectData data, Object value) {
                 ((BpmnReceiveTaskData) data).mImplementation = value;
             }
@@ -202,12 +202,12 @@ public class BpmnReceiveTaskData extends BpmnTaskData {
 
         @objid ("0062f96c-c4c4-1fd8-97fe-001ec947cd2a")
         public static class InstanciateSmAttribute extends SmAttribute {
-            @objid ("04c7f56a-4014-4835-b058-59b1875c637d")
+            @objid ("81705506-80f2-4a08-bc8a-a85a12dd2598")
             public Object getValue(ISmObjectData data) {
                 return ((BpmnReceiveTaskData) data).mInstanciate;
             }
 
-            @objid ("362bd687-1fe4-49b5-8bd9-4b7fb48ed5e3")
+            @objid ("8e035864-1919-4126-a02d-11af70fb691b")
             public void setValue(ISmObjectData data, Object value) {
                 ((BpmnReceiveTaskData) data).mInstanciate = value;
             }
@@ -216,18 +216,18 @@ public class BpmnReceiveTaskData extends BpmnTaskData {
 
         @objid ("00635d4e-c4c4-1fd8-97fe-001ec947cd2a")
         public static class OperationRefSmDependency extends SmSingleDependency {
-            @objid ("a8806745-da8e-4640-9443-f9cb341dde7a")
+            @objid ("4ba88b15-d4cd-45a0-a3ec-cc31215f1f1a")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((BpmnReceiveTaskData) data).mOperationRef;
             }
 
-            @objid ("9aa4060d-306a-46ae-a368-1eebdb29ed1e")
+            @objid ("cbdc2b9e-7778-4c43-bc45-841e16b5a271")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((BpmnReceiveTaskData) data).mOperationRef = value;
             }
 
-            @objid ("81aad9e6-1fb5-40ad-8723-94152f11dc53")
+            @objid ("fd9f1292-e4de-4ba2-937b-468d5c35613a")
             @Override
             public SmDependency getSymetric() {
                 return BpmnOperationData.Metadata.ReceiverDep();
@@ -237,18 +237,18 @@ public class BpmnReceiveTaskData extends BpmnTaskData {
 
         @objid ("0063d206-c4c4-1fd8-97fe-001ec947cd2a")
         public static class MessageRefSmDependency extends SmSingleDependency {
-            @objid ("c1210afb-bd48-47d7-a01f-8f16e2a4dab8")
+            @objid ("371ce8cb-8da7-4552-bd7b-6c6184714848")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((BpmnReceiveTaskData) data).mMessageRef;
             }
 
-            @objid ("e09d4fa8-6d7a-425e-8c7a-35d7b309bffe")
+            @objid ("cb1ce630-a144-45dc-a846-1b11c1eb37b0")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((BpmnReceiveTaskData) data).mMessageRef = value;
             }
 
-            @objid ("b5861006-8a38-4a5b-98eb-49b217f57dfd")
+            @objid ("9d031974-bc57-439f-be70-9823ef618e2c")
             @Override
             public SmDependency getSymetric() {
                 return BpmnMessageData.Metadata.ReceiverDep();
@@ -258,18 +258,18 @@ public class BpmnReceiveTaskData extends BpmnTaskData {
 
         @objid ("0064475e-c4c4-1fd8-97fe-001ec947cd2a")
         public static class CalledOperationSmDependency extends SmSingleDependency {
-            @objid ("d20021f5-1a4e-409b-afa7-ad22cb94b6c8")
+            @objid ("2e10b5f1-e293-4ae8-80a6-2d5c497f3926")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((BpmnReceiveTaskData) data).mCalledOperation;
             }
 
-            @objid ("6b635202-36d5-42b1-b23d-e2ef712fe13d")
+            @objid ("d72d22bf-60ce-4879-a5a4-9a416cfaffd8")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((BpmnReceiveTaskData) data).mCalledOperation = value;
             }
 
-            @objid ("710a9613-cd27-44a3-a90a-b25b1becb833")
+            @objid ("c6985eac-4724-4392-b0ea-b894052196b3")
             @Override
             public SmDependency getSymetric() {
                 return OperationData.Metadata.CallerReceiveTaskDep();

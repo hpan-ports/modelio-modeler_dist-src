@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.uml.statik;
 
@@ -35,34 +35,34 @@ import org.modelio.metamodel.uml.statik.NaryConnector;
 
 @objid ("00015824-c4bf-1fd8-97fe-001ec947cd2a")
 public interface Binding extends ModelElement {
-    @objid ("ab73826a-d58a-4b3c-be21-67cc88019837")
+    @objid ("a2bd75c7-9317-4809-b1bb-2c080d3f4615")
     ConnectorEnd getConnectorEndRole();
 
-    @objid ("b39557e6-8a14-42a1-9180-d53be9f0613f")
+    @objid ("dc1b8c01-d000-4770-8c0a-eccec54373fb")
     void setConnectorEndRole(ConnectorEnd value);
 
-    @objid ("85fc1d1e-a54c-4dcc-a04c-15442eb14bc0")
+    @objid ("8e5a9e24-4774-4f1e-9f74-5a9fcbdce23e")
     NaryConnector getConnectorRole();
 
-    @objid ("ed47fc94-8951-4fcf-bb2c-a1f36e53ae0c")
+    @objid ("2747e942-672d-410e-98e9-a3ba95ecff89")
     void setConnectorRole(NaryConnector value);
 
-    @objid ("4ed088cc-8fbe-4442-a0da-968cdb7f2922")
+    @objid ("f6aa2687-dcdd-47ec-bb8e-8a587afff596")
     BindableInstance getRole();
 
-    @objid ("6bd19bb9-0c0e-4528-bbba-d47c4c3670b5")
+    @objid ("db5cfad2-6864-4ab8-b444-030ffd41c38a")
     void setRole(BindableInstance value);
 
-    @objid ("031c3c04-0dbe-4194-b8da-d8f951e59836")
+    @objid ("23e90b6b-e677-4a3a-88b9-fb1bcd59975a")
     ModelElement getRepresentedFeature();
 
-    @objid ("754d8137-26cd-49ce-ac10-c06aa0fc1857")
+    @objid ("02446299-58de-4813-b824-ca6324f076fd")
     void setRepresentedFeature(ModelElement value);
 
-    @objid ("7d9696eb-4f84-4675-ace9-232fcf675c3f")
+    @objid ("9bd50626-eb8e-4e35-8787-4ce62ef98eec")
     CollaborationUse getOwner();
 
-    @objid ("cb34a046-6725-4cba-aa7e-65f35072c063")
+    @objid ("cc58b932-f3d1-4f2b-870d-d96445d58074")
     void setOwner(CollaborationUse value);
 
 }

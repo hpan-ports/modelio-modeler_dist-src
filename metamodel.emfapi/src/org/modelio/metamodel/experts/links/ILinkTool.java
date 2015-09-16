@@ -31,7 +31,7 @@ import org.modelio.vcore.smkernel.mapi.MClass;
  * </p>
  */
 @objid ("003b72ac-d2e6-1097-bcec-001ec947cd2a")
-public interface ILinkTool extends ILinkExpert, ILinkMdaExpert, ICompoundExpert {
+public interface ILinkTool extends ILinkExpert, ILinkMdaExpert, ICompoundExpert, ILinkManipulator {
     /**
      * Tells whether or not this metaclass is considered as a link.
      * @param metaclass the metaclass to test.

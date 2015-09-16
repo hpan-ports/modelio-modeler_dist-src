@@ -30,6 +30,7 @@ import org.modelio.xmi.util.XMILogs;
 @objid ("90c23d80-db23-410c-a534-f02703f3632a")
 public class OBpmnBaseElement extends OElement implements IOElement {
     @objid ("97bb050d-e7f1-4cc3-ae81-eec50347bbcc")
+    @Override
     public org.eclipse.uml2.uml.Element createEcoreElt() {
         return null;
     }
@@ -47,10 +48,12 @@ public class OBpmnBaseElement extends OElement implements IOElement {
     }
 
     @objid ("d4bde130-b083-4096-ae35-b74fcf0c794d")
+    @Override
     public void attach(org.eclipse.uml2.uml.Element ecoreElt) {
     }
 
     @objid ("7c7a8bde-a7d1-40c6-b4a7-484574b1f359")
+    @Override
     public void setProperties(org.eclipse.uml2.uml.Element ecoreElt) {
     }
 

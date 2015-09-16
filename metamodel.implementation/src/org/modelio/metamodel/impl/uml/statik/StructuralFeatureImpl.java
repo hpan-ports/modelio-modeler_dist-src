@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.uml.statik;
 
@@ -44,85 +44,85 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("001f3344-c4bf-1fd8-97fe-001ec947cd2a")
 public class StructuralFeatureImpl extends FeatureImpl implements StructuralFeature {
-    @objid ("6e488ecb-2800-48df-b7c4-c81011b9c25f")
+    @objid ("0c3933a7-8bf8-4ac9-9352-0ac9202d43fa")
     @Override
     public KindOfAccess getChangeable() {
         return (KindOfAccess) getAttVal(StructuralFeatureData.Metadata.ChangeableAtt());
     }
 
-    @objid ("43f4579c-70d6-4939-8af2-5c08fc8a7863")
+    @objid ("bc7659b9-bc77-4507-811e-6dd28ecde793")
     @Override
     public void setChangeable(KindOfAccess value) {
         setAttVal(StructuralFeatureData.Metadata.ChangeableAtt(), value);
     }
 
-    @objid ("cd4604a4-7423-4ff7-8fe4-ab82c4ef8fd6")
+    @objid ("3fabf035-1f55-4853-ab9c-4a08e617cd45")
     @Override
     public boolean isIsDerived() {
         return (Boolean) getAttVal(StructuralFeatureData.Metadata.IsDerivedAtt());
     }
 
-    @objid ("32124133-a44d-47ad-9cdc-52e84c8d77cf")
+    @objid ("bf0c1fc0-94b4-47ef-9f22-91976a2ecd4a")
     @Override
     public void setIsDerived(boolean value) {
         setAttVal(StructuralFeatureData.Metadata.IsDerivedAtt(), value);
     }
 
-    @objid ("14295402-1af2-4552-9d4f-79b44c525eb2")
+    @objid ("ad1c52d6-1fc5-472f-9741-f82c7b0ec30c")
     @Override
     public boolean isIsOrdered() {
         return (Boolean) getAttVal(StructuralFeatureData.Metadata.IsOrderedAtt());
     }
 
-    @objid ("e9e9c08b-fd86-46de-98f3-bb8e02c5c278")
+    @objid ("d576c2fa-aba9-4c67-a35b-4a9f9b7fe3db")
     @Override
     public void setIsOrdered(boolean value) {
         setAttVal(StructuralFeatureData.Metadata.IsOrderedAtt(), value);
     }
 
-    @objid ("17cea500-099b-4847-8d6f-57e0aa583d55")
+    @objid ("96813071-46a4-45ed-abf3-19040309091a")
     @Override
     public boolean isIsUnique() {
         return (Boolean) getAttVal(StructuralFeatureData.Metadata.IsUniqueAtt());
     }
 
-    @objid ("c87be19f-ec38-4a51-a67f-241fd5fb4ab5")
+    @objid ("fa530500-0d48-4833-a220-14f378cc1281")
     @Override
     public void setIsUnique(boolean value) {
         setAttVal(StructuralFeatureData.Metadata.IsUniqueAtt(), value);
     }
 
-    @objid ("d31333b9-ceb5-4fe1-a84d-1b009cbb7eb8")
+    @objid ("212c7f16-f09f-4f32-9395-5ead1c3df5b5")
     @Override
     public String getMultiplicityMin() {
         return (String) getAttVal(StructuralFeatureData.Metadata.MultiplicityMinAtt());
     }
 
-    @objid ("30b4e561-3c73-4c3f-97f5-850fa4be1818")
+    @objid ("4ad5da09-e101-40d3-adcd-ee4d64ef1c28")
     @Override
     public void setMultiplicityMin(String value) {
         setAttVal(StructuralFeatureData.Metadata.MultiplicityMinAtt(), value);
     }
 
-    @objid ("2b416bf0-b9cb-4163-80a1-b7e574475395")
+    @objid ("e59ca8c0-3a1c-4051-8da8-33d801c1697a")
     @Override
     public String getMultiplicityMax() {
         return (String) getAttVal(StructuralFeatureData.Metadata.MultiplicityMaxAtt());
     }
 
-    @objid ("3e123150-49f3-4e95-9a81-fd9bc4fd891b")
+    @objid ("9cb4afd1-72c4-4478-b9ae-9a4cbbda05c8")
     @Override
     public void setMultiplicityMax(String value) {
         setAttVal(StructuralFeatureData.Metadata.MultiplicityMaxAtt(), value);
     }
 
-    @objid ("6a073237-bb65-41e5-a8c1-3616249435c5")
+    @objid ("747ff8d4-022b-49c7-854a-f07dc9902c9b")
     @Override
     public EList<InformationFlow> getRealizedInformationFlow() {
         return new SmList<>(this, StructuralFeatureData.Metadata.RealizedInformationFlowDep());
     }
 
-    @objid ("d53b96d9-8b4c-4ca2-9c02-16d0654dfc89")
+    @objid ("9a5721cd-cbb9-4a30-9c10-a7d50750c8f7")
     @Override
     public <T extends InformationFlow> List<T> getRealizedInformationFlow(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -135,21 +135,21 @@ public class StructuralFeatureImpl extends FeatureImpl implements StructuralFeat
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("a32c59cb-bb90-48fe-ba8f-4dd468da8de4")
+    @objid ("9647046c-7b39-4cde-87ff-bb543743aba0")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("bb64b639-31ef-4ebe-8c99-b671501d1101")
+    @objid ("f702f765-fb31-42a4-8704-6c1800fdc137")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("1019896b-de27-4401-9533-fa1d6edc5158")
+    @objid ("fc451ca7-4839-4b89-844b-54be3e4f8d69")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitStructuralFeature(this);

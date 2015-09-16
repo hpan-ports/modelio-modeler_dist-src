@@ -21,9 +21,7 @@
 
 package org.modelio.xmi.model.ecore;
 
-import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.modelio.api.modelio.Modelio;
 import org.modelio.metamodel.uml.behavior.usecaseModel.UseCase;
 import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.metamodel.uml.infrastructure.ModelTree;
@@ -31,27 +29,29 @@ import org.modelio.metamodel.uml.infrastructure.Profile;
 import org.modelio.xmi.util.ReverseProperties;
 
 @objid ("14e37e62-cc25-4b1d-a45b-6ab4b617a013")
-public class EUseCase extends ENamedElement implements IEElement {
+public class EUseCase extends ENamedElement {
     @objid ("96ef088c-f885-48b0-9971-7d4aed597827")
-    private org.eclipse.uml2.uml.UseCase ecoreElement;
+    private org.eclipse.uml2.uml.UseCase ecoreElement = null;
 
     @objid ("81fd61bd-03a3-4d57-bf84-b54e880eec17")
+    @Override
     public Element createObjingElt() {
-        return Modelio.getInstance()
-        .getModelingSession().getModel().createUseCase();
+        return  ReverseProperties.getInstance().getMModelServices().getModelFactory()
+                .createUseCase();
     }
 
     @objid ("bc7d746d-be3f-4357-ac96-e231ca3fd29e")
     public EUseCase(org.eclipse.uml2.uml.UseCase element) {
         super(element);
-        ecoreElement = element;
+        this.ecoreElement = element;
     }
 
     @objid ("2c484edf-f20c-4323-9cdb-533f9b34cf2d")
+    @Override
     public void attach(Element objingElt) {
         ReverseProperties revProp = ReverseProperties.getInstance();
         
-        org.eclipse.uml2.uml.Element ecoreOwner = ecoreElement.getOwner();
+        org.eclipse.uml2.uml.Element ecoreOwner = this.ecoreElement.getOwner();
         
         Object objingOwner = revProp.getMappedElement(ecoreOwner);
         
@@ -62,15 +62,6 @@ public class EUseCase extends ENamedElement implements IEElement {
         }else{
             ((UseCase) objingElt).setOwner(revProp.getExternalPackage());
         }
-    }
-
-    @objid ("5ecfa24a-e25e-435e-8b3a-08b618e91c04")
-    public void attach(List<Object> objingElts) {
-    }
-
-    @objid ("171d1f57-744a-432e-ab91-947b6d85c345")
-    public void setProperties(Element objingElt) {
-        super.setProperties(objingElt);
     }
 
 }

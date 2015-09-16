@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.uml.behavior.activityModel;
 
@@ -31,10 +31,10 @@ import org.modelio.metamodel.uml.statik.Operation;
 
 @objid ("00241b8e-c4bf-1fd8-97fe-001ec947cd2a")
 public interface AcceptCallEventAction extends ActivityAction {
-    @objid ("d4d7cbb3-de77-4283-a41d-2c6b50d545d4")
+    @objid ("23bff0ad-2039-4be1-bc51-c34abbe928bc")
     Operation getCalled();
 
-    @objid ("d5f27f05-c6f8-4a1d-b323-625453c1101d")
+    @objid ("608a49e7-ed4c-48ac-a838-ccbb8cdb4017")
     void setCalled(Operation value);
 
 }

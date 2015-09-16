@@ -23,6 +23,21 @@ package org.modelio.mda.infra.service;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
+/**
+ * Signals a module was not found from a IPeerModule instance.
+ */
 @objid ("b3348191-f11c-11e1-af52-001ec947c8cc")
 public class UnknownModuleException extends Exception {
+    @objid ("ac599470-a6b8-48f0-bfd9-74f73a86ef3a")
+    private static final long serialVersionUID = 1L;
+
+    /**
+     * Constructs a new exception with the specified detail message.
+     * @param msg the message.
+     */
+    @objid ("efa529d9-9a11-4540-b0a6-0cd0a891ed96")
+    public UnknownModuleException(String msg) {
+        super(msg);
+    }
+
 }

@@ -34,6 +34,7 @@ import org.modelio.diagram.diagramauto.diagram.DiagramStyleHandle;
 import org.modelio.diagram.diagramauto.diagram.layout.DiagonalLayout;
 import org.modelio.diagram.styles.plugin.DiagramStyles;
 import org.modelio.gproject.model.IMModelServices;
+import org.modelio.metamodel.diagrams.AbstractDiagram;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
 import org.modelio.metamodel.uml.infrastructure.ModelTree;
 import org.modelio.metamodel.uml.statik.NameSpace;
@@ -170,6 +171,12 @@ public class SubPackageStructureCreator extends AbstractDiagramCreator {
             // Should never happen
             e.printStackTrace();
         }
+    }
+
+    @objid ("9e009f97-c1e1-442c-9b68-b2b84ef068c1")
+    @Override
+    public ModelElement getMainElement(AbstractDiagram autoDiagram) {
+        return autoDiagram.getOrigin();
     }
 
 }

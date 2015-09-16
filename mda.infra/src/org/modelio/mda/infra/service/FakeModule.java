@@ -39,6 +39,7 @@ import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.resource.ImageRegistry;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Display;
+import org.modelio.api.diagram.ContributorCategory;
 import org.modelio.api.diagram.IDiagramCustomizer;
 import org.modelio.api.diagram.tools.IAttachedBoxCommand;
 import org.modelio.api.diagram.tools.IBoxCommand;
@@ -56,10 +57,12 @@ import org.modelio.api.module.IPeerModule;
 import org.modelio.api.module.LicenseInfos;
 import org.modelio.api.module.commands.ActionLocation;
 import org.modelio.api.module.commands.IModuleAction;
+import org.modelio.api.module.contrib.WizardContribution;
 import org.modelio.api.module.diagrams.DiagramCustomizationDescriptor;
 import org.modelio.api.module.diagrams.DiagramToolDescriptor;
 import org.modelio.api.module.paramEdition.DefaultParametersEditionModel;
 import org.modelio.api.module.propertiesPage.IModulePropertyPage;
+import org.modelio.api.ui.diagramcreation.IDiagramWizardContributor;
 import org.modelio.gproject.ramc.core.model.IModelComponent;
 import org.modelio.gproject.ramc.core.packaging.IModelComponentContributor;
 import org.modelio.mda.infra.plugin.MdaInfra;
@@ -141,7 +144,7 @@ public class FakeModule implements IModule {
     /**
      * Get the configuration associated to this module.
      * 
-     * Module configuration provide access to module parameter and resource paths
+     * Jxbv2Module configuration provide access to module parameter and resource paths
      * @see IModuleUserConfiguration
      * @return the module configuration.
      */
@@ -301,7 +304,7 @@ public class FakeModule implements IModule {
 
     /**
      * Always returns null.
-     * @return an Image for this module.
+     * @return an Jxbv2Image for this module.
      */
     @objid ("b317e567-f11c-11e1-af52-001ec947c8cc")
     @Override
@@ -388,7 +391,7 @@ public class FakeModule implements IModule {
     }
 
     /**
-     * Returns the minimum Modelio version that authorize the Module to be activated.
+     * Returns the minimum Modelio version that authorize the Jxbv2Module to be activated.
      * @return The minimum Modelio version
      */
     @objid ("b31a479c-f11c-11e1-af52-001ec947c8cc")
@@ -648,6 +651,24 @@ public class FakeModule implements IModule {
     @Override
     public <I> I instanciateExternProcessor(String className, Class<I> clazz, Object... initargs) {
         return null;
+    }
+
+    @objid ("80b9d88a-648e-4310-b32e-ed7727b6b2f7")
+    @Override
+    public List<WizardContribution> getDiagramWizardContributions() {
+        return Collections.emptyList();
+    }
+
+    @objid ("2aa0fc02-1ae5-43be-abfb-19f79b95560f")
+    @Override
+    public void registerDiagramWizardContribution(ContributorCategory category, IDiagramWizardContributor contributor) {
+        // Nothing to do
+    }
+
+    @objid ("38cd6ebc-001d-43f5-abcd-2969d1501866")
+    @Override
+    public void unregisterDiagramWizardContribution(ContributorCategory category, IDiagramWizardContributor contributor) {
+        // Nothing to do
     }
 
 }

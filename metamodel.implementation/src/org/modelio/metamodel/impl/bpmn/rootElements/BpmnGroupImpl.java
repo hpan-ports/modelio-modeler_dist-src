@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.bpmn.rootElements;
 
@@ -43,25 +43,25 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("007a5ba2-c4bf-1fd8-97fe-001ec947cd2a")
 public class BpmnGroupImpl extends BpmnArtifactImpl implements BpmnGroup {
-    @objid ("57f9cc47-7f0c-4666-955b-e7499a82214b")
+    @objid ("f9e6930d-b9c0-4ff7-866a-3e450ed97cd7")
     @Override
     public String getCategory() {
         return (String) getAttVal(BpmnGroupData.Metadata.CategoryAtt());
     }
 
-    @objid ("a255456b-e36f-4e78-af74-ddc795934b39")
+    @objid ("b2f182b7-e4d2-4f50-b89d-d76220e48531")
     @Override
     public void setCategory(String value) {
         setAttVal(BpmnGroupData.Metadata.CategoryAtt(), value);
     }
 
-    @objid ("8dbdbbc7-430d-4938-9eb7-a14f7c2621b1")
+    @objid ("4f2c9c7d-48f8-44c8-ad5e-b355f7a931ca")
     @Override
     public EList<BpmnFlowElement> getCategorized() {
         return new SmList<>(this, BpmnGroupData.Metadata.CategorizedDep());
     }
 
-    @objid ("b27bcd14-af0c-48b2-b3de-1945480d7976")
+    @objid ("071246dd-9a76-4f5e-93fd-031c8ba47509")
     @Override
     public <T extends BpmnFlowElement> List<T> getCategorized(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -74,21 +74,21 @@ public class BpmnGroupImpl extends BpmnArtifactImpl implements BpmnGroup {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("57c2c39a-6627-452c-8942-fc6bd0c5bcbd")
+    @objid ("53d71654-5218-4771-9a9b-a65176926db7")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("693f4ce7-1a6d-435d-baa1-2f9bdc2abdb8")
+    @objid ("858a07a5-e49e-423b-96d4-a35445536e49")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("abca5e05-5a45-4169-9a69-021aaca19539")
+    @objid ("522898c0-6773-4011-8d50-987b8cfc8020")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitBpmnGroup(this);

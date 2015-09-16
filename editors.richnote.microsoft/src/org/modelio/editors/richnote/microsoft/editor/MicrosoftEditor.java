@@ -24,6 +24,7 @@ package org.modelio.editors.richnote.microsoft.editor;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -56,11 +57,10 @@ import org.modelio.vcore.session.api.model.change.IStatusChangeListener;
 import org.modelio.vcore.smkernel.mapi.MObject;
 
 /**
- * Libre office documents editor.
+ * Microsoft Office documents editor.
  * <p>
- * LibreOffice is the power-packed free, libre and open source personal productivity suite for Windows, Macintosh and GNU/Linux, that gives you six feature-rich applications for all your document production and data processing needs: Writer, Calc, Impress, Draw, Math and Base. Support
  * @author cmarin
- * @see <a href="http://www.libreoffice.org">LibreOffice main site</a>
+ * @see <a href="http://www.microssoft.com">Microsoft main site</a>
  */
 @objid ("8e9438cf-c418-464a-bfe0-06d5902d8109")
 public class MicrosoftEditor implements IRichNoteEditor {
@@ -307,7 +307,7 @@ public class MicrosoftEditor implements IRichNoteEditor {
             this.viewer.setWriteable(writeMode);
             
         } catch (IOException e) {
-            MicrosoftEditors.LOG.error(MicrosoftEditors.PLUGIN_ID, e);
+            MicrosoftEditors.LOG.error(e);
             MessageDialog.openError(null, "Cannot load "+element, e.getLocalizedMessage());
         }
     }
@@ -384,15 +384,19 @@ public class MicrosoftEditor implements IRichNoteEditor {
     @objid ("7b403788-c6e2-4903-8fca-8d7532d4587c")
     @Override
     public void onOriginalModified(MObject model) {
-        final Shell shell = this.parentComposite.getShell();
         final String title = MicrosoftEditors.I18N.getMessage("MicrosoftEditor.onOriginalModified.title", this.editedFilePath.toString(), model.getName());
         final String message = MicrosoftEditors.I18N.getMessage("MicrosoftEditor.onOriginalModified.msg", this.editedFilePath.toString(), model.getName());
         final MicrosoftDocumentViewer v = this.viewer;
+        final Composite composite = this.parentComposite;
+        
+        MicrosoftEditors.LOG.info(message);
+        MicrosoftEditors.LOG.debug("Edited file:"+this.editedFilePath);
         
         Display.getDefault().syncExec(new Runnable() {
             
             @Override
             public void run() {
+                final Shell shell = composite.getShell();
                 // Show warning
                 MessageDialog.openWarning(shell, title, message);
         
@@ -425,9 +429,7 @@ public class MicrosoftEditor implements IRichNoteEditor {
     public static void createEmptyFile(File file, RichNoteFormat format) throws IOException {
         final File parentDir = file.getParentFile();
         if (!parentDir.isDirectory()) {
-            parentDir.mkdirs();
-            if (!parentDir.isDirectory())
-                throw new IOException("Failed create needed '"+file.getParent()+"' directory.");
+            Files.createDirectories(parentDir.toPath());
         }
         
         Shell shell = new Shell(Display.getDefault());

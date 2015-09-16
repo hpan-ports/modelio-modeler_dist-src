@@ -34,15 +34,15 @@ public interface IEElement {
     org.eclipse.uml2.uml.Element getEcoreElement();
 
     @objid ("089d96dc-6915-4687-92e6-73aa3b29a040")
-    void attach(Element objingElt);
+    void attach(final Element objingElt);
 
     @objid ("0360ae9b-76d6-4cf5-a515-ea88b341aeeb")
-    void setProperties(Element objingElt);
+    void setProperties(final Element objingElt);
 
     @objid ("0b48a653-8cfe-4d0e-9331-4784f17d48b3")
     void setStereotypes();
 
     @objid ("47434085-dda3-443b-bede-510a3498c9a3")
-    void attach(List<Object> objingElts);
+    void attach(final List<Object> objingElts);
 
 }

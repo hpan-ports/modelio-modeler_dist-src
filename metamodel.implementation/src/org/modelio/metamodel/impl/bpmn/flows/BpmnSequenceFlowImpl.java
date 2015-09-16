@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.bpmn.flows;
 
@@ -49,97 +49,97 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("007cfdf8-c4bf-1fd8-97fe-001ec947cd2a")
 public class BpmnSequenceFlowImpl extends BpmnFlowElementImpl implements BpmnSequenceFlow {
-    @objid ("c96ae6b2-f5b2-41c2-aea6-f208332cee1f")
+    @objid ("9a11c134-bd4f-4691-919e-f7000a444a1d")
     @Override
     public boolean isIsImmediate() {
         return (Boolean) getAttVal(BpmnSequenceFlowData.Metadata.IsImmediateAtt());
     }
 
-    @objid ("872875b4-83a2-4c1b-9b81-76794275acb5")
+    @objid ("921082ca-1bb0-457e-8ae4-588e64537fa7")
     @Override
     public void setIsImmediate(boolean value) {
         setAttVal(BpmnSequenceFlowData.Metadata.IsImmediateAtt(), value);
     }
 
-    @objid ("3abf92e7-4936-4e76-895f-9f18760c65a3")
+    @objid ("8d8e2f11-25f2-4d11-8c99-5eb5958ac4ac")
     @Override
     public String getConditionExpression() {
         return (String) getAttVal(BpmnSequenceFlowData.Metadata.ConditionExpressionAtt());
     }
 
-    @objid ("99227039-730d-43be-9cba-0e7d12543aa1")
+    @objid ("c2144cb0-fc5c-479f-aac4-09853f1f322c")
     @Override
     public void setConditionExpression(String value) {
         setAttVal(BpmnSequenceFlowData.Metadata.ConditionExpressionAtt(), value);
     }
 
-    @objid ("2d7ee12f-be7f-4d2e-873a-34da79f9dcd1")
+    @objid ("6358ba16-a297-4d66-b012-4de0119e7421")
     @Override
     public BpmnFlowNode getSourceRef() {
         return (BpmnFlowNode) getDepVal(BpmnSequenceFlowData.Metadata.SourceRefDep());
     }
 
-    @objid ("cb164acb-52ed-4e4e-888f-a15b951c615a")
+    @objid ("05d0aa91-d5f6-49e5-abfe-d322f150b7fd")
     @Override
     public void setSourceRef(BpmnFlowNode value) {
         appendDepVal(BpmnSequenceFlowData.Metadata.SourceRefDep(), (SmObjectImpl)value);
     }
 
-    @objid ("52cbc73c-3b54-42c6-b373-07c6229f5c4e")
+    @objid ("1c95e39f-ce24-442a-81d6-bea806d58b80")
     @Override
     public BpmnFlowNode getTargetRef() {
         return (BpmnFlowNode) getDepVal(BpmnSequenceFlowData.Metadata.TargetRefDep());
     }
 
-    @objid ("c71df47b-2fea-4bff-b1af-4e57d3ac0dc3")
+    @objid ("8074d4ca-d1f2-4016-a660-7ec6096bc8a7")
     @Override
     public void setTargetRef(BpmnFlowNode value) {
         appendDepVal(BpmnSequenceFlowData.Metadata.TargetRefDep(), (SmObjectImpl)value);
     }
 
-    @objid ("4a634f43-60cb-4ce0-99c3-5d7d6cf9746f")
+    @objid ("121dfbb1-a30e-453f-ae38-a1e9135a98f9")
     @Override
     public BpmnInclusiveGateway getDefaultOfInclusive() {
         return (BpmnInclusiveGateway) getDepVal(BpmnSequenceFlowData.Metadata.DefaultOfInclusiveDep());
     }
 
-    @objid ("1ed2107c-0d99-4cfa-9273-17a34d095c47")
+    @objid ("a3057693-1b3c-482a-bcd5-3cdd08e52d6b")
     @Override
     public void setDefaultOfInclusive(BpmnInclusiveGateway value) {
         appendDepVal(BpmnSequenceFlowData.Metadata.DefaultOfInclusiveDep(), (SmObjectImpl)value);
     }
 
-    @objid ("c8757d3f-9644-4b58-b2fd-3bcde2d11d03")
+    @objid ("33eba53f-95aa-4e7b-ba44-99d3f0a4507e")
     @Override
     public BpmnActivity getDefaultFrom() {
         return (BpmnActivity) getDepVal(BpmnSequenceFlowData.Metadata.DefaultFromDep());
     }
 
-    @objid ("9b87dd81-f882-4758-aa55-137a1ded898e")
+    @objid ("30b237c1-6c25-42d8-95ff-7f1d09ce2aa4")
     @Override
     public void setDefaultFrom(BpmnActivity value) {
         appendDepVal(BpmnSequenceFlowData.Metadata.DefaultFromDep(), (SmObjectImpl)value);
     }
 
-    @objid ("b48bd2c2-6cd7-4d03-b69e-fc8574ef2ecb")
+    @objid ("c60634e4-7939-44d4-986f-7c77df192541")
     @Override
     public BpmnExclusiveGateway getDefaultOfExclusive() {
         return (BpmnExclusiveGateway) getDepVal(BpmnSequenceFlowData.Metadata.DefaultOfExclusiveDep());
     }
 
-    @objid ("d2b46a1a-a06c-45c5-af65-14728f27ceed")
+    @objid ("1039e2db-1f17-4025-8592-60921f868649")
     @Override
     public void setDefaultOfExclusive(BpmnExclusiveGateway value) {
         appendDepVal(BpmnSequenceFlowData.Metadata.DefaultOfExclusiveDep(), (SmObjectImpl)value);
     }
 
-    @objid ("f25704a9-09ad-4e44-a40d-d4f6a3e207c9")
+    @objid ("9c67ffc3-e1ff-447f-8c6a-94acdffba13f")
     @Override
     public EList<BpmnSequenceFlowDataAssociation> getConnector() {
         return new SmList<>(this, BpmnSequenceFlowData.Metadata.ConnectorDep());
     }
 
-    @objid ("08bde1fc-7e90-4b00-9b4b-a0726e8d11e9")
+    @objid ("0e6fc6a9-bbae-48ad-bcf2-8ef2227c563d")
     @Override
     public <T extends BpmnSequenceFlowDataAssociation> List<T> getConnector(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -152,33 +152,33 @@ public class BpmnSequenceFlowImpl extends BpmnFlowElementImpl implements BpmnSeq
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("3ad63dcf-767e-4e5e-85b2-f36c7bd03d66")
+    @objid ("1cbc43b3-abbf-45f3-ae7c-9d94ad813644")
     @Override
     public BpmnComplexGateway getDefaultOfComplex() {
         return (BpmnComplexGateway) getDepVal(BpmnSequenceFlowData.Metadata.DefaultOfComplexDep());
     }
 
-    @objid ("5dbef8b4-bb3c-40fa-a795-1f42a93fbb9e")
+    @objid ("9cbe98c5-460d-4f6e-830a-b0845e65d56f")
     @Override
     public void setDefaultOfComplex(BpmnComplexGateway value) {
         appendDepVal(BpmnSequenceFlowData.Metadata.DefaultOfComplexDep(), (SmObjectImpl)value);
     }
 
-    @objid ("8351d902-36c8-4aba-8973-067dac0e4bc5")
+    @objid ("bbc191cd-4ed0-477d-8e82-96698e05f901")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("e0c55af8-f053-411d-aba0-eac776a9ea19")
+    @objid ("ad0fb5ce-f139-411c-bd3c-135de7702f91")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("69482f52-fba4-48f1-bc7a-ffbccf818c5d")
+    @objid ("1910c0c3-e4df-49c3-a675-05b0a49c1c8f")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitBpmnSequenceFlow(this);

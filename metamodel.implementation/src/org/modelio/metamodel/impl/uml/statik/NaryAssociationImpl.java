@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9020              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.uml.statik;
 
@@ -29,7 +29,6 @@ import java.util.Collections;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.emf.common.util.EList;
-import org.modelio.metamodel.data.uml.statik.NaryAssociationData.Metadata.NaryEndSmDependency;
 import org.modelio.metamodel.data.uml.statik.NaryAssociationData;
 import org.modelio.metamodel.impl.uml.infrastructure.ModelElementImpl;
 import org.modelio.metamodel.uml.statik.ClassAssociation;
@@ -72,64 +71,6 @@ public class NaryAssociationImpl extends ModelElementImpl implements NaryAssocia
         return super.getCompositionRelation();
     }
 
-    @objid ("5eb6dcf9-6f2b-4630-b05c-73bde20616e3")
-    @Override
-    public EList<NaryLink> getOccurence() {
-        return new SmList<>(this, NaryAssociationData.Metadata.OccurenceDep());
-    }
-
-    @objid ("e7c9aa99-cda3-4ebd-9282-4f7af38e016f")
-    @Override
-    public <T extends NaryLink> List<T> getOccurence(java.lang.Class<T> filterClass) {
-        final List<T> results = new ArrayList<>();
-        final MClass mClass = SmClass.getClass(filterClass);
-        for (final NaryLink element : getOccurence()) {
-          if (element.getMClass().hasBase(mClass)) {
-            results.add(filterClass.cast(element));
-          }
-        }
-        return Collections.unmodifiableList(results);
-    }
-
-    @objid ("0c743a7b-d389-4997-bd7e-187cc756cd28")
-    @Override
-    public EList<NaryAssociationEnd> getNaryEnd() {
-        return new SmList<>(this, NaryAssociationData.Metadata.NaryEndDep());
-    }
-
-    @objid ("ac1822c2-3406-47f9-afcd-b76a5b5d5439")
-    @Override
-    public <T extends NaryAssociationEnd> List<T> getNaryEnd(java.lang.Class<T> filterClass) {
-        final List<T> results = new ArrayList<>();
-        final MClass mClass = SmClass.getClass(filterClass);
-        for (final NaryAssociationEnd element : getNaryEnd()) {
-          if (element.getMClass().hasBase(mClass)) {
-            results.add(filterClass.cast(element));
-          }
-        }
-        return Collections.unmodifiableList(results);
-    }
-
-    @objid ("e1fe2356-f64f-4eeb-a4e7-7feeb408749c")
-    @Override
-    public ClassAssociation getLinkToClass() {
-        return (ClassAssociation) getDepVal(NaryAssociationData.Metadata.LinkToClassDep());
-    }
-
-    @objid ("244f539d-90ad-45f2-aa91-83bdf7627b16")
-    @Override
-    public void setLinkToClass(ClassAssociation value) {
-        appendDepVal(NaryAssociationData.Metadata.LinkToClassDep(), (SmObjectImpl)value);
-    }
-
-    @objid ("a0b06fc3-6599-46e9-80fc-59616768b69a")
-    public Object accept(MVisitor v) {
-        if (v instanceof IModelVisitor)
-          return ((IModelVisitor)v).visitNaryAssociation(this);
-        else
-          return null;
-    }
-
     @objid ("9fa0432b-1708-470d-9074-f9fc3d97fa0c")
     @Override
     public void afterEraseDepVal(SmDependency dep, SmObjectImpl value) {
@@ -146,6 +87,64 @@ public class NaryAssociationImpl extends ModelElementImpl implements NaryAssocia
         }
         
         super.afterEraseDepVal(dep, value);
+    }
+
+    @objid ("b911fa6a-345c-43ba-bf73-0ccae298ed80")
+    @Override
+    public EList<NaryLink> getOccurence() {
+        return new SmList<>(this, NaryAssociationData.Metadata.OccurenceDep());
+    }
+
+    @objid ("e7404ba6-f4a6-4d12-9bb7-609586c275d2")
+    @Override
+    public <T extends NaryLink> List<T> getOccurence(java.lang.Class<T> filterClass) {
+        final List<T> results = new ArrayList<>();
+        final MClass mClass = SmClass.getClass(filterClass);
+        for (final NaryLink element : getOccurence()) {
+          if (element.getMClass().hasBase(mClass)) {
+            results.add(filterClass.cast(element));
+          }
+        }
+        return Collections.unmodifiableList(results);
+    }
+
+    @objid ("733d505f-c35e-405c-bdac-4be52db69524")
+    @Override
+    public EList<NaryAssociationEnd> getNaryEnd() {
+        return new SmList<>(this, NaryAssociationData.Metadata.NaryEndDep());
+    }
+
+    @objid ("ce89a1af-2c12-4b03-9816-59aa0c839a61")
+    @Override
+    public <T extends NaryAssociationEnd> List<T> getNaryEnd(java.lang.Class<T> filterClass) {
+        final List<T> results = new ArrayList<>();
+        final MClass mClass = SmClass.getClass(filterClass);
+        for (final NaryAssociationEnd element : getNaryEnd()) {
+          if (element.getMClass().hasBase(mClass)) {
+            results.add(filterClass.cast(element));
+          }
+        }
+        return Collections.unmodifiableList(results);
+    }
+
+    @objid ("476fe511-9255-4d64-ad06-c00d007aa485")
+    @Override
+    public ClassAssociation getLinkToClass() {
+        return (ClassAssociation) getDepVal(NaryAssociationData.Metadata.LinkToClassDep());
+    }
+
+    @objid ("3cf7abd4-c45b-40eb-b5d3-4a9bbc10f3da")
+    @Override
+    public void setLinkToClass(ClassAssociation value) {
+        appendDepVal(NaryAssociationData.Metadata.LinkToClassDep(), (SmObjectImpl)value);
+    }
+
+    @objid ("1c23829b-4657-4a58-8f57-88a879dbe9b6")
+    public Object accept(MVisitor v) {
+        if (v instanceof IModelVisitor)
+          return ((IModelVisitor)v).visitNaryAssociation(this);
+        else
+          return null;
     }
 
 }

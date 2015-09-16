@@ -68,7 +68,7 @@ public class RichNoteEditorsManager {
     @objid ("6ea7da69-37d3-437c-add9-c79ee434bf2f")
     @Inject
     @Optional
-    boolean onElementEdition(@EventTopic(ModelioEventTopics.EDIT_ELEMENT) final MObject target, final IInputPartService inputPartService, final EPartService partService) {
+    boolean onEditElement(@EventTopic(ModelioEventTopics.EDIT_ELEMENT) final MObject target, final IInputPartService inputPartService, final EPartService partService) {
         // FIXME this should be an @UIEventTopic, but they are not triggered with eclipse 4.3 M5...
         RichNoteFormat format = null;
         

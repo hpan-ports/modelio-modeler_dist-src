@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.uml.statik;
 
@@ -35,22 +35,22 @@ import org.modelio.metamodel.uml.statik.NaryLink;
 
 @objid ("0021601a-c4bf-1fd8-97fe-001ec947cd2a")
 public interface NaryAssociation extends ModelElement {
-    @objid ("daf3527e-a486-4f5f-b538-a0b5c218a611")
+    @objid ("13f8fed4-a708-467b-a3f3-a9e7fdf9e769")
     EList<NaryLink> getOccurence();
 
-    @objid ("6dc4360d-5207-44f8-8d98-9b237ee5a57c")
+    @objid ("c90c35e6-6738-44d2-b874-efa110b7ce62")
     <T extends NaryLink> List<T> getOccurence(java.lang.Class<T> filterClass);
 
-    @objid ("a08e736f-b15e-48ec-ac5b-0ba44116313c")
+    @objid ("d183748d-8488-4d28-b39e-b595ba365e69")
     EList<NaryAssociationEnd> getNaryEnd();
 
-    @objid ("4e30c86d-e442-428d-9026-7bc77fb1b0fb")
+    @objid ("faad1f68-00a1-4e7f-9e46-2b6e50766d6f")
     <T extends NaryAssociationEnd> List<T> getNaryEnd(java.lang.Class<T> filterClass);
 
-    @objid ("8f464057-3801-406a-b567-3ad11318d6f6")
+    @objid ("7c01e47b-718f-4e31-a765-d85aa153b598")
     ClassAssociation getLinkToClass();
 
-    @objid ("5cb8ac95-656e-438e-b2b8-f6b12daba2a6")
+    @objid ("30404601-7815-4f8f-969a-7d2fca58e2d0")
     void setLinkToClass(ClassAssociation value);
 
 }

@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.uml.behavior.activityModel;
 
@@ -34,34 +34,34 @@ import org.modelio.metamodel.uml.behavior.activityModel.OutputPin;
 
 @objid ("002688d8-c4bf-1fd8-97fe-001ec947cd2a")
 public interface ActivityAction extends ActivityNode {
-    @objid ("250b02bb-156b-44e9-a79b-efbb6f1fc747")
+    @objid ("d1e3ac4b-8ef6-4fa3-82c5-86a8a40e2de7")
     boolean isIsMultipleInstance();
 
-    @objid ("19dbd748-ddc2-42e3-ad84-fcca20091f15")
+    @objid ("2ce1c63d-573b-487c-850d-fcde761dd146")
     void setIsMultipleInstance(boolean value);
 
-    @objid ("00ec6854-e2e2-4c41-93f6-37b295fab7d4")
+    @objid ("1a74e3a0-2444-4836-ae22-285361534b4e")
     boolean isIsCompensation();
 
-    @objid ("c42a7a5d-aa5b-47ea-9768-3ac2879449f0")
+    @objid ("690e08a9-6db2-4b54-81bf-64ddc78fbffa")
     void setIsCompensation(boolean value);
 
-    @objid ("b4ba5098-ce9c-4b46-a945-9f88d5874c6a")
+    @objid ("332768e3-c785-4675-bbd3-3242971bf9aa")
     EList<OutputPin> getOutput();
 
-    @objid ("df1810eb-8aab-4e05-abe7-5ef2b56c808d")
+    @objid ("6080408c-812e-43ee-9358-68bc73fd5156")
     <T extends OutputPin> List<T> getOutput(java.lang.Class<T> filterClass);
 
-    @objid ("2e823faf-7b22-427e-afe7-a2b6159e284a")
+    @objid ("fbc18abd-fb27-49d2-ad9e-7355acc33fe1")
     EList<InputPin> getInput();
 
-    @objid ("ec438b6b-0d1d-42ed-9cb7-f043daa519f4")
+    @objid ("5376e689-1443-4ba6-8b3a-3ab1cee7d3ef")
     <T extends InputPin> List<T> getInput(java.lang.Class<T> filterClass);
 
-    @objid ("1ed5425c-7eec-4c0b-811c-7a0d7b895d0d")
+    @objid ("a636dba6-399f-4b89-8bd8-2796b638ee36")
     EList<ExceptionHandler> getHandler();
 
-    @objid ("4c12da7c-e7a8-4444-850a-2ba07fbcfdf6")
+    @objid ("73153f93-a37d-4ce0-81e5-1d12bc3d4de1")
     <T extends ExceptionHandler> List<T> getHandler(java.lang.Class<T> filterClass);
 
 }

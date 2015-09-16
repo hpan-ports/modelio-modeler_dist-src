@@ -33,9 +33,9 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.app.project.ui.plugin.AppProjectUi;
 import org.modelio.app.project.ui.views.urls.PropertiesUrlAdapter;
 import org.modelio.app.project.ui.views.urls.UrlEntry;
-import org.modelio.gproject.descriptor.FragmentDescriptor;
-import org.modelio.gproject.descriptor.GProperties;
-import org.modelio.gproject.descriptor.ProjectDescriptor;
+import org.modelio.gproject.data.project.FragmentDescriptor;
+import org.modelio.gproject.data.project.GProperties;
+import org.modelio.gproject.data.project.ProjectDescriptor;
 import org.modelio.gproject.gproject.GProject;
 
 @objid ("00533464-cc89-1061-b3c0-001ec947cd2a")

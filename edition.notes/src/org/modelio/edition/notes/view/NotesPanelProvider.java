@@ -141,7 +141,7 @@ public class NotesPanelProvider implements IPanelProvider {
 
     @objid ("fba0151b-19e5-11e2-ad19-002564c97630")
     @Override
-    public SashForm getComposite() {
+    public SashForm getPanel() {
         return this.shform;
     }
 
@@ -191,7 +191,7 @@ public class NotesPanelProvider implements IPanelProvider {
 
     @objid ("fba01530-19e5-11e2-ad19-002564c97630")
     @Override
-    public SashForm create(Composite parent) {
+    public SashForm createPanel(Composite parent) {
         this.parentComposite = parent;
         
         this.shform = new SashForm(parent, SWT.HORIZONTAL);
@@ -442,6 +442,18 @@ public class NotesPanelProvider implements IPanelProvider {
         } else if (ratio > HWMAX) {
             view.setVerticalLayout();
         }
+    }
+
+    @objid ("0f13108b-97c0-4e3d-a011-69c39368c8df")
+    @Override
+    public boolean isRelevantFor(Object obj) {
+        return true;
+    }
+
+    @objid ("0f1e96be-32fd-4cf5-94d6-8cfc5d7b1a77")
+    @Override
+    public String getHelpTopic() {
+        return null;
     }
 
     @objid ("fba19bd9-19e5-11e2-ad19-002564c97630")

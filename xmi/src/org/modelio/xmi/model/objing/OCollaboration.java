@@ -35,11 +35,12 @@ import org.modelio.xmi.util.NotFoundException;
 import org.modelio.xmi.util.ObjingEAnnotation;
 
 @objid ("4e6d9e6f-ea63-4453-8e07-11c5ab3fd962")
-public class OCollaboration extends ONameSpace implements IOElement {
+public class OCollaboration extends ONameSpace {
     @objid ("5ffefd93-c620-49f9-bee6-09d22071b4f8")
     private Collaboration objingElement = null;
 
     @objid ("fc03ef08-7bb0-4f27-a484-2a054a6621b3")
+    @Override
     public org.eclipse.uml2.uml.Element createEcoreElt() {
         return UMLFactory.eINSTANCE.createCollaboration();
     }
@@ -47,10 +48,11 @@ public class OCollaboration extends ONameSpace implements IOElement {
     @objid ("75ac470c-1106-4ea9-8b36-d5d9fb43d48d")
     public OCollaboration(Collaboration param) {
         super(param);
-        objingElement = param;
+        this.objingElement = param;
     }
 
     @objid ("2b6d518f-0c98-4656-b123-88333dcbc9a3")
+    @Override
     public void attach(org.eclipse.uml2.uml.Element ecoreElt) {
         MObject objingOwner = this.objingElement.getCompositionOwner();
                 
@@ -70,7 +72,7 @@ public class OCollaboration extends ONameSpace implements IOElement {
                         (ModelTree) objingOwner, ecoreOwner);
             } else {        
                 AbstractObjingModelNavigation.infoOfUnsupportedOwnedWithEMF(
-                        objingOwner, objingElement,ecoreElt);
+                        objingOwner, this.objingElement, ecoreElt);
                 String errorMsg = "Owner Class ("
                             + ecoreOwner.getClass().getSimpleName()
                             + ") Not Found";
@@ -80,13 +82,14 @@ public class OCollaboration extends ONameSpace implements IOElement {
         } else{
             
             AbstractObjingModelNavigation.infoOfUnsupportedOwnedWithEMF(
-                    objingOwner, objingElement,ecoreElt);
+                    objingOwner, this.objingElement,ecoreElt);
             String errorMsg = "Owner Class Not Found";
             throw new NotFoundException(errorMsg);
         }
     }
 
     @objid ("43b49293-5abb-4942-b5ab-8d344b6571c4")
+    @Override
     public void setProperties(org.eclipse.uml2.uml.Element ecoreElt) {
         super.setProperties(ecoreElt);
         setLeaf( (org.eclipse.uml2.uml.Collaboration) ecoreElt);
@@ -98,17 +101,17 @@ public class OCollaboration extends ONameSpace implements IOElement {
 
     @objid ("502cb179-7623-4efc-b4f9-8a5914784434")
     private void setConcurrentEAnnotation(org.eclipse.uml2.uml.Collaboration ecoreElt) {
-        ObjingEAnnotation.setConcurrent(ecoreElt, objingElement.isIsConcurrent());
+        ObjingEAnnotation.setConcurrent(ecoreElt, this.objingElement.isIsConcurrent());
     }
 
     @objid ("9b34b711-2ec7-4e15-9d0f-310cdcd193e3")
     private void setRootEAnnotation(org.eclipse.uml2.uml.Collaboration ecoreElt) {
-        ObjingEAnnotation.setRoot(ecoreElt, objingElement.isIsRoot());
+        ObjingEAnnotation.setRoot(ecoreElt, this.objingElement.isIsRoot());
     }
 
     @objid ("61ab8699-a1ce-418f-83e3-ac2fe0fa06c1")
     private void setLeaf(org.eclipse.uml2.uml.Collaboration ecoreElt) {
-        ecoreElt.setIsLeaf(objingElement.isIsLeaf());
+        ecoreElt.setIsLeaf(this.objingElement.isIsLeaf());
     }
 
     @objid ("278ddee8-3b9a-42c9-a73b-c8a972ded7da")
@@ -155,7 +158,7 @@ public class OCollaboration extends ONameSpace implements IOElement {
             ownerIsItf.getNestedClassifiers().add(ecoreCollab);
         } else {
             AbstractObjingModelNavigation.infoOfUnsupportedOwnedWithEMF(objingMdlTree,
-                    objingElement,ecoreCollab);
+                    this.objingElement,ecoreCollab);
         }
     }
 

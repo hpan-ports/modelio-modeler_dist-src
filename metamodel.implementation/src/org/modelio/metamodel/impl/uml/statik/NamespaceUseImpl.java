@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.uml.statik;
 
@@ -45,37 +45,37 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("00126858-c4bf-1fd8-97fe-001ec947cd2a")
 public class NamespaceUseImpl extends ElementImpl implements NamespaceUse {
-    @objid ("f1f0f554-0598-4144-b107-074ec8714b51")
+    @objid ("d0d1659b-cd34-4719-bae3-2bc92e89fd2e")
     @Override
     public NameSpace getUser() {
         return (NameSpace) getDepVal(NamespaceUseData.Metadata.UserDep());
     }
 
-    @objid ("b39e32d4-7765-42d3-9cc0-4cc27665e275")
+    @objid ("8b1863ce-2594-4115-be0f-c1a89d5766be")
     @Override
     public void setUser(NameSpace value) {
         appendDepVal(NamespaceUseData.Metadata.UserDep(), (SmObjectImpl)value);
     }
 
-    @objid ("60e90aed-c79b-4791-9ab0-ff7a004e01a5")
+    @objid ("82815ec2-eff6-433e-ba0e-0120243c1adb")
     @Override
     public NameSpace getUsed() {
         return (NameSpace) getDepVal(NamespaceUseData.Metadata.UsedDep());
     }
 
-    @objid ("8a5e6101-ff07-4c50-bd42-bdfbb23f99da")
+    @objid ("4c5a4d9f-55f0-4846-b1f5-ecd57ac102d4")
     @Override
     public void setUsed(NameSpace value) {
         appendDepVal(NamespaceUseData.Metadata.UsedDep(), (SmObjectImpl)value);
     }
 
-    @objid ("a32f8527-5cec-4d75-8b7b-9b829a30ff5a")
+    @objid ("bc3ab6cb-9403-4e7e-8748-7a5aff622940")
     @Override
     public EList<Element> getCause() {
         return new SmList<>(this, NamespaceUseData.Metadata.CauseDep());
     }
 
-    @objid ("ff82f330-bef6-4ef8-b0d7-8d75f6135909")
+    @objid ("d03927f6-8ff5-4720-854b-0e6fd1390592")
     @Override
     public <T extends Element> List<T> getCause(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -88,21 +88,21 @@ public class NamespaceUseImpl extends ElementImpl implements NamespaceUse {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("344403d0-054b-46b9-b097-67a124565ba6")
+    @objid ("4fa4ce12-9c01-4b59-b3ea-c0fceac0e583")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("0850359f-5881-48fb-9ad0-3919b99af713")
+    @objid ("c64ad4e3-9142-4dd5-b685-52060a2e4e7d")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("fe437ae0-5935-47d6-b1a7-e1d2c4c906a6")
+    @objid ("3e2d3bc7-8447-4fd2-a52f-cc03bfb3b8f3")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitNamespaceUse(this);

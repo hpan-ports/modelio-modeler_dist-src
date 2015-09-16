@@ -32,6 +32,7 @@ import org.eclipse.jface.dialogs.ProgressMonitorDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.ColumnLabelProvider;
+import org.eclipse.jface.viewers.ColumnViewerToolTipSupport;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
@@ -53,15 +54,17 @@ import org.eclipse.ui.forms.widgets.ExpandableComposite;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.Section;
 import org.modelio.app.project.conf.dialog.ProjectModel;
-import org.modelio.app.project.conf.dialog.common.ScopeHelper;
+import org.modelio.app.project.conf.dialog.common.ColumnHelper;
 import org.modelio.app.project.conf.plugin.AppProjectConf;
 import org.modelio.app.project.core.services.IProjectService;
-import org.modelio.core.ui.images.FragmentImageService;
-import org.modelio.gproject.descriptor.DefinitionScope;
-import org.modelio.gproject.descriptor.FragmentDescriptor;
+import org.modelio.gproject.data.project.AuthDescriptor;
+import org.modelio.gproject.data.project.DefinitionScope;
+import org.modelio.gproject.data.project.FragmentDescriptor;
+import org.modelio.gproject.data.project.GAuthConf;
+import org.modelio.gproject.data.project.ProjectType;
 import org.modelio.gproject.fragment.IProjectFragment;
+import org.modelio.gproject.gproject.FragmentConflictException;
 import org.modelio.gproject.gproject.GProject;
-import org.modelio.gproject.gproject.ProjectType;
 
 /**
  * Manage the distant libraries section.
@@ -95,6 +98,9 @@ public class DistantLibrariesSection {
     @objid ("22012344-308e-497e-8c98-01e9b214c099")
     private Button refreshFragment;
 
+    /**
+     * @param applicationContext the Eclipse context
+     */
     @objid ("7d4e9543-3adc-11e2-916e-002564c97630")
     public DistantLibrariesSection(IEclipseContext applicationContext) {
         this.applicationContext = applicationContext;
@@ -132,6 +138,11 @@ public class DistantLibrariesSection {
         }
     }
 
+    /**
+     * @param toolkit the Eclipse form toolkit
+     * @param parent the parent composite
+     * @return the created Section
+     */
     @objid ("7d4e954a-3adc-11e2-916e-002564c97630")
     public Section createControls(final FormToolkit toolkit, final Composite parent) {
         Section section = toolkit.createSection(parent, ExpandableComposite.TITLE_BAR | ExpandableComposite.TWISTIE | Section.DESCRIPTION);
@@ -146,6 +157,7 @@ public class DistantLibrariesSection {
         
         Table table = toolkit.createTable(composite, SWT.BORDER | SWT.FULL_SELECTION);
         table.setLinesVisible(true);
+        table.setHeaderVisible(true);
         this.viewer = new TableViewer(table);
         //table.setHeaderVisible(true);
         
@@ -153,41 +165,21 @@ public class DistantLibrariesSection {
         table.setLayoutData(gd);
         
         this.viewer.setContentProvider(new ArrayContentProvider());
+        ColumnViewerToolTipSupport.enableFor(this.viewer);
         
-        TableViewerColumn nameColumn = new TableViewerColumn(this.viewer, SWT.NONE);
-        nameColumn.getColumn().setWidth(120);
-        nameColumn.getColumn().setResizable(true);
-        nameColumn.setLabelProvider(new ColumnLabelProvider() {
-            @Override
-            public String getText(Object element) {
-                if (element instanceof IProjectFragment) {
-                    return ((IProjectFragment) element).getId();
-                }
-                return ""; //$NON-NLS-1$
-            }
+        // Name column
+        @SuppressWarnings("unused")
+        TableViewerColumn nameColumn = ColumnHelper.createFragmentNameColumn(this.viewer);
         
-            @Override
-            public Image getImage(Object element) {
-                if (element instanceof IProjectFragment) {
-                    return FragmentImageService.getImage((IProjectFragment) element);
-                }
-                return null;
-            }
-        });
+        // Scope column
+        @SuppressWarnings("unused")
+        TableViewerColumn scopeColumn = ColumnHelper.createFragmentScopeColumn(this.viewer);
         
-        TableViewerColumn scopeColumn = new TableViewerColumn(this.viewer, SWT.NONE);
-        scopeColumn.getColumn().setWidth(120);
-        scopeColumn.getColumn().setResizable(true);
-        scopeColumn.setLabelProvider(new ColumnLabelProvider() {
-            @Override
-            public String getText(Object element) {
-                if (element instanceof IProjectFragment) {
-                    return ScopeHelper.getText(((IProjectFragment) element).getScope());
-                }
-                return ""; //$NON-NLS-1$
-            }
-        });
+        // Metamodel version column
+        @SuppressWarnings("unused")
+        TableViewerColumn mmVer = ColumnHelper.createFragmentMmVersionColumn(this.viewer);
         
+        // URL column
         TableViewerColumn uriColumn = new TableViewerColumn(this.viewer, SWT.NONE);
         uriColumn.getColumn().setWidth(300);
         uriColumn.getColumn().setResizable(true);
@@ -316,7 +308,11 @@ public class DistantLibrariesSection {
             
                     @Override
                     public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
-                        projectService.addFragment(getProjectAdapter().getOpenedProject(), fragmentDescriptor, monitor);
+                        try {
+                            projectService.addFragment(getProjectAdapter().getOpenedProject(), fragmentDescriptor, monitor);
+                        } catch (FragmentConflictException ex) {
+                            throw new InvocationTargetException(ex, ex.getLocalizedMessage());
+                        }
                     }
                 };
             
@@ -388,19 +384,25 @@ public class DistantLibrariesSection {
                 final IProjectService projectService = DistantLibrariesSection.this.applicationContext.get(IProjectService.class);
                 final GProject openedProject = getProjectAdapter().getOpenedProject();
             
+                final GAuthConf authConf = fragment.getAuthConfiguration();
                 final FragmentDescriptor fragmentDescriptor = new FragmentDescriptor();
                 fragmentDescriptor.setId(fragment.getId());
                 fragmentDescriptor.setProperties(fragment.getProperties());
                 fragmentDescriptor.setType(fragment.getType());
                 fragmentDescriptor.setUri(fragment.getUri());
                 fragmentDescriptor.setScope(fragment.getScope());
+                fragmentDescriptor.setAuthDescriptor(new AuthDescriptor( authConf.getAuthData(), authConf.getScope()));
             
                 IRunnableWithProgress runnable = new IRunnableWithProgress() {
             
                     @Override
                     public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
                         projectService.removeFragment(openedProject, fragment);
-                        projectService.addFragment(openedProject, fragmentDescriptor, monitor);
+                        try {
+                            projectService.addFragment(openedProject, fragmentDescriptor, monitor);
+                        } catch (FragmentConflictException ex) {
+                            throw new InvocationTargetException(ex, ex.getLocalizedMessage());
+                        }
                     }
                 };
             
@@ -447,8 +449,12 @@ public class DistantLibrariesSection {
             
                         @Override
                         public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
-                            projectService.removeFragment(openedProject, fragment);
-                            projectService.addFragment(openedProject, fragmentDescriptor, monitor);
+                            try {
+                                projectService.removeFragment(openedProject, fragment);
+                                projectService.addFragment(openedProject, fragmentDescriptor, monitor);
+                            } catch (FragmentConflictException ex) {
+                                throw new InvocationTargetException(ex, ex.getLocalizedMessage());
+                            }
                         }
                     };
             

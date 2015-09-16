@@ -21,36 +21,22 @@
 
 package org.modelio.xmi.model.ecore;
 
-import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.modelio.api.modelio.Modelio;
 import org.modelio.metamodel.uml.infrastructure.Element;
+import org.modelio.xmi.util.ReverseProperties;
 
 @objid ("3e5cf4ba-428f-44a8-923c-55412074cef0")
-public class EActivityFinalNode extends EActivityNode implements IEElement {
+public class EActivityFinalNode extends EActivityNode {
     @objid ("3ca55cbc-e6c3-4857-8525-54679ad1d5af")
+    @Override
     public Element createObjingElt() {
-        return Modelio.getInstance().getModelingSession().getModel()
+        return ReverseProperties.getInstance().getMModelServices().getModelFactory()
                 .createActivityFinalNode();
     }
 
     @objid ("c269cad2-6fa7-4a06-82ac-1ebe53b9ac7e")
     public EActivityFinalNode(org.eclipse.uml2.uml.ActivityFinalNode element) {
         super(element);
-    }
-
-    @objid ("c1a1acb8-5044-408a-a0da-41438a3046ca")
-    public void attach(Element objingElt) {
-        super.attach(objingElt);
-    }
-
-    @objid ("9a458d5b-a0dd-44eb-99f6-4446572abec4")
-    public void attach(List<Object> objingElts) {
-    }
-
-    @objid ("8b5456ee-c58c-4022-9eed-0b4a05c97f5c")
-    public void setProperties(Element objingElt) {
-        super.setProperties(objingElt);
     }
 
 }

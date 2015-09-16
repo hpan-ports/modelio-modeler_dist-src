@@ -253,7 +253,7 @@ public class CreateMessageHelper {
         if (type == MessageType.Creation) {
             theMessage.setName(DiagramEditorSequence.I18N.getString("Labels.Message.Create"));
         } else if (type == MessageType.Destruction) {
-            theMessage.setName(DiagramEditorSequence.I18N.getString("Labels.Message.Destroy"));
+            theMessage.setName(DiagramEditorSequence. I18N.getString("Labels.Message.Destroy"));
         } else {
             ExecutionOccurenceSpecification targetExecutionEnd = this.modelFactory.createExecutionOccurenceSpecification();
             targetExecutionEnd.getCovered().add(targetLifeline);
@@ -288,7 +288,7 @@ public class CreateMessageHelper {
                 replyEnd.setReceivedMessage(theReplyMessage);
                 setMessageSortAndKind(MessageType.Reply, theReplyMessage);
         
-                replyEnd.setLineNumber(targetTime + DEFAULT_EXECUTION_DURATION);
+                replyEnd.setLineNumber(targetTime + 2 * DEFAULT_EXECUTION_DURATION);
             }
         }
     }

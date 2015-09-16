@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.data.uml.behavior.activityModel;
 
@@ -43,22 +43,22 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("002c7f7c-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=CentralBufferNode.class, factory=CentralBufferNodeData.Metadata.ObjectFactory.class)
 public class CentralBufferNodeData extends ObjectNodeData {
-    @objid ("949077c1-0b22-4081-bba8-fad28af7ee46")
+    @objid ("07b839d0-1052-430c-a9c6-7de68c7e7b47")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("001ebcd4-c4c4-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("fa78d00e-e2f1-46fb-a0bc-bb75717d33a9")
+        @objid ("a8382fe4-e0c0-4768-8d0a-68691b8325c1")
         private static SmClass smClass = null;
 
-        @objid ("536b1a31-90dc-47e2-8fc2-97e40ea81035")
+        @objid ("504a0e2b-b543-4389-a732-e090169ed0c8")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(CentralBufferNodeData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("bb7091e6-2e79-4ab8-899a-9c4d26f32ba1")
+        @objid ("26c5d2e8-2d14-43d8-85fb-f206744f9964")
         public static SmClass getSmClass() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return smClass;
@@ -66,12 +66,12 @@ public class CentralBufferNodeData extends ObjectNodeData {
 
         @objid ("001efe24-c4c4-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("98f2f6bf-fdc7-4592-ae09-45b6e75890d3")
+            @objid ("c9642722-6b15-479d-b445-70177115844d")
             public ISmObjectData createData() {
                 return new CentralBufferNodeData();
             }
 
-            @objid ("cb12fa1b-faa8-4d83-a9a2-70e69df467cb")
+            @objid ("dc8cb53d-a339-4fee-b02b-54b882e9ae13")
             public SmObjectImpl createImpl() {
                 return new CentralBufferNodeImpl();
             }

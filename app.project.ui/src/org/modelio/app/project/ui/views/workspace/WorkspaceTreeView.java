@@ -44,6 +44,7 @@ import org.eclipse.e4.ui.services.IServiceConstants;
 import org.eclipse.e4.ui.workbench.modeling.ESelectionService;
 import org.eclipse.e4.ui.workbench.modeling.IWindowCloseHandler;
 import org.eclipse.e4.ui.workbench.swt.modeling.EMenuService;
+import org.eclipse.jface.viewers.ColumnViewerToolTipSupport;
 import org.eclipse.jface.viewers.DoubleClickEvent;
 import org.eclipse.jface.viewers.IDoubleClickListener;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
@@ -57,7 +58,7 @@ import org.modelio.app.core.events.ModelioEventTopics;
 import org.modelio.app.project.core.services.IProjectService;
 import org.modelio.app.project.ui.closeproject.CloseProjectHandler;
 import org.modelio.app.project.ui.plugin.AppProjectUi;
-import org.modelio.gproject.descriptor.ProjectDescriptor;
+import org.modelio.gproject.data.project.ProjectDescriptor;
 import org.modelio.gproject.gproject.GProject;
 import org.modelio.gproject.gproject.GProjectFactory;
 import org.modelio.ui.progress.IModelioProgressService;
@@ -128,6 +129,8 @@ public class WorkspaceTreeView {
         this.viewer.setLabelProvider(new WksLabelProvider(this.projectService, this.viewer.getTree().getFont()));
         this.viewer.setSorter(new WksNameSorter());
         this.viewer.setUseHashlookup(true);
+        
+        ColumnViewerToolTipSupport.enableFor(this.viewer);
         
         this.viewer.addSelectionChangedListener(new ISelectionChangedListener() {
             @SuppressWarnings("synthetic-access")

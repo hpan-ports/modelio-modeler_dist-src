@@ -42,12 +42,6 @@ public class EAbstraction extends EDependency {
         super(element);
     }
 
-    @objid ("57b145a1-b625-4aa2-b8d9-c3cb9e72106b")
-    @Override
-    public void attach(List<Object> objingElts) {
-        super.attach(objingElts);
-    }
-
     @objid ("22274d67-89dd-4449-b327-0b05970ec8be")
     @Override
     public void setProperties(Element objingElt) {

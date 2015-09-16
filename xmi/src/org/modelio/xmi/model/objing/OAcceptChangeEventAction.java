@@ -24,13 +24,16 @@ package org.modelio.xmi.model.objing;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.uml2.uml.UMLFactory;
 import org.modelio.metamodel.uml.behavior.activityModel.AcceptChangeEventAction;
+import org.modelio.xmi.util.GenerationProperties;
+import org.modelio.xmi.util.ObjingEAnnotation;
 
 @objid ("27510f37-41c2-4814-87d2-3f8517009a1d")
-public class OAcceptChangeEventAction extends OActivityNode implements IOElement {
+public class OAcceptChangeEventAction extends OActivityNode {
     @objid ("148e0630-d807-4a19-a81f-9afa33f0f022")
     private AcceptChangeEventAction objingElement;
 
     @objid ("568134ab-0805-4464-a0c8-c83b85e2c9bf")
+    @Override
     public org.eclipse.uml2.uml.Element createEcoreElt() {
         return UMLFactory.eINSTANCE.createAcceptEventAction();
     }
@@ -38,23 +41,26 @@ public class OAcceptChangeEventAction extends OActivityNode implements IOElement
     @objid ("f57ff107-c263-4f70-a698-74e6d84495fd")
     public OAcceptChangeEventAction(AcceptChangeEventAction element) {
         super(element);
-        objingElement = element;
+        this.objingElement = element;
     }
 
     @objid ("a6e0d360-0329-407f-95f1-b473dc9f1cfa")
+    @Override
     public void attach(org.eclipse.uml2.uml.Element ecoreElt) {
         super.attach(ecoreElt);
     }
 
     @objid ("c3f62fd6-559b-4372-b7aa-97bd6404d23c")
+    @Override
     public void setProperties(org.eclipse.uml2.uml.Element ecoreElt) {
-        super.attach(ecoreElt);
+        super.setProperties(ecoreElt);
         setChangeExpression( (org.eclipse.uml2.uml.AcceptEventAction) ecoreElt);
+        setChange( (org.eclipse.uml2.uml.AcceptEventAction) ecoreElt);
     }
 
     @objid ("b1536b4e-c1ec-4f3b-8a09-25153cf062de")
     private void setChangeExpression(org.eclipse.uml2.uml.AcceptEventAction action) {
-        String changeExpression = objingElement.getChangeExpresion();
+        String changeExpression = this.objingElement.getChangeExpresion();
         
         if ((changeExpression != null) && (!changeExpression.equals(""))){
         
@@ -71,6 +77,13 @@ public class OAcceptChangeEventAction extends OActivityNode implements IOElement
             // Attach the  org.eclipse.uml2.uml.Event to the model via composition relation:
             org.eclipse.uml2.uml.Package nearestPkg = action.getNearestPackage();
             nearestPkg.getPackagedElements().add(changeEvent);
+        }
+    }
+
+    @objid ("506aa8a4-4ff7-4dad-afb6-832dbb39a1de")
+    private void setChange(final org.eclipse.uml2.uml.AcceptEventAction ecoreElt) {
+        if (GenerationProperties.getInstance().isRoundtripEnabled()){
+            ObjingEAnnotation.setSignal(ecoreElt, "change");
         }
     }
 

@@ -34,7 +34,7 @@ import org.eclipse.swt.widgets.Shell;
 import org.modelio.app.project.conf.dialog.ProjectModel;
 import org.modelio.app.project.conf.plugin.AppProjectConf;
 import org.modelio.core.ui.dialog.ModelioDialog;
-import org.modelio.gproject.ramc.core.archive.IModelComponentInfos;
+import org.modelio.gproject.data.ramc.IModelComponentInfos;
 
 @objid ("87aa46b6-92e4-4aa2-8cc7-d540d11a0faf")
 public class RamcPropertyDialog extends ModelioDialog {

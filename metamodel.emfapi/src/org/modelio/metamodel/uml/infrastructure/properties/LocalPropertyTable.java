@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.uml.infrastructure.properties;
 
@@ -31,10 +31,10 @@ import org.modelio.metamodel.uml.infrastructure.ModelElement;
 
 @objid ("006c6ff6-ec87-1098-b22e-001ec947cd2a")
 public interface LocalPropertyTable extends PropertyTable {
-    @objid ("8b65ccdc-d978-4590-b5b7-03a7aaabbd54")
+    @objid ("d32aa1c8-1b56-4e6e-b75a-8db4bcf6cf01")
     ModelElement getLocalAnnoted();
 
-    @objid ("b679ff97-365c-4656-831e-635662e82d83")
+    @objid ("ffdf5bbb-1796-4b1a-9697-1e16b4b6db58")
     void setLocalAnnoted(ModelElement value);
 
 }

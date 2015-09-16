@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.uml.behavior.interactionModel;
 
@@ -31,16 +31,16 @@ import org.modelio.metamodel.uml.behavior.interactionModel.Message;
 
 @objid ("0049cc1c-c4bf-1fd8-97fe-001ec947cd2a")
 public interface MessageEnd extends OccurrenceSpecification {
-    @objid ("853fc15d-eeb9-44b4-b209-4e37f84dd2c0")
+    @objid ("620fecb1-d3b5-4a98-9a7c-6902682674ee")
     Message getReceivedMessage();
 
-    @objid ("77c2ded8-a702-48bd-92a3-0b737da371b6")
+    @objid ("42763892-24b4-4c0f-a65c-cf2385d8c98e")
     void setReceivedMessage(Message value);
 
-    @objid ("0980a18d-942d-47fd-9754-5012cf1ab015")
+    @objid ("6fde17d4-88c5-47d8-9f28-fc89e9d64604")
     Message getSentMessage();
 
-    @objid ("38998757-1b33-478d-90bd-fdd038842c50")
+    @objid ("639efeb1-7110-4c4c-94a1-1a2766e3b534")
     void setSentMessage(Message value);
 
 }

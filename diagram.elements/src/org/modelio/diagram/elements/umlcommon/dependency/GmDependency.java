@@ -36,7 +36,7 @@ import org.modelio.vcore.smkernel.mapi.MObject;
 import org.modelio.vcore.smkernel.mapi.MRef;
 
 /**
- * Graphic model for {@link IDependency}.
+ * Graphic model for {@link Dependency}.
  * 
  * @author sbe
  */
@@ -49,13 +49,16 @@ public class GmDependency extends GmLink {
     private final int minorVersion = 0;
 
     @objid ("81249eb9-1dec-11e2-8cad-001ec947c8cc")
-    private static final int MAJOR_VERSION = 0;
+    private static final int MAJOR_VERSION = 1;
 
     @objid ("81249eb3-1dec-11e2-8cad-001ec947c8cc")
     private Dependency dependency;
 
+    /**
+     * Style keys for {@link GmDependency}.
+     */
     @objid ("81249eb4-1dec-11e2-8cad-001ec947c8cc")
-    private static final GmDependencyStyleKeys styleKeyProvider = new GmDependencyStyleKeys();
+    public static final GmDependencyStyleKeys styleKeyProvider = new GmDependencyStyleKeys("DEPENDENCY");
 
     /**
      * Initialize a control flow graphic model.

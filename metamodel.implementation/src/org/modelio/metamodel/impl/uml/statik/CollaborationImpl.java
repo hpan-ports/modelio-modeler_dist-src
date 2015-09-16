@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.uml.statik;
 
@@ -45,49 +45,49 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("00041fdc-c4bf-1fd8-97fe-001ec947cd2a")
 public class CollaborationImpl extends NameSpaceImpl implements Collaboration {
-    @objid ("fe6335aa-bed0-4e8d-8e44-3cd0c2ac5eaf")
+    @objid ("ea50913b-49a3-4123-8d98-aad6df1798cb")
     @Override
     public boolean isIsConcurrent() {
         return (Boolean) getAttVal(CollaborationData.Metadata.IsConcurrentAtt());
     }
 
-    @objid ("5c7d045e-51f3-400a-8e8c-4c5e726e932a")
+    @objid ("7e1ff7e7-cd2b-479e-a7bf-5c3800301a42")
     @Override
     public void setIsConcurrent(boolean value) {
         setAttVal(CollaborationData.Metadata.IsConcurrentAtt(), value);
     }
 
-    @objid ("543c43ca-405a-4067-9ff6-ca3579f4d5c6")
+    @objid ("9a6e3bdf-b9cf-47b7-8d5f-bb9ab74caeb8")
     @Override
     public Operation getORepresented() {
         return (Operation) getDepVal(CollaborationData.Metadata.ORepresentedDep());
     }
 
-    @objid ("a24149ed-ab88-4412-a4d7-181374f6c503")
+    @objid ("0759c333-d1b0-46f0-88f9-ed33b4a17373")
     @Override
     public void setORepresented(Operation value) {
         appendDepVal(CollaborationData.Metadata.ORepresentedDep(), (SmObjectImpl)value);
     }
 
-    @objid ("291d1b0f-6d77-47e7-bfc9-2d63162f7da7")
+    @objid ("0e29257c-5920-4d42-92de-3e83a3bd12d0")
     @Override
     public Behavior getBRepresented() {
         return (Behavior) getDepVal(CollaborationData.Metadata.BRepresentedDep());
     }
 
-    @objid ("d65d6f08-6db0-4fc2-ac84-54b1f91c8756")
+    @objid ("e2a3e438-ade7-4a3d-99ca-06f66554b19c")
     @Override
     public void setBRepresented(Behavior value) {
         appendDepVal(CollaborationData.Metadata.BRepresentedDep(), (SmObjectImpl)value);
     }
 
-    @objid ("2941d1cf-95eb-4fa3-bc6f-48c26d749fb0")
+    @objid ("2fcdb6ef-06e0-4a61-83dd-a920963abb04")
     @Override
     public EList<CollaborationUse> getOccurrence() {
         return new SmList<>(this, CollaborationData.Metadata.OccurrenceDep());
     }
 
-    @objid ("b529e083-9c21-49bf-9baa-039f746b6e4b")
+    @objid ("8810f689-66e7-4893-9587-11cb469cd129")
     @Override
     public <T extends CollaborationUse> List<T> getOccurrence(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -100,7 +100,7 @@ public class CollaborationImpl extends NameSpaceImpl implements Collaboration {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("6227514c-9bff-4f41-8977-e69729697b00")
+    @objid ("c56d4ff5-544d-4dfd-ba02-de4941fe0a52")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
@@ -113,7 +113,7 @@ public class CollaborationImpl extends NameSpaceImpl implements Collaboration {
         return super.getCompositionOwner();
     }
 
-    @objid ("ee364646-0603-4b10-b946-bf48a7fcc67e")
+    @objid ("e52fcd02-2b39-4cd6-bb14-4cbf9def35aa")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
@@ -126,7 +126,7 @@ public class CollaborationImpl extends NameSpaceImpl implements Collaboration {
         return super.getCompositionRelation();
     }
 
-    @objid ("72a60426-bf4f-42e0-a32e-b1ba5669703c")
+    @objid ("755b93a4-72a5-4f57-b6bc-894db5fc7804")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitCollaboration(this);

@@ -45,10 +45,10 @@ import org.modelio.app.project.conf.dialog.ProjectModel;
 import org.modelio.app.project.conf.dialog.libraries.local.property.RamcPropertyComposite;
 import org.modelio.app.project.conf.plugin.AppProjectConf;
 import org.modelio.core.ui.dialog.ModelioDialog;
-import org.modelio.gproject.descriptor.FragmentDescriptor;
+import org.modelio.gproject.data.project.FragmentDescriptor;
+import org.modelio.gproject.data.ramc.IModelComponentInfos;
+import org.modelio.gproject.data.ramc.ModelComponentArchive;
 import org.modelio.gproject.fragment.IProjectFragment;
-import org.modelio.gproject.ramc.core.archive.IModelComponentInfos;
-import org.modelio.gproject.ramc.core.archive.ModelComponentArchive;
 import org.modelio.ui.UIImages;
 
 /**

@@ -36,6 +36,7 @@ import org.modelio.metamodel.mda.ModuleComponent;
 import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.metamodel.uml.infrastructure.MetaclassReference;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
+import org.modelio.metamodel.uml.infrastructure.Stereotype;
 import org.modelio.metamodel.uml.infrastructure.TagType;
 
 /**
@@ -43,8 +44,14 @@ import org.modelio.metamodel.uml.infrastructure.TagType;
  */
 @objid ("8fac8b30-c068-11e1-8c0a-002564c97630")
 public class TreeContentProvider implements ITreeContentProvider {
+    @objid ("52b8f9d4-86aa-4848-8db5-d524a6aa3fc6")
+    private boolean displayHiddenTags = false;
+
     @objid ("078cffa8-179f-11e2-aa0d-002564c97630")
     private IMModelServices modelService;
+
+    @objid ("33c2aabd-297b-4230-b767-f3700ab8c06c")
+    private ModelElement inputElement;
 
     @objid ("8fac8b32-c068-11e1-8c0a-002564c97630")
     @Override
@@ -64,9 +71,6 @@ public class TreeContentProvider implements ITreeContentProvider {
         if (object instanceof ModelElement) {
             // then comes the modules
             elements.addAll(getContributingModules((ModelElement) object));
-        
-            // and finally the model element's stereotypes
-            elements.addAll(((ModelElement) object).getExtension());
         }
         return elements.toArray();
     }
@@ -81,11 +85,21 @@ public class TreeContentProvider implements ITreeContentProvider {
     @Override
     public void inputChanged(final Viewer viewer, final Object oldInput, final Object newInput) {
         // Nothing to do
+        this.inputElement = (ModelElement) (newInput instanceof ModelElement ? newInput : null);
     }
 
     @objid ("8faeec55-c068-11e1-8c0a-002564c97630")
     @Override
     public Object[] getChildren(Object parent) {
+        if (parent instanceof ModuleComponent && this.inputElement != null) {
+            List<Stereotype> ret = new ArrayList<>();
+            for (Stereotype stereotype : this.inputElement.getExtension()) {
+                if (parent.equals(stereotype.getModule())) {
+                    ret.add(stereotype);
+                }
+            }
+            return ret.toArray(); 
+        }
         return Collections.EMPTY_LIST.toArray();
     }
 
@@ -98,6 +112,11 @@ public class TreeContentProvider implements ITreeContentProvider {
     @objid ("8faeec63-c068-11e1-8c0a-002564c97630")
     @Override
     public boolean hasChildren(Object parent) {
+        if (parent instanceof ModuleComponent && this.inputElement != null) {
+            return getChildren(parent).length > 0;
+        } else if (parent instanceof Stereotype) {
+            return getChildren(parent).length > 0;
+        }
         return false;
     }
 
@@ -124,17 +143,34 @@ public class TreeContentProvider implements ITreeContentProvider {
         if (this.modelService != null) {
             for (TagType tagType : this.modelService.findTagTypes(".*", ".*", element.getMClass())) {
                 MetaclassReference ownerReference = tagType.getOwnerReference();
-                if (ownerReference != null && !tagType.isIsHidden()) {
+                if (ownerReference != null && displayTagType(tagType)) {
                     modules.add(ownerReference.getOwnerProfile().getOwnerModule());
                 }
             }
         }
+        
+        for (Stereotype stereotype : element.getExtension()) {
+            modules.add(stereotype.getModule());
+        }
         return modules;
     }
 
+    /**
+     * @param modelService the Modelio model services.
+     */
     @objid ("89f044c9-e712-4816-898c-9b865c4c2838")
     public void setModelService(IMModelServices modelService) {
         this.modelService = modelService;
+    }
+
+    @objid ("44a42f81-5bb3-445d-b07c-b62345961fa6")
+    protected boolean displayTagType(TagType tagType) {
+        return this.displayHiddenTags || !tagType.isIsHidden();
+    }
+
+    @objid ("a0e9b073-9554-45c6-9b6c-47185d233745")
+    void setShowHiddenMdaElements(boolean show) {
+        this.displayHiddenTags = show;
     }
 
 }

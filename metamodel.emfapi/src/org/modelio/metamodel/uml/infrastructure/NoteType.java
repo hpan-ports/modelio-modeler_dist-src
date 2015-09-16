@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.uml.infrastructure;
 
@@ -38,34 +38,40 @@ public interface NoteType extends ModelElement {
     @objid ("86c9b1d3-36e0-4281-ae56-13648e6465ec")
     ModuleComponent getModule();
 
-    @objid ("1f2cb91b-d56b-4fcf-8ec2-8bac3727556c")
+    @objid ("eba6b8f2-3950-461f-b04c-874b79719bc4")
     boolean isIsHidden();
 
-    @objid ("ad8b5f26-2949-49f7-be0c-e420cc667cfe")
+    @objid ("2395b181-80e5-49f5-a6c7-7431132447a2")
     void setIsHidden(boolean value);
 
-    @objid ("15be2f3f-7e3e-4ab5-a288-9106d4caf8b3")
+    @objid ("8e6b92c4-3c7d-4709-ada7-60a5c78e219d")
     String getLabelKey();
 
-    @objid ("172ed30c-ea9f-4d9e-9bd8-bd33cbaadd3c")
+    @objid ("75de9fca-81fe-40b4-8a59-8df53037a2ed")
     void setLabelKey(String value);
 
-    @objid ("47131feb-3cc4-4ca3-981c-ef579c1cc1c6")
+    @objid ("7093085b-192d-4af6-a380-df81ffde35ff")
+    String getMimeType();
+
+    @objid ("7623832a-1ebf-4685-853a-7167afde6832")
+    void setMimeType(String value);
+
+    @objid ("4671d793-a351-4eed-9794-ef4ffe8e13d2")
     EList<Note> getElement();
 
-    @objid ("5ee9d6c2-6543-4599-baa6-da3a94454fb4")
+    @objid ("913460a2-be43-48a8-95ad-45e30c629461")
     <T extends Note> List<T> getElement(java.lang.Class<T> filterClass);
 
-    @objid ("614a68b3-dac5-48b5-b13b-c292ba08995c")
+    @objid ("96ea6ab9-03f9-4520-9678-e2c2c0ecb8f7")
     Stereotype getOwnerStereotype();
 
-    @objid ("03758635-e9f8-4f35-886f-5c2cd8ab7efc")
+    @objid ("f2f6296d-87cb-4945-9976-fad11ee05d30")
     void setOwnerStereotype(Stereotype value);
 
-    @objid ("8cda1033-973a-480a-946a-68cd4da2bb44")
+    @objid ("31bfc44c-0d27-4090-8e24-03848dcef67d")
     MetaclassReference getOwnerReference();
 
-    @objid ("6b4367d6-4ff8-4d5d-828e-bb77fcc368d0")
+    @objid ("6e4f5c13-5c78-4f4c-915d-c6d10071e653")
     void setOwnerReference(MetaclassReference value);
 
 }

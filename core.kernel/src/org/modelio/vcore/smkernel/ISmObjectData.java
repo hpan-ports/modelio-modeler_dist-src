@@ -61,6 +61,18 @@ public interface ISmObjectData extends Serializable, IAccessOrdered {
     /**
      * Set the given flags state.
      * <p>
+     * Use the constants defined in {@link IRStatus}.
+     * No delete flag must be undefined, in the other case Modelio behavior is undefined.
+     * @param trueFlags a combination of flags to set.
+     * @param falseFlags a combination of flags to unset.
+     * @param undefFlags a combination of flags to undefine.
+     */
+    @objid ("bcfaa760-d2e9-43b6-b331-da8c18d52c76")
+    void setNotFalseRFlags(long trueFlags, long falseFlags, long undefFlags);
+
+    /**
+     * Set the given flags state.
+     * <p>
      * No delete flag must be undefined, in the other case Modelio behavior is undefined.
      * @param flags a combination of flags. Use the constants defined in {@link IRStatus}.
      * @param state the flags state

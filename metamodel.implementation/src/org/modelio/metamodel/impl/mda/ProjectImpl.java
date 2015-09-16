@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.mda;
 
@@ -44,69 +44,69 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("006633d4-c4bf-1fd8-97fe-001ec947cd2a")
 public class ProjectImpl extends ModelElementImpl implements Project {
-    @objid ("d4936be8-7578-420d-9bb0-f46ca7862fbe")
+    @objid ("470e8c93-2764-46cf-a24d-affc3d7b4e5f")
     @Override
     public String getProjectContext() {
         return (String) getAttVal(ProjectData.Metadata.ProjectContextAtt());
     }
 
-    @objid ("54cbdd4e-06b2-499f-a95b-9b7187b83f75")
+    @objid ("1f2ac22e-6d80-4fe2-98b0-59048fbe9fc3")
     @Override
     public void setProjectContext(String value) {
         setAttVal(ProjectData.Metadata.ProjectContextAtt(), value);
     }
 
-    @objid ("e2a98298-05a7-4d5b-ac17-835abce6dfe1")
+    @objid ("af11c97d-b08f-47ae-ab51-512bff5dc02c")
     @Override
     public String getProjectDescr() {
         return (String) getAttVal(ProjectData.Metadata.ProjectDescrAtt());
     }
 
-    @objid ("f8788880-791f-414f-a711-06fb95ce9a7a")
+    @objid ("b6dca859-5592-4a59-b5d7-56e1c3ac35a0")
     @Override
     public void setProjectDescr(String value) {
         setAttVal(ProjectData.Metadata.ProjectDescrAtt(), value);
     }
 
-    @objid ("8bb92c84-22f0-4619-bca7-aaca198d3832")
+    @objid ("cd34649e-3991-40f2-b865-96e24a84c8dc")
     @Override
     public DiagramSet getDiagramRoot() {
         return (DiagramSet) getDepVal(ProjectData.Metadata.DiagramRootDep());
     }
 
-    @objid ("4fe5d796-22fb-458d-9b2a-26a720b7ca49")
+    @objid ("13fdf6a0-3fc8-4554-bc5b-8b624ba72569")
     @Override
     public void setDiagramRoot(DiagramSet value) {
         appendDepVal(ProjectData.Metadata.DiagramRootDep(), (SmObjectImpl)value);
     }
 
-    @objid ("f9bac689-8582-4504-9b7e-318e54fa2b70")
+    @objid ("7e947f30-5ac5-47f0-9c59-1ef5a7f76e6a")
     @Override
     public Package getModel() {
         return (Package) getDepVal(ProjectData.Metadata.ModelDep());
     }
 
-    @objid ("a7005f6d-3525-4c08-997f-fb3708b6ea6a")
+    @objid ("69835011-0910-43b1-a18e-7883f2832ecb")
     @Override
     public void setModel(Package value) {
         appendDepVal(ProjectData.Metadata.ModelDep(), (SmObjectImpl)value);
     }
 
-    @objid ("4dbe2d79-e9f8-4d6d-8d22-d4209f18b5ed")
+    @objid ("76617008-0b16-4012-a890-bd200dc7f40b")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("2c3c931c-bf28-4e4d-9f2a-c000330cb69b")
+    @objid ("88899d55-fa8c-457b-b0ab-17031aaf5522")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("ea70ef78-bc58-4f17-aa9a-b893b1a5639a")
+    @objid ("0088701d-25f1-4808-be72-cb423e697cfb")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitProject(this);

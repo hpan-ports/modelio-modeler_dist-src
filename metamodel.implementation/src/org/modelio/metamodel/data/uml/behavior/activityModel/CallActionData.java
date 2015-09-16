@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.data.uml.behavior.activityModel;
 
@@ -43,29 +43,29 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("002ac010-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=CallAction.class, factory=CallActionData.Metadata.ObjectFactory.class)
 public abstract class CallActionData extends ActivityActionData {
-    @objid ("89b19a9c-ca48-4707-a616-8151636b573c")
+    @objid ("5e47e183-3be5-40dd-a844-8fdfbe0261e6")
     @SmaMetaAttribute(metaName="IsSynchronous", type=Boolean.class, smAttributeClass=Metadata.IsSynchronousSmAttribute.class)
      Object mIsSynchronous = true;
 
-    @objid ("bd088e2f-23f6-454d-88ba-81640e1fbb5d")
+    @objid ("e4ed8139-8b88-43be-9a94-7e0bbd6ff41b")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("0080c50a-c4c4-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("11546ca9-fbf4-40ba-821d-01aee0ae295e")
+        @objid ("ea09a76e-8eb0-4efc-9566-98e05761a50a")
         private static SmClass smClass = null;
 
-        @objid ("cff22058-c3e4-4a14-b152-44c30bd1e8b0")
+        @objid ("ca86d477-3ef4-4517-8092-cceb3823962d")
         private static SmAttribute IsSynchronousAtt = null;
 
-        @objid ("e37d9c9c-57a1-45d7-a061-bb976457e71a")
+        @objid ("a304d9dd-8bf4-4a63-81a9-2209245e9035")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(CallActionData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("bc2c03ae-4609-45d1-915e-3e4431bfbf8f")
+        @objid ("07134e78-dbc4-4478-8c76-31ab3c18cf3a")
         public static SmAttribute IsSynchronousAtt() {
             if (IsSynchronousAtt == null) {
             	IsSynchronousAtt = classof().getAttributeDef("IsSynchronous");
@@ -73,13 +73,13 @@ public abstract class CallActionData extends ActivityActionData {
             return IsSynchronousAtt;
         }
 
-        @objid ("8fc49a12-df4c-47ce-8e6e-8715a4eaba0b")
+        @objid ("30856ffc-d816-4fec-8953-7dba878eced1")
         public static SmAttribute getIsSynchronousAtt() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return IsSynchronousAtt;
         }
 
-        @objid ("86b2a41b-9596-4980-bf70-605403095b4f")
+        @objid ("88b7b498-cdd9-468f-bae3-bf72d08ffae7")
         public static SmClass getSmClass() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return smClass;
@@ -87,12 +87,12 @@ public abstract class CallActionData extends ActivityActionData {
 
         @objid ("0081063c-c4c4-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("d8204ca0-e556-4d87-8e3a-56035c78bc1e")
+            @objid ("12b155fd-4a4c-4429-a64b-d7697366cdf0")
             public ISmObjectData createData() {
                 throw new UnsupportedOperationException();
             }
 
-            @objid ("c2c651e1-089b-409a-b52b-cc830a9bf1e5")
+            @objid ("3a23176f-0fb1-4e2e-9ce9-66deaf879283")
             public SmObjectImpl createImpl() {
                 throw new UnsupportedOperationException();
             }
@@ -101,12 +101,12 @@ public abstract class CallActionData extends ActivityActionData {
 
         @objid ("0081683e-c4c4-1fd8-97fe-001ec947cd2a")
         public static class IsSynchronousSmAttribute extends SmAttribute {
-            @objid ("fec2425e-1dd8-467a-9dd7-8e9df8899fb6")
+            @objid ("341a2340-d92c-4cd3-9f73-a923d13aef47")
             public Object getValue(ISmObjectData data) {
                 return ((CallActionData) data).mIsSynchronous;
             }
 
-            @objid ("765344cc-4bf4-4ae6-b4b4-5a9f35f8a7fa")
+            @objid ("c22cf402-bb58-4992-a3d5-91d03acaf8b8")
             public void setValue(ISmObjectData data, Object value) {
                 ((CallActionData) data).mIsSynchronous = value;
             }

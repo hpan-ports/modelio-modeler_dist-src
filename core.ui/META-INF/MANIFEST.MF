@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Core ui services
 Bundle-SymbolicName: org.modelio.core.ui
-Bundle-Version: 1.0.0.qualifier
+Bundle-Version: 3.2.1.qualifier
 Bundle-Activator: org.modelio.core.ui.plugin.CoreUi
 Bundle-Vendor: modelio.org
 Require-Bundle: org.eclipse.core.runtime,
@@ -10,7 +10,7 @@ Require-Bundle: org.eclipse.core.runtime,
  de.kupzog.ktable,
  org.eclipse.jface,
  org.modelio.metamodel.emfapi,
- org.modelio.metamodel.implementation;bundle-version="1.0.0",
+ org.modelio.metamodel.implementation,
  org.modelio.core.kernel,
  org.modelio.ui,
  org.modelio.log,
@@ -23,7 +23,10 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.swt,
  org.eclipse.jface,
  org.eclipse.ui.workbench,
- org.modelio.core.help
+ org.modelio.core.help,
+ org.modelio.core.project.data,
+ org.eclipse.nebula.widgets.nattable.core,
+ org.eclipse.nebula.widgets.cdatetime
 Bundle-ActivationPolicy: lazy
 Bundle-ClassPath: res/,
  .
@@ -48,6 +51,7 @@ Export-Package: org.modelio.core.ui,
  org.modelio.core.ui.ktable.types.modelelement,
  org.modelio.core.ui.ktable.types.text,
  org.modelio.core.ui.ktable.types.textlist,
+ org.modelio.core.ui.nattable.editors,
  org.modelio.core.ui.nsu,
  org.modelio.core.ui.progress,
  org.modelio.core.ui.textelement,

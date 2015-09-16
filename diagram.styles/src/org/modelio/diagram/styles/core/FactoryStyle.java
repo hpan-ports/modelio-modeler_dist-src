@@ -50,29 +50,11 @@ public class FactoryStyle implements IStyle, IPersistent {
     @objid ("85479af0-1926-11e2-92d2-001ec947c8cc")
     private static FactoryStyle _instance = null;
 
-    @objid ("85479af1-1926-11e2-92d2-001ec947c8cc")
-    private Map<StyleKey, Object> properties = null;
-
     @objid ("8549fd2b-1926-11e2-92d2-001ec947c8cc")
     private FactoryStyleDefaults factoryStyleDefaults;
 
-    /**
-     * Get the factory style instance.
-     * @return the factory style instance.
-     */
-    @objid ("8549fd2e-1926-11e2-92d2-001ec947c8cc")
-    public static FactoryStyle getInstance() {
-        if (_instance == null)
-            _instance = new FactoryStyle();
-        return _instance;
-    }
-
-    @objid ("8549fd33-1926-11e2-92d2-001ec947c8cc")
-    private FactoryStyle() {
-        // setup the ultimate default provider
-        this.factoryStyleDefaults = new FactoryStyleDefaults();
-        this.properties = new HashMap<>();
-    }
+    @objid ("85479af1-1926-11e2-92d2-001ec947c8cc")
+    private Map<StyleKey, Object> properties = null;
 
     /**
      * Register a style change listener.
@@ -88,8 +70,8 @@ public class FactoryStyle implements IStyle, IPersistent {
     }
 
     /**
-     * Modelio plugin implementing diagrams can declare their AbstractStyleKeyProvider instances to the FactoryStyle so
-     * that their StyleKey instances are known by the FactoryStyle.
+     * Modelio plugin implementing diagrams can declare their {@link AbstractStyleKeyProvider} classes to the FactoryStyle so
+     * that their {@link StyleKey} instances are known by the FactoryStyle.
      * @param styleProvider the style key provider to register.
      * @throws java.lang.IllegalArgumentException if the style provider instantiation failed. A nested exception is then provided.
      */
@@ -104,6 +86,19 @@ public class FactoryStyle implements IStyle, IPersistent {
         } catch (IllegalAccessException e) {
             throw new IllegalArgumentException(e);
         }
+    }
+
+    /**
+     * Modelio plugin implementing diagrams can declare their {@link AbstractStyleKeyProvider} instances to the FactoryStyle so
+     * that their {@link StyleKey} instances are known by the FactoryStyle.
+     * @param styleProvider the style key provider to register.
+     * @throws java.lang.IllegalArgumentException if the style provider instantiation failed. A nested exception is then provided.
+     */
+    @objid ("e5d1eeb1-e81e-428f-b47e-d030c2dc3cc8")
+    public void declareProvider(AbstractStyleKeyProvider styleProvider) throws IllegalArgumentException {
+        // Fake using instance.
+        // This will force class loading and  members initialization
+        styleProvider.getStyleKeys();
     }
 
     /**
@@ -155,6 +150,17 @@ public class FactoryStyle implements IStyle, IPersistent {
     }
 
     /**
+     * Get the factory style instance.
+     * @return the factory style instance.
+     */
+    @objid ("8549fd2e-1926-11e2-92d2-001ec947c8cc")
+    public static FactoryStyle getInstance() {
+        if (_instance == null)
+            _instance = new FactoryStyle();
+        return _instance;
+    }
+
+    /**
      * Convenience method to get an integer property.
      * @param propertyKey The property key
      * @return The integer value.
@@ -174,6 +180,12 @@ public class FactoryStyle implements IStyle, IPersistent {
     @Override
     public Set<StyleKey> getLocalKeys() {
         return this.properties.keySet();
+    }
+
+    @objid ("854ec20a-1926-11e2-92d2-001ec947c8cc")
+    @Override
+    public int getMajorVersion() {
+        return MAJOR_VERSION;
     }
 
     /**
@@ -227,6 +239,12 @@ public class FactoryStyle implements IStyle, IPersistent {
     @Override
     public boolean isLocal(StyleKey propertyKey) {
         return this.properties.containsKey(propertyKey);
+    }
+
+    @objid ("854ec207-1926-11e2-92d2-001ec947c8cc")
+    @Override
+    public void normalize() {
+        // TODO Auto-generated method stub
     }
 
     @objid ("854ec1e6-1926-11e2-92d2-001ec947c8cc")
@@ -295,16 +313,11 @@ public class FactoryStyle implements IStyle, IPersistent {
         out.writeExtRef(this, "", "factory");
     }
 
-    @objid ("854ec207-1926-11e2-92d2-001ec947c8cc")
-    @Override
-    public void normalize() {
-        // TODO Auto-generated method stub
-    }
-
-    @objid ("854ec20a-1926-11e2-92d2-001ec947c8cc")
-    @Override
-    public int getMajorVersion() {
-        return MAJOR_VERSION;
+    @objid ("8549fd33-1926-11e2-92d2-001ec947c8cc")
+    private FactoryStyle() {
+        // setup the ultimate default provider
+        this.factoryStyleDefaults = new FactoryStyleDefaults();
+        this.properties = new HashMap<>();
     }
 
 }

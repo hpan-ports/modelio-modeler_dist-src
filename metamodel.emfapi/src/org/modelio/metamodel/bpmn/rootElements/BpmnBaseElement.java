@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.bpmn.rootElements;
 
@@ -34,28 +34,28 @@ import org.modelio.metamodel.uml.infrastructure.ModelElement;
 
 @objid ("0077d2a6-c4bf-1fd8-97fe-001ec947cd2a")
 public interface BpmnBaseElement extends ModelElement {
-    @objid ("2d4fb963-7aab-4857-b5ea-3c34bffd6a5b")
+    @objid ("a0d06f0d-0074-44c9-9e2c-6bbdf1ad0dcf")
     EList<BpmnAssociation> getOutgoingAssoc();
 
-    @objid ("2dc6f710-f01a-4ca6-81b5-2b3ce60de111")
+    @objid ("55bd57c8-be37-47d8-a56c-cc2dd14e1cff")
     <T extends BpmnAssociation> List<T> getOutgoingAssoc(java.lang.Class<T> filterClass);
 
-    @objid ("e4831eb4-5c38-41cf-8c17-4f32c8526737")
+    @objid ("c72d0ee5-ae03-4f5c-ab75-4c3100a148de")
     EList<BpmnAssociation> getIncomingAssoc();
 
-    @objid ("1e18db67-0968-46b9-a140-8365ed01b106")
+    @objid ("182df567-82af-4f6b-8da7-a4fd4b0717a4")
     <T extends BpmnAssociation> List<T> getIncomingAssoc(java.lang.Class<T> filterClass);
 
-    @objid ("0c30db83-cc82-4c6e-8a0d-a2539621ef63")
+    @objid ("21358a98-8441-46b9-a72a-53dba84d9068")
     EList<BpmnMessageFlow> getIncomingFlow();
 
-    @objid ("fcb5bb82-7a02-4201-81b7-0391bd71937f")
+    @objid ("9751713f-e370-46c9-acea-7ae444b533ed")
     <T extends BpmnMessageFlow> List<T> getIncomingFlow(java.lang.Class<T> filterClass);
 
-    @objid ("90c59bd9-d327-488b-8660-1a9a1f6b60cf")
+    @objid ("93dd5135-c5a4-40da-aa2e-6211ffacf2fa")
     EList<BpmnMessageFlow> getOutgoingFlow();
 
-    @objid ("bca913b1-8a4a-447c-ab1d-7df936e0faaf")
+    @objid ("6f31da74-85c5-4607-813f-a908ab1fa2f4")
     <T extends BpmnMessageFlow> List<T> getOutgoingFlow(java.lang.Class<T> filterClass);
 
 }

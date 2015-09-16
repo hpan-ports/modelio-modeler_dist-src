@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.uml.statik;
 
@@ -44,31 +44,31 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("000f221a-c4bf-1fd8-97fe-001ec947cd2a")
 public class InterfaceRealizationImpl extends ModelElementImpl implements InterfaceRealization {
-    @objid ("f11d2cce-11b9-4c2b-aad7-421259c76418")
+    @objid ("0f64c263-79a5-4bef-9498-2d2f1b3b74eb")
     @Override
     public Interface getImplemented() {
         return (Interface) getDepVal(InterfaceRealizationData.Metadata.ImplementedDep());
     }
 
-    @objid ("5f466417-0ef0-477a-ab5a-553809635530")
+    @objid ("bfba5b7b-0b11-470d-8b94-a750126338e3")
     @Override
     public void setImplemented(Interface value) {
         appendDepVal(InterfaceRealizationData.Metadata.ImplementedDep(), (SmObjectImpl)value);
     }
 
-    @objid ("87183973-343c-40d1-b21f-64efde6933e8")
+    @objid ("22908346-b680-4677-a7e5-fad037899d99")
     @Override
     public NameSpace getImplementer() {
         return (NameSpace) getDepVal(InterfaceRealizationData.Metadata.ImplementerDep());
     }
 
-    @objid ("f47d039d-236a-4616-88a7-05459ab3fb33")
+    @objid ("85521089-f735-4793-9358-6cb751e7fc02")
     @Override
     public void setImplementer(NameSpace value) {
         appendDepVal(InterfaceRealizationData.Metadata.ImplementerDep(), (SmObjectImpl)value);
     }
 
-    @objid ("eccfc5c1-211e-418c-af61-9e2baf2f9950")
+    @objid ("2f4fd5db-dd1e-4266-8160-bac9bd4f95c7")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
@@ -78,7 +78,7 @@ public class InterfaceRealizationImpl extends ModelElementImpl implements Interf
         return super.getCompositionOwner();
     }
 
-    @objid ("8a783b9c-5962-4419-9340-17b5e030647e")
+    @objid ("80769396-0b87-4cfc-bc4f-a1a5ccfc4800")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
@@ -88,7 +88,7 @@ public class InterfaceRealizationImpl extends ModelElementImpl implements Interf
         return super.getCompositionRelation();
     }
 
-    @objid ("edf32eee-65fd-435c-b6c0-2f4fc459f16c")
+    @objid ("5355616b-a251-4f91-b5b1-936559bff52c")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitInterfaceRealization(this);

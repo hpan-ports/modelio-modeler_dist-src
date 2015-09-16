@@ -20,14 +20,22 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.uml.statik;
 
+import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
+import org.modelio.metamodel.uml.statik.ComponentRealization;
 
 @objid ("000509f6-c4bf-1fd8-97fe-001ec947cd2a")
 public interface Component extends Class {
+    @objid ("2d291c6b-f556-459a-9b2e-30cbca5b67e3")
+    EList<ComponentRealization> getRealization();
+
+    @objid ("83be8ec9-64af-4828-a2d4-1c66f061b662")
+    <T extends ComponentRealization> List<T> getRealization(java.lang.Class<T> filterClass);
+
 }

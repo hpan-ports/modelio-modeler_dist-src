@@ -83,6 +83,8 @@ public class BpmnBusinessRuleTaskPropertyModel extends AbstractPropertyModel<Bpm
     @objid ("8e1243eb-c068-11e1-8c0a-002564c97630")
     @Override
     public int getRowsNumber() {
+        // Init properties here to avoid problems with UNDO
+        initPropertyModel();
         return this.properties.size();
     }
 

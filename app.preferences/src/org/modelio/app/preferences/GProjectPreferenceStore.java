@@ -31,8 +31,8 @@ import org.eclipse.jface.preference.IPersistentPreferenceStore;
 import org.eclipse.jface.util.IPropertyChangeListener;
 import org.eclipse.jface.util.PropertyChangeEvent;
 import org.eclipse.jface.util.SafeRunnable;
-import org.modelio.gproject.descriptor.DefinitionScope;
-import org.modelio.gproject.descriptor.GProperties.Entry;
+import org.modelio.gproject.data.project.DefinitionScope;
+import org.modelio.gproject.data.project.GProperties.Entry;
 import org.modelio.gproject.gproject.GProject;
 
 /**

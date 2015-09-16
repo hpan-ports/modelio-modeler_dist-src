@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.uml.behavior.commonBehaviors;
 
@@ -38,46 +38,46 @@ import org.modelio.metamodel.uml.statik.Operation;
 
 @objid ("00428d1c-c4bf-1fd8-97fe-001ec947cd2a")
 public interface Event extends ModelElement {
-    @objid ("bfe5187e-b061-475f-8e4e-59e26fee3ede")
+    @objid ("77dbe1ec-d7ca-4c17-97df-29695a2c433e")
     String getExpression();
 
-    @objid ("557edc4e-b6a4-4c8a-aa5c-8995a9ffa6cd")
+    @objid ("5f1b6722-ed0e-4344-925a-9eded2a70b78")
     void setExpression(String value);
 
-    @objid ("df52e0c4-4213-4d1a-bd7a-c421bc963181")
+    @objid ("92d6cae4-f8ab-46f6-9540-c2bc7f227fb2")
     EventType getKind();
 
-    @objid ("4bc7e9b7-d4dc-4cfa-87a9-3295b816dab5")
+    @objid ("f7018fce-b798-4655-b7ac-6d85e7d4d09c")
     void setKind(EventType value);
 
-    @objid ("fe5b5f43-57ff-4550-b58b-c1cbc202e745")
+    @objid ("5512e28e-cf9c-49cd-b28e-fc65cbed6f29")
     EList<Transition> getTriggered();
 
-    @objid ("cd7f31f1-46fc-4959-9697-87c2d949e109")
+    @objid ("21aed363-c254-40e0-836b-b4ed055fd479")
     <T extends Transition> List<T> getTriggered(java.lang.Class<T> filterClass);
 
-    @objid ("fd0547b1-f527-44f0-a318-10ff1db39969")
+    @objid ("6b58c23c-9aa7-4cad-ab05-a11d2864e320")
     Signal getModel();
 
-    @objid ("b2ace027-4c75-4272-9103-4079881c7938")
+    @objid ("b35f9a44-d281-45b1-b58e-5291964b976e")
     void setModel(Signal value);
 
-    @objid ("3b646f4a-30a6-4c59-9a32-d472e01fe7c7")
+    @objid ("2fb042b3-c8e1-4de2-a5da-35d6574cfa55")
     EList<State> getOrigin();
 
-    @objid ("794faf42-ab23-40b3-bb75-8a1dce43741b")
+    @objid ("56086313-b540-411a-b9bb-b203d5a59bf8")
     <T extends State> List<T> getOrigin(java.lang.Class<T> filterClass);
 
-    @objid ("e576f0fb-4264-4eb2-86fa-974131fbc318")
+    @objid ("3f874566-052c-4679-b838-3960426add3c")
     Operation getCalled();
 
-    @objid ("bc45cff8-3998-4707-9290-b1a0c4347fe7")
+    @objid ("a02587b0-aeaa-4d8e-81a8-6fb86c6d5f86")
     void setCalled(Operation value);
 
-    @objid ("3a008de5-a2ea-4d58-ba30-c30c057f0559")
+    @objid ("9b717b13-1237-426f-9874-72654517f55b")
     Behavior getComposed();
 
-    @objid ("62eaf527-5442-4908-9319-1af3642ecafc")
+    @objid ("7a01393d-362a-45bb-907a-b0ba695927df")
     void setComposed(Behavior value);
 
 }

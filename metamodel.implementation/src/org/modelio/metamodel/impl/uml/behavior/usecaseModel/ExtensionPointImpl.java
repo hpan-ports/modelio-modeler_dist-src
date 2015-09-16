@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.uml.behavior.usecaseModel;
 
@@ -46,25 +46,25 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("0059a6a0-c4bf-1fd8-97fe-001ec947cd2a")
 public class ExtensionPointImpl extends ModelElementImpl implements ExtensionPoint {
-    @objid ("0a97909f-2c7f-4c9c-a3e8-7f01dd7adecc")
+    @objid ("3968ef4e-a312-46cf-9b2d-3ffb6161e292")
     @Override
     public VisibilityMode getVisibility() {
         return (VisibilityMode) getAttVal(ExtensionPointData.Metadata.VisibilityAtt());
     }
 
-    @objid ("08679646-8f2e-434c-9c98-5fbc2d11d4e5")
+    @objid ("d0009374-ba91-4e12-b450-38b41a6a5a39")
     @Override
     public void setVisibility(VisibilityMode value) {
         setAttVal(ExtensionPointData.Metadata.VisibilityAtt(), value);
     }
 
-    @objid ("3854149c-72f7-4acf-8334-b7fee5faf53a")
+    @objid ("bb9d53d4-0287-44de-8382-f2cfcc70ec5b")
     @Override
     public EList<UseCaseDependency> getExtended() {
         return new SmList<>(this, ExtensionPointData.Metadata.ExtendedDep());
     }
 
-    @objid ("8a19b6a9-cdab-4911-9798-e9f78c83c3dc")
+    @objid ("68e7bee3-4aa0-4d93-ae44-b8f324df1abe")
     @Override
     public <T extends UseCaseDependency> List<T> getExtended(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -77,19 +77,19 @@ public class ExtensionPointImpl extends ModelElementImpl implements ExtensionPoi
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("4e59a403-5662-4d07-83d6-e01276644f86")
+    @objid ("811f1922-cdae-4411-be35-0b87afbba42d")
     @Override
     public UseCase getOwner() {
         return (UseCase) getDepVal(ExtensionPointData.Metadata.OwnerDep());
     }
 
-    @objid ("c8a7bfff-d435-4ac9-a9d1-e5075f13fe0e")
+    @objid ("86d274ff-c192-48d4-a432-4ceace8cafd9")
     @Override
     public void setOwner(UseCase value) {
         appendDepVal(ExtensionPointData.Metadata.OwnerDep(), (SmObjectImpl)value);
     }
 
-    @objid ("3e18933b-ded7-4b6a-a100-d942dd554476")
+    @objid ("1daa2f17-e6ce-4629-9173-a9ecd33914a9")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
@@ -99,7 +99,7 @@ public class ExtensionPointImpl extends ModelElementImpl implements ExtensionPoi
         return super.getCompositionOwner();
     }
 
-    @objid ("b969cf6b-2e39-4fef-8ed1-fb78bc9cbfd1")
+    @objid ("8e1c2e8e-c840-4f6a-8c9b-1586ba04eb94")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
@@ -109,7 +109,7 @@ public class ExtensionPointImpl extends ModelElementImpl implements ExtensionPoi
         return super.getCompositionRelation();
     }
 
-    @objid ("0bad7cb4-fab7-4ede-9b24-9188061aa381")
+    @objid ("1081058b-337d-49dc-abf7-3e712ee528fc")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitExtensionPoint(this);

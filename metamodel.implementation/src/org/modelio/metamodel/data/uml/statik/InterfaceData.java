@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.data.uml.statik;
 
@@ -47,15 +47,15 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("000e976e-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=Interface.class, factory=InterfaceData.Metadata.ObjectFactory.class, cmsnode=true)
 public class InterfaceData extends GeneralClassData {
-    @objid ("f749670d-ca06-4a8f-8348-8ac26b412e86")
+    @objid ("9a2cc707-b1a8-4af3-8a16-70b1c30aa9fe")
     @SmaMetaAssociation(metaName="Requiring", typeDataClass=RequiredInterfaceData.class, min=0, max=-1, smAssociationClass=Metadata.RequiringSmDependency.class)
      List<SmObjectImpl> mRequiring = null;
 
-    @objid ("934137a0-66f3-45b2-9c3c-0a90a0572640")
+    @objid ("71a3e071-fe76-4382-9bc1-ffea8221fba5")
     @SmaMetaAssociation(metaName="ImplementedLink", typeDataClass=InterfaceRealizationData.class, min=0, max=-1, smAssociationClass=Metadata.ImplementedLinkSmDependency.class, performanceRisk = true, istodelete = true)
      List<SmObjectImpl> mImplementedLink = null;
 
-    @objid ("c2785517-605f-4267-874e-3214a6d3776b")
+    @objid ("9f62591d-7bf2-4606-8422-81d2b947aa8d")
     @SmaMetaAssociation(metaName="Providing", typeDataClass=ProvidedInterfaceData.class, min=0, max=-1, smAssociationClass=Metadata.ProvidingSmDependency.class)
      List<SmObjectImpl> mProviding = null;
 
@@ -64,31 +64,31 @@ public class InterfaceData extends GeneralClassData {
         this.mIsAbstract = Boolean.TRUE;
     }
 
-    @objid ("3e4c1020-dbdb-4503-b307-3fafec7f8421")
+    @objid ("ea6e6953-1ad9-496c-8d58-de9726586943")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("00548940-c4c3-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("b92a5f86-3f94-47ad-bfb5-6e52fab32d7b")
+        @objid ("318a3ad0-75c0-4c42-bf85-9d5793aee512")
         private static SmClass smClass = null;
 
-        @objid ("c3807f0d-c5b6-45ee-a034-01b42dad1c58")
+        @objid ("07bdf31b-afb6-4b66-a099-7887edbec30c")
         private static SmDependency RequiringDep = null;
 
-        @objid ("8a09d34e-6e13-4916-9cab-9a441018300c")
+        @objid ("1b4dc139-451c-4039-827f-6365ea102bce")
         private static SmDependency ImplementedLinkDep = null;
 
-        @objid ("3024f818-aa83-40e1-9ac0-47ac0d5ec153")
+        @objid ("e39a6731-fa33-4456-a914-502e7239552d")
         private static SmDependency ProvidingDep = null;
 
-        @objid ("f383a6d3-75e3-4ad8-a5fc-63b65ff4aa12")
+        @objid ("4d9444bc-d458-4c45-b39d-aa379b37fda8")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(InterfaceData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("1965bbd7-a62f-4e13-b658-833a0da44a36")
+        @objid ("a07ce13e-fdba-4dfb-ac7d-435efb0b737c")
         public static SmDependency RequiringDep() {
             if (RequiringDep == null) {
             	RequiringDep = classof().getDependencyDef("Requiring");
@@ -96,7 +96,7 @@ public class InterfaceData extends GeneralClassData {
             return RequiringDep;
         }
 
-        @objid ("32e11074-8208-4e72-ab4d-2533a3edb8ec")
+        @objid ("2966fc2c-9815-4a26-8047-1822aebe7934")
         public static SmDependency ImplementedLinkDep() {
             if (ImplementedLinkDep == null) {
             	ImplementedLinkDep = classof().getDependencyDef("ImplementedLink");
@@ -104,7 +104,7 @@ public class InterfaceData extends GeneralClassData {
             return ImplementedLinkDep;
         }
 
-        @objid ("e370a061-21dd-48a5-b824-e1041a79f097")
+        @objid ("06759951-630e-4112-8572-3221d7e50738")
         public static SmDependency ProvidingDep() {
             if (ProvidingDep == null) {
             	ProvidingDep = classof().getDependencyDef("Providing");
@@ -112,38 +112,38 @@ public class InterfaceData extends GeneralClassData {
             return ProvidingDep;
         }
 
-        @objid ("c53c98ea-2600-41ce-81bb-138e240e888a")
-        public static SmDependency getImplementedLinkDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return ImplementedLinkDep;
-        }
-
-        @objid ("c952bb9a-126c-419c-8cd4-97c0739747c1")
-        public static SmDependency getProvidingDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return ProvidingDep;
-        }
-
-        @objid ("997c711c-b39d-4d4b-b5ce-e458cf666549")
+        @objid ("1380d61c-836a-4da9-b735-49a3d6cce8bc")
         public static SmClass getSmClass() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return smClass;
         }
 
-        @objid ("2749f80a-549b-4850-b49c-235c98ebaf77")
+        @objid ("b0fb93a5-7632-4a42-a889-31b6b015b42a")
+        public static SmDependency getImplementedLinkDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return ImplementedLinkDep;
+        }
+
+        @objid ("a5b0554d-15b4-4459-bf45-796a3a476213")
         public static SmDependency getRequiringDep() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return RequiringDep;
         }
 
+        @objid ("f4a23fa0-85c7-4300-b9b3-c77d3b2b6085")
+        public static SmDependency getProvidingDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return ProvidingDep;
+        }
+
         @objid ("0054ca18-c4c3-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("3ecc79b9-092e-4c3b-bc93-709f3babaef1")
+            @objid ("2fce8cb2-ae5c-4e76-89bc-f1fcc9ca19b2")
             public ISmObjectData createData() {
                 return new InterfaceData();
             }
 
-            @objid ("8100bd01-8ac2-4c16-9723-bceeca4e9b4c")
+            @objid ("93921ef7-27f8-4438-9169-6736c14a2ac5")
             public SmObjectImpl createImpl() {
                 return new InterfaceImpl();
             }
@@ -152,20 +152,20 @@ public class InterfaceData extends GeneralClassData {
 
         @objid ("00552cec-c4c3-1fd8-97fe-001ec947cd2a")
         public static class ImplementedLinkSmDependency extends SmMultipleDependency {
-            @objid ("ec25e3c5-e1e6-4af3-b84c-4aba15ceec13")
+            @objid ("e149ec78-6c98-4040-b9a5-9edbd3725a1e")
             @Override
             public List<SmObjectImpl> getValueList(ISmObjectData data) {
                 return (((InterfaceData)data).mImplementedLink != null)? ((InterfaceData)data).mImplementedLink:SmMultipleDependency.EMPTY;
             }
 
-            @objid ("9b28f5b2-0190-460d-8fd6-c66b312c79d2")
+            @objid ("2009af9e-5b6e-4421-8056-ae3c7de2952a")
             @Override
             protected List<SmObjectImpl> allocateValueList(ISmObjectData data, int initialCapacity) {
                 ((InterfaceData) data).mImplementedLink = new ArrayList<>(initialCapacity);
                 return ((InterfaceData) data).mImplementedLink;
             }
 
-            @objid ("cbd45484-2fe4-4f43-a64f-8330ff021650")
+            @objid ("bb198bc0-c725-41ad-b2d7-71f35bfff5db")
             @Override
             public SmDependency getSymetric() {
                 return InterfaceRealizationData.Metadata.ImplementedDep();
@@ -175,20 +175,20 @@ public class InterfaceData extends GeneralClassData {
 
         @objid ("00558fb6-c4c3-1fd8-97fe-001ec947cd2a")
         public static class RequiringSmDependency extends SmMultipleDependency {
-            @objid ("a838f3a8-bb60-43b3-8f4d-f09a0b1b4227")
+            @objid ("8e58892e-6c31-4e07-85d4-7d356b9e7991")
             @Override
             public List<SmObjectImpl> getValueList(ISmObjectData data) {
                 return (((InterfaceData)data).mRequiring != null)? ((InterfaceData)data).mRequiring:SmMultipleDependency.EMPTY;
             }
 
-            @objid ("ce3cc4da-a440-4c28-8d65-a7bf922693c3")
+            @objid ("c9751ad1-ecef-475c-8f68-8002cb1ddc26")
             @Override
             protected List<SmObjectImpl> allocateValueList(ISmObjectData data, int initialCapacity) {
                 ((InterfaceData) data).mRequiring = new ArrayList<>(initialCapacity);
                 return ((InterfaceData) data).mRequiring;
             }
 
-            @objid ("4b5c08dc-08a6-4c3e-9634-6661f589ec70")
+            @objid ("13c41cbd-38b9-4eb7-a2b3-12b045c6e121")
             @Override
             public SmDependency getSymetric() {
                 return RequiredInterfaceData.Metadata.RequiredElementDep();
@@ -198,20 +198,20 @@ public class InterfaceData extends GeneralClassData {
 
         @objid ("0055f2bc-c4c3-1fd8-97fe-001ec947cd2a")
         public static class ProvidingSmDependency extends SmMultipleDependency {
-            @objid ("f1641515-a36a-4c40-90dc-044e48ab5f25")
+            @objid ("a3914aeb-3473-4ef5-94cb-153a58b90587")
             @Override
             public List<SmObjectImpl> getValueList(ISmObjectData data) {
                 return (((InterfaceData)data).mProviding != null)? ((InterfaceData)data).mProviding:SmMultipleDependency.EMPTY;
             }
 
-            @objid ("2609d61f-f04d-44fb-a74a-62ac850c9efa")
+            @objid ("4b84b44f-8e8e-4033-8b74-912e02371d58")
             @Override
             protected List<SmObjectImpl> allocateValueList(ISmObjectData data, int initialCapacity) {
                 ((InterfaceData) data).mProviding = new ArrayList<>(initialCapacity);
                 return ((InterfaceData) data).mProviding;
             }
 
-            @objid ("4a08104d-da9e-4368-adc3-6738f43cc97a")
+            @objid ("72dbd0f1-b600-4be8-bfec-5b9c3362e413")
             @Override
             public SmDependency getSymetric() {
                 return ProvidedInterfaceData.Metadata.ProvidedElementDep();

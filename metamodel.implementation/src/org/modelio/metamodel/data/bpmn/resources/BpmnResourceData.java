@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.data.bpmn.resources;
 
@@ -47,36 +47,36 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("0009a7d6-c4c0-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=BpmnResource.class, factory=BpmnResourceData.Metadata.ObjectFactory.class)
 public class BpmnResourceData extends BpmnRootElementData {
-    @objid ("b78847ac-640c-4cc1-bb3d-b496ec1b4787")
+    @objid ("909535e7-9084-4e4c-a5eb-b32914222be1")
     @SmaMetaAssociation(metaName="ResourceroleRefs", typeDataClass=BpmnResourceRoleData.class, min=0, max=-1, smAssociationClass=Metadata.ResourceroleRefsSmDependency.class)
      List<SmObjectImpl> mResourceroleRefs = null;
 
-    @objid ("cc68980b-f96c-4d36-a81f-083d2029d3d0")
+    @objid ("2b9415c5-5ab3-4f82-b0ec-4eab1e3bfece")
     @SmaMetaAssociation(metaName="Parameter", typeDataClass=BpmnResourceParameterData.class, min=0, max=-1, smAssociationClass=Metadata.ParameterSmDependency.class, component = true)
      List<SmObjectImpl> mParameter = null;
 
-    @objid ("ffca5db5-8c21-4b12-8d33-13cea9c46d7a")
+    @objid ("db8db317-2b4b-4e6d-bb5c-c7dbf83968c1")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("007c39ae-c4c2-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("ddfaf8d5-affb-45d8-b381-e2cce78dab49")
+        @objid ("27bffc55-2719-45d1-a2ca-fe9ccdf452e8")
         private static SmClass smClass = null;
 
-        @objid ("af5c7883-9efd-433f-bc39-c80d5aa172bb")
+        @objid ("3ddeb0ef-eab1-43e6-a7c0-5cca4723d09e")
         private static SmDependency ResourceroleRefsDep = null;
 
-        @objid ("da9a097f-b7a0-4d8f-bbb5-22d79548323b")
+        @objid ("9953aac5-8a08-4bbc-b2b2-764233f815f8")
         private static SmDependency ParameterDep = null;
 
-        @objid ("ba21c7f9-756d-4551-ac99-6bcc49dc2fdd")
+        @objid ("1b5130d0-b735-4028-9ba1-34049767715f")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(BpmnResourceData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("b417f524-3076-45d1-9dfa-0239950afc4c")
+        @objid ("96603e0f-b100-41cc-8e8a-fca5e73ed173")
         public static SmDependency ResourceroleRefsDep() {
             if (ResourceroleRefsDep == null) {
             	ResourceroleRefsDep = classof().getDependencyDef("ResourceroleRefs");
@@ -84,7 +84,7 @@ public class BpmnResourceData extends BpmnRootElementData {
             return ResourceroleRefsDep;
         }
 
-        @objid ("d396fd73-47df-4014-be94-703f21d4cda6")
+        @objid ("94c30482-d67c-4947-bc08-2fd321239176")
         public static SmDependency ParameterDep() {
             if (ParameterDep == null) {
             	ParameterDep = classof().getDependencyDef("Parameter");
@@ -92,32 +92,32 @@ public class BpmnResourceData extends BpmnRootElementData {
             return ParameterDep;
         }
 
-        @objid ("6f3274c3-bb32-45f9-b34b-6c6dfdb588c3")
-        public static SmDependency getParameterDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return ParameterDep;
-        }
-
-        @objid ("8fe9c1f5-0a22-49fc-a776-76982d2a6292")
-        public static SmClass getSmClass() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return smClass;
-        }
-
-        @objid ("3d0e381b-2e64-44f7-b25b-e13d5d2484bd")
+        @objid ("0c5d9842-6f41-4e91-ad12-4d11cf1df09d")
         public static SmDependency getResourceroleRefsDep() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return ResourceroleRefsDep;
         }
 
+        @objid ("69f61731-0f80-47a5-a23f-c6e6f60817dd")
+        public static SmClass getSmClass() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return smClass;
+        }
+
+        @objid ("cd8f96ee-ae99-4c8f-8bc1-8b8193266a6f")
+        public static SmDependency getParameterDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return ParameterDep;
+        }
+
         @objid ("007c7ac2-c4c2-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("5430dce6-6cb5-4924-b8b0-82ae365722f2")
+            @objid ("631fde8c-4363-4b81-bbaf-ebffb5ff3dc9")
             public ISmObjectData createData() {
                 return new BpmnResourceData();
             }
 
-            @objid ("14dfe573-aef1-4ce2-9c38-48ed0efc295a")
+            @objid ("becee9b3-0b25-44b4-a44f-2908958dd758")
             public SmObjectImpl createImpl() {
                 return new BpmnResourceImpl();
             }
@@ -126,20 +126,20 @@ public class BpmnResourceData extends BpmnRootElementData {
 
         @objid ("007cdca6-c4c2-1fd8-97fe-001ec947cd2a")
         public static class ParameterSmDependency extends SmMultipleDependency {
-            @objid ("599b1672-101a-431c-bb51-622057baf40a")
+            @objid ("8e974ccc-dbf3-4d08-9220-a0910049739a")
             @Override
             public List<SmObjectImpl> getValueList(ISmObjectData data) {
                 return (((BpmnResourceData)data).mParameter != null)? ((BpmnResourceData)data).mParameter:SmMultipleDependency.EMPTY;
             }
 
-            @objid ("bc642e31-26ff-44d9-babc-1846e02331b4")
+            @objid ("26f87f9a-cd07-4b07-b749-11d5157b86b5")
             @Override
             protected List<SmObjectImpl> allocateValueList(ISmObjectData data, int initialCapacity) {
                 ((BpmnResourceData) data).mParameter = new ArrayList<>(initialCapacity);
                 return ((BpmnResourceData) data).mParameter;
             }
 
-            @objid ("680127bc-bdf8-4ea2-b8ca-2610b21556ae")
+            @objid ("12d7a7a6-1257-4970-a035-596b5c39d7ef")
             @Override
             public SmDependency getSymetric() {
                 return BpmnResourceParameterData.Metadata.ResourceDep();
@@ -149,20 +149,20 @@ public class BpmnResourceData extends BpmnRootElementData {
 
         @objid ("007d3f8e-c4c2-1fd8-97fe-001ec947cd2a")
         public static class ResourceroleRefsSmDependency extends SmMultipleDependency {
-            @objid ("69ed860a-2d4b-408b-b76d-9a60bb12554d")
+            @objid ("da10b138-79de-47cb-95c0-273172651baa")
             @Override
             public List<SmObjectImpl> getValueList(ISmObjectData data) {
                 return (((BpmnResourceData)data).mResourceroleRefs != null)? ((BpmnResourceData)data).mResourceroleRefs:SmMultipleDependency.EMPTY;
             }
 
-            @objid ("18bd5d56-8449-4d54-96fe-ed37e0e44360")
+            @objid ("ed30b275-10fe-43a2-834f-087674d79d43")
             @Override
             protected List<SmObjectImpl> allocateValueList(ISmObjectData data, int initialCapacity) {
                 ((BpmnResourceData) data).mResourceroleRefs = new ArrayList<>(initialCapacity);
                 return ((BpmnResourceData) data).mResourceroleRefs;
             }
 
-            @objid ("6550b2a0-4be8-48bc-bf84-38ec3484f289")
+            @objid ("3a1d5a64-8baa-41b4-b2c7-7cf0e3d8d40e")
             @Override
             public SmDependency getSymetric() {
                 return BpmnResourceRoleData.Metadata.ResourceRefDep();

@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.uml.behavior.interactionModel;
 
@@ -45,25 +45,25 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("00456c76-c4bf-1fd8-97fe-001ec947cd2a")
 public class GateImpl extends MessageEndImpl implements Gate {
-    @objid ("c60d6606-f0c5-4513-a34d-9c3cbce56f91")
+    @objid ("44dc8d4d-2c4a-4f33-9066-c79fb7e58113")
     @Override
     public InteractionUse getOwnerUse() {
         return (InteractionUse) getDepVal(GateData.Metadata.OwnerUseDep());
     }
 
-    @objid ("f19a2fdb-39e7-4c90-ab7a-f06fedf2a01e")
+    @objid ("264249b2-59b4-4ebe-9e36-13b0ac52ed98")
     @Override
     public void setOwnerUse(InteractionUse value) {
         appendDepVal(GateData.Metadata.OwnerUseDep(), (SmObjectImpl)value);
     }
 
-    @objid ("0b2c840b-90e3-463c-87b4-44b7882f322e")
+    @objid ("978cffe0-e1b7-4a9a-aae3-2eb9e4bdddfc")
     @Override
     public EList<Gate> getActual() {
         return new SmList<>(this, GateData.Metadata.ActualDep());
     }
 
-    @objid ("a1f44990-c082-4c5e-92bc-299ce19df604")
+    @objid ("c90005a9-e649-4c46-92fb-e97c4c00331b")
     @Override
     public <T extends Gate> List<T> getActual(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -76,43 +76,43 @@ public class GateImpl extends MessageEndImpl implements Gate {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("1e0ef20d-633e-480b-86b5-f6ee2041bcce")
+    @objid ("9746aaed-5c39-41d3-b3b1-db4c249fc2ed")
     @Override
     public Interaction getOwnerInteraction() {
         return (Interaction) getDepVal(GateData.Metadata.OwnerInteractionDep());
     }
 
-    @objid ("94343283-8232-4067-897e-7538dde5c129")
+    @objid ("b156da5d-ff16-4228-bbe4-72ea45b2f64f")
     @Override
     public void setOwnerInteraction(Interaction value) {
         appendDepVal(GateData.Metadata.OwnerInteractionDep(), (SmObjectImpl)value);
     }
 
-    @objid ("9fe7fb57-fc6f-47f2-bfeb-62eae4dfa78f")
+    @objid ("1ae982b9-dd48-4a31-a2c3-fdf2b6b413d7")
     @Override
     public CombinedFragment getOwnerFragment() {
         return (CombinedFragment) getDepVal(GateData.Metadata.OwnerFragmentDep());
     }
 
-    @objid ("8382542f-f52f-410d-8240-0d936cd5facc")
+    @objid ("e6c7453d-bf10-4f74-bc7f-ec69b5c9e8a6")
     @Override
     public void setOwnerFragment(CombinedFragment value) {
         appendDepVal(GateData.Metadata.OwnerFragmentDep(), (SmObjectImpl)value);
     }
 
-    @objid ("403dc1b2-cc07-43ff-824d-dc0983c17c6e")
+    @objid ("0e3a8d6b-6b7a-4fa7-bec9-b6ed53656f88")
     @Override
     public Gate getFormal() {
         return (Gate) getDepVal(GateData.Metadata.FormalDep());
     }
 
-    @objid ("337aaa13-9135-4cba-9d64-1bb08e8a123e")
+    @objid ("4d6fbae1-77ef-4eae-8811-39aceb5822c9")
     @Override
     public void setFormal(Gate value) {
         appendDepVal(GateData.Metadata.FormalDep(), (SmObjectImpl)value);
     }
 
-    @objid ("b95a30f3-4dbd-432c-a58d-4a59fec3665a")
+    @objid ("42fe0def-e384-4eb5-8368-55dbcce94c25")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
@@ -128,7 +128,7 @@ public class GateImpl extends MessageEndImpl implements Gate {
         return super.getCompositionOwner();
     }
 
-    @objid ("abc59cd7-feb8-4613-acea-b3edf4e77dbb")
+    @objid ("e19a9421-9a71-4bbb-9046-846129386cca")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
@@ -144,7 +144,7 @@ public class GateImpl extends MessageEndImpl implements Gate {
         return super.getCompositionRelation();
     }
 
-    @objid ("2584a0b8-de70-4b17-973d-075aff2c08f1")
+    @objid ("17df45bf-bd60-4897-84b8-da61804b19a7")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitGate(this);

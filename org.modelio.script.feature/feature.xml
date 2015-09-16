@@ -2,11 +2,11 @@
 <feature
       id="org.modelio.script.feature"
       label="Script"
-      version="1.0.0.qualifier"
+      version="3.2.1.qualifier"
       provider-name="modelio.org">
 
    <copyright>
-      Copyright 2014 Modeliosoft
+      Copyright 2013 Modeliosoft
 
 This file is part of Modelio.
 Modelio is free software: you can redistribute it and/or modify
@@ -24,7 +24,7 @@ along with Modelio.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
    </copyright>
 
    <license url="">
-      Copyright 2014 Modeliosoft
+      Copyright 2013 Modeliosoft
 
 This file is part of Modelio.
 Modelio is free software: you can redistribute it and/or modify

@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.bpmn.events;
 
@@ -41,21 +41,21 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("008f9364-c4bf-1fd8-97fe-001ec947cd2a")
 public class BpmnIntermediateThrowEventImpl extends BpmnThrowEventImpl implements BpmnIntermediateThrowEvent {
-    @objid ("53327beb-c220-4112-ad42-aa2b218bc6ee")
+    @objid ("e496524c-805c-4ef4-867f-da703da36cfa")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("6d75df95-5989-4b63-ba8f-64df439c14fd")
+    @objid ("b7bda069-82b4-4451-9f18-ccfc5060383c")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("20db7f5d-9c5d-40d4-b37b-07b9c0f33cdb")
+    @objid ("81ae8f69-5a66-4ac8-beda-652cb9a6df87")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitBpmnIntermediateThrowEvent(this);

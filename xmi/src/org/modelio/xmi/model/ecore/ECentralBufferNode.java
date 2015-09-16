@@ -21,11 +21,9 @@
 
 package org.modelio.xmi.model.ecore;
 
-import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.uml2.uml.ObjectNodeOrderingKind;
-import org.modelio.api.modelio.Modelio;
 import org.modelio.metamodel.uml.behavior.activityModel.ObjectNode;
 import org.modelio.metamodel.uml.behavior.stateMachineModel.State;
 import org.modelio.metamodel.uml.infrastructure.Element;
@@ -34,22 +32,23 @@ import org.modelio.xmi.util.ObjingEAnnotation;
 import org.modelio.xmi.util.ReverseProperties;
 
 @objid ("8ae1f1ee-7a0c-46c3-bcf6-b6eaa13c9016")
-public class ECentralBufferNode extends EActivityNode implements IEElement {
+public class ECentralBufferNode extends EActivityNode {
     @objid ("89824240-c0f0-40e8-b5e2-c9b34dc4d18b")
     private org.eclipse.uml2.uml.CentralBufferNode ecoreElement = null;
 
     @objid ("ab28cbdc-a09d-4aa5-864b-0d1caab2f6ca")
+    @Override
     public Element createObjingElt() {
         if ( ReverseProperties.getInstance().isRoundtripEnabled()){
             String type = ObjingEAnnotation.getType(this.ecoreElement);
             if ((type != null) && (type.equals("InstanceNode"))){
-                    return Modelio.getInstance().getModelingSession().getModel()
+                    return ReverseProperties.getInstance().getMModelServices().getModelFactory()
                     .createInstanceNode();
             }
-            return Modelio.getInstance().getModelingSession().getModel()
+            return ReverseProperties.getInstance().getMModelServices().getModelFactory()
             .createCentralBufferNode();
         }
-        return Modelio.getInstance().getModelingSession().getModel()
+        return ReverseProperties.getInstance().getMModelServices().getModelFactory()
         .createCentralBufferNode();
     }
 
@@ -59,16 +58,8 @@ public class ECentralBufferNode extends EActivityNode implements IEElement {
         this.ecoreElement = element;
     }
 
-    @objid ("26f0f710-8982-4146-a35f-3ab9e3fd7e9d")
-    public void attach(Element objingElt) {
-        super.attach(objingElt);
-    }
-
-    @objid ("2ec638f1-2911-4da4-baf9-71c22ec4f10c")
-    public void attach(List<Object> objingElts) {
-    }
-
     @objid ("33a634e2-be51-4840-bec3-44f8cb2c0d02")
+    @Override
     public void setProperties(Element objingElt) {
         super.setProperties(objingElt);
         if (objingElt instanceof ObjectNode){
@@ -88,7 +79,7 @@ public class ECentralBufferNode extends EActivityNode implements IEElement {
 
     @objid ("a3187a3b-029c-48af-999f-004f53d16516")
     private void setOrdering(ObjectNode node) {
-        switch (ecoreElement.getOrdering().getValue()) {
+        switch (this.ecoreElement.getOrdering().getValue()) {
         case ObjectNodeOrderingKind.FIFO:
             node.setOrdering(org.modelio.metamodel.uml.behavior.activityModel.ObjectNodeOrderingKind.FIFO);
             break;

@@ -23,7 +23,7 @@ package org.modelio.xmi.model.ecore;
 
 import java.util.ArrayList;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.modelio.api.modelio.Modelio;
+import org.modelio.metamodel.factory.IModelFactory;
 import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
 import org.modelio.metamodel.uml.infrastructure.ModelTree;
@@ -40,7 +40,7 @@ import org.modelio.xmi.util.ObjingEAnnotation;
 import org.modelio.xmi.util.ReverseProperties;
 
 @objid ("91845636-03bd-4f15-8387-62afd67cde77")
-public class EAssociationClass extends ENamedElement implements IEElement {
+public class EAssociationClass extends ENamedElement {
     @objid ("d456c73a-2746-426b-92e1-2d3d91273523")
     private boolean isDeleted = false;
 
@@ -56,15 +56,13 @@ public class EAssociationClass extends ENamedElement implements IEElement {
     @objid ("08250201-6cf0-4418-9e04-ba733837419e")
     @Override
     public Class createObjingElt() {
+        IModelFactory modelFactory = ReverseProperties.getInstance().getMModelServices().getModelFactory();
         // Creation of the association class
-        this.objingClassAssociation = Modelio.getInstance()
-                .getModelingSession().getModel().createClassAssociation();
+        this.objingClassAssociation = modelFactory.createClassAssociation();
         // Creation of the Class
-        this.objingClass = Modelio.getInstance().getModelingSession()
-                .getModel().createClass();
+        this.objingClass = modelFactory.createClass();
         // Creation of the org.eclipse.uml2.uml.Association
-        this.objingAssociation = Modelio.getInstance().getModelingSession()
-                .getModel().createAssociation();
+        this.objingAssociation = modelFactory.createAssociation();
         // Set of the class and org.eclipse.uml2.uml.Association
         this.objingClassAssociation.setClassPart(this.objingClass);
         this.objingClassAssociation.setAssociationPart(this.objingAssociation);
@@ -214,7 +212,7 @@ public class EAssociationClass extends ENamedElement implements IEElement {
         }
     }
 
-    @objid ("b46b0714-758c-404a-93c7-61c9843ae47b")
+    @objid ("9d290d53-5888-4f3c-ab7a-6ea6bb88e3b2")
     private void attachAssociation() {
         if (!this.isDeleted) {
             ReverseProperties revProp = ReverseProperties.getInstance();

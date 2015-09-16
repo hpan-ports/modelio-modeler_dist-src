@@ -32,11 +32,12 @@ import org.modelio.xmi.util.AbstractObjingModelNavigation;
 import org.modelio.xmi.util.GenerationProperties;
 
 @objid ("38a87f21-3b82-4ed2-b04c-e5162b48ebfc")
-public class OClassAssociation extends OModelElement implements IOElement {
+public class OClassAssociation extends OModelElement {
     @objid ("284402cb-4178-4a32-80c1-311085d667af")
     private ClassAssociation objingElement = null;
 
     @objid ("f4f55fdf-efcc-489f-9a5b-f3c5dc8b6601")
+    @Override
     public org.eclipse.uml2.uml.Element createEcoreElt() {
         // The Ecore org.eclipse.uml2.uml.AssociationClass can be created when parsing the related
         // Ijing org.eclipse.uml2.uml.Association, Class or
@@ -59,6 +60,7 @@ public class OClassAssociation extends OModelElement implements IOElement {
     }
 
     @objid ("eb0656f9-c321-42db-b541-c0d0cbf44e8f")
+    @Override
     public void attach(org.eclipse.uml2.uml.Element ecoreElt) {
         if (AbstractObjingModelNavigation.isRepresentedByAUniqueClass(this.objingElement)) {
             GenerationProperties genProp = GenerationProperties.getInstance();
@@ -100,11 +102,6 @@ public class OClassAssociation extends OModelElement implements IOElement {
                 }
             }
         }
-    }
-
-    @objid ("805d8526-e61b-43ab-afb0-a3741b34331e")
-    public void setProperties(org.eclipse.uml2.uml.Element ecoreElt) {
-        super.setProperties(ecoreElt);
     }
 
 }

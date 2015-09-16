@@ -203,7 +203,7 @@ public class BpmnMessagePropertyModel extends AbstractPropertyModel<BpmnMessage>
         }
     }
 
-    @objid ("9384cc61-2673-4fd7-b543-4486a549f153")
+    @objid ("39dd43e1-3462-4109-bbcc-46eb32a7b68b")
     private IPropertyType getInStateType() {
         GeneralClass referencedClass = this.theEditedElement.getType();
         if (referencedClass == null) {
@@ -219,7 +219,7 @@ public class BpmnMessagePropertyModel extends AbstractPropertyModel<BpmnMessage>
     /**
      * Get all states defined in a class.
      */
-    @objid ("5f46aadc-1244-4ee4-8ea0-81f7e2fd4270")
+    @objid ("47aa7ded-62bf-4182-be1f-36a979f07ffc")
     private List<ModelElement> getAvailableStates(GeneralClass referencedClass) {
         List<ModelElement> states = new ArrayList<>();
         
@@ -240,14 +240,14 @@ public class BpmnMessagePropertyModel extends AbstractPropertyModel<BpmnMessage>
         // Add states from owned classes
         for (GeneralClass sub : referencedClass.getOwnedElement(GeneralClass.class)) {
            states.addAll(getAvailableStates(sub));
-        }
+            }
         return states;
     }
 
     /**
      * Get all states defined in a region.
      */
-    @objid ("f752ab0f-5014-4bf8-8e3b-18ab60137e1e")
+    @objid ("3f98f4ba-53ca-4d2e-88f2-4d29aae74e47")
     private Collection<? extends ModelElement> getAvailableStates(Region region) {
         List<ModelElement> states = new ArrayList<>();
         for (State s : region.getSub(State.class)) {

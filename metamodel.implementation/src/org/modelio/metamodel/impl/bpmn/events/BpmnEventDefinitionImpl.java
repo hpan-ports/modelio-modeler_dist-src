@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.bpmn.events;
 
@@ -45,25 +45,25 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("008d76e2-c4bf-1fd8-97fe-001ec947cd2a")
 public abstract class BpmnEventDefinitionImpl extends BpmnBaseElementImpl implements BpmnEventDefinition {
-    @objid ("2d378fdf-628d-4948-8574-a0354273e91e")
+    @objid ("bf59b9f0-6b40-4359-83c6-5b63e2394d18")
     @Override
     public BpmnEvent getDefined() {
         return (BpmnEvent) getDepVal(BpmnEventDefinitionData.Metadata.DefinedDep());
     }
 
-    @objid ("322396f1-0126-458f-8266-718b5d4d7fd1")
+    @objid ("bb88ba96-beeb-46d5-8504-f0b28a5bec69")
     @Override
     public void setDefined(BpmnEvent value) {
         appendDepVal(BpmnEventDefinitionData.Metadata.DefinedDep(), (SmObjectImpl)value);
     }
 
-    @objid ("56fe2574-8bc3-4bb8-9a1a-6f696a42150a")
+    @objid ("5fd86411-e38f-49f6-8259-47c4c591b5b8")
     @Override
     public EList<BpmnMultiInstanceLoopCharacteristics> getLoopRef() {
         return new SmList<>(this, BpmnEventDefinitionData.Metadata.LoopRefDep());
     }
 
-    @objid ("78818d0a-60fc-44e6-a1db-2cded4341b0c")
+    @objid ("a53edf5e-47e4-487b-b9dd-91d788856b26")
     @Override
     public <T extends BpmnMultiInstanceLoopCharacteristics> List<T> getLoopRef(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -76,7 +76,7 @@ public abstract class BpmnEventDefinitionImpl extends BpmnBaseElementImpl implem
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("e99cf759-8ac7-4dba-9107-2d1abc3fdef2")
+    @objid ("ab4b69d5-af8c-41be-84c4-076b5be713be")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
@@ -86,7 +86,7 @@ public abstract class BpmnEventDefinitionImpl extends BpmnBaseElementImpl implem
         return super.getCompositionOwner();
     }
 
-    @objid ("6987b0fa-78df-42e5-b6de-eb37df8bd13a")
+    @objid ("37427f02-7fdd-4e0a-aaf1-2ec6268360f6")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
@@ -96,7 +96,7 @@ public abstract class BpmnEventDefinitionImpl extends BpmnBaseElementImpl implem
         return super.getCompositionRelation();
     }
 
-    @objid ("cfe180a0-9404-4ba2-b1be-c40084e0534a")
+    @objid ("604b3f9f-700d-400f-9ff8-61b32769d84c")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitBpmnEventDefinition(this);

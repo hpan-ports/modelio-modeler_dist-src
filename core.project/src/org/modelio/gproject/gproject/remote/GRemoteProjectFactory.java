@@ -23,11 +23,11 @@ package org.modelio.gproject.gproject.remote;
 
 import java.io.IOException;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.modelio.gproject.descriptor.DefinitionScope;
-import org.modelio.gproject.descriptor.DescriptorServices;
-import org.modelio.gproject.descriptor.FragmentDescriptor;
-import org.modelio.gproject.descriptor.ProjectDescriptor;
-import org.modelio.gproject.descriptor.ProjectDescriptorReader;
+import org.modelio.gproject.data.project.DefinitionScope;
+import org.modelio.gproject.data.project.DescriptorServices;
+import org.modelio.gproject.data.project.FragmentDescriptor;
+import org.modelio.gproject.data.project.ProjectDescriptor;
+import org.modelio.gproject.data.project.ProjectDescriptorReader;
 import org.modelio.gproject.gproject.GProjectAuthenticationException;
 import org.modelio.gproject.gproject.IProjectFactory;
 import org.modelio.vbasic.auth.IAuthData;

@@ -22,33 +22,21 @@
 package org.modelio.xmi.model.ecore;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.modelio.api.modelio.Modelio;
 import org.modelio.metamodel.uml.infrastructure.Element;
+import org.modelio.xmi.util.ReverseProperties;
 
 @objid ("c20ebe8f-d648-4cf9-ab26-d7bf108521e4")
 public class EExecutionOccurrenceSpecification extends EOccurrenceSpecification {
     @objid ("07b8387d-555f-45ec-9338-4c594ba82da9")
     @Override
     public Element createObjingElt() {
-        return Modelio.getInstance().getModelingSession().getModel()
+        return ReverseProperties.getInstance().getMModelServices().getModelFactory()
                 .createExecutionOccurenceSpecification();
     }
 
     @objid ("c305b130-b001-473d-97f6-844ffc7af0b0")
     public EExecutionOccurrenceSpecification(org.eclipse.uml2.uml.ExecutionOccurrenceSpecification element) {
         super(element);
-    }
-
-    @objid ("5b5e0ce5-2635-4891-b7f6-67b7072906c3")
-    @Override
-    public void attach(Element objingElt) {
-        super.attach(objingElt);
-    }
-
-    @objid ("f18f7d8c-829d-4cd4-9fb6-41699be81da2")
-    @Override
-    public void setProperties(Element objingElt) {
-        super.setProperties(objingElt);
     }
 
 }

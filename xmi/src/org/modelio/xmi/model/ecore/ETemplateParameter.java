@@ -21,9 +21,7 @@
 
 package org.modelio.xmi.model.ecore;
 
-import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.modelio.api.modelio.Modelio;
 import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
 import org.modelio.metamodel.uml.statik.NameSpace;
@@ -33,10 +31,11 @@ import org.modelio.xmi.util.ObjingEAnnotation;
 import org.modelio.xmi.util.ReverseProperties;
 
 @objid ("49a08564-d680-478f-bd1d-f825132b7a56")
-public class ETemplateParameter extends EElement implements IEElement {
+public class ETemplateParameter extends EElement {
     @objid ("82712935-b0d5-4a4d-bbb6-95b15c9438d9")
+    @Override
     public Element createObjingElt() {
-        return Modelio.getInstance().getModelingSession().getModel().createTemplateParameter();
+        return ReverseProperties.getInstance().getMModelServices().getModelFactory().createTemplateParameter();
     }
 
     @objid ("baa07717-2a64-4b6e-af21-7752e7682074")
@@ -45,6 +44,7 @@ public class ETemplateParameter extends EElement implements IEElement {
     }
 
     @objid ("76215145-72eb-41d5-8a9f-0a1a11f4a79a")
+    @Override
     public void attach(Element objingElt) {
         Element objOwner = (Element) ReverseProperties.getInstance().getMappedElement(getEcoreElement().getOwner().getOwner());
         
@@ -57,11 +57,8 @@ public class ETemplateParameter extends EElement implements IEElement {
         }
     }
 
-    @objid ("69703bc8-ea9f-459d-b0c3-ca6e60c6205c")
-    public void attach(List<Object> objingElts) {
-    }
-
     @objid ("18d244bf-1964-4cd8-b792-c94549987399")
+    @Override
     public void setProperties(Element objingElt) {
         setName(objingElt);
         setIsValueParameter(objingElt);

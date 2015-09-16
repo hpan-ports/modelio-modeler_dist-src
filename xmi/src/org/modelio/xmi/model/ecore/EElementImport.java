@@ -21,9 +21,7 @@
 
 package org.modelio.xmi.model.ecore;
 
-import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.modelio.api.modelio.Modelio;
 import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
 import org.modelio.metamodel.uml.infrastructure.Profile;
@@ -41,7 +39,7 @@ import org.modelio.xmi.util.XMILogs;
  * @author ebrosse
  */
 @objid ("3d69fa7c-0d9d-483b-87e4-a2de863d468a")
-public class EElementImport extends EElement implements IEElement {
+public class EElementImport extends EElement {
     @objid ("c0168344-8f23-446c-aae6-ccb056a037a2")
     private org.eclipse.uml2.uml.ElementImport ecoreElement;
 
@@ -58,10 +56,9 @@ public class EElementImport extends EElement implements IEElement {
         
         if ((ecoreImported != null) && (ecoreImporting != null)){
             Object objingImported = revProp.getMappedElement(ecoreImported);
-            //  set to the objingElt Imported Importing previousely find
+            //  set to the objingElt Imported Importing previously find
             if ((objingImported != null) && (objingImported instanceof Element) && !(objingImported instanceof Profile)){
-                return Modelio.getInstance()
-                .getModelingSession().getModel().createElementImport();
+                return ReverseProperties.getInstance().getMModelServices().getModelFactory().createElementImport();
             }
         }
         return null;
@@ -117,11 +114,6 @@ public class EElementImport extends EElement implements IEElement {
                     , this.ecoreElement.getName(), ownerName));
             objingElt.delete();
         }
-    }
-
-    @objid ("8ea3abb8-e229-4291-84a1-a634aa876e1b")
-    @Override
-    public void attach(List<Object> objingElts) {
     }
 
     @objid ("03625e40-2cb7-4ded-b7cb-d17218228a23")

@@ -21,37 +21,21 @@
 
 package org.modelio.xmi.model.ecore;
 
-import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.modelio.api.modelio.Modelio;
 import org.modelio.metamodel.uml.behavior.interactionModel.Message;
 import org.modelio.metamodel.uml.behavior.interactionModel.MessageEnd;
 import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.xmi.util.ReverseProperties;
 
 @objid ("3d3e7fe2-486d-4d0f-b2ca-d1bc83a1705d")
-public class EMessageOccurrenceSpecification extends EOccurrenceSpecification implements IEElement {
-    @objid ("8c13a9b6-44cf-4147-8653-3ca0cabb6999")
-    public Element createObjingElt() {
-        return Modelio.getInstance().getModelingSession().getModel()
-                .createExecutionOccurenceSpecification();
-    }
-
+public class EMessageOccurrenceSpecification extends EOccurrenceSpecification {
     @objid ("e0fce75b-0015-432d-880a-5889053c87bc")
     public EMessageOccurrenceSpecification(org.eclipse.uml2.uml.MessageOccurrenceSpecification element) {
         super(element);
     }
 
-    @objid ("3a67b693-95a3-4335-af79-c14e228a0478")
-    public void attach(Element objingElt) {
-        super.attach(objingElt);
-    }
-
-    @objid ("b5f3e797-09ed-4688-aa29-fa4e6e049bdd")
-    public void attach(List<Object> objingElts) {
-    }
-
     @objid ("a8eb54c7-a84b-4f75-8708-f261fcf904ab")
+    @Override
     public void setProperties(Element objingElt) {
         super.setProperties(objingElt);
         setStartOrEnd(objingElt);

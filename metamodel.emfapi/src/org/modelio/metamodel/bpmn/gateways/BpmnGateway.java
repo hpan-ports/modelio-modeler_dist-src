@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.bpmn.gateways;
 
@@ -32,10 +32,10 @@ import org.modelio.metamodel.bpmn.rootElements.BpmnFlowNode;
 
 @objid ("0000e402-c4c0-1fd8-97fe-001ec947cd2a")
 public interface BpmnGateway extends BpmnFlowNode {
-    @objid ("f770e5e7-d492-42ca-80f8-07e99e1afe05")
+    @objid ("edb789f2-2a22-4425-87d0-7c3aa512d888")
     BpmnGatewayDirection getGatewayDirection();
 
-    @objid ("065394ab-39a8-4d27-ab58-2711ecd09db7")
+    @objid ("0ff6a810-d387-4038-801d-092096cf4de5")
     void setGatewayDirection(BpmnGatewayDirection value);
 
 }

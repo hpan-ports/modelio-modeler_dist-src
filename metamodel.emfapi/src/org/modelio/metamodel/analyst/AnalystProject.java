@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.analyst;
 
@@ -38,40 +38,40 @@ import org.modelio.metamodel.uml.infrastructure.ModelElement;
 
 @objid ("0061ba52-c4bf-1fd8-97fe-001ec947cd2a")
 public interface AnalystProject extends ModelElement {
-    @objid ("4c803169-7f77-4614-bdc1-e11a6bc9cb4d")
+    @objid ("9e573ce6-9911-48d6-8263-eae998ced074")
     PropertyContainer getPropertyRoot();
 
-    @objid ("ba0199e0-934f-4040-8d30-3fc4503968c8")
+    @objid ("a34aa1a1-3995-48ef-8bf6-a9afb1de9527")
     void setPropertyRoot(PropertyContainer value);
 
-    @objid ("9b446f82-82a9-48a6-acce-bf8880c26c9d")
+    @objid ("d495ba7e-75e6-41a7-bcc1-2c1052f55838")
     EList<GoalContainer> getGoalRoot();
 
-    @objid ("f66ecd36-575e-4553-bcc6-3dd2925ad6a4")
+    @objid ("d94dd23b-b33c-4648-a144-41bb7b2c159d")
     <T extends GoalContainer> List<T> getGoalRoot(java.lang.Class<T> filterClass);
 
-    @objid ("60571fe9-9b63-4fb1-9a7c-146ff1a02e49")
+    @objid ("91eb7447-049d-42c1-9ba5-1f45517f3ecf")
     EList<BusinessRuleContainer> getBusinessRuleRoot();
 
-    @objid ("8e764477-f765-41b2-a987-3d150953ca60")
+    @objid ("8410c920-529c-4d93-87be-5b1aaab56121")
     <T extends BusinessRuleContainer> List<T> getBusinessRuleRoot(java.lang.Class<T> filterClass);
 
-    @objid ("19b5d027-9796-4bb0-a3b0-a13435d8b7f1")
+    @objid ("71098e86-51b1-4ada-acdf-d4faa6430144")
     EList<Dictionary> getDictionaryRoot();
 
-    @objid ("2e3431d6-6986-483d-b345-d55bb28d5b39")
+    @objid ("250945b1-6360-442c-a780-31f39bb7e721")
     <T extends Dictionary> List<T> getDictionaryRoot(java.lang.Class<T> filterClass);
 
-    @objid ("32a6f160-6960-4ca2-b787-b4b8519b3401")
+    @objid ("8a534c45-7ac4-4592-b8c5-9184e717d211")
     EList<RequirementContainer> getRequirementRoot();
 
-    @objid ("608d4957-8de5-42db-b283-9b773d4184ba")
+    @objid ("b7e63a08-0a3b-458e-862a-e01e7770382d")
     <T extends RequirementContainer> List<T> getRequirementRoot(java.lang.Class<T> filterClass);
 
-    @objid ("7ca4fc7d-ba6e-4026-a752-ffa59862e4dc")
+    @objid ("e3c14e2b-b721-4848-b325-7cedc5785509")
     EList<GenericAnalystContainer> getGenericRoot();
 
-    @objid ("ea12fbcb-af05-46d2-892e-44d3e373c383")
+    @objid ("892783a3-09d6-48da-929c-0ad9654c4511")
     <T extends GenericAnalystContainer> List<T> getGenericRoot(java.lang.Class<T> filterClass);
 
 }

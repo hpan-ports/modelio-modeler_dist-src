@@ -29,12 +29,10 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
-import org.modelio.app.core.activation.IActivationService;
-import org.modelio.app.core.picking.IModelioPickingService;
 import org.modelio.app.project.core.services.IProjectService;
 import org.modelio.core.ui.ktable.IPropertyModel;
-import org.modelio.gproject.model.IMModelServices;
 import org.modelio.metamodel.uml.infrastructure.Element;
+import org.modelio.property.ui.data.DataPanelInput;
 import org.modelio.property.ui.data.IPropertyPanel;
 import org.modelio.property.ui.data.ModelioKTable;
 import org.modelio.vcore.session.api.ICoreSession;
@@ -65,15 +63,18 @@ public class StandardPropertyPanel implements IPropertyPanel {
 
     @objid ("8fa7c82b-c068-11e1-8c0a-002564c97630")
     @Override
-    public void setInput(IProjectService projectService, IMModelServices modelService, IModelioPickingService pickingService, IActivationService activationService, Element element) {
-        this.typedElement = element;
-        ICoreSession session = projectService != null ? projectService.getSession() : null;
-        final DataModelFactory f = new DataModelFactory(modelService, projectService, activationService, session != null ? session.getModel() : null);
-        
-        // Avoid refreshing the KTable during stop()
-        if (this.typedElement != null || this.table.getModel() == null) {
+    public void setInput(DataPanelInput newInput) {
+        if (newInput == null) {
+            this.typedElement = null;
+            final KTableModel model = this.propertyModelFactory.getIPropertyModel(null, null, this.table, null);
+            this.table.setModel(model);
+        } else {
+            this.typedElement = newInput.getTypedElement();
+            IProjectService projectService = newInput.getProjectService();
+            ICoreSession session = projectService != null ? projectService.getSession() : null;
+            final DataModelFactory f = new DataModelFactory(newInput.getModelService(), projectService, newInput.getActivationService(), session != null ? session.getModel() : null);
             final IPropertyModel data = f.getPropertyModel(this.typedElement);
-            final KTableModel model = this.propertyModelFactory.getIPropertyModel(session, pickingService, this.table, data);
+            final KTableModel model = this.propertyModelFactory.getIPropertyModel(session, newInput.getPickingService(), this.table, data);
             this.table.setModel(model);
         }
     }
@@ -81,7 +82,7 @@ public class StandardPropertyPanel implements IPropertyPanel {
     @objid ("8fa7c830-c068-11e1-8c0a-002564c97630")
     @Override
     public void stop() {
-        setInput(null, null, null,null, null);
+        setInput(null);
         disableGUI();
     }
 

@@ -21,41 +21,32 @@
 
 package org.modelio.xmi.model.ecore;
 
-import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.modelio.api.modelio.Modelio;
 import org.modelio.metamodel.uml.behavior.activityModel.ForkJoinNode;
 import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.xmi.util.ObjingEAnnotation;
 import org.modelio.xmi.util.ReverseProperties;
 
 @objid ("ddc43901-fed0-45a2-b064-a9359485870c")
-public class EForkNode extends EActivityNode implements IEElement {
+public class EForkNode extends EActivityNode {
     @objid ("0cc1ca2b-3148-4744-8ffb-657d84da914d")
-    private org.eclipse.uml2.uml.ForkNode ecoreElement;
+    private org.eclipse.uml2.uml.ForkNode ecoreElement = null;
 
     @objid ("d0277751-43ec-4b9b-916f-0134446962e7")
+    @Override
     public Element createObjingElt() {
-        return Modelio.getInstance().getModelingSession().getModel()
+        return ReverseProperties.getInstance().getMModelServices().getModelFactory()
                 .createForkJoinNode();
     }
 
     @objid ("78748afc-0fac-4636-a4c6-55d597e22cca")
     public EForkNode(org.eclipse.uml2.uml.ForkNode element) {
         super(element);
-        ecoreElement = element;
-    }
-
-    @objid ("8696816c-5066-41bf-bb6e-ed3836ba5c3f")
-    public void attach(Element objingElt) {
-        super.attach(objingElt);
-    }
-
-    @objid ("f2cc8662-f56b-4db5-82af-5f697e7e0a00")
-    public void attach(List<Object> objingElts) {
+        this.ecoreElement = element;
     }
 
     @objid ("4eee6c5c-cf47-4c85-8cf5-7b97ad8eb4b9")
+    @Override
     public void setProperties(Element objingElt) {
         super.setProperties(objingElt);
         setJoinSpec((ForkJoinNode) objingElt);
@@ -65,13 +56,13 @@ public class EForkNode extends EActivityNode implements IEElement {
     @objid ("83bc8c39-ea9c-4438-b30a-9b057c5a12ee")
     private void setCombineDuplicate(ForkJoinNode node) {
         if (ReverseProperties.getInstance().isRoundtripEnabled())
-            node.setIsCombineDuplicate(ObjingEAnnotation.isCombineDuplicate(ecoreElement));
+            node.setIsCombineDuplicate(ObjingEAnnotation.isCombineDuplicate(this.ecoreElement));
     }
 
     @objid ("693d8b4f-3b57-407e-8351-82fc3d6ddbfe")
     private void setJoinSpec(ForkJoinNode node) {
         if (ReverseProperties.getInstance().isRoundtripEnabled())
-        node.setJoinSpec(ObjingEAnnotation.getJoinSpec(ecoreElement));
+        node.setJoinSpec(ObjingEAnnotation.getJoinSpec(this.ecoreElement));
     }
 
 }

@@ -65,10 +65,11 @@ public class ResourceLoader {
         File file = null;
         try {
             file = new File(FileLocator.toFileURL(url).getPath());
+            return new Image(Display.getDefault(), file.getAbsolutePath());
         } catch (IOException e) {
-            Xmi.LOG.error(Xmi.PLUGIN_ID, e);       
+            Xmi.LOG.error(e);       
         }
-        return new Image(Display.getDefault(), file.getAbsolutePath());
+        return null;
     }
 
     @objid ("d483f4bb-b2bf-42b4-82cf-ae1bb1655cea")
@@ -81,36 +82,19 @@ public class ResourceLoader {
         try {
             file = new File(FileLocator.toFileURL(url).getPath());
         } catch (IOException e) {
-            Xmi.LOG.error(Xmi.PLUGIN_ID, e);       
+            Xmi.LOG.error(e);       
         }
         return file;
     }
 
-//    @objid ("1d6a59be-4583-11e0-b54c-00137279a832")
-//    public String getUMLRessource() {
-//        return "jar:file:" + this.getLibraryResource() + "!/";
-//    }
     @objid ("df711a3b-c239-42d4-bbcb-e537e55fade2")
     public String getProjectRoot() {
         return Modelio.getInstance().getContext().getProjectSpacePath().getAbsolutePath();
     }
 
-//    @objid ("55ba6ab2-62d0-11e1-8db4-0027103f347d")
-//    private String getLibraryResource() {
-//        final Bundle bundle = Platform.getBundle(Xmi.PLUGIN_ID);
-//
-//        final URL url = FileLocator.find(bundle, new Path("lib"+ java.io.File.separator +  this.umlResourcesJarName ), null);
-//
-//        try {
-//            return FileLocator.toFileURL(url).getPath();
-//        } catch (IOException e) {
-//            Xmi.LOG.error(Xmi.PLUGIN_ID, e);
-//        }
-//        return "";
-//    }
     @objid ("9ebc3fe2-123f-46e5-9814-870d2644e68b")
     public File getXMITempFolder() {
-        return new File(getProjectRoot() + java.io.File.separator  + "mda" + java.io.File.separator + "XMI" + java.io.File.separator + "temp");
+        return new File(getProjectRoot() + java.io.File.separator + "XMI" + java.io.File.separator + "temp");
     }
 
 }

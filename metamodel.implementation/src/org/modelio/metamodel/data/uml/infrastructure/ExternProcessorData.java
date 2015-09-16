@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.data.uml.infrastructure;
 
@@ -45,43 +45,43 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("9bf75d8b-a1fe-4551-b3ea-8285c1a28683")
 @SmaMetaClass(mmClass=ExternProcessor.class, factory=ExternProcessorData.Metadata.ObjectFactory.class)
 public class ExternProcessorData extends ModelElementData {
-    @objid ("c840392c-0cf6-4c6b-952f-e5236bfb60ab")
+    @objid ("8a1686e3-92d1-491f-b089-35db154e9129")
     @SmaMetaAttribute(metaName="ClassName", type=String.class, smAttributeClass=Metadata.ClassNameSmAttribute.class)
      Object mClassName = "";
 
-    @objid ("b3399320-41fa-45f9-9b28-11f60eb3be90")
+    @objid ("2a587f3b-38f1-40ff-991a-270102ee3df7")
     @SmaMetaAssociation(metaName="OwnerQuery", typeDataClass=QueryDefinitionData.class, min=0, max=1, smAssociationClass=Metadata.OwnerQuerySmDependency.class)
      SmObjectImpl mOwnerQuery;
 
-    @objid ("16706d79-e771-49c2-addb-45f36ceebcc6")
+    @objid ("1ba507d3-cf46-46a0-bfc1-dfee1541d205")
     @SmaMetaAssociation(metaName="OwnerValDef", typeDataClass=MatrixValueDefinitionData.class, min=0, max=1, smAssociationClass=Metadata.OwnerValDefSmDependency.class)
      SmObjectImpl mOwnerValDef;
 
-    @objid ("8b52d750-ab88-4e4a-b668-9b4d96942efe")
+    @objid ("c1eea76b-8727-48c9-8e45-1563a2f096ed")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("87b8e284-b2bf-4b90-9639-d885c0fa7e79")
     public static class Metadata {
-        @objid ("d50d9622-7899-45c5-953e-db799a5a824b")
+        @objid ("7592567e-3c43-4efc-877a-48ae16b12277")
         private static SmClass smClass = null;
 
-        @objid ("234d8106-31a8-4726-8d4f-f0db802f4d7d")
+        @objid ("758a128b-0aa1-4ddf-9911-fd9793380303")
         private static SmAttribute ClassNameAtt = null;
 
-        @objid ("919b5f1a-ac1f-463e-a364-5e50194ccf76")
+        @objid ("a4f1e974-0604-4885-a47b-54bb94fd7b33")
         private static SmDependency OwnerQueryDep = null;
 
-        @objid ("7deb4809-33e6-418e-bd54-a1564867fe45")
+        @objid ("a7858df4-eb83-49d3-a35e-76183243f608")
         private static SmDependency OwnerValDefDep = null;
 
-        @objid ("86f640c2-82e5-4fab-be78-66632cc37fa1")
+        @objid ("4a7f36d1-db10-4646-b0b0-412ce512b659")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(ExternProcessorData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("ac7db944-8b38-44ea-9659-eaf14214ac31")
+        @objid ("9c35beed-de28-41bc-a303-f5e1ecef96b1")
         public static SmAttribute ClassNameAtt() {
             if (ClassNameAtt == null) {
             	ClassNameAtt = classof().getAttributeDef("ClassName");
@@ -89,7 +89,7 @@ public class ExternProcessorData extends ModelElementData {
             return ClassNameAtt;
         }
 
-        @objid ("0bb278c5-17b9-47a6-ad9b-c8f0a19e367e")
+        @objid ("3fbe349b-8768-47a4-9117-bca119dfca11")
         public static SmDependency OwnerQueryDep() {
             if (OwnerQueryDep == null) {
             	OwnerQueryDep = classof().getDependencyDef("OwnerQuery");
@@ -97,7 +97,7 @@ public class ExternProcessorData extends ModelElementData {
             return OwnerQueryDep;
         }
 
-        @objid ("e8ecbca2-9741-4cc5-9532-37d1cb7a5f76")
+        @objid ("4b312d27-5965-4aa5-a8d2-53b2aef0bb54")
         public static SmDependency OwnerValDefDep() {
             if (OwnerValDefDep == null) {
             	OwnerValDefDep = classof().getDependencyDef("OwnerValDef");
@@ -105,25 +105,25 @@ public class ExternProcessorData extends ModelElementData {
             return OwnerValDefDep;
         }
 
-        @objid ("4acb5f4f-5af0-4716-a93f-68dd9f11a677")
-        public static SmAttribute getClassNameAtt() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return ClassNameAtt;
-        }
-
-        @objid ("02732cc7-ea17-4a64-a941-42147e5a3473")
-        public static SmDependency getOwnerQueryDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return OwnerQueryDep;
-        }
-
-        @objid ("21d41ec7-e319-4d9f-9fb4-f238c32a1b07")
+        @objid ("dd751982-efa8-4736-8990-98f890b4b9cb")
         public static SmClass getSmClass() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return smClass;
         }
 
-        @objid ("a72ae988-a274-4c10-ad0a-ab9da92cd057")
+        @objid ("7cebf204-65b4-4325-ac60-b3d0031db207")
+        public static SmDependency getOwnerQueryDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return OwnerQueryDep;
+        }
+
+        @objid ("ede96885-f249-496f-b050-ef4db6aae15b")
+        public static SmAttribute getClassNameAtt() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return ClassNameAtt;
+        }
+
+        @objid ("381fa38c-99d0-4162-8db9-a2357bfd1081")
         public static SmDependency getOwnerValDefDep() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return OwnerValDefDep;
@@ -131,12 +131,12 @@ public class ExternProcessorData extends ModelElementData {
 
         @objid ("39ab5dc2-26c9-44a6-a9c5-33fd5b5db60a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("a15a2486-06e5-4179-bf4e-c61087f508d3")
+            @objid ("79bb6470-d3b1-4680-a0f4-444442f2f7b9")
             public ISmObjectData createData() {
                 return new ExternProcessorData();
             }
 
-            @objid ("22427ccb-df15-4acb-85f9-95f544ab32d1")
+            @objid ("658ec2e5-105b-4baf-97c4-dc36c9560128")
             public SmObjectImpl createImpl() {
                 return new ExternProcessorImpl();
             }
@@ -145,12 +145,12 @@ public class ExternProcessorData extends ModelElementData {
 
         @objid ("adb0b02e-fff8-4898-b495-aedcdd744710")
         public static class ClassNameSmAttribute extends SmAttribute {
-            @objid ("042eb775-4fbf-4d00-9195-0a97fb1a99e8")
+            @objid ("3d8991ba-b53d-4d12-b94c-a612df0fa916")
             public Object getValue(ISmObjectData data) {
                 return ((ExternProcessorData) data).mClassName;
             }
 
-            @objid ("92afad65-949e-4bb4-b781-2b9bdd6e204c")
+            @objid ("96150487-4e10-41eb-9600-baa5114235f2")
             public void setValue(ISmObjectData data, Object value) {
                 ((ExternProcessorData) data).mClassName = value;
             }
@@ -159,18 +159,18 @@ public class ExternProcessorData extends ModelElementData {
 
         @objid ("d19c493d-5f55-4ba4-ae34-f0f778dedbb8")
         public static class OwnerQuerySmDependency extends SmSingleDependency {
-            @objid ("8e98126d-8ff1-44a3-b4c1-2bea3fdda8a7")
+            @objid ("e140b4b3-33e3-4cd5-9894-56cdb4b9316d")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((ExternProcessorData) data).mOwnerQuery;
             }
 
-            @objid ("129aeadc-9c5d-4e85-bf13-12bc207f852e")
+            @objid ("a05c63b1-dc69-4bba-b650-e5caa20fcc4a")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((ExternProcessorData) data).mOwnerQuery = value;
             }
 
-            @objid ("582526b8-f695-4ed9-ad27-56ece226155a")
+            @objid ("e935eefc-df5a-436a-973a-849c64b86176")
             @Override
             public SmDependency getSymetric() {
                 return QueryDefinitionData.Metadata.ProcessorDep();
@@ -180,18 +180,18 @@ public class ExternProcessorData extends ModelElementData {
 
         @objid ("181612bc-0201-42f4-8b08-226bc4392f01")
         public static class OwnerValDefSmDependency extends SmSingleDependency {
-            @objid ("0fd6b41c-8d1a-4208-9f2d-4cc1cb9e90dd")
+            @objid ("d55e8391-db96-4c7e-8491-421dbc16ae64")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((ExternProcessorData) data).mOwnerValDef;
             }
 
-            @objid ("18f6fd15-11fb-4ed3-b70f-b19d95d2e9c6")
+            @objid ("f0ca83d9-ca73-4d68-87a6-c980cd416d52")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((ExternProcessorData) data).mOwnerValDef = value;
             }
 
-            @objid ("fe3fde63-7ee3-489c-abc6-a40aa2b2b889")
+            @objid ("d3b85715-dcd6-489a-bf9b-5519c1b6a6ce")
             @Override
             public SmDependency getSymetric() {
                 return MatrixValueDefinitionData.Metadata.ProcessorDep();

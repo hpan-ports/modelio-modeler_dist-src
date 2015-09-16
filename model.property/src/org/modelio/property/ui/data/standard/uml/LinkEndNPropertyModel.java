@@ -32,7 +32,6 @@ import org.modelio.core.ui.ktable.types.bool.BooleanType;
 import org.modelio.core.ui.ktable.types.element.SingleElementType;
 import org.modelio.core.ui.ktable.types.list.EditableListType;
 import org.modelio.core.ui.ktable.types.text.StringType;
-import org.modelio.metamodel.uml.statik.AssociationEnd;
 import org.modelio.metamodel.uml.statik.Instance;
 import org.modelio.metamodel.uml.statik.NaryAssociation;
 import org.modelio.metamodel.uml.statik.NaryLink;
@@ -115,7 +114,7 @@ public class LinkEndNPropertyModel extends AbstractPropertyModel<NaryLinkEnd> {
         this.stringType = new StringType(true);
         this.booleanType = new BooleanType();
         ICoreSession session = CoreSession.getSession(this.theEditedElement);
-        this.assocType = new SingleElementType(true, AssociationEnd.class, session);
+        this.assocType = new SingleElementType(true, NaryAssociation.class, session);
         this.linkedType = new SingleElementType(false, Instance.class, session);
         
         List<String> cardinalityMinValues = new ArrayList<>();

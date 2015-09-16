@@ -29,8 +29,11 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.Files;
+import java.nio.file.InvalidPathException;
 import java.nio.file.StandardCopyOption;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -43,9 +46,9 @@ import org.eclipse.core.runtime.Platform;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.widgets.Display;
 import org.modelio.app.project.ui.plugin.AppProjectUi;
-import org.modelio.gproject.descriptor.FragmentDescriptor;
-import org.modelio.gproject.descriptor.FragmentType;
-import org.modelio.gproject.descriptor.ModuleDescriptor;
+import org.modelio.gproject.data.project.FragmentDescriptor;
+import org.modelio.gproject.data.project.FragmentType;
+import org.modelio.gproject.data.project.ModuleDescriptor;
 import org.osgi.framework.Bundle;
 
 /**
@@ -173,7 +176,7 @@ public class ProjectInfoHtmlGenerator {
         replaceAll(source, "$body_font_size", Integer.toString(fontSize)+"pt");
         
         // Add project description
-        replaceAll(source, "$project_description", this.projectAdapter.getProperties().getValue(INFO_DESCRIPTION, ""));
+        replaceAll(source, "$project_description", this.projectAdapter.getProperties().getValue(INFO_DESCRIPTION, "").replace("\\n", "\n"));
         
         // Basic info
         String contactName = this.projectAdapter.getProperties().getValue(INFO_CONTACT, "");
@@ -216,12 +219,27 @@ public class ProjectInfoHtmlGenerator {
         String iconName = this.projectAdapter.getProperties().getValue(INFO_PROJECT_LOGO_NAME);
         if (iconName == null) return "";
         String addIconString = "";
-        java.nio.file.Path iconPath = this.projectAdapter.getPath().resolve("data").resolve(iconName);
-        File icon = new File(iconPath.toString());
-        if (icon.exists()) {
-            addIconString += "<img src=\"";
-            addIconString += iconPath;
-            addIconString += "\" height=\"64\" width=\"64\">";
+        if (iconName.startsWith("http")) {
+            try {
+                URI uri = new URI(iconName);
+        
+                addIconString += "<img src=\"";
+                addIconString += uri.toString();
+                addIconString += "\" height=\"64\" width=\"64\">";
+            } catch (URISyntaxException e) {
+                addIconString = "";
+            }
+        } else {
+            try {
+                java.nio.file.Path iconPath = this.projectAdapter.getPath().resolve("data").resolve(iconName);
+                if (Files.exists(iconPath)) {
+                    addIconString += "<img src=\"";
+                    addIconString += iconPath.toString();
+                    addIconString += "\" height=\"64\" width=\"64\">";
+                }
+            } catch (InvalidPathException e) {
+                addIconString = "";
+            }
         }
         return addIconString;
     }

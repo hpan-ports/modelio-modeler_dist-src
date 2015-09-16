@@ -30,7 +30,7 @@ import java.util.HashMap;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.emf.ecore.EClass;
-import org.modelio.vcore.Log;
+import org.modelio.vbasic.log.Log;
 import org.modelio.vcore.smkernel.IPStatus;
 import org.modelio.vcore.smkernel.IRStatus;
 import org.modelio.vcore.smkernel.ISmObjectData;

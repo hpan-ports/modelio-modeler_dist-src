@@ -21,10 +21,8 @@
 
 package org.modelio.xmi.model.ecore;
 
-import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.emf.common.util.EList;
-import org.modelio.api.modelio.Modelio;
 import org.modelio.metamodel.uml.behavior.activityModel.ActivityAction;
 import org.modelio.metamodel.uml.behavior.activityModel.ObjectNodeOrderingKind;
 import org.modelio.metamodel.uml.behavior.activityModel.OutputPin;
@@ -35,32 +33,25 @@ import org.modelio.xmi.util.ReverseProperties;
 import org.modelio.xmi.util.XMILogs;
 
 @objid ("bd8cad09-829a-4450-a166-810d875ea6ce")
-public class EOutputPin extends EPin implements IEElement {
+public class EOutputPin extends EPin {
     @objid ("4a082cf2-b05b-4e63-b19d-f7766ce1a27d")
-    private org.eclipse.uml2.uml.OutputPin ecoreElement;
+    private org.eclipse.uml2.uml.OutputPin ecoreElement = null;
 
     @objid ("d0fda3a7-ab62-4b84-b65b-499e8e4e9089")
+    @Override
     public Element createObjingElt() {
-        return  Modelio.getInstance().getModelingSession().getModel()
+        return  ReverseProperties.getInstance().getMModelServices().getModelFactory()
                 .createOutputPin();
     }
 
     @objid ("262c60ac-aedf-4f7d-9ee1-7b565ea44506")
     public EOutputPin(org.eclipse.uml2.uml.OutputPin element) {
         super(element);
-        ecoreElement = element;
-    }
-
-    @objid ("cc830f48-da68-4e01-88a2-b7f3bd561c81")
-    public void attach(Element objingElt) {
-        attachToAction(objingElt);
-    }
-
-    @objid ("b481fc3a-a04f-46d2-bae7-f489b4f05b26")
-    public void attach(List<Object> objingElts) {
+        this.ecoreElement = element;
     }
 
     @objid ("e76388ab-d56c-449f-988c-28a407e27e5e")
+    @Override
     public void setProperties(Element objingElt) {
         super.setProperties(objingElt);
         // Properties defined on ObjectNode
@@ -74,24 +65,24 @@ public class EOutputPin extends EPin implements IEElement {
     @objid ("d8979ab3-693b-4620-be37-bdc2303c9f99")
     private void attachToAction(Element objingElt) {
         org.eclipse.uml2.uml.Action ecoreAction =  (org.eclipse.uml2.uml.Action) getEcoreElement().getOwner();
-                
-                Object objingAction = ReverseProperties.getInstance().getMappedElement(ecoreAction);
-                if (objingAction instanceof ActivityAction) 
-           ((OutputPin) objingElt).setOutputing((ActivityAction) objingAction);
-                else{
-           XMILogs.getInstance().writelnInLog("owner of outputpin was " + objingAction.getClass().getSimpleName());
-           objingElt.delete();
-                }
+        
+        Object objingAction = ReverseProperties.getInstance().getMappedElement(ecoreAction);
+        if (objingAction instanceof ActivityAction) 
+            ((OutputPin) objingElt).setOutputing((ActivityAction) objingAction);
+        else{
+            XMILogs.getInstance().writelnInLog("owner of outputpin was " + objingAction.getClass().getSimpleName());
+            objingElt.delete();
+        }
     }
 
     @objid ("1682a770-1a35-41fa-aa7d-ac27193b3143")
     private void setControlType(OutputPin pin) {
-        pin.setIsControlType(ecoreElement.isControlType());
+        pin.setIsControlType(this.ecoreElement.isControlType());
     }
 
     @objid ("dee7f947-3ad7-4466-b689-b911efdd82c2")
     private void setOrdering(OutputPin pin) {
-        switch (ecoreElement.getOrdering().getValue()) {
+        switch (this.ecoreElement.getOrdering().getValue()) {
         case org.eclipse.uml2.uml.ObjectNodeOrderingKind.FIFO:
             pin.setOrdering(ObjectNodeOrderingKind.FIFO);
             break;
@@ -111,7 +102,7 @@ public class EOutputPin extends EPin implements IEElement {
 
     @objid ("7a18bcaf-0ee1-4c40-9b4f-a597b79170b5")
     private void setSelectionBehavior(OutputPin pin) {
-        org.eclipse.uml2.uml. Behavior ecoreBehavior = ecoreElement.getSelection();
+        org.eclipse.uml2.uml. Behavior ecoreBehavior = this.ecoreElement.getSelection();
         if (ecoreBehavior instanceof org.eclipse.uml2.uml.OpaqueBehavior) {
             String objingBehavior = "";
             for (Object body : ((org.eclipse.uml2.uml.OpaqueBehavior) ecoreBehavior).getBodies()) {
@@ -127,7 +118,7 @@ public class EOutputPin extends EPin implements IEElement {
 
     @objid ("70c1035c-f251-47a2-8847-f57bded0181f")
     private void setType(OutputPin pin) {
-        org.eclipse.uml2.uml.Type ecoreType = ecoreElement.getType();
+        org.eclipse.uml2.uml.Type ecoreType = this.ecoreElement.getType();
         if (ecoreType != null) {
             Object objingType = ReverseProperties.getInstance().getMappedElement(ecoreType);
             if (objingType instanceof GeneralClass)
@@ -137,7 +128,7 @@ public class EOutputPin extends EPin implements IEElement {
 
     @objid ("7153c12c-3e46-4c48-9bbc-0e35d3093cd9")
     private void setState(OutputPin pin) {
-        EList<?> ecoreStates = ecoreElement.getInStates();
+        EList<?> ecoreStates = this.ecoreElement.getInStates();
         if (ecoreStates != null && ecoreStates.size() > 0) {
             org.eclipse.uml2.uml.State ecoreState = (org.eclipse.uml2.uml.State) ecoreStates.get(0);
             if (ecoreState != null) {

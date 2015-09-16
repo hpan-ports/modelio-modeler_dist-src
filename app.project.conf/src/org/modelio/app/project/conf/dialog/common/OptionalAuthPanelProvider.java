@@ -32,9 +32,9 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.modelio.app.project.conf.plugin.AppProjectConf;
 import org.modelio.core.ui.auth.AuthDataPanel;
-import org.modelio.gproject.descriptor.AuthDescriptor;
-import org.modelio.gproject.descriptor.DefinitionScope;
-import org.modelio.gproject.descriptor.FragmentDescriptor;
+import org.modelio.gproject.data.project.AuthDescriptor;
+import org.modelio.gproject.data.project.DefinitionScope;
+import org.modelio.gproject.data.project.FragmentDescriptor;
 import org.modelio.ui.panel.IPanelProvider;
 import org.modelio.vbasic.auth.IAuthData;
 import org.modelio.vbasic.auth.NoneAuthData;
@@ -66,7 +66,7 @@ public class OptionalAuthPanelProvider implements IPanelProvider {
      */
     @objid ("663d7ffb-a108-41c9-8471-9c15df1eb20c")
     @Override
-    public Object create(Composite parent) {
+    public Object createPanel(Composite parent) {
         assert (this.top == null);
         
         this.top = new Composite(parent, SWT.NONE);
@@ -83,8 +83,8 @@ public class OptionalAuthPanelProvider implements IPanelProvider {
         });
         this.useProjectAuthCheck.setLayoutData(new GridData(SWT.FILL, SWT.BEGINNING, true, false));
         
-        this.authPanel.create(this.top);
-        this.authPanel.getComposite().setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
+        this.authPanel.createPanel(this.top);
+        this.authPanel.getPanel().setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
         return this;
     }
 
@@ -94,7 +94,7 @@ public class OptionalAuthPanelProvider implements IPanelProvider {
      */
     @objid ("995d638b-4fe1-45f3-bd8a-b1ed2996ce59")
     @Override
-    public Composite getComposite() {
+    public Composite getPanel() {
         return this.top;
     }
 
@@ -142,7 +142,7 @@ public class OptionalAuthPanelProvider implements IPanelProvider {
 
     @objid ("5350938d-ef80-41ff-b543-520baf4be470")
     void updateVisibility() {
-        Composite composite = this.authPanel.getComposite();
+        Composite composite = this.authPanel.getPanel();
         setWidgetVisible(this.useProjectAuthCheck, this.allowUseProjectAuth);
         
         if (this.allowUseProjectAuth && this.useProjectAuthCheck.getSelection()) {
@@ -190,6 +190,18 @@ public class OptionalAuthPanelProvider implements IPanelProvider {
     void setWidgetVisible(Control composite, boolean visible) {
         composite.setVisible(visible);
         ((GridData)composite.getLayoutData()).exclude = !visible;
+    }
+
+    @objid ("13881cf4-7a13-4e92-b9fe-4156a065f393")
+    @Override
+    public boolean isRelevantFor(Object obj) {
+        return true;
+    }
+
+    @objid ("da23b802-2888-4d46-81de-6577a1cd7abc")
+    @Override
+    public String getHelpTopic() {
+        return null;
     }
 
 }

@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.bpmn.rootElements;
 
@@ -31,10 +31,10 @@ import org.modelio.metamodel.bpmn.rootElements.BpmnBehavior;
 
 @objid ("007ab098-c4bf-1fd8-97fe-001ec947cd2a")
 public interface BpmnRootElement extends BpmnBaseElement {
-    @objid ("4e1d4129-d29f-4134-945d-f90f8be0af48")
+    @objid ("4cb0759f-0c53-4e2d-85c3-e8ef29dfd0d5")
     BpmnBehavior getOwner();
 
-    @objid ("73e5cc99-777f-47ea-8667-b695a6becea2")
+    @objid ("95db6966-1f21-46d0-a702-c55dd3ed6988")
     void setOwner(BpmnBehavior value);
 
 }

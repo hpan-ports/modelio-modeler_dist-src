@@ -25,12 +25,12 @@ import java.io.IOException;
 import java.net.URI;
 import java.nio.file.Path;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.modelio.gproject.descriptor.FragmentDescriptor;
-import org.modelio.gproject.descriptor.FragmentType;
-import org.modelio.gproject.descriptor.GAuthConf;
+import org.modelio.gproject.data.project.FragmentDescriptor;
+import org.modelio.gproject.data.project.FragmentType;
+import org.modelio.gproject.data.project.GAuthConf;
+import org.modelio.gproject.data.ramc.ModelComponentArchive;
 import org.modelio.gproject.fragment.IFragmentFactory;
 import org.modelio.gproject.fragment.IProjectFragment;
-import org.modelio.gproject.ramc.core.archive.ModelComponentArchive;
 import org.modelio.vbasic.auth.IAuthData;
 import org.modelio.vbasic.net.UriPathAccess;
 

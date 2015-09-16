@@ -21,6 +21,7 @@
 
 package org.modelio.property.ui.data.standard.bpmn;
 
+import java.util.ArrayList;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.core.ui.ktable.types.IPropertyType;
@@ -236,7 +237,7 @@ public class BpmnEndEventPropertyModel extends AbstractPropertyModel<BpmnEndEven
 
     @objid ("8e249350-c068-11e1-8c0a-002564c97630")
     private void deleteEventType() {
-        for (BpmnEventDefinition definition : this.theEditedElement.getEventDefinitions()) {
+        for (BpmnEventDefinition definition : new ArrayList<>(this.theEditedElement.getEventDefinitions())) {
             definition.delete();
         }
     }
@@ -250,7 +251,7 @@ public class BpmnEndEventPropertyModel extends AbstractPropertyModel<BpmnEndEven
         Cancel,
         Compensate,
         Signal,
-        Termnate,
+        Terminate,
         Multiple;
 
         @objid ("8e24935c-c068-11e1-8c0a-002564c97630")
@@ -268,7 +269,7 @@ public class BpmnEndEventPropertyModel extends AbstractPropertyModel<BpmnEndEven
             } else if (definition instanceof BpmnSignalEventDefinition) {
                 return Signal;
             }else if (definition instanceof BpmnTerminateEventDefinition) {
-                return Termnate;
+                return Terminate;
             }
             return None;
         }
@@ -287,7 +288,7 @@ public class BpmnEndEventPropertyModel extends AbstractPropertyModel<BpmnEndEven
                 return BpmnCompensateEventDefinition.class;
             } else if (event == EventType.Signal) {
                 return BpmnSignalEventDefinition.class;
-            }else if (event == EventType.Termnate) {
+            }else if (event == EventType.Terminate) {
                 return BpmnTerminateEventDefinition.class;
             }
             return null;

@@ -285,7 +285,7 @@ class MicrosoftDocumentViewer {
      */
     @objid ("78de602b-3c55-44b2-b52c-b269febb901c")
     public void saveDocumentAs() throws IOException {
-        int options = 0;
+        int options = OLE.OLECMDEXECOPT_PROMPTUSER;
         Variant in = null;
         Variant out = null;
         this.oleSite.exec(OLE.OLECMDID_SAVEAS, options, in, out);

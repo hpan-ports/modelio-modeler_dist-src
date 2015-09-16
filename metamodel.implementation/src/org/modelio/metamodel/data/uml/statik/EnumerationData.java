@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.data.uml.statik;
 
@@ -45,7 +45,7 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("0009fc7c-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=Enumeration.class, factory=EnumerationData.Metadata.ObjectFactory.class)
 public class EnumerationData extends GeneralClassData {
-    @objid ("164a6190-654e-4753-933c-630fc52ef29e")
+    @objid ("79410900-3a27-41c2-9414-f18fca90ed10")
     @SmaMetaAssociation(metaName="Value", typeDataClass=EnumerationLiteralData.class, min=0, max=-1, smAssociationClass=Metadata.ValueSmDependency.class, component = true)
      List<SmObjectImpl> mValue = null;
 
@@ -54,25 +54,25 @@ public class EnumerationData extends GeneralClassData {
         this.mIsElementary = Boolean.TRUE;
     }
 
-    @objid ("599d8171-690d-4247-899f-23a2b75c2f0f")
+    @objid ("9c96b8f8-9e49-400e-a556-5cb5513a8962")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("00933492-c4c3-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("6206aa16-90f6-416f-900a-e44bc4e3ec41")
+        @objid ("2bd1870c-9d74-4c13-bb18-a4b168afdaa9")
         private static SmClass smClass = null;
 
-        @objid ("3ef0bcb8-0928-46b6-96e8-21d56ec5c848")
+        @objid ("cad3c596-4dec-4ae0-8d3e-a97210510220")
         private static SmDependency ValueDep = null;
 
-        @objid ("2daaa8ed-14f5-4d63-a4f9-1cd4d9cb4f56")
+        @objid ("cd570bce-5416-4360-86d9-363e81719375")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(EnumerationData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("4b3dea78-1064-475f-b510-d38e1cfba40a")
+        @objid ("d8e4ba6f-03fb-4bef-8b08-b5e518e9c9ca")
         public static SmDependency ValueDep() {
             if (ValueDep == null) {
             	ValueDep = classof().getDependencyDef("Value");
@@ -80,26 +80,26 @@ public class EnumerationData extends GeneralClassData {
             return ValueDep;
         }
 
-        @objid ("ce4adbae-9f6f-4987-ac87-425433c1879f")
-        public static SmClass getSmClass() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return smClass;
-        }
-
-        @objid ("0a2d22f8-99fc-4819-b0cd-1256f2b87bb5")
+        @objid ("703c43ae-9352-47f2-a68f-011261d7d8b7")
         public static SmDependency getValueDep() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return ValueDep;
         }
 
+        @objid ("711271e2-5fc9-4155-bc2a-cb75ac2c22e9")
+        public static SmClass getSmClass() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return smClass;
+        }
+
         @objid ("00937592-c4c3-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("91760eb4-1787-41c5-b7bc-1be90a30a2fc")
+            @objid ("96cf9af1-11b1-4b67-be90-7c7edd5c8344")
             public ISmObjectData createData() {
                 return new EnumerationData();
             }
 
-            @objid ("a1f48db3-24eb-4034-9605-7a7b4b49b197")
+            @objid ("6c6541cb-ea0e-4099-83e1-d35d82d48ca8")
             public SmObjectImpl createImpl() {
                 return new EnumerationImpl();
             }
@@ -108,20 +108,20 @@ public class EnumerationData extends GeneralClassData {
 
         @objid ("0093d9d8-c4c3-1fd8-97fe-001ec947cd2a")
         public static class ValueSmDependency extends SmMultipleDependency {
-            @objid ("05765ee9-551f-4aaa-bd30-8a0870c4d0e7")
+            @objid ("393b04e5-13bb-4c62-b403-f52bd7a0d1c4")
             @Override
             public List<SmObjectImpl> getValueList(ISmObjectData data) {
                 return (((EnumerationData)data).mValue != null)? ((EnumerationData)data).mValue:SmMultipleDependency.EMPTY;
             }
 
-            @objid ("6f5e9790-4d3f-4225-82b6-74e2314143d1")
+            @objid ("358578fe-bcf2-457b-9a15-c3ebc69a3063")
             @Override
             protected List<SmObjectImpl> allocateValueList(ISmObjectData data, int initialCapacity) {
                 ((EnumerationData) data).mValue = new ArrayList<>(initialCapacity);
                 return ((EnumerationData) data).mValue;
             }
 
-            @objid ("da295c2d-9ab3-4b94-bb1e-203efa440696")
+            @objid ("dc775ea0-bc6f-4683-86e3-75c3130ba3e5")
             @Override
             public SmDependency getSymetric() {
                 return EnumerationLiteralData.Metadata.ValuatedDep();

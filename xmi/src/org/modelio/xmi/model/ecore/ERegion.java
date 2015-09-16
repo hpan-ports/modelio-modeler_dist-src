@@ -21,9 +21,7 @@
 
 package org.modelio.xmi.model.ecore;
 
-import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.modelio.api.modelio.Modelio;
 import org.modelio.metamodel.uml.behavior.stateMachineModel.Region;
 import org.modelio.metamodel.uml.behavior.stateMachineModel.State;
 import org.modelio.metamodel.uml.behavior.stateMachineModel.StateMachine;
@@ -31,21 +29,22 @@ import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.xmi.util.ReverseProperties;
 
 @objid ("063db966-f3ac-47ed-808c-890108247b18")
-public class ERegion extends ENamedElement implements IEElement {
+public class ERegion extends ENamedElement {
     @objid ("8adacaa7-f0cd-4c5c-a778-7b767797e5ec")
-    private org.eclipse.uml2.uml.Region ecoreElement;
+    private org.eclipse.uml2.uml.Region ecoreElement = null;
 
     @objid ("b523d344-12b1-42c9-93d1-0af7cddc340c")
+    @Override
     public Element createObjingElt() {
         Region region = null;
                 
-        org.eclipse.uml2.uml.Element ecoreElt = ecoreElement.getOwner();
+        org.eclipse.uml2.uml.Element ecoreElt = this.ecoreElement.getOwner();
                 
         if  ( ecoreElt instanceof org.eclipse.uml2.uml.StateMachine){
             region = ((StateMachine) ReverseProperties.getInstance().getMappedElement(ecoreElt)).getTop();
         
         }else{
-            region = Modelio.getInstance().getModelingSession().getModel().createRegion();
+            region = ReverseProperties.getInstance().getMModelServices().getModelFactory().createRegion();
         }
         return region;
     }
@@ -53,34 +52,24 @@ public class ERegion extends ENamedElement implements IEElement {
     @objid ("9ba453e6-37ad-4d48-8e49-34c6eb79393f")
     public ERegion(org.eclipse.uml2.uml.Region element) {
         super(element);
-        ecoreElement = element;
+        this.ecoreElement = element;
     }
 
     @objid ("e303abed-276f-440a-8c46-078ed8f47ae6")
+    @Override
     public void attach(Element objingElt) {
-        Element objOwner = (Element) ReverseProperties.getInstance().getMappedElement(ecoreElement.getOwner());
+        Element objOwner = (Element) ReverseProperties.getInstance().getMappedElement(this.ecoreElement.getOwner());
          
-        
         if ((objOwner != null ) && (objOwner instanceof State)){
             ((State) objOwner).getOwnedRegion().add((Region)objingElt);
             ((Region)objingElt).setParent((State) objOwner);
-        }
-        
+        }        
         
         if ((objOwner != null ) && (objOwner instanceof StateMachine)){
             ((StateMachine) objOwner).setTop((Region)objingElt);
             ((Region)objingElt).setRepresented((StateMachine) objOwner);
             
         }
-    }
-
-    @objid ("4974b07a-98a8-4133-aca3-b554058d6910")
-    public void attach(List<Object> objingElts) {
-    }
-
-    @objid ("ac4ddeab-ac11-4d3e-9565-40c0a56191e7")
-    public void setProperties(Element objingElt) {
-        super.setProperties(objingElt);
     }
 
 }

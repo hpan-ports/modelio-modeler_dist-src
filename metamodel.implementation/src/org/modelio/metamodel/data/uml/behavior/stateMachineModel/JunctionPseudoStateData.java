@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.data.uml.behavior.stateMachineModel;
 
@@ -43,22 +43,22 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("0052b73c-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=JunctionPseudoState.class, factory=JunctionPseudoStateData.Metadata.ObjectFactory.class)
 public class JunctionPseudoStateData extends AbstractPseudoStateData {
-    @objid ("a49dfa2f-f99c-49b0-9cf0-c99cd1b5c815")
+    @objid ("74345bc3-28a8-44cb-8f13-191ee5e0433f")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("001ea3d4-c4c5-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("cf9e30a0-035f-4891-88b0-ac2ee57830a9")
+        @objid ("4460c189-32a8-4d97-a6ee-9a6876de8db4")
         private static SmClass smClass = null;
 
-        @objid ("880a71e0-1e6c-4e87-a869-2d60305ab717")
+        @objid ("948bdabe-3685-4cba-8ef4-06781375d38a")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(JunctionPseudoStateData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("095565ee-8dce-4bf7-a9d4-352070f9f99e")
+        @objid ("65679e11-4560-485c-87df-3ee0dc986fb9")
         public static SmClass getSmClass() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return smClass;
@@ -66,12 +66,12 @@ public class JunctionPseudoStateData extends AbstractPseudoStateData {
 
         @objid ("001ee8da-c4c5-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("6cca16df-b2eb-45da-8ccd-4a1ff86fe580")
+            @objid ("e092a2c3-7952-45ef-ae05-0c3634ce12b0")
             public ISmObjectData createData() {
                 return new JunctionPseudoStateData();
             }
 
-            @objid ("544f69b4-f65f-490e-9975-5f15f0d59f40")
+            @objid ("0ef9075b-aac1-4bdf-9d71-ef1494c7038c")
             public SmObjectImpl createImpl() {
                 return new JunctionPseudoStateImpl();
             }

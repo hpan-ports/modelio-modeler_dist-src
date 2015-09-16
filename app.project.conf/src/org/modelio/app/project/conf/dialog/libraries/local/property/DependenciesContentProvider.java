@@ -25,7 +25,7 @@ import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.Viewer;
-import org.modelio.gproject.ramc.core.archive.IModelComponentInfos.VersionedItem;
+import org.modelio.gproject.data.ramc.IModelComponentInfos.VersionedItem;
 
 @objid ("f3bf9875-1d15-456f-ae63-06df6e7cf485")
 class DependenciesContentProvider implements IStructuredContentProvider {

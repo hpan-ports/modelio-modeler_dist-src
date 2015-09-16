@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.uml.statik;
 
@@ -36,28 +36,28 @@ import org.modelio.metamodel.uml.statik.Operation;
 
 @objid ("00047d6a-c4bf-1fd8-97fe-001ec947cd2a")
 public interface CollaborationUse extends ModelElement {
-    @objid ("94b661ee-9558-4613-8af5-c32809465725")
+    @objid ("7e8a50f9-04dd-4702-ada6-d0aca7a71e82")
     Collaboration getType();
 
-    @objid ("5734e018-f55c-4c30-b0d5-57cb2d423e9e")
+    @objid ("d8d0858a-ec76-4b54-ab54-a7246ef410c1")
     void setType(Collaboration value);
 
-    @objid ("d6044779-9f71-4e5f-9d65-a47b18ee12e7")
+    @objid ("31a3e059-6bce-449a-ad43-be59a47aeec4")
     NameSpace getNRepresented();
 
-    @objid ("48ab8553-ff48-42a5-9f98-2dc0c772415a")
+    @objid ("29e1b6b6-34ee-484e-908f-54d1c52967ef")
     void setNRepresented(NameSpace value);
 
-    @objid ("650fba77-87df-4d9f-83ac-6d836981f63f")
+    @objid ("9402a51e-fbb3-4d99-be80-5cf0295c47b4")
     Operation getORepresented();
 
-    @objid ("d4dcd02b-9879-4a4a-86cc-5ada173ffe99")
+    @objid ("9f923f3d-beb0-4ca6-9436-72709fe61740")
     void setORepresented(Operation value);
 
-    @objid ("20a642e3-194d-4083-a3f6-aa979b33ffcf")
+    @objid ("7c91adef-48c3-408b-87e5-cef1761b4057")
     EList<Binding> getRoleBinding();
 
-    @objid ("c7765459-0793-4201-abb4-c698e4834e29")
+    @objid ("bcc64777-9ef2-471a-b073-94c61f815602")
     <T extends Binding> List<T> getRoleBinding(java.lang.Class<T> filterClass);
 
 }

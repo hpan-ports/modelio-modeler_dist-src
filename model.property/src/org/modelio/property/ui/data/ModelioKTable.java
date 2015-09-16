@@ -31,9 +31,9 @@ import org.eclipse.swt.widgets.Composite;
 /**
  * Fixes a size computing bug in KTable, as the library is dead on source forge...
  */
-@objid ("830e1bc1-462b-41f1-81d3-b45153d33aed")
+@objid ("511b70c5-e21b-406c-8e3c-e61896005d0b")
 public class ModelioKTable extends KTable {
-    @objid ("a0c8b454-c8b4-40bc-9922-c80005eb88d5")
+    @objid ("bcb4c009-da69-4a7d-bea5-902e82ae16a7")
     public ModelioKTable(Composite parent, int style) {
         super(parent, style);
         getHorizontalBar().setVisible(false);
@@ -51,7 +51,7 @@ public class ModelioKTable extends KTable {
      * @param changed <code>true</code> if the control's contents have changed, and <code>false</code> otherwise
      * @return the preferred size of the control.
      */
-    @objid ("9bb52870-a6bf-4fca-97b2-307e71fd1671")
+    @objid ("3289b8ae-f9f6-4d63-93ee-9c1ae4159570")
     @Override
     public Point computeSize(int wHint, int hHint, boolean changed) {
         // start with margins
@@ -103,7 +103,7 @@ public class ModelioKTable extends KTable {
         return new Point(width, height);
     }
 
-    @objid ("212c1aa5-c465-49c7-ab38-509328d230fb")
+    @objid ("80a11d9d-0d0e-4f7e-9492-1f6d1186b000")
     @Override
     @SuppressWarnings("synthetic-access")
     protected void createListeners() {
@@ -124,7 +124,7 @@ public class ModelioKTable extends KTable {
         });
     }
 
-    @objid ("416fd9fe-4fb9-4496-b4e6-4454ebe2f51c")
+    @objid ("b3fef658-4397-4023-b939-8ab113d5fbe2")
     @Override
     protected void updateScrollbarVisibility() {
         // No need to compute things if the table is not layouted yet...

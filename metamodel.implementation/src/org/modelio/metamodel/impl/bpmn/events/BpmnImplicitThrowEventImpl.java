@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.bpmn.events;
 
@@ -42,19 +42,19 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("008e2808-c4bf-1fd8-97fe-001ec947cd2a")
 public class BpmnImplicitThrowEventImpl extends BpmnThrowEventImpl implements BpmnImplicitThrowEvent {
-    @objid ("5f9ed1a6-c193-4224-be6d-b2766784f048")
+    @objid ("6092f0c6-5645-4aef-a6d3-fb847ef37e79")
     @Override
     public BpmnComplexBehaviorDefinition getOwner() {
         return (BpmnComplexBehaviorDefinition) getDepVal(BpmnImplicitThrowEventData.Metadata.OwnerDep());
     }
 
-    @objid ("7aff9152-056d-4efe-b961-0a173b5d53a9")
+    @objid ("a8ccf7de-3d4e-4b92-8b25-ec3c9e24adbd")
     @Override
     public void setOwner(BpmnComplexBehaviorDefinition value) {
         appendDepVal(BpmnImplicitThrowEventData.Metadata.OwnerDep(), (SmObjectImpl)value);
     }
 
-    @objid ("a2cdbb91-1244-4955-8288-e841fa4e4693")
+    @objid ("02170902-d43b-47ee-a6c0-53129dbc2159")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
@@ -64,7 +64,7 @@ public class BpmnImplicitThrowEventImpl extends BpmnThrowEventImpl implements Bp
         return super.getCompositionOwner();
     }
 
-    @objid ("a8c72b9d-317a-40d1-8c39-4858430e0d97")
+    @objid ("773a1189-a090-4a01-a65a-09f5cf4ef237")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
@@ -74,7 +74,7 @@ public class BpmnImplicitThrowEventImpl extends BpmnThrowEventImpl implements Bp
         return super.getCompositionRelation();
     }
 
-    @objid ("442d5fb3-ce3d-4ddf-a936-ffd14d2cc6c7")
+    @objid ("ec7af69f-63d7-4c4c-ad96-7ce6b6eae5cf")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitBpmnImplicitThrowEvent(this);

@@ -46,6 +46,7 @@ public class OAttributeLink extends OElement implements IOElement {
     private AttributeLink objingElement = null;
 
     @objid ("b7904d8d-26de-402e-bc6d-f24f15eb1653")
+    @Override
     public org.eclipse.uml2.uml.Element createEcoreElt() {
         return UMLFactory.eINSTANCE.createSlot();
     }
@@ -53,12 +54,13 @@ public class OAttributeLink extends OElement implements IOElement {
     @objid ("2ef10730-2330-4592-8ed0-008257942105")
     public OAttributeLink(AttributeLink element) {
         super(element);
-        objingElement = element;
+        this.objingElement = element;
     }
 
     @objid ("67e25991-9834-456d-99a9-e743cc87af12")
+    @Override
     public void attach(org.eclipse.uml2.uml.Element ecoreElt) {
-        Instance objOwner = objingElement.getAttributed();
+        Instance objOwner = this.objingElement.getAttributed();
         org.eclipse.uml2.uml.Element temp = GenerationProperties.getInstance().getMappedElement(objOwner);
         
         if (temp instanceof InstanceSpecification){
@@ -68,6 +70,7 @@ public class OAttributeLink extends OElement implements IOElement {
     }
 
     @objid ("09de2635-81d4-4651-993a-c72a787819f3")
+    @Override
     public void setProperties(org.eclipse.uml2.uml.Element ecoreElt) {
         setDefiningFeature((org.eclipse.uml2.uml.Slot)ecoreElt);
         setExpressionOfValue((org.eclipse.uml2.uml.Slot)ecoreElt);
@@ -76,7 +79,7 @@ public class OAttributeLink extends OElement implements IOElement {
             setEAnnotationValue(ecoreElt);
             ObjingEAnnotation.setAttributeLink(ecoreElt, true);
             setEAnnotationName(ecoreElt);
-            Instance objOwner =  objingElement.getAttributed();
+            Instance objOwner =  this.objingElement.getAttributed();
         
             ObjingEAnnotation.setOwner(ecoreElt, objOwner.getUuid().toString());
         }
@@ -84,12 +87,12 @@ public class OAttributeLink extends OElement implements IOElement {
 
     @objid ("84a7d5b4-a55c-4d4e-bf42-a4c1bc213d4b")
     private void setDefiningFeature(org.eclipse.uml2.uml.Slot slot) {
-        Attribute objingFeature = objingElement.getBase();
+        Attribute objingFeature = this.objingElement.getBase();
         
         if (objingFeature != null) {
         
             org.eclipse.uml2.uml.Element ecoreFeature =
-                    (org.eclipse.uml2.uml.Element) GenerationProperties.getInstance().getMappedElement(objingFeature);
+                   GenerationProperties.getInstance().getMappedElement(objingFeature);
         
             if (ecoreFeature instanceof org.eclipse.uml2.uml.StructuralFeature) {
                 slot.setDefiningFeature((org.eclipse.uml2.uml.StructuralFeature)ecoreFeature);
@@ -99,12 +102,12 @@ public class OAttributeLink extends OElement implements IOElement {
 
     @objid ("5ed11a74-ac93-4495-a785-6bd682227710")
     private void setEAnnotationValue(org.eclipse.uml2.uml.Element ecoreElt) {
-        ObjingEAnnotation.setValue(ecoreElt, objingElement.getValue());
+        ObjingEAnnotation.setValue(ecoreElt, this.objingElement.getValue());
     }
 
     @objid ("82a99660-2da4-4417-bc16-faf51bd1b527")
     private void setEAnnotationName(org.eclipse.uml2.uml.Element ecoreElt) {
-        ObjingEAnnotation.setName(ecoreElt, objingElement.getName());
+        ObjingEAnnotation.setName(ecoreElt, this.objingElement.getName());
     }
 
     @objid ("dccf83aa-511f-4eea-81cc-42dd0e04f69c")
@@ -123,7 +126,7 @@ public class OAttributeLink extends OElement implements IOElement {
             value.setInstance(inst);
             slot.getValues().add(value);
         }else{
-            Attribute attribut =  objingElement.getBase();
+            Attribute attribut =  this.objingElement.getBase();
             if (attribut != null){
                 GeneralClass type = attribut.getType();
                 String value = this.objingElement.getValue();

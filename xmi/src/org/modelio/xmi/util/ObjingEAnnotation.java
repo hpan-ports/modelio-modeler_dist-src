@@ -21,7 +21,9 @@
 
 package org.modelio.xmi.util;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.uml2.uml.Property;
@@ -292,7 +294,7 @@ public class ObjingEAnnotation extends XMIEAnnotation {
     @objid ("9581817a-baa7-4a46-8ea7-abdd47a5a9fb")
     private static final String ENDLINENUMBER = "EndLineNumber";
 
-    @objid ("53ce86f6-4813-4662-854d-3168a821af9c")
+    @objid ("3f912564-ea00-415f-9b27-0322eeb3059b")
     private static GenerationProperties genProp = GenerationProperties
 	.getInstance();
 
@@ -1163,10 +1165,8 @@ public class ObjingEAnnotation extends XMIEAnnotation {
     }
 
     @objid ("9c25467b-624a-4697-80fa-1796ed9e808c")
-    public static void setReference(org.eclipse.uml2.uml.Element ecoreElt, boolean isReference) {
-        if (isReference) {
-            createEAnnotation(ecoreElt, OBJING_NAME,IS_REFERENCE);
-        }
+    public static void setIsReference(org.eclipse.uml2.uml.Element ecoreElt) {
+        createEAnnotation(ecoreElt, OBJING_NAME,IS_REFERENCE);
     }
 
     @objid ("26418f72-113d-4b90-a632-16acfbdfd664")
@@ -1175,8 +1175,12 @@ public class ObjingEAnnotation extends XMIEAnnotation {
     }
 
     @objid ("d3883177-9ece-448a-a478-a6876f59e99f")
-    public static List<String> getBaseClass(org.eclipse.uml2.uml.Element ecoreElt) {
-        return getEAnnotationContents(ecoreElt, OBJING_NAME, BASECLASS);
+    public static Set<String> getBaseClass(org.eclipse.uml2.uml.Element ecoreElt) {
+        Set<String> baseClasses = new HashSet<>();
+        for( String  baseClasse : getEAnnotationContents(ecoreElt, OBJING_NAME, BASECLASS)){
+            baseClasses.add(baseClasse);
+        }
+        return baseClasses;
     }
 
     @objid ("1b592818-ba14-4d78-82ca-8b28a417e441")

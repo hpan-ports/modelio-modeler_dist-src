@@ -23,6 +23,7 @@ package org.modelio.gproject.module;
 
 import java.nio.file.Path;
 import java.util.List;
+import java.util.Map;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.vbasic.version.Version;
 
@@ -54,12 +55,6 @@ public interface IModuleHandle {
      */
     @objid ("b47fd700-f2b7-11e1-90ff-002564c97630")
     List<Path> getJarPaths();
-
-    /**
-     * @return <code>true</code> if a license is required.
-     */
-    @objid ("f07195de-f2bb-11e1-90ff-002564c97630")
-    boolean isLicenseRequired();
 
     /**
      * @return the module main java class name.
@@ -111,5 +106,8 @@ public interface IModuleHandle {
      */
     @objid ("d95f3e31-37da-11e2-8ba4-002564c97630")
     Path getArchive();
+
+    @objid ("018ae444-ca2b-491c-98ec-21a43f5f13db")
+    Map<String, Path> getStylePaths();
 
 }

@@ -22,7 +22,10 @@
 package org.modelio.audit.preferences.model;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
 /**
@@ -34,7 +37,7 @@ public class AuditCategory {
     private String name;
 
     @objid ("a836f660-1c6c-403c-8aa7-9293ee4ced33")
-    private List<AuditRule> rules;
+    private Set<AuditRule> rules;
 
     /**
      * Initialize a category.
@@ -42,7 +45,13 @@ public class AuditCategory {
      */
     @objid ("dd86bc9d-fcea-431c-8d95-a8ff8ae67480")
     public AuditCategory(String categoryName) {
-        this.rules = new ArrayList<>();
+        this.rules = new TreeSet<>(new Comparator<AuditRule>() {
+        
+            @Override
+            public int compare(AuditRule o1, AuditRule o2) {
+                return o1.ruleId.compareTo(o2.ruleId);
+            }
+        });
         this.name = categoryName;
     }
 
@@ -61,7 +70,8 @@ public class AuditCategory {
      */
     @objid ("9102932c-a9bc-43da-84c5-912b1cd6b158")
     public List<AuditRule> getRules() {
-        return this.rules;
+        // Compatibility: return a list instead of a set
+        return new ArrayList<>(this.rules);
     }
 
     /**

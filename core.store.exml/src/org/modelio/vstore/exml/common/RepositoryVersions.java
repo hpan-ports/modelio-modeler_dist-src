@@ -118,7 +118,7 @@ public class RepositoryVersions {
         if (this.repositoryFormat != reference.repositoryFormat)
             throw new IncompatibleVersionException("Repository format "+this.repositoryFormat+" is incompatible with "+reference.repositoryFormat+ " version.");
         
-        if (! this.cmsNodesSig.equals(reference.cmsNodesSig)) {
+        /*if (! this.cmsNodesSig.equals(reference.cmsNodesSig)) {
             ArrayList<String> unknown = new ArrayList<>(this.cmsNodesSig);
             unknown.removeAll(reference.cmsNodesSig);
             
@@ -141,7 +141,7 @@ public class RepositoryVersions {
             }
             
             throw new IncompatibleVersionException(msg.toString());
-        }
+        }*/
     }
 
     /**

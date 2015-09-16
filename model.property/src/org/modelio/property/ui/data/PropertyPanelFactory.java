@@ -24,8 +24,6 @@ package org.modelio.property.ui.data;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.swt.widgets.Composite;
 import org.modelio.metamodel.uml.infrastructure.Element;
-import org.modelio.metamodel.uml.infrastructure.ModelElement;
-import org.modelio.property.ui.data.extensions.ExtensionsPropertyPanel;
 import org.modelio.property.ui.data.standard.StandardPropertyPanel;
 
 /**
@@ -52,18 +50,6 @@ public class PropertyPanelFactory {
     @objid ("8fa7c848-c068-11e1-8c0a-002564c97630")
     public static IPropertyPanel createStandardPanel(Composite parent, Element element) {
         return new StandardPropertyPanel(parent, element);
-    }
-
-    /**
-     * Create a panel displaying tagged values.
-     * @param modelingSession the core session.
-     * @param parent the graphical parent.
-     * @param element the element to display in the panel.
-     * @return a new instance of IPropertyPanel.
-     */
-    @objid ("f90cb291-c5d4-11e1-8f21-002564c97630")
-    public static IPropertyPanel createExtensionPanel(Composite parent, ModelElement element) {
-        return new ExtensionsPropertyPanel(parent, element);
     }
 
 }

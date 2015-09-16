@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.uml.behavior.activityModel;
 
@@ -32,22 +32,22 @@ import org.modelio.metamodel.uml.behavior.activityModel.Clause;
 
 @objid ("002d52f8-c4bf-1fd8-97fe-001ec947cd2a")
 public interface ConditionalNode extends StructuredActivityNode {
-    @objid ("8cf9b1b8-0518-42cf-93da-e87ef18e6e7f")
+    @objid ("4e010692-b4f6-4783-b58c-87f0967ecba9")
     boolean isIsDeterminate();
 
-    @objid ("86d9c46e-82e5-4fe9-80a5-45d6e96f414d")
+    @objid ("0be0cade-c7da-4878-a060-c9a2f5b9a845")
     void setIsDeterminate(boolean value);
 
-    @objid ("fd1f72c7-78e4-4c76-ba89-078d6c6606d4")
+    @objid ("d21e8f87-c858-4592-9918-bd8e7b893db1")
     boolean isIsAssured();
 
-    @objid ("9a0cbada-0c1b-4fae-98b5-033a1173b2e3")
+    @objid ("72a9d40a-9341-4c2d-94d1-2f6f5cb1d0ef")
     void setIsAssured(boolean value);
 
-    @objid ("526b83b4-05b7-4063-8bde-6e53a795c14c")
+    @objid ("4096ac6e-2d1b-4e1e-ace9-4cddaa57e0d5")
     EList<Clause> getOwnedClause();
 
-    @objid ("09dda31d-427b-4ee2-a291-3171914f37ab")
+    @objid ("8924981d-2171-4358-bbe3-e3fc20faf640")
     <T extends Clause> List<T> getOwnedClause(java.lang.Class<T> filterClass);
 
 }

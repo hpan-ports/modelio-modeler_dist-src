@@ -22,8 +22,8 @@
 package org.modelio.diagram.elements.common.abstractdiagram;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.modelio.vcore.session.api.model.change.IModelChangeHandler;
 import org.modelio.vcore.session.api.model.change.IModelChangeListener;
+import org.modelio.vcore.session.api.model.change.IPersistentViewModelChangeListener;
 
 /**
  * Classes implementing this interface must be able to refresh the diagram content from a model change event.
@@ -33,7 +33,7 @@ import org.modelio.vcore.session.api.model.change.IModelChangeListener;
  * @author cmarin
  */
 @objid ("7e2024c0-1dec-11e2-8cad-001ec947c8cc")
-public interface IDiagramRefresher extends IModelChangeListener, IModelChangeHandler {
+public interface IDiagramRefresher extends IModelChangeListener, IPersistentViewModelChangeListener {
 
 // Empty interface
 }

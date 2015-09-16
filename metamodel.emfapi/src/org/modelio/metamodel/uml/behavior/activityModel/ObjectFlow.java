@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.uml.behavior.activityModel;
 
@@ -31,34 +31,34 @@ import org.modelio.metamodel.uml.behavior.activityModel.ObjectFlowEffectKind;
 
 @objid ("00388c90-c4bf-1fd8-97fe-001ec947cd2a")
 public interface ObjectFlow extends ActivityEdge {
-    @objid ("60b48bb2-dff2-4ef6-a8f8-34c9f96ae344")
+    @objid ("61b57485-a24a-41ef-b621-3a608c8e5477")
     String getTransformationBehavior();
 
-    @objid ("5b761fe9-8e99-460f-abc7-5e93baa7572f")
+    @objid ("3b9709d0-219c-4fac-bd63-b2db24eb0a28")
     void setTransformationBehavior(String value);
 
-    @objid ("ca0bfe5d-8097-4e18-a66f-ff9918586016")
+    @objid ("0c59b171-9282-4854-927d-b16a7c8719e1")
     String getSelectionBehavior();
 
-    @objid ("0c85e672-94a1-4117-896e-f61f284a886a")
+    @objid ("598dd60c-14ae-4023-9a0e-349292b8118e")
     void setSelectionBehavior(String value);
 
-    @objid ("cf54cbd3-cd65-4c48-851d-3597e96b1458")
+    @objid ("4137139b-f08f-4691-ada7-856b5826eab7")
     boolean isIsMultiCast();
 
-    @objid ("b8648cb5-b36a-4a6b-9628-5405283dba70")
+    @objid ("6e797217-5a39-46eb-9b78-30761758f093")
     void setIsMultiCast(boolean value);
 
-    @objid ("beb9583f-7b61-4244-a407-5d9b5b50b8de")
+    @objid ("63c10279-c5d9-4e5f-86a5-6b241a51c6a0")
     boolean isIsMultiReceive();
 
-    @objid ("8caffe89-4002-4e7b-b78d-1a8514981a24")
+    @objid ("d28bf484-4b15-4722-88b9-ff1e64fb40a4")
     void setIsMultiReceive(boolean value);
 
-    @objid ("4978c557-2752-413f-8ddb-13a46081bf6f")
+    @objid ("e90d8da0-4aa5-40bd-a1d6-e346ecc35f22")
     ObjectFlowEffectKind getEffect();
 
-    @objid ("0778f060-b472-4dbf-80d7-6845fcb432b7")
+    @objid ("797cead2-d443-4ce4-8d03-d60025b12505")
     void setEffect(ObjectFlowEffectKind value);
 
 }

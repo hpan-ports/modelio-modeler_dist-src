@@ -21,17 +21,17 @@
 
 package org.modelio.xmi.model.ecore;
 
-import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.modelio.api.modelio.Modelio;
 import org.modelio.metamodel.uml.behavior.interactionModel.StateInvariant;
 import org.modelio.metamodel.uml.infrastructure.Element;
+import org.modelio.xmi.util.ReverseProperties;
 
 @objid ("352e1571-5cc9-4063-8fe8-59dbe83bb299")
-public class EStateInvariant extends EInteractionFragment implements IEElement {
+public class EStateInvariant extends EInteractionFragment {
     @objid ("f06592e3-8599-48ce-b572-403da12e188f")
+    @Override
     public Element createObjingElt() {
-        return  Modelio.getInstance().getModelingSession().getModel()
+        return  ReverseProperties.getInstance().getMModelServices().getModelFactory()
                 .createStateInvariant();
     }
 
@@ -40,16 +40,8 @@ public class EStateInvariant extends EInteractionFragment implements IEElement {
         super(element);
     }
 
-    @objid ("60257c65-9790-4840-b5f8-bdd0f94dae58")
-    public void attach(Element objingElt) {
-        super.attach(objingElt);
-    }
-
-    @objid ("84827c76-2ee4-4fbb-ad26-f1b344769c4d")
-    public void attach(List<Object> objingElts) {
-    }
-
     @objid ("2ee5f1ac-e405-4cde-9ac8-aa761389da26")
+    @Override
     public void setProperties(Element objingElt) {
         super.setProperties(objingElt);
         setBody((StateInvariant) objingElt);
@@ -64,6 +56,7 @@ public class EStateInvariant extends EInteractionFragment implements IEElement {
         // it, and, in
         // the HashMap, we associate the ecore constraint (key) with the objing
         // SI (value).
+        
         
         org.eclipse.uml2.uml.Constraint ecoreConstraint = ((org.eclipse.uml2.uml.StateInvariant) getEcoreElement()).getInvariant();
         if(ecoreConstraint != null){

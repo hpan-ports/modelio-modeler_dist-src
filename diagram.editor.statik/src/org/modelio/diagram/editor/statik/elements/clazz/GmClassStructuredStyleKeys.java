@@ -103,15 +103,13 @@ public final class GmClassStructuredStyleKeys extends StaticAbstractStyleKeyProv
      * Display attributes.
      */
     @objid ("a51978f4-55c2-11e2-9337-002564c97630")
-     static final StyleKey ATTGROUPVISIBLE = createStyleKey("CLASS_ATT_GROUPVISIBLE",
-                                                           MetaKey.AttGroup.ATTSHOWGROUP);
+     static final StyleKey ATTGROUPVISIBLE = createStyleKey("CLASS_ATT_GROUPVISIBLE", MetaKey.AttGroup.ATTSHOWGROUP);
 
     /**
      * Display operations.
      */
     @objid ("a51978f7-55c2-11e2-9337-002564c97630")
-     static final StyleKey OPERATIONGROUPVISIBLE = createStyleKey("CLASS_OP_GROUPVISIBLE",
-                                                                 MetaKey.OperationGroup.OPSHOWGROUP);
+     static final StyleKey OPERATIONGROUPVISIBLE = createStyleKey("CLASS_OP_GROUPVISIBLE", MetaKey.OperationGroup.OPSHOWGROUP);
 
     /**
      * Filter on features
@@ -123,8 +121,7 @@ public final class GmClassStructuredStyleKeys extends StaticAbstractStyleKeyProv
      * Inner classes visualization mode: labels, diagram or none.
      */
     @objid ("a51978fd-55c2-11e2-9337-002564c97630")
-     static final StyleKey INNERVIEWMODE = createStyleKey("CLASS_INNERVIEWMODE",
-                                                         MetaKey.InnerGroup.INNERVIEWMODE);
+     static final StyleKey INNERVIEWMODE = createStyleKey("CLASS_INNERVIEWMODE", MetaKey.InnerGroup.INNERVIEWMODE);
 
     /**
      * Auto unmask ports.
@@ -141,23 +138,10 @@ public final class GmClassStructuredStyleKeys extends StaticAbstractStyleKeyProv
     @SuppressWarnings("hiding")
     public static final class Attribute extends StaticAbstractStyleKeyProvider {
         /**
-         * Attributes text color.
-         */
-        @objid ("a5197905-55c2-11e2-9337-002564c97630")
-         static final StyleKey TEXTCOLOR = createStyleKey("CLASS_ATT_TEXTCOLOR", MetaKey.AttGroup.ATTTEXTCOLOR);
-
-        /**
-         * Attributes font.
-         */
-        @objid ("a5197908-55c2-11e2-9337-002564c97630")
-         static final StyleKey FONT = createStyleKey("CLASS_ATT_FONT", MetaKey.AttGroup.ATTFONT);
-
-        /**
          * Attributes stereotype display mode.
          */
         @objid ("a519790b-55c2-11e2-9337-002564c97630")
-         static final StyleKey SHOWSTEREOTYPES = createStyleKey("CLASS_ATT_SHOWSTEREOTYPES",
-                                                               MetaKey.AttGroup.ATTSHOWSTEREOTYPES);
+         static final StyleKey SHOWSTEREOTYPES = createStyleKey("CLASS_ATT_SHOWSTEREOTYPES", MetaKey.AttGroup.ATTSHOWSTEREOTYPES);
 
         /**
          * Display attributes tagged values.
@@ -169,8 +153,7 @@ public final class GmClassStructuredStyleKeys extends StaticAbstractStyleKeyProv
          * Display attributes visibilities.
          */
         @objid ("a5197911-55c2-11e2-9337-002564c97630")
-         static final StyleKey SHOWVISIBILITY = createStyleKey("CLASS_ATT_SHOWVISIBILITY",
-                                                              MetaKey.AttGroup.ATTSHOWVISIBILITY);
+         static final StyleKey SHOWVISIBILITY = createStyleKey("CLASS_ATT_SHOWVISIBILITY", MetaKey.AttGroup.ATTSHOWVISIBILITY);
 
     }
 
@@ -183,45 +166,28 @@ public final class GmClassStructuredStyleKeys extends StaticAbstractStyleKeyProv
     @SuppressWarnings("hiding")
     public static class Operation extends StaticAbstractStyleKeyProvider {
         /**
-         * Operations text color.
-         */
-        @objid ("a51aff89-55c2-11e2-9337-002564c97630")
-         static final StyleKey TEXTCOLOR = createStyleKey("CLASS_OP_TEXTCOLOR",
-                                                         MetaKey.OperationGroup.OPTEXTCOLOR);
-
-        /**
-         * Operations text font.
-         */
-        @objid ("a51aff8c-55c2-11e2-9337-002564c97630")
-         static final StyleKey FONT = createStyleKey("CLASS_OP_FONT", MetaKey.OperationGroup.OPFONT);
-
-        /**
          * Display operations signature.
          */
         @objid ("a51aff8f-55c2-11e2-9337-002564c97630")
-         static final StyleKey SHOWSIGNATURE = createStyleKey("CLASS_OP_SHOWSIGNATURE",
-                                                             MetaKey.OperationGroup.OPSHOWSIGNATURE);
+         static final StyleKey SHOWSIGNATURE = createStyleKey("CLASS_OP_SHOWSIGNATURE", MetaKey.OperationGroup.OPSHOWSIGNATURE);
 
         /**
          * Operations stereotype display mode.
          */
         @objid ("a51aff92-55c2-11e2-9337-002564c97630")
-         static final StyleKey SHOWSTEREOTYPES = createStyleKey("CLASS_OP_SHOWSTEREOTYPES",
-                                                               MetaKey.OperationGroup.OPSHOWSTEREOTYPES);
+         static final StyleKey SHOWSTEREOTYPES = createStyleKey("CLASS_OP_SHOWSTEREOTYPES", MetaKey.OperationGroup.OPSHOWSTEREOTYPES);
 
         /**
          * Display operations tagged values.
          */
         @objid ("a51aff95-55c2-11e2-9337-002564c97630")
-         static final StyleKey SHOWTAGS = createStyleKey("CLASS_OP_SHOWTAGS",
-                                                        MetaKey.OperationGroup.OPSHOWTAGS);
+         static final StyleKey SHOWTAGS = createStyleKey("CLASS_OP_SHOWTAGS", MetaKey.OperationGroup.OPSHOWTAGS);
 
         /**
          * Display operations visibilities.
          */
         @objid ("a51aff98-55c2-11e2-9337-002564c97630")
-         static final StyleKey SHOWVISIBILITY = createStyleKey("CLASS_OP_SHOWVISIBILITY",
-                                                              MetaKey.OperationGroup.OPSHOWVISIBILITY);
+         static final StyleKey SHOWVISIBILITY = createStyleKey("CLASS_OP_SHOWVISIBILITY", MetaKey.OperationGroup.OPSHOWVISIBILITY);
 
     }
 
@@ -239,15 +205,13 @@ public final class GmClassStructuredStyleKeys extends StaticAbstractStyleKeyProv
          * Internal structure visualization mode: labels, diagram or none.
          */
         @objid ("a51aff9d-55c2-11e2-9337-002564c97630")
-         static final StyleKey INTERNALSVIEWMODE = createStyleKey("CLASS_INTERNALSVIEWMODE",
-                                                                 MetaKey.InternalGroup.INTVIEWMODE);
+         static final StyleKey INTERNALSVIEWMODE = createStyleKey("CLASS_INTERNALSVIEWMODE", MetaKey.InternalGroup.INTVIEWMODE);
 
         /**
          * Text color.
          */
         @objid ("a51affa0-55c2-11e2-9337-002564c97630")
-         static final StyleKey TEXTCOLOR = createStyleKey("CLASS_INTERNAL_TEXTCOLOR",
-                                                         MetaKey.InternalGroup.INTTEXTCOLOR);
+         static final StyleKey TEXTCOLOR = createStyleKey("CLASS_INTERNAL_TEXTCOLOR", MetaKey.InternalGroup.INTTEXTCOLOR);
 
         /**
          * Font
@@ -260,21 +224,19 @@ public final class GmClassStructuredStyleKeys extends StaticAbstractStyleKeyProv
          */
         @objid ("a51affa6-55c2-11e2-9337-002564c97630")
          static final StyleKey SHOWSTEREOTYPES = createStyleKey("CLASS_INTERNAL_SHOWSTEREOTYPES",
-                                                               MetaKey.InternalGroup.INTSHOWSTEREOTYPES);
+                MetaKey.InternalGroup.INTSHOWSTEREOTYPES);
 
         /**
          * Display tagged values.
          */
         @objid ("a51affa9-55c2-11e2-9337-002564c97630")
-         static final StyleKey SHOWTAGS = createStyleKey("CLASS_INTERNAL_SHOWTAGS",
-                                                        MetaKey.InternalGroup.INTSHOWTAGS);
+         static final StyleKey SHOWTAGS = createStyleKey("CLASS_INTERNAL_SHOWTAGS", MetaKey.InternalGroup.INTSHOWTAGS);
 
         /**
          * Auto unmask internal structure content. Boolean type.
          */
         @objid ("a51affac-55c2-11e2-9337-002564c97630")
-         static final StyleKey AUTOUNMASK = createStyleKey("CLASS_INTERNAL_AUTOUNMASK",
-                                                          MetaKey.InternalGroup.INTAUTOUNMASK);
+         static final StyleKey AUTOUNMASK = createStyleKey("CLASS_INTERNAL_AUTOUNMASK", MetaKey.InternalGroup.INTAUTOUNMASK);
 
     }
 
@@ -290,8 +252,7 @@ public final class GmClassStructuredStyleKeys extends StaticAbstractStyleKeyProv
          * Text color.
          */
         @objid ("a51affb1-55c2-11e2-9337-002564c97630")
-         static final StyleKey TEXTCOLOR = createStyleKey("CLASS_INNER_TEXTCOLOR",
-                                                         MetaKey.InnerGroup.INNERTEXTCOLOR);
+         static final StyleKey TEXTCOLOR = createStyleKey("CLASS_INNER_TEXTCOLOR", MetaKey.InnerGroup.INNERTEXTCOLOR);
 
         /**
          * Font
@@ -303,29 +264,26 @@ public final class GmClassStructuredStyleKeys extends StaticAbstractStyleKeyProv
          * Name display mode
          */
         @objid ("a51affb7-55c2-11e2-9337-002564c97630")
-         static final StyleKey SHOWNAME = createStyleKey("CLASS_INNER_SHOWNAME",
-                                                        MetaKey.InnerGroup.INNERSHOWNAME);
+         static final StyleKey SHOWNAME = createStyleKey("CLASS_INNER_SHOWNAME", MetaKey.InnerGroup.INNERSHOWNAME);
 
         /**
          * Stereotype display mode.
          */
         @objid ("a51c862b-55c2-11e2-9337-002564c97630")
          static final StyleKey SHOWSTEREOTYPES = createStyleKey("CLASS_INNER_SHOWSTEREOTYPES",
-                                                               MetaKey.InnerGroup.INNERSHOWSTEREOTYPES);
+                MetaKey.InnerGroup.INNERSHOWSTEREOTYPES);
 
         /**
          * Display tagged values.
          */
         @objid ("a51c862e-55c2-11e2-9337-002564c97630")
-         static final StyleKey SHOWTAGS = createStyleKey("CLASS_INNER_SHOWTAGS",
-                                                        MetaKey.InnerGroup.INNERSHOWTAGS);
+         static final StyleKey SHOWTAGS = createStyleKey("CLASS_INNER_SHOWTAGS", MetaKey.InnerGroup.INNERSHOWTAGS);
 
         /**
          * Display visibility
          */
         @objid ("a51c8631-55c2-11e2-9337-002564c97630")
-         static final StyleKey SHOWVISIBILITY = createStyleKey("CLASS_INNER_SHOWVISIBILITY",
-                                                              MetaKey.InnerGroup.INNERSHOWVISIBILITY);
+         static final StyleKey SHOWVISIBILITY = createStyleKey("CLASS_INNER_SHOWVISIBILITY", MetaKey.InnerGroup.INNERSHOWVISIBILITY);
 
     }
 

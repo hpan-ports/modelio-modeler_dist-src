@@ -68,6 +68,17 @@ public class UriPathAccess implements AutoCloseable {
     }
 
     /**
+     * Constructor
+     * @param uri the URI to access a a Path.
+     * @param auth authentication data, may be <code>null</code>.
+     */
+    @objid ("16ad0406-1982-4623-a694-0796f242b97b")
+    public UriPathAccess(URI uri, IAuthData auth) {
+        this.uri = uri;
+        this.authData = auth;
+    }
+
+    /**
      * Convert the URI to a {@link Path}.
      * @return the converted path.
      * @throws java.io.IOException in case of I/O failure.
@@ -80,19 +91,13 @@ public class UriPathAccess implements AutoCloseable {
         return this.path;
     }
 
-    @objid ("4fb461c0-e355-401b-9bf1-e18b5aec58c7")
-    private void lookup() throws IOException, FileSystemException {
-        try {
-            this.path = Paths.get(this.uri);
-        } catch (FileSystemNotFoundException | IllegalArgumentException e) {
-            //Log.trace(uri.toString()+": "+e.toString());
-            // No file system for this URI, copy the RAMC to a temporary file
-            try (InputStream is = UriConnections.openInputStream(this.uri, this.authData)) {
-                this.localPath = Files.createTempFile("temp","");
-                Files.copy(is, this.localPath, StandardCopyOption.REPLACE_EXISTING );
-                this.path = this.localPath;
-            }
-        }
+    /**
+     * Set the authentication data.
+     * @param auth authentication data, may be <code>null</code>.
+     */
+    @objid ("fde22ca8-57f1-4f57-adb4-8788735d8951")
+    public void setAuthentication(IAuthData auth) {
+        this.authData = auth;
     }
 
     /**
@@ -110,24 +115,19 @@ public class UriPathAccess implements AutoCloseable {
         }
     }
 
-    /**
-     * Constructor
-     * @param uri the URI to access a a Path.
-     * @param auth authentication data, may be <code>null</code>.
-     */
-    @objid ("16ad0406-1982-4623-a694-0796f242b97b")
-    public UriPathAccess(URI uri, IAuthData auth) {
-        this.uri = uri;
-        this.authData = auth;
-    }
-
-    /**
-     * Set the authentication data.
-     * @param auth authentication data, may be <code>null</code>.
-     */
-    @objid ("fde22ca8-57f1-4f57-adb4-8788735d8951")
-    public void setAuthentication(IAuthData auth) {
-        this.authData = auth;
+    @objid ("4fb461c0-e355-401b-9bf1-e18b5aec58c7")
+    private void lookup() throws IOException, FileSystemException {
+        try {
+            this.path = Paths.get(this.uri);
+        } catch (FileSystemNotFoundException | IllegalArgumentException e) {
+            //Log.trace(uri.toString()+": "+e.toString());
+            // No file system for this URI, copy the RAMC to a temporary file
+            try (InputStream is = UriConnections.openInputStream(this.uri, this.authData)) {
+                this.localPath = Files.createTempFile("temp","");
+                Files.copy(is, this.localPath, StandardCopyOption.REPLACE_EXISTING );
+                this.path = this.localPath;
+            }
+        }
     }
 
 }

@@ -36,12 +36,14 @@ import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.jface.viewers.ISelection;
 import org.modelio.api.model.IModelingSession;
-import org.modelio.api.model.ITransaction;
 import org.modelio.api.modelio.Modelio;
 import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.script.engine.plugin.ScriptEnginePlugin;
 import org.osgi.framework.Bundle;
 
+/**
+ * Jython script runner.
+ */
 @objid ("008ed532-8bd5-1065-a2b8-001ec947cd2a")
 public class PythonRunner implements IScriptRunner {
     /**
@@ -111,14 +113,7 @@ public class PythonRunner implements IScriptRunner {
         
         try {
             try (FileReader reader = new FileReader(file.toFile())) {
-                if (modelingSession != null) {
-                    try (ITransaction t = modelingSession.createTransaction("Execute " + fileName + " file")) {
-                        this.engine.eval(reader);
-                        t.commit();
-                    }
-                } else {
-                    this.engine.eval(reader);
-                }
+                this.engine.eval(reader);
                 this.commandWriter.println();
             } catch (FileNotFoundException e) {
                 ScriptEnginePlugin.LOG.error(ScriptEnginePlugin.PLUGIN_ID, e);
@@ -153,15 +148,7 @@ public class PythonRunner implements IScriptRunner {
         bindVariables(selection, selectedElements, modelingSession);
         
         try {
-            if (modelingSession != null) {
-                try (ITransaction t = modelingSession.createTransaction("Execute script")) {
-                    evalScript(script);
-                    t.commit();
-                }
-            } else {
-                evalScript(script);
-            }
-        
+            evalScript(script);
         } catch (ScriptException e) {
             this.errorWriter.println(e.getLocalizedMessage());
             this.errorWriter.println(e.getCause());

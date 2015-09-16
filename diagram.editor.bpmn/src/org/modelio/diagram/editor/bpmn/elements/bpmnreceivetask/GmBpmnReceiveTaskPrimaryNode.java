@@ -57,7 +57,7 @@ public class GmBpmnReceiveTaskPrimaryNode extends GmNoStyleCompositeNode impleme
      * Current version of this Gm.
      */
     @objid ("619001c0-55b6-11e2-877f-002564c97630")
-    private final int minorVersion = 1;
+    private final int minorVersion = 2;
 
     @objid ("619001c3-55b6-11e2-877f-002564c97630")
     private static final int MAJOR_VERSION = 0;
@@ -81,8 +81,10 @@ public class GmBpmnReceiveTaskPrimaryNode extends GmNoStyleCompositeNode impleme
         super(diagram, relatedRef);
         this.header = new GmBpmnNodeHeader(diagram, relatedRef, false);
         this.footer = new GmBpmnNodeFooter(diagram, relatedRef);
+        final GmBpmnReceiveTaskTypeLabel typeLabel = new GmBpmnReceiveTaskTypeLabel(diagram, relatedRef);
         
         super.addChild(this.header);
+        super.addChild(typeLabel);
         super.addChild(this.footer);
         
         List<Image> images = new ArrayList<>();
@@ -145,6 +147,10 @@ public class GmBpmnReceiveTaskPrimaryNode extends GmNoStyleCompositeNode impleme
             }
             case 1: {
                 read_1(in);
+                break;
+            }
+            case 2: {
+                read_2(in);
                 break;
             }
             default: {
@@ -257,8 +263,15 @@ public class GmBpmnReceiveTaskPrimaryNode extends GmNoStyleCompositeNode impleme
         this.header = (GmBpmnNodeHeader) this.getChildren().get(0);
         this.footer = (GmBpmnNodeFooter) this.getChildren().get(1);
         
+        // V0 to V1 - delete image label
         GmDefaultFlatHeader imageModeHeader = (GmDefaultFlatHeader) this.getChildren().get(2);
         imageModeHeader.delete();
+        
+        // V1 to V2 - add type label
+        final GmBpmnReceiveTaskTypeLabel typeLabel = new GmBpmnReceiveTaskTypeLabel(getDiagram(), getRepresentedRef());
+        removeChild(this.footer);
+        addChild(typeLabel);
+        addChild(this.footer);
     }
 
     @objid ("61930ed9-55b6-11e2-877f-002564c97630")
@@ -272,6 +285,19 @@ public class GmBpmnReceiveTaskPrimaryNode extends GmNoStyleCompositeNode impleme
         super.read(in);
         this.header = (GmBpmnNodeHeader) this.getChildren().get(0);
         this.footer = (GmBpmnNodeFooter) this.getChildren().get(1);
+        
+        // V1 to V2 - add type label
+        final GmBpmnReceiveTaskTypeLabel typeLabel = new GmBpmnReceiveTaskTypeLabel(getDiagram(), getRepresentedRef());
+        removeChild(this.footer);
+        addChild(typeLabel);
+        addChild(this.footer);
+    }
+
+    @objid ("6805d7fb-e3f6-4ec4-b6e1-c99b7ceffbf2")
+    private void read_2(final IDiagramReader in) {
+        super.read(in);
+        this.header = (GmBpmnNodeHeader) this.getChildren().get(0);
+        this.footer = (GmBpmnNodeFooter) this.getChildren().get(2);
     }
 
 }

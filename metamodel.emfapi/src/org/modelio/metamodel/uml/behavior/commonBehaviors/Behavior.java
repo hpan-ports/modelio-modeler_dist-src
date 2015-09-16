@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.uml.behavior.commonBehaviors;
 
@@ -40,58 +40,58 @@ import org.modelio.metamodel.uml.statik.Operation;
 
 @objid ("00409570-c4bf-1fd8-97fe-001ec947cd2a")
 public interface Behavior extends ModelElement {
-    @objid ("2bfad591-c6f4-4538-8bf6-7dafb370b50c")
+    @objid ("119f941e-f97a-4296-9a44-7a233cbd7292")
     boolean isIsReentrant();
 
-    @objid ("afdd2c9c-6778-4021-9e7f-f83e32a6cfcf")
+    @objid ("9481a773-e81b-4012-942c-f5ab958bb600")
     void setIsReentrant(boolean value);
 
-    @objid ("38185a35-6345-4f5b-8a88-5fd4700fab17")
+    @objid ("44fb7fe0-dc58-4c44-9e5d-935666daeedd")
     EList<BpmnCallActivity> getBpmnCaller();
 
-    @objid ("e712202f-b173-430a-9f33-3442dbae16c7")
+    @objid ("a3e87287-7f06-4760-b97c-94ca2639a643")
     <T extends BpmnCallActivity> List<T> getBpmnCaller(java.lang.Class<T> filterClass);
 
-    @objid ("4b913b47-33a5-4011-93b9-ac9c50daeaf3")
+    @objid ("f30325e0-0939-4c73-a694-e0a2f082705d")
     NameSpace getOwner();
 
-    @objid ("5492ffba-c25a-4328-aace-01817dbe8cb7")
+    @objid ("4ea0ae80-e311-423b-b51d-0a55b4b46d56")
     void setOwner(NameSpace value);
 
-    @objid ("1147fa2d-8775-43fa-92eb-e852e4b0e9b9")
+    @objid ("34b5e054-0ff0-4de0-aa73-139325ac1ce6")
     EList<BehaviorParameter> getParameter();
 
-    @objid ("198c36dd-55dc-4ee5-bb1a-c3b18a2c47fb")
+    @objid ("00ba11f2-b5d8-4f45-8ca2-5fbd9331e5d6")
     <T extends BehaviorParameter> List<T> getParameter(java.lang.Class<T> filterClass);
 
-    @objid ("4883f946-dc08-4bcd-aae6-cb4a5a719037")
+    @objid ("8cbd9abb-1c5b-4160-8dae-5bc3ec7ca8a0")
     Operation getOwnerOperation();
 
-    @objid ("47538ed6-4998-4ac9-a8be-ce62ffe5fb64")
+    @objid ("b8e6886d-93a9-47ea-91a6-71f72f371daf")
     void setOwnerOperation(Operation value);
 
-    @objid ("4bb50f7b-d10a-4cfd-9a50-448e09f7b4ca")
+    @objid ("37746880-b442-4728-bd23-10b8999027ce")
     EList<Collaboration> getOwnedCollaboration();
 
-    @objid ("8b639f5e-e969-4792-a673-350eb25ab810")
+    @objid ("cc8d6ce4-2846-4247-85e7-49b85d9a6438")
     <T extends Collaboration> List<T> getOwnedCollaboration(java.lang.Class<T> filterClass);
 
-    @objid ("1fa3445c-005c-45cf-bf71-92142ca9d91a")
+    @objid ("70c5e9df-7b50-47ec-8c20-8147399e33ed")
     EList<CallBehaviorAction> getCaller();
 
-    @objid ("f9bff6e5-68f1-460f-a89b-bef73e832895")
+    @objid ("a5a048eb-3dc6-419b-947a-aa38b7fe77ad")
     <T extends CallBehaviorAction> List<T> getCaller(java.lang.Class<T> filterClass);
 
-    @objid ("c31c57e4-1628-44d8-8d18-78503e220374")
+    @objid ("b7a98266-fef1-4025-a4d7-c43c8deb7200")
     EList<Event> getEComponent();
 
-    @objid ("e87cd278-6dc7-420b-96e1-4b3e345a113a")
+    @objid ("e8f1bc64-26d3-4a63-b31e-4de007f9e9d7")
     <T extends Event> List<T> getEComponent(java.lang.Class<T> filterClass);
 
-    @objid ("13ea7751-c35f-4a30-8760-5898efece387")
+    @objid ("25117a4f-8e1f-45ba-b099-affe18d64795")
     EList<Transition> getEffectOf();
 
-    @objid ("e214f70c-037e-4329-ba7c-a37bf7d5e53f")
+    @objid ("5186ca79-9dde-4a06-b19d-55765dedec4a")
     <T extends Transition> List<T> getEffectOf(java.lang.Class<T> filterClass);
 
 }

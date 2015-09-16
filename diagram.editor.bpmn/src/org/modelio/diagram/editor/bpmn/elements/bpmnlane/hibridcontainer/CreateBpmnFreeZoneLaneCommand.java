@@ -45,14 +45,14 @@ public class CreateBpmnFreeZoneLaneCommand extends Command {
     @objid ("6135fad5-55b6-11e2-877f-002564c97630")
     private MObject parentElement;
 
-    @objid ("6135fad4-55b6-11e2-877f-002564c97630")
-    private Object newConstraint;
-
     @objid ("71c5ef69-55c1-11e2-9337-002564c97630")
     private ModelioCreationContext context;
 
     @objid ("71c5ef6a-55c1-11e2-9337-002564c97630")
     private GmCompositeNode parentNode;
+
+    @objid ("8c61eeab-71fc-40d8-9e43-182716ba8631")
+    private Object newConstraint;
 
     /**
      * Creates a node creation command.

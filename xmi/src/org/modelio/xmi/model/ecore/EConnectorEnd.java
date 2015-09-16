@@ -24,7 +24,6 @@ package org.modelio.xmi.model.ecore;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.uml2.uml.Property;
-import org.modelio.api.modelio.Modelio;
 import org.modelio.metamodel.uml.behavior.commonBehaviors.Behavior;
 import org.modelio.metamodel.uml.behavior.interactionModel.Interaction;
 import org.modelio.metamodel.uml.infrastructure.Element;
@@ -58,7 +57,7 @@ public class EConnectorEnd extends EElement {
     @objid ("ae7db406-c1d2-46ad-8e99-b8f944f0918d")
     @Override
     public Element createObjingElt() {
-        return Modelio.getInstance().getModelingSession().getModel().createConnectorEnd();
+        return ReverseProperties.getInstance().getMModelServices().getModelFactory().createConnectorEnd();
     }
 
     @objid ("adcb266f-1733-4e4e-aec5-d364148e4d55")
@@ -110,7 +109,7 @@ public class EConnectorEnd extends EElement {
                     }
         
                     if (!exist){
-                        objOwner = Modelio.getInstance().getModelingSession().getModel().createBindableInstance();
+                        objOwner = ReverseProperties.getInstance().getMModelServices().getModelFactory().createBindableInstance();
                         attachBindableInstance(objOwner);
                         setBindableInstanceProperties(objOwner);
                         ((List<ModelElement>)obOwner).add(objOwner);
@@ -280,7 +279,7 @@ public class EConnectorEnd extends EElement {
                 if (!collabList.isEmpty()){
                     collab = ((Collaboration)collabList.get(0));
                 }else{
-                    collab = Modelio.getInstance().getModelingSession().getModel().createCollaboration();
+                    collab = ReverseProperties.getInstance().getMModelServices().getModelFactory().createCollaboration();
                     collab.setName("locals");
                     ((Interaction) objingOwner).getOwnedCollaboration().add(collab);
                 }

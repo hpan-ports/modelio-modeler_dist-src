@@ -24,7 +24,7 @@ package org.modelio.vstore.exml.common;
 import java.io.IOException;
 import java.util.UUID;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.modelio.vcore.Log;
+import org.modelio.vbasic.log.Log;
 import org.modelio.vcore.model.DuplicateObjectException;
 import org.modelio.vcore.model.GetAbsoluteSymbol;
 import org.modelio.vcore.model.MObjectCache;
@@ -212,6 +212,7 @@ public class LoadHelper implements ILoadHelper {
     }
 
     @objid ("e809ae47-041e-4f20-a858-35f519f89e41")
+    @Override
     public SmObjectImpl createStubObject(IModelLoader modelLoader, final ObjId id, final ObjId pid) throws IllegalReferenceException, DuplicateObjectException {
         SmObjectImpl newObject = modelLoader.createLoadedObject(id.classof, id.id);
         

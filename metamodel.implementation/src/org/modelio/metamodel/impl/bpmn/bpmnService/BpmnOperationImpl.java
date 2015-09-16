@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.bpmn.bpmnService;
 
@@ -50,13 +50,13 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("000d7c30-c4c0-1fd8-97fe-001ec947cd2a")
 public class BpmnOperationImpl extends BpmnBaseElementImpl implements BpmnOperation {
-    @objid ("92e02044-355b-4961-9b6e-93349c562d67")
+    @objid ("c5f45ce2-d6b7-4eaa-920f-9344e6a5a3bd")
     @Override
     public EList<BpmnSendTask> getSender() {
         return new SmList<>(this, BpmnOperationData.Metadata.SenderDep());
     }
 
-    @objid ("2bb38034-cb33-4050-b9fd-db8cb0886327")
+    @objid ("80de0f1a-0fdc-4cd8-8c94-51c733e9b0b5")
     @Override
     public <T extends BpmnSendTask> List<T> getSender(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -69,25 +69,25 @@ public class BpmnOperationImpl extends BpmnBaseElementImpl implements BpmnOperat
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("d7991801-25a4-4043-958f-00f9c05031b7")
+    @objid ("3a4f036e-d567-4b7e-8c28-698117b8be91")
     @Override
     public BpmnMessage getInMessageRef() {
         return (BpmnMessage) getDepVal(BpmnOperationData.Metadata.InMessageRefDep());
     }
 
-    @objid ("1f76fcfc-0b19-4167-9e99-3e7748f91d68")
+    @objid ("49236ab7-88ae-4f3a-b8a8-00a5efade40e")
     @Override
     public void setInMessageRef(BpmnMessage value) {
         appendDepVal(BpmnOperationData.Metadata.InMessageRefDep(), (SmObjectImpl)value);
     }
 
-    @objid ("458cc255-8919-4fe5-9708-511a9d42b9e3")
+    @objid ("bccb100a-a2b9-4292-9401-f5cbd63453c9")
     @Override
     public EList<BpmnServiceTask> getCaller() {
         return new SmList<>(this, BpmnOperationData.Metadata.CallerDep());
     }
 
-    @objid ("dd73346f-6b42-4fd2-bd5c-9c9fd47a8fa5")
+    @objid ("8fbee56e-1c72-469a-86c9-a57fb836b4cf")
     @Override
     public <T extends BpmnServiceTask> List<T> getCaller(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -100,25 +100,25 @@ public class BpmnOperationImpl extends BpmnBaseElementImpl implements BpmnOperat
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("aef8300f-94b1-484d-a308-3ccaba420fce")
+    @objid ("a1c57210-86b8-4f55-9073-9ae2d24c9908")
     @Override
     public BpmnMessage getOutMessageRef() {
         return (BpmnMessage) getDepVal(BpmnOperationData.Metadata.OutMessageRefDep());
     }
 
-    @objid ("f0fd9e5d-dd4f-45d6-81a6-ce227220e03d")
+    @objid ("45a4c498-26c1-448b-9ce7-264ae6ab0e4c")
     @Override
     public void setOutMessageRef(BpmnMessage value) {
         appendDepVal(BpmnOperationData.Metadata.OutMessageRefDep(), (SmObjectImpl)value);
     }
 
-    @objid ("08f89ed4-141c-4ebd-811f-3b27262e3873")
+    @objid ("0da633df-e257-4fd3-88b7-d3c8d457fd30")
     @Override
     public EList<BpmnMessageEventDefinition> getEventDefinition() {
         return new SmList<>(this, BpmnOperationData.Metadata.EventDefinitionDep());
     }
 
-    @objid ("06672cee-63b2-423d-bce9-0cd30bef365f")
+    @objid ("d169fa5f-5360-451d-85f0-523178ec7910")
     @Override
     public <T extends BpmnMessageEventDefinition> List<T> getEventDefinition(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -131,37 +131,37 @@ public class BpmnOperationImpl extends BpmnBaseElementImpl implements BpmnOperat
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("3ed620fd-97ec-41ad-81ed-d618a9b51feb")
+    @objid ("4157b008-e9be-46f6-a76d-e19d8eeca728")
     @Override
     public Operation getImplementationRef() {
         return (Operation) getDepVal(BpmnOperationData.Metadata.ImplementationRefDep());
     }
 
-    @objid ("fc4e56c9-a5e3-479f-ab14-504a6d03f6e0")
+    @objid ("31ee60e4-3ab1-415c-9dbf-93f05550961a")
     @Override
     public void setImplementationRef(Operation value) {
         appendDepVal(BpmnOperationData.Metadata.ImplementationRefDep(), (SmObjectImpl)value);
     }
 
-    @objid ("987c72e7-5f3d-496c-b709-5bd93171c3c9")
+    @objid ("e82367a7-46ac-49bf-8bf9-309cbf184a2c")
     @Override
     public BpmnInterface getBpmnInterfaceRef() {
         return (BpmnInterface) getDepVal(BpmnOperationData.Metadata.BpmnInterfaceRefDep());
     }
 
-    @objid ("b96bfcd4-0e28-4bd1-9b01-7be535330988")
+    @objid ("1a023223-3757-4709-ba86-ab3e4f75b5c2")
     @Override
     public void setBpmnInterfaceRef(BpmnInterface value) {
         appendDepVal(BpmnOperationData.Metadata.BpmnInterfaceRefDep(), (SmObjectImpl)value);
     }
 
-    @objid ("7f875e56-b1bf-4cab-a8c3-178af166512e")
+    @objid ("590349bd-2dc0-4abb-a23f-5c4de3c579f5")
     @Override
     public EList<BpmnReceiveTask> getReceiver() {
         return new SmList<>(this, BpmnOperationData.Metadata.ReceiverDep());
     }
 
-    @objid ("76c53dd4-5908-437d-ad79-78ba400d2d05")
+    @objid ("2b845fe5-0fc6-47ac-80bb-e9ee21bf458f")
     @Override
     public <T extends BpmnReceiveTask> List<T> getReceiver(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -174,7 +174,7 @@ public class BpmnOperationImpl extends BpmnBaseElementImpl implements BpmnOperat
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("363769bb-ace9-493d-8962-e7f687a7760c")
+    @objid ("2c547777-8d66-495b-9bb8-29cd6cca9d8a")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
@@ -184,7 +184,7 @@ public class BpmnOperationImpl extends BpmnBaseElementImpl implements BpmnOperat
         return super.getCompositionOwner();
     }
 
-    @objid ("3bebc043-2c3c-4f9c-b2a1-4879e705cd3d")
+    @objid ("989c8b68-a942-4ec3-96d0-1036f02586e7")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
@@ -194,7 +194,7 @@ public class BpmnOperationImpl extends BpmnBaseElementImpl implements BpmnOperat
         return super.getCompositionRelation();
     }
 
-    @objid ("a5bee280-732d-46d2-bdf6-2dae00e78e0c")
+    @objid ("27e0f044-e251-4b5f-8b71-1bebe2510c4a")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitBpmnOperation(this);

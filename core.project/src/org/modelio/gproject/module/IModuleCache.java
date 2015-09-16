@@ -31,7 +31,4 @@ public interface IModuleCache {
     @objid ("6b19741b-7eb2-4669-afe5-2c520e408573")
     IModuleHandle getModuleHandle(Path moduleFile, IModelioProgress monitor) throws IOException;
 
-    @objid ("ef0eb7a3-f3b0-4288-8e7c-add9441a19d3")
-    IModuleHandle getModuleHandle(GModule gModule, IModelioProgress monitor) throws IOException;
-
 }

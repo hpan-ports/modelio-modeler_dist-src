@@ -25,21 +25,56 @@ import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.vcore.smkernel.mapi.MObject;
 
-// isShell = false isRamc = false
+/**
+ * Model manipulation tools.
+ */
 @objid ("005d6c40-d2e8-1097-bcec-001ec947cd2a")
 public interface IModelTool {
+    /**
+     * @param aLink a model link
+     * @return the link source
+     * @deprecated use {@link org.modelio.metamodel.experts.links.ILinkTool}
+     */
     @objid ("001983d6-d69c-1098-bcec-001ec947cd2a")
+    @Deprecated
     MObject getSource(MObject aLink);
 
+    /**
+     * @param aLink a model link
+     * @return the link source
+     * @deprecated use {@link org.modelio.metamodel.experts.links.ILinkTool}
+     */
     @objid ("00199934-d69c-1098-bcec-001ec947cd2a")
+    @Deprecated
     MObject getTarget(MObject aLink);
 
+    /**
+     * Change a model link source.
+     * @param link a model link.
+     * @param oldSource the old link source.
+     * @param newSource the new link source.
+     * @deprecated use {@link org.modelio.metamodel.experts.links.ILinkTool}
+     */
     @objid ("0019adfc-d69c-1098-bcec-001ec947cd2a")
+    @Deprecated
     void setSource(MObject link, final MObject oldSource, MObject newSource);
 
+    /**
+     * Change a model link target.
+     * @param link a model link.
+     * @param oldTarget the old link target.
+     * @param newTarget the new link target.
+     * @deprecated use {@link org.modelio.metamodel.experts.links.ILinkTool}
+     */
     @objid ("0019d5ac-d69c-1098-bcec-001ec947cd2a")
+    @Deprecated
     void setTarget(MObject link, final MObject oldTarget, MObject newTarget);
 
+    /**
+     * Clone a model element.
+     * @param toClone a model element
+     * @return the clone
+     */
     @objid ("c54521e6-8ca1-44c6-aa76-8d31eecaa7b6")
     MObject cloneElement(MObject toClone);
 

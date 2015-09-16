@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.data.bpmn.objects;
 
@@ -43,22 +43,22 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("0003a7fa-c4c0-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=BpmnDataObject.class, factory=BpmnDataObjectData.Metadata.ObjectFactory.class)
 public class BpmnDataObjectData extends BpmnItemAwareElementData {
-    @objid ("19a34bbd-d9cc-4216-8005-31b75ce5b88d")
+    @objid ("320c9c5e-badf-4827-814f-542c58d8ee2f")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("008467f0-c4c4-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("d3ce45f7-69aa-4e7a-a2a4-7d52e570be0a")
+        @objid ("6af2881e-0059-4fab-a48a-eeaff12b86ff")
         private static SmClass smClass = null;
 
-        @objid ("9c42f37d-9280-43f0-a085-40fcfed883fa")
+        @objid ("d21e9761-ffdd-4883-b949-f0575e846452")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(BpmnDataObjectData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("4bd764b1-f040-4268-8bdf-c7839207e5f8")
+        @objid ("c00d7a99-4581-46d3-8057-7e9f009ec3f6")
         public static SmClass getSmClass() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return smClass;
@@ -66,12 +66,12 @@ public class BpmnDataObjectData extends BpmnItemAwareElementData {
 
         @objid ("0084a800-c4c4-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("f24bd5b4-d62a-4277-97da-c7fbaa5f3a8c")
+            @objid ("1150979f-4440-46ef-9ad1-92ba725b72d3")
             public ISmObjectData createData() {
                 return new BpmnDataObjectData();
             }
 
-            @objid ("98f83ea5-6c9b-4ebd-add0-cf283f47d32c")
+            @objid ("07c3f992-8df0-477a-8068-3271c2ed7823")
             public SmObjectImpl createImpl() {
                 return new BpmnDataObjectImpl();
             }

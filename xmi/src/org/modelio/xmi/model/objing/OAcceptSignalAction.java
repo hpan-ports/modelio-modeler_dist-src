@@ -29,14 +29,12 @@ import org.modelio.xmi.util.GenerationProperties;
 import org.modelio.xmi.util.ObjingEAnnotation;
 
 @objid ("58a55940-9498-4658-b941-f5e8412560ac")
-public class OAcceptSignalAction extends OActivityNode implements IOElement {
+public class OAcceptSignalAction extends OActivityNode {
     @objid ("6d6b6299-b4d6-4877-a1c9-566ff3421eef")
     private AcceptSignalAction objingElement = null;
 
-    @objid ("8f46f15c-b22c-4781-afc1-999da1bbee14")
-    private GenerationProperties genProp = GenerationProperties.getInstance();
-
     @objid ("3358b0d2-1da9-42b6-adcf-cafe100bbb08")
+    @Override
     public org.eclipse.uml2.uml.Element createEcoreElt() {
         return UMLFactory.eINSTANCE.createAcceptEventAction();
     }
@@ -44,25 +42,27 @@ public class OAcceptSignalAction extends OActivityNode implements IOElement {
     @objid ("0cff6ca0-b0fe-4f13-bff2-c1d9420677ab")
     public OAcceptSignalAction(AcceptSignalAction element) {
         super(element);
-        objingElement = element;
+        this.objingElement = element;
     }
 
     @objid ("7b4ef53e-6ff9-42ba-9c6d-0d5750ee31c6")
+    @Override
     public void attach(org.eclipse.uml2.uml.Element ecoreElt) {
         super.attach(ecoreElt);
     }
 
     @objid ("28827c66-b44d-423a-8b94-735e375a0c53")
+    @Override
     public void setProperties(org.eclipse.uml2.uml.Element ecoreElt) {
-        super.attach(ecoreElt);
+        super.setProperties(ecoreElt);
         setAccepted( (org.eclipse.uml2.uml.AcceptEventAction) ecoreElt);
         setSignal( (org.eclipse.uml2.uml.AcceptEventAction) ecoreElt);
     }
 
     @objid ("88a57a71-7731-4bde-bfe4-de8d7a37755f")
     private void setAccepted(org.eclipse.uml2.uml.AcceptEventAction action) {
-        for (Signal objingSignal : objingElement.getAccepted()) {
-            org.eclipse.uml2.uml.Element ecoreSignal = genProp.getMappedElement(objingSignal);
+        for (Signal objingSignal : this.objingElement.getAccepted()) {
+            org.eclipse.uml2.uml.Element ecoreSignal = GenerationProperties.getInstance().getMappedElement(objingSignal);
             if (ecoreSignal instanceof  org.eclipse.uml2.uml.Signal) {
                 org.eclipse.uml2.uml.Trigger trigger = UMLFactory.eINSTANCE.createTrigger();
                 org.eclipse.uml2.uml.SignalEvent signalEvent = UMLFactory.eINSTANCE
@@ -83,7 +83,7 @@ public class OAcceptSignalAction extends OActivityNode implements IOElement {
 
     @objid ("e2b9fc36-a6be-4a86-be32-1b8c4aa9d461")
     private void setSignal(final org.eclipse.uml2.uml.AcceptEventAction ecoreElt) {
-        if (genProp.isRoundtripEnabled()){
+        if (GenerationProperties.getInstance().isRoundtripEnabled()){
             ObjingEAnnotation.setSignal(ecoreElt, "signal");
         }
     }

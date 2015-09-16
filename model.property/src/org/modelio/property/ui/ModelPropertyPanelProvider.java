@@ -36,6 +36,7 @@ import org.eclipse.swt.events.ControlListener;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Tree;
 import org.modelio.app.core.activation.IActivationService;
 import org.modelio.app.core.picking.IModelioPickingService;
 import org.modelio.app.project.core.services.IProjectService;
@@ -43,7 +44,9 @@ import org.modelio.gproject.model.IMModelServices;
 import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
 import org.modelio.property.ui.data.ContentPanel;
+import org.modelio.property.ui.data.DataPanelInput;
 import org.modelio.property.ui.tree.TreePanel;
+import org.modelio.property.ui.tree.TreePanelInput;
 import org.modelio.ui.panel.IPanelProvider;
 import org.modelio.vcore.session.api.ICoreSession;
 import org.modelio.vcore.session.api.model.change.IModelChangeEvent;
@@ -81,6 +84,9 @@ public class ModelPropertyPanelProvider implements IPanelProvider {
     @objid ("8fa7c87a-c068-11e1-8c0a-002564c97630")
     protected boolean pinned;
 
+    @objid ("e570a847-40af-42a1-9341-faef4dbc629f")
+    private boolean showHiddenAnnotations;
+
     @objid ("8fa7c872-c068-11e1-8c0a-002564c97630")
     private LayoutChangeListener layoutChangeListener = null;
 
@@ -92,12 +98,6 @@ public class ModelPropertyPanelProvider implements IPanelProvider {
 
     @objid ("8fa7c879-c068-11e1-8c0a-002564c97630")
     private TreePanel treePanel = null;
-
-    @objid ("8fa7c87c-c068-11e1-8c0a-002564c97630")
-    private SashForm shform = null;
-
-    @objid ("8fa7c87d-c068-11e1-8c0a-002564c97630")
-     Composite theViewParent = null;
 
     @objid ("869933f6-cf24-11e1-80a9-002564c97630")
     private ICoreSession modelingSession;
@@ -117,6 +117,12 @@ public class ModelPropertyPanelProvider implements IPanelProvider {
     @objid ("8c65dd74-940f-4834-83bc-f7973d4d5d5e")
     private IProjectService projectService;
 
+    @objid ("cd5a4d17-51b1-4495-b0fa-6bfc9c530aa6")
+    private SashForm shform = null;
+
+    @objid ("82d0ce97-d239-4a5b-a7ff-56a1616f28f4")
+     Composite theViewParent = null;
+
     /**
      * Instantiate a new Model Property panel. The property view is read only.
      * @See activateEdition
@@ -132,7 +138,7 @@ public class ModelPropertyPanelProvider implements IPanelProvider {
      */
     @objid ("8fa7c87e-c068-11e1-8c0a-002564c97630")
     @Override
-    public SashForm create(Composite parent) {
+    public SashForm createPanel(Composite parent) {
         this.theViewParent = parent;
         
         this.shform = new SashForm(parent, SWT.HORIZONTAL);
@@ -165,7 +171,7 @@ public class ModelPropertyPanelProvider implements IPanelProvider {
 
     @objid ("76530813-c677-11e1-8f21-002564c97630")
     @Override
-    public Composite getComposite() {
+    public Composite getPanel() {
         return this.shform;
     }
 
@@ -188,12 +194,15 @@ public class ModelPropertyPanelProvider implements IPanelProvider {
     public void setInput(Object selectedElement) {
         if (selectedElement == null || !(selectedElement instanceof Element)) {
             this.currentElement = null;
-            this.treePanel.setInput(this.modelService, null, null);
+            this.treePanel.setInput(createTreeInput(true));
             return;
         }
         
         this.currentElement = (Element) selectedElement;
-        this.treePanel.setInput(this.modelService, this.currentElement, null);
+        
+        TreePanelInput newInput = createTreeInput(false);
+        newInput.setPreselectedTypingElement(null);
+        this.treePanel.setInput(newInput);
     }
 
     /**
@@ -254,7 +263,10 @@ public class ModelPropertyPanelProvider implements IPanelProvider {
      */
     @objid ("8faa29b0-c068-11e1-8c0a-002564c97630")
     protected void setCurrentTypeItem(final Object typeItem) {
-        this.contentPanel.setInput(this.projectService, this.modelService, this.pickingService, this.activationService, this.currentElement, typeItem);
+        DataPanelInput newInput = createDataInput();
+        newInput.setTypingElement(typeItem);
+        this.contentPanel.setInput(newInput);
+        
         if (typeItem != null) {
             this.treePanel.setLastType(typeItem);
         }
@@ -279,19 +291,35 @@ public class ModelPropertyPanelProvider implements IPanelProvider {
      */
     @objid ("8faa29b5-c068-11e1-8c0a-002564c97630")
     void refreshView() {
-        if (this.treePanel.getTreeViewer().getTree() == null || this.treePanel.getTreeViewer().getTree().isDisposed()) {
+        final Tree tree = this.treePanel.getTreeViewer().getTree();
+        if (tree == null || tree.isDisposed()) {
             // No graphic control, nothing to update, return.
             return;
         }
-        if (this.currentElement != null && ((SmObjectImpl) this.currentElement).isValid()) {
-            if (getCurrentTypeItem() != null && ((SmObjectImpl) getCurrentTypeItem()).isValid() && getCurrentTypeItem()!=this.currentElement) {
-                this.treePanel.setInput(this.modelService, this.currentElement, getCurrentTypeItem());
+        
+        if (this.currentElement != null && this.currentElement.isValid()) {
+            TreePanelInput newInput = createTreeInput(false);
+            DataPanelInput dataInput = createDataInput();
+        
+            final Element currTypeItem = getCurrentTypeItem();
+            if (currTypeItem != null && 
+                    ((SmObjectImpl) currTypeItem).isValid() && 
+                    currTypeItem!=this.currentElement) {
+                newInput.setPreselectedTypingElement(currTypeItem);
             } else {
-                this.treePanel.setInput(this.modelService, this.currentElement, null);
+                newInput.setPreselectedTypingElement(null);
             }
+        
+            this.treePanel.setInput(newInput);
+        
+            // Update content panel
+            Object curSel = ((IStructuredSelection)this.treePanel.getTreeViewer().getSelection()).getFirstElement();
+            setCurrentTypeItem(curSel);
         } else {
             this.currentElement = null;
-            this.treePanel.setInput(this.modelService, null, null);
+            TreePanelInput newInput = createTreeInput(true);
+            
+            this.treePanel.setInput(newInput);
         }
     }
 
@@ -361,6 +389,47 @@ public class ModelPropertyPanelProvider implements IPanelProvider {
         return this.treePanel.getTreeViewer();
     }
 
+    @objid ("9ef67ffd-5bcc-40cb-8660-05b906aa38c0")
+    private DataPanelInput createDataInput() {
+        Object typeItem = null;
+        DataPanelInput ret = new DataPanelInput(this.projectService, this.modelService, this.pickingService, this.activationService, this.currentElement, typeItem, this.showHiddenAnnotations);
+        return ret;
+    }
+
+    @objid ("2939c8ff-ca73-4f92-b190-2148018f477f")
+    private TreePanelInput createTreeInput(boolean empty) {
+        TreePanelInput ret;
+        if (empty) {
+            ret = new TreePanelInput(this.modelService, null, null, this.showHiddenAnnotations);
+        } else {
+            ret = new TreePanelInput(this.modelService, this.currentElement, getCurrentTypeItem(), this.showHiddenAnnotations);
+        }
+        return ret;
+    }
+
+    /**
+     * Set whether hidden annotations are show or not.
+     * @param show <i>true</i> to show, <i>false</i> to hide hidden annotations.
+     */
+    @objid ("05a9c9f5-2053-4e1f-8584-f4cee26ee2aa")
+    public void setShowHiddenMdaElements(boolean show) {
+        this.showHiddenAnnotations = show;
+        
+        refreshView();
+    }
+
+    @objid ("52fca2df-4746-4e85-81b9-f7f07ce6c4ab")
+    @Override
+    public boolean isRelevantFor(Object obj) {
+        return true;
+    }
+
+    @objid ("b2bf327c-5bad-449b-a88c-9b97912a9000")
+    @Override
+    public String getHelpTopic() {
+        return null;
+    }
+
     @objid ("8faa29c7-c068-11e1-8c0a-002564c97630")
     private class LayoutChangeListener implements ControlListener {
         @objid ("8faa29d0-c068-11e1-8c0a-002564c97630")
@@ -401,7 +470,8 @@ public class ModelPropertyPanelProvider implements IPanelProvider {
     }
 
     /**
-     * This listener is the Tree selection listener of the note view. Its responsibility is to update the data panel contents when a
+     * This listener is the Tree selection listener of the note view.
+     * Its responsibility is to update the data panel contents when a
      * particular note is selected in the tree.
      * 
      * @author phv

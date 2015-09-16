@@ -37,7 +37,7 @@ import jdbm.RecordManagerFactory;
 import jdbm.RecordManagerOptions;
 import jdbm.Serializer;
 import org.modelio.vbasic.files.FileUtils;
-import org.modelio.vcore.Log;
+import org.modelio.vbasic.log.Log;
 import org.modelio.vcore.smkernel.IMetaOf;
 import org.modelio.vcore.smkernel.IRepositoryObject;
 import org.modelio.vcore.smkernel.ISwap;

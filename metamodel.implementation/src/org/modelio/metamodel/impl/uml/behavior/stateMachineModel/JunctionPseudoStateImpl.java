@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.uml.behavior.stateMachineModel;
 
@@ -41,21 +41,21 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("00528a64-c4bf-1fd8-97fe-001ec947cd2a")
 public class JunctionPseudoStateImpl extends AbstractPseudoStateImpl implements JunctionPseudoState {
-    @objid ("6fa3c912-5e71-442d-af67-8bd463a9bc73")
+    @objid ("503edbdd-c4db-4887-90b9-9cb8192fb060")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("71078bd3-c55d-470e-ada1-21955cb14964")
+    @objid ("db7b592a-92dc-488d-8163-c92c76064ff9")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("21937e05-4fa3-4cbd-87f2-a33205599e8e")
+    @objid ("0a48755d-b024-4377-b8a5-ea83fb8a5b36")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitJunctionPseudoState(this);

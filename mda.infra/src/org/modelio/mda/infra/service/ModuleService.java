@@ -26,7 +26,9 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import javax.inject.Inject;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
@@ -43,16 +45,23 @@ import org.modelio.app.core.IModelioEventService;
 import org.modelio.app.core.ModelioEnv;
 import org.modelio.app.core.events.ModelioEvent;
 import org.modelio.app.core.events.ModelioEventTopics;
-import org.modelio.gproject.descriptor.GProperties.Entry;
+import org.modelio.gproject.data.project.GProperties.Entry;
 import org.modelio.gproject.gproject.GProject;
 import org.modelio.gproject.model.IMModelServices;
 import org.modelio.gproject.module.GModule;
 import org.modelio.gproject.module.IModuleCache;
 import org.modelio.gproject.module.IModuleHandle;
 import org.modelio.gproject.module.ModuleId;
+import org.modelio.gproject.module.ModuleSorter;
 import org.modelio.mda.infra.plugin.MdaInfra;
 import org.modelio.metamodel.mda.ModuleComponent;
+import org.modelio.vbasic.collections.TopologicalSorter.CyclicDependencyException;
+import org.modelio.vbasic.files.FileUtils;
+import org.modelio.vbasic.version.Version;
 
+/**
+ * Module services.
+ */
 @objid ("8dd0dee5-f1b7-11e1-af52-001ec947c8cc")
 @Creatable
 public class ModuleService implements IModuleService {
@@ -90,8 +99,16 @@ public class ModuleService implements IModuleService {
         }
     }
 
+    /**
+     * Activates and starts the given module.
+     * <p>
+     * This method does NOT activate nor start modules required by the given module.
+     * @param iModule the module to start
+     * @param gProject the project
+     * @throws org.modelio.api.module.ModuleException in case of failure
+     */
     @objid ("c85c0675-03ec-11e2-8e1f-001ec947c8cc")
-    public void activateModule(IModule iModule, GProject gProject) throws ModuleException {
+    void activateModule(IModule iModule, GProject gProject) throws ModuleException {
         GModule gModule = ModuleResolutionHelper.getGModuleByName(gProject, iModule.getName());
         activateModule(gModule);
     }
@@ -107,8 +124,16 @@ public class ModuleService implements IModuleService {
         }
     }
 
+    /**
+     * Stops and deactivates the given module.
+     * <p>
+     * Modules requiring the given module will be stopped first.
+     * @param iModule the module to deactivate
+     * @param gProject the project
+     * @throws org.modelio.api.module.ModuleException on failure
+     */
     @objid ("c85c0678-03ec-11e2-8e1f-001ec947c8cc")
-    public void deactivateModule(IModule iModule, GProject gProject) throws ModuleException {
+    void deactivateModule(IModule iModule, GProject gProject) throws ModuleException {
         GModule gModule = ModuleResolutionHelper.getGModuleByName(gProject, iModule.getName());
         deactivateModule(gModule);
     }
@@ -149,10 +174,9 @@ public class ModuleService implements IModuleService {
         } catch (ClassCastException e) {
             MdaInfra.LOG.error(e);
         }
-        throw new UnknownModuleException(/*
-         * String.format( "The '%s' module is not kwown as a Java module" ,
-         * metaclass.getName())
-         */);
+        throw new UnknownModuleException(
+          String.format( "The '%s' class is not kwown as a Java module." , metaclass.getName())
+         );
     }
 
     @objid ("2bb63ee9-f1ed-11e1-af52-001ec947c8cc")
@@ -172,15 +196,27 @@ public class ModuleService implements IModuleService {
         
             // Are dependencies missing?
             if (ModuleResolutionHelper.checkCanInstall(rtModuleHandle, gProject) == false) {
-                StringBuilder dependencyIds = new StringBuilder();
-                for (ModuleId dependencyId : rtModuleHandle.getDependencies()) {
-                    dependencyIds.append("\n - " + dependencyId.getName() + " " + dependencyId.getVersion());
+                // Gather only latest version for all dependencies
+                Map<String, Version> dependencies = new HashMap<>();
+                
+                for (ModuleId requiredModuleId : rtModuleHandle.getDependencies()) {
+                    dependencies.put(requiredModuleId.getName(), requiredModuleId.getVersion());
                 }
                 for (GModule gModuleInProject : gProject.getModules()) {
                     for (ModuleId requiredModuleId : gModuleInProject.getModuleHandle().getDependencies()) {
-                        dependencyIds.append("\n - " + requiredModuleId.getName() + " " + requiredModuleId.getVersion());
+                        final Version foundVersion = dependencies.get(requiredModuleId.getName());
+                        if (foundVersion == null || foundVersion.isOlderThan(requiredModuleId.getVersion())) {
+                            dependencies.put(requiredModuleId.getName(), requiredModuleId.getVersion());
+                        }
                     }
                 }
+                
+                // Build the message
+                StringBuilder dependencyIds = new StringBuilder();
+                for (java.util.Map.Entry<String, Version> dependency : dependencies.entrySet()) {
+                    dependencyIds.append("\n - " + dependency.getKey() + " " + dependency.getValue());
+                }
+                
                 throw new ModuleException(MdaInfra.I18N.getMessage("ModuleExceptionMessage.CannotInstallModuleDetail", rtModuleHandle.getName(), dependencyIds.toString()+"\n"));
             }
         
@@ -212,7 +248,9 @@ public class ModuleService implements IModuleService {
                 this.modelioEventService.postSyncEvent(this, ModelioEvent.MODULE_DEPLOYED, newModule);
             }
         } catch (IOException e) {
-            throw new ModuleException(MdaInfra.I18N.getString("ModuleExceptionMessage.CannotInstallModule"), e);
+            throw new ModuleException(MdaInfra.I18N.getMessage(
+                    "ModuleExceptionMessage.CannotInstallModule",
+                    FileUtils.getLocalizedMessage(e)), e);
         }
     }
 
@@ -234,6 +272,7 @@ public class ModuleService implements IModuleService {
                 sb.append(MdaInfra.I18N.getString("ModuleRemove.error.dependencies"));
                 sb.append("\n");
                 for (IModule dep : deps) {
+                    sb.append(" - ");
                     sb.append(dep.getLabel());
                     sb.append("\n");
                 }
@@ -265,31 +304,35 @@ public class ModuleService implements IModuleService {
         
         ModuleInstaller installer = new ModuleInstaller(gProject, this);
         
-        for (GModule gModule : gModules) {
-            // All modules are loaded, but only activated modules are started.
-            try {
-                // If the module has the property "SELECT_ON_OPEN", consider it's a first install
-                final Entry toSelect = gModule.getParameters().getProperty(GModule.SELECT_ON_OPEN);
-                if (toSelect != null && toSelect.getValue().equals("true")) {
-                    installer.moduleFirstInstall(gModule, gModule.getModuleHandle());
-                    
-                    // Remove the property, next time it will be a simple start
-                    gModule.getParameters().remove(GModule.SELECT_ON_OPEN);
-                } else {
-                    // Load the module
-                    IModule iModule = loadModule(gProject, gModule);
-                    if (gModule.isActivated()) {
-                        // Start the module
-                        progress.subTask(MdaInfra.I18N.getMessage("ModuleStartProgress.Starting", iModule.getLabel(),
-                                iModule.getVersion().toString()));
-                        startModule(iModule, gProject);
+        try {
+            for (GModule gModule : ModuleSorter.sortModules(gModules)) {
+                // All modules are loaded, but only activated modules are started.
+                try {
+                    // If the module has the property "SELECT_ON_OPEN", consider it's a first install
+                    final Entry toSelect = gModule.getParameters().getProperty(GModule.SELECT_ON_OPEN);
+                    if (toSelect != null && toSelect.getValue().equals("true")) {
+                        installer.moduleFirstInstall(gModule, gModule.getModuleHandle());
+                        
+                        // Remove the property, next time it will be a simple start
+                        gModule.getParameters().remove(GModule.SELECT_ON_OPEN);
+                    } else {
+                        // Load the module
+                        IModule iModule = loadModule(gProject, gModule);
+                        if (gModule.isActivated()) {
+                            // Start the module
+                            progress.subTask(MdaInfra.I18N.getMessage("ModuleStartProgress.Starting", iModule.getLabel(),
+                                    iModule.getVersion().toString()));
+                            startModule(iModule, gProject);
+                        }
                     }
+                } catch (ModuleException | RuntimeException | LinkageError e) {
+                    MdaInfra.LOG.error(e);
                 }
-            } catch (ModuleException | RuntimeException | LinkageError e) {
-                MdaInfra.LOG.error(e);
+                progress.worked(1);
+            
             }
-            progress.worked(1);
-        
+        } catch (CyclicDependencyException e) {
+            MdaInfra.LOG.error(e);
         }
         progress.done();
     }
@@ -297,11 +340,12 @@ public class ModuleService implements IModuleService {
     @objid ("2bb63ee1-f1ed-11e1-af52-001ec947c8cc")
     @Override
     public void stopAllModules(GProject project) {
+        // Stops modules in any order : stopModule(...) will stop itself dependent modules first.
         for (IModule module : new ArrayList<>(getModuleRegistry().getStartedModules())) {
             try {
                 stopModule(module, project);
             } catch (ModuleException | RuntimeException | LinkageError e) {
-                MdaInfra.LOG.error(e);
+                MdaInfra.LOG.warning(e);
             }
         }
         
@@ -309,11 +353,20 @@ public class ModuleService implements IModuleService {
             try {
                 unloadModule(module, project);
             } catch (ModuleException | RuntimeException | LinkageError e) {
-                MdaInfra.LOG.error(e);
+                MdaInfra.LOG.warning(e);
             }
         }
     }
 
+    /**
+     * Stop a module.
+     * <p>
+     * Modules that depend on the given module will be stopped first.
+     * @param iModule the module to stop
+     * @param gProject the project
+     * @return all stopped modules
+     * @throws org.modelio.api.module.ModuleException in case of failure.
+     */
     @objid ("4440b654-0324-11e2-9fca-001ec947c8cc")
     public Set<IModule> stopModule(IModule iModule, GProject gProject) throws ModuleException {
         // Check that module is not already stopped
@@ -322,7 +375,7 @@ public class ModuleService implements IModuleService {
         }
         
         // Get all required modules
-        Collection<IModule> dependentIModules = ModuleResolutionHelper.getIModuleDependentIModules(iModule, gProject,
+        List<IModule> dependentIModules = ModuleResolutionHelper.getIModuleDependentIModules(iModule, gProject,
                 this);
         
         // Stop the module (dependencies will be started if not already)
@@ -331,6 +384,17 @@ public class ModuleService implements IModuleService {
         return stoppedModules;
     }
 
+    /**
+     * Unload a module.
+     * <p>
+     * Modules that depend on the given module will be unloaded first.
+     * <p>
+     * FIXME: dependent modules are directly unloaded. They are not stopped if already started.
+     * @param iModule the module to stop
+     * @param gProject the project
+     * @return all stopped modules
+     * @throws org.modelio.api.module.ModuleException in case of failure.
+     */
     @objid ("444318ad-0324-11e2-9fca-001ec947c8cc")
     public Set<IModule> unloadModule(IModule iModule, GProject gProject) throws ModuleException {
         // Check that module is loaded
@@ -340,12 +404,12 @@ public class ModuleService implements IModuleService {
         }
         
         // Check that module is not started
-        if (getModuleRegistry().getLoadedModule(iModule.getModel()) == null) {
+        if (getModuleRegistry().getStartedModule(iModule.getModel()) != null) {
             throw new ModuleException("Module '" + iModule.getName()
                     + "' is still in started state. Stop it before unloading it.");
         }
         
-        // Get all required modules
+        // Get all required modules topologically sorted by stopping order
         Collection<IModule> dependentIModules = ModuleResolutionHelper.getIModuleDependentIModules(iModule, gProject, this);
         
         // Unload the module (dependencies will be unloaded if not already)
@@ -376,17 +440,13 @@ public class ModuleService implements IModuleService {
                     }
                 } catch (ModuleException e) {
                     // Log the error as warning but continue
-                    MdaInfra.LOG.warning("Loading module %s as weak dependency of module %s failed.", weakDependency.getName(), gModule.getName());
+                    MdaInfra.LOG.warning("Loading module %s as weak dependency of module %s failed: %s", weakDependency.getName(), gModule.getName(), e.getMessage());
                     MdaInfra.LOG.warning(e);
                 }
             }
         
             ModuleLoader loader = new ModuleLoader(gProject, this.mModelServices);
-            try {
-                iModule = loader.loadModule(gModule, this.moduleCache.getModuleHandle(gModule, null), loadedDependencies);
-            } catch (IOException e) {
-                throw new ModuleException("Loading of module failed.", e);
-            }
+            iModule = loader.loadModule(gModule, gModule.getModuleHandle(), loadedDependencies);
         
             // Add loaded module to the registry
             getModuleRegistry().addLoadedModule(iModule);

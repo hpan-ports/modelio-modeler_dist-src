@@ -321,10 +321,10 @@ public class GmPackage extends GmPortContainer {
     @objid ("361d7567-55b7-11e2-877f-002564c97630")
     @Override
     public void addChild(final GmNodeModel child) {
-        // Children with no role are probably body content created as satellite in simple mode
+        // Children with no role are probably body content created as satellite in simple/image mode
         if ((child.getRoleInComposition() == null || child.getRoleInComposition().equals("")) &&
             getMainNode() != null &&
-            getMainNode().getRepresentationMode() == RepresentationMode.SIMPLE) {
+            getMainNode().getRepresentationMode() != RepresentationMode.STRUCTURED) {
             child.setRoleInComposition(BODY_CONTENT_AS_SATELLITE);
         }
         super.addChild(child);

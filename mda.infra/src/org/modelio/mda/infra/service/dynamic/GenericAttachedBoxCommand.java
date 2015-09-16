@@ -37,10 +37,12 @@ import org.modelio.api.model.IModelingSession;
 import org.modelio.api.model.ITransaction;
 import org.modelio.api.model.IUmlModel;
 import org.modelio.api.modelio.Modelio;
+import org.modelio.gproject.model.api.MTools;
 import org.modelio.mda.infra.plugin.MdaInfra;
 import org.modelio.metamodel.Metamodel;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
 import org.modelio.metamodel.uml.infrastructure.Stereotype;
+import org.modelio.vcore.smkernel.mapi.MDependency;
 import org.modelio.vcore.smkernel.mapi.MObject;
 
 @objid ("df300bf8-87a3-49f5-ab7b-ef9dfdac0fee")
@@ -105,8 +107,19 @@ class GenericAttachedBoxCommand extends DefaultAttachedBoxCommand {
         
             if (this.handler != null && this.handler.getMetaclass() != null) {
                 IUmlModel modelFactory = session.getModel();
-                MObject newElement = modelFactory.createElement(this.handler.getMetaclass(), parent, this.handler.getRelation());
         
+                MObject newElement = modelFactory.createElement(this.handler.getMetaclass());
+                
+                MDependency dependency = parent.getMClass().getDependency(this.handler.relation);
+                if (dependency == null) {
+                    dependency = MTools.getMetaTool().getDefaultCompositionDep(parent, newElement);
+                }
+                
+                if (dependency != null) {
+                    // Append new instance of said dependency
+                    parent.mGet(dependency).add(newElement);
+                }
+                
                 if (newElement instanceof ModelElement) {
                     if (this.handler.getStereotype() != null) {
                         ((ModelElement) newElement).getExtension().add(session.getMetamodelExtensions().getStereotype(this.handler.getStereotype(), newElement.getMClass()));

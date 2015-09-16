@@ -1,0 +1,38 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<title>Modeler audit rules R2910</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link href="style.css" media="screen" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<a name="R2910"></a>
+<h1 >R2910<a href="#R2910" class="wiki-anchor">&para;</a></h1>
+
+<a name="Summary"></a>
+<h4 >Summary<a href="#Summary" class="wiki-anchor">&para;</a></h4>
+
+<p>An <em>extension relationship</em> can only reference <em>Extension Points</em> from its
+targeted <em>Use Case</em>.</p>
+
+<a name="Details"></a>
+<h4 >Details<a href="#Details" class="wiki-anchor">&para;</a></h4>
+
+<p>An <em>Extension Point</em> is a feature of a <em>Use Case</em> that identifies a point where
+the behavior of a <em>Use Case</em> can be augmented with elements of another
+(extending) <em>Use Case</em>. Therefore, the referenced <em>Extension Point</em> must be part
+of the extended Use Case, which is the target of the <em>extension relationship</em>.</p>
+
+<a name="Tips"></a>
+<h4 >Tips<a href="#Tips" class="wiki-anchor">&para;</a></h4>
+
+<ul>
+<li>Choose another <em>Extension Point</em> to reference. This must be part of
+the extended <em>Use Case</em>.</li>
+<li>Otherwise, make the <em>extension relationship</em> target the <em>Use Case</em>
+containing the referenced <em>Extension Point</em>.</li>
+</ul>
+
+
+<div id="footer"><iframe frameborder="0" scrolling="no" height="25" width="100%" src="_footer.html"></iframe></div> </body>
+</html>

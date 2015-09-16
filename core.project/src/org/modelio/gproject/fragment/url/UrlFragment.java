@@ -31,11 +31,11 @@ import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
 import java.util.Collection;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.modelio.gproject.descriptor.DefinitionScope;
-import org.modelio.gproject.descriptor.FragmentType;
-import org.modelio.gproject.descriptor.GAuthConf;
-import org.modelio.gproject.descriptor.GProperties;
-import org.modelio.gproject.descriptor.VersionDescriptors;
+import org.modelio.gproject.data.project.DefinitionScope;
+import org.modelio.gproject.data.project.FragmentType;
+import org.modelio.gproject.data.project.GAuthConf;
+import org.modelio.gproject.data.project.GProperties;
+import org.modelio.gproject.data.project.VersionDescriptors;
 import org.modelio.gproject.fragment.AbstractFragment;
 import org.modelio.gproject.gproject.GProjectEvent;
 import org.modelio.gproject.plugin.CoreProject;
@@ -43,10 +43,10 @@ import org.modelio.metamodel.Metamodel;
 import org.modelio.metamodel.analyst.AnalystProject;
 import org.modelio.metamodel.mda.ModuleComponent;
 import org.modelio.metamodel.mda.Project;
+import org.modelio.vbasic.log.Log;
 import org.modelio.vbasic.net.UriConnections;
 import org.modelio.vbasic.net.UriUtils;
 import org.modelio.vbasic.progress.IModelioProgress;
-import org.modelio.vcore.Log;
 import org.modelio.vcore.session.api.IAccessManager;
 import org.modelio.vcore.session.api.repository.IRepository;
 import org.modelio.vcore.session.impl.permission.BasicAccessManager;
@@ -166,8 +166,8 @@ public class UrlFragment extends AbstractFragment {
                 InputStreamReader in = new InputStreamReader(is, StandardCharsets.UTF_8)) {
             return new VersionDescriptors(in);
         } catch (FileNotFoundException | NoSuchFileException e) {
-            Log.warning("No '"+mmuri+"' metamodel version file. Assume last metamodel version.");
-            return VersionDescriptors.current();
+            Log.warning("No '"+mmuri+"' metamodel version file. Assume Modelio 3.1 (9020) metamodel version.");
+            return VersionDescriptors.current(9020);
         }
     }
 
@@ -175,17 +175,17 @@ public class UrlFragment extends AbstractFragment {
     @Override
     protected void checkMmVersion() throws IOException {
         VersionDescriptors fragmentVersion = getMetamodelVersion();
-        if (! fragmentVersion.isSame(VersionDescriptors.current())) {
+        if (! fragmentVersion.isSame(getLastMmVersion())) {
             // last compatible version 9017
             // first incompatible version 9016
             final int mmVersion = fragmentVersion.getMmVersion();
             if (mmVersion < 9017 || mmVersion > Integer.parseInt(Metamodel.VERSION)) {
                 // too old or more recent than Modelio
-                String msg = CoreProject.getMessage("AbstractFragment.MmVersionNotSupported", getId(), fragmentVersion, VersionDescriptors.current().toString());
+                String msg = CoreProject.getMessage("AbstractFragment.MmVersionNotSupported", getId(), fragmentVersion, getLastMmVersion().toString());
                 throw new IOException(msg);
             } else {
-                String msg = CoreProject.getMessage("AbstractFragment.DifferentMmVersion", getId(), fragmentVersion, VersionDescriptors.current().toString());
-                getProject().getMonitorSupport().fireMonitors(GProjectEvent.buildWarning(this, new IOException(msg)));
+                String msg = CoreProject.getMessage("AbstractFragment.DifferentMmVersion", getId(), fragmentVersion, getLastMmVersion().toString());
+                getProject().getMonitorSupport().fireMonitors(GProjectEvent.buildWarning(this, msg));
             }
         }
     }

@@ -29,10 +29,10 @@ import org.eclipse.swt.events.SelectionListener;
 @objid ("8dc905c9-c068-11e1-8c0a-002564c97630")
 class MoveDownButtonListener implements SelectionListener {
     @objid ("8dc905ca-c068-11e1-8c0a-002564c97630")
-    private StringListEditionDialog dialog = null;
+    private StringListEditionComposite dialog = null;
 
     @objid ("8dc905cb-c068-11e1-8c0a-002564c97630")
-    public MoveDownButtonListener(StringListEditionDialog dialog) {
+    public MoveDownButtonListener(StringListEditionComposite dialog) {
         this.dialog = dialog;
     }
 
@@ -50,7 +50,7 @@ class MoveDownButtonListener implements SelectionListener {
 
     @objid ("8dc905d6-c068-11e1-8c0a-002564c97630")
     private void moveDown() {
-        List<StringAdapter> adapters = this.dialog.getSelectedAdapters();
+        List<String> adapters = this.dialog.getSelectedAdapters();
         
         this.dialog.moveDown(adapters);
     }

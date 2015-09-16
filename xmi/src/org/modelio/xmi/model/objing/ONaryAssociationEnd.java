@@ -350,7 +350,7 @@ public class ONaryAssociationEnd extends OFeature {
                 try {
                     ownerIsClassifier.getAttributes().add(ecoreProperty);
                 } catch (UnsupportedOperationException e) {
-                    Xmi.LOG.error(Xmi.PLUGIN_ID, e);
+                    Xmi.LOG.error(e);
                 }
             } else {
                 ecoreProperty.destroy();
@@ -443,7 +443,7 @@ public class ONaryAssociationEnd extends OFeature {
                 try  {
                     ownerIsClassifier.getAttributes().add(ecoreProperty);
                 }catch (UnsupportedOperationException e) {
-                    Xmi.LOG.error(Xmi.PLUGIN_ID, e);
+                    Xmi.LOG.error(e);
                 }
             } else {
                 ecoreProperty.destroy();

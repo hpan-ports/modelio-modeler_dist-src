@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.bpmn.activities;
 
@@ -32,22 +32,22 @@ import org.modelio.metamodel.uml.statik.Operation;
 
 @objid ("008313be-c4bf-1fd8-97fe-001ec947cd2a")
 public interface BpmnServiceTask extends BpmnTask {
-    @objid ("1817246e-c8eb-4e0e-9495-16b09d4899ed")
+    @objid ("b9c30da0-d026-4ba2-aa83-5fe66f053deb")
     String getImplementation();
 
-    @objid ("e6a786ee-5fd9-4741-8903-ae57717c5325")
+    @objid ("71e9cdea-8092-44bb-af91-d01d84518d2c")
     void setImplementation(String value);
 
-    @objid ("8fc6fa7a-a97f-4fce-8960-33ff7e5ede1c")
+    @objid ("65cc6a05-3255-457c-a93d-bbfb12f37158")
     Operation getCalledOperation();
 
-    @objid ("d0db7861-1e88-45c3-b94b-23f5c86e5c72")
+    @objid ("46652863-52cb-4cc4-aa9c-5f3f7318279a")
     void setCalledOperation(Operation value);
 
-    @objid ("b89da16a-f916-4b61-a5e5-4aeb45d675cd")
+    @objid ("9d2a6f1d-b7fc-4839-a308-71b6e0b1cab2")
     BpmnOperation getOperationRef();
 
-    @objid ("43d6621b-d068-4de4-85e8-1ddd83c60051")
+    @objid ("53c3e269-c255-46a0-8b4d-76f6f5133849")
     void setOperationRef(BpmnOperation value);
 
 }

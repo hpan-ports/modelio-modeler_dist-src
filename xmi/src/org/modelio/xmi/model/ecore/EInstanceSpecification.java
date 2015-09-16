@@ -28,7 +28,6 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.uml2.uml.InstanceSpecification;
 import org.eclipse.uml2.uml.InstanceValue;
 import org.eclipse.uml2.uml.Slot;
-import org.modelio.api.modelio.Modelio;
 import org.modelio.metamodel.factory.ExtensionNotFoundException;
 import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.metamodel.uml.statik.EnumerationLiteral;
@@ -36,6 +35,7 @@ import org.modelio.metamodel.uml.statik.Instance;
 import org.modelio.metamodel.uml.statik.Link;
 import org.modelio.metamodel.uml.statik.LinkEnd;
 import org.modelio.metamodel.uml.statik.NameSpace;
+import org.modelio.xmi.plugin.Xmi;
 import org.modelio.xmi.util.AbstractObjingModelNavigation;
 import org.modelio.xmi.util.EcoreModelNavigation;
 import org.modelio.xmi.util.IModelerModuleStereotypes;
@@ -51,7 +51,7 @@ public class EInstanceSpecification extends ENamedElement {
     private Boolean isLink = false;
 
     @objid ("8cf69b30-d866-4e04-8fc6-8ab7e7365096")
-    private InstanceSpecification ecoreElement;
+    private InstanceSpecification ecoreElement = null;
 
     @objid ("7f121e45-bde8-4c52-bd85-18a939359351")
     @Override
@@ -60,11 +60,12 @@ public class EInstanceSpecification extends ENamedElement {
         if (revProp.isRoundtripEnabled()){
             if (ObjingEAnnotation.isConnector(this.ecoreElement)){
                 this.isConnector = true;
-                return Modelio.getInstance().getModelingSession().getModel().createConnector();
+                return ReverseProperties.getInstance().getMModelServices().getModelFactory().createConnector();
             }else if (ObjingEAnnotation.isLink(this.ecoreElement)){
                 this.isLink = true;
-                return Modelio.getInstance().getModelingSession().getModel().createLink();
-            }
+                return ReverseProperties.getInstance().getMModelServices().getModelFactory().createLink();
+            }else 
+                return ReverseProperties.getInstance().getMModelServices().getModelFactory().createInstance();
         }
         
         
@@ -72,13 +73,13 @@ public class EInstanceSpecification extends ENamedElement {
             if (EcoreModelNavigation.isConnector(this.ecoreElement)){
         
                 this.isConnector = true;
-                return Modelio.getInstance().getModelingSession().getModel().createConnector();
-            }else  if (EcoreModelNavigation.isLink(this.ecoreElement)){
+                return ReverseProperties.getInstance().getMModelServices().getModelFactory().createConnector();
+            }else  if (EcoreModelNavigation.isAssocInstance(this.ecoreElement)){
                 this.isLink = true;
-                return Modelio.getInstance().getModelingSession().getModel().createLink();
+                return ReverseProperties.getInstance().getMModelServices().getModelFactory().createLink();
             }
         }
-        return Modelio.getInstance().getModelingSession().getModel().createInstance();
+        return ReverseProperties.getInstance().getMModelServices().getModelFactory().createInstance();
     }
 
     @objid ("4e7bccd1-e03d-4393-8065-d243a4a3df44")
@@ -176,12 +177,12 @@ public class EInstanceSpecification extends ENamedElement {
             InstanceSpecification spec = ((InstanceValue) defaultValue).getInstance();
             if (spec != null){
                 Object instance  = ReverseProperties.getInstance().getMappedElement(spec);
-                if ((instance instanceof Instance) && (instance != null))
+                if (instance instanceof Instance)
                     try {
-                        Modelio.getInstance().getModelingSession().getModel().createDependency(
+                        ReverseProperties.getInstance().getMModelServices().getModelFactory().createDependency(
                                 objingElt, (Instance) instance, "ModelerModule", IModelerModuleStereotypes.UML2INSTANCEVALUE);
                     } catch (ExtensionNotFoundException e) {
-                        e.printStackTrace();
+                        Xmi.LOG.warning(Xmi.PLUGIN_ID, e);       
                     }
         
             }
@@ -201,7 +202,7 @@ public class EInstanceSpecification extends ENamedElement {
 
     @objid ("fb7b564d-2c15-4304-9dbc-55f0d34686b3")
     private void setOpposite() {
-        List<Element> objEnds = new  ArrayList<Element>();
+        List<Element> objEnds = new ArrayList<>();
         EList<Slot> slots = this.ecoreElement.getSlots();
         ReverseProperties revProp = ReverseProperties.getInstance();
         for (org.eclipse.uml2.uml.Slot slot: slots ){

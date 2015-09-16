@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.uml.infrastructure;
 
@@ -46,25 +46,25 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("008caa50-c4be-1fd8-97fe-001ec947cd2a")
 public class ProfileImpl extends PackageImpl implements Profile {
-    @objid ("147b29ae-a81e-4620-a20e-c6cfca174741")
+    @objid ("0ac8622f-a64c-4c26-880d-dfc405974140")
     @Override
     public String getJCode() {
         return (String) getAttVal(ProfileData.Metadata.JCodeAtt());
     }
 
-    @objid ("507dbac0-ac68-4cdd-a9ff-3179693e6363")
+    @objid ("b50dba06-1038-4c83-9a6e-eaa1c2e3ef78")
     @Override
     public void setJCode(String value) {
         setAttVal(ProfileData.Metadata.JCodeAtt(), value);
     }
 
-    @objid ("1e5d1f0c-d565-4034-92cd-ffe31e0d639b")
+    @objid ("6cc8a98f-c87e-4bde-9622-35034b8429dc")
     @Override
     public EList<Stereotype> getDefinedStereotype() {
         return new SmList<>(this, ProfileData.Metadata.DefinedStereotypeDep());
     }
 
-    @objid ("03ccc3c1-ad66-402c-a285-a5f57fc4b88b")
+    @objid ("d9c75cb5-df60-48ef-ab50-0bec042f2ab5")
     @Override
     public <T extends Stereotype> List<T> getDefinedStereotype(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -77,25 +77,25 @@ public class ProfileImpl extends PackageImpl implements Profile {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("e7c5931e-e112-40fc-8908-ff8b75e7bbeb")
+    @objid ("860ec0c1-7560-4e89-b8e6-b622dccb638d")
     @Override
     public ModuleComponent getOwnerModule() {
         return (ModuleComponent) getDepVal(ProfileData.Metadata.OwnerModuleDep());
     }
 
-    @objid ("3792ae94-eef1-488f-b866-ef307a64b99d")
+    @objid ("1b446931-29ce-4a60-90b7-095d206e37d0")
     @Override
     public void setOwnerModule(ModuleComponent value) {
         appendDepVal(ProfileData.Metadata.OwnerModuleDep(), (SmObjectImpl)value);
     }
 
-    @objid ("5c033521-ae56-4089-b0fc-15a95d9518b8")
+    @objid ("19ebeaac-d7ea-4ec3-aa08-742aabd4a3c4")
     @Override
     public EList<MetaclassReference> getOwnedReference() {
         return new SmList<>(this, ProfileData.Metadata.OwnedReferenceDep());
     }
 
-    @objid ("f2c08bac-9d60-4d91-9297-0692fc6d14e7")
+    @objid ("6ef733b6-7c87-4b2a-88f0-41b1cc055448")
     @Override
     public <T extends MetaclassReference> List<T> getOwnedReference(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -108,7 +108,7 @@ public class ProfileImpl extends PackageImpl implements Profile {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("f4ea58e6-e65f-441c-b53b-e0708d05fd50")
+    @objid ("16af6a8a-9f17-4c60-bb94-c8ea91853d6e")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
@@ -118,7 +118,7 @@ public class ProfileImpl extends PackageImpl implements Profile {
         return super.getCompositionOwner();
     }
 
-    @objid ("4b4e0ccc-7dbb-41fe-a055-96acc1443d01")
+    @objid ("b8550a4c-fdf0-415f-893f-17e185fd01b6")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
@@ -128,7 +128,7 @@ public class ProfileImpl extends PackageImpl implements Profile {
         return super.getCompositionRelation();
     }
 
-    @objid ("0094e170-923b-4459-8ffa-63620e2221fd")
+    @objid ("a8e347c2-cc7e-42e9-9c45-e5968fe5f1cf")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitProfile(this);

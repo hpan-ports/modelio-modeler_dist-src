@@ -54,8 +54,7 @@ public class OExecutionOccurenceSpecification extends OMessageEnd {
     @objid ("ac5456b7-b9cb-4bd8-81fd-4ab031e98fa7")
     @Override
     public void setProperties(org.eclipse.uml2.uml.Element ecoreElt) {
-        super.setProperties(ecoreElt);
-        
+        super.setProperties(ecoreElt);       
         setStarted(ecoreElt);
         setFinished(ecoreElt);
     }

@@ -26,7 +26,6 @@ import java.util.Collection;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.vcore.model.CompositionGetter.IStopFilter;
-import org.modelio.vcore.smkernel.IRepositoryObject;
 import org.modelio.vcore.smkernel.SmLiveId;
 import org.modelio.vcore.smkernel.SmObjectImpl;
 import org.modelio.vcore.smkernel.mapi.MObject;
@@ -198,7 +197,6 @@ public final class ExmlUtils {
         Collection<SmObjectImpl> directChildren = new ArrayList<>();
         Collection<SmObjectImpl> currentRoots = new ArrayList<>();
         
-        IRepositoryObject nodeRepoHandle = root.getRepositoryObject();
         currentRoots.add(root);
         
         // Loop until there is no root nodes

@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.uml.behavior.activityModel;
 
@@ -41,33 +41,33 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("003f166e-c4bf-1fd8-97fe-001ec947cd2a")
 public class ValuePinImpl extends InputPinImpl implements ValuePin {
-    @objid ("ac99ef31-a621-4f58-bbe9-079936b811ad")
+    @objid ("ab3cd283-86dc-43da-a59f-7afa12264907")
     @Override
     public String getValue() {
         return (String) getAttVal(ValuePinData.Metadata.ValueAtt());
     }
 
-    @objid ("2f361ee5-02ef-426d-9ccb-78124383e8ad")
+    @objid ("8ae7a8f2-d5c0-405f-bf2f-8a828a5da6ca")
     @Override
     public void setValue(String value) {
         setAttVal(ValuePinData.Metadata.ValueAtt(), value);
     }
 
-    @objid ("aaf5b14f-b0d5-4771-891d-2eb2db5aa84c")
+    @objid ("198b518a-5c82-471f-a127-3daf617a034e")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("c7a8f800-f9bb-4f6b-aa31-a0ce60ae354a")
+    @objid ("7317a462-c38b-4563-8db0-0df1c5905e2b")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("070db808-a3b2-4aa9-9d90-869b897fe0ea")
+    @objid ("e877ed4c-bbda-421f-969d-48b2ab78e0ae")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitValuePin(this);

@@ -44,7 +44,7 @@ import org.modelio.xmi.util.XMILogs;
  * @author ebrosse
  */
 @objid ("39b0857a-26a7-47c7-8494-ccdbe9882543")
-public class OAssociationEnd extends OFeature implements IOElement {
+public class OAssociationEnd extends OFeature {
     @objid ("d12d17a9-7eca-4e87-8906-d45c59718c15")
     private boolean isLinkedToClassAssociation;
 
@@ -409,7 +409,7 @@ public class OAssociationEnd extends OFeature implements IOElement {
                 try {
                     ownerIsClassifier.getAttributes().add(ecoreProperty);
                 } catch (UnsupportedOperationException e) {
-                    Xmi.LOG.error(Xmi.PLUGIN_ID, e);
+                    Xmi.LOG.error(e);
                 }
             } else {
                 ecoreProperty.destroy();
@@ -467,7 +467,7 @@ public class OAssociationEnd extends OFeature implements IOElement {
         try {
             ecoreProp.setIsNavigable(this.objingElement.isNavigable());
         }catch (IllegalStateException e){
-            Xmi.LOG.error(Xmi.PLUGIN_ID, e);
+            Xmi.LOG.error(e);
         }
         org.eclipse.uml2.uml.Association association = ecoreProp.getAssociation();
         if ((association != null) && (ecoreProp.getOwner().equals(association)) && (this.objingElement.isNavigable())){
@@ -517,7 +517,7 @@ public class OAssociationEnd extends OFeature implements IOElement {
                 try  {
                     ownerIsClassifier.getAttributes().add(ecoreProperty);
                 }catch (UnsupportedOperationException e) {
-                    Xmi.LOG.error(Xmi.PLUGIN_ID, e);
+                    Xmi.LOG.error(e);
                 }
             } else {
                 ecoreProperty.destroy();

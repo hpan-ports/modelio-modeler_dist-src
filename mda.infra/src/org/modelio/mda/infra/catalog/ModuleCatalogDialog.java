@@ -132,8 +132,8 @@ public class ModuleCatalogDialog extends ModelioDialog {
         FormData fd = null;
         
         // List of modules from catalog: use a ModuleCatalogPanel
-        this.panel.create(top);
-        Composite panelComposite = (Composite) this.panel.getComposite();
+        this.panel.createPanel(top);
+        Composite panelComposite = (Composite) this.panel.getPanel();
         fd = new FormData();
         fd.top = new FormAttachment(0, 4);
         fd.left = new FormAttachment(0, 4);
@@ -148,7 +148,6 @@ public class ModuleCatalogDialog extends ModelioDialog {
                 ModuleCatalogDialog.this.controller.onModuleSelection(selection);
             }
         });
-        
         
         Composite buttonLine = new Composite(top, SWT.NONE);
         fd = new FormData();
@@ -202,13 +201,13 @@ public class ModuleCatalogDialog extends ModelioDialog {
         
         this.updateButton.setImage(MdaInfra.getImageDescriptor("icons/updatecatalog.png").createImage());
         this.updateButton.addSelectionListener(new SelectionListener() {
-            
+        
             @Override
             public void widgetSelected(SelectionEvent evt) {
                 final FileModuleStore catalog = (FileModuleStore) ModuleCatalogDialog.this.panel.getInput();
-                
+        
                 IRunnableWithProgress runnable = new IRunnableWithProgress() {
-                    
+        
                     @Override
                     public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
                         List<IModuleHandle> modules;
@@ -225,19 +224,22 @@ public class ModuleCatalogDialog extends ModelioDialog {
                             monitor.done();
                         } catch (IOException e) {
                             MdaInfra.LOG.error(e);
-                        }                       
+                        }
                     }
                 };
                 try {
                     ModuleCatalogDialog.this.progressService.run(true, false, runnable);
-                    
+        
                     if (ModuleCatalogDialog.this.validUpdateSite) {
                         // New modules found: open the update dialog
-                        if (ModuleCatalogDialog.this.modulesToUpdate !=  null && ModuleCatalogDialog.this.modulesToUpdate.size() > 0) {
-                            ModuleUpdateBrowserDialog dialog = new ModuleUpdateBrowserDialog(Display.getDefault().getActiveShell(), ModuleCatalogDialog.this.modulesToUpdate, catalog, ModuleCatalogDialog.this.progressService);
+                        if (ModuleCatalogDialog.this.modulesToUpdate != null && ModuleCatalogDialog.this.modulesToUpdate.size() > 0) {
+                            ModuleUpdateBrowserDialog dialog = new ModuleUpdateBrowserDialog(Display.getDefault().getActiveShell(),
+                                    ModuleCatalogDialog.this.modulesToUpdate, catalog, ModuleCatalogDialog.this.progressService);
                             dialog.open();
                         } else {
-                            MessageDialog.openInformation (Display.getDefault().getActiveShell(), MdaInfra.I18N.getString("ModuleUpdateBrowserDialog.Title"), MdaInfra.I18N.getString("ModuleUpdateBrowserDialog.NoUpdate"));
+                            MessageDialog.openInformation(Display.getDefault().getActiveShell(),
+                                    MdaInfra.I18N.getString("ModuleUpdateBrowserDialog.Title"),
+                                    MdaInfra.I18N.getString("ModuleUpdateBrowserDialog.NoUpdate"));
                         }
                     }
                     // Update catalog list
@@ -246,11 +248,11 @@ public class ModuleCatalogDialog extends ModelioDialog {
                     MdaInfra.LOG.error(e);
                 }
             }
-            
+        
             @Override
             public void widgetDefaultSelected(SelectionEvent e) {
                 // Nothing to do
-                
+        
             }
         });
         this.controller.init();
@@ -328,14 +330,15 @@ public class ModuleCatalogDialog extends ModelioDialog {
         public void onAddModule(final List<File> modules) {
             final FileModuleStore catalog = (FileModuleStore) this.dlg.panel.getInput();
             IRunnableWithProgress runnable = new IRunnableWithProgress() {
-                
+            
                 @Override
                 public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
-                    monitor.beginTask(MdaInfra.I18N.getString("ModuleCatalogDialog.AddModulesProgressTitle"), modules.size()*3);
-                    for (int i=0; i< modules.size(); i++) {
+                    monitor.beginTask(MdaInfra.I18N.getString("ModuleCatalogDialog.AddModulesProgressTitle"), modules.size() * 3);
+                    for (int i = 0; i < modules.size(); i++) {
                         File mdacFile = modules.get(i);
-                        //Keys {0}:counter {1}:sum of modules {2}:module file name
-                        monitor.subTask(MdaInfra.I18N.getMessage("ModuleCatalogDialog.AddModulesProgressSubTask", String.valueOf(i+1), String.valueOf(modules.size()), mdacFile.getName()));
+                        // Keys {0}:counter {1}:sum of modules {2}:module file name
+                        monitor.subTask(MdaInfra.I18N.getMessage("ModuleCatalogDialog.AddModulesProgressSubTask",
+                                String.valueOf(i + 1), String.valueOf(modules.size()), mdacFile.getName()));
                         monitor.worked(2);
                         try {
                             catalog.getModuleHandle(mdacFile.toPath(), null);
@@ -360,21 +363,23 @@ public class ModuleCatalogDialog extends ModelioDialog {
             final FileModuleStore catalog = (FileModuleStore) this.dlg.panel.getInput();
             final boolean isShowLatestOnly = this.dlg.panel.isShowLatestOnly();
             IRunnableWithProgress runnable = new IRunnableWithProgress() {
-                
+            
                 @Override
                 public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
-                    monitor.beginTask(MdaInfra.I18N.getString("ModuleCatalogDialog.RemoveModulesProgressTitle"), selection.size()*3);
+                    monitor.beginTask(MdaInfra.I18N.getString("ModuleCatalogDialog.RemoveModulesProgressTitle"),
+                            selection.size() * 3);
                     List<IModuleHandle> modules = new ArrayList<>();
                     for (Object obj : selection.toList()) {
                         if (obj instanceof IModuleHandle) {
                             modules.add((IModuleHandle) obj);
-                            
+            
                         }
                     }
-                    for (int i=0; i< modules.size(); i++) {
+                    for (int i = 0; i < modules.size(); i++) {
                         IModuleHandle module = modules.get(i);
-                        //Keys {0}:counter {1}:sum of modules {2}:module name {3}:module version
-                        monitor.subTask(MdaInfra.I18N.getMessage("ModuleCatalogDialog.RemoveModulesProgressSubTask", String.valueOf(i+1), String.valueOf(modules.size()), module.getName(), module.getVersion().toString()));
+                        // Keys {0}:counter {1}:sum of modules {2}:module name {3}:module version
+                        monitor.subTask(MdaInfra.I18N.getMessage("ModuleCatalogDialog.RemoveModulesProgressSubTask", String
+                                .valueOf(i + 1), String.valueOf(modules.size()), module.getName(), module.getVersion().toString()));
                         monitor.worked(2);
                         try {
                             if (!isShowLatestOnly) {

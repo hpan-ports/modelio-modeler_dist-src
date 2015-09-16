@@ -25,6 +25,8 @@ import java.util.ArrayList;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.gef.EditPolicy;
+import org.eclipse.swt.SWT;
+import org.modelio.core.ui.CoreFontRegistry;
 import org.modelio.diagram.editor.statik.elements.innerclass.GmInnerClass;
 import org.modelio.diagram.editor.statik.elements.innerclass.GmInnerClassesZone;
 import org.modelio.diagram.editor.statik.elements.namespacinglink.GmCompositionLink;
@@ -33,6 +35,7 @@ import org.modelio.diagram.editor.statik.elements.naryassoc.AcceptNAssocEditPoli
 import org.modelio.diagram.editor.statik.elements.packaze.SimpleModeOwnedElementCreationEditPolicy;
 import org.modelio.diagram.elements.common.resizablegroup.GmResizableGroup;
 import org.modelio.diagram.elements.common.simple.NonSelectableSimpleEditPart;
+import org.modelio.diagram.elements.core.figures.IPenOptionsSupport;
 import org.modelio.diagram.elements.core.model.IGmLink;
 import org.modelio.diagram.elements.core.node.GmCompositeNode;
 import org.modelio.diagram.elements.core.node.GmNodeModel;
@@ -68,7 +71,8 @@ public class ClassifierSimpleEditPart extends NonSelectableSimpleEditPart {
         if (!this.alreadyRefreshing) {
             this.alreadyRefreshing = true;
             GmCompositeNode model = (GmCompositeNode) getModel();
-            if (model.getRepresentationMode() != RepresentationMode.SIMPLE) {
+        
+            if (model.getRepresentationMode() == RepresentationMode.STRUCTURED) {
                 GmNodeModel firstChild = model.getFirstChild("");
                 if (firstChild instanceof GmResizableGroup) {
                     GmInnerClass inner = (GmInnerClass) ((GmResizableGroup) firstChild).getFirstChild("Inner");
@@ -90,7 +94,7 @@ public class ClassifierSimpleEditPart extends NonSelectableSimpleEditPart {
                                 }
                                 // new representation mode is not SIMPLE, put back body content into body BEFORE the switch.
                                 for (GmNodeModel child : model.getParentNode()
-                                                              .getChildren("body content as satellite")) {
+                                        .getChildren("body content as satellite")) {
                                     model.getParentNode().removeChild(child);
                                     child.setRoleInComposition("");
                                     innerZone.addChild(child);
@@ -101,8 +105,21 @@ public class ClassifierSimpleEditPart extends NonSelectableSimpleEditPart {
                 }
         
             }
-            super.refreshFromStyle(aFigure, style);
-            if (model.getRepresentationMode() != RepresentationMode.SIMPLE) {
+        
+            if (!switchRepresentationMode()) {
+                super.refreshFromStyle(aFigure, style);
+        
+                // Switch the font to Italic when the classifier is Abstract
+                if (model.getRelatedElement() instanceof Classifier) {
+                    final Classifier classifier = (Classifier) model.getRelatedElement();
+                    if (classifier.isIsAbstract()) {
+                        IPenOptionsSupport headerFigure = (IPenOptionsSupport) aFigure;
+                        if (headerFigure.getTextFont() != null) {
+                            headerFigure.setTextFont(CoreFontRegistry.getModifiedFont(headerFigure.getTextFont(), SWT.ITALIC));
+                        }
+                    }
+                }
+            } else {
                 GmCompositeNode parent = model.getParentNode();
                 GmCompositeNode ancestor = parent.getParentNode();
                 int index = ancestor.getChildIndex(parent);

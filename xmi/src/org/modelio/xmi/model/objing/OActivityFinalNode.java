@@ -26,8 +26,9 @@ import org.eclipse.uml2.uml.UMLFactory;
 import org.modelio.metamodel.uml.behavior.activityModel.ActivityFinalNode;
 
 @objid ("4b4eff61-a831-4ac9-b3c7-9e57bf81f6ff")
-public class OActivityFinalNode extends OActivityNode implements IOElement {
+public class OActivityFinalNode extends OActivityNode {
     @objid ("0d720f0b-91ad-4082-a879-b07075fc9643")
+    @Override
     public org.eclipse.uml2.uml.Element createEcoreElt() {
         return UMLFactory.eINSTANCE.createActivityFinalNode();
     }
@@ -35,16 +36,6 @@ public class OActivityFinalNode extends OActivityNode implements IOElement {
     @objid ("5f46d2a0-7012-4deb-9a46-a5188f7dc261")
     public OActivityFinalNode(ActivityFinalNode element) {
         super(element);
-    }
-
-    @objid ("0415d902-a955-4e93-90c8-6d9fd3e83a35")
-    public void attach(org.eclipse.uml2.uml.Element ecoreElt) {
-        super.attach(ecoreElt);
-    }
-
-    @objid ("748134fe-4790-492e-ae95-3cf59f8f5698")
-    public void setProperties(org.eclipse.uml2.uml.Element ecoreElt) {
-        super.setProperties(ecoreElt);
     }
 
 }

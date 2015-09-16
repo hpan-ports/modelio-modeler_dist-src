@@ -21,7 +21,6 @@
 
 package org.modelio.xmi.model.ecore;
 
-import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.api.model.IModelingSession;
 import org.modelio.api.model.IUmlModel;
@@ -32,34 +31,28 @@ import org.modelio.metamodel.uml.infrastructure.TagParameter;
 import org.modelio.metamodel.uml.infrastructure.TaggedValue;
 import org.modelio.xmi.plugin.Xmi;
 import org.modelio.xmi.util.IModelerModuleTagTypes;
+import org.modelio.xmi.util.ReverseProperties;
 
 @objid ("efbb2549-baa0-4451-bdf9-3e164680df8e")
-public class EExpansionRegion extends EActivityNode implements IEElement {
+public class EExpansionRegion extends EActivityNode {
     @objid ("711a6e6a-78c8-444b-a70c-5e45a89b0834")
     private org.eclipse.uml2.uml.ExpansionRegion ecoreElement = null;
 
     @objid ("a5f137b8-8438-412a-b629-eda039109305")
+    @Override
     public Element createObjingElt() {
-        return  Modelio.getInstance().getModelingSession().getModel()
+        return  ReverseProperties.getInstance().getMModelServices().getModelFactory()
         .createExpansionRegion();
     }
 
     @objid ("b599def2-8dcb-4732-a69d-40d2c44dd247")
     public EExpansionRegion(org.eclipse.uml2.uml.ExpansionRegion element) {
         super(element);
-        ecoreElement = element;
-    }
-
-    @objid ("3df2d8f1-680a-4a78-abd4-3be9a6a08e10")
-    public void attach(Element objingElt) {
-        super.attach(objingElt);
-    }
-
-    @objid ("c632484e-01f2-4039-b82d-b1a96a1b323f")
-    public void attach(List<Object> objingElts) {
+        this.ecoreElement = element;
     }
 
     @objid ("6a6f756a-836a-43f5-ad76-31de4cc7ada1")
+    @Override
     public void setProperties(Element objingElt) {
         super.setProperties(objingElt);
         setMode((StructuredActivityNode) objingElt);
@@ -67,7 +60,7 @@ public class EExpansionRegion extends EActivityNode implements IEElement {
 
     @objid ("5949b51f-c81e-4883-9f2e-6cea7edbab27")
     private void setMode(StructuredActivityNode objingElt) {
-        String mode = ecoreElement.getMode().getName();
+        String mode =  this.ecoreElement.getMode().getName();
         if ((mode != null) && (!mode.equals("")))
             try{
                 IModelingSession session = Modelio.getInstance().getModelingSession();
@@ -79,7 +72,7 @@ public class EExpansionRegion extends EActivityNode implements IEElement {
                 TagParameter value = model.createTagParameter(mode, objTag);
                 objTag.getActual().add(value);
             }catch(Exception e){
-                Xmi.LOG.error(Xmi.PLUGIN_ID, e);
+                Xmi.LOG.error(e);
             }
     }
 

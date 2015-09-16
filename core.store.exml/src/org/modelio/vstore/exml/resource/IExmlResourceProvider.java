@@ -160,6 +160,16 @@ public interface IExmlResourceProvider {
     boolean isWriteable();
 
     /**
+     * Tells whether the repository can be browsed as a file system directory.
+     * <p>
+     * In this case indexes can be rebuilt. In the other case it is impossible to rebuild indexes
+     * and {@link #getAllResources(IModelioProgress)} must not be called.
+     * @return <code>true</code> if the repository can be browsed, <code>false</code> in the other case.
+     */
+    @objid ("644389dd-3565-4176-b4d7-2916677600cf")
+    boolean isBrowsable();
+
+    /**
      * Read the content of a blob.
      * <p>
      * Returns <code>null</code> if there is no blob with such key.

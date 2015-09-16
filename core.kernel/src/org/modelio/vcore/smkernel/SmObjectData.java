@@ -131,6 +131,20 @@ public abstract class SmObjectData implements ISmObjectData {
         return this.lastAccess;
     }
 
+    @objid ("55870bc6-9889-48bc-a408-aeef81372535")
+    @Override
+    public void setNotFalseRFlags(long trueFlags, long falseFlags, long undefFlags) {
+        // check flags only contains runtime flags
+        assert (((trueFlags| falseFlags| undefFlags) & ~SmStatus.RFLAGS) == 0);
+        
+        final long newStatus = SmStatus.setNotFalseFlags(this.status, trueFlags, falseFlags, undefFlags);
+        
+        // debug
+        //System.err.println("Set "+this.getUuid()+" "+this.getClassOf().getName()+" status from {"+SmStatus.toString(this.status)+ "} to {"+SmStatus.toString(newStatus)+"}");
+        
+        this.status = newStatus;
+    }
+
     @objid ("43b1b017-d85b-4914-96e9-371ad2dfd402")
     @Override
     public void setRFlags(long flags, StatusState state) {
@@ -162,7 +176,7 @@ public abstract class SmObjectData implements ISmObjectData {
         
         final long newStatus = SmStatus.setFlags(this.status, trueFlags, falseFlags, undefFlags);
         
-        //TODO debug
+        // debug
         //System.err.println("Set "+this.getUuid()+" "+this.getClassOf().getName()+" status from {"+SmStatus.toString(this.status)+ "} to {"+SmStatus.toString(newStatus)+"}");
         
         this.status = newStatus;

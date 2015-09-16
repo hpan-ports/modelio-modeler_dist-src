@@ -258,7 +258,7 @@ public class BpmnDataInputPropertyModel extends AbstractPropertyModel<BpmnDataIn
         }
     }
 
-    @objid ("d27cefb9-7863-42f2-ad6b-4e437e435872")
+    @objid ("2ebe9581-4fa4-45f9-a79b-2b9188a4e788")
     private IPropertyType getInStateType() {
         GeneralClass referencedClass = this.theEditedElement.getType();
         if (referencedClass == null) {
@@ -274,7 +274,7 @@ public class BpmnDataInputPropertyModel extends AbstractPropertyModel<BpmnDataIn
     /**
      * Get all states defined in a class.
      */
-    @objid ("85160777-7de3-4437-85a4-b9c90b884932")
+    @objid ("484fddef-7e63-41f8-a356-2da79e641db5")
     private List<ModelElement> getAvailableStates(GeneralClass referencedClass) {
         List<ModelElement> states = new ArrayList<>();
         
@@ -302,7 +302,7 @@ public class BpmnDataInputPropertyModel extends AbstractPropertyModel<BpmnDataIn
     /**
      * Get all states defined in a region.
      */
-    @objid ("4c00972a-8916-4cd0-b762-ebd4b13b1ebf")
+    @objid ("5f3c37a5-f3eb-4895-b415-a591deb83d5c")
     private Collection<? extends ModelElement> getAvailableStates(Region region) {
         List<ModelElement> states = new ArrayList<>();
         for (State s : region.getSub(State.class)) {

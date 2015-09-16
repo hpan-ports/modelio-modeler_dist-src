@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.bpmn.objects;
 
@@ -34,28 +34,28 @@ import org.modelio.metamodel.uml.statik.Parameter;
 
 @objid ("00065874-c4c0-1fd8-97fe-001ec947cd2a")
 public interface BpmnDataInput extends BpmnItemAwareElement {
-    @objid ("dddb33a5-9c1f-4d0d-8310-8e070c72f74c")
+    @objid ("9bdbc122-b072-4759-bccd-8fde823a7456")
     Parameter getRepresentedParameter();
 
-    @objid ("8bc5f265-83c1-4395-aada-d47f37de3eb3")
+    @objid ("5c13e4eb-7ec8-4680-b5b8-8fe9ffafe0ac")
     void setRepresentedParameter(Parameter value);
 
-    @objid ("e2bb8460-bdb6-4e3d-aa6e-ab05ea161e32")
+    @objid ("8309cf95-6441-4e80-8a28-ebf153324d23")
     BpmnMultiInstanceLoopCharacteristics getOwnerLoopCharacteristics();
 
-    @objid ("677edd9b-44d4-4d63-b6eb-c4941ec9f034")
+    @objid ("07315e72-55f8-45bf-871b-505910fe307f")
     void setOwnerLoopCharacteristics(BpmnMultiInstanceLoopCharacteristics value);
 
-    @objid ("be933940-ad6b-47c3-914a-b551f594f7de")
+    @objid ("e8be14b3-3525-46cf-a81f-b7961418a319")
     BpmnActivity getOwnerActivity();
 
-    @objid ("b7883699-e13e-4bbc-ab22-c326fe192b62")
+    @objid ("1f8f9d94-91d8-4892-b36c-1e55cab49654")
     void setOwnerActivity(BpmnActivity value);
 
-    @objid ("ca7ed8be-a76e-489f-9eeb-696b41e297ad")
+    @objid ("1d8b318c-0831-45e1-a317-7b3b5c983904")
     BpmnThrowEvent getOwnerThrowEvent();
 
-    @objid ("eb2f8761-6436-443b-bcad-28666c2d18fe")
+    @objid ("757f40da-d3e7-45ca-8bf5-893eabf45b92")
     void setOwnerThrowEvent(BpmnThrowEvent value);
 
 }

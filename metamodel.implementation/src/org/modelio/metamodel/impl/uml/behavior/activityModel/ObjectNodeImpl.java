@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.uml.behavior.activityModel;
 
@@ -48,141 +48,141 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("00397a06-c4bf-1fd8-97fe-001ec947cd2a")
 public abstract class ObjectNodeImpl extends ActivityNodeImpl implements ObjectNode {
-    @objid ("3296d079-42fe-4c6e-8b36-437b22bbcdfa")
+    @objid ("8ca5ec96-33d5-47bb-9f84-295b411353c7")
     @Override
     public boolean isIsControlType() {
         return (Boolean) getAttVal(ObjectNodeData.Metadata.IsControlTypeAtt());
     }
 
-    @objid ("b1393c78-7cec-49d6-ba24-d894fa035759")
+    @objid ("c679be39-cb88-463e-ac70-cadc6a9eac2f")
     @Override
     public void setIsControlType(boolean value) {
         setAttVal(ObjectNodeData.Metadata.IsControlTypeAtt(), value);
     }
 
-    @objid ("7ff0e152-41b7-4702-a317-720605391881")
+    @objid ("c6e20617-a395-4ddf-a173-d96918476366")
     @Override
     public ObjectNodeOrderingKind getOrdering() {
         return (ObjectNodeOrderingKind) getAttVal(ObjectNodeData.Metadata.OrderingAtt());
     }
 
-    @objid ("918b3115-7d70-4fc7-add8-bb45f75361b7")
+    @objid ("faa9ea7e-c510-410e-8085-0a3d70bff0bb")
     @Override
     public void setOrdering(ObjectNodeOrderingKind value) {
         setAttVal(ObjectNodeData.Metadata.OrderingAtt(), value);
     }
 
-    @objid ("da6f353a-bd87-41c0-8e25-b30dce4bf009")
+    @objid ("078fdb0a-3536-41f2-b800-ac98d79a9e15")
     @Override
     public String getSelectionBehavior() {
         return (String) getAttVal(ObjectNodeData.Metadata.SelectionBehaviorAtt());
     }
 
-    @objid ("7298b9e9-58d8-4035-9128-bcd20920edac")
+    @objid ("1e1df25a-546a-4c31-a8b2-39f38c9eb010")
     @Override
     public void setSelectionBehavior(String value) {
         setAttVal(ObjectNodeData.Metadata.SelectionBehaviorAtt(), value);
     }
 
-    @objid ("e36f90d0-523b-4979-a3e5-cb31f03766f4")
+    @objid ("517665d8-1d1e-4c2d-9773-d8a48a1f20e1")
     @Override
     public String getUpperBound() {
         return (String) getAttVal(ObjectNodeData.Metadata.UpperBoundAtt());
     }
 
-    @objid ("e7c90b74-a55f-421a-90f8-8231f19a13f0")
+    @objid ("8ab472a4-4e96-4905-aef6-cdb015a88041")
     @Override
     public void setUpperBound(String value) {
         setAttVal(ObjectNodeData.Metadata.UpperBoundAtt(), value);
     }
 
-    @objid ("53b647d6-031f-4790-b792-ba314835c2e4")
+    @objid ("5644e752-c5f7-4d6b-8e61-4c2cdc9b0832")
     @Override
     public Instance getRepresented() {
         return (Instance) getDepVal(ObjectNodeData.Metadata.RepresentedDep());
     }
 
-    @objid ("04825aa7-22dc-49ae-904f-a0b6095a42b2")
+    @objid ("d67554ff-fb9c-40ef-8b79-55a4a451ba1e")
     @Override
     public void setRepresented(Instance value) {
         appendDepVal(ObjectNodeData.Metadata.RepresentedDep(), (SmObjectImpl)value);
     }
 
-    @objid ("579fd487-dda0-49d8-8ba9-ccbf2ab17a9b")
+    @objid ("02ef14e6-ab28-4969-8537-e890c03d4489")
     @Override
     public BehaviorParameter getRepresentedRealParameter() {
         return (BehaviorParameter) getDepVal(ObjectNodeData.Metadata.RepresentedRealParameterDep());
     }
 
-    @objid ("a0d7192b-07fa-42fd-972b-1b2e2d6e0e35")
+    @objid ("f6e86639-fa1f-4cd6-9c4c-642311016a9a")
     @Override
     public void setRepresentedRealParameter(BehaviorParameter value) {
         appendDepVal(ObjectNodeData.Metadata.RepresentedRealParameterDep(), (SmObjectImpl)value);
     }
 
-    @objid ("600c8cc7-60cb-4cdc-8b5e-272886e7c79d")
+    @objid ("7b74281a-ab10-4b5e-96b7-7fde9a560812")
     @Override
     public GeneralClass getType() {
         return (GeneralClass) getDepVal(ObjectNodeData.Metadata.TypeDep());
     }
 
-    @objid ("8b84aea3-53bd-4182-857b-cad739e6bb1d")
+    @objid ("438df2d1-8356-49d0-b8f9-8c3588d9678c")
     @Override
     public void setType(GeneralClass value) {
         appendDepVal(ObjectNodeData.Metadata.TypeDep(), (SmObjectImpl)value);
     }
 
-    @objid ("e261a5b4-a6dd-4aee-9bde-8b41e0979cd6")
+    @objid ("191f3179-78e7-421b-8c67-1ef3f2e21b7c")
     @Override
     public AssociationEnd getRepresentedRole() {
         return (AssociationEnd) getDepVal(ObjectNodeData.Metadata.RepresentedRoleDep());
     }
 
-    @objid ("eba7e2a5-5fa1-4977-bd48-8182efbc3fe6")
+    @objid ("7fa39a7a-6e40-45d3-a480-f4fb0836f971")
     @Override
     public void setRepresentedRole(AssociationEnd value) {
         appendDepVal(ObjectNodeData.Metadata.RepresentedRoleDep(), (SmObjectImpl)value);
     }
 
-    @objid ("7caf728b-3514-426b-8bb3-b17666509bb6")
+    @objid ("34f4ca92-6014-4993-b869-1662f9abe28e")
     @Override
     public Attribute getRepresentedAttribute() {
         return (Attribute) getDepVal(ObjectNodeData.Metadata.RepresentedAttributeDep());
     }
 
-    @objid ("768ae7da-4a74-4e34-8a64-4fc36b846a17")
+    @objid ("b26b7860-e1f3-4eca-b9b5-25e48de19341")
     @Override
     public void setRepresentedAttribute(Attribute value) {
         appendDepVal(ObjectNodeData.Metadata.RepresentedAttributeDep(), (SmObjectImpl)value);
     }
 
-    @objid ("a924c9a2-d24e-4ec5-9c36-f757d1047f50")
+    @objid ("928e2ed8-248b-4cc5-a747-b76cb8497e33")
     @Override
     public State getInState() {
         return (State) getDepVal(ObjectNodeData.Metadata.InStateDep());
     }
 
-    @objid ("f0128c58-4217-4912-bc1b-ab9aa4344825")
+    @objid ("ed74d515-eba6-4a93-bb56-62b193c00b5e")
     @Override
     public void setInState(State value) {
         appendDepVal(ObjectNodeData.Metadata.InStateDep(), (SmObjectImpl)value);
     }
 
-    @objid ("6a751472-e01e-4011-a811-2e53d0d418f8")
+    @objid ("97159acf-42ee-4874-a8e7-91e530438c41")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("291dfe81-58e5-4ce6-b611-4203e19ddf0a")
+    @objid ("6f22e6ed-5efb-44f8-961e-50c34b15e9fc")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("e234aa72-c16b-4068-9745-a0f4bd4388b8")
+    @objid ("0cacf72d-1d63-4f9e-8f7b-20a1cc817abb")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitObjectNode(this);

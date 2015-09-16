@@ -83,6 +83,8 @@ public class BpmnManualTaskPropertyModel extends AbstractPropertyModel<BpmnManua
     @objid ("8e400aa4-c068-11e1-8c0a-002564c97630")
     @Override
     public int getRowsNumber() {
+        // Init properties here to avoid problems with UNDO
+        initPropertyModel();
         return this.properties.size();
     }
 

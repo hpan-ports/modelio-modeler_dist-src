@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.bpmn.events;
 
@@ -41,21 +41,21 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("00933c1c-c4bf-1fd8-97fe-001ec947cd2a")
 public class BpmnTerminateEventDefinitionImpl extends BpmnEventDefinitionImpl implements BpmnTerminateEventDefinition {
-    @objid ("a53a5511-268b-4800-9c21-0376a8d19f68")
+    @objid ("69dad4b5-c86b-4e30-84eb-44d15e4e551a")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("248d8091-91c7-427b-bc25-47581c950d6c")
+    @objid ("99c8b2dd-9f9f-4617-956f-6bd1628c4373")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("2965e153-a1b9-45c4-9719-4c222790c239")
+    @objid ("fbaba985-c24a-4f61-968b-9772ae584cd3")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitBpmnTerminateEventDefinition(this);

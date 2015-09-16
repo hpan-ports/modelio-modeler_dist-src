@@ -87,7 +87,7 @@ public class SymbolView {
     @PostConstruct
     public void createControls(Composite parent, MPart part, EModelService svc, IModelioPickingService pickingService) {
         this.symbolPanel = new SymbolPanelProvider(pickingService);
-        this.symbolPanel.create(parent);
+        this.symbolPanel.createPanel(parent);
         
         part.getContext().runAndTrack(new Updater());
     }

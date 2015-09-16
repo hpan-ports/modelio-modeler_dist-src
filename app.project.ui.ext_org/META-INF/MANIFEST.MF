@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Project Ui extensions
 Bundle-SymbolicName: org.modelio.app.project.ui.ext;singleton:=true
-Bundle-Version: 1.0.0.qualifier
+Bundle-Version: 3.2.1.qualifier
 Bundle-Vendor: Modelio
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Require-Bundle: org.eclipse.e4.core.contexts,
@@ -27,7 +27,8 @@ Require-Bundle: org.eclipse.e4.core.contexts,
  org.eclipse.e4.ui.services,
  org.eclipse.e4.ui.model.workbench,
  org.eclipse.ui,
- org.modelio.metamodel.implementation;bundle-version="1.0.0"
+ org.modelio.metamodel.implementation,
+ org.modelio.core.project.data
 Bundle-ActivationPolicy: lazy
 Bundle-ClassPath: .,
  res/,

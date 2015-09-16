@@ -21,9 +21,9 @@
 
 package org.modelio.xmi.model.ecore;
 
-import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.modelio.api.modelio.Modelio;
+import org.modelio.gproject.model.IMModelServices;
+import org.modelio.metamodel.factory.ElementNotUniqueException;
 import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.metamodel.uml.statik.Collaboration;
 import org.modelio.metamodel.uml.statik.Operation;
@@ -35,16 +35,23 @@ import org.modelio.xmi.util.IModelerModuleStereotypes;
 import org.modelio.xmi.util.ReverseProperties;
 
 @objid ("91361f3c-fce3-4cd8-9317-d7818ab0b38d")
-public class EClassifierTemplateParameter extends EElement implements IEElement {
+public class EClassifierTemplateParameter extends EElement {
     @objid ("63e47653-bcdd-4279-8af7-30dff2bed48e")
     private org.eclipse.uml2.uml.ClassifierTemplateParameter ecoreElement = null;
 
     @objid ("a4b4f148-2607-4336-8938-d878f2b59369")
+    @Override
     public Element createObjingElt() {
-        TemplateParameter result = Modelio.getInstance().getModelingSession().getModel().createTemplateParameter();
-         
-            result.getExtension().add(Modelio.getInstance().getModelingSession().getMetamodelExtensions().getStereotype(
-             IModelerModuleStereotypes.UML2CLASSIFIERTEMPLATEPARAMETER, result.getMClass()));
+        IMModelServices mmService = ReverseProperties.getInstance().getMModelServices();
+        
+        TemplateParameter result = mmService.getModelFactory().createTemplateParameter();
+        
+        try {
+            result.getExtension().add(ReverseProperties.getInstance().getMModelServices().getStereotype(
+                    IModelerModuleStereotypes.UML2CLASSIFIERTEMPLATEPARAMETER, result.getMClass()));
+        } catch (ElementNotUniqueException e) {
+           Xmi.LOG.warning(e);
+        }
         return result;
     }
 
@@ -55,9 +62,10 @@ public class EClassifierTemplateParameter extends EElement implements IEElement 
     }
 
     @objid ("29b3c19b-6b8f-4844-b8de-b097eb1bbff7")
+    @Override
     public void attach(Element objingElt) {
         Element objingOperation  = (Element) ReverseProperties.getInstance()
-        .getMappedElement(this.ecoreElement.getOwner());
+                .getMappedElement(this.ecoreElement.getOwner());
         
         if ((objingOperation != null ) && (objingOperation instanceof Operation)) {
             ((Operation) objingOperation)
@@ -71,15 +79,6 @@ public class EClassifierTemplateParameter extends EElement implements IEElement 
             TotalImportMap.getInstance().remove(this.ecoreElement);
             objingElt.delete();
         }
-    }
-
-    @objid ("e2ce972e-922d-4543-b7cd-df26f01427b4")
-    public void attach(List<Object> objingElts) {
-    }
-
-    @objid ("48df79ca-0bbf-4404-8b93-156b68a9a3dd")
-    public void setProperties(Element objingElt) {
-        super.setProperties(objingElt);
     }
 
 }

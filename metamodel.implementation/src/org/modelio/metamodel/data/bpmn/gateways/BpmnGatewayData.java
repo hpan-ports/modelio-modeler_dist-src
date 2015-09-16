@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.data.bpmn.gateways;
 
@@ -45,29 +45,29 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("00015806-c4c0-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=BpmnGateway.class, factory=BpmnGatewayData.Metadata.ObjectFactory.class)
 public abstract class BpmnGatewayData extends BpmnFlowNodeData {
-    @objid ("74b760c8-e36b-44d7-ad81-9755e0f56176")
+    @objid ("4df0c353-a9a9-4614-b2d6-dc016388739c")
     @SmaMetaAttribute(metaName="GatewayDirection", type=BpmnGatewayDirection.class, smAttributeClass=Metadata.GatewayDirectionSmAttribute.class)
      Object mGatewayDirection = BpmnGatewayDirection.UNSPECIFIEDDIRECTION;
 
-    @objid ("7f7009a3-9fac-4075-bd4c-7ce0ddad9480")
+    @objid ("87804b27-fddb-41aa-b9fe-7b5bd9493a6e")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("008b7680-c4c3-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("cf4303f4-2532-437d-aa92-92cdbb61a6cf")
+        @objid ("9f86fde2-65b5-457d-823c-2a5b786ef7f5")
         private static SmClass smClass = null;
 
-        @objid ("7d32cb9a-cfca-4000-a931-6f671b1b80b2")
+        @objid ("bcf1f10e-1d3c-41c4-92ab-0c5b7e52db71")
         private static SmAttribute GatewayDirectionAtt = null;
 
-        @objid ("746afc70-bd79-4b07-8e11-1869bd053443")
+        @objid ("a7c3dfdd-0873-4a1c-944e-ba163fabce09")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(BpmnGatewayData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("24569754-0b71-490c-bca9-3008f9b4ab52")
+        @objid ("12b7de8f-d825-47e5-9137-bd1dc2e0f698")
         public static SmAttribute GatewayDirectionAtt() {
             if (GatewayDirectionAtt == null) {
             	GatewayDirectionAtt = classof().getAttributeDef("GatewayDirection");
@@ -75,26 +75,26 @@ public abstract class BpmnGatewayData extends BpmnFlowNodeData {
             return GatewayDirectionAtt;
         }
 
-        @objid ("f11c8d89-34be-485d-901c-f546bbe7a374")
-        public static SmClass getSmClass() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return smClass;
-        }
-
-        @objid ("943b2ec7-97c3-4722-9cb1-e16f600c7c59")
+        @objid ("83e656f8-f37a-4c66-b99c-1f5ac24aca3f")
         public static SmAttribute getGatewayDirectionAtt() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return GatewayDirectionAtt;
         }
 
+        @objid ("fb0855fa-45d8-452d-8dfc-55dd5a42d25e")
+        public static SmClass getSmClass() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return smClass;
+        }
+
         @objid ("008bb7b2-c4c3-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("6142e5ed-79f5-417c-9861-3f2ab8b0d8c3")
+            @objid ("233f3be4-3ac5-40cc-86c5-d05847a4536b")
             public ISmObjectData createData() {
                 throw new UnsupportedOperationException();
             }
 
-            @objid ("71341bca-a3d0-441b-a75c-bd6dcce188d9")
+            @objid ("24c8220f-6cb0-4db8-bbbd-31e57a900957")
             public SmObjectImpl createImpl() {
                 throw new UnsupportedOperationException();
             }
@@ -103,12 +103,12 @@ public abstract class BpmnGatewayData extends BpmnFlowNodeData {
 
         @objid ("008c1a5e-c4c3-1fd8-97fe-001ec947cd2a")
         public static class GatewayDirectionSmAttribute extends SmAttribute {
-            @objid ("d338a48e-a559-4978-87f9-fdddc3d8e321")
+            @objid ("f7dd908c-e3f2-488f-800a-520b85e56399")
             public Object getValue(ISmObjectData data) {
                 return ((BpmnGatewayData) data).mGatewayDirection;
             }
 
-            @objid ("c0eab40a-3f63-478f-89f7-f60aecdf90b5")
+            @objid ("acdba377-16db-4d0a-90b0-a8474f6f0bac")
             public void setValue(ISmObjectData data, Object value) {
                 ((BpmnGatewayData) data).mGatewayDirection = value;
             }

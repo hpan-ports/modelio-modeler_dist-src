@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.uml.statik;
 
@@ -43,43 +43,43 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("000cb930-c4bf-1fd8-97fe-001ec947cd2a")
 public class GeneralizationImpl extends ModelElementImpl implements Generalization {
-    @objid ("73a0f506-7015-4594-adc7-fa32b932add8")
+    @objid ("fbb98d2c-e155-4257-838c-75d1c44e141a")
     @Override
     public String getDiscriminator() {
         return (String) getAttVal(GeneralizationData.Metadata.DiscriminatorAtt());
     }
 
-    @objid ("91c94802-7a78-45f9-95f1-33a713bb84be")
+    @objid ("9e0186f1-6c96-433e-8cfb-c36ac202f4d9")
     @Override
     public void setDiscriminator(String value) {
         setAttVal(GeneralizationData.Metadata.DiscriminatorAtt(), value);
     }
 
-    @objid ("36b92d72-0a37-44a4-a055-d2a869d448dd")
+    @objid ("ebbad82a-59a8-42d6-81b2-84dbdf288fa1")
     @Override
     public NameSpace getSuperType() {
         return (NameSpace) getDepVal(GeneralizationData.Metadata.SuperTypeDep());
     }
 
-    @objid ("cce28065-d192-4660-8e84-b9a417ba0db6")
+    @objid ("602c9292-ce8f-4e98-bf02-87d236b601b5")
     @Override
     public void setSuperType(NameSpace value) {
         appendDepVal(GeneralizationData.Metadata.SuperTypeDep(), (SmObjectImpl)value);
     }
 
-    @objid ("b40f155a-d21d-4994-bb4d-5c72ba27f3ba")
+    @objid ("5bd33493-162c-4c1d-a722-e2967b1fd4f3")
     @Override
     public NameSpace getSubType() {
         return (NameSpace) getDepVal(GeneralizationData.Metadata.SubTypeDep());
     }
 
-    @objid ("96dcc850-6922-431b-a318-92b698a394fa")
+    @objid ("578e9fbc-cec4-44b8-adac-10c538b24790")
     @Override
     public void setSubType(NameSpace value) {
         appendDepVal(GeneralizationData.Metadata.SubTypeDep(), (SmObjectImpl)value);
     }
 
-    @objid ("317986a7-9a0c-4d55-ba24-b9860aa7b773")
+    @objid ("80a2b720-058c-405f-a33a-6beeb6492e4f")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
@@ -89,7 +89,7 @@ public class GeneralizationImpl extends ModelElementImpl implements Generalizati
         return super.getCompositionOwner();
     }
 
-    @objid ("e77e4321-e3d2-4d45-a800-ccfee6abfea8")
+    @objid ("f1741b50-6771-40b7-b6a3-6700e057b490")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
@@ -99,7 +99,7 @@ public class GeneralizationImpl extends ModelElementImpl implements Generalizati
         return super.getCompositionRelation();
     }
 
-    @objid ("b9ca5be9-eacb-4e56-b3fb-1571a3fe775e")
+    @objid ("a480afa3-10e2-4969-83d0-07afd5fdf55c")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitGeneralization(this);

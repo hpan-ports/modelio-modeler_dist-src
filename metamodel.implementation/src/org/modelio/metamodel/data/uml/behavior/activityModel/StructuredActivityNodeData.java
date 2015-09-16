@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.data.uml.behavior.activityModel;
 
@@ -45,36 +45,36 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("003e80d2-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=StructuredActivityNode.class, factory=StructuredActivityNodeData.Metadata.ObjectFactory.class)
 public class StructuredActivityNodeData extends ActivityActionData {
-    @objid ("c8dcc259-cef2-4ec7-bfc9-decbe64c6fb8")
+    @objid ("d9dd9988-609f-4e79-8da8-1d207549e17f")
     @SmaMetaAttribute(metaName="MustIsolate", type=Boolean.class, smAttributeClass=Metadata.MustIsolateSmAttribute.class)
      Object mMustIsolate = false;
 
-    @objid ("e5bfa63f-2498-4cdb-91dc-7200598fc440")
+    @objid ("d37c9be4-607a-409c-a77a-6ddae6d84137")
     @SmaMetaAssociation(metaName="Body", typeDataClass=ActivityNodeData.class, min=0, max=-1, smAssociationClass=Metadata.BodySmDependency.class, component = true)
      List<SmObjectImpl> mBody = null;
 
-    @objid ("a3c0b3ea-80dd-4dd4-8f98-6ac0081dcb8d")
+    @objid ("ad220c94-172d-4adc-833a-01a70f8c9fa8")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("00564460-c4c3-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("f3116d59-3078-4eea-8834-0bc56ae19aae")
+        @objid ("5a7421b6-a2c5-42b4-a7db-0459d2ba7eb6")
         private static SmClass smClass = null;
 
-        @objid ("b5e145df-e4ac-4bf3-bf75-19a6a4595f5d")
+        @objid ("8565aa69-a5a8-40ea-9736-3953009359f4")
         private static SmAttribute MustIsolateAtt = null;
 
-        @objid ("659eccc8-69fe-465e-8beb-aa909ec56c21")
+        @objid ("e59e9fd1-065b-4d61-b8f1-50589a50226b")
         private static SmDependency BodyDep = null;
 
-        @objid ("c150c195-5794-420d-a778-934a48b77f4f")
+        @objid ("b1433b33-ea9a-44e0-a196-10748d334a59")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(StructuredActivityNodeData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("abe00cb6-5cef-4572-a7dd-409e7222672f")
+        @objid ("40e77d1c-c568-4c87-81a1-35b3cd538b4d")
         public static SmAttribute MustIsolateAtt() {
             if (MustIsolateAtt == null) {
             	MustIsolateAtt = classof().getAttributeDef("MustIsolate");
@@ -82,7 +82,7 @@ public class StructuredActivityNodeData extends ActivityActionData {
             return MustIsolateAtt;
         }
 
-        @objid ("b5c2cfb0-d660-4fd1-90cb-28d6d5305fd9")
+        @objid ("fd19e958-0634-4874-9ca2-62385c9edf25")
         public static SmDependency BodyDep() {
             if (BodyDep == null) {
             	BodyDep = classof().getDependencyDef("Body");
@@ -90,19 +90,19 @@ public class StructuredActivityNodeData extends ActivityActionData {
             return BodyDep;
         }
 
-        @objid ("1765fbbc-02aa-4b96-bd40-87f6a601e9f3")
-        public static SmClass getSmClass() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return smClass;
-        }
-
-        @objid ("1b861249-3c24-42f6-9b51-4715845cacfd")
+        @objid ("5955dc36-34cf-4c79-8f55-350d2c51f8b7")
         public static SmAttribute getMustIsolateAtt() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return MustIsolateAtt;
         }
 
-        @objid ("00ca00b8-4c74-4466-8cab-91ccc4fff61b")
+        @objid ("a2a8d208-9266-46c1-af10-e0b50a842eb7")
+        public static SmClass getSmClass() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return smClass;
+        }
+
+        @objid ("d4480259-af7e-4263-a4c1-6ee7aa4a7cbb")
         public static SmDependency getBodyDep() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return BodyDep;
@@ -110,12 +110,12 @@ public class StructuredActivityNodeData extends ActivityActionData {
 
         @objid ("0056863c-c4c3-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("db5dbdf7-cd10-41c4-8265-ab639360f1d3")
+            @objid ("c3b4f0cf-b84b-44d8-b524-c0ce55508626")
             public ISmObjectData createData() {
                 return new StructuredActivityNodeData();
             }
 
-            @objid ("ead68441-98ff-49ec-bb45-d4ade2a3bb53")
+            @objid ("3e83e2e3-8dc1-4306-9548-ada32232f3e1")
             public SmObjectImpl createImpl() {
                 return new StructuredActivityNodeImpl();
             }
@@ -124,12 +124,12 @@ public class StructuredActivityNodeData extends ActivityActionData {
 
         @objid ("0056e8fc-c4c3-1fd8-97fe-001ec947cd2a")
         public static class MustIsolateSmAttribute extends SmAttribute {
-            @objid ("733f84e6-bd39-4c0f-afb0-860590f220c3")
+            @objid ("5a9cd5bf-d973-45dd-84b5-11ac35fa1d82")
             public Object getValue(ISmObjectData data) {
                 return ((StructuredActivityNodeData) data).mMustIsolate;
             }
 
-            @objid ("57868c53-6ff6-42d4-8686-3640044feba7")
+            @objid ("63fd5466-a62b-4455-ab79-3b07625e05ad")
             public void setValue(ISmObjectData data, Object value) {
                 ((StructuredActivityNodeData) data).mMustIsolate = value;
             }
@@ -138,20 +138,20 @@ public class StructuredActivityNodeData extends ActivityActionData {
 
         @objid ("00574c66-c4c3-1fd8-97fe-001ec947cd2a")
         public static class BodySmDependency extends SmMultipleDependency {
-            @objid ("0384b382-bc86-4577-b1b2-a006867d8745")
+            @objid ("b4f29b0e-9281-42a4-84d7-96b536103d80")
             @Override
             public List<SmObjectImpl> getValueList(ISmObjectData data) {
                 return (((StructuredActivityNodeData)data).mBody != null)? ((StructuredActivityNodeData)data).mBody:SmMultipleDependency.EMPTY;
             }
 
-            @objid ("f476f600-a46d-4c2f-b5e4-3c3d2077c37e")
+            @objid ("ab373aa5-d934-4d59-ad52-3f9026f9bc2e")
             @Override
             protected List<SmObjectImpl> allocateValueList(ISmObjectData data, int initialCapacity) {
                 ((StructuredActivityNodeData) data).mBody = new ArrayList<>(initialCapacity);
                 return ((StructuredActivityNodeData) data).mBody;
             }
 
-            @objid ("d4431e2e-a9ed-4075-a0bb-322312755312")
+            @objid ("54fec939-7547-4bef-967e-552d5189fc57")
             @Override
             public SmDependency getSymetric() {
                 return ActivityNodeData.Metadata.OwnerNodeDep();

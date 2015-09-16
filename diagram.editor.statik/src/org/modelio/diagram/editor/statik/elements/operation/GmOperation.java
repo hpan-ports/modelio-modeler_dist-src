@@ -23,6 +23,7 @@ package org.modelio.diagram.editor.statik.elements.operation;
 
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
+import org.modelio.diagram.editor.statik.elements.attribute.GmAttributeStyleKeys;
 import org.modelio.diagram.elements.common.abstractdiagram.GmAbstractDiagram;
 import org.modelio.diagram.elements.common.label.modelelement.GmModelElementFlatHeader;
 import org.modelio.diagram.elements.core.model.IEditableText;
@@ -59,6 +60,9 @@ public class GmOperation extends GmModelElementFlatHeader {
 
     @objid ("35f74fc3-55b7-11e2-877f-002564c97630")
     private Operation element = null;
+
+    @objid ("254c926b-a3b7-4da8-afd1-267285dcae5a")
+    public static GmOperationStyleKeys OPERATION_KEYS = new GmOperationStyleKeys();
 
     /**
      * Creates a GmMethod.
@@ -126,7 +130,7 @@ public class GmOperation extends GmModelElementFlatHeader {
         //
         if (getParent() != null) {        
             final String svis = computeVisibility(op);
-            final boolean showSig = getStyle().getBoolean(getStyleKeyStrict(MetaKey.OperationGroup.OPSHOWSIGNATURE));
+            final boolean showSig = getStyle().getBoolean(getStyleKey/*Strict*/(MetaKey.OperationGroup.OPSHOWSIGNATURE));
             
             if (showSig) {
                 s.append(svis);
@@ -188,18 +192,16 @@ public class GmOperation extends GmModelElementFlatHeader {
     @objid ("35f8d66d-55b7-11e2-877f-002564c97630")
     @Override
     public StyleKey getStyleKey(MetaKey metakey) {
-        if (metakey == MetaKey.FONT) {
-            return super.getStyleKey(MetaKey.OperationGroup.OPFONT);
-        } else if (metakey == MetaKey.SHOWSTEREOTYPES) {
+        if (metakey == MetaKey.SHOWSTEREOTYPES) {
             return super.getStyleKey(MetaKey.OperationGroup.OPSHOWSTEREOTYPES);
         } else if (metakey == MetaKey.SHOWTAGS) {
             return super.getStyleKey(MetaKey.OperationGroup.OPSHOWTAGS);
-        } else if (metakey == MetaKey.TEXTCOLOR) {
-            return super.getStyleKey(MetaKey.OperationGroup.OPTEXTCOLOR);
         } else if (metakey == MetaKey.SHOWVISIBILITY) {
             return super.getStyleKey(MetaKey.OperationGroup.OPSHOWVISIBILITY);
-        } else {
-            return super.getStyleKey(metakey);
+        } else if (metakey == MetaKey.OperationGroup.OPSHOWSIGNATURE) {
+            return super.getStyleKey(MetaKey.OperationGroup.OPSHOWSIGNATURE);
+        }  else {
+            return OPERATION_KEYS.getStyleKey(metakey);
         }
     }
 
@@ -358,6 +360,12 @@ public class GmOperation extends GmModelElementFlatHeader {
     @Override
     public int getMajorVersion() {
         return MAJOR_VERSION;
+    }
+
+    @objid ("dea6457b-ccd1-42b7-ac98-9006c5c45d0e")
+    @Override
+    public List<StyleKey> getStyleKeys() {
+        return OPERATION_KEYS.getStyleKeys();
     }
 
 }

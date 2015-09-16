@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.data.uml.statik;
 
@@ -44,22 +44,22 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("00093b2a-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=ElementRealization.class, factory=ElementRealizationData.Metadata.ObjectFactory.class)
 public class ElementRealizationData extends AbstractionData {
-    @objid ("5f1b28b1-c5c9-4ea6-9b12-fdd8e1de89c7")
+    @objid ("9b778416-bcda-4100-998c-1919d662e2ca")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("000927de-c4c3-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("5c085a57-ccf9-4507-b77a-ddc709fb2450")
+        @objid ("836f8e0d-6422-42b6-8ba2-4ea1de71c374")
         private static SmClass smClass = null;
 
-        @objid ("c5b301c9-bac5-42cc-9eea-61b59b2eda60")
+        @objid ("8faef939-0dfe-42d8-ae9f-2fdd2b27a00b")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(ElementRealizationData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("5dd32e97-fd56-4fbe-aae5-e53c04fd18b9")
+        @objid ("5177c097-0f9b-456f-8128-0ba5ead98575")
         public static SmClass getSmClass() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return smClass;
@@ -67,12 +67,12 @@ public class ElementRealizationData extends AbstractionData {
 
         @objid ("000968b6-c4c3-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("fd7c29f8-2f70-44c1-aaea-9ca518073f33")
+            @objid ("6f293b42-f8e4-41f6-82b3-6a0c2c724ea4")
             public ISmObjectData createData() {
                 return new ElementRealizationData();
             }
 
-            @objid ("63eb0c13-27c8-4cb9-8740-5ab59fb2b0bc")
+            @objid ("73ec60d2-78de-424e-bc3f-61cea5cbf17d")
             public SmObjectImpl createImpl() {
                 return new ElementRealizationImpl();
             }

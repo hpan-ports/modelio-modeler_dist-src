@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.data.uml.behavior.communicationModel;
 
@@ -49,64 +49,64 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("67558b34-b4c9-476e-939c-3da1dcc447df")
 @SmaMetaClass(mmClass=CommunicationChannel.class, factory=CommunicationChannelData.Metadata.ObjectFactory.class)
 public class CommunicationChannelData extends ModelElementData {
-    @objid ("c2be93c7-6f73-49e0-89d9-f40d5d670b1b")
+    @objid ("c4451e77-466b-40c6-b715-6afae804fd55")
     @SmaMetaAssociation(metaName="StartToEndMessage", typeDataClass=CommunicationMessageData.class, min=0, max=-1, smAssociationClass=Metadata.StartToEndMessageSmDependency.class, component = true)
      List<SmObjectImpl> mStartToEndMessage = null;
 
-    @objid ("ab826c49-fd79-488f-80a0-6a704ce5dca8")
+    @objid ("433f3951-1717-4261-951d-c6e8e57eae2b")
     @SmaMetaAssociation(metaName="Channel", typeDataClass=LinkData.class, min=0, max=1, smAssociationClass=Metadata.ChannelSmDependency.class, partof = true)
      SmObjectImpl mChannel;
 
-    @objid ("3a7c5e25-6c83-4227-87c7-36dc2e669c00")
+    @objid ("cc37c3e2-8e8c-4446-8ae5-d7a327c2df43")
     @SmaMetaAssociation(metaName="Start", typeDataClass=CommunicationNodeData.class, min=0, max=1, smAssociationClass=Metadata.StartSmDependency.class)
      SmObjectImpl mStart;
 
-    @objid ("9436ac84-cb8f-4e4a-8a56-4d632e93f678")
+    @objid ("8731832a-aee7-4bcc-a79d-6b08d95932fa")
     @SmaMetaAssociation(metaName="NaryChannel", typeDataClass=NaryLinkData.class, min=0, max=1, smAssociationClass=Metadata.NaryChannelSmDependency.class, partof = true)
      SmObjectImpl mNaryChannel;
 
-    @objid ("45da6370-d3a4-4878-8c4e-a2f328767cf3")
+    @objid ("73aa8e0a-7ff7-491c-bc02-b4f94bb38f1d")
     @SmaMetaAssociation(metaName="EndToStartMessage", typeDataClass=CommunicationMessageData.class, min=0, max=-1, smAssociationClass=Metadata.EndToStartMessageSmDependency.class, component = true)
      List<SmObjectImpl> mEndToStartMessage = null;
 
-    @objid ("208259c9-8b46-44de-8b45-56f7b1b9881f")
+    @objid ("b82e4ada-5950-4355-b49e-d6ade1db2e92")
     @SmaMetaAssociation(metaName="End", typeDataClass=CommunicationNodeData.class, min=0, max=1, smAssociationClass=Metadata.EndSmDependency.class, partof = true)
      SmObjectImpl mEnd;
 
-    @objid ("61fef05b-7236-4706-a94a-6886a32666a7")
+    @objid ("98ba4625-adc5-4245-8d86-54daacc48fe0")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("0bcffcc0-9f6e-4a96-b0c1-227e45e2b687")
     public static class Metadata {
-        @objid ("59bf3c8b-e249-4e41-902c-7910661de552")
+        @objid ("a69cb25c-865e-497d-b1f4-df54f882e791")
         private static SmClass smClass = null;
 
-        @objid ("03182c4b-88b3-4856-932f-eeb2f4dbea5c")
+        @objid ("13dea4ae-2511-489a-bd50-72e70893e642")
         private static SmDependency StartToEndMessageDep = null;
 
-        @objid ("c86b5339-032e-4a81-9b99-27c91e2467a7")
+        @objid ("535ddea3-fc8a-4f1c-801f-d8d849d02861")
         private static SmDependency ChannelDep = null;
 
-        @objid ("b043ab05-af1f-4422-8bae-1b81e588d542")
+        @objid ("a9f28588-637f-405b-ba5d-7e08a92133b3")
         private static SmDependency StartDep = null;
 
-        @objid ("721ec24a-0043-4daf-b293-90decf13248c")
+        @objid ("23820bf3-a32a-464b-a2a1-2d461e3f3e94")
         private static SmDependency NaryChannelDep = null;
 
-        @objid ("13fbf3e6-76c9-4ac4-90dc-d1c0a03cb9f7")
+        @objid ("12b79456-aa9c-405e-b2d0-b8ca00e92350")
         private static SmDependency EndToStartMessageDep = null;
 
-        @objid ("684f5e68-85c5-4276-8608-b192cc145ac0")
+        @objid ("a8d31aa4-2077-4377-b959-e2737d4fa726")
         private static SmDependency EndDep = null;
 
-        @objid ("e775d892-56c7-4fb3-b999-0659d3a64da6")
+        @objid ("3dc4e086-a61c-466e-a906-1ad1ecd308c0")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(CommunicationChannelData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("1bfe42e7-b7f9-49b9-bbe5-43b338a64432")
+        @objid ("e788e01a-d6a9-4326-b532-d94b2a116641")
         public static SmDependency StartToEndMessageDep() {
             if (StartToEndMessageDep == null) {
             	StartToEndMessageDep = classof().getDependencyDef("StartToEndMessage");
@@ -114,7 +114,7 @@ public class CommunicationChannelData extends ModelElementData {
             return StartToEndMessageDep;
         }
 
-        @objid ("13a1cbeb-eaa6-411b-b33d-e0f95dadafd5")
+        @objid ("5f64f93c-fafc-4031-80c6-a74788757962")
         public static SmDependency ChannelDep() {
             if (ChannelDep == null) {
             	ChannelDep = classof().getDependencyDef("Channel");
@@ -122,7 +122,7 @@ public class CommunicationChannelData extends ModelElementData {
             return ChannelDep;
         }
 
-        @objid ("60a23e15-6cab-4a45-bd50-e1d9fe619473")
+        @objid ("b6428b13-d88f-486d-8c88-d9903d474694")
         public static SmDependency StartDep() {
             if (StartDep == null) {
             	StartDep = classof().getDependencyDef("Start");
@@ -130,7 +130,7 @@ public class CommunicationChannelData extends ModelElementData {
             return StartDep;
         }
 
-        @objid ("1d2f278a-b018-4ce1-8e05-acb78a1af1bb")
+        @objid ("ceb28f16-8e13-4e32-8e82-3b6abfe9dff4")
         public static SmDependency NaryChannelDep() {
             if (NaryChannelDep == null) {
             	NaryChannelDep = classof().getDependencyDef("NaryChannel");
@@ -138,7 +138,7 @@ public class CommunicationChannelData extends ModelElementData {
             return NaryChannelDep;
         }
 
-        @objid ("7600124b-c631-416c-a029-29d6f39c3af6")
+        @objid ("0d60f384-b5c7-4168-a8d0-88a22d51affe")
         public static SmDependency EndToStartMessageDep() {
             if (EndToStartMessageDep == null) {
             	EndToStartMessageDep = classof().getDependencyDef("EndToStartMessage");
@@ -146,7 +146,7 @@ public class CommunicationChannelData extends ModelElementData {
             return EndToStartMessageDep;
         }
 
-        @objid ("796f969f-92e7-4d27-843a-9cf153d77403")
+        @objid ("b9386cfe-d072-4fc5-b644-246edc6b1124")
         public static SmDependency EndDep() {
             if (EndDep == null) {
             	EndDep = classof().getDependencyDef("End");
@@ -154,56 +154,56 @@ public class CommunicationChannelData extends ModelElementData {
             return EndDep;
         }
 
-        @objid ("0e4f6e6a-632d-44ec-a422-006438c085bd")
-        public static SmDependency getStartDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return StartDep;
-        }
-
-        @objid ("00f2b053-ee15-4091-9717-461e7f62abd4")
-        public static SmDependency getEndToStartMessageDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return EndToStartMessageDep;
-        }
-
-        @objid ("b6d469a1-f369-48e6-9167-f0d2053bbef7")
-        public static SmDependency getEndDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return EndDep;
-        }
-
-        @objid ("448ce1cb-0db7-425b-932f-10da404ea2f1")
+        @objid ("ac72b773-d10a-40b5-b699-4c3cb5112b4e")
         public static SmClass getSmClass() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return smClass;
         }
 
-        @objid ("c71dc085-a8d5-4372-ab1d-3da8b48c3ea6")
-        public static SmDependency getStartToEndMessageDep() {
+        @objid ("8168d78a-71c3-47b5-b637-98445e2e32f0")
+        public static SmDependency getStartDep() {
             // Automatically generated method. Please delete this comment before entering specific code.
-            return StartToEndMessageDep;
+            return StartDep;
         }
 
-        @objid ("81eaa749-c818-41da-82d3-5bdf52e2dcbd")
-        public static SmDependency getChannelDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return ChannelDep;
-        }
-
-        @objid ("bf8bb2d9-66db-463e-83f4-ee8d85d07b6f")
+        @objid ("676d08bb-1f7b-4aa1-9bd1-c00e5edc6bc1")
         public static SmDependency getNaryChannelDep() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return NaryChannelDep;
         }
 
+        @objid ("1b78411b-cda9-418d-b529-d6d8863abf14")
+        public static SmDependency getChannelDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return ChannelDep;
+        }
+
+        @objid ("69b243b6-26e3-4f73-8a80-effe69756b36")
+        public static SmDependency getEndToStartMessageDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return EndToStartMessageDep;
+        }
+
+        @objid ("43c3cecb-85e2-4c83-9c9f-74be9277f9d9")
+        public static SmDependency getEndDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return EndDep;
+        }
+
+        @objid ("95e5511c-b46b-42d5-a14a-f8e404ec6ff6")
+        public static SmDependency getStartToEndMessageDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return StartToEndMessageDep;
+        }
+
         @objid ("6c6b1c22-2b19-477a-9ccf-5f7155f7b19a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("94a8812b-155c-41f7-97bf-745fb77b96db")
+            @objid ("387a5480-7c93-484c-88d4-f002b5d2e8d6")
             public ISmObjectData createData() {
                 return new CommunicationChannelData();
             }
 
-            @objid ("2c2411e6-d01c-41cf-a6d6-f448719093be")
+            @objid ("1de1fc97-9602-43ed-872e-a4fe07811720")
             public SmObjectImpl createImpl() {
                 return new CommunicationChannelImpl();
             }
@@ -212,18 +212,18 @@ public class CommunicationChannelData extends ModelElementData {
 
         @objid ("fd848b1b-8395-4786-bc7c-3950420cdcb1")
         public static class ChannelSmDependency extends SmSingleDependency {
-            @objid ("8bff71b0-ef0a-4a30-9d07-d0b034b3477f")
+            @objid ("b2b6cb45-6623-4e03-9944-4cc14787511f")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((CommunicationChannelData) data).mChannel;
             }
 
-            @objid ("7f170087-98e6-439a-9f5e-91718cc72c36")
+            @objid ("c7318ed6-ade6-4764-bae1-deef34195ea6")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((CommunicationChannelData) data).mChannel = value;
             }
 
-            @objid ("c38fe467-66dc-4f29-a331-30736d3f0d53")
+            @objid ("9adafb28-96d0-4b18-b7bd-88357b2c6ad1")
             @Override
             public SmDependency getSymetric() {
                 return LinkData.Metadata.SentDep();
@@ -233,18 +233,18 @@ public class CommunicationChannelData extends ModelElementData {
 
         @objid ("8e157f6f-1fdc-40e6-b94e-ebdb55e2bddf")
         public static class StartSmDependency extends SmSingleDependency {
-            @objid ("b95078d6-b758-4eee-adec-aba8a539ee6f")
+            @objid ("28cf08b9-f85f-445d-ac24-d1048246ce8e")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((CommunicationChannelData) data).mStart;
             }
 
-            @objid ("f7fb3caa-5dcb-4610-8aee-3a61b7d4e108")
+            @objid ("cad6ede0-166b-4dd4-95af-57459171b0d8")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((CommunicationChannelData) data).mStart = value;
             }
 
-            @objid ("2713f4ce-4b3c-4362-9847-cc39c4fd93dd")
+            @objid ("0b5a53e6-8a0b-4c30-8741-180e9c5c2eb9")
             @Override
             public SmDependency getSymetric() {
                 return CommunicationNodeData.Metadata.StartedDep();
@@ -254,18 +254,18 @@ public class CommunicationChannelData extends ModelElementData {
 
         @objid ("8d1e7fe8-18d7-472b-9ab3-592265af84c0")
         public static class EndSmDependency extends SmSingleDependency {
-            @objid ("edaa825e-9f6b-46f0-89a6-33ea0b2b9f8f")
+            @objid ("17d6fb15-aec7-4c58-a4b1-f2fd7528f36a")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((CommunicationChannelData) data).mEnd;
             }
 
-            @objid ("1e36b5bc-c0f0-42eb-9a06-60b0c559c525")
+            @objid ("dc97c757-38af-4514-a107-a3a1165c8c0c")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((CommunicationChannelData) data).mEnd = value;
             }
 
-            @objid ("e26086f7-367a-4e42-a130-b4b93b8046f5")
+            @objid ("975aa052-b29f-4383-a4d9-e168f5662eab")
             @Override
             public SmDependency getSymetric() {
                 return CommunicationNodeData.Metadata.EndedDep();
@@ -275,20 +275,20 @@ public class CommunicationChannelData extends ModelElementData {
 
         @objid ("bd83a1cb-e193-4b4e-9ed9-51dafd3cd692")
         public static class StartToEndMessageSmDependency extends SmMultipleDependency {
-            @objid ("48364722-63cb-4a0d-8644-fc0e4d425e98")
+            @objid ("76909f1d-d70e-460a-bad5-b190df62770a")
             @Override
             public List<SmObjectImpl> getValueList(ISmObjectData data) {
                 return (((CommunicationChannelData)data).mStartToEndMessage != null)? ((CommunicationChannelData)data).mStartToEndMessage:SmMultipleDependency.EMPTY;
             }
 
-            @objid ("25be3ea4-2fbc-42ed-8c94-c22f44c02ccf")
+            @objid ("03e30515-13e3-4638-9e3e-be26c1e4aae3")
             @Override
             protected List<SmObjectImpl> allocateValueList(ISmObjectData data, int initialCapacity) {
                 ((CommunicationChannelData) data).mStartToEndMessage = new ArrayList<>(initialCapacity);
                 return ((CommunicationChannelData) data).mStartToEndMessage;
             }
 
-            @objid ("277f516b-076b-466a-b3f4-c5a3897c4782")
+            @objid ("9533f889-0aba-4467-83fe-2bb2f05f300a")
             @Override
             public SmDependency getSymetric() {
                 return CommunicationMessageData.Metadata.ChannelDep();
@@ -298,20 +298,20 @@ public class CommunicationChannelData extends ModelElementData {
 
         @objid ("88bc8eba-68f4-4994-ad72-7a2adfc15f37")
         public static class EndToStartMessageSmDependency extends SmMultipleDependency {
-            @objid ("6d1974a9-cd5c-4fb2-8fb6-5653f8d9d5d7")
+            @objid ("9259f504-5366-4271-8ca9-a1b2b64e1e75")
             @Override
             public List<SmObjectImpl> getValueList(ISmObjectData data) {
                 return (((CommunicationChannelData)data).mEndToStartMessage != null)? ((CommunicationChannelData)data).mEndToStartMessage:SmMultipleDependency.EMPTY;
             }
 
-            @objid ("e7a7cf1e-403f-446e-b561-6b7702726d26")
+            @objid ("df9d5da2-7091-4404-b577-155aca8e86af")
             @Override
             protected List<SmObjectImpl> allocateValueList(ISmObjectData data, int initialCapacity) {
                 ((CommunicationChannelData) data).mEndToStartMessage = new ArrayList<>(initialCapacity);
                 return ((CommunicationChannelData) data).mEndToStartMessage;
             }
 
-            @objid ("f0566dab-fc7d-42a3-8452-75eb6cef29f0")
+            @objid ("7aaef4f8-fcfc-450a-9dc2-793d2d2ad137")
             @Override
             public SmDependency getSymetric() {
                 return CommunicationMessageData.Metadata.InvertedChannelDep();
@@ -321,18 +321,18 @@ public class CommunicationChannelData extends ModelElementData {
 
         @objid ("aba7d0f8-de32-4739-96cf-24ff1f384181")
         public static class NaryChannelSmDependency extends SmSingleDependency {
-            @objid ("582b43be-c386-40eb-9bd1-14fc467041ac")
+            @objid ("645f7699-5b6f-4994-b62a-e2f0b907758f")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((CommunicationChannelData) data).mNaryChannel;
             }
 
-            @objid ("8ae7440c-9016-4030-b929-abc46fa6eab2")
+            @objid ("16d2e971-1c6a-4759-9475-be67bbf3992c")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((CommunicationChannelData) data).mNaryChannel = value;
             }
 
-            @objid ("488feb3a-5cbc-47ec-a153-36e98d6a847d")
+            @objid ("c161e98d-7738-4dfb-9bc6-ff17ec756dac")
             @Override
             public SmDependency getSymetric() {
                 return NaryLinkData.Metadata.SentDep();

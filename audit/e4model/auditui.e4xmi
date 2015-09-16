@@ -3,7 +3,7 @@
   <imports xsi:type="menu:Menu" xmi:id="_J9EtoH9EEeK-XvSICEmsLA" elementId="org.modelio.app.ui.menu.views"/>
   <imports xsi:type="commands:Command" xmi:id="_efEyEH9EEeK-XvSICEmsLA" elementId="org.modelio.app.ui.command.showview"/>
   <fragments xsi:type="fragment:StringModelFragment" xmi:id="_ZvrNwEN6EeK0D9nRHZj9jw" featurename="handlers" parentElementId="org.modelio.app.application">
-    <elements xsi:type="commands:Handler" xmi:id="_ebT2cEN6EeK0D9nRHZj9jw" elementId="org.modelio.audit.handler.CheckElementId" contributionURI="bundleclass://org.modelio.audit/org.modelio.audit.handlers.CheckElementHandler" command="_7WVbUEN6EeK0D9nRHZj9jw"/>
+    <elements xsi:type="commands:Handler" xmi:id="_ebT2cEN6EeK0D9nRHZj9jw" elementId="org.modelio.audit.handler.CheckElementId" contributionURI="bundleclass://org.modelio.audit/org.modelio.audit.checker.CheckElementHandler" command="_7WVbUEN6EeK0D9nRHZj9jw"/>
     <elements xsi:type="commands:Handler" xmi:id="_zB9DAEUqEeK0D9nRHZj9jw" elementId="org.modelio.audit.handler.ShowDetailsId" contributionURI="bundleclass://org.modelio.audit/org.modelio.audit.view.handlers.ShowDetailsHandler" command="_-Z6ZwEUqEeK0D9nRHZj9jw"/>
     <elements xsi:type="commands:Handler" xmi:id="_KHIj8EUtEeK0D9nRHZj9jw" elementId="org.modelio.audit.handler.ResumeAuditId" contributionURI="bundleclass://org.modelio.audit/org.modelio.audit.view.handlers.ResumeAuditHandler" command="_cPs9wEUrEeK0D9nRHZj9jw"/>
     <elements xsi:type="commands:Handler" xmi:id="_KsodsEUtEeK0D9nRHZj9jw" elementId="org.modelio.audit.handler.DisableRuleId" contributionURI="bundleclass://org.modelio.audit/org.modelio.audit.view.handlers.DisableRuleHandler" command="_c6YScEUrEeK0D9nRHZj9jw"/>

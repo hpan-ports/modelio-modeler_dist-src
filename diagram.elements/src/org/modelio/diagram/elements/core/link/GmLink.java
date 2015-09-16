@@ -51,7 +51,7 @@ import org.modelio.vcore.smkernel.mapi.MRef;
  * Represents a link between 2 nodes in the diagram.
  */
 @objid ("80100e01-1dec-11e2-8cad-001ec947c8cc")
-public abstract class GmLink extends GmModel implements IGmLink, IGmAnchorListener {
+public abstract class GmLink extends GmModel implements IGmLink {
     /**
      * Current version of this Gm. Defaults to 0.
      */
@@ -498,16 +498,16 @@ public abstract class GmLink extends GmModel implements IGmLink, IGmAnchorListen
         Object versionProperty = in.readProperty("GmLink." + MINOR_VERSION_PROPERTY);
         int readVersion = versionProperty == null ? 0 : ((Integer) versionProperty).intValue();
         switch (readVersion) {
-            case 0: {
-                read_0(in);
-                break;
-            }
-            default: {
-                assert (false) : "version number not covered!";
-                // reading as last handled version: 0
-                read_0(in);
-                break;
-            }
+        case 0: {
+            read_0(in);
+            break;
+        }
+        default: {
+            assert (false) : "version number not covered!";
+            // reading as last handled version: 0
+            read_0(in);
+            break;
+        }
         }
     }
 
@@ -590,7 +590,7 @@ public abstract class GmLink extends GmModel implements IGmLink, IGmAnchorListen
                 // Update the connection router in the style.
                 final StyleKey routerStyleKey = getStyleKey(MetaKey.CONNECTIONROUTER);
                 if (routerStyleKey != null &&
-                    getStyle().getProperty(routerStyleKey) != newPath.getRouterKind())
+                        getStyle().getProperty(routerStyleKey) != newPath.getRouterKind())
                     getStyle().setProperty(routerStyleKey, newPath.getRouterKind());
             }
         }
@@ -673,11 +673,10 @@ public abstract class GmLink extends GmModel implements IGmLink, IGmAnchorListen
     @objid ("8017352f-1dec-11e2-8cad-001ec947c8cc")
     @Override
     public void setTo(IGmLinkable to) {
-        this.to = to;
         if (to != this.to) {
             Object oldTo = this.to;
             this.to = to;
-            firePropertyChange(PROP_SOURCE_GM, oldTo, to);
+            firePropertyChange(PROP_TARGET_GM, oldTo, to);
         }
     }
 
@@ -769,6 +768,10 @@ public abstract class GmLink extends GmModel implements IGmLink, IGmAnchorListen
                 if (!areEqual(modelSourceElement, graphicSourceElement)) {
                     // source changed: let edit part know and handle it.
                     firePropertyChange(PROP_SOURCE_EL, modelSourceElement, graphicSourceElement);
+                } else if (this.getFrom() instanceof GmNodeModel && !((GmNodeModel)this.getFrom()).isVisible()) {
+                    // source not visible anymore, delete the link
+                    this.delete();
+                    return;
                 }
             }
         
@@ -781,6 +784,10 @@ public abstract class GmLink extends GmModel implements IGmLink, IGmAnchorListen
                 if (!areEqual(modelTargetElement, graphicTargetElement)) {
                     // target changed: let edit part know and handle it.
                     firePropertyChange(PROP_TARGET_EL, modelTargetElement, graphicTargetElement);
+                } else if (this.getTo() instanceof GmNodeModel && !((GmNodeModel)this.getTo()).isVisible()) {
+                    // target not visible anymore, delete the link
+                    this.delete();
+                    return;
                 }
             }
         
@@ -803,7 +810,7 @@ public abstract class GmLink extends GmModel implements IGmLink, IGmAnchorListen
         this.from = (IGmLinkable) in.readProperty("Source");
         this.to = (IGmLinkable) in.readProperty("Dest");
         this.extensions = in.readMapProperty("extensions");
-                
+        
         // FIXME Connect anchors
         final Object sourceAnchor = getPath().getSourceAnchor();
         if (sourceAnchor instanceof GmAbstractLinkAnchor)
@@ -811,15 +818,15 @@ public abstract class GmLink extends GmModel implements IGmLink, IGmAnchorListen
         final Object targetAnchor = getPath().getTargetAnchor();
         if (targetAnchor instanceof GmAbstractLinkAnchor)
             ((GmAbstractLinkAnchor) targetAnchor).addLink(this);
-                
+        
         // Read child classes data
         readLink(in);
-                
+        
         // Connect extensions
         for (GmNodeModel ext : this.extensions.keySet()) {
             ext.setParentLink(this);
         }
-                
+        
         // Connect extremities
         if (this.from != null)
             this.from.addStartingLink(this);

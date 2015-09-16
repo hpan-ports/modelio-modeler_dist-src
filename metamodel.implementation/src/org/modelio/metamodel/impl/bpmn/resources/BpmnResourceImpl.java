@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.bpmn.resources;
 
@@ -45,13 +45,13 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("00097356-c4c0-1fd8-97fe-001ec947cd2a")
 public class BpmnResourceImpl extends BpmnRootElementImpl implements BpmnResource {
-    @objid ("b16205e5-ccc4-4721-aa4c-bde16f756dad")
+    @objid ("2fbfa317-f87c-43dc-91ac-3cf709f02357")
     @Override
     public EList<BpmnResourceRole> getResourceroleRefs() {
         return new SmList<>(this, BpmnResourceData.Metadata.ResourceroleRefsDep());
     }
 
-    @objid ("8a1a34f4-d416-43c8-8700-b081b29d0386")
+    @objid ("f0071959-b944-4195-b653-93817c297025")
     @Override
     public <T extends BpmnResourceRole> List<T> getResourceroleRefs(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -64,13 +64,13 @@ public class BpmnResourceImpl extends BpmnRootElementImpl implements BpmnResourc
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("a4df573e-5174-4291-bd63-012b1583ce4b")
+    @objid ("15c95b04-b173-4dc3-8d2a-a94fc4b72027")
     @Override
     public EList<BpmnResourceParameter> getParameter() {
         return new SmList<>(this, BpmnResourceData.Metadata.ParameterDep());
     }
 
-    @objid ("7795944c-e077-4c99-8868-7f6958f9aaf5")
+    @objid ("6779e55e-4218-4969-9454-9b2d2e4cf196")
     @Override
     public <T extends BpmnResourceParameter> List<T> getParameter(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -83,21 +83,21 @@ public class BpmnResourceImpl extends BpmnRootElementImpl implements BpmnResourc
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("43f351ba-aadc-4a4f-b088-9e9c16aae248")
+    @objid ("e9c47233-3dd9-42fc-b17e-b7537c0f7057")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("c8cf6a51-7314-485a-a109-04bd58ea09d2")
+    @objid ("ce7f3683-dd85-414f-ad8b-c797f10f7bb5")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("fb5aba9c-2d47-4d92-bc1f-85e05b1b9da6")
+    @objid ("e178063c-0e38-4beb-af3b-b0699e28f13f")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitBpmnResource(this);

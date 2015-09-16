@@ -32,10 +32,10 @@ import org.eclipse.swt.widgets.Text;
 @objid ("8dd22d9b-c068-11e1-8c0a-002564c97630")
 class StringTextListener implements ModifyListener, KeyListener {
     @objid ("8dd22d9c-c068-11e1-8c0a-002564c97630")
-    private StringListEditionDialog dialog = null;
+    private StringListEditionComposite dialog = null;
 
     @objid ("8dd22d9d-c068-11e1-8c0a-002564c97630")
-    public StringTextListener(StringListEditionDialog dialog) {
+    public StringTextListener(StringListEditionComposite dialog) {
         this.dialog = dialog;
     }
 
@@ -51,7 +51,7 @@ class StringTextListener implements ModifyListener, KeyListener {
         if (e.keyCode == SWT.CR) {
             Text addStringText = (Text)e.getSource();
             String text = addStringText.getText();
-            this.dialog.addAdapter(new StringAdapter(text));
+            this.dialog.addAdapter(text);
             addStringText.setText("");
         }
     }

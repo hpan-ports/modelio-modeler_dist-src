@@ -24,6 +24,9 @@ package org.modelio.core.ui.images;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.jface.viewers.LabelProvider;
 
+/**
+ * Abstract {@link IModelioElementLabelProvider} implementation.
+ */
 @objid ("0086281a-d911-100f-85b1-001ec947cd2a")
 public abstract class AbstractModelioElementLabelProvider extends LabelProvider implements IModelioElementLabelProvider {
     @objid ("0095fa88-f04f-100f-85b1-001ec947cd2a")

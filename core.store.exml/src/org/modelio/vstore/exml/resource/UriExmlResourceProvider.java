@@ -40,11 +40,11 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.vbasic.auth.IAuthData;
 import org.modelio.vbasic.files.CloseOnFail;
 import org.modelio.vbasic.files.FileUtils;
+import org.modelio.vbasic.log.Log;
 import org.modelio.vbasic.net.UriConnection;
 import org.modelio.vbasic.net.UriConnections;
 import org.modelio.vbasic.net.UriUtils;
 import org.modelio.vbasic.progress.IModelioProgress;
-import org.modelio.vcore.Log;
 import org.modelio.vcore.session.api.blob.IBlobInfo;
 import org.modelio.vcore.session.api.repository.BlobServices;
 import org.modelio.vstore.exml.common.index.IndexOutdatedException;
@@ -279,17 +279,20 @@ public class UriExmlResourceProvider implements IExmlResourceProvider {
             throw new IndexOutdatedException(this.getName()+" indexes not yet copied in '"+this.localIndexDir+"'.");
         
         final String remoteStamp = getStamp();
+        //Log.trace("Checking '"+this.getName()+"' repo indexes, remote stamp="+remoteStamp+" ("+this.stampUrl+")");
         
         try {
             String localStamp = readLocalStamp();
-            if (! localStamp.equals(remoteStamp))
+            //Log.trace("Checking '"+this.getName()+"' repo indexes, local stamp ="+localStamp+" ("+this.localIndexStampPath+")");
+            if (! localStamp.equals(remoteStamp)) {
                 throw new IndexOutdatedException(getName()+" local index stamp outdated:\n"+
                         " - local index stamp: "+localStamp+"\n"+
                         " - remote repository stamp: "+remoteStamp);
+            }
         } catch (java.nio.file.NoSuchFileException e) {
             throw new IndexOutdatedException("No '"+this.localIndexStampPath+"' stamp file yet.");
         } catch (IOException e) {
-            throw new IndexOutdatedException("Failed reading '"+this.localIndexStampPath+"': "+e.toString(), e);
+            throw new IndexOutdatedException("Failed reading '"+this.localIndexStampPath+"': "+FileUtils.getLocalizedMessage(e), e);
         }
     }
 
@@ -323,6 +326,12 @@ public class UriExmlResourceProvider implements IExmlResourceProvider {
     @Override
     public ExmlResource getRepositoryVersionResource() {
         return new UriResource(this.versionUri, this.auth);
+    }
+
+    @objid ("e1bed58b-db17-48d3-8aa8-5d1d5c2b32aa")
+    @Override
+    public boolean isBrowsable() {
+        return false;
     }
 
     /**

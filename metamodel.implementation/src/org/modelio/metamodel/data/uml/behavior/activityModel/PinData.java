@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.data.uml.behavior.activityModel;
 
@@ -44,43 +44,43 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("003cf4e2-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=Pin.class, factory=PinData.Metadata.ObjectFactory.class)
 public abstract class PinData extends ObjectNodeData {
-    @objid ("4a43cb08-acec-4a12-b98d-cffa1c2c6d9c")
+    @objid ("f3804d77-7786-4e3c-9dd5-28dcde605ec0")
     @SmaMetaAttribute(metaName="IsControl", type=Boolean.class, smAttributeClass=Metadata.IsControlSmAttribute.class)
      Object mIsControl = false;
 
-    @objid ("b0dbbb6c-aa0b-423b-9ad2-c22fb43abb0b")
+    @objid ("6819bbea-7f6f-4f73-b680-0d2d2b13561d")
     @SmaMetaAttribute(metaName="IsExpansion", type=Boolean.class, smAttributeClass=Metadata.IsExpansionSmAttribute.class)
      Object mIsExpansion = false;
 
-    @objid ("017286aa-7e85-47a5-9287-8721fdf80c03")
+    @objid ("7deba86f-a3d6-4a96-89a6-604a43b2561d")
     @SmaMetaAssociation(metaName="Matched", typeDataClass=ParameterData.class, min=0, max=1, smAssociationClass=Metadata.MatchedSmDependency.class, partof = true)
      SmObjectImpl mMatched;
 
-    @objid ("56ee54ce-19ea-422c-9d81-0a129ddb455d")
+    @objid ("cf1ff2f6-07e5-4e66-8bcd-7617073ffff2")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("002fdd34-c4c3-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("99ba830f-1f4a-441c-882c-2f4935dd8601")
+        @objid ("0c82429e-03c2-4c43-ad0e-139b6c186055")
         private static SmClass smClass = null;
 
-        @objid ("cdcb4823-bb15-46ac-8221-55142bc9c8fb")
+        @objid ("a1e32ba1-2f42-4312-9fe8-8ebd1d679f4e")
         private static SmAttribute IsControlAtt = null;
 
-        @objid ("b6b32b43-255d-4178-a41b-ea997d8a5c5e")
+        @objid ("f09cda8e-ec43-48b7-a615-34c56e45d208")
         private static SmAttribute IsExpansionAtt = null;
 
-        @objid ("00df1f8a-80ed-4285-b4c2-220614fe73a3")
+        @objid ("04ac8cac-10f3-4e6d-94c2-aa9098d47dd6")
         private static SmDependency MatchedDep = null;
 
-        @objid ("0832bbea-68fa-47c2-a30b-8645dd9e6115")
+        @objid ("ed8037ea-1e8f-49e5-bfd2-c603e9f21bdd")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(PinData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("9d67bc1e-0a69-47f4-b207-613ee792e640")
+        @objid ("b8855bda-226c-4fea-a4af-2027539cdfaf")
         public static SmAttribute IsControlAtt() {
             if (IsControlAtt == null) {
             	IsControlAtt = classof().getAttributeDef("IsControl");
@@ -88,7 +88,7 @@ public abstract class PinData extends ObjectNodeData {
             return IsControlAtt;
         }
 
-        @objid ("2412566f-4d63-46ea-bdab-c133050bc905")
+        @objid ("66cd9299-88b8-481b-91d7-2b6315720489")
         public static SmAttribute IsExpansionAtt() {
             if (IsExpansionAtt == null) {
             	IsExpansionAtt = classof().getAttributeDef("IsExpansion");
@@ -96,7 +96,7 @@ public abstract class PinData extends ObjectNodeData {
             return IsExpansionAtt;
         }
 
-        @objid ("0a43802c-5e3f-4bda-a281-5d8f8e3cc05e")
+        @objid ("bab7ee7b-2ba1-4fe1-a107-b6b94551f267")
         public static SmDependency MatchedDep() {
             if (MatchedDep == null) {
             	MatchedDep = classof().getDependencyDef("Matched");
@@ -104,38 +104,38 @@ public abstract class PinData extends ObjectNodeData {
             return MatchedDep;
         }
 
-        @objid ("1c381a79-21f7-4b12-8d48-fac94e24f83f")
+        @objid ("698fdab2-6926-4a1c-a9fd-9e24d3ccc2ae")
         public static SmAttribute getIsExpansionAtt() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return IsExpansionAtt;
         }
 
-        @objid ("b021cc44-4ec4-4cbb-9658-e9fb146fe9b5")
-        public static SmAttribute getIsControlAtt() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return IsControlAtt;
-        }
-
-        @objid ("19f23d1c-be55-4399-bda2-66464bd7897e")
+        @objid ("7c2b1516-045a-4e74-99ed-c7b77b597fbd")
         public static SmClass getSmClass() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return smClass;
         }
 
-        @objid ("af97b2f3-17e7-4c4b-86e6-4bc9b969cda3")
+        @objid ("7ccdde73-e19b-4f55-add0-2c2556b32504")
         public static SmDependency getMatchedDep() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return MatchedDep;
         }
 
+        @objid ("afe1fa62-f35d-4b79-890b-2d0b5c9f4ee1")
+        public static SmAttribute getIsControlAtt() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return IsControlAtt;
+        }
+
         @objid ("0030205a-c4c3-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("ffe5c153-40b7-4a89-b189-ee592382abe6")
+            @objid ("0607dcfe-0c15-4c45-ba01-216a27ebbe4c")
             public ISmObjectData createData() {
                 throw new UnsupportedOperationException();
             }
 
-            @objid ("17364400-ace7-42dd-ae4e-1b2de5b5a68a")
+            @objid ("10069aa0-f694-4cf6-9c8d-2628cc68b3c7")
             public SmObjectImpl createImpl() {
                 throw new UnsupportedOperationException();
             }
@@ -144,12 +144,12 @@ public abstract class PinData extends ObjectNodeData {
 
         @objid ("00308342-c4c3-1fd8-97fe-001ec947cd2a")
         public static class IsControlSmAttribute extends SmAttribute {
-            @objid ("c95d715c-9a45-49d3-bedf-d90bbbe7d932")
+            @objid ("2a63302b-b9cd-4ddb-b162-d290f44e11a3")
             public Object getValue(ISmObjectData data) {
                 return ((PinData) data).mIsControl;
             }
 
-            @objid ("7eee699f-a004-483a-a8ea-2a5e671c26a8")
+            @objid ("17c847aa-4d89-45f7-a22e-bf03e22d2235")
             public void setValue(ISmObjectData data, Object value) {
                 ((PinData) data).mIsControl = value;
             }
@@ -158,12 +158,12 @@ public abstract class PinData extends ObjectNodeData {
 
         @objid ("0030e7ba-c4c3-1fd8-97fe-001ec947cd2a")
         public static class IsExpansionSmAttribute extends SmAttribute {
-            @objid ("619c0269-226e-4036-8253-ebc0cd15f653")
+            @objid ("79fdd70e-c138-4bdb-96f3-e8480d9a4bb9")
             public Object getValue(ISmObjectData data) {
                 return ((PinData) data).mIsExpansion;
             }
 
-            @objid ("e87be127-f8bf-4ecd-996b-6015152f3cca")
+            @objid ("ca55f8d2-116f-4646-b0b7-53065025eb8b")
             public void setValue(ISmObjectData data, Object value) {
                 ((PinData) data).mIsExpansion = value;
             }
@@ -172,18 +172,18 @@ public abstract class PinData extends ObjectNodeData {
 
         @objid ("00314c50-c4c3-1fd8-97fe-001ec947cd2a")
         public static class MatchedSmDependency extends SmSingleDependency {
-            @objid ("b08f89c4-a796-472b-84fa-8b75cc6229a5")
+            @objid ("df020356-b22e-45c8-9051-d05ffed3fedc")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((PinData) data).mMatched;
             }
 
-            @objid ("78ef0426-9d95-4e87-8a91-08c260dcda2d")
+            @objid ("78587d49-8aa4-493b-8f55-7797c0b0fa81")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((PinData) data).mMatched = value;
             }
 
-            @objid ("3cbe14e1-4526-4cbe-b7f6-7ed5fdd1a174")
+            @objid ("5d981084-c12c-4cd6-82c4-db44cb34d10d")
             @Override
             public SmDependency getSymetric() {
                 return ParameterData.Metadata.MatchingDep();

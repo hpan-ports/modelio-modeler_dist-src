@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.analyst;
 
@@ -32,10 +32,10 @@ import org.modelio.metamodel.uml.infrastructure.properties.TypedPropertyTable;
 
 @objid ("00899cf2-ec8f-1098-b22e-001ec947cd2a")
 public interface AnalystPropertyTable extends TypedPropertyTable {
-    @objid ("5019b4d3-80ae-41f4-b90d-c168ea1b0c50")
+    @objid ("b80d00b0-27a6-4886-b541-0d1506db88ba")
     AnalystItem getAnalystOwner();
 
-    @objid ("639f0447-1746-4665-b0d9-30923fdd8ff8")
+    @objid ("bf0ee72f-9faf-48f4-95d5-17f40ba7f1c5")
     void setAnalystOwner(AnalystItem value);
 
 }

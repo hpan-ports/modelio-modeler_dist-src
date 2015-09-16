@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.uml.behavior.stateMachineModel;
 
@@ -35,22 +35,22 @@ import org.modelio.metamodel.uml.infrastructure.ModelElement;
 
 @objid ("0056e10e-c4bf-1fd8-97fe-001ec947cd2a")
 public interface Region extends ModelElement {
-    @objid ("73916aef-4090-4d7d-9f39-39623e048b16")
+    @objid ("8e80ca00-268f-46f2-beba-ccea77148cff")
     State getParent();
 
-    @objid ("48410b93-59aa-44a8-8896-10e0be2088ea")
+    @objid ("5ca97236-a969-4068-b07c-aed35540c34c")
     void setParent(State value);
 
-    @objid ("28c4ff2f-c844-4f2c-af87-d5471a2ba79d")
+    @objid ("c9e74f0a-bf27-4e26-8515-46f411f22f92")
     StateMachine getRepresented();
 
-    @objid ("3b986332-777a-4b06-94d9-4ceb07200293")
+    @objid ("1ef48ea1-0bad-4077-84ad-1222d9f8982a")
     void setRepresented(StateMachine value);
 
-    @objid ("6707de94-d6b0-4f03-92b2-3438b36fd7f8")
+    @objid ("236751b6-e5f1-4477-8d46-1453eea4d25d")
     EList<StateVertex> getSub();
 
-    @objid ("2d1d278e-c800-47db-8bbd-cf82a8e0acad")
+    @objid ("c743a5c0-b6fc-4513-aec7-a0ae2ba6cadb")
     <T extends StateVertex> List<T> getSub(java.lang.Class<T> filterClass);
 
 }

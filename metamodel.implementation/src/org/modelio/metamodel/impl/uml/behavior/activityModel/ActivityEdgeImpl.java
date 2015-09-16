@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.uml.behavior.activityModel;
 
@@ -46,73 +46,73 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("002733be-c4bf-1fd8-97fe-001ec947cd2a")
 public abstract class ActivityEdgeImpl extends ModelElementImpl implements ActivityEdge {
-    @objid ("d98de2af-9b4b-4261-a5bd-371ea4b16d69")
+    @objid ("981a6276-afb8-49c0-af13-c2f9a054e29e")
     @Override
     public String getGuard() {
         return (String) getAttVal(ActivityEdgeData.Metadata.GuardAtt());
     }
 
-    @objid ("d6ddd814-4f22-4926-a5e0-de958ec5242e")
+    @objid ("730bfdc0-4762-4a1e-839f-37ccf5969c49")
     @Override
     public void setGuard(String value) {
         setAttVal(ActivityEdgeData.Metadata.GuardAtt(), value);
     }
 
-    @objid ("fd62155d-e416-47ac-be54-46f527bea010")
+    @objid ("ec2d48f7-3dd7-426f-8358-b9684bc8f389")
     @Override
     public String getWeight() {
         return (String) getAttVal(ActivityEdgeData.Metadata.WeightAtt());
     }
 
-    @objid ("ee4ec938-e611-47d1-894b-66171d8e80ff")
+    @objid ("8a55caf7-3b42-4950-8343-0a41025c91a7")
     @Override
     public void setWeight(String value) {
         setAttVal(ActivityEdgeData.Metadata.WeightAtt(), value);
     }
 
-    @objid ("54b2276c-9a45-4beb-a2fe-7728a3be605d")
+    @objid ("7e336455-b563-425a-bc23-8200080ec93b")
     @Override
     public ActivityNode getTarget() {
         return (ActivityNode) getDepVal(ActivityEdgeData.Metadata.TargetDep());
     }
 
-    @objid ("d18e2d9c-b17c-4ee1-8309-23a176cbc279")
+    @objid ("65111f37-c5b4-4a4c-b0c1-9e274395c810")
     @Override
     public void setTarget(ActivityNode value) {
         appendDepVal(ActivityEdgeData.Metadata.TargetDep(), (SmObjectImpl)value);
     }
 
-    @objid ("5c274043-de5e-46e7-a5df-6dbe79b9b081")
+    @objid ("3fd1b8cb-65df-4136-a278-636cbe7b2c9f")
     @Override
     public ActivityNode getSource() {
         return (ActivityNode) getDepVal(ActivityEdgeData.Metadata.SourceDep());
     }
 
-    @objid ("119da18b-2589-4318-a099-3027cb6c76a7")
+    @objid ("1334983c-14a3-46c3-bc87-7f3d9118bfb5")
     @Override
     public void setSource(ActivityNode value) {
         appendDepVal(ActivityEdgeData.Metadata.SourceDep(), (SmObjectImpl)value);
     }
 
-    @objid ("829e3e33-ce55-4d19-a47d-b233d358acd7")
+    @objid ("92d968ef-3e97-4017-89e7-c05f8cf08e3b")
     @Override
     public InterruptibleActivityRegion getInterrupts() {
         return (InterruptibleActivityRegion) getDepVal(ActivityEdgeData.Metadata.InterruptsDep());
     }
 
-    @objid ("150d4b81-7ef7-4380-960d-0ef5e9d56f52")
+    @objid ("c6341c0f-2950-498a-a302-54eff03a2f6a")
     @Override
     public void setInterrupts(InterruptibleActivityRegion value) {
         appendDepVal(ActivityEdgeData.Metadata.InterruptsDep(), (SmObjectImpl)value);
     }
 
-    @objid ("d54fabaa-9753-41c4-8639-b1a1bc81d389")
+    @objid ("5d6a0434-8d36-444e-88fc-5bd166119d74")
     @Override
     public EList<InformationFlow> getRealizedInformationFlow() {
         return new SmList<>(this, ActivityEdgeData.Metadata.RealizedInformationFlowDep());
     }
 
-    @objid ("da47c0f0-3b32-4d8f-9d96-46cf6b86812a")
+    @objid ("e1c9ae0b-f998-4022-8e21-ae2ac4a9dd17")
     @Override
     public <T extends InformationFlow> List<T> getRealizedInformationFlow(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -125,7 +125,7 @@ public abstract class ActivityEdgeImpl extends ModelElementImpl implements Activ
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("8ea4c489-ea26-4744-837f-f91376f7dd90")
+    @objid ("00ad2e11-8fb0-436b-9ff0-ff2b276cde12")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
@@ -135,7 +135,7 @@ public abstract class ActivityEdgeImpl extends ModelElementImpl implements Activ
         return super.getCompositionOwner();
     }
 
-    @objid ("798219a4-a707-44e8-992b-561c7818bc75")
+    @objid ("234c41f8-55eb-4e9f-849b-226c4917b720")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
@@ -145,7 +145,7 @@ public abstract class ActivityEdgeImpl extends ModelElementImpl implements Activ
         return super.getCompositionRelation();
     }
 
-    @objid ("ddcb00f3-2880-4bd8-98ef-3cf23363f83d")
+    @objid ("8d73f98b-c548-4ec3-830b-9b92ca2dd001")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitActivityEdge(this);

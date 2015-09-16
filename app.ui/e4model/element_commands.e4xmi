@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="ASCII"?>
 <fragment:ModelFragments xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:commands="http://www.eclipse.org/ui/2010/UIModel/application/commands" xmlns:fragment="http://www.eclipse.org/ui/2010/UIModel/fragment" xmi:id="_zJdQQMXVEeGrwPgJy-zNWg">
+  <imports xsi:type="commands:BindingContext" xmi:id="_r5PA4Dp4EeSS3e2fiyJoRw" elementId="org.eclipse.ui.contexts.window"/>
+  <imports xsi:type="commands:Command" xmi:id="_5noDgDp4EeSS3e2fiyJoRw" elementId="org.modelio.app.ui.command.openproject"/>
+  <imports xsi:type="commands:Command" xmi:id="_6C1_4Dp4EeSS3e2fiyJoRw" elementId="org.eclipse.ui.edit.undo"/>
+  <imports xsi:type="commands:Command" xmi:id="_6ErL4Dp4EeSS3e2fiyJoRw" elementId="org.eclipse.ui.edit.redo"/>
   <fragments xsi:type="fragment:StringModelFragment" xmi:id="_2OJwUMXVEeGrwPgJy-zNWg" featurename="commands" parentElementId="org.modelio.app.application">
     <elements xsi:type="commands:Command" xmi:id="_Un2ZsMmnEeGk-9_dCOGKVQ" elementId="org.modelio.app.ui.command.create.abstractnamespace" commandName="Create Abstract Namespace">
       <parameters xmi:id="_Zs1WgMmnEeGk-9_dCOGKVQ" elementId="metaclass" name="metaclass" optional="false"/>
@@ -181,6 +185,13 @@
     </elements>
     <elements xsi:type="commands:Command" xmi:id="_hXAAkBx4EeOKmunD3rzg2A" elementId="org.modelio.app.ui.command.openrelateddiagram" commandName="%OpenRelatedDiagram.name" description="%OpenRelatedDiagram.description">
       <parameters xmi:id="_bv28cBx5EeOKmunD3rzg2A" elementId="org.modelio.app.ui.command.parameter.related_diagram" name="org.modelio.app.ui.command.parameter.related_diagram"/>
+    </elements>
+  </fragments>
+  <fragments xsi:type="fragment:StringModelFragment" xmi:id="_ePl7YDp4EeSS3e2fiyJoRw" featurename="bindingTables" parentElementId="org.modelio.app.application">
+    <elements xsi:type="commands:BindingTable" xmi:id="_jFtVwDp4EeSS3e2fiyJoRw" elementId="app.ui.bindingtable.0" bindingContext="_r5PA4Dp4EeSS3e2fiyJoRw">
+      <bindings xmi:id="_mLpL8Dp4EeSS3e2fiyJoRw" keySequence="M1+O" command="_5noDgDp4EeSS3e2fiyJoRw"/>
+      <bindings xmi:id="_nBICcDp4EeSS3e2fiyJoRw" keySequence="M1+Z" command="_6C1_4Dp4EeSS3e2fiyJoRw"/>
+      <bindings xmi:id="_nYA4cDp4EeSS3e2fiyJoRw" keySequence="M1+Y" command="_6ErL4Dp4EeSS3e2fiyJoRw"/>
     </elements>
   </fragments>
 </fragment:ModelFragments>

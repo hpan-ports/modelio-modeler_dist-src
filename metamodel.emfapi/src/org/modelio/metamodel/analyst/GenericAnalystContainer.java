@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.analyst;
 
@@ -33,28 +33,28 @@ import org.modelio.metamodel.analyst.GenericAnalystElement;
 
 @objid ("57374567-a655-4223-8606-596d9088326b")
 public interface GenericAnalystContainer extends AnalystContainer {
-    @objid ("b26001b1-e4e5-4690-9d13-7f3d34c9336e")
+    @objid ("257ec2b8-e7ce-487e-9693-ecbcaac8c56f")
     EList<GenericAnalystElement> getOwnedElement();
 
-    @objid ("ccdaf086-f881-4b58-9bee-c8d2b5f7ecdd")
+    @objid ("66961bf9-1913-4ef3-bb0f-7108505629a0")
     <T extends GenericAnalystElement> List<T> getOwnedElement(java.lang.Class<T> filterClass);
 
-    @objid ("dac9d800-f1ac-454c-847c-fcd210e75009")
+    @objid ("7a722b47-3b36-4bf0-917b-916ac5d999b1")
     GenericAnalystContainer getOwnerContainer();
 
-    @objid ("1576f8f9-4f6e-46af-97e6-be901dc72213")
+    @objid ("c5df3d8f-5003-4e39-8865-d93e11219af0")
     void setOwnerContainer(GenericAnalystContainer value);
 
-    @objid ("48f567eb-39ed-4145-9524-9cecc8730b25")
+    @objid ("2f09a779-6166-4135-895d-b06b023acc8f")
     EList<GenericAnalystContainer> getOwnedContainer();
 
-    @objid ("33e05f01-f282-4f10-83ed-9ad258a7bb63")
+    @objid ("89f85fad-20aa-417e-9dbc-7d1c2afb0b17")
     <T extends GenericAnalystContainer> List<T> getOwnedContainer(java.lang.Class<T> filterClass);
 
-    @objid ("c8bd6810-3850-487e-934c-883dd8da918c")
+    @objid ("faba4e7e-5282-4b10-85c8-fc4d8b2cfc50")
     AnalystProject getOwnerProject();
 
-    @objid ("79f8e8f3-09a6-4806-a8f8-a486ea9be6bb")
+    @objid ("dd9c115f-cc54-4efa-9d17-058381127d90")
     void setOwnerProject(AnalystProject value);
 
 }

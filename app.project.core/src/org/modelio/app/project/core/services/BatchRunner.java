@@ -24,6 +24,7 @@ package org.modelio.app.project.core.services;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.util.Map.Entry;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.api.modelio.Modelio;
 import org.modelio.app.project.core.creation.ProjectCreationDataModel;
@@ -35,7 +36,7 @@ import org.modelio.script.engine.core.engine.IScriptRunner;
 import org.modelio.script.engine.core.engine.ScriptRunnerFactory;
 
 @objid ("00470784-8d2e-10b4-9941-001ec947cd2a")
-public class BatchRunner implements Runnable {
+class BatchRunner implements Runnable {
     @objid ("00471044-8d2e-10b4-9941-001ec947cd2a")
     private final CommandLineData batchData;
 
@@ -124,20 +125,34 @@ public class BatchRunner implements Runnable {
         // run in batch mode
         if (openedProject != null && scriptFile != null) {
             AppProjectCore.LOG.info("Running script: %s", scriptFile);
-            if (scriptFile.getName().endsWith(".py")) {
-                final IScriptRunner scriptRunner = ScriptRunnerFactory.getInstance().getScriptRunner("jython");
-                scriptRunner.addClassLoader(scriptRunner.getEngine().getClass().getClassLoader());
-                scriptRunner.bind("coreSession", openedProject.getSession());
-                scriptRunner.bind("modelingSession", Modelio.getInstance().getModelingSession());
-                scriptRunner.runFile(scriptFile.toPath(), null, null);
+            int retcode = 0;
+            try {
+                if (scriptFile.getName().endsWith(".py")) {
+                    final IScriptRunner scriptRunner = ScriptRunnerFactory.getInstance().getScriptRunner("jython");
+                    scriptRunner.addClassLoader(scriptRunner.getEngine().getClass().getClassLoader());
+                    scriptRunner.bind("coreSession", openedProject.getSession());
+                    scriptRunner.bind("modelingSession", Modelio.getInstance().getModelingSession());
+                    scriptRunner.bind("parameters", this.batchData.getBatchParameters());
+                    
+                    for (Entry<String, String> p : this.batchData.getBatchParameters().entrySet())
+                        scriptRunner.bind(p.getKey(), p.getValue());
         
-            } else {
-                AppProjectCore.LOG.error("The script must a Python script (.py), aborting...");
+                    scriptRunner.runFile(scriptFile.toPath(), null, null);
+                } else if (scriptFile.getName().endsWith(".jar")) {
+                    // Run .jar main class as a E4 processor
+                    new JarRunner().runJarFile(openedProject, scriptFile, this.batchData.getBatchParameters());
+                } else {
+                    AppProjectCore.LOG.error("The script must a Python script (.py), aborting...");
+                }
+            } catch (Throwable e) {
+                AppProjectCore.LOG.error("Unexpected exception:");
+                AppProjectCore.LOG.error(e);
+                retcode = -1;
+            } finally {
+                this.projectService.closeProject(openedProject);
             }
         
-            this.projectService.closeProject(openedProject);
-        
-            System.exit(0);
+            System.exit(retcode);
         }
     }
 

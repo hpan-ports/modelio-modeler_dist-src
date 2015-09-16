@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.data.uml.behavior.stateMachineModel;
 
@@ -49,99 +49,99 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("00561594-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=Transition.class, factory=TransitionData.Metadata.ObjectFactory.class)
 public class TransitionData extends ModelElementData {
-    @objid ("f3b7fade-36b3-4619-ac07-49175f737149")
+    @objid ("be3da40d-f978-40fe-b60c-eb1638fb85d7")
     @SmaMetaAttribute(metaName="Effect", type=String.class, smAttributeClass=Metadata.EffectSmAttribute.class)
      Object mEffect = "";
 
-    @objid ("fab34d66-aa21-4aff-a230-753242c7d859")
+    @objid ("192a58db-f354-43be-a6be-3ddd021143b9")
     @SmaMetaAttribute(metaName="ReceivedEvents", type=String.class, smAttributeClass=Metadata.ReceivedEventsSmAttribute.class)
      Object mReceivedEvents = "";
 
-    @objid ("3b94497e-ba3d-4bf2-abf5-84676b80d136")
+    @objid ("a384169a-9ebc-4c6b-b226-0c3eed69ca24")
     @SmaMetaAttribute(metaName="SentEvents", type=String.class, smAttributeClass=Metadata.SentEventsSmAttribute.class)
      Object mSentEvents = "";
 
-    @objid ("f6ead2cb-a1b4-43a1-bf5f-4a2186b3bd95")
+    @objid ("8b6448f5-a38d-4850-a6d7-d8aec1d49982")
     @SmaMetaAttribute(metaName="Guard", type=String.class, smAttributeClass=Metadata.GuardSmAttribute.class)
      Object mGuard = "";
 
-    @objid ("e3593ed1-26cc-4fa3-903d-f140eb34487d")
+    @objid ("403df84c-9c11-42e0-813a-429aac28b996")
     @SmaMetaAttribute(metaName="PostCondition", type=String.class, smAttributeClass=Metadata.PostConditionSmAttribute.class)
      Object mPostCondition = "";
 
-    @objid ("2c847b0c-8272-460e-8fb4-757f46d722d2")
+    @objid ("1b2bb14d-b0f3-47d5-9923-991362056bd0")
     @SmaMetaAssociation(metaName="Processed", typeDataClass=OperationData.class, min=0, max=1, smAssociationClass=Metadata.ProcessedSmDependency.class, partof = true)
      SmObjectImpl mProcessed;
 
-    @objid ("fc62eb25-a21e-430d-8d5e-fa26a33acf18")
+    @objid ("3bd2e2e5-ff82-4433-afc5-3969528eb599")
     @SmaMetaAssociation(metaName="Trigger", typeDataClass=EventData.class, min=0, max=1, smAssociationClass=Metadata.TriggerSmDependency.class, partof = true)
      SmObjectImpl mTrigger;
 
-    @objid ("45cf816b-8701-4c97-8d63-bea55de2fbd1")
+    @objid ("7d9e1a37-b739-4340-8129-2a9e85d799cc")
     @SmaMetaAssociation(metaName="BehaviorEffect", typeDataClass=BehaviorData.class, min=0, max=1, smAssociationClass=Metadata.BehaviorEffectSmDependency.class, partof = true)
      SmObjectImpl mBehaviorEffect;
 
-    @objid ("1f0a5328-e43a-4b3a-adfa-7c424dd45c86")
+    @objid ("1a612ef2-3c12-451d-bc31-517d9c9e1b06")
     @SmaMetaAssociation(metaName="Target", typeDataClass=StateVertexData.class, min=0, max=1, smAssociationClass=Metadata.TargetSmDependency.class, partof = true)
      SmObjectImpl mTarget;
 
-    @objid ("607a4cd6-7125-4110-9b0a-095815c996a6")
+    @objid ("4018ece2-4f92-4d1f-9e7c-9b75b494cafd")
     @SmaMetaAssociation(metaName="Source", typeDataClass=StateVertexData.class, min=0, max=1, smAssociationClass=Metadata.SourceSmDependency.class)
      SmObjectImpl mSource;
 
-    @objid ("443fda50-fdc0-4940-b99e-758dc0144931")
+    @objid ("f2d2bd9b-44ad-4302-9982-63b6371ebea8")
     @SmaMetaAssociation(metaName="Effects", typeDataClass=SignalData.class, min=0, max=1, smAssociationClass=Metadata.EffectsSmDependency.class, partof = true)
      SmObjectImpl mEffects;
 
-    @objid ("5954904b-50e9-463b-81ae-c73f141745e7")
+    @objid ("e8318ed8-7bd5-46dd-af74-d27ebcf77b72")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("0060fff4-c4c3-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("44c6461e-881f-46e7-a223-57900f20e432")
+        @objid ("31498e91-1a47-41b2-9b81-e4a81bee7556")
         private static SmClass smClass = null;
 
-        @objid ("af760fea-89a0-484b-8ad9-bd6499f83305")
+        @objid ("b3c5ab7a-2fd4-42c6-a477-fc3663871ece")
         private static SmAttribute EffectAtt = null;
 
-        @objid ("9f5bde71-04d0-4802-aba2-3666e87c6483")
+        @objid ("ef8b8479-a4ab-4039-9a5d-2d9363d26770")
         private static SmAttribute ReceivedEventsAtt = null;
 
-        @objid ("04d79461-3d12-4a48-8dec-e39595c24ab1")
+        @objid ("a03b6388-6adc-4af3-b476-1d01b518cbf7")
         private static SmAttribute SentEventsAtt = null;
 
-        @objid ("548d3583-4c90-43e0-adcd-0ae49c7d311b")
+        @objid ("eb678353-f763-462d-8120-943491ca70c6")
         private static SmAttribute GuardAtt = null;
 
-        @objid ("25cbdbe7-c69a-4b3b-b889-0b4dcacc1bf5")
+        @objid ("50efbfc6-9e11-4e1c-b18d-62bd5f1e8ebd")
         private static SmAttribute PostConditionAtt = null;
 
-        @objid ("b1bee38b-69b8-4677-b4d8-b424e320247c")
+        @objid ("0bfc17c2-96e1-4178-bf97-baaf7c93fb10")
         private static SmDependency ProcessedDep = null;
 
-        @objid ("aa83e7f8-1a93-4d3e-9824-a95a8d48d775")
+        @objid ("0849dde8-a08a-4075-9675-db76f063a290")
         private static SmDependency TriggerDep = null;
 
-        @objid ("6813a37f-61ea-4024-92f2-1ffa1129be09")
+        @objid ("8e9857fb-2b03-4a14-9aba-7bf9b5732e89")
         private static SmDependency BehaviorEffectDep = null;
 
-        @objid ("caa9ca21-6854-46fb-979f-43203699c655")
+        @objid ("fe6047fe-125e-409c-960a-87ba325f5691")
         private static SmDependency TargetDep = null;
 
-        @objid ("589b57e4-bf76-46ac-b736-4d8d47572d23")
+        @objid ("a2a2cb5e-53eb-4f88-877e-584a2a9cf1eb")
         private static SmDependency SourceDep = null;
 
-        @objid ("2b153c3b-daec-47bf-b8bd-2dc17ebe06b1")
+        @objid ("6b535a13-e8b4-4317-a53f-bb2f161a8a3e")
         private static SmDependency EffectsDep = null;
 
-        @objid ("64299ddc-76ed-4366-947a-2d263946746e")
+        @objid ("460a6737-b44c-4185-a8c3-dfddb7a57b66")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(TransitionData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("43cc3fc1-6987-4aa2-8335-e67856d77ce8")
+        @objid ("513d60aa-5fa9-43f6-9abf-223d8981c24b")
         public static SmAttribute EffectAtt() {
             if (EffectAtt == null) {
             	EffectAtt = classof().getAttributeDef("Effect");
@@ -149,7 +149,7 @@ public class TransitionData extends ModelElementData {
             return EffectAtt;
         }
 
-        @objid ("e6684ed0-c164-4261-82cd-6f30e5fe59d4")
+        @objid ("d4d284b2-1587-4141-a7c8-dce7f4d05efb")
         public static SmAttribute ReceivedEventsAtt() {
             if (ReceivedEventsAtt == null) {
             	ReceivedEventsAtt = classof().getAttributeDef("ReceivedEvents");
@@ -157,7 +157,7 @@ public class TransitionData extends ModelElementData {
             return ReceivedEventsAtt;
         }
 
-        @objid ("14fae8ab-9f69-43dd-a9dc-be62247bcf9e")
+        @objid ("f0a94775-871c-4d8d-a246-1ed5985a088a")
         public static SmAttribute SentEventsAtt() {
             if (SentEventsAtt == null) {
             	SentEventsAtt = classof().getAttributeDef("SentEvents");
@@ -165,7 +165,7 @@ public class TransitionData extends ModelElementData {
             return SentEventsAtt;
         }
 
-        @objid ("b118c500-b8ed-4b34-8e04-3a34fdfd07b0")
+        @objid ("d52e6a26-e6e2-4925-b46b-b822d3e5daf6")
         public static SmAttribute GuardAtt() {
             if (GuardAtt == null) {
             	GuardAtt = classof().getAttributeDef("Guard");
@@ -173,7 +173,7 @@ public class TransitionData extends ModelElementData {
             return GuardAtt;
         }
 
-        @objid ("89feea49-ab99-4d06-a4d9-fcc6ab9f2f6e")
+        @objid ("f666c245-0142-4270-b1e1-287fb6b74b1e")
         public static SmAttribute PostConditionAtt() {
             if (PostConditionAtt == null) {
             	PostConditionAtt = classof().getAttributeDef("PostCondition");
@@ -181,7 +181,7 @@ public class TransitionData extends ModelElementData {
             return PostConditionAtt;
         }
 
-        @objid ("fc3595aa-c259-47cb-9b68-47a8626a9aa7")
+        @objid ("1c1d8c06-4b23-4385-88dd-f3b38c27ea71")
         public static SmDependency ProcessedDep() {
             if (ProcessedDep == null) {
             	ProcessedDep = classof().getDependencyDef("Processed");
@@ -189,7 +189,7 @@ public class TransitionData extends ModelElementData {
             return ProcessedDep;
         }
 
-        @objid ("0b056602-235c-4844-a5d4-05dfbeb8b8d1")
+        @objid ("75da8216-a442-4505-95f6-44dad980f26d")
         public static SmDependency TriggerDep() {
             if (TriggerDep == null) {
             	TriggerDep = classof().getDependencyDef("Trigger");
@@ -197,7 +197,7 @@ public class TransitionData extends ModelElementData {
             return TriggerDep;
         }
 
-        @objid ("d264a0ac-e118-4103-90d1-4765cf8bf970")
+        @objid ("7442c70f-4ed6-4eb9-9f7d-4face27faff8")
         public static SmDependency BehaviorEffectDep() {
             if (BehaviorEffectDep == null) {
             	BehaviorEffectDep = classof().getDependencyDef("BehaviorEffect");
@@ -205,7 +205,7 @@ public class TransitionData extends ModelElementData {
             return BehaviorEffectDep;
         }
 
-        @objid ("c2086b59-8e76-4a46-9989-5a208bdbb676")
+        @objid ("0818c08b-8baa-4b4f-a53c-31b2fdf96892")
         public static SmDependency TargetDep() {
             if (TargetDep == null) {
             	TargetDep = classof().getDependencyDef("Target");
@@ -213,7 +213,7 @@ public class TransitionData extends ModelElementData {
             return TargetDep;
         }
 
-        @objid ("f71c29a6-30de-4b8a-9761-5792c698f2e7")
+        @objid ("0db1a593-2064-427b-b526-9740bc17bad1")
         public static SmDependency SourceDep() {
             if (SourceDep == null) {
             	SourceDep = classof().getDependencyDef("Source");
@@ -221,7 +221,7 @@ public class TransitionData extends ModelElementData {
             return SourceDep;
         }
 
-        @objid ("e9eecdee-2e8c-4f40-8729-e7950bb614cd")
+        @objid ("18137f69-9fe3-4621-b06a-c70cc0bfbdc5")
         public static SmDependency EffectsDep() {
             if (EffectsDep == null) {
             	EffectsDep = classof().getDependencyDef("Effects");
@@ -229,86 +229,86 @@ public class TransitionData extends ModelElementData {
             return EffectsDep;
         }
 
-        @objid ("6aa410f4-1108-46aa-a18d-c1e3722747d3")
-        public static SmDependency getBehaviorEffectDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return BehaviorEffectDep;
-        }
-
-        @objid ("ffd4aeb1-2887-4cac-990d-36d51a77ade2")
-        public static SmDependency getTargetDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return TargetDep;
-        }
-
-        @objid ("ef903732-d757-4a03-869e-22a80e1cb3f1")
+        @objid ("55b791d5-bfe8-43d8-9f2f-b5e371e951c2")
         public static SmDependency getTriggerDep() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return TriggerDep;
         }
 
-        @objid ("1e1cfd14-52ee-4c3b-9e4e-2eaf13ac322b")
+        @objid ("d22d6d0a-9213-464a-b3c2-59f6160f40be")
         public static SmDependency getProcessedDep() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return ProcessedDep;
         }
 
-        @objid ("fa2bbd64-1feb-4392-92e8-f499284673df")
-        public static SmAttribute getReceivedEventsAtt() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return ReceivedEventsAtt;
-        }
-
-        @objid ("6ef2dd45-5cf9-4b85-bb35-6ccc09567731")
-        public static SmDependency getEffectsDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return EffectsDep;
-        }
-
-        @objid ("36db1d53-32f5-495c-9f17-f7be38ed032e")
-        public static SmAttribute getGuardAtt() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return GuardAtt;
-        }
-
-        @objid ("be6ecc0a-c0e4-48ba-abd4-189bfa43e042")
+        @objid ("8c76af68-b683-4c73-a330-ed5fc52f7590")
         public static SmAttribute getPostConditionAtt() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return PostConditionAtt;
         }
 
-        @objid ("c585588e-ca76-4376-be92-4875195fe9e5")
-        public static SmAttribute getSentEventsAtt() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return SentEventsAtt;
-        }
-
-        @objid ("11f7fdb8-4604-4a28-8358-edc465903501")
+        @objid ("65788ca1-8389-4961-af74-9d6b32c07cbd")
         public static SmAttribute getEffectAtt() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return EffectAtt;
         }
 
-        @objid ("41eaf3cd-5bf4-4bd0-8fe0-2977fe762b93")
-        public static SmClass getSmClass() {
+        @objid ("75f62ca8-3998-4a65-b45a-5c4d6edce687")
+        public static SmDependency getTargetDep() {
             // Automatically generated method. Please delete this comment before entering specific code.
-            return smClass;
+            return TargetDep;
         }
 
-        @objid ("5f946a29-7fff-46b8-b1e4-986dd4835b21")
+        @objid ("016e7da9-3524-41a0-8459-e350eb459867")
         public static SmDependency getSourceDep() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return SourceDep;
         }
 
+        @objid ("54631b00-229a-46bc-98c0-3913008a1fdf")
+        public static SmAttribute getReceivedEventsAtt() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return ReceivedEventsAtt;
+        }
+
+        @objid ("2c914d01-afbc-4277-8b91-a98db6b700d5")
+        public static SmClass getSmClass() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return smClass;
+        }
+
+        @objid ("36bfb150-7216-446d-81bd-d3ba251f883c")
+        public static SmDependency getBehaviorEffectDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return BehaviorEffectDep;
+        }
+
+        @objid ("8078d1fa-42a0-4959-9aed-ccffc404b52f")
+        public static SmDependency getEffectsDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return EffectsDep;
+        }
+
+        @objid ("fd01008a-ae47-4d90-944c-1ea2e8095a15")
+        public static SmAttribute getGuardAtt() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return GuardAtt;
+        }
+
+        @objid ("d3a61ba7-522d-4e87-968e-20edfb8897a8")
+        public static SmAttribute getSentEventsAtt() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return SentEventsAtt;
+        }
+
         @objid ("006142c0-c4c3-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("ac4389e6-e9b9-4e50-9e07-c18ac6941526")
+            @objid ("ef16c275-d595-4153-906f-7dd6cb6c3423")
             public ISmObjectData createData() {
                 return new TransitionData();
             }
 
-            @objid ("0f3f5c33-61ce-4d99-8862-a7ce21c33827")
+            @objid ("7b4d99b6-85a2-4215-975a-bb74ff4be2ee")
             public SmObjectImpl createImpl() {
                 return new TransitionImpl();
             }
@@ -317,12 +317,12 @@ public class TransitionData extends ModelElementData {
 
         @objid ("0061a56c-c4c3-1fd8-97fe-001ec947cd2a")
         public static class EffectSmAttribute extends SmAttribute {
-            @objid ("2d7c1bf3-ca51-4531-b8b2-4e8ce52d8e5b")
+            @objid ("b4bd51b2-e346-4cb7-8729-ffe40c60abde")
             public Object getValue(ISmObjectData data) {
                 return ((TransitionData) data).mEffect;
             }
 
-            @objid ("b405fe34-99a8-48d9-acea-8c6ca4d9806f")
+            @objid ("336e24d7-bd26-4e6f-87e0-b1c20236df76")
             public void setValue(ISmObjectData data, Object value) {
                 ((TransitionData) data).mEffect = value;
             }
@@ -331,12 +331,12 @@ public class TransitionData extends ModelElementData {
 
         @objid ("00620872-c4c3-1fd8-97fe-001ec947cd2a")
         public static class ReceivedEventsSmAttribute extends SmAttribute {
-            @objid ("b0cd03bb-664e-4b28-b734-4be7700de6ee")
+            @objid ("0eed9f80-d037-43b5-a9e7-3b5b32740a54")
             public Object getValue(ISmObjectData data) {
                 return ((TransitionData) data).mReceivedEvents;
             }
 
-            @objid ("6037dc7d-cc60-4049-8250-98cd4eee5f1f")
+            @objid ("12fa1a68-fa40-4fe6-a7ef-c7605631f9a1")
             public void setValue(ISmObjectData data, Object value) {
                 ((TransitionData) data).mReceivedEvents = value;
             }
@@ -345,12 +345,12 @@ public class TransitionData extends ModelElementData {
 
         @objid ("00626b32-c4c3-1fd8-97fe-001ec947cd2a")
         public static class SentEventsSmAttribute extends SmAttribute {
-            @objid ("e06c8179-49a1-4d84-9af4-4532b0bf03f8")
+            @objid ("e7ac17fb-e356-4387-aa1e-226ffb1ee7f7")
             public Object getValue(ISmObjectData data) {
                 return ((TransitionData) data).mSentEvents;
             }
 
-            @objid ("38774d58-5652-4cba-bee0-fb163f905483")
+            @objid ("0d64e10f-5373-4318-bcf6-c78c32f88eb2")
             public void setValue(ISmObjectData data, Object value) {
                 ((TransitionData) data).mSentEvents = value;
             }
@@ -359,12 +359,12 @@ public class TransitionData extends ModelElementData {
 
         @objid ("0062ce56-c4c3-1fd8-97fe-001ec947cd2a")
         public static class GuardSmAttribute extends SmAttribute {
-            @objid ("bce2013b-6668-431a-a60b-5d0ddbf256ab")
+            @objid ("d77ac551-e53f-4b58-acb7-46cd9d01b1a7")
             public Object getValue(ISmObjectData data) {
                 return ((TransitionData) data).mGuard;
             }
 
-            @objid ("8bb1f59f-2912-4f95-b536-1c38ed6bb9ee")
+            @objid ("da2e23a5-658c-47c1-967e-31a9cee01e2b")
             public void setValue(ISmObjectData data, Object value) {
                 ((TransitionData) data).mGuard = value;
             }
@@ -373,12 +373,12 @@ public class TransitionData extends ModelElementData {
 
         @objid ("00633274-c4c3-1fd8-97fe-001ec947cd2a")
         public static class PostConditionSmAttribute extends SmAttribute {
-            @objid ("435c2b0a-111b-4d20-b495-ae92138829dc")
+            @objid ("8c7d3c9a-ba9b-4d24-b5cb-831e9e643738")
             public Object getValue(ISmObjectData data) {
                 return ((TransitionData) data).mPostCondition;
             }
 
-            @objid ("7f04b718-d64e-4a67-a4a8-68fb8483d424")
+            @objid ("e19c7034-46f6-42ca-80d2-b428ed3ba3b9")
             public void setValue(ISmObjectData data, Object value) {
                 ((TransitionData) data).mPostCondition = value;
             }
@@ -387,18 +387,18 @@ public class TransitionData extends ModelElementData {
 
         @objid ("00639a84-c4c3-1fd8-97fe-001ec947cd2a")
         public static class BehaviorEffectSmDependency extends SmSingleDependency {
-            @objid ("8da32c7f-5e6f-4d3c-aec6-e1ec819670e5")
+            @objid ("ca0b1b30-7828-4fe4-8755-dc57567b506a")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((TransitionData) data).mBehaviorEffect;
             }
 
-            @objid ("b0934f93-8d6d-45ee-9c1d-020dd20949c5")
+            @objid ("c5df56e4-e844-4c4d-a624-405a07ca0ec0")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((TransitionData) data).mBehaviorEffect = value;
             }
 
-            @objid ("62a6dae6-894d-4c9d-93ca-cd860939cd4b")
+            @objid ("2abdf6a1-c4a4-4d16-9ff7-a8d383497be0")
             @Override
             public SmDependency getSymetric() {
                 return BehaviorData.Metadata.EffectOfDep();
@@ -408,18 +408,18 @@ public class TransitionData extends ModelElementData {
 
         @objid ("006413ec-c4c3-1fd8-97fe-001ec947cd2a")
         public static class EffectsSmDependency extends SmSingleDependency {
-            @objid ("7a22baf8-91c1-4e8d-8ff9-e4da80827211")
+            @objid ("5b826a97-ba1c-41bd-b077-9ee38286cc5c")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((TransitionData) data).mEffects;
             }
 
-            @objid ("aac2c9a8-3464-4d92-8531-e11616c4377b")
+            @objid ("89d0eeb4-8d8d-4ff9-b0c0-a8180524e22f")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((TransitionData) data).mEffects = value;
             }
 
-            @objid ("bedd090b-67b7-4d57-8371-264daeb4abcc")
+            @objid ("0baf560c-f2c0-4e0c-b846-4b3641dceec0")
             @Override
             public SmDependency getSymetric() {
                 return SignalData.Metadata.SendsDep();
@@ -429,18 +429,18 @@ public class TransitionData extends ModelElementData {
 
         @objid ("00648d86-c4c3-1fd8-97fe-001ec947cd2a")
         public static class ProcessedSmDependency extends SmSingleDependency {
-            @objid ("f61f3b25-692c-47eb-ad5d-fd7751feefdb")
+            @objid ("f5ffe15b-aaea-4922-b64d-a1ff2f60a180")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((TransitionData) data).mProcessed;
             }
 
-            @objid ("4657bfe9-edff-4c83-ae82-0f845c248acf")
+            @objid ("38e61cba-389d-4cc6-b646-76b36b7dffc6")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((TransitionData) data).mProcessed = value;
             }
 
-            @objid ("4e186b32-65d6-41ed-b4bd-ad34cab4bf0f")
+            @objid ("f3d89021-7ded-4e6c-8dfd-d3f0bcbd929d")
             @Override
             public SmDependency getSymetric() {
                 return OperationData.Metadata.InvokerDep();
@@ -450,18 +450,18 @@ public class TransitionData extends ModelElementData {
 
         @objid ("0065072a-c4c3-1fd8-97fe-001ec947cd2a")
         public static class SourceSmDependency extends SmSingleDependency {
-            @objid ("5e80410d-a653-4ca9-ac21-abcbe758eb3b")
+            @objid ("5787da52-4f82-4d19-824c-0642d86e242b")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((TransitionData) data).mSource;
             }
 
-            @objid ("0d1e2559-2577-43ab-9c7a-2807847313ec")
+            @objid ("71d6ce88-bdc8-440d-a0b1-dce4cd6b77e8")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((TransitionData) data).mSource = value;
             }
 
-            @objid ("b84e05f8-3f2e-4ac2-bfe4-c646c23129d2")
+            @objid ("51bb99d6-a0a2-4082-af04-8a091855b378")
             @Override
             public SmDependency getSymetric() {
                 return StateVertexData.Metadata.OutGoingDep();
@@ -471,18 +471,18 @@ public class TransitionData extends ModelElementData {
 
         @objid ("006581a0-c4c3-1fd8-97fe-001ec947cd2a")
         public static class TargetSmDependency extends SmSingleDependency {
-            @objid ("97a608b7-ca37-443d-9e07-d7931aa41c4d")
+            @objid ("eb96629a-7225-4384-87d2-854945bde824")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((TransitionData) data).mTarget;
             }
 
-            @objid ("2085e8fc-3e2b-441f-bded-88974bd99c06")
+            @objid ("d658e229-d51e-4586-b923-9147f5b203bd")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((TransitionData) data).mTarget = value;
             }
 
-            @objid ("55b96091-c18e-49d1-b4e9-001445a320d0")
+            @objid ("a46afe41-7512-452f-b087-53fc58856504")
             @Override
             public SmDependency getSymetric() {
                 return StateVertexData.Metadata.IncomingDep();
@@ -492,18 +492,18 @@ public class TransitionData extends ModelElementData {
 
         @objid ("0065fc48-c4c3-1fd8-97fe-001ec947cd2a")
         public static class TriggerSmDependency extends SmSingleDependency {
-            @objid ("bd6e9adb-9420-43dc-bba0-50bf276bf2bc")
+            @objid ("a5f2ad29-f2bf-4577-978a-7cffe16d645d")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((TransitionData) data).mTrigger;
             }
 
-            @objid ("8de5c5eb-782a-4c08-a19f-1cf2e19eef25")
+            @objid ("cf2b10a8-9d3b-4102-b7ab-bf1e25634183")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((TransitionData) data).mTrigger = value;
             }
 
-            @objid ("c5d05c0a-1b89-426c-8892-6f6fe8659862")
+            @objid ("c83170cf-10da-49b6-bd8a-6f31c8adeb61")
             @Override
             public SmDependency getSymetric() {
                 return EventData.Metadata.TriggeredDep();

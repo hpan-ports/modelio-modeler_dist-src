@@ -31,10 +31,14 @@ import org.modelio.core.ui.ktable.types.bool.BooleanType;
 import org.modelio.core.ui.ktable.types.element.SingleElementType;
 import org.modelio.core.ui.ktable.types.ghost.GhostType;
 import org.modelio.core.ui.ktable.types.list.EditableListType;
+import org.modelio.core.ui.ktable.types.modelelement.ModelElementListType;
 import org.modelio.core.ui.ktable.types.text.StringType;
+import org.modelio.metamodel.uml.infrastructure.ModelElement;
 import org.modelio.metamodel.uml.statik.AssociationEnd;
+import org.modelio.metamodel.uml.statik.Classifier;
 import org.modelio.metamodel.uml.statik.Instance;
 import org.modelio.metamodel.uml.statik.LinkEnd;
+import org.modelio.metamodel.uml.statik.NameSpace;
 import org.modelio.property.ui.data.standard.common.AbstractPropertyModel;
 import org.modelio.vcore.session.api.ICoreSession;
 import org.modelio.vcore.session.impl.CoreSession;
@@ -79,9 +83,6 @@ public class LinkEnd2PropertyModel extends AbstractPropertyModel<LinkEnd> {
     @objid ("bb7603db-19f2-11e2-ad19-002564c97630")
     private BooleanType navigabilityType;
 
-    @objid ("0ce16063-b627-477b-90a0-8fd28d9b3a91")
-    private SingleElementType assocType = null;
-
     @objid ("61f9a828-f167-4123-9e90-db32960129ab")
     private GhostType ghostType;
 
@@ -98,7 +99,6 @@ public class LinkEnd2PropertyModel extends AbstractPropertyModel<LinkEnd> {
         this.booleanType = new BooleanType();
         ICoreSession session = CoreSession.getSession(this.theEditedElement);
         this.linkedType = new SingleElementType(false, Instance.class, session);
-        this.assocType = new SingleElementType(true, AssociationEnd.class, session);
         this.ghostType = new GhostType();
         
         List<String> cardinalityMinValues = new ArrayList<>();
@@ -159,18 +159,14 @@ public class LinkEnd2PropertyModel extends AbstractPropertyModel<LinkEnd> {
         case 1:
             return aLinkEnd.getLink().getName();
         case 2:
-            AssociationEnd model = aLinkEnd.getModel();
-            if (model !=  null) {                
-                return model.getName();
-            }
-            return "";
+            return aLinkEnd.getModel();
         case 3:
             if (aLinkEnd != null) {
                 Instance relatedInstance = aLinkEnd.getTarget();
                 return relatedInstance;
             } 
             // else
-                return null;
+            return null;
         case 4:
             return aLinkEnd.getName();
         case 5:
@@ -209,6 +205,13 @@ public class LinkEnd2PropertyModel extends AbstractPropertyModel<LinkEnd> {
             return this.labelStringType;
         
         case 1:
+            switch (row) {
+            case 2: // Link base Association
+                LinkEnd relatedEnd = this.theEditedElement.getOpposite();
+                return getBaseAssociationType(relatedEnd);
+            default:
+            }
+            //$FALL-THROUGH$
         case 2:
             switch (row) {
             case 0: // Title
@@ -216,7 +219,7 @@ public class LinkEnd2PropertyModel extends AbstractPropertyModel<LinkEnd> {
             case 1: // Link Name
                 return this.stringType;
             case 2: // Link base Association
-                return this.assocType;
+                return getBaseAssociationType(this.theEditedElement);
             case 3: // LinkEnd Type
                 return this.linkedType;
             case 4: // LinkEnd Name
@@ -261,7 +264,7 @@ public class LinkEnd2PropertyModel extends AbstractPropertyModel<LinkEnd> {
                 return getPropertyValue(row, relatedEnd);
             } 
             // else
-                return null;
+            return null;
         
         case 2:
             if (row == 1) {
@@ -293,36 +296,39 @@ public class LinkEnd2PropertyModel extends AbstractPropertyModel<LinkEnd> {
     }
 
     @objid ("8f416d46-c068-11e1-8c0a-002564c97630")
-    private void setPropertyValue(int row, LinkEnd associationEnd, Object value) {
+    private void setPropertyValue(int row, LinkEnd linkEnd, Object value) {
         switch (row) {
         case 0:
             return;
         case 1:
-            associationEnd.getLink().setName(String.valueOf(value));
+            linkEnd.getLink().setName(String.valueOf(value));
             break;
         case 2:
-            associationEnd.setModel((AssociationEnd) value);
-            return;
+            final AssociationEnd model = (AssociationEnd) value;
+            linkEnd.setModel(model);
+            linkEnd.getOpposite().setModel(model.getOpposite());
+            linkEnd.getLink().setModel(model.getAssociation());
+            break;
         case 3:
-            associationEnd.setTarget((Instance) value, true);
+            linkEnd.setTarget((Instance) value, true);
             break;
         case 4:
-            associationEnd.setName(String.valueOf(value));
+            linkEnd.setName(String.valueOf(value));
             break;
         case 5:
-            associationEnd.setMultiplicityMin(String.valueOf(value));
+            linkEnd.setMultiplicityMin(String.valueOf(value));
             break;
         case 6:
-            associationEnd.setMultiplicityMax(String.valueOf(value));
+            linkEnd.setMultiplicityMax(String.valueOf(value));
             break;
         case 7:
-            associationEnd.setNavigable((Boolean) value);
+            linkEnd.setNavigable((Boolean) value);
             break;
         case 8:
-            associationEnd.setIsOrdered(((Boolean) value).booleanValue());
+            linkEnd.setIsOrdered(((Boolean) value).booleanValue());
             break;
         case 9:
-            associationEnd.setIsUnique(((Boolean) value).booleanValue());
+            linkEnd.setIsUnique(((Boolean) value).booleanValue());
             break;
         default:
             return;
@@ -349,6 +355,36 @@ public class LinkEnd2PropertyModel extends AbstractPropertyModel<LinkEnd> {
         default:
             return;
         }
+    }
+
+    @objid ("8d0dd793-0e69-420b-a07b-6e9c589f74d4")
+    private IPropertyType getBaseAssociationType(LinkEnd editedEnd) {
+        List<ModelElement> availableEnds = new ArrayList<>();
+        
+        Instance source = editedEnd.getOwner();
+        Instance target = editedEnd.getOpposite().getOwner();
+        NameSpace sourceBase = source.getBase();
+        NameSpace targetBase = target.getBase();
+        if (sourceBase != null && sourceBase instanceof Classifier && targetBase != null && targetBase instanceof Classifier) {
+            for (AssociationEnd end : ((Classifier)sourceBase).getOwnedEnd()) {
+                if (end.getOpposite().getOwner().equals(targetBase)) {
+                    if (!availableEnds.contains(end)) {
+                        availableEnds.add(end);
+                    }
+                }
+            }
+        
+            for (AssociationEnd end : ((Classifier)sourceBase).getTargetingEnd()) {
+                if (end.getOwner().equals(targetBase)) {
+                    if (!availableEnds.contains(end.getOpposite())) {
+                        availableEnds.add(end.getOpposite());
+                    }
+                }
+            }
+        }
+        
+        ModelElementListType type = new ModelElementListType(true, AssociationEnd.class, availableEnds, CoreSession.getSession(this.theEditedElement));
+        return type;
     }
 
 }

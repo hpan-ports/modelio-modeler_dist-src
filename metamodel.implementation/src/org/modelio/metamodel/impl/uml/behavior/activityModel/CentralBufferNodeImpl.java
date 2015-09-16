@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.uml.behavior.activityModel;
 
@@ -41,21 +41,21 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("002c4b6a-c4bf-1fd8-97fe-001ec947cd2a")
 public class CentralBufferNodeImpl extends ObjectNodeImpl implements CentralBufferNode {
-    @objid ("c2968de7-79aa-4da7-b0b8-5b482c82ccdc")
+    @objid ("a2587f93-8d04-41ea-8ef2-4172b7f71360")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("c2e82965-123a-465c-be65-b356d1274d3b")
+    @objid ("6da8a7dc-df64-46b2-9dbf-32cd00bf0cf2")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("6c8ca0f3-6b93-43f9-97c1-8283f7db37ec")
+    @objid ("cbf7e3ee-f8ab-4e58-a7f9-7080871b84ee")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitCentralBufferNode(this);

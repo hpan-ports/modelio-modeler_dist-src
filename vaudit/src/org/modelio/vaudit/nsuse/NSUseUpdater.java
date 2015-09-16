@@ -168,6 +168,26 @@ public class NSUseUpdater implements ITransactionClosureHandler {
         return (parent == owner);
     }
 
+    /**
+     * Computes objects whose blue links must be refreshed after a move.
+     * <p>
+     * Theory: Let's call "the NSUs of object AAA" (or AAA's NSUs)
+     * the NSU objects where AAA is either the source of the target.
+     * When 'movedObj' is moved:
+     * <ol>
+     * 
+     * <li> the NSU of its composed objects remain valid unless the next conditions occur.
+     * 
+     * <li> the NSUs between the 'oldOwner' and the common owner of both
+     * the old and new owner have to be rebuilt if their causes
+     * contain any of the moved object composed objects.
+     * 
+     * <li> if 'movedObj' is a NameSpace, the NSUs caused by any of
+     * the movedObj's NSUs are invalid and have to be rebuild
+     * @param movedObj the moved obj
+     * @param oldOwner the old parent
+     * @return the list of objects whose blue links must be recomputed
+     */
     @objid ("01fa8b9d-923b-472e-864d-50e19d41fd8b")
     List<MObject> onObjectMovedFrom(MObject movedObj, MObject oldOwner) {
         // Protection
@@ -537,16 +557,11 @@ public class NSUseUpdater implements ITransactionClosureHandler {
             //            dep.getName(), obj.getName(), obj.getMClass().getName());
             
             // Abort cases: do nothing
-            if (dep == this.NameSpace_user_NamespaceUse || dep == this.NameSpace_used_NamespaceUse
-                    || dep == this.Element_causing_NamespaceUse) {
+            if (dep == this.NameSpace_user_NamespaceUse ||
+                dep == this.NameSpace_used_NamespaceUse || 
+                dep == this.Element_causing_NamespaceUse) {
                 //if (Vaudit.LOG.isDebugEnabled())
                 //    Vaudit.LOG.debug("\t\t\t=>ignore, dep is user/use/cause");
-                return;
-            }
-            
-            if (value == null || !value.isValid()) {
-                //if (Vaudit.LOG.isDebugEnabled())
-                //    Vaudit.LOG.debug("\t\t\t=>ignore, value is null or deleted");
                 return;
             }
             
@@ -562,10 +577,12 @@ public class NSUseUpdater implements ITransactionClosureHandler {
                 //if (Vaudit.LOG.isDebugEnabled())
                 //    Vaudit.LOG.debug("\t\t\t=>add object '%s' (%s)", obj.getName(), obj.getMClass().getName());
                 this.objsToRebuild.add(obj);
-                for (MObject o : this.updater.onObjectMovedFrom(value, obj)) {
+                if (value != null && value.isValid()) {
+                    // it is a move
+                    
                     //if (Vaudit.LOG.isDebugEnabled())
                     //    Vaudit.LOG.debug("\t\t\t\t=>add object '%s' (%s)", o.getName(), o.getMClass().getName());
-                    this.objsToRebuild.add(o);
+                    this.objsToRebuild.addAll(this.updater.onObjectMovedFrom(value, obj));
                 }
             
             } else if (obj.getMClass() == this.NamespaceUse_MClass) {
@@ -575,7 +592,7 @@ public class NSUseUpdater implements ITransactionClosureHandler {
                 if (dep == this.NamespaceUse_cause_Element) {
                     if (nsu.getCause().isEmpty()) {
                         NSUseUtils.dereferenceNSUsesCausedBy(nsu);
-                        // use.delete();
+                        nsu.delete(); // delete the useless use
                     }
                 } else if (dep == this.NamespaceUse_user_NameSpace) {
                     if (nsu.getUser() == null) {

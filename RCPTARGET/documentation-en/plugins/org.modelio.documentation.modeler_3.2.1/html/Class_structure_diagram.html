@@ -1,0 +1,75 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<title>Class structure diagram</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link href="style.css" media="screen" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<a name="Class-structure-diagrams"></a>
+<h1 >Class structure diagrams<a href="#Class-structure-diagrams" class="wiki-anchor">&para;</a></h1>
+
+<p>The aim of this automatic diagram is to show how a class is made, what it consists of, what it inherits from and what embarks it.</p>
+
+<a name="Applicable-elements"></a>
+<h2 >Applicable elements<a href="#Applicable-elements" class="wiki-anchor">&para;</a></h2>
+
+<p>Class structure diagrams can be created on any Classifier.</p>
+
+<a name="Contents"></a>
+<h2 >Contents<a href="#Contents" class="wiki-anchor">&para;</a></h2>
+
+<ul>
+<li>Class C itself.</li>
+<li>The public attributes of C.</li>
+<li>The classes to which C has an association.</li>
+<li>C&rsquo;s parent class if this exists.</li>
+<li>The interfaces implemented by C if these exist.</li>
+<li>The classes which have composition or aggregation associations to .</li>
+</ul>
+
+
+<a name="Layout"></a>
+<h2 >Layout<a href="#Layout" class="wiki-anchor">&para;</a></h2>
+
+<ul>
+<li>Class C is positioned in the center of the diagram.</li>
+<li>The classes linked to C through associations leaving from C:
+
+<ul>
+<li>are placed to the right of C.</li>
+<li>are viewed in &ldquo;simple&rdquo; mode.</li>
+<li>are exactly the same size and are aligned vertically.</li>
+</ul>
+</li>
+<li>The classes linked to C through compositions or aggregations arriving in C:
+
+<ul>
+<li>are placed to the left of C.</li>
+<li>are viewed in &ldquo;simple&rdquo; mode.</li>
+<li>are exactly the same size and are aligned vertically.</li>
+</ul>
+</li>
+<li>C&rsquo;s parent classes and interface:
+
+<ul>
+<li><p>are placed above C.</p></li>
+<li><p>are viewed in &ldquo;simple&rdquo; mode.</p></li>
+<li>are exactly the same size and are aligned horizontally.</li>
+</ul>
+</li>
+<li>Auto-associations are placed below and to the right of C.</li>
+<li>All associations (other than auto-associations) are represented horizontally by a single straight line (no bends), and are regularly spaced vertically.</li>
+<li>Class C is resized vertically to cover all the associations.</li>
+</ul>
+
+
+<p><strong><em>Note:</em></strong> All elements present in this diagram have a specific associated <a href="Auto_Diagrams_Styles.html">style</a>.</p>
+
+<a name="Example"></a>
+<h2 >Example<a href="#Example" class="wiki-anchor">&para;</a></h2>
+
+<p><img src="Class_structure_diagram_class_structure_diagram.png" alt="1" /></p>
+
+<div id="footer"><iframe frameborder="0" scrolling="no" height="25" width="100%" src="_footer.html"></iframe></div> </body>
+</html>

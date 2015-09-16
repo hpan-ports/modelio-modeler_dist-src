@@ -44,7 +44,7 @@ import java.util.List;
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLEngine;
-import javax.net.ssl.SSLHandshakeException;
+import javax.net.ssl.SSLException;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.TrustManagerFactory;
 import javax.net.ssl.X509ExtendedTrustManager;
@@ -154,17 +154,16 @@ public class SslManager {
      * <p>
      * Returns <i>false</i> if no trust fixer has been registered.
      * <p>
-     * If the method returns true the caller may try the connection again.
+     * If the method returns <i>true</i> the caller may try the connection again.
      * @param ex the SSL exception
      * @param uri the URI whose connection failed
      * @return <i>true</i> if connection can be tried again, <i>false</i> if it should be aborted.
      */
     @objid ("c3adb50c-c968-433e-a768-aaf490f11109")
-    public boolean fixUntrustedServer(SSLHandshakeException ex, URI uri) {
+    public boolean fixUntrustedServer(SSLException ex, URI uri) {
         if (this.untrustedServerFixer != null) {
-            final Throwable cause = ex.getCause();
-            if (cause instanceof InvalidCertificateException) {
-                final InvalidCertificateException certExc = (InvalidCertificateException) cause;
+            final InvalidCertificateException certExc = getInvalidCerts(ex);
+            if (certExc != null) {
                 return this.untrustedServerFixer.fixUntrustedServer(uri, certExc.getCertChain(), certExc);
             }
         }
@@ -197,6 +196,32 @@ public class SslManager {
     @objid ("1241e008-340a-40a0-9c16-ffb82131f81a")
     public X509TrustManager getTrustManager() {
         return this.trustManager;
+    }
+
+    /**
+     * Look for an {@link InvalidCertificateException} exception if the exception,
+     * its cause and suppressed exceptions graph and return it if found.
+     * @param e an exception
+     * @return the found InvalidCertificateException or <i>null</i>
+     */
+    @objid ("c9ceb5e9-f4bb-4644-a46b-2d0f83815387")
+    private static InvalidCertificateException getInvalidCerts(Throwable e) {
+        if (e instanceof InvalidCertificateException) {
+            return (InvalidCertificateException) e;
+        }
+        
+        if (e.getCause() != null) {
+            InvalidCertificateException ret = getInvalidCerts(e.getCause());
+            if (ret != null)
+                return ret;
+        }
+        
+        for (Throwable supEx : e.getSuppressed()) {
+            InvalidCertificateException ret = getInvalidCerts(supEx);
+            if (ret != null)
+                return ret;
+        }
+        return null;
     }
 
     /**

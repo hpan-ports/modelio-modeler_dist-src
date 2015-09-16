@@ -66,17 +66,8 @@ class ModelChangeActionVisitor implements IActionVisitor {
         
         // assert(! refered.isTobeDeleted());
         
-        // Only Element are managed
-        // if ( !dynamic_cast<Element*>(refered) )
-        // return;
-        
-        // NamespaceUse are not managed
-        // if ( dynamic_cast<NamespaceUse*>(refered) )
-        // return;
-        
         // A created element cannot have already been created, thereby
-        // permitting the new object
-        // to be stored without test
+        // permitting the new object to be stored without test
         this.event.createdElements.add(created);
     }
 
@@ -85,14 +76,6 @@ class ModelChangeActionVisitor implements IActionVisitor {
     public void visitDeleteElementAction(final DeleteElementAction action) {
         SmObjectImpl deleted = action.getRefered();
         
-        // Only Element are managed
-        // if ( !dynamic_cast<Element*>(refered) )
-        // return;
-        
-        // NamespaceUse are not managed
-        // if ( dynamic_cast<NamespaceUse*>(refered) )
-        // return;
-        
         // Get the old parent that can be found in the erase list
         MObject oldParent = this.event.erasedElements.get(deleted);
         if (oldParent != null) {
@@ -100,14 +83,6 @@ class ModelChangeActionVisitor implements IActionVisitor {
             // Remove the now useless erase event
             this.event.erasedElements.remove(deleted);
         }
-        // std::map<SmObjectImpl, SmObjectImpl>::iterator found =
-        // event.erasedElements.find(refered);
-        // if ( found != event.erasedElements.end() )
-        // {
-        // event.deletedElements [refered] = found.second;
-        // // Remove the now useless erase event
-        // event.erasedElements.erase(found);
-        // }
     }
 
     @objid ("00d00074-0000-08a7-0000-000000000000")
@@ -118,10 +93,6 @@ class ModelChangeActionVisitor implements IActionVisitor {
         // Forget created then deleted elements
         if (refered.isDeleted()) 
             return;
-        
-        // NamespaceUse are not managed
-        // if ( dynamic_cast<NamespaceUse*> (refered) )
-        // return;
         
         // If the element is already in the list of created elements, it has not
         // to be added
@@ -159,11 +130,6 @@ class ModelChangeActionVisitor implements IActionVisitor {
         // Only composition dependencies are managed
         if (isComponentDependency(action.getDep()) && value != null) {
         
-            // NamespaceUse are not managed
-            // if ( dynamic_cast<NamespaceUse*>(ref) ||
-            // dynamic_cast<NamespaceUse*>(refered) )
-            // return;
-        
             // If the element is in the created element list, that means it has
             // not to be declared as moved
             // because it is already declared as created.
@@ -199,15 +165,8 @@ class ModelChangeActionVisitor implements IActionVisitor {
                 this.event.movedElements.put(value, owner);
             }
         } else if (action.getDep().isPartOf() && owner != null) {
-            // NamespaceUse are not managed
-            // if ( dynamic_cast<NamespaceUse*>(ref) ||
-            // dynamic_cast<NamespaceUse*>(refered) )
-            // return;
         
-            // if (event.updatedElements.contains(refered) == false)
-            // {
             this.event.updatedElements.add(owner);
-            // }
         }
     }
 
@@ -231,23 +190,7 @@ class ModelChangeActionVisitor implements IActionVisitor {
             if (this.event.createdElements.contains(owner))
                 return;
         
-            // Only Element are managed
-            // if ( !dynamic_cast<Element*>(theAppendDependencyAction.Ref) ||
-            // !dynamic_cast<Element*>(theAppendDependencyAction.Refered) )
-            // return;
-        
-            // NamespaceUse are not managed
-            // if ( dynamic_cast<NamespaceUse*>(theAppendDependencyAction.Ref)
-            // ||
-            // dynamic_cast<NamespaceUse*>(theAppendDependencyAction.Refered) )
-            // return;
-        
-            // if
-            // (event.updatedElements.count(theAppendDependencyAction.getRefered())
-            // == 0)
-            // {
             this.event.updatedElements.add(owner);
-            // }
         }
     }
 
@@ -259,14 +202,6 @@ class ModelChangeActionVisitor implements IActionVisitor {
         // Forget operations on deleted elements
         if (refered.isDeleted())
             return;
-        
-        // Only Element are managed
-        // if ( !dynamic_cast<Element*>(refered) )
-        // return;
-        
-        // NamespaceUse are not managed
-        // if ( dynamic_cast<NamespaceUse*>(refered) )
-        // return;
         
         // If the element is already in the list of created elements, it has not
         // to be added
@@ -286,8 +221,6 @@ class ModelChangeActionVisitor implements IActionVisitor {
     @objid ("01f42120-0000-1ee0-0000-000000000000")
     private static boolean isComponentDependency(SmDependency dep) {
         return dep.isComponent();
-        // return (dep.isComponent () || dep ==
-        // ModelElementConstraintDefinitionConstraint());
     }
 
 }

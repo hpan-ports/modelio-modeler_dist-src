@@ -42,34 +42,32 @@ import org.modelio.xmi.reverse.TotalImportMap;
 import org.modelio.xmi.util.AbstractObjingModelNavigation;
 import org.modelio.xmi.util.ObjingEAnnotation;
 import org.modelio.xmi.util.ReverseProperties;
-import org.modelio.xmi.util.XMILogs;
 
 @objid ("59b5c0fc-40c2-429c-911e-b256042122e0")
-public class EPort extends EFeature implements IEElement {
+public class EPort extends EFeature {
     @objid ("3528f06a-2fbc-437f-a365-6e6af39d4ce9")
-    private org.eclipse.uml2.uml.Port ecoreElement;
+    private org.eclipse.uml2.uml.Port ecoreElement = null;
 
     @objid ("6200d93c-be5b-4f14-829a-3c7d8b75bb81")
+    @Override
     public Element createObjingElt() {
-        return Modelio.getInstance().getModelingSession().getModel().createPort();
+        return ReverseProperties.getInstance().getMModelServices().getModelFactory().createPort();
     }
 
     @objid ("93dd9be2-74f3-4860-a5f3-6fb860b89187")
     public EPort(org.eclipse.uml2.uml.Port element) {
         super(element);
-        ecoreElement = element;
+        this.ecoreElement = element;
     }
 
     @objid ("7b04dc9d-5e18-462e-9801-9fc079157078")
+    @Override
     public void attach(Element objingElt) {
-        AbstractObjingModelNavigation.attachPort(objingElt, ecoreElement);
-    }
-
-    @objid ("40002d83-3d63-489c-9020-59d8e07650f3")
-    public void attach(List<Object> objingElts) {
+        AbstractObjingModelNavigation.attachPort(objingElt, this.ecoreElement);
     }
 
     @objid ("525e00de-a5b9-4dc2-bc72-97821d3a2c6e")
+    @Override
     public void setProperties(Element objingElt) {
         super.setProperties(objingElt);
         
@@ -105,8 +103,7 @@ public class EPort extends EFeature implements IEElement {
                 }
         
                 if (!found) {
-                    ProvidedInterface provider = Modelio.getInstance()
-                            .getModelingSession().getModel().createProvidedInterface();
+                    ProvidedInterface provider =  ReverseProperties.getInstance().getMModelServices().getModelFactory().createProvidedInterface();
         
                     objingElt.getProvided().add(provider);
                     provider.setProviding(objingElt);
@@ -121,7 +118,7 @@ public class EPort extends EFeature implements IEElement {
     private void setInterfaces(Port objingElt) {
         Integer temp = ObjingEAnnotation.getNumberProvidedInterface(this.ecoreElement);
         for (int i = 0; i < temp; i++){
-            ProvidedInterface providedInterface = Modelio.getInstance().getModelingSession().getModel()
+            ProvidedInterface providedInterface = ReverseProperties.getInstance().getMModelServices().getModelFactory()
                     .createProvidedInterface();
             providedInterface.setProviding(objingElt);
             objingElt.getProvided().add(providedInterface);
@@ -129,7 +126,7 @@ public class EPort extends EFeature implements IEElement {
         
         temp = ObjingEAnnotation.getNumberRequiredInterface(this.ecoreElement);
         for (int i = 0; i < temp; i++){
-            RequiredInterface requiredInterface = Modelio.getInstance().getModelingSession().getModel()
+            RequiredInterface requiredInterface = ReverseProperties.getInstance().getMModelServices().getModelFactory()
                     .createRequiredInterface();
             requiredInterface.setRequiring(objingElt);
             objingElt.getRequired().add(requiredInterface);
@@ -179,12 +176,12 @@ public class EPort extends EFeature implements IEElement {
         for (Object object : type.getSourceDirectedRelationships()){
             if (object instanceof org.eclipse.uml2.uml.Usage){
                 org.eclipse.uml2.uml.Usage usage = (org.eclipse.uml2.uml.Usage) object;
-                List<ModelElement> usages = new ArrayList<ModelElement>();
+                List<ModelElement> usages = new ArrayList<>();
         
                 for (Object supplier : usage.getSuppliers()){
                     Object objSupplier =  ReverseProperties.getInstance().getMappedElement((org.eclipse.uml2.uml.Element)supplier);
                     if (objSupplier instanceof Interface){
-                        RequiredInterface requiredInterface = Modelio.getInstance().getModelingSession().getModel().createRequiredInterface();
+                        RequiredInterface requiredInterface = ReverseProperties.getInstance().getMModelServices().getModelFactory().createRequiredInterface();
                         requiredInterface.setRequiring(objingElt);
                         requiredInterface.getRequiredElement().add((Interface) objSupplier);
                         objingElt.getRequired().add(requiredInterface);
@@ -216,8 +213,7 @@ public class EPort extends EFeature implements IEElement {
                         for (ModelElement objElt : (ArrayList<ModelElement>) objOwner){
                             if (objElt instanceof Instance)
                                 ((Instance) objElt).getPart().add(portClone);
-                        }
-        
+                        }       
                     }
         
                     Object objConnectorEnd =  ReverseProperties.getInstance().getMappedElement(connectorEnd);
@@ -230,7 +226,7 @@ public class EPort extends EFeature implements IEElement {
 
     @objid ("a421f23b-0683-4ae3-a7af-4c4747dd8a4f")
     private Port clonePort(final Port objingElt) {
-        Port result = Modelio.getInstance().getModelingSession().getModel().createPort();
+        Port result = ReverseProperties.getInstance().getMModelServices().getModelFactory().createPort();
         result.setRepresentedFeature(objingElt);
         for(ProvidedInterface provided : objingElt.getProvided()){
             result.getProvided().add((ProvidedInterface) Modelio.getInstance().getModelManipulationService().clone(provided) );
@@ -286,7 +282,7 @@ public class EPort extends EFeature implements IEElement {
 
     @objid ("84b38f51-e6d8-416d-a0d8-49b67cff782a")
     private void createProvidedInterface(Port port, Interface inter) {
-        ProvidedInterface providedInterface = Modelio.getInstance().getModelingSession().getModel()
+        ProvidedInterface providedInterface = ReverseProperties.getInstance().getMModelServices().getModelFactory()
                 .createProvidedInterface();
         providedInterface.setProviding(port);
         providedInterface.getProvidedElement().add(inter);

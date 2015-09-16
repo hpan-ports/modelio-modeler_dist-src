@@ -85,7 +85,7 @@ public class ModuleCatalogPanel implements IPanelProvider {
 
     @objid ("e53a50b6-ab02-4300-b9f6-0b2e2a199ad6")
     @Override
-    public Object create(Composite parent) {
+    public Object createPanel(Composite parent) {
         // top level container
         this.top = new Composite(parent, SWT.BORDER);
         this.top.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
@@ -268,7 +268,7 @@ public class ModuleCatalogPanel implements IPanelProvider {
 
     @objid ("45218eab-da58-41f2-9bd8-a92841497250")
     @Override
-    public Object getComposite() {
+    public Object getPanel() {
         return this.top;
     }
 
@@ -317,6 +317,18 @@ public class ModuleCatalogPanel implements IPanelProvider {
     @objid ("16e7ef0a-c575-4b5a-9199-3f514061151c")
     public void addDoubleClickListener(IDoubleClickListener listener) {
         this.treeViewer.addDoubleClickListener(listener);
+    }
+
+    @objid ("4e6fd132-53f4-4577-869d-7ab0d93f074a")
+    @Override
+    public boolean isRelevantFor(Object obj) {
+        return true;
+    }
+
+    @objid ("3860d55b-9f3c-4451-94c7-35bfb6b4e8ce")
+    @Override
+    public String getHelpTopic() {
+        return null;
     }
 
     @objid ("231b1002-7740-4497-a09c-0241aa9d061e")

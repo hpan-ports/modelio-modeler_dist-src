@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.uml.statik;
 
@@ -44,31 +44,31 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("001ab350-c4bf-1fd8-97fe-001ec947cd2a")
 public class RaisedExceptionImpl extends ModelElementImpl implements RaisedException {
-    @objid ("424e7750-b135-449d-8f78-06e811d79d86")
+    @objid ("4a840d6e-9bfe-406f-82e0-9d27d92d9267")
     @Override
     public Classifier getThrownType() {
         return (Classifier) getDepVal(RaisedExceptionData.Metadata.ThrownTypeDep());
     }
 
-    @objid ("ec04fb6d-a1c6-4f1b-ae30-198078116ab6")
+    @objid ("164a0215-d858-48b2-bf96-8566eedf4678")
     @Override
     public void setThrownType(Classifier value) {
         appendDepVal(RaisedExceptionData.Metadata.ThrownTypeDep(), (SmObjectImpl)value);
     }
 
-    @objid ("3dfb7807-6634-480c-8665-e5d9ce69af74")
+    @objid ("3a717557-0bdf-4aa8-bc8f-5eee1b327a1b")
     @Override
     public Operation getThrower() {
         return (Operation) getDepVal(RaisedExceptionData.Metadata.ThrowerDep());
     }
 
-    @objid ("5930b3c6-1048-4260-b037-a7de48efcdb2")
+    @objid ("e8f9480a-50d9-4e03-8abe-e359480f8a10")
     @Override
     public void setThrower(Operation value) {
         appendDepVal(RaisedExceptionData.Metadata.ThrowerDep(), (SmObjectImpl)value);
     }
 
-    @objid ("0bbb29be-dff6-4aad-bc07-7388758d3855")
+    @objid ("1acfff1f-f982-47ca-b9c1-6c24cad2a027")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
@@ -78,7 +78,7 @@ public class RaisedExceptionImpl extends ModelElementImpl implements RaisedExcep
         return super.getCompositionOwner();
     }
 
-    @objid ("f4637cac-30f3-4159-90ad-df958e07ea79")
+    @objid ("666d185a-64a4-4651-a2dd-68e1ec356ad3")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
@@ -88,7 +88,7 @@ public class RaisedExceptionImpl extends ModelElementImpl implements RaisedExcep
         return super.getCompositionRelation();
     }
 
-    @objid ("f92b62cc-ab46-407e-80a4-8b524825761b")
+    @objid ("2e2e8011-99ef-4fa4-9305-71fd8c8eb93b")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitRaisedException(this);

@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.bpmn.rootElements;
 
@@ -45,13 +45,13 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("0078058c-c4bf-1fd8-97fe-001ec947cd2a")
 public abstract class BpmnBaseElementImpl extends ModelElementImpl implements BpmnBaseElement {
-    @objid ("ec0c95ba-ab64-4f01-8bf5-e680c45edf35")
+    @objid ("c1f43e4c-a347-482b-bf93-e3fb7e992a57")
     @Override
     public EList<BpmnAssociation> getOutgoingAssoc() {
         return new SmList<>(this, BpmnBaseElementData.Metadata.OutgoingAssocDep());
     }
 
-    @objid ("bf09413c-3e59-4208-b84f-c736a58f4e29")
+    @objid ("82bcab96-9c93-4b7e-a6b1-69b43d8f7327")
     @Override
     public <T extends BpmnAssociation> List<T> getOutgoingAssoc(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -64,13 +64,13 @@ public abstract class BpmnBaseElementImpl extends ModelElementImpl implements Bp
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("ec2947c6-f4e1-4cc3-aacf-5835039ed0b0")
+    @objid ("6dffdbf8-6d97-461a-b591-f9cfe49034bb")
     @Override
     public EList<BpmnAssociation> getIncomingAssoc() {
         return new SmList<>(this, BpmnBaseElementData.Metadata.IncomingAssocDep());
     }
 
-    @objid ("5939035e-74d0-4b0e-995e-f3a50c0a9699")
+    @objid ("baf134c4-4ef9-4768-b11f-5892abdd41ec")
     @Override
     public <T extends BpmnAssociation> List<T> getIncomingAssoc(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -83,13 +83,13 @@ public abstract class BpmnBaseElementImpl extends ModelElementImpl implements Bp
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("72dbdaf6-1aa4-409d-ba3c-ef377a4aff47")
+    @objid ("40bce4ac-db1d-429c-a04f-6ea1c33847e8")
     @Override
     public EList<BpmnMessageFlow> getIncomingFlow() {
         return new SmList<>(this, BpmnBaseElementData.Metadata.IncomingFlowDep());
     }
 
-    @objid ("a1a7d285-be04-419a-abd2-a9744915ac76")
+    @objid ("66d275ff-a626-4fb9-841a-44730bd18807")
     @Override
     public <T extends BpmnMessageFlow> List<T> getIncomingFlow(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -102,13 +102,13 @@ public abstract class BpmnBaseElementImpl extends ModelElementImpl implements Bp
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("eb19fc01-7880-4379-8638-27e2493da2a5")
+    @objid ("be5ef854-1e68-4604-903d-d8d751910ae6")
     @Override
     public EList<BpmnMessageFlow> getOutgoingFlow() {
         return new SmList<>(this, BpmnBaseElementData.Metadata.OutgoingFlowDep());
     }
 
-    @objid ("a012ab1b-6bf4-47fc-a231-665876587113")
+    @objid ("3230858b-6545-4f6f-b8af-134fd63fa315")
     @Override
     public <T extends BpmnMessageFlow> List<T> getOutgoingFlow(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -121,21 +121,21 @@ public abstract class BpmnBaseElementImpl extends ModelElementImpl implements Bp
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("2d8c9267-bef1-4d3c-9672-a8c1540431f3")
+    @objid ("c61bead9-30f9-49dc-bee7-35aa7f9d21e5")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("61e28ac7-e799-4d07-b428-04caf8a69210")
+    @objid ("a744e18e-914d-4673-b3a7-28a03f51ae0e")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("273ca3f5-a116-4983-b078-5d8c9f1d38a2")
+    @objid ("4f73a8ea-6172-4cee-a49d-9773f5aaf09c")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitBpmnBaseElement(this);

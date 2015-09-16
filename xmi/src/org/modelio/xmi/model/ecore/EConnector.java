@@ -21,9 +21,7 @@
 
 package org.modelio.xmi.model.ecore;
 
-import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.modelio.api.modelio.Modelio;
 import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.metamodel.uml.statik.Association;
 import org.modelio.metamodel.uml.statik.Link;
@@ -31,13 +29,14 @@ import org.modelio.metamodel.uml.statik.LinkEnd;
 import org.modelio.xmi.util.ReverseProperties;
 
 @objid ("9e7af896-b577-4e20-9b60-de945c16069c")
-public class EConnector extends EFeature implements IEElement {
+public class EConnector extends EFeature {
     @objid ("654d5826-92fc-4f2f-9618-0f191735b7c2")
     private org.eclipse.uml2.uml.Connector ecoreElement = null;
 
     @objid ("6dc37cae-b36f-4cff-b57f-62cf88365022")
+    @Override
     public Element createObjingElt() {
-        return Modelio.getInstance().getModelingSession().getModel().createConnector();
+        return ReverseProperties.getInstance().getMModelServices().getModelFactory().createConnector();
     }
 
     @objid ("20f3c4be-139e-4248-88bb-0ce10e586bb1")
@@ -47,6 +46,7 @@ public class EConnector extends EFeature implements IEElement {
     }
 
     @objid ("9c6bc7a8-73b0-4b2e-91dd-e65ee4c7cf63")
+    @Override
     public void attach(Element objingElt) {
         Link objingLink = (Link) objingElt;
         
@@ -66,11 +66,8 @@ public class EConnector extends EFeature implements IEElement {
             objingElt.delete();
     }
 
-    @objid ("e3f52720-4015-47ef-b3d3-745f42afcc6b")
-    public void attach(List<Object> objingElts) {
-    }
-
     @objid ("5a22e57d-2e96-44ac-bc34-60d0d5b2ace5")
+    @Override
     public void setProperties(Element objingElt) {
         super.setProperties(objingElt);
         setBase((Link) objingElt);

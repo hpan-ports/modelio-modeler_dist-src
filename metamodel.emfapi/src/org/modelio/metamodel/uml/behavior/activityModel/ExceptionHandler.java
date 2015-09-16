@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.uml.behavior.activityModel;
 
@@ -35,34 +35,34 @@ import org.modelio.metamodel.uml.statik.GeneralClass;
 
 @objid ("00307956-c4bf-1fd8-97fe-001ec947cd2a")
 public interface ExceptionHandler extends ModelElement {
-    @objid ("e5135b25-795c-4322-8132-a5f4b330ba32")
+    @objid ("a62dbeb4-28fb-442c-aab8-ed41b8a5f844")
     String getGuard();
 
-    @objid ("5c638b1b-64e4-4d1a-9e13-9a189e644e02")
+    @objid ("30e34787-b8bc-4f0b-816e-7949f5e4a2dc")
     void setGuard(String value);
 
-    @objid ("58a2de97-a62c-4e80-a289-f59d7a34ce34")
+    @objid ("612e8f1c-bd82-4823-bc85-290ff4deef49")
     String getWeight();
 
-    @objid ("52307cb5-37a7-4847-90bb-bffaf5a89606")
+    @objid ("7db05ce9-f8e2-4643-83d3-89f855a2a01c")
     void setWeight(String value);
 
-    @objid ("a99127db-c06d-4a7a-b3ea-5c6e445b0b29")
+    @objid ("3b26466d-5c3a-4292-81ea-6ccca060c1d2")
     ActivityAction getProtectedNode();
 
-    @objid ("281d7fe0-9f29-4795-ab1a-c7728d6a4384")
+    @objid ("fae03c69-a8f3-4939-bdca-186eb5fc3d2f")
     void setProtectedNode(ActivityAction value);
 
-    @objid ("c853a4e1-c077-4a41-bc5a-a10dcf684b0b")
+    @objid ("054ccc7c-d3c8-49a0-94dc-1587188b11df")
     InputPin getExceptionInput();
 
-    @objid ("5ffe6dd4-29e4-4386-b8f3-081a872a2132")
+    @objid ("08574791-9da2-49fb-ab01-0d874d3c6ba6")
     void setExceptionInput(InputPin value);
 
-    @objid ("09f35cce-c27b-4b60-beb5-844a7110263a")
+    @objid ("63092c3e-9046-40f6-b973-90f4c7d4713d")
     EList<GeneralClass> getExceptionType();
 
-    @objid ("73e4ede4-a448-4b92-b4a7-175ecc216268")
+    @objid ("24504ff4-e1a9-4f81-ba69-7ece4211f109")
     <T extends GeneralClass> List<T> getExceptionType(java.lang.Class<T> filterClass);
 
 }

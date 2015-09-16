@@ -30,7 +30,8 @@ import org.eclipse.e4.ui.services.IServiceConstants;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.progress.IProgressService;
-import org.modelio.api.modelio.Modelio;
+import org.modelio.gproject.gproject.GProject;
+import org.modelio.gproject.model.IMModelServices;
 import org.modelio.metamodel.mda.ModuleComponent;
 import org.modelio.metamodel.uml.infrastructure.ModelTree;
 import org.modelio.vcore.smkernel.mapi.MObject;
@@ -49,18 +50,13 @@ public class ImportProfile {
 
     @objid ("4d2f7edf-db40-4c06-bb36-c82f551a4f33")
     @Execute
-    public Object execute(@Named(IServiceConstants.ACTIVE_SHELL) final Shell activeShell, IProgressService progressService) {
+    public void execute(@Named(IServiceConstants.ACTIVE_SHELL) final Shell activeShell, IProgressService progressService, IMModelServices mmService) {
         ReverseProperties revprop = ReverseProperties.getInstance();
-        revprop.initialize();
-        Modelio.getInstance().getModelingSession().getModel().getLibraryRoots();
         
+        revprop.initialize(mmService);
         revprop.setProfileRoot(this.selectedModule);
-        selectImportFile(activeShell, progressService);
-        return null;
-    }
-
-    @objid ("54e3df97-8f93-4099-8c57-50e2c9b666d5")
-    private void selectImportFile(Shell activeShell, IProgressService progressService) {
+        revprop.setCoreSession(GProject.getProject(this.selectedModule).getSession());
+        
         final SwtWizardImportProfile dialog = new SwtWizardImportProfile(activeShell, progressService);
         dialog.setSelectedElt(this.selectedModule);
         dialog.open();

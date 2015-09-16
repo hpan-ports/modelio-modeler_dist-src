@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.uml.behavior.stateMachineModel;
 
@@ -46,37 +46,37 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("0057164c-c4bf-1fd8-97fe-001ec947cd2a")
 public class RegionImpl extends ModelElementImpl implements Region {
-    @objid ("18e2cad4-6ba4-4b7d-aaf3-9b6ea95f029a")
+    @objid ("6818159b-32e1-4551-b1b7-32a3100bc75d")
     @Override
     public State getParent() {
         return (State) getDepVal(RegionData.Metadata.ParentDep());
     }
 
-    @objid ("0347783a-0a72-4daa-b96b-8e293884b579")
+    @objid ("084cd6b9-8e06-4f5c-adcc-334389a342dc")
     @Override
     public void setParent(State value) {
         appendDepVal(RegionData.Metadata.ParentDep(), (SmObjectImpl)value);
     }
 
-    @objid ("fa666ced-9b13-4e4c-84e5-de85513ebe5c")
+    @objid ("b4b55aca-4717-4d7e-ab08-1ede61d2fd1c")
     @Override
     public StateMachine getRepresented() {
         return (StateMachine) getDepVal(RegionData.Metadata.RepresentedDep());
     }
 
-    @objid ("15205f64-35a7-4c4f-bc84-26ff97c4a4b4")
+    @objid ("bad91afc-ff43-4605-a2b6-7093c5ce698f")
     @Override
     public void setRepresented(StateMachine value) {
         appendDepVal(RegionData.Metadata.RepresentedDep(), (SmObjectImpl)value);
     }
 
-    @objid ("cf97334a-aed3-4af2-8a66-e3968b4027ec")
+    @objid ("c29b38f4-1f46-480e-be98-022ec8fccaff")
     @Override
     public EList<StateVertex> getSub() {
         return new SmList<>(this, RegionData.Metadata.SubDep());
     }
 
-    @objid ("e79ca346-0d3f-4730-8e08-f16ae8c10ab3")
+    @objid ("4ddfcad7-776f-49d8-a326-2eb1d5b47b48")
     @Override
     public <T extends StateVertex> List<T> getSub(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -89,7 +89,7 @@ public class RegionImpl extends ModelElementImpl implements Region {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("9331d01c-5f30-472d-8298-182035cc4141")
+    @objid ("3d1e0cf4-41f4-4bc3-86a0-af2d757f7875")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
@@ -102,7 +102,7 @@ public class RegionImpl extends ModelElementImpl implements Region {
         return super.getCompositionOwner();
     }
 
-    @objid ("e0da667f-c0d6-4d4b-8726-f5b25b86a283")
+    @objid ("f522103e-d0ba-42b2-b304-5d0b47cdf42d")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
@@ -115,7 +115,7 @@ public class RegionImpl extends ModelElementImpl implements Region {
         return super.getCompositionRelation();
     }
 
-    @objid ("fc919117-6c68-4f45-a2d2-ac63965df7a1")
+    @objid ("0c2bf36b-76b6-47b0-83bd-c6bfc7be0684")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitRegion(this);

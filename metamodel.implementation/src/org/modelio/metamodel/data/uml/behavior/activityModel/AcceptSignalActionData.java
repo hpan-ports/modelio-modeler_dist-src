@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.data.uml.behavior.activityModel;
 
@@ -45,29 +45,29 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("00255da0-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=AcceptSignalAction.class, factory=AcceptSignalActionData.Metadata.ObjectFactory.class)
 public class AcceptSignalActionData extends ActivityActionData {
-    @objid ("eef562f7-d244-42be-885a-26ef45acd305")
+    @objid ("0d1173cd-e601-4402-acc0-59c9620cadf0")
     @SmaMetaAssociation(metaName="Accepted", typeDataClass=SignalData.class, min=0, max=-1, smAssociationClass=Metadata.AcceptedSmDependency.class, partof = true)
      List<SmObjectImpl> mAccepted = null;
 
-    @objid ("96642219-f6de-4ac5-afbc-ce5a94e8a7e2")
+    @objid ("3167672c-02db-4e1f-8fc6-28caf67a7590")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("002cf362-c4c3-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("6a8acb0e-9a88-4010-b6d5-14591bdfb45e")
+        @objid ("a05a6c2b-f440-40e9-a2cd-bb07299bdc88")
         private static SmClass smClass = null;
 
-        @objid ("becc9e74-32c0-4a0e-9652-544799890018")
+        @objid ("b62828de-90ff-4dd8-a699-3e59c50a9bbf")
         private static SmDependency AcceptedDep = null;
 
-        @objid ("898cb921-62f3-4379-9ccf-b8ee1cad5b1f")
+        @objid ("0854f2b8-a9cc-4c3e-8089-2746b8b22f91")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(AcceptSignalActionData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("23c04390-031b-41e6-bd7c-adefc5666b8f")
+        @objid ("61df70e4-8697-4fd9-85f9-2fd8b759b99c")
         public static SmDependency AcceptedDep() {
             if (AcceptedDep == null) {
             	AcceptedDep = classof().getDependencyDef("Accepted");
@@ -75,13 +75,13 @@ public class AcceptSignalActionData extends ActivityActionData {
             return AcceptedDep;
         }
 
-        @objid ("e9390396-a86d-44dc-b8a9-28d2cbc39a6b")
+        @objid ("fac2831c-f5f3-4934-8e6a-728368ce764d")
         public static SmDependency getAcceptedDep() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return AcceptedDep;
         }
 
-        @objid ("aa3def7f-38df-48c5-80c9-0799197a037a")
+        @objid ("7824f2c9-ecfa-4ada-affb-03d06b56e65c")
         public static SmClass getSmClass() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return smClass;
@@ -89,12 +89,12 @@ public class AcceptSignalActionData extends ActivityActionData {
 
         @objid ("002d38ea-c4c3-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("59c201cf-ad5e-4b09-807d-f4031707b0c6")
+            @objid ("3f4f6d4b-46c5-478e-b9a9-b36e80be5e61")
             public ISmObjectData createData() {
                 return new AcceptSignalActionData();
             }
 
-            @objid ("0eb55829-9297-4cf4-ad8a-698287c2bb6f")
+            @objid ("76ec3c7f-d87b-4399-a62d-b9f8c50a5609")
             public SmObjectImpl createImpl() {
                 return new AcceptSignalActionImpl();
             }
@@ -103,20 +103,20 @@ public class AcceptSignalActionData extends ActivityActionData {
 
         @objid ("002d9cd6-c4c3-1fd8-97fe-001ec947cd2a")
         public static class AcceptedSmDependency extends SmMultipleDependency {
-            @objid ("02b15230-2b74-41f6-9a5f-37370417f35b")
+            @objid ("1e7804e9-0858-4ff9-8c5d-82dca75d197d")
             @Override
             public List<SmObjectImpl> getValueList(ISmObjectData data) {
                 return (((AcceptSignalActionData)data).mAccepted != null)? ((AcceptSignalActionData)data).mAccepted:SmMultipleDependency.EMPTY;
             }
 
-            @objid ("b8db4fde-14d1-4bb4-b61d-ec2aaf8227b8")
+            @objid ("71157ecb-6ea6-42a6-9c53-4ed206e9d028")
             @Override
             protected List<SmObjectImpl> allocateValueList(ISmObjectData data, int initialCapacity) {
                 ((AcceptSignalActionData) data).mAccepted = new ArrayList<>(initialCapacity);
                 return ((AcceptSignalActionData) data).mAccepted;
             }
 
-            @objid ("9286520b-6acf-4248-9f8f-dbfc4b09a09b")
+            @objid ("03413adf-2c91-4a3d-9ff5-ac788e829dab")
             @Override
             public SmDependency getSymetric() {
                 return SignalData.Metadata.ReceiverDep();

@@ -36,8 +36,8 @@ import java.util.concurrent.TimeUnit;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.gproject.ramc.core.model.ModelComponent;
 import org.modelio.gproject.ramc.core.packaging.IModelComponentContributor.ExportedFileEntry;
+import org.modelio.vbasic.log.Log;
 import org.modelio.vbasic.version.Version;
-import org.modelio.vcore.Log;
 import org.modelio.vcore.smkernel.mapi.MRef;
 
 /**

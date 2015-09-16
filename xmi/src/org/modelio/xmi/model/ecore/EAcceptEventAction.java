@@ -21,9 +21,7 @@
 
 package org.modelio.xmi.model.ecore;
 
-import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.modelio.api.modelio.Modelio;
 import org.modelio.metamodel.uml.behavior.activityModel.AcceptCallEventAction;
 import org.modelio.metamodel.uml.behavior.activityModel.AcceptChangeEventAction;
 import org.modelio.metamodel.uml.behavior.activityModel.AcceptSignalAction;
@@ -36,7 +34,7 @@ import org.modelio.xmi.util.ObjingEAnnotation;
 import org.modelio.xmi.util.ReverseProperties;
 
 @objid ("554ecc30-cd0f-45a1-b60a-d4ea1e2a66d4")
-public class EAcceptEventAction extends EActivityNode implements IEElement {
+public class EAcceptEventAction extends EActivityNode {
     @objid ("ac93d503-cf8c-4476-81de-ca218a4696ad")
     private boolean hasReceiveOperationEvent = false;
 
@@ -52,94 +50,98 @@ public class EAcceptEventAction extends EActivityNode implements IEElement {
     @objid ("4891d5f1-a0f9-4f64-bffd-5a4df1a00c85")
     public EAcceptEventAction(org.eclipse.uml2.uml.AcceptEventAction element) {
         super(element);
-        //        if (EcoreModelNavigation.hasReceiveOperationEvent(element)) {
-        //            hasReceiveOperationEvent = true;
-        //            
-        //        } else 
-            if (EcoreModelNavigation.hasSignalEvent(element)) {
-            hasSignalEvent = true;
+        
+        if (EcoreModelNavigation.hasSignalEvent(element)) {
+            this.hasSignalEvent = true;
         
         } else if (EcoreModelNavigation.hasChangeEvent(element)) {
-            hasChangeEvent = true;
-            
+            this.hasChangeEvent = true;
+        
         } else if (EcoreModelNavigation.hasTimeEvent(element)) {
-            hasTimeEvent = true;
+            this.hasTimeEvent = true;
         }
     }
 
     @objid ("0e493c8f-4c55-419f-985d-66a78515e3fd")
+    @Override
     public Element createObjingElt() {
         org.eclipse.uml2.uml.AcceptEventAction ecoreElement =  (org.eclipse.uml2.uml.AcceptEventAction) getEcoreElement();
-                if (hasReceiveOperationEvent) {
-           return Modelio.getInstance().getModelingSession().getModel()
-                   .createAcceptCallEventAction();
-                } else if (hasSignalEvent) {
-           return Modelio.getInstance().getModelingSession().getModel()
-                   .createAcceptSignalAction();
-                } else if (hasChangeEvent) {
-           return Modelio.getInstance().getModelingSession().getModel()
-                   .createAcceptChangeEventAction();
-                } else if (hasTimeEvent) {
-           return Modelio.getInstance().getModelingSession().getModel()
-                   .createAcceptTimeEventAction();
-                } else
-           if (ReverseProperties.getInstance().isRoundtripEnabled()){
-               String signal = ObjingEAnnotation.getSignal(ecoreElement);
-               if ((signal != null) && (signal.equals("signal")))
-                   return Modelio.getInstance().getModelingSession().getModel()
-                   .createAcceptSignalAction();
-           }
-        return Modelio.getInstance().getModelingSession().getModel()
+        if (this.hasReceiveOperationEvent) {
+            return ReverseProperties.getInstance().getMModelServices().getModelFactory()
+                    .createAcceptCallEventAction();
+        } else if (this.hasSignalEvent) {
+            return ReverseProperties.getInstance().getMModelServices().getModelFactory()
+                    .createAcceptSignalAction();
+        } else if (this.hasChangeEvent) {
+            return ReverseProperties.getInstance().getMModelServices().getModelFactory()
+                    .createAcceptChangeEventAction();
+        } else if (this.hasTimeEvent) {
+            return ReverseProperties.getInstance().getMModelServices().getModelFactory()
+                    .createAcceptTimeEventAction();
+        } else
+            if (ReverseProperties.getInstance().isRoundtripEnabled()){
+                String type = ObjingEAnnotation.getSignal(ecoreElement);
+                if (type != null){
+                    switch (type) {
+                    case "signal":
+                        return ReverseProperties.getInstance().getMModelServices().getModelFactory()
+                                .createAcceptSignalAction();
+                    case "change":
+                        return ReverseProperties.getInstance().getMModelServices().getModelFactory()
+                                .createAcceptChangeEventAction();
+                    case "time":
+                        return ReverseProperties.getInstance().getMModelServices().getModelFactory()
+                                .createAcceptTimeEventAction();
+                    default:
+                        return ReverseProperties.getInstance().getMModelServices().getModelFactory()
+                                .createAcceptCallEventAction();
+                    }
+                }
+        
+            }
+        return ReverseProperties.getInstance().getMModelServices().getModelFactory()
                 .createAcceptCallEventAction();
     }
 
-    @objid ("7998daea-0279-4bad-a642-27981ea59d65")
-    public void attach(Element objingElt) {
-        super.attach(objingElt);
-    }
-
-    @objid ("df8d557a-0844-408b-9aee-1c545f4c6c26")
-    public void attach(List<Object> objingElts) {
-    }
-
     @objid ("a89c0b7c-7fea-473c-8651-3a2dec9be441")
+    @Override
     public void setProperties(Element objingElt) {
         super.setProperties(objingElt);
-        if (hasReceiveOperationEvent)
+        if (this.hasReceiveOperationEvent)
             setCalled((AcceptCallEventAction) objingElt);
-        else if (hasSignalEvent)
+        else if (this.hasSignalEvent)
             setAccepted((AcceptSignalAction) objingElt);
-        else if (hasChangeEvent)
+        else if (this.hasChangeEvent)
             setChangeExpression((AcceptChangeEventAction) objingElt);
-        else if (hasTimeEvent)
+        else if (this.hasTimeEvent)
             setTimeExpression((AcceptTimeEventAction) objingElt);
     }
 
     @objid ("5a515adf-f2a9-458d-846a-e4189e1ca323")
     private void setCalled(AcceptCallEventAction action) {
         for (Object trigger :  ( (org.eclipse.uml2.uml.AcceptEventAction) getEcoreElement()).getTriggers()) {
-             org.eclipse.uml2.uml.Event event = ( (org.eclipse.uml2.uml.Trigger) trigger).getEvent();
-        //            if (event instanceof  org.eclipse.uml2.uml.ReceiveOperationEvent) {
-        //                 org.eclipse.uml2.uml.Operation ecoreOperation = ( (org.eclipse.uml2.uml.ReceiveOperationEvent) event)
-        //                        .getOperation();
-        //                if (ecoreOperation != null) {
-        //                    Object objingOperation =  ReverseProperties.getInstance()
-        //                            .getMappedElement(ecoreOperation);
-        //                    if (objingOperation instanceof Operation) {
-        //                        action.setCalled((Operation) objingOperation);
-        //                        break;
-        //                    }
-        //                }
-        //            }
+            org.eclipse.uml2.uml.Event event = ( (org.eclipse.uml2.uml.Trigger) trigger).getEvent();
+            if (event instanceof  org.eclipse.uml2.uml.ReceiveOperationEvent) {
+                org.eclipse.uml2.uml.Operation ecoreOperation = ( (org.eclipse.uml2.uml.ReceiveOperationEvent) event)
+                        .getOperation();
+                if (ecoreOperation != null) {
+                    Object objingOperation =  ReverseProperties.getInstance()
+                            .getMappedElement(ecoreOperation);
+                    if (objingOperation instanceof Operation) {
+                        action.setCalled((Operation) objingOperation);
+                        break;
+                    }
+                }
+            }
         }
     }
 
     @objid ("f59d1829-3b3c-484b-82ab-5924be545750")
     private void setAccepted(AcceptSignalAction action) {
         for (Object trigger :  ( (org.eclipse.uml2.uml.AcceptEventAction) getEcoreElement()).getTriggers()) {
-             org.eclipse.uml2.uml.Event event = ( (org.eclipse.uml2.uml.Trigger) trigger).getEvent();
+            org.eclipse.uml2.uml.Event event = ( (org.eclipse.uml2.uml.Trigger) trigger).getEvent();
             if (event instanceof  org.eclipse.uml2.uml.SignalEvent) {
-                 org.eclipse.uml2.uml.Signal ecoreSignal = ( (org.eclipse.uml2.uml.SignalEvent) event).getSignal();
+                org.eclipse.uml2.uml.Signal ecoreSignal = ( (org.eclipse.uml2.uml.SignalEvent) event).getSignal();
                 if (ecoreSignal != null) {
                     Object objingSignal =  ReverseProperties.getInstance().getMappedElement(ecoreSignal);
                     if (objingSignal instanceof Signal)
@@ -152,9 +154,9 @@ public class EAcceptEventAction extends EActivityNode implements IEElement {
     @objid ("7b724d3f-f020-4af5-8d8b-4820fe1f503f")
     private void setChangeExpression(AcceptChangeEventAction action) {
         for (Object trigger :  ( (org.eclipse.uml2.uml.AcceptEventAction) getEcoreElement()).getTriggers()) {
-             org.eclipse.uml2.uml.Event event = ( (org.eclipse.uml2.uml.Trigger) trigger).getEvent();
+            org.eclipse.uml2.uml.Event event = ( (org.eclipse.uml2.uml.Trigger) trigger).getEvent();
             if (event instanceof  org.eclipse.uml2.uml.ChangeEvent) {
-                 org.eclipse.uml2.uml.ValueSpecification value = ( (org.eclipse.uml2.uml.ChangeEvent) event)
+                org.eclipse.uml2.uml.ValueSpecification value = ( (org.eclipse.uml2.uml.ChangeEvent) event)
                         .getChangeExpression();
                 if (value != null) {
                     String stringValue = value.stringValue();
@@ -170,9 +172,9 @@ public class EAcceptEventAction extends EActivityNode implements IEElement {
     @objid ("5417fa0e-7f8c-446e-b546-521279bb0d08")
     private void setTimeExpression(AcceptTimeEventAction action) {
         for (Object trigger :  ( (org.eclipse.uml2.uml.AcceptEventAction) getEcoreElement()).getTriggers()) {
-             org.eclipse.uml2.uml.Event event = ( (org.eclipse.uml2.uml.Trigger) trigger).getEvent();
+            org.eclipse.uml2.uml.Event event = ( (org.eclipse.uml2.uml.Trigger) trigger).getEvent();
             if (event instanceof  org.eclipse.uml2.uml.TimeEvent) {
-                 org.eclipse.uml2.uml.ValueSpecification value = ( (org.eclipse.uml2.uml.TimeEvent) event).getWhen();
+                org.eclipse.uml2.uml.ValueSpecification value = ( (org.eclipse.uml2.uml.TimeEvent) event).getWhen();
                 if (value != null) {
                     String stringValue = value.stringValue();
                     if (stringValue != null) {

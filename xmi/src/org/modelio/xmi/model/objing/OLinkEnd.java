@@ -31,7 +31,6 @@ import org.modelio.metamodel.uml.statik.AssociationEnd;
 import org.modelio.metamodel.uml.statik.Instance;
 import org.modelio.metamodel.uml.statik.Link;
 import org.modelio.metamodel.uml.statik.LinkEnd;
-import org.modelio.metamodel.uml.statik.NameSpace;
 import org.modelio.metamodel.uml.statik.Port;
 import org.modelio.vcore.smkernel.mapi.MObject;
 import org.modelio.xmi.plugin.Xmi;
@@ -46,7 +45,7 @@ import org.modelio.xmi.util.XMILogs;
  * @author ebrosse
  */
 @objid ("da23ef13-c418-4fc9-9e22-0386f5a65ef8")
-public class OLinkEnd extends OModelElement implements IOElement {
+public class OLinkEnd extends OModelElement {
     @objid ("3c084612-ea40-4292-9170-871155a2fe0d")
     protected LinkEnd objElt = null;
 
@@ -111,7 +110,7 @@ public class OLinkEnd extends OModelElement implements IOElement {
         setLinked(ecoreElt);
         setDefiningFeature(ecoreElt);
         if (GenerationProperties.getInstance().isRoundtripEnabled()){
-            setIsLink(ecoreElt);
+            setIsLink();
             ObjingEAnnotation.setUnique(ecoreElt, this.objElt.isIsUnique());
             ObjingEAnnotation.setNavigable(ecoreElt, this.objElt.isNavigable());
             ObjingEAnnotation.setOrdered(ecoreElt, this.objElt.isIsOrdered());
@@ -123,11 +122,17 @@ public class OLinkEnd extends OModelElement implements IOElement {
 
     @objid ("e9b93591-ae15-406b-be3e-cd0911bec8c5")
     private void setLinked(org.eclipse.uml2.uml.Slot ecoreElt) {
-        org.eclipse.uml2.uml.Element inst = GenerationProperties.getInstance().getMappedElement(this.objElt.getLink());
+        Instance type = this.objElt.getTarget();
+        if (type == null)
+            type = this.objElt.getOpposite().getSource();
+        
+        org.eclipse.uml2.uml.Element inst = GenerationProperties.getInstance().getMappedElement(type);
+        
         if ((inst instanceof InstanceSpecification)
                 && (ecoreElt.getValues().size() == 0)){
+        
             InstanceValue instanceValue = UMLFactory.eINSTANCE.createInstanceValue();
-             org.eclipse.uml2.uml.ValueSpecification result = ecoreElt.createValue(null, null, instanceValue.eClass());
+            org.eclipse.uml2.uml.ValueSpecification result = ecoreElt.createValue(null, null, instanceValue.eClass());
             ((InstanceValue)result).setInstance((InstanceSpecification) inst);
             ecoreElt.getValues().add(result);
         
@@ -138,7 +143,7 @@ public class OLinkEnd extends OModelElement implements IOElement {
     }
 
     @objid ("bb610766-db43-4fa7-ae91-d142e475f245")
-    private void setIsLink(org.eclipse.uml2.uml.Slot ecoreElt) {
+    private void setIsLink() {
         Link link = this.objElt.getLink();
         if (link != null){
             org.eclipse.uml2.uml.Element inst = GenerationProperties.getInstance().getMappedElement(link);
@@ -150,19 +155,18 @@ public class OLinkEnd extends OModelElement implements IOElement {
 
     @objid ("631aef0c-16e9-4a98-b2f1-ae5fdb8d69f7")
     private void setDefiningFeature(final org.eclipse.uml2.uml.Slot ecoreElt) {
-        Instance instanceOwner = this.objElt.getOwner();
-        Link link = this.objElt.getLink();
-        if ((instanceOwner != null ) && (link != null)){
-            Association assoc = link.getModel();
-            NameSpace namespace = instanceOwner.getBase();
-            if ((assoc != null ) && (namespace != null)){
-                for (AssociationEnd assocEnd : assoc.getEnd()){
-                    if (assocEnd.getOwner().equals(namespace)){
-                        org.eclipse.uml2.uml.Element ecoreProp = GenerationProperties.getInstance().getMappedElement(assocEnd);
-                        if (ecoreProp instanceof org.eclipse.uml2.uml.StructuralFeature){
-                            ecoreElt.setDefiningFeature((org.eclipse.uml2.uml.StructuralFeature)ecoreProp);
-                        }
-                    }
+        AssociationEnd assocEnd = this.objElt.getModel();
+        
+        if (assocEnd != null){
+            org.eclipse.uml2.uml.Element ecoreProp = GenerationProperties.getInstance().getMappedElement(assocEnd);
+            if (ecoreProp instanceof org.eclipse.uml2.uml.StructuralFeature){
+                ecoreElt.setDefiningFeature((org.eclipse.uml2.uml.StructuralFeature)ecoreProp);
+                Association assoc = assocEnd.getAssociation();
+                org.eclipse.uml2.uml.Element ecoreAssoc = GenerationProperties.getInstance().getMappedElement(assoc);
+                Link link = this.objElt.getLink();
+                org.eclipse.uml2.uml.Element instanceSpec = GenerationProperties.getInstance().getMappedElement(link);
+                if ((ecoreAssoc instanceof org.eclipse.uml2.uml.Association) && (instanceSpec instanceof  org.eclipse.uml2.uml.InstanceSpecification)){
+                    ((org.eclipse.uml2.uml.InstanceSpecification) instanceSpec).getClassifiers().add((org.eclipse.uml2.uml.Association) ecoreAssoc);
                 }
             }
         }
@@ -188,18 +192,18 @@ public class OLinkEnd extends OModelElement implements IOElement {
 
     @objid ("b4d84f7c-61ac-44ee-b2f2-322c7ee4eb23")
     private void setConnectorEndProperties(org.eclipse.uml2.uml.ConnectorEnd ecoreElt) {
-        setIsOrdered((org.eclipse.uml2.uml.ConnectorEnd)ecoreElt);
-        setIsUnique((org.eclipse.uml2.uml.ConnectorEnd)ecoreElt);
-        setMax((org.eclipse.uml2.uml.ConnectorEnd)ecoreElt);
-        setMin((org.eclipse.uml2.uml.ConnectorEnd)ecoreElt);
-        setRole((org.eclipse.uml2.uml.ConnectorEnd)ecoreElt);
-        setPartWithPort((org.eclipse.uml2.uml.ConnectorEnd)ecoreElt);
+        setIsOrdered(ecoreElt);
+        setIsUnique(ecoreElt);
+        setMax(ecoreElt);
+        setMin(ecoreElt);
+        setRole(ecoreElt);
+        setPartWithPort(ecoreElt);
         if (GenerationProperties.getInstance().isRoundtripEnabled()){
-            setName((org.eclipse.uml2.uml.ConnectorEnd)ecoreElt);
-            setIsNavigable((org.eclipse.uml2.uml.ConnectorEnd)ecoreElt);
+            setName(ecoreElt);
+            setIsNavigable(ecoreElt);
         
         }
-        ordered((org.eclipse.uml2.uml.ConnectorEnd) ecoreElt);
+        ordered(ecoreElt);
     }
 
     @objid ("83ac7a39-c258-4156-b4ef-8423b6377363")

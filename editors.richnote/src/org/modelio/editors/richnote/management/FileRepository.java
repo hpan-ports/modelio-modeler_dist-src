@@ -40,6 +40,7 @@ import org.modelio.vcore.session.api.blob.BlobCopier;
 import org.modelio.vcore.session.api.blob.BlobInfo;
 import org.modelio.vcore.session.api.blob.IBlobInfo;
 import org.modelio.vcore.session.api.repository.IRepository;
+import org.modelio.vcore.session.api.transactions.ITransaction;
 import org.modelio.vcore.smkernel.mapi.MObject;
 
 /**
@@ -119,6 +120,15 @@ class FileRepository implements IRichNoteFileRepository {
         String label = this.geometry.getRelativePath(fileToSave);
         try (OutputStream os = repo.writeBlob(new BlobInfo(getBlobId(doc), label))) {
             Files.copy(fileToSave, os);
+        }
+        
+        // Touch the model element so that it is included in SVN commit
+        String name = doc.getName();
+        try (ITransaction t= this.session.getTransactionSupport().createTransaction("touch "+name)) {
+            doc.setName("");
+            doc.setName(name);
+            t.disableUndo();
+            t.commit();
         }
     }
 

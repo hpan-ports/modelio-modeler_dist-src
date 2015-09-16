@@ -30,8 +30,10 @@ import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Text;
+import org.modelio.core.ui.plugin.CoreUi;
 import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
+import org.modelio.metamodel.uml.statik.GeneralClass;
 import org.modelio.metamodel.uml.statik.Operation;
 import org.modelio.metamodel.uml.statik.Parameter;
 import org.modelio.ui.UIImages;
@@ -130,31 +132,34 @@ public class HybridCellRenderer extends DefaultCellRenderer {
             
             for (int i = 0; i < parameterNumber; i++) {
                 final Parameter parameter = parameters.get(i);
-                text = text + parameter.getType().getName();
+                final GeneralClass type = parameter.getType();
+                text = text + (type != null ? type.getName() : CoreUi.I18N.getString("KTable.NoType"));
                 if (i < parameterNumber - 1) {
                     text = text + ", ";
                 }
             }
             text = text + ")";
            final Parameter returnParam = operation.getReturn();
-           if (returnParam != null)
-               text = text + ":" + returnParam.getType().getName();
+           if (returnParam != null) {
+            final GeneralClass type = returnParam.getType();
+            text = text + ":" + (type != null ? type.getName() : CoreUi.I18N.getString("KTable.NoType"));
+        }
             
             if (this.displayOwner) {
                 Element owner = (Element) operation.getCompositionOwner();
                 if (owner instanceof ModelElement) {
-                    text = text + " (from " + ((ModelElement) owner).getName() + ")";
+                    text = text + CoreUi.I18N.getMessage("ResultsProposalPopup.From", ((ModelElement) owner).getName());
                 }
             }
             //PAN
-        } else if (content instanceof ModelElement) {        
+        } else if (content instanceof ModelElement) {
             ModelElement me = (ModelElement) content;
             text = me.getName();
         
             if (this.displayOwner) {
                 Element owner = (Element) me.getCompositionOwner();
                 if (owner instanceof ModelElement) {
-                    text = text + " (from " + ((ModelElement) owner).getName() + ")";
+                    text = text + CoreUi.I18N.getMessage("ResultsProposalPopup.From", ((ModelElement) owner).getName());
                 }
             }
         } else if (content instanceof String) {

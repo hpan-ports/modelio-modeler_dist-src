@@ -34,7 +34,7 @@ import org.modelio.diagram.elements.common.ghostnode.GhostNodeEditPart;
 import org.modelio.diagram.elements.common.group.GmGroup;
 import org.modelio.diagram.elements.common.group.GmGroupEditPart;
 import org.modelio.diagram.elements.common.groupitem.GroupItemEditPart;
-import org.modelio.diagram.elements.common.header.GmDefaultModelElementHeader;
+import org.modelio.diagram.elements.common.header.GmModelElementHeader;
 import org.modelio.diagram.elements.common.header.ModelElementHeaderEditPart;
 import org.modelio.diagram.elements.common.image.LabelledImageEditPart;
 import org.modelio.diagram.elements.common.image.NonSelectableImageEditPart;
@@ -58,6 +58,7 @@ import org.modelio.diagram.elements.core.node.GmNodeModel;
 import org.modelio.diagram.elements.core.node.IImageableNode;
 import org.modelio.diagram.elements.drawings.core.GmDrawing;
 import org.modelio.diagram.elements.drawings.layer.GmDrawingLayer;
+import org.modelio.diagram.elements.umlcommon.abstraction.GmAbstraction;
 import org.modelio.diagram.elements.umlcommon.constraint.ConstraintBodyEditPart;
 import org.modelio.diagram.elements.umlcommon.constraint.ConstraintBodyLabelEditPart;
 import org.modelio.diagram.elements.umlcommon.constraint.ConstraintLinkEditPart;
@@ -71,6 +72,8 @@ import org.modelio.diagram.elements.umlcommon.diagramheader.GmDiagramHeader;
 import org.modelio.diagram.elements.umlcommon.diagramholder.DiagramHolderEditPart;
 import org.modelio.diagram.elements.umlcommon.diagramholder.GmDiagramHolder;
 import org.modelio.diagram.elements.umlcommon.diagramholder.GmDiagramHolderLink;
+import org.modelio.diagram.elements.umlcommon.elementRealization.ElementRealizationEditPart;
+import org.modelio.diagram.elements.umlcommon.elementRealization.GmElementRealization;
 import org.modelio.diagram.elements.umlcommon.externdocument.ExternDocumentEditPart;
 import org.modelio.diagram.elements.umlcommon.externdocument.GmExternDocument;
 import org.modelio.diagram.elements.umlcommon.externdocument.GmExternDocumentLink;
@@ -85,6 +88,8 @@ import org.modelio.diagram.elements.umlcommon.namespaceuse.NamespaceUseEditPart;
 import org.modelio.diagram.elements.umlcommon.note.GmNote;
 import org.modelio.diagram.elements.umlcommon.note.GmNoteLink;
 import org.modelio.diagram.elements.umlcommon.note.NoteEditPart;
+import org.modelio.diagram.elements.umlcommon.usage.GmUsage;
+import org.modelio.diagram.elements.umlcommon.usage.GmUsageHeader;
 
 /**
  * The UML standard EditPart factory for Modelio diagrams.
@@ -170,17 +175,17 @@ public class ModelioEditPartFactory implements EditPartFactory {
             // For node models, delegates according the representation mode.
             GmNodeModel node = (GmNodeModel) model;
             switch (node.getRepresentationMode()) {
-                case IMAGE:
-                    editPart = this.imageModeEditPartFactory.createEditPart(context, model);
-                    break;
-                case SIMPLE:
-                    editPart = this.simpleModeEditPartFactory.createEditPart(context, model);
-                    break;
-                case STRUCTURED:
-                    editPart = this.structuredModeEditPartFactory.createEditPart(context, model);
-                    break;
-                default:
-                    editPart = null;
+            case IMAGE:
+                editPart = this.imageModeEditPartFactory.createEditPart(context, model);
+                break;
+            case SIMPLE:
+                editPart = this.simpleModeEditPartFactory.createEditPart(context, model);
+                break;
+            case STRUCTURED:
+                editPart = this.structuredModeEditPartFactory.createEditPart(context, model);
+                break;
+            default:
+                editPart = null;
                 break;
             }
         
@@ -188,9 +193,9 @@ public class ModelioEditPartFactory implements EditPartFactory {
                 return editPart;
         
             throw new IllegalArgumentException(model +
-                                               " is not supported in " +
-                                               node.getRepresentationMode() +
-                                               " mode.");
+                    " is not supported in " +
+                    node.getRepresentationMode() +
+                    " mode.");
         } 
         
         if (model instanceof GmDrawing || model instanceof GmDrawingLayer) {
@@ -201,7 +206,7 @@ public class ModelioEditPartFactory implements EditPartFactory {
                 return editPart;
         
             throw new IllegalArgumentException(model +
-                                               " is not supported.");
+                    " is not supported.");
         }
         
         // Link models are always in structured mode.
@@ -312,14 +317,26 @@ public class ModelioEditPartFactory implements EditPartFactory {
                 return editPart;
             }
             
-            if (model.getClass() == GmElementLabel.class) {
-                editPart = new GmElementLabelEditPart((GmElementLabel) model);
+            if (model.getClass() == GmUsage.class) {
+                editPart = new DependencyEditPart();
+                editPart.setModel(model);
                 return editPart;
             }
             
-            if (model.getClass() == GmDefaultModelElementHeader.class) {
-                editPart = new ModelElementHeaderEditPart();
+            if (model.getClass() == GmAbstraction.class) {
+                editPart = new DependencyEditPart();
                 editPart.setModel(model);
+                return editPart;
+            }
+            
+            if (model.getClass() == GmElementRealization.class) {
+                editPart = new ElementRealizationEditPart();
+                editPart.setModel(model);
+                return editPart;
+            }
+            
+            if (model.getClass() == GmElementLabel.class) {
+                editPart = new GmElementLabelEditPart((GmElementLabel) model);
                 return editPart;
             }
             
@@ -412,6 +429,12 @@ public class ModelioEditPartFactory implements EditPartFactory {
                 return editPart;
             }
             
+            if (model instanceof GmUsageHeader) {
+                editPart = new ModelElementFlatHeaderEditPart();
+                editPart.setModel(model);
+            }
+            
+            
             // Last chance: Generic fall backs
             // -------------------------------
             if (model instanceof GmElementText) {
@@ -437,6 +460,13 @@ public class ModelioEditPartFactory implements EditPartFactory {
                 editPart.setModel(model);
                 return editPart;
             }
+            
+            if (model instanceof GmModelElementHeader) {
+                editPart = new ModelElementHeaderEditPart();
+                editPart.setModel(model);
+                return editPart;
+            }
+            
             // End of last chance generic fall backs
             
             // Not registered : bug

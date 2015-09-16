@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.uml.infrastructure.properties;
 
@@ -37,34 +37,34 @@ import org.modelio.metamodel.uml.infrastructure.properties.TypedPropertyTable;
 
 @objid ("00669770-ec87-1098-b22e-001ec947cd2a")
 public interface PropertyTableDefinition extends ModelElement {
-    @objid ("895ec834-7462-49a6-9719-2ee5cb6ba6bc")
+    @objid ("e3de3d95-4fe9-41e5-b791-1bd9bbc5822c")
     PropertyContainer getOwner();
 
-    @objid ("cdabaad0-808a-4202-97dd-c325103a9360")
+    @objid ("8c73b176-8496-4056-9144-6d23d4d53833")
     void setOwner(PropertyContainer value);
 
-    @objid ("7137d4cc-102b-4979-b1f2-afd47cdaa723")
+    @objid ("4c552e58-2671-4d4f-b0b8-703f03d1ab9c")
     EList<TypedPropertyTable> getTypedTable();
 
-    @objid ("127e071c-5192-4a85-ac91-8023d92c618b")
+    @objid ("03a73b11-d9d1-4af9-8b7d-a8d062c31579")
     <T extends TypedPropertyTable> List<T> getTypedTable(java.lang.Class<T> filterClass);
 
-    @objid ("4c8ef568-cc2f-4359-9e29-6cc9f3477275")
+    @objid ("d1caec71-b8e5-44fa-8785-3a7831648690")
     MetaclassReference getOwnerReference();
 
-    @objid ("1477287f-1e41-48d7-aeef-3676521cb114")
+    @objid ("198887ca-0159-4cce-a34f-be4961ebc21c")
     void setOwnerReference(MetaclassReference value);
 
-    @objid ("2c5d21c7-6fbc-423e-bab9-0c8c418c534e")
+    @objid ("e67fa7ba-c328-4af9-a94c-2b722104b985")
     Stereotype getOwnerStereotype();
 
-    @objid ("55c56429-3dfc-4b4c-a904-a04c41711c25")
+    @objid ("25a530b7-17fb-4a61-a483-30454bbed9f9")
     void setOwnerStereotype(Stereotype value);
 
-    @objid ("ee3d1397-a7eb-4bc7-a540-0c9856623ac7")
+    @objid ("f7bf73e2-5840-4887-a0ae-b1ca48fa84f1")
     EList<PropertyDefinition> getOwned();
 
-    @objid ("00dcab40-60bc-4ac8-a7eb-f11aed7dc5b7")
+    @objid ("b2e1c94e-e5e6-433c-b2ef-63526cd16aa8")
     <T extends PropertyDefinition> List<T> getOwned(java.lang.Class<T> filterClass);
 
 }

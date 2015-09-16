@@ -21,7 +21,6 @@
 
 package org.modelio.diagram.editor.statik.elements.attribute;
 
-import java.util.Collections;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.diagram.elements.common.abstractdiagram.GmAbstractDiagram;
@@ -56,6 +55,9 @@ public class GmAttribute extends GmModelElementFlatHeader {
 
     @objid ("33fe3f03-55b7-11e2-877f-002564c97630")
     private static final int MAJOR_VERSION = 0;
+
+    @objid ("6c546a5d-d7d0-4c24-b1b9-81e4d31209f3")
+    public static GmAttributeStyleKeys ATT_KEYS = new GmAttributeStyleKeys();
 
     /**
      * Constructor for deserialization only.
@@ -98,12 +100,12 @@ public class GmAttribute extends GmModelElementFlatHeader {
             public String getText() {
         return getRelatedElement().getName();
                     }
-                
+        
                     @Override
                     public void setText(String text) {
         getRelatedElement().setName(text);
                     }
-                
+        
                 };
     }
 
@@ -122,29 +124,20 @@ public class GmAttribute extends GmModelElementFlatHeader {
     @objid ("33ffc5b6-55b7-11e2-877f-002564c97630")
     @Override
     public StyleKey getStyleKey(MetaKey metakey) {
-        if (metakey == MetaKey.FONT) {
-            return super.getStyleKey(MetaKey.AttGroup.ATTFONT);
-        } else if (metakey == MetaKey.SHOWSTEREOTYPES) {
+        if (metakey == MetaKey.SHOWSTEREOTYPES) {
             return super.getStyleKey(MetaKey.AttGroup.ATTSHOWSTEREOTYPES);
         } else if (metakey == MetaKey.SHOWTAGS) {
             return super.getStyleKey(MetaKey.AttGroup.ATTSHOWTAGS);
-        } else if (metakey == MetaKey.TEXTCOLOR) {
-            return super.getStyleKey(MetaKey.AttGroup.ATTTEXTCOLOR);
         } else if (metakey == MetaKey.SHOWVISIBILITY) {
             return super.getStyleKey(MetaKey.AttGroup.ATTSHOWVISIBILITY);
-        }
-        return null;
+        } else
+            return ATT_KEYS.getStyleKey(metakey);
     }
 
-    /**
-     * Attributes don't have own style key.
-     * <p>
-     * Everything is defined on the owner class.
-     */
     @objid ("33ffc5c0-55b7-11e2-877f-002564c97630")
     @Override
     public List<StyleKey> getStyleKeys() {
-        return Collections.emptyList();
+        return ATT_KEYS.getStyleKeys();
     }
 
     @objid ("34014c21-55b7-11e2-877f-002564c97630")
@@ -152,18 +145,18 @@ public class GmAttribute extends GmModelElementFlatHeader {
     public void read(IDiagramReader in) {
         // Read version, defaults to 0 if not found
         Object versionProperty = in.readProperty("GmAttribute." + MINOR_VERSION_PROPERTY);
-        int readVersion = versionProperty == null ? 0 : ((Integer) versionProperty).intValue();
+        int readVersion = (versionProperty == null) ? 0 : ((Integer) versionProperty).intValue();
         switch (readVersion) {
-            case 0: {
-                read_0(in);
-                break;
-            }
-            default: {
-                assert (false) : "version number not covered!";
-                // reading as last handled version: 0
-                read_0(in);
-                break;
-            }
+        case 0: {
+            read_0(in);
+            break;
+        }
+        default: {
+            assert (false) : "version number not covered!";
+            // reading as last handled version: 0
+            read_0(in);
+            break;
+        }
         }
     }
 
@@ -200,20 +193,20 @@ public class GmAttribute extends GmModelElementFlatHeader {
         StyleKey styleKey = getStyleKey(MetaKey.SHOWVISIBILITY);
         if (styleKey != null && (Boolean) getStyle().getProperty(styleKey)) {
             switch (att.getVisibility()) {
-                case PUBLIC:
-                    symbolBuf.append("+");
-                    break;
-                case PROTECTED:
-                    symbolBuf.append("#");
-                    break;
-                case PRIVATE:
-                    symbolBuf.append("-");
-                    break;
-                case PACKAGEVISIBILITY:
-                    symbolBuf.append("~");
-                    break;
-                default:
-                    symbolBuf.append(" ");
+            case PUBLIC:
+                symbolBuf.append("+");
+                break;
+            case PROTECTED:
+                symbolBuf.append("#");
+                break;
+            case PRIVATE:
+                symbolBuf.append("-");
+                break;
+            case PACKAGEVISIBILITY:
+                symbolBuf.append("~");
+                break;
+            default:
+                symbolBuf.append(" ");
             }
         }
         

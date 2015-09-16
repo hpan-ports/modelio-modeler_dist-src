@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.uml.informationFlow;
 
@@ -53,25 +53,25 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("006399b2-c4bf-1fd8-97fe-001ec947cd2a")
 public class InformationFlowImpl extends ModelElementImpl implements InformationFlow {
-    @objid ("f391f3f7-a4f4-4e29-9708-53c2076c5804")
+    @objid ("38933c9c-d69b-454f-a48e-16b521c9903e")
     @Override
     public NameSpace getOwner() {
         return (NameSpace) getDepVal(InformationFlowData.Metadata.OwnerDep());
     }
 
-    @objid ("dedc9c95-87b8-43d0-a0cd-bc4ca4580f8a")
+    @objid ("f7fe0038-a05f-42f6-b0c6-d81c08646500")
     @Override
     public void setOwner(NameSpace value) {
         appendDepVal(InformationFlowData.Metadata.OwnerDep(), (SmObjectImpl)value);
     }
 
-    @objid ("e19ccbfd-b84a-4396-87ac-4ad2aa77e4d4")
+    @objid ("e991c72b-7300-41ec-9513-21848daac52d")
     @Override
     public EList<ModelElement> getInformationSource() {
         return new SmList<>(this, InformationFlowData.Metadata.InformationSourceDep());
     }
 
-    @objid ("385e601c-320f-4236-9d80-26e31bed3c38")
+    @objid ("bb7360f4-8a24-4e8f-8535-3a68fc0c587b")
     @Override
     public <T extends ModelElement> List<T> getInformationSource(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -84,13 +84,13 @@ public class InformationFlowImpl extends ModelElementImpl implements Information
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("452ae2a1-7ad0-4fd7-99f0-930ef62dafbd")
+    @objid ("3fa0e828-a28f-4e15-baae-d1cf82e72231")
     @Override
     public EList<ModelElement> getInformationTarget() {
         return new SmList<>(this, InformationFlowData.Metadata.InformationTargetDep());
     }
 
-    @objid ("e02280eb-d707-4812-9a5d-3da873c6ff16")
+    @objid ("04e0f6a3-85b4-4bdd-be0c-89f70b67651b")
     @Override
     public <T extends ModelElement> List<T> getInformationTarget(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -103,13 +103,13 @@ public class InformationFlowImpl extends ModelElementImpl implements Information
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("b0f17419-c08b-4203-aa00-a59af005a7c4")
+    @objid ("2913d730-e700-4f11-850d-5ab69cd47320")
     @Override
     public EList<ActivityEdge> getRealizingActivityEdge() {
         return new SmList<>(this, InformationFlowData.Metadata.RealizingActivityEdgeDep());
     }
 
-    @objid ("2ff88ce0-402b-4c1c-8969-9fd0b2d33298")
+    @objid ("f33bb704-c0d4-4785-8400-f32a136600ee")
     @Override
     public <T extends ActivityEdge> List<T> getRealizingActivityEdge(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -122,13 +122,13 @@ public class InformationFlowImpl extends ModelElementImpl implements Information
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("cc726d50-d173-4972-bf6b-a4d5401a6f00")
+    @objid ("9e16b465-6b88-48ce-8260-f6ac42ab290a")
     @Override
     public EList<CommunicationMessage> getRealizingCommunicationMessage() {
         return new SmList<>(this, InformationFlowData.Metadata.RealizingCommunicationMessageDep());
     }
 
-    @objid ("b2dc9bc6-7b4e-427a-9fac-206e85cfaa65")
+    @objid ("76001212-e5a5-4571-9edf-6fbb3d2383d4")
     @Override
     public <T extends CommunicationMessage> List<T> getRealizingCommunicationMessage(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -141,13 +141,13 @@ public class InformationFlowImpl extends ModelElementImpl implements Information
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("049556b3-e85e-4fcc-b89e-9906102380a5")
+    @objid ("1b1bb775-5a63-4695-83ff-00f37b536c4d")
     @Override
     public EList<StructuralFeature> getRealizingFeature() {
         return new SmList<>(this, InformationFlowData.Metadata.RealizingFeatureDep());
     }
 
-    @objid ("b443bf7a-1680-4cf8-8aa8-4c65f42229f4")
+    @objid ("1e468fdf-0581-494f-bde7-fffa23f80d27")
     @Override
     public <T extends StructuralFeature> List<T> getRealizingFeature(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -160,13 +160,13 @@ public class InformationFlowImpl extends ModelElementImpl implements Information
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("3edbc7da-30f7-4795-bd1c-f2ff33602dbf")
+    @objid ("15128cf9-299d-475d-859a-769cc4252200")
     @Override
     public EList<LinkEnd> getRealizingLink() {
         return new SmList<>(this, InformationFlowData.Metadata.RealizingLinkDep());
     }
 
-    @objid ("0cd24f67-24dc-48b6-aa75-2b005fc103e3")
+    @objid ("a36e8a2c-ae6e-422f-adc9-dc08cf54293f")
     @Override
     public <T extends LinkEnd> List<T> getRealizingLink(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -179,13 +179,13 @@ public class InformationFlowImpl extends ModelElementImpl implements Information
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("972dd62e-d630-488f-8a13-6c536024ce75")
+    @objid ("a62a3a80-ca4d-4c14-b50c-ab3c3c14ade3")
     @Override
     public EList<Message> getRealizingMessage() {
         return new SmList<>(this, InformationFlowData.Metadata.RealizingMessageDep());
     }
 
-    @objid ("ac3e7650-e91d-4045-a561-ab320ce62f32")
+    @objid ("0e7b86f8-8baf-4786-b8c3-b5dca7ff2085")
     @Override
     public <T extends Message> List<T> getRealizingMessage(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -198,13 +198,13 @@ public class InformationFlowImpl extends ModelElementImpl implements Information
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("dac0bf7a-d3db-49fd-9f7c-bd85fd3c47a8")
+    @objid ("9c764ced-403e-44b7-9089-4324bb15ddd8")
     @Override
     public EList<NaryLink> getRealizingNaryLink() {
         return new SmList<>(this, InformationFlowData.Metadata.RealizingNaryLinkDep());
     }
 
-    @objid ("69e4d0fc-d4c8-460a-9741-00c5fcb5aa14")
+    @objid ("0a2fdd5c-15f5-44ef-ae78-99613c1b3db4")
     @Override
     public <T extends NaryLink> List<T> getRealizingNaryLink(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -217,13 +217,13 @@ public class InformationFlowImpl extends ModelElementImpl implements Information
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("f3190ef1-0eb6-4680-824b-e1c6fb599483")
+    @objid ("53df0f94-7366-4edc-80dc-ee0010b34782")
     @Override
     public EList<Classifier> getConveyed() {
         return new SmList<>(this, InformationFlowData.Metadata.ConveyedDep());
     }
 
-    @objid ("661a4de2-4f3d-47db-990c-8fd6ecfeaea1")
+    @objid ("85cd595d-0f4f-4f26-a124-14061a78f7ac")
     @Override
     public <T extends Classifier> List<T> getConveyed(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -236,19 +236,19 @@ public class InformationFlowImpl extends ModelElementImpl implements Information
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("8c45e849-8172-4b55-a8a1-a2c7693333e5")
+    @objid ("34792685-e065-4c35-b259-b833d09e8bc5")
     @Override
     public AssociationEnd getChannel() {
         return (AssociationEnd) getDepVal(InformationFlowData.Metadata.ChannelDep());
     }
 
-    @objid ("4bfbf6ae-5557-4e40-8921-be0d1a8f257a")
+    @objid ("64f86520-20b8-4630-a36a-a27ce3f67b8d")
     @Override
     public void setChannel(AssociationEnd value) {
         appendDepVal(InformationFlowData.Metadata.ChannelDep(), (SmObjectImpl)value);
     }
 
-    @objid ("91bdb674-e989-4355-b533-5f2c2a6b1cff")
+    @objid ("62b66106-f18c-4bec-ae26-ceb460df49fd")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
@@ -258,7 +258,7 @@ public class InformationFlowImpl extends ModelElementImpl implements Information
         return super.getCompositionOwner();
     }
 
-    @objid ("4e6936e9-293d-42f9-bb79-4c0335278f75")
+    @objid ("98d1f826-7c3b-40db-9a75-5c2e7b623ea0")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
@@ -268,7 +268,7 @@ public class InformationFlowImpl extends ModelElementImpl implements Information
         return super.getCompositionRelation();
     }
 
-    @objid ("35a9007f-b8cf-498e-bc9f-7f8f6b681ee1")
+    @objid ("3163c3d3-3ad8-49cb-aa4c-b102e917aef2")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitInformationFlow(this);

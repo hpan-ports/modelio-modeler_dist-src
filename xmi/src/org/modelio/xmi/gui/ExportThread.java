@@ -80,8 +80,7 @@ public class ExportThread extends AbstractXMIThread implements IRunnableWithProg
                 errorMessage = Xmi.I18N.getString("fileChooser.dialog.export.errorMessage");
             }
             
-            Xmi.LOG.error(Xmi.PLUGIN_ID, e);
-            e.printStackTrace(System.err);
+            Xmi.LOG.error(e);
             this.progressBar.addFinalValue();
         } finally {
             if (resource != null)

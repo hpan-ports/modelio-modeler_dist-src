@@ -120,7 +120,7 @@ public class InterfaceEditPart extends GmNodeEditPart {
     protected void refreshFromStyle(IFigure aFigure, IStyle style) {
         if (aFigure instanceof GradientFigure) {
             GmCompositeNode model = (GmCompositeNode) getModel();
-            if (model.getRepresentationMode() == RepresentationMode.SIMPLE) {
+            if (model.getRepresentationMode() != RepresentationMode.STRUCTURED) {
                 // reparent all content of the inner zone to port container as satellites and add composition link
                 GmInnerClass inner = (GmInnerClass) ((GmResizableGroup) model.getFirstChild("")).getFirstChild("Inner");
                 if (inner != null) {

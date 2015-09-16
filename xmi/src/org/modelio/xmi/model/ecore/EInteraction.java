@@ -22,7 +22,6 @@
 package org.modelio.xmi.model.ecore;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.modelio.api.modelio.Modelio;
 import org.modelio.metamodel.diagrams.SequenceDiagram;
 import org.modelio.metamodel.uml.behavior.interactionModel.Gate;
 import org.modelio.metamodel.uml.behavior.interactionModel.Interaction;
@@ -48,7 +47,7 @@ public class EInteraction extends ENamedElement {
     @objid ("224c762d-157b-412a-b468-bdd406ecbc7d")
     @Override
     public Element createObjingElt() {
-        return Modelio.getInstance().getModelingSession().getModel().createInteraction();
+        return ReverseProperties.getInstance().getMModelServices().getModelFactory().createInteraction();
     }
 
     @objid ("ddac9a35-3dac-400d-9e10-f40d5f123597")
@@ -80,17 +79,17 @@ public class EInteraction extends ENamedElement {
                 org.eclipse.uml2.uml. Behavior doActivity = ((org.eclipse.uml2.uml.State)ecoreOwner).getDoActivity();
         
                 if ((ent != null) && (ent.equals(this.ecoreElement))){
-                    InternalTransition transition = Modelio.getInstance().getModelingSession().getModel().createInternalTransition();
+                    InternalTransition transition = ReverseProperties.getInstance().getMModelServices().getModelFactory().createInternalTransition();
                     transition.setSComposed((State)objingOwner);
                     transition.setBehaviorEffect(objingIImport);
                     transition.setReceivedEvents("Entry");
                 }else if ((exit != null) && (exit.equals(this.ecoreElement))){    
-                    InternalTransition transition = Modelio.getInstance().getModelingSession().getModel().createInternalTransition();
+                    InternalTransition transition = ReverseProperties.getInstance().getMModelServices().getModelFactory().createInternalTransition();
                     transition.setSComposed((State)objingOwner);
                     transition.setBehaviorEffect(objingIImport);
                     transition.setReceivedEvents("Exit");
                 }else if ((doActivity != null) && (doActivity.equals(this.ecoreElement))){
-                    InternalTransition transition = Modelio.getInstance().getModelingSession().getModel().createInternalTransition();
+                    InternalTransition transition = ReverseProperties.getInstance().getMModelServices().getModelFactory().createInternalTransition();
                     transition.setSComposed((State) objingIImport);
                     transition.setBehaviorEffect(objingIImport);
                     transition.setReceivedEvents("Do");
@@ -126,7 +125,7 @@ public class EInteraction extends ENamedElement {
         Gate objingGate = (Gate) ReverseProperties.getInstance().getMappedElement(ecoreGate);
         
         if (objingGate == null)
-            objingGate = Modelio.getInstance().getModelingSession().getModel().createGate();
+            objingGate = ReverseProperties.getInstance().getMModelServices().getModelFactory().createGate();
         
         String name = ecoreGate.getName();
         if (EcoreModelNavigation.isNotNull(name))
@@ -139,7 +138,7 @@ public class EInteraction extends ENamedElement {
 
     @objid ("3f092a4e-4784-4d44-a45d-7c14d41f9eb6")
     private void setDiagram(Interaction objingElt) {
-        SequenceDiagram diagram = Modelio.getInstance().getModelingSession().getModel().createSequenceDiagram();
+        SequenceDiagram diagram = ReverseProperties.getInstance().getMModelServices().getModelFactory().createSequenceDiagram();
         
         diagram.setOrigin(objingElt);    
         
@@ -149,10 +148,9 @@ public class EInteraction extends ENamedElement {
             name = ObjingEAnnotation.getDiagramName(this.ecoreElement);
         }
         
-        
         if (name.equals("")){
-            name = this.ecoreElement.getName();}
-        
+            name = this.ecoreElement.getName();
+        }
         
         diagram.setName(name);
     }

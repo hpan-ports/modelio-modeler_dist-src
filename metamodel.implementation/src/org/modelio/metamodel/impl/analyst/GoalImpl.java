@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.analyst;
 
@@ -44,25 +44,25 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("760d4fa8-abc5-460f-898b-68d0f7d37134")
 public class GoalImpl extends AnalystElementImpl implements Goal {
-    @objid ("5727721e-4667-4ac0-8337-2d135dd72496")
+    @objid ("b5e26f4b-cd2f-419a-a868-ec3e6a85fb77")
     @Override
-    public int getVersion() {
-        return (Integer) getAttVal(GoalData.Metadata.VersionAtt());
+    public EList<? extends AnalystElement> getArchivedVersions() {
+        return getArchivedGoalVersion();
     }
 
-    @objid ("1751c8da-4b33-49f6-a2b9-7717edc4a3c2")
+    @objid ("02f9e32a-4617-429d-9174-c8b550a32032")
     @Override
-    public void setVersion(int value) {
-        setAttVal(GoalData.Metadata.VersionAtt(), value);
+    public AnalystElement getLastVersion() {
+        return getLastGoalVersion();
     }
 
-    @objid ("13ad3683-9763-446d-a1e5-c36278674048")
+    @objid ("fceb6fde-e145-42ec-a39d-9401a4743249")
     @Override
     public EList<Goal> getSubGoal() {
         return new SmList<>(this, GoalData.Metadata.SubGoalDep());
     }
 
-    @objid ("4bd504c0-bd38-4a89-9d7a-0453edcccf1d")
+    @objid ("d6184194-e0f1-47a1-8493-e63ce178e1a6")
     @Override
     public <T extends Goal> List<T> getSubGoal(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -75,49 +75,49 @@ public class GoalImpl extends AnalystElementImpl implements Goal {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("15aa8f7c-4b96-4fda-94c3-33643fac4472")
+    @objid ("77750fad-24a8-4cca-ad4f-7f4f90b76696")
     @Override
     public GoalContainer getOwnerContainer() {
         return (GoalContainer) getDepVal(GoalData.Metadata.OwnerContainerDep());
     }
 
-    @objid ("588eb3b5-abaf-4157-b9f5-76067f7f8d3d")
+    @objid ("f6c62cde-6798-411d-8c71-0c8df77f1edb")
     @Override
     public void setOwnerContainer(GoalContainer value) {
         appendDepVal(GoalData.Metadata.OwnerContainerDep(), (SmObjectImpl)value);
     }
 
-    @objid ("f8ed6ffa-dd4b-48c1-8a50-4bbea3d95866")
+    @objid ("492b6d75-fe8a-4161-99a5-d6e93eaaa565")
     @Override
     public Goal getParentGoal() {
         return (Goal) getDepVal(GoalData.Metadata.ParentGoalDep());
     }
 
-    @objid ("1d45f047-c32f-47b2-a60f-7a155b0d836e")
+    @objid ("24fae837-5b92-4fd3-9daf-1e10aa8d33dd")
     @Override
     public void setParentGoal(Goal value) {
         appendDepVal(GoalData.Metadata.ParentGoalDep(), (SmObjectImpl)value);
     }
 
-    @objid ("4503c390-3c94-4d5b-ab88-5a048b3f46a7")
+    @objid ("73a5798c-08e3-4f12-a868-1c8f6f5d62fa")
     @Override
     public Goal getLastGoalVersion() {
         return (Goal) getDepVal(GoalData.Metadata.LastGoalVersionDep());
     }
 
-    @objid ("cd3c6d6c-7a0f-43de-a728-b5c08720854e")
+    @objid ("1926f4f3-3bb2-4ba5-b6e1-97b0f7412bd5")
     @Override
     public void setLastGoalVersion(Goal value) {
         appendDepVal(GoalData.Metadata.LastGoalVersionDep(), (SmObjectImpl)value);
     }
 
-    @objid ("3cb10004-fd27-41ee-9294-d224fda8d876")
+    @objid ("335d53d8-397c-4662-894e-c2278e6a4908")
     @Override
     public EList<Goal> getArchivedGoalVersion() {
         return new SmList<>(this, GoalData.Metadata.ArchivedGoalVersionDep());
     }
 
-    @objid ("f50420c7-354a-4f2c-98f6-9c300619c81e")
+    @objid ("60211f78-af09-44d9-95ed-0002521fee56")
     @Override
     public <T extends Goal> List<T> getArchivedGoalVersion(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -130,7 +130,7 @@ public class GoalImpl extends AnalystElementImpl implements Goal {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("0d5654c4-b19a-4c72-94da-ebf922d4c719")
+    @objid ("99969bb0-fe84-4a0c-be11-3b25e3899e91")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
@@ -146,7 +146,7 @@ public class GoalImpl extends AnalystElementImpl implements Goal {
         return super.getCompositionOwner();
     }
 
-    @objid ("f7124eb4-8462-49e4-90ea-1b39e67916f3")
+    @objid ("50421234-0313-4024-96f8-1d926f9fb66a")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
@@ -162,25 +162,12 @@ public class GoalImpl extends AnalystElementImpl implements Goal {
         return super.getCompositionRelation();
     }
 
-    @objid ("d2e9e6c9-5328-4247-8b99-d8e4993fcf56")
-    @Override
+    @objid ("eef1da2c-950b-4b1f-a342-bd59fe612ccf")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitGoal(this);
         else
           return null;
-    }
-
-    @objid ("b5e26f4b-cd2f-419a-a868-ec3e6a85fb77")
-    @Override
-    public EList<? extends AnalystElement> getArchivedVersions() {
-        return getArchivedGoalVersion();
-    }
-
-    @objid ("02f9e32a-4617-429d-9174-c8b550a32032")
-    @Override
-    public AnalystElement getLastVersion() {
-        return getLastGoalVersion();
     }
 
 }

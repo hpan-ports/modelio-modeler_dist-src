@@ -21,11 +21,9 @@
 
 package org.modelio.xmi.model.ecore;
 
-import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.uml2.uml.ObjectNodeOrderingKind;
-import org.modelio.api.modelio.Modelio;
 import org.modelio.metamodel.uml.behavior.activityModel.Activity;
 import org.modelio.metamodel.uml.behavior.activityModel.ActivityParameterNode;
 import org.modelio.metamodel.uml.behavior.commonBehaviors.BehaviorParameter;
@@ -37,10 +35,11 @@ import org.modelio.xmi.util.EcoreModelNavigation;
 import org.modelio.xmi.util.ReverseProperties;
 
 @objid ("eb0142f7-a3cf-4823-8b0f-5757b54b0d06")
-public class EActivityParameterNode extends EActivityNode implements IEElement {
+public class EActivityParameterNode extends EActivityNode {
     @objid ("a82c3608-ace3-4484-9382-2e7da9c10016")
+    @Override
     public Element createObjingElt() {
-        return Modelio.getInstance().getModelingSession().getModel().createActivityParameterNode();
+        return ReverseProperties.getInstance().getMModelServices().getModelFactory().createActivityParameterNode();
     }
 
     @objid ("fadd7ee0-e83f-4fa9-9b21-9e60c856debe")
@@ -48,16 +47,8 @@ public class EActivityParameterNode extends EActivityNode implements IEElement {
         super(element);
     }
 
-    @objid ("58ac20d6-e1c3-4f79-ba1c-69e8324e1285")
-    public void attach(Element objingElt) {
-        super.attach(objingElt);
-    }
-
-    @objid ("c4b7cf80-2c7b-4440-b690-3f8697aed022")
-    public void attach(List<Object> objingElts) {
-    }
-
     @objid ("568fb676-7b79-4a4d-a443-2dd31a6a72ea")
+    @Override
     public void setProperties(Element objingElt) {
         super.setProperties(objingElt);
         
@@ -66,9 +57,6 @@ public class EActivityParameterNode extends EActivityNode implements IEElement {
         setSelectionBehavior((ActivityParameterNode) objingElt);
         setUpperBound((ActivityParameterNode) objingElt);
         setType((ActivityParameterNode) objingElt);
-        // setRepresented((ActivityParameterNode)objingElt);
-        // setRepresentedAttribute((ActivityParameterNode)objingElt);
-        // setRepresentedRole((ActivityParameterNode)objingElt);
         setRepresentedRealParameter((ActivityParameterNode) objingElt);
         setState((ActivityParameterNode) objingElt);
     }
@@ -149,7 +137,7 @@ public class EActivityParameterNode extends EActivityNode implements IEElement {
                         if (objingParam instanceof BehaviorParameter)
                             objingBehaviorParam = (BehaviorParameter) objingParam;
                         else
-                            objingBehaviorParam = Modelio.getInstance().getModelingSession().getModel().createBehaviorParameter();
+                            objingBehaviorParam = ReverseProperties.getInstance().getMModelServices().getModelFactory().createBehaviorParameter();
                 
                         objingBehaviorParam.setOwner((Activity) objingActivity);
                 

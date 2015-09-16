@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.uml.statik;
 
@@ -41,70 +41,70 @@ import org.modelio.metamodel.uml.statik.Parameter;
 
 @objid ("000bbdb4-c4bf-1fd8-97fe-001ec947cd2a")
 public interface GeneralClass extends Classifier {
-    @objid ("df536398-820c-46f5-8f06-1baea10ffa35")
+    @objid ("5c89d769-8f5e-4d9a-94a1-99579058c5e9")
     boolean isIsElementary();
 
-    @objid ("512d105a-7e05-4d11-9961-3aadd35d4bfd")
+    @objid ("f704fcd2-8997-49a4-a037-6f2f959cadeb")
     void setIsElementary(boolean value);
 
-    @objid ("69c26814-e59f-44b8-861e-8a2658edaf5a")
+    @objid ("9bbf7f52-23ed-4b43-863d-009ee0d22d14")
     EList<BpmnInterface> getBpmnInterfaceRefs();
 
-    @objid ("3618ad0f-ac8e-4dbd-aeb3-f0bf069a4e3d")
+    @objid ("1058ec6b-497b-45ae-9e94-dcf43af7336e")
     <T extends BpmnInterface> List<T> getBpmnInterfaceRefs(java.lang.Class<T> filterClass);
 
-    @objid ("59736621-b22b-4f01-ae9d-7c3bd1f4daf4")
+    @objid ("25e9774e-dac6-466f-a6a5-51e9cf6fcda8")
     EList<Parameter> getOccurence();
 
-    @objid ("af830714-9800-4703-8022-14e21562d649")
+    @objid ("14c51c20-d5f3-4c3f-81b2-813eaaba5ee1")
     <T extends Parameter> List<T> getOccurence(java.lang.Class<T> filterClass);
 
-    @objid ("ded4fddc-cb6a-4973-8adf-bb7fabef6c9a")
+    @objid ("fd1e0661-de12-4ab5-aac7-5d044dd56f0f")
     ExceptionHandler getExceptionInput();
 
-    @objid ("9827bad4-3299-422b-aa98-925a16b38f32")
+    @objid ("390c81c0-af98-410d-a200-99231dda12ff")
     void setExceptionInput(ExceptionHandler value);
 
-    @objid ("ffecfa6a-308d-4ba7-a621-18028de64189")
+    @objid ("361ecac4-8303-4b02-b40f-b18d3357c8d3")
     EList<Attribute> getObject();
 
-    @objid ("d54c9264-d8c4-44bf-b946-77432d734100")
+    @objid ("c3e2625c-ce6f-4b03-bae5-11622e709691")
     <T extends Attribute> List<T> getObject(java.lang.Class<T> filterClass);
 
-    @objid ("2c27b0de-52d3-4416-a3b9-7fef57737e97")
+    @objid ("66cf6d8c-9d22-4483-a18e-e62152e74c2a")
     EList<BpmnMessage> getBpmnMessageRefs();
 
-    @objid ("9bdd9bf1-8c89-4545-bb32-effa396d61c5")
+    @objid ("b4cd9674-9485-4caa-800b-2b2b54fc0e69")
     <T extends BpmnMessage> List<T> getBpmnMessageRefs(java.lang.Class<T> filterClass);
 
-    @objid ("65dea302-d9c9-457d-9cea-95f8c90271fc")
+    @objid ("2d77c014-fe4d-41f4-a380-816b50ed1ed3")
     EList<Signal> getSRepresentation();
 
-    @objid ("9db88a87-a7e4-4b4b-9c8a-7a49d3cdbde6")
+    @objid ("801d0018-8405-46e6-8794-465faa1ceb75")
     <T extends Signal> List<T> getSRepresentation(java.lang.Class<T> filterClass);
 
-    @objid ("8ed3e7e1-61a7-4848-90e2-76edc0918cb9")
+    @objid ("8d293d25-d0e3-463d-8e51-60a47d3ed103")
     EList<BpmnItemDefinition> getBpmnItemDefinitionRefs();
 
-    @objid ("9747b94c-a50a-4805-9df5-3360d35f8898")
+    @objid ("cd8dba5f-a234-46f9-9d25-0202ffe19a31")
     <T extends BpmnItemDefinition> List<T> getBpmnItemDefinitionRefs(java.lang.Class<T> filterClass);
 
-    @objid ("bc1b4a60-3f2d-4e2a-bbac-fc371d6c00ce")
+    @objid ("f3fa36ab-a5d2-45b3-bf9b-630e5fc2d5d8")
     EList<ObjectNode> getOccurenceObjectNode();
 
-    @objid ("dcd86504-9d61-4da0-856c-499d7442242b")
+    @objid ("c7d69fc3-cba0-4956-b2ac-5fec378ff50a")
     <T extends ObjectNode> List<T> getOccurenceObjectNode(java.lang.Class<T> filterClass);
 
-    @objid ("9efe30b0-1537-4e65-bfc6-800fa0cdad9d")
+    @objid ("0eb7905f-00e2-43b0-84cb-5ad47d559c35")
     EList<BpmnItemAwareElement> getBpmnItemAwareRefs();
 
-    @objid ("41a36d25-85a2-42c8-9310-a299f7c3f498")
+    @objid ("bdc54449-ceff-4fe8-b237-5bc91e6314b1")
     <T extends BpmnItemAwareElement> List<T> getBpmnItemAwareRefs(java.lang.Class<T> filterClass);
 
-    @objid ("e40221db-60c4-4106-8091-5b2a8b699f57")
+    @objid ("208eb26e-ef7e-4a9d-8858-ea3c5367bcef")
     EList<ModuleParameter> getOccurenceConfigParam();
 
-    @objid ("1023fc0b-4262-4836-b6cc-0b81f07639de")
+    @objid ("4918834c-53c1-4ab3-a925-addf3d640994")
     <T extends ModuleParameter> List<T> getOccurenceConfigParam(java.lang.Class<T> filterClass);
 
 }

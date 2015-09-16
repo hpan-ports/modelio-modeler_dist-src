@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.uml.behavior.activityModel;
 
@@ -30,10 +30,10 @@ import org.eclipse.emf.ecore.EObject;
 
 @objid ("003ed672-c4bf-1fd8-97fe-001ec947cd2a")
 public interface ValuePin extends InputPin {
-    @objid ("1b385f57-2036-47ae-b4f5-cdbb5c6e9af8")
+    @objid ("e501dc15-76aa-4ffa-831e-16803fc713ea")
     String getValue();
 
-    @objid ("99c64872-24f6-4fcc-b78b-57f29a5f8fe7")
+    @objid ("b293fe53-0af1-405f-aa34-5d71f029a6ae")
     void setValue(String value);
 
 }

@@ -37,7 +37,7 @@ import org.modelio.xmi.util.ObjingEAnnotation;
  * @author ebrosse
  */
 @objid ("6d880c0f-a06c-43dc-91ba-e196e796e663")
-public class OConstraint extends OModelElement implements IOElement {
+public class OConstraint extends OModelElement {
     @objid ("ef89c7d0-fbba-46a6-86b0-291c18c17907")
     private Constraint objingElement = null;
 
@@ -62,14 +62,14 @@ public class OConstraint extends OModelElement implements IOElement {
         GenerationProperties genProp = GenerationProperties.getInstance();
         
         if (ecoreElt instanceof org.eclipse.uml2.uml.Constraint){
-            //Cosntraint case 
+            //Constraint case 
             // Exceptionally sets the Properties of the org.eclipse.uml2.uml.Constraint, as we need to
             // know the Name and Body of the
             // current constraint.
             setProperties(ecoreElt);
         
             // Gets the ecore constrained elements:
-            List <org.eclipse.uml2.uml.Element> ecoreConstrainedElts = new ArrayList <org.eclipse.uml2.uml.Element>();
+            List <org.eclipse.uml2.uml.Element> ecoreConstrainedElts = new ArrayList <>();
             boolean isMappingPossible = true;
             List<ModelElement> objingConstrainedElts = this.objingElement
                     .getConstrainedElement();
@@ -112,10 +112,10 @@ public class OConstraint extends OModelElement implements IOElement {
         
             }
         }else{
-            if (objingElement.getConstrainedElement().size() == 2 ){
+            if (this.objingElement.getConstrainedElement().size() == 2 ){
                 //Duration Observation
                 ModelElement constrainedElt = this.objingElement.getConstrainedElement().get(0);
-                org.eclipse.uml2.uml.Element ecoreOwner = (org.eclipse.uml2.uml.Element) genProp
+                org.eclipse.uml2.uml.Element ecoreOwner = genProp
                         .getMappedElement(AbstractObjingModelNavigation.getNearestPackage(constrainedElt));
                 if (ecoreOwner instanceof Package){
                     org.eclipse.uml2.uml.DurationObservation durObs = (org.eclipse.uml2.uml.DurationObservation) ecoreElt;

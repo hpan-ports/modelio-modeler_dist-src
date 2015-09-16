@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.uml.infrastructure.properties;
 
@@ -60,33 +60,33 @@ public class TypedPropertyTableImpl extends PropertyTableImpl implements TypedPr
         setProperty(prop.getName(), value);
     }
 
-    @objid ("849557b4-4053-4b2b-a07c-c379e086d0e2")
+    @objid ("a42f6900-35d5-43fe-9983-d19b02d22239")
     @Override
     public PropertyTableDefinition getType() {
         return (PropertyTableDefinition) getDepVal(TypedPropertyTableData.Metadata.TypeDep());
     }
 
-    @objid ("0376d829-c380-442f-9253-827f19e2caab")
+    @objid ("ed07d8e0-1732-4804-b509-9973d54dc4d3")
     @Override
     public void setType(PropertyTableDefinition value) {
         appendDepVal(TypedPropertyTableData.Metadata.TypeDep(), (SmObjectImpl)value);
     }
 
-    @objid ("6b5d0ed3-a608-4736-817f-eb00c144226c")
+    @objid ("a55c5ba3-d978-4f67-a02a-03f9d6a8fcfe")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("18cef5e8-19d1-4151-b488-38763d84cc5a")
+    @objid ("740eca3f-582b-4ee5-b72c-1acca9a7711c")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("134a2553-e164-4d24-b245-ecd05610e350")
+    @objid ("cf2a651d-f0e9-4437-b2f3-edaa632f8126")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitTypedPropertyTable(this);

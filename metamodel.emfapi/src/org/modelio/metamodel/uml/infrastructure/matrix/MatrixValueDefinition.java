@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.uml.infrastructure.matrix;
 
@@ -34,22 +34,22 @@ import org.modelio.metamodel.uml.infrastructure.properties.PropertyTable;
 
 @objid ("6ae11939-6513-44a4-b535-1daf76e27f63")
 public interface MatrixValueDefinition extends Element {
-    @objid ("8585915d-6d5b-4355-b7c1-10ebcce2fde2")
+    @objid ("b13bd44e-a94b-429c-999e-0567b7c36ffa")
     ExternProcessor getProcessor();
 
-    @objid ("3f1b8549-bded-4791-a066-a9f88807dae2")
+    @objid ("7038a321-bf63-4ef2-a53f-c8e8436d7a55")
     void setProcessor(ExternProcessor value);
 
-    @objid ("e8e3cac2-bcca-4687-b36b-8d87648cd3ed")
+    @objid ("b1d31e89-9b36-49fe-9775-2e08aa9204ca")
     PropertyTable getParameters();
 
-    @objid ("b016bc8c-78a2-4495-88fd-384f80c37cd2")
+    @objid ("5ac7b5e7-9256-4559-ace8-86c1f4587e76")
     void setParameters(PropertyTable value);
 
-    @objid ("df7e5546-7530-4861-a4cc-bdc4936284ad")
+    @objid ("7ad0bd59-b6a2-4e32-a08d-886ca53c9b62")
     MatrixDefinition getMatrix();
 
-    @objid ("1053e455-e29e-47aa-8e38-13f512888924")
+    @objid ("acce4758-2227-4c60-98b6-e8c0f769bc9e")
     void setMatrix(MatrixDefinition value);
 
 }

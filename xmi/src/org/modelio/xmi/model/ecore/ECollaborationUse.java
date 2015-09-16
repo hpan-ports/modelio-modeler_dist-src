@@ -21,9 +21,7 @@
 
 package org.modelio.xmi.model.ecore;
 
-import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.modelio.api.modelio.Modelio;
 import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.metamodel.uml.statik.Collaboration;
 import org.modelio.metamodel.uml.statik.CollaborationUse;
@@ -31,36 +29,35 @@ import org.modelio.metamodel.uml.statik.NameSpace;
 import org.modelio.xmi.util.ReverseProperties;
 
 @objid ("2824e10c-a662-467d-9ea0-4fd8ec028c35")
-public class ECollaborationUse extends ENamedElement implements IEElement {
+public class ECollaborationUse extends ENamedElement {
     @objid ("3e8c5469-8950-42bf-ad70-4902920a9f48")
-    private org.eclipse.uml2.uml.CollaborationUse ecoreElement;
+    private org.eclipse.uml2.uml.CollaborationUse ecoreElement = null;
 
     @objid ("07098e66-3add-468f-a686-e8598f1c7614")
+    @Override
     public Element createObjingElt() {
-        return Modelio.getInstance().getModelingSession().getModel().createCollaborationUse();
+        return ReverseProperties.getInstance().getMModelServices().getModelFactory().createCollaborationUse();
     }
 
     @objid ("515730b2-ce0e-422a-bddc-f3d175cd90a3")
     public ECollaborationUse(org.eclipse.uml2.uml.CollaborationUse element) {
         super(element);
-        ecoreElement = element;
+        this.ecoreElement = element;
     }
 
     @objid ("3eeccd90-1658-49e7-82b3-236e7d86a66a")
+    @Override
     public void attach(Element objingElt) {
-        ecoreElement.getOwner();
+        this.ecoreElement.getOwner();
         
-        Element objOwner = (Element)  ReverseProperties.getInstance().getMappedElement(ecoreElement.getOwner());
-                
+        Element objOwner = (Element)  ReverseProperties.getInstance().getMappedElement(this.ecoreElement.getOwner());
+        
         if (objOwner instanceof NameSpace)
             ((NameSpace)objOwner).getOwnedCollaborationUse().add((CollaborationUse)objingElt);
     }
 
-    @objid ("209674a3-8ce8-4839-a750-2c00aa7c781d")
-    public void attach(List<Object> objingElts) {
-    }
-
     @objid ("c8af813f-63a9-4c72-9932-3faaab4cbda8")
+    @Override
     public void setProperties(Element objingElt) {
         super.setProperties(objingElt);
         setType((CollaborationUse) objingElt);
@@ -69,12 +66,12 @@ public class ECollaborationUse extends ENamedElement implements IEElement {
     @objid ("b6949cd3-dacf-4394-b358-bed5f75666ab")
     private void setType(CollaborationUse objingElt) {
         org.eclipse.uml2.uml.Collaboration type = this.ecoreElement.getType();
-                if (type != null) {
-           Element objType = (Element)  ReverseProperties.getInstance().getMappedElement(type);
-               
-           if (objType instanceof Collaboration)
-               objingElt.setType((Collaboration) objType);
-                }
+        if (type != null) {
+            Element objType = (Element)  ReverseProperties.getInstance().getMappedElement(type);
+        
+            if (objType instanceof Collaboration)
+                objingElt.setType((Collaboration) objType);
+        }
     }
 
 }

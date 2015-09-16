@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.uml.behavior.interactionModel;
 
@@ -35,28 +35,28 @@ import org.modelio.metamodel.uml.infrastructure.ModelElement;
 
 @objid ("004713c8-c4bf-1fd8-97fe-001ec947cd2a")
 public interface InteractionFragment extends ModelElement {
-    @objid ("421d7ea5-bb4b-4725-be16-e58aa3e363e6")
+    @objid ("47e81e15-efeb-4a9e-be11-c5f77303245f")
     int getLineNumber();
 
-    @objid ("03ce4a9a-8148-408e-8e90-438faa371f2f")
+    @objid ("ffdf75cc-a959-4ca3-9c78-1bb3ebe13e1d")
     void setLineNumber(int value);
 
-    @objid ("13590b27-4443-479e-8ff9-f660cc7a4817")
+    @objid ("a7e9307f-49a4-49aa-9ce9-e51ba2d3982d")
     InteractionOperand getEnclosingOperand();
 
-    @objid ("1ca7404a-7fe0-43b4-a4e7-6c3c3e2905f8")
+    @objid ("9dcca2aa-a82f-43c3-8fc0-8e2f15d2dcaa")
     void setEnclosingOperand(InteractionOperand value);
 
-    @objid ("f36f7e0c-f9e5-403d-a7f9-f192b7050c96")
+    @objid ("fd549653-d8a3-4a64-839b-3f067b1b98f7")
     Interaction getEnclosingInteraction();
 
-    @objid ("1a26f7e5-c0d1-473a-b303-9751a34e7714")
+    @objid ("72a58ae6-5df3-40d2-8705-c0ec6656e88e")
     void setEnclosingInteraction(Interaction value);
 
-    @objid ("0843d29c-b969-461f-a8b6-6c22c55494e6")
+    @objid ("2ce6accd-0c67-4247-9197-46bf8748a861")
     EList<Lifeline> getCovered();
 
-    @objid ("c45be727-b2a8-455f-9358-2d4b443cd26a")
+    @objid ("3a41ba8f-37f5-45e7-a397-0603399aa5ce")
     <T extends Lifeline> List<T> getCovered(java.lang.Class<T> filterClass);
 
 }

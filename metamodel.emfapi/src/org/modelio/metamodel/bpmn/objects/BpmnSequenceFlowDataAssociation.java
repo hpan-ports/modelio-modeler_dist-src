@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.bpmn.objects;
 
@@ -34,16 +34,16 @@ import org.modelio.metamodel.bpmn.rootElements.BpmnBaseElement;
 
 @objid ("00051888-c4c0-1fd8-97fe-001ec947cd2a")
 public interface BpmnSequenceFlowDataAssociation extends BpmnBaseElement {
-    @objid ("060c2b29-f046-4021-86e3-fc2d89981a83")
+    @objid ("ef552be8-841d-442e-bdd5-9c446b9eefb9")
     BpmnSequenceFlow getConnected();
 
-    @objid ("3dd4d769-3a45-4bbc-971f-ee059fb7471d")
+    @objid ("276c83a6-1696-4115-abe9-7cefb3125d19")
     void setConnected(BpmnSequenceFlow value);
 
-    @objid ("d213c405-fe3c-4c24-af8f-fc0415359b80")
+    @objid ("47bc468d-bf21-4d2c-ade7-730b4b42ab99")
     EList<BpmnDataAssociation> getDataAssociation();
 
-    @objid ("feeb0a21-3d25-4262-9191-371823fb8321")
+    @objid ("69d4d523-ec5d-4e1b-a8f1-0c1a8f49a8cc")
     <T extends BpmnDataAssociation> List<T> getDataAssociation(java.lang.Class<T> filterClass);
 
 }

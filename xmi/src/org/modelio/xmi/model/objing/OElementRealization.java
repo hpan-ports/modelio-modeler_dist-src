@@ -26,11 +26,12 @@ import org.eclipse.uml2.uml.UMLFactory;
 import org.modelio.metamodel.uml.statik.ElementRealization;
 
 @objid ("3945dc93-ef2d-4938-a4d7-7df7608661ea")
-public class OElementRealization extends OElement implements IOElement {
+public class OElementRealization extends OAbstraction {
     @objid ("2e3e364b-113d-480b-864a-9cf98fe46ce0")
      ElementRealization objingElement = null;
 
     @objid ("839accc6-f551-46c8-9403-9e6f0c9348fb")
+    @Override
     public org.eclipse.uml2.uml.Element createEcoreElt() {
         return UMLFactory.eINSTANCE.createRealization();
     }
@@ -39,18 +40,6 @@ public class OElementRealization extends OElement implements IOElement {
     public OElementRealization(ElementRealization element) {
         super(element);
         this.objingElement = element;
-    }
-
-    @objid ("563b1cff-073f-4600-848f-56c3428e0db2")
-    public void attach(org.eclipse.uml2.uml.Element ecoreElt) {
-        // Done on org.eclipse.uml2.uml.Abstraction and org.eclipse.uml2.uml.Dependency when calling the super() in the
-        // visitor.
-    }
-
-    @objid ("5038134c-3d0d-4200-9077-fdf9536dcd6f")
-    public void setProperties(org.eclipse.uml2.uml.Element ecoreElt) {
-        // Done on org.eclipse.uml2.uml.Abstraction and org.eclipse.uml2.uml.Dependency when calling the super() in the
-        // visitor.
     }
 
 }

@@ -1,0 +1,90 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<title>Modeler- modeler interface audit view</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link href="style.css" media="screen" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<a name="Audit-view"></a>
+<h1 >Audit view<a href="#Audit-view" class="wiki-anchor">&para;</a></h1>
+
+<p><img src="Modeler-_modeler_interface_audit_view_audit_view.png" alt="2" /></p>
+
+<h6>The Audit view</h6>
+
+<p><strong>Key:</strong></p>
+
+<ul>
+<li><strong>1</strong>.  The &ldquo;Audit&rdquo; tab. The flag on the left of this tab changes color according to the most serious violation detected.
+
+<ul>
+<li>Green: No violations detected.</li>
+<li>Blue: The most serious violation detected is an advice-level violation.</li>
+<li>Yellow: The most serious violation detected is a warning-level violation.</li>
+<li>Red: The most serious violation detected is an error-level violation.</li>
+</ul>
+</li>
+<li><strong>2</strong>.  Audit rule severity. There are three different severity levels:
+
+<ul>
+<li>Advice: Simple information message.</li>
+<li>Warning: You can choose to take this information into account or not.</li>
+<li>Error: The error must be corrected.</li>
+</ul>
+</li>
+<li><strong>3</strong>.  Main element concerned.</li>
+<li><strong>4</strong>.  Audit rule number.</li>
+<li><strong>5</strong>.  Description of the problem.</li>
+<li><strong>6</strong>.  Audit rule sorting options.</li>
+<li><strong>7</strong>.  Auto-select of the concerned element in the model explorer.</li>
+<li><strong>8</strong>.  The Audit running mode button.</li>
+<li><strong>9</strong>.  Current Audit summary. This indicates how many error, warning and advice violations currently are open for a session.</li>
+<li><strong>10</strong>. Audit status. A green light indicates that the audit is not currently running, while a red light indicates that the audit is currently running.</li>
+</ul>
+
+
+<a name="Main-audit-view-commands"></a>
+<h4 >Main audit view commands<a href="#Main-audit-view-commands" class="wiki-anchor">&para;</a></h4>
+
+<p><strong><ins>From the audit view toolbar:</ins></strong></p>
+
+<ul>
+<li><strong>Group by severity</strong> [<img src="Modeler-_modeler_interface_audit_view_LayoutByType.png" alt="8" />] : Presents audit rule violations by severity (error, warning, advice).</li>
+<li><strong>Group by rule</strong> [<img src="Modeler-_modeler_interface_audit_view_LayoutByRule.png" alt="7" />] : Presents audit rule violations by rule, in other words, shows all violations of each individual rule.</li>
+<li><p><strong>Group by concerned element</strong> [<img src="Modeler-_modeler_interface_audit_view_LayoutByElement.png" alt="6" />] : Presents audit rule violations by concerned element, in other words, shows all problems concerning each individual element.</p></li>
+<li><p><strong>Flat view</strong> [<img src="Modeler-_modeler_interface_audit_view_LayoutFlat.png" alt="9" />] : Shows audit rule violations simply in the order in which they are detected.</p></li>
+<li><strong>Clear audit view</strong> [<img src="Modeler-_modeler_interface_audit_view_clear.png" alt="5" />] : Clear the contents of the audit view.</li>
+<li><strong>Auto-select of the concerned element in the model explorer</strong> [<img src="Modeler-_modeler_interface_audit_view_autoselect.png" alt="4" />] : When this button is active, the model explorer &ldquo;follows&rdquo; your selections in the audit view, automatically selecting the concerned element in the model browser.</li>
+<li><strong>Audit running mode</strong> [<img src="Modeler-_modeler_interface_audit_view_auto.png" alt="3" />] : When this button is pressed, the automatic audit running mode is selected. Otherwise, the manual mode is selected. In automatic mode, the audit will automatically check each modification carried out in the model. In manual mode, checks are only  performed on demand, by running the &ldquo;Check model&rdquo; command on a model element (from the context menu opened by right-clicking on a model element). Note that in manual mode, the &ldquo;Check model&rdquo; command only checks the selected element and not the whole model.</li>
+</ul>
+
+
+<p><strong><ins>From the audit view context menu:</ins></strong></p>
+
+<ul>
+<li><strong>Select in explorer</strong> : This command is used to select the element concerned by the audit rule violation in the model explorer. This command is only useful when the &ldquo;Auto-select of the concerned element in the model explorer&rdquo; has been deactivated using the [<img src="Modeler-_modeler_interface_audit_view_autoselect.png" alt="4" />] button in the audit view toolbar.</li>
+<li><strong>Show details</strong> : This command opens a report dialog on the audit rule concerned. For more information, see the <strong>Audit report dialog</strong> paragraph below.</li>
+<li><strong>Change severity</strong> : The three &ldquo;Change severity&rdquo; commands (&ldquo;Change severity to advice&rdquo;, &ldquo;Change severity to warning&rdquo; and &ldquo;Change severity to error&rdquo;) enable you to change the severity of the selected audit rule.</li>
+<li><strong>Disable rule</strong> : This command is used to deactivate the selected rule. The rule in question will no longer be run. If you subsequently decide you want to reactivate the rule, this can be done in the &ldquo;Audit configurator&rdquo;.</li>
+</ul>
+
+
+<a name="The-ldquoAudit-reportrdquo-dialog"></a>
+<h4 >The &ldquo;Audit report&rdquo; dialog<a href="#The-ldquoAudit-reportrdquo-dialog" class="wiki-anchor">&para;</a></h4>
+
+<p><img src="Modeler-_modeler_interface_audit_view_Audit_error.png" alt="16" /></p>
+
+<h6>The Audit report dialog</h6>
+
+<p><strong>Key:</strong></p>
+
+<ul>
+<li>The <strong>Reported issue</strong> field provides a reminder of the audit rule violation.</li>
+<li>The <strong>Linked elements</strong> field provides information on any other elements which are involved in the audit rule violation.  This is the case, for example, for dependency cycles, where the dialog will display all the elements involved in the cycle.</li>
+<li>The <strong>Information zone</strong> displays further information on the problem, and provides advice on how to fix it.</li>
+</ul>
+
+
+<div id="footer"><iframe frameborder="0" scrolling="no" height="25" width="100%" src="_footer.html"></iframe></div> </body>
+</html>

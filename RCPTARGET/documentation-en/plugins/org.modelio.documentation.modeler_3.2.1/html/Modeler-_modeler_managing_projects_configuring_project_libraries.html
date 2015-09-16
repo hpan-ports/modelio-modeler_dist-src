@@ -1,0 +1,97 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<title>Modeler- modeler managing projects configuring project libraries</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link href="style.css" media="screen" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<a name="Configuring-project-libraries"></a>
+<h1 >Configuring project libraries<a href="#Configuring-project-libraries" class="wiki-anchor">&para;</a></h1>
+
+<p>A <strong>model library</strong> or <strong>library</strong> in a Modelio 3 project is a set of non-modifiable model elements that is required for the development of your project, packaged in a single artefact.</p>
+
+<p>A very basic example for Java projects is the JDK. In order to properly model a Java application, many classes from the JDK are used either for extension by inheritance or as parts in the compositions and associations of your model. These required JDK classes are brought into your project via a <strong>model library</strong>. Obviously, your intention is not to edit or modify the JDK model, which is why the models provided by libraries are <strong>read-only</strong>.</p>
+
+<p>There are two kinds of libraries in Modelio 3:</p>
+
+<ul>
+<li><strong>Model Component libraries</strong> which are local libraries similar to the former model components of Modelio 2</li>
+<li><strong>HTTP Libraries</strong> which are remote libraries, accessible via HTTP and consequently distributed</li>
+</ul>
+
+
+<p>You can declare as many additional libraries in your project as required, mixing local and remote ones.</p>
+
+<p>Library management is carried out in the <strong>Libraries</strong> tab of the <strong>Project configurator</strong> dialog.</p>
+
+<p><img src="Modeler-_modeler_managing_projects_configuring_project_libraries_ProjectLibraries2.png" alt="2" /></p>
+
+<h6>Configuring project libraries</h6>
+
+<ol>
+<li>Click on &ldquo;Configuration\Libraries&hellip;&rdquo; or on the [<img src="Modeler-_modeler_managing_projects_configuring_project_libraries_config.png" alt="3" />] icon then select the &lsquo;Libraries&rsquo; tab.</li>
+<li>You can add local libraries to your project, or update, consult or remove existing ones.</li>
+<li>You can add remote libraries to your project, or refresh, consult or remove existing ones.</li>
+</ol>
+
+
+<a name="Adding-model-components"></a>
+<h4 >Adding model components<a href="#Adding-model-components" class="wiki-anchor">&para;</a></h4>
+
+<p>Model components are deployed by users who want to use them in their own
+projects. When a model component has been deployed in a project, it and the
+model elements it contains appear in the &ldquo;Model&rdquo; view in blue, and are in read-
+only mode.</p>
+
+<p>To deploy a model component, carry out the steps shown in the screenshots below.</p>
+
+<p><img src="Modeler-_modeler_managing_projects_configuring_project_libraries_AddModelComponent2.png" alt="7" /></p>
+
+<h6>Deploying a model component</h6>
+
+<ol>
+<li>Select the model component (*.ramc file) you wish to add to your project.</li>
+<li>Not all mandatory modules have been installed in the project in which
+you want to deploy the model component. If the model component you want to
+deploy includes note and tagged value types specific to a given module, then
+this module must be installed in your project before you deploy the model
+component. To solve this problem, simply run the &ldquo;Configuration/Modules&rdquo; command,
+and install the module you need.</li>
+<li>A <a href="Model_components_lifecycle.html">dependency</a> that exists between the model component you want to
+deploy and another model component which must be deployed first in a project
+has not been respected. To solve this problem, simply first deploy the other
+model component (indicated in the &ldquo;Dependencies&rdquo; field) in your project, in
+the exact version stated, and then run the deployment operation for the model
+component you want to deploy again.</li>
+</ol>
+
+
+<p>For further information on local libraries (model components), please see &ldquo;<a href="Model_components_presentation.html">Introducing model components</a>&rdquo;.</p>
+
+<a name="Adding-remote-libraries"></a>
+<h4 >Adding remote libraries<a href="#Adding-remote-libraries" class="wiki-anchor">&para;</a></h4>
+
+<p>Remote libraries are deployed by users wishing to use them in their own
+projects. When a remote library has been deployed in a project, it and the
+model elements it contains appear in the &ldquo;Model&rdquo; view in blue, and are in read-
+only mode.</p>
+
+<p>To deploy a remote library, carry out the steps shown in the screenshots below.</p>
+
+<p><img src="Modeler-_modeler_managing_projects_configuring_project_libraries_AddDistantLibrary3.png" alt="10" /></p>
+
+<h6>Deploy a remote library</h6>
+
+<ol>
+<li>Enter the name that will be used for the remote library in the model explorer.</li>
+<li>Enter the remote library URL.</li>
+<li>If necessary, enter the user and password.</li>
+<li>You can check the remote library URL.</li>
+</ol>
+
+
+<p>For further information on remote libraries (HTTP models), please see &ldquo;<a href="Distant_libraries_presentation.html">Introducing remote libraries</a>&rdquo;.</p>
+
+<div id="footer"><iframe frameborder="0" scrolling="no" height="25" width="100%" src="_footer.html"></iframe></div> </body>
+</html>

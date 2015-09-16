@@ -34,7 +34,7 @@ public class MsgDlg {
     private static final String BUNDLE_NAME = "org.modelio.xmi.dialog.Msg";
 
     @objid ("5d99ada1-3fab-4667-b0bf-010b7add512a")
-    private static final ResourceBundle RESOURCE_BUNDLE; // = ResourceBundle
+    private static final ResourceBundle RESOURCE_BUNDLE;
 
     @objid ("6ebee680-9185-43df-b0c6-c910155cdef3")
     private MsgDlg() {
@@ -45,7 +45,7 @@ public class MsgDlg {
         try {
             return RESOURCE_BUNDLE.getString(key);
         } catch (MissingResourceException e) {
-            Xmi.LOG.error(Xmi.PLUGIN_ID, "bundle");
+            Xmi.LOG.error(Xmi.PLUGIN_ID, "bundle" + '!' + key + '!');
             return '!' + key + '!';
         }
     }
@@ -55,6 +55,7 @@ public class MsgDlg {
         try {
             return MessageFormat.format(RESOURCE_BUNDLE.getString(key), params);
         } catch (MissingResourceException e) {
+            Xmi.LOG.error(Xmi.PLUGIN_ID, "bundle" + '!' + key + '!');
             return '!' + key + '!';
         }
     }

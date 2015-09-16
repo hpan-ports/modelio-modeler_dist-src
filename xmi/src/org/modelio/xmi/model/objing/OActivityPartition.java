@@ -28,11 +28,12 @@ import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.xmi.util.GenerationProperties;
 
 @objid ("2dbf7f92-6fed-44af-b222-6b183ced1c4e")
-public class OActivityPartition extends OActivityGroup implements IOElement {
+public class OActivityPartition extends OActivityGroup {
     @objid ("48b1ade2-99eb-4df0-a0eb-5cad6f4c3c06")
     private ActivityPartition objingElement = null;
 
     @objid ("2f795595-d6af-4d95-9ac5-cedffb11ca92")
+    @Override
     public org.eclipse.uml2.uml.Element createEcoreElt() {
         return UMLFactory.eINSTANCE.createActivityPartition();
     }
@@ -40,15 +41,11 @@ public class OActivityPartition extends OActivityGroup implements IOElement {
     @objid ("64488dba-8e85-4869-8021-cbce84d6aa12")
     public OActivityPartition(ActivityPartition element) {
         super(element);
-        objingElement = element;
-    }
-
-    @objid ("e834b1f6-fd95-4ebc-bab1-39622666f9bd")
-    public void attach(org.eclipse.uml2.uml.Element ecoreElt) {
-        super.attach(ecoreElt);
+        this.objingElement = element;
     }
 
     @objid ("376ee3f1-54b6-40c5-975c-52d82a4f568d")
+    @Override
     public void setProperties(org.eclipse.uml2.uml.Element ecoreElt) {
         super.setProperties(ecoreElt);
         setDimension((org.eclipse.uml2.uml.ActivityPartition) ecoreElt);
@@ -58,17 +55,17 @@ public class OActivityPartition extends OActivityGroup implements IOElement {
 
     @objid ("2ab7b618-e59d-4fab-bddc-205375f360fe")
     private void setDimension(org.eclipse.uml2.uml.ActivityPartition partition) {
-        partition.setIsDimension(objingElement.isIsDimension());
+        partition.setIsDimension(this.objingElement.isIsDimension());
     }
 
     @objid ("b74999c6-1907-4afd-9160-66b36fd1bf8a")
     private void setExternal(org.eclipse.uml2.uml.ActivityPartition partition) {
-        partition.setIsExternal(objingElement.isIsExternal());
+        partition.setIsExternal(this.objingElement.isIsExternal());
     }
 
     @objid ("2b195bcd-78a5-4275-9eb5-0a5cb7ddbe73")
     private void setRepresented(org.eclipse.uml2.uml.ActivityPartition partition) {
-        Element representation = objingElement.getRepresented();
+        Element representation = this.objingElement.getRepresented();
         if (representation != null) {
             org.eclipse.uml2.uml.Element ecoreRepresentation = GenerationProperties.getInstance().getMappedElement(representation);
             if (ecoreRepresentation != null)

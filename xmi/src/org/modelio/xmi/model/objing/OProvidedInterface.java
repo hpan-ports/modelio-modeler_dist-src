@@ -33,19 +33,17 @@ import org.modelio.xmi.util.ObjingEAnnotation;
 
 @objid ("af4d387f-d847-4bdd-a57b-666369650bc0")
 public class OProvidedInterface extends OElement implements IOElement {
-    @objid ("c0409220-abac-4111-ab48-60735ca251eb")
-    private GenerationProperties genProp = GenerationProperties.getInstance();
-
     @objid ("7fc1e77d-ab1b-4ee0-b812-8f4429c5c07e")
     private ProvidedInterface objingElement = null;
 
     @objid ("865e000d-ec9f-4f06-868b-f1efa8ba6451")
+    @Override
     public org.eclipse.uml2.uml.Element createEcoreElt() {
-        Port owner = objingElement.getProviding();
+        Port owner = this.objingElement.getProviding();
         NameSpace base = owner.getBase();
         
-        if ((base == null)  &&  (genProp.isRoundtripEnabled())) { 
-            if (objingElement.getProvidedElement().size() == 0)
+        if ((base == null)  &&  (GenerationProperties.getInstance().isRoundtripEnabled())) { 
+            if (this.objingElement.getProvidedElement().size() == 0)
                 return UMLFactory.eINSTANCE.createInterfaceRealization();
             else
                 return UMLFactory.eINSTANCE.createDependency();
@@ -56,104 +54,109 @@ public class OProvidedInterface extends OElement implements IOElement {
     @objid ("dcf8e38a-11df-405e-b929-c17c2ef8449f")
     public OProvidedInterface(ProvidedInterface param) {
         super(param);
-        objingElement = param;
+        this.objingElement = param;
     }
 
     @objid ("ad0397df-d074-4cc2-af82-5271acd54a4f")
+    @Override
     public void attach(org.eclipse.uml2.uml.Element ecoreElt) {
-        Port objingPort = objingElement.getProviding();
-        org.eclipse.uml2.uml.Element ecorePort = genProp.getMappedElement(objingPort);
-        NameSpace base = objingPort.getBase();
+        GenerationProperties genprop = GenerationProperties.getInstance();
+        Port objingPort = this.objingElement.getProviding();
+        org.eclipse.uml2.uml.Element ecorePort = genprop.getMappedElement(objingPort);
         
-        if (base == null){
+        if (ecorePort != null){
+            NameSpace base = objingPort.getBase();
         
-            if (genProp.isRoundtripEnabled()){
+            if (base == null){
         
-                if (objingElement.getProvidedElement().size() == 0){
-                    setNumberProvidedInterface(ecorePort);    
-                    ecoreElt.destroy();
-                }else{
-                    if (ecorePort instanceof org.eclipse.uml2.uml.NamedElement){
-                        org.eclipse.uml2.uml.Dependency dependency =  (org.eclipse.uml2.uml.Dependency) ecoreElt;
-                        dependency.getClients().add((org.eclipse.uml2.uml.NamedElement)ecorePort);
+                if (genprop.isRoundtripEnabled()){
         
-                        for (Interface inter : objingElement.getProvidedElement())
-                            dependency.getSuppliers().add((org.eclipse.uml2.uml.NamedElement)genProp.getMappedElement(inter));
-        
-                        ObjingEAnnotation.setProvidedInterface(dependency, true);
-        
-                        Package pack = ecorePort.getNearestPackage();
-                        org.eclipse.uml2.uml.Element temp = ecorePort.getOwner();
-                        while((pack == null) && (temp != null)){
-                            pack = temp.getNearestPackage();
-                            temp = temp.getOwner();
-                        }
-        
-                        if (pack == null)
-                            pack =  genProp.getEcoreModel();
-        
-                        pack.getPackagedElements().add(dependency);
-                    }else{
+                    if (this.objingElement.getProvidedElement().size() == 0){
+                        setNumberProvidedInterface();    
                         ecoreElt.destroy();
+                    }else{
+                        if (ecorePort instanceof org.eclipse.uml2.uml.NamedElement){
+                            org.eclipse.uml2.uml.Dependency dependency =  (org.eclipse.uml2.uml.Dependency) ecoreElt;
+                            dependency.getClients().add((org.eclipse.uml2.uml.NamedElement) ecorePort);
+        
+                            for (Interface inter : this.objingElement.getProvidedElement())
+                                dependency.getSuppliers().add((org.eclipse.uml2.uml.NamedElement)genprop.getMappedElement(inter));
+        
+                            ObjingEAnnotation.setProvidedInterface(dependency, true);
+        
+                            Package pack = ecorePort.getNearestPackage();
+                            org.eclipse.uml2.uml.Element temp = ecorePort.getOwner();
+                            while((pack == null) && (temp != null)){
+                                pack = temp.getNearestPackage();
+                                temp = temp.getOwner();
+                            }
+        
+                            if (pack == null)
+                                pack =  genprop.getEcoreModel();
+        
+                            pack.getPackagedElements().add(dependency);
+                        }else{
+                            ecoreElt.destroy();
+                        }
                     }
                 }
-            }
         
-        }else{
+            }else{
         
-            org.eclipse.uml2.uml.Element ecoreClient = (org.eclipse.uml2.uml.Element) genProp.getMappedElement(base);
+                org.eclipse.uml2.uml.Element ecoreClient = genprop.getMappedElement(base);
         
-            org.eclipse.uml2.uml.InterfaceRealization temp = (org.eclipse.uml2.uml.InterfaceRealization) ecoreElt;
+                org.eclipse.uml2.uml.InterfaceRealization temp = (org.eclipse.uml2.uml.InterfaceRealization) ecoreElt;
         
-            for (Interface objingSupplier : objingElement.getProvidedElement()){
+                for (Interface objingSupplier : this.objingElement.getProvidedElement()){
         
-                if (temp == null)
-                    temp = UMLFactory.eINSTANCE.createInterfaceRealization();
+                    if (temp == null)
+                        temp = UMLFactory.eINSTANCE.createInterfaceRealization();
         
-                if ( objingSupplier != null) {
+                    if ( objingSupplier != null) {
         
-                    org.eclipse.uml2.uml.Element ecoreSupplier = (org.eclipse.uml2.uml.Element) genProp
-                    .getMappedElement(objingSupplier);
+                        org.eclipse.uml2.uml.Element ecoreSupplier = genprop.getMappedElement(objingSupplier);
         
-                    if ((ecoreClient != null) && ecoreSupplier != null 
-                            && ecoreClient instanceof org.eclipse.uml2.uml. BehavioredClassifier 
-                            && ecoreSupplier instanceof org.eclipse.uml2.uml.Interface) {
+                        if ((ecoreClient != null) && ecoreSupplier != null 
+                                && ecoreClient instanceof org.eclipse.uml2.uml. BehavioredClassifier 
+                                && ecoreSupplier instanceof org.eclipse.uml2.uml.Interface) {
         
-                        Boolean exist = false;
+                            Boolean exist = false;
         
-                        for (Object interRealization : ((org.eclipse.uml2.uml.BehavioredClassifier) ecoreClient).getInterfaceRealizations()){
-                            if (((org.eclipse.uml2.uml.InterfaceRealization) interRealization).getContract().equals(ecoreSupplier))
-                                exist = true;
+                            for (Object interRealization : ((org.eclipse.uml2.uml.BehavioredClassifier) ecoreClient).getInterfaceRealizations()){
+                                if (((org.eclipse.uml2.uml.InterfaceRealization) interRealization).getContract().equals(ecoreSupplier))
+                                    exist = true;
+                            }
+        
+                            if (!exist){
+        
+                                org.eclipse.uml2.uml.InterfaceRealization interRealiz = temp;
+                                interRealiz.setImplementingClassifier((org.eclipse.uml2.uml.BehavioredClassifier)ecoreClient);
+                                interRealiz.setContract((org.eclipse.uml2.uml.Interface) ecoreSupplier);
+                            }
+        
                         }
-        
-                        if (!exist){
-        
-                            org.eclipse.uml2.uml.InterfaceRealization interRealiz = temp;
-                            interRealiz.setImplementingClassifier((org.eclipse.uml2.uml.BehavioredClassifier)ecoreClient);
-                            interRealiz.setContract((org.eclipse.uml2.uml.Interface) ecoreSupplier);
-                        }
-        
+                        temp = null;
                     }
-                    temp = null;
                 }
             }
         }
     }
 
     @objid ("1d33e6ce-a1c1-4a96-9654-99da57b4ad9b")
-    private void setNumberProvidedInterface(org.eclipse.uml2.uml.Element ecoreElt) {
+    private void setNumberProvidedInterface() {
         int number = 0;
-        for (ProvidedInterface provided : objingElement.getProviding().getProvided()){
+        for (ProvidedInterface provided : this.objingElement.getProviding().getProvided()){
             if (provided.getProvidedElement().size() == 0)
                 number++;
         }
         
         if (number != 0)
             ObjingEAnnotation.setNumberProvidedInterface(
-                    genProp.getMappedElement(objingElement.getProviding()), number);
+                    GenerationProperties.getInstance().getMappedElement(this.objingElement.getProviding()), number);
     }
 
     @objid ("c7fea992-df38-47a8-9def-6fca34dfb38d")
+    @Override
     public void setProperties(org.eclipse.uml2.uml.Element ecoreElt) {
     }
 

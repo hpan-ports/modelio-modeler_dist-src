@@ -204,7 +204,7 @@ public class DefaultModuleAction implements IModuleAction {
         
             if (!Files.isRegularFile(candidateFile) || !candidateFile.isAbsolute()) {
                 Path moduleDirectory = this.module.getConfiguration().getModuleResourcesPath();
-                candidateFile = moduleDirectory.resolve(this.bitmapPath);
+                candidateFile = moduleDirectory.resolve(slotImagePath);
             }
         
             if (Files.isRegularFile(candidateFile)) {

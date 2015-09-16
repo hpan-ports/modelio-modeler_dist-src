@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.bpmn.activities;
 
@@ -33,34 +33,34 @@ import org.modelio.metamodel.uml.statik.Operation;
 
 @objid ("008180d0-c4bf-1fd8-97fe-001ec947cd2a")
 public interface BpmnReceiveTask extends BpmnTask {
-    @objid ("3f59aee1-d922-49a1-b536-ff10e0cef9c0")
+    @objid ("5c50bce8-0133-4474-953b-b1e6cd8c1a61")
     String getImplementation();
 
-    @objid ("9bbc8163-f82b-4be0-852a-3b9b957f5a84")
+    @objid ("65f1637e-5567-4436-a245-22357367fe80")
     void setImplementation(String value);
 
-    @objid ("a064c7a6-e7af-4ff1-8624-21968aaace21")
+    @objid ("12756f3c-d0b2-47fc-8853-cff5d0360041")
     boolean isInstanciate();
 
-    @objid ("cb9ad704-1481-4b18-bd9b-f3534d02f6d5")
+    @objid ("35a3386b-22b6-4894-8cf5-d6ee5d5b0183")
     void setInstanciate(boolean value);
 
-    @objid ("713afd65-e1a3-45e6-aefb-5a0e29431fdc")
+    @objid ("73ea29e3-2032-4bc9-a59f-19672d847cfc")
     BpmnMessage getMessageRef();
 
-    @objid ("c80800c5-0eaf-467c-8805-228fb8716476")
+    @objid ("7ea76bbd-5f91-4f39-bc43-f9a9cabc4add")
     void setMessageRef(BpmnMessage value);
 
-    @objid ("d8325595-cc66-425c-8d45-4c0d6a5c5056")
+    @objid ("80817116-efe5-4c94-94a6-5496431e4096")
     BpmnOperation getOperationRef();
 
-    @objid ("906f18ee-b5a2-4370-8bea-e569f0989529")
+    @objid ("08a75c29-79fa-4837-9a9c-1b924011691c")
     void setOperationRef(BpmnOperation value);
 
-    @objid ("00aa4f27-cd21-41fd-892d-69a980d9b1c2")
+    @objid ("f9e40fd3-7de3-4323-866e-81424c7c2567")
     Operation getCalledOperation();
 
-    @objid ("00bc742e-959e-466b-a32e-eaeaa2434565")
+    @objid ("a24a9c70-5bcc-4edb-bd46-d324f4be0c65")
     void setCalledOperation(Operation value);
 
 }

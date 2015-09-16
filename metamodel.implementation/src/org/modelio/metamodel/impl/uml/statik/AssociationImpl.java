@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.uml.statik;
 
@@ -63,13 +63,13 @@ public class AssociationImpl extends ModelElementImpl implements Association {
         return super.getCompositionRelation();
     }
 
-    @objid ("d5337717-eed8-4117-a068-9d1f20dd5925")
+    @objid ("e56e95d7-1e59-4189-8835-e5fecc9c9dff")
     @Override
     public EList<Link> getOccurence() {
         return new SmList<>(this, AssociationData.Metadata.OccurenceDep());
     }
 
-    @objid ("38d4cbe4-55cd-4d53-bf17-e57cafffbff2")
+    @objid ("f599246f-593a-4906-9221-1302989d9926")
     @Override
     public <T extends Link> List<T> getOccurence(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -82,13 +82,13 @@ public class AssociationImpl extends ModelElementImpl implements Association {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("e75cb061-2a3f-4023-9c98-ef3908230915")
+    @objid ("1a86e29b-fd16-46be-ba16-e64149665e15")
     @Override
     public EList<AssociationEnd> getEnd() {
         return new SmList<>(this, AssociationData.Metadata.EndDep());
     }
 
-    @objid ("79a7a14b-05c1-4695-bc94-df42f939fa23")
+    @objid ("ef15c0aa-fa85-4e94-9536-638846779c7b")
     @Override
     public <T extends AssociationEnd> List<T> getEnd(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -101,19 +101,19 @@ public class AssociationImpl extends ModelElementImpl implements Association {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("ab2777d1-d15c-4178-9110-9523bfed4138")
+    @objid ("d51fe754-4c6e-44aa-babb-09ee5af5d5c6")
     @Override
     public ClassAssociation getLinkToClass() {
         return (ClassAssociation) getDepVal(AssociationData.Metadata.LinkToClassDep());
     }
 
-    @objid ("076f30a7-2a65-4062-93e1-e9e6b19ed3cd")
+    @objid ("d9e70af8-fa96-4172-bf7a-40ecba63f966")
     @Override
     public void setLinkToClass(ClassAssociation value) {
         appendDepVal(AssociationData.Metadata.LinkToClassDep(), (SmObjectImpl)value);
     }
 
-    @objid ("a58873d3-0a98-4f3e-838b-314e93d3fe7d")
+    @objid ("c6b18813-073b-4612-8cd1-d96c78fe1b58")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitAssociation(this);

@@ -125,7 +125,7 @@ public class PackageEditPart extends GmNodeEditPart {
     protected void refreshFromStyle(IFigure aFigure, IStyle style) {
         if (aFigure.getClass() == PackageFigure.class) {
             GmPackagePrimaryNode model = (GmPackagePrimaryNode) getModel();
-            if (model.getRepresentationMode() == RepresentationMode.SIMPLE) {
+            if (model.getRepresentationMode() != RepresentationMode.STRUCTURED) {
                 // reparent all content of body to port container as satellites and add composition link
                 for (GmNodeModel child : model.getBody().getChildren()) {
                     child.setRoleInComposition(GmPackage.BODY_CONTENT_AS_SATELLITE);

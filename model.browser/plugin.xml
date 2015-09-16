@@ -30,6 +30,19 @@
 		<definition id="model.browser.test.editstereotype.id">
         	<test property="model.browser.test.editstereotype"/>
 		</definition>
+        <definition
+              id="model.browser.expression.fragmentNeedMigration">
+           <with variable="org.eclipse.ui.selection">
+              <iterate ifEmpty="false" operator="and">
+                 <adapt
+                       type="org.modelio.gproject.fragment.IProjectFragment">
+                    <test
+                          property="model.browser.fragment.needMigration">
+                    </test>
+                 </adapt>
+              </iterate>
+           </with>
+        </definition>
 	</extension>
   
 	<extension point="org.eclipse.core.expressions.propertyTesters">
@@ -40,6 +53,13 @@
 			properties="createstereotype, editstereotype"
 			type="org.eclipse.jface.viewers.ISelection">
 		</propertyTester>
+        <propertyTester
+              class="org.modelio.model.browser.handlers.properties.FragmentPropertyTester"
+              id="model.browser.propertyTester.fragment"
+              namespace="model.browser.fragment"
+              properties="name,id,downError,needMigration,state,isUp,isDown,type,scope,property"
+              type="org.modelio.gproject.fragment.IProjectFragment">
+        </propertyTester>
 	</extension>
 
 </plugin>

@@ -27,6 +27,9 @@ import org.modelio.api.module.IPeerModule;
 import org.modelio.metamodel.mda.ModuleComponent;
 import org.modelio.vbasic.version.Version;
 
+/**
+ * Default implementation of {@link IPeerModule}.
+ */
 @objid ("b31582fd-f11c-11e1-af52-001ec947c8cc")
 public class DefaultPeerModule implements IPeerModule {
     @objid ("b31582fe-f11c-11e1-af52-001ec947c8cc")
@@ -37,7 +40,8 @@ public class DefaultPeerModule implements IPeerModule {
 
     /**
      * Instantiate the Default peer module.
-     * @param moduleComponent
+     * @param moduleComponent the module model element
+     * @param configuration the access to module parameter and resource paths.
      */
     @objid ("b31582ff-f11c-11e1-af52-001ec947c8cc")
     public DefaultPeerModule(ModuleComponent moduleComponent, IModuleAPIConfiguration configuration) {
@@ -46,40 +50,24 @@ public class DefaultPeerModule implements IPeerModule {
         this.configuration = configuration;
     }
 
-    /**
-     * (non-Javadoc)
-     * @see com.modeliosoft.modelio.api.IPeerModule.IPeerModule#getConfiguration()
-     */
     @objid ("b3158303-f11c-11e1-af52-001ec947c8cc")
     @Override
     public IModuleAPIConfiguration getConfiguration() {
         return this.configuration;
     }
 
-    /**
-     * (non-Javadoc)
-     * @see com.modeliosoft.modelio.api.IPeerModule.IPeerModule#getDescription()
-     */
     @objid ("b3158309-f11c-11e1-af52-001ec947c8cc")
     @Override
     public String getDescription() {
         return "";
     }
 
-    /**
-     * (non-Javadoc)
-     * @see com.modeliosoft.modelio.api.IPeerModule.IPeerModule#getName()
-     */
     @objid ("b317e515-f11c-11e1-af52-001ec947c8cc")
     @Override
     public String getName() {
         return this.moduleComponent.getName();
     }
 
-    /**
-     * (non-Javadoc)
-     * @see com.modeliosoft.modelio.api.IPeerModule.IPeerModule#getVersion()
-     */
     @objid ("b317e51b-f11c-11e1-af52-001ec947c8cc")
     @Override
     public Version getVersion() {

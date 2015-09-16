@@ -24,13 +24,16 @@ package org.modelio.vstore.exml.common.model;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
 /**
- * Tells a SmDependency has not been found with its name.
+ * Tells an illegal reference was found in an EXML file.
  */
 @objid ("7ba22e86-aad5-4afb-bfe0-6034dc1fd9f3")
 public class IllegalReferenceException extends Exception {
     @objid ("18e1ebd4-260e-4cc4-a7d9-5107ac229c5b")
     private static final long serialVersionUID = 1L;
 
+    /**
+     * @param string the message
+     */
     @objid ("d5a82ab6-d9fb-456a-bb8a-0f20e653c4fc")
     public IllegalReferenceException(String string) {
         super(string);

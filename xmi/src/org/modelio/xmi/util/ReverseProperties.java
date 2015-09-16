@@ -31,10 +31,12 @@ import java.util.Set;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.uml2.uml.Profile;
 import org.modelio.api.modelio.Modelio;
+import org.modelio.gproject.model.IMModelServices;
 import org.modelio.metamodel.mda.ModuleComponent;
 import org.modelio.metamodel.mda.Project;
 import org.modelio.metamodel.uml.infrastructure.ModelTree;
 import org.modelio.metamodel.uml.statik.Package;
+import org.modelio.vcore.session.api.ICoreSession;
 import org.modelio.vcore.smkernel.mapi.MObject;
 import org.modelio.xmi.gui.report.ReportModel;
 import org.modelio.xmi.plugin.Xmi;
@@ -63,6 +65,15 @@ public class ReverseProperties {
 
     @objid ("2ee99225-d343-43d3-984a-cfa0a2b3cdcc")
     private List<String> appliedProfiles = new ArrayList<>();
+
+    @objid ("65723abf-49a0-46cd-b0cf-d187aac3fcf5")
+    private static final int marging = 15;
+
+    @objid ("5af0b8dd-eef3-4cfd-ac7a-c023d8206247")
+    private static final int initLine = 40;
+
+    @objid ("385481f5-c82a-4209-afb6-bca1b2c82b3b")
+    private static int currentLineNumber = 40;
 
     @objid ("2ccade60-64a2-47ba-aaaa-a644c04c8188")
     private static ReverseProperties INSTANCE = null;
@@ -93,6 +104,12 @@ public class ReverseProperties {
 
     @objid ("d85244fd-4eb4-45fd-9cf1-8f8198463efd")
     private ReportModel report = null;
+
+    @objid ("383f9a23-f374-4736-b804-4143a7e509f3")
+    private ICoreSession session = null;
+
+    @objid ("e4f91297-8a96-4ada-aebf-04d6c2157919")
+    private IMModelServices mmServices = null;
 
     @objid ("e971ed4d-0523-4699-82c5-d015578516df")
     private ReverseProperties() {
@@ -132,7 +149,7 @@ public class ReverseProperties {
      * @return Ecore model
      */
     @objid ("9ea822ea-5f4e-4e31-ab08-f0217798706a")
-    public Set<org.eclipse.uml2.uml.Package> getEcoreModel() {
+    public Set<org.eclipse.uml2.uml.Package> getEcoreModels() {
         return this.ecoreModel;
     }
 
@@ -176,14 +193,16 @@ public class ReverseProperties {
      * This methods initializes the properties of the import
      */
     @objid ("2e014522-9117-4d1b-94d4-d7f5f00defc5")
-    public void initialize() {
+    public void initialize(IMModelServices mmService) {
         PrimitiveTypeMapper.clean();
         TotalImportMap.getInstance().clear();
         PartialImportMap.getInstance().clear();    
         
-        this.partialCreationImportVisitor = new PartialCreationImportVisitor();
+               
         this.appliedProfiles = new ArrayList<>();
         this.externalPackage = null;
+        this.mmServices = mmService;
+        this.partialCreationImportVisitor = new PartialCreationImportVisitor();
         
         if (this.ecoreModel != null){
             this.ecoreModel.clear();
@@ -331,22 +350,11 @@ public class ReverseProperties {
      */
     @objid ("739d8c2f-eaea-43fb-b4f0-14dfd8dc02e5")
     public void clean() {
-        //        this.interactionIndexes.clear();
         this.ecoreModel.clear();
         this.externalPackage = null;
         this.appliedProfiles = null;
-        //        this.interactionIndexes = null;
-        //        this.interactions = null;
     }
 
-//    /**
-//     * This methods allow to add an interaction to the list of imported interactions
-//     * @param interaction : the org.eclipse.uml2.uml.Interaction to add
-//     */
-//    @objid ("6d8c5ea6-1a76-11e1-8103-0027103f347d")
-//    public void addInteraction(final org.eclipse.uml2.uml.Interaction interaction) {
-//        this.interactionIndexes.put(interaction, startingLineNumber);
-//    }
     /**
      * This methods returns the path of the imported file
      * @return the imported file path
@@ -382,7 +390,7 @@ public class ReverseProperties {
     @objid ("c3f5ef85-159a-42e9-9e0d-7e95551cde77")
     public Package getExternalPackage() {
         if (this.externalPackage == null){
-            this.externalPackage = Modelio.getInstance().getModelingSession().getModel().createPackage();
+            this.externalPackage = this.mmServices.getModelFactory().createPackage();
             this.externalPackage.setName(Xmi.I18N.getString("Ui.ExternalPackage.Name"));
             for (MObject modelRoot : Modelio.getInstance().getModelingSession().getModel().getModelRoots()){
                 if (modelRoot instanceof Project) {
@@ -644,6 +652,36 @@ public class ReverseProperties {
     @objid ("5e147b86-df9a-4552-a83f-c4b41009005e")
     public void setReportModel(final ReportModel newReport) {
         this.report = newReport;
+    }
+
+    @objid ("830c65c7-cac6-497c-ab45-511451968170")
+    public void resetLineNumber() {
+        currentLineNumber = initLine;
+    }
+
+    @objid ("344a6db3-9edc-4a5e-bfbf-6740e8c60789")
+    public int getCurrentLineNumber() {
+        currentLineNumber += marging ;
+        return currentLineNumber;
+    }
+
+    /**
+     * This method returns the model services
+     * @return the model services
+     */
+    @objid ("cec00eb5-3a6b-442f-a8ce-00b410cd9380")
+    public IMModelServices getMModelServices() {
+        return this.mmServices;
+    }
+
+    @objid ("58bf2b31-853e-45d8-a30d-be7c7745cdc1")
+    public void setCoreSession(ICoreSession session) {
+        this.session = session;
+    }
+
+    @objid ("7a956841-85a0-4ce3-b7c0-70bbac2a50b1")
+    public ICoreSession getCoreSession() {
+        return this.session;
     }
 
 }

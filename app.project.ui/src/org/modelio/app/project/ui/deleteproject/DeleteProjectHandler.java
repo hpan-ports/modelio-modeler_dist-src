@@ -35,9 +35,11 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.swt.widgets.Shell;
 import org.modelio.app.project.core.services.IProjectService;
 import org.modelio.app.project.ui.plugin.AppProjectUi;
-import org.modelio.gproject.descriptor.ProjectDescriptor;
-import org.modelio.gproject.gproject.GProject;
+import org.modelio.gproject.data.project.ProjectDescriptor;
 
+/**
+ * Delete a project.
+ */
 @objid ("0044a250-cc35-1ff2-a7f4-001ec947cd2a")
 public class DeleteProjectHandler {
     @objid ("0046fe60-cc35-1ff2-a7f4-001ec947cd2a")
@@ -71,15 +73,12 @@ public class DeleteProjectHandler {
         if (selection == null) {
             return false;
         }
+        
         List<ProjectDescriptor> projectDescriptors = getSelectedElements(selection);
-        GProject openedProject = projectService.getOpenedProject();
-        if (openedProject != null) {
-            for (ProjectDescriptor descriptor : projectDescriptors) {
-                // cannot delete currently opened project
-                if (openedProject.getName().equals(descriptor.getName())) {
-                    return false;
-                }
-            }
+        for (ProjectDescriptor descriptor : projectDescriptors) {
+            // cannot delete currently opened project
+            if (descriptor.getLockInfo() != null)
+                return false;
         }
         return true;
     }

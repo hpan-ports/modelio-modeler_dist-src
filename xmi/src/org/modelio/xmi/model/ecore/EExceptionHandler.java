@@ -21,22 +21,20 @@
 
 package org.modelio.xmi.model.ecore;
 
-import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.modelio.api.modelio.Modelio;
 import org.modelio.metamodel.uml.behavior.activityModel.ActivityAction;
 import org.modelio.metamodel.uml.behavior.activityModel.ExceptionHandler;
 import org.modelio.metamodel.uml.behavior.activityModel.InputPin;
-import org.modelio.metamodel.uml.behavior.activityModel.ObjectNode;
 import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.metamodel.uml.statik.GeneralClass;
 import org.modelio.xmi.util.ReverseProperties;
 
 @objid ("70823320-f38e-4ad4-84e4-85fc56cdb6ca")
-public class EExceptionHandler extends EElement implements IEElement {
+public class EExceptionHandler extends EElement {
     @objid ("3f226306-d002-4288-b782-91fd67dcfb3b")
+    @Override
     public Element createObjingElt() {
-        return Modelio.getInstance().getModelingSession().getModel().createExceptionHandler();
+        return ReverseProperties.getInstance().getMModelServices().getModelFactory().createExceptionHandler();
     }
 
     @objid ("1f738a81-314f-49d3-9aa8-45d18d906e01")
@@ -44,15 +42,8 @@ public class EExceptionHandler extends EElement implements IEElement {
         super(element);
     }
 
-    @objid ("88afa195-40ea-4af6-8e01-4aa9265415fc")
-    public void attach(Element objingElt) {
-    }
-
-    @objid ("994b5803-80b7-447a-a878-d5ffc5447c88")
-    public void attach(List<Object> objingElts) {
-    }
-
     @objid ("0b59a287-8cd3-4d91-87dc-3b6fda27f52d")
+    @Override
     public void setProperties(Element objingElt) {
         super.setProperties(objingElt);
         setExceptionInput((ExceptionHandler)objingElt);

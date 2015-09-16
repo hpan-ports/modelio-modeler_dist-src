@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.data.uml.statik;
 
@@ -45,29 +45,29 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("0013d4f4-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=Node.class, factory=NodeData.Metadata.ObjectFactory.class, cmsnode=true)
 public class NodeData extends ClassifierData {
-    @objid ("05e85281-4df3-4681-bbbc-daa7501738d2")
+    @objid ("683f0ddc-2a26-441b-9ea6-14076acf7755")
     @SmaMetaAssociation(metaName="Resident", typeDataClass=ArtifactData.class, min=0, max=-1, smAssociationClass=Metadata.ResidentSmDependency.class, partof = true)
      List<SmObjectImpl> mResident = null;
 
-    @objid ("9001f6ca-f87e-4bd5-ac72-86531e1f4418")
+    @objid ("bbb0e43b-24dd-4dea-b4cf-26aec0c746a3")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("0087b2c0-c4c2-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("8c8a129b-2076-4b77-a779-5a0aedbcbe6f")
+        @objid ("297f92a6-74fd-4a06-ae24-86e56fb415c3")
         private static SmClass smClass = null;
 
-        @objid ("c5600439-8ea0-41ef-93ce-03abf593bc92")
+        @objid ("2f55cda6-ee86-4292-bfa0-3216090545fe")
         private static SmDependency ResidentDep = null;
 
-        @objid ("b3bdbd46-7ab2-4127-83f7-85c06d831db7")
+        @objid ("f0910921-8b76-45ab-ae2c-d1c76c036263")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(NodeData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("069c0a02-479a-4fea-9dca-9d7127479384")
+        @objid ("0236c8e9-986a-478d-a69f-bbd0b6f6d306")
         public static SmDependency ResidentDep() {
             if (ResidentDep == null) {
             	ResidentDep = classof().getDependencyDef("Resident");
@@ -75,26 +75,26 @@ public class NodeData extends ClassifierData {
             return ResidentDep;
         }
 
-        @objid ("6c00b13b-c1d1-45b1-bc4b-33f044bacc65")
-        public static SmDependency getResidentDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return ResidentDep;
-        }
-
-        @objid ("221734ab-7046-4654-9766-eafbe5c418df")
+        @objid ("3df9ecb8-8afd-49c1-8c4f-3f991fa60bc6")
         public static SmClass getSmClass() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return smClass;
         }
 
+        @objid ("1f0122cd-103e-44da-9509-1620cbc60225")
+        public static SmDependency getResidentDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return ResidentDep;
+        }
+
         @objid ("0087f492-c4c2-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("9938a9b9-100e-42e5-8284-a5963e9f81d7")
+            @objid ("79091c46-0b3b-47a9-b5bb-8db50e5a00ba")
             public ISmObjectData createData() {
                 return new NodeData();
             }
 
-            @objid ("6a821d39-221e-4213-adba-c646bd47c458")
+            @objid ("daeb7c81-b5e1-4e4e-afeb-cf7f01589137")
             public SmObjectImpl createImpl() {
                 return new NodeImpl();
             }
@@ -103,20 +103,20 @@ public class NodeData extends ClassifierData {
 
         @objid ("00885766-c4c2-1fd8-97fe-001ec947cd2a")
         public static class ResidentSmDependency extends SmMultipleDependency {
-            @objid ("451d0261-70dd-47ab-802b-d106615b2018")
+            @objid ("1c393eae-8584-45fe-8898-495456458559")
             @Override
             public List<SmObjectImpl> getValueList(ISmObjectData data) {
                 return (((NodeData)data).mResident != null)? ((NodeData)data).mResident:SmMultipleDependency.EMPTY;
             }
 
-            @objid ("3106d503-0df3-4a89-8698-9022caa2b27a")
+            @objid ("9166ce38-ad60-4427-b41b-9806a5e6752d")
             @Override
             protected List<SmObjectImpl> allocateValueList(ISmObjectData data, int initialCapacity) {
                 ((NodeData) data).mResident = new ArrayList<>(initialCapacity);
                 return ((NodeData) data).mResident;
             }
 
-            @objid ("3af5fac8-dab6-4d5e-a53d-b949d31f07cd")
+            @objid ("ffb61f2b-81e7-4b2f-ad47-a8752a074bec")
             @Override
             public SmDependency getSymetric() {
                 return ArtifactData.Metadata.DeploymentLocationDep();

@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.uml.statik;
 
@@ -33,22 +33,22 @@ import org.modelio.metamodel.uml.statik.Instance;
 
 @objid ("009893c4-c4be-1fd8-97fe-001ec947cd2a")
 public interface AttributeLink extends ModelElement {
-    @objid ("f8521394-638e-4e7a-a6d8-01f8d30a7545")
+    @objid ("77b6df25-fa92-4bb2-84a6-91aade6d1492")
     String getValue();
 
-    @objid ("f16d2140-1385-4b95-859d-9a7777c6a38d")
+    @objid ("89885c74-52b2-4c90-9885-b8f30f58523b")
     void setValue(String value);
 
-    @objid ("a705d7e7-a3a7-4a28-930c-e37e7e51846c")
+    @objid ("225f77e4-efcd-400a-9235-9e3cf35d0246")
     Instance getAttributed();
 
-    @objid ("2637c9e5-54ab-4829-869c-50283a350d0c")
+    @objid ("08e0a5da-5610-4747-b017-75b125107de2")
     void setAttributed(Instance value);
 
-    @objid ("17fa2565-30ca-4f25-8197-626b8d7b164e")
+    @objid ("150938a9-1038-44c4-a2c6-4a86b24276ff")
     Attribute getBase();
 
-    @objid ("1db219b7-3606-48da-9885-347ba32aef47")
+    @objid ("dc5677b7-062c-44b9-990c-5c4ec567591c")
     void setBase(Attribute value);
 
 }

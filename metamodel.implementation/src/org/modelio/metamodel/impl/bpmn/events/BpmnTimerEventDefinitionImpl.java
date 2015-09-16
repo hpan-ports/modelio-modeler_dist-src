@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.bpmn.events;
 
@@ -41,45 +41,45 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("00969aa6-c4bf-1fd8-97fe-001ec947cd2a")
 public class BpmnTimerEventDefinitionImpl extends BpmnEventDefinitionImpl implements BpmnTimerEventDefinition {
-    @objid ("d8889aaf-174a-493f-bf16-ae7f5135698c")
+    @objid ("4e8e06d1-6c05-4829-bd80-d0fdabfda08d")
     @Override
     public String getTimeCycle() {
         return (String) getAttVal(BpmnTimerEventDefinitionData.Metadata.TimeCycleAtt());
     }
 
-    @objid ("66ad86cf-91e7-4cf8-b794-33e5e0c59d88")
+    @objid ("11872f1a-e647-4f83-93fe-aec44dc9fa02")
     @Override
     public void setTimeCycle(String value) {
         setAttVal(BpmnTimerEventDefinitionData.Metadata.TimeCycleAtt(), value);
     }
 
-    @objid ("e7e09e61-2a58-42e7-846b-a4d4c833b3c8")
+    @objid ("831fef76-6b62-464c-917b-cf951484fe40")
     @Override
     public String getTimeD() {
         return (String) getAttVal(BpmnTimerEventDefinitionData.Metadata.TimeDAtt());
     }
 
-    @objid ("9c8d47e3-4944-4509-b3be-e8c85aa17ec2")
+    @objid ("5b777286-da59-4290-b3f3-22ebfce74eb6")
     @Override
     public void setTimeD(String value) {
         setAttVal(BpmnTimerEventDefinitionData.Metadata.TimeDAtt(), value);
     }
 
-    @objid ("d0df10f7-443f-48a9-acf8-7c194e797168")
+    @objid ("c170a987-7599-4ed7-99d5-86279fc9dd82")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("a7233ef4-d8db-4ae4-a3f3-dd3d821d8c0a")
+    @objid ("cba41320-8062-426b-8de9-1764f771dd48")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("555913fd-da02-4df3-a7a7-c41a7eb66ce9")
+    @objid ("6279ae1d-e0b7-42d6-b298-40f95b8f3393")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitBpmnTimerEventDefinition(this);

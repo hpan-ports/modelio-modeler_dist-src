@@ -25,8 +25,15 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.di.annotations.Execute;
 
+/**
+ * E4 model processor to add an {@link IProjectService} to the context.
+ */
 @objid ("0072e9ee-dcda-103c-9961-001ec947cd2a")
 public class ProjectServiceInitializer {
+    /**
+     * Called by E4.
+     * @param context the Eclipse context
+     */
     @objid ("00022664-dcdb-103c-9961-001ec947cd2a")
     @Execute
     public static void initialize(IEclipseContext context) {

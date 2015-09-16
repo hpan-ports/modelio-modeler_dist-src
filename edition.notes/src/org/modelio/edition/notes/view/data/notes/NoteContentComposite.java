@@ -42,21 +42,21 @@ import org.modelio.ui.UIColor;
 import org.modelio.vcore.session.api.ICoreSession;
 import org.modelio.vcore.session.api.transactions.ITransaction;
 
-@objid ("26ef6c47-186f-11e2-bc4e-002564c97630")
+@objid ("ba7fa118-53f5-4d07-bfd4-fae111eea2c2")
 public class NoteContentComposite extends Composite implements INoteContent {
-    @objid ("26ef6c48-186f-11e2-bc4e-002564c97630")
+    @objid ("dab25eb2-851d-4524-92ec-e8ece1338ee3")
     private Note note = null;
 
-    @objid ("26ef6c49-186f-11e2-bc4e-002564c97630")
+    @objid ("e204bd24-cd6c-4fe3-8f1f-63b832fadb7f")
     private ModelElement annotedElement = null;
 
-    @objid ("26ef6c4a-186f-11e2-bc4e-002564c97630")
+    @objid ("9afaf362-3e9a-4b33-9eba-d71ff0cbcc3c")
     private Text noteText = null;
 
-    @objid ("26ef6c4c-186f-11e2-bc4e-002564c97630")
+    @objid ("1a26ae5c-bc70-43e7-b601-ad1858f08067")
     private NoteContentModifier noteModifier = null;
 
-    @objid ("26ef6c4d-186f-11e2-bc4e-002564c97630")
+    @objid ("00115b46-b29e-42fa-a3b8-72c96f800a73")
     public NoteContentComposite(Composite parentComposite, int style) {
         super(parentComposite, style);
         setLayout(new FillLayout());
@@ -64,7 +64,7 @@ public class NoteContentComposite extends Composite implements INoteContent {
         this.noteText = new Text(this, SWT.BORDER | SWT.BORDER | SWT.V_SCROLL | SWT.WRAP);
     }
 
-    @objid ("26ef6c51-186f-11e2-bc4e-002564c97630")
+    @objid ("49207963-91d8-4e02-9365-23e4558bb286")
     @Override
     public void setInput(final ModelElement aNote, final ModelElement annotedElement) {
         this.note = ((Note) aNote);
@@ -86,7 +86,7 @@ public class NoteContentComposite extends Composite implements INoteContent {
         }
     }
 
-    @objid ("26ef6c58-186f-11e2-bc4e-002564c97630")
+    @objid ("a1337c3c-a82d-4ca9-986a-23265934cae7")
     @Override
     public void start(ICoreSession newSession) {
         if (newSession != null) {
@@ -97,7 +97,7 @@ public class NoteContentComposite extends Composite implements INoteContent {
         }
     }
 
-    @objid ("26ef6c5c-186f-11e2-bc4e-002564c97630")
+    @objid ("9598164f-db33-49f9-a061-464bf18d45fc")
     @Override
     public void stop() {
         if (this.noteModifier != null) {
@@ -106,33 +106,33 @@ public class NoteContentComposite extends Composite implements INoteContent {
         }
     }
 
-    @objid ("26ef6c5f-186f-11e2-bc4e-002564c97630")
+    @objid ("0e17cec6-beac-4ed5-aa7a-98fa48aa30ef")
     @Override
     public Control getControl() {
         return this;
     }
 
-    @objid ("26f1cd82-186f-11e2-bc4e-002564c97630")
+    @objid ("42b7691a-97be-4f93-b9fc-300074cf5e7e")
     @Override
     public ModelElement getNoteElement() {
         return this.note;
     }
 
-    @objid ("26f1cd87-186f-11e2-bc4e-002564c97630")
+    @objid ("f0b7697e-d163-47ef-9dcf-cdd0abd4017d")
     @Override
     public ModelElement getAnnotedElement() {
         return this.annotedElement;
     }
 
-    @objid ("26f1cd8c-186f-11e2-bc4e-002564c97630")
+    @objid ("df776278-c31b-420f-9462-8dd19cdb7825")
     private static class NoteContentModifier implements FocusListener, KeyListener {
-        @objid ("0158f9f6-0bfa-43fd-b299-c28c4deb4bc0")
+        @objid ("4496dcd4-c810-40e5-b34c-30541c38661d")
         private ArrayList<String> activeContexts;
 
-        @objid ("26ef6c4b-186f-11e2-bc4e-002564c97630")
+        @objid ("8fe02762-ae81-4936-8ea2-e98fcebfab33")
         private ICoreSession modelingSession = null;
 
-        @objid ("26f1cd8d-186f-11e2-bc4e-002564c97630")
+        @objid ("a79898c0-57bc-4eee-b4fd-4ece73cb5fe3")
         @Override
         public void focusGained(final FocusEvent event) {
             // We must deactivate the active contexts during the edition, to avoid the editor's shortcuts to be triggered when entering an element's name... 
@@ -155,7 +155,7 @@ public class NoteContentComposite extends Composite implements INoteContent {
             }
         }
 
-        @objid ("26f1cd92-186f-11e2-bc4e-002564c97630")
+        @objid ("9494c3a0-c76a-48b7-9068-f4287565761f")
         @Override
         public void focusLost(final FocusEvent event) {
             validate(event);
@@ -167,7 +167,7 @@ public class NoteContentComposite extends Composite implements INoteContent {
             this.activeContexts = null;
         }
 
-        @objid ("26f1cd97-186f-11e2-bc4e-002564c97630")
+        @objid ("681623dd-b3f6-44f3-b003-84aa8e5ee5ca")
         @Override
         public void keyPressed(final KeyEvent event) {
             if ((event.stateMask &= SWT.MOD1) != 0 && event.keyCode == SWT.CR) {
@@ -175,7 +175,7 @@ public class NoteContentComposite extends Composite implements INoteContent {
             }
         }
 
-        @objid ("26f1cd9c-186f-11e2-bc4e-002564c97630")
+        @objid ("a380cbab-013d-4f62-827f-cdb22d7395e6")
         @Override
         public void keyReleased(final KeyEvent event) {
             Text text = (Text) event.getSource();
@@ -193,7 +193,7 @@ public class NoteContentComposite extends Composite implements INoteContent {
             }
         }
 
-        @objid ("26f1cda1-186f-11e2-bc4e-002564c97630")
+        @objid ("8a5c80e7-57c4-4442-82c4-1b792953f2ae")
         private void validate(final TypedEvent event) {
             Text text = (Text) event.getSource();
             Note note = (Note) text.getData();
@@ -218,7 +218,7 @@ public class NoteContentComposite extends Composite implements INoteContent {
             }
         }
 
-        @objid ("fb9d07dc-19e5-11e2-ad19-002564c97630")
+        @objid ("e8bbee95-106b-4aed-95a3-fe41c6830f7b")
         public NoteContentModifier(ICoreSession modelingSession) {
             this.modelingSession = modelingSession;
         }

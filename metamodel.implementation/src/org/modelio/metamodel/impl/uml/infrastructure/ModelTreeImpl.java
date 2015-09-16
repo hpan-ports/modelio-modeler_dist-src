@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.uml.infrastructure;
 
@@ -42,25 +42,25 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("0089574c-c4be-1fd8-97fe-001ec947cd2a")
 public abstract class ModelTreeImpl extends ModelElementImpl implements ModelTree {
-    @objid ("b789cdd5-f3f5-4723-8db6-8d1b5ef2e6ef")
+    @objid ("3600f7c9-83bd-4ba1-9ca0-953c58b85727")
     @Override
     public ModelTree getOwner() {
         return (ModelTree) getDepVal(ModelTreeData.Metadata.OwnerDep());
     }
 
-    @objid ("904e7926-e850-4b18-ae96-ae2bd54ca438")
+    @objid ("82a5d8ff-5010-43b4-9e6f-80b2a1cc5784")
     @Override
     public void setOwner(ModelTree value) {
         appendDepVal(ModelTreeData.Metadata.OwnerDep(), (SmObjectImpl)value);
     }
 
-    @objid ("7420d24d-5acb-4f02-a5e0-f70f21d2cc78")
+    @objid ("589c049e-3023-43b7-ad65-6fad4b9f4dc4")
     @Override
     public EList<ModelTree> getOwnedElement() {
         return new SmList<>(this, ModelTreeData.Metadata.OwnedElementDep());
     }
 
-    @objid ("5cb0f512-d73d-4ba7-98b7-67d518c67c17")
+    @objid ("30a5d244-95d8-4049-8c54-227dc9d67f23")
     @Override
     public <T extends ModelTree> List<T> getOwnedElement(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -73,7 +73,7 @@ public abstract class ModelTreeImpl extends ModelElementImpl implements ModelTre
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("f8d063dd-f2a0-4983-8162-9918071b4391")
+    @objid ("610d6379-50f3-4693-be8c-8b0541448451")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
@@ -83,7 +83,7 @@ public abstract class ModelTreeImpl extends ModelElementImpl implements ModelTre
         return super.getCompositionOwner();
     }
 
-    @objid ("8431011f-5eed-44e7-a453-4744247dcede")
+    @objid ("44040cc9-d9b2-4247-b23a-b2fd11c3420f")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
@@ -93,7 +93,7 @@ public abstract class ModelTreeImpl extends ModelElementImpl implements ModelTre
         return super.getCompositionRelation();
     }
 
-    @objid ("81c7cdf5-2072-4314-ba55-eb6f6d2970d8")
+    @objid ("14bfaac3-70d8-4767-abe9-f15887ef1e34")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitModelTree(this);

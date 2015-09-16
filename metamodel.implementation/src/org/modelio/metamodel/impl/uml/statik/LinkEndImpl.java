@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9020              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.uml.statik;
 
@@ -253,177 +253,6 @@ public class LinkEndImpl extends ModelElementImpl implements LinkEnd {
         }
     }
 
-    @objid ("b22872ec-32b2-4b26-a439-2355cc2fb32c")
-    @Override
-    public boolean isIsOrdered() {
-        return (Boolean) getAttVal(LinkEndData.Metadata.IsOrderedAtt());
-    }
-
-    @objid ("16e065f2-79d3-45ae-a65e-56b4ac6268d2")
-    @Override
-    public void setIsOrdered(boolean value) {
-        setAttVal(LinkEndData.Metadata.IsOrderedAtt(), value);
-    }
-
-    @objid ("8e0df49a-4c8d-4104-baaa-fb1f812b428d")
-    @Override
-    public boolean isIsUnique() {
-        return (Boolean) getAttVal(LinkEndData.Metadata.IsUniqueAtt());
-    }
-
-    @objid ("9b15016d-6e82-4130-9299-b7b33b06b4b4")
-    @Override
-    public void setIsUnique(boolean value) {
-        setAttVal(LinkEndData.Metadata.IsUniqueAtt(), value);
-    }
-
-    @objid ("883e5c04-d5bb-45f8-919f-3cc0112b9e8d")
-    @Override
-    public String getMultiplicityMax() {
-        return (String) getAttVal(LinkEndData.Metadata.MultiplicityMaxAtt());
-    }
-
-    @objid ("89dc8b80-dd7e-4b28-8922-54a0b718438a")
-    @Override
-    public void setMultiplicityMax(String value) {
-        setAttVal(LinkEndData.Metadata.MultiplicityMaxAtt(), value);
-    }
-
-    @objid ("6822bc31-81a8-4b49-9a2c-b94a2cacfdb5")
-    @Override
-    public String getMultiplicityMin() {
-        return (String) getAttVal(LinkEndData.Metadata.MultiplicityMinAtt());
-    }
-
-    @objid ("4029a617-0946-4cfb-a57f-30735d0a11ed")
-    @Override
-    public void setMultiplicityMin(String value) {
-        setAttVal(LinkEndData.Metadata.MultiplicityMinAtt(), value);
-    }
-
-    @objid ("67cdd902-c226-4b13-bc18-5382b64b488a")
-    @Override
-    public Link getLink() {
-        return (Link) getDepVal(LinkEndData.Metadata.LinkDep());
-    }
-
-    @objid ("24fa3eef-1135-4d83-b270-129afafdcd66")
-    @Override
-    public void setLink(Link value) {
-        appendDepVal(LinkEndData.Metadata.LinkDep(), (SmObjectImpl)value);
-    }
-
-    @objid ("71a2f85f-73f1-4973-b8ad-d16619230f31")
-    @Override
-    public Instance getTarget() {
-        return (Instance) getDepVal(LinkEndData.Metadata.TargetDep());
-    }
-
-    @objid ("85a95683-8cbc-448e-b3cd-778bd1327fce")
-    @Override
-    public void setTarget(Instance value) {
-        appendDepVal(LinkEndData.Metadata.TargetDep(), (SmObjectImpl)value);
-    }
-
-    @objid ("4f6c9612-96fa-475c-a517-9191c0b6e586")
-    @Override
-    public LinkEnd getOppositeOwner() {
-        return (LinkEnd) getDepVal(LinkEndData.Metadata.OppositeOwnerDep());
-    }
-
-    @objid ("f54362f1-b046-4748-bc06-d2380cffcb1d")
-    @Override
-    public void setOppositeOwner(LinkEnd value) {
-        appendDepVal(LinkEndData.Metadata.OppositeOwnerDep(), (SmObjectImpl)value);
-    }
-
-    @objid ("655b9ea7-8dff-4780-bfc7-e2678fc06bcb")
-    @Override
-    public EList<InformationFlow> getRealizedInformationFlow() {
-        return new SmList<>(this, LinkEndData.Metadata.RealizedInformationFlowDep());
-    }
-
-    @objid ("b4079021-f98a-4fbc-879b-03b6e8121de4")
-    @Override
-    public <T extends InformationFlow> List<T> getRealizedInformationFlow(java.lang.Class<T> filterClass) {
-        final List<T> results = new ArrayList<>();
-        final MClass mClass = SmClass.getClass(filterClass);
-        for (final InformationFlow element : getRealizedInformationFlow()) {
-          if (element.getMClass().hasBase(mClass)) {
-            results.add(filterClass.cast(element));
-          }
-        }
-        return Collections.unmodifiableList(results);
-    }
-
-    @objid ("f70e7ac1-4f7d-4912-a5c1-f3f0ff566ddf")
-    @Override
-    public AssociationEnd getModel() {
-        return (AssociationEnd) getDepVal(LinkEndData.Metadata.ModelDep());
-    }
-
-    @objid ("8b6dab25-574f-4e37-9055-7c272e790e7c")
-    @Override
-    public void setModel(AssociationEnd value) {
-        appendDepVal(LinkEndData.Metadata.ModelDep(), (SmObjectImpl)value);
-    }
-
-    @objid ("8ec95264-1f18-4d4a-aa77-687227c717da")
-    @Override
-    public RequiredInterface getConsumer() {
-        return (RequiredInterface) getDepVal(LinkEndData.Metadata.ConsumerDep());
-    }
-
-    @objid ("db628389-9138-4ad2-afe4-93ff0bdcac99")
-    @Override
-    public void setConsumer(RequiredInterface value) {
-        appendDepVal(LinkEndData.Metadata.ConsumerDep(), (SmObjectImpl)value);
-    }
-
-    @objid ("945a18fd-54d9-4cbb-ac1f-b51dd94a77b8")
-    @Override
-    public LinkEnd getOpposite() {
-        return (LinkEnd) getDepVal(LinkEndData.Metadata.OppositeDep());
-    }
-
-    @objid ("a7cd51d8-93fb-4f28-801c-d9fecd1459f9")
-    @Override
-    public void setOpposite(LinkEnd value) {
-        appendDepVal(LinkEndData.Metadata.OppositeDep(), (SmObjectImpl)value);
-    }
-
-    @objid ("b0984c30-c1e8-4dac-bb04-4e4afd40f353")
-    @Override
-    public Instance getSource() {
-        return (Instance) getDepVal(LinkEndData.Metadata.SourceDep());
-    }
-
-    @objid ("413a5ae1-71a3-46bd-8508-748e9df6f54d")
-    @Override
-    public void setSource(Instance value) {
-        appendDepVal(LinkEndData.Metadata.SourceDep(), (SmObjectImpl)value);
-    }
-
-    @objid ("7a313e7c-effa-4ab3-892f-dd87569b2524")
-    @Override
-    public ProvidedInterface getProvider() {
-        return (ProvidedInterface) getDepVal(LinkEndData.Metadata.ProviderDep());
-    }
-
-    @objid ("f51faa0b-4a50-4f86-967d-72c33063e4be")
-    @Override
-    public void setProvider(ProvidedInterface value) {
-        appendDepVal(LinkEndData.Metadata.ProviderDep(), (SmObjectImpl)value);
-    }
-
-    @objid ("cd59b011-cb15-4ef9-9dd0-0810504da71b")
-    public Object accept(MVisitor v) {
-        if (v instanceof IModelVisitor)
-          return ((IModelVisitor)v).visitLinkEnd(this);
-        else
-          return null;
-    }
-
     @objid ("891a32f4-6ac7-42a6-b286-ad0bf75273a5")
     @Override
     public void afterEraseDepVal(SmDependency dep, SmObjectImpl value) {
@@ -444,6 +273,177 @@ public class LinkEndImpl extends ModelElementImpl implements LinkEnd {
             }
         
         }
+    }
+
+    @objid ("dfce4e62-72bf-4854-aafa-65f8f970a0f5")
+    @Override
+    public boolean isIsOrdered() {
+        return (Boolean) getAttVal(LinkEndData.Metadata.IsOrderedAtt());
+    }
+
+    @objid ("136ce853-d332-4b1a-b8f3-808ad963bcf7")
+    @Override
+    public void setIsOrdered(boolean value) {
+        setAttVal(LinkEndData.Metadata.IsOrderedAtt(), value);
+    }
+
+    @objid ("7e3ad51c-a1bd-4434-84e5-88e20d5176fe")
+    @Override
+    public boolean isIsUnique() {
+        return (Boolean) getAttVal(LinkEndData.Metadata.IsUniqueAtt());
+    }
+
+    @objid ("0286dbbb-11a5-4684-8c7e-3c7dde9498ae")
+    @Override
+    public void setIsUnique(boolean value) {
+        setAttVal(LinkEndData.Metadata.IsUniqueAtt(), value);
+    }
+
+    @objid ("37997567-cdc2-4742-9c40-da71014e6f0b")
+    @Override
+    public String getMultiplicityMax() {
+        return (String) getAttVal(LinkEndData.Metadata.MultiplicityMaxAtt());
+    }
+
+    @objid ("11947113-117d-49f7-9b3f-a22253fd5191")
+    @Override
+    public void setMultiplicityMax(String value) {
+        setAttVal(LinkEndData.Metadata.MultiplicityMaxAtt(), value);
+    }
+
+    @objid ("0ed23346-f6be-4493-b9fb-ff29d92e4d0b")
+    @Override
+    public String getMultiplicityMin() {
+        return (String) getAttVal(LinkEndData.Metadata.MultiplicityMinAtt());
+    }
+
+    @objid ("8e8cbb38-5a17-403b-b754-f040109d77dd")
+    @Override
+    public void setMultiplicityMin(String value) {
+        setAttVal(LinkEndData.Metadata.MultiplicityMinAtt(), value);
+    }
+
+    @objid ("846c9083-dfec-4b2d-bd71-b0aa53bfca5b")
+    @Override
+    public Link getLink() {
+        return (Link) getDepVal(LinkEndData.Metadata.LinkDep());
+    }
+
+    @objid ("158d36c7-d7c7-47e5-ad88-b809e386ed76")
+    @Override
+    public void setLink(Link value) {
+        appendDepVal(LinkEndData.Metadata.LinkDep(), (SmObjectImpl)value);
+    }
+
+    @objid ("9f40455c-2140-442e-bd8c-f43436f257db")
+    @Override
+    public Instance getTarget() {
+        return (Instance) getDepVal(LinkEndData.Metadata.TargetDep());
+    }
+
+    @objid ("e7388deb-7940-4c6f-8f90-e39a7958734a")
+    @Override
+    public void setTarget(Instance value) {
+        appendDepVal(LinkEndData.Metadata.TargetDep(), (SmObjectImpl)value);
+    }
+
+    @objid ("ee431ce6-648d-4741-9697-fb571996cc28")
+    @Override
+    public LinkEnd getOppositeOwner() {
+        return (LinkEnd) getDepVal(LinkEndData.Metadata.OppositeOwnerDep());
+    }
+
+    @objid ("31f99c41-19e7-4d0a-a047-4fa9232279d6")
+    @Override
+    public void setOppositeOwner(LinkEnd value) {
+        appendDepVal(LinkEndData.Metadata.OppositeOwnerDep(), (SmObjectImpl)value);
+    }
+
+    @objid ("24366770-f533-4541-a6d6-9b40fc327f9d")
+    @Override
+    public EList<InformationFlow> getRealizedInformationFlow() {
+        return new SmList<>(this, LinkEndData.Metadata.RealizedInformationFlowDep());
+    }
+
+    @objid ("b0593ba2-2dd4-497e-9e63-845bcb523546")
+    @Override
+    public <T extends InformationFlow> List<T> getRealizedInformationFlow(java.lang.Class<T> filterClass) {
+        final List<T> results = new ArrayList<>();
+        final MClass mClass = SmClass.getClass(filterClass);
+        for (final InformationFlow element : getRealizedInformationFlow()) {
+          if (element.getMClass().hasBase(mClass)) {
+            results.add(filterClass.cast(element));
+          }
+        }
+        return Collections.unmodifiableList(results);
+    }
+
+    @objid ("12f517d1-6658-4863-ab84-c84d9091b3ce")
+    @Override
+    public AssociationEnd getModel() {
+        return (AssociationEnd) getDepVal(LinkEndData.Metadata.ModelDep());
+    }
+
+    @objid ("ad5fd100-06db-4268-9c70-c11e34958a0d")
+    @Override
+    public void setModel(AssociationEnd value) {
+        appendDepVal(LinkEndData.Metadata.ModelDep(), (SmObjectImpl)value);
+    }
+
+    @objid ("14471c46-3176-4928-9371-2fbd3e22fbc5")
+    @Override
+    public RequiredInterface getConsumer() {
+        return (RequiredInterface) getDepVal(LinkEndData.Metadata.ConsumerDep());
+    }
+
+    @objid ("f830caf8-c671-45f4-a0a3-a3c3a25bb79c")
+    @Override
+    public void setConsumer(RequiredInterface value) {
+        appendDepVal(LinkEndData.Metadata.ConsumerDep(), (SmObjectImpl)value);
+    }
+
+    @objid ("db227676-cbea-42ad-9f23-e97e32c01cbe")
+    @Override
+    public LinkEnd getOpposite() {
+        return (LinkEnd) getDepVal(LinkEndData.Metadata.OppositeDep());
+    }
+
+    @objid ("ab13db1b-a564-4683-aabf-5a2a30d4892b")
+    @Override
+    public void setOpposite(LinkEnd value) {
+        appendDepVal(LinkEndData.Metadata.OppositeDep(), (SmObjectImpl)value);
+    }
+
+    @objid ("0b50132b-d147-49a7-92ef-0e6ae09ef043")
+    @Override
+    public Instance getSource() {
+        return (Instance) getDepVal(LinkEndData.Metadata.SourceDep());
+    }
+
+    @objid ("5c0e30a2-3b11-47bf-ac0b-41b73eef0ae1")
+    @Override
+    public void setSource(Instance value) {
+        appendDepVal(LinkEndData.Metadata.SourceDep(), (SmObjectImpl)value);
+    }
+
+    @objid ("35bda2ea-aee4-4535-80ac-103d61bfb02b")
+    @Override
+    public ProvidedInterface getProvider() {
+        return (ProvidedInterface) getDepVal(LinkEndData.Metadata.ProviderDep());
+    }
+
+    @objid ("7b532df9-397d-4643-ae0a-55211cb8e978")
+    @Override
+    public void setProvider(ProvidedInterface value) {
+        appendDepVal(LinkEndData.Metadata.ProviderDep(), (SmObjectImpl)value);
+    }
+
+    @objid ("a7ecff21-c0b4-42a0-a67f-2d455335ea20")
+    public Object accept(MVisitor v) {
+        if (v instanceof IModelVisitor)
+          return ((IModelVisitor)v).visitLinkEnd(this);
+        else
+          return null;
     }
 
 }

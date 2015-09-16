@@ -1,0 +1,48 @@
+html {
+	background-image: url("./images/background.jpg");
+	background-repeat: repeat-x;
+}
+
+body {background: none}
+
+#menu {
+	margin-top:  50px;
+	margin-left: 450px;
+}
+
+#menu a {
+	font-size:       2.5em;
+	color:           #EFEFFF;
+	text-decoration: none;
+	font-family:     verdana;
+}
+
+#menu a:hover {
+	color:       #BB1010
+}
+
+#copyright {
+	color: #CCCCCC;
+	text-align: right;
+	margin-right: 10px;
+	font-family:     verdana;
+	font-size:  0.7em;
+	margin-top: 250px;
+}
+
+#bymodeliosoft a {
+	position:absolute;
+ 	top:220px;
+ 	left:360px;
+	color            : #BBBBBB;
+	font-size        : 1.5em;;
+	font-family      : arial;
+	text-decoration  : none;
+	text-align       : right;
+	
+}
+
+#bymodeliosoft a:hover {
+	color:       #BB1010
+}
+

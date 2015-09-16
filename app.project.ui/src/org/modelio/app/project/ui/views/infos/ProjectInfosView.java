@@ -41,7 +41,7 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.swt.widgets.Composite;
 import org.modelio.app.project.ui.plugin.AppProjectIcons;
 import org.modelio.app.project.ui.views.urls.UrlEntry;
-import org.modelio.gproject.descriptor.ProjectDescriptor;
+import org.modelio.gproject.data.project.ProjectDescriptor;
 
 /**
  * This view displays information about the project currently selected in the

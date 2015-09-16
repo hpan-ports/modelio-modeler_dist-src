@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.uml.behavior.stateMachineModel;
 
@@ -36,70 +36,70 @@ import org.modelio.metamodel.uml.statik.Operation;
 
 @objid ("0055b6a8-c4bf-1fd8-97fe-001ec947cd2a")
 public interface Transition extends ModelElement {
-    @objid ("85e0a22f-22af-4074-9bff-bd8b197819ad")
+    @objid ("1ce6922f-c68d-4f24-bb5d-112dbf2b18ba")
     String getEffect();
 
-    @objid ("3826add2-7ba0-469f-acf3-30d8c083e21a")
+    @objid ("689f80e0-818d-4aee-b1cf-dba76d0a324f")
     void setEffect(String value);
 
-    @objid ("e6f8fb22-ad75-4795-afeb-f6bc955b934b")
+    @objid ("ce9fba0b-52b4-47be-8945-71d70eafbe25")
     String getReceivedEvents();
 
-    @objid ("faae6cab-c9a1-4722-a710-8048d4a991f5")
+    @objid ("73fc8028-b44f-4eb8-943d-10211022bb7f")
     void setReceivedEvents(String value);
 
-    @objid ("2d001689-f20a-41f4-b61f-b41a8ee85046")
+    @objid ("b361b481-2b23-4001-83d3-badf7a0f760c")
     String getSentEvents();
 
-    @objid ("36cf8c4b-1555-4aaa-95a0-1d2153d2f24d")
+    @objid ("1a29fd1e-ace0-4f71-9045-a814e59190cf")
     void setSentEvents(String value);
 
-    @objid ("872b12f8-8ea5-40da-806a-6f2612783a36")
+    @objid ("ca5ca1e3-4709-463f-aa71-398ee16962a3")
     String getGuard();
 
-    @objid ("2badda84-05a0-40f2-a371-9f4b4dd9657e")
+    @objid ("be716914-6c67-400e-8367-3217b0a5cc37")
     void setGuard(String value);
 
-    @objid ("87a6f1d0-dbcc-4c40-98c8-874c94880af9")
+    @objid ("8e3eb54a-d8aa-42c1-abb5-4da56472f1ab")
     String getPostCondition();
 
-    @objid ("2cce9ef0-a910-4eed-9904-8ec3ca529f7b")
+    @objid ("44f5760b-ced4-4100-accc-d14831532c23")
     void setPostCondition(String value);
 
-    @objid ("3a6ad0d9-8786-4262-9b56-c8ca406bc990")
+    @objid ("676663bb-d65d-4095-8cd0-2cea80e649c1")
     Operation getProcessed();
 
-    @objid ("0e61a80f-d23a-4d44-b254-b0eb3249ea81")
+    @objid ("6a4479d7-51c7-4f99-8451-bc019fed9bbd")
     void setProcessed(Operation value);
 
-    @objid ("e8736083-567e-4bc3-8e87-51c8a238fbae")
+    @objid ("174065b0-e5c5-49ed-94e5-5d88dbc7d4d8")
     Event getTrigger();
 
-    @objid ("1b397cd2-532b-458b-aa6b-887c701e745c")
+    @objid ("70c4e1c6-ae4b-492a-ab1d-599dcdb3a1b7")
     void setTrigger(Event value);
 
-    @objid ("5b7eb444-8b6c-4ea2-b873-9e3d63066270")
+    @objid ("3be5c3fe-a285-4556-81ce-0c714c09eb75")
     Behavior getBehaviorEffect();
 
-    @objid ("34226ba9-79df-4adf-b2ab-9055f524ae6c")
+    @objid ("7082b12c-c38e-4498-9f57-73806812ab39")
     void setBehaviorEffect(Behavior value);
 
-    @objid ("dcd7240e-ae30-4cb2-9be7-7c1c427672ea")
+    @objid ("dc3140d1-db72-434e-b136-2e03766f6bb1")
     StateVertex getTarget();
 
-    @objid ("a43799f1-625b-4e4f-b34f-01762745ea64")
+    @objid ("9500f96a-164f-4c29-bf91-04a4e04efaf4")
     void setTarget(StateVertex value);
 
-    @objid ("558dcc87-ee21-44eb-8a55-4ead7e042cd3")
+    @objid ("7d9eccd7-44c7-4a4e-9d10-61a23f3fc7a7")
     StateVertex getSource();
 
-    @objid ("a1091069-ceaa-4a8e-b0e6-92c1e6002f8a")
+    @objid ("c6d25b9e-928f-4139-b204-d7611594352d")
     void setSource(StateVertex value);
 
-    @objid ("9e03338c-eb7f-46a5-8f47-2fd29fba5e59")
+    @objid ("ed06e8c6-d4c3-44eb-bf9f-a49a93c75f4f")
     Signal getEffects();
 
-    @objid ("b7302d7e-238a-42a3-87ad-f0d9b1b8066a")
+    @objid ("a7e3e7b5-b728-4916-9253-e7992231260a")
     void setEffects(Signal value);
 
 }

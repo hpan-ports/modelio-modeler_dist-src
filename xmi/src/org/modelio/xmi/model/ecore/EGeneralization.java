@@ -24,7 +24,6 @@ package org.modelio.xmi.model.ecore;
 import java.util.ArrayList;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.modelio.api.modelio.Modelio;
 import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.metamodel.uml.infrastructure.Stereotype;
 import org.modelio.metamodel.uml.statik.Generalization;
@@ -33,7 +32,6 @@ import org.modelio.xmi.plugin.Xmi;
 import org.modelio.xmi.reverse.PartialImportMap;
 import org.modelio.xmi.reverse.TotalImportMap;
 import org.modelio.xmi.util.ObjingEAnnotation;
-import org.modelio.xmi.util.PrimitiveTypeMapper;
 import org.modelio.xmi.util.ReverseProperties;
 import org.modelio.xmi.util.XMILogs;
 
@@ -42,75 +40,104 @@ import org.modelio.xmi.util.XMILogs;
  * @author ebrosse
  */
 @objid ("1aee77f3-3ec1-460d-aba3-c352962f43b5")
-public class EGeneralization extends EElement implements IEElement {
+public class EGeneralization extends EElement {
     @objid ("f10d7377-c3a2-4f2a-b7a4-f7fe9abfcc3f")
-    private org.eclipse.uml2.uml.Generalization ecoreElement;
+    private org.eclipse.uml2.uml.Generalization ecoreElement = null;
 
     @objid ("0799e11a-57aa-4fc8-bb23-355eb5464c3b")
     @Override
     public Element createObjingElt() {
         org.eclipse.uml2.uml.Classifier ecoreGeneral = this.ecoreElement.getGeneral();
         org.eclipse.uml2.uml.Classifier ecoreSpecific = this.ecoreElement.getSpecific();
-        if ((ecoreGeneral != null) && (ecoreSpecific != null)){
         
-            if  ((ecoreGeneral instanceof org.eclipse.uml2.uml.Stereotype) && (ecoreSpecific instanceof org.eclipse.uml2.uml.Stereotype)){
-                
-                List<Stereotype> objingGenerals = new ArrayList<Stereotype>();
-                List<Stereotype> objingSpecifics = new ArrayList<Stereotype>();
-                
-                Object objingGeneral = ReverseProperties.getInstance().getMappedElement(ecoreGeneral);
-                if (objingGeneral instanceof Stereotype)
-                    objingGenerals.add((Stereotype) objingGeneral);
-                else 
-                    objingGenerals = (ArrayList<Stereotype>) objingGeneral;
-                
-                Object objingSpecific = ReverseProperties.getInstance().getMappedElement(ecoreSpecific);
-                if (objingSpecific instanceof Stereotype)
-                    objingSpecifics.add((Stereotype) objingSpecific);
-                else 
-                    objingSpecifics = (ArrayList<Stereotype>) objingSpecific;
-                
-                for (Stereotype currentSpecific : objingSpecifics){
-                    for (Stereotype currentGeneral : objingGenerals){
-                        if (currentSpecific.getBaseClassName().equals(currentGeneral.getBaseClassName())
-                                && currentSpecific.getStatus().isModifiable()){
-                            currentSpecific.setParent(currentGeneral);
-                            break;
+        if ((ecoreGeneral != null) 
+                && (ecoreSpecific != null)){
+        
+            Object objingGeneral = ReverseProperties.getInstance().getMappedElement(ecoreGeneral);
+            Object objingSpecific = ReverseProperties.getInstance().getMappedElement(ecoreSpecific);
+        
+            if  ((ecoreGeneral instanceof org.eclipse.uml2.uml.Stereotype) 
+                    && (ecoreSpecific instanceof org.eclipse.uml2.uml.Stereotype)){
+        
+                //Both Stereotypes
+        
+                if ((objingGeneral != null) 
+                        && (objingSpecific != null)){
+        
+                    //Created during the import
+        
+                    List<Stereotype> objingGenerals = new ArrayList<>();
+                    List<Stereotype> objingSpecifics = new ArrayList<>();
+        
+        
+                    if (objingSpecific instanceof Stereotype)
+                        objingSpecifics.add((Stereotype) objingSpecific);
+                    else 
+                        objingSpecifics = (ArrayList<Stereotype>) objingSpecific;
+        
+                    if (objingGeneral instanceof Stereotype)
+                        objingGenerals.add((Stereotype) objingGeneral);
+                    else 
+                        objingGenerals = (ArrayList<Stereotype>) objingGeneral;
+        
+                    for (Stereotype currentSpecific : objingSpecifics){
+                        for (Stereotype currentGeneral : objingGenerals){
+                            if (currentSpecific.getBaseClassName().equals(currentGeneral.getBaseClassName())
+                                    && currentSpecific.getStatus().isModifiable()){
+                                currentSpecific.setParent(currentGeneral);
+                                break;
+                            }
                         }
+        
                     }
                 }
-                
+        
+                // Stereotypes already exist
                 return null;
-            }else if (!(ecoreGeneral instanceof org.eclipse.uml2.uml.Stereotype) && !(ecoreSpecific instanceof org.eclipse.uml2.uml.Stereotype)){
         
-                Element objingGeneral = (Element) ReverseProperties.getInstance().getMappedElement(ecoreGeneral);
-                Element objingSpecific = (Element) ReverseProperties.getInstance().getMappedElement(ecoreSpecific);
-                if (objingGeneral instanceof NameSpace && objingSpecific instanceof NameSpace 
-                        && (!PrimitiveTypeMapper.isPredefinedType(ecoreSpecific))) {
-                    Generalization objingGeneralization = Modelio.getInstance().getModelingSession().getModel().createGeneralization();
-                    return objingGeneralization;
-                }else{
-                    
-                    XMILogs xmilogs = XMILogs.getInstance();
-                    String objingGeneralName = " ";
-                    String objingSpecificName = " ";
+            }else {
+        
+                //General case
+                if ((objingGeneral != null) 
+                        && (objingSpecific != null)){
+        
+                    if (objingGeneral instanceof NameSpace 
+                            && objingSpecific instanceof NameSpace 
+        //                            && (!PrimitiveTypeMapper.isPredefinedType(ecoreSpecific))
+        //                            && (!PrimitiveTypeMapper.isPredefinedType(ecoreGeneral))
+                            ){
+        
+                        return ReverseProperties.getInstance().getMModelServices().getModelFactory().createGeneralization();
+        
+                    }else{
+        
+                        String message = Xmi.I18N.getMessage("logFile.warning.unsupportedNamedEnds", " "
+                                , "Generalization", ecoreGeneral.getName(), objingGeneral.getClass().getSimpleName(),  
+                                ecoreSpecific.getName(),  ecoreSpecific.getClass().getSimpleName());
                         
-                    if (objingGeneral != null) 
-                            objingGeneralName = objingGeneral.getClass().getSimpleName();
-                    
-                    if (objingSpecific != null)
-                        objingSpecificName = objingSpecific.getClass().getSimpleName();
-                    
-                        xmilogs.writelnInLog(Xmi.I18N.getMessage("logFile.warning.unsupportedEnds", " "
-                            , "Generalization", objingGeneralName, objingSpecificName));
-                   
+                        XMILogs.getInstance().writelnInLog(message);
+                        return null;
         
+                    }
+                }else{
+        
+                    String message = Xmi.I18N.getMessage("logFile.warning.unsupportedNamedEnds", ""
+                            , "Generalization", ecoreGeneral.getName(), ecoreGeneral.getClass().getSimpleName(),  
+                            ecoreSpecific.getName(), ecoreSpecific.getClass().getSimpleName());
+        
+                    XMILogs.getInstance().writelnInLog(message);
                     return null;
                 }
-            }else
-                return null;
-        }else
-            return null;
+        
+            }
+        
+        
+        } else{
+            //Case Two ecore ends are needed
+            String message = Xmi.I18N.getMessage("logFile.warning.needTwoEnds");
+            XMILogs.getInstance().writelnInLog(message);
+            return null;   
+        }
     }
 
     /**
@@ -128,14 +155,13 @@ public class EGeneralization extends EElement implements IEElement {
     public void attach(Element objingElt) {
         ReverseProperties revProp = ReverseProperties.getInstance();
         
-        
         org.eclipse.uml2.uml.Classifier ecoreGeneral = this.ecoreElement.getGeneral();
         org.eclipse.uml2.uml.Classifier ecoreSpecific = this.ecoreElement.getSpecific();
         
         Element objingGeneral = (Element) revProp
-        .getMappedElement(ecoreGeneral);
+                .getMappedElement(ecoreGeneral);
         Element objingSpecific = (Element) revProp
-        .getMappedElement(ecoreSpecific);
+                .getMappedElement(ecoreSpecific);
         
         if (objingGeneral instanceof NameSpace
                 && objingSpecific instanceof NameSpace
@@ -150,21 +176,13 @@ public class EGeneralization extends EElement implements IEElement {
         }
     }
 
-    @objid ("c546d9c0-8746-4e02-b30e-75710e52f41d")
-    @Override
-    public void attach(List<Object> objingElts) {
-    }
-
     @objid ("9ca5e39c-5ef4-4676-8d6f-67012a88a1de")
     @Override
     public void setProperties(Element objingElt) {
-        ReverseProperties revProp = ReverseProperties.getInstance();
-        
-        if (revProp.isRoundtripEnabled())
-            setDiscriminator((Generalization) objingElt);
-        
-        
         super.setProperties(objingElt);
+        
+        if (ReverseProperties.getInstance().isRoundtripEnabled())
+            setDiscriminator((Generalization) objingElt);
     }
 
     @objid ("838bc89f-728a-4b1f-8142-c86216b37779")

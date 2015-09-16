@@ -246,10 +246,16 @@ abstract class AbstractAnalystElementPropertyModel<T extends AnalystElement> ext
             return false;
         } else if (3 <= row && row < this.properties.size()) {
             int propertyIndex = row - 3;
+            
             PropertyDefinition property = this.theEditedElement.getDefaultProperties().getType().getOwned().get(propertyIndex);
             if (!property.isIsEditable()) {
                 return false;
             }
+            
+            // Rich text properties are always considered "editable", the editor itself will be read only if necessary.
+            if (property.getType().getName().equals("RichText")) {
+                return true;
+            } 
         }
         return this.theEditedElement.isModifiable();
     }
@@ -373,7 +379,9 @@ abstract class AbstractAnalystElementPropertyModel<T extends AnalystElement> ext
             this.theEditedElement.setAnalystProperties(propertyTable);
         }
         
-        propertyTable.setProperty(property, value);
+        if (propertyTable.getStatus().isModifiable()) {
+            propertyTable.setProperty(property, value);
+        }
     }
 
     @objid ("d6d3e72f-2d0e-4525-a738-db654e03e7c5")

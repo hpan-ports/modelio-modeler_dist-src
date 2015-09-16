@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.uml.behavior.stateMachineModel;
 
@@ -34,22 +34,22 @@ import org.modelio.metamodel.uml.infrastructure.ModelElement;
 
 @objid ("0054944e-c4bf-1fd8-97fe-001ec947cd2a")
 public interface StateVertex extends ModelElement {
-    @objid ("41a4c88d-0177-4d04-9a58-8f0e10c86ca2")
+    @objid ("2d67aee5-463f-4335-bd8f-48c992fd0cf4")
     EList<Transition> getOutGoing();
 
-    @objid ("aa114004-9891-492d-9ccb-d0841cb4ebab")
+    @objid ("18a6c62f-a6d8-4fda-bdcd-9975b34015d3")
     <T extends Transition> List<T> getOutGoing(java.lang.Class<T> filterClass);
 
-    @objid ("e95e0df5-0297-44e6-97ae-bd79df548da3")
+    @objid ("67d4baba-0b09-478d-baf0-4db9d848ade5")
     EList<Transition> getIncoming();
 
-    @objid ("682f2c3a-c718-4d25-a73d-09a03818cbef")
+    @objid ("73c0cb0f-53fd-4da0-ade3-3b785c6e25f0")
     <T extends Transition> List<T> getIncoming(java.lang.Class<T> filterClass);
 
-    @objid ("6172fb67-e59d-4758-bfb1-7de1b5defa75")
+    @objid ("353ce245-f7f9-47ba-99df-124191782902")
     Region getParent();
 
-    @objid ("076f2d3c-c55b-431b-b86e-5f4c49e8ad43")
+    @objid ("d45daf14-456c-497d-9149-fe9731ae13ae")
     void setParent(Region value);
 
 }

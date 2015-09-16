@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.uml.behavior.stateMachineModel;
 
@@ -42,70 +42,70 @@ import org.modelio.metamodel.uml.behavior.stateMachineModel.StateMachine;
 
 @objid ("0053788e-c4bf-1fd8-97fe-001ec947cd2a")
 public interface State extends StateVertex {
-    @objid ("bd1a9217-4c69-48cb-9f6d-2711807a743e")
+    @objid ("679d7a7c-7e0c-4013-bb48-0b7eb8e85ea5")
     EList<ExitPointPseudoState> getExitPoint();
 
-    @objid ("4a74bae4-e0b1-4b8b-a862-99b1819daf7a")
+    @objid ("d4eac235-a0bb-4061-9ba7-826c627fd785")
     <T extends ExitPointPseudoState> List<T> getExitPoint(java.lang.Class<T> filterClass);
 
-    @objid ("179f5731-48ef-4cf3-b779-6cbf6060256b")
+    @objid ("e414490c-7cb8-4613-94c5-a8bd14225f99")
     EList<BpmnDataState> getBpmnDataStateRefs();
 
-    @objid ("2167c112-ff06-4ecc-9947-24398f56b501")
+    @objid ("de516431-309a-4bf2-bd2d-b4e99d2f7b0b")
     <T extends BpmnDataState> List<T> getBpmnDataStateRefs(java.lang.Class<T> filterClass);
 
-    @objid ("1f12f6a1-62ab-4c78-8303-a08391294802")
+    @objid ("bbe4b4c1-3215-4429-a19a-c51a52b8170b")
     EList<Event> getDeffered();
 
-    @objid ("24ffcec9-a6d0-4367-b546-1239988adc3c")
+    @objid ("8d429441-9f46-46f7-8d0e-590ce27851fd")
     <T extends Event> List<T> getDeffered(java.lang.Class<T> filterClass);
 
-    @objid ("c2554c52-6c5e-42ab-849c-f2482ffcd328")
+    @objid ("6be4f9f5-9607-4002-80dc-6f3e0f0147c6")
     EList<InternalTransition> getInternal();
 
-    @objid ("2131aa15-ea44-4f5d-8500-8bc5d4ed6577")
+    @objid ("0843988c-0c53-4fdd-b3ef-6a3f02ee22a2")
     <T extends InternalTransition> List<T> getInternal(java.lang.Class<T> filterClass);
 
-    @objid ("282787b7-c8a0-4777-8ab6-8cbf7fc0be0c")
+    @objid ("a2395175-c0e7-4f6b-b151-da41747ada07")
     EList<EntryPointPseudoState> getEntryPoint();
 
-    @objid ("259b174c-50ec-4ad7-a629-811fabc9507c")
+    @objid ("a40b49e3-6cb7-424f-b92f-01136d04d733")
     <T extends EntryPointPseudoState> List<T> getEntryPoint(java.lang.Class<T> filterClass);
 
-    @objid ("d88af4a2-8145-4304-817f-120f5db6519c")
+    @objid ("ec9776b3-4834-4715-a002-f2c5a616ad7c")
     EList<Region> getOwnedRegion();
 
-    @objid ("5f4fdc55-0250-4f19-ba73-3a1551b4e795")
+    @objid ("7abf2c40-6bbd-4453-9c6e-45ec3f6bd191")
     <T extends Region> List<T> getOwnedRegion(java.lang.Class<T> filterClass);
 
-    @objid ("79e77e29-a860-4ecc-9741-e28a10364c58")
+    @objid ("03fd44d2-ab15-489e-a280-955ea363f333")
     EList<BpmnMessage> getRequiredStateOfBpmnMessage();
 
-    @objid ("95529036-07ac-45de-bc5f-d43a92dcea74")
+    @objid ("4abd81ed-9200-4164-9d9f-95087d513b21")
     <T extends BpmnMessage> List<T> getRequiredStateOfBpmnMessage(java.lang.Class<T> filterClass);
 
-    @objid ("ed81c03d-be47-4707-b004-8f0bc119fd9e")
+    @objid ("f5e674ec-98a1-45b1-b153-d773d5f501a7")
     EList<ObjectNode> getRequiredStateOf();
 
-    @objid ("2679665f-252e-4dc2-b364-6ea4832f8eab")
+    @objid ("f2c391a9-55de-44be-8afa-587f09a1af2a")
     <T extends ObjectNode> List<T> getRequiredStateOf(java.lang.Class<T> filterClass);
 
-    @objid ("ab6d3837-5939-4537-b8b4-46767b837cbd")
+    @objid ("d0c858ea-080b-4012-aa66-9d1407f4cf85")
     EList<ConnectionPointReference> getConnection();
 
-    @objid ("8638de2d-6fec-4352-a660-0a6bdce504b1")
+    @objid ("c02d3e64-50eb-494a-9f1c-279ed6a305ba")
     <T extends ConnectionPointReference> List<T> getConnection(java.lang.Class<T> filterClass);
 
-    @objid ("371e39d8-4bdf-416c-aef3-c061180bc4c5")
+    @objid ("a0062651-ec63-4435-8f47-e490f3eaff1d")
     StateMachine getSubMachine();
 
-    @objid ("e7aec53c-a0a7-4834-ad36-3938ea6cc7f4")
+    @objid ("d31337f6-5ccc-4857-897b-5bd7d20196a3")
     void setSubMachine(StateMachine value);
 
-    @objid ("6e452ef4-40c4-42c1-9b8b-45a33bd75c59")
+    @objid ("c9ae6ce5-7ef1-4960-86b0-7f87f1c5858b")
     EList<BpmnItemAwareElement> getRequiredStateOfBpmnItem();
 
-    @objid ("37070a1f-d022-426e-80e4-c254afeed684")
+    @objid ("a3cdf5b1-454f-46e8-b7a4-0815df1c9125")
     <T extends BpmnItemAwareElement> List<T> getRequiredStateOfBpmnItem(java.lang.Class<T> filterClass);
 
 }

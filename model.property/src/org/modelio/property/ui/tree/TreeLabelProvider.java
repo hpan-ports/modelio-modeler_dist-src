@@ -26,8 +26,10 @@ import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.swt.graphics.Image;
 import org.modelio.core.ui.images.MetamodelImageService;
 import org.modelio.core.ui.images.ModuleI18NService;
+import org.modelio.metamodel.Metamodel;
 import org.modelio.metamodel.mda.ModuleComponent;
 import org.modelio.metamodel.uml.infrastructure.Stereotype;
+import org.modelio.metamodel.uml.infrastructure.properties.PropertyTableDefinition;
 import org.modelio.property.plugin.ModelProperty;
 import org.modelio.ui.UIImages;
 import org.modelio.vcore.smkernel.mapi.MClass;
@@ -37,7 +39,7 @@ import org.modelio.vcore.smkernel.mapi.MClass;
  */
 @objid ("8faeec7a-c068-11e1-8c0a-002564c97630")
 public class TreeLabelProvider extends LabelProvider {
-    @objid ("8faeec7c-c068-11e1-8c0a-002564c97630")
+    @objid ("a5dcd203-ed37-4b8a-aa1f-014ba77b0933")
     private Image moduleDefaultIcon;
 
     @objid ("8faeec7e-c068-11e1-8c0a-002564c97630")
@@ -50,6 +52,8 @@ public class TreeLabelProvider extends LabelProvider {
             return getModuleIcon((ModuleComponent) element);
         } else if (element instanceof MClass) {
             return MetamodelImageService.getIcon((MClass) element, null);
+        } else if (element instanceof PropertyTableDefinition) {
+            return MetamodelImageService.getIcon(Metamodel.getMClass(PropertyTableDefinition.class), null);
         }
         return null;
     }
@@ -75,6 +79,13 @@ public class TreeLabelProvider extends LabelProvider {
         // Module
         if (element instanceof ModuleComponent) {
             return ModuleI18NService.getLabel((ModuleComponent) element);
+        }
+        
+        // PropertyTableDefinition
+        if (element instanceof PropertyTableDefinition) {
+            final PropertyTableDefinition table = (PropertyTableDefinition) element;
+            // FIXME i18n
+            return table.getName();
         }
         
         // Others (Element)

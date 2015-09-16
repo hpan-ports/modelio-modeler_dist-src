@@ -31,7 +31,7 @@ import org.modelio.xmi.util.NotFoundException;
 import org.modelio.xmi.util.ObjingEAnnotation;
 
 @objid ("6ddc18a4-ec8b-4d31-b713-c62b11757021")
-public class OComponent extends ONameSpace implements IOElement {
+public class OComponent extends ONameSpace {
     @objid ("a25f99b7-8502-4fdd-a5b4-9e0bc4eeb028")
     private boolean isIsClassAssociation = true;
 
@@ -39,6 +39,7 @@ public class OComponent extends ONameSpace implements IOElement {
     private Component objingElement = null;
 
     @objid ("3419fdca-1959-4fcf-ac8c-9d1fe6c41b29")
+    @Override
     public org.eclipse.uml2.uml.Element createEcoreElt() {
         org.eclipse.uml2.uml.Element element = null;
         if (!this.isIsClassAssociation)
@@ -58,7 +59,7 @@ public class OComponent extends ONameSpace implements IOElement {
 
     @objid ("fad32a46-6dae-49db-91ee-3e9d15ffe754")
     private org.eclipse.uml2.uml.Element getOrCreateEcoreAssociationClass() {
-        return (org.eclipse.uml2.uml.AssociationClass) GenerationProperties.getInstance()
+        return GenerationProperties.getInstance()
                  .getMappedElement(this.objingElement);
     }
 
@@ -73,12 +74,14 @@ public class OComponent extends ONameSpace implements IOElement {
     }
 
     @objid ("3e6e447b-4287-4a10-ac28-f1f7517e6938")
+    @Override
     public void attach(org.eclipse.uml2.uml.Element ecoreElt) {
         if (!this.isIsClassAssociation)
             linkEcoreComponent((org.eclipse.uml2.uml.Component) ecoreElt);
     }
 
     @objid ("96278f15-3a6a-4214-97b9-13008a562cf1")
+    @Override
     public void setProperties(org.eclipse.uml2.uml.Element ecoreElt) {
         if (!this.isIsClassAssociation)
             setComponentProperties((org.eclipse.uml2.uml.Component) ecoreElt);

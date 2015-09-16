@@ -23,12 +23,16 @@ package org.modelio.app.project.conf.dialog.projectinfo;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.file.Files;
+import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.Platform;
+import org.eclipse.jface.dialogs.IMessageProvider;
+import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.DisposeListener;
@@ -45,14 +49,17 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
+import org.eclipse.ui.forms.IMessageManager;
 import org.eclipse.ui.forms.widgets.ExpandableComposite;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.Section;
 import org.modelio.app.project.conf.dialog.ProjectModel;
 import org.modelio.app.project.conf.plugin.AppProjectConf;
-import org.modelio.gproject.descriptor.DefinitionScope;
+import org.modelio.gproject.data.project.DefinitionScope;
+import org.modelio.gproject.data.project.GProperties.Entry;
 import org.modelio.ui.UIColor;
 import org.modelio.ui.UIImages;
+import org.modelio.vbasic.files.FileUtils;
 import org.osgi.framework.Bundle;
 
 /**
@@ -117,12 +124,22 @@ class GeneralSection {
     @objid ("3308a360-5929-415b-b186-e4dd5c25bc27")
     private Label projectLogoPreviewLabel;
 
+    @objid ("001a43ff-8aa3-4206-9407-52805f7301a5")
+    private IMessageManager msgManager;
+
+    @objid ("d124ab9b-4215-438a-a8eb-f50bf36ed868")
+    private Button selectProjectLogoBtn;
+
+    @objid ("b1239aa1-2343-4d3a-b82d-cb8c8e85bebe")
+    private Button selectProjectIconBtn;
+
     /**
      * C'tor
+     * @param msgManager message manager to report validation errors
      */
     @objid ("a7459d5d-33f6-11e2-a514-002564c97630")
-    public GeneralSection() {
-        // nothing
+    public GeneralSection(IMessageManager msgManager) {
+        this.msgManager = msgManager;
     }
 
     @objid ("a7459d60-33f6-11e2-a514-002564c97630")
@@ -132,7 +149,7 @@ class GeneralSection {
         section.setExpanded(true);
         
         section.addDisposeListener(new DisposeListener() {
-            
+        
             @Override
             public void widgetDisposed(DisposeEvent e) {
                 dispose();
@@ -211,14 +228,21 @@ class GeneralSection {
 
     @objid ("a745c449-33f6-11e2-a514-002564c97630")
     private void fillFields(ProjectModel projectAdapter) {
+        final boolean editable = projectAdapter.isLocalProject();
+        
         this.projectName.setText(projectAdapter.getName());
-        this.projectName.setEnabled(true);
-        this.projectDescription.setText(projectAdapter.getProperties().getValue("info.description", "")); //$NON-NLS-1$ //$NON-NLS-2$
-        this.projectDescription.setEnabled(true);
+        this.projectName.setEnabled(editable);
+        this.projectDescription.setText(projectAdapter.getProperties().getValue("info.description", "").replace("\\n", "\n")); //$NON-NLS-1$ //$NON-NLS-2$
+        this.projectDescription.setEnabled(editable);
         this.projectContact.setText(projectAdapter.getProperties().getValue(INFO_CONTACT, "")); //$NON-NLS-1$ //$NON-NLS-2$
-        this.projectContact.setEnabled(true);
+        this.projectContact.setEnabled(editable);
         createAndDisplayImage(INFO_PROJECT_LOGO_NAME);
         createAndDisplayImage(INFO_PROJECT_ICON_NAME);
+        
+        this.deleteProjectLogoBtn.setEnabled(this.projectLogo!=null && isPropertyModifiable(INFO_PROJECT_LOGO_NAME));
+        this.deleteProjectIconBtn.setEnabled(this.projectIcon!=null && isPropertyModifiable(INFO_PROJECT_ICON_NAME));
+        this.selectProjectLogoBtn.setEnabled(isPropertyModifiable(INFO_PROJECT_LOGO_NAME));
+        this.selectProjectIconBtn.setEnabled(isPropertyModifiable(INFO_PROJECT_ICON_NAME));
     }
 
     @objid ("a745c44c-33f6-11e2-a514-002564c97630")
@@ -232,22 +256,8 @@ class GeneralSection {
     }
 
     /**
-     * @param propertyName
-     */
-    @objid ("5643f123-2be4-4873-a626-5c96339be5b4")
-    protected void deleteExistImage(String propertyName) {
-        try {
-            if (getProjectImagePath(propertyName) != null) {                
-                Files.deleteIfExists(getProjectImagePath(propertyName));
-            }
-        } catch (IOException e) {
-            AppProjectConf.LOG.error("Error when delete the exist project logo or icon.");
-            AppProjectConf.LOG.debug(e);
-        }
-    }
-
-    /**
-     * @param propertyName
+     * Loads and display the icon matching a project property.
+     * @param propertyName a project property name
      */
     @objid ("fdfe9f7b-571a-4ef2-9d8f-faeb39461f3f")
     protected void createAndDisplayImage(String propertyName) {
@@ -256,26 +266,29 @@ class GeneralSection {
         if (propertyName.equals(INFO_PROJECT_ICON_NAME)) {
             image = createProjectIcon();
             label = this.projectIconPreviewLabel;
-            if (this.deleteProjectIconBtn!=null && this.projectIcon!=null) this.deleteProjectIconBtn.setEnabled(true);
+            if (this.deleteProjectIconBtn!=null && this.projectIcon!=null) 
+                this.deleteProjectIconBtn.setEnabled(true);
         } else if (propertyName.equals(INFO_PROJECT_LOGO_NAME)) {            
             image = createProjectLogo();
             label = this.projectLogoPreviewLabel;
-            if (this.deleteProjectLogoBtn!=null && this.projectLogo!=null) this.deleteProjectLogoBtn.setEnabled(true);
+            if (this.deleteProjectLogoBtn!=null && this.projectLogo!=null) 
+                this.deleteProjectLogoBtn.setEnabled(true);
         }
         
         setImageToLabel(label, image);
     }
 
     /**
-     * @return
+     * @return the created project icon
      */
     @objid ("119828bc-3dfc-4a3c-aa72-00cf9fc26ea4")
     private Image createProjectIcon() {
         if (this.projectIcon!=null && !this.projectIcon.isDisposed()) {
             this.projectIcon.dispose();
         }
-        if (getProjectImagePath(INFO_PROJECT_ICON_NAME) != null) {            
-            Image originalImage = new Image(null,getProjectImagePath(INFO_PROJECT_ICON_NAME).toString());
+        
+        Image originalImage = createProjectImage(INFO_PROJECT_ICON_NAME); 
+        if (originalImage != null) {            
             this.projectIcon = new Image(null, originalImage.getImageData().scaledTo(16,16));
             originalImage.dispose();
             return this.projectIcon;
@@ -286,33 +299,27 @@ class GeneralSection {
     @objid ("9466229c-a676-46af-b15f-e8f891c7f043")
     private void setImageToLabel(Label iconLabel, Image aIcon) {
         if (iconLabel != null && !iconLabel.isDisposed()) {
-            
+        
             iconLabel.setImage(aIcon);
             iconLabel.setVisible(aIcon != null);
         }
     }
 
     @objid ("7f5308ca-d826-400c-9ebc-e6f91b48316d")
-    private Path getProjectImagePath(String propertyName) {
-        String imageName = this.displayedProject.getProperties().getValue(propertyName);
-        if (imageName == null) return null;
-        Path imagePath = null;
-        imagePath = this.displayedProject.getPath().resolve("data").resolve(imageName);
-        if (imagePath!=null && Files.exists(imagePath)) {            
-            return imagePath;
+    private Path resolveProjectImagePath(String relPath) {
+        if (!relPath.startsWith("http")) {
+            try {
+                Path imagePath = this.displayedProject.getPath().resolve("data").resolve(relPath);
+                if (imagePath!=null && Files.exists(imagePath)) {            
+                    return imagePath;
+                }
+            } catch (InvalidPathException e) {
+                e.printStackTrace();
+            }
         }
         return null;
     }
 
-    /**
-     * @param toolkit
-     * @param composite
-     * @param height
-     * @param width
-     * @param propertyName
-     * @param dialogTitleKey
-     * @param sizeString @return
-     */
     @objid ("c035c84f-0d1e-42f7-baa1-dbde79056322")
     private Label createSelectImageField(final FormToolkit toolkit, Composite composite, int height, int width, String propertyName, String dialogTitleKey, String sizeString) {
         Composite panel = toolkit.createComposite(composite, SWT.NONE );
@@ -356,22 +363,16 @@ class GeneralSection {
         return imageLabel;
     }
 
-    /**
-     * @param toolkit
-     * @param composite
-     * @param propertyName
-     */
     @objid ("34f520b0-af96-4729-8a8d-b3a396da63e3")
-    private void createDeleteImageButton(final FormToolkit toolkit, Composite composite, final String propertyName) {
+    private Button createDeleteImageButton(final FormToolkit toolkit, Composite composite, final String propertyName) {
         Button deleteImageBtn = toolkit.createButton(composite, "" , SWT.PUSH);
         deleteImageBtn.setImage(UIImages.DELETE);
         GridData gd = new GridData(SWT.FILL, SWT.FILL, false, false);
         gd.widthHint = SMALL_BUTTON_WIDTH;
         gd.heightHint = SMALL_BUTTON_HEIGHT;
         deleteImageBtn.setLayoutData(gd);
-        setDeleteButtonEnable(deleteImageBtn, propertyName);      
         deleteImageBtn.addSelectionListener(new SelectionListener() {
-            
+        
             @Override
             public void widgetSelected(SelectionEvent e) {
                 // delete image
@@ -384,64 +385,71 @@ class GeneralSection {
             }
         
         });
-    }
-
-    /**
-     * @param deleteImageBtn
-     * @param propertyName
-     */
-    @objid ("802cd524-0d04-44e3-93b4-8731a0414cab")
-    private void setDeleteButtonEnable(Button deleteImageBtn, String propertyName) {
+        
         if (propertyName.equals(INFO_PROJECT_LOGO_NAME)) {
             this.deleteProjectLogoBtn = deleteImageBtn;
-            this.deleteProjectLogoBtn.setEnabled(this.projectLogo!=null);
         } else {
             this.deleteProjectIconBtn = deleteImageBtn;
-            this.deleteProjectIconBtn.setEnabled(this.projectIcon!=null);
         }
+        return deleteImageBtn;
     }
 
-    /**
-     * @param propertyName
-     */
     @objid ("27a79551-3e45-4ccf-9ea8-365dd4fb4fe0")
     protected void deleteImage(String propertyName) {
         Path imagePath = getProjectImagePath(propertyName);
+        String failMsg = null;
+        
+        this.msgManager.removeMessage(propertyName);
+        
         if (imagePath != null) {
             try {
-                Files.deleteIfExists(getProjectImagePath(propertyName));
-                if (propertyName.equals(INFO_PROJECT_ICON_NAME)) {
-                    setImageToLabel(this.projectIconPreviewLabel, this.projectIconPlaceholderIcon);
-                    if (this.deleteProjectIconBtn!=null) this.deleteProjectIconBtn.setEnabled(false);
-                } else if (propertyName.equals(INFO_PROJECT_LOGO_NAME)) {
-                    setImageToLabel(this.projectLogoPreviewLabel, this.projectLogoPlaceholderIcon);
-                    if (this.deleteProjectLogoBtn!=null) this.deleteProjectLogoBtn.setEnabled(false);
-                }
+                Files.deleteIfExists(imagePath);
             } catch (IOException e) {
-                AppProjectConf.LOG.error("Error when delete exist project logo or icon");
+                failMsg = FileUtils.getLocalizedMessage(e);
+                AppProjectConf.LOG.warning("Error when delete existing project logo or icon: "+failMsg);
                 AppProjectConf.LOG.debug(e);
             }
         }
+        
+        if (propertyName.equals(INFO_PROJECT_ICON_NAME)) {
+            if (failMsg != null)
+                this.msgManager.addMessage(propertyName, failMsg, null, IMessageProvider.WARNING, this.projectIconPreviewLabel);
+        
+            setImageToLabel(this.projectIconPreviewLabel, this.projectIconPlaceholderIcon);
             
-        GeneralSection.this.displayedProject.getProperties().remove(propertyName);
+            if (this.deleteProjectIconBtn!=null) 
+                this.deleteProjectIconBtn.setEnabled(false);
+            
+        } else if (propertyName.equals(INFO_PROJECT_LOGO_NAME)) {
+            if (failMsg != null)
+                this.msgManager.addMessage(propertyName, failMsg, null, IMessageProvider.WARNING, this.projectLogoPreviewLabel);
+        
+            setImageToLabel(this.projectLogoPreviewLabel, this.projectLogoPlaceholderIcon);
+            
+            if (this.deleteProjectLogoBtn!=null) 
+                this.deleteProjectLogoBtn.setEnabled(false);
+        }
+        
+        this.displayedProject.getProperties().remove(propertyName);
     }
 
-    /**
-     * @param toolkit
-     * @param composite
-     * @param propertyName
-     * @param dialogTitle
-     */
     @objid ("19efde6b-b55e-4ede-8782-90540bb904ec")
     private void createSelectImageButton(final FormToolkit toolkit, Composite composite, final String propertyName, final String dialogTitle) {
         Button selectImageBtn = toolkit.createButton(composite, "" , SWT.PUSH);
-        selectImageBtn.setImage(UIImages.FILECHOOSE);
         GridData gd = new GridData(SWT.FILL, SWT.FILL, false, false);
         gd.widthHint = SMALL_BUTTON_WIDTH;
         gd.heightHint = SMALL_BUTTON_HEIGHT;
         selectImageBtn.setLayoutData(gd);
+        
+        if (propertyName.equals(INFO_PROJECT_LOGO_NAME)) {
+            this.selectProjectLogoBtn = selectImageBtn;
+        } else {
+            this.selectProjectIconBtn = selectImageBtn;
+        }
+        
+        selectImageBtn.setImage(UIImages.FILECHOOSE);
         selectImageBtn.addSelectionListener(new SelectionListener() {
-            
+        
             @Override
             public void widgetSelected(SelectionEvent e) {
                 FileDialog fd = new FileDialog(Display.getDefault().getActiveShell(), SWT.SELECTED);
@@ -451,7 +459,7 @@ class GeneralSection {
                 String selected = fd.open();
                 String selectedName = fd.getFileName();
                 if (selected != null && !selected.isEmpty()) {
-                    deleteExistImage(propertyName);
+                    deleteExistingImage();
                     File selectedFile = new File(selected);
                     AppProjectConf.LOG.info(selected + " is selected.");
                     try {
@@ -468,10 +476,25 @@ class GeneralSection {
                         GeneralSection.this.displayedProject.getProperties().setProperty(propertyName, selectedName, DefinitionScope.LOCAL);
                         createAndDisplayImage(propertyName);
                     } catch (IOException e1) {
-                        AppProjectConf.LOG.error("Error when copy the project icon to data file.");
+                        AppProjectConf.LOG.error("Error when copy the project icon to data file: "+FileUtils.getLocalizedMessage(e1));
                         AppProjectConf.LOG.debug(e1);
                     }
-                    
+        
+                }
+            }
+        
+            /**
+             * Deletes the file matching the given project property name if it exists.
+             */
+            @objid ("5643f123-2be4-4873-a626-5c96339be5b4")
+            private void deleteExistingImage() {
+                try {
+                    if (getProjectImagePath(propertyName) != null) {                
+                        Files.deleteIfExists(getProjectImagePath(propertyName));
+                    }
+                } catch (IOException e) {
+                    AppProjectConf.LOG.error("Error when delete the exist project logo or icon: "+FileUtils.getLocalizedMessage(e));
+                    AppProjectConf.LOG.debug(e);
                 }
             }
         
@@ -484,15 +507,16 @@ class GeneralSection {
     }
 
     /**
-     * @return
+     * @return the new project logo image, scaled to 64x64
      */
     @objid ("ad71b2ad-114b-428a-bcaa-8fee9c5aa839")
     private Image createProjectLogo() {
         if (this.projectLogo!=null && !this.projectLogo.isDisposed()) {
             this.projectLogo.dispose();
         }
-        if (getProjectImagePath(INFO_PROJECT_LOGO_NAME) != null) {            
-            Image originalImage = new Image(null,getProjectImagePath(INFO_PROJECT_LOGO_NAME).toString());
+        
+        Image originalImage = createProjectImage(INFO_PROJECT_LOGO_NAME);
+        if (originalImage != null) {            
             this.projectLogo = new Image(null, originalImage.getImageData().scaledTo(64,64));
             originalImage.dispose();
             return this.projectLogo;
@@ -545,6 +569,58 @@ class GeneralSection {
         if (this.projectIconPlaceholderIcon==null) this.projectIconPlaceholderIcon = new Image(null, getFilePathOf("icons/placeholder16.png"));
     }
 
+    @objid ("1cd25e15-8211-4af8-9893-859b403a6478")
+    private Image createProjectImage(String propertyName) {
+        String imageName = this.displayedProject.getProperties().getValue(propertyName);
+        if (imageName == null) 
+            return null;
+        
+        final Path path = resolveProjectImagePath(imageName);
+        if (path != null) {
+            return new Image(null, path.toString());
+        } else {
+            return createImageFromUrl(imageName);
+        }
+    }
+
+    @objid ("f0b7b07e-e796-4a52-95cb-e08de1fc0a08")
+    private Image createImageFromUrl(String urlPath) {
+        try {
+            URL url = new URL(urlPath);
+            return ImageDescriptor.createFromURL(url).createImage(false, null);
+        } catch (MalformedURLException e) {
+            // ignore exception and return null
+            return null;
+        }
+    }
+
+    /**
+     * Get the image path matching a project property name if it exists.
+     * <p>
+     * Returns a path if all following conditions are met :<ul>
+     * <li> the property value is not <i>null</i>
+     * <li> the value is a path resolvable against the project data directory,
+     * <li> the resolved path matches an existing file.
+     * </ul>
+     * Returns <i>null</i> in all other cases.
+     * @param propertyName a project property name
+     * @return the image path if found, else <i>null</i>.
+     */
+    @objid ("0a155557-35d1-4f88-b725-aa018134f20f")
+    Path getProjectImagePath(String propertyName) {
+        String imageName = this.displayedProject.getProperties().getValue(propertyName);
+        if (imageName != null)
+            return resolveProjectImagePath(imageName);
+        else
+            return null;
+    }
+
+    @objid ("d1069c82-e62b-48be-85cd-04810bcf7d29")
+    private boolean isPropertyModifiable(String propertyName) {
+        Entry property = this.displayedProject.getProperties().getProperty(propertyName);
+        return property==null || property.getScope()==DefinitionScope.LOCAL;
+    }
+
     @objid ("8b8c5b38-3ec5-11e2-8121-002564c97630")
     private class GeneralModificationListener implements ModifyListener {
         @objid ("8b8c5b39-3ec5-11e2-8121-002564c97630")
@@ -556,9 +632,9 @@ class GeneralSection {
         @Override
         public void modifyText(ModifyEvent e) {
             if (e.widget == GeneralSection.this.projectName) {
-                // TODO set name
+                // TODO set project name, rename directory, rename root packages ?
             } else if (e.widget == GeneralSection.this.projectDescription) {
-                GeneralSection.this.displayedProject.getProperties().setProperty(INFO_DESCRIPTION, GeneralSection.this.projectDescription.getText(), DefinitionScope.LOCAL);
+                GeneralSection.this.displayedProject.getProperties().setProperty(INFO_DESCRIPTION, GeneralSection.this.projectDescription.getText().replace("\n", "\\n"), DefinitionScope.LOCAL);
             } else if (e.widget == GeneralSection.this.projectContact) {
                 GeneralSection.this.displayedProject.getProperties().setProperty(INFO_CONTACT, GeneralSection.this.projectContact.getText(), DefinitionScope.LOCAL);
             }

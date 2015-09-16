@@ -37,7 +37,6 @@ import org.modelio.metamodel.uml.behavior.stateMachineModel.StateMachine;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
 import org.modelio.metamodel.uml.statik.AssociationEnd;
 import org.modelio.metamodel.uml.statik.Attribute;
-import org.modelio.metamodel.uml.statik.AttributeLink;
 import org.modelio.metamodel.uml.statik.GeneralClass;
 import org.modelio.metamodel.uml.statik.Instance;
 import org.modelio.metamodel.uml.statik.Operation;
@@ -168,7 +167,7 @@ public class BpmnDataObjectPropertyModel extends AbstractPropertyModel<BpmnDataO
                     case 5:
                         return new SingleElementType(true, AssociationEnd.class, CoreSession.getSession(this.theEditedElement));
                     case 6:
-                        return new SingleElementType(true, AttributeLink.class, CoreSession.getSession(this.theEditedElement));
+                        return new SingleElementType(true, Attribute.class, CoreSession.getSession(this.theEditedElement));
                     case 7:
                         return new SingleElementType(true, BpmnItemDefinition.class, CoreSession.getSession(this.theEditedElement));
                     default:
@@ -243,7 +242,7 @@ public class BpmnDataObjectPropertyModel extends AbstractPropertyModel<BpmnDataO
         }
     }
 
-    @objid ("69a2bfba-c073-4c0c-b5c1-d86db29d13c0")
+    @objid ("0a60284b-51c1-47c5-bce6-9725adb0d2e1")
     private IPropertyType getInStateType() {
         GeneralClass referencedClass = this.theEditedElement.getType();
         if (referencedClass == null) {
@@ -259,7 +258,7 @@ public class BpmnDataObjectPropertyModel extends AbstractPropertyModel<BpmnDataO
     /**
      * Get all states defined in a class.
      */
-    @objid ("d2fe9ff5-b380-4116-affc-232e6243dc25")
+    @objid ("e65d6c1c-29e9-440d-bc0c-80e8fba1033a")
     private List<ModelElement> getAvailableStates(GeneralClass referencedClass) {
         List<ModelElement> states = new ArrayList<>();
         
@@ -287,7 +286,7 @@ public class BpmnDataObjectPropertyModel extends AbstractPropertyModel<BpmnDataO
     /**
      * Get all states defined in a region.
      */
-    @objid ("4defc4d5-7b78-409f-91e1-a6efce008d57")
+    @objid ("55f7028d-a37f-4afe-b407-415c8df4ca0f")
     private Collection<? extends ModelElement> getAvailableStates(Region region) {
         List<ModelElement> states = new ArrayList<>();
         for (State s : region.getSub(State.class)) {

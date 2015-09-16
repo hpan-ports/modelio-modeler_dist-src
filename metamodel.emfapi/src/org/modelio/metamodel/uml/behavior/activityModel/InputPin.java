@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.uml.behavior.activityModel;
 
@@ -33,22 +33,22 @@ import org.modelio.metamodel.uml.behavior.activityModel.ExceptionHandler;
 
 @objid ("003503ea-c4bf-1fd8-97fe-001ec947cd2a")
 public interface InputPin extends Pin {
-    @objid ("9881c27c-5896-4a1c-b690-7f0945883848")
+    @objid ("bf2ebd17-d3ec-4971-8e51-24692ead928b")
     boolean isIsSelf();
 
-    @objid ("9a40c864-fdea-4338-9169-4bfdaaab6bc7")
+    @objid ("335bdb18-80fe-4eef-a595-97b066b06177")
     void setIsSelf(boolean value);
 
-    @objid ("55d855bc-ecfe-449c-9f57-928d54815381")
+    @objid ("395d2149-df8b-4dc3-8c65-d8751031cb33")
     EList<ExceptionHandler> getHandler();
 
-    @objid ("5e7365c0-60cc-4145-8903-e33f75ab4e1b")
+    @objid ("00863399-3651-410d-ac7b-5e06a8d88a6b")
     <T extends ExceptionHandler> List<T> getHandler(java.lang.Class<T> filterClass);
 
-    @objid ("c2261858-8bc0-4826-9b41-b324dc05ead2")
+    @objid ("fa68f646-a05e-4be0-ad4c-73698be951b7")
     ActivityAction getInputing();
 
-    @objid ("891a8fac-d6c7-43ec-a465-cfc92d839f56")
+    @objid ("7c7a388f-1e66-4c90-866e-b898daf6acac")
     void setInputing(ActivityAction value);
 
 }

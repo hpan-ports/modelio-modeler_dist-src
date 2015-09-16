@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.uml.behavior.activityModel;
 
@@ -41,21 +41,21 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("003337d6-c4bf-1fd8-97fe-001ec947cd2a")
 public class FlowFinalNodeImpl extends FinalNodeImpl implements FlowFinalNode {
-    @objid ("a8ee642a-61c2-46ab-9ae6-4cfa812ad0ac")
+    @objid ("a9c3b540-1093-4ce7-9e81-e78387c09793")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("e9c6950e-1539-4bcf-8d08-56440a37f731")
+    @objid ("869954f7-3ee6-4dd9-b820-38af3b8f0c16")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("b3934d74-be9a-4307-aef1-956e0aced66c")
+    @objid ("e02dbbff-f84b-4d2f-9ded-2d711aee7ade")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitFlowFinalNode(this);

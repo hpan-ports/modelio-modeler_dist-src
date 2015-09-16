@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.data.uml.behavior.activityModel;
 
@@ -43,22 +43,22 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("002f83c0-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=DataStoreNode.class, factory=DataStoreNodeData.Metadata.ObjectFactory.class)
 public class DataStoreNodeData extends CentralBufferNodeData {
-    @objid ("b64279df-069f-41b1-9e61-bdc3a289d1fb")
+    @objid ("f17c06d6-44f7-4d0e-abdb-872ee646a349")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("0076b844-c4c4-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("1e2201af-6d3f-482d-b1da-f373ae99d216")
+        @objid ("59d7a7ab-f39f-442f-851f-28bb3be1fece")
         private static SmClass smClass = null;
 
-        @objid ("5349ffac-7c16-4d01-9794-f57a640e398d")
+        @objid ("cce67ac4-87dc-46c0-8171-c018c9f41b6a")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(DataStoreNodeData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("cb3d9ae9-f8b8-4320-a835-bab60d8f74fd")
+        @objid ("0b0b9dd5-7463-4ba4-b003-0da0faa04ad9")
         public static SmClass getSmClass() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return smClass;
@@ -66,12 +66,12 @@ public class DataStoreNodeData extends CentralBufferNodeData {
 
         @objid ("007705a6-c4c4-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("2561f2df-695a-4164-a7bd-269352b692bd")
+            @objid ("570aaf1d-9338-4f4b-9b17-57e201d96e98")
             public ISmObjectData createData() {
                 return new DataStoreNodeData();
             }
 
-            @objid ("dd8c645a-2c61-4c5f-bd46-8e7612f4bca9")
+            @objid ("a5220b16-f1e0-4c0f-9175-3e4946517fce")
             public SmObjectImpl createImpl() {
                 return new DataStoreNodeImpl();
             }

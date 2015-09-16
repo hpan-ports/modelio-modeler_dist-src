@@ -46,7 +46,6 @@ import org.eclipse.uml2.uml.internal.impl.ProfileImpl;
 import org.eclipse.uml2.uml.internal.resource.UMLResourceFactoryImpl;
 import org.eclipse.uml2.uml.resource.UMLResource;
 import org.modelio.api.model.IModelingSession;
-import org.modelio.api.modelio.Modelio;
 import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.metamodel.uml.statik.DataType;
 import org.modelio.vcore.smkernel.mapi.MObject;
@@ -71,9 +70,6 @@ public class ImportServices {
     @objid ("379d1b50-de78-4b0c-8bb9-acdaf444751e")
     private List<String> profiles = new ArrayList<>();
 
-    @objid ("a1fe1cc3-bce6-4f5f-b529-b299c9603860")
-    private Shell _shell = null;
-
     @objid ("178269f7-c1d6-40dd-8299-8c64c15addec")
     private Resource loadEcoreModel(File xmiFile) {
         // Create a resource set.
@@ -83,9 +79,9 @@ public class ImportServices {
         resourceSet.getPackageRegistry().put(UMLPackage.eNS_URI, UMLPackage.eINSTANCE);
         resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put(UMLResource.FILE_EXTENSION, UMLResource.Factory.INSTANCE);
         
-              
+        
         final Bundle bundle = Platform.getBundle("org.eclipse.uml2.uml.resources");
-               
+        
         IPath libraries = new Path("/libraries");
         IPath metamodels = new Path("/metamodels");
         IPath profile = new Path("/profiles");
@@ -151,8 +147,8 @@ public class ImportServices {
                     partialImportMap.remove(externalElt);
                 } else if (externalElt instanceof org.eclipse.uml2.uml.PrimitiveType) {
                     attachExternalPrimitiveType((org.eclipse.uml2.uml.PrimitiveType) externalElt, partialImportMap, totalImportMap);        
-        //                } else {
-        //                    visitEcoreModel.doSwitch(externalElt);      
+                    //                } else {
+                    //                    visitEcoreModel.doSwitch(externalElt);      
                 }
             }else{
         
@@ -202,7 +198,6 @@ public class ImportServices {
     @objid ("9843ce16-2b0e-4701-8a22-b0a2c6d98ada")
     public boolean importEcoreModel(Resource resource, ProgressBarComposite progressBar, Shell shell) {
         boolean error = false;
-        this._shell = shell;
         
         if (resource != null) {
         
@@ -217,11 +212,10 @@ public class ImportServices {
                 Display.getDefault().asyncExec(new Runnable() {
                     @Override
                     public void run() {
-                        MessageBox messageBox = new MessageBox(_shell, SWT.ICON_INFORMATION);
+                        MessageBox messageBox = new MessageBox(Display.getDefault().getActiveShell(), SWT.ICON_INFORMATION);
                         messageBox.setMessage(Xmi.I18N.getString("info.import.result_failed.notModel"));
                         messageBox.setText(Xmi.I18N.getString("info.import.result_failed.notModel"));
                         messageBox.open();
-                        _shell.dispose();
                     }
                 });
                 Xmi.LOG.error(Xmi.PLUGIN_ID, Xmi.I18N
@@ -268,10 +262,10 @@ public class ImportServices {
         progressBar.setLabel(Xmi.I18N
                 .getString("progressBar.content.import.checkConsistency"));
         
-               
+        
         attachExternalElements(visitEcoreModel);
         cleanExternalElements();
-             
+        
         
         progressBar.addFinalValue();
         return error;
@@ -325,10 +319,7 @@ public class ImportServices {
     public boolean importEcoreProfile(Resource resource, MObject root, ProgressBarComposite progressBar, Shell shell) {
         boolean error = false;
         
-        this._shell = shell;
         ReverseProperties revProp = ReverseProperties.getInstance();
-        
-        Modelio.getInstance().getModelingSession();
         
         if (resource != null) {
             ProfileImpl profileToImport = null;
@@ -340,6 +331,7 @@ public class ImportServices {
                     profileToImport = (ProfileImpl) elem;
                     revProp.setEcoreProfile(profileToImport);
                 }
+        
                 if (elem.getClass().getSimpleName().compareTo("ModelImpl") == 0) {
                     for (Object packaged : ((org.eclipse.uml2.uml.Model) elem).getPackagedElements()) {
                         if (packaged.getClass().getSimpleName().compareTo("ProfileImpl") == 0) {
@@ -376,11 +368,10 @@ public class ImportServices {
                 Display.getDefault().asyncExec(new Runnable() {
                     @Override
                     public void run() {
-                        MessageBox messageBox = new MessageBox(_shell, SWT.ICON_INFORMATION);
+                        MessageBox messageBox = new MessageBox(Display.getDefault().getActiveShell(), SWT.ICON_INFORMATION);
                         messageBox.setMessage(Xmi.I18N.getString("info.import.result_failed.notProfile"));
                         messageBox.setText(Xmi.I18N.getString("info.import.result_failed.notProfile"));
                         messageBox.open();
-                        _shell.dispose();
                     }
                 });
                 Xmi.LOG.error(Xmi.PLUGIN_ID, Xmi.I18N
@@ -422,7 +413,7 @@ public class ImportServices {
         PartialImportMap.getInstance().clear();
         TotalImportMap.getInstance().clear();
         
-        for(org.eclipse.uml2.uml.Package modelToImport : revProp.getEcoreModel()){
+        for(org.eclipse.uml2.uml.Package modelToImport : revProp.getEcoreModels()){
         
             revProp.storeImportModelRoundtripMode(modelToImport);
         
@@ -458,10 +449,8 @@ public class ImportServices {
     private void deleteUnresolvedReference(File currentfile, URI fileURI2, ResourceSet resourceSet2) {
         Resource result = resourceSet2.getResource(fileURI2, false);    
         
-        if ((result != null) && (result.getErrors() != null)&& (result.getErrors().size() != 0)){
-        
+        if ((result != null) && (result.getErrors() != null) && (result.getErrors().size() != 0)){
             XMIFileUtils.removeReferences(currentfile.getAbsolutePath(),result.getErrors());
-        
         }
     }
 
@@ -481,11 +470,13 @@ public class ImportServices {
         
             for (String profile : this.profiles){
                 try{
-                    tempFile = updateFile(new File(directory + java.io.File.separator + profile)
-                    , oldPatterns, newPatterns);
-                    listeFile.add(tempFile);
+                    File profileFile =  new File(directory + java.io.File.separator + profile);
+                    if (profileFile.exists()){
+                        tempFile = updateFile(profileFile, oldPatterns, newPatterns);
+                        listeFile.add(tempFile);
+                    }
                 }catch(Exception e){
-                    Xmi.LOG.error(Xmi.PLUGIN_ID, e);
+                    Xmi.LOG.error(e);
                 }
         
             }
@@ -508,7 +499,7 @@ public class ImportServices {
             newresource = loadEcoreModel(newFile);
         
         }catch (Exception e){
-            Xmi.LOG.error(Xmi.PLUGIN_ID, e);
+            Xmi.LOG.error(e);
             if (newFile != null){
                 newFile.delete();
                 for (File fileTemp : listeFile){
@@ -577,7 +568,7 @@ public class ImportServices {
                 newFile.delete();
                 newFile.createNewFile();
             }catch(IOException e){
-                Xmi.LOG.error(Xmi.PLUGIN_ID, e);
+                Xmi.LOG.error(e);
             }
         
             XMIFileUtils.copyFile(tempFile4, newFile);
@@ -587,7 +578,6 @@ public class ImportServices {
             tempFile2.delete();
             tempFile3.delete();
             tempFile4.delete();
-            System.gc();
         }
         return newFile;
     }
@@ -600,13 +590,12 @@ public class ImportServices {
         patterns.add("xmlns:uml[\\s]?=[\\s]?[\"]?[\']?http://www.omg.org/spec/UML/20090901[\"]?[\']?");
         patterns.add("xmlns:uml[\\s]?=[\\s]?[\"]?[\']?http://www.omg.org/spec/UML/20100901[\"]?[\']?");
         patterns.add("xmlns:uml[\\s]?=[\\s]?[\"]?[\']?http://www.omg.org/spec/UML/20110701[\"]?[\']?");
-        patterns.add("xmlns:uml[\\s]?=[\\s]?[\"]?[\']?http://www.omg.org/spec/UML/20110701[\"]?[\']?");
         patterns.add("xmlns:uml[\\s]?=[\\s]?\'?\"?http://schema.omg.org/spec/UML/2.[1.1]?[1.2]?[1]?[2]?[3]?\'?\"");
         patterns.add("http://schema.omg.org/spec/UML/2.2/ [http://www.eclipse.org/uml2/3.0.0/UML]?");
         patterns.add("http://schema.omg.org/spec/UML/2.1.1/uml.xml");
         patterns.add("http://schema.omg.org/spec/UML/2.2/uml.xml");
         patterns.add("http://www.omg.org/spec/UML/20090901/UML.xmi");
-        patterns.add("http://www.omg.org/spec/UML/20110701/UML.xmi");
+        patterns.add("http://www.omg.org/spec/UML/20110701/PrimitiveTypes.xmi");
         return patterns;
     }
 
@@ -615,7 +604,6 @@ public class ImportServices {
         List<String> patterns = new LinkedList<>();
         patterns.add("xmlns:xmi=\"http://schema.omg.org/spec/XMI/2.1");  
         patterns.add("xmlns:uml=\"http://www.eclipse.org/uml2/3.0.0/UML" );
-        patterns.add("xmlns:uml=\"http://www.eclipse.org/uml2/3.0.0/UML\"" );
         patterns.add("xmlns:uml=\"http://www.eclipse.org/uml2/3.0.0/UML\"" );
         patterns.add("xmlns:uml=\"http://www.eclipse.org/uml2/3.0.0/UML\"" );
         patterns.add("xmlns:uml=\"http://www.eclipse.org/uml2/3.0.0/UML\"" );
@@ -680,20 +668,19 @@ public class ImportServices {
         }
     }
 
-    @objid ("3907551f-bdab-45ab-a336-cbea3f842931")
+    @objid ("5606038a-92ef-4753-871a-832904188f1e")
     private List<String> getUMLPatterns() {
         List<String> patterns = new LinkedList<>();
         patterns.add("xmlns:uml=\"http://schema.omg.org/spec/UML/2.1.1/uml.xml");  
         patterns.add("xmlns:uml[\\s]?=[\\s]?[\"]?[\']?http://www.omg.org/spec/UML/20090901[\"]?[\']?");
         patterns.add("xmlns:uml[\\s]?=[\\s]?[\"]?[\']?http://www.omg.org/spec/UML/20100901[\"]?[\']?");
         patterns.add("xmlns:uml[\\s]?=[\\s]?[\"]?[\']?http://www.omg.org/spec/UML/20110701[\"]?[\']?");
-        patterns.add("xmlns:uml[\\s]?=[\\s]?[\"]?[\']?http://www.omg.org/spec/UML/20110701[\"]?[\']?");
         patterns.add("xmlns:uml[\\s]?=[\\s]?\'?\"?http://schema.omg.org/spec/UML/2.[1.1]?[1.2]?[1]?[2]?[3]?\'?\"");
         patterns.add("http://schema.omg.org/spec/UML/2.2/ [http://www.eclipse.org/uml2/3.0.0/UML]?");
         patterns.add("http://schema.omg.org/spec/UML/2.1.1/uml.xml");
         patterns.add("http://schema.omg.org/spec/UML/2.2/uml.xml");
         patterns.add("http://www.omg.org/spec/UML/20090901/UML.xmi");
-        patterns.add("http://www.omg.org/spec/UML/20110701/UML.xmi");
+        patterns.add("http://www.omg.org/spec/UML/20110701/PrimitiveTypes.xmi");
         return patterns;
     }
 

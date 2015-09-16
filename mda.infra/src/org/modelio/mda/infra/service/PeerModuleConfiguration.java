@@ -28,15 +28,18 @@ import java.util.Map;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.emf.common.util.EList;
 import org.modelio.api.module.IModuleAPIConfiguration;
-import org.modelio.gproject.descriptor.DefinitionScope;
-import org.modelio.gproject.descriptor.GProperties.Entry;
-import org.modelio.gproject.descriptor.GProperties;
+import org.modelio.gproject.data.project.DefinitionScope;
+import org.modelio.gproject.data.project.GProperties.Entry;
+import org.modelio.gproject.data.project.GProperties;
 import org.modelio.gproject.module.GModule;
 import org.modelio.metamodel.mda.ModuleComponent;
 import org.modelio.metamodel.mda.ModuleParameter;
 
+/**
+ * {@link IModuleAPIConfiguration} implementation.
+ */
 @objid ("fb48176c-f1b6-11e1-af52-001ec947c8cc")
-public class PeerModuleConfiguration implements IModuleAPIConfiguration {
+class PeerModuleConfiguration implements IModuleAPIConfiguration {
     @objid ("fb4a79c3-f1b6-11e1-af52-001ec947c8cc")
     private GModule module;
 
@@ -50,7 +53,7 @@ public class PeerModuleConfiguration implements IModuleAPIConfiguration {
     private List<Path> docpath;
 
     @objid ("fb4a79c4-f1b6-11e1-af52-001ec947c8cc")
-    public PeerModuleConfiguration(GModule module, Path projectSpacePath, Path deploymentPath, final List<Path> docpath) {
+    PeerModuleConfiguration(GModule module, Path projectSpacePath, Path deploymentPath, final List<Path> docpath) {
         this.module = module;
         this.projectSpacePath = projectSpacePath;
         this.deploymentPath = deploymentPath;

@@ -21,7 +21,6 @@
 
 package org.modelio.xmi.model.ecore;
 
-import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.metamodel.uml.behavior.activityModel.ActivityEdge;
 import org.modelio.metamodel.uml.behavior.activityModel.ActivityNode;
@@ -30,26 +29,14 @@ import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.xmi.util.ReverseProperties;
 
 @objid ("b10d3d1c-c140-474b-bede-35fac0ab9fe3")
-public class EActivityEdge extends ENamedElement implements IEElement {
-    @objid ("111de353-30d5-4f68-95b2-1b75bb43a083")
-    public Element createObjingElt() {
-        return null;
-    }
-
+public class EActivityEdge extends ENamedElement {
     @objid ("464784e9-6969-468e-89a8-6696df37c0db")
     public EActivityEdge(org.eclipse.uml2.uml.ActivityEdge element) {
         super(element);
     }
 
-    @objid ("98ab7c68-c89d-41fd-ad74-069aef5c8bc5")
-    public void attach(Element objingElt) {
-    }
-
-    @objid ("faec11e2-43ee-4f30-af64-63348f88940c")
-    public void attach(List<Object> objingElts) {
-    }
-
     @objid ("2146c8ab-a0bd-442d-837b-8e4baa17a9d1")
+    @Override
     public void setProperties(Element objingElt) {
         super.setProperties(objingElt);
         setGuard((ActivityEdge) objingElt);

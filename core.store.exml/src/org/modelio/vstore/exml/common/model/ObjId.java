@@ -151,6 +151,12 @@ public final class ObjId implements Serializable {
         this.classof = SmClass.getClass((String) in.readObject());
     }
 
+    /**
+     * Reinitialize this reference from another model object.
+     * <p>
+     * Avoids allocating billions unique usage MRefs.
+     * @param object the new referenced object.
+     */
     @objid ("d24d862c-7039-49f0-9e3e-12d0f2563ff5")
     public void init(SmObjectImpl object) {
         this.id = object.getUuid();

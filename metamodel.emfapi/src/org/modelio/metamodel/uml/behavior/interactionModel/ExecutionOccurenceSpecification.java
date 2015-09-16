@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.uml.behavior.interactionModel;
 
@@ -31,16 +31,16 @@ import org.modelio.metamodel.uml.behavior.interactionModel.ExecutionSpecificatio
 
 @objid ("00444a76-c4bf-1fd8-97fe-001ec947cd2a")
 public interface ExecutionOccurenceSpecification extends MessageEnd {
-    @objid ("3d1ee1d3-acea-4b3c-a559-259ca7912a01")
+    @objid ("1f6315e8-a3c1-4aca-9816-39b87978864a")
     ExecutionSpecification getFinished();
 
-    @objid ("896793a2-8cb1-48e3-8c05-34c8a793dab9")
+    @objid ("f4a845ab-2cfd-4330-9d41-d4d7d94117cb")
     void setFinished(ExecutionSpecification value);
 
-    @objid ("16cbe24d-9b4f-49f9-a98c-12d6b565d804")
+    @objid ("ccfb53ed-965a-48cb-8ca5-f21162f969a0")
     ExecutionSpecification getStarted();
 
-    @objid ("7e574af5-f494-4013-8499-ce8c08385293")
+    @objid ("a17ac2e2-3699-41e4-b6b0-de7c2637ef80")
     void setStarted(ExecutionSpecification value);
 
 }

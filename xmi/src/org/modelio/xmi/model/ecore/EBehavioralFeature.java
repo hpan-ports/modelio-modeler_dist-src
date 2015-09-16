@@ -37,8 +37,9 @@ import org.modelio.xmi.util.IModelerModuleStereotypes;
 import org.modelio.xmi.util.ReverseProperties;
 
 @objid ("51edacaf-5331-4648-9bdd-964adb89f2d2")
-public class EBehavioralFeature extends EFeature implements IEElement {
+public class EBehavioralFeature extends EFeature {
     @objid ("0f2111ec-231e-4aa8-8679-9310c5ddf2ac")
+    @Override
     public Element createObjingElt() {
         return null;
     }
@@ -48,11 +49,8 @@ public class EBehavioralFeature extends EFeature implements IEElement {
         super(element);
     }
 
-    @objid ("cc7498c5-5f35-4894-99f3-2751f8d8d444")
-    public void attach(Element objingElt) {
-    }
-
     @objid ("eec9c388-f284-4c8f-a07c-fd38837f6e6b")
+    @Override
     public void setProperties(Element objingElt) {
         super.setProperties(objingElt);
         if (objingElt instanceof Operation){            
@@ -89,8 +87,7 @@ public class EBehavioralFeature extends EFeature implements IEElement {
                     if (isNewExeptionLink
                             || !isExceptionAlreadyThrown(objingElt,
                                     objingThrownType)) {
-                        RaisedException objingExceptionLink = Modelio
-                                .getInstance().getModelingSession().getModel()
+                        RaisedException objingExceptionLink = ReverseProperties.getInstance().getMModelServices().getModelFactory()
                                 .createRaisedException();
         
                         objingExceptionLink.setThrower(objingElt);
@@ -136,6 +133,7 @@ public class EBehavioralFeature extends EFeature implements IEElement {
         switch (ecoreElement.getConcurrency().getValue()) {
         case org.eclipse.uml2.uml.CallConcurrencyKind.CONCURRENT:
             objingElt.setConcurrency(true);
+            break;
         default:
             objingElt.setConcurrency(false);
         }

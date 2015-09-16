@@ -46,7 +46,6 @@ import org.modelio.metamodel.bpmn.activities.BpmnSubProcess;
 import org.modelio.metamodel.bpmn.events.BpmnBoundaryEvent;
 import org.modelio.metamodel.bpmn.processCollaboration.BpmnLaneSet;
 import org.modelio.metamodel.bpmn.rootElements.BpmnBaseElement;
-import org.modelio.metamodel.experts.meta.MetaTool;
 import org.modelio.vcore.smkernel.mapi.MObject;
 import org.modelio.vcore.smkernel.mapi.MRef;
 

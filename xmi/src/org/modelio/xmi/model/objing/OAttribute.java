@@ -35,6 +35,7 @@ import org.modelio.metamodel.uml.statik.DataType;
 import org.modelio.metamodel.uml.statik.Enumeration;
 import org.modelio.metamodel.uml.statik.Feature;
 import org.modelio.metamodel.uml.statik.GeneralClass;
+import org.modelio.metamodel.uml.statik.KindOfAccess;
 import org.modelio.xmi.plugin.Xmi;
 import org.modelio.xmi.util.AbstractObjingModelNavigation;
 import org.modelio.xmi.util.GenerationProperties;
@@ -49,7 +50,7 @@ import org.modelio.xmi.util.XMILogs;
  * @author ebrosse
  */
 @objid ("8a117eab-0dee-4c84-9743-afede724bc1f")
-public class OAttribute extends OFeature implements IOElement {
+public class OAttribute extends OFeature {
     @objid ("189ee88b-a3fd-42b6-84fa-df31cf0b50d9")
     private Attribute objingElement = null;
 
@@ -372,7 +373,11 @@ public class OAttribute extends OFeature implements IOElement {
             ObjingEAnnotation.setAccessMode(ecoreProp,
                     ObjingEAnnotation.ACCESS_NONE_VALUE);
             break;
-            // default : do nothing.
+             
+        default:
+            ObjingEAnnotation.setAccessMode(ecoreProp,
+                    ObjingEAnnotation.ACCESS_NONE_VALUE);
+            break;
         }
     }
 
@@ -444,10 +449,7 @@ public class OAttribute extends OFeature implements IOElement {
 
     @objid ("ca806276-80b1-4400-a035-0df7e8c79b26")
     private void setReadOnly(Property ecoreProp) {
-        switch (this.objingElement.getChangeable()) {
-        case READ:
-            ecoreProp.setIsReadOnly(true);
-        }
+        ecoreProp.setIsReadOnly(this.objingElement.getChangeable().equals(KindOfAccess.READ));
     }
 
 }

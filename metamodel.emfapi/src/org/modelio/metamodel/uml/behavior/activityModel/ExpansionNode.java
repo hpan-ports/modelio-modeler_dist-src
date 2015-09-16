@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.uml.behavior.activityModel;
 
@@ -31,16 +31,16 @@ import org.modelio.metamodel.uml.behavior.activityModel.ExpansionRegion;
 
 @objid ("00311a8c-c4bf-1fd8-97fe-001ec947cd2a")
 public interface ExpansionNode extends ObjectNode {
-    @objid ("4008e1c2-e984-4f07-a391-7372a8e07ee0")
+    @objid ("c8ae51b3-ccfb-47da-8eed-15c381a53cfa")
     ExpansionRegion getRegionAsOutput();
 
-    @objid ("c1d066c7-5195-4bf5-adef-577110e69917")
+    @objid ("fb2a1f12-cd24-43d4-ac8e-dae8ac144152")
     void setRegionAsOutput(ExpansionRegion value);
 
-    @objid ("518531bd-1618-44d2-acea-f2e454ff4a4f")
+    @objid ("8178e2ba-ae0e-49c0-96a9-e8088619a6ab")
     ExpansionRegion getRegionAsInput();
 
-    @objid ("0cc77dd3-8121-465c-8a76-dac6cce19bf0")
+    @objid ("5386a388-1117-4ec2-9ac9-19b32611b889")
     void setRegionAsInput(ExpansionRegion value);
 
 }

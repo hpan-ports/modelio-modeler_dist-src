@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.uml.behavior.stateMachineModel;
 
@@ -31,10 +31,10 @@ import org.modelio.metamodel.uml.behavior.stateMachineModel.State;
 
 @objid ("005151a8-c4bf-1fd8-97fe-001ec947cd2a")
 public interface InternalTransition extends Transition {
-    @objid ("e7fcf9bc-3393-4a80-82c7-a34d2bbc61aa")
+    @objid ("c01553a0-2121-4a2c-b299-836d6292f48d")
     State getSComposed();
 
-    @objid ("e9ebf816-c237-4c7e-aafa-2224462d94b3")
+    @objid ("8d9330c5-fcee-496e-af67-9d0ad5483168")
     void setSComposed(State value);
 
 }

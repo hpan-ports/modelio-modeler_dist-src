@@ -28,7 +28,7 @@ import org.modelio.vcore.smkernel.mapi.MObject;
  * Browser node that contain link elements.
  */
 @objid ("d86d566a-c06d-11e1-abda-001ec947c8cc")
-public class LinkContainer {
+class LinkContainer {
     @objid ("d86d566b-c06d-11e1-abda-001ec947c8cc")
     private MObject element;
 
@@ -60,6 +60,44 @@ public class LinkContainer {
     @objid ("68b8428d-2f04-11e2-9ab7-002564c97630")
     public int getNbLinks() {
         return this.nbLinks;
+    }
+
+    @objid ("2f724e77-3e00-481f-b2cb-6f40530d01b6")
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        LinkContainer other = (LinkContainer) obj;
+        if (this.element == null) {
+            if (other.element != null)
+                return false;
+        } else if (!this.element.equals(other.element))
+            return false;
+        return true;
+    }
+
+    @objid ("96fa5a46-803c-4281-9e96-a96ec3c7f5b1")
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((this.element == null) ? 0 : this.element.hashCode());
+        return result;
+    }
+
+    @objid ("327ca6f1-2f9c-4c96-b00e-303a2915e4c1")
+    @Override
+    public String toString() {
+        return
+        super.toString() +
+        " LinkContainer = [" +
+        "element=" + this.element +
+        ", nbLinks=" + this.nbLinks +
+        "]";
     }
 
 }

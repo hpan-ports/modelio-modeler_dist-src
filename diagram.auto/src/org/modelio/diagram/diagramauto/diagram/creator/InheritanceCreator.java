@@ -35,6 +35,7 @@ import org.modelio.diagram.diagramauto.diagram.DiagramStyleHandle;
 import org.modelio.diagram.diagramauto.diagram.layout.FourGroupStructuralLayout;
 import org.modelio.diagram.styles.plugin.DiagramStyles;
 import org.modelio.gproject.model.IMModelServices;
+import org.modelio.metamodel.diagrams.AbstractDiagram;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
 import org.modelio.metamodel.uml.infrastructure.ModelTree;
 import org.modelio.metamodel.uml.statik.Classifier;
@@ -259,6 +260,12 @@ public class InheritanceCreator extends AbstractDiagramCreator {
                 e.printStackTrace();
             }
         }
+    }
+
+    @objid ("3f65618b-c449-46c3-b9c0-02baaa300225")
+    @Override
+    public ModelElement getMainElement(AbstractDiagram autoDiagram) {
+        return autoDiagram.getOrigin();
     }
 
 }

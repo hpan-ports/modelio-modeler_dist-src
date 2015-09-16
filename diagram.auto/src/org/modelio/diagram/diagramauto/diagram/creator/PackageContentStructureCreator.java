@@ -35,6 +35,7 @@ import org.modelio.diagram.diagramauto.diagram.DiagramStyleHandle;
 import org.modelio.diagram.diagramauto.diagram.layout.DiagonalLayout;
 import org.modelio.diagram.styles.plugin.DiagramStyles;
 import org.modelio.gproject.model.IMModelServices;
+import org.modelio.metamodel.diagrams.AbstractDiagram;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
 import org.modelio.metamodel.uml.infrastructure.ModelTree;
 import org.modelio.metamodel.uml.statik.AssociationEnd;
@@ -207,6 +208,12 @@ public class PackageContentStructureCreator extends AbstractDiagramCreator {
             // Should never happen
             e.printStackTrace();
         }
+    }
+
+    @objid ("4ab4a0a2-6c84-4a87-b330-5c17541a38fc")
+    @Override
+    public ModelElement getMainElement(AbstractDiagram autoDiagram) {
+        return autoDiagram.getOrigin();
     }
 
 }

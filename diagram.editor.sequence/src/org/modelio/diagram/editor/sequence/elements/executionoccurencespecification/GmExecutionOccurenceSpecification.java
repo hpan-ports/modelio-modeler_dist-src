@@ -35,6 +35,7 @@ import org.modelio.diagram.styles.core.StyleKey.RepresentationMode;
 import org.modelio.diagram.styles.core.StyleKey;
 import org.modelio.metamodel.uml.behavior.interactionModel.ExecutionOccurenceSpecification;
 import org.modelio.metamodel.uml.behavior.interactionModel.Message;
+import org.modelio.vcore.session.impl.transactions.smAction.TransactionException;
 import org.modelio.vcore.smkernel.mapi.MObject;
 import org.modelio.vcore.smkernel.mapi.MRef;
 
@@ -94,6 +95,17 @@ public class GmExecutionOccurenceSpecification extends GmSimpleNode {
             }
         
             firePropertyChange(IGmObject.PROPERTY_LAYOUTDATA, this.getLayoutData(), null);
+            
+            // Clean up orphan blue squares: should be done by the delete command itself, but having it here also 'migrates' old sequence diagrams...
+            if (this.executionOccurenceSpecification.getFinished() == null &&  this.executionOccurenceSpecification.getStarted() == null && this.executionOccurenceSpecification.getSentMessage() == null && this.executionOccurenceSpecification.getReceivedMessage() == null) {
+                if (this.executionOccurenceSpecification.isModifiable()) {
+                    try {
+                        this.executionOccurenceSpecification.delete();
+                    } catch (TransactionException e) {
+                        // Ignore error happening during load, the delete will be done at next refresh
+                    }
+                }
+            }
         }
     }
 

@@ -21,44 +21,32 @@
 
 package org.modelio.xmi.model.ecore;
 
-import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.modelio.api.modelio.Modelio;
 import org.modelio.metamodel.uml.behavior.activityModel.ActivityNode;
 import org.modelio.metamodel.uml.behavior.activityModel.LoopNode;
 import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.xmi.util.ReverseProperties;
 
 @objid ("0d7be69c-5916-4b86-afa9-3f254f783ae5")
-public class ELoopNode extends EStructuredActivityNode implements IEElement {
-    @objid ("f1777583-6ed6-4785-85c0-a57c1256294d")
-    private ReverseProperties revProp = ReverseProperties.getInstance();
-
+public class ELoopNode extends EStructuredActivityNode {
     @objid ("272000d2-4676-4370-91cc-4d87444ff138")
     private org.eclipse.uml2.uml.LoopNode ecoreElement;
 
     @objid ("1f23790d-11af-496e-b690-fabd0dcd55fc")
+    @Override
     public Element createObjingElt() {
-        return Modelio.getInstance().getModelingSession().getModel()
+        return ReverseProperties.getInstance().getMModelServices().getModelFactory()
         .createLoopNode();
     }
 
     @objid ("6dbcad6b-ed7a-4a21-b683-18a99cd4a178")
     public ELoopNode(org.eclipse.uml2.uml.LoopNode element) {
         super(element);
-        ecoreElement = element;
-    }
-
-    @objid ("047913fc-c68b-497f-9176-814f56bac6f6")
-    public void attach(Element objingElt) {
-        super.attach(objingElt);
-    }
-
-    @objid ("b2f1eab5-5f74-4a83-b135-c479d6e19e33")
-    public void attach(List<Object> objingElts) {
+        this.ecoreElement = element;
     }
 
     @objid ("349df57b-5799-46eb-a027-0a658f8dd8a0")
+    @Override
     public void setProperties(Element objingElt) {
         super.setProperties(objingElt);
         
@@ -74,13 +62,13 @@ public class ELoopNode extends EStructuredActivityNode implements IEElement {
 
     @objid ("062535ca-a668-4c23-9f04-c64e6dc974f9")
     private void setIsTestedFirst(LoopNode node) {
-        node.setIsTestedFirst(ecoreElement.isTestedFirst());
+        node.setIsTestedFirst(this.ecoreElement.isTestedFirst());
     }
 
     @objid ("052a67e4-2d86-4d1f-a436-3356dcc20b4d")
     private void setBody(LoopNode node) {
-        for (Object ecoreBody : ecoreElement.getBodyParts()) {
-            Object objingBody = revProp.getMappedElement((org.eclipse.uml2.uml.Element) ecoreBody);
+        for (Object ecoreBody : this.ecoreElement.getBodyParts()) {
+            Object objingBody = ReverseProperties.getInstance().getMappedElement((org.eclipse.uml2.uml.Element) ecoreBody);
             if (objingBody instanceof ActivityNode)
                 node.getBody().add((ActivityNode) objingBody);
         }
@@ -89,7 +77,7 @@ public class ELoopNode extends EStructuredActivityNode implements IEElement {
     @objid ("39dfc420-ee7c-41b6-9fc2-0180c81fa207")
     private void setSetup(LoopNode node) {
         String objingSetup = "";
-        for (Object ecoreSetupPart : ecoreElement.getSetupParts()) {
+        for (Object ecoreSetupPart : this.ecoreElement.getSetupParts()) {
             if (ecoreSetupPart instanceof  org.eclipse.uml2.uml.ValueSpecificationAction) {
                  org.eclipse.uml2.uml.ValueSpecification ecoreSetup = ( (org.eclipse.uml2.uml.ValueSpecificationAction) ecoreSetupPart)
                 .getValue();
@@ -110,7 +98,7 @@ public class ELoopNode extends EStructuredActivityNode implements IEElement {
     @objid ("1ee3a966-346a-418a-b626-c90fcbded171")
     private void setTest(LoopNode node) {
         String objingTest = "";
-        for (Object ecoreTestPart : ecoreElement.getTests()) {
+        for (Object ecoreTestPart : this.ecoreElement.getTests()) {
             if (ecoreTestPart instanceof  org.eclipse.uml2.uml.ValueSpecificationAction) {
         
                  org.eclipse.uml2.uml.ValueSpecification ecoreTest = ( (org.eclipse.uml2.uml.ValueSpecificationAction) ecoreTestPart)

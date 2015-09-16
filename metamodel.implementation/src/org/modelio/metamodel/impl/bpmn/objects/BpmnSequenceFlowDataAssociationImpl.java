@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.bpmn.objects;
 
@@ -45,25 +45,25 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("00054970-c4c0-1fd8-97fe-001ec947cd2a")
 public class BpmnSequenceFlowDataAssociationImpl extends BpmnBaseElementImpl implements BpmnSequenceFlowDataAssociation {
-    @objid ("24ed159d-9296-4fdb-bafe-04d101e24b5e")
+    @objid ("bff52759-5d06-468d-8713-cdd1488ac15e")
     @Override
     public BpmnSequenceFlow getConnected() {
         return (BpmnSequenceFlow) getDepVal(BpmnSequenceFlowDataAssociationData.Metadata.ConnectedDep());
     }
 
-    @objid ("49c18660-72ee-4a76-a3a6-7d7d59ab2553")
+    @objid ("a6bf337e-2da6-47f5-a10a-f8165c7103a4")
     @Override
     public void setConnected(BpmnSequenceFlow value) {
         appendDepVal(BpmnSequenceFlowDataAssociationData.Metadata.ConnectedDep(), (SmObjectImpl)value);
     }
 
-    @objid ("7d3f2df1-4d55-4dbe-94eb-5e6d890f20e4")
+    @objid ("b50c247f-0352-4532-9048-2a4d849c536a")
     @Override
     public EList<BpmnDataAssociation> getDataAssociation() {
         return new SmList<>(this, BpmnSequenceFlowDataAssociationData.Metadata.DataAssociationDep());
     }
 
-    @objid ("518248d8-2d7c-4282-8d75-dc1a83cf44fc")
+    @objid ("faab8d07-6a4f-46e5-8ea7-f9c8868d0b95")
     @Override
     public <T extends BpmnDataAssociation> List<T> getDataAssociation(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -76,7 +76,7 @@ public class BpmnSequenceFlowDataAssociationImpl extends BpmnBaseElementImpl imp
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("65e7eea5-95c8-436b-9e12-3274a331ec6e")
+    @objid ("bd3fa011-0a7b-4a30-ae0d-d6818c0e7663")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
@@ -86,7 +86,7 @@ public class BpmnSequenceFlowDataAssociationImpl extends BpmnBaseElementImpl imp
         return super.getCompositionOwner();
     }
 
-    @objid ("3bba674e-fca1-4e2e-90c8-aa3951fe6ed2")
+    @objid ("c47aa737-2bc4-4def-aedd-5a2243e7de0f")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
@@ -96,7 +96,7 @@ public class BpmnSequenceFlowDataAssociationImpl extends BpmnBaseElementImpl imp
         return super.getCompositionRelation();
     }
 
-    @objid ("bece6dca-445e-4bad-9b67-37a25644f6f7")
+    @objid ("df2eb2f4-b8da-4084-9568-2c6ef1563bba")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitBpmnSequenceFlowDataAssociation(this);

@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.uml.statik;
 
@@ -32,16 +32,16 @@ import org.modelio.metamodel.uml.statik.NaryAssociation;
 
 @objid ("00209ca2-c4bf-1fd8-97fe-001ec947cd2a")
 public interface NaryAssociationEnd extends StructuralFeature {
-    @objid ("9cfa36ce-4417-4e3d-95ef-af43b4079185")
+    @objid ("6bbbbd03-abf5-41fb-92b1-f41e1cc3457f")
     NaryAssociation getNaryAssociation();
 
-    @objid ("000dc38d-5582-43f0-a11b-8f7afa21a4dc")
+    @objid ("1a79151b-fe6e-41e6-8d96-8b70ced06877")
     void setNaryAssociation(NaryAssociation value);
 
-    @objid ("e0809f2f-a974-41bc-bb76-9e19cb914611")
+    @objid ("844d4f82-0724-4aa0-9211-2f544037ade8")
     Classifier getOwner();
 
-    @objid ("4e206572-593f-4b81-95bb-99212777ba98")
+    @objid ("ddd55a1e-a50b-404f-a9fc-5b415bd64866")
     void setOwner(Classifier value);
 
 }

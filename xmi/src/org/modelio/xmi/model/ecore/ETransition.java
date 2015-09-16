@@ -21,25 +21,21 @@
 
 package org.modelio.xmi.model.ecore;
 
-import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.emf.common.util.EList;
-import org.modelio.api.modelio.Modelio;
 import org.modelio.metamodel.uml.behavior.commonBehaviors.Event;
 import org.modelio.metamodel.uml.behavior.commonBehaviors.Signal;
 import org.modelio.metamodel.uml.behavior.stateMachineModel.InternalTransition;
 import org.modelio.metamodel.uml.behavior.stateMachineModel.State;
-import org.modelio.metamodel.uml.behavior.stateMachineModel.StateMachine;
 import org.modelio.metamodel.uml.behavior.stateMachineModel.StateVertex;
 import org.modelio.metamodel.uml.behavior.stateMachineModel.Transition;
 import org.modelio.metamodel.uml.infrastructure.Element;
-import org.modelio.metamodel.uml.statik.Operation;
 import org.modelio.xmi.util.EcoreModelNavigation;
 import org.modelio.xmi.util.ObjingEAnnotation;
 import org.modelio.xmi.util.ReverseProperties;
 
 @objid ("2a96027b-2671-4eef-91d7-706bec1323c4")
-public class ETransition extends ENamedElement implements IEElement {
+public class ETransition extends ENamedElement {
     @objid ("1d964b0a-5f4f-4fd5-af5e-128bd7b5dc19")
     private boolean isInternalTransition = false;
 
@@ -47,10 +43,11 @@ public class ETransition extends ENamedElement implements IEElement {
     private org.eclipse.uml2.uml.Transition ecoreElement = null;
 
     @objid ("6159b52e-fe85-4ec8-948b-1819aff8dd04")
+    @Override
     public Element createObjingElt() {
         if (this.isInternalTransition)
-            return Modelio.getInstance().getModelingSession().getModel().createInternalTransition();
-        return Modelio.getInstance().getModelingSession().getModel()
+            return ReverseProperties.getInstance().getMModelServices().getModelFactory().createInternalTransition();
+        return ReverseProperties.getInstance().getMModelServices().getModelFactory()
                 .createTransition();
     }
 
@@ -61,15 +58,8 @@ public class ETransition extends ENamedElement implements IEElement {
         this.isInternalTransition = EcoreModelNavigation.isInternalTransition(element);
     }
 
-    @objid ("de66985b-4697-41b2-98ad-157cfe243da8")
-    public void attach(Element objingElt) {
-    }
-
-    @objid ("08f16e90-eab1-41c2-a9d0-1bff223c832e")
-    public void attach(List<Object> objingElts) {
-    }
-
     @objid ("260e89b6-971a-4788-bc50-9bf69c533fa4")
+    @Override
     public void setProperties(Element objingElt) {
         super.setProperties(objingElt);
         

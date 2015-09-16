@@ -48,7 +48,10 @@ import org.modelio.diagram.editor.bpmn.elements.bpmnintermediatethrowevent.GmBpm
 import org.modelio.diagram.editor.bpmn.elements.bpmnintermediatethrowevent.GmBpmnIntermediateThrowEventStructuredStyleKeys;
 import org.modelio.diagram.editor.bpmn.elements.bpmnlane.GmBpmnLaneStructuredStyleKeys;
 import org.modelio.diagram.editor.bpmn.elements.bpmnmessageflow.GmBpmnMessageFlowStyleKeys;
+import org.modelio.diagram.editor.bpmn.elements.bpmnreceivetask.GmBpmnReceiveTaskStructuredStyleKeys;
+import org.modelio.diagram.editor.bpmn.elements.bpmnsendtask.GmBpmnSendTaskStructuredStyleKeys;
 import org.modelio.diagram.editor.bpmn.elements.bpmnsequenceflow.GmBpmnSequenceFlowStyleKeys;
+import org.modelio.diagram.editor.bpmn.elements.bpmnservicetask.GmBpmnServiceTaskStructuredStyleKeys;
 import org.modelio.diagram.editor.bpmn.elements.bpmnstartevent.GmBpmnStartEventImageStyleKeys;
 import org.modelio.diagram.editor.bpmn.elements.bpmnstartevent.GmBpmnStartEventSimpleStyleKeys;
 import org.modelio.diagram.editor.bpmn.elements.bpmnstartevent.GmBpmnStartEventStructuredStyleKeys;
@@ -150,6 +153,10 @@ public class BpmnProcessor {
         FactoryStyle.getInstance().declareProvider(GmBpmnLaneStructuredStyleKeys.class);
         
         FactoryStyle.getInstance().declareProvider(GmBpmnCallActivityStructuredStyleKeys.class);
+        
+        FactoryStyle.getInstance().declareProvider(GmBpmnSendTaskStructuredStyleKeys.class);
+        FactoryStyle.getInstance().declareProvider(GmBpmnServiceTaskStructuredStyleKeys.class);
+        FactoryStyle.getInstance().declareProvider(GmBpmnReceiveTaskStructuredStyleKeys.class);
     }
 
     @objid ("c618fbf7-59a6-11e2-ae45-002564c97630")

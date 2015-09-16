@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.data.diagrams;
 
@@ -43,22 +43,22 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("006c82f2-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=ClassDiagram.class, factory=ClassDiagramData.Metadata.ObjectFactory.class, cmsnode=true)
 public class ClassDiagramData extends StaticDiagramData {
-    @objid ("690b2143-1b26-4fd0-b1a8-a53bb1ef440d")
+    @objid ("a6488c7f-eb22-4af7-9ee4-5b7ff7ac5ae5")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("002dff1e-c4c5-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("297f8b88-d657-401b-ac8d-8ffa32f1fbc2")
+        @objid ("5ae3c745-acd5-4e13-9f9f-aca3376543ff")
         private static SmClass smClass = null;
 
-        @objid ("e13dc9e0-68db-4c12-a200-8414321252d0")
+        @objid ("5172f8dd-9451-4a5f-9cd9-b1a9afb551d5")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(ClassDiagramData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("dad982a4-2f6b-45de-afab-ab0823903396")
+        @objid ("e720914e-37f0-4405-8782-e5aa4b575873")
         public static SmClass getSmClass() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return smClass;
@@ -66,12 +66,12 @@ public class ClassDiagramData extends StaticDiagramData {
 
         @objid ("002e3e48-c4c5-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("253a67b3-655e-4218-95ce-96877f1b1c7b")
+            @objid ("727869e9-16d0-4476-9efd-552e5aea6cc2")
             public ISmObjectData createData() {
                 return new ClassDiagramData();
             }
 
-            @objid ("51e5c3d4-ff38-4bb0-84ce-a9cf7ee926b4")
+            @objid ("4ab4b15f-b21e-472f-ac87-eeafda235831")
             public SmObjectImpl createImpl() {
                 return new ClassDiagramImpl();
             }

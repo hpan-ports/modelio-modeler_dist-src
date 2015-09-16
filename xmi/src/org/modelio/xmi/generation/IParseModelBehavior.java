@@ -131,6 +131,7 @@ import org.modelio.metamodel.uml.statik.ClassAssociation;
 import org.modelio.metamodel.uml.statik.Collaboration;
 import org.modelio.metamodel.uml.statik.CollaborationUse;
 import org.modelio.metamodel.uml.statik.Component;
+import org.modelio.metamodel.uml.statik.ComponentRealization;
 import org.modelio.metamodel.uml.statik.Connector;
 import org.modelio.metamodel.uml.statik.ConnectorEnd;
 import org.modelio.metamodel.uml.statik.DataType;
@@ -587,5 +588,8 @@ public interface IParseModelBehavior {
 
     @objid ("a0566d5c-b5e6-4a52-8bcb-cf7e9d13108e")
     void visitNaryAssociation(NaryAssociation param);
+
+    @objid ("46e091b7-a15a-4cc7-a922-c477be831cfd")
+    void visitComponentRealization(ComponentRealization param);
 
 }

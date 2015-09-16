@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.data.uml.behavior.stateMachineModel;
 
@@ -47,43 +47,43 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("0054f060-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=StateVertex.class, factory=StateVertexData.Metadata.ObjectFactory.class)
 public abstract class StateVertexData extends ModelElementData {
-    @objid ("66910af8-d6c2-4194-8752-6faf26d1545f")
+    @objid ("07305911-2b0c-4560-a16f-0843f8eafc54")
     @SmaMetaAssociation(metaName="OutGoing", typeDataClass=TransitionData.class, min=0, max=-1, smAssociationClass=Metadata.OutGoingSmDependency.class, component = true)
      List<SmObjectImpl> mOutGoing = null;
 
-    @objid ("c1b26083-b9b6-4003-9083-f3ebf15326ff")
+    @objid ("2a446fd3-69ab-49b0-bbaf-0bb395696cc1")
     @SmaMetaAssociation(metaName="Incoming", typeDataClass=TransitionData.class, min=0, max=-1, smAssociationClass=Metadata.IncomingSmDependency.class, istodelete = true)
      List<SmObjectImpl> mIncoming = null;
 
-    @objid ("0a32c7a0-52b1-4db0-a528-48e95dc1525d")
+    @objid ("a58c4c8f-662d-4df4-b9d6-53eb29049152")
     @SmaMetaAssociation(metaName="Parent", typeDataClass=RegionData.class, min=0, max=1, smAssociationClass=Metadata.ParentSmDependency.class)
      SmObjectImpl mParent;
 
-    @objid ("5736ed19-d268-4114-84ea-e0b46c0bf768")
+    @objid ("cb693141-eb04-4373-a93b-049b04891eb5")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("000edb5c-c4c4-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("8660d637-84c9-4f91-946d-ade845036bf6")
+        @objid ("0db67362-fe62-4a37-a68c-9608df239531")
         private static SmClass smClass = null;
 
-        @objid ("ec9b8bcc-c5e5-45f4-83ee-5de734bf0f6d")
+        @objid ("89949874-50b8-403f-ba82-c960e2246f96")
         private static SmDependency OutGoingDep = null;
 
-        @objid ("ffc2c3f7-5e6a-4933-a896-bc6e93031089")
+        @objid ("0cc734c5-f7ce-4f2d-889b-b3b483edd717")
         private static SmDependency IncomingDep = null;
 
-        @objid ("e67d30a1-8d48-4046-8e38-4ceb5ce10904")
+        @objid ("13267f0b-ef28-4181-a54b-c2aca108c302")
         private static SmDependency ParentDep = null;
 
-        @objid ("23c92768-1a99-4c88-9d11-a29037995d9a")
+        @objid ("217d777b-24fd-4e13-b438-0794ecd0436c")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(StateVertexData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("8d8018d9-6ab5-47a7-a045-8110d2853011")
+        @objid ("b3285292-c02a-4a8e-9800-82af559a3103")
         public static SmDependency OutGoingDep() {
             if (OutGoingDep == null) {
             	OutGoingDep = classof().getDependencyDef("OutGoing");
@@ -91,7 +91,7 @@ public abstract class StateVertexData extends ModelElementData {
             return OutGoingDep;
         }
 
-        @objid ("0e487352-9144-4ea7-b3c2-e4e4382c5391")
+        @objid ("7bfc77d9-4fc8-428c-b72b-2f8c2b945c8d")
         public static SmDependency IncomingDep() {
             if (IncomingDep == null) {
             	IncomingDep = classof().getDependencyDef("Incoming");
@@ -99,7 +99,7 @@ public abstract class StateVertexData extends ModelElementData {
             return IncomingDep;
         }
 
-        @objid ("7217761b-96dd-4da2-b007-27505917e426")
+        @objid ("874eb32e-6756-41b4-b60b-e930dbbb4248")
         public static SmDependency ParentDep() {
             if (ParentDep == null) {
             	ParentDep = classof().getDependencyDef("Parent");
@@ -107,38 +107,38 @@ public abstract class StateVertexData extends ModelElementData {
             return ParentDep;
         }
 
-        @objid ("45e48350-2659-45da-8da4-42cc1cfe2149")
+        @objid ("0e9e7a34-9ea0-4784-889f-4455c91ba591")
         public static SmDependency getParentDep() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return ParentDep;
         }
 
-        @objid ("64c87d68-4052-4efc-9c89-a5c04f21731f")
+        @objid ("bd2558b5-37d7-455d-852c-ec403e725e5b")
         public static SmClass getSmClass() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return smClass;
         }
 
-        @objid ("5e5bb8a0-00ad-4cc5-bc7a-93b6deadf92d")
-        public static SmDependency getIncomingDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return IncomingDep;
-        }
-
-        @objid ("c2e83bf2-f97e-4d84-9f73-48751e1fbf9c")
+        @objid ("f7682579-8f3a-4e80-8b44-f5019dabb678")
         public static SmDependency getOutGoingDep() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return OutGoingDep;
         }
 
+        @objid ("66537475-d2fb-4516-b7e3-c8c3ff69b8a5")
+        public static SmDependency getIncomingDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return IncomingDep;
+        }
+
         @objid ("000f1db0-c4c4-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("85e46cc3-de6c-4eb2-ad42-941fbfdd7c41")
+            @objid ("395dfaae-e94e-4406-8d1d-bc98a21496d6")
             public ISmObjectData createData() {
                 throw new UnsupportedOperationException();
             }
 
-            @objid ("f1a334fa-e916-4a1a-bca9-c18d6ebda4a7")
+            @objid ("3df5975b-4b63-4a76-a7ec-3806f783ca32")
             public SmObjectImpl createImpl() {
                 throw new UnsupportedOperationException();
             }
@@ -147,20 +147,20 @@ public abstract class StateVertexData extends ModelElementData {
 
         @objid ("000f8106-c4c4-1fd8-97fe-001ec947cd2a")
         public static class IncomingSmDependency extends SmMultipleDependency {
-            @objid ("92405999-bb80-42a6-a187-7174ac0ea542")
+            @objid ("a7cdba7c-d1a1-4f5d-85f2-d01a2a7a8f5b")
             @Override
             public List<SmObjectImpl> getValueList(ISmObjectData data) {
                 return (((StateVertexData)data).mIncoming != null)? ((StateVertexData)data).mIncoming:SmMultipleDependency.EMPTY;
             }
 
-            @objid ("b6df503d-09b2-4475-b170-23793ae3d16c")
+            @objid ("e69ac665-6c48-4b37-ba98-1e012b3c6d53")
             @Override
             protected List<SmObjectImpl> allocateValueList(ISmObjectData data, int initialCapacity) {
                 ((StateVertexData) data).mIncoming = new ArrayList<>(initialCapacity);
                 return ((StateVertexData) data).mIncoming;
             }
 
-            @objid ("4ad18743-54e1-45ef-91b8-9cd8edce35aa")
+            @objid ("e1a45aef-c581-47ca-a4db-e4f81224bbfb")
             @Override
             public SmDependency getSymetric() {
                 return TransitionData.Metadata.TargetDep();
@@ -170,20 +170,20 @@ public abstract class StateVertexData extends ModelElementData {
 
         @objid ("000fe51a-c4c4-1fd8-97fe-001ec947cd2a")
         public static class OutGoingSmDependency extends SmMultipleDependency {
-            @objid ("76fc8a40-46ef-43ef-952b-30421d64d764")
+            @objid ("875a6aa5-5b5a-4943-b78b-6addc0e677e5")
             @Override
             public List<SmObjectImpl> getValueList(ISmObjectData data) {
                 return (((StateVertexData)data).mOutGoing != null)? ((StateVertexData)data).mOutGoing:SmMultipleDependency.EMPTY;
             }
 
-            @objid ("5bd3d8dc-92c0-4221-80ee-e91055de9c6d")
+            @objid ("16e94527-71ac-4883-aa0b-e2362fd2eed8")
             @Override
             protected List<SmObjectImpl> allocateValueList(ISmObjectData data, int initialCapacity) {
                 ((StateVertexData) data).mOutGoing = new ArrayList<>(initialCapacity);
                 return ((StateVertexData) data).mOutGoing;
             }
 
-            @objid ("f5e0034b-6e46-44c3-8e3c-bcf3bb8ecc36")
+            @objid ("3429f76b-0659-414c-8577-c76ea6383505")
             @Override
             public SmDependency getSymetric() {
                 return TransitionData.Metadata.SourceDep();
@@ -193,18 +193,18 @@ public abstract class StateVertexData extends ModelElementData {
 
         @objid ("00104a14-c4c4-1fd8-97fe-001ec947cd2a")
         public static class ParentSmDependency extends SmSingleDependency {
-            @objid ("eb534639-8fb1-4f33-961f-93a13cb659e4")
+            @objid ("acd71acb-b207-464a-9f51-1ed5eb267d2f")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((StateVertexData) data).mParent;
             }
 
-            @objid ("a6e0a799-689d-4024-803a-e2a8d8e62df5")
+            @objid ("53d11bf0-56c1-4bc2-bb3b-3061817eb8fb")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((StateVertexData) data).mParent = value;
             }
 
-            @objid ("c12ad1f2-776b-477e-8240-ab9ca9deec28")
+            @objid ("f9275708-21cf-408a-8dd8-d111dfed9b28")
             @Override
             public SmDependency getSymetric() {
                 return RegionData.Metadata.SubDep();

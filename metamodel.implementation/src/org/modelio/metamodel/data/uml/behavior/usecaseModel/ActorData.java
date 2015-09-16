@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.data.uml.behavior.usecaseModel;
 
@@ -44,22 +44,22 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("00585d72-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=Actor.class, factory=ActorData.Metadata.ObjectFactory.class, cmsnode=true)
 public class ActorData extends GeneralClassData {
-    @objid ("d9552b83-4f4a-42fb-8abf-425d1b73b48b")
+    @objid ("4b1e6313-881d-45b7-bc1f-d882b70200f8")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("003ebffc-c4c3-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("b26a0697-699b-4505-817f-49408fceaf50")
+        @objid ("26be0f12-9bb8-4294-b88a-36253c438808")
         private static SmClass smClass = null;
 
-        @objid ("caf60bb4-e7f3-4175-95ab-f081ab29959d")
+        @objid ("f805b1e8-f583-4806-8d7f-c65ada2d30be")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(ActorData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("fcb6b789-2295-4bda-b911-11f78572e39a")
+        @objid ("229ed868-c8f8-4b3f-896f-7709d576e2b5")
         public static SmClass getSmClass() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return smClass;
@@ -67,12 +67,12 @@ public class ActorData extends GeneralClassData {
 
         @objid ("003f0264-c4c3-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("201fb453-5955-49c4-84a1-99c956b188a2")
+            @objid ("7c4c2cfc-7a42-4785-a85f-8e5ed844d978")
             public ISmObjectData createData() {
                 return new ActorData();
             }
 
-            @objid ("749cf729-9e07-45c7-9b85-5c9800eeecaa")
+            @objid ("2bee6e5f-6b24-43c0-ac98-ff6ecc69165c")
             public SmObjectImpl createImpl() {
                 return new ActorImpl();
             }

@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.uml.behavior.interactionModel;
 
@@ -41,45 +41,45 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("004bb34c-c4bf-1fd8-97fe-001ec947cd2a")
 public class StateInvariantImpl extends OccurrenceSpecificationImpl implements StateInvariant {
-    @objid ("d997beb2-f2d1-4e02-94ea-2e24a288755b")
+    @objid ("3efc0d35-c58f-4295-b163-0f47c418f808")
     @Override
     public String getBody() {
         return (String) getAttVal(StateInvariantData.Metadata.BodyAtt());
     }
 
-    @objid ("8fc05157-b126-4b97-83e4-ef540acdb63a")
+    @objid ("589cc076-1652-48b6-a6c7-c6fffb8152cb")
     @Override
     public void setBody(String value) {
         setAttVal(StateInvariantData.Metadata.BodyAtt(), value);
     }
 
-    @objid ("c65a024b-bc94-4535-9166-e3c432e526b1")
+    @objid ("ec38b2b2-b368-4aa3-8154-245f990e9fc3")
     @Override
     public int getEndLineNumber() {
         return (Integer) getAttVal(StateInvariantData.Metadata.EndLineNumberAtt());
     }
 
-    @objid ("3ea61010-f1b7-4785-8812-f97b194e8b9d")
+    @objid ("735a9e22-c4c5-4d43-912f-34801616398b")
     @Override
     public void setEndLineNumber(int value) {
         setAttVal(StateInvariantData.Metadata.EndLineNumberAtt(), value);
     }
 
-    @objid ("09ac05e4-753a-4ca8-a378-5294a1d6ffc7")
+    @objid ("65d65be3-d29b-47d4-918c-02346187cf4c")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("7f6a2478-85e9-4675-a763-18d4b253ad93")
+    @objid ("c1a16585-c77a-4828-9e9c-c4de1cb9e243")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("fcae29f3-7ee8-428d-b191-de8a8af9d36d")
+    @objid ("4bd1cd93-fbbf-4a4d-8168-cca11a951a1b")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitStateInvariant(this);

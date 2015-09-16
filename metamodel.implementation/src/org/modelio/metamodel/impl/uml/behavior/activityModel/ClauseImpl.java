@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.uml.behavior.activityModel;
 
@@ -45,25 +45,25 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("002cec14-c4bf-1fd8-97fe-001ec947cd2a")
 public class ClauseImpl extends ModelElementImpl implements Clause {
-    @objid ("eec59412-cf28-4b7a-8272-38908c474303")
+    @objid ("b069d9ab-e4aa-426d-a8e6-057b72e26833")
     @Override
     public String getTest() {
         return (String) getAttVal(ClauseData.Metadata.TestAtt());
     }
 
-    @objid ("2fe7b4d6-201f-46f1-9b6c-121477c0f791")
+    @objid ("175e6836-05c0-4ee6-b0ec-e69505699b81")
     @Override
     public void setTest(String value) {
         setAttVal(ClauseData.Metadata.TestAtt(), value);
     }
 
-    @objid ("37d7efb6-981f-4ea1-a2e6-44a23222cadc")
+    @objid ("05010d55-5947-4f49-a722-4e0d4cd70487")
     @Override
     public EList<ActivityNode> getBody() {
         return new SmList<>(this, ClauseData.Metadata.BodyDep());
     }
 
-    @objid ("49e3daad-fc04-4fb4-8b41-83b866d1da4c")
+    @objid ("7729a0bb-dbb7-4ac6-9a3d-5f144653f597")
     @Override
     public <T extends ActivityNode> List<T> getBody(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -76,19 +76,19 @@ public class ClauseImpl extends ModelElementImpl implements Clause {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("f8c7c706-d61b-4fd9-abb3-518db3375c03")
+    @objid ("8ab8b263-56c2-4dcf-b94b-a7d5f9defd90")
     @Override
     public ConditionalNode getOwner() {
         return (ConditionalNode) getDepVal(ClauseData.Metadata.OwnerDep());
     }
 
-    @objid ("2eaa62b6-99a1-4f8a-9423-d56723c037d1")
+    @objid ("14d322d6-bfc7-4b26-9288-e78db45db1f6")
     @Override
     public void setOwner(ConditionalNode value) {
         appendDepVal(ClauseData.Metadata.OwnerDep(), (SmObjectImpl)value);
     }
 
-    @objid ("f8b8817b-5d22-43cf-ac59-f9c756a01aa5")
+    @objid ("5efc8ed0-5fe3-4ee1-869a-173dadf73d43")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
@@ -98,7 +98,7 @@ public class ClauseImpl extends ModelElementImpl implements Clause {
         return super.getCompositionOwner();
     }
 
-    @objid ("17318410-35d0-4df1-ae31-378064bd3dda")
+    @objid ("9d783e73-10e2-49ec-b8c4-1f24ad914ce1")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
@@ -108,7 +108,7 @@ public class ClauseImpl extends ModelElementImpl implements Clause {
         return super.getCompositionRelation();
     }
 
-    @objid ("0c05ee0f-9102-4656-a2e8-3aa42dabda19")
+    @objid ("dd3cd3eb-4c02-40ba-a283-fb9180e968ab")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitClause(this);

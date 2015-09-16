@@ -30,8 +30,15 @@ import org.modelio.gproject.module.ModuleId;
  * <p>
  * Use this comparator when you need to deploy a bunch modules in the right order.
  * </p>
+ * Note: this comparator imposes orderings that are inconsistent with equals.
+ * @deprecated Does not work transitively. Fixing it would not be efficient.<br>
+ * Use {@link ModuleSorter} to do a topological sort instead.
+ * <p>
+ * This class is to be deleted as soon as possible.
+ * @todelete This class is to be deleted as soon as possible.
  */
 @objid ("55d2debc-ba71-4264-9c70-676ced6cb301")
+@Deprecated
 public class ModuleHandleComparator implements Comparator<IModuleHandle> {
     @objid ("7dd109db-bf49-4081-8f10-607269c7d6cd")
     @Override

@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.uml.behavior.stateMachineModel;
 
@@ -41,21 +41,21 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("0055514a-c4bf-1fd8-97fe-001ec947cd2a")
 public class TerminatePseudoStateImpl extends AbstractPseudoStateImpl implements TerminatePseudoState {
-    @objid ("f8dbfc59-5491-4cb6-bf9d-96549641795f")
+    @objid ("5207275a-3670-45fb-85dd-7a2137894638")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("7356bf90-ebb1-4bdb-974b-a003b66b1c79")
+    @objid ("58cb0dbe-a3eb-4f07-a6f5-500cc47d0f10")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("0f4e0079-ea59-4717-8bcc-83fd6c0dcf7e")
+    @objid ("568c5180-a2ed-46f0-a82e-1613fdf66b64")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitTerminatePseudoState(this);

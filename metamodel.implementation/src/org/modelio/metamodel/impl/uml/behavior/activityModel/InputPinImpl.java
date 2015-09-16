@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.uml.behavior.activityModel;
 
@@ -44,25 +44,25 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("00353996-c4bf-1fd8-97fe-001ec947cd2a")
 public class InputPinImpl extends PinImpl implements InputPin {
-    @objid ("d8c8263f-4f55-4b1e-8305-b18593cfecc6")
+    @objid ("d1b2e685-0eeb-4448-83a2-2b58601772a4")
     @Override
     public boolean isIsSelf() {
         return (Boolean) getAttVal(InputPinData.Metadata.IsSelfAtt());
     }
 
-    @objid ("c746a3c9-2a91-4165-917b-c39efa4abd50")
+    @objid ("8db701f8-eaec-4c46-b9d9-64c334af5726")
     @Override
     public void setIsSelf(boolean value) {
         setAttVal(InputPinData.Metadata.IsSelfAtt(), value);
     }
 
-    @objid ("e1cc0c0a-3ce6-4431-8cd5-a5628ad0d583")
+    @objid ("c7546618-0425-41e1-a594-a952de589e0c")
     @Override
     public EList<ExceptionHandler> getHandler() {
         return new SmList<>(this, InputPinData.Metadata.HandlerDep());
     }
 
-    @objid ("02768123-366c-4747-8493-dcc68fafa4c3")
+    @objid ("ae56395f-6f3f-420b-9fe6-58e14149b5dd")
     @Override
     public <T extends ExceptionHandler> List<T> getHandler(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -75,19 +75,19 @@ public class InputPinImpl extends PinImpl implements InputPin {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("98a2392e-f46b-4daf-b06a-743e07ca9101")
+    @objid ("a1d9ed36-5421-45fa-b7a9-f048acb5a077")
     @Override
     public ActivityAction getInputing() {
         return (ActivityAction) getDepVal(InputPinData.Metadata.InputingDep());
     }
 
-    @objid ("295140c3-d267-4c6f-b6d4-8cbf242e5867")
+    @objid ("5c38ddbc-7e9f-438b-b072-ecdbd3464461")
     @Override
     public void setInputing(ActivityAction value) {
         appendDepVal(InputPinData.Metadata.InputingDep(), (SmObjectImpl)value);
     }
 
-    @objid ("7c8548ee-7bbc-45ea-aabe-d8d51021716b")
+    @objid ("dff16a5b-b926-4dd7-8087-b847c16e0150")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
@@ -97,7 +97,7 @@ public class InputPinImpl extends PinImpl implements InputPin {
         return super.getCompositionOwner();
     }
 
-    @objid ("d27204a4-1761-4adb-b7ea-b63abb1b6127")
+    @objid ("2344f240-282d-4206-a932-4ce350150d47")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
@@ -107,7 +107,7 @@ public class InputPinImpl extends PinImpl implements InputPin {
         return super.getCompositionRelation();
     }
 
-    @objid ("4e1873d3-4208-4ecf-a6b6-b42ef36e0d7c")
+    @objid ("ac61040f-0692-41aa-bda4-6f7d66869871")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitInputPin(this);

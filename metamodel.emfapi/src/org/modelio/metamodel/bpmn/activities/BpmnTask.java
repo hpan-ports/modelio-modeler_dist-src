@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.bpmn.activities;
 
@@ -32,16 +32,16 @@ import org.modelio.metamodel.bpmn.activities.BpmnCallActivity;
 
 @objid ("0084bb4c-c4bf-1fd8-97fe-001ec947cd2a")
 public interface BpmnTask extends BpmnActivity {
-    @objid ("4447fa37-1cc0-4d77-b542-782bd4805ba9")
+    @objid ("8683f3f7-3a1f-415a-86e6-4bba95fa121b")
     boolean isIsGlobal();
 
-    @objid ("73271135-bbfc-4a25-9b85-18e3d3edc55c")
+    @objid ("4de04ca7-8ea6-47d0-9c85-56a92ab042f5")
     void setIsGlobal(boolean value);
 
-    @objid ("3c21b0c4-fbf4-4d6b-be68-b5481e7a4bd6")
+    @objid ("02ca0b94-678c-4393-93b8-aba97df4441b")
     EList<BpmnCallActivity> getCaller();
 
-    @objid ("ac711bd6-9c61-415d-b6a9-7e44614fdfdd")
+    @objid ("064dbaf9-7bcb-40a5-a3e7-c0320dadb509")
     <T extends BpmnCallActivity> List<T> getCaller(java.lang.Class<T> filterClass);
 
 }

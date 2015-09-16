@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.uml.behavior.activityModel;
 
@@ -45,49 +45,49 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("002a04ae-c4bf-1fd8-97fe-001ec947cd2a")
 public class ActivityPartitionImpl extends ActivityGroupImpl implements ActivityPartition {
-    @objid ("dded3f48-872a-45e6-b647-d09b2c5f7752")
+    @objid ("a0d280db-25ac-4109-b3dd-023abc433f37")
     @Override
     public boolean isIsDimension() {
         return (Boolean) getAttVal(ActivityPartitionData.Metadata.IsDimensionAtt());
     }
 
-    @objid ("38d35691-e728-4847-ac81-311937f46bf6")
+    @objid ("0c5d6fa7-df94-441e-a8f9-e9b17163e818")
     @Override
     public void setIsDimension(boolean value) {
         setAttVal(ActivityPartitionData.Metadata.IsDimensionAtt(), value);
     }
 
-    @objid ("ba439d12-e14c-42c1-afe6-904a525eda5d")
+    @objid ("6677b623-a39d-4914-8ba0-8fb8dab680be")
     @Override
     public boolean isIsExternal() {
         return (Boolean) getAttVal(ActivityPartitionData.Metadata.IsExternalAtt());
     }
 
-    @objid ("729e9ef7-7872-423e-ad3c-0a7d84502285")
+    @objid ("3b0d10fe-25b0-4d10-af20-e10410cdd612")
     @Override
     public void setIsExternal(boolean value) {
         setAttVal(ActivityPartitionData.Metadata.IsExternalAtt(), value);
     }
 
-    @objid ("586e0778-a3b7-4b68-955c-be919129a057")
+    @objid ("5d5caa96-6380-4b90-8ce0-1e78216c4468")
     @Override
     public ModelElement getRepresented() {
         return (ModelElement) getDepVal(ActivityPartitionData.Metadata.RepresentedDep());
     }
 
-    @objid ("a8390973-a12c-4a8b-b0bd-3764b1eec6e1")
+    @objid ("0c6b7206-c212-48a8-93f4-90567b5f03f0")
     @Override
     public void setRepresented(ModelElement value) {
         appendDepVal(ActivityPartitionData.Metadata.RepresentedDep(), (SmObjectImpl)value);
     }
 
-    @objid ("06fdb430-df8c-4685-86da-3328fcc50452")
+    @objid ("a38fb099-e99a-4106-9247-e96233d6abef")
     @Override
     public EList<ActivityNode> getContainedNode() {
         return new SmList<>(this, ActivityPartitionData.Metadata.ContainedNodeDep());
     }
 
-    @objid ("5c381030-aeac-4178-bdf4-ab2fcecb8fa4")
+    @objid ("53bf7501-8c09-45b0-9cf2-a0e0906ba464")
     @Override
     public <T extends ActivityNode> List<T> getContainedNode(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -100,13 +100,13 @@ public class ActivityPartitionImpl extends ActivityGroupImpl implements Activity
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("5ed5bc5c-3fde-47cf-b476-61166e3af13e")
+    @objid ("3363efdf-b0b7-4f19-829b-c890c10a2fe5")
     @Override
     public EList<MessageFlow> getOutgoing() {
         return new SmList<>(this, ActivityPartitionData.Metadata.OutgoingDep());
     }
 
-    @objid ("ab66e10b-eed9-45a9-af98-6d8e6b2c9121")
+    @objid ("c085388a-c8be-42c5-be49-b1d52ad9db15")
     @Override
     public <T extends MessageFlow> List<T> getOutgoing(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -119,25 +119,25 @@ public class ActivityPartitionImpl extends ActivityGroupImpl implements Activity
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("e3a603fb-01ec-450b-9cfe-cace8322e282")
+    @objid ("f07f6217-e59d-486b-8542-383bea04bdf1")
     @Override
     public ActivityPartition getSuperPartition() {
         return (ActivityPartition) getDepVal(ActivityPartitionData.Metadata.SuperPartitionDep());
     }
 
-    @objid ("1cec61bc-5727-479b-9531-0b72f596d75e")
+    @objid ("cbe91f38-701b-4861-809b-eec182b7b2e7")
     @Override
     public void setSuperPartition(ActivityPartition value) {
         appendDepVal(ActivityPartitionData.Metadata.SuperPartitionDep(), (SmObjectImpl)value);
     }
 
-    @objid ("a7699610-e9ee-4be7-bf4a-15a80e1b94f8")
+    @objid ("237a8ec0-3a39-418f-95e3-cc46e8afab12")
     @Override
     public EList<ActivityPartition> getSubPartition() {
         return new SmList<>(this, ActivityPartitionData.Metadata.SubPartitionDep());
     }
 
-    @objid ("c655a0cf-3244-495a-9658-e22378254927")
+    @objid ("a7d89705-9896-4d40-9bd1-143a8e70fb79")
     @Override
     public <T extends ActivityPartition> List<T> getSubPartition(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -150,13 +150,13 @@ public class ActivityPartitionImpl extends ActivityGroupImpl implements Activity
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("cc3ed22d-e794-46d6-a871-f615a0754f65")
+    @objid ("843e94c0-6038-4b23-acb5-a22e40f2b6e1")
     @Override
     public EList<MessageFlow> getIncoming() {
         return new SmList<>(this, ActivityPartitionData.Metadata.IncomingDep());
     }
 
-    @objid ("a5f84531-38fb-4d60-86aa-15df49c650dd")
+    @objid ("be16465e-0767-44d5-9bff-e4b5ea00d329")
     @Override
     public <T extends MessageFlow> List<T> getIncoming(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -169,7 +169,7 @@ public class ActivityPartitionImpl extends ActivityGroupImpl implements Activity
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("c9fbe3d6-9c64-459e-bebc-f628b67379b6")
+    @objid ("14f3fc85-334a-4f4c-9212-fa74aec05b01")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
@@ -179,7 +179,7 @@ public class ActivityPartitionImpl extends ActivityGroupImpl implements Activity
         return super.getCompositionOwner();
     }
 
-    @objid ("c18c6c94-8edf-4560-8418-790760a5e76f")
+    @objid ("86915f6c-ab9e-40c5-a560-33602c62d7da")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
@@ -189,7 +189,7 @@ public class ActivityPartitionImpl extends ActivityGroupImpl implements Activity
         return super.getCompositionRelation();
     }
 
-    @objid ("168fb870-86f6-485b-ab56-005f8e3584b0")
+    @objid ("53948f89-8add-4230-862f-772359da5a9b")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitActivityPartition(this);

@@ -22,24 +22,33 @@
 package org.modelio.gproject.gproject;
 
 import java.io.IOException;
-import java.nio.file.FileSystemException;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.modelio.gproject.descriptor.DescriptorServices;
-import org.modelio.gproject.descriptor.FragmentDescriptor;
-import org.modelio.gproject.descriptor.GProperties.Entry;
-import org.modelio.gproject.descriptor.GProperties;
-import org.modelio.gproject.descriptor.ModuleDescriptor;
-import org.modelio.gproject.descriptor.ProjectDescriptor;
-import org.modelio.gproject.descriptor.ProjectWriter;
+import org.modelio.gproject.data.project.DefinitionScope;
+import org.modelio.gproject.data.project.DescriptorServices;
+import org.modelio.gproject.data.project.FragmentDescriptor;
+import org.modelio.gproject.data.project.GAuthConf;
+import org.modelio.gproject.data.project.GProperties.Entry;
+import org.modelio.gproject.data.project.GProperties;
+import org.modelio.gproject.data.project.ModuleDescriptor;
+import org.modelio.gproject.data.project.ProjectDescriptor;
 import org.modelio.gproject.fragment.Fragments;
 import org.modelio.gproject.fragment.IProjectFragment;
+import org.modelio.gproject.gproject.ProjectWriter;
 import org.modelio.gproject.gproject.remote.GRemoteProject;
 import org.modelio.gproject.module.GModule;
+import org.modelio.gproject.module.IModuleHandle;
+import org.modelio.gproject.module.ModuleSorter;
+import org.modelio.gproject.plugin.CoreProject;
 import org.modelio.vbasic.auth.IAuthData;
+import org.modelio.vbasic.collections.TopologicalSorter.CyclicDependencyException;
 import org.modelio.vbasic.files.FileUtils;
+import org.modelio.vbasic.log.Log;
 import org.modelio.vbasic.progress.IModelioProgress;
 import org.modelio.vbasic.progress.SubProgress;
 
@@ -83,18 +92,6 @@ public class GProjectConfigurer {
     }
 
     /**
-     * Tells whether the project configuration is different than the given configuration.
-     * @param serverDesc a server project configuration
-     * @return <code>true</code> if the project configuration is different.
-     */
-    @objid ("9fe74f75-ee6a-4de6-b76b-625124f78bce")
-    public boolean needsReconfiguration(ProjectDescriptor serverDesc) {
-        ProjectDescriptor currentDesc = new ProjectWriter().write(this.project);
-        DescriptorServices.removeLocalPart(currentDesc);
-        return ! serverDesc.equals(currentDesc);
-    }
-
-    /**
      * Reconfigure the project with the given new descriptor.
      * <p>
      * Replaces the project content. Old fragments will be removed, new ones will be added and mount.
@@ -115,6 +112,15 @@ public class GProjectConfigurer {
             this.project.setName(newDesc.getName());
         }
         
+        if(! this.project.getRemoteLocation().equals(newDesc.getRemoteLocation())) {
+            // Project adress on server renamed, no pb
+            try {
+                this.project.setRemoteLocation(newDesc.getRemoteLocation());
+            } catch (URISyntaxException e) {
+                this.failures.add(new Failure(e));
+            }
+        }
+        
         if (! this.project.getType().toString().equals(newDesc.getType())) {
             // different type, this is a different project.
             throw new IllegalArgumentException(this+" incompatible with "+ newDesc.getType());
@@ -123,63 +129,14 @@ public class GProjectConfigurer {
         this.project.reconfigureProperties(newDesc.getProperties(), mon.newChild(10));
         
         //TODO I don't know what to do if project login changes.
+        @SuppressWarnings("unused")
         boolean authChanged = this.project.getAuthConfiguration().reconfigure(newDesc.getAuthDescriptor());
         
         // Modules
-        List<ModuleDescriptor> newModules = new ArrayList<>( newDesc.getModules());
-        for (GModule m : new ArrayList<>(this.project.getModules())) {
-            boolean found = false;
-            for (Iterator<ModuleDescriptor> it = newModules.iterator(); it.hasNext() && !found;) {
-                ModuleDescriptor fd = it.next();
-                if (fd.getName().equals(m.getName())) {
-                    found = true;
-                    if (fd.getVersion().equals(m.getVersion())) {
-                        // Same version, just update parameters
-                        callReconfigureModule(m, fd, mon.newChild(10));
-                    } else {
-                        // Another version
-                        callUpgradeModule(m, fd, mon.newChild(10));
-                    }
-                    it.remove();
-                }
-            }
-            
-            if (! found) {
-                callRemoveModule(m, mon.newChild(10));
-            }
-        }
-        
-        for (ModuleDescriptor fd : newModules) {
-            callInstallModule(fd, mon.newChild(10));
-        }
-        
+        reconfigureModules(newDesc, mon);
         
         // Fragments
-        List<FragmentDescriptor> newFragments = new ArrayList<>( newDesc.getFragments());
-        
-        for (IProjectFragment f : new ArrayList<>(this.project.getOwnFragments())) {
-            boolean found = false;
-            for (Iterator<FragmentDescriptor> it = newFragments.iterator(); it.hasNext() && !found;) {
-                FragmentDescriptor fd = it.next();
-                if (fd.getId().equals(f.getId()) && fd.getType().equals(f.getType())) {
-                    found = true;
-                    callReconfigureFragment(mon.newChild(10), f, fd);
-                    it.remove();
-                }
-            }
-            
-            if (! found) {
-                mon.subTask("Removing "+f.getId()+" fragment...");
-                this.project.unregisterFragment(f);
-            }
-        }
-        
-        // Add new fragments
-        for (FragmentDescriptor fd : newFragments) {
-            IProjectFragment fragment = Fragments.getFactory(fd).instantiate(fd);
-            mon.subTask("Adding "+fd.getId()+" fragment...");
-            this.project.registerFragment(fragment, mon.newChild(10));
-        }
+        reconfigureFragments(newDesc, mon);
         
         mon.subTask("");
     }
@@ -198,22 +155,23 @@ public class GProjectConfigurer {
     @objid ("cd85e181-73c6-4b4b-9f6e-10cd4e201570")
     public boolean synchronize(IModelioProgress monitor) throws GProjectAuthenticationException, IOException {
         if (getProject() instanceof GRemoteProject) {
-            String title = "Synchronizing "+getProject().getName()+" ...";
+            String title = CoreProject.getMessage("GProjectConfigurer.Synchronizing",getProject().getName());
             
             SubProgress mon = SubProgress.convert(monitor, title, 1000);
             
             GRemoteProject rp = (GRemoteProject) getProject();
             
-            ProjectDescriptor newDesc = new ProjectWriter().write(rp);
+            ProjectDescriptor newDesc = new ProjectWriter(rp).writeProject();
             IAuthData authData  = rp.getAuthConfiguration().getAuthData();
             ProjectDescriptor newServerDesc = GProjectFactory.getRemoteDescriptor(newDesc, authData, mon.newChild(100));
             
             if (newServerDesc == null) {
-                rp.getMonitorSupport().fireMonitors(GProjectEvent.buildWarning(new IOException("No remote project descriptor at "+rp.getRemoteLocation()+".")));
-            } else if (needsReconfiguration(newServerDesc)) {
+                final String msg = CoreProject.getMessage("GProjectConfigurer.NoRemoteProjectDescriptor", rp.getRemoteLocation());
+                rp.getMonitorSupport().fireMonitors(GProjectEvent.buildWarning(new IOException(msg)));
+                Log.trace(new IOException(msg));
+            } else if (getProject().needsReconfiguration(newServerDesc)) {
                 
                 DescriptorServices.removeSharedPart(newDesc);
-                //DescriptorServices.resolveUris(newDesc, getProjectDataPath().toUri()); 
                 DescriptorServices.merge(newServerDesc, newDesc);
                 newDesc.cleanup();
         
@@ -276,26 +234,39 @@ public class GProjectConfigurer {
     }
 
     /**
-     * Default implementation replaces current parameters with the news.
+     * Default implementation replaces share scoped parameters with the news.
      * <p>
+     * Local scope parameters are left untouched.
      * To be redefined for a better behavior.
      * @param m the module to update
-     * @param fd the new module parameters.
+     * @param desc the new module parameters.
      * @param mon the progress monitor to use for reporting progress to the user. It is the caller's responsibility to call
      * <code>done()</code> on the given monitor. Accepts <code>null</code>, indicating that no progress should be
      * reported and that the operation cannot be cancelled.
      * @throws java.io.IOException in case of failure
      */
     @objid ("5b042a6f-1415-4f2c-95ce-7010b25d1e09")
-    protected void reconfigureModule(GModule m, ModuleDescriptor fd, IModelioProgress mon) throws IOException {
-        m.setScope(fd.getScope());
+    protected void reconfigureModule(GModule m, ModuleDescriptor desc, IModelioProgress mon) throws IOException {
+        m.setScope(desc.getScope());
         
-        m.getAuthData().reconfigure(fd.getAuthDescriptor());
+        if (m.getAuthData() == null)
+            m.setAuthData(GAuthConf.from(desc.getAuthDescriptor()));
+        else
+            m.getAuthData().reconfigure(desc.getAuthDescriptor());
         
-        GProperties parameters = m.getParameters();
-        parameters.entries().clear();
-        for (Entry p : fd.getParameters().entries()) {
-            parameters.setProperty(p.getName(), p.getValue(), p.getScope());
+        GProperties myParameters = m.getParameters();
+        GProperties descParams = desc.getParameters();
+        
+        for (Entry theirParam : descParams.entries()) {
+            final Entry myParam = myParameters.getProperty(theirParam.getName());
+            if (myParam == null || theirParam.getScope()==DefinitionScope.SHARED || myParam.getScope()==DefinitionScope.SHARED)
+                myParameters.setProperty(theirParam.getName(), theirParam.getValue(), theirParam.getScope());
+        }
+        
+        // Shared parameters that are not on the server anymore become local
+        for (Entry p : myParameters.entries()) {
+            if (p.getScope()==DefinitionScope.SHARED && descParams.getProperty(p.getName()) == null)
+                p.setScope(DefinitionScope.LOCAL);
         }
     }
 
@@ -310,7 +281,7 @@ public class GProjectConfigurer {
         Failure failure = new Failure(moduleDescriptor, module, cause);
         this.failures.add(failure);
         
-        GProjectEvent ev = new GProjectEvent(GProjectEventType.WARNING,failure.toString(),null,cause);
+        GProjectEvent ev = new GProjectEvent(GProjectEventType.WARNING, failure.toString(),null,cause);
         this.project.getMonitorSupport().fireMonitors(ev);
     }
 
@@ -327,7 +298,7 @@ public class GProjectConfigurer {
 
     @objid ("61098f30-1054-4e06-9088-15b447fa0ba8")
     private void callReconfigureFragment(SubProgress mon, IProjectFragment f, FragmentDescriptor fd) {
-        mon.subTask("Synchronizing "+f.getId()+" ...");
+        mon.subTask(CoreProject.getMessage("GProjectConfigurer.SynchronizingFragment",f.getId()));
         
         try {
             f.reconfigure(fd, mon);
@@ -342,7 +313,7 @@ public class GProjectConfigurer {
         
         try {
             removeModule(m, mon);
-        } catch (IOException e) {
+        } catch (IOException | RuntimeException e) {
             addFailure(null, m, e);
         }
     }
@@ -351,7 +322,7 @@ public class GProjectConfigurer {
     private void callReconfigureModule(GModule m, ModuleDescriptor fd, SubProgress mon) {
         try {
             reconfigureModule(m, fd, mon);
-        } catch (IOException e) {
+        } catch (IOException | RuntimeException e) {
             addFailure(fd, m, e);
         }
     }
@@ -362,7 +333,7 @@ public class GProjectConfigurer {
         
         try {
             installModule(fd, mon);
-        } catch (IOException e) {
+        } catch (IOException | RuntimeException e) {
             addFailure(fd, null, e);
         }
     }
@@ -371,8 +342,116 @@ public class GProjectConfigurer {
     private void callUpgradeModule(GModule m, ModuleDescriptor fd, IModelioProgress mon) {
         try {
             upgradeModule(m, fd, mon);
-        } catch (IOException e) {
+        } catch (IOException | RuntimeException e) {
             addFailure(fd, m, e);
+        }
+    }
+
+    @objid ("b1f40ad6-421b-4f4e-8f75-26baf1b405cc")
+    protected void reconfigureModules(ProjectDescriptor newDesc, SubProgress mon) {
+        List<IModuleHandle> allModuleHandles = new ArrayList<>( newDesc.getModules().size());
+        Map<String, M> map = new HashMap<>(); // old-new modules associations indexed by name.
+        
+        // Iterates new modules descriptors
+        for (ModuleDescriptor md : newDesc.getModules()) {
+            try {
+                IModuleHandle mh = this.getProject().getModuleHandle(null, md);
+                allModuleHandles.add(mh);
+                map.put(mh.getName(), new M(md, null, mh));
+                
+            } catch (IOException | RuntimeException e) {
+                addFailure(md, null, e);
+            }
+        }
+        
+        // Iterates old modules descriptors
+        for (GModule oldModule : this.project.getModules()) {
+            M entry = map.get(oldModule.getName());
+            if (entry == null) {
+                final IModuleHandle oldHandle = oldModule.getModuleHandle();
+                entry = new M(null, oldModule, oldHandle);
+                map.put(oldModule.getName(), entry);
+                allModuleHandles.add(oldHandle);
+            } else {
+                entry.oldModule = oldModule;
+            }
+        }
+        
+        // Process modules changes
+        try {
+            ProjectWriter pw = new ProjectWriter(getProject());
+            
+            // Process modules changes in installation order
+            for (IModuleHandle h : ModuleSorter.sortHandles(allModuleHandles)) {
+                M entry = map.get(h.getName());
+                if (entry.newDesc == null) {
+                    // module deleted
+                    callRemoveModule(entry.oldModule, mon.newChild(10));
+                } else if (entry.oldModule == null) {
+                    // new module
+                    callInstallModule(entry.newDesc, mon.newChild(10));
+                } else if (! pw.writeModuleDescriptor(entry.oldModule).equals(entry.newDesc)){
+                    // module update
+                    if (entry.newDesc.getVersion().equals(entry.oldModule.getVersion())) {
+                        // Same version, just update parameters
+                        callReconfigureModule(entry.oldModule, entry.newDesc, mon.newChild(10));
+                    } else {
+                        // Another version
+                        callUpgradeModule(entry.oldModule, entry.newDesc, mon.newChild(10));
+                    }
+                }
+            }
+        } catch (CyclicDependencyException e) {
+            // Report an error for each module involved in the cycle
+            // note : the cycle members list is not sorted.
+            for (IModuleHandle h : e.<IModuleHandle>getCycle()) {
+                M entry = map.get(h.getName());
+                addFailure(entry.newDesc, entry.oldModule, e);
+            }
+        }
+    }
+
+    @objid ("6544e0cf-9f0a-4bcc-ba4b-6127a3b52b79")
+    private void reconfigureFragments(ProjectDescriptor newDesc, SubProgress mon) {
+        ProjectWriter dfact = new ProjectWriter(getProject());
+        
+        List<FragmentDescriptor> newFragments = new ArrayList<>( newDesc.getFragments());
+        
+        for (IProjectFragment f : new ArrayList<>(this.project.getOwnFragments())) {
+            boolean found = false;
+            for (Iterator<FragmentDescriptor> it = newFragments.iterator(); it.hasNext() && !found;) {
+                FragmentDescriptor fd = it.next();
+                if (fd.getId().equals(f.getId()) && fd.getType().equals(f.getType())) {
+                    found = true;
+        
+                    if (! dfact.writeFragmentDescriptor(f).equals(fd))
+                        callReconfigureFragment(mon.newChild(10), f, fd);
+                    
+                    it.remove();
+                }
+            }
+            
+            if (! found) {
+                mon.subTask(CoreProject.getMessage("GProjectConfigurer.RemovingFragment",f.getId()));
+                this.project.unregisterFragment(f);
+                try {
+                    mon.subTask(CoreProject.getMessage("GProjectConfigurer.DeletingFragment",f.getId()));
+                    f.delete();
+                } catch (IOException | RuntimeException e) {
+                    this.failures.add(new Failure(null,f,e));
+                }
+            }
+        }
+        
+        // Add new fragments
+        for (FragmentDescriptor fd : newFragments) {
+            IProjectFragment fragment = Fragments.getFactory(fd).instantiate(fd);
+            mon.subTask(CoreProject.getMessage("GProjectConfigurer.AddingFragment",fd.getId()));
+            try {
+                this.project.registerFragment(fragment, mon.newChild(10));
+            } catch (FragmentConflictException | RuntimeException e) {
+                this.project.getMonitorSupport().fireMonitors(GProjectEvent.buildWarning(e));
+            }
         }
     }
 
@@ -396,17 +475,25 @@ public class GProjectConfigurer {
         @objid ("16f77fd4-79ec-4837-b886-67c937e29282")
         private Throwable cause;
 
+        /**
+         * Create a project synchronization failure.
+         * @param cause the failure
+         */
         @objid ("e2917e1e-41a4-488d-aad9-906be423298d")
-        Failure(ModuleDescriptor moduleDescriptor, GModule module, Throwable cause) {
-            this.module = module;
-            this.moduleDescriptor = moduleDescriptor;
+        Failure(Throwable cause) {
             this.cause = cause;
         }
 
+        /**
+         * Create a module synchronization failure.
+         * @param moduleDescriptor module descriptor
+         * @param module a GModule
+         * @param cause the failure
+         */
         @objid ("814f883c-1dd2-4457-a383-060d5163ee0c")
-        Failure(FragmentDescriptor fd, IProjectFragment f, Throwable cause) {
-            this.fragment = f;
-            this.fragmentDescriptor = fd;
+        Failure(ModuleDescriptor moduleDescriptor, GModule module, Throwable cause) {
+            this.module = module;
+            this.moduleDescriptor = moduleDescriptor;
             this.cause = cause;
         }
 
@@ -456,8 +543,8 @@ public class GProjectConfigurer {
             String id = getSourceIdentifier();
             
             String msg = this.cause.getLocalizedMessage();
-            if (this.cause instanceof FileSystemException)
-                msg = FileUtils.getLocalizedMessage((FileSystemException) this.cause);
+            if (this.cause instanceof IOException)
+                msg = FileUtils.getLocalizedMessage((IOException) this.cause);
             
             if (msg == null || msg.isEmpty())
                 msg = this.cause.toString();
@@ -472,7 +559,7 @@ public class GProjectConfigurer {
         public String getSourceIdentifier() {
             String name = "?";
             String version = "?";
-            String id = "?";
+            String id = "Project";
             
             if (this.module != null) {
                 name = this.module.getName();
@@ -490,6 +577,50 @@ public class GProjectConfigurer {
                 id = name;
             }
             return id;
+        }
+
+        /**
+         * Create a fragment synchronization failure.
+         * @param fd fragment descriptor
+         * @param f a fragment
+         * @param cause the failure
+         */
+        @objid ("3a2a5179-12ef-4d15-a2c5-42db8f4f4146")
+        Failure(FragmentDescriptor fd, IProjectFragment f, Throwable cause) {
+            this.fragment = f;
+            this.fragmentDescriptor = fd;
+            this.cause = cause;
+        }
+
+    }
+
+    /**
+     * Detail for a module to install/remove/update.
+     * <p>
+     * Used as a map value.
+     */
+    @objid ("f23595d2-e710-49ae-8ed3-23310ba619ef")
+    private static class M {
+        @objid ("e93c6b8b-3b63-4147-886d-486502b1118c")
+         ModuleDescriptor newDesc;
+
+        @objid ("8b081b1d-9829-47c3-b826-f77907477005")
+         GModule oldModule;
+
+        @objid ("8fa8fde9-9eb6-4668-9a4c-0db51cea420c")
+         IModuleHandle newHandle;
+
+        /**
+         * @param newDesc new module descriptor
+         * @param oldModule old module
+         * @param newHandle new module handle
+         */
+        @objid ("1313212f-7dc8-4df3-9d65-f9915a9f9fb0")
+        public M(ModuleDescriptor newDesc, GModule oldModule, IModuleHandle newHandle) {
+            super();
+            this.newDesc = newDesc;
+            this.oldModule = oldModule;
+            this.newHandle = newHandle;
         }
 
     }

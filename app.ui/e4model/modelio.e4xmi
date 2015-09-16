@@ -91,13 +91,7 @@
   <handlers xmi:id="_7XznAH87EeK-XvSICEmsLA" elementId="org.modelio.app.ui.handler.showview" contributionURI="bundleclass://org.modelio.app.ui/org.modelio.app.ui.handlers.ShowViewHandler" command="_TOlEUH87EeK-XvSICEmsLA"/>
   <handlers xmi:id="_fXKZUKdUEeK8tp9C4lOIPQ" elementId="org.modelio.app.ui.handler.help" contributionURI="bundleclass://org.modelio.app.ui/org.modelio.app.ui.handlers.HelpHandler" command="_G-wrEKdUEeK8tp9C4lOIPQ"/>
   <handlers xmi:id="_TWRq4MlBEeKxb-L244Rupg" elementId="org.modelio.app.ui.handler.welcome" contributionURI="bundleclass://org.modelio.app.ui/org.modelio.app.ui.handlers.WelcomeHandler" command="_csM90MbjEeK8yIoiqNn7ow"/>
-  <bindingTables xmi:id="_AWbLbJnlEeGY6K1_JhyUmg" bindingContext="_AWbLYZnlEeGY6K1_JhyUmg">
-    <bindings xmi:id="_AWbLcJnlEeGY6K1_JhyUmg" keySequence="M1+O" command="_AWbLbpnlEeGY6K1_JhyUmg"/>
-    <bindings xmi:id="_AWbLbZnlEeGY6K1_JhyUmg" keySequence="M1+Q" command="_AWbLapnlEeGY6K1_JhyUmg"/>
-    <bindings xmi:id="_SoPE4NpzEeKBPfbWkDzT6w" keySequence="M1+Z" command="_D_NBgDJXEeKZiaivSH_IWA"/>
-    <bindings xmi:id="_U5Wy8NpzEeKBPfbWkDzT6w" keySequence="M1+Y" command="_Ek_2MDJXEeKZiaivSH_IWA"/>
-    <bindings xmi:id="_1PlWkNp3EeKbFencYsS0Ng" keySequence="M1+S" command="_AWbLcZnlEeGY6K1_JhyUmg"/>
-  </bindingTables>
+  <bindingTables xmi:id="_AWbLbJnlEeGY6K1_JhyUmg" bindingContext="_AWbLYZnlEeGY6K1_JhyUmg"/>
   <rootContext xmi:id="_AWbLYZnlEeGY6K1_JhyUmg" elementId="org.eclipse.ui.contexts.window" name="In Dialog and Windows">
     <children xmi:id="_AWbLYpnlEeGY6K1_JhyUmg" elementId="org.eclipse.ui.contexts.window" name="In Windows"/>
     <children xmi:id="_AWbLY5nlEeGY6K1_JhyUmg" elementId="org.eclipse.ui.contexts.dialog" name="In Dialogs"/>
@@ -109,7 +103,7 @@
   <commands xmi:id="_xB234LofEeGCerjZvtGzMQ" elementId="org.modelio.app.ui.command.deleteproject" commandName="%DeleteProject.name" description="%DeleteProject.description" category="_Ob9P0MUgEeGS9ZgZd3XbUg"/>
   <commands xmi:id="_y5yCMMQ4EeGfTJvj0MrGIA" elementId="org.modelio.app.ui.command.exportproject" commandName="%ExportProject.name" description="%ExportProject.description" category="_Ob9P0MUgEeGS9ZgZd3XbUg"/>
   <commands xmi:id="_cMH-sMRdEeGfTJvj0MrGIA" elementId="org.modelio.app.ui.command.importproject" commandName="%ImportProject.name" description="%ImportProject.description" category="_Ob9P0MUgEeGS9ZgZd3XbUg"/>
-  <commands xmi:id="_AWbLapnlEeGY6K1_JhyUmg" elementId="org.eclipse.ui.file.exit" commandName="%Quit.name" description="%Quit.description"/>
+  <commands xmi:id="_AWbLapnlEeGY6K1_JhyUmg" elementId="org.eclipse.ui.file.exit" commandName="%Quit.name" description="%Quit.description" category="_Ob9P0MUgEeGS9ZgZd3XbUg"/>
   <commands xmi:id="_AWbLdJnlEeGY6K1_JhyUmg" elementId="org.modelio.app.ui.command.about" commandName="%About.name" description="%About.description"/>
   <commands xmi:id="_x_TSYMtIEeGui52_xt6Wog" elementId="org.modelio.app.ui.command.switchtheme" commandName="%SwitchTheme.name" description="%SwitchTheme.description">
     <parameters xmi:id="_XrIwIMtKEeGui52_xt6Wog" elementId="org.modelio.app.ui.command.switchtheme.parameter.themeId" name="themeId" optional="false"/>

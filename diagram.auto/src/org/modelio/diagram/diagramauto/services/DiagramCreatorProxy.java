@@ -66,4 +66,10 @@ public class DiagramCreatorProxy implements IDiagramCreator {
         return this.diagramCreator.getAutoDiagramContext(main);
     }
 
+    @objid ("96d66f7d-1981-4d95-bfc0-82c20db5756d")
+    @Override
+    public ModelElement getMainElement(AbstractDiagram autoDiagram) {
+        return this.diagramCreator.getMainElement(autoDiagram);
+    }
+
 }

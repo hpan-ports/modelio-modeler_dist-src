@@ -108,8 +108,8 @@ public class SimpleInterfaceEditPart extends GmNodeEditPart {
     @Override
     protected void refreshFromStyle(IFigure aFigure, IStyle style) {
         GmCompositeNode model = (GmCompositeNode) getModel();
-        if (model.getRepresentationMode() != RepresentationMode.SIMPLE) {
-            // new representation mode is not SIMPLE, put back body content into body BEFORE the switch.
+        if (model.getRepresentationMode() == RepresentationMode.STRUCTURED) {
+            // new representation mode is STRUCTURED, put back body content into body BEFORE the switch.
             for (GmNodeModel child : model.getParentNode().getChildren("body content as satellite")) {
                 model.getParentNode().removeChild(child);
                 child.setRoleInComposition("");

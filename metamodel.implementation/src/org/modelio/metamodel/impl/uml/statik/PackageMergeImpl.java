@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.uml.statik;
 
@@ -43,31 +43,31 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("00172b86-c4bf-1fd8-97fe-001ec947cd2a")
 public class PackageMergeImpl extends ModelElementImpl implements PackageMerge {
-    @objid ("e1252843-0296-4964-af34-40e4ab6abfd7")
+    @objid ("60aafd6b-924e-44ac-8489-7525ecbe521e")
     @Override
     public Package getMergedPackage() {
         return (Package) getDepVal(PackageMergeData.Metadata.MergedPackageDep());
     }
 
-    @objid ("27ec5463-7ac0-46da-9878-4fcd1ce39af8")
+    @objid ("91c48040-13d1-44ba-8956-99514ef7f78e")
     @Override
     public void setMergedPackage(Package value) {
         appendDepVal(PackageMergeData.Metadata.MergedPackageDep(), (SmObjectImpl)value);
     }
 
-    @objid ("e3f2d46e-799f-4b09-969f-e04c90d2450c")
+    @objid ("1e70a54f-ea83-4049-9a57-41be9ceb93de")
     @Override
     public Package getReceivingPackage() {
         return (Package) getDepVal(PackageMergeData.Metadata.ReceivingPackageDep());
     }
 
-    @objid ("14759217-0585-427c-973e-8ee811e27223")
+    @objid ("d5036442-fae5-46c1-8cf6-3e8696316a17")
     @Override
     public void setReceivingPackage(Package value) {
         appendDepVal(PackageMergeData.Metadata.ReceivingPackageDep(), (SmObjectImpl)value);
     }
 
-    @objid ("901da7b3-9562-4ce9-b5db-4e3a3b89e71b")
+    @objid ("0eeb0336-a496-4a92-9105-e63a2fc86634")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
@@ -77,7 +77,7 @@ public class PackageMergeImpl extends ModelElementImpl implements PackageMerge {
         return super.getCompositionOwner();
     }
 
-    @objid ("d3843b5a-9333-44f5-bf15-b795df05cce6")
+    @objid ("a60f153c-c10f-41ef-a28d-d6d623a0a63b")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
@@ -87,7 +87,7 @@ public class PackageMergeImpl extends ModelElementImpl implements PackageMerge {
         return super.getCompositionRelation();
     }
 
-    @objid ("58fc9074-af69-40bc-a000-34fc1c06c0b0")
+    @objid ("93efcf1e-deb9-47d5-94f5-427131c1b756")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitPackageMerge(this);

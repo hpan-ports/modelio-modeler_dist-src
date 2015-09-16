@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.data.bpmn.events;
 
@@ -43,29 +43,29 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("008a5390-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=BpmnConditionalEventDefinition.class, factory=BpmnConditionalEventDefinitionData.Metadata.ObjectFactory.class)
 public class BpmnConditionalEventDefinitionData extends BpmnEventDefinitionData {
-    @objid ("10ceb7da-aa11-448b-8859-9b36bc36d833")
+    @objid ("56f5a0dd-68e8-4b8c-b3ac-3de569f6eaaf")
     @SmaMetaAttribute(metaName="Condition", type=String.class, smAttributeClass=Metadata.ConditionSmAttribute.class)
      Object mCondition = "";
 
-    @objid ("ffeb47b0-bc92-45e0-b87e-bc329e506590")
+    @objid ("87a00f14-469b-404a-8631-d253dc474a06")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("002659c6-c4c5-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("be63df20-ba2e-40e1-bf66-8fbf92892ff6")
+        @objid ("465f1c5f-8712-4f07-be9e-ab8eea3a4002")
         private static SmClass smClass = null;
 
-        @objid ("d820f372-2408-49cb-9a6b-4b9e8832f223")
+        @objid ("e2e492a7-342c-43b1-b2a1-7eef9add14c0")
         private static SmAttribute ConditionAtt = null;
 
-        @objid ("bbdb76a9-ddb2-48a8-962f-0954f1f54b54")
+        @objid ("76423095-935f-47b1-89bb-27470cfa1d31")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(BpmnConditionalEventDefinitionData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("08682709-242d-41be-8b89-60470652d31b")
+        @objid ("07e0da23-bdfa-4732-b1d9-c50a6766a596")
         public static SmAttribute ConditionAtt() {
             if (ConditionAtt == null) {
             	ConditionAtt = classof().getAttributeDef("Condition");
@@ -73,13 +73,13 @@ public class BpmnConditionalEventDefinitionData extends BpmnEventDefinitionData 
             return ConditionAtt;
         }
 
-        @objid ("6f8087c7-8ccd-4cd2-84d4-93ec3d87874a")
+        @objid ("5184d977-6557-4564-a594-8e35ace0bdeb")
         public static SmClass getSmClass() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return smClass;
         }
 
-        @objid ("51b3ce26-1557-4cce-820c-8779e103db73")
+        @objid ("dae1621c-bac5-47f8-a0b7-315d58d51d1b")
         public static SmAttribute getConditionAtt() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return ConditionAtt;
@@ -87,12 +87,12 @@ public class BpmnConditionalEventDefinitionData extends BpmnEventDefinitionData 
 
         @objid ("00269b2a-c4c5-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("37438955-27f1-46ba-bfea-c3afadf32136")
+            @objid ("33b776f6-1ab6-4d05-b674-9c353c2f1b01")
             public ISmObjectData createData() {
                 return new BpmnConditionalEventDefinitionData();
             }
 
-            @objid ("610a9664-bfcd-43df-a570-5f59f8c1fa8b")
+            @objid ("2d4bd046-1bc1-44f6-9150-7bf6a59db0cd")
             public SmObjectImpl createImpl() {
                 return new BpmnConditionalEventDefinitionImpl();
             }
@@ -101,12 +101,12 @@ public class BpmnConditionalEventDefinitionData extends BpmnEventDefinitionData 
 
         @objid ("0026fbd8-c4c5-1fd8-97fe-001ec947cd2a")
         public static class ConditionSmAttribute extends SmAttribute {
-            @objid ("925b72e6-877b-4f0b-b00a-083831e6b0b0")
+            @objid ("1528e84a-6495-45cd-b029-356ccf2b3c60")
             public Object getValue(ISmObjectData data) {
                 return ((BpmnConditionalEventDefinitionData) data).mCondition;
             }
 
-            @objid ("1509cde0-4974-4484-9353-13a3b3ac1bfd")
+            @objid ("ab2cb087-b25e-41b7-8c2f-294b8ad9fbe3")
             public void setValue(ISmObjectData data, Object value) {
                 ((BpmnConditionalEventDefinitionData) data).mCondition = value;
             }

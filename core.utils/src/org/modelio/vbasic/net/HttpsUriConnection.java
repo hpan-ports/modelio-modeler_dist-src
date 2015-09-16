@@ -36,8 +36,11 @@ import org.modelio.vbasic.auth.UserPasswordAuthData;
 
 /**
  * Handles https URIs.
+ * 
+ * @deprecated Does not handle HTTP DIGEST authentication, use {@link ApacheUriConnection} instead.
  */
 @objid ("3fef9ba4-224e-4fb5-8a1f-8736fc344df4")
+@Deprecated
 class HttpsUriConnection extends UriConnection {
     @objid ("e45a932f-5604-44ff-8216-f5aa591febf0")
      HttpsURLConnection conn;

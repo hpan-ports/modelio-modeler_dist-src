@@ -90,9 +90,7 @@ public class GmClass extends GmTemplateContainer {
         super(diagram, new GmClassPrimaryNode(diagram, el, ref), ref);
         this.element = el;
         
-        final GmImageNameSpaceLabel interfaceLabel = new GmImageNameSpaceLabel(diagram,
-                getRepresentedElement(),
-                ref);
+        final GmImageNameSpaceLabel interfaceLabel = new GmImageNameSpaceLabel(diagram, getRepresentedElement(), ref);
         interfaceLabel.setRoleInComposition(SATELLITE_ROLE);
         interfaceLabel.setLayoutData(Integer.valueOf(PositionConstants.SOUTH));
         
@@ -220,8 +218,8 @@ public class GmClass extends GmTemplateContainer {
     @objid ("343ccea8-55b7-11e2-877f-002564c97630")
     @Override
     public List<GmNodeModel> getVisibleChildren() {
-        if (getPrimaryNode().getRepresentationMode().equals(RepresentationMode.SIMPLE) ||
-                getPrimaryNode().getRepresentationMode().equals(RepresentationMode.STRUCTURED)) {
+        if (getPrimaryNode().getRepresentationMode().equals(RepresentationMode.SIMPLE)
+                || getPrimaryNode().getRepresentationMode().equals(RepresentationMode.STRUCTURED)) {
             List<GmNodeModel> childrens = super.getVisibleChildren();
             List<GmNodeModel> labels = new ArrayList<>();
             for (GmNodeModel children : childrens) {
@@ -287,8 +285,8 @@ public class GmClass extends GmTemplateContainer {
     @objid ("343e552f-55b7-11e2-877f-002564c97630")
     @Override
     public boolean isSatellite(final GmNodeModel childNode) {
-        return "body content as satellite".equals(childNode.getRoleInComposition()) ||
-                GmPortContainer.SATELLITE_ROLE.equals(childNode.getRoleInComposition());
+        return "body content as satellite".equals(childNode.getRoleInComposition())
+                || GmPortContainer.SATELLITE_ROLE.equals(childNode.getRoleInComposition());
     }
 
 }

@@ -21,9 +21,12 @@
 
 package org.modelio.xmi.model.objing.profile;
 
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
+import org.modelio.api.modelio.Modelio;
+import org.modelio.api.module.IPeerModule;
 import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.metamodel.uml.infrastructure.NoteType;
 import org.modelio.metamodel.uml.infrastructure.Profile;
@@ -93,14 +96,23 @@ public class PExportStereotype implements IExportProfileElement {
 
     @objid ("96b7f855-5fc6-4be0-9eb8-04683d15e71f")
     private void setIcon(org.eclipse.uml2.uml.Stereotype stereotype) {
-        String iconPath = this.objingElt.getIcon();
+        String moduleName =  this.objingElt.getOwner().getOwnerModule().getName();
         
-        String imagePath = this.objingElt.getImage();       
-                
-         if ((imagePath != null) && (!imagePath.equals("")))
-            ProfileUtils.setStereotypeImage( imagePath, stereotype);
-         else if ((iconPath != null) && (!iconPath.equals("")))
-            ProfileUtils.setStereotypeImage(iconPath, stereotype);
+        for (IPeerModule pModules : Modelio.getInstance().getModuleService().getAllPeerModules()){
+        
+            if (pModules.getName().equals(moduleName)){
+                Path moduleResPath = pModules.getConfiguration().getModuleResourcesPath();
+        
+                String iconPath = this.objingElt.getIcon();
+        
+                String imagePath = this.objingElt.getImage();    
+        
+                if ((imagePath != null) && (!imagePath.equals("")))
+                    ProfileUtils.setStereotypeImage( moduleResPath,  imagePath, stereotype);
+                else if ((iconPath != null) && (!iconPath.equals("")))
+                    ProfileUtils.setStereotypeImage( moduleResPath,  iconPath, stereotype);
+            }
+        }
     }
 
     @objid ("d247064c-3133-4a3a-8e4e-cbe2cdeb009f")

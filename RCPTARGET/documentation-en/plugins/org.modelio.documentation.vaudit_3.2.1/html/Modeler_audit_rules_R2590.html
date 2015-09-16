@@ -1,0 +1,44 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<title>Modeler audit rules R2590</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link href="style.css" media="screen" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<a name="R2590"></a>
+<h1 >R2590<a href="#R2590" class="wiki-anchor">&para;</a></h1>
+
+<a name="Summary"></a>
+<h4 >Summary<a href="#Summary" class="wiki-anchor">&para;</a></h4>
+
+<p>One region cannot have more than one initial vertex.</p>
+
+<a name="Details"></a>
+<h4 >Details<a href="#Details" class="wiki-anchor">&para;</a></h4>
+
+<p>An initial vertex is a dummy state representing the temporary default state of
+an object when it is created. When a transition targets a state, it implicitly
+targets its initial state.</p>
+
+<p>Therefore, a state cannot have more than one initial state, because it would
+not be possible to determine the default initial state.</p>
+
+<a name="Tips"></a>
+<h4 >Tips<a href="#Tips" class="wiki-anchor">&para;</a></h4>
+
+<p>Possible solutions to this problem are as follows:</p>
+
+<ul>
+<li><p><strong>Solution 1 </strong><br/>
+Add another region to your state to represent concurrent sub states, and move
+one of the initial states to this new region. Each sub state can have an
+initial state. If a transition targets a state with concurrent sub states, it
+implicitly targets all the initial states of the concurrent sub states.</p></li>
+<li><p><strong>Solution 2</strong><br/>
+Create a different state and move one of the initial states to it.</p></li>
+</ul>
+
+
+<div id="footer"><iframe frameborder="0" scrolling="no" height="25" width="100%" src="_footer.html"></iframe></div> </body>
+</html>

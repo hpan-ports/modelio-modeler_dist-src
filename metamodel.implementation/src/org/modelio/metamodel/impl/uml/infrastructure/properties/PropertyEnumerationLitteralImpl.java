@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.uml.infrastructure.properties;
 
@@ -51,19 +51,19 @@ public class PropertyEnumerationLitteralImpl extends ModelElementImpl implements
         return Integer.compare(literals.indexOf(l), literals.indexOf(this));
     }
 
-    @objid ("4c3ef36c-8352-4ecb-8f38-fcbefbd212ca")
+    @objid ("0d2be88f-1f02-4a40-a1af-d77112b0e793")
     @Override
     public EnumeratedPropertyType getOwner() {
         return (EnumeratedPropertyType) getDepVal(PropertyEnumerationLitteralData.Metadata.OwnerDep());
     }
 
-    @objid ("1a22a1b3-baec-401b-8960-2c8fff40fbcf")
+    @objid ("9bc48c5e-bde2-473c-9aad-fa0fe49815c7")
     @Override
     public void setOwner(EnumeratedPropertyType value) {
         appendDepVal(PropertyEnumerationLitteralData.Metadata.OwnerDep(), (SmObjectImpl)value);
     }
 
-    @objid ("886778a4-fa12-441e-88bc-8d049d3891d2")
+    @objid ("4fc5f120-04ff-4385-82b4-7c286dc7fadd")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
@@ -73,7 +73,7 @@ public class PropertyEnumerationLitteralImpl extends ModelElementImpl implements
         return super.getCompositionOwner();
     }
 
-    @objid ("b79c4fee-041b-4dea-9b71-77fc9d96fc31")
+    @objid ("888f5195-e36d-4e30-9e23-f4e0c4a882a9")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
@@ -83,7 +83,7 @@ public class PropertyEnumerationLitteralImpl extends ModelElementImpl implements
         return super.getCompositionRelation();
     }
 
-    @objid ("7c4c731a-307f-4914-a6d1-a086d3952830")
+    @objid ("933f37fc-8bc6-4e71-8430-edd9f5487bc2")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitPropertyEnumerationLitteral(this);

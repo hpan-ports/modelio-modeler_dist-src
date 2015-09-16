@@ -24,7 +24,6 @@ package org.modelio.diagram.editor.bpmn.elements.policies;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.commands.Command;
-import org.modelio.diagram.editor.bpmn.elements.bpmnsequenceflow.SequenceFlowEditPolicy;
 import org.modelio.diagram.elements.core.model.GmModel;
 import org.modelio.diagram.elements.core.node.GmCompositeNode;
 import org.modelio.diagram.elements.core.node.GmNodeModel;

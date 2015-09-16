@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.bpmn.rootElements;
 
@@ -32,22 +32,22 @@ import org.modelio.metamodel.bpmn.rootElements.BpmnBaseElement;
 
 @objid ("00772770-c4bf-1fd8-97fe-001ec947cd2a")
 public interface BpmnAssociation extends BpmnArtifact {
-    @objid ("5d9e24e5-8c59-4f0a-9a72-85e4d4fdf7a9")
+    @objid ("e9969ef0-2335-42e6-a31d-012d69c3ec05")
     BpmnAssociationDirection getAssociationDirection();
 
-    @objid ("93d3a27f-b13b-452b-868f-e086ebf397ca")
+    @objid ("9d77a92a-7f47-4b50-8838-dff2fc0252e4")
     void setAssociationDirection(BpmnAssociationDirection value);
 
-    @objid ("9ecf36cd-029d-4bc7-980d-f21cc006febd")
+    @objid ("392dee37-b000-4a87-8719-9d58a0f9dda2")
     BpmnBaseElement getTargetRef();
 
-    @objid ("8eed1e1e-a60f-4137-a4a7-306536ff12cf")
+    @objid ("cb188292-4601-43bf-b9d5-e07129e33619")
     void setTargetRef(BpmnBaseElement value);
 
-    @objid ("15dead0b-3e8d-4098-a236-cfd13a00ca52")
+    @objid ("b8d4de90-a298-4058-a897-6e667003b1e0")
     BpmnBaseElement getSourceRef();
 
-    @objid ("b2141de7-6c89-4eb0-98d0-c0f198a7efb4")
+    @objid ("393e05b1-cb14-4a9b-a660-2da1ddfc859e")
     void setSourceRef(BpmnBaseElement value);
 
 }

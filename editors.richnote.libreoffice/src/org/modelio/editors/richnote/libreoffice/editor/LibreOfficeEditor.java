@@ -32,7 +32,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.lang.reflect.InvocationTargetException;
-import java.nio.file.FileSystemException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import javax.annotation.PostConstruct;
@@ -357,19 +356,20 @@ public class LibreOfficeEditor implements IRichNoteEditor {
      * <p>
      * If modal, the method waits for the dialog to be closed before returning.
      * If modeless the method returns immediately.
+     * @param kind {@link MessageDialog#ERROR}, {@link MessageDialog#WARNING}, {@link MessageDialog#INFORMATION}
      * @param title The dialog title
      * @param message The message.
      * @param modal true if the dialog must be modal, <code>false</code> to be modeless.
      */
     @objid ("fe4dd7c8-2e6a-4eec-a9d4-4cb30b65c5d6")
-    void displayErrordialog(final String title, final String message, final boolean modal) {
+    void displayDialog(final int kind, final String title, final String message, final boolean modal) {
         final Runnable runnable = new Runnable() {
             @Override
             public void run() {
                 if (Display.getDefault().isDisposed())
                     return;
                 Shell shell = LibreOfficeEditor.this.shellProvider.getShell();
-                MessageDialog.openError(shell, title, message);
+                MessageDialog.open(kind, shell, title, message, kind);
             }
         };
         
@@ -400,10 +400,10 @@ public class LibreOfficeEditor implements IRichNoteEditor {
     @objid ("24286005-98c7-4327-a1eb-91983904ae54")
     @Override
     public void onOriginalModified(MObject model) {
-        // TODO translate message
-        String message = "The %s file has been modified externally. The editor will close.";
+        String message = LibreOfficeEditors.I18N.getMessage("LibreOfficeEditor.onOriginalmodified.message", model.getName());
+        String title = LibreOfficeEditors.I18N.getMessage("LibreOfficeEditor.onOriginalmodified.title", model.getName());
         
-        displayErrordialog("File modified externally", message, true);
+        displayDialog(MessageDialog.INFORMATION, title, message, true);
         closeEditor();
     }
 
@@ -443,20 +443,29 @@ public class LibreOfficeEditor implements IRichNoteEditor {
         @objid ("2ec73e8b-648d-48d2-9743-778984d08890")
         @SuppressWarnings("synthetic-access")
         @Override
-        public void statusChanged(IStatusChangeEvent event) {
+        public void statusChanged(final IStatusChangeEvent event) {
             final boolean newModifiable = getEditedElement().getStatus().isModifiable();
             
             if (this.wasReadOnly != newModifiable) {
-                try {
-                    LibreOfficeEditor.this.viewer.closeDocument();
-                    loadElement(getEditedElement());
-                    this.wasReadOnly = newModifiable;
-                } catch (IOException e) {
-                    LibreOfficeEditors.LOG.error( e);
-                    displayErrordialog( "Cannot reload "+getEditedElement(), e.getLocalizedMessage(), false);
-                    
-                    closeEditor();
-                    //getEditorSite().getPage().closeEditor(LibreOfficeEditor.this, false);
+                if (Display.getCurrent() == null) {
+                    // Recursive call in the SWT thread
+                    Display.getDefault().asyncExec(new Runnable() {
+                        @Override
+                        public void run() {
+                            statusChanged(event);
+                        }
+                    });
+                } else {
+                    try {
+                        LibreOfficeEditor.this.viewer.closeDocument();
+                        loadElement(getEditedElement());
+                        this.wasReadOnly = newModifiable;
+                    } catch (IOException e) {
+                        LibreOfficeEditors.LOG.error( e);
+                        displayDialog(MessageDialog.ERROR, "Cannot reload "+getEditedElement(), FileUtils.getLocalizedMessage(e), false);
+            
+                        closeEditor();
+                    }
                 }
             }
         }
@@ -543,12 +552,10 @@ public class LibreOfficeEditor implements IRichNoteEditor {
                     if (! dirty) {
                         try {
                             doSaveToRepository();
-                        } catch (FileSystemException e) {
-                            displayErrordialog(LibreOfficeEditor.this.editedFile.toString(), 
-                                    FileUtils.getLocalizedMessage(e), false);
                         } catch (IOException e) {
-                            displayErrordialog(LibreOfficeEditor.this.editedFile.toString(), 
-                                    e.getLocalizedMessage(), false);
+                           displayDialog(MessageDialog.ERROR, 
+                                   LibreOfficeEditor.this.editedFile.toString(), 
+                                   FileUtils.getLocalizedMessage(e), false);
                         }
                     }
                 }

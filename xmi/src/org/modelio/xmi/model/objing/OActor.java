@@ -29,11 +29,12 @@ import org.modelio.xmi.util.GenerationProperties;
 import org.modelio.xmi.util.NotFoundException;
 
 @objid ("d6fea16f-f743-40e0-a244-206893547c5d")
-public class OActor extends ONameSpace implements IOElement {
+public class OActor extends ONameSpace {
     @objid ("7eba38b7-9302-495f-8d30-943526c091be")
     private Actor objingElement = null;
 
     @objid ("5aac9e9f-d1d1-4d08-b65d-89210ede1b07")
+    @Override
     public org.eclipse.uml2.uml.Element createEcoreElt() {
         return UMLFactory.eINSTANCE.createActor();
     }
@@ -41,18 +42,19 @@ public class OActor extends ONameSpace implements IOElement {
     @objid ("1e4ed0f0-90a3-47e5-8648-fa798cb3267f")
     public OActor(Actor element) {
         super(element);
-        objingElement = element;
+        this.objingElement = element;
     }
 
     @objid ("1be5f538-77de-469b-baf4-5bced5656c46")
+    @Override
     public void attach(org.eclipse.uml2.uml.Element ecoreElt) {
         GenerationProperties genProp = GenerationProperties.getInstance();
         
-        ModelTree objingOwner = objingElement.getOwner();
-        org.eclipse.uml2.uml.Element ecoreOwner = (org.eclipse.uml2.uml.Element) genProp.getMappedElement(objingOwner);
+        ModelTree objingOwner = this.objingElement.getOwner();
+        org.eclipse.uml2.uml.Element ecoreOwner = genProp.getMappedElement(objingOwner);
         
         if (ecoreOwner != null) {
-            if (ecoreOwner instanceof Package) {
+            if (ecoreOwner instanceof org.eclipse.uml2.uml.Package) {
                 org.eclipse.uml2.uml.Package ownerIsPkg = (org.eclipse.uml2.uml.Package) ecoreOwner;
                 ownerIsPkg.getPackagedElements().add((org.eclipse.uml2.uml.PackageableElement)ecoreElt);
             } else if (ecoreOwner instanceof org.eclipse.uml2.uml.Component) {
@@ -73,6 +75,7 @@ public class OActor extends ONameSpace implements IOElement {
     }
 
     @objid ("a1b61304-be1a-4275-9b86-22baec68f3a7")
+    @Override
     public void setProperties(org.eclipse.uml2.uml.Element ecoreElt) {
         super.setProperties(ecoreElt);
     }

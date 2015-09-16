@@ -72,6 +72,7 @@ import org.modelio.diagram.editor.statik.elements.communicationinteraction.GmCom
 import org.modelio.diagram.editor.statik.elements.communicationinteraction.GmCommunicationInteractionPrimaryNode;
 import org.modelio.diagram.editor.statik.elements.component.GmComponent;
 import org.modelio.diagram.editor.statik.elements.component.GmComponentPrimaryNode;
+import org.modelio.diagram.editor.statik.elements.componentRealization.GmComponentRealization;
 import org.modelio.diagram.editor.statik.elements.connector.GmConnectorLink;
 import org.modelio.diagram.editor.statik.elements.datatype.GmDataType;
 import org.modelio.diagram.editor.statik.elements.datatype.GmDataTypePrimaryNode;
@@ -124,6 +125,7 @@ import org.modelio.diagram.editor.statik.elements.interaction.InteractionEditPar
 import org.modelio.diagram.editor.statik.elements.interfaze.GmInterface;
 import org.modelio.diagram.editor.statik.elements.interfaze.GmInterfacePrimaryNode;
 import org.modelio.diagram.editor.statik.elements.interfaze.InterfaceEditPart;
+import org.modelio.diagram.editor.statik.elements.interfaze.InterfaceFlatHeaderEditPart;
 import org.modelio.diagram.editor.statik.elements.interfaze.SimpleInterfaceEditPart;
 import org.modelio.diagram.editor.statik.elements.internalstructure.GmInternalStructure;
 import org.modelio.diagram.editor.statik.elements.internalstructure.GmInternalStructureGroup;
@@ -201,6 +203,7 @@ import org.modelio.diagram.editor.statik.elements.statemachine.StateMachineEditP
 import org.modelio.diagram.editor.statik.elements.staticdiagram.GmStaticDiagram;
 import org.modelio.diagram.editor.statik.elements.staticdiagram.StaticDiagramEditPart;
 import org.modelio.diagram.editor.statik.elements.staticdiagramview.GmStaticDiagramView;
+import org.modelio.diagram.editor.statik.elements.substitution.GmSubstitution;
 import org.modelio.diagram.editor.statik.elements.templatebinding.GmTemplateBinding;
 import org.modelio.diagram.editor.statik.elements.templatebinding.GmTemplateBindingHeader;
 import org.modelio.diagram.editor.statik.elements.templatebinding.TemplateBindingEditPart;
@@ -215,6 +218,8 @@ import org.modelio.diagram.elements.common.label.modelelement.ModelElementFlatHe
 import org.modelio.diagram.elements.common.portcontainer.PortContainerEditPart;
 import org.modelio.diagram.elements.common.resizablegroup.ResizableGroupEditPart;
 import org.modelio.diagram.elements.core.node.GmNodeModel;
+import org.modelio.diagram.elements.umlcommon.dependency.DependencyEditPart;
+import org.modelio.diagram.elements.umlcommon.dependency.GmDependency;
 import org.modelio.diagram.elements.umlcommon.diagramview.DiagramViewEditPart;
 import org.modelio.diagram.styles.core.StyleKey.RepresentationMode;
 
@@ -332,7 +337,7 @@ public class StaticDiagramEditPartFactory implements EditPartFactory {
                 return editPart;
             }
             if (model.getClass() == GmImageNameSpaceLabel.class) {
-                editPart = new ModelElementFlatHeaderEditPart();
+                editPart = new InterfaceFlatHeaderEditPart();
                 editPart.setModel(model);
                 return editPart;
             }
@@ -709,6 +714,22 @@ public class StaticDiagramEditPartFactory implements EditPartFactory {
                 editPart.setModel(model);
                 return editPart;
             }
+            
+            // Component Realization
+            if (model.getClass() == GmComponentRealization.class) {
+                editPart = new InterfaceRealizationEditPart();
+                editPart.setModel(model);
+                return editPart;
+            }
+            
+            // Substitution
+            if (model.getClass() == GmSubstitution.class) {
+                editPart = new DependencyEditPart();
+                editPart.setModel(model);
+                return editPart;
+            }
+            
+            
             
             // Package
             if (model.getClass() == GmPackage.class) {

@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.bpmn.events;
 
@@ -44,13 +44,13 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("008cc53a-c4bf-1fd8-97fe-001ec947cd2a")
 public abstract class BpmnEventImpl extends BpmnFlowNodeImpl implements BpmnEvent {
-    @objid ("acd0aa18-f3c1-4fd7-a245-14bf4e3dcf00")
+    @objid ("072e3232-7930-463d-97e4-f545a69dd318")
     @Override
     public EList<BpmnEventDefinition> getEventDefinitions() {
         return new SmList<>(this, BpmnEventData.Metadata.EventDefinitionsDep());
     }
 
-    @objid ("0273d035-bb56-4857-854e-3c9e941520c1")
+    @objid ("c7c49708-bf25-4b9d-9257-bd9235843af5")
     @Override
     public <T extends BpmnEventDefinition> List<T> getEventDefinitions(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -63,21 +63,21 @@ public abstract class BpmnEventImpl extends BpmnFlowNodeImpl implements BpmnEven
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("70d767ca-5e24-41ad-b8cd-dc97b2511794")
+    @objid ("42b4a75f-3167-4806-809b-cd45f67f05c8")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("175b260e-6a43-4e0a-9dbd-893605c96d83")
+    @objid ("1d8b4277-453d-4f6e-93dd-5b1fc89a7a6b")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("961653a5-decd-4edf-b552-235c173e0f95")
+    @objid ("942b257d-cdc5-4dad-8b80-a918f7b2f6a1")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitBpmnEvent(this);

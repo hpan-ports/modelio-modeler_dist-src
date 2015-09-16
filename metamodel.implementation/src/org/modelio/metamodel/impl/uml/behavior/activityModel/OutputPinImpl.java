@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.uml.behavior.activityModel;
 
@@ -42,19 +42,19 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("003ae756-c4bf-1fd8-97fe-001ec947cd2a")
 public class OutputPinImpl extends PinImpl implements OutputPin {
-    @objid ("ca023a73-1b7b-4354-8427-7dbe88be8fc4")
+    @objid ("16902bd7-2ed4-4721-8fe2-a29c398f385d")
     @Override
     public ActivityAction getOutputing() {
         return (ActivityAction) getDepVal(OutputPinData.Metadata.OutputingDep());
     }
 
-    @objid ("ef5a2060-11b4-4ee5-83e0-12d9345fc0e0")
+    @objid ("e1887512-2729-4676-805a-8e4f03779db2")
     @Override
     public void setOutputing(ActivityAction value) {
         appendDepVal(OutputPinData.Metadata.OutputingDep(), (SmObjectImpl)value);
     }
 
-    @objid ("8bec216f-786a-4264-8749-66c8cf336dcb")
+    @objid ("0023d72f-261a-486a-93b6-f5da97732810")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
@@ -64,7 +64,7 @@ public class OutputPinImpl extends PinImpl implements OutputPin {
         return super.getCompositionOwner();
     }
 
-    @objid ("95e8ab4c-8f62-4a2f-8e91-cd6b130a28b6")
+    @objid ("53e8f016-c7b0-4473-bcf1-0158665417a0")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
@@ -74,7 +74,7 @@ public class OutputPinImpl extends PinImpl implements OutputPin {
         return super.getCompositionRelation();
     }
 
-    @objid ("b36d8112-202c-486c-b309-e013505a813a")
+    @objid ("502004b0-64ca-4b45-945a-38b4d1fa624c")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitOutputPin(this);

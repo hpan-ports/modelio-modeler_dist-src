@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.uml.infrastructure;
 
@@ -32,22 +32,22 @@ import org.modelio.metamodel.uml.infrastructure.matrix.QueryDefinition;
 
 @objid ("e5bf50a8-5a3e-4c5c-9bf8-83310c530ee3")
 public interface ExternProcessor extends ModelElement {
-    @objid ("b1333679-d442-44f1-a4f2-adfe75a6da5e")
+    @objid ("72a25470-068f-4ccf-8908-22b186465d42")
     String getClassName();
 
-    @objid ("b784cf94-e97e-4ed0-9516-36d242942dfc")
+    @objid ("d1f1cca6-c6d9-4c3c-bbbe-902d81373d72")
     void setClassName(String value);
 
-    @objid ("e121c55b-4497-435a-b5e1-25da5376937c")
+    @objid ("bda13814-f328-4c34-b39c-0b3278403102")
     QueryDefinition getOwnerQuery();
 
-    @objid ("aa17eeaa-1fcb-43b1-8716-9daf41d17ba5")
+    @objid ("d750d4fb-b243-4a60-8a5c-f5ba5835a5fa")
     void setOwnerQuery(QueryDefinition value);
 
-    @objid ("acb09789-8bf4-447e-a30b-8c84bb79724d")
+    @objid ("98655eea-9321-4565-960a-71ff93bf7f68")
     MatrixValueDefinition getOwnerValDef();
 
-    @objid ("fc895814-6020-40e9-81bc-958cdb1bf353")
+    @objid ("7d0fc770-c012-4566-b231-6e861c8e86f7")
     void setOwnerValDef(MatrixValueDefinition value);
 
 }

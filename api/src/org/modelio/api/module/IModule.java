@@ -23,6 +23,7 @@ import java.util.List;
 import javax.script.ScriptEngine;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.swt.graphics.Image;
+import org.modelio.api.diagram.ContributorCategory;
 import org.modelio.api.diagram.IDiagramCustomizer;
 import org.modelio.api.diagram.tools.IAttachedBoxCommand;
 import org.modelio.api.diagram.tools.IBoxCommand;
@@ -31,9 +32,11 @@ import org.modelio.api.diagram.tools.IMultiLinkCommand;
 import org.modelio.api.model.IModelingSession;
 import org.modelio.api.module.commands.ActionLocation;
 import org.modelio.api.module.commands.IModuleAction;
+import org.modelio.api.module.contrib.WizardContribution;
 import org.modelio.api.module.diagrams.DiagramCustomizationDescriptor;
 import org.modelio.api.module.diagrams.DiagramToolDescriptor;
 import org.modelio.api.module.propertiesPage.IModulePropertyPage;
+import org.modelio.api.ui.diagramcreation.IDiagramWizardContributor;
 import org.modelio.gproject.ramc.core.model.IModelComponent;
 import org.modelio.gproject.ramc.core.packaging.IModelComponentContributor;
 import org.modelio.metamodel.diagrams.AbstractDiagram;
@@ -392,6 +395,15 @@ public interface IModule {
 
     @objid ("4b8ff81b-0d93-4388-87e9-1a8cbf5fbf9c")
     <I> I instanciateExternProcessor(String className, Class<I> clazz, Object... initargs);
+
+    @objid ("6311e30d-8d61-45f4-9d7e-5d56b94c942d")
+    List<WizardContribution> getDiagramWizardContributions();
+
+    @objid ("d6afacce-53ab-44f2-903c-a62e32bc8fd9")
+    void registerDiagramWizardContribution(ContributorCategory category, IDiagramWizardContributor contributor);
+
+    @objid ("bc5436a9-9dbd-4d67-87b4-b4a90dc2f387")
+    void unregisterDiagramWizardContribution(ContributorCategory category, IDiagramWizardContributor contributor);
 
     @objid ("8e52ef63-72a1-11dd-a1d1-001ec947cd2a")
     public enum ImageType {

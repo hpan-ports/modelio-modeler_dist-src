@@ -72,7 +72,7 @@ public class ExternEditorsManager {
     @objid ("2ae09786-8c0d-46fb-b001-91d365fc09c1")
     @Inject
     @Optional
-    void onElementEdition(@EventTopic(ModelioEventTopics.EDIT_ELEMENT) final MObject target) {
+    void onEditElement(@EventTopic(ModelioEventTopics.EDIT_ELEMENT) final MObject target) {
         // FIXME this should be an @UIEventTopic, but they are not triggered with eclipse 4.3 M5...
         if (target instanceof Artifact) {
             Artifact artifact = (Artifact) target;

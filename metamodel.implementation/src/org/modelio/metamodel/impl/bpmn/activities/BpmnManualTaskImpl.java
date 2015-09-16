@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.bpmn.activities;
 
@@ -41,21 +41,21 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("00809fda-c4bf-1fd8-97fe-001ec947cd2a")
 public class BpmnManualTaskImpl extends BpmnTaskImpl implements BpmnManualTask {
-    @objid ("1dad29ae-458c-469a-bc55-ddd83d6d31c2")
+    @objid ("b034c563-b60f-4d0b-a9de-ba4151eaf754")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("bcfab83f-1911-44f5-b101-f50af5a04f71")
+    @objid ("b43063fc-41f3-4850-8419-f588afef83eb")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("c5b53fc2-3edc-49c4-8f4e-f645fbf9b8b1")
+    @objid ("e30c1b38-1bcb-4f8f-a37e-ada98a5fefe9")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitBpmnManualTask(this);

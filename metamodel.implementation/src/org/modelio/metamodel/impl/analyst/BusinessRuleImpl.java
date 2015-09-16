@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.analyst;
 
@@ -44,25 +44,25 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("ae140aec-516f-4136-b9e7-def1d1a327ec")
 public class BusinessRuleImpl extends AnalystElementImpl implements BusinessRule {
-    @objid ("0054a794-525a-4b1d-b9ed-e060765af3e5")
+    @objid ("c345cb1d-864f-4e35-ad5a-082c13c66c0c")
     @Override
-    public int getVersion() {
-        return (Integer) getAttVal(BusinessRuleData.Metadata.VersionAtt());
+    public AnalystElement getLastVersion() {
+        return getLastRuleVersion();
     }
 
-    @objid ("f59560a7-fc7b-4ddb-98fb-87cb9daa559f")
+    @objid ("639b83a4-95b1-465c-a5db-de9b091c1dee")
     @Override
-    public void setVersion(int value) {
-        setAttVal(BusinessRuleData.Metadata.VersionAtt(), value);
+    public EList<? extends AnalystElement> getArchivedVersions() {
+        return getArchivedRuleVersion();
     }
 
-    @objid ("61357e21-3857-4d57-8052-c66f89605da9")
+    @objid ("de7612d7-e104-4786-87eb-63868de4af2c")
     @Override
     public EList<BusinessRule> getSubRule() {
         return new SmList<>(this, BusinessRuleData.Metadata.SubRuleDep());
     }
 
-    @objid ("bf2a7ca0-df38-4b6b-b3e0-a92140532010")
+    @objid ("811291db-656d-472c-9e41-5481050fb6ae")
     @Override
     public <T extends BusinessRule> List<T> getSubRule(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -75,49 +75,49 @@ public class BusinessRuleImpl extends AnalystElementImpl implements BusinessRule
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("6f266fab-5ec8-4f78-bc6a-d7e27f5d1f15")
+    @objid ("21ac3495-1bf1-423f-af13-52e52bcd2db2")
     @Override
     public BusinessRuleContainer getOwnerContainer() {
         return (BusinessRuleContainer) getDepVal(BusinessRuleData.Metadata.OwnerContainerDep());
     }
 
-    @objid ("8907b65e-c3ae-4531-95a7-183ba7bcaadb")
+    @objid ("97df955d-2ff2-45c2-b05c-9f08785ee71d")
     @Override
     public void setOwnerContainer(BusinessRuleContainer value) {
         appendDepVal(BusinessRuleData.Metadata.OwnerContainerDep(), (SmObjectImpl)value);
     }
 
-    @objid ("6145d918-c44e-405f-bfb9-c534b5c3c12f")
+    @objid ("378b1ed5-45d6-42bb-a3b3-aa0410e84d7b")
     @Override
     public BusinessRule getParentRule() {
         return (BusinessRule) getDepVal(BusinessRuleData.Metadata.ParentRuleDep());
     }
 
-    @objid ("4438831b-7718-4240-aeb8-db8c37b9f62e")
+    @objid ("540d1e4f-0df5-4a5d-a2f0-0da69dad1a02")
     @Override
     public void setParentRule(BusinessRule value) {
         appendDepVal(BusinessRuleData.Metadata.ParentRuleDep(), (SmObjectImpl)value);
     }
 
-    @objid ("bd5e8814-41c1-4afa-8b0d-2f5539205981")
+    @objid ("9b869adf-3f2c-40df-9664-d99da72db873")
     @Override
     public BusinessRule getLastRuleVersion() {
         return (BusinessRule) getDepVal(BusinessRuleData.Metadata.LastRuleVersionDep());
     }
 
-    @objid ("e1a1dec8-0e72-4615-a27a-6bb26faee4da")
+    @objid ("2b5abedf-36c2-4341-bc72-21dae6916a6c")
     @Override
     public void setLastRuleVersion(BusinessRule value) {
         appendDepVal(BusinessRuleData.Metadata.LastRuleVersionDep(), (SmObjectImpl)value);
     }
 
-    @objid ("f6ce4497-dfbd-4792-bbdb-f06d34f6e3d1")
+    @objid ("dd2f1829-fef2-4113-9e29-b5f43db1292d")
     @Override
     public EList<BusinessRule> getArchivedRuleVersion() {
         return new SmList<>(this, BusinessRuleData.Metadata.ArchivedRuleVersionDep());
     }
 
-    @objid ("c4c7227b-8278-4693-a0b6-eef2dc335c68")
+    @objid ("eaaaa008-1ccc-462c-a616-9b7efa6dc222")
     @Override
     public <T extends BusinessRule> List<T> getArchivedRuleVersion(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -130,7 +130,7 @@ public class BusinessRuleImpl extends AnalystElementImpl implements BusinessRule
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("41fcfff5-08fb-4ea2-8641-f25e88540f82")
+    @objid ("7df1fac2-c699-455f-8c80-a72e258380cf")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
@@ -146,7 +146,7 @@ public class BusinessRuleImpl extends AnalystElementImpl implements BusinessRule
         return super.getCompositionOwner();
     }
 
-    @objid ("a3c9fb48-a1ae-4d59-a503-a41a15307635")
+    @objid ("b4c8f594-3ddf-405c-ba0b-10b5e01b073d")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
@@ -162,25 +162,12 @@ public class BusinessRuleImpl extends AnalystElementImpl implements BusinessRule
         return super.getCompositionRelation();
     }
 
-    @objid ("d33ff22b-57b3-456a-82f0-284bac352029")
-    @Override
+    @objid ("7f081d1b-868b-45b6-9d30-bf73a648aa3e")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitBusinessRule(this);
         else
           return null;
-    }
-
-    @objid ("c345cb1d-864f-4e35-ad5a-082c13c66c0c")
-    @Override
-    public AnalystElement getLastVersion() {
-        return getLastRuleVersion();
-    }
-
-    @objid ("639b83a4-95b1-465c-a5db-de9b091c1dee")
-    @Override
-    public EList<? extends AnalystElement> getArchivedVersions() {
-        return getArchivedRuleVersion();
     }
 
 }

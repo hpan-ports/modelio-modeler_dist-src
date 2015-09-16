@@ -54,9 +54,9 @@ public class CreateDiagramSetHandler extends AbstractBrwModelHandler {
             @Override
             public void run()
             {
-                browserView.getComposite().getComposite().expandToLevel(parent, 1);
-                browserView.getComposite().getComposite().refresh(parent, true);
-                browserView.getComposite().getComposite().setSelection(new StructuredSelection(diagramSet), true);
+                browserView.getComposite().getPanel().expandToLevel(parent, 1);
+                browserView.getComposite().getPanel().refresh(parent, true);
+                browserView.getComposite().getPanel().setSelection(new StructuredSelection(diagramSet), true);
                 browserView.edit(diagramSet);
             }
         });

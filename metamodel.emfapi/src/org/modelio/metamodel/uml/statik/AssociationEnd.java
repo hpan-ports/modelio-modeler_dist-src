@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.uml.statik;
 
@@ -76,76 +76,76 @@ public interface AssociationEnd extends StructuralFeature {
     @objid ("44b82fff-5b39-4aaa-ac0d-ddb26b837ecd")
     boolean isNavigable();
 
-    @objid ("b9d820d8-c98b-451b-918e-036227da8fe0")
+    @objid ("3b1b1d78-1c8e-4ebf-be03-315587affcd0")
     AggregationKind getAggregation();
 
-    @objid ("58060dbe-7689-4a3e-8912-b98383cf4c03")
+    @objid ("4a285731-7964-4a31-86cc-fce48d9e23fa")
     void setAggregation(AggregationKind value);
 
-    @objid ("a352ce65-c1cf-498f-950a-ed6ca036320d")
+    @objid ("c76703f9-3f60-4f57-89f7-5d763f564e80")
     boolean isIsChangeable();
 
-    @objid ("6d82aa5f-d45b-483d-ac0c-9f9f5b3d8660")
+    @objid ("da99b50d-e6ae-4b0c-80fe-c81926629171")
     void setIsChangeable(boolean value);
 
-    @objid ("81bc3b2e-0f23-465e-b15c-78eade28452c")
+    @objid ("d8ba145d-86ef-4167-9d60-90b6fadedc87")
     Classifier getTarget();
 
-    @objid ("bf387ab3-7ea3-42eb-a4fb-61f548d58017")
+    @objid ("54080cff-4bff-420d-8b55-8a6b1dc79788")
     void setTarget(Classifier value);
 
-    @objid ("e5767665-15d9-471c-872b-bf56a36e8a54")
+    @objid ("7fc2fd12-610a-4f62-aa65-d6c3abece68e")
     AssociationEnd getOppositeOwner();
 
-    @objid ("97a7d81d-4cd9-4309-8c72-79a86de36d6e")
+    @objid ("0b60bb87-8261-4f5c-9f88-147d1b2a1f2d")
     void setOppositeOwner(AssociationEnd value);
 
-    @objid ("b12cc6b9-fd02-4cdc-acd8-1b609f68fbd2")
+    @objid ("9bfc7ee4-a387-4582-bacd-9286fabfb355")
     Classifier getSource();
 
-    @objid ("acb2fb51-65f2-4688-84d0-4912cec40008")
+    @objid ("5dff984a-bec1-4fc3-88ff-d37e39466c6a")
     void setSource(Classifier value);
 
-    @objid ("9e00a853-782f-46b2-a811-645f2bd287fc")
+    @objid ("0fd985ae-735a-41e1-95ca-bb4324d5f008")
     EList<LinkEnd> getOccurence();
 
-    @objid ("dc347df7-d11e-4280-8bf2-546166e53d3a")
+    @objid ("eaf5c746-fa42-4a1b-8300-8d28ff7ba0d7")
     <T extends LinkEnd> List<T> getOccurence(java.lang.Class<T> filterClass);
 
-    @objid ("94684ccd-d4bf-4222-ac4b-edaedbfefc6b")
+    @objid ("7d53389a-aed4-4829-9532-2c2c80ca4b78")
     EList<InformationFlow> getSent();
 
-    @objid ("11882dfc-8289-4d2a-bb51-18885f1db4cf")
+    @objid ("35234326-51aa-44f9-9056-f4226e41de4a")
     <T extends InformationFlow> List<T> getSent(java.lang.Class<T> filterClass);
 
-    @objid ("23aa4143-a5e0-4c68-9bd8-e97e19a308bc")
+    @objid ("75e995f9-4778-4623-ae75-aebf259de2ba")
     EList<Attribute> getQualifier();
 
-    @objid ("7d5b38a2-3bbf-4ea2-b839-30273803eae0")
+    @objid ("f1b51605-3215-4835-9faa-b35810aedbd4")
     <T extends Attribute> List<T> getQualifier(java.lang.Class<T> filterClass);
 
-    @objid ("6441db4e-877f-4da6-a4a0-7c920e71c76a")
+    @objid ("16786673-ff95-49b7-a673-4f4f3591a15e")
     AssociationEnd getOpposite();
 
-    @objid ("b872975a-2711-4f71-af17-7f6da9be925c")
+    @objid ("32c5dca0-8c58-447f-a85b-c569576630fa")
     void setOpposite(AssociationEnd value);
 
-    @objid ("52ee7e93-d5ca-4621-9629-0644a5192510")
+    @objid ("72ddc0d0-95bf-4386-aa31-dfa6e004e214")
     EList<ObjectNode> getRepresentingObjectNode();
 
-    @objid ("b85006bd-1451-4fb1-a3b9-afeee1276fb4")
+    @objid ("3aa864a5-1a1f-4679-b81a-57a21e646e78")
     <T extends ObjectNode> List<T> getRepresentingObjectNode(java.lang.Class<T> filterClass);
 
-    @objid ("31d7b756-9d5b-4663-a08b-bb39b33093cd")
+    @objid ("679f60ef-5085-44d6-a430-165e6909d3f4")
     Association getAssociation();
 
-    @objid ("a3ec2180-fd72-4060-8a87-5e549afd925d")
+    @objid ("55f5a6f4-c256-4712-8c8c-559c68a3261f")
     void setAssociation(Association value);
 
-    @objid ("e12d7dd7-2da9-478c-bf82-6d5cf086c776")
+    @objid ("4b81b75a-03f1-409c-ad52-87b1c192313d")
     EList<BpmnItemAwareElement> getRepresentingItem();
 
-    @objid ("d25874b1-07e8-4ae9-8fcf-9e547f2be8bb")
+    @objid ("b1f0ff13-83e7-4e7f-b62c-1e8fdc7a14d6")
     <T extends BpmnItemAwareElement> List<T> getRepresentingItem(java.lang.Class<T> filterClass);
 
 }

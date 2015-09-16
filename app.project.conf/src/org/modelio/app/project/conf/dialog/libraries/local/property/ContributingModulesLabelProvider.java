@@ -32,8 +32,8 @@ import org.eclipse.jface.viewers.StyledString;
 import org.eclipse.jface.viewers.ViewerCell;
 import org.eclipse.swt.graphics.TextStyle;
 import org.modelio.app.project.conf.plugin.AppProjectConf;
+import org.modelio.gproject.data.ramc.IModelComponentInfos.VersionedItem;
 import org.modelio.gproject.module.GModule;
-import org.modelio.gproject.ramc.core.archive.IModelComponentInfos.VersionedItem;
 import org.modelio.ui.UIColor;
 import org.modelio.vbasic.version.Version;
 

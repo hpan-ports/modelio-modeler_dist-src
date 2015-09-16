@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.uml.behavior.interactionModel;
 
@@ -30,16 +30,16 @@ import org.eclipse.emf.ecore.EObject;
 
 @objid ("004b7b34-c4bf-1fd8-97fe-001ec947cd2a")
 public interface StateInvariant extends OccurrenceSpecification {
-    @objid ("ac8a929a-83d5-441e-bcc9-b95c0794bc6e")
+    @objid ("a41a233c-68e5-4fa2-8eb1-57a5b2dc3301")
     String getBody();
 
-    @objid ("a9c84370-86e0-44fb-8a47-68c516ab859a")
+    @objid ("11fc26bc-7ec3-4a14-a87a-dbdc05cbe7ce")
     void setBody(String value);
 
-    @objid ("d7ee5b1f-eeb9-4d5b-802c-8ab8b68ec824")
+    @objid ("94084010-37e3-40f5-8cb6-b0c374c89d98")
     int getEndLineNumber();
 
-    @objid ("a49b5511-c075-4574-9d95-33492c019161")
+    @objid ("b9203ab2-1fbb-497d-8adb-4fcb8d825451")
     void setEndLineNumber(int value);
 
 }

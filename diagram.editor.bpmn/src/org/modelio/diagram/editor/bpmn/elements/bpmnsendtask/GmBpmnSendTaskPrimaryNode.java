@@ -57,7 +57,7 @@ public class GmBpmnSendTaskPrimaryNode extends GmNoStyleCompositeNode implements
      * Current version of this Gm.
      */
     @objid ("6199296f-55b6-11e2-877f-002564c97630")
-    private final int minorVersion = 1;
+    private final int minorVersion = 2;
 
     @objid ("61992972-55b6-11e2-877f-002564c97630")
     private static final int MAJOR_VERSION = 0;
@@ -81,8 +81,10 @@ public class GmBpmnSendTaskPrimaryNode extends GmNoStyleCompositeNode implements
         super(diagram, relatedRef);
         this.header = new GmBpmnNodeHeader(diagram, relatedRef, false);
         this.footer = new GmBpmnNodeFooter(diagram, relatedRef);
+        final GmBpmnSendTaskTypeLabel typeLabel = new GmBpmnSendTaskTypeLabel(diagram, relatedRef);
         
         super.addChild(this.header);
+        super.addChild(typeLabel);
         super.addChild(this.footer);
         
         List<Image> images = new ArrayList<>();
@@ -147,6 +149,10 @@ public class GmBpmnSendTaskPrimaryNode extends GmNoStyleCompositeNode implements
             read_1(in);
             break;
         }
+            case 2: {
+                read_2(in);
+                break;
+            }
         default: {
             assert (false) : "version number not covered!";
             // reading as last handled version: 1
@@ -257,8 +263,15 @@ public class GmBpmnSendTaskPrimaryNode extends GmNoStyleCompositeNode implements
         this.header = (GmBpmnNodeHeader) this.getChildren().get(0);
         this.footer = (GmBpmnNodeFooter) this.getChildren().get(1);
         
+        // V0 to V1 - delete image label
         GmDefaultFlatHeader imageModeHeader = (GmDefaultFlatHeader) this.getChildren().get(2);
         imageModeHeader.delete();
+        
+        // V1 to V2 - add type label
+        final GmBpmnSendTaskTypeLabel typeLabel = new GmBpmnSendTaskTypeLabel(getDiagram(), getRepresentedRef());
+        removeChild(this.footer);
+        addChild(typeLabel);
+        addChild(this.footer);
     }
 
     @objid ("619ab027-55b6-11e2-877f-002564c97630")
@@ -272,6 +285,19 @@ public class GmBpmnSendTaskPrimaryNode extends GmNoStyleCompositeNode implements
         super.read(in);
         this.header = (GmBpmnNodeHeader) this.getChildren().get(0);
         this.footer = (GmBpmnNodeFooter) this.getChildren().get(1);
+        
+        // V1 to V2 - add type label
+        final GmBpmnSendTaskTypeLabel typeLabel = new GmBpmnSendTaskTypeLabel(getDiagram(), getRepresentedRef());
+        removeChild(this.footer);
+        addChild(typeLabel);
+        addChild(this.footer);
+    }
+
+    @objid ("f96d5cfd-d3d8-4b86-88dd-9973528d5f0e")
+    private void read_2(final IDiagramReader in) {
+        super.read(in);
+        this.header = (GmBpmnNodeHeader) this.getChildren().get(0);
+        this.footer = (GmBpmnNodeFooter) this.getChildren().get(2);
     }
 
 }

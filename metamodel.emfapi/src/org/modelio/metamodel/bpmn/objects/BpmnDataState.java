@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.bpmn.objects;
 
@@ -33,16 +33,16 @@ import org.modelio.metamodel.uml.behavior.stateMachineModel.State;
 
 @objid ("00084846-c4c0-1fd8-97fe-001ec947cd2a")
 public interface BpmnDataState extends BpmnBaseElement {
-    @objid ("665dcbc1-15ef-4263-ac92-d0d0c7399952")
+    @objid ("4e03551b-378e-473c-8492-d471ffd728fe")
     BpmnItemAwareElement getItem();
 
-    @objid ("e0008525-507b-4d8a-9d2e-7aaea66d8498")
+    @objid ("573ac1ab-aedb-4382-ac3e-667997dfe35f")
     void setItem(BpmnItemAwareElement value);
 
-    @objid ("eae6622c-82e3-448a-b006-a870281a39ef")
+    @objid ("1e6c8f38-f8b5-420c-83a5-fbd7669d8e4b")
     State getUmlState();
 
-    @objid ("92b2512f-5a99-4112-9f55-446863f97d4e")
+    @objid ("4d079f38-6ee7-47df-a62a-8ef248c8c959")
     void setUmlState(State value);
 
 }

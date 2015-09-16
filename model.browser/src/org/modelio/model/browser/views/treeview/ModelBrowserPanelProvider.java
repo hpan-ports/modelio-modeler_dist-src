@@ -82,7 +82,7 @@ public class ModelBrowserPanelProvider implements IPanelProvider {
      */
     @objid ("57ccc2d7-d023-11e1-9020-002564c97630")
     @Override
-    public TreeViewer create(Composite parent) {
+    public TreeViewer createPanel(Composite parent) {
         this.treeViewer = new TreeViewer(parent, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL);
         this.treeViewer.setUseHashlookup(true);
         
@@ -105,7 +105,7 @@ public class ModelBrowserPanelProvider implements IPanelProvider {
 
     @objid ("57ccc2de-d023-11e1-9020-002564c97630")
     @Override
-    public TreeViewer getComposite() {
+    public TreeViewer getPanel() {
         return this.treeViewer;
     }
 
@@ -292,6 +292,18 @@ public class ModelBrowserPanelProvider implements IPanelProvider {
     @objid ("f7289fd8-7398-4b0a-bd88-7155ec02bdae")
     public boolean isShowAnalystModel() {
         return this.contentProvider.isShowAnalystModel();
+    }
+
+    @objid ("36b61724-7ca1-4fa6-9e92-1e77111502b0")
+    @Override
+    public boolean isRelevantFor(Object obj) {
+        return true;
+    }
+
+    @objid ("a501c525-0679-447f-a363-4f381df2656d")
+    @Override
+    public String getHelpTopic() {
+        return null;
     }
 
 }

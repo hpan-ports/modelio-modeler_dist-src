@@ -27,7 +27,6 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.draw2d.PositionConstants;
 import org.modelio.diagram.editor.bpmn.elements.style.GmBpmnTaskImageStyleKeys;
 import org.modelio.diagram.editor.bpmn.elements.style.GmBpmnTaskSimpleStyleKeys;
-import org.modelio.diagram.editor.bpmn.elements.style.GmBpmnTaskStructuredStyleKeys;
 import org.modelio.diagram.elements.common.abstractdiagram.GmAbstractDiagram;
 import org.modelio.diagram.elements.common.label.modelelement.GmDefaultFlatHeader;
 import org.modelio.diagram.elements.common.portcontainer.GmPortContainer;
@@ -63,7 +62,7 @@ public class GmBpmnSendTask extends GmPortContainer {
     private static final String IMAGE_LABEL_ROLE = "ImageLabel";
 
     @objid ("c5c34a6e-59a6-11e2-ae45-002564c97630")
-     static final GmBpmnTaskStructuredStyleKeys STRUCTURED_KEYS = new GmBpmnTaskStructuredStyleKeys();
+     static final GmBpmnSendTaskStructuredStyleKeys STRUCTURED_KEYS = new GmBpmnSendTaskStructuredStyleKeys();
 
     @objid ("c5c34a70-59a6-11e2-ae45-002564c97630")
      static final GmBpmnTaskSimpleStyleKeys SIMPLE_KEYS = new GmBpmnTaskSimpleStyleKeys();

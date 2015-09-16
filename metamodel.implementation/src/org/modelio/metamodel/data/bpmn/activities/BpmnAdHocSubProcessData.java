@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.data.bpmn.activities;
 
@@ -44,43 +44,43 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("007e3c68-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=BpmnAdHocSubProcess.class, factory=BpmnAdHocSubProcessData.Metadata.ObjectFactory.class)
 public class BpmnAdHocSubProcessData extends BpmnSubProcessData {
-    @objid ("86b02276-d0f9-455f-a06c-54b8df984ba9")
+    @objid ("08dbab52-88eb-41dd-ab3c-b2a3938491f8")
     @SmaMetaAttribute(metaName="Ordering", type=AdHocOrdering.class, smAttributeClass=Metadata.OrderingSmAttribute.class)
      Object mOrdering = AdHocOrdering.PARALLELORDERING;
 
-    @objid ("67ae1d08-0bf6-422e-9045-0c3508047ec1")
+    @objid ("6b4a8a5d-4955-48f5-9447-19cace0fd32d")
     @SmaMetaAttribute(metaName="CancelRemainingInstances", type=Boolean.class, smAttributeClass=Metadata.CancelRemainingInstancesSmAttribute.class)
      Object mCancelRemainingInstances = true;
 
-    @objid ("36eb4760-4523-42e4-8424-e76b4fd0c4c6")
+    @objid ("1039458b-4b77-42b8-8a39-c307d7916569")
     @SmaMetaAttribute(metaName="CompletionCondition", type=String.class, smAttributeClass=Metadata.CompletionConditionSmAttribute.class)
      Object mCompletionCondition = "";
 
-    @objid ("119f18d4-77bf-4774-a354-7185b1238831")
+    @objid ("e069d286-053b-4b35-974e-270722d885fc")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("000dc9a6-c4c3-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("10619460-9741-4088-a106-c15e078b7696")
+        @objid ("c692d02f-3703-4c10-a893-6be6f3bfdc09")
         private static SmClass smClass = null;
 
-        @objid ("010606c5-b815-4315-b4ac-135f9469410a")
+        @objid ("ad3ad578-6645-465c-a46c-9d31ac3bfde7")
         private static SmAttribute OrderingAtt = null;
 
-        @objid ("1dc75374-48a3-446a-8244-39178da1a66d")
+        @objid ("cacdab64-58ea-4d47-93b4-c6fa450f22bf")
         private static SmAttribute CancelRemainingInstancesAtt = null;
 
-        @objid ("cede59e8-fed7-42b4-9a48-9121b602c340")
+        @objid ("64542917-ebe8-4e07-95d0-4576a02f5d34")
         private static SmAttribute CompletionConditionAtt = null;
 
-        @objid ("b6e58366-902c-4a72-879e-ff754144f067")
+        @objid ("20638c24-e2f4-485f-9bfe-223904988533")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(BpmnAdHocSubProcessData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("bd2cc013-bf73-451b-b076-9fbcee6d9b8b")
+        @objid ("eca341f7-e359-4b52-94b2-77047f0343eb")
         public static SmAttribute OrderingAtt() {
             if (OrderingAtt == null) {
             	OrderingAtt = classof().getAttributeDef("Ordering");
@@ -88,7 +88,7 @@ public class BpmnAdHocSubProcessData extends BpmnSubProcessData {
             return OrderingAtt;
         }
 
-        @objid ("8758b1c1-4035-41d0-8ebf-0f1c40c61927")
+        @objid ("fd1df197-4050-44b6-84a1-174e220ba8f6")
         public static SmAttribute CancelRemainingInstancesAtt() {
             if (CancelRemainingInstancesAtt == null) {
             	CancelRemainingInstancesAtt = classof().getAttributeDef("CancelRemainingInstances");
@@ -96,7 +96,7 @@ public class BpmnAdHocSubProcessData extends BpmnSubProcessData {
             return CancelRemainingInstancesAtt;
         }
 
-        @objid ("f36c90c9-fd78-45f3-bc3c-f11213d719d3")
+        @objid ("dec2453d-f380-439f-89a7-9358f80ee557")
         public static SmAttribute CompletionConditionAtt() {
             if (CompletionConditionAtt == null) {
             	CompletionConditionAtt = classof().getAttributeDef("CompletionCondition");
@@ -104,38 +104,38 @@ public class BpmnAdHocSubProcessData extends BpmnSubProcessData {
             return CompletionConditionAtt;
         }
 
-        @objid ("31926ec4-6cd0-44b0-9254-bf8498e4a06a")
-        public static SmAttribute getCancelRemainingInstancesAtt() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return CancelRemainingInstancesAtt;
-        }
-
-        @objid ("d0065c07-caec-4ab1-83e4-b75c544c69eb")
-        public static SmAttribute getCompletionConditionAtt() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return CompletionConditionAtt;
-        }
-
-        @objid ("32e98edd-51bb-4283-b902-f510a97498d4")
+        @objid ("9d2b5a8c-ea26-45b9-b7c8-fd2309ed7b07")
         public static SmAttribute getOrderingAtt() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return OrderingAtt;
         }
 
-        @objid ("9acef20b-c9f9-4696-810b-757092e3bf9d")
+        @objid ("07061fde-222e-4d2d-8b98-bf1d03507354")
+        public static SmAttribute getCompletionConditionAtt() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return CompletionConditionAtt;
+        }
+
+        @objid ("3ee6b1e6-2c49-4a3c-8cce-2e5a4fb3ef8a")
         public static SmClass getSmClass() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return smClass;
         }
 
+        @objid ("51563398-533d-4e28-9fd7-2802edb6627d")
+        public static SmAttribute getCancelRemainingInstancesAtt() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return CancelRemainingInstancesAtt;
+        }
+
         @objid ("000e0b1e-c4c3-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("bb318880-a706-4f8e-83aa-8b422a809ae8")
+            @objid ("208a1e5e-b954-41b3-b061-1fb48059e85e")
             public ISmObjectData createData() {
                 return new BpmnAdHocSubProcessData();
             }
 
-            @objid ("26df1e80-9f88-4ec6-b243-eb5654f44c81")
+            @objid ("5ea32469-7817-43c7-b1d8-d69441e8cfe5")
             public SmObjectImpl createImpl() {
                 return new BpmnAdHocSubProcessImpl();
             }
@@ -144,12 +144,12 @@ public class BpmnAdHocSubProcessData extends BpmnSubProcessData {
 
         @objid ("000e6c76-c4c3-1fd8-97fe-001ec947cd2a")
         public static class OrderingSmAttribute extends SmAttribute {
-            @objid ("9c267f14-bed5-4e32-9e19-cee652d2932c")
+            @objid ("c94a0168-ecd9-446f-9fb5-c0b2bf8d46a1")
             public Object getValue(ISmObjectData data) {
                 return ((BpmnAdHocSubProcessData) data).mOrdering;
             }
 
-            @objid ("72555446-6642-4463-8689-88636e4f294f")
+            @objid ("a077758f-a79b-4733-9be5-42f6a915ee41")
             public void setValue(ISmObjectData data, Object value) {
                 ((BpmnAdHocSubProcessData) data).mOrdering = value;
             }
@@ -158,12 +158,12 @@ public class BpmnAdHocSubProcessData extends BpmnSubProcessData {
 
         @objid ("000ece6e-c4c3-1fd8-97fe-001ec947cd2a")
         public static class CancelRemainingInstancesSmAttribute extends SmAttribute {
-            @objid ("c1909c64-073a-4094-a408-9ad630fb7da6")
+            @objid ("8ee54302-4006-4ff7-a70f-ff9b0bc3e78f")
             public Object getValue(ISmObjectData data) {
                 return ((BpmnAdHocSubProcessData) data).mCancelRemainingInstances;
             }
 
-            @objid ("1f187e3e-acd1-4943-88b0-1ac359585083")
+            @objid ("d9cf63d5-c55e-4b8d-b467-0d3e01ec963b")
             public void setValue(ISmObjectData data, Object value) {
                 ((BpmnAdHocSubProcessData) data).mCancelRemainingInstances = value;
             }
@@ -172,12 +172,12 @@ public class BpmnAdHocSubProcessData extends BpmnSubProcessData {
 
         @objid ("000f3020-c4c3-1fd8-97fe-001ec947cd2a")
         public static class CompletionConditionSmAttribute extends SmAttribute {
-            @objid ("9b03d688-df3f-429c-ab2b-d9525943a2f3")
+            @objid ("3f0f83e3-b3a0-4c26-ae58-021f93301a0c")
             public Object getValue(ISmObjectData data) {
                 return ((BpmnAdHocSubProcessData) data).mCompletionCondition;
             }
 
-            @objid ("4c3d9b83-b178-42e3-9f3a-6bf9546720b4")
+            @objid ("8f6fbda2-f499-4333-a617-a896a3d1b817")
             public void setValue(ISmObjectData data, Object value) {
                 ((BpmnAdHocSubProcessData) data).mCompletionCondition = value;
             }

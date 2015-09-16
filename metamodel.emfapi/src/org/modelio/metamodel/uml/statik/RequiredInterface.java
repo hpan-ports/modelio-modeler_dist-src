@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.uml.statik;
 
@@ -36,28 +36,28 @@ import org.modelio.metamodel.uml.statik.Port;
 
 @objid ("001b5224-c4bf-1fd8-97fe-001ec947cd2a")
 public interface RequiredInterface extends ModelElement {
-    @objid ("73f05916-c971-4222-82d3-0b8e04ccfd91")
+    @objid ("1a42f240-16f0-4789-8b16-9dbf8aed227e")
     EList<Interface> getRequiredElement();
 
-    @objid ("a57700c9-85b0-4a19-a91d-e1bdc132b513")
+    @objid ("6125ec78-8a11-4dba-b051-3e2423834afe")
     <T extends Interface> List<T> getRequiredElement(java.lang.Class<T> filterClass);
 
-    @objid ("d19f12f8-3911-435c-94e3-07ff610701e3")
+    @objid ("f1d7b575-6f55-4696-98a7-76227d43bd7c")
     EList<LinkEnd> getProvider();
 
-    @objid ("85749d29-09eb-48df-a36b-4a4b5d2fe69d")
+    @objid ("a1322dc7-64c0-4e88-86fa-15e2bb1f4132")
     <T extends LinkEnd> List<T> getProvider(java.lang.Class<T> filterClass);
 
-    @objid ("8e7c8d82-2f86-440f-89e1-6d528d855b4a")
+    @objid ("f4ec57f1-4672-4703-8e86-63dcb15a3145")
     Port getRequiring();
 
-    @objid ("336baf02-28d8-43e5-af58-4f3ae843c4bf")
+    @objid ("78bd9d56-aed7-473c-8216-5de3cfae2ede")
     void setRequiring(Port value);
 
-    @objid ("bb37bc83-3cbd-49f7-b011-c3f1c9768035")
+    @objid ("a1783078-4785-4792-a5ba-bec4c5197c77")
     EList<NaryLinkEnd> getNaryProvider();
 
-    @objid ("4b458049-47b1-4833-8c53-d6821da67b3d")
+    @objid ("8c93a8ab-2234-4b6e-bd48-73e7b19ba99e")
     <T extends NaryLinkEnd> List<T> getNaryProvider(java.lang.Class<T> filterClass);
 
 }

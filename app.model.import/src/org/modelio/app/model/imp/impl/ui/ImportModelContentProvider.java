@@ -26,7 +26,7 @@ import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.Viewer;
-import org.modelio.gproject.descriptor.FragmentType;
+import org.modelio.gproject.data.project.FragmentType;
 import org.modelio.gproject.fragment.IProjectFragment;
 import org.modelio.gproject.gproject.GProject;
 import org.modelio.metamodel.analyst.AnalystProject;

@@ -29,11 +29,12 @@ import org.modelio.xmi.util.GenerationProperties;
 import org.modelio.xmi.util.NotFoundException;
 
 @objid ("8de53f10-2917-46ee-844c-a350b1930c46")
-public class OCallBehaviorAction extends OActivityNode implements IOElement {
+public class OCallBehaviorAction extends OActivityNode {
     @objid ("7b61c987-2626-4773-a670-b82eb18560ab")
     private CallBehaviorAction objingElement = null;
 
     @objid ("c1579c5a-09e4-4e07-a796-8cf37d58b7a9")
+    @Override
     public org.eclipse.uml2.uml.Element createEcoreElt() {
         return UMLFactory.eINSTANCE.createCallBehaviorAction();
     }
@@ -41,15 +42,11 @@ public class OCallBehaviorAction extends OActivityNode implements IOElement {
     @objid ("8ec8511d-63a3-4573-b2d6-3faa0c6ccf95")
     public OCallBehaviorAction(CallBehaviorAction element) {
         super(element);
-        objingElement = element;
-    }
-
-    @objid ("9f90589f-c61f-4c6b-849e-fd920928f4e8")
-    public void attach(org.eclipse.uml2.uml.Element ecoreElt) {
-        super.attach(ecoreElt);
+        this.objingElement = element;
     }
 
     @objid ("aed34e13-7ff0-4bec-87f8-ed0696ed65e9")
+    @Override
     public void setProperties(org.eclipse.uml2.uml.Element ecoreElt) {
         super.setProperties(ecoreElt);
         setSynchronous( (org.eclipse.uml2.uml.CallBehaviorAction) ecoreElt);
@@ -58,7 +55,7 @@ public class OCallBehaviorAction extends OActivityNode implements IOElement {
 
     @objid ("a066fe59-8247-4941-b763-41ac6f31036e")
     private void setSynchronous(org.eclipse.uml2.uml.CallBehaviorAction action) {
-        action.setIsSynchronous(objingElement.isIsSynchronous());
+        action.setIsSynchronous(this.objingElement.isIsSynchronous());
     }
 
     @objid ("c5d10da8-1749-4e6d-9c19-2cf7cfe8808b")

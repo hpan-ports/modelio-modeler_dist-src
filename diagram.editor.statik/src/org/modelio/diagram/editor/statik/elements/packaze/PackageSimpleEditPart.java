@@ -56,7 +56,7 @@ public class PackageSimpleEditPart extends NonSelectableSimpleEditPart {
     @Override
     protected void refreshFromStyle(final IFigure aFigure, final IStyle style) {
         GmPackagePrimaryNode model = (GmPackagePrimaryNode) getModel();
-        if (model.getRepresentationMode() != RepresentationMode.SIMPLE) {
+        if (model.getRepresentationMode() == RepresentationMode.STRUCTURED) {
             // Start by cleaning all children that might have been created by the auto-unmask behaviors.            
             for (GmNodeModel mbodyChild : model.getBody().getChildren()) {
                 mbodyChild.delete();

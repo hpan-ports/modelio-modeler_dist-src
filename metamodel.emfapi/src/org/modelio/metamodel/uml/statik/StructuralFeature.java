@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.uml.statik;
 
@@ -33,46 +33,46 @@ import org.modelio.metamodel.uml.statik.KindOfAccess;
 
 @objid ("001ee9c0-c4bf-1fd8-97fe-001ec947cd2a")
 public interface StructuralFeature extends Feature {
-    @objid ("7309a643-eab7-4566-9447-7be11cef75a2")
+    @objid ("002d2f85-b3f4-4ce1-9d77-33d7da1f7386")
     KindOfAccess getChangeable();
 
-    @objid ("ccad761c-b9f9-4f3f-a749-4f79248b98ee")
+    @objid ("04a4f95f-14a6-4e89-9688-5ca2681cea2b")
     void setChangeable(KindOfAccess value);
 
-    @objid ("79e8c7c8-fd34-484b-880e-d554d18f588d")
+    @objid ("867b0b6f-a501-4de6-9de8-7fe4ea120e0b")
     boolean isIsDerived();
 
-    @objid ("c9627ea5-970f-4e8d-b31c-9118fc996a6f")
+    @objid ("1476aed8-a04a-45fe-836e-b4ad1d3c6885")
     void setIsDerived(boolean value);
 
-    @objid ("9a111478-3fa0-4086-b983-ccfacbbbbabc")
+    @objid ("b91f435c-11ee-4bf7-8db5-1bff7bb9197d")
     boolean isIsOrdered();
 
-    @objid ("55fda357-3fb2-40a3-af7c-f28a0f90e317")
+    @objid ("ef32b2c7-e0f0-402c-b6fc-92370861780d")
     void setIsOrdered(boolean value);
 
-    @objid ("4ec155c4-f563-4b08-b68c-edcf45899d6e")
+    @objid ("c78b238f-b5ce-4a1c-af5d-d5038f590a52")
     boolean isIsUnique();
 
-    @objid ("597aa40b-f266-4937-bb38-421ca2e5ecc7")
+    @objid ("31dbb0ad-2261-436d-b335-10ebcd889ff6")
     void setIsUnique(boolean value);
 
-    @objid ("c509d402-6728-4054-b470-85c7ab83001d")
+    @objid ("7b4e6448-ac43-4bcc-ae1b-178151ba3a71")
     String getMultiplicityMin();
 
-    @objid ("308a5608-c931-4ec7-81d7-0816198a07ff")
+    @objid ("0503d54c-fe06-4cdb-9e8d-85361c969a6c")
     void setMultiplicityMin(String value);
 
-    @objid ("832ced2e-7718-46f5-87e7-bd362681aae2")
+    @objid ("41d0b5c7-fccb-4a16-8116-9e338834c487")
     String getMultiplicityMax();
 
-    @objid ("c1ed885c-4163-4d69-aba3-0517df3ef5dd")
+    @objid ("5a4a3891-86ed-4aff-9476-ddaf02a87381")
     void setMultiplicityMax(String value);
 
-    @objid ("0607aa35-91b1-4056-8904-852f8a327936")
+    @objid ("9e56670f-6160-4e89-aa12-6c75cda62718")
     EList<InformationFlow> getRealizedInformationFlow();
 
-    @objid ("1470cae3-8b54-4d68-af23-5807b76cb587")
+    @objid ("2dc85b89-0526-4749-8cbb-a2c15bdd437d")
     <T extends InformationFlow> List<T> getRealizedInformationFlow(java.lang.Class<T> filterClass);
 
 }

@@ -62,7 +62,7 @@ public class PExportReference implements IExportProfileElement {
         
         org.eclipse.uml2.uml.Stereotype stereotype = ProfileUtils.createStereotype(this.objingElt, profile);
         
-        ObjingEAnnotation.setReference(stereotype, true);
+        ObjingEAnnotation.setIsReference(stereotype);
         return stereotype;
     }
 

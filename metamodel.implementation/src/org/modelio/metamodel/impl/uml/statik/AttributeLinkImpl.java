@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.uml.statik;
 
@@ -44,43 +44,43 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("00003354-c4bf-1fd8-97fe-001ec947cd2a")
 public class AttributeLinkImpl extends ModelElementImpl implements AttributeLink {
-    @objid ("8845d189-d931-45ce-8c50-ba9bbd0d2746")
+    @objid ("0e0f78b0-31ca-40d9-96fc-369f92f6c4f2")
     @Override
     public String getValue() {
         return (String) getAttVal(AttributeLinkData.Metadata.ValueAtt());
     }
 
-    @objid ("5957d66f-44c5-4c1c-b4d0-782ac572a17d")
+    @objid ("8cd37154-ff3f-4fb3-bd95-f891cbcd4bba")
     @Override
     public void setValue(String value) {
         setAttVal(AttributeLinkData.Metadata.ValueAtt(), value);
     }
 
-    @objid ("87f10e0a-928b-4973-a54e-21649bd760b6")
+    @objid ("35b8687c-717f-4cb6-9b64-99f2976ff7d4")
     @Override
     public Instance getAttributed() {
         return (Instance) getDepVal(AttributeLinkData.Metadata.AttributedDep());
     }
 
-    @objid ("5c0f6c6b-e10a-4545-9b78-13c24adfb8f0")
+    @objid ("ec1141df-8319-44a5-896a-899939a395fc")
     @Override
     public void setAttributed(Instance value) {
         appendDepVal(AttributeLinkData.Metadata.AttributedDep(), (SmObjectImpl)value);
     }
 
-    @objid ("357bfdc7-b250-46a8-9845-f36bdf720456")
+    @objid ("ba2bd9a5-ba30-4bfd-8b0d-ecf1c4e51dcd")
     @Override
     public Attribute getBase() {
         return (Attribute) getDepVal(AttributeLinkData.Metadata.BaseDep());
     }
 
-    @objid ("12c9a3c2-72a2-400a-83cb-16fcf9c90bb6")
+    @objid ("7cee3040-a65a-4c8f-abd5-749a21421836")
     @Override
     public void setBase(Attribute value) {
         appendDepVal(AttributeLinkData.Metadata.BaseDep(), (SmObjectImpl)value);
     }
 
-    @objid ("af5c80f3-689b-44e2-8c01-379da5d5d22e")
+    @objid ("7cc3fc55-2d69-47ac-81e1-2d254af02f87")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
@@ -90,7 +90,7 @@ public class AttributeLinkImpl extends ModelElementImpl implements AttributeLink
         return super.getCompositionOwner();
     }
 
-    @objid ("4e2cd201-afa5-485f-b89f-1fada7124ce4")
+    @objid ("1690467e-f29b-451d-a9e0-f8a659e0ced3")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
@@ -100,7 +100,7 @@ public class AttributeLinkImpl extends ModelElementImpl implements AttributeLink
         return super.getCompositionRelation();
     }
 
-    @objid ("a152fd69-5e47-4459-98b3-cf8e78331153")
+    @objid ("186acfe2-ee05-4cee-b6d8-374821c7cae4")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitAttributeLink(this);

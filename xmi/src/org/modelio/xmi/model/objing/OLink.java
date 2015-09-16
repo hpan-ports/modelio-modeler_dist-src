@@ -37,7 +37,7 @@ import org.modelio.xmi.util.ObjingEAnnotation;
 import org.modelio.xmi.util.XMILogs;
 
 @objid ("fbb72fc7-d37d-41cd-b234-c67dadb617b8")
-public class OLink extends OModelElement implements IOElement {
+public class OLink extends OModelElement {
     @objid ("8cfcf13f-ae9b-4c0a-bb34-85a38ad999b3")
     private Link objingElement = null;
 
@@ -72,6 +72,7 @@ public class OLink extends OModelElement implements IOElement {
     }
 
     @objid ("90e3aeec-c2d1-44fa-8a41-25583b2d5bb6")
+    @Override
     public void attach(org.eclipse.uml2.uml.Element ecoreElt) {
         if (ecoreElt != null){
             if (ecoreElt instanceof org.eclipse.uml2.uml.Connector){
@@ -83,6 +84,7 @@ public class OLink extends OModelElement implements IOElement {
     }
 
     @objid ("147fed30-0d7e-4d69-b283-3bc74bd0a288")
+    @Override
     public void setProperties(org.eclipse.uml2.uml.Element ecoreElt) {
         super.setProperties(ecoreElt);
         if (ecoreElt instanceof org.eclipse.uml2.uml.Connector){
@@ -107,9 +109,9 @@ public class OLink extends OModelElement implements IOElement {
         Association base = this.objingElement.getModel();
         
         if (base != null){
-            org.eclipse.uml2.uml.Element type = (org.eclipse.uml2.uml.Element) GenerationProperties.getInstance().getMappedElement(base);
+            org.eclipse.uml2.uml.Element type = GenerationProperties.getInstance().getMappedElement(base);
             if (type instanceof org.eclipse.uml2.uml.Classifier)
-                connector.getClassifiers().add( (org.eclipse.uml2.uml.Classifier)type);
+                connector.getClassifiers().add( (org.eclipse.uml2.uml.Classifier) type);
         }
     }
 
@@ -141,11 +143,11 @@ public class OLink extends OModelElement implements IOElement {
         if (ecoreOwner != null) {
             if (ecoreOwner instanceof org.eclipse.uml2.uml.Package) {
                 org.eclipse.uml2.uml.Package ownerIsPkg = (org.eclipse.uml2.uml.Package) ecoreOwner;
-                ownerIsPkg.getPackagedElements().add((org.eclipse.uml2.uml.PackageableElement)ecoreElt);
+                ownerIsPkg.getPackagedElements().add(ecoreElt);
         
             } else if (ecoreOwner instanceof org.eclipse.uml2.uml.Component) {
                 org.eclipse.uml2.uml.Component ownerIsCmpnt = (org.eclipse.uml2.uml.Component) ecoreOwner;
-                ownerIsCmpnt.getPackagedElements().add((org.eclipse.uml2.uml.PackageableElement)ecoreElt);
+                ownerIsCmpnt.getPackagedElements().add(ecoreElt);
             }else{
                 XMILogs logs = XMILogs.getInstance();
                 String message = Xmi.I18N.getMessage(
@@ -183,8 +185,9 @@ public class OLink extends OModelElement implements IOElement {
                 assembly = false;
         
         }
-        //        if (!assembly)
-        //            ecoreElt.setKind(org.eclipse.uml2.uml.ConnectorKind.DELEGATION_LITERAL);
+        
+        if (!assembly)
+            ecoreElt.setKind(org.eclipse.uml2.uml.ConnectorKind.DELEGATION_LITERAL);
     }
 
 }

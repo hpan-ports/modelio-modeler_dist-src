@@ -172,7 +172,7 @@ public class NotesView {
                 if (NotesView.this.notesPanel == null) {
                     // Create the view content
                     NotesView.this.notesPanel = new NotesPanelProvider(activationService);
-                    NotesView.this.notesPanel.create(NotesView.this.parentComposite);
+                    NotesView.this.notesPanel.createPanel(NotesView.this.parentComposite);
         
                     NotesView.this.treeSelectionListener = new SelectionChangedListener(NotesView.this.notesPanel);
                     NotesView.this.notesPanel.getTreeViewer().addSelectionChangedListener(NotesView.this.treeSelectionListener);

@@ -25,7 +25,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.modelio.vcore.Log;
+import org.modelio.vbasic.log.Log;
 import org.modelio.vcore.model.GetAbsoluteSymbol;
 import org.modelio.vcore.smkernel.ISmObjectData;
 import org.modelio.vcore.smkernel.SmObjectImpl;

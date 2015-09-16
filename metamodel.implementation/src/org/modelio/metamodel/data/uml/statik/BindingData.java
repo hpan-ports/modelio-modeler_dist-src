@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.data.uml.statik;
 
@@ -48,57 +48,57 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("0001ce8a-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=Binding.class, factory=BindingData.Metadata.ObjectFactory.class)
 public class BindingData extends ModelElementData {
-    @objid ("c3f7812a-3ad5-4163-9bff-dac32aa16734")
+    @objid ("863d426c-0021-4b03-a510-494ac6057349")
     @SmaMetaAssociation(metaName="ConnectorEndRole", typeDataClass=ConnectorEndData.class, min=0, max=1, smAssociationClass=Metadata.ConnectorEndRoleSmDependency.class, partof = true)
      SmObjectImpl mConnectorEndRole;
 
-    @objid ("70b3eb02-fef1-420d-9d49-d024643fed5e")
+    @objid ("e8a32326-5acd-4720-a08f-0560f09a6a40")
     @SmaMetaAssociation(metaName="ConnectorRole", typeDataClass=NaryConnectorData.class, min=0, max=1, smAssociationClass=Metadata.ConnectorRoleSmDependency.class, partof = true)
      SmObjectImpl mConnectorRole;
 
-    @objid ("fc40c50b-44ee-4168-979e-e11e12c09289")
+    @objid ("548f78a3-d5d9-4451-ad8e-5168b1bfdec3")
     @SmaMetaAssociation(metaName="Role", typeDataClass=BindableInstanceData.class, min=0, max=1, smAssociationClass=Metadata.RoleSmDependency.class, partof = true)
      SmObjectImpl mRole;
 
-    @objid ("484b0af7-8b9d-443f-901d-8e64fc98669b")
+    @objid ("f14d54bc-985e-4b4b-894c-b495887bc10c")
     @SmaMetaAssociation(metaName="RepresentedFeature", typeDataClass=ModelElementData.class, min=1, max=1, smAssociationClass=Metadata.RepresentedFeatureSmDependency.class, partof = true)
      SmObjectImpl mRepresentedFeature;
 
-    @objid ("774c7105-9237-4728-81d6-9cab5d8182fa")
+    @objid ("333318fb-c6dd-448b-97b5-14fe7c333a24")
     @SmaMetaAssociation(metaName="Owner", typeDataClass=CollaborationUseData.class, min=0, max=1, smAssociationClass=Metadata.OwnerSmDependency.class)
      SmObjectImpl mOwner;
 
-    @objid ("a7f2ef59-eeee-4f65-ac61-b12ef522cd1c")
+    @objid ("6d7cfd4d-272c-493d-a662-0e2b01a2f003")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("0068f63c-c4c2-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("82cb6607-5169-4e4f-9e7e-720d330d0e54")
+        @objid ("7cd8e9a9-5ab2-4970-b1aa-bad8fc14482e")
         private static SmClass smClass = null;
 
-        @objid ("17b5ed46-9488-454a-84ea-f652b1386cff")
+        @objid ("2fcb00e3-17c3-46c4-9fdf-d118cd29eabf")
         private static SmDependency ConnectorEndRoleDep = null;
 
-        @objid ("6623bf7f-a143-43a4-b339-95c2e3bbd0e4")
+        @objid ("bc9dcef6-da8a-4b1e-8766-bae402149505")
         private static SmDependency ConnectorRoleDep = null;
 
-        @objid ("48059995-ba12-47c4-8753-892d09546a46")
+        @objid ("efb236b2-3359-4ff7-acc9-1122f4a8d4ad")
         private static SmDependency RoleDep = null;
 
-        @objid ("172952fc-534f-47df-b9aa-d87815803540")
+        @objid ("63d96cc4-007f-41d1-a062-2447b38c69fa")
         private static SmDependency RepresentedFeatureDep = null;
 
-        @objid ("c0fe83e1-e009-43f3-a07f-0e910c9cd846")
+        @objid ("fdb1e524-aa9a-494c-abbc-1083b73e96ff")
         private static SmDependency OwnerDep = null;
 
-        @objid ("00c8138f-08eb-4073-b9c8-c57a69d7bde0")
+        @objid ("0b41a0dd-0eab-473a-9047-22f4ecb45459")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(BindingData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("58d36341-0965-4b7b-b6b2-4a6e6f6e73c4")
+        @objid ("c372ee37-a459-467c-9a42-7f62d3e98e7e")
         public static SmDependency ConnectorEndRoleDep() {
             if (ConnectorEndRoleDep == null) {
             	ConnectorEndRoleDep = classof().getDependencyDef("ConnectorEndRole");
@@ -106,7 +106,7 @@ public class BindingData extends ModelElementData {
             return ConnectorEndRoleDep;
         }
 
-        @objid ("465c382f-4f61-435d-91d2-8b0e477be048")
+        @objid ("7d34b0cb-7f2f-4b97-9c14-483f8e254abb")
         public static SmDependency ConnectorRoleDep() {
             if (ConnectorRoleDep == null) {
             	ConnectorRoleDep = classof().getDependencyDef("ConnectorRole");
@@ -114,7 +114,7 @@ public class BindingData extends ModelElementData {
             return ConnectorRoleDep;
         }
 
-        @objid ("d08aa8f0-3790-4a5f-8c5e-2baae25eb058")
+        @objid ("4dd6eafe-1afd-4a54-88e8-971672bb6205")
         public static SmDependency RoleDep() {
             if (RoleDep == null) {
             	RoleDep = classof().getDependencyDef("Role");
@@ -122,7 +122,7 @@ public class BindingData extends ModelElementData {
             return RoleDep;
         }
 
-        @objid ("61531e26-6082-436a-a4d2-b95150f31856")
+        @objid ("68e16f92-f4d9-4cd7-bc4a-7774ec885aee")
         public static SmDependency RepresentedFeatureDep() {
             if (RepresentedFeatureDep == null) {
             	RepresentedFeatureDep = classof().getDependencyDef("RepresentedFeature");
@@ -130,7 +130,7 @@ public class BindingData extends ModelElementData {
             return RepresentedFeatureDep;
         }
 
-        @objid ("4550c714-2631-473f-b4cf-2ea608fc8275")
+        @objid ("f6f40434-ecf2-425b-a79a-95997ca43075")
         public static SmDependency OwnerDep() {
             if (OwnerDep == null) {
             	OwnerDep = classof().getDependencyDef("Owner");
@@ -138,50 +138,50 @@ public class BindingData extends ModelElementData {
             return OwnerDep;
         }
 
-        @objid ("afe14e0d-4b5c-411c-b29f-0c9b2b4871d6")
+        @objid ("0a16f1b0-c3f2-40c5-9f7c-3448f68c7632")
         public static SmDependency getRepresentedFeatureDep() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return RepresentedFeatureDep;
         }
 
-        @objid ("e213c65d-0973-4eaf-9958-8a0746a54bf5")
-        public static SmDependency getOwnerDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return OwnerDep;
-        }
-
-        @objid ("47b9d79a-fd9d-419a-9382-43e2304544d0")
-        public static SmDependency getConnectorEndRoleDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return ConnectorEndRoleDep;
-        }
-
-        @objid ("dd9b2ae9-8bf7-4801-b127-734830d8e1d1")
+        @objid ("06e9dd36-ce02-4e8e-9435-94924fedfed2")
         public static SmClass getSmClass() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return smClass;
         }
 
-        @objid ("5501eecd-66de-4bfe-8ccc-a263274ebc41")
-        public static SmDependency getRoleDep() {
+        @objid ("f9862029-8637-4c11-a8ba-2cc022e74536")
+        public static SmDependency getOwnerDep() {
             // Automatically generated method. Please delete this comment before entering specific code.
-            return RoleDep;
+            return OwnerDep;
         }
 
-        @objid ("e968f3ad-2d8f-4be6-b413-1898133812fc")
+        @objid ("e1802377-7c54-49a6-b294-1f0897490cc7")
+        public static SmDependency getConnectorEndRoleDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return ConnectorEndRoleDep;
+        }
+
+        @objid ("d91f0441-6e43-418e-821a-9834574bbd43")
         public static SmDependency getConnectorRoleDep() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return ConnectorRoleDep;
         }
 
+        @objid ("3e47c25c-0334-4291-b1b7-5a56c1e612da")
+        public static SmDependency getRoleDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return RoleDep;
+        }
+
         @objid ("00693750-c4c2-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("6961a0a2-9897-4e79-a8d7-29946243915a")
+            @objid ("dd6096f6-d2dd-49bd-98d7-c4e19a8acd18")
             public ISmObjectData createData() {
                 return new BindingData();
             }
 
-            @objid ("df0e17c5-bb29-499c-a366-8dc1643f5031")
+            @objid ("fa24cce4-e41e-4c23-9dcd-eeb6f7f17f68")
             public SmObjectImpl createImpl() {
                 return new BindingImpl();
             }
@@ -190,18 +190,18 @@ public class BindingData extends ModelElementData {
 
         @objid ("006999b6-c4c2-1fd8-97fe-001ec947cd2a")
         public static class RepresentedFeatureSmDependency extends SmSingleDependency {
-            @objid ("fb585971-e4e4-4284-b6e1-280c081c7a28")
+            @objid ("d8396c8a-46a9-422b-8a9b-cad870deac65")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((BindingData) data).mRepresentedFeature;
             }
 
-            @objid ("11f450f4-8ec9-4eb6-b9b3-c16f525a3d60")
+            @objid ("53368bd3-7ee9-492a-a74d-2d0b4f3c785e")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((BindingData) data).mRepresentedFeature = value;
             }
 
-            @objid ("045cebb3-f57e-4e6c-96b3-b290f69a4d0f")
+            @objid ("413f65c8-2366-4687-bae5-5b426f96b307")
             @Override
             public SmDependency getSymetric() {
                 return ModelElementData.Metadata.RepresentsDep();
@@ -211,18 +211,18 @@ public class BindingData extends ModelElementData {
 
         @objid ("006a0dba-c4c2-1fd8-97fe-001ec947cd2a")
         public static class OwnerSmDependency extends SmSingleDependency {
-            @objid ("39b2b47f-4cd7-4ebc-9edf-a3919b35d28a")
+            @objid ("3154dcc5-ab4b-432d-a30c-2bbef9c5669c")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((BindingData) data).mOwner;
             }
 
-            @objid ("1b5b1d5c-f76b-40f5-9f98-b3df993c22f4")
+            @objid ("863df6b7-049e-4b56-9fc8-46e1a271be8b")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((BindingData) data).mOwner = value;
             }
 
-            @objid ("5b8a2331-6c58-4f71-a4ac-82bdae660f4a")
+            @objid ("5e76b20b-c5ac-42f7-ab2f-ecfde85f28ba")
             @Override
             public SmDependency getSymetric() {
                 return CollaborationUseData.Metadata.RoleBindingDep();
@@ -232,18 +232,18 @@ public class BindingData extends ModelElementData {
 
         @objid ("006a825e-c4c2-1fd8-97fe-001ec947cd2a")
         public static class ConnectorRoleSmDependency extends SmSingleDependency {
-            @objid ("be74bf4f-1d55-4510-876d-89c4b04d7b02")
+            @objid ("93e5cc1c-5dfe-4a4e-b2fc-fae98cb7eff6")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((BindingData) data).mConnectorRole;
             }
 
-            @objid ("e8abf951-a26d-4913-8150-7051cdbb685e")
+            @objid ("efdfe866-7bdd-4e8b-9b07-863d175c26c2")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((BindingData) data).mConnectorRole = value;
             }
 
-            @objid ("5e550227-ae28-4c0f-95cf-5da2dee6acec")
+            @objid ("4490289d-8648-4b50-9d9f-7026a825116c")
             @Override
             public SmDependency getSymetric() {
                 return NaryConnectorData.Metadata.RepresentationDep();
@@ -253,18 +253,18 @@ public class BindingData extends ModelElementData {
 
         @objid ("006af75c-c4c2-1fd8-97fe-001ec947cd2a")
         public static class RoleSmDependency extends SmSingleDependency {
-            @objid ("5a54c9e4-1fd4-4459-a3fb-0273861d3078")
+            @objid ("80467809-9d65-4cb0-8756-4cd161bb56cd")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((BindingData) data).mRole;
             }
 
-            @objid ("5d853d73-ce87-46c4-8f77-712788623f6a")
+            @objid ("9a962d74-6b4f-4182-b0a2-d680306b6b4f")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((BindingData) data).mRole = value;
             }
 
-            @objid ("d3c254d1-044b-4e02-9e1f-e0a5dc9dd98a")
+            @objid ("2069fa26-e105-402a-89f7-60e9295c5fa0")
             @Override
             public SmDependency getSymetric() {
                 return BindableInstanceData.Metadata.RepresentationDep();
@@ -274,18 +274,18 @@ public class BindingData extends ModelElementData {
 
         @objid ("006b6fe8-c4c2-1fd8-97fe-001ec947cd2a")
         public static class ConnectorEndRoleSmDependency extends SmSingleDependency {
-            @objid ("0cdad775-d821-4574-9893-f8035d3cbb51")
+            @objid ("f81f3293-ae86-4e9c-93a9-7c16e4e80552")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((BindingData) data).mConnectorEndRole;
             }
 
-            @objid ("e300f79f-7505-44c6-8ca1-2c5992edeff9")
+            @objid ("21788b07-6156-4c73-b48c-a3e7aa8691b8")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((BindingData) data).mConnectorEndRole = value;
             }
 
-            @objid ("eb22fbe7-18ee-49f2-a657-4c06f636da93")
+            @objid ("51b67b8f-acb8-4753-a7d7-399f59369a32")
             @Override
             public SmDependency getSymetric() {
                 return ConnectorEndData.Metadata.RepresentationDep();

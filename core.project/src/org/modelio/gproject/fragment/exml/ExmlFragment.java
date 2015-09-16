@@ -32,20 +32,24 @@ import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
 import java.util.Collection;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.modelio.gproject.descriptor.DefinitionScope;
-import org.modelio.gproject.descriptor.FragmentDescriptor;
-import org.modelio.gproject.descriptor.FragmentType;
-import org.modelio.gproject.descriptor.GAuthConf;
-import org.modelio.gproject.descriptor.GProperties;
-import org.modelio.gproject.descriptor.VersionDescriptors;
+import org.modelio.gproject.data.project.DefinitionScope;
+import org.modelio.gproject.data.project.FragmentDescriptor;
+import org.modelio.gproject.data.project.FragmentType;
+import org.modelio.gproject.data.project.GAuthConf;
+import org.modelio.gproject.data.project.GProperties;
+import org.modelio.gproject.data.project.VersionDescriptors;
 import org.modelio.gproject.fragment.AbstractFragment;
+import org.modelio.gproject.fragment.FragmentAuthenticationException;
+import org.modelio.gproject.fragment.FragmentMigrationNeededException;
 import org.modelio.gproject.fragment.UmlFragmentContentInitializer;
+import org.modelio.gproject.fragment.exml.migration.RepositoryRegeneratorMigrator;
+import org.modelio.gproject.gproject.GProject;
 import org.modelio.gproject.gproject.GProjectEvent;
 import org.modelio.gproject.plugin.CoreProject;
-import org.modelio.metamodel.Metamodel;
 import org.modelio.metamodel.analyst.AnalystProject;
 import org.modelio.metamodel.mda.ModuleComponent;
 import org.modelio.metamodel.mda.Project;
+import org.modelio.vbasic.log.Log;
 import org.modelio.vbasic.progress.IModelioProgress;
 import org.modelio.vcore.session.api.IAccessManager;
 import org.modelio.vcore.session.api.repository.IRepository;
@@ -101,10 +105,11 @@ public class ExmlFragment extends AbstractFragment {
         try (BufferedReader in = Files.newBufferedReader(p, StandardCharsets.UTF_8);) {
             return new VersionDescriptors(in);
         } catch (FileNotFoundException | NoSuchFileException e) {
-            // Assume current MM version
-            final VersionDescriptors current = getLastMmVersion();
-            saveMmVersion(current);
-            return current;
+            // Assume Modelio 3.1 MM version
+            Log.warning("No '"+p+"' metamodel version file. Assume Modelio 3.1 (9020) metamodel version.");
+            final VersionDescriptors guessed = VersionDescriptors.current(9020);
+            saveMmVersion(guessed);
+            return guessed;
         }
     }
 
@@ -134,17 +139,31 @@ public class ExmlFragment extends AbstractFragment {
 
     @objid ("213b2539-3eae-468b-8fa4-507e21ea9f1e")
     @Override
-    protected void checkMmVersion() throws IOException {
+    protected void checkMmVersion() throws IOException, FragmentMigrationNeededException {
         VersionDescriptors fragmentVersion = getMetamodelVersion();
-        if (! fragmentVersion.isSame(getLastMmVersion())) {
+        VersionDescriptors lastMmVersion = getLastMmVersion();
+        if (! fragmentVersion.isSame(lastMmVersion)) {
             // last compatible version 9017
             // first incompatible version 9016
             final int mmVersion = fragmentVersion.getMmVersion();
-            final String fragLabel = getId()+" v"+fragmentVersion.getMmVersion();
-            if (mmVersion < 9017 || mmVersion > Integer.parseInt(Metamodel.VERSION)) {
-                throw new IOException(CoreProject.getMessage("AbstractFragment.MmVersionNotSupported", getId(), fragmentVersion, getLastMmVersion()));
-            } else
-                getProject().getMonitorSupport().fireMonitors(GProjectEvent.buildWarning(this, new IOException(CoreProject.getMessage("RamcFileFragment.DifferentMmVersion", fragLabel, fragmentVersion))));
+            if (mmVersion < 9017) {
+                // too old
+                throw new IOException(CoreProject.getMessage("AbstractFragment.MmVersionNotSupported", getId(), fragmentVersion, lastMmVersion));
+            } else if (mmVersion > lastMmVersion.getMmVersion()) {
+                // Modelio too old
+                throw new IOException(CoreProject.getMessage("AbstractFragment.FutureMmVersion", getId(), fragmentVersion, lastMmVersion));
+            } else if (mmVersion < 9022) {
+                // 9022 : CMS nodes changed
+                if (Boolean.parseBoolean(getProperties().getValue(PROP_READ_ONLY))) {
+                    // this is not important for R/O local EXML fragments.
+                    getProject().getMonitorSupport().fireMonitors(GProjectEvent.buildWarning(this, CoreProject.getMessage("AbstractFragment.CompatibleMmVersion", getId(), fragmentVersion, lastMmVersion)));
+                } else {
+                    throw new FragmentMigrationNeededException(this, lastMmVersion);
+                }
+            } else {
+                // different mm but should be compatible
+                getProject().getMonitorSupport().fireMonitors(GProjectEvent.buildWarning(this, CoreProject.getMessage("AbstractFragment.DifferentMmVersion", getId(), fragmentVersion, lastMmVersion)));
+            }
         }
     }
 
@@ -152,12 +171,15 @@ public class ExmlFragment extends AbstractFragment {
     @Override
     protected IAccessManager doInitAccessManager() {
         BasicAccessManager ret = new BasicAccessManager();
+        if (Boolean.parseBoolean(getProperties().getValue(PROP_READ_ONLY))) {
+            ret.setWriteable(false);
+        }
         return ret;
     }
 
     @objid ("c1778cd6-95da-11e1-ac83-001ec947ccaf")
     @Override
-    protected IRepository doMountInitRepository(IModelioProgress aMonitor) throws IOException {
+    public IRepository doMountInitRepository(IModelioProgress aMonitor) throws IOException {
         if (this.location == null) {
             this.location = getDataDirectory();
         }
@@ -173,7 +195,7 @@ public class ExmlFragment extends AbstractFragment {
             UmlFragmentContentInitializer.initialize(this);
             
             // Add metamodel version file
-            saveMmVersion(getMetamodelVersion());
+            saveMmVersion(getLastMmVersion());
             
         }
         return this.repository;
@@ -197,6 +219,21 @@ public class ExmlFragment extends AbstractFragment {
         
         try (Writer out = Files.newBufferedWriter(mmVersionPath, StandardCharsets.UTF_8)) {
             mmVersion.write(out);
+        }
+    }
+
+    @objid ("d319c92e-bd14-44ff-a8a2-9a312f5ca227")
+    @Override
+    public void migrate(GProject project, IModelioProgress aMonitor) throws IOException, FragmentAuthenticationException {
+        VersionDescriptors fragmentVersion = getMetamodelVersion();
+        final int mmVersion = fragmentVersion.getMmVersion();
+        if (mmVersion >= 9017 && mmVersion < 9022) {
+            // 9022 : CMS nodes changed
+            new RepositoryRegeneratorMigrator(this, project, getMmVersionPath(), getLastMmVersion()).run(aMonitor);
+        } else {
+            // not migrable
+            // This will fail with an exception
+            super.migrate(project, aMonitor);
         }
     }
 

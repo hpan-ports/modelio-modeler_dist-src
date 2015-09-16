@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.data.uml.behavior.activityModel;
 
@@ -43,22 +43,22 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("0027e354-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=ActivityFinalNode.class, factory=ActivityFinalNodeData.Metadata.ObjectFactory.class)
 public class ActivityFinalNodeData extends FinalNodeData {
-    @objid ("252b01ae-7f37-4fa3-b1f0-0eb039d85aba")
+    @objid ("9cbb2035-066d-4d2d-adeb-345dbbc6a38c")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("00107638-c4c3-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("913d34ca-ca6e-4988-89e0-41e955bd4253")
+        @objid ("d76d3676-b2cf-4dfe-8a76-02c6cc1166bd")
         private static SmClass smClass = null;
 
-        @objid ("b9e6bd39-9e71-48be-a977-200cac235c85")
+        @objid ("f1474032-4cc9-4fd9-866c-91992c290915")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(ActivityFinalNodeData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("36d4637f-e2b9-4d87-82d4-0be6e617fd23")
+        @objid ("e41506f0-eb16-4e45-8a64-10488bb6f2e6")
         public static SmClass getSmClass() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return smClass;
@@ -66,12 +66,12 @@ public class ActivityFinalNodeData extends FinalNodeData {
 
         @objid ("0010b878-c4c3-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("bd9e4801-7fe8-4a81-83fb-86baeb87c003")
+            @objid ("f422424c-a751-4388-b4ac-23cd1275ba12")
             public ISmObjectData createData() {
                 return new ActivityFinalNodeData();
             }
 
-            @objid ("2540dba8-be98-47f5-a567-a1d0186ea14d")
+            @objid ("ccbba99c-e4ab-42bc-aa90-51d2fa4a45cd")
             public SmObjectImpl createImpl() {
                 return new ActivityFinalNodeImpl();
             }

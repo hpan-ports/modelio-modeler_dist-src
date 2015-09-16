@@ -33,51 +33,6 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
  */
 @objid ("00567e08-2c99-1f20-85a5-001ec947cd2a")
 public final class SmStatus implements IRStatus, IPStatus {
-    @objid ("004918ee-fd1a-1f27-a7da-001ec947cd2a")
-    private static final long serialVersionUID = 2436486008927826622L;
-
-    /**
-     * Flags that must never be undefined in order for Modelio to work.
-     */
-    @objid ("ca840a0e-d5a6-11e1-adbb-001ec947ccaf")
-    public static final long MASK_NEVER_UNDEFINED = SHELL | MASK_DELETE | LOADING | RESTORED_FROM_SWAP;
-
-    /**
-     * Runtime flags area.
-     * <p>
-     * The area was initially from 0 to 15.
-     * Add the CMS status part that was in the persistent part.
-     */
-    @objid ("325165a5-d27b-11e1-b069-001ec947ccaf")
-     static final long RFLAGS = 0x0000_0000_0000_ffffL | MASK_CMS | MASK_REPO;
-
-    /**
-     * Runtime flags mask area
-     */
-    @objid ("325165a8-d27b-11e1-b069-001ec947ccaf")
-    private static final long RMASK = RFLAGS << 16; // 0x0000_0000_ffff_0000L;
-
-    /**
-     * Persistent flags area.
-     * <p>
-     * The area was initially from 32 to 47.
-     * Remove the CMS and repository status part that was in the persistent part.
-     */
-    @objid ("325165ab-d27b-11e1-b069-001ec947ccaf")
-     static final long PFLAGS = 0x0000_ffff_0000_0000L & ~ (MASK_CMS | MASK_REPO);
-
-    /**
-     * Persistent flags mask area
-     */
-    @objid ("325165af-d27b-11e1-b069-001ec947ccaf")
-     static final long PMASK = PFLAGS << 16; // 0xffff_0000_0000_0000L;
-
-    /**
-     * Persistent part of a SmStatus.
-     */
-    @objid ("fc5fc7d9-b344-40e1-be54-529ab3a03d60")
-     static final long PERSISTENT_BITS = PFLAGS | PMASK;
-
     /**
      * All flags area.
      * <p>
@@ -95,11 +50,50 @@ public final class SmStatus implements IRStatus, IPStatus {
     @objid ("325165b2-d27b-11e1-b069-001ec947ccaf")
     private static final long GMASK = ~GFLAGS;
 
-    @objid ("d3a914d9-3b68-468c-9bad-9ca35f69444f")
-    private SmStatus() {
-        // no instance
-        throw new AssertionError();
-    }
+    /**
+     * Flags that must never be undefined in order for Modelio to work.
+     */
+    @objid ("ca840a0e-d5a6-11e1-adbb-001ec947ccaf")
+    public static final long MASK_NEVER_UNDEFINED = SHELL | MASK_DELETE | LOADING | RESTORED_FROM_SWAP;
+
+    /**
+     * Persistent flags area.
+     * <p>
+     * The area was initially from 32 to 47.
+     * Remove the CMS and repository status part that was in the persistent part.
+     */
+    @objid ("325165ab-d27b-11e1-b069-001ec947ccaf")
+     static final long PFLAGS = 0x0000_ffff_0000_0000L & ~ (MASK_CMS | MASK_REPO);
+
+    /**
+     * Persistent flags mask area
+     */
+    @objid ("325165af-d27b-11e1-b069-001ec947ccaf")
+     static final long PMASK = PFLAGS << 16; // 0xffff_0000_0000_0000L;
+
+    /**
+     * Runtime flags area.
+     * <p>
+     * The area was initially from 0 to 15.
+     * Add the CMS status part that was in the persistent part.
+     */
+    @objid ("325165a5-d27b-11e1-b069-001ec947ccaf")
+     static final long RFLAGS = 0x0000_0000_0000_ffffL | MASK_CMS | MASK_REPO;
+
+    /**
+     * Persistent part of a SmStatus.
+     */
+    @objid ("fc5fc7d9-b344-40e1-be54-529ab3a03d60")
+     static final long PERSISTENT_BITS = PFLAGS | PMASK;
+
+    /**
+     * Runtime flags mask area
+     */
+    @objid ("325165a8-d27b-11e1-b069-001ec947ccaf")
+    private static final long RMASK = RFLAGS << 16; // 0x0000_0000_ffff_0000L;
+
+    @objid ("004918ee-fd1a-1f27-a7da-001ec947cd2a")
+    private static final long serialVersionUID = 2436486008927826622L;
 
     /**
      * Tells whether all the given flags are set in this status. Returns:
@@ -136,6 +130,23 @@ public final class SmStatus implements IRStatus, IPStatus {
     }
 
     /**
+     * Return the string representation of the given flags combination.
+     * Flags are to be found in {@link IRStatus} and {@link IPStatus}.
+     * @param bitdef a combination of lags, not a status.
+     * @return the string representation.
+     */
+    @objid ("711884ea-76b5-4104-b4b9-5c5dc85023df")
+    public static String flagsToString(long bitdef) {
+        long status = bitdef | toMask(bitdef);
+        long invalid = bitdef & GMASK;
+        
+        if (invalid == 0)
+            return toString(status);
+        else
+            return toString(status) + " invalid mask bits:" + toString(invalid | fromMask(invalid));
+    }
+
+    /**
      * Get the value and mask bits filtered by the given access mask.
      * @param status a status
      * @param bitdef an access mask
@@ -147,6 +158,17 @@ public final class SmStatus implements IRStatus, IPStatus {
         
         final long m = bitdef | toMask(bitdef);
         return status & m;
+    }
+
+    /**
+     * Get flags defined to FALSE in the given status
+     * @param status a status
+     * @return the flags defined to FALSE.
+     */
+    @objid ("cdabd86a-f8d6-488b-b0d1-5c9854adc64a")
+    public static long getFalseFlags(long status) {
+        long definedFlags = fromMask(status);
+        return (~status & definedFlags);
     }
 
     /**
@@ -197,49 +219,54 @@ public final class SmStatus implements IRStatus, IPStatus {
     }
 
     /**
-     * Return a string representation of the given status flags.
-     * @param status the status to print
-     * @return the string representation.
+     * Set the given flags state, except FALSE flags are left untouched.
+     * <p>
+     * Use the constants defined in {@link IRStatus} and {@link IPStatus}.
+     * No delete flag must be undefined, in the other case Modelio behavior is undefined.
+     * @param astatus the initial status
+     * @param trueFlags a combination of flags to set.
+     * @param falseFlags a combination of flags to unset.
+     * @param undefFlags a combination of flags to undefine.
+     * @return the modified status
      */
-    @objid ("0056953c-2c99-1f20-85a5-001ec947cd2a")
-    public static String toString(long status) {
-        StringBuilder s = new StringBuilder();
-        // Access rights
-        dump(status, USERVISIBLE, "USERVISIBLE, ", s);
-        dump(status, USERBROWSE, "USERBROWSE, ", s);
-        dump(status, USERWRITE, "USERWRITE, ", s);
+    @objid ("6f5c9a77-d78d-4076-889a-b26d354224d7")
+    public static long setNotFalseFlags(final long astatus, long trueFlags, long falseFlags, long undefFlags) {
+        long status = astatus;
         
-        dump(status, DOMAINBROWSE, "DOMAINBROWSE, ", s);
-        dump(status, DOMAINVISIBLE, "DOMAINVISIBLE, ", s);
-        dump(status, DOMAINWRITE, "DOMAINWRITE, ", s);
+        // The mask bits must not overlap
+        assert ((trueFlags & falseFlags) == 0) : flagsToString((trueFlags & falseFlags));     
+        assert ((falseFlags & undefFlags) == 0) : flagsToString((falseFlags & undefFlags));     
+        assert ((trueFlags & undefFlags) == 0) : flagsToString((trueFlags & undefFlags));     
         
-        dump(status, OBJECTBROWSE, "OBJECTBROWSE, ", s);
-        dump(status, OBJECTVISIBLE, "OBJECTVISIBLE, ", s);
-        dump(status, OBJECTWRITE, "OBJECTWRITE, ", s);
+        // The bit defs must not contain any mask bit
+        assert (((trueFlags| falseFlags| undefFlags) & SmStatus.GMASK) == 0) : 
+            flagsToString((trueFlags| falseFlags| undefFlags));
         
-        // CMS management
-        dump(status, CMSSYNC, "CMSSYNC, ", s);
-        dump(status, CMSMODIFIED, "CMSMODIFIED, ", s);
-        dump(status, CMSMANAGED, "CMSMANAGED, ", s);
-        dump(status, CMSREADONLY, "CMSREADONLY, ", s);
-        dumpIfSet(status, CMSTOADD, "CMSTOADD, ", s);
-        dumpIfSet(status, CMSTODELETE, "CMSTODELETE, ", s);
-        dumpIfSet(status, CMSCONFLICT, "CMSCONFLICT, ", s);
+        final long origFalseFlags = getFalseFlags(status);
         
-        // Memory management
-        dumpIfSet(status, SHELL, "SHELL, ", s);
-        dumpIfSet(status, RAMC, "RAMC, ", s);
-        dumpIfSet(status, DELETED, "DELETED, ", s);
-        dumpIfSet(status, BEINGDELETED, "BEINGDELETED, ", s);
-        dumpIfSet(status, LOADING, "LOADING, ", s);
-        dumpIfSet(status, RESTORED_FROM_SWAP, "RESTORED_FROM_SWAP, ", s);
-        
-        if (s.length() > 0) {
-            // remove the last ", "
-            return s.substring(0, s.length() - 2);
-        } else {
-            return "";
+        if (trueFlags != 0) {
+            // No FALSE flag must be changed to TRUE
+            long lTrueFlags = trueFlags & ~origFalseFlags;
+            status |= toMask(lTrueFlags);
+            status |= lTrueFlags;
         }
+        
+        if (falseFlags != 0) {
+            status |= toMask(falseFlags);
+            status &= ~falseFlags;
+        }
+        
+        if (undefFlags != 0) {
+            // No delete flag must be undefined, in the other case Modelio
+            // behavior is undefined.
+            assert ((undefFlags & MASK_NEVER_UNDEFINED) == 0) : toString(undefFlags)+ " contains bits that must never be undefined";
+        
+            // No FALSE flag must be changed to UNDEFINED
+        
+            long lUndefFlags = undefFlags & ~origFalseFlags;
+            status &= ~(toMask(lUndefFlags) | lUndefFlags);
+        }
+        return status;
     }
 
     /**
@@ -326,23 +353,69 @@ public final class SmStatus implements IRStatus, IPStatus {
     }
 
     /**
-     * Merges the given status into this one.
+     * Return a string representation of the given status flags.
+     * @param status the status to print
+     * @return the string representation.
+     */
+    @objid ("0056953c-2c99-1f20-85a5-001ec947cd2a")
+    public static String toString(long status) {
+        StringBuilder s = new StringBuilder();
+        // Access rights
+        dump(status, USERVISIBLE, "USERVISIBLE, ", s);
+        dump(status, USERBROWSE, "USERBROWSE, ", s);
+        dump(status, USERWRITE, "USERWRITE, ", s);
+        
+        dump(status, DOMAINBROWSE, "DOMAINBROWSE, ", s);
+        dump(status, DOMAINVISIBLE, "DOMAINVISIBLE, ", s);
+        dump(status, DOMAINWRITE, "DOMAINWRITE, ", s);
+        
+        dump(status, OBJECTBROWSE, "OBJECTBROWSE, ", s);
+        dump(status, OBJECTVISIBLE, "OBJECTVISIBLE, ", s);
+        dump(status, OBJECTWRITE, "OBJECTWRITE, ", s);
+        
+        // CMS management
+        dump(status, CMSSYNC, "CMSSYNC, ", s);
+        dump(status, CMSMODIFIED, "CMSMODIFIED, ", s);
+        dump(status, CMSMANAGED, "CMSMANAGED, ", s);
+        dump(status, CMSREADONLY, "CMSREADONLY, ", s);
+        dumpIfSet(status, CMSTOADD, "CMSTOADD, ", s);
+        dumpIfSet(status, CMSTODELETE, "CMSTODELETE, ", s);
+        dumpIfSet(status, CMSCONFLICT, "CMSCONFLICT, ", s);
+        
+        // Memory management
+        dumpIfSet(status, SHELL, "SHELL, ", s);
+        dumpIfSet(status, RAMC, "RAMC, ", s);
+        dumpIfSet(status, DELETED, "DELETED, ", s);
+        dumpIfSet(status, BEINGDELETED, "BEINGDELETED, ", s);
+        dumpIfSet(status, LOADING, "LOADING, ", s);
+        dumpIfSet(status, RESTORED_FROM_SWAP, "RESTORED_FROM_SWAP, ", s);
+        
+        if (s.length() > 0) {
+            // remove the last ", "
+            return s.substring(0, s.length() - 2);
+        } else {
+            return "";
+        }
+    }
+
+    /**
+     * Merges another status into a destination one.
      * <p>
-     * All flags defined to <code>true</code> or <code>false</code> in the given status will be copied in this status.
+     * All flags defined to <code>true</code> or <code>false</code> in the <i>other</i> status will be copied in this status.
      * Other flags will be left untouched.
-     * @param status the status value to merge into.
-     * @param parent the status value to merge
+     * @param destStatus the status value to modify.
+     * @param other the status value to merge
      * @return the merged status value
      */
     @objid ("ab140a41-d287-11e1-b069-001ec947ccaf")
-    static long combine(long status, long parent) {
-        long lstatus = status;
+    static long combine(long destStatus, long other) {
+        long lstatus = destStatus;
         
         // Report parent TRUE flags to undefined flags
-        lstatus |= (parent & GFLAGS & fromMask(parent) & ~fromMask(status));
+        lstatus |= (other & GFLAGS & fromMask(other) & ~fromMask(destStatus));
         
         // Set flags defined on parent as defined
-        lstatus |= (parent & GMASK);
+        lstatus |= (other & GMASK);
         return lstatus;
     }
 
@@ -357,6 +430,12 @@ public final class SmStatus implements IRStatus, IPStatus {
         long pstatus = persistentBits & PERSISTENT_BITS;
         long rstatus = status & ~PERSISTENT_BITS;
         return pstatus | rstatus;
+    }
+
+    @objid ("d3a914d9-3b68-468c-9bad-9ca35f69444f")
+    private SmStatus() {
+        // no instance
+        throw new AssertionError();
     }
 
     @objid ("0c769dd2-d4cd-11e1-b069-001ec947ccaf")
@@ -394,29 +473,12 @@ public final class SmStatus implements IRStatus, IPStatus {
 
     /**
      * Convert definition mask flags to value flags .
-     * @param mask definition mask
-     * @return value flags
+     * @param status a complete status
+     * @return flags that are defined
      */
     @objid ("c81303fc-d58f-11e1-b069-001ec947ccaf")
-    private static final long fromMask(final long mask) {
-        return (mask & GMASK) >> 16;
-    }
-
-    /**
-     * Return the string representation of the given flags combination.
-     * Flags are to be found in {@link IRStatus} and {@link IPStatus}.
-     * @param bitdef a combination of lags, not a status.
-     * @return the string representation.
-     */
-    @objid ("711884ea-76b5-4104-b4b9-5c5dc85023df")
-    public static String flagsToString(long bitdef) {
-        long status = bitdef | toMask(bitdef);
-        long invalid = bitdef & GMASK;
-        
-        if (invalid == 0)
-        return toString(status);
-        else
-            return toString(status) + " invalid mask bits:" + toString(invalid | fromMask(invalid));
+    private static final long fromMask(final long status) {
+        return (status & GMASK) >> 16;
     }
 
     /**

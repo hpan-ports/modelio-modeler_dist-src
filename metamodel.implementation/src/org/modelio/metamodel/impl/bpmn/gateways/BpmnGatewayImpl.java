@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.bpmn.gateways;
 
@@ -43,33 +43,33 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("00012282-c4c0-1fd8-97fe-001ec947cd2a")
 public abstract class BpmnGatewayImpl extends BpmnFlowNodeImpl implements BpmnGateway {
-    @objid ("e2505b40-0862-46af-832e-5096d6c50099")
+    @objid ("ecfdc033-e6ec-4214-9d4d-bbb5dff00830")
     @Override
     public BpmnGatewayDirection getGatewayDirection() {
         return (BpmnGatewayDirection) getAttVal(BpmnGatewayData.Metadata.GatewayDirectionAtt());
     }
 
-    @objid ("d50cf9e7-9967-410e-a3db-314e44559c1d")
+    @objid ("5632c898-7eab-45ee-a274-d3613357fd51")
     @Override
     public void setGatewayDirection(BpmnGatewayDirection value) {
         setAttVal(BpmnGatewayData.Metadata.GatewayDirectionAtt(), value);
     }
 
-    @objid ("c22b04ae-0553-485c-9edc-c6b74c3ec63a")
+    @objid ("a729cf27-4e91-4f4c-85aa-772eb172b196")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("ff9b0ade-7601-4bdc-902e-faadebf46125")
+    @objid ("b80f2ec8-d3d9-4009-a759-68c219f1b4bb")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("ec7c0b99-4177-4870-ac49-760dbd7439d2")
+    @objid ("1f0d02ff-ba89-44c1-928a-79b20a1f4515")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitBpmnGateway(this);

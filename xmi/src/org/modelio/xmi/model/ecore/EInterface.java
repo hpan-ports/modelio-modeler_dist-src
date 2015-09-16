@@ -21,7 +21,6 @@
 
 package org.modelio.xmi.model.ecore;
 
-import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.api.modelio.Modelio;
 import org.modelio.metamodel.uml.infrastructure.Element;
@@ -36,9 +35,9 @@ import org.modelio.xmi.util.ReverseProperties;
  * @author ebrosse
  */
 @objid ("88c96440-4128-4a31-a328-ca0c75943437")
-public class EInterface extends ENamedElement implements IEElement {
+public class EInterface extends ENamedElement {
     @objid ("a624f7ca-318b-488f-8814-c554253fdc03")
-    private org.eclipse.uml2.uml.Interface ecoreElement;
+    private org.eclipse.uml2.uml.Interface ecoreElement = null;
 
     @objid ("ea883ae4-e4b7-4523-b8bd-00b4c21aedae")
     @Override
@@ -60,20 +59,14 @@ public class EInterface extends ENamedElement implements IEElement {
     @Override
     public void attach(Element objingElt) {
         org.eclipse.uml2.uml.Element ecoreOwner = this.ecoreElement.getOwner();
-        ReverseProperties revProp = ReverseProperties.getInstance();
-        
-        Element objingOwner = (Element) revProp
+               
+        Element objingOwner = (Element) ReverseProperties.getInstance()
         .getMappedElement(ecoreOwner);
         
          if ((objingOwner instanceof ModelTree) && !(objingOwner instanceof Profile)){
             ((Interface) objingElt).setOwner((ModelTree) objingOwner);
         }else
             ((Interface) objingElt).setOwner(ReverseProperties.getInstance().getExternalPackage());
-    }
-
-    @objid ("931eab3e-2e87-4a2a-80ee-4f41aaf7920d")
-    @Override
-    public void attach(List<Object> objingElts) {
     }
 
     @objid ("e0dd6bcc-3408-40e2-9cc7-4c4708a124cf")

@@ -15,12 +15,12 @@
 	<parent>
 		<groupId>org.modelio</groupId>
 		<artifactId>modelio</artifactId>
-		<version>3.1.2-SNAPSHOT</version>
+		<version>3.2.1-SNAPSHOT</version>
 	</parent>
 	
 	<groupId>org.modelio</groupId>
 	<artifactId>aggregator</artifactId>
-	<version>1.0.0-SNAPSHOT</version>
+	<version>3.2.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	
 	<modules>
@@ -36,6 +36,7 @@
 		<module>../metamodel.implementation</module>
 
 		<module>../core.project</module>
+		<module>../core.project.data</module>
 
 		<module>../admtool</module>
 		<module>../api</module>
@@ -55,6 +56,7 @@
 		<module>../core.help</module>
 		<module>../diagram.browser</module>
 		<module>../edition.notes</module>
+		<module>../edition.html</module>
 		<module>../editors</module>
 		<module>../log</module>
 		<module>../mda.infra</module>

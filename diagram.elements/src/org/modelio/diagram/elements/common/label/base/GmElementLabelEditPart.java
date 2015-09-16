@@ -40,12 +40,14 @@ import org.eclipse.jface.viewers.TextCellEditor;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Text;
 import org.modelio.diagram.elements.common.edition.DirectEditManager2;
+import org.modelio.diagram.elements.core.figures.GradientFigure;
 import org.modelio.diagram.elements.core.model.GmModel;
 import org.modelio.diagram.elements.core.model.IGmObject;
 import org.modelio.diagram.elements.core.node.GmNodeEditPart;
 import org.modelio.diagram.elements.core.policies.DefaultElementDirectEditPolicy;
 import org.modelio.diagram.styles.core.IStyle;
 import org.modelio.diagram.styles.core.MetaKey;
+import org.modelio.diagram.styles.core.StyleKey.FillMode;
 import org.modelio.diagram.styles.core.StyleKey;
 
 /**
@@ -93,10 +95,8 @@ public class GmElementLabelEditPart extends GmNodeEditPart {
                     label.translateToAbsolute(rect);
                     // label.translateToAbsolute(rect2);
         
-                    cellEditor.getControl().setBounds(rect.x,
-                                                      rect.y + (rect.height / 2) - (rect2.height / 2),
-                                                      Math.max(rect2.width, rect.width),
-                                                      rect2.height);
+                    cellEditor.getControl().setBounds(rect.x, rect.y + (rect.height / 2) - (rect2.height / 2),
+                            Math.max(rect2.width, rect.width), rect2.height);
                 }
             };
         
@@ -124,8 +124,7 @@ public class GmElementLabelEditPart extends GmNodeEditPart {
     }
 
     /**
-     * Added the handling of LABEL property change events: updates the visual and requests a resize to preferred size if
-     * available.
+     * Added the handling of LABEL property change events: updates the visual and requests a resize to preferred size if available.
      */
     @objid ("7e903389-1dec-11e2-8cad-001ec947c8cc")
     @Override
@@ -147,8 +146,8 @@ public class GmElementLabelEditPart extends GmNodeEditPart {
             if (!Dimension.SINGLETON.equals(currentSize) && !updatedPrefSize.equals(currentSize)) {
                 ChangeBoundsRequest changeBoundsRequest = new ChangeBoundsRequest(REQ_RESIZE);
                 changeBoundsRequest.setEditParts(this);
-                changeBoundsRequest.setSizeDelta(new Dimension(updatedPrefSize.width - currentSize.width,
-                                                               updatedPrefSize.height - currentSize.height));
+                changeBoundsRequest.setSizeDelta(new Dimension(updatedPrefSize.width - currentSize.width, updatedPrefSize.height
+                        - currentSize.height));
                 Command resizeCommand = getCommand(changeBoundsRequest);
                 if (resizeCommand != null && resizeCommand.canExecute()) {
                     resizeCommand.execute();
@@ -191,15 +190,16 @@ public class GmElementLabelEditPart extends GmNodeEditPart {
     @Override
     protected void refreshFromStyle(IFigure aFigure, IStyle style) {
         final GmElementLabel model = (GmElementLabel) getModel();
+        Label fig = (Label)aFigure;
         
         StyleKey textColorStyleKey = model.getStyleKey(MetaKey.TEXTCOLOR);
         if (textColorStyleKey != null) {
-            aFigure.setForegroundColor(style.getColor(textColorStyleKey));
+            fig.setForegroundColor(style.getColor(textColorStyleKey));
         }
         
         StyleKey fontStyleKey = model.getStyleKey(MetaKey.FONT);
         if (fontStyleKey != null) {
-            aFigure.setFont(style.getFont(fontStyleKey));
+            fig.setFont(style.getFont(fontStyleKey));
         }
         
         updateVisibility(aFigure);
@@ -210,14 +210,12 @@ public class GmElementLabelEditPart extends GmNodeEditPart {
     protected void refreshVisuals() {
         final GmElementLabel model = (GmElementLabel) getModel();
         final Label labelFigure = (Label) getFigure();
-        
         labelFigure.setText(model.getLabel());
-        
         labelFigure.getParent().setConstraint(labelFigure, model.getLayoutData());
     }
 
     @objid ("7e9295b2-1dec-11e2-8cad-001ec947c8cc")
-    private void updateVisibility(IFigure aFigure) {
+    protected void updateVisibility(IFigure aFigure) {
         final boolean visible = ((GmElementLabel) getModel()).isVisible();
         if (visible)
             aFigure.setVisible(true);

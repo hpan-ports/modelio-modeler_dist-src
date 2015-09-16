@@ -57,6 +57,7 @@ import org.modelio.metamodel.uml.informationFlow.InformationFlow;
 import org.modelio.metamodel.uml.infrastructure.Dependency;
 import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
+import org.modelio.metamodel.uml.infrastructure.Substitution;
 import org.modelio.metamodel.uml.statik.Artifact;
 import org.modelio.metamodel.uml.statik.Association;
 import org.modelio.metamodel.uml.statik.AssociationEnd;
@@ -67,6 +68,8 @@ import org.modelio.metamodel.uml.statik.ClassAssociation;
 import org.modelio.metamodel.uml.statik.Classifier;
 import org.modelio.metamodel.uml.statik.Collaboration;
 import org.modelio.metamodel.uml.statik.CollaborationUse;
+import org.modelio.metamodel.uml.statik.Component;
+import org.modelio.metamodel.uml.statik.ComponentRealization;
 import org.modelio.metamodel.uml.statik.Connector;
 import org.modelio.metamodel.uml.statik.ConnectorEnd;
 import org.modelio.metamodel.uml.statik.ElementImport;
@@ -117,7 +120,7 @@ public class ModelLinkFactory implements IModelLinkFactory {
     @objid ("80ab06b6-1dec-11e2-8cad-001ec947c8cc")
     @Override
     public MObject createLink(String metaclass, MObject source, MObject target) throws IllegalArgumentException, ClassCastException {
-        IModelFactory modelFactory = this.modelServices.getModelFactory(source);
+        IModelFactory modelFactory = this.modelServices.getModelFactory();
         final MObject ret = modelFactory.createElement(metaclass);
         return (MObject) ret.accept(new ImplVisitor(modelFactory, source, target, null));
     }
@@ -136,7 +139,7 @@ public class ModelLinkFactory implements IModelLinkFactory {
      */
     @objid ("80ab06bf-1dec-11e2-8cad-001ec947c8cc")
     public MObject createLink(final String metaclass, final MObject source, final MObject target, final MObject owner) throws IllegalArgumentException, ClassCastException {
-        IModelFactory modelFactory = this.modelServices.getModelFactory(source);
+        IModelFactory modelFactory = this.modelServices.getModelFactory();
         final MObject ret = modelFactory.createElement(metaclass);
         return (MObject) ret.accept(new ImplVisitor(modelFactory, source, target, owner));
     }
@@ -482,11 +485,13 @@ public class ModelLinkFactory implements IModelLinkFactory {
 
         /**
          * Get the name space owning both model elements
-         * @param aSource
-         * @param aTarget @return
+         * @param aSource a model element
+         * @param aTarget another model element
+         * @return the common namespace
+         * @throws java.lang.IllegalArgumentException if the 2 elements have no common namespace
          */
         @objid ("80afcb89-1dec-11e2-8cad-001ec947c8cc")
-        private NameSpace getCommonNameSpace(final MObject aSource, final MObject aTarget) {
+        private NameSpace getCommonNameSpace(final MObject aSource, final MObject aTarget) throws IllegalArgumentException {
             final ArrayList<MObject> l1 = new ArrayList<>(20);
             final ArrayList<MObject> l2 = new ArrayList<>(20);
             
@@ -537,6 +542,34 @@ public class ModelLinkFactory implements IModelLinkFactory {
             theCommunicationChannel.setStart((CommunicationNode) this.source);
             theCommunicationChannel.setEnd((CommunicationNode) this.target);
             return theCommunicationChannel;
+        }
+
+        @objid ("48add215-d984-44e8-a237-8fe798f4b011")
+        @Override
+        public Object visitSubstitution(Substitution obj) {
+            obj.setContract((Classifier) this.target);
+            obj.setSubstitutingClassifier((Classifier) this.source);
+            return obj;
+        }
+
+        @objid ("afc03ae7-f1a2-4247-a934-1b8250058bf1")
+        @Override
+        public Object visitComponentRealization(ComponentRealization obj) {
+            // In the model a ComponentRealization is from a Classifier to a Component, but owned by the Component.
+            // In the diagram it is drawn as an interface realization from the Classifier to the Component.
+            // This link is not in the intuitive side so test for both sides.
+            if(this.target instanceof Component){
+                // diagram way
+                obj.setAbstraction((Component) this.target);
+                obj.setRealizingClassifier((Classifier) this.source);
+            } else if(this.source instanceof Component) {
+                // Ownership way
+                obj.setAbstraction((Component) this.source);
+                obj.setRealizingClassifier((Classifier) this.target);
+            } else {
+                throw new IllegalArgumentException(obj.getMClass().getName() + " link creation from "+this.source+" to "+this.target+" is illegal.");
+            }
+            return obj;
         }
 
     }

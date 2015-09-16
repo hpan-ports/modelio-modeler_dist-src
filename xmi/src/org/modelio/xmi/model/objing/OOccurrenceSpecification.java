@@ -25,7 +25,7 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.metamodel.uml.behavior.interactionModel.OccurrenceSpecification;
 
 @objid ("74aca169-6f0f-406d-af5b-a12ee64450be")
-public class OOccurrenceSpecification extends OInteractionFragment implements IOElement {
+public class OOccurrenceSpecification extends OInteractionFragment {
     @objid ("400a03d5-6687-492c-97f9-c005342d4184")
     @Override
     public org.eclipse.uml2.uml.Element createEcoreElt() {

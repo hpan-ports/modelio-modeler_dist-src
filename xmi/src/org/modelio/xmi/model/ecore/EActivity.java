@@ -22,7 +22,6 @@
 package org.modelio.xmi.model.ecore;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.modelio.api.modelio.Modelio;
 import org.modelio.metamodel.uml.behavior.activityModel.Activity;
 import org.modelio.metamodel.uml.behavior.stateMachineModel.InternalTransition;
 import org.modelio.metamodel.uml.behavior.stateMachineModel.State;
@@ -37,7 +36,7 @@ public class EActivity extends ENamedElement {
     @objid ("201b88d4-3186-41dc-9c68-5336d3709e7d")
     @Override
     public Element createObjingElt() {
-        return Modelio.getInstance().getModelingSession().getModel()
+        return ReverseProperties.getInstance().getMModelServices().getModelFactory()
                 .createActivity();
     }
 
@@ -70,17 +69,17 @@ public class EActivity extends ENamedElement {
                     org.eclipse.uml2.uml. Behavior doActivity = ((org.eclipse.uml2.uml.State)ecoreOwner).getDoActivity();
         
                     if ((ent != null) && (ent.equals(ecoreElement))){
-                        InternalTransition transition = Modelio.getInstance().getModelingSession().getModel().createInternalTransition();
+                        InternalTransition transition = ReverseProperties.getInstance().getMModelServices().getModelFactory().createInternalTransition();
                         transition.setSComposed((State)tempOwner);
                         transition.setBehaviorEffect(objingAct);
                         transition.setReceivedEvents("Entry");
                     }else if ((exit != null) && (exit.equals(ecoreElement))){    
-                        InternalTransition transition = Modelio.getInstance().getModelingSession().getModel().createInternalTransition();
+                        InternalTransition transition = ReverseProperties.getInstance().getMModelServices().getModelFactory().createInternalTransition();
                         transition.setSComposed((State)tempOwner);
                         transition.setBehaviorEffect(objingAct);
                         transition.setReceivedEvents("Exit");
                     }else if ((doActivity != null) && (doActivity.equals(ecoreElement))){
-                        InternalTransition transition = Modelio.getInstance().getModelingSession().getModel().createInternalTransition();
+                        InternalTransition transition = ReverseProperties.getInstance().getMModelServices().getModelFactory().createInternalTransition();
                         transition.setSComposed((State) tempOwner);
                         transition.setBehaviorEffect(objingAct);
                         transition.setReceivedEvents("Do");

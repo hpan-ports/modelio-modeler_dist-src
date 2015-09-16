@@ -43,14 +43,14 @@ public class TreePanel extends Composite {
     @objid ("8faeec9b-c068-11e1-8c0a-002564c97630")
     private TreeLabelProvider annotationLabelProvider = null;
 
-    @objid ("8faeeca2-c068-11e1-8c0a-002564c97630")
-    private TreeViewer viewer = null;
-
     @objid ("25276b51-cf5d-11e1-80a9-002564c97630")
     private Object lastSelectedType = null;
 
     @objid ("29c3d158-164b-4b7e-a92b-60c0cb974667")
     private TreeContentProvider contentProvider;
+
+    @objid ("48b85d08-560b-41dd-bdc5-d7b0c04625a8")
+    private TreeViewer viewer = null;
 
     @objid ("8faeeca3-c068-11e1-8c0a-002564c97630")
     public TreePanel(SashForm sash, int style) {
@@ -129,6 +129,9 @@ public class TreePanel extends Composite {
         */
     }
 
+    /**
+     * @return the tree viewer.
+     */
     @objid ("8fb14daa-c068-11e1-8c0a-002564c97630")
     public TreeViewer getTreeViewer() {
         return this.viewer;
@@ -141,19 +144,18 @@ public class TreePanel extends Composite {
     @objid ("8fb14db1-c068-11e1-8c0a-002564c97630")
     private void select(final Object target, final boolean updateLast) {
         if (this.currentElement == null || target == null) {
-            TreePanel.this.viewer.setSelection(new TreeSelection((TreePath) null), false);
-            return;
-        }
-        
-        Object previousLast = this.lastSelectedType;
-        
-        TreePath treePath = new TreePath(new Object[] { target });
-        TreePanel.this.viewer.setSelection(new TreeSelection(treePath), true);
-        
-        if (!updateLast) {
-            this.lastSelectedType = previousLast;
+            this.viewer.setSelection(new TreeSelection((TreePath) null), false);
         } else {
-            setLastType(target);
+            Object previousLast = this.lastSelectedType;
+        
+            TreePath treePath = new TreePath(new Object[] { target });
+            this.viewer.setSelection(new TreeSelection(treePath), true);
+        
+            if (!updateLast) {
+                this.lastSelectedType = previousLast;
+            } else {
+                setLastType(target);
+            }
         }
     }
 
@@ -169,9 +171,16 @@ public class TreePanel extends Composite {
         }
     }
 
+    /**
+     * @param newInput the new input
+     */
     @objid ("8fb14dbe-c068-11e1-8c0a-002564c97630")
-    public void setInput(IMModelServices modelService, final Element typedElement, final Element preselectedTypingElement) {
-        this.contentProvider.setModelService(modelService);
+    public void setInput(TreePanelInput newInput) {
+        // IMModelServices modelService, final Element typedElement, final Element preselectedTypingElement
+        this.contentProvider.setModelService(newInput.getModelService());
+        this.contentProvider.setShowHiddenMdaElements(newInput.isDisplayHiddenAnnotations());
+        
+        Element typedElement = newInput.getTypedElement();
         
         if (typedElement != null && typedElement.equals(this.currentElement)) {
             this.viewer.refresh();
@@ -181,6 +190,7 @@ public class TreePanel extends Composite {
         }
         
         if (typedElement != null) {
+            Object preselectedTypingElement = newInput.getPreselectedTypingElement();
             if (preselectedTypingElement != null) {
                 select(preselectedTypingElement, true);
             } else {
@@ -189,13 +199,21 @@ public class TreePanel extends Composite {
                 // - try to find a stereotype or module of the same type as the last selected one
                 // - if not, select the model element's class itself
                 select(this.lastSelectedType, true);
-                if (TreePanel.this.viewer.getSelection().isEmpty()) {
+                if (this.viewer.getSelection().isEmpty()) {
                     select(typedElement.getClass(), false);
                 }
             }
         } else {
             select(typedElement, false);
         }
+    }
+
+    /**
+     * @return the last selected annotation set
+     */
+    @objid ("2df98193-c68e-44aa-94ab-4c3b02901c21")
+    public Object getLastSelectedType() {
+        return this.lastSelectedType;
     }
 
 }

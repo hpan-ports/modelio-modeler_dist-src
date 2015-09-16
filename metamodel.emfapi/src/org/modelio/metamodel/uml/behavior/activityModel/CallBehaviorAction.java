@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.uml.behavior.activityModel;
 
@@ -31,10 +31,10 @@ import org.modelio.metamodel.uml.behavior.commonBehaviors.Behavior;
 
 @objid ("002af378-c4bf-1fd8-97fe-001ec947cd2a")
 public interface CallBehaviorAction extends CallAction {
-    @objid ("64d5b2e1-ac4f-4b28-b963-145cfa876a4b")
+    @objid ("4cd92829-b079-4c67-87c7-4f479111bcc0")
     Behavior getCalled();
 
-    @objid ("b2b2d96c-fbc0-42ba-b5c9-ebd4e4cdfd3b")
+    @objid ("49b20412-1a8b-4940-8e3a-d3cdae7f0270")
     void setCalled(Behavior value);
 
 }

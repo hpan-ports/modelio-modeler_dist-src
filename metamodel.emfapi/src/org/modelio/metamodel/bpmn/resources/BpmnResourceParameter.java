@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.bpmn.resources;
 
@@ -35,28 +35,28 @@ import org.modelio.metamodel.bpmn.rootElements.BpmnBaseElement;
 
 @objid ("0009e2dc-c4c0-1fd8-97fe-001ec947cd2a")
 public interface BpmnResourceParameter extends BpmnBaseElement {
-    @objid ("a5cd9b80-03cc-4587-848e-4890e1c07b0f")
+    @objid ("a89c97a2-b3f4-48d9-b7d5-cc4873cf7202")
     boolean isIsRequired();
 
-    @objid ("f07e6a26-2994-4daf-a14a-d64dfff3542e")
+    @objid ("803af271-a0d8-4b90-ab5b-0caed5d3bdd3")
     void setIsRequired(boolean value);
 
-    @objid ("df78f964-892f-410e-b3bd-0002d903d4bb")
+    @objid ("c693a03a-7c5f-43a1-8961-dbeac4ff09b3")
     BpmnResource getResource();
 
-    @objid ("ffd48ffd-0528-415a-8918-8d5addbb3a01")
+    @objid ("0af35bc3-655d-485c-a960-f0a89e834ee0")
     void setResource(BpmnResource value);
 
-    @objid ("cd76b667-2aec-4cb5-8a1f-9ef44b952286")
+    @objid ("1c7807af-3617-4665-ba18-7ff07a1a1056")
     BpmnItemDefinition getType();
 
-    @objid ("382595da-9ede-4382-a625-b56771038d06")
+    @objid ("173661bd-b17e-427f-aff0-cdcc25dd54dd")
     void setType(BpmnItemDefinition value);
 
-    @objid ("668eddf9-8fa4-4126-a55c-e95b2e6b8446")
+    @objid ("c513e11c-0c2c-4c91-ae50-f5174574088a")
     EList<BpmnResourceParameterBinding> getParameterBindingRefs();
 
-    @objid ("41864664-eafe-41a3-955d-17960207fe6a")
+    @objid ("b08d799d-4505-428c-bbbf-42ea20ab2d0d")
     <T extends BpmnResourceParameterBinding> List<T> getParameterBindingRefs(java.lang.Class<T> filterClass);
 
 }

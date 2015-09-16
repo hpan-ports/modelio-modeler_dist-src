@@ -21,6 +21,7 @@
 
 package org.modelio.property.ui.data.standard.bpmn;
 
+import java.util.ArrayList;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.core.ui.ktable.types.IPropertyType;
@@ -234,7 +235,7 @@ public class BpmnIntermediateThrowEventPropertyModel extends AbstractPropertyMod
 
     @objid ("8e386981-c068-11e1-8c0a-002564c97630")
     private void deleteEventType() {
-        for (BpmnEventDefinition definition : this.theEditedElement.getEventDefinitions()) {
+        for (BpmnEventDefinition definition : new ArrayList<>(this.theEditedElement.getEventDefinitions())) {
             definition.delete();
         }
     }

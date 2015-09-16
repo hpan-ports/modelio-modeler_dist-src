@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.uml.behavior.usecaseModel;
 
@@ -35,22 +35,22 @@ import org.modelio.metamodel.uml.statik.VisibilityMode;
 
 @objid ("00598058-c4bf-1fd8-97fe-001ec947cd2a")
 public interface ExtensionPoint extends ModelElement {
-    @objid ("8cd79bbb-ecd1-42e2-aa76-65931c30ac31")
+    @objid ("97a5564e-e5bc-4708-93d9-6c780a3d0629")
     VisibilityMode getVisibility();
 
-    @objid ("ff1027cb-0861-4c7e-ab3a-78fb1d1f9e72")
+    @objid ("cb620f21-c37f-499b-a587-68f8dca90c48")
     void setVisibility(VisibilityMode value);
 
-    @objid ("226a283f-f896-4c8f-9808-9118942eaa5e")
+    @objid ("a43ff225-9fca-4ceb-9b57-a2188f2a6c8c")
     EList<UseCaseDependency> getExtended();
 
-    @objid ("620ac3e6-f474-4559-bb18-513a1efc2202")
+    @objid ("e5680fff-4277-4cb4-a3b8-2d9ab900540d")
     <T extends UseCaseDependency> List<T> getExtended(java.lang.Class<T> filterClass);
 
-    @objid ("de6a323e-4e46-410d-9d11-67be1c45a3f3")
+    @objid ("d424ac8d-866d-4ef4-925d-66acdaa2ad25")
     UseCase getOwner();
 
-    @objid ("8554602b-bd7b-4693-90ac-8d1b879e945d")
+    @objid ("14994546-ecd2-4df7-ae33-59c0fad76472")
     void setOwner(UseCase value);
 
 }

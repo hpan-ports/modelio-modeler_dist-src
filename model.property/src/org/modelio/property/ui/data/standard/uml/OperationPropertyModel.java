@@ -230,7 +230,10 @@ public class OperationPropertyModel extends AbstractPropertyModel<Operation> {
                 this.theEditedElement.setPassing((MethodPassingMode) value);
                 break;
             case 7:
-                this.theEditedElement.setRedefines((Operation) value);
+                final Operation newValue = (Operation) value;
+                if (!newValue.equals(this.theEditedElement)) {
+                    this.theEditedElement.setRedefines(newValue);
+                }
                 break;
             default:
                 return;

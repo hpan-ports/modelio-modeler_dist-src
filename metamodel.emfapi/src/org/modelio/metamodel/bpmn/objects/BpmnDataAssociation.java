@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.bpmn.objects;
 
@@ -37,64 +37,64 @@ import org.modelio.metamodel.bpmn.rootElements.BpmnBaseElement;
 
 @objid ("00047c84-c4c0-1fd8-97fe-001ec947cd2a")
 public interface BpmnDataAssociation extends BpmnBaseElement {
-    @objid ("f89d10f7-397f-4f5f-a8bd-8fb62f316411")
+    @objid ("cdc31eb3-d643-49a1-a467-f57fec8e3665")
     String getAssignment();
 
-    @objid ("2f643aa9-fd35-4302-8d38-080f46b8ed28")
+    @objid ("3cdbfc23-9114-49b3-b94d-a6c0d36a5c3f")
     void setAssignment(String value);
 
-    @objid ("2deff641-b909-4451-83c3-96bffcfc3d54")
+    @objid ("a6520c0b-d9e1-4c58-b56e-13d473bd78cd")
     String getTransfomation();
 
-    @objid ("8ee3ba1c-b867-456a-b450-529e53cc76f7")
+    @objid ("b1c379fb-2bb7-40a1-8ad3-c729cbe38a03")
     void setTransfomation(String value);
 
-    @objid ("2c4f9981-be24-46f4-8515-2c2ed297dd04")
+    @objid ("1516fb46-1188-458e-8eb0-c754c69805d9")
     String getLanguage();
 
-    @objid ("b2e73477-25e6-461f-a3a6-d8c19d216c5d")
+    @objid ("0ad37cf4-7602-41c9-9e5a-9f119c7c5fb0")
     void setLanguage(String value);
 
-    @objid ("db3cce75-d0aa-40cc-95d2-c0c898f4621e")
+    @objid ("a253702d-824d-4c15-bcff-233b548d4dfc")
     EList<BpmnItemAwareElement> getSourceRef();
 
-    @objid ("424da2c4-f8d1-4da6-8f60-40492dbdaf00")
+    @objid ("a541b107-d9ba-4880-ba90-952c131a2a18")
     <T extends BpmnItemAwareElement> List<T> getSourceRef(java.lang.Class<T> filterClass);
 
-    @objid ("b050c992-77e5-4e5b-94b7-ac010ae2d40c")
+    @objid ("ff9783f1-0480-426f-98cc-9994ac2840a2")
     BpmnItemAwareElement getTargetRef();
 
-    @objid ("70cdce3b-f7e3-4c58-b759-9f5b50f7ced9")
+    @objid ("55b03725-4b3c-488e-b58d-9628646f8e97")
     void setTargetRef(BpmnItemAwareElement value);
 
-    @objid ("8fb4c837-36cb-4547-bb4f-4194f05af5e8")
+    @objid ("14ab3970-bee1-4b83-a893-c952b01a041c")
     BpmnActivity getEndingActivity();
 
-    @objid ("4a6797a7-5e74-4fbd-88f9-9bc6e9fcb098")
+    @objid ("54d349e7-1852-4c7c-9630-0f1da3532670")
     void setEndingActivity(BpmnActivity value);
 
-    @objid ("a7dfa294-4bf8-4772-b277-8b4c96ebe306")
+    @objid ("c4c00800-9542-4823-9862-07b6128172e5")
     BpmnActivity getStartingActivity();
 
-    @objid ("70ca4d34-35e3-434b-b3ed-61667ec55bac")
+    @objid ("5fdeb440-5ed6-42f8-9a54-7d140ff05124")
     void setStartingActivity(BpmnActivity value);
 
-    @objid ("1ffc4874-267a-4513-b153-b5e2ee6bfbeb")
+    @objid ("61bbbe59-2572-473f-aa43-8472344f2b77")
     BpmnThrowEvent getStartingEvent();
 
-    @objid ("8c73ae84-dc22-481f-bc0e-f93c81f65d65")
+    @objid ("cf959674-282f-481b-810d-5a30cd5bf8ae")
     void setStartingEvent(BpmnThrowEvent value);
 
-    @objid ("c1357a47-1d79-4aa9-bdd3-7e90959e9812")
+    @objid ("25ec1de4-e190-43e4-8368-0d6992be1198")
     EList<BpmnSequenceFlowDataAssociation> getVisualShortCut();
 
-    @objid ("4ceb7ad1-06a6-40c6-af6e-4f38656c44fe")
+    @objid ("2a670556-6923-4dca-88d9-b5364bfd29f1")
     <T extends BpmnSequenceFlowDataAssociation> List<T> getVisualShortCut(java.lang.Class<T> filterClass);
 
-    @objid ("c95b30a8-7ebe-4d96-bd30-712f1cfa28c3")
+    @objid ("65e217a8-c93b-48c8-9b80-ba7330291f77")
     BpmnCatchEvent getEndingEvent();
 
-    @objid ("4afa7206-7b9b-4f00-bb83-149d77d1fc34")
+    @objid ("4df41213-d8af-4b3a-ad4d-b15bea876c20")
     void setEndingEvent(BpmnCatchEvent value);
 
 }

@@ -25,6 +25,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.swt.graphics.Image;
 import org.modelio.core.ui.images.MetamodelImageService;
 import org.modelio.core.ui.images.ModuleI18NService;
@@ -39,6 +40,7 @@ import org.modelio.metamodel.uml.infrastructure.ModelElement;
 import org.modelio.metamodel.uml.infrastructure.Profile;
 import org.modelio.metamodel.uml.infrastructure.Stereotype;
 import org.modelio.metamodel.uml.infrastructure.TagParameter;
+import org.modelio.metamodel.uml.infrastructure.TagType;
 import org.modelio.metamodel.uml.infrastructure.TaggedValue;
 import org.modelio.vcore.smkernel.mapi.MObject;
 import org.modelio.vcore.smkernel.mapi.MRef;
@@ -56,24 +58,6 @@ import org.modelio.vcore.smkernel.mapi.MRef;
  */
 @objid ("7e62e6b4-1dec-11e2-8cad-001ec947c8cc")
 public abstract class GmModelElementHeader extends GmSimpleNode implements IEditableText {
-    @objid ("7e62e6b8-1dec-11e2-8cad-001ec947c8cc")
-    private boolean showMetaclassIcon = false;
-
-    @objid ("7e62e6b9-1dec-11e2-8cad-001ec947c8cc")
-    private boolean showMetaclassKeyword = false;
-
-    @objid ("7e62e6ba-1dec-11e2-8cad-001ec947c8cc")
-    private boolean stackedStereotypes = false;
-
-    @objid ("7e6548ed-1dec-11e2-8cad-001ec947c8cc")
-    private boolean showLabel = true;
-
-    /**
-     * Current version of this Gm. Defaults to 0.
-     */
-    @objid ("7e6548ee-1dec-11e2-8cad-001ec947c8cc")
-    private final int minorVersion = 0;
-
     @objid ("7e6548f1-1dec-11e2-8cad-001ec947c8cc")
     private static final int MAJOR_VERSION = 0;
 
@@ -82,6 +66,24 @@ public abstract class GmModelElementHeader extends GmSimpleNode implements IEdit
      */
     @objid ("8e6c220c-1e83-11e2-8cad-001ec947c8cc")
     private String label;
+
+    /**
+     * Current version of this Gm. Defaults to 0.
+     */
+    @objid ("7e6548ee-1dec-11e2-8cad-001ec947c8cc")
+    private final int minorVersion = 0;
+
+    @objid ("7e6548ed-1dec-11e2-8cad-001ec947c8cc")
+    private boolean showLabel = true;
+
+    @objid ("7e62e6b8-1dec-11e2-8cad-001ec947c8cc")
+    private boolean showMetaclassIcon = false;
+
+    @objid ("7e62e6b9-1dec-11e2-8cad-001ec947c8cc")
+    private boolean showMetaclassKeyword = false;
+
+    @objid ("7e62e6ba-1dec-11e2-8cad-001ec947c8cc")
+    private boolean stackedStereotypes = false;
 
     /**
      * Empty constructor to use only for deserialization.
@@ -112,9 +114,10 @@ public abstract class GmModelElementHeader extends GmSimpleNode implements IEdit
     public abstract List<Stereotype> filterStereotypes(List<Stereotype> stereotypes);
 
     /**
-     * This method can be used to filter the tags that must be actullay displayed. Return an empty list when no tag are to be
-     * displayed. Return the passed parameter to implement a nop filter.
-     * @param taggedValues the tags that can be displayed
+     * This method can be used to filter the tags that must be actually displayed.
+     * <p>
+     * Return an empty list when no tag are to be displayed. Return the passed parameter to implement a nop filter.
+     * @param taggedValues the tags that can be displayed. Do <b>not</b> modify this list.
      * @return the tags to display
      */
     @objid ("7e654903-1dec-11e2-8cad-001ec947c8cc")
@@ -124,6 +127,32 @@ public abstract class GmModelElementHeader extends GmSimpleNode implements IEdit
     @Override
     public IEditableText getEditableText() {
         return this;
+    }
+
+    /**
+     * Get the main label.
+     * <p>
+     * The main label usually contains the element name with possibly its signature.
+     * @return The main label.
+     */
+    @objid ("7e67ab90-1dec-11e2-8cad-001ec947c8cc")
+    public String getMainLabel() {
+        if (this.label == null) {
+            updateMainLabelFromObModel();
+        }
+        return this.label;
+    }
+
+    @objid ("7e6a0db9-1dec-11e2-8cad-001ec947c8cc")
+    @Override
+    public int getMajorVersion() {
+        return MAJOR_VERSION;
+    }
+
+    @objid ("7e6a0da4-1dec-11e2-8cad-001ec947c8cc")
+    @Override
+    public ModelElement getRelatedElement() {
+        return (ModelElement) super.getRelatedElement();
     }
 
     /**
@@ -182,7 +211,10 @@ public abstract class GmModelElementHeader extends GmSimpleNode implements IEdit
         List<String> labels = new ArrayList<>();
         if (this.getRelatedElement() != null) {
             for (TaggedValue tag : filterTags(this.getRelatedElement().getTag())) {
-                labels.add(makeTagLabel(tag));
+                // Ignore hidden tags 
+                final TagType tagType = tag.getDefinition();
+                if (tagType == null || ! tagType.isIsHidden())
+                    labels.add(makeTagLabel(tag));
             }
         }
         return labels;
@@ -199,6 +231,15 @@ public abstract class GmModelElementHeader extends GmSimpleNode implements IEdit
         if (relatedElement == null)
             return "?";
         return relatedElement.getName();
+    }
+
+    /**
+     * Tells whether the element's name is shown.
+     * @return true if the element's name is shown.
+     */
+    @objid ("7e6a0da9-1dec-11e2-8cad-001ec947c8cc")
+    public boolean isShowLabel() {
+        return this.showLabel;
     }
 
     /**
@@ -261,6 +302,15 @@ public abstract class GmModelElementHeader extends GmSimpleNode implements IEdit
     }
 
     /**
+     * Set whether the element's name must be shown.
+     * @param value whether the element's name must be shown.
+     */
+    @objid ("7e6a0dae-1dec-11e2-8cad-001ec947c8cc")
+    public void setShowLabel(boolean value) {
+        this.showLabel = value;
+    }
+
+    /**
      * Set whether the metaclass icon must be shown.
      * @param value whether the metaclass icon must be shown.
      */
@@ -303,6 +353,22 @@ public abstract class GmModelElementHeader extends GmSimpleNode implements IEdit
         this.getRelatedElement().setName(newName);
     }
 
+    @objid ("7e67ab8c-1dec-11e2-8cad-001ec947c8cc")
+    @Override
+    public void write(IDiagramWriter out) {
+        super.write(out);
+        
+        out.writeProperty("show_icon", this.showMetaclassIcon);
+        out.writeProperty("show_keyword", this.showMetaclassKeyword);
+        out.writeProperty("stack_stereo", this.stackedStereotypes);
+        out.writeProperty("show_label", this.showLabel);
+        
+        // Write version of this Gm if different of 0.
+        if (this.minorVersion != 0) {
+            out.writeProperty("GmModelElementHeader." + MINOR_VERSION_PROPERTY, Integer.valueOf(this.minorVersion));
+        }
+    }
+
     /**
      * Computes the main label of the header.
      * <p>
@@ -314,6 +380,16 @@ public abstract class GmModelElementHeader extends GmSimpleNode implements IEdit
     @objid ("7e67ab67-1dec-11e2-8cad-001ec947c8cc")
     protected String computeMainLabel() {
         return this.getRelatedElement().getName();
+    }
+
+    @objid ("7e6a0db2-1dec-11e2-8cad-001ec947c8cc")
+    protected Image getMetaclassIcon() {
+        return MetamodelImageService.getIcon(getRelatedElement().getMClass());
+    }
+
+    @objid ("daf6ae16-f5ef-4356-85a2-0c22d8cf1c82")
+    protected String getMetaclassKeyword() {
+        return getRelatedElement().getMClass().getName();
     }
 
     /**
@@ -385,88 +461,48 @@ public abstract class GmModelElementHeader extends GmSimpleNode implements IEdit
      */
     @objid ("7e67ab86-1dec-11e2-8cad-001ec947c8cc")
     private static String makeTagLabel(TaggedValue tag) {
-        final StringBuffer buf = new StringBuffer();
-        final String tagLabel = ModuleI18NService.getLabel(tag.getDefinition());
+        final StringBuilder buf = new StringBuilder();
+        final TagType tagType = tag.getDefinition();
         
-        Stereotype s = tag.getDefinition().getOwnerStereotype();
+        String tagLabel = ModuleI18NService.getLabel(tagType);
+        if (tagLabel == null || tagLabel.isEmpty()) {
+            tagLabel = tagType.getLabelKey();
+            if (tagLabel == null || tagLabel.isEmpty())
+                tagLabel = tagType.getName();
+        }
+        
+        Stereotype typeStereotype = tagType.getOwnerStereotype();
         
         buf.append("{");
-        if (s != null) {
-            buf.append(s.getName());
+        if (typeStereotype != null) {
+            buf.append(typeStereotype.getName());
             buf.append(".");
         }
         buf.append(tagLabel);
         
-        if (tag.getActual().size() > 0) {
+        final EList<TagParameter> params = tag.getActual();
+        if (params.size() > 0) {
             buf.append("(");
-            for (TagParameter param : tag.getActual()) {
-                buf.append(param.getValue().toString() + ", ");
+            boolean first = true;
+            for (TagParameter param : params) {
+                if (first)
+                    first = false;
+                else
+                    buf.append(", ");
+                
+                buf.append(param.getValue());
             }
-            buf.delete(buf.length() - 2, buf.length());
             buf.append(")");
+        }
+        
+        TagParameter qual = tag.getQualifier();
+        if (qual != null) {
+            buf.append(":");
+            buf.append(qual.getValue());
         }
         
         buf.append("}");
         return buf.toString();
-    }
-
-    @objid ("7e67ab8c-1dec-11e2-8cad-001ec947c8cc")
-    @Override
-    public void write(IDiagramWriter out) {
-        super.write(out);
-        
-        out.writeProperty("show_icon", this.showMetaclassIcon);
-        out.writeProperty("show_keyword", this.showMetaclassKeyword);
-        out.writeProperty("stack_stereo", this.stackedStereotypes);
-        out.writeProperty("show_label", this.showLabel);
-        
-        // Write version of this Gm if different of 0.
-        if (this.minorVersion != 0) {
-            out.writeProperty("GmModelElementHeader." + MINOR_VERSION_PROPERTY, Integer.valueOf(this.minorVersion));
-        }
-    }
-
-    /**
-     * Get the main label.
-     * <p>
-     * The main label usually contains the element name with possibly its signature.
-     * @return The main label.
-     */
-    @objid ("7e67ab90-1dec-11e2-8cad-001ec947c8cc")
-    public String getMainLabel() {
-        if (this.label == null) {
-            updateMainLabelFromObModel();
-        }
-        return this.label;
-    }
-
-    @objid ("7e6a0da4-1dec-11e2-8cad-001ec947c8cc")
-    @Override
-    public ModelElement getRelatedElement() {
-        return (ModelElement) super.getRelatedElement();
-    }
-
-    /**
-     * Tells whether the element's name is shown.
-     * @return true if the element's name is shown.
-     */
-    @objid ("7e6a0da9-1dec-11e2-8cad-001ec947c8cc")
-    public boolean isShowLabel() {
-        return this.showLabel;
-    }
-
-    /**
-     * Set whether the element's name must be shown.
-     * @param value whether the element's name must be shown.
-     */
-    @objid ("7e6a0dae-1dec-11e2-8cad-001ec947c8cc")
-    public void setShowLabel(boolean value) {
-        this.showLabel = value;
-    }
-
-    @objid ("7e6a0db2-1dec-11e2-8cad-001ec947c8cc")
-    protected Image getMetaclassIcon() {
-        return MetamodelImageService.getIcon(getRelatedElement().getMClass());
     }
 
     @objid ("7e6a0db6-1dec-11e2-8cad-001ec947c8cc")
@@ -479,17 +515,6 @@ public abstract class GmModelElementHeader extends GmSimpleNode implements IEdit
         this.showLabel = (Boolean) in.readProperty("show_label");
         
         init();
-    }
-
-    @objid ("7e6a0db9-1dec-11e2-8cad-001ec947c8cc")
-    @Override
-    public int getMajorVersion() {
-        return MAJOR_VERSION;
-    }
-
-    @objid ("daf6ae16-f5ef-4356-85a2-0c22d8cf1c82")
-    protected String getMetaclassKeyword() {
-        return getRelatedElement().getMClass().getName();
     }
 
 }

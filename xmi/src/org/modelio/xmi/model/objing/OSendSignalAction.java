@@ -29,17 +29,15 @@ import org.modelio.xmi.util.GenerationProperties;
 import org.modelio.xmi.util.IModelerModuleStereotypes;
 
 @objid ("a0560fda-cda9-4908-b2e5-d2e437e9bd70")
-public class OSendSignalAction extends OActivityNode implements IOElement {
+public class OSendSignalAction extends OActivityNode {
     @objid ("e1f5efdb-2525-48da-a243-e52f2329546e")
-    private SendSignalAction objingElement;
-
-    @objid ("6bdf1311-857d-4378-bbfc-fad3e5914463")
-    private GenerationProperties genProp = GenerationProperties.getInstance();
+    private SendSignalAction objingElement = null;
 
     @objid ("2184cea3-a920-4277-8169-8f027e6ce025")
+    @Override
     public org.eclipse.uml2.uml.Element createEcoreElt() {
-        if (objingElement.getExtension().contains(IModelerModuleStereotypes.UML2BROADCASTSIGNALACTION))
-            return UMLFactory.eINSTANCE.createSendSignalAction();
+        if (this.objingElement.isStereotyped("ModelerModule", IModelerModuleStereotypes.UML2BROADCASTSIGNALACTION))
+            return UMLFactory.eINSTANCE.createBroadcastSignalAction();
         else
             return UMLFactory.eINSTANCE.createSendSignalAction();
     }
@@ -47,26 +45,36 @@ public class OSendSignalAction extends OActivityNode implements IOElement {
     @objid ("162e6c88-2eea-4d10-a9ef-9682a09b7191")
     public OSendSignalAction(SendSignalAction element) {
         super(element);
-        objingElement = element;
-    }
-
-    @objid ("a9a1f3be-d49b-4185-ba57-398acb91a100")
-    public void attach(org.eclipse.uml2.uml.Element ecoreElt) {
-        super.attach(ecoreElt);
+        this.objingElement = element;
     }
 
     @objid ("121a53e8-d4bb-4b03-b6bb-fb24199c3c00")
+    @Override
     public void setProperties(org.eclipse.uml2.uml.Element ecoreElt) {
         super.setProperties(ecoreElt);
-        setSignal((org.eclipse.uml2.uml.SendSignalAction) ecoreElt);
+        if (ecoreElt instanceof org.eclipse.uml2.uml.SendSignalAction)
+            setSignal((org.eclipse.uml2.uml.SendSignalAction) ecoreElt);
+        else  if (ecoreElt instanceof org.eclipse.uml2.uml.BroadcastSignalAction)
+            setSignal((org.eclipse.uml2.uml.BroadcastSignalAction) ecoreElt);
     }
 
     @objid ("0ec05a23-eb4b-46ea-a6a8-f73a2a1b3826")
     private void setSignal(org.eclipse.uml2.uml.SendSignalAction action) {
-        Signal objingSignal = objingElement.getSent();
+        Signal objingSignal = this.objingElement.getSent();
         
         if (objingSignal != null) {
-            org.eclipse.uml2.uml.Element ecoreSignal = genProp.getMappedElement(objingSignal);
+            org.eclipse.uml2.uml.Element ecoreSignal = GenerationProperties.getInstance().getMappedElement(objingSignal);
+            if (ecoreSignal instanceof  org.eclipse.uml2.uml.Signal)
+                action.setSignal( (org.eclipse.uml2.uml.Signal) ecoreSignal);
+        }
+    }
+
+    @objid ("7e230fa1-e778-4b9d-8afb-e1c17d4ae74a")
+    private void setSignal(org.eclipse.uml2.uml.BroadcastSignalAction action) {
+        Signal objingSignal = this.objingElement.getSent();
+        
+        if (objingSignal != null) {
+            org.eclipse.uml2.uml.Element ecoreSignal = GenerationProperties.getInstance().getMappedElement(objingSignal);
             if (ecoreSignal instanceof  org.eclipse.uml2.uml.Signal)
                 action.setSignal( (org.eclipse.uml2.uml.Signal) ecoreSignal);
         }

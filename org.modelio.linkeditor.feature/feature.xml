@@ -2,7 +2,7 @@
 <feature
       id="org.modelio.linkeditor.feature"
       label="Model Browser"
-      version="1.0.0.qualifier"
+      version="3.2.1.qualifier"
       provider-name="modelio.org">
 
    <copyright>

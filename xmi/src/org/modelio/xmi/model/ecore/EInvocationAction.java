@@ -25,8 +25,9 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.metamodel.uml.infrastructure.Element;
 
 @objid ("913d8457-7341-41d4-9838-7c959d618241")
-public class EInvocationAction extends EElement implements IEElement {
+public class EInvocationAction extends EElement {
     @objid ("90db848a-b49e-4161-97eb-fc8d5cce8139")
+    @Override
     public Element createObjingElt() {
         return null;
     }
@@ -34,15 +35,6 @@ public class EInvocationAction extends EElement implements IEElement {
     @objid ("7b99eac7-252d-44f1-8f59-1d883b317232")
     public EInvocationAction(org.eclipse.uml2.uml.Behavior element) {
         super(element);
-    }
-
-    @objid ("26e7224c-3eae-4bf9-ad57-cdc91a32188b")
-    public void attach(Element objingElt) {
-    }
-
-    @objid ("6d85f244-132a-455b-8e82-99e4b8b9e4c6")
-    public void setProperties(Element objingElt) {
-        super.setProperties(objingElt);
     }
 
 }

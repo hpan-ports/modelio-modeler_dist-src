@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.uml.statik;
 
@@ -35,52 +35,52 @@ import org.modelio.metamodel.uml.statik.TemplateParameterSubstitution;
 
 @objid ("001d18e8-c4bf-1fd8-97fe-001ec947cd2a")
 public interface TemplateParameter extends GeneralClass {
-    @objid ("397ca0c3-d49d-4940-9211-415dc1ee2827")
+    @objid ("f43cdf90-6f11-4188-ab5c-635a262610a9")
     String getDefaultValue();
 
-    @objid ("c6b7d639-3685-4a0c-abf3-e7ea9cf5737f")
+    @objid ("e366ed3d-fcac-4195-83d1-59a8ee57f954")
     void setDefaultValue(String value);
 
-    @objid ("2d5fb3ed-b903-462b-a2e2-2adb794c2dd6")
+    @objid ("b4ffebb2-2000-4406-8575-9fa9e2a98613")
     boolean isIsValueParameter();
 
-    @objid ("eb316a29-2436-4659-b07a-653c44e1706a")
+    @objid ("eea2f987-2529-4e6f-aa9f-f963a249adc4")
     void setIsValueParameter(boolean value);
 
-    @objid ("be8a5ec4-f8d3-4186-8960-3e84d568365c")
+    @objid ("7873461c-10d0-4198-b19a-eca0bd4192f4")
     EList<TemplateParameterSubstitution> getParameterSubstitution();
 
-    @objid ("9951616f-0aeb-427c-8633-6403d46ee0af")
+    @objid ("6ddfc164-800a-4bf5-b0d3-423c0d2a75b7")
     <T extends TemplateParameterSubstitution> List<T> getParameterSubstitution(java.lang.Class<T> filterClass);
 
-    @objid ("5d912a71-6f81-457b-b261-8e8a3af09fd5")
+    @objid ("0eb6e289-0c24-49d7-a14e-cf72c6e0309f")
     ModelElement getType();
 
-    @objid ("63d41ed7-76cf-45c6-8718-2709d431a478")
+    @objid ("5fb5fc68-7303-4dad-90fb-e8bec9f15595")
     void setType(ModelElement value);
 
-    @objid ("4f69d842-0827-4de1-90df-8e6f58eb9bfc")
+    @objid ("3519ff0e-ed1a-4744-91d2-15b9f35b89e8")
     NameSpace getParameterized();
 
-    @objid ("353f63aa-55dc-4097-88b3-de794732a846")
+    @objid ("21b24aa1-f632-42bc-a8fc-680ebc237148")
     void setParameterized(NameSpace value);
 
-    @objid ("8a37bb97-0a33-4afe-9ded-f12f066fac50")
+    @objid ("071e69fd-9d34-4167-a326-7ccd0f19c3d2")
     ModelElement getOwnedParameterElement();
 
-    @objid ("85434ca8-7483-4c63-a8a1-ec90e8b4472d")
+    @objid ("4895041d-0abb-40eb-88d8-d1608c6c5b86")
     void setOwnedParameterElement(ModelElement value);
 
-    @objid ("4ae9fd4d-7edd-46ee-b28b-d966ba71e568")
+    @objid ("8437a92c-1651-4fcb-ab21-8b59846074be")
     ModelElement getDefaultType();
 
-    @objid ("a38b1fc1-a637-4bf5-ae96-d3f286c8f2f4")
+    @objid ("a86a2b1c-6366-4e6b-acea-aa644dbd03b8")
     void setDefaultType(ModelElement value);
 
-    @objid ("0a44ce9f-e4c9-4976-80fb-982d5ae3129f")
+    @objid ("b93d240e-08f2-4ad6-9264-e650f3bcc0d2")
     Operation getParameterizedOperation();
 
-    @objid ("30919b91-de29-4ab1-8668-1c8385bc8156")
+    @objid ("e061a360-ef49-404a-9d10-7ae72fce7bdc")
     void setParameterizedOperation(Operation value);
 
 }

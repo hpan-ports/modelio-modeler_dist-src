@@ -21,9 +21,7 @@
 
 package org.modelio.xmi.model.ecore;
 
-import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.modelio.api.modelio.Modelio;
 import org.modelio.metamodel.uml.behavior.commonBehaviors.Behavior;
 import org.modelio.metamodel.uml.behavior.stateMachineModel.KindOfStateMachine;
 import org.modelio.metamodel.uml.behavior.stateMachineModel.StateMachine;
@@ -35,64 +33,60 @@ import org.modelio.xmi.util.ObjingEAnnotation;
 import org.modelio.xmi.util.ReverseProperties;
 
 @objid ("cbd05ffc-789d-4b54-bde5-8fb996479112")
-public class EStateMachine extends ENamedElement implements IEElement {
+public class EStateMachine extends ENamedElement {
     @objid ("24da3d7d-ee8b-4301-bf03-7af802292a42")
-    private org.eclipse.uml2.uml.StateMachine ecoreElement;
+    private org.eclipse.uml2.uml.StateMachine ecoreElement = null;
 
     @objid ("629b459b-0c53-4fa5-9e93-51d5c7b8fad8")
+    @Override
     public Element createObjingElt() {
-        return Modelio.getInstance().getModelingSession().getModel()
-        .createStateMachine();
+        return ReverseProperties.getInstance().getMModelServices().getModelFactory()
+                .createStateMachine();
     }
 
     @objid ("cf4053f0-7a12-4805-b119-262fc2dd62eb")
     public EStateMachine(org.eclipse.uml2.uml.StateMachine element) {
         super(element);
-        ecoreElement = element;
+        this.ecoreElement = element;
     }
 
     @objid ("b2f936ab-07a0-4d32-8f4d-27f0ff1f757c")
+    @Override
     public void attach(Element objingElt) {
-        org.eclipse.uml2.uml.Element ecoreOwner = ecoreElement.getOwner();
+        org.eclipse.uml2.uml.Element ecoreOwner = this.ecoreElement.getOwner();
         
         Element objingOwner = (Element) ReverseProperties.getInstance()
-        .getMappedElement(ecoreOwner);
+                .getMappedElement(ecoreOwner);
         if (ecoreOwner != null) {
             if (objingOwner instanceof NameSpace){
                 ((Behavior) objingElt).setOwner((NameSpace)objingOwner);
             }else if (objingOwner instanceof Operation){
                 ((Behavior) objingElt).setOwnerOperation((Operation)objingOwner);
             }else{
-                objingOwner = EcoreModelNavigation.getNearestStateMachineOwner(ecoreElement);
+                objingOwner = EcoreModelNavigation.getNearestStateMachineOwner(this.ecoreElement);
         
-                if (ecoreOwner != null) {
-                    if (objingOwner instanceof NameSpace){
-                        ((Behavior) objingElt).setOwner((NameSpace)objingOwner);
-                    }else if (objingOwner instanceof Operation){
-                        ((Behavior) objingElt).setOwnerOperation((Operation)objingOwner);
-                    }
+                if (objingOwner instanceof NameSpace){
+                    ((Behavior) objingElt).setOwner((NameSpace)objingOwner);
+                }else if (objingOwner instanceof Operation){
+                    ((Behavior) objingElt).setOwnerOperation((Operation)objingOwner);
                 }
         
             }
         }
     }
 
-    @objid ("cef9b58b-a071-456c-80f5-d13b056d2712")
-    public void attach(List<Object> objingElts) {
-    }
-
     @objid ("cb08ebb3-f8b6-4316-a078-21646403330c")
+    @Override
     public void setProperties(Element objingElt) {
         super.setProperties(objingElt);
         setKind((StateMachine) objingElt);
-        //        createAndSetTopState((StateMachine) objingElt);
         if (ReverseProperties.getInstance().isRoundtripEnabled())
             setReentrant((StateMachine) objingElt);
     }
 
     @objid ("9f91b136-a542-4e34-98ab-61905eec13f0")
     private void setReentrant(StateMachine objingElt) {
-        objingElt.setIsReentrant(ObjingEAnnotation.isReentrant(ecoreElement));
+        objingElt.setIsReentrant(ObjingEAnnotation.isReentrant(this.ecoreElement));
     }
 
     @objid ("d89bbe7d-0be3-466f-b1b3-e45c3725847b")

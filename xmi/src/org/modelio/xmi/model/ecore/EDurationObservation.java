@@ -21,33 +21,13 @@
 
 package org.modelio.xmi.model.ecore;
 
-import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.modelio.metamodel.uml.infrastructure.Element;
 
 @objid ("eaf6e63b-3a71-4b92-92a5-e015c1d0f1a1")
-public class EDurationObservation extends ENamedElement implements IEElement {
-    @objid ("ec47ccdc-fc5a-445c-b815-c90e94dd1cae")
-    public Element createObjingElt() {
-        return null;
-    }
-
+public class EDurationObservation extends ENamedElement {
     @objid ("4d0d0950-cac5-47c1-8a7c-0fe6c89210fc")
     public EDurationObservation(org.eclipse.uml2.uml.DurationObservation element) {
         super(element);
-    }
-
-    @objid ("a337b6b9-caa1-4be6-8fe4-4b160dd2120d")
-    public void attach(Element objingElt) {
-    }
-
-    @objid ("bbef33f0-f7cf-4fd7-8e84-3d5f92f67b82")
-    public void attach(List<Object> objingElts) {
-    }
-
-    @objid ("e75badd3-0812-4eb0-a3ac-827739375c25")
-    public void setProperties(Element objingElt) {
-        super.setProperties(objingElt);
     }
 
 }

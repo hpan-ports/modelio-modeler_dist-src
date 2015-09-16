@@ -21,40 +21,36 @@
 
 package org.modelio.xmi.model.ecore;
 
-import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.modelio.api.modelio.Modelio;
+import org.modelio.gproject.model.IMModelServices;
+import org.modelio.metamodel.factory.ElementNotUniqueException;
 import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.metamodel.uml.statik.TemplateParameter;
+import org.modelio.xmi.plugin.Xmi;
 import org.modelio.xmi.util.IModelerModuleStereotypes;
+import org.modelio.xmi.util.ReverseProperties;
 
 @objid ("1c09ea4a-fa77-4a91-9f92-ef3100b6eec8")
-public class EConnectableElementTemplateParameter extends EElement implements IEElement {
+public class EConnectableElementTemplateParameter extends EElement {
     @objid ("f6ba83b1-85e2-470d-aa82-1a58afbddb43")
+    @Override
     public Element createObjingElt() {
-        TemplateParameter result = Modelio.getInstance().getModelingSession().getModel().createTemplateParameter();
+        IMModelServices mmServices = ReverseProperties.getInstance().getMModelServices();
         
-        result.getExtension().add(Modelio.getInstance().getModelingSession().getMetamodelExtensions().getStereotype(
-                IModelerModuleStereotypes.UML2CONNECTABLEELEMENTTEMPLATEPARAMETER, result.getMClass()));
+        TemplateParameter result = mmServices.getModelFactory().createTemplateParameter();
+        
+        try {
+            result.getExtension().add(mmServices.getStereotype(
+                    IModelerModuleStereotypes.UML2CONNECTABLEELEMENTTEMPLATEPARAMETER, result.getMClass()));
+        } catch (ElementNotUniqueException e) {
+           Xmi.LOG.warning(e);
+        }
         return result;
     }
 
     @objid ("ea5fc7b4-ab44-4196-8e29-057d5fc401d4")
     public EConnectableElementTemplateParameter(org.eclipse.uml2.uml.ConnectableElementTemplateParameter element) {
         super(element);
-    }
-
-    @objid ("a38cc311-7e94-4b8b-a5a8-034f4a5d41ba")
-    public void attach(Element objingElt) {
-    }
-
-    @objid ("71138e45-5239-466a-a799-3737dd6f40bd")
-    public void attach(List<Object> objingElts) {
-    }
-
-    @objid ("653fee83-d9e4-4847-9115-103ac5e75f84")
-    public void setProperties(Element objingElt) {
-        super.setProperties(objingElt);
     }
 
 }

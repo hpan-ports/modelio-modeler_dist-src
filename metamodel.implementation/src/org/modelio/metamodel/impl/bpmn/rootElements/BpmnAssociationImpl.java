@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.bpmn.rootElements;
 
@@ -43,57 +43,57 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("00775b3c-c4bf-1fd8-97fe-001ec947cd2a")
 public class BpmnAssociationImpl extends BpmnArtifactImpl implements BpmnAssociation {
-    @objid ("b24bdfbc-87f4-4324-8f15-00fa660ba382")
+    @objid ("95edba92-a96a-4753-ac59-e2e461e6c487")
     @Override
     public BpmnAssociationDirection getAssociationDirection() {
         return (BpmnAssociationDirection) getAttVal(BpmnAssociationData.Metadata.AssociationDirectionAtt());
     }
 
-    @objid ("ad0fe430-f0dd-43e7-8476-6a6d204d1212")
+    @objid ("4b53717c-3b88-45e7-bf36-68ccdcdc9b0e")
     @Override
     public void setAssociationDirection(BpmnAssociationDirection value) {
         setAttVal(BpmnAssociationData.Metadata.AssociationDirectionAtt(), value);
     }
 
-    @objid ("8c38a5bb-e5ef-4401-b097-7149b1e29ca6")
+    @objid ("32c9948b-3258-4fc3-a8b8-21d33b463691")
     @Override
     public BpmnBaseElement getTargetRef() {
         return (BpmnBaseElement) getDepVal(BpmnAssociationData.Metadata.TargetRefDep());
     }
 
-    @objid ("18ee61ab-770b-4df7-a07f-17ee5299d084")
+    @objid ("1827d3a9-a1cb-4d8e-96b7-148c4a68152f")
     @Override
     public void setTargetRef(BpmnBaseElement value) {
         appendDepVal(BpmnAssociationData.Metadata.TargetRefDep(), (SmObjectImpl)value);
     }
 
-    @objid ("3e2a8a1c-bddd-413b-9305-03b6f3347e20")
+    @objid ("a328d84c-b6b1-4947-a4be-b155b4b899ab")
     @Override
     public BpmnBaseElement getSourceRef() {
         return (BpmnBaseElement) getDepVal(BpmnAssociationData.Metadata.SourceRefDep());
     }
 
-    @objid ("38986561-66ea-435e-8b81-fcb8401de7cf")
+    @objid ("d426d7dd-e6bf-410a-af87-dac741f4d008")
     @Override
     public void setSourceRef(BpmnBaseElement value) {
         appendDepVal(BpmnAssociationData.Metadata.SourceRefDep(), (SmObjectImpl)value);
     }
 
-    @objid ("7dc56ebc-2b9e-440d-99fe-e2bca044a981")
+    @objid ("dba875ae-5ac2-42b5-aa6e-6fc72fe43069")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("484edf94-af5f-4735-a7d4-68fd428813ec")
+    @objid ("0e1e9ff7-2f6b-4d0f-a7f8-bcbcadae18e1")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("04bd6623-45ac-4c18-ad72-a039bb88d7de")
+    @objid ("cadfd4bf-34ec-45fd-9b28-4792ec94c502")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitBpmnAssociation(this);

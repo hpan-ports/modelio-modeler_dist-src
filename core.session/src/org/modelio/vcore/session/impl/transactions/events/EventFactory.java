@@ -23,6 +23,7 @@ package org.modelio.vcore.session.impl.transactions.events;
 
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map.Entry;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.vcore.session.api.model.change.ChangeCause;
@@ -37,14 +38,30 @@ import org.modelio.vcore.smkernel.mapi.MObject;
 /**
  * Model change event factory.
  * <p>
- * Usage:<ul>
- * <li> Call one of the create static method such as {@link #createCommitEvent(Transaction)}.
- * <li> Only if you used {@link #createEvent(ChangeCause)}, use {@link #process(IAction)} and {@link #postProcess()}.
+ * Standard Usage:<ul>
+ * <li> Call one of the create static method such as {@link #createCommitEvent(Transaction)},
+ * {@link #createUndoEvent(Transaction)}, {@link #createRedoEvent(Transaction)}.
+ * <li> Use the {@link #getEvent()} and {@link #getStatusEvent()} to get the built events.
+ * </ul>
+ * <p>
+ * After a call to {@link #createCommitEvent(Transaction)}, you can call {@link #updateCommitEvent(Transaction)}
+ * if the transaction is updated.
+ * <p>
+ * Usage for custom events:<ul>
+ * <li> Call {@link #createEvent(ChangeCause)}.
+ * <li> Use {@link #process(IAction)} to process your actions.
+ * <li> Call {@link #postProcess()} once all actions are processed.
  * <li> Use the {@link #getEvent()} and {@link #getStatusEvent()} to get the built events.
  * </ul>
  */
 @objid ("004e8cac-ca22-1f3c-aafd-001ec947cd2a")
 public class EventFactory {
+    /**
+     * index of the last processed action in the transaction
+     */
+    @objid ("37e53587-ba41-4cc5-9d86-7ca3d938af73")
+    private int lastTrIndex;
+
     @objid ("7d70f147-1c43-11e2-8eb9-001ec947ccaf")
     private ModelChangeEvent event = new ModelChangeEvent();
 
@@ -68,6 +85,7 @@ public class EventFactory {
         
         // Accept the visitor on the transaction to define the event structure
         tr.accept(f.visitor);
+        f.lastTrIndex = tr.getActions().size() - 1; 
         
         // Call the post process
         f.postProcess();
@@ -172,6 +190,7 @@ public class EventFactory {
         
         }
         
+        
         this.event.createdElements = rightCreations;
         this.event.updatedElements = rightUpdates;
         this.event.movedElements = rightMoves;
@@ -247,6 +266,27 @@ public class EventFactory {
     @objid ("8ebe9eda-b49c-4310-af51-5cdf575594ad")
     void processStatusChange(SmObjectImpl obj, long oldStatus, long newStatus) {
         this.statusEvent.add(obj, oldStatus, newStatus);
+    }
+
+    /**
+     * Update the commit event.
+     * <p>
+     * To be called when the transaction had new actions after having called {@link #createCommitEvent(Transaction)}.
+     * @param tr the updated transaction
+     */
+    @objid ("15b75b37-5057-47fa-92e9-54187c60471f")
+    public void updateCommitEvent(final Transaction tr) {
+        final List<IAction> actions = tr.getActions();
+        int s=actions.size();
+        
+        if (this.lastTrIndex < s-1) {
+            for (; this.lastTrIndex<s; ++this.lastTrIndex) {
+                actions.get(this.lastTrIndex).accept(this.visitor);
+            }
+        
+            // Call the post process
+            postProcess();
+        }
     }
 
 }

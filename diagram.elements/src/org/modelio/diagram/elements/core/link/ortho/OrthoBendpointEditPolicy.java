@@ -552,6 +552,16 @@ public class OrthoBendpointEditPolicy extends SelectionHandlesEditPolicy impleme
 
     @objid ("803fbcfe-1dec-11e2-8cad-001ec947c8cc")
     protected Command getMoveCommand(final ChangeBoundsRequest request) {
+        // The request is completely ignored in this method, it might be a design problem:
+        // when handling a request without displaying feedback first, we have to simulate it first
+        // in order to compute the move coordinates...
+        boolean simulateFeedback = false;
+        if (this.originalSourceAnchor == null && this.originalTargetAnchor == null) {
+            simulateFeedback = true;
+            showSourceFeedback(request);
+            showTargetFeedback(request);
+        }
+        
         ConnectionAnchor currentSourceAnchor = getConnection().getSourceAnchor();
         ConnectionAnchor currentTargetAnchor = getConnection().getTargetAnchor();
         getConnection().setSourceAnchor(this.originalSourceAnchor);
@@ -561,6 +571,11 @@ public class OrthoBendpointEditPolicy extends SelectionHandlesEditPolicy impleme
         Command command = new TranslateBendpointsCommand(path, hostEP);
         getConnection().setSourceAnchor(currentSourceAnchor);
         getConnection().setTargetAnchor(currentTargetAnchor);
+        
+        if (simulateFeedback) {
+            eraseSourceFeedback(request);
+            eraseTargetFeedback(request);
+        }
         return command;
     }
 

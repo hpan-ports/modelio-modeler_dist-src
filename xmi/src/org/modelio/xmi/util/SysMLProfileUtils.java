@@ -23,12 +23,13 @@ package org.modelio.xmi.util;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.uml2.uml.Property;
-import org.modelio.api.modelio.Modelio;
+import org.modelio.metamodel.factory.ElementNotUniqueException;
 import org.modelio.metamodel.uml.infrastructure.Dependency;
 import org.modelio.metamodel.uml.infrastructure.Stereotype;
 import org.modelio.vcore.smkernel.mapi.MObject;
 import org.modelio.vcore.smkernel.meta.SmClass;
 import org.modelio.xmi.generation.TotalExportMap;
+import org.modelio.xmi.plugin.Xmi;
 
 @objid ("1097c04f-ef13-4c43-a92d-4d0665fe9d0a")
 public class SysMLProfileUtils {
@@ -54,34 +55,46 @@ public class SysMLProfileUtils {
         org.eclipse.uml2.uml.Stereotype stereotype = sysMLProfile.createOwnedStereotype("Verify", false); 
         ProfileUtils.addReference(stereotype, "Abstraction");
         
-        Stereotype obStereotype = Modelio.getInstance().getModelingSession().getMetamodelExtensions()
-                .getStereotype("verify", SmClass.getClass(Dependency.class));
-        TotalExportMap.getInstance().put(obStereotype.getUuid().toString(), stereotype);
+        try {
+            Stereotype obStereotype = GenerationProperties.getInstance().getMModelServices()
+                    .getStereotype("ModelerModule", "verify", SmClass.getClass(Dependency.class));
+        
+            TotalExportMap.getInstance().put(obStereotype.getUuid().toString(), stereotype);
+        } catch (IllegalArgumentException | ElementNotUniqueException e) {
+            Xmi.LOG.warning(e);
+        }
     }
 
     @objid ("98254b76-9fd1-44d2-95eb-7c2ca8a74b86")
     private static void addSatisfyStereotype(final org.eclipse.uml2.uml.Profile sysMLProfile) {
         org.eclipse.uml2.uml.Stereotype stereotype = sysMLProfile.createOwnedStereotype("Satisfy", false); 
         ProfileUtils.addReference(stereotype, "Abstraction");
-        
-        Stereotype obStereotype = Modelio.getInstance().getModelingSession().getMetamodelExtensions()
-                .getStereotype("satisfy",  SmClass.getClass(Dependency.class));
-        TotalExportMap.getInstance().put(obStereotype.getUuid().toString(), stereotype);
+        try {
+            Stereotype obStereotype = GenerationProperties.getInstance().getMModelServices()
+                    .getStereotype("ModelerModule", "satisfy",  SmClass.getClass(Dependency.class));
+            TotalExportMap.getInstance().put(obStereotype.getUuid().toString(), stereotype);
+        } catch (IllegalArgumentException | ElementNotUniqueException e) {
+            Xmi.LOG.warning(e);
+        }
     }
 
     @objid ("71ceb6f3-2c17-4bc7-9660-27b11b42d7c1")
     private static void addDeriveStereotype(final org.eclipse.uml2.uml.Profile sysMLProfile) {
         org.eclipse.uml2.uml.Stereotype stereotype = sysMLProfile.createOwnedStereotype("DeriveReqt", false); 
         ProfileUtils.addReference(stereotype, "Abstraction");
-        
-        Stereotype obStereotype = Modelio.getInstance().getModelingSession().getMetamodelExtensions()
-                .getStereotype("derive",  SmClass.getClass(Dependency.class));
-        TotalExportMap.getInstance().put(obStereotype.getUuid().toString(), stereotype);
+        try {
+            Stereotype obStereotype = GenerationProperties.getInstance().getMModelServices()
+                    .getStereotype("ModelerModule", "derive",  SmClass.getClass(Dependency.class));
+            TotalExportMap.getInstance().put(obStereotype.getUuid().toString(), stereotype);
+        } catch (IllegalArgumentException | ElementNotUniqueException e) {
+            Xmi.LOG.warning(e);
+        }
     }
 
     @objid ("736e3a5f-4bd5-4e01-a5cd-7cadb9af53b0")
     private static void addRequirementStereotype(final org.eclipse.uml2.uml.Profile sysMLProfile) {
         org.eclipse.uml2.uml.Stereotype stereotype = sysMLProfile.createOwnedStereotype("Requirement", false); 
+               
         ProfileUtils.addReference(stereotype, "Class");        
         
         Property text = stereotype.createOwnedAttribute("Text", PrimitiveTypeMapper.getString());

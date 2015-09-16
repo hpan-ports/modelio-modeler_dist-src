@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.analyst;
 
@@ -44,25 +44,37 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("00626cea-c4bf-1fd8-97fe-001ec947cd2a")
 public class TermImpl extends AnalystElementImpl implements Term {
-    @objid ("1dc3d8c2-fb8f-4e32-93c8-e392bfea63e5")
+    @objid ("dfda0961-610c-411e-8f6e-bd6aa2f66b51")
+    @Override
+    public AnalystElement getLastVersion() {
+        return getLastTermVersion();
+    }
+
+    @objid ("cb871d96-685b-4442-a852-fcdb8bad9e04")
+    @Override
+    public EList<? extends AnalystElement> getArchivedVersions() {
+        return getArchivedTermVersion();
+    }
+
+    @objid ("33ca6082-292b-49eb-94ef-deb77f082d37")
     @Override
     public Dictionary getOwnerDictionary() {
         return (Dictionary) getDepVal(TermData.Metadata.OwnerDictionaryDep());
     }
 
-    @objid ("eaa80bf7-e9b0-481d-8717-63101c2fe104")
+    @objid ("49b2a634-aa14-4c61-97a8-3376da6c7ac4")
     @Override
     public void setOwnerDictionary(Dictionary value) {
         appendDepVal(TermData.Metadata.OwnerDictionaryDep(), (SmObjectImpl)value);
     }
 
-    @objid ("97fa2c52-0b97-4f24-8fa2-83939d1075f3")
+    @objid ("5e47d165-f591-45a2-a433-de34cf0d0cee")
     @Override
     public EList<Term> getArchivedTermVersion() {
         return new SmList<>(this, TermData.Metadata.ArchivedTermVersionDep());
     }
 
-    @objid ("d6b10cba-6431-4d5c-b16f-71830d487502")
+    @objid ("0d939f00-daf0-4a5e-95ab-8315276e3737")
     @Override
     public <T extends Term> List<T> getArchivedTermVersion(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -75,19 +87,19 @@ public class TermImpl extends AnalystElementImpl implements Term {
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("ff732695-86eb-485a-b87f-195bcf6043de")
+    @objid ("130d903f-96d6-436f-98ab-770065589ea8")
     @Override
     public Term getLastTermVersion() {
         return (Term) getDepVal(TermData.Metadata.LastTermVersionDep());
     }
 
-    @objid ("8743b049-e41d-4be3-a972-ad77ff54016f")
+    @objid ("523b26e1-c6fa-49b4-a2aa-e168b5ff32f2")
     @Override
     public void setLastTermVersion(Term value) {
         appendDepVal(TermData.Metadata.LastTermVersionDep(), (SmObjectImpl)value);
     }
 
-    @objid ("7bb733fe-2d78-4820-81b8-746afad8afd9")
+    @objid ("53dac9d2-9db0-48d5-994a-b20a6ee7489e")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
@@ -100,7 +112,7 @@ public class TermImpl extends AnalystElementImpl implements Term {
         return super.getCompositionOwner();
     }
 
-    @objid ("8e78177a-e050-433d-aa1b-f12c379bd912")
+    @objid ("4e005300-6289-43dd-a53d-d82967bd7fce")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
@@ -113,25 +125,12 @@ public class TermImpl extends AnalystElementImpl implements Term {
         return super.getCompositionRelation();
     }
 
-    @objid ("4aa74c7b-bb45-4495-90f7-5c0eb161c03b")
-    @Override
+    @objid ("223f35f5-8351-418a-be94-33beae900dbb")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitTerm(this);
         else
           return null;
-    }
-
-    @objid ("dfda0961-610c-411e-8f6e-bd6aa2f66b51")
-    @Override
-    public AnalystElement getLastVersion() {
-        return getLastTermVersion();
-    }
-
-    @objid ("cb871d96-685b-4442-a852-fcdb8bad9e04")
-    @Override
-    public EList<? extends AnalystElement> getArchivedVersions() {
-        return getArchivedTermVersion();
     }
 
 }

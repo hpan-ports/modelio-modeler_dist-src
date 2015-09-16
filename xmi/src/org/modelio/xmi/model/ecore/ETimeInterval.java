@@ -21,35 +21,20 @@
 
 package org.modelio.xmi.model.ecore;
 
-import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.metamodel.uml.infrastructure.Element;
 
 @objid ("a57c11d0-beb0-4fbb-b514-ceda005594c9")
-public class ETimeInterval extends ENamedElement implements IEElement {
+public class ETimeInterval extends ENamedElement {
     @objid ("c1d584c0-3885-4143-a81b-cfc3940a0eb1")
+    @Override
     public Element createObjingElt() {
-        // TODO Auto-generated method stub
         return null;
     }
 
     @objid ("4564463c-8ea9-4075-b755-0702b736f640")
     public ETimeInterval(org.eclipse.uml2.uml.TimeInterval element) {
         super(element);
-    }
-
-    @objid ("4f815668-7d1f-41f0-85df-b154081a23f4")
-    public void attach(Element objingElt) {
-        // TODO Auto-generated method stub
-    }
-
-    @objid ("c43d59d5-4a30-48ff-99c6-1c0df3fe4658")
-    public void attach(List<Object> objingElts) {
-    }
-
-    @objid ("04c752f9-7c93-4bb1-9428-ef61f5be2bc0")
-    public void setProperties(Element objingElt) {
-        super.setProperties(objingElt);
     }
 
 }

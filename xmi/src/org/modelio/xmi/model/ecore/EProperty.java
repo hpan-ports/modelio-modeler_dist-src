@@ -28,9 +28,8 @@ import org.eclipse.uml2.uml.AssociationClass;
 import org.eclipse.uml2.uml.InstanceSpecification;
 import org.eclipse.uml2.uml.InstanceValue;
 import org.eclipse.uml2.uml.Property;
-import org.modelio.api.model.IUmlModel;
-import org.modelio.api.modelio.Modelio;
 import org.modelio.metamodel.factory.ExtensionNotFoundException;
+import org.modelio.metamodel.factory.IModelFactory;
 import org.modelio.metamodel.uml.behavior.interactionModel.Interaction;
 import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
@@ -49,6 +48,7 @@ import org.modelio.metamodel.uml.statik.NaryAssociation;
 import org.modelio.metamodel.uml.statik.NaryAssociationEnd;
 import org.modelio.metamodel.uml.statik.Port;
 import org.modelio.metamodel.uml.statik.StructuralFeature;
+import org.modelio.xmi.plugin.Xmi;
 import org.modelio.xmi.util.AbstractObjingModelNavigation;
 import org.modelio.xmi.util.EcoreModelNavigation;
 import org.modelio.xmi.util.IModelerModuleStereotypes;
@@ -67,24 +67,25 @@ public class EProperty extends EFeature {
     @Override
     public List<ModelElement> createObjingElt() {
         Property ecoreElement = (Property) getEcoreElement();
-        //        if (!(ecoreElement.getType() instanceof org.eclipse.uml2.uml.Stereotype)){    
+        
         if (ecoreElement.getOwner() instanceof org.eclipse.uml2.uml.Stereotype){       
             ProfileUtils.visitProperty(ecoreElement);      
         }else{
         
             List<ModelElement> result = new ArrayList<>();
         
-            IUmlModel objingModel = Modelio.getInstance().getModelingSession().getModel();
+            IModelFactory objingModel = ReverseProperties.getInstance().getMModelServices().getModelFactory();
+        
             // association
             if (EcoreModelNavigation.isAssocEnd(ecoreElement)) {
-                if (EcoreModelNavigation.hasTwoValidEnds(ecoreElement.getAssociation())
-                        && (EcoreModelNavigation.isValid(ecoreElement))){
-                    if (ecoreElement.getAssociation().getMemberEnds().size() == 2 ){
-                        result.add(objingModel.createAssociationEnd());
-                    }else{
-                        result.add(objingModel.createNaryAssociationEnd()); 
-                    }
-                }       
+        
+                int endNumber = EcoreModelNavigation.getValidEndNumber(ecoreElement.getAssociation());
+        
+                if (endNumber == 2 ){
+                    result.add(objingModel.createAssociationEnd());
+                }else  if (endNumber > 2 ){
+                    result.add(objingModel.createNaryAssociationEnd()); 
+                }
             } 
         
             if (EcoreModelNavigation.isPart(ecoreElement)){
@@ -254,19 +255,9 @@ public class EProperty extends EFeature {
         if(objOppositeEnd != null){
         
             if(currentEnd.isNavigable()){ 
-        
-                if (oppositeEnd.isNavigable()){
-        
-                    objEnd.setTarget((Classifier)  ReverseProperties.getInstance().getMappedElement(currentEnd.getType())) ;
-                    objEnd.setSource((Classifier)  ReverseProperties.getInstance().getMappedElement(oppositeEnd.getType()));
-                    objEnd.setOpposite(objOppositeEnd);
-        
-        
-                }else {
-                    objEnd.setTarget((Classifier)  ReverseProperties.getInstance().getMappedElement(currentEnd.getType())) ;
-                    objEnd.setSource((Classifier)  ReverseProperties.getInstance().getMappedElement(oppositeEnd.getType()));
-                    objEnd.setOpposite(objOppositeEnd);
-                }
+                objEnd.setTarget((Classifier)  ReverseProperties.getInstance().getMappedElement(currentEnd.getType())) ;
+                objEnd.setSource((Classifier)  ReverseProperties.getInstance().getMappedElement(oppositeEnd.getType()));
+                objEnd.setOpposite(objOppositeEnd);
         
             }else{
                 if (oppositeEnd.isNavigable()){
@@ -457,10 +448,10 @@ public class EProperty extends EFeature {
                     if ((instance instanceof Instance) 
                             && (instance != null))
                         try {
-                            Modelio.getInstance().getModelingSession().getModel().createDependency(
+                            ReverseProperties.getInstance().getMModelServices().getModelFactory().createDependency(
                                     attribute, (Instance) instance, "ModelerModule", IModelerModuleStereotypes.UML2INSTANCEVALUE);
                         } catch (ExtensionNotFoundException e) {
-                            e.printStackTrace();
+                            Xmi.LOG.warning(Xmi.PLUGIN_ID, e);       
                         }
         
                 }
@@ -553,7 +544,7 @@ public class EProperty extends EFeature {
                     if (!collabList.isEmpty()){
                         collab = ((Collaboration)collabList.get(0));
                     }else{
-                        collab = Modelio.getInstance().getModelingSession().getModel().createCollaboration();
+                        collab = ReverseProperties.getInstance().getMModelServices().getModelFactory().createCollaboration();
                         collab.setName("locals");
                         ((Interaction) objingOwner).getOwnedCollaboration().add(collab);
                     }
@@ -651,54 +642,4 @@ public class EProperty extends EFeature {
         }
     }
 
-
-//    private void attachAssociationEnd(AssociationEnd objingEnd, Property ecoreElement) {
-//        try {
-//            List<Property> ownedEnds = ecoreElement.getAssociation().getOwnedEnds();
-//            List<Property> oppositeEnds = EcoreModelNavigation.getOppositeAssociationEnds(ecoreElement);
-//
-//            int nbEnds = ownedEnds.size();
-//
-//            if (!((nbEnds == 1 ) &&  (ecoreElement.getOwner() instanceof org.eclipse.uml2.uml.Association))){
-//                // Case of a binary Association
-//                attachToAssoc(objingEnd, oppositeEnds.get(0).getType());
-//            } else if (nbEnds > 1) {// (in Ecore, an association may have only
-//                // one member end (which does
-//                // not have any sense ...)
-//                // Case of a N ary association
-//                attachToAssoc(objingEnd, ecoreElement.getType());
-//            }
-//        } catch (AssociationNotFoundException e) {
-//            String msg = "The Property \"" + ecoreElement.getName()
-//                    + "\" is not connected to an Association.";
-//            Xmi.LOG.error(Xmi.PLUGIN_ID, msg);
-//            XMILogs.getInstance().writelnInLog(msg);
-//        }
-//    }
-//    private void attachToAssoc(AssociationEnd objingEnd, Type ecoreType) {
-//        if (ecoreType != null) {
-//            Object objingOwner = ReverseProperties.getInstance().getMappedElement(ecoreType);
-//            if (objingOwner != null){
-//                //Rule Core R22
-//                if ((objingOwner instanceof Class) || (objingOwner instanceof Interface) || (objingOwner instanceof Component)
-//                        || (objingOwner instanceof Actor) || (objingOwner instanceof DataType) || (objingOwner instanceof Node)
-//                        || (objingOwner instanceof Signal)|| (objingOwner instanceof UseCase)){
-//                    Property ecoreElt = (Property) getEcoreElement();
-//                            if (ecoreElt.isNavigable() && (!ecoreElt.getOtherEnd().isNavigable())){
-//                                objingEnd.setSource((Classifier) objingOwner);
-//                            }
-//
-//
-//                }else{
-//
-//
-//                    XMILogs xmilogs = XMILogs.getInstance();
-//                    xmilogs.writelnInLog(Xmi.I18N.getMessage(
-//                            "logFile.warning.unsupportedOwnerImport", objingEnd.getName(),
-//                            objingEnd.getClass().getName(), objingOwner.getClass().getName()));
-//
-//                }
-//            }
-//        }
-//    }
 }

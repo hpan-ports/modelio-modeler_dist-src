@@ -29,10 +29,10 @@ import org.eclipse.swt.events.SelectionListener;
 @objid ("8dca8c4d-c068-11e1-8c0a-002564c97630")
 class RemoveButtonListener implements SelectionListener {
     @objid ("8dca8c4e-c068-11e1-8c0a-002564c97630")
-    private StringListEditionDialog dialog = null;
+    private StringListEditionComposite dialog = null;
 
     @objid ("8dca8c4f-c068-11e1-8c0a-002564c97630")
-    public RemoveButtonListener(StringListEditionDialog dialog) {
+    public RemoveButtonListener(StringListEditionComposite dialog) {
         this.dialog = dialog;
     }
 
@@ -50,7 +50,7 @@ class RemoveButtonListener implements SelectionListener {
 
     @objid ("8dca8c5a-c068-11e1-8c0a-002564c97630")
     private void removeAdpaters() {
-        List<StringAdapter> adapters = this.dialog.getSelectedAdapters();
+        List<String> adapters = this.dialog.getSelectedAdapters();
         
         this.dialog.removeAdapters(adapters);
     }

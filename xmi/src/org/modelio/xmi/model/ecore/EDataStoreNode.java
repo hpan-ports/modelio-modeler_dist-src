@@ -21,36 +21,22 @@
 
 package org.modelio.xmi.model.ecore;
 
-import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.modelio.api.modelio.Modelio;
 import org.modelio.metamodel.uml.infrastructure.Element;
+import org.modelio.xmi.util.ReverseProperties;
 
 @objid ("1c6f510b-538c-434f-9900-55c6718a61ed")
-public class EDataStoreNode extends ECentralBufferNode implements IEElement {
+public class EDataStoreNode extends ECentralBufferNode {
     @objid ("57e7e288-ee00-4f08-8d21-592cc8b205bb")
+    @Override
     public Element createObjingElt() {
-        return Modelio.getInstance().getModelingSession().getModel()
+        return ReverseProperties.getInstance().getMModelServices().getModelFactory()
                 .createDataStoreNode();
     }
 
     @objid ("cd3039e1-b696-4f3a-8a55-8a3bdcda7261")
     public EDataStoreNode(org.eclipse.uml2.uml.DataStoreNode element) {
         super(element);
-    }
-
-    @objid ("a11036f4-86f5-40c4-b53e-1d6fa11e8f14")
-    public void attach(Element objingElt) {
-        super.attach(objingElt);
-    }
-
-    @objid ("10aadcf7-2a77-459a-a4c6-96f5863d81d4")
-    public void attach(List<Object> objingElts) {
-    }
-
-    @objid ("8e847f25-313f-48db-b6d6-52ccf98bc6bc")
-    public void setProperties(Element objingElt) {
-        super.setProperties(objingElt);
     }
 
 }

@@ -21,86 +21,48 @@
 
 package org.modelio.xmi.model.ecore;
 
-import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.eclipse.emf.common.util.EList;
-import org.modelio.api.modelio.Modelio;
+import org.modelio.gproject.model.IMModelServices;
+import org.modelio.metamodel.factory.ElementNotUniqueException;
 import org.modelio.metamodel.uml.behavior.activityModel.ActivityAction;
 import org.modelio.metamodel.uml.behavior.activityModel.InputPin;
 import org.modelio.metamodel.uml.behavior.activityModel.ObjectNodeOrderingKind;
 import org.modelio.metamodel.uml.behavior.stateMachineModel.State;
 import org.modelio.metamodel.uml.infrastructure.Element;
-import org.modelio.metamodel.uml.infrastructure.Stereotype;
 import org.modelio.metamodel.uml.statik.GeneralClass;
+import org.modelio.xmi.plugin.Xmi;
 import org.modelio.xmi.util.IModelerModuleStereotypes;
 import org.modelio.xmi.util.ReverseProperties;
 import org.modelio.xmi.util.XMILogs;
 
 @objid ("8112630e-54e1-4398-8cf5-07fa085f036f")
-public class EInputPin extends EPin implements IEElement {
+public class EInputPin extends EPin {
     @objid ("a889df2c-db4b-4cfc-b4b9-401e3817479c")
     private org.eclipse.uml2.uml.InputPin ecoreElement = null;
 
     @objid ("addbb05c-f2c3-42f4-8f45-a410d9b65342")
+    @Override
     public Element createObjingElt() {
-        InputPin element = Modelio.getInstance().getModelingSession().getModel()
-                .createInputPin();
-        
-        org.eclipse.uml2.uml.Element owner = this.ecoreElement.getOwner();
-        
-        if (owner instanceof org.eclipse.uml2.uml.TestIdentityAction){
-            if (((org.eclipse.uml2.uml.TestIdentityAction) owner).getFirst().equals(this.ecoreElement)){
-                
-                    Stereotype stereo = Modelio.getInstance().getModelingSession().getMetamodelExtensions()
-                            .getStereotype( IModelerModuleStereotypes.UML2FIRST, element.getMClass());
-                    element.getExtension().add(stereo);
-               
-            }else  if (((org.eclipse.uml2.uml.TestIdentityAction) owner).getSecond().equals(this.ecoreElement)){
-               
-                    Stereotype stereo = Modelio.getInstance().getModelingSession().getMetamodelExtensions()
-                            .getStereotype( IModelerModuleStereotypes.UML2SECOND, element.getMClass());
-                    element.getExtension().add(stereo);
-               
-            }
-        }else if (owner instanceof  org.eclipse.uml2.uml.CallOperationAction){
-            org.eclipse.uml2.uml.InputPin input = ( (org.eclipse.uml2.uml.CallOperationAction) owner).getTarget();
-            if ((input != null) && (input.equals(this.ecoreElement))){
-               
-                    Stereotype stereo = Modelio.getInstance().getModelingSession().getMetamodelExtensions()
-                            .getStereotype(IModelerModuleStereotypes.UML2TARGET, element.getMClass());
-                    element.getExtension().add(stereo);
-              
-            }
-        }else if (owner instanceof org.eclipse.uml2.uml.WriteStructuralFeatureAction){
-            org.eclipse.uml2.uml.InputPin input = ((org.eclipse.uml2.uml.WriteStructuralFeatureAction) this.ecoreElement.getOwner()).getValue();
-            if ((input != null) && (input.equals(this.ecoreElement))){
-                
-                    Stereotype stereo = Modelio.getInstance().getModelingSession().getMetamodelExtensions()
-                            .getStereotype( IModelerModuleStereotypes.UML2VALUE, element.getMClass());
-                    element.getExtension().add(stereo);
-               
-            }
-        }
-        return element;
+        return ReverseProperties.getInstance().getMModelServices().getModelFactory().createInputPin();
     }
 
     @objid ("620c3b37-5c2b-454c-ab9f-b58c594fbfeb")
     public EInputPin(org.eclipse.uml2.uml.InputPin element) {
         super(element);
-        ecoreElement = element;
+        this.ecoreElement = element;
     }
 
     @objid ("f7d5c77f-d85e-4784-9d50-0e9490ae4ab4")
+    @Override
     public void attach(Element objingElt) {
         attachToAction(objingElt);
     }
 
-    @objid ("4e94de58-14a5-4096-8a12-0067b057a320")
-    public void attach(List<Object> objingElts) {
-    }
-
     @objid ("4fafbb05-96c2-418f-9f21-1d8b54940464")
+    @Override
     public void setProperties(Element objingElt) {
+        setStereotype((InputPin) objingElt);
+        
         // Properties defined on ModelElement
         super.setProperties(objingElt); 
         
@@ -115,24 +77,24 @@ public class EInputPin extends EPin implements IEElement {
     @objid ("6a742021-a125-4ebe-a93e-a13f808bab97")
     private void attachToAction(Element objingElt) {
         org.eclipse.uml2.uml.Action ecoreAction =  (org.eclipse.uml2.uml.Action) getEcoreElement().getOwner();
-                
-                Object objingAction = ReverseProperties.getInstance().getMappedElement(ecoreAction);
-                if (objingAction instanceof ActivityAction) 
-           ((InputPin) objingElt).setInputing((ActivityAction) objingAction);
-                else{
-           XMILogs.getInstance().writelnInLog("owner of pin was " + objingAction.getClass().getSimpleName());
-           objingElt.delete();
-                }
+        
+        Object objingAction = ReverseProperties.getInstance().getMappedElement(ecoreAction);
+        if (objingAction instanceof ActivityAction) 
+            ((InputPin) objingElt).setInputing((ActivityAction) objingAction);
+        else{
+            XMILogs.getInstance().writelnInLog("owner of pin was " + objingAction.getClass().getSimpleName());
+            objingElt.delete();
+        }
     }
 
     @objid ("a4776688-f756-4fac-9201-e1c8cc75e2df")
     private void setControlType(InputPin pin) {
-        pin.setIsControlType(ecoreElement.isControlType());
+        pin.setIsControlType(this.ecoreElement.isControlType());
     }
 
     @objid ("a1e256ac-7d64-4c73-aa2e-5a21286132fb")
     private void setOrdering(InputPin pin) {
-        switch (ecoreElement.getOrdering().getValue()) {
+        switch (this.ecoreElement.getOrdering().getValue()) {
         case org.eclipse.uml2.uml.ObjectNodeOrderingKind.FIFO:
             pin.setOrdering(ObjectNodeOrderingKind.FIFO);
             break;
@@ -152,7 +114,7 @@ public class EInputPin extends EPin implements IEElement {
 
     @objid ("ba8d9f72-f7b8-40dd-9dea-a6e6f135f2b5")
     private void setSelectionBehavior(InputPin pin) {
-        org.eclipse.uml2.uml. Behavior ecoreBehavior = ecoreElement.getSelection();
+        org.eclipse.uml2.uml. Behavior ecoreBehavior = this.ecoreElement.getSelection();
         if (ecoreBehavior instanceof org.eclipse.uml2.uml.OpaqueBehavior) {
             String objingBehavior = "";
             for (Object body : ((org.eclipse.uml2.uml.OpaqueBehavior) ecoreBehavior).getBodies()) {
@@ -168,26 +130,62 @@ public class EInputPin extends EPin implements IEElement {
 
     @objid ("85a00276-46d9-4c44-9b62-379d9a5e4e9e")
     private void setType(InputPin pin) {
-        org.eclipse.uml2.uml.Type ecoreType = ecoreElement.getType();
-        if (ecoreType != null) {
+        org.eclipse.uml2.uml.Type ecoreType = this.ecoreElement.getType();
         
+        if (ecoreType != null) {      
             Object objingType = ReverseProperties.getInstance().getMappedElement(ecoreType);
             if (objingType instanceof GeneralClass)
-                pin.setType((GeneralClass) objingType);
-        
+                pin.setType((GeneralClass) objingType);       
         }
     }
 
     @objid ("b9ba77cb-dfd8-423e-b0a2-25260c4a0942")
     private void setState(InputPin pin) {
-        EList<?> ecoreStates = ecoreElement.getInStates();
-        if (ecoreStates != null && ecoreStates.size() > 0) {
-            org.eclipse.uml2.uml.State ecoreState = (org.eclipse.uml2.uml.State) ecoreStates.get(0);
-            if (ecoreState != null) {
-                Object objingState = ReverseProperties.getInstance().getMappedElement(ecoreState);
-                if (objingState instanceof State)
-                    pin.setInState((State) objingState);
+        for(org.eclipse.uml2.uml.State  ecoreState : this.ecoreElement.getInStates()) {
+            Object objingState = ReverseProperties.getInstance().getMappedElement(ecoreState);
+            if (objingState instanceof State)
+                pin.setInState((State) objingState);
+        }
+    }
+
+    @objid ("afd80eba-172d-4228-931a-9e2bad87f783")
+    private void setStereotype(InputPin objingElt) {
+        IMModelServices mmServices = ReverseProperties.getInstance().getMModelServices();
+        
+        org.eclipse.uml2.uml.Element owner = this.ecoreElement.getOwner();
+        
+        try {
+            if (owner instanceof org.eclipse.uml2.uml.TestIdentityAction){
+                if (((org.eclipse.uml2.uml.TestIdentityAction) owner).getFirst().equals(this.ecoreElement)){
+        
+                    objingElt.getExtension().add(mmServices
+                            .getStereotype( IModelerModuleStereotypes.UML2FIRST, objingElt.getMClass()));
+        
+                }else  if (((org.eclipse.uml2.uml.TestIdentityAction) owner).getSecond().equals(this.ecoreElement)){
+        
+                    objingElt.getExtension().add(mmServices
+                            .getStereotype( IModelerModuleStereotypes.UML2SECOND, objingElt.getMClass()));
+        
+                }
+            }else if (owner instanceof  org.eclipse.uml2.uml.CallOperationAction){
+                org.eclipse.uml2.uml.InputPin input = ( (org.eclipse.uml2.uml.CallOperationAction) owner).getTarget();
+                if ((input != null) && (input.equals(this.ecoreElement))){
+        
+                    objingElt.getExtension().add(mmServices
+                            .getStereotype( IModelerModuleStereotypes.UML2TARGET, objingElt.getMClass()));
+        
+                }
+            }else if (owner instanceof org.eclipse.uml2.uml.WriteStructuralFeatureAction){
+                org.eclipse.uml2.uml.InputPin input = ((org.eclipse.uml2.uml.WriteStructuralFeatureAction) this.ecoreElement.getOwner()).getValue();
+                if ((input != null) && (input.equals(this.ecoreElement))){
+        
+                    objingElt.getExtension().add(mmServices
+                            .getStereotype( IModelerModuleStereotypes.UML2VALUE, objingElt.getMClass()));
+        
+                }
             }
+        } catch (ElementNotUniqueException e) {
+            Xmi.LOG.warning(e);
         }
     }
 

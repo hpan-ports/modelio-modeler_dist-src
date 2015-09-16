@@ -30,6 +30,7 @@ import org.eclipse.e4.ui.services.IServiceConstants;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.progress.IProgressService;
+import org.modelio.gproject.model.IMModelServices;
 import org.modelio.metamodel.uml.infrastructure.Profile;
 import org.modelio.metamodel.uml.statik.Package;
 import org.modelio.vcore.smkernel.mapi.MObject;
@@ -48,16 +49,14 @@ public class ImportXMI {
 
     @objid ("d7078e17-0b20-4a46-b248-136e0b29a551")
     @Execute
-    public Object execute(@Named(IServiceConstants.ACTIVE_SHELL) final Shell activeShell, IProgressService progressService) {
-        ReverseProperties.getInstance().initialize();
-        selectImportFile(activeShell, progressService);
-        return null;
-    }
-
-    @objid ("2e05f4bd-3336-4d94-92d2-705aa7e7cafc")
-    private void selectImportFile(Shell shell, IProgressService progressService) {
-        ReverseProperties.getInstance().setUMLRoot(this.selectedPackage);
-        final SwtWizardImport dialog = new SwtWizardImport(shell, progressService);
+    public void execute(@Named(IServiceConstants.ACTIVE_SHELL) final Shell activeShell, IProgressService progressService, IMModelServices mmService) {
+        //initialization
+        ReverseProperties revprop = ReverseProperties.getInstance();
+        revprop.initialize(mmService);
+        revprop.setUMLRoot(this.selectedPackage);
+        
+        //SWT dialog box
+        final SwtWizardImport dialog = new SwtWizardImport(activeShell, progressService);
         dialog.setSelectedElt(this.selectedPackage);
         dialog.open();
     }

@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.data.uml.behavior.interactionModel;
 
@@ -46,43 +46,43 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("0048846a-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=InteractionUse.class, factory=InteractionUseData.Metadata.ObjectFactory.class)
 public class InteractionUseData extends InteractionFragmentData {
-    @objid ("790764b0-ebab-4aa6-b039-d331d94b9311")
+    @objid ("6e66fdf0-3548-48ea-9895-26eb35f594d1")
     @SmaMetaAttribute(metaName="EndLineNumber", type=Integer.class, smAttributeClass=Metadata.EndLineNumberSmAttribute.class)
      Object mEndLineNumber = 0;
 
-    @objid ("a9401d50-b2a5-4a35-a24a-ca1dee9360cf")
+    @objid ("91db0dc0-c622-4f71-8335-a0d365abae5f")
     @SmaMetaAssociation(metaName="ActualGate", typeDataClass=GateData.class, min=0, max=-1, smAssociationClass=Metadata.ActualGateSmDependency.class, component = true)
      List<SmObjectImpl> mActualGate = null;
 
-    @objid ("46717e15-1ae0-451c-a172-6fa4cdd63679")
+    @objid ("52274df1-40ce-43db-b873-260db8759118")
     @SmaMetaAssociation(metaName="RefersTo", typeDataClass=InteractionData.class, min=1, max=1, smAssociationClass=Metadata.RefersToSmDependency.class, partof = true)
      SmObjectImpl mRefersTo;
 
-    @objid ("66c7c278-a13b-4522-b730-57c0408cf976")
+    @objid ("6af40371-533e-478e-81a1-7dd7cceeccaa")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("0075f526-c4c2-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("ac5df0af-b5fc-40f4-96e8-1000322c7ff7")
+        @objid ("3f873215-363c-49dc-bef3-bd78dfcec66f")
         private static SmClass smClass = null;
 
-        @objid ("2798ec65-4984-4826-bf5e-2d4726988d1c")
+        @objid ("8983e436-1a02-4e3f-8c49-a1d34ad7432a")
         private static SmAttribute EndLineNumberAtt = null;
 
-        @objid ("4de2ebff-771d-4df1-b615-63acc5366448")
+        @objid ("353a7430-e974-4551-b771-f70449a653f6")
         private static SmDependency ActualGateDep = null;
 
-        @objid ("2a70fbfc-8df5-41f5-bbfb-7d9366207af9")
+        @objid ("7acf2267-f609-40cd-906b-ef77526be55d")
         private static SmDependency RefersToDep = null;
 
-        @objid ("abf43b7c-8371-44f0-863c-c61f550140ee")
+        @objid ("3d3e76ed-e80c-4657-9cb1-1cfdf5187a0a")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(InteractionUseData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("47e7a44c-d9ca-499a-bee4-d98da7789564")
+        @objid ("69018a33-38b2-45ea-b046-0edbf521c007")
         public static SmAttribute EndLineNumberAtt() {
             if (EndLineNumberAtt == null) {
             	EndLineNumberAtt = classof().getAttributeDef("EndLineNumber");
@@ -90,7 +90,7 @@ public class InteractionUseData extends InteractionFragmentData {
             return EndLineNumberAtt;
         }
 
-        @objid ("b72c3245-b311-419c-af20-960ce79d9b92")
+        @objid ("4db6f4a0-dd0c-42a4-ab13-b736ca89ffef")
         public static SmDependency ActualGateDep() {
             if (ActualGateDep == null) {
             	ActualGateDep = classof().getDependencyDef("ActualGate");
@@ -98,7 +98,7 @@ public class InteractionUseData extends InteractionFragmentData {
             return ActualGateDep;
         }
 
-        @objid ("5d2e4d61-ccca-4852-818a-f4dd1a036acb")
+        @objid ("be8e6f69-7a83-4174-aa71-ad8489814436")
         public static SmDependency RefersToDep() {
             if (RefersToDep == null) {
             	RefersToDep = classof().getDependencyDef("RefersTo");
@@ -106,38 +106,38 @@ public class InteractionUseData extends InteractionFragmentData {
             return RefersToDep;
         }
 
-        @objid ("83499a2f-908f-45b8-8096-a6596e938c9d")
-        public static SmDependency getActualGateDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return ActualGateDep;
-        }
-
-        @objid ("3d9bdd1f-0959-4b39-b633-d690c9db7196")
-        public static SmClass getSmClass() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return smClass;
-        }
-
-        @objid ("c419b5d5-3068-4b68-90ea-21e1faffd91a")
-        public static SmDependency getRefersToDep() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return RefersToDep;
-        }
-
-        @objid ("23b1ffdb-b1a8-4f2f-9bc0-ee28375beff5")
+        @objid ("b7be366f-757f-4de9-b92a-d3b10f6c6ae1")
         public static SmAttribute getEndLineNumberAtt() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return EndLineNumberAtt;
         }
 
+        @objid ("3b65ee49-01c7-4b6a-a0f2-cbc1e543fc23")
+        public static SmDependency getActualGateDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return ActualGateDep;
+        }
+
+        @objid ("1b6a5b2d-fa09-4df3-bd04-c3d47e76e8fa")
+        public static SmClass getSmClass() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return smClass;
+        }
+
+        @objid ("a7f66aa7-074f-42a0-97b8-104a5c2a3775")
+        public static SmDependency getRefersToDep() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return RefersToDep;
+        }
+
         @objid ("00763720-c4c2-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("8943617f-93f4-4303-8151-90ab7d11d045")
+            @objid ("f870cf8b-6e38-4d9e-9e2b-32dc2878c76e")
             public ISmObjectData createData() {
                 return new InteractionUseData();
             }
 
-            @objid ("849f4733-3977-4e0f-a77a-256c4315b43d")
+            @objid ("8877958b-4680-4705-b9c0-6d8013a4671b")
             public SmObjectImpl createImpl() {
                 return new InteractionUseImpl();
             }
@@ -146,12 +146,12 @@ public class InteractionUseData extends InteractionFragmentData {
 
         @objid ("007699c2-c4c2-1fd8-97fe-001ec947cd2a")
         public static class EndLineNumberSmAttribute extends SmAttribute {
-            @objid ("964ac526-b57c-4794-b231-7dcc8cb6940e")
+            @objid ("1acd89b4-ae64-4f12-bc30-045cf6241dc9")
             public Object getValue(ISmObjectData data) {
                 return ((InteractionUseData) data).mEndLineNumber;
             }
 
-            @objid ("4ecf841f-870a-4bf3-8748-077c53316020")
+            @objid ("02f4fe79-06c4-4e05-9b45-24fb949fc47e")
             public void setValue(ISmObjectData data, Object value) {
                 ((InteractionUseData) data).mEndLineNumber = value;
             }
@@ -160,18 +160,18 @@ public class InteractionUseData extends InteractionFragmentData {
 
         @objid ("0076fce6-c4c2-1fd8-97fe-001ec947cd2a")
         public static class RefersToSmDependency extends SmSingleDependency {
-            @objid ("73cd1748-3da5-4aa5-ab38-9e88c20d1e22")
+            @objid ("90fe1c8e-15e4-4b67-9893-81558484bb2c")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((InteractionUseData) data).mRefersTo;
             }
 
-            @objid ("2081b9fd-e33a-4151-93eb-68f67ad4dddf")
+            @objid ("eece7e89-737f-4e0c-8f88-de99d2a51e73")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((InteractionUseData) data).mRefersTo = value;
             }
 
-            @objid ("9be3905d-a972-4c78-8893-1044b667eb16")
+            @objid ("db8483bd-d1b9-4909-8ba8-726255fab552")
             @Override
             public SmDependency getSymetric() {
                 return InteractionData.Metadata.ReferedUseDep();
@@ -181,20 +181,20 @@ public class InteractionUseData extends InteractionFragmentData {
 
         @objid ("007773ce-c4c2-1fd8-97fe-001ec947cd2a")
         public static class ActualGateSmDependency extends SmMultipleDependency {
-            @objid ("7df65e5a-cbd7-4b9d-a770-9ff8831f934f")
+            @objid ("5e1fa06e-b227-47d3-8325-1bada355d7da")
             @Override
             public List<SmObjectImpl> getValueList(ISmObjectData data) {
                 return (((InteractionUseData)data).mActualGate != null)? ((InteractionUseData)data).mActualGate:SmMultipleDependency.EMPTY;
             }
 
-            @objid ("2691499b-49e0-46b2-9008-33a828f552ee")
+            @objid ("fa28a3be-a60e-4bfb-b04b-3c64bef71b72")
             @Override
             protected List<SmObjectImpl> allocateValueList(ISmObjectData data, int initialCapacity) {
                 ((InteractionUseData) data).mActualGate = new ArrayList<>(initialCapacity);
                 return ((InteractionUseData) data).mActualGate;
             }
 
-            @objid ("4ab4d4ec-beec-4d17-8097-10017feea77f")
+            @objid ("77286f39-e45d-44c9-840f-0a36eb4872b6")
             @Override
             public SmDependency getSymetric() {
                 return GateData.Metadata.OwnerUseDep();

@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.uml.statik;
 
@@ -32,16 +32,16 @@ import org.modelio.metamodel.uml.statik.Artifact;
 
 @objid ("00108470-c4bf-1fd8-97fe-001ec947cd2a")
 public interface Manifestation extends ModelElement {
-    @objid ("cdac6531-8916-4790-a508-83449d6dd23d")
+    @objid ("0ccd438c-1364-4b07-b04b-19908b1200c8")
     ModelElement getUtilizedElement();
 
-    @objid ("7dee8fb7-433e-498c-8a06-8101ae231207")
+    @objid ("7d6844c3-ef80-48f6-bbbd-c5b9ec1c12bf")
     void setUtilizedElement(ModelElement value);
 
-    @objid ("0af88d69-27d4-466a-bb5f-40b64532f60b")
+    @objid ("b3cef651-c5a1-4048-8daf-0a89d3db01fb")
     Artifact getOwner();
 
-    @objid ("a8d15b64-bb93-4848-adf2-5bf63ee2621b")
+    @objid ("dbff9867-b000-4775-b325-7578a137e20d")
     void setOwner(Artifact value);
 
 }

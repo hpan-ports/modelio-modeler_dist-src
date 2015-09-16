@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.data.uml.infrastructure.properties;
 
@@ -44,29 +44,29 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("006d9110-ec87-1098-b22e-001ec947cd2a")
 @SmaMetaClass(mmClass=LocalPropertyTable.class, factory=LocalPropertyTableData.Metadata.ObjectFactory.class, cmsnode=true)
 public class LocalPropertyTableData extends PropertyTableData {
-    @objid ("28fea689-5a20-4049-9c38-341acc93efbd")
+    @objid ("80616630-00e9-4819-9eac-1ef355929ec1")
     @SmaMetaAssociation(metaName="LocalAnnoted", typeDataClass=ModelElementData.class, min=0, max=1, smAssociationClass=Metadata.LocalAnnotedSmDependency.class, partof = true)
      SmObjectImpl mLocalAnnoted;
 
-    @objid ("02deee26-1b60-4568-b162-5dc92eceece5")
+    @objid ("3703339c-ce3c-4e91-a384-3aa020b41fb9")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("0069776a-ec97-1098-b22e-001ec947cd2a")
     public static class Metadata {
-        @objid ("f3464cb1-030f-46ae-9537-6a281e72b86b")
+        @objid ("2dc3252b-82bb-4fc1-b5b8-5c86312a7109")
         private static SmClass smClass = null;
 
-        @objid ("8b489860-08bf-4998-a49c-83b31b9203d5")
+        @objid ("99b00de6-d296-4a40-bd22-e08237c69e70")
         private static SmDependency LocalAnnotedDep = null;
 
-        @objid ("e41d4a01-4323-46e6-818b-292a28d5145e")
+        @objid ("86562fd8-e66a-4c46-ad41-36ce3fdae97a")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(LocalPropertyTableData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("cce61a2a-e1f0-4371-b67e-4ef309d6f49b")
+        @objid ("7ef67d16-82e0-46b5-80b4-f930c9f29eab")
         public static SmDependency LocalAnnotedDep() {
             if (LocalAnnotedDep == null) {
             	LocalAnnotedDep = classof().getDependencyDef("LocalAnnoted");
@@ -74,26 +74,26 @@ public class LocalPropertyTableData extends PropertyTableData {
             return LocalAnnotedDep;
         }
 
-        @objid ("32980f1d-ab56-4976-bf61-74360979f4c7")
-        public static SmClass getSmClass() {
-            // Automatically generated method. Please delete this comment before entering specific code.
-            return smClass;
-        }
-
-        @objid ("8102beaa-c930-4794-a769-79dc0d944676")
+        @objid ("4cacd96b-0526-4e4e-bc92-9778d135215e")
         public static SmDependency getLocalAnnotedDep() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return LocalAnnotedDep;
         }
 
+        @objid ("41b15836-29c0-401c-8747-1a59be3bd8a4")
+        public static SmClass getSmClass() {
+            // Automatically generated method. Please delete this comment before entering specific code.
+            return smClass;
+        }
+
         @objid ("006a0202-ec97-1098-b22e-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("90b7a59e-f14e-4581-b94e-c8586b61e59c")
+            @objid ("e8ab8cb1-3855-4959-bd92-ec5474f10ed1")
             public ISmObjectData createData() {
                 return new LocalPropertyTableData();
             }
 
-            @objid ("daee2695-7bf3-4487-aa46-2e8c95cdc364")
+            @objid ("2bbc2c16-6c19-47b6-8f40-671dc597c35b")
             public SmObjectImpl createImpl() {
                 return new LocalPropertyTableImpl();
             }
@@ -102,18 +102,18 @@ public class LocalPropertyTableData extends PropertyTableData {
 
         @objid ("006af61c-ec97-1098-b22e-001ec947cd2a")
         public static class LocalAnnotedSmDependency extends SmSingleDependency {
-            @objid ("2ce97838-cfd9-436a-ab6b-54fde507ccea")
+            @objid ("46ac59fd-79df-4f8d-8656-7135a80f9012")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((LocalPropertyTableData) data).mLocalAnnoted;
             }
 
-            @objid ("31d5369b-a1de-4042-82ce-95579d389b2f")
+            @objid ("b1914b93-91c7-45cf-aaf9-37d7b5fb3a68")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((LocalPropertyTableData) data).mLocalAnnoted = value;
             }
 
-            @objid ("42c57cb4-e0e5-4231-bf91-9ec0ed78dd42")
+            @objid ("f99cb357-3980-4449-ae05-cf6d668de31a")
             @Override
             public SmDependency getSymetric() {
                 return ModelElementData.Metadata.LocalPropertiesDep();

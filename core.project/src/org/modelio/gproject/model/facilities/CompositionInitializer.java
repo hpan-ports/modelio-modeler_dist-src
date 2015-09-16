@@ -1778,7 +1778,7 @@ public class CompositionInitializer extends DefaultModelVisitor {
         return false;
     }
 
-    @objid ("ee3e8d63-45e2-47f8-a439-767d7ff56b66")
+    @objid ("194c46b1-2fdf-4c18-9d70-20cb8f31f4a1")
     @Override
     public Object visitGenericAnalystElement(GenericAnalystElement theGenericElement) {
         if (this.parent instanceof GenericAnalystContainer) {
@@ -1794,7 +1794,7 @@ public class CompositionInitializer extends DefaultModelVisitor {
         return false;
     }
 
-    @objid ("e7e4ea5a-ecff-4330-b8bf-fa69744dd48a")
+    @objid ("b1b95308-f76e-4dee-9275-4cf9ce19fc95")
     @Override
     public Object visitGenericAnalystContainer(GenericAnalystContainer theGenericContainer) {
         if (this.parent instanceof GenericAnalystContainer) {

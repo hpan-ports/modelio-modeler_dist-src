@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.mda;
 
@@ -34,52 +34,52 @@ import org.modelio.metamodel.uml.statik.GeneralClass;
 
 @objid ("0064e9a2-c4bf-1fd8-97fe-001ec947cd2a")
 public interface ModuleParameter extends ModelElement {
-    @objid ("e1d69385-8ecb-49e0-8223-36a3aebdb8e4")
+    @objid ("61667b19-7771-4571-a6ea-dad04ea442db")
     String getSetName();
 
-    @objid ("1bfb2d16-9e1a-413c-b58f-45a14c8376d1")
+    @objid ("0d44ec38-a177-4c54-b9fd-ce4b737ca17e")
     void setSetName(String value);
 
-    @objid ("10cef076-8006-4aea-9a7a-6dfb69ac43e5")
+    @objid ("58e57bf5-38fb-4f01-af96-b81943bf0d43")
     ModuleParameterType getAssociatedType();
 
-    @objid ("3203a582-06eb-411b-831b-b6fd850a5c7f")
+    @objid ("0c44be29-40c7-4090-8da8-460833390776")
     void setAssociatedType(ModuleParameterType value);
 
-    @objid ("f5d9665f-2213-46eb-8080-75d8435c0d0f")
+    @objid ("19e75c49-9c26-4516-9784-6d75e0c25bd1")
     boolean isIsUserRead();
 
-    @objid ("4966a05d-f2ae-4cb1-854b-dacf8ba1e33f")
+    @objid ("2402d010-2c61-4633-8499-8bce2c590121")
     void setIsUserRead(boolean value);
 
-    @objid ("a5401313-75d3-443f-a716-57556710013b")
+    @objid ("928355e6-da8b-4d5f-95fa-fdae36181f3a")
     boolean isIsUserWrite();
 
-    @objid ("c337a6c1-e8e7-4954-b81d-8cef0e00a1a4")
+    @objid ("7617fee4-6460-4c07-a370-89aff1d368ed")
     void setIsUserWrite(boolean value);
 
-    @objid ("7c911a76-765e-422e-beb1-5ddb415ecaed")
+    @objid ("eec3261b-5035-4c85-9e66-cc63c780659f")
     boolean isIsApiRead();
 
-    @objid ("1d71a762-cee7-4b48-9d88-ff8a965c4f07")
+    @objid ("c2e0f53a-13ea-4fce-9c19-a19e27482bef")
     void setIsApiRead(boolean value);
 
-    @objid ("ce46d35d-1661-4aa8-acbf-2262da75303a")
+    @objid ("252d81e4-6b68-4679-b012-0377d0525b8f")
     boolean isIsApiWrite();
 
-    @objid ("72855071-5e98-45a6-8eaf-ecb0428e163d")
+    @objid ("04565189-7510-472d-851e-b473b48286fc")
     void setIsApiWrite(boolean value);
 
-    @objid ("989e79b3-a81a-41ea-9710-df37b992055f")
+    @objid ("24e815ac-0e9f-4df4-8567-35af5b05794f")
     GeneralClass getType();
 
-    @objid ("ee24b940-d991-4e54-a864-2c03c0f3482e")
+    @objid ("f809ae08-9f68-47f6-9ca2-75e4f83d4a19")
     void setType(GeneralClass value);
 
-    @objid ("b536b972-0c74-48c7-bd9a-9ed65939fddf")
+    @objid ("f3ed7a42-e4e7-43a3-88f9-7e0abf837151")
     ModuleComponent getOwner();
 
-    @objid ("b71ba6f6-0758-4c10-bb4b-764ba7b19ba3")
+    @objid ("a778c668-b3d1-4938-a742-42bfd4c42340")
     void setOwner(ModuleComponent value);
 
 }

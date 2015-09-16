@@ -62,7 +62,7 @@ public class DiagramEditorsManager {
     @objid ("6670d448-33f7-11e2-95fe-001ec947c8cc")
     @Inject
     @Optional
-    void onElementEdition(@EventTopic(ModelioEventTopics.EDIT_ELEMENT) MObject mObject, IDiagramConfigurerRegistry configurerRegistry, final IInputPartService inputPartService, final DiagramEditorsManager manager) {
+    void onEditElement(@EventTopic(ModelioEventTopics.EDIT_ELEMENT) MObject mObject, IDiagramConfigurerRegistry configurerRegistry, final IInputPartService inputPartService, final DiagramEditorsManager manager) {
         // FIXME this should be an @UIEventTopic, but they are not triggered with eclipse 4.3 M5...
         
         // Only handle activation requests for diagrams.

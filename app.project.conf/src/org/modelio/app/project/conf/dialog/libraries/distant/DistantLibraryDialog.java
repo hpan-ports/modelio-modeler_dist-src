@@ -53,11 +53,11 @@ import org.modelio.app.project.conf.dialog.common.OptionalAuthPanelProvider;
 import org.modelio.app.project.conf.dialog.common.ScopeHelper;
 import org.modelio.app.project.conf.plugin.AppProjectConf;
 import org.modelio.core.ui.dialog.ModelioDialog;
-import org.modelio.gproject.descriptor.DefinitionScope;
-import org.modelio.gproject.descriptor.FragmentDescriptor;
-import org.modelio.gproject.descriptor.FragmentType;
-import org.modelio.gproject.descriptor.GAuthConf;
-import org.modelio.gproject.descriptor.GProperties;
+import org.modelio.gproject.data.project.DefinitionScope;
+import org.modelio.gproject.data.project.FragmentDescriptor;
+import org.modelio.gproject.data.project.FragmentType;
+import org.modelio.gproject.data.project.GAuthConf;
+import org.modelio.gproject.data.project.GProperties;
 import org.modelio.gproject.fragment.IProjectFragment;
 import org.modelio.ui.UIColor;
 import org.modelio.vbasic.files.FileUtils;
@@ -342,8 +342,8 @@ public final class DistantLibraryDialog extends ModelioDialog {
             GridDataFactory.defaultsFor(label).align(SWT.BEGINNING, SWT.BEGINNING).indent(0, 5).applyTo(label);
             
             this.authPanel = new OptionalAuthPanelProvider(this.allowProjectAuth);
-            this.authPanel.create(data);
-            this.authPanel.getComposite().setLayoutData(new GridData(SWT.FILL, SWT.BEGINNING, true, false));
+            this.authPanel.createPanel(data);
+            this.authPanel.getPanel().setLayoutData(new GridData(SWT.FILL, SWT.BEGINNING, true, false));
             this.authPanel.setInput(null);
             
             // Check button

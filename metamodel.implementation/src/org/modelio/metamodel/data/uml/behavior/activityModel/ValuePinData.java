@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.data.uml.behavior.activityModel;
 
@@ -43,29 +43,29 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("003f561a-c4bf-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=ValuePin.class, factory=ValuePinData.Metadata.ObjectFactory.class)
 public class ValuePinData extends InputPinData {
-    @objid ("fcca2643-e804-4c23-b91e-e952aeaa414a")
+    @objid ("0453c543-5d71-49bd-babc-90f7f369373b")
     @SmaMetaAttribute(metaName="Value", type=String.class, smAttributeClass=Metadata.ValueSmAttribute.class)
      Object mValue = "";
 
-    @objid ("38819998-2a9e-4279-9601-77404a00854c")
+    @objid ("d599db14-10eb-4d0f-bdcc-38e37c39005c")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("0012639e-c4c4-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("511389db-7a0b-46a3-b31b-db7a4334001e")
+        @objid ("3b80685f-9037-42d1-b136-2f5fe350f283")
         private static SmClass smClass = null;
 
-        @objid ("770c195b-9589-4878-9d19-bb8f5a03a8db")
+        @objid ("27b3ef07-100a-4adb-848e-2f3183a512a0")
         private static SmAttribute ValueAtt = null;
 
-        @objid ("ef473bba-370b-4f23-8d32-ff821c2f4be7")
+        @objid ("3edcae50-b6c6-4ab3-8674-acdb363ce366")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(ValuePinData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("d38049b8-195a-4257-ae2b-ff8c4d2fb4a5")
+        @objid ("74e3e44f-6bc2-4665-af7f-dfd74ec23d60")
         public static SmAttribute ValueAtt() {
             if (ValueAtt == null) {
             	ValueAtt = classof().getAttributeDef("Value");
@@ -73,13 +73,13 @@ public class ValuePinData extends InputPinData {
             return ValueAtt;
         }
 
-        @objid ("68216aa0-d524-46fd-8d80-18d89804401d")
+        @objid ("2bacd2b5-f6d4-47d9-9a14-3544b5326941")
         public static SmAttribute getValueAtt() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return ValueAtt;
         }
 
-        @objid ("c1c80b4e-0238-4254-ac9d-ffe8783eb5b1")
+        @objid ("2bc663db-69ee-434c-b8a1-3c6019250be1")
         public static SmClass getSmClass() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return smClass;
@@ -87,12 +87,12 @@ public class ValuePinData extends InputPinData {
 
         @objid ("0012a5ac-c4c4-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("cd61cdbd-da9f-4a12-8337-a6d5dd153289")
+            @objid ("1416999d-4943-4697-82f1-50519fee97ee")
             public ISmObjectData createData() {
                 return new ValuePinData();
             }
 
-            @objid ("fbe6bd2b-e01a-4eea-a07f-ded6d47db145")
+            @objid ("12b1cce2-02a7-4d53-97f0-129ebef1de76")
             public SmObjectImpl createImpl() {
                 return new ValuePinImpl();
             }
@@ -101,12 +101,12 @@ public class ValuePinData extends InputPinData {
 
         @objid ("0013061e-c4c4-1fd8-97fe-001ec947cd2a")
         public static class ValueSmAttribute extends SmAttribute {
-            @objid ("0980d85d-3652-49b8-b4af-0347a7b92d40")
+            @objid ("20d791b7-f505-4515-9ec8-e0db24d4fc8f")
             public Object getValue(ISmObjectData data) {
                 return ((ValuePinData) data).mValue;
             }
 
-            @objid ("2050797e-f565-487a-941d-2be7997feedb")
+            @objid ("bd51a5b9-271e-4ea1-821d-6cc262737e33")
             public void setValue(ISmObjectData data, Object value) {
                 ((ValuePinData) data).mValue = value;
             }

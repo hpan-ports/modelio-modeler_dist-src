@@ -24,7 +24,6 @@ package org.modelio.gproject.module.cache;
 import java.io.IOException;
 import java.nio.file.Path;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.modelio.gproject.module.GModule;
 import org.modelio.gproject.module.IModuleCache;
 import org.modelio.gproject.module.IModuleHandle;
 import org.modelio.gproject.module.catalog.FileModuleStore;
@@ -61,19 +60,6 @@ public class ModuleRTCache implements IModuleCache {
             return this.cache.getModuleHandle(archivePath, monitor);
         else
             return this.catalog.copy(this.catalog.getModuleHandle(archivePath, monitor), this.cache, monitor);
-    }
-
-    @objid ("8a9da0a0-4996-4850-a4e0-5f6793c21f22")
-    @Override
-    public IModuleHandle getModuleHandle(GModule gModule, IModelioProgress monitor) throws IOException {
-        IModuleHandle rtModuleHandle = this.cache.findModule(gModule.getName(), gModule.getVersion().toString("V.R.C"), monitor);
-        if (rtModuleHandle == null) {
-            IModuleHandle handleInCatalog = this.catalog.findModule(gModule.getName(), gModule.getVersion().toString("V.R.C"), monitor);    
-            if (handleInCatalog != null) {
-                rtModuleHandle = this.catalog.copy(handleInCatalog, this.cache, monitor);
-            }
-        }
-        return rtModuleHandle;
     }
 
 }

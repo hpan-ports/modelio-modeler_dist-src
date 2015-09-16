@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.uml.behavior.activityModel;
 
@@ -34,22 +34,22 @@ import org.modelio.metamodel.uml.infrastructure.ModelElement;
 
 @objid ("002cb618-c4bf-1fd8-97fe-001ec947cd2a")
 public interface Clause extends ModelElement {
-    @objid ("6682a0e8-5409-4ab3-a90c-74dc0cd27f3f")
+    @objid ("2ae6a922-6b9e-42ed-915f-4dc68834812a")
     String getTest();
 
-    @objid ("c39e9836-e41c-4157-ac18-d409703586ae")
+    @objid ("e44bbc74-8c9f-4020-8b79-a686443288dc")
     void setTest(String value);
 
-    @objid ("f131a021-b8d5-46cf-86fa-261c25751dc8")
+    @objid ("7902a2e1-d648-4570-964d-11ddfef80f56")
     EList<ActivityNode> getBody();
 
-    @objid ("c712c3ea-5d71-49fe-a46d-6bbbd6ad4e18")
+    @objid ("a8750f83-ee0b-443d-b992-bbfaf03fdff0")
     <T extends ActivityNode> List<T> getBody(java.lang.Class<T> filterClass);
 
-    @objid ("ef27c542-f932-4bfb-baa2-fe638d27b8de")
+    @objid ("16113de8-fdef-4640-8407-33b1028a3975")
     ConditionalNode getOwner();
 
-    @objid ("8be9b752-a86d-41c1-8482-3d769f74b65d")
+    @objid ("97847a5e-e6db-4805-a3d1-f69aa49485f1")
     void setOwner(ConditionalNode value);
 
 }

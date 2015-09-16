@@ -99,7 +99,7 @@ public class ImportProfileThread extends AbstractXMIThread implements IRunnableW
                     file.delete();
             }
         
-            Xmi.LOG.error(Xmi.PLUGIN_ID, e);   
+            Xmi.LOG.error(e);   
         
             this.progressBar.addFinalValue();
         }finally {
@@ -129,7 +129,7 @@ public class ImportProfileThread extends AbstractXMIThread implements IRunnableW
         });
         
         if (messageException != null)
-            Xmi.LOG.error(Xmi.PLUGIN_ID, messageException);  
+            Xmi.LOG.error(messageException);  
         
         ReverseProperties.getInstance().setRollback(true);
     }

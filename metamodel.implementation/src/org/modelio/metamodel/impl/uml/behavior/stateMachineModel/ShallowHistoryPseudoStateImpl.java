@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.uml.behavior.stateMachineModel;
 
@@ -41,21 +41,21 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("00531808-c4bf-1fd8-97fe-001ec947cd2a")
 public class ShallowHistoryPseudoStateImpl extends AbstractPseudoStateImpl implements ShallowHistoryPseudoState {
-    @objid ("506c4000-073d-4b96-911a-cf89b85ab2bc")
+    @objid ("030ef47e-5388-4b91-a41d-d0d1e4467727")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("d77061ea-dd4e-4b20-93fb-a155ea7fbb8d")
+    @objid ("fcab9727-00a3-46e8-b21a-b2cf445175eb")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("e793c113-4a87-400a-867e-bab54a890ae0")
+    @objid ("d5670676-303c-49d3-ae2c-9a902207f769")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitShallowHistoryPseudoState(this);

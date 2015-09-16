@@ -37,7 +37,6 @@ import org.modelio.metamodel.uml.statik.NaryConnectorEnd;
 import org.modelio.metamodel.uml.statik.Port;
 import org.modelio.metamodel.uml.statik.ProvidedInterface;
 import org.modelio.metamodel.uml.statik.RequiredInterface;
-import org.modelio.vcore.smkernel.mapi.MRef;
 
 /**
  * Command that connects a {@link RequiredInterfaceLinkEditPart} to a {@link ProvidedInterfaceLinkEditPart}
@@ -98,7 +97,7 @@ public class ConnectLollipopsCommand extends Command {
         reqConn.setSource(reqPort);
         reqConn.setConsumer(req);
         
-        reqConn.setSource(provPort);
+        provConn.setSource(provPort);
         provConn.setProvider(prov);
         
         // Unmask the connector

@@ -29,9 +29,9 @@ public class RenameHandler extends AbstractBrwModelHandler {
                 } else {
                    elementToEdit = adapter.getAdapter(Element.class);
                 }
-                browserView.getComposite().getComposite().editElement(elementToEdit, 0);
+                browserView.getComposite().getPanel().editElement(elementToEdit, 0);
             } else
-                browserView.getComposite().getComposite().editElement(firstObject, 0);
+                browserView.getComposite().getPanel().editElement(firstObject, 0);
         }
     }
 

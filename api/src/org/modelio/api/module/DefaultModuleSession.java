@@ -29,10 +29,10 @@ import org.modelio.api.diagram.tools.IDiagramCommand;
 import org.modelio.api.diagram.tools.ILinkCommand;
 import org.modelio.api.diagram.tools.IMultiLinkCommand;
 import org.modelio.api.modelio.Modelio;
+import org.modelio.api.module.contrib.WizardContribution;
 import org.modelio.api.module.diagrams.DiagramCustomizationDescriptor;
 import org.modelio.api.module.diagrams.DiagramToolDescriptor;
 import org.modelio.metamodel.Metamodel;
-import org.modelio.metamodel.uml.infrastructure.MetaclassReference;
 import org.modelio.vbasic.version.Version;
 
 /**
@@ -89,9 +89,9 @@ public class DefaultModuleSession implements IModuleSession {
     @objid ("01f40414-0000-3270-0000-000000000000")
     @Override
     public boolean start() throws ModuleException {
-        this.addWorkbenchActions();
         addDiagramTools();
         addDiagramCustomizers();
+        addDiagramWizardContributions();
         
         // TODO
         /*
@@ -121,6 +121,7 @@ public class DefaultModuleSession implements IModuleSession {
     public void stop() throws ModuleException {
         removeDiagramCustomizers();
         removeDiagramTools();
+        removeDiagramWizardContributions();
         
         /*
          * TODO Display.getDefault().syncExec(new ContextualPopupActionsRemover(this.mdac, this.handlerActivationTable));
@@ -155,13 +156,6 @@ public class DefaultModuleSession implements IModuleSession {
         this.module.getConfiguration().updateFrom(oldParameters);
     }
 
-    @objid ("01f41f64-0000-028e-0000-000000000000")
-    private void addWorkbenchActions() {
-        /*
-         * TODO Display.getDefault().syncExec(new ContextualPopupActionsAdder(this.mdac, this.handlerActivationTable));
-         */
-    }
-
     @objid ("0bb7e155-8ae1-4d86-99c1-d19dd2414f37")
     private void addDiagramCustomizers() {
         if (this.module.getDiagramCustomizations().size() > 0) {
@@ -187,6 +181,20 @@ public class DefaultModuleSession implements IModuleSession {
     private void removeDiagramTools() {
         if (this.module.getDiagramTools().size() > 0) {
             Display.getDefault().syncExec(new DiagramToolsRemover(this.module));
+        }
+    }
+
+    @objid ("cccb61ac-5aed-44c9-ae54-957b2eb4ae53")
+    private void addDiagramWizardContributions() {
+        if (this.module.getDiagramWizardContributions().size() > 0) {
+            Display.getDefault().syncExec(new DiagramWizardContributionAdder(this.module));
+        }
+    }
+
+    @objid ("67885298-810a-42b6-ac89-b9b7289cc42c")
+    private void removeDiagramWizardContributions() {
+        if (this.module.getDiagramWizardContributions().size() > 0) {
+            Display.getDefault().syncExec(new DiagramWizardContributionRemover(this.module));
         }
     }
 
@@ -292,6 +300,50 @@ public class DefaultModuleSession implements IModuleSession {
             final List<DiagramToolDescriptor> diagramTools = this.javaMdac.getDiagramTools();
             for (DiagramToolDescriptor toolDescriptor : diagramTools) {
                 diagramService.unregisterCustomizedTool(toolDescriptor.getId());
+            }
+        }
+
+    }
+
+    @objid ("c06988da-9697-41b5-9c2f-fbf9f4fecd7c")
+    private static class DiagramWizardContributionAdder implements Runnable {
+        @objid ("8251c396-cda0-41df-b90f-352728100138")
+        private final IModule javaMdac;
+
+        @objid ("4234c0fc-8118-41e3-a2b1-a8d69e8f8103")
+        public DiagramWizardContributionAdder(final IModule javaMdac) {
+            this.javaMdac = javaMdac;
+        }
+
+        @objid ("b69e69da-4ac5-488c-93f1-206d2d20d56f")
+        @Override
+        public void run() {
+            final IDiagramService diagramService = Modelio.getInstance().getDiagramService();
+            final List<WizardContribution> diagramWizardContributions = this.javaMdac.getDiagramWizardContributions();
+            for (WizardContribution contribution : diagramWizardContributions) {
+                diagramService.registerDiagramContributor(contribution.getCategory(), contribution.getContributor());
+            }
+        }
+
+    }
+
+    @objid ("fac6b5a2-4b13-4326-8686-e5fc4a775be8")
+    private static class DiagramWizardContributionRemover implements Runnable {
+        @objid ("a668e635-4226-42f3-b4ef-3f0069a5b227")
+        private final IModule javaMdac;
+
+        @objid ("545985e6-abd0-4e6f-a0dd-1672f70b56dc")
+        public DiagramWizardContributionRemover(final IModule javaMdac) {
+            this.javaMdac = javaMdac;
+        }
+
+        @objid ("1d7d7ece-823b-4699-92bb-96c0170d6156")
+        @Override
+        public void run() {
+            final IDiagramService diagramService = Modelio.getInstance().getDiagramService();
+            final List<WizardContribution> diagramWizardContributions = this.javaMdac.getDiagramWizardContributions();
+            for (WizardContribution contribution : diagramWizardContributions) {
+                diagramService.unregisterDiagramContributor(contribution.getCategory(), contribution.getContributor());
             }
         }
 

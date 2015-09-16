@@ -29,7 +29,7 @@ import org.modelio.vstore.exml.common.model.IllegalReferenceException;
 import org.modelio.vstore.exml.common.model.ObjId;
 
 /**
- * Services needed by {@link ExmlLoader}.
+ * Services needed by EXML loader implementations..
  * <p>
  * Not to be used outside the EXML repository implementation.
  */

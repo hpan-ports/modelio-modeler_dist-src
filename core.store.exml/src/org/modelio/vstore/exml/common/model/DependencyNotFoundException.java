@@ -31,6 +31,9 @@ public class DependencyNotFoundException extends Exception {
     @objid ("a5585f97-cff0-46fa-9fc4-ba1839b05646")
     private static final long serialVersionUID = 1L;
 
+    /**
+     * @param string an error message.
+     */
     @objid ("66b09b1b-9755-469b-86b8-17c563cc7bd9")
     public DependencyNotFoundException(String string) {
         super(string);

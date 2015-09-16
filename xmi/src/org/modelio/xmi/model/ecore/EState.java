@@ -21,9 +21,7 @@
 
 package org.modelio.xmi.model.ecore;
 
-import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.modelio.api.modelio.Modelio;
 import org.modelio.metamodel.uml.behavior.stateMachineModel.Region;
 import org.modelio.metamodel.uml.behavior.stateMachineModel.State;
 import org.modelio.metamodel.uml.behavior.stateMachineModel.StateMachine;
@@ -32,25 +30,27 @@ import org.modelio.xmi.util.ReverseProperties;
 import org.modelio.xmi.util.XMILogs;
 
 @objid ("24e5cedc-b302-4fc2-80db-e1502a837ead")
-public class EState extends ENamedElement implements IEElement {
+public class EState extends ENamedElement {
     @objid ("e22b8858-7278-46b1-8119-6fee5617d225")
-    private org.eclipse.uml2.uml.State ecoreElement;
+    private org.eclipse.uml2.uml.State ecoreElement = null;
 
     @objid ("422c5230-1d74-400f-b874-d2184324ca37")
+    @Override
     public Element createObjingElt() {
-        return Modelio.getInstance().getModelingSession().getModel()
+        return ReverseProperties.getInstance().getMModelServices().getModelFactory()
         .createState();
     }
 
     @objid ("9bfe93e2-7acf-45b5-9cac-e04d35788b08")
     public EState(org.eclipse.uml2.uml.State element) {
         super(element);
-        ecoreElement = element;
+        this.ecoreElement = element;
     }
 
     @objid ("f3bce808-f774-430c-9341-99f67ee6e0c0")
+    @Override
     public void attach(Element objingElt) {
-        org.eclipse.uml2.uml.Region ecoreContainer = ecoreElement.getContainer();
+        org.eclipse.uml2.uml.Region ecoreContainer = this.ecoreElement.getContainer();
                 
                 if (ecoreContainer != null) {
            Object objingContainer = ReverseProperties.getInstance().getMappedElement(ecoreContainer);
@@ -64,15 +64,12 @@ public class EState extends ENamedElement implements IEElement {
                 
                 }else{
            objingElt.delete();
-           XMILogs.getInstance().writelnInLog("the state named " + ecoreElement.getName() + " has not owner");
+           XMILogs.getInstance().writelnInLog("the state named " + this.ecoreElement.getName() + " has not owner");
                 }
     }
 
-    @objid ("bce4660c-d22b-499e-b527-798e4e07c3a8")
-    public void attach(List<Object> objingElts) {
-    }
-
     @objid ("220ff27e-36c0-42be-850a-6b07057e9939")
+    @Override
     public void setProperties(Element objingElt) {
         super.setProperties(objingElt);
         if (objingElt instanceof State) {            
@@ -82,7 +79,7 @@ public class EState extends ENamedElement implements IEElement {
 
     @objid ("77423b40-cd10-45de-9f31-731366346113")
     private void setSubMachine(State state) {
-        org.eclipse.uml2.uml.StateMachine ecoreSubMachine = ecoreElement.getSubmachine();
+        org.eclipse.uml2.uml.StateMachine ecoreSubMachine = this.ecoreElement.getSubmachine();
         if (ecoreSubMachine != null) {
             Object objingSubMachine = ReverseProperties.getInstance().getMappedElement(ecoreSubMachine);
             if (objingSubMachine instanceof StateMachine) {

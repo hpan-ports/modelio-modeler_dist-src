@@ -1,0 +1,41 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<title>Modeler audit rules R1450</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link href="style.css" media="screen" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<a name="R1450"></a>
+<h1 >R1450<a href="#R1450" class="wiki-anchor">&para;</a></h1>
+
+<a name="Summary"></a>
+<h4 >Summary<a href="#Summary" class="wiki-anchor">&para;</a></h4>
+
+<p>If an association is a composition, then the opposite maximum multiplicity
+must be 1.</p>
+
+<a name="Details"></a>
+<h4 >Details<a href="#Details" class="wiki-anchor">&para;</a></h4>
+
+<p>A composition is a strong association that implies that a model element (the
+composite) is reponsible for the life cycle of another model element (the
+part). Therefore, an instance of the part element cannot be linked to more
+than one instance of the composite element.</p>
+
+<a name="Tips"></a>
+<h4 >Tips<a href="#Tips" class="wiki-anchor">&para;</a></h4>
+
+<p>If you have a composite model element with an association end maximum
+multiplicity different than 1, you should consider revising your association
+and either:</p>
+
+<ul>
+<li>remove the composition</li>
+<li>change the composition into an aggregation</li>
+<li>correct the cardinality</li>
+</ul>
+
+
+<div id="footer"><iframe frameborder="0" scrolling="no" height="25" width="100%" src="_footer.html"></iframe></div> </body>
+</html>

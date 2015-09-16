@@ -22,7 +22,6 @@
 package org.modelio.xmi.model.ecore;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.modelio.api.modelio.Modelio;
 import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.metamodel.uml.infrastructure.ModelTree;
 import org.modelio.metamodel.uml.infrastructure.Profile;
@@ -43,8 +42,7 @@ public class EClass extends ENamedElement {
     @objid ("fc7824d6-a268-4460-b67b-ca7fbd855ccb")
     @Override
     public Element createObjingElt() {
-        return Modelio.getInstance().getModelingSession()
-        .getModel().createClass();
+        return ReverseProperties.getInstance().getMModelServices().getModelFactory().createClass();
     }
 
     @objid ("0f57b5ee-1636-4b11-8e29-57fca5059183")

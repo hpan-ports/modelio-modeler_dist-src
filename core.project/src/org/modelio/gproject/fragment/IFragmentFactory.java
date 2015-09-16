@@ -22,7 +22,7 @@
 package org.modelio.gproject.fragment;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.modelio.gproject.descriptor.FragmentDescriptor;
+import org.modelio.gproject.data.project.FragmentDescriptor;
 
 /**
  * Interface used to instantiate a {@link IProjectFragment} from a fragment description.

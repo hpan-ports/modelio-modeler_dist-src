@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.bpmn.events;
 
@@ -31,16 +31,16 @@ import org.modelio.metamodel.bpmn.activities.BpmnActivity;
 
 @objid ("00875c94-c4bf-1fd8-97fe-001ec947cd2a")
 public interface BpmnBoundaryEvent extends BpmnCatchEvent {
-    @objid ("e0511638-b72c-4cce-a42f-22eb604d2dfc")
+    @objid ("b492dc8d-1222-4f77-9cc8-91cc044974dd")
     boolean isCancelActivity();
 
-    @objid ("7a572c48-401f-4f5f-b4dd-3ca9f6f5e3da")
+    @objid ("e5b6f4de-9729-44a2-84c8-fb7b6f129ed7")
     void setCancelActivity(boolean value);
 
-    @objid ("83f3bdfe-c7f0-4705-b59e-7bf9fef2a917")
+    @objid ("7b410441-3e3e-4fb5-a238-14f32c0c28b4")
     BpmnActivity getAttachedToRef();
 
-    @objid ("e3e32240-6550-49a7-babf-a017c2437c34")
+    @objid ("d664dd21-9702-4c7c-b377-064df32bc19e")
     void setAttachedToRef(BpmnActivity value);
 
 }

@@ -42,6 +42,7 @@ import org.modelio.gproject.model.IMModelServices;
 import org.modelio.metamodel.factory.IModelFactory;
 import org.modelio.metamodel.uml.infrastructure.ExternDocument;
 import org.modelio.metamodel.uml.infrastructure.ModelElement;
+import org.modelio.vbasic.files.FileUtils;
 import org.modelio.vcore.session.api.ICoreSession;
 import org.modelio.vcore.session.api.transactions.ITransaction;
 import org.modelio.vcore.session.api.transactions.ITransactionSupport;
@@ -141,14 +142,14 @@ public class AddRichNoteHandler {
      * Show a warning dialog box.
      */
     @objid ("12d55105-8a58-4328-83c8-791d69caf19f")
-    void reportException(final Exception e, Shell parentShell) {
+    void reportException(final IOException e, Shell parentShell) {
+        //if (!(e instanceof IllegalModelManipulationException)) {
+            EditorsRichNote.LOG.error(e);
+        //}
+            
         String title = EditorsRichNote.I18N.getMessage("CannotInitializeRichNoteContent");
         
-        MessageDialog.openWarning(parentShell, title, e.getLocalizedMessage());
-        
-        if (!(e instanceof IllegalModelManipulationException)) {
-            EditorsRichNote.LOG.error(e);
-        }
+        MessageDialog.openWarning(parentShell, title, FileUtils.getLocalizedMessage(e));
     }
 
 }

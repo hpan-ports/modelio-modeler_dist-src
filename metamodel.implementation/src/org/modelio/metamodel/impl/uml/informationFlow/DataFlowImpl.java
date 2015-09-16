@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.uml.informationFlow;
 
@@ -44,55 +44,55 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("00648264-c4bf-1fd8-97fe-001ec947cd2a")
 public class DataFlowImpl extends ModelElementImpl implements DataFlow {
-    @objid ("008d7d61-b1fb-4ff7-9e6b-ee9f3c9d2815")
+    @objid ("8e934655-b127-40fd-b088-00b51aa7ea4b")
     @Override
     public NameSpace getDestination() {
         return (NameSpace) getDepVal(DataFlowData.Metadata.DestinationDep());
     }
 
-    @objid ("cfdac2a3-60d2-4141-8cc3-3190a304319c")
+    @objid ("2727ae7e-13d7-462b-be95-f7915fdf3dd9")
     @Override
     public void setDestination(NameSpace value) {
         appendDepVal(DataFlowData.Metadata.DestinationDep(), (SmObjectImpl)value);
     }
 
-    @objid ("446509bb-cb10-42da-8ae7-c91e90ac4e99")
+    @objid ("28c0738d-ad53-43cf-bccb-8257e3dd00ad")
     @Override
     public NameSpace getOrigin() {
         return (NameSpace) getDepVal(DataFlowData.Metadata.OriginDep());
     }
 
-    @objid ("2dca8c15-f22f-41f3-9b05-18d8a401968e")
+    @objid ("34ba68d7-3cd4-48a0-9633-5b4f4334a802")
     @Override
     public void setOrigin(NameSpace value) {
         appendDepVal(DataFlowData.Metadata.OriginDep(), (SmObjectImpl)value);
     }
 
-    @objid ("9dd325a0-806e-4b31-9d7c-3527b66c98d0")
+    @objid ("bd503147-dec9-4f2d-9ee3-5cd018fb2355")
     @Override
     public NameSpace getOwner() {
         return (NameSpace) getDepVal(DataFlowData.Metadata.OwnerDep());
     }
 
-    @objid ("c0672ed6-c411-453b-9b90-663777138ca7")
+    @objid ("084d1551-5cc5-4034-b9a5-d67bc7544b36")
     @Override
     public void setOwner(NameSpace value) {
         appendDepVal(DataFlowData.Metadata.OwnerDep(), (SmObjectImpl)value);
     }
 
-    @objid ("e10b2fe9-1c92-4b83-8425-053139a836ce")
+    @objid ("cea21efa-4214-44b6-843d-36e5daf39ac0")
     @Override
     public Signal getSModel() {
         return (Signal) getDepVal(DataFlowData.Metadata.SModelDep());
     }
 
-    @objid ("49d3533f-9713-45c9-ae99-0c2e4c40b2de")
+    @objid ("0bbeddae-edaa-443e-8d8c-d769556cfc7e")
     @Override
     public void setSModel(Signal value) {
         appendDepVal(DataFlowData.Metadata.SModelDep(), (SmObjectImpl)value);
     }
 
-    @objid ("48acf0d8-8bd6-4363-bed0-aa63c514ef35")
+    @objid ("dd9020a7-4753-4d39-92c0-becb4da4b58a")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
@@ -102,7 +102,7 @@ public class DataFlowImpl extends ModelElementImpl implements DataFlow {
         return super.getCompositionOwner();
     }
 
-    @objid ("18904979-c93b-4c41-8ad6-24aea0aaebbd")
+    @objid ("8b6ec414-32db-4e95-8184-2085dd2363e1")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
@@ -112,7 +112,7 @@ public class DataFlowImpl extends ModelElementImpl implements DataFlow {
         return super.getCompositionRelation();
     }
 
-    @objid ("c914bed1-9d55-4621-b404-3792c9eb162e")
+    @objid ("c786447f-a122-4a4a-8cc4-9bb60a50e06d")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitDataFlow(this);

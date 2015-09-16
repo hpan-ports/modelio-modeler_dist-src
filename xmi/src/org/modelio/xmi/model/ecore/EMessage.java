@@ -21,9 +21,7 @@
 
 package org.modelio.xmi.model.ecore;
 
-import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.modelio.api.modelio.Modelio;
 import org.modelio.metamodel.uml.behavior.commonBehaviors.Signal;
 import org.modelio.metamodel.uml.behavior.interactionModel.Message;
 import org.modelio.metamodel.uml.behavior.interactionModel.MessageKind;
@@ -35,10 +33,11 @@ import org.modelio.xmi.util.EcoreModelNavigation;
 import org.modelio.xmi.util.ReverseProperties;
 
 @objid ("b878cf00-e2ba-4505-badc-bb44f242bb5a")
-public class EMessage extends ENamedElement implements IEElement {
+public class EMessage extends ENamedElement {
     @objid ("e6fe54fc-18f2-4cf9-94c7-4c6e100977a1")
+    @Override
     public Element createObjingElt() {
-        return Modelio.getInstance().getModelingSession().getModel()
+        return ReverseProperties.getInstance().getMModelServices().getModelFactory()
                 .createMessage();
     }
 
@@ -47,15 +46,8 @@ public class EMessage extends ENamedElement implements IEElement {
         super(element);
     }
 
-    @objid ("e3449a10-97f1-4035-bb09-b7852bf72c96")
-    public void attach(Element objingElt) {
-    }
-
-    @objid ("6a465543-e743-43b9-b2be-7debfb3e5af2")
-    public void attach(List<Object> objingElts) {
-    }
-
     @objid ("7cc65500-906c-409a-b299-b13bfc7b5f00")
+    @Override
     public void setProperties(Element objingElt) {
         super.setProperties(objingElt);
         if (objingElt instanceof Message) {
@@ -63,6 +55,9 @@ public class EMessage extends ENamedElement implements IEElement {
             setKindOfMessage((Message) objingElt, ecoreElement);
             setSortOfMessage((Message) objingElt, ecoreElement);
             setSignature((Message) objingElt, ecoreElement);
+            if (!ReverseProperties.getInstance().isRoundtripEnabled()){
+                setLineNumbers((Message) objingElt);
+            }
         }
     }
 
@@ -133,7 +128,15 @@ public class EMessage extends ENamedElement implements IEElement {
         case org.eclipse.uml2.uml.MessageSort.SYNCH_CALL:
             message.setSortOfMessage(MessageSort.SYNCCALL);
             break;
+        default :
+            message.setSortOfMessage(MessageSort.ASYNCCALL);
+            break;
         }
+    }
+
+    @objid ("bb082897-d74d-424a-aca8-cf86b50a91d8")
+    private void setLineNumbers(Message objingElt) {
+        objingElt.getReceiveEvent().setLineNumber(objingElt.getSendEvent().getLineNumber());
     }
 
 }

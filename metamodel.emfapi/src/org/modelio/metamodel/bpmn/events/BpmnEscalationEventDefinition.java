@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.bpmn.events;
 
@@ -30,10 +30,10 @@ import org.eclipse.emf.ecore.EObject;
 
 @objid ("008be606-c4bf-1fd8-97fe-001ec947cd2a")
 public interface BpmnEscalationEventDefinition extends BpmnEventDefinition {
-    @objid ("ac2651ae-bb95-46d4-a9be-704dd4452128")
+    @objid ("d3bc5ca4-e99c-454e-a6db-75f1f2804b21")
     String getEscalationCode();
 
-    @objid ("4c1a69d2-1ab2-4b7f-9a68-e88676eaf942")
+    @objid ("169b3c87-adab-4fdd-90ac-195be66c5877")
     void setEscalationCode(String value);
 
 }

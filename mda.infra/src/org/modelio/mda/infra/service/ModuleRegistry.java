@@ -29,8 +29,13 @@ import org.modelio.api.module.IModule;
 import org.modelio.gproject.module.ModuleId;
 import org.modelio.metamodel.mda.ModuleComponent;
 
+/**
+ * Modules registry.
+ * <p>
+ * Knows which modules are loaded and which of them are started.
+ */
 @objid ("07dbe9c3-edc0-11e1-88ee-001ec947c8cc")
-public class ModuleRegistry implements IModuleRegistry {
+class ModuleRegistry implements IModuleRegistry {
     @objid ("1e65d837-edc3-11e1-88ee-001ec947c8cc")
     private Map<ModuleComponent, IModule> loadedModules = new HashMap<>();
 

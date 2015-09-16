@@ -21,13 +21,13 @@
 
 package org.modelio.xmi.model.ecore;
 
-import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.modelio.metamodel.uml.infrastructure.Element;
 
 @objid ("81b99576-20c6-4fa2-b220-d8b7d1846663")
-public class ELinkEndDestructionData extends EElement implements IEElement {
+public class ELinkEndDestructionData extends EElement {
     @objid ("b4fdf022-fd40-42b0-ad03-d15607b2a014")
+    @Override
     public Element createObjingElt() {
         return null;
     }
@@ -35,19 +35,6 @@ public class ELinkEndDestructionData extends EElement implements IEElement {
     @objid ("396d5c9d-a567-4e36-bc02-9e0af81ba084")
     public ELinkEndDestructionData(org.eclipse.uml2.uml.LinkEndDestructionData element) {
         super(element);
-    }
-
-    @objid ("5e527dd3-ab82-47ea-95ff-378ab2b67de2")
-    public void attach(Element objingElt) {
-    }
-
-    @objid ("204c3573-38d8-4ed5-940c-6ebe3d780122")
-    public void attach(List<Object> objingElts) {
-    }
-
-    @objid ("1c2517e7-b2e6-4fea-ae21-0b1af07733a3")
-    public void setProperties(Element objingElt) {
-        super.setProperties(objingElt);
     }
 
 }

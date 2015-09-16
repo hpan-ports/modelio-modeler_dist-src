@@ -37,6 +37,7 @@ import org.modelio.metamodel.uml.infrastructure.ModelElement;
 import org.modelio.metamodel.uml.statik.Classifier;
 import org.modelio.metamodel.uml.statik.LinkEnd;
 import org.modelio.metamodel.uml.statik.NameSpace;
+import org.modelio.metamodel.uml.statik.StructuralFeature;
 import org.modelio.property.ui.data.standard.common.AbstractPropertyModel;
 import org.modelio.vcore.session.api.ICoreSession;
 import org.modelio.vcore.session.api.model.IModel;
@@ -98,10 +99,11 @@ public class InformationFlowPropertyModel extends AbstractPropertyModel<Informat
         this.ownerType = new SingleElementType(true, NameSpace.class, session);
         this.informationTargetType = new SingleElementType(false, ModelElement.class, session);
         List<java.lang.Class<? extends MObject>> realizingTypes = new ArrayList<>(); 
-        realizingTypes.add(LinkEnd.class);
         realizingTypes.add(ActivityEdge.class);
-        realizingTypes.add(Message.class);
         realizingTypes.add(CommunicationMessage.class);
+        realizingTypes.add(LinkEnd.class);
+        realizingTypes.add(Message.class);
+        realizingTypes.add(StructuralFeature.class);
         this.realizingType = new SingleElementType(true, realizingTypes);
     }
 
@@ -277,6 +279,13 @@ public class InformationFlowPropertyModel extends AbstractPropertyModel<Informat
     private ModelElement getRealizing() {
         ModelElement ret = null;
         
+        EList<StructuralFeature> featureList = this.theEditedElement.getRealizingFeature();
+        if (featureList.size() > 0) {
+             ret = featureList.get(0);
+             if (ret != null)
+                 return ret;
+        }
+        
         EList<LinkEnd> linkList = this.theEditedElement.getRealizingLink();
         if (linkList.size() > 0) {
              ret = linkList.get(0);
@@ -316,6 +325,13 @@ public class InformationFlowPropertyModel extends AbstractPropertyModel<Informat
     @objid ("8f24ec57-c068-11e1-8c0a-002564c97630")
     private void setRealizing(InformationFlow theEditedElement, Object value) {
         // Erase old value or exit if old value is new value
+        EList<StructuralFeature> featureList = theEditedElement.getRealizingFeature();
+        if (featureList.size() > 0) {
+            StructuralFeature old1 = featureList.get(0);
+            if (old1.equals(value)) return;
+            theEditedElement.getRealizingFeature().remove(old1);
+        } 
+        
          EList<LinkEnd> linkList = theEditedElement.getRealizingLink();
          if (linkList.size() > 0) {
              LinkEnd old1 = linkList.get(0);
@@ -348,6 +364,8 @@ public class InformationFlowPropertyModel extends AbstractPropertyModel<Informat
              // Set new value
              if (LinkEnd.class.isAssignableFrom(value.getClass()))
                  theEditedElement.getRealizingLink().add((LinkEnd) value);
+             if (StructuralFeature.class.isAssignableFrom(value.getClass()))
+                 theEditedElement.getRealizingFeature().add((StructuralFeature) value);
              else if (ActivityEdge.class.isAssignableFrom(value.getClass()))
                  theEditedElement.getRealizingActivityEdge().add((ActivityEdge) value);
              else if (Message.class.isAssignableFrom(value.getClass()))

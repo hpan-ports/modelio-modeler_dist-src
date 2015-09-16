@@ -23,6 +23,7 @@ package org.modelio.vcore.session.impl;
 
 import java.util.UUID;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
+import org.modelio.vcore.session.api.ICoreSession;
 import org.modelio.vcore.session.api.model.IModel;
 import org.modelio.vcore.session.api.repository.IRepository;
 import org.modelio.vcore.smkernel.IMetaOf;
@@ -32,6 +33,7 @@ import org.modelio.vcore.smkernel.ISmObjectDataCache;
 import org.modelio.vcore.smkernel.SmLiveId;
 import org.modelio.vcore.smkernel.SmObjectImpl;
 import org.modelio.vcore.smkernel.SmStatusFactory;
+import org.modelio.vcore.smkernel.mapi.MObject;
 import org.modelio.vcore.smkernel.meta.SmClass;
 
 /**
@@ -51,33 +53,34 @@ public class SmFactory {
     @objid ("7b38cf31-b0f1-4b1a-99ec-b87d1019fee8")
     private final ISmObjectDataCache dataCache;
 
+    @objid ("27b0d7d6-b1ef-4b0e-8fe7-4e95ec24a353")
+    private IRepository shellRepository;
+
     /**
-     * Constructor
+     * Get the {@link SmFactory} associated to the given modeling session.
+     * @param session a modeling session
+     * @return its SmFactory instance.
+     */
+    @objid ("60342f1e-4103-46b7-ac79-7dbe29b6562e")
+    public static SmFactory get(ICoreSession session) {
+        return ((CoreSession)session).getSmFactory();
+    }
+
+    /**
+     * Package private constructor.
+     * <p>
+     * <code>SmFactory</code> is built by the {@link CoreSession} only.
      * @param kid the kernel id
      * @param metaObject the default meta object for new model objects.
      * @param modelFinder a model object finder.
      */
     @objid ("0054e2dc-6f75-1f22-8c06-001ec947cd2a")
-    public SmFactory(final short kid, final IMetaOf metaObject, final IModel modelFinder, ISmObjectDataCache dataCache) {
+    SmFactory(final short kid, final IMetaOf metaObject, final IModel modelFinder, ISmObjectDataCache dataCache, IRepository shellRepository) {
         this.kid = kid;
         this.metaObject = metaObject;
         this.modelFinder = modelFinder;
         this.dataCache = dataCache;
-    }
-
-    /**
-     * Create a new model object.
-     * @param metaclassName the model class name.
-     * @param repository the repository to attach the object
-     * @return the new object
-     * @throws java.lang.IllegalArgumentException if the metaclass name is unknown
-     */
-    @objid ("00079ca2-eb1c-1f22-8c06-001ec947cd2a")
-    public SmObjectImpl createObject(final String metaclassName, final IRepository repository) throws IllegalArgumentException {
-        final SmClass cls = SmClass.getClass(metaclassName);
-        if (cls == null)
-            throw new IllegalArgumentException("Unknown '"+metaclassName+"' metamodel class.");
-        return createObject(cls, repository);
+        this.shellRepository = shellRepository;
     }
 
     /**
@@ -150,6 +153,26 @@ public class SmFactory {
     }
 
     /**
+     * Create an object reference.
+     * <p>
+     * If an object with the same class and UUID exists, it is directly returned.
+     * In the other case a shell object is created and returned.
+     * <p>
+     * To be used by the model import.
+     * @param metaclass The object metaclass
+     * @param uuid the object identifier
+     * @param name the object name, may be <code>null</code>
+     * @return the created shell object
+     */
+    @objid ("aff295d4-8e82-4d8c-b1ab-0c7b02db024a")
+    public SmObjectImpl getObjectReference(final SmClass metaclass, final UUID uuid, final String name) {
+        MObject ref = this.modelFinder.findById(metaclass, uuid);
+        if (ref != null)
+            return (SmObjectImpl) ref;
+        return createShellObject(metaclass, this.shellRepository, uuid, name);
+    }
+
+    /**
      * Create a shell object.
      * @param metaclass The object metaclass
      * @param repository The repository containing the object
@@ -158,7 +181,7 @@ public class SmFactory {
      * @return the created shell object
      */
     @objid ("005d305e-fd1a-1f27-a7da-001ec947cd2a")
-    public SmObjectImpl createShellObject(final SmClass metaclass, final IRepository repository, final UUID uuid, final String name) {
+    private SmObjectImpl createShellObject(final SmClass metaclass, final IRepository repository, final UUID uuid, final String name) {
         // Create the object
         ISmObjectData data = metaclass.getObjectFactory().createData();
         SmObjectImpl newObject = metaclass.getObjectFactory().createImpl();
@@ -167,6 +190,12 @@ public class SmFactory {
         // Set the object SmIdentifier (a new value from the identAllocator)
         long liveId = SmLiveId.make(this.kid, repository.getRepositoryId(), metaclass.getId());
         newObject.init(uuid, liveId);
+        
+        // Set the object name if given (before marking it shell)
+        // also bypasses the metaobject
+        if (name != null) {
+            newObject.getClassOf().getAttributeDef("Name").setValue(data, name);
+        }
         
         // Set a meta object (SeHandle for transaction management)
         newObject.setMetaOf(this.metaObject);
@@ -179,12 +208,6 @@ public class SmFactory {
         
         // Triggers the meta object
         this.metaObject.createObject(newObject);
-        
-        // Set the object name if given (before marking it shell)
-        if (name != null) {
-            newObject.getClassOf().getAttributeDef("Name").setValue(data, name);
-            //newObject.setName(name);
-        }
         
         // Mark it shell
         data.setRFlags(IRStatus.SHELL, 0, 0);

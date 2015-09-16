@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.analyst;
 
@@ -33,28 +33,28 @@ import org.modelio.metamodel.analyst.BusinessRule;
 
 @objid ("26a924f1-2881-4dea-bc77-f6f2a6d7406b")
 public interface BusinessRuleContainer extends AnalystContainer {
-    @objid ("79d92ccd-c723-4d3d-8328-522fc7e4bdbf")
+    @objid ("76f96939-efdc-4669-89a9-f686fd0cb063")
     EList<BusinessRule> getOwnedRule();
 
-    @objid ("68809949-b837-41b4-97b1-e436c8d1952c")
+    @objid ("2c559032-72a9-4ace-a2e9-009eda96f545")
     <T extends BusinessRule> List<T> getOwnedRule(java.lang.Class<T> filterClass);
 
-    @objid ("83b56647-507c-42b2-a5dd-5e1ebbcc327a")
+    @objid ("e6480c43-31bb-4df6-81e6-8fe82a285567")
     BusinessRuleContainer getOwnerContainer();
 
-    @objid ("cc1c7c84-ddbb-4f6c-8509-bdcd872e9ee6")
+    @objid ("c485d54c-a6e5-486f-ac0d-d36ebdce9fcb")
     void setOwnerContainer(BusinessRuleContainer value);
 
-    @objid ("738f812b-94dd-4d7c-9de9-65e86cccee9e")
+    @objid ("71cd32d7-0605-4e58-88dd-0493d5d17ac4")
     EList<BusinessRuleContainer> getOwnedContainer();
 
-    @objid ("53a00f83-738f-4f4d-98a1-59d1727dc17f")
+    @objid ("da9557e1-3831-4510-b507-c5df6cdf511f")
     <T extends BusinessRuleContainer> List<T> getOwnedContainer(java.lang.Class<T> filterClass);
 
-    @objid ("64f26536-6cef-4f73-a6d7-467428f3747e")
+    @objid ("486fec9b-957c-47fa-9ceb-3c5672ed6150")
     AnalystProject getOwnerProject();
 
-    @objid ("bbf644ce-b0f0-43ec-a037-17b068ad2259")
+    @objid ("7373a357-6d9f-4466-a0c4-eb446111e7cc")
     void setOwnerProject(AnalystProject value);
 
 }

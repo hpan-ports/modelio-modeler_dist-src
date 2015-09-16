@@ -24,6 +24,7 @@ package org.modelio.diagram.diagramauto.handlers.properties;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.core.expressions.PropertyTester;
 import org.eclipse.jface.viewers.IStructuredSelection;
+import org.modelio.metamodel.diagrams.AbstractDiagram;
 import org.modelio.metamodel.mda.ModuleComponent;
 import org.modelio.metamodel.uml.infrastructure.Profile;
 import org.modelio.metamodel.uml.statik.Classifier;
@@ -68,6 +69,11 @@ public class CommandVisiblePropertyTester extends PropertyTester {
             case "dependencies":
                 if (selection.size() == 1 && ((element instanceof Classifier && !(element instanceof ModuleComponent)) || (element instanceof Package && !(element instanceof Profile)))) {
                     return ((MObject)element).getMClass().isCmsNode();
+                }
+                return false;
+            case "updatediagram":
+                if (selection.size() == 1 && (element instanceof AbstractDiagram)) {
+                    return true;
                 }
                 return false;
             default:

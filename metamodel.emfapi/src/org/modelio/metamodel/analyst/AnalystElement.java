@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.analyst;
 
@@ -32,12 +32,6 @@ import org.eclipse.emf.ecore.EObject;
 public interface AnalystElement extends AnalystItem {
     @objid ("88f405d2-6b32-425e-988e-9786eaa889c0")
     AnalystPropertyTable getDefaultProperties();
-
-    @objid ("733b981a-c1b0-4ddf-8156-59a46d1863da")
-    int getVersion();
-
-    @objid ("f1935c38-298a-4f9a-b490-c4e0054216d1")
-    void setVersion(int value);
 
     /**
      * Get archived versions of this element.
@@ -54,5 +48,11 @@ public interface AnalystElement extends AnalystItem {
      */
     @objid ("e76eb14a-27aa-4e63-86a3-87bf310a359c")
     AnalystElement getLastVersion();
+
+    @objid ("d3a54dcb-976d-40b7-a18c-2f8e33ddf44d")
+    int getVersion();
+
+    @objid ("3cc818f6-1823-4090-b14a-ee9a71c74b9c")
+    void setVersion(int value);
 
 }

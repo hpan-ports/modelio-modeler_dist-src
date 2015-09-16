@@ -23,21 +23,36 @@ package org.modelio.mda.infra.service;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.HashMap;
+import java.util.Map;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import org.eclipse.swt.widgets.Display;
 import org.modelio.api.module.IModule;
+import org.modelio.api.module.commands.IModuleAction;
+import org.modelio.api.module.propertiesPage.IModulePropertyPage;
+import org.modelio.gproject.data.module.JaxbModelPersistence;
+import org.modelio.gproject.data.module.jaxbv2.Jxbv2Command;
+import org.modelio.gproject.data.module.jaxbv2.Jxbv2Module.Jxbv2Gui.Jxbv2Commands;
+import org.modelio.gproject.data.module.jaxbv2.Jxbv2Module.Jxbv2Gui.Jxbv2ContextualMenu.Jxbv2CommandRef;
+import org.modelio.gproject.data.module.jaxbv2.Jxbv2Module.Jxbv2Gui.Jxbv2ContextualMenu;
+import org.modelio.gproject.data.module.jaxbv2.Jxbv2Module.Jxbv2Gui.Jxbv2Diagrams.Jxbv2DiagramType.Jxbv2Palette.Jxbv2ToolRef;
+import org.modelio.gproject.data.module.jaxbv2.Jxbv2Module.Jxbv2Gui.Jxbv2Diagrams.Jxbv2DiagramType.Jxbv2Palette;
+import org.modelio.gproject.data.module.jaxbv2.Jxbv2Module.Jxbv2Gui.Jxbv2Diagrams.Jxbv2DiagramType.Jxbv2Wizard;
+import org.modelio.gproject.data.module.jaxbv2.Jxbv2Module.Jxbv2Gui.Jxbv2Diagrams.Jxbv2DiagramType;
+import org.modelio.gproject.data.module.jaxbv2.Jxbv2Module.Jxbv2Gui.Jxbv2Diagrams;
+import org.modelio.gproject.data.module.jaxbv2.Jxbv2Module.Jxbv2Gui.Jxbv2Tools;
+import org.modelio.gproject.data.module.jaxbv2.Jxbv2Module.Jxbv2Gui.Jxbv2Views.Jxbv2PropertyPage;
+import org.modelio.gproject.data.module.jaxbv2.Jxbv2Module.Jxbv2Gui.Jxbv2Views;
+import org.modelio.gproject.data.module.jaxbv2.Jxbv2Module.Jxbv2Gui;
+import org.modelio.gproject.data.module.jaxbv2.Jxbv2Module;
+import org.modelio.gproject.data.module.jaxbv2.Jxbv2Tool;
 import org.modelio.gproject.model.IMModelServices;
-import org.modelio.gproject.module.JaxbModelPersistence;
-import org.modelio.gproject.module.jaxbmodel.JxbModule.Gui.Command;
-import org.modelio.gproject.module.jaxbmodel.JxbModule.Gui.ElementCreationCommand;
-import org.modelio.gproject.module.jaxbmodel.JxbModule.Gui.PropertyPage;
-import org.modelio.gproject.module.jaxbmodel.JxbModule.Gui;
-import org.modelio.gproject.module.jaxbmodel.JxbModule;
 import org.modelio.mda.infra.service.dynamic.DynamicGuiCreationHelper;
+import org.modelio.mda.infra.service.dynamic.GenericDiagramCustomizer.PaletteCommand;
+import org.modelio.mda.infra.service.dynamic.GenericDiagramCustomizer;
 
 /**
- * Service class that reads the module.xml file and deserialise its content (basically: commands and diagrams
- * customization).
+ * Service class that reads the module.xml file and deserialize its content (basically: commands and diagrams customization).
  * 
  * @author aab
  */
@@ -45,10 +60,11 @@ import org.modelio.mda.infra.service.dynamic.DynamicGuiCreationHelper;
 public class ModuleImporter {
     @objid ("1a5e07cb-018d-11e2-9fca-001ec947c8cc")
     public static void loadDynamicModel(final Path dynamicModelPath, final IModule module, final IMModelServices mModelServices) throws IOException {
-        final DynamicGuiCreationHelper mdafactory = new DynamicGuiCreationHelper(module.getConfiguration().getModuleResourcesPath().toFile());
+        final DynamicGuiCreationHelper mdafactory = new DynamicGuiCreationHelper(module.getConfiguration().getModuleResourcesPath()
+                .toFile());
         
         // Load xml File into model (JAXB), using the ModuleLoader from core.project plugin
-        final JxbModule jaxbModule = JaxbModelPersistence.loadJaxbModel(dynamicModelPath);
+        final Jxbv2Module jaxbModule = JaxbModelPersistence.loadJaxbModel(dynamicModelPath);
         
         class LoadingRunnable implements Runnable {
             IOException error;
@@ -56,27 +72,101 @@ public class ModuleImporter {
             @Override
             public void run() {
                 this.error = null;
+                Map<String, IModuleAction> commandCache = new HashMap<>();
+        
                 try {
-                    for (Object child : jaxbModule.getParameterOrProfileOrGui()) {
-                        if (child instanceof Gui) {
-                            JxbModule.Gui gui = (Gui) child;
-                            for (Object guiChild : gui.getPropertyPageOrCommandOrElementCreationCommand()) {
-                                if (guiChild instanceof Gui.Command) {
-                                    // standard command, described by a handler class.
-                                    mdafactory.registerStandardCommand((Command) guiChild, module, mModelServices);
-                                } else if (guiChild instanceof ElementCreationCommand) {
-                                    // Basic element creation command, only described by the metaclass and stereotype of the element to create.
-                                    // This will register a default generic implementation of .
-                                    mdafactory.registerDefaultElementCreationCommand((ElementCreationCommand) guiChild, module, mModelServices);
+                    Jxbv2Gui gui = jaxbModule.getGui();
+                    if (gui == null)
+                        return;
+        
+                    // Jxbv2Commands
+                    final Jxbv2Commands commands = gui.getCommands();
+                    if (commands != null) {
+                        for (Jxbv2Command cmd : commands.getCommand()) {
+                            // standard command, described by a handler class.
+                            IModuleAction action = mdafactory.createCommand(cmd, module, mModelServices);
+                            commandCache.put(cmd.getId(), action);
+                        }
+                    }
+        
+                    // Contextual menu contribtuions
+                    Jxbv2ContextualMenu menu = gui.getContextualMenu();
+                    if (menu != null) {
+                        for (Jxbv2CommandRef ref : menu.getCommandRef()) {
+                            IModuleAction action = commandCache.get(ref.getRefid());
+                            mdafactory.registerContextualMenuCommand(module, action);
+                        }
+                    } 
+        
+                    // Jxbv2PropertyPage
+                    final Jxbv2Views views = gui.getViews();
+                    if (views != null) {
+                        for (Jxbv2PropertyPage pp : views.getPropertyPage()) {
+                            IModulePropertyPage propertyPage = mdafactory.createPropertyPage(pp, module);
+                            propertyPage.setModule(module);
+                            module.getPropertyPages().add(propertyPage);
+        
+                            // FIXME Design flaw: all commands will appear in all property pages !
+                            for (org.modelio.gproject.data.module.jaxbv2.Jxbv2Module.Jxbv2Gui.Jxbv2Views.Jxbv2PropertyPage.Jxbv2CommandRef ref : pp
+                                    .getCommandRef()) {
+                                IModuleAction action = commandCache.get(ref.getRefid());
+                                mdafactory.registerPropertyPageCommand(module, action);
+                            }
+                        }
+                    }
+        
+                    // Jxbv2Tools
+                    final Jxbv2Tools tools = gui.getTools();
+                    if (tools != null) {
+                        for (Jxbv2Tool tool : tools.getTool()) {
+                            switch (tool.getHandler().getClazz()) {
+                            case "Box":
+                                mdafactory.registerDiagramBoxCommand(tool, module);
+                                break;
+                            case "Link":
+                                mdafactory.registerDiagramLinkCommand(tool, module);
+                                break;
+                            case "MultiLink":
+                                mdafactory.registerDiagramMultiLinkCommand(tool, module);
+                                break;
+                            case "AttachedBox":
+                                mdafactory.registerDiagramAttachedBoxCommand(tool, module);
+                                break;
+                            default:
+                                mdafactory.registerCustomCommand(tool, module);
+                            }
+                        }
+                    }
+        
+                    // Diagram Types
+                    final Jxbv2Diagrams diagrams = gui.getDiagrams();
+                    if (diagrams != null) {
+                        for (Jxbv2DiagramType diagram : diagrams.getDiagramType()) {
+        
+                            GenericDiagramCustomizer customizer = mdafactory.createDiagram(module);
+        
+                            // Jxbv2Palette tool contributions
+                            Jxbv2Palette palette = diagram.getPalette();
+                            if (palette != null) {
+                                // Keep palette
+                                customizer.setKeepPalette(palette.isKeepBasePalette());
+        
+                                // Jxbv2Commands
+                                for (Jxbv2ToolRef toolref : palette.getToolRef()) {
+                                    String group = toolref.getGroup();
+                                    PaletteCommand paletteCommand = new PaletteCommand(toolref.getRefid(), group);
+                                    customizer.registerPaletteCommand(paletteCommand);
+        
                                 }
-                                // handle customized diagrams
-                                else if (guiChild instanceof JxbModule.Gui.CustomizedDiagram) {
-                                    mdafactory.registerPalette((JxbModule.Gui.CustomizedDiagram) guiChild, module);
-                                }
-                                //handle property page
-                                else if (guiChild instanceof PropertyPage) {
-                                    mdafactory.registerPropertyPage((PropertyPage) guiChild, module);
-                                }
+                            }
+        
+                            // Register the diagram
+                            mdafactory.registerDiagram(customizer, module, diagram.getBaseDiagram(), diagram.getStereotype());
+        
+                            // Jxbv2Wizard contribution
+                            final Jxbv2Wizard wizard = diagram.getWizard();
+                            if (wizard != null) {
+                                mdafactory.registerWizard(wizard, module, mModelServices);
                             }
                         }
                     }

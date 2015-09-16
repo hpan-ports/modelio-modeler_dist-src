@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.uml.statik;
 
@@ -42,21 +42,21 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("0008fd2c-c4bf-1fd8-97fe-001ec947cd2a")
 public class ElementRealizationImpl extends AbstractionImpl implements ElementRealization {
-    @objid ("7a425d95-0d2f-4618-bd2e-9f2007f21723")
+    @objid ("6cc1f3e8-c0a1-4188-b3c0-c45653b7ecb1")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("d23a8330-d457-4c2a-85fc-0d3b94c4c038")
+    @objid ("b6cd0c20-3cea-4c4b-90b2-99e69a8625f4")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("dded9a89-b24f-4b96-8d98-6da6d7ca3047")
+    @objid ("ee7f7f4b-9b30-4c4a-88b2-63144e966819")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitElementRealization(this);

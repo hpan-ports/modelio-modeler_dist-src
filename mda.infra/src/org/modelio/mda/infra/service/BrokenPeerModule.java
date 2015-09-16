@@ -26,6 +26,9 @@ import org.modelio.api.module.IModuleAPIConfiguration;
 import org.modelio.api.module.IPeerModule;
 import org.modelio.vbasic.version.Version;
 
+/**
+ * {@link IPeerModule} implementation for {@link BrokenModule}.
+ */
 @objid ("592c3df8-2f2d-11e2-8f16-002564c97630")
 public class BrokenPeerModule implements IPeerModule {
     @objid ("8d8317ea-2f2d-11e2-8f16-002564c97630")
@@ -38,46 +41,30 @@ public class BrokenPeerModule implements IPeerModule {
     private Version moduleVersion;
 
     @objid ("8d79926d-2f2d-11e2-8f16-002564c97630")
-    public BrokenPeerModule(String moduleName, Version moduleVersion, IModuleAPIConfiguration configuration) {
+    BrokenPeerModule(String moduleName, Version moduleVersion, IModuleAPIConfiguration configuration) {
         this.moduleName = moduleName;
         this.moduleVersion = moduleVersion;
         this.configuration = configuration;
     }
 
-    /**
-     * (non-Javadoc)
-     * @see com.modeliosoft.modelio.api.IPeerModule.IPeerModule#getConfiguration()
-     */
     @objid ("8d799272-2f2d-11e2-8f16-002564c97630")
     @Override
     public IModuleAPIConfiguration getConfiguration() {
         return this.configuration;
     }
 
-    /**
-     * (non-Javadoc)
-     * @see com.modeliosoft.modelio.api.IPeerModule.IPeerModule#getDescription()
-     */
     @objid ("8d799278-2f2d-11e2-8f16-002564c97630")
     @Override
     public String getDescription() {
         return "";
     }
 
-    /**
-     * (non-Javadoc)
-     * @see com.modeliosoft.modelio.api.IPeerModule.IPeerModule#getName()
-     */
     @objid ("8d79927e-2f2d-11e2-8f16-002564c97630")
     @Override
     public String getName() {
         return this.moduleName;
     }
 
-    /**
-     * (non-Javadoc)
-     * @see com.modeliosoft.modelio.api.IPeerModule.IPeerModule#getVersion()
-     */
     @objid ("8d799284-2f2d-11e2-8f16-002564c97630")
     @Override
     public Version getVersion() {

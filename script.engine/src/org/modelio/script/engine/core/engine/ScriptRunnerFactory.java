@@ -25,8 +25,12 @@ import javax.script.ScriptEngine;
 import javax.script.ScriptEngineFactory;
 import javax.script.ScriptEngineManager;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
+import org.modelio.api.model.IModelingSession;
 import org.modelio.script.engine.plugin.ScriptEnginePlugin;
 
+/**
+ * Factory to use to get a {@link IScriptRunner}.
+ */
 @objid ("001385c6-8bde-1065-a2b8-001ec947cd2a")
 public class ScriptRunnerFactory {
     @objid ("00758578-cbcd-1065-a2b8-001ec947cd2a")
@@ -37,16 +41,6 @@ public class ScriptRunnerFactory {
      */
     @objid ("0075993c-cbcd-1065-a2b8-001ec947cd2a")
     private static ScriptRunnerFactory instance = null;
-
-    @objid ("0075a864-cbcd-1065-a2b8-001ec947cd2a")
-    private ScriptRunnerFactory() {
-        this.scriptEngineManager = new ScriptEngineManager(ScriptEnginePlugin.class.getClassLoader());
-        
-        for (ScriptEngineFactory ef : this.scriptEngineManager.getEngineFactories()) {
-            ScriptEnginePlugin.LOG.debug("script engine : %s %S (%s %s)", ef.getLanguageName(), ef.getLanguageVersion(),
-                    ef.getEngineName(), ef.getEngineVersion());
-        }
-    }
 
     /**
      * Get the factory.
@@ -60,6 +54,21 @@ public class ScriptRunnerFactory {
         return instance;
     }
 
+    @objid ("0075a864-cbcd-1065-a2b8-001ec947cd2a")
+    private ScriptRunnerFactory() {
+        this.scriptEngineManager = new ScriptEngineManager(ScriptEnginePlugin.class.getClassLoader());
+        
+        for (ScriptEngineFactory ef : this.scriptEngineManager.getEngineFactories()) {
+            ScriptEnginePlugin.LOG.debug("script engine : %s %S (%s %s)", ef.getLanguageName(), ef.getLanguageVersion(),
+                    ef.getEngineName(), ef.getEngineVersion());
+        }
+    }
+
+    /**
+     * Get a script runner
+     * @param scriptingLanguage a script language
+     * @return the script runner.
+     */
     @objid ("0075db2c-cbcd-1065-a2b8-001ec947cd2a")
     public IScriptRunner getScriptRunner(String scriptingLanguage) {
         switch (scriptingLanguage) {
@@ -71,6 +80,16 @@ public class ScriptRunnerFactory {
         default:
             return null;
         }
+    }
+
+    /**
+     * Get a script runner that runs the scripts in a transaction.
+     * @param scriptingLanguage a script language
+     * @return the script runner.
+     */
+    @objid ("8f058a43-b0a0-4b8d-b8f7-10578f809852")
+    public IScriptRunner getTransactionalScriptRunner(String scriptingLanguage) {
+        return new TransactionScriptRunner(getScriptRunner(scriptingLanguage));
     }
 
 }

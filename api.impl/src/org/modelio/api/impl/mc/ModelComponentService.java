@@ -13,13 +13,13 @@ import org.modelio.api.mc.IModelComponentService;
 import org.modelio.api.module.IPeerModule;
 import org.modelio.app.project.core.services.IProjectService;
 import org.modelio.core.ui.progress.ModelioProgressAdapter;
-import org.modelio.gproject.descriptor.FragmentDescriptor;
-import org.modelio.gproject.descriptor.FragmentType;
+import org.modelio.gproject.data.project.FragmentDescriptor;
+import org.modelio.gproject.data.project.FragmentType;
+import org.modelio.gproject.data.ramc.IModelComponentInfos;
+import org.modelio.gproject.data.ramc.ModelComponentArchive;
 import org.modelio.gproject.fragment.IProjectFragment;
 import org.modelio.gproject.fragment.ramcfile.RamcFileFragment;
 import org.modelio.gproject.gproject.GProject;
-import org.modelio.gproject.ramc.core.archive.IModelComponentInfos;
-import org.modelio.gproject.ramc.core.archive.ModelComponentArchive;
 import org.modelio.gproject.ramc.core.packaging.RamcPackager;
 import org.modelio.metamodel.uml.statik.Artifact;
 

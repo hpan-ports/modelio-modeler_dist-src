@@ -151,6 +151,7 @@ import org.modelio.metamodel.uml.statik.Classifier;
 import org.modelio.metamodel.uml.statik.Collaboration;
 import org.modelio.metamodel.uml.statik.CollaborationUse;
 import org.modelio.metamodel.uml.statik.Component;
+import org.modelio.metamodel.uml.statik.ComponentRealization;
 import org.modelio.metamodel.uml.statik.Connector;
 import org.modelio.metamodel.uml.statik.ConnectorEnd;
 import org.modelio.metamodel.uml.statik.DataType;
@@ -389,10 +390,10 @@ public class OwnershipMetamodelVisitor extends DefaultModelVisitor {
             i.accept(this);
         }
         
-               AssociationEnd i = param.getOpposite();
-               if ((i != null) && (i.getTarget() == null) && (param.getTarget() != null)){
+        AssociationEnd i = param.getOpposite();
+        if ((i != null) && (i.getTarget() == null) && (param.getTarget() != null)){
             i.accept(this);
-               }
+        }
         return lObject;
     }
 
@@ -585,7 +586,12 @@ public class OwnershipMetamodelVisitor extends DefaultModelVisitor {
     @Override
     public Object visitComponent(final Component param) {
         this.behavior.visitComponent(param);
-        return super.visitComponent(param);
+        Object lObject = super.visitComponent(param);
+               
+        for (ComponentRealization i : param.getRealization()) {
+            i.accept(this);
+        }
+        return lObject;
     }
 
     @objid ("be8524bb-05ad-419f-a718-0715db22590b")
@@ -1080,8 +1086,13 @@ public class OwnershipMetamodelVisitor extends DefaultModelVisitor {
         this.behavior.visitLinkEnd (param);
         Object lObject = super.visitLinkEnd(param);
         
-        Link i = param.getLink(); 
-        i.accept(this);
+        Link link = param.getLink(); 
+        link.accept(this);
+        
+        LinkEnd i = param.getOpposite();
+        if ((i != null) && (i.getTarget() == null) && (param.getTarget() != null)){
+            i.accept(this);
+        }
         return lObject;
     }
 
@@ -1137,7 +1148,7 @@ public class OwnershipMetamodelVisitor extends DefaultModelVisitor {
             i.accept(this);
         }
         for (TaggedValue i : param.getTag()) {
-            if (!(AbstractObjingModelNavigation.mustBeExported(i)))
+            if (AbstractObjingModelNavigation.mustBeExported(i))
                 i.accept(this);
         }
         return lObject;
@@ -1320,8 +1331,8 @@ public class OwnershipMetamodelVisitor extends DefaultModelVisitor {
             i.accept(this);
         }
         
-        //        if (param.equals(Modelio.getInstance().getModelingSession().getModel().getRoot()))
-        //            Modelio.getInstance().getModelingSession().getModel().getUmlProject().accept(this);
+        //        if (param.equals(ReverseProperties.getInstance().getMModelServices().getModelFactory().getRoot()))
+        //            ReverseProperties.getInstance().getMModelServices().getModelFactory().getUmlProject().accept(this);
         // IItem not supported... (param.getPart)
         // getRepresented() not supported... (Project)
         return lObject;
@@ -1473,10 +1484,10 @@ public class OwnershipMetamodelVisitor extends DefaultModelVisitor {
             // (lDefaultSet != null) { lDefaultSet.accept(this); }
             for (Requirement i: param.getOwnedRequirement()) { 
                 i.accept(this); 
-                }
+            }
             for (RequirementContainer i: param.getOwnedContainer()) { 
                 i.accept(this); 
-                }
+            }
         }
         //         return lObject;
         return null;
@@ -1724,6 +1735,13 @@ public class OwnershipMetamodelVisitor extends DefaultModelVisitor {
     public Object visitNaryAssociation(NaryAssociation param) {
         this.behavior.visitNaryAssociation(param);
         return super.visitNaryAssociation(param);
+    }
+
+    @objid ("bc46aba9-95b0-4d70-b2cb-125abe1ca7c1")
+    @Override
+    public Object visitComponentRealization(final ComponentRealization param) {
+        this.behavior.visitComponentRealization(param);
+        return super.visitComponentRealization(param);
     }
 
 }

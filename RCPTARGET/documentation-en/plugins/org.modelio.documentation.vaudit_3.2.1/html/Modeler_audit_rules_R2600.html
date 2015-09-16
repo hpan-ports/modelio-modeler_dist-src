@@ -1,0 +1,40 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<title>Modeler audit rules R2600</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link href="style.css" media="screen" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<a name="R2600"></a>
+<h1 >R2600<a href="#R2600" class="wiki-anchor">&para;</a></h1>
+
+<a name="Summary"></a>
+<h4 >Summary<a href="#Summary" class="wiki-anchor">&para;</a></h4>
+
+<p>A state machine or a state cannot contain several states with the same name.</p>
+
+<a name="Details"></a>
+<h4 >Details<a href="#Details" class="wiki-anchor">&para;</a></h4>
+
+<p>The name of a state must be unique in the enclosing state machine or state.
+Showing the same name twice may cause confusion.</p>
+
+<a name="Tips"></a>
+<h4 >Tips<a href="#Tips" class="wiki-anchor">&para;</a></h4>
+
+<p>Possible solutions to this problem are as follows:</p>
+
+<ul>
+<li><p><strong>Solution 1 </strong><br/>
+Rename one of the states that have the same name. This name must be unique in
+the enclosing state machine or state.</p></li>
+<li><p><strong>Solution 2</strong></p></li>
+</ul>
+
+
+<p>Move one of the states that have the same name to a different enclosing state,
+which does not already contain a state with that name.</p>
+
+<div id="footer"><iframe frameborder="0" scrolling="no" height="25" width="100%" src="_footer.html"></iframe></div> </body>
+</html>

@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.bpmn.events;
 
@@ -42,13 +42,13 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("00904a52-c4bf-1fd8-97fe-001ec947cd2a")
 public class BpmnLinkEventDefinitionImpl extends BpmnEventDefinitionImpl implements BpmnLinkEventDefinition {
-    @objid ("99f770ef-23bd-4b51-9ee9-2fffba8db025")
+    @objid ("b8f48636-5492-48b4-a860-39c18960f80e")
     @Override
     public EList<BpmnLinkEventDefinition> getSource() {
         return new SmList<>(this, BpmnLinkEventDefinitionData.Metadata.SourceDep());
     }
 
-    @objid ("a46dc715-f611-4725-93bb-ad27045f15fc")
+    @objid ("a52c3690-fc4a-4c94-8b3f-67005d2f41dd")
     @Override
     public <T extends BpmnLinkEventDefinition> List<T> getSource(java.lang.Class<T> filterClass) {
         final List<T> results = new ArrayList<>();
@@ -61,33 +61,33 @@ public class BpmnLinkEventDefinitionImpl extends BpmnEventDefinitionImpl impleme
         return Collections.unmodifiableList(results);
     }
 
-    @objid ("9d9a7640-36b0-4e61-985e-1175dbbc6e0e")
+    @objid ("6485dc7d-1a68-4520-baa5-e3222ef15b5f")
     @Override
     public BpmnLinkEventDefinition getTarget() {
         return (BpmnLinkEventDefinition) getDepVal(BpmnLinkEventDefinitionData.Metadata.TargetDep());
     }
 
-    @objid ("20fc307e-8a5f-4a1e-bda4-6a98c696b977")
+    @objid ("695ddff2-f64b-4256-b081-db23adf58fd1")
     @Override
     public void setTarget(BpmnLinkEventDefinition value) {
         appendDepVal(BpmnLinkEventDefinitionData.Metadata.TargetDep(), (SmObjectImpl)value);
     }
 
-    @objid ("0f8f538f-33ad-40cd-8622-df23659a8457")
+    @objid ("64188b06-1284-4a4a-8d04-d460aec58cbf")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
         return super.getCompositionOwner();
     }
 
-    @objid ("8c8bcdad-4512-4e80-a92e-e0bfd36135c3")
+    @objid ("d4f09f2c-59fb-47bc-a4f8-808c12838c1a")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
         return super.getCompositionRelation();
     }
 
-    @objid ("e4f96cc9-0409-4f1e-a5d6-a1fab3188af1")
+    @objid ("f2b00a81-3279-4a6b-905f-5629bdde42c2")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitBpmnLinkEventDefinition(this);

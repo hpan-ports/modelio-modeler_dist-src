@@ -1,0 +1,46 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<title>Modeler audit rules R1190</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link href="style.css" media="screen" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<a name="R1190"></a>
+<h1 >R1190<a href="#R1190" class="wiki-anchor">&para;</a></h1>
+
+<a name="Summary"></a>
+<h4 >Summary<a href="#Summary" class="wiki-anchor">&para;</a></h4>
+
+<p>A DecisionMerge node should be used either as a Decision node or as a Merge node.</p>
+
+<a name="Details"></a>
+<h4 >Details<a href="#Details" class="wiki-anchor">&para;</a></h4>
+
+<p>Although Modelio uses the same symbol to represent a Decision node and a Merge
+node, this DecisionMerge node should not be used in both configurations at the
+same time.</p>
+
+<p>Here is an example of a DecisionMerge used in both configurations at the same
+time:</p>
+
+<p><img src="Modeler_audit_rules_R1190_modeler_fig_1190.gif" alt="" /></p>
+
+<p>This is the correct way of doing this:</p>
+
+<p><img src="Modeler_audit_rules_R1190_modeler_fig_1190_2.gif" alt="" /></p>
+
+<p>In the second diagram, we can easily express that the first DecisionMerge node
+is selecting the largest Batch, while the second DecisionMerge node is making
+a decision based on the analysis of the selected batch. This would have been
+hard to express in the first diagram.</p>
+
+<a name="Tips"></a>
+<h4 >Tips<a href="#Tips" class="wiki-anchor">&para;</a></h4>
+
+<p>When you get a R1190 warning, break your DecisionMerge node into two different
+DecisionMerge nodes, one node being a Decision node and another node being a
+Merge node.</p>
+
+<div id="footer"><iframe frameborder="0" scrolling="no" height="25" width="100%" src="_footer.html"></iframe></div> </body>
+</html>

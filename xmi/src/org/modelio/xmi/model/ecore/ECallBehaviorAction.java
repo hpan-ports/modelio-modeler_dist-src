@@ -21,41 +21,32 @@
 
 package org.modelio.xmi.model.ecore;
 
-import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.modelio.api.modelio.Modelio;
 import org.modelio.metamodel.uml.behavior.activityModel.CallBehaviorAction;
 import org.modelio.metamodel.uml.behavior.commonBehaviors.Behavior;
 import org.modelio.metamodel.uml.infrastructure.Element;
 import org.modelio.xmi.util.ReverseProperties;
 
 @objid ("0f17fcda-e812-4fc3-a6a0-6ce279fc50cc")
-public class ECallBehaviorAction extends EActivityNode implements IEElement {
+public class ECallBehaviorAction extends EActivityNode {
     @objid ("0232e931-78ef-4568-ad8a-067318b63a23")
     private org.eclipse.uml2.uml.CallBehaviorAction ecoreElement;
 
     @objid ("77a3b356-d7a2-4e11-90f3-c23a15d9f9e0")
+    @Override
     public Element createObjingElt() {
-        return Modelio.getInstance().getModelingSession().getModel()
+        return ReverseProperties.getInstance().getMModelServices().getModelFactory()
                 .createCallBehaviorAction();
     }
 
     @objid ("a3c6ee8f-b017-4885-9495-7e6d2194bf1a")
     public ECallBehaviorAction(org.eclipse.uml2.uml.CallBehaviorAction element) {
         super(element);
-        ecoreElement = element;
-    }
-
-    @objid ("39ad1e6e-da4a-410c-8dd2-ef05b0731ef4")
-    public void attach(Element objingElt) {
-        super.attach(objingElt);
-    }
-
-    @objid ("064985f2-eb60-47c4-b91a-1a6e3b3efae2")
-    public void attach(List<Object> objingElts) {
+        this.ecoreElement = element;
     }
 
     @objid ("2f88ab35-cced-43d7-8c4e-c4f87284bac3")
+    @Override
     public void setProperties(Element objingElt) {
         super.setProperties(objingElt);
         setSynchronous((CallBehaviorAction) objingElt);
@@ -64,12 +55,12 @@ public class ECallBehaviorAction extends EActivityNode implements IEElement {
 
     @objid ("bce1e5ba-260f-42ca-a5c2-87531d69173b")
     private void setSynchronous(CallBehaviorAction action) {
-        action.setIsSynchronous(ecoreElement.isSynchronous());
+        action.setIsSynchronous(this.ecoreElement.isSynchronous());
     }
 
     @objid ("9b965d2e-607a-411b-99fe-08f7ddb0a8ab")
     private void setBehavior(CallBehaviorAction action) {
-        org.eclipse.uml2.uml. Behavior ecoreBehavior = ecoreElement.getBehavior();
+        org.eclipse.uml2.uml. Behavior ecoreBehavior = this.ecoreElement.getBehavior();
                 
         if (ecoreBehavior != null) {
             Object objingBehavior =  ReverseProperties.getInstance().getMappedElement(ecoreBehavior);

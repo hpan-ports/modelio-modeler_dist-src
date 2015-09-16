@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.impl.bpmn.flows;
 
@@ -45,55 +45,55 @@ import org.modelio.vcore.smkernel.meta.SmClass;
 
 @objid ("007c895e-c4bf-1fd8-97fe-001ec947cd2a")
 public class BpmnMessageFlowImpl extends BpmnBaseElementImpl implements BpmnMessageFlow {
-    @objid ("4da56a54-e501-41f4-9d24-0a04f91eefe6")
+    @objid ("a1101b4b-c843-4a9f-8628-c8032306853f")
     @Override
     public BpmnMessage getMessageRef() {
         return (BpmnMessage) getDepVal(BpmnMessageFlowData.Metadata.MessageRefDep());
     }
 
-    @objid ("4724691a-8206-467d-bb36-f50d3f2a7d20")
+    @objid ("22c9f40b-80c5-4b8f-a17a-46374195673d")
     @Override
     public void setMessageRef(BpmnMessage value) {
         appendDepVal(BpmnMessageFlowData.Metadata.MessageRefDep(), (SmObjectImpl)value);
     }
 
-    @objid ("4a92fa59-977d-4522-9609-25a5cb5efc6c")
+    @objid ("b0d0875c-b89f-449a-b536-7c30f8c8c99d")
     @Override
     public BpmnBaseElement getSourceRef() {
         return (BpmnBaseElement) getDepVal(BpmnMessageFlowData.Metadata.SourceRefDep());
     }
 
-    @objid ("fdcc456d-f82e-4937-af15-9129fb0d13e8")
+    @objid ("3acb3dfa-ebf2-41b3-8f35-a875e561e4f8")
     @Override
     public void setSourceRef(BpmnBaseElement value) {
         appendDepVal(BpmnMessageFlowData.Metadata.SourceRefDep(), (SmObjectImpl)value);
     }
 
-    @objid ("45f8ee3a-ea9c-4fc4-a36e-91c8f5acb233")
+    @objid ("d594b425-a177-4ec9-84c9-137e3b43f44d")
     @Override
     public BpmnBaseElement getTargetRef() {
         return (BpmnBaseElement) getDepVal(BpmnMessageFlowData.Metadata.TargetRefDep());
     }
 
-    @objid ("1f0b013e-6d35-4193-aaba-5ceb32a44260")
+    @objid ("ce834c66-2a19-4ed7-9918-e7a3d283db28")
     @Override
     public void setTargetRef(BpmnBaseElement value) {
         appendDepVal(BpmnMessageFlowData.Metadata.TargetRefDep(), (SmObjectImpl)value);
     }
 
-    @objid ("8bbfc0e5-0c44-4574-af8c-ec0b1284fc63")
+    @objid ("b0701714-f63a-4886-a5a9-903a4e9ba133")
     @Override
     public BpmnCollaboration getCollaboration() {
         return (BpmnCollaboration) getDepVal(BpmnMessageFlowData.Metadata.CollaborationDep());
     }
 
-    @objid ("125d4ced-a66c-45ad-a5b6-e4a5bf58d679")
+    @objid ("d3507d3b-7b5d-4397-9715-3414ce14c272")
     @Override
     public void setCollaboration(BpmnCollaboration value) {
         appendDepVal(BpmnMessageFlowData.Metadata.CollaborationDep(), (SmObjectImpl)value);
     }
 
-    @objid ("1ab33dc9-b1a1-4a93-af62-2333b7832479")
+    @objid ("aabc9e9c-9007-4476-8493-350a1fb86cbf")
     @Override
     public SmObjectImpl getCompositionOwner() {
         SmObjectImpl obj;
@@ -103,7 +103,7 @@ public class BpmnMessageFlowImpl extends BpmnBaseElementImpl implements BpmnMess
         return super.getCompositionOwner();
     }
 
-    @objid ("7c1c6f17-8cbc-4406-aa22-2fd75f002cd1")
+    @objid ("84d2b1af-dbde-4ca9-a5c8-1f5f3b59fa11")
     @Override
     public SmDepVal getCompositionRelation() {
         SmObjectImpl obj;
@@ -113,7 +113,7 @@ public class BpmnMessageFlowImpl extends BpmnBaseElementImpl implements BpmnMess
         return super.getCompositionRelation();
     }
 
-    @objid ("e1daed4e-5529-42f0-b461-8a7cf63bd699")
+    @objid ("8f84ceea-9445-4d32-a7fa-7166aed84990")
     public Object accept(MVisitor v) {
         if (v instanceof IModelVisitor)
           return ((IModelVisitor)v).visitBpmnMessageFlow(this);

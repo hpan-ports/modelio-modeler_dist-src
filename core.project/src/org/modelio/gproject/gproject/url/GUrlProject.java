@@ -26,11 +26,14 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.file.NoSuchFileException;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import org.modelio.gproject.descriptor.ProjectDescriptor;
-import org.modelio.gproject.gproject.ProjectType;
+import org.modelio.gproject.data.project.DescriptorServices;
+import org.modelio.gproject.data.project.ProjectDescriptor;
+import org.modelio.gproject.data.project.ProjectType;
+import org.modelio.gproject.gproject.ProjectWriter;
 import org.modelio.gproject.gproject.remote.GRemoteProject;
 import org.modelio.gproject.module.IModuleCatalog;
 import org.modelio.vbasic.auth.IAuthData;
+import org.modelio.vbasic.log.Log;
 import org.modelio.vbasic.net.UriConnections;
 import org.modelio.vbasic.net.UriUtils;
 import org.modelio.vbasic.progress.IModelioProgress;
@@ -95,6 +98,41 @@ public class GUrlProject extends GRemoteProject {
     @Override
     public ProjectType getType() {
         return ProjectType.HTTP;
+    }
+
+    @objid ("a5417f96-1005-4f50-9080-9c1a13e1c49d")
+    @Override
+    protected void setRemoteLocation(String remoteLocation) throws URISyntaxException {
+        this.remoteUri = UriUtils.asDirectoryUri(new URI(remoteLocation));
+    }
+
+    /**
+     * Redefined because {@link #remoteUri} is modified to have a trailing '/'.
+     */
+    @objid ("5ffd37a7-09ba-45b4-b11b-c99f24ac4a1e")
+    @Override
+    protected boolean needsReconfiguration(ProjectDescriptor serverDesc) {
+        ProjectDescriptor currentDesc = new ProjectWriter(this).writeProject();
+        DescriptorServices.removeLocalPart(currentDesc);
+        
+        // Remove the trailing '/' from the remote location 
+        URI u = this.remoteUri;
+        String path = this.remoteUri.getRawPath();
+        
+        if (path.lastIndexOf("/") == path.length()-1) {
+            try {
+                path = path.substring(0, path.length()-1);
+                u = new URI(u.getScheme(), u.getUserInfo(), u.getHost(), u.getPort(),
+                        path, u.getQuery(), u.getFragment());
+                
+                currentDesc.setRemoteLocation(u.toString());
+            } catch (URISyntaxException | IndexOutOfBoundsException e) {
+                Log.trace(e);
+            }
+        }
+        
+        // Compare
+        return ! serverDesc.equals(currentDesc);
     }
 
 }

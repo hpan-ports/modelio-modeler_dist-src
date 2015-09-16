@@ -38,7 +38,7 @@ import org.modelio.xmi.util.NotFoundException;
 import org.modelio.xmi.util.XMILogs;
 
 @objid ("df789de6-d0ae-4695-b413-5d4a37f0fde9")
-public class OActivityNode extends OModelElement implements IOElement {
+public class OActivityNode extends OModelElement {
     @objid ("06f04fbe-f28a-4d08-8dd8-a97df22c5ea1")
     public OActivityNode(final ActivityNode element) {
         super(element);

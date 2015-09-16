@@ -30,9 +30,10 @@ import org.eclipse.jface.preference.IPreferenceStore;
 import org.modelio.app.core.IModelioService;
 import org.modelio.app.project.core.creation.IProjectCreationData;
 import org.modelio.app.project.core.creation.IProjectCreator;
-import org.modelio.gproject.descriptor.FragmentDescriptor;
-import org.modelio.gproject.descriptor.ProjectDescriptor;
+import org.modelio.gproject.data.project.FragmentDescriptor;
+import org.modelio.gproject.data.project.ProjectDescriptor;
 import org.modelio.gproject.fragment.IProjectFragment;
+import org.modelio.gproject.gproject.FragmentConflictException;
 import org.modelio.gproject.gproject.GProject;
 import org.modelio.gproject.gproject.GProjectAuthenticationException;
 import org.modelio.vbasic.auth.IAuthData;
@@ -87,13 +88,12 @@ public interface IProjectService extends IModelioService {
 
     /**
      * Saves the contents of the project currently opened in the application.
-     * @throws IllegalStateException
-     * If no project is currently opened.
      * @param monitor a progress monitor. If <code>null</code>, no progress will be reported.
      * @throws java.io.IOException If the project saving failed at the IO level.
+     * @throws java.lang.IllegalStateException If no project is currently opened.
      */
     @objid ("00831bd4-acc2-103b-a520-001ec947cd2a")
-    void saveProject(IProgressMonitor monitor) throws IOException;
+    void saveProject(IProgressMonitor monitor) throws IOException, IllegalStateException;
 
     /**
      * Gets the currently opened project.
@@ -157,9 +157,10 @@ public interface IProjectService extends IModelioService {
      * @param project the project to modify
      * @param fragmentDescriptor the descriptor of the fragment to add.
      * @param monitor a progress monitor.
+     * @throws org.modelio.gproject.gproject.FragmentConflictException if a fragment with same name or URI is already deployed.
      */
     @objid ("00545222-bb2f-103c-a520-001ec947cd2a")
-    void addFragment(GProject project, FragmentDescriptor fragmentDescriptor, IProgressMonitor monitor);
+    void addFragment(GProject project, FragmentDescriptor fragmentDescriptor, IProgressMonitor monitor) throws FragmentConflictException;
 
     /**
      * @return the modeling session.

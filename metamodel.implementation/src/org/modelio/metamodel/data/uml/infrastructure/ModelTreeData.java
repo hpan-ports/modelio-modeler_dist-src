@@ -20,7 +20,7 @@
                                     
 
 /* WARNING: GENERATED FILE -  DO NOT EDIT */
-/*   Metamodel version: 9019              */
+/*   Metamodel version: 9022              */
 /*   SemGen version   : 2.0.07.9012       */
 package org.modelio.metamodel.data.uml.infrastructure;
 
@@ -44,36 +44,36 @@ import org.modelio.vcore.smkernel.meta.smannotations.SmaMetaClass;
 @objid ("00899130-c4be-1fd8-97fe-001ec947cd2a")
 @SmaMetaClass(mmClass=ModelTree.class, factory=ModelTreeData.Metadata.ObjectFactory.class)
 public abstract class ModelTreeData extends ModelElementData {
-    @objid ("c45046d4-1212-4b1d-ad5e-73a39cf01823")
+    @objid ("36bce730-a5d4-449f-886e-ae969a433ed0")
     @SmaMetaAssociation(metaName="Owner", typeDataClass=ModelTreeData.class, min=0, max=1, smAssociationClass=Metadata.OwnerSmDependency.class)
      SmObjectImpl mOwner;
 
-    @objid ("872cf0ef-e774-4bc4-9f90-fe5cac55d13b")
+    @objid ("ab07555b-2e68-41c1-bee2-583ec3abecf1")
     @SmaMetaAssociation(metaName="OwnedElement", typeDataClass=ModelTreeData.class, min=0, max=-1, smAssociationClass=Metadata.OwnedElementSmDependency.class, component = true)
      List<SmObjectImpl> mOwnedElement = null;
 
-    @objid ("f4fdd16d-1792-4b62-8908-a8e0f2199e9c")
+    @objid ("9c6d7120-0a58-4835-8099-a0d62b9da59c")
     public SmClass getClassOf() {
         return Metadata.classof();
     }
 
     @objid ("002aecb6-c4c3-1fd8-97fe-001ec947cd2a")
     public static class Metadata {
-        @objid ("6868a85a-8bb8-49c7-9cd2-81925c088053")
+        @objid ("58dd880d-39a1-473e-aee0-aa47bb3080ae")
         private static SmClass smClass = null;
 
-        @objid ("bdda3b58-e6d4-439e-8732-23a102168e4e")
+        @objid ("0789c40b-3bae-44af-bdec-681a74103629")
         private static SmDependency OwnerDep = null;
 
-        @objid ("fca67d48-0156-48d1-a4fa-725d0bfb79d9")
+        @objid ("5559a08e-5569-4f3f-97ed-975fd20bfcd7")
         private static SmDependency OwnedElementDep = null;
 
-        @objid ("f98332e4-83f3-4606-8089-0f4340d76126")
+        @objid ("7f43fc6e-1fcc-4ab4-a342-b66ec7c2652d")
         public static SmClass classof() {
             try { if (smClass == null) { smClass = SmClass.getSmClassFor(ModelTreeData.class);}return smClass;} catch (IllegalArgumentException e) {throw new Error(e);}
         }
 
-        @objid ("daf3e7ac-5265-4ccf-87e9-915baa4ed3a0")
+        @objid ("cbead0ac-19a1-4922-a173-637745d2f437")
         public static SmDependency OwnerDep() {
             if (OwnerDep == null) {
             	OwnerDep = classof().getDependencyDef("Owner");
@@ -81,7 +81,7 @@ public abstract class ModelTreeData extends ModelElementData {
             return OwnerDep;
         }
 
-        @objid ("ff6371dd-ca30-4997-8285-3e9afa7a2187")
+        @objid ("6d651681-4744-4c79-ba16-47ac1a6edcbb")
         public static SmDependency OwnedElementDep() {
             if (OwnedElementDep == null) {
             	OwnedElementDep = classof().getDependencyDef("OwnedElement");
@@ -89,19 +89,19 @@ public abstract class ModelTreeData extends ModelElementData {
             return OwnedElementDep;
         }
 
-        @objid ("88aaad68-5552-49a2-a8a5-0cad87291fee")
+        @objid ("5a3367be-3120-4c30-ae03-47cf92fea42c")
         public static SmDependency getOwnerDep() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return OwnerDep;
         }
 
-        @objid ("471c02ad-2052-48e5-bb1c-bf22e3725ff8")
+        @objid ("a21e30a2-ec92-4c40-8eed-99d101b7cda2")
         public static SmClass getSmClass() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return smClass;
         }
 
-        @objid ("6a4fe4d2-aa1e-48c7-8c6d-8a57e09d127b")
+        @objid ("56f14e6c-0687-487b-ac11-f01f8c887f49")
         public static SmDependency getOwnedElementDep() {
             // Automatically generated method. Please delete this comment before entering specific code.
             return OwnedElementDep;
@@ -109,12 +109,12 @@ public abstract class ModelTreeData extends ModelElementData {
 
         @objid ("002b2e74-c4c3-1fd8-97fe-001ec947cd2a")
         public static class ObjectFactory implements ISmObjectFactory {
-            @objid ("79ef5c1f-587e-4f18-b584-83c44e65fb5f")
+            @objid ("70f4c7e8-23b8-4301-8c55-cded549d0d44")
             public ISmObjectData createData() {
                 throw new UnsupportedOperationException();
             }
 
-            @objid ("877f3d76-c5d0-4e6e-bd2a-5bf710ce140c")
+            @objid ("e32f847b-8928-4d94-9c94-35927aab9580")
             public SmObjectImpl createImpl() {
                 throw new UnsupportedOperationException();
             }
@@ -123,20 +123,20 @@ public abstract class ModelTreeData extends ModelElementData {
 
         @objid ("002b9062-c4c3-1fd8-97fe-001ec947cd2a")
         public static class OwnedElementSmDependency extends SmMultipleDependency {
-            @objid ("8ac987f4-2187-4b2e-acdf-5727e8e6155a")
+            @objid ("fa90fa43-aabe-4cd7-b63e-fcaad0f46b1b")
             @Override
             public List<SmObjectImpl> getValueList(ISmObjectData data) {
                 return (((ModelTreeData)data).mOwnedElement != null)? ((ModelTreeData)data).mOwnedElement:SmMultipleDependency.EMPTY;
             }
 
-            @objid ("4ae1df05-f23e-47d0-9027-b285c009c9c7")
+            @objid ("767cd0f4-0ede-4d3f-aa02-eef69f48ea0f")
             @Override
             protected List<SmObjectImpl> allocateValueList(ISmObjectData data, int initialCapacity) {
                 ((ModelTreeData) data).mOwnedElement = new ArrayList<>(initialCapacity);
                 return ((ModelTreeData) data).mOwnedElement;
             }
 
-            @objid ("5ce5f903-e3db-4384-8733-7f25ddcc5a04")
+            @objid ("9049eecf-4afc-43ae-bff9-b9710c24f63b")
             @Override
             public SmDependency getSymetric() {
                 return ModelTreeData.Metadata.OwnerDep();
@@ -146,18 +146,18 @@ public abstract class ModelTreeData extends ModelElementData {
 
         @objid ("002bff3e-c4c3-1fd8-97fe-001ec947cd2a")
         public static class OwnerSmDependency extends SmSingleDependency {
-            @objid ("8904c77d-f827-45ab-bc57-f7ae77dab9e5")
+            @objid ("03e6718a-2eb3-4ce2-a950-e22c7ce94f92")
             @Override
             public SmObjectImpl getValue(ISmObjectData data) {
                 return ((ModelTreeData) data).mOwner;
             }
 
-            @objid ("0d8970e0-d151-4740-81d6-f9f6618c6441")
+            @objid ("f0a0d691-d54c-4a4e-93a9-c7aab857986b")
             public void setValue(ISmObjectData data, SmObjectImpl value) {
                 ((ModelTreeData) data).mOwner = value;
             }
 
-            @objid ("daa79a4c-b2e6-41df-ba63-29551f7b4331")
+            @objid ("34f40c12-69d4-4fee-bcc0-8ac2be319734")
             @Override
             public SmDependency getSymetric() {
                 return ModelTreeData.Metadata.OwnedElementDep();
